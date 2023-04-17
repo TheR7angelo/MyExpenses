@@ -18,9 +18,10 @@ public class Wallet : INotifyPropertyChanged
                 CONSTRAINT t_wallet_pk
                     PRIMARY KEY AUTOINCREMENT,
             name      text,
-            wallet_fk integer
+            wallet_type_fk integer
                 CONSTRAINT t_wallet_t_wallet_type_id_fk
-                    REFERENCES t_wallet_type
+                    REFERENCES t_wallet_type,
+            external integer
         );
         """;
 
@@ -48,15 +49,15 @@ public class Wallet : INotifyPropertyChanged
         }
     }
 
-    private long _walletType;
+    private long _walletTypeFk;
     
-    [ForeignKey(typeof(WalletType)), Column("wallet_fk")]
-    public long WalletType 
+    [ForeignKey(typeof(WalletType)), Column("wallet_type_fk")]
+    public long WalletTypeFk 
     { 
-        get => _walletType;
+        get => _walletTypeFk;
         set
         {
-            _walletType = value;
+            _walletTypeFk = value;
             OnPropertyChanged();
         }
         
