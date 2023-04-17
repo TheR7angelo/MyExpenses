@@ -27,4 +27,10 @@
     <data name="Main" xml:space="preserve">
         <value>Main</value>
     </data>
+    <data name="Transfer" xml:space="preserve">
+        <value>Transfer</value>
+    </data>
+    <data name="Card" xml:space="preserve">
+        <value>Card</value>
+    </data>
 </root>

@@ -60,6 +60,15 @@ namespace LibsSql.Tables.DefaultValue {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Card.
+        /// </summary>
+        internal static string Card {
+            get {
+                return ResourceManager.GetString("Card", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cash.
         /// </summary>
         internal static string Cash {
@@ -83,6 +92,15 @@ namespace LibsSql.Tables.DefaultValue {
         internal static string Saving {
             get {
                 return ResourceManager.GetString("Saving", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Transfer.
+        /// </summary>
+        internal static string Transfer {
+            get {
+                return ResourceManager.GetString("Transfer", resourceCulture);
             }
         }
     }

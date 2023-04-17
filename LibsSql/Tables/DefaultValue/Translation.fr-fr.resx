@@ -20,4 +20,10 @@
     <data name="Main" xml:space="preserve">
         <value>Principale</value>
     </data>
+    <data name="Transfer" xml:space="preserve">
+        <value>Virement</value>
+    </data>
+    <data name="Card" xml:space="preserve">
+        <value>Carte</value>
+    </data>
 </root>
