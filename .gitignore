@@ -1,5 +1,3 @@
-﻿/LibsSql/bin/
-/LibsSql/obj/
-
-/TestLibsSql/bin/
-/TestLibsSql/obj/
+﻿**/bin/
+**/obj/
+**/.idea/
