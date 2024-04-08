@@ -49,6 +49,30 @@ CREATE TABLE t_place
     date_added DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
+CREATE TRIGGER after_insert_on_t_place
+    AFTER INSERT ON t_place
+    FOR EACH ROW
+BEGIN
+    UPDATE t_place
+    SET date_added = CASE
+                   WHEN typeof(NEW.date_added) = 'integer' THEN datetime(NEW.date_added / 1000, 'unixepoch')
+                   ELSE NEW.date_added
+        END
+    WHERE id = NEW.id;
+END;
+
+CREATE TRIGGER after_update_on_t_place
+    AFTER UPDATE ON t_place
+    FOR EACH ROW
+BEGIN
+    UPDATE t_place
+    SET date_added = CASE
+                   WHEN typeof(NEW.date_added) = 'integer' THEN datetime(NEW.date_added / 1000, 'unixepoch')
+                   ELSE NEW.date_added
+        END
+    WHERE id = NEW.id;
+END;
+
 DROP TABLE IF EXISTS t_history;
 CREATE TABLE t_history
 (
@@ -72,3 +96,27 @@ CREATE TABLE t_history
             references t_place,
     pointed BOOLEAN
 );
+
+CREATE TRIGGER after_insert_on_t_history
+    AFTER INSERT ON t_history
+    FOR EACH ROW
+BEGIN
+    UPDATE t_history
+    SET date = CASE
+                   WHEN typeof(NEW.date) = 'integer' THEN datetime(NEW.date / 1000, 'unixepoch')
+                   ELSE NEW.date
+        END
+    WHERE id = NEW.id;
+END;
+
+CREATE TRIGGER after_update_on_t_history
+    AFTER UPDATE ON t_history
+    FOR EACH ROW
+BEGIN
+    UPDATE t_history
+    SET date = CASE
+                   WHEN typeof(NEW.date) = 'integer' THEN datetime(NEW.date / 1000, 'unixepoch')
+                   ELSE NEW.date
+        END
+    WHERE id = NEW.id;
+END;
