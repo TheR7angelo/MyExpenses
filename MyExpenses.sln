@@ -1,5 +1,4 @@
-﻿
-Microsoft Visual Studio Solution File, Format Version 12.00
+﻿Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LibsSql", "LibsSql\LibsSql.csproj", "{E8A59058-F8B7-4525-8B47-7D6824DC2029}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyExpenses.Sql", "MyExpenses.Sql\MyExpenses.Sql.csproj", "{547FFB9C-2735-480B-A9D3-15CDF8619DB3}"
