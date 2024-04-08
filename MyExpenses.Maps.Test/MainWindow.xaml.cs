@@ -1,5 +1,9 @@
 ﻿using System.IO;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
 using Mapsui;
+using Mapsui.Extensions;
 using Mapsui.Layers;
 using Mapsui.Projections;
 using Mapsui.Styles;
@@ -55,7 +59,7 @@ public partial class MainWindow
             features.Add(feature);
         }
 
-        WritableLayer = new WritableLayer();
+        WritableLayer = new WritableLayer { IsMapInfoLayer = true };
         WritableLayer.AddRange(features);
         WritableLayer.Style = null;
 
@@ -63,6 +67,29 @@ public partial class MainWindow
     }
 
     void AddPointAndRefreshMap(double longitude, double latitude, string name)
+    {
+
+    }
+
+    private void MapControl_OnInfo(object? sender, MapInfoEventArgs e)
+    {
+
+    }
+
+    private void MapControl_OnContextMenuOpening(object sender, ContextMenuEventArgs e)
+    {
+        var screenPosition = Mouse.GetPosition(MapControl);
+        var worldPosition = MapControl.Map.Navigator.Viewport.ScreenToWorld(screenPosition.X, screenPosition.Y);
+
+        var lonLat = SphericalMercator.ToLonLat(worldPosition.X, worldPosition.Y);
+    }
+
+    private void Option1_Click(object sender, RoutedEventArgs e)
+    {
+
+    }
+
+    private void Option2_Click(object sender, RoutedEventArgs e)
     {
 
     }

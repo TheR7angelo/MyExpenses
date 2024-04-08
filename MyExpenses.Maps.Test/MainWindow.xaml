@@ -9,7 +9,14 @@
         Title="MainWindow" Height="450" Width="800">
 
     <Grid>
-        <wpf:MapControl x:Name="MapControl" />
+        <wpf:MapControl x:Name="MapControl" Info="MapControl_OnInfo" ContextMenuOpening="MapControl_OnContextMenuOpening">
+            <wpf:MapControl.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Option 1" Click="Option1_Click"/>
+                    <MenuItem Header="Option 2" Click="Option2_Click"/>
+                </ContextMenu>
+            </wpf:MapControl.ContextMenu>
+        </wpf:MapControl>
     </Grid>
 
 </Window>
