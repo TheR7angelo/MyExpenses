@@ -49,6 +49,7 @@ CREATE TABLE t_place
     date_added DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
+DROP TABLE IF EXISTS t_history;
 CREATE TABLE t_history
 (
     id               INTEGER
@@ -57,16 +58,17 @@ CREATE TABLE t_history
     compte_fk        INTEGER
         CONSTRAINT t_history_t_account_id_fk
             REFERENCES t_account,
-    "order"          TEXT,
+    description          TEXT,
     category_type_fk INTEGER
         CONSTRAINT t_history_t_category_type_id_fk
             REFERENCES t_category_type,
     mode_payment_fk  INTEGER
         CONSTRAINT t_history_t_mode_payment_id_fk
             REFERENCES t_mode_payment,
-    rising           REAL,
+    value           REAL,
     date             DATETIME,
     place_fk         INTEGER
         constraint t_history_t_place_id_fk
-            references t_place
+            references t_place,
+    pointed BOOLEAN
 );
