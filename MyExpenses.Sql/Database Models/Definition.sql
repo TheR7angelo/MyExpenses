@@ -94,7 +94,7 @@ CREATE TABLE t_history
     place_fk         INTEGER
         constraint t_history_t_place_id_fk
             references t_place,
-    pointed BOOLEAN
+    pointed BOOLEAN DEFAULT FALSE
 );
 
 CREATE TRIGGER after_insert_on_t_history
