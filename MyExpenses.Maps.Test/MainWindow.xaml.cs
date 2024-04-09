@@ -90,15 +90,15 @@ public partial class MainWindow
 
     private void MapControl_OnInfo(object? sender, MapInfoEventArgs e)
     {
-        var records = WritableLayer.GetFeatures().ToList();
-        var fields = records.First().Fields.ToArray();
-        foreach (var record in records)
-        {
-            foreach (var field in fields)
-            {
-                Console.WriteLine($"{field}: {record[field]}");
-            }
-        }
+        // var records = WritableLayer.GetFeatures().ToList();
+        // var fields = records.First().Fields.ToArray();
+        // foreach (var record in records)
+        // {
+        //     foreach (var field in fields)
+        //     {
+        //         Console.WriteLine($"{field}: {record[field]}");
+        //     }
+        // }
     }
 
     private NetTopologySuite.Geometries.Point ClickPoint { get; set; }
