@@ -101,7 +101,7 @@ public partial class MainWindow
         // }
     }
 
-    private NetTopologySuite.Geometries.Point ClickPoint { get; set; }
+    private NetTopologySuite.Geometries.Point ClickPoint { get; set; } = NetTopologySuite.Geometries.Point.Empty;
 
     private void MapControl_OnContextMenuOpening(object sender, ContextMenuEventArgs e)
     {
