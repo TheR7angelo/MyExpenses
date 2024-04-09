@@ -7,6 +7,7 @@ using Mapsui.Extensions;
 using Mapsui.Layers;
 using Mapsui.Projections;
 using Mapsui.Styles;
+using MyExpenses.Models.Sql.Tables;
 using MyExpenses.Sql.Context;
 
 namespace MyExpenses.Maps.Test;
@@ -42,10 +43,17 @@ public partial class MainWindow
             .ToList();
 
         var features = new List<IFeature>();
+        var properties = typeof(TPlace).GetProperties();
         foreach (var place in places)
         {
             var point = SphericalMercator.FromLonLat(place.Longitude ?? 0, place.Latitude ?? 0);
             var feature = new PointFeature(point.x, point.y);
+
+            foreach (var property in properties)
+            {
+                feature[property.Name] = property.GetValue(place);
+            }
+
             feature.Styles = new List<IStyle>
             {
                 PointStyle,
@@ -68,12 +76,19 @@ public partial class MainWindow
 
     void AddPointAndRefreshMap(double longitude, double latitude, string name)
     {
-
     }
 
     private void MapControl_OnInfo(object? sender, MapInfoEventArgs e)
     {
-
+        var records = WritableLayer.GetFeatures().ToList();
+        var fields = records.First().Fields.ToArray();
+        foreach (var record in records)
+        {
+            foreach (var field in fields)
+            {
+                Console.WriteLine($"{field}: {record[field]}");
+            }
+        }
     }
 
     private void MapControl_OnContextMenuOpening(object sender, ContextMenuEventArgs e)
