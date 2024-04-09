@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using NetTopologySuite.Geometries;
 
 namespace MyExpenses.Models.Sql.Tables;
 
@@ -33,6 +34,21 @@ public partial class TPlace
 
     [Column("longitude")]
     public double? Longitude { get; set; }
+
+    [NotMapped]
+    public Point Geometry
+    {
+        get =>
+            new(Latitude.GetValueOrDefault(), Longitude.GetValueOrDefault())
+            {
+                SRID = 4326
+            };
+        set
+        {
+            Latitude = value.X;
+            Longitude = value.Y;
+        }
+    }
 
     [Column("date_added", TypeName = "DATETIME")]
     public DateTime? DateAdded { get; set; }

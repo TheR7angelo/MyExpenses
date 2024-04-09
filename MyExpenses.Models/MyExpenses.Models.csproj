@@ -8,6 +8,7 @@
 
     <ItemGroup>
       <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite.Core" Version="8.0.3" />
+      <PackageReference Include="NetTopologySuite" Version="2.5.0" />
     </ItemGroup>
 
 </Project>
