@@ -101,21 +101,26 @@ public partial class MainWindow
         }
     }
 
+    private NetTopologySuite.Geometries.Point ClickPoint { get; set; }
+
     private void MapControl_OnContextMenuOpening(object sender, ContextMenuEventArgs e)
     {
         var screenPosition = Mouse.GetPosition(MapControl);
         var worldPosition = MapControl.Map.Navigator.Viewport.ScreenToWorld(screenPosition.X, screenPosition.Y);
 
         var lonLat = SphericalMercator.ToLonLat(worldPosition.X, worldPosition.Y);
+        ClickPoint = new NetTopologySuite.Geometries.Point(lonLat.lat, lonLat.lon);
     }
 
     private void Option1_Click(object sender, RoutedEventArgs e)
     {
-
+        Console.WriteLine(ClickPoint);
     }
 
     private void Option2_Click(object sender, RoutedEventArgs e)
     {
-
+        var nominatim = new Nominatim("Test");
+        var s = nominatim.PointToNominatim(ClickPoint);
+        Console.WriteLine(s?.address.house_number);
     }
 }
