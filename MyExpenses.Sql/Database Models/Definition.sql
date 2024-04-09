@@ -50,25 +50,27 @@ CREATE TABLE t_place
 );
 
 CREATE TRIGGER after_insert_on_t_place
-    AFTER INSERT ON t_place
+    AFTER INSERT
+    ON t_place
     FOR EACH ROW
 BEGIN
     UPDATE t_place
     SET date_added = CASE
-                   WHEN typeof(NEW.date_added) = 'integer' THEN datetime(NEW.date_added / 1000, 'unixepoch')
-                   ELSE NEW.date_added
+                         WHEN typeof(NEW.date_added) = 'integer' THEN datetime(NEW.date_added / 1000, 'unixepoch')
+                         ELSE NEW.date_added
         END
     WHERE id = NEW.id;
 END;
 
 CREATE TRIGGER after_update_on_t_place
-    AFTER UPDATE ON t_place
+    AFTER UPDATE
+    ON t_place
     FOR EACH ROW
 BEGIN
     UPDATE t_place
     SET date_added = CASE
-                   WHEN typeof(NEW.date_added) = 'integer' THEN datetime(NEW.date_added / 1000, 'unixepoch')
-                   ELSE NEW.date_added
+                         WHEN typeof(NEW.date_added) = 'integer' THEN datetime(NEW.date_added / 1000, 'unixepoch')
+                         ELSE NEW.date_added
         END
     WHERE id = NEW.id;
 END;
@@ -82,23 +84,24 @@ CREATE TABLE t_history
     compte_fk        INTEGER
         CONSTRAINT t_history_t_account_id_fk
             REFERENCES t_account,
-    description          TEXT,
+    description      TEXT,
     category_type_fk INTEGER
         CONSTRAINT t_history_t_category_type_id_fk
             REFERENCES t_category_type,
     mode_payment_fk  INTEGER
         CONSTRAINT t_history_t_mode_payment_id_fk
             REFERENCES t_mode_payment,
-    value           REAL,
-    date             DATETIME,
+    value            REAL,
+    date             DATETIME DEFAULT CURRENT_TIMESTAMP,
     place_fk         INTEGER
         constraint t_history_t_place_id_fk
             references t_place,
-    pointed BOOLEAN DEFAULT FALSE
+    pointed          BOOLEAN  DEFAULT FALSE
 );
 
 CREATE TRIGGER after_insert_on_t_history
-    AFTER INSERT ON t_history
+    AFTER INSERT
+    ON t_history
     FOR EACH ROW
 BEGIN
     UPDATE t_history
@@ -110,7 +113,8 @@ BEGIN
 END;
 
 CREATE TRIGGER after_update_on_t_history
-    AFTER UPDATE ON t_history
+    AFTER UPDATE
+    ON t_history
     FOR EACH ROW
 BEGIN
     UPDATE t_history
@@ -120,3 +124,17 @@ BEGIN
         END
     WHERE id = NEW.id;
 END;
+
+CREATE VIEW v_value_by_month_year AS
+SELECT STRFTIME('%Y-%m', h.date) AS month_year, ROUND(SUM(h.value), 2) AS total
+FROM t_history h
+GROUP BY month_year
+ORDER BY month_year;
+
+CREATE VIEW v_value_by_month_year_category AS
+SELECT STRFTIME('%Y-%m', h.date) AS month_year, ct.name, ROUND(SUM(h.value), 2) AS total
+FROM t_history h
+         LEFT JOIN t_category_type ct
+                   ON h.category_type_fk = ct.id
+GROUP BY month_year, ct.name
+ORDER BY month_year;
