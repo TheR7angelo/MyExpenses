@@ -77,6 +77,8 @@ public partial class MainWindow
             features.Add(feature);
         }
 
+        // TODO after set point merge point to polygon then zoom to it
+
         WritableLayer = new WritableLayer { IsMapInfoLayer = true };
         WritableLayer.AddRange(features);
         WritableLayer.Style = null;
