@@ -7,6 +7,9 @@ using Mapsui.Extensions;
 using Mapsui.Layers;
 using Mapsui.Projections;
 using Mapsui.Styles;
+using Mapsui.Widgets;
+using Mapsui.Widgets.ScaleBar;
+using Mapsui.Widgets.Zoom;
 using MyExpenses.Models.Sql.Tables;
 using MyExpenses.Sql.Context;
 
@@ -34,6 +37,13 @@ public partial class MainWindow
         };
 
         var map = new Map { CRS = "EPSG:3857", BackColor = Color.Gray };
+        map.Widgets.AddRange(new List<IWidget>
+        {
+            new MapInfoWidget(map),
+            new ZoomInOutWidget(),
+            new ScaleBarWidget(map)
+        });
+
         MapControl.Map = map;
         MapControl.Map.Layers.Add(Mapsui.Tiling.OpenStreetMap.CreateTileLayer());
 
