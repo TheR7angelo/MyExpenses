@@ -89,6 +89,7 @@ public partial class MainWindow
 
     void AddPointAndRefreshMap(double longitude, double latitude, string name)
     {
+
     }
 
     private void MapControl_OnInfo(object? sender, MapInfoEventArgs e)

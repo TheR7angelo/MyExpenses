@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 
 namespace MyExpenses.WebApi.Nominatim;
 
-public partial class Nominatim : Http
+public class Nominatim : Http
 {
     private static HttpClient HttpClient { get; set; } = null!;
 
