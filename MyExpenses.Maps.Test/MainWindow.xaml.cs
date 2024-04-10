@@ -125,6 +125,6 @@ public partial class MainWindow
     {
         var nominatim = new Nominatim("Test");
         var s = nominatim.PointToNominatim(ClickPoint);
-        Console.WriteLine(s?.Address?.HouseNumber);
+        Console.WriteLine(s);
     }
 }
