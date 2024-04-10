@@ -1,6 +1,4 @@
-﻿using System.Net.Http;
-
-namespace MyExpenses.Maps.Test;
+﻿namespace MyExpenses.WebApi;
 
 public abstract class Http
 {

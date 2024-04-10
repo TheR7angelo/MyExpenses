@@ -12,6 +12,7 @@ using Mapsui.Widgets.ScaleBar;
 using Mapsui.Widgets.Zoom;
 using MyExpenses.Models.Sql.Tables;
 using MyExpenses.Sql.Context;
+using MyExpenses.WebApi.Nominatim;
 
 namespace MyExpenses.Maps.Test;
 

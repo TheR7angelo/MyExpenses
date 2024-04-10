@@ -7,9 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite.Core" Version="8.0.3" />
-      <PackageReference Include="NetTopologySuite" Version="2.5.0" />
-      <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+      <ProjectReference Include="..\MyExpenses.Models\MyExpenses.Models.csproj" />
     </ItemGroup>
 
 </Project>

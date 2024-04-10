@@ -1,9 +1,9 @@
 ﻿using System.Globalization;
-using System.Net.Http;
+using MyExpenses.Models.WebApi.Nominatim;
 using NetTopologySuite.Geometries;
 using Newtonsoft.Json;
 
-namespace MyExpenses.Maps.Test;
+namespace MyExpenses.WebApi.Nominatim;
 
 public partial class Nominatim : Http
 {

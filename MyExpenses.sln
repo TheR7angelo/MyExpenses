@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyExpenses.Models", "MyExpe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyExpenses.Maps.Test", "MyExpenses.Maps.Test\MyExpenses.Maps.Test.csproj", "{B6FFDC04-E5EC-4809-94C6-56CBD98802BA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyExpenses.WebApi", "MyExpenses.WebApi\MyExpenses.WebApi.csproj", "{D3827180-800B-44E8-8694-199E975B985E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,5 +31,9 @@ Global
 		{B6FFDC04-E5EC-4809-94C6-56CBD98802BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B6FFDC04-E5EC-4809-94C6-56CBD98802BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B6FFDC04-E5EC-4809-94C6-56CBD98802BA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D3827180-800B-44E8-8694-199E975B985E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D3827180-800B-44E8-8694-199E975B985E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D3827180-800B-44E8-8694-199E975B985E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D3827180-800B-44E8-8694-199E975B985E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

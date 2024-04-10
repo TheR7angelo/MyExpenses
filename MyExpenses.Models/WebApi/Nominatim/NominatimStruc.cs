@@ -1,18 +1,6 @@
 ﻿namespace MyExpenses.Maps.Test;
 
-public partial class Nominatim
-{
-    public struct NominatimStruc
-    {
-        public long place_id = 0;
-        public string? licence = null;
-        public string? osm_type = null;
-        public long osm_id = 0;
-        public float lat = 0;
-        public float lon = 0;
-        public string? display_name = null;
-        public Address address = new ();
-        public IEnumerable<float> boundingbox = Array.Empty<float>();
+namespace MyExpenses.Models.WebApi.Nominatim;
 
         public NominatimStruc()
         {
