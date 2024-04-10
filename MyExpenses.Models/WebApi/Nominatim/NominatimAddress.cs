@@ -4,11 +4,17 @@ namespace MyExpenses.Models.WebApi.Nominatim;
 
 public class NominatimAddress
 {
+    [JsonProperty("shop")]
+    public string? Shop { get; set; }
+
     [JsonProperty("house_number")]
     public string? HouseNumber { get; set; }
 
     [JsonProperty("road")]
     public string? Road { get; set; }
+
+    [JsonProperty("hamlet")]
+    public string? Hamlet { get; set; }
 
     [JsonProperty("suburb")]
     public string? Suburb { get; set; }
@@ -25,14 +31,20 @@ public class NominatimAddress
     [JsonProperty("county")]
     public string? County { get; set; }
 
+    [JsonProperty("ISO3166-2-lvl6")]
+    public string? Iso31662Lvl6 { get; set; }
+
     [JsonProperty("state")]
     public string? State { get; set; }
+
+    [JsonProperty("ISO3166-2-lvl4")]
+    public string? Iso31662Lvl4 { get; set; }
 
     [JsonProperty("region")]
     public string? Region { get; set; }
 
     [JsonProperty("postcode")]
-    public long Postcode { get; set; }
+    public long? Postcode { get; set; }
 
     [JsonProperty("country")]
     public string? Country { get; set; }

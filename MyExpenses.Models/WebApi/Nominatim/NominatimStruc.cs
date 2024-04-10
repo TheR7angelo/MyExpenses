@@ -30,4 +30,8 @@ public class NominatimStruc
 
     [JsonProperty("boundingbox")]
     public IEnumerable<float>? BoundingBox { get; set; }
+
+    public override string? ToString()
+        => DisplayName;
+
 }
