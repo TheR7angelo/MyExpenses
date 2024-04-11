@@ -1,4 +1,6 @@
-﻿using System.IO;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.IO;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -10,6 +12,7 @@ using Mapsui.Styles;
 using Mapsui.Widgets;
 using Mapsui.Widgets.ScaleBar;
 using Mapsui.Widgets.Zoom;
+using MyExpenses.Models.AutoMapper;
 using MyExpenses.Models.Sql.Tables;
 using MyExpenses.Sql.Context;
 using MyExpenses.WebApi.Nominatim;
@@ -83,29 +86,28 @@ public partial class MainWindow
 
         // TODO after set point merge point to polygon then zoom to it
 
-        WritableLayer = new WritableLayer { IsMapInfoLayer = true };
+        WritableLayer = new WritableLayer { IsMapInfoLayer = true, Tag = typeof(TPlace) };
         WritableLayer.AddRange(features);
         WritableLayer.Style = null;
 
         MapControl.Map.Layers.Add(WritableLayer);
     }
 
-    void AddPointAndRefreshMap(double longitude, double latitude, string name)
-    {
-
-    }
-
     private void MapControl_OnInfo(object? sender, MapInfoEventArgs e)
     {
-        // var records = WritableLayer.GetFeatures().ToList();
-        // var fields = records.First().Fields.ToArray();
-        // foreach (var record in records)
-        // {
-        //     foreach (var field in fields)
-        //     {
-        //         Console.WriteLine($"{field}: {record[field]}");
-        //     }
-        // }
+        var mapInfo = e.MapInfo!;
+
+        var feature = mapInfo.Feature;
+        var layer = mapInfo.Layer;
+
+        if (feature is null || layer is null) return;
+        if (layer.Tag is not Type type) return;
+
+        if (type != typeof(TPlace)) return;
+
+        var mapper = Mapping.Mapper;
+        var place = mapper.Map<TPlace>(feature);
+        Console.WriteLine(place.Id);
     }
 
     private NetTopologySuite.Geometries.Point ClickPoint { get; set; } = NetTopologySuite.Geometries.Point.Empty;

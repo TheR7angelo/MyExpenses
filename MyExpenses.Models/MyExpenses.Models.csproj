@@ -7,6 +7,8 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <PackageReference Include="AutoMapper" Version="13.0.1" />
+      <PackageReference Include="Mapsui" Version="4.1.5" />
       <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite.Core" Version="8.0.3" />
       <PackageReference Include="NetTopologySuite" Version="2.5.0" />
       <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
