@@ -96,20 +96,10 @@ public partial class MainWindow
     private void MapControl_OnInfo(object? sender, MapInfoEventArgs e)
     {
         var mapInfo = e.MapInfo!;
-
-        var feature = mapInfo.Feature;
-        var layer = mapInfo.Layer;
-
-        if (feature is null || layer is null) return;
-        if (layer.Tag is not Type type) return;
-
-        if (type != typeof(TPlace)) return;
-
-        var mapper = Mapping.Mapper;
-        var place = mapper.Map<TPlace>(feature);
-        Console.WriteLine(place.Id);
+        SetClickTPlace(mapInfo);
     }
 
+    private TPlace? ClickTPlace { get; set; }
     private NetTopologySuite.Geometries.Point ClickPoint { get; set; } = NetTopologySuite.Geometries.Point.Empty;
 
     private void MapControl_OnContextMenuOpening(object sender, ContextMenuEventArgs e)
@@ -117,8 +107,36 @@ public partial class MainWindow
         var screenPosition = Mouse.GetPosition(MapControl);
         var worldPosition = MapControl.Map.Navigator.Viewport.ScreenToWorld(screenPosition.X, screenPosition.Y);
 
+        var mapInfo = MapControl.GetMapInfo(worldPosition);
+        SetClickTPlace(mapInfo!);
         var lonLat = SphericalMercator.ToLonLat(worldPosition.X, worldPosition.Y);
         ClickPoint = new NetTopologySuite.Geometries.Point(lonLat.lat, lonLat.lon);
+    }
+
+    private void SetClickTPlace(MapInfo mapInfo)
+    {
+        var feature = mapInfo.Feature;
+        var layer = mapInfo.Layer;
+
+        if (feature is null || layer is null)
+        {
+            EditFeature.Visibility = Visibility.Collapsed;
+            ClickTPlace = null;
+            return;
+        }
+        if (layer.Tag is not Type type)
+        {
+            EditFeature.Visibility = Visibility.Collapsed;
+            ClickTPlace = null;
+            return;
+        }
+
+        EditFeature.Visibility = Visibility.Visible;
+        if (type != typeof(TPlace)) return;
+
+        var mapper = Mapping.Mapper;
+        var place = mapper.Map<TPlace>(feature);
+        ClickTPlace = place;
     }
 
     private void Option1_Click(object sender, RoutedEventArgs e)
@@ -131,5 +149,10 @@ public partial class MainWindow
         var nominatim = new Nominatim("Test");
         var s = nominatim.PointToNominatim(ClickPoint);
         Console.WriteLine(s);
+    }
+
+    private void Option3_OnClick(object sender, RoutedEventArgs e)
+    {
+        Console.WriteLine(ClickTPlace?.Id);
     }
 }
