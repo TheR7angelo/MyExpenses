@@ -62,7 +62,10 @@ public partial class MainWindow
 
             foreach (var property in properties)
             {
-                feature[property.Name] = property.GetValue(place);
+                var columnName = property.GetCustomAttribute<ColumnAttribute>()?.Name;
+                if (string.IsNullOrEmpty(columnName)) continue;
+
+                feature[columnName] = property.GetValue(place);
             }
 
             feature.Styles = new List<IStyle>
