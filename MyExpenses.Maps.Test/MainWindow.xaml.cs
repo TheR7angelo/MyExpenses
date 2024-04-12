@@ -166,6 +166,11 @@ public partial class MainWindow
 
     private void Option3_OnClick(object sender, RoutedEventArgs e)
     {
+
+    }
+
+    // private void Option3_OnClick(object sender, RoutedEventArgs e)
+    // {
         // EditManager.Layer!.Add(WritableLayer.GetFeatures().First(s => s["id"] == PointFeature!["id"]));
         // WritableLayer.TryRemove(PointFeature!);
         // EditManager.EditMode = EditMode.Modify;
@@ -175,5 +180,5 @@ public partial class MainWindow
         // Console.WriteLine(ClickTPlace?.Id);
         //
         // MapControl.Map.Widgets.Add(new EditingWidget(MapControl, EditManager, new EditManipulation()));
-    }
+    // }
 }
