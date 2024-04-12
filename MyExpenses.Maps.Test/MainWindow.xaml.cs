@@ -107,10 +107,12 @@ public partial class MainWindow
         var screenPosition = Mouse.GetPosition(MapControl);
         var worldPosition = MapControl.Map.Navigator.Viewport.ScreenToWorld(screenPosition.X, screenPosition.Y);
 
-        var mapInfo = MapControl.GetMapInfo(worldPosition);
-        SetClickTPlace(mapInfo!);
         var lonLat = SphericalMercator.ToLonLat(worldPosition.X, worldPosition.Y);
         ClickPoint = new NetTopologySuite.Geometries.Point(lonLat.lat, lonLat.lon);
+
+        var mPoint = new MPoint(screenPosition.X, screenPosition.Y);
+        var mapInfo = MapControl.GetMapInfo(mPoint);
+        SetClickTPlace(mapInfo!);
     }
 
     private void SetClickTPlace(MapInfo mapInfo)
