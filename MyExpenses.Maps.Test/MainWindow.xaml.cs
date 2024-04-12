@@ -166,7 +166,8 @@ public partial class MainWindow
 
     private void Option3_OnClick(object sender, RoutedEventArgs e)
     {
-
+        var windowEdit = new WindowEdit();
+        windowEdit.ShowDialog();
     }
 
     // private void Option3_OnClick(object sender, RoutedEventArgs e)
