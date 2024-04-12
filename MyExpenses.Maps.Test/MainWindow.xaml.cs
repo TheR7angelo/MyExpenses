@@ -7,6 +7,7 @@ using System.Windows.Input;
 using Mapsui;
 using Mapsui.Extensions;
 using Mapsui.Layers;
+using Mapsui.Nts.Editing;
 using Mapsui.Projections;
 using Mapsui.Styles;
 using Mapsui.Widgets;
@@ -24,6 +25,9 @@ public partial class MainWindow
     private WritableLayer WritableLayer { get; }
 
     private SymbolStyle PointStyle { get; }
+
+    // private EditManager EditManager { get; } = new();
+    // private WritableLayer WritableEditLayer { get; } = new();
 
     public MainWindow()
     {
@@ -45,7 +49,7 @@ public partial class MainWindow
         {
             new MapInfoWidget(map),
             new ZoomInOutWidget(),
-            new ScaleBarWidget(map)
+            new ScaleBarWidget(map),
         });
 
         MapControl.Map = map;
@@ -91,6 +95,8 @@ public partial class MainWindow
         WritableLayer.Style = null;
 
         MapControl.Map.Layers.Add(WritableLayer);
+        // EditManager.Layer = WritableEditLayer;
+        // MapControl.Map.Layers.Add(WritableEditLayer);
     }
 
     private void MapControl_OnInfo(object? sender, MapInfoEventArgs e)
@@ -101,6 +107,9 @@ public partial class MainWindow
 
     private TPlace? ClickTPlace { get; set; }
     private NetTopologySuite.Geometries.Point ClickPoint { get; set; } = NetTopologySuite.Geometries.Point.Empty;
+
+    private PointFeature? PointFeature { get; set; }
+    private MapInfo? MapInfo { get; set; }
 
     private void MapControl_OnContextMenuOpening(object sender, ContextMenuEventArgs e)
     {
@@ -117,7 +126,8 @@ public partial class MainWindow
 
     private void SetClickTPlace(MapInfo mapInfo)
     {
-        var feature = mapInfo.Feature;
+        MapInfo = mapInfo;
+        var feature = mapInfo.Feature as PointFeature;
         var layer = mapInfo.Layer;
 
         if (feature is null || layer is null)
@@ -136,6 +146,7 @@ public partial class MainWindow
         EditFeature.Visibility = Visibility.Visible;
         if (type != typeof(TPlace)) return;
 
+        PointFeature = feature;
         var mapper = Mapping.Mapper;
         var place = mapper.Map<TPlace>(feature);
         ClickTPlace = place;
@@ -155,6 +166,14 @@ public partial class MainWindow
 
     private void Option3_OnClick(object sender, RoutedEventArgs e)
     {
-        Console.WriteLine(ClickTPlace?.Id);
+        // EditManager.Layer!.Add(WritableLayer.GetFeatures().First(s => s["id"] == PointFeature!["id"]));
+        // WritableLayer.TryRemove(PointFeature!);
+        // EditManager.EditMode = EditMode.Modify;
+        //
+        // // MapControl.MouseMove += MapControlOnMouseMove;
+        //
+        // Console.WriteLine(ClickTPlace?.Id);
+        //
+        // MapControl.Map.Widgets.Add(new EditingWidget(MapControl, EditManager, new EditManipulation()));
     }
 }
