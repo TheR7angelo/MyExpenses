@@ -18,4 +18,15 @@
       <ProjectReference Include="..\MyExpenses.WebApi\MyExpenses.WebApi.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <None Remove="Ressources\Sans titre - 1.png" />
+      <AdditionalFiles Include="Ressources\Sans titre - 1.png">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </AdditionalFiles>
+      <None Remove="Ressources\Sans titre - 1.svg" />
+      <AdditionalFiles Include="Ressources\Sans titre - 1.svg">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </AdditionalFiles>
+    </ItemGroup>
+
 </Project>
