@@ -22,6 +22,24 @@ public class NominatimSearchResult
     [JsonProperty("lon")]
     public float? Longitude { get; set; }
 
+    [JsonProperty("class")]
+    public string? Class { get; set; }
+
+    [JsonProperty("type")]
+    public string? Type { get; set; }
+
+    [JsonProperty("place_rank")]
+    public int? PlaceRank { get; set; }
+
+    [JsonProperty("importance")]
+    public double? Importance { get; set; }
+
+    [JsonProperty("addresstype")]
+    public string? AddressType { get; set; }
+
+    [JsonProperty("name")]
+    public string? Name { get; set; }
+
     [JsonProperty("display_name")]
     public string? DisplayName { get; set; }
 

@@ -4,6 +4,9 @@ namespace MyExpenses.Models.WebApi.Nominatim;
 
 public class NominatimDetailedAddress
 {
+    [JsonProperty("amenity")]
+    public string? Amenity { get; set; }
+
     [JsonProperty("shop")]
     public string? Shop { get; set; }
 
@@ -12,6 +15,9 @@ public class NominatimDetailedAddress
 
     [JsonProperty("road")]
     public string? Road { get; set; }
+
+    [JsonProperty("residential")]
+    public string? Residential { get; set; }
 
     [JsonProperty("hamlet")]
     public string? Hamlet { get; set; }
