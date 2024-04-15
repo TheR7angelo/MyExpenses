@@ -1,14 +1,28 @@
-﻿<Window x:Class="MyExpenses.Maps.Test.WindowEdit"
+﻿<mah:MetroWindow x:Class="MyExpenses.Maps.Test.WindowEdit"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:local="clr-namespace:MyExpenses.Maps.Test"
+        xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
         mc:Ignorable="d"
+        d:DesignHeight="450"
+        d:DesignWidth="800"
+
         Title="WindowEdit"
 
-        d:DesignHeight="450"
-        d:DesignWidth="800">
+        TitleCharacterCasing="Normal"
+        NonActiveWindowTitleBrush="Gray"
+        WindowTitleBrush="Gray"
+        BorderBrush="Gray"
+        GlowBrush="Gray"
+        NonActiveGlowBrush="Gray"
+
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="CanResizeWithGrip"
+
+        Background="{DynamicResource MaterialDesignPaper}"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}">
 
     <Grid>
 
@@ -16,4 +30,4 @@
 
     </Grid>
 
-</Window>
+</mah:MetroWindow>
