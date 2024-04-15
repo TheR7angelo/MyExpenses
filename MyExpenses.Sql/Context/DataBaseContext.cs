@@ -33,9 +33,11 @@ public partial class DataBaseContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        // const string dataSource = "Data Source=C:/Users/ZP6177/Documents/Programmation/C#/Myexpenses/MyExpenses.Sql/Database Models/Model.sqlite";
-        const string dataSource = @"Data Source=C:\Users\ZP6177\Documents\Programmation\C#\MyExpenses\MyExpenses.Sql\Database Models\Model - Test.sqlite";
-
+        // const string dbPath = @"C:\Users\ZP6177\Documents\Programmation\C#\MyExpenses\MyExpenses.Sql\Database Models\Model.sqlite";
+        // const string dbPath = @"C:\Users\ZP6177\Documents\Programmation\C#\MyExpenses\MyExpenses.Sql\Database Models\Model - Using.sqlite";
+        const string dbPath = @"C:\Users\Rapha\RiderProjects\MyExpenses\MyExpenses.Sql\Database Models\Model - Using.sqlite";
+        const string dataSource = $"Data Source={dbPath}";
+        
         optionsBuilder.UseSqlite(dataSource);
     }
 

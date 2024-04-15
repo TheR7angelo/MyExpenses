@@ -29,8 +29,9 @@ public partial class MainWindow
     {
         InitializeComponent();
 
-        const string icon =
-            @"C:\Users\ZP6177\Documents\Programmation\C#\MyExpenses\MyExpenses.Maps.Test\Ressources\Sans titre - 1.png";
+        var path = Path.GetFullPath("Ressources");
+        var icon = Path.Join(path, "Sans titre - 1.png");
+        
         var fileStream = new FileStream(icon, FileMode.Open);
         var bitmapId = BitmapRegistry.Instance.Register(fileStream);
 
