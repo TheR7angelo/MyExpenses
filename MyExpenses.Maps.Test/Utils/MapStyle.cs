@@ -16,11 +16,16 @@ namespace MyExpenses.Maps.Test.Utils;
 public static class MapStyle
 {
     public static SymbolStyle RedMarkerStyle { get; private set; }
+    public static SymbolStyle GreenMarkerStyle { get; private set; }
 
     static MapStyle()
     {
-        RedMarkerStyle = SetMarkerStyle();
+        RedMarkerStyle = SetRedMarkerStyle();
+        GreenMarkerStyle = SetGreenMarkerStyle();
     }
+
+    private static Offset Offset => new() { IsRelative = false, X = 0, Y = 1000 };
+    private static double Scale => 0.02;
 
     public static PointFeature ToPointFeature(this TPlace place)
     {
@@ -55,18 +60,39 @@ public static class MapStyle
         return map;
     }
 
-    private static SymbolStyle SetMarkerStyle()
+    private static SymbolStyle SetGreenMarkerStyle()
     {
         var path = Path.GetFullPath("Ressources");
-        var icon = Path.Join(path, "Sans titre - 1.png");
-
-        var fileStream = new FileStream(icon, FileMode.Open);
-        var bitmapId = BitmapRegistry.Instance.Register(fileStream);
+        var icon = Path.Join(path, "Sans titre - 2.png");
+        var bitmapId = RegisterBitmap(icon);
 
         return new SymbolStyle
         {
             BitmapId = bitmapId,
-            SymbolScale = 0.02
+            SymbolOffset = Offset,
+            SymbolScale = Scale
         };
+    }
+
+    private static SymbolStyle SetRedMarkerStyle()
+    {
+        var path = Path.GetFullPath("Ressources");
+        var icon = Path.Join(path, "Sans titre - 1.png");
+        var bitmapId = RegisterBitmap(icon);
+
+        return new SymbolStyle
+        {
+            BitmapId = bitmapId,
+            SymbolOffset = Offset,
+            SymbolScale = Scale
+        };
+    }
+
+    private static int RegisterBitmap(string filePath)
+    {
+        var fileStream = new FileStream(filePath, FileMode.Open);
+        var bitmapId = BitmapRegistry.Instance.Register(fileStream);
+
+        return bitmapId;
     }
 }
