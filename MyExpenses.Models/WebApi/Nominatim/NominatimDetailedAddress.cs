@@ -2,7 +2,7 @@
 
 namespace MyExpenses.Models.WebApi.Nominatim;
 
-public class NominatimAddress
+public class NominatimDetailedAddress
 {
     [JsonProperty("shop")]
     public string? Shop { get; set; }

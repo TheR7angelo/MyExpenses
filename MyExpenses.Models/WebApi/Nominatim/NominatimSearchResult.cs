@@ -2,7 +2,7 @@
 
 namespace MyExpenses.Models.WebApi.Nominatim;
 
-public class NominatimStruc
+public class NominatimSearchResult
 {
     [JsonProperty("place_id")]
     public long? PlaceId { get; set; }
@@ -26,12 +26,11 @@ public class NominatimStruc
     public string? DisplayName { get; set; }
 
     [JsonProperty("address")]
-    public NominatimAddress? Address { get; set; }
+    public NominatimDetailedAddress? Address { get; set; }
 
     [JsonProperty("boundingbox")]
     public IEnumerable<float>? BoundingBox { get; set; }
 
     public override string? ToString()
         => DisplayName;
-
 }
