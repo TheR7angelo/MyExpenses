@@ -44,7 +44,7 @@ public class NominatimDetailedAddress
     public string? Region { get; set; }
 
     [JsonProperty("postcode")]
-    public long? Postcode { get; set; }
+    public string? Postcode { get; set; }
 
     [JsonProperty("country")]
     public string? Country { get; set; }
