@@ -3,10 +3,10 @@ using Mapsui;
 using Mapsui.Layers;
 using Mapsui.Styles;
 using MyExpenses.Maps.Test.Utils;
+using MyExpenses.Models.AutoMapper;
 using MyExpenses.Models.Sql.Tables;
 using MyExpenses.Utils;
 using MyExpenses.WebApi.Nominatim;
-using Point = NetTopologySuite.Geometries.Point;
 
 namespace MyExpenses.Maps.Test;
 
@@ -44,8 +44,11 @@ public partial class WindowEdit
     private void ButtonSearchByCoordinate_OnClick(object sender, RoutedEventArgs e)
     {
         var point = TPlace.Geometry;
-        var result = Nominatim.PointToNominatim(point);
-        Console.WriteLine(result);
+        var nominatimSearchResult = Nominatim.PointToNominatim(point);
+
+        var mapper = Mapping.Mapper;
+        var newTPlace = mapper.Map<TPlace>(nominatimSearchResult);
+        PropertyCopyHelper.CopyProperties(newTPlace, TPlace);
     }
 
     private void MapControl_OnInfo(object? sender, MapInfoEventArgs e)
