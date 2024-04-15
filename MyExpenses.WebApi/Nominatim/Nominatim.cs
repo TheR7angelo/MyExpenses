@@ -9,13 +9,13 @@ public class Nominatim : Http
 {
     private static HttpClient HttpClient { get; set; } = null!;
 
-    public Nominatim(string userAgent)
+    static Nominatim()
     {
-        HttpClient = GetHttpClient(userAgent, "https://nominatim.openstreetmap.org");
+        HttpClient = GetHttpClient("https://nominatim.openstreetmap.org");
     }
 
-    public List<NominatimStruc>? AddressToNominatim(string address) => _AddressToNominatim(address).Result;
-    public NominatimStruc? PointToNominatim(Point position) => _PositionToNominatim(position).Result;
+    public static List<NominatimStruc>? AddressToNominatim(string address) => _AddressToNominatim(address).Result;
+    public static NominatimStruc? PointToNominatim(Point position) => _PositionToNominatim(position).Result;
     private static async Task<List<NominatimStruc>?> _AddressToNominatim(string address)
     {
         try
