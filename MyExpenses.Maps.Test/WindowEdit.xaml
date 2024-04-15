@@ -52,36 +52,37 @@
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
         <Label Grid.Row="0" Grid.Column="0" Content="Name :" />
-        <TextBox Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="4"
+        <TextBox Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="5"
                  Text="{Binding TPlace.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
         </TextBox>
 
         <Label Grid.Row="1" Grid.Column="0" Content="Number :" />
-        <TextBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="4"
+        <TextBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="5"
                  Text="{Binding TPlace.Number, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
         </TextBox>
 
         <Label Grid.Row="2" Grid.Column="0" Content="Street :" />
-        <TextBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="4"
+        <TextBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="5"
                  Text="{Binding TPlace.Street, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
         </TextBox>
 
         <Label Grid.Row="3" Grid.Column="0" Content="Postal :" />
-        <TextBox Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="4"
+        <TextBox Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="5"
                  Text="{Binding TPlace.Postal, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
         </TextBox>
 
         <Label Grid.Row="4" Grid.Column="0" Content="City :" />
-        <TextBox Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="4"
+        <TextBox Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="5"
                  Text="{Binding TPlace.City, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
         </TextBox>
 
         <Label Grid.Row="5" Grid.Column="0" Content="Country :" />
-        <TextBox Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="4"
+        <TextBox Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="5"
                  Text="{Binding TPlace.Country, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
         </TextBox>
 
@@ -89,6 +90,18 @@
         <TextBox Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="3"
                  Text="{Binding TPlace.Latitude, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
         </TextBox>
+
+        <Button Grid.Row="6" Grid.Column="4"
+                materialDesign:ButtonAssist.CornerRadius="5"
+                Style="{StaticResource MaterialDesignPaperButton}"
+                Content="Valid new point">
+        </Button>
+
+        <Button Grid.Row="6" Grid.Column="5"
+                materialDesign:ButtonAssist.CornerRadius="5"
+                Style="{StaticResource MaterialDesignPaperLightButton}"
+                Content="Zoom to point">
+        </Button>
 
         <Label Grid.Row="7" Grid.Column="0" Content="Longitude :" />
         <TextBox Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="3"
@@ -118,7 +131,7 @@
                 Style="{StaticResource MaterialDesignPaperSecondaryButton}" Content="Cancel">
         </Button>
 
-        <Border Grid.Row="6" Grid.Column="4" Grid.RowSpan="4">
+        <Border Grid.Row="7" Grid.Column="4" Grid.RowSpan="3" Grid.ColumnSpan="2">
             <wpf:MapControl x:Name="MapControl" Info="MapControl_OnInfo" />
         </Border>
 
