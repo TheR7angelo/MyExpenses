@@ -7,7 +7,6 @@ using System.Windows.Input;
 using Mapsui;
 using Mapsui.Extensions;
 using Mapsui.Layers;
-using Mapsui.Nts.Editing;
 using Mapsui.Projections;
 using Mapsui.Styles;
 using Mapsui.Widgets;
@@ -26,9 +25,6 @@ public partial class MainWindow
 
     private SymbolStyle PointStyle { get; }
 
-    // private EditManager EditManager { get; } = new();
-    // private WritableLayer WritableEditLayer { get; } = new();
-
     public MainWindow()
     {
         InitializeComponent();
@@ -44,7 +40,7 @@ public partial class MainWindow
             SymbolScale = 0.02
         };
 
-        var map = new Map { CRS = "EPSG:3857", BackColor = Color.Gray };
+        var map = new Map { CRS = "EPSG:3857", BackColor = Color.Black };
         map.Widgets.AddRange(new List<IWidget>
         {
             new MapInfoWidget(map),
@@ -95,8 +91,6 @@ public partial class MainWindow
         WritableLayer.Style = null;
 
         MapControl.Map.Layers.Add(WritableLayer);
-        // EditManager.Layer = WritableEditLayer;
-        // MapControl.Map.Layers.Add(WritableEditLayer);
     }
 
     private void MapControl_OnInfo(object? sender, MapInfoEventArgs e)
@@ -166,20 +160,11 @@ public partial class MainWindow
 
     private void Option3_OnClick(object sender, RoutedEventArgs e)
     {
-        var windowEdit = new WindowEdit();
+        var windowEdit = new WindowEdit { TPlace = ClickTPlace! };
         windowEdit.ShowDialog();
-    }
 
-    // private void Option3_OnClick(object sender, RoutedEventArgs e)
-    // {
-        // EditManager.Layer!.Add(WritableLayer.GetFeatures().First(s => s["id"] == PointFeature!["id"]));
-        // WritableLayer.TryRemove(PointFeature!);
-        // EditManager.EditMode = EditMode.Modify;
-        //
-        // // MapControl.MouseMove += MapControlOnMouseMove;
-        //
-        // Console.WriteLine(ClickTPlace?.Id);
-        //
-        // MapControl.Map.Widgets.Add(new EditingWidget(MapControl, EditManager, new EditManipulation()));
-    // }
+        if (windowEdit.DialogResult != true) return;
+
+
+    }
 }
