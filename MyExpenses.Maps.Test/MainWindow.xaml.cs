@@ -154,8 +154,7 @@ public partial class MainWindow
 
     private void Option2_Click(object sender, RoutedEventArgs e)
     {
-        var nominatim = new Nominatim("Test");
-        var s = nominatim.PointToNominatim(ClickPoint);
+        var s = Nominatim.PointToNominatim(ClickPoint);
         Console.WriteLine(s);
     }
 
@@ -167,6 +166,6 @@ public partial class MainWindow
 
         if (windowEdit.DialogResult != true) return;
 
-
+        var newTPlace = windowEdit.TPlace;
     }
 }
