@@ -161,7 +161,8 @@ public partial class MainWindow
 
     private void Option3_OnClick(object sender, RoutedEventArgs e)
     {
-        var windowEdit = new WindowEdit { TPlace = ClickTPlace! };
+        var windowEdit = new WindowEdit();
+        windowEdit.SetTplace(ClickTPlace!);
         windowEdit.ShowDialog();
 
         if (windowEdit.DialogResult != true) return;
