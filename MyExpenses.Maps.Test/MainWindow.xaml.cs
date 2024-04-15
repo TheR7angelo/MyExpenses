@@ -23,23 +23,9 @@ public partial class MainWindow
 {
     private WritableLayer WritableLayer { get; }
 
-    private SymbolStyle PointStyle { get; }
-
     public MainWindow()
     {
         InitializeComponent();
-
-        var path = Path.GetFullPath("Ressources");
-        var icon = Path.Join(path, "Sans titre - 1.png");
-        
-        var fileStream = new FileStream(icon, FileMode.Open);
-        var bitmapId = BitmapRegistry.Instance.Register(fileStream);
-
-        PointStyle = new SymbolStyle
-        {
-            BitmapId = bitmapId,
-            SymbolScale = 0.02
-        };
 
         var map = new Map { CRS = "EPSG:3857", BackColor = Color.Black };
         map.Widgets.AddRange(new List<IWidget>
@@ -74,7 +60,7 @@ public partial class MainWindow
 
             feature.Styles = new List<IStyle>
             {
-                PointStyle,
+                Utils.MapStyle.RedMarkerStyle,
                 new LabelStyle
                 {
                     Text = place.Name, Offset = new Offset { X = 0, Y = 30 },
