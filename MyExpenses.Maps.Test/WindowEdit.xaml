@@ -119,7 +119,7 @@
         </Button>
 
         <Border Grid.Row="6" Grid.Column="4" Grid.RowSpan="4">
-            <wpf:MapControl />
+            <wpf:MapControl x:Name="MapControl" />
         </Border>
 
     </Grid>
