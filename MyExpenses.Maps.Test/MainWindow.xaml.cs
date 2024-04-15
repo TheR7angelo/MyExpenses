@@ -44,7 +44,7 @@ public partial class MainWindow
                 MapStyle.RedMarkerStyle,
                 new LabelStyle
                 {
-                    Text = place.Name, Offset = new Offset { X = 0, Y = 30 },
+                    Text = place.Name, Offset = new Offset { X = 0, Y = 11 },
                     Font = new Font { FontFamily = "Arial", Size = 12 },
                     Halo = new Pen { Color = Color.White, Width = 2 }
                 }
