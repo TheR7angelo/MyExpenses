@@ -103,7 +103,8 @@
         <Button Grid.Row="8" Grid.Column="2" Grid.ColumnSpan="2"
                 materialDesign:ButtonAssist.CornerRadius="5"
                 Style="{StaticResource MaterialDesignPaperLightButton}"
-                Content="Search by coordinate">
+                Content="Search by coordinate"
+                Click="ButtonSearchByCoordinate_OnClick">
         </Button>
 
         <Button Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="2"
