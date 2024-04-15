@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
-using System.IO;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
@@ -9,9 +8,7 @@ using Mapsui.Extensions;
 using Mapsui.Layers;
 using Mapsui.Projections;
 using Mapsui.Styles;
-using Mapsui.Widgets;
-using Mapsui.Widgets.ScaleBar;
-using Mapsui.Widgets.Zoom;
+using MyExpenses.Maps.Test.Utils;
 using MyExpenses.Models.AutoMapper;
 using MyExpenses.Models.Sql.Tables;
 using MyExpenses.Sql.Context;
@@ -27,13 +24,7 @@ public partial class MainWindow
     {
         InitializeComponent();
 
-        var map = new Map { CRS = "EPSG:3857", BackColor = Color.Black };
-        map.Widgets.AddRange(new List<IWidget>
-        {
-            new MapInfoWidget(map),
-            new ZoomInOutWidget(),
-            new ScaleBarWidget(map),
-        });
+        var map = MapStyle.GetMap(true);
 
         MapControl.Map = map;
         MapControl.Map.Layers.Add(Mapsui.Tiling.OpenStreetMap.CreateTileLayer());
@@ -60,7 +51,7 @@ public partial class MainWindow
 
             feature.Styles = new List<IStyle>
             {
-                Utils.MapStyle.RedMarkerStyle,
+                MapStyle.RedMarkerStyle,
                 new LabelStyle
                 {
                     Text = place.Name, Offset = new Offset { X = 0, Y = 30 },
