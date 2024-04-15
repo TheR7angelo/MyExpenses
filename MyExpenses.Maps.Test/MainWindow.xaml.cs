@@ -35,19 +35,9 @@ public partial class MainWindow
             .ToList();
 
         var features = new List<IFeature>();
-        var properties = typeof(TPlace).GetProperties();
         foreach (var place in places)
         {
-            var point = SphericalMercator.FromLonLat(place.Longitude ?? 0, place.Latitude ?? 0);
-            var feature = new PointFeature(point.x, point.y);
-
-            foreach (var property in properties)
-            {
-                var columnName = property.GetCustomAttribute<ColumnAttribute>()?.Name;
-                if (string.IsNullOrEmpty(columnName)) continue;
-
-                feature[columnName] = property.GetValue(place);
-            }
+            var feature = place.ToPointFeature();
 
             feature.Styles = new List<IStyle>
             {
