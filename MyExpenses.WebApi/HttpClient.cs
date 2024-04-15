@@ -2,12 +2,15 @@
 
 public abstract class Http
 {
-    public static HttpClient GetHttpClient(string userAgent, string baseUrl)
+    protected static HttpClient GetHttpClient(string baseUrl, string? userAgent=null)
     {
         var httpClient = new HttpClient { BaseAddress = new Uri(baseUrl)};
-        httpClient.DefaultRequestHeaders.Add("User-Agent", userAgent);
+        if (!string.IsNullOrEmpty(userAgent))
+        {
+            httpClient.DefaultRequestHeaders.Add("User-Agent", userAgent);
+        }
         return httpClient;
     }
-    
-    public static string ParseToUrlFormat(string str) => str.Replace(" ", "+");
+
+    protected static string ParseToUrlFormat(string str) => str.Replace(" ", "+");
 }
