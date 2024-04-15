@@ -1,9 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using NetTopologySuite.Geometries;
+using PropertyChanged;
 
 namespace MyExpenses.Models.Sql.Tables;
 
+[AddINotifyPropertyChangedInterface]
 [Table("t_place")]
 public partial class TPlace
 {
