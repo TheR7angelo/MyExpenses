@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using MyExpenses.Maps.Test.Utils;
 using MyExpenses.Models.Sql.Tables;
 using MyExpenses.Utils;
 using MyExpenses.WebApi.Nominatim;
@@ -12,7 +13,10 @@ public partial class WindowEdit
 
     public WindowEdit()
     {
+        var map = MapStyle.GetMap(false);
         InitializeComponent();
+        MapControl.Map = map;
+        MapControl.Map.Layers.Add(Mapsui.Tiling.OpenStreetMap.CreateTileLayer());
     }
 
     public void SetTplace(TPlace newTPlace)
