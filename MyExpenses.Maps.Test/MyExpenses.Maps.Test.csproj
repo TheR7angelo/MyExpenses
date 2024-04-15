@@ -22,22 +22,22 @@
     </ItemGroup>
 
     <ItemGroup>
-      <None Remove="Ressources\Sans titre - 1.png" />
-      <AdditionalFiles Include="Ressources\Sans titre - 1.png">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </AdditionalFiles>
-      <None Remove="Ressources\Sans titre - 1.svg" />
-      <AdditionalFiles Include="Ressources\Sans titre - 1.svg">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </AdditionalFiles>
-      <None Remove="Ressources\Sans titre - 2.svg" />
-      <AdditionalFiles Include="Ressources\Sans titre - 2.svg">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </AdditionalFiles>
-      <None Remove="Ressources\Sans titre - 2.png" />
-      <AdditionalFiles Include="Ressources\Sans titre - 2.png">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </AdditionalFiles>
+        <None Remove="Ressources\RedMarker.png" />
+        <AdditionalFiles Include="Ressources\RedMarker.png">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </AdditionalFiles>
+        <None Remove="Ressources\RedMarker.svg" />
+        <AdditionalFiles Include="Ressources\RedMarker.svg">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </AdditionalFiles>
+        <None Remove="Ressources\GreenMarker.svg" />
+        <AdditionalFiles Include="Ressources\GreenMarker.svg">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </AdditionalFiles>
+        <None Remove="Ressources\GreenMarker.png" />
+        <AdditionalFiles Include="Ressources\GreenMarker.png">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </AdditionalFiles>
     </ItemGroup>
 
 </Project>

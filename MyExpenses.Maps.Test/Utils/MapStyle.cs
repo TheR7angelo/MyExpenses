@@ -63,7 +63,7 @@ public static class MapStyle
     private static SymbolStyle SetGreenMarkerStyle()
     {
         var path = Path.GetFullPath("Ressources");
-        var icon = Path.Join(path, "Sans titre - 2.png");
+        var icon = Path.Join(path, "GreenMarker.png");
         var bitmapId = RegisterBitmap(icon);
 
         return new SymbolStyle
@@ -77,7 +77,7 @@ public static class MapStyle
     private static SymbolStyle SetRedMarkerStyle()
     {
         var path = Path.GetFullPath("Ressources");
-        var icon = Path.Join(path, "Sans titre - 1.png");
+        var icon = Path.Join(path, "RedMarker.png");
         var bitmapId = RegisterBitmap(icon);
 
         return new SymbolStyle
