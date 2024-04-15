@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using Mapsui;
 using Mapsui.Layers;
 using Mapsui.Styles;
 using MyExpenses.Maps.Test.Utils;
@@ -13,7 +14,8 @@ public partial class WindowEdit
 {
     public TPlace TPlace { get; } = new();
 
-    private WritableLayer WritableLayer { get; } = new WritableLayer { Style = null };
+    private const string ColumnTemp = "temp";
+    private WritableLayer WritableLayer { get; } = new() { Style = null };
 
     public WindowEdit()
     {
@@ -32,6 +34,7 @@ public partial class WindowEdit
         PropertyCopyHelper.CopyProperties(newTPlace, TPlace);
         var feature = TPlace.ToPointFeature();
         feature.Styles = new List<IStyle> { MapStyle.RedMarkerStyle };
+        feature[ColumnTemp] = false;
 
         WritableLayer.Add(feature);
 
@@ -46,5 +49,18 @@ public partial class WindowEdit
 
         var result = Nominatim.PointToNominatim(point);
         Console.WriteLine(result);
+    }
+
+    private void MapControl_OnInfo(object? sender, MapInfoEventArgs e)
+    {
+        var worldPosition = e.MapInfo!.WorldPosition!;
+        var feature = new PointFeature(worldPosition) { Styles = new List<IStyle> { MapStyle.GreenMarkerStyle } };
+        feature[ColumnTemp] = true;
+
+        var oldFeature = WritableLayer.GetFeatures().FirstOrDefault(f => f[ColumnTemp]!.Equals(true));
+        if (oldFeature is not null)  WritableLayer.TryRemove(oldFeature);
+
+        WritableLayer.Add(feature);
+        MapControl.Map.Refresh();
     }
 }
