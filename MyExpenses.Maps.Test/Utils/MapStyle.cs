@@ -1,5 +1,10 @@
 ﻿using System.IO;
+using Mapsui;
+using Mapsui.Extensions;
 using Mapsui.Styles;
+using Mapsui.Widgets;
+using Mapsui.Widgets.ScaleBar;
+using Mapsui.Widgets.Zoom;
 
 namespace MyExpenses.Maps.Test.Utils;
 
@@ -10,6 +15,22 @@ public static class MapStyle
     static MapStyle()
     {
         RedMarkerStyle = SetMarkerStyle();
+    }
+
+    public static Map GetMap(bool widget)
+    {
+        var map = new Map { CRS = "EPSG:3857", BackColor = Color.Black };
+        if (widget)
+        {
+            map.Widgets.AddRange(new List<IWidget>
+            {
+                new MapInfoWidget(map),
+                new ZoomInOutWidget(),
+                new ScaleBarWidget(map),
+            });
+        }
+
+        return map;
     }
 
     private static SymbolStyle SetMarkerStyle()
