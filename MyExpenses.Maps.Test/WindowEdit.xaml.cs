@@ -47,8 +47,13 @@ public partial class WindowEdit
         var nominatimSearchResult = point.ToNominatim();
 
         var mapper = Mapping.Mapper;
-        var newTPlace = mapper.Map<TPlace>(nominatimSearchResult);
-        PropertyCopyHelper.CopyProperties(newTPlace, Place);
+        var newPlace = mapper.Map<TPlace>(nominatimSearchResult);
+        if (newPlace is null)
+        {
+            MessageBox.Show("No results found.");
+            return;
+        }
+        PropertyCopyHelper.CopyProperties(newPlace, Place);
     }
 
     private void MapControl_OnInfo(object? sender, MapInfoEventArgs e)
