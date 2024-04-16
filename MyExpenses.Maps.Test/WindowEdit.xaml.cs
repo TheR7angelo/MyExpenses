@@ -30,8 +30,10 @@ public partial class WindowEdit
         MapControl.Map = map;
     }
 
-    public void SetTplace(TPlace newTPlace)
+    public void SetTplace(TPlace newTPlace, bool clear = false)
     {
+        if (clear) WritableLayer.Clear();
+
         PropertyCopyHelper.CopyProperties(newTPlace, Place);
         var feature = Place.ToPointFeature();
         feature.Styles = new List<IStyle> { MapStyle.RedMarkerStyle };
@@ -40,6 +42,9 @@ public partial class WindowEdit
         WritableLayer.Add(feature);
 
         MapControl.Map.Home = n => { n.CenterOnAndZoomTo(feature.Point, 1); };
+        MapControl.Map.Navigator.CenterOn(feature.Point);
+        MapControl.Map.Navigator.ZoomTo(1);
+        MapControl.Refresh();
     }
 
     private void ButtonSearchByCoordinate_OnClick(object sender, RoutedEventArgs e)
@@ -80,6 +85,8 @@ public partial class WindowEdit
 
     private void HandleNominatimResult(List<NominatimSearchResult> nominatimSearchResults)
     {
+        TPlace? place = null;
+
         var mapper = Mapping.Mapper;
         switch (nominatimSearchResults.Count)
         {
@@ -87,17 +94,25 @@ public partial class WindowEdit
                 MessageBox.Show("No results found.");
                 break;
             case 1:
-                // TODO Update UI
+                MessageBox.Show("One results found.");
+                var nominatimSearchResult = nominatimSearchResults.First();
+                place = mapper.Map<TPlace>(nominatimSearchResult);
                 break;
             case > 1:
                 MessageBox.Show("Multiple results found. Please select one.");
-                nominatimSearchResults.ForEach(Console.WriteLine);
 
                 var places = nominatimSearchResults.Select(s => mapper.Map<TPlace>(s));
                 var selectNominatimSearchResult = new WindowSelectNominatimSearchResult();
                 selectNominatimSearchResult.AddRange(places);
                 selectNominatimSearchResult.ShowDialog();
+
+                if (!selectNominatimSearchResult.DialogResult.Equals(true)) return;
+
+                place = mapper.Map<TPlace>(selectNominatimSearchResult.CurrentPlace);
                 break;
         }
+
+        if (place is null) return;
+        SetTplace(place, true);
     }
 }
