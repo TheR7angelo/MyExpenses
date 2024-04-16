@@ -5,6 +5,7 @@ using Mapsui.Styles;
 using MyExpenses.Maps.Test.Utils;
 using MyExpenses.Models.AutoMapper;
 using MyExpenses.Models.Sql.Tables;
+using MyExpenses.Models.WebApi.Nominatim;
 using MyExpenses.Utils;
 using MyExpenses.WebApi.Nominatim;
 
@@ -70,28 +71,37 @@ public partial class WindowEdit
     }
 
     private void ButtonSearchByAddress_OnClick(object sender, RoutedEventArgs e)
-    {
-        var partAddress = new List<string>();
-        if (!string.IsNullOrEmpty(Place.Number)) partAddress.Add(Place.Number);
-        if (!string.IsNullOrEmpty(Place.Street)) partAddress.Add(Place.Street);
-        if (!string.IsNullOrEmpty(Place.Postal)) partAddress.Add(Place.Postal);
-        if (!string.IsNullOrEmpty(Place.City)) partAddress.Add(Place.City);
-        if (!string.IsNullOrEmpty(Place.Country)) partAddress.Add(Place.Country);
-        var address = string.Join(", ", partAddress);
+{
+    var address = CreateAddressFromPlace();
+    var nominatimSearchResults = address.ToNominatim()?.ToList() ?? [];
+    HandleNominatimResult(nominatimSearchResults);
+}
 
-        var nominatimSearchResults = address.ToNominatim()?.ToList() ?? [];
-        switch (nominatimSearchResults.Count)
-        {
-            case 0:
-                MessageBox.Show("No results found.");
-                break;
-            case 1:
-                // TODO Update UI
-                break;
-            case >1:
-                MessageBox.Show("Multiple results found. Please select one.");
-                nominatimSearchResults.ForEach(Console.WriteLine);
-                break;
-        }
+private string CreateAddressFromPlace()
+{
+    var partAddress = new List<string>();
+    if (!string.IsNullOrEmpty(Place.Number)) partAddress.Add(Place.Number);
+    if (!string.IsNullOrEmpty(Place.Street)) partAddress.Add(Place.Street);
+    if (!string.IsNullOrEmpty(Place.Postal)) partAddress.Add(Place.Postal);
+    if (!string.IsNullOrEmpty(Place.City)) partAddress.Add(Place.City);
+    if (!string.IsNullOrEmpty(Place.Country)) partAddress.Add(Place.Country);
+    return string.Join(", ", partAddress);
+}
+
+private void HandleNominatimResult(List<NominatimSearchResult> nominatimSearchResults)
+{
+    switch (nominatimSearchResults.Count)
+    {
+        case 0:
+            MessageBox.Show("No results found.");
+            break;
+        case 1:
+            // TODO Update UI
+            break;
+        case > 1:
+            MessageBox.Show("Multiple results found. Please select one.");
+            nominatimSearchResults.ForEach(Console.WriteLine);
+            break;
     }
+}
 }
