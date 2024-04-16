@@ -128,7 +128,8 @@
 
         <Button Grid.Row="9" Grid.Column="2" Grid.ColumnSpan="2"
                 materialDesign:ButtonAssist.CornerRadius="5"
-                Style="{StaticResource MaterialDesignPaperSecondaryButton}" Content="Cancel">
+                Style="{StaticResource MaterialDesignPaperSecondaryButton}"
+                Content="Cancel">
         </Button>
 
         <Border Grid.Row="7" Grid.Column="4" Grid.RowSpan="3" Grid.ColumnSpan="2">
