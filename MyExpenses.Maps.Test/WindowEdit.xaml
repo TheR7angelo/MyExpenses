@@ -103,12 +103,14 @@
                     utils:PanelExtensions.MarginForAllChildren="5">
             <Button materialDesign:ButtonAssist.CornerRadius="5"
                     Style="{StaticResource MaterialDesignPaperButton}"
-                    Content="Valid new point">
+                    Content="Valid new point"
+                    Click="ButtonValidPoint_OnClick">
             </Button>
 
             <Button materialDesign:ButtonAssist.CornerRadius="5"
                     Style="{StaticResource MaterialDesignPaperLightButton}"
-                    Content="Zoom to point">
+                    Content="Zoom to point"
+                    Click="ButtonZoomToPoint_OnClick">
             </Button>
 
         </StackPanel>
@@ -151,13 +153,15 @@
             <Button Grid.Row="1" Grid.Column="0"
                     materialDesign:ButtonAssist.CornerRadius="5"
                     Style="{StaticResource MaterialDesignPaperSecondaryButton}"
-                    Content="Cancel">
+                    Content="Cancel"
+                    Click="ButtonCancel_OnClick">
             </Button>
 
             <Button Grid.Row="1" Grid.Column="1"
                     materialDesign:ButtonAssist.CornerRadius="5"
                     Style="{StaticResource MaterialDesignPaperButton}"
-                    Content="Valid">
+                    Content="Valid"
+                    Click="ButtonBase_OnClick">
             </Button>
 
         </Grid>

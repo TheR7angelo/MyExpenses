@@ -115,4 +115,24 @@ public partial class WindowEdit
         if (place is null) return;
         SetTplace(place, true);
     }
+
+    private void ButtonValidPoint_OnClick(object sender, RoutedEventArgs e)
+    {
+        // TODO Valid new point
+    }
+
+    private void ButtonZoomToPoint_OnClick(object sender, RoutedEventArgs e)
+    {
+        // TODO Zoom to point
+    }
+
+    private void ButtonCancel_OnClick(object sender, RoutedEventArgs e)
+    {
+        // TODO cancel action
+    }
+
+    private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
+    {
+        // TODO valid action
+    }
 }
