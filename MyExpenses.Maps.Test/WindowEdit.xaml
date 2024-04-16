@@ -10,12 +10,6 @@
                  xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
                  mc:Ignorable="d"
 
-                 d:DesignHeight="427"
-                 d:DesignWidth="666"
-
-                 Height="427"
-                 Width="666"
-
                  Title="WindowEdit"
 
                  TitleCharacterCasing="Normal"
@@ -28,11 +22,20 @@
                  WindowStartupLocation="CenterScreen"
                  ResizeMode="CanResizeWithGrip"
 
+                 d:DesignHeight="656"
+                 d:DesignWidth="627"
+
+                 MinHeight="656"
+                 MinWidth="627"
+
+                 Height="656"
+                 Width="627"
+
                  Background="{DynamicResource MaterialDesignPaper}"
                  TextElement.Foreground="{DynamicResource MaterialDesignBody}"
                  DataContext="{Binding RelativeSource={RelativeSource Self}}">
 
-    <Grid utils:PanelExtensions.MarginForAllChildren="3">
+    <Grid utils:PanelExtensions.MarginForAllChildren="5">
 
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -44,96 +47,125 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
-            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <Label Grid.Row="0" Grid.Column="0" Content="Name :" />
-        <TextBox Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="5"
+        <TextBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+                 materialDesign:HintAssist.Hint="Name :"
+                 Style="{StaticResource MaterialDesignFilledTextBox}"
                  Text="{Binding Place.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
         </TextBox>
 
-        <Label Grid.Row="1" Grid.Column="0" Content="Number :" />
-        <TextBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="5"
+        <TextBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
+                 materialDesign:HintAssist.Hint="Number :"
+                 Style="{StaticResource MaterialDesignFilledTextBox}"
                  Text="{Binding Place.Number, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
         </TextBox>
 
-        <Label Grid.Row="2" Grid.Column="0" Content="Street :" />
-        <TextBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="5"
+        <TextBox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
+                 materialDesign:HintAssist.Hint="Number :"
+                 Style="{StaticResource MaterialDesignFilledTextBox}"
                  Text="{Binding Place.Street, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
         </TextBox>
 
-        <Label Grid.Row="3" Grid.Column="0" Content="Postal :" />
-        <TextBox Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="5"
+        <TextBox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"
+                 materialDesign:HintAssist.Hint="Postal :"
+                 Style="{StaticResource MaterialDesignFilledTextBox}"
                  Text="{Binding Place.Postal, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
         </TextBox>
 
-        <Label Grid.Row="4" Grid.Column="0" Content="City :" />
-        <TextBox Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="5"
+        <TextBox Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2"
+                 materialDesign:HintAssist.Hint="City :"
+                 Style="{StaticResource MaterialDesignFilledTextBox}"
                  Text="{Binding Place.City, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
         </TextBox>
 
-        <Label Grid.Row="5" Grid.Column="0" Content="Country :" />
-        <TextBox Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="5"
+        <TextBox Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2"
+                 materialDesign:HintAssist.Hint="Country :"
+                 Style="{StaticResource MaterialDesignFilledTextBox}"
                  Text="{Binding Place.Country, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
         </TextBox>
 
-        <Label Grid.Row="6" Grid.Column="0" Content="Latitude :" />
-        <TextBox Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="3"
+        <TextBox Grid.Row="6" Grid.Column="0"
+                 materialDesign:HintAssist.Hint="Latitude :"
+                 Style="{StaticResource MaterialDesignFilledTextBox}"
                  Text="{Binding Place.Latitude, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
         </TextBox>
 
-        <Button Grid.Row="6" Grid.Column="4"
-                materialDesign:ButtonAssist.CornerRadius="5"
-                Style="{StaticResource MaterialDesignPaperButton}"
-                Content="Valid new point">
-        </Button>
+        <StackPanel Grid.Row="6" Grid.Column="1"
+                    Orientation="Horizontal"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Center"
+                    utils:PanelExtensions.MarginForAllChildren="5">
+            <Button materialDesign:ButtonAssist.CornerRadius="5"
+                    Style="{StaticResource MaterialDesignPaperButton}"
+                    Content="Valid new point">
+            </Button>
 
-        <Button Grid.Row="6" Grid.Column="5"
-                materialDesign:ButtonAssist.CornerRadius="5"
-                Style="{StaticResource MaterialDesignPaperLightButton}"
-                Content="Zoom to point">
-        </Button>
+            <Button materialDesign:ButtonAssist.CornerRadius="5"
+                    Style="{StaticResource MaterialDesignPaperLightButton}"
+                    Content="Zoom to point">
+            </Button>
 
-        <Label Grid.Row="7" Grid.Column="0" Content="Longitude :" />
-        <TextBox Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="3"
+        </StackPanel>
+
+        <TextBox Grid.Row="7" Grid.Column="0"
+                 materialDesign:HintAssist.Hint="Longitude :"
+                 Style="{StaticResource MaterialDesignFilledTextBox}"
                  Text="{Binding Place.Longitude, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
         </TextBox>
 
-        <Button Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="2"
-                materialDesign:ButtonAssist.CornerRadius="5"
-                Style="{StaticResource MaterialDesignPaperLightButton}"
-                Content="Search by address"
-                Click="ButtonSearchByAddress_OnClick">
-        </Button>
-        <Button Grid.Row="8" Grid.Column="2" Grid.ColumnSpan="2"
-                materialDesign:ButtonAssist.CornerRadius="5"
-                Style="{StaticResource MaterialDesignPaperLightButton}"
-                Content="Search by coordinate"
-                Click="ButtonSearchByCoordinate_OnClick">
-        </Button>
+        <Grid Grid.Row="8" Grid.Column="0"
+              VerticalAlignment="Center"
+              HorizontalAlignment="Center"
+              utils:PanelExtensions.MarginForAllChildren="5">
 
-        <Button Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="2"
-                materialDesign:ButtonAssist.CornerRadius="5"
-                Style="{StaticResource MaterialDesignPaperButton}"
-                Content="Valid">
-        </Button>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
 
-        <Button Grid.Row="9" Grid.Column="2" Grid.ColumnSpan="2"
-                materialDesign:ButtonAssist.CornerRadius="5"
-                Style="{StaticResource MaterialDesignPaperSecondaryButton}"
-                Content="Cancel">
-        </Button>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
 
-        <Border Grid.Row="7" Grid.Column="4" Grid.RowSpan="3" Grid.ColumnSpan="2">
+            <Button Grid.Row="0" Grid.Column="0"
+                    materialDesign:ButtonAssist.CornerRadius="5"
+                    Style="{StaticResource MaterialDesignPaperLightButton}"
+                    Content="Search by address"
+                    Click="ButtonSearchByAddress_OnClick">
+            </Button>
+
+            <Button Grid.Row="0" Grid.Column="1"
+                    materialDesign:ButtonAssist.CornerRadius="5"
+                    Style="{StaticResource MaterialDesignPaperLightButton}"
+                    Content="Search by coordinate"
+                    Click="ButtonSearchByCoordinate_OnClick">
+            </Button>
+
+            <Button Grid.Row="1" Grid.Column="0"
+                    materialDesign:ButtonAssist.CornerRadius="5"
+                    Style="{StaticResource MaterialDesignPaperSecondaryButton}"
+                    Content="Cancel">
+            </Button>
+
+            <Button Grid.Row="1" Grid.Column="1"
+                    materialDesign:ButtonAssist.CornerRadius="5"
+                    Style="{StaticResource MaterialDesignPaperButton}"
+                    Content="Valid">
+            </Button>
+
+        </Grid>
+
+        <Border Grid.Row="7" Grid.Column="1" Grid.RowSpan="2"
+                BorderBrush="{DynamicResource MaterialDesignBody}"
+                BorderThickness="2"
+                CornerRadius="5">
             <wpf:MapControl x:Name="MapControl" Info="MapControl_OnInfo" />
         </Border>
 
