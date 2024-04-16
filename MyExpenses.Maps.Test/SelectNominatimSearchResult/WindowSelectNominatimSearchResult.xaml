@@ -108,12 +108,14 @@
         <Button Grid.Row="7" Grid.Column="0"
                 materialDesign:ButtonAssist.CornerRadius="5"
                 Style="{StaticResource MaterialDesignPaperSecondaryButton}"
+                Click="ButtonCancel_OnClick"
                 Content="Cancel">
         </Button>
 
         <Button Grid.Row="7" Grid.Column="2"
                 materialDesign:ButtonAssist.CornerRadius="5"
                 Style="{StaticResource MaterialDesignPaperButton}"
+                Click="ButtonValid_OnClick"
                 Content="Valid">
         </Button>
 
