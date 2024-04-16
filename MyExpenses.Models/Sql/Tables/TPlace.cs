@@ -57,4 +57,15 @@ public partial class TPlace
 
     [InverseProperty("PlaceFkNavigation")]
     public virtual ICollection<THistory> THistories { get; set; } = new List<THistory>();
+
+    public override string ToString()
+    {
+        var partAddress = new List<string>();
+        if (!string.IsNullOrEmpty(Number)) partAddress.Add(Number);
+        if (!string.IsNullOrEmpty(Street)) partAddress.Add(Street);
+        if (!string.IsNullOrEmpty(Postal)) partAddress.Add(Postal);
+        if (!string.IsNullOrEmpty(City)) partAddress.Add(City);
+        if (!string.IsNullOrEmpty(Country)) partAddress.Add(Country);
+        return string.Join(", ", partAddress);
+    }
 }
