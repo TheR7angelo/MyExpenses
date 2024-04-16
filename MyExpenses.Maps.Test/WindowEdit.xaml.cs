@@ -43,8 +43,6 @@ public partial class WindowEdit
 
     private void ButtonSearchByCoordinate_OnClick(object sender, RoutedEventArgs e)
     {
-        var point = TPlace.Geometry;
-        var nominatimSearchResult = Nominatim.PointToNominatim(point);
         var point = Place.Geometry;
         var nominatimSearchResult = point.PointToNominatim();
 
