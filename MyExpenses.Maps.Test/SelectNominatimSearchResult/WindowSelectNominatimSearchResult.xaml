@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:MyExpenses.Maps.Test"
         xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
         xmlns:wpf="clr-namespace:Mapsui.UI.Wpf;assembly=Mapsui.UI.Wpf"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
 
         d:DesignHeight="427"
@@ -89,8 +90,17 @@
 
         <Button Grid.Row="6" Grid.Column="2" VerticalAlignment="Bottom" Content="Go Next" Click="ButtonGoNext_OnClick" />
 
-        <Button Grid.Row="7" Grid.Column="0" Content="Cancel" />
-        <Button Grid.Row="7" Grid.Column="2" Content="Valid" />
+        <Button Grid.Row="7" Grid.Column="0"
+                materialDesign:ButtonAssist.CornerRadius="5"
+                Style="{StaticResource MaterialDesignPaperSecondaryButton}"
+                Content="Cancel">
+        </Button>
+
+        <Button Grid.Row="7" Grid.Column="2"
+                materialDesign:ButtonAssist.CornerRadius="5"
+                Style="{StaticResource MaterialDesignPaperButton}"
+                Content="Valid">
+        </Button>
 
     </Grid>
 
