@@ -79,7 +79,14 @@
                  Text="{Binding CurrentPlace.Country, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
         </TextBox>
 
-        <Button Grid.Row="6" Grid.Column="0" VerticalAlignment="Bottom" Content="Go Back" Click="ButtonGoBack_OnClick" />
+        <Button Grid.Row="6" Grid.Column="0"
+                VerticalAlignment="Bottom"
+                Style="{StaticResource MaterialDesignPaperButton}"
+                Click="ButtonGoBack_OnClick">
+            <Button.Content>
+                <materialDesign:PackIcon Kind="ArrowLeftBold" />
+            </Button.Content>
+        </Button>
 
         <Border Grid.Row="6" Grid.Column="1" Grid.RowSpan="2"
                 BorderBrush="{DynamicResource MaterialDesignBody}"
@@ -88,7 +95,14 @@
             <wpf:MapControl x:Name="MapControl" />
         </Border>
 
-        <Button Grid.Row="6" Grid.Column="2" VerticalAlignment="Bottom" Content="Go Next" Click="ButtonGoNext_OnClick" />
+        <Button Grid.Row="6" Grid.Column="2"
+                VerticalAlignment="Bottom"
+                Style="{StaticResource MaterialDesignPaperButton}"
+                Click="ButtonGoNext_OnClick">
+            <Button.Content>
+                <materialDesign:PackIcon Kind="ArrowRightBold" />
+            </Button.Content>
+        </Button>
 
         <Button Grid.Row="7" Grid.Column="0"
                 materialDesign:ButtonAssist.CornerRadius="5"
