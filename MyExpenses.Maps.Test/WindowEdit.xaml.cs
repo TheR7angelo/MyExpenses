@@ -72,11 +72,11 @@ public partial class WindowEdit
     }
 
     private void ButtonSearchByAddress_OnClick(object sender, RoutedEventArgs e)
-{
-    var address = CreateAddressFromPlace();
-    var nominatimSearchResults = address.ToNominatim()?.ToList() ?? [];
-    HandleNominatimResult(nominatimSearchResults);
-}
+    {
+        var address = Place.ToString();
+        var nominatimSearchResults = address.ToNominatim()?.ToList() ?? [];
+        HandleNominatimResult(nominatimSearchResults);
+    }
 
 private string CreateAddressFromPlace()
 {
