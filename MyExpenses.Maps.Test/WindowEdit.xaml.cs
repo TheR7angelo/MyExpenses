@@ -23,7 +23,6 @@ public partial class WindowEdit
     {
         var map = MapStyle.GetMap(false);
         map.Layers.Add(Mapsui.Tiling.OpenStreetMap.CreateTileLayer());
-
         map.Layers.Add(WritableLayer);
 
         InitializeComponent();
