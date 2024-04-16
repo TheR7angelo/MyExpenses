@@ -2,6 +2,7 @@
 using Mapsui;
 using Mapsui.Layers;
 using Mapsui.Styles;
+using MyExpenses.Maps.Test.SelectNominatimSearchResult;
 using MyExpenses.Maps.Test.Utils;
 using MyExpenses.Models.AutoMapper;
 using MyExpenses.Models.Sql.Tables;
@@ -90,6 +91,7 @@ private string CreateAddressFromPlace()
 
 private void HandleNominatimResult(List<NominatimSearchResult> nominatimSearchResults)
 {
+    var mapper = Mapping.Mapper;
     switch (nominatimSearchResults.Count)
     {
         case 0:
@@ -101,6 +103,11 @@ private void HandleNominatimResult(List<NominatimSearchResult> nominatimSearchRe
         case > 1:
             MessageBox.Show("Multiple results found. Please select one.");
             nominatimSearchResults.ForEach(Console.WriteLine);
+
+            var places = nominatimSearchResults.Select(s => mapper.Map<TPlace>(s));
+            var selectNominatimSearchResult = new WindowSelectNominatimSearchResult();
+            selectNominatimSearchResult.AddRange(places);
+            selectNominatimSearchResult.ShowDialog();
             break;
     }
 }
