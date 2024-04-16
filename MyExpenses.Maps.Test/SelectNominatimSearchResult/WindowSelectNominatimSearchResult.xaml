@@ -10,8 +10,14 @@
                  xmlns:utils="clr-namespace:MyExpenses.Maps.Test.Utils"
                  mc:Ignorable="d"
 
-                 d:DesignHeight="427"
-                 d:DesignWidth="666"
+                 d:DesignHeight="655"
+                 d:DesignWidth="530"
+
+                 MinHeight="655"
+                 MinWidth="530"
+
+                 Height="655"
+                 Width="530"
 
                  TitleCharacterCasing="Normal"
                  NonActiveWindowTitleBrush="Gray"
