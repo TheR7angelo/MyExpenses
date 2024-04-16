@@ -86,6 +86,7 @@
         </TextBox>
 
         <StackPanel Grid.Row="6" Grid.Column="0" Grid.RowSpan="2"
+                    utils:PanelExtensions.MarginForAllChildren="5"
                     Orientation="Vertical"
                     VerticalAlignment="Bottom"
                     HorizontalAlignment="Center">
@@ -114,6 +115,7 @@
         </Border>
 
         <StackPanel Grid.Row="6" Grid.Column="2" Grid.RowSpan="2"
+                    utils:PanelExtensions.MarginForAllChildren="5"
                     Orientation="Vertical"
                     VerticalAlignment="Bottom"
                     HorizontalAlignment="Center">
