@@ -13,8 +13,6 @@
         Height="427"
         Width="666"
 
-        Title="WindowEdit"
-
         TitleCharacterCasing="Normal"
         NonActiveWindowTitleBrush="Gray"
         WindowTitleBrush="Gray"
@@ -31,7 +29,17 @@
 
     <Grid>
 
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
 
+        <Label Grid.Row="0" Content="{Binding CurrentPlace.Latitude}" />
+
+        <StackPanel Grid.Row="1" Orientation="Vertical">
+            <Button Content="Go Back" Click="ButtonGoBack_OnClick" />
+            <Button Content="Go Next" Click="ButtonGoNext_OnClick" />
+        </StackPanel>
 
     </Grid>
 
