@@ -121,7 +121,7 @@ public partial class MainWindow
 
     private void Option2_Click(object sender, RoutedEventArgs e)
     {
-        var s = Nominatim.PointToNominatim(ClickPoint);
+        var s = ClickPoint.ToNominatim();
         Console.WriteLine(s);
     }
 
