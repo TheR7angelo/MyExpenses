@@ -55,6 +55,7 @@ public partial class WindowEdit
             MessageBox.Show("No results found.");
             return;
         }
+
         PropertyCopyHelper.CopyProperties(newPlace, Place);
     }
 
@@ -65,7 +66,7 @@ public partial class WindowEdit
         feature[ColumnTemp] = true;
 
         var oldFeature = WritableLayer.GetFeatures().FirstOrDefault(f => f[ColumnTemp]!.Equals(true));
-        if (oldFeature is not null)  WritableLayer.TryRemove(oldFeature);
+        if (oldFeature is not null) WritableLayer.TryRemove(oldFeature);
 
         WritableLayer.Add(feature);
         MapControl.Map.Refresh();
@@ -78,37 +79,26 @@ public partial class WindowEdit
         HandleNominatimResult(nominatimSearchResults);
     }
 
-private string CreateAddressFromPlace()
-{
-    var partAddress = new List<string>();
-    if (!string.IsNullOrEmpty(Place.Number)) partAddress.Add(Place.Number);
-    if (!string.IsNullOrEmpty(Place.Street)) partAddress.Add(Place.Street);
-    if (!string.IsNullOrEmpty(Place.Postal)) partAddress.Add(Place.Postal);
-    if (!string.IsNullOrEmpty(Place.City)) partAddress.Add(Place.City);
-    if (!string.IsNullOrEmpty(Place.Country)) partAddress.Add(Place.Country);
-    return string.Join(", ", partAddress);
-}
-
-private void HandleNominatimResult(List<NominatimSearchResult> nominatimSearchResults)
-{
-    var mapper = Mapping.Mapper;
-    switch (nominatimSearchResults.Count)
+    private void HandleNominatimResult(List<NominatimSearchResult> nominatimSearchResults)
     {
-        case 0:
-            MessageBox.Show("No results found.");
-            break;
-        case 1:
-            // TODO Update UI
-            break;
-        case > 1:
-            MessageBox.Show("Multiple results found. Please select one.");
-            nominatimSearchResults.ForEach(Console.WriteLine);
+        var mapper = Mapping.Mapper;
+        switch (nominatimSearchResults.Count)
+        {
+            case 0:
+                MessageBox.Show("No results found.");
+                break;
+            case 1:
+                // TODO Update UI
+                break;
+            case > 1:
+                MessageBox.Show("Multiple results found. Please select one.");
+                nominatimSearchResults.ForEach(Console.WriteLine);
 
-            var places = nominatimSearchResults.Select(s => mapper.Map<TPlace>(s));
-            var selectNominatimSearchResult = new WindowSelectNominatimSearchResult();
-            selectNominatimSearchResult.AddRange(places);
-            selectNominatimSearchResult.ShowDialog();
-            break;
+                var places = nominatimSearchResults.Select(s => mapper.Map<TPlace>(s));
+                var selectNominatimSearchResult = new WindowSelectNominatimSearchResult();
+                selectNominatimSearchResult.AddRange(places);
+                selectNominatimSearchResult.ShowDialog();
+                break;
+        }
     }
-}
 }
