@@ -35,14 +35,15 @@ public partial class DataBaseContext : DbContext
     {
         // const string dbPath = @"C:\Users\ZP6177\Documents\Programmation\C#\MyExpenses\MyExpenses.Sql\Database Models\Model.sqlite";
         const string dbPathPro = @"C:\Users\ZP6177\Documents\Programmation\C#\MyExpenses\MyExpenses.Sql\Database Models\Model - Using.sqlite";
-        const string dbPathPortable = @"C:\Users\Rapha\RiderProjects\MyExpenses\MyExpenses.Sql\Database Models\Model - Using.sqlite";
         const string dbPathPersonnel = @"C:\Users\Rapha\Documents\Programmation\MyExpenses\MyExpenses.Sql\Database Models\Model - Using.sqlite";
+        const string dbPathPortable = @"C:\Users\Rapha\RiderProjects\MyExpenses\MyExpenses.Sql\Database Models\Model - Using.sqlite";
 
         var username = Environment.UserName;
         var dbPath = username switch
         {
             "ZP6177" => dbPathPro,
-            _ => dbPathPersonnel
+            "Rapha" => dbPathPersonnel,
+            _ => dbPathPortable
         };
 
         var dataSource = $"Data Source={dbPath}";
