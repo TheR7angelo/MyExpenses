@@ -12,7 +12,7 @@ namespace MyExpenses.Maps.Test;
 
 public partial class WindowEdit
 {
-    public TPlace TPlace { get; } = new();
+    public TPlace Place { get; } = new();
 
     private const string ColumnTemp = "temp";
     private WritableLayer WritableLayer { get; } = new() { Style = null };
@@ -31,8 +31,8 @@ public partial class WindowEdit
 
     public void SetTplace(TPlace newTPlace)
     {
-        PropertyCopyHelper.CopyProperties(newTPlace, TPlace);
-        var feature = TPlace.ToPointFeature();
+        PropertyCopyHelper.CopyProperties(newTPlace, Place);
+        var feature = Place.ToPointFeature();
         feature.Styles = new List<IStyle> { MapStyle.RedMarkerStyle };
         feature[ColumnTemp] = false;
 
@@ -45,10 +45,12 @@ public partial class WindowEdit
     {
         var point = TPlace.Geometry;
         var nominatimSearchResult = Nominatim.PointToNominatim(point);
+        var point = Place.Geometry;
+        var nominatimSearchResult = point.PointToNominatim();
 
         var mapper = Mapping.Mapper;
         var newTPlace = mapper.Map<TPlace>(nominatimSearchResult);
-        PropertyCopyHelper.CopyProperties(newTPlace, TPlace);
+        PropertyCopyHelper.CopyProperties(newTPlace, Place);
     }
 
     private void MapControl_OnInfo(object? sender, MapInfoEventArgs e)

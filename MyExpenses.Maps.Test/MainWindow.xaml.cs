@@ -133,6 +133,6 @@ public partial class MainWindow
 
         if (windowEdit.DialogResult != true) return;
 
-        var newTPlace = windowEdit.TPlace;
+        var newTPlace = windowEdit.Place;
     }
 }
