@@ -111,7 +111,8 @@
         <Button Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="2"
                 materialDesign:ButtonAssist.CornerRadius="5"
                 Style="{StaticResource MaterialDesignPaperLightButton}"
-                Content="Search by address">
+                Content="Search by address"
+                Click="ButtonSearchByAddress_OnClick">
         </Button>
         <Button Grid.Row="8" Grid.Column="2" Grid.ColumnSpan="2"
                 materialDesign:ButtonAssist.CornerRadius="5"

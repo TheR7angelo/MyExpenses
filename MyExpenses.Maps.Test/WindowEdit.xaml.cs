@@ -44,7 +44,7 @@ public partial class WindowEdit
     private void ButtonSearchByCoordinate_OnClick(object sender, RoutedEventArgs e)
     {
         var point = Place.Geometry;
-        var nominatimSearchResult = point.PointToNominatim();
+        var nominatimSearchResult = point.ToNominatim();
 
         var mapper = Mapping.Mapper;
         var newTPlace = mapper.Map<TPlace>(nominatimSearchResult);
@@ -62,5 +62,18 @@ public partial class WindowEdit
 
         WritableLayer.Add(feature);
         MapControl.Map.Refresh();
+    }
+
+    private void ButtonSearchByAddress_OnClick(object sender, RoutedEventArgs e)
+    {
+        var partAddress = new List<string>();
+        if (!string.IsNullOrEmpty(Place.Number)) partAddress.Add(Place.Number);
+        if (!string.IsNullOrEmpty(Place.Street)) partAddress.Add(Place.Street);
+        if (!string.IsNullOrEmpty(Place.Postal)) partAddress.Add(Place.Postal);
+        if (!string.IsNullOrEmpty(Place.City)) partAddress.Add(Place.City);
+        if (!string.IsNullOrEmpty(Place.Country)) partAddress.Add(Place.Country);
+        var address = string.Join(", ", partAddress);
+
+        var results = address.ToNominatim();
     }
 }
