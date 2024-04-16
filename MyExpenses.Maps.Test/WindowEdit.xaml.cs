@@ -74,6 +74,19 @@ public partial class WindowEdit
         if (!string.IsNullOrEmpty(Place.Country)) partAddress.Add(Place.Country);
         var address = string.Join(", ", partAddress);
 
-        var results = address.ToNominatim();
+        var nominatimSearchResults = address.ToNominatim()?.ToList() ?? [];
+        switch (nominatimSearchResults.Count)
+        {
+            case 0:
+                MessageBox.Show("No results found.");
+                break;
+            case 1:
+                // TODO Update UI
+                break;
+            case >1:
+                MessageBox.Show("Multiple results found. Please select one.");
+                nominatimSearchResults.ForEach(Console.WriteLine);
+                break;
+        }
     }
 }
