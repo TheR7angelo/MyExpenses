@@ -14,13 +14,13 @@ public static class Nominatim
         HttpClient = Http.GetHttpClient("https://nominatim.openstreetmap.org");
     }
 
-    public static List<NominatimSearchResult>? AddressToNominatim(this string address)
-        => _AddressToNominatim(address).Result;
+    public static IEnumerable<NominatimSearchResult>? ToNominatim(this string address)
+        => _ToNominatim(address).Result;
 
-    public static NominatimSearchResult? PointToNominatim(this Point position)
-        => _PositionToNominatim(position).Result;
+    public static NominatimSearchResult? ToNominatim(this Point position)
+        => _ToNominatim(position).Result;
 
-    private static async Task<List<NominatimSearchResult>?> _AddressToNominatim(string address)
+    private static async Task<List<NominatimSearchResult>?> _ToNominatim(string address)
     {
         try
         {
@@ -37,7 +37,7 @@ public static class Nominatim
         }
     }
 
-    private static async Task<NominatimSearchResult?> _PositionToNominatim(Point position)
+    private static async Task<NominatimSearchResult?> _ToNominatim(Point position)
     {
         try
         {
