@@ -1,6 +1,9 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
+using Mapsui.Layers;
+using Mapsui.Styles;
+using MyExpenses.Maps.Test.Utils;
 using MyExpenses.Models.Sql.Tables;
 
 namespace MyExpenses.Maps.Test.SelectNominatimSearchResult;
@@ -29,20 +32,26 @@ public partial class WindowSelectNominatimSearchResult : INotifyPropertyChanged
     private int Index { get; set; }
     private int Total { get; set; }
 
+    private WritableLayer WritableLayer { get; } = new() { Style = null };
+
     public WindowSelectNominatimSearchResult()
     {
+        var map = MapStyle.GetMap(false);
+        map.Layers.Add(Mapsui.Tiling.OpenStreetMap.CreateTileLayer());
+        map.Layers.Add(WritableLayer);
+
         InitializeComponent();
+
+        MapControl.Map = map;
     }
 
     public void AddRange(IEnumerable<TPlace> places)
     {
         Places.AddRange(places);
-        CurrentPlace = Places.First();
-
         Index = 1;
         Total = Places.Count;
 
-        UpdateTitle();
+        UpdateCurrentPlace();
     }
 
     private void UpdateCurrentPlace()
@@ -51,7 +60,18 @@ public partial class WindowSelectNominatimSearchResult : INotifyPropertyChanged
         if (Index.Equals(Total + 1)) Index = 1;
 
         CurrentPlace = Places[Index-1];
+        UpdatePointFeature();
         UpdateTitle();
+    }
+
+    private void UpdatePointFeature()
+    {
+        var feature = CurrentPlace.ToPointFeature();
+        feature.Styles = new List<IStyle> { MapStyle.RedMarkerStyle };
+        WritableLayer.Clear();
+        WritableLayer.Add(feature);
+        MapControl.Map.Home = n => { n.CenterOnAndZoomTo(feature.Point, 1); };
+        MapControl.Refresh();
     }
 
     private void UpdateTitle()
