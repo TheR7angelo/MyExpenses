@@ -71,6 +71,8 @@ public partial class WindowSelectNominatimSearchResult : INotifyPropertyChanged
         WritableLayer.Clear();
         WritableLayer.Add(feature);
         MapControl.Map.Home = n => { n.CenterOnAndZoomTo(feature.Point, 1); };
+        MapControl.Map.Navigator.CenterOn(feature.Point);
+        MapControl.Map.Navigator.ZoomTo(1);
         MapControl.Refresh();
     }
 
