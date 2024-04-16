@@ -101,6 +101,7 @@
                     VerticalAlignment="Center"
                     HorizontalAlignment="Center"
                     utils:PanelExtensions.MarginForAllChildren="5">
+
             <Button materialDesign:ButtonAssist.CornerRadius="5"
                     Style="{StaticResource MaterialDesignPaperButton}"
                     Content="Valid new point"
