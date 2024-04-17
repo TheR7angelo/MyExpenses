@@ -126,7 +126,8 @@ public partial class WindowEdit
 
     private void ButtonCancel_OnClick(object sender, RoutedEventArgs e)
     {
-        // TODO cancel action
+        DialogResult = false;
+        Close();
     }
 
     private void ButtonValid_OnClick(object sender, RoutedEventArgs e)
