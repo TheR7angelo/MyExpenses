@@ -94,18 +94,18 @@ public partial class MainWindow
 
         if (feature is null || layer is null)
         {
-            EditFeature.Visibility = Visibility.Collapsed;
-            ClickTPlace = null;
-            return;
-        }
-        if (layer.Tag is not Type type)
-        {
-            EditFeature.Visibility = Visibility.Collapsed;
+            MenuItemAddFeature.Visibility = Visibility.Visible;
+            MenuItemEditFeature.Visibility = Visibility.Collapsed;
+            MenuItemDeleteFeature.Visibility = Visibility.Collapsed;
             ClickTPlace = null;
             return;
         }
 
-        EditFeature.Visibility = Visibility.Visible;
+        MenuItemAddFeature.Visibility = Visibility.Collapsed;
+        MenuItemEditFeature.Visibility = Visibility.Visible;
+        MenuItemDeleteFeature.Visibility = Visibility.Visible;
+
+        var type = (Type)layer.Tag!;
         if (type != typeof(TPlace)) return;
 
         PointFeature = feature;
@@ -125,7 +125,12 @@ public partial class MainWindow
         Console.WriteLine(s);
     }
 
-    private void Option3_OnClick(object sender, RoutedEventArgs e)
+    private void MenuItemAddFeature_OnClick(object sender, RoutedEventArgs e)
+    {
+        // TODO add feature
+    }
+
+    private void MenuItemEditFeature_OnClick(object sender, RoutedEventArgs e)
     {
         var windowEdit = new WindowEdit();
         windowEdit.SetTplace(ClickTPlace!);
@@ -134,5 +139,10 @@ public partial class MainWindow
         if (windowEdit.DialogResult != true) return;
 
         var newTPlace = windowEdit.Place;
+    }
+
+    private void MenuItemDeleteFeature_OnClick(object sender, RoutedEventArgs e)
+    {
+        // TODO delete feature
     }
 }
