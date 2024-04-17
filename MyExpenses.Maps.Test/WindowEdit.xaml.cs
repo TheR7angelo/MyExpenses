@@ -14,10 +14,14 @@ namespace MyExpenses.Maps.Test;
 
 public partial class WindowEdit
 {
+    #region Properties
+
     public TPlace Place { get; } = new();
 
     private const string ColumnTemp = "temp";
     private WritableLayer WritableLayer { get; } = new() { Style = null };
+
+    #endregion
 
     public WindowEdit()
     {
@@ -29,6 +33,8 @@ public partial class WindowEdit
 
         MapControl.Map = map;
     }
+
+    #region Function
 
     public void SetTplace(TPlace newTPlace, bool clear = false)
     {
@@ -45,35 +51,6 @@ public partial class WindowEdit
         MapControl.Map.Navigator.CenterOn(feature.Point);
         MapControl.Map.Navigator.ZoomTo(1);
         MapControl.Refresh();
-    }
-
-    private void ButtonSearchByCoordinate_OnClick(object sender, RoutedEventArgs e)
-    {
-        var point = Place.Geometry;
-        var nominatimSearchResult = point.ToNominatim();
-
-        var mapper = Mapping.Mapper;
-        var newPlace = mapper.Map<TPlace>(nominatimSearchResult);
-        if (newPlace is null)
-        {
-            MessageBox.Show("No results found.");
-            return;
-        }
-
-        PropertyCopyHelper.CopyProperties(newPlace, Place);
-    }
-
-    private void MapControl_OnInfo(object? sender, MapInfoEventArgs e)
-    {
-        var worldPosition = e.MapInfo!.WorldPosition!;
-        var feature = new PointFeature(worldPosition) { Styles = new List<IStyle> { MapStyle.GreenMarkerStyle } };
-        feature[ColumnTemp] = true;
-
-        var oldFeature = WritableLayer.GetFeatures().FirstOrDefault(f => f[ColumnTemp]!.Equals(true));
-        if (oldFeature is not null) WritableLayer.TryRemove(oldFeature);
-
-        WritableLayer.Add(feature);
-        MapControl.Map.Refresh();
     }
 
     private void ButtonSearchByAddress_OnClick(object sender, RoutedEventArgs e)
@@ -116,6 +93,39 @@ public partial class WindowEdit
         SetTplace(place, true);
     }
 
+    #endregion
+
+    #region Action
+
+    private void ButtonSearchByCoordinate_OnClick(object sender, RoutedEventArgs e)
+    {
+        var point = Place.Geometry;
+        var nominatimSearchResult = point.ToNominatim();
+
+        var mapper = Mapping.Mapper;
+        var newPlace = mapper.Map<TPlace>(nominatimSearchResult);
+        if (newPlace is null)
+        {
+            MessageBox.Show("No results found.");
+            return;
+        }
+
+        PropertyCopyHelper.CopyProperties(newPlace, Place);
+    }
+
+    private void MapControl_OnInfo(object? sender, MapInfoEventArgs e)
+    {
+        var worldPosition = e.MapInfo!.WorldPosition!;
+        var feature = new PointFeature(worldPosition) { Styles = new List<IStyle> { MapStyle.GreenMarkerStyle } };
+        feature[ColumnTemp] = true;
+
+        var oldFeature = WritableLayer.GetFeatures().FirstOrDefault(f => f[ColumnTemp]!.Equals(true));
+        if (oldFeature is not null) WritableLayer.TryRemove(oldFeature);
+
+        WritableLayer.Add(feature);
+        MapControl.Map.Refresh();
+    }
+
     private void ButtonValidPoint_OnClick(object sender, RoutedEventArgs e)
     {
         // TODO Valid new point
@@ -135,4 +145,6 @@ public partial class WindowEdit
     {
         // TODO valid action
     }
+
+    #endregion
 }
