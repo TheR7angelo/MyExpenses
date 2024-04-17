@@ -105,7 +105,7 @@
             <Button materialDesign:ButtonAssist.CornerRadius="5"
                     Style="{StaticResource MaterialDesignPaperButton}"
                     Content="Valid new point"
-                    Click="ButtonValidPoint_OnClick">
+                    Click="ButtonValidNewPoint_OnClick">
             </Button>
 
             <Button materialDesign:ButtonAssist.CornerRadius="5"
@@ -162,7 +162,7 @@
                     materialDesign:ButtonAssist.CornerRadius="5"
                     Style="{StaticResource MaterialDesignPaperButton}"
                     Content="Valid"
-                    Click="ButtonBase_OnClick">
+                    Click="ButtonValid_OnClick">
             </Button>
 
         </Grid>

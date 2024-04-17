@@ -16,9 +16,8 @@ public partial class WindowEdit
 {
     #region Properties
 
-    public TPlace Place { get; } = new();
-
     private const string ColumnTemp = "temp";
+    public TPlace Place { get; } = new();
     private WritableLayer WritableLayer { get; } = new() { Style = null };
 
     #endregion
@@ -35,30 +34,6 @@ public partial class WindowEdit
     }
 
     #region Function
-
-    public void SetTplace(TPlace newTPlace, bool clear = false)
-    {
-        if (clear) WritableLayer.Clear();
-
-        PropertyCopyHelper.CopyProperties(newTPlace, Place);
-        var feature = Place.ToPointFeature();
-        feature.Styles = new List<IStyle> { MapStyle.RedMarkerStyle };
-        feature[ColumnTemp] = false;
-
-        WritableLayer.Add(feature);
-
-        MapControl.Map.Home = n => { n.CenterOnAndZoomTo(feature.Point, 1); };
-        MapControl.Map.Navigator.CenterOn(feature.Point);
-        MapControl.Map.Navigator.ZoomTo(1);
-        MapControl.Refresh();
-    }
-
-    private void ButtonSearchByAddress_OnClick(object sender, RoutedEventArgs e)
-    {
-        var address = Place.ToString();
-        var nominatimSearchResults = address.ToNominatim()?.ToList() ?? [];
-        HandleNominatimResult(nominatimSearchResults);
-    }
 
     private void HandleNominatimResult(List<NominatimSearchResult> nominatimSearchResults)
     {
@@ -93,9 +68,35 @@ public partial class WindowEdit
         SetTplace(place, true);
     }
 
+    public void SetTplace(TPlace newTPlace, bool clear = false)
+    {
+        if (clear) WritableLayer.Clear();
+
+        PropertyCopyHelper.CopyProperties(newTPlace, Place);
+        var feature = Place.ToPointFeature();
+        feature.Styles = new List<IStyle> { MapStyle.RedMarkerStyle };
+        feature[ColumnTemp] = false;
+
+        WritableLayer.Add(feature);
+
+        MapControl.Map.Home = n => { n.CenterOnAndZoomTo(feature.Point, 1); };
+        MapControl.Map.Navigator.CenterOn(feature.Point);
+        MapControl.Map.Navigator.ZoomTo(1);
+        MapControl.Refresh();
+    }
+
     #endregion
 
     #region Action
+
+    #region Button
+
+    private void ButtonSearchByAddress_OnClick(object sender, RoutedEventArgs e)
+    {
+        var address = Place.ToString();
+        var nominatimSearchResults = address.ToNominatim()?.ToList() ?? [];
+        HandleNominatimResult(nominatimSearchResults);
+    }
 
     private void ButtonSearchByCoordinate_OnClick(object sender, RoutedEventArgs e)
     {
@@ -113,20 +114,7 @@ public partial class WindowEdit
         PropertyCopyHelper.CopyProperties(newPlace, Place);
     }
 
-    private void MapControl_OnInfo(object? sender, MapInfoEventArgs e)
-    {
-        var worldPosition = e.MapInfo!.WorldPosition!;
-        var feature = new PointFeature(worldPosition) { Styles = new List<IStyle> { MapStyle.GreenMarkerStyle } };
-        feature[ColumnTemp] = true;
-
-        var oldFeature = WritableLayer.GetFeatures().FirstOrDefault(f => f[ColumnTemp]!.Equals(true));
-        if (oldFeature is not null) WritableLayer.TryRemove(oldFeature);
-
-        WritableLayer.Add(feature);
-        MapControl.Map.Refresh();
-    }
-
-    private void ButtonValidPoint_OnClick(object sender, RoutedEventArgs e)
+    private void ButtonValidNewPoint_OnClick(object sender, RoutedEventArgs e)
     {
         // TODO Valid new point
     }
@@ -141,9 +129,24 @@ public partial class WindowEdit
         // TODO cancel action
     }
 
-    private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
+    private void ButtonValid_OnClick(object sender, RoutedEventArgs e)
     {
         // TODO valid action
+    }
+
+    #endregion
+
+    private void MapControl_OnInfo(object? sender, MapInfoEventArgs e)
+    {
+        var worldPosition = e.MapInfo!.WorldPosition!;
+        var feature = new PointFeature(worldPosition) { Styles = new List<IStyle> { MapStyle.GreenMarkerStyle } };
+        feature[ColumnTemp] = true;
+
+        var oldFeature = WritableLayer.GetFeatures().FirstOrDefault(f => f[ColumnTemp]!.Equals(true));
+        if (oldFeature is not null) WritableLayer.TryRemove(oldFeature);
+
+        WritableLayer.Add(feature);
+        MapControl.Map.Refresh();
     }
 
     #endregion
