@@ -85,6 +85,12 @@ public partial class WindowEdit
         MapControl.Refresh();
     }
 
+    private void ZoomToMPoint(MPoint mPoint)
+    {
+        MapControl.Map.Navigator.CenterOn(mPoint);
+        MapControl.Map.Navigator.ZoomTo(1);
+    }
+
     #endregion
 
     #region Action
@@ -116,7 +122,20 @@ public partial class WindowEdit
 
     private void ButtonValidNewPoint_OnClick(object sender, RoutedEventArgs e)
     {
-        // TODO Valid new point
+        var pointsFeatures = WritableLayer.GetFeatures().Select(s => (PointFeature)s).ToList();
+        if (pointsFeatures.Count < 2) return;
+
+        var newFeature = pointsFeatures.FirstOrDefault(f => f[ColumnTemp]!.Equals(true))!;
+        foreach (var pointFeature in pointsFeatures)
+        {
+            WritableLayer.TryRemove(pointFeature);
+        }
+
+        newFeature[ColumnTemp] = false;
+        newFeature.Styles = new List<IStyle> { MapStyle.RedMarkerStyle };
+        WritableLayer.Add(newFeature);
+
+        ZoomToMPoint(newFeature.Point);
     }
 
     private void ButtonZoomToPoint_OnClick(object sender, RoutedEventArgs e)
@@ -140,11 +159,7 @@ public partial class WindowEdit
 
             MapControl.Map.Navigator.ZoomToBox(mRect);
         }
-        else
-        {
-            MapControl.Map.Navigator.CenterOn(points[0]);
-            MapControl.Map.Navigator.ZoomTo(1);
-        }
+        else ZoomToMPoint(points[0]);
     }
 
     private void ButtonCancel_OnClick(object sender, RoutedEventArgs e)
