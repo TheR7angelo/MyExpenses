@@ -121,7 +121,30 @@ public partial class WindowEdit
 
     private void ButtonZoomToPoint_OnClick(object sender, RoutedEventArgs e)
     {
-        // TODO Zoom to point
+        var pointsFeatures = WritableLayer.GetFeatures();
+        var points = pointsFeatures.Select(s => ((PointFeature)s).Point).ToList();
+
+        if (points.Count > 1)
+        {
+            double minX = points.Min(p => p.X), maxX = points.Max(p => p.X);
+            double minY = points.Min(p => p.Y), maxY = points.Max(p => p.Y);
+
+            var width = maxX - minX;
+            var height = maxY - minY;
+
+            const double marginPercentage = 10; // Change this value to suit your needs
+            var marginX = width * marginPercentage / 100;
+            var marginY = height * marginPercentage / 100;
+
+            var mRect = new MRect(minX - marginX, minY - marginY, maxX + marginX, maxY + marginY);
+
+            MapControl.Map.Navigator.ZoomToBox(mRect);
+        }
+        else
+        {
+            MapControl.Map.Navigator.CenterOn(points[0]);
+            MapControl.Map.Navigator.ZoomTo(1);
+        }
     }
 
     private void ButtonCancel_OnClick(object sender, RoutedEventArgs e)
