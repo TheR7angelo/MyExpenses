@@ -70,7 +70,6 @@ public partial class MainWindow
     private NetTopologySuite.Geometries.Point ClickPoint { get; set; } = NetTopologySuite.Geometries.Point.Empty;
 
     private PointFeature? PointFeature { get; set; }
-    private MapInfo? MapInfo { get; set; }
 
     private void MapControl_OnContextMenuOpening(object sender, ContextMenuEventArgs e)
     {
@@ -87,7 +86,6 @@ public partial class MainWindow
 
     private void SetClickTPlace(MapInfo mapInfo)
     {
-        MapInfo = mapInfo;
         var feature = mapInfo.Feature as PointFeature;
         var layer = mapInfo.Layer;
 
