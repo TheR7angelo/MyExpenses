@@ -4,6 +4,7 @@ using System.Windows;
 using Mapsui.Layers;
 using Mapsui.Styles;
 using MyExpenses.Maps.Test.Utils;
+using MyExpenses.Models.AutoMapper;
 using MyExpenses.Models.Sql.Tables;
 
 namespace MyExpenses.Maps.Test.SelectNominatimSearchResult;
@@ -66,7 +67,8 @@ public partial class WindowSelectNominatimSearchResult : INotifyPropertyChanged
 
     private void UpdatePointFeature()
     {
-        var feature = CurrentPlace.ToPointFeature();
+        var mapper = Mapping.Mapper;
+        var feature = mapper.Map<PointFeature>(CurrentPlace);
         feature.Styles = new List<IStyle> { MapStyle.RedMarkerStyle };
         WritableLayer.Clear();
         WritableLayer.Add(feature);

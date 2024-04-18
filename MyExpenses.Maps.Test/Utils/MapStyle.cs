@@ -27,23 +27,6 @@ public static class MapStyle
     private static Offset Offset => new() { IsRelative = false, X = 0, Y = 1000 };
     private static double Scale => 0.02;
 
-    public static PointFeature ToPointFeature(this TPlace place)
-    {
-        var point = SphericalMercator.FromLonLat(place.Longitude ?? 0, place.Latitude ?? 0);
-        var feature = new PointFeature(point.x, point.y);
-
-        var properties = typeof(TPlace).GetProperties();
-        foreach (var property in properties)
-        {
-            var columnName = property.GetCustomAttribute<ColumnAttribute>()?.Name;
-            if (string.IsNullOrEmpty(columnName)) continue;
-
-            feature[columnName] = property.GetValue(place);
-        }
-
-        return feature;
-    }
-
     public static Map GetMap(bool widget)
     {
         var map = new Map { CRS = "EPSG:3857", BackColor = Color.Black };

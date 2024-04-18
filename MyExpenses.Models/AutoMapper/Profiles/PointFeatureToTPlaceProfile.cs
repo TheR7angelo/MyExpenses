@@ -1,5 +1,8 @@
-﻿using AutoMapper;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.Reflection;
+using AutoMapper;
 using Mapsui.Layers;
+using Mapsui.Projections;
 using MyExpenses.Models.Sql.Tables;
 
 namespace MyExpenses.Models.AutoMapper.Profiles;
@@ -8,17 +11,52 @@ public class PointFeatureToTPlaceProfile : Profile
 {
     public PointFeatureToTPlaceProfile()
     {
-        CreateMap<PointFeature, TPlace>()
-            .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src["id"]))
-            .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src["name"]))
-            .ForMember(dest => dest.Number, opt => opt.MapFrom(src => src["number"]))
-            .ForMember(dest => dest.Street, opt => opt.MapFrom(src => src["street"]))
-            .ForMember(dest => dest.Postal, opt => opt.MapFrom(src => src["postal"]))
-            .ForMember(dest => dest.City, opt => opt.MapFrom(src => src["city"]))
-            .ForMember(dest => dest.Country, opt => opt.MapFrom(src => src["country"]))
-            .ForMember(dest => dest.Latitude, opt => opt.MapFrom(src => src["latitude"]))
-            .ForMember(dest => dest.Longitude, opt => opt.MapFrom(src => src["longitude"]))
-            .ForMember(dest => dest.DateAdded, opt => opt.MapFrom(src => src["date_added"]))
-            .ReverseMap();
+        CreateMap<TPlace, PointFeature>().ConvertUsing(PlaceToPointFeature);
+        CreateMap<PointFeature, TPlace>().ConvertUsing(PointFeatureToTPlace);
+    }
+
+    private static TPlace PointFeatureToTPlace(PointFeature feature, TPlace tPlace)
+    {
+        var place = new TPlace();
+        var properties = typeof(TPlace).GetProperties();
+        foreach (var entry in feature.Fields)
+        {
+            var property = properties.FirstOrDefault(s => s.GetCustomAttribute<ColumnAttribute>()?.Name == entry);
+            if (property is null) continue;
+            var value = feature[entry];
+            if ((value is string str && !string.IsNullOrEmpty(str)) || value is not null)
+            {
+                try
+                {
+                    value = Convert.ChangeType(value,
+                        Nullable.GetUnderlyingType(property.PropertyType) ?? property.PropertyType);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+            }
+
+            property.SetValue(place, value);
+        }
+
+        return place;
+    }
+
+    private static PointFeature PlaceToPointFeature(TPlace place, PointFeature pointFeature)
+    {
+        var point = SphericalMercator.FromLonLat(place.Longitude ?? 0, place.Latitude ?? 0);
+        var feature = new PointFeature(new PointFeature(point.x, point.y));
+
+        var properties = typeof(TPlace).GetProperties();
+        foreach (var property in properties)
+        {
+            var columnName = property.GetCustomAttribute<ColumnAttribute>()?.Name;
+            if (string.IsNullOrEmpty(columnName)) continue;
+
+            feature[columnName] = property.GetValue(place);
+        }
+
+        return feature;
     }
 }

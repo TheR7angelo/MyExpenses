@@ -33,9 +33,10 @@ public partial class MainWindow
             .ToList();
 
         var features = new List<IFeature>();
+        var mapper = Mapping.Mapper;
         foreach (var place in places)
         {
-            var feature = place.ToPointFeature();
+            var feature = mapper.Map<PointFeature>(place);
 
             feature.Styles = new List<IStyle>
             {
@@ -140,8 +141,23 @@ public partial class MainWindow
         var success = newPlace.AddOrEditPlace();
         if (success)
         {
+            var mapper = Mapping.Mapper;
+            var feature = mapper.Map<PointFeature>(newPlace);
+            feature.Styles = new List<IStyle>
+            {
+                MapStyle.RedMarkerStyle,
+                new LabelStyle
+                {
+                    Text = newPlace.Name, Offset = new Offset { X = 0, Y = 11 },
+                    Font = new Font { FontFamily = "Arial", Size = 12 },
+                    Halo = new Pen { Color = Color.White, Width = 2 }
+                }
+            };
+
+            WritableLayer.TryRemove(PointFeature!);
+            WritableLayer.Add(feature);
+
             MessageBox.Show("Operation successful", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-            // TODO refresh feature updated
         }
         else MessageBox.Show("Operation failed", "Failure", MessageBoxButton.OK, MessageBoxImage.Error);
     }

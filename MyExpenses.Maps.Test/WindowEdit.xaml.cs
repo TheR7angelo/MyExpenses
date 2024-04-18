@@ -73,7 +73,8 @@ public partial class WindowEdit
         if (clear) WritableLayer.Clear();
 
         PropertyCopyHelper.CopyProperties(newTPlace, Place);
-        var feature = Place.ToPointFeature();
+        var mapper = Mapping.Mapper;
+        var feature = mapper.Map<PointFeature>(Place);
         feature.Styles = new List<IStyle> { MapStyle.RedMarkerStyle };
         feature[ColumnTemp] = false;
 
