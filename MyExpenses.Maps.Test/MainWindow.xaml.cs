@@ -136,7 +136,14 @@ public partial class MainWindow
 
         if (windowEdit.DialogResult != true) return;
 
-        var newTPlace = windowEdit.Place;
+        var newPlace = windowEdit.Place;
+        var success = newPlace.AddOrEditPlace();
+        if (success)
+        {
+            MessageBox.Show("Operation successful", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            // TODO refresh feature updated
+        }
+        else MessageBox.Show("Operation failed", "Failure", MessageBoxButton.OK, MessageBoxImage.Error);
     }
 
     private void MenuItemDeleteFeature_OnClick(object sender, RoutedEventArgs e)
