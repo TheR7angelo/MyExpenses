@@ -122,20 +122,8 @@ public partial class MainWindow
         Console.WriteLine(s);
     }
 
-    private void MenuItemAddFeature_OnClick(object sender, RoutedEventArgs e)
+    private void ProcessNewPlace(TPlace newPlace)
     {
-        // TODO add feature
-    }
-
-    private void MenuItemEditFeature_OnClick(object sender, RoutedEventArgs e)
-    {
-        var windowEdit = new WindowEdit();
-        windowEdit.SetTplace(ClickTPlace!);
-        windowEdit.ShowDialog();
-
-        if (windowEdit.DialogResult != true) return;
-
-        var newPlace = windowEdit.Place;
         var success = newPlace.AddOrEditPlace();
         if (success)
         {
@@ -159,6 +147,28 @@ public partial class MainWindow
             MessageBox.Show("Operation successful", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
         }
         else MessageBox.Show("Operation failed", "Failure", MessageBoxButton.OK, MessageBoxImage.Error);
+    }
+
+    private void MenuItemAddFeature_OnClick(object sender, RoutedEventArgs e)
+    {
+        var windowEdit = new WindowEdit();
+        windowEdit.SetTplace(ClickPoint);
+        windowEdit.ShowDialog();
+
+        if (windowEdit.DialogResult != true) return;
+
+        ProcessNewPlace(windowEdit.Place);
+    }
+
+    private void MenuItemEditFeature_OnClick(object sender, RoutedEventArgs e)
+    {
+        var windowEdit = new WindowEdit();
+        windowEdit.SetTplace(ClickTPlace!);
+        windowEdit.ShowDialog();
+
+        if (windowEdit.DialogResult != true) return;
+
+        ProcessNewPlace(windowEdit.Place);
     }
 
     private void MenuItemDeleteFeature_OnClick(object sender, RoutedEventArgs e)
