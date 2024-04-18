@@ -173,6 +173,28 @@ public partial class MainWindow
 
     private void MenuItemDeleteFeature_OnClick(object sender, RoutedEventArgs e)
     {
-        // TODO delete feature
+        var feature = PointFeature;
+        if (feature is null) return;
+
+        try
+        {
+            WritableLayer.TryRemove(feature);
+
+            var mapper = Mapping.Mapper;
+            var placeToDelete = mapper.Map<TPlace>(feature);
+
+            using var context = new DataBaseContext();
+            context.TPlaces.Remove(placeToDelete);
+            context.SaveChanges();
+
+            MapControl.Refresh();
+
+            MessageBox.Show("Operation successful", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+        catch (Exception exception)
+        {
+            Console.WriteLine(exception);
+            MessageBox.Show("Operation failed", "Failure", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
     }
 }
