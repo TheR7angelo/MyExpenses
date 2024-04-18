@@ -37,7 +37,7 @@ public partial class WindowEdit
 
     #region Function
 
-    private void HandleNominatimResult(List<NominatimSearchResult> nominatimSearchResults)
+    private void HandleNominatimResult(IReadOnlyCollection<NominatimSearchResult> nominatimSearchResults)
     {
         TPlace? place = null;
 
