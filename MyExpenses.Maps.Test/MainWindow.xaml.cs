@@ -156,6 +156,7 @@ public partial class MainWindow
 
             WritableLayer.TryRemove(PointFeature!);
             WritableLayer.Add(feature);
+            MapControl.Refresh();
 
             MessageBox.Show("Operation successful", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
         }
