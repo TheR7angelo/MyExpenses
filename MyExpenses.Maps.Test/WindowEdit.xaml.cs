@@ -75,6 +75,17 @@ public partial class WindowEdit
         if (clear) WritableLayer.Clear();
 
         PropertyCopyHelper.CopyProperties(newTPlace, Place);
+        UpdateMiniMap();
+    }
+
+    public void SetTplace(Point point)
+    {
+        Place.Geometry = point;
+        UpdateMiniMap();
+    }
+
+    private void UpdateMiniMap()
+    {
         var mapper = Mapping.Mapper;
         var feature = mapper.Map<PointFeature>(Place);
         feature.Styles = new List<IStyle> { MapStyle.RedMarkerStyle };
