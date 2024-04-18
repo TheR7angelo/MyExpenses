@@ -170,7 +170,8 @@ public partial class WindowEdit
 
     private void ButtonValid_OnClick(object sender, RoutedEventArgs e)
     {
-        // TODO valid action
+        DialogResult = true;
+        Close();
     }
 
     #endregion
