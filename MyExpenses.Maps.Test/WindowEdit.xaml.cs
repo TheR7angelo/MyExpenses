@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using Mapsui;
 using Mapsui.Layers;
+using Mapsui.Projections;
 using Mapsui.Styles;
 using MyExpenses.Maps.Test.SelectNominatimSearchResult;
 using MyExpenses.Maps.Test.Utils;
@@ -9,6 +10,7 @@ using MyExpenses.Models.Sql.Tables;
 using MyExpenses.Models.WebApi.Nominatim;
 using MyExpenses.Utils;
 using MyExpenses.WebApi.Nominatim;
+using Point = NetTopologySuite.Geometries.Point;
 
 namespace MyExpenses.Maps.Test;
 
@@ -131,6 +133,9 @@ public partial class WindowEdit
         {
             WritableLayer.TryRemove(pointFeature);
         }
+
+        var coordinate = SphericalMercator.ToLonLat(newFeature.Point);
+        Place.Geometry = new Point(coordinate.Y, coordinate.X);
 
         newFeature[ColumnTemp] = false;
         newFeature.Styles = new List<IStyle> { MapStyle.RedMarkerStyle };
