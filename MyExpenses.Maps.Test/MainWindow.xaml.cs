@@ -58,6 +58,8 @@ public partial class MainWindow
         WritableLayer.Style = null;
 
         MapControl.Map.Layers.Add(WritableLayer);
+
+        context.Dispose();
     }
 
     private void MapControl_OnInfo(object? sender, MapInfoEventArgs e)
