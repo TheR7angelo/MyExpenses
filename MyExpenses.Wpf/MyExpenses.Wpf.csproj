@@ -14,4 +14,9 @@
       <PackageReference Include="MaterialDesignThemes.MahApps" Version="1.0.0" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\MyExpenses.Models\MyExpenses.Models.csproj" />
+      <ProjectReference Include="..\MyExpenses.Sql\MyExpenses.Sql.csproj" />
+    </ItemGroup>
+
 </Project>

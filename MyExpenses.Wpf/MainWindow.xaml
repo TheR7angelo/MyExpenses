@@ -46,6 +46,18 @@
             <Label Content="Mon texte" VerticalAlignment="Center" HorizontalAlignment="Center"/>
         </Grid>
 
+        <TabControl Grid.Row="1" Grid.Column="0">
+
+            <TabItem Header="Day" HorizontalAlignment="Center">
+                <DataGrid ItemsSource="{Binding DayHistories, Mode=OneWay}">
+                    <DataGrid.Columns>
+
+                    </DataGrid.Columns>
+                </DataGrid>
+            </TabItem>
+
+        </TabControl>
+
     </Grid>
 
 </mah:MetroWindow>
