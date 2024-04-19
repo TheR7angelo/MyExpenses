@@ -31,6 +31,7 @@ public partial class MainWindow
         var places = context.TPlaces
             .Where(s => s.Latitude != null && s.Latitude != 0 && s.Longitude != null && s.Longitude != 0)
             .ToList();
+        context.Dispose();
 
         var features = new List<IFeature>();
         var mapper = Mapping.Mapper;
