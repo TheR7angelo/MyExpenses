@@ -49,9 +49,15 @@
         <TabControl Grid.Row="1" Grid.Column="0">
 
             <TabItem Header="Day" HorizontalAlignment="Center">
-                <DataGrid IsReadOnly="True" ItemsSource="{Binding DayHistories, Mode=OneWay}" AutoGenerateColumns="True">
+                <DataGrid IsReadOnly="True" ItemsSource="{Binding DayHistories, Mode=OneWay}" AutoGenerateColumns="False">
                     <DataGrid.Columns>
-
+                        <DataGridTextColumn Header="Account" Binding="{Binding Account}" />
+                        <DataGridTextColumn Header="Description" Binding="{Binding Description}" />
+                        <DataGridTextColumn Header="Category" Binding="{Binding Category}" />
+                        <DataGridTextColumn Header="Mode payment" Binding="{Binding ModePayment}" />
+                        <DataGridTextColumn Header="Value" Binding="{Binding Value}" />
+                        <DataGridTextColumn Header="Date" Binding="{Binding Date, StringFormat={}{0:dd/MM/yyyy HH:mm:ss}}" />
+                        <DataGridCheckBoxColumn Header="Pointed" IsThreeState="True" Binding="{Binding Pointed}" />
                     </DataGrid.Columns>
                 </DataGrid>
             </TabItem>
