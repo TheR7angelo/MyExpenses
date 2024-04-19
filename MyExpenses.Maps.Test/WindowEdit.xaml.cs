@@ -131,6 +131,7 @@ public partial class WindowEdit
             return;
         }
 
+        newPlace.Id = Place.Id;
         SetTplace(newPlace, true);
     }
 
