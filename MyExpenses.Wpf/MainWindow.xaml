@@ -37,13 +37,13 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
         <Grid Grid.Row="0" Grid.Column="0">
             <Ellipse Height="255" Width="255" Stroke="{DynamicResource MaterialDesignBody}" StrokeThickness="3" />
-            <Label Content="Mon texte" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            <Label Content="Mon texte" VerticalAlignment="Center" HorizontalAlignment="Center" />
         </Grid>
 
         <TabControl Grid.Row="1" Grid.Column="0">
