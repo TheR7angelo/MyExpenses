@@ -52,15 +52,41 @@ public partial class MainWindow
             features.Add(feature);
         }
 
-        // TODO after set point merge point to polygon then zoom to it
-
         WritableLayer = new WritableLayer { IsMapInfoLayer = true, Tag = typeof(TPlace) };
         WritableLayer.AddRange(features);
         WritableLayer.Style = null;
 
         MapControl.Map.Layers.Add(WritableLayer);
 
-        context.Dispose();
+        var points = features.Select(s => ((PointFeature)s).Point).ToList();
+
+        switch (points.Count)
+        {
+            case 0:
+                break;
+            case 1:
+                MapControl.Map.Home = navigator =>
+                {
+                    navigator.CenterOn(points[0]);
+                    navigator.ZoomTo(1);
+                };
+                break;
+            case > 1:
+                double minX = points.Min(p => p.X), maxX = points.Max(p => p.X);
+                double minY = points.Min(p => p.Y), maxY = points.Max(p => p.Y);
+
+                var width = maxX - minX;
+                var height = maxY - minY;
+
+                const double marginPercentage = 10; // Change this value to suit your needs
+                var marginX = width * marginPercentage / 100;
+                var marginY = height * marginPercentage / 100;
+
+                var mRect = new MRect(minX - marginX, minY - marginY, maxX + marginX, maxY + marginY);
+
+                MapControl.Map.Home = navigator => {navigator.ZoomToBox(mRect);  };
+                break;
+        }
     }
 
     private void MapControl_OnInfo(object? sender, MapInfoEventArgs e)
