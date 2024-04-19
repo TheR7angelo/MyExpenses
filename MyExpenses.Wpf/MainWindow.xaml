@@ -49,7 +49,7 @@
         <TabControl Grid.Row="1" Grid.Column="0">
 
             <TabItem Header="Day" HorizontalAlignment="Center">
-                <DataGrid ItemsSource="{Binding DayHistories, Mode=OneWay}">
+                <DataGrid IsReadOnly="True" ItemsSource="{Binding DayHistories, Mode=OneWay}" AutoGenerateColumns="True">
                     <DataGrid.Columns>
 
                     </DataGrid.Columns>
