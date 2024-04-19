@@ -27,7 +27,8 @@
                  ResizeMode="CanResizeWithGrip"
 
                  Background="{DynamicResource MaterialDesignPaper}"
-                 TextElement.Foreground="{DynamicResource MaterialDesignBody}">
+                 TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+                 DataContext="{Binding RelativeSource={RelativeSource Self}}">
 
     <Grid ShowGridLines="True">
 
