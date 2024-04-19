@@ -165,7 +165,7 @@ public partial class MainWindow
     private void MenuItemEditFeature_OnClick(object sender, RoutedEventArgs e)
     {
         var windowEdit = new WindowEdit();
-        windowEdit.SetTplace(ClickTPlace!);
+        windowEdit.SetTplace(ClickTPlace!, false);
         windowEdit.ShowDialog();
 
         if (windowEdit.DialogResult != true) return;
