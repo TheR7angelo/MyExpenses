@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyExpenses.WebApi", "MyExpe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyExpenses.Utils", "MyExpenses.Utils\MyExpenses.Utils.csproj", "{1BEF2504-6934-43B4-81E4-E768BA9C1395}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyExpenses.Wpf", "MyExpenses.Wpf\MyExpenses.Wpf.csproj", "{68A61203-BBCB-486B-BEC3-BF9225F7F874}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,5 +43,9 @@ Global
 		{1BEF2504-6934-43B4-81E4-E768BA9C1395}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1BEF2504-6934-43B4-81E4-E768BA9C1395}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1BEF2504-6934-43B4-81E4-E768BA9C1395}.Release|Any CPU.Build.0 = Release|Any CPU
+		{68A61203-BBCB-486B-BEC3-BF9225F7F874}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{68A61203-BBCB-486B-BEC3-BF9225F7F874}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{68A61203-BBCB-486B-BEC3-BF9225F7F874}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{68A61203-BBCB-486B-BEC3-BF9225F7F874}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
