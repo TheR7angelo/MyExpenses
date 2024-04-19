@@ -27,9 +27,7 @@ public partial class DataBaseContext : DbContext
 
     public virtual DbSet<TPlace> TPlaces { get; set; }
 
-    public virtual DbSet<VValueByMonthYear> VValueByMonthYears { get; set; }
-
-    public virtual DbSet<VValueByMonthYearCategory> VValueByMonthYearCategories { get; set; }
+    public virtual DbSet<VHistoryByDay> VHistoryByDays { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
@@ -54,6 +52,7 @@ public partial class DataBaseContext : DbContext
     {
         modelBuilder.Entity<THistory>(entity =>
         {
+            entity.Property(e => e.Date).HasDefaultValueSql("CURRENT_TIMESTAMP");
             entity.Property(e => e.Pointed).HasDefaultValueSql("FALSE");
         });
 
@@ -62,14 +61,9 @@ public partial class DataBaseContext : DbContext
             entity.Property(e => e.DateAdded).HasDefaultValueSql("CURRENT_TIMESTAMP");
         });
 
-        modelBuilder.Entity<VValueByMonthYear>(entity =>
+        modelBuilder.Entity<VHistoryByDay>(entity =>
         {
-            entity.ToView("v_value_by_month_year");
-        });
-
-        modelBuilder.Entity<VValueByMonthYearCategory>(entity =>
-        {
-            entity.ToView("v_value_by_month_year_category");
+            entity.ToView("v_history_by_day");
         });
 
         OnModelCreatingPartial(modelBuilder);
