@@ -70,7 +70,7 @@ public partial class WindowEdit
         SetTplace(place, true);
     }
 
-    public void SetTplace(TPlace newTPlace, bool clear = false)
+    public void SetTplace(TPlace newTPlace, bool clear)
     {
         if (clear) WritableLayer.Clear();
 
@@ -131,7 +131,7 @@ public partial class WindowEdit
             return;
         }
 
-        PropertyCopyHelper.CopyProperties(newPlace, Place);
+        SetTplace(newPlace, true);
     }
 
     private void ButtonValidNewPoint_OnClick(object sender, RoutedEventArgs e)
