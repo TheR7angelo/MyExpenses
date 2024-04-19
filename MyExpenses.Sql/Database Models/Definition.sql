@@ -125,24 +125,47 @@ BEGIN
     WHERE id = NEW.id;
 END;
 
-DROP VIEW IF EXISTS v_value_by_month_year;
-CREATE VIEW v_value_by_month_year AS
-SELECT CAST(STRFTIME('%Y', h.date) AS INTEGER) AS year,
-       CAST(STRFTIME('%m', h.date) AS INTEGER) AS month,
-       h.compte_fk,
-       ROUND(SUM(h.value), 2)                  AS total
-FROM t_history h
-GROUP BY year, month, h.compte_fk
-ORDER BY year, month;
+DROP VIEW IF EXISTS v_history_by_day;
+CREATE VIEW v_history_by_day AS
+SELECT ta.name  AS account,
+       h.description,
+       tct.name AS category,
+       tmp.name AS mode_payment,
+       h.value,
+       h.date,
+       tp.name AS place,
+       h.pointed
 
-DROP VIEW IF EXISTS v_value_by_month_year_category;
-CREATE VIEW v_value_by_month_year_category AS
-SELECT CAST(STRFTIME('%Y', h.date) AS INTEGER) AS year,
-       CAST(STRFTIME('%m', h.date) AS INTEGER) AS month,
-       ct.name,
-       IFNULL(ROUND(SUM(h.value), 2), 0)                  AS total
-FROM t_category_type ct
-         LEFT JOIN t_history h
-                   ON ct.id = h.category_type_fk
-GROUP BY year, month, ct.name
-ORDER BY year, month;
+FROM t_history h
+         LEFT JOIN t_account ta
+                   ON h.compte_fk = ta.id
+         LEFT JOIN t_category_type tct
+                   ON h.category_type_fk = tct.id
+         LEFT JOIN t_mode_payment tmp
+                   ON h.mode_payment_fk = tmp.id
+         LEFT JOIN t_place tp
+             ON h.place_fk = tp.id;
+
+-- DROP VIEW IF EXISTS v_value_by_month_year;
+-- CREATE VIEW v_value_by_month_year AS
+-- SELECT CAST(STRFTIME('%Y', h.date) AS INTEGER) AS year,
+--        CAST(STRFTIME('%m', h.date) AS INTEGER) AS month,
+--        h.compte_fk,
+--        ROUND(SUM(h.value), 2)                  AS total
+-- FROM t_history h
+-- GROUP BY year, month, h.compte_fk
+-- ORDER BY year, month;
+--
+-- DROP VIEW IF EXISTS v_value_by_month_year_category;
+-- CREATE VIEW v_value_by_month_year_category AS
+-- SELECT CAST(STRFTIME('%Y', h.date) AS INTEGER) AS year,
+--        CAST(STRFTIME('%m', h.date) AS INTEGER) AS month,
+--        ct.name,
+--        IFNULL(ROUND(SUM(h.value), 2), 0)                  AS total
+-- FROM t_category_type ct
+--          LEFT JOIN t_history h
+--                    ON ct.id = h.category_type_fk
+-- GROUP BY year, month, ct.name
+-- ORDER BY year, month;
+
+
