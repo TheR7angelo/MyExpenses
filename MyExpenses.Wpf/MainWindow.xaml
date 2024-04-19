@@ -11,8 +11,8 @@
                  d:DesignHeight="450"
                  d:DesignWidth="800"
 
-                 MinHeight="450"
-                 MinWidth="800"
+                 MinHeight="560"
+                 MinWidth="560"
 
                  Title="MainWindow"
 
