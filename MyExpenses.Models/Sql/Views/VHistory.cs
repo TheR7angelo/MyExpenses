@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 namespace MyExpenses.Models.Sql.Views;
 
 [Keyless]
-public partial class VHistoryByDay
+public partial class VHistory
 {
     [Column("account")]
     public string? Account { get; set; }

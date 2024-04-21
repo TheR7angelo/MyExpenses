@@ -27,7 +27,7 @@ public partial class DataBaseContext : DbContext
 
     public virtual DbSet<TPlace> TPlaces { get; set; }
 
-    public virtual DbSet<VHistoryByDay> VHistoryByDays { get; set; }
+    public virtual DbSet<VHistory> VHistories { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
@@ -61,9 +61,9 @@ public partial class DataBaseContext : DbContext
             entity.Property(e => e.DateAdded).HasDefaultValueSql("CURRENT_TIMESTAMP");
         });
 
-        modelBuilder.Entity<VHistoryByDay>(entity =>
+        modelBuilder.Entity<VHistory>(entity =>
         {
-            entity.ToView("v_history_by_day");
+            entity.ToView("v_history");
         });
 
         OnModelCreatingPartial(modelBuilder);

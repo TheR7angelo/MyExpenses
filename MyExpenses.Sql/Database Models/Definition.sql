@@ -125,8 +125,8 @@ BEGIN
     WHERE id = NEW.id;
 END;
 
-DROP VIEW IF EXISTS v_history_by_day;
-CREATE VIEW v_history_by_day AS
+DROP VIEW IF EXISTS v_history;
+CREATE VIEW v_history AS
 SELECT ta.name  AS account,
        h.description,
        tct.name AS category,
