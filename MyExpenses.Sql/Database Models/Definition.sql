@@ -133,7 +133,7 @@ SELECT ta.name  AS account,
        tmp.name AS mode_payment,
        h.value,
        h.date,
-       tp.name AS place,
+       tp.name  AS place,
        h.pointed
 
 FROM t_history h
@@ -144,7 +144,7 @@ FROM t_history h
          LEFT JOIN t_mode_payment tmp
                    ON h.mode_payment_fk = tmp.id
          LEFT JOIN t_place tp
-             ON h.place_fk = tp.id;
+                   ON h.place_fk = tp.id;
 
 -- DROP VIEW IF EXISTS v_value_by_month_year;
 -- CREATE VIEW v_value_by_month_year AS
@@ -168,15 +168,27 @@ FROM t_history h
 -- GROUP BY year, month, ct.name
 -- ORDER BY year, month;
 
-CREATE VIEW v_total_category AS
-SELECT strftime('%Y', h.date) AS year,
-       strftime('%m', h.date) AS month,
-       tct.name               AS category,
-       ROUND(SUM(h.value), 2) AS value
+DROP VIEW IF EXISTS v_total_by_account;
+CREATE VIEW v_total_by_account AS
+SELECT ta.name,
+       ROUND(SUM(th.value), 2) AS total
+FROM t_account ta
+         LEFT JOIN t_history th
+                   ON ta.id = th.compte_fk
+GROUP BY ta.name;
+
+DROP VIEW IF EXISTS v_detail_total_category;
+CREATE VIEW v_detail_total_category AS
+SELECT CAST(STRFTIME('%Y', h.date) AS INT) AS year,
+       CAST(STRFTIME('%W', h.date) AS INT) AS week,
+       CAST(STRFTIME('%m', h.date) AS INT) AS month,
+       CAST(STRFTIME('%d', h.date) AS INT) AS day,
+       tct.name                            AS category,
+       h.value
 
 FROM t_category_type tct
          LEFT JOIN t_history h
                    ON h.category_type_fk = tct.id
-GROUP BY year, month, tct.name;
+ORDER BY year, week;
 
 
