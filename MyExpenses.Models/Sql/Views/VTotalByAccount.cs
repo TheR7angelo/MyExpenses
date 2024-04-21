@@ -10,5 +10,5 @@ public partial class VTotalByAccount
     public string? Name { get; set; }
 
     [Column("total")]
-    public byte[]? Total { get; set; }
+    public double? Total { get; set; }
 }
