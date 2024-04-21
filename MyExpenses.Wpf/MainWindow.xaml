@@ -36,33 +36,71 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
+
         <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <Grid Grid.Row="0" Grid.Column="0">
-            <Ellipse Height="255" Width="255" Stroke="{DynamicResource MaterialDesignBody}" StrokeThickness="3" />
-            <Label Content="Mon texte" VerticalAlignment="Center" HorizontalAlignment="Center" />
+        <WrapPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Center">
+            <Button Content="Action 1" />
+            <Button Content="Action 2" />
+            <Button Content="Action 3" />
+            <Button Content="Action 4" />
+            <Button Content="Action 5" />
+            <Button Content="Action 6" />
+            <Button Content="Action 7" />
+            <Button Content="Action 8" />
+            <Button Content="Action 9" />
+            <Button Content="Action 10" />
+        </WrapPanel>
+
+        <Grid Grid.Row="0" Grid.Column="1">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <Ellipse Grid.Row="0" Height="255" Width="255" Stroke="{DynamicResource MaterialDesignBody}" StrokeThickness="3" />
+            <Label Grid.Row="0" Content="Total" VerticalAlignment="Center" HorizontalAlignment="Center" />
+
+            <WrapPanel Grid.Row="2" Orientation="Horizontal">
+                <Button Content="Account 1" />
+                <Button Content="Account 2" />
+                <Button Content="Account 3" />
+                <Button Content="Account 4" />
+                <Button Content="Account 5" />
+                <Button Content="Account 6" />
+                <Button Content="Account 7" />
+                <Button Content="Account 8" />
+                <Button Content="Account 9" />
+                <Button Content="Account 10" />
+            </WrapPanel>
+
         </Grid>
 
-        <TabControl Grid.Row="1" Grid.Column="0">
-
-            <TabItem Header="Day" HorizontalAlignment="Center">
-                <DataGrid ItemsSource="{Binding VHistories, Mode=OneWay}"
-                          IsReadOnly="True" AutoGenerateColumns="False">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Header="Account" Binding="{Binding Account}" />
-                        <DataGridTextColumn Header="Description" Binding="{Binding Description}" />
-                        <DataGridTextColumn Header="Category" Binding="{Binding Category}" />
-                        <DataGridTextColumn Header="Mode payment" Binding="{Binding ModePayment}" />
-                        <DataGridTextColumn Header="Value" Binding="{Binding Value}" />
-                        <DataGridTextColumn Header="Date" Binding="{Binding Date, StringFormat={}{0:dd/MM/yyyy HH:mm:ss}}" />
-                        <DataGridCheckBoxColumn Header="Pointed" IsThreeState="True" Binding="{Binding Pointed}" />
-                    </DataGrid.Columns>
-                </DataGrid>
-            </TabItem>
-        </TabControl>
+        <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3">
+            <DataGrid ItemsSource="{Binding VHistories, Mode=OneWay}"
+                      IsReadOnly="True" AutoGenerateColumns="False"
+                      CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False"
+                      HorizontalScrollBarVisibility="Auto"
+                      VerticalScrollBarVisibility="Auto">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Account" Binding="{Binding Account}" />
+                    <DataGridTextColumn Header="Description" Binding="{Binding Description}" />
+                    <DataGridTextColumn Header="Category" Binding="{Binding Category}" />
+                    <DataGridTextColumn Header="Mode payment" Binding="{Binding ModePayment}" />
+                    <DataGridTextColumn Header="Value" Binding="{Binding Value}" />
+                    <DataGridTextColumn Header="Date" Binding="{Binding Date, StringFormat={}{0:dd/MM/yyyy HH:mm:ss}}" />
+                    <DataGridCheckBoxColumn Header="Pointed" IsThreeState="True" Binding="{Binding Pointed}" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
 
     </Grid>
 
