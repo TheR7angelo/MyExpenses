@@ -168,4 +168,15 @@ FROM t_history h
 -- GROUP BY year, month, ct.name
 -- ORDER BY year, month;
 
+CREATE VIEW v_total_category AS
+SELECT strftime('%Y', h.date) AS year,
+       strftime('%m', h.date) AS month,
+       tct.name               AS category,
+       ROUND(SUM(h.value), 2) AS value
+
+FROM t_category_type tct
+         LEFT JOIN t_history h
+                   ON h.category_type_fk = tct.id
+GROUP BY year, month, tct.name;
+
 
