@@ -6,8 +6,11 @@ namespace MyExpenses.Sql.Context;
 
 public partial class DataBaseContext : DbContext
 {
-    public DataBaseContext()
+    private string? FilePath { get; }
+
+    public DataBaseContext(string? filePath=null)
     {
+        FilePath = filePath;
     }
 
     public DataBaseContext(DbContextOptions<DataBaseContext> options)
@@ -35,18 +38,23 @@ public partial class DataBaseContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        // const string dbPath = @"C:\Users\ZP6177\Documents\Programmation\C#\MyExpenses\MyExpenses.Sql\Database Models\Model.sqlite";
-        const string dbPathPro = @"C:\Users\ZP6177\Documents\Programmation\C#\MyExpenses\MyExpenses.Sql\Database Models\Model - Using.sqlite";
-        const string dbPathPersonnel = @"C:\Users\Rapha\Documents\Programmation\MyExpenses\MyExpenses.Sql\Database Models\Model - Using.sqlite";
-        const string dbPathPortable = @"C:\Users\Rapha\RiderProjects\MyExpenses\MyExpenses.Sql\Database Models\Model - Using.sqlite";
-
-        var username = Environment.UserName;
-        var dbPath = username switch
+        string dbPath;
+        if (string.IsNullOrEmpty(FilePath))
         {
-            "ZP6177" => dbPathPro,
-            "Rapha" => dbPathPersonnel,
-            _ => dbPathPortable
-        };
+            // const string dbPath = @"C:\Users\ZP6177\Documents\Programmation\C#\MyExpenses\MyExpenses.Sql\Database Models\Model.sqlite";
+            const string dbPathPro = @"C:\Users\ZP6177\Documents\Programmation\C#\MyExpenses\MyExpenses.Sql\Database Models\Model - Using.sqlite";
+            const string dbPathPersonnel = @"C:\Users\Rapha\Documents\Programmation\MyExpenses\MyExpenses.Sql\Database Models\Model - Using.sqlite";
+            const string dbPathPortable = @"C:\Users\Rapha\RiderProjects\MyExpenses\MyExpenses.Sql\Database Models\Model - Using.sqlite";
+
+            var username = Environment.UserName;
+            dbPath = username switch
+            {
+                "ZP6177" => dbPathPro,
+                "Rapha" => dbPathPersonnel,
+                _ => dbPathPortable
+            };
+        }
+        else dbPath = FilePath;
 
         var dataSource = $"Data Source={dbPath}";
         optionsBuilder.UseSqlite(dataSource);
