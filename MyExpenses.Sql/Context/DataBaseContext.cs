@@ -27,7 +27,11 @@ public partial class DataBaseContext : DbContext
 
     public virtual DbSet<TPlace> TPlaces { get; set; }
 
+    public virtual DbSet<VDetailTotalCategory> VDetailTotalCategories { get; set; }
+
     public virtual DbSet<VHistory> VHistories { get; set; }
+
+    public virtual DbSet<VTotalByAccount> VTotalByAccounts { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
@@ -61,9 +65,19 @@ public partial class DataBaseContext : DbContext
             entity.Property(e => e.DateAdded).HasDefaultValueSql("CURRENT_TIMESTAMP");
         });
 
+        modelBuilder.Entity<VDetailTotalCategory>(entity =>
+        {
+            entity.ToView("v_detail_total_category");
+        });
+
         modelBuilder.Entity<VHistory>(entity =>
         {
             entity.ToView("v_history");
+        });
+
+        modelBuilder.Entity<VTotalByAccount>(entity =>
+        {
+            entity.ToView("v_total_by_account");
         });
 
         OnModelCreatingPartial(modelBuilder);
