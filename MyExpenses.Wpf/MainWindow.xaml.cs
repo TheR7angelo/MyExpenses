@@ -6,12 +6,12 @@ namespace MyExpenses.Wpf;
 
 public partial class MainWindow
 {
-    public ObservableCollection<VHistoryByDay> DayHistories { get; }
+    public ObservableCollection<VHistory> VHistories { get; }
 
     public MainWindow()
     {
         using var context = new DataBaseContext();
-        DayHistories = new ObservableCollection<VHistoryByDay>(context.VHistoryByDays.OrderByDescending(s => s.Date));
+        VHistories = new ObservableCollection<VHistory>(context.VHistories.OrderByDescending(s => s.Date));
 
         InitializeComponent();
     }
