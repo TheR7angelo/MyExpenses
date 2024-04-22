@@ -1,0 +1,120 @@
+﻿<Page x:Class="MyExpenses.Wpf.Pages.DashBoard"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="clr-namespace:MyExpenses.Wpf.Pages"
+      xmlns:utils="clr-namespace:MyExpenses.Utils;assembly=MyExpenses.Utils"
+      xmlns:converters="clr-namespace:MyExpenses.Wpf.Converters"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      mc:Ignorable="d"
+      Title="DashBoard"
+
+      Loaded="DashBoard_OnLoaded"
+
+      Background="{DynamicResource MaterialDesignPaper}"
+      TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+
+      DataContext="{Binding RelativeSource={RelativeSource Self}}">
+
+    <Page.Resources>
+        <converters:TotalToIconConverter x:Key="TotalToIconConverter" />
+    </Page.Resources>
+
+    <Grid utils:PanelExtensions.MarginForAllChildren="5"
+          ShowGridLines="True">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <WrapPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Center">
+            <Button Content="Action 1" />
+            <Button Content="Action 2" />
+            <Button Content="Action 3" />
+            <Button Content="Action 4" />
+            <Button Content="Action 5" />
+            <Button Content="Action 6" />
+            <Button Content="Action 7" />
+            <Button Content="Action 8" />
+            <Button Content="Action 9" />
+            <Button Content="Action 10" />
+        </WrapPanel>
+
+        <Grid Grid.Row="0" Grid.Column="1">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <Ellipse Grid.Row="0" Height="255" Width="255" Stroke="{DynamicResource MaterialDesignBody}"
+                     StrokeThickness="3" />
+            <StackPanel Grid.Row="0" Orientation="Vertical"
+                        VerticalAlignment="Center" HorizontalAlignment="Center">
+                <materialDesign:PackIcon
+                    Kind="{Binding Total, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource TotalToIconConverter}}"
+                    Height="96" Width="96"
+                    HorizontalAlignment="Center">
+                </materialDesign:PackIcon>
+                <Label HorizontalContentAlignment="Center"
+                       FontSize="24"
+                       Content="{Binding TotalStr, StringFormat={}{0:0.00}, UpdateSourceTrigger=PropertyChanged, FallbackValue=0.00}">
+                </Label>
+            </StackPanel>
+
+            <Border Grid.Row="2" HorizontalAlignment="Center"
+                    CornerRadius="1"
+                    BorderBrush="{DynamicResource MaterialDesignBody}"
+                    BorderThickness="2">
+                <ItemsControl x:Name="ItemsControlVTotalAccount" ItemsSource="{Binding VTotalByAccounts}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel Orientation="Horizontal" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <RadioButton Margin="3"
+                                         Content="{Binding Name}"
+                                         Style="{StaticResource MaterialDesignTabRadioButtonBottom}"
+                                         Checked="ToggleButtonVTotalAccount_OnChecked">
+                            </RadioButton>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </Border>
+
+        </Grid>
+
+        <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3">
+            <DataGrid ItemsSource="{Binding VHistories, Mode=OneWay}"
+                      IsReadOnly="True" AutoGenerateColumns="False"
+                      CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False"
+                      HorizontalScrollBarVisibility="Auto"
+                      VerticalScrollBarVisibility="Auto">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Account" Binding="{Binding Account}" />
+                    <DataGridTextColumn Header="Description" Binding="{Binding Description}" />
+                    <DataGridTextColumn Header="Category" Binding="{Binding Category}" />
+                    <DataGridTextColumn Header="Mode payment" Binding="{Binding ModePayment}" />
+                    <DataGridTextColumn Header="Value" Binding="{Binding Value}" />
+                    <DataGridTextColumn Header="Date" Binding="{Binding Date, StringFormat={}{0:dd/MM/yyyy HH:mm:ss}}" />
+                    <DataGridCheckBoxColumn Header="Pointed" IsThreeState="True" Binding="{Binding Pointed}" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+
+    </Grid>
+
+</Page>
