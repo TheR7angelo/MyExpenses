@@ -77,12 +77,14 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <Ellipse Grid.Row="0" Height="255" Width="255" Stroke="{DynamicResource MaterialDesignBody}" StrokeThickness="3" />
+            <Ellipse Grid.Row="0" Height="255" Width="255" Stroke="{DynamicResource MaterialDesignBody}"
+                     StrokeThickness="3" />
             <StackPanel Grid.Row="0" Orientation="Vertical"
                         VerticalAlignment="Center" HorizontalAlignment="Center">
-                <materialDesign:PackIcon Kind="{Binding Total, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource TotalToIconConverter}}"
-                                         Height="96" Width="96"
-                                         HorizontalAlignment="Center">
+                <materialDesign:PackIcon
+                    Kind="{Binding Total, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource TotalToIconConverter}}"
+                    Height="96" Width="96"
+                    HorizontalAlignment="Center">
                 </materialDesign:PackIcon>
                 <Label HorizontalContentAlignment="Center"
                        FontSize="24"
@@ -90,21 +92,27 @@
                 </Label>
             </StackPanel>
 
-            <ItemsControl x:Name="ItemsControlVTotalAccount" Grid.Row="2" ItemsSource="{Binding VTotalByAccounts}">
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <WrapPanel Orientation="Horizontal"/>
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
-                        <RadioButton Content="{Binding Name}"
-                                Style="{StaticResource MaterialDesignTabRadioButtonBottom}"
-                                Checked="ToggleButtonVTotalAccount_OnChecked">
-                        </RadioButton>
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ItemsControl>
+            <Border Grid.Row="2" HorizontalAlignment="Center"
+                    CornerRadius="1"
+                    BorderBrush="{DynamicResource MaterialDesignBody}"
+                    BorderThickness="2">
+                <ItemsControl x:Name="ItemsControlVTotalAccount" ItemsSource="{Binding VTotalByAccounts}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel Orientation="Horizontal" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <RadioButton Margin="3"
+                                         Content="{Binding Name}"
+                                         Style="{StaticResource MaterialDesignTabRadioButtonBottom}"
+                                         Checked="ToggleButtonVTotalAccount_OnChecked">
+                            </RadioButton>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </Border>
 
         </Grid>
 
