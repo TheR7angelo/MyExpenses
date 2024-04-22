@@ -20,7 +20,7 @@ public partial class MainWindow : INotifyPropertyChanged
 
     private double? _total { get; set; } = 0d;
 
-    private double? Total
+    public double? Total
     {
         get => _total;
         set
