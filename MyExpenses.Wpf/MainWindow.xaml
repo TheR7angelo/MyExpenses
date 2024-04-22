@@ -68,7 +68,7 @@
             </Grid.RowDefinitions>
 
             <Ellipse Grid.Row="0" Height="255" Width="255" Stroke="{DynamicResource MaterialDesignBody}" StrokeThickness="3" />
-            <Label Grid.Row="0" Content="Total" VerticalAlignment="Center" HorizontalAlignment="Center" />
+            <Label Grid.Row="0" Content="{Binding TotalStr, StringFormat={}{0:0.00}, UpdateSourceTrigger=PropertyChanged, FallbackValue=0.00}" VerticalAlignment="Center" HorizontalAlignment="Center" />
 
             <ItemsControl Grid.Row="2" ItemsSource="{Binding VTotalByAccounts}">
                 <ItemsControl.ItemsPanel>
