@@ -80,8 +80,14 @@
             <Ellipse Grid.Row="0" Height="255" Width="255" Stroke="{DynamicResource MaterialDesignBody}" StrokeThickness="3" />
             <StackPanel Grid.Row="0" Orientation="Vertical"
                         VerticalAlignment="Center" HorizontalAlignment="Center">
-                <Label Content="{Binding TotalStr, StringFormat={}{0:0.00}, UpdateSourceTrigger=PropertyChanged, FallbackValue=0.00}" />
-                <materialDesign:PackIcon Kind="{Binding Total, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource TotalToIconConverter}}" />
+                <materialDesign:PackIcon Kind="{Binding Total, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource TotalToIconConverter}}"
+                                         Height="96" Width="96"
+                                         HorizontalAlignment="Center">
+                </materialDesign:PackIcon>
+                <Label HorizontalContentAlignment="Center"
+                       FontSize="24"
+                       Content="{Binding TotalStr, StringFormat={}{0:0.00}, UpdateSourceTrigger=PropertyChanged, FallbackValue=0.00}">
+                </Label>
             </StackPanel>
 
             <ItemsControl x:Name="ItemsControlVTotalAccount" Grid.Row="2" ItemsSource="{Binding VTotalByAccounts}">
