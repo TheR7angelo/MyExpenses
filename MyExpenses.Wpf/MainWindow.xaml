@@ -5,6 +5,7 @@
                  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                  xmlns:local="clr-namespace:MyExpenses.Wpf"
                  xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+                 xmlns:utils="clr-namespace:MyExpenses.Utils;assembly=MyExpenses.Utils"
 
                  mc:Ignorable="d"
 
@@ -28,9 +29,12 @@
 
                  Background="{DynamicResource MaterialDesignPaper}"
                  TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+
+                 Loaded="MainWindow_OnLoaded"
+
                  DataContext="{Binding RelativeSource={RelativeSource Self}}">
 
-    <Grid local:PanelExtensions.MarginForAllChildren="5"
+    <Grid utils:PanelExtensions.MarginForAllChildren="5"
         ShowGridLines="True">
 
         <Grid.RowDefinitions>
@@ -70,7 +74,7 @@
             <Ellipse Grid.Row="0" Height="255" Width="255" Stroke="{DynamicResource MaterialDesignBody}" StrokeThickness="3" />
             <Label Grid.Row="0" Content="{Binding TotalStr, StringFormat={}{0:0.00}, UpdateSourceTrigger=PropertyChanged, FallbackValue=0.00}" VerticalAlignment="Center" HorizontalAlignment="Center" />
 
-            <ItemsControl Grid.Row="2" ItemsSource="{Binding VTotalByAccounts}">
+            <ItemsControl x:Name="ItemsControlVTotalAccount" Grid.Row="2" ItemsSource="{Binding VTotalByAccounts}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <WrapPanel Orientation="Horizontal"/>
@@ -78,7 +82,10 @@
                 </ItemsControl.ItemsPanel>
                 <ItemsControl.ItemTemplate>
                     <DataTemplate>
-                        <Button Content="{Binding Name}" Click="ButtonVTotalAccount_OnClick" />
+                        <RadioButton Content="{Binding Name}"
+                                Style="{StaticResource MaterialDesignTabRadioButtonBottom}"
+                                Checked="ToggleButtonVTotalAccount_OnChecked">
+                        </RadioButton>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
