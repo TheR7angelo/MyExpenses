@@ -30,7 +30,8 @@
                  TextElement.Foreground="{DynamicResource MaterialDesignBody}"
                  DataContext="{Binding RelativeSource={RelativeSource Self}}">
 
-    <Grid ShowGridLines="True">
+    <Grid local:PanelExtensions.MarginForAllChildren="5"
+        ShowGridLines="True">
 
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
