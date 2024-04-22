@@ -54,6 +54,8 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
+        <Frame x:Name="FrameBody" Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Grid.ColumnSpan="3" />
+
         <WrapPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal"
                    VerticalAlignment="Center"
                    HorizontalAlignment="Center">
