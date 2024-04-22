@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Controls;
 using MyExpenses.Models.Sql.Views;
 using MyExpenses.Sql.Context;
+using MyExpenses.Utils;
 
 namespace MyExpenses.Wpf;
 
@@ -41,16 +42,26 @@ public partial class MainWindow : INotifyPropertyChanged
         InitializeComponent();
     }
 
+    #region Function
+
+    private void MainWindow_OnLoaded(object sender, RoutedEventArgs e)
+    {
+        var radioButtons = ItemsControlVTotalAccount.FindVisualChildren<RadioButton>();
+        var radioButton = radioButtons.FirstOrDefault();
+        if (radioButton is null) return;
+        radioButton.IsChecked = true;
+    }
+
+    #endregion
+
     #region Action
 
-    private void ButtonVTotalAccount_OnClick(object sender, RoutedEventArgs e)
+    private void ToggleButtonVTotalAccount_OnChecked(object sender, RoutedEventArgs e)
     {
-        var button = (Button)sender;
+        var button = (RadioButton)sender;
         var vTotalByAccount = (VTotalByAccount)button.DataContext;
         Total = vTotalByAccount.Total;
     }
 
     #endregion
-
-
 }
