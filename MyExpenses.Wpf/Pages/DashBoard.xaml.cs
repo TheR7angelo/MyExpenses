@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Globalization;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
@@ -70,8 +71,12 @@ public partial class DashBoard : INotifyPropertyChanged
     private void UpdateGraph(string accountName)
     {
         using var context = new DataBaseContext();
-        var categoriesTotals = context.VDetailTotalCategories
-            .Where(s => s.Account == accountName)
+        var brutCategoriesTotals = context.VDetailTotalCategories
+            .Where(s => s.Account == accountName);
+
+        var now = DateTime.Now;
+        var categoriesTotals = brutCategoriesTotals
+            .Where(s => s.Year == now.Year && s.Month == now.Month)
             .GroupBy(s => s.Category)
             .Select(g => new { Category = g.Key, Total = g.Sum(s => s.Value) ?? 0 })
             .ToList();
@@ -81,13 +86,16 @@ public partial class DashBoard : INotifyPropertyChanged
         var series = new List<PieSeries<double>>();
         foreach (var categoryTotal in categoriesTotals)
         {
-            var total = Math.Round(Math.Abs(categoryTotal.Total), 2);
-            var percentage = Math.Round(total / grandTotal * 100, 2);
+            var total = Math.Round(categoryTotal.Total, 2);
+            var absTotal = Math.Abs(total);
+            var percentage = Math.Round(absTotal / grandTotal * 100, 2);
 
+            // TODO add local currency
             var pieSeries = new PieSeries<double>
             {
-                Values = new ObservableCollection<double> { total },
-                Name = $"{categoryTotal.Category} ({percentage}%)"
+                Values = new ObservableCollection<double> { absTotal },
+                Name = $"{categoryTotal.Category} ({percentage}%)",
+                ToolTipLabelFormatter = _ => total.ToString(CultureInfo.CurrentCulture)
             };
 
             series.Add(pieSeries);
