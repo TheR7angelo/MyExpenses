@@ -5,6 +5,7 @@
                  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
                  xmlns:local="clr-namespace:MyExpenses.Wpf"
                  xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+                 xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
 
                  mc:Ignorable="d"
 
@@ -33,7 +34,21 @@
 
     <Grid>
 
-        <Frame x:Name="FrameBody" NavigationUIVisibility="Hidden"
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <materialDesign:Card Grid.Row="0">
+            <Menu>
+                <MenuItem Header="File">
+                    <MenuItem Header="Export database" />
+                    <MenuItem Header="Load database" />
+                </MenuItem>
+            </Menu>
+        </materialDesign:Card>
+
+        <Frame Grid.Row="1" x:Name="FrameBody" NavigationUIVisibility="Hidden"
                Source="Pages/DashBoard.xaml">
         </Frame>
 
