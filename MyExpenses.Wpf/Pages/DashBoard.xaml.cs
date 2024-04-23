@@ -21,7 +21,7 @@ public partial class DashBoard : INotifyPropertyChanged
     public List<VHistory> VHistories { get; }
     public List<VTotalByAccount> VTotalByAccounts { get; }
 
-    private double? _total { get; set; } = 0d;
+    private double? _total = 0d;
 
     public double? Total
     {
