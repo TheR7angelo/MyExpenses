@@ -100,7 +100,7 @@
 
         <Grid Grid.Row="0" Grid.Column="2">
 
-            <wpf:PieChart x:Name="PieChart" />
+            <wpf:PieChart x:Name="PieChart" LegendPosition="Left" />
 
         </Grid>
 

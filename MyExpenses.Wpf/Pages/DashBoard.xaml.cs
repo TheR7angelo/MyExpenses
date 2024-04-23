@@ -4,10 +4,13 @@ using System.Globalization;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using LiveChartsCore.SkiaSharpView;
+using LiveChartsCore.SkiaSharpView.Painting;
 using MyExpenses.Models.Sql.Views;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils;
+using SkiaSharp.Views.WPF;
 
 namespace MyExpenses.Wpf.Pages;
 
@@ -43,6 +46,11 @@ public partial class DashBoard : INotifyPropertyChanged
         VHistories = new List<VHistory>(context.VHistories.OrderByDescending(s => s.Date));
 
         InitializeComponent();
+
+        // TODO add listener color change
+        var brush = (SolidColorBrush)FindResource("MaterialDesignBody");
+        var wpfColor = brush.Color;
+        PieChart.LegendTextPaint = new SolidColorPaint(wpfColor.ToSKColor());
     }
 
     #region Function
