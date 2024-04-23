@@ -18,6 +18,9 @@ public partial class VDetailTotalCategory
     [Column("day", TypeName = "INT")]
     public int? Day { get; set; }
 
+    [Column("account")]
+    public string? Account { get; set; }
+
     [Column("category")]
     public string? Category { get; set; }
 

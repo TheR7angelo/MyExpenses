@@ -183,12 +183,15 @@ SELECT CAST(STRFTIME('%Y', h.date) AS INT) AS year,
        CAST(STRFTIME('%W', h.date) AS INT) AS week,
        CAST(STRFTIME('%m', h.date) AS INT) AS month,
        CAST(STRFTIME('%d', h.date) AS INT) AS day,
+       ta.name                             AS account,
        tct.name                            AS category,
        h.value
 
 FROM t_category_type tct
          LEFT JOIN t_history h
                    ON h.category_type_fk = tct.id
+         LEFT JOIN t_account ta
+                   ON h.compte_fk = ta.id
 ORDER BY year, week;
 
 
