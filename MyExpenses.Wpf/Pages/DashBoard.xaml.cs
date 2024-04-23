@@ -1,7 +1,9 @@
-﻿using System.ComponentModel;
+﻿using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
+using LiveChartsCore.SkiaSharpView;
 using MyExpenses.Models.Sql.Views;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils;
@@ -61,6 +63,37 @@ public partial class DashBoard : INotifyPropertyChanged
         var button = (RadioButton)sender;
         var vTotalByAccount = (VTotalByAccount)button.DataContext;
         Total = vTotalByAccount.Total;
+
+        UpdateGraph(vTotalByAccount.Name!);
+    }
+
+    private void UpdateGraph(string accountName)
+    {
+        using var context = new DataBaseContext();
+        var categoriesTotals = context.VDetailTotalCategories
+            .Where(s => s.Account == accountName)
+            .GroupBy(s => s.Category)
+            .Select(g => new { Category = g.Key, Total = g.Sum(s => s.Value) ?? 0 })
+            .ToList();
+
+        var grandTotal = Math.Round(categoriesTotals.Sum(ct => Math.Abs(ct.Total)), 2);
+
+        var series = new List<PieSeries<double>>();
+        foreach (var categoryTotal in categoriesTotals)
+        {
+            var total = Math.Round(Math.Abs(categoryTotal.Total), 2);
+            var percentage = Math.Round(total / grandTotal * 100, 2);
+
+            var pieSeries = new PieSeries<double>
+            {
+                Values = new ObservableCollection<double> { total },
+                Name = $"{categoryTotal.Category} ({percentage}%)"
+            };
+
+            series.Add(pieSeries);
+        }
+
+        PieChart.Series = series;
     }
 
     #endregion

@@ -7,6 +7,7 @@
       xmlns:utils="clr-namespace:MyExpenses.Utils;assembly=MyExpenses.Utils"
       xmlns:converters="clr-namespace:MyExpenses.Wpf.Converters"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:wpf="clr-namespace:LiveChartsCore.SkiaSharpView.WPF;assembly=LiveChartsCore.SkiaSharpView.WPF"
       mc:Ignorable="d"
       Title="DashBoard"
 
@@ -94,6 +95,12 @@
                     </ItemsControl.ItemTemplate>
                 </ItemsControl>
             </Border>
+
+        </Grid>
+
+        <Grid Grid.Row="0" Grid.Column="2">
+
+            <wpf:PieChart x:Name="PieChart" />
 
         </Grid>
 
