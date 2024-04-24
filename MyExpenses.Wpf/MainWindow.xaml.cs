@@ -2,9 +2,9 @@
 
 public partial class MainWindow
 {
-    public string MenuItemHeaderFile { get; } = Ressources.Resx.MainWindow.MainWindowRessource.MenuItemHeaderFile;
-    public string MenuItemHeaderExportDatabase { get; } = Ressources.Resx.MainWindow.MainWindowRessource.MenuItemHeaderExportDatabase;
-    public string MenuItemHeaderImportDatabase { get; } = Ressources.Resx.MainWindow.MainWindowRessource.MenuItemHeaderImportDatabase;
+    public string MenuItemHeaderFile { get; } = Ressources.Resx.MainWindow.MainWindowRessources.MenuItemHeaderFile;
+    public string MenuItemHeaderExportDatabase { get; } = Ressources.Resx.MainWindow.MainWindowRessources.MenuItemHeaderExportDatabase;
+    public string MenuItemHeaderImportDatabase { get; } = Ressources.Resx.MainWindow.MainWindowRessources.MenuItemHeaderImportDatabase;
 
     public MainWindow()
     {

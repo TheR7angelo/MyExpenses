@@ -22,7 +22,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <EmbeddedResource Update="Ressources\Resx\MainWindow\MainWindowRessource.resx">
+      <EmbeddedResource Update="Ressources\Resx\MainWindow\MainWindowRessources.resx">
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>MainWindowRessource.Designer.cs</LastGenOutput>
       </EmbeddedResource>
@@ -30,6 +30,11 @@
 
     <ItemGroup>
       <Compile Update="Ressources\Resx\MainWindow\MainWindowRessource.Designer.cs">
+      <Compile Update="Ressources\Resx\MainWindow\MainWindowRessources.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>MainWindowRessources.resx</DependentUpon>
+      </Compile>
         <DesignTime>True</DesignTime>
         <AutoGen>True</AutoGen>
         <DependentUpon>MainWindowRessource.resx</DependentUpon>
