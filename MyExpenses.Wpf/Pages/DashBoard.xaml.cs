@@ -63,27 +63,6 @@ public partial class DashBoard : INotifyPropertyChanged
 
     #region Function
 
-    private void DashBoard_OnLoaded(object sender, RoutedEventArgs e)
-    {
-        var radioButtons = ItemsControlVTotalAccount.FindVisualChildren<RadioButton>();
-        var radioButton = radioButtons.FirstOrDefault();
-        if (radioButton is null) return;
-        radioButton.IsChecked = true;
-    }
-
-    #endregion
-
-    #region Action
-
-    private void ToggleButtonVTotalAccount_OnChecked(object sender, RoutedEventArgs e)
-    {
-        var button = (RadioButton)sender;
-        var vTotalByAccount = (VTotalByAccount)button.DataContext;
-        Total = vTotalByAccount.Total;
-
-        UpdateGraph(vTotalByAccount.Name!);
-    }
-
     private void UpdateGraph(string accountName)
     {
         using var context = new DataBaseContext();
@@ -118,6 +97,32 @@ public partial class DashBoard : INotifyPropertyChanged
         }
 
         PieChart.Series = series;
+    }
+
+    #endregion
+
+    #region Action
+
+    private void ButtonAddAccount_OnClick(object sender, RoutedEventArgs e)
+    {
+        nameof(MainWindow.FrameBody).NavigateTo(typeof(AddAccount));
+    }
+
+    private void DashBoard_OnLoaded(object sender, RoutedEventArgs e)
+    {
+        var radioButtons = ItemsControlVTotalAccount.FindVisualChildren<RadioButton>();
+        var radioButton = radioButtons.FirstOrDefault();
+        if (radioButton is null) return;
+        radioButton.IsChecked = true;
+    }
+
+    private void ToggleButtonVTotalAccount_OnChecked(object sender, RoutedEventArgs e)
+    {
+        var button = (RadioButton)sender;
+        var vTotalByAccount = (VTotalByAccount)button.DataContext;
+        Total = vTotalByAccount.Total;
+
+        UpdateGraph(vTotalByAccount.Name!);
     }
 
     #endregion
