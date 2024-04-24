@@ -41,9 +41,9 @@
 
         <materialDesign:Card Grid.Row="0">
             <Menu>
-                <MenuItem Header="File">
-                    <MenuItem Header="Export database" />
-                    <MenuItem Header="Load database" />
+                <MenuItem Header="{Binding MenuItemHeaderFile}">
+                    <MenuItem Header="{Binding MenuItemHeaderExportDatabase}" />
+                    <MenuItem Header="{Binding MenuItemHeaderImportDatabase}" />
                 </MenuItem>
             </Menu>
         </materialDesign:Card>

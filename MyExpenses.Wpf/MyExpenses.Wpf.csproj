@@ -21,4 +21,19 @@
       <ProjectReference Include="..\MyExpenses.Utils\MyExpenses.Utils.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <EmbeddedResource Update="Ressources\Resx\MainWindow\MainWindowRessource.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>MainWindowRessource.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Update="Ressources\Resx\MainWindow\MainWindowRessource.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>MainWindowRessource.resx</DependentUpon>
+      </Compile>
+    </ItemGroup>
+
 </Project>
