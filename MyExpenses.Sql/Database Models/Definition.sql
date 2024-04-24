@@ -7,6 +7,15 @@ CREATE TABLE t_account_type
     name TEXT
 );
 
+DROP TABLE IF EXISTS t_currency;
+CREATE TABLE t_currency
+(
+    id              INTEGER
+        CONSTRAINT t_account_pk
+            PRIMARY KEY AUTOINCREMENT,
+    currency TEXT
+);
+
 DROP TABLE IF EXISTS t_account;
 CREATE TABLE t_account
 (
@@ -17,8 +26,11 @@ CREATE TABLE t_account
     account_type_fk INTEGER
         CONSTRAINT t_account_t_account_type_id_fk
             REFERENCES t_account_type,
+    currency        INTEGER
+        constraint t_account_t_currency_id_fk
+            references t_currency,
     active          BOOLEAN  DEFAULT TRUE,
-    date_added DATETIME DEFAULT CURRENT_TIMESTAMP
+    date_added      DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
 CREATE TABLE t_category_type
@@ -80,6 +92,7 @@ CREATE TABLE t_history
 
 -- region Triggers
 
+DROP TRIGGER IF EXISTS after_insert_on_t_account;
 CREATE TRIGGER after_insert_on_t_account
     AFTER INSERT
     ON t_account
@@ -93,6 +106,7 @@ BEGIN
     WHERE id = NEW.id;
 END;
 
+DROP TRIGGER IF EXISTS after_update_on_t_account;
 CREATE TRIGGER after_update_on_t_account
     AFTER UPDATE
     ON t_account
@@ -173,7 +187,7 @@ SELECT ta.name  AS account,
        h.pointed
 
 FROM t_history h
-         LEFT JOIN t_account_2 ta
+         LEFT JOIN t_account ta
                    ON h.compte_fk = ta.id
          LEFT JOIN t_category_type tct
                    ON h.category_type_fk = tct.id
@@ -208,7 +222,7 @@ DROP VIEW IF EXISTS v_total_by_account;
 CREATE VIEW v_total_by_account AS
 SELECT ta.name,
        ROUND(SUM(th.value), 2) AS total
-FROM t_account_2 ta
+FROM t_account ta
          LEFT JOIN t_history th
                    ON ta.id = th.compte_fk
 GROUP BY ta.name;
@@ -226,7 +240,7 @@ SELECT CAST(STRFTIME('%Y', h.date) AS INT) AS year,
 FROM t_category_type tct
          LEFT JOIN t_history h
                    ON h.category_type_fk = tct.id
-         LEFT JOIN t_account_2 ta
+         LEFT JOIN t_account ta
                    ON h.compte_fk = ta.id
 ORDER BY year, week;
 -- endregion
