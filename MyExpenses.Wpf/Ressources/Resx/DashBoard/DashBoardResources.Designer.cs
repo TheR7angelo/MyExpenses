@@ -60,6 +60,15 @@ namespace MyExpenses.Wpf.Ressources.Resx.DashBoard {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add account.
+        /// </summary>
+        internal static string ButtonAddAccount {
+            get {
+                return ResourceManager.GetString("ButtonAddAccount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Account.
         /// </summary>
         internal static string DataGridTextColumnAccount {

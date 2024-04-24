@@ -39,6 +39,7 @@ public partial class DashBoard : INotifyPropertyChanged
 
     public string TotalStr => Total.HasValue ? Total.Value.ToString("F2") : "0.00";
 
+    public string ButtonAddAccount { get; } = Ressources.Resx.DashBoard.DashBoardResources.ButtonAddAccount;
     public string DataGridTextColumnAccount { get; } = Ressources.Resx.DashBoard.DashBoardResources.DataGridTextColumnAccount;
     public string DataGridTextColumnDescription { get; } = Ressources.Resx.DashBoard.DashBoardResources.DataGridTextColumnDescription;
     public string DataGridTextColumnCategory { get; } = Ressources.Resx.DashBoard.DashBoardResources.DataGridTextColumnCategory;

@@ -39,16 +39,10 @@
         <WrapPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal"
                    VerticalAlignment="Center"
                    HorizontalAlignment="Center">
-            <Button Content="Action 1" />
-            <Button Content="Action 2" />
-            <Button Content="Action 3" />
-            <Button Content="Action 4" />
-            <Button Content="Action 5" />
-            <Button Content="Action 6" />
-            <Button Content="Action 7" />
-            <Button Content="Action 8" />
-            <Button Content="Action 9" />
-            <Button Content="Action 10" />
+            <Button Content="{Binding ButtonAddAccount}"
+                    Style="{StaticResource MaterialDesignPaperButton}"
+                    Click="ButtonAddAccount_OnClick">
+            </Button>
         </WrapPanel>
 
         <Grid Grid.Row="0" Grid.Column="1">

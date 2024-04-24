@@ -32,4 +32,7 @@
     <data name="DataGridTextColumnPointed" xml:space="preserve">
         <value>Pointed</value>
     </data>
+    <data name="ButtonAddAccount" xml:space="preserve">
+        <value>Add account</value>
+    </data>
 </root>
