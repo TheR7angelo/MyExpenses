@@ -4,6 +4,8 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:MyExpenses.Wpf.Pages"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:utils="clr-namespace:MyExpenses.Utils;assembly=MyExpenses.Utils"
       mc:Ignorable="d"
       Title="AddAccount"
 
@@ -12,8 +14,63 @@
 
       DataContext="{Binding RelativeSource={RelativeSource Self}}">
 
-    <Grid>
-        
+    <Grid utils:PanelExtensions.MarginForAllChildren="5"
+          VerticalAlignment="Center">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <TextBox Grid.Row="0"
+                 materialDesign:HintAssist.Hint="Name :"
+                 Style="{StaticResource MaterialDesignFilledTextBox}"
+                 Text="{Binding Account.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                 LostFocus="TextBoxAccountName_OnLostFocus">
+        </TextBox>
+
+        <ComboBox Grid.Row="1"
+                  materialDesign:HintAssist.Hint="Account type :"
+                  materialDesign:TextFieldAssist.HasClearButton="True"
+                  Style="{StaticResource MaterialDesignFilledComboBox}"
+                  ItemsSource="{Binding AccountTypes}"
+                  DisplayMemberPath="{Binding DisplayMemberPathAccountType}"
+                  SelectedItem="{Binding Account.AccountTypeFkNavigation}">
+        </ComboBox>
+
+        <ComboBox Grid.Row="2"
+                  materialDesign:HintAssist.Hint="Currency :"
+                  materialDesign:TextFieldAssist.HasClearButton="True"
+                  Style="{StaticResource MaterialDesignFilledComboBox}"
+                  ItemsSource="{Binding Currencies}"
+                  DisplayMemberPath="{Binding DisplayMemberPathCurrencie}"
+                  SelectedItem="{Binding Account.CurrencyNavigation}">
+        </ComboBox>
+
+        <StackPanel Grid.Row="3"
+                    Orientation="Horizontal">
+            <Label Margin="0, 0, 1.5, 0" VerticalContentAlignment="Center" Content="Is the account active ?" />
+
+            <ToggleButton Margin="1.5, 0, 0, 0"
+                          IsThreeState="False"
+                          IsChecked="{Binding Account.Active}"
+                          materialDesign:ToggleButtonAssist.OnContent="{materialDesign:PackIcon Kind=CheckBold}"
+                          Content="{materialDesign:PackIcon Kind=CloseThick}"
+                          Style="{StaticResource MaterialDesignActionToggleButton}">
+            </ToggleButton>
+        </StackPanel>
+
+        <TextBox Grid.Row="4"
+                 materialDesign:HintAssist.Hint="Starting balance :"
+                 Style="{StaticResource MaterialDesignFilledTextBox}"
+                 Text="{Binding StartingBalance, Mode=TwoWay}"
+                 PreviewTextInput="TextBoxStartingBalance_OnPreviewTextInput">
+        </TextBox>
+
     </Grid>
 
 </Page>

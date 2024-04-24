@@ -20,7 +20,7 @@ public partial class TAccount
     public int? Currency { get; set; }
 
     [Column("active", TypeName = "BOOLEAN")]
-    public bool? Active { get; set; }
+    public bool? Active { get; set; } = true;
 
     [Column("date_added", TypeName = "DATETIME")]
     public DateTime? DateAdded { get; set; }
