@@ -24,6 +24,8 @@
                  GlowBrush="Gray"
                  NonActiveGlowBrush="Gray"
 
+                 ShowIconOnTitleBar="True"
+
                  WindowStartupLocation="CenterScreen"
                  ResizeMode="CanResizeWithGrip"
 
