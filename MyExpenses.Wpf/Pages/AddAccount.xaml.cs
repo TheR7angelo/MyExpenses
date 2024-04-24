@@ -1,9 +1,9 @@
-﻿using System.Text.RegularExpressions;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using MyExpenses.Models.Sql.Tables;
 using MyExpenses.Sql.Context;
+using MyExpenses.Wpf.Ressources.Regex;
 
 namespace MyExpenses.Wpf.Pages;
 
@@ -45,8 +45,9 @@ public partial class AddAccount
 
     private void TextBoxStartingBalance_OnPreviewTextInput(object sender, TextCompositionEventArgs e)
     {
-        var regex = new Regex("^[.][0-9]+$|^[0-9]*[.]{0,1}[0-9]*$|^[0-9]*[,]{0,1}[0-9]*$");
         var textBox = (TextBox)sender;
-        e.Handled = !regex.IsMatch(textBox.Text.Insert(textBox.SelectionStart,e.Text));
+        var txt = textBox.Text.Insert(textBox.SelectionStart, e.Text);
+
+        e.Handled = txt.IsOnlyDecimal();
     }
 }
