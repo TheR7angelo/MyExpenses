@@ -39,6 +39,14 @@ public partial class DashBoard : INotifyPropertyChanged
 
     public string TotalStr => Total.HasValue ? Total.Value.ToString("F2") : "0.00";
 
+    public string DataGridTextColumnAccount { get; } = Ressources.Resx.DashBoard.DashBoardResources.DataGridTextColumnAccount;
+    public string DataGridTextColumnDescription { get; } = Ressources.Resx.DashBoard.DashBoardResources.DataGridTextColumnDescription;
+    public string DataGridTextColumnCategory { get; } = Ressources.Resx.DashBoard.DashBoardResources.DataGridTextColumnCategory;
+    public string DataGridTextColumnModePayment { get; } = Ressources.Resx.DashBoard.DashBoardResources.DataGridTextColumnModePayment;
+    public string DataGridTextColumnValue { get; } = Ressources.Resx.DashBoard.DashBoardResources.DataGridTextColumnValue;
+    public string DataGridTextColumnDate { get; } = Ressources.Resx.DashBoard.DashBoardResources.DataGridTextColumnDate;
+    public string DataGridTextColumnPointed { get; } = Ressources.Resx.DashBoard.DashBoardResources.DataGridTextColumnPointed;
+
     public DashBoard()
     {
         using var context = new DataBaseContext();
