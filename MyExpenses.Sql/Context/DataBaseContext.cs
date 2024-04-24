@@ -24,6 +24,8 @@ public partial class DataBaseContext : DbContext
 
     public virtual DbSet<TCategoryType> TCategoryTypes { get; set; }
 
+    public virtual DbSet<TCurrency> TCurrencies { get; set; }
+
     public virtual DbSet<THistory> THistories { get; set; }
 
     public virtual DbSet<TModePayment> TModePayments { get; set; }
