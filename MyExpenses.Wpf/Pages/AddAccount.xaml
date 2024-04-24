@@ -71,6 +71,12 @@
                  PreviewTextInput="TextBoxStartingBalance_OnPreviewTextInput">
         </TextBox>
 
+        <StackPanel Grid.Row="5" utils:PanelExtensions.MarginForAllChildren="5"
+                    Orientation="Horizontal">
+            <Button Content="Valid" />
+            <Button Content="Cancel" />
+        </StackPanel>
+
     </Grid>
 
 </Page>
