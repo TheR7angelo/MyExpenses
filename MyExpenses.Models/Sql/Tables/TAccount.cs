@@ -16,6 +16,12 @@ public partial class TAccount
     [Column("account_type_fk")]
     public int? AccountTypeFk { get; set; }
 
+    [Column("active", TypeName = "BOOLEAN")]
+    public bool? Active { get; set; }
+
+    [Column("date_added", TypeName = "DATETIME")]
+    public DateTime? DateAdded { get; set; }
+
     [ForeignKey("AccountTypeFk")]
     [InverseProperty("TAccounts")]
     public virtual TAccountType? AccountTypeFkNavigation { get; set; }

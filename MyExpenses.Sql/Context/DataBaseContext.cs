@@ -62,6 +62,12 @@ public partial class DataBaseContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<TAccount>(entity =>
+        {
+            entity.Property(e => e.Active).HasDefaultValueSql("TRUE");
+            entity.Property(e => e.DateAdded).HasDefaultValueSql("CURRENT_TIMESTAMP");
+        });
+
         modelBuilder.Entity<THistory>(entity =>
         {
             entity.Property(e => e.Date).HasDefaultValueSql("CURRENT_TIMESTAMP");
