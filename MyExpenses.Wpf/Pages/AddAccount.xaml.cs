@@ -10,13 +10,14 @@ namespace MyExpenses.Wpf.Pages;
 public partial class AddAccount
 {
     public TAccount Account { get; } = new();
-    public List<TAccount> Accounts { get; }
 
     public string DisplayMemberPathAccountType => nameof(TAccountType.Name);
     public string DisplayMemberPathCurrencie => nameof(TCurrency.Currency);
     public List<TAccountType> AccountTypes { get; }
     public List<TCurrency> Currencies { get; }
     public double StartingBalance { get; set; }
+
+    private List<TAccount> Accounts { get; }
 
     public AddAccount()
     {
