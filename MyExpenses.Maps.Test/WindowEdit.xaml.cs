@@ -132,6 +132,7 @@ public partial class WindowEdit
         }
 
         newPlace.Id = Place.Id;
+        newPlace.DateAdded = Place.DateAdded ?? newPlace.DateAdded;
         SetTplace(newPlace, true);
     }
 
