@@ -146,6 +146,7 @@ BEGIN
     WHERE id = NEW.id;
 END;
 
+DROP TRIGGER IF EXISTS after_insert_on_t_history;
 CREATE TRIGGER after_insert_on_t_history
     AFTER INSERT
     ON t_history
@@ -159,6 +160,7 @@ BEGIN
     WHERE id = NEW.id;
 END;
 
+DROP TRIGGER IF EXISTS after_update_on_t_history;
 CREATE TRIGGER after_update_on_t_history
     AFTER UPDATE
     ON t_history
