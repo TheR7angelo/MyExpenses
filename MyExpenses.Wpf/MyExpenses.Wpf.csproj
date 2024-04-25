@@ -30,6 +30,10 @@
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>DashBoardResources.Designer.cs</LastGenOutput>
       </EmbeddedResource>
+      <EmbeddedResource Update="Ressources\Resx\AddAccount\AddAccountResources.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>AddAccountResources.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
     </ItemGroup>
 
     <ItemGroup>
@@ -42,6 +46,11 @@
         <DesignTime>True</DesignTime>
         <AutoGen>True</AutoGen>
         <DependentUpon>DashBoardResources.resx</DependentUpon>
+      </Compile>
+      <Compile Update="Ressources\Resx\AddAccount\AddAccountResources.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>AddAccountResources.resx</DependentUpon>
       </Compile>
     </ItemGroup>
 

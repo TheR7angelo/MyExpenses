@@ -27,14 +27,14 @@
         </Grid.RowDefinitions>
 
         <TextBox Grid.Row="0"
-                 materialDesign:HintAssist.Hint="Name :"
+                 materialDesign:HintAssist.Hint="{Binding TextBoxAccountName}"
                  Style="{StaticResource MaterialDesignFilledTextBox}"
                  Text="{Binding Account.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                  LostFocus="TextBoxAccountName_OnLostFocus">
         </TextBox>
 
         <ComboBox Grid.Row="1"
-                  materialDesign:HintAssist.Hint="Account type :"
+                  materialDesign:HintAssist.Hint="{Binding ComboBoxAccountType}"
                   materialDesign:TextFieldAssist.HasClearButton="True"
                   Style="{StaticResource MaterialDesignFilledComboBox}"
                   ItemsSource="{Binding AccountTypes}"
@@ -43,7 +43,7 @@
         </ComboBox>
 
         <ComboBox Grid.Row="2"
-                  materialDesign:HintAssist.Hint="Currency :"
+                  materialDesign:HintAssist.Hint="{Binding ComboBoxAccountCurrency}"
                   materialDesign:TextFieldAssist.HasClearButton="True"
                   Style="{StaticResource MaterialDesignFilledComboBox}"
                   ItemsSource="{Binding Currencies}"
@@ -53,7 +53,7 @@
 
         <StackPanel Grid.Row="3"
                     Orientation="Horizontal">
-            <Label Margin="0, 0, 1.5, 0" VerticalContentAlignment="Center" Content="Is the account active ?" />
+            <Label Margin="0, 0, 1.5, 0" VerticalContentAlignment="Center" Content="{Binding LabelIsAccountActive}" />
 
             <ToggleButton Margin="1.5, 0, 0, 0"
                           IsThreeState="False"
@@ -65,7 +65,7 @@
         </StackPanel>
 
         <TextBox Grid.Row="4"
-                 materialDesign:HintAssist.Hint="Starting balance :"
+                 materialDesign:HintAssist.Hint="{Binding TextBoxAccountStartingBalance}"
                  Style="{StaticResource MaterialDesignFilledTextBox}"
                  Text="{Binding StartingBalance, Mode=TwoWay}"
                  PreviewTextInput="TextBoxStartingBalance_OnPreviewTextInput">

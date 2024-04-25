@@ -4,11 +4,23 @@ using System.Windows.Input;
 using MyExpenses.Models.Sql.Tables;
 using MyExpenses.Sql.Context;
 using MyExpenses.Wpf.Resources.Regex;
+using MyExpenses.Wpf.Ressources.Resx.AddAccount;
 
 namespace MyExpenses.Wpf.Pages;
 
 public partial class AddAccount
 {
+    #region Resx
+
+    public string TextBoxAccountName { get; } = AddAccountResources.TextBoxAccountName;
+    public string ComboBoxAccountType { get; } = AddAccountResources.ComboBoxAccountType;
+    public string ComboBoxAccountCurrency { get; } = AddAccountResources.ComboBoxAccountCurrency;
+    public string LabelIsAccountActive { get; } = AddAccountResources.LabelIsAccountActive;
+    public string TextBoxAccountStartingBalance { get; } = AddAccountResources.TextBoxAccountStartingBalance;
+    private string MsgBoxErrorAccountNameAlreadyExists { get; } = AddAccountResources.MsgBoxErrorAccountNameAlreadyExists;
+
+    #endregion
+
     public TAccount Account { get; } = new();
 
     public string DisplayMemberPathAccountType => nameof(TAccountType.Name);
@@ -39,7 +51,7 @@ public partial class AddAccount
     }
 
     private void DisplayErrorAccountName()
-        => MessageBox.Show("An account already exists with this name");
+        => MessageBox.Show(MsgBoxErrorAccountNameAlreadyExists);
 
     private bool CheckAccountName(string accountName)
         => Accounts.Select(s => s.Name).Contains(accountName);
