@@ -3,7 +3,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using MyExpenses.Models.Sql.Tables;
 using MyExpenses.Sql.Context;
-using MyExpenses.Wpf.Ressources.Regex;
+using MyExpenses.Wpf.Resources.Regex;
 
 namespace MyExpenses.Wpf.Pages;
 

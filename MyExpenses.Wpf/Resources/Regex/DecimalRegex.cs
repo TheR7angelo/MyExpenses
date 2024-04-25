@@ -1,6 +1,6 @@
 ﻿using System.Text.RegularExpressions;
 
-namespace MyExpenses.Wpf.Ressources.Regex;
+namespace MyExpenses.Wpf.Resources.Regex;
 
 public static partial class DecimalRegex
 {
