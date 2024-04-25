@@ -11,6 +11,14 @@
 
       Title="AddAccount"
 
+      d:DesignHeight="585"
+      d:DesignWidth="458"
+
+      MinHeight="585"
+      MinWidth="458"
+      Height="585"
+      Width="458"
+
       TitleCharacterCasing="Normal"
       NonActiveWindowTitleBrush="Gray"
       WindowTitleBrush="Gray"
