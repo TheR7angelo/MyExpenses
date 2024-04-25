@@ -65,5 +65,7 @@ public partial class AddAccount
     }
 
     private void ButtonCancel_OnClick(object sender, RoutedEventArgs e)
-        => nameof(MainWindow.FrameBody).GoBack();
+    {
+        Close();
+    }
 }

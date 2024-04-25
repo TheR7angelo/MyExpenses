@@ -107,7 +107,11 @@ public partial class DashBoard : INotifyPropertyChanged
 
     private void ButtonAddAccount_OnClick(object sender, RoutedEventArgs e)
     {
-        nameof(MainWindow.FrameBody).NavigateTo(typeof(AddAccount));
+        var addAccount = new AddAccount();
+
+        addAccount.ShowDialog();
+
+        Console.WriteLine(addAccount.Account.Name);
     }
 
     private void DashBoard_OnLoaded(object sender, RoutedEventArgs e)
