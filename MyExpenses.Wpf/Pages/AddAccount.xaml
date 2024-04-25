@@ -29,7 +29,8 @@
       DataContext="{Binding RelativeSource={RelativeSource Self}}">
 
     <Grid utils:PanelExtensions.MarginForAllChildren="5"
-          VerticalAlignment="Center">
+          VerticalAlignment="Center"
+          HorizontalAlignment="Center">
 
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -40,14 +41,19 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <TextBox Grid.Row="0"
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" MinWidth="200" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+
+        <TextBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
                  materialDesign:HintAssist.Hint="{Binding TextBoxAccountName}"
                  Style="{StaticResource MaterialDesignFilledTextBox}"
                  Text="{Binding Account.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                  LostFocus="TextBoxAccountName_OnLostFocus">
         </TextBox>
 
-        <ComboBox Grid.Row="1"
+        <ComboBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
                   materialDesign:HintAssist.Hint="{Binding ComboBoxAccountType}"
                   materialDesign:TextFieldAssist.HasClearButton="True"
                   Style="{StaticResource MaterialDesignFilledComboBox}"
@@ -56,16 +62,26 @@
                   SelectedItem="{Binding Account.AccountTypeFkNavigation}">
         </ComboBox>
 
-        <ComboBox Grid.Row="2"
-                  materialDesign:HintAssist.Hint="{Binding ComboBoxAccountCurrency}"
-                  materialDesign:TextFieldAssist.HasClearButton="True"
-                  Style="{StaticResource MaterialDesignFilledComboBox}"
-                  ItemsSource="{Binding Currencies}"
-                  DisplayMemberPath="{Binding DisplayMemberPathCurrencie}"
-                  SelectedItem="{Binding Account.CurrencyNavigation}">
-        </ComboBox>
 
-        <StackPanel Grid.Row="3"
+            <ComboBox Grid.Row="2" Grid.Column="0"
+                      materialDesign:HintAssist.Hint="{Binding ComboBoxAccountCurrency}"
+                      materialDesign:TextFieldAssist.HasClearButton="True"
+                      Style="{StaticResource MaterialDesignFilledComboBox}"
+                      ItemsSource="{Binding Currencies}"
+                      DisplayMemberPath="{Binding DisplayMemberPathCurrencie}"
+                      SelectedItem="{Binding Account.CurrencyNavigation}">
+            </ComboBox>
+
+            <ComboBox Grid.Row="2" Grid.Column="1"
+                      materialDesign:HintAssist.Hint="{Binding ComboBoxAccountCurrency}"
+                      materialDesign:TextFieldAssist.HasClearButton="True"
+                      Style="{StaticResource MaterialDesignFilledComboBox}"
+                      ItemsSource="{Binding Currencies}"
+                      DisplayMemberPath="{Binding DisplayMemberPathCurrencie}"
+                      SelectedItem="{Binding Account.CurrencyNavigation}">
+            </ComboBox>
+
+        <StackPanel Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"
                     Orientation="Horizontal">
             <Label Margin="0, 0, 1.5, 0" VerticalContentAlignment="Center" Content="{Binding LabelIsAccountActive}" />
 
@@ -78,7 +94,7 @@
             </ToggleButton>
         </StackPanel>
 
-        <TextBox Grid.Row="4"
+        <TextBox Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2"
                  materialDesign:HintAssist.Hint="{Binding TextBoxAccountStartingBalance}"
                  Style="{StaticResource MaterialDesignFilledTextBox}"
                  Text="{Binding StartingBalance, Mode=TwoWay}"
