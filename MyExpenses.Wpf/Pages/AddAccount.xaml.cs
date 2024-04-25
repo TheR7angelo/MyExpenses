@@ -4,7 +4,7 @@ using System.Windows.Input;
 using MyExpenses.Models.Sql.Tables;
 using MyExpenses.Sql.Context;
 using MyExpenses.Wpf.Resources.Regex;
-using MyExpenses.Wpf.Ressources.Resx.AddAccount;
+using MyExpenses.Wpf.Resources.Resx.AddAccount;
 
 namespace MyExpenses.Wpf.Pages;
 

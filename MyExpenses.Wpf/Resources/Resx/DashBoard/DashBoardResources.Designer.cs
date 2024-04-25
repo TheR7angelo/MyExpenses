@@ -7,10 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MyExpenses.Wpf.Ressources.Resx.DashBoard {
-    using System;
-    
-    
+namespace MyExpenses.Wpf.Resources.Resx.DashBoard {
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
     /// </summary>
@@ -38,7 +35,7 @@ namespace MyExpenses.Wpf.Ressources.Resx.DashBoard {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MyExpenses.Wpf.Ressources.Resx.DashBoard.DashBoardResources", typeof(DashBoardResources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MyExpenses.Wpf.Resources.Resx.DashBoard.DashBoardResources", typeof(DashBoardResources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

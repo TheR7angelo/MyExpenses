@@ -22,32 +22,32 @@
     </ItemGroup>
 
     <ItemGroup>
-      <EmbeddedResource Update="Ressources\Resx\MainWindow\MainWindowRessources.resx">
+      <EmbeddedResource Update="Resources\Resx\MainWindow\MainWindowResources.resx">
         <Generator>ResXFileCodeGenerator</Generator>
-        <LastGenOutput>MainWindowRessource.Designer.cs</LastGenOutput>
+        <LastGenOutput>MainWindowResource.Designer.cs</LastGenOutput>
       </EmbeddedResource>
-      <EmbeddedResource Update="Ressources\Resx\DashBoard\DashBoardResources.resx">
+      <EmbeddedResource Update="Resources\Resx\DashBoard\DashBoardResources.resx">
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>DashBoardResources.Designer.cs</LastGenOutput>
       </EmbeddedResource>
-      <EmbeddedResource Update="Ressources\Resx\AddAccount\AddAccountResources.resx">
+      <EmbeddedResource Update="Resources\Resx\AddAccount\AddAccountResources.resx">
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>AddAccountResources.Designer.cs</LastGenOutput>
       </EmbeddedResource>
     </ItemGroup>
 
     <ItemGroup>
-      <Compile Update="Ressources\Resx\MainWindow\MainWindowRessources.Designer.cs">
+      <Compile Update="Resources\Resx\MainWindow\MainWindowResources.Designer.cs">
         <DesignTime>True</DesignTime>
         <AutoGen>True</AutoGen>
-        <DependentUpon>MainWindowRessources.resx</DependentUpon>
+        <DependentUpon>MainWindowResources.resx</DependentUpon>
       </Compile>
-      <Compile Update="Ressources\Resx\DashBoard\DashBoardResources.Designer.cs">
+      <Compile Update="Resources\Resx\DashBoard\DashBoardResources.Designer.cs">
         <DesignTime>True</DesignTime>
         <AutoGen>True</AutoGen>
         <DependentUpon>DashBoardResources.resx</DependentUpon>
       </Compile>
-      <Compile Update="Ressources\Resx\AddAccount\AddAccountResources.Designer.cs">
+      <Compile Update="Resources\Resx\AddAccount\AddAccountResources.Designer.cs">
         <DesignTime>True</DesignTime>
         <AutoGen>True</AutoGen>
         <DependentUpon>AddAccountResources.resx</DependentUpon>

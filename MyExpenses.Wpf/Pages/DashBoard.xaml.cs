@@ -10,6 +10,7 @@ using LiveChartsCore.SkiaSharpView.Painting;
 using MyExpenses.Models.Sql.Views;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils;
+using MyExpenses.Wpf.Resources.Resx.DashBoard;
 using SkiaSharp.Views.WPF;
 
 namespace MyExpenses.Wpf.Pages;
@@ -39,14 +40,14 @@ public partial class DashBoard : INotifyPropertyChanged
 
     public string TotalStr => Total.HasValue ? Total.Value.ToString("F2") : "0.00";
 
-    public string ButtonAddAccount { get; } = Ressources.Resx.DashBoard.DashBoardResources.ButtonAddAccount;
-    public string DataGridTextColumnAccount { get; } = Ressources.Resx.DashBoard.DashBoardResources.DataGridTextColumnAccount;
-    public string DataGridTextColumnDescription { get; } = Ressources.Resx.DashBoard.DashBoardResources.DataGridTextColumnDescription;
-    public string DataGridTextColumnCategory { get; } = Ressources.Resx.DashBoard.DashBoardResources.DataGridTextColumnCategory;
-    public string DataGridTextColumnModePayment { get; } = Ressources.Resx.DashBoard.DashBoardResources.DataGridTextColumnModePayment;
-    public string DataGridTextColumnValue { get; } = Ressources.Resx.DashBoard.DashBoardResources.DataGridTextColumnValue;
-    public string DataGridTextColumnDate { get; } = Ressources.Resx.DashBoard.DashBoardResources.DataGridTextColumnDate;
-    public string DataGridTextColumnPointed { get; } = Ressources.Resx.DashBoard.DashBoardResources.DataGridTextColumnPointed;
+    public string ButtonAddAccount { get; } = DashBoardResources.ButtonAddAccount;
+    public string DataGridTextColumnAccount { get; } = DashBoardResources.DataGridTextColumnAccount;
+    public string DataGridTextColumnDescription { get; } = DashBoardResources.DataGridTextColumnDescription;
+    public string DataGridTextColumnCategory { get; } = DashBoardResources.DataGridTextColumnCategory;
+    public string DataGridTextColumnModePayment { get; } = DashBoardResources.DataGridTextColumnModePayment;
+    public string DataGridTextColumnValue { get; } = DashBoardResources.DataGridTextColumnValue;
+    public string DataGridTextColumnDate { get; } = DashBoardResources.DataGridTextColumnDate;
+    public string DataGridTextColumnPointed { get; } = DashBoardResources.DataGridTextColumnPointed;
 
     public DashBoard()
     {
