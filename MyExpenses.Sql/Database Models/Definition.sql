@@ -224,11 +224,14 @@ FROM t_history h
 DROP VIEW IF EXISTS v_total_by_account;
 CREATE VIEW v_total_by_account AS
 SELECT ta.name,
-       ROUND(SUM(th.value), 2) AS total
+       ROUND(SUM(th.value), 2) AS total,
+       tc.currency
 FROM t_account ta
          LEFT JOIN t_history th
                    ON ta.id = th.compte_fk
-GROUP BY ta.name;
+         LEFT JOIN t_currency tc
+             ON ta.currency = tc.id
+GROUP BY ta.name, tc.currency;
 
 DROP VIEW IF EXISTS v_detail_total_category;
 CREATE VIEW v_detail_total_category AS
@@ -238,13 +241,16 @@ SELECT CAST(STRFTIME('%Y', h.date) AS INT) AS year,
        CAST(STRFTIME('%d', h.date) AS INT) AS day,
        ta.name                             AS account,
        tct.name                            AS category,
-       h.value
+       h.value,
+       tc.currency
 
 FROM t_category_type tct
          LEFT JOIN t_history h
                    ON h.category_type_fk = tct.id
          LEFT JOIN t_account ta
                    ON h.compte_fk = ta.id
+         LEFT JOIN t_currency tc
+                   ON ta.currency = tc.id
 ORDER BY year, week;
 -- endregion
 
