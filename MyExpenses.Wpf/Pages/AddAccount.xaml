@@ -71,10 +71,18 @@
                  PreviewTextInput="TextBoxStartingBalance_OnPreviewTextInput">
         </TextBox>
 
-        <StackPanel Grid.Row="5" utils:PanelExtensions.MarginForAllChildren="5"
-                    Orientation="Horizontal">
-            <Button Content="Valid" />
-            <Button Content="Cancel" />
+        <StackPanel Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2"
+                    utils:PanelExtensions.MarginForAllChildren="5"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Center">
+            <Button Content="Valid"
+                    Style="{StaticResource MaterialDesignPaperButton}">
+            </Button>
+
+            <Button Content="Cancel"
+                    Style="{StaticResource MaterialDesignPaperSecondaryButton}"
+                    Click="ButtonCancel_OnClick">
+            </Button>
         </StackPanel>
 
     </Grid>

@@ -63,4 +63,7 @@ public partial class AddAccount
 
         e.Handled = txt.IsOnlyDecimal();
     }
+
+    private void ButtonCancel_OnClick(object sender, RoutedEventArgs e)
+        => nameof(MainWindow.FrameBody).GoBack();
 }
