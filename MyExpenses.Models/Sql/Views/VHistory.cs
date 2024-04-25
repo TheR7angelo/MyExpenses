@@ -21,6 +21,9 @@ public partial class VHistory
     [Column("value")]
     public double? Value { get; set; }
 
+    [Column("currency")]
+    public string? Currency { get; set; }
+
     [Column("date", TypeName = "DATETIME")]
     public DateTime? Date { get; set; }
 

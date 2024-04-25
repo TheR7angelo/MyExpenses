@@ -182,6 +182,7 @@ SELECT ta.name  AS account,
        tct.name AS category,
        tmp.name AS mode_payment,
        h.value,
+       tc.currency,
        h.date,
        tp.name  AS place,
        h.pointed
@@ -193,6 +194,8 @@ FROM t_history h
                    ON h.category_type_fk = tct.id
          LEFT JOIN t_mode_payment tmp
                    ON h.mode_payment_fk = tmp.id
+         LEFT JOIN t_currency tc
+                   ON ta.currency = tc.id
          LEFT JOIN t_place tp
                    ON h.place_fk = tp.id;
 
