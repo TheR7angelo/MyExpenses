@@ -111,6 +111,9 @@ public partial class DashBoard : INotifyPropertyChanged
         addAccount.ShowDialog();
         if (addAccount.DialogResult != true) return;
 
+        var newAccount = addAccount.Account;
+        var startingBalance = addAccount.StartingBalance;
+
         Console.WriteLine(addAccount.Account.Name);
     }
 
