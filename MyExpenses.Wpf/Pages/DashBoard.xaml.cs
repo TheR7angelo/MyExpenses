@@ -114,6 +114,10 @@ public partial class DashBoard : INotifyPropertyChanged
         var newAccount = addAccount.Account;
         var startingBalance = addAccount.StartingBalance;
 
+        using var context = new DataBaseContext();
+        context.TAccounts.Add(newAccount);
+        context.SaveChanges();
+
         Console.WriteLine(addAccount.Account.Name);
     }
 
