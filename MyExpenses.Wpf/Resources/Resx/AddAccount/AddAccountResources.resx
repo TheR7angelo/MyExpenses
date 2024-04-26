@@ -33,10 +33,16 @@
     <data name="TextBoxAccountStartingBalance" xml:space="preserve">
         <value>Starting balance :</value>
     </data>
-    <data name="MsgBoxErrorAccountNameAlreadyExist" xml:space="preserve">
-        <value />
-    </data>
     <data name="MsgBoxErrorAccountNameAlreadyExists" xml:space="preserve">
         <value>An account already exists with this name</value>
+    </data>
+    <data name="MsgBoxErrorAccountCannotByEmpty" xml:space="preserve">
+        <value>Account name cannot be empty</value>
+    </data>
+    <data name="MsgBoxErrorAccountTypeCannotByEmpty" xml:space="preserve">
+        <value>Account type cannot be empty</value>
+    </data>
+    <data name="MsgBoxErrorAccountCurrencyCannotByEmpty" xml:space="preserve">
+        <value>Account currency cannot be empty</value>
     </data>
 </root>

@@ -77,7 +77,7 @@ public partial class AddAccount
     {
         if (string.IsNullOrEmpty(Account.Name))
         {
-            MessageBox.Show("Account name cannot be empty");
+            MessageBox.Show(AddAccountResources.MsgBoxErrorAccountCannotByEmpty);
             return true;
         }
 
@@ -90,13 +90,13 @@ public partial class AddAccount
 
         if (Account.AccountTypeFkNavigation is null)
         {
-            MessageBox.Show("Account type cannot be empty");
+            MessageBox.Show(AddAccountResources.MsgBoxErrorAccountTypeCannotByEmpty);
             return true;
         }
 
         if (Account.CurrencyFkNavigation is null)
         {
-            MessageBox.Show("Account currency cannot be empty");
+            MessageBox.Show(AddAccountResources.MsgBoxErrorAccountCurrencyCannotByEmpty);
             return true;
         }
 

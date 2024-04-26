@@ -29,4 +29,13 @@
     <data name="MsgBoxErrorAccountNameAlreadyExists" xml:space="preserve">
         <value>Un compte existe déjà avec ce nom</value>
     </data>
+    <data name="MsgBoxErrorAccountCannotByEmpty" xml:space="preserve">
+        <value>Le nom du compte ne peut pas être vide</value>
+    </data>
+    <data name="MsgBoxErrorAccountTypeCannotByEmpty" xml:space="preserve">
+        <value>Le type de compte ne peut pas être vide</value>
+    </data>
+    <data name="MsgBoxErrorAccountCurrencyCannotByEmpty" xml:space="preserve">
+        <value>La devise du compte ne peut pas être vide</value>
+    </data>
 </root>
