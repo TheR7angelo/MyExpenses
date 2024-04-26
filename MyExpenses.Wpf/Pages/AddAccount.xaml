@@ -70,24 +70,23 @@
                   SelectedItem="{Binding Account.AccountTypeFkNavigation}">
         </ComboBox>
 
+        <ComboBox Grid.Row="2" Grid.Column="0"
+                  materialDesign:HintAssist.Hint="{Binding ComboBoxAccountCurrency}"
+                  materialDesign:TextFieldAssist.HasClearButton="True"
+                  Style="{StaticResource MaterialDesignFilledComboBox}"
+                  ItemsSource="{Binding Currencies}"
+                  DisplayMemberPath="{Binding DisplayMemberPathCurrency}"
+                  SelectedItem="{Binding Account.CurrencyFkNavigation}">
+        </ComboBox>
 
-            <ComboBox Grid.Row="2" Grid.Column="0"
-                      materialDesign:HintAssist.Hint="{Binding ComboBoxAccountCurrency}"
-                      materialDesign:TextFieldAssist.HasClearButton="True"
-                      Style="{StaticResource MaterialDesignFilledComboBox}"
-                      ItemsSource="{Binding Currencies}"
-                      DisplayMemberPath="{Binding DisplayMemberPathCurrencie}"
-                      SelectedItem="{Binding Account.CurrencyFkNavigation}">
-            </ComboBox>
-
-            <ComboBox Grid.Row="2" Grid.Column="1"
-                      materialDesign:HintAssist.Hint="{Binding ComboBoxAccountCurrency}"
-                      materialDesign:TextFieldAssist.HasClearButton="True"
-                      Style="{StaticResource MaterialDesignFilledComboBox}"
-                      ItemsSource="{Binding Currencies}"
-                      DisplayMemberPath="{Binding DisplayMemberPathCurrencie}"
-                      SelectedItem="{Binding Account.CurrencyFkNavigation}">
-            </ComboBox>
+        <ComboBox Grid.Row="2" Grid.Column="1"
+                  materialDesign:HintAssist.Hint="{Binding ComboBoxAccountCurrency}"
+                  materialDesign:TextFieldAssist.HasClearButton="True"
+                  Style="{StaticResource MaterialDesignFilledComboBox}"
+                  ItemsSource="{Binding Currencies}"
+                  DisplayMemberPath="{Binding DisplayMemberPathCurrency}"
+                  SelectedItem="{Binding Account.CurrencyFkNavigation}">
+        </ComboBox>
 
         <StackPanel Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"
                     Orientation="Horizontal">

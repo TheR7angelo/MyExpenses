@@ -24,7 +24,7 @@ public partial class AddAccount
     public TAccount Account { get; } = new();
 
     public string DisplayMemberPathAccountType => nameof(TAccountType.Name);
-    public string DisplayMemberPathCurrencie => nameof(TCurrency.Currency);
+    public string DisplayMemberPathCurrency => nameof(TCurrency.Currency);
     public List<TAccountType> AccountTypes { get; }
     public List<TCurrency> Currencies { get; }
     public double StartingBalance { get; set; }
@@ -50,12 +50,6 @@ public partial class AddAccount
         if (alreadyExist) DisplayErrorAccountName();
     }
 
-    private void DisplayErrorAccountName()
-        => MessageBox.Show(MsgBoxErrorAccountNameAlreadyExists);
-
-    private bool CheckAccountName(string accountName)
-        => Accounts.Select(s => s.Name).Contains(accountName);
-
     private void TextBoxStartingBalance_OnPreviewTextInput(object sender, TextCompositionEventArgs e)
     {
         var textBox = (TextBox)sender;
@@ -72,7 +66,51 @@ public partial class AddAccount
 
     private void ButtonValid_OnClick(object sender, RoutedEventArgs e)
     {
+        var error = CheckError();
+        if (error) return;
+
         DialogResult = true;
         Close();
     }
+
+    private bool CheckError()
+    {
+        var error = false;
+        if (string.IsNullOrEmpty(Account.Name))
+        {
+            MessageBox.Show("Account name cannot be empty");
+            error = true;
+            return error;
+        }
+
+        var errorName = CheckAccountName(Account.Name);
+        if (errorName)
+        {
+            MessageBox.Show(MsgBoxErrorAccountNameAlreadyExists);
+            error = true;
+            return error;
+        }
+
+        if (Account.AccountTypeFkNavigation is null)
+        {
+            MessageBox.Show("Account type cannot be empty");
+            error = true;
+            return error;
+        }
+
+        if (Account.CurrencyFkNavigation is null)
+        {
+            MessageBox.Show("Account currency cannot be empty");
+            error = true;
+            return error;
+        }
+
+        return error;
+    }
+
+    private void DisplayErrorAccountName()
+        => MessageBox.Show(MsgBoxErrorAccountNameAlreadyExists);
+
+    private bool CheckAccountName(string accountName)
+        => Accounts.Select(s => s.Name).Contains(accountName);
 }
