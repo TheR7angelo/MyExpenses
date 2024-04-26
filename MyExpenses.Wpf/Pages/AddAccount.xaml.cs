@@ -75,37 +75,32 @@ public partial class AddAccount
 
     private bool CheckError()
     {
-        var error = false;
         if (string.IsNullOrEmpty(Account.Name))
         {
             MessageBox.Show("Account name cannot be empty");
-            error = true;
-            return error;
+            return true;
         }
 
         var errorName = CheckAccountName(Account.Name);
         if (errorName)
         {
             MessageBox.Show(MsgBoxErrorAccountNameAlreadyExists);
-            error = true;
-            return error;
+            return true;
         }
 
         if (Account.AccountTypeFkNavigation is null)
         {
             MessageBox.Show("Account type cannot be empty");
-            error = true;
-            return error;
+            return true;
         }
 
         if (Account.CurrencyFkNavigation is null)
         {
             MessageBox.Show("Account currency cannot be empty");
-            error = true;
-            return error;
+            return true;
         }
 
-        return error;
+        return false;
     }
 
     private void DisplayErrorAccountName()
