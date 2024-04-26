@@ -16,11 +16,11 @@ public partial class TAccount
     [Column("account_type_fk")]
     public int? AccountTypeFk { get; set; }
 
-    [Column("currency")]
-    public int? Currency { get; set; }
+    [Column("currency_fk")]
+    public int? CurrencyFk { get; set; }
 
     [Column("active", TypeName = "BOOLEAN")]
-    public bool? Active { get; set; } = true;
+    public bool? Active { get; set; }
 
     [Column("date_added", TypeName = "DATETIME")]
     public DateTime? DateAdded { get; set; }
@@ -29,9 +29,9 @@ public partial class TAccount
     [InverseProperty("TAccounts")]
     public virtual TAccountType? AccountTypeFkNavigation { get; set; }
 
-    [ForeignKey("Currency")]
+    [ForeignKey("CurrencyFk")]
     [InverseProperty("TAccounts")]
-    public virtual TCurrency? CurrencyNavigation { get; set; }
+    public virtual TCurrency? CurrencyFkNavigation { get; set; }
 
     [InverseProperty("CompteFkNavigation")]
     public virtual ICollection<THistory> THistories { get; set; } = new List<THistory>();

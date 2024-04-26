@@ -13,6 +13,6 @@ public partial class TCurrency
     [Column("currency")]
     public string? Currency { get; set; }
 
-    [InverseProperty("CurrencyNavigation")]
+    [InverseProperty("CurrencyFkNavigation")]
     public virtual ICollection<TAccount> TAccounts { get; set; } = new List<TAccount>();
 }

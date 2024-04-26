@@ -77,7 +77,7 @@
                       Style="{StaticResource MaterialDesignFilledComboBox}"
                       ItemsSource="{Binding Currencies}"
                       DisplayMemberPath="{Binding DisplayMemberPathCurrencie}"
-                      SelectedItem="{Binding Account.CurrencyNavigation}">
+                      SelectedItem="{Binding Account.CurrencyFkNavigation}">
             </ComboBox>
 
             <ComboBox Grid.Row="2" Grid.Column="1"
@@ -86,7 +86,7 @@
                       Style="{StaticResource MaterialDesignFilledComboBox}"
                       ItemsSource="{Binding Currencies}"
                       DisplayMemberPath="{Binding DisplayMemberPathCurrencie}"
-                      SelectedItem="{Binding Account.CurrencyNavigation}">
+                      SelectedItem="{Binding Account.CurrencyFkNavigation}">
             </ComboBox>
 
         <StackPanel Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"

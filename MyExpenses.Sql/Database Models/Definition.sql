@@ -26,7 +26,7 @@ CREATE TABLE t_account
     account_type_fk INTEGER
         CONSTRAINT t_account_t_account_type_id_fk
             REFERENCES t_account_type,
-    currency        INTEGER
+    currency_fk        INTEGER
         constraint t_account_t_currency_id_fk
             references t_currency,
     active          BOOLEAN  DEFAULT TRUE,
@@ -197,7 +197,7 @@ FROM t_history h
          LEFT JOIN t_mode_payment tmp
                    ON h.mode_payment_fk = tmp.id
          LEFT JOIN t_currency tc
-                   ON ta.currency = tc.id
+                   ON ta.currency_fk = tc.id
          LEFT JOIN t_place tp
                    ON h.place_fk = tp.id;
 
@@ -232,7 +232,7 @@ FROM t_account ta
          LEFT JOIN t_history th
                    ON ta.id = th.compte_fk
          LEFT JOIN t_currency tc
-             ON ta.currency = tc.id
+             ON ta.currency_fk = tc.id
 GROUP BY ta.name, tc.currency;
 
 DROP VIEW IF EXISTS v_detail_total_category;
@@ -252,7 +252,7 @@ FROM t_category_type tct
          LEFT JOIN t_account ta
                    ON h.compte_fk = ta.id
          LEFT JOIN t_currency tc
-                   ON ta.currency = tc.id
+                   ON ta.currency_fk = tc.id
 ORDER BY year, week;
 -- endregion
 
