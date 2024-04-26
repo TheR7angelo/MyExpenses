@@ -7,6 +7,7 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using LiveChartsCore.SkiaSharpView;
 using LiveChartsCore.SkiaSharpView.Painting;
+using MyExpenses.Models.Sql.Tables;
 using MyExpenses.Models.Sql.Views;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils;
@@ -114,11 +115,14 @@ public partial class DashBoard : INotifyPropertyChanged
         var newAccount = addAccount.Account;
         var startingBalance = addAccount.StartingBalance;
 
+        // TODO add textbox description
+        var history = new THistory { Value = startingBalance, Description = "Test", Pointed = true };
+        newAccount.THistories = new List<THistory> { history };
+
         using var context = new DataBaseContext();
         context.TAccounts.Add(newAccount);
         context.SaveChanges();
 
-        Console.WriteLine(addAccount.Account.Name);
     }
 
     private void DashBoard_OnLoaded(object sender, RoutedEventArgs e)
