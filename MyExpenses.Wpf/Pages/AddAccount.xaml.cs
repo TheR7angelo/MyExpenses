@@ -66,6 +66,13 @@ public partial class AddAccount
 
     private void ButtonCancel_OnClick(object sender, RoutedEventArgs e)
     {
+        DialogResult = false;
+        Close();
+    }
+
+    private void ButtonValid_OnClick(object sender, RoutedEventArgs e)
+    {
+        DialogResult = true;
         Close();
     }
 }

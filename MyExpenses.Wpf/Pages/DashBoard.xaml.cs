@@ -108,8 +108,8 @@ public partial class DashBoard : INotifyPropertyChanged
     private void ButtonAddAccount_OnClick(object sender, RoutedEventArgs e)
     {
         var addAccount = new AddAccount();
-
         addAccount.ShowDialog();
+        if (addAccount.DialogResult != true) return;
 
         Console.WriteLine(addAccount.Account.Name);
     }

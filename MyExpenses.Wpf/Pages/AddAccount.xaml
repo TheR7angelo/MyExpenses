@@ -114,7 +114,8 @@
                     Orientation="Horizontal"
                     HorizontalAlignment="Center">
             <Button Content="Valid"
-                    Style="{StaticResource MaterialDesignPaperButton}">
+                    Style="{StaticResource MaterialDesignPaperButton}"
+                    Click="ButtonValid_OnClick">
             </Button>
 
             <Button Content="Cancel"
