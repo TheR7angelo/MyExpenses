@@ -88,13 +88,13 @@ public partial class AddAccount
             return true;
         }
 
-        if (Account.AccountTypeFkNavigation is null)
+        if (Account.AccountTypeFk is null)
         {
             MessageBox.Show(AddAccountResources.MsgBoxErrorAccountTypeCannotByEmpty);
             return true;
         }
 
-        if (Account.CurrencyFkNavigation is null)
+        if (Account.CurrencyFk is null)
         {
             MessageBox.Show(AddAccountResources.MsgBoxErrorAccountCurrencyCannotByEmpty);
             return true;

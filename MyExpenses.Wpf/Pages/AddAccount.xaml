@@ -64,28 +64,31 @@
         <ComboBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
                   materialDesign:HintAssist.Hint="{Binding ComboBoxAccountType}"
                   materialDesign:TextFieldAssist.HasClearButton="True"
-                  Style="{StaticResource MaterialDesignFilledComboBox}"
                   ItemsSource="{Binding AccountTypes}"
+                  Style="{StaticResource MaterialDesignFilledComboBox}"
                   DisplayMemberPath="{Binding DisplayMemberPathAccountType}"
-                  SelectedItem="{Binding Account.AccountTypeFkNavigation}">
+                  SelectedValue="{Binding Account.AccountTypeFk}"
+                  SelectedValuePath="Id">
         </ComboBox>
 
         <ComboBox Grid.Row="2" Grid.Column="0"
                   materialDesign:HintAssist.Hint="{Binding ComboBoxAccountCurrency}"
                   materialDesign:TextFieldAssist.HasClearButton="True"
-                  Style="{StaticResource MaterialDesignFilledComboBox}"
                   ItemsSource="{Binding Currencies}"
+                  Style="{StaticResource MaterialDesignFilledComboBox}"
                   DisplayMemberPath="{Binding DisplayMemberPathCurrency}"
-                  SelectedItem="{Binding Account.CurrencyFkNavigation}">
+                  SelectedValue="{Binding Account.CurrencyFk}"
+                  SelectedValuePath="Id">
         </ComboBox>
 
         <ComboBox Grid.Row="2" Grid.Column="1"
                   materialDesign:HintAssist.Hint="{Binding ComboBoxAccountCurrency}"
                   materialDesign:TextFieldAssist.HasClearButton="True"
-                  Style="{StaticResource MaterialDesignFilledComboBox}"
                   ItemsSource="{Binding Currencies}"
+                  Style="{StaticResource MaterialDesignFilledComboBox}"
                   DisplayMemberPath="{Binding DisplayMemberPathCurrency}"
-                  SelectedItem="{Binding Account.CurrencyFkNavigation}">
+                  SelectedValue="{Binding Account.CurrencyFk}"
+                  SelectedValuePath="Id">
         </ComboBox>
 
         <StackPanel Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"
