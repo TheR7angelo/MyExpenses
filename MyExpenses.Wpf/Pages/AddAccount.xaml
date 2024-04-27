@@ -103,21 +103,41 @@
                 BorderThickness="1.3"
                 CornerRadius="3">
 
-            <StackPanel Orientation="Vertical"
-                        utils:PanelExtensions.MarginForAllChildren="3">
+            <Grid utils:PanelExtensions.MarginForAllChildren="3">
 
-                <TextBox materialDesign:HintAssist.Hint="Description"
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <TextBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+                         materialDesign:HintAssist.Hint="Description"
                          Style="{StaticResource MaterialDesignFilledTextBox}"
                          Text="{Binding History.Description, Mode=TwoWay}">
                 </TextBox>
 
-                <TextBox materialDesign:HintAssist.Hint="{Binding TextBoxAccountStartingBalance}"
+                <TextBox Grid.Row="1" Grid.Column="0" materialDesign:HintAssist.Hint="{Binding TextBoxAccountStartingBalance}"
                          Style="{StaticResource MaterialDesignFilledTextBox}"
                          Text="{Binding History.Value, Mode=TwoWay}"
                          PreviewTextInput="TextBoxStartingBalance_OnPreviewTextInput">
                 </TextBox>
 
-            </StackPanel>
+                <ComboBox Grid.Row="1" Grid.Column="1"
+                          materialDesign:HintAssist.Hint="Category"
+                          materialDesign:TextFieldAssist.HasClearButton="True"
+                          ItemsSource="{Binding  CategoryTypes}"
+                          Style="{StaticResource MaterialDesignFilledComboBox}"
+                          DisplayMemberPath="{Binding DisplayMemberPathCategoryType}"
+                          SelectedValue="{Binding History.CategoryTypeFk}"
+                          SelectedValuePath="Id">
+                </ComboBox>
+
+            </Grid>
 
         </Border>
 

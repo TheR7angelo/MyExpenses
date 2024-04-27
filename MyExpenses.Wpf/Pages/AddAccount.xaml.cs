@@ -32,8 +32,10 @@ public partial class AddAccount
 
     public string DisplayMemberPathAccountType => nameof(TAccountType.Name);
     public string DisplayMemberPathCurrency => nameof(TCurrency.Currency);
+    public string DisplayMemberPathCategoryType => nameof(TCategoryType.Name);
     public List<TAccountType> AccountTypes { get; }
     public List<TCurrency> Currencies { get; }
+    public List<TCategoryType> CategoryTypes { get; }
 
     private List<TAccount> Accounts { get; }
 
@@ -49,6 +51,7 @@ public partial class AddAccount
         Accounts = [..context.TAccounts];
         AccountTypes = [..context.TAccountTypes];
         Currencies = [..context.TCurrencies];
+        CategoryTypes = [..context.TCategoryTypes];
 
         InitializeComponent();
     }
