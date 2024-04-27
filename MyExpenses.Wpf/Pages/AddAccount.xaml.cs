@@ -22,8 +22,9 @@ public partial class AddAccount
     public string LabelIsAccountActive { get; } = AddAccountResources.LabelIsAccountActive;
     public string TextBoxAccountStartingBalance { get; } = AddAccountResources.TextBoxAccountStartingBalance;
 
-    private string MsgBoxErrorAccountNameAlreadyExists { get; } =
-        AddAccountResources.MsgBoxErrorAccountNameAlreadyExists;
+    public string TextBoxAccountStartingBalanceDescription { get; } = AddAccountResources.TextBoxAccountStartingBalanceDescription;
+    public string ComboBoxAccountCategoryType { get; } = AddAccountResources.ComboBoxAccountCategoryType;
+    private string MsgBoxErrorAccountNameAlreadyExists { get; } = AddAccountResources.MsgBoxErrorAccountNameAlreadyExists;
 
     #endregion
 

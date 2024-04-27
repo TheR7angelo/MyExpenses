@@ -38,4 +38,10 @@
     <data name="MsgBoxErrorAccountCurrencyCannotByEmpty" xml:space="preserve">
         <value>La devise du compte ne peut pas être vide</value>
     </data>
+    <data name="TextBoxAccountStartingBalanceDescription" xml:space="preserve">
+        <value>La description du solde de départ :</value>
+    </data>
+    <data name="ComboBoxAccountCategoryType" xml:space="preserve">
+        <value>Catégorie :</value>
+    </data>
 </root>

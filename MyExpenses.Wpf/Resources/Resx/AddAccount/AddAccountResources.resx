@@ -45,4 +45,10 @@
     <data name="MsgBoxErrorAccountCurrencyCannotByEmpty" xml:space="preserve">
         <value>Account currency cannot be empty</value>
     </data>
+    <data name="TextBoxAccountStartingBalanceDescription" xml:space="preserve">
+        <value>The description of the starting balance :</value>
+    </data>
+    <data name="ComboBoxAccountCategoryType" xml:space="preserve">
+        <value>Category :</value>
+    </data>
 </root>

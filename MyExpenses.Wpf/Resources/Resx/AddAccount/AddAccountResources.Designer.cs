@@ -60,6 +60,15 @@ namespace MyExpenses.Wpf.Resources.Resx.AddAccount {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Category :.
+        /// </summary>
+        internal static string ComboBoxAccountCategoryType {
+            get {
+                return ResourceManager.GetString("ComboBoxAccountCategoryType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Currency :.
         /// </summary>
         internal static string ComboBoxAccountCurrency {
@@ -137,6 +146,15 @@ namespace MyExpenses.Wpf.Resources.Resx.AddAccount {
         internal static string TextBoxAccountStartingBalance {
             get {
                 return ResourceManager.GetString("TextBoxAccountStartingBalance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The description of the starting balance :.
+        /// </summary>
+        internal static string TextBoxAccountStartingBalanceDescription {
+            get {
+                return ResourceManager.GetString("TextBoxAccountStartingBalanceDescription", resourceCulture);
             }
         }
     }
