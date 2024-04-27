@@ -68,7 +68,7 @@
                   Style="{StaticResource MaterialDesignFilledComboBox}"
                   DisplayMemberPath="{Binding DisplayMemberPathAccountType}"
                   SelectedValue="{Binding Account.AccountTypeFk}"
-                  SelectedValuePath="Id">
+                  SelectedValuePath="{Binding SelectedValuePathAccountType}">
         </ComboBox>
 
         <ComboBox Grid.Row="2" Grid.Column="0"
@@ -78,7 +78,7 @@
                   Style="{StaticResource MaterialDesignFilledComboBox}"
                   DisplayMemberPath="{Binding DisplayMemberPathCurrency}"
                   SelectedValue="{Binding Account.CurrencyFk}"
-                  SelectedValuePath="Id">
+                  SelectedValuePath="{Binding SelectedValuePathCurrency}">
         </ComboBox>
 
         <Label Grid.Row="2" Grid.Column="1" Content="Add add function" />
@@ -134,7 +134,7 @@
                           Style="{StaticResource MaterialDesignFilledComboBox}"
                           DisplayMemberPath="{Binding DisplayMemberPathCategoryType}"
                           SelectedValue="{Binding History.CategoryTypeFk}"
-                          SelectedValuePath="Id">
+                          SelectedValuePath="{Binding SelectedValuePathCategoryType}">
                 </ComboBox>
 
             </Grid>

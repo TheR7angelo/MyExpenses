@@ -31,8 +31,11 @@ public partial class AddAccount
     public THistory History { get; } = new() { Pointed = true };
 
     public string DisplayMemberPathAccountType => nameof(TAccountType.Name);
+    public string SelectedValuePathAccountType => nameof(TAccountType.Id);
     public string DisplayMemberPathCurrency => nameof(TCurrency.Currency);
+    public string SelectedValuePathCurrency => nameof(TCurrency.Id);
     public string DisplayMemberPathCategoryType => nameof(TCategoryType.Name);
+    public string SelectedValuePathCategoryType => nameof(TCategoryType.Id);
     public List<TAccountType> AccountTypes { get; }
     public List<TCurrency> Currencies { get; }
     public List<TCategoryType> CategoryTypes { get; }
