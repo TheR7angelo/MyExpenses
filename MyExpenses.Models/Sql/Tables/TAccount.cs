@@ -23,7 +23,7 @@ public partial class TAccount
     public bool? Active { get; set; } = true;
 
     [Column("date_added", TypeName = "DATETIME")]
-    public DateTime? DateAdded { get; set; }
+    public DateTime? DateAdded { get; set; } = DateTime.Now;
 
     [ForeignKey("AccountTypeFk")]
     [InverseProperty("TAccounts")]
