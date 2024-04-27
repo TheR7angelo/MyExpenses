@@ -127,6 +127,8 @@ public partial class DashBoard : INotifyPropertyChanged
         {
             Log.Information("Account was successfully added");
             MessageBox.Show(DashBoardResources.MessageBoxAddAccountSuccess);
+
+            // TODO refresh dashboard data
         }
         else
         {
