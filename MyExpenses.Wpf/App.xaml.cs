@@ -11,7 +11,7 @@ public partial class App
         base.OnStartup(e);
 
         Log.Logger = MyExpenses.Utils.LoggerConfig.CreateConfig();
-        Log.Error("Starting the application");
+        Log.Information("Starting the application");
 
         AppDomain.CurrentDomain.ProcessExit += CurrentDomainOnProcessExit;
         AppDomain.CurrentDomain.UnhandledException += CurrentDomainOnUnhandledException;
