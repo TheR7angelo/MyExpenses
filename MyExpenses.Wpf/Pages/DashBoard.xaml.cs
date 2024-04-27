@@ -12,6 +12,7 @@ using MyExpenses.Models.Sql.Views;
 using MyExpenses.Sql.Context;
 using MyExpenses.Wpf.Utils;
 using MyExpenses.Wpf.Resources.Resx.DashBoard;
+using Serilog;
 using SkiaSharp.Views.WPF;
 
 namespace MyExpenses.Wpf.Pages;
@@ -120,8 +121,18 @@ public partial class DashBoard : INotifyPropertyChanged
             newAccount.THistories = new List<THistory> { newHistory };
         }
 
-        var success = newAccount.AddOrEdit();
-        MessageBox.Show(success ? DashBoardResources.MessageBoxAddAccountSuccess : DashBoardResources.MessageBoxAddAccountError);
+        Log.Information("Attempting to inject the new account \"{NewAccountName}\"", newAccount.Name);
+        var (success, exception) = newAccount.AddOrEdit();
+        if (success)
+        {
+            Log.Information("Account was successfully added");
+            MessageBox.Show(DashBoardResources.MessageBoxAddAccountSuccess);
+        }
+        else
+        {
+            Log.Error(exception, "An error occurred please retry");
+            MessageBox.Show(DashBoardResources.MessageBoxAddAccountError);
+        }
     }
 
     private void DashBoard_OnLoaded(object sender, RoutedEventArgs e)
