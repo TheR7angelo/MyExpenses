@@ -81,15 +81,7 @@
                   SelectedValuePath="Id">
         </ComboBox>
 
-        <ComboBox Grid.Row="2" Grid.Column="1"
-                  materialDesign:HintAssist.Hint="{Binding ComboBoxAccountCurrency}"
-                  materialDesign:TextFieldAssist.HasClearButton="True"
-                  ItemsSource="{Binding Currencies}"
-                  Style="{StaticResource MaterialDesignFilledComboBox}"
-                  DisplayMemberPath="{Binding DisplayMemberPathCurrency}"
-                  SelectedValue="{Binding Account.CurrencyFk}"
-                  SelectedValuePath="Id">
-        </ComboBox>
+        <Label Grid.Row="2" Grid.Column="1" Content="Add add function" />
 
         <StackPanel Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"
                     Orientation="Horizontal">
