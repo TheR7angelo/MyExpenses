@@ -8,6 +8,9 @@
 //------------------------------------------------------------------------------
 
 namespace MyExpenses.Wpf.Resources.Resx.DashBoard {
+    using System;
+    
+    
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
     /// </summary>
@@ -125,6 +128,24 @@ namespace MyExpenses.Wpf.Resources.Resx.DashBoard {
         internal static string DataGridTextColumnValue {
             get {
                 return ResourceManager.GetString("DataGridTextColumnValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error occurred please retry..
+        /// </summary>
+        internal static string MessageBoxAddAccountError {
+            get {
+                return ResourceManager.GetString("MessageBoxAddAccountError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Account was successfully added..
+        /// </summary>
+        internal static string MessageBoxAddAccountSuccess {
+            get {
+                return ResourceManager.GetString("MessageBoxAddAccountSuccess", resourceCulture);
             }
         }
     }

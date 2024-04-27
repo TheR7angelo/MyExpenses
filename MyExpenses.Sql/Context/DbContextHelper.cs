@@ -6,7 +6,23 @@ namespace MyExpenses.Sql.Context;
 
 public static class DbContextHelper
 {
-    public static bool AddOrEditPlace(this TPlace place)
+    public static bool AddOrEdit(this TAccount account)
+    {
+        try
+        {
+            using var context = new DataBaseContext();
+            context.Upsert(account, s => s.Id == account.Id);
+            context.SaveChanges();
+            return true;
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            return false;
+        }
+    }
+
+    public static bool AddOrEdit(this TPlace place)
     {
         try
         {

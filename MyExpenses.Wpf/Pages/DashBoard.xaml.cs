@@ -120,10 +120,8 @@ public partial class DashBoard : INotifyPropertyChanged
             newAccount.THistories = new List<THistory> { newHistory };
         }
 
-        using var context = new DataBaseContext();
-        context.TAccounts.Add(newAccount);
-        context.SaveChanges();
-
+        var success = newAccount.AddOrEdit();
+        MessageBox.Show(success ? DashBoardResources.MessageBoxAddAccountSuccess : DashBoardResources.MessageBoxAddAccountError);
     }
 
     private void DashBoard_OnLoaded(object sender, RoutedEventArgs e)
