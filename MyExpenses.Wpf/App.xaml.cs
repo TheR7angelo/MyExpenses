@@ -11,7 +11,7 @@ public partial class App
         base.OnStartup(e);
 
         Log.Logger = MyExpenses.Utils.LoggerConfig.CreateConfig();
-        Log.Information("Démmarrage de l'application");
+        Log.Error("Starting the application");
 
         AppDomain.CurrentDomain.ProcessExit += CurrentDomainOnProcessExit;
         AppDomain.CurrentDomain.UnhandledException += CurrentDomainOnUnhandledException;
@@ -19,15 +19,15 @@ public partial class App
 
     private static void CurrentDomainOnUnhandledException(object sender, UnhandledExceptionEventArgs e)
     {
-        if (e.ExceptionObject is Exception ex) Log.Fatal(ex, "Une erreur inattendue est survenue");
-        else Log.Fatal("Une erreur inattendue sans exception associée est survenue");
+        if (e.ExceptionObject is Exception ex) Log.Fatal(ex, "An unexpected error occurred");
+        else Log.Fatal("An unexpected error with no associated exception occurred");
 
         Log.CloseAndFlush();
     }
 
     private static void CurrentDomainOnProcessExit(object? sender, EventArgs e)
     {
-        Log.Information("Application quitter");
+        Log.Information("Application exit");
         Log.CloseAndFlush();
     }
 }
