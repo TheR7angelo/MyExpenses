@@ -6,19 +6,19 @@ namespace MyExpenses.Sql.Context;
 
 public static class DbContextHelper
 {
-    public static bool AddOrEdit(this TAccount account)
+    public static (bool Success, Exception? exception) AddOrEdit(this TAccount account)
     {
         try
         {
             using var context = new DataBaseContext();
             context.Upsert(account, s => s.Id == account.Id);
             context.SaveChanges();
-            return true;
+            return (true, null);
         }
         catch (Exception e)
         {
             Console.WriteLine(e);
-            return false;
+            return (false, e);
         }
     }
 
