@@ -18,6 +18,7 @@
     <ItemGroup>
       <ProjectReference Include="..\MyExpenses.Models\MyExpenses.Models.csproj" />
       <ProjectReference Include="..\MyExpenses.Sql\MyExpenses.Sql.csproj" />
+      <ProjectReference Include="..\MyExpenses.Utils\MyExpenses.Utils.csproj" />
       <ProjectReference Include="..\MyExpenses.Wpf.Utils\MyExpenses.Wpf.Utils.csproj" />
     </ItemGroup>
 
