@@ -61,7 +61,7 @@
                  LostFocus="TextBoxAccountName_OnLostFocus">
         </TextBox>
 
-        <ComboBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
+        <ComboBox Grid.Row="1" Grid.Column="0"
                   materialDesign:HintAssist.Hint="{Binding ComboBoxAccountType}"
                   materialDesign:TextFieldAssist.HasClearButton="True"
                   ItemsSource="{Binding AccountTypes}"
@@ -70,6 +70,8 @@
                   SelectedValue="{Binding Account.AccountTypeFk}"
                   SelectedValuePath="{Binding SelectedValuePathAccountType}">
         </ComboBox>
+
+        <Label Grid.Row="1" Grid.Column="1" Content="Add add function" />
 
         <ComboBox Grid.Row="2" Grid.Column="0"
                   materialDesign:HintAssist.Hint="{Binding ComboBoxAccountCurrency}"
