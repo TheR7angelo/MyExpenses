@@ -11,7 +11,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyExpenses.WebApi", "MyExpe
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyExpenses.Wpf", "MyExpenses.Wpf\MyExpenses.Wpf.csproj", "{68A61203-BBCB-486B-BEC3-BF9225F7F874}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyExpenses.Utils", "MyExpenses.Utils\MyExpenses.Utils.csproj", "{A201D5EF-D9F7-475C-99F7-3E79A902375B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyExpenses.Wpf.Utils", "MyExpenses.Wpf.Utils\MyExpenses.Wpf.Utils.csproj", "{A201D5EF-D9F7-475C-99F7-3E79A902375B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

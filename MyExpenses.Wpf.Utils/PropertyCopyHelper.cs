@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 
-namespace MyExpenses.Utils;
+namespace MyExpenses.Wpf.Utils;
 
 public static class PropertyCopyHelper
 {

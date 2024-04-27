@@ -10,7 +10,7 @@ using LiveChartsCore.SkiaSharpView.Painting;
 using MyExpenses.Models.Sql.Tables;
 using MyExpenses.Models.Sql.Views;
 using MyExpenses.Sql.Context;
-using MyExpenses.Utils;
+using MyExpenses.Wpf.Utils;
 using MyExpenses.Wpf.Resources.Resx.DashBoard;
 using SkiaSharp.Views.WPF;
 

@@ -8,7 +8,7 @@ using MyExpenses.Maps.Test.Utils;
 using MyExpenses.Models.AutoMapper;
 using MyExpenses.Models.Sql.Tables;
 using MyExpenses.Models.WebApi.Nominatim;
-using MyExpenses.Utils;
+using MyExpenses.Wpf.Utils;
 using MyExpenses.WebApi.Nominatim;
 using Point = NetTopologySuite.Geometries.Point;
 
