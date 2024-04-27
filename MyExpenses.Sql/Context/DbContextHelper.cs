@@ -22,19 +22,19 @@ public static class DbContextHelper
         }
     }
 
-    public static bool AddOrEdit(this TPlace place)
+    public static (bool Success, Exception? exception) AddOrEdit(this TPlace place)
     {
         try
         {
             using var context = new DataBaseContext();
             context.Upsert(place, s => s.Id == place.Id);
             context.SaveChanges();
-            return true;
+            return (true, null);
         }
         catch (Exception e)
         {
             Console.WriteLine(e);
-            return false;
+            return (false, e);
         }
     }
 

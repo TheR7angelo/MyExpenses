@@ -153,7 +153,7 @@ public partial class MainWindow
 
     private void ProcessNewPlace(TPlace newPlace)
     {
-        var success = newPlace.AddOrEdit();
+        var (success, _) = newPlace.AddOrEdit();
         if (success)
         {
             var mapper = Mapping.Mapper;
