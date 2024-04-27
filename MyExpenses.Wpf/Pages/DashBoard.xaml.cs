@@ -113,11 +113,12 @@ public partial class DashBoard : INotifyPropertyChanged
         if (addAccount.DialogResult != true) return;
 
         var newAccount = addAccount.Account;
-        var startingBalance = addAccount.StartingBalance;
 
-        // TODO add textbox description
-        var history = new THistory { Value = startingBalance, Description = "Test", Pointed = true };
-        newAccount.THistories = new List<THistory> { history };
+        if (addAccount.EnableStartingBalance)
+        {
+            var newHistory = addAccount.History;
+            newAccount.THistories = new List<THistory> { newHistory };
+        }
 
         using var context = new DataBaseContext();
         context.TAccounts.Add(newAccount);

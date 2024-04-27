@@ -10,6 +10,10 @@ namespace MyExpenses.Wpf.Pages;
 
 public partial class AddAccount
 {
+    public static readonly DependencyProperty EnableStartingBalanceProperty =
+        DependencyProperty.Register(nameof(EnableStartingBalance), typeof(bool), typeof(AddAccount),
+            new PropertyMetadata(default(bool)));
+
     #region Resx
 
     public string TextBoxAccountName { get; } = AddAccountResources.TextBoxAccountName;
@@ -17,24 +21,32 @@ public partial class AddAccount
     public string ComboBoxAccountCurrency { get; } = AddAccountResources.ComboBoxAccountCurrency;
     public string LabelIsAccountActive { get; } = AddAccountResources.LabelIsAccountActive;
     public string TextBoxAccountStartingBalance { get; } = AddAccountResources.TextBoxAccountStartingBalance;
-    private string MsgBoxErrorAccountNameAlreadyExists { get; } = AddAccountResources.MsgBoxErrorAccountNameAlreadyExists;
+
+    private string MsgBoxErrorAccountNameAlreadyExists { get; } =
+        AddAccountResources.MsgBoxErrorAccountNameAlreadyExists;
 
     #endregion
 
     public TAccount Account { get; } = new();
+    public THistory History { get; } = new() { Pointed = true };
 
     public string DisplayMemberPathAccountType => nameof(TAccountType.Name);
     public string DisplayMemberPathCurrency => nameof(TCurrency.Currency);
     public List<TAccountType> AccountTypes { get; }
     public List<TCurrency> Currencies { get; }
-    public double StartingBalance { get; set; }
 
     private List<TAccount> Accounts { get; }
+
+    public bool EnableStartingBalance
+    {
+        get => (bool)GetValue(EnableStartingBalanceProperty);
+        set => SetValue(EnableStartingBalanceProperty, value);
+    }
 
     public AddAccount()
     {
         using var context = new DataBaseContext();
-        Accounts =  [..context.TAccounts];
+        Accounts = [..context.TAccounts];
         AccountTypes = [..context.TAccountTypes];
         Currencies = [..context.TCurrencies];
 
@@ -97,6 +109,14 @@ public partial class AddAccount
         if (Account.CurrencyFk is null)
         {
             MessageBox.Show(AddAccountResources.MsgBoxErrorAccountCurrencyCannotByEmpty);
+            return true;
+        }
+
+        if (EnableStartingBalance is false) return false;
+
+        if (string.IsNullOrEmpty(History.Description))
+        {
+            MessageBox.Show("La description du départ du solde ne peut pas etre vide");
             return true;
         }
 
