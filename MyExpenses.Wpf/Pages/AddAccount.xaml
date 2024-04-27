@@ -113,9 +113,10 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
-                <TextBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+                <TextBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"
                          materialDesign:HintAssist.Hint="{Binding TextBoxAccountStartingBalanceDescription}"
                          Style="{StaticResource MaterialDesignFilledTextBox}"
                          Text="{Binding History.Description, Mode=TwoWay}">
@@ -137,6 +138,8 @@
                           SelectedValue="{Binding History.CategoryTypeFk}"
                           SelectedValuePath="{Binding SelectedValuePathCategoryType}">
                 </ComboBox>
+
+                <Label Grid.Row="1" Grid.Column="2" Content="Add add function" />
 
             </Grid>
 
