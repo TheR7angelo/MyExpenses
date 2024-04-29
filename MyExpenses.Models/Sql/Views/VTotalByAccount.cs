@@ -12,6 +12,6 @@ public partial class VTotalByAccount
     [Column("total")]
     public double? Total { get; set; }
 
-    [Column("currency")]
-    public string? Currency { get; set; }
+    [Column("symbole")]
+    public string? Symbole { get; set; }
 }

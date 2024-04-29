@@ -27,6 +27,6 @@ public partial class VDetailTotalCategory
     [Column("value")]
     public double? Value { get; set; }
 
-    [Column("currency")]
-    public string? Currency { get; set; }
+    [Column("symbole")]
+    public string? Symbole { get; set; }
 }

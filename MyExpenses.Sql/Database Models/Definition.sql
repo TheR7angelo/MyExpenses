@@ -13,7 +13,8 @@ CREATE TABLE t_currency
     id              INTEGER
         CONSTRAINT t_account_pk
             PRIMARY KEY AUTOINCREMENT,
-    currency TEXT
+    symbole TEXT,
+    date_added      DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
 DROP TABLE IF EXISTS t_account;
@@ -91,6 +92,34 @@ CREATE TABLE t_history
 -- endregion
 
 -- region Triggers
+
+DROP TRIGGER IF EXISTS after_insert_on_t_currency;
+CREATE TRIGGER after_insert_on_t_currency
+    AFTER INSERT
+    ON t_currency
+    FOR EACH ROW
+BEGIN
+    UPDATE t_currency
+    SET date_added = CASE
+                         WHEN typeof(NEW.date_added) = 'integer' THEN datetime(NEW.date_added / 1000, 'unixepoch')
+                         ELSE NEW.date_added
+        END
+    WHERE id = NEW.id;
+END;
+
+DROP TRIGGER IF EXISTS after_update_on_t_currency;
+CREATE TRIGGER after_update_on_t_currency
+    AFTER UPDATE
+    ON t_currency
+    FOR EACH ROW
+BEGIN
+    UPDATE t_currency
+    SET date_added = CASE
+                         WHEN typeof(NEW.date_added) = 'integer' THEN datetime(NEW.date_added / 1000, 'unixepoch')
+                         ELSE NEW.date_added
+        END
+    WHERE id = NEW.id;
+END;
 
 DROP TRIGGER IF EXISTS after_insert_on_t_account;
 CREATE TRIGGER after_insert_on_t_account
@@ -184,7 +213,7 @@ SELECT ta.name  AS account,
        tct.name AS category,
        tmp.name AS mode_payment,
        h.value,
-       tc.currency,
+       tc.symbole,
        h.date,
        tp.name  AS place,
        h.pointed
@@ -227,13 +256,13 @@ DROP VIEW IF EXISTS v_total_by_account;
 CREATE VIEW v_total_by_account AS
 SELECT ta.name,
        ROUND(SUM(th.value), 2) AS total,
-       tc.currency
+       tc.symbole
 FROM t_account ta
          LEFT JOIN t_history th
                    ON ta.id = th.compte_fk
          LEFT JOIN t_currency tc
              ON ta.currency_fk = tc.id
-GROUP BY ta.name, tc.currency;
+GROUP BY ta.name, tc.symbole;
 
 DROP VIEW IF EXISTS v_detail_total_category;
 CREATE VIEW v_detail_total_category AS
@@ -244,7 +273,7 @@ SELECT CAST(STRFTIME('%Y', h.date) AS INT) AS year,
        ta.name                             AS account,
        tct.name                            AS category,
        h.value,
-       tc.currency
+       tc.symbole
 
 FROM t_category_type tct
          LEFT JOIN t_history h

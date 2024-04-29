@@ -10,8 +10,11 @@ public partial class TCurrency
     [Column("id")]
     public int Id { get; set; }
 
-    [Column("currency")]
-    public string? Currency { get; set; }
+    [Column("symbole")]
+    public string? Symbole { get; set; }
+
+    [Column("date_added", TypeName = "DATETIME")]
+    public DateTime? DateAdded { get; set; } = DateTime.Now;
 
     [InverseProperty("CurrencyFkNavigation")]
     public virtual ICollection<TAccount> TAccounts { get; set; } = new List<TAccount>();

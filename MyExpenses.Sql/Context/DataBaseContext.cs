@@ -70,6 +70,11 @@ public partial class DataBaseContext : DbContext
             entity.Property(e => e.DateAdded).HasDefaultValueSql("CURRENT_TIMESTAMP");
         });
 
+        modelBuilder.Entity<TCurrency>(entity =>
+        {
+            entity.Property(e => e.DateAdded).HasDefaultValueSql("CURRENT_TIMESTAMP");
+        });
+
         modelBuilder.Entity<THistory>(entity =>
         {
             entity.Property(e => e.Date).HasDefaultValueSql("CURRENT_TIMESTAMP");
