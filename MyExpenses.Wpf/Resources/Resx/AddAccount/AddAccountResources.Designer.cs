@@ -105,11 +105,29 @@ namespace MyExpenses.Wpf.Resources.Resx.AddAccount {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Account type was successfully added.
+        ///   Looks up a localized string similar to New account type was successfully added.
         /// </summary>
         internal static string MessageBoxAddAccountTypeSuccess {
             get {
                 return ResourceManager.GetString("MessageBoxAddAccountTypeSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error occurred please retry.
+        /// </summary>
+        internal static string MessageBoxAddCurrencyError {
+            get {
+                return ResourceManager.GetString("MessageBoxAddCurrencyError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The new currency has been added successfully.
+        /// </summary>
+        internal static string MessageBoxAddCurrencySuccess {
+            get {
+                return ResourceManager.GetString("MessageBoxAddCurrencySuccess", resourceCulture);
             }
         }
         

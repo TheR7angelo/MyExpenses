@@ -51,6 +51,12 @@
         <value>Une erreur s'est produite, veuillez réessayer</value>
     </data>
     <data name="MessageBoxAddAccountTypeSuccess" xml:space="preserve">
-        <value>Le type de compte a été ajouté avec succès</value>
+        <value>Le nouveau type de compte a été ajouté avec succès</value>
+    </data>
+    <data name="MessageBoxAddCurrencySuccess" xml:space="preserve">
+        <value>La nouvelle devise a été ajoutée avec succès</value>
+    </data>
+    <data name="MessageBoxAddCurrencyError" xml:space="preserve">
+        <value>Une erreur s'est produite, veuillez réessayer</value>
     </data>
 </root>

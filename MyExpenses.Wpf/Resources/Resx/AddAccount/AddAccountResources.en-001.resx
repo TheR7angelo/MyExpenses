@@ -51,6 +51,12 @@
         <value>An error occurred please retry</value>
     </data>
     <data name="MessageBoxAddAccountTypeSuccess" xml:space="preserve">
-        <value>Account type was successfully added</value>
+        <value>New account type was successfully added</value>
+    </data>
+    <data name="MessageBoxAddCurrencySuccess" xml:space="preserve">
+        <value>The new currency has been added successfully</value>
+    </data>
+    <data name="MessageBoxAddCurrencyError" xml:space="preserve">
+        <value>An error occurred please retry</value>
     </data>
 </root>
