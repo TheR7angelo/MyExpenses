@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Collections.ObjectModel;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using MyExpenses.Models.Sql.Tables;
@@ -37,9 +38,9 @@ public partial class AddAccount
     public string SelectedValuePathCurrency => nameof(TCurrency.Id);
     public string DisplayMemberPathCategoryType => nameof(TCategoryType.Name);
     public string SelectedValuePathCategoryType => nameof(TCategoryType.Id);
-    public List<TAccountType> AccountTypes { get; }
-    public List<TCurrency> Currencies { get; }
-    public List<TCategoryType> CategoryTypes { get; }
+    public ObservableCollection<TAccountType> AccountTypes { get; }
+    public ObservableCollection<TCurrency> Currencies { get; }
+    public ObservableCollection<TCategoryType> CategoryTypes { get; }
 
     private List<TAccount> Accounts { get; }
 
