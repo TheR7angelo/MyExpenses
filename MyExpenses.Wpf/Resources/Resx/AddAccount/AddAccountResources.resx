@@ -54,4 +54,10 @@
     <data name="MsgBoxErrorAccountStartingBalanceDescriptionCannotByEmpty" xml:space="preserve">
         <value>The balance departure description cannot be empty</value>
     </data>
+    <data name="MessageBoxAddAccountTypeError" xml:space="preserve">
+        <value>An error occurred please retry</value>
+    </data>
+    <data name="MessageBoxAddAccountTypeSuccess" xml:space="preserve">
+        <value>Account type was successfully added</value>
+    </data>
 </root>

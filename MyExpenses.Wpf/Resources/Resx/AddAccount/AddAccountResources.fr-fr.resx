@@ -47,4 +47,10 @@
     <data name="MsgBoxErrorAccountStartingBalanceDescriptionCannotByEmpty" xml:space="preserve">
         <value>La description du départ du solde ne peut pas etre vide</value>
     </data>
+    <data name="MessageBoxAddAccountTypeError" xml:space="preserve">
+        <value>Une erreur s'est produite, veuillez réessayer</value>
+    </data>
+    <data name="MessageBoxAddAccountTypeSuccess" xml:space="preserve">
+        <value>Le type de compte a été ajouté avec succès</value>
+    </data>
 </root>

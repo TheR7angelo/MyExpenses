@@ -96,6 +96,24 @@ namespace MyExpenses.Wpf.Resources.Resx.AddAccount {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to An error occurred please retry.
+        /// </summary>
+        internal static string MessageBoxAddAccountTypeError {
+            get {
+                return ResourceManager.GetString("MessageBoxAddAccountTypeError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Account type was successfully added.
+        /// </summary>
+        internal static string MessageBoxAddAccountTypeSuccess {
+            get {
+                return ResourceManager.GetString("MessageBoxAddAccountTypeSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Account currency cannot be empty.
         /// </summary>
         internal static string MsgBoxErrorAccountCurrencyCannotByEmpty {
