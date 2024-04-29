@@ -8,7 +8,8 @@ public class TotalToIconConverter : IValueConverter
 {
     public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
-        if (value is not double total) return PackIconKind.None; // Return a default icon or null
+        value ??= 0d;
+        if (value is not double total) return PackIconKind.None;
         return total switch
         {
             < 0 => PackIconKind.WeatherPouring,
