@@ -13,7 +13,7 @@ CREATE TABLE t_currency
     id              INTEGER
         CONSTRAINT t_account_pk
             PRIMARY KEY AUTOINCREMENT,
-    symbole TEXT,
+    symbol TEXT,
     date_added      DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -213,7 +213,7 @@ SELECT ta.name  AS account,
        tct.name AS category,
        tmp.name AS mode_payment,
        h.value,
-       tc.symbole,
+       tc.symbol,
        h.date,
        tp.name  AS place,
        h.pointed
@@ -262,7 +262,7 @@ FROM t_account ta
                    ON ta.id = th.compte_fk
          LEFT JOIN t_currency tc
              ON ta.currency_fk = tc.id
-GROUP BY ta.name, tc.symbole;
+GROUP BY ta.name, tc.symbol;
 
 DROP VIEW IF EXISTS v_detail_total_category;
 CREATE VIEW v_detail_total_category AS
@@ -273,7 +273,7 @@ SELECT CAST(STRFTIME('%Y', h.date) AS INT) AS year,
        ta.name                             AS account,
        tct.name                            AS category,
        h.value,
-       tc.symbole
+       tc.symbol
 
 FROM t_category_type tct
          LEFT JOIN t_history h

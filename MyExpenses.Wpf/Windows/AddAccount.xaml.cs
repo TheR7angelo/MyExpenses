@@ -35,7 +35,7 @@ public partial class AddAccount
 
     public string DisplayMemberPathAccountType => nameof(TAccountType.Name);
     public string SelectedValuePathAccountType => nameof(TAccountType.Id);
-    public string DisplayMemberPathCurrency => nameof(TCurrency.Symbole);
+    public string DisplayMemberPathCurrency => nameof(TCurrency.Symbol);
     public string SelectedValuePathCurrency => nameof(TCurrency.Id);
     public string DisplayMemberPathCategoryType => nameof(TCategoryType.Name);
     public string SelectedValuePathCategoryType => nameof(TCategoryType.Id);

@@ -38,7 +38,7 @@ public partial class AddEditAccountCurrency
     #region Function
 
     private bool CheckCurrencyName(string accountName)
-        => Currencies.Select(s => s.Symbole).Contains(accountName);
+        => Currencies.Select(s => s.Symbol).Contains(accountName);
 
     private void ShowErrorMessage()
         => MessageBox.Show(AddEditAccountTypeResources.MessageBoxAccountTypeNameAlreadyExists);
@@ -55,7 +55,7 @@ public partial class AddEditAccountCurrency
 
     private void ButtonValid_OnClick(object sender, RoutedEventArgs e)
     {
-        var accountTypeName = Currency.Symbole;
+        var accountTypeName = Currency.Symbol;
 
         if (string.IsNullOrEmpty(accountTypeName)) return;
 

@@ -4,14 +4,14 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace MyExpenses.Models.Sql.Tables;
 
 [Table("t_currency")]
-public partial class TCurrency
+public partial class TCurrency : ISql
 {
     [Key]
     [Column("id")]
     public int Id { get; set; }
 
-    [Column("symbole")]
-    public string? Symbole { get; set; }
+    [Column("symbol")]
+    public string? Symbol { get; set; }
 
     [Column("date_added", TypeName = "DATETIME")]
     public DateTime? DateAdded { get; set; } = DateTime.Now;
