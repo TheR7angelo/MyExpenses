@@ -151,6 +151,7 @@ public partial class AddAccount
         if (success)
         {
             AccountTypes.Add(newAccountType);
+            Account.AccountTypeFk = newAccountType.Id;
             Log.Information("Account type was successfully added");
             MessageBox.Show(AddAccountResources.MessageBoxAddAccountTypeSuccess);
         }
@@ -174,6 +175,7 @@ public partial class AddAccount
         if (success)
         {
             Currencies.Add(newCurrency);
+            Account.CurrencyFk = newCurrency.Id;
             Log.Information("Account type was successfully added");
             MessageBox.Show(AddAccountResources.MessageBoxAddCurrencySuccess);
         }
@@ -197,6 +199,7 @@ public partial class AddAccount
         if (success)
         {
             CategoryTypes.Add(newCategoryType);
+            History.CategoryTypeFk = newCategoryType.Id;
             Log.Information("Account type was successfully added");
             MessageBox.Show(AddAccountResources.MessageBoxAddCurrencySuccess);
         }
