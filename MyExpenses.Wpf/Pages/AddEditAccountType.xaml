@@ -43,11 +43,33 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <TextBox Grid.Row="0"
+        <TextBox x:Name="TextBoxAccountType" Grid.Row="0"
                  Text="{Binding AccountType.Name}"
                  materialDesign:HintAssist.Hint="Test"
-                 Style="{StaticResource MaterialDesignFilledTextBox}">
+                 Style="{StaticResource MaterialDesignFilledTextBox}"
+                 LostFocus="TextBoxAccountType_OnLostFocus">
         </TextBox>
+
+        <ComboBox x:Name="ComboBoxAccountTypes" Grid.Row="1"
+                  Visibility="Collapsed"
+                  IsEditable="True">
+        </ComboBox>
+
+        <StackPanel Grid.Row="1"
+                    utils:PanelExtensions.MarginForAllChildren="5, 0, 5, 5"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right" VerticalAlignment="Bottom">
+
+            <Button Content="Valid"
+                    Style="{StaticResource MaterialDesignPaperButton}">
+            </Button>
+
+            <Button Content="Cancel"
+                    Style="{StaticResource MaterialDesignPaperSecondaryButton}">
+            </Button>
+            <Button x:Name="ButtonDelete" Content="Delete" Visibility="Collapsed" />
+
+        </StackPanel>
 
     </Grid>
 
