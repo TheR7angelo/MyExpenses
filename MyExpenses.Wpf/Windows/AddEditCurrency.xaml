@@ -50,12 +50,6 @@
                  PreviewLostKeyboardFocus="TextBoxAccountType_OnPreviewLostKeyboardFocus">
         </TextBox>
 
-        <ComboBox x:Name="ComboBoxAccountTypes" Grid.Row="1"
-                  ItemsSource="{Binding Currencies}"
-                  Visibility="Collapsed"
-                  IsEditable="True">
-        </ComboBox>
-
         <StackPanel Grid.Row="1"
                     utils:PanelExtensions.MarginForAllChildren="5, 0, 5, 5"
                     Orientation="Horizontal"
@@ -70,8 +64,6 @@
                     Style="{StaticResource MaterialDesignPaperSecondaryButton}"
                     Click="ButtonCancel_OnClick">
             </Button>
-
-            <Button x:Name="ButtonDelete" Content="{Binding ButtonDeleteContent}" Visibility="Collapsed" />
 
         </StackPanel>
 

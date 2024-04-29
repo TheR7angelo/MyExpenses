@@ -14,9 +14,6 @@
     <data name="ButtonCancelContent" xml:space="preserve">
         <value>Annuler</value>
     </data>
-    <data name="ButtonDeleteContent" xml:space="preserve">
-        <value>Supprimer</value>
-    </data>
     <data name="ButtonValidContent" xml:space="preserve">
         <value>Valider</value>
     </data>

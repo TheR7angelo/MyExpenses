@@ -27,9 +27,6 @@
     <data name="ButtonCancelContent" xml:space="preserve">
         <value>Cancel</value>
     </data>
-    <data name="ButtonDeleteContent" xml:space="preserve">
-        <value>Delete</value>
-    </data>
     <data name="MessageBoxAccountTypeNameAlreadyExists" xml:space="preserve">
         <value>Account type name already exist</value>
     </data>

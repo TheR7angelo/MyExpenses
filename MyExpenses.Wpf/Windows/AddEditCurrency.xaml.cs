@@ -1,5 +1,4 @@
-﻿using System.Collections.ObjectModel;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using MyExpenses.Models.Sql.Tables;
@@ -14,7 +13,7 @@ public partial class AddEditCurrency
 
     public TCurrency Currency { get; } = new();
 
-    public ObservableCollection<TCurrency> Currencies { get; }
+    private List<TCurrency> Currencies { get; }
 
     #endregion
 
@@ -22,7 +21,6 @@ public partial class AddEditCurrency
 
     public string TextBoxCurrencySymbol { get; } = AddEditCurrencyResources.TextBoxCurrencySymbol;
     public string ButtonValidContent { get; } = AddEditCurrencyResources.ButtonValidContent;
-    public string ButtonDeleteContent { get; } = AddEditCurrencyResources.ButtonDeleteContent;
     public string ButtonCancelContent { get; } = AddEditCurrencyResources.ButtonCancelContent;
 
     #endregion

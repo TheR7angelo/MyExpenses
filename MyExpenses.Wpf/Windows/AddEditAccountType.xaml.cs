@@ -1,5 +1,4 @@
-﻿using System.Collections.ObjectModel;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using MyExpenses.Models.Sql.Tables;
@@ -14,7 +13,7 @@ public partial class AddEditAccountType
 
     public TAccountType AccountType { get; } = new();
 
-    public ObservableCollection<TAccountType> AccountTypes { get; }
+    private List<TAccountType> AccountTypes { get; }
 
     #endregion
 
@@ -22,7 +21,6 @@ public partial class AddEditAccountType
 
     public string TextBoxAccountTypeName { get; } = AddEditAccountTypeResources.TextBoxAccountTypeName;
     public string ButtonValidContent { get; } = AddEditAccountTypeResources.ButtonValidContent;
-    public string ButtonDeleteContent { get; } = AddEditAccountTypeResources.ButtonDeleteContent;
     public string ButtonCancelContent { get; } = AddEditAccountTypeResources.ButtonCancelContent;
 
     #endregion
