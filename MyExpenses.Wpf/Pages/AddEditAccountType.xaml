@@ -45,7 +45,7 @@
 
         <TextBox x:Name="TextBoxAccountType" Grid.Row="0"
                  Text="{Binding AccountType.Name}"
-                 materialDesign:HintAssist.Hint="Test"
+                 materialDesign:HintAssist.Hint="{Binding TextBoxAccountTypeName}"
                  Style="{StaticResource MaterialDesignFilledTextBox}"
                  LostFocus="TextBoxAccountType_OnLostFocus">
         </TextBox>
@@ -61,14 +61,15 @@
                     Orientation="Horizontal"
                     HorizontalAlignment="Right" VerticalAlignment="Bottom">
 
-            <Button Content="Valid"
+            <Button Content="{Binding ButtonValidContent}"
                     Style="{StaticResource MaterialDesignPaperButton}">
             </Button>
 
-            <Button Content="Cancel"
+            <Button Content="{Binding ButtonCancelContent}"
                     Style="{StaticResource MaterialDesignPaperSecondaryButton}">
             </Button>
-            <Button x:Name="ButtonDelete" Content="Delete" Visibility="Collapsed" />
+
+            <Button x:Name="ButtonDelete" Content="{Binding ButtonDeleteContent}" Visibility="Collapsed" />
 
         </StackPanel>
 
