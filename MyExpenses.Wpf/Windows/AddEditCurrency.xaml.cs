@@ -8,7 +8,7 @@ using MyExpenses.Wpf.Resources.Resx.AddEditAccountType;
 
 namespace MyExpenses.Wpf.Windows;
 
-public partial class AddEditAccountCurrency
+public partial class AddEditCurrency
 {
     #region Property
 
@@ -27,7 +27,7 @@ public partial class AddEditAccountCurrency
 
     #endregion
 
-    public AddEditAccountCurrency()
+    public AddEditCurrency()
     {
         using var context = new DataBaseContext();
         Currencies = [..context.TCurrencies];
