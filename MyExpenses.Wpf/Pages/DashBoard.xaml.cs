@@ -29,7 +29,7 @@ public partial class DashBoard : INotifyPropertyChanged
     protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
         => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
-    public List<VHistory> VHistories { get; }
+    public ObservableCollection<VHistory> VHistories { get; } = [];
     public ObservableCollection<VTotalByAccount> VTotalByAccounts { get; } = [];
 
     private double? _total = 0d;
@@ -59,7 +59,6 @@ public partial class DashBoard : INotifyPropertyChanged
     public DashBoard()
     {
         using var context = new DataBaseContext();
-        VHistories = [..context.VHistories.OrderBy(s => s.Pointed).ThenByDescending(s => s.Date)];
 
         RefreshAccountTotal();
 
@@ -115,7 +114,10 @@ public partial class DashBoard : INotifyPropertyChanged
         var vTotalByAccount = (VTotalByAccount)button.DataContext;
         Total = vTotalByAccount.Total;
 
-        UpdateGraph(vTotalByAccount.Name!);
+        var name = vTotalByAccount.Name;
+        if (string.IsNullOrEmpty(name)) return;
+        UpdateGraph(name);
+        RefreshDataGrid(name);
     }
 
     #endregion
@@ -127,6 +129,16 @@ public partial class DashBoard : INotifyPropertyChanged
         using var context = new DataBaseContext();
         VTotalByAccounts.Clear();
         VTotalByAccounts.AddRange([..context.VTotalByAccounts]);
+    }
+
+    private void RefreshDataGrid(string name)
+    {
+        using var context = new DataBaseContext();
+        VHistories.Clear();
+        var records = context.VHistories
+            .Where(s => s.Account == name)
+            .OrderBy(s => s.Pointed).ThenByDescending(s => s.Date);
+        VHistories.AddRange(records);
     }
 
     private void RefreshRadioButtonSelected()
