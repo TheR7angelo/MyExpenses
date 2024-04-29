@@ -51,4 +51,7 @@
     <data name="ComboBoxAccountCategoryType" xml:space="preserve">
         <value>Category :</value>
     </data>
+    <data name="MsgBoxErrorAccountStartingBalanceDescriptionCannotByEmpty" xml:space="preserve">
+        <value>The balance departure description cannot be empty</value>
+    </data>
 </root>

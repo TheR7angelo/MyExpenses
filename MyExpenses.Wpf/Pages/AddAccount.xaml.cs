@@ -123,7 +123,7 @@ public partial class AddAccount
 
         if (string.IsNullOrEmpty(History.Description))
         {
-            MessageBox.Show("La description du départ du solde ne peut pas etre vide");
+            MessageBox.Show(AddAccountResources.MsgBoxErrorAccountStartingBalanceDescriptionCannotByEmpty);
             return true;
         }
 

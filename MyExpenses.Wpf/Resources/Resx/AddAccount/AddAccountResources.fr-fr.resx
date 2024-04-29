@@ -44,4 +44,7 @@
     <data name="ComboBoxAccountCategoryType" xml:space="preserve">
         <value>Catégorie :</value>
     </data>
+    <data name="MsgBoxErrorAccountStartingBalanceDescriptionCannotByEmpty" xml:space="preserve">
+        <value>La description du départ du solde ne peut pas etre vide</value>
+    </data>
 </root>

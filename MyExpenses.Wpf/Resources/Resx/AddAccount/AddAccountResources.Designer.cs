@@ -123,6 +123,15 @@ namespace MyExpenses.Wpf.Resources.Resx.AddAccount {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The balance departure description cannot be empty.
+        /// </summary>
+        internal static string MsgBoxErrorAccountStartingBalanceDescriptionCannotByEmpty {
+            get {
+                return ResourceManager.GetString("MsgBoxErrorAccountStartingBalanceDescriptionCannotByEmpty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Account type cannot be empty.
         /// </summary>
         internal static string MsgBoxErrorAccountTypeCannotByEmpty {
