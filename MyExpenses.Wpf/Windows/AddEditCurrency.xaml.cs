@@ -35,7 +35,7 @@ public partial class AddEditCurrency
 
     #region Function
 
-    private bool CheckCurrencyName(string accountName)
+    private bool CheckCurrencySymbol(string accountName)
         => Currencies.Select(s => s.Symbol).Contains(accountName);
 
     private void ShowErrorMessage()
@@ -57,7 +57,7 @@ public partial class AddEditCurrency
 
         if (string.IsNullOrEmpty(currencySymbol)) return;
 
-        var alreadyExist = CheckCurrencyName(currencySymbol);
+        var alreadyExist = CheckCurrencySymbol(currencySymbol);
         if (alreadyExist) ShowErrorMessage();
         else
         {
@@ -66,14 +66,14 @@ public partial class AddEditCurrency
         }
     }
 
-    private void TextBoxAccountType_OnPreviewLostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
+    private void TextBoxCurrencySymbol_OnPreviewLostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
     {
         var textBox = (TextBox)sender;
 
         var currencySymbol = textBox.Text;
         if (string.IsNullOrEmpty(currencySymbol)) return;
 
-        var alreadyExist = CheckCurrencyName(currencySymbol);
+        var alreadyExist = CheckCurrencySymbol(currencySymbol);
         if (alreadyExist) ShowErrorMessage();
     }
 

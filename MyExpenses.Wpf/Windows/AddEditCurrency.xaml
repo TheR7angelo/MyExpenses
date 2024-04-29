@@ -47,7 +47,7 @@
                  Text="{Binding Currency.Symbol}"
                  materialDesign:HintAssist.Hint="{Binding TextBoxCurrencySymbol}"
                  Style="{StaticResource MaterialDesignFilledTextBox}"
-                 PreviewLostKeyboardFocus="TextBoxAccountType_OnPreviewLostKeyboardFocus">
+                 PreviewLostKeyboardFocus="TextBoxCurrencySymbol_OnPreviewLostKeyboardFocus">
         </TextBox>
 
         <StackPanel Grid.Row="1"
