@@ -43,6 +43,10 @@
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>AddEditCurrencyResources.Designer.cs</LastGenOutput>
       </EmbeddedResource>
+      <EmbeddedResource Update="Resources\Resx\AddEditCategoryType\AddEditCategoryTypeResources.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>AddEditCategoryTypeResources.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
     </ItemGroup>
 
     <ItemGroup>
@@ -71,6 +75,11 @@
         <AutoGen>True</AutoGen>
         <DependentUpon>AddEditCurrencyResources.resx</DependentUpon>
       </Compile>
+      <Compile Update="Resources\Resx\AddEditCategoryType\AddEditCategoryTypeResources.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>AddEditCategoryTypeResources.resx</DependentUpon>
+      </Compile>
     </ItemGroup>
 
     <ItemGroup>
@@ -80,6 +89,11 @@
         <SubType>Designer</SubType>
       </Page>
       <Page Update="Windows\AddEditAccountType.xaml">
+        <Generator>MSBuild:Compile</Generator>
+        <XamlRuntime>Wpf</XamlRuntime>
+        <SubType>Designer</SubType>
+      </Page>
+      <Page Update="Windows\AddEditCategoryType.xaml">
         <Generator>MSBuild:Compile</Generator>
         <XamlRuntime>Wpf</XamlRuntime>
         <SubType>Designer</SubType>
