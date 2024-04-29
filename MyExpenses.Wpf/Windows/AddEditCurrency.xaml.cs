@@ -53,11 +53,11 @@ public partial class AddEditCurrency
 
     private void ButtonValid_OnClick(object sender, RoutedEventArgs e)
     {
-        var accountTypeName = Currency.Symbol;
+        var currencySymbol = Currency.Symbol;
 
-        if (string.IsNullOrEmpty(accountTypeName)) return;
+        if (string.IsNullOrEmpty(currencySymbol)) return;
 
-        var alreadyExist = CheckCurrencyName(accountTypeName);
+        var alreadyExist = CheckCurrencyName(currencySymbol);
         if (alreadyExist) ShowErrorMessage();
         else
         {
@@ -70,10 +70,10 @@ public partial class AddEditCurrency
     {
         var textBox = (TextBox)sender;
 
-        var accountTypeName = textBox.Text;
-        if (string.IsNullOrEmpty(accountTypeName)) return;
+        var currencySymbol = textBox.Text;
+        if (string.IsNullOrEmpty(currencySymbol)) return;
 
-        var alreadyExist = CheckCurrencyName(accountTypeName);
+        var alreadyExist = CheckCurrencyName(currencySymbol);
         if (alreadyExist) ShowErrorMessage();
     }
 
