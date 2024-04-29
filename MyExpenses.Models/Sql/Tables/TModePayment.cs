@@ -13,6 +13,9 @@ public partial class TModePayment
     [Column("name")]
     public string? Name { get; set; }
 
+    [Column("date_added", TypeName = "DATETIME")]
+    public DateTime? DateAdded { get; set; } = DateTime.Now;
+
     [InverseProperty("ModePaymentFkNavigation")]
     public virtual ICollection<THistory> THistories { get; set; } = new List<THistory>();
 }

@@ -52,7 +52,8 @@ CREATE TABLE t_mode_payment
     id   INTEGER
         CONSTRAINT t_mode_payment_pk
             PRIMARY KEY AUTOINCREMENT,
-    name TEXT
+    name TEXT,
+    date_added      DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
 DROP TABLE IF EXISTS t_place;
@@ -204,6 +205,34 @@ CREATE TRIGGER after_update_on_t_account
     FOR EACH ROW
 BEGIN
     UPDATE t_account
+    SET date_added = CASE
+                         WHEN typeof(NEW.date_added) = 'integer' THEN datetime(NEW.date_added / 1000, 'unixepoch')
+                         ELSE NEW.date_added
+        END
+    WHERE id = NEW.id;
+END;
+
+DROP TRIGGER IF EXISTS after_insert_on_t_mode_payment;
+CREATE TRIGGER after_insert_on_after_insert_on_t_mode_payment
+    AFTER INSERT
+    ON t_mode_payment
+    FOR EACH ROW
+BEGIN
+    UPDATE t_mode_payment
+    SET date_added = CASE
+                         WHEN typeof(NEW.date_added) = 'integer' THEN datetime(NEW.date_added / 1000, 'unixepoch')
+                         ELSE NEW.date_added
+        END
+    WHERE id = NEW.id;
+END;
+
+DROP TRIGGER IF EXISTS after_update_on_t_mode_payment;
+CREATE TRIGGER after_update_on_t_mode_payment
+    AFTER UPDATE
+    ON t_mode_payment
+    FOR EACH ROW
+BEGIN
+    UPDATE t_mode_payment
     SET date_added = CASE
                          WHEN typeof(NEW.date_added) = 'integer' THEN datetime(NEW.date_added / 1000, 'unixepoch')
                          ELSE NEW.date_added
