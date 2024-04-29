@@ -39,6 +39,10 @@
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>AddEditAccountTypeResources.Designer.cs</LastGenOutput>
       </EmbeddedResource>
+      <EmbeddedResource Update="Resources\Resx\AddEditCurrency\AddEditCurrencyResources.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>AddEditCurrencyResources.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
     </ItemGroup>
 
     <ItemGroup>
@@ -61,6 +65,11 @@
         <DesignTime>True</DesignTime>
         <AutoGen>True</AutoGen>
         <DependentUpon>AddEditAccountTypeResources.resx</DependentUpon>
+      </Compile>
+      <Compile Update="Resources\Resx\AddEditCurrency\AddEditCurrencyResources.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>AddEditCurrencyResources.resx</DependentUpon>
       </Compile>
     </ItemGroup>
 

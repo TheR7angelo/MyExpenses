@@ -4,7 +4,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using MyExpenses.Models.Sql.Tables;
 using MyExpenses.Sql.Context;
-using MyExpenses.Wpf.Resources.Resx.AddEditAccountType;
+using MyExpenses.Wpf.Resources.Resx.AddEditCurrency;
 
 namespace MyExpenses.Wpf.Windows;
 
@@ -20,10 +20,10 @@ public partial class AddEditCurrency
 
     #region Resx
 
-    public string TextBoxAccountTypeName { get; } = AddEditAccountTypeResources.TextBoxAccountTypeName;
-    public string ButtonValidContent { get; } = AddEditAccountTypeResources.ButtonValidContent;
-    public string ButtonDeleteContent { get; } = AddEditAccountTypeResources.ButtonDeleteContent;
-    public string ButtonCancelContent { get; } = AddEditAccountTypeResources.ButtonCancelContent;
+    public string TextBoxCurrencySymbol { get; } = AddEditCurrencyResources.TextBoxCurrencySymbol;
+    public string ButtonValidContent { get; } = AddEditCurrencyResources.ButtonValidContent;
+    public string ButtonDeleteContent { get; } = AddEditCurrencyResources.ButtonDeleteContent;
+    public string ButtonCancelContent { get; } = AddEditCurrencyResources.ButtonCancelContent;
 
     #endregion
 
@@ -41,7 +41,7 @@ public partial class AddEditCurrency
         => Currencies.Select(s => s.Symbol).Contains(accountName);
 
     private void ShowErrorMessage()
-        => MessageBox.Show(AddEditAccountTypeResources.MessageBoxAccountTypeNameAlreadyExists);
+        => MessageBox.Show(AddEditCurrencyResources.MessageBoxCurrencySymbolAlreadyExists);
 
     #endregion
 

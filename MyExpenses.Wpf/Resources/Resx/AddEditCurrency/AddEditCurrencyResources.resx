@@ -1,4 +1,11 @@
-﻿<root>
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+            
+        </xsd:element>
+    </xsd:schema>
     <resheader name="resmimetype">
         <value>text/microsoft-resx</value>
     </resheader>
@@ -11,8 +18,8 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-    <data name="TextBoxAccountTypeName" xml:space="preserve">
-        <value>Name of new account type :</value>
+    <data name="TextBoxCurrencySymbol" xml:space="preserve">
+        <value>New currency symbol :</value>
     </data>
     <data name="ButtonValidContent" xml:space="preserve">
         <value>Valid</value>
@@ -20,10 +27,10 @@
     <data name="ButtonDeleteContent" xml:space="preserve">
         <value>Delete</value>
     </data>
-    <data name="MessageBoxAccountTypeNameAlreadyExists" xml:space="preserve">
-        <value>Account type name already exist</value>
-    </data>
     <data name="ButtonCancelContent" xml:space="preserve">
         <value>Cancel</value>
+    </data>
+    <data name="MessageBoxCurrencySymbolAlreadyExists" xml:space="preserve">
+        <value>Currency symbol already exist</value>
     </data>
 </root>

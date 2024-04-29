@@ -45,7 +45,7 @@
 
         <TextBox x:Name="TextBoxAccountType" Grid.Row="0"
                  Text="{Binding Currency.Symbol}"
-                 materialDesign:HintAssist.Hint="{Binding TextBoxAccountTypeName}"
+                 materialDesign:HintAssist.Hint="{Binding TextBoxCurrencySymbol}"
                  Style="{StaticResource MaterialDesignFilledTextBox}"
                  PreviewLostKeyboardFocus="TextBoxAccountType_OnPreviewLostKeyboardFocus">
         </TextBox>
