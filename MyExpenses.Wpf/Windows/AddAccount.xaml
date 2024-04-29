@@ -67,7 +67,7 @@
                   ItemsSource="{Binding AccountTypes}"
                   Style="{StaticResource MaterialDesignFilledComboBox}"
                   DisplayMemberPath="{Binding DisplayMemberPathAccountType}"
-                  SelectedValue="{Binding Account.AccountTypeFk}"
+                  SelectedValue="{Binding Account.AccountTypeFk, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                   SelectedValuePath="{Binding SelectedValuePathAccountType}">
         </ComboBox>
 
@@ -86,7 +86,7 @@
                   ItemsSource="{Binding Currencies}"
                   Style="{StaticResource MaterialDesignFilledComboBox}"
                   DisplayMemberPath="{Binding DisplayMemberPathCurrency}"
-                  SelectedValue="{Binding Account.CurrencyFk}"
+                  SelectedValue="{Binding Account.CurrencyFk, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                   SelectedValuePath="{Binding SelectedValuePathCurrency}">
         </ComboBox>
 
@@ -151,7 +151,7 @@
                           ItemsSource="{Binding  CategoryTypes}"
                           Style="{StaticResource MaterialDesignFilledComboBox}"
                           DisplayMemberPath="{Binding DisplayMemberPathCategoryType}"
-                          SelectedValue="{Binding History.CategoryTypeFk}"
+                          SelectedValue="{Binding History.CategoryTypeFk, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                           SelectedValuePath="{Binding SelectedValuePathCategoryType}">
                 </ComboBox>
 
