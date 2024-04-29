@@ -183,4 +183,27 @@ public partial class AddAccount
             MessageBox.Show(AddAccountResources.MessageBoxAddCurrencyError);
         }
     }
+
+    private void ButtonAddCategoryType_OnClick(object sender, RoutedEventArgs e)
+    {
+        var addEditCategoryType = new AddEditCategoryType();
+        var result = addEditCategoryType.ShowDialog();
+        if (result != true) return;
+
+        var newCategoryType = addEditCategoryType.CategoryType;
+
+        Log.Information("Attempting to inject the new category type \"{NewCategoryTypeName}\"", newCategoryType.Name);
+        var (success, exception) = newCategoryType.AddOrEdit();
+        if (success)
+        {
+            CategoryTypes.Add(newCategoryType);
+            Log.Information("Account type was successfully added");
+            MessageBox.Show(AddAccountResources.MessageBoxAddCurrencySuccess);
+        }
+        else
+        {
+            Log.Error(exception, "An error occurred please retry");
+            MessageBox.Show(AddAccountResources.MessageBoxAddCurrencyError);
+        }
+    }
 }
