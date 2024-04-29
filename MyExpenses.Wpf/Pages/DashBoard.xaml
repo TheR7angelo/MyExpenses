@@ -71,7 +71,8 @@
                     CornerRadius="1"
                     BorderBrush="{DynamicResource MaterialDesignBody}"
                     BorderThickness="2">
-                <ItemsControl x:Name="ItemsControlVTotalAccount" ItemsSource="{Binding VTotalByAccounts}">
+                <ItemsControl x:Name="ItemsControlVTotalAccount"
+                              ItemsSource="{Binding VTotalByAccounts, UpdateSourceTrigger=PropertyChanged}">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
                             <WrapPanel Orientation="Horizontal" />
@@ -79,7 +80,8 @@
                     </ItemsControl.ItemsPanel>
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
-                            <RadioButton Margin="3"
+                            <RadioButton GroupName="ToggleButtonVTotalAccount"
+                                         Margin="3"
                                          Content="{Binding Name}"
                                          Style="{StaticResource MaterialDesignTabRadioButtonBottom}"
                                          Checked="ToggleButtonVTotalAccount_OnChecked">
@@ -93,7 +95,7 @@
 
         <Grid Grid.Row="0" Grid.Column="2">
 
-            <wpf:PieChart x:Name="PieChart" LegendPosition="Left"  DataPointerDown="PieChart_OnDataPointerDown"/>
+            <wpf:PieChart x:Name="PieChart" LegendPosition="Left" DataPointerDown="PieChart_OnDataPointerDown" />
 
         </Grid>
 
@@ -106,37 +108,44 @@
                 <DataGrid.Columns>
                     <DataGridTextColumn Binding="{Binding Account}">
                         <DataGridTextColumn.Header>
-                            <TextBlock Text="{Binding DataGridTextColumnAccount, RelativeSource={RelativeSource AncestorType={x:Type local:DashBoard}}}" />
+                            <TextBlock
+                                Text="{Binding DataGridTextColumnAccount, RelativeSource={RelativeSource AncestorType={x:Type local:DashBoard}}}" />
                         </DataGridTextColumn.Header>
                     </DataGridTextColumn>
                     <DataGridTextColumn Binding="{Binding Description}">
                         <DataGridTextColumn.Header>
-                            <TextBlock Text="{Binding DataGridTextColumnDescription, RelativeSource={RelativeSource AncestorType={x:Type local:DashBoard}}}" />
+                            <TextBlock
+                                Text="{Binding DataGridTextColumnDescription, RelativeSource={RelativeSource AncestorType={x:Type local:DashBoard}}}" />
                         </DataGridTextColumn.Header>
                     </DataGridTextColumn>
                     <DataGridTextColumn Binding="{Binding Category}">
                         <DataGridTextColumn.Header>
-                            <TextBlock Text="{Binding DataGridTextColumnCategory, RelativeSource={RelativeSource AncestorType={x:Type local:DashBoard}}}" />
+                            <TextBlock
+                                Text="{Binding DataGridTextColumnCategory, RelativeSource={RelativeSource AncestorType={x:Type local:DashBoard}}}" />
                         </DataGridTextColumn.Header>
                     </DataGridTextColumn>
                     <DataGridTextColumn Binding="{Binding ModePayment}">
                         <DataGridTextColumn.Header>
-                            <TextBlock Text="{Binding DataGridTextColumnModePayment, RelativeSource={RelativeSource AncestorType={x:Type local:DashBoard}}}" />
+                            <TextBlock
+                                Text="{Binding DataGridTextColumnModePayment, RelativeSource={RelativeSource AncestorType={x:Type local:DashBoard}}}" />
                         </DataGridTextColumn.Header>
                     </DataGridTextColumn>
                     <DataGridTextColumn Binding="{Binding Value}">
                         <DataGridTextColumn.Header>
-                            <TextBlock Text="{Binding DataGridTextColumnValue, RelativeSource={RelativeSource AncestorType={x:Type local:DashBoard}}}" />
+                            <TextBlock
+                                Text="{Binding DataGridTextColumnValue, RelativeSource={RelativeSource AncestorType={x:Type local:DashBoard}}}" />
                         </DataGridTextColumn.Header>
                     </DataGridTextColumn>
                     <DataGridTextColumn Binding="{Binding Date, StringFormat={}{0:dd/MM/yyyy HH:mm:ss}}">
                         <DataGridTextColumn.Header>
-                            <TextBlock Text="{Binding DataGridTextColumnDate, RelativeSource={RelativeSource AncestorType={x:Type local:DashBoard}}}" />
+                            <TextBlock
+                                Text="{Binding DataGridTextColumnDate, RelativeSource={RelativeSource AncestorType={x:Type local:DashBoard}}}" />
                         </DataGridTextColumn.Header>
                     </DataGridTextColumn>
                     <DataGridCheckBoxColumn IsThreeState="True" Binding="{Binding Pointed}">
                         <DataGridCheckBoxColumn.Header>
-                            <TextBlock Text="{Binding DataGridTextColumnPointed, RelativeSource={RelativeSource AncestorType={x:Type local:DashBoard}}}" />
+                            <TextBlock
+                                Text="{Binding DataGridTextColumnPointed, RelativeSource={RelativeSource AncestorType={x:Type local:DashBoard}}}" />
                         </DataGridCheckBoxColumn.Header>
                     </DataGridCheckBoxColumn>
                 </DataGrid.Columns>
