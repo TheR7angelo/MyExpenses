@@ -352,8 +352,9 @@ FROM t_account ta
          LEFT JOIN t_history th
                    ON ta.id = th.compte_fk
          LEFT JOIN t_currency tc
-             ON ta.currency_fk = tc.id
-GROUP BY ta.name, tc.symbol;
+                   ON ta.currency_fk = tc.id
+GROUP BY ta.id, ta.name, tc.symbol
+ORDER BY ta.id;
 
 DROP VIEW IF EXISTS v_detail_total_category;
 CREATE VIEW v_detail_total_category AS
