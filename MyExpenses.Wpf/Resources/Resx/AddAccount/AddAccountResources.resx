@@ -36,7 +36,7 @@
     <data name="MsgBoxErrorAccountNameAlreadyExists" xml:space="preserve">
         <value>An account already exists with this name</value>
     </data>
-    <data name="MsgBoxErrorAccountCannotByEmpty" xml:space="preserve">
+    <data name="MsgBoxErrorAccountNameCannotByEmpty" xml:space="preserve">
         <value>Account name cannot be empty</value>
     </data>
     <data name="MsgBoxErrorAccountTypeCannotByEmpty" xml:space="preserve">

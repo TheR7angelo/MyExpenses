@@ -96,7 +96,7 @@ public partial class AddAccount
     {
         if (string.IsNullOrEmpty(Account.Name))
         {
-            MessageBox.Show(AddAccountResources.MsgBoxErrorAccountCannotByEmpty);
+            MessageBox.Show(AddAccountResources.MsgBoxErrorAccountNameCannotByEmpty);
             return true;
         }
 

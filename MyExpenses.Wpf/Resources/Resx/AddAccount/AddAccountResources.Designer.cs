@@ -96,15 +96,6 @@ namespace MyExpenses.Wpf.Resources.Resx.AddAccount {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Account name cannot be empty.
-        /// </summary>
-        internal static string MsgBoxErrorAccountCannotByEmpty {
-            get {
-                return ResourceManager.GetString("MsgBoxErrorAccountCannotByEmpty", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Account currency cannot be empty.
         /// </summary>
         internal static string MsgBoxErrorAccountCurrencyCannotByEmpty {
@@ -119,6 +110,15 @@ namespace MyExpenses.Wpf.Resources.Resx.AddAccount {
         internal static string MsgBoxErrorAccountNameAlreadyExists {
             get {
                 return ResourceManager.GetString("MsgBoxErrorAccountNameAlreadyExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Account name cannot be empty.
+        /// </summary>
+        internal static string MsgBoxErrorAccountNameCannotByEmpty {
+            get {
+                return ResourceManager.GetString("MsgBoxErrorAccountNameCannotByEmpty", resourceCulture);
             }
         }
         
