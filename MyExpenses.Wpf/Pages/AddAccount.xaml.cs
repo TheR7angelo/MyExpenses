@@ -136,4 +136,13 @@ public partial class AddAccount
 
     private bool CheckAccountName(string accountName)
         => Accounts.Select(s => s.Name).Contains(accountName);
+
+    private void ButtonAddAccountType_OnClick(object sender, RoutedEventArgs e)
+    {
+        var addEditAccountType = new AddEditAccountType();
+        var result = addEditAccountType.ShowDialog();
+        if (result != true) return;
+
+
+    }
 }
