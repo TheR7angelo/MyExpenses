@@ -140,6 +140,7 @@ public partial class DashBoard : INotifyPropertyChanged
     private void UpdateGraph(string accountName)
     {
         using var context = new DataBaseContext();
+        var categories = context.TCategoryTypes.ToList();
         var brutCategoriesTotals = context.VDetailTotalCategories
             .Where(s => s.Account == accountName);
 
@@ -164,7 +165,8 @@ public partial class DashBoard : INotifyPropertyChanged
             {
                 Values = new ObservableCollection<double> { absTotal },
                 Name = $"{categoryTotal.Category} ({percentage}%)",
-                ToolTipLabelFormatter = _ => total.ToString(CultureInfo.CurrentCulture)
+                ToolTipLabelFormatter = _ => total.ToString(CultureInfo.CurrentCulture),
+                Tag = categories.First(s => s.Name == categoryTotal.Category)
             };
             series.Add(pieSeries);
         }
@@ -177,5 +179,7 @@ public partial class DashBoard : INotifyPropertyChanged
     private void PieChart_OnDataPointerDown(IChartView chart, IEnumerable<ChartPoint> points)
     {
         // TODO zoom on data clicked
+        var categoryType = (points.FirstOrDefault()?.Context.Series as PieSeries<double>)?.Tag as TCategoryType;
+        Console.WriteLine(categoryType?.Name);
     }
 }
