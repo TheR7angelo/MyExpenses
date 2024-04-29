@@ -5,6 +5,8 @@ using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using LiveChartsCore.Kernel;
+using LiveChartsCore.Kernel.Sketches;
 using LiveChartsCore.SkiaSharpView;
 using LiveChartsCore.SkiaSharpView.Painting;
 using MyExpenses.Models.Sql.Tables;
@@ -97,7 +99,6 @@ public partial class DashBoard : INotifyPropertyChanged
                 Name = $"{categoryTotal.Category} ({percentage}%)",
                 ToolTipLabelFormatter = _ => total.ToString(CultureInfo.CurrentCulture)
             };
-
             series.Add(pieSeries);
         }
 
@@ -156,4 +157,9 @@ public partial class DashBoard : INotifyPropertyChanged
     }
 
     #endregion
+
+    private void PieChart_OnDataPointerDown(IChartView chart, IEnumerable<ChartPoint> points)
+    {
+        // TODO zoom on data clicked
+    }
 }

@@ -93,7 +93,7 @@
 
         <Grid Grid.Row="0" Grid.Column="2">
 
-            <wpf:PieChart x:Name="PieChart" LegendPosition="Left" />
+            <wpf:PieChart x:Name="PieChart" LegendPosition="Left"  DataPointerDown="PieChart_OnDataPointerDown"/>
 
         </Grid>
 
