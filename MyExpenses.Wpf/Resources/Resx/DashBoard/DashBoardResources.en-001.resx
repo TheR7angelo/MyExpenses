@@ -39,6 +39,6 @@
         <value>Account was successfully added.</value>
     </data>
     <data name="MessageBoxAddAccountError" xml:space="preserve">
-        <value>An error occurred please retry.</value>
+        <value>An error occurred please retry</value>
     </data>
 </root>

@@ -132,7 +132,7 @@ namespace MyExpenses.Wpf.Resources.Resx.DashBoard {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to An error occurred please retry..
+        ///   Looks up a localized string similar to An error occurred please retry.
         /// </summary>
         internal static string MessageBoxAddAccountError {
             get {

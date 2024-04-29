@@ -39,6 +39,6 @@
         <value>Le compte a été ajouté avec succès.</value>
     </data>
     <data name="MessageBoxAddAccountError" xml:space="preserve">
-        <value>Une erreur s'est produite, veuillez réessayer.</value>
+        <value>Une erreur s'est produite, veuillez réessayer</value>
     </data>
 </root>
