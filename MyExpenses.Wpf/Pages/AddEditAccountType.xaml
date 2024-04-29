@@ -5,17 +5,19 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:local="clr-namespace:MyExpenses.Wpf.Pages"
         xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:utils="clr-namespace:MyExpenses.Wpf.Utils;assembly=MyExpenses.Wpf.Utils"
         mc:Ignorable="d"
 
         Title="AddEditAccountType"
 
-        d:DesignHeight="585"
-        d:DesignWidth="458"
+        d:DesignHeight="130"
+        d:DesignWidth="394"
 
-        MinHeight="585"
-        MinWidth="458"
-        Height="585"
-        Width="458"
+        MinHeight="130"
+        MinWidth="394"
+        Height="130"
+        Width="394"
 
         TitleCharacterCasing="Normal"
         NonActiveWindowTitleBrush="Gray"
@@ -34,8 +36,19 @@
 
         DataContext="{Binding RelativeSource={RelativeSource Self}}">
 
-    <Grid>
-        
+    <Grid utils:PanelExtensions.MarginForAllChildren="5">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <TextBox Grid.Row="0"
+                 Text="{Binding AccountType.Name}"
+                 materialDesign:HintAssist.Hint="Test"
+                 Style="{StaticResource MaterialDesignFilledTextBox}">
+        </TextBox>
+
     </Grid>
 
 </mah:MetroWindow>
