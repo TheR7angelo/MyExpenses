@@ -13,6 +13,9 @@ public partial class TAccountType : ISql
     [Column("name")]
     public string? Name { get; set; }
 
+    [Column("date_added", TypeName = "DATETIME")]
+    public DateTime? DateAdded { get; set; } = DateTime.Now;
+
     [InverseProperty("AccountTypeFkNavigation")]
     public virtual ICollection<TAccount> TAccounts { get; set; } = new List<TAccount>();
 }

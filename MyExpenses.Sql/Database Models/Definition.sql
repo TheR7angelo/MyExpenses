@@ -1,10 +1,12 @@
 -- region Tables
+DROP TABLE IF EXISTS t_account_type;
 CREATE TABLE t_account_type
 (
     id   INTEGER
         constraint t_account_type_pk
             PRIMARY KEY AUTOINCREMENT,
-    name TEXT
+    name TEXT,
+    date_added      DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
 DROP TABLE IF EXISTS t_currency;
@@ -34,14 +36,17 @@ CREATE TABLE t_account
     date_added      DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
+DROP TABLE IF EXISTS t_category_type;
 CREATE TABLE t_category_type
 (
     id   INTEGER
         CONSTRAINT t_category_type_pk
             PRIMARY KEY AUTOINCREMENT,
-    name TEXT
+    name TEXT,
+    date_added      DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
+DROP TABLE IF EXISTS t_mode_payment;
 CREATE TABLE t_mode_payment
 (
     id   INTEGER
@@ -50,6 +55,7 @@ CREATE TABLE t_mode_payment
     name TEXT
 );
 
+DROP TABLE IF EXISTS t_place;
 CREATE TABLE t_place
 (
     id         INTEGER
@@ -93,6 +99,34 @@ CREATE TABLE t_history
 
 -- region Triggers
 
+DROP TRIGGER IF EXISTS after_insert_on_t_account_type;
+CREATE TRIGGER after_insert_on_after_insert_on_t_account_type
+    AFTER INSERT
+    ON t_account_type
+    FOR EACH ROW
+BEGIN
+    UPDATE t_account_type
+    SET date_added = CASE
+                         WHEN typeof(NEW.date_added) = 'integer' THEN datetime(NEW.date_added / 1000, 'unixepoch')
+                         ELSE NEW.date_added
+        END
+    WHERE id = NEW.id;
+END;
+
+DROP TRIGGER IF EXISTS after_update_on_t_account_type;
+CREATE TRIGGER after_update_on_t_account_type
+    AFTER UPDATE
+    ON t_account_type
+    FOR EACH ROW
+BEGIN
+    UPDATE t_account_type
+    SET date_added = CASE
+                         WHEN typeof(NEW.date_added) = 'integer' THEN datetime(NEW.date_added / 1000, 'unixepoch')
+                         ELSE NEW.date_added
+        END
+    WHERE id = NEW.id;
+END;
+
 DROP TRIGGER IF EXISTS after_insert_on_t_currency;
 CREATE TRIGGER after_insert_on_t_currency
     AFTER INSERT
@@ -114,6 +148,34 @@ CREATE TRIGGER after_update_on_t_currency
     FOR EACH ROW
 BEGIN
     UPDATE t_currency
+    SET date_added = CASE
+                         WHEN typeof(NEW.date_added) = 'integer' THEN datetime(NEW.date_added / 1000, 'unixepoch')
+                         ELSE NEW.date_added
+        END
+    WHERE id = NEW.id;
+END;
+
+DROP TRIGGER IF EXISTS after_insert_on_t_category_type;
+CREATE TRIGGER after_insert_on_after_insert_on_t_category_type
+    AFTER INSERT
+    ON t_category_type
+    FOR EACH ROW
+BEGIN
+    UPDATE t_category_type
+    SET date_added = CASE
+                         WHEN typeof(NEW.date_added) = 'integer' THEN datetime(NEW.date_added / 1000, 'unixepoch')
+                         ELSE NEW.date_added
+        END
+    WHERE id = NEW.id;
+END;
+
+DROP TRIGGER IF EXISTS after_update_on_t_account_type;
+CREATE TRIGGER after_update_on_t_account_type
+    AFTER UPDATE
+    ON t_category_type
+    FOR EACH ROW
+BEGIN
+    UPDATE t_category_type
     SET date_added = CASE
                          WHEN typeof(NEW.date_added) = 'integer' THEN datetime(NEW.date_added / 1000, 'unixepoch')
                          ELSE NEW.date_added
@@ -256,7 +318,7 @@ DROP VIEW IF EXISTS v_total_by_account;
 CREATE VIEW v_total_by_account AS
 SELECT ta.name,
        ROUND(SUM(th.value), 2) AS total,
-       tc.symbole
+       tc.symbol
 FROM t_account ta
          LEFT JOIN t_history th
                    ON ta.id = th.compte_fk
