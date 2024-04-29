@@ -5,6 +5,7 @@ using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Windows.Threading;
 using LiveChartsCore.Kernel;
 using LiveChartsCore.Kernel.Sketches;
 using LiveChartsCore.SkiaSharpView;
@@ -70,7 +71,71 @@ public partial class DashBoard : INotifyPropertyChanged
         PieChart.LegendTextPaint = new SolidColorPaint(wpfColor.ToSKColor());
     }
 
+    #region Action
+
+    private void ButtonAddAccount_OnClick(object sender, RoutedEventArgs e)
+    {
+        var addAccount = new AddAccount();
+        addAccount.ShowDialog();
+        if (addAccount.DialogResult != true) return;
+
+        var newAccount = addAccount.Account;
+
+        if (addAccount.EnableStartingBalance)
+        {
+            var newHistory = addAccount.History;
+            newAccount.THistories = new List<THistory> { newHistory };
+        }
+
+        Log.Information("Attempting to inject the new account \"{NewAccountName}\"", newAccount.Name);
+        var (success, exception) = newAccount.AddOrEdit();
+        if (success)
+        {
+            Log.Information("Account was successfully added");
+            MessageBox.Show(DashBoardResources.MessageBoxAddAccountSuccess);
+
+            RefreshAccountTotal();
+            Application.Current.Dispatcher.InvokeAsync(RefreshRadioButtonSelected, DispatcherPriority.ContextIdle);
+        }
+        else
+        {
+            Log.Error(exception, "An error occurred please retry");
+            MessageBox.Show(DashBoardResources.MessageBoxAddAccountError);
+        }
+    }
+
+    private void ItemsControlVTotalAccount_OnLoaded(object sender, RoutedEventArgs e)
+    {
+        RefreshRadioButtonSelected();
+    }
+
+    private void ToggleButtonVTotalAccount_OnChecked(object sender, RoutedEventArgs e)
+    {
+        var button = (RadioButton)sender;
+        var vTotalByAccount = (VTotalByAccount)button.DataContext;
+        Total = vTotalByAccount.Total;
+
+        UpdateGraph(vTotalByAccount.Name!);
+    }
+
+    #endregion
+
     #region Function
+
+    private void RefreshAccountTotal()
+    {
+        using var context = new DataBaseContext();
+        VTotalByAccounts.Clear();
+        VTotalByAccounts.AddRange([..context.VTotalByAccounts]);
+    }
+
+    private void RefreshRadioButtonSelected()
+    {
+        var radioButtons = ItemsControlVTotalAccount.FindVisualChildren<RadioButton>();
+        var radioButton = radioButtons.FirstOrDefault();
+        if (radioButton is null) return;
+        radioButton.IsChecked = true;
+    }
 
     private void UpdateGraph(string accountName)
     {
@@ -108,64 +173,6 @@ public partial class DashBoard : INotifyPropertyChanged
     }
 
     #endregion
-
-    #region Action
-
-    private void ButtonAddAccount_OnClick(object sender, RoutedEventArgs e)
-    {
-        var addAccount = new AddAccount();
-        addAccount.ShowDialog();
-        if (addAccount.DialogResult != true) return;
-
-        var newAccount = addAccount.Account;
-
-        if (addAccount.EnableStartingBalance)
-        {
-            var newHistory = addAccount.History;
-            newAccount.THistories = new List<THistory> { newHistory };
-        }
-
-        Log.Information("Attempting to inject the new account \"{NewAccountName}\"", newAccount.Name);
-        var (success, exception) = newAccount.AddOrEdit();
-        if (success)
-        {
-            Log.Information("Account was successfully added");
-            MessageBox.Show(DashBoardResources.MessageBoxAddAccountSuccess);
-
-            RefreshAccountTotal();
-        }
-        else
-        {
-            Log.Error(exception, "An error occurred please retry");
-            MessageBox.Show(DashBoardResources.MessageBoxAddAccountError);
-        }
-    }
-
-    private void DashBoard_OnLoaded(object sender, RoutedEventArgs e)
-    {
-        var radioButtons = ItemsControlVTotalAccount.FindVisualChildren<RadioButton>();
-        var radioButton = radioButtons.FirstOrDefault();
-        if (radioButton is null) return;
-        radioButton.IsChecked = true;
-    }
-
-    private void ToggleButtonVTotalAccount_OnChecked(object sender, RoutedEventArgs e)
-    {
-        var button = (RadioButton)sender;
-        var vTotalByAccount = (VTotalByAccount)button.DataContext;
-        Total = vTotalByAccount.Total;
-
-        UpdateGraph(vTotalByAccount.Name!);
-    }
-
-    #endregion
-
-    private void RefreshAccountTotal()
-    {
-        using var context = new DataBaseContext();
-        VTotalByAccounts.Clear();
-        VTotalByAccounts.AddRange([..context.VTotalByAccounts]);
-    }
 
     private void PieChart_OnDataPointerDown(IChartView chart, IEnumerable<ChartPoint> points)
     {

@@ -11,8 +11,6 @@
       mc:Ignorable="d"
       Title="DashBoard"
 
-      Loaded="DashBoard_OnLoaded"
-
       Background="{DynamicResource MaterialDesignPaper}"
       TextElement.Foreground="{DynamicResource MaterialDesignBody}"
 
@@ -72,7 +70,8 @@
                     BorderBrush="{DynamicResource MaterialDesignBody}"
                     BorderThickness="2">
                 <ItemsControl x:Name="ItemsControlVTotalAccount"
-                              ItemsSource="{Binding VTotalByAccounts, UpdateSourceTrigger=PropertyChanged}">
+                              ItemsSource="{Binding VTotalByAccounts, UpdateSourceTrigger=PropertyChanged}"
+                              Loaded="ItemsControlVTotalAccount_OnLoaded">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
                             <WrapPanel Orientation="Horizontal" />
