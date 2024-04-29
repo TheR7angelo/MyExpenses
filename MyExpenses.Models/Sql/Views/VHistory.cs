@@ -21,8 +21,8 @@ public partial class VHistory
     [Column("value")]
     public double? Value { get; set; }
 
-    [Column("symbole")]
-    public string? Symbole { get; set; }
+    [Column("symbol")]
+    public string? Symbol { get; set; }
 
     [Column("date", TypeName = "DATETIME")]
     public DateTime? Date { get; set; }
