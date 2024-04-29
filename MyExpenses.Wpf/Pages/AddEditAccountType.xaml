@@ -47,7 +47,7 @@
                  Text="{Binding AccountType.Name}"
                  materialDesign:HintAssist.Hint="{Binding TextBoxAccountTypeName}"
                  Style="{StaticResource MaterialDesignFilledTextBox}"
-                 LostFocus="TextBoxAccountType_OnLostFocus">
+                 PreviewLostKeyboardFocus="TextBoxAccountType_OnPreviewLostKeyboardFocus">
         </TextBox>
 
         <ComboBox x:Name="ComboBoxAccountTypes" Grid.Row="1"
