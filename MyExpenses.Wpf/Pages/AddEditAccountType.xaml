@@ -51,6 +51,7 @@
         </TextBox>
 
         <ComboBox x:Name="ComboBoxAccountTypes" Grid.Row="1"
+                  ItemsSource="{Binding AccountTypes}"
                   Visibility="Collapsed"
                   IsEditable="True">
         </ComboBox>
