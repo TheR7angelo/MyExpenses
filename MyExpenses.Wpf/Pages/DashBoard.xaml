@@ -22,8 +22,7 @@
         <converters:TotalToIconConverter x:Key="TotalToIconConverter" />
     </Page.Resources>
 
-    <Grid utils:PanelExtensions.MarginForAllChildren="5"
-          ShowGridLines="True">
+    <Grid utils:PanelExtensions.MarginForAllChildren="5">
 
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
