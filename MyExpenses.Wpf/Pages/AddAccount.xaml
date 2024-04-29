@@ -71,7 +71,13 @@
                   SelectedValuePath="{Binding SelectedValuePathAccountType}">
         </ComboBox>
 
-        <Label Grid.Row="1" Grid.Column="1" Content="Add add function" />
+        <Button Grid.Row="1" Grid.Column="1"
+                HorizontalAlignment="Left"
+                Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}">
+            <Button.Content>
+                <materialDesign:PackIcon Kind="PencilPlus" />
+            </Button.Content>
+        </Button>
 
         <ComboBox Grid.Row="2" Grid.Column="0"
                   materialDesign:HintAssist.Hint="{Binding ComboBoxAccountCurrency}"
@@ -82,6 +88,14 @@
                   SelectedValue="{Binding Account.CurrencyFk}"
                   SelectedValuePath="{Binding SelectedValuePathCurrency}">
         </ComboBox>
+
+        <!-- <Button Grid.Row="2" Grid.Column="1" -->
+        <!--         HorizontalAlignment="Left" -->
+        <!--         Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"> -->
+        <!--     <Button.Content> -->
+        <!--         <materialDesign:PackIcon Kind="PencilPlus" /> -->
+        <!--     </Button.Content> -->
+        <!-- </Button> -->
 
         <Label Grid.Row="2" Grid.Column="1" Content="Add add function" />
 
@@ -140,6 +154,14 @@
                           SelectedValue="{Binding History.CategoryTypeFk}"
                           SelectedValuePath="{Binding SelectedValuePathCategoryType}">
                 </ComboBox>
+
+                <!-- <Button Grid.Row="1" Grid.Column="2" -->
+                <!--         HorizontalAlignment="Left" -->
+                <!--         Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"> -->
+                <!--     <Button.Content> -->
+                <!--         <materialDesign:PackIcon Kind="PencilPlus" /> -->
+                <!--     </Button.Content> -->
+                <!-- </Button> -->
 
                 <Label Grid.Row="1" Grid.Column="2" Content="Add add function" />
 
