@@ -6,7 +6,7 @@ using MyExpenses.Models.Sql.Tables;
 using MyExpenses.Sql.Context;
 using MyExpenses.Wpf.Resources.Resx.AddEditAccountType;
 
-namespace MyExpenses.Wpf.Pages;
+namespace MyExpenses.Wpf.Windows;
 
 public partial class AddEditAccountType
 {

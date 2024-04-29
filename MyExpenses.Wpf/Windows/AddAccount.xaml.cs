@@ -8,7 +8,7 @@ using MyExpenses.Wpf.Resources.Regex;
 using MyExpenses.Wpf.Resources.Resx.AddAccount;
 using Serilog;
 
-namespace MyExpenses.Wpf.Pages;
+namespace MyExpenses.Wpf.Windows;
 
 public partial class AddAccount
 {

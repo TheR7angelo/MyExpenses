@@ -12,6 +12,7 @@ using MyExpenses.Models.Sql.Views;
 using MyExpenses.Sql.Context;
 using MyExpenses.Wpf.Utils;
 using MyExpenses.Wpf.Resources.Resx.DashBoard;
+using MyExpenses.Wpf.Windows;
 using Serilog;
 using SkiaSharp.Views.WPF;
 
