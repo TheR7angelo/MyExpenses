@@ -31,6 +31,7 @@ public partial class AddEditAccountType
         AccountTypes = [..context.TAccountTypes];
 
         InitializeComponent();
+        TextBoxAccountType.Focus();
     }
 
     #region Function

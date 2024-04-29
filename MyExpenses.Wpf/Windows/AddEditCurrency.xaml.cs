@@ -31,6 +31,7 @@ public partial class AddEditCurrency
         Currencies = [..context.TCurrencies];
 
         InitializeComponent();
+        TextBoxCurrency.Focus();
     }
 
     #region Function

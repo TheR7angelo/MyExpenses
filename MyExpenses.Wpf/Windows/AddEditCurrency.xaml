@@ -43,7 +43,7 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <TextBox x:Name="TextBoxAccountType" Grid.Row="0"
+        <TextBox x:Name="TextBoxCurrency" Grid.Row="0"
                  Text="{Binding Currency.Symbol}"
                  materialDesign:HintAssist.Hint="{Binding TextBoxCurrencySymbol}"
                  Style="{StaticResource MaterialDesignFilledTextBox}"

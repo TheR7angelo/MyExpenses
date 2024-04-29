@@ -32,6 +32,7 @@ public partial class AddEditCategoryType
         CategoryTypes = [..context.TCategoryTypes];
 
         InitializeComponent();
+        TextBoxCategoryType.Focus();
     }
 
     #region Function
