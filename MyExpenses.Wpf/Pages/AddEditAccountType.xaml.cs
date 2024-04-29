@@ -36,6 +36,7 @@ public partial class AddEditAccountType
 
         var alreadyExist = CheckAccountTypeName(accountTypeName);
         if (alreadyExist) MessageBox.Show("Account type name already exist");
+        else Close();
     }
 
     private bool CheckAccountTypeName(string accountName)
