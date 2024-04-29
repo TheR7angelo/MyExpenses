@@ -160,4 +160,27 @@ public partial class AddAccount
             MessageBox.Show(AddAccountResources.MessageBoxAddAccountTypeError);
         }
     }
+
+    private void ButtonAddCurrency_OnClick(object sender, RoutedEventArgs e)
+    {
+        var addEditCurrency = new AddEditCurrency();
+        var result = addEditCurrency.ShowDialog();
+        if (result != true) return;
+
+        var newCurrency = addEditCurrency.Currency;
+
+        Log.Information("Attempting to inject the new currency symbole \"{NewCurrencySymbole}\"", newCurrency.Symbol);
+        var (success, exception) = newCurrency.AddOrEdit();
+        if (success)
+        {
+            Currencies.Add(newCurrency);
+            Log.Information("Account type was successfully added");
+            MessageBox.Show(AddAccountResources.MessageBoxAddCurrencySuccess);
+        }
+        else
+        {
+            Log.Error(exception, "An error occurred please retry");
+            MessageBox.Show(AddAccountResources.MessageBoxAddCurrencyError);
+        }
+    }
 }

@@ -90,15 +90,14 @@
                   SelectedValuePath="{Binding SelectedValuePathCurrency}">
         </ComboBox>
 
-        <!-- <Button Grid.Row="2" Grid.Column="1" -->
-        <!--         HorizontalAlignment="Left" -->
-        <!--         Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"> -->
-        <!--     <Button.Content> -->
-        <!--         <materialDesign:PackIcon Kind="PencilPlus" /> -->
-        <!--     </Button.Content> -->
-        <!-- </Button> -->
-
-        <Label Grid.Row="2" Grid.Column="1" Content="Add add function" />
+        <Button Grid.Row="2" Grid.Column="1"
+                HorizontalAlignment="Left"
+                Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
+                Click="ButtonAddCurrency_OnClick">
+            <Button.Content>
+                <materialDesign:PackIcon Kind="PencilPlus" />
+            </Button.Content>
+        </Button>
 
         <StackPanel Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"
                     Orientation="Horizontal">
