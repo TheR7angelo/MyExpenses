@@ -12,6 +12,7 @@ using LiveChartsCore.SkiaSharpView.Painting;
 using MyExpenses.Models.Sql.Tables;
 using MyExpenses.Models.Sql.Views;
 using MyExpenses.Sql.Context;
+using MyExpenses.Utils;
 using MyExpenses.Wpf.Utils;
 using MyExpenses.Wpf.Resources.Resx.DashBoard;
 using MyExpenses.Wpf.Windows;
@@ -28,7 +29,7 @@ public partial class DashBoard : INotifyPropertyChanged
         => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
     public List<VHistory> VHistories { get; }
-    public List<VTotalByAccount> VTotalByAccounts { get; }
+    public ObservableCollection<VTotalByAccount> VTotalByAccounts { get; } = [];
 
     private double? _total = 0d;
 
@@ -57,8 +58,9 @@ public partial class DashBoard : INotifyPropertyChanged
     public DashBoard()
     {
         using var context = new DataBaseContext();
-        VTotalByAccounts = new List<VTotalByAccount>(context.VTotalByAccounts);
-        VHistories = new List<VHistory>(context.VHistories.OrderByDescending(s => s.Date));
+        VHistories = [..context.VHistories.OrderByDescending(s => s.Date)];
+
+        RefreshAccountTotal();
 
         InitializeComponent();
 
@@ -130,7 +132,7 @@ public partial class DashBoard : INotifyPropertyChanged
             Log.Information("Account was successfully added");
             MessageBox.Show(DashBoardResources.MessageBoxAddAccountSuccess);
 
-            // TODO refresh dashboard data
+            RefreshAccountTotal();
         }
         else
         {
@@ -157,6 +159,13 @@ public partial class DashBoard : INotifyPropertyChanged
     }
 
     #endregion
+
+    private void RefreshAccountTotal()
+    {
+        using var context = new DataBaseContext();
+        VTotalByAccounts.Clear();
+        VTotalByAccounts.AddRange([..context.VTotalByAccounts]);
+    }
 
     private void PieChart_OnDataPointerDown(IChartView chart, IEnumerable<ChartPoint> points)
     {
