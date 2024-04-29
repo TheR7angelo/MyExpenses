@@ -55,14 +55,14 @@
         </Grid.ColumnDefinitions>
 
         <TextBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
-                 materialDesign:HintAssist.Hint="{Binding TextBoxAccountName}"
+                 materialDesign:HintAssist.Hint="{Binding HintAssistTextBoxAccountName}"
                  Style="{StaticResource MaterialDesignFilledTextBox}"
                  Text="{Binding Account.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                  LostFocus="TextBoxAccountName_OnLostFocus">
         </TextBox>
 
         <ComboBox Grid.Row="1" Grid.Column="0"
-                  materialDesign:HintAssist.Hint="{Binding ComboBoxAccountType}"
+                  materialDesign:HintAssist.Hint="{Binding HintAssistComboBoxAccountType}"
                   materialDesign:TextFieldAssist.HasClearButton="True"
                   ItemsSource="{Binding AccountTypes}"
                   Style="{StaticResource MaterialDesignFilledComboBox}"
@@ -81,7 +81,7 @@
         </Button>
 
         <ComboBox Grid.Row="2" Grid.Column="0"
-                  materialDesign:HintAssist.Hint="{Binding ComboBoxAccountCurrency}"
+                  materialDesign:HintAssist.Hint="{Binding HintAssistComboBoxAccountCurrency}"
                   materialDesign:TextFieldAssist.HasClearButton="True"
                   ItemsSource="{Binding Currencies}"
                   Style="{StaticResource MaterialDesignFilledComboBox}"
@@ -133,20 +133,20 @@
                 </Grid.ColumnDefinitions>
 
                 <TextBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"
-                         materialDesign:HintAssist.Hint="{Binding TextBoxAccountStartingBalanceDescription}"
+                         materialDesign:HintAssist.Hint="{Binding HintAssistTextBoxAccountStartingBalanceDescription}"
                          Style="{StaticResource MaterialDesignFilledTextBox}"
                          Text="{Binding History.Description, Mode=TwoWay}">
                 </TextBox>
 
                 <TextBox Grid.Row="1" Grid.Column="0"
-                         materialDesign:HintAssist.Hint="{Binding TextBoxAccountStartingBalance}"
+                         materialDesign:HintAssist.Hint="{Binding HintAssistTextBoxAccountStartingBalance}"
                          Style="{StaticResource MaterialDesignFilledTextBox}"
                          Text="{Binding History.Value, Mode=TwoWay}"
                          PreviewTextInput="TextBoxStartingBalance_OnPreviewTextInput">
                 </TextBox>
 
                 <ComboBox Grid.Row="1" Grid.Column="1"
-                          materialDesign:HintAssist.Hint="{Binding ComboBoxAccountCategoryType}"
+                          materialDesign:HintAssist.Hint="{Binding HintAssistComboBoxAccountCategoryType}"
                           materialDesign:TextFieldAssist.HasClearButton="True"
                           ItemsSource="{Binding  CategoryTypes}"
                           Style="{StaticResource MaterialDesignFilledComboBox}"

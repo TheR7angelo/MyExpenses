@@ -18,14 +18,14 @@ public partial class AddAccount
 
     #region Resx
 
-    public string TextBoxAccountName { get; } = AddAccountResources.TextBoxAccountName;
-    public string ComboBoxAccountType { get; } = AddAccountResources.ComboBoxAccountType;
-    public string ComboBoxAccountCurrency { get; } = AddAccountResources.ComboBoxAccountCurrency;
+    public string HintAssistTextBoxAccountName { get; } = AddAccountResources.TextBoxAccountName;
+    public string HintAssistComboBoxAccountType { get; } = AddAccountResources.ComboBoxAccountType;
+    public string HintAssistComboBoxAccountCurrency { get; } = AddAccountResources.ComboBoxAccountCurrency;
     public string LabelIsAccountActive { get; } = AddAccountResources.LabelIsAccountActive;
-    public string TextBoxAccountStartingBalance { get; } = AddAccountResources.TextBoxAccountStartingBalance;
+    public string HintAssistTextBoxAccountStartingBalance { get; } = AddAccountResources.TextBoxAccountStartingBalance;
 
-    public string TextBoxAccountStartingBalanceDescription { get; } = AddAccountResources.TextBoxAccountStartingBalanceDescription;
-    public string ComboBoxAccountCategoryType { get; } = AddAccountResources.ComboBoxAccountCategoryType;
+    public string HintAssistTextBoxAccountStartingBalanceDescription { get; } = AddAccountResources.TextBoxAccountStartingBalanceDescription;
+    public string HintAssistComboBoxAccountCategoryType { get; } = AddAccountResources.ComboBoxAccountCategoryType;
     private string MsgBoxErrorAccountNameAlreadyExists { get; } = AddAccountResources.MsgBoxErrorAccountNameAlreadyExists;
 
     #endregion
