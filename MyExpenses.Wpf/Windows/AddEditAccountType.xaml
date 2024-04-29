@@ -62,11 +62,13 @@
                     HorizontalAlignment="Right" VerticalAlignment="Bottom">
 
             <Button Content="{Binding ButtonValidContent}"
-                    Style="{StaticResource MaterialDesignPaperButton}">
+                    Style="{StaticResource MaterialDesignPaperButton}"
+                    Click="ButtonValid_OnClick">
             </Button>
 
             <Button Content="{Binding ButtonCancelContent}"
-                    Style="{StaticResource MaterialDesignPaperSecondaryButton}">
+                    Style="{StaticResource MaterialDesignPaperSecondaryButton}"
+                    Click="ButtonCancel_OnClick">
             </Button>
 
             <Button x:Name="ButtonDelete" Content="{Binding ButtonDeleteContent}" Visibility="Collapsed" />

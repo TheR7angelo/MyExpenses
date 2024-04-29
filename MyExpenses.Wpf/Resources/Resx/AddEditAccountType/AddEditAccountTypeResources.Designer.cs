@@ -87,6 +87,15 @@ namespace MyExpenses.Wpf.Resources.Resx.AddEditAccountType {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Account type name already exist.
+        /// </summary>
+        internal static string MessageBoxAccountTypeNameAlreadyExists {
+            get {
+                return ResourceManager.GetString("MessageBoxAccountTypeNameAlreadyExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Name of new account type :.
         /// </summary>
         internal static string TextBoxAccountTypeName {
