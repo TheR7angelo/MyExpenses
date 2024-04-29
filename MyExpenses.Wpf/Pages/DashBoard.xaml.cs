@@ -58,7 +58,7 @@ public partial class DashBoard : INotifyPropertyChanged
     public DashBoard()
     {
         using var context = new DataBaseContext();
-        VHistories = [..context.VHistories.OrderByDescending(s => s.Date)];
+        VHistories = [..context.VHistories.OrderBy(s => s.Pointed).ThenByDescending(s => s.Date)];
 
         RefreshAccountTotal();
 
