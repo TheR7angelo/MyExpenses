@@ -7,7 +7,7 @@ namespace MyExpenses.Models.Sql.Tables;
 
 [AddINotifyPropertyChangedInterface]
 [Table("t_place")]
-public partial class TPlace
+public partial class TPlace : ISql
 {
     [Key]
     [Column("id")]

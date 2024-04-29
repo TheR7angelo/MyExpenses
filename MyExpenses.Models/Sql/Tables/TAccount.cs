@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace MyExpenses.Models.Sql.Tables;
 
 [Table("t_account")]
-public partial class TAccount
+public partial class TAccount : ISql
 {
     [Key]
     [Column("id")]
