@@ -6,6 +6,7 @@ using MyExpenses.Models.Sql.Tables;
 using MyExpenses.Sql.Context;
 using MyExpenses.Wpf.Resources.Regex;
 using MyExpenses.Wpf.Resources.Resx.AddAccount;
+using Serilog;
 
 namespace MyExpenses.Wpf.Pages;
 
@@ -143,6 +144,20 @@ public partial class AddAccount
         var result = addEditAccountType.ShowDialog();
         if (result != true) return;
 
+        var newAccountType = addEditAccountType.AccountType;
 
+        Log.Information("Attempting to inject the new account type \"{NewAccountTypeName}\"", newAccountType.Name);
+        var (success, exception) = newAccountType.AddOrEdit();
+        if (success)
+        {
+            AccountTypes.Add(newAccountType);
+            Log.Information("Account type was successfully added");
+            MessageBox.Show(AddAccountResources.MessageBoxAddAccountTypeSuccess);
+        }
+        else
+        {
+            Log.Error(exception, "An error occurred please retry");
+            MessageBox.Show(AddAccountResources.MessageBoxAddAccountTypeError);
+        }
     }
 }
