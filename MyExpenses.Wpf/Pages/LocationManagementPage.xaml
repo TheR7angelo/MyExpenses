@@ -4,6 +4,8 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:MyExpenses.Wpf.Pages"
+      xmlns:groups="clr-namespace:MyExpenses.Models.Sql.Groups;assembly=MyExpenses.Models"
+      xmlns:tables="clr-namespace:MyExpenses.Models.Sql.Tables;assembly=MyExpenses.Models"
       mc:Ignorable="d"
       Title="LocationManagementPage"
 
@@ -16,6 +18,26 @@
       DataContext="{Binding RelativeSource={RelativeSource Self}}">
 
     <Grid>
+
+        <TreeView ItemsSource="{Binding Places, UpdateSourceTrigger=PropertyChanged}">
+            <TreeView.ItemTemplate>
+                <HierarchicalDataTemplate DataType="{x:Type groups:CountryGroup}"
+                                          ItemsSource="{Binding CityGroups}">
+                    <TextBlock Text="{Binding Country}" />
+                    <HierarchicalDataTemplate.ItemTemplate>
+                        <HierarchicalDataTemplate DataType="{x:Type groups:CityGroup}"
+                                                  ItemsSource="{Binding Places}">
+                            <TextBlock Text="{Binding City}" />
+                            <HierarchicalDataTemplate.ItemTemplate>
+                                <HierarchicalDataTemplate DataType="{x:Type tables:TPlace}">
+                                    <TextBlock Text="{Binding Name}" />
+                                </HierarchicalDataTemplate>
+                            </HierarchicalDataTemplate.ItemTemplate>
+                        </HierarchicalDataTemplate>
+                    </HierarchicalDataTemplate.ItemTemplate>
+                </HierarchicalDataTemplate>
+            </TreeView.ItemTemplate>
+        </TreeView>
 
     </Grid>
 
