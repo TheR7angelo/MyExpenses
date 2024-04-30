@@ -36,10 +36,12 @@
         <WrapPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal"
                    VerticalAlignment="Center"
                    HorizontalAlignment="Center">
+
             <Button Content="{Binding ButtonAddAccount}"
                     Style="{StaticResource MaterialDesignPaperButton}"
                     Click="ButtonAddAccount_OnClick">
             </Button>
+
         </WrapPanel>
 
         <Grid Grid.Row="0" Grid.Column="1">
