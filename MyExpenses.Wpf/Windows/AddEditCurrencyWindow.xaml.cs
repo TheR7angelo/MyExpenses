@@ -7,7 +7,7 @@ using MyExpenses.Wpf.Resources.Resx.AddEditCurrency;
 
 namespace MyExpenses.Wpf.Windows;
 
-public partial class AddEditCurrency
+public partial class AddEditCurrencyWindow
 {
     #region Property
 
@@ -25,7 +25,7 @@ public partial class AddEditCurrency
 
     #endregion
 
-    public AddEditCurrency()
+    public AddEditCurrencyWindow()
     {
         using var context = new DataBaseContext();
         Currencies = [..context.TCurrencies];

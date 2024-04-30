@@ -7,7 +7,7 @@ using MyExpenses.Wpf.Resources.Resx.AddEditAccountType;
 
 namespace MyExpenses.Wpf.Windows;
 
-public partial class AddEditAccountType
+public partial class AddEditAccountTypeWindow
 {
     #region Property
 
@@ -25,7 +25,7 @@ public partial class AddEditAccountType
 
     #endregion
 
-    public AddEditAccountType()
+    public AddEditAccountTypeWindow()
     {
         using var context = new DataBaseContext();
         AccountTypes = [..context.TAccountTypes];

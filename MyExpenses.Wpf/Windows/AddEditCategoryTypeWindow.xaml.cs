@@ -8,7 +8,7 @@ using MyExpenses.Wpf.Resources.Resx.AddEditCurrency;
 
 namespace MyExpenses.Wpf.Windows;
 
-public partial class AddEditCategoryType
+public partial class AddEditCategoryTypeWindow
 {
     #region Property
 
@@ -26,7 +26,7 @@ public partial class AddEditCategoryType
 
     #endregion
 
-    public AddEditCategoryType()
+    public AddEditCategoryTypeWindow()
     {
         using var context = new DataBaseContext();
         CategoryTypes = [..context.TCategoryTypes];

@@ -10,10 +10,10 @@ using Serilog;
 
 namespace MyExpenses.Wpf.Windows;
 
-public partial class AddAccount
+public partial class AddAccountWindow
 {
     public static readonly DependencyProperty EnableStartingBalanceProperty =
-        DependencyProperty.Register(nameof(EnableStartingBalance), typeof(bool), typeof(AddAccount),
+        DependencyProperty.Register(nameof(EnableStartingBalance), typeof(bool), typeof(AddAccountWindow),
             new PropertyMetadata(default(bool)));
 
     #region Resx
@@ -51,7 +51,7 @@ public partial class AddAccount
         set => SetValue(EnableStartingBalanceProperty, value);
     }
 
-    public AddAccount()
+    public AddAccountWindow()
     {
         using var context = new DataBaseContext();
         Accounts = [..context.TAccounts];
@@ -140,7 +140,7 @@ public partial class AddAccount
 
     private void ButtonAddAccountType_OnClick(object sender, RoutedEventArgs e)
     {
-        var addEditAccountType = new AddEditAccountType();
+        var addEditAccountType = new AddEditAccountTypeWindow();
         var result = addEditAccountType.ShowDialog();
         if (result != true) return;
 
@@ -164,7 +164,7 @@ public partial class AddAccount
 
     private void ButtonAddCurrency_OnClick(object sender, RoutedEventArgs e)
     {
-        var addEditCurrency = new AddEditCurrency();
+        var addEditCurrency = new AddEditCurrencyWindow();
         var result = addEditCurrency.ShowDialog();
         if (result != true) return;
 
@@ -188,7 +188,7 @@ public partial class AddAccount
 
     private void ButtonAddCategoryType_OnClick(object sender, RoutedEventArgs e)
     {
-        var addEditCategoryType = new AddEditCategoryType();
+        var addEditCategoryType = new AddEditCategoryTypeWindow();
         var result = addEditCategoryType.ShowDialog();
         if (result != true) return;
 

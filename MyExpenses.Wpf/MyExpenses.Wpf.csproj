@@ -83,17 +83,17 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Page Update="Windows\AddAccount.xaml">
+      <Page Update="Windows\AddAccountWindow.xaml">
         <Generator>MSBuild:Compile</Generator>
         <XamlRuntime>Wpf</XamlRuntime>
         <SubType>Designer</SubType>
       </Page>
-      <Page Update="Windows\AddEditAccountType.xaml">
+      <Page Update="Windows\AddEditAccountTypeWindow.xaml">
         <Generator>MSBuild:Compile</Generator>
         <XamlRuntime>Wpf</XamlRuntime>
         <SubType>Designer</SubType>
       </Page>
-      <Page Update="Windows\AddEditCategoryType.xaml">
+      <Page Update="Windows\AddEditCategoryTypeWindow.xaml">
         <Generator>MSBuild:Compile</Generator>
         <XamlRuntime>Wpf</XamlRuntime>
         <SubType>Designer</SubType>
