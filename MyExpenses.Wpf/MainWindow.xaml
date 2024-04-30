@@ -41,7 +41,7 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <materialDesign:Card Grid.Row="0">
+        <materialDesign:Card Grid.Row="0" Margin="5">
             <Menu>
                 <MenuItem Header="{Binding MenuItemHeaderFile}">
 
