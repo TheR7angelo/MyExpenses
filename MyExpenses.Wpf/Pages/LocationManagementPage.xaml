@@ -8,6 +8,7 @@
       xmlns:tables="clr-namespace:MyExpenses.Models.Sql.Tables;assembly=MyExpenses.Models"
       xmlns:wpf="clr-namespace:Mapsui.UI.Wpf;assembly=Mapsui.UI.Wpf"
       xmlns:utils="clr-namespace:MyExpenses.Wpf.Utils;assembly=MyExpenses.Wpf.Utils"
+      xmlns:converters="clr-namespace:MyExpenses.Wpf.Converters"
       mc:Ignorable="d"
       Title="LocationManagementPage"
 
@@ -18,6 +19,10 @@
       TextElement.Foreground="{DynamicResource MaterialDesignBody}"
 
       DataContext="{Binding RelativeSource={RelativeSource Self}}">
+
+    <Page.Resources>
+        <converters:SplitUpperCaseWordsConverter x:Key="SplitCamelCaseConverter" />
+    </Page.Resources>
 
     <Grid utils:PanelExtensions.MarginForAllChildren="5">
 
@@ -35,6 +40,11 @@
                   ItemsSource="{Binding KnownTileSources}"
                   SelectedItem="{Binding KnownTileSourceSelected}"
                   SelectionChanged="Selector_OnSelectionChanged">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Converter={StaticResource SplitCamelCaseConverter}}"/>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
         </ComboBox>
 
         <TreeView Grid.Row="1" Grid.Column="0"
