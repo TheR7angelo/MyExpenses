@@ -23,16 +23,26 @@
             <TreeView.ItemTemplate>
                 <HierarchicalDataTemplate DataType="{x:Type groups:CountryGroup}"
                                           ItemsSource="{Binding CityGroups}">
-                    <TextBlock Text="{Binding Country}" />
+                    <TextBlock>
+                        <Run Text="{Binding Country}" />
+                        <Run Text="{Binding CityGroups.Count, Mode=OneWay, FallbackValue=0, StringFormat=' [{0}]'}" />
+                    </TextBlock>
+
                     <HierarchicalDataTemplate.ItemTemplate>
                         <HierarchicalDataTemplate DataType="{x:Type groups:CityGroup}"
                                                   ItemsSource="{Binding Places}">
-                            <TextBlock Text="{Binding City}" />
+
+                            <TextBlock>
+                                <Run Text="{Binding City}" />
+                                <Run Text="{Binding Places.Count, Mode=OneWay, FallbackValue=0, StringFormat=' [{0}]'}" />
+                            </TextBlock>
+
                             <HierarchicalDataTemplate.ItemTemplate>
                                 <HierarchicalDataTemplate DataType="{x:Type tables:TPlace}">
                                     <TextBlock Text="{Binding Name}" />
                                 </HierarchicalDataTemplate>
                             </HierarchicalDataTemplate.ItemTemplate>
+
                         </HierarchicalDataTemplate>
                     </HierarchicalDataTemplate.ItemTemplate>
                 </HierarchicalDataTemplate>
