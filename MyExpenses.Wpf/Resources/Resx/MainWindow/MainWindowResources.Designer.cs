@@ -19,15 +19,15 @@ namespace MyExpenses.Wpf.Resources.Resx.MainWindow {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     internal class MainWindowResources {
-        
+
         private static global::System.Resources.ResourceManager resourceMan;
-        
+
         private static global::System.Globalization.CultureInfo resourceCulture;
-        
+
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         internal MainWindowResources() {
         }
-        
+
         /// <summary>
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
@@ -41,7 +41,7 @@ namespace MyExpenses.Wpf.Resources.Resx.MainWindow {
                 return resourceMan;
             }
         }
-        
+
         /// <summary>
         ///   Overrides the current thread's CurrentUICulture property for all
         ///   resource lookups using this strongly typed resource class.
@@ -55,7 +55,7 @@ namespace MyExpenses.Wpf.Resources.Resx.MainWindow {
                 resourceCulture = value;
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Export database.
         /// </summary>
@@ -64,7 +64,7 @@ namespace MyExpenses.Wpf.Resources.Resx.MainWindow {
                 return ResourceManager.GetString("MenuItemHeaderExportDatabase", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to File.
         /// </summary>
@@ -73,13 +73,22 @@ namespace MyExpenses.Wpf.Resources.Resx.MainWindow {
                 return ResourceManager.GetString("MenuItemHeaderFile", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Load database.
         /// </summary>
         internal static string MenuItemHeaderImportDatabase {
             get {
                 return ResourceManager.GetString("MenuItemHeaderImportDatabase", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        /// Looks up a localized string similar to database.
+        /// </summary>
+        public static string MenuItemHeaderDatabase {
+            get {
+                return ResourceManager.GetString("MenuItemHeaderDatabase", resourceCulture);
             }
         }
     }

@@ -1,10 +1,23 @@
-﻿namespace MyExpenses.Wpf;
+﻿using MyExpenses.Wpf.Resources.Resx.MainWindow;
+
+namespace MyExpenses.Wpf;
 
 public partial class MainWindow
 {
-    public string MenuItemHeaderFile { get; } = MyExpenses.Wpf.Resources.Resx.MainWindow.MainWindowResources.MenuItemHeaderFile;
-    public string MenuItemHeaderExportDatabase { get; } = MyExpenses.Wpf.Resources.Resx.MainWindow.MainWindowResources.MenuItemHeaderExportDatabase;
-    public string MenuItemHeaderImportDatabase { get; } = MyExpenses.Wpf.Resources.Resx.MainWindow.MainWindowResources.MenuItemHeaderImportDatabase;
+    #region MenuItemFile
+
+    public string MenuItemHeaderFile { get; } = MainWindowResources.MenuItemHeaderFile;
+
+    #region MenuItem Database
+
+    public string MenuItemHeaderDatabase { get; } = MainWindowResources.MenuItemHeaderDatabase;
+
+    public string MenuItemHeaderExportDatabase { get; } = MainWindowResources.MenuItemHeaderExportDatabase;
+    public string MenuItemHeaderImportDatabase { get; } = MainWindowResources.MenuItemHeaderImportDatabase;
+
+    #endregion
+
+    #endregion
 
     public MainWindow()
     {

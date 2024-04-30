@@ -45,7 +45,7 @@
             <Menu>
                 <MenuItem Header="{Binding MenuItemHeaderFile}">
 
-                    <MenuItem Header="DataBase">
+                    <MenuItem Header="{Binding MenuItemHeaderDatabase}">
                         <MenuItem.Icon>
                             <materialDesign:PackIcon Kind="Database" />
                         </MenuItem.Icon>

@@ -20,4 +20,7 @@
     <data name="MenuItemHeaderImportDatabase" xml:space="preserve">
         <value>Load database</value>
     </data>
+    <data name="MenuItemHeaderDatabase" xml:space="preserve">
+        <value>Database</value>
+    </data>
 </root>
