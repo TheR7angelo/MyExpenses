@@ -114,9 +114,8 @@ public partial class DashBoardPage : INotifyPropertyChanged
     }
 
     private void ButtonLocationManagement_OnClick(object sender, RoutedEventArgs e)
-    {
-        Console.WriteLine("hey");
-    }
+        => nameof(MainWindow.FrameBody).NavigateTo(typeof(LocationManagementPage));
+
 
     private void ItemsControlVTotalAccount_OnLoaded(object sender, RoutedEventArgs e)
         => RefreshRadioButtonSelected();
