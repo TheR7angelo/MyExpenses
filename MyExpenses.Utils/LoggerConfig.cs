@@ -4,8 +4,15 @@ using Serilog.Sinks.SystemConsole.Themes;
 
 namespace MyExpenses.Utils;
 
+/// <summary>
+/// Provides methods for configuring the logger.
+/// </summary>
 public static class LoggerConfig
 {
+    /// <summary>
+    /// Creates a logger configuration for the application.
+    /// </summary>
+    /// <returns>A Logger object representing the configured logger.</returns>
     public static Logger CreateConfig()
     {
         const string template = "[{Timestamp:HH:mm:ss} {Level}] {Message:lj}{NewLine}{Exception}";
