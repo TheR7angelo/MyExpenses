@@ -17,11 +17,11 @@ public partial class LocationManagementPage
             .GroupBy(country => country.Country)
             .Select(country => new CountryGroup
             {
-                Country = country.Key,
+                Country = country.Key ?? "Unknown",
                 CityGroups = country.GroupBy(s => s.City)
                     .Select(city => new CityGroup
                     {
-                        City = city.Key,
+                        City = city.Key ?? "Unknown",
                         Places = city.ToList()
                     }).ToList()
             }).ToList();
