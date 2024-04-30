@@ -8,6 +8,9 @@
 //------------------------------------------------------------------------------
 
 namespace MyExpenses.Wpf.Resources.Resx.AddEditCategoryTypeWindow {
+    using System;
+    
+    
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
     /// </summary>
@@ -35,7 +38,8 @@ namespace MyExpenses.Wpf.Resources.Resx.AddEditCategoryTypeWindow {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MyExpenses.Wpf.Resources.Resx.AddEditCategoryTypeWindow.AddEditCategoryTypeResources", typeof(AddEditCategoryTypeWindowResources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MyExpenses.Wpf.Resources.Resx.AddEditCategoryTypeWindow.AddEditCategoryTypeWindow" +
+                            "Resources", typeof(AddEditCategoryTypeWindowResources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

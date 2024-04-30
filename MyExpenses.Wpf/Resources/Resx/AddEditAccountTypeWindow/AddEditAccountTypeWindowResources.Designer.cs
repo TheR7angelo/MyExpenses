@@ -7,7 +7,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MyExpenses.Wpf.Resources.Resx.AddEditCurrencyWindow {
+namespace MyExpenses.Wpf.Resources.Resx.AddEditAccountTypeWindow {
+    using System;
+    
+    
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
     /// </summary>
@@ -18,14 +21,14 @@ namespace MyExpenses.Wpf.Resources.Resx.AddEditCurrencyWindow {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class AddEditCurrencyWindowResources {
+    internal class AddEditAccountTypeWindowResources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal AddEditCurrencyWindowResources() {
+        internal AddEditAccountTypeWindowResources() {
         }
         
         /// <summary>
@@ -35,7 +38,8 @@ namespace MyExpenses.Wpf.Resources.Resx.AddEditCurrencyWindow {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MyExpenses.Wpf.Resources.Resx.AddEditCurrencyWindow.AddEditCurrencyResources", typeof(AddEditCurrencyWindowResources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MyExpenses.Wpf.Resources.Resx.AddEditAccountTypeWindow.AddEditAccountTypeWindowRe" +
+                            "sources", typeof(AddEditAccountTypeWindowResources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -75,20 +79,20 @@ namespace MyExpenses.Wpf.Resources.Resx.AddEditCurrencyWindow {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Currency symbol already exist.
+        ///   Looks up a localized string similar to Account type name already exist.
         /// </summary>
-        internal static string MessageBoxCurrencySymbolAlreadyExists {
+        internal static string MessageBoxAccountTypeNameAlreadyExists {
             get {
-                return ResourceManager.GetString("MessageBoxCurrencySymbolAlreadyExists", resourceCulture);
+                return ResourceManager.GetString("MessageBoxAccountTypeNameAlreadyExists", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to New currency symbol :.
+        ///   Looks up a localized string similar to Name of new account type :.
         /// </summary>
-        internal static string TextBoxCurrencySymbol {
+        internal static string TextBoxAccountTypeName {
             get {
-                return ResourceManager.GetString("TextBoxCurrencySymbol", resourceCulture);
+                return ResourceManager.GetString("TextBoxAccountTypeName", resourceCulture);
             }
         }
     }
