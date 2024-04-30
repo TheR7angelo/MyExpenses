@@ -33,7 +33,9 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <WrapPanel Grid.Row="0" Grid.Column="0" Orientation="Horizontal"
+        <WrapPanel Grid.Row="0" Grid.Column="0"
+                   utils:PanelExtensions.MarginForAllChildren="5"
+                   Orientation="Horizontal"
                    VerticalAlignment="Center"
                    HorizontalAlignment="Center">
 
