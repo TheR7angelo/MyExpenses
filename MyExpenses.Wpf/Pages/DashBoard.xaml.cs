@@ -104,9 +104,8 @@ public partial class DashBoard : INotifyPropertyChanged
     }
 
     private void ItemsControlVTotalAccount_OnLoaded(object sender, RoutedEventArgs e)
-    {
-        RefreshRadioButtonSelected();
-    }
+        => RefreshRadioButtonSelected();
+
 
     private void ToggleButtonVTotalAccount_OnChecked(object sender, RoutedEventArgs e)
     {
