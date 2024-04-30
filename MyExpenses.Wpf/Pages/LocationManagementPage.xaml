@@ -6,6 +6,7 @@
       xmlns:local="clr-namespace:MyExpenses.Wpf.Pages"
       xmlns:groups="clr-namespace:MyExpenses.Models.Sql.Groups;assembly=MyExpenses.Models"
       xmlns:tables="clr-namespace:MyExpenses.Models.Sql.Tables;assembly=MyExpenses.Models"
+      xmlns:wpf="clr-namespace:Mapsui.UI.Wpf;assembly=Mapsui.UI.Wpf"
       mc:Ignorable="d"
       Title="LocationManagementPage"
 
@@ -19,7 +20,19 @@
 
     <Grid>
 
-        <TreeView ItemsSource="{Binding Places, UpdateSourceTrigger=PropertyChanged}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <TreeView Grid.Row="1" Grid.Column="0"
+                  ItemsSource="{Binding Places, UpdateSourceTrigger=PropertyChanged}"
+                  SelectedItemChanged="TreeView_OnSelectedItemChanged">
             <TreeView.ItemTemplate>
                 <HierarchicalDataTemplate DataType="{x:Type groups:CountryGroup}"
                                           ItemsSource="{Binding CityGroups}">
@@ -48,6 +61,8 @@
                 </HierarchicalDataTemplate>
             </TreeView.ItemTemplate>
         </TreeView>
+
+        <wpf:MapControl x:Name="MapControl" Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" />
 
     </Grid>
 

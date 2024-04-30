@@ -1,5 +1,8 @@
 ﻿using System.Collections.ObjectModel;
+using System.Windows;
+using System.Windows.Controls;
 using MyExpenses.Models.Sql.Groups;
+using MyExpenses.Models.Sql.Tables;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils;
 
@@ -19,5 +22,14 @@ public partial class LocationManagementPage
         Places = new ObservableCollection<CountryGroup>(groups);
 
         InitializeComponent();
+    }
+
+    private void TreeView_OnSelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+    {
+        if (sender is not TreeView treeView) return;
+
+        if(treeView.SelectedItem is not TPlace place) return;
+
+        Console.WriteLine(place.Name);
     }
 }
