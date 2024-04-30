@@ -67,6 +67,6 @@ public partial class LocationManagementPage
         var layers = MapControl?.Map.Layers.FindLayer(layerName);
         if (layers is not null) MapControl?.Map.Layers.Remove(layers.ToArray());
 
-        MapControl?.Map.Layers.Add(tileLayer);
+        MapControl?.Map.Layers.Insert(0, tileLayer);
     }
 }
