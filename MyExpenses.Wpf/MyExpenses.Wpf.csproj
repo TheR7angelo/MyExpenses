@@ -100,4 +100,19 @@
       </Page>
     </ItemGroup>
 
+    <ItemGroup>
+      <AdditionalFiles Include="Resources\Maps\GreenMarker.png">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </AdditionalFiles>
+      <AdditionalFiles Include="Resources\Maps\GreenMarker.svg">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </AdditionalFiles>
+      <AdditionalFiles Include="Resources\Maps\RedMarker.png">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </AdditionalFiles>
+      <AdditionalFiles Include="Resources\Maps\RedMarker.svg">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </AdditionalFiles>
+    </ItemGroup>
+
 </Project>
