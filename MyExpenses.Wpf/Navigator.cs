@@ -4,12 +4,21 @@ using System.Windows.Navigation;
 
 namespace MyExpenses.Wpf;
 
+/// <summary>
+/// The Navigator class provides navigation functionality for frames within a Windows Presentation Foundation (WPF) application.
+/// </summary>
 public static class Navigator
 {
+    /// <summary>
+    /// The Navigator class provides navigation functionality for frames within a Windows Presentation Foundation (WPF) application.
+    /// </summary>
     public static Dictionary<Type, Page> Pages { get; } = new();
 
     private static readonly Dictionary<string, NavigationService> NavigationServices = new();
 
+    /// <summary>
+    /// The Navigator class provides navigation functionality for frames within a Windows Presentation Foundation (WPF) application.
+    /// </summary>
     static Navigator()
     {
         var mainWindow = (MainWindow)Application.Current.MainWindow!;
@@ -17,6 +26,10 @@ public static class Navigator
         frame.RegisterFrame();
     }
 
+    /// <summary>
+    /// Registers a frame for navigation within a Windows Presentation Foundation (WPF) application.
+    /// </summary>
+    /// <param name="frame">The frame to register.</param>
     public static void RegisterFrame(this Frame frame)
     {
         // var duplicateKey = NavigationServices.ContainsKey(frame.Name);
@@ -28,6 +41,12 @@ public static class Navigator
         NavigationServices[frame.Name] = frame.NavigationService;
     }
 
+    /// <summary>
+    /// Navigates to the specified path within a registered frame.
+    /// </summary>
+    /// <param name="nameOfFrame">The name of the registered frame.</param>
+    /// <param name="path">The path to navigate to.</param>
+    /// <param name="param">Optional parameter to pass to the page being navigated to.</param>
     private static void NavigateTo(this string nameOfFrame, string path, object? param = null)
     {
         NavigationServices[nameOfFrame].Navigate(new Uri(path, UriKind.RelativeOrAbsolute), param);
@@ -65,11 +84,19 @@ public static class Navigator
     public static void NavigateTo(this Frame frame, Type type)
         => frame.Name.NavigateTo(type);
 
+    /// <summary>
+    /// Navigates the registered frame to the previous page in the navigation history.
+    /// </summary>
+    /// <param name="nameOfFrame">The name of the registered frame.</param>
     public static void GoBack(this string nameOfFrame)
     {
         if (NavigationServices[nameOfFrame].CanGoBack) NavigationServices[nameOfFrame].GoBack();
     }
 
+    /// <summary>
+    /// Navigates the registered frame to the next page in the navigation history.
+    /// </summary>
+    /// <param name="nameOfFrame">The name of the registered frame.</param>
     public static void GoForward(this string nameOfFrame)
     {
         if (NavigationServices[nameOfFrame].CanGoForward) NavigationServices[nameOfFrame].GoForward();
