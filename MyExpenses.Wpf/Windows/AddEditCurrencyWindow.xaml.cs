@@ -19,9 +19,9 @@ public partial class AddEditCurrencyWindow
 
     #region Resx
 
-    public string TextBoxCurrencySymbol { get; } = AddEditCurrencyResources.TextBoxCurrencySymbol;
-    public string ButtonValidContent { get; } = AddEditCurrencyResources.ButtonValidContent;
-    public string ButtonCancelContent { get; } = AddEditCurrencyResources.ButtonCancelContent;
+    public string TextBoxCurrencySymbol { get; } = AddEditCurrencyWindowResources.TextBoxCurrencySymbol;
+    public string ButtonValidContent { get; } = AddEditCurrencyWindowResources.ButtonValidContent;
+    public string ButtonCancelContent { get; } = AddEditCurrencyWindowResources.ButtonCancelContent;
 
     #endregion
 
@@ -40,7 +40,7 @@ public partial class AddEditCurrencyWindow
         => Currencies.Select(s => s.Symbol).Contains(accountName);
 
     private void ShowErrorMessage()
-        => MessageBox.Show(AddEditCurrencyResources.MessageBoxCurrencySymbolAlreadyExists);
+        => MessageBox.Show(AddEditCurrencyWindowResources.MessageBoxCurrencySymbolAlreadyExists);
 
     #endregion
 

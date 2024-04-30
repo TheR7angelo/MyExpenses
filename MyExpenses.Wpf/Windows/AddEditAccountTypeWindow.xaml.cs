@@ -19,9 +19,9 @@ public partial class AddEditAccountTypeWindow
 
     #region Resx
 
-    public string TextBoxAccountTypeName { get; } = AddEditAccountTypeResources.TextBoxAccountTypeName;
-    public string ButtonValidContent { get; } = AddEditAccountTypeResources.ButtonValidContent;
-    public string ButtonCancelContent { get; } = AddEditAccountTypeResources.ButtonCancelContent;
+    public string TextBoxAccountTypeName { get; } = AddEditAccountTypeWindowResources.TextBoxAccountTypeName;
+    public string ButtonValidContent { get; } = AddEditAccountTypeWindowResources.ButtonValidContent;
+    public string ButtonCancelContent { get; } = AddEditAccountTypeWindowResources.ButtonCancelContent;
 
     #endregion
 
@@ -40,7 +40,7 @@ public partial class AddEditAccountTypeWindow
         => AccountTypes.Select(s => s.Name).Contains(accountName);
 
     private void ShowErrorMessage()
-        => MessageBox.Show(AddEditAccountTypeResources.MessageBoxAccountTypeNameAlreadyExists);
+        => MessageBox.Show(AddEditAccountTypeWindowResources.MessageBoxAccountTypeNameAlreadyExists);
 
     #endregion
 

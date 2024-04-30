@@ -20,9 +20,9 @@ public partial class AddEditCategoryTypeWindow
 
     #region Resx
 
-    public string TextBoxCategoryTypeName { get; } = AddEditCategoryTypeResources.TextBoxCategoryTypeName;
-    public string ButtonValidContent { get; } = AddEditCategoryTypeResources.ButtonValidContent;
-    public string ButtonCancelContent { get; } = AddEditCategoryTypeResources.ButtonCancelContent;
+    public string TextBoxCategoryTypeName { get; } = AddEditCategoryTypeWindowResources.TextBoxCategoryTypeName;
+    public string ButtonValidContent { get; } = AddEditCategoryTypeWindowResources.ButtonValidContent;
+    public string ButtonCancelContent { get; } = AddEditCategoryTypeWindowResources.ButtonCancelContent;
 
     #endregion
 
@@ -41,7 +41,7 @@ public partial class AddEditCategoryTypeWindow
         => CategoryTypes.Select(s => s.Name).Contains(accountName);
 
     private void ShowErrorMessage()
-        => MessageBox.Show(AddEditCategoryTypeResources.MessageBoxCategoryAlreadyExists);
+        => MessageBox.Show(AddEditCategoryTypeWindowResources.MessageBoxCategoryAlreadyExists);
 
     #endregion
 

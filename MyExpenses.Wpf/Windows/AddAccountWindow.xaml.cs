@@ -18,15 +18,15 @@ public partial class AddAccountWindow
 
     #region Resx
 
-    public string HintAssistTextBoxAccountName { get; } = AddAccountResources.TextBoxAccountName;
-    public string HintAssistComboBoxAccountType { get; } = AddAccountResources.ComboBoxAccountType;
-    public string HintAssistComboBoxAccountCurrency { get; } = AddAccountResources.ComboBoxAccountCurrency;
-    public string LabelIsAccountActive { get; } = AddAccountResources.LabelIsAccountActive;
-    public string HintAssistTextBoxAccountStartingBalance { get; } = AddAccountResources.TextBoxAccountStartingBalance;
+    public string HintAssistTextBoxAccountName { get; } = AddAccountWindowResources.TextBoxAccountName;
+    public string HintAssistComboBoxAccountType { get; } = AddAccountWindowResources.ComboBoxAccountType;
+    public string HintAssistComboBoxAccountCurrency { get; } = AddAccountWindowResources.ComboBoxAccountCurrency;
+    public string LabelIsAccountActive { get; } = AddAccountWindowResources.LabelIsAccountActive;
+    public string HintAssistTextBoxAccountStartingBalance { get; } = AddAccountWindowResources.TextBoxAccountStartingBalance;
 
-    public string HintAssistTextBoxAccountStartingBalanceDescription { get; } = AddAccountResources.TextBoxAccountStartingBalanceDescription;
-    public string HintAssistComboBoxAccountCategoryType { get; } = AddAccountResources.ComboBoxAccountCategoryType;
-    private string MsgBoxErrorAccountNameAlreadyExists { get; } = AddAccountResources.MsgBoxErrorAccountNameAlreadyExists;
+    public string HintAssistTextBoxAccountStartingBalanceDescription { get; } = AddAccountWindowResources.TextBoxAccountStartingBalanceDescription;
+    public string HintAssistComboBoxAccountCategoryType { get; } = AddAccountWindowResources.ComboBoxAccountCategoryType;
+    private string MsgBoxErrorAccountNameAlreadyExists { get; } = AddAccountWindowResources.MsgBoxErrorAccountNameAlreadyExists;
 
     #endregion
 
@@ -98,7 +98,7 @@ public partial class AddAccountWindow
     {
         if (string.IsNullOrEmpty(Account.Name))
         {
-            MessageBox.Show(AddAccountResources.MsgBoxErrorAccountNameCannotByEmpty);
+            MessageBox.Show(AddAccountWindowResources.MsgBoxErrorAccountNameCannotByEmpty);
             return true;
         }
 
@@ -111,13 +111,13 @@ public partial class AddAccountWindow
 
         if (Account.AccountTypeFk is null)
         {
-            MessageBox.Show(AddAccountResources.MsgBoxErrorAccountTypeCannotByEmpty);
+            MessageBox.Show(AddAccountWindowResources.MsgBoxErrorAccountTypeCannotByEmpty);
             return true;
         }
 
         if (Account.CurrencyFk is null)
         {
-            MessageBox.Show(AddAccountResources.MsgBoxErrorAccountCurrencyCannotByEmpty);
+            MessageBox.Show(AddAccountWindowResources.MsgBoxErrorAccountCurrencyCannotByEmpty);
             return true;
         }
 
@@ -125,7 +125,7 @@ public partial class AddAccountWindow
 
         if (string.IsNullOrEmpty(History.Description))
         {
-            MessageBox.Show(AddAccountResources.MsgBoxErrorAccountStartingBalanceDescriptionCannotByEmpty);
+            MessageBox.Show(AddAccountWindowResources.MsgBoxErrorAccountStartingBalanceDescriptionCannotByEmpty);
             return true;
         }
 
@@ -153,12 +153,12 @@ public partial class AddAccountWindow
             AccountTypes.Add(newAccountType);
             Account.AccountTypeFk = newAccountType.Id;
             Log.Information("Account type was successfully added");
-            MessageBox.Show(AddAccountResources.MessageBoxAddAccountTypeSuccess);
+            MessageBox.Show(AddAccountWindowResources.MessageBoxAddAccountTypeSuccess);
         }
         else
         {
             Log.Error(exception, "An error occurred please retry");
-            MessageBox.Show(AddAccountResources.MessageBoxAddAccountTypeError);
+            MessageBox.Show(AddAccountWindowResources.MessageBoxAddAccountTypeError);
         }
     }
 
@@ -177,12 +177,12 @@ public partial class AddAccountWindow
             Currencies.Add(newCurrency);
             Account.CurrencyFk = newCurrency.Id;
             Log.Information("Account type was successfully added");
-            MessageBox.Show(AddAccountResources.MessageBoxAddCurrencySuccess);
+            MessageBox.Show(AddAccountWindowResources.MessageBoxAddCurrencySuccess);
         }
         else
         {
             Log.Error(exception, "An error occurred please retry");
-            MessageBox.Show(AddAccountResources.MessageBoxAddCurrencyError);
+            MessageBox.Show(AddAccountWindowResources.MessageBoxAddCurrencyError);
         }
     }
 
@@ -201,12 +201,12 @@ public partial class AddAccountWindow
             CategoryTypes.Add(newCategoryType);
             History.CategoryTypeFk = newCategoryType.Id;
             Log.Information("Account type was successfully added");
-            MessageBox.Show(AddAccountResources.MessageBoxAddCurrencySuccess);
+            MessageBox.Show(AddAccountWindowResources.MessageBoxAddCurrencySuccess);
         }
         else
         {
             Log.Error(exception, "An error occurred please retry");
-            MessageBox.Show(AddAccountResources.MessageBoxAddCurrencyError);
+            MessageBox.Show(AddAccountWindowResources.MessageBoxAddCurrencyError);
         }
     }
 }

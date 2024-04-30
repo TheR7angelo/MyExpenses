@@ -21,14 +21,14 @@ namespace MyExpenses.Wpf.Resources.Resx.AddEditAccountType {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class AddEditAccountTypeResources {
+    internal class AddEditAccountTypeWindowResources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal AddEditAccountTypeResources() {
+        internal AddEditAccountTypeWindowResources() {
         }
         
         /// <summary>
@@ -38,7 +38,7 @@ namespace MyExpenses.Wpf.Resources.Resx.AddEditAccountType {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MyExpenses.Wpf.Resources.Resx.AddEditAccountType.AddEditAccountTypeResources", typeof(AddEditAccountTypeResources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MyExpenses.Wpf.Resources.Resx.AddEditAccountType.AddEditAccountTypeResources", typeof(AddEditAccountTypeWindowResources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
