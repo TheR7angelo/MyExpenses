@@ -1,15 +1,10 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using System.IO;
-using System.Reflection;
+﻿using System.IO;
 using Mapsui;
 using Mapsui.Extensions;
-using Mapsui.Layers;
-using Mapsui.Projections;
 using Mapsui.Styles;
 using Mapsui.Widgets;
 using Mapsui.Widgets.ScaleBar;
 using Mapsui.Widgets.Zoom;
-using MyExpenses.Models.Sql.Tables;
 
 namespace MyExpenses.Maps.Test.Utils;
 
