@@ -42,36 +42,48 @@
         </Grid.RowDefinitions>
 
         <materialDesign:Card Grid.Row="0" Margin="5">
-            <Menu>
-                <MenuItem Header="{Binding MenuItemHeaderFile}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
 
-                    <MenuItem Header="{Binding MenuItemHeaderDatabase}">
-                        <MenuItem.Icon>
-                            <materialDesign:PackIcon Kind="Database" />
-                        </MenuItem.Icon>
+                <Menu Grid.Column="0">
+                    <MenuItem Header="{Binding MenuItemHeaderFile}">
 
-                        <MenuItem Header="{Binding MenuItemHeaderExportDatabase}">
+                        <MenuItem Header="{Binding MenuItemHeaderDatabase}">
                             <MenuItem.Icon>
-                                <materialDesign:PackIcon Kind="DatabaseExport" />
+                                <materialDesign:PackIcon Kind="Database" />
                             </MenuItem.Icon>
+
+                            <MenuItem Header="{Binding MenuItemHeaderExportDatabase}">
+                                <MenuItem.Icon>
+                                    <materialDesign:PackIcon Kind="DatabaseExport" />
+                                </MenuItem.Icon>
+                            </MenuItem>
+
+                            <MenuItem Header="{Binding MenuItemHeaderImportDatabase}">
+                                <MenuItem.Icon>
+                                    <materialDesign:PackIcon Kind="DatabaseImport" />
+                                </MenuItem.Icon>
+                            </MenuItem>
+
                         </MenuItem>
 
-                        <MenuItem Header="{Binding MenuItemHeaderImportDatabase}">
+                        <MenuItem Header="Open log directory">
                             <MenuItem.Icon>
-                                <materialDesign:PackIcon Kind="DatabaseImport" />
+                                <materialDesign:PackIcon Kind="FolderFile" />
                             </MenuItem.Icon>
                         </MenuItem>
 
                     </MenuItem>
+                </Menu>
 
-                    <MenuItem Header="Open log directory">
-                        <MenuItem.Icon>
-                            <materialDesign:PackIcon Kind="FolderFile" />
-                        </MenuItem.Icon>
-                    </MenuItem>
+                <Label Grid.Column="2" Content="Test" />
 
-                </MenuItem>
-            </Menu>
+            </Grid>
+
         </materialDesign:Card>
 
         <Frame Grid.Row="1" x:Name="FrameBody" NavigationUIVisibility="Hidden"
