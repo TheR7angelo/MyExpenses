@@ -12,8 +12,9 @@ namespace MyExpenses.Wpf.Pages;
 public partial class LocationManagementPage
 {
     public ObservableCollection<CountryGroup> Places { get; }
-
     public List<KnownTileSource> KnownTileSources { get; }
+    public KnownTileSource KnownTileSourceSelected { get; set; }
+
     public LocationManagementPage()
     {
         KnownTileSources = Enum.GetValues<KnownTileSource>().ToList();
@@ -34,5 +35,10 @@ public partial class LocationManagementPage
         if(treeView.SelectedItem is not TPlace place) return;
 
         Console.WriteLine(place.Name);
+    }
+
+    private void Selector_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        Console.WriteLine(KnownTileSourceSelected);
     }
 }

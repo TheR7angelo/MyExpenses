@@ -26,9 +26,15 @@
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" MinWidth="250" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
+
+        <ComboBox Grid.Row="0" Grid.Column="0"
+                  ItemsSource="{Binding KnownTileSources}"
+                  SelectedItem="{Binding KnownTileSourceSelected}"
+                  SelectionChanged="Selector_OnSelectionChanged">
+        </ComboBox>
 
         <TreeView Grid.Row="1" Grid.Column="0"
                   ItemsSource="{Binding Places, UpdateSourceTrigger=PropertyChanged}"
@@ -62,7 +68,10 @@
             </TreeView.ItemTemplate>
         </TreeView>
 
-        <wpf:MapControl x:Name="MapControl" Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" />
+        <wpf:MapControl x:Name="MapControl"
+                        Grid.Row="0" Grid.Column="1" Grid.RowSpan="2"
+                        Background="{DynamicResource MaterialDesignPaper}">
+        </wpf:MapControl>
 
     </Grid>
 
