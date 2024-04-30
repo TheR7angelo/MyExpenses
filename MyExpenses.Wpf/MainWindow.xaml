@@ -44,8 +44,32 @@
         <materialDesign:Card Grid.Row="0">
             <Menu>
                 <MenuItem Header="{Binding MenuItemHeaderFile}">
-                    <MenuItem Header="{Binding MenuItemHeaderExportDatabase}" />
-                    <MenuItem Header="{Binding MenuItemHeaderImportDatabase}" />
+
+                    <MenuItem Header="DataBase">
+                        <MenuItem.Icon>
+                            <materialDesign:PackIcon Kind="Database" />
+                        </MenuItem.Icon>
+
+                        <MenuItem Header="{Binding MenuItemHeaderExportDatabase}">
+                            <MenuItem.Icon>
+                                <materialDesign:PackIcon Kind="DatabaseExport" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+
+                        <MenuItem Header="{Binding MenuItemHeaderImportDatabase}">
+                            <MenuItem.Icon>
+                                <materialDesign:PackIcon Kind="DatabaseImport" />
+                            </MenuItem.Icon>
+                        </MenuItem>
+
+                    </MenuItem>
+
+                    <MenuItem Header="Open log directory">
+                        <MenuItem.Icon>
+                            <materialDesign:PackIcon Kind="FolderFile" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+
                 </MenuItem>
             </Menu>
         </materialDesign:Card>
