@@ -7,6 +7,7 @@
       xmlns:groups="clr-namespace:MyExpenses.Models.Sql.Groups;assembly=MyExpenses.Models"
       xmlns:tables="clr-namespace:MyExpenses.Models.Sql.Tables;assembly=MyExpenses.Models"
       xmlns:wpf="clr-namespace:Mapsui.UI.Wpf;assembly=Mapsui.UI.Wpf"
+      xmlns:utils="clr-namespace:MyExpenses.Wpf.Utils;assembly=MyExpenses.Wpf.Utils"
       mc:Ignorable="d"
       Title="LocationManagementPage"
 
@@ -18,7 +19,7 @@
 
       DataContext="{Binding RelativeSource={RelativeSource Self}}">
 
-    <Grid>
+    <Grid utils:PanelExtensions.MarginForAllChildren="5">
 
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
