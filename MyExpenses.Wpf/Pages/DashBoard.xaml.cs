@@ -47,7 +47,13 @@ public partial class DashBoard : INotifyPropertyChanged
 
     public string TotalStr => Total.HasValue ? Total.Value.ToString("F2") : "0.00";
 
+    #region Button WrapPanel
+
     public string ButtonAddAccount { get; } = DashBoardResources.ButtonAddAccount;
+    #endregion
+
+    #region DataGrid
+
     public string DataGridTextColumnAccount { get; } = DashBoardResources.DataGridTextColumnAccount;
     public string DataGridTextColumnDescription { get; } = DashBoardResources.DataGridTextColumnDescription;
     public string DataGridTextColumnCategory { get; } = DashBoardResources.DataGridTextColumnCategory;
@@ -55,6 +61,8 @@ public partial class DashBoard : INotifyPropertyChanged
     public string DataGridTextColumnValue { get; } = DashBoardResources.DataGridTextColumnValue;
     public string DataGridTextColumnDate { get; } = DashBoardResources.DataGridTextColumnDate;
     public string DataGridTextColumnPointed { get; } = DashBoardResources.DataGridTextColumnPointed;
+
+    #endregion
 
     public DashBoard()
     {
