@@ -49,20 +49,20 @@ public partial class DashBoardPage : INotifyPropertyChanged
 
     #region Button WrapPanel
 
-    public string ButtonAddAccount { get; } = DashBoardResources.ButtonAddAccount;
-    public string ButtonLocationManagement { get; } = DashBoardResources.ButtonLocationManagement;
+    public string ButtonAddAccount { get; } = DashBoardPageResources.ButtonAddAccount;
+    public string ButtonLocationManagement { get; } = DashBoardPageResources.ButtonLocationManagement;
 
     #endregion
 
     #region DataGrid
 
-    public string DataGridTextColumnAccount { get; } = DashBoardResources.DataGridTextColumnAccount;
-    public string DataGridTextColumnDescription { get; } = DashBoardResources.DataGridTextColumnDescription;
-    public string DataGridTextColumnCategory { get; } = DashBoardResources.DataGridTextColumnCategory;
-    public string DataGridTextColumnModePayment { get; } = DashBoardResources.DataGridTextColumnModePayment;
-    public string DataGridTextColumnValue { get; } = DashBoardResources.DataGridTextColumnValue;
-    public string DataGridTextColumnDate { get; } = DashBoardResources.DataGridTextColumnDate;
-    public string DataGridTextColumnPointed { get; } = DashBoardResources.DataGridTextColumnPointed;
+    public string DataGridTextColumnAccount { get; } = DashBoardPageResources.DataGridTextColumnAccount;
+    public string DataGridTextColumnDescription { get; } = DashBoardPageResources.DataGridTextColumnDescription;
+    public string DataGridTextColumnCategory { get; } = DashBoardPageResources.DataGridTextColumnCategory;
+    public string DataGridTextColumnModePayment { get; } = DashBoardPageResources.DataGridTextColumnModePayment;
+    public string DataGridTextColumnValue { get; } = DashBoardPageResources.DataGridTextColumnValue;
+    public string DataGridTextColumnDate { get; } = DashBoardPageResources.DataGridTextColumnDate;
+    public string DataGridTextColumnPointed { get; } = DashBoardPageResources.DataGridTextColumnPointed;
 
     #endregion
 
@@ -101,7 +101,7 @@ public partial class DashBoardPage : INotifyPropertyChanged
         if (success)
         {
             Log.Information("Account was successfully added");
-            MessageBox.Show(DashBoardResources.MessageBoxAddAccountSuccess);
+            MessageBox.Show(DashBoardPageResources.MessageBoxAddAccountSuccess);
 
             RefreshAccountTotal();
             Application.Current.Dispatcher.InvokeAsync(RefreshRadioButtonSelected, DispatcherPriority.ContextIdle);
@@ -109,7 +109,7 @@ public partial class DashBoardPage : INotifyPropertyChanged
         else
         {
             Log.Error(exception, "An error occurred please retry");
-            MessageBox.Show(DashBoardResources.MessageBoxAddAccountError);
+            MessageBox.Show(DashBoardPageResources.MessageBoxAddAccountError);
         }
     }
 
