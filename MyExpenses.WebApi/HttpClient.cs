@@ -5,7 +5,7 @@ public abstract class Http
     protected internal static HttpClient GetHttpClient(string baseUrl, string? userAgent=null)
     {
         var httpClient = new HttpClient { BaseAddress = new Uri(baseUrl)};
-        userAgent ??= "Test";
+        userAgent ??= Path.GetFileNameWithoutExtension(AppDomain.CurrentDomain.FriendlyName);
         httpClient.DefaultRequestHeaders.Add("User-Agent", userAgent);
         return httpClient;
     }
