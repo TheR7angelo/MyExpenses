@@ -3,13 +3,12 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using BruTile.Predefined;
-using Mapsui;
 using Mapsui.Tiling.Layers;
 using MyExpenses.Models.Sql.Groups;
 using MyExpenses.Models.Sql.Tables;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils;
-using MyExpenses.Wpf.Utils.Mapsui;
+using MyExpenses.Wpf.Utils;
 
 namespace MyExpenses.Wpf.Pages;
 
@@ -38,9 +37,9 @@ public partial class LocationManagementPage
 
         // TODO add listener color change
         var brush = (SolidColorBrush)FindResource("MaterialDesignPaper");
-        var mapsuiColor = brush.ToColor();
+        var backColor = brush.ToColor();
 
-        var map = new Map { CRS = "EPSG:3857", BackColor = mapsuiColor};
+        var map = MapsuiExtensions.GetMap(true, backColor);
         InitializeComponent();
 
         MapControl.Map = map;
