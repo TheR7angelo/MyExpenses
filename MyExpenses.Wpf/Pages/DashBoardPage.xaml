@@ -1,4 +1,4 @@
-﻿<Page x:Class="MyExpenses.Wpf.Pages.DashBoard"
+﻿<Page x:Class="MyExpenses.Wpf.Pages.DashBoardPage"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -117,43 +117,43 @@
                     <DataGridTextColumn Binding="{Binding Account}">
                         <DataGridTextColumn.Header>
                             <TextBlock
-                                Text="{Binding DataGridTextColumnAccount, RelativeSource={RelativeSource AncestorType={x:Type local:DashBoard}}}" />
+                                Text="{Binding DataGridTextColumnAccount, RelativeSource={RelativeSource AncestorType={x:Type local:DashBoardPage}}}" />
                         </DataGridTextColumn.Header>
                     </DataGridTextColumn>
                     <DataGridTextColumn Binding="{Binding Description}">
                         <DataGridTextColumn.Header>
                             <TextBlock
-                                Text="{Binding DataGridTextColumnDescription, RelativeSource={RelativeSource AncestorType={x:Type local:DashBoard}}}" />
+                                Text="{Binding DataGridTextColumnDescription, RelativeSource={RelativeSource AncestorType={x:Type local:DashBoardPage}}}" />
                         </DataGridTextColumn.Header>
                     </DataGridTextColumn>
                     <DataGridTextColumn Binding="{Binding Category}">
                         <DataGridTextColumn.Header>
                             <TextBlock
-                                Text="{Binding DataGridTextColumnCategory, RelativeSource={RelativeSource AncestorType={x:Type local:DashBoard}}}" />
+                                Text="{Binding DataGridTextColumnCategory, RelativeSource={RelativeSource AncestorType={x:Type local:DashBoardPage}}}" />
                         </DataGridTextColumn.Header>
                     </DataGridTextColumn>
                     <DataGridTextColumn Binding="{Binding ModePayment}">
                         <DataGridTextColumn.Header>
                             <TextBlock
-                                Text="{Binding DataGridTextColumnModePayment, RelativeSource={RelativeSource AncestorType={x:Type local:DashBoard}}}" />
+                                Text="{Binding DataGridTextColumnModePayment, RelativeSource={RelativeSource AncestorType={x:Type local:DashBoardPage}}}" />
                         </DataGridTextColumn.Header>
                     </DataGridTextColumn>
                     <DataGridTextColumn Binding="{Binding Value}">
                         <DataGridTextColumn.Header>
                             <TextBlock
-                                Text="{Binding DataGridTextColumnValue, RelativeSource={RelativeSource AncestorType={x:Type local:DashBoard}}}" />
+                                Text="{Binding DataGridTextColumnValue, RelativeSource={RelativeSource AncestorType={x:Type local:DashBoardPage}}}" />
                         </DataGridTextColumn.Header>
                     </DataGridTextColumn>
                     <DataGridTextColumn Binding="{Binding Date, StringFormat={}{0:dd/MM/yyyy HH:mm:ss}}">
                         <DataGridTextColumn.Header>
                             <TextBlock
-                                Text="{Binding DataGridTextColumnDate, RelativeSource={RelativeSource AncestorType={x:Type local:DashBoard}}}" />
+                                Text="{Binding DataGridTextColumnDate, RelativeSource={RelativeSource AncestorType={x:Type local:DashBoardPage}}}" />
                         </DataGridTextColumn.Header>
                     </DataGridTextColumn>
                     <DataGridCheckBoxColumn IsThreeState="True" Binding="{Binding Pointed}">
                         <DataGridCheckBoxColumn.Header>
                             <TextBlock
-                                Text="{Binding DataGridTextColumnPointed, RelativeSource={RelativeSource AncestorType={x:Type local:DashBoard}}}" />
+                                Text="{Binding DataGridTextColumnPointed, RelativeSource={RelativeSource AncestorType={x:Type local:DashBoardPage}}}" />
                         </DataGridCheckBoxColumn.Header>
                     </DataGridCheckBoxColumn>
                 </DataGrid.Columns>

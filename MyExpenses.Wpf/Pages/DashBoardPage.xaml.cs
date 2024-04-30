@@ -22,7 +22,7 @@ using SkiaSharp.Views.WPF;
 
 namespace MyExpenses.Wpf.Pages;
 
-public partial class DashBoard : INotifyPropertyChanged
+public partial class DashBoardPage : INotifyPropertyChanged
 {
     public event PropertyChangedEventHandler? PropertyChanged;
 
@@ -66,7 +66,7 @@ public partial class DashBoard : INotifyPropertyChanged
 
     #endregion
 
-    public DashBoard()
+    public DashBoardPage()
     {
         using var context = new DataBaseContext();
 

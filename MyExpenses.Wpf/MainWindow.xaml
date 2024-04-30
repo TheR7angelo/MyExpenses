@@ -75,7 +75,7 @@
         </materialDesign:Card>
 
         <Frame Grid.Row="1" x:Name="FrameBody" NavigationUIVisibility="Hidden"
-               Source="Pages/DashBoard.xaml">
+               Source="Pages/DashBoardPage.xaml">
         </Frame>
 
     </Grid>
