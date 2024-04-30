@@ -69,6 +69,15 @@ namespace MyExpenses.Wpf.Resources.Resx.DashBoard {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Location management.
+        /// </summary>
+        internal static string ButtonLocationManagement {
+            get {
+                return ResourceManager.GetString("ButtonLocationManagement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Account.
         /// </summary>
         internal static string DataGridTextColumnAccount {

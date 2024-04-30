@@ -42,6 +42,11 @@
                     Click="ButtonAddAccount_OnClick">
             </Button>
 
+            <Button Content="{Binding ButtonLocationManagement}"
+                    Style="{StaticResource MaterialDesignPaperButton}"
+                    Click="ButtonLocationManagement_OnClick">
+            </Button>
+
         </WrapPanel>
 
         <Grid Grid.Row="0" Grid.Column="1">

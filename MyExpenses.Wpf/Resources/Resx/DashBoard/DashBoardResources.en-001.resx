@@ -41,4 +41,7 @@
     <data name="MessageBoxAddAccountError" xml:space="preserve">
         <value>An error occurred please retry</value>
     </data>
+    <data name="ButtonLocationManagement" xml:space="preserve">
+        <value>Location management</value>
+    </data>
 </root>

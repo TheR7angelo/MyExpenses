@@ -10,6 +10,6 @@
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=MyExpenses_002EWpf_002FResources_002FResx_002FAddEditCategoryType_002FAddEditCategoryTypeResources/@EntryIndexedValue">False</s:Boolean>
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=MyExpenses_002EWpf_002FResources_002FResx_002FAddEditCurrency_002FAddEditCurrencyResources/@EntryIndexedValue">False</s:Boolean>
 	
-	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=MyExpenses_002EWpf_002FResources_002FResx_002FDashBoard_002FDashBoardResources/@EntryIndexedValue">False</s:Boolean>
-	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=MyExpenses_002EWpf_002FResources_002FResx_002FMainWindow_002FMainWindowResources/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=MyExpenses_002EWpf_002FResources_002FResx_002FDashBoard_002FDashBoardResources/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=MyExpenses_002EWpf_002FResources_002FResx_002FMainWindow_002FMainWindowResources/@EntryIndexedValue">False</s:Boolean>
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/Initialized/@EntryValue">True</s:Boolean></wpf:ResourceDictionary>

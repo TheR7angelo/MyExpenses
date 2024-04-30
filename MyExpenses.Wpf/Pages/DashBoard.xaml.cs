@@ -50,6 +50,8 @@ public partial class DashBoard : INotifyPropertyChanged
     #region Button WrapPanel
 
     public string ButtonAddAccount { get; } = DashBoardResources.ButtonAddAccount;
+    public string ButtonLocationManagement { get; } = DashBoardResources.ButtonLocationManagement;
+
     #endregion
 
     #region DataGrid
@@ -109,6 +111,11 @@ public partial class DashBoard : INotifyPropertyChanged
             Log.Error(exception, "An error occurred please retry");
             MessageBox.Show(DashBoardResources.MessageBoxAddAccountError);
         }
+    }
+
+    private void ButtonLocationManagement_OnClick(object sender, RoutedEventArgs e)
+    {
+        Console.WriteLine("hey");
     }
 
     private void ItemsControlVTotalAccount_OnLoaded(object sender, RoutedEventArgs e)
