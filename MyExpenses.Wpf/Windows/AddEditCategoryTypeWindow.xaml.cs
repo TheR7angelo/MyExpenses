@@ -3,8 +3,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using MyExpenses.Models.Sql.Tables;
 using MyExpenses.Sql.Context;
-using MyExpenses.Wpf.Resources.Resx.AddEditCategoryType;
-using MyExpenses.Wpf.Resources.Resx.AddEditCurrency;
+using MyExpenses.Wpf.Resources.Resx.AddEditCategoryTypeWindow;
 
 namespace MyExpenses.Wpf.Windows;
 

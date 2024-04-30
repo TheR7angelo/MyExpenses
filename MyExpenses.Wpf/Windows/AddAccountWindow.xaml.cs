@@ -5,7 +5,7 @@ using System.Windows.Input;
 using MyExpenses.Models.Sql.Tables;
 using MyExpenses.Sql.Context;
 using MyExpenses.Wpf.Resources.Regex;
-using MyExpenses.Wpf.Resources.Resx.AddAccount;
+using MyExpenses.Wpf.Resources.Resx.AddAccountWindow;
 using Serilog;
 
 namespace MyExpenses.Wpf.Windows;
