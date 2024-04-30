@@ -2,6 +2,9 @@
 using System.Windows;
 using System.Windows.Controls;
 using BruTile.Predefined;
+using Mapsui;
+using Mapsui.Styles;
+using Mapsui.Tiling.Layers;
 using MyExpenses.Models.Sql.Groups;
 using MyExpenses.Models.Sql.Tables;
 using MyExpenses.Sql.Context;
@@ -32,7 +35,10 @@ public partial class LocationManagementPage
 
         Places = new ObservableCollection<CountryGroup>(groups);
 
+        var map = new Map { CRS = "EPSG:3857", BackColor = Color.Black };
         InitializeComponent();
+
+        MapControl.Map = map;
     }
 
     private void TreeView_OnSelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
