@@ -1,14 +1,15 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Media;
 using BruTile.Predefined;
 using Mapsui;
-using Mapsui.Styles;
 using Mapsui.Tiling.Layers;
 using MyExpenses.Models.Sql.Groups;
 using MyExpenses.Models.Sql.Tables;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils;
+using MyExpenses.Wpf.Utils;
 
 namespace MyExpenses.Wpf.Pages;
 
@@ -35,7 +36,11 @@ public partial class LocationManagementPage
 
         Places = new ObservableCollection<CountryGroup>(groups);
 
-        var map = new Map { CRS = "EPSG:3857", BackColor = Color.Black };
+        // TODO add listener color change
+        var brush = (SolidColorBrush)FindResource("MaterialDesignPaper");
+        var mapsuiColor = brush.ToColor();
+
+        var map = new Map { CRS = "EPSG:3857", BackColor = mapsuiColor};
         InitializeComponent();
 
         MapControl.Map = map;
