@@ -70,7 +70,8 @@
 
         <wpf:MapControl x:Name="MapControl"
                         Grid.Row="0" Grid.Column="1" Grid.RowSpan="2"
-                        Background="{DynamicResource MaterialDesignPaper}">
+                        Background="{DynamicResource MaterialDesignPaper}"
+                        Loaded="MapControl_OnLoaded">
         </wpf:MapControl>
 
     </Grid>

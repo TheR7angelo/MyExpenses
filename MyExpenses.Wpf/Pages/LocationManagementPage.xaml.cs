@@ -38,7 +38,22 @@ public partial class LocationManagementPage
     }
 
     private void Selector_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        => UpdateTileLayer();
+
+    private void MapControl_OnLoaded(object sender, RoutedEventArgs e)
+        => UpdateTileLayer();
+
+    private void UpdateTileLayer()
     {
-        Console.WriteLine(KnownTileSourceSelected);
+        const string layerName = "Background";
+
+        var httpTileSource = BruTile.Predefined.KnownTileSources.Create(KnownTileSourceSelected);
+        var tileLayer = new TileLayer(httpTileSource);
+        tileLayer.Name = layerName;
+
+        var layers = MapControl?.Map.Layers.FindLayer(layerName);
+        if (layers is not null) MapControl?.Map.Layers.Remove(layers.ToArray());
+
+        MapControl?.Map.Layers.Add(tileLayer);
     }
 }
