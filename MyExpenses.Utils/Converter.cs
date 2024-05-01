@@ -1,5 +1,4 @@
 ﻿using Mapsui;
-using Mapsui.Layers;
 using MyExpenses.Models.AutoMapper;
 using MyExpenses.Models.Sql.Tables;
 
@@ -12,12 +11,5 @@ public static class Converter
         var mapper = Mapping.Mapper;
         var place = mapper.Map<TPlace>(feature);
         return place;
-    }
-
-    public static PointFeature ToPointFeature(this TPlace place)
-    {
-        var mapper = Mapping.Mapper;
-        var pointFeature = mapper.Map<PointFeature>(place);
-        return pointFeature;
     }
 }
