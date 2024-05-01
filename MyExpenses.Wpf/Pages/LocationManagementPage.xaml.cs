@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using BruTile.Predefined;
+using Mapsui;
 using Mapsui.Layers;
 using Mapsui.Tiling.Layers;
 using MyExpenses.Models.Sql.Groups;
@@ -46,13 +47,15 @@ public partial class LocationManagementPage
         InitializeComponent();
 
         MapControl.Map = map;
+
+        SetInitialZoom();
     }
 
     #region Action
 
     private void MapControl_OnLoaded(object sender, RoutedEventArgs e)
         => UpdateTileLayer();
-    
+
     private void Selector_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         => UpdateTileLayer();
     
@@ -81,6 +84,39 @@ public partial class LocationManagementPage
         if (layers is not null) MapControl?.Map.Layers.Remove(layers.ToArray());
 
         MapControl?.Map.Layers.Insert(0, tileLayer);
+    }
+
+    private void SetInitialZoom()
+    {
+        var points = PlaceLayer.GetFeatures().Select(s => ((PointFeature)s).Point).ToList();
+
+        switch (points.Count)
+        {
+            case 0:
+                break;
+            case 1:
+                MapControl.Map.Home = navigator =>
+                {
+                    navigator.CenterOn(points[0]);
+                    navigator.ZoomTo(1);
+                };
+                break;
+            case > 1:
+                double minX = points.Min(p => p.X), maxX = points.Max(p => p.X);
+                double minY = points.Min(p => p.Y), maxY = points.Max(p => p.Y);
+
+                var width = maxX - minX;
+                var height = maxY - minY;
+
+                const double marginPercentage = 10; // Change this value to suit your needs
+                var marginX = width * marginPercentage / 100;
+                var marginY = height * marginPercentage / 100;
+
+                var mRect = new MRect(minX - marginX, minY - marginY, maxX + marginX, maxY + marginY);
+
+                MapControl.Map.Home = navigator => {navigator.ZoomToBox(mRect);  };
+                break;
+        }
     }
 
     #endregion
