@@ -153,29 +153,18 @@ public partial class LocationManagementPage
     // TODO work
     private void ProcessNewPlace(TPlace newPlace)
     {
-        // var (success, _) = newPlace.AddOrEdit();
-        // if (success)
-        // {
-        //     var mapper = Mapping.Mapper;
-        //     var feature = mapper.Map<PointFeature>(newPlace);
-        //     feature.Styles = new List<IStyle>
-        //     {
-        //         MapsuiStyleExtensions.RedMarkerStyle,
-        //         new LabelStyle
-        //         {
-        //             Text = newPlace.Name, Offset = new Offset { X = 0, Y = 11 },
-        //             Font = new Font { FontFamily = "Arial", Size = 12 },
-        //             Halo = new Pen { Color = Color.White, Width = 2 }
-        //         }
-        //     };
-        //
-        //     PlaceLayer.TryRemove(PointFeature!);
-        //     PlaceLayer.Add(feature);
-        //     MapControl.Refresh();
-        //
-        //     MessageBox.Show("Operation successful", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-        // }
-        // else MessageBox.Show("Operation failed", "Failure", MessageBoxButton.OK, MessageBoxImage.Error);
+        var (success, _) = newPlace.AddOrEdit();
+        if (success)
+        {
+            var feature = newPlace.ToFeature(MapsuiStyleExtensions.RedMarkerStyle);
+
+            PlaceLayer.TryRemove(PointFeature!);
+            PlaceLayer.Add(feature);
+            MapControl.Refresh();
+
+            MessageBox.Show("Operation successful", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+        else MessageBox.Show("Operation failed", "Failure", MessageBoxButton.OK, MessageBoxImage.Error);
     }
 
     private void SetClickTPlace(MapInfo mapInfo)
