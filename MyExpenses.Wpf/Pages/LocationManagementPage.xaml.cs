@@ -44,6 +44,14 @@ public partial class LocationManagementPage
         MapControl.Map = map;
     }
 
+    #region Action
+
+    private void MapControl_OnLoaded(object sender, RoutedEventArgs e)
+        => UpdateTileLayer();
+    
+    private void Selector_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        => UpdateTileLayer();
+    
     private void TreeView_OnSelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
     {
         if (sender is not TreeView treeView) return;
@@ -53,11 +61,9 @@ public partial class LocationManagementPage
         Console.WriteLine(place.Name);
     }
 
-    private void Selector_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
-        => UpdateTileLayer();
+    #endregion
 
-    private void MapControl_OnLoaded(object sender, RoutedEventArgs e)
-        => UpdateTileLayer();
+    #region Function
 
     private void UpdateTileLayer()
     {
@@ -72,4 +78,6 @@ public partial class LocationManagementPage
 
         MapControl?.Map.Layers.Insert(0, tileLayer);
     }
+
+    #endregion
 }
