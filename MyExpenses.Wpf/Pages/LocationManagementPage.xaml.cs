@@ -24,14 +24,7 @@ public partial class LocationManagementPage
 
     public LocationManagementPage()
     {
-        var blackList = new List<KnownTileSource>
-        {
-            KnownTileSource.OpenCycleMap, KnownTileSource.OpenCycleMapTransport,
-            KnownTileSource.StamenToner, KnownTileSource.StamenTonerLite, KnownTileSource.StamenWatercolor, KnownTileSource.StamenTerrain,
-            KnownTileSource.EsriWorldReferenceOverlay, KnownTileSource.EsriWorldBoundariesAndPlaces,
-            KnownTileSource.HereHybrid, KnownTileSource.HereTerrain
-        };
-        KnownTileSources = Enum.GetValues<KnownTileSource>().Where(s => !blackList.Contains(s)).ToList();
+        KnownTileSources = MapsuiMapExtensions.GetAllKnowTileSource().ToList();
 
         using var context = new DataBaseContext();
         var places = context.TPlaces.OrderBy(s => s.Country).ThenBy(s => s.City).ToList();
