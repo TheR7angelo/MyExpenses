@@ -299,7 +299,8 @@ END;
 
 DROP VIEW IF EXISTS v_history;
 CREATE VIEW v_history AS
-SELECT ta.name  AS account,
+SELECT h.id,
+        ta.name  AS account,
        h.description,
        tct.name AS category,
        tmp.name AS mode_payment,

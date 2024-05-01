@@ -6,6 +6,9 @@ namespace MyExpenses.Models.Sql.Views;
 [Keyless]
 public partial class VHistory
 {
+    [Column("id")]
+    public int Id { get; set; }
+
     [Column("account")]
     public string? Account { get; set; }
 
