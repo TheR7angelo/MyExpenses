@@ -136,14 +136,17 @@ public partial class LocationManagementPage
     private void Selector_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         => UpdateTileLayer();
 
-    // TODO work
     private void TreeView_OnSelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
     {
         if (sender is not TreeView treeView) return;
 
         if (treeView.SelectedItem is not TPlace place) return;
 
-        Console.WriteLine(place.Name);
+        if (place.Longitude is null || place.Longitude == 0 || place.Latitude is null || place.Latitude == 0) return;
+
+        var pointFeature = place.ToFeature();
+        MapControl.Map.Navigator.CenterOn(pointFeature.Point);
+        MapControl.Map.Navigator.ZoomTo(0);
     }
 
     #endregion
