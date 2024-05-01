@@ -6,7 +6,7 @@ using Mapsui.Widgets;
 using Mapsui.Widgets.ScaleBar;
 using Mapsui.Widgets.Zoom;
 
-namespace MyExpenses.Wpf.Utils;
+namespace MyExpenses.Wpf.Utils.Maps;
 
 public static class MapsuiExtensions
 {

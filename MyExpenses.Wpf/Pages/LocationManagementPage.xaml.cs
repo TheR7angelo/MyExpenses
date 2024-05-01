@@ -8,7 +8,7 @@ using MyExpenses.Models.Sql.Groups;
 using MyExpenses.Models.Sql.Tables;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils;
-using MyExpenses.Wpf.Utils;
+using MyExpenses.Wpf.Utils.Maps;
 
 namespace MyExpenses.Wpf.Pages;
 

@@ -1,7 +1,7 @@
 ﻿using System.Windows.Media;
 using Color = System.Windows.Media.Color;
 
-namespace MyExpenses.Wpf.Utils;
+namespace MyExpenses.Wpf.Utils.Maps;
 
 public static class MapsuiColorExtensions
 {
