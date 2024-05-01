@@ -42,7 +42,7 @@
                   SelectionChanged="Selector_OnSelectionChanged">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
-                    <TextBlock Text="{Binding Converter={StaticResource SplitCamelCaseConverter}}"/>
+                    <TextBlock Text="{Binding Converter={StaticResource SplitCamelCaseConverter}}" />
                 </DataTemplate>
             </ComboBox.ItemTemplate>
         </ComboBox>
@@ -82,7 +82,18 @@
         <wpf:MapControl x:Name="MapControl"
                         Grid.Row="0" Grid.Column="1" Grid.RowSpan="2"
                         Background="{DynamicResource MaterialDesignPaper}"
+                        Info="MapControl_OnInfo"
+                        ContextMenuOpening="MapControl_OnContextMenuOpening"
                         Loaded="MapControl_OnLoaded">
+            <wpf:MapControl.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Display coordinate" Click="Option1_Click" />
+                    <MenuItem Header="Display address" Click="Option2_Click" />
+                    <MenuItem x:Name="MenuItemAddFeature" Header="Add point" Click="MenuItemAddFeature_OnClick" />
+                    <MenuItem x:Name="MenuItemEditFeature" Header="Edit point" Click="MenuItemEditFeature_OnClick" />
+                    <MenuItem x:Name="MenuItemDeleteFeature" Header="Delete point" Click="MenuItemDeleteFeature_OnClick" />
+                </ContextMenu>
+            </wpf:MapControl.ContextMenu>
         </wpf:MapControl>
 
     </Grid>
