@@ -104,8 +104,7 @@ public partial class LocationManagementPage
         {
             PlaceLayer.TryRemove(feature);
 
-            var mapper = Mapping.Mapper;
-            var placeToDelete = mapper.Map<TPlace>(feature);
+            var placeToDelete = feature.ToTPlace();
 
             using var context = new DataBaseContext();
             context.TPlaces.Remove(placeToDelete);
