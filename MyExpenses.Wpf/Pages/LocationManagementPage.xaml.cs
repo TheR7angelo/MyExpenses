@@ -14,8 +14,8 @@ namespace MyExpenses.Wpf.Pages;
 
 public partial class LocationManagementPage
 {
-    public ObservableCollection<CountryGroup> CountryGroup { get; }
     public ObservableCollection<CountryGroup> CountryGroups { get; }
+    public ObservableCollection<TPlace> Places { get; }
     public List<KnownTileSource> KnownTileSources { get; }
     public KnownTileSource KnownTileSourceSelected { get; set; }
 
@@ -34,7 +34,8 @@ public partial class LocationManagementPage
         var places = context.TPlaces.OrderBy(s => s.Country).ThenBy(s => s.City).ToList();
         var groups = places.GetGroups();
 
-        CountryGroup = new ObservableCollection<CountryGroup>(groups);
+        Places = new ObservableCollection<TPlace>(places);
+        CountryGroups = new ObservableCollection<CountryGroup>(groups);
 
         // TODO add listener color change
         var brush = (SolidColorBrush)FindResource("MaterialDesignPaper");
