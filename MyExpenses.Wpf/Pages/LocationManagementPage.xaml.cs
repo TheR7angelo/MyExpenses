@@ -35,7 +35,9 @@ public partial class LocationManagementPage
         var brush = (SolidColorBrush)FindResource("MaterialDesignPaper");
         var backColor = brush.ToColor();
 
-        var features = places.ToFeature(MapsuiStyleExtensions.RedMarkerStyle);
+        var features = places
+            .Where(s => s.Latitude != null && s.Latitude != 0 && s.Longitude != null && s.Longitude != 0)
+            .ToFeature(MapsuiStyleExtensions.RedMarkerStyle);
         PlaceLayer.AddRange(features);
 
         var map = MapsuiMapExtensions.GetMap(true, backColor);
