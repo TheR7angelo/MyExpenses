@@ -31,14 +31,14 @@ public partial class LocationManagementPage
 
         CountryGroups = new ObservableCollection<CountryGroup>(groups);
 
-        // TODO add listener color change
-        var brush = (SolidColorBrush)FindResource("MaterialDesignPaper");
-        var backColor = brush.ToColor();
-
         var features = places
             .Where(s => s.Latitude != null && s.Latitude != 0 && s.Longitude != null && s.Longitude != 0)
             .ToFeature(MapsuiStyleExtensions.RedMarkerStyle);
         PlaceLayer.AddRange(features);
+
+        // TODO add listener color change
+        var brush = (SolidColorBrush)FindResource("MaterialDesignPaper");
+        var backColor = brush.ToColor();
 
         var map = MapsuiMapExtensions.GetMap(true, backColor);
         map.Layers.Add(PlaceLayer);
