@@ -38,6 +38,7 @@ public partial class LocationManagementPage
         var backColor = brush.ToColor();
 
         var map = MapsuiMapExtensions.GetMap(true, backColor);
+
         InitializeComponent();
 
         MapControl.Map = map;
