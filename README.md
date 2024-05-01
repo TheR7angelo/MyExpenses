@@ -1,6 +1,7 @@
 # MyExpenses
 
-MyExpenses is an open source application developed in C# using WPF Maui.
+MyExpenses is an open source application that allows you to view your expenses by bank account and location of purchase.
+The application also generates a graph each month to help users understand their expenses broken down by category.
 
 ## Technologies Used
 
