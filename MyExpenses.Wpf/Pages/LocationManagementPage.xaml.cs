@@ -83,6 +83,7 @@ public partial class LocationManagementPage
         SetClickTPlace(mapInfo);
     }
 
+    // TODO work
     private void MenuItemAddFeature_OnClick(object sender, RoutedEventArgs e)
     {
         // var windowEdit = new WindowEdit();
@@ -120,6 +121,7 @@ public partial class LocationManagementPage
         }
     }
 
+    // TODO work
     private void MenuItemEditFeature_OnClick(object sender, RoutedEventArgs e)
     {
         // var windowEdit = new WindowEdit();
@@ -134,6 +136,7 @@ public partial class LocationManagementPage
     private void Selector_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         => UpdateTileLayer();
 
+    // TODO work
     private void TreeView_OnSelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
     {
         if (sender is not TreeView treeView) return;
@@ -147,6 +150,7 @@ public partial class LocationManagementPage
 
     #region Function
 
+    // TODO work
     private void ProcessNewPlace(TPlace newPlace)
     {
         // var (success, _) = newPlace.AddOrEdit();
