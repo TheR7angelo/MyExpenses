@@ -44,7 +44,7 @@ public partial class LocationManagementPage
         var brush = (SolidColorBrush)FindResource("MaterialDesignPaper");
         var backColor = brush.ToColor();
 
-        var map = MapsuiExtensions.GetMap(true, backColor);
+        var map = MapsuiMapExtensions.GetMap(true, backColor);
         InitializeComponent();
 
         MapControl.Map = map;
