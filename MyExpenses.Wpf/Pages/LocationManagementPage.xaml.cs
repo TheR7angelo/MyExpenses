@@ -19,7 +19,7 @@ public partial class LocationManagementPage
     public List<KnownTileSource> KnownTileSources { get; }
     public KnownTileSource KnownTileSourceSelected { get; set; }
 
-    private WritableLayer PlaceLayer { get; } = new();
+    private WritableLayer PlaceLayer { get; } = new() { Style = null, IsMapInfoLayer = true, Tag = typeof(TPlace) };
 
     public LocationManagementPage()
     {
@@ -35,7 +35,11 @@ public partial class LocationManagementPage
         var brush = (SolidColorBrush)FindResource("MaterialDesignPaper");
         var backColor = brush.ToColor();
 
+        var features = places.ToFeature(MapsuiStyleExtensions.RedMarkerStyle);
+        PlaceLayer.AddRange(features);
+
         var map = MapsuiMapExtensions.GetMap(true, backColor);
+        map.Layers.Add(PlaceLayer);
 
         InitializeComponent();
 
