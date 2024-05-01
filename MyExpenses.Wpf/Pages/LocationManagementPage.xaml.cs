@@ -27,6 +27,10 @@ public partial class LocationManagementPage
 
     private WritableLayer PlaceLayer { get; } = new() { Style = null, IsMapInfoLayer = true, Tag = typeof(TPlace) };
 
+    private TPlace? ClickTPlace { get; set; }
+    private NetTopologySuite.Geometries.Point ClickPoint { get; set; } = NetTopologySuite.Geometries.Point.Empty;
+    private PointFeature? PointFeature { get; set; }
+
     public LocationManagementPage()
     {
         KnownTileSources = MapsuiMapExtensions.GetAllKnowTileSource().ToList();
@@ -61,6 +65,74 @@ public partial class LocationManagementPage
     private void MapControl_OnLoaded(object sender, RoutedEventArgs e)
         => UpdateTileLayer();
 
+    private void MapControl_OnContextMenuOpening(object sender, ContextMenuEventArgs e)
+    {
+        var screenPosition = Mouse.GetPosition(MapControl);
+        var worldPosition = MapControl.Map.Navigator.Viewport.ScreenToWorld(screenPosition.X, screenPosition.Y);
+
+        var lonLat = SphericalMercator.ToLonLat(worldPosition.X, worldPosition.Y);
+        ClickPoint = new NetTopologySuite.Geometries.Point(lonLat.lat, lonLat.lon);
+
+        var mPoint = new MPoint(screenPosition.X, screenPosition.Y);
+        var mapInfo = MapControl.GetMapInfo(mPoint);
+        SetClickTPlace(mapInfo!);
+    }
+
+    private void MapControl_OnInfo(object? sender, MapInfoEventArgs e)
+    {
+        var mapInfo = e.MapInfo!;
+        SetClickTPlace(mapInfo);
+    }
+
+    private void MenuItemAddFeature_OnClick(object sender, RoutedEventArgs e)
+    {
+        // var windowEdit = new WindowEdit();
+        // windowEdit.SetTplace(ClickPoint);
+        // windowEdit.ShowDialog();
+        //
+        // if (windowEdit.DialogResult != true) return;
+        //
+        // ProcessNewPlace(windowEdit.Place);
+    }
+
+    private void MenuItemDeleteFeature_OnClick(object sender, RoutedEventArgs e)
+    {
+        var feature = PointFeature;
+        if (feature is null) return;
+
+        try
+        {
+            PlaceLayer.TryRemove(feature);
+
+            var mapper = Mapping.Mapper;
+            var placeToDelete = mapper.Map<TPlace>(feature);
+
+            using var context = new DataBaseContext();
+            context.TPlaces.Remove(placeToDelete);
+            context.SaveChanges();
+
+            MapControl.Refresh();
+
+            MessageBox.Show("Operation successful", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+        catch (Exception exception)
+        {
+            Console.WriteLine(exception);
+            MessageBox.Show("Operation failed", "Failure", MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+    }
+
+    private void MenuItemEditFeature_OnClick(object sender, RoutedEventArgs e)
+    {
+        // var windowEdit = new WindowEdit();
+        // windowEdit.SetTplace(ClickTPlace!, false);
+        // windowEdit.ShowDialog();
+        //
+        // if (windowEdit.DialogResult != true) return;
+        //
+        // ProcessNewPlace(windowEdit.Place);
+    }
+
     private void Selector_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         => UpdateTileLayer();
 
@@ -77,18 +149,58 @@ public partial class LocationManagementPage
 
     #region Function
 
-    private void UpdateTileLayer()
+    private void ProcessNewPlace(TPlace newPlace)
     {
-        const string layerName = "Background";
+        // var (success, _) = newPlace.AddOrEdit();
+        // if (success)
+        // {
+        //     var mapper = Mapping.Mapper;
+        //     var feature = mapper.Map<PointFeature>(newPlace);
+        //     feature.Styles = new List<IStyle>
+        //     {
+        //         MapsuiStyleExtensions.RedMarkerStyle,
+        //         new LabelStyle
+        //         {
+        //             Text = newPlace.Name, Offset = new Offset { X = 0, Y = 11 },
+        //             Font = new Font { FontFamily = "Arial", Size = 12 },
+        //             Halo = new Pen { Color = Color.White, Width = 2 }
+        //         }
+        //     };
+        //
+        //     PlaceLayer.TryRemove(PointFeature!);
+        //     PlaceLayer.Add(feature);
+        //     MapControl.Refresh();
+        //
+        //     MessageBox.Show("Operation successful", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+        // }
+        // else MessageBox.Show("Operation failed", "Failure", MessageBoxButton.OK, MessageBoxImage.Error);
+    }
 
-        var httpTileSource = BruTile.Predefined.KnownTileSources.Create(KnownTileSourceSelected);
-        var tileLayer = new TileLayer(httpTileSource);
-        tileLayer.Name = layerName;
+    private void SetClickTPlace(MapInfo mapInfo)
+    {
+        var feature = mapInfo.Feature as PointFeature;
+        var layer = mapInfo.Layer;
 
-        var layers = MapControl?.Map.Layers.FindLayer(layerName);
-        if (layers is not null) MapControl?.Map.Layers.Remove(layers.ToArray());
+        if (feature is null || layer is null)
+        {
+            MenuItemAddFeature.Visibility = Visibility.Visible;
+            MenuItemEditFeature.Visibility = Visibility.Collapsed;
+            MenuItemDeleteFeature.Visibility = Visibility.Collapsed;
+            ClickTPlace = null;
+            return;
+        }
 
-        MapControl?.Map.Layers.Insert(0, tileLayer);
+        MenuItemAddFeature.Visibility = Visibility.Collapsed;
+        MenuItemEditFeature.Visibility = Visibility.Visible;
+        MenuItemDeleteFeature.Visibility = Visibility.Visible;
+
+        var type = (Type)layer.Tag!;
+        if (type != typeof(TPlace)) return;
+
+        PointFeature = feature;
+        var mapper = Mapping.Mapper;
+        var place = mapper.Map<TPlace>(feature);
+        ClickTPlace = place;
     }
 
     private void SetInitialZoom()
@@ -124,57 +236,21 @@ public partial class LocationManagementPage
         }
     }
 
+    private void UpdateTileLayer()
+    {
+        const string layerName = "Background";
+
+        var httpTileSource = BruTile.Predefined.KnownTileSources.Create(KnownTileSourceSelected);
+        var tileLayer = new TileLayer(httpTileSource);
+        tileLayer.Name = layerName;
+
+        var layers = MapControl?.Map.Layers.FindLayer(layerName);
+        if (layers is not null) MapControl?.Map.Layers.Remove(layers.ToArray());
+
+        MapControl?.Map.Layers.Insert(0, tileLayer);
+    }
+
     #endregion
-
-    private void MapControl_OnInfo(object? sender, MapInfoEventArgs e)
-    {
-        var mapInfo = e.MapInfo!;
-        SetClickTPlace(mapInfo);
-    }
-
-    private TPlace? ClickTPlace { get; set; }
-    private NetTopologySuite.Geometries.Point ClickPoint { get; set; } = NetTopologySuite.Geometries.Point.Empty;
-    private PointFeature? PointFeature { get; set; }
-
-    private void MapControl_OnContextMenuOpening(object sender, ContextMenuEventArgs e)
-    {
-        var screenPosition = Mouse.GetPosition(MapControl);
-        var worldPosition = MapControl.Map.Navigator.Viewport.ScreenToWorld(screenPosition.X, screenPosition.Y);
-
-        var lonLat = SphericalMercator.ToLonLat(worldPosition.X, worldPosition.Y);
-        ClickPoint = new NetTopologySuite.Geometries.Point(lonLat.lat, lonLat.lon);
-
-        var mPoint = new MPoint(screenPosition.X, screenPosition.Y);
-        var mapInfo = MapControl.GetMapInfo(mPoint);
-        SetClickTPlace(mapInfo!);
-    }
-
-    private void SetClickTPlace(MapInfo mapInfo)
-    {
-        var feature = mapInfo.Feature as PointFeature;
-        var layer = mapInfo.Layer;
-
-        if (feature is null || layer is null)
-        {
-            MenuItemAddFeature.Visibility = Visibility.Visible;
-            MenuItemEditFeature.Visibility = Visibility.Collapsed;
-            MenuItemDeleteFeature.Visibility = Visibility.Collapsed;
-            ClickTPlace = null;
-            return;
-        }
-
-        MenuItemAddFeature.Visibility = Visibility.Collapsed;
-        MenuItemEditFeature.Visibility = Visibility.Visible;
-        MenuItemDeleteFeature.Visibility = Visibility.Visible;
-
-        var type = (Type)layer.Tag!;
-        if (type != typeof(TPlace)) return;
-
-        PointFeature = feature;
-        var mapper = Mapping.Mapper;
-        var place = mapper.Map<TPlace>(feature);
-        ClickTPlace = place;
-    }
 
     private void Option1_Click(object sender, RoutedEventArgs e)
     {
@@ -185,81 +261,5 @@ public partial class LocationManagementPage
     {
         var s = ClickPoint.ToNominatim();
         Console.WriteLine(s);
-    }
-
-    private void ProcessNewPlace(TPlace newPlace)
-    {
-        // var (success, _) = newPlace.AddOrEdit();
-        // if (success)
-        // {
-        //     var mapper = Mapping.Mapper;
-        //     var feature = mapper.Map<PointFeature>(newPlace);
-        //     feature.Styles = new List<IStyle>
-        //     {
-        //         MapsuiStyleExtensions.RedMarkerStyle,
-        //         new LabelStyle
-        //         {
-        //             Text = newPlace.Name, Offset = new Offset { X = 0, Y = 11 },
-        //             Font = new Font { FontFamily = "Arial", Size = 12 },
-        //             Halo = new Pen { Color = Color.White, Width = 2 }
-        //         }
-        //     };
-        //
-        //     PlaceLayer.TryRemove(PointFeature!);
-        //     PlaceLayer.Add(feature);
-        //     MapControl.Refresh();
-        //
-        //     MessageBox.Show("Operation successful", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-        // }
-        // else MessageBox.Show("Operation failed", "Failure", MessageBoxButton.OK, MessageBoxImage.Error);
-    }
-
-    private void MenuItemAddFeature_OnClick(object sender, RoutedEventArgs e)
-    {
-        // var windowEdit = new WindowEdit();
-        // windowEdit.SetTplace(ClickPoint);
-        // windowEdit.ShowDialog();
-        //
-        // if (windowEdit.DialogResult != true) return;
-        //
-        // ProcessNewPlace(windowEdit.Place);
-    }
-
-    private void MenuItemEditFeature_OnClick(object sender, RoutedEventArgs e)
-    {
-        // var windowEdit = new WindowEdit();
-        // windowEdit.SetTplace(ClickTPlace!, false);
-        // windowEdit.ShowDialog();
-        //
-        // if (windowEdit.DialogResult != true) return;
-        //
-        // ProcessNewPlace(windowEdit.Place);
-    }
-
-    private void MenuItemDeleteFeature_OnClick(object sender, RoutedEventArgs e)
-    {
-        var feature = PointFeature;
-        if (feature is null) return;
-
-        try
-        {
-            PlaceLayer.TryRemove(feature);
-
-            var mapper = Mapping.Mapper;
-            var placeToDelete = mapper.Map<TPlace>(feature);
-
-            using var context = new DataBaseContext();
-            context.TPlaces.Remove(placeToDelete);
-            context.SaveChanges();
-
-            MapControl.Refresh();
-
-            MessageBox.Show("Operation successful", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
-        }
-        catch (Exception exception)
-        {
-            Console.WriteLine(exception);
-            MessageBox.Show("Operation failed", "Failure", MessageBoxButton.OK, MessageBoxImage.Error);
-        }
     }
 }
