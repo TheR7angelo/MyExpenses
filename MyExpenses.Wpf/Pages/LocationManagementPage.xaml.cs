@@ -9,7 +9,6 @@ using Mapsui.Extensions;
 using Mapsui.Layers;
 using Mapsui.Projections;
 using Mapsui.Tiling.Layers;
-using MyExpenses.Models.AutoMapper;
 using MyExpenses.Models.Sql.Groups;
 using MyExpenses.Models.Sql.Tables;
 using MyExpenses.Sql.Context;
@@ -197,8 +196,7 @@ public partial class LocationManagementPage
         if (type != typeof(TPlace)) return;
 
         PointFeature = feature;
-        var mapper = Mapping.Mapper;
-        var place = mapper.Map<TPlace>(feature);
+        var place = feature.ToTPlace();
         ClickTPlace = place;
     }
 
