@@ -7,6 +7,7 @@ MyExpenses is an open source application developed in C# using WPF Maui.
 - C#
 - WPF
 - Maui
+- SQL
 
 ## Contribution
 
