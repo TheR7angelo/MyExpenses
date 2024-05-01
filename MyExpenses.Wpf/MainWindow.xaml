@@ -24,8 +24,6 @@
                  GlowBrush="Gray"
                  NonActiveGlowBrush="Gray"
 
-                 ShowIconOnTitleBar="True"
-
                  WindowStartupLocation="CenterScreen"
                  ResizeMode="CanResizeWithGrip"
 
@@ -33,6 +31,12 @@
                  TextElement.Foreground="{DynamicResource MaterialDesignBody}"
 
                  DataContext="{Binding RelativeSource={RelativeSource Self}}">
+
+    <mah:MetroWindow.LeftWindowCommands>
+        <mah:WindowCommands>
+            <Image Source="/Resources/Assets/Icon.png" Width="22" Height="22" />
+        </mah:WindowCommands>
+    </mah:MetroWindow.LeftWindowCommands>
 
     <Grid>
 

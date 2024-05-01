@@ -6,6 +6,7 @@
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
         <UseWPF>true</UseWPF>
+        <ApplicationIcon>Resources\Assets\Icon.ico</ApplicationIcon>
     </PropertyGroup>
 
     <ItemGroup>
@@ -81,6 +82,18 @@
         <AutoGen>True</AutoGen>
         <DependentUpon>AddEditCategoryTypeResources.resx</DependentUpon>
       </Compile>
+      <None Remove="Resources\Assets\Icon.ico" />
+      <Resource Include="Resources\Assets\Icon.ico">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Resource>
+      <None Remove="Resources\Assets\Icon.png" />
+      <Resource Include="Resources\Assets\Icon.png">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Resource>
+      <None Remove="Resources\Assets\Icon.svg" />
+      <Resource Include="Resources\Assets\Icon.svg">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Resource>
     </ItemGroup>
 
     <ItemGroup>
