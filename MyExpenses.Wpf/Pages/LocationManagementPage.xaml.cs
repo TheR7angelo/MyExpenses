@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
 using BruTile.Predefined;
+using Mapsui.Layers;
 using Mapsui.Tiling.Layers;
 using MyExpenses.Models.Sql.Groups;
 using MyExpenses.Models.Sql.Tables;
@@ -18,6 +19,8 @@ public partial class LocationManagementPage
     public ObservableCollection<TPlace> Places { get; }
     public List<KnownTileSource> KnownTileSources { get; }
     public KnownTileSource KnownTileSourceSelected { get; set; }
+
+    private WritableLayer PlaceLayer { get; } = new();
 
     public LocationManagementPage()
     {
