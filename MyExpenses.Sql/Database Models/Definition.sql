@@ -2,21 +2,21 @@
 DROP TABLE IF EXISTS t_account_type;
 CREATE TABLE t_account_type
 (
-    id   INTEGER
+    id         INTEGER
         constraint t_account_type_pk
             PRIMARY KEY AUTOINCREMENT,
-    name TEXT,
-    date_added      DATETIME DEFAULT CURRENT_TIMESTAMP
+    name       TEXT,
+    date_added DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
 DROP TABLE IF EXISTS t_currency;
 CREATE TABLE t_currency
 (
-    id              INTEGER
+    id         INTEGER
         CONSTRAINT t_account_pk
             PRIMARY KEY AUTOINCREMENT,
-    symbol TEXT,
-    date_added      DATETIME DEFAULT CURRENT_TIMESTAMP
+    symbol     TEXT,
+    date_added DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
 DROP TABLE IF EXISTS t_account;
@@ -29,7 +29,7 @@ CREATE TABLE t_account
     account_type_fk INTEGER
         CONSTRAINT t_account_t_account_type_id_fk
             REFERENCES t_account_type,
-    currency_fk        INTEGER
+    currency_fk     INTEGER
         constraint t_account_t_currency_id_fk
             references t_currency,
     active          BOOLEAN  DEFAULT TRUE,
@@ -39,21 +39,21 @@ CREATE TABLE t_account
 DROP TABLE IF EXISTS t_category_type;
 CREATE TABLE t_category_type
 (
-    id   INTEGER
+    id         INTEGER
         CONSTRAINT t_category_type_pk
             PRIMARY KEY AUTOINCREMENT,
-    name TEXT,
-    date_added      DATETIME DEFAULT CURRENT_TIMESTAMP
+    name       TEXT,
+    date_added DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
 DROP TABLE IF EXISTS t_mode_payment;
 CREATE TABLE t_mode_payment
 (
-    id   INTEGER
+    id         INTEGER
         CONSTRAINT t_mode_payment_pk
             PRIMARY KEY AUTOINCREMENT,
-    name TEXT,
-    date_added      DATETIME DEFAULT CURRENT_TIMESTAMP
+    name       TEXT,
+    date_added DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
 DROP TABLE IF EXISTS t_place;
@@ -90,11 +90,12 @@ CREATE TABLE t_history
         CONSTRAINT t_history_t_mode_payment_id_fk
             REFERENCES t_mode_payment,
     value            REAL,
-    date             DATETIME DEFAULT CURRENT_TIMESTAMP,
+    date             DATETIME,
     place_fk         INTEGER
         constraint t_history_t_place_id_fk
             references t_place,
-    pointed          BOOLEAN  DEFAULT FALSE
+    pointed          BOOLEAN  DEFAULT FALSE,
+    date_added       DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 -- endregion
 
@@ -273,10 +274,14 @@ CREATE TRIGGER after_insert_on_t_history
     FOR EACH ROW
 BEGIN
     UPDATE t_history
-    SET date = CASE
-                   WHEN typeof(NEW.date) = 'integer' THEN datetime(NEW.date / 1000, 'unixepoch')
-                   ELSE NEW.date
-        END
+    SET date       = CASE
+                         WHEN typeof(NEW.date) = 'integer' THEN datetime(NEW.date / 1000, 'unixepoch')
+                         ELSE NEW.date
+        END,
+        date_added = CASE
+                         WHEN typeof(NEW.date_added) = 'integer' THEN datetime(NEW.date_added / 1000, 'unixepoch')
+                         ELSE NEW.date_added
+            END
     WHERE id = NEW.id;
 END;
 
@@ -287,10 +292,14 @@ CREATE TRIGGER after_update_on_t_history
     FOR EACH ROW
 BEGIN
     UPDATE t_history
-    SET date = CASE
-                   WHEN typeof(NEW.date) = 'integer' THEN datetime(NEW.date / 1000, 'unixepoch')
-                   ELSE NEW.date
-        END
+    SET date       = CASE
+                         WHEN typeof(NEW.date) = 'integer' THEN datetime(NEW.date / 1000, 'unixepoch')
+                         ELSE NEW.date
+        END,
+        date_added = CASE
+                         WHEN typeof(NEW.date_added) = 'integer' THEN datetime(NEW.date_added / 1000, 'unixepoch')
+                         ELSE NEW.date_added
+            END
     WHERE id = NEW.id;
 END;
 -- endregion
@@ -300,7 +309,7 @@ END;
 DROP VIEW IF EXISTS v_history;
 CREATE VIEW v_history AS
 SELECT h.id,
-        ta.name  AS account,
+       ta.name  AS account,
        h.description,
        tct.name AS category,
        tmp.name AS mode_payment,
@@ -308,7 +317,8 @@ SELECT h.id,
        tc.symbol,
        h.date,
        tp.name  AS place,
-       h.pointed
+       h.pointed,
+       h.date_added
 
 FROM t_history h
          LEFT JOIN t_account ta

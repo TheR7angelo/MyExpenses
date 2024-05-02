@@ -26,13 +26,16 @@ public partial class THistory
     public double? Value { get; set; }
 
     [Column("date", TypeName = "DATETIME")]
-    public DateTime? Date { get; set; } = DateTime.Now;
+    public DateTime? Date { get; set; }
 
     [Column("place_fk")]
     public int? PlaceFk { get; set; }
 
     [Column("pointed", TypeName = "BOOLEAN")]
     public bool? Pointed { get; set; }
+
+    [Column("date_added", TypeName = "DATETIME")]
+    public DateTime? DateAdded { get; set; }
 
     [ForeignKey("CategoryTypeFk")]
     [InverseProperty("THistories")]
