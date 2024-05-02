@@ -59,5 +59,41 @@ namespace MyExpenses.Wpf.Resources.Resx.Pages.LocationManagementPage {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error occurred please retry.
+        /// </summary>
+        internal static string MessageBoxMenuItemDeleteFeatureError {
+            get {
+                return ResourceManager.GetString("MessageBoxMenuItemDeleteFeatureError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Place was successfully removed.
+        /// </summary>
+        internal static string MessageBoxMenuItemDeleteFeatureNoUseSuccess {
+            get {
+                return ResourceManager.GetString("MessageBoxMenuItemDeleteFeatureNoUseSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This location is in use.\nAre you sure you want to delete this location and everything linked to it ?.
+        /// </summary>
+        internal static string MessageBoxMenuItemDeleteFeatureUseQuestion {
+            get {
+                return ResourceManager.GetString("MessageBoxMenuItemDeleteFeatureUseQuestion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Place and all relative element was successfully removed.
+        /// </summary>
+        internal static string MessageBoxMenuItemDeleteFeatureUseSuccess {
+            get {
+                return ResourceManager.GetString("MessageBoxMenuItemDeleteFeatureUseSuccess", resourceCulture);
+            }
+        }
     }
 }

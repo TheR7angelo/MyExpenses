@@ -1,11 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-
-<root>
-    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-        <xsd:element name="root" msdata:IsDataSet="true">
-            
-        </xsd:element>
-    </xsd:schema>
+﻿<root>
     <resheader name="resmimetype">
         <value>text/microsoft-resx</value>
     </resheader>
@@ -19,15 +12,15 @@
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
     <data name="MessageBoxMenuItemDeleteFeatureNoUseSuccess" xml:space="preserve">
-        <value>Place was successfully removed</value>
+        <value>Le lieu a été supprimé avec succès</value>
     </data>
     <data name="MessageBoxMenuItemDeleteFeatureUseQuestion" xml:space="preserve">
-        <value>This location is in use.\nAre you sure you want to delete this location and everything linked to it ?</value>
+        <value>Cet emplacement est en cours d'utilisation.\nÊtes-vous sûr de vouloir supprimer cet emplacement et tout ce qui y est lié ?</value>
     </data>
     <data name="MessageBoxMenuItemDeleteFeatureUseSuccess" xml:space="preserve">
-        <value>Place and all relative element was successfully removed</value>
+        <value>Le lieu et tous les éléments relatifs ont été supprimés avec succès</value>
     </data>
     <data name="MessageBoxMenuItemDeleteFeatureError" xml:space="preserve">
-        <value>An error occurred please retry</value>
+        <value>Une erreur s'est produite, veuillez réessayer</value>
     </data>
 </root>
