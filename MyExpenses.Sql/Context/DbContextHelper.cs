@@ -1,4 +1,6 @@
-﻿using System.Linq.Expressions;
+﻿using System.Collections;
+using System.Linq.Expressions;
+using System.Reflection;
 using Microsoft.EntityFrameworkCore;
 using MyExpenses.Models.Sql;
 
@@ -6,12 +8,13 @@ namespace MyExpenses.Sql.Context;
 
 public static class DbContextHelper
 {
-    public static (bool Success, Exception? Exception) Delete<T>(this T entity) where T : class, ISql
+    public static (bool Success, Exception? Exception) Delete<T>(this T entity, bool cascade = false)
+        where T : class, ISql
     {
         try
         {
             using var context = new DataBaseContext();
-            context.Delete(entity, s => s.Id == entity.Id);
+            context.Delete(entity, s => s.Id == entity.Id, cascade);
             context.SaveChanges();
             return (true, null);
         }
@@ -22,12 +25,29 @@ public static class DbContextHelper
         }
     }
 
-    private static void Delete<TEntity>(this DbContext context, TEntity entity, Expression<Func<TEntity, bool>> predicate) where TEntity : class
+    private static void Delete<TEntity>(this DbContext context, TEntity entity,
+        Expression<Func<TEntity, bool>> predicate, bool cascade) where TEntity : class
     {
-        var existingEntity = context.Set<TEntity>().AsNoTracking().FirstOrDefault(predicate);
+        if (cascade)
+        {
+            context.LoadAllCollections(entity);
+            var properties = entity.GetNavigationProperty();
+            var children = properties
+                .Where(property => property.GetValue(entity) is IList && (property.GetValue(entity) as IList)!.Count > 0)
+                .SelectMany(property => (property.GetValue(entity) as IList)!.OfType<object>())
+                .ToList();
 
-        if (existingEntity is null) return;
-        context.Set<TEntity>().Remove(entity);
+            foreach (var child in children) context.Entry(child).State = EntityState.Deleted;
+
+            context.Entry(entity).State = EntityState.Deleted;
+        }
+        else
+        {
+            var existingEntity = context.Set<TEntity>().AsNoTracking().FirstOrDefault(predicate);
+
+            if (existingEntity is null) return;
+            context.Set<TEntity>().Remove(entity);
+        }
     }
 
     public static (bool Success, Exception? Exception) AddOrEdit<T>(this T entity) where T : class, ISql
@@ -46,7 +66,8 @@ public static class DbContextHelper
         }
     }
 
-    private static void Upsert<TEntity>(this DbContext context, TEntity entity, Expression<Func<TEntity, bool>> predicate) where TEntity : class
+    private static void Upsert<TEntity>(this DbContext context, TEntity entity,
+        Expression<Func<TEntity, bool>> predicate) where TEntity : class
     {
         var existingEntity = context.Set<TEntity>().AsNoTracking().FirstOrDefault(predicate);
 
