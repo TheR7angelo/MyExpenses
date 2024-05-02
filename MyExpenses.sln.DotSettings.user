@@ -39,8 +39,20 @@
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=MyExpenses_002EWpf_002FResources_002FResx_002FMainWindow_002FMainWindowResources/@EntryIndexRemoved">True</s:Boolean>
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=MyExpenses_002EWpf_002FResources_002FResx_002FPages_002FDashBoardPage_002FDashBoardPageResources/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=MyExpenses_002EWpf_002FResources_002FResx_002FWindows_002FAddAccountWindow_002FAddAccountWindowResources/@EntryIndexedValue">True</s:Boolean>
+	
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=MyExpenses_002EWpf_002FResources_002FResx_002FWindows_002FAddEditAccountTypeWindow_002FAddEditAccountTypeWindowResources/@EntryIndexedValue">True</s:Boolean>
+	
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=MyExpenses_002EWpf_002FResources_002FResx_002FWindows_002FAddEditCategoryTypeWindow_002FAddEditCategoryTypeWindowResources/@EntryIndexedValue">True</s:Boolean>
+	
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=MyExpenses_002EWpf_002FResources_002FResx_002FWindows_002FAddEditCurrencyWindow_002FAddEditCurrencyWindowResources/@EntryIndexedValue">True</s:Boolean>
+	
+	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=MyExpenses_002EWpf_002FResources_002FResx_002FWindows_002FDashBoardPage_002FAddAccountWindow_002FAddAccountWindowResources/@EntryIndexedValue">False</s:Boolean>
+	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=MyExpenses_002EWpf_002FResources_002FResx_002FWindows_002FDashBoardPage_002FAddAccountWindow_002FAddAccountWindowResources/@EntryIndexRemoved">True</s:Boolean>
+	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=MyExpenses_002EWpf_002FResources_002FResx_002FWindows_002FDashBoardPage_002FAddEditAccountTypeWindow_002FAddEditAccountTypeWindowResources/@EntryIndexedValue">False</s:Boolean>
+	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=MyExpenses_002EWpf_002FResources_002FResx_002FWindows_002FDashBoardPage_002FAddEditAccountTypeWindow_002FAddEditAccountTypeWindowResources/@EntryIndexRemoved">True</s:Boolean>
+	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=MyExpenses_002EWpf_002FResources_002FResx_002FWindows_002FDashBoardPage_002FAddEditCategoryTypeWindow_002FAddEditCategoryTypeWindowResources/@EntryIndexedValue">False</s:Boolean>
+	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=MyExpenses_002EWpf_002FResources_002FResx_002FWindows_002FDashBoardPage_002FAddEditCategoryTypeWindow_002FAddEditCategoryTypeWindowResources/@EntryIndexRemoved">True</s:Boolean>
+	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=MyExpenses_002EWpf_002FResources_002FResx_002FWindows_002FDashBoardPage_002FAddEditCurrencyWindow_002FAddEditCurrencyWindowResources/@EntryIndexedValue">False</s:Boolean>
+	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=MyExpenses_002EWpf_002FResources_002FResx_002FWindows_002FDashBoardPage_002FAddEditCurrencyWindow_002FAddEditCurrencyWindowResources/@EntryIndexRemoved">True</s:Boolean>
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/CheckedGroups/=MyExpenses_002EWpf_002FResources_002FResx_002FWindows_002FMainWindow_002FMainWindowResources/@EntryIndexedValue">True</s:Boolean>
 	<s:Boolean x:Key="/Default/ResxEditorPersonal/Initialized/@EntryValue">True</s:Boolean></wpf:ResourceDictionary>
