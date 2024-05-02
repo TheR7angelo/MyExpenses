@@ -35,7 +35,7 @@ public partial class LocationManagementPage
         KnownTileSources = MapsuiMapExtensions.GetAllKnowTileSource().ToList();
 
         using var context = new DataBaseContext();
-        var places = context.TPlaces.OrderBy(s => s.Country).ThenBy(s => s.City).ToList();
+        var places = context.TPlaces.OrderBy(s => s.Country).ThenBy(s => s.City).ThenBy(s => s.Name).ToList();
         var groups = places.GetGroups();
 
         CountryGroups = new ObservableCollection<CountryGroup>(groups);
