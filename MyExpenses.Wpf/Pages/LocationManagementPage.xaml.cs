@@ -120,7 +120,7 @@ public partial class LocationManagementPage
         {
             if (exception!.InnerException is SqliteException { SqliteExtendedErrorCode: SQLitePCL.raw.SQLITE_CONSTRAINT_FOREIGNKEY })
             {
-                Log.Error(exception, "Foreign key constraint violation");
+                Log.Error("Foreign key constraint violation");
 
                 var response =
                     MessageBox.Show(LocationManagementPageResources.MessageBoxMenuItemDeleteFeatureUseQuestion, "Question", MessageBoxButton.YesNoCancel);
