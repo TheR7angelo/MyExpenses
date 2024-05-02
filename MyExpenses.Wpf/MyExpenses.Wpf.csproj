@@ -49,6 +49,10 @@
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>MainWindowResource.Designer.cs</LastGenOutput>
       </EmbeddedResource>
+      <EmbeddedResource Update="Resources\Resx\Pages\LocationManagementPage\LocationManagementPageResources.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>LocationManagementPageResources.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
     </ItemGroup>
 
     <ItemGroup>
@@ -89,6 +93,11 @@
       <Resource Include="Resources\Assets\Icon.svg">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </Resource>
+      <Compile Update="Resources\Resx\Pages\LocationManagementPage\LocationManagementPageResources.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>LocationManagementPageResources.resx</DependentUpon>
+      </Compile>
     </ItemGroup>
 
     <ItemGroup>
@@ -136,7 +145,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Resources\Resx\Pages\" />
       <Folder Include="Resources\Resx\Windows\DashBoardPage\" />
     </ItemGroup>
 
