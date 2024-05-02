@@ -6,6 +6,30 @@ namespace MyExpenses.Sql.Context;
 
 public static class DbContextHelper
 {
+    public static (bool Success, Exception? Exception) Delete<T>(this T entity) where T : class, ISql
+    {
+        try
+        {
+            using var context = new DataBaseContext();
+            context.Delete(entity, s => s.Id == entity.Id);
+            context.SaveChanges();
+            return (true, null);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            return (false, e);
+        }
+    }
+
+    private static void Delete<TEntity>(this DbContext context, TEntity entity, Expression<Func<TEntity, bool>> predicate) where TEntity : class
+    {
+        var existingEntity = context.Set<TEntity>().AsNoTracking().FirstOrDefault(predicate);
+
+        if (existingEntity is null) return;
+        context.Set<TEntity>().Remove(entity);
+    }
+
     public static (bool Success, Exception? Exception) AddOrEdit<T>(this T entity) where T : class, ISql
     {
         try
@@ -22,7 +46,7 @@ public static class DbContextHelper
         }
     }
 
-    public static void Upsert<TEntity>(this DbContext context, TEntity entity, Expression<Func<TEntity, bool>> predicate) where TEntity : class
+    private static void Upsert<TEntity>(this DbContext context, TEntity entity, Expression<Func<TEntity, bool>> predicate) where TEntity : class
     {
         var existingEntity = context.Set<TEntity>().AsNoTracking().FirstOrDefault(predicate);
 
