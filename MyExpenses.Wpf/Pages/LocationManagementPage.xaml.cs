@@ -165,9 +165,9 @@ public partial class LocationManagementPage
             PlaceLayer.Add(feature);
             MapControl.Refresh();
 
-            MessageBox.Show("Operation successful", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show("Operation successful");
         }
-        else MessageBox.Show("Operation failed", "Failure", MessageBoxButton.OK, MessageBoxImage.Error);
+        else MessageBox.Show("Operation failed");
     }
 
     private void SetClickTPlace(MapInfo mapInfo)
