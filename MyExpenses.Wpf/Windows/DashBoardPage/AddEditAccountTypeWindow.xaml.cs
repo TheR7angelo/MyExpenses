@@ -5,7 +5,7 @@ using MyExpenses.Models.Sql.Tables;
 using MyExpenses.Sql.Context;
 using MyExpenses.Wpf.Resources.Resx.AddEditAccountTypeWindow;
 
-namespace MyExpenses.Wpf.Windows;
+namespace MyExpenses.Wpf.Windows.DashBoardPage;
 
 public partial class AddEditAccountTypeWindow
 {

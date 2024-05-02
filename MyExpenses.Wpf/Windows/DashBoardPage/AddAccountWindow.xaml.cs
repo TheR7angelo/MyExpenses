@@ -8,7 +8,7 @@ using MyExpenses.Wpf.Resources.Regex;
 using MyExpenses.Wpf.Resources.Resx.AddAccountWindow;
 using Serilog;
 
-namespace MyExpenses.Wpf.Windows;
+namespace MyExpenses.Wpf.Windows.DashBoardPage;
 
 public partial class AddAccountWindow
 {

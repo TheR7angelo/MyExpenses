@@ -97,17 +97,22 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Page Update="Windows\AddAccountWindow.xaml">
+      <Page Update="Windows\DashBoardPage\AddAccountWindow.xaml">
         <Generator>MSBuild:Compile</Generator>
         <XamlRuntime>Wpf</XamlRuntime>
         <SubType>Designer</SubType>
       </Page>
-      <Page Update="Windows\AddEditAccountTypeWindow.xaml">
+      <Page Update="Windows\DashBoardPage\AddEditAccountTypeWindow.xaml">
         <Generator>MSBuild:Compile</Generator>
         <XamlRuntime>Wpf</XamlRuntime>
         <SubType>Designer</SubType>
       </Page>
-      <Page Update="Windows\AddEditCategoryTypeWindow.xaml">
+      <Page Update="Windows\DashBoardPage\AddEditCategoryTypeWindow.xaml">
+        <Generator>MSBuild:Compile</Generator>
+        <XamlRuntime>Wpf</XamlRuntime>
+        <SubType>Designer</SubType>
+      </Page>
+      <Page Update="Windows\DashBoardPage\AddEditCurrencyWindow.xaml">
         <Generator>MSBuild:Compile</Generator>
         <XamlRuntime>Wpf</XamlRuntime>
         <SubType>Designer</SubType>
@@ -133,6 +138,10 @@
       <Content Include="..\README.md">
         <Link>README.md</Link>
       </Content>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Windows\LocationManagementPage\" />
     </ItemGroup>
 
 </Project>
