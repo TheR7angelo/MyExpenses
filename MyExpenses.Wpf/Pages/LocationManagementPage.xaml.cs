@@ -37,11 +37,7 @@ public partial class LocationManagementPage
     {
         KnownTileSources = MapsuiMapExtensions.GetAllKnowTileSource().ToList();
 
-        using var context = new DataBaseContext();
-        var places = context.TPlaces.OrderBy(s => s.Country).ThenBy(s => s.City).ThenBy(s => s.Name).ToList();
-        var groups = places.GetGroups();
-
-        CountryGroups = new ObservableCollection<CountryGroup>(groups);
+        var places = RefreshTreeViewCountryGroup();
 
         var features = places
             .Where(s => s.Latitude != null && s.Latitude != 0 && s.Longitude != null && s.Longitude != 0)
@@ -118,19 +114,26 @@ public partial class LocationManagementPage
         }
         else
         {
-            if (exception!.InnerException is SqliteException { SqliteExtendedErrorCode: SQLitePCL.raw.SQLITE_CONSTRAINT_FOREIGNKEY })
+            if (exception!.InnerException is SqliteException
+                {
+                    SqliteExtendedErrorCode: SQLitePCL.raw.SQLITE_CONSTRAINT_FOREIGNKEY
+                })
             {
                 Log.Error("Foreign key constraint violation");
 
                 var response =
-                    MessageBox.Show(LocationManagementPageResources.MessageBoxMenuItemDeleteFeatureUseQuestion, "Question", MessageBoxButton.YesNoCancel);
+                    MessageBox.Show(LocationManagementPageResources.MessageBoxMenuItemDeleteFeatureUseQuestion,
+                        "Question", MessageBoxButton.YesNoCancel);
 
                 if (response != MessageBoxResult.Yes) return;
 
-                Log.Information("Attempting to remove the place \"{PlaceToDeleteName}\" with all relative element", placeToDelete.Name);
+                Log.Information("Attempting to remove the place \"{PlaceToDeleteName}\" with all relative element",
+                    placeToDelete.Name);
                 placeToDelete.Delete(true);
                 Log.Information("Place and all relative element was successfully removed");
                 MessageBox.Show(LocationManagementPageResources.MessageBoxMenuItemDeleteFeatureUseSuccess);
+
+                RefreshTreeViewCountryGroup();
 
                 MapControl.Refresh();
             }
@@ -275,5 +278,16 @@ public partial class LocationManagementPage
     {
         var s = ClickPoint.ToNominatim();
         Console.WriteLine(s);
+    }
+
+    private List<TPlace> RefreshTreeViewCountryGroup()
+    {
+        using var context = new DataBaseContext();
+        var places = context.TPlaces.OrderBy(s => s.Country).ThenBy(s => s.City).ThenBy(s => s.Name).ToList();
+        var groups = places.GetGroups();
+
+        CountryGroups.Clear();
+        CountryGroups.AddRange(groups);
+        return places;
     }
 }
