@@ -22,7 +22,7 @@
         <value>Place was successfully removed</value>
     </data>
     <data name="MessageBoxMenuItemDeleteFeatureUseQuestion" xml:space="preserve">
-        <value>This location is in use.\nAre you sure you want to delete this location and everything linked to it ?</value>
+        <value>This location is in use.Are you sure you want to delete this location and everything linked to it ?</value>
     </data>
     <data name="MessageBoxMenuItemDeleteFeatureUseSuccess" xml:space="preserve">
         <value>Place and all relative element was successfully removed</value>

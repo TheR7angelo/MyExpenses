@@ -79,7 +79,7 @@ namespace MyExpenses.Wpf.Resources.Resx.Pages.LocationManagementPage {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This location is in use.\nAre you sure you want to delete this location and everything linked to it ?.
+        ///   Looks up a localized string similar to This location is in use.Are you sure you want to delete this location and everything linked to it ?.
         /// </summary>
         internal static string MessageBoxMenuItemDeleteFeatureUseQuestion {
             get {

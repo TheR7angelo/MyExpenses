@@ -15,7 +15,7 @@
         <value>Le lieu a été supprimé avec succès</value>
     </data>
     <data name="MessageBoxMenuItemDeleteFeatureUseQuestion" xml:space="preserve">
-        <value>Cet emplacement est en cours d'utilisation.\nÊtes-vous sûr de vouloir supprimer cet emplacement et tout ce qui y est lié ?</value>
+        <value>Cet emplacement est en cours d'utilisation.Êtes-vous sûr de vouloir supprimer cet emplacement et tout ce qui y est lié ?</value>
     </data>
     <data name="MessageBoxMenuItemDeleteFeatureUseSuccess" xml:space="preserve">
         <value>Le lieu et tous les éléments relatifs ont été supprimés avec succès</value>
