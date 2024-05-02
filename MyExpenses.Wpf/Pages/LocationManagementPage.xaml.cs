@@ -23,7 +23,7 @@ namespace MyExpenses.Wpf.Pages;
 
 public partial class LocationManagementPage
 {
-    public ObservableCollection<CountryGroup> CountryGroups { get; }
+    public ObservableCollection<CountryGroup> CountryGroups { get; } = [];
     public List<KnownTileSource> KnownTileSources { get; }
     public KnownTileSource KnownTileSourceSelected { get; set; }
 
