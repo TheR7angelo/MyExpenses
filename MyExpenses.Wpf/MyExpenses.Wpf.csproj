@@ -25,10 +25,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <EmbeddedResource Update="Resources\Resx\MainWindow\MainWindowResources.resx">
-        <Generator>ResXFileCodeGenerator</Generator>
-        <LastGenOutput>MainWindowResource.Designer.cs</LastGenOutput>
-      </EmbeddedResource>
       <EmbeddedResource Update="Resources\Resx\DashBoard\DashBoardResources.resx">
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>DashBoardResources.Designer.cs</LastGenOutput>
@@ -49,14 +45,13 @@
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>AddEditCategoryTypeResources.Designer.cs</LastGenOutput>
       </EmbeddedResource>
+      <EmbeddedResource Update="Resources\Resx\Windows\MainWindow\MainWindowResources.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>MainWindowResource.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
     </ItemGroup>
 
     <ItemGroup>
-      <Compile Update="Resources\Resx\MainWindow\MainWindowResources.Designer.cs">
-        <DesignTime>True</DesignTime>
-        <AutoGen>True</AutoGen>
-        <DependentUpon>MainWindowResources.resx</DependentUpon>
-      </Compile>
       <Compile Update="Resources\Resx\DashBoard\DashBoardResources.Designer.cs">
         <DesignTime>True</DesignTime>
         <AutoGen>True</AutoGen>
@@ -141,6 +136,8 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Folder Include="Resources\Resx\Pages\" />
+      <Folder Include="Resources\Resx\Windows\" />
       <Folder Include="Windows\LocationManagementPage\" />
     </ItemGroup>
 

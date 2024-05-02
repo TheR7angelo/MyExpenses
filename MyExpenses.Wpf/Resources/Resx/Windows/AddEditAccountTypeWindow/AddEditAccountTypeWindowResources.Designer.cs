@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MyExpenses.Wpf.Resources.Resx.MainWindow {
+namespace MyExpenses.Wpf.Resources.Resx.Windows.AddEditAccountTypeWindow {
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
     /// </summary>
@@ -18,16 +18,16 @@ namespace MyExpenses.Wpf.Resources.Resx.MainWindow {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class MainWindowResources {
-
+    internal class AddEditAccountTypeWindowResources {
+        
         private static global::System.Resources.ResourceManager resourceMan;
-
+        
         private static global::System.Globalization.CultureInfo resourceCulture;
-
+        
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal MainWindowResources() {
+        internal AddEditAccountTypeWindowResources() {
         }
-
+        
         /// <summary>
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
@@ -35,13 +35,14 @@ namespace MyExpenses.Wpf.Resources.Resx.MainWindow {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MyExpenses.Wpf.Resources.Resx.MainWindow.MainWindowResources", typeof(MainWindowResources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MyExpenses.Wpf.Resources.Resx.Windows.AddEditAccountTypeWindow.AddEditAccountTypeWindowRe" +
+                            "sources", typeof(AddEditAccountTypeWindowResources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
             }
         }
-
+        
         /// <summary>
         ///   Overrides the current thread's CurrentUICulture property for all
         ///   resource lookups using this strongly typed resource class.
@@ -55,40 +56,40 @@ namespace MyExpenses.Wpf.Resources.Resx.MainWindow {
                 resourceCulture = value;
             }
         }
-
+        
         /// <summary>
-        ///   Looks up a localized string similar to Export database.
+        ///   Looks up a localized string similar to Cancel.
         /// </summary>
-        internal static string MenuItemHeaderExportDatabase {
+        internal static string ButtonCancelContent {
             get {
-                return ResourceManager.GetString("MenuItemHeaderExportDatabase", resourceCulture);
+                return ResourceManager.GetString("ButtonCancelContent", resourceCulture);
             }
         }
-
+        
         /// <summary>
-        ///   Looks up a localized string similar to File.
+        ///   Looks up a localized string similar to Valid.
         /// </summary>
-        internal static string MenuItemHeaderFile {
+        internal static string ButtonValidContent {
             get {
-                return ResourceManager.GetString("MenuItemHeaderFile", resourceCulture);
+                return ResourceManager.GetString("ButtonValidContent", resourceCulture);
             }
         }
-
+        
         /// <summary>
-        ///   Looks up a localized string similar to Load database.
+        ///   Looks up a localized string similar to Account type name already exist.
         /// </summary>
-        internal static string MenuItemHeaderImportDatabase {
+        internal static string MessageBoxAccountTypeNameAlreadyExists {
             get {
-                return ResourceManager.GetString("MenuItemHeaderImportDatabase", resourceCulture);
+                return ResourceManager.GetString("MessageBoxAccountTypeNameAlreadyExists", resourceCulture);
             }
         }
-
+        
         /// <summary>
-        /// Looks up a localized string similar to database.
+        ///   Looks up a localized string similar to Name of new account type :.
         /// </summary>
-        public static string MenuItemHeaderDatabase {
+        internal static string TextBoxAccountTypeName {
             get {
-                return ResourceManager.GetString("MenuItemHeaderDatabase", resourceCulture);
+                return ResourceManager.GetString("TextBoxAccountTypeName", resourceCulture);
             }
         }
     }

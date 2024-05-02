@@ -1,4 +1,4 @@
-﻿using MyExpenses.Wpf.Resources.Resx.MainWindow;
+﻿using MyExpenses.Wpf.Resources.Resx.Windows.MainWindow;
 
 namespace MyExpenses.Wpf;
 

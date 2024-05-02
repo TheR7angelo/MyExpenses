@@ -3,7 +3,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using MyExpenses.Models.Sql.Tables;
 using MyExpenses.Sql.Context;
-using MyExpenses.Wpf.Resources.Resx.AddEditCategoryTypeWindow;
+using MyExpenses.Wpf.Resources.Resx.Windows.AddEditCategoryTypeWindow;
 
 namespace MyExpenses.Wpf.Windows.DashBoardPage;
 

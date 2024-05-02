@@ -7,10 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MyExpenses.Wpf.Resources.Resx.AddEditCurrencyWindow {
-    using System;
-    
-    
+namespace MyExpenses.Wpf.Resources.Resx.Windows.MainWindow {
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
     /// </summary>
@@ -21,16 +18,16 @@ namespace MyExpenses.Wpf.Resources.Resx.AddEditCurrencyWindow {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class AddEditCurrencyWindowResources {
-        
+    internal class MainWindowResources {
+
         private static global::System.Resources.ResourceManager resourceMan;
-        
+
         private static global::System.Globalization.CultureInfo resourceCulture;
-        
+
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal AddEditCurrencyWindowResources() {
+        internal MainWindowResources() {
         }
-        
+
         /// <summary>
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
@@ -38,14 +35,13 @@ namespace MyExpenses.Wpf.Resources.Resx.AddEditCurrencyWindow {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MyExpenses.Wpf.Resources.Resx.AddEditCurrencyWindow.AddEditCurrencyWindowResource" +
-                            "s", typeof(AddEditCurrencyWindowResources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MyExpenses.Wpf.Resources.Resx.Windows.MainWindow.MainWindowResources", typeof(MainWindowResources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
             }
         }
-        
+
         /// <summary>
         ///   Overrides the current thread's CurrentUICulture property for all
         ///   resource lookups using this strongly typed resource class.
@@ -59,40 +55,40 @@ namespace MyExpenses.Wpf.Resources.Resx.AddEditCurrencyWindow {
                 resourceCulture = value;
             }
         }
-        
+
         /// <summary>
-        ///   Looks up a localized string similar to Cancel.
+        ///   Looks up a localized string similar to Export database.
         /// </summary>
-        internal static string ButtonCancelContent {
+        internal static string MenuItemHeaderExportDatabase {
             get {
-                return ResourceManager.GetString("ButtonCancelContent", resourceCulture);
+                return ResourceManager.GetString("MenuItemHeaderExportDatabase", resourceCulture);
             }
         }
-        
+
         /// <summary>
-        ///   Looks up a localized string similar to Valid.
+        ///   Looks up a localized string similar to File.
         /// </summary>
-        internal static string ButtonValidContent {
+        internal static string MenuItemHeaderFile {
             get {
-                return ResourceManager.GetString("ButtonValidContent", resourceCulture);
+                return ResourceManager.GetString("MenuItemHeaderFile", resourceCulture);
             }
         }
-        
+
         /// <summary>
-        ///   Looks up a localized string similar to Currency symbol already exist.
+        ///   Looks up a localized string similar to Load database.
         /// </summary>
-        internal static string MessageBoxCurrencySymbolAlreadyExists {
+        internal static string MenuItemHeaderImportDatabase {
             get {
-                return ResourceManager.GetString("MessageBoxCurrencySymbolAlreadyExists", resourceCulture);
+                return ResourceManager.GetString("MenuItemHeaderImportDatabase", resourceCulture);
             }
         }
-        
+
         /// <summary>
-        ///   Looks up a localized string similar to New currency symbol :.
+        /// Looks up a localized string similar to database.
         /// </summary>
-        internal static string TextBoxCurrencySymbol {
+        public static string MenuItemHeaderDatabase {
             get {
-                return ResourceManager.GetString("TextBoxCurrencySymbol", resourceCulture);
+                return ResourceManager.GetString("MenuItemHeaderDatabase", resourceCulture);
             }
         }
     }
