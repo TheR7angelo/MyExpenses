@@ -53,4 +53,28 @@ public static class DbContextHelper
         if (existingEntity is null) context.Set<TEntity>().Add(entity);
         else context.Set<TEntity>().Update(entity);
     }
+
+    private static void LoadAllCollections(this DbContext context, object entity)
+    {
+        var entry = context.Entry(entity);
+
+        var properties = entity.GetNavigationProperty();
+
+        foreach (var navigationProperty in properties)
+        {
+            var collection = entry.Collection(navigationProperty.Name);
+            if (!collection.IsLoaded)
+                collection.Load();
+        }
+    }
+
+    private static IEnumerable<PropertyInfo> GetNavigationProperty<T>(this T entity)
+    {
+        var properties = entity!.GetType().GetProperties()
+            .Where(p =>
+                p.PropertyType.IsGenericType &&
+                p.PropertyType.GetGenericTypeDefinition() == typeof(ICollection<>)
+            ).ToArray();
+        return properties;
+    }
 }
