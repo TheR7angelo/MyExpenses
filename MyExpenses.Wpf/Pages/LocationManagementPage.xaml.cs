@@ -9,12 +9,15 @@ using Mapsui.Extensions;
 using Mapsui.Layers;
 using Mapsui.Projections;
 using Mapsui.Tiling.Layers;
+using Microsoft.Data.Sqlite;
 using MyExpenses.Models.Sql.Groups;
 using MyExpenses.Models.Sql.Tables;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils;
 using MyExpenses.WebApi.Nominatim;
+using MyExpenses.Wpf.Resources.Resx.Pages.LocationManagementPage;
 using MyExpenses.Wpf.Utils.Maps;
+using Serilog;
 
 namespace MyExpenses.Wpf.Pages;
 
@@ -100,24 +103,42 @@ public partial class LocationManagementPage
         var feature = PointFeature;
         if (feature is null) return;
 
-        try
+        var placeToDelete = feature.ToTPlace();
+        Log.Information("Attempting to remove the place \"{PlaceToDeleteName}\"", placeToDelete.Name);
+        PlaceLayer.TryRemove(feature);
+
+        var (success, exception) = placeToDelete.Delete();
+
+        if (success)
         {
-            PlaceLayer.TryRemove(feature);
-
-            var placeToDelete = feature.ToTPlace();
-
-            using var context = new DataBaseContext();
-            context.TPlaces.Remove(placeToDelete);
-            context.SaveChanges();
-
             MapControl.Refresh();
 
-            MessageBox.Show("Operation successful", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            Log.Information("Place was successfully removed");
+            MessageBox.Show(LocationManagementPageResources.MessageBoxMenuItemDeleteFeatureNoUseSuccess);
         }
-        catch (Exception exception)
+        else
         {
-            Console.WriteLine(exception);
-            MessageBox.Show("Operation failed", "Failure", MessageBoxButton.OK, MessageBoxImage.Error);
+            if (exception!.InnerException is SqliteException { SqliteExtendedErrorCode: SQLitePCL.raw.SQLITE_CONSTRAINT_FOREIGNKEY })
+            {
+                Log.Error(exception, "Foreign key constraint violation");
+
+                var response =
+                    MessageBox.Show(LocationManagementPageResources.MessageBoxMenuItemDeleteFeatureUseQuestion, "Question", MessageBoxButton.YesNoCancel);
+
+                if (response != MessageBoxResult.Yes) return;
+
+                Log.Information("Attempting to remove the place \"{PlaceToDeleteName}\" with all relative element", placeToDelete.Name);
+                placeToDelete.Delete(true);
+                Log.Information("Place and all relative element was successfully removed");
+                MessageBox.Show(LocationManagementPageResources.MessageBoxMenuItemDeleteFeatureUseSuccess);
+
+                MapControl.Refresh();
+            }
+            else
+            {
+                Log.Error(exception, "An error occurred please retry");
+                MessageBox.Show(LocationManagementPageResources.MessageBoxMenuItemDeleteFeatureError);
+            }
         }
     }
 
