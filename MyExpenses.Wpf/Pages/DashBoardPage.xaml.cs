@@ -44,7 +44,20 @@ public partial class DashBoardPage : INotifyPropertyChanged
         }
     }
 
-    public string TotalStr => Total.HasValue ? Total.Value.ToString("F2") : 0d.ToString("F2");
+    private string? _symbol;
+
+    private string? Symbol
+    {
+        get => _symbol;
+        set
+        {
+            _symbol = value;
+            OnPropertyChanged();
+            OnPropertyChanged(nameof(TotalStr));
+        }
+    }
+
+    public string TotalStr => (Total.HasValue ? Total.Value.ToString("F2") : 0d.ToString("F2")) + $" {Symbol}";
 
     #region Button WrapPanel
 
@@ -125,6 +138,7 @@ public partial class DashBoardPage : INotifyPropertyChanged
         var button = (RadioButton)sender;
         var vTotalByAccount = (VTotalByAccount)button.DataContext;
         Total = vTotalByAccount.Total;
+        Symbol = vTotalByAccount.Symbol;
 
         var name = vTotalByAccount.Name;
         if (string.IsNullOrEmpty(name)) return;
@@ -186,7 +200,6 @@ public partial class DashBoardPage : INotifyPropertyChanged
             var absTotal = Math.Abs(total);
             var percentage = Math.Round(absTotal / grandTotal * 100, 2);
 
-            // TODO add local currency
             var pieSeries = new PieSeries<double>
             {
                 Values = new ObservableCollection<double> { absTotal },
