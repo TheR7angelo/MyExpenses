@@ -45,7 +45,7 @@ public partial class DashBoardPage : INotifyPropertyChanged
         }
     }
 
-    public string TotalStr => Total.HasValue ? Total.Value.ToString("F2") : "0.00";
+    public string TotalStr => Total.HasValue ? Total.Value.ToString("F2") : 0d.ToString("F2");
 
     #region Button WrapPanel
 
