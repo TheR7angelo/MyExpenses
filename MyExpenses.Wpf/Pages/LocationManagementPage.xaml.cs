@@ -17,6 +17,7 @@ using MyExpenses.Utils;
 using MyExpenses.WebApi.Nominatim;
 using MyExpenses.Wpf.Resources.Resx.Pages.LocationManagementPage;
 using MyExpenses.Wpf.Utils.Maps;
+using MyExpenses.Wpf.Windows.LocationManagementWindows;
 using Serilog;
 
 namespace MyExpenses.Wpf.Pages;
@@ -86,16 +87,16 @@ public partial class LocationManagementPage
         SetClickTPlace(mapInfo);
     }
 
-    // TODO work
+    //TODO add feature to treeView
     private void MenuItemAddFeature_OnClick(object sender, RoutedEventArgs e)
     {
-        // var windowEdit = new WindowEdit();
-        // windowEdit.SetTplace(ClickPoint);
-        // windowEdit.ShowDialog();
-        //
-        // if (windowEdit.DialogResult != true) return;
-        //
-        // ProcessNewPlace(windowEdit.Place);
+        var addEditLocationWindow = new AddEditLocationWindow();
+        addEditLocationWindow.SetTplace(ClickPoint);
+        addEditLocationWindow.ShowDialog();
+
+        if (addEditLocationWindow.DialogResult != true) return;
+
+        ProcessNewPlace(addEditLocationWindow.Place);
     }
 
     private void MenuItemDeleteFeature_OnClick(object sender, RoutedEventArgs e)
@@ -149,16 +150,16 @@ public partial class LocationManagementPage
         }
     }
 
-    // TODO work
+    //TODO remove feature and insert new feature to treeView
     private void MenuItemEditFeature_OnClick(object sender, RoutedEventArgs e)
     {
-        // var windowEdit = new WindowEdit();
-        // windowEdit.SetTplace(ClickTPlace!, false);
-        // windowEdit.ShowDialog();
-        //
-        // if (windowEdit.DialogResult != true) return;
-        //
-        // ProcessNewPlace(windowEdit.Place);
+        var addEditLocationWindow = new AddEditLocationWindow();
+        addEditLocationWindow.SetTplace(ClickTPlace!, false);
+        addEditLocationWindow.ShowDialog();
+
+        if (addEditLocationWindow.DialogResult != true) return;
+
+        ProcessNewPlace(addEditLocationWindow.Place);
     }
 
     private void Selector_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
