@@ -53,6 +53,10 @@
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>LocationManagementPageResources.Designer.cs</LastGenOutput>
       </EmbeddedResource>
+      <EmbeddedResource Update="Resources\Resx\Converters\EmptyStringTreeViewConverterResources.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>EmptyStringTreeViewConverterResources.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
     </ItemGroup>
 
     <ItemGroup>
@@ -97,6 +101,11 @@
         <DesignTime>True</DesignTime>
         <AutoGen>True</AutoGen>
         <DependentUpon>LocationManagementPageResources.resx</DependentUpon>
+      </Compile>
+      <Compile Update="Resources\Resx\Converters\EmptyStringTreeViewConverterResources.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>EmptyStringTreeViewConverterResources.resx</DependentUpon>
       </Compile>
     </ItemGroup>
 
