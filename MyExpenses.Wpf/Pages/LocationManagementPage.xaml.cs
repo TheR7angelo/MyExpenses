@@ -137,7 +137,7 @@ public partial class LocationManagementPage
                 Log.Information("Place and all relative element was successfully removed");
                 MessageBox.Show(LocationManagementPageResources.MessageBoxMenuItemDeleteFeatureUseSuccess);
 
-                RefreshTreeViewCountryGroup(placeToDelete);
+                RemovePlaceTreeViewCountryGroup(placeToDelete);
 
                 MapControl.Refresh();
             }
@@ -181,24 +181,7 @@ public partial class LocationManagementPage
 
     #region Function
 
-    // TODO work
-    private void ProcessNewPlace(TPlace newPlace)
-    {
-        var (success, _) = newPlace.AddOrEdit();
-        if (success)
-        {
-            var feature = newPlace.ToFeature(MapsuiStyleExtensions.RedMarkerStyle);
-
-            PlaceLayer.TryRemove(PointFeature!);
-            PlaceLayer.Add(feature);
-            MapControl.Refresh();
-
-            MessageBox.Show("Operation successful");
-        }
-        else MessageBox.Show("Operation failed");
-    }
-
-    private void RefreshTreeViewCountryGroup(TPlace placeToDelete)
+    private void RemovePlaceTreeViewCountryGroup(TPlace placeToDelete)
     {
         var countryToRemove = CountryGroups
             .FirstOrDefault(countryGroup => countryGroup.CityGroups != null &&
@@ -218,6 +201,23 @@ public partial class LocationManagementPage
         if (cityToRemove?.Places?.Count == 0) countryToRemove?.CityGroups?.Remove(cityToRemove);
 
         if (countryToRemove?.CityGroups?.Count == 0) CountryGroups.Remove(countryToRemove);
+    }
+
+    // TODO work
+    private void ProcessNewPlace(TPlace newPlace)
+    {
+        var (success, _) = newPlace.AddOrEdit();
+        if (success)
+        {
+            var feature = newPlace.ToFeature(MapsuiStyleExtensions.RedMarkerStyle);
+
+            PlaceLayer.TryRemove(PointFeature!);
+            PlaceLayer.Add(feature);
+            MapControl.Refresh();
+
+            MessageBox.Show("Operation successful");
+        }
+        else MessageBox.Show("Operation failed");
     }
 
     private void SetClickTPlace(MapInfo mapInfo)
