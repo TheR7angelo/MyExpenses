@@ -7,6 +7,7 @@ using MyExpenses.Models.AutoMapper;
 using MyExpenses.Models.Sql.Tables;
 using MyExpenses.Models.WebApi.Nominatim;
 using MyExpenses.WebApi.Nominatim;
+using MyExpenses.Wpf.Resources.Resx.Windows.AddEditLocationWindow;
 using MyExpenses.Wpf.Utils;
 using MyExpenses.Wpf.Utils.Maps;
 using Serilog;
@@ -37,7 +38,6 @@ public partial class AddEditLocationWindow
 
     #region Function
 
-    //TODO work
     private void HandleNominatimResult(IReadOnlyCollection<NominatimSearchResult> nominatimSearchResults)
     {
         TPlace? place = null;
@@ -46,15 +46,15 @@ public partial class AddEditLocationWindow
         switch (nominatimSearchResults.Count)
         {
             case 0:
-                MessageBox.Show("No results found.");
+                MessageBox.Show(AddEditLocationWindowResources.HandleNominatimResultZeroResult);
                 break;
             case 1:
-                MessageBox.Show("One results found.");
+                MessageBox.Show(AddEditLocationWindowResources.HandleNominatimResultOneResult);
                 var nominatimSearchResult = nominatimSearchResults.First();
                 place = mapper.Map<TPlace>(nominatimSearchResult);
                 break;
             case > 1:
-                MessageBox.Show("Multiple results found. Please select one.");
+                MessageBox.Show(AddEditLocationWindowResources.HandleNominatimResultMultipleResult);
 
                 var places = nominatimSearchResults.Select(s => mapper.Map<TPlace>(s));
                 var nominatimSearchWindows = new NominatimSearchWindows();
