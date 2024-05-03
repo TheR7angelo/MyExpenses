@@ -1,6 +1,5 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Globalization;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
@@ -175,7 +174,7 @@ public partial class DashBoardPage : INotifyPropertyChanged
         var categoriesTotals = brutCategoriesTotals
             .Where(s => s.Year == dateTime.Year && s.Month == dateTime.Month)
             .GroupBy(s => s.Category)
-            .Select(g => new { Category = g.Key, Total = g.Sum(s => s.Value) ?? 0 })
+            .Select(g => new { Category = g.Key, Total = g.Sum(s => s.Value) ?? 0d, Symbol = g.First().Symbol })
             .ToList();
 
         var grandTotal = Math.Round(categoriesTotals.Sum(ct => Math.Abs(ct.Total)), 2);
@@ -192,7 +191,7 @@ public partial class DashBoardPage : INotifyPropertyChanged
             {
                 Values = new ObservableCollection<double> { absTotal },
                 Name = $"{categoryTotal.Category} ({percentage}%)",
-                ToolTipLabelFormatter = _ => total.ToString(CultureInfo.CurrentCulture),
+                ToolTipLabelFormatter = _ => $"{total:F2} {categoryTotal.Symbol}",
                 Tag = categories.First(s => s.Name == categoryTotal.Category)
             };
             series.Add(pieSeries);
