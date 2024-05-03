@@ -20,4 +20,24 @@ public static class ObservableCollectionExtensions
             collection.Add(item);
         }
     }
+
+    /// <summary>
+    /// Adds an item to the ObservableCollection and sorts it based on the specified key selector.
+    /// </summary>
+    /// <typeparam name="T">The type of the elements in the ObservableCollection.</typeparam>
+    /// <param name="collection">The ObservableCollection to add the item to.</param>
+    /// <param name="item">The item to add.</param>
+    /// <param name="keySelector">A function to extract the sort key from each element.</param>
+    /// <exception cref="ArgumentNullException">Thrown when the collection is null.</exception>
+    public static void AddAndSort<T>(this ObservableCollection<T> collection, T item, Func<T, string> keySelector)
+    {
+        ArgumentNullException.ThrowIfNull(collection);
+
+        var tempList = collection.ToList();
+        tempList.Add(item);
+        tempList.Sort((x, y) => string.Compare(keySelector(x), keySelector(y), StringComparison.Ordinal));
+
+        var index = tempList.IndexOf(item);
+        collection.Insert(index, item);
+    }
 }
