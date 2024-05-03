@@ -198,7 +198,7 @@ public partial class LocationManagementPage
 
         if (cityGroup is null)
         {
-            var newCityGroup = new CityGroup { City = placeToAdd.City, Places = new ObservableCollection<TPlace> { placeToAdd } };
+            var newCityGroup = new CityGroup { City = placeToAdd.City, Places = [placeToAdd] };
 
             var countryGroup = CountryGroups.FirstOrDefault(s => s.Country == placeToAdd.Country);
             if (countryGroup is null)
