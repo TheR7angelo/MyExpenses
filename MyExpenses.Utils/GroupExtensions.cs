@@ -1,4 +1,5 @@
-﻿using MyExpenses.Models.Sql.Groups;
+﻿using System.Collections.ObjectModel;
+using MyExpenses.Models.Sql.Groups;
 using MyExpenses.Models.Sql.Tables;
 
 namespace MyExpenses.Utils;
@@ -20,12 +21,13 @@ public static class GroupExtensions
             .Select(country => new CountryGroup
             {
                 Country = country.Key ?? "Unknown",
-                CityGroups = country.GroupBy(s => s.City)
-                    .Select(city => new CityGroup
-                    {
-                        City = city.Key ?? "Unknown",
-                        Places = city.ToList()
-                    }).ToList()
+                CityGroups = new ObservableCollection<CityGroup>(
+                    country.GroupBy(s => s.City)
+                        .Select(city => new CityGroup
+                        {
+                            City = city.Key ?? "Unknown",
+                            Places = new ObservableCollection<TPlace>(city.ToList())
+                        }).ToList())
             }).ToList();
         return groupedPlacesByCountryCity;
     }

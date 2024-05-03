@@ -1,7 +1,9 @@
-﻿namespace MyExpenses.Models.Sql.Groups;
+﻿using System.Collections.ObjectModel;
+
+namespace MyExpenses.Models.Sql.Groups;
 
 public class CountryGroup
 {
     public string? Country { get; set; }
-    public List<CityGroup>? CityGroups { get; set; }
+    public ObservableCollection<CityGroup>? CityGroups { get; set; }
 }

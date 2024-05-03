@@ -1,9 +1,10 @@
-﻿using MyExpenses.Models.Sql.Tables;
+﻿using System.Collections.ObjectModel;
+using MyExpenses.Models.Sql.Tables;
 
 namespace MyExpenses.Models.Sql.Groups;
 
 public class CityGroup
 {
     public string? City { get; set; }
-    public List<TPlace>? Places { get; set; }
+    public ObservableCollection<TPlace>? Places { get; set; }
 }
