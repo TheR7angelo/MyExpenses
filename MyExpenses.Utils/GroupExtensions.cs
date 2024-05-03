@@ -20,12 +20,12 @@ public static class GroupExtensions
             .GroupBy(country => country.Country)
             .Select(country => new CountryGroup
             {
-                Country = country.Key ?? "Unknown",
+                Country = country.Key,
                 CityGroups = new ObservableCollection<CityGroup>(
                     country.GroupBy(s => s.City)
                         .Select(city => new CityGroup
                         {
-                            City = city.Key ?? "Unknown",
+                            City = city.Key,
                             Places = new ObservableCollection<TPlace>(city.ToList())
                         }).ToList())
             }).ToList();

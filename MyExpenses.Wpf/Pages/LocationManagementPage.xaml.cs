@@ -190,10 +190,6 @@ public partial class LocationManagementPage
 
     private void AddPlaceTreeViewCountryGroup(TPlace placeToAdd)
     {
-        const string unknown = "Unknown";
-        placeToAdd.Country ??= unknown;
-        placeToAdd.City ??= unknown;
-
         var cityGroup = CountryGroups.FirstOrDefault(s => s.Country == placeToAdd.Country)?.CityGroups
             ?.FirstOrDefault(s => s.City == placeToAdd.City);
 
