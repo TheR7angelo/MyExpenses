@@ -118,6 +118,7 @@ public partial class AddEditLocationWindow
         HandleNominatimResult(nominatimSearchResults);
     }
 
+    //TODO work
     private void ButtonSearchByCoordinate_OnClick(object sender, RoutedEventArgs e)
     {
         var point = Place.Geometry;
