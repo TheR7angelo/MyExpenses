@@ -35,7 +35,7 @@ public partial class LocationManagementPage
 
     public LocationManagementPage()
     {
-        KnownTileSources = MapsuiMapExtensions.GetAllKnowTileSource().ToList();
+        KnownTileSources = [..MapsuiMapExtensions.GetAllKnowTileSource()];
 
         var places = RefreshTreeViewCountryGroup();
 
