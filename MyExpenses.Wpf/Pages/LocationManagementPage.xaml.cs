@@ -90,7 +90,7 @@ public partial class LocationManagementPage
     private void MenuItemAddFeature_OnClick(object sender, RoutedEventArgs e)
     {
         var addEditLocationWindow = new AddEditLocationWindow();
-        addEditLocationWindow.SetTplace(ClickPoint);
+        addEditLocationWindow.SetPlace(ClickPoint);
         addEditLocationWindow.ShowDialog();
 
         if (addEditLocationWindow.DialogResult != true) return;
@@ -154,7 +154,7 @@ public partial class LocationManagementPage
     private void MenuItemEditFeature_OnClick(object sender, RoutedEventArgs e)
     {
         var addEditLocationWindow = new AddEditLocationWindow();
-        addEditLocationWindow.SetTplace(ClickTPlace!, false);
+        addEditLocationWindow.SetPlace(ClickTPlace!, false);
         addEditLocationWindow.ShowDialog();
 
         if (addEditLocationWindow.DialogResult != true) return;

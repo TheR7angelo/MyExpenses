@@ -67,10 +67,10 @@ public partial class AddEditLocationWindow
         }
 
         if (place is null) return;
-        SetTplace(place, true);
+        SetPlace(place, true);
     }
 
-    public void SetTplace(TPlace newTPlace, bool clear)
+    public void SetPlace(TPlace newTPlace, bool clear)
     {
         if (clear) WritableLayer.Clear();
 
@@ -78,7 +78,7 @@ public partial class AddEditLocationWindow
         UpdateMiniMap();
     }
 
-    public void SetTplace(Point point)
+    public void SetPlace(Point point)
     {
         Place.Geometry = point;
         UpdateMiniMap();
@@ -134,7 +134,7 @@ public partial class AddEditLocationWindow
 
         newPlace.Id = Place.Id;
         newPlace.DateAdded = Place.DateAdded ?? newPlace.DateAdded;
-        SetTplace(newPlace, true);
+        SetPlace(newPlace, true);
     }
 
     private void ButtonValidNewPoint_OnClick(object sender, RoutedEventArgs e)
