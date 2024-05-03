@@ -96,7 +96,9 @@ public partial class LocationManagementPage
 
         if (addEditLocationWindow.DialogResult != true) return;
 
-        ProcessNewPlace(addEditLocationWindow.Place);
+        var newPlace = addEditLocationWindow.Place;
+        ProcessNewPlace(newPlace);
+        AddPlaceTreeViewCountryGroup(newPlace);
     }
 
     private void MenuItemDeleteFeature_OnClick(object sender, RoutedEventArgs e)
@@ -159,7 +161,11 @@ public partial class LocationManagementPage
 
         if (addEditLocationWindow.DialogResult != true) return;
 
-        ProcessNewPlace(addEditLocationWindow.Place);
+        var editedPlace = addEditLocationWindow.Place;
+        ProcessNewPlace(editedPlace);
+
+        RemovePlaceTreeViewCountryGroup(editedPlace);
+        AddPlaceTreeViewCountryGroup(editedPlace);
     }
 
     private void Selector_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -181,6 +187,29 @@ public partial class LocationManagementPage
     #endregion
 
     #region Function
+
+    private void AddPlaceTreeViewCountryGroup(TPlace placeToAdd)
+    {
+        placeToAdd.Country ??= "Unknown";
+        placeToAdd.City ??= "Unknown";
+
+        var cityGroup = CountryGroups.FirstOrDefault(s => s.Country == placeToAdd.Country)?.CityGroups
+            ?.FirstOrDefault(s => s.City == placeToAdd.City);
+
+        if (cityGroup is null)
+        {
+            var newCityGroup = new CityGroup { City = placeToAdd.City, Places = new ObservableCollection<TPlace> { placeToAdd } };
+
+            var countryGroup = CountryGroups.FirstOrDefault(s => s.Country == placeToAdd.Country);
+            if (countryGroup is null)
+                CountryGroups.Add(new CountryGroup { Country = placeToAdd.Country, CityGroups = [newCityGroup] });
+            else countryGroup.CityGroups?.Add(newCityGroup);
+        }
+        else
+        {
+            cityGroup.Places?.Add(placeToAdd);
+        }
+    }
 
     // TODO work
     private void ProcessNewPlace(TPlace newPlace)
