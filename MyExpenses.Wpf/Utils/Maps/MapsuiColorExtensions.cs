@@ -5,13 +5,13 @@ namespace MyExpenses.Wpf.Utils.Maps;
 
 public static class MapsuiColorExtensions
 {
-    public static global::Mapsui.Styles.Color ToColor(this SolidColorBrush solidBrush)
+    public static global::Mapsui.Styles.Color ToMapsuiColor(this SolidColorBrush solidBrush)
     {
         var baseColor = solidBrush.Color;
-        return baseColor.ToColor();
+        return baseColor.ToMapsuiColor();
     }
 
-    public static Mapsui.Styles.Color ToColor(this Color baseColor)
+    public static Mapsui.Styles.Color ToMapsuiColor(this Color baseColor)
     {
         var color = new Mapsui.Styles.Color(baseColor.R, baseColor.G, baseColor.B, baseColor.A);
         return color;

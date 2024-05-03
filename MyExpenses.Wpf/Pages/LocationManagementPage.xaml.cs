@@ -46,7 +46,7 @@ public partial class LocationManagementPage
 
         // TODO add listener color change
         var brush = (SolidColorBrush)FindResource("MaterialDesignPaper");
-        var backColor = brush.ToColor();
+        var backColor = brush.ToMapsuiColor();
 
         var map = MapsuiMapExtensions.GetMap(true, backColor);
         map.Layers.Add(PlaceLayer);
