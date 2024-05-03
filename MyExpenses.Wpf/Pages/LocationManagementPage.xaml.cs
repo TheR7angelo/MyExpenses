@@ -87,7 +87,6 @@ public partial class LocationManagementPage
         SetClickTPlace(mapInfo);
     }
 
-    //TODO add feature to treeView
     private void MenuItemAddFeature_OnClick(object sender, RoutedEventArgs e)
     {
         var addEditLocationWindow = new AddEditLocationWindow();
@@ -152,7 +151,6 @@ public partial class LocationManagementPage
         }
     }
 
-    //TODO remove feature and insert new feature to treeView
     private void MenuItemEditFeature_OnClick(object sender, RoutedEventArgs e)
     {
         var addEditLocationWindow = new AddEditLocationWindow();
