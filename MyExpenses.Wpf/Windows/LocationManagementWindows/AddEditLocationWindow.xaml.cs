@@ -9,6 +9,7 @@ using MyExpenses.Models.WebApi.Nominatim;
 using MyExpenses.WebApi.Nominatim;
 using MyExpenses.Wpf.Utils;
 using MyExpenses.Wpf.Utils.Maps;
+using Serilog;
 using Point = NetTopologySuite.Geometries.Point;
 
 namespace MyExpenses.Wpf.Windows.LocationManagementWindows;
@@ -114,23 +115,32 @@ public partial class AddEditLocationWindow
     private void ButtonSearchByAddress_OnClick(object sender, RoutedEventArgs e)
     {
         var address = Place.ToString();
+        Log.Information("Using the nominatim API to search via an address : \"{Address}\"", address);
+
         var nominatimSearchResults = address.ToNominatim()?.ToList() ?? [];
+
+        Log.Information("The API returned \"{Count}\" result(s)", nominatimSearchResults.Count);
         HandleNominatimResult(nominatimSearchResults);
     }
 
-    //TODO work
     private void ButtonSearchByCoordinate_OnClick(object sender, RoutedEventArgs e)
     {
         var point = Place.Geometry;
+        Log.Information("Using the nominatim API to search via a point : {Point}", point);
+
         var nominatimSearchResult = point.ToNominatim();
 
         var mapper = Mapping.Mapper;
         var newPlace = mapper.Map<TPlace>(nominatimSearchResult);
         if (newPlace is null)
         {
-            MessageBox.Show("No results found.");
+            Log.Information("The API returned no result(s)");
+
+            MessageBox.Show(AddEditLocationWindowResources.ButtonSearchByCoordinateMessageBoxError);
             return;
         }
+
+        Log.Information("The API returned one result");
 
         newPlace.Id = Place.Id;
         newPlace.DateAdded = Place.DateAdded ?? newPlace.DateAdded;
