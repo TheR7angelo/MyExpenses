@@ -55,14 +55,14 @@ public partial class AddEditLocationWindow
             case > 1:
                 MessageBox.Show("Multiple results found. Please select one.");
 
-                // var places = nominatimSearchResults.Select(s => mapper.Map<TPlace>(s));
-                // var selectNominatimSearchResult = new WindowSelectNominatimSearchResult();
-                // selectNominatimSearchResult.AddRange(places);
-                // selectNominatimSearchResult.ShowDialog();
-                //
-                // if (!selectNominatimSearchResult.DialogResult.Equals(true)) return;
-                //
-                // place = mapper.Map<TPlace>(selectNominatimSearchResult.CurrentPlace);
+                var places = nominatimSearchResults.Select(s => mapper.Map<TPlace>(s));
+                var nominatimSearchWindows = new NominatimSearchWindows();
+                nominatimSearchWindows.AddRange(places);
+                nominatimSearchWindows.ShowDialog();
+
+                if (!nominatimSearchWindows.DialogResult.Equals(true)) return;
+
+                place = mapper.Map<TPlace>(nominatimSearchWindows.CurrentPlace);
                 break;
         }
 
