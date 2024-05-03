@@ -202,12 +202,18 @@ public partial class LocationManagementPage
 
             var countryGroup = CountryGroups.FirstOrDefault(s => s.Country == placeToAdd.Country);
             if (countryGroup is null)
-                CountryGroups.Add(new CountryGroup { Country = placeToAdd.Country, CityGroups = [newCityGroup] });
-            else countryGroup.CityGroups?.Add(newCityGroup);
+            {
+                var newGroupCountry = new CountryGroup { Country = placeToAdd.Country, CityGroups = [newCityGroup] };
+                CountryGroups.AddAndSort(newGroupCountry, s => s.Country ?? string.Empty);
+            }
+            else
+            {
+                countryGroup.CityGroups?.AddAndSort(newCityGroup, s => s.City ?? string.Empty);
+            }
         }
         else
         {
-            cityGroup.Places?.Add(placeToAdd);
+            cityGroup.Places?.AddAndSort(placeToAdd, s => s.Name ?? string.Empty);
         }
     }
 
