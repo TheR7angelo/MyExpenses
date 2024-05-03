@@ -36,6 +36,7 @@ public partial class AddEditLocationWindow
 
     #region Function
 
+    //TODO work
     private void HandleNominatimResult(IReadOnlyCollection<NominatimSearchResult> nominatimSearchResults)
     {
         TPlace? place = null;
