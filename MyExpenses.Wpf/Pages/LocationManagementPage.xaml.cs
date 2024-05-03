@@ -23,7 +23,7 @@ namespace MyExpenses.Wpf.Pages;
 
 public partial class LocationManagementPage
 {
-    public ObservableCollection<CountryGroup> CountryGroups { get; } = [];
+    public ObservableCollection<CountryGroup> CountryGroups { get; }
     public List<KnownTileSource> KnownTileSources { get; }
     public KnownTileSource KnownTileSourceSelected { get; set; }
 
@@ -37,7 +37,11 @@ public partial class LocationManagementPage
     {
         KnownTileSources = [..MapsuiMapExtensions.GetAllKnowTileSource()];
 
-        var places = RefreshTreeViewCountryGroup();
+        using var context = new DataBaseContext();
+        var places = context.TPlaces.OrderBy(s => s.Country).ThenBy(s => s.City).ThenBy(s => s.Name).ToList();
+        var groups = places.GetGroups();
+
+        CountryGroups = [..groups];
 
         var features = places
             .Where(s => s.Latitude != null && s.Latitude != 0 && s.Longitude != null && s.Longitude != 0)
@@ -133,7 +137,7 @@ public partial class LocationManagementPage
                 Log.Information("Place and all relative element was successfully removed");
                 MessageBox.Show(LocationManagementPageResources.MessageBoxMenuItemDeleteFeatureUseSuccess);
 
-                RefreshTreeViewCountryGroup();
+                RefreshTreeViewCountryGroup(placeToDelete);
 
                 MapControl.Refresh();
             }
@@ -192,6 +196,36 @@ public partial class LocationManagementPage
             MessageBox.Show("Operation successful");
         }
         else MessageBox.Show("Operation failed");
+    }
+
+    private void RefreshTreeViewCountryGroup(TPlace placeToDelete)
+    {
+        var deleted = false;
+        foreach (var countryGroup in CountryGroups)
+        {
+            if (countryGroup.CityGroups is null || countryGroup.CityGroups.Count.Equals(0)) continue;
+
+            foreach (var cityGroup in countryGroup.CityGroups)
+            {
+                if (cityGroup.Places is null || cityGroup.Places.Count.Equals(0)) continue;
+
+                foreach (var place in cityGroup.Places)
+                {
+                    if (placeToDelete.Id != place.Id) continue;
+                    cityGroup.Places.Remove(place);
+                    deleted = true;
+                    break;
+                }
+
+                if (!deleted) continue;
+                if (cityGroup.Places.Count.Equals(0)) countryGroup.CityGroups.Remove(cityGroup);
+                break;
+            }
+
+            if (!deleted) continue;
+            if (countryGroup.CityGroups.Count.Equals(0)) CountryGroups.Remove(countryGroup);
+            break;
+        }
     }
 
     private void SetClickTPlace(MapInfo mapInfo)
@@ -278,16 +312,5 @@ public partial class LocationManagementPage
     {
         var s = ClickPoint.ToNominatim();
         Console.WriteLine(s);
-    }
-
-    private List<TPlace> RefreshTreeViewCountryGroup()
-    {
-        using var context = new DataBaseContext();
-        var places = context.TPlaces.OrderBy(s => s.Country).ThenBy(s => s.City).ThenBy(s => s.Name).ToList();
-        var groups = places.GetGroups();
-
-        CountryGroups.Clear();
-        CountryGroups.AddRange(groups);
-        return places;
     }
 }
