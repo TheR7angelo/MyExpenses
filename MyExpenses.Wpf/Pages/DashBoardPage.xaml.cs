@@ -129,8 +129,10 @@ public partial class DashBoardPage : INotifyPropertyChanged
 
         var name = vTotalByAccount.Name;
         if (string.IsNullOrEmpty(name)) return;
-        UpdateGraph(name);
-        RefreshDataGrid(name);
+
+        var dateTime = DateTime.Now;
+        UpdateGraph(name, dateTime);
+        RefreshDataGrid(name, dateTime);
     }
 
     #endregion
@@ -144,12 +146,13 @@ public partial class DashBoardPage : INotifyPropertyChanged
         VTotalByAccounts.AddRange([..context.VTotalByAccounts]);
     }
 
-    private void RefreshDataGrid(string name)
+    private void RefreshDataGrid(string name, DateTime dateTime)
     {
         using var context = new DataBaseContext();
         VHistories.Clear();
         var records = context.VHistories
             .Where(s => s.Account == name)
+            .Where(s => s.Date!.Value.Year == dateTime.Year && s.Date!.Value.Month == dateTime.Month)
             .OrderBy(s => s.Pointed).ThenByDescending(s => s.Date);
         VHistories.AddRange(records);
     }
@@ -162,16 +165,15 @@ public partial class DashBoardPage : INotifyPropertyChanged
         radioButton.IsChecked = true;
     }
 
-    private void UpdateGraph(string accountName)
+    private void UpdateGraph(string accountName, DateTime dateTime)
     {
         using var context = new DataBaseContext();
         var categories = context.TCategoryTypes.ToList();
         var brutCategoriesTotals = context.VDetailTotalCategories
             .Where(s => s.Account == accountName);
 
-        var now = DateTime.Now;
         var categoriesTotals = brutCategoriesTotals
-            .Where(s => s.Year == now.Year && s.Month == now.Month)
+            .Where(s => s.Year == dateTime.Year && s.Month == dateTime.Month)
             .GroupBy(s => s.Category)
             .Select(g => new { Category = g.Key, Total = g.Sum(s => s.Value) ?? 0 })
             .ToList();
