@@ -200,32 +200,24 @@ public partial class LocationManagementPage
 
     private void RefreshTreeViewCountryGroup(TPlace placeToDelete)
     {
-        var deleted = false;
-        foreach (var countryGroup in CountryGroups)
-        {
-            if (countryGroup.CityGroups is null || countryGroup.CityGroups.Count.Equals(0)) continue;
+        var countryToRemove = CountryGroups
+            .FirstOrDefault(countryGroup => countryGroup.CityGroups != null &&
+                                            countryGroup.CityGroups.Any(cityGroup => cityGroup.Places != null &&
+                                                cityGroup.Places.Any(place => place.Id == placeToDelete.Id)));
 
-            foreach (var cityGroup in countryGroup.CityGroups)
-            {
-                if (cityGroup.Places is null || cityGroup.Places.Count.Equals(0)) continue;
+        var cityToRemove = countryToRemove?
+            .CityGroups?.FirstOrDefault(cityGroup => cityGroup.Places != null &&
+                                                     cityGroup.Places.Any(place => place.Id == placeToDelete.Id));
 
-                foreach (var place in cityGroup.Places)
-                {
-                    if (placeToDelete.Id != place.Id) continue;
-                    cityGroup.Places.Remove(place);
-                    deleted = true;
-                    break;
-                }
+        var placeToRemove = cityToRemove?.Places?
+            .FirstOrDefault(place => place.Id == placeToDelete.Id);
+        if (placeToRemove is null) return;
 
-                if (!deleted) continue;
-                if (cityGroup.Places.Count.Equals(0)) countryGroup.CityGroups.Remove(cityGroup);
-                break;
-            }
+        cityToRemove?.Places?.Remove(placeToRemove);
 
-            if (!deleted) continue;
-            if (countryGroup.CityGroups.Count.Equals(0)) CountryGroups.Remove(countryGroup);
-            break;
-        }
+        if (cityToRemove?.Places?.Count == 0) countryToRemove?.CityGroups?.Remove(cityToRemove);
+
+        if (countryToRemove?.CityGroups?.Count == 0) CountryGroups.Remove(countryToRemove);
     }
 
     private void SetClickTPlace(MapInfo mapInfo)
