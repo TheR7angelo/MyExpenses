@@ -33,9 +33,6 @@
                  TextElement.Foreground="{DynamicResource MaterialDesignBody}"
                  DataContext="{Binding RelativeSource={RelativeSource Self}}">
 
-    <!-- Height="427" -->
-    <!-- Width="666" -->
-
     <Grid utils:PanelExtensions.MarginForAllChildren="5">
 
         <Grid.RowDefinitions>
