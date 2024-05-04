@@ -1,4 +1,6 @@
 ﻿using System.Collections.ObjectModel;
+using System.Windows;
+using System.Windows.Controls;
 using MyExpenses.Models.Sql.Views;
 using MyExpenses.Sql.Context;
 
@@ -15,4 +17,16 @@ public partial class AccountManagementPage
 
         InitializeComponent();
     }
+
+    #region Action
+
+    private void ButtonVAccount_OnClick(object sender, RoutedEventArgs e)
+    {
+        var button = (Button)sender;
+        var vTotalByAccount = button.DataContext as VTotalByAccount;
+
+        Console.WriteLine(vTotalByAccount?.Id);
+    }
+
+    #endregion
 }

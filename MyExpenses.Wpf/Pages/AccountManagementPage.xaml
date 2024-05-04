@@ -38,8 +38,10 @@
             <ItemsControl.ItemTemplate>
                 <DataTemplate>
 
-                    <Button Height="{Binding Height, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource Self}}"
-                        Style="{StaticResource MaterialDesignPaperButton}">
+                    <Button
+                        Height="{Binding Height, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource Self}}"
+                        Style="{StaticResource MaterialDesignPaperButton}"
+                        Click="ButtonVAccount_OnClick">
 
                         <Button.Content>
                             <StackPanel Orientation="Vertical"
