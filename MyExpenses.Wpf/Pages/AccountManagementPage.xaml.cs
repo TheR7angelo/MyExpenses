@@ -20,6 +20,11 @@ public partial class AccountManagementPage
 
     #region Action
 
+    private void ButtonAddNewAccount_OnClick(object sender, RoutedEventArgs e)
+    {
+        Console.WriteLine("Need to create new account");
+    }
+
     private void ButtonVAccount_OnClick(object sender, RoutedEventArgs e)
     {
         var button = (Button)sender;

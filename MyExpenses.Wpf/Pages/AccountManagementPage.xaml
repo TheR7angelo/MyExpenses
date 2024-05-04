@@ -23,56 +23,75 @@
         <converters:TotalToIconConverter x:Key="TotalToIconConverter" />
     </Page.Resources>
 
-    <Grid>
+    <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
 
-        <ItemsControl ItemsSource="{Binding TotalByAccounts}">
+        <StackPanel utils:PanelExtensions.MarginForAllChildren="5"
+                    Orientation="Vertical"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center">
 
-            <ItemsControl.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <WrapPanel utils:PanelExtensions.MarginForAllChildren="5"
-                               Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-                    </WrapPanel>
-                </ItemsPanelTemplate>
-            </ItemsControl.ItemsPanel>
+            <Button Height="56"
+                    Width="{Binding Height, RelativeSource={RelativeSource Self}}"
+                    Style="{StaticResource MaterialDesignFloatingActionDarkButton}"
+                    Click="ButtonAddNewAccount_OnClick">
+                <Button.Content>
+                    <materialDesign:PackIcon Kind="Plus"
+                                             Height="{Binding Height, RelativeSource={RelativeSource AncestorType=Button}}"
+                                             Width="{Binding Height, RelativeSource={RelativeSource AncestorType=Button}}">
+                    </materialDesign:PackIcon>
+                </Button.Content>
+            </Button>
 
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
+            <ItemsControl ItemsSource="{Binding TotalByAccounts}">
 
-                    <Button
-                        Height="{Binding Height, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource Self}}"
-                        Style="{StaticResource MaterialDesignPaperButton}"
-                        Click="ButtonVAccount_OnClick">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel utils:PanelExtensions.MarginForAllChildren="5"
+                                   Orientation="Horizontal">
+                        </WrapPanel>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
 
-                        <Button.Content>
-                            <StackPanel Orientation="Vertical"
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
 
-                                <materialDesign:PackIcon
-                                    Kind="{Binding Total, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource TotalToIconConverter}}"
-                                    Height="96" Width="96"
-                                    HorizontalAlignment="Center">
-                                </materialDesign:PackIcon>
+                        <Button
+                            Height="{Binding Height, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource Self}}"
+                            Style="{StaticResource MaterialDesignPaperButton}"
+                            Click="ButtonVAccount_OnClick">
 
-                                <TextBlock Text="{Binding Name}"
-                                           TextAlignment="Center" TextWrapping="Wrap"
-                                           HorizontalAlignment="Center" VerticalAlignment="Center">
-                                </TextBlock>
+                            <Button.Content>
+                                <StackPanel Orientation="Vertical"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center">
 
-                                <Label Content="{Binding Symbol}"
-                                       HorizontalAlignment="Center" VerticalAlignment="Center"
-                                       HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
-                                </Label>
+                                    <materialDesign:PackIcon
+                                        Kind="{Binding Total, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource TotalToIconConverter}}"
+                                        Height="96" Width="96"
+                                        HorizontalAlignment="Center">
+                                    </materialDesign:PackIcon>
 
-                            </StackPanel>
-                        </Button.Content>
+                                    <TextBlock Text="{Binding Name}"
+                                               TextAlignment="Center" TextWrapping="Wrap"
+                                               HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    </TextBlock>
 
-                    </Button>
+                                    <Label Content="{Binding Symbol}"
+                                           HorizontalAlignment="Center" VerticalAlignment="Center"
+                                           HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+                                    </Label>
 
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
+                                </StackPanel>
+                            </Button.Content>
 
-        </ItemsControl>
+                        </Button>
+
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+
+            </ItemsControl>
+
+        </StackPanel>
 
     </Grid>
 
