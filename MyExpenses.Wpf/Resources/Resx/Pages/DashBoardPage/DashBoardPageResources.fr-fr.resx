@@ -44,4 +44,7 @@
     <data name="ButtonLocationManagement" xml:space="preserve">
         <value>Gestion des emplacements</value>
     </data>
+    <data name="ButtonAccountManagement" xml:space="preserve">
+        <value>Gestion des comptes</value>
+    </data>
 </root>

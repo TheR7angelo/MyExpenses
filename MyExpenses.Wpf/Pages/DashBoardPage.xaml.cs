@@ -62,6 +62,7 @@ public partial class DashBoardPage : INotifyPropertyChanged
     #region Button WrapPanel
 
     public string ButtonAddAccount { get; } = DashBoardPageResources.ButtonAddAccount;
+    public string ButtonAccountManagement { get; } = DashBoardPageResources.ButtonAccountManagement;
     public string ButtonLocationManagement { get; } = DashBoardPageResources.ButtonLocationManagement;
 
     #endregion
@@ -124,6 +125,9 @@ public partial class DashBoardPage : INotifyPropertyChanged
             MessageBox.Show(DashBoardPageResources.MessageBoxAddAccountError);
         }
     }
+
+    private void ButtonAccountManagement_OnClick(object sender, RoutedEventArgs e)
+        => nameof(MainWindow.FrameBody).NavigateTo(typeof(AccountManagementPage));
 
     private void ButtonLocationManagement_OnClick(object sender, RoutedEventArgs e)
         => nameof(MainWindow.FrameBody).NavigateTo(typeof(LocationManagementPage));

@@ -64,7 +64,16 @@ namespace MyExpenses.Wpf.Resources.Resx.Pages.DashBoardPage {
                 return ResourceManager.GetString("ButtonAddAccount", resourceCulture);
             }
         }
-        
+
+        /// <summary>
+        ///   Looks up a localized string similar to Account management.
+        /// </summary>
+        internal static string ButtonAccountManagement {
+            get {
+                return ResourceManager.GetString("ButtonAccountManagement", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to Location management.
         /// </summary>
