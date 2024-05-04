@@ -356,7 +356,8 @@ FROM t_history h
 
 DROP VIEW IF EXISTS v_total_by_account;
 CREATE VIEW v_total_by_account AS
-SELECT ta.name,
+SELECT ta.id,
+       ta.name,
        ROUND(SUM(th.value), 2) AS total,
        tc.symbol
 FROM t_account ta
