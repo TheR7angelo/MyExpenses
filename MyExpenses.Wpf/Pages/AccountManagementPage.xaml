@@ -4,6 +4,9 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:MyExpenses.Wpf.Pages"
+      xmlns:utils="clr-namespace:MyExpenses.Wpf.Utils;assembly=MyExpenses.Wpf.Utils"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:converters="clr-namespace:MyExpenses.Wpf.Converters"
       mc:Ignorable="d"
 
       Title="AccountManagementPage"
@@ -16,8 +19,59 @@
 
       DataContext="{Binding RelativeSource={RelativeSource Self}}">
 
+    <Page.Resources>
+        <converters:TotalToIconConverter x:Key="TotalToIconConverter" />
+    </Page.Resources>
+
     <Grid>
-        
+
+        <ItemsControl ItemsSource="{Binding TotalByAccounts}">
+
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel utils:PanelExtensions.MarginForAllChildren="5"
+                               Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                    </WrapPanel>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+
+                    <Button Height="{Binding Height, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource Self}}"
+                        Style="{StaticResource MaterialDesignPaperButton}">
+
+                        <Button.Content>
+                            <StackPanel Orientation="Vertical"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center">
+
+                                <materialDesign:PackIcon
+                                    Kind="{Binding Total, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource TotalToIconConverter}}"
+                                    Height="96" Width="96"
+                                    HorizontalAlignment="Center">
+                                </materialDesign:PackIcon>
+
+                                <TextBlock Text="{Binding Name}"
+                                           TextAlignment="Center" TextWrapping="Wrap"
+                                           HorizontalAlignment="Center" VerticalAlignment="Center">
+                                </TextBlock>
+
+                                <Label Content="{Binding Symbol}"
+                                       HorizontalAlignment="Center" VerticalAlignment="Center"
+                                       HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+                                </Label>
+
+                            </StackPanel>
+                        </Button.Content>
+
+                    </Button>
+
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+
+        </ItemsControl>
+
     </Grid>
 
 </Page>
