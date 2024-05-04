@@ -1,17 +1,17 @@
 ﻿using System.Collections.ObjectModel;
-using MyExpenses.Models.Sql.Tables;
+using MyExpenses.Models.Sql.Views;
 using MyExpenses.Sql.Context;
 
 namespace MyExpenses.Wpf.Pages;
 
 public partial class AccountManagementPage
 {
-    public ObservableCollection<TAccount> Accounts { get; }
+    public ObservableCollection<VTotalByAccount> TotalByAccounts { get; }
 
     public AccountManagementPage()
     {
         using var context = new DataBaseContext();
-        Accounts = [..context.TAccounts];
+        TotalByAccounts = [..context.VTotalByAccounts];
 
         InitializeComponent();
     }
