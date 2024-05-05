@@ -39,8 +39,15 @@ public partial class AddEditAccountWindow
     public string HintAssistTextBoxAccountStartingBalanceDescription { get; } = AddAccountWindowResources.TextBoxAccountStartingBalanceDescription;
 
     #endregion
-    public string LabelIsAccountActive { get; } = AddAccountWindowResources.LabelIsAccountActive;
 
+    #region Button
+
+    public string ButtonCancelContent { get; } = AddAccountWindowResources.ButtonCancelContent;
+    public string ButtonDeleteContent { get; } = AddAccountWindowResources.ButtonDeleteContent;
+    public string ButtonValidContent { get; } = AddAccountWindowResources.ButtonValidContent;
+
+    #endregion
+    public string LabelIsAccountActive { get; } = AddAccountWindowResources.LabelIsAccountActive;
     private string MsgBoxErrorAccountNameAlreadyExists { get; } = AddAccountWindowResources.MsgBoxErrorAccountNameAlreadyExists;
 
     #endregion

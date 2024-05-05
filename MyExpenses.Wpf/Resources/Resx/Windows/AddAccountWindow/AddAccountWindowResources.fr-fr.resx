@@ -59,4 +59,13 @@
     <data name="MessageBoxAddCurrencyError" xml:space="preserve">
         <value>Une erreur s'est produite, veuillez réessayer</value>
     </data>
+    <data name="ButtonValidContent" xml:space="preserve">
+        <value>Valider</value>
+    </data>
+    <data name="ButtonDeleteContent" xml:space="preserve">
+        <value>Supprimer</value>
+    </data>
+    <data name="ButtonCancelContent" xml:space="preserve">
+        <value>Annuler</value>
+    </data>
 </root>

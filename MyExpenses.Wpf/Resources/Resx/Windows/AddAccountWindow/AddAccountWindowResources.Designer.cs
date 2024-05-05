@@ -199,5 +199,32 @@ namespace MyExpenses.Wpf.Resources.Resx.Windows.AddAccountWindow {
                 return ResourceManager.GetString("TextBoxAccountStartingBalanceDescription", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to button valid content.
+        /// </summary>
+        internal static string ButtonValidContent {
+            get {
+                return ResourceManager.GetString("ButtonValidContent", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to button delete content.
+        /// </summary>
+        internal static string ButtonDeleteContent {
+            get {
+                return ResourceManager.GetString("ButtonDeleteContent", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to button cancel content.
+        /// </summary>
+        internal static string ButtonCancelContent {
+            get {
+                return ResourceManager.GetString("ButtonCancelContent", resourceCulture);
+            }
+        }
     }
 }
