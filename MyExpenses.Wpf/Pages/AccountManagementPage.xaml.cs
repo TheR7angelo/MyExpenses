@@ -5,6 +5,7 @@ using System.Windows.Threading;
 using MyExpenses.Models.Sql.Tables;
 using MyExpenses.Models.Sql.Views;
 using MyExpenses.Sql.Context;
+using MyExpenses.Utils;
 using MyExpenses.Wpf.Resources.Resx.Pages.AccountManagementPage;
 using MyExpenses.Wpf.Windows;
 using Serilog;
@@ -47,6 +48,10 @@ public partial class AccountManagementPage
         {
             Log.Information("Account was successfully added");
             MessageBox.Show(AccountManagementPageResources.MessageBoxAddAccountSuccess);
+
+            using var context = new DataBaseContext();
+            var newVTotalByAccount = context.VTotalByAccounts.First(s => s.Id == newAccount.Id);
+            TotalByAccounts.AddAndSort(newVTotalByAccount, s => s.Name!);
 
             DashBoardPage.RefreshAccountTotal();
             Application.Current.Dispatcher.InvokeAsync(DashBoardPage.RefreshRadioButtonSelected, DispatcherPriority.ContextIdle);
