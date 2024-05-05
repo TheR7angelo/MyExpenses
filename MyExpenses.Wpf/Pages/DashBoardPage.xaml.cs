@@ -156,7 +156,7 @@ public partial class DashBoardPage : INotifyPropertyChanged
 
     #region Function
 
-    private void RefreshAccountTotal()
+    internal void RefreshAccountTotal()
     {
         using var context = new DataBaseContext();
         VTotalByAccounts.Clear();
@@ -174,7 +174,7 @@ public partial class DashBoardPage : INotifyPropertyChanged
         VHistories.AddRange(records);
     }
 
-    private void RefreshRadioButtonSelected()
+    internal void RefreshRadioButtonSelected()
     {
         var radioButtons = ItemsControlVTotalAccount.FindVisualChildren<RadioButton>();
         var radioButton = radioButtons.FirstOrDefault();
