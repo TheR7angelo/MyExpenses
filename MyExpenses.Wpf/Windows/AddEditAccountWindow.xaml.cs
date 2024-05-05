@@ -14,6 +14,8 @@ namespace MyExpenses.Wpf.Windows;
 
 public partial class AddEditAccountWindow
 {
+    #region DependecyProperty
+
     public static readonly DependencyProperty EnableStartingBalanceProperty =
         DependencyProperty.Register(nameof(EnableStartingBalance), typeof(bool), typeof(AddEditAccountWindow),
             new PropertyMetadata(default(bool)));
@@ -22,19 +24,30 @@ public partial class AddEditAccountWindow
         DependencyProperty.Register(nameof(EditAccount), typeof(bool), typeof(AddEditAccountWindow),
             new PropertyMetadata(default(bool)));
 
+    #endregion
+
     #region Resx
 
     public string HintAssistTextBoxAccountName { get; } = AddAccountWindowResources.TextBoxAccountName;
     public string HintAssistComboBoxAccountType { get; } = AddAccountWindowResources.ComboBoxAccountType;
     public string HintAssistComboBoxAccountCurrency { get; } = AddAccountWindowResources.ComboBoxAccountCurrency;
     public string LabelIsAccountActive { get; } = AddAccountWindowResources.LabelIsAccountActive;
-    public string HintAssistTextBoxAccountStartingBalance { get; } = AddAccountWindowResources.TextBoxAccountStartingBalance;
 
-    public string HintAssistTextBoxAccountStartingBalanceDescription { get; } = AddAccountWindowResources.TextBoxAccountStartingBalanceDescription;
-    public string HintAssistComboBoxAccountCategoryType { get; } = AddAccountWindowResources.ComboBoxAccountCategoryType;
-    private string MsgBoxErrorAccountNameAlreadyExists { get; } = AddAccountWindowResources.MsgBoxErrorAccountNameAlreadyExists;
+    public string HintAssistTextBoxAccountStartingBalance { get; } =
+        AddAccountWindowResources.TextBoxAccountStartingBalance;
+
+    public string HintAssistTextBoxAccountStartingBalanceDescription { get; } =
+        AddAccountWindowResources.TextBoxAccountStartingBalanceDescription;
+
+    public string HintAssistComboBoxAccountCategoryType { get; } =
+        AddAccountWindowResources.ComboBoxAccountCategoryType;
+
+    private string MsgBoxErrorAccountNameAlreadyExists { get; } =
+        AddAccountWindowResources.MsgBoxErrorAccountNameAlreadyExists;
 
     #endregion
+
+    #region Property
 
     public TAccount Account { get; } = new();
     public THistory History { get; } = new() { Pointed = true };
@@ -63,6 +76,8 @@ public partial class AddEditAccountWindow
         set => SetValue(EditAccountProperty, value);
     }
 
+    #endregion
+
     public AddEditAccountWindow()
     {
         using var context = new DataBaseContext();
@@ -72,6 +87,100 @@ public partial class AddEditAccountWindow
         CategoryTypes = [..context.TCategoryTypes];
 
         InitializeComponent();
+    }
+
+    #region Action
+
+    private void ButtonAddAccountType_OnClick(object sender, RoutedEventArgs e)
+    {
+        var addEditAccountType = new AddEditAccountTypeWindow();
+        var result = addEditAccountType.ShowDialog();
+        if (result != true) return;
+
+        var newAccountType = addEditAccountType.AccountType;
+
+        Log.Information("Attempting to inject the new account type \"{NewAccountTypeName}\"", newAccountType.Name);
+        var (success, exception) = newAccountType.AddOrEdit();
+        if (success)
+        {
+            AccountTypes.Add(newAccountType);
+            Account.AccountTypeFk = newAccountType.Id;
+            Log.Information("Account type was successfully added");
+            MessageBox.Show(AddAccountWindowResources.MessageBoxAddAccountTypeSuccess);
+        }
+        else
+        {
+            Log.Error(exception, "An error occurred please retry");
+            MessageBox.Show(AddAccountWindowResources.MessageBoxAddAccountTypeError);
+        }
+    }
+
+    private void ButtonAddCategoryType_OnClick(object sender, RoutedEventArgs e)
+    {
+        var addEditCategoryType = new AddEditCategoryTypeWindow();
+        var result = addEditCategoryType.ShowDialog();
+        if (result != true) return;
+
+        var newCategoryType = addEditCategoryType.CategoryType;
+
+        Log.Information("Attempting to inject the new category type \"{NewCategoryTypeName}\"", newCategoryType.Name);
+        var (success, exception) = newCategoryType.AddOrEdit();
+        if (success)
+        {
+            CategoryTypes.Add(newCategoryType);
+            History.CategoryTypeFk = newCategoryType.Id;
+            Log.Information("Account type was successfully added");
+            MessageBox.Show(AddAccountWindowResources.MessageBoxAddCurrencySuccess);
+        }
+        else
+        {
+            Log.Error(exception, "An error occurred please retry");
+            MessageBox.Show(AddAccountWindowResources.MessageBoxAddCurrencyError);
+        }
+    }
+
+    private void ButtonAddCurrency_OnClick(object sender, RoutedEventArgs e)
+    {
+        var addEditCurrency = new AddEditCurrencyWindow();
+        var result = addEditCurrency.ShowDialog();
+        if (result != true) return;
+
+        var newCurrency = addEditCurrency.Currency;
+
+        Log.Information("Attempting to inject the new currency symbole \"{NewCurrencySymbole}\"", newCurrency.Symbol);
+        var (success, exception) = newCurrency.AddOrEdit();
+        if (success)
+        {
+            Currencies.Add(newCurrency);
+            Account.CurrencyFk = newCurrency.Id;
+            Log.Information("Account type was successfully added");
+            MessageBox.Show(AddAccountWindowResources.MessageBoxAddCurrencySuccess);
+        }
+        else
+        {
+            Log.Error(exception, "An error occurred please retry");
+            MessageBox.Show(AddAccountWindowResources.MessageBoxAddCurrencyError);
+        }
+    }
+
+    private void ButtonCancel_OnClick(object sender, RoutedEventArgs e)
+    {
+        DialogResult = false;
+        Close();
+    }
+
+    private void ButtonDelete_OnClick(object sender, RoutedEventArgs e)
+    {
+        Console.WriteLine("Need to delete");
+    }
+
+    private void ButtonValid_OnClick(object sender, RoutedEventArgs e)
+    {
+        var error = CheckError();
+        if (error) return;
+
+        DialogResult = true;
+        Close();
     }
 
     private void TextBoxAccountName_OnLostFocus(object sender, RoutedEventArgs e)
@@ -91,20 +200,12 @@ public partial class AddEditAccountWindow
         e.Handled = txt.IsOnlyDecimal();
     }
 
-    private void ButtonCancel_OnClick(object sender, RoutedEventArgs e)
-    {
-        DialogResult = false;
-        Close();
-    }
+    #endregion
 
-    private void ButtonValid_OnClick(object sender, RoutedEventArgs e)
-    {
-        var error = CheckError();
-        if (error) return;
+    #region Function
 
-        DialogResult = true;
-        Close();
-    }
+    private bool CheckAccountName(string accountName)
+        => Accounts.Select(s => s.Name).Contains(accountName);
 
     private bool CheckError()
     {
@@ -147,89 +248,11 @@ public partial class AddEditAccountWindow
     private void DisplayErrorAccountName()
         => MessageBox.Show(MsgBoxErrorAccountNameAlreadyExists);
 
-    private bool CheckAccountName(string accountName)
-        => Accounts.Select(s => s.Name).Contains(accountName);
-
-    private void ButtonAddAccountType_OnClick(object sender, RoutedEventArgs e)
-    {
-        var addEditAccountType = new AddEditAccountTypeWindow();
-        var result = addEditAccountType.ShowDialog();
-        if (result != true) return;
-
-        var newAccountType = addEditAccountType.AccountType;
-
-        Log.Information("Attempting to inject the new account type \"{NewAccountTypeName}\"", newAccountType.Name);
-        var (success, exception) = newAccountType.AddOrEdit();
-        if (success)
-        {
-            AccountTypes.Add(newAccountType);
-            Account.AccountTypeFk = newAccountType.Id;
-            Log.Information("Account type was successfully added");
-            MessageBox.Show(AddAccountWindowResources.MessageBoxAddAccountTypeSuccess);
-        }
-        else
-        {
-            Log.Error(exception, "An error occurred please retry");
-            MessageBox.Show(AddAccountWindowResources.MessageBoxAddAccountTypeError);
-        }
-    }
-
-    private void ButtonAddCurrency_OnClick(object sender, RoutedEventArgs e)
-    {
-        var addEditCurrency = new AddEditCurrencyWindow();
-        var result = addEditCurrency.ShowDialog();
-        if (result != true) return;
-
-        var newCurrency = addEditCurrency.Currency;
-
-        Log.Information("Attempting to inject the new currency symbole \"{NewCurrencySymbole}\"", newCurrency.Symbol);
-        var (success, exception) = newCurrency.AddOrEdit();
-        if (success)
-        {
-            Currencies.Add(newCurrency);
-            Account.CurrencyFk = newCurrency.Id;
-            Log.Information("Account type was successfully added");
-            MessageBox.Show(AddAccountWindowResources.MessageBoxAddCurrencySuccess);
-        }
-        else
-        {
-            Log.Error(exception, "An error occurred please retry");
-            MessageBox.Show(AddAccountWindowResources.MessageBoxAddCurrencyError);
-        }
-    }
-
-    private void ButtonAddCategoryType_OnClick(object sender, RoutedEventArgs e)
-    {
-        var addEditCategoryType = new AddEditCategoryTypeWindow();
-        var result = addEditCategoryType.ShowDialog();
-        if (result != true) return;
-
-        var newCategoryType = addEditCategoryType.CategoryType;
-
-        Log.Information("Attempting to inject the new category type \"{NewCategoryTypeName}\"", newCategoryType.Name);
-        var (success, exception) = newCategoryType.AddOrEdit();
-        if (success)
-        {
-            CategoryTypes.Add(newCategoryType);
-            History.CategoryTypeFk = newCategoryType.Id;
-            Log.Information("Account type was successfully added");
-            MessageBox.Show(AddAccountWindowResources.MessageBoxAddCurrencySuccess);
-        }
-        else
-        {
-            Log.Error(exception, "An error occurred please retry");
-            MessageBox.Show(AddAccountWindowResources.MessageBoxAddCurrencyError);
-        }
-    }
-
     public void SetTAccount(TAccount account)
     {
         account.CopyProperties(Account);
         EditAccount = true;
     }
 
-    private void ButtonDelete_OnClick(object sender, RoutedEventArgs e)
-    {
-        Console.WriteLine("Need to delete");
-    }
+    #endregion
 }
