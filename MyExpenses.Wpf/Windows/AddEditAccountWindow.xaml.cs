@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using Microsoft.Data.Sqlite;
 using MyExpenses.Models.Sql.Tables;
 using MyExpenses.Sql.Context;
 using MyExpenses.Wpf.Resources.Regex;
@@ -169,9 +170,48 @@ public partial class AddEditAccountWindow
         Close();
     }
 
+    //TODO work
     private void ButtonDelete_OnClick(object sender, RoutedEventArgs e)
     {
-        Console.WriteLine("Need to delete");
+        Log.Information("Attempting to remove the account \"{AccountToDeleteName}\"", Account.Name);
+        var (success, exception) = Account.Delete();
+
+        if (success)
+        {
+            Log.Information("Account was successfully removed");
+            MessageBox.Show("Account was successfully removed");
+
+            DialogResult = true;
+            Close();
+            return;
+        }
+
+        if (exception!.InnerException is SqliteException
+            {
+                SqliteExtendedErrorCode: SQLitePCL.raw.SQLITE_CONSTRAINT_FOREIGNKEY
+            })
+        {
+            Log.Error("Foreign key constraint violation");
+
+            var response =
+                MessageBox.Show("This account is in use.Are you sure you want to delete this account and everything linked to it ?",
+                    "Question", MessageBoxButton.YesNoCancel);
+
+            if (response != MessageBoxResult.Yes) return;
+
+            Log.Information("Attempting to remove the account \"{AccountToDeleteName}\" with all relative element", Account.Name);
+            Account.Delete(true);
+            Log.Information("Account and all relative element was successfully removed");
+            MessageBox.Show("Account and all relative element was successfully removed");
+
+            DialogResult = true;
+            Close();
+
+            return;
+        }
+
+        Log.Error(exception, "An error occurred please retry");
+        MessageBox.Show("An error occurred please retry");
     }
 
     private void ButtonValid_OnClick(object sender, RoutedEventArgs e)
