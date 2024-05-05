@@ -17,6 +17,10 @@ public partial class AddEditAccountWindow
         DependencyProperty.Register(nameof(EnableStartingBalance), typeof(bool), typeof(AddEditAccountWindow),
             new PropertyMetadata(default(bool)));
 
+    public static readonly DependencyProperty EditAccountProperty =
+        DependencyProperty.Register(nameof(EditAccount), typeof(bool), typeof(AddEditAccountWindow),
+            new PropertyMetadata(default(bool)));
+
     #region Resx
 
     public string HintAssistTextBoxAccountName { get; } = AddAccountWindowResources.TextBoxAccountName;
@@ -34,8 +38,6 @@ public partial class AddEditAccountWindow
     public TAccount Account { get; } = new();
     public THistory History { get; } = new() { Pointed = true };
 
-    public bool EditAccount { get; init; }
-
     public string DisplayMemberPathAccountType => nameof(TAccountType.Name);
     public string SelectedValuePathAccountType => nameof(TAccountType.Id);
     public string DisplayMemberPathCurrency => nameof(TCurrency.Symbol);
@@ -52,6 +54,12 @@ public partial class AddEditAccountWindow
     {
         get => (bool)GetValue(EnableStartingBalanceProperty);
         set => SetValue(EnableStartingBalanceProperty, value);
+    }
+
+    public bool EditAccount
+    {
+        get => (bool)GetValue(EditAccountProperty);
+        set => SetValue(EditAccountProperty, value);
     }
 
     public AddEditAccountWindow()
