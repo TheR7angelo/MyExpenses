@@ -118,38 +118,38 @@ public partial class LocationManagementPage
 
             Log.Information("Place was successfully removed");
             MessageBox.Show(LocationManagementPageResources.MessageBoxMenuItemDeleteFeatureNoUseSuccess);
+
+            return;
         }
-        else
+
+        if (exception!.InnerException is SqliteException
+            {
+                SqliteExtendedErrorCode: SQLitePCL.raw.SQLITE_CONSTRAINT_FOREIGNKEY
+            })
         {
-            if (exception!.InnerException is SqliteException
-                {
-                    SqliteExtendedErrorCode: SQLitePCL.raw.SQLITE_CONSTRAINT_FOREIGNKEY
-                })
-            {
-                Log.Error("Foreign key constraint violation");
+            Log.Error("Foreign key constraint violation");
 
-                var response =
-                    MessageBox.Show(LocationManagementPageResources.MessageBoxMenuItemDeleteFeatureUseQuestion,
-                        "Question", MessageBoxButton.YesNoCancel);
+            var response =
+                MessageBox.Show(LocationManagementPageResources.MessageBoxMenuItemDeleteFeatureUseQuestion,
+                    "Question", MessageBoxButton.YesNoCancel);
 
-                if (response != MessageBoxResult.Yes) return;
+            if (response != MessageBoxResult.Yes) return;
 
-                Log.Information("Attempting to remove the place \"{PlaceToDeleteName}\" with all relative element",
-                    placeToDelete.Name);
-                placeToDelete.Delete(true);
-                Log.Information("Place and all relative element was successfully removed");
-                MessageBox.Show(LocationManagementPageResources.MessageBoxMenuItemDeleteFeatureUseSuccess);
+            Log.Information("Attempting to remove the place \"{PlaceToDeleteName}\" with all relative element",
+                placeToDelete.Name);
+            placeToDelete.Delete(true);
+            Log.Information("Place and all relative element was successfully removed");
+            MessageBox.Show(LocationManagementPageResources.MessageBoxMenuItemDeleteFeatureUseSuccess);
 
-                RemovePlaceTreeViewCountryGroup(placeToDelete);
+            RemovePlaceTreeViewCountryGroup(placeToDelete);
 
-                MapControl.Refresh();
-            }
-            else
-            {
-                Log.Error(exception, "An error occurred please retry");
-                MessageBox.Show(LocationManagementPageResources.MessageBoxMenuItemDeleteFeatureError);
-            }
+            MapControl.Refresh();
+
+            return;
         }
+
+        Log.Error(exception, "An error occurred please retry");
+        MessageBox.Show(LocationManagementPageResources.MessageBoxMenuItemDeleteFeatureError);
     }
 
     private void MenuItemEditFeature_OnClick(object sender, RoutedEventArgs e)
