@@ -79,25 +79,32 @@
                     CornerRadius="1"
                     BorderBrush="{DynamicResource MaterialDesignBody}"
                     BorderThickness="2">
-                <ItemsControl x:Name="ItemsControlVTotalAccount"
-                              ItemsSource="{Binding VTotalByAccounts, UpdateSourceTrigger=PropertyChanged}"
-                              Loaded="ItemsControlVTotalAccount_OnLoaded">
-                    <ItemsControl.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <WrapPanel Orientation="Horizontal" />
-                        </ItemsPanelTemplate>
-                    </ItemsControl.ItemsPanel>
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <RadioButton GroupName="ToggleButtonVTotalAccount"
-                                         Margin="3"
-                                         Content="{Binding Name}"
-                                         Style="{StaticResource MaterialDesignTabRadioButtonBottom}"
-                                         Checked="ToggleButtonVTotalAccount_OnChecked">
-                            </RadioButton>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
+
+                <ScrollViewer HorizontalScrollBarVisibility="Auto"
+                              VerticalScrollBarVisibility="Disabled">
+
+                    <ItemsControl x:Name="ItemsControlVTotalAccount"
+                                  ItemsSource="{Binding VTotalByAccounts, UpdateSourceTrigger=PropertyChanged}"
+                                  Loaded="ItemsControlVTotalAccount_OnLoaded">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel Orientation="Horizontal" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <RadioButton GroupName="ToggleButtonVTotalAccount"
+                                             Margin="3"
+                                             Content="{Binding Name}"
+                                             Style="{StaticResource MaterialDesignTabRadioButtonBottom}"
+                                             Checked="ToggleButtonVTotalAccount_OnChecked">
+                                </RadioButton>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+
+                </ScrollViewer>
+
             </Border>
 
         </Grid>
