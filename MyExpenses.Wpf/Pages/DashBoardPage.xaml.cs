@@ -3,8 +3,8 @@ using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Threading;
 using LiveChartsCore.Kernel;
 using LiveChartsCore.Kernel.Sketches;
 using LiveChartsCore.SkiaSharpView;
@@ -13,10 +13,9 @@ using MyExpenses.Models.Sql.Tables;
 using MyExpenses.Models.Sql.Views;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils;
+using MyExpenses.Utils.Sql;
 using MyExpenses.Wpf.Resources.Resx.Pages.DashBoardPage;
 using MyExpenses.Wpf.Utils;
-using MyExpenses.Wpf.Windows;
-using Serilog;
 using SkiaSharp.Views.WPF;
 
 namespace MyExpenses.Wpf.Pages;
@@ -196,5 +195,21 @@ public partial class DashBoardPage : INotifyPropertyChanged
         // TODO zoom on data clicked
         var categoryType = (points.FirstOrDefault()?.Context.Series as PieSeries<double>)?.Tag as TCategoryType;
         Console.WriteLine(categoryType?.Name);
+    }
+
+    //TODO work
+    private void MenuItem_OnClick(object sender, RoutedEventArgs e)
+    {
+        if (DataGridRow!.DataContext is not VHistory vHistory) return;
+        var history = vHistory.ToTHistory();
+
+        Console.WriteLine(history?.Description);
+    }
+
+    private DataGridRow? DataGridRow { get; set; }
+
+    private void DataGridRow_PreviewMouseRightButtonDown(object sender, MouseButtonEventArgs e)
+    {
+        DataGridRow = sender as DataGridRow;
     }
 }

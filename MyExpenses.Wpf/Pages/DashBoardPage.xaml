@@ -121,6 +121,19 @@
                       CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False"
                       HorizontalScrollBarVisibility="Auto"
                       VerticalScrollBarVisibility="Auto">
+
+                <DataGrid.ItemContainerStyle>
+                    <Style TargetType="DataGridRow" BasedOn="{StaticResource {x:Type DataGridRow}}">
+                        <EventSetter Event="PreviewMouseRightButtonDown" Handler="DataGridRow_PreviewMouseRightButtonDown"></EventSetter>
+                    </Style>
+                </DataGrid.ItemContainerStyle>
+
+                <DataGrid.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Option 1" Click="MenuItem_OnClick" />
+                    </ContextMenu>
+                </DataGrid.ContextMenu>
+
                 <DataGrid.Columns>
                     <DataGridTextColumn Binding="{Binding Account}">
                         <DataGridTextColumn.Header>
@@ -171,6 +184,7 @@
                         </DataGridCheckBoxColumn.Header>
                     </DataGridCheckBoxColumn>
                 </DataGrid.Columns>
+
             </DataGrid>
         </Grid>
 
