@@ -14,7 +14,7 @@ public static class PropertyCopyHelper
     /// <typeparam name="TDestination">The type of the destination object.</typeparam>
     /// <param name="source">The source object.</param>
     /// <param name="destination">The destination object.</param>
-    public static void CopyProperties<TSource, TDestination>(TSource source, TDestination destination)
+    public static void CopyProperties<TSource, TDestination>(this TSource source, TDestination destination)
         where TSource : class
         where TDestination : class
     {

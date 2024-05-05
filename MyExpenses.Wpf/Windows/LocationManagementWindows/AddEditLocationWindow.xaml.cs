@@ -75,7 +75,7 @@ public partial class AddEditLocationWindow
     {
         if (clear) WritableLayer.Clear();
 
-        PropertyCopyHelper.CopyProperties(newTPlace, Place);
+        newTPlace.CopyProperties(Place);
         UpdateMiniMap();
     }
 
