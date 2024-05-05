@@ -34,6 +34,8 @@ public partial class AddEditAccountWindow
     public TAccount Account { get; } = new();
     public THistory History { get; } = new() { Pointed = true };
 
+    public bool EditAccount { get; init; }
+
     public string DisplayMemberPathAccountType => nameof(TAccountType.Name);
     public string SelectedValuePathAccountType => nameof(TAccountType.Id);
     public string DisplayMemberPathCurrency => nameof(TCurrency.Symbol);
