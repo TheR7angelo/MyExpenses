@@ -29,22 +29,19 @@ public partial class AddEditAccountWindow
 
     #region Resx
 
+    #region HintAssist
+
     public string HintAssistTextBoxAccountName { get; } = AddAccountWindowResources.TextBoxAccountName;
     public string HintAssistComboBoxAccountType { get; } = AddAccountWindowResources.ComboBoxAccountType;
+    public string HintAssistComboBoxAccountCategoryType { get; } = AddAccountWindowResources.ComboBoxAccountCategoryType;
     public string HintAssistComboBoxAccountCurrency { get; } = AddAccountWindowResources.ComboBoxAccountCurrency;
+    public string HintAssistTextBoxAccountStartingBalance { get; } = AddAccountWindowResources.TextBoxAccountStartingBalance;
+    public string HintAssistTextBoxAccountStartingBalanceDescription { get; } = AddAccountWindowResources.TextBoxAccountStartingBalanceDescription;
+
+    #endregion
     public string LabelIsAccountActive { get; } = AddAccountWindowResources.LabelIsAccountActive;
 
-    public string HintAssistTextBoxAccountStartingBalance { get; } =
-        AddAccountWindowResources.TextBoxAccountStartingBalance;
-
-    public string HintAssistTextBoxAccountStartingBalanceDescription { get; } =
-        AddAccountWindowResources.TextBoxAccountStartingBalanceDescription;
-
-    public string HintAssistComboBoxAccountCategoryType { get; } =
-        AddAccountWindowResources.ComboBoxAccountCategoryType;
-
-    private string MsgBoxErrorAccountNameAlreadyExists { get; } =
-        AddAccountWindowResources.MsgBoxErrorAccountNameAlreadyExists;
+    private string MsgBoxErrorAccountNameAlreadyExists { get; } = AddAccountWindowResources.MsgBoxErrorAccountNameAlreadyExists;
 
     #endregion
 
