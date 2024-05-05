@@ -6,9 +6,10 @@ using MyExpenses.Models.Sql.Tables;
 using MyExpenses.Sql.Context;
 using MyExpenses.Wpf.Resources.Regex;
 using MyExpenses.Wpf.Resources.Resx.Windows.AddAccountWindow;
+using MyExpenses.Wpf.Windows.DashBoardPage;
 using Serilog;
 
-namespace MyExpenses.Wpf.Windows.DashBoardPage;
+namespace MyExpenses.Wpf.Windows;
 
 public partial class AddAccountWindow
 {
