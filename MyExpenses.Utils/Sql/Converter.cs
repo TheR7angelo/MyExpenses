@@ -6,6 +6,14 @@ namespace MyExpenses.Utils.Sql;
 
 public static class Converter
 {
+    public static THistory? ToTHistory(this VHistory vHistory)
+    {
+        using var context = new DataBaseContext();
+        var history = context.THistories.FirstOrDefault(s => s.Id == vHistory.Id);
+
+        return history;
+    }
+
     public static VTotalByAccount? ToVTotalByAccount(this TAccount account)
     {
         using var context = new DataBaseContext();
