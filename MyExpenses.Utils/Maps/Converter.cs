@@ -2,7 +2,7 @@
 using MyExpenses.Models.AutoMapper;
 using MyExpenses.Models.Sql.Tables;
 
-namespace MyExpenses.Utils;
+namespace MyExpenses.Utils.Maps;
 
 public static class Converter
 {
