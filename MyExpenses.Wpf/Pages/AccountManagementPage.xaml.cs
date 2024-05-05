@@ -67,14 +67,17 @@ public partial class AccountManagementPage
     private void ButtonVAccount_OnClick(object sender, RoutedEventArgs e)
     {
         var button = (Button)sender;
-        var vTotalByAccount = button.DataContext as VTotalByAccount;
+        var vTotalByAccount = (VTotalByAccount)button.DataContext;
 
-        var account = vTotalByAccount!.ToTAccount()!;
+        var account = vTotalByAccount.ToTAccount()!;
         var addEditAccountWindow = new AddEditAccountWindow();
         addEditAccountWindow.SetTAccount(account);
         addEditAccountWindow.ShowDialog();
 
         if (addEditAccountWindow.DialogResult != true) return;
+
+        TotalByAccounts.Remove(vTotalByAccount);
+        DashBoardPage.VTotalByAccounts.Remove(vTotalByAccount);
     }
 
     #endregion
