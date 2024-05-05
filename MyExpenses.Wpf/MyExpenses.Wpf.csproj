@@ -120,7 +120,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Page Update="Windows\AddAccountWindow.xaml">
+      <Page Update="Windows\AddEditAccountWindow.xaml">
         <Generator>MSBuild:Compile</Generator>
         <XamlRuntime>Wpf</XamlRuntime>
         <SubType>Designer</SubType>

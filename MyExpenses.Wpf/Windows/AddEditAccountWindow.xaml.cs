@@ -11,10 +11,10 @@ using Serilog;
 
 namespace MyExpenses.Wpf.Windows;
 
-public partial class AddAccountWindow
+public partial class AddEditAccountWindow
 {
     public static readonly DependencyProperty EnableStartingBalanceProperty =
-        DependencyProperty.Register(nameof(EnableStartingBalance), typeof(bool), typeof(AddAccountWindow),
+        DependencyProperty.Register(nameof(EnableStartingBalance), typeof(bool), typeof(AddEditAccountWindow),
             new PropertyMetadata(default(bool)));
 
     #region Resx
@@ -52,7 +52,7 @@ public partial class AddAccountWindow
         set => SetValue(EnableStartingBalanceProperty, value);
     }
 
-    public AddAccountWindow()
+    public AddEditAccountWindow()
     {
         using var context = new DataBaseContext();
         Accounts = [..context.TAccounts];
