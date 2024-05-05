@@ -182,6 +182,7 @@
                     utils:PanelExtensions.MarginForAllChildren="5"
                     Orientation="Horizontal"
                     HorizontalAlignment="Center">
+
             <Button Content="Valid"
                     Style="{StaticResource MaterialDesignPaperButton}"
                     Click="ButtonValid_OnClick">
@@ -191,6 +192,7 @@
                     Style="{StaticResource MaterialDesignPaperSecondaryButton}"
                     Click="ButtonCancel_OnClick">
             </Button>
+
         </StackPanel>
 
     </Grid>
