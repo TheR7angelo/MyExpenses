@@ -6,6 +6,7 @@ using MyExpenses.Models.Sql.Tables;
 using MyExpenses.Sql.Context;
 using MyExpenses.Wpf.Resources.Regex;
 using MyExpenses.Wpf.Resources.Resx.Windows.AddAccountWindow;
+using MyExpenses.Wpf.Utils;
 using MyExpenses.Wpf.Windows.DashBoardPage;
 using Serilog;
 
@@ -219,5 +220,16 @@ public partial class AddEditAccountWindow
             Log.Error(exception, "An error occurred please retry");
             MessageBox.Show(AddAccountWindowResources.MessageBoxAddCurrencyError);
         }
+    }
+
+    public void SetTAccount(TAccount account)
+    {
+        account.CopyProperties(Account);
+        EditAccount = true;
+    }
+
+    private void ButtonDelete_OnClick(object sender, RoutedEventArgs e)
+    {
+        Console.WriteLine("Need to delete");
     }
 }

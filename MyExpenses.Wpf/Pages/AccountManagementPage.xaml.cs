@@ -69,7 +69,12 @@ public partial class AccountManagementPage
         var button = (Button)sender;
         var vTotalByAccount = button.DataContext as VTotalByAccount;
 
-        Console.WriteLine(vTotalByAccount?.Id);
+        var account = vTotalByAccount!.ToTAccount()!;
+        var addEditAccountWindow = new AddEditAccountWindow();
+        addEditAccountWindow.SetTAccount(account);
+        addEditAccountWindow.ShowDialog();
+
+        if (addEditAccountWindow.DialogResult != true) return;
     }
 
     #endregion

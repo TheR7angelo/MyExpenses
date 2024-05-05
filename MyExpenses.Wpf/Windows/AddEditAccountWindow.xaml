@@ -117,7 +117,8 @@
                 IsEnabled="{Binding EnableStartingBalance, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                 BorderBrush="{DynamicResource MaterialDesignBody}"
                 BorderThickness="1.3"
-                CornerRadius="3">
+                CornerRadius="3"
+                Visibility="{Binding EditAccount, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource InvertedNullVisibilityConverter}}">
 
             <Grid utils:PanelExtensions.MarginForAllChildren="3">
 
@@ -175,7 +176,8 @@
                       HorizontalAlignment="Right"
                       VerticalAlignment="Top"
                       VerticalContentAlignment="Top"
-                      IsThreeState="False">
+                      IsThreeState="False"
+                      Visibility="{Binding EditAccount, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource InvertedNullVisibilityConverter}}">
         </ToggleButton>
 
         <StackPanel Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2"
@@ -183,11 +185,20 @@
                     Orientation="Horizontal"
                     HorizontalAlignment="Center">
 
+            <!-- TODO work -->
             <Button Content="Valid"
                     Style="{StaticResource MaterialDesignPaperButton}"
                     Click="ButtonValid_OnClick">
             </Button>
 
+            <!-- TODO work -->
+            <Button Content="Delete"
+                    Style="{StaticResource MaterialDesignPaperDarkButton}"
+                    Visibility="{Binding EditAccount, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BooleanToVisibilityConverter}}"
+                    Click="ButtonDelete_OnClick">
+            </Button>
+
+            <!-- TODO work -->
             <Button Content="Cancel"
                     Style="{StaticResource MaterialDesignPaperSecondaryButton}"
                     Click="ButtonCancel_OnClick">
