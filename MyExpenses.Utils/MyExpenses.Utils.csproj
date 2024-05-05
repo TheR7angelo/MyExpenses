@@ -15,6 +15,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\MyExpenses.Models\MyExpenses.Models.csproj" />
+      <ProjectReference Include="..\MyExpenses.Sql\MyExpenses.Sql.csproj" />
     </ItemGroup>
 
 </Project>
