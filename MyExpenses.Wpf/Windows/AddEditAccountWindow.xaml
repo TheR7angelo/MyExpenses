@@ -7,6 +7,7 @@
                  xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
                  xmlns:utils="clr-namespace:MyExpenses.Wpf.Utils;assembly=MyExpenses.Wpf.Utils"
                  xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+                 xmlns:converters="clr-namespace:MyExpenses.Wpf.Converters"
                  mc:Ignorable="d"
 
                  Title="AddAccount"
@@ -35,6 +36,10 @@
                  TextElement.Foreground="{DynamicResource MaterialDesignBody}"
 
                  DataContext="{Binding RelativeSource={RelativeSource Self}}">
+
+    <mah:MetroWindow.Resources>
+        <converters:InverseBooleanToVisibilityConverter x:Key="InverseBooleanToVisibilityConverter" />
+    </mah:MetroWindow.Resources>
 
     <Grid utils:PanelExtensions.MarginForAllChildren="5"
           VerticalAlignment="Center"
@@ -118,7 +123,7 @@
                 BorderBrush="{DynamicResource MaterialDesignBody}"
                 BorderThickness="1.3"
                 CornerRadius="3"
-                Visibility="{Binding EditAccount, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource InvertedNullVisibilityConverter}}">
+                Visibility="{Binding EditAccount, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource  InverseBooleanToVisibilityConverter}}">
 
             <Grid utils:PanelExtensions.MarginForAllChildren="3">
 
@@ -177,7 +182,7 @@
                       VerticalAlignment="Top"
                       VerticalContentAlignment="Top"
                       IsThreeState="False"
-                      Visibility="{Binding EditAccount, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource InvertedNullVisibilityConverter}}">
+                      Visibility="{Binding EditAccount, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource InverseBooleanToVisibilityConverter}}">
         </ToggleButton>
 
         <StackPanel Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2"
