@@ -40,11 +40,6 @@
                    VerticalAlignment="Center"
                    HorizontalAlignment="Center">
 
-            <Button Content="{Binding ButtonAddAccount}"
-                    Style="{StaticResource MaterialDesignPaperButton}"
-                    Click="ButtonAddAccount_OnClick">
-            </Button>
-
             <Button Content="{Binding ButtonAccountManagement}"
                     Style="{StaticResource MaterialDesignPaperButton}"
                     Click="ButtonAccountManagement_OnClick">

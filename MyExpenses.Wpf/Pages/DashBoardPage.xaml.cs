@@ -95,37 +95,6 @@ public partial class DashBoardPage : INotifyPropertyChanged
 
     #region Action
 
-    private void ButtonAddAccount_OnClick(object sender, RoutedEventArgs e)
-    {
-        var addEditAccountWindow = new AddEditAccountWindow();
-        addEditAccountWindow.ShowDialog();
-        if (addEditAccountWindow.DialogResult != true) return;
-
-        var newAccount = addEditAccountWindow.Account;
-
-        if (addEditAccountWindow.EnableStartingBalance)
-        {
-            var newHistory = addEditAccountWindow.History;
-            newAccount.THistories = new List<THistory> { newHistory };
-        }
-
-        Log.Information("Attempting to inject the new account \"{NewAccountName}\"", newAccount.Name);
-        var (success, exception) = newAccount.AddOrEdit();
-        if (success)
-        {
-            Log.Information("Account was successfully added");
-            MessageBox.Show(DashBoardPageResources.MessageBoxAddAccountSuccess);
-
-            RefreshAccountTotal();
-            Application.Current.Dispatcher.InvokeAsync(RefreshRadioButtonSelected, DispatcherPriority.ContextIdle);
-        }
-        else
-        {
-            Log.Error(exception, "An error occurred please retry");
-            MessageBox.Show(DashBoardPageResources.MessageBoxAddAccountError);
-        }
-    }
-
     private void ButtonAccountManagement_OnClick(object sender, RoutedEventArgs e)
     {
         var accountManagementPage = new AccountManagementPage { DashBoardPage = this };

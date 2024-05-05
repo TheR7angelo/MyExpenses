@@ -42,12 +42,6 @@
     <data name="ButtonAddAccount" xml:space="preserve">
         <value>Add account</value>
     </data>
-    <data name="MessageBoxAddAccountSuccess" xml:space="preserve">
-        <value>Account was successfully added.</value>
-    </data>
-    <data name="MessageBoxAddAccountError" xml:space="preserve">
-        <value>An error occurred please retry</value>
-    </data>
     <data name="ButtonLocationManagement" xml:space="preserve">
         <value>Location management</value>
     </data>
