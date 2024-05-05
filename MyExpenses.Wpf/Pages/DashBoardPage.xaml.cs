@@ -97,15 +97,15 @@ public partial class DashBoardPage : INotifyPropertyChanged
 
     private void ButtonAddAccount_OnClick(object sender, RoutedEventArgs e)
     {
-        var addAccount = new AddEditAccountWindow();
-        addAccount.ShowDialog();
-        if (addAccount.DialogResult != true) return;
+        var addEditAccountWindow = new AddEditAccountWindow();
+        addEditAccountWindow.ShowDialog();
+        if (addEditAccountWindow.DialogResult != true) return;
 
-        var newAccount = addAccount.Account;
+        var newAccount = addEditAccountWindow.Account;
 
-        if (addAccount.EnableStartingBalance)
+        if (addEditAccountWindow.EnableStartingBalance)
         {
-            var newHistory = addAccount.History;
+            var newHistory = addEditAccountWindow.History;
             newAccount.THistories = new List<THistory> { newHistory };
         }
 
