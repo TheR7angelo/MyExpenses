@@ -127,7 +127,10 @@ public partial class DashBoardPage : INotifyPropertyChanged
     }
 
     private void ButtonAccountManagement_OnClick(object sender, RoutedEventArgs e)
-        => nameof(MainWindow.FrameBody).NavigateTo(typeof(AccountManagementPage));
+    {
+        var accountManagementPage = new AccountManagementPage { DashBoardPage = this };
+        nameof(MainWindow.FrameBody).NavigateTo(accountManagementPage);
+    }
 
     private void ButtonLocationManagement_OnClick(object sender, RoutedEventArgs e)
         => nameof(MainWindow.FrameBody).NavigateTo(typeof(LocationManagementPage));
