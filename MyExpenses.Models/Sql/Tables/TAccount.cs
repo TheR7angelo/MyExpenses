@@ -35,6 +35,6 @@ public partial class TAccount : ISql
     [InverseProperty("TAccounts")]
     public virtual TCurrency? CurrencyFkNavigation { get; set; }
 
-    [InverseProperty("CompteFkNavigation")]
+    [InverseProperty("AccountFkNavigation")]
     public virtual ICollection<THistory> THistories { get; set; } = new List<THistory>();
 }

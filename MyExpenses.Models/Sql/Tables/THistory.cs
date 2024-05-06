@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace MyExpenses.Models.Sql.Tables;
 
 [Table("t_history")]
-public partial class THistory
+public partial class THistory : ISql
 {
     [Key]
     [Column("id")]
@@ -41,9 +41,9 @@ public partial class THistory
     [InverseProperty("THistories")]
     public virtual TCategoryType? CategoryTypeFkNavigation { get; set; }
 
-    [ForeignKey("CompteFk")]
+    [ForeignKey("AccountFk")]
     [InverseProperty("THistories")]
-    public virtual TAccount? CompteFkNavigation { get; set; }
+    public virtual TAccount? AccountFkNavigation { get; set; }
 
     [ForeignKey("ModePaymentFk")]
     [InverseProperty("THistories")]
