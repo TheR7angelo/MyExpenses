@@ -55,11 +55,14 @@
         <materialDesign:PackIcon Grid.Row="0" Grid.Column="0"
                                  Height="64"
                                  Width="64"
-                                 Kind="{Binding MsgBoxImage, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource MsgBoxImageConverter}}">
+                                 Kind="{Binding MsgBoxImage, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource MsgBoxImageConverter}}"
+                                 VerticalContentAlignment="Center"
+                                 HorizontalContentAlignment="Center">
         </materialDesign:PackIcon>
 
         <TextBlock Grid.Row="0" Grid.Column="1"
                    TextWrapping="Wrap"
+                   VerticalAlignment="Center"
                    TextAlignment="Justify"
                    Text="{Binding MessageBoxText, UpdateSourceTrigger=PropertyChanged}">
         </TextBlock>
@@ -69,10 +72,25 @@
                     Orientation="Horizontal"
                     HorizontalAlignment="Right">
 
-            <Button Content="Yes" Style="{StaticResource MaterialDesignPaperButton}" Click="ButtonYes_OnClick" />
-            <Button Content="No" Style="{StaticResource MaterialDesignPaperButton}" Click="ButtonNo_OnClick" />
-            <Button Content="Ok" Style="{StaticResource MaterialDesignPaperButton}" Click="ButtonOk_OnClick" />
-            <Button Content="Cancel" Style="{StaticResource MaterialDesignPaperButton}" Click="ButtonCancel_OnClick" />
+            <Button x:Name="ButtonYes"
+                    Content="Yes"
+                    Style="{StaticResource MaterialDesignPaperButton}" Click="ButtonYes_OnClick">
+            </Button>
+
+            <Button x:Name="ButtonNo"
+                    Content="No"
+                    Style="{StaticResource MaterialDesignPaperButton}" Click="ButtonNo_OnClick">
+            </Button>
+
+            <Button x:Name="ButtonOk"
+                    Content="Ok"
+                    Style="{StaticResource MaterialDesignPaperButton}" Click="ButtonOk_OnClick">
+            </Button>
+
+            <Button x:Name="ButtonCancel"
+                    Content="Cancel"
+                    Style="{StaticResource MaterialDesignPaperButton}" Click="ButtonCancel_OnClick">
+            </Button>
 
         </StackPanel>
 

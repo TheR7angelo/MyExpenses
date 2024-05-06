@@ -39,8 +39,11 @@ public static class MsgBox
         {
             MessageBoxText = messageBoxText,
             Title = caption,
-            MsgBoxImage = icon
+            MsgBoxImage = icon,
+            MessageBoxResult = defaultResult
         };
+
+        msgBoxMessageWindow.SetButtonVisibility(button);
         msgBoxMessageWindow.ShowDialog();
 
         var result = msgBoxMessageWindow.MessageBoxResult;
