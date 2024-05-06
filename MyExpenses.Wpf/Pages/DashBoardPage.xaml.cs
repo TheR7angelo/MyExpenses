@@ -62,8 +62,8 @@ public partial class DashBoardPage : INotifyPropertyChanged
 
     #region Button WrapPanel
 
-    public string ButtonAddAccount { get; } = DashBoardPageResources.ButtonAddAccount;
     public string ButtonAccountManagement { get; } = DashBoardPageResources.ButtonAccountManagement;
+    public string ButtonAccountTypeManagement { get; } = DashBoardPageResources.ButtonAccountTypeManagement;
     public string ButtonLocationManagement { get; } = DashBoardPageResources.ButtonLocationManagement;
 
     #endregion
