@@ -32,13 +32,13 @@
     <data name="DataGridTextColumnPointed" xml:space="preserve">
         <value>Pointé</value>
     </data>
-    <data name="ButtonAddAccount" xml:space="preserve">
-        <value>Ajouter un compte</value>
-    </data>
     <data name="ButtonLocationManagement" xml:space="preserve">
         <value>Gestion des emplacements</value>
     </data>
     <data name="ButtonAccountManagement" xml:space="preserve">
         <value>Gestion des comptes</value>
+    </data>
+    <data name="ButtonAccountTypeManagement" xml:space="preserve">
+        <value>Gestion des types de comptes</value>
     </data>
 </root>

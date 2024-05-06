@@ -75,6 +75,15 @@ namespace MyExpenses.Wpf.Resources.Resx.Pages.DashBoardPage {
         }
 
         /// <summary>
+        ///   Looks up a localized string similar to Account type management.
+        /// </summary>
+        internal static string ButtonAccountTypeManagement {
+            get {
+                return ResourceManager.GetString("ButtonAccountTypeManagement", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Location management.
         /// </summary>
         internal static string ButtonLocationManagement {
