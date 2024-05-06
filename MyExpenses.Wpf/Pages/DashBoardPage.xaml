@@ -130,8 +130,7 @@
 
                 <DataGrid.ContextMenu>
                     <ContextMenu>
-                        <!-- TODO work -->
-                        <MenuItem Header="Pointé" Click="MenuItemCheck_OnClick" />
+                        <MenuItem Header="{Binding DataGridTextColumnPointed}" Click="MenuItemPointed_OnClick" />
                     </ContextMenu>
                 </DataGrid.ContextMenu>
 

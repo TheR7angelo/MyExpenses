@@ -205,7 +205,7 @@ public partial class DashBoardPage : INotifyPropertyChanged
     }
 
     //TODO work
-    private void MenuItemCheck_OnClick(object sender, RoutedEventArgs e)
+    private void MenuItemPointed_OnClick(object sender, RoutedEventArgs e)
     {
         if (DataGridRow!.DataContext is not VHistory vHistory) return;
         var history = vHistory.ToTHistory();
