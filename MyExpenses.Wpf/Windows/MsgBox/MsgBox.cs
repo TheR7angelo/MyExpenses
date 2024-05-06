@@ -5,10 +5,6 @@ namespace MyExpenses.Wpf.Windows.MsgBox;
 public static class MsgBox
 {
     public static MessageBoxResult Show(string messageBoxText, string caption, MessageBoxButton button,
-        MsgBoxImage icon, MessageBoxResult defaultResult, MessageBoxOptions options)
-        => ShowCore(messageBoxText, caption, button, icon, defaultResult, options);
-
-    public static MessageBoxResult Show(string messageBoxText, string caption, MessageBoxButton button,
         MsgBoxImage icon, MessageBoxResult defaultResult)
         => ShowCore(messageBoxText, caption, button, icon, defaultResult);
 
@@ -37,7 +33,7 @@ public static class MsgBox
 
     private static MessageBoxResult ShowCore(string messageBoxText, string caption,
         MessageBoxButton button = MessageBoxButton.OK, MsgBoxImage icon = MsgBoxImage.None,
-        MessageBoxResult defaultResult = MessageBoxResult.None, MessageBoxOptions options = MessageBoxOptions.None)
+        MessageBoxResult defaultResult = MessageBoxResult.None)
     {
         var msgBoxMessageWindow = new MsgBoxMessageWindow
         {
