@@ -1,0 +1,69 @@
+﻿<Page x:Class="MyExpenses.Wpf.Pages.AccountTypeManagementPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="clr-namespace:MyExpenses.Wpf.Pages"
+      xmlns:utils="clr-namespace:MyExpenses.Wpf.Utils;assembly=MyExpenses.Wpf.Utils"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      mc:Ignorable="d"
+
+      Title="AccountTypeManagementPage"
+
+      d:DesignHeight="450"
+      d:DesignWidth="800"
+
+      Background="{DynamicResource MaterialDesignPaper}"
+      TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+
+      DataContext="{Binding RelativeSource={RelativeSource Self}}">
+
+    <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+
+        <StackPanel utils:PanelExtensions.MarginForAllChildren="5"
+                    Orientation="Vertical"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center">
+
+            <Button Height="56"
+                    Width="{Binding Height, RelativeSource={RelativeSource Self}}"
+                    Style="{StaticResource MaterialDesignFloatingActionDarkButton}"
+                    Click="ButtonAddNewAccountType_OnClick">
+                <Button.Content>
+                    <materialDesign:PackIcon Kind="Plus"
+                                             Height="{Binding Height, RelativeSource={RelativeSource AncestorType=Button}}"
+                                             Width="{Binding Height, RelativeSource={RelativeSource AncestorType=Button}}">
+                    </materialDesign:PackIcon>
+                </Button.Content>
+            </Button>
+
+            <ItemsControl ItemsSource="{Binding AccountTypes}">
+
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel utils:PanelExtensions.MarginForAllChildren="5"
+                                   Orientation="Horizontal">
+                        </WrapPanel>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+
+                        <Button
+                            Height="{Binding Height, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource Self}}"
+                            Style="{StaticResource MaterialDesignPaperButton}"
+                            Content="{Binding Name}"
+                            Click="ButtonAccountType_OnClick">
+                        </Button>
+
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+
+            </ItemsControl>
+
+        </StackPanel>
+
+    </Grid>
+
+</Page>
