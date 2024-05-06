@@ -197,19 +197,21 @@ public partial class DashBoardPage : INotifyPropertyChanged
         Console.WriteLine(categoryType?.Name);
     }
 
-    //TODO work
-    private void MenuItem_OnClick(object sender, RoutedEventArgs e)
-    {
-        if (DataGridRow!.DataContext is not VHistory vHistory) return;
-        var history = vHistory.ToTHistory();
-
-        Console.WriteLine(history?.Description);
-    }
-
     private DataGridRow? DataGridRow { get; set; }
 
     private void DataGridRow_PreviewMouseRightButtonDown(object sender, MouseButtonEventArgs e)
     {
         DataGridRow = sender as DataGridRow;
+    }
+
+    //TODO work
+    private void MenuItemCheck_OnClick(object sender, RoutedEventArgs e)
+    {
+        if (DataGridRow!.DataContext is not VHistory vHistory) return;
+        var history = vHistory.ToTHistory();
+
+        history!.Pointed = !history.Pointed;
+        history.AddOrEdit();
+        RefreshDataGrid(vHistory.Account!, history.Date!.Value);
     }
 }
