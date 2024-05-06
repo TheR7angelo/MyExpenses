@@ -7,6 +7,17 @@ namespace MyExpenses.Wpf.Utils;
 public static class ColorExtensions
 {
     /// <summary>
+    /// Converts a hexadecimal color code to a SkiaSharp.SKColor object.
+    /// </summary>
+    /// <param name="hexColor">The hexadecimal color code to convert.</param>
+    /// <returns>The SkiaSharp.SKColor object representing the converted color.</returns>
+    public static SKColor? ToSkColor(this string hexColor)
+    {
+        var color = hexColor.ToColor();
+        return color?.ToSkColor();
+    }
+
+    /// <summary>
     /// Converts a System.Drawing.Color object to a SkiaSharp.SKColor object.
     /// </summary>
     /// <param name="color">The System.Drawing.Color object to convert.</param>
