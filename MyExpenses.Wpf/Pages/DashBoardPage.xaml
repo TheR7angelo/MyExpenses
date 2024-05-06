@@ -45,6 +45,11 @@
                     Click="ButtonAccountManagement_OnClick">
             </Button>
 
+            <Button Content="{Binding ButtonAccountTypeManagement}"
+                    Style="{StaticResource MaterialDesignPaperButton}"
+                    Click="ButtonAccountTypeManagement_OnClick">
+            </Button>
+
             <Button Content="{Binding ButtonLocationManagement}"
                     Style="{StaticResource MaterialDesignPaperButton}"
                     Click="ButtonLocationManagement_OnClick">
