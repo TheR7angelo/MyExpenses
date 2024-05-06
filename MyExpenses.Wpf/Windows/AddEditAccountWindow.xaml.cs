@@ -31,24 +31,24 @@ public partial class AddEditAccountWindow
 
     #region HintAssist
 
-    public string HintAssistTextBoxAccountName { get; } = AddAccountWindowResources.TextBoxAccountName;
-    public string HintAssistComboBoxAccountType { get; } = AddAccountWindowResources.ComboBoxAccountType;
-    public string HintAssistComboBoxAccountCategoryType { get; } = AddAccountWindowResources.ComboBoxAccountCategoryType;
-    public string HintAssistComboBoxAccountCurrency { get; } = AddAccountWindowResources.ComboBoxAccountCurrency;
-    public string HintAssistTextBoxAccountStartingBalance { get; } = AddAccountWindowResources.TextBoxAccountStartingBalance;
-    public string HintAssistTextBoxAccountStartingBalanceDescription { get; } = AddAccountWindowResources.TextBoxAccountStartingBalanceDescription;
+    public string HintAssistTextBoxAccountName { get; } = AddEditAccountWindowResources.TextBoxAccountName;
+    public string HintAssistComboBoxAccountType { get; } = AddEditAccountWindowResources.ComboBoxAccountType;
+    public string HintAssistComboBoxAccountCategoryType { get; } = AddEditAccountWindowResources.ComboBoxAccountCategoryType;
+    public string HintAssistComboBoxAccountCurrency { get; } = AddEditAccountWindowResources.ComboBoxAccountCurrency;
+    public string HintAssistTextBoxAccountStartingBalance { get; } = AddEditAccountWindowResources.TextBoxAccountStartingBalance;
+    public string HintAssistTextBoxAccountStartingBalanceDescription { get; } = AddEditAccountWindowResources.TextBoxAccountStartingBalanceDescription;
 
     #endregion
 
     #region Button
 
-    public string ButtonCancelContent { get; } = AddAccountWindowResources.ButtonCancelContent;
-    public string ButtonDeleteContent { get; } = AddAccountWindowResources.ButtonDeleteContent;
-    public string ButtonValidContent { get; } = AddAccountWindowResources.ButtonValidContent;
+    public string ButtonCancelContent { get; } = AddEditAccountWindowResources.ButtonCancelContent;
+    public string ButtonDeleteContent { get; } = AddEditAccountWindowResources.ButtonDeleteContent;
+    public string ButtonValidContent { get; } = AddEditAccountWindowResources.ButtonValidContent;
 
     #endregion
-    public string LabelIsAccountActive { get; } = AddAccountWindowResources.LabelIsAccountActive;
-    private string MsgBoxErrorAccountNameAlreadyExists { get; } = AddAccountWindowResources.MsgBoxErrorAccountNameAlreadyExists;
+    public string LabelIsAccountActive { get; } = AddEditAccountWindowResources.LabelIsAccountActive;
+    private string MsgBoxErrorAccountNameAlreadyExists { get; } = AddEditAccountWindowResources.MsgBoxErrorAccountNameAlreadyExists;
 
     #endregion
 
@@ -111,12 +111,12 @@ public partial class AddEditAccountWindow
             AccountTypes.Add(newAccountType);
             Account.AccountTypeFk = newAccountType.Id;
             Log.Information("Account type was successfully added");
-            MessageBox.Show(AddAccountWindowResources.MessageBoxAddAccountTypeSuccess);
+            MessageBox.Show(AddEditAccountWindowResources.MessageBoxAddAccountTypeSuccess);
         }
         else
         {
             Log.Error(exception, "An error occurred please retry");
-            MessageBox.Show(AddAccountWindowResources.MessageBoxAddAccountTypeError);
+            MessageBox.Show(AddEditAccountWindowResources.MessageBoxAddAccountTypeError);
         }
     }
 
@@ -135,12 +135,12 @@ public partial class AddEditAccountWindow
             CategoryTypes.Add(newCategoryType);
             History.CategoryTypeFk = newCategoryType.Id;
             Log.Information("Account type was successfully added");
-            MessageBox.Show(AddAccountWindowResources.MessageBoxAddCurrencySuccess);
+            MessageBox.Show(AddEditAccountWindowResources.MessageBoxAddCurrencySuccess);
         }
         else
         {
             Log.Error(exception, "An error occurred please retry");
-            MessageBox.Show(AddAccountWindowResources.MessageBoxAddCurrencyError);
+            MessageBox.Show(AddEditAccountWindowResources.MessageBoxAddCurrencyError);
         }
     }
 
@@ -159,12 +159,12 @@ public partial class AddEditAccountWindow
             Currencies.Add(newCurrency);
             Account.CurrencyFk = newCurrency.Id;
             Log.Information("Account type was successfully added");
-            MessageBox.Show(AddAccountWindowResources.MessageBoxAddCurrencySuccess);
+            MessageBox.Show(AddEditAccountWindowResources.MessageBoxAddCurrencySuccess);
         }
         else
         {
             Log.Error(exception, "An error occurred please retry");
-            MessageBox.Show(AddAccountWindowResources.MessageBoxAddCurrencyError);
+            MessageBox.Show(AddEditAccountWindowResources.MessageBoxAddCurrencyError);
         }
     }
 
@@ -255,7 +255,7 @@ public partial class AddEditAccountWindow
     {
         if (string.IsNullOrEmpty(Account.Name))
         {
-            MessageBox.Show(AddAccountWindowResources.MsgBoxErrorAccountNameCannotByEmpty);
+            MessageBox.Show(AddEditAccountWindowResources.MsgBoxErrorAccountNameCannotByEmpty);
             return true;
         }
 
@@ -268,13 +268,13 @@ public partial class AddEditAccountWindow
 
         if (Account.AccountTypeFk is null)
         {
-            MessageBox.Show(AddAccountWindowResources.MsgBoxErrorAccountTypeCannotByEmpty);
+            MessageBox.Show(AddEditAccountWindowResources.MsgBoxErrorAccountTypeCannotByEmpty);
             return true;
         }
 
         if (Account.CurrencyFk is null)
         {
-            MessageBox.Show(AddAccountWindowResources.MsgBoxErrorAccountCurrencyCannotByEmpty);
+            MessageBox.Show(AddEditAccountWindowResources.MsgBoxErrorAccountCurrencyCannotByEmpty);
             return true;
         }
 
@@ -282,7 +282,7 @@ public partial class AddEditAccountWindow
 
         if (string.IsNullOrEmpty(History.Description))
         {
-            MessageBox.Show(AddAccountWindowResources.MsgBoxErrorAccountStartingBalanceDescriptionCannotByEmpty);
+            MessageBox.Show(AddEditAccountWindowResources.MsgBoxErrorAccountStartingBalanceDescriptionCannotByEmpty);
             return true;
         }
 
