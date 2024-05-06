@@ -5,7 +5,7 @@ using MyExpenses.Models.Sql.Tables;
 using MyExpenses.Sql.Context;
 using MyExpenses.Wpf.Resources.Resx.Windows.AddEditCurrencyWindow;
 
-namespace MyExpenses.Wpf.Windows.DashBoardPage;
+namespace MyExpenses.Wpf.Windows;
 
 public partial class AddEditCurrencyWindow
 {
