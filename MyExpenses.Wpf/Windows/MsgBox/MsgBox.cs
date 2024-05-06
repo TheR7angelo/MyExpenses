@@ -26,6 +26,11 @@ public static class MsgBox
         return ShowCore(messageBoxText, string.Empty, icon:icon);
     }
 
+    public static MessageBoxResult Show(string messageBoxText, MsgBoxImage icon, MessageBoxButton button)
+    {
+        return ShowCore(messageBoxText, string.Empty, icon:icon, button:button);
+    }
+
     public static MessageBoxResult Show(string messageBoxText)
     {
         return ShowCore(messageBoxText, string.Empty);

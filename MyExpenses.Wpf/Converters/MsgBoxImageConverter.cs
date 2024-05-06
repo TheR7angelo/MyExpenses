@@ -20,6 +20,7 @@ public class MsgBoxImageConverter : IValueConverter
             MsgBoxImage.Warning => PackIconKind.Warning,
             MsgBoxImage.Asterisk => PackIconKind.Asterisk,
             MsgBoxImage.Information => PackIconKind.Information,
+            MsgBoxImage.Check => PackIconKind.CheckBold,
             _ => PackIconKind.None
         };
     }
