@@ -1,4 +1,5 @@
 -- region Tables
+
 DROP TABLE IF EXISTS t_account_type;
 CREATE TABLE t_account_type
 (
@@ -36,6 +37,17 @@ CREATE TABLE t_account
     date_added      DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
+DROP TABLE IF EXISTS t_color;
+CREATE TABLE t_color
+(
+    id                     INTEGER
+        constraint t_account_type_pk
+            PRIMARY KEY AUTOINCREMENT,
+    name                   TEXT,
+    hexadecimal_color_code TEXT,
+    date_added             DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
 DROP TABLE IF EXISTS t_category_type;
 CREATE TABLE t_category_type
 (
@@ -43,6 +55,9 @@ CREATE TABLE t_category_type
         CONSTRAINT t_category_type_pk
             PRIMARY KEY AUTOINCREMENT,
     name       TEXT,
+    color_fk   integer
+        constraint t_account_type_t_color_id_fk
+            references t_color,
     date_added DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -100,9 +115,8 @@ CREATE TABLE t_history
 -- endregion
 
 -- region Triggers
-
 DROP TRIGGER IF EXISTS after_insert_on_t_account_type;
-CREATE TRIGGER after_insert_on_after_insert_on_t_account_type
+CREATE TRIGGER after_insert_on_t_account_type
     AFTER INSERT
     ON t_account_type
     FOR EACH ROW
@@ -157,8 +171,36 @@ BEGIN
     WHERE id = NEW.id;
 END;
 
+DROP TRIGGER IF EXISTS after_insert_on_t_color;
+CREATE TRIGGER after_insert_on_t_color
+    AFTER INSERT
+    ON t_color
+    FOR EACH ROW
+BEGIN
+    UPDATE t_color
+    SET date_added = CASE
+                         WHEN typeof(NEW.date_added) = 'integer' THEN datetime(NEW.date_added / 1000, 'unixepoch')
+                         ELSE NEW.date_added
+        END
+    WHERE id = NEW.id;
+END;
+
+DROP TRIGGER IF EXISTS after_insert_on_t_color;
+CREATE TRIGGER after_insert_on_t_color
+    AFTER UPDATE
+    ON t_color
+    FOR EACH ROW
+BEGIN
+    UPDATE t_color
+    SET date_added = CASE
+                         WHEN typeof(NEW.date_added) = 'integer' THEN datetime(NEW.date_added / 1000, 'unixepoch')
+                         ELSE NEW.date_added
+        END
+    WHERE id = NEW.id;
+END;
+
 DROP TRIGGER IF EXISTS after_insert_on_t_category_type;
-CREATE TRIGGER after_insert_on_after_insert_on_t_category_type
+CREATE TRIGGER after_insert_on_t_category_type
     AFTER INSERT
     ON t_category_type
     FOR EACH ROW
@@ -377,15 +419,18 @@ SELECT CAST(STRFTIME('%Y', h.date) AS INT) AS year,
        ta.name                             AS account,
        tct.name                            AS category,
        h.value,
-       tc.symbol
+       tcu.symbol,
+       tco.hexadecimal_color_code
 
 FROM t_category_type tct
          LEFT JOIN t_history h
                    ON h.category_type_fk = tct.id
          LEFT JOIN t_account ta
                    ON h.account_fk = ta.id
-         LEFT JOIN t_currency tc
-                   ON ta.currency_fk = tc.id
+         LEFT JOIN t_currency tcu
+                   ON ta.currency_fk = tcu.id
+         LEFT JOIN t_color tco
+                ON tct.color_fk = tco.id
 ORDER BY year, week;
 -- endregion
 
