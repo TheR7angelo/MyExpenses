@@ -19,6 +19,9 @@ public static class MsgBox
     public static MessageBoxResult Show(string messageBoxText, string caption, MessageBoxButton button)
         => ShowCore(messageBoxText, caption, button);
 
+    public static MessageBoxResult Show(string messageBoxText, string caption, MsgBoxImage icon)
+        => ShowCore(messageBoxText, caption, icon:icon);
+
     public static MessageBoxResult Show(string messageBoxText, string caption)
         => ShowCore(messageBoxText, caption);
 
