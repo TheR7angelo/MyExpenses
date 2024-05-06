@@ -35,7 +35,7 @@ namespace MyExpenses.Wpf.Resources.Resx.Windows.AddAccountWindow {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MyExpenses.Wpf.Resources.Resx.Windows.AddAccountWindow.AddAccountWindowResources", typeof(AddAccountWindowResources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MyExpenses.Wpf.Resources.Resx.Windows.AddEditAccountWindow.AddAccountWindowResources", typeof(AddAccountWindowResources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
