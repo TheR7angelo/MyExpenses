@@ -79,7 +79,7 @@ CREATE TABLE t_history
     id               INTEGER
         CONSTRAINT t_history_pk
             PRIMARY KEY AUTOINCREMENT,
-    compte_fk        INTEGER
+    account_fk        INTEGER
         CONSTRAINT t_history_t_account_id_fk
             REFERENCES t_account,
     description      TEXT,
@@ -322,7 +322,7 @@ SELECT h.id,
 
 FROM t_history h
          LEFT JOIN t_account ta
-                   ON h.compte_fk = ta.id
+                   ON h.account_fk = ta.id
          LEFT JOIN t_category_type tct
                    ON h.category_type_fk = tct.id
          LEFT JOIN t_mode_payment tmp
@@ -336,10 +336,10 @@ FROM t_history h
 -- CREATE VIEW v_value_by_month_year AS
 -- SELECT CAST(STRFTIME('%Y', h.date) AS INTEGER) AS year,
 --        CAST(STRFTIME('%m', h.date) AS INTEGER) AS month,
---        h.compte_fk,
+--        h.account_fk,
 --        ROUND(SUM(h.value), 2)                  AS total
 -- FROM t_history h
--- GROUP BY year, month, h.compte_fk
+-- GROUP BY year, month, h.account_fk
 -- ORDER BY year, month;
 --
 -- DROP VIEW IF EXISTS v_value_by_month_year_category;
@@ -362,7 +362,7 @@ SELECT ta.id,
        tc.symbol
 FROM t_account ta
          LEFT JOIN t_history th
-                   ON ta.id = th.compte_fk
+                   ON ta.id = th.account_fk
          LEFT JOIN t_currency tc
                    ON ta.currency_fk = tc.id
 GROUP BY ta.id, ta.name, tc.symbol
@@ -383,7 +383,7 @@ FROM t_category_type tct
          LEFT JOIN t_history h
                    ON h.category_type_fk = tct.id
          LEFT JOIN t_account ta
-                   ON h.compte_fk = ta.id
+                   ON h.account_fk = ta.id
          LEFT JOIN t_currency tc
                    ON ta.currency_fk = tc.id
 ORDER BY year, week;

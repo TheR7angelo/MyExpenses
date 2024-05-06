@@ -10,8 +10,8 @@ public partial class THistory
     [Column("id")]
     public int Id { get; set; }
 
-    [Column("compte_fk")]
-    public int? CompteFk { get; set; }
+    [Column("account_fk")]
+    public int? AccountFk { get; set; }
 
     [Column("description")]
     public string? Description { get; set; }
