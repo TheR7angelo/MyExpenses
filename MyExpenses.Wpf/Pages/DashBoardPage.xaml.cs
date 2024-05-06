@@ -82,8 +82,6 @@ public partial class DashBoardPage : INotifyPropertyChanged
 
     public DashBoardPage()
     {
-        using var context = new DataBaseContext();
-
         RefreshAccountTotal();
 
         InitializeComponent();
