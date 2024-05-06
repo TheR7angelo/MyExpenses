@@ -61,24 +61,17 @@ public partial class MsgBoxMessageWindow
 
     internal void SetButtonVisibility(MessageBoxButton button = MessageBoxButton.OK)
     {
-        var buttonToCollapse = button switch
+        var buttonSet = button switch
         {
-            MessageBoxButton.OK => [ButtonYes, ButtonNo, ButtonCancel],
-            MessageBoxButton.OKCancel => [ButtonYes, ButtonNo],
-            MessageBoxButton.YesNoCancel => [ButtonOk],
-            MessageBoxButton.YesNo => [ButtonOk, ButtonCancel],
-            _ => new List<Button> { ButtonYes, ButtonNo, ButtonOk, ButtonCancel }
-        };
-        var buttonToVisible = button switch
-        {
-            MessageBoxButton.OK => [ButtonOk],
-            MessageBoxButton.OKCancel => [ButtonOk, ButtonCancel],
-            MessageBoxButton.YesNoCancel => [ButtonYes, ButtonNo, ButtonCancel],
-            MessageBoxButton.YesNo => [ButtonYes, ButtonNo],
-            _ => new List<Button>()
+            MessageBoxButton.OK => (Visible: [ButtonOk], Collapsed: [ButtonYes, ButtonNo, ButtonCancel]),
+            MessageBoxButton.OKCancel => (Visible: [ButtonOk, ButtonCancel], Collapsed: [ButtonYes, ButtonNo]),
+            MessageBoxButton.YesNoCancel => (Visible: [ButtonYes, ButtonNo, ButtonCancel], Collapsed: [ButtonOk]),
+            MessageBoxButton.YesNo => (Visible: [ButtonYes, ButtonNo], Collapsed: [ButtonOk, ButtonCancel]),
+            _ => (Visible: new List<Button> { ButtonOk },
+                Collapsed: new List<Button> { ButtonYes, ButtonNo, ButtonCancel })
         };
 
-        foreach (var b in buttonToCollapse) b.Visibility = Visibility.Collapsed;
-        foreach (var b in buttonToVisible) b.Visibility = Visibility.Visible;
+        foreach (var b in buttonSet.Visible) b.Visibility = Visibility.Visible;
+        foreach (var b in buttonSet.Collapsed) b.Visibility = Visibility.Collapsed;
     }
 }
