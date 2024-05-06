@@ -18,7 +18,7 @@ public partial class TColor : ISql
     public string? HexadecimalColorCode { get; set; }
 
     [Column("date_added", TypeName = "DATETIME")]
-    public DateTime? DateAdded { get; set; }
+    public DateTime? DateAdded { get; set; } = DateTime.Now;
 
     [InverseProperty("ColorFkNavigation")]
     public virtual ICollection<TCategoryType> TCategoryTypes { get; set; } = new List<TCategoryType>();
