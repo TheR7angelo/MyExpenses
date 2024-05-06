@@ -38,6 +38,7 @@ public static class MsgBox
     {
         var msgBoxMessageWindow = new MsgBoxMessageWindow
         {
+            MessageBoxText = messageBoxText,
             Title = caption,
             MsgBoxImage = icon
         };

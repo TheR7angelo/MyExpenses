@@ -47,6 +47,8 @@
 
         <materialDesign:PackIcon Grid.Row="0" Grid.Column="0" Kind="{Binding MsgBoxImage, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource MsgBoxImageConverter}}" />
 
+        <TextBlock Grid.Row="0" Grid.Column="1" TextWrapping="Wrap" Text="{Binding MessageBoxText, UpdateSourceTrigger=PropertyChanged}" />
+
     </Grid>
 
 </mah:MetroWindow>
