@@ -23,4 +23,13 @@
     <data name="MessageBoxMenuItemDeleteFeatureError" xml:space="preserve">
         <value>An error occurred please retry</value>
     </data>
+    <data name="MessageBoxProcessNewPlaceAddSuccess" xml:space="preserve">
+        <value>The new place has been added successfully</value>
+    </data>
+    <data name="MessageBoxProcessNewPlaceEditSuccess" xml:space="preserve">
+        <value>The new location has been successfully edited</value>
+    </data>
+    <data name="MessageBoxProcessNewPlaceError" xml:space="preserve">
+        <value>An error occurred please retry</value>
+    </data>
 </root>

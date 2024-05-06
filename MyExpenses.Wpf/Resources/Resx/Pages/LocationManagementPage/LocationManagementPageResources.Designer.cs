@@ -95,5 +95,32 @@ namespace MyExpenses.Wpf.Resources.Resx.Pages.LocationManagementPage {
                 return ResourceManager.GetString("MessageBoxMenuItemDeleteFeatureUseSuccess", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The new place has been added successfully.
+        /// </summary>
+        internal static string MessageBoxProcessNewPlaceAddSuccess {
+            get {
+                return ResourceManager.GetString("MessageBoxProcessNewPlaceAddSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The new location has been successfully edited.
+        /// </summary>
+        internal static string MessageBoxProcessNewPlaceEditSuccess {
+            get {
+                return ResourceManager.GetString("MessageBoxProcessNewPlaceEditSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error occurred please retry.
+        /// </summary>
+        internal static string MessageBoxProcessNewPlaceError {
+            get {
+                return ResourceManager.GetString("MessageBoxProcessNewPlaceError", resourceCulture);
+            }
+        }
     }
 }

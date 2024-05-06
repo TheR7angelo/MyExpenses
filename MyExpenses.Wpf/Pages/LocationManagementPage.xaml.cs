@@ -97,7 +97,7 @@ public partial class LocationManagementPage
         if (addEditLocationWindow.DialogResult != true) return;
 
         var newPlace = addEditLocationWindow.Place;
-        ProcessNewPlace(newPlace);
+        ProcessNewPlace(newPlace, add:true);
         AddPlaceTreeViewCountryGroup(newPlace);
     }
 
@@ -161,7 +161,7 @@ public partial class LocationManagementPage
         if (addEditLocationWindow.DialogResult != true) return;
 
         var editedPlace = addEditLocationWindow.Place;
-        ProcessNewPlace(editedPlace);
+        ProcessNewPlace(editedPlace, edit:true);
 
         RemovePlaceTreeViewCountryGroup(editedPlace);
         AddPlaceTreeViewCountryGroup(editedPlace);
@@ -213,8 +213,7 @@ public partial class LocationManagementPage
         }
     }
 
-    // TODO work
-    private void ProcessNewPlace(TPlace newPlace)
+    private void ProcessNewPlace(TPlace newPlace, bool add = false, bool edit = false)
     {
         var (success, _) = newPlace.AddOrEdit();
         if (success)
@@ -225,9 +224,17 @@ public partial class LocationManagementPage
             PlaceLayer.Add(feature);
             MapControl.Refresh();
 
-            MessageBox.Show("Operation successful");
+            switch (add)
+            {
+                case true when !edit:
+                    MessageBox.Show(LocationManagementPageResources.MessageBoxProcessNewPlaceAddSuccess);
+                    break;
+                case false when edit:
+                    MessageBox.Show(LocationManagementPageResources.MessageBoxProcessNewPlaceEditSuccess);
+                    break;
+            }
         }
-        else MessageBox.Show("Operation failed");
+        else MessageBox.Show(LocationManagementPageResources.MessageBoxProcessNewPlaceError);
     }
 
     private void RemovePlaceTreeViewCountryGroup(TPlace placeToDelete)
