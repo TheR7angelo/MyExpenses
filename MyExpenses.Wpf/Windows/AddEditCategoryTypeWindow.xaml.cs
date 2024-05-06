@@ -4,6 +4,7 @@ using System.Windows.Input;
 using MyExpenses.Models.Sql.Tables;
 using MyExpenses.Sql.Context;
 using MyExpenses.Wpf.Resources.Resx.Windows.AddEditCategoryTypeWindow;
+using MyExpenses.Wpf.Windows.MsgBox;
 
 namespace MyExpenses.Wpf.Windows.DashBoardPage;
 
@@ -40,7 +41,8 @@ public partial class AddEditCategoryTypeWindow
         => CategoryTypes.Select(s => s.Name).Contains(accountName);
 
     private void ShowErrorMessage()
-        => MessageBox.Show(AddEditCategoryTypeWindowResources.MessageBoxCategoryAlreadyExists);
+        => MsgBox.MsgBox.Show(AddEditCategoryTypeWindowResources.MessageBoxCategoryAlreadyExists, MsgBoxImage.Warning);
+
 
     #endregion
 

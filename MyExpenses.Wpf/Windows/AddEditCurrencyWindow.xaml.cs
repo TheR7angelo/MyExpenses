@@ -4,6 +4,7 @@ using System.Windows.Input;
 using MyExpenses.Models.Sql.Tables;
 using MyExpenses.Sql.Context;
 using MyExpenses.Wpf.Resources.Resx.Windows.AddEditCurrencyWindow;
+using MyExpenses.Wpf.Windows.MsgBox;
 
 namespace MyExpenses.Wpf.Windows;
 
@@ -40,7 +41,8 @@ public partial class AddEditCurrencyWindow
         => Currencies.Select(s => s.Symbol).Contains(accountName);
 
     private void ShowErrorMessage()
-        => MessageBox.Show(AddEditCurrencyWindowResources.MessageBoxCurrencySymbolAlreadyExists);
+        => MsgBox.MsgBox.Show(AddEditCurrencyWindowResources.MessageBoxCurrencySymbolAlreadyExists,
+            MsgBoxImage.Warning);
 
     #endregion
 

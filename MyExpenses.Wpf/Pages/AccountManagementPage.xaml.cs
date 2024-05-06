@@ -9,6 +9,7 @@ using MyExpenses.Utils;
 using MyExpenses.Utils.Sql;
 using MyExpenses.Wpf.Resources.Resx.Pages.AccountManagementPage;
 using MyExpenses.Wpf.Windows;
+using MyExpenses.Wpf.Windows.MsgBox;
 using Serilog;
 
 namespace MyExpenses.Wpf.Pages;
@@ -48,7 +49,7 @@ public partial class AccountManagementPage
         if (success)
         {
             Log.Information("Account was successfully added");
-            MessageBox.Show(AccountManagementPageResources.MessageBoxAddAccountSuccess);
+            MsgBox.Show(AccountManagementPageResources.MessageBoxAddAccountSuccess, MsgBoxImage.Check);
 
             var newVTotalByAccount = newAccount.ToVTotalByAccount()!;
 
@@ -60,7 +61,7 @@ public partial class AccountManagementPage
         else
         {
             Log.Error(exception, "An error occurred please retry");
-            MessageBox.Show(AccountManagementPageResources.MessageBoxAddAccountError);
+            MsgBox.Show(AccountManagementPageResources.MessageBoxAddAccountError, MsgBoxImage.Warning);
         }
     }
 

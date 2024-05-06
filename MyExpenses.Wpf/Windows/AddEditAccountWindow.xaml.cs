@@ -9,6 +9,7 @@ using MyExpenses.Wpf.Resources.Regex;
 using MyExpenses.Wpf.Resources.Resx.Windows.AddAccountWindow;
 using MyExpenses.Wpf.Utils;
 using MyExpenses.Wpf.Windows.DashBoardPage;
+using MyExpenses.Wpf.Windows.MsgBox;
 using Serilog;
 
 namespace MyExpenses.Wpf.Windows;
@@ -121,12 +122,12 @@ public partial class AddEditAccountWindow
             AccountTypes.Add(newAccountType);
             Account.AccountTypeFk = newAccountType.Id;
             Log.Information("Account type was successfully added");
-            MessageBox.Show(AddEditAccountWindowResources.MessageBoxAddAccountTypeSuccess);
+            MsgBox.MsgBox.Show(AddEditAccountWindowResources.MessageBoxAddAccountTypeSuccess, MsgBoxImage.Check);
         }
         else
         {
             Log.Error(exception, "An error occurred please retry");
-            MessageBox.Show(AddEditAccountWindowResources.MessageBoxAddAccountTypeError);
+            MsgBox.MsgBox.Show(AddEditAccountWindowResources.MessageBoxAddAccountTypeError, MsgBoxImage.Error);
         }
     }
 
@@ -145,12 +146,12 @@ public partial class AddEditAccountWindow
             CategoryTypes.Add(newCategoryType);
             History.CategoryTypeFk = newCategoryType.Id;
             Log.Information("Account type was successfully added");
-            MessageBox.Show(AddEditAccountWindowResources.MessageBoxAddCurrencySuccess);
+            MsgBox.MsgBox.Show(AddEditAccountWindowResources.MessageBoxAddCurrencySuccess, MsgBoxImage.Check);
         }
         else
         {
             Log.Error(exception, "An error occurred please retry");
-            MessageBox.Show(AddEditAccountWindowResources.MessageBoxAddCurrencyError);
+            MsgBox.MsgBox.Show(AddEditAccountWindowResources.MessageBoxAddCurrencyError, MsgBoxImage.Error);
         }
     }
 
@@ -169,12 +170,12 @@ public partial class AddEditAccountWindow
             Currencies.Add(newCurrency);
             Account.CurrencyFk = newCurrency.Id;
             Log.Information("Account type was successfully added");
-            MessageBox.Show(AddEditAccountWindowResources.MessageBoxAddCurrencySuccess);
+            MsgBox.MsgBox.Show(AddEditAccountWindowResources.MessageBoxAddCurrencySuccess, MsgBoxImage.Check);
         }
         else
         {
             Log.Error(exception, "An error occurred please retry");
-            MessageBox.Show(AddEditAccountWindowResources.MessageBoxAddCurrencyError);
+            MsgBox.MsgBox.Show(AddEditAccountWindowResources.MessageBoxAddCurrencyError, MsgBoxImage.Error);
         }
     }
 
@@ -192,7 +193,7 @@ public partial class AddEditAccountWindow
         if (success)
         {
             Log.Information("Account was successfully removed");
-            MessageBox.Show(AddEditAccountWindowResources.MessageBoxDeleteAccountNoUseSuccess);
+            MsgBox.MsgBox.Show(AddEditAccountWindowResources.MessageBoxDeleteAccountNoUseSuccess, MsgBoxImage.Check);
 
             DialogResult = true;
             Close();
@@ -206,9 +207,8 @@ public partial class AddEditAccountWindow
         {
             Log.Error("Foreign key constraint violation");
 
-            var response =
-                MessageBox.Show(AddEditAccountWindowResources.MessageBoxDeleteAccountUseQuestion, "Question",
-                    MessageBoxButton.YesNoCancel, MessageBoxImage.Question);
+            var response = MsgBox.MsgBox.Show(AddEditAccountWindowResources.MessageBoxDeleteAccountUseQuestion,
+                MsgBoxImage.Question, MessageBoxButton.YesNoCancel);
 
             if (response != MessageBoxResult.Yes) return;
 
@@ -216,7 +216,7 @@ public partial class AddEditAccountWindow
                 Account.Name);
             Account.Delete(true);
             Log.Information("Account and all relative element was successfully removed");
-            MessageBox.Show(AddEditAccountWindowResources.MessageBoxDeleteAccountUseSuccess);
+            MsgBox.MsgBox.Show(AddEditAccountWindowResources.MessageBoxDeleteAccountUseSuccess, MsgBoxImage.Check);
 
             DialogResult = true;
             Close();
@@ -225,7 +225,7 @@ public partial class AddEditAccountWindow
         }
 
         Log.Error(exception, "An error occurred please retry");
-        MessageBox.Show(AddEditAccountWindowResources.MessageBoxDeleteAccountError);
+        MsgBox.MsgBox.Show(AddEditAccountWindowResources.MessageBoxDeleteAccountError, MsgBoxImage.Error);
     }
 
     private void ButtonValid_OnClick(object sender, RoutedEventArgs e)
@@ -265,26 +265,27 @@ public partial class AddEditAccountWindow
     {
         if (string.IsNullOrEmpty(Account.Name))
         {
-            MessageBox.Show(AddEditAccountWindowResources.MsgBoxErrorAccountNameCannotByEmpty);
+            MsgBox.MsgBox.Show(AddEditAccountWindowResources.MsgBoxErrorAccountNameCannotByEmpty, MsgBoxImage.Warning);
             return true;
         }
 
         var errorName = CheckAccountName(Account.Name);
         if (errorName)
         {
-            MessageBox.Show(MsgBoxErrorAccountNameAlreadyExists);
+            MsgBox.MsgBox.Show(MsgBoxErrorAccountNameAlreadyExists, MsgBoxImage.Warning);
             return true;
         }
 
         if (Account.AccountTypeFk is null)
         {
-            MessageBox.Show(AddEditAccountWindowResources.MsgBoxErrorAccountTypeCannotByEmpty);
+            MsgBox.MsgBox.Show(AddEditAccountWindowResources.MsgBoxErrorAccountTypeCannotByEmpty, MsgBoxImage.Warning);
             return true;
         }
 
         if (Account.CurrencyFk is null)
         {
-            MessageBox.Show(AddEditAccountWindowResources.MsgBoxErrorAccountCurrencyCannotByEmpty);
+            MsgBox.MsgBox.Show(AddEditAccountWindowResources.MsgBoxErrorAccountCurrencyCannotByEmpty,
+                MsgBoxImage.Warning);
             return true;
         }
 
@@ -292,7 +293,8 @@ public partial class AddEditAccountWindow
 
         if (string.IsNullOrEmpty(History.Description))
         {
-            MessageBox.Show(AddEditAccountWindowResources.MsgBoxErrorAccountStartingBalanceDescriptionCannotByEmpty);
+            MsgBox.MsgBox.Show(AddEditAccountWindowResources.MsgBoxErrorAccountStartingBalanceDescriptionCannotByEmpty,
+                MsgBoxImage.Warning);
             return true;
         }
 
@@ -300,7 +302,8 @@ public partial class AddEditAccountWindow
     }
 
     private void DisplayErrorAccountName()
-        => MessageBox.Show(MsgBoxErrorAccountNameAlreadyExists);
+        => MsgBox.MsgBox.Show(MsgBoxErrorAccountNameAlreadyExists, MsgBoxImage.Warning);
+
 
     public void SetTAccount(TAccount account)
     {

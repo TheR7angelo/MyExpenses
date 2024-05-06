@@ -10,6 +10,7 @@ using MyExpenses.WebApi.Nominatim;
 using MyExpenses.Wpf.Resources.Resx.Windows.AddEditLocationWindow;
 using MyExpenses.Wpf.Utils;
 using MyExpenses.Wpf.Utils.Maps;
+using MyExpenses.Wpf.Windows.MsgBox;
 using Serilog;
 using Point = NetTopologySuite.Geometries.Point;
 
@@ -46,15 +47,18 @@ public partial class AddEditLocationWindow
         switch (nominatimSearchResults.Count)
         {
             case 0:
-                MessageBox.Show(AddEditLocationWindowResources.HandleNominatimResultZeroResult);
+                MsgBox.MsgBox.Show(AddEditLocationWindowResources.HandleNominatimResultZeroResult,
+                    MsgBoxImage.Exclamation);
                 break;
             case 1:
-                MessageBox.Show(AddEditLocationWindowResources.HandleNominatimResultOneResult);
+                MsgBox.MsgBox.Show(AddEditLocationWindowResources.HandleNominatimResultOneResult,
+                    MsgBoxImage.Check);
                 var nominatimSearchResult = nominatimSearchResults.First();
                 place = mapper.Map<TPlace>(nominatimSearchResult);
                 break;
             case > 1:
-                MessageBox.Show(AddEditLocationWindowResources.HandleNominatimResultMultipleResult);
+                MsgBox.MsgBox.Show(AddEditLocationWindowResources.HandleNominatimResultMultipleResult,
+                    MsgBoxImage.Information);
 
                 var places = nominatimSearchResults.Select(s => mapper.Map<TPlace>(s));
                 var nominatimSearchWindows = new NominatimSearchWindows();
@@ -136,7 +140,8 @@ public partial class AddEditLocationWindow
         {
             Log.Information("The API returned no result(s)");
 
-            MessageBox.Show(AddEditLocationWindowResources.ButtonSearchByCoordinateMessageBoxError);
+            MsgBox.MsgBox.Show(AddEditLocationWindowResources.ButtonSearchByCoordinateMessageBoxError,
+                MsgBoxImage.Error);
             return;
         }
 
