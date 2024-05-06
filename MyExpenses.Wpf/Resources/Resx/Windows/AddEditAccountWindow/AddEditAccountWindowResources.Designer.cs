@@ -226,5 +226,14 @@ namespace MyExpenses.Wpf.Resources.Resx.Windows.AddAccountWindow {
                 return ResourceManager.GetString("ButtonCancelContent", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to messagebox delete account no use.
+        /// </summary>
+        internal static string MessageBoxDeleteAccountNoUseSuccess {
+            get {
+                return ResourceManager.GetString("MessageBoxDeleteAccountNoUseSuccess", resourceCulture);
+            }
+        }
     }
 }

@@ -75,4 +75,7 @@
     <data name="ButtonCancelContent" xml:space="preserve">
         <value>Cancel</value>
     </data>
+    <data name="MessageBoxDeleteAccountNoUseSuccess" xml:space="preserve">
+        <value>Account was successfully removed</value>
+    </data>
 </root>

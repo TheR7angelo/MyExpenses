@@ -183,7 +183,7 @@ public partial class AddEditAccountWindow
         if (success)
         {
             Log.Information("Account was successfully removed");
-            MessageBox.Show("Account was successfully removed");
+            MessageBox.Show(AddEditAccountWindowResources.MessageBoxDeleteAccountNoUseSuccess);
 
             DialogResult = true;
             Close();
