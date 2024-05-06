@@ -16,6 +16,7 @@ using MyExpenses.Utils;
 using MyExpenses.Utils.Sql;
 using MyExpenses.Wpf.Resources.Resx.Pages.DashBoardPage;
 using MyExpenses.Wpf.Utils;
+using SkiaSharp;
 using SkiaSharp.Views.WPF;
 
 namespace MyExpenses.Wpf.Pages;
@@ -182,7 +183,8 @@ public partial class DashBoardPage : INotifyPropertyChanged
         var categoriesTotals = brutCategoriesTotals
             .Where(s => s.Year == dateTime.Year && s.Month == dateTime.Month)
             .GroupBy(s => s.Category)
-            .Select(g => new { Category = g.Key, Total = g.Sum(s => s.Value) ?? 0d, g.First().Symbol })
+            .Select(g => new { Category = g.Key, Total = g.Sum(s => s.Value) ?? 0d,
+                g.First().Symbol, g.First().HexadecimalColorCode })
             .ToList();
 
         var grandTotal = Math.Round(categoriesTotals.Sum(ct => Math.Abs(ct.Total)), 2);
@@ -201,6 +203,14 @@ public partial class DashBoardPage : INotifyPropertyChanged
                 ToolTipLabelFormatter = _ => $"{total:F2} {categoryTotal.Symbol}",
                 Tag = categories.First(s => s.Name == categoryTotal.Category)
             };
+
+            var hexadecimalCode = categoryTotal.HexadecimalColorCode;
+            if (!string.IsNullOrEmpty(hexadecimalCode))
+            {
+                var skColor = hexadecimalCode.ToSkColor()!;
+                if (skColor is not null) pieSeries.Fill = new SolidColorPaint((SKColor)skColor);
+            }
+
             series.Add(pieSeries);
         }
 
