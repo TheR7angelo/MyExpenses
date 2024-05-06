@@ -73,22 +73,22 @@
                     HorizontalAlignment="Right">
 
             <Button x:Name="ButtonYes"
-                    Content="Yes"
+                    Content="{Binding ButtonYesContent}"
                     Style="{StaticResource MaterialDesignPaperButton}" Click="ButtonYes_OnClick">
             </Button>
 
             <Button x:Name="ButtonNo"
-                    Content="No"
+                    Content="{Binding ButtonNoContent}"
                     Style="{StaticResource MaterialDesignPaperButton}" Click="ButtonNo_OnClick">
             </Button>
 
             <Button x:Name="ButtonOk"
-                    Content="Ok"
+                    Content="{Binding ButtonOkContent}"
                     Style="{StaticResource MaterialDesignPaperButton}" Click="ButtonOk_OnClick">
             </Button>
 
             <Button x:Name="ButtonCancel"
-                    Content="Cancel"
+                    Content="{Binding ButtonCancelContent}"
                     Style="{StaticResource MaterialDesignPaperButton}" Click="ButtonCancel_OnClick">
             </Button>
 

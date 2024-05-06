@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using MyExpenses.Wpf.Resources.Resx.Windows.MsgBox;
 
 namespace MyExpenses.Wpf.Windows.MsgBox;
 
@@ -34,6 +35,11 @@ public partial class MsgBoxMessageWindow
         get => (MessageBoxResult)GetValue(MessageBoxResultProperty);
         set => SetValue(MessageBoxResultProperty, value);
     }
+
+    public string ButtonCancelContent { get; } = MsgBoxMessageWindowResources.ButtonCancel;
+    public string ButtonOkContent { get; } = MsgBoxMessageWindowResources.ButtonOk;
+    public string ButtonNoContent { get; } = MsgBoxMessageWindowResources.ButtonNo;
+    public string ButtonYesContent { get; } = MsgBoxMessageWindowResources.ButtonYes;
 
     public MsgBoxMessageWindow()
     {

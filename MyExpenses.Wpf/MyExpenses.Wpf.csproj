@@ -66,6 +66,10 @@
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>AccountManagementPageResources.Designer.cs</LastGenOutput>
       </EmbeddedResource>
+      <EmbeddedResource Update="Resources\Resx\Windows\MsgBox\MsgBoxMessageWindowResources.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>MsgBoxMessageWindowResources.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
     </ItemGroup>
 
     <ItemGroup>
@@ -125,6 +129,11 @@
         <DesignTime>True</DesignTime>
         <AutoGen>True</AutoGen>
         <DependentUpon>AccountManagementPageResources.resx</DependentUpon>
+      </Compile>
+      <Compile Update="Resources\Resx\Windows\MsgBox\MsgBoxMessageWindowResources.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>MsgBoxMessageWindowResources.resx</DependentUpon>
       </Compile>
     </ItemGroup>
 
