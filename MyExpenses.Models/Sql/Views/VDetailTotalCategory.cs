@@ -29,4 +29,7 @@ public partial class VDetailTotalCategory
 
     [Column("symbol")]
     public string? Symbol { get; set; }
+
+    [Column("hexadecimal_color_code", TypeName = "TEXT(9)")]
+    public string? HexadecimalColorCode { get; set; }
 }

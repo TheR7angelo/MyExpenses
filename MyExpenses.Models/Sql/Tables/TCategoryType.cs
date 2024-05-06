@@ -13,8 +13,15 @@ public partial class TCategoryType : ISql
     [Column("name")]
     public string? Name { get; set; }
 
+    [Column("color_fk")]
+    public int? ColorFk { get; set; }
+
     [Column("date_added", TypeName = "DATETIME")]
-    public DateTime? DateAdded { get; set; } = DateTime.Now;
+    public DateTime? DateAdded { get; set; }
+
+    [ForeignKey("ColorFk")]
+    [InverseProperty("TCategoryTypes")]
+    public virtual TColor? ColorFkNavigation { get; set; }
 
     [InverseProperty("CategoryTypeFkNavigation")]
     public virtual ICollection<THistory> THistories { get; set; } = new List<THistory>();

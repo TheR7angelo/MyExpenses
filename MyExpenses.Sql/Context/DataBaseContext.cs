@@ -24,6 +24,8 @@ public partial class DataBaseContext : DbContext
 
     public virtual DbSet<TCategoryType> TCategoryTypes { get; set; }
 
+    public virtual DbSet<TColor> TColors { get; set; }
+
     public virtual DbSet<TCurrency> TCurrencies { get; set; }
 
     public virtual DbSet<THistory> THistories { get; set; }
@@ -80,6 +82,11 @@ public partial class DataBaseContext : DbContext
             entity.Property(e => e.DateAdded).HasDefaultValueSql("CURRENT_TIMESTAMP");
         });
 
+        modelBuilder.Entity<TColor>(entity =>
+        {
+            entity.Property(e => e.DateAdded).HasDefaultValueSql("CURRENT_TIMESTAMP");
+        });
+
         modelBuilder.Entity<TCurrency>(entity =>
         {
             entity.Property(e => e.DateAdded).HasDefaultValueSql("CURRENT_TIMESTAMP");
@@ -87,8 +94,13 @@ public partial class DataBaseContext : DbContext
 
         modelBuilder.Entity<THistory>(entity =>
         {
-            entity.Property(e => e.Date).HasDefaultValueSql("CURRENT_TIMESTAMP");
+            entity.Property(e => e.DateAdded).HasDefaultValueSql("CURRENT_TIMESTAMP");
             entity.Property(e => e.Pointed).HasDefaultValueSql("FALSE");
+        });
+
+        modelBuilder.Entity<TModePayment>(entity =>
+        {
+            entity.Property(e => e.DateAdded).HasDefaultValueSql("CURRENT_TIMESTAMP");
         });
 
         modelBuilder.Entity<TPlace>(entity =>

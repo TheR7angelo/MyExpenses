@@ -44,7 +44,7 @@ CREATE TABLE t_color
         constraint t_account_type_pk
             PRIMARY KEY AUTOINCREMENT,
     name                   TEXT,
-    hexadecimal_color_code TEXT,
+    hexadecimal_color_code TEXT(9),
     date_added             DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -185,8 +185,8 @@ BEGIN
     WHERE id = NEW.id;
 END;
 
-DROP TRIGGER IF EXISTS after_insert_on_t_color;
-CREATE TRIGGER after_insert_on_t_color
+DROP TRIGGER IF EXISTS after_update_on_t_color;
+CREATE TRIGGER after_update_on_t_color
     AFTER UPDATE
     ON t_color
     FOR EACH ROW
