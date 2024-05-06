@@ -78,4 +78,13 @@
     <data name="MessageBoxDeleteAccountNoUseSuccess" xml:space="preserve">
         <value>Account was successfully removed</value>
     </data>
+    <data name="MessageBoxDeleteAccountUseQuestion" xml:space="preserve">
+        <value>This account is in use.Are you sure you want to delete this account and everything linked to it ?</value>
+    </data>
+    <data name="MessageBoxDeleteAccountUseSuccess" xml:space="preserve">
+        <value>Account and all relative element was successfully removed</value>
+    </data>
+    <data name="MessageBoxDeleteAccountError" xml:space="preserve">
+        <value>An error occurred please retry</value>
+    </data>
 </root>

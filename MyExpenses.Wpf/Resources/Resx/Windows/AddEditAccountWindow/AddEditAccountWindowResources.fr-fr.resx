@@ -71,4 +71,13 @@
     <data name="MessageBoxDeleteAccountNoUseSuccess" xml:space="preserve">
         <value>Le compte a été supprimé avec succès</value>
     </data>
+    <data name="MessageBoxDeleteAccountUseQuestion" xml:space="preserve">
+        <value>Ce compte est en cours d'utilisation. Etes-vous sûr de vouloir supprimer ce compte et tout ce qui y est lié ?</value>
+    </data>
+    <data name="MessageBoxDeleteAccountUseSuccess" xml:space="preserve">
+        <value>Le compte et tous les éléments relatifs ont été supprimés avec succès</value>
+    </data>
+    <data name="MessageBoxDeleteAccountError" xml:space="preserve">
+        <value>Une erreur s'est produite, veuillez réessayer</value>
+    </data>
 </root>

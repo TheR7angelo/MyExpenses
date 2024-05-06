@@ -33,10 +33,17 @@ public partial class AddEditAccountWindow
 
     public string HintAssistTextBoxAccountName { get; } = AddEditAccountWindowResources.TextBoxAccountName;
     public string HintAssistComboBoxAccountType { get; } = AddEditAccountWindowResources.ComboBoxAccountType;
-    public string HintAssistComboBoxAccountCategoryType { get; } = AddEditAccountWindowResources.ComboBoxAccountCategoryType;
+
+    public string HintAssistComboBoxAccountCategoryType { get; } =
+        AddEditAccountWindowResources.ComboBoxAccountCategoryType;
+
     public string HintAssistComboBoxAccountCurrency { get; } = AddEditAccountWindowResources.ComboBoxAccountCurrency;
-    public string HintAssistTextBoxAccountStartingBalance { get; } = AddEditAccountWindowResources.TextBoxAccountStartingBalance;
-    public string HintAssistTextBoxAccountStartingBalanceDescription { get; } = AddEditAccountWindowResources.TextBoxAccountStartingBalanceDescription;
+
+    public string HintAssistTextBoxAccountStartingBalance { get; } =
+        AddEditAccountWindowResources.TextBoxAccountStartingBalance;
+
+    public string HintAssistTextBoxAccountStartingBalanceDescription { get; } =
+        AddEditAccountWindowResources.TextBoxAccountStartingBalanceDescription;
 
     #endregion
 
@@ -47,8 +54,11 @@ public partial class AddEditAccountWindow
     public string ButtonValidContent { get; } = AddEditAccountWindowResources.ButtonValidContent;
 
     #endregion
+
     public string LabelIsAccountActive { get; } = AddEditAccountWindowResources.LabelIsAccountActive;
-    private string MsgBoxErrorAccountNameAlreadyExists { get; } = AddEditAccountWindowResources.MsgBoxErrorAccountNameAlreadyExists;
+
+    private string MsgBoxErrorAccountNameAlreadyExists { get; } =
+        AddEditAccountWindowResources.MsgBoxErrorAccountNameAlreadyExists;
 
     #endregion
 
@@ -174,7 +184,6 @@ public partial class AddEditAccountWindow
         Close();
     }
 
-    //TODO work
     private void ButtonDelete_OnClick(object sender, RoutedEventArgs e)
     {
         Log.Information("Attempting to remove the account \"{AccountToDeleteName}\"", Account.Name);
@@ -198,15 +207,16 @@ public partial class AddEditAccountWindow
             Log.Error("Foreign key constraint violation");
 
             var response =
-                MessageBox.Show("This account is in use.Are you sure you want to delete this account and everything linked to it ?",
-                    "Question", MessageBoxButton.YesNoCancel);
+                MessageBox.Show(AddEditAccountWindowResources.MessageBoxDeleteAccountUseQuestion, "Question",
+                    MessageBoxButton.YesNoCancel, MessageBoxImage.Question);
 
             if (response != MessageBoxResult.Yes) return;
 
-            Log.Information("Attempting to remove the account \"{AccountToDeleteName}\" with all relative element", Account.Name);
+            Log.Information("Attempting to remove the account \"{AccountToDeleteName}\" with all relative element",
+                Account.Name);
             Account.Delete(true);
             Log.Information("Account and all relative element was successfully removed");
-            MessageBox.Show("Account and all relative element was successfully removed");
+            MessageBox.Show(AddEditAccountWindowResources.MessageBoxDeleteAccountUseSuccess);
 
             DialogResult = true;
             Close();
@@ -215,7 +225,7 @@ public partial class AddEditAccountWindow
         }
 
         Log.Error(exception, "An error occurred please retry");
-        MessageBox.Show("An error occurred please retry");
+        MessageBox.Show(AddEditAccountWindowResources.MessageBoxDeleteAccountError);
     }
 
     private void ButtonValid_OnClick(object sender, RoutedEventArgs e)
