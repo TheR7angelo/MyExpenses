@@ -29,4 +29,22 @@ public partial class MsgBoxMessageWindow
     {
         InitializeComponent();
     }
+
+    private void ButtonYes_OnClick(object sender, RoutedEventArgs e)
+        => SetResult(MessageBoxResult.Yes);
+
+    private void ButtonNo_OnClick(object sender, RoutedEventArgs e)
+        => SetResult(MessageBoxResult.No);
+
+    private void ButtonOk_OnClick(object sender, RoutedEventArgs e)
+        => SetResult(MessageBoxResult.OK);
+
+    private void ButtonCancel_OnClick(object sender, RoutedEventArgs e)
+        => SetResult(MessageBoxResult.Cancel);
+
+    private void SetResult(MessageBoxResult result)
+    {
+        MessageBoxResult = result;
+        Close();
+    }
 }
