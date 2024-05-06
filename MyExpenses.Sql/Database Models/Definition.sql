@@ -79,7 +79,7 @@ CREATE TABLE t_history
     id               INTEGER
         CONSTRAINT t_history_pk
             PRIMARY KEY AUTOINCREMENT,
-    account_fk        INTEGER
+    account_fk       INTEGER
         CONSTRAINT t_history_t_account_id_fk
             REFERENCES t_account,
     description      TEXT,
