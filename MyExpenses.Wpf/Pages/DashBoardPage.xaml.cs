@@ -58,6 +58,8 @@ public partial class DashBoardPage : INotifyPropertyChanged
 
     public string TotalStr => (Total.HasValue ? Total.Value.ToString("F2") : 0d.ToString("F2")) + $" {Symbol}";
 
+    private DataGridRow? DataGridRow { get; set; }
+
     #region Button WrapPanel
 
     public string ButtonAddAccount { get; } = DashBoardPageResources.ButtonAddAccount;
@@ -103,10 +105,23 @@ public partial class DashBoardPage : INotifyPropertyChanged
     private void ButtonLocationManagement_OnClick(object sender, RoutedEventArgs e)
         => nameof(MainWindow.FrameBody).NavigateTo(typeof(LocationManagementPage));
 
+    private void DataGridRow_PreviewMouseRightButtonDown(object sender, MouseButtonEventArgs e)
+    {
+        DataGridRow = sender as DataGridRow;
+    }
 
     private void ItemsControlVTotalAccount_OnLoaded(object sender, RoutedEventArgs e)
         => RefreshRadioButtonSelected();
 
+    private void MenuItemPointed_OnClick(object sender, RoutedEventArgs e)
+    {
+        if (DataGridRow!.DataContext is not VHistory vHistory) return;
+        var history = vHistory.ToTHistory();
+
+        history!.Pointed = !history.Pointed;
+        history.AddOrEdit();
+        RefreshDataGrid(vHistory.Account!, history.Date!.Value);
+    }
 
     private void ToggleButtonVTotalAccount_OnChecked(object sender, RoutedEventArgs e)
     {
@@ -195,23 +210,5 @@ public partial class DashBoardPage : INotifyPropertyChanged
         // TODO zoom on data clicked
         var categoryType = (points.FirstOrDefault()?.Context.Series as PieSeries<double>)?.Tag as TCategoryType;
         Console.WriteLine(categoryType?.Name);
-    }
-
-    private DataGridRow? DataGridRow { get; set; }
-
-    private void DataGridRow_PreviewMouseRightButtonDown(object sender, MouseButtonEventArgs e)
-    {
-        DataGridRow = sender as DataGridRow;
-    }
-
-    //TODO work
-    private void MenuItemPointed_OnClick(object sender, RoutedEventArgs e)
-    {
-        if (DataGridRow!.DataContext is not VHistory vHistory) return;
-        var history = vHistory.ToTHistory();
-
-        history!.Pointed = !history.Pointed;
-        history.AddOrEdit();
-        RefreshDataGrid(vHistory.Account!, history.Date!.Value);
     }
 }
