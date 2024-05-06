@@ -13,8 +13,9 @@ public class InverseBooleanToVisibilityConverter : IValueConverter
         return b ? Visibility.Collapsed : Visibility.Visible;
     }
 
-    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
+    public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
-        throw new NotImplementedException();
+        // pass
+        return null;
     }
 }
