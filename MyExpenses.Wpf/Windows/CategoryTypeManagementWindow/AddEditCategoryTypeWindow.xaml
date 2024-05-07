@@ -65,9 +65,25 @@
                       materialDesign:TextFieldAssist.HasClearButton="True"
                       ItemsSource="{Binding Colors}"
                       Style="{StaticResource MaterialDesignFilledComboBox}"
-                      DisplayMemberPath="{Binding ComboBoxColorDisplayMemberPath}"
                       SelectedValue="{Binding CategoryType.ColorFk, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                       SelectedValuePath="{Binding ComboBoxColorSelectedValuePath}">
+                <ComboBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel utils:PanelExtensions.MarginForAllChildren="5"
+                            Orientation="Horizontal">
+
+                            <Ellipse Height="{Binding ActualHeight, ElementName=Text}"
+                                     Width="{Binding ActualHeight, ElementName=TextBlock}"
+                                     StrokeThickness="1"
+                                     Stroke="{DynamicResource MaterialDesignBody}"
+                                     Fill="{Binding HexadecimalColorCode, Mode=OneWay}">
+                            </Ellipse>
+
+                            <TextBlock x:Name="TextBlock" Text="{Binding Name}" />
+
+                        </StackPanel>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
             </ComboBox>
 
             <Border Grid.Column="1"
