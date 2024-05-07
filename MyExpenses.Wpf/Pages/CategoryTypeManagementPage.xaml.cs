@@ -4,6 +4,11 @@ using System.Windows.Controls;
 using Microsoft.EntityFrameworkCore;
 using MyExpenses.Models.Sql.Tables;
 using MyExpenses.Sql.Context;
+using MyExpenses.Utils;
+using MyExpenses.Wpf.Resources.Resx.Pages.CategoryTypeManagementPage;
+using MyExpenses.Wpf.Windows;
+using MyExpenses.Wpf.Windows.MsgBox;
+using Serilog;
 
 namespace MyExpenses.Wpf.Pages;
 
@@ -23,8 +28,24 @@ public partial class CategoryTypeManagementPage
 
     private void ButtonAddCategoryType_OnClick(object sender, RoutedEventArgs e)
     {
-        //TODO work
-        Console.WriteLine("hey");
+        var addEditCategoryType = new AddEditCategoryTypeWindow();
+        var result = addEditCategoryType.ShowDialog();
+        if (result != true) return;
+
+        var newCategoryType = addEditCategoryType.CategoryType;
+        Log.Information("Attempting to inject the new category type \"{NewCategoryTypeName}\"", newCategoryType.Name);
+        var (success, exception) = newCategoryType.AddOrEdit();
+        if (success)
+        {
+            CategoryTypes.AddAndSort(newCategoryType, s => s.Name!);
+            Log.Information("Account type was successfully added");
+            MsgBox.Show(CategoryTypeManagementPageResources.MessageBoxAddCategorySuccess, MsgBoxImage.Check);
+        }
+        else
+        {
+            Log.Error(exception, "An error occurred please retry");
+            MsgBox.Show(CategoryTypeManagementPageResources.MessageBoxAddCategoryError, MsgBoxImage.Error);
+        }
     }
 
     private void ButtonEditCategoryType_OnClick(object sender, RoutedEventArgs e)
