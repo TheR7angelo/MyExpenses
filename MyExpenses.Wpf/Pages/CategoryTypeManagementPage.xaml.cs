@@ -73,23 +73,26 @@ public partial class CategoryTypeManagementPage
         if (result != true) return;
 
         var editedCategoryType = addEditCategoryTypeWindow.CategoryType;
-        var originalName = addEditCategoryTypeWindow.EditCategoryType;
-        Log.Information("Attempting to edit the category type \"{OriginalName}\"", originalName);
+        Log.Information("Attempting to edit the category type id: {Id}", editedCategoryType.Id);
 
-        var category = editedCategoryType.DeepCopy();
+        var editedCategoryTypeDeepCopy = editedCategoryType.DeepCopy();
 
-        var (success, exception) = category.AddOrEdit();
-        // if (success)
-        // {
-        //     var index = CategoryTypes.IndexOf(categoryType);
-        //     CategoryTypes[index] = editedCategoryType;
-        //     Log.Information("Category type was successfully edited");
-        //     MsgBox.Show("Category type was successfully edited", MsgBoxImage.Check);
-        // }
-        // else
-        // {
-        //     Log.Error(exception, "An error occurred please retry");
-        //     MsgBox.Show("An error occurred please retry", MsgBoxImage.Error);
-        // }
+        var (success, exception) = editedCategoryTypeDeepCopy.AddOrEdit();
+        if (success)
+        {
+            using var context = new DataBaseContext();
+            editedCategoryTypeDeepCopy.ColorFkNavigation =
+                context.TColors.FirstOrDefault(s => s.Id == editedCategoryTypeDeepCopy.ColorFk);
+
+            CategoryTypes.AddAndSort(categoryType, editedCategoryTypeDeepCopy, s => s.Name!);
+
+            Log.Information("Category type was successfully edited");
+            MsgBox.Show("Category type was successfully edited", MsgBoxImage.Check);
+        }
+        else
+        {
+            Log.Error(exception, "An error occurred please retry");
+            MsgBox.Show("An error occurred please retry", MsgBoxImage.Error);
+        }
     }
 }
