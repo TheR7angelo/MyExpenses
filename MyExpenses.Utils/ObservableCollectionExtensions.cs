@@ -22,6 +22,23 @@ public static class ObservableCollectionExtensions
     }
 
     /// <summary>
+    /// Adds an item to the ObservableCollection and keeps the collection sorted based on a key selector.
+    /// </summary>
+    /// <typeparam name="T">The type of the elements in the ObservableCollection.</typeparam>
+    /// <param name="collection">The ObservableCollection to add the item to.</param>
+    /// <param name="oldItem">The old item to be removed from the collection.</param>
+    /// <param name="item">The item to be added to the collection.</param>
+    /// <param name="keySelector">A function that selects a key for sorting the collection.</param>
+    /// <exception cref="ArgumentNullException">Thrown when the collection is null.</exception>
+    public static void AddAndSort<T>(this ObservableCollection<T> collection, T oldItem, T item,
+        Func<T, string> keySelector)
+    {
+        ArgumentNullException.ThrowIfNull(collection);
+        collection.Remove(oldItem);
+        collection.AddAndSort(item, keySelector);
+    }
+
+    /// <summary>
     /// Adds an item to the ObservableCollection and sorts it based on the specified key selector.
     /// </summary>
     /// <typeparam name="T">The type of the elements in the ObservableCollection.</typeparam>
