@@ -65,6 +65,7 @@ public partial class DashBoardPage : INotifyPropertyChanged
 
     public string ButtonAccountManagement { get; } = DashBoardPageResources.ButtonAccountManagement;
     public string ButtonAccountTypeManagement { get; } = DashBoardPageResources.ButtonAccountTypeManagement;
+    public object ButtonCategoryTypeManagement { get; } = DashBoardPageResources.ButtonCategoryTypeManagement;
     public string ButtonLocationManagement { get; } = DashBoardPageResources.ButtonLocationManagement;
 
     #endregion
@@ -105,6 +106,12 @@ public partial class DashBoardPage : INotifyPropertyChanged
     {
         var accountTypeManagementPage = new AccountTypeManagementPage { DashBoardPage = this };
         nameof(MainWindow.FrameBody).NavigateTo(accountTypeManagementPage);
+    }
+
+    private void ButtonCategoryTypeManagement_OnClick(object sender, RoutedEventArgs e)
+    {
+        var categoryTypeManagementPage = new CategoryTypeManagementPage { DashBoardPage = this };
+        nameof(MainWindow.FrameBody).NavigateTo(categoryTypeManagementPage);
     }
 
     private void ButtonLocationManagement_OnClick(object sender, RoutedEventArgs e)
