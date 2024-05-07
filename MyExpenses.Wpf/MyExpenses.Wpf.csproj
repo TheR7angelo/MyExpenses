@@ -157,11 +157,6 @@
         <XamlRuntime>Wpf</XamlRuntime>
         <SubType>Designer</SubType>
       </Page>
-      <Page Update="Windows\AddEditCategoryTypeWindow.xaml">
-        <Generator>MSBuild:Compile</Generator>
-        <XamlRuntime>Wpf</XamlRuntime>
-        <SubType>Designer</SubType>
-      </Page>
       <Page Update="Windows\AddEditCurrencyWindow.xaml">
         <Generator>MSBuild:Compile</Generator>
         <XamlRuntime>Wpf</XamlRuntime>
@@ -173,6 +168,11 @@
         <SubType>Designer</SubType>
       </Page>
       <Page Update="Windows\LocationManagementWindows\NominatimSearchWindows.xaml">
+        <Generator>MSBuild:Compile</Generator>
+        <XamlRuntime>Wpf</XamlRuntime>
+        <SubType>Designer</SubType>
+      </Page>
+      <Page Update="Windows\CategoryTypeManagementWindow\AddEditCategoryTypeWindow.xaml">
         <Generator>MSBuild:Compile</Generator>
         <XamlRuntime>Wpf</XamlRuntime>
         <SubType>Designer</SubType>

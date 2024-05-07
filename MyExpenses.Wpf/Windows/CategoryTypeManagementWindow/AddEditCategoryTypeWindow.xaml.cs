@@ -8,7 +8,7 @@ using MyExpenses.Wpf.Resources.Resx.Windows.AddEditCategoryTypeWindow;
 using MyExpenses.Wpf.Utils;
 using MyExpenses.Wpf.Windows.MsgBox;
 
-namespace MyExpenses.Wpf.Windows;
+namespace MyExpenses.Wpf.Windows.CategoryTypeManagementWindow;
 
 public partial class AddEditCategoryTypeWindow
 {
