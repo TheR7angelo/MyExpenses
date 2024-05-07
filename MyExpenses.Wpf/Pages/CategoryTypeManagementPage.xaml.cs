@@ -76,13 +76,7 @@ public partial class CategoryTypeManagementPage
         var originalName = addEditCategoryTypeWindow.EditCategoryType;
         Log.Information("Attempting to edit the category type \"{OriginalName}\"", originalName);
 
-        var category = new TCategoryType
-        {
-            Id = editedCategoryType.Id,
-            Name = editedCategoryType.Name,
-            ColorFk = editedCategoryType.ColorFk,
-            DateAdded = editedCategoryType.DateAdded,
-        };
+        var category = editedCategoryType.DeepCopy();
 
         var (success, exception) = category.AddOrEdit();
         // if (success)
