@@ -1,0 +1,81 @@
+﻿<mah:MetroWindow x:Class="MyExpenses.Wpf.Windows.AddEditColorWindow"
+                 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                 xmlns:local="clr-namespace:MyExpenses.Wpf.Windows"
+                 xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+                 xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+                 xmlns:converters="clr-namespace:MyExpenses.Wpf.Converters"
+                 mc:Ignorable="d"
+
+                 Title="AddEditColorWindow"
+
+                 d:DesignHeight="585"
+                 d:DesignWidth="458"
+
+                 MinHeight="585"
+                 MinWidth="458"
+                 Height="585"
+                 Width="458"
+
+                 TitleCharacterCasing="Normal"
+                 NonActiveWindowTitleBrush="Gray"
+                 WindowTitleBrush="Gray"
+                 BorderBrush="Gray"
+                 GlowBrush="Gray"
+                 NonActiveGlowBrush="Gray"
+
+                 ShowIconOnTitleBar="True"
+
+                 WindowStartupLocation="CenterScreen"
+                 ResizeMode="CanResizeWithGrip"
+
+                 Background="{DynamicResource MaterialDesignPaper}"
+                 TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+
+                 DataContext="{Binding RelativeSource={RelativeSource Self}}">
+
+    <mah:MetroWindow.Resources>
+        <converters:ColorToHexConverter x:Key="ColorToHexConverter" />
+    </mah:MetroWindow.Resources>
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="100" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+
+        <materialDesign:ColorPicker Grid.Row="0" Grid.RowSpan="4" Grid.Column="0"
+                                    MinHeight="150"
+                                    Color="{Binding TColor.HexadecimalColorCode, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ColorToHexConverter}}">
+        </materialDesign:ColorPicker>
+
+        <Label Grid.Row="0" Grid.Column="1" Content="Red" />
+        <Label Grid.Row="1" Grid.Column="1" Content="Green" />
+        <Label Grid.Row="2" Grid.Column="1" Content="Blue" />
+
+        <Rectangle Grid.Row="0" Grid.Column="2"
+                   Height="50">
+            <Rectangle.Fill>
+                <LinearGradientBrush StartPoint="1, 0"
+                                     EndPoint="0, 0">
+                    <GradientStop Color="{Binding RedSliderStart, UpdateSourceTrigger=PropertyChanged}" Offset="1.0" />
+                    <GradientStop Color="{Binding RedSliderStop, UpdateSourceTrigger=PropertyChanged}" Offset="0.0" />
+                </LinearGradientBrush>
+            </Rectangle.Fill>
+        </Rectangle>
+
+
+    </Grid>
+
+</mah:MetroWindow>

@@ -118,5 +118,7 @@ public partial class AddEditCategoryTypeWindow
     {
         //TODO work
         Console.WriteLine("Need to create color");
+        var w = new AddEditColorWindow();
+        w.ShowDialog();
     }
 }
