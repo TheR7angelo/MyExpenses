@@ -107,6 +107,7 @@ public partial class AddEditCategoryTypeWindow
     {
         categoryType.CopyPropertiesTo(CategoryType);
         EditCategoryTypeOriginalName = categoryType.Name;
+        CategoryTypes.Remove(CategoryTypes.Find(s => s.Id == categoryType.Id)!);
     }
 
     private void ShowErrorMessage()
