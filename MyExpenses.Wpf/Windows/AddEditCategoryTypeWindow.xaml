@@ -45,7 +45,7 @@
         </Grid.RowDefinitions>
 
         <TextBox x:Name="TextBoxCategoryType" Grid.Row="0"
-                 Text="{Binding CategoryType.Name}"
+                 Text="{Binding CategoryType.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                  materialDesign:TextFieldAssist.HasClearButton="True"
                  materialDesign:HintAssist.Hint="{Binding TextBoxCategoryTypeName}"
                  Style="{StaticResource MaterialDesignFilledTextBox}"
