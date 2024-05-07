@@ -39,14 +39,13 @@ public partial class AddEditCategoryTypeWindow
 
     #endregion
 
-    public string ComboBoxColorDisplayMemberPath { get; } = nameof(TColor.Name);
     public string ComboBoxColorSelectedValuePath { get; } = nameof(TColor.Id);
 
     public AddEditCategoryTypeWindow()
     {
         using var context = new DataBaseContext();
         CategoryTypes = [..context.TCategoryTypes];
-        Colors = [..context.TColors];
+        Colors = [..context.TColors.OrderBy(s => s.HexadecimalColorCode)];
 
         InitializeComponent();
         TextBoxCategoryType.Focus();
