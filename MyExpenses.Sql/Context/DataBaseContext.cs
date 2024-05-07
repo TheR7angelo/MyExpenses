@@ -8,6 +8,8 @@ public partial class DataBaseContext : DbContext
 {
     private string? FilePath { get; }
 
+    public static string? DataSource { get; set; }
+
     public DataBaseContext(string? filePath=null)
     {
         FilePath = filePath;
@@ -42,25 +44,30 @@ public partial class DataBaseContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        string dbPath;
-        if (string.IsNullOrEmpty(FilePath))
+        if (string.IsNullOrEmpty(DataSource))
         {
-            // const string dbPath = @"C:\Users\ZP6177\Documents\Programmation\C#\MyExpenses\MyExpenses.Sql\Database Models\Model.sqlite";
-            const string dbPathPro = @"C:\Users\ZP6177\Documents\Programmation\C#\MyExpenses\MyExpenses.Sql\Database Models\Model - Using.sqlite";
-            const string dbPathPersonnel = @"C:\Users\Rapha\Documents\Programmation\MyExpenses\MyExpenses.Sql\Database Models\Model - Using.sqlite";
-            const string dbPathPortable = @"C:\Users\Rapha\RiderProjects\MyExpenses\MyExpenses.Sql\Database Models\Model - Using.sqlite";
-
-            var username = Environment.UserName;
-            dbPath = username switch
+            string dbPath;
+            if (string.IsNullOrEmpty(FilePath))
             {
-                "ZP6177" => dbPathPro,
-                "Rapha" => dbPathPersonnel,
-                _ => dbPathPortable
-            };
-        }
-        else dbPath = FilePath;
+                // const string dbPath = @"C:\Users\ZP6177\Documents\Programmation\C#\MyExpenses\MyExpenses.Sql\Database Models\Model.sqlite";
+                const string dbPathPro = @"C:\Users\ZP6177\Documents\Programmation\C#\MyExpenses\MyExpenses.Sql\Database Models\Model - Using.sqlite";
+                const string dbPathPersonnel = @"C:\Users\Rapha\Documents\Programmation\MyExpenses\MyExpenses.Sql\Database Models\Model - Using.sqlite";
+                const string dbPathPortable = @"C:\Users\Rapha\RiderProjects\MyExpenses\MyExpenses.Sql\Database Models\Model - Using.sqlite";
 
-        var dataSource = $"Data Source={dbPath}";
+                var username = Environment.UserName;
+                dbPath = username switch
+                {
+                    "ZP6177" => dbPathPro,
+                    "Rapha" => dbPathPersonnel,
+                    _ => dbPathPortable
+                };
+            }
+            else dbPath = FilePath;
+            DataSource = $"Data Source={dbPath}";
+        }
+
+        var dataSource = DataSource;
+
         optionsBuilder.UseSqlite(dataSource)
             .EnableSensitiveDataLogging();
     }
