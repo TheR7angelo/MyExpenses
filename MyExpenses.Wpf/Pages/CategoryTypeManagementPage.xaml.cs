@@ -61,7 +61,6 @@ public partial class CategoryTypeManagementPage
         }
     }
 
-    //TODO work
     private void ButtonEditCategoryType_OnClick(object sender, RoutedEventArgs e)
     {
         var button = (Button)sender;
@@ -87,12 +86,12 @@ public partial class CategoryTypeManagementPage
             CategoryTypes.AddAndSort(categoryType, editedCategoryTypeDeepCopy, s => s.Name!);
 
             Log.Information("Category type was successfully edited");
-            MsgBox.Show("Category type was successfully edited", MsgBoxImage.Check);
+            MsgBox.Show(CategoryTypeManagementPageResources.MessageBoxEditCategorySuccess, MsgBoxImage.Check);
         }
         else
         {
             Log.Error(exception, "An error occurred please retry");
-            MsgBox.Show("An error occurred please retry", MsgBoxImage.Error);
+            MsgBox.Show(CategoryTypeManagementPageResources.MessageBoxEditCategoryError, MsgBoxImage.Error);
         }
     }
 }

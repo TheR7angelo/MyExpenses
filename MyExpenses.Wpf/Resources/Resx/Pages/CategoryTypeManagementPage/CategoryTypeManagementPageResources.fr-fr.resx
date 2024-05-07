@@ -17,4 +17,10 @@
     <data name="MessageBoxAddCategoryError" xml:space="preserve">
         <value>Une erreur s'est produite, veuillez réessayer</value>
     </data>
+    <data name="MessageBoxEditCategorySuccess" xml:space="preserve">
+        <value>Le type de catégorie a été modifié avec succès</value>
+    </data>
+    <data name="MessageBoxEditCategoryError" xml:space="preserve">
+        <value>Une erreur s'est produite, veuillez réessayer</value>
+    </data>
 </root>

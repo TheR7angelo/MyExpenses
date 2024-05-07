@@ -17,4 +17,10 @@
     <data name="MessageBoxAddCategoryError" xml:space="preserve">
         <value>An error occurred please retry</value>
     </data>
+    <data name="MessageBoxEditCategorySuccess" xml:space="preserve">
+        <value>Category type was successfully edited</value>
+    </data>
+    <data name="MessageBoxEditCategoryError" xml:space="preserve">
+        <value>An error occurred please retry</value>
+    </data>
 </root>
