@@ -70,6 +70,10 @@
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>MsgBoxMessageWindowResources.Designer.cs</LastGenOutput>
       </EmbeddedResource>
+      <EmbeddedResource Update="Resources\Resx\Pages\CategoryTypeManagementPage\CategoryTypeManagementPageResources.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>CategoryTypeManagementPageResources.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
     </ItemGroup>
 
     <ItemGroup>
@@ -134,6 +138,11 @@
         <DesignTime>True</DesignTime>
         <AutoGen>True</AutoGen>
         <DependentUpon>MsgBoxMessageWindowResources.resx</DependentUpon>
+      </Compile>
+      <Compile Update="Resources\Resx\Pages\CategoryTypeManagementPage\CategoryTypeManagementPageResources.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>CategoryTypeManagementPageResources.resx</DependentUpon>
       </Compile>
     </ItemGroup>
 
