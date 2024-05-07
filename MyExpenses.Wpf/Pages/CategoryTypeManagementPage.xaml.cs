@@ -1,4 +1,6 @@
 ﻿using System.Collections.ObjectModel;
+using System.Windows;
+using System.Windows.Controls;
 using Microsoft.EntityFrameworkCore;
 using MyExpenses.Models.Sql.Tables;
 using MyExpenses.Sql.Context;
@@ -17,5 +19,14 @@ public partial class CategoryTypeManagementPage
         CategoryTypes = [..context.TCategoryTypes.Include(s => s.ColorFkNavigation)];
 
         InitializeComponent();
+    }
+
+    private void ButtonEditCategoryType_OnClick(object sender, RoutedEventArgs e)
+    {
+        var button = (Button)sender;
+        if (button.DataContext is not TCategoryType categoryType) return;
+
+        //TODO work
+        Console.WriteLine(categoryType.Name);
     }
 }

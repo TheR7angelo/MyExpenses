@@ -51,7 +51,8 @@
 
                         <Button
                             Height="{Binding Height, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource Self}}"
-                            Style="{StaticResource MaterialDesignPaperButton}">
+                            Style="{StaticResource MaterialDesignPaperButton}"
+                            Click="ButtonEditCategoryType_OnClick">
                             <Button.Content>
                                 <StackPanel utils:PanelExtensions.MarginForAllChildren="3"
                                             VerticalAlignment="Center"
