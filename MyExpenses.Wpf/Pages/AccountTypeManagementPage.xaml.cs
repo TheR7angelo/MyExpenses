@@ -19,11 +19,13 @@ public partial class AccountTypeManagementPage
         InitializeComponent();
     }
 
+    //TODO work
     private void ButtonAddNewAccountType_OnClick(object sender, RoutedEventArgs e)
     {
         Console.WriteLine("Add new acount type");
     }
 
+    //TODO work
     private void ButtonAccountType_OnClick(object sender, RoutedEventArgs e)
     {
         Console.WriteLine("Add new acount type");
