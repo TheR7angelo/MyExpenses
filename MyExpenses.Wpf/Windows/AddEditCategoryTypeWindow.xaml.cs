@@ -12,14 +12,14 @@ namespace MyExpenses.Wpf.Windows;
 
 public partial class AddEditCategoryTypeWindow
 {
-    public static readonly DependencyProperty EditCategoryTypeOriginalNameProperty =
-        DependencyProperty.Register(nameof(EditCategoryTypeOriginalName), typeof(string), typeof(AddEditCategoryTypeWindow),
-            new PropertyMetadata(default(string)));
+    public static readonly DependencyProperty EditCategoryTypeProperty =
+        DependencyProperty.Register(nameof(EditCategoryType), typeof(bool), typeof(AddEditCategoryTypeWindow),
+            new PropertyMetadata(default(bool)));
 
-    public string? EditCategoryTypeOriginalName
+    public bool EditCategoryType
     {
-        get => (string)GetValue(EditCategoryTypeOriginalNameProperty);
-        set => SetValue(EditCategoryTypeOriginalNameProperty, value);
+        get => (bool)GetValue(EditCategoryTypeProperty);
+        set => SetValue(EditCategoryTypeProperty, value);
     }
 
     #region Property
@@ -106,7 +106,7 @@ public partial class AddEditCategoryTypeWindow
     public void SetTCategoryType(TCategoryType categoryType)
     {
         categoryType.CopyPropertiesTo(CategoryType);
-        EditCategoryTypeOriginalName = categoryType.Name;
+        EditCategoryType = true;
         CategoryTypes.Remove(CategoryTypes.Find(s => s.Id == categoryType.Id)!);
     }
 

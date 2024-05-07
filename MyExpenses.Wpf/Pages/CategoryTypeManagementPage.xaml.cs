@@ -73,7 +73,7 @@ public partial class CategoryTypeManagementPage
         if (result != true) return;
 
         var editedCategoryType = addEditCategoryTypeWindow.CategoryType;
-        var originalName = addEditCategoryTypeWindow.EditCategoryTypeOriginalName;
+        var originalName = addEditCategoryTypeWindow.EditCategoryType;
         Log.Information("Attempting to edit the category type \"{OriginalName}\"", originalName);
 
         var category = new TCategoryType
