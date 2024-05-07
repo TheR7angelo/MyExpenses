@@ -61,7 +61,8 @@ public partial class DataBaseContext : DbContext
         else dbPath = FilePath;
 
         var dataSource = $"Data Source={dbPath}";
-        optionsBuilder.UseSqlite(dataSource);
+        optionsBuilder.UseSqlite(dataSource)
+            .EnableSensitiveDataLogging();
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
