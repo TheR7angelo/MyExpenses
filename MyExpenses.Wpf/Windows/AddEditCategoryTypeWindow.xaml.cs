@@ -41,6 +41,52 @@ public partial class AddEditCategoryTypeWindow
         TextBoxCategoryType.Focus();
     }
 
+    #region Action
+
+    private void ButtonCancel_OnClick(object sender, RoutedEventArgs e)
+    {
+        DialogResult = false;
+        Close();
+    }
+
+    private void ButtonValid_OnClick(object sender, RoutedEventArgs e)
+    {
+        var categoryTypeName = CategoryType.Name;
+        if (string.IsNullOrWhiteSpace(categoryTypeName))
+        {
+            MsgBox.MsgBox.Show(AddEditCategoryTypeWindowResources.MessageBoxCategoryNameCannotBeEmptyError, MsgBoxImage.Error);
+            return;
+        }
+
+        if (CheckCategoryTypeName(categoryTypeName))
+        {
+            ShowErrorMessage();
+            return;
+        }
+
+        if (CategoryType.ColorFk is null)
+        {
+            MsgBox.MsgBox.Show(AddEditCategoryTypeWindowResources.MessageBoxCategoryColorCannotBeEmptyError, MsgBoxImage.Error);
+            return;
+        }
+
+        DialogResult = true;
+        Close();
+    }
+
+    private void TextBoxCategoryType_OnPreviewLostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
+    {
+        var textBox = (TextBox)sender;
+
+        var categoryTypeName = textBox.Text;
+        if (string.IsNullOrEmpty(categoryTypeName)) return;
+
+        var alreadyExist = CheckCategoryTypeName(categoryTypeName);
+        if (alreadyExist) ShowErrorMessage();
+    }
+
+    #endregion
+
     #region Function
 
     private bool CheckCategoryTypeName(string accountName)
