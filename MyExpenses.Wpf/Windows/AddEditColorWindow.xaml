@@ -36,9 +36,6 @@
 
                  DataContext="{Binding RelativeSource={RelativeSource Self}}">
 
-    <mah:MetroWindow.Resources>
-        <converters:ColorToHexConverter x:Key="ColorToHexConverter" />
-    </mah:MetroWindow.Resources>
     <Grid>
 
         <Grid.RowDefinitions>
@@ -57,24 +54,61 @@
 
         <materialDesign:ColorPicker Grid.Row="0" Grid.RowSpan="4" Grid.Column="0"
                                     MinHeight="150"
-                                    Color="{Binding TColor.HexadecimalColorCode, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ColorToHexConverter}}">
+                                    Color="{Binding Color, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
         </materialDesign:ColorPicker>
 
         <Label Grid.Row="0" Grid.Column="1" Content="Red" />
         <Label Grid.Row="1" Grid.Column="1" Content="Green" />
         <Label Grid.Row="2" Grid.Column="1" Content="Blue" />
+        <Label Grid.Row="3" Grid.Column="1" Content="Alpha" />
 
         <Rectangle Grid.Row="0" Grid.Column="2"
-                   Height="50">
+                   Stroke="{DynamicResource MaterialDesignBody}"
+                   StrokeThickness="1">
             <Rectangle.Fill>
                 <LinearGradientBrush StartPoint="1, 0"
                                      EndPoint="0, 0">
-                    <GradientStop Color="{Binding RedSliderStart, UpdateSourceTrigger=PropertyChanged}" Offset="1.0" />
-                    <GradientStop Color="{Binding RedSliderStop, UpdateSourceTrigger=PropertyChanged}" Offset="0.0" />
+                    <GradientStop x:Name="RedGradientStart" Offset="1.0" />
+                    <GradientStop x:Name="RedGradientStop" Offset="0.0" />
                 </LinearGradientBrush>
             </Rectangle.Fill>
         </Rectangle>
 
+        <Rectangle Grid.Row="1" Grid.Column="2"
+                   Stroke="{DynamicResource MaterialDesignBody}"
+                   StrokeThickness="1">
+            <Rectangle.Fill>
+                <LinearGradientBrush StartPoint="1, 0"
+                                     EndPoint="0, 0">
+                    <GradientStop x:Name="GreenGradientStart" Offset="1.0" />
+                    <GradientStop x:Name="GreenGradientStop" Offset="0.0" />
+                </LinearGradientBrush>
+            </Rectangle.Fill>
+        </Rectangle>
+
+        <Rectangle Grid.Row="2" Grid.Column="2"
+                   Stroke="{DynamicResource MaterialDesignBody}"
+                   StrokeThickness="1">
+            <Rectangle.Fill>
+                <LinearGradientBrush StartPoint="1, 0"
+                                     EndPoint="0, 0">
+                    <GradientStop x:Name="BlueGradientStart" Offset="1.0" />
+                    <GradientStop x:Name="BlueGradientStop" Offset="0.0" />
+                </LinearGradientBrush>
+            </Rectangle.Fill>
+        </Rectangle>
+
+        <Rectangle Grid.Row="3" Grid.Column="2"
+                   Stroke="{DynamicResource MaterialDesignBody}"
+                   StrokeThickness="1">
+            <Rectangle.Fill>
+                <LinearGradientBrush StartPoint="1, 0"
+                                     EndPoint="0, 0">
+                    <GradientStop x:Name="AlphaGradientStart" Offset="1.0" />
+                    <GradientStop x:Name="AlphaGradientStop" Offset="0.0" />
+                </LinearGradientBrush>
+            </Rectangle.Fill>
+        </Rectangle>
 
     </Grid>
 
