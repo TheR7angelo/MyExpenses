@@ -11,13 +11,13 @@
 
         Title="AddEditCategoryType"
 
-        d:DesignHeight="130"
-        d:DesignWidth="394"
+        d:DesignHeight="200"
+        d:DesignWidth="400"
 
-        MinHeight="130"
-        MinWidth="394"
-        Height="130"
-        Width="394"
+        MinHeight="200"
+        MinWidth="400"
+        Height="200"
+        Width="400"
 
         TitleCharacterCasing="Normal"
         NonActiveWindowTitleBrush="Gray"
@@ -39,8 +39,9 @@
     <Grid utils:PanelExtensions.MarginForAllChildren="5">
 
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
         <TextBox x:Name="TextBoxCategoryType" Grid.Row="0"
@@ -50,10 +51,48 @@
                  PreviewLostKeyboardFocus="TextBoxCategoryType_OnPreviewLostKeyboardFocus">
         </TextBox>
 
-        <StackPanel Grid.Row="1"
-                    utils:PanelExtensions.MarginForAllChildren="5, 0, 5, 5"
+        <Grid Grid.Row="1" utils:PanelExtensions.MarginForAllChildren="3">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <!-- TODO work -->
+            <ComboBox x:Name="ComboBoxColors" Grid.Column="0"
+                      materialDesign:HintAssist.Hint="Color ?"
+                      materialDesign:TextFieldAssist.HasClearButton="True"
+                      ItemsSource="{Binding Colors}"
+                      Style="{StaticResource MaterialDesignFilledComboBox}"
+                      DisplayMemberPath="Name"
+                      SelectedValue="{Binding CategoryType.ColorFk, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                      SelectedValuePath="Id">
+            </ComboBox>
+
+            <Border Grid.Column="1"
+                    Height="{Binding ActualHeight, UpdateSourceTrigger=PropertyChanged, ElementName=ComboBoxColors}"
+                    Width="{Binding ActualHeight, UpdateSourceTrigger=PropertyChanged, ElementName=ComboBoxColors}"
+                    BorderBrush="{DynamicResource MaterialDesignBody}"
+                    BorderThickness="1.5"
+                    Background="{Binding SelectedItem.HexadecimalColorCode, UpdateSourceTrigger=PropertyChanged, ElementName=ComboBoxColors}">
+            </Border>
+
+            <Button Grid.Column="2"
+                    HorizontalAlignment="Left"
+                    Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
+                    Click="ButtonAddColor_OnClick">
+                <Button.Content>
+                    <materialDesign:PackIcon Kind="PencilPlus" />
+                </Button.Content>
+            </Button>
+
+        </Grid>
+
+        <StackPanel Grid.Row="2"
+                    utils:PanelExtensions.MarginForAllChildren="5"
                     Orientation="Horizontal"
-                    HorizontalAlignment="Right" VerticalAlignment="Bottom">
+                    HorizontalAlignment="Center" VerticalAlignment="Center">
 
             <Button Content="{Binding ButtonValidContent}"
                     Style="{StaticResource MaterialDesignPaperButton}"

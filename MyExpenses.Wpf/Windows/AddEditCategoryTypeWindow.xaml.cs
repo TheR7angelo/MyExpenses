@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Collections.ObjectModel;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using MyExpenses.Models.Sql.Tables;
@@ -15,6 +16,7 @@ public partial class AddEditCategoryTypeWindow
     public TCategoryType CategoryType { get; } = new();
 
     private List<TCategoryType> CategoryTypes { get; }
+    public ObservableCollection<TColor> Colors { get; }
 
     #endregion
 
@@ -30,6 +32,7 @@ public partial class AddEditCategoryTypeWindow
     {
         using var context = new DataBaseContext();
         CategoryTypes = [..context.TCategoryTypes];
+        Colors = [..context.TColors];
 
         InitializeComponent();
         TextBoxCategoryType.Focus();
@@ -56,17 +59,19 @@ public partial class AddEditCategoryTypeWindow
 
     private void ButtonValid_OnClick(object sender, RoutedEventArgs e)
     {
-        var categoryTypeName = CategoryType.Name;
+        //TODO work
 
-        if (string.IsNullOrEmpty(categoryTypeName)) return;
-
-        var alreadyExist = CheckCategoryTypeName(categoryTypeName);
-        if (alreadyExist) ShowErrorMessage();
-        else
-        {
-            DialogResult = true;
-            Close();
-        }
+        // var categoryTypeName = CategoryType.Name;
+        //
+        // if (string.IsNullOrEmpty(categoryTypeName)) return;
+        //
+        // var alreadyExist = CheckCategoryTypeName(categoryTypeName);
+        // if (alreadyExist) ShowErrorMessage();
+        // else
+        // {
+        //     DialogResult = true;
+        //     Close();
+        // }
     }
 
     private void TextBoxCategoryType_OnPreviewLostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
@@ -81,4 +86,10 @@ public partial class AddEditCategoryTypeWindow
     }
 
     #endregion
+
+    private void ButtonAddColor_OnClick(object sender, RoutedEventArgs e)
+    {
+        //TODO work
+        Console.WriteLine("Need to create color");
+    }
 }
