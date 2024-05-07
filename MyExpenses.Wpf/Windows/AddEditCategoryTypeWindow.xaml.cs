@@ -14,19 +14,22 @@ public partial class AddEditCategoryTypeWindow
     #region Property
 
     public TCategoryType CategoryType { get; } = new();
-
-    private List<TCategoryType> CategoryTypes { get; }
     public ObservableCollection<TColor> Colors { get; }
+    private List<TCategoryType> CategoryTypes { get; }
 
     #endregion
 
     #region Resx
 
     public string TextBoxCategoryTypeName { get; } = AddEditCategoryTypeWindowResources.TextBoxCategoryTypeName;
+    public string ComboBoxColorValue { get; } = AddEditCategoryTypeWindowResources.ComboBoxColorValue;
     public string ButtonValidContent { get; } = AddEditCategoryTypeWindowResources.ButtonValidContent;
     public string ButtonCancelContent { get; } = AddEditCategoryTypeWindowResources.ButtonCancelContent;
 
     #endregion
+
+    public string ComboBoxColorDisplayMemberPath { get; } = nameof(TColor.Name);
+    public string ComboBoxColorSelectedValuePath { get; } = nameof(TColor.Id);
 
     public AddEditCategoryTypeWindow()
     {

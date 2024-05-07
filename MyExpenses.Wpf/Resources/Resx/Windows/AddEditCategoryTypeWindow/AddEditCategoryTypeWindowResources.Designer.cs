@@ -92,5 +92,14 @@ namespace MyExpenses.Wpf.Resources.Resx.Windows.AddEditCategoryTypeWindow {
                 return ResourceManager.GetString("TextBoxCategoryTypeName", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to color category.
+        /// </summary>
+        public static string ComboBoxColorValue {
+            get {
+                return ResourceManager.GetString("ComboBoxColorValue", resourceCulture);
+            }
+        }
     }
 }

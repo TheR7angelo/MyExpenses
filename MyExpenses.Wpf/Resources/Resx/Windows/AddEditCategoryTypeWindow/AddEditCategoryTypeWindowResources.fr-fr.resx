@@ -23,4 +23,7 @@
     <data name="MessageBoxCategoryAlreadyExists" xml:space="preserve">
         <value>La catégorie existe déjà</value>
     </data>
+    <data name="ComboBoxColorValue" xml:space="preserve">
+        <value>Quelle couleur est attribuée ?</value>
+    </data>
 </root>

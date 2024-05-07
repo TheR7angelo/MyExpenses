@@ -60,15 +60,14 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <!-- TODO work -->
             <ComboBox x:Name="ComboBoxColors" Grid.Column="0"
-                      materialDesign:HintAssist.Hint="Color ?"
+                      materialDesign:HintAssist.Hint="{Binding ComboBoxColorValue}"
                       materialDesign:TextFieldAssist.HasClearButton="True"
                       ItemsSource="{Binding Colors}"
                       Style="{StaticResource MaterialDesignFilledComboBox}"
-                      DisplayMemberPath="Name"
+                      DisplayMemberPath="{Binding ComboBoxColorDisplayMemberPath}"
                       SelectedValue="{Binding CategoryType.ColorFk, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                      SelectedValuePath="Id">
+                      SelectedValuePath="{Binding ComboBoxColorSelectedValuePath}">
             </ComboBox>
 
             <Border Grid.Column="1"
