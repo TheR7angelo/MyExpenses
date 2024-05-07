@@ -41,4 +41,7 @@
     <data name="ButtonAccountTypeManagement" xml:space="preserve">
         <value>Gestion des types de comptes</value>
     </data>
+    <data name="ButtonCategoryTypeManagement" xml:space="preserve">
+        <value>Gestion des types de catégories</value>
+    </data>
 </root>

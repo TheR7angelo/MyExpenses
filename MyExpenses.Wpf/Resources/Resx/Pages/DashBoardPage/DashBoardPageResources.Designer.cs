@@ -55,15 +55,6 @@ namespace MyExpenses.Wpf.Resources.Resx.Pages.DashBoardPage {
                 resourceCulture = value;
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Add account.
-        /// </summary>
-        internal static string ButtonAddAccount {
-            get {
-                return ResourceManager.GetString("ButtonAddAccount", resourceCulture);
-            }
-        }
 
         /// <summary>
         ///   Looks up a localized string similar to Account management.
@@ -80,6 +71,15 @@ namespace MyExpenses.Wpf.Resources.Resx.Pages.DashBoardPage {
         internal static string ButtonAccountTypeManagement {
             get {
                 return ResourceManager.GetString("ButtonAccountTypeManagement", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Category type management.
+        /// </summary>
+        internal static string ButtonCategoryTypeManagement {
+            get {
+                return ResourceManager.GetString("ButtonCategoryTypeManagement", resourceCulture);
             }
         }
 
