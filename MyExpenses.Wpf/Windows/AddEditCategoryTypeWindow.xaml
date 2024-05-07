@@ -11,12 +11,12 @@
 
         Title="AddEditCategoryType"
 
-        d:DesignHeight="200"
+        d:DesignHeight="225"
         d:DesignWidth="400"
 
-        MinHeight="200"
+        MinHeight="225"
         MinWidth="400"
-        Height="200"
+        Height="225"
         Width="400"
 
         TitleCharacterCasing="Normal"
@@ -46,6 +46,7 @@
 
         <TextBox x:Name="TextBoxCategoryType" Grid.Row="0"
                  Text="{Binding CategoryType.Name}"
+                 materialDesign:TextFieldAssist.HasClearButton="True"
                  materialDesign:HintAssist.Hint="{Binding TextBoxCategoryTypeName}"
                  Style="{StaticResource MaterialDesignFilledTextBox}"
                  PreviewLostKeyboardFocus="TextBoxCategoryType_OnPreviewLostKeyboardFocus">
