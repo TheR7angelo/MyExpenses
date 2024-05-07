@@ -16,7 +16,7 @@ public partial class CategoryTypeManagementPage
     public CategoryTypeManagementPage()
     {
         using var context = new DataBaseContext();
-        CategoryTypes = [..context.TCategoryTypes.Include(s => s.ColorFkNavigation)];
+        CategoryTypes = [..context.TCategoryTypes.Include(s => s.ColorFkNavigation).OrderBy(s => s.Name)];
 
         InitializeComponent();
     }
