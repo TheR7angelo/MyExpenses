@@ -61,6 +61,7 @@
                                                Text="{Binding Name}">
                                     </TextBlock>
 
+                                    <!-- Fill.FallbackValue = Colors.Transparent -->
                                     <Ellipse HorizontalAlignment="Right"
                                              Stroke="{DynamicResource MaterialDesignBody}" StrokeThickness="1"
                                              Height="24" Width="{Binding Height, RelativeSource={RelativeSource Self}}"
