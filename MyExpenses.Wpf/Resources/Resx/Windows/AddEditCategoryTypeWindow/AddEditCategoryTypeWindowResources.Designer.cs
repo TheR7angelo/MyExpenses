@@ -101,5 +101,23 @@ namespace MyExpenses.Wpf.Resources.Resx.Windows.AddEditCategoryTypeWindow {
                 return ResourceManager.GetString("ComboBoxColorValue", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to messageBox category name cannot be empty error.
+        /// </summary>
+        public static string MessageBoxCategoryNameCannotBeEmptyError {
+            get {
+                return ResourceManager.GetString("MessageBoxCategoryNameCannotBeEmptyError", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to messageBox category color cannot be empty error.
+        /// </summary>
+        public static string MessageBoxCategoryColorCannotBeEmptyError {
+            get {
+                return ResourceManager.GetString("MessageBoxCategoryColorCannotBeEmptyError", resourceCulture);
+            }
+        }
     }
 }

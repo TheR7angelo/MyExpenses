@@ -26,4 +26,10 @@
     <data name="ComboBoxColorValue" xml:space="preserve">
         <value>What color is assigned ?</value>
     </data>
+    <data name="MessageBoxCategoryNameCannotBeEmptyError" xml:space="preserve">
+        <value>Category name cannot be empty</value>
+    </data>
+    <data name="MessageBoxCategoryColorCannotBeEmptyError" xml:space="preserve">
+        <value>Category color cannot be empty</value>
+    </data>
 </root>

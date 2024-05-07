@@ -62,19 +62,27 @@ public partial class AddEditCategoryTypeWindow
 
     private void ButtonValid_OnClick(object sender, RoutedEventArgs e)
     {
-        //TODO work
+        var categoryTypeName = CategoryType.Name;
+        if (string.IsNullOrWhiteSpace(categoryTypeName))
+        {
+            MsgBox.MsgBox.Show(AddEditCategoryTypeWindowResources.MessageBoxCategoryNameCannotBeEmptyError, MsgBoxImage.Error);
+            return;
+        }
 
-        // var categoryTypeName = CategoryType.Name;
-        //
-        // if (string.IsNullOrEmpty(categoryTypeName)) return;
-        //
-        // var alreadyExist = CheckCategoryTypeName(categoryTypeName);
-        // if (alreadyExist) ShowErrorMessage();
-        // else
-        // {
-        //     DialogResult = true;
-        //     Close();
-        // }
+        if (CheckCategoryTypeName(categoryTypeName))
+        {
+            ShowErrorMessage();
+            return;
+        }
+
+        if (CategoryType.ColorFk is null)
+        {
+            MsgBox.MsgBox.Show(AddEditCategoryTypeWindowResources.MessageBoxCategoryColorCannotBeEmptyError, MsgBoxImage.Error);
+            return;
+        }
+
+        DialogResult = true;
+        Close();
     }
 
     private void TextBoxCategoryType_OnPreviewLostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
