@@ -6,7 +6,8 @@ using MyExpenses.Models.Sql.Tables;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils;
 using MyExpenses.Wpf.Resources.Resx.Pages.CategoryTypeManagementPage;
-using MyExpenses.Wpf.Windows;
+using MyExpenses.Wpf.Utils;
+using MyExpenses.Wpf.Windows.CategoryTypeManagementWindow;
 using MyExpenses.Wpf.Windows.MsgBox;
 using Serilog;
 
@@ -61,7 +62,6 @@ public partial class CategoryTypeManagementPage
         }
     }
 
-    //TODO update dashboard color graph if needed
     private void ButtonEditCategoryType_OnClick(object sender, RoutedEventArgs e)
     {
         var button = (Button)sender;
@@ -85,6 +85,11 @@ public partial class CategoryTypeManagementPage
                 context.TColors.FirstOrDefault(s => s.Id == editedCategoryTypeDeepCopy.ColorFk);
 
             CategoryTypes.AddAndSort(categoryType, editedCategoryTypeDeepCopy, s => s.Name!);
+
+            var radioButton = DashBoardPage.ItemsControlVTotalAccount
+                .FindVisualChildren<RadioButton>()
+                .FirstOrDefault(s => (bool)s.IsChecked!);
+            if (radioButton is not null) DashBoardPage.UpdateGraph((string)radioButton.Content, DateTime.Now);
 
             Log.Information("Category type was successfully edited");
             MsgBox.Show(CategoryTypeManagementPageResources.MessageBoxEditCategorySuccess, MsgBoxImage.Check);
