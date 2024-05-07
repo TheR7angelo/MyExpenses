@@ -180,7 +180,7 @@ public partial class DashBoardPage : INotifyPropertyChanged
         radioButton.IsChecked = true;
     }
 
-    private void UpdateGraph(string accountName, DateTime dateTime)
+    internal void UpdateGraph(string accountName, DateTime dateTime)
     {
         using var context = new DataBaseContext();
         var categories = context.TCategoryTypes.ToList();
