@@ -5,12 +5,23 @@ using System.Windows.Input;
 using MyExpenses.Models.Sql.Tables;
 using MyExpenses.Sql.Context;
 using MyExpenses.Wpf.Resources.Resx.Windows.AddEditCategoryTypeWindow;
+using MyExpenses.Wpf.Utils;
 using MyExpenses.Wpf.Windows.MsgBox;
 
 namespace MyExpenses.Wpf.Windows;
 
 public partial class AddEditCategoryTypeWindow
 {
+    public static readonly DependencyProperty EditCategoryTypeOriginalNameProperty =
+        DependencyProperty.Register(nameof(EditCategoryTypeOriginalName), typeof(string), typeof(AddEditCategoryTypeWindow),
+            new PropertyMetadata(default(string)));
+
+    public string? EditCategoryTypeOriginalName
+    {
+        get => (string)GetValue(EditCategoryTypeOriginalNameProperty);
+        set => SetValue(EditCategoryTypeOriginalNameProperty, value);
+    }
+
     #region Property
 
     public TCategoryType CategoryType { get; } = new();
@@ -92,55 +103,14 @@ public partial class AddEditCategoryTypeWindow
     private bool CheckCategoryTypeName(string accountName)
         => CategoryTypes.Select(s => s.Name).Contains(accountName);
 
+    public void SetTCategoryType(TCategoryType categoryType)
+    {
+        categoryType.CopyPropertiesTo(CategoryType);
+        EditCategoryTypeOriginalName = categoryType.Name;
+    }
+
     private void ShowErrorMessage()
         => MsgBox.MsgBox.Show(AddEditCategoryTypeWindowResources.MessageBoxCategoryAlreadyExists, MsgBoxImage.Warning);
-
-
-    #endregion
-
-    #region Action
-
-    private void ButtonCancel_OnClick(object sender, RoutedEventArgs e)
-    {
-        DialogResult = false;
-        Close();
-    }
-
-    private void ButtonValid_OnClick(object sender, RoutedEventArgs e)
-    {
-        var categoryTypeName = CategoryType.Name;
-        if (string.IsNullOrWhiteSpace(categoryTypeName))
-        {
-            MsgBox.MsgBox.Show(AddEditCategoryTypeWindowResources.MessageBoxCategoryNameCannotBeEmptyError, MsgBoxImage.Error);
-            return;
-        }
-
-        if (CheckCategoryTypeName(categoryTypeName))
-        {
-            ShowErrorMessage();
-            return;
-        }
-
-        if (CategoryType.ColorFk is null)
-        {
-            MsgBox.MsgBox.Show(AddEditCategoryTypeWindowResources.MessageBoxCategoryColorCannotBeEmptyError, MsgBoxImage.Error);
-            return;
-        }
-
-        DialogResult = true;
-        Close();
-    }
-
-    private void TextBoxCategoryType_OnPreviewLostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
-    {
-        var textBox = (TextBox)sender;
-
-        var categoryTypeName = textBox.Text;
-        if (string.IsNullOrEmpty(categoryTypeName)) return;
-
-        var alreadyExist = CheckCategoryTypeName(categoryTypeName);
-        if (alreadyExist) ShowErrorMessage();
-    }
 
     #endregion
 
