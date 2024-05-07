@@ -78,6 +78,7 @@
                     Background="{Binding SelectedItem.HexadecimalColorCode, UpdateSourceTrigger=PropertyChanged, ElementName=ComboBoxColors}">
             </Border>
 
+            <!-- TODO work -->
             <Button Grid.Column="2"
                     HorizontalAlignment="Left"
                     Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
