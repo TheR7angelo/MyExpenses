@@ -61,6 +61,7 @@ public partial class CategoryTypeManagementPage
         }
     }
 
+    //TODO update dashboard color graph if needed
     private void ButtonEditCategoryType_OnClick(object sender, RoutedEventArgs e)
     {
         var button = (Button)sender;
