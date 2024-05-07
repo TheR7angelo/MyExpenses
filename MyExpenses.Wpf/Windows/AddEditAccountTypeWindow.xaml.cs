@@ -6,7 +6,7 @@ using MyExpenses.Sql.Context;
 using MyExpenses.Wpf.Resources.Resx.Windows.AddEditAccountTypeWindow;
 using MyExpenses.Wpf.Windows.MsgBox;
 
-namespace MyExpenses.Wpf.Windows.DashBoardPage;
+namespace MyExpenses.Wpf.Windows;
 
 public partial class AddEditAccountTypeWindow
 {

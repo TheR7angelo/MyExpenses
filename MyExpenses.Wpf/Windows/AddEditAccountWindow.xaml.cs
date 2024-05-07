@@ -8,7 +8,6 @@ using MyExpenses.Sql.Context;
 using MyExpenses.Wpf.Resources.Regex;
 using MyExpenses.Wpf.Resources.Resx.Windows.AddAccountWindow;
 using MyExpenses.Wpf.Utils;
-using MyExpenses.Wpf.Windows.DashBoardPage;
 using MyExpenses.Wpf.Windows.MsgBox;
 using Serilog;
 
