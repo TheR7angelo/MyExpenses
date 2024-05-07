@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using Microsoft.EntityFrameworkCore;
 using MyExpenses.Models.Sql.Tables;
 using MyExpenses.Sql.Context;
 
@@ -13,7 +14,7 @@ public partial class CategoryTypeManagementPage
     public CategoryTypeManagementPage()
     {
         using var context = new DataBaseContext();
-        CategoryTypes = [..context.TCategoryTypes];
+        CategoryTypes = [..context.TCategoryTypes.Include(s => s.ColorFkNavigation)];
 
         InitializeComponent();
     }
