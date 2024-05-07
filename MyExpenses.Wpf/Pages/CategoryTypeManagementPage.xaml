@@ -27,7 +27,8 @@
 
             <Button Height="56"
                     Width="{Binding Height, RelativeSource={RelativeSource Self}}"
-                    Style="{StaticResource MaterialDesignFloatingActionDarkButton}">
+                    Style="{StaticResource MaterialDesignFloatingActionDarkButton}"
+                    Click="ButtonAddCategoryType_OnClick">
                 <Button.Content>
                     <materialDesign:PackIcon Kind="Plus"
                                              Height="{Binding Height, RelativeSource={RelativeSource AncestorType=Button}}"

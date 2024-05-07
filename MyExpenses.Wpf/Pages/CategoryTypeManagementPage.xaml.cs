@@ -21,6 +21,12 @@ public partial class CategoryTypeManagementPage
         InitializeComponent();
     }
 
+    private void ButtonAddCategoryType_OnClick(object sender, RoutedEventArgs e)
+    {
+        //TODO work
+        Console.WriteLine("hey");
+    }
+
     private void ButtonEditCategoryType_OnClick(object sender, RoutedEventArgs e)
     {
         var button = (Button)sender;
