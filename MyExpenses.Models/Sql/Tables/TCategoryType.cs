@@ -17,7 +17,7 @@ public partial class TCategoryType : ISql
     public int? ColorFk { get; set; }
 
     [Column("date_added", TypeName = "DATETIME")]
-    public DateTime? DateAdded { get; set; }
+    public DateTime? DateAdded { get; set; } = DateTime.Now;
 
     [ForeignKey("ColorFk")]
     [InverseProperty("TCategoryTypes")]
