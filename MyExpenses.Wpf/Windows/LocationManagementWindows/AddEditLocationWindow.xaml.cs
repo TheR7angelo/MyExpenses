@@ -79,7 +79,7 @@ public partial class AddEditLocationWindow
     {
         if (clear) WritableLayer.Clear();
 
-        newTPlace.CopyProperties(Place);
+        newTPlace.CopyPropertiesTo(Place);
         UpdateMiniMap();
     }
 

@@ -308,7 +308,7 @@ public partial class AddEditAccountWindow
 
     public void SetTAccount(TAccount account)
     {
-        account.CopyProperties(Account);
+        account.CopyPropertiesTo(Account);
         EditAccount = true;
     }
 
