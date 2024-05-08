@@ -38,7 +38,7 @@
 
     <Grid>
 
-        <userControls:ColorPickerControl />
+        <userControls:ColorPickerControl ColorChanged="ColorPickerControl_OnColorChanged" />
 
     </Grid>
 
