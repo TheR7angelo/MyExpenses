@@ -6,7 +6,6 @@
                  xmlns:local="clr-namespace:MyExpenses.Wpf.Windows"
                  xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
                  xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-                 xmlns:converters="clr-namespace:MyExpenses.Wpf.Converters"
                  mc:Ignorable="d"
 
                  Title="AddEditColorWindow"
