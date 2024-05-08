@@ -326,6 +326,13 @@ public partial class ColorPickerControl
         var alphaGradientStop = Color.FromArgb(255, Color.R, Color.G, Color.B);
         AlphaGradientStart.Color = alphaGradientStart;
         AlphaGradientStop.Color = alphaGradientStop;
+
+        var (hue, saturation, value) = Color.ToHsv();
+        SaturationGradientStart.Color = ColorExtensions.ToColor(hue, 0, value);
+        SaturationGradientStop.Color = ColorExtensions.ToColor(hue, 1, value);
+
+        ValueGradientStart.Color = ColorExtensions.ToColor(hue, saturation, 0);
+        ValueGradientStop.Color = ColorExtensions.ToColor(hue, saturation, 1);
     }
 
     private void UIElement_OnPreviewTextInput(object sender, TextCompositionEventArgs e)

@@ -130,6 +130,13 @@
             <Slider Minimum="0" Maximum="1"
                     TickFrequency="0.01" SmallChange="0.01"
                     Value="{Binding SaturationValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:ColorPickerControl}}}">
+                <Slider.Background>
+                    <LinearGradientBrush StartPoint="1, 0"
+                                         EndPoint="0, 0">
+                        <GradientStop x:Name="SaturationGradientStart" Offset="1.0" />
+                        <GradientStop x:Name="SaturationGradientStop" Offset="0.0" />
+                    </LinearGradientBrush>
+                </Slider.Background>
             </Slider>
 
         </Border>
@@ -142,6 +149,13 @@
             <Slider Minimum="0" Maximum="1"
                     TickFrequency="0.01" SmallChange="0.01"
                     Value="{Binding ValueValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:ColorPickerControl}}}">
+                <Slider.Background>
+                    <LinearGradientBrush StartPoint="1, 0"
+                                         EndPoint="0, 0">
+                        <GradientStop x:Name="ValueGradientStart" Offset="1.0" />
+                        <GradientStop x:Name="ValueGradientStop" Offset="0.0" />
+                    </LinearGradientBrush>
+                </Slider.Background>
             </Slider>
 
         </Border>
