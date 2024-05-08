@@ -6,7 +6,7 @@ namespace MyExpenses.Wpf.UserControls;
 public partial class ColorPickerControl
 {
     public static readonly DependencyProperty ColorProperty = DependencyProperty.Register(nameof(Color), typeof(Color),
-        typeof(ColorPickerControl), new PropertyMetadata(default(Color), PropertyColor_OnChangedCallback));
+        typeof(ColorPickerControl), new PropertyMetadata(Colors.Black, PropertyColor_OnChangedCallback));
 
     private static void PropertyColor_OnChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
