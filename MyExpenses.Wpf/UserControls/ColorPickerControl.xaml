@@ -181,26 +181,26 @@
 
         <TextBox Grid.Row="0" Grid.Column="3"
                  Text="{Binding RedValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:ColorPickerControl}}}"
-                 PreviewTextInput="UIElement_OnPreviewTextInput"
-                 TextChanged="TextBoxBase_OnTextChanged">
+                 PreviewTextInput="UIElement_0_to_255_OnPreviewTextInput"
+                 TextChanged="TextBoxBase_0_to_255_OnTextChanged">
         </TextBox>
 
         <TextBox Grid.Row="1" Grid.Column="3"
                  Text="{Binding GreenValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:ColorPickerControl}}}"
-                 PreviewTextInput="UIElement_OnPreviewTextInput"
-                 TextChanged="TextBoxBase_OnTextChanged">
+                 PreviewTextInput="UIElement_0_to_255_OnPreviewTextInput"
+                 TextChanged="TextBoxBase_0_to_255_OnTextChanged">
         </TextBox>
 
         <TextBox Grid.Row="2" Grid.Column="3"
                  Text="{Binding BlueValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:ColorPickerControl}}}"
-                 PreviewTextInput="UIElement_OnPreviewTextInput"
-                 TextChanged="TextBoxBase_OnTextChanged">
+                 PreviewTextInput="UIElement_0_to_255_OnPreviewTextInput"
+                 TextChanged="TextBoxBase_0_to_255_OnTextChanged">
         </TextBox>
 
         <TextBox Grid.Row="6" Grid.Column="3"
                  Text="{Binding AlphaValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:ColorPickerControl}}}"
-                 PreviewTextInput="UIElement_OnPreviewTextInput"
-                 TextChanged="TextBoxBase_OnTextChanged">
+                 PreviewTextInput="UIElement_0_to_255_OnPreviewTextInput"
+                 TextChanged="TextBoxBase_0_to_255_OnTextChanged">
         </TextBox>
 
     </Grid>

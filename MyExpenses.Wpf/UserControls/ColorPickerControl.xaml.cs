@@ -335,12 +335,12 @@ public partial class ColorPickerControl
         ValueGradientStop.Color = ColorExtensions.ToColor(hue, saturation, 1);
     }
 
-    private void UIElement_OnPreviewTextInput(object sender, TextCompositionEventArgs e)
+    private void UIElement_0_to_255_OnPreviewTextInput(object sender, TextCompositionEventArgs e)
     {
         e.Handled = !e.Text.All(char.IsDigit);
     }
 
-    private void TextBoxBase_OnTextChanged(object sender, TextChangedEventArgs e)
+    private void TextBoxBase_0_to_255_OnTextChanged(object sender, TextChangedEventArgs e)
     {
         var textBox = (TextBox)sender;
         if (string.IsNullOrEmpty(textBox.Text)) return;
