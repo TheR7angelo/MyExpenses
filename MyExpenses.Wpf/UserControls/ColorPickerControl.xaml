@@ -258,6 +258,10 @@
                    Fill="{Binding Color, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ColorToHexConverter}, RelativeSource={RelativeSource AncestorType={x:Type local:ColorPickerControl}}}">
         </Rectangle>
 
+        <TextBox Grid.Row="7" Grid.Column="2" Grid.ColumnSpan="3"
+                 Text="{Binding Color, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ColorToHexConverter}, RelativeSource={RelativeSource AncestorType={x:Type local:ColorPickerControl}}}">
+        </TextBox>
+
     </Grid>
 
 </UserControl>
