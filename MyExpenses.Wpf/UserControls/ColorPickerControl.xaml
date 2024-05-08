@@ -11,6 +11,7 @@
 
     <UserControl.Resources>
         <converters:RoundThreeDecimalConverter x:Key="RoundThreeDecimalConverter" />
+        <converters:ColorToHexConverter x:Key="ColorToHexConverter" />
     </UserControl.Resources>
     <Grid>
 
@@ -26,8 +27,8 @@
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
             <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="150" />
             <ColumnDefinition Width="Auto" MinWidth="25" />
@@ -246,6 +247,12 @@
                  PreviewTextInput="UIElement_int_only_OnPreviewTextInput"
                  TextChanged="TextBoxBase_0_to_255_OnTextChanged">
         </TextBox>
+
+        <Label Grid.Row="7" Grid.Column="0" Content="Preview :" />
+
+        <Rectangle Grid.Row="7" Grid.Column="1"
+                   Fill="{Binding Color, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ColorToHexConverter}, RelativeSource={RelativeSource AncestorType={x:Type local:ColorPickerControl}}}">
+        </Rectangle>
 
     </Grid>
 
