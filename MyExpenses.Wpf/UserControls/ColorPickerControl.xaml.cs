@@ -29,6 +29,7 @@ public partial class ColorPickerControl
         sender.ValueValue = value;
 
         sender.UpdateGradiantSlider();
+        sender.ChangeColor();
     }
 
     public static readonly DependencyProperty RedSliderBorderThicknessProperty =
@@ -202,6 +203,16 @@ public partial class ColorPickerControl
         var sender = (ColorPickerControl)d;
         var color = Color.FromArgb((byte)e.NewValue, sender.Color.R, sender.Color.G, sender.Color.G);
         sender.Color = color;
+    }
+
+    public event EventHandler<ColorChangedEventArgs>? ColorChanged;
+
+    public void ChangeColor()
+        => OnColorChanged();
+
+    protected virtual void OnColorChanged()
+    {
+        ColorChanged?.Invoke(this, new ColorChangedEventArgs(Color));
     }
 
     public ColorPickerControl()
