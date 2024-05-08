@@ -2,6 +2,7 @@
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using MyExpenses.Wpf.Resources.Regex;
 using MyExpenses.Wpf.Utils;
 
 namespace MyExpenses.Wpf.UserControls;
@@ -406,7 +407,7 @@ public partial class ColorPickerControl
         ValueGradientStop.Color = ColorExtensions.ToColor(hue, saturation, 1);
     }
 
-    private void UIElement_0_to_255_OnPreviewTextInput(object sender, TextCompositionEventArgs e)
+    private void UIElement_int_only_OnPreviewTextInput(object sender, TextCompositionEventArgs e)
     {
         e.Handled = !e.Text.All(char.IsDigit);
     }
@@ -420,6 +421,45 @@ public partial class ColorPickerControl
         nbr = nbr switch
         {
             > 255 => 255,
+            < 0 => 0,
+            _ => nbr
+        };
+
+        textBox.Text = nbr.ToString();
+        if (nbr != oldNbr) textBox.CaretIndex = textBox.Text.Length;
+    }
+
+    private void UIElement_double_only_OnPreviewTextInput(object sender, TextCompositionEventArgs e)
+    {
+        e.Handled = !e.Text.IsOnlyDecimal();
+    }
+
+    private void TextBoxBase_0_to_360_OnTextChanged(object sender, TextChangedEventArgs e)
+    {
+        var textBox = (TextBox)sender;
+        if (string.IsNullOrEmpty(textBox.Text)) return;
+        var nbr = int.Parse(textBox.Text);
+        var oldNbr = nbr;
+        nbr = nbr switch
+        {
+            > 360 => 360,
+            < 0 => 0,
+            _ => nbr
+        };
+
+        textBox.Text = nbr.ToString();
+        if (nbr != oldNbr) textBox.CaretIndex = textBox.Text.Length;
+    }
+
+    private void TextBoxBase_0_to_1_OnTextChanged(object sender, TextChangedEventArgs e)
+    {
+        var textBox = (TextBox)sender;
+        if (string.IsNullOrEmpty(textBox.Text)) return;
+        var nbr = int.Parse(textBox.Text);
+        var oldNbr = nbr;
+        nbr = nbr switch
+        {
+            > 1 => 1,
             < 0 => 0,
             _ => nbr
         };
