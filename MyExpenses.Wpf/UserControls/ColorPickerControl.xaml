@@ -31,7 +31,7 @@
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="150" />
-            <ColumnDefinition Width="Auto" MinWidth="30" />
+            <ColumnDefinition Width="Auto" MinWidth="45" />
         </Grid.ColumnDefinitions>
 
         <materialDesign:ColorPicker Grid.Row="0" Grid.RowSpan="7" Grid.Column="0" Grid.ColumnSpan="2"
