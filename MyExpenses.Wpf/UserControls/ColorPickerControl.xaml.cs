@@ -182,6 +182,17 @@ public partial class ColorPickerControl
         DependencyProperty.Register(nameof(LabelAlphaChannel), typeof(string), typeof(ColorPickerControl),
             new PropertyMetadata("A"));
 
+    public static readonly DependencyProperty LabelPreviewProperty = DependencyProperty.Register(nameof(LabelPreview),
+        typeof(string), typeof(ColorPickerControl), new PropertyMetadata(default(string)));
+
+    public static readonly DependencyProperty RectanglePreviewThicknessProperty =
+        DependencyProperty.Register(nameof(RectanglePreviewThickness), typeof(Thickness), typeof(ColorPickerControl),
+            new PropertyMetadata(default(Thickness)));
+
+    public static readonly DependencyProperty RectanglePreviewStrokeProperty =
+        DependencyProperty.Register(nameof(RectanglePreviewStroke), typeof(Brush), typeof(ColorPickerControl),
+            new PropertyMetadata(default(Brush)));
+
     private static void PropertyAlphaValue_OnChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
         var sender = (ColorPickerControl)d;
@@ -376,6 +387,24 @@ public partial class ColorPickerControl
     {
         get => (string)GetValue(LabelAlphaChannelProperty);
         set => SetValue(LabelAlphaChannelProperty, value);
+    }
+
+    public string LabelPreview
+    {
+        get => (string)GetValue(LabelPreviewProperty);
+        set => SetValue(LabelPreviewProperty, value);
+    }
+
+    public Thickness RectanglePreviewThickness
+    {
+        get => (Thickness)GetValue(RectanglePreviewThicknessProperty);
+        set => SetValue(RectanglePreviewThicknessProperty, value);
+    }
+
+    public Brush RectanglePreviewStroke
+    {
+        get => (Brush)GetValue(RectanglePreviewStrokeProperty);
+        set => SetValue(RectanglePreviewStrokeProperty, value);
     }
 
     private void UpdateGradiantSlider()

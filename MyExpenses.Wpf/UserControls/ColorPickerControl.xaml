@@ -248,9 +248,13 @@
                  TextChanged="TextBoxBase_0_to_255_OnTextChanged">
         </TextBox>
 
-        <Label Grid.Row="7" Grid.Column="0" Content="Preview :" />
+        <Label Grid.Row="7" Grid.Column="0"
+               Content="{Binding LabelPreview, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:ColorPickerControl}}}">
+        </Label>
 
         <Rectangle Grid.Row="7" Grid.Column="1"
+                   StrokeThickness="{Binding RectanglePreviewThickness, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:ColorPickerControl}}}"
+                   Stroke="{Binding RectanglePreviewStroke, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:ColorPickerControl}}}"
                    Fill="{Binding Color, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ColorToHexConverter}, RelativeSource={RelativeSource AncestorType={x:Type local:ColorPickerControl}}}">
         </Rectangle>
 
