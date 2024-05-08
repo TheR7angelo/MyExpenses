@@ -131,7 +131,8 @@ public partial class ColorPickerControl
             new PropertyMetadata(default(Brush)));
 
     public static readonly DependencyProperty ValueValueProperty = DependencyProperty.Register(nameof(ValueValue),
-        typeof(double), typeof(ColorPickerControl), new PropertyMetadata(default(double), PropertyValueValue_OnChangedCallback));
+        typeof(double), typeof(ColorPickerControl),
+        new PropertyMetadata(default(double), PropertyValueValue_OnChangedCallback));
 
     private static void PropertyValueValue_OnChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
@@ -150,6 +151,34 @@ public partial class ColorPickerControl
     public static readonly DependencyProperty AlphaValueProperty = DependencyProperty.Register(nameof(AlphaValue),
         typeof(byte), typeof(ColorPickerControl),
         new PropertyMetadata(default(byte), PropertyAlphaValue_OnChangedCallback));
+
+    public static readonly DependencyProperty LabelRedChannelProperty =
+        DependencyProperty.Register(nameof(LabelRedChannel), typeof(string), typeof(ColorPickerControl),
+            new PropertyMetadata("R"));
+
+    public static readonly DependencyProperty LabelGreenChannelProperty =
+        DependencyProperty.Register(nameof(LabelGreenChannel), typeof(string), typeof(ColorPickerControl),
+            new PropertyMetadata("G"));
+
+    public static readonly DependencyProperty LabelBlueChannelProperty =
+        DependencyProperty.Register(nameof(LabelBlueChannel), typeof(string), typeof(ColorPickerControl),
+            new PropertyMetadata("B"));
+
+    public static readonly DependencyProperty LabelHueChannelProperty =
+        DependencyProperty.Register(nameof(LabelHueChannel), typeof(string), typeof(ColorPickerControl),
+            new PropertyMetadata("H"));
+
+    public static readonly DependencyProperty LabelSaturationChannelProperty =
+        DependencyProperty.Register(nameof(LabelSaturationChannel), typeof(string), typeof(ColorPickerControl),
+            new PropertyMetadata("S"));
+
+    public static readonly DependencyProperty LabelValueChannelProperty =
+        DependencyProperty.Register(nameof(LabelValueChannel), typeof(string), typeof(ColorPickerControl),
+            new PropertyMetadata("V"));
+
+    public static readonly DependencyProperty LabelAlphaChannelProperty =
+        DependencyProperty.Register(nameof(LabelAlphaChannel), typeof(string), typeof(ColorPickerControl),
+            new PropertyMetadata("A"));
 
     private static void PropertyAlphaValue_OnChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
@@ -303,6 +332,48 @@ public partial class ColorPickerControl
     {
         get => (double)GetValue(ValueValueProperty);
         set => SetValue(ValueValueProperty, value);
+    }
+
+    public string LabelRedChannel
+    {
+        get => (string)GetValue(LabelRedChannelProperty);
+        set => SetValue(LabelRedChannelProperty, value);
+    }
+
+    public string LabelGreenChannel
+    {
+        get => (string)GetValue(LabelGreenChannelProperty);
+        set => SetValue(LabelGreenChannelProperty, value);
+    }
+
+    public string LabelBlueChannel
+    {
+        get => (string)GetValue(LabelBlueChannelProperty);
+        set => SetValue(LabelBlueChannelProperty, value);
+    }
+
+    public string LabelHueChannel
+    {
+        get => (string)GetValue(LabelHueChannelProperty);
+        set => SetValue(LabelHueChannelProperty, value);
+    }
+
+    public string LabelSaturationChannel
+    {
+        get => (string)GetValue(LabelSaturationChannelProperty);
+        set => SetValue(LabelSaturationChannelProperty, value);
+    }
+
+    public string LabelValueChannel
+    {
+        get => (string)GetValue(LabelValueChannelProperty);
+        set => SetValue(LabelValueChannelProperty, value);
+    }
+
+    public string LabelAlphaChannel
+    {
+        get => (string)GetValue(LabelAlphaChannelProperty);
+        set => SetValue(LabelAlphaChannelProperty, value);
     }
 
     private void UpdateGradiantSlider()

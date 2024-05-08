@@ -32,13 +32,13 @@
                                     Color="{Binding Color, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:ColorPickerControl}}}">
         </materialDesign:ColorPicker>
 
-        <Label Grid.Row="0" Grid.Column="1" Content="Red" />
-        <Label Grid.Row="1" Grid.Column="1" Content="Green" />
-        <Label Grid.Row="2" Grid.Column="1" Content="Blue" />
-        <Label Grid.Row="3" Grid.Column="1" Content="Hue" />
-        <Label Grid.Row="4" Grid.Column="1" Content="Saturation" />
-        <Label Grid.Row="5" Grid.Column="1" Content="Value" />
-        <Label Grid.Row="6" Grid.Column="1" Content="Alpha" />
+        <Label Grid.Row="0" Grid.Column="1" Content="{Binding LabelRedChannel, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:ColorPickerControl}}}" />
+        <Label Grid.Row="1" Grid.Column="1" Content="{Binding LabelGreenChannel, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:ColorPickerControl}}}" />
+        <Label Grid.Row="2" Grid.Column="1" Content="{Binding LabelBlueChannel, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:ColorPickerControl}}}" />
+        <Label Grid.Row="3" Grid.Column="1" Content="{Binding LabelHueChannel, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:ColorPickerControl}}}" />
+        <Label Grid.Row="4" Grid.Column="1" Content="{Binding LabelSaturationChannel, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:ColorPickerControl}}}" />
+        <Label Grid.Row="5" Grid.Column="1" Content="{Binding LabelValueChannel, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:ColorPickerControl}}}" />
+        <Label Grid.Row="6" Grid.Column="1" Content="{Binding LabelAlphaChannel, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:ColorPickerControl}}}" />
 
         <!-- Red Slider -->
         <Border Grid.Row="0" Grid.Column="2"
@@ -192,6 +192,12 @@
         </TextBox>
 
         <TextBox Grid.Row="2" Grid.Column="3"
+                 Text="{Binding BlueValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:ColorPickerControl}}}"
+                 PreviewTextInput="UIElement_0_to_255_OnPreviewTextInput"
+                 TextChanged="TextBoxBase_0_to_255_OnTextChanged">
+        </TextBox>
+
+        <TextBox Grid.Row="3" Grid.Column="3"
                  Text="{Binding BlueValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:ColorPickerControl}}}"
                  PreviewTextInput="UIElement_0_to_255_OnPreviewTextInput"
                  TextChanged="TextBoxBase_0_to_255_OnTextChanged">
