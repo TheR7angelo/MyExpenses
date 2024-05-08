@@ -12,6 +12,12 @@ public partial class ColorPickerControl
     {
         var sender = (ColorPickerControl)d;
         sender.UpdateGradiantSlider();
+
+        var newColor = (Color)e.NewValue;
+        sender.RedValue = newColor.R;
+        sender.GreenValue = newColor.G;
+        sender.BlueValue = newColor.B;
+        sender.AlphaValue = newColor.A;
     }
 
     public static readonly DependencyProperty RedSliderBorderThicknessProperty =
