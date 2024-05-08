@@ -34,11 +34,19 @@ public static class ColorExtensions
             h *= 60;
 
             if (h < 0.0) h += 360;
-
         }
 
         return (h, s, v / 255);
     }
+
+    /// <summary>
+    /// Converts a System.Drawing.Color object to a hexadecimal color code.
+    /// </summary>
+    /// <param name="color">The System.Drawing.Color object to convert.</param>
+    /// <returns>The hexadecimal color code representing the converted color as a string.</returns>
+    public static string ToHexadecimal(this Color color)
+        => $"#{color.A:X2}{color.R:X2}{color.G:X2}{color.B:X2}";
+
 
     /// <summary>
     /// Converts HSV values to a System.Drawing.Color object.
