@@ -6,6 +6,7 @@
                  xmlns:local="clr-namespace:MyExpenses.Wpf.Windows"
                  xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
                  xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+                 xmlns:userControls="clr-namespace:MyExpenses.Wpf.UserControls"
                  mc:Ignorable="d"
 
                  Title="AddEditColorWindow"
@@ -37,85 +38,7 @@
 
     <Grid>
 
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
-
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="100" />
-            <ColumnDefinition Width="Auto" />
-        </Grid.ColumnDefinitions>
-
-        <materialDesign:ColorPicker Grid.Row="0" Grid.RowSpan="4" Grid.Column="0"
-                                    MinHeight="150"
-                                    Color="{Binding Color, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-        </materialDesign:ColorPicker>
-
-        <Label Grid.Row="0" Grid.Column="1" Content="Red" />
-        <Label Grid.Row="1" Grid.Column="1" Content="Green" />
-        <Label Grid.Row="2" Grid.Column="1" Content="Blue" />
-        <Label Grid.Row="3" Grid.Column="1" Content="Alpha" />
-
-        <!-- Red Slider -->
-        <Slider Grid.Row="0" Grid.Column="2"
-                Minimum="0" Maximum="255"
-                TickFrequency="1" SmallChange="1"
-                Value="{Binding RedValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-            <Slider.Background>
-                <LinearGradientBrush StartPoint="1, 0"
-                                     EndPoint="0, 0">
-                    <GradientStop x:Name="RedGradientStart" Offset="1.0" />
-                    <GradientStop x:Name="RedGradientStop" Offset="0.0" />
-                </LinearGradientBrush>
-            </Slider.Background>
-        </Slider>
-
-        <!-- Green slider -->
-        <Slider Grid.Row="1" Grid.Column="2"
-                Minimum="0" Maximum="255"
-                TickFrequency="1" SmallChange="1"
-                Value="{Binding GreenValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-            <Slider.Background>
-                <LinearGradientBrush StartPoint="1, 0"
-                                     EndPoint="0, 0">
-                    <GradientStop x:Name="GreenGradientStart" Offset="1.0" />
-                    <GradientStop x:Name="GreenGradientStop" Offset="0.0" />
-                </LinearGradientBrush>
-            </Slider.Background>
-        </Slider>
-
-        <!-- Blue Slider -->
-        <Slider Grid.Row="2" Grid.Column="2"
-                Minimum="0" Maximum="255"
-                TickFrequency="1" SmallChange="1"
-                Value="{Binding BlueValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-            <Slider.Background>
-                <LinearGradientBrush StartPoint="1, 0"
-                                     EndPoint="0, 0">
-                    <GradientStop x:Name="BlueGradientStart" Offset="1.0" />
-                    <GradientStop x:Name="BlueGradientStop" Offset="0.0" />
-                </LinearGradientBrush>
-            </Slider.Background>
-        </Slider>
-
-        <!-- Alpha Slider -->
-        <Slider Grid.Row="3" Grid.Column="2"
-                Minimum="0" Maximum="255"
-                TickFrequency="1" SmallChange="1"
-                Value="{Binding AlphaValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-            <Slider.Background>
-                <LinearGradientBrush StartPoint="1, 0"
-                                     EndPoint="0, 0">
-                    <GradientStop x:Name="AlphaGradientStart" Offset="1.0" />
-                    <GradientStop x:Name="AlphaGradientStop" Offset="0.0" />
-                </LinearGradientBrush>
-            </Slider.Background>
-        </Slider>
+        <userControls:ColorPickerControl />
 
     </Grid>
 
