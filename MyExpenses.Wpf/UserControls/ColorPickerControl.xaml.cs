@@ -1,4 +1,6 @@
 ﻿using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
 
 namespace MyExpenses.Wpf.UserControls;
@@ -196,5 +198,27 @@ public partial class ColorPickerControl
         var alphaGradientStop = Color.FromArgb(255, Color.R, Color.G, Color.B);
         AlphaGradientStart.Color = alphaGradientStart;
         AlphaGradientStop.Color = alphaGradientStop;
+    }
+
+    private void UIElement_OnPreviewTextInput(object sender, TextCompositionEventArgs e)
+    {
+        e.Handled = !e.Text.All(char.IsDigit);
+    }
+
+    private void TextBoxBase_OnTextChanged(object sender, TextChangedEventArgs e)
+    {
+        var textBox = (TextBox)sender;
+        if (string.IsNullOrEmpty(textBox.Text)) return;
+        var nbr = int.Parse(textBox.Text);
+        var oldNbr = nbr;
+        nbr = nbr switch
+        {
+            > 255 => 255,
+            < 0 => 0,
+            _ => nbr
+        };
+
+        textBox.Text = nbr.ToString();
+        if (nbr != oldNbr) textBox.CaretIndex = textBox.Text.Length;
     }
 }
