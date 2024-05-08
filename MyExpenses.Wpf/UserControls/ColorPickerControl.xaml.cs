@@ -11,7 +11,7 @@ public partial class ColorPickerControl
     private static void PropertyColor_OnChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
         var sender = (ColorPickerControl)d;
-        sender.UpdateSlider();
+        sender.UpdateGradiantSlider();
     }
 
     public static readonly DependencyProperty RedSliderBorderThicknessProperty =
@@ -23,7 +23,14 @@ public partial class ColorPickerControl
             new PropertyMetadata(default(Brush)));
 
     public static readonly DependencyProperty RedValueProperty = DependencyProperty.Register(nameof(RedValue),
-        typeof(byte), typeof(ColorPickerControl), new PropertyMetadata(default(byte)));
+        typeof(byte), typeof(ColorPickerControl), new PropertyMetadata(default(byte), PropertyRedValue_OnChangedCallback));
+
+    private static void PropertyRedValue_OnChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
+    {
+        var sender = (ColorPickerControl)d;
+        var color = Color.FromArgb(sender.Color.A, (byte)e.NewValue, sender.Color.G, sender.Color.B);
+        sender.Color = color;
+    }
 
     public static readonly DependencyProperty GreenSliderBorderThicknessProperty =
         DependencyProperty.Register(nameof(GreenSliderBorderThickness), typeof(Thickness), typeof(ColorPickerControl),
@@ -34,7 +41,14 @@ public partial class ColorPickerControl
             new PropertyMetadata(default(Brush)));
 
     public static readonly DependencyProperty GreenValueProperty = DependencyProperty.Register(nameof(GreenValue),
-        typeof(byte), typeof(ColorPickerControl), new PropertyMetadata(default(byte)));
+        typeof(byte), typeof(ColorPickerControl), new PropertyMetadata(default(byte), PropertyGreenValue_OnChangedCallback));
+
+    private static void PropertyGreenValue_OnChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
+    {
+        var sender = (ColorPickerControl)d;
+        var color = Color.FromArgb(sender.Color.A, sender.Color.R, (byte)e.NewValue, sender.Color.B);
+        sender.Color = color;
+    }
 
     public static readonly DependencyProperty BlueSliderBorderThicknessProperty =
         DependencyProperty.Register(nameof(BlueSliderBorderThickness), typeof(Thickness), typeof(ColorPickerControl),
@@ -45,7 +59,14 @@ public partial class ColorPickerControl
             new PropertyMetadata(default(Brush)));
 
     public static readonly DependencyProperty BlueValueProperty = DependencyProperty.Register(nameof(BlueValue),
-        typeof(byte), typeof(ColorPickerControl), new PropertyMetadata(default(byte)));
+        typeof(byte), typeof(ColorPickerControl), new PropertyMetadata(default(byte), PropertyBlueValue_OnChangedCallback));
+
+    private static void PropertyBlueValue_OnChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
+    {
+        var sender = (ColorPickerControl)d;
+        var color = Color.FromArgb(sender.Color.A, sender.Color.R, sender.Color.G, (byte)e.NewValue);
+        sender.Color = color;
+    }
 
     public static readonly DependencyProperty AlphaSliderBorderThicknessProperty =
         DependencyProperty.Register(nameof(AlphaSliderBorderThickness), typeof(Thickness), typeof(ColorPickerControl),
@@ -56,7 +77,14 @@ public partial class ColorPickerControl
             new PropertyMetadata(default(Brush)));
 
     public static readonly DependencyProperty AlphaValueProperty = DependencyProperty.Register(nameof(AlphaValue),
-        typeof(byte), typeof(ColorPickerControl), new PropertyMetadata(default(byte)));
+        typeof(byte), typeof(ColorPickerControl), new PropertyMetadata(default(byte), PropertyAlphaValue_OnChangedCallback));
+
+    private static void PropertyAlphaValue_OnChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
+    {
+        var sender = (ColorPickerControl)d;
+        var color = Color.FromArgb((byte)e.NewValue, sender.Color.R, sender.Color.G, sender.Color.G);
+        sender.Color = color;
+    }
 
     public ColorPickerControl()
     {
@@ -141,20 +169,20 @@ public partial class ColorPickerControl
         set => SetValue(AlphaValueProperty, value);
     }
 
-    private void UpdateSlider()
+    private void UpdateGradiantSlider()
     {
-        var redGradientStart = Color.FromArgb(Color.A, 0, Color.G, Color.B);
-        var redGradientStop = Color.FromArgb(Color.A, 255, Color.G, Color.B);
+        var redGradientStart = Color.FromArgb(255, 0, Color.G, Color.B);
+        var redGradientStop = Color.FromArgb(255, 255, Color.G, Color.B);
         RedGradientStart.Color = redGradientStart;
         RedGradientStop.Color = redGradientStop;
 
-        var greenGradientStart = Color.FromArgb(Color.A, Color.R, 0, Color.B);
-        var greenGradientStop = Color.FromArgb(Color.A, Color.R, 255, Color.B);
+        var greenGradientStart = Color.FromArgb(255, Color.R, 0, Color.B);
+        var greenGradientStop = Color.FromArgb(255, Color.R, 255, Color.B);
         GreenGradientStart.Color = greenGradientStart;
         GreenGradientStop.Color = greenGradientStop;
 
-        var blueGradientStart = Color.FromArgb(Color.A, Color.R, Color.G, 0);
-        var blueGradientStop = Color.FromArgb(Color.A, Color.R, Color.G, 255);
+        var blueGradientStart = Color.FromArgb(255, Color.R, Color.G, 0);
+        var blueGradientStop = Color.FromArgb(255, Color.R, Color.G, 255);
         BlueGradientStart.Color = blueGradientStart;
         BlueGradientStop.Color = blueGradientStop;
 
