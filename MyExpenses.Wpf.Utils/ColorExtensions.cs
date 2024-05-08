@@ -7,6 +7,40 @@ namespace MyExpenses.Wpf.Utils;
 public static class ColorExtensions
 {
     /// <summary>
+    /// Converts a System.Drawing.Color object to HSV (Hue, Saturation, Value) values.
+    /// </summary>
+    /// <param name="color">The System.Drawing.Color object to convert.</param>
+    /// <returns>A tuple containing the HSV values, represented as doubles.</returns>
+    public static (double Hue, double Saturation, double Value) ToHsv(this Color color)
+    {
+        double h = 0, s;
+
+        double min = Math.Min(Math.Min(color.R, color.G), color.B);
+        double v = Math.Max(Math.Max(color.R, color.G), color.B);
+        var delta = v - min;
+
+        if (v == 0.0) s = 0;
+        else s = delta / v;
+
+        if (s == 0) h = 0.0;
+        else
+        {
+            const double tolerance = 0.0001;
+
+            if (Math.Abs(color.R - v) < tolerance) h = (color.G - color.B) / delta;
+            else if (Math.Abs(color.G - v) < tolerance) h = 2 + (color.B - color.R) / delta;
+            else if (Math.Abs(color.B - v) < tolerance) h = 4 + (color.R - color.G) / delta;
+
+            h *= 60;
+
+            if (h < 0.0) h += 360;
+
+        }
+
+        return (h, s, v / 255);
+    }
+
+    /// <summary>
     /// Converts HSV values to a System.Drawing.Color object.
     /// </summary>
     /// <param name="hue">The hue value (0-360).</param>
