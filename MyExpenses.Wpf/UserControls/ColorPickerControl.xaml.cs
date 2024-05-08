@@ -14,13 +14,19 @@ public partial class ColorPickerControl
     private static void PropertyColor_OnChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
         var sender = (ColorPickerControl)d;
-        sender.UpdateGradiantSlider();
 
         var newColor = (Color)e.NewValue;
         sender.RedValue = newColor.R;
         sender.GreenValue = newColor.G;
         sender.BlueValue = newColor.B;
         sender.AlphaValue = newColor.A;
+
+        var (hue, saturation, value) = newColor.ToHsv();
+        sender.HueValue = hue;
+        sender.SaturationValue = saturation;
+        sender.ValueValue = value;
+
+        sender.UpdateGradiantSlider();
     }
 
     public static readonly DependencyProperty RedSliderBorderThicknessProperty =
