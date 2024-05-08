@@ -2,6 +2,7 @@
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using MyExpenses.Wpf.Utils;
 
 namespace MyExpenses.Wpf.UserControls;
 
@@ -31,7 +32,8 @@ public partial class ColorPickerControl
             new PropertyMetadata(default(Brush)));
 
     public static readonly DependencyProperty RedValueProperty = DependencyProperty.Register(nameof(RedValue),
-        typeof(byte), typeof(ColorPickerControl), new PropertyMetadata(default(byte), PropertyRedValue_OnChangedCallback));
+        typeof(byte), typeof(ColorPickerControl),
+        new PropertyMetadata(default(byte), PropertyRedValue_OnChangedCallback));
 
     private static void PropertyRedValue_OnChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
@@ -49,7 +51,8 @@ public partial class ColorPickerControl
             new PropertyMetadata(default(Brush)));
 
     public static readonly DependencyProperty GreenValueProperty = DependencyProperty.Register(nameof(GreenValue),
-        typeof(byte), typeof(ColorPickerControl), new PropertyMetadata(default(byte), PropertyGreenValue_OnChangedCallback));
+        typeof(byte), typeof(ColorPickerControl),
+        new PropertyMetadata(default(byte), PropertyGreenValue_OnChangedCallback));
 
     private static void PropertyGreenValue_OnChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
@@ -67,13 +70,67 @@ public partial class ColorPickerControl
             new PropertyMetadata(default(Brush)));
 
     public static readonly DependencyProperty BlueValueProperty = DependencyProperty.Register(nameof(BlueValue),
-        typeof(byte), typeof(ColorPickerControl), new PropertyMetadata(default(byte), PropertyBlueValue_OnChangedCallback));
+        typeof(byte), typeof(ColorPickerControl),
+        new PropertyMetadata(default(byte), PropertyBlueValue_OnChangedCallback));
 
     private static void PropertyBlueValue_OnChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
         var sender = (ColorPickerControl)d;
         var color = Color.FromArgb(sender.Color.A, sender.Color.R, sender.Color.G, (byte)e.NewValue);
         sender.Color = color;
+    }
+
+    public static readonly DependencyProperty HueSliderBorderThicknessProperty =
+        DependencyProperty.Register(nameof(HueSliderBorderThickness), typeof(Thickness), typeof(ColorPickerControl),
+            new PropertyMetadata(default(Thickness)));
+
+    public static readonly DependencyProperty HueSliderBorderBrushProperty =
+        DependencyProperty.Register(nameof(HueSliderBorderBrush), typeof(Brush), typeof(ColorPickerControl),
+            new PropertyMetadata(default(Brush)));
+
+    public static readonly DependencyProperty HueValueProperty = DependencyProperty.Register(nameof(HueValue),
+        typeof(double), typeof(ColorPickerControl),
+        new PropertyMetadata(default(double), PropertyHueValue_OnChangedCallback));
+
+    private static void PropertyHueValue_OnChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
+    {
+        var sender = (ColorPickerControl)d;
+        sender.UpdateHsvValue();
+    }
+
+    public static readonly DependencyProperty SaturationSliderBorderThicknessProperty =
+        DependencyProperty.Register(nameof(SaturationSliderBorderThickness), typeof(Thickness),
+            typeof(ColorPickerControl), new PropertyMetadata(default(Thickness)));
+
+    public static readonly DependencyProperty SaturationSliderBorderBrushProperty =
+        DependencyProperty.Register(nameof(SaturationSliderBorderBrush), typeof(Brush), typeof(ColorPickerControl),
+            new PropertyMetadata(default(Brush)));
+
+    public static readonly DependencyProperty SaturationValueProperty =
+        DependencyProperty.Register(nameof(SaturationValue), typeof(double), typeof(ColorPickerControl),
+            new PropertyMetadata(default(double), PropertySaturation_OnChangedCallback));
+
+    private static void PropertySaturation_OnChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
+    {
+        var sender = (ColorPickerControl)d;
+        sender.UpdateHsvValue();
+    }
+
+    public static readonly DependencyProperty ValueSliderBorderThicknessProperty =
+        DependencyProperty.Register(nameof(ValueSliderBorderThickness), typeof(Thickness), typeof(ColorPickerControl),
+            new PropertyMetadata(default(Thickness)));
+
+    public static readonly DependencyProperty ValueSliderBorderBrushProperty =
+        DependencyProperty.Register(nameof(ValueSliderBorderBrush), typeof(Brush), typeof(ColorPickerControl),
+            new PropertyMetadata(default(Brush)));
+
+    public static readonly DependencyProperty ValueValueProperty = DependencyProperty.Register(nameof(ValueValue),
+        typeof(double), typeof(ColorPickerControl), new PropertyMetadata(default(double), PropertyValueValue_OnChangedCallback));
+
+    private static void PropertyValueValue_OnChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
+    {
+        var sender = (ColorPickerControl)d;
+        sender.UpdateHsvValue();
     }
 
     public static readonly DependencyProperty AlphaSliderBorderThicknessProperty =
@@ -85,7 +142,8 @@ public partial class ColorPickerControl
             new PropertyMetadata(default(Brush)));
 
     public static readonly DependencyProperty AlphaValueProperty = DependencyProperty.Register(nameof(AlphaValue),
-        typeof(byte), typeof(ColorPickerControl), new PropertyMetadata(default(byte), PropertyAlphaValue_OnChangedCallback));
+        typeof(byte), typeof(ColorPickerControl),
+        new PropertyMetadata(default(byte), PropertyAlphaValue_OnChangedCallback));
 
     private static void PropertyAlphaValue_OnChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
@@ -97,6 +155,16 @@ public partial class ColorPickerControl
     public ColorPickerControl()
     {
         InitializeComponent();
+    }
+
+    private void UpdateHsvValue()
+    {
+        var hue = HueValue;
+        var saturation = SaturationValue;
+        var value = ValueValue;
+
+        var color = ColorExtensions.ToColor(hue, saturation, value);
+        Color = color;
     }
 
     public Color Color
@@ -175,6 +243,60 @@ public partial class ColorPickerControl
     {
         get => (byte)GetValue(AlphaValueProperty);
         set => SetValue(AlphaValueProperty, value);
+    }
+
+    public Brush HueSliderBorderBrush
+    {
+        get => (Brush)GetValue(HueSliderBorderBrushProperty);
+        set => SetValue(HueSliderBorderBrushProperty, value);
+    }
+
+    public Thickness HueSliderBorderThickness
+    {
+        get => (Thickness)GetValue(HueSliderBorderThicknessProperty);
+        set => SetValue(HueSliderBorderThicknessProperty, value);
+    }
+
+    public double HueValue
+    {
+        get => (double)GetValue(HueValueProperty);
+        set => SetValue(HueValueProperty, value);
+    }
+
+    public double SaturationValue
+    {
+        get => (double)GetValue(SaturationValueProperty);
+        set => SetValue(SaturationValueProperty, value);
+    }
+
+    public Brush SaturationSliderBorderBrush
+    {
+        get => (Brush)GetValue(SaturationSliderBorderBrushProperty);
+        set => SetValue(SaturationSliderBorderBrushProperty, value);
+    }
+
+    public Thickness SaturationSliderBorderThickness
+    {
+        get => (Thickness)GetValue(SaturationSliderBorderThicknessProperty);
+        set => SetValue(SaturationSliderBorderThicknessProperty, value);
+    }
+
+    public Brush ValueSliderBorderBrush
+    {
+        get => (Brush)GetValue(ValueSliderBorderBrushProperty);
+        set => SetValue(ValueSliderBorderBrushProperty, value);
+    }
+
+    public Thickness ValueSliderBorderThickness
+    {
+        get => (Thickness)GetValue(ValueSliderBorderThicknessProperty);
+        set => SetValue(ValueSliderBorderThicknessProperty, value);
+    }
+
+    public double ValueValue
+    {
+        get => (double)GetValue(ValueValueProperty);
+        set => SetValue(ValueValueProperty, value);
     }
 
     private void UpdateGradiantSlider()

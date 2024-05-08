@@ -15,16 +15,19 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="100" />
+            <ColumnDefinition Width="150" />
             <ColumnDefinition Width="Auto" MinWidth="25" />
         </Grid.ColumnDefinitions>
 
-        <materialDesign:ColorPicker Grid.Row="0" Grid.RowSpan="4" Grid.Column="0"
+        <materialDesign:ColorPicker Grid.Row="0" Grid.RowSpan="7" Grid.Column="0"
                                     MinHeight="150"
                                     Color="{Binding Color, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:ColorPickerControl}}}">
         </materialDesign:ColorPicker>
@@ -32,7 +35,10 @@
         <Label Grid.Row="0" Grid.Column="1" Content="Red" />
         <Label Grid.Row="1" Grid.Column="1" Content="Green" />
         <Label Grid.Row="2" Grid.Column="1" Content="Blue" />
-        <Label Grid.Row="3" Grid.Column="1" Content="Alpha" />
+        <Label Grid.Row="3" Grid.Column="1" Content="Hue" />
+        <Label Grid.Row="4" Grid.Column="1" Content="Saturation" />
+        <Label Grid.Row="5" Grid.Column="1" Content="Value" />
+        <Label Grid.Row="6" Grid.Column="1" Content="Alpha" />
 
         <!-- Red Slider -->
         <Border Grid.Row="0" Grid.Column="2"
@@ -91,8 +97,57 @@
 
         </Border>
 
-        <!-- Alpha Slider -->
+        <!-- Hue Slider -->
         <Border Grid.Row="3" Grid.Column="2"
+                BorderBrush="{Binding HueSliderBorderBrush, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:ColorPickerControl}}}"
+                BorderThickness="{Binding HueSliderBorderThickness, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:ColorPickerControl}}}">
+
+            <Slider Minimum="0" Maximum="360"
+                    TickFrequency="0.1" SmallChange="0.1"
+                    Value="{Binding HueValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:ColorPickerControl}}}">
+                <Slider.Background>
+                    <LinearGradientBrush StartPoint="0, 0"
+                                         EndPoint="1, 0">
+                        <GradientStop Color="#FFFF0000" Offset="0.0" />
+                        <GradientStop Color="#FFFF7F00" Offset="0.15" />
+                        <GradientStop Color="#FFFFFF00" Offset="0.3" />
+                        <GradientStop Color="#FF00FF00" Offset="0.45" />
+                        <GradientStop Color="#FF0000FF" Offset="0.6" />
+                        <GradientStop Color="#FF4B0082" Offset="0.75" />
+                        <GradientStop Color="#FF9400D3" Offset="0.9" />
+                        <GradientStop Color="#FFFF0000" Offset="1.0" />
+                    </LinearGradientBrush>
+                </Slider.Background>
+            </Slider>
+
+        </Border>
+
+        <!-- Saturation Slider -->
+        <Border Grid.Row="4" Grid.Column="2"
+                BorderBrush="{Binding SaturationSliderBorderBrush, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:ColorPickerControl}}}"
+                BorderThickness="{Binding SaturationSliderBorderThickness, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:ColorPickerControl}}}">
+
+            <Slider Minimum="0" Maximum="1"
+                    TickFrequency="0.01" SmallChange="0.01"
+                    Value="{Binding SaturationValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:ColorPickerControl}}}">
+            </Slider>
+
+        </Border>
+
+        <!-- Value Slider -->
+        <Border Grid.Row="5" Grid.Column="2"
+                BorderBrush="{Binding ValueSliderBorderBrush, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:ColorPickerControl}}}"
+                BorderThickness="{Binding ValueSliderBorderThickness, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:ColorPickerControl}}}">
+
+            <Slider Minimum="0" Maximum="1"
+                    TickFrequency="0.01" SmallChange="0.01"
+                    Value="{Binding ValueValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:ColorPickerControl}}}">
+            </Slider>
+
+        </Border>
+
+        <!-- Alpha Slider -->
+        <Border Grid.Row="6" Grid.Column="2"
                 BorderBrush="{Binding AlphaSliderBorderBrush, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:ColorPickerControl}}}"
                 BorderThickness="{Binding AlphaSliderBorderThickness, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:ColorPickerControl}}}">
 
@@ -128,7 +183,7 @@
                  TextChanged="TextBoxBase_OnTextChanged">
         </TextBox>
 
-        <TextBox Grid.Row="3" Grid.Column="3"
+        <TextBox Grid.Row="6" Grid.Column="3"
                  Text="{Binding AlphaValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:ColorPickerControl}}}"
                  PreviewTextInput="UIElement_OnPreviewTextInput"
                  TextChanged="TextBoxBase_OnTextChanged">
