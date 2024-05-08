@@ -11,7 +11,7 @@ public partial class AddEditColorWindow : INotifyPropertyChanged
     protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
         => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
-    private Color _color = Colors.Transparent;
+    private Color _color = Colors.Black;
 
     public Color Color
     {
