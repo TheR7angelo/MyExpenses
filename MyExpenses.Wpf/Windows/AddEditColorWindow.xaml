@@ -62,53 +62,61 @@
         <Label Grid.Row="2" Grid.Column="1" Content="Blue" />
         <Label Grid.Row="3" Grid.Column="1" Content="Alpha" />
 
-        <Rectangle Grid.Row="0" Grid.Column="2"
-                   Stroke="{DynamicResource MaterialDesignBody}"
-                   StrokeThickness="1">
-            <Rectangle.Fill>
+        <!-- Red Slider -->
+        <Slider Grid.Row="0" Grid.Column="2"
+                Minimum="0" Maximum="255"
+                TickFrequency="1" SmallChange="1"
+                Value="{Binding RedValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+            <Slider.Background>
                 <LinearGradientBrush StartPoint="1, 0"
                                      EndPoint="0, 0">
                     <GradientStop x:Name="RedGradientStart" Offset="1.0" />
                     <GradientStop x:Name="RedGradientStop" Offset="0.0" />
                 </LinearGradientBrush>
-            </Rectangle.Fill>
-        </Rectangle>
+            </Slider.Background>
+        </Slider>
 
-        <Rectangle Grid.Row="1" Grid.Column="2"
-                   Stroke="{DynamicResource MaterialDesignBody}"
-                   StrokeThickness="1">
-            <Rectangle.Fill>
+        <!-- Green slider -->
+        <Slider Grid.Row="1" Grid.Column="2"
+                Minimum="0" Maximum="255"
+                TickFrequency="1" SmallChange="1"
+                Value="{Binding GreenValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+            <Slider.Background>
                 <LinearGradientBrush StartPoint="1, 0"
                                      EndPoint="0, 0">
                     <GradientStop x:Name="GreenGradientStart" Offset="1.0" />
                     <GradientStop x:Name="GreenGradientStop" Offset="0.0" />
                 </LinearGradientBrush>
-            </Rectangle.Fill>
-        </Rectangle>
+            </Slider.Background>
+        </Slider>
 
-        <Rectangle Grid.Row="2" Grid.Column="2"
-                   Stroke="{DynamicResource MaterialDesignBody}"
-                   StrokeThickness="1">
-            <Rectangle.Fill>
+        <!-- Blue Slider -->
+        <Slider Grid.Row="2" Grid.Column="2"
+                Minimum="0" Maximum="255"
+                TickFrequency="1" SmallChange="1"
+                Value="{Binding BlueValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+            <Slider.Background>
                 <LinearGradientBrush StartPoint="1, 0"
                                      EndPoint="0, 0">
                     <GradientStop x:Name="BlueGradientStart" Offset="1.0" />
                     <GradientStop x:Name="BlueGradientStop" Offset="0.0" />
                 </LinearGradientBrush>
-            </Rectangle.Fill>
-        </Rectangle>
+            </Slider.Background>
+        </Slider>
 
-        <Rectangle Grid.Row="3" Grid.Column="2"
-                   Stroke="{DynamicResource MaterialDesignBody}"
-                   StrokeThickness="1">
-            <Rectangle.Fill>
+        <!-- Alpha Slider -->
+        <Slider Grid.Row="3" Grid.Column="2"
+                Minimum="0" Maximum="255"
+                TickFrequency="1" SmallChange="1"
+                Value="{Binding AlphaValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+            <Slider.Background>
                 <LinearGradientBrush StartPoint="1, 0"
                                      EndPoint="0, 0">
                     <GradientStop x:Name="AlphaGradientStart" Offset="1.0" />
                     <GradientStop x:Name="AlphaGradientStop" Offset="0.0" />
                 </LinearGradientBrush>
-            </Rectangle.Fill>
-        </Rectangle>
+            </Slider.Background>
+        </Slider>
 
     </Grid>
 

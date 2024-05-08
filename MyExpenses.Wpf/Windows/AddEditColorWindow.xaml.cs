@@ -23,6 +23,50 @@ public partial class AddEditColorWindow : INotifyPropertyChanged
         }
     }
 
+    public byte RedValue
+    {
+        get => _color.R;
+        set
+        {
+            _color = Color.FromArgb(_color.A, value, _color.G, _color.B);
+            OnPropertyChanged();
+            OnPropertyChanged(nameof(Color));
+        }
+    }
+
+    public byte GreenValue
+    {
+        get => _color.G;
+        set
+        {
+            _color = Color.FromArgb(_color.A, _color.R, value, _color.B);
+            OnPropertyChanged();
+            OnPropertyChanged(nameof(Color));
+        }
+    }
+
+    public byte BlueValue
+    {
+        get => _color.B;
+        set
+        {
+            _color = Color.FromArgb(_color.A, _color.R, _color.G, value);
+            OnPropertyChanged();
+            OnPropertyChanged(nameof(Color));
+        }
+    }
+
+    public byte AlphaValue
+    {
+        get => _color.A;
+        set
+        {
+            _color = Color.FromArgb(value, _color.R, _color.G, _color.B);
+            OnPropertyChanged();
+            OnPropertyChanged(nameof(Color));
+        }
+    }
+
     private void UpdateSlider()
     {
         var redGradientStart = Color.FromArgb(Color.A, 0, Color.G, Color.B);
