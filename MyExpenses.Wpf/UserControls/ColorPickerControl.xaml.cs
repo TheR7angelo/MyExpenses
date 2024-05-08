@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Globalization;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
@@ -431,14 +432,22 @@ public partial class ColorPickerControl
 
     private void UIElement_double_only_OnPreviewTextInput(object sender, TextCompositionEventArgs e)
     {
-        e.Handled = !e.Text.IsOnlyDecimal();
+        e.Handled = e.Text.IsOnlyDecimal();
     }
 
     private void TextBoxBase_0_to_360_OnTextChanged(object sender, TextChangedEventArgs e)
     {
         var textBox = (TextBox)sender;
         if (string.IsNullOrEmpty(textBox.Text)) return;
-        var nbr = int.Parse(textBox.Text);
+
+        var lastCharacter = textBox.Text[^1].ToString();
+        if (lastCharacter == CultureInfo.InvariantCulture.NumberFormat.NumberDecimalSeparator)
+        {
+            textBox.Text = textBox.Text[..^1];
+            textBox.CaretIndex = textBox.Text.Length;
+        }
+
+        var nbr = double.Parse(textBox.Text, CultureInfo.InvariantCulture);
         var oldNbr = nbr;
         nbr = nbr switch
         {
@@ -447,15 +456,23 @@ public partial class ColorPickerControl
             _ => nbr
         };
 
-        textBox.Text = nbr.ToString();
-        if (nbr != oldNbr) textBox.CaretIndex = textBox.Text.Length;
+        textBox.Text = nbr.ToString(CultureInfo.InvariantCulture);
+        if (Math.Abs(nbr - oldNbr) > 0.0001) textBox.CaretIndex = textBox.Text.Length;
     }
 
     private void TextBoxBase_0_to_1_OnTextChanged(object sender, TextChangedEventArgs e)
     {
         var textBox = (TextBox)sender;
         if (string.IsNullOrEmpty(textBox.Text)) return;
-        var nbr = int.Parse(textBox.Text);
+
+        var lastCharacter = textBox.Text[^1].ToString();
+        if (lastCharacter == CultureInfo.InvariantCulture.NumberFormat.NumberDecimalSeparator)
+        {
+            textBox.Text = textBox.Text[..^1];
+            textBox.CaretIndex = textBox.Text.Length;
+        }
+
+        var nbr = double.Parse(textBox.Text, CultureInfo.InvariantCulture);
         var oldNbr = nbr;
         nbr = nbr switch
         {
@@ -464,7 +481,7 @@ public partial class ColorPickerControl
             _ => nbr
         };
 
-        textBox.Text = nbr.ToString();
-        if (nbr != oldNbr) textBox.CaretIndex = textBox.Text.Length;
+        textBox.Text = nbr.ToString(CultureInfo.InvariantCulture);
+        if (Math.Abs(nbr - oldNbr) > 0.0001) textBox.CaretIndex = textBox.Text.Length;
     }
 }
