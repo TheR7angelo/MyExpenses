@@ -6,7 +6,13 @@ namespace MyExpenses.Wpf.UserControls;
 public partial class ColorPickerControl
 {
     public static readonly DependencyProperty ColorProperty = DependencyProperty.Register(nameof(Color), typeof(Color),
-        typeof(ColorPickerControl), new PropertyMetadata(default(Color)));
+        typeof(ColorPickerControl), new PropertyMetadata(default(Color), PropertyColor_OnChangedCallback));
+
+    private static void PropertyColor_OnChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
+    {
+        var sender = (ColorPickerControl)d;
+        sender.UpdateSlider();
+    }
 
     public static readonly DependencyProperty RedSliderBorderThicknessProperty =
         DependencyProperty.Register(nameof(RedSliderBorderThickness), typeof(Thickness), typeof(ColorPickerControl),
@@ -60,11 +66,7 @@ public partial class ColorPickerControl
     public Color Color
     {
         get => (Color)GetValue(ColorProperty);
-        set
-        {
-            SetValue(ColorProperty, value);
-            UpdateSlider();
-        }
+        set => SetValue(ColorProperty, value);
     }
 
     public Thickness RedSliderBorderThickness
