@@ -37,7 +37,12 @@
 
     <Grid>
 
-        <userControls:ColorPickerControl
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <userControls:ColorPickerControl Grid.Row="1"
             LabelRedChannel="{Binding LabelRedChannel}"
             LabelGreenChannel="{Binding LabelGreenChannel}"
             LabelBlueChannel="{Binding LabelBlueChannel}"
