@@ -47,6 +47,14 @@
             LabelAlphaChannel="{Binding LabelAlphaChannel}"
             LabelHexadecimalCode="{Binding LabelHexadecimalCode}"
             LabelPreview="{Binding LabelPreview}"
+
+            SliderThumbFill="{DynamicResource MaterialDesignPaper}"
+            SliderThumbStroke="{DynamicResource MaterialDesignBody}"
+            SliderThumbThickness="1.5"
+
+            RectanglePreviewStroke="{DynamicResource MaterialDesignBody}"
+            RectanglePreviewThickness="1.5"
+
             ColorChanged="ColorPickerControl_OnColorChanged">
         </userControls:ColorPickerControl>
 
