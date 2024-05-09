@@ -5,6 +5,8 @@ namespace MyExpenses.Wpf.Windows;
 
 public partial class AddEditColorWindow
 {
+    #region Resx
+
     public string LabelRedChannel { get; } = AddEditColorWindowResources.LabelRedChannel;
     public string LabelGreenChannel { get; } = AddEditColorWindowResources.LabelGreenChannel;
     public string LabelBlueChannel { get; } = AddEditColorWindowResources.LabelBlueChannel;
@@ -14,6 +16,8 @@ public partial class AddEditColorWindow
     public string LabelAlphaChannel { get; } = AddEditColorWindowResources.LabelAlphaChannel;
     public string LabelPreview { get; } = AddEditColorWindowResources.LabelPreview;
     public string LabelHexadecimalCode { get; } = AddEditColorWindowResources.LabelHexadecimalCode;
+
+    #endregion
 
     public AddEditColorWindow()
     {
