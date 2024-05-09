@@ -78,37 +78,37 @@
         </materialDesign:ColorPicker>
 
         <Label Grid.Row="0" Grid.Column="2"
-               HorizontalContentAlignment="Center"
+               HorizontalContentAlignment="Right"
                Content="{Binding LabelRedChannel, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:ColorPickerControl}}}">
         </Label>
 
         <Label Grid.Row="1" Grid.Column="2"
-               HorizontalContentAlignment="Center"
+               HorizontalContentAlignment="Right"
                Content="{Binding LabelGreenChannel, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:ColorPickerControl}}}">
         </Label>
 
         <Label Grid.Row="2" Grid.Column="2"
-               HorizontalContentAlignment="Center"
+               HorizontalContentAlignment="Right"
                Content="{Binding LabelBlueChannel, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:ColorPickerControl}}}">
         </Label>
 
         <Label Grid.Row="3" Grid.Column="2"
-               HorizontalContentAlignment="Center"
+               HorizontalContentAlignment="Right"
                Content="{Binding LabelHueChannel, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:ColorPickerControl}}}">
         </Label>
 
         <Label Grid.Row="4" Grid.Column="2"
-               HorizontalContentAlignment="Center"
+               HorizontalContentAlignment="Right"
                Content="{Binding LabelSaturationChannel, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:ColorPickerControl}}}">
         </Label>
 
         <Label Grid.Row="5" Grid.Column="2"
-               HorizontalContentAlignment="Center"
+               HorizontalContentAlignment="Right"
                Content="{Binding LabelValueChannel, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:ColorPickerControl}}}">
         </Label>
 
         <Label Grid.Row="6" Grid.Column="2"
-               HorizontalContentAlignment="Center"
+               HorizontalContentAlignment="Right"
                Content="{Binding LabelAlphaChannel, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:ColorPickerControl}}}">
         </Label>
 
@@ -311,12 +311,9 @@
                    Fill="{Binding Color, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ColorToHexConverter}, RelativeSource={RelativeSource AncestorType={x:Type local:ColorPickerControl}}}">
         </Rectangle>
 
-        <Label Grid.Row="7" Grid.Column="2"
-               HorizontalContentAlignment="Center"
-               Content="{Binding LabelHexadecimalCode, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:ColorPickerControl}}}">
-        </Label>
-
-        <TextBox Grid.Row="7" Grid.Column="3" Grid.ColumnSpan="2"
+        <TextBox Grid.Row="7" Grid.Column="2" Grid.ColumnSpan="3"
+                 materialDesign:HintAssist.Hint="{Binding LabelHexadecimalCode, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:ColorPickerControl}}}"
+                 Style="{StaticResource MaterialDesignFilledTextBox}"
                  Text="{Binding Color, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ColorToHexConverter}, RelativeSource={RelativeSource AncestorType={x:Type local:ColorPickerControl}}}">
         </TextBox>
 
