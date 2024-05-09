@@ -7,8 +7,7 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:converters="clr-namespace:MyExpenses.Wpf.Converters"
              xmlns:utils="clr-namespace:MyExpenses.Wpf.Utils;assembly=MyExpenses.Wpf.Utils"
-             mc:Ignorable="d"
-             d:DesignHeight="300" d:DesignWidth="300">
+             mc:Ignorable="d">
 
     <UserControl.Resources>
         <converters:RoundThreeDecimalConverter x:Key="RoundThreeDecimalConverter" />
