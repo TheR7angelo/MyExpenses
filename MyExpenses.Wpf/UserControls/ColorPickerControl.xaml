@@ -28,9 +28,12 @@
                                         <Thumb.Template>
                                             <ControlTemplate>
                                                 <Grid>
-                                                    <Polygon Points="0,0 5,10 10,0" Fill="Black" VerticalAlignment="Top" Margin="-4,0,-4,5" />
-                                                    <Rectangle Width="3" Fill="Black" />
-                                                    <Polygon Points="0,10 5,0 10,10" Fill="Black" VerticalAlignment="Bottom" Margin="-4,5,-4,0" />
+                                                    <Polygon Margin="-4, 0, -6, -8"
+                                                             Fill="{Binding SliderThumbFill, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:ColorPickerControl}}}"
+                                                             Stroke="{Binding SliderThumbStroke, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:ColorPickerControl}}}"
+                                                             StrokeThickness="{Binding SliderThumbThickness, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:ColorPickerControl}}}"
+                                                             Points="15,0 10,5 10,20 15,25 0,25 5,20 5,5 0,0 15,0">
+                                                    </Polygon>
                                                 </Grid>
                                             </ControlTemplate>
                                         </Thumb.Template>

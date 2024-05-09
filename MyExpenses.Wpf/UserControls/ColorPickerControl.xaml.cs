@@ -187,6 +187,18 @@ public sealed partial class ColorPickerControl
         DependencyProperty.Register(nameof(LabelHexadecimalCode), typeof(string), typeof(ColorPickerControl),
             new PropertyMetadata("Hexadecimal code :"));
 
+    public static readonly DependencyProperty SliderThumbFillProperty =
+        DependencyProperty.Register(nameof(SliderThumbFill), typeof(Brush), typeof(ColorPickerControl),
+            new PropertyMetadata(new SolidColorBrush(Colors.Black)));
+
+    public static readonly DependencyProperty SliderThumbStrokeProperty =
+        DependencyProperty.Register(nameof(SliderThumbStroke), typeof(Brush), typeof(ColorPickerControl),
+            new PropertyMetadata(default(Brush)));
+
+    public static readonly DependencyProperty SliderThumbThicknessProperty =
+        DependencyProperty.Register(nameof(SliderThumbThickness), typeof(double), typeof(ColorPickerControl),
+            new PropertyMetadata(default(double)));
+
     private static void PropertyAlphaValue_OnChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
         var sender = (ColorPickerControl)d;
@@ -435,6 +447,24 @@ public sealed partial class ColorPickerControl
     {
         get => (string)GetValue(LabelHexadecimalCodeProperty);
         set => SetValue(LabelHexadecimalCodeProperty, value);
+    }
+
+    public Brush SliderThumbFill
+    {
+        get => (Brush)GetValue(SliderThumbFillProperty);
+        set => SetValue(SliderThumbFillProperty, value);
+    }
+
+    public Brush SliderThumbStroke
+    {
+        get => (Brush)GetValue(SliderThumbStrokeProperty);
+        set => SetValue(SliderThumbStrokeProperty, value);
+    }
+
+    public double SliderThumbThickness
+    {
+        get => (double)GetValue(SliderThumbThicknessProperty);
+        set => SetValue(SliderThumbThicknessProperty, value);
     }
 
     private void UpdateGradiantSlider()
