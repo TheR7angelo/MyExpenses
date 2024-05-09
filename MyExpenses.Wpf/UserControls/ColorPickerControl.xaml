@@ -13,6 +13,39 @@
     <UserControl.Resources>
         <converters:RoundThreeDecimalConverter x:Key="RoundThreeDecimalConverter" />
         <converters:ColorToHexConverter x:Key="ColorToHexConverter" />
+
+        <Style x:Key="StyleSlider" TargetType="Slider">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Slider">
+                        <Grid Background="{TemplateBinding Background}">
+                            <Track x:Name="PART_Track">
+                                <Track.DecreaseRepeatButton>
+                                    <RepeatButton Command="Slider.DecreaseLarge" Visibility="Hidden" />
+                                </Track.DecreaseRepeatButton>
+                                <Track.Thumb>
+                                    <Thumb>
+                                        <Thumb.Template>
+                                            <ControlTemplate>
+                                                <Grid>
+                                                    <Polygon Points="0,0 5,10 10,0" Fill="Black" VerticalAlignment="Top" Margin="-4,0,-4,5" />
+                                                    <Rectangle Width="3" Fill="Black" />
+                                                    <Polygon Points="0,10 5,0 10,10" Fill="Black" VerticalAlignment="Bottom" Margin="-4,5,-4,0" />
+                                                </Grid>
+                                            </ControlTemplate>
+                                        </Thumb.Template>
+                                    </Thumb>
+                                </Track.Thumb>
+                                <Track.IncreaseRepeatButton>
+                                    <RepeatButton Command="Slider.IncreaseLarge" Visibility="Hidden" />
+                                </Track.IncreaseRepeatButton>
+                            </Track>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
     </UserControl.Resources>
 
     <Grid utils:PanelExtensions.MarginForAllChildren="5">
@@ -84,7 +117,8 @@
 
             <Slider Minimum="0" Maximum="255"
                     TickFrequency="1" SmallChange="1"
-                    Value="{Binding RedValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:ColorPickerControl}}}">
+                    Value="{Binding RedValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:ColorPickerControl}}}"
+                    Style="{StaticResource StyleSlider}">
                 <Slider.Background>
                     <LinearGradientBrush StartPoint="1, 0"
                                          EndPoint="0, 0">
@@ -103,7 +137,8 @@
 
             <Slider Minimum="0" Maximum="255"
                     TickFrequency="1" SmallChange="1"
-                    Value="{Binding GreenValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:ColorPickerControl}}}">
+                    Value="{Binding GreenValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:ColorPickerControl}}}"
+                    Style="{StaticResource StyleSlider}">
                 <Slider.Background>
                     <LinearGradientBrush StartPoint="1, 0"
                                          EndPoint="0, 0">
@@ -122,7 +157,8 @@
 
             <Slider Minimum="0" Maximum="255"
                     TickFrequency="1" SmallChange="1"
-                    Value="{Binding BlueValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:ColorPickerControl}}}">
+                    Value="{Binding BlueValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:ColorPickerControl}}}"
+                    Style="{StaticResource StyleSlider}">
                 <Slider.Background>
                     <LinearGradientBrush StartPoint="1, 0"
                                          EndPoint="0, 0">
@@ -141,7 +177,8 @@
 
             <Slider Minimum="0" Maximum="360"
                     TickFrequency="0.1" SmallChange="0.1"
-                    Value="{Binding HueValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:ColorPickerControl}}}">
+                    Value="{Binding HueValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:ColorPickerControl}}}"
+                    Style="{StaticResource StyleSlider}">
                 <Slider.Background>
                     <LinearGradientBrush StartPoint="0, 0"
                                          EndPoint="1, 0">
@@ -166,7 +203,8 @@
 
             <Slider Minimum="0" Maximum="1"
                     TickFrequency="0.01" SmallChange="0.01"
-                    Value="{Binding SaturationValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:ColorPickerControl}}}">
+                    Value="{Binding SaturationValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:ColorPickerControl}}}"
+                    Style="{StaticResource StyleSlider}">
                 <Slider.Background>
                     <LinearGradientBrush StartPoint="1, 0"
                                          EndPoint="0, 0">
@@ -185,7 +223,8 @@
 
             <Slider Minimum="0" Maximum="1"
                     TickFrequency="0.01" SmallChange="0.01"
-                    Value="{Binding ValueValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:ColorPickerControl}}}">
+                    Value="{Binding ValueValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:ColorPickerControl}}}"
+                    Style="{StaticResource StyleSlider}">
                 <Slider.Background>
                     <LinearGradientBrush StartPoint="1, 0"
                                          EndPoint="0, 0">
@@ -204,7 +243,8 @@
 
             <Slider Minimum="0" Maximum="255"
                     TickFrequency="1" SmallChange="1"
-                    Value="{Binding AlphaValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:ColorPickerControl}}}">
+                    Value="{Binding AlphaValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:ColorPickerControl}}}"
+                    Style="{StaticResource StyleSlider}">
                 <Slider.Background>
                     <LinearGradientBrush StartPoint="1, 0"
                                          EndPoint="0, 0">
