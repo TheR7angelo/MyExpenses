@@ -140,5 +140,14 @@ namespace MyExpenses.Wpf.Resources.Resx.Windows.AddEditColorWindow {
                 return ResourceManager.GetString("LabelValueChannel", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Color name :.
+        /// </summary>
+        internal static string TextBoxColorName {
+            get {
+                return ResourceManager.GetString("TextBoxColorName", resourceCulture);
+            }
+        }
     }
 }

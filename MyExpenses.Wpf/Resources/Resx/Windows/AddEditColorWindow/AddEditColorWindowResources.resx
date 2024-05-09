@@ -45,4 +45,7 @@
     <data name="LabelPreview" xml:space="preserve">
         <value>Preview :</value>
     </data>
+    <data name="TextBoxColorName" xml:space="preserve">
+        <value>Color name :</value>
+    </data>
 </root>
