@@ -176,8 +176,8 @@ public sealed partial class ColorPickerControl
         typeof(string), typeof(ColorPickerControl), new PropertyMetadata("Preview :"));
 
     public static readonly DependencyProperty RectanglePreviewThicknessProperty =
-        DependencyProperty.Register(nameof(RectanglePreviewThickness), typeof(Thickness), typeof(ColorPickerControl),
-            new PropertyMetadata(default(Thickness)));
+        DependencyProperty.Register(nameof(RectanglePreviewThickness), typeof(double), typeof(ColorPickerControl),
+            new PropertyMetadata(default(double)));
 
     public static readonly DependencyProperty RectanglePreviewStrokeProperty =
         DependencyProperty.Register(nameof(RectanglePreviewStroke), typeof(Brush), typeof(ColorPickerControl),
@@ -431,9 +431,9 @@ public sealed partial class ColorPickerControl
         set => SetValue(LabelPreviewProperty, value);
     }
 
-    public Thickness RectanglePreviewThickness
+    public double RectanglePreviewThickness
     {
-        get => (Thickness)GetValue(RectanglePreviewThicknessProperty);
+        get => (double)GetValue(RectanglePreviewThicknessProperty);
         set => SetValue(RectanglePreviewThicknessProperty, value);
     }
 
