@@ -18,18 +18,7 @@ public partial class ColorPickerControl
         var sender = (ColorPickerControl)d;
 
         var newColor = (Color)e.NewValue;
-        sender.RedValue = newColor.R;
-        sender.GreenValue = newColor.G;
-        sender.BlueValue = newColor.B;
-        sender.AlphaValue = newColor.A;
-
-        var (hue, saturation, value) = newColor.ToHsv();
-        sender.HueValue = hue;
-        sender.SaturationValue = saturation;
-        sender.ValueValue = value;
-
-        sender.UpdateGradiantSlider();
-        sender.ChangeColor();
+        sender.InitializeValue(newColor);
     }
 
     public static readonly DependencyProperty RedSliderBorderThicknessProperty =
@@ -218,6 +207,7 @@ public partial class ColorPickerControl
     public ColorPickerControl()
     {
         InitializeComponent();
+        InitializeValue();
     }
 
     private void UpdateHsvValue()
@@ -228,6 +218,25 @@ public partial class ColorPickerControl
 
         var color = ColorExtensions.ToColor(hue, saturation, value);
         Color = color;
+    }
+
+    private void InitializeValue(Color? color = null)
+    {
+        var isNewColor = color is null;
+        var newColor = color ?? Color;
+
+        RedValue = newColor.R;
+        GreenValue = newColor.G;
+        BlueValue = newColor.B;
+        AlphaValue = newColor.A;
+
+        var (hue, saturation, value) = newColor.ToHsv();
+        HueValue = hue;
+        SaturationValue = saturation;
+        ValueValue = value;
+
+        UpdateGradiantSlider();
+        if (isNewColor) ChangeColor();
     }
 
     public Color Color
