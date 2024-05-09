@@ -1,7 +1,11 @@
 ﻿using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
 using MyExpenses.Models.Sql.Tables;
+using MyExpenses.Sql.Context;
 using MyExpenses.Wpf.Resources.Resx.Windows.AddEditColorWindow;
 using MyExpenses.Wpf.UserControls;
+using MyExpenses.Wpf.Windows.MsgBox;
 
 namespace MyExpenses.Wpf.Windows;
 
@@ -28,10 +32,15 @@ public partial class AddEditColorWindow
 
     #endregion
 
+    private List<TColor> Colors { get; }
+
     public TColor Color { get; private set; } = new();
 
     public AddEditColorWindow()
     {
+        using var context = new DataBaseContext();
+        Colors = [..context.TColors];
+
         InitializeComponent();
     }
 
@@ -54,6 +63,27 @@ public partial class AddEditColorWindow
         //TODO work
         Console.WriteLine("Cancel");
     }
+
+    private void UIElement_OnPreviewLostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
+    {
+        var textBox = (TextBox)sender;
+
+        var colorName = textBox.Text;
+        if (string.IsNullOrEmpty(colorName)) return;
+
+        var alreadyExist = CheckColorName(colorName);
+        if (alreadyExist) ShowErrorMessage();
+    }
+
+    #endregion
+
+    #region Function
+
+    private bool CheckColorName(string accountName)
+        => Colors.Select(s => s.Name).Contains(accountName);
+
+    private void ShowErrorMessage()
+        => MsgBox.MsgBox.Show(AddEditColorWindowResources.MessageBoxColorNameAlreadyExists, MsgBoxImage.Warning);
 
     #endregion
 }
