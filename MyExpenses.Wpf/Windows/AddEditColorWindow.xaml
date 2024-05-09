@@ -42,6 +42,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
         <TextBox Grid.Row="0"
@@ -71,6 +72,29 @@
 
             ColorChanged="ColorPickerControl_OnColorChanged">
         </userControls:ColorPickerControl>
+
+        <StackPanel Grid.Row="2"
+                    utils:PanelExtensions.MarginForAllChildren="5"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Center">
+
+            <Button Content="{Binding ButtonValidContent}"
+                    Style="{StaticResource MaterialDesignPaperButton}"
+                    Click="ButtonValid_OnClick">
+            </Button>
+
+            <!-- <Button Content="{Binding ButtonDeleteContent}" -->
+            <!--         Style="{StaticResource MaterialDesignPaperDarkButton}" -->
+            <!--         Visibility="{Binding EditAccount, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BooleanToVisibilityConverter}}" -->
+            <!--         Click="ButtonDelete_OnClick"> -->
+            <!-- </Button> -->
+
+            <Button Content="{Binding ButtonCancelContent}"
+                    Style="{StaticResource MaterialDesignPaperSecondaryButton}"
+                    Click="ButtonCancel_OnClick">
+            </Button>
+
+        </StackPanel>
 
     </Grid>
 

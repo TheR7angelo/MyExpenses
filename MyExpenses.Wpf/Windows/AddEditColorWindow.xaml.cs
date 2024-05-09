@@ -1,4 +1,5 @@
-﻿using MyExpenses.Models.Sql.Tables;
+﻿using System.Windows;
+using MyExpenses.Models.Sql.Tables;
 using MyExpenses.Wpf.Resources.Resx.Windows.AddEditColorWindow;
 using MyExpenses.Wpf.UserControls;
 
@@ -21,6 +22,10 @@ public partial class AddEditColorWindow
 
     public string TextBoxColorName { get; } = AddEditColorWindowResources.TextBoxColorName;
 
+    public string ButtonValidContent { get; } = AddEditColorWindowResources.ButtonValidContent;
+    public string ButtonCancelContent { get; } = AddEditColorWindowResources.ButtonCancelContent;
+    public string ButtonDeleteContent { get; } = AddEditColorWindowResources.ButtonDeleteContent;
+
     #endregion
 
     public TColor Color { get; private set; } = new();
@@ -30,8 +35,25 @@ public partial class AddEditColorWindow
         InitializeComponent();
     }
 
+    #region Action
+
     private void ColorPickerControl_OnColorChanged(object? sender, ColorChangedEventArgs e)
     {
+        //TODO work
         Console.WriteLine(e.HexadecimalCode);
     }
+
+    private void ButtonValid_OnClick(object sender, RoutedEventArgs e)
+    {
+        //TODO work
+        Console.WriteLine("Valid");
+    }
+
+    private void ButtonCancel_OnClick(object sender, RoutedEventArgs e)
+    {
+        //TODO work
+        Console.WriteLine("Cancel");
+    }
+
+    #endregion
 }
