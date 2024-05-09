@@ -5,7 +5,6 @@
                  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                  xmlns:local="clr-namespace:MyExpenses.Wpf.Windows"
                  xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
-                 xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
                  xmlns:userControls="clr-namespace:MyExpenses.Wpf.UserControls"
                  mc:Ignorable="d"
 
@@ -38,7 +37,18 @@
 
     <Grid>
 
-        <userControls:ColorPickerControl ColorChanged="ColorPickerControl_OnColorChanged" />
+        <userControls:ColorPickerControl
+            LabelRedChannel="{Binding LabelRedChannel}"
+            LabelGreenChannel="{Binding LabelGreenChannel}"
+            LabelBlueChannel="{Binding LabelBlueChannel}"
+            LabelHueChannel="{Binding LabelHueChannel}"
+            LabelSaturationChannel="{Binding LabelSaturationChannel}"
+            LabelValueChannel="{Binding LabelValueChannel}"
+            LabelAlphaChannel="{Binding LabelAlphaChannel}"
+            LabelHexadecimalCode="{Binding LabelHexadecimalCode}"
+            LabelPreview="{Binding LabelPreview}"
+            ColorChanged="ColorPickerControl_OnColorChanged">
+        </userControls:ColorPickerControl>
 
     </Grid>
 
