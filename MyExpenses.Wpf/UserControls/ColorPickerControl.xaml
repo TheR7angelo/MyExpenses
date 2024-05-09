@@ -69,7 +69,7 @@
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="150" />
-            <ColumnDefinition Width="Auto" MinWidth="45" />
+            <ColumnDefinition Width="Auto" MinWidth="55" />
         </Grid.ColumnDefinitions>
 
         <materialDesign:ColorPicker Grid.Row="0" Grid.Column="0"
