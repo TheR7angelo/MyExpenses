@@ -17,6 +17,8 @@ public partial class AddEditColorWindow
     public string LabelPreview { get; } = AddEditColorWindowResources.LabelPreview;
     public string LabelHexadecimalCode { get; } = AddEditColorWindowResources.LabelHexadecimalCode;
 
+    public string TextBoxColorName { get; } = AddEditColorWindowResources.TextBoxColorName;
+
     #endregion
 
     public AddEditColorWindow()

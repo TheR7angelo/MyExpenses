@@ -42,6 +42,13 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
+        <TextBox Grid.Row="0"
+                 HorizontalContentAlignment="Center"
+                 materialDesign:HintAssist.Hint="{Binding TextBoxColorName, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                 Style="{StaticResource MaterialDesignFilledTextBox}"
+                 Text="{Binding Color.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+        </TextBox>
+
         <userControls:ColorPickerControl Grid.Row="1"
             LabelRedChannel="{Binding LabelRedChannel}"
             LabelGreenChannel="{Binding LabelGreenChannel}"
