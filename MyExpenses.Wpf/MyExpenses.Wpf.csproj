@@ -74,6 +74,10 @@
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>CategoryTypeManagementPageResources.Designer.cs</LastGenOutput>
       </EmbeddedResource>
+      <EmbeddedResource Update="Resources\Resx\Windows\AddEditColorWindow\AddEditColorWindowResources.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>AddEditColorWindowResources.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
     </ItemGroup>
 
     <ItemGroup>
@@ -143,6 +147,11 @@
         <DesignTime>True</DesignTime>
         <AutoGen>True</AutoGen>
         <DependentUpon>CategoryTypeManagementPageResources.resx</DependentUpon>
+      </Compile>
+      <Compile Update="Resources\Resx\Windows\AddEditColorWindow\AddEditColorWindowResources.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>AddEditColorWindowResources.resx</DependentUpon>
       </Compile>
     </ItemGroup>
 
