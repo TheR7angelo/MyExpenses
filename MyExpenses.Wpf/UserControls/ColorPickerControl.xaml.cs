@@ -196,10 +196,10 @@ public sealed partial class ColorPickerControl
 
     public event EventHandler<ColorChangedEventArgs>? ColorChanged;
 
-    public void ChangeColor()
+    private void ChangeColor()
         => OnColorChanged();
 
-    protected virtual void OnColorChanged()
+    private void OnColorChanged()
     {
         ColorChanged?.Invoke(this, new ColorChangedEventArgs(Color));
     }
