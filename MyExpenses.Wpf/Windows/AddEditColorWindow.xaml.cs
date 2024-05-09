@@ -1,10 +1,12 @@
-﻿using MyExpenses.Wpf.Resources.Resx.Windows.AddEditColorWindow;
+﻿using MyExpenses.Models.Sql.Tables;
+using MyExpenses.Wpf.Resources.Resx.Windows.AddEditColorWindow;
 using MyExpenses.Wpf.UserControls;
 
 namespace MyExpenses.Wpf.Windows;
 
 public partial class AddEditColorWindow
 {
+
     #region Resx
 
     public string LabelRedChannel { get; } = AddEditColorWindowResources.LabelRedChannel;
@@ -20,6 +22,8 @@ public partial class AddEditColorWindow
     public string TextBoxColorName { get; } = AddEditColorWindowResources.TextBoxColorName;
 
     #endregion
+
+    public TColor Color { get; private set; } = new();
 
     public AddEditColorWindow()
     {
