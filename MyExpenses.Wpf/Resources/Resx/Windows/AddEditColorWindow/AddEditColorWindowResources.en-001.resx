@@ -50,4 +50,7 @@
     <data name="ButtonCancelContent" xml:space="preserve">
         <value>Cancel</value>
     </data>
+    <data name="MessageBoxColorNameAlreadyExists" xml:space="preserve">
+        <value>The color name already exists</value>
+    </data>
 </root>

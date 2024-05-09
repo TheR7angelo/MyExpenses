@@ -169,6 +169,15 @@ namespace MyExpenses.Wpf.Resources.Resx.Windows.AddEditColorWindow {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The color name already exists.
+        /// </summary>
+        internal static string MessageBoxColorNameAlreadyExists {
+            get {
+                return ResourceManager.GetString("MessageBoxColorNameAlreadyExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Color name :.
         /// </summary>
         internal static string TextBoxColorName {
