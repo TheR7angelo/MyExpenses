@@ -8,7 +8,7 @@ using MyExpenses.Wpf.Utils;
 
 namespace MyExpenses.Wpf.UserControls;
 
-public partial class ColorPickerControl
+public sealed partial class ColorPickerControl
 {
     public static readonly DependencyProperty ColorProperty = DependencyProperty.Register(nameof(Color), typeof(Color),
         typeof(ColorPickerControl), new PropertyMetadata(Colors.White, PropertyColor_OnChangedCallback));
