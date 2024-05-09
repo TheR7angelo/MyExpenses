@@ -57,12 +57,14 @@ public partial class AddEditColorWindow
     private void ButtonValid_OnClick(object sender, RoutedEventArgs e)
     {
         //TODO work
+        Console.WriteLine(Color.Name);
         Console.WriteLine("Valid");
     }
 
     private void ButtonCancel_OnClick(object sender, RoutedEventArgs e)
     {
         //TODO work
+        Console.WriteLine(Color.Name);
         Console.WriteLine("Cancel");
     }
 
