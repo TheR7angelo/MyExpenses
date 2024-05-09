@@ -5,6 +5,7 @@ using MyExpenses.Models.Sql.Tables;
 using MyExpenses.Sql.Context;
 using MyExpenses.Wpf.Resources.Resx.Windows.AddEditColorWindow;
 using MyExpenses.Wpf.UserControls;
+using MyExpenses.Wpf.Windows.CategoryTypeManagementWindow;
 using MyExpenses.Wpf.Windows.MsgBox;
 
 namespace MyExpenses.Wpf.Windows;
@@ -35,6 +36,7 @@ public partial class AddEditColorWindow
     private List<TColor> Colors { get; }
 
     public TColor Color { get; private set; } = new();
+    public required AddEditCategoryTypeWindow AddEditCategoryType { get; set; }
 
     public AddEditColorWindow()
     {
