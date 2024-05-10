@@ -58,7 +58,7 @@ public partial class DataBaseContext : DbContext
                 dbPath = username switch
                 {
                     "ZP6177" => dbPathPro,
-                    "Rapha" => dbPathPersonnel,
+                    "Rapha" => File.Exists(dbPathPersonnel) ? dbPathPersonnel : dbPathPortable,
                     _ => dbPathPortable
                 };
             }
