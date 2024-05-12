@@ -23,7 +23,7 @@ public partial class AccountManagementPage
     public AccountManagementPage()
     {
         using var context = new DataBaseContext();
-        TotalByAccounts = [..context.VTotalByAccounts];
+        TotalByAccounts = [..context.VTotalByAccounts.OrderBy(s => s.Name)];
 
         InitializeComponent();
     }
