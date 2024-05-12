@@ -77,8 +77,30 @@ public partial class AccountManagementPage
 
         if (addEditAccountWindow.DialogResult != true) return;
 
-        TotalByAccounts.Remove(vTotalByAccount);
-        DashBoardPage.VTotalByAccounts.Remove(vTotalByAccount);
+        var editedAccount = addEditAccountWindow.Account;
+        
+        Log.Information("Attempting to edit the account \"{AccountName}\"", account.Name);
+        var (success, exception) = editedAccount.AddOrEdit();
+        if (success)
+        {
+            Log.Information("Account was successfully edited");
+            MsgBox.Show(AccountManagementPageResources.MessageBoxEditAccountSuccess, MsgBoxImage.Check);
+
+            var newVTotalByAccount = editedAccount.ToVTotalByAccount()!;
+
+            TotalByAccounts.Remove(vTotalByAccount);
+            DashBoardPage.VTotalByAccounts.Remove(vTotalByAccount);
+            
+            TotalByAccounts.AddAndSort(newVTotalByAccount, s => s.Name!);
+
+            DashBoardPage.RefreshAccountTotal();
+            Application.Current.Dispatcher.InvokeAsync(DashBoardPage.RefreshRadioButtonSelected, DispatcherPriority.ContextIdle);
+        }
+        else
+        {
+            Log.Error(exception, "An error occurred please retry");
+            MsgBox.Show(AccountManagementPageResources.MessageBoxEditAccountError, MsgBoxImage.Warning);
+        }
     }
 
     #endregion
