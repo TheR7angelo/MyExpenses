@@ -34,33 +34,38 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <WrapPanel Grid.Row="0" Grid.Column="0"
-                   utils:PanelExtensions.MarginForAllChildren="5"
-                   Orientation="Horizontal"
-                   VerticalAlignment="Center"
-                   HorizontalAlignment="Center">
+        <ScrollViewer Grid.Row="0" Grid.Column="0"
+                      HorizontalScrollBarVisibility="Disabled"
+                      VerticalScrollBarVisibility="Auto">
+            
+            <WrapPanel utils:PanelExtensions.MarginForAllChildren="5"
+                       Orientation="Horizontal"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Center">
 
-            <Button Content="{Binding ButtonAccountManagement}"
-                    Style="{StaticResource MaterialDesignPaperButton}"
-                    Click="ButtonAccountManagement_OnClick">
-            </Button>
+                <Button Content="{Binding ButtonAccountManagement}"
+                        Style="{StaticResource MaterialDesignPaperButton}"
+                        Click="ButtonAccountManagement_OnClick">
+                </Button>
 
-            <Button Content="{Binding ButtonAccountTypeManagement}"
-                    Style="{StaticResource MaterialDesignPaperButton}"
-                    Click="ButtonAccountTypeManagement_OnClick">
-            </Button>
+                <Button Content="{Binding ButtonAccountTypeManagement}"
+                        Style="{StaticResource MaterialDesignPaperButton}"
+                        Click="ButtonAccountTypeManagement_OnClick">
+                </Button>
 
-            <Button Content="{Binding ButtonCategoryTypeManagement}"
-                    Style="{StaticResource MaterialDesignPaperButton}"
-                    Click="ButtonCategoryTypeManagement_OnClick">
-            </Button>
+                <Button Content="{Binding ButtonCategoryTypeManagement}"
+                        Style="{StaticResource MaterialDesignPaperButton}"
+                        Click="ButtonCategoryTypeManagement_OnClick">
+                </Button>
 
-            <Button Content="{Binding ButtonLocationManagement}"
-                    Style="{StaticResource MaterialDesignPaperButton}"
-                    Click="ButtonLocationManagement_OnClick">
-            </Button>
+                <Button Content="{Binding ButtonLocationManagement}"
+                        Style="{StaticResource MaterialDesignPaperButton}"
+                        Click="ButtonLocationManagement_OnClick">
+                </Button>
 
-        </WrapPanel>
+            </WrapPanel>
+            
+        </ScrollViewer>
 
         <Grid Grid.Row="0" Grid.Column="1">
 
