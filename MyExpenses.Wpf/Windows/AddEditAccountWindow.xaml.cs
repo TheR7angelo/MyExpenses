@@ -260,7 +260,8 @@ public partial class AddEditAccountWindow
     #region Function
 
     private bool CheckAccountName(string accountName)
-        => Accounts.Select(s => s.Name).Contains(accountName);
+        => !EditAccount && Accounts.Select(s => s.Name).Contains(accountName);
+
 
     private bool CheckError()
     {
