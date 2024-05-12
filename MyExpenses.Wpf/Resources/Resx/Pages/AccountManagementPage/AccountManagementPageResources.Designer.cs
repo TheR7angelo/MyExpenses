@@ -77,5 +77,23 @@ namespace MyExpenses.Wpf.Resources.Resx.Pages.AccountManagementPage {
                 return ResourceManager.GetString("MessageBoxAddAccountSuccess", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error occurred please retry.
+        /// </summary>
+        internal static string MessageBoxEditAccountError {
+            get {
+                return ResourceManager.GetString("MessageBoxEditAccountError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Account was successfully edited.
+        /// </summary>
+        internal static string MessageBoxEditAccountSuccess {
+            get {
+                return ResourceManager.GetString("MessageBoxEditAccountSuccess", resourceCulture);
+            }
+        }
     }
 }

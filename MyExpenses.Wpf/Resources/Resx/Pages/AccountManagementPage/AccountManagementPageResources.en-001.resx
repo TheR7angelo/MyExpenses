@@ -17,4 +17,10 @@
     <data name="MessageBoxAddAccountError" xml:space="preserve">
         <value>An error occurred please retry</value>
     </data>
+    <data name="MessageBoxEditAccountSuccess" xml:space="preserve">
+        <value>Account was successfully edited</value>
+    </data>
+    <data name="MessageBoxEditAccountError" xml:space="preserve">
+        <value>An error occurred please retry</value>
+    </data>
 </root>
