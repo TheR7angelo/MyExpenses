@@ -7,12 +7,12 @@ using MyExpenses.Wpf.Resources.Resx.Windows.AddEditColorWindow;
 using MyExpenses.Wpf.UserControls;
 using MyExpenses.Wpf.Windows.CategoryTypeManagementWindow;
 using MyExpenses.Wpf.Windows.MsgBox;
+using Serilog;
 
 namespace MyExpenses.Wpf.Windows;
 
 public partial class AddEditColorWindow
 {
-
     #region Resx
 
     public string LabelRedChannel { get; } = AddEditColorWindowResources.LabelRedChannel;
@@ -57,9 +57,6 @@ public partial class AddEditColorWindow
     private void ButtonValid_OnClick(object sender, RoutedEventArgs e)
     {
         //TODO work
-        Console.WriteLine(Color.Name);
-        Console.WriteLine("Valid");
-
         if (string.IsNullOrWhiteSpace(Color.Name))
         {
             MsgBox.MsgBox.Show("Can't add color name empty", MsgBoxImage.Error);
@@ -76,11 +73,25 @@ public partial class AddEditColorWindow
         var colorAlreadyExist = Colors.FirstOrDefault(s => s.HexadecimalColorCode == Color.HexadecimalColorCode);
         if (colorAlreadyExist is not null)
         {
-            MsgBox.MsgBox.Show($"Can't add color hexadecimal code duplicate, Color name is {colorAlreadyExist.Name}", MsgBoxImage.Error);
+            MsgBox.MsgBox.Show($"Can't add color hexadecimal code duplicate, Color name is {colorAlreadyExist.Name}",
+                MsgBoxImage.Error);
             return;
         }
 
-        //TODO finish
+        Log.Information("Attempt to inject the new color \"{ColorName}\" with hexadecimal code \"{ColorHexadecimalColorCode}\"",
+            Color.Name, Color.HexadecimalColorCode);
+
+        var (success, exception) = Color.AddOrEdit();
+        if (success)
+        {
+            Log.Information("color was successfully added");
+            MsgBox.MsgBox.Show("New color was successfully added", MsgBoxImage.Check);
+        }
+        else
+        {
+            Log.Error(exception, "An error occurred please retry");
+            MsgBox.MsgBox.Show("An error occurred please retry", MsgBoxImage.Error);
+        }
     }
 
     private void ButtonCancel_OnClick(object sender, RoutedEventArgs e)
