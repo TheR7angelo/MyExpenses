@@ -169,24 +169,6 @@ namespace MyExpenses.Wpf.Resources.Resx.Windows.AddEditColorWindow {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to An error occurred please retry.
-        /// </summary>
-        internal static string MessageBoxAddColorError {
-            get {
-                return ResourceManager.GetString("MessageBoxAddColorError", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to New color was successfully added.
-        /// </summary>
-        internal static string MessageBoxAddColorSuccess {
-            get {
-                return ResourceManager.GetString("MessageBoxAddColorSuccess", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Unable to add duplicate color hexadecimal code, existing color name is &quot;{0}&quot;.
         /// </summary>
         internal static string MessageBoxCannotAddDuplicateColorHexError {

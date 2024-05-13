@@ -59,12 +59,6 @@
     <data name="MessageBoxCannotAddDuplicateColorHexError" xml:space="preserve">
         <value>Impossible d'ajouter un code hexadécimal de couleur en double. Le nom de la couleur existante est "{0}".</value>
     </data>
-    <data name="MessageBoxAddColorSuccess" xml:space="preserve">
-        <value>La nouvelle couleur a été ajoutée avec succès</value>
-    </data>
-    <data name="MessageBoxAddColorError" xml:space="preserve">
-        <value>Une erreur s'est produite, veuillez réessayer</value>
-    </data>
     <data name="MessageBoxCannotAddEmptyColorHexError" xml:space="preserve">
         <value>Impossible d'ajouter un code hexadécimal de couleur vide</value>
     </data>

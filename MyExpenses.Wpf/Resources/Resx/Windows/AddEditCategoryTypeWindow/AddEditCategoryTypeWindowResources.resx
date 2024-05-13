@@ -39,4 +39,10 @@
     <data name="MessageBoxCategoryColorCannotBeEmptyError" xml:space="preserve">
         <value>Category color cannot be empty</value>
     </data>
+    <data name="MessageBoxAddColorSuccess" xml:space="preserve">
+        <value>New color was successfully added</value>
+    </data>
+    <data name="MessageBoxAddColorError" xml:space="preserve">
+        <value>An error occurred please retry</value>
+    </data>
 </root>

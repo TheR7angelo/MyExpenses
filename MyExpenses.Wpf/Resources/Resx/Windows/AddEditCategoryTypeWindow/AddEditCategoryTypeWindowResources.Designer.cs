@@ -119,5 +119,24 @@ namespace MyExpenses.Wpf.Resources.Resx.Windows.AddEditCategoryTypeWindow {
                 return ResourceManager.GetString("MessageBoxCategoryColorCannotBeEmptyError", resourceCulture);
             }
         }
+
+
+        /// <summary>
+        ///   Looks up a localized string similar to An error occurred please retry.
+        /// </summary>
+        internal static string MessageBoxAddColorError {
+            get {
+                return ResourceManager.GetString("MessageBoxAddColorError", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to New color was successfully added.
+        /// </summary>
+        internal static string MessageBoxAddColorSuccess {
+            get {
+                return ResourceManager.GetString("MessageBoxAddColorSuccess", resourceCulture);
+            }
+        }
     }
 }
