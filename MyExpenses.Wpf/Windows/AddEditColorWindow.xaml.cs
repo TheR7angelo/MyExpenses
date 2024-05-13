@@ -46,7 +46,7 @@ public partial class AddEditColorWindow
 
     private List<TColor> Colors { get; }
 
-    public TColor Color { get; private set; } = new();
+    public TColor Color { get; } = new();
 
     public bool DeleteColor { get; private set; }
 
