@@ -50,6 +50,6 @@ public partial class AccountTypeManagementPage
     //TODO work
     private void ButtonAccountType_OnClick(object sender, RoutedEventArgs e)
     {
-        Console.WriteLine("Add new acount type");
+        Console.WriteLine("Edit acount type");
     }
 }
