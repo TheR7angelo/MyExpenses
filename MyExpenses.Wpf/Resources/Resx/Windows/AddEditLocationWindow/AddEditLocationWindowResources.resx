@@ -54,4 +54,22 @@
     <data name="TextBoxLongitudeHintAssist" xml:space="preserve">
         <value>Longitude :</value>
     </data>
+    <data name="ButtonContentValidNewPoint" xml:space="preserve">
+        <value>Validate the new point</value>
+    </data>
+    <data name="ButtonContentZoomToPoint" xml:space="preserve">
+        <value>Zoom in on the point</value>
+    </data>
+    <data name="ButtonContentSearchByAddress" xml:space="preserve">
+        <value>Search by address</value>
+    </data>
+    <data name="ButtonContentSearchByCoordinate" xml:space="preserve">
+        <value>Cancel</value>
+    </data>
+    <data name="ButtonContentCancel" xml:space="preserve">
+        <value>Search by coordinates</value>
+    </data>
+    <data name="ButtonContentValid" xml:space="preserve">
+        <value>Valid</value>
+    </data>
 </root>

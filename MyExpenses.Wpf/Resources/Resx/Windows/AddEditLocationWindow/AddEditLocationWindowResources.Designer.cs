@@ -61,6 +61,60 @@ namespace MyExpenses.Wpf.Resources.Resx.Windows.AddEditLocationWindow {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Search by coordinates.
+        /// </summary>
+        internal static string ButtonContentCancel {
+            get {
+                return ResourceManager.GetString("ButtonContentCancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search by address.
+        /// </summary>
+        internal static string ButtonContentSearchByAddress {
+            get {
+                return ResourceManager.GetString("ButtonContentSearchByAddress", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        internal static string ButtonContentSearchByCoordinate {
+            get {
+                return ResourceManager.GetString("ButtonContentSearchByCoordinate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Valid.
+        /// </summary>
+        internal static string ButtonContentValid {
+            get {
+                return ResourceManager.GetString("ButtonContentValid", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Validate the new point.
+        /// </summary>
+        internal static string ButtonContentValidNewPoint {
+            get {
+                return ResourceManager.GetString("ButtonContentValidNewPoint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zoom in on the point.
+        /// </summary>
+        internal static string ButtonContentZoomToPoint {
+            get {
+                return ResourceManager.GetString("ButtonContentZoomToPoint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No results found.
         /// </summary>
         internal static string ButtonSearchByCoordinateMessageBoxError {
