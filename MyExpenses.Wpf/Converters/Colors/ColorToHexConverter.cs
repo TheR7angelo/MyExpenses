@@ -15,10 +15,16 @@ public class ColorToHexConverter : IValueConverter
     public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
         if (value is not string str) return null;
-
         if (str.StartsWith('#')) str = str[1..];
 
-        if(str.Length > 8) str = str[..8];
+        switch (str.Length)
+        {
+            case < 8:
+                return null;
+            case > 8:
+                str = str[..8];
+                break;
+        }
 
         var color = str.ToColor();
         return color;
