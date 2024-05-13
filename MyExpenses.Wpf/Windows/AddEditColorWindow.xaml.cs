@@ -95,6 +95,9 @@ public partial class AddEditColorWindow
             MsgBox.MsgBox.Show(AddEditColorWindowResources.MessageBoxAddColorSuccess, MsgBoxImage.Check);
 
             AddEditCategoryType.Colors.AddAndSort(Color, s => s.HexadecimalColorCode!);
+
+            DialogResult = true;
+            Close();
         }
         else
         {
