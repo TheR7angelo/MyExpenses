@@ -6,6 +6,14 @@ namespace MyExpenses.Utils.Sql;
 
 public static class Converter
 {
+    public static TColor? ToTColor(this int id)
+    {
+        using var context = new DataBaseContext();
+        var color = context.TColors.FirstOrDefault(s => s.Id == id);
+
+        return color;
+    }
+
     public static THistory? ToTHistory(this VHistory vHistory)
     {
         using var context = new DataBaseContext();
