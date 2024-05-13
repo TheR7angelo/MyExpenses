@@ -67,7 +67,7 @@
 
         <!-- TODO work -->
         <TextBox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
-                 materialDesign:HintAssist.Hint="Number :"
+                 materialDesign:HintAssist.Hint="Street :"
                  Style="{StaticResource MaterialDesignFilledTextBox}"
                  Text="{Binding Place.Street, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
         </TextBox>
