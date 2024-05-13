@@ -25,10 +25,10 @@
                  d:DesignWidth="627"
 
                  MinHeight="656"
-                 MinWidth="627"
+                 MinWidth="700"
 
                  Height="656"
-                 Width="627"
+                 Width="700"
 
                  Background="{DynamicResource MaterialDesignPaper}"
                  TextElement.Foreground="{DynamicResource MaterialDesignBody}"
