@@ -234,7 +234,6 @@ public sealed partial class ColorPickerControl
 
     private void InitializeValue(Color? color = null)
     {
-        var isNewColor = color is null;
         var newColor = color ?? Color;
 
         RedValue = newColor.R;
@@ -248,7 +247,7 @@ public sealed partial class ColorPickerControl
         ValueValue = value;
 
         UpdateGradiantSlider();
-        if (isNewColor) ChangeColor();
+        ChangeColor();
     }
 
     public Color Color
