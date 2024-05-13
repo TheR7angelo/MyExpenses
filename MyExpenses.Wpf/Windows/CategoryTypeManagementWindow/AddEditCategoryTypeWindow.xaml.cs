@@ -4,9 +4,11 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using MyExpenses.Models.Sql.Tables;
 using MyExpenses.Sql.Context;
+using MyExpenses.Utils;
 using MyExpenses.Wpf.Resources.Resx.Windows.AddEditCategoryTypeWindow;
 using MyExpenses.Wpf.Utils;
 using MyExpenses.Wpf.Windows.MsgBox;
+using Serilog;
 
 namespace MyExpenses.Wpf.Windows.CategoryTypeManagementWindow;
 
@@ -119,5 +121,26 @@ public partial class AddEditCategoryTypeWindow
         //TODO work
         var addEditColorWindow = new AddEditColorWindow();
         addEditColorWindow.ShowDialog();
+
+        if (addEditColorWindow.DialogResult != true) return;
+
+        var newColor = addEditColorWindow.Color;
+
+        Log.Information("Attempt to inject the new color \"{ColorName}\" with hexadecimal code \"{ColorHexadecimalColorCode}\"",
+            newColor.Name, newColor.HexadecimalColorCode);
+
+        var (success, exception) = newColor.AddOrEdit();
+        if (success)
+        {
+            Log.Information("color was successfully added");
+            MsgBox.MsgBox.Show(AddEditCategoryTypeWindowResources.MessageBoxAddColorSuccess, MsgBoxImage.Check);
+
+            Colors.AddAndSort(newColor, s => s.HexadecimalColorCode!);
+        }
+        else
+        {
+            Log.Error(exception, "An error occurred please retry");
+            MsgBox.MsgBox.Show(AddEditCategoryTypeWindowResources.MessageBoxAddColorError, MsgBoxImage.Error);
+        }
     }
 }
