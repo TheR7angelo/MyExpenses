@@ -9,7 +9,7 @@
                  xmlns:utils="clr-namespace:MyExpenses.Wpf.Utils;assembly=MyExpenses.Wpf.Utils"
                  mc:Ignorable="d"
 
-                 Title="WindowEdit"
+                 Title="AddEditLocationWindow"
 
                  TitleCharacterCasing="Normal"
                  NonActiveWindowTitleBrush="Gray"
