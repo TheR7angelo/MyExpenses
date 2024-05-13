@@ -3,6 +3,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using MyExpenses.Models.Sql.Tables;
 using MyExpenses.Sql.Context;
+using MyExpenses.Utils;
 using MyExpenses.Wpf.Resources.Resx.Windows.AddEditColorWindow;
 using MyExpenses.Wpf.UserControls;
 using MyExpenses.Wpf.Windows.CategoryTypeManagementWindow;
@@ -92,6 +93,8 @@ public partial class AddEditColorWindow
         {
             Log.Information("color was successfully added");
             MsgBox.MsgBox.Show(AddEditColorWindowResources.MessageBoxAddColorSuccess, MsgBoxImage.Check);
+
+            AddEditCategoryType.Colors.AddAndSort(Color, s => s.HexadecimalColorCode!);
         }
         else
         {
