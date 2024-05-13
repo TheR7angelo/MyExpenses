@@ -8,6 +8,7 @@
                  xmlns:userControls="clr-namespace:MyExpenses.Wpf.UserControls"
                  xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
                  xmlns:utils="clr-namespace:MyExpenses.Wpf.Utils;assembly=MyExpenses.Wpf.Utils"
+                 xmlns:colors="clr-namespace:MyExpenses.Wpf.Converters.Colors"
                  mc:Ignorable="d"
 
                  Title="AddEditColorWindow"
@@ -37,6 +38,10 @@
                  TextElement.Foreground="{DynamicResource MaterialDesignBody}"
 
                  DataContext="{Binding RelativeSource={RelativeSource Self}}">
+
+    <mah:MetroWindow.Resources>
+        <colors:HexToColorConverter x:Key="HexToColorConverter" />
+    </mah:MetroWindow.Resources>
 
     <Grid utils:PanelExtensions.MarginForAllChildren="5">
 
@@ -72,7 +77,8 @@
             RectanglePreviewStroke="{DynamicResource MaterialDesignBody}"
             RectanglePreviewThickness="1.5"
 
-            ColorChanged="ColorPickerControl_OnColorChanged">
+            ColorChanged="ColorPickerControl_OnColorChanged"
+            Color="{Binding Color.HexadecimalColorCode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource HexToColorConverter}}">
         </userControls:ColorPickerControl>
 
         <StackPanel Grid.Row="2"
