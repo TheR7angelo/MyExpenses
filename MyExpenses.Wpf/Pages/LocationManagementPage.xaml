@@ -88,11 +88,22 @@
                         Loaded="MapControl_OnLoaded">
             <wpf:MapControl.ContextMenu>
                 <ContextMenu>
+
+                    <!-- TODO work -->
                     <MenuItem Header="Display coordinate" Click="Option1_Click" />
+
+                    <!-- TODO work -->
                     <MenuItem Header="Display address" Click="Option2_Click" />
+
+                    <!-- TODO work -->
                     <MenuItem x:Name="MenuItemAddFeature" Header="Add point" Click="MenuItemAddFeature_OnClick" />
+
+                    <!-- TODO work -->
                     <MenuItem x:Name="MenuItemEditFeature" Header="Edit point" Click="MenuItemEditFeature_OnClick" />
+
+                    <!-- TODO work -->
                     <MenuItem x:Name="MenuItemDeleteFeature" Header="Delete point" Click="MenuItemDeleteFeature_OnClick" />
+
                 </ContextMenu>
             </wpf:MapControl.ContextMenu>
         </wpf:MapControl>
