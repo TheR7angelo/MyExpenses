@@ -98,10 +98,10 @@ public partial class AddEditAccountWindow
     public AddEditAccountWindow()
     {
         using var context = new DataBaseContext();
-        Accounts = [..context.TAccounts];
-        AccountTypes = [..context.TAccountTypes];
-        Currencies = [..context.TCurrencies];
-        CategoryTypes = [..context.TCategoryTypes];
+        Accounts = [..context.TAccounts.OrderBy(s => s.Name)];
+        AccountTypes = [..context.TAccountTypes.OrderBy(s => s.Name)];
+        Currencies = [..context.TCurrencies.OrderBy(s => s.Symbol)];
+        CategoryTypes = [..context.TCategoryTypes.OrderBy(s => s.Name)];
 
         InitializeComponent();
     }
