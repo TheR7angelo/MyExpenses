@@ -47,7 +47,7 @@ public partial class AddEditCategoryTypeWindow
     {
         using var context = new DataBaseContext();
         CategoryTypes = [..context.TCategoryTypes];
-        Colors = [..context.TColors.OrderBy(s => s.HexadecimalColorCode)];
+        Colors = [..context.TColors.OrderBy(s => s.Name)];
 
         InitializeComponent();
         TextBoxCategoryType.Focus();
@@ -134,7 +134,7 @@ public partial class AddEditCategoryTypeWindow
             Log.Information("color was successfully added");
             MsgBox.MsgBox.Show(AddEditCategoryTypeWindowResources.MessageBoxAddColorSuccess, MsgBoxImage.Check);
 
-            Colors.AddAndSort(newColor, s => s.HexadecimalColorCode!);
+            Colors.AddAndSort(newColor, s => s.Name!);
         }
         else
         {
