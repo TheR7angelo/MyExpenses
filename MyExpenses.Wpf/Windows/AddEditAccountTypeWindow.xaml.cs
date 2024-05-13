@@ -25,6 +25,7 @@ public partial class AddEditAccountTypeWindow
 
     public string TextBoxAccountTypeName { get; } = AddEditAccountTypeWindowResources.TextBoxAccountTypeName;
     public string ButtonValidContent { get; } = AddEditAccountTypeWindowResources.ButtonValidContent;
+    public string ButtonDeleteContent { get; } = AddEditAccountTypeWindowResources.ButtonDeleteContent;
     public string ButtonCancelContent { get; } = AddEditAccountTypeWindowResources.ButtonCancelContent;
 
     #endregion
@@ -55,6 +56,12 @@ public partial class AddEditAccountTypeWindow
     {
         DialogResult = false;
         Close();
+    }
+
+    //TODO work
+    private void ButtonDelete_OnClick(object sender, RoutedEventArgs e)
+    {
+        Console.WriteLine("Work in progress");
     }
 
     private void ButtonValid_OnClick(object sender, RoutedEventArgs e)
