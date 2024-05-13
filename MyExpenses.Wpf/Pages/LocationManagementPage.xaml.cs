@@ -113,6 +113,11 @@ public partial class LocationManagementPage
         if (feature is null) return;
 
         var placeToDelete = feature.ToTPlace();
+        var response =
+            MsgBox.Show(string.Format(LocationManagementPageResources.MessageBoxDeleteQuestion, placeToDelete.Name),
+                MsgBoxImage.Question, MessageBoxButton.YesNoCancel);
+        if (response != MessageBoxResult.Yes) return;
+
         Log.Information("Attempting to remove the place \"{PlaceToDeleteName}\"", placeToDelete.Name);
         PlaceLayer.TryRemove(feature);
 
@@ -135,7 +140,7 @@ public partial class LocationManagementPage
         {
             Log.Error("Foreign key constraint violation");
 
-            var response =
+            response =
                 MsgBox.Show(LocationManagementPageResources.MessageBoxMenuItemDeleteFeatureUseQuestion,
                     MsgBoxImage.Question, MessageBoxButton.YesNoCancel);
 

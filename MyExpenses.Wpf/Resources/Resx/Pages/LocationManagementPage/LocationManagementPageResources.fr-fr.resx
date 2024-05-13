@@ -41,4 +41,7 @@
     <data name="MenuItemHeaderEditFeature" xml:space="preserve">
         <value>Modifier le point</value>
     </data>
+    <data name="MessageBoxDeleteQuestion" xml:space="preserve">
+        <value>Etes-vous sûr de vouloir supprimer le lieu "{0}" ?</value>
+    </data>
 </root>

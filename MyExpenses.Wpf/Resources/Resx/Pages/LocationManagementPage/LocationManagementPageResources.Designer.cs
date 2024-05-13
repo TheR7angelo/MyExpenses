@@ -88,6 +88,15 @@ namespace MyExpenses.Wpf.Resources.Resx.Pages.LocationManagementPage {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to delete place &quot;{0}&quot; ?.
+        /// </summary>
+        internal static string MessageBoxDeleteQuestion {
+            get {
+                return ResourceManager.GetString("MessageBoxDeleteQuestion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to An error occurred please retry.
         /// </summary>
         internal static string MessageBoxMenuItemDeleteFeatureError {
