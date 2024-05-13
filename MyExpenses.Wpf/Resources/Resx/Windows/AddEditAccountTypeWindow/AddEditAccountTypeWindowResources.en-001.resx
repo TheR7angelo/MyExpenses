@@ -23,4 +23,7 @@
     <data name="ButtonCancelContent" xml:space="preserve">
         <value>Cancel</value>
     </data>
+    <data name="ButtonDeleteContent" xml:space="preserve">
+        <value>Delete</value>
+    </data>
 </root>

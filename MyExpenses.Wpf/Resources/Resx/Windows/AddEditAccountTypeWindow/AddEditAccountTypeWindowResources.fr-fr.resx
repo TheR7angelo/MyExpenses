@@ -23,4 +23,7 @@
     <data name="MessageBoxAccountTypeNameAlreadyExists" xml:space="preserve">
         <value>Le nom du type de compte existe déjà</value>
     </data>
+    <data name="ButtonDeleteContent" xml:space="preserve">
+        <value>Supprimer</value>
+    </data>
 </root>
