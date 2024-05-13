@@ -38,4 +38,10 @@
     <data name="MessageBoxAddColorError" xml:space="preserve">
         <value>Une erreur s'est produite, veuillez réessayer</value>
     </data>
+    <data name="MessageBoxEditColorSuccess" xml:space="preserve">
+        <value>La couleur a été modifiée avec succès</value>
+    </data>
+    <data name="MessageBoxEditColorError" xml:space="preserve">
+        <value>Une erreur s'est produite, veuillez réessayer</value>
+    </data>
 </root>

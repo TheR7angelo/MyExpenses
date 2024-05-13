@@ -138,5 +138,23 @@ namespace MyExpenses.Wpf.Resources.Resx.Windows.AddEditCategoryTypeWindow {
                 return ResourceManager.GetString("MessageBoxAddColorSuccess", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to New color was successfully edited.
+        /// </summary>
+        internal static string MessageBoxEditColorSuccess {
+            get {
+                return ResourceManager.GetString("MessageBoxAddColorSuccess", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to An error occurred please retry.
+        /// </summary>
+        internal static string MessageBoxEditColorError {
+            get {
+                return ResourceManager.GetString("MessageBoxAddColorSuccess", resourceCulture);
+            }
+        }
     }
 }

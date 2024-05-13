@@ -123,9 +123,33 @@ public partial class AddEditCategoryTypeWindow
 
     private void EditColor()
     {
-        //TODO work
         var addEditColorWindow = new AddEditColorWindow();
         addEditColorWindow.SetTColor((int)CategoryType.ColorFk!);
+
+        addEditColorWindow.ShowDialog();
+        if (addEditColorWindow.DialogResult != true) return;
+        if (addEditColorWindow.DeleteColor)
+        {
+            var colorDeleted = Colors.FirstOrDefault(s => s.Id == CategoryType.ColorFk);
+            if (colorDeleted is not null) Colors.Remove(colorDeleted);
+
+            return;
+        }
+
+        var editedColor = addEditColorWindow.Color;
+
+        Log.Information("Attempting to edit the color \"{AccountName}\"", editedColor.Name);
+        var (success, exception) = editedColor.AddOrEdit();
+        if (success)
+        {
+            Log.Information("Color was successfully edited");
+            MsgBox.MsgBox.Show(AddEditCategoryTypeWindowResources.MessageBoxEditColorSuccess, MsgBoxImage.Check);
+        }
+        else
+        {
+            Log.Error(exception, "An error occurred please retry");
+            MsgBox.MsgBox.Show(AddEditCategoryTypeWindowResources.MessageBoxEditColorError, MsgBoxImage.Warning);
+        }
     }
 
     private void CreateNewColor()
