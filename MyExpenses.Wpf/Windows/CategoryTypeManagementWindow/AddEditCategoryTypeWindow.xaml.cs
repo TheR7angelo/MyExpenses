@@ -117,8 +117,7 @@ public partial class AddEditCategoryTypeWindow
     private void ButtonAddColor_OnClick(object sender, RoutedEventArgs e)
     {
         //TODO work
-        Console.WriteLine("Need to create color");
-        var addEditColorWindow = new AddEditColorWindow { AddEditCategoryType = this };
+        var addEditColorWindow = new AddEditColorWindow();
         addEditColorWindow.ShowDialog();
     }
 }

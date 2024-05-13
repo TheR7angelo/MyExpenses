@@ -34,7 +34,6 @@ public partial class AddEditColorWindow
     private List<TColor> Colors { get; }
 
     public TColor Color { get; private set; } = new();
-    public required AddEditCategoryTypeWindow AddEditCategoryType { get; set; }
 
     public AddEditColorWindow()
     {
