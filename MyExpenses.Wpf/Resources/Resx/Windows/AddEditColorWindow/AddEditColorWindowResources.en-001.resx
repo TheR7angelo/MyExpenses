@@ -62,4 +62,19 @@
     <data name="MessageBoxCannotAddEmptyColorHexError" xml:space="preserve">
         <value>Cannot add empty color hex code</value>
     </data>
+    <data name="MessageBoxDeleteColorQuestion" xml:space="preserve">
+        <value>Are you sure you want to remove the color "{0}" ?</value>
+    </data>
+    <data name="MessageBoxDeleteColorNoUseSuccess" xml:space="preserve">
+        <value>Color was successfully removed</value>
+    </data>
+    <data name="MessageBoxDeleteColorUseSuccess" xml:space="preserve">
+        <value>Color was successfully removed</value>
+    </data>
+    <data name="MessageBoxDeleteColorUseQuestion" xml:space="preserve">
+        <value>This color is in use. Are you sure you want to delete this account and everything linked to it ?</value>
+    </data>
+    <data name="MessageBoxDeleteAccountError" xml:space="preserve">
+        <value>An error occurred please retry</value>
+    </data>
 </root>

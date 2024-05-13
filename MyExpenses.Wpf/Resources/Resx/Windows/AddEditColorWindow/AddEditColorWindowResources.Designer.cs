@@ -205,6 +205,51 @@ namespace MyExpenses.Wpf.Resources.Resx.Windows.AddEditColorWindow {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to An error occurred please retry.
+        /// </summary>
+        internal static string MessageBoxDeleteAccountError {
+            get {
+                return ResourceManager.GetString("MessageBoxDeleteAccountError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Color was successfully removed.
+        /// </summary>
+        internal static string MessageBoxDeleteColorNoUseSuccess {
+            get {
+                return ResourceManager.GetString("MessageBoxDeleteColorNoUseSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to remove the color &quot;{0}&quot; ?.
+        /// </summary>
+        internal static string MessageBoxDeleteColorQuestion {
+            get {
+                return ResourceManager.GetString("MessageBoxDeleteColorQuestion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This color is in use. Are you sure you want to delete this account and everything linked to it ?.
+        /// </summary>
+        internal static string MessageBoxDeleteColorUseQuestion {
+            get {
+                return ResourceManager.GetString("MessageBoxDeleteColorUseQuestion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Color was successfully removed.
+        /// </summary>
+        internal static string MessageBoxDeleteColorUseSuccess {
+            get {
+                return ResourceManager.GetString("MessageBoxDeleteColorUseSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Color name :.
         /// </summary>
         internal static string TextBoxColorName {

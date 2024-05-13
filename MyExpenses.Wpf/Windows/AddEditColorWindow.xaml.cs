@@ -1,18 +1,19 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using Microsoft.Data.Sqlite;
 using MyExpenses.Models.Sql.Tables;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils.Sql;
 using MyExpenses.Wpf.Resources.Resx.Windows.AddEditColorWindow;
 using MyExpenses.Wpf.Utils;
 using MyExpenses.Wpf.Windows.MsgBox;
+using Serilog;
 
 namespace MyExpenses.Wpf.Windows;
 
 public partial class AddEditColorWindow
 {
-
     public static readonly DependencyProperty EditColorProperty =
         DependencyProperty.Register(nameof(EditColor), typeof(bool), typeof(AddEditColorWindow),
             new PropertyMetadata(default(bool)));
@@ -46,6 +47,8 @@ public partial class AddEditColorWindow
     private List<TColor> Colors { get; }
 
     public TColor Color { get; private set; } = new();
+
+    public bool DeleteAccount { get; set; }
 
     public AddEditColorWindow()
     {
@@ -96,6 +99,55 @@ public partial class AddEditColorWindow
         Close();
     }
 
+    private void ButtonDelete_OnClick(object sender, RoutedEventArgs e)
+    {
+        var response =
+            MsgBox.MsgBox.Show(string.Format(AddEditColorWindowResources.MessageBoxDeleteColorQuestion, Color.Name),
+                MsgBoxImage.Question, MessageBoxButton.YesNoCancel);
+        if (response != MessageBoxResult.Yes) return;
+
+        Log.Information("Attempting to remove the color \"{ColorToDeleteName}\"", Color.Name);
+        var (success, exception) = Color.Delete();
+
+        if (success)
+        {
+            Log.Information("Color was successfully removed");
+            MsgBox.MsgBox.Show(AddEditColorWindowResources.MessageBoxDeleteColorNoUseSuccess, MsgBoxImage.Check);
+            DeleteAccount = true;
+
+            DialogResult = true;
+            Close();
+            return;
+        }
+
+        if (exception!.InnerException is SqliteException
+            {
+                SqliteExtendedErrorCode: SQLitePCL.raw.SQLITE_CONSTRAINT_FOREIGNKEY
+            })
+        {
+            Log.Error("Foreign key constraint violation");
+
+            response = MsgBox.MsgBox.Show(AddEditColorWindowResources.MessageBoxDeleteColorUseQuestion,
+                MsgBoxImage.Question, MessageBoxButton.YesNoCancel);
+
+            if (response != MessageBoxResult.Yes) return;
+
+            Log.Information("Attempting to remove the color \"{ColorToDeleteName}\" with all relative element",
+                Color.Name);
+            Color.Delete(true);
+            Log.Information("Account and all relative element was successfully removed");
+            MsgBox.MsgBox.Show(AddEditColorWindowResources.MessageBoxDeleteColorUseSuccess, MsgBoxImage.Check);
+
+            DialogResult = true;
+            Close();
+
+            return;
+        }
+
+        Log.Error(exception, "An error occurred please retry");
+        MsgBox.MsgBox.Show(AddEditColorWindowResources.MessageBoxDeleteAccountError, MsgBoxImage.Error);
+    }
+
     private void UIElement_OnPreviewLostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
     {
         var textBox = (TextBox)sender;
@@ -122,7 +174,8 @@ public partial class AddEditColorWindow
     }
 
     private void ShowErrorMessage()
-        => MsgBox.MsgBox.Show(AddEditColorWindowResources.MessageBoxCannotAddDuplicateColorNameError, MsgBoxImage.Warning);
+        => MsgBox.MsgBox.Show(AddEditColorWindowResources.MessageBoxCannotAddDuplicateColorNameError,
+            MsgBoxImage.Warning);
 
     #endregion
 }
