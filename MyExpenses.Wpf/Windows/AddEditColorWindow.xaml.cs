@@ -48,7 +48,7 @@ public partial class AddEditColorWindow
 
     public TColor Color { get; private set; } = new();
 
-    public bool DeleteAccount { get; set; }
+    public bool DeleteColor { get; private set; }
 
     public AddEditColorWindow()
     {
@@ -113,7 +113,7 @@ public partial class AddEditColorWindow
         {
             Log.Information("Color was successfully removed");
             MsgBox.MsgBox.Show(AddEditColorWindowResources.MessageBoxDeleteColorNoUseSuccess, MsgBoxImage.Check);
-            DeleteAccount = true;
+            DeleteColor = true;
 
             DialogResult = true;
             Close();
