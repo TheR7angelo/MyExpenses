@@ -143,6 +143,10 @@ public partial class AddEditCategoryTypeWindow
         if (success)
         {
             Log.Information("Color was successfully edited");
+
+            var oldColor = Colors.First(s => s.Id == editedColor.Id);
+            editedColor.CopyPropertiesTo(oldColor);
+
             MsgBox.MsgBox.Show(AddEditCategoryTypeWindowResources.MessageBoxEditColorSuccess, MsgBoxImage.Check);
         }
         else
