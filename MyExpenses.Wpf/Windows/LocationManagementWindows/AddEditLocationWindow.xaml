@@ -53,12 +53,14 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
+        <!-- TODO work -->
         <TextBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
                  materialDesign:HintAssist.Hint="Name :"
                  Style="{StaticResource MaterialDesignFilledTextBox}"
                  Text="{Binding Place.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
         </TextBox>
 
+        <!-- TODO work -->
         <TextBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
                  materialDesign:HintAssist.Hint="Number :"
                  Style="{StaticResource MaterialDesignFilledTextBox}"
