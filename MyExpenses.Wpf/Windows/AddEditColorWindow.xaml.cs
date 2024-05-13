@@ -59,6 +59,28 @@ public partial class AddEditColorWindow
         //TODO work
         Console.WriteLine(Color.Name);
         Console.WriteLine("Valid");
+
+        if (string.IsNullOrWhiteSpace(Color.Name))
+        {
+            MsgBox.MsgBox.Show("Can't add color name empty", MsgBoxImage.Error);
+            return;
+        }
+
+        var nameAlreadyExist = CheckColorName(Color.Name);
+        if (nameAlreadyExist)
+        {
+            MsgBox.MsgBox.Show("Can't add color name duplicate", MsgBoxImage.Error);
+            return;
+        }
+
+        var colorAlreadyExist = Colors.FirstOrDefault(s => s.HexadecimalColorCode == Color.HexadecimalColorCode);
+        if (colorAlreadyExist is not null)
+        {
+            MsgBox.MsgBox.Show($"Can't add color hexadecimal code duplicate, Color name is {colorAlreadyExist.Name}", MsgBoxImage.Error);
+            return;
+        }
+
+        //TODO finish
     }
 
     private void ButtonCancel_OnClick(object sender, RoutedEventArgs e)
