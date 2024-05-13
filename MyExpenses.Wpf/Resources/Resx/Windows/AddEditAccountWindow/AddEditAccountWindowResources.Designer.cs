@@ -262,5 +262,14 @@ namespace MyExpenses.Wpf.Resources.Resx.Windows.AddAccountWindow {
                 return ResourceManager.GetString("MessageBoxDeleteAccountUseSuccess", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to messagebox delete account question.
+        /// </summary>
+        internal static string MessageBoxDeleteAccountQuestion {
+            get {
+                return ResourceManager.GetString("MessageBoxDeleteAccountQuestion", resourceCulture);
+            }
+        }
     }
 }

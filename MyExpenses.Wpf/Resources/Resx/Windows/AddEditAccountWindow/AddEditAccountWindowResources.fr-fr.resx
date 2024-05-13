@@ -80,4 +80,7 @@
     <data name="MessageBoxDeleteAccountError" xml:space="preserve">
         <value>Une erreur s'est produite, veuillez réessayer</value>
     </data>
+    <data name="MessageBoxDeleteAccountQuestion" xml:space="preserve">
+        <value>Etes-vous sûr de vouloir supprimer le compte "{0}" ?</value>
+    </data>
 </root>

@@ -190,7 +190,7 @@ public partial class AddEditAccountWindow
 
     private void ButtonDelete_OnClick(object sender, RoutedEventArgs e)
     {
-        var response = MsgBox.MsgBox.Show($"Are you really deleting the \"{Account.Name}\" account ?", MsgBoxImage.Question,
+        var response = MsgBox.MsgBox.Show(string.Format(AddEditAccountWindowResources.MessageBoxDeleteAccountQuestion, Account.Name), MsgBoxImage.Question,
             MessageBoxButton.YesNoCancel);
         if (response != MessageBoxResult.Yes) return;
 
