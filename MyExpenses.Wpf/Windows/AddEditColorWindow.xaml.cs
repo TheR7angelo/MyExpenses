@@ -107,9 +107,8 @@ public partial class AddEditColorWindow
 
     private void ButtonCancel_OnClick(object sender, RoutedEventArgs e)
     {
-        //TODO work
-        Console.WriteLine(Color.Name);
-        Console.WriteLine("Cancel");
+        DialogResult = false;
+        Close();
     }
 
     private void UIElement_OnPreviewLostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
