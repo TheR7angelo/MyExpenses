@@ -25,7 +25,7 @@ public partial class CategoryTypeManagementPage
 
         CategoryTypes = new ObservableCollection<TCategoryType>();
 
-        var temp = context.TCategoryTypes.ToList();
+        var temp = context.TCategoryTypes.OrderBy(s => s.Name).ToList();
         var colors = context.TColors.AsNoTracking().ToDictionary(c => c.Id);
 
         foreach (var t in temp)
