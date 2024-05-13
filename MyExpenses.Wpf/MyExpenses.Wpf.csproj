@@ -78,6 +78,10 @@
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>AddEditColorWindowResources.Designer.cs</LastGenOutput>
       </EmbeddedResource>
+      <EmbeddedResource Update="Resources\Resx\Pages\AccountTypeManagementPage\AccountTypeManagementPageResources.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>AccountTypeManagementPageResources.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
     </ItemGroup>
 
     <ItemGroup>
@@ -152,6 +156,11 @@
         <DesignTime>True</DesignTime>
         <AutoGen>True</AutoGen>
         <DependentUpon>AddEditColorWindowResources.resx</DependentUpon>
+      </Compile>
+      <Compile Update="Resources\Resx\Pages\AccountTypeManagementPage\AccountTypeManagementPageResources.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>AccountTypeManagementPageResources.resx</DependentUpon>
       </Compile>
     </ItemGroup>
 
