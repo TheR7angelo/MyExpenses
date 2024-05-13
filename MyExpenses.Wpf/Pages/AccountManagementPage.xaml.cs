@@ -76,9 +76,15 @@ public partial class AccountManagementPage
         addEditAccountWindow.ShowDialog();
 
         if (addEditAccountWindow.DialogResult != true) return;
+        if (addEditAccountWindow.DeleteAccount)
+        {
+            TotalByAccounts.Remove(vTotalByAccount);
+            DashBoardPage.VTotalByAccounts.Remove(vTotalByAccount);
+            return;
+        }
 
         var editedAccount = addEditAccountWindow.Account;
-        
+
         Log.Information("Attempting to edit the account \"{AccountName}\"", account.Name);
         var (success, exception) = editedAccount.AddOrEdit();
         if (success)
@@ -90,7 +96,7 @@ public partial class AccountManagementPage
 
             TotalByAccounts.Remove(vTotalByAccount);
             DashBoardPage.VTotalByAccounts.Remove(vTotalByAccount);
-            
+
             TotalByAccounts.AddAndSort(newVTotalByAccount, s => s.Name!);
 
             DashBoardPage.RefreshAccountTotal();

@@ -64,6 +64,8 @@ public partial class AddEditAccountWindow
 
     #region Property
 
+    public bool DeleteAccount { get; private set; }
+
     public TAccount Account { get; } = new();
     public THistory History { get; } = new() { Pointed = true };
 
@@ -195,6 +197,7 @@ public partial class AddEditAccountWindow
         {
             Log.Information("Account was successfully removed");
             MsgBox.MsgBox.Show(AddEditAccountWindowResources.MessageBoxDeleteAccountNoUseSuccess, MsgBoxImage.Check);
+            DeleteAccount = true;
 
             DialogResult = true;
             Close();
