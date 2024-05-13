@@ -4,6 +4,7 @@ using System.Windows.Input;
 using MyExpenses.Models.Sql.Tables;
 using MyExpenses.Sql.Context;
 using MyExpenses.Wpf.Resources.Resx.Windows.AddEditAccountTypeWindow;
+using MyExpenses.Wpf.Utils;
 using MyExpenses.Wpf.Windows.MsgBox;
 
 namespace MyExpenses.Wpf.Windows;
@@ -15,6 +16,8 @@ public partial class AddEditAccountTypeWindow
     public TAccountType AccountType { get; } = new();
 
     private List<TAccountType> AccountTypes { get; }
+
+    public bool EditAccountType { get; private set; }
 
     #endregion
 
@@ -67,6 +70,16 @@ public partial class AddEditAccountTypeWindow
             DialogResult = true;
             Close();
         }
+    }
+
+    public void SetTAccountType(TAccountType accountType)
+    {
+        accountType.CopyPropertiesTo(AccountType);
+        EditAccountType = true;
+
+        var oldItem = AccountTypes.FirstOrDefault(s => s.Id == accountType.Id);
+        if (oldItem is null) return;
+        AccountTypes.Remove(oldItem);
     }
 
     private void TextBoxAccountType_OnPreviewLostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
