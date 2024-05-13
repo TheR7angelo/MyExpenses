@@ -169,11 +169,47 @@ namespace MyExpenses.Wpf.Resources.Resx.Windows.AddEditColorWindow {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to An error occurred please retry.
+        /// </summary>
+        internal static string MessageBoxAddColorError {
+            get {
+                return ResourceManager.GetString("MessageBoxAddColorError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New color was successfully added.
+        /// </summary>
+        internal static string MessageBoxAddColorSuccess {
+            get {
+                return ResourceManager.GetString("MessageBoxAddColorSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unable to add duplicate color hexadecimal code, existing color name is &quot;{0}&quot;.
+        /// </summary>
+        internal static string MessageBoxCannotAddDuplicateColorHexError {
+            get {
+                return ResourceManager.GetString("MessageBoxCannotAddDuplicateColorHexError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The color name already exists.
         /// </summary>
-        internal static string MessageBoxColorNameAlreadyExists {
+        internal static string MessageBoxCannotAddDuplicateColorNameError {
             get {
-                return ResourceManager.GetString("MessageBoxColorNameAlreadyExists", resourceCulture);
+                return ResourceManager.GetString("MessageBoxCannotAddDuplicateColorNameError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cannot add empty color name.
+        /// </summary>
+        internal static string MessageBoxCannotAddEmptyColorNameError {
+            get {
+                return ResourceManager.GetString("MessageBoxCannotAddEmptyColorNameError", resourceCulture);
             }
         }
         

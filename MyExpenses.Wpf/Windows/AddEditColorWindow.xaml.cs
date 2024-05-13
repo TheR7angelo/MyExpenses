@@ -59,21 +59,21 @@ public partial class AddEditColorWindow
         //TODO work
         if (string.IsNullOrWhiteSpace(Color.Name))
         {
-            MsgBox.MsgBox.Show("Can't add color name empty", MsgBoxImage.Error);
+            MsgBox.MsgBox.Show(AddEditColorWindowResources.MessageBoxCannotAddEmptyColorNameError, MsgBoxImage.Error);
             return;
         }
 
         var nameAlreadyExist = CheckColorName(Color.Name);
         if (nameAlreadyExist)
         {
-            MsgBox.MsgBox.Show("Can't add color name duplicate", MsgBoxImage.Error);
+            ShowErrorMessage();
             return;
         }
 
         var colorAlreadyExist = Colors.FirstOrDefault(s => s.HexadecimalColorCode == Color.HexadecimalColorCode);
         if (colorAlreadyExist is not null)
         {
-            MsgBox.MsgBox.Show($"Can't add color hexadecimal code duplicate, Color name is {colorAlreadyExist.Name}",
+            MsgBox.MsgBox.Show(string.Format(AddEditColorWindowResources.MessageBoxCannotAddDuplicateColorHexError, colorAlreadyExist.Name),
                 MsgBoxImage.Error);
             return;
         }
@@ -85,12 +85,12 @@ public partial class AddEditColorWindow
         if (success)
         {
             Log.Information("color was successfully added");
-            MsgBox.MsgBox.Show("New color was successfully added", MsgBoxImage.Check);
+            MsgBox.MsgBox.Show(AddEditColorWindowResources.MessageBoxAddColorSuccess, MsgBoxImage.Check);
         }
         else
         {
             Log.Error(exception, "An error occurred please retry");
-            MsgBox.MsgBox.Show("An error occurred please retry", MsgBoxImage.Error);
+            MsgBox.MsgBox.Show(AddEditColorWindowResources.MessageBoxAddColorError, MsgBoxImage.Error);
         }
     }
 
@@ -120,7 +120,7 @@ public partial class AddEditColorWindow
         => Colors.Select(s => s.Name).Contains(accountName);
 
     private void ShowErrorMessage()
-        => MsgBox.MsgBox.Show(AddEditColorWindowResources.MessageBoxColorNameAlreadyExists, MsgBoxImage.Warning);
+        => MsgBox.MsgBox.Show(AddEditColorWindowResources.MessageBoxCannotAddDuplicateColorNameError, MsgBoxImage.Warning);
 
     #endregion
 }
