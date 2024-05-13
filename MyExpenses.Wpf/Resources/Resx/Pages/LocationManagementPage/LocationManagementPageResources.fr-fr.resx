@@ -32,4 +32,13 @@
     <data name="MessageBoxProcessNewPlaceError" xml:space="preserve">
         <value>Une erreur s'est produite, veuillez réessayer</value>
     </data>
+    <data name="MenuItemHeaderAddPoint" xml:space="preserve">
+        <value>Ajouter un nouveau point</value>
+    </data>
+    <data name="MenuItemHeaderDeleteFeature" xml:space="preserve">
+        <value>Supprimer le point</value>
+    </data>
+    <data name="MenuItemHeaderEditFeature" xml:space="preserve">
+        <value>Modifier le point</value>
+    </data>
 </root>

@@ -61,6 +61,33 @@ namespace MyExpenses.Wpf.Resources.Resx.Pages.LocationManagementPage {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add new point.
+        /// </summary>
+        internal static string MenuItemHeaderAddPoint {
+            get {
+                return ResourceManager.GetString("MenuItemHeaderAddPoint", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete point.
+        /// </summary>
+        internal static string MenuItemHeaderDeleteFeature {
+            get {
+                return ResourceManager.GetString("MenuItemHeaderDeleteFeature", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit point.
+        /// </summary>
+        internal static string MenuItemHeaderEditFeature {
+            get {
+                return ResourceManager.GetString("MenuItemHeaderEditFeature", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to An error occurred please retry.
         /// </summary>
         internal static string MessageBoxMenuItemDeleteFeatureError {

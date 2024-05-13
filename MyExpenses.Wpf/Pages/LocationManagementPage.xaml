@@ -94,15 +94,21 @@
 
                     <!-- TODO work -->
                     <MenuItem Header="Display address" Click="Option2_Click" />
+                    
+                    <MenuItem x:Name="MenuItemAddFeature"
+                              Header="{Binding MenuItemHeaderAddPoint}"
+                              Click="MenuItemAddFeature_OnClick">
+                    </MenuItem>
 
-                    <!-- TODO work -->
-                    <MenuItem x:Name="MenuItemAddFeature" Header="Add point" Click="MenuItemAddFeature_OnClick" />
+                    <MenuItem x:Name="MenuItemEditFeature"
+                              Header="{Binding MenuItemHeaderEditFeature}"
+                              Click="MenuItemEditFeature_OnClick">
+                    </MenuItem>
 
-                    <!-- TODO work -->
-                    <MenuItem x:Name="MenuItemEditFeature" Header="Edit point" Click="MenuItemEditFeature_OnClick" />
-
-                    <!-- TODO work -->
-                    <MenuItem x:Name="MenuItemDeleteFeature" Header="Delete point" Click="MenuItemDeleteFeature_OnClick" />
+                    <MenuItem x:Name="MenuItemDeleteFeature"
+                              Header="{Binding MenuItemHeaderDeleteFeature}"
+                              Click="MenuItemDeleteFeature_OnClick">
+                    </MenuItem>
 
                 </ContextMenu>
             </wpf:MapControl.ContextMenu>

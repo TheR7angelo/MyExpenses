@@ -26,6 +26,11 @@ namespace MyExpenses.Wpf.Pages;
 
 public partial class LocationManagementPage
 {
+
+    public string MenuItemHeaderAddPoint { get; } = LocationManagementPageResources.MenuItemHeaderAddPoint;
+    public string MenuItemHeaderEditFeature { get; } = LocationManagementPageResources.MenuItemHeaderEditFeature;
+    public string MenuItemHeaderDeleteFeature { get; } = LocationManagementPageResources.MenuItemHeaderDeleteFeature;
+
     public ObservableCollection<CountryGroup> CountryGroups { get; }
     public List<KnownTileSource> KnownTileSources { get; }
     public KnownTileSource KnownTileSourceSelected { get; set; }
