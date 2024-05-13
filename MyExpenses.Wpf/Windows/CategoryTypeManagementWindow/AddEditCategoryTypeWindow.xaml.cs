@@ -50,7 +50,6 @@ public partial class AddEditCategoryTypeWindow
         Colors = [..context.TColors.OrderBy(s => s.Name)];
 
         InitializeComponent();
-        TextBoxCategoryType.Focus();
     }
 
     #region Action
