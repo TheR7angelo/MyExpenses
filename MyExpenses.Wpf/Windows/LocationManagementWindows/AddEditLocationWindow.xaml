@@ -101,17 +101,15 @@
                     HorizontalAlignment="Center"
                     utils:PanelExtensions.MarginForAllChildren="5">
 
-            <!-- TODO work -->
             <Button materialDesign:ButtonAssist.CornerRadius="5"
                     Style="{StaticResource MaterialDesignPaperButton}"
-                    Content="Valid new point"
+                    Content="{Binding ButtonContentValidNewPoint}"
                     Click="ButtonValidNewPoint_OnClick">
             </Button>
 
-            <!-- TODO work -->
             <Button materialDesign:ButtonAssist.CornerRadius="5"
                     Style="{StaticResource MaterialDesignPaperLightButton}"
-                    Content="Zoom to point"
+                    Content="{Binding ButtonContentZoomToPoint}"
                     Click="ButtonZoomToPoint_OnClick">
             </Button>
 
@@ -138,35 +136,31 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <!-- TODO work -->
             <Button Grid.Row="0" Grid.Column="0"
                     materialDesign:ButtonAssist.CornerRadius="5"
                     Style="{StaticResource MaterialDesignPaperLightButton}"
-                    Content="Search by address"
+                    Content="{Binding ButtonContentSearchByAddress}"
                     Click="ButtonSearchByAddress_OnClick">
             </Button>
 
-            <!-- TODO work -->
             <Button Grid.Row="0" Grid.Column="1"
                     materialDesign:ButtonAssist.CornerRadius="5"
                     Style="{StaticResource MaterialDesignPaperLightButton}"
-                    Content="Search by coordinate"
+                    Content="{Binding ButtonContentSearchByCoordinate}"
                     Click="ButtonSearchByCoordinate_OnClick">
             </Button>
 
-            <!-- TODO work -->
             <Button Grid.Row="1" Grid.Column="0"
                     materialDesign:ButtonAssist.CornerRadius="5"
                     Style="{StaticResource MaterialDesignPaperSecondaryButton}"
-                    Content="Cancel"
+                    Content="{Binding ButtonContentCancel}"
                     Click="ButtonCancel_OnClick">
             </Button>
 
-            <!-- TODO work -->
             <Button Grid.Row="1" Grid.Column="1"
                     materialDesign:ButtonAssist.CornerRadius="5"
                     Style="{StaticResource MaterialDesignPaperButton}"
-                    Content="Valid"
+                    Content="{Binding ButtonContentValid}"
                     Click="ButtonValid_OnClick">
             </Button>
 

@@ -27,6 +27,12 @@ public partial class AddEditLocationWindow
     public string TextBoxNumberHintAssist { get; } = AddEditLocationWindowResources.TextBoxNumberHintAssist;
     public string TextBoxPostalCodeHintAssist { get; } = AddEditLocationWindowResources.TextBoxPostalCodeHintAssist;
     public string TextBoxStreetHintAssist { get; } = AddEditLocationWindowResources.TextBoxStreetHintAssist;
+    public string ButtonContentValidNewPoint { get; } = AddEditLocationWindowResources.ButtonContentValidNewPoint;
+    public string ButtonContentZoomToPoint { get; } = AddEditLocationWindowResources.ButtonContentZoomToPoint;
+    public string ButtonContentSearchByAddress { get; } = AddEditLocationWindowResources.ButtonContentSearchByAddress;
+    public string ButtonContentSearchByCoordinate { get; } = AddEditLocationWindowResources.ButtonContentSearchByCoordinate;
+    public string ButtonContentCancel { get; } = AddEditLocationWindowResources.ButtonContentCancel;
+    public string ButtonContentValid { get; } = AddEditLocationWindowResources.ButtonContentValid;
 
     #region Properties
 
