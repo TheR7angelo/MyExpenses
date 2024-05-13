@@ -95,5 +95,77 @@ namespace MyExpenses.Wpf.Resources.Resx.Windows.AddEditLocationWindow {
                 return ResourceManager.GetString("HandleNominatimResultZeroResult", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to City :.
+        /// </summary>
+        internal static string TextBoxCityHintAssist {
+            get {
+                return ResourceManager.GetString("TextBoxCityHintAssist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Country :.
+        /// </summary>
+        internal static string TextBoxCountryHintAssist {
+            get {
+                return ResourceManager.GetString("TextBoxCountryHintAssist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Latitude :.
+        /// </summary>
+        internal static string TextBoxLatitudeHintAssist {
+            get {
+                return ResourceManager.GetString("TextBoxLatitudeHintAssist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Longitude :.
+        /// </summary>
+        internal static string TextBoxLongitudeHintAssist {
+            get {
+                return ResourceManager.GetString("TextBoxLongitudeHintAssist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Name :.
+        /// </summary>
+        internal static string TextBoxNameHintAssist {
+            get {
+                return ResourceManager.GetString("TextBoxNameHintAssist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Number :.
+        /// </summary>
+        internal static string TextBoxNumberHintAssist {
+            get {
+                return ResourceManager.GetString("TextBoxNumberHintAssist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Postal code :.
+        /// </summary>
+        internal static string TextBoxPostalCodeHintAssist {
+            get {
+                return ResourceManager.GetString("TextBoxPostalCodeHintAssist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Street :.
+        /// </summary>
+        internal static string TextBoxStreetHintAssist {
+            get {
+                return ResourceManager.GetString("TextBoxStreetHintAssist", resourceCulture);
+            }
+        }
     }
 }

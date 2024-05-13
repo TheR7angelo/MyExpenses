@@ -23,4 +23,28 @@
     <data name="HandleNominatimResultMultipleResult" xml:space="preserve">
         <value>Plusieurs résultats ont été trouvés, veuillez en choisir un</value>
     </data>
+    <data name="TextBoxNameHintAssist" xml:space="preserve">
+        <value>Nom :</value>
+    </data>
+    <data name="TextBoxNumberHintAssist" xml:space="preserve">
+        <value>Nombre :</value>
+    </data>
+    <data name="TextBoxStreetHintAssist" xml:space="preserve">
+        <value>Rue :</value>
+    </data>
+    <data name="TextBoxPostalCodeHintAssist" xml:space="preserve">
+        <value>Code postal :</value>
+    </data>
+    <data name="TextBoxCityHintAssist" xml:space="preserve">
+        <value>Ville :</value>
+    </data>
+    <data name="TextBoxCountryHintAssist" xml:space="preserve">
+        <value>Pays :</value>
+    </data>
+    <data name="TextBoxLatitudeHintAssist" xml:space="preserve">
+        <value>Latitude :</value>
+    </data>
+    <data name="TextBoxLongitudeHintAssist" xml:space="preserve">
+        <value>Longitude :</value>
+    </data>
 </root>
