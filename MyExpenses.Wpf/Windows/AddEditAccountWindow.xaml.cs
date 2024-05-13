@@ -5,9 +5,11 @@ using System.Windows.Input;
 using Microsoft.Data.Sqlite;
 using MyExpenses.Models.Sql.Tables;
 using MyExpenses.Sql.Context;
+using MyExpenses.Utils;
 using MyExpenses.Wpf.Resources.Regex;
 using MyExpenses.Wpf.Resources.Resx.Windows.AddAccountWindow;
 using MyExpenses.Wpf.Utils;
+using MyExpenses.Wpf.Windows.CategoryTypeManagementWindow;
 using MyExpenses.Wpf.Windows.MsgBox;
 using Serilog;
 
@@ -134,28 +136,26 @@ public partial class AddEditAccountWindow
 
     private void ButtonAddCategoryType_OnClick(object sender, RoutedEventArgs e)
     {
-        //TODO re work
+        var addEditCategoryType = new AddEditCategoryTypeWindow();
+        var result = addEditCategoryType.ShowDialog();
+        if (result != true) return;
 
-        // var addEditCategoryType = new AddEditCategoryTypeWindow();
-        // var result = addEditCategoryType.ShowDialog();
-        // if (result != true) return;
-        //
-        // var newCategoryType = addEditCategoryType.CategoryType;
-        //
-        // Log.Information("Attempting to inject the new category type \"{NewCategoryTypeName}\"", newCategoryType.Name);
-        // var (success, exception) = newCategoryType.AddOrEdit();
-        // if (success)
-        // {
-        //     CategoryTypes.Add(newCategoryType);
-        //     History.CategoryTypeFk = newCategoryType.Id;
-        //     Log.Information("Account type was successfully added");
-        //     MsgBox.MsgBox.Show(AddEditAccountWindowResources.MessageBoxAddCurrencySuccess, MsgBoxImage.Check);
-        // }
-        // else
-        // {
-        //     Log.Error(exception, "An error occurred please retry");
-        //     MsgBox.MsgBox.Show(AddEditAccountWindowResources.MessageBoxAddCurrencyError, MsgBoxImage.Error);
-        // }
+        var newCategoryType = addEditCategoryType.CategoryType;
+
+        Log.Information("Attempting to inject the new category type \"{NewCategoryTypeName}\"", newCategoryType.Name);
+        var (success, exception) = newCategoryType.AddOrEdit();
+        if (success)
+        {
+            CategoryTypes.AddAndSort(newCategoryType, s => s.Name!);
+            History.CategoryTypeFk = newCategoryType.Id;
+            Log.Information("Account type was successfully added");
+            MsgBox.MsgBox.Show(AddEditAccountWindowResources.MessageBoxAddCurrencySuccess, MsgBoxImage.Check);
+        }
+        else
+        {
+            Log.Error(exception, "An error occurred please retry");
+            MsgBox.MsgBox.Show(AddEditAccountWindowResources.MessageBoxAddCurrencyError, MsgBoxImage.Error);
+        }
     }
 
     private void ButtonAddCurrency_OnClick(object sender, RoutedEventArgs e)
