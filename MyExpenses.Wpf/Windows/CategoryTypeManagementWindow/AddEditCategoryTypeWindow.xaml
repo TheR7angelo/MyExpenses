@@ -11,12 +11,12 @@
 
         Title="AddEditCategoryType"
 
-        d:DesignHeight="225"
+        d:DesignHeight="250"
         d:DesignWidth="400"
 
-        MinHeight="225"
+        MinHeight="250"
         MinWidth="400"
-        Height="225"
+        Height="250"
         Width="400"
 
         TitleCharacterCasing="Normal"
