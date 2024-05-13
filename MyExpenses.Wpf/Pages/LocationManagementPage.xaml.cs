@@ -103,7 +103,7 @@ public partial class LocationManagementPage
         if (addEditLocationWindow.DialogResult != true) return;
 
         var newPlace = addEditLocationWindow.Place;
-        ProcessNewPlace(newPlace, add:true);
+        ProcessNewPlace(newPlace, add: true);
         AddPlaceTreeViewCountryGroup(newPlace);
     }
 
@@ -172,7 +172,7 @@ public partial class LocationManagementPage
         if (addEditLocationWindow.DialogResult != true) return;
 
         var editedPlace = addEditLocationWindow.Place;
-        ProcessNewPlace(editedPlace, edit:true);
+        ProcessNewPlace(editedPlace, edit: true);
 
         RemovePlaceTreeViewCountryGroup(editedPlace);
         AddPlaceTreeViewCountryGroup(editedPlace);
