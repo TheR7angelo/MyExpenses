@@ -190,6 +190,10 @@ public partial class AddEditAccountWindow
 
     private void ButtonDelete_OnClick(object sender, RoutedEventArgs e)
     {
+        var response = MsgBox.MsgBox.Show($"Are you really deleting the \"{Account.Name}\" account ?", MsgBoxImage.Question,
+            MessageBoxButton.YesNoCancel);
+        if (response != MessageBoxResult.Yes) return;
+
         Log.Information("Attempting to remove the account \"{AccountToDeleteName}\"", Account.Name);
         var (success, exception) = Account.Delete();
 
@@ -211,7 +215,7 @@ public partial class AddEditAccountWindow
         {
             Log.Error("Foreign key constraint violation");
 
-            var response = MsgBox.MsgBox.Show(AddEditAccountWindowResources.MessageBoxDeleteAccountUseQuestion,
+            response = MsgBox.MsgBox.Show(AddEditAccountWindowResources.MessageBoxDeleteAccountUseQuestion,
                 MsgBoxImage.Question, MessageBoxButton.YesNoCancel);
 
             if (response != MessageBoxResult.Yes) return;
