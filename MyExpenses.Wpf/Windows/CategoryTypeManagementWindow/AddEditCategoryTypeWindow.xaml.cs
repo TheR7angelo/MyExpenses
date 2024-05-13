@@ -117,11 +117,15 @@ public partial class AddEditCategoryTypeWindow
 
     private void ButtonAddColor_OnClick(object sender, RoutedEventArgs e)
     {
-        if (CategoryType.ColorFk is not null)
-        {
-            //TODO edit
-        }
+        if (CategoryType.ColorFk is not null) EditColor();
         else CreateNewColor();
+    }
+
+    private void EditColor()
+    {
+        //TODO work
+        var addEditColorWindow = new AddEditColorWindow();
+        addEditColorWindow.SetTColor((int)CategoryType.ColorFk!);
     }
 
     private void CreateNewColor()
