@@ -122,7 +122,7 @@ public partial class AddEditAccountWindow
         var (success, exception) = newAccountType.AddOrEdit();
         if (success)
         {
-            AccountTypes.Add(newAccountType);
+            AccountTypes.AddAndSort(newAccountType, s => s.Name!);
             Account.AccountTypeFk = newAccountType.Id;
             Log.Information("Account type was successfully added");
             MsgBox.MsgBox.Show(AddEditAccountWindowResources.MessageBoxAddAccountTypeSuccess, MsgBoxImage.Check);
