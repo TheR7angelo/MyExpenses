@@ -5,7 +5,6 @@ using MyExpenses.Models.Sql.Tables;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils;
 using MyExpenses.Wpf.Resources.Resx.Windows.AddEditColorWindow;
-using MyExpenses.Wpf.UserControls;
 using MyExpenses.Wpf.Windows.CategoryTypeManagementWindow;
 using MyExpenses.Wpf.Windows.MsgBox;
 using Serilog;
@@ -48,12 +47,6 @@ public partial class AddEditColorWindow
     }
 
     #region Action
-
-    private void ColorPickerControl_OnColorChanged(object? sender, ColorChangedEventArgs e)
-    {
-        //TODO work
-        Console.WriteLine(e.HexadecimalCode);
-    }
 
     private void ButtonValid_OnClick(object sender, RoutedEventArgs e)
     {

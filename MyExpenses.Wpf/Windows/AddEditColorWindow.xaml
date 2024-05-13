@@ -77,7 +77,6 @@
             RectanglePreviewStroke="{DynamicResource MaterialDesignBody}"
             RectanglePreviewThickness="1.5"
 
-            ColorChanged="ColorPickerControl_OnColorChanged"
             Color="{Binding Color.HexadecimalColorCode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource HexToColorConverter}}">
         </userControls:ColorPickerControl>
 
