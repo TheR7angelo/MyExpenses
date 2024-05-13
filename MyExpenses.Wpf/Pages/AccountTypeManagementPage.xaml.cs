@@ -14,7 +14,7 @@ public partial class AccountTypeManagementPage
     public AccountTypeManagementPage()
     {
         using var context = new DataBaseContext();
-        AccountTypes = [..context.TAccountTypes];
+        AccountTypes = [..context.TAccountTypes.OrderBy(s => s.Name)];
 
         InitializeComponent();
     }
