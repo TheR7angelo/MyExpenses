@@ -3,11 +3,9 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using MyExpenses.Models.Sql.Tables;
 using MyExpenses.Sql.Context;
-using MyExpenses.Utils;
 using MyExpenses.Wpf.Resources.Resx.Windows.AddEditColorWindow;
 using MyExpenses.Wpf.Windows.CategoryTypeManagementWindow;
 using MyExpenses.Wpf.Windows.MsgBox;
-using Serilog;
 
 namespace MyExpenses.Wpf.Windows;
 
@@ -77,25 +75,8 @@ public partial class AddEditColorWindow
             return;
         }
 
-        Log.Information("Attempt to inject the new color \"{ColorName}\" with hexadecimal code \"{ColorHexadecimalColorCode}\"",
-            Color.Name, Color.HexadecimalColorCode);
-
-        var (success, exception) = Color.AddOrEdit();
-        if (success)
-        {
-            Log.Information("color was successfully added");
-            MsgBox.MsgBox.Show(AddEditColorWindowResources.MessageBoxAddColorSuccess, MsgBoxImage.Check);
-
-            AddEditCategoryType.Colors.AddAndSort(Color, s => s.HexadecimalColorCode!);
-
-            DialogResult = true;
-            Close();
-        }
-        else
-        {
-            Log.Error(exception, "An error occurred please retry");
-            MsgBox.MsgBox.Show(AddEditColorWindowResources.MessageBoxAddColorError, MsgBoxImage.Error);
-        }
+        DialogResult = true;
+        Close();
     }
 
     private void ButtonCancel_OnClick(object sender, RoutedEventArgs e)
