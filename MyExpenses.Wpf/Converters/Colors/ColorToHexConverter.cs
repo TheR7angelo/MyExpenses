@@ -3,7 +3,7 @@ using System.Windows.Data;
 using System.Windows.Media;
 using MyExpenses.Wpf.Utils;
 
-namespace MyExpenses.Wpf.Converters;
+namespace MyExpenses.Wpf.Converters.Colors;
 
 public class ColorToHexConverter : IValueConverter
 {
