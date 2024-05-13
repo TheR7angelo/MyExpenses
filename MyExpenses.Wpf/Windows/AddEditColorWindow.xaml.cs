@@ -57,7 +57,6 @@ public partial class AddEditColorWindow
 
     private void ButtonValid_OnClick(object sender, RoutedEventArgs e)
     {
-        //TODO work
         if (string.IsNullOrWhiteSpace(Color.Name))
         {
             MsgBox.MsgBox.Show(AddEditColorWindowResources.MessageBoxCannotAddEmptyColorNameError, MsgBoxImage.Error);
