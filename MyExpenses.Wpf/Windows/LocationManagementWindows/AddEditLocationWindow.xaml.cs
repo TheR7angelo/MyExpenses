@@ -95,7 +95,18 @@ public partial class AddEditLocationWindow
 
     public void SetPlace(Point point)
     {
-        Place.Geometry = point;
+        var nominatim = point.ToNominatim();
+        if (nominatim is not null)
+        {
+            var mapper = Mapping.Mapper;
+            var place = mapper.Map<TPlace>(nominatim);
+            place.CopyPropertiesTo(Place);
+        }
+        else
+        {
+            Place.Geometry = point;
+        }
+
         UpdateMiniMap();
     }
 
