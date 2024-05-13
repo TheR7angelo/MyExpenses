@@ -53,51 +53,44 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <!-- TODO work -->
         <TextBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
-                 materialDesign:HintAssist.Hint="Name :"
+                 materialDesign:HintAssist.Hint="{Binding TextBoxNameHintAssist}"
                  Style="{StaticResource MaterialDesignFilledTextBox}"
                  Text="{Binding Place.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
         </TextBox>
 
-        <!-- TODO work -->
         <TextBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
-                 materialDesign:HintAssist.Hint="Number :"
+                 materialDesign:HintAssist.Hint="{Binding TextBoxNumberHintAssist}"
                  Style="{StaticResource MaterialDesignFilledTextBox}"
                  Text="{Binding Place.Number, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
         </TextBox>
 
-        <!-- TODO work -->
         <TextBox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
-                 materialDesign:HintAssist.Hint="Street :"
+                 materialDesign:HintAssist.Hint="{Binding TextBoxStreetHintAssist}"
                  Style="{StaticResource MaterialDesignFilledTextBox}"
                  Text="{Binding Place.Street, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
         </TextBox>
 
-        <!-- TODO work -->
         <TextBox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"
-                 materialDesign:HintAssist.Hint="Postal :"
+                 materialDesign:HintAssist.Hint="{Binding TextBoxPostalCodeHintAssist}"
                  Style="{StaticResource MaterialDesignFilledTextBox}"
                  Text="{Binding Place.Postal, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
         </TextBox>
 
-        <!-- TODO work -->
         <TextBox Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2"
-                 materialDesign:HintAssist.Hint="City :"
+                 materialDesign:HintAssist.Hint="{Binding TextBoxCityHintAssist}"
                  Style="{StaticResource MaterialDesignFilledTextBox}"
                  Text="{Binding Place.City, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
         </TextBox>
 
-        <!-- TODO work -->
         <TextBox Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2"
-                 materialDesign:HintAssist.Hint="Country :"
+                 materialDesign:HintAssist.Hint="{Binding TextBoxCountryHintAssist}"
                  Style="{StaticResource MaterialDesignFilledTextBox}"
                  Text="{Binding Place.Country, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
         </TextBox>
 
-        <!-- TODO work -->
         <TextBox Grid.Row="6" Grid.Column="0"
-                 materialDesign:HintAssist.Hint="Latitude :"
+                 materialDesign:HintAssist.Hint="{Binding TextBoxLatitudeHintAssist}"
                  Style="{StaticResource MaterialDesignFilledTextBox}"
                  Text="{Binding Place.Latitude, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
         </TextBox>
@@ -124,9 +117,8 @@
 
         </StackPanel>
 
-        <!-- TODO work -->
         <TextBox Grid.Row="7" Grid.Column="0"
-                 materialDesign:HintAssist.Hint="Longitude :"
+                 materialDesign:HintAssist.Hint="{Binding TextBoxLongitudeHintAssist}"
                  Style="{StaticResource MaterialDesignFilledTextBox}"
                  Text="{Binding Place.Longitude, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
         </TextBox>

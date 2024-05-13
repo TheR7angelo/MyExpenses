@@ -18,6 +18,16 @@ namespace MyExpenses.Wpf.Windows.LocationManagementWindows;
 
 public partial class AddEditLocationWindow
 {
+
+    public string TextBoxCityHintAssist { get; } = AddEditLocationWindowResources.TextBoxCityHintAssist;
+    public string TextBoxCountryHintAssist { get; } = AddEditLocationWindowResources.TextBoxCountryHintAssist;
+    public string TextBoxLatitudeHintAssist { get; } = AddEditLocationWindowResources.TextBoxLatitudeHintAssist;
+    public string TextBoxLongitudeHintAssist { get; } = AddEditLocationWindowResources.TextBoxLongitudeHintAssist;
+    public string TextBoxNameHintAssist { get; } = AddEditLocationWindowResources.TextBoxNameHintAssist;
+    public string TextBoxNumberHintAssist { get; } = AddEditLocationWindowResources.TextBoxNumberHintAssist;
+    public string TextBoxPostalCodeHintAssist { get; } = AddEditLocationWindowResources.TextBoxPostalCodeHintAssist;
+    public string TextBoxStreetHintAssist { get; } = AddEditLocationWindowResources.TextBoxStreetHintAssist;
+
     #region Properties
 
     private const string ColumnTemp = "temp";
