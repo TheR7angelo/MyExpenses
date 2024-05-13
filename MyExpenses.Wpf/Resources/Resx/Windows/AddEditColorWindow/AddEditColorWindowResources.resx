@@ -72,4 +72,7 @@
     <data name="MessageBoxAddColorError" xml:space="preserve">
         <value>An error occurred please retry</value>
     </data>
+    <data name="MessageBoxCannotAddEmptyColorHexError" xml:space="preserve">
+        <value>Cannot add empty color hex code</value>
+    </data>
 </root>

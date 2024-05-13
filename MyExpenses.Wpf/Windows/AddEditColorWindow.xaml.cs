@@ -63,6 +63,12 @@ public partial class AddEditColorWindow
             return;
         }
 
+        if (string.IsNullOrWhiteSpace(Color.HexadecimalColorCode))
+        {
+            MsgBox.MsgBox.Show(AddEditColorWindowResources.MessageBoxCannotAddEmptyColorHexError, MsgBoxImage.Error);
+            return;
+        }
+
         var nameAlreadyExist = CheckColorName(Color.Name);
         if (nameAlreadyExist)
         {

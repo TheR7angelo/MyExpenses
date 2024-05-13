@@ -50,7 +50,22 @@
     <data name="ButtonCancelContent" xml:space="preserve">
         <value>Cancel</value>
     </data>
-    <data name="MessageBoxColorNameAlreadyExists" xml:space="preserve">
+    <data name="MessageBoxCannotAddEmptyColorNameError" xml:space="preserve">
+        <value>Cannot add empty color name</value>
+    </data>
+    <data name="MessageBoxCannotAddDuplicateColorNameError" xml:space="preserve">
         <value>The color name already exists</value>
+    </data>
+    <data name="MessageBoxCannotAddDuplicateColorHexError" xml:space="preserve">
+        <value>Unable to add duplicate color hexadecimal code, existing color name is "{0}"</value>
+    </data>
+    <data name="MessageBoxAddColorSuccess" xml:space="preserve">
+        <value>New color was successfully added</value>
+    </data>
+    <data name="MessageBoxAddColorError" xml:space="preserve">
+        <value>An error occurred please retry</value>
+    </data>
+    <data name="MessageBoxCannotAddEmptyColorHexError" xml:space="preserve">
+        <value>Cannot add empty color hex code</value>
     </data>
 </root>

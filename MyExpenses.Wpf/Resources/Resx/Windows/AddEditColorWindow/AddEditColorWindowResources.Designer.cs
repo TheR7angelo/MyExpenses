@@ -205,6 +205,15 @@ namespace MyExpenses.Wpf.Resources.Resx.Windows.AddEditColorWindow {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cannot add empty color hex code.
+        /// </summary>
+        internal static string MessageBoxCannotAddEmptyColorHexError {
+            get {
+                return ResourceManager.GetString("MessageBoxCannotAddEmptyColorHexError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cannot add empty color name.
         /// </summary>
         internal static string MessageBoxCannotAddEmptyColorNameError {

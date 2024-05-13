@@ -65,4 +65,7 @@
     <data name="MessageBoxAddColorError" xml:space="preserve">
         <value>Une erreur s'est produite, veuillez réessayer</value>
     </data>
+    <data name="MessageBoxCannotAddEmptyColorHexError" xml:space="preserve">
+        <value>Impossible d'ajouter un code hexadécimal de couleur vide</value>
+    </data>
 </root>
