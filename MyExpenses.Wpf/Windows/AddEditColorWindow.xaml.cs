@@ -3,14 +3,26 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using MyExpenses.Models.Sql.Tables;
 using MyExpenses.Sql.Context;
+using MyExpenses.Utils.Sql;
 using MyExpenses.Wpf.Resources.Resx.Windows.AddEditColorWindow;
-using MyExpenses.Wpf.Windows.CategoryTypeManagementWindow;
+using MyExpenses.Wpf.Utils;
 using MyExpenses.Wpf.Windows.MsgBox;
 
 namespace MyExpenses.Wpf.Windows;
 
 public partial class AddEditColorWindow
 {
+
+    public static readonly DependencyProperty EditColorProperty =
+        DependencyProperty.Register(nameof(EditColor), typeof(bool), typeof(AddEditColorWindow),
+            new PropertyMetadata(default(bool)));
+
+    public bool EditColor
+    {
+        get => (bool)GetValue(EditColorProperty);
+        set => SetValue(EditColorProperty, value);
+    }
+
     #region Resx
 
     public string LabelRedChannel { get; } = AddEditColorWindowResources.LabelRedChannel;
@@ -101,6 +113,13 @@ public partial class AddEditColorWindow
 
     private bool CheckColorName(string accountName)
         => Colors.Select(s => s.Name).Contains(accountName);
+
+    public void SetTColor(int categoryTypeColorFk)
+    {
+        var colorToEdit = categoryTypeColorFk.ToTColor();
+        colorToEdit?.CopyPropertiesTo(Color);
+        EditColor = true;
+    }
 
     private void ShowErrorMessage()
         => MsgBox.MsgBox.Show(AddEditColorWindowResources.MessageBoxCannotAddDuplicateColorNameError, MsgBoxImage.Warning);
