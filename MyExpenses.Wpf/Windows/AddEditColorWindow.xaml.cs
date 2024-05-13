@@ -171,6 +171,9 @@ public partial class AddEditColorWindow
         var colorToEdit = categoryTypeColorFk.ToTColor();
         colorToEdit?.CopyPropertiesTo(Color);
         EditColor = true;
+
+        var removeItem = Colors.FirstOrDefault(s => s.Id == categoryTypeColorFk);
+        if (removeItem is not null) Colors.Remove(removeItem);
     }
 
     private void ShowErrorMessage()
