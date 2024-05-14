@@ -154,23 +154,5 @@ namespace MyExpenses.Wpf.Resources.Resx.Pages.DashBoardPage {
                 return ResourceManager.GetString("DataGridTextColumnValue", resourceCulture);
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to An error occurred please retry.
-        /// </summary>
-        internal static string MessageBoxAddAccountError {
-            get {
-                return ResourceManager.GetString("MessageBoxAddAccountError", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Account was successfully added..
-        /// </summary>
-        internal static string MessageBoxAddAccountSuccess {
-            get {
-                return ResourceManager.GetString("MessageBoxAddAccountSuccess", resourceCulture);
-            }
-        }
     }
 }
