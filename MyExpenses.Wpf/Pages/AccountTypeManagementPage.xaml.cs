@@ -81,6 +81,5 @@ public partial class AccountTypeManagementPage
 
         DashBoardPage.RefreshAccountTotal();
         DashBoardPage.RefreshRadioButtonSelected();
-
     }
 }
