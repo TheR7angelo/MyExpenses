@@ -26,4 +26,19 @@
     <data name="ButtonDeleteContent" xml:space="preserve">
         <value>Supprimer</value>
     </data>
+    <data name="MessageBoxDeleteQuestion" xml:space="preserve">
+        <value>Voulez-vous vraiment supprimer ce type de compte ?</value>
+    </data>
+    <data name="MessageBoxDeleteAccountTypeNoUseSuccess" xml:space="preserve">
+        <value>Le type de compte a été supprimé avec succès</value>
+    </data>
+    <data name="MessageBoxDeleteAccountTypeUseSuccess" xml:space="preserve">
+        <value>Le type de compte et tous les éléments relatifs ont été supprimés avec succès</value>
+    </data>
+    <data name="MessageBoxDeleteAccountTypeError" xml:space="preserve">
+        <value>Une erreur s'est produite, veuillez réessayer</value>
+    </data>
+    <data name="MessageBoxDeleteAccountTypeUseQuestion" xml:space="preserve">
+        <value>Ce type de compte est en cours d'utilisation. Etes-vous sûr de vouloir supprimer ce compte et tout ce qui y est lié ?</value>
+    </data>
 </root>

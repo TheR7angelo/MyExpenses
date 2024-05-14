@@ -101,5 +101,41 @@ namespace MyExpenses.Wpf.Resources.Resx.Windows.AddEditAccountTypeWindow {
                 return ResourceManager.GetString("TextBoxAccountTypeName", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to messageBox delete question.
+        /// </summary>
+        internal static string MessageBoxDeleteQuestion {
+            get {
+                return ResourceManager.GetString("MessageBoxDeleteQuestion", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to messageBox delete account type no use success.
+        /// </summary>
+        internal static string MessageBoxDeleteAccountTypeNoUseSuccess {
+            get {
+                return ResourceManager.GetString("MessageBoxDeleteAccountTypeNoUseSuccess", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to message shown when deleting an account type encounters an error.
+        /// </summary>
+        internal static string MessageBoxDeleteAccountTypeError {
+            get {
+                return ResourceManager.GetString("MessageBoxDeleteAccountTypeNoUseSuccess", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to confirming the deletion of an account type that is not being used.
+        /// </summary>
+        internal static string MessageBoxDeleteAccountTypeUseQuestion {
+            get {
+                return ResourceManager.GetString("MessageBoxDeleteAccountTypeNoUseSuccess", resourceCulture);
+            }
+        }
     }
 }

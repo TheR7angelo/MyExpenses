@@ -26,4 +26,19 @@
     <data name="ButtonDeleteContent" xml:space="preserve">
         <value>Delete</value>
     </data>
+    <data name="MessageBoxDeleteQuestion" xml:space="preserve">
+        <value>Do you really want to delete this account type ?</value>
+    </data>
+    <data name="MessageBoxDeleteAccountTypeNoUseSuccess" xml:space="preserve">
+        <value>Account type was successfully removed</value>
+    </data>
+    <data name="MessageBoxDeleteAccountTypeUseSuccess" xml:space="preserve">
+        <value>Account type and all relative element was successfully removed</value>
+    </data>
+    <data name="MessageBoxDeleteAccountTypeError" xml:space="preserve">
+        <value>An error occurred please retry</value>
+    </data>
+    <data name="MessageBoxDeleteAccountTypeUseQuestion" xml:space="preserve">
+        <value>This account type is in use.Are you sure you want to delete this account and everything linked to it ?</value>
+    </data>
 </root>
