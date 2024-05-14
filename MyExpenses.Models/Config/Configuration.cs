@@ -5,6 +5,8 @@ namespace MyExpenses.Models.Config;
 public class Configuration
 {
     [JsonProperty("log")]
-    public Log? Log { get; set; }
     public Log Log { get; set; } = new();
+
+    [JsonProperty("interface")]
+    public Interface Interface { get; set; } = new();
 }
