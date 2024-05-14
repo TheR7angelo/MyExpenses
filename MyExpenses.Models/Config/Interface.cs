@@ -7,9 +7,9 @@ public class Interface
     [JsonProperty("base_theme")]
     public string BaseTheme { get; set; } = "Inherit";
 
-    [JsonProperty("primary_color")]
-    public string PrimaryColor { get; set; } = "Green";
+    [JsonProperty("hexadecimal_code_primary_color")]
+    public string HexadecimalCodePrimaryColor { get; set; } = "#FF008000";
 
-    [JsonProperty("secondary_color")]
-    public string SecondaryColor { get; set; } = "Orange";
+    [JsonProperty("hexadecimal_code_secondary_color")]
+    public string HexadecimalCodeSecondaryColor { get; set; } = "#FFFFA500";
 }
