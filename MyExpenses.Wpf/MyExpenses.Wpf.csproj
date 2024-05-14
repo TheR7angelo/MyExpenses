@@ -210,6 +210,10 @@
       <AdditionalFiles Include="Resources\Maps\RedMarker.svg">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </AdditionalFiles>
+      <None Remove="appsettings.json" />
+      <AdditionalFiles Include="appsettings.json">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </AdditionalFiles>
     </ItemGroup>
 
     <ItemGroup>
