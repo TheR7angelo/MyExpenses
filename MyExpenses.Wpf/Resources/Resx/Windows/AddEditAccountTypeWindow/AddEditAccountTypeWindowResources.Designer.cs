@@ -134,7 +134,7 @@ namespace MyExpenses.Wpf.Resources.Resx.Windows.AddEditAccountTypeWindow {
         /// </summary>
         internal static string MessageBoxDeleteAccountTypeUseQuestion {
             get {
-                return ResourceManager.GetString("MessageBoxDeleteAccountTypeNoUseSuccess", resourceCulture);
+                return ResourceManager.GetString("MessageBoxDeleteAccountTypeUseQuestion", resourceCulture);
             }
         }
     }
