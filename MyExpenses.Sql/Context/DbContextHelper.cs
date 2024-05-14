@@ -34,10 +34,10 @@ public static class DbContextHelper
             var properties = entity.GetNavigationProperty();
             var children = properties
                 .Where(property => property.GetValue(entity) is IList && (property.GetValue(entity) as IList)!.Count > 0)
-                .SelectMany(property => (property.GetValue(entity) as IList)!.OfType<object>())
+                .SelectMany(property => (property.GetValue(entity) as IList)!.OfType<ISql>())
                 .ToList();
 
-            foreach (var child in children) context.Entry(child).State = EntityState.Deleted;
+            foreach (var child in children) child.Delete(true);
 
             context.Entry(entity).State = EntityState.Deleted;
         }
