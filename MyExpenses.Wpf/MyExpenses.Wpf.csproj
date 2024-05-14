@@ -214,6 +214,10 @@
       <AdditionalFiles Include="appsettings.json">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </AdditionalFiles>
+      <None Remove="Resources\Assets\Icon Resize.png" />
+      <Resource Include="Resources\Assets\Icon Resize.png">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Resource>
     </ItemGroup>
 
     <ItemGroup>

@@ -14,6 +14,9 @@ public partial class App
     {
         base.OnStartup(e);
 
+        var splashScreenWindow = new SplashScreen("Resources\\Assets\\Icon Resize.png");
+        splashScreenWindow.Show(true, true);
+
         Log.Logger = MyExpenses.Utils.LoggerConfig.CreateConfig();
         Log.Information("Starting the application");
 
