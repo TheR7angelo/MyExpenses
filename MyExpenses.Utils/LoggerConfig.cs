@@ -9,6 +9,8 @@ namespace MyExpenses.Utils;
 /// </summary>
 public static class LoggerConfig
 {
+    private static string LogDirectoryPath { get; } = Directory.CreateDirectory("log").FullName;
+
     /// <summary>
     /// Creates a logger configuration for the application.
     /// </summary>
@@ -17,9 +19,8 @@ public static class LoggerConfig
     {
         const string template = "[{Timestamp:HH:mm:ss} {Level}] {Message:lj}{NewLine}{Exception}";
         var logName = $"{DateTime.Now:yyyy-MM-dd_HH-mm-ss}.log";
-        var directory = Directory.CreateDirectory("log").FullName;
 
-        var logPath = Path.Combine(directory, logName);
+        var logPath = Path.Combine(LogDirectoryPath, logName);
         var loggerConfiguration = new LoggerConfiguration()
             .MinimumLevel.Debug()
             .WriteTo.Console(outputTemplate: template, theme: AnsiConsoleTheme.Code, applyThemeToRedirectedOutput: true)
