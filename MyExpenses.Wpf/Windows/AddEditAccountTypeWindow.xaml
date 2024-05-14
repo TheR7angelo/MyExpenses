@@ -44,7 +44,7 @@
         </Grid.RowDefinitions>
 
         <TextBox x:Name="TextBoxAccountType" Grid.Row="0"
-                 Text="{Binding AccountType.Name}"
+                 Text="{Binding AccountType.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                  materialDesign:HintAssist.Hint="{Binding TextBoxAccountTypeName}"
                  Style="{StaticResource MaterialDesignFilledTextBox}"
                  PreviewLostKeyboardFocus="TextBoxAccountType_OnPreviewLostKeyboardFocus">
