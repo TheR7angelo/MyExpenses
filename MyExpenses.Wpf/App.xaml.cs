@@ -11,10 +11,12 @@ public partial class App
         base.OnStartup(e);
 
         Log.Logger = MyExpenses.Utils.LoggerConfig.CreateConfig();
-        //TODO add config file
-        MyExpenses.Utils.LoggerConfig.RemoveOldLog(15);
-
         Log.Information("Starting the application");
+
+        Log.Information("Reading configuration file");
+        var configuration = MyExpenses.Utils.Config.Configuration;
+        var logMaxDays = configuration.Log.MaxDaysLog;
+        MyExpenses.Utils.LoggerConfig.RemoveOldLog(logMaxDays);
 
         AppDomain.CurrentDomain.ProcessExit += CurrentDomainOnProcessExit;
         AppDomain.CurrentDomain.UnhandledException += CurrentDomainOnUnhandledException;
