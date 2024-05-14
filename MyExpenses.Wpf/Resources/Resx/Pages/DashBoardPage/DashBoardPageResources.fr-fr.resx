@@ -44,4 +44,7 @@
     <data name="ButtonCategoryTypeManagement" xml:space="preserve">
         <value>Gestion des types de catégories</value>
     </data>
+    <data name="ButtonColorManagement" xml:space="preserve">
+        <value>Gestion des couleurs</value>
+    </data>
 </root>

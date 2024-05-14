@@ -84,6 +84,15 @@ namespace MyExpenses.Wpf.Resources.Resx.Pages.DashBoardPage {
         }
 
         /// <summary>
+        ///   Looks up a localized string similar to Color management.
+        /// </summary>
+        internal static object ButtonColorManagement {
+            get {
+                return ResourceManager.GetString("ButtonColorManagement", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Location management.
         /// </summary>
         internal static string ButtonLocationManagement {
