@@ -11,13 +11,21 @@ namespace MyExpenses.Wpf.Windows;
 
 public partial class AddEditAccountTypeWindow
 {
+    public static readonly DependencyProperty EditAccountTypeProperty =
+        DependencyProperty.Register(nameof(EditAccountType), typeof(bool), typeof(AddEditAccountTypeWindow),
+            new PropertyMetadata(default(bool)));
+
     #region Property
 
     public TAccountType AccountType { get; } = new();
 
     private List<TAccountType> AccountTypes { get; }
 
-    public bool EditAccountType { get; private set; }
+    public bool EditAccountType
+    {
+        get => (bool)GetValue(EditAccountTypeProperty);
+        set => SetValue(EditAccountTypeProperty, value);
+    }
 
     #endregion
 
@@ -45,8 +53,8 @@ public partial class AddEditAccountTypeWindow
         => AccountTypes.Select(s => s.Name).Contains(accountName);
 
     private void ShowErrorMessage()
-        => MsgBox.MsgBox.Show(AddEditAccountTypeWindowResources.MessageBoxAccountTypeNameAlreadyExists, MsgBoxImage.Warning);
-
+        => MsgBox.MsgBox.Show(AddEditAccountTypeWindowResources.MessageBoxAccountTypeNameAlreadyExists,
+            MsgBoxImage.Warning);
 
     #endregion
 
