@@ -11,6 +11,9 @@ public partial class App
         base.OnStartup(e);
 
         Log.Logger = MyExpenses.Utils.LoggerConfig.CreateConfig();
+        //TODO add config file
+        MyExpenses.Utils.LoggerConfig.RemoveOldLog(15);
+
         Log.Information("Starting the application");
 
         AppDomain.CurrentDomain.ProcessExit += CurrentDomainOnProcessExit;
