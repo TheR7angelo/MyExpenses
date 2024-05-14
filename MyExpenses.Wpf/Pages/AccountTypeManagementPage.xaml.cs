@@ -48,7 +48,6 @@ public partial class AccountTypeManagementPage
         }
     }
 
-    //TODO work
     private void ButtonAccountType_OnClick(object sender, RoutedEventArgs e)
     {
         var button = (Button)sender;
@@ -61,7 +60,8 @@ public partial class AccountTypeManagementPage
         if (result != true) return;
 
         var editedAccountType = addEditAccountType.AccountType;
-        if (!addEditAccountType.AccountTypeDeleted)
+        if (addEditAccountType.AccountTypeDeleted) AccountTypes.Remove(accountType);
+        else
         {
             Log.Information("Attempting to update account type id:\"{EditedAccountTypeId}\", name:\"{EditedAccountTypeName}\"",editedAccountType.Id, editedAccountType.Name);
             var (success, exception) = editedAccountType.AddOrEdit();
@@ -78,6 +78,9 @@ public partial class AccountTypeManagementPage
                 MsgBox.Show(AccountTypeManagementPageResources.MessageBoxEditAccountTypeError, MsgBoxImage.Error);
             }
         }
+
+        DashBoardPage.RefreshAccountTotal();
+        DashBoardPage.RefreshRadioButtonSelected();
 
     }
 }
