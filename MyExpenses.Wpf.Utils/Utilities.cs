@@ -9,6 +9,29 @@ namespace MyExpenses.Wpf.Utils;
 public static class Utilities
 {
     /// <summary>
+    /// Recursively finds the first child of a specified type in the visual tree of a given DependencyObject.
+    /// </summary>
+    /// <typeparam name="T">The type of child to find.</typeparam>
+    /// <param name="parent">The DependencyObject to search.</param>
+    /// <returns>The first child of the specified type found in the visual tree, or null if not found.</returns>
+    public static T? FindChild<T>(this DependencyObject parent) where T : DependencyObject
+    {
+        if (parent is T dependencyObject)
+        {
+            return dependencyObject;
+        }
+
+        T? child = null;
+
+        for (var i = 0; child == null && i < VisualTreeHelper.GetChildrenCount(parent); i++)
+        {
+            child = FindChild<T>(VisualTreeHelper.GetChild(parent, i));
+        }
+
+        return child;
+    }
+
+    /// <summary>
     /// Recursively finds all the visual children of a specified type in a given DependencyObject.
     /// </summary>
     /// <typeparam name="T">The type of visual children to find.</typeparam>
