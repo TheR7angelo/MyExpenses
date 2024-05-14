@@ -64,6 +64,11 @@
                         Click="ButtonLocationManagement_OnClick">
                 </Button>
 
+                <Button Content="{Binding ButtonColorManagement}"
+                        Style="{StaticResource MaterialDesignPaperButton}"
+                        Click="ButtonColorManagement_OnClick">
+                </Button>
+
             </WrapPanel>
             
         </ScrollViewer>
@@ -139,6 +144,7 @@
         </Grid>
 
         <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3">
+
             <DataGrid ItemsSource="{Binding VHistories, Mode=OneWay}"
                       IsReadOnly="True" AutoGenerateColumns="False"
                       CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False"
