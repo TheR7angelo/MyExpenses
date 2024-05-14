@@ -17,4 +17,10 @@
     <data name="MessageBoxAddAccountTypeError" xml:space="preserve">
         <value>Une erreur s'est produite, veuillez réessayer</value>
     </data>
+    <data name="MessageBoxEditAccountTypeSuccess" xml:space="preserve">
+        <value>Le type de compte a été modifié avec succès</value>
+    </data>
+    <data name="MessageBoxEditAccountTypeError" xml:space="preserve">
+        <value>Une erreur s'est produite, veuillez réessayer</value>
+    </data>
 </root>
