@@ -84,6 +84,7 @@
                     </MenuItem>
                 </Menu>
 
+                <!-- TODO work -->
                 <Label Grid.Column="2" Content="Test" />
 
             </Grid>
