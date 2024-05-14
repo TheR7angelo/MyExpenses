@@ -53,7 +53,7 @@ public static class LoggerConfig
 
                 if (!File.Exists(file))  deletedCount += 1;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 // log the exception or handle it
             }
