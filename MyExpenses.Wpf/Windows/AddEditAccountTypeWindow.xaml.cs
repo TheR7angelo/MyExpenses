@@ -27,6 +27,8 @@ public partial class AddEditAccountTypeWindow
         set => SetValue(EditAccountTypeProperty, value);
     }
 
+    public bool AccountTypeDeleted { get; set; }
+
     #endregion
 
     #region Resx
