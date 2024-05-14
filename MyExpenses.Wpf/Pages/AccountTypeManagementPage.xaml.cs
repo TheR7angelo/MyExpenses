@@ -51,8 +51,6 @@ public partial class AccountTypeManagementPage
     //TODO work
     private void ButtonAccountType_OnClick(object sender, RoutedEventArgs e)
     {
-        Console.WriteLine("Edit acount type");
-
         var button = (Button)sender;
         if (button.DataContext is not TAccountType accountType) return;
 
@@ -62,20 +60,24 @@ public partial class AccountTypeManagementPage
         var result = addEditAccountType.ShowDialog();
         if (result != true) return;
 
-        // var newAccountType = addEditAccountType.AccountType;
-        //
-        // Log.Information("Attempting to inject the new account type \"{NewAccountTypeName}\"", newAccountType.Name);
-        // var (success, exception) = newAccountType.AddOrEdit();
-        // if (success)
-        // {
-        //     AccountTypes.AddAndSort(newAccountType, s => s.Name!);
-        //     Log.Information("Account type was successfully added");
-        //     MsgBox.Show(AccountTypeManagementPageResources.MessageBoxAddAccountTypeSuccess, MsgBoxImage.Check);
-        // }
-        // else
-        // {
-        //     Log.Error(exception, "An error occurred please retry");
-        //     MsgBox.Show(AccountTypeManagementPageResources.MessageBoxAddAccountTypeError, MsgBoxImage.Error);
-        // }
+        var editedAccountType = addEditAccountType.AccountType;
+        if (!addEditAccountType.AccountTypeDeleted)
+        {
+            Log.Information("Attempting to update account type id:\"{EditedAccountTypeId}\", name:\"{EditedAccountTypeName}\"",editedAccountType.Id, editedAccountType.Name);
+            var (success, exception) = editedAccountType.AddOrEdit();
+            if (success)
+            {
+                AccountTypes.Remove(accountType);
+                AccountTypes.AddAndSort(editedAccountType, s => s.Name!);
+                Log.Information("Account type was successfully edited");
+                MsgBox.Show(AccountTypeManagementPageResources.MessageBoxEditAccountTypeSuccess, MsgBoxImage.Check);
+            }
+            else
+            {
+                Log.Error(exception, "An error occurred please retry");
+                MsgBox.Show(AccountTypeManagementPageResources.MessageBoxEditAccountTypeError, MsgBoxImage.Error);
+            }
+        }
+
     }
 }
