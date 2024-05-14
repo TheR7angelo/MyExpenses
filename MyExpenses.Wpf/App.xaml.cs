@@ -1,5 +1,8 @@
 ﻿using System.Windows;
+using System.Windows.Media;
+using MaterialDesignThemes.Wpf;
 using MyExpenses.Models.Config;
+using MyExpenses.Wpf.Utils;
 using Log = Serilog.Log;
 
 namespace MyExpenses.Wpf;
@@ -27,9 +30,24 @@ public partial class App
         AppDomain.CurrentDomain.UnhandledException += CurrentDomainOnUnhandledException;
     }
 
-    private void LoadInterfaceConfiguration(Interface configurationInterface)
+    private static void LoadInterfaceConfiguration(Interface configurationInterface)
     {
-        // TODO work
+        var baseThemeStr = configurationInterface.BaseTheme;
+        if (!Enum.TryParse<BaseTheme>(baseThemeStr, true, out var baseTheme))
+        {
+            baseTheme = BaseTheme.Inherit;
+        }
+
+        var primaryColor = configurationInterface.HexadecimalCodePrimaryColor.ToColor() ?? Color.FromRgb(0, 128, 0);
+        var secondaryColor = configurationInterface.HexadecimalCodeSecondaryColor.ToColor() ?? Color.FromRgb(255, 165, 0);
+
+        var paletteHelper = new PaletteHelper();
+        var theme = paletteHelper.GetTheme();
+        theme.SetBaseTheme(baseTheme);
+        theme.SetPrimaryColor(primaryColor);
+        theme.SetSecondaryColor(secondaryColor);
+
+        paletteHelper.SetTheme(theme);
     }
 
     private static void LoadLogConfiguration(Models.Config.Log logConfiguration)
