@@ -70,7 +70,6 @@ public partial class AddEditAccountTypeWindow
         Close();
     }
 
-    //TODO work
     private void ButtonDelete_OnClick(object sender, RoutedEventArgs e)
     {
         var response = MsgBox.MsgBox.Show(AddEditAccountTypeWindowResources.MessageBoxDeleteQuestion,
