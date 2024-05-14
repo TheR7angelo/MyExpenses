@@ -1,11 +1,13 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using Microsoft.Data.Sqlite;
 using MyExpenses.Models.Sql.Tables;
 using MyExpenses.Sql.Context;
 using MyExpenses.Wpf.Resources.Resx.Windows.AddEditAccountTypeWindow;
 using MyExpenses.Wpf.Utils;
 using MyExpenses.Wpf.Windows.MsgBox;
+using Serilog;
 
 namespace MyExpenses.Wpf.Windows;
 
@@ -71,7 +73,51 @@ public partial class AddEditAccountTypeWindow
     //TODO work
     private void ButtonDelete_OnClick(object sender, RoutedEventArgs e)
     {
-        Console.WriteLine("Work in progress");
+        var response = MsgBox.MsgBox.Show(AddEditAccountTypeWindowResources.MessageBoxDeleteQuestion,
+            MsgBoxImage.Question, MessageBoxButton.YesNoCancel);
+        if (response != MessageBoxResult.Yes) return;
+
+        Log.Information("Attempting to remove the account type \"{AccountToDeleteName}\"", AccountType.Name);
+        var (success, exception) = AccountType.Delete();
+
+        if (success)
+        {
+            Log.Information("Account was successfully removed");
+            MsgBox.MsgBox.Show(AddEditAccountTypeWindowResources.MessageBoxDeleteAccountTypeNoUseSuccess, MsgBoxImage.Check);
+
+            AccountTypeDeleted = true;
+            DialogResult = true;
+            Close();
+            return;
+        }
+
+        if (exception!.InnerException is SqliteException
+            {
+                SqliteExtendedErrorCode: SQLitePCL.raw.SQLITE_CONSTRAINT_FOREIGNKEY
+            })
+        {
+            Log.Error("Foreign key constraint violation");
+
+            response = MsgBox.MsgBox.Show(AddEditAccountTypeWindowResources.MessageBoxDeleteAccountTypeUseQuestion,
+                MsgBoxImage.Question, MessageBoxButton.YesNoCancel);
+
+            if (response != MessageBoxResult.Yes) return;
+
+            Log.Information("Attempting to remove the account type \"{AccountTypeToDeleteName}\" with all relative element",
+                AccountType.Name);
+            AccountType.Delete(true);
+            Log.Information("Account type and all relative element was successfully removed");
+            MsgBox.MsgBox.Show(AddEditAccountTypeWindowResources.MessageBoxDeleteAccountTypeNoUseSuccess, MsgBoxImage.Check);
+
+            AccountTypeDeleted = true;
+            DialogResult = true;
+            Close();
+
+            return;
+        }
+
+        Log.Error(exception, "An error occurred please retry");
+        MsgBox.MsgBox.Show(AddEditAccountTypeWindowResources.MessageBoxDeleteAccountTypeError, MsgBoxImage.Error);
     }
 
     private void ButtonValid_OnClick(object sender, RoutedEventArgs e)
