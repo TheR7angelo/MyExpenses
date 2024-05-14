@@ -1,5 +1,6 @@
 ﻿using System.Windows;
-using Serilog;
+using MyExpenses.Models.Config;
+using Log = Serilog.Log;
 
 namespace MyExpenses.Wpf;
 
@@ -15,11 +16,26 @@ public partial class App
 
         Log.Information("Reading configuration file");
         var configuration = MyExpenses.Utils.Config.Configuration;
-        var logMaxDays = configuration.Log.MaxDaysLog;
-        MyExpenses.Utils.LoggerConfig.RemoveOldLog(logMaxDays);
+
+        Log.Information("Apply log configuration");
+        LoadLogConfiguration(configuration.Log);
+
+        Log.Information("Apply interface configuration");
+        LoadInterfaceConfiguration(configuration.Interface);
 
         AppDomain.CurrentDomain.ProcessExit += CurrentDomainOnProcessExit;
         AppDomain.CurrentDomain.UnhandledException += CurrentDomainOnUnhandledException;
+    }
+
+    private void LoadInterfaceConfiguration(Interface configurationInterface)
+    {
+        // TODO work
+    }
+
+    private static void LoadLogConfiguration(Models.Config.Log logConfiguration)
+    {
+        var logMaxDays = logConfiguration.MaxDaysLog;
+        MyExpenses.Utils.LoggerConfig.RemoveOldLog(logMaxDays);
     }
 
     private static void CurrentDomainOnUnhandledException(object sender, UnhandledExceptionEventArgs e)
