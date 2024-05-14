@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 
-namespace MyExpenses.Wpf.Utils;
+namespace MyExpenses.Wpf.Utils.Margin;
 
 /// <summary>
 /// Provides attached properties for the <see cref="Panel"/> class.

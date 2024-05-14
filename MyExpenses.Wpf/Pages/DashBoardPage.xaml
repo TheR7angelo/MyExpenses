@@ -8,6 +8,7 @@
       xmlns:converters="clr-namespace:MyExpenses.Wpf.Converters"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:wpf="clr-namespace:LiveChartsCore.SkiaSharpView.WPF;assembly=LiveChartsCore.SkiaSharpView.WPF"
+      xmlns:margin="clr-namespace:MyExpenses.Wpf.Utils.Margin;assembly=MyExpenses.Wpf.Utils"
       mc:Ignorable="d"
       Title="DashBoard"
 
@@ -21,7 +22,7 @@
         <converters:ValueSymbolConverter x:Key="ValueSymbolConverter" />
     </Page.Resources>
 
-    <Grid utils:PanelExtensions.MarginForAllChildren="5">
+    <Grid margin:PanelExtensions.MarginForAllChildren="5">
 
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
@@ -38,7 +39,7 @@
                       HorizontalScrollBarVisibility="Disabled"
                       VerticalScrollBarVisibility="Auto">
             
-            <WrapPanel utils:PanelExtensions.MarginForAllChildren="5"
+            <WrapPanel margin:PanelExtensions.MarginForAllChildren="5"
                        Orientation="Horizontal"
                        VerticalAlignment="Center"
                        HorizontalAlignment="Center">

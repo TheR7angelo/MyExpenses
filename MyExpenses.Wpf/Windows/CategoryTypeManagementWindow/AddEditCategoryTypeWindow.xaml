@@ -7,6 +7,7 @@
         xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
         xmlns:utils="clr-namespace:MyExpenses.Wpf.Utils;assembly=MyExpenses.Wpf.Utils"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:margin="clr-namespace:MyExpenses.Wpf.Utils.Margin;assembly=MyExpenses.Wpf.Utils"
         mc:Ignorable="d"
 
         Title="AddEditCategoryType"
@@ -36,7 +37,7 @@
 
         DataContext="{Binding RelativeSource={RelativeSource Self}}">
 
-    <Grid utils:PanelExtensions.MarginForAllChildren="5">
+    <Grid margin:PanelExtensions.MarginForAllChildren="5">
 
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -52,7 +53,7 @@
                  PreviewLostKeyboardFocus="TextBoxCategoryType_OnPreviewLostKeyboardFocus">
         </TextBox>
 
-        <Grid Grid.Row="1" utils:PanelExtensions.MarginForAllChildren="3">
+        <Grid Grid.Row="1" margin:PanelExtensions.MarginForAllChildren="3">
 
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
@@ -69,7 +70,7 @@
                       SelectedValuePath="{Binding ComboBoxColorSelectedValuePath}">
                 <ComboBox.ItemTemplate>
                     <DataTemplate>
-                        <StackPanel utils:PanelExtensions.MarginForAllChildren="5"
+                        <StackPanel margin:PanelExtensions.MarginForAllChildren="5"
                             Orientation="Horizontal">
 
                             <Ellipse Height="{Binding ActualHeight, ElementName=Text}"
@@ -106,7 +107,7 @@
         </Grid>
 
         <StackPanel Grid.Row="2"
-                    utils:PanelExtensions.MarginForAllChildren="5"
+                    margin:PanelExtensions.MarginForAllChildren="5"
                     Orientation="Horizontal"
                     HorizontalAlignment="Center" VerticalAlignment="Center">
 

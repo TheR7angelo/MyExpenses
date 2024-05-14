@@ -8,6 +8,7 @@
                  xmlns:utils="clr-namespace:MyExpenses.Wpf.Utils;assembly=MyExpenses.Wpf.Utils"
                  xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
                  xmlns:converters="clr-namespace:MyExpenses.Wpf.Converters"
+                 xmlns:margin="clr-namespace:MyExpenses.Wpf.Utils.Margin;assembly=MyExpenses.Wpf.Utils"
                  mc:Ignorable="d"
 
                  Title="AddAccount"
@@ -41,7 +42,7 @@
         <converters:InverseBooleanToVisibilityConverter x:Key="InverseBooleanToVisibilityConverter" />
     </mah:MetroWindow.Resources>
 
-    <Grid utils:PanelExtensions.MarginForAllChildren="5"
+    <Grid margin:PanelExtensions.MarginForAllChildren="5"
           VerticalAlignment="Center"
           HorizontalAlignment="Center">
 
@@ -118,14 +119,14 @@
         </StackPanel>
 
         <Border Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2"
-                utils:PanelExtensions.MarginForAllChildren="5"
+                margin:PanelExtensions.MarginForAllChildren="5"
                 IsEnabled="{Binding EnableStartingBalance, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                 BorderBrush="{DynamicResource MaterialDesignBody}"
                 BorderThickness="1.3"
                 CornerRadius="3"
                 Visibility="{Binding EditAccount, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource  InverseBooleanToVisibilityConverter}}">
 
-            <Grid utils:PanelExtensions.MarginForAllChildren="3">
+            <Grid margin:PanelExtensions.MarginForAllChildren="3">
 
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
@@ -186,7 +187,7 @@
         </ToggleButton>
 
         <StackPanel Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2"
-                    utils:PanelExtensions.MarginForAllChildren="5"
+                    margin:PanelExtensions.MarginForAllChildren="5"
                     Orientation="Horizontal"
                     HorizontalAlignment="Center">
 

@@ -54,7 +54,9 @@
                 </Grid.ColumnDefinitions>
 
                 <Menu Grid.Column="0">
-                    <MenuItem Header="{Binding MenuItemHeaderFile}">
+                    <MenuItem Header="{Binding MenuItemHeaderFile}"
+                              BorderThickness="1" BorderBrush="{DynamicResource MaterialDesignBody}"
+                              Margin="5">
 
                         <MenuItem Header="{Binding MenuItemHeaderDatabase}">
                             <MenuItem.Icon>
@@ -75,13 +77,26 @@
 
                         </MenuItem>
 
-                        <MenuItem Header="Open log directory">
-                            <MenuItem.Icon>
-                                <materialDesign:PackIcon Kind="FolderFile" />
-                            </MenuItem.Icon>
-                        </MenuItem>
+                    </MenuItem>
+
+                    <!-- TODO work -->
+                    <MenuItem Header="Settings"
+                              BorderThickness="1" BorderBrush="{DynamicResource MaterialDesignBody}"
+                              Margin="5">
+                        <MenuItem.Icon>
+                            <materialDesign:PackIcon Kind="SettingsApplications" />
+                        </MenuItem.Icon>
 
                     </MenuItem>
+
+                    <MenuItem Header="Open log directory"
+                              BorderThickness="1" BorderBrush="{DynamicResource MaterialDesignBody}"
+                              Margin="5">
+                        <MenuItem.Icon>
+                            <materialDesign:PackIcon Kind="FolderFile" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+
                 </Menu>
 
                 <!-- TODO work -->

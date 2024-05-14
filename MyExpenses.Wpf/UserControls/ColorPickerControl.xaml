@@ -8,6 +8,7 @@
              xmlns:converters="clr-namespace:MyExpenses.Wpf.Converters"
              xmlns:utils="clr-namespace:MyExpenses.Wpf.Utils;assembly=MyExpenses.Wpf.Utils"
              xmlns:colors="clr-namespace:MyExpenses.Wpf.Converters.Colors"
+             xmlns:margin="clr-namespace:MyExpenses.Wpf.Utils.Margin;assembly=MyExpenses.Wpf.Utils"
              mc:Ignorable="d">
 
     <UserControl.Resources>
@@ -51,7 +52,7 @@
 
     </UserControl.Resources>
 
-    <Grid utils:PanelExtensions.MarginForAllChildren="5">
+    <Grid margin:PanelExtensions.MarginForAllChildren="5">
 
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />

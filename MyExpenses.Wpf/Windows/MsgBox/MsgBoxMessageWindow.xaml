@@ -8,6 +8,7 @@
                  xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
                  xmlns:utils="clr-namespace:MyExpenses.Wpf.Utils;assembly=MyExpenses.Wpf.Utils"
                  xmlns:converters="clr-namespace:MyExpenses.Wpf.Converters"
+                 xmlns:margin="clr-namespace:MyExpenses.Wpf.Utils.Margin;assembly=MyExpenses.Wpf.Utils"
                  mc:Ignorable="d"
 
                  MinHeight="160"
@@ -39,7 +40,7 @@
         <converters:MsgBoxImageConverter x:Key="MsgBoxImageConverter" />
     </mah:MetroWindow.Resources>
 
-    <Grid utils:PanelExtensions.MarginForAllChildren="5"
+    <Grid margin:PanelExtensions.MarginForAllChildren="5"
           VerticalAlignment="Center">
 
         <Grid.RowDefinitions>
@@ -67,7 +68,7 @@
                    Text="{Binding MessageBoxText, UpdateSourceTrigger=PropertyChanged}">
         </TextBlock>
 
-        <StackPanel utils:PanelExtensions.MarginForAllChildren="3"
+        <StackPanel margin:PanelExtensions.MarginForAllChildren="3"
                     Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
                     Orientation="Horizontal"
                     HorizontalAlignment="Right">
