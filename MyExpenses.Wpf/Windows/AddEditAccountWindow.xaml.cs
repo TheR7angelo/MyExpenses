@@ -201,8 +201,8 @@ public partial class AddEditAccountWindow
         {
             Log.Information("Account was successfully removed");
             MsgBox.MsgBox.Show(AddEditAccountWindowResources.MessageBoxDeleteAccountNoUseSuccess, MsgBoxImage.Check);
-            DeleteAccount = true;
 
+            DeleteAccount = true;
             DialogResult = true;
             Close();
             return;
@@ -226,6 +226,7 @@ public partial class AddEditAccountWindow
             Log.Information("Account and all relative element was successfully removed");
             MsgBox.MsgBox.Show(AddEditAccountWindowResources.MessageBoxDeleteAccountUseSuccess, MsgBoxImage.Check);
 
+            DeleteAccount = true;
             DialogResult = true;
             Close();
 

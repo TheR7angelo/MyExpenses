@@ -113,8 +113,8 @@ public partial class AddEditColorWindow
         {
             Log.Information("Color was successfully removed");
             MsgBox.MsgBox.Show(AddEditColorWindowResources.MessageBoxDeleteColorNoUseSuccess, MsgBoxImage.Check);
-            DeleteColor = true;
 
+            DeleteColor = true;
             DialogResult = true;
             Close();
             return;
@@ -138,6 +138,7 @@ public partial class AddEditColorWindow
             Log.Information("Account and all relative element was successfully removed");
             MsgBox.MsgBox.Show(AddEditColorWindowResources.MessageBoxDeleteColorUseSuccess, MsgBoxImage.Check);
 
+            DeleteColor = true;
             DialogResult = true;
             Close();
 
