@@ -170,7 +170,7 @@ public partial class AddEditAccountWindow
         var (success, exception) = newCurrency.AddOrEdit();
         if (success)
         {
-            Currencies.Add(newCurrency);
+            Currencies.AddAndSort(newCurrency, s => s.Symbol!);
             Account.CurrencyFk = newCurrency.Id;
             Log.Information("Account type was successfully added");
             MsgBox.MsgBox.Show(AddEditAccountWindowResources.MessageBoxAddCurrencySuccess, MsgBoxImage.Check);
