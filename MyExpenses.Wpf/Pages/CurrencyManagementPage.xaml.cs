@@ -49,14 +49,35 @@ public partial class CurrencyManagementPage
 
     private void ButtonEditCurrency_OnClick(object sender, RoutedEventArgs e)
     {
-        //TODO work
         var button = (Button)sender;
         if (button.DataContext is not TCurrency currencyToEdit) return;
 
         var addEditCurrency = new AddEditCurrencyWindow();
         addEditCurrency.SetTCurrency(currencyToEdit);
-        addEditCurrency.ShowDialog();
 
+        var result = addEditCurrency.ShowDialog();
+        if (result != true) return;
 
+        if (addEditCurrency.CurrencyDeleted) Currencies.Remove(currencyToEdit);
+        else
+        {
+            var editedCurrency = addEditCurrency.Currency;
+            Log.Information("Attempting to update currency symbol id:\"{EditeCurrencyId}\", symbol:\"{EditedCurrencySymbol}\"",editedCurrency.Id, editedCurrency.Symbol);
+            var (success, exception) = editedCurrency.AddOrEdit();
+            if (success)
+            {
+                Currencies.Remove(currencyToEdit);
+                Currencies.AddAndSort(editedCurrency, s => s.Symbol!);
+                Log.Information("Currency symbol was successfully edited");
+                //TODO work
+                // MsgBox.Show(AccountTypeManagementPageResources.MessageBoxEditAccountTypeSuccess, MsgBoxImage.Check);
+            }
+            else
+            {
+                Log.Error(exception, "An error occurred please retry");
+                //TODO work
+                // MsgBox.Show(AccountTypeManagementPageResources.MessageBoxEditAccountTypeError, MsgBoxImage.Error);
+            }
+        }
     }
 }
