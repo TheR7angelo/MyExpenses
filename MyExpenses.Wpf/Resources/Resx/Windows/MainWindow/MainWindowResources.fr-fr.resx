@@ -23,4 +23,10 @@
     <data name="MenuItemHeaderDatabase" xml:space="preserve">
         <value>Base de données</value>
     </data>
+    <data name="MenuItemHeaderPrevious" xml:space="preserve">
+        <value>Précédent</value>
+    </data>
+    <data name="MenuItemHeaderSettings" xml:space="preserve">
+        <value>Paramètres</value>
+    </data>
 </root>

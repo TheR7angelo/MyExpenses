@@ -30,4 +30,10 @@
     <data name="MenuItemHeaderDatabase" xml:space="preserve">
         <value>Database</value>
     </data>
+    <data name="MenuItemHeaderSettings" xml:space="preserve">
+        <value>Settings</value>
+    </data>
+    <data name="MenuItemHeaderPrevious" xml:space="preserve">
+        <value>Previous</value>
+    </data>
 </root>

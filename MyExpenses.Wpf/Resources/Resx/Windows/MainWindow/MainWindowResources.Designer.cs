@@ -91,5 +91,23 @@ namespace MyExpenses.Wpf.Resources.Resx.Windows.MainWindow {
                 return ResourceManager.GetString("MenuItemHeaderDatabase", resourceCulture);
             }
         }
+
+        /// <summary>
+        /// Looks up a localized string similar to Previous.
+        /// </summary>
+        internal static string MenuItemHeaderPrevious {
+            get {
+                return ResourceManager.GetString("MenuItemHeaderPrevious", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        /// Looks up a localized string similar to Settings.
+        /// </summary>
+        internal static string MenuItemHeaderSettings {
+            get {
+                return ResourceManager.GetString("MenuItemHeaderSettings", resourceCulture);
+            }
+        }
     }
 }
