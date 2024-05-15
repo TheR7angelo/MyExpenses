@@ -99,7 +99,7 @@
 
                     </MenuItem>
 
-                    <MenuItem Header="Go Back"
+                    <!-- TODO work -->
                     <MenuItem Header="{Binding MenuItemHeaderPrevious}"
                               Margin="1.5">
                         <MenuItem.Icon>
