@@ -56,7 +56,8 @@ public partial class App
     private static void LoadLogConfiguration(Models.Config.Log logConfiguration)
     {
         var logMaxDays = logConfiguration.MaxDaysLog;
-        MyExpenses.Utils.LoggerConfig.RemoveOldLog(logMaxDays);
+        var numberOfLogDeleted = MyExpenses.Utils.LoggerConfig.RemoveOldLog(logMaxDays);
+        Log.Information("{NumberOfLogDeleted} log was deleted", numberOfLogDeleted);
     }
 
     private static void CurrentDomainOnUnhandledException(object sender, UnhandledExceptionEventArgs e)
