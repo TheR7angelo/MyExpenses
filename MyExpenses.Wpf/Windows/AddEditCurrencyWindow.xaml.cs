@@ -4,12 +4,26 @@ using System.Windows.Input;
 using MyExpenses.Models.Sql.Tables;
 using MyExpenses.Sql.Context;
 using MyExpenses.Wpf.Resources.Resx.Windows.AddEditCurrencyWindow;
+using MyExpenses.Wpf.Utils;
 using MyExpenses.Wpf.Windows.MsgBox;
 
 namespace MyExpenses.Wpf.Windows;
 
 public partial class AddEditCurrencyWindow
 {
+    #region DepencyProperty
+
+    public static readonly DependencyProperty EditCurrencyProperty = DependencyProperty.Register(nameof(EditCurrency),
+        typeof(bool), typeof(AddEditCurrencyWindow), new PropertyMetadata(default(bool)));
+
+    public bool EditCurrency
+    {
+        get => (bool)GetValue(EditCurrencyProperty);
+        set => SetValue(EditCurrencyProperty, value);
+    }
+
+    #endregion
+
     #region Property
 
     public TCurrency Currency { get; } = new();
@@ -75,6 +89,16 @@ public partial class AddEditCurrencyWindow
 
     private bool CheckCurrencySymbol(string accountName)
         => Currencies.Select(s => s.Symbol).Contains(accountName);
+
+    public void SetTCurrency(TCurrency currencyToEdit)
+    {
+        currencyToEdit.CopyPropertiesTo(Currency);
+        EditCurrency = true;
+
+        var oldItem = Currencies.FirstOrDefault(s => s.Id == currencyToEdit.Id);
+        if (oldItem is null) return;
+        Currencies.Remove(oldItem);
+    }
 
     private void ShowErrorMessage()
         => MsgBox.MsgBox.Show(AddEditCurrencyWindowResources.MessageBoxCurrencySymbolAlreadyExists,
