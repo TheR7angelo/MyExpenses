@@ -31,14 +31,11 @@ public partial class ColorManagementPage
     }
 
     private void Colors_OnCollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
-    {
-        UpdateItemsSize();
-    }
+        => UpdateItemsSize();
+
 
     private void ItemsControl_OnLoaded(object sender, RoutedEventArgs e)
-    {
-        UpdateItemsSize();
-    }
+        => UpdateItemsSize();
 
     #endregion
 
