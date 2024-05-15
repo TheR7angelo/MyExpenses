@@ -4,7 +4,10 @@ using System.Windows;
 using System.Windows.Controls;
 using MyExpenses.Models.Sql.Tables;
 using MyExpenses.Sql.Context;
+using MyExpenses.Utils;
 using MyExpenses.Wpf.Utils;
+using MyExpenses.Wpf.Windows;
+using Serilog;
 
 namespace MyExpenses.Wpf.Pages;
 
@@ -12,7 +15,6 @@ public partial class ColorManagementPage
 {
     public ObservableCollection<TColor> Colors { get; }
 
-    //TODO work
     public ColorManagementPage()
     {
         using var context = new DataBaseContext();
@@ -25,9 +27,32 @@ public partial class ColorManagementPage
 
     #region Action
 
+    //TODO work
     private void ButtonAddColor_OnClick(object sender, RoutedEventArgs e)
     {
-        //TODO work
+        var addEditColorWindow = new AddEditColorWindow();
+        addEditColorWindow.ShowDialog();
+
+        if (addEditColorWindow.DialogResult != true) return;
+
+        var newColor = addEditColorWindow.Color;
+
+        Log.Information("Attempt to inject the new color \"{ColorName}\" with hexadecimal code \"{ColorHexadecimalColorCode}\"",
+            newColor.Name, newColor.HexadecimalColorCode);
+
+        var (success, exception) = newColor.AddOrEdit();
+        if (success)
+        {
+            Log.Information("color was successfully added");
+            // MsgBox.MsgBox.Show(AddEditCategoryTypeWindowResources.MessageBoxAddColorSuccess, MsgBoxImage.Check);
+
+            Colors.AddAndSort(newColor, s => s.Name!);
+        }
+        else
+        {
+            Log.Error(exception, "An error occurred please retry");
+            // MsgBox.MsgBox.Show(AddEditCategoryTypeWindowResources.MessageBoxAddColorError, MsgBoxImage.Error);
+        }
     }
 
     //TODO work
