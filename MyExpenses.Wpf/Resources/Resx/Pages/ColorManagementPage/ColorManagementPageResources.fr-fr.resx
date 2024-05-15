@@ -14,4 +14,7 @@
     <data name="MessageBoxAddColorSuccess" xml:space="preserve">
         <value>La nouvelle couleur a été ajoutée avec succès</value>
     </data>
+    <data name="MessageBoxAddColorError" xml:space="preserve">
+        <value>Une erreur s'est produite, veuillez réessayer</value>
+    </data>
 </root>

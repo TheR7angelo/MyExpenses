@@ -61,7 +61,7 @@ namespace MyExpenses.Wpf.Resources.Resx.Pages.ColorManagementPage {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to An error occurred please retry.
         /// </summary>
         internal static string MessageBoxAddColorError {
             get {
