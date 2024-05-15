@@ -30,6 +30,12 @@ public partial class ColorManagementPage
         //TODO work
     }
 
+    //TODO work
+    private void ButtonEditColor_OnClick(object sender, RoutedEventArgs e)
+    {
+        //TODO work
+    }
+
     private void Colors_OnCollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
         => UpdateItemsSize();
 
