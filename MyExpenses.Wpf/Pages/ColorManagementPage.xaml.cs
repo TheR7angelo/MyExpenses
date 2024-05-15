@@ -6,7 +6,6 @@ using MyExpenses.Models.Sql.Tables;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils;
 using MyExpenses.Wpf.Resources.Resx.Pages.ColorManagementPage;
-using MyExpenses.Wpf.Resources.Resx.Windows.AddEditCategoryTypeWindow;
 using MyExpenses.Wpf.Utils;
 using MyExpenses.Wpf.Windows;
 using MyExpenses.Wpf.Windows.MsgBox;
@@ -54,7 +53,7 @@ public partial class ColorManagementPage
         else
         {
             Log.Error(exception, "An error occurred please retry");
-            MsgBox.Show(AddEditCategoryTypeWindowResources.MessageBoxAddColorError, MsgBoxImage.Error);
+            MsgBox.Show(ColorManagementPageResources.MessageBoxAddColorError, MsgBoxImage.Error);
         }
     }
 
