@@ -2,6 +2,11 @@ using System.Collections.ObjectModel;
 using System.Windows;
 using MyExpenses.Models.Sql.Tables;
 using MyExpenses.Sql.Context;
+using MyExpenses.Utils;
+using MyExpenses.Wpf.Resources.Resx.Pages.CurrencyManagementPage;
+using MyExpenses.Wpf.Windows;
+using MyExpenses.Wpf.Windows.MsgBox;
+using Serilog;
 
 namespace MyExpenses.Wpf.Pages;
 
@@ -20,7 +25,25 @@ public partial class CurrencyManagementPage
 
     private void ButtonAddCurrency_OnClick(object sender, RoutedEventArgs e)
     {
-        //TODO work
+        var addEditCurrency = new AddEditCurrencyWindow();
+        var result = addEditCurrency.ShowDialog();
+        if (result != true) return;
+
+        var newCurrency = addEditCurrency.Currency;
+
+        Log.Information("Attempting to inject the new currency symbole \"{NewCurrencySymbole}\"", newCurrency.Symbol);
+        var (success, exception) = newCurrency.AddOrEdit();
+        if (success)
+        {
+            Currencies.AddAndSort(newCurrency, s => s.Symbol!);
+            Log.Information("Currency symbol was successfully added");
+            MsgBox.Show(CurrencyManagementPageResources.MessageBoxAddCurrencySuccess, MsgBoxImage.Check);
+        }
+        else
+        {
+            Log.Error(exception, "An error occurred please retry");
+            MsgBox.Show(CurrencyManagementPageResources.MessageBoxAddCurrencyError, MsgBoxImage.Error);
+        }
     }
 
     private void ButtonEditCurrency_OnClick(object sender, RoutedEventArgs e)
