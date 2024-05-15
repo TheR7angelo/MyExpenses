@@ -9,4 +9,7 @@ public class Configuration
 
     [JsonProperty("interface")]
     public Interface Interface { get; set; } = new();
+
+    public override string ToString()
+        => JsonConvert.SerializeObject(this, Formatting.Indented);
 }
