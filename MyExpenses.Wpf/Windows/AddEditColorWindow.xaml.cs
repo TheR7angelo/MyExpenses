@@ -170,10 +170,15 @@ public partial class AddEditColorWindow
     public void SetTColor(int categoryTypeColorFk)
     {
         var colorToEdit = categoryTypeColorFk.ToTColor();
-        colorToEdit?.CopyPropertiesTo(Color);
+        SetTColor(colorToEdit!);
+    }
+
+    public void SetTColor(TColor colorToEdit)
+    {
+        colorToEdit.CopyPropertiesTo(Color);
         EditColor = true;
 
-        var removeItem = Colors.FirstOrDefault(s => s.Id == categoryTypeColorFk);
+        var removeItem = Colors.FirstOrDefault(s => s.Id == colorToEdit.Id);
         if (removeItem is not null) Colors.Remove(removeItem);
     }
 
@@ -182,4 +187,5 @@ public partial class AddEditColorWindow
             MsgBoxImage.Warning);
 
     #endregion
+
 }
