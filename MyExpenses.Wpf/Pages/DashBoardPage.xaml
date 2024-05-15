@@ -219,7 +219,11 @@
                         </DataGridTextColumn.Header>
                     </DataGridTextColumn>
 
-                    <DataGridTextColumn Header="Place" Binding="{Binding Place}" />
+                    <DataGridTextColumn Binding="{Binding Place}">
+                        <DataGridTextColumn.Header>
+                            <TextBlock Text="{Binding DataGridTextColumnPlace, RelativeSource={RelativeSource AncestorType={x:Type local:DashBoardPage}}}" />
+                        </DataGridTextColumn.Header>
+                    </DataGridTextColumn>
 
                     <DataGridCheckBoxColumn IsThreeState="False" Binding="{Binding Pointed}">
                         <DataGridCheckBoxColumn.Header>

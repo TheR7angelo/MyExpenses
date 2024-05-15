@@ -163,5 +163,14 @@ namespace MyExpenses.Wpf.Resources.Resx.Pages.DashBoardPage {
                 return ResourceManager.GetString("DataGridTextColumnValue", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Place.
+        /// </summary>
+        public static string DataGridTextColumnPlace {
+            get {
+                return ResourceManager.GetString("DataGridTextColumnPlace", resourceCulture);
+            }
+        }
     }
 }

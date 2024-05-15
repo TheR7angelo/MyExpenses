@@ -54,4 +54,7 @@
     <data name="ButtonColorManagement" xml:space="preserve">
         <value>Color management</value>
     </data>
+    <data name="DataGridTextColumnPlace" xml:space="preserve">
+        <value>Place</value>
+    </data>
 </root>
