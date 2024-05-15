@@ -101,7 +101,9 @@
 
                     <!-- TODO work -->
                     <MenuItem Header="{Binding MenuItemHeaderPrevious}"
-                              Margin="1.5">
+                              Margin="1.5"
+                              Visibility="{Binding CanGoBack, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BooleanToVisibilityConverter}}"
+                              Click="MenuItemPrevious_OnClick">
                         <MenuItem.Icon>
                             <materialDesign:PackIcon Kind="ArrowLeftCircle" />
                         </MenuItem.Icon>

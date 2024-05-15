@@ -1,9 +1,13 @@
-﻿using MyExpenses.Wpf.Resources.Resx.Windows.MainWindow;
+﻿using System.Windows;
+using MyExpenses.Wpf.Resources.Resx.Windows.MainWindow;
 
 namespace MyExpenses.Wpf;
 
 public partial class MainWindow
 {
+    public static readonly DependencyProperty CanGoBackProperty = DependencyProperty.Register(nameof(CanGoBack),
+        typeof(bool), typeof(MainWindow), new PropertyMetadata(default(bool)));
+
     #region MenuItemFile
 
     public string MenuItemHeaderFile { get; } = MainWindowResources.MenuItemHeaderFile;
@@ -19,6 +23,12 @@ public partial class MainWindow
 
     public string MenuItemHeaderPrevious { get; } = MainWindowResources.MenuItemHeaderPrevious;
     public string MenuItemHeaderSettings { get; } = MainWindowResources.MenuItemHeaderSettings;
+
+    public bool CanGoBack
+    {
+        get => (bool)GetValue(CanGoBackProperty);
+        set => SetValue(CanGoBackProperty, value);
+    }
 
     #endregion
 
@@ -60,5 +70,16 @@ public partial class MainWindow
         // context.SaveChanges();
 
         InitializeComponent();
+
+        Navigator.CanGoBackChanged += Navigator_OnCanGoBackChanged;
     }
+
+    private void Navigator_OnCanGoBackChanged(object? sender, NavigatorEventArgs e)
+    {
+        CanGoBack = e.CanGoBack;
+    }
+
+    private void MenuItemPrevious_OnClick(object sender, RoutedEventArgs e)
+        => nameof(FrameBody).GoBack();
+
 }
