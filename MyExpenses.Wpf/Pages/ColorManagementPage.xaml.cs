@@ -56,10 +56,42 @@ public partial class ColorManagementPage
         }
     }
 
-    //TODO work
     private void ButtonEditColor_OnClick(object sender, RoutedEventArgs e)
     {
-        //TODO work
+        var button = (Button)sender;
+        if (button.DataContext is not TColor colorToEdit) return;
+
+        var addEditColorWindow = new AddEditColorWindow();
+        addEditColorWindow.SetTColor(colorToEdit);
+
+        addEditColorWindow.ShowDialog();
+        if (addEditColorWindow.DialogResult != true) return;
+        if (addEditColorWindow.DeleteColor)
+        {
+            var colorDeleted = Colors.FirstOrDefault(s => s.Id == colorToEdit.Id);
+            if (colorDeleted is not null) Colors.Remove(colorDeleted);
+
+            return;
+        }
+
+        var editedColor = addEditColorWindow.Color;
+
+        Log.Information("Attempting to edit the color \"{AccountName}\"", editedColor.Name);
+        var (success, exception) = editedColor.AddOrEdit();
+        if (success)
+        {
+            Log.Information("Color was successfully edited");
+
+            var oldColor = Colors.First(s => s.Id == editedColor.Id);
+            editedColor.CopyPropertiesTo(oldColor);
+
+            MsgBox.Show(ColorManagementPageResources.MessageBoxEditColorSuccess, MsgBoxImage.Check);
+        }
+        else
+        {
+            Log.Error(exception, "An error occurred please retry");
+            MsgBox.Show(ColorManagementPageResources.MessageBoxEditColorError, MsgBoxImage.Warning);
+        }
     }
 
     private void Colors_OnCollectionChanged(object? sender, NotifyCollectionChangedEventArgs e)
