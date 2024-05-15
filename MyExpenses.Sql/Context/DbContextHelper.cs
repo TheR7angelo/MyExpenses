@@ -37,7 +37,7 @@ public static class DbContextHelper
                 .SelectMany(property => (property.GetValue(entity) as IList)!.OfType<ISql>())
                 .ToList();
 
-            foreach (var child in children) child.Delete(true);
+            foreach (var child in children) child.Delete(cascade);
 
             context.Entry(entity).State = EntityState.Deleted;
         }
