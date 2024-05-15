@@ -57,6 +57,11 @@ public partial class AddEditCurrencyWindow
         Close();
     }
 
+    private void ButtonDelete_OnClick(object sender, RoutedEventArgs e)
+    {
+        //TODO work
+    }
+
     private void ButtonValid_OnClick(object sender, RoutedEventArgs e)
     {
         var currencySymbol = Currency.Symbol;
