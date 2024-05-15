@@ -29,7 +29,6 @@ public partial class ColorManagementPage
 
     #region Action
 
-    //TODO work
     private void ButtonAddColor_OnClick(object sender, RoutedEventArgs e)
     {
         var addEditColorWindow = new AddEditColorWindow();
