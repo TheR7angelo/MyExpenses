@@ -102,8 +102,6 @@ public static class Navigator
         NavigationServices[frame.Name] = frame.NavigationService;
     }
 
-    private static string? _lastNameOfFrame;
-
     /// <summary>
     /// Navigates to the specified path within a registered frame.
     /// </summary>
@@ -113,7 +111,6 @@ public static class Navigator
     private static void NavigateTo(this string nameOfFrame, string path, object? param = null)
     {
         NavigationServices[nameOfFrame].Navigate(new Uri(path, UriKind.RelativeOrAbsolute), param);
-        _lastNameOfFrame = nameOfFrame;
         CanGoBack = true;
     }
 
@@ -123,7 +120,6 @@ public static class Navigator
     public static void NavigateTo(this string nameOfFrame, Page page)
     {
         NavigationServices[nameOfFrame].Navigate(page);
-        _lastNameOfFrame = nameOfFrame;
         CanGoBack = true;
     }
 
@@ -146,7 +142,6 @@ public static class Navigator
         Pages[type] = page!;
 
         NavigationServices[nameOfFrame].Navigate(page);
-        _lastNameOfFrame = nameOfFrame;
         CanGoBack = true;
     }
 
@@ -164,14 +159,6 @@ public static class Navigator
         CanGoBack = NavigationServices[nameOfFrame].CanGoBack;
     }
 
-    public static void GoBack()
-    {
-        if (string.IsNullOrEmpty(_lastNameOfFrame)) throw new InvalidOperationException("The name of the last frame is empty or null");
-        if (NavigationServices[_lastNameOfFrame].CanGoBack) NavigationServices[_lastNameOfFrame].GoBack();
-
-        CanGoBack = NavigationServices[_lastNameOfFrame].CanGoBack;
-    }
-
     /// <summary>
     /// Navigates the registered frame to the next page in the navigation history.
     /// </summary>
@@ -179,11 +166,5 @@ public static class Navigator
     public static void GoForward(this string nameOfFrame)
     {
         if (NavigationServices[nameOfFrame].CanGoForward) NavigationServices[nameOfFrame].GoForward();
-    }
-
-    public static void GoForward()
-    {
-        if (string.IsNullOrEmpty(_lastNameOfFrame)) throw new InvalidOperationException("The name of the last frame is empty or null");
-        if (NavigationServices[_lastNameOfFrame].CanGoForward) NavigationServices[_lastNameOfFrame].GoForward();
     }
 }
