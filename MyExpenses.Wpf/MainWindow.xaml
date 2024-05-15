@@ -99,7 +99,6 @@
 
                     </MenuItem>
 
-                    <!-- TODO work -->
                     <MenuItem Header="{Binding MenuItemHeaderPrevious}"
                               Margin="1.5"
                               Visibility="{Binding CanGoBack, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BooleanToVisibilityConverter}}"
