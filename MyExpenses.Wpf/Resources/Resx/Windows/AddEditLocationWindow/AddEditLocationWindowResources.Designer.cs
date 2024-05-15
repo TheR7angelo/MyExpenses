@@ -61,7 +61,7 @@ namespace MyExpenses.Wpf.Resources.Resx.Windows.AddEditLocationWindow {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Search by coordinates.
+        ///   Looks up a localized string similar to Cancel.
         /// </summary>
         internal static string ButtonContentCancel {
             get {
@@ -79,7 +79,7 @@ namespace MyExpenses.Wpf.Resources.Resx.Windows.AddEditLocationWindow {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cancel.
+        ///   Looks up a localized string similar to Search by coordinates.
         /// </summary>
         internal static string ButtonContentSearchByCoordinate {
             get {

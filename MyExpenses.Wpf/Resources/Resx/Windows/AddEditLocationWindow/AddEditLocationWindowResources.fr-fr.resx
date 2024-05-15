@@ -57,10 +57,10 @@
         <value>Valider</value>
     </data>
     <data name="ButtonContentSearchByCoordinate" xml:space="preserve">
-        <value>Annuler</value>
+        <value>Rechercher par coordonnées</value>
     </data>
     <data name="ButtonContentCancel" xml:space="preserve">
-        <value>Rechercher par coordonnées</value>
+        <value>Annuler</value>
     </data>
     <data name="ButtonContentSearchByAddress" xml:space="preserve">
         <value>Rechercher par adresse</value>

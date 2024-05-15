@@ -64,10 +64,10 @@
         <value>Search by address</value>
     </data>
     <data name="ButtonContentSearchByCoordinate" xml:space="preserve">
-        <value>Cancel</value>
+        <value>Search by coordinates</value>
     </data>
     <data name="ButtonContentCancel" xml:space="preserve">
-        <value>Search by coordinates</value>
+        <value>Cancel</value>
     </data>
     <data name="ButtonContentValid" xml:space="preserve">
         <value>Valid</value>
