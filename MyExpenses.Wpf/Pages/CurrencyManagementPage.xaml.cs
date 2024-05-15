@@ -49,5 +49,13 @@ public partial class CurrencyManagementPage
     private void ButtonEditCurrency_OnClick(object sender, RoutedEventArgs e)
     {
         //TODO work
+        var button = (Button)sender;
+        if (button.DataContext is not TCurrency currencyToEdit) return;
+
+        var addEditCurrency = new AddEditCurrencyWindow();
+        addEditCurrency.SetTCurrency(currencyToEdit);
+        addEditCurrency.ShowDialog();
+
+
     }
 }
