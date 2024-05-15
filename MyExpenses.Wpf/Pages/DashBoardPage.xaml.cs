@@ -118,6 +118,12 @@ public partial class DashBoardPage : INotifyPropertyChanged
     private void ButtonColorManagement_OnClick(object sender, RoutedEventArgs e)
         => nameof(MainWindow.FrameBody).NavigateTo(typeof(ColorManagementPage));
 
+    private void ButtonCurrencyManagement_OnClick(object sender, RoutedEventArgs e)
+    {
+        var currencyManagementPage = new CurrencyManagementPage { DashBoardPage = this };
+        nameof(MainWindow.FrameBody).NavigateTo(currencyManagementPage);
+    }
+
     private void ButtonLocationManagement_OnClick(object sender, RoutedEventArgs e)
         => nameof(MainWindow.FrameBody).NavigateTo(typeof(LocationManagementPage));
 

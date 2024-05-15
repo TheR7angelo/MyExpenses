@@ -69,6 +69,12 @@
                         Click="ButtonColorManagement_OnClick">
                 </Button>
 
+                <!-- TODO work -->
+                <Button Content="Currency management"
+                        Style="{StaticResource MaterialDesignPaperButton}"
+                        Click="ButtonCurrencyManagement_OnClick">
+                </Button>
+
             </WrapPanel>
             
         </ScrollViewer>
