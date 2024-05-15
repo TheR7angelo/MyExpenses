@@ -77,5 +77,23 @@ namespace MyExpenses.Wpf.Resources.Resx.Pages.ColorManagementPage {
                 return ResourceManager.GetString("MessageBoxAddColorSuccess", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error occurred please retry.
+        /// </summary>
+        internal static string MessageBoxEditColorError {
+            get {
+                return ResourceManager.GetString("MessageBoxEditColorError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Color was successfully edited.
+        /// </summary>
+        internal static string MessageBoxEditColorSuccess {
+            get {
+                return ResourceManager.GetString("MessageBoxEditColorSuccess", resourceCulture);
+            }
+        }
     }
 }

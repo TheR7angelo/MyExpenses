@@ -24,4 +24,10 @@
     <data name="MessageBoxAddColorError" xml:space="preserve">
         <value>An error occurred please retry</value>
     </data>
+    <data name="MessageBoxEditColorSuccess" xml:space="preserve">
+        <value>Color was successfully edited</value>
+    </data>
+    <data name="MessageBoxEditColorError" xml:space="preserve">
+        <value>An error occurred please retry</value>
+    </data>
 </root>
