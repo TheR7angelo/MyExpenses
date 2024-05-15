@@ -82,6 +82,10 @@
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>AccountTypeManagementPageResources.Designer.cs</LastGenOutput>
       </EmbeddedResource>
+      <EmbeddedResource Update="Resources\Resx\Pages\ColorManagementPage\ColorManagementPageResources.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>ColorManagementPageResources.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
     </ItemGroup>
 
     <ItemGroup>
@@ -161,6 +165,11 @@
         <DesignTime>True</DesignTime>
         <AutoGen>True</AutoGen>
         <DependentUpon>AccountTypeManagementPageResources.resx</DependentUpon>
+      </Compile>
+      <Compile Update="Resources\Resx\Pages\ColorManagementPage\ColorManagementPageResources.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>ColorManagementPageResources.resx</DependentUpon>
       </Compile>
     </ItemGroup>
 
