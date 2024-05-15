@@ -61,7 +61,7 @@ namespace MyExpenses.Wpf.Resources.Resx.Pages.CurrencyManagementPage {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The new currency has been added successfully.
+        ///   Looks up a localized string similar to An error occurred please retry.
         /// </summary>
         internal static string MessageBoxAddCurrencyError {
             get {
@@ -70,7 +70,7 @@ namespace MyExpenses.Wpf.Resources.Resx.Pages.CurrencyManagementPage {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to An error occurred please retry.
+        ///   Looks up a localized string similar to The new currency symbol has been added successfully.
         /// </summary>
         internal static string MessageBoxAddCurrencySuccess {
             get {

@@ -12,9 +12,9 @@
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
     <data name="MessageBoxAddCurrencyError" xml:space="preserve">
-        <value>La nouvelle devise a été ajoutée avec succès</value>
+        <value>Une erreur s'est produite, veuillez réessayer</value>
     </data>
     <data name="MessageBoxAddCurrencySuccess" xml:space="preserve">
-        <value>Une erreur s'est produite, veuillez réessayer</value>
+        <value>Le nouveau symbole monétaire a été ajouté avec succès</value>
     </data>
 </root>

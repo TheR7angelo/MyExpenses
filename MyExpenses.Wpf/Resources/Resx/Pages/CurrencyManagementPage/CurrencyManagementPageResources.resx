@@ -19,9 +19,9 @@
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
     <data name="MessageBoxAddCurrencySuccess" xml:space="preserve">
-        <value>An error occurred please retry</value>
+        <value>The new currency symbol has been added successfully</value>
     </data>
     <data name="MessageBoxAddCurrencyError" xml:space="preserve">
-        <value>The new currency has been added successfully</value>
+        <value>An error occurred please retry</value>
     </data>
 </root>
