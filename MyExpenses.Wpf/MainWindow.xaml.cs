@@ -17,6 +17,9 @@ public partial class MainWindow
 
     #endregion
 
+    public string MenuItemHeaderPrevious { get; } = MainWindowResources.MenuItemHeaderPrevious;
+    public string MenuItemHeaderSettings { get; } = MainWindowResources.MenuItemHeaderSettings;
+
     #endregion
 
     public MainWindow()

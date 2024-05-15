@@ -91,7 +91,7 @@
                 <Menu Grid.Column="2">
 
                     <!-- TODO work -->
-                    <MenuItem Header="Settings"
+                    <MenuItem Header="{Binding MenuItemHeaderSettings}"
                               Margin="1.5">
                         <MenuItem.Icon>
                             <materialDesign:PackIcon Kind="SettingsApplications" />
@@ -100,6 +100,7 @@
                     </MenuItem>
 
                     <MenuItem Header="Go Back"
+                    <MenuItem Header="{Binding MenuItemHeaderPrevious}"
                               Margin="1.5">
                         <MenuItem.Icon>
                             <materialDesign:PackIcon Kind="ArrowLeftCircle" />
