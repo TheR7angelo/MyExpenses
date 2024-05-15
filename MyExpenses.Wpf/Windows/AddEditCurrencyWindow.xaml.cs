@@ -30,6 +30,8 @@ public partial class AddEditCurrencyWindow
 
     private List<TCurrency> Currencies { get; }
 
+    public bool CurrencyDeleted { get; set; }
+
     #endregion
 
     #region Resx
