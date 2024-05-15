@@ -5,8 +5,11 @@ using System.Windows.Controls;
 using MyExpenses.Models.Sql.Tables;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils;
+using MyExpenses.Wpf.Resources.Resx.Pages.ColorManagementPage;
+using MyExpenses.Wpf.Resources.Resx.Windows.AddEditCategoryTypeWindow;
 using MyExpenses.Wpf.Utils;
 using MyExpenses.Wpf.Windows;
+using MyExpenses.Wpf.Windows.MsgBox;
 using Serilog;
 
 namespace MyExpenses.Wpf.Pages;
@@ -44,14 +47,14 @@ public partial class ColorManagementPage
         if (success)
         {
             Log.Information("color was successfully added");
-            // MsgBox.MsgBox.Show(AddEditCategoryTypeWindowResources.MessageBoxAddColorSuccess, MsgBoxImage.Check);
+            MsgBox.Show(ColorManagementPageResources.MessageBoxAddColorSuccess, MsgBoxImage.Check);
 
             Colors.AddAndSort(newColor, s => s.Name!);
         }
         else
         {
             Log.Error(exception, "An error occurred please retry");
-            // MsgBox.MsgBox.Show(AddEditCategoryTypeWindowResources.MessageBoxAddColorError, MsgBoxImage.Error);
+            MsgBox.Show(AddEditCategoryTypeWindowResources.MessageBoxAddColorError, MsgBoxImage.Error);
         }
     }
 
