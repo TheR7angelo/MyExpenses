@@ -35,17 +35,6 @@ public partial class AddEditCurrencyWindow
         TextBoxCurrency.Focus();
     }
 
-    #region Function
-
-    private bool CheckCurrencySymbol(string accountName)
-        => Currencies.Select(s => s.Symbol).Contains(accountName);
-
-    private void ShowErrorMessage()
-        => MsgBox.MsgBox.Show(AddEditCurrencyWindowResources.MessageBoxCurrencySymbolAlreadyExists,
-            MsgBoxImage.Warning);
-
-    #endregion
-
     #region Action
 
     private void ButtonCancel_OnClick(object sender, RoutedEventArgs e)
@@ -79,6 +68,17 @@ public partial class AddEditCurrencyWindow
         var alreadyExist = CheckCurrencySymbol(currencySymbol);
         if (alreadyExist) ShowErrorMessage();
     }
+
+    #endregion
+
+    #region Function
+
+    private bool CheckCurrencySymbol(string accountName)
+        => Currencies.Select(s => s.Symbol).Contains(accountName);
+
+    private void ShowErrorMessage()
+        => MsgBox.MsgBox.Show(AddEditCurrencyWindowResources.MessageBoxCurrencySymbolAlreadyExists,
+            MsgBoxImage.Warning);
 
     #endregion
 }
