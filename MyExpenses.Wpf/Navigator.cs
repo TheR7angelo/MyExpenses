@@ -10,6 +10,67 @@ namespace MyExpenses.Wpf;
 public static class Navigator
 {
     /// <summary>
+    /// Occurs when the value of the CanGoBack property has changed.
+    /// </summary>
+    /// <remarks>
+    /// This event is raised when the value of the CanGoBack property changes. The CanGoBack property indicates whether the registered frame can navigate back in the navigation history.
+    /// </remarks>
+    /// <seealso cref="Navigator.CanGoBack"/>
+    /// <seealso cref="Navigator"/>
+    /// <seealso cref="NavigatorEventArgs"/>
+    /// <seealso cref="EventHandler{TEventArgs}"/>
+    public static event EventHandler<NavigatorEventArgs>? CanGoBackChanged;
+
+    /// <summary>
+    /// Occurs when the value of the CanGoForward property has changed.
+    /// </summary>
+    /// <remarks>
+    /// This event is raised when the value of the CanGoForward property changes. The CanGoForward property indicates whether the registered frame can navigate forward in the navigation history.
+    /// </remarks>
+    /// <seealso cref="Navigator.CanGoForward"/>
+    /// <seealso cref="Navigator"/>
+    /// <seealso cref="NavigatorEventArgs"/>
+    /// <seealso cref="EventHandler{TEventArgs}"/>
+    public static event EventHandler<NavigatorEventArgs>? CanGoForwardChanged;
+
+    private static bool _canGoBack;
+    private static bool _canGoForward;
+
+    /// <summary>
+    /// Gets or sets a value indicating whether the registered frame can navigate back in the navigation history.
+    /// </summary>
+    /// <value>
+    /// <c>true</c> if the frame can navigate back; otherwise, <c>false</c>.
+    /// </value>
+    public static bool CanGoBack
+    {
+        get => _canGoBack;
+        set
+        {
+            if (_canGoBack == value) return;
+            _canGoBack = value;
+            CanGoBackChanged?.Invoke(null, new NavigatorEventArgs { CanGoBack = _canGoBack, CanGoForward = _canGoForward});
+        }
+    }
+
+    /// <summary>
+    /// Gets or sets a value indicating whether the registered frame can navigate forward in the navigation history.
+    /// </summary>
+    /// <value>
+    /// <c>true</c> if the frame can navigate forward; otherwise, <c>false</c>.
+    /// </value>
+    public static bool CanGoForward
+    {
+        get => _canGoForward;
+        set
+        {
+            if (_canGoForward == value) return;
+            _canGoForward = value;
+            CanGoForwardChanged?.Invoke(null, new NavigatorEventArgs { CanGoBack = _canGoBack, CanGoForward = _canGoForward});
+        }
+    }
+
+    /// <summary>
     /// The Navigator class provides navigation functionality for frames within a Windows Presentation Foundation (WPF) application.
     /// </summary>
     public static Dictionary<Type, Page> Pages { get; } = new();
@@ -41,6 +102,8 @@ public static class Navigator
         NavigationServices[frame.Name] = frame.NavigationService;
     }
 
+    private static string? _lastNameOfFrame;
+
     /// <summary>
     /// Navigates to the specified path within a registered frame.
     /// </summary>
@@ -50,6 +113,8 @@ public static class Navigator
     private static void NavigateTo(this string nameOfFrame, string path, object? param = null)
     {
         NavigationServices[nameOfFrame].Navigate(new Uri(path, UriKind.RelativeOrAbsolute), param);
+        _lastNameOfFrame = nameOfFrame;
+        CanGoBack = true;
     }
 
     public static void NavigateTo(this Frame frame, string path, object? param = null)
@@ -58,6 +123,8 @@ public static class Navigator
     public static void NavigateTo(this string nameOfFrame, Page page)
     {
         NavigationServices[nameOfFrame].Navigate(page);
+        _lastNameOfFrame = nameOfFrame;
+        CanGoBack = true;
     }
 
     public static void NavigateTo(this Frame frame, Page page)
@@ -79,6 +146,8 @@ public static class Navigator
         Pages[type] = page!;
 
         NavigationServices[nameOfFrame].Navigate(page);
+        _lastNameOfFrame = nameOfFrame;
+        CanGoBack = true;
     }
 
     public static void NavigateTo(this Frame frame, Type type)
@@ -91,6 +160,16 @@ public static class Navigator
     public static void GoBack(this string nameOfFrame)
     {
         if (NavigationServices[nameOfFrame].CanGoBack) NavigationServices[nameOfFrame].GoBack();
+
+        CanGoBack = NavigationServices[nameOfFrame].CanGoBack;
+    }
+
+    public static void GoBack()
+    {
+        if (string.IsNullOrEmpty(_lastNameOfFrame)) throw new InvalidOperationException("The name of the last frame is empty or null");
+        if (NavigationServices[_lastNameOfFrame].CanGoBack) NavigationServices[_lastNameOfFrame].GoBack();
+
+        CanGoBack = NavigationServices[_lastNameOfFrame].CanGoBack;
     }
 
     /// <summary>
@@ -100,5 +179,11 @@ public static class Navigator
     public static void GoForward(this string nameOfFrame)
     {
         if (NavigationServices[nameOfFrame].CanGoForward) NavigationServices[nameOfFrame].GoForward();
+    }
+
+    public static void GoForward()
+    {
+        if (string.IsNullOrEmpty(_lastNameOfFrame)) throw new InvalidOperationException("The name of the last frame is empty or null");
+        if (NavigationServices[_lastNameOfFrame].CanGoForward) NavigationServices[_lastNameOfFrame].GoForward();
     }
 }
