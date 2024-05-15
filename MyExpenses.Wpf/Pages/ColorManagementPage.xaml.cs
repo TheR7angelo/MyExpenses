@@ -59,7 +59,7 @@ public partial class ColorManagementPage
         foreach (var item in items)
         {
             if (ItemsControl.ItemContainerGenerator.ContainerFromItem(item) is not ContentPresenter container) continue;
-            var button = Utilities.FindChild<Button>(container);
+            var button = container.FindChild<Button>();
             if (button is null) continue;
 
             button.Width = maxWidth;
