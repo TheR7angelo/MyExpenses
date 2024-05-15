@@ -23,13 +23,13 @@
                  ResizeMode="CanResizeWithGrip"
 
                  d:DesignHeight="656"
-                 d:DesignWidth="627"
+                 d:DesignWidth="780"
 
                  MinHeight="656"
-                 MinWidth="700"
+                 MinWidth="780"
 
                  Height="656"
-                 Width="700"
+                 Width="780"
 
                  Background="{DynamicResource MaterialDesignPaper}"
                  TextElement.Foreground="{DynamicResource MaterialDesignBody}"
