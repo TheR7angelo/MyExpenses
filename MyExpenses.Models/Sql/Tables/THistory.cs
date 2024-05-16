@@ -37,13 +37,13 @@ public partial class THistory : ISql
     [Column("date_added", TypeName = "DATETIME")]
     public DateTime? DateAdded { get; set; }
 
-    [ForeignKey("CategoryTypeFk")]
-    [InverseProperty("THistories")]
-    public virtual TCategoryType? CategoryTypeFkNavigation { get; set; }
-
     [ForeignKey("AccountFk")]
     [InverseProperty("THistories")]
     public virtual TAccount? AccountFkNavigation { get; set; }
+
+    [ForeignKey("CategoryTypeFk")]
+    [InverseProperty("THistories")]
+    public virtual TCategoryType? CategoryTypeFkNavigation { get; set; }
 
     [ForeignKey("ModePaymentFk")]
     [InverseProperty("THistories")]
@@ -52,4 +52,10 @@ public partial class THistory : ISql
     [ForeignKey("PlaceFk")]
     [InverseProperty("THistories")]
     public virtual TPlace? PlaceFkNavigation { get; set; }
+
+    [InverseProperty("FromHistoryFkNavigation")]
+    public virtual ICollection<TBankTransfer> TBankTransferFromHistoryFkNavigations { get; set; } = new List<TBankTransfer>();
+
+    [InverseProperty("ToHistoryNavigation")]
+    public virtual ICollection<TBankTransfer> TBankTransferToHistoryNavigations { get; set; } = new List<TBankTransfer>();
 }

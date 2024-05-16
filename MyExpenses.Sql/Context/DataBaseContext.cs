@@ -24,6 +24,8 @@ public partial class DataBaseContext : DbContext
 
     public virtual DbSet<TAccountType> TAccountTypes { get; set; }
 
+    public virtual DbSet<TBankTransfer> TBankTransfers { get; set; }
+
     public virtual DbSet<TCategoryType> TCategoryTypes { get; set; }
 
     public virtual DbSet<TColor> TColors { get; set; }
@@ -85,6 +87,11 @@ public partial class DataBaseContext : DbContext
             entity.Property(e => e.DateAdded).HasDefaultValueSql("CURRENT_TIMESTAMP");
         });
 
+        modelBuilder.Entity<TBankTransfer>(entity =>
+        {
+            entity.Property(e => e.DateAdded).HasDefaultValueSql("CURRENT_TIMESTAMP");
+        });
+
         modelBuilder.Entity<TCategoryType>(entity =>
         {
             entity.Property(e => e.DateAdded).HasDefaultValueSql("CURRENT_TIMESTAMP");
@@ -108,13 +115,13 @@ public partial class DataBaseContext : DbContext
 
         modelBuilder.Entity<TModePayment>(entity =>
         {
-            entity.Property(e => e.CanBeDeleted).HasDefaultValueSql("TRUE");
+            entity.Property(e => e.CanBeDeleted).HasDefaultValue(true);
             entity.Property(e => e.DateAdded).HasDefaultValueSql("CURRENT_TIMESTAMP");
         });
 
         modelBuilder.Entity<TPlace>(entity =>
         {
-            entity.Property(e => e.CanBeDeleted).HasDefaultValueSql("TRUE");
+            entity.Property(e => e.CanBeDeleted).HasDefaultValue(true);
             entity.Property(e => e.DateAdded).HasDefaultValueSql("CURRENT_TIMESTAMP");
         });
 

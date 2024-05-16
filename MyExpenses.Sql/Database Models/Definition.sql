@@ -64,30 +64,28 @@ CREATE TABLE t_category_type
 DROP TABLE IF EXISTS t_mode_payment;
 CREATE TABLE t_mode_payment
 (
-    id             INTEGER
+    id         INTEGER
         CONSTRAINT t_mode_payment_pk
             PRIMARY KEY AUTOINCREMENT,
-    name           TEXT,
-    can_be_deleted BOOLEAN  DEFAULT 1,
-    date_added     DATETIME DEFAULT CURRENT_TIMESTAMP
+    name       TEXT,
+    date_added DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
 DROP TABLE IF EXISTS t_place;
 CREATE TABLE t_place
 (
-    id             INTEGER
+    id         INTEGER
         CONSTRAINT t_place_pk
             PRIMARY KEY AUTOINCREMENT,
-    name           TEXT,
-    number         TEXT,
-    street         TEXT,
-    postal         TEXT,
-    city           TEXT,
-    country        TEXT,
-    latitude       REAL,
-    longitude      REAL,
-    can_be_deleted BOOLEAN  DEFAULT 1,
-    date_added     DATETIME DEFAULT CURRENT_TIMESTAMP
+    name       TEXT,
+    number     TEXT,
+    street     TEXT,
+    postal     TEXT,
+    city       TEXT,
+    country    TEXT,
+    latitude   REAL,
+    longitude  REAL,
+    date_added DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
 DROP TABLE IF EXISTS t_history;
@@ -114,6 +112,32 @@ CREATE TABLE t_history
     pointed          BOOLEAN  DEFAULT FALSE,
     date_added       DATETIME DEFAULT CURRENT_TIMESTAMP
 );
+
+DROP TABLE IF EXISTS t_bank_transfer;
+create table t_bank_transfer
+(
+    id                INTEGER
+        CONSTRAINT t_bank_transfer_pk
+            PRIMARY KEY AUTOINCREMENT ,
+    value             REAL,
+    from_account_fk   INTEGER
+        CONSTRAINT t_bank_transfer_t_account_id_fk
+            REFERENCES t_account,
+    from_history_fk   INTEGER
+        CONSTRAINT t_bank_transfer_t_history_id_fk
+            REFERENCES t_history,
+    to_account        INTEGER
+        CONSTRAINT t_bank_transfer_t_account_id_fk_2
+            REFERENCES t_account,
+    to_history        INTEGER
+        CONSTRAINT t_bank_transfer_t_history_id_fk_2
+            REFERENCES t_history,
+    main_reason       TEXT,
+    additional_reason INTEGER,
+    date              DATETIME,
+    date_added        DATETIME default CURRENT_TIMESTAMP
+);
+
 -- endregion
 
 -- region Triggers
@@ -285,7 +309,6 @@ BEGIN
     WHERE id = NEW.id;
 END;
 
-DROP TRIGGER IF EXISTS after_insert_on_t_place;
 CREATE TRIGGER after_insert_on_t_place
     AFTER INSERT
     ON t_place
@@ -299,7 +322,6 @@ BEGIN
     WHERE id = NEW.id;
 END;
 
-DROP TRIGGER IF EXISTS after_update_on_t_place;
 CREATE TRIGGER after_update_on_t_place
     AFTER UPDATE
     ON t_place
@@ -348,6 +370,43 @@ BEGIN
             END
     WHERE id = NEW.id;
 END;
+
+DROP TRIGGER IF EXISTS after_insert_on_t_bank_transfer;
+CREATE TRIGGER after_insert_on_t_bank_transfer
+    AFTER INSERT
+    ON t_bank_transfer
+    FOR EACH ROW
+BEGIN
+    UPDATE t_bank_transfer
+    SET date       = CASE
+                         WHEN typeof(NEW.date) = 'integer' THEN datetime(NEW.date / 1000, 'unixepoch')
+                         ELSE NEW.date
+        END,
+        date_added = CASE
+                         WHEN typeof(NEW.date_added) = 'integer' THEN datetime(NEW.date_added / 1000, 'unixepoch')
+                         ELSE NEW.date_added
+            END
+    WHERE id = NEW.id;
+END;
+
+DROP TRIGGER IF EXISTS after_update_on_t_bank_transfer;
+CREATE TRIGGER after_update_on_t_bank_transfer
+    AFTER UPDATE
+    ON t_bank_transfer
+    FOR EACH ROW
+BEGIN
+    UPDATE t_bank_transfer
+    SET date       = CASE
+                         WHEN typeof(NEW.date) = 'integer' THEN datetime(NEW.date / 1000, 'unixepoch')
+                         ELSE NEW.date
+        END,
+        date_added = CASE
+                         WHEN typeof(NEW.date_added) = 'integer' THEN datetime(NEW.date_added / 1000, 'unixepoch')
+                         ELSE NEW.date_added
+            END
+    WHERE id = NEW.id;
+END;
+
 -- endregion
 
 -- region Views
@@ -434,6 +493,8 @@ FROM t_category_type tct
          LEFT JOIN t_currency tcu
                    ON ta.currency_fk = tcu.id
          LEFT JOIN t_color tco
-                   ON tct.color_fk = tco.id
+                ON tct.color_fk = tco.id
 ORDER BY year, week;
 -- endregion
+
+
