@@ -24,4 +24,10 @@
     <data name="MessageBoxAddCurrencyError" xml:space="preserve">
         <value>An error occurred please retry</value>
     </data>
+    <data name="MessageBoxEditCurrencySuccess" xml:space="preserve">
+        <value>Currency was successfully edited</value>
+    </data>
+    <data name="MessageBoxEditCurrencyError" xml:space="preserve">
+        <value>An error occurred please retry</value>
+    </data>
 </root>

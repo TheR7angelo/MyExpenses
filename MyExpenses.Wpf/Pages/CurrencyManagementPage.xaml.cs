@@ -69,14 +69,12 @@ public partial class CurrencyManagementPage
                 Currencies.Remove(currencyToEdit);
                 Currencies.AddAndSort(editedCurrency, s => s.Symbol!);
                 Log.Information("Currency symbol was successfully edited");
-                //TODO work
-                // MsgBox.Show(AccountTypeManagementPageResources.MessageBoxEditAccountTypeSuccess, MsgBoxImage.Check);
+                MsgBox.Show(CurrencyManagementPageResources.MessageBoxEditCurrencySuccess, MsgBoxImage.Check);
             }
             else
             {
                 Log.Error(exception, "An error occurred please retry");
-                //TODO work
-                // MsgBox.Show(AccountTypeManagementPageResources.MessageBoxEditAccountTypeError, MsgBoxImage.Error);
+                MsgBox.Show(CurrencyManagementPageResources.MessageBoxEditCurrencyError, MsgBoxImage.Error);
             }
         }
     }

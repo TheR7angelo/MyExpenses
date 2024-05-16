@@ -77,5 +77,23 @@ namespace MyExpenses.Wpf.Resources.Resx.Pages.CurrencyManagementPage {
                 return ResourceManager.GetString("MessageBoxAddCurrencySuccess", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error occurred please retry.
+        /// </summary>
+        internal static string MessageBoxEditCurrencyError {
+            get {
+                return ResourceManager.GetString("MessageBoxEditCurrencyError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Currency was successfully edited.
+        /// </summary>
+        internal static string MessageBoxEditCurrencySuccess {
+            get {
+                return ResourceManager.GetString("MessageBoxEditCurrencySuccess", resourceCulture);
+            }
+        }
     }
 }
