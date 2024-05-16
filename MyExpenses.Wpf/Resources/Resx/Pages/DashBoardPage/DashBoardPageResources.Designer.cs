@@ -100,7 +100,16 @@ namespace MyExpenses.Wpf.Resources.Resx.Pages.DashBoardPage {
                 return ResourceManager.GetString("ButtonLocationManagement", resourceCulture);
             }
         }
-        
+
+        /// <summary>
+        ///   Looks up a localized string similar to Currency symbols management.
+        /// </summary>
+        internal static object ButtonCurrencyManagement {
+            get {
+                return ResourceManager.GetString("ButtonCurrencyManagement", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to Account.
         /// </summary>

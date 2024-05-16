@@ -57,4 +57,7 @@
     <data name="DataGridTextColumnPlace" xml:space="preserve">
         <value>Place</value>
     </data>
+    <data name="ButtonCurrencyManagement" xml:space="preserve">
+        <value>Currency symbols management</value>
+    </data>
 </root>

@@ -67,6 +67,7 @@ public partial class DashBoardPage : INotifyPropertyChanged
     public string ButtonAccountTypeManagement { get; } = DashBoardPageResources.ButtonAccountTypeManagement;
     public object ButtonCategoryTypeManagement { get; } = DashBoardPageResources.ButtonCategoryTypeManagement;
     public object ButtonColorManagement { get; } = DashBoardPageResources.ButtonColorManagement;
+    public object ButtonCurrencyManagement { get; } = DashBoardPageResources.ButtonCurrencyManagement;
     public string ButtonLocationManagement { get; } = DashBoardPageResources.ButtonLocationManagement;
 
     #endregion
