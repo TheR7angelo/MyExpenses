@@ -92,5 +92,50 @@ namespace MyExpenses.Wpf.Resources.Resx.Windows.AddEditCurrencyWindow {
                 return ResourceManager.GetString("TextBoxCurrencySymbol", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Do you really want to delete this currency symbol ?.
+        /// </summary>
+        internal static string MessageBoxDeleteQuestion {
+            get {
+                return ResourceManager.GetString("MessageBoxDeleteQuestion", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Currency symbol was successfully removed.
+        /// </summary>
+        internal static string MessageBoxDeleteCurrencyNoUseSuccess {
+            get {
+                return ResourceManager.GetString("MessageBoxDeleteCurrencyNoUseSuccess", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to This currency symbol is in use.Are you sure you want to delete this currency symbol and everything linked to it ?.
+        /// </summary>
+        internal static string MessageBoxDeleteCurrencyUseQuestion {
+            get {
+                return ResourceManager.GetString("MessageBoxDeleteCurrencyUseQuestion", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Currency symbol and all relative element was successfully removed.
+        /// </summary>
+        internal static string MessageBoxDeleteCurrencyUseSuccess {
+            get {
+                return ResourceManager.GetString("MessageBoxDeleteCurrencyUseSuccess", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to An error occurred please retry.
+        /// </summary>
+        internal static string MessageBoxDeleteCurrencyError {
+            get {
+                return ResourceManager.GetString("MessageBoxDeleteCurrencyError", resourceCulture);
+            }
+        }
     }
 }

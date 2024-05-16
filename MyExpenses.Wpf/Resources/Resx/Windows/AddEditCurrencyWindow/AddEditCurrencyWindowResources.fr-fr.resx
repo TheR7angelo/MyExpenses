@@ -23,4 +23,19 @@
     <data name="TextBoxCurrencySymbol" xml:space="preserve">
         <value>Nouveau symbole monétaire :</value>
     </data>
+    <data name="MessageBoxDeleteQuestion" xml:space="preserve">
+        <value>Voulez-vous vraiment supprimer ce symbole monétaire ?</value>
+    </data>
+    <data name="MessageBoxDeleteCurrencyNoUseSuccess" xml:space="preserve">
+        <value>Le symbole monétaire a été supprimé avec succès</value>
+    </data>
+    <data name="MessageBoxDeleteCurrencyUseQuestion" xml:space="preserve">
+        <value>Ce symbole monétaire est en cours d'utilisation. Etes-vous sûr de vouloir supprimer ce symbole monétaire et tout ce qui y est lié ?</value>
+    </data>
+    <data name="MessageBoxDeleteCurrencyUseSuccess" xml:space="preserve">
+        <value>Le symbole monétaire et tous les éléments relatifs ont été supprimés avec succès</value>
+    </data>
+    <data name="MessageBoxDeleteCurrencyError" xml:space="preserve">
+        <value>Une erreur s'est produite, veuillez réessayer</value>
+    </data>
 </root>

@@ -1,11 +1,13 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using Microsoft.Data.Sqlite;
 using MyExpenses.Models.Sql.Tables;
 using MyExpenses.Sql.Context;
 using MyExpenses.Wpf.Resources.Resx.Windows.AddEditCurrencyWindow;
 using MyExpenses.Wpf.Utils;
 using MyExpenses.Wpf.Windows.MsgBox;
+using Serilog;
 
 namespace MyExpenses.Wpf.Windows;
 
@@ -61,7 +63,51 @@ public partial class AddEditCurrencyWindow
 
     private void ButtonDelete_OnClick(object sender, RoutedEventArgs e)
     {
-        //TODO work
+        var response = MsgBox.MsgBox.Show(AddEditCurrencyWindowResources.MessageBoxDeleteQuestion,
+            MsgBoxImage.Question, MessageBoxButton.YesNoCancel);
+        if (response != MessageBoxResult.Yes) return;
+
+        Log.Information("Attempting to remove the currency symbol \"{CurrencyToDeleteSymbol}\"", Currency.Symbol);
+        var (success, exception) = Currency.Delete();
+
+        if (success)
+        {
+            Log.Information("Currency symbol was successfully removed");
+            MsgBox.MsgBox.Show(AddEditCurrencyWindowResources.MessageBoxDeleteCurrencyNoUseSuccess, MsgBoxImage.Check);
+
+            CurrencyDeleted = true;
+            DialogResult = true;
+            Close();
+            return;
+        }
+
+        if (exception!.InnerException is SqliteException
+            {
+                SqliteExtendedErrorCode: SQLitePCL.raw.SQLITE_CONSTRAINT_FOREIGNKEY
+            })
+        {
+            Log.Error("Foreign key constraint violation");
+
+            response = MsgBox.MsgBox.Show(AddEditCurrencyWindowResources.MessageBoxDeleteCurrencyUseQuestion,
+                MsgBoxImage.Question, MessageBoxButton.YesNoCancel);
+
+            if (response != MessageBoxResult.Yes) return;
+
+            Log.Information("Attempting to remove the currency symbol \"{CurrencyToDeleteSymbol}\" with all relative element",
+                Currency.Symbol);
+            Currency.Delete(true);
+            Log.Information("Currency symbol and all relative element was successfully removed");
+            MsgBox.MsgBox.Show(AddEditCurrencyWindowResources.MessageBoxDeleteCurrencyUseSuccess, MsgBoxImage.Check);
+
+            CurrencyDeleted = true;
+            DialogResult = true;
+            Close();
+
+            return;
+        }
+
+        Log.Error(exception, "An error occurred please retry");
+        MsgBox.MsgBox.Show(AddEditCurrencyWindowResources.MessageBoxDeleteCurrencyError, MsgBoxImage.Error);
     }
 
     private void ButtonValid_OnClick(object sender, RoutedEventArgs e)
