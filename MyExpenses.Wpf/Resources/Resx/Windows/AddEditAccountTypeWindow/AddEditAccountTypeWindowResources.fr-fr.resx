@@ -39,6 +39,6 @@
         <value>Une erreur s'est produite, veuillez réessayer</value>
     </data>
     <data name="MessageBoxDeleteAccountTypeUseQuestion" xml:space="preserve">
-        <value>Ce type de compte est en cours d'utilisation. Etes-vous sûr de vouloir supprimer ce compte et tout ce qui y est lié ?</value>
+        <value>Ce type de compte est en cours d'utilisation. Êtes-vous sûr de vouloir supprimer ce type de compte et tout ce qui y est lié ?</value>
     </data>
 </root>

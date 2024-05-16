@@ -39,6 +39,6 @@
         <value>An error occurred please retry</value>
     </data>
     <data name="MessageBoxDeleteAccountTypeUseQuestion" xml:space="preserve">
-        <value>This account type is in use.Are you sure you want to delete this account and everything linked to it ?</value>
+        <value>This account type is in use.Are you sure you want to delete this account type and everything linked to it ?</value>
     </data>
 </root>
