@@ -52,6 +52,9 @@ public partial class TPlace : ISql
         }
     }
 
+    [Column("can_be_deleted", TypeName = "BOOLEAN")]
+    public bool? CanBeDeleted { get; set; } = true;
+
     [Column("date_added", TypeName = "DATETIME")]
     public DateTime? DateAdded { get; set; }
 

@@ -75,18 +75,19 @@ CREATE TABLE t_mode_payment
 DROP TABLE IF EXISTS t_place;
 CREATE TABLE t_place
 (
-    id         INTEGER
+    id             INTEGER
         CONSTRAINT t_place_pk
             PRIMARY KEY AUTOINCREMENT,
-    name       TEXT,
-    number     TEXT,
-    street     TEXT,
-    postal     TEXT,
-    city       TEXT,
-    country    TEXT,
-    latitude   REAL,
-    longitude  REAL,
-    date_added DATETIME DEFAULT CURRENT_TIMESTAMP
+    name           TEXT,
+    number         TEXT,
+    street         TEXT,
+    postal         TEXT,
+    city           TEXT,
+    country        TEXT,
+    latitude       REAL,
+    longitude      REAL,
+    can_be_deleted BOOLEAN  DEFAULT 1,
+    date_added     DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
 DROP TABLE IF EXISTS t_history;
@@ -284,6 +285,7 @@ BEGIN
     WHERE id = NEW.id;
 END;
 
+DROP TRIGGER IF EXISTS after_insert_on_t_place;
 CREATE TRIGGER after_insert_on_t_place
     AFTER INSERT
     ON t_place
@@ -297,6 +299,7 @@ BEGIN
     WHERE id = NEW.id;
 END;
 
+DROP TRIGGER IF EXISTS after_update_on_t_place;
 CREATE TRIGGER after_update_on_t_place
     AFTER UPDATE
     ON t_place
