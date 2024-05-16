@@ -13,6 +13,9 @@ public partial class TModePayment
     [Column("name")]
     public string? Name { get; set; }
 
+    [Column("can_be_deleted", TypeName = "BOOLEAN")]
+    public bool? CanBeDeleted { get; set; } = true;
+
     [Column("date_added", TypeName = "DATETIME")]
     public DateTime? DateAdded { get; set; } = DateTime.Now;
 

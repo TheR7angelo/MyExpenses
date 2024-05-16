@@ -108,6 +108,7 @@ public partial class DataBaseContext : DbContext
 
         modelBuilder.Entity<TModePayment>(entity =>
         {
+            entity.Property(e => e.CanBeDeleted).HasDefaultValueSql("TRUE");
             entity.Property(e => e.DateAdded).HasDefaultValueSql("CURRENT_TIMESTAMP");
         });
 

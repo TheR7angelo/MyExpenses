@@ -64,11 +64,12 @@ CREATE TABLE t_category_type
 DROP TABLE IF EXISTS t_mode_payment;
 CREATE TABLE t_mode_payment
 (
-    id         INTEGER
+    id             INTEGER
         CONSTRAINT t_mode_payment_pk
             PRIMARY KEY AUTOINCREMENT,
-    name       TEXT,
-    date_added DATETIME DEFAULT CURRENT_TIMESTAMP
+    name           TEXT,
+    can_be_deleted BOOLEAN  DEFAULT 1,
+    date_added     DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
 DROP TABLE IF EXISTS t_place;
@@ -430,8 +431,6 @@ FROM t_category_type tct
          LEFT JOIN t_currency tcu
                    ON ta.currency_fk = tcu.id
          LEFT JOIN t_color tco
-                ON tct.color_fk = tco.id
+                   ON tct.color_fk = tco.id
 ORDER BY year, week;
 -- endregion
-
-
