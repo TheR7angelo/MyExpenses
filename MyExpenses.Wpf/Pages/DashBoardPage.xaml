@@ -170,30 +170,35 @@
                 </DataGrid.ContextMenu>
 
                 <DataGrid.Columns>
+
                     <DataGridTextColumn Binding="{Binding Account}">
                         <DataGridTextColumn.Header>
                             <TextBlock
                                 Text="{Binding DataGridTextColumnAccount, RelativeSource={RelativeSource AncestorType={x:Type local:DashBoardPage}}}" />
                         </DataGridTextColumn.Header>
                     </DataGridTextColumn>
+
                     <DataGridTextColumn Binding="{Binding Description}">
                         <DataGridTextColumn.Header>
                             <TextBlock
                                 Text="{Binding DataGridTextColumnDescription, RelativeSource={RelativeSource AncestorType={x:Type local:DashBoardPage}}}" />
                         </DataGridTextColumn.Header>
                     </DataGridTextColumn>
+
                     <DataGridTextColumn Binding="{Binding Category}">
                         <DataGridTextColumn.Header>
                             <TextBlock
                                 Text="{Binding DataGridTextColumnCategory, RelativeSource={RelativeSource AncestorType={x:Type local:DashBoardPage}}}" />
                         </DataGridTextColumn.Header>
                     </DataGridTextColumn>
+
                     <DataGridTextColumn Binding="{Binding ModePayment}">
                         <DataGridTextColumn.Header>
                             <TextBlock
                                 Text="{Binding DataGridTextColumnModePayment, RelativeSource={RelativeSource AncestorType={x:Type local:DashBoardPage}}}" />
                         </DataGridTextColumn.Header>
                     </DataGridTextColumn>
+
                     <DataGridTextColumn>
                         <DataGridTextColumn.Header>
                             <TextBlock
@@ -206,18 +211,27 @@
                             </MultiBinding>
                         </DataGridTextColumn.Binding>
                     </DataGridTextColumn>
+
                     <DataGridTextColumn Binding="{Binding Date, StringFormat={}{0:dd/MM/yyyy HH:mm:ss}}">
                         <DataGridTextColumn.Header>
                             <TextBlock
                                 Text="{Binding DataGridTextColumnDate, RelativeSource={RelativeSource AncestorType={x:Type local:DashBoardPage}}}" />
                         </DataGridTextColumn.Header>
                     </DataGridTextColumn>
-                    <DataGridCheckBoxColumn IsThreeState="True" Binding="{Binding Pointed}">
+
+                    <DataGridTextColumn Binding="{Binding Place}">
+                        <DataGridTextColumn.Header>
+                            <TextBlock Text="{Binding DataGridTextColumnPlace, RelativeSource={RelativeSource AncestorType={x:Type local:DashBoardPage}}}" />
+                        </DataGridTextColumn.Header>
+                    </DataGridTextColumn>
+
+                    <DataGridCheckBoxColumn IsThreeState="False" Binding="{Binding Pointed}">
                         <DataGridCheckBoxColumn.Header>
                             <TextBlock
                                 Text="{Binding DataGridTextColumnPointed, RelativeSource={RelativeSource AncestorType={x:Type local:DashBoardPage}}}" />
                         </DataGridCheckBoxColumn.Header>
                     </DataGridCheckBoxColumn>
+
                 </DataGrid.Columns>
 
             </DataGrid>

@@ -79,6 +79,7 @@ public partial class DashBoardPage : INotifyPropertyChanged
     public string DataGridTextColumnModePayment { get; } = DashBoardPageResources.DataGridTextColumnModePayment;
     public string DataGridTextColumnValue { get; } = DashBoardPageResources.DataGridTextColumnValue;
     public string DataGridTextColumnDate { get; } = DashBoardPageResources.DataGridTextColumnDate;
+    public string DataGridTextColumnPlace { get; } = DashBoardPageResources.DataGridTextColumnPlace;
     public string DataGridTextColumnPointed { get; } = DashBoardPageResources.DataGridTextColumnPointed;
 
     #endregion
