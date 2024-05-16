@@ -8,7 +8,7 @@ public partial class DataBaseContext : DbContext
 {
     private string? FilePath { get; }
 
-    public static string? DataSource { get; set; }
+    private static string? DataSource { get; set; }
 
     public DataBaseContext(string? filePath=null)
     {
