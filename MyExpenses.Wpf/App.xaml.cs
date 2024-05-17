@@ -22,7 +22,7 @@ public partial class App
 
         Log.Information("Reading configuration file");
         var configuration = MyExpenses.Utils.Config.Configuration;
-        Log.Information("Configuration reade :{NewLine}{Configuration}", Environment.NewLine, configuration);
+        Log.Information("Configuration read :{NewLine}{Configuration}", Environment.NewLine, configuration);
 
         Log.Information("Apply log configuration");
         LoadLogConfiguration(configuration.Log);
