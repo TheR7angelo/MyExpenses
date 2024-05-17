@@ -7,7 +7,7 @@ namespace MyExpenses.Models.Sql.Views;
 public partial class VHistory
 {
     [Column("id")]
-    public int Id { get; set; }
+    public int? Id { get; set; }
 
     [Column("account")]
     public string? Account { get; set; }
@@ -35,6 +35,9 @@ public partial class VHistory
 
     [Column("pointed", TypeName = "BOOLEAN")]
     public bool? Pointed { get; set; }
+
+    [Column("main_reason")]
+    public string? MainReason { get; set; }
 
     [Column("date_added", TypeName = "DATETIME")]
     public DateTime? DateAdded { get; set; }

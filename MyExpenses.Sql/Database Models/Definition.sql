@@ -88,6 +88,19 @@ CREATE TABLE t_place
     date_added DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
+DROP TABLE IF EXISTS t_bank_transfer;
+create table t_bank_transfer
+(
+    id                INTEGER
+        CONSTRAINT t_bank_transfer_pk
+            PRIMARY KEY AUTOINCREMENT ,
+    value             REAL,
+    main_reason       TEXT,
+    additional_reason INTEGER,
+    date              DATETIME,
+    date_added        DATETIME default CURRENT_TIMESTAMP
+);
+
 DROP TABLE IF EXISTS t_history;
 CREATE TABLE t_history
 (
@@ -110,32 +123,10 @@ CREATE TABLE t_history
         constraint t_history_t_place_id_fk
             references t_place,
     pointed          BOOLEAN  DEFAULT FALSE,
+    bank_transfer_fk INTEGER
+        CONSTRAINT t_history_t_bank_transfer_id_fk
+            REFERENCES t_bank_transfer,
     date_added       DATETIME DEFAULT CURRENT_TIMESTAMP
-);
-
-DROP TABLE IF EXISTS t_bank_transfer;
-create table t_bank_transfer
-(
-    id                INTEGER
-        CONSTRAINT t_bank_transfer_pk
-            PRIMARY KEY AUTOINCREMENT ,
-    value             REAL,
-    from_account_fk   INTEGER
-        CONSTRAINT t_bank_transfer_t_account_id_fk
-            REFERENCES t_account,
-    from_history_fk   INTEGER
-        CONSTRAINT t_bank_transfer_t_history_id_fk
-            REFERENCES t_history,
-    to_account        INTEGER
-        CONSTRAINT t_bank_transfer_t_account_id_fk_2
-            REFERENCES t_account,
-    to_history        INTEGER
-        CONSTRAINT t_bank_transfer_t_history_id_fk_2
-            REFERENCES t_history,
-    main_reason       TEXT,
-    additional_reason INTEGER,
-    date              DATETIME,
-    date_added        DATETIME default CURRENT_TIMESTAMP
 );
 
 -- endregion
@@ -423,6 +414,7 @@ SELECT h.id,
        h.date,
        tp.name  AS place,
        h.pointed,
+       bt.main_reason,
        h.date_added
 
 FROM t_history h
@@ -435,7 +427,9 @@ FROM t_history h
          LEFT JOIN t_currency tc
                    ON ta.currency_fk = tc.id
          LEFT JOIN t_place tp
-                   ON h.place_fk = tp.id;
+                   ON h.place_fk = tp.id
+         LEFT JOIN t_bank_transfer bt
+                    ON h.bank_transfer_fk = bt.id;
 
 -- DROP VIEW IF EXISTS v_value_by_month_year;
 -- CREATE VIEW v_value_by_month_year AS
