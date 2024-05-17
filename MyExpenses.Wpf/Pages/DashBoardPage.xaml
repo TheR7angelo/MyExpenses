@@ -74,6 +74,12 @@
                         Click="ButtonCurrencyManagement_OnClick">
                 </Button>
 
+                <!-- TODO work -->
+                <Button Content="Mode payment management"
+                        Style="{StaticResource MaterialDesignPaperButton}"
+                        Click="ButtonModePaymentManagement_OnClick">
+                </Button>
+
             </WrapPanel>
             
         </ScrollViewer>

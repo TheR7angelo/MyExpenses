@@ -129,6 +129,12 @@ public partial class DashBoardPage : INotifyPropertyChanged
     private void ButtonLocationManagement_OnClick(object sender, RoutedEventArgs e)
         => nameof(MainWindow.FrameBody).NavigateTo(typeof(LocationManagementPage));
 
+    private void ButtonModePaymentManagement_OnClick(object sender, RoutedEventArgs e)
+    {
+        var modePaymentManagementPage = new ModePaymentManagementPage { DashBoardPage = this };
+        nameof(MainWindow.FrameBody).NavigateTo(modePaymentManagementPage);
+    }
+
     private void DataGridRow_PreviewMouseRightButtonDown(object sender, MouseButtonEventArgs e)
     {
         DataGridRow = sender as DataGridRow;
