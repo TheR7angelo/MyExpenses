@@ -33,7 +33,8 @@
                   Style="{StaticResource MaterialDesignFilledComboBox}"
                   materialDesign:TextFieldAssist.HasClearButton="True"
                   ItemsSource="{Binding FromAccounts, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                  SelectedItem="{Binding FromAccount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                  SelectedValue="{Binding BankTransfer.FromAccountFk, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                  SelectedValuePath="{Binding SelectedValuePathAccount}"
                   DisplayMemberPath="{Binding DisplayMemberPathAccount}"
                   SelectionChanged="Selector_OnSelectionChanged">
         </ComboBox>
@@ -43,7 +44,8 @@
                   Style="{StaticResource MaterialDesignFilledComboBox}"
                   materialDesign:TextFieldAssist.HasClearButton="True"
                   ItemsSource="{Binding ToAccounts, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                  SelectedItem="{Binding ToAccount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                  SelectedValue="{Binding BankTransfer.ToAccountFk, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                  SelectedValuePath="{Binding SelectedValuePathAccount}"
                   DisplayMemberPath="{Binding DisplayMemberPathAccount}">
         </ComboBox>
 

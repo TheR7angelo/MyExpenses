@@ -13,9 +13,8 @@ public partial class BankTransferPage
     public ObservableCollection<TAccount> ToAccounts { get; }
 
     public TBankTransfer BankTransfer { get; } = new();
-    public TAccount FromAccount { get; set; } = new();
-    public TAccount ToAccount { get; set; } = new();
     public string DisplayMemberPathAccount { get; } = nameof(TAccount.Name);
+    public string SelectedValuePathAccount { get; } = nameof(TAccount.Id);
 
     public required DashBoardPage DashBoardPage { get; set; }
 
@@ -32,6 +31,6 @@ public partial class BankTransferPage
 
     private void Selector_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        Console.WriteLine(FromAccount.Name);
+        Console.WriteLine(BankTransfer.FromAccountFk);
     }
 }
