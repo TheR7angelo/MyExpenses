@@ -88,6 +88,51 @@ namespace MyExpenses.Wpf.Resources.Resx.Windows.AddEditModePaymentWindow {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to An error occurred please retry.
+        /// </summary>
+        internal static string MessageBoxDeleteModePaymentError {
+            get {
+                return ResourceManager.GetString("MessageBoxDeleteModePaymentError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mode payment was successfully removed.
+        /// </summary>
+        internal static string MessageBoxDeleteModePaymentNoUseSuccess {
+            get {
+                return ResourceManager.GetString("MessageBoxDeleteModePaymentNoUseSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Thismode payment is in use. Are you sure you want to delete this mode payment and everything linked to it ?.
+        /// </summary>
+        internal static string MessageBoxDeleteModePaymentUseQuestion {
+            get {
+                return ResourceManager.GetString("MessageBoxDeleteModePaymentUseQuestion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mode payment and all relative element was successfully removed.
+        /// </summary>
+        internal static string MessageBoxDeleteModePaymentUseSuccess {
+            get {
+                return ResourceManager.GetString("MessageBoxDeleteModePaymentUseSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you really want to delete this mode payment ?.
+        /// </summary>
+        internal static string MessageBoxDeleteQuestion {
+            get {
+                return ResourceManager.GetString("MessageBoxDeleteQuestion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Mode payment already exist.
         /// </summary>
         internal static string MessageBoxModePaymentNameAlreadyExists {
