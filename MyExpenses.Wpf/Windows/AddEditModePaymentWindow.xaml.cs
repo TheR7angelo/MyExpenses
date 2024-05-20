@@ -2,6 +2,7 @@ using System.Windows;
 using System.Windows.Input;
 using MyExpenses.Models.Sql.Tables;
 using MyExpenses.Sql.Context;
+using MyExpenses.Wpf.Resources.Resx.Windows.AddEditModePaymentWindow;
 
 namespace MyExpenses.Wpf.Windows;
 
@@ -21,10 +22,10 @@ public partial class AddEditModePaymentWindow
 
     private List<TModePayment> ModePayments { get; }
 
-    public string TextBoxModePaymentName { get; } = "Mode payment name :";
-    public string ButtonValidContent { get; } = "Valid";
-    public string ButtonDeleteContent { get; } = "Delete";
-    public string ButtonCancelContent { get; } = "Cancel";
+    public string TextBoxModePaymentName { get; } = AddEditModePaymentWindowResources.TextBoxModePaymentName;
+    public string ButtonValidContent { get; } = AddEditModePaymentWindowResources.ButtonValidContent;
+    public string ButtonDeleteContent { get; } = AddEditModePaymentWindowResources.ButtonDeleteContent;
+    public string ButtonCancelContent { get; } = AddEditModePaymentWindowResources.ButtonCancelContent;
 
 
     public AddEditModePaymentWindow()
