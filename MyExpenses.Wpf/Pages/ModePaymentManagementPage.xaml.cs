@@ -65,7 +65,7 @@ public partial class ModePaymentManagementPage
         var result = addEditModePaymentWindow.ShowDialog();
         if (result != true) return;
 
-        if (addEditModePaymentWindow.DeletedModePayment) ModePayments.Remove(modePaymentToEdit);
+        if (addEditModePaymentWindow.ModePaymentDeleted) ModePayments.Remove(modePaymentToEdit);
         else
         {
             var updatedModePayment = addEditModePaymentWindow.ModePayment;
