@@ -1,7 +1,13 @@
 using System.Collections.ObjectModel;
 using System.Windows;
+using System.Windows.Controls;
 using MyExpenses.Models.Sql.Tables;
 using MyExpenses.Sql.Context;
+using MyExpenses.Utils;
+using MyExpenses.Wpf.Resources.Resx.Pages.ModePaymentManagementPage;
+using MyExpenses.Wpf.Windows;
+using MyExpenses.Wpf.Windows.MsgBox;
+using Serilog;
 
 namespace MyExpenses.Wpf.Pages;
 
@@ -21,13 +27,65 @@ public partial class ModePaymentManagementPage
 
     private void ButtonAddNewModePayment_OnClick(object sender, RoutedEventArgs e)
     {
-        // TODO work
-        Console.WriteLine("Add new mode payment");
+        var addEditModePaymentWindow = new AddEditModePaymentWindow();
+        var result = addEditModePaymentWindow.ShowDialog();
+        if (result != true) return;
+
+        var newModePayment = addEditModePaymentWindow.ModePayment;
+
+        Log.Information("Attempting to inject the new mode payment \"{NewModePaymentName}\"", newModePayment.Name);
+        var (success, exception) = newModePayment.AddOrEdit();
+        if (success)
+        {
+            ModePayments.AddAndSort(newModePayment, s => s.Name!);
+            Log.Information("New mode payment was successfully added");
+            MsgBox.Show(ModePaymentManagementPageResources.MessageBoxAddModePaymentSuccess, MsgBoxImage.Check);
+        }
+        else
+        {
+            Log.Error(exception, "An error occurred please retry");
+            MsgBox.Show(ModePaymentManagementPageResources.MessageBoxAddModePaymentError, MsgBoxImage.Error);
+        }
     }
 
     private void ButtonEditModePayment_OnClick(object sender, RoutedEventArgs e)
     {
-        // TODO work
-        Console.WriteLine("Edit mode payment");
+        var button = (Button)sender;
+        if (button.DataContext is not TModePayment modePaymentToEdit) return;
+
+        if (modePaymentToEdit.CanBeDeleted is false)
+        {
+            MsgBox.Show(ModePaymentManagementPageResources.MessageBoxEditModePaymentNoEditOrDelete, MsgBoxImage.Error);
+            return;
+        }
+
+        var addEditModePaymentWindow = new AddEditModePaymentWindow();
+        addEditModePaymentWindow.SetTModePayment(modePaymentToEdit);
+
+        var result = addEditModePaymentWindow.ShowDialog();
+        if (result != true) return;
+
+        if (addEditModePaymentWindow.DeletedModePayment) ModePayments.Remove(modePaymentToEdit);
+        else
+        {
+            var updatedModePayment = addEditModePaymentWindow.ModePayment;
+
+            Log.Information("Attempting to update currency symbol id:\"{UpdatedModePaymentId}\", name:\"{UpdatedModePaymentName}\"",updatedModePayment.Id, updatedModePayment.Name);
+            var (success, exception) = updatedModePayment.AddOrEdit();
+            if (success)
+            {
+                ModePayments.Remove(modePaymentToEdit);
+                ModePayments.AddAndSort(updatedModePayment, s => s.Name!);
+                Log.Information("Mode payment was successfully edited");
+                MsgBox.Show(ModePaymentManagementPageResources.MessageBoxEditModePaymentSuccess, MsgBoxImage.Check);
+
+                DashBoardPage.RefreshRadioButtonSelected();
+            }
+            else
+            {
+                Log.Error(exception, "An error occurred please retry");
+                MsgBox.Show(ModePaymentManagementPageResources.MessageBoxEditModePaymentError, MsgBoxImage.Error);
+            }
+        }
     }
 }
