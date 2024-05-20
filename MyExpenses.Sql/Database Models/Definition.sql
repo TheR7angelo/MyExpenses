@@ -89,12 +89,18 @@ CREATE TABLE t_place
 );
 
 DROP TABLE IF EXISTS t_bank_transfer;
-create table t_bank_transfer
+CREATE TABLE t_bank_transfer
 (
     id                INTEGER
         CONSTRAINT t_bank_transfer_pk
-            PRIMARY KEY AUTOINCREMENT ,
+            PRIMARY KEY AUTOINCREMENT,
     value             REAL,
+    from_account_fk   INTEGER
+        CONSTRAINT t_bank_transfer_t_account_id_fk
+            REFERENCES t_account,
+    to_account        INTEGER
+        CONSTRAINT t_bank_transfer_t_account_id_fk_2
+            REFERENCES t_account,
     main_reason       TEXT,
     additional_reason INTEGER,
     date              DATETIME,
@@ -429,7 +435,7 @@ FROM t_history h
          LEFT JOIN t_place tp
                    ON h.place_fk = tp.id
          LEFT JOIN t_bank_transfer bt
-                    ON h.bank_transfer_fk = bt.id;
+                   ON h.bank_transfer_fk = bt.id;
 
 -- DROP VIEW IF EXISTS v_value_by_month_year;
 -- CREATE VIEW v_value_by_month_year AS
