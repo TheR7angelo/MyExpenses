@@ -3,6 +3,7 @@ using System.Windows.Input;
 using MyExpenses.Models.Sql.Tables;
 using MyExpenses.Sql.Context;
 using MyExpenses.Wpf.Resources.Resx.Windows.AddEditModePaymentWindow;
+using MyExpenses.Wpf.Utils;
 
 namespace MyExpenses.Wpf.Windows;
 
@@ -59,6 +60,19 @@ public partial class AddEditModePaymentWindow
     private void TextBoxModePayment_OnPreviewLostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
     {
         //TODO work
+    }
+
+    #endregion
+
+    #region Function
+
+    public void SetTModePayment(TModePayment oldModePayment)
+    {
+        oldModePayment.CopyPropertiesTo(ModePayment);
+        EditModePayment = true;
+
+        var modePaymentToRemove = ModePayments.FirstOrDefault(s => s.Id == oldModePayment.Id);
+        if (modePaymentToRemove is not null) ModePayments.Remove(modePaymentToRemove);
     }
 
     #endregion
