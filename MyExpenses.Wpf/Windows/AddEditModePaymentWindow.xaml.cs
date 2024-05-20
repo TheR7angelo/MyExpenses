@@ -32,7 +32,7 @@ public partial class AddEditModePaymentWindow
     public string ButtonValidContent { get; } = AddEditModePaymentWindowResources.ButtonValidContent;
     public string ButtonDeleteContent { get; } = AddEditModePaymentWindowResources.ButtonDeleteContent;
     public string ButtonCancelContent { get; } = AddEditModePaymentWindowResources.ButtonCancelContent;
-    public bool ModePaymentDeleted { get; set; }
+    public bool ModePaymentDeleted { get; private set; }
 
 
     public AddEditModePaymentWindow()
