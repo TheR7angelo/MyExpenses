@@ -1,12 +1,14 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using Microsoft.Data.Sqlite;
 using MyExpenses.Models.Sql.Tables;
 using MyExpenses.Sql.Context;
 using MyExpenses.Wpf.Resources.Resx.Windows.AddEditCurrencyWindow;
 using MyExpenses.Wpf.Resources.Resx.Windows.AddEditModePaymentWindow;
 using MyExpenses.Wpf.Utils;
 using MyExpenses.Wpf.Windows.MsgBox;
+using Serilog;
 
 namespace MyExpenses.Wpf.Windows;
 
@@ -30,6 +32,7 @@ public partial class AddEditModePaymentWindow
     public string ButtonValidContent { get; } = AddEditModePaymentWindowResources.ButtonValidContent;
     public string ButtonDeleteContent { get; } = AddEditModePaymentWindowResources.ButtonDeleteContent;
     public string ButtonCancelContent { get; } = AddEditModePaymentWindowResources.ButtonCancelContent;
+    public bool ModePaymentDeleted { get; set; }
 
 
     public AddEditModePaymentWindow()
@@ -51,7 +54,51 @@ public partial class AddEditModePaymentWindow
 
     private void ButtonDelete_OnClick(object sender, RoutedEventArgs e)
     {
-        //TODO work
+        var response = MsgBox.MsgBox.Show(AddEditModePaymentWindowResources.MessageBoxDeleteQuestion,
+            MsgBoxImage.Question, MessageBoxButton.YesNoCancel);
+        if (response != MessageBoxResult.Yes) return;
+
+        Log.Information("Attempting to remove the currency symbol \"{ModePaymentName}\"", ModePayment.Name);
+        var (success, exception) = ModePayment.Delete();
+
+        if (success)
+        {
+            Log.Information("Mode payment was successfully removed");
+            MsgBox.MsgBox.Show(AddEditModePaymentWindowResources.MessageBoxDeleteModePaymentNoUseSuccess, MsgBoxImage.Check);
+
+            ModePaymentDeleted = true;
+            DialogResult = true;
+            Close();
+            return;
+        }
+
+        if (exception!.InnerException is SqliteException
+            {
+                SqliteExtendedErrorCode: SQLitePCL.raw.SQLITE_CONSTRAINT_FOREIGNKEY
+            })
+        {
+            Log.Error("Foreign key constraint violation");
+
+            response = MsgBox.MsgBox.Show(AddEditModePaymentWindowResources.MessageBoxDeleteModePaymentUseQuestion,
+                MsgBoxImage.Question, MessageBoxButton.YesNoCancel);
+
+            if (response != MessageBoxResult.Yes) return;
+
+            Log.Information("Attempting to remove the mode payment \"{ModePaymentName}\" with all relative element",
+                ModePayment.Name);
+            ModePayment.Delete(true);
+            Log.Information("Mode payment and all relative element was successfully removed");
+            MsgBox.MsgBox.Show(AddEditModePaymentWindowResources.MessageBoxDeleteModePaymentUseSuccess, MsgBoxImage.Check);
+
+            ModePaymentDeleted = true;
+            DialogResult = true;
+            Close();
+
+            return;
+        }
+
+        Log.Error(exception, "An error occurred please retry");
+        MsgBox.MsgBox.Show(AddEditModePaymentWindowResources.MessageBoxDeleteModePaymentError, MsgBoxImage.Error);
     }
 
     private void ButtonValid_OnClick(object sender, RoutedEventArgs e)
