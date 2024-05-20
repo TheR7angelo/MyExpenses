@@ -38,8 +38,8 @@ public partial class TAccount : ISql
     [InverseProperty("FromAccountFkNavigation")]
     public virtual ICollection<TBankTransfer> TBankTransferFromAccountFkNavigations { get; set; } = new List<TBankTransfer>();
 
-    [InverseProperty("ToAccountNavigation")]
-    public virtual ICollection<TBankTransfer> TBankTransferToAccountNavigations { get; set; } = new List<TBankTransfer>();
+    [InverseProperty("ToAccountFkNavigation")]
+    public virtual ICollection<TBankTransfer> TBankTransferToAccountFkNavigations { get; set; } = new List<TBankTransfer>();
 
     [InverseProperty("AccountFkNavigation")]
     public virtual ICollection<THistory> THistories { get; set; } = new List<THistory>();

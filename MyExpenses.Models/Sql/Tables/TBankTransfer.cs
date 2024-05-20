@@ -16,8 +16,8 @@ public partial class TBankTransfer : ISql
     [Column("from_account_fk")]
     public int? FromAccountFk { get; set; }
 
-    [Column("to_account")]
-    public int? ToAccount { get; set; }
+    [Column("to_account_fk")]
+    public int? ToAccountFk { get; set; }
 
     [Column("main_reason")]
     public string? MainReason { get; set; }
@@ -38,7 +38,7 @@ public partial class TBankTransfer : ISql
     [InverseProperty("BankTransferFkNavigation")]
     public virtual ICollection<THistory> THistories { get; set; } = new List<THistory>();
 
-    [ForeignKey("ToAccount")]
-    [InverseProperty("TBankTransferToAccountNavigations")]
-    public virtual TAccount? ToAccountNavigation { get; set; }
+    [ForeignKey("ToAccountFk")]
+    [InverseProperty("TBankTransferToAccountFkNavigations")]
+    public virtual TAccount? ToAccountFkNavigation { get; set; }
 }

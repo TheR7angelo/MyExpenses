@@ -98,7 +98,7 @@ CREATE TABLE t_bank_transfer
     from_account_fk   INTEGER
         CONSTRAINT t_bank_transfer_t_account_id_fk
             REFERENCES t_account,
-    to_account        INTEGER
+    to_account_fk        INTEGER
         CONSTRAINT t_bank_transfer_t_account_id_fk_2
             REFERENCES t_account,
     main_reason       TEXT,
@@ -510,7 +510,7 @@ FROM t_bank_transfer bk
          INNER JOIN t_account fa
                     ON bk.from_account_fk = fa.id
          INNER JOIN t_account ta
-            ON bk.to_account = ta.id;
+            ON bk.to_account_fk = ta.id;
 
 -- endregion
 
