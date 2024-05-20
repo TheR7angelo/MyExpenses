@@ -1,0 +1,78 @@
+<mah:MetroWindow x:Class="MyExpenses.Wpf.Windows.AddEditModePaymentWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:local="clr-namespace:MyExpenses.Wpf.Windows"
+        xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:margin="clr-namespace:MyExpenses.Wpf.Utils.Margin;assembly=MyExpenses.Wpf.Utils"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+
+        Title="AddEditModePaymentWindow"
+
+        d:DesignHeight="130"
+        d:DesignWidth="394"
+
+        MinHeight="130"
+        MinWidth="394"
+        Height="130"
+        Width="394"
+
+        TitleCharacterCasing="Normal"
+        NonActiveWindowTitleBrush="Gray"
+        WindowTitleBrush="Gray"
+        BorderBrush="Gray"
+        GlowBrush="Gray"
+        NonActiveGlowBrush="Gray"
+
+        ShowIconOnTitleBar="True"
+
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="CanResizeWithGrip"
+
+        Background="{DynamicResource MaterialDesignPaper}"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+
+        DataContext="{Binding RelativeSource={RelativeSource Self}}">
+
+    <Grid margin:PanelExtensions.MarginForAllChildren="5">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <TextBox x:Name="TextBoxModePayment" Grid.Row="0"
+                 Text="{Binding ModePayment.Name}"
+                 materialDesign:HintAssist.Hint="{Binding TextBoxModePaymentName}"
+                 Style="{StaticResource MaterialDesignFilledTextBox}"
+                 PreviewLostKeyboardFocus="TextBoxModePayment_OnPreviewLostKeyboardFocus">
+        </TextBox>
+
+        <StackPanel Grid.Row="1"
+                    margin:PanelExtensions.MarginForAllChildren="5, 0, 5, 5"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right" VerticalAlignment="Bottom">
+
+            <Button Content="{Binding ButtonValidContent}"
+                    Style="{StaticResource MaterialDesignPaperButton}"
+                    Click="ButtonValid_OnClick">
+            </Button>
+
+            <Button Content="{Binding ButtonDeleteContent}"
+                    Style="{StaticResource MaterialDesignPaperDarkButton}"
+                    Visibility="{Binding EditModePayment, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BooleanToVisibilityConverter}}"
+                    Click="ButtonDelete_OnClick">
+            </Button>
+
+            <Button Content="{Binding ButtonCancelContent}"
+                    Style="{StaticResource MaterialDesignPaperSecondaryButton}"
+                    Click="ButtonCancel_OnClick">
+            </Button>
+
+        </StackPanel>
+
+    </Grid>
+
+</mah:MetroWindow>
