@@ -61,8 +61,7 @@
                     Click="ButtonValid_OnClick">
             </Button>
 
-            <!-- TODO work -->
-            <Button Content="Delete"
+            <Button Content="{Binding ButtonDeleteContent}"
                     Style="{StaticResource MaterialDesignPaperDarkButton}"
                     Visibility="{Binding EditCurrency, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BooleanToVisibilityConverter}}"
                     Click="ButtonDelete_OnClick">

@@ -65,7 +65,16 @@ namespace MyExpenses.Wpf.Resources.Resx.Windows.AddEditCurrencyWindow {
                 return ResourceManager.GetString("ButtonCancelContent", resourceCulture);
             }
         }
-        
+
+        /// <summary>
+        ///   Looks up a localized string similar to Delete.
+        /// </summary>
+        internal static string ButtonDeleteContent {
+            get {
+                return ResourceManager.GetString("ButtonDeleteContent", resourceCulture);
+            }
+        }
+
         /// <summary>
         ///   Looks up a localized string similar to Valid.
         /// </summary>

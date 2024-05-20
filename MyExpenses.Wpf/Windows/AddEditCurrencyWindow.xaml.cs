@@ -40,6 +40,7 @@ public partial class AddEditCurrencyWindow
 
     public string TextBoxCurrencySymbol { get; } = AddEditCurrencyWindowResources.TextBoxCurrencySymbol;
     public string ButtonValidContent { get; } = AddEditCurrencyWindowResources.ButtonValidContent;
+    public string ButtonDeleteContent { get; } = AddEditCurrencyWindowResources.ButtonDeleteContent;
     public string ButtonCancelContent { get; } = AddEditCurrencyWindowResources.ButtonCancelContent;
 
     #endregion
