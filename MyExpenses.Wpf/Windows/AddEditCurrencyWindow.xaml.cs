@@ -141,8 +141,8 @@ public partial class AddEditCurrencyWindow
 
     #region Function
 
-    private bool CheckCurrencySymbol(string accountName)
-        => Currencies.Select(s => s.Symbol).Contains(accountName);
+    private bool CheckCurrencySymbol(string currencySymbol)
+        => Currencies.Select(s => s.Symbol).Contains(currencySymbol);
 
     public void SetTCurrency(TCurrency currencyToEdit)
     {
