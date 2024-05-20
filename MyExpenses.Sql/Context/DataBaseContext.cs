@@ -38,6 +38,8 @@ public partial class DataBaseContext : DbContext
 
     public virtual DbSet<TPlace> TPlaces { get; set; }
 
+    public virtual DbSet<VBankTransfer> VBankTransfers { get; set; }
+
     public virtual DbSet<VDetailTotalCategory> VDetailTotalCategories { get; set; }
 
     public virtual DbSet<VHistory> VHistories { get; set; }
@@ -123,6 +125,11 @@ public partial class DataBaseContext : DbContext
         {
             entity.Property(e => e.CanBeDeleted).HasDefaultValue(true);
             entity.Property(e => e.DateAdded).HasDefaultValueSql("CURRENT_TIMESTAMP");
+        });
+
+        modelBuilder.Entity<VBankTransfer>(entity =>
+        {
+            entity.ToView("v_bank_transfer");
         });
 
         modelBuilder.Entity<VDetailTotalCategory>(entity =>

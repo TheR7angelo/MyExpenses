@@ -13,6 +13,12 @@ public partial class TBankTransfer : ISql
     [Column("value")]
     public double? Value { get; set; }
 
+    [Column("from_account_fk")]
+    public int? FromAccountFk { get; set; }
+
+    [Column("to_account")]
+    public int? ToAccount { get; set; }
+
     [Column("main_reason")]
     public string? MainReason { get; set; }
 
@@ -25,6 +31,14 @@ public partial class TBankTransfer : ISql
     [Column("date_added", TypeName = "DATETIME")]
     public DateTime? DateAdded { get; set; } = DateTime.Now;
 
+    [ForeignKey("FromAccountFk")]
+    [InverseProperty("TBankTransferFromAccountFkNavigations")]
+    public virtual TAccount? FromAccountFkNavigation { get; set; }
+
     [InverseProperty("BankTransferFkNavigation")]
     public virtual ICollection<THistory> THistories { get; set; } = new List<THistory>();
+
+    [ForeignKey("ToAccount")]
+    [InverseProperty("TBankTransferToAccountNavigations")]
+    public virtual TAccount? ToAccountNavigation { get; set; }
 }
