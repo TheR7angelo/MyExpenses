@@ -1,0 +1,37 @@
+using System.Collections.ObjectModel;
+using System.Windows.Controls;
+using MyExpenses.Models.Sql.Tables;
+using MyExpenses.Sql.Context;
+
+namespace MyExpenses.Wpf.Pages;
+
+public partial class BankTransferPage
+{
+    private List<TAccount> Accounts { get; }
+
+    public ObservableCollection<TAccount> FromAccounts { get; }
+    public ObservableCollection<TAccount> ToAccounts { get; }
+
+    public TBankTransfer BankTransfer { get; } = new();
+    public TAccount FromAccount { get; set; } = new();
+    public TAccount ToAccount { get; set; } = new();
+    public string DisplayMemberPathAccount { get; } = nameof(TAccount.Name);
+
+    public required DashBoardPage DashBoardPage { get; set; }
+
+    //TODO work
+    public BankTransferPage()
+    {
+        using var context = new DataBaseContext();
+        Accounts = [..context.TAccounts.OrderBy(s => s.Name)];
+        FromAccounts = new ObservableCollection<TAccount>(Accounts);
+        ToAccounts = new ObservableCollection<TAccount>(Accounts);
+
+        InitializeComponent();
+    }
+
+    private void Selector_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        Console.WriteLine(FromAccount.Name);
+    }
+}

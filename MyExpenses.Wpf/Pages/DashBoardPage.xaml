@@ -79,6 +79,12 @@
                         Click="ButtonModePaymentManagement_OnClick">
                 </Button>
 
+                <!-- TODO work -->
+                <Button Content="Make bank transfer"
+                        Style="{StaticResource MaterialDesignPaperButton}"
+                        Click="ButtonMakeBankTransfer_OnClick">
+                </Button>
+
             </WrapPanel>
             
         </ScrollViewer>

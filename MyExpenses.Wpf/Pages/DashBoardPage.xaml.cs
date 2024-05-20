@@ -136,6 +136,12 @@ public partial class DashBoardPage : INotifyPropertyChanged
         nameof(MainWindow.FrameBody).NavigateTo(modePaymentManagementPage);
     }
 
+    private void ButtonMakeBankTransfer_OnClick(object sender, RoutedEventArgs e)
+    {
+        var bankTransferPage = new BankTransferPage { DashBoardPage = this };
+        nameof(MainWindow.FrameBody).NavigateTo(bankTransferPage);
+    }
+
     private void DataGridRow_PreviewMouseRightButtonDown(object sender, MouseButtonEventArgs e)
     {
         DataGridRow = sender as DataGridRow;
