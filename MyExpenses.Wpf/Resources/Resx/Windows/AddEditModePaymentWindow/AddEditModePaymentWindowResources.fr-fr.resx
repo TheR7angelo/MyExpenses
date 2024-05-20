@@ -23,4 +23,7 @@
     <data name="TextBoxModePaymentName" xml:space="preserve">
         <value>Nom du mode de paiement :</value>
     </data>
+    <data name="MessageBoxModePaymentNameAlreadyExists" xml:space="preserve">
+        <value>Le mode de paiement existe déjà</value>
+    </data>
 </root>

@@ -88,6 +88,15 @@ namespace MyExpenses.Wpf.Resources.Resx.Windows.AddEditModePaymentWindow {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Mode payment already exist.
+        /// </summary>
+        internal static string MessageBoxModePaymentNameAlreadyExists {
+            get {
+                return ResourceManager.GetString("MessageBoxModePaymentNameAlreadyExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Mode payment name :.
         /// </summary>
         internal static string TextBoxModePaymentName {
