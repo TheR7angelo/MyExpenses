@@ -53,4 +53,7 @@
     <data name="ButtonCurrencyManagement" xml:space="preserve">
         <value>Gestion des symboles monétaires</value>
     </data>
+    <data name="ButtonModePaymentManagement" xml:space="preserve">
+        <value>Gestion des modes de paiement</value>
+    </data>
 </root>

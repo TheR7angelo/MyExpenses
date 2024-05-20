@@ -74,8 +74,7 @@
                         Click="ButtonCurrencyManagement_OnClick">
                 </Button>
 
-                <!-- TODO work -->
-                <Button Content="Mode payment management"
+                <Button Content="{Binding ButtonModePaymentManagement}"
                         Style="{StaticResource MaterialDesignPaperButton}"
                         Click="ButtonModePaymentManagement_OnClick">
                 </Button>

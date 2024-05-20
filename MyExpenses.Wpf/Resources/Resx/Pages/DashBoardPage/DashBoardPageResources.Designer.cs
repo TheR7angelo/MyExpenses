@@ -111,6 +111,15 @@ namespace MyExpenses.Wpf.Resources.Resx.Pages.DashBoardPage {
         }
 
         /// <summary>
+        ///   Looks up a localized string similar to Mode payment management.
+        /// </summary>
+        internal static object ButtonModePaymentManagement {
+            get {
+                return ResourceManager.GetString("ButtonModePaymentManagement", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Account.
         /// </summary>
         internal static string DataGridTextColumnAccount {
@@ -176,7 +185,7 @@ namespace MyExpenses.Wpf.Resources.Resx.Pages.DashBoardPage {
         /// <summary>
         ///   Looks up a localized string similar to Place.
         /// </summary>
-        public static string DataGridTextColumnPlace {
+        internal static string DataGridTextColumnPlace {
             get {
                 return ResourceManager.GetString("DataGridTextColumnPlace", resourceCulture);
             }
