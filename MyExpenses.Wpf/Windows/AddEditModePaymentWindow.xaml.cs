@@ -56,8 +56,17 @@ public partial class AddEditModePaymentWindow
 
     private void ButtonValid_OnClick(object sender, RoutedEventArgs e)
     {
-        DialogResult = true;
-        Close();
+        var modePaymentName = ModePayment.Name;
+
+        if (string.IsNullOrEmpty(modePaymentName)) return;
+
+        var alreadyExist = CheckModePaymentName(modePaymentName);
+        if (alreadyExist) ShowErrorMessage();
+        else
+        {
+            DialogResult = true;
+            Close();
+        }
     }
 
     private void TextBoxModePayment_OnPreviewLostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
