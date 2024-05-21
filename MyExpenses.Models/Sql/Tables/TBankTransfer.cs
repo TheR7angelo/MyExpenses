@@ -1,8 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using PropertyChanged;
 
 namespace MyExpenses.Models.Sql.Tables;
 
+[AddINotifyPropertyChangedInterface]
 [Table("t_bank_transfer")]
 public partial class TBankTransfer : ISql
 {
