@@ -35,8 +35,7 @@
                   ItemsSource="{Binding FromAccounts, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                   SelectedValue="{Binding BankTransfer.FromAccountFk, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                   SelectedValuePath="{Binding SelectedValuePathAccount}"
-                  DisplayMemberPath="{Binding DisplayMemberPathAccount}"
-                  SelectionChanged="Selector_OnSelectionChanged">
+                  DisplayMemberPath="{Binding DisplayMemberPathAccount}">
         </ComboBox>
 
         <!-- TODO work -->

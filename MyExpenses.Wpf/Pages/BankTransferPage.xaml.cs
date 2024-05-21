@@ -1,5 +1,4 @@
 using System.Collections.ObjectModel;
-using System.Windows.Controls;
 using MyExpenses.Models.Sql.Tables;
 using MyExpenses.Sql.Context;
 
@@ -27,10 +26,5 @@ public partial class BankTransferPage
         ToAccounts = new ObservableCollection<TAccount>(Accounts);
 
         InitializeComponent();
-    }
-
-    private void Selector_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
-    {
-        Console.WriteLine(BankTransfer.FromAccountFk);
     }
 }
