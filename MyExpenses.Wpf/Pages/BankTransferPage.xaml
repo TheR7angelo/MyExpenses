@@ -6,6 +6,7 @@
       xmlns:local="clr-namespace:MyExpenses.Wpf.Pages"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:margin="clr-namespace:MyExpenses.Wpf.Utils.Margin;assembly=MyExpenses.Wpf.Utils"
+      xmlns:converters="clr-namespace:MyExpenses.Wpf.Converters"
       mc:Ignorable="d"
       Title="BankTransferPage"
 
@@ -17,71 +18,126 @@
 
       DataContext="{Binding RelativeSource={RelativeSource Self}}">
 
-    <Grid VerticalAlignment="Center"
-          margin:PanelExtensions.MarginForAllChildren="5">
+    <Page.Resources>
+        <converters:TotalToIconConverter x:Key="TotalToIconConverter" />
+    </Page.Resources>
+    <Grid>
 
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
+        <Grid x:Name="GridPrepare"
+              VerticalAlignment="Center"
+              margin:PanelExtensions.MarginForAllChildren="5">
 
-        <!-- TODO work -->
-        <ComboBox Grid.Row="0"
-                  Style="{StaticResource MaterialDesignFilledComboBox}"
-                  materialDesign:TextFieldAssist.HasClearButton="True"
-                  ItemsSource="{Binding FromAccounts, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                  SelectedValue="{Binding BankTransfer.FromAccountFk, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                  SelectedValuePath="{Binding SelectedValuePathAccount}"
-                  DisplayMemberPath="{Binding DisplayMemberPathAccount}">
-        </ComboBox>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
 
-        <!-- TODO work -->
-        <ComboBox Grid.Row="1"
-                  Style="{StaticResource MaterialDesignFilledComboBox}"
-                  materialDesign:TextFieldAssist.HasClearButton="True"
-                  ItemsSource="{Binding ToAccounts, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                  SelectedValue="{Binding BankTransfer.ToAccountFk, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                  SelectedValuePath="{Binding SelectedValuePathAccount}"
-                  DisplayMemberPath="{Binding DisplayMemberPathAccount}">
-        </ComboBox>
+            <!-- TODO work -->
+            <ComboBox Grid.Row="0"
+                      Style="{StaticResource MaterialDesignFilledComboBox}"
+                      materialDesign:TextFieldAssist.HasClearButton="True"
+                      ItemsSource="{Binding FromAccounts, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                      SelectedValue="{Binding BankTransfer.FromAccountFk, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                      SelectedValuePath="{Binding SelectedValuePathAccount}"
+                      DisplayMemberPath="{Binding DisplayMemberPathAccount}"
+                      SelectionChanged="SelectorFromAccount_OnSelectionChanged">
+            </ComboBox>
 
-        <!-- TODO work -->
-        <DatePicker Grid.Row="2" x:Name="DatePicker"
-                    materialDesign:HintAssist.Hint="Pick Date"
-                    Style="{StaticResource MaterialDesignFilledDatePicker}"
-                    SelectedDate="{Binding BankTransfer.Date, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-        </DatePicker>
+            <!-- TODO work -->
+            <ComboBox Grid.Row="1"
+                      Style="{StaticResource MaterialDesignFilledComboBox}"
+                      materialDesign:TextFieldAssist.HasClearButton="True"
+                      ItemsSource="{Binding ToAccounts, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                      SelectedValue="{Binding BankTransfer.ToAccountFk, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                      SelectedValuePath="{Binding SelectedValuePathAccount}"
+                      DisplayMemberPath="{Binding DisplayMemberPathAccount}"
+                      SelectionChanged="SelectorToAccount_OnSelectionChanged">
+            </ComboBox>
 
-        <!-- TODO work -->
-        <TextBox Grid.Row="3"
-                    materialDesign:HintAssist.Hint="Value"
-                    Style="{StaticResource MaterialDesignFilledTextBox}"
-                    Text="{Binding BankTransfer.Value, Mode=TwoWay}"
-                    AcceptsReturn="False" AcceptsTab="False"
-                    PreviewTextInput="UIElement_OnPreviewTextInput">
-        </TextBox>
+            <!-- TODO work -->
+            <DatePicker Grid.Row="2" x:Name="DatePicker"
+                        materialDesign:HintAssist.Hint="Pick Date"
+                        Style="{StaticResource MaterialDesignFilledDatePicker}"
+                        SelectedDate="{Binding BankTransfer.Date, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+            </DatePicker>
 
-        <!-- TODO work -->
-        <TextBox Grid.Row="4"
-                 materialDesign:HintAssist.Hint="Main reason :"
-                 Style="{StaticResource MaterialDesignFilledTextBox}"
-                 Text="{Binding BankTransfer.MainReason, Mode=TwoWay}"
-                 AcceptsReturn="False" AcceptsTab="False">
-        </TextBox>
+            <!-- TODO work -->
+            <TextBox Grid.Row="3"
+                     materialDesign:HintAssist.Hint="Value"
+                     Style="{StaticResource MaterialDesignFilledTextBox}"
+                     Text="{Binding BankTransfer.Value, Mode=TwoWay}"
+                     AcceptsReturn="False" AcceptsTab="False"
+                     PreviewTextInput="UIElement_OnPreviewTextInput">
+            </TextBox>
 
-        <!-- TODO work -->
-        <TextBox Grid.Row="5"
-                 MinHeight="75"
-                 materialDesign:HintAssist.Hint="Additional reason :"
-                 Style="{StaticResource MaterialDesignFilledTextBox}"
-                 Text="{Binding BankTransfer.AdditionalReason, Mode=TwoWay}"
-                 AcceptsReturn="True" AcceptsTab="True">
-        </TextBox>
+            <!-- TODO work -->
+            <TextBox Grid.Row="4"
+                     materialDesign:HintAssist.Hint="Main reason :"
+                     Style="{StaticResource MaterialDesignFilledTextBox}"
+                     Text="{Binding BankTransfer.MainReason, Mode=TwoWay}"
+                     AcceptsReturn="False" AcceptsTab="False">
+            </TextBox>
+
+            <!-- TODO work -->
+            <TextBox Grid.Row="5"
+                     MinHeight="75"
+                     materialDesign:HintAssist.Hint="Additional reason :"
+                     Style="{StaticResource MaterialDesignFilledTextBox}"
+                     Text="{Binding BankTransfer.AdditionalReason, Mode=TwoWay}"
+                     AcceptsReturn="True" AcceptsTab="True">
+            </TextBox>
+
+        </Grid>
+
+        <Grid x:Name="GridPreview"
+              Visibility="Collapsed"
+              VerticalAlignment="Center">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <Button Grid.Column="0"
+                    x:Name="ButtonAccount"
+                    Height="{Binding Height, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource Self}}"
+                    Style="{StaticResource MaterialDesignPaperButton}">
+
+                <Button.Content>
+                    <StackPanel Orientation="Vertical"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center">
+
+                        <materialDesign:PackIcon
+                            Kind="{Binding BankTransfer.FromAccountFkNavigation, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource TotalToIconConverter}}"
+                            Height="96" Width="96"
+                            HorizontalAlignment="Center">
+                        </materialDesign:PackIcon>
+
+                        <TextBlock Text="{Binding Name}"
+                                   TextAlignment="Center" TextWrapping="Wrap"
+                                   HorizontalAlignment="Center" VerticalAlignment="Center">
+                        </TextBlock>
+
+                        <Label Content="{Binding BankTransfer.FromAccountFkNavigation.CurrencyFkNavigation.Symbol, FallbackValue=''}"
+                               HorizontalAlignment="Center" VerticalAlignment="Center"
+                               HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+                        </Label>
+
+                    </StackPanel>
+                </Button.Content>
+
+            </Button>
+
+            <materialDesign:PackIcon Grid.Column="1" Height="96" Kind="ArrowRightBold" />
+
+        </Grid>
 
     </Grid>
 

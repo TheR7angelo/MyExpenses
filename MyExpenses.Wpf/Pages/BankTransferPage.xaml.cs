@@ -40,4 +40,16 @@ public partial class BankTransferPage
 
         e.Handled = txt.IsOnlyDecimal();
     }
+
+    private void SelectorFromAccount_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        var fromAccount = Accounts.FirstOrDefault(s => s.Id == BankTransfer.FromAccountFk);
+        BankTransfer.FromAccountFkNavigation = fromAccount;
+    }
+
+    private void SelectorToAccount_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        var toAccount = Accounts.FirstOrDefault(s => s.Id == BankTransfer.ToAccountFk);
+        BankTransfer.ToAccountFkNavigation = toAccount;
+    }
 }
