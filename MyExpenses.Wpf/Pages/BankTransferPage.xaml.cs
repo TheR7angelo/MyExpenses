@@ -1,4 +1,5 @@
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -98,5 +99,12 @@ public partial class BankTransferPage
         => BankTransferPrepare = true;
 
     private void TextBoxBase_OnTextChanged(object sender, TextChangedEventArgs e)
-        => RefreshVFromAccountReduce();
+    {
+        var textBox = (TextBox)sender;
+        var txt = textBox.Text;
+
+        if (double.TryParse(txt, NumberStyles.Any, CultureInfo.InvariantCulture, out var value))
+            BankTransfer.Value = value;
+        else if (!txt.EndsWith('.')) BankTransfer.Value = null;
+    }
 }
