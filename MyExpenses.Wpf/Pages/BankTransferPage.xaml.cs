@@ -1,6 +1,9 @@
 using System.Collections.ObjectModel;
+using System.Windows.Controls;
+using System.Windows.Input;
 using MyExpenses.Models.Sql.Tables;
 using MyExpenses.Sql.Context;
+using MyExpenses.Wpf.Resources.Regex;
 
 namespace MyExpenses.Wpf.Pages;
 
@@ -28,5 +31,13 @@ public partial class BankTransferPage
         InitializeComponent();
 
         DatePicker.Language = System.Windows.Markup.XmlLanguage.GetLanguage(Thread.CurrentThread.CurrentCulture.Name);
+    }
+
+    private void UIElement_OnPreviewTextInput(object sender, TextCompositionEventArgs e)
+    {
+        var textBox = (TextBox)sender;
+        var txt = textBox.Text.Insert(textBox.SelectionStart, e.Text);
+
+        e.Handled = txt.IsOnlyDecimal();
     }
 }

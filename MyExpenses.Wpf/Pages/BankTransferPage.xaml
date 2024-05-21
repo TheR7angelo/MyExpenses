@@ -55,6 +55,15 @@
                     SelectedDate="{Binding BankTransfer.Date, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
         </DatePicker>
 
+        <!-- TODO work -->
+        <TextBox Grid.Row="3"
+                    materialDesign:HintAssist.Hint="Value"
+                    Style="{StaticResource MaterialDesignFilledTextBox}"
+                    Text="{Binding BankTransfer.Value, Mode=TwoWay}"
+                    AcceptsReturn="False" AcceptsTab="False"
+                    PreviewTextInput="UIElement_OnPreviewTextInput">
+        </TextBox>
+
     </Grid>
 
 </Page>
