@@ -74,7 +74,8 @@
                      Style="{StaticResource MaterialDesignFilledTextBox}"
                      Text="{Binding BankTransfer.Value, Mode=TwoWay}"
                      AcceptsReturn="False" AcceptsTab="False"
-                     PreviewTextInput="UIElement_OnPreviewTextInput">
+                     PreviewTextInput="UIElement_OnPreviewTextInput"
+                     TextChanged="TextBoxBase_OnTextChanged">
             </TextBox>
 
             <!-- TODO work -->
@@ -114,7 +115,6 @@
             </Grid.ColumnDefinitions>
 
             <Button Grid.Column="0"
-                    x:Name="ButtonAccount"
                     Height="{Binding Height, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource Self}}"
                     Style="{StaticResource MaterialDesignPaperButton}">
 
@@ -124,20 +124,29 @@
                                 VerticalAlignment="Center">
 
                         <materialDesign:PackIcon
-                            Kind="{Binding BankTransfer.FromAccountFkNavigation, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource TotalToIconConverter}}"
+                            Kind="{Binding VFromAccount.Total, FallbackValue=0, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource TotalToIconConverter}}"
                             Height="96" Width="96"
                             HorizontalAlignment="Center">
                         </materialDesign:PackIcon>
 
-                        <TextBlock Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        <TextBlock Text="{Binding VFromAccount.Name, FallbackValue='', Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                    TextAlignment="Center" TextWrapping="Wrap"
                                    HorizontalAlignment="Center" VerticalAlignment="Center">
                         </TextBlock>
 
-                        <Label Content="{Binding BankTransfer.FromAccountFkNavigation.CurrencyFkNavigation.Symbol, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, FallbackValue=''}"
-                               HorizontalAlignment="Center" VerticalAlignment="Center"
-                               HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
-                        </Label>
+                        <StackPanel Orientation="Horizontal">
+
+                            <Label Content="{Binding VFromAccountReduce, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, FallbackValue=0}"
+                                   HorizontalAlignment="Center" VerticalAlignment="Center"
+                                   HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+                            </Label>
+
+                            <Label Content="{Binding VFromAccount.Symbol, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, FallbackValue=''}"
+                                   HorizontalAlignment="Center" VerticalAlignment="Center"
+                                   HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
+                            </Label>
+
+                        </StackPanel>
 
                     </StackPanel>
                 </Button.Content>
