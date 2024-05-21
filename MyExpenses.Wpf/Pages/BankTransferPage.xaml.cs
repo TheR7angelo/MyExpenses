@@ -26,5 +26,7 @@ public partial class BankTransferPage
         ToAccounts = new ObservableCollection<TAccount>(Accounts);
 
         InitializeComponent();
+
+        DatePicker.Language = System.Windows.Markup.XmlLanguage.GetLanguage(Thread.CurrentThread.CurrentCulture.Name);
     }
 }

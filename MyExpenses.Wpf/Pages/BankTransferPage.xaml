@@ -48,6 +48,13 @@
                   DisplayMemberPath="{Binding DisplayMemberPathAccount}">
         </ComboBox>
 
+        <!-- TODO work -->
+        <DatePicker Grid.Row="2" x:Name="DatePicker"
+                    materialDesign:HintAssist.Hint="Pick Date"
+                    Style="{StaticResource MaterialDesignFilledDatePicker}"
+                    SelectedDate="{Binding BankTransfer.Date, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+        </DatePicker>
+
     </Grid>
 
 </Page>
