@@ -1,4 +1,5 @@
 using System.Collections.ObjectModel;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using MyExpenses.Models.Sql.Tables;
@@ -9,6 +10,10 @@ namespace MyExpenses.Wpf.Pages;
 
 public partial class BankTransferPage
 {
+    public static readonly DependencyProperty BankTransferPrepareProperty =
+        DependencyProperty.Register(nameof(BankTransferPrepare), typeof(bool), typeof(BankTransferPage),
+            new PropertyMetadata(default(bool)));
+
     private List<TAccount> Accounts { get; }
 
     public ObservableCollection<TAccount> FromAccounts { get; }
@@ -19,6 +24,12 @@ public partial class BankTransferPage
     public string SelectedValuePathAccount { get; } = nameof(TAccount.Id);
 
     public required DashBoardPage DashBoardPage { get; set; }
+
+    public bool BankTransferPrepare
+    {
+        get => (bool)GetValue(BankTransferPrepareProperty);
+        set => SetValue(BankTransferPrepareProperty, value);
+    }
 
     //TODO work
     public BankTransferPage()
@@ -52,4 +63,7 @@ public partial class BankTransferPage
         var toAccount = Accounts.FirstOrDefault(s => s.Id == BankTransfer.ToAccountFk);
         BankTransfer.ToAccountFkNavigation = toAccount;
     }
+
+    private void ButtonValidBankTransferPrepare_OnClick(object sender, RoutedEventArgs e)
+        => BankTransferPrepare = true;
 }

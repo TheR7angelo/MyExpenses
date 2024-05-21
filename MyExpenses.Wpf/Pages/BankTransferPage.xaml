@@ -20,11 +20,13 @@
 
     <Page.Resources>
         <converters:TotalToIconConverter x:Key="TotalToIconConverter" />
+        <converters:InverseBooleanToVisibilityConverter x:Key="InverseBooleanToVisibilityConverter" />
     </Page.Resources>
+
     <Grid>
 
-        <Grid x:Name="GridPrepare"
-              VerticalAlignment="Center"
+        <Grid VerticalAlignment="Center"
+              Visibility="{Binding BankTransferPrepare, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource InverseBooleanToVisibilityConverter}}"
               margin:PanelExtensions.MarginForAllChildren="5">
 
             <Grid.RowDefinitions>
@@ -92,11 +94,18 @@
                      AcceptsReturn="True" AcceptsTab="True">
             </TextBox>
 
+            <StackPanel Grid.Row="6"
+                        Orientation="Horizontal"
+                        HorizontalAlignment="Center">
+                <Button Content="Valid" Click="ButtonValidBankTransferPrepare_OnClick" />
+                <Button Content="Cancel" />
+            </StackPanel>
+
         </Grid>
 
-        <Grid x:Name="GridPreview"
-              Visibility="Collapsed"
-              VerticalAlignment="Center">
+        <Grid Visibility="{Binding BankTransferPrepare, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BooleanToVisibilityConverter}}"
+              VerticalAlignment="Center"
+              HorizontalAlignment="Center">
 
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
@@ -115,17 +124,17 @@
                                 VerticalAlignment="Center">
 
                         <materialDesign:PackIcon
-                            Kind="{Binding BankTransfer.FromAccountFkNavigation, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource TotalToIconConverter}}"
+                            Kind="{Binding BankTransfer.FromAccountFkNavigation, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource TotalToIconConverter}}"
                             Height="96" Width="96"
                             HorizontalAlignment="Center">
                         </materialDesign:PackIcon>
 
-                        <TextBlock Text="{Binding Name}"
+                        <TextBlock Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                    TextAlignment="Center" TextWrapping="Wrap"
                                    HorizontalAlignment="Center" VerticalAlignment="Center">
                         </TextBlock>
 
-                        <Label Content="{Binding BankTransfer.FromAccountFkNavigation.CurrencyFkNavigation.Symbol, FallbackValue=''}"
+                        <Label Content="{Binding BankTransfer.FromAccountFkNavigation.CurrencyFkNavigation.Symbol, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, FallbackValue=''}"
                                HorizontalAlignment="Center" VerticalAlignment="Center"
                                HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
                         </Label>
@@ -135,7 +144,7 @@
 
             </Button>
 
-            <materialDesign:PackIcon Grid.Column="1" Height="96" Kind="ArrowRightBold" />
+            <materialDesign:PackIcon Grid.Column="1" Height="96" Width="96" Kind="ArrowRightBold" VerticalAlignment="Center" />
 
         </Grid>
 
