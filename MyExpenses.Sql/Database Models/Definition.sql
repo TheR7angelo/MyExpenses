@@ -102,7 +102,7 @@ CREATE TABLE t_bank_transfer
         CONSTRAINT t_bank_transfer_t_account_id_fk_2
             REFERENCES t_account,
     main_reason       TEXT,
-    additional_reason INTEGER,
+    additional_reason TEXT,
     date              DATETIME,
     date_added        DATETIME default CURRENT_TIMESTAMP
 );

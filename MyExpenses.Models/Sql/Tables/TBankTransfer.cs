@@ -23,7 +23,7 @@ public partial class TBankTransfer : ISql
     public string? MainReason { get; set; }
 
     [Column("additional_reason")]
-    public int? AdditionalReason { get; set; }
+    public string? AdditionalReason { get; set; }
 
     [Column("date", TypeName = "DATETIME")]
     public DateTime? Date { get; set; } = DateTime.Today;
