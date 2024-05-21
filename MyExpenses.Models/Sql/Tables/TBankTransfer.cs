@@ -26,7 +26,7 @@ public partial class TBankTransfer : ISql
     public int? AdditionalReason { get; set; }
 
     [Column("date", TypeName = "DATETIME")]
-    public DateTime? Date { get; set; }
+    public DateTime? Date { get; set; } = DateTime.Today;
 
     [Column("date_added", TypeName = "DATETIME")]
     public DateTime? DateAdded { get; set; } = DateTime.Now;
