@@ -25,7 +25,9 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
         <!-- TODO work -->
@@ -62,6 +64,23 @@
                     Text="{Binding BankTransfer.Value, Mode=TwoWay}"
                     AcceptsReturn="False" AcceptsTab="False"
                     PreviewTextInput="UIElement_OnPreviewTextInput">
+        </TextBox>
+
+        <!-- TODO work -->
+        <TextBox Grid.Row="4"
+                 materialDesign:HintAssist.Hint="Main reason :"
+                 Style="{StaticResource MaterialDesignFilledTextBox}"
+                 Text="{Binding BankTransfer.MainReason, Mode=TwoWay}"
+                 AcceptsReturn="False" AcceptsTab="False">
+        </TextBox>
+
+        <!-- TODO work -->
+        <TextBox Grid.Row="5"
+                 MinHeight="75"
+                 materialDesign:HintAssist.Hint="Additional reason :"
+                 Style="{StaticResource MaterialDesignFilledTextBox}"
+                 Text="{Binding BankTransfer.AdditionalReason, Mode=TwoWay}"
+                 AcceptsReturn="True" AcceptsTab="True">
         </TextBox>
 
     </Grid>
