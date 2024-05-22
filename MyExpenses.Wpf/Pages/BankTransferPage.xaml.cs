@@ -9,6 +9,7 @@ using MyExpenses.Sql.Context;
 using MyExpenses.Utils;
 using MyExpenses.Utils.Sql;
 using MyExpenses.Wpf.Resources.Regex;
+using MyExpenses.Wpf.Windows.MsgBox;
 
 namespace MyExpenses.Wpf.Pages;
 
@@ -103,8 +104,41 @@ public partial class BankTransferPage
     private void ButtonCancel_OnClick(object sender, RoutedEventArgs e)
         => nameof(MainWindow.FrameBody).GoBack();
 
+    //TODO work
     private void ButtonValidBankTransferPrepare_OnClick(object sender, RoutedEventArgs e)
-        => BankTransferPrepare = true;
+    {
+        if (BankTransfer.FromAccountFk is null)
+        {
+            MsgBox.Show("From account cannot be empty", MsgBoxImage.Warning);
+            return;
+        }
+
+        if (BankTransfer.ToAccountFk is null)
+        {
+            MsgBox.Show("To account cannot be empty", MsgBoxImage.Warning);
+            return;
+        }
+
+        if (BankTransfer.Value is null)
+        {
+            MsgBox.Show("Value cannot be empty", MsgBoxImage.Warning);
+            return;
+        }
+
+        if (BankTransfer.Date is null)
+        {
+            MsgBox.Show("Date cannot be empty", MsgBoxImage.Warning);
+            return;
+        }
+
+        if (string.IsNullOrWhiteSpace(BankTransfer.MainReason))
+        {
+            MsgBox.Show("Main reason cannot be empty", MsgBoxImage.Warning);
+            return;
+        }
+
+        BankTransferPrepare = true;
+    }
 
     private void SelectorFromAccount_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
     {
