@@ -152,17 +152,27 @@
                         <StackPanel Orientation="Horizontal"
                                     HorizontalAlignment="Center">
 
-                            <Label
-                                Content="{Binding VFromAccountReduce, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, FallbackValue=0}"
-                                HorizontalAlignment="Center" VerticalAlignment="Center"
-                                HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
-                            </Label>
+                            <TextBlock
+                                Text="{Binding VFromAccount.Total, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, FallbackValue=0}"
+                                HorizontalAlignment="Center" VerticalAlignment="Center">
+                            </TextBlock>
 
-                            <Label
-                                Content="{Binding VFromAccount.Symbol, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, FallbackValue=''}"
-                                HorizontalAlignment="Center" VerticalAlignment="Center"
-                                HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
-                            </Label>
+                            <TextBlock
+                                Text="{Binding VFromAccount.Symbol, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, FallbackValue=''}"
+                                HorizontalAlignment="Center" VerticalAlignment="Center">
+                            </TextBlock>
+
+                            <materialDesign:PackIcon Margin="5, 0" Kind="ArrowRightBold" VerticalAlignment="Center" />
+
+                            <TextBlock
+                                Text="{Binding VFromAccountReduce, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, FallbackValue=0}"
+                                HorizontalAlignment="Center" VerticalAlignment="Center">
+                            </TextBlock>
+
+                            <TextBlock
+                                Text="{Binding VFromAccount.Symbol, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, FallbackValue=''}"
+                                HorizontalAlignment="Center" VerticalAlignment="Center">
+                            </TextBlock>
 
                         </StackPanel>
 
@@ -172,7 +182,8 @@
             </Button>
 
             <materialDesign:PackIcon Grid.Column="1" Height="96" Width="96" Kind="ArrowRightBold"
-                                     VerticalAlignment="Center" />
+                                     VerticalAlignment="Center">
+            </materialDesign:PackIcon>
 
             <Button Grid.Column="2"
                     Height="{Binding Height, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource Self}}"
@@ -198,17 +209,27 @@
                         <StackPanel Orientation="Horizontal"
                                     HorizontalAlignment="Center">
 
-                            <Label
-                                Content="{Binding VToAccountIncrease, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, FallbackValue=0}"
-                                HorizontalAlignment="Center" VerticalAlignment="Center"
-                                HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
-                            </Label>
+                            <TextBlock
+                                Text="{Binding VToAccount.Total, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, FallbackValue=0}"
+                                HorizontalAlignment="Center" VerticalAlignment="Center">
+                            </TextBlock>
 
-                            <Label
-                                Content="{Binding VToAccount.Symbol, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, FallbackValue=''}"
-                                HorizontalAlignment="Center" VerticalAlignment="Center"
-                                HorizontalContentAlignment="Center" VerticalContentAlignment="Center">
-                            </Label>
+                            <TextBlock
+                                Text="{Binding VToAccount.Symbol, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, FallbackValue=''}"
+                                HorizontalAlignment="Center" VerticalAlignment="Center">
+                            </TextBlock>
+
+                            <materialDesign:PackIcon Margin="5, 0" Kind="ArrowRightBold" VerticalAlignment="Center" />
+
+                            <TextBlock
+                                Text="{Binding VToAccountIncrease, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, FallbackValue=0}"
+                                HorizontalAlignment="Center" VerticalAlignment="Center">
+                            </TextBlock>
+
+                            <TextBlock
+                                Text="{Binding VToAccount.Symbol, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, FallbackValue=''}"
+                                HorizontalAlignment="Center" VerticalAlignment="Center">
+                            </TextBlock>
 
                         </StackPanel>
 
