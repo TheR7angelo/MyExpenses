@@ -86,7 +86,6 @@ public partial class BankTransferPage
 
     #endregion
 
-    //TODO work
     public BankTransferPage()
     {
         using var context = new DataBaseContext();
