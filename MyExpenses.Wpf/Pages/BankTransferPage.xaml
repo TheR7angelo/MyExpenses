@@ -97,12 +97,12 @@
                      AcceptsReturn="True" AcceptsTab="True">
             </TextBox>
 
-            <!-- TODO work -->
             <StackPanel Grid.Row="6"
                         margin:PanelExtensions.MarginForAllChildren="5"
                         Orientation="Horizontal"
                         HorizontalAlignment="Center">
 
+                <!-- TODO work -->
                 <Button Content="Valid"
                         Style="{StaticResource MaterialDesignPaperButton}"
                         Click="ButtonValidBankTransferPrepare_OnClick">
