@@ -103,10 +103,30 @@ public partial class BankTransferPage
         RefreshVFromAccountReduce();
     }
 
+    private void RefreshListFromAccount()
+    {
+        var accountToAdd = from account in Accounts
+            let a = FromAccounts.FirstOrDefault(s => s.Id == account.Id)
+            where a is null
+            select account;
+
+        FromAccounts.AddRangeAndSort(accountToAdd, s => s.Name!);
+
+        var accountToRemove = FromAccounts.Where(s => s.Id == VToAccount?.Id).ToList();
+        FromAccounts.RemoveRange(accountToRemove);
+    }
+
     private void RefreshListToAccount()
     {
-        ToAccounts.Clear();
-        ToAccounts.AddRange(Accounts.Where(s => s.Id != VFromAccount?.Id).OrderBy(s => s.Name));
+        var accountToAdd = from account in Accounts
+            let a = ToAccounts.FirstOrDefault(s => s.Id == account.Id)
+            where a is null
+            select account;
+
+        ToAccounts.AddRangeAndSort(accountToAdd, s => s.Name!);
+
+        var accountToRemove = ToAccounts.Where(s => s.Id == VFromAccount?.Id).ToList();
+        ToAccounts.RemoveRange(accountToRemove);
     }
 
     private void RefreshVFromAccountReduce()
@@ -130,12 +150,6 @@ public partial class BankTransferPage
         VToAccountIncrease = VToAccount is not null && BankTransfer.Value is not null
             ? VToAccount?.Total + Math.Abs((double)BankTransfer.Value)
             : 0;
-    }
-
-    private void RefreshListFromAccount()
-    {
-        FromAccounts.Clear();
-        FromAccounts.AddRange(Accounts.Where(s => s.Id != VToAccount?.Id).OrderBy(s => s.Name));
     }
 
     private void ButtonValidBankTransferPrepare_OnClick(object sender, RoutedEventArgs e)
