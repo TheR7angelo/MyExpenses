@@ -43,6 +43,7 @@
             <ComboBox Grid.Row="0"
                       Style="{StaticResource MaterialDesignFilledComboBox}"
                       materialDesign:TextFieldAssist.HasClearButton="True"
+                      materialDesign:HintAssist.Hint="From account :"
                       ItemsSource="{Binding FromAccounts, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                       SelectedValue="{Binding BankTransfer.FromAccountFk, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                       SelectedValuePath="{Binding SelectedValuePathAccount}"
@@ -54,6 +55,7 @@
             <ComboBox Grid.Row="1"
                       Style="{StaticResource MaterialDesignFilledComboBox}"
                       materialDesign:TextFieldAssist.HasClearButton="True"
+                      materialDesign:HintAssist.Hint="To account :"
                       ItemsSource="{Binding ToAccounts, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                       SelectedValue="{Binding BankTransfer.ToAccountFk, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                       SelectedValuePath="{Binding SelectedValuePathAccount}"
@@ -63,14 +65,14 @@
 
             <!-- TODO work -->
             <DatePicker Grid.Row="2" x:Name="DatePicker"
-                        materialDesign:HintAssist.Hint="Pick Date"
+                        materialDesign:HintAssist.Hint="Pick Date :"
                         Style="{StaticResource MaterialDesignFilledDatePicker}"
                         SelectedDate="{Binding BankTransfer.Date, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
             </DatePicker>
 
             <!-- TODO work -->
             <TextBox Grid.Row="3"
-                     materialDesign:HintAssist.Hint="Value"
+                     materialDesign:HintAssist.Hint="Value :"
                      Style="{StaticResource MaterialDesignFilledTextBox}"
                      Text="{Binding BankTransfer.Value, Mode=TwoWay}"
                      AcceptsReturn="False" AcceptsTab="False"
