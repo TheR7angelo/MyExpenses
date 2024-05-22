@@ -14,6 +14,8 @@ namespace MyExpenses.Wpf.Pages;
 
 public partial class BankTransferPage
 {
+    #region DependencyProperty
+
     public static readonly DependencyProperty BankTransferPrepareProperty =
         DependencyProperty.Register(nameof(BankTransferPrepare), typeof(bool), typeof(BankTransferPage),
             new PropertyMetadata(default(bool)));
@@ -31,17 +33,6 @@ public partial class BankTransferPage
     public static readonly DependencyProperty VToAccountIncreaseProperty =
         DependencyProperty.Register(nameof(VToAccountIncrease), typeof(double), typeof(BankTransferPage),
             new PropertyMetadata(default(double)));
-
-    private List<TAccount> Accounts { get; }
-
-    public ObservableCollection<TAccount> FromAccounts { get; }
-    public ObservableCollection<TAccount> ToAccounts { get; }
-
-    public TBankTransfer BankTransfer { get; } = new();
-    public string DisplayMemberPathAccount { get; } = nameof(TAccount.Name);
-    public string SelectedValuePathAccount { get; } = nameof(TAccount.Id);
-
-    public required DashBoardPage DashBoardPage { get; set; }
 
     public bool BankTransferPrepare
     {
@@ -73,6 +64,27 @@ public partial class BankTransferPage
         set => SetValue(VToAccountIncreaseProperty, value);
     }
 
+    #endregion
+
+    #region Property
+
+    private List<TAccount> Accounts { get; }
+
+    public ObservableCollection<TAccount> FromAccounts { get; }
+    public ObservableCollection<TAccount> ToAccounts { get; }
+
+    public TBankTransfer BankTransfer { get; } = new();
+    public string DisplayMemberPathAccount { get; } = nameof(TAccount.Name);
+    public string SelectedValuePathAccount { get; } = nameof(TAccount.Id);
+
+    #endregion
+
+    #region Required Property
+
+    public required DashBoardPage DashBoardPage { get; set; }
+
+    #endregion
+
     //TODO work
     public BankTransferPage()
     {
@@ -86,13 +98,10 @@ public partial class BankTransferPage
         DatePicker.Language = System.Windows.Markup.XmlLanguage.GetLanguage(Thread.CurrentThread.CurrentCulture.Name);
     }
 
-    private void UIElement_OnPreviewTextInput(object sender, TextCompositionEventArgs e)
-    {
-        var textBox = (TextBox)sender;
-        var txt = textBox.Text.Insert(textBox.SelectionStart, e.Text);
+    #region Action
 
-        e.Handled = txt.IsOnlyDecimal();
-    }
+    private void ButtonValidBankTransferPrepare_OnClick(object sender, RoutedEventArgs e)
+        => BankTransferPrepare = true;
 
     private void SelectorFromAccount_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
     {
@@ -102,6 +111,40 @@ public partial class BankTransferPage
         RefreshListToAccount();
         RefreshVFromAccountReduce();
     }
+
+    private void SelectorToAccount_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        var toAccount = Accounts.FirstOrDefault(s => s.Id == BankTransfer.ToAccountFk);
+        VToAccount = toAccount?.ToVTotalByAccount();
+
+        RefreshListFromAccount();
+        RefreshVToAccountIncrease();
+    }
+
+    private void TextBoxBase_OnTextChanged(object sender, TextChangedEventArgs e)
+    {
+        var textBox = (TextBox)sender;
+        var txt = textBox.Text;
+
+        if (double.TryParse(txt, NumberStyles.Any, CultureInfo.InvariantCulture, out var value))
+            BankTransfer.Value = value;
+        else if (!txt.EndsWith('.')) BankTransfer.Value = null;
+
+        RefreshVFromAccountReduce();
+        RefreshVToAccountIncrease();
+    }
+
+    private void UIElement_OnPreviewTextInput(object sender, TextCompositionEventArgs e)
+    {
+        var textBox = (TextBox)sender;
+        var txt = textBox.Text.Insert(textBox.SelectionStart, e.Text);
+
+        e.Handled = txt.IsOnlyDecimal();
+    }
+
+    #endregion
+
+    #region Function
 
     private void RefreshListFromAccount()
     {
@@ -136,15 +179,6 @@ public partial class BankTransferPage
             : 0;
     }
 
-    private void SelectorToAccount_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
-    {
-        var toAccount = Accounts.FirstOrDefault(s => s.Id == BankTransfer.ToAccountFk);
-        VToAccount = toAccount?.ToVTotalByAccount();
-
-        RefreshListFromAccount();
-        RefreshVToAccountIncrease();
-    }
-
     private void RefreshVToAccountIncrease()
     {
         VToAccountIncrease = VToAccount is not null && BankTransfer.Value is not null
@@ -152,19 +186,5 @@ public partial class BankTransferPage
             : 0;
     }
 
-    private void ButtonValidBankTransferPrepare_OnClick(object sender, RoutedEventArgs e)
-        => BankTransferPrepare = true;
-
-    private void TextBoxBase_OnTextChanged(object sender, TextChangedEventArgs e)
-    {
-        var textBox = (TextBox)sender;
-        var txt = textBox.Text;
-
-        if (double.TryParse(txt, NumberStyles.Any, CultureInfo.InvariantCulture, out var value))
-            BankTransfer.Value = value;
-        else if (!txt.EndsWith('.')) BankTransfer.Value = null;
-
-        RefreshVFromAccountReduce();
-        RefreshVToAccountIncrease();
-    }
+    #endregion
 }
