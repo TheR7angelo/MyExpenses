@@ -8,6 +8,38 @@ namespace MyExpenses.Utils;
 public static class ObservableCollectionExtensions
 {
     /// <summary>
+    /// Removes a collection of items from the ObservableCollection.
+    /// </summary>
+    /// <param name="collection">The ObservableCollection<T> to remove the items from.</param>
+    /// <param name="items">The collection of items to remove.</param>
+    /// <typeparam name="T">The type of the elements in the ObservableCollection.</typeparam>
+    public static void RemoveRange<T>(this ObservableCollection<T> collection, IEnumerable<T> items)
+    {
+        var itemList = items.ToList();
+
+        foreach (var item in itemList)
+        {
+            collection.Remove(item);
+        }
+    }
+
+    /// <summary>
+    /// Adds a collection of items to the ObservableCollection and sorts it using the specified key selector.
+    /// </summary>
+    /// <param name="collection">The ObservableCollection<T> to add the items to.</param>
+    /// <param name="items">The collection of items to add.</param>
+    /// <param name="keySelector">The key selector function used to determine the sorting order.</param>
+    /// <typeparam name="T">The type of the elements in the ObservableCollection.</typeparam>
+    public static void AddRangeAndSort<T>(this ObservableCollection<T> collection, IEnumerable<T> items,
+        Func<T, string> keySelector)
+    {
+        foreach (var item in items)
+        {
+            collection.AddAndSort(item, keySelector);
+        }
+    }
+
+    /// <summary>
     /// Adds a collection of items to the end of the ObservableCollection.
     /// </summary>
     /// <param name="collection">The ObservableCollection<T> to add the items to.</param>
