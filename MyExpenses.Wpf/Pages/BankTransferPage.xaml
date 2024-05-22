@@ -149,7 +149,8 @@
                             HorizontalAlignment="Center" VerticalAlignment="Center">
                         </TextBlock>
 
-                        <StackPanel Orientation="Horizontal">
+                        <StackPanel Orientation="Horizontal"
+                                    HorizontalAlignment="Center">
 
                             <Label
                                 Content="{Binding VFromAccountReduce, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, FallbackValue=0}"
@@ -194,7 +195,8 @@
                             HorizontalAlignment="Center" VerticalAlignment="Center">
                         </TextBlock>
 
-                        <StackPanel Orientation="Horizontal">
+                        <StackPanel Orientation="Horizontal"
+                                    HorizontalAlignment="Center">
 
                             <Label
                                 Content="{Binding VToAccountIncrease, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, FallbackValue=0}"
