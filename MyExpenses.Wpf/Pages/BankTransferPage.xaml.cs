@@ -100,6 +100,9 @@ public partial class BankTransferPage
 
     #region Action
 
+    private void ButtonCancel_OnClick(object sender, RoutedEventArgs e)
+        => nameof(MainWindow.FrameBody).GoBack();
+
     private void ButtonValidBankTransferPrepare_OnClick(object sender, RoutedEventArgs e)
         => BankTransferPrepare = true;
 
