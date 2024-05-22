@@ -6,6 +6,7 @@ using System.Windows.Input;
 using MyExpenses.Models.Sql.Tables;
 using MyExpenses.Models.Sql.Views;
 using MyExpenses.Sql.Context;
+using MyExpenses.Utils;
 using MyExpenses.Utils.Sql;
 using MyExpenses.Wpf.Resources.Regex;
 
@@ -22,6 +23,13 @@ public partial class BankTransferPage
 
     public static readonly DependencyProperty VFromAccountReduceProperty =
         DependencyProperty.Register(nameof(VFromAccountReduce), typeof(double), typeof(BankTransferPage),
+            new PropertyMetadata(default(double)));
+
+    public static readonly DependencyProperty VToAccountProperty = DependencyProperty.Register(nameof(VToAccount),
+        typeof(VTotalByAccount), typeof(BankTransferPage), new PropertyMetadata(default(VTotalByAccount)));
+
+    public static readonly DependencyProperty VToAccountIncreaseProperty =
+        DependencyProperty.Register(nameof(VToAccountIncrease), typeof(double), typeof(BankTransferPage),
             new PropertyMetadata(default(double)));
 
     private List<TAccount> Accounts { get; }
@@ -53,6 +61,18 @@ public partial class BankTransferPage
         set => SetValue(VFromAccountReduceProperty, value);
     }
 
+    public VTotalByAccount? VToAccount
+    {
+        get => (VTotalByAccount)GetValue(VToAccountProperty);
+        set => SetValue(VToAccountProperty, value);
+    }
+
+    public double? VToAccountIncrease
+    {
+        get => (double)GetValue(VToAccountIncreaseProperty);
+        set => SetValue(VToAccountIncreaseProperty, value);
+    }
+
     //TODO work
     public BankTransferPage()
     {
@@ -79,7 +99,14 @@ public partial class BankTransferPage
         var fromAccount = Accounts.FirstOrDefault(s => s.Id == BankTransfer.FromAccountFk);
         VFromAccount = fromAccount?.ToVTotalByAccount();
 
+        RefreshListToAccount();
         RefreshVFromAccountReduce();
+    }
+
+    private void RefreshListToAccount()
+    {
+        ToAccounts.Clear();
+        ToAccounts.AddRange(Accounts.Where(s => s.Id != VFromAccount?.Id).OrderBy(s => s.Name));
     }
 
     private void RefreshVFromAccountReduce()
@@ -92,7 +119,23 @@ public partial class BankTransferPage
     private void SelectorToAccount_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
     {
         var toAccount = Accounts.FirstOrDefault(s => s.Id == BankTransfer.ToAccountFk);
-        BankTransfer.ToAccountFkNavigation = toAccount;
+        VToAccount = toAccount?.ToVTotalByAccount();
+
+        RefreshListFromAccount();
+        RefreshVToAccountIncrease();
+    }
+
+    private void RefreshVToAccountIncrease()
+    {
+        VToAccountIncrease = VToAccount is not null && BankTransfer.Value is not null
+            ? VToAccount?.Total + Math.Abs((double)BankTransfer.Value)
+            : 0;
+    }
+
+    private void RefreshListFromAccount()
+    {
+        FromAccounts.Clear();
+        FromAccounts.AddRange(Accounts.Where(s => s.Id != VToAccount?.Id).OrderBy(s => s.Name));
     }
 
     private void ButtonValidBankTransferPrepare_OnClick(object sender, RoutedEventArgs e)
@@ -106,5 +149,8 @@ public partial class BankTransferPage
         if (double.TryParse(txt, NumberStyles.Any, CultureInfo.InvariantCulture, out var value))
             BankTransfer.Value = value;
         else if (!txt.EndsWith('.')) BankTransfer.Value = null;
+
+        RefreshVFromAccountReduce();
+        RefreshVToAccountIncrease();
     }
 }
