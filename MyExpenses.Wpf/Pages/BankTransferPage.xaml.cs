@@ -185,7 +185,7 @@ public partial class BankTransferPage
     //TODO work
     private void ButtonCancelBankTransferPreview_OnClick(object sender, RoutedEventArgs e)
     {
-        Console.WriteLine("ButtonValidBankTransferPreview_OnClick");
+        Console.WriteLine("ButtonCancelBankTransferPreview_OnClick");
     }
 
     private void SelectorFromAccount_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
