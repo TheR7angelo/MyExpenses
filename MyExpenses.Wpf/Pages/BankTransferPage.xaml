@@ -122,13 +122,19 @@
               HorizontalAlignment="Center"
               Visibility="{Binding BankTransferPrepare, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BooleanToVisibilityConverter}}">
 
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
             <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <Button Grid.Column="0"
+            <Button Grid.Row="0" Grid.Column="0"
                     Height="{Binding Height, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource Self}}"
                     Style="{StaticResource MaterialDesignPaperButton}">
 
@@ -181,11 +187,11 @@
 
             </Button>
 
-            <materialDesign:PackIcon Grid.Column="1" Height="96" Width="96" Kind="ArrowRightBold"
+            <materialDesign:PackIcon Grid.Row="0" Grid.Column="1" Height="96" Width="96" Kind="ArrowRightBold"
                                      VerticalAlignment="Center">
             </materialDesign:PackIcon>
 
-            <Button Grid.Column="2"
+            <Button Grid.Row="0" Grid.Column="2"
                     Height="{Binding Height, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource Self}}"
                     Style="{StaticResource MaterialDesignPaperButton}">
 
