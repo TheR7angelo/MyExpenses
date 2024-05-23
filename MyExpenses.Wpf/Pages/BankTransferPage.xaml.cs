@@ -224,7 +224,8 @@ public partial class BankTransferPage
             Log.Information("The transfer has been successfully completed, {FromName} to {ToName} with value {ValueAbs}",
                 VFromAccount!.Name, VToAccount!.Name, valueAbs);
             MsgBox.Show("The transfer has been successfully completed", MsgBoxImage.Check);
-            var response = MsgBox.Show("Do you want to make another bank transfer ?", MsgBoxImage.Question, MessageBoxButton.YesNo);
+            var response = MsgBox.Show("Do you want to make another bank transfer ?",
+                MsgBoxImage.Question, MessageBoxButton.YesNo);
 
             if (response != MessageBoxResult.Yes) nameof(MainWindow.FrameBody).GoBack();
             else
