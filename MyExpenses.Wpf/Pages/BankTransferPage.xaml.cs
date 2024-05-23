@@ -113,6 +113,20 @@ public partial class BankTransferPage
     public string DisplayMemberPathModePayment { get; } = nameof(TModePayment.Name);
     public string SelectedValuePathAccount { get; } = nameof(TAccount.Id);
 
+    public string ComboBoxFromAccountHintAssist { get; } = BankTransferPageResources.ComboBoxFromAccountHintAssist;
+    public string ComboBoxToAccountHintAssist { get; } = BankTransferPageResources.ComboBoxToAccountHintAssist;
+    public string ComboBoxCategoryTypeHintAssist { get; } = BankTransferPageResources.ComboBoxCategoryTypeHintAssist;
+    public string ComboBoxModePaymentHintAssist { get; } = BankTransferPageResources.ComboBoxModePaymentHintAssist;
+    public string CheckBoxPointedHintAssist { get; } = BankTransferPageResources.CheckBoxPointedHintAssist;
+    public string DatePickerWhenHintAssist { get; } = BankTransferPageResources.DatePickerWhenHintAssist;
+    public string TextBoxValueHintAssist { get; } = BankTransferPageResources.TextBoxValueHintAssist;
+    public string TextBoxMainReasonHintAssist { get; } = BankTransferPageResources.TextBoxMainReasonHintAssist;
+    public string TextBoxAdditionalReasonHintAssist { get; } = BankTransferPageResources.TextBoxAdditionalReasonHintAssist;
+    public string ButtonPrepareValidContent { get; } = BankTransferPageResources.ButtonPrepareValidContent;
+    public string ButtonPrepareCancelContent { get; } = BankTransferPageResources.ButtonPrepareCancelContent;
+    public string ButtonPreviewValidContent { get; } = BankTransferPageResources.ButtonPreviewValidContent;
+    public string ButtonPreviewCancelContent { get; } = BankTransferPageResources.ButtonPreviewCancelContent;
+
     #endregion
 
     #region Required Property

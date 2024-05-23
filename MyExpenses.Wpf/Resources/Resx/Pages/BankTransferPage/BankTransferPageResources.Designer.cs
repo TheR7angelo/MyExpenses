@@ -60,6 +60,96 @@ namespace MyExpenses.Wpf.Resources.Resx.Pages.BankTransferPage {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        internal static string ButtonPrepareCancelContent {
+            get {
+                return ResourceManager.GetString("ButtonPrepareCancelContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Valid.
+        /// </summary>
+        internal static string ButtonPrepareValidContent {
+            get {
+                return ResourceManager.GetString("ButtonPrepareValidContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        internal static string ButtonPreviewCancelContent {
+            get {
+                return ResourceManager.GetString("ButtonPreviewCancelContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Valid.
+        /// </summary>
+        internal static string ButtonPreviewValidContent {
+            get {
+                return ResourceManager.GetString("ButtonPreviewValidContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pointed :.
+        /// </summary>
+        internal static string CheckBoxPointedHintAssist {
+            get {
+                return ResourceManager.GetString("CheckBoxPointedHintAssist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Category type :.
+        /// </summary>
+        internal static string ComboBoxCategoryTypeHintAssist {
+            get {
+                return ResourceManager.GetString("ComboBoxCategoryTypeHintAssist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to From account :.
+        /// </summary>
+        internal static string ComboBoxFromAccountHintAssist {
+            get {
+                return ResourceManager.GetString("ComboBoxFromAccountHintAssist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mode payment :.
+        /// </summary>
+        internal static string ComboBoxModePaymentHintAssist {
+            get {
+                return ResourceManager.GetString("ComboBoxModePaymentHintAssist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to To account :.
+        /// </summary>
+        internal static string ComboBoxToAccountHintAssist {
+            get {
+                return ResourceManager.GetString("ComboBoxToAccountHintAssist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to When :.
+        /// </summary>
+        internal static string DatePickerWhenHintAssist {
+            get {
+                return ResourceManager.GetString("DatePickerWhenHintAssist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Category cannot be empty.
         /// </summary>
         internal static string MessageBoxButtonValidBankTransferPrepareCategoryIsNullError {
@@ -146,6 +236,33 @@ namespace MyExpenses.Wpf.Resources.Resx.Pages.BankTransferPage {
         internal static string MessageBoxButtonValidBankTransferPreviewSuccess {
             get {
                 return ResourceManager.GetString("MessageBoxButtonValidBankTransferPreviewSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Additional reason :.
+        /// </summary>
+        internal static string TextBoxAdditionalReasonHintAssist {
+            get {
+                return ResourceManager.GetString("TextBoxAdditionalReasonHintAssist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Main reason :.
+        /// </summary>
+        internal static string TextBoxMainReasonHintAssist {
+            get {
+                return ResourceManager.GetString("TextBoxMainReasonHintAssist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Value :.
+        /// </summary>
+        internal static string TextBoxValueHintAssist {
+            get {
+                return ResourceManager.GetString("TextBoxValueHintAssist", resourceCulture);
             }
         }
     }

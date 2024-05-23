@@ -40,11 +40,10 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <!-- TODO work -->
             <ComboBox Grid.Row="0"
                       Style="{StaticResource MaterialDesignFilledComboBox}"
                       materialDesign:TextFieldAssist.HasClearButton="True"
-                      materialDesign:HintAssist.Hint="From account :"
+                      materialDesign:HintAssist.Hint="{Binding ComboBoxFromAccountHintAssist}"
                       ItemsSource="{Binding FromAccounts, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                       SelectedValue="{Binding BankTransfer.FromAccountFk, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                       SelectedValuePath="{Binding SelectedValuePathAccount}"
@@ -52,11 +51,10 @@
                       SelectionChanged="SelectorFromAccount_OnSelectionChanged">
             </ComboBox>
 
-            <!-- TODO work -->
             <ComboBox Grid.Row="1"
                       Style="{StaticResource MaterialDesignFilledComboBox}"
                       materialDesign:TextFieldAssist.HasClearButton="True"
-                      materialDesign:HintAssist.Hint="To account :"
+                      materialDesign:HintAssist.Hint="{Binding ComboBoxToAccountHintAssist}"
                       ItemsSource="{Binding ToAccounts, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                       SelectedValue="{Binding BankTransfer.ToAccountFk, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                       SelectedValuePath="{Binding SelectedValuePathAccount}"
@@ -73,45 +71,40 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
-                <!-- TODO work -->
                 <ComboBox Grid.Column="0"
                           Style="{StaticResource MaterialDesignFilledComboBox}"
                           materialDesign:TextFieldAssist.HasClearButton="True"
-                          materialDesign:HintAssist.Hint="Category type :"
+                          materialDesign:HintAssist.Hint="{Binding ComboBoxCategoryTypeHintAssist}"
                           ItemsSource="{Binding CategoryTypes, Mode=OneWay}"
                           DisplayMemberPath="{Binding DisplayMemberPathCategoryType}"
                           SelectedItem="{Binding Category, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                 </ComboBox>
 
-                <!-- TODO work -->
                 <ComboBox Grid.Column="1"
                           Style="{StaticResource MaterialDesignFilledComboBox}"
                           materialDesign:TextFieldAssist.HasClearButton="True"
-                          materialDesign:HintAssist.Hint="Mode payment :"
+                          materialDesign:HintAssist.Hint="{Binding ComboBoxModePaymentHintAssist}"
                           ItemsSource="{Binding ModePayments, Mode=OneWay}"
                           DisplayMemberPath="{Binding DisplayMemberPathModePayment}"
                           SelectedItem="{Binding ModePayment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                 </ComboBox>
 
-                <!-- TODO work -->
                 <CheckBox Grid.Column="2"
                           materialDesign:CheckBoxAssist.CheckBoxSize="30"
-                          Content="Pointed"
+                          Content="{Binding CheckBoxPointedHintAssist}"
                           IsChecked="{Binding IsPointed, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                 </CheckBox>
 
             </Grid>
 
-            <!-- TODO work -->
             <DatePicker Grid.Row="3" x:Name="DatePicker"
-                        materialDesign:HintAssist.Hint="Pick Date :"
+                        materialDesign:HintAssist.Hint="{Binding DatePickerWhenHintAssist}"
                         Style="{StaticResource MaterialDesignFilledDatePicker}"
                         SelectedDate="{Binding BankTransfer.Date, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
             </DatePicker>
 
-            <!-- TODO work -->
             <TextBox Grid.Row="4"
-                     materialDesign:HintAssist.Hint="Value :"
+                     materialDesign:HintAssist.Hint="{Binding TextBoxValueHintAssist}"
                      Style="{StaticResource MaterialDesignFilledTextBox}"
                      Text="{Binding BankTransfer.Value, Mode=TwoWay}"
                      AcceptsReturn="False" AcceptsTab="False"
@@ -119,18 +112,16 @@
                      TextChanged="TextBoxBase_OnTextChanged">
             </TextBox>
 
-            <!-- TODO work -->
             <TextBox Grid.Row="5"
-                     materialDesign:HintAssist.Hint="Main reason :"
+                     materialDesign:HintAssist.Hint="{Binding TextBoxMainReasonHintAssist}"
                      Style="{StaticResource MaterialDesignFilledTextBox}"
                      Text="{Binding BankTransfer.MainReason, Mode=TwoWay}"
                      AcceptsReturn="False" AcceptsTab="False">
             </TextBox>
 
-            <!-- TODO work -->
             <TextBox Grid.Row="6"
                      MinHeight="75"
-                     materialDesign:HintAssist.Hint="Additional reason :"
+                     materialDesign:HintAssist.Hint="{Binding TextBoxAdditionalReasonHintAssist}"
                      Style="{StaticResource MaterialDesignFilledTextBox}"
                      Text="{Binding BankTransfer.AdditionalReason, Mode=TwoWay}"
                      AcceptsReturn="True" AcceptsTab="True">
@@ -141,14 +132,12 @@
                         Orientation="Horizontal"
                         HorizontalAlignment="Center">
 
-                <!-- TODO work -->
-                <Button Content="Valid"
+                <Button Content="{Binding ButtonPrepareValidContent}"
                         Style="{StaticResource MaterialDesignPaperButton}"
                         Click="ButtonValidBankTransferPrepare_OnClick">
                 </Button>
 
-                <!-- TODO work -->
-                <Button Content="Cancel"
+                <Button Content="{Binding ButtonPrepareCancelContent}"
                         Style="{StaticResource MaterialDesignPaperSecondaryButton}"
                         Click="ButtonCancelBankTransferPrepare_OnClick">
                 </Button>
@@ -291,14 +280,12 @@
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center">
 
-                <!-- TODO work -->
-                <Button Content="Valid"
+                <Button Content="{Binding ButtonPreviewValidContent}"
                         Style="{StaticResource MaterialDesignPaperButton}"
                         Click="ButtonValidBankTransferPreview_OnClick">
                 </Button>
 
-                <!-- TODO work -->
-                <Button Content="Cancel"
+                <Button Content="{Binding ButtonPreviewCancelContent}"
                         Style="{StaticResource MaterialDesignPaperSecondaryButton}"
                         Click="ButtonCancelBankTransferPreview_OnClick">
                 </Button>

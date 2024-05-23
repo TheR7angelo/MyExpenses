@@ -41,4 +41,43 @@
     <data name="MessageBoxButtonValidBankTransferPreviewError" xml:space="preserve">
         <value>Une erreur s'est produite, veuillez réessayer</value>
     </data>
+    <data name="ComboBoxFromAccountHintAssist" xml:space="preserve">
+        <value>Du compte :</value>
+    </data>
+    <data name="ComboBoxToAccountHintAssist" xml:space="preserve">
+        <value>Vers le compte</value>
+    </data>
+    <data name="ComboBoxCategoryTypeHintAssist" xml:space="preserve">
+        <value>Type de catégorie :</value>
+    </data>
+    <data name="ComboBoxModePaymentHintAssist" xml:space="preserve">
+        <value>Mode de paiement :</value>
+    </data>
+    <data name="CheckBoxPointedHintAssist" xml:space="preserve">
+        <value>Pointé :</value>
+    </data>
+    <data name="DatePickerWhenHintAssist" xml:space="preserve">
+        <value>Quand :</value>
+    </data>
+    <data name="TextBoxValueHintAssist" xml:space="preserve">
+        <value>Valeur :</value>
+    </data>
+    <data name="TextBoxMainReasonHintAssist" xml:space="preserve">
+        <value>Raison principale :</value>
+    </data>
+    <data name="TextBoxAdditionalReasonHintAssist" xml:space="preserve">
+        <value>Raison supplémentaire :</value>
+    </data>
+    <data name="ButtonPrepareValidContent" xml:space="preserve">
+        <value>Validé</value>
+    </data>
+    <data name="ButtonPrepareCancelContent" xml:space="preserve">
+        <value>Annuler</value>
+    </data>
+    <data name="ButtonPreviewValidContent" xml:space="preserve">
+        <value>Validé</value>
+    </data>
+    <data name="ButtonPreviewCancelContent" xml:space="preserve">
+        <value>Annuler</value>
+    </data>
 </root>
