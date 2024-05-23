@@ -35,6 +35,7 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
@@ -63,15 +64,45 @@
                       SelectionChanged="SelectorToAccount_OnSelectionChanged">
             </ComboBox>
 
+            <Grid Grid.Row="2"
+                  margin:PanelExtensions.MarginForAllChildren="5, 0">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <!-- TODO work -->
+                <ComboBox Grid.Column="0"
+                          Style="{StaticResource MaterialDesignFilledComboBox}"
+                          materialDesign:TextFieldAssist.HasClearButton="True"
+                          materialDesign:HintAssist.Hint="Category type :"
+                          ItemsSource="{Binding CategoryTypes, Mode=OneWay}"
+                          DisplayMemberPath="{Binding DisplayMemberPathCategoryType}"
+                          SelectedItem="{Binding Category, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                </ComboBox>
+
+                <!-- TODO work -->
+                <ComboBox Grid.Column="1"
+                          Style="{StaticResource MaterialDesignFilledComboBox}"
+                          materialDesign:TextFieldAssist.HasClearButton="True"
+                          materialDesign:HintAssist.Hint="Mode payment :"
+                          ItemsSource="{Binding ModePayments, Mode=OneWay}"
+                          DisplayMemberPath="{Binding DisplayMemberPathModePayment}"
+                          SelectedItem="{Binding ModePayment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                </ComboBox>
+
+            </Grid>
+
             <!-- TODO work -->
-            <DatePicker Grid.Row="2" x:Name="DatePicker"
+            <DatePicker Grid.Row="3" x:Name="DatePicker"
                         materialDesign:HintAssist.Hint="Pick Date :"
                         Style="{StaticResource MaterialDesignFilledDatePicker}"
                         SelectedDate="{Binding BankTransfer.Date, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
             </DatePicker>
 
             <!-- TODO work -->
-            <TextBox Grid.Row="3"
+            <TextBox Grid.Row="4"
                      materialDesign:HintAssist.Hint="Value :"
                      Style="{StaticResource MaterialDesignFilledTextBox}"
                      Text="{Binding BankTransfer.Value, Mode=TwoWay}"
@@ -81,7 +112,7 @@
             </TextBox>
 
             <!-- TODO work -->
-            <TextBox Grid.Row="4"
+            <TextBox Grid.Row="5"
                      materialDesign:HintAssist.Hint="Main reason :"
                      Style="{StaticResource MaterialDesignFilledTextBox}"
                      Text="{Binding BankTransfer.MainReason, Mode=TwoWay}"
@@ -89,7 +120,7 @@
             </TextBox>
 
             <!-- TODO work -->
-            <TextBox Grid.Row="5"
+            <TextBox Grid.Row="6"
                      MinHeight="75"
                      materialDesign:HintAssist.Hint="Additional reason :"
                      Style="{StaticResource MaterialDesignFilledTextBox}"
@@ -97,7 +128,7 @@
                      AcceptsReturn="True" AcceptsTab="True">
             </TextBox>
 
-            <StackPanel Grid.Row="6"
+            <StackPanel Grid.Row="7"
                         margin:PanelExtensions.MarginForAllChildren="5"
                         Orientation="Horizontal"
                         HorizontalAlignment="Center">

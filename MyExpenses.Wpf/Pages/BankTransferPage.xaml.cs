@@ -35,6 +35,12 @@ public partial class BankTransferPage
         DependencyProperty.Register(nameof(VToAccountIncrease), typeof(double), typeof(BankTransferPage),
             new PropertyMetadata(default(double)));
 
+    public static readonly DependencyProperty CategoryProperty = DependencyProperty.Register(nameof(Category),
+        typeof(TCategoryType), typeof(BankTransferPage), new PropertyMetadata(default(TCategoryType)));
+
+    public static readonly DependencyProperty ModePaymentProperty = DependencyProperty.Register(nameof(ModePayment),
+        typeof(TModePayment), typeof(BankTransferPage), new PropertyMetadata(default(TModePayment)));
+
     public bool BankTransferPrepare
     {
         get => (bool)GetValue(BankTransferPrepareProperty);
@@ -65,6 +71,18 @@ public partial class BankTransferPage
         set => SetValue(VToAccountIncreaseProperty, value);
     }
 
+    public TCategoryType? Category
+    {
+        get => (TCategoryType)GetValue(CategoryProperty);
+        set => SetValue(CategoryProperty, value);
+    }
+
+    public TModePayment? ModePayment
+    {
+        get => (TModePayment)GetValue(ModePaymentProperty);
+        set => SetValue(ModePaymentProperty, value);
+    }
+
     #endregion
 
     #region Property
@@ -79,6 +97,8 @@ public partial class BankTransferPage
 
     public TBankTransfer BankTransfer { get; } = new();
     public string DisplayMemberPathAccount { get; } = nameof(TAccount.Name);
+    public string DisplayMemberPathCategoryType { get; } = nameof(TCategoryType.Name);
+    public string DisplayMemberPathModePayment { get; } = nameof(TModePayment.Name);
     public string SelectedValuePathAccount { get; } = nameof(TAccount.Id);
 
     #endregion
@@ -120,6 +140,18 @@ public partial class BankTransferPage
         if (BankTransfer.ToAccountFk is null)
         {
             MsgBox.Show("To account cannot be empty", MsgBoxImage.Warning);
+            return;
+        }
+
+        if (Category is null)
+        {
+            MsgBox.Show("Category cannot be empty", MsgBoxImage.Warning);
+            return;
+        }
+
+        if (ModePayment is null)
+        {
+            MsgBox.Show("Mode payment cannot be empty", MsgBoxImage.Warning);
             return;
         }
 
@@ -178,8 +210,6 @@ public partial class BankTransferPage
         };
         BankTransfer.THistories.Add(fromHistory);
         BankTransfer.THistories.Add(toHistory);
-
-
     }
 
     //TODO work
