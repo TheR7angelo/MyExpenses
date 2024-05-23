@@ -9,7 +9,9 @@ using MyExpenses.Sql.Context;
 using MyExpenses.Utils;
 using MyExpenses.Utils.Sql;
 using MyExpenses.Wpf.Resources.Regex;
+using MyExpenses.Wpf.Utils;
 using MyExpenses.Wpf.Windows.MsgBox;
+using Serilog;
 
 namespace MyExpenses.Wpf.Pages;
 
@@ -215,6 +217,28 @@ public partial class BankTransferPage
 
         BankTransfer.THistories.Add(fromHistory);
         BankTransfer.THistories.Add(toHistory);
+
+        var (success, exception) = BankTransfer.AddOrEdit();
+        if (success)
+        {
+            Log.Information("The transfer has been successfully completed, {FromName} to {ToName} with value {ValueAbs}",
+                VFromAccount!.Name, VToAccount!.Name, valueAbs);
+            MsgBox.Show("The transfer has been successfully completed", MsgBoxImage.Check);
+            var response = MsgBox.Show("Do you want to make another bank transfer ?", MsgBoxImage.Question, MessageBoxButton.YesNo);
+
+            if (response != MessageBoxResult.Yes) nameof(MainWindow.FrameBody).GoBack();
+            else
+            {
+                var bankTransfer = new TBankTransfer();
+                bankTransfer.CopyPropertiesTo(BankTransfer);
+                BankTransferPrepare = false;
+            }
+        }
+        else
+        {
+            Log.Error(exception, "An error occurred please retry");
+            MsgBox.Show("An error occurred please retry", MsgBoxImage.Error);
+        }
     }
 
     //TODO work
