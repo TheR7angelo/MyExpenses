@@ -116,7 +116,7 @@ public partial class BankTransferPage
 
     #region Required Property
 
-    public required DashBoardPage DashBoardPage { get; set; }
+    public required DashBoardPage DashBoardPage { get; init; }
 
     #endregion
 
