@@ -190,8 +190,6 @@ public partial class BankTransferPage
     //TODO work
     private void ButtonValidBankTransferPreview_OnClick(object sender, RoutedEventArgs e)
     {
-        Console.WriteLine("ButtonValidBankTransferPreview_OnClick");
-
         var valueAbs = Math.Abs(BankTransfer.Value ?? 0);
         var fromHistory = new THistory
         {
@@ -224,6 +222,10 @@ public partial class BankTransferPage
             Log.Information("The transfer has been successfully completed, {FromName} to {ToName} with value {ValueAbs}",
                 VFromAccount!.Name, VToAccount!.Name, valueAbs);
             MsgBox.Show("The transfer has been successfully completed", MsgBoxImage.Check);
+
+            DashBoardPage.RefreshAccountTotal();
+            DashBoardPage.RefreshRadioButtonSelected();
+
             var response = MsgBox.Show("Do you want to make another bank transfer ?",
                 MsgBoxImage.Question, MessageBoxButton.YesNo);
 
