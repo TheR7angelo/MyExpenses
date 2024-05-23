@@ -118,7 +118,8 @@
 
         </Grid>
 
-        <Grid VerticalAlignment="Center"
+        <Grid margin:PanelExtensions.MarginForAllChildren="5"
+              VerticalAlignment="Center"
               HorizontalAlignment="Center"
               Visibility="{Binding BankTransferPrepare, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BooleanToVisibilityConverter}}">
 
