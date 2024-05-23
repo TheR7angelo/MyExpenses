@@ -21,34 +21,14 @@ public partial class BankTransferPage
         DependencyProperty.Register(nameof(BankTransferPrepare), typeof(bool), typeof(BankTransferPage),
             new PropertyMetadata(default(bool)));
 
-    public static readonly DependencyProperty VFromAccountProperty = DependencyProperty.Register(nameof(VFromAccount),
-        typeof(VTotalByAccount), typeof(BankTransferPage), new PropertyMetadata(default(VTotalByAccount)));
-
-    public static readonly DependencyProperty VFromAccountReduceProperty =
-        DependencyProperty.Register(nameof(VFromAccountReduce), typeof(double), typeof(BankTransferPage),
-            new PropertyMetadata(default(double)));
-
-    public static readonly DependencyProperty VToAccountProperty = DependencyProperty.Register(nameof(VToAccount),
-        typeof(VTotalByAccount), typeof(BankTransferPage), new PropertyMetadata(default(VTotalByAccount)));
-
-    public static readonly DependencyProperty VToAccountIncreaseProperty =
-        DependencyProperty.Register(nameof(VToAccountIncrease), typeof(double), typeof(BankTransferPage),
-            new PropertyMetadata(default(double)));
-
-    public static readonly DependencyProperty CategoryProperty = DependencyProperty.Register(nameof(Category),
-        typeof(TCategoryType), typeof(BankTransferPage), new PropertyMetadata(default(TCategoryType)));
-
-    public static readonly DependencyProperty ModePaymentProperty = DependencyProperty.Register(nameof(ModePayment),
-        typeof(TModePayment), typeof(BankTransferPage), new PropertyMetadata(default(TModePayment)));
-
-    public static readonly DependencyProperty IsPointedProperty = DependencyProperty.Register(nameof(IsPointed),
-        typeof(bool), typeof(BankTransferPage), new PropertyMetadata(default(bool)));
-
     public bool BankTransferPrepare
     {
         get => (bool)GetValue(BankTransferPrepareProperty);
         set => SetValue(BankTransferPrepareProperty, value);
     }
+
+    public static readonly DependencyProperty VFromAccountProperty = DependencyProperty.Register(nameof(VFromAccount),
+        typeof(VTotalByAccount), typeof(BankTransferPage), new PropertyMetadata(default(VTotalByAccount)));
 
     public VTotalByAccount? VFromAccount
     {
@@ -56,11 +36,18 @@ public partial class BankTransferPage
         set => SetValue(VFromAccountProperty, value);
     }
 
+    public static readonly DependencyProperty VFromAccountReduceProperty =
+        DependencyProperty.Register(nameof(VFromAccountReduce), typeof(double), typeof(BankTransferPage),
+            new PropertyMetadata(default(double)));
+
     public double? VFromAccountReduce
     {
         get => (double)GetValue(VFromAccountReduceProperty);
         set => SetValue(VFromAccountReduceProperty, value);
     }
+
+    public static readonly DependencyProperty VToAccountProperty = DependencyProperty.Register(nameof(VToAccount),
+        typeof(VTotalByAccount), typeof(BankTransferPage), new PropertyMetadata(default(VTotalByAccount)));
 
     public VTotalByAccount? VToAccount
     {
@@ -68,11 +55,18 @@ public partial class BankTransferPage
         set => SetValue(VToAccountProperty, value);
     }
 
+    public static readonly DependencyProperty VToAccountIncreaseProperty =
+        DependencyProperty.Register(nameof(VToAccountIncrease), typeof(double), typeof(BankTransferPage),
+            new PropertyMetadata(default(double)));
+
     public double? VToAccountIncrease
     {
         get => (double)GetValue(VToAccountIncreaseProperty);
         set => SetValue(VToAccountIncreaseProperty, value);
     }
+
+    public static readonly DependencyProperty CategoryProperty = DependencyProperty.Register(nameof(Category),
+        typeof(TCategoryType), typeof(BankTransferPage), new PropertyMetadata(default(TCategoryType)));
 
     public TCategoryType? Category
     {
@@ -80,11 +74,17 @@ public partial class BankTransferPage
         set => SetValue(CategoryProperty, value);
     }
 
+    public static readonly DependencyProperty ModePaymentProperty = DependencyProperty.Register(nameof(ModePayment),
+        typeof(TModePayment), typeof(BankTransferPage), new PropertyMetadata(default(TModePayment)));
+
     public TModePayment? ModePayment
     {
         get => (TModePayment)GetValue(ModePaymentProperty);
         set => SetValue(ModePaymentProperty, value);
     }
+
+    public static readonly DependencyProperty IsPointedProperty = DependencyProperty.Register(nameof(IsPointed),
+        typeof(bool), typeof(BankTransferPage), new PropertyMetadata(default(bool)));
 
     public bool IsPointed
     {
