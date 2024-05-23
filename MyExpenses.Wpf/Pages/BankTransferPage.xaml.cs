@@ -139,6 +139,18 @@ public partial class BankTransferPage
         BankTransferPrepare = true;
     }
 
+    //TODO work
+    private void ButtonValidBankTransferPreview_OnClick(object sender, RoutedEventArgs e)
+    {
+        Console.WriteLine("ButtonValidBankTransferPreview_OnClick");
+    }
+
+    //TODO work
+    private void ButtonCancelBankTransferPreview_OnClick(object sender, RoutedEventArgs e)
+    {
+        Console.WriteLine("ButtonValidBankTransferPreview_OnClick");
+    }
+
     private void SelectorFromAccount_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
     {
         var fromAccount = Accounts.FirstOrDefault(s => s.Id == BankTransfer.FromAccountFk);

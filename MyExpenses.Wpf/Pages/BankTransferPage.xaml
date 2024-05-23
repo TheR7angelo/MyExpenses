@@ -245,6 +245,26 @@
 
             </Button>
 
+            <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4"
+                        margin:PanelExtensions.MarginForAllChildren="5"
+                        Orientation="Horizontal"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center">
+
+                <!-- TODO work -->
+                <Button Content="Valid"
+                        Style="{StaticResource MaterialDesignPaperButton}"
+                        Click="ButtonValidBankTransferPreview_OnClick">
+                </Button>
+
+                <!-- TODO work -->
+                <Button Content="Cancel"
+                        Style="{StaticResource MaterialDesignPaperSecondaryButton}"
+                        Click="ButtonCancelBankTransferPreview_OnClick">
+                </Button>
+
+            </StackPanel>
+
         </Grid>
 
     </Grid>
