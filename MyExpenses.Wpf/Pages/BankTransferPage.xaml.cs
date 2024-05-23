@@ -41,6 +41,9 @@ public partial class BankTransferPage
     public static readonly DependencyProperty ModePaymentProperty = DependencyProperty.Register(nameof(ModePayment),
         typeof(TModePayment), typeof(BankTransferPage), new PropertyMetadata(default(TModePayment)));
 
+    public static readonly DependencyProperty IsPointedProperty = DependencyProperty.Register(nameof(IsPointed),
+        typeof(bool), typeof(BankTransferPage), new PropertyMetadata(default(bool)));
+
     public bool BankTransferPrepare
     {
         get => (bool)GetValue(BankTransferPrepareProperty);
@@ -81,6 +84,12 @@ public partial class BankTransferPage
     {
         get => (TModePayment)GetValue(ModePaymentProperty);
         set => SetValue(ModePaymentProperty, value);
+    }
+
+    public bool IsPointed
+    {
+        get => (bool)GetValue(IsPointedProperty);
+        set => SetValue(IsPointedProperty, value);
     }
 
     #endregion
@@ -190,11 +199,9 @@ public partial class BankTransferPage
             ModePaymentFk = ModePayment?.Id,
             Value = -valueAbs,
             Date = BankTransfer.Date,
-            // PlaceFk = BankTransfer.PlaceFk,
-            // Pointed = BankTransfer.Pointed,
-            // BankTransferFk = BankTransfer.Id,
-            // DateAdded = BankTransfer.DateAdded
+            Pointed = IsPointed
         };
+
         var toHistory = new THistory
         {
             AccountFk = BankTransfer.ToAccountFk,
@@ -203,11 +210,9 @@ public partial class BankTransferPage
             ModePaymentFk = ModePayment?.Id,
             Value = valueAbs,
             Date = BankTransfer.Date,
-            // PlaceFk = BankTransfer.PlaceFk,
-            // Pointed = BankTransfer.Pointed,
-            // BankTransferFk = BankTransfer.Id,
-            // DateAdded = BankTransfer.DateAdded
+            Pointed = IsPointed
         };
+
         BankTransfer.THistories.Add(fromHistory);
         BankTransfer.THistories.Add(toHistory);
     }

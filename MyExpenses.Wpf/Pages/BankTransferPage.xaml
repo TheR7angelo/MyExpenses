@@ -70,6 +70,7 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
                 <!-- TODO work -->
@@ -91,6 +92,13 @@
                           DisplayMemberPath="{Binding DisplayMemberPathModePayment}"
                           SelectedItem="{Binding ModePayment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                 </ComboBox>
+
+                <!-- TODO work -->
+                <CheckBox Grid.Column="2"
+                          materialDesign:CheckBoxAssist.CheckBoxSize="30"
+                          Content="Pointed"
+                          IsChecked="{Binding IsPointed, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                </CheckBox>
 
             </Grid>
 
