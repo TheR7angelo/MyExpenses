@@ -1,0 +1,44 @@
+<root>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <data name="MessageBoxButtonValidBankTransferPrepareFromAccountFkIsNullError" xml:space="preserve">
+        <value>Le compte de départ ne peut pas être vide</value>
+    </data>
+    <data name="MessageBoxButtonValidBankTransferPrepareToAccountFkIsNullError" xml:space="preserve">
+        <value>Le compte d'arrivée ne peut pas être vide</value>
+    </data>
+    <data name="MessageBoxButtonValidBankTransferPrepareCategoryIsNullError" xml:space="preserve">
+        <value>La catégorie ne peut pas être vide</value>
+    </data>
+    <data name="MessageBoxButtonValidBankTransferPrepareModePaymentIsNullError" xml:space="preserve">
+        <value>Le mode de paiement ne peut pas être vide</value>
+    </data>
+    <data name="MessageBoxButtonValidBankTransferPrepareValueIsNullError" xml:space="preserve">
+        <value>La valeur ne peut pas être vide</value>
+    </data>
+    <data name="MessageBoxButtonValidBankTransferPrepareDateIsNullError" xml:space="preserve">
+        <value>La date ne peut pas être vide</value>
+    </data>
+    <data name="MessageBoxButtonValidBankTransferPrepareMainReasonIsNullError" xml:space="preserve">
+        <value>La raison principale ne peut pas être vide</value>
+    </data>
+    <data name="MessageBoxButtonValidBankTransferPreviewSuccess" xml:space="preserve">
+        <value>Le transfert a été effectué avec succès</value>
+    </data>
+    <data name="MessageBoxButtonValidBankTransferPreviewNewTransferQuestion" xml:space="preserve">
+        <value>Voulez-vous effectuer un autre virement bancaire ?</value>
+    </data>
+    <data name="MessageBoxButtonValidBankTransferPreviewError" xml:space="preserve">
+        <value>Une erreur s'est produite, veuillez réessayer</value>
+    </data>
+</root>

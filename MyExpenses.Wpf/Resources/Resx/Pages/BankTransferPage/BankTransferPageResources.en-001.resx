@@ -1,0 +1,44 @@
+<root>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <data name="MessageBoxButtonValidBankTransferPrepareFromAccountFkIsNullError" xml:space="preserve">
+        <value>The starting account cannot be empty</value>
+    </data>
+    <data name="MessageBoxButtonValidBankTransferPrepareToAccountFkIsNullError" xml:space="preserve">
+        <value>Arrival account cannot be empty</value>
+    </data>
+    <data name="MessageBoxButtonValidBankTransferPrepareCategoryIsNullError" xml:space="preserve">
+        <value>Category cannot be empty</value>
+    </data>
+    <data name="MessageBoxButtonValidBankTransferPrepareModePaymentIsNullError" xml:space="preserve">
+        <value>Mode payment cannot be empty</value>
+    </data>
+    <data name="MessageBoxButtonValidBankTransferPrepareValueIsNullError" xml:space="preserve">
+        <value>Value cannot be empty</value>
+    </data>
+    <data name="MessageBoxButtonValidBankTransferPrepareDateIsNullError" xml:space="preserve">
+        <value>Date cannot be empty</value>
+    </data>
+    <data name="MessageBoxButtonValidBankTransferPrepareMainReasonIsNullError" xml:space="preserve">
+        <value>Main reason cannot be empty</value>
+    </data>
+    <data name="MessageBoxButtonValidBankTransferPreviewSuccess" xml:space="preserve">
+        <value>The transfer has been successfully completed</value>
+    </data>
+    <data name="MessageBoxButtonValidBankTransferPreviewNewTransferQuestion" xml:space="preserve">
+        <value>Do you want to make another bank transfer ?</value>
+    </data>
+    <data name="MessageBoxButtonValidBankTransferPreviewError" xml:space="preserve">
+        <value>An error occurred please retry</value>
+    </data>
+</root>
