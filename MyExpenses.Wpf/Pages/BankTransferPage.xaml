@@ -188,7 +188,9 @@
 
             </Button>
 
-            <materialDesign:PackIcon Grid.Row="0" Grid.Column="1" Height="96" Width="96" Kind="ArrowRightBold"
+            <materialDesign:PackIcon Grid.Row="0" Grid.Column="1"
+                                     Height="96" Width="96" Kind="ArrowRightBold"
+                                     HorizontalAlignment="Center"
                                      VerticalAlignment="Center">
             </materialDesign:PackIcon>
 
@@ -245,8 +247,7 @@
 
             </Button>
 
-            <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4"
-                        margin:PanelExtensions.MarginForAllChildren="5"
+            <StackPanel Grid.Row="1" Grid.Column="1" margin:PanelExtensions.MarginForAllChildren="5"
                         Orientation="Horizontal"
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center">
