@@ -241,11 +241,8 @@ public partial class BankTransferPage
         }
     }
 
-    //TODO work
     private void ButtonCancelBankTransferPreview_OnClick(object sender, RoutedEventArgs e)
-    {
-        Console.WriteLine("ButtonCancelBankTransferPreview_OnClick");
-    }
+        => BankTransferPrepare = false;
 
     private void SelectorFromAccount_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
     {
