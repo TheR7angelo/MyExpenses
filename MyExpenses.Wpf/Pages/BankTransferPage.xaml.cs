@@ -69,6 +69,9 @@ public partial class BankTransferPage
 
     #region Property
 
+    public List<TCategoryType> CategoryTypes { get; }
+    public List<TModePayment> ModePayments { get; }
+
     private List<TAccount> Accounts { get; }
 
     public ObservableCollection<TAccount> FromAccounts { get; }
@@ -89,6 +92,8 @@ public partial class BankTransferPage
     public BankTransferPage()
     {
         using var context = new DataBaseContext();
+        CategoryTypes = [..context.TCategoryTypes.OrderBy(s => s.Name)];
+        ModePayments = [..context.TModePayments.OrderBy(s => s.Name)];
         Accounts = [..context.TAccounts.OrderBy(s => s.Name)];
         FromAccounts = new ObservableCollection<TAccount>(Accounts);
         ToAccounts = new ObservableCollection<TAccount>(Accounts);
