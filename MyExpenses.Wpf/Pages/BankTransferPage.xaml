@@ -154,6 +154,8 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
             <Grid.ColumnDefinitions>
@@ -275,7 +277,22 @@
 
             </Button>
 
-            <StackPanel Grid.Row="1" Grid.Column="1" margin:PanelExtensions.MarginForAllChildren="5"
+            <TextBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3"
+                     IsReadOnly="True"
+                     Style="{StaticResource MaterialDesignFilledTextBox}"
+                     materialDesign:HintAssist.Hint="{Binding TextBoxMainReasonHintAssist}"
+                     Text="{Binding BankTransfer.MainReason, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
+            </TextBox>
+
+            <TextBox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3"
+                     IsReadOnly="True"
+                     Style="{StaticResource MaterialDesignFilledTextBox}"
+                     materialDesign:HintAssist.Hint="{Binding TextBoxAdditionalReasonHintAssist}"
+                     Text="{Binding BankTransfer.AdditionalReason, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
+            </TextBox>
+
+            <StackPanel Grid.Row="3" Grid.Column="1"
+                        margin:PanelExtensions.MarginForAllChildren="5"
                         Orientation="Horizontal"
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center">
