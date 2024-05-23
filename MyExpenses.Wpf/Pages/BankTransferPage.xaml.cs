@@ -186,8 +186,8 @@ public partial class BankTransferPage
         {
             AccountFk = BankTransfer.FromAccountFk,
             Description = BankTransfer.MainReason,
-            // CategoryTypeFk = BankTransfer.CategoryTypeFk,
-            // ModePaymentFk = BankTransfer.ModePaymentFk,
+            CategoryTypeFk = Category?.Id,
+            ModePaymentFk = ModePayment?.Id,
             Value = -valueAbs,
             Date = BankTransfer.Date,
             // PlaceFk = BankTransfer.PlaceFk,
@@ -199,8 +199,8 @@ public partial class BankTransferPage
         {
             AccountFk = BankTransfer.ToAccountFk,
             Description = BankTransfer.MainReason,
-            // CategoryTypeFk = BankTransfer.CategoryTypeFk,
-            // ModePaymentFk = BankTransfer.ModePaymentFk,
+            CategoryTypeFk = Category?.Id,
+            ModePaymentFk = ModePayment?.Id,
             Value = valueAbs,
             Date = BankTransfer.Date,
             // PlaceFk = BankTransfer.PlaceFk,
