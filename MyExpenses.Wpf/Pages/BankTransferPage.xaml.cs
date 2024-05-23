@@ -9,6 +9,7 @@ using MyExpenses.Sql.Context;
 using MyExpenses.Utils;
 using MyExpenses.Utils.Sql;
 using MyExpenses.Wpf.Resources.Regex;
+using MyExpenses.Wpf.Resources.Resx.Pages.BankTransferPage;
 using MyExpenses.Wpf.Utils;
 using MyExpenses.Wpf.Windows.MsgBox;
 using Serilog;
@@ -139,55 +140,53 @@ public partial class BankTransferPage
     private void ButtonCancelBankTransferPrepare_OnClick(object sender, RoutedEventArgs e)
         => nameof(MainWindow.FrameBody).GoBack();
 
-    //TODO work
     private void ButtonValidBankTransferPrepare_OnClick(object sender, RoutedEventArgs e)
     {
         if (BankTransfer.FromAccountFk is null)
         {
-            MsgBox.Show("From account cannot be empty", MsgBoxImage.Warning);
+            MsgBox.Show(BankTransferPageResources.MessageBoxButtonValidBankTransferPrepareFromAccountFkIsNullError, MsgBoxImage.Warning);
             return;
         }
 
         if (BankTransfer.ToAccountFk is null)
         {
-            MsgBox.Show("To account cannot be empty", MsgBoxImage.Warning);
+            MsgBox.Show(BankTransferPageResources.MessageBoxButtonValidBankTransferPrepareToAccountFkIsNullError, MsgBoxImage.Warning);
             return;
         }
 
         if (Category is null)
         {
-            MsgBox.Show("Category cannot be empty", MsgBoxImage.Warning);
+            MsgBox.Show(BankTransferPageResources.MessageBoxButtonValidBankTransferPrepareCategoryIsNullError, MsgBoxImage.Warning);
             return;
         }
 
         if (ModePayment is null)
         {
-            MsgBox.Show("Mode payment cannot be empty", MsgBoxImage.Warning);
+            MsgBox.Show(BankTransferPageResources.MessageBoxButtonValidBankTransferPrepareModePaymentIsNullError, MsgBoxImage.Warning);
             return;
         }
 
         if (BankTransfer.Value is null)
         {
-            MsgBox.Show("Value cannot be empty", MsgBoxImage.Warning);
+            MsgBox.Show(BankTransferPageResources.MessageBoxButtonValidBankTransferPrepareValueIsNullError, MsgBoxImage.Warning);
             return;
         }
 
         if (BankTransfer.Date is null)
         {
-            MsgBox.Show("Date cannot be empty", MsgBoxImage.Warning);
+            MsgBox.Show(BankTransferPageResources.MessageBoxButtonValidBankTransferPrepareDateIsNullError, MsgBoxImage.Warning);
             return;
         }
 
         if (string.IsNullOrWhiteSpace(BankTransfer.MainReason))
         {
-            MsgBox.Show("Main reason cannot be empty", MsgBoxImage.Warning);
+            MsgBox.Show(BankTransferPageResources.MessageBoxButtonValidBankTransferPrepareMainReasonIsNullError, MsgBoxImage.Warning);
             return;
         }
 
         BankTransferPrepare = true;
     }
 
-    //TODO work
     private void ButtonValidBankTransferPreview_OnClick(object sender, RoutedEventArgs e)
     {
         var valueAbs = Math.Abs(BankTransfer.Value ?? 0);
@@ -221,12 +220,12 @@ public partial class BankTransferPage
         {
             Log.Information("The transfer has been successfully completed, {FromName} to {ToName} with value {ValueAbs}",
                 VFromAccount!.Name, VToAccount!.Name, valueAbs);
-            MsgBox.Show("The transfer has been successfully completed", MsgBoxImage.Check);
+            MsgBox.Show(BankTransferPageResources.MessageBoxButtonValidBankTransferPreviewSuccess, MsgBoxImage.Check);
 
             DashBoardPage.RefreshAccountTotal();
             DashBoardPage.RefreshRadioButtonSelected();
 
-            var response = MsgBox.Show("Do you want to make another bank transfer ?",
+            var response = MsgBox.Show(BankTransferPageResources.MessageBoxButtonValidBankTransferPreviewNewTransferQuestion,
                 MsgBoxImage.Question, MessageBoxButton.YesNo);
 
             if (response != MessageBoxResult.Yes) nameof(MainWindow.FrameBody).GoBack();
@@ -240,7 +239,7 @@ public partial class BankTransferPage
         else
         {
             Log.Error(exception, "An error occurred please retry");
-            MsgBox.Show("An error occurred please retry", MsgBoxImage.Error);
+            MsgBox.Show(BankTransferPageResources.MessageBoxButtonValidBankTransferPreviewError, MsgBoxImage.Error);
         }
     }
 
