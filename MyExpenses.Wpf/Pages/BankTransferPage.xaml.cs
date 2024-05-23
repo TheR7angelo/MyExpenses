@@ -143,6 +143,38 @@ public partial class BankTransferPage
     private void ButtonValidBankTransferPreview_OnClick(object sender, RoutedEventArgs e)
     {
         Console.WriteLine("ButtonValidBankTransferPreview_OnClick");
+
+        var valueAbs = Math.Abs(BankTransfer.Value ?? 0);
+        var fromHistory = new THistory
+        {
+            AccountFk = BankTransfer.FromAccountFk,
+            Description = BankTransfer.MainReason,
+            // CategoryTypeFk = BankTransfer.CategoryTypeFk,
+            // ModePaymentFk = BankTransfer.ModePaymentFk,
+            Value = -valueAbs,
+            Date = BankTransfer.Date,
+            // PlaceFk = BankTransfer.PlaceFk,
+            // Pointed = BankTransfer.Pointed,
+            // BankTransferFk = BankTransfer.Id,
+            // DateAdded = BankTransfer.DateAdded
+        };
+        var toHistory = new THistory
+        {
+            AccountFk = BankTransfer.ToAccountFk,
+            Description = BankTransfer.MainReason,
+            // CategoryTypeFk = BankTransfer.CategoryTypeFk,
+            // ModePaymentFk = BankTransfer.ModePaymentFk,
+            Value = valueAbs,
+            Date = BankTransfer.Date,
+            // PlaceFk = BankTransfer.PlaceFk,
+            // Pointed = BankTransfer.Pointed,
+            // BankTransferFk = BankTransfer.Id,
+            // DateAdded = BankTransfer.DateAdded
+        };
+        BankTransfer.THistories.Add(fromHistory);
+        BankTransfer.THistories.Add(toHistory);
+
+
     }
 
     //TODO work
