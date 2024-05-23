@@ -111,7 +111,7 @@
                 <!-- TODO work -->
                 <Button Content="Cancel"
                         Style="{StaticResource MaterialDesignPaperSecondaryButton}"
-                        Click="ButtonCancel_OnClick">
+                        Click="ButtonCancelBankTransferPrepare_OnClick">
                 </Button>
 
             </StackPanel>
