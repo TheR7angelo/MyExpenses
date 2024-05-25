@@ -56,4 +56,7 @@
     <data name="ButtonModePaymentManagement" xml:space="preserve">
         <value>Mode payment management</value>
     </data>
+    <data name="ButtonMakeBankTransfer" xml:space="preserve">
+        <value>Make a bank transfer</value>
+    </data>
 </root>

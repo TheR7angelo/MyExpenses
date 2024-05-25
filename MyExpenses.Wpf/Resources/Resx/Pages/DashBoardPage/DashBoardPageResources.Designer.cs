@@ -190,5 +190,14 @@ namespace MyExpenses.Wpf.Resources.Resx.Pages.DashBoardPage {
                 return ResourceManager.GetString("DataGridTextColumnPlace", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Make a bank transfer.
+        /// </summary>
+        internal static object ButtonMakeBankTransfer {
+            get {
+                return ResourceManager.GetString("ButtonMakeBankTransfer", resourceCulture);
+            }
+        }
     }
 }

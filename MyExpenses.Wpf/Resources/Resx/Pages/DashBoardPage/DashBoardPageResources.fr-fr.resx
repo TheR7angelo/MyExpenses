@@ -56,4 +56,7 @@
     <data name="ButtonModePaymentManagement" xml:space="preserve">
         <value>Gestion des modes de paiement</value>
     </data>
+    <data name="ButtonMakeBankTransfer" xml:space="preserve">
+        <value>Effectuer un virement bancaire</value>
+    </data>
 </root>

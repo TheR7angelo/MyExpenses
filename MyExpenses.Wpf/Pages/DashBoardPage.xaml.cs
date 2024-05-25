@@ -70,6 +70,7 @@ public partial class DashBoardPage : INotifyPropertyChanged
     public object ButtonCurrencyManagement { get; } = DashBoardPageResources.ButtonCurrencyManagement;
     public string ButtonLocationManagement { get; } = DashBoardPageResources.ButtonLocationManagement;
     public object ButtonModePaymentManagement { get; } = DashBoardPageResources.ButtonModePaymentManagement;
+    public object ButtonMakeBankTransfer { get; } = DashBoardPageResources.ButtonMakeBankTransfer;
 
     #endregion
 

@@ -79,8 +79,7 @@
                         Click="ButtonModePaymentManagement_OnClick">
                 </Button>
 
-                <!-- TODO work -->
-                <Button Content="Make bank transfer"
+                <Button Content="{Binding ButtonMakeBankTransfer}"
                         Style="{StaticResource MaterialDesignPaperButton}"
                         Click="ButtonMakeBankTransfer_OnClick">
                 </Button>
