@@ -4,10 +4,10 @@ using Microsoft.EntityFrameworkCore;
 namespace MyExpenses.Models.Sql.Views;
 
 [Keyless]
-public partial class VHistory
+public partial class VHistory : ISql
 {
     [Column("id")]
-    public int? Id { get; set; }
+    public int Id { get; set; }
 
     [Column("account")]
     public string? Account { get; set; }
