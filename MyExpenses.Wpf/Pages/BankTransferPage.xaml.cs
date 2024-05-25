@@ -297,6 +297,43 @@ public partial class BankTransferPage
         }
     }
 
+    private void ButtonToAddAccount_OnClick(object sender, RoutedEventArgs e)
+    {
+        var addEditAccountWindow = new AddEditAccountWindow();
+        var fromAccount = BankTransfer.ToAccountFk?.ToTAccount();
+        if (fromAccount != null) addEditAccountWindow.SetTAccount(fromAccount);
+
+        addEditAccountWindow.ShowDialog();
+        if (addEditAccountWindow.DialogResult != true) return;
+
+        if (addEditAccountWindow.DeleteAccount)
+        {
+            RemoveByAccountId(BankTransfer.ToAccountFk);
+            return;
+        }
+
+        var editedAccount = addEditAccountWindow.Account;
+
+        Log.Information("Attempting to edit the account \"{AccountName}\"", editedAccount.Name);
+        var (success, exception) = editedAccount.AddOrEdit();
+        if (success)
+        {
+            Log.Information("Account was successfully edited");
+            MsgBox.Show(BankTransferPageResources.MessageBoxEditAccountSuccess, MsgBoxImage.Check);
+
+            RemoveByAccountId(editedAccount.Id);
+            Accounts.AddAndSort(editedAccount, s => s.Name!);
+            ToAccounts.AddAndSort(editedAccount, s => s.Name!);
+
+            BankTransfer.ToAccountFk = editedAccount.Id;
+        }
+        else
+        {
+            Log.Error(exception, "An error occurred please retry");
+            MsgBox.Show(BankTransferPageResources.MessageBoxEditAccountError, MsgBoxImage.Warning);
+        }
+    }
+
     private void SelectorFromAccount_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
     {
         var fromAccount = Accounts.FirstOrDefault(s => s.Id == BankTransfer.FromAccountFk);
@@ -399,9 +436,4 @@ public partial class BankTransferPage
     }
 
     #endregion
-
-    private void ButtonToAddAccount_OnClick(object sender, RoutedEventArgs e)
-    {
-        //TODO work
-    }
 }
