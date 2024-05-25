@@ -236,8 +236,7 @@
 
                     <DataGridCheckBoxColumn IsThreeState="False" Binding="{Binding Pointed}">
                         <DataGridCheckBoxColumn.Header>
-                            <TextBlock
-                                Text="{Binding DataGridTextColumnPointed, RelativeSource={RelativeSource AncestorType={x:Type local:DashBoardPage}}}" />
+                            <TextBlock Text="{Binding DataGridTextColumnPointed, RelativeSource={RelativeSource AncestorType={x:Type local:DashBoardPage}}}" />
                         </DataGridCheckBoxColumn.Header>
                     </DataGridCheckBoxColumn>
 
