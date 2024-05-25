@@ -6,7 +6,7 @@ using System.Windows.Input;
 using MyExpenses.Models.Sql.Tables;
 using MyExpenses.Models.Sql.Views;
 using MyExpenses.Sql.Context;
-using MyExpenses.Utils;
+using MyExpenses.Utils.Collection;
 using MyExpenses.Utils.Sql;
 using MyExpenses.Wpf.Resources.Regex;
 using MyExpenses.Wpf.Resources.Resx.Pages.BankTransferPage;
@@ -363,28 +363,21 @@ public partial class BankTransferPage
 
         var editedAccount = addEditAccountWindow.Account;
 
-        //TODO work
         Log.Information("Attempting to edit the account \"{AccountName}\"", editedAccount.Name);
         var (success, exception) = editedAccount.AddOrEdit();
         if (success)
         {
             Log.Information("Account was successfully edited");
-            // MsgBox.Show(AccountManagementPageResources.MessageBoxEditAccountSuccess, MsgBoxImage.Check);
+            MsgBox.Show(BankTransferPageResources.MessageBoxEditAccountSuccess, MsgBoxImage.Check);
 
-            // var newVTotalByAccount = editedAccount.ToVTotalByAccount()!;
-            //
-            // TotalByAccounts.Remove(vTotalByAccount);
-            // DashBoardPage.VTotalByAccounts.Remove(vTotalByAccount);
-            //
-            // TotalByAccounts.AddAndSort(newVTotalByAccount, s => s.Name!);
-            //
-            // DashBoardPage.RefreshAccountTotal();
-            // Application.Current.Dispatcher.InvokeAsync(DashBoardPage.RefreshRadioButtonSelected, DispatcherPriority.ContextIdle);
+            Remove(editedAccount.Id);
+            Accounts.AddAndSort(editedAccount, s => s.Name!);
+            FromAccounts.AddAndSort(editedAccount, s => s.Name!);
         }
         else
         {
             Log.Error(exception, "An error occurred please retry");
-            // MsgBox.Show(AccountManagementPageResources.MessageBoxEditAccountError, MsgBoxImage.Warning);
+            MsgBox.Show(BankTransferPageResources.MessageBoxEditAccountError, MsgBoxImage.Warning);
         }
     }
 
@@ -401,6 +394,9 @@ public partial class BankTransferPage
 
         accountToRemove = FromAccounts.FirstOrDefault(s => s.Id == BankTransfer.FromAccountFk);
         if (accountToRemove is not null) FromAccounts.Remove(accountToRemove);
+
+        DashBoardPage.RefreshRadioButtonSelected();
+        DashBoardPage.RefreshAccountTotal();
     }
 
     private void ButtonToAddAccount_OnClick(object sender, RoutedEventArgs e)
