@@ -11,6 +11,7 @@ using MyExpenses.Utils.Sql;
 using MyExpenses.Wpf.Resources.Regex;
 using MyExpenses.Wpf.Resources.Resx.Pages.BankTransferPage;
 using MyExpenses.Wpf.Utils;
+using MyExpenses.Wpf.Windows;
 using MyExpenses.Wpf.Windows.MsgBox;
 using Serilog;
 
@@ -347,7 +348,59 @@ public partial class BankTransferPage
 
     private void ButtonFromAddAccount_OnClick(object sender, RoutedEventArgs e)
     {
+        var addEditAccountWindow = new AddEditAccountWindow();
+        var fromAccount = BankTransfer.FromAccountFk?.ToTAccount();
+        if (fromAccount != null) addEditAccountWindow.SetTAccount(fromAccount);
+
+        addEditAccountWindow.ShowDialog();
+        if (addEditAccountWindow.DialogResult != true) return;
+
+        if (addEditAccountWindow.DeleteAccount)
+        {
+            Remove( BankTransfer.FromAccountFk);
+            return;
+        }
+
+        var editedAccount = addEditAccountWindow.Account;
+
         //TODO work
+        Log.Information("Attempting to edit the account \"{AccountName}\"", editedAccount.Name);
+        var (success, exception) = editedAccount.AddOrEdit();
+        if (success)
+        {
+            Log.Information("Account was successfully edited");
+            // MsgBox.Show(AccountManagementPageResources.MessageBoxEditAccountSuccess, MsgBoxImage.Check);
+
+            // var newVTotalByAccount = editedAccount.ToVTotalByAccount()!;
+            //
+            // TotalByAccounts.Remove(vTotalByAccount);
+            // DashBoardPage.VTotalByAccounts.Remove(vTotalByAccount);
+            //
+            // TotalByAccounts.AddAndSort(newVTotalByAccount, s => s.Name!);
+            //
+            // DashBoardPage.RefreshAccountTotal();
+            // Application.Current.Dispatcher.InvokeAsync(DashBoardPage.RefreshRadioButtonSelected, DispatcherPriority.ContextIdle);
+        }
+        else
+        {
+            Log.Error(exception, "An error occurred please retry");
+            // MsgBox.Show(AccountManagementPageResources.MessageBoxEditAccountError, MsgBoxImage.Warning);
+        }
+    }
+
+    private void Remove(int? accountId)
+    {
+        var vTotalByAccount = accountId?.ToVTotalByAccount();
+        if (vTotalByAccount is not null) DashBoardPage.VTotalByAccounts.Remove(vTotalByAccount);
+
+        var accountToRemove = Accounts.FirstOrDefault(s => s.Id == BankTransfer.FromAccountFk);
+        if (accountToRemove is not null) Accounts.Remove(accountToRemove);
+
+        accountToRemove = ToAccounts.FirstOrDefault(s => s.Id == BankTransfer.FromAccountFk);
+        if (accountToRemove is not null) ToAccounts.Remove(accountToRemove);
+
+        accountToRemove = FromAccounts.FirstOrDefault(s => s.Id == BankTransfer.FromAccountFk);
+        if (accountToRemove is not null) FromAccounts.Remove(accountToRemove);
     }
 
     private void ButtonToAddAccount_OnClick(object sender, RoutedEventArgs e)
