@@ -425,11 +425,11 @@ public partial class BankTransferPage
         var accountToRemove = Accounts.FirstOrDefault(s => s.Id == BankTransfer.FromAccountFk);
         if (accountToRemove is not null) Accounts.Remove(accountToRemove);
 
-        accountToRemove = ToAccounts.FirstOrDefault(s => s.Id == BankTransfer.FromAccountFk);
-        if (accountToRemove is not null) ToAccounts.Remove(accountToRemove);
-
         accountToRemove = FromAccounts.FirstOrDefault(s => s.Id == BankTransfer.FromAccountFk);
         if (accountToRemove is not null) FromAccounts.Remove(accountToRemove);
+
+        accountToRemove = ToAccounts.FirstOrDefault(s => s.Id == BankTransfer.ToAccountFk);
+        if (accountToRemove is not null) ToAccounts.Remove(accountToRemove);
 
         DashBoardPage.RefreshRadioButtonSelected();
         DashBoardPage.RefreshAccountTotal();
