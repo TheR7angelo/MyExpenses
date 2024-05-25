@@ -4,6 +4,7 @@ using System.Windows.Controls;
 using MyExpenses.Models.Sql.Tables;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils.Collection;
+using MyExpenses.Utils.Sql;
 using MyExpenses.Wpf.Resources.Resx.Pages.CurrencyManagementPage;
 using MyExpenses.Wpf.Windows;
 using MyExpenses.Wpf.Windows.MsgBox;
@@ -37,7 +38,11 @@ public partial class CurrencyManagementPage
         if (success)
         {
             Currencies.AddAndSort(newCurrency, s => s.Symbol!);
+
             Log.Information("Currency symbol was successfully added");
+            var json = newCurrency.ToJsonString();
+            Log.Information("{Json}", json);
+
             MsgBox.Show(CurrencyManagementPageResources.MessageBoxAddCurrencySuccess, MsgBoxImage.Check);
         }
         else
@@ -68,7 +73,11 @@ public partial class CurrencyManagementPage
             {
                 Currencies.Remove(currencyToEdit);
                 Currencies.AddAndSort(editedCurrency, s => s.Symbol!);
+
                 Log.Information("Currency symbol was successfully edited");
+                var json = editedCurrency.ToJsonString();
+                Log.Information("{Json}", json);
+
                 MsgBox.Show(CurrencyManagementPageResources.MessageBoxEditCurrencySuccess, MsgBoxImage.Check);
             }
             else

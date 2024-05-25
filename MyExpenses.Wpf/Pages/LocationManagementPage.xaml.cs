@@ -16,6 +16,7 @@ using MyExpenses.Sql.Context;
 using MyExpenses.Utils;
 using MyExpenses.Utils.Collection;
 using MyExpenses.Utils.Maps;
+using MyExpenses.Utils.Sql;
 using MyExpenses.WebApi.Nominatim;
 using MyExpenses.Wpf.Resources.Resx.Pages.LocationManagementPage;
 using MyExpenses.Wpf.Utils.Maps;
@@ -236,13 +237,24 @@ public partial class LocationManagementPage
             PlaceLayer.Add(feature);
             MapControl.Refresh();
 
+            string json;
             switch (add)
             {
                 case true when !edit:
                     MsgBox.Show(LocationManagementPageResources.MessageBoxProcessNewPlaceAddSuccess, MsgBoxImage.Check);
+
+                    Log.Information("The new place was successfully added");
+                    json = newPlace.ToJsonString();
+                    Log.Information("{Json}", json);
+
                     break;
                 case false when edit:
                     MsgBox.Show(LocationManagementPageResources.MessageBoxProcessNewPlaceEditSuccess, MsgBoxImage.Check);
+
+                    Log.Information("The new place was successfully edited");
+                    json = newPlace.ToJsonString();
+                    Log.Information("{Json}", json);
+
                     break;
             }
         }

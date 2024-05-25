@@ -235,6 +235,9 @@ public partial class BankTransferPage
         {
             Log.Information("The transfer has been successfully completed, {FromName} to {ToName} with value {ValueAbs}",
                 VFromAccount!.Name, VToAccount!.Name, valueAbs);
+            var json = BankTransfer.ToJsonString();
+            Log.Information("{Json}", json);
+
             MsgBox.Show(BankTransferPageResources.MessageBoxButtonValidBankTransferPreviewSuccess, MsgBoxImage.Check);
 
             DashBoardPage.RefreshAccountTotal();
@@ -283,6 +286,9 @@ public partial class BankTransferPage
         if (success)
         {
             Log.Information("Account was successfully edited");
+            var json = editedAccount.ToJsonString();
+            Log.Information("{Json}", json);
+
             MsgBox.Show(BankTransferPageResources.MessageBoxEditAccountSuccess, MsgBoxImage.Check);
 
             RemoveByAccountId(editedAccount.Id);
@@ -319,6 +325,9 @@ public partial class BankTransferPage
         if (success)
         {
             Log.Information("Account was successfully edited");
+            var json = editedAccount.ToJsonString();
+            Log.Information("{Json}", json);
+
             MsgBox.Show(BankTransferPageResources.MessageBoxEditAccountSuccess, MsgBoxImage.Check);
 
             RemoveByAccountId(editedAccount.Id);

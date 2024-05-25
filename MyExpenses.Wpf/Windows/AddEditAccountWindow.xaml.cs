@@ -6,6 +6,7 @@ using Microsoft.Data.Sqlite;
 using MyExpenses.Models.Sql.Tables;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils.Collection;
+using MyExpenses.Utils.Sql;
 using MyExpenses.Wpf.Resources.Regex;
 using MyExpenses.Wpf.Resources.Resx.Windows.AddAccountWindow;
 using MyExpenses.Wpf.Utils;
@@ -124,7 +125,11 @@ public partial class AddEditAccountWindow
         {
             AccountTypes.AddAndSort(newAccountType, s => s.Name!);
             Account.AccountTypeFk = newAccountType.Id;
+
             Log.Information("Account type was successfully added");
+            var json = newAccountType.ToJsonString();
+            Log.Information("{Json}", json);
+
             MsgBox.MsgBox.Show(AddEditAccountWindowResources.MessageBoxAddAccountTypeSuccess, MsgBoxImage.Check);
         }
         else
@@ -148,7 +153,11 @@ public partial class AddEditAccountWindow
         {
             CategoryTypes.AddAndSort(newCategoryType, s => s.Name!);
             History.CategoryTypeFk = newCategoryType.Id;
+
             Log.Information("Account type was successfully added");
+            var json = newCategoryType.ToJsonString();
+            Log.Information("{Json}", json);
+
             MsgBox.MsgBox.Show(AddEditAccountWindowResources.MessageBoxAddCurrencySuccess, MsgBoxImage.Check);
         }
         else
@@ -172,7 +181,11 @@ public partial class AddEditAccountWindow
         {
             Currencies.AddAndSort(newCurrency, s => s.Symbol!);
             Account.CurrencyFk = newCurrency.Id;
+
             Log.Information("Account type was successfully added");
+            var json = newCurrency.ToJsonString();
+            Log.Information("{Json}", json);
+
             MsgBox.MsgBox.Show(AddEditAccountWindowResources.MessageBoxAddCurrencySuccess, MsgBoxImage.Check);
         }
         else

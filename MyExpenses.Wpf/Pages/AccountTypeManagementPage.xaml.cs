@@ -4,6 +4,7 @@ using System.Windows.Controls;
 using MyExpenses.Models.Sql.Tables;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils.Collection;
+using MyExpenses.Utils.Sql;
 using MyExpenses.Wpf.Resources.Resx.Pages.AccountTypeManagementPage;
 using MyExpenses.Wpf.Windows;
 using MyExpenses.Wpf.Windows.MsgBox;
@@ -38,7 +39,11 @@ public partial class AccountTypeManagementPage
         if (success)
         {
             AccountTypes.AddAndSort(newAccountType, s => s.Name!);
+
             Log.Information("Account type was successfully added");
+            var json = newAccountType.ToJsonString();
+            Log.Information("{Json}", json);
+
             MsgBox.Show(AccountTypeManagementPageResources.MessageBoxAddAccountTypeSuccess, MsgBoxImage.Check);
         }
         else
@@ -69,7 +74,11 @@ public partial class AccountTypeManagementPage
             {
                 AccountTypes.Remove(accountType);
                 AccountTypes.AddAndSort(editedAccountType, s => s.Name!);
+
                 Log.Information("Account type was successfully edited");
+                var json = editedAccountType.ToJsonString();
+                Log.Information("{Json}", json);
+
                 MsgBox.Show(AccountTypeManagementPageResources.MessageBoxEditAccountTypeSuccess, MsgBoxImage.Check);
             }
             else

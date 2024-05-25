@@ -4,6 +4,7 @@ using System.Windows.Controls;
 using MyExpenses.Models.Sql.Tables;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils.Collection;
+using MyExpenses.Utils.Sql;
 using MyExpenses.Wpf.Resources.Resx.Pages.ModePaymentManagementPage;
 using MyExpenses.Wpf.Windows;
 using MyExpenses.Wpf.Windows.MsgBox;
@@ -38,7 +39,11 @@ public partial class ModePaymentManagementPage
         if (success)
         {
             ModePayments.AddAndSort(newModePayment, s => s.Name!);
+
             Log.Information("New mode payment was successfully added");
+            var json = newModePayment.ToJsonString();
+            Log.Information("{Json}", json);
+
             MsgBox.Show(ModePaymentManagementPageResources.MessageBoxAddModePaymentSuccess, MsgBoxImage.Check);
         }
         else
@@ -76,7 +81,11 @@ public partial class ModePaymentManagementPage
             {
                 ModePayments.Remove(modePaymentToEdit);
                 ModePayments.AddAndSort(updatedModePayment, s => s.Name!);
+
                 Log.Information("Mode payment was successfully edited");
+                var json = updatedModePayment.ToJsonString();
+                Log.Information("{Json}", json);
+
                 MsgBox.Show(ModePaymentManagementPageResources.MessageBoxEditModePaymentSuccess, MsgBoxImage.Check);
 
                 DashBoardPage.RefreshRadioButtonSelected();

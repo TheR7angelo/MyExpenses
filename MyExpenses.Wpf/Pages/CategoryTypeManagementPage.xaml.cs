@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using MyExpenses.Models.Sql.Tables;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils.Collection;
+using MyExpenses.Utils.Sql;
 using MyExpenses.Wpf.Resources.Resx.Pages.CategoryTypeManagementPage;
 using MyExpenses.Wpf.Utils;
 using MyExpenses.Wpf.Windows.CategoryTypeManagementWindow;
@@ -52,7 +53,11 @@ public partial class CategoryTypeManagementPage
         if (success)
         {
             CategoryTypes.AddAndSort(newCategoryType, s => s.Name!);
+
             Log.Information("Account type was successfully added");
+            var json = newCategoryType.ToJsonString();
+            Log.Information("{Json}", json);
+
             MsgBox.Show(CategoryTypeManagementPageResources.MessageBoxAddCategorySuccess, MsgBoxImage.Check);
         }
         else
@@ -92,6 +97,9 @@ public partial class CategoryTypeManagementPage
             if (radioButton is not null) DashBoardPage.UpdateGraph((string)radioButton.Content, DateTime.Now);
 
             Log.Information("Category type was successfully edited");
+            var json = editedCategoryTypeDeepCopy.ToJsonString();
+            Log.Information("{Json}", json);
+
             MsgBox.Show(CategoryTypeManagementPageResources.MessageBoxEditCategorySuccess, MsgBoxImage.Check);
         }
         else

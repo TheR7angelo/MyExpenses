@@ -49,6 +49,9 @@ public partial class AccountManagementPage
         if (success)
         {
             Log.Information("Account was successfully added");
+            var json = newAccount.ToJsonString();
+            Log.Information("{Json}", json);
+
             MsgBox.Show(AccountManagementPageResources.MessageBoxAddAccountSuccess, MsgBoxImage.Check);
 
             var newVTotalByAccount = newAccount.ToVTotalByAccount()!;
@@ -90,6 +93,9 @@ public partial class AccountManagementPage
         if (success)
         {
             Log.Information("Account was successfully edited");
+            var json = editedAccount.ToJsonString();
+            Log.Information("{Json}", json);
+
             MsgBox.Show(AccountManagementPageResources.MessageBoxEditAccountSuccess, MsgBoxImage.Check);
 
             var newVTotalByAccount = editedAccount.ToVTotalByAccount()!;

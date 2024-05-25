@@ -5,6 +5,7 @@ using System.Windows.Controls;
 using MyExpenses.Models.Sql.Tables;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils.Collection;
+using MyExpenses.Utils.Sql;
 using MyExpenses.Wpf.Resources.Resx.Pages.ColorManagementPage;
 using MyExpenses.Wpf.Utils;
 using MyExpenses.Wpf.Windows;
@@ -45,6 +46,9 @@ public partial class ColorManagementPage
         if (success)
         {
             Log.Information("color was successfully added");
+            var json = newColor.ToJsonString();
+            Log.Information("{Json}", json);
+
             MsgBox.Show(ColorManagementPageResources.MessageBoxAddColorSuccess, MsgBoxImage.Check);
 
             Colors.AddAndSort(newColor, s => s.Name!);
@@ -81,6 +85,8 @@ public partial class ColorManagementPage
         if (success)
         {
             Log.Information("Color was successfully edited");
+            var json = editedColor.ToJsonString();
+            Log.Information("{Json}", json);
 
             var oldColor = Colors.First(s => s.Id == editedColor.Id);
             editedColor.CopyPropertiesTo(oldColor);
