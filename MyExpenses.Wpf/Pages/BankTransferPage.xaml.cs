@@ -272,7 +272,7 @@ public partial class BankTransferPage
 
         if (addEditAccountWindow.DeleteAccount)
         {
-            RemoveByAccountId( BankTransfer.FromAccountFk);
+            RemoveByAccountId(BankTransfer.FromAccountFk);
             return;
         }
 
@@ -288,6 +288,7 @@ public partial class BankTransferPage
             RemoveByAccountId(editedAccount.Id);
             Accounts.AddAndSort(editedAccount, s => s.Name!);
             FromAccounts.AddAndSort(editedAccount, s => s.Name!);
+            BankTransfer.FromAccountFk = editedAccount.Id;
         }
         else
         {
