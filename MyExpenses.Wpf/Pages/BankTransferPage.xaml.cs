@@ -422,13 +422,13 @@ public partial class BankTransferPage
         var vTotalByAccount = accountId?.ToVTotalByAccount();
         if (vTotalByAccount is not null) DashBoardPage.VTotalByAccounts.Remove(vTotalByAccount);
 
-        var accountToRemove = Accounts.FirstOrDefault(s => s.Id == BankTransfer.FromAccountFk);
+        var accountToRemove = Accounts.FirstOrDefault(s => s.Id == accountId);
         if (accountToRemove is not null) Accounts.Remove(accountToRemove);
 
-        accountToRemove = FromAccounts.FirstOrDefault(s => s.Id == BankTransfer.FromAccountFk);
+        accountToRemove = FromAccounts.FirstOrDefault(s => s.Id == accountId);
         if (accountToRemove is not null) FromAccounts.Remove(accountToRemove);
 
-        accountToRemove = ToAccounts.FirstOrDefault(s => s.Id == BankTransfer.ToAccountFk);
+        accountToRemove = ToAccounts.FirstOrDefault(s => s.Id == accountId);
         if (accountToRemove is not null) ToAccounts.Remove(accountToRemove);
 
         DashBoardPage.RefreshRadioButtonSelected();
