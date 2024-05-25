@@ -30,10 +30,26 @@ public static class Converter
         return vTotalByAccount;
     }
 
+    public static VTotalByAccount? ToVTotalByAccount(this int accountId)
+    {
+        using var context = new DataBaseContext();
+        var vTotalByAccount = context.VTotalByAccounts.FirstOrDefault(s => s.Id == accountId);
+
+        return vTotalByAccount;
+    }
+
     public static TAccount? ToTAccount(this VTotalByAccount vTotalByAccount)
     {
         using var context = new DataBaseContext();
         var account = context.TAccounts.FirstOrDefault(s => s.Id == vTotalByAccount.Id);
+
+        return account;
+    }
+
+    public static TAccount? ToTAccount(this int accountId)
+    {
+        using var context = new DataBaseContext();
+        var account = context.TAccounts.FirstOrDefault(s => s.Id == accountId);
 
         return account;
     }
