@@ -258,4 +258,14 @@ public partial class DashBoardPage : INotifyPropertyChanged
         var categoryType = (points.FirstOrDefault()?.Context.Series as PieSeries<double>)?.Tag as TCategoryType;
         Console.WriteLine(categoryType?.Name);
     }
+
+    //TODO work
+    private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
+    {
+        var button = (Button)sender;
+        if (button.DataContext is not VHistory vHistory) return;
+
+        var json = vHistory.ToJsonString();
+        Console.WriteLine(json);
+    }
 }
