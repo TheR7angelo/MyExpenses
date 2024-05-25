@@ -100,7 +100,7 @@ public partial class AccountManagementPage
             TotalByAccounts.AddAndSort(newVTotalByAccount, s => s.Name!);
 
             DashBoardPage.RefreshAccountTotal();
-            Application.Current.Dispatcher.InvokeAsync(DashBoardPage.RefreshRadioButtonSelected, DispatcherPriority.ContextIdle);
+            DashBoardPage.RefreshRadioButtonSelected();
         }
         else
         {
