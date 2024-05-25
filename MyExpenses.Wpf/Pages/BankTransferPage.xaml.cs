@@ -344,4 +344,14 @@ public partial class BankTransferPage
     }
 
     #endregion
+
+    private void ButtonFromAddAccount_OnClick(object sender, RoutedEventArgs e)
+    {
+        //TODO work
+    }
+
+    private void ButtonToAddAccount_OnClick(object sender, RoutedEventArgs e)
+    {
+        //TODO work
+    }
 }

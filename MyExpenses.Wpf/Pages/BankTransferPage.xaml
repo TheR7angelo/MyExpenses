@@ -40,14 +40,15 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <Grid Grid.Row="0">
+            <Grid Grid.Row="0"
+                  margin:PanelExtensions.MarginForAllChildren="5">
 
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
 
-                <ComboBox Grid.Row="0"
+                <ComboBox Grid.Column="0"
                           Style="{StaticResource MaterialDesignFilledComboBox}"
                           materialDesign:TextFieldAssist.HasClearButton="True"
                           materialDesign:HintAssist.Hint="{Binding ComboBoxFromAccountHintAssist}"
@@ -58,16 +59,28 @@
                           SelectionChanged="SelectorFromAccount_OnSelectionChanged">
                 </ComboBox>
 
+                <Button Grid.Column="1"
+                        HorizontalAlignment="Left"
+                        Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
+                        Click="ButtonFromAddAccount_OnClick">
+
+                    <Button.Content>
+                        <materialDesign:PackIcon Kind="PencilPlus" />
+                    </Button.Content>
+
+                </Button>
+
             </Grid>
 
-            <Grid Grid.Row="1">
+            <Grid Grid.Row="1"
+                  margin:PanelExtensions.MarginForAllChildren="5">
 
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
 
-                <ComboBox Grid.Row="1"
+                <ComboBox Grid.Column="0"
                           Style="{StaticResource MaterialDesignFilledComboBox}"
                           materialDesign:TextFieldAssist.HasClearButton="True"
                           materialDesign:HintAssist.Hint="{Binding ComboBoxToAccountHintAssist}"
@@ -77,6 +90,17 @@
                           DisplayMemberPath="{Binding DisplayMemberPathAccount}"
                           SelectionChanged="SelectorToAccount_OnSelectionChanged">
                 </ComboBox>
+
+                <Button Grid.Column="1"
+                        HorizontalAlignment="Left"
+                        Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
+                        Click="ButtonToAddAccount_OnClick">
+
+                    <Button.Content>
+                        <materialDesign:PackIcon Kind="PencilPlus" />
+                    </Button.Content>
+
+                </Button>
 
             </Grid>
 
