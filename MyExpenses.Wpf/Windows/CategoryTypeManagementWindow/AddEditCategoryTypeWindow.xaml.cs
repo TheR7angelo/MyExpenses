@@ -4,7 +4,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using MyExpenses.Models.Sql.Tables;
 using MyExpenses.Sql.Context;
-using MyExpenses.Utils;
+using MyExpenses.Utils.Collection;
 using MyExpenses.Wpf.Resources.Resx.Windows.AddEditCategoryTypeWindow;
 using MyExpenses.Wpf.Utils;
 using MyExpenses.Wpf.Windows.MsgBox;

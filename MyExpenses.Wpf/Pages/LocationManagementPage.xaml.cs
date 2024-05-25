@@ -14,6 +14,7 @@ using MyExpenses.Models.Sql.Groups;
 using MyExpenses.Models.Sql.Tables;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils;
+using MyExpenses.Utils.Collection;
 using MyExpenses.Utils.Maps;
 using MyExpenses.WebApi.Nominatim;
 using MyExpenses.Wpf.Resources.Resx.Pages.LocationManagementPage;

@@ -3,7 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using MyExpenses.Models.Sql.Tables;
 using MyExpenses.Sql.Context;
-using MyExpenses.Utils;
+using MyExpenses.Utils.Collection;
 using MyExpenses.Wpf.Resources.Resx.Pages.CurrencyManagementPage;
 using MyExpenses.Wpf.Windows;
 using MyExpenses.Wpf.Windows.MsgBox;

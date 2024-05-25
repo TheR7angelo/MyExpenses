@@ -5,7 +5,7 @@ using System.Windows.Threading;
 using MyExpenses.Models.Sql.Tables;
 using MyExpenses.Models.Sql.Views;
 using MyExpenses.Sql.Context;
-using MyExpenses.Utils;
+using MyExpenses.Utils.Collection;
 using MyExpenses.Utils.Sql;
 using MyExpenses.Wpf.Resources.Resx.Pages.AccountManagementPage;
 using MyExpenses.Wpf.Windows;

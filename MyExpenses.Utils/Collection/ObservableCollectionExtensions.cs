@@ -1,6 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 
-namespace MyExpenses.Utils;
+namespace MyExpenses.Utils.Collection;
 
 /// <summary>
 /// Provides extension methods for the ObservableCollection class.
