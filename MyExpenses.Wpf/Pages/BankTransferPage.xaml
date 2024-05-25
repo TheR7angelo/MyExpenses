@@ -40,27 +40,45 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <ComboBox Grid.Row="0"
-                      Style="{StaticResource MaterialDesignFilledComboBox}"
-                      materialDesign:TextFieldAssist.HasClearButton="True"
-                      materialDesign:HintAssist.Hint="{Binding ComboBoxFromAccountHintAssist}"
-                      ItemsSource="{Binding FromAccounts, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                      SelectedValue="{Binding BankTransfer.FromAccountFk, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                      SelectedValuePath="{Binding SelectedValuePathAccount}"
-                      DisplayMemberPath="{Binding DisplayMemberPathAccount}"
-                      SelectionChanged="SelectorFromAccount_OnSelectionChanged">
-            </ComboBox>
+            <Grid Grid.Row="0">
 
-            <ComboBox Grid.Row="1"
-                      Style="{StaticResource MaterialDesignFilledComboBox}"
-                      materialDesign:TextFieldAssist.HasClearButton="True"
-                      materialDesign:HintAssist.Hint="{Binding ComboBoxToAccountHintAssist}"
-                      ItemsSource="{Binding ToAccounts, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                      SelectedValue="{Binding BankTransfer.ToAccountFk, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                      SelectedValuePath="{Binding SelectedValuePathAccount}"
-                      DisplayMemberPath="{Binding DisplayMemberPathAccount}"
-                      SelectionChanged="SelectorToAccount_OnSelectionChanged">
-            </ComboBox>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <ComboBox Grid.Row="0"
+                          Style="{StaticResource MaterialDesignFilledComboBox}"
+                          materialDesign:TextFieldAssist.HasClearButton="True"
+                          materialDesign:HintAssist.Hint="{Binding ComboBoxFromAccountHintAssist}"
+                          ItemsSource="{Binding FromAccounts, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                          SelectedValue="{Binding BankTransfer.FromAccountFk, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                          SelectedValuePath="{Binding SelectedValuePathAccount}"
+                          DisplayMemberPath="{Binding DisplayMemberPathAccount}"
+                          SelectionChanged="SelectorFromAccount_OnSelectionChanged">
+                </ComboBox>
+
+            </Grid>
+
+            <Grid Grid.Row="1">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <ComboBox Grid.Row="1"
+                          Style="{StaticResource MaterialDesignFilledComboBox}"
+                          materialDesign:TextFieldAssist.HasClearButton="True"
+                          materialDesign:HintAssist.Hint="{Binding ComboBoxToAccountHintAssist}"
+                          ItemsSource="{Binding ToAccounts, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                          SelectedValue="{Binding BankTransfer.ToAccountFk, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                          SelectedValuePath="{Binding SelectedValuePathAccount}"
+                          DisplayMemberPath="{Binding DisplayMemberPathAccount}"
+                          SelectionChanged="SelectorToAccount_OnSelectionChanged">
+                </ComboBox>
+
+            </Grid>
 
             <Grid Grid.Row="2"
                   margin:PanelExtensions.MarginForAllChildren="5, 0">
