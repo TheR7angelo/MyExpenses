@@ -173,6 +173,17 @@
 
         </Button>
 
+        <CheckBox Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2"
+                  HorizontalContentAlignment="Center"
+                  Content="{Binding CheckBoxPointedContent}"
+                  materialDesign:CheckBoxAssist.CheckBoxSize="30"
+                  IsChecked="{Binding History.Pointed, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                  HorizontalAlignment="Right"
+                  VerticalAlignment="Top"
+                  VerticalContentAlignment="Top"
+                  IsThreeState="False">
+        </CheckBox>
+
     </Grid>
 
 </Page>

@@ -40,6 +40,8 @@ public partial class RecordExpensePage
     public string TimePickerWhenHintAssist { get; } = "Time :";
     //TODO work
     public string ComboBoxPlaceHintAssist { get; } = "Place :";
+    //TODO work
+    public string CheckBoxPointedContent { get; } = "Is pointed :";
 
     public required DashBoardPage DashBoardPage { get; set; }
 
