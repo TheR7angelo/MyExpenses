@@ -10,7 +10,7 @@
 
       Title="RecordExpensePage"
 
-      d:DesignHeight="450"
+      d:DesignHeight="500"
       d:DesignWidth="800"
 
       Background="{DynamicResource MaterialDesignPaper}"
@@ -31,7 +31,7 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="9" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
@@ -183,6 +183,19 @@
                   VerticalContentAlignment="Top"
                   IsThreeState="False">
         </CheckBox>
+
+        <Grid Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="2"
+              margin:PanelExtensions.MarginForAllChildren="3">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Button Grid.Column="0" Content="Valid" />
+            <Button Grid.Column="1" Content="Cancel" />
+
+        </Grid>
 
     </Grid>
 
