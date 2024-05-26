@@ -54,7 +54,9 @@ public partial class RecordExpensePage
 
         var language = XmlLanguage.GetLanguage(Thread.CurrentThread.CurrentCulture.Name);
         DatePicker.Language = language;
-        TimePicker.Language = language;
+
+        var configuration = MyExpenses.Utils.Config.Configuration;
+        TimePicker.Is24Hours = configuration.Interface.Clock.Is24Hours;
     }
 
     private void ButtonAccount_OnClick(object sender, RoutedEventArgs e)

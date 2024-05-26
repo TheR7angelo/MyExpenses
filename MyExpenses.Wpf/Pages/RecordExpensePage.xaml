@@ -147,8 +147,7 @@
                                        materialDesign:HintAssist.Hint="{Binding TimePickerWhenHintAssist}"
                                        Style="{StaticResource MaterialDesignFilledTimePicker}"
                                        SelectedTime="{Binding History.Date, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                                       SelectedTimeFormat="Long"
-                                       Is24Hours="True">
+                                       SelectedTimeFormat="Long">
             </materialDesign:TimePicker>
 
         </Grid>
