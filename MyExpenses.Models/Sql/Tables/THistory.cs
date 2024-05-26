@@ -26,7 +26,7 @@ public partial class THistory : ISql
     public double? Value { get; set; }
 
     [Column("date", TypeName = "DATETIME")]
-    public DateTime? Date { get; set; }
+    public DateTime? Date { get; set; } = DateTime.Now;
 
     [Column("place_fk")]
     public int? PlaceFk { get; set; }
