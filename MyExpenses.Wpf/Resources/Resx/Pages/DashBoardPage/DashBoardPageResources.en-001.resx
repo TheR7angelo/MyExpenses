@@ -59,4 +59,7 @@
     <data name="ButtonMakeBankTransfer" xml:space="preserve">
         <value>Make a bank transfer</value>
     </data>
+    <data name="ButtonRecordExpense" xml:space="preserve">
+        <value>Record an expense</value>
+    </data>
 </root>

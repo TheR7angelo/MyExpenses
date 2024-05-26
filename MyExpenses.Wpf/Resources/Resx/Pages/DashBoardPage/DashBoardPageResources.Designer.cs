@@ -93,15 +93,6 @@ namespace MyExpenses.Wpf.Resources.Resx.Pages.DashBoardPage {
         }
 
         /// <summary>
-        ///   Looks up a localized string similar to Location management.
-        /// </summary>
-        internal static string ButtonLocationManagement {
-            get {
-                return ResourceManager.GetString("ButtonLocationManagement", resourceCulture);
-            }
-        }
-
-        /// <summary>
         ///   Looks up a localized string similar to Currency symbols management.
         /// </summary>
         internal static object ButtonCurrencyManagement {
@@ -111,11 +102,38 @@ namespace MyExpenses.Wpf.Resources.Resx.Pages.DashBoardPage {
         }
 
         /// <summary>
+        ///   Looks up a localized string similar to Location management.
+        /// </summary>
+        internal static string ButtonLocationManagement {
+            get {
+                return ResourceManager.GetString("ButtonLocationManagement", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Make a bank transfer.
+        /// </summary>
+        internal static object ButtonMakeBankTransfer {
+            get {
+                return ResourceManager.GetString("ButtonMakeBankTransfer", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Mode payment management.
         /// </summary>
         internal static object ButtonModePaymentManagement {
             get {
                 return ResourceManager.GetString("ButtonModePaymentManagement", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Record an expense.
+        /// </summary>
+        internal static object ButtonRecordExpense {
+            get {
+                return ResourceManager.GetString("ButtonRecordExpense", resourceCulture);
             }
         }
 
@@ -188,15 +206,6 @@ namespace MyExpenses.Wpf.Resources.Resx.Pages.DashBoardPage {
         internal static string DataGridTextColumnPlace {
             get {
                 return ResourceManager.GetString("DataGridTextColumnPlace", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to Make a bank transfer.
-        /// </summary>
-        internal static object ButtonMakeBankTransfer {
-            get {
-                return ResourceManager.GetString("ButtonMakeBankTransfer", resourceCulture);
             }
         }
     }
