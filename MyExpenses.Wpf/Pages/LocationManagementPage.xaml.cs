@@ -33,6 +33,9 @@ public partial class LocationManagementPage
     public string MenuItemHeaderEditFeature { get; } = LocationManagementPageResources.MenuItemHeaderEditFeature;
     public string MenuItemHeaderDeleteFeature { get; } = LocationManagementPageResources.MenuItemHeaderDeleteFeature;
 
+    //TODO work
+    public string ComboBoxBasemapHintAssist { get; } = "Basemap :";
+
     public ObservableCollection<CountryGroup> CountryGroups { get; }
     public List<KnownTileSource> KnownTileSources { get; }
     public KnownTileSource KnownTileSourceSelected { get; set; }
