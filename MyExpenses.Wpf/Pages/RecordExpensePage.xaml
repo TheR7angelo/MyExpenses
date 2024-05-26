@@ -5,6 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:MyExpenses.Wpf.Pages"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:margin="clr-namespace:MyExpenses.Wpf.Utils.Margin;assembly=MyExpenses.Wpf.Utils"
       mc:Ignorable="d"
 
       Title="RecordExpensePage"
@@ -17,19 +18,29 @@
 
       DataContext="{Binding RelativeSource={RelativeSource Self}}">
 
-    <Grid>
+    <Grid margin:PanelExtensions.MarginForAllChildren="5"
+          VerticalAlignment="Center"
+          HorizontalAlignment="Center">
 
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="9" />
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" MinWidth="250" />
+            <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-
-
-        <ComboBox Grid.Column="0"
+        <ComboBox Grid.Row="0" Grid.Column="0"
                   Style="{StaticResource MaterialDesignFilledComboBox}"
                   materialDesign:TextFieldAssist.HasClearButton="True"
                   materialDesign:HintAssist.Hint="{Binding ComboBoxAccountHintAssist}"
@@ -39,16 +50,43 @@
                   DisplayMemberPath="{Binding DisplayMemberPathAccount}">
         </ComboBox>
 
-        <!-- <Button Grid.Column="1" -->
-        <!--         HorizontalAlignment="Left" -->
-        <!--         Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}" -->
-        <!--         Click="ButtonFromAddAccount_OnClick"> -->
-        <!-- -->
-        <!--     <Button.Content> -->
-        <!--         <materialDesign:PackIcon Kind="PencilPlus" /> -->
-        <!--     </Button.Content> -->
-        <!-- -->
-        <!-- </Button> -->
+        <Button Grid.Row="0" Grid.Column="1"
+                HorizontalAlignment="Left"
+                Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
+                Click="ButtonAccount_OnClick">
+
+            <Button.Content>
+                <materialDesign:PackIcon Kind="PencilPlus" />
+            </Button.Content>
+
+        </Button>
+
+        <TextBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
+                 materialDesign:HintAssist.Hint="{Binding TextBoxDescriptionHintAssist}"
+                 Style="{StaticResource MaterialDesignFilledTextBox}"
+                 Text="{Binding History.Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+        </TextBox>
+
+        <ComboBox Grid.Row="2" Grid.Column="0"
+                  Style="{StaticResource MaterialDesignFilledComboBox}"
+                  materialDesign:TextFieldAssist.HasClearButton="True"
+                  materialDesign:HintAssist.Hint="{Binding ComboBoxCategoryHintAssist}"
+                  ItemsSource="{Binding CategoryTypes, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                  SelectedValue="{Binding History.CategoryTypeFk, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                  SelectedValuePath="{Binding SelectedValuePathCategoryType}"
+                  DisplayMemberPath="{Binding DisplayMemberPathCategoryType}">
+        </ComboBox>
+
+        <Button Grid.Row="2" Grid.Column="1"
+                HorizontalAlignment="Left"
+                Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
+                Click="ButtonAccount_OnClick">
+
+            <Button.Content>
+                <materialDesign:PackIcon Kind="PencilPlus" />
+            </Button.Content>
+
+        </Button>
 
     </Grid>
 
