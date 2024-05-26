@@ -80,7 +80,7 @@
         <Button Grid.Row="2" Grid.Column="1"
                 HorizontalAlignment="Left"
                 Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
-                Click="ButtonAccount_OnClick">
+                Click="ButtonCategoryType_OnClick">
 
             <Button.Content>
                 <materialDesign:PackIcon Kind="PencilPlus" />

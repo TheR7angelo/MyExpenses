@@ -41,4 +41,9 @@ public partial class RecordExpensePage
     {
         //TODO work
     }
+
+    private void ButtonCategoryType_OnClick(object sender, RoutedEventArgs e)
+    {
+        //TODO work
+    }
 }
