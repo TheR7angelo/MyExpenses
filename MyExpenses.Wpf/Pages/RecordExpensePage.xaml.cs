@@ -1,7 +1,11 @@
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
 using MyExpenses.Models.Sql.Tables;
 using MyExpenses.Sql.Context;
+using MyExpenses.Wpf.Resources.Regex;
 
 namespace MyExpenses.Wpf.Pages;
 
@@ -23,7 +27,10 @@ public partial class RecordExpensePage
     public string TextBoxDescriptionHintAssist { get; } = "Description :";
     //TODO work
     public string ComboBoxCategoryTypeHintAssist { get; } = "Category type :";
+    //TODO work
     public string ComboBoxModePaymentHintAssist { get; } = "Mode payment :";
+    //TODO work
+    public string TextBoxValueHintAssist { get; } = "Value :";
 
     public required DashBoardPage DashBoardPage { get; set; }
 
@@ -54,5 +61,23 @@ public partial class RecordExpensePage
     private void ButtonModePayment_OnClick(object sender, RoutedEventArgs e)
     {
         //TODO work
+    }
+
+    private void TextBoxValue_OnTextChanged(object sender, TextChangedEventArgs e)
+    {
+        var textBox = (TextBox)sender;
+        var txt = textBox.Text;
+
+        if (double.TryParse(txt, NumberStyles.Any, CultureInfo.InvariantCulture, out var value))
+            History.Value = value;
+        else if (!txt.EndsWith('.')) History.Value = null;
+    }
+
+    private void UIElement_OnPreviewTextInput(object sender, TextCompositionEventArgs e)
+    {
+        var textBox = (TextBox)sender;
+        var txt = textBox.Text.Insert(textBox.SelectionStart, e.Text);
+
+        e.Handled = txt.IsOnlyDecimal();
     }
 }

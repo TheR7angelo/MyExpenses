@@ -110,6 +110,26 @@
 
         </Button>
 
+        <TextBox Grid.Row="4" Grid.Column="0"
+                 materialDesign:HintAssist.Hint="{Binding TextBoxValueHintAssist}"
+                 Style="{StaticResource MaterialDesignFilledTextBox}"
+                 Text="{Binding History.Value, Mode=TwoWay}"
+                 AcceptsReturn="False" AcceptsTab="False"
+                 PreviewTextInput="UIElement_OnPreviewTextInput"
+                 TextChanged="TextBoxValue_OnTextChanged">
+        </TextBox>
+
+        <Button Grid.Row="4" Grid.Column="1"
+                HorizontalAlignment="Left"
+                Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
+                Click="ButtonModePayment_OnClick">
+
+            <Button.Content>
+                <materialDesign:PackIcon Kind="Calculator" />
+            </Button.Content>
+
+        </Button>
+
     </Grid>
 
 </Page>
