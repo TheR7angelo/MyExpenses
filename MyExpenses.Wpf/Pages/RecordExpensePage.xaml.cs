@@ -3,6 +3,7 @@ using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Markup;
 using MyExpenses.Models.Sql.Tables;
 using MyExpenses.Sql.Context;
 using MyExpenses.Wpf.Resources.Regex;
@@ -31,6 +32,10 @@ public partial class RecordExpensePage
     public string ComboBoxModePaymentHintAssist { get; } = "Mode payment :";
     //TODO work
     public string TextBoxValueHintAssist { get; } = "Value :";
+    //TODO work
+    public string DatePickerWhenHintAssist { get; } = "Date :";
+    //TODO work
+    public string TimePickerWhenHintAssist { get; } = "Time :";
 
     public required DashBoardPage DashBoardPage { get; set; }
 
@@ -46,6 +51,10 @@ public partial class RecordExpensePage
         ModePayments = [..context.TModePayments.OrderBy(s => s.Name)];
 
         InitializeComponent();
+
+        var language = XmlLanguage.GetLanguage(Thread.CurrentThread.CurrentCulture.Name);
+        DatePicker.Language = language;
+        TimePicker.Language = language;
     }
 
     private void ButtonAccount_OnClick(object sender, RoutedEventArgs e)

@@ -130,6 +130,29 @@
 
         </Button>
 
+        <Grid Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <DatePicker Grid.Column="0" x:Name="DatePicker"
+                        materialDesign:HintAssist.Hint="{Binding DatePickerWhenHintAssist}"
+                        Style="{StaticResource MaterialDesignFilledDatePicker}"
+                        SelectedDate="{Binding History.Date, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+            </DatePicker>
+
+            <materialDesign:TimePicker Grid.Column="1" x:Name="TimePicker"
+                                       materialDesign:HintAssist.Hint="{Binding TimePickerWhenHintAssist}"
+                                       Style="{StaticResource MaterialDesignFilledTimePicker}"
+                                       SelectedTime="{Binding History.Date, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                       SelectedTimeFormat="Long"
+                                       Is24Hours="True">
+            </materialDesign:TimePicker>
+
+        </Grid>
+
     </Grid>
 
 </Page>
