@@ -152,6 +152,27 @@
 
         </Grid>
 
+        <ComboBox Grid.Row="6" Grid.Column="0"
+                  Style="{StaticResource MaterialDesignFilledComboBox}"
+                  materialDesign:TextFieldAssist.HasClearButton="True"
+                  materialDesign:HintAssist.Hint="{Binding ComboBoxPlaceHintAssist}"
+                  ItemsSource="{Binding Places, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                  SelectedValue="{Binding History.PlaceFk, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                  SelectedValuePath="{Binding SelectedValuePathPlace}"
+                  DisplayMemberPath="{Binding DisplayMemberPathPlace}">
+        </ComboBox>
+
+        <Button Grid.Row="6" Grid.Column="1"
+                HorizontalAlignment="Left"
+                Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
+                Click="ButtonPlace_OnClick">
+
+            <Button.Content>
+                <materialDesign:PackIcon Kind="PencilPlus" />
+            </Button.Content>
+
+        </Button>
+
     </Grid>
 
 </Page>

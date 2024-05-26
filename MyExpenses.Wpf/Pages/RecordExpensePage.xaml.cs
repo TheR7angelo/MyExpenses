@@ -21,6 +21,8 @@ public partial class RecordExpensePage
     public string DisplayMemberPathCategoryType { get; } = nameof(TCategoryType.Name);
     public string SelectedValuePathModePayment { get; } = nameof(TModePayment.Id);
     public string DisplayMemberPathModePayment { get; } = nameof(TModePayment.Name);
+    public string SelectedValuePathPlace { get; } = nameof(TPlace.Id);
+    public string DisplayMemberPathPlace { get; } = nameof(TPlace.Name);
 
     //TODO work
     public string ComboBoxAccountHintAssist { get; } = "From account :";
@@ -36,12 +38,15 @@ public partial class RecordExpensePage
     public string DatePickerWhenHintAssist { get; } = "Date :";
     //TODO work
     public string TimePickerWhenHintAssist { get; } = "Time :";
+    //TODO work
+    public string ComboBoxPlaceHintAssist { get; } = "Place :";
 
     public required DashBoardPage DashBoardPage { get; set; }
 
     public ObservableCollection<TAccount> Accounts { get; }
     public ObservableCollection<TCategoryType> CategoryTypes { get; }
     public ObservableCollection<TModePayment> ModePayments { get; }
+    public ObservableCollection<TPlace> Places { get; }
 
     public RecordExpensePage()
     {
@@ -49,6 +54,7 @@ public partial class RecordExpensePage
         Accounts = [..context.TAccounts.OrderBy(s => s.Name)];
         CategoryTypes = [..context.TCategoryTypes.OrderBy(s => s.Name)];
         ModePayments = [..context.TModePayments.OrderBy(s => s.Name)];
+        Places = [..context.TPlaces.OrderBy(s => s.Name)];
 
         InitializeComponent();
 
@@ -90,5 +96,10 @@ public partial class RecordExpensePage
         var txt = textBox.Text.Insert(textBox.SelectionStart, e.Text);
 
         e.Handled = txt.IsOnlyDecimal();
+    }
+
+    private void ButtonPlace_OnClick(object sender, RoutedEventArgs e)
+    {
+        //TODO work
     }
 }
