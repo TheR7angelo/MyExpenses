@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:MyExpenses.Wpf.Pages"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       mc:Ignorable="d"
 
       Title="RecordExpensePage"
@@ -18,7 +19,36 @@
 
     <Grid>
 
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
 
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+
+
+        <ComboBox Grid.Column="0"
+                  Style="{StaticResource MaterialDesignFilledComboBox}"
+                  materialDesign:TextFieldAssist.HasClearButton="True"
+                  materialDesign:HintAssist.Hint="{Binding ComboBoxAccountHintAssist}"
+                  ItemsSource="{Binding Accounts, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                  SelectedValue="{Binding History.AccountFk, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                  SelectedValuePath="{Binding SelectedValuePathAccount}"
+                  DisplayMemberPath="{Binding DisplayMemberPathAccount}">
+        </ComboBox>
+
+        <!-- <Button Grid.Column="1" -->
+        <!--         HorizontalAlignment="Left" -->
+        <!--         Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}" -->
+        <!--         Click="ButtonFromAddAccount_OnClick"> -->
+        <!-- -->
+        <!--     <Button.Content> -->
+        <!--         <materialDesign:PackIcon Kind="PencilPlus" /> -->
+        <!--     </Button.Content> -->
+        <!-- -->
+        <!-- </Button> -->
 
     </Grid>
 
