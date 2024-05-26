@@ -64,7 +64,8 @@
         <TextBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
                  materialDesign:HintAssist.Hint="{Binding TextBoxDescriptionHintAssist}"
                  Style="{StaticResource MaterialDesignFilledTextBox}"
-                 Text="{Binding History.Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                 Text="{Binding History.Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                 AcceptsReturn="True" AcceptsTab="True">
         </TextBox>
 
         <ComboBox Grid.Row="2" Grid.Column="0"
