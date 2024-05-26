@@ -84,6 +84,7 @@ public partial class DashBoardPage : INotifyPropertyChanged
     public string DataGridTextColumnDate { get; } = DashBoardPageResources.DataGridTextColumnDate;
     public string DataGridTextColumnPlace { get; } = DashBoardPageResources.DataGridTextColumnPlace;
     public string DataGridTextColumnPointed { get; } = DashBoardPageResources.DataGridTextColumnPointed;
+    public object ButtonRecordExpense { get; } = DashBoardPageResources.ButtonRecordExpense;
 
     #endregion
 
@@ -141,6 +142,12 @@ public partial class DashBoardPage : INotifyPropertyChanged
     {
         var bankTransferPage = new BankTransferPage { DashBoardPage = this };
         nameof(MainWindow.FrameBody).NavigateTo(bankTransferPage);
+    }
+
+    private void ButtonRecordExpense_OnClick(object sender, RoutedEventArgs e)
+    {
+        var recordExpensePage = new RecordExpensePage { DashBoardPage = this };
+        nameof(MainWindow.FrameBody).NavigateTo(recordExpensePage);
     }
 
     private void DataGridRow_PreviewMouseRightButtonDown(object sender, MouseButtonEventArgs e)

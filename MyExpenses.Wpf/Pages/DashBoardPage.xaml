@@ -84,6 +84,11 @@
                         Click="ButtonMakeBankTransfer_OnClick">
                 </Button>
 
+                <Button Content="{Binding ButtonRecordExpense}"
+                        Style="{StaticResource MaterialDesignPaperButton}"
+                        Click="ButtonRecordExpense_OnClick">
+                </Button>
+
             </WrapPanel>
             
         </ScrollViewer>
