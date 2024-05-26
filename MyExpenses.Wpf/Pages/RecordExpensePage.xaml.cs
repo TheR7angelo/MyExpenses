@@ -10,13 +10,12 @@ public partial class RecordExpensePage
 
     public THistory History { get; } = new();
 
-    public string DisplayMemberPathAccount { get; } = nameof(TAccount.Name);
     public string SelectedValuePathAccount { get; } = nameof(TAccount.Id);
-
-    public string DisplayMemberPathCategoryType { get; } = nameof(TCategoryType.Name);
+    public string DisplayMemberPathAccount { get; } = nameof(TAccount.Name);
     public string SelectedValuePathCategoryType { get; } = nameof(TCategoryType.Id);
-    public string DisplayMemberPathModePayment { get; } = nameof(TModePayment.Name);
+    public string DisplayMemberPathCategoryType { get; } = nameof(TCategoryType.Name);
     public string SelectedValuePathModePayment { get; } = nameof(TModePayment.Id);
+    public string DisplayMemberPathModePayment { get; } = nameof(TModePayment.Name);
 
     //TODO work
     public string ComboBoxAccountHintAssist { get; } = "From account :";
