@@ -86,7 +86,7 @@ namespace MyExpenses.Wpf.Resources.Resx.Pages.DashBoardPage {
         /// <summary>
         ///   Looks up a localized string similar to Color management.
         /// </summary>
-        internal static object ButtonColorManagement {
+        internal static string ButtonColorManagement {
             get {
                 return ResourceManager.GetString("ButtonColorManagement", resourceCulture);
             }
@@ -95,7 +95,7 @@ namespace MyExpenses.Wpf.Resources.Resx.Pages.DashBoardPage {
         /// <summary>
         ///   Looks up a localized string similar to Currency symbols management.
         /// </summary>
-        internal static object ButtonCurrencyManagement {
+        internal static string ButtonCurrencyManagement {
             get {
                 return ResourceManager.GetString("ButtonCurrencyManagement", resourceCulture);
             }
@@ -113,7 +113,7 @@ namespace MyExpenses.Wpf.Resources.Resx.Pages.DashBoardPage {
         /// <summary>
         ///   Looks up a localized string similar to Make a bank transfer.
         /// </summary>
-        internal static object ButtonMakeBankTransfer {
+        internal static string ButtonMakeBankTransfer {
             get {
                 return ResourceManager.GetString("ButtonMakeBankTransfer", resourceCulture);
             }
@@ -122,7 +122,7 @@ namespace MyExpenses.Wpf.Resources.Resx.Pages.DashBoardPage {
         /// <summary>
         ///   Looks up a localized string similar to Mode payment management.
         /// </summary>
-        internal static object ButtonModePaymentManagement {
+        internal static string ButtonModePaymentManagement {
             get {
                 return ResourceManager.GetString("ButtonModePaymentManagement", resourceCulture);
             }
@@ -131,7 +131,7 @@ namespace MyExpenses.Wpf.Resources.Resx.Pages.DashBoardPage {
         /// <summary>
         ///   Looks up a localized string similar to Record an expense.
         /// </summary>
-        internal static object ButtonRecordExpense {
+        internal static string ButtonRecordExpense {
             get {
                 return ResourceManager.GetString("ButtonRecordExpense", resourceCulture);
             }

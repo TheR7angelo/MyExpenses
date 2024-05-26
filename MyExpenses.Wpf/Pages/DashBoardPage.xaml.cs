@@ -65,12 +65,13 @@ public partial class DashBoardPage : INotifyPropertyChanged
 
     public string ButtonAccountManagement { get; } = DashBoardPageResources.ButtonAccountManagement;
     public string ButtonAccountTypeManagement { get; } = DashBoardPageResources.ButtonAccountTypeManagement;
-    public object ButtonCategoryTypeManagement { get; } = DashBoardPageResources.ButtonCategoryTypeManagement;
-    public object ButtonColorManagement { get; } = DashBoardPageResources.ButtonColorManagement;
-    public object ButtonCurrencyManagement { get; } = DashBoardPageResources.ButtonCurrencyManagement;
+    public string ButtonCategoryTypeManagement { get; } = DashBoardPageResources.ButtonCategoryTypeManagement;
+    public string ButtonColorManagement { get; } = DashBoardPageResources.ButtonColorManagement;
+    public string ButtonCurrencyManagement { get; } = DashBoardPageResources.ButtonCurrencyManagement;
     public string ButtonLocationManagement { get; } = DashBoardPageResources.ButtonLocationManagement;
-    public object ButtonModePaymentManagement { get; } = DashBoardPageResources.ButtonModePaymentManagement;
-    public object ButtonMakeBankTransfer { get; } = DashBoardPageResources.ButtonMakeBankTransfer;
+    public string ButtonModePaymentManagement { get; } = DashBoardPageResources.ButtonModePaymentManagement;
+    public string ButtonMakeBankTransfer { get; } = DashBoardPageResources.ButtonMakeBankTransfer;
+    public string ButtonRecordExpense { get; } = DashBoardPageResources.ButtonRecordExpense;
 
     #endregion
 
@@ -84,7 +85,6 @@ public partial class DashBoardPage : INotifyPropertyChanged
     public string DataGridTextColumnDate { get; } = DashBoardPageResources.DataGridTextColumnDate;
     public string DataGridTextColumnPlace { get; } = DashBoardPageResources.DataGridTextColumnPlace;
     public string DataGridTextColumnPointed { get; } = DashBoardPageResources.DataGridTextColumnPointed;
-    public object ButtonRecordExpense { get; } = DashBoardPageResources.ButtonRecordExpense;
 
     #endregion
 
