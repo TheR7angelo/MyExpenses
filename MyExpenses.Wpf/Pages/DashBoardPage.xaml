@@ -240,17 +240,17 @@
                         </DataGridCheckBoxColumn.Header>
                     </DataGridCheckBoxColumn>
 
-                    <!-- TODO work -->
-                    <DataGridTemplateColumn>
-                        <DataGridTemplateColumn.Header>
-                            <TextBlock Text="Edit" />
-                        </DataGridTemplateColumn.Header>
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <Button Content="Click me" Click="ButtonBase_OnClick" />
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
+                    <!-- ~1~ TODO work @1@ -->
+                    <!-- <DataGridTemplateColumn> -->
+                    <!--     <DataGridTemplateColumn.Header> -->
+                    <!--         <TextBlock Text="Edit" /> -->
+                    <!--     </DataGridTemplateColumn.Header> -->
+                    <!--     <DataGridTemplateColumn.CellTemplate> -->
+                    <!--         <DataTemplate> -->
+                    <!--             <Button Content="Click me" Click="ButtonBase_OnClick" /> -->
+                    <!--         </DataTemplate> -->
+                    <!--     </DataGridTemplateColumn.CellTemplate> -->
+                    <!-- </DataGridTemplateColumn> -->
 
                 </DataGrid.Columns>
 
