@@ -89,6 +89,27 @@
 
         </Button>
 
+        <ComboBox Grid.Row="3" Grid.Column="0"
+                  Style="{StaticResource MaterialDesignFilledComboBox}"
+                  materialDesign:TextFieldAssist.HasClearButton="True"
+                  materialDesign:HintAssist.Hint="{Binding ComboBoxModePaymentHintAssist}"
+                  ItemsSource="{Binding ModePayments, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                  SelectedValue="{Binding History.ModePaymentFk, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                  SelectedValuePath="{Binding SelectedValuePathModePayment}"
+                  DisplayMemberPath="{Binding DisplayMemberPathModePayment}">
+        </ComboBox>
+
+        <Button Grid.Row="3" Grid.Column="1"
+                HorizontalAlignment="Left"
+                Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
+                Click="ButtonModePayment_OnClick">
+
+            <Button.Content>
+                <materialDesign:PackIcon Kind="PencilPlus" />
+            </Button.Content>
+
+        </Button>
+
     </Grid>
 
 </Page>

@@ -15,6 +15,8 @@ public partial class RecordExpensePage
 
     public string DisplayMemberPathCategoryType { get; } = nameof(TCategoryType.Name);
     public string SelectedValuePathCategoryType { get; } = nameof(TCategoryType.Id);
+    public string DisplayMemberPathModePayment { get; } = nameof(TModePayment.Name);
+    public string SelectedValuePathModePayment { get; } = nameof(TModePayment.Id);
 
     //TODO work
     public string ComboBoxAccountHintAssist { get; } = "From account :";
@@ -22,17 +24,20 @@ public partial class RecordExpensePage
     public string TextBoxDescriptionHintAssist { get; } = "Description :";
     //TODO work
     public string ComboBoxCategoryTypeHintAssist { get; } = "Category type :";
+    public string ComboBoxModePaymentHintAssist { get; } = "Mode payment :";
 
     public required DashBoardPage DashBoardPage { get; set; }
 
     public ObservableCollection<TAccount> Accounts { get; }
     public ObservableCollection<TCategoryType> CategoryTypes { get; }
+    public ObservableCollection<TModePayment> ModePayments { get; }
 
     public RecordExpensePage()
     {
         using var context = new DataBaseContext();
         Accounts = [..context.TAccounts.OrderBy(s => s.Name)];
         CategoryTypes = [..context.TCategoryTypes.OrderBy(s => s.Name)];
+        ModePayments = [..context.TModePayments.OrderBy(s => s.Name)];
 
         InitializeComponent();
     }
@@ -43,6 +48,11 @@ public partial class RecordExpensePage
     }
 
     private void ButtonCategoryType_OnClick(object sender, RoutedEventArgs e)
+    {
+        //TODO work
+    }
+
+    private void ButtonModePayment_OnClick(object sender, RoutedEventArgs e)
     {
         //TODO work
     }
