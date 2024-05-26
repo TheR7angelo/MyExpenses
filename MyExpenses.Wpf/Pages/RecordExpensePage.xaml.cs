@@ -21,7 +21,7 @@ public partial class RecordExpensePage
     //TODO work
     public string TextBoxDescriptionHintAssist { get; } = "Description :";
     //TODO work
-    public string ComboBoxCategoryHintAssist { get; } = "Category type :";
+    public string ComboBoxCategoryTypeHintAssist { get; } = "Category type :";
 
     public required DashBoardPage DashBoardPage { get; set; }
 

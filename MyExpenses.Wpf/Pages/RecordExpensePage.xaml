@@ -70,7 +70,7 @@
         <ComboBox Grid.Row="2" Grid.Column="0"
                   Style="{StaticResource MaterialDesignFilledComboBox}"
                   materialDesign:TextFieldAssist.HasClearButton="True"
-                  materialDesign:HintAssist.Hint="{Binding ComboBoxCategoryHintAssist}"
+                  materialDesign:HintAssist.Hint="{Binding ComboBoxCategoryTypeHintAssist}"
                   ItemsSource="{Binding CategoryTypes, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                   SelectedValue="{Binding History.CategoryTypeFk, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                   SelectedValuePath="{Binding SelectedValuePathCategoryType}"
