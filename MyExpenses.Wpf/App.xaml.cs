@@ -1,9 +1,9 @@
 ﻿using System.Windows;
 using System.Windows.Media;
 using MaterialDesignThemes.Wpf;
-using MyExpenses.Models.Config;
 using MyExpenses.Wpf.Utils;
 using Log = Serilog.Log;
+using Theme = MyExpenses.Models.Config.Interfaces.Theme;
 
 namespace MyExpenses.Wpf;
 
@@ -28,22 +28,22 @@ public partial class App
         LoadLogConfiguration(configuration.Log);
 
         Log.Information("Apply interface configuration");
-        LoadInterfaceConfiguration(configuration.Interface);
+        LoadInterfaceConfiguration(configuration.Interface.Theme);
 
         AppDomain.CurrentDomain.ProcessExit += CurrentDomainOnProcessExit;
         AppDomain.CurrentDomain.UnhandledException += CurrentDomainOnUnhandledException;
     }
 
-    private static void LoadInterfaceConfiguration(Interface configurationInterface)
+    private static void LoadInterfaceConfiguration(Theme configurationTheme)
     {
-        var baseThemeStr = configurationInterface.BaseTheme;
+        var baseThemeStr = configurationTheme.BaseTheme;
         if (!Enum.TryParse<BaseTheme>(baseThemeStr, true, out var baseTheme))
         {
             baseTheme = BaseTheme.Inherit;
         }
 
-        var primaryColor = configurationInterface.HexadecimalCodePrimaryColor.ToColor() ?? Color.FromRgb(0, 128, 0);
-        var secondaryColor = configurationInterface.HexadecimalCodeSecondaryColor.ToColor() ?? Color.FromRgb(255, 165, 0);
+        var primaryColor = configurationTheme.HexadecimalCodePrimaryColor.ToColor() ?? Color.FromRgb(0, 128, 0);
+        var secondaryColor = configurationTheme.HexadecimalCodeSecondaryColor.ToColor() ?? Color.FromRgb(255, 165, 0);
 
         var paletteHelper = new PaletteHelper();
         var theme = paletteHelper.GetTheme();

@@ -1,8 +1,8 @@
 using Newtonsoft.Json;
 
-namespace MyExpenses.Models.Config;
+namespace MyExpenses.Models.Config.Interfaces;
 
-public class Interface
+public class Theme
 {
     [JsonProperty("base_theme")]
     public string BaseTheme { get; set; } = "Inherit";

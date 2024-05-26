@@ -1,3 +1,4 @@
+using MyExpenses.Models.Config.Interfaces;
 using Newtonsoft.Json;
 
 namespace MyExpenses.Models.Config;
