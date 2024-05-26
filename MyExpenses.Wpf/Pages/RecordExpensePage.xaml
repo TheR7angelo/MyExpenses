@@ -6,6 +6,8 @@
       xmlns:local="clr-namespace:MyExpenses.Wpf.Pages"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:margin="clr-namespace:MyExpenses.Wpf.Utils.Margin;assembly=MyExpenses.Wpf.Utils"
+      xmlns:wpf="clr-namespace:Mapsui.UI.Wpf;assembly=Mapsui.UI.Wpf"
+      xmlns:converters="clr-namespace:MyExpenses.Wpf.Converters"
       mc:Ignorable="d"
 
       Title="RecordExpensePage"
@@ -18,9 +20,12 @@
 
       DataContext="{Binding RelativeSource={RelativeSource Self}}">
 
+    <Page.Resources>
+        <converters:SplitUpperCaseWordsConverter x:Key="SplitCamelCaseConverter" />
+    </Page.Resources>
+
     <Grid margin:PanelExtensions.MarginForAllChildren="5"
-          VerticalAlignment="Center"
-          HorizontalAlignment="Center">
+          VerticalAlignment="Center">
 
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -196,6 +201,25 @@
             <Button Grid.Column="1" Content="Cancel" />
 
         </Grid>
+
+        <ComboBox Grid.Row="0" Grid.Column="2"
+                  Style="{StaticResource MaterialDesignFilledComboBox}"
+                  materialDesign:HintAssist.Hint="{Binding ComboBoxBackgroundHintAssist}"
+                  ItemsSource="{Binding KnownTileSources}"
+                  SelectedItem="{Binding KnownTileSourceSelected}"
+                  SelectionChanged="Selector_OnSelectionChanged">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Converter={StaticResource SplitCamelCaseConverter}}" />
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+
+        <wpf:MapControl Grid.Row="1" Grid.Column="2" Grid.RowSpan="8"
+                        x:Name="MapControl"
+                        Background="{DynamicResource MaterialDesignPaper}"
+                        Loaded="MapControl_OnLoaded">
+        </wpf:MapControl>
 
     </Grid>
 

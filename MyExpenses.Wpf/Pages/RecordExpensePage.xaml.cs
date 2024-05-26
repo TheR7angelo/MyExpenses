@@ -4,9 +4,14 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Markup;
+using System.Windows.Media;
+using BruTile.Predefined;
+using Mapsui.Layers;
+using Mapsui.Tiling.Layers;
 using MyExpenses.Models.Sql.Tables;
 using MyExpenses.Sql.Context;
 using MyExpenses.Wpf.Resources.Regex;
+using MyExpenses.Wpf.Utils.Maps;
 
 namespace MyExpenses.Wpf.Pages;
 
@@ -42,6 +47,8 @@ public partial class RecordExpensePage
     public string ComboBoxPlaceHintAssist { get; } = "Place :";
     //TODO work
     public string CheckBoxPointedContent { get; } = "Is pointed :";
+    //TODO work
+    public string ComboBoxBackgroundHintAssist { get; } = "Basemap :";
 
     public required DashBoardPage DashBoardPage { get; set; }
 
@@ -50,13 +57,26 @@ public partial class RecordExpensePage
     public ObservableCollection<TModePayment> ModePayments { get; }
     public ObservableCollection<TPlace> Places { get; }
 
+    private WritableLayer PlaceLayer { get; } = new() { Style = null, IsMapInfoLayer = true, Tag = typeof(TPlace) };
+    public List<KnownTileSource> KnownTileSources { get; }
+    public KnownTileSource KnownTileSourceSelected { get; set; }
+
     public RecordExpensePage()
     {
+        KnownTileSources = [..MapsuiMapExtensions.GetAllKnowTileSource()];
+
         using var context = new DataBaseContext();
         Accounts = [..context.TAccounts.OrderBy(s => s.Name)];
         CategoryTypes = [..context.TCategoryTypes.OrderBy(s => s.Name)];
         ModePayments = [..context.TModePayments.OrderBy(s => s.Name)];
         Places = [..context.TPlaces.OrderBy(s => s.Name)];
+
+        // TODO add listener color change
+        var brush = (SolidColorBrush)FindResource("MaterialDesignPaper");
+        var backColor = brush.ToMapsuiColor();
+
+        var map = MapsuiMapExtensions.GetMap(true, backColor);
+        map.Layers.Add(PlaceLayer);
 
         InitializeComponent();
 
@@ -65,6 +85,8 @@ public partial class RecordExpensePage
 
         var configuration = MyExpenses.Utils.Config.Configuration;
         TimePicker.Is24Hours = configuration.Interface.Clock.Is24Hours;
+
+        MapControl.Map = map;
     }
 
     private void ButtonAccount_OnClick(object sender, RoutedEventArgs e)
@@ -103,5 +125,25 @@ public partial class RecordExpensePage
     private void ButtonPlace_OnClick(object sender, RoutedEventArgs e)
     {
         //TODO work
+    }
+
+    private void MapControl_OnLoaded(object sender, RoutedEventArgs e)
+        => UpdateTileLayer();
+
+    private void Selector_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        => UpdateTileLayer();
+
+    private void UpdateTileLayer()
+    {
+        const string layerName = "Background";
+
+        var httpTileSource = BruTile.Predefined.KnownTileSources.Create(KnownTileSourceSelected);
+        var tileLayer = new TileLayer(httpTileSource);
+        tileLayer.Name = layerName;
+
+        var layers = MapControl?.Map.Layers.FindLayer(layerName);
+        if (layers is not null) MapControl?.Map.Layers.Remove(layers.ToArray());
+
+        MapControl?.Map.Layers.Insert(0, tileLayer);
     }
 }
