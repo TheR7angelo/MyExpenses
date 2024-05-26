@@ -361,7 +361,7 @@ public partial class BankTransferPage
         RefreshVToAccountIncrease();
     }
 
-    private void TextBoxBase_OnTextChanged(object sender, TextChangedEventArgs e)
+    private void TextBoxValue_OnTextChanged(object sender, TextChangedEventArgs e)
     {
         var textBox = (TextBox)sender;
         var txt = textBox.Text;

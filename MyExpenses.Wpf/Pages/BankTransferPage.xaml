@@ -151,7 +151,7 @@
                      Text="{Binding BankTransfer.Value, Mode=TwoWay}"
                      AcceptsReturn="False" AcceptsTab="False"
                      PreviewTextInput="UIElement_OnPreviewTextInput"
-                     TextChanged="TextBoxBase_OnTextChanged">
+                     TextChanged="TextBoxValue_OnTextChanged">
             </TextBox>
 
             <TextBox Grid.Row="5"
