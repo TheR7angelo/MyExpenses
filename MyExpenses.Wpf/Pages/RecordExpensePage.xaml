@@ -197,6 +197,7 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
+            <!-- TODO work -->
             <Button Grid.Column="0" Content="Valid" />
             <Button Grid.Column="1" Content="Cancel" />
 
