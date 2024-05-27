@@ -51,18 +51,7 @@ public partial class AddEditAccountTypeWindow
         TextBoxAccountType.Focus();
     }
 
-    #region Function
-
-    private bool CheckAccountTypeName(string accountName)
-        => AccountTypes.Select(s => s.Name).Contains(accountName);
-
-    private void ShowErrorMessage()
-        => MsgBox.MsgBox.Show(AddEditAccountTypeWindowResources.MessageBoxAccountTypeNameAlreadyExists,
-            MsgBoxImage.Warning);
-
-    #endregion
-
-    #region Action
+        #region Action
 
     private void ButtonCancel_OnClick(object sender, RoutedEventArgs e)
     {
@@ -154,6 +143,17 @@ public partial class AddEditAccountTypeWindow
         var alreadyExist = CheckAccountTypeName(accountTypeName);
         if (alreadyExist) ShowErrorMessage();
     }
+
+    #endregion
+
+    #region Function
+
+    private bool CheckAccountTypeName(string accountName)
+        => AccountTypes.Select(s => s.Name).Contains(accountName);
+
+    private void ShowErrorMessage()
+        => MsgBox.MsgBox.Show(AddEditAccountTypeWindowResources.MessageBoxAccountTypeNameAlreadyExists,
+            MsgBoxImage.Warning);
 
     #endregion
 }
