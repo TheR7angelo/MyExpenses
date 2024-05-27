@@ -2,10 +2,12 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using Microsoft.Data.Sqlite;
 using MyExpenses.Models.Sql.Tables;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils.Collection;
 using MyExpenses.Utils.Sql;
+using MyExpenses.Wpf.Resources.Resx.Windows.AddEditAccountTypeWindow;
 using MyExpenses.Wpf.Resources.Resx.Windows.AddEditCategoryTypeWindow;
 using MyExpenses.Wpf.Utils;
 using MyExpenses.Wpf.Windows.MsgBox;
@@ -31,6 +33,8 @@ public partial class AddEditCategoryTypeWindow
     public ObservableCollection<TColor> Colors { get; }
     private List<TCategoryType> CategoryTypes { get; }
 
+    public bool CategoryTypeDeleted { get; set; }
+
     #endregion
 
     #region Resx
@@ -38,6 +42,7 @@ public partial class AddEditCategoryTypeWindow
     public string TextBoxCategoryTypeName { get; } = AddEditCategoryTypeWindowResources.TextBoxCategoryTypeName;
     public string ComboBoxColorValue { get; } = AddEditCategoryTypeWindowResources.ComboBoxColorValue;
     public string ButtonValidContent { get; } = AddEditCategoryTypeWindowResources.ButtonValidContent;
+    public string ButtonDeleteContent { get; } = AddEditCategoryTypeWindowResources.ButtonDeleteContent;
     public string ButtonCancelContent { get; } = AddEditCategoryTypeWindowResources.ButtonCancelContent;
 
     #endregion
@@ -59,6 +64,56 @@ public partial class AddEditCategoryTypeWindow
     {
         DialogResult = false;
         Close();
+    }
+
+    private void ButtonDelete_OnClick(object sender, RoutedEventArgs e)
+    {
+        var response = MsgBox.MsgBox.Show(AddEditAccountTypeWindowResources.MessageBoxDeleteQuestion,
+            MsgBoxImage.Question, MessageBoxButton.YesNoCancel);
+        if (response != MessageBoxResult.Yes) return;
+
+        Log.Information("Attempting to remove the category type \"{CategoryTypeToDeleteName}\"", CategoryType.Name);
+        var (success, exception) = CategoryType.Delete();
+
+        if (success)
+        {
+            Log.Information("category type was successfully removed");
+            MsgBox.MsgBox.Show(AddEditAccountTypeWindowResources.MessageBoxDeleteAccountTypeNoUseSuccess, MsgBoxImage.Check);
+
+            CategoryTypeDeleted = true;
+            DialogResult = true;
+
+            Close();
+            return;
+        }
+
+        if (exception!.InnerException is SqliteException
+            {
+                SqliteExtendedErrorCode: SQLitePCL.raw.SQLITE_CONSTRAINT_FOREIGNKEY
+            })
+        {
+            Log.Error("Foreign key constraint violation");
+
+            response = MsgBox.MsgBox.Show(AddEditAccountTypeWindowResources.MessageBoxDeleteAccountTypeUseQuestion,
+                MsgBoxImage.Question, MessageBoxButton.YesNoCancel);
+
+            if (response != MessageBoxResult.Yes) return;
+
+            Log.Information("Attempting to remove the category type \"{AccountTypeToDeleteName}\" with all relative element",
+                CategoryType.Name);
+            CategoryType.Delete(true);
+            Log.Information("Account type and all relative element was successfully removed");
+            MsgBox.MsgBox.Show(AddEditAccountTypeWindowResources.MessageBoxDeleteAccountTypeNoUseSuccess, MsgBoxImage.Check);
+
+            CategoryTypeDeleted = true;
+            DialogResult = true;
+            Close();
+
+            return;
+        }
+
+        Log.Error(exception, "An error occurred please retry");
+        MsgBox.MsgBox.Show(AddEditAccountTypeWindowResources.MessageBoxDeleteAccountTypeError, MsgBoxImage.Error);
     }
 
     private void ButtonValid_OnClick(object sender, RoutedEventArgs e)
