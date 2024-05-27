@@ -191,6 +191,7 @@ public partial class RecordExpensePage
             else
             {
                 Log.Error(exception, "An error occurred please retry");
+                //TODO work
                 MsgBox.Show("An error occurred please retry", MsgBoxImage.Error);
             }
         }
