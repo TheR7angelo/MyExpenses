@@ -95,7 +95,7 @@ public partial class AddEditAccountTypeWindow
                 AccountType.Name);
             AccountType.Delete(true);
             Log.Information("Account type and all relative element was successfully removed");
-            MsgBox.MsgBox.Show(AddEditAccountTypeWindowResources.MessageBoxDeleteAccountTypeNoUseSuccess, MsgBoxImage.Check);
+            MsgBox.MsgBox.Show(AddEditAccountTypeWindowResources.MessageBoxDeleteAccountTypeUseSuccess, MsgBoxImage.Check);
 
             AccountTypeDeleted = true;
             DialogResult = true;

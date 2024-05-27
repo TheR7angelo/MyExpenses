@@ -137,5 +137,14 @@ namespace MyExpenses.Wpf.Resources.Resx.Windows.AddEditAccountTypeWindow {
                 return ResourceManager.GetString("MessageBoxDeleteAccountTypeUseQuestion", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Account type and all relative element was successfully removed.
+        /// </summary>
+        public static string MessageBoxDeleteAccountTypeUseSuccess {
+            get {
+                return ResourceManager.GetString("MessageBoxDeleteAccountTypeUseSuccess", resourceCulture);
+            }
+        }
     }
 }
