@@ -12,6 +12,8 @@ using MyExpenses.Models.Sql.Tables;
 using MyExpenses.Sql.Context;
 using MyExpenses.Wpf.Resources.Regex;
 using MyExpenses.Wpf.Utils.Maps;
+using MyExpenses.Wpf.Windows;
+using MyExpenses.Utils.Sql;
 
 namespace MyExpenses.Wpf.Pages;
 
@@ -91,9 +93,15 @@ public partial class RecordExpensePage
 
     #region Action
 
+    //TODO work
     private void ButtonAccount_OnClick(object sender, RoutedEventArgs e)
     {
-        //TODO work
+        var addEditAccountWindow = new AddEditAccountWindow();
+
+        var account = History.AccountFk?.ToTAccount();
+        if (account is not null) addEditAccountWindow.SetTAccount(account);
+
+
     }
 
     private void ButtonCategoryType_OnClick(object sender, RoutedEventArgs e)
