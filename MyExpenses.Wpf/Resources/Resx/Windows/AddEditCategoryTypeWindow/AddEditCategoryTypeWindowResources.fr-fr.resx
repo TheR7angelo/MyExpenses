@@ -47,4 +47,19 @@
     <data name="ButtonDeleteContent" xml:space="preserve">
         <value>Supprimer</value>
     </data>
+    <data name="MessageBoxDeleteQuestion" xml:space="preserve">
+        <value>Voulez-vous vraiment supprimer ce type de catégorie ?</value>
+    </data>
+    <data name="MessageBoxDeleteCategoryTypeNoUseSuccess" xml:space="preserve">
+        <value>Le type de catégorie a été supprimé avec succès</value>
+    </data>
+    <data name="MessageBoxDeleteCategoryTypeUseQuestion" xml:space="preserve">
+        <value>Ce type de catégorie est utilisé. Etes-vous sûr de vouloir supprimer ce type de catégorie et tout ce qui y est lié ?</value>
+    </data>
+    <data name="MessageBoxDeleteCategoryTypeUseSuccess" xml:space="preserve">
+        <value>Le type de catégorie et tous les éléments relatifs ont été supprimés avec succès</value>
+    </data>
+    <data name="MessageBoxDeleteCategoryTypeError" xml:space="preserve">
+        <value>Une erreur s'est produite, veuillez réessayer</value>
+    </data>
 </root>

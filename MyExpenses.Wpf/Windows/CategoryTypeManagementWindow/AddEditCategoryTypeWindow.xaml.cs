@@ -7,7 +7,6 @@ using MyExpenses.Models.Sql.Tables;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils.Collection;
 using MyExpenses.Utils.Sql;
-using MyExpenses.Wpf.Resources.Resx.Windows.AddEditAccountTypeWindow;
 using MyExpenses.Wpf.Resources.Resx.Windows.AddEditCategoryTypeWindow;
 using MyExpenses.Wpf.Utils;
 using MyExpenses.Wpf.Windows.MsgBox;
@@ -68,7 +67,7 @@ public partial class AddEditCategoryTypeWindow
 
     private void ButtonDelete_OnClick(object sender, RoutedEventArgs e)
     {
-        var response = MsgBox.MsgBox.Show(AddEditAccountTypeWindowResources.MessageBoxDeleteQuestion,
+        var response = MsgBox.MsgBox.Show(AddEditCategoryTypeWindowResources.MessageBoxDeleteQuestion,
             MsgBoxImage.Question, MessageBoxButton.YesNoCancel);
         if (response != MessageBoxResult.Yes) return;
 
@@ -78,7 +77,7 @@ public partial class AddEditCategoryTypeWindow
         if (success)
         {
             Log.Information("category type was successfully removed");
-            MsgBox.MsgBox.Show(AddEditAccountTypeWindowResources.MessageBoxDeleteAccountTypeNoUseSuccess, MsgBoxImage.Check);
+            MsgBox.MsgBox.Show(AddEditCategoryTypeWindowResources.MessageBoxDeleteCategoryTypeNoUseSuccess, MsgBoxImage.Check);
 
             CategoryTypeDeleted = true;
             DialogResult = true;
@@ -94,16 +93,16 @@ public partial class AddEditCategoryTypeWindow
         {
             Log.Error("Foreign key constraint violation");
 
-            response = MsgBox.MsgBox.Show(AddEditAccountTypeWindowResources.MessageBoxDeleteAccountTypeUseQuestion,
+            response = MsgBox.MsgBox.Show(AddEditCategoryTypeWindowResources.MessageBoxDeleteCategoryTypeUseQuestion,
                 MsgBoxImage.Question, MessageBoxButton.YesNoCancel);
 
             if (response != MessageBoxResult.Yes) return;
 
-            Log.Information("Attempting to remove the category type \"{AccountTypeToDeleteName}\" with all relative element",
+            Log.Information("Attempting to remove the category type \"{CategoryTypeToDeleteName}\" with all relative element",
                 CategoryType.Name);
             CategoryType.Delete(true);
-            Log.Information("Account type and all relative element was successfully removed");
-            MsgBox.MsgBox.Show(AddEditAccountTypeWindowResources.MessageBoxDeleteAccountTypeNoUseSuccess, MsgBoxImage.Check);
+            Log.Information("Category type and all relative element was successfully removed");
+            MsgBox.MsgBox.Show(AddEditCategoryTypeWindowResources.MessageBoxDeleteCategoryTypeUseSuccess, MsgBoxImage.Check);
 
             CategoryTypeDeleted = true;
             DialogResult = true;
@@ -113,7 +112,7 @@ public partial class AddEditCategoryTypeWindow
         }
 
         Log.Error(exception, "An error occurred please retry");
-        MsgBox.MsgBox.Show(AddEditAccountTypeWindowResources.MessageBoxDeleteAccountTypeError, MsgBoxImage.Error);
+        MsgBox.MsgBox.Show(AddEditCategoryTypeWindowResources.MessageBoxDeleteCategoryTypeError, MsgBoxImage.Error);
     }
 
     private void ButtonValid_OnClick(object sender, RoutedEventArgs e)

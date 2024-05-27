@@ -54,4 +54,19 @@
     <data name="ButtonDeleteContent" xml:space="preserve">
         <value>Delete</value>
     </data>
+    <data name="MessageBoxDeleteQuestion" xml:space="preserve">
+        <value>Do you really want to delete this category type ?</value>
+    </data>
+    <data name="MessageBoxDeleteCategoryTypeNoUseSuccess" xml:space="preserve">
+        <value>Category type was successfully removed</value>
+    </data>
+    <data name="MessageBoxDeleteCategoryTypeUseQuestion" xml:space="preserve">
+        <value>This category type is in use. Are you sure you want to delete this category type and everything linked to it ?</value>
+    </data>
+    <data name="MessageBoxDeleteCategoryTypeUseSuccess" xml:space="preserve">
+        <value>Category type and all relative element was successfully removed</value>
+    </data>
+    <data name="MessageBoxDeleteCategoryTypeError" xml:space="preserve">
+        <value>An error occurred please retry</value>
+    </data>
 </root>

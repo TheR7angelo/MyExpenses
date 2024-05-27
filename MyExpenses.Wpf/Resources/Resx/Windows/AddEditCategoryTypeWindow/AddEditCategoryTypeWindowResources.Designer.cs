@@ -165,5 +165,50 @@ namespace MyExpenses.Wpf.Resources.Resx.Windows.AddEditCategoryTypeWindow {
                 return ResourceManager.GetString("ButtonDeleteContent", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Do you really want to delete this category type ?.
+        /// </summary>
+        public static string MessageBoxDeleteQuestion {
+            get {
+                return ResourceManager.GetString("MessageBoxDeleteQuestion", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Category type was successfully removed.
+        /// </summary>
+        public static string MessageBoxDeleteCategoryTypeNoUseSuccess {
+            get {
+                return ResourceManager.GetString("MessageBoxDeleteCategoryTypeNoUseSuccess", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to This category type is in use. Are you sure you want to delete this category type and everything linked to it ?.
+        /// </summary>
+        public static string MessageBoxDeleteCategoryTypeUseQuestion {
+            get {
+                return ResourceManager.GetString("MessageBoxDeleteCategoryTypeUseQuestion", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Category type and all relative element was successfully removed.
+        /// </summary>
+        public static string MessageBoxDeleteCategoryTypeUseSuccess {
+            get {
+                return ResourceManager.GetString("MessageBoxDeleteCategoryTypeUseSuccess", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to An error occurred please retry.
+        /// </summary>
+        public static string MessageBoxDeleteCategoryTypeError {
+            get {
+                return ResourceManager.GetString("MessageBoxDeleteCategoryTypeError", resourceCulture);
+            }
+        }
     }
 }
