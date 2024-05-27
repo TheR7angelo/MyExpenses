@@ -89,6 +89,8 @@ public partial class RecordExpensePage
         MapControl.Map = map;
     }
 
+    #region Action
+
     private void ButtonAccount_OnClick(object sender, RoutedEventArgs e)
     {
         //TODO work
@@ -129,9 +131,13 @@ public partial class RecordExpensePage
 
     private void MapControl_OnLoaded(object sender, RoutedEventArgs e)
         => UpdateTileLayer();
-
+    
     private void Selector_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         => UpdateTileLayer();
+
+    #endregion
+
+    #region Function
 
     private void UpdateTileLayer()
     {
@@ -146,4 +152,6 @@ public partial class RecordExpensePage
 
         MapControl?.Map.Layers.Insert(0, tileLayer);
     }
+
+    #endregion
 }
