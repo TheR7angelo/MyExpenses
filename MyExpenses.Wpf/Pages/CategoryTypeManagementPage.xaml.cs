@@ -77,6 +77,13 @@ public partial class CategoryTypeManagementPage
         var result = addEditCategoryTypeWindow.ShowDialog();
         if (result != true) return;
 
+        if (addEditCategoryTypeWindow.CategoryTypeDeleted)
+        {
+            CategoryTypes.Remove(categoryType);
+            DashBoardPage.RefreshAccountTotal();
+            return;
+        }
+
         var editedCategoryType = addEditCategoryTypeWindow.CategoryType;
         Log.Information("Attempting to edit the category type id: {Id}", editedCategoryType.Id);
 
