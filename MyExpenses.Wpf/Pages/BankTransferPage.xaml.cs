@@ -268,7 +268,7 @@ public partial class BankTransferPage
     {
         var addEditAccountWindow = new AddEditAccountWindow();
         var fromAccount = BankTransfer.FromAccountFk?.ToTAccount();
-        if (fromAccount != null) addEditAccountWindow.SetTAccount(fromAccount);
+        if (fromAccount is not null) addEditAccountWindow.SetTAccount(fromAccount);
 
         addEditAccountWindow.ShowDialog();
         if (addEditAccountWindow.DialogResult != true) return;
