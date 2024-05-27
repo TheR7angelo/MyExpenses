@@ -44,4 +44,7 @@
     <data name="MessageBoxEditColorError" xml:space="preserve">
         <value>An error occurred please retry</value>
     </data>
+    <data name="ButtonDeleteContent" xml:space="preserve">
+        <value>Delete</value>
+    </data>
 </root>
