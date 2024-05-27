@@ -10,10 +10,13 @@ using Mapsui.Layers;
 using Mapsui.Tiling.Layers;
 using MyExpenses.Models.Sql.Tables;
 using MyExpenses.Sql.Context;
+using MyExpenses.Utils.Collection;
 using MyExpenses.Wpf.Resources.Regex;
 using MyExpenses.Wpf.Utils.Maps;
 using MyExpenses.Wpf.Windows;
 using MyExpenses.Utils.Sql;
+using MyExpenses.Wpf.Windows.MsgBox;
+using Serilog;
 
 namespace MyExpenses.Wpf.Pages;
 
@@ -93,7 +96,6 @@ public partial class RecordExpensePage
 
     #region Action
 
-    //TODO work
     private void ButtonAccount_OnClick(object sender, RoutedEventArgs e)
     {
         var addEditAccountWindow = new AddEditAccountWindow();
@@ -101,7 +103,42 @@ public partial class RecordExpensePage
         var account = History.AccountFk?.ToTAccount();
         if (account is not null) addEditAccountWindow.SetTAccount(account);
 
+        addEditAccountWindow.ShowDialog();
+        if (addEditAccountWindow.DialogResult != true) return;
 
+        if (addEditAccountWindow.DeleteAccount)
+        {
+            var accountToRemove = Accounts.FirstOrDefault(s => s.Id == History.Id);
+            if (accountToRemove is not null) Accounts.Remove(accountToRemove);
+
+            DashBoardPage.RefreshAccountTotal();
+            DashBoardPage.RefreshRadioButtonSelected();
+        }
+        else
+        {
+            var editedAccount = addEditAccountWindow.Account;
+
+            Log.Information("Attempting to edit the account \"{AccountName}\"", editedAccount.Name);
+            var (success, exception) = editedAccount.AddOrEdit();
+            if (success)
+            {
+                Log.Information("Account was successfully edited");
+                var json = editedAccount.ToJsonString();
+                Log.Information("{Json}", json);
+
+                //TODO work
+                MsgBox.Show("Account was successfully edited", MsgBoxImage.Check);
+
+                var accountToRemove = Accounts.FirstOrDefault(s => s.Id == History.Id);
+                Accounts!.AddAndSort(accountToRemove, editedAccount, s => s?.Name!);
+            }
+            else
+            {
+                //TODO work
+                Log.Error(exception, "An error occurred please retry");
+                MsgBox.Show("An error occurred please retry", MsgBoxImage.Warning);
+            }
+        }
     }
 
     private void ButtonCategoryType_OnClick(object sender, RoutedEventArgs e)
