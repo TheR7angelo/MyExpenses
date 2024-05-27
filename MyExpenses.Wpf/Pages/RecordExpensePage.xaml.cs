@@ -154,7 +154,46 @@ public partial class RecordExpensePage
         var result = addEditCategoryTypeWindow.ShowDialog();
         if (result != true) return;
 
+        if (addEditCategoryTypeWindow.CategoryTypeDeleted)
+        {
+            var categoryTypeToRemove = CategoryTypes.FirstOrDefault(s => s.Id == History.CategoryTypeFk);
+            if (categoryTypeToRemove is not null) CategoryTypes.Remove(categoryTypeToRemove);
 
+            DashBoardPage.RefreshAccountTotal();
+            DashBoardPage.RefreshRadioButtonSelected();
+        }
+        else
+        {
+            var editedCategoryType = addEditCategoryTypeWindow.CategoryType;
+            Log.Information("Attempting to edit the category type id: {Id}", editedCategoryType.Id);
+
+            var editedCategoryTypeDeepCopy = editedCategoryType.DeepCopy();
+
+            var (success, exception) = editedCategoryType.AddOrEdit();
+            if (success)
+            {
+                using var context = new DataBaseContext();
+                editedCategoryTypeDeepCopy.ColorFkNavigation =
+                    context.TColors.FirstOrDefault(s => s.Id == editedCategoryTypeDeepCopy.ColorFk);
+
+                CategoryTypes!.AddAndSort(categoryType, editedCategoryTypeDeepCopy, s => s!.Name!);
+
+                Log.Information("Category type was successfully edited");
+                var json = editedCategoryTypeDeepCopy.ToJsonString();
+                Log.Information("{Json}", json);
+
+                //TODO work
+                MsgBox.Show("Category type was successfully edited", MsgBoxImage.Check);
+
+                DashBoardPage.RefreshAccountTotal();
+                DashBoardPage.RefreshRadioButtonSelected();
+            }
+            else
+            {
+                Log.Error(exception, "An error occurred please retry");
+                MsgBox.Show("An error occurred please retry", MsgBoxImage.Error);
+            }
+        }
     }
 
     //TODO work
