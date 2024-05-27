@@ -31,6 +31,19 @@ public static class Converter
     }
 
     /// <summary>
+    /// Retrieves a TCategoryType object from the database based on the provided categoryTypeId.
+    /// </summary>
+    /// <param name="categoryTypeId">The ID of the TCategoryType object to retrieve.</param>
+    /// <returns>A TCategoryType object representing the retrieved category type, or null if not found.</returns>
+    public static TCategoryType? ToCategoryType(this int categoryTypeId)
+    {
+        using var context = new DataBaseContext();
+        var categoryType = context.TCategoryTypes.FirstOrDefault(s => s.Id == categoryTypeId);
+
+        return categoryType;
+    }
+
+    /// <summary>
     /// Converts a VHistory object to a THistory object.
     /// </summary>
     /// <param name="vHistory">The VHistory object to convert.</param>
