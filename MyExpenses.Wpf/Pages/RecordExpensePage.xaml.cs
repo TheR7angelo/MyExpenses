@@ -143,19 +143,23 @@ public partial class RecordExpensePage
         }
     }
 
+    //TODO work
     private void ButtonCategoryType_OnClick(object sender, RoutedEventArgs e)
     {
-        //TODO work
+
+        var addEditCategoryTypeWindow = new AddEditCategoryTypeWindow();
     }
 
+    //TODO work
     private void ButtonModePayment_OnClick(object sender, RoutedEventArgs e)
     {
-        //TODO work
+
     }
 
+    //TODO work
     private void ButtonPlace_OnClick(object sender, RoutedEventArgs e)
     {
-        //TODO work
+
     }
 
     private void TextBoxValue_OnTextChanged(object sender, TextChangedEventArgs e)
