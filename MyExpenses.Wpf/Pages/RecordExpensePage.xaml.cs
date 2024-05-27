@@ -15,6 +15,7 @@ using MyExpenses.Wpf.Resources.Regex;
 using MyExpenses.Wpf.Utils.Maps;
 using MyExpenses.Wpf.Windows;
 using MyExpenses.Utils.Sql;
+using MyExpenses.Wpf.Windows.CategoryTypeManagementWindow;
 using MyExpenses.Wpf.Windows.MsgBox;
 using Serilog;
 
@@ -146,8 +147,14 @@ public partial class RecordExpensePage
     //TODO work
     private void ButtonCategoryType_OnClick(object sender, RoutedEventArgs e)
     {
-
         var addEditCategoryTypeWindow = new AddEditCategoryTypeWindow();
+        var categoryType = History.CategoryTypeFk?.ToCategoryType();
+        if (categoryType is not null) addEditCategoryTypeWindow.SetTCategoryType(categoryType);
+
+        var result = addEditCategoryTypeWindow.ShowDialog();
+        if (result != true) return;
+
+
     }
 
     //TODO work
