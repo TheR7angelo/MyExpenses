@@ -131,6 +131,8 @@ public partial class RecordExpensePage
 
                 var accountToRemove = Accounts.FirstOrDefault(s => s.Id == History.Id);
                 Accounts!.AddAndSort(accountToRemove, editedAccount, s => s?.Name!);
+
+                History.AccountFk = editedAccount.Id;
             }
             else
             {
