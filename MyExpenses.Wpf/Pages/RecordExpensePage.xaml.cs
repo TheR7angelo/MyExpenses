@@ -106,6 +106,11 @@ public partial class RecordExpensePage
         //TODO work
     }
 
+    private void ButtonPlace_OnClick(object sender, RoutedEventArgs e)
+    {
+        //TODO work
+    }
+
     private void TextBoxValue_OnTextChanged(object sender, TextChangedEventArgs e)
     {
         var textBox = (TextBox)sender;
@@ -116,6 +121,12 @@ public partial class RecordExpensePage
         else if (!txt.EndsWith('.')) History.Value = null;
     }
 
+    private void MapControl_OnLoaded(object sender, RoutedEventArgs e)
+        => UpdateTileLayer();
+    
+    private void Selector_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        => UpdateTileLayer();
+
     private void UIElement_OnPreviewTextInput(object sender, TextCompositionEventArgs e)
     {
         var textBox = (TextBox)sender;
@@ -123,17 +134,6 @@ public partial class RecordExpensePage
 
         e.Handled = txt.IsOnlyDecimal();
     }
-
-    private void ButtonPlace_OnClick(object sender, RoutedEventArgs e)
-    {
-        //TODO work
-    }
-
-    private void MapControl_OnLoaded(object sender, RoutedEventArgs e)
-        => UpdateTileLayer();
-    
-    private void Selector_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
-        => UpdateTileLayer();
 
     #endregion
 
