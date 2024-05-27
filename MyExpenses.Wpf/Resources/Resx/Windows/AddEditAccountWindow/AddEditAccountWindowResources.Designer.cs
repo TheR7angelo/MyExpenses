@@ -241,7 +241,7 @@ namespace MyExpenses.Wpf.Resources.Resx.Windows.AddAccountWindow {
         /// </summary>
         internal static string MessageBoxDeleteAccountUseQuestion {
             get {
-                return ResourceManager.GetString("MessageBoxDeleteAccountNoUseSuccess", resourceCulture);
+                return ResourceManager.GetString("MessageBoxDeleteAccountUseQuestion", resourceCulture);
             }
         }
 
