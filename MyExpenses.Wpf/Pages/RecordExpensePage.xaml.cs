@@ -108,7 +108,7 @@ public partial class RecordExpensePage
 
         if (addEditAccountWindow.DeleteAccount)
         {
-            var accountToRemove = Accounts.FirstOrDefault(s => s.Id == History.Id);
+            var accountToRemove = Accounts.FirstOrDefault(s => s.Id == History.AccountFk);
             if (accountToRemove is not null) Accounts.Remove(accountToRemove);
 
             DashBoardPage.RefreshAccountTotal();
