@@ -11,6 +11,7 @@ using LiveChartsCore.SkiaSharpView;
 using LiveChartsCore.SkiaSharpView.Painting;
 using MyExpenses.Models.Sql.Tables;
 using MyExpenses.Models.Sql.Views;
+using MyExpenses.Models.Wpf.Charts;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils.Collection;
 using MyExpenses.Utils.Sql;
@@ -87,6 +88,8 @@ public partial class DashBoardPage : INotifyPropertyChanged
     public string DataGridTextColumnPointed { get; } = DashBoardPageResources.DataGridTextColumnPointed;
 
     #endregion
+
+    public ObservableCollection<CategoryTotal> CategoryTotals { get; } = [];
 
     public DashBoardPage()
     {
@@ -229,22 +232,24 @@ public partial class DashBoardPage : INotifyPropertyChanged
 
         var grandTotal = Math.Round(categoriesTotals.Sum(ct => Math.Abs(ct.Total)), 2);
 
+        CategoryTotals.Clear();
+
         var series = new List<PieSeries<double>>();
-        foreach (var categoryTotal in categoriesTotals)
+        foreach (var categoryTotalTemp in categoriesTotals)
         {
-            var total = Math.Round(categoryTotal.Total, 2);
+            var total = Math.Round(categoryTotalTemp.Total, 2);
             var absTotal = Math.Abs(total);
             var percentage = Math.Round(absTotal / grandTotal * 100, 2);
 
             var pieSeries = new PieSeries<double>
             {
                 Values = new ObservableCollection<double> { absTotal },
-                Name = $"{categoryTotal.Category} ({percentage}%)",
-                ToolTipLabelFormatter = _ => $"{total:F2} {categoryTotal.Symbol}",
-                Tag = categories.First(s => s.Name == categoryTotal.Category)
+                Name = $"{categoryTotalTemp.Category} ({percentage}%)",
+                ToolTipLabelFormatter = _ => $"{total:F2} {categoryTotalTemp.Symbol}",
+                Tag = categories.First(s => s.Name == categoryTotalTemp.Category)
             };
 
-            var hexadecimalCode = categoryTotal.HexadecimalColorCode;
+            var hexadecimalCode = categoryTotalTemp.HexadecimalColorCode;
             if (!string.IsNullOrEmpty(hexadecimalCode))
             {
                 var skColor = hexadecimalCode.ToSkColor()!;
@@ -252,6 +257,16 @@ public partial class DashBoardPage : INotifyPropertyChanged
             }
 
             series.Add(pieSeries);
+
+            var categoryTotal = new CategoryTotal
+            {
+                Name = categoryTotalTemp.Category,
+                HexadecimalColor = hexadecimalCode,
+                Percentage = percentage,
+                Value = total,
+                Symbol = categoryTotalTemp.Symbol
+            };
+            CategoryTotals.Add(categoryTotal);
         }
 
         PieChart.Series = series;

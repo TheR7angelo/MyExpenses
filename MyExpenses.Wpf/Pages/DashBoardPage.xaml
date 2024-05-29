@@ -159,7 +159,54 @@
 
         <Grid Grid.Row="0" Grid.Column="2">
 
-            <wpf:PieChart x:Name="PieChart" LegendPosition="Left" DataPointerDown="PieChart_OnDataPointerDown" />
+            <Grid.RowDefinitions>
+                <RowDefinition Height="2*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <wpf:PieChart Grid.Row="0" x:Name="PieChart" DataPointerDown="PieChart_OnDataPointerDown" />
+
+            <ScrollViewer Grid.Row="1"
+                          HorizontalScrollBarVisibility="Disabled"
+                          VerticalScrollBarVisibility="Auto">
+
+                <ItemsControl ItemsSource="{Binding CategoryTotals, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <StackPanel Orientation="Vertical" margin:PanelExtensions.MarginForAllChildren="3" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Button Style="{StaticResource MaterialDesignPaperButton}"
+                                    HorizontalContentAlignment="Left">
+                                <Button.Content>
+                                    <StackPanel Orientation="Horizontal">
+
+                                        <Ellipse Height="16" Width="{Binding Height, RelativeSource={RelativeSource Self}}"
+                                                 Stroke="{DynamicResource MaterialDesignBody}"
+                                                 StrokeThickness="1.5"
+                                                 Fill="{Binding HexadecimalColor, Mode=OneWay}">
+                                        </Ellipse>
+
+                                        <Label Content="{Binding Name, Mode=OneWay}" />
+
+                                        <Label Content="{Binding Value, Mode=OneWay}" />
+                                        <Label Content="{Binding Symbol, Mode=OneWay}" />
+                                        <Label Content="{Binding Percentage, Mode=OneWay}"
+                                               ContentStringFormat="({0} %)">
+                                        </Label>
+
+                                    </StackPanel>
+                                </Button.Content>
+                            </Button>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+
+                </ItemsControl>
+
+            </ScrollViewer>
 
         </Grid>
 
