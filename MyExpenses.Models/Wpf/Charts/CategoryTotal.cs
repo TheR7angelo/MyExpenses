@@ -7,4 +7,6 @@ public class CategoryTotal
     public double? Percentage { get; set; }
     public double? Value { get; set; }
     public string? Symbol { get; set; }
+
+    public string ValueSymbol => Value is not null ? Value + " " + Symbol : 0d + " " + Symbol;
 }

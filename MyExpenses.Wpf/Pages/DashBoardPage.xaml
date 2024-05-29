@@ -192,10 +192,10 @@
 
                                         <Label Content="{Binding Name, Mode=OneWay}" />
 
-                                        <Label Content="{Binding Value, Mode=OneWay}" />
-                                        <Label Content="{Binding Symbol, Mode=OneWay}" />
+                                        <Label Content="{Binding ValueSymbol, Mode=OneWay}" />
+
                                         <Label Content="{Binding Percentage, Mode=OneWay}"
-                                               ContentStringFormat="({0} %)">
+                                               ContentStringFormat="({0}%)">
                                         </Label>
 
                                     </StackPanel>
