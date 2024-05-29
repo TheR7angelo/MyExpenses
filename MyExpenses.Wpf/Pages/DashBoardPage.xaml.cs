@@ -281,6 +281,15 @@ public partial class DashBoardPage : INotifyPropertyChanged
         Console.WriteLine(categoryType?.Name);
     }
 
+    //TODO work
+    private void ButtonPieChart_OnClick(object sender, RoutedEventArgs e)
+    {
+        var button = (Button)sender;
+        if (button.DataContext is not CategoryTotal categoryTotal) return;
+
+        Console.WriteLine(categoryTotal.Name);
+    }
+
     // //TODO work
     // private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
     // {

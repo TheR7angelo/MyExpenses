@@ -179,8 +179,11 @@
 
                     <ItemsControl.ItemTemplate>
                         <DataTemplate>
+
                             <Button Style="{StaticResource MaterialDesignPaperButton}"
-                                    HorizontalContentAlignment="Left">
+                                    HorizontalContentAlignment="Left"
+                                    Click="ButtonPieChart_OnClick">
+
                                 <Button.Content>
                                     <StackPanel Orientation="Horizontal">
 
@@ -200,7 +203,9 @@
 
                                     </StackPanel>
                                 </Button.Content>
+
                             </Button>
+
                         </DataTemplate>
                     </ItemsControl.ItemTemplate>
 
