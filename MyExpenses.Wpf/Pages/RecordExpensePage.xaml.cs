@@ -272,7 +272,10 @@ public partial class RecordExpensePage
 
     private void SelectorPlace_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        //TODO work
+        var place = History.PlaceFk?.ToISqlT<TPlace>();
+        if (place is null) return;
+
+        UpdateMapPoint(place);
     }
 
     private void SelectorTile_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -289,6 +292,11 @@ public partial class RecordExpensePage
     #endregion
 
     #region Function
+
+    private void UpdateMapPoint(TPlace place)
+    {
+        //TODO work
+    }
 
     private void UpdateTileLayer()
     {
