@@ -45,6 +45,8 @@ public partial class AddEditLocationWindow
     public AddEditLocationWindow()
     {
         var map = MapsuiMapExtensions.GetMap(false);
+
+        //TODO add change background
         map.Layers.Add(Mapsui.Tiling.OpenStreetMap.CreateTileLayer());
         map.Layers.Add(WritableLayer);
 
