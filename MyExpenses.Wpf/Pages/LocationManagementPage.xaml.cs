@@ -174,7 +174,7 @@ public partial class LocationManagementPage
         addEditLocationWindow.SetPlace(ClickTPlace!, false);
         addEditLocationWindow.ShowDialog();
 
-        if (addEditLocationWindow.DialogResult != true) return;
+        if (addEditLocationWindow.DialogResult is not true) return;
 
         var editedPlace = addEditLocationWindow.Place;
         ProcessNewPlace(editedPlace, edit: true);
