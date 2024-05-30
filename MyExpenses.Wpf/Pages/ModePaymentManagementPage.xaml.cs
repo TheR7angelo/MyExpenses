@@ -75,7 +75,7 @@ public partial class ModePaymentManagementPage
         {
             var updatedModePayment = addEditModePaymentWindow.ModePayment;
 
-            Log.Information("Attempting to update currency symbol id:\"{UpdatedModePaymentId}\", name:\"{UpdatedModePaymentName}\"",updatedModePayment.Id, updatedModePayment.Name);
+            Log.Information("Attempting to update mode payment id:\"{UpdatedModePaymentId}\", name:\"{UpdatedModePaymentName}\"",updatedModePayment.Id, updatedModePayment.Name);
             var (success, exception) = updatedModePayment.AddOrEdit();
             if (success)
             {
