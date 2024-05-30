@@ -76,7 +76,7 @@ public partial class AddEditCategoryTypeWindow
 
         if (success)
         {
-            Log.Information("category type was successfully removed");
+            Log.Information("Category type was successfully removed");
             MsgBox.MsgBox.Show(AddEditCategoryTypeWindowResources.MessageBoxDeleteCategoryTypeNoUseSuccess, MsgBoxImage.Check);
 
             CategoryTypeDeleted = true;
