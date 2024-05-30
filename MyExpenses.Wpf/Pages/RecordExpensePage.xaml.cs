@@ -15,6 +15,7 @@ using MyExpenses.Wpf.Resources.Regex;
 using MyExpenses.Wpf.Utils.Maps;
 using MyExpenses.Wpf.Windows;
 using MyExpenses.Utils.Sql;
+using MyExpenses.Wpf.Resources.Resx.Pages.ModePaymentManagementPage;
 using MyExpenses.Wpf.Windows.CategoryTypeManagementWindow;
 using MyExpenses.Wpf.Windows.MsgBox;
 using Serilog;
@@ -203,10 +204,52 @@ public partial class RecordExpensePage
     //TODO work
     private void ButtonModePayment_OnClick(object sender, RoutedEventArgs e)
     {
-        var addEditModePaymentWindow = new AddEditModePaymentWindow();
         var modePayment = History.ModePaymentFk?.ToISqlT<TModePayment>();
+        if (modePayment?.CanBeDeleted is false)
+        {
+            //TODO work
+            MsgBox.Show("This payment method cannot be changed or deleted", MsgBoxImage.Error);
+            return;
+        }
 
-        Console.WriteLine(modePayment?.Name);
+        var addEditModePaymentWindow = new AddEditModePaymentWindow();
+        if (modePayment is not null) addEditModePaymentWindow.SetTModePayment(modePayment);
+
+        var result = addEditModePaymentWindow.ShowDialog();
+        if (result != true) return;
+
+        var modePaymentToRemove = ModePayments.FirstOrDefault(s => s.Id == History.ModePaymentFk);
+        if (addEditModePaymentWindow.ModePaymentDeleted)
+        {
+            if (modePaymentToRemove is not null) ModePayments.Remove(modePaymentToRemove);
+        }
+        else
+        {
+            var editedModePayment = addEditModePaymentWindow.ModePayment;
+            Log.Information("Attempting to update mode payment id:\"{EditedModePaymentId}\", name:\"{EditedModePaymentName}\"",editedModePayment.Id, editedModePayment.Name);
+
+            var (success, exception) = editedModePayment.AddOrEdit();
+            if (success)
+            {
+                ModePayments!.AddAndSort(modePaymentToRemove, editedModePayment, s => s!.Name!);
+                History.ModePaymentFk = editedModePayment.Id;
+
+                Log.Information("Mode payment was successfully edited");
+                var json = editedModePayment.ToJsonString();
+                Log.Information("{Json}", json);
+
+                //TODO work
+                MsgBox.Show("Mode payment was successfully edited", MsgBoxImage.Check);
+
+                DashBoardPage.RefreshRadioButtonSelected();
+            }
+            else
+            {
+                Log.Error(exception, "An error occurred please retry");
+                //TODO work
+                MsgBox.Show("An error occurred please retry", MsgBoxImage.Error);
+            }
+        }
     }
 
     //TODO work
