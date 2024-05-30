@@ -105,7 +105,7 @@ public partial class RecordExpensePage
     {
         var addEditAccountWindow = new AddEditAccountWindow();
 
-        var account = History.AccountFk?.ToTAccount();
+        var account = History.AccountFk?.ToISqlT<TAccount>();
         if (account is not null) addEditAccountWindow.SetTAccount(account);
 
         addEditAccountWindow.ShowDialog();
@@ -151,7 +151,7 @@ public partial class RecordExpensePage
     private void ButtonCategoryType_OnClick(object sender, RoutedEventArgs e)
     {
         var addEditCategoryTypeWindow = new AddEditCategoryTypeWindow();
-        var categoryType = History.CategoryTypeFk?.ToCategoryType();
+        var categoryType = History.CategoryTypeFk?.ToISqlT<TCategoryType>();
         if (categoryType is not null) addEditCategoryTypeWindow.SetTCategoryType(categoryType);
 
         var result = addEditCategoryTypeWindow.ShowDialog();
@@ -203,7 +203,10 @@ public partial class RecordExpensePage
     //TODO work
     private void ButtonModePayment_OnClick(object sender, RoutedEventArgs e)
     {
+        var addEditModePaymentWindow = new AddEditModePaymentWindow();
+        var modePayment = History.ModePaymentFk?.ToISqlT<TModePayment>();
 
+        Console.WriteLine(modePayment?.Name);
     }
 
     //TODO work

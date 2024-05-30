@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 namespace MyExpenses.Models.Sql.Views;
 
 [Keyless]
-public partial class VTotalByAccount
+public partial class VTotalByAccount : ISql
 {
     [Column("id")]
     public int Id { get; set; }

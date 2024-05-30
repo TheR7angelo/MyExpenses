@@ -31,16 +31,17 @@ public static class Converter
     }
 
     /// <summary>
-    /// Retrieves a TCategoryType object from the database based on the provided categoryTypeId.
+    /// Converts an integer to an ISql object of type T.
     /// </summary>
-    /// <param name="categoryTypeId">The ID of the TCategoryType object to retrieve.</param>
-    /// <returns>A TCategoryType object representing the retrieved category type, or null if not found.</returns>
-    public static TCategoryType? ToCategoryType(this int categoryTypeId)
+    /// <typeparam name="T">The type of ISql object to convert to.</typeparam>
+    /// <param name="id">The id of the ISql object.</param>
+    /// <returns>The ISql object of type T with the specified id, or null if no ISql object is found with the id.</returns>
+    public static T? ToISqlT<T>(this int id) where T : class, ISql
     {
         using var context = new DataBaseContext();
-        var categoryType = context.TCategoryTypes.FirstOrDefault(s => s.Id == categoryTypeId);
+        var result = context.Set<T>().FirstOrDefault(s => s.Id == id);
 
-        return categoryType;
+        return result;
     }
 
     /// <summary>
@@ -70,19 +71,6 @@ public static class Converter
     }
 
     /// <summary>
-    /// Converts an integer representing an account id to a VTotalByAccount object.
-    /// </summary>
-    /// <param name="accountId">The id of the account.</param>
-    /// <returns>The VTotalByAccount object with the specified id, or null if no VTotalByAccount is found with the id.</returns>
-    public static VTotalByAccount? ToVTotalByAccount(this int accountId)
-    {
-        using var context = new DataBaseContext();
-        var vTotalByAccount = context.VTotalByAccounts.FirstOrDefault(s => s.Id == accountId);
-
-        return vTotalByAccount;
-    }
-
-    /// <summary>
     /// Converts a VTotalByAccount object to a TAccount object.
     /// </summary>
     /// <param name="vTotalByAccount">The VTotalByAccount object to convert.</param>
@@ -91,19 +79,6 @@ public static class Converter
     {
         using var context = new DataBaseContext();
         var account = context.TAccounts.FirstOrDefault(s => s.Id == vTotalByAccount.Id);
-
-        return account;
-    }
-
-    /// <summary>
-    /// Converts an integer to a TAccount object.
-    /// </summary>
-    /// <param name="accountId">The id of the TAccount.</param>
-    /// <returns>The TAccount object with the specified id, or null if no TAccount is found with the id.</returns>
-    public static TAccount? ToTAccount(this int accountId)
-    {
-        using var context = new DataBaseContext();
-        var account = context.TAccounts.FirstOrDefault(s => s.Id == accountId);
 
         return account;
     }

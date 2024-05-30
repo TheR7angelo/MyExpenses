@@ -269,7 +269,7 @@ public partial class BankTransferPage
     private void ButtonFromAddAccount_OnClick(object sender, RoutedEventArgs e)
     {
         var addEditAccountWindow = new AddEditAccountWindow();
-        var fromAccount = BankTransfer.FromAccountFk?.ToTAccount();
+        var fromAccount = BankTransfer.FromAccountFk?.ToISqlT<TAccount>();
         if (fromAccount is not null) addEditAccountWindow.SetTAccount(fromAccount);
 
         addEditAccountWindow.ShowDialog();
@@ -308,7 +308,7 @@ public partial class BankTransferPage
     private void ButtonToAddAccount_OnClick(object sender, RoutedEventArgs e)
     {
         var addEditAccountWindow = new AddEditAccountWindow();
-        var fromAccount = BankTransfer.ToAccountFk?.ToTAccount();
+        var fromAccount = BankTransfer.ToAccountFk?.ToISqlT<TAccount>();
         if (fromAccount != null) addEditAccountWindow.SetTAccount(fromAccount);
 
         addEditAccountWindow.ShowDialog();
@@ -430,7 +430,7 @@ public partial class BankTransferPage
 
     private void RemoveByAccountId(int? accountId)
     {
-        var vTotalByAccount = accountId?.ToVTotalByAccount();
+        var vTotalByAccount = accountId?.ToISqlT<VTotalByAccount>();
         if (vTotalByAccount is not null) DashBoardPage.VTotalByAccounts.Remove(vTotalByAccount);
 
         var accountToRemove = Accounts.FirstOrDefault(s => s.Id == accountId);
