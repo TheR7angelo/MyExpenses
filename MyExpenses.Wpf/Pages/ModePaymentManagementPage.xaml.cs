@@ -79,8 +79,7 @@ public partial class ModePaymentManagementPage
             var (success, exception) = updatedModePayment.AddOrEdit();
             if (success)
             {
-                ModePayments.Remove(modePaymentToEdit);
-                ModePayments.AddAndSort(updatedModePayment, s => s.Name!);
+                ModePayments.AddAndSort(modePaymentToEdit, updatedModePayment, s => s.Name!);
 
                 Log.Information("Mode payment was successfully edited");
                 var json = updatedModePayment.ToJsonString();
