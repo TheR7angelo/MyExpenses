@@ -7,9 +7,11 @@ using Mapsui.Layers;
 using Mapsui.Projections;
 using Mapsui.Styles;
 using Mapsui.Tiling.Layers;
+using Microsoft.Data.Sqlite;
 using MyExpenses.Models.AutoMapper;
 using MyExpenses.Models.Sql.Tables;
 using MyExpenses.Models.WebApi.Nominatim;
+using MyExpenses.Sql.Context;
 using MyExpenses.WebApi.Nominatim;
 using MyExpenses.Wpf.Resources.Resx.Windows.AddEditLocationWindow;
 using MyExpenses.Wpf.Utils;
@@ -53,6 +55,7 @@ public partial class AddEditLocationWindow
 
     private const string ColumnTemp = "temp";
     public TPlace Place { get; } = new();
+    public bool PlaceDeleted { get; set; }
     private WritableLayer WritableLayer { get; } = new() { Style = null };
     public List<KnownTileSource> KnownTileSources { get; }
 
@@ -164,6 +167,56 @@ public partial class AddEditLocationWindow
     {
         DialogResult = false;
         Close();
+    }
+
+    private void ButtonDelete_OnClick(object sender, RoutedEventArgs e)
+    {
+        var response = MsgBox.MsgBox.Show("Do you want to delete this location?",
+            MsgBoxImage.Question, MessageBoxButton.YesNoCancel);
+        if (response is not MessageBoxResult.Yes) return;
+
+        //TODO work
+        Log.Information("Attempting to remove the place \"{PlaceToDeleteName}\"", Place.Name);
+        var (success, exception) = Place.Delete();
+        if (success)
+        {
+            Log.Information("Place was successfully removed");
+            MsgBox.MsgBox.Show(AddEditLocationWindowResources.MessageBoxDeletePlaceNoUseSuccess, MsgBoxImage.Check);
+
+            PlaceDeleted = true;
+            DialogResult = true;
+
+            Close();
+            return;
+        }
+
+        if (exception!.InnerException is SqliteException
+            {
+                SqliteExtendedErrorCode: SQLitePCL.raw.SQLITE_CONSTRAINT_FOREIGNKEY
+            })
+        {
+            Log.Error("Foreign key constraint violation");
+
+            response = MsgBox.MsgBox.Show(AddEditLocationWindowResources.MessageBoxDeletePlaceUseQuestion,
+                MsgBoxImage.Question, MessageBoxButton.YesNoCancel);
+
+            if (response != MessageBoxResult.Yes) return;
+
+            Log.Information("Attempting to remove the place \"{PlaceToDeleteName}\" with all relative element",
+                Place.Name);
+            Place.Delete(true);
+            Log.Information("Place and all relative element was successfully removed");
+            MsgBox.MsgBox.Show(AddEditLocationWindowResources.MessageBoxDeletePlaceUseSuccess, MsgBoxImage.Check);
+
+            PlaceDeleted = true;
+            DialogResult = true;
+            Close();
+
+            return;
+        }
+
+        Log.Error(exception, "An error occurred please retry");
+        MsgBox.MsgBox.Show(AddEditLocationWindowResources.MessageBoxDeletePlaceError, MsgBoxImage.Error);
     }
 
     private void ButtonValid_OnClick(object sender, RoutedEventArgs e)
@@ -295,9 +348,4 @@ public partial class AddEditLocationWindow
     }
 
     #endregion
-
-    private void ButtonDelete_OnClick(object sender, RoutedEventArgs e)
-    {
-        //TODO work
-    }
 }

@@ -160,6 +160,42 @@ namespace MyExpenses.Wpf.Resources.Resx.Windows.AddEditLocationWindow {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to An error occurred please retry.
+        /// </summary>
+        internal static string MessageBoxDeletePlaceError {
+            get {
+                return ResourceManager.GetString("MessageBoxDeletePlaceError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Place was successfully removed.
+        /// </summary>
+        internal static string MessageBoxDeletePlaceNoUseSuccess {
+            get {
+                return ResourceManager.GetString("MessageBoxDeletePlaceNoUseSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This place is in use. Are you sure you want to delete this place and everything linked to it ?.
+        /// </summary>
+        internal static string MessageBoxDeletePlaceUseQuestion {
+            get {
+                return ResourceManager.GetString("MessageBoxDeletePlaceUseQuestion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Place and all relative element was successfully removed.
+        /// </summary>
+        internal static string MessageBoxDeletePlaceUseSuccess {
+            get {
+                return ResourceManager.GetString("MessageBoxDeletePlaceUseSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to City :.
         /// </summary>
         internal static string TextBoxCityHintAssist {

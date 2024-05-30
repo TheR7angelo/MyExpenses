@@ -68,4 +68,16 @@
     <data name="ButtonContentDelete" xml:space="preserve">
         <value>Supprimer</value>
     </data>
+    <data name="MessageBoxDeletePlaceNoUseSuccess" xml:space="preserve">
+        <value>Le lieu a été supprimé avec succès</value>
+    </data>
+    <data name="MessageBoxDeletePlaceUseQuestion" xml:space="preserve">
+        <value>Cet endroit est utilisé. Etes-vous sûr de vouloir supprimer ce lieu et tout ce qui y est lié ?</value>
+    </data>
+    <data name="MessageBoxDeletePlaceUseSuccess" xml:space="preserve">
+        <value>Le lieu et tous les éléments relatifs ont été supprimés avec succès</value>
+    </data>
+    <data name="MessageBoxDeletePlaceError" xml:space="preserve">
+        <value>Une erreur s'est produite, veuillez réessayer</value>
+    </data>
 </root>
