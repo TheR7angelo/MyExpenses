@@ -37,7 +37,9 @@
 
     <mah:MetroWindow.Resources>
         <converters:SplitUpperCaseWordsConverter x:Key="SplitCamelCaseConverter" />
+        <converters:InverseBooleanToVisibilityConverter x:Key="InverseBooleanToVisibilityConverter" />
     </mah:MetroWindow.Resources>
+
     <Grid margin:PanelExtensions.MarginForAllChildren="5">
 
         <Grid.RowDefinitions>
@@ -139,10 +141,14 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
             <!-- TODO work -->
-            <ComboBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+            <ComboBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="6"
                       Style="{StaticResource MaterialDesignFilledComboBox}"
                       materialDesign:HintAssist.Hint="{Binding ComboBoxBackgroundHintAssist}"
                       ItemsSource="{Binding KnownTileSources}"
@@ -155,31 +161,57 @@
                 </ComboBox.ItemTemplate>
             </ComboBox>
 
-            <Button Grid.Row="1" Grid.Column="0"
+            <Button Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3"
                     materialDesign:ButtonAssist.CornerRadius="5"
                     Style="{StaticResource MaterialDesignPaperLightButton}"
                     Content="{Binding ButtonContentSearchByAddress}"
                     Click="ButtonSearchByAddress_OnClick">
             </Button>
 
-            <Button Grid.Row="1" Grid.Column="1"
+            <Button Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="3"
                     materialDesign:ButtonAssist.CornerRadius="5"
                     Style="{StaticResource MaterialDesignPaperLightButton}"
                     Content="{Binding ButtonContentSearchByCoordinate}"
                     Click="ButtonSearchByCoordinate_OnClick">
             </Button>
 
-            <Button Grid.Row="2" Grid.Column="0"
+            <Button Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
                     materialDesign:ButtonAssist.CornerRadius="5"
                     Style="{StaticResource MaterialDesignPaperButton}"
                     Content="{Binding ButtonContentValid}"
+                    Visibility="{Binding EditPlace, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}, UpdateSourceTrigger=PropertyChanged}"
                     Click="ButtonValid_OnClick">
             </Button>
 
-            <Button Grid.Row="2" Grid.Column="1"
+            <Button Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2"
                     materialDesign:ButtonAssist.CornerRadius="5"
                     Style="{StaticResource MaterialDesignPaperSecondaryButton}"
                     Content="{Binding ButtonContentCancel}"
+                    Visibility="{Binding EditPlace, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}, UpdateSourceTrigger=PropertyChanged}"
+                    Click="ButtonDelete_OnClick">
+            </Button>
+
+            <Button Grid.Row="2" Grid.Column="4" Grid.ColumnSpan="2"
+                    materialDesign:ButtonAssist.CornerRadius="5"
+                    Style="{StaticResource MaterialDesignPaperSecondaryButton}"
+                    Content="{Binding ButtonContentCancel}"
+                    Visibility="{Binding EditPlace, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}, UpdateSourceTrigger=PropertyChanged}"
+                    Click="ButtonCancel_OnClick">
+            </Button>
+
+            <Button Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3"
+                    materialDesign:ButtonAssist.CornerRadius="5"
+                    Style="{StaticResource MaterialDesignPaperButton}"
+                    Content="{Binding ButtonContentValid}"
+                    Visibility="{Binding EditPlace, Mode=OneWay, Converter={StaticResource InverseBooleanToVisibilityConverter}, UpdateSourceTrigger=PropertyChanged}"
+                    Click="ButtonValid_OnClick">
+            </Button>
+
+            <Button Grid.Row="2" Grid.Column="3" Grid.ColumnSpan="3"
+                    materialDesign:ButtonAssist.CornerRadius="5"
+                    Style="{StaticResource MaterialDesignPaperSecondaryButton}"
+                    Content="{Binding ButtonContentCancel}"
+                    Visibility="{Binding EditPlace, Mode=OneWay, Converter={StaticResource InverseBooleanToVisibilityConverter}, UpdateSourceTrigger=PropertyChanged}"
                     Click="ButtonCancel_OnClick">
             </Button>
 

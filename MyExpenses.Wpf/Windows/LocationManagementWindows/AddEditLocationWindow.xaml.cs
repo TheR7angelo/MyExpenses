@@ -22,6 +22,14 @@ namespace MyExpenses.Wpf.Windows.LocationManagementWindows;
 
 public partial class AddEditLocationWindow
 {
+    public static readonly DependencyProperty EditPlaceProperty = DependencyProperty.Register(nameof(EditPlace),
+        typeof(bool), typeof(AddEditLocationWindow), new PropertyMetadata(default(bool)));
+
+    public bool EditPlace
+    {
+        get => (bool)GetValue(EditPlaceProperty);
+        set => SetValue(EditPlaceProperty, value);
+    }
 
     public string TextBoxCityHintAssist { get; } = AddEditLocationWindowResources.TextBoxCityHintAssist;
     public string TextBoxCountryHintAssist { get; } = AddEditLocationWindowResources.TextBoxCountryHintAssist;
@@ -34,7 +42,9 @@ public partial class AddEditLocationWindow
     public string ButtonContentValidNewPoint { get; } = AddEditLocationWindowResources.ButtonContentValidNewPoint;
     public string ButtonContentZoomToPoint { get; } = AddEditLocationWindowResources.ButtonContentZoomToPoint;
     public string ButtonContentSearchByAddress { get; } = AddEditLocationWindowResources.ButtonContentSearchByAddress;
+
     public string ButtonContentSearchByCoordinate { get; } = AddEditLocationWindowResources.ButtonContentSearchByCoordinate;
+
     public string ButtonContentCancel { get; } = AddEditLocationWindowResources.ButtonContentCancel;
     public string ButtonContentValid { get; } = AddEditLocationWindowResources.ButtonContentValid;
 
@@ -64,7 +74,7 @@ public partial class AddEditLocationWindow
         MapControl.Map = map;
     }
 
-        #region Action
+    #region Action
 
     #region Button
 
@@ -166,7 +176,8 @@ public partial class AddEditLocationWindow
     private void MapControl_OnInfo(object? sender, MapInfoEventArgs e)
     {
         var worldPosition = e.MapInfo!.WorldPosition!;
-        var feature = new PointFeature(worldPosition) { Styles = new List<IStyle> { MapsuiStyleExtensions.GreenMarkerStyle } };
+        var feature = new PointFeature(worldPosition)
+            { Styles = new List<IStyle> { MapsuiStyleExtensions.GreenMarkerStyle } };
         feature[ColumnTemp] = true;
 
         var oldFeature = WritableLayer.GetFeatures().FirstOrDefault(f => f[ColumnTemp]!.Equals(true));
@@ -228,6 +239,7 @@ public partial class AddEditLocationWindow
 
         newTPlace.CopyPropertiesTo(Place);
         UpdateMiniMap();
+        EditPlace = true;
     }
 
     public void SetPlace(Point point)
@@ -282,4 +294,9 @@ public partial class AddEditLocationWindow
     }
 
     #endregion
+
+    private void ButtonDelete_OnClick(object sender, RoutedEventArgs e)
+    {
+        //TODO work
+    }
 }
