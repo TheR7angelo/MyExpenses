@@ -120,8 +120,7 @@ public partial class AddEditLocationWindow
 
     private void UpdateMiniMap()
     {
-        var mapper = Mapping.Mapper;
-        var feature = mapper.Map<PointFeature>(Place);
+        var feature = Place.ToFeature();
         feature.Styles = new List<IStyle> { MapsuiStyleExtensions.RedMarkerStyle };
         feature[ColumnTemp] = false;
 
