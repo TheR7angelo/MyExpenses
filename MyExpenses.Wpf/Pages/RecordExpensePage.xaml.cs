@@ -15,7 +15,6 @@ using MyExpenses.Wpf.Resources.Regex;
 using MyExpenses.Wpf.Utils.Maps;
 using MyExpenses.Wpf.Windows;
 using MyExpenses.Utils.Sql;
-using MyExpenses.Wpf.Resources.Resx.Pages.ModePaymentManagementPage;
 using MyExpenses.Wpf.Windows.CategoryTypeManagementWindow;
 using MyExpenses.Wpf.Windows.MsgBox;
 using Serilog;
