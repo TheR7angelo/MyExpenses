@@ -165,7 +165,8 @@
                   ItemsSource="{Binding Places, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                   SelectedValue="{Binding History.PlaceFk, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                   SelectedValuePath="{Binding SelectedValuePathPlace}"
-                  DisplayMemberPath="{Binding DisplayMemberPathPlace}">
+                  DisplayMemberPath="{Binding DisplayMemberPathPlace}"
+                  SelectionChanged="SelectorPlace_OnSelectionChanged">
         </ComboBox>
 
         <Button Grid.Row="6" Grid.Column="1"

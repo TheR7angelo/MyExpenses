@@ -269,7 +269,12 @@ public partial class RecordExpensePage
 
     private void MapControl_OnLoaded(object sender, RoutedEventArgs e)
         => UpdateTileLayer();
-    
+
+    private void SelectorPlace_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        //TODO work
+    }
+
     private void SelectorTile_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         => UpdateTileLayer();
 
