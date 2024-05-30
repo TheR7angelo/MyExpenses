@@ -80,4 +80,7 @@
     <data name="MessageBoxDeletePlaceError" xml:space="preserve">
         <value>Une erreur s'est produite, veuillez réessayer</value>
     </data>
+    <data name="MessageBoxDeleteQuestion" xml:space="preserve">
+        <value>Voulez-vous supprimer cet emplacement ?</value>
+    </data>
 </root>

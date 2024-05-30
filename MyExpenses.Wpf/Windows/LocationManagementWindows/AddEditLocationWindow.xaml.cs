@@ -171,11 +171,10 @@ public partial class AddEditLocationWindow
 
     private void ButtonDelete_OnClick(object sender, RoutedEventArgs e)
     {
-        var response = MsgBox.MsgBox.Show("Do you want to delete this location?",
+        var response = MsgBox.MsgBox.Show(AddEditLocationWindowResources.MessageBoxDeleteQuestion,
             MsgBoxImage.Question, MessageBoxButton.YesNoCancel);
         if (response is not MessageBoxResult.Yes) return;
 
-        //TODO work
         Log.Information("Attempting to remove the place \"{PlaceToDeleteName}\"", Place.Name);
         var (success, exception) = Place.Delete();
         if (success)

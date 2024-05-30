@@ -196,6 +196,15 @@ namespace MyExpenses.Wpf.Resources.Resx.Windows.AddEditLocationWindow {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Do you want to delete this location ?.
+        /// </summary>
+        internal static string MessageBoxDeleteQuestion {
+            get {
+                return ResourceManager.GetString("MessageBoxDeleteQuestion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to City :.
         /// </summary>
         internal static string TextBoxCityHintAssist {
