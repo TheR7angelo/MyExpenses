@@ -69,7 +69,7 @@ public partial class AddEditCategoryTypeWindow
     {
         var response = MsgBox.MsgBox.Show(AddEditCategoryTypeWindowResources.MessageBoxDeleteQuestion,
             MsgBoxImage.Question, MessageBoxButton.YesNoCancel);
-        if (response != MessageBoxResult.Yes) return;
+        if (response is not MessageBoxResult.Yes) return;
 
         Log.Information("Attempting to remove the category type \"{CategoryTypeToDeleteName}\"", CategoryType.Name);
         var (success, exception) = CategoryType.Delete();
