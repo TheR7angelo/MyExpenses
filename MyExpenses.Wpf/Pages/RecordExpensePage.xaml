@@ -209,7 +209,7 @@
                   materialDesign:HintAssist.Hint="{Binding ComboBoxBackgroundHintAssist}"
                   ItemsSource="{Binding KnownTileSources}"
                   SelectedItem="{Binding KnownTileSourceSelected}"
-                  SelectionChanged="Selector_OnSelectionChanged">
+                  SelectionChanged="SelectorTile_OnSelectionChanged">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding Converter={StaticResource SplitCamelCaseConverter}}" />

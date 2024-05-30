@@ -270,7 +270,7 @@ public partial class RecordExpensePage
     private void MapControl_OnLoaded(object sender, RoutedEventArgs e)
         => UpdateTileLayer();
     
-    private void Selector_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+    private void SelectorTile_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         => UpdateTileLayer();
 
     private void UIElement_OnPreviewTextInput(object sender, TextCompositionEventArgs e)
