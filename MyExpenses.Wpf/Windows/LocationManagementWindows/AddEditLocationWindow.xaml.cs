@@ -1,8 +1,12 @@
 ﻿using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Media;
+using BruTile.Predefined;
 using Mapsui;
 using Mapsui.Layers;
 using Mapsui.Projections;
 using Mapsui.Styles;
+using Mapsui.Tiling.Layers;
 using MyExpenses.Models.AutoMapper;
 using MyExpenses.Models.Sql.Tables;
 using MyExpenses.Models.WebApi.Nominatim;
@@ -39,15 +43,20 @@ public partial class AddEditLocationWindow
     private const string ColumnTemp = "temp";
     public TPlace Place { get; } = new();
     private WritableLayer WritableLayer { get; } = new() { Style = null };
+    public List<KnownTileSource> KnownTileSources { get; }
+
+    public KnownTileSource KnownTileSourceSelected { get; set; }
 
     #endregion
 
     public AddEditLocationWindow()
     {
-        var map = MapsuiMapExtensions.GetMap(false);
+        KnownTileSources = [..MapsuiMapExtensions.GetAllKnowTileSource()];
 
-        //TODO add change background
-        map.Layers.Add(Mapsui.Tiling.OpenStreetMap.CreateTileLayer());
+        // TODO add listener color change
+        var brush = (SolidColorBrush)FindResource("MaterialDesignPaper");
+        var backColor = brush.ToMapsuiColor();
+        var map = MapsuiMapExtensions.GetMap(true, backColor);
         map.Layers.Add(WritableLayer);
 
         InitializeComponent();
@@ -55,92 +64,7 @@ public partial class AddEditLocationWindow
         MapControl.Map = map;
     }
 
-    #region Function
-
-    private void HandleNominatimResult(IReadOnlyCollection<NominatimSearchResult> nominatimSearchResults)
-    {
-        TPlace? place = null;
-
-        var mapper = Mapping.Mapper;
-        switch (nominatimSearchResults.Count)
-        {
-            case 0:
-                MsgBox.MsgBox.Show(AddEditLocationWindowResources.HandleNominatimResultZeroResult,
-                    MsgBoxImage.Exclamation);
-                break;
-            case 1:
-                MsgBox.MsgBox.Show(AddEditLocationWindowResources.HandleNominatimResultOneResult,
-                    MsgBoxImage.Check);
-                var nominatimSearchResult = nominatimSearchResults.First();
-                place = mapper.Map<TPlace>(nominatimSearchResult);
-                break;
-            case > 1:
-                MsgBox.MsgBox.Show(AddEditLocationWindowResources.HandleNominatimResultMultipleResult,
-                    MsgBoxImage.Information);
-
-                var places = nominatimSearchResults.Select(s => mapper.Map<TPlace>(s));
-                var nominatimSearchWindows = new NominatimSearchWindows();
-                nominatimSearchWindows.AddRange(places);
-                nominatimSearchWindows.ShowDialog();
-
-                if (!nominatimSearchWindows.DialogResult.Equals(true)) return;
-
-                place = mapper.Map<TPlace>(nominatimSearchWindows.CurrentPlace);
-                break;
-        }
-
-        if (place is null) return;
-        SetPlace(place, true);
-    }
-
-    public void SetPlace(TPlace newTPlace, bool clear)
-    {
-        if (clear) WritableLayer.Clear();
-
-        newTPlace.CopyPropertiesTo(Place);
-        UpdateMiniMap();
-    }
-
-    public void SetPlace(Point point)
-    {
-        var nominatim = point.ToNominatim();
-        if (nominatim is not null)
-        {
-            var mapper = Mapping.Mapper;
-            var place = mapper.Map<TPlace>(nominatim);
-            place.CopyPropertiesTo(Place);
-        }
-        else
-        {
-            Place.Geometry = point;
-        }
-
-        UpdateMiniMap();
-    }
-
-    private void UpdateMiniMap()
-    {
-        var feature = Place.ToFeature();
-        feature.Styles = new List<IStyle> { MapsuiStyleExtensions.RedMarkerStyle };
-        feature[ColumnTemp] = false;
-
-        WritableLayer.Add(feature);
-
-        MapControl.Map.Home = n => { n.CenterOnAndZoomTo(feature.Point, 1); };
-        MapControl.Map.Navigator.CenterOn(feature.Point);
-        MapControl.Map.Navigator.ZoomTo(1);
-        MapControl.Refresh();
-    }
-
-    private void ZoomToMPoint(MPoint mPoint)
-    {
-        MapControl.Map.Navigator.CenterOn(mPoint);
-        MapControl.Map.Navigator.ZoomTo(1);
-    }
-
-    #endregion
-
-    #region Action
+        #region Action
 
     #region Button
 
@@ -250,6 +174,111 @@ public partial class AddEditLocationWindow
 
         WritableLayer.Add(feature);
         MapControl.Map.Refresh();
+    }
+
+    private void MapControl_OnLoaded(object sender, RoutedEventArgs e)
+        => UpdateTileLayer();
+
+    private void Selector_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        => UpdateTileLayer();
+
+    #endregion
+
+    #region Function
+
+    private void HandleNominatimResult(IReadOnlyCollection<NominatimSearchResult> nominatimSearchResults)
+    {
+        TPlace? place = null;
+
+        var mapper = Mapping.Mapper;
+        switch (nominatimSearchResults.Count)
+        {
+            case 0:
+                MsgBox.MsgBox.Show(AddEditLocationWindowResources.HandleNominatimResultZeroResult,
+                    MsgBoxImage.Exclamation);
+                break;
+            case 1:
+                MsgBox.MsgBox.Show(AddEditLocationWindowResources.HandleNominatimResultOneResult,
+                    MsgBoxImage.Check);
+                var nominatimSearchResult = nominatimSearchResults.First();
+                place = mapper.Map<TPlace>(nominatimSearchResult);
+                break;
+            case > 1:
+                MsgBox.MsgBox.Show(AddEditLocationWindowResources.HandleNominatimResultMultipleResult,
+                    MsgBoxImage.Information);
+
+                var places = nominatimSearchResults.Select(s => mapper.Map<TPlace>(s));
+                var nominatimSearchWindows = new NominatimSearchWindows();
+                nominatimSearchWindows.AddRange(places);
+                nominatimSearchWindows.ShowDialog();
+
+                if (!nominatimSearchWindows.DialogResult.Equals(true)) return;
+
+                place = mapper.Map<TPlace>(nominatimSearchWindows.CurrentPlace);
+                break;
+        }
+
+        if (place is null) return;
+        SetPlace(place, true);
+    }
+
+    public void SetPlace(TPlace newTPlace, bool clear)
+    {
+        if (clear) WritableLayer.Clear();
+
+        newTPlace.CopyPropertiesTo(Place);
+        UpdateMiniMap();
+    }
+
+    public void SetPlace(Point point)
+    {
+        var nominatim = point.ToNominatim();
+        if (nominatim is not null)
+        {
+            var mapper = Mapping.Mapper;
+            var place = mapper.Map<TPlace>(nominatim);
+            place.CopyPropertiesTo(Place);
+        }
+        else
+        {
+            Place.Geometry = point;
+        }
+
+        UpdateMiniMap();
+    }
+
+    private void UpdateMiniMap()
+    {
+        var feature = Place.ToFeature();
+        feature.Styles = new List<IStyle> { MapsuiStyleExtensions.RedMarkerStyle };
+        feature[ColumnTemp] = false;
+
+        WritableLayer.Add(feature);
+
+        MapControl.Map.Home = n => { n.CenterOnAndZoomTo(feature.Point, 1); };
+        MapControl.Map.Navigator.CenterOn(feature.Point);
+        MapControl.Map.Navigator.ZoomTo(1);
+        MapControl.Refresh();
+    }
+
+    private void UpdateTileLayer()
+    {
+        const string layerName = "Background";
+
+        var httpTileSource = BruTile.Predefined.KnownTileSources.Create(KnownTileSourceSelected);
+        var tileLayer = new TileLayer(httpTileSource);
+        tileLayer.Name = layerName;
+
+        var layers = MapControl?.Map.Layers.FindLayer(layerName);
+        if (layers is not null) MapControl?.Map.Layers.Remove(layers.ToArray());
+
+        MapControl?.Map.Layers.Insert(0, tileLayer);
+    }
+
+    private void ZoomToMPoint(MPoint mPoint)
+    {
+        MapControl.Map.Navigator.CenterOn(mPoint);
+        MapControl.Map.Navigator.ZoomTo(1);
     }
 
     #endregion
