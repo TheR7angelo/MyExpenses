@@ -267,7 +267,7 @@ public partial class RecordExpensePage
         if (place is not null) addEditLocationWindow.SetPlace(place, false);
 
         var result = addEditLocationWindow.ShowDialog();
-        if (result != true) return;
+        if (result is not true) return;
 
         //TODO work
     }
