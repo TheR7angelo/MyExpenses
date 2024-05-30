@@ -273,8 +273,6 @@ public partial class RecordExpensePage
     private void SelectorPlace_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
     {
         var place = History.PlaceFk?.ToISqlT<TPlace>();
-        if (place is null) return;
-
         UpdateMapPoint(place);
     }
 
@@ -293,9 +291,21 @@ public partial class RecordExpensePage
 
     #region Function
 
-    private void UpdateMapPoint(TPlace place)
+    private void UpdateMapPoint(TPlace? place)
     {
-        //TODO work
+        PlaceLayer.Clear();
+
+        if (place is null)
+        {
+            MapControl.Refresh();
+            return;
+        }
+
+        var pointFeature = place.ToFeature(MapsuiStyleExtensions.RedMarkerStyle);
+
+        PlaceLayer.Add(pointFeature);
+        MapControl.Map.Navigator.CenterOn(pointFeature.Point);
+        MapControl.Map.Navigator.ZoomTo(0);
     }
 
     private void UpdateTileLayer()
