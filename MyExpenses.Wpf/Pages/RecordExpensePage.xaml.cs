@@ -55,6 +55,10 @@ public partial class RecordExpensePage
     public string CheckBoxPointedContent { get; } = "Is pointed :";
     //TODO work
     public string ComboBoxBackgroundHintAssist { get; } = "Basemap :";
+    //TODO work
+    public string ButtonValidContent { get; } = "Valid";
+    //TODO work
+    public string ButtonCancelContent { get; } = "Cancel";
 
     public required DashBoardPage DashBoardPage { get; set; }
 
@@ -144,7 +148,6 @@ public partial class RecordExpensePage
         }
     }
 
-    //TODO work
     private void ButtonCategoryType_OnClick(object sender, RoutedEventArgs e)
     {
         var addEditCategoryTypeWindow = new AddEditCategoryTypeWindow();

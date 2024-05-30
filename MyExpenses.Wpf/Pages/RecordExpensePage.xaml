@@ -199,8 +199,8 @@
             </Grid.ColumnDefinitions>
 
             <!-- TODO work -->
-            <Button Grid.Column="0" Content="Valid" />
-            <Button Grid.Column="1" Content="Cancel" />
+            <Button Grid.Column="0" Content="{Binding ButtonValidContent}" />
+            <Button Grid.Column="1" Content="{Binding ButtonCancelContent}" />
 
         </Grid>
 
