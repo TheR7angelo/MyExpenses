@@ -29,7 +29,7 @@ public partial class CurrencyManagementPage
     {
         var addEditCurrency = new AddEditCurrencyWindow();
         var result = addEditCurrency.ShowDialog();
-        if (result != true) return;
+        if (result is not true) return;
 
         var newCurrency = addEditCurrency.Currency;
 
@@ -61,7 +61,7 @@ public partial class CurrencyManagementPage
         addEditCurrency.SetTCurrency(currencyToEdit);
 
         var result = addEditCurrency.ShowDialog();
-        if (result != true) return;
+        if (result is not true) return;
 
         if (addEditCurrency.CurrencyDeleted) Currencies.Remove(currencyToEdit);
         else

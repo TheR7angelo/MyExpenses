@@ -248,7 +248,7 @@ public partial class BankTransferPage
             var response = MsgBox.Show(BankTransferPageResources.MessageBoxButtonValidBankTransferPreviewNewTransferQuestion,
                 MsgBoxImage.Question, MessageBoxButton.YesNo);
 
-            if (response != MessageBoxResult.Yes) nameof(MainWindow.FrameBody).GoBack();
+            if (response is not MessageBoxResult.Yes) nameof(MainWindow.FrameBody).GoBack();
             else
             {
                 var bankTransfer = new TBankTransfer();
@@ -273,7 +273,7 @@ public partial class BankTransferPage
         if (fromAccount is not null) addEditAccountWindow.SetTAccount(fromAccount);
 
         addEditAccountWindow.ShowDialog();
-        if (addEditAccountWindow.DialogResult != true) return;
+        if (addEditAccountWindow.DialogResult is not true) return;
 
         if (addEditAccountWindow.DeleteAccount)
         {
@@ -309,10 +309,10 @@ public partial class BankTransferPage
     {
         var addEditAccountWindow = new AddEditAccountWindow();
         var fromAccount = BankTransfer.ToAccountFk?.ToISqlT<TAccount>();
-        if (fromAccount != null) addEditAccountWindow.SetTAccount(fromAccount);
+        if (fromAccount is not null) addEditAccountWindow.SetTAccount(fromAccount);
 
         addEditAccountWindow.ShowDialog();
-        if (addEditAccountWindow.DialogResult != true) return;
+        if (addEditAccountWindow.DialogResult is not true) return;
 
         if (addEditAccountWindow.DeleteAccount)
         {

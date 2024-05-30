@@ -30,7 +30,7 @@ public partial class ModePaymentManagementPage
     {
         var addEditModePaymentWindow = new AddEditModePaymentWindow();
         var result = addEditModePaymentWindow.ShowDialog();
-        if (result != true) return;
+        if (result is not true) return;
 
         var newModePayment = addEditModePaymentWindow.ModePayment;
 
@@ -68,7 +68,7 @@ public partial class ModePaymentManagementPage
         addEditModePaymentWindow.SetTModePayment(modePaymentToEdit);
 
         var result = addEditModePaymentWindow.ShowDialog();
-        if (result != true) return;
+        if (result is not true) return;
 
         if (addEditModePaymentWindow.ModePaymentDeleted) ModePayments.Remove(modePaymentToEdit);
         else

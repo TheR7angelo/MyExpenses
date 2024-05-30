@@ -110,7 +110,7 @@ public partial class RecordExpensePage
         if (account is not null) addEditAccountWindow.SetTAccount(account);
 
         addEditAccountWindow.ShowDialog();
-        if (addEditAccountWindow.DialogResult != true) return;
+        if (addEditAccountWindow.DialogResult is not true) return;
 
         if (addEditAccountWindow.DeleteAccount)
         {
@@ -156,7 +156,7 @@ public partial class RecordExpensePage
         if (categoryType is not null) addEditCategoryTypeWindow.SetTCategoryType(categoryType);
 
         var result = addEditCategoryTypeWindow.ShowDialog();
-        if (result != true) return;
+        if (result is not true) return;
 
         if (addEditCategoryTypeWindow.CategoryTypeDeleted)
         {
@@ -216,7 +216,7 @@ public partial class RecordExpensePage
         if (modePayment is not null) addEditModePaymentWindow.SetTModePayment(modePayment);
 
         var result = addEditModePaymentWindow.ShowDialog();
-        if (result != true) return;
+        if (result is not true) return;
 
         var modePaymentToRemove = ModePayments.FirstOrDefault(s => s.Id == History.ModePaymentFk);
         if (addEditModePaymentWindow.ModePaymentDeleted)

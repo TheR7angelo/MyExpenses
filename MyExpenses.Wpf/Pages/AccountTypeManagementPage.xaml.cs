@@ -30,7 +30,7 @@ public partial class AccountTypeManagementPage
     {
         var addEditAccountType = new AddEditAccountTypeWindow();
         var result = addEditAccountType.ShowDialog();
-        if (result != true) return;
+        if (result is not true) return;
 
         var newAccountType = addEditAccountType.AccountType;
 
@@ -62,7 +62,7 @@ public partial class AccountTypeManagementPage
         addEditAccountType.SetTAccountType(accountType);
 
         var result = addEditAccountType.ShowDialog();
-        if (result != true) return;
+        if (result is not true) return;
 
         var editedAccountType = addEditAccountType.AccountType;
         if (addEditAccountType.AccountTypeDeleted) AccountTypes.Remove(accountType);

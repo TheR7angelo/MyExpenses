@@ -57,7 +57,7 @@ public partial class LocationManagementPage
         CountryGroups = [..groups];
 
         var features = places
-            .Where(s => s.Latitude != null && s.Latitude != 0 && s.Longitude != null && s.Longitude != 0)
+            .Where(s => s.Latitude is not null && s.Latitude is not 0 && s.Longitude is not null && s.Longitude is not 0)
             .ToFeature(MapsuiStyleExtensions.RedMarkerStyle);
         PlaceLayer.AddRange(features);
 
@@ -105,7 +105,7 @@ public partial class LocationManagementPage
         addEditLocationWindow.SetPlace(ClickPoint);
         addEditLocationWindow.ShowDialog();
 
-        if (addEditLocationWindow.DialogResult != true) return;
+        if (addEditLocationWindow.DialogResult is not true) return;
 
         var newPlace = addEditLocationWindow.Place;
         ProcessNewPlace(newPlace, add: true);
@@ -121,7 +121,7 @@ public partial class LocationManagementPage
         var response =
             MsgBox.Show(string.Format(LocationManagementPageResources.MessageBoxDeleteQuestion, placeToDelete.Name),
                 MsgBoxImage.Question, MessageBoxButton.YesNoCancel);
-        if (response != MessageBoxResult.Yes) return;
+        if (response is not MessageBoxResult.Yes) return;
 
         Log.Information("Attempting to remove the place \"{PlaceToDeleteName}\"", placeToDelete.Name);
         PlaceLayer.TryRemove(feature);
@@ -149,7 +149,7 @@ public partial class LocationManagementPage
                 MsgBox.Show(LocationManagementPageResources.MessageBoxMenuItemDeleteFeatureUseQuestion,
                     MsgBoxImage.Question, MessageBoxButton.YesNoCancel);
 
-            if (response != MessageBoxResult.Yes) return;
+            if (response is not MessageBoxResult.Yes) return;
 
             Log.Information("Attempting to remove the place \"{PlaceToDeleteName}\" with all relative element",
                 placeToDelete.Name);
@@ -267,12 +267,12 @@ public partial class LocationManagementPage
     private void RemovePlaceTreeViewCountryGroup(TPlace placeToDelete)
     {
         var countryToRemove = CountryGroups
-            .FirstOrDefault(countryGroup => countryGroup.CityGroups != null &&
-                                            countryGroup.CityGroups.Any(cityGroup => cityGroup.Places != null &&
+            .FirstOrDefault(countryGroup => countryGroup.CityGroups is not null &&
+                                            countryGroup.CityGroups.Any(cityGroup => cityGroup.Places is not null &&
                                                 cityGroup.Places.Any(place => place.Id == placeToDelete.Id)));
 
         var cityToRemove = countryToRemove?
-            .CityGroups?.FirstOrDefault(cityGroup => cityGroup.Places != null &&
+            .CityGroups?.FirstOrDefault(cityGroup => cityGroup.Places is not null &&
                                                      cityGroup.Places.Any(place => place.Id == placeToDelete.Id));
 
         var placeToRemove = cityToRemove?.Places?

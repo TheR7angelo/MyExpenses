@@ -34,7 +34,7 @@ public partial class AccountManagementPage
     {
         var addEditAccountWindow = new AddEditAccountWindow();
         addEditAccountWindow.ShowDialog();
-        if (addEditAccountWindow.DialogResult != true) return;
+        if (addEditAccountWindow.DialogResult is not true) return;
 
         var newAccount = addEditAccountWindow.Account;
 
@@ -78,7 +78,7 @@ public partial class AccountManagementPage
         addEditAccountWindow.SetTAccount(account);
         addEditAccountWindow.ShowDialog();
 
-        if (addEditAccountWindow.DialogResult != true) return;
+        if (addEditAccountWindow.DialogResult is not true) return;
         if (addEditAccountWindow.DeleteAccount)
         {
             TotalByAccounts.Remove(vTotalByAccount);

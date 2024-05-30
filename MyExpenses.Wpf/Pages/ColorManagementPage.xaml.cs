@@ -35,7 +35,7 @@ public partial class ColorManagementPage
         var addEditColorWindow = new AddEditColorWindow();
         addEditColorWindow.ShowDialog();
 
-        if (addEditColorWindow.DialogResult != true) return;
+        if (addEditColorWindow.DialogResult is not true) return;
 
         var newColor = addEditColorWindow.Color;
 
@@ -69,7 +69,7 @@ public partial class ColorManagementPage
         addEditColorWindow.SetTColor(colorToEdit);
 
         addEditColorWindow.ShowDialog();
-        if (addEditColorWindow.DialogResult != true) return;
+        if (addEditColorWindow.DialogResult is not true) return;
         if (addEditColorWindow.DeleteColor)
         {
             var colorDeleted = Colors.FirstOrDefault(s => s.Id == colorToEdit.Id);

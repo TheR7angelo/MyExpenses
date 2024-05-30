@@ -45,7 +45,7 @@ public partial class CategoryTypeManagementPage
     {
         var addEditCategoryType = new AddEditCategoryTypeWindow();
         var result = addEditCategoryType.ShowDialog();
-        if (result != true) return;
+        if (result is not true) return;
 
         var newCategoryType = addEditCategoryType.CategoryType;
         Log.Information("Attempting to inject the new category type \"{NewCategoryTypeName}\"", newCategoryType.Name);
@@ -75,7 +75,7 @@ public partial class CategoryTypeManagementPage
         var addEditCategoryTypeWindow = new AddEditCategoryTypeWindow();
         addEditCategoryTypeWindow.SetTCategoryType(categoryType);
         var result = addEditCategoryTypeWindow.ShowDialog();
-        if (result != true) return;
+        if (result is not true) return;
 
         if (addEditCategoryTypeWindow.CategoryTypeDeleted)
         {
