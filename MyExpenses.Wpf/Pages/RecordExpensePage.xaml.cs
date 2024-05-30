@@ -269,7 +269,45 @@ public partial class RecordExpensePage
         var result = addEditLocationWindow.ShowDialog();
         if (result is not true) return;
 
+        // if (addEditLocationWindow.Place)
+        // {
+        //
+        // }
+
+        var editedPlace = addEditLocationWindow.Place;
+
         //TODO work
+        // var (success, _) = editedPlace.AddOrEdit();
+        // if (success)
+        // {
+        //     var feature = editedPlace.ToFeature(MapsuiStyleExtensions.RedMarkerStyle);
+        //
+        //     PlaceLayer.Clear();
+        //     PlaceLayer.Add(feature);
+        //     MapControl.Refresh();
+        //
+        //     string json;
+        //     switch (add)
+        //     {
+        //         case true when !edit:
+        //             MsgBox.Show(LocationManagementPageResources.MessageBoxProcessNewPlaceAddSuccess, MsgBoxImage.Check);
+        //
+        //             Log.Information("The new place was successfully added");
+        //             json = newPlace.ToJsonString();
+        //             Log.Information("{Json}", json);
+        //
+        //             break;
+        //         case false when edit:
+        //             MsgBox.Show(LocationManagementPageResources.MessageBoxProcessNewPlaceEditSuccess, MsgBoxImage.Check);
+        //
+        //             Log.Information("The new place was successfully edited");
+        //             json = newPlace.ToJsonString();
+        //             Log.Information("{Json}", json);
+        //
+        //             break;
+        //     }
+        // }
+        // else MsgBox.Show(LocationManagementPageResources.MessageBoxProcessNewPlaceError, MsgBoxImage.Error);
     }
 
     private void TextBoxValue_OnTextChanged(object sender, TextChangedEventArgs e)
