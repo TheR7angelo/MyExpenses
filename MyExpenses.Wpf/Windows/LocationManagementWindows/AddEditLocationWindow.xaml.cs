@@ -46,6 +46,7 @@ public partial class AddEditLocationWindow
     public string ButtonContentSearchByCoordinate { get; } = AddEditLocationWindowResources.ButtonContentSearchByCoordinate;
 
     public string ButtonContentCancel { get; } = AddEditLocationWindowResources.ButtonContentCancel;
+    public string ButtonContentDelete { get; } = AddEditLocationWindowResources.ButtonContentDelete;
     public string ButtonContentValid { get; } = AddEditLocationWindowResources.ButtonContentValid;
 
     #region Properties

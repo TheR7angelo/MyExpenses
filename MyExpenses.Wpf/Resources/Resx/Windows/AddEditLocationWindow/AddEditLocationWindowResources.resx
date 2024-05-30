@@ -72,4 +72,7 @@
     <data name="ButtonContentValid" xml:space="preserve">
         <value>Valid</value>
     </data>
+    <data name="ButtonContentDelete" xml:space="preserve">
+        <value>Delete</value>
+    </data>
 </root>

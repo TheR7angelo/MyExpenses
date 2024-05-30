@@ -65,4 +65,7 @@
     <data name="ButtonContentSearchByAddress" xml:space="preserve">
         <value>Search by address</value>
     </data>
+    <data name="ButtonContentDelete" xml:space="preserve">
+        <value>Delete</value>
+    </data>
 </root>

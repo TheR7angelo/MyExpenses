@@ -186,7 +186,7 @@
             <Button Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2"
                     materialDesign:ButtonAssist.CornerRadius="5"
                     Style="{StaticResource MaterialDesignPaperSecondaryButton}"
-                    Content="{Binding ButtonContentCancel}"
+                    Content="{Binding ButtonContentDelete}"
                     Visibility="{Binding EditPlace, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}, UpdateSourceTrigger=PropertyChanged}"
                     Click="ButtonDelete_OnClick">
             </Button>

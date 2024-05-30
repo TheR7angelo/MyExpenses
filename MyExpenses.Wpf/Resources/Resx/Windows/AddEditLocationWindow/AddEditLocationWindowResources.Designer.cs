@@ -70,6 +70,15 @@ namespace MyExpenses.Wpf.Resources.Resx.Windows.AddEditLocationWindow {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Delete.
+        /// </summary>
+        internal static string ButtonContentDelete {
+            get {
+                return ResourceManager.GetString("ButtonContentDelete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Search by address.
         /// </summary>
         internal static string ButtonContentSearchByAddress {
