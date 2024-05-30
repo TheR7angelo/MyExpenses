@@ -171,16 +171,16 @@
 
             <Button Grid.Row="2" Grid.Column="0"
                     materialDesign:ButtonAssist.CornerRadius="5"
-                    Style="{StaticResource MaterialDesignPaperSecondaryButton}"
-                    Content="{Binding ButtonContentCancel}"
-                    Click="ButtonCancel_OnClick">
+                    Style="{StaticResource MaterialDesignPaperButton}"
+                    Content="{Binding ButtonContentValid}"
+                    Click="ButtonValid_OnClick">
             </Button>
 
             <Button Grid.Row="2" Grid.Column="1"
                     materialDesign:ButtonAssist.CornerRadius="5"
-                    Style="{StaticResource MaterialDesignPaperButton}"
-                    Content="{Binding ButtonContentValid}"
-                    Click="ButtonValid_OnClick">
+                    Style="{StaticResource MaterialDesignPaperSecondaryButton}"
+                    Content="{Binding ButtonContentCancel}"
+                    Click="ButtonCancel_OnClick">
             </Button>
 
         </Grid>
