@@ -96,7 +96,7 @@ public partial class AddEditCategoryTypeWindow
             response = MsgBox.MsgBox.Show(AddEditCategoryTypeWindowResources.MessageBoxDeleteCategoryTypeUseQuestion,
                 MsgBoxImage.Question, MessageBoxButton.YesNoCancel);
 
-            if (response != MessageBoxResult.Yes) return;
+            if (response is not MessageBoxResult.Yes) return;
 
             Log.Information("Attempting to remove the category type \"{CategoryTypeToDeleteName}\" with all relative element",
                 CategoryType.Name);
@@ -182,7 +182,7 @@ public partial class AddEditCategoryTypeWindow
         addEditColorWindow.SetTColor((int)CategoryType.ColorFk!);
 
         addEditColorWindow.ShowDialog();
-        if (addEditColorWindow.DialogResult != true) return;
+        if (addEditColorWindow.DialogResult is not true) return;
         if (addEditColorWindow.DeleteColor)
         {
             var colorDeleted = Colors.FirstOrDefault(s => s.Id == CategoryType.ColorFk);
@@ -218,7 +218,7 @@ public partial class AddEditCategoryTypeWindow
         var addEditColorWindow = new AddEditColorWindow();
         addEditColorWindow.ShowDialog();
 
-        if (addEditColorWindow.DialogResult != true) return;
+        if (addEditColorWindow.DialogResult is not true) return;
 
         var newColor = addEditColorWindow.Color;
 

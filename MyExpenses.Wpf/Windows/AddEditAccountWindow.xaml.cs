@@ -115,7 +115,7 @@ public partial class AddEditAccountWindow
     {
         var addEditAccountType = new AddEditAccountTypeWindow();
         var result = addEditAccountType.ShowDialog();
-        if (result != true) return;
+        if (result is not true) return;
 
         var newAccountType = addEditAccountType.AccountType;
 
@@ -143,7 +143,7 @@ public partial class AddEditAccountWindow
     {
         var addEditCategoryType = new AddEditCategoryTypeWindow();
         var result = addEditCategoryType.ShowDialog();
-        if (result != true) return;
+        if (result is not true) return;
 
         var newCategoryType = addEditCategoryType.CategoryType;
 
@@ -171,7 +171,7 @@ public partial class AddEditAccountWindow
     {
         var addEditCurrency = new AddEditCurrencyWindow();
         var result = addEditCurrency.ShowDialog();
-        if (result != true) return;
+        if (result is not true) return;
 
         var newCurrency = addEditCurrency.Currency;
 
@@ -205,7 +205,7 @@ public partial class AddEditAccountWindow
     {
         var response = MsgBox.MsgBox.Show(string.Format(AddEditAccountWindowResources.MessageBoxDeleteAccountQuestion, Account.Name), MsgBoxImage.Question,
             MessageBoxButton.YesNoCancel);
-        if (response != MessageBoxResult.Yes) return;
+        if (response is not MessageBoxResult.Yes) return;
 
         Log.Information("Attempting to remove the account \"{AccountToDeleteName}\"", Account.Name);
         var (success, exception) = Account.Delete();
@@ -231,7 +231,7 @@ public partial class AddEditAccountWindow
             response = MsgBox.MsgBox.Show(AddEditAccountWindowResources.MessageBoxDeleteAccountUseQuestion,
                 MsgBoxImage.Question, MessageBoxButton.YesNoCancel);
 
-            if (response != MessageBoxResult.Yes) return;
+            if (response is not MessageBoxResult.Yes) return;
 
             Log.Information("Attempting to remove the account \"{AccountToDeleteName}\" with all relative element",
                 Account.Name);

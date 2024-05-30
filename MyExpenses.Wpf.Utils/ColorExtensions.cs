@@ -146,7 +146,7 @@ public static class ColorExtensions
 
         if (hexColor.Length == 6) hexColor = "FF" + hexColor;
 
-        if (hexColor.Length != 8) return null;
+        if (hexColor.Length is not 8) return null;
 
         byte a, r, g, b;
 

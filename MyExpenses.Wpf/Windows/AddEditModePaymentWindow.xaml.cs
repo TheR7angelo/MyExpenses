@@ -56,7 +56,7 @@ public partial class AddEditModePaymentWindow
     {
         var response = MsgBox.MsgBox.Show(AddEditModePaymentWindowResources.MessageBoxDeleteQuestion,
             MsgBoxImage.Question, MessageBoxButton.YesNoCancel);
-        if (response != MessageBoxResult.Yes) return;
+        if (response is not MessageBoxResult.Yes) return;
 
         Log.Information("Attempting to remove the currency symbol \"{ModePaymentName}\"", ModePayment.Name);
         var (success, exception) = ModePayment.Delete();
@@ -82,7 +82,7 @@ public partial class AddEditModePaymentWindow
             response = MsgBox.MsgBox.Show(AddEditModePaymentWindowResources.MessageBoxDeleteModePaymentUseQuestion,
                 MsgBoxImage.Question, MessageBoxButton.YesNoCancel);
 
-            if (response != MessageBoxResult.Yes) return;
+            if (response is not MessageBoxResult.Yes) return;
 
             Log.Information("Attempting to remove the mode payment \"{ModePaymentName}\" with all relative element",
                 ModePayment.Name);

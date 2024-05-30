@@ -104,7 +104,7 @@ public partial class AddEditColorWindow
         var response =
             MsgBox.MsgBox.Show(string.Format(AddEditColorWindowResources.MessageBoxDeleteColorQuestion, Color.Name),
                 MsgBoxImage.Question, MessageBoxButton.YesNoCancel);
-        if (response != MessageBoxResult.Yes) return;
+        if (response is not MessageBoxResult.Yes) return;
 
         Log.Information("Attempting to remove the color \"{ColorToDeleteName}\"", Color.Name);
         var (success, exception) = Color.Delete();
@@ -130,7 +130,7 @@ public partial class AddEditColorWindow
             response = MsgBox.MsgBox.Show(AddEditColorWindowResources.MessageBoxDeleteColorUseQuestion,
                 MsgBoxImage.Question, MessageBoxButton.YesNoCancel);
 
-            if (response != MessageBoxResult.Yes) return;
+            if (response is not MessageBoxResult.Yes) return;
 
             Log.Information("Attempting to remove the color \"{ColorToDeleteName}\" with all relative element",
                 Color.Name);

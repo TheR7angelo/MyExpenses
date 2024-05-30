@@ -199,7 +199,7 @@ public partial class AddEditLocationWindow
             response = MsgBox.MsgBox.Show(AddEditLocationWindowResources.MessageBoxDeletePlaceUseQuestion,
                 MsgBoxImage.Question, MessageBoxButton.YesNoCancel);
 
-            if (response != MessageBoxResult.Yes) return;
+            if (response is not MessageBoxResult.Yes) return;
 
             Log.Information("Attempting to remove the place \"{PlaceToDeleteName}\" with all relative element",
                 Place.Name);

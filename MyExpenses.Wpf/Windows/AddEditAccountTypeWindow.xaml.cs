@@ -63,7 +63,7 @@ public partial class AddEditAccountTypeWindow
     {
         var response = MsgBox.MsgBox.Show(AddEditAccountTypeWindowResources.MessageBoxDeleteQuestion,
             MsgBoxImage.Question, MessageBoxButton.YesNoCancel);
-        if (response != MessageBoxResult.Yes) return;
+        if (response is not MessageBoxResult.Yes) return;
 
         Log.Information("Attempting to remove the account type \"{AccountToDeleteName}\"", AccountType.Name);
         var (success, exception) = AccountType.Delete();
@@ -89,7 +89,7 @@ public partial class AddEditAccountTypeWindow
             response = MsgBox.MsgBox.Show(AddEditAccountTypeWindowResources.MessageBoxDeleteAccountTypeUseQuestion,
                 MsgBoxImage.Question, MessageBoxButton.YesNoCancel);
 
-            if (response != MessageBoxResult.Yes) return;
+            if (response is not MessageBoxResult.Yes) return;
 
             Log.Information("Attempting to remove the account type \"{AccountTypeToDeleteName}\" with all relative element",
                 AccountType.Name);
