@@ -16,6 +16,7 @@ using MyExpenses.Wpf.Utils.Maps;
 using MyExpenses.Wpf.Windows;
 using MyExpenses.Utils.Sql;
 using MyExpenses.Wpf.Windows.CategoryTypeManagementWindow;
+using MyExpenses.Wpf.Windows.LocationManagementWindows;
 using MyExpenses.Wpf.Windows.MsgBox;
 using Serilog;
 
@@ -254,7 +255,21 @@ public partial class RecordExpensePage
     //TODO work
     private void ButtonPlace_OnClick(object sender, RoutedEventArgs e)
     {
+        var place = History.PlaceFk?.ToISqlT<TPlace>();
+        if (place?.CanBeDeleted is false)
+        {
+            //TODO work
+            MsgBox.Show("This place cannot be changed or deleted", MsgBoxImage.Error);
+            return;
+        }
 
+        var addEditLocationWindow = new AddEditLocationWindow();
+        if (place is not null) addEditLocationWindow.SetPlace(place, false);
+
+        var result = addEditLocationWindow.ShowDialog();
+        if (result != true) return;
+
+        //TODO work
     }
 
     private void TextBoxValue_OnTextChanged(object sender, TextChangedEventArgs e)
