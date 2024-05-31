@@ -73,7 +73,16 @@
 
                             <HierarchicalDataTemplate.ItemTemplate>
                                 <HierarchicalDataTemplate DataType="{x:Type tables:TPlace}">
-                                    <TextBlock Text="{Binding Name, Converter={StaticResource EmptyStringTreeViewConverter}}" />
+                                    <TextBlock Text="{Binding Name, Converter={StaticResource EmptyStringTreeViewConverter}}">
+                                        <TextBlock.ContextMenu>
+                                            <ContextMenu>
+                                                <!-- TODO work -->
+                                                <MenuItem Header="Edit point" Click="MenuItemEditPlace_OnClick" />
+                                                <!-- TODO work -->
+                                                <MenuItem Header="Delete point" Click="MenuItemDeletePlace_OnClick" />
+                                            </ContextMenu>
+                                        </TextBlock.ContextMenu>
+                                    </TextBlock>
                                 </HierarchicalDataTemplate>
                             </HierarchicalDataTemplate.ItemTemplate>
 

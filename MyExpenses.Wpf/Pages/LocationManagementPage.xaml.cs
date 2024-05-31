@@ -371,4 +371,14 @@ public partial class LocationManagementPage
         var s = ClickPoint.ToNominatim();
         Console.WriteLine(s);
     }
+
+    private void MenuItemEditPlace_OnClick(object sender, RoutedEventArgs e)
+    {
+        //TODO work
+    }
+
+    private void MenuItemDeletePlace_OnClick(object sender, RoutedEventArgs e)
+    {
+        //TODO work
+    }
 }
