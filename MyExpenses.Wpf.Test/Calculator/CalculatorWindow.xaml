@@ -9,7 +9,103 @@
 
     <Grid>
 
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" MinHeight="50" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
 
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4"
+               HorizontalContentAlignment="Right"
+               Content="Hello world">
+        </Label>
+
+            <Button Grid.Row="2" Grid.Column="3"
+                    Content="/">
+        </Button>
+
+        <Button Grid.Row="2" Grid.Column="2"
+                Content="supp">
+        </Button>
+
+        <Button Grid.Row="2" Grid.Column="1"
+                Content="AC">
+        </Button>
+
+        <Button Grid.Row="3" Grid.Column="3"
+                Content="x">
+        </Button>
+
+        <Button Grid.Row="3" Grid.Column="2"
+                Content="9">
+        </Button>
+
+        <Button Grid.Row="3" Grid.Column="1"
+                Content="8">
+        </Button>
+
+        <Button Grid.Row="3" Grid.Column="0"
+                Content="7">
+        </Button>
+
+        <Button Grid.Row="4" Grid.Column="3"
+                Content="-">
+        </Button>
+
+        <Button Grid.Row="4" Grid.Column="2"
+                Content="6">
+        </Button>
+
+        <Button Grid.Row="4" Grid.Column="1"
+                Content="5">
+        </Button>
+
+        <Button Grid.Row="4" Grid.Column="0"
+                Content="4">
+        </Button>
+
+        <Button Grid.Row="5" Grid.Column="3"
+                Content="+">
+        </Button>
+
+        <Button Grid.Row="5" Grid.Column="2"
+                Content="3">
+        </Button>
+
+        <Button Grid.Row="5" Grid.Column="1"
+                Content="2">
+        </Button>
+
+        <Button Grid.Row="5" Grid.Column="0"
+                Content="1">
+        </Button>
+
+        <Button Grid.Row="6" Grid.Column="3"
+                Content="=">
+        </Button>
+
+        <Button Grid.Row="6" Grid.Column="2"
+                Content=".">
+        </Button>
+
+        <Button Grid.Row="6" Grid.Column="1"
+                Content="0">
+        </Button>
+
+        <Button Grid.Row="6" Grid.Column="0"
+                Content="+/-">
+        </Button>
 
     </Grid>
 
