@@ -73,19 +73,7 @@
 
                             <HierarchicalDataTemplate.ItemTemplate>
                                 <HierarchicalDataTemplate DataType="{x:Type tables:TPlace}">
-                                    <TextBlock Text="{Binding Name, Converter={StaticResource EmptyStringTreeViewConverter}}">
-                                        <TextBlock.ContextMenu>
-                                            <ContextMenu>
-                                                <!-- TODO work -->
-                                                <MenuItem Header="{Binding MenuItemHeaderEditFeature, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:LocationManagementPage}}}"
-                                                          Click="MenuItemEditPlace_OnClick">
-                                                </MenuItem>
-                                                <MenuItem Header="{Binding MenuItemHeaderDeleteFeature, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:LocationManagementPage}}}"
-                                                          Click="MenuItemDeletePlace_OnClick">
-                                                </MenuItem>
-                                            </ContextMenu>
-                                        </TextBlock.ContextMenu>
-                                    </TextBlock>
+                                    <TextBlock Text="{Binding Name, Converter={StaticResource EmptyStringTreeViewConverter}}" />
                                 </HierarchicalDataTemplate>
                             </HierarchicalDataTemplate.ItemTemplate>
 
