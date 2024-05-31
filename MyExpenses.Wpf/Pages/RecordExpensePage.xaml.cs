@@ -350,6 +350,26 @@ public partial class RecordExpensePage
             //TODO work
             MsgBox.Show("Place cannot be null, please select a place", MsgBoxImage.Warning);
         }
+
+        Log.Information("Attempting to inject the new history");
+        var (success, exception) = History.AddOrEdit();
+        if (success)
+        {
+            Log.Information("History was successfully added");
+            var json = History.ToJsonString();
+            Log.Information("{Json}", json);
+
+            //TODO work
+            MsgBox.Show("History was successfully added", MsgBoxImage.Check);
+
+            DashBoardPage.RefreshRadioButtonSelected();
+        }
+        else
+        {
+            Log.Error(exception, "An error occurred please retry");
+            //TODO work
+            MsgBox.Show("An error occurred please retry", MsgBoxImage.Error);
+        }
     }
 
     private void ButtonCancel_OnClick(object sender, RoutedEventArgs e)
