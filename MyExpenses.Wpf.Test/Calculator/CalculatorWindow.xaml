@@ -51,8 +51,7 @@
         </Grid.ColumnDefinitions>
 
         <TextBlock Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4"
-                   x:Name="txtResult"
-                   Text="0"
+                   Text="{Binding TextCalculationResult, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                    FontSize="48"
                    VerticalAlignment="Bottom"
                    HorizontalAlignment="Right">

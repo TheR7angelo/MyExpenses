@@ -10,7 +10,7 @@ public partial class CalculatorWindow
         DependencyProperty.Register(nameof(TextCalculationResult), typeof(string), typeof(CalculatorWindow),
             new PropertyMetadata(default(string)));
 
-    public string TextCalculationResult
+    public string? TextCalculationResult
     {
         get => (string)GetValue(TextCalculationResultProperty);
         set => SetValue(TextCalculationResultProperty, value);
@@ -31,7 +31,7 @@ public partial class CalculatorWindow
     {
         if (sender is not Button btn) return;
 
-        txtResult.Text = txtResult.Text is not "0" ? $"{txtResult.Text}{btn.Content}" : btn.Content.ToString();
+        TextCalculationResult = TextCalculationResult is not "0" ? $"{TextCalculationResult}{btn.Content}" : btn.Content.ToString();
     }
 
     private void ButtonAC_OnClick(object sender, RoutedEventArgs e)
@@ -39,20 +39,20 @@ public partial class CalculatorWindow
         _firstNumber = 0;
         _secondNumber = 0;
         _currentOperator = 0;
-        txtResult.Text = "0";
+        TextCalculationResult = "0";
     }
 
     private void ButtonAddition_OnClick(object sender, RoutedEventArgs e)
     {
         _currentOperator = Operator.Add;
-        _firstNumber = double.Parse(txtResult.Text);
-        txtResult.Text = "0";
+        if (!string.IsNullOrWhiteSpace(TextCalculationResult)) _firstNumber = double.Parse(TextCalculationResult);
+        TextCalculationResult = "0";
     }
 
     private void ButtonEqual_OnClick(object sender, RoutedEventArgs e)
     {
-        _secondNumber = double.Parse(txtResult.Text);
-        txtResult.Text = GetResult(_firstNumber, _currentOperator, _secondNumber);
+        if (!string.IsNullOrWhiteSpace(TextCalculationResult)) _secondNumber = double.Parse(TextCalculationResult);
+        TextCalculationResult = GetResult(_firstNumber, _currentOperator, _secondNumber);
     }
 
     private string GetResult(double firstNumber, Operator currentOperator, double secondNumber)
@@ -82,27 +82,30 @@ public partial class CalculatorWindow
     private void ButtonMinus_OnClick(object sender, RoutedEventArgs e)
     {
         _currentOperator = Operator.Subtract;
-        _firstNumber = double.Parse(txtResult.Text);
-        txtResult.Text = "0";
+        if (!string.IsNullOrWhiteSpace(TextCalculationResult)) _firstNumber = double.Parse(TextCalculationResult);
+        TextCalculationResult = "0";
     }
 
     private void ButtonMultiply_OnClick(object sender, RoutedEventArgs e)
     {
         _currentOperator = Operator.Multiply;
-        _firstNumber = double.Parse(txtResult.Text);
-        txtResult.Text = "0";
+        if (!string.IsNullOrWhiteSpace(TextCalculationResult)) _firstNumber = double.Parse(TextCalculationResult);
+        TextCalculationResult = "0";
     }
 
     private void ButtonDivide_OnClick(object sender, RoutedEventArgs e)
     {
         _currentOperator = Operator.Divide;
-        _firstNumber = double.Parse(txtResult.Text);
-        txtResult.Text = "0";
+        if (!string.IsNullOrWhiteSpace(TextCalculationResult)) _firstNumber = double.Parse(TextCalculationResult);
+        TextCalculationResult = "0";
     }
 
     private void ButtonReversePolarity_OnClick(object sender, RoutedEventArgs e)
     {
-        txtResult.Text = (double.Parse(txtResult.Text) * -1).ToString(CultureInfo.InvariantCulture);
+        if (!string.IsNullOrWhiteSpace(TextCalculationResult))
+        {
+            TextCalculationResult = (double.Parse(TextCalculationResult) * -1).ToString(CultureInfo.InvariantCulture);
+        }
     }
 
     private void ButtonPercentage_OnClick(object sender, RoutedEventArgs e)
@@ -111,9 +114,9 @@ public partial class CalculatorWindow
 
     private void ButtonComma_OnClick(object sender, RoutedEventArgs e)
     {
-        if (txtResult.Text.IndexOf('.') < 0)
+        if (TextCalculationResult?.IndexOf('.') < 0)
         {
-            txtResult.Text += ".";
+            TextCalculationResult += ".";
         }
     }
 }
