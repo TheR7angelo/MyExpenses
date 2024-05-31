@@ -138,7 +138,8 @@
     <!-- -->
     <!-- </Grid> -->
 
-    <Grid>
+    <Grid test:PanelExtensions.MarginForAllChildren="3">
+
         <Grid.RowDefinitions>
             <RowDefinition Height="2*"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
@@ -147,18 +148,22 @@
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
+
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
             <ColumnDefinition></ColumnDefinition>
         </Grid.ColumnDefinitions>
+
         <TextBlock Name="txtResult"
                    Text="0"
                    FontSize="48"
                    VerticalAlignment="Bottom"
                    HorizontalAlignment="Right"
-                   Grid.ColumnSpan="4"></TextBlock>
+                   Grid.ColumnSpan="4">
+        </TextBlock>
+
         <Button Grid.Row="1" Grid.Column="0" Click="Button_Click_1">AC</Button>
         <Button Grid.Row="1" Grid.Column="1" Click="Button_Click_7">+/-</Button>
         <Button Grid.Row="1" Grid.Column="2" Click="Button_Click_8">%</Button>
@@ -178,6 +183,7 @@
         <Button Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Click="Button_Click">0</Button>
         <Button Grid.Row="5" Grid.Column="2" Click="Button_Click_9">.</Button>
         <Button Grid.Row="5" Grid.Column="3" Click="Button_Click_3">=</Button>
+
     </Grid>
 
 </mah:MetroWindow>
