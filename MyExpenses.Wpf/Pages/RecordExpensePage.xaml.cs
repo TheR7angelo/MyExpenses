@@ -311,9 +311,8 @@ public partial class RecordExpensePage
     }
 
     private void ButtonCancel_OnClick(object sender, RoutedEventArgs e)
-    {
-        //TODO work
-    }
+        => nameof(MainWindow.FrameBody).GoBack();
+
 
     private void TextBoxValue_OnTextChanged(object sender, TextChangedEventArgs e)
     {
