@@ -8,14 +8,34 @@ public partial class CalculatorWindow
         DependencyProperty.Register(nameof(TextCalculationResult), typeof(string), typeof(CalculatorWindow),
             new PropertyMetadata(default(string)));
 
+    public string TextCalculationResult
+    {
+        get => (string)GetValue(TextCalculationResultProperty);
+        set => SetValue(TextCalculationResultProperty, value);
+    }
+
+    public static readonly DependencyProperty CalculationResultProperty =
+        DependencyProperty.Register(nameof(CalculationResult), typeof(double), typeof(CalculatorWindow),
+            new PropertyMetadata(default(double), PropertyChangedCallback));
+
+    private static void PropertyChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
+    {
+        Console.WriteLine(e.NewValue);
+    }
+
+    public double CalculationResult
+    {
+        get => (double)GetValue(CalculationResultProperty);
+        set => SetValue(CalculationResultProperty, value);
+    }
+
     public CalculatorWindow()
     {
         InitializeComponent();
     }
 
-    public string TextCalculationResult
+    private void ButtonReversePolarity_OnClick(object sender, RoutedEventArgs e)
     {
-        get => (string)GetValue(TextCalculationResultProperty);
-        set => SetValue(TextCalculationResultProperty, value);
+        CalculationResult = - CalculationResult;
     }
 }
