@@ -305,6 +305,16 @@ public partial class RecordExpensePage
         }
     }
 
+    private void ButtonValid_OnClick(object sender, RoutedEventArgs e)
+    {
+        //TODO work
+    }
+
+    private void ButtonCancel_OnClick(object sender, RoutedEventArgs e)
+    {
+        //TODO work
+    }
+
     private void TextBoxValue_OnTextChanged(object sender, TextChangedEventArgs e)
     {
         var textBox = (TextBox)sender;
