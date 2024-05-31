@@ -200,8 +200,15 @@
             </Grid.ColumnDefinitions>
 
             <!-- TODO work -->
-            <Button Grid.Column="0" Content="{Binding ButtonValidContent}" />
-            <Button Grid.Column="1" Content="{Binding ButtonCancelContent}" />
+            <Button Grid.Column="0" Content="{Binding ButtonValidContent}"
+                    Style="{StaticResource MaterialDesignPaperButton}"
+                    Click="ButtonValid_OnClick">
+            </Button>
+
+            <Button Grid.Column="1" Content="{Binding ButtonCancelContent}"
+                    Style="{StaticResource MaterialDesignPaperSecondaryButton}"
+                    Click="ButtonCancel_OnClick">
+            </Button>
 
         </Grid>
 
