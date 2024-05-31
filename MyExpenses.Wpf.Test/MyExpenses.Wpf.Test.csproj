@@ -8,4 +8,9 @@
         <UseWPF>true</UseWPF>
     </PropertyGroup>
 
+    <ItemGroup>
+      <PackageReference Include="MaterialDesignThemes" Version="5.0.0" />
+      <PackageReference Include="MaterialDesignThemes.MahApps" Version="1.0.0" />
+    </ItemGroup>
+
 </Project>
