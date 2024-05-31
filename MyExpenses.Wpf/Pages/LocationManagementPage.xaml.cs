@@ -361,16 +361,16 @@ public partial class LocationManagementPage
 
     #endregion
 
-    private void Option1_Click(object sender, RoutedEventArgs e)
-    {
-        Console.WriteLine(ClickPoint);
-    }
-
-    private void Option2_Click(object sender, RoutedEventArgs e)
-    {
-        var s = ClickPoint.ToNominatim();
-        Console.WriteLine(s);
-    }
+    // private void Option1_Click(object sender, RoutedEventArgs e)
+    // {
+    //     Console.WriteLine(ClickPoint);
+    // }
+    //
+    // private void Option2_Click(object sender, RoutedEventArgs e)
+    // {
+    //     var s = ClickPoint.ToNominatim();
+    //     Console.WriteLine(s);
+    // }
 
     private void MenuItemEditPlace_OnClick(object sender, RoutedEventArgs e)
     {

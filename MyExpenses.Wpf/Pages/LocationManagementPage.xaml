@@ -101,11 +101,11 @@
             <wpf:MapControl.ContextMenu>
                 <ContextMenu>
 
-                    <!-- TODO work -->
-                    <MenuItem Header="Display coordinate" Click="Option1_Click" />
-
-                    <!-- TODO work -->
-                    <MenuItem Header="Display address" Click="Option2_Click" />
+                    <!-- ~1~ TODO work @1@ -->
+                    <!-- <MenuItem Header="Display coordinate" Click="Option1_Click" /> -->
+                    <!-- -->
+                    <!-- ~1~ TODO work @1@ -->
+                    <!-- <MenuItem Header="Display address" Click="Option2_Click" /> -->
                     
                     <MenuItem x:Name="MenuItemAddFeature"
                               Header="{Binding MenuItemHeaderAddPoint}"
