@@ -17,7 +17,6 @@ using MyExpenses.Utils;
 using MyExpenses.Utils.Collection;
 using MyExpenses.Utils.Maps;
 using MyExpenses.Utils.Sql;
-using MyExpenses.WebApi.Nominatim;
 using MyExpenses.Wpf.Resources.Resx.Pages.LocationManagementPage;
 using MyExpenses.Wpf.Utils.Maps;
 using MyExpenses.Wpf.Windows.LocationManagementWindows;
