@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyExpenses.Wpf.Utils", "MyE
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyExpenses.Utils", "MyExpenses.Utils\MyExpenses.Utils.csproj", "{C9108954-A945-4914-898E-3EB83C5E763A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyExpenses.Wpf.Test", "MyExpenses.Wpf.Test\MyExpenses.Wpf.Test.csproj", "{DC52B9E0-1961-40CC-9F43-2329EA5B3184}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,5 +49,9 @@ Global
 		{C9108954-A945-4914-898E-3EB83C5E763A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C9108954-A945-4914-898E-3EB83C5E763A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C9108954-A945-4914-898E-3EB83C5E763A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DC52B9E0-1961-40CC-9F43-2329EA5B3184}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DC52B9E0-1961-40CC-9F43-2329EA5B3184}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DC52B9E0-1961-40CC-9F43-2329EA5B3184}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DC52B9E0-1961-40CC-9F43-2329EA5B3184}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
