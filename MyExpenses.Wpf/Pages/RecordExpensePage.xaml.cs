@@ -274,8 +274,16 @@ public partial class RecordExpensePage
         //
         // }
 
-        var editedPlace = addEditLocationWindow.Place;
+        if (addEditLocationWindow.PlaceDeleted)
+        {
+            var oldPlace = Places.FirstOrDefault(s => s.Id == History.PlaceFk);
+            if (oldPlace is not null) Places.Remove(oldPlace);
+            DashBoardPage.RefreshRadioButtonSelected();
 
+            return;
+        }
+        
+        var editedPlace = addEditLocationWindow.Place;
         //TODO work
         // var (success, _) = editedPlace.AddOrEdit();
         // if (success)
