@@ -27,14 +27,14 @@ public partial class CalculatorWindow
 
     private double _secondNumber;
 
-    private void Button_Click(object sender, RoutedEventArgs e)
+    private void ButtonNumber_OnClick(object sender, RoutedEventArgs e)
     {
         if (sender is not Button btn) return;
 
         txtResult.Text = txtResult.Text is not "0" ? $"{txtResult.Text}{btn.Content}" : btn.Content.ToString();
     }
 
-    private void Button_Click_1(object sender, RoutedEventArgs e)
+    private void ButtonAC_OnClick(object sender, RoutedEventArgs e)
     {
         _firstNumber = 0;
         _secondNumber = 0;
@@ -42,14 +42,14 @@ public partial class CalculatorWindow
         txtResult.Text = "0";
     }
 
-    private void Button_Click_2(object sender, RoutedEventArgs e)
+    private void ButtonAddition_OnClick(object sender, RoutedEventArgs e)
     {
         _currentOperator = Operator.Add;
         _firstNumber = double.Parse(txtResult.Text);
         txtResult.Text = "0";
     }
 
-    private void Button_Click_3(object sender, RoutedEventArgs e)
+    private void ButtonEqual_OnClick(object sender, RoutedEventArgs e)
     {
         _secondNumber = double.Parse(txtResult.Text);
         txtResult.Text = GetResult(_firstNumber, _currentOperator, _secondNumber);
@@ -79,37 +79,37 @@ public partial class CalculatorWindow
         }
     }
 
-    private void Button_Click_4(object sender, RoutedEventArgs e)
+    private void ButtonMinus_OnClick(object sender, RoutedEventArgs e)
     {
         _currentOperator = Operator.Subtract;
         _firstNumber = double.Parse(txtResult.Text);
         txtResult.Text = "0";
     }
 
-    private void Button_Click_5(object sender, RoutedEventArgs e)
+    private void ButtonMultiply_OnClick(object sender, RoutedEventArgs e)
     {
         _currentOperator = Operator.Multiply;
         _firstNumber = double.Parse(txtResult.Text);
         txtResult.Text = "0";
     }
 
-    private void Button_Click_6(object sender, RoutedEventArgs e)
+    private void ButtonDivide_OnClick(object sender, RoutedEventArgs e)
     {
         _currentOperator = Operator.Divide;
         _firstNumber = double.Parse(txtResult.Text);
         txtResult.Text = "0";
     }
 
-    private void Button_Click_7(object sender, RoutedEventArgs e)
+    private void ButtonReversePolarity_OnClick(object sender, RoutedEventArgs e)
     {
         txtResult.Text = (double.Parse(txtResult.Text) * -1).ToString(CultureInfo.InvariantCulture);
     }
 
-    private void Button_Click_8(object sender, RoutedEventArgs e)
+    private void ButtonPercentage_OnClick(object sender, RoutedEventArgs e)
     {
     }
 
-    private void Button_Click_9(object sender, RoutedEventArgs e)
+    private void ButtonComma_OnClick(object sender, RoutedEventArgs e)
     {
         if (txtResult.Text.IndexOf('.') < 0)
         {
