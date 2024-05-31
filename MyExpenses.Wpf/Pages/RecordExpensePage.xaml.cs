@@ -269,52 +269,40 @@ public partial class RecordExpensePage
         var result = addEditLocationWindow.ShowDialog();
         if (result is not true) return;
 
+        var oldPlace = Places.FirstOrDefault(s => s.Id == History.PlaceFk);
         if (addEditLocationWindow.PlaceDeleted)
         {
-            var oldPlace = Places.FirstOrDefault(s => s.Id == History.PlaceFk);
             if (oldPlace is not null) Places.Remove(oldPlace);
             DashBoardPage.RefreshRadioButtonSelected();
 
             return;
         }
-        
-        var editedPlace = addEditLocationWindow.Place;
+
         //TODO work
+        var editedPlace = addEditLocationWindow.Place;
+        Log.Information("Attempting to update place id:\"{EditedPlaceId}\", name:\"{EditedPlaceName}\"",editedPlace.Id, editedPlace.Name);
 
         var (success, exception) = editedPlace.AddOrEdit();
         if (success)
         {
+            Places!.AddAndSort(oldPlace, editedPlace, s => s!.Name!);
+            History.PlaceFk = editedPlace.Id;
 
+            Log.Information("Place was successfully edited");
+            var json = editedPlace.ToJsonString();
+            Log.Information("{Json}", json);
 
+            //TODO work
+            MsgBox.Show("Place was successfully edited", MsgBoxImage.Check);
 
-            //     var feature = editedPlace.ToFeature(MapsuiStyleExtensions.RedMarkerStyle);
-            //
-            //     PlaceLayer.Clear();
-            //     PlaceLayer.Add(feature);
-            //     MapControl.Refresh();
-            //
-            //     string json;
-            //     switch (add)
-            //     {
-            //         case true when !edit:
-            //             MsgBox.Show(LocationManagementPageResources.MessageBoxProcessNewPlaceAddSuccess, MsgBoxImage.Check);
-            //
-            //             Log.Information("The new place was successfully added");
-            //             json = newPlace.ToJsonString();
-            //             Log.Information("{Json}", json);
-            //
-            //             break;
-            //         case false when edit:
-            //             MsgBox.Show(LocationManagementPageResources.MessageBoxProcessNewPlaceEditSuccess, MsgBoxImage.Check);
-            //
-            //             Log.Information("The new place was successfully edited");
-            //             json = newPlace.ToJsonString();
-            //             Log.Information("{Json}", json);
-            //
-            //             break;
+            DashBoardPage.RefreshRadioButtonSelected();
         }
-        // }
-        // else MsgBox.Show(LocationManagementPageResources.MessageBoxProcessNewPlaceError, MsgBoxImage.Error);
+        else
+        {
+            Log.Error(exception, "An error occurred please retry");
+            //TODO work
+            MsgBox.Show("An error occurred please retry", MsgBoxImage.Error);
+        }
     }
 
     private void TextBoxValue_OnTextChanged(object sender, TextChangedEventArgs e)
