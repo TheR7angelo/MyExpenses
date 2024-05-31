@@ -15,6 +15,7 @@ using MyExpenses.Wpf.Resources.Regex;
 using MyExpenses.Wpf.Utils.Maps;
 using MyExpenses.Wpf.Windows;
 using MyExpenses.Utils.Sql;
+using MyExpenses.Wpf.Utils;
 using MyExpenses.Wpf.Windows.CategoryTypeManagementWindow;
 using MyExpenses.Wpf.Windows.LocationManagementWindows;
 using MyExpenses.Wpf.Windows.MsgBox;
@@ -363,6 +364,14 @@ public partial class RecordExpensePage
             MsgBox.Show("History was successfully added", MsgBoxImage.Check);
 
             DashBoardPage.RefreshRadioButtonSelected();
+
+            //TODO work
+            var response = MsgBox.Show("Do you want to record a new expense ?", MsgBoxImage.Question,
+                MessageBoxButton.YesNoCancel);
+            if (response is not MessageBoxResult.Yes) nameof(MainWindow.FrameBody).GoBack();
+
+            var newHistory = new THistory();
+            newHistory.CopyPropertiesTo(History);
         }
         else
         {
