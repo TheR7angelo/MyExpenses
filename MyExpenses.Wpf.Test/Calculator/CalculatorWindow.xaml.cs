@@ -57,26 +57,14 @@ public partial class CalculatorWindow
 
     private string GetResult(double firstNumber, Operator currentOperator, double secondNumber)
     {
-        if (currentOperator == Operator.Add)
+        return currentOperator switch
         {
-            return (firstNumber + secondNumber).ToString(CultureInfo.InvariantCulture);
-        }
-        else if (currentOperator == Operator.Subtract)
-        {
-            return (firstNumber - secondNumber).ToString(CultureInfo.InvariantCulture);
-        }
-        else if (currentOperator == Operator.Multiply)
-        {
-            return (firstNumber * secondNumber).ToString(CultureInfo.InvariantCulture);
-        }
-        else if (currentOperator == Operator.Divide)
-        {
-            return (firstNumber / secondNumber).ToString(CultureInfo.InvariantCulture);
-        }
-        else
-        {
-            return "0";
-        }
+            Operator.Add => (firstNumber + secondNumber).ToString(CultureInfo.InvariantCulture),
+            Operator.Subtract => (firstNumber - secondNumber).ToString(CultureInfo.InvariantCulture),
+            Operator.Multiply => (firstNumber * secondNumber).ToString(CultureInfo.InvariantCulture),
+            Operator.Divide => (firstNumber / secondNumber).ToString(CultureInfo.InvariantCulture),
+            _ => "0"
+        };
     }
 
     private void ButtonMinus_OnClick(object sender, RoutedEventArgs e)
