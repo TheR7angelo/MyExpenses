@@ -58,25 +58,100 @@
                    HorizontalAlignment="Right">
         </TextBlock>
 
-        <Button Grid.Row="2" Grid.Column="0" Click="Button_Click_1">AC</Button>
-        <Button Grid.Row="2" Grid.Column="1" Click="Button_Click_7">+/-</Button>
-        <Button Grid.Row="2" Grid.Column="2" Click="Button_Click_8">%</Button>
-        <Button Grid.Row="2" Grid.Column="3" Click="Button_Click_6">/</Button>
-        <Button Grid.Row="3" Grid.Column="0" Click="Button_Click">7</Button>
-        <Button Grid.Row="3" Grid.Column="1" Click="Button_Click">8</Button>
-        <Button Grid.Row="3" Grid.Column="2" Click="Button_Click">9</Button>
-        <Button Grid.Row="3" Grid.Column="3" Click="Button_Click_5">*</Button>
-        <Button Grid.Row="4" Grid.Column="0" Click="Button_Click">4</Button>
-        <Button Grid.Row="4" Grid.Column="1" Click="Button_Click">5</Button>
-        <Button Grid.Row="4" Grid.Column="2" Click="Button_Click">6</Button>
-        <Button Grid.Row="4" Grid.Column="3" Click="Button_Click_4">-</Button>
-        <Button Grid.Row="5" Grid.Column="0" Click="Button_Click">1</Button>
-        <Button Grid.Row="5" Grid.Column="1" Click="Button_Click">2</Button>
-        <Button Grid.Row="5" Grid.Column="2" Click="Button_Click">3</Button>
-        <Button Grid.Row="5" Grid.Column="3" Click="Button_Click_2">+</Button>
-        <Button Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" Click="Button_Click">0</Button>
-        <Button Grid.Row="6" Grid.Column="2" Click="Button_Click_9">.</Button>
-        <Button Grid.Row="6" Grid.Column="3" Click="Button_Click_3">=</Button>
+        <Button Grid.Row="2" Grid.Column="0"
+                Content="AC"
+                Click="Button_Click_1">
+        </Button>
+
+        <Button Grid.Row="2" Grid.Column="1"
+                Content="+/-"
+                Click="Button_Click_7">
+        </Button>
+
+        <Button Grid.Row="2" Grid.Column="2"
+                Content="%"
+                Click="Button_Click_8">
+        </Button>
+
+        <Button Grid.Row="2" Grid.Column="3"
+                Content="/"
+                Click="Button_Click_6">
+        </Button>
+
+        <Button Grid.Row="3" Grid.Column="0"
+                Content="7"
+                Click="Button_Click">
+        </Button>
+
+        <Button Grid.Row="3" Grid.Column="1"
+                Content="8"
+                Click="Button_Click">
+        </Button>
+
+        <Button Grid.Row="3" Grid.Column="2"
+                Content="9"
+                Click="Button_Click">
+        </Button>
+
+        <Button Grid.Row="3" Grid.Column="3"
+                Content="*"
+                Click="Button_Click_5">
+        </Button>
+
+        <Button Grid.Row="4" Grid.Column="0"
+                Content="4"
+                Click="Button_Click">
+        </Button>
+
+        <Button Grid.Row="4" Grid.Column="1"
+                Content="5"
+                Click="Button_Click">
+        </Button>
+
+        <Button Grid.Row="4" Grid.Column="2"
+                Content="6"
+                Click="Button_Click">
+        </Button>
+
+        <Button Grid.Row="4" Grid.Column="3"
+                Content="-"
+                Click="Button_Click_4">
+        </Button>
+
+        <Button Grid.Row="5" Grid.Column="0"
+                Content="1"
+                Click="Button_Click">
+        </Button>
+
+        <Button Grid.Row="5" Grid.Column="1"
+                Content="2"
+                Click="Button_Click">
+        </Button>
+
+        <Button Grid.Row="5" Grid.Column="2"
+                Content="3"
+                Click="Button_Click">
+        </Button>
+
+        <Button Grid.Row="5" Grid.Column="3"
+                Content="+"
+                Click="Button_Click_2">
+        </Button>
+
+        <Button Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2"
+                Content="0"
+                Click="Button_Click">
+        </Button>
+
+        <Button Grid.Row="6" Grid.Column="2"
+                Content="."
+                Click="Button_Click_9">
+        </Button>
+
+        <Button Grid.Row="6" Grid.Column="3"
+                Content="="
+                Click="Button_Click_3">
+        </Button>
 
     </Grid>
 
