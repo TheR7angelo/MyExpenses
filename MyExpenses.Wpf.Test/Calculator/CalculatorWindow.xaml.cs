@@ -110,6 +110,7 @@ public partial class CalculatorWindow
 
     private void ButtonPercentage_OnClick(object sender, RoutedEventArgs e)
     {
+        //TODO work
     }
 
     private void ButtonComma_OnClick(object sender, RoutedEventArgs e)
