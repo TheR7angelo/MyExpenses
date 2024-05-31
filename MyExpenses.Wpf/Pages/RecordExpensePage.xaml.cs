@@ -307,7 +307,49 @@ public partial class RecordExpensePage
 
     private void ButtonValid_OnClick(object sender, RoutedEventArgs e)
     {
-        //TODO work
+        if (History.AccountFk is null)
+        {
+            //TODO work
+            MsgBox.Show("Account cannot be null, please select an account", MsgBoxImage.Warning);
+            return;
+        }
+
+        if (string.IsNullOrWhiteSpace(History.Description))
+        {
+            //TODO work
+            MsgBox.Show("Description cannot be empty, please enter a description", MsgBoxImage.Warning);
+            return;
+        }
+
+        if (History.CategoryTypeFk is null)
+        {
+            //TODO work
+            MsgBox.Show("Category type cannot be null, please select a category type", MsgBoxImage.Warning);
+        }
+
+        if (History.ModePaymentFk is null)
+        {
+            //TODO work
+            MsgBox.Show("Mode payment cannot be null, please select a mode payment", MsgBoxImage.Warning);
+        }
+
+        if (History.Value is null or 0d)
+        {
+            //TODO work
+            MsgBox.Show("Value cannot be null or zero, please enter a valid value", MsgBoxImage.Warning);
+        }
+
+        if (History.Date is null)
+        {
+            //TODO work
+            MsgBox.Show("Date cannot be null, please select a date", MsgBoxImage.Warning);
+        }
+
+        if (History.PlaceFk is null)
+        {
+            //TODO work
+            MsgBox.Show("Place cannot be null, please select a place", MsgBoxImage.Warning);
+        }
     }
 
     private void ButtonCancel_OnClick(object sender, RoutedEventArgs e)
