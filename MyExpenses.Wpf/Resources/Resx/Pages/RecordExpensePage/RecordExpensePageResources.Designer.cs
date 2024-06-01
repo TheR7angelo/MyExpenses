@@ -159,6 +159,24 @@ namespace MyExpenses.Wpf.Resources.Resx.Pages.RecordExpensePage {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to An error occurred please retry.
+        /// </summary>
+        internal static string MessageBoxEditCategoryError {
+            get {
+                return ResourceManager.GetString("MessageBoxEditCategoryError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Category type was successfully edited.
+        /// </summary>
+        internal static string MessageBoxEditCategorySuccess {
+            get {
+                return ResourceManager.GetString("MessageBoxEditCategorySuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Description :.
         /// </summary>
         internal static string TextBoxDescriptionHintAssist {

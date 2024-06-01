@@ -174,8 +174,7 @@ public partial class RecordExpensePage
                 var json = editedCategoryTypeDeepCopy.ToJsonString();
                 Log.Information("{Json}", json);
 
-                //TODO work
-                MsgBox.Show("Category type was successfully edited", MsgBoxImage.Check);
+                MsgBox.Show(RecordExpensePageResources.MessageBoxEditCategorySuccess, MsgBoxImage.Check);
 
                 DashBoardPage.RefreshAccountTotal();
                 DashBoardPage.RefreshRadioButtonSelected();
@@ -183,8 +182,7 @@ public partial class RecordExpensePage
             else
             {
                 Log.Error(exception, "An error occurred please retry");
-                //TODO work
-                MsgBox.Show("An error occurred please retry", MsgBoxImage.Error);
+                MsgBox.Show(RecordExpensePageResources.MessageBoxEditCategoryError, MsgBoxImage.Error);
             }
         }
     }
