@@ -48,4 +48,7 @@
     <data name="MessageBoxDeleteModePaymentError" xml:space="preserve">
         <value>An error occurred please retry</value>
     </data>
+    <data name="MessageBoxModePaymentNameEmptyError" xml:space="preserve">
+        <value>Mode payment name cannot be empty</value>
+    </data>
 </root>

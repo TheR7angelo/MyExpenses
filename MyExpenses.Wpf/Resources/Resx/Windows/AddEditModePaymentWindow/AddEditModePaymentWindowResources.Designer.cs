@@ -142,6 +142,15 @@ namespace MyExpenses.Wpf.Resources.Resx.Windows.AddEditModePaymentWindow {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Mode payment name cannot be empty.
+        /// </summary>
+        internal static string MessageBoxModePaymentNameEmptyError {
+            get {
+                return ResourceManager.GetString("MessageBoxModePaymentNameEmptyError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Mode payment name :.
         /// </summary>
         internal static string TextBoxModePaymentName {

@@ -105,7 +105,11 @@ public partial class AddEditModePaymentWindow
     {
         var modePaymentName = ModePayment.Name;
 
-        if (string.IsNullOrEmpty(modePaymentName)) return;
+        if (string.IsNullOrWhiteSpace(modePaymentName))
+        {
+            MsgBox.MsgBox.Show(AddEditModePaymentWindowResources.MessageBoxModePaymentNameEmptyError, MsgBoxImage.Error);
+            return;
+        }
 
         var alreadyExist = CheckModePaymentName(modePaymentName);
         if (alreadyExist) ShowErrorMessage();
