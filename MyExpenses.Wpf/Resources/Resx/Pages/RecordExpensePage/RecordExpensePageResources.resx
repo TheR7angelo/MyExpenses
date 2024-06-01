@@ -84,4 +84,25 @@
     <data name="MessageBoxEditPlaceError" xml:space="preserve">
         <value>An error occurred please retry</value>
     </data>
+    <data name="MessageBoxValidationAccountFkError" xml:space="preserve">
+        <value>Account cannot be null, please select an account</value>
+    </data>
+    <data name="MessageBoxValidationDescriptionError" xml:space="preserve">
+        <value>Description cannot be empty, please enter a description</value>
+    </data>
+    <data name="MessageBoxValidationCategoryTypeFkError" xml:space="preserve">
+        <value>Category type cannot be null, please select a category type</value>
+    </data>
+    <data name="MessageBoxValidationModePaymentFkError" xml:space="preserve">
+        <value>Mode payment cannot be null, please select a mode payment</value>
+    </data>
+    <data name="MessageBoxValidationValueError" xml:space="preserve">
+        <value>Value cannot be null, please enter a valid value</value>
+    </data>
+    <data name="MessageBoxValidationDateError" xml:space="preserve">
+        <value>Date cannot be null, please select a date</value>
+    </data>
+    <data name="MessageBoxValidationPlaceFkError" xml:space="preserve">
+        <value>Place cannot be null, please select a place</value>
+    </data>
 </root>

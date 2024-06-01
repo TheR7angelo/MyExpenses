@@ -231,6 +231,69 @@ namespace MyExpenses.Wpf.Resources.Resx.Pages.RecordExpensePage {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Account cannot be null, please select an account.
+        /// </summary>
+        internal static string MessageBoxValidationAccountFkError {
+            get {
+                return ResourceManager.GetString("MessageBoxValidationAccountFkError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Category type cannot be null, please select a category type.
+        /// </summary>
+        internal static string MessageBoxValidationCategoryTypeFkError {
+            get {
+                return ResourceManager.GetString("MessageBoxValidationCategoryTypeFkError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Date cannot be null, please select a date.
+        /// </summary>
+        internal static string MessageBoxValidationDateError {
+            get {
+                return ResourceManager.GetString("MessageBoxValidationDateError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Description cannot be empty, please enter a description.
+        /// </summary>
+        internal static string MessageBoxValidationDescriptionError {
+            get {
+                return ResourceManager.GetString("MessageBoxValidationDescriptionError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mode payment cannot be null, please select a mode payment.
+        /// </summary>
+        internal static string MessageBoxValidationModePaymentFkError {
+            get {
+                return ResourceManager.GetString("MessageBoxValidationModePaymentFkError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Place cannot be null, please select a place.
+        /// </summary>
+        internal static string MessageBoxValidationPlaceFkError {
+            get {
+                return ResourceManager.GetString("MessageBoxValidationPlaceFkError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Value cannot be null, please enter a valid value.
+        /// </summary>
+        internal static string MessageBoxValidationValueError {
+            get {
+                return ResourceManager.GetString("MessageBoxValidationValueError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Description :.
         /// </summary>
         internal static string TextBoxDescriptionHintAssist {

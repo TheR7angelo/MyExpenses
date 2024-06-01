@@ -1,4 +1,5 @@
 using System.Collections.ObjectModel;
+using System.ComponentModel.DataAnnotations;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
@@ -21,6 +22,7 @@ using MyExpenses.Wpf.Windows.CategoryTypeManagementWindow;
 using MyExpenses.Wpf.Windows.LocationManagementWindows;
 using MyExpenses.Wpf.Windows.MsgBox;
 using Serilog;
+using ValidationResult = System.ComponentModel.DataAnnotations.ValidationResult;
 
 namespace MyExpenses.Wpf.Pages;
 
@@ -284,48 +286,33 @@ public partial class RecordExpensePage
 
     private void ButtonValid_OnClick(object sender, RoutedEventArgs e)
     {
-        if (History.AccountFk is null)
+        var validationContext = new ValidationContext(History, serviceProvider: null, items: null);
+        var validationResults = new List<ValidationResult>();
+        var isValid = Validator.TryValidateObject(History, validationContext, validationResults, true);
+
+        if (!isValid)
         {
-            //TODO work
-            MsgBox.Show("Account cannot be null, please select an account", MsgBoxImage.Warning);
+            var propertyError = validationResults.First();
+            var propertyMemberName = propertyError.MemberNames.First();
+
+            var messageErrorKey = propertyMemberName switch
+            {
+                nameof(THistory.AccountFk) => nameof(RecordExpensePageResources.MessageBoxValidationAccountFkError),
+                nameof(THistory.Description) => nameof(RecordExpensePageResources.MessageBoxValidationDescriptionError),
+                nameof(THistory.CategoryTypeFk) => nameof(RecordExpensePageResources.MessageBoxValidationCategoryTypeFkError),
+                nameof(THistory.ModePaymentFk) => nameof(RecordExpensePageResources.MessageBoxValidationModePaymentFkError),
+                nameof(THistory.Value) => nameof(RecordExpensePageResources.MessageBoxValidationValueError),
+                nameof(THistory.Date) => nameof(RecordExpensePageResources.MessageBoxValidationDateError),
+                nameof(THistory.PlaceFk) => nameof(RecordExpensePageResources.MessageBoxValidationPlaceFkError),
+                _ => null
+            };
+
+            var localizedErrorMessage = string.IsNullOrEmpty(messageErrorKey)
+                ? propertyError.ErrorMessage!
+                : RecordExpensePageResources.ResourceManager.GetString(messageErrorKey)!;
+
+            MsgBox.Show(localizedErrorMessage, MsgBoxImage.Error);
             return;
-        }
-
-        if (string.IsNullOrWhiteSpace(History.Description))
-        {
-            //TODO work
-            MsgBox.Show("Description cannot be empty, please enter a description", MsgBoxImage.Warning);
-            return;
-        }
-
-        if (History.CategoryTypeFk is null)
-        {
-            //TODO work
-            MsgBox.Show("Category type cannot be null, please select a category type", MsgBoxImage.Warning);
-        }
-
-        if (History.ModePaymentFk is null)
-        {
-            //TODO work
-            MsgBox.Show("Mode payment cannot be null, please select a mode payment", MsgBoxImage.Warning);
-        }
-
-        if (History.Value is null or 0d)
-        {
-            //TODO work
-            MsgBox.Show("Value cannot be null or zero, please enter a valid value", MsgBoxImage.Warning);
-        }
-
-        if (History.Date is null)
-        {
-            //TODO work
-            MsgBox.Show("Date cannot be null, please select a date", MsgBoxImage.Warning);
-        }
-
-        if (History.PlaceFk is null)
-        {
-            //TODO work
-            MsgBox.Show("Place cannot be null, please select a place", MsgBoxImage.Warning);
         }
 
         Log.Information("Attempting to inject the new history");
