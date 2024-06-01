@@ -187,14 +187,12 @@ public partial class RecordExpensePage
         }
     }
 
-    //TODO work
     private void ButtonModePayment_OnClick(object sender, RoutedEventArgs e)
     {
         var modePayment = History.ModePaymentFk?.ToISqlT<TModePayment>();
         if (modePayment?.CanBeDeleted is false)
         {
-            //TODO work
-            MsgBox.Show("This payment method cannot be changed or deleted", MsgBoxImage.Error);
+            MsgBox.Show(RecordExpensePageResources.MessageBoxModePaymentCantEdit, MsgBoxImage.Error);
             return;
         }
 
@@ -224,16 +222,14 @@ public partial class RecordExpensePage
                 var json = editedModePayment.ToJsonString();
                 Log.Information("{Json}", json);
 
-                //TODO work
-                MsgBox.Show("Mode payment was successfully edited", MsgBoxImage.Check);
+                MsgBox.Show(RecordExpensePageResources.MessageBoxEditModePaymentSuccess, MsgBoxImage.Check);
 
                 DashBoardPage.RefreshRadioButtonSelected();
             }
             else
             {
                 Log.Error(exception, "An error occurred please retry");
-                //TODO work
-                MsgBox.Show("An error occurred please retry", MsgBoxImage.Error);
+                MsgBox.Show(RecordExpensePageResources.MessageBoxEditModePaymentError, MsgBoxImage.Error);
             }
         }
     }

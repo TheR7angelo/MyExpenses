@@ -59,4 +59,13 @@
     <data name="MessageBoxEditCategoryError" xml:space="preserve">
         <value>Une erreur s'est produite, veuillez réessayer</value>
     </data>
+    <data name="MessageBoxModePaymentCantEdit" xml:space="preserve">
+        <value>Ce mode de paiement ne peut pas être modifié ou supprimé</value>
+    </data>
+    <data name="MessageBoxEditModePaymentSuccess" xml:space="preserve">
+        <value>Le mode de paiement a été modifié avec succès</value>
+    </data>
+    <data name="MessageBoxEditModePaymentError" xml:space="preserve">
+        <value>Une erreur s'est produite, veuillez réessayer</value>
+    </data>
 </root>

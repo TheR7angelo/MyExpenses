@@ -177,6 +177,33 @@ namespace MyExpenses.Wpf.Resources.Resx.Pages.RecordExpensePage {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to An error occurred please retry.
+        /// </summary>
+        internal static string MessageBoxEditModePaymentError {
+            get {
+                return ResourceManager.GetString("MessageBoxEditModePaymentError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mode payment was successfully edited.
+        /// </summary>
+        internal static string MessageBoxEditModePaymentSuccess {
+            get {
+                return ResourceManager.GetString("MessageBoxEditModePaymentSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This payment method cannot be changed or deleted.
+        /// </summary>
+        internal static string MessageBoxModePaymentCantEdit {
+            get {
+                return ResourceManager.GetString("MessageBoxModePaymentCantEdit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Description :.
         /// </summary>
         internal static string TextBoxDescriptionHintAssist {

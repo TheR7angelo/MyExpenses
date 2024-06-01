@@ -66,4 +66,13 @@
     <data name="MessageBoxEditCategoryError" xml:space="preserve">
         <value>An error occurred please retry</value>
     </data>
+    <data name="MessageBoxModePaymentCantEdit" xml:space="preserve">
+        <value>This payment method cannot be changed or deleted</value>
+    </data>
+    <data name="MessageBoxEditModePaymentSuccess" xml:space="preserve">
+        <value>Mode payment was successfully edited</value>
+    </data>
+    <data name="MessageBoxEditModePaymentError" xml:space="preserve">
+        <value>An error occurred please retry</value>
+    </data>
 </root>
