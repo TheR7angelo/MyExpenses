@@ -15,6 +15,7 @@ using MyExpenses.Wpf.Resources.Regex;
 using MyExpenses.Wpf.Utils.Maps;
 using MyExpenses.Wpf.Windows;
 using MyExpenses.Utils.Sql;
+using MyExpenses.Wpf.Resources.Resx.Pages.RecordExpensePage;
 using MyExpenses.Wpf.Utils;
 using MyExpenses.Wpf.Windows.CategoryTypeManagementWindow;
 using MyExpenses.Wpf.Windows.LocationManagementWindows;
@@ -37,30 +38,18 @@ public partial class RecordExpensePage
     public string SelectedValuePathPlace { get; } = nameof(TPlace.Id);
     public string DisplayMemberPathPlace { get; } = nameof(TPlace.Name);
 
-    //TODO work
-    public string ComboBoxAccountHintAssist { get; } = "From account :";
-    //TODO work
-    public string TextBoxDescriptionHintAssist { get; } = "Description :";
-    //TODO work
-    public string ComboBoxCategoryTypeHintAssist { get; } = "Category type :";
-    //TODO work
-    public string ComboBoxModePaymentHintAssist { get; } = "Mode payment :";
-    //TODO work
-    public string TextBoxValueHintAssist { get; } = "Value :";
-    //TODO work
-    public string DatePickerWhenHintAssist { get; } = "Date :";
-    //TODO work
-    public string TimePickerWhenHintAssist { get; } = "Time :";
-    //TODO work
-    public string ComboBoxPlaceHintAssist { get; } = "Place :";
-    //TODO work
-    public string CheckBoxPointedContent { get; } = "Is pointed :";
-    //TODO work
-    public string ComboBoxBackgroundHintAssist { get; } = "Basemap :";
-    //TODO work
-    public string ButtonValidContent { get; } = "Valid";
-    //TODO work
-    public string ButtonCancelContent { get; } = "Cancel";
+    public string ComboBoxAccountHintAssist { get; } = RecordExpensePageResources.ComboBoxAccountHintAssist;
+    public string TextBoxDescriptionHintAssist { get; } = RecordExpensePageResources.TextBoxDescriptionHintAssist;
+    public string ComboBoxCategoryTypeHintAssist { get; } = RecordExpensePageResources.ComboBoxCategoryTypeHintAssist;
+    public string ComboBoxModePaymentHintAssist { get; } = RecordExpensePageResources.ComboBoxModePaymentHintAssist;
+    public string TextBoxValueHintAssist { get; } = RecordExpensePageResources.TextBoxValueHintAssist;
+    public string DatePickerWhenHintAssist { get; } = RecordExpensePageResources.DatePickerWhenHintAssist;
+    public string TimePickerWhenHintAssist { get; } = RecordExpensePageResources.TimePickerWhenHintAssist;
+    public string ComboBoxPlaceHintAssist { get; } = RecordExpensePageResources.ComboBoxPlaceHintAssist;
+    public string CheckBoxPointedContent { get; } = RecordExpensePageResources.CheckBoxPointedContent;
+    public string ComboBoxBackgroundHintAssist { get; } = RecordExpensePageResources.ComboBoxBackgroundHintAssist;
+    public string ButtonValidContent { get; } = RecordExpensePageResources.ButtonValidContent;
+    public string ButtonCancelContent { get; } = RecordExpensePageResources.ButtonCancelContent;
 
     public required DashBoardPage DashBoardPage { get; set; }
 
