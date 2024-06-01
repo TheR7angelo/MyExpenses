@@ -68,4 +68,13 @@
     <data name="MessageBoxEditModePaymentError" xml:space="preserve">
         <value>Une erreur s'est produite, veuillez réessayer</value>
     </data>
+    <data name="MessageBoxPlaceCantEdit" xml:space="preserve">
+        <value>Ce lieu ne peut pas être modifié ou supprimé</value>
+    </data>
+    <data name="MessageBoxEditPlaceSuccess" xml:space="preserve">
+        <value>Le lieu a été modifié avec succès</value>
+    </data>
+    <data name="MessageBoxEditPlaceError" xml:space="preserve">
+        <value>Une erreur s'est produite, veuillez réessayer</value>
+    </data>
 </root>

@@ -234,14 +234,12 @@ public partial class RecordExpensePage
         }
     }
 
-    //TODO work
     private void ButtonPlace_OnClick(object sender, RoutedEventArgs e)
     {
         var place = History.PlaceFk?.ToISqlT<TPlace>();
         if (place?.CanBeDeleted is false)
         {
-            //TODO work
-            MsgBox.Show("This place cannot be changed or deleted", MsgBoxImage.Error);
+            MsgBox.Show(RecordExpensePageResources.MessageBoxPlaceCantEdit, MsgBoxImage.Error);
             return;
         }
 
@@ -260,7 +258,6 @@ public partial class RecordExpensePage
             return;
         }
 
-        //TODO work
         var editedPlace = addEditLocationWindow.Place;
         Log.Information("Attempting to update place id:\"{EditedPlaceId}\", name:\"{EditedPlaceName}\"",editedPlace.Id, editedPlace.Name);
 
@@ -274,16 +271,14 @@ public partial class RecordExpensePage
             var json = editedPlace.ToJsonString();
             Log.Information("{Json}", json);
 
-            //TODO work
-            MsgBox.Show("Place was successfully edited", MsgBoxImage.Check);
+            MsgBox.Show(RecordExpensePageResources.MessageBoxEditPlaceSuccess, MsgBoxImage.Check);
 
             DashBoardPage.RefreshRadioButtonSelected();
         }
         else
         {
             Log.Error(exception, "An error occurred please retry");
-            //TODO work
-            MsgBox.Show("An error occurred please retry", MsgBoxImage.Error);
+            MsgBox.Show(RecordExpensePageResources.MessageBoxEditPlaceError, MsgBoxImage.Error);
         }
     }
 

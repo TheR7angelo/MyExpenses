@@ -195,11 +195,38 @@ namespace MyExpenses.Wpf.Resources.Resx.Pages.RecordExpensePage {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to An error occurred please retry.
+        /// </summary>
+        internal static string MessageBoxEditPlaceError {
+            get {
+                return ResourceManager.GetString("MessageBoxEditPlaceError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Place was successfully edited.
+        /// </summary>
+        internal static string MessageBoxEditPlaceSuccess {
+            get {
+                return ResourceManager.GetString("MessageBoxEditPlaceSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to This payment method cannot be changed or deleted.
         /// </summary>
         internal static string MessageBoxModePaymentCantEdit {
             get {
                 return ResourceManager.GetString("MessageBoxModePaymentCantEdit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This place cannot be changed or deleted.
+        /// </summary>
+        internal static string MessageBoxPlaceCantEdit {
+            get {
+                return ResourceManager.GetString("MessageBoxPlaceCantEdit", resourceCulture);
             }
         }
         
