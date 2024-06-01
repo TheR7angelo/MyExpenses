@@ -1,4 +1,5 @@
 using System.Collections.ObjectModel;
+using System.ComponentModel.DataAnnotations;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
@@ -14,6 +15,7 @@ using MyExpenses.Wpf.Utils;
 using MyExpenses.Wpf.Windows;
 using MyExpenses.Wpf.Windows.MsgBox;
 using Serilog;
+using ValidationResult = System.ComponentModel.DataAnnotations.ValidationResult;
 
 namespace MyExpenses.Wpf.Pages;
 
@@ -157,15 +159,30 @@ public partial class BankTransferPage
 
     private void ButtonValidBankTransferPrepare_OnClick(object sender, RoutedEventArgs e)
     {
-        if (BankTransfer.FromAccountFk is null)
-        {
-            MsgBox.Show(BankTransferPageResources.MessageBoxButtonValidBankTransferPrepareFromAccountFkIsNullError, MsgBoxImage.Warning);
-            return;
-        }
+        var validationContext = new ValidationContext(BankTransfer, serviceProvider: null, items: null);
+        var validationResults = new List<ValidationResult>();
+        var isValid = Validator.TryValidateObject(BankTransfer, validationContext, validationResults, true);
 
-        if (BankTransfer.ToAccountFk is null)
+        if (!isValid)
         {
-            MsgBox.Show(BankTransferPageResources.MessageBoxButtonValidBankTransferPrepareToAccountFkIsNullError, MsgBoxImage.Warning);
+            var propertyError = validationResults.First();
+            var propertyMemberName = propertyError.MemberNames.First();
+
+            var messageErrorKey = propertyMemberName switch
+            {
+                nameof(TBankTransfer.FromAccountFk) => nameof(BankTransferPageResources.MessageBoxButtonValidationFromAccountFkError),
+                nameof(TBankTransfer.ToAccountFk) => nameof(BankTransferPageResources.MessageBoxButtonValidationToAccountFkError),
+                nameof(TBankTransfer.Value) => nameof(BankTransferPageResources.MessageBoxButtonValidationValueError),
+                nameof(TBankTransfer.Date) => nameof(BankTransferPageResources.MessageBoxButtonValidationDateError),
+                nameof(TBankTransfer.MainReason) => nameof(BankTransferPageResources.MessageBoxButtonValidationMainReasonError),
+                _ => null
+            };
+
+            var localizedErrorMessage = string.IsNullOrEmpty(messageErrorKey)
+                ? propertyError.ErrorMessage!
+                : BankTransferPageResources.ResourceManager.GetString(messageErrorKey)!;
+
+            MsgBox.Show(localizedErrorMessage, MsgBoxImage.Error);
             return;
         }
 
@@ -178,24 +195,6 @@ public partial class BankTransferPage
         if (ModePayment is null)
         {
             MsgBox.Show(BankTransferPageResources.MessageBoxButtonValidBankTransferPrepareModePaymentIsNullError, MsgBoxImage.Warning);
-            return;
-        }
-
-        if (BankTransfer.Value is null)
-        {
-            MsgBox.Show(BankTransferPageResources.MessageBoxButtonValidBankTransferPrepareValueIsNullError, MsgBoxImage.Warning);
-            return;
-        }
-
-        if (BankTransfer.Date is null)
-        {
-            MsgBox.Show(BankTransferPageResources.MessageBoxButtonValidBankTransferPrepareDateIsNullError, MsgBoxImage.Warning);
-            return;
-        }
-
-        if (string.IsNullOrWhiteSpace(BankTransfer.MainReason))
-        {
-            MsgBox.Show(BankTransferPageResources.MessageBoxButtonValidBankTransferPrepareMainReasonIsNullError, MsgBoxImage.Warning);
             return;
         }
 

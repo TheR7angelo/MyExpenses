@@ -12,21 +12,26 @@ public partial class TBankTransfer : ISql
     [Column("id")]
     public int Id { get; set; }
 
+    [Required]
     [Column("value")]
     public double? Value { get; set; }
 
+    [Required]
     [Column("from_account_fk")]
     public int? FromAccountFk { get; set; }
 
+    [Required]
     [Column("to_account_fk")]
     public int? ToAccountFk { get; set; }
 
+    [Required]
     [Column("main_reason")]
     public string? MainReason { get; set; }
 
     [Column("additional_reason")]
     public string? AdditionalReason { get; set; }
 
+    [Required]
     [Column("date", TypeName = "DATETIME")]
     public DateTime? Date { get; set; } = DateTime.Today;
 

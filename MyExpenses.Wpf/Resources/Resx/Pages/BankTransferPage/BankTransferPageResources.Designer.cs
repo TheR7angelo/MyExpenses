@@ -150,6 +150,51 @@ namespace MyExpenses.Wpf.Resources.Resx.Pages.BankTransferPage {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Date cannot be empty.
+        /// </summary>
+        internal static string MessageBoxButtonValidationDateError {
+            get {
+                return ResourceManager.GetString("MessageBoxButtonValidationDateError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The starting account cannot be empty.
+        /// </summary>
+        internal static string MessageBoxButtonValidationFromAccountFkError {
+            get {
+                return ResourceManager.GetString("MessageBoxButtonValidationFromAccountFkError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Main reason cannot be empty.
+        /// </summary>
+        internal static string MessageBoxButtonValidationMainReasonError {
+            get {
+                return ResourceManager.GetString("MessageBoxButtonValidationMainReasonError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Arrival account cannot be empty.
+        /// </summary>
+        internal static string MessageBoxButtonValidationToAccountFkError {
+            get {
+                return ResourceManager.GetString("MessageBoxButtonValidationToAccountFkError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Value cannot be empty.
+        /// </summary>
+        internal static string MessageBoxButtonValidationValueError {
+            get {
+                return ResourceManager.GetString("MessageBoxButtonValidationValueError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Category cannot be empty.
         /// </summary>
         internal static string MessageBoxButtonValidBankTransferPrepareCategoryIsNullError {
@@ -159,56 +204,11 @@ namespace MyExpenses.Wpf.Resources.Resx.Pages.BankTransferPage {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Date cannot be empty.
-        /// </summary>
-        internal static string MessageBoxButtonValidBankTransferPrepareDateIsNullError {
-            get {
-                return ResourceManager.GetString("MessageBoxButtonValidBankTransferPrepareDateIsNullError", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The starting account cannot be empty.
-        /// </summary>
-        internal static string MessageBoxButtonValidBankTransferPrepareFromAccountFkIsNullError {
-            get {
-                return ResourceManager.GetString("MessageBoxButtonValidBankTransferPrepareFromAccountFkIsNullError", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Main reason cannot be empty.
-        /// </summary>
-        internal static string MessageBoxButtonValidBankTransferPrepareMainReasonIsNullError {
-            get {
-                return ResourceManager.GetString("MessageBoxButtonValidBankTransferPrepareMainReasonIsNullError", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Mode payment cannot be empty.
         /// </summary>
         internal static string MessageBoxButtonValidBankTransferPrepareModePaymentIsNullError {
             get {
                 return ResourceManager.GetString("MessageBoxButtonValidBankTransferPrepareModePaymentIsNullError", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Arrival account cannot be empty.
-        /// </summary>
-        internal static string MessageBoxButtonValidBankTransferPrepareToAccountFkIsNullError {
-            get {
-                return ResourceManager.GetString("MessageBoxButtonValidBankTransferPrepareToAccountFkIsNullError", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Value cannot be empty.
-        /// </summary>
-        internal static string MessageBoxButtonValidBankTransferPrepareValueIsNullError {
-            get {
-                return ResourceManager.GetString("MessageBoxButtonValidBankTransferPrepareValueIsNullError", resourceCulture);
             }
         }
         
