@@ -12,24 +12,31 @@ public partial class THistory : ISql
     [Column("id")]
     public int Id { get; set; }
 
+    [Required]
     [Column("account_fk")]
     public int? AccountFk { get; set; }
 
+    [Required]
     [Column("description")]
     public string? Description { get; set; }
 
+    [Required]
     [Column("category_type_fk")]
     public int? CategoryTypeFk { get; set; }
 
+    [Required]
     [Column("mode_payment_fk")]
     public int? ModePaymentFk { get; set; }
 
+    [Required]
     [Column("value")]
     public double? Value { get; set; }
 
+    [Required]
     [Column("date", TypeName = "DATETIME")]
     public DateTime? Date { get; set; } = DateTime.Now;
 
+    [Required]
     [Column("place_fk")]
     public int? PlaceFk { get; set; }
 
