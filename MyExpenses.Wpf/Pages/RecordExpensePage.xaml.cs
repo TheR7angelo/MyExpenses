@@ -122,8 +122,7 @@ public partial class RecordExpensePage
                 var json = editedAccount.ToJsonString();
                 Log.Information("{Json}", json);
 
-                //TODO work
-                MsgBox.Show("Account was successfully edited", MsgBoxImage.Check);
+                MsgBox.Show(RecordExpensePageResources.MessageBoxEditAccountSuccess, MsgBoxImage.Check);
 
                 var accountToRemove = Accounts.FirstOrDefault(s => s.Id == History.Id);
                 Accounts!.AddAndSort(accountToRemove, editedAccount, s => s?.Name!);
@@ -132,9 +131,8 @@ public partial class RecordExpensePage
             }
             else
             {
-                //TODO work
                 Log.Error(exception, "An error occurred please retry");
-                MsgBox.Show("An error occurred please retry", MsgBoxImage.Warning);
+                MsgBox.Show(RecordExpensePageResources.MessageBoxEditAccountError, MsgBoxImage.Warning);
             }
         }
     }

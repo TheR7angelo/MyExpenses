@@ -141,6 +141,24 @@ namespace MyExpenses.Wpf.Resources.Resx.Pages.RecordExpensePage {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to An error occurred please retry.
+        /// </summary>
+        internal static string MessageBoxEditAccountError {
+            get {
+                return ResourceManager.GetString("MessageBoxEditAccountError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Account was successfully edited.
+        /// </summary>
+        internal static string MessageBoxEditAccountSuccess {
+            get {
+                return ResourceManager.GetString("MessageBoxEditAccountSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Description :.
         /// </summary>
         internal static string TextBoxDescriptionHintAssist {

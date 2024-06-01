@@ -47,4 +47,10 @@
     <data name="ButtonCancelContent" xml:space="preserve">
         <value>Annuler</value>
     </data>
+    <data name="MessageBoxEditAccountSuccess" xml:space="preserve">
+        <value>Le compte a été modifié avec succès</value>
+    </data>
+    <data name="MessageBoxEditAccountError" xml:space="preserve">
+        <value>Une erreur s'est produite, veuillez réessayer</value>
+    </data>
 </root>
