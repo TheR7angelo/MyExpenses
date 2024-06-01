@@ -41,4 +41,7 @@
     <data name="MessageBoxDeleteAccountTypeUseQuestion" xml:space="preserve">
         <value>Ce type de compte est en cours d'utilisation. Êtes-vous sûr de vouloir supprimer ce type de compte et tout ce qui y est lié ?</value>
     </data>
+    <data name="MessageBoxAccountTypeNameCannotEmptyError" xml:space="preserve">
+        <value>Le nom du type de compte ne peut pas être vide</value>
+    </data>
 </root>

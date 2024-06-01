@@ -112,7 +112,11 @@ public partial class AddEditAccountTypeWindow
     {
         var accountTypeName = AccountType.Name;
 
-        if (string.IsNullOrEmpty(accountTypeName)) return;
+        if (string.IsNullOrEmpty(accountTypeName))
+        {
+            MsgBox.MsgBox.Show(AddEditAccountTypeWindowResources.MessageBoxAccountTypeNameCannotEmptyError, MsgBoxImage.Error);
+            return;
+        }
 
         var alreadyExist = CheckAccountTypeName(accountTypeName);
         if (alreadyExist) ShowErrorMessage();

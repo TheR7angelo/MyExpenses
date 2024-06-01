@@ -141,9 +141,18 @@ namespace MyExpenses.Wpf.Resources.Resx.Windows.AddEditAccountTypeWindow {
         /// <summary>
         ///   Looks up a localized string similar to Account type and all relative element was successfully removed.
         /// </summary>
-        public static string MessageBoxDeleteAccountTypeUseSuccess {
+        internal static string MessageBoxDeleteAccountTypeUseSuccess {
             get {
                 return ResourceManager.GetString("MessageBoxDeleteAccountTypeUseSuccess", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Account type name cannot be empty.
+        /// </summary>
+        internal static string MessageBoxAccountTypeNameCannotEmptyError {
+            get {
+                return ResourceManager.GetString("MessageBoxAccountTypeNameCannotEmptyError", resourceCulture);
             }
         }
     }

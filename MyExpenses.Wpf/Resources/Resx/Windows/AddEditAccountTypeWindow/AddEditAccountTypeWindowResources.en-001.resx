@@ -41,4 +41,7 @@
     <data name="MessageBoxDeleteAccountTypeUseQuestion" xml:space="preserve">
         <value>This account type is in use.Are you sure you want to delete this account type and everything linked to it ?</value>
     </data>
+    <data name="MessageBoxAccountTypeNameCannotEmptyError" xml:space="preserve">
+        <value>Account type name cannot be empty</value>
+    </data>
 </root>
