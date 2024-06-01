@@ -146,5 +146,14 @@ namespace MyExpenses.Wpf.Resources.Resx.Windows.AddEditCurrencyWindow {
                 return ResourceManager.GetString("MessageBoxDeleteCurrencyError", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Currency symbol cannot be empty.
+        /// </summary>
+        internal static string MessageBoxCurrencySymbolCannotEmpty {
+            get {
+                return ResourceManager.GetString("MessageBoxCurrencySymbolCannotEmpty", resourceCulture);
+            }
+        }
     }
 }

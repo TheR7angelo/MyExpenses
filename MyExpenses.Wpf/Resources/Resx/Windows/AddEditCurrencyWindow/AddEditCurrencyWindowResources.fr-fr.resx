@@ -41,4 +41,7 @@
     <data name="ButtonDeleteContent" xml:space="preserve">
         <value>Supprimer</value>
     </data>
+    <data name="MessageBoxCurrencySymbolCannotEmpty" xml:space="preserve">
+        <value>Le symbole monétaire ne peut pas être vide</value>
+    </data>
 </root>

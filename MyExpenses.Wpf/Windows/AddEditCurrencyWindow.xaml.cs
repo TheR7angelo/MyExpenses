@@ -115,7 +115,11 @@ public partial class AddEditCurrencyWindow
     {
         var currencySymbol = Currency.Symbol;
 
-        if (string.IsNullOrEmpty(currencySymbol)) return;
+        if (string.IsNullOrWhiteSpace(currencySymbol))
+        {
+            MsgBox.MsgBox.Show(AddEditCurrencyWindowResources.MessageBoxCurrencySymbolCannotEmpty, MsgBoxImage.Warning);
+            return;
+        }
 
         var alreadyExist = CheckCurrencySymbol(currencySymbol);
         if (alreadyExist) ShowErrorMessage();
