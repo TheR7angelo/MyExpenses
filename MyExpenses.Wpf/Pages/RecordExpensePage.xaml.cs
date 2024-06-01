@@ -323,13 +323,11 @@ public partial class RecordExpensePage
             var json = History.ToJsonString();
             Log.Information("{Json}", json);
 
-            //TODO work
-            MsgBox.Show("History was successfully added", MsgBoxImage.Check);
+            MsgBox.Show(RecordExpensePageResources.MessageBoxAddHistorySuccess, MsgBoxImage.Check);
 
             DashBoardPage.RefreshRadioButtonSelected();
 
-            //TODO work
-            var response = MsgBox.Show("Do you want to record a new expense ?", MsgBoxImage.Question,
+            var response = MsgBox.Show(RecordExpensePageResources.MessageBoxAddHistoryQuestion, MsgBoxImage.Question,
                 MessageBoxButton.YesNoCancel);
             if (response is not MessageBoxResult.Yes) nameof(MainWindow.FrameBody).GoBack();
 
@@ -339,8 +337,7 @@ public partial class RecordExpensePage
         else
         {
             Log.Error(exception, "An error occurred please retry");
-            //TODO work
-            MsgBox.Show("An error occurred please retry", MsgBoxImage.Error);
+            MsgBox.Show(RecordExpensePageResources.MessageBoxAddHistoryError, MsgBoxImage.Error);
         }
     }
 

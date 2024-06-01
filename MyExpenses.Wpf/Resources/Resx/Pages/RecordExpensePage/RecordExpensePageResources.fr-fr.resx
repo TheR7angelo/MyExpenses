@@ -98,4 +98,13 @@
     <data name="MessageBoxValidationPlaceFkError" xml:space="preserve">
         <value>Le lieu ne peut pas être nul, veuillez sélectionner un lieu</value>
     </data>
+    <data name="MessageBoxAddHistorySuccess" xml:space="preserve">
+        <value>L'enregistrement de la dépense a été ajouté avec succès</value>
+    </data>
+    <data name="MessageBoxAddHistoryQuestion" xml:space="preserve">
+        <value>Vous souhaitez enregistrer une nouvelle dépense ?</value>
+    </data>
+    <data name="MessageBoxAddHistoryError" xml:space="preserve">
+        <value>Une erreur s'est produite, veuillez réessayer</value>
+    </data>
 </root>

@@ -105,4 +105,13 @@
     <data name="MessageBoxValidationPlaceFkError" xml:space="preserve">
         <value>Place cannot be null, please select a place</value>
     </data>
+    <data name="MessageBoxAddHistorySuccess" xml:space="preserve">
+        <value>The expense record was added successfully</value>
+    </data>
+    <data name="MessageBoxAddHistoryQuestion" xml:space="preserve">
+        <value>Do you want to record a new expense ?</value>
+    </data>
+    <data name="MessageBoxAddHistoryError" xml:space="preserve">
+        <value>An error occurred please retry</value>
+    </data>
 </root>

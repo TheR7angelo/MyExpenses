@@ -143,6 +143,33 @@ namespace MyExpenses.Wpf.Resources.Resx.Pages.RecordExpensePage {
         /// <summary>
         ///   Looks up a localized string similar to An error occurred please retry.
         /// </summary>
+        internal static string MessageBoxAddHistoryError {
+            get {
+                return ResourceManager.GetString("MessageBoxAddHistoryError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you want to record a new expense ?.
+        /// </summary>
+        internal static string MessageBoxAddHistoryQuestion {
+            get {
+                return ResourceManager.GetString("MessageBoxAddHistoryQuestion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The expense record was added successfully.
+        /// </summary>
+        internal static string MessageBoxAddHistorySuccess {
+            get {
+                return ResourceManager.GetString("MessageBoxAddHistorySuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error occurred please retry.
+        /// </summary>
         internal static string MessageBoxEditAccountError {
             get {
                 return ResourceManager.GetString("MessageBoxEditAccountError", resourceCulture);
