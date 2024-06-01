@@ -51,7 +51,7 @@ public partial class RecordExpensePage
     public string ButtonValidContent { get; } = RecordExpensePageResources.ButtonValidContent;
     public string ButtonCancelContent { get; } = RecordExpensePageResources.ButtonCancelContent;
 
-    public required DashBoardPage DashBoardPage { get; set; }
+    public required DashBoardPage DashBoardPage { get; init; }
 
     public ObservableCollection<TAccount> Accounts { get; }
     public ObservableCollection<TCategoryType> CategoryTypes { get; }
