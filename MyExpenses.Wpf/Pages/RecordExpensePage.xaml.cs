@@ -357,6 +357,10 @@ public partial class RecordExpensePage
     private void ButtonCancel_OnClick(object sender, RoutedEventArgs e)
         => nameof(MainWindow.FrameBody).GoBack();
 
+    private void ButtonDelete_OnClick(object sender, RoutedEventArgs e)
+    {
+        //TODO work
+    }
 
     private void TextBoxValue_OnTextChanged(object sender, TextChangedEventArgs e)
     {
@@ -392,6 +396,12 @@ public partial class RecordExpensePage
 
     #region Function
 
+    public void SetTHistory(THistory history)
+    {
+        history.CopyPropertiesTo(History);
+        EditHistory = true;
+    }
+
     private void UpdateMapPoint(TPlace? place)
     {
         PlaceLayer.Clear();
@@ -424,10 +434,4 @@ public partial class RecordExpensePage
     }
 
     #endregion
-
-    public void SetTHistory(THistory history)
-    {
-        history.CopyPropertiesTo(History);
-        EditHistory = true;
-    }
 }
