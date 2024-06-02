@@ -173,8 +173,12 @@ public partial class DashBoardPage : INotifyPropertyChanged
 
         VHistories.Remove(vHistory);
 
-        RefreshAccountTotal();
-        RefreshRadioButtonSelected();
+        var name = vHistory.Account!;
+        var dateTime = DateTime.Now;
+        UpdateGraph(name, dateTime);
+        RefreshDataGrid(name, dateTime);
+
+        //TODO refresh total account display
     }
 
     private void MenuItemEditRecord_OnClick(object sender, RoutedEventArgs e)
