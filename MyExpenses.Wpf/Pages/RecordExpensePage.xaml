@@ -22,6 +22,7 @@
 
     <Page.Resources>
         <converters:SplitUpperCaseWordsConverter x:Key="SplitCamelCaseConverter" />
+        <converters:InverseBooleanToVisibilityConverter x:Key="InverseBooleanToVisibilityConverter" />
     </Page.Resources>
 
     <Grid margin:PanelExtensions.MarginForAllChildren="5"
@@ -192,6 +193,7 @@
         </CheckBox>
 
         <Grid Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="2"
+              Visibility="{Binding EditHistory, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource InverseBooleanToVisibilityConverter}}"
               margin:PanelExtensions.MarginForAllChildren="3">
 
             <Grid.ColumnDefinitions>
@@ -199,13 +201,40 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <!-- TODO work -->
             <Button Grid.Column="0" Content="{Binding ButtonValidContent}"
                     Style="{StaticResource MaterialDesignPaperButton}"
                     Click="ButtonValid_OnClick">
             </Button>
 
             <Button Grid.Column="1" Content="{Binding ButtonCancelContent}"
+                    Style="{StaticResource MaterialDesignPaperSecondaryButton}"
+                    Click="ButtonCancel_OnClick">
+            </Button>
+
+        </Grid>
+
+        <Grid Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="2"
+              Visibility="{Binding EditHistory, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BooleanToVisibilityConverter}}"
+              margin:PanelExtensions.MarginForAllChildren="3">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Button Grid.Column="0" Content="{Binding ButtonValidContent}"
+                    Style="{StaticResource MaterialDesignPaperButton}"
+                    Click="ButtonValid_OnClick">
+            </Button>
+
+            <!-- TODO work -->
+            <Button Grid.Column="1" Content="{Binding ButtonCancelContent}"
+                    Style="{StaticResource MaterialDesignPaperSecondaryButton}"
+                    Click="ButtonCancel_OnClick">
+            </Button>
+
+            <Button Grid.Column="2" Content="{Binding ButtonCancelContent}"
                     Style="{StaticResource MaterialDesignPaperSecondaryButton}"
                     Click="ButtonCancel_OnClick">
             </Button>
