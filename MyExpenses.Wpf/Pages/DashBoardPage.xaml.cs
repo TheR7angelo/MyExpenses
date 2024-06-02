@@ -14,7 +14,6 @@ using MyExpenses.Models.Sql.Views;
 using MyExpenses.Models.Wpf.Charts;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils.Collection;
-using MyExpenses.Utils.Sql;
 using MyExpenses.Wpf.Resources.Resx.Pages.DashBoardPage;
 using MyExpenses.Wpf.Utils;
 using SkiaSharp;
