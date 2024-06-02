@@ -163,6 +163,20 @@ public partial class DashBoardPage : INotifyPropertyChanged
     private void ItemsControlVTotalAccount_OnLoaded(object sender, RoutedEventArgs e)
         => RefreshRadioButtonSelected();
 
+    //TODO work
+    private void MenuItemDeleteRecord_OnClick(object sender, RoutedEventArgs e)
+    {
+        if (DataGridRow!.DataContext is not VHistory vHistory) return;
+        var history = vHistory.ToTHistory();
+
+        history?.Delete(true);
+
+        VHistories.Remove(vHistory);
+
+        RefreshAccountTotal();
+        RefreshRadioButtonSelected();
+    }
+
     private void MenuItemEditRecord_OnClick(object sender, RoutedEventArgs e)
     {
         if (DataGridRow!.DataContext is not VHistory vHistory) return;
@@ -313,10 +327,4 @@ public partial class DashBoardPage : INotifyPropertyChanged
     //     var json = vHistory.ToJsonString();
     //     Console.WriteLine(json);
     // }
-
-    //TODO work
-    private void MenuItemDeleteRecord_OnClick(object sender, RoutedEventArgs e)
-    {
-        throw new NotImplementedException();
-    }
 }
