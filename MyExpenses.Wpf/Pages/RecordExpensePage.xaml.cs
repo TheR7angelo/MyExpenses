@@ -28,6 +28,14 @@ namespace MyExpenses.Wpf.Pages;
 
 public partial class RecordExpensePage
 {
+    public static readonly DependencyProperty EditHistoryProperty = DependencyProperty.Register(nameof(EditHistory),
+        typeof(bool), typeof(RecordExpensePage), new PropertyMetadata(default(bool)));
+
+    public bool EditHistory
+    {
+        get => (bool)GetValue(EditHistoryProperty);
+        set => SetValue(EditHistoryProperty, value);
+    }
 
     public THistory History { get; } = new();
 
@@ -411,4 +419,10 @@ public partial class RecordExpensePage
     }
 
     #endregion
+
+    public void SetTHistory(THistory history)
+    {
+        history.CopyPropertiesTo(History);
+        EditHistory = true;
+    }
 }
