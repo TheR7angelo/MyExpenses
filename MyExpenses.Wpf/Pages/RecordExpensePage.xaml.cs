@@ -59,6 +59,7 @@ public partial class RecordExpensePage
     public string CheckBoxPointedContent { get; } = RecordExpensePageResources.CheckBoxPointedContent;
     public string ComboBoxBackgroundHintAssist { get; } = RecordExpensePageResources.ComboBoxBackgroundHintAssist;
     public string ButtonValidContent { get; } = RecordExpensePageResources.ButtonValidContent;
+    public string ButtonDeleteContent { get; } = RecordExpensePageResources.ButtonDeleteContent;
     public string ButtonCancelContent { get; } = RecordExpensePageResources.ButtonCancelContent;
 
     public required DashBoardPage DashBoardPage { get; init; }

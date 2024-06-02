@@ -69,6 +69,15 @@ namespace MyExpenses.Wpf.Resources.Resx.Pages.RecordExpensePage {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Delete.
+        /// </summary>
+        internal static string ButtonDeleteContent {
+            get {
+                return ResourceManager.GetString("ButtonDeleteContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Valid.
         /// </summary>
         internal static string ButtonValidContent {
