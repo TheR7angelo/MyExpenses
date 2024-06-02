@@ -9,6 +9,7 @@ using System.Windows.Media;
 using BruTile.Predefined;
 using Mapsui.Layers;
 using Mapsui.Tiling.Layers;
+using Microsoft.Data.Sqlite;
 using MyExpenses.Models.Sql.Tables;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils.Collection;
@@ -359,7 +360,47 @@ public partial class RecordExpensePage
 
     private void ButtonDelete_OnClick(object sender, RoutedEventArgs e)
     {
-        //TODO work
+        var response = MsgBox.Show(RecordExpensePageResources.MessageBoxDeleteRecordQuestion, MsgBoxImage.Question, MessageBoxButton.YesNoCancel);
+
+        if (response is not MessageBoxResult.Yes) return;
+
+        Log.Information("Attempting to remove the record \"{HistoryToDeleteDescriiption}\"", History.Description);
+        var (success, exception) = History.Delete();
+
+        if (success)
+        {
+            Log.Information("This Record was successfully removed");
+            MsgBox.Show(RecordExpensePageResources.MessageBoxDeleteHistoryNoUseSuccess, MsgBoxImage.Check);
+
+            nameof(MainWindow.FrameBody).GoBack();
+            return;
+        }
+
+        if (exception!.InnerException is SqliteException
+            {
+                SqliteExtendedErrorCode: SQLitePCL.raw.SQLITE_CONSTRAINT_FOREIGNKEY
+            })
+        {
+            Log.Error("Foreign key constraint violation");
+
+            response = MsgBox.Show(RecordExpensePageResources.MessageBoxDeleteUseRecordQuestion,
+                MsgBoxImage.Question, MessageBoxButton.YesNoCancel);
+
+            if (response is not MessageBoxResult.Yes) return;
+
+            Log.Information("Attempting to remove this record \"{HistoryToDeleteDescriiption}\" with all relative element",
+                History.Description);
+            History.Delete(true);
+            Log.Information("This record and all relative element was successfully removed");
+
+            MsgBox.Show(RecordExpensePageResources.MessageBoxDeleteHistoryUseSuccess, MsgBoxImage.Check);
+
+            nameof(MainWindow.FrameBody).GoBack();
+            return;
+        }
+
+        Log.Error(exception, "An error occurred please retry");
+        MsgBox.Show(RecordExpensePageResources.MessageBoxDeleteHistoryError, MsgBoxImage.Error);
     }
 
     private void TextBoxValue_OnTextChanged(object sender, TextChangedEventArgs e)

@@ -179,6 +179,51 @@ namespace MyExpenses.Wpf.Resources.Resx.Pages.RecordExpensePage {
         /// <summary>
         ///   Looks up a localized string similar to An error occurred please retry.
         /// </summary>
+        internal static string MessageBoxDeleteHistoryError {
+            get {
+                return ResourceManager.GetString("MessageBoxDeleteHistoryError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This Record was successfully removed.
+        /// </summary>
+        internal static string MessageBoxDeleteHistoryNoUseSuccess {
+            get {
+                return ResourceManager.GetString("MessageBoxDeleteHistoryNoUseSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This record and all relative element was successfully removed.
+        /// </summary>
+        internal static string MessageBoxDeleteHistoryUseSuccess {
+            get {
+                return ResourceManager.GetString("MessageBoxDeleteHistoryUseSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you really want to delete this recording ?.
+        /// </summary>
+        internal static string MessageBoxDeleteRecordQuestion {
+            get {
+                return ResourceManager.GetString("MessageBoxDeleteRecordQuestion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This record is in use. Are you sure you want to delete this record and everything linked to it ?.
+        /// </summary>
+        internal static string MessageBoxDeleteUseRecordQuestion {
+            get {
+                return ResourceManager.GetString("MessageBoxDeleteUseRecordQuestion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error occurred please retry.
+        /// </summary>
         internal static string MessageBoxEditAccountError {
             get {
                 return ResourceManager.GetString("MessageBoxEditAccountError", resourceCulture);

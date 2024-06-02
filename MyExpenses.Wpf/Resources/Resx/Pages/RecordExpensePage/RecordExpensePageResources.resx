@@ -117,4 +117,19 @@
     <data name="ButtonDeleteContent" xml:space="preserve">
         <value>Delete</value>
     </data>
+    <data name="MessageBoxDeleteRecordQuestion" xml:space="preserve">
+        <value>Do you really want to delete this recording ?</value>
+    </data>
+    <data name="MessageBoxDeleteHistoryNoUseSuccess" xml:space="preserve">
+        <value>This Record was successfully removed</value>
+    </data>
+    <data name="MessageBoxDeleteUseRecordQuestion" xml:space="preserve">
+        <value>This record is in use. Are you sure you want to delete this record and everything linked to it ?</value>
+    </data>
+    <data name="MessageBoxDeleteHistoryUseSuccess" xml:space="preserve">
+        <value>This record and all relative element was successfully removed</value>
+    </data>
+    <data name="MessageBoxDeleteHistoryError" xml:space="preserve">
+        <value>An error occurred please retry</value>
+    </data>
 </root>
