@@ -231,6 +231,7 @@
 
                 <DataGrid.ContextMenu>
                     <ContextMenu>
+                        <MenuItem Header="{Binding DataGridMenuItemHeaderEditRecord}" Click="MenuItemEditRecord_OnClick" />
                         <MenuItem Header="{Binding DataGridTextColumnPointed}" Click="MenuItemPointed_OnClick" />
                     </ContextMenu>
                 </DataGrid.ContextMenu>

@@ -87,6 +87,8 @@ public partial class DashBoardPage : INotifyPropertyChanged
     public string DataGridTextColumnPlace { get; } = DashBoardPageResources.DataGridTextColumnPlace;
     public string DataGridTextColumnPointed { get; } = DashBoardPageResources.DataGridTextColumnPointed;
 
+    public string DataGridMenuItemHeaderEditRecord { get; } = DashBoardPageResources.DataGridMenuItemHeaderEditRecord;
+
     #endregion
 
     public ObservableCollection<CategoryTotal> CategoryTotals { get; } = [];
@@ -160,6 +162,18 @@ public partial class DashBoardPage : INotifyPropertyChanged
 
     private void ItemsControlVTotalAccount_OnLoaded(object sender, RoutedEventArgs e)
         => RefreshRadioButtonSelected();
+
+    private void MenuItemEditRecord_OnClick(object sender, RoutedEventArgs e)
+    {
+        if (DataGridRow!.DataContext is not VHistory vHistory) return;
+        var history = vHistory.ToTHistory();
+        if (history is null) return;
+
+        var recordExpensePage = new RecordExpensePage { DashBoardPage = this };
+        recordExpensePage.SetTHistory(history);
+
+        nameof(MainWindow.FrameBody).NavigateTo(recordExpensePage);
+    }
 
     private void MenuItemPointed_OnClick(object sender, RoutedEventArgs e)
     {

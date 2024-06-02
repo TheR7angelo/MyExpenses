@@ -62,4 +62,7 @@
     <data name="ButtonRecordExpense" xml:space="preserve">
         <value>Enregistrer une dépense</value>
     </data>
+    <data name="DataGridMenuItemHeaderEditRecord" xml:space="preserve">
+        <value>Modifier l'enregistrement</value>
+    </data>
 </root>

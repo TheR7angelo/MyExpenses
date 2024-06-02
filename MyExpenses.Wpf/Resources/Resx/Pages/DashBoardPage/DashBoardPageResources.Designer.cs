@@ -208,5 +208,14 @@ namespace MyExpenses.Wpf.Resources.Resx.Pages.DashBoardPage {
                 return ResourceManager.GetString("DataGridTextColumnPlace", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Edit record.
+        /// </summary>
+        internal static string DataGridMenuItemHeaderEditRecord {
+            get {
+                return ResourceManager.GetString("DataGridMenuItemHeaderEditRecord", resourceCulture);
+            }
+        }
     }
 }
