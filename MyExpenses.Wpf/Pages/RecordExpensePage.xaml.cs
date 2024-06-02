@@ -220,7 +220,9 @@ public partial class RecordExpensePage
         else
         {
             var editedModePayment = addEditModePaymentWindow.ModePayment;
-            Log.Information("Attempting to update mode payment id:\"{EditedModePaymentId}\", name:\"{EditedModePaymentName}\"",editedModePayment.Id, editedModePayment.Name);
+            Log.Information(
+                "Attempting to update mode payment id:\"{EditedModePaymentId}\", name:\"{EditedModePaymentName}\"",
+                editedModePayment.Id, editedModePayment.Name);
 
             var (success, exception) = editedModePayment.AddOrEdit();
             if (success)
@@ -269,7 +271,7 @@ public partial class RecordExpensePage
         }
 
         var editedPlace = addEditLocationWindow.Place;
-        Log.Information("Attempting to update place id:\"{EditedPlaceId}\", name:\"{EditedPlaceName}\"",editedPlace.Id, editedPlace.Name);
+        Log.Information("Attempting to update place id:\"{EditedPlaceId}\", name:\"{EditedPlaceName}\"", editedPlace.Id, editedPlace.Name);
 
         var (success, exception) = editedPlace.AddOrEdit();
         if (success)
