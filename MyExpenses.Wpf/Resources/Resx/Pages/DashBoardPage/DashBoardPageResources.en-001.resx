@@ -63,6 +63,9 @@
         <value>Record an expense</value>
     </data>
     <data name="DataGridMenuItemHeaderEditRecord" xml:space="preserve">
-        <value>Edit record</value>
+        <value>Edit this record</value>
+    </data>
+    <data name="DataGridMenuItemHeaderDeleteRecord" xml:space="preserve">
+        <value>Delete this record</value>
     </data>
 </root>

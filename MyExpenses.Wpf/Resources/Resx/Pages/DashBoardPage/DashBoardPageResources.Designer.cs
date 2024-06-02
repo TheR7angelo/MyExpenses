@@ -210,11 +210,20 @@ namespace MyExpenses.Wpf.Resources.Resx.Pages.DashBoardPage {
         }
 
         /// <summary>
-        ///   Looks up a localized string similar to Edit record.
+        ///   Looks up a localized string similar to Edit this record.
         /// </summary>
         internal static string DataGridMenuItemHeaderEditRecord {
             get {
                 return ResourceManager.GetString("DataGridMenuItemHeaderEditRecord", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Edit this record.
+        /// </summary>
+        internal static string DataGridMenuItemHeaderDeleteRecord {
+            get {
+                return ResourceManager.GetString("DataGridMenuItemHeaderDeleteRecord", resourceCulture);
             }
         }
     }

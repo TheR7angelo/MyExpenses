@@ -63,6 +63,9 @@
         <value>Enregistrer une dépense</value>
     </data>
     <data name="DataGridMenuItemHeaderEditRecord" xml:space="preserve">
-        <value>Modifier l'enregistrement</value>
+        <value>Modifier cet enregistrement</value>
+    </data>
+    <data name="DataGridMenuItemHeaderDeleteRecord" xml:space="preserve">
+        <value>Supprimer cet enregistrement</value>
     </data>
 </root>

@@ -87,6 +87,7 @@ public partial class DashBoardPage : INotifyPropertyChanged
     public string DataGridTextColumnPointed { get; } = DashBoardPageResources.DataGridTextColumnPointed;
 
     public string DataGridMenuItemHeaderEditRecord { get; } = DashBoardPageResources.DataGridMenuItemHeaderEditRecord;
+    public string DataGridMenuItemHeaderDeleteRecord { get; } = DashBoardPageResources.DataGridMenuItemHeaderDeleteRecord;
 
     #endregion
 
@@ -312,4 +313,10 @@ public partial class DashBoardPage : INotifyPropertyChanged
     //     var json = vHistory.ToJsonString();
     //     Console.WriteLine(json);
     // }
+
+    //TODO work
+    private void MenuItemDeleteRecord_OnClick(object sender, RoutedEventArgs e)
+    {
+        throw new NotImplementedException();
+    }
 }
