@@ -71,7 +71,7 @@
                  materialDesign:HintAssist.Hint="{Binding TextBoxDescriptionHintAssist}"
                  Style="{StaticResource MaterialDesignFilledTextBox}"
                  Text="{Binding History.Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                 AcceptsReturn="True" AcceptsTab="True">
+                 TextWrapping="Wrap" AcceptsReturn="True" AcceptsTab="True">
         </TextBox>
 
         <ComboBox Grid.Row="2" Grid.Column="0"
@@ -142,6 +142,7 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
             <DatePicker Grid.Column="0" x:Name="DatePicker"
@@ -156,6 +157,17 @@
                                        SelectedTime="{Binding History.Date, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                        SelectedTimeFormat="Long">
             </materialDesign:TimePicker>
+
+            <Button Grid.Column="2"
+                    HorizontalAlignment="Left"
+                    Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
+                    Click="ButtonDateNow_OnClick">
+
+                <Button.Content>
+                    <materialDesign:PackIcon Kind="ClockFast" />
+                </Button.Content>
+
+            </Button>
 
         </Grid>
 
