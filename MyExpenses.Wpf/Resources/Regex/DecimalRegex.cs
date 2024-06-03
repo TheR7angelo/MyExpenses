@@ -16,6 +16,6 @@ public static partial class DecimalRegex
         return result;
     }
 
-    [GeneratedRegex("^[.][0-9]+$|^[0-9]*[.]{0,1}[0-9]*$|^[0-9]*[,]{0,1}[0-9]*$")]
+    [GeneratedRegex("^-?[.][0-9]+$|^-?[0-9]*[.]{0,1}[0-9]*$|^-?[0-9]*[,]{0,1}[0-9]*$")]
     private static partial System.Text.RegularExpressions.Regex IsOnlyDecimalRegex();
 }
