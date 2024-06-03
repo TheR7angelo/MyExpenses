@@ -339,7 +339,11 @@ public partial class RecordExpensePage
 
             DashBoardPage.RefreshRadioButtonSelected();
 
-            if (EditHistory) nameof(MainWindow.FrameBody).GoBack();
+            if (EditHistory)
+            {
+                nameof(MainWindow.FrameBody).GoBack();
+                return;
+            }
 
             var response = MsgBox.Show(RecordExpensePageResources.MessageBoxAddHistoryQuestion, MsgBoxImage.Question,
                 MessageBoxButton.YesNoCancel);
