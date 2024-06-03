@@ -93,6 +93,8 @@ public partial class RecordExpensePage
 
         InitializeComponent();
 
+        History.Date = DateTime.Now;
+
         var language = XmlLanguage.GetLanguage(Thread.CurrentThread.CurrentCulture.Name);
         DatePicker.Language = language;
 
