@@ -99,6 +99,7 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
             <Ellipse Grid.Row="0"
@@ -123,7 +124,22 @@
                 
             </StackPanel>
 
-            <Border Grid.Row="2" HorizontalAlignment="Center"
+            <StackPanel Grid.Row="2"
+                        Orientation="Horizontal"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center">
+
+                <ComboBox ItemsSource="{Binding Years, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                          SelectedItem="{Binding SelectedYear, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                </ComboBox>
+
+                <ComboBox ItemsSource="{Binding Months, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                          SelectedItem="{Binding SelectedMonth, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                </ComboBox>
+
+            </StackPanel>
+
+            <Border Grid.Row="3" HorizontalAlignment="Center"
                     CornerRadius="1"
                     BorderBrush="{DynamicResource MaterialDesignBody}"
                     BorderThickness="2">
