@@ -146,6 +146,11 @@ public partial class DashBoardPage : INotifyPropertyChanged
                 .Select(s => s.ToFirstCharUpper())
         ];
 
+        var now = DateTime.Now;
+        if(Years.Count.Equals(0)) {Years.Add(DateTime.Now.Year.ToString());}
+        SelectedYear = now.Year.ToString();
+        SelectedMonth = Months[now.Month];
+
         RefreshAccountTotal();
 
         InitializeComponent();
