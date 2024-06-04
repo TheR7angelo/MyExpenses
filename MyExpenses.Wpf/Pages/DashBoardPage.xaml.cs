@@ -284,8 +284,11 @@ public partial class DashBoardPage : INotifyPropertyChanged
         var categoriesTotals = brutCategoriesTotals
             .Where(s => s.Year == dateTime.Year && s.Month == dateTime.Month)
             .GroupBy(s => s.Category)
-            .Select(g => new { Category = g.Key, Total = g.Sum(s => s.Value) ?? 0d,
-                g.First().Symbol, g.First().HexadecimalColorCode })
+            .Select(g => new
+            {
+                Category = g.Key, Total = g.Sum(s => s.Value) ?? 0d,
+                g.First().Symbol, g.First().HexadecimalColorCode
+            })
             .ToList();
 
         var grandTotal = Math.Round(categoriesTotals.Sum(ct => Math.Abs(ct.Total)), 2);
