@@ -104,21 +104,21 @@ public partial class DashBoardPage : INotifyPropertyChanged
         using var context = new DataBaseContext();
         Years =
         [
+            NoFilter,
             ..context
-            .THistories
-            .Where(s => s.Date.HasValue)
-            .Select(s => s.Date!.Value.Year.ToString())
-            .Distinct()
-            .OrderByDescending(y => y),
-            NoFilter
+                .THistories
+                .Where(s => s.Date.HasValue)
+                .Select(s => s.Date!.Value.Year.ToString())
+                .Distinct()
+                .OrderByDescending(y => y)
         ];
 
         Months =
         [
+            NoFilter,
             ..CultureInfo.CurrentCulture.DateTimeFormat.MonthNames
                 .Where(s => !string.IsNullOrEmpty(s))
-                .Select(s => s.ToFirstCharUpper()),
-            NoFilter
+                .Select(s => s.ToFirstCharUpper())
         ];
 
         RefreshAccountTotal();
