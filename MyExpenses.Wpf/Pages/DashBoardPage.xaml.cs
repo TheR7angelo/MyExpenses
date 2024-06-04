@@ -96,8 +96,33 @@ public partial class DashBoardPage : INotifyPropertyChanged
     public ObservableCollection<CategoryTotal> CategoryTotals { get; } = [];
     public ObservableCollection<string> Years { get; }
     public ObservableCollection<string> Months { get; }
+
     //TODO work
     private static string NoFilter => "All";
+
+    private string _selectedYear = NoFilter;
+
+    public string SelectedYear
+    {
+        get => _selectedYear;
+        set
+        {
+            _selectedYear = value;
+            OnPropertyChanged();
+        }
+    }
+
+    private string _selectedMonth = NoFilter;
+
+    public string SelectedMonth
+    {
+        get => _selectedMonth;
+        set
+        {
+            _selectedMonth = value;
+            OnPropertyChanged();
+        }
+    }
 
     public DashBoardPage()
     {
