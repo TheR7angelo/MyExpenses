@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Globalization;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
@@ -14,6 +15,7 @@ using MyExpenses.Models.Sql.Views;
 using MyExpenses.Models.Wpf.Charts;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils.Collection;
+using MyExpenses.Utils.Strings;
 using MyExpenses.Wpf.Resources.Resx.Pages.DashBoardPage;
 using MyExpenses.Wpf.Utils;
 using SkiaSharp;
@@ -95,6 +97,21 @@ public partial class DashBoardPage : INotifyPropertyChanged
 
     public DashBoardPage()
     {
+        using var context = new DataBaseContext();
+        var years = context
+            .THistories
+            .Where(s => s.Date.HasValue)
+            .Select(s => s.Date!.Value.Year)
+            .Distinct()
+            .OrderByDescending(y => y)
+            .ToList();
+
+        var dateTimeFormat = CultureInfo.CurrentCulture.DateTimeFormat;
+        foreach (var name in dateTimeFormat.MonthNames)
+        {
+            Console.WriteLine(name.ToFirstCharUpper());
+        }
+
         RefreshAccountTotal();
 
         InitializeComponent();
