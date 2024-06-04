@@ -96,6 +96,8 @@ public partial class DashBoardPage : INotifyPropertyChanged
     public ObservableCollection<CategoryTotal> CategoryTotals { get; } = [];
     public ObservableCollection<string> Years { get; }
     public ObservableCollection<string> Months { get; }
+    //TODO work
+    private static string NoFilter => "All";
 
     public DashBoardPage()
     {
@@ -108,7 +110,7 @@ public partial class DashBoardPage : INotifyPropertyChanged
             .Select(s => s.Date!.Value.Year.ToString())
             .Distinct()
             .OrderByDescending(y => y),
-        "All"
+            NoFilter
         ];
 
         Months =
@@ -116,7 +118,7 @@ public partial class DashBoardPage : INotifyPropertyChanged
             ..CultureInfo.CurrentCulture.DateTimeFormat.MonthNames
                 .Where(s => !string.IsNullOrEmpty(s))
                 .Select(s => s.ToFirstCharUpper()),
-            "All"
+            NoFilter
         ];
 
         RefreshAccountTotal();
