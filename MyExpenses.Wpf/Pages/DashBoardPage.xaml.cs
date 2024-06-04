@@ -94,23 +94,30 @@ public partial class DashBoardPage : INotifyPropertyChanged
     #endregion
 
     public ObservableCollection<CategoryTotal> CategoryTotals { get; } = [];
+    public ObservableCollection<string> Years { get; }
+    public ObservableCollection<string> Months { get; }
 
     public DashBoardPage()
     {
         using var context = new DataBaseContext();
-        var years = context
+        Years =
+        [
+            ..context
             .THistories
             .Where(s => s.Date.HasValue)
-            .Select(s => s.Date!.Value.Year)
+            .Select(s => s.Date!.Value.Year.ToString())
             .Distinct()
-            .OrderByDescending(y => y)
-            .ToList();
+            .OrderByDescending(y => y),
+        "All"
+        ];
 
-        var dateTimeFormat = CultureInfo.CurrentCulture.DateTimeFormat;
-        foreach (var name in dateTimeFormat.MonthNames)
-        {
-            Console.WriteLine(name.ToFirstCharUpper());
-        }
+        Months =
+        [
+            ..CultureInfo.CurrentCulture.DateTimeFormat.MonthNames
+                .Where(s => !string.IsNullOrEmpty(s))
+                .Select(s => s.ToFirstCharUpper()),
+            "All"
+        ];
 
         RefreshAccountTotal();
 
