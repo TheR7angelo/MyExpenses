@@ -286,36 +286,24 @@ public partial class DashBoardPage : INotifyPropertyChanged
         using var context = new DataBaseContext();
         VHistories.Clear();
 
-        IEnumerable<VHistory> records;
+        var query = context.VHistories
+            .Where(s => s.Account == name);
 
-        if (!string.IsNullOrEmpty(SelectedMonth) && string.IsNullOrEmpty(SelectedYear))
-        {
-            var monthInt = Months.IndexOf(SelectedMonth);
-            records = context.VHistories
-                .Where(s => s.Account == name && s.Date!.Value.Month.Equals(monthInt))
-                .OrderBy(s => s.Pointed).ThenByDescending(s => s.Date);
-        }
-        else if (string.IsNullOrEmpty(SelectedMonth) && !string.IsNullOrEmpty(SelectedYear))
-        {
-            var yearInt = SelectedYear.ToInt();
-            records = context.VHistories
-                .Where(s => s.Account == name && s.Date!.Value.Year.Equals(yearInt))
-                .OrderBy(s => s.Pointed).ThenByDescending(s => s.Date);
-        }
-        else if (!string.IsNullOrEmpty(SelectedMonth) && !string.IsNullOrEmpty(SelectedYear))
+        if (!string.IsNullOrEmpty(SelectedMonth))
         {
             var monthInt = Months.IndexOf(SelectedMonth) + 1;
-            var yearInt = SelectedYear.ToInt();
-            records = context.VHistories
-                .Where(s => s.Account == name && s.Date!.Value.Year.Equals(yearInt) && s.Date!.Value.Month.Equals(monthInt))
-                .OrderBy(s => s.Pointed).ThenByDescending(s => s.Date);
+            query = query.Where(s => s.Date!.Value.Month.Equals(monthInt));
         }
-        else
+
+        if (!string.IsNullOrEmpty(SelectedYear))
         {
-            records = context.VHistories
-                .Where(s => s.Account == name)
-                .OrderBy(s => s.Pointed).ThenByDescending(s => s.Date);
+            var yearInt = SelectedYear.ToInt();
+            query = query.Where(s => s.Date!.Value.Year.Equals(yearInt));
         }
+
+        var records = query
+            .OrderBy(s => s.Pointed)
+            .ThenByDescending(s => s.Date);
 
         VHistories.AddRange(records);
     }
