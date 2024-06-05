@@ -93,7 +93,8 @@
             
         </ScrollViewer>
 
-        <Grid Grid.Row="0" Grid.Column="1">
+        <Grid Grid.Row="0" Grid.Column="1"
+              margin:PanelExtensions.MarginForAllChildren="3">
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
