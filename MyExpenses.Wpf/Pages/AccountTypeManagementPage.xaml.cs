@@ -16,8 +16,6 @@ public partial class AccountTypeManagementPage
 {
     public ObservableCollection<TAccountType> AccountTypes { get; }
 
-    public required DashBoardPage DashBoardPage { get; init; }
-
     public AccountTypeManagementPage()
     {
         using var context = new DataBaseContext();
@@ -87,8 +85,5 @@ public partial class AccountTypeManagementPage
                 MsgBox.Show(AccountTypeManagementPageResources.MessageBoxEditAccountTypeError, MsgBoxImage.Error);
             }
         }
-
-        DashBoardPage.RefreshAccountTotal();
-        DashBoardPage.RefreshRadioButtonSelected();
     }
 }
