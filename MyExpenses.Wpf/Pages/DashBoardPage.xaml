@@ -125,20 +125,29 @@
                 
             </StackPanel>
 
-            <StackPanel Grid.Row="2"
-                        Orientation="Horizontal"
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center">
+            <Grid Grid.Row="2"
+                  margin:PanelExtensions.MarginForAllChildren="3">
 
-                <ComboBox ItemsSource="{Binding Years, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                          SelectedItem="{Binding SelectedYear, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <ComboBox Grid.Column="0" ItemsSource="{Binding Years, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                          SelectedItem="{Binding SelectedYear, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                          Style="{StaticResource MaterialDesignFilledComboBox}"
+                          materialDesign:TextFieldAssist.HasClearButton="True"
+                          materialDesign:HintAssist.Hint="{Binding ComboBoxYearsHintAssist}">
                 </ComboBox>
 
-                <ComboBox ItemsSource="{Binding Months, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                          SelectedItem="{Binding SelectedMonth, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                <ComboBox Grid.Column="1" ItemsSource="{Binding Months, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                          SelectedItem="{Binding SelectedMonth, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                          Style="{StaticResource MaterialDesignFilledComboBox}"
+                          materialDesign:TextFieldAssist.HasClearButton="True"
+                          materialDesign:HintAssist.Hint="{Binding ComboBoxMonthHintAssist}">
                 </ComboBox>
 
-            </StackPanel>
+            </Grid>
 
             <Border Grid.Row="3" HorizontalAlignment="Center"
                     CornerRadius="1"
