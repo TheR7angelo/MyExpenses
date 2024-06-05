@@ -132,12 +132,6 @@ public partial class BankTransferPage
 
     #endregion
 
-    #region Required Property
-
-    public required DashBoardPage DashBoardPage { get; init; }
-
-    #endregion
-
     public BankTransferPage()
     {
         using var context = new DataBaseContext();
@@ -240,9 +234,6 @@ public partial class BankTransferPage
             // Log.Information("{Json}", json);
 
             MsgBox.Show(BankTransferPageResources.MessageBoxButtonValidBankTransferPreviewSuccess, MsgBoxImage.Check);
-
-            DashBoardPage.RefreshAccountTotal();
-            DashBoardPage.RefreshRadioButtonSelected();
 
             var response = MsgBox.Show(BankTransferPageResources.MessageBoxButtonValidBankTransferPreviewNewTransferQuestion,
                 MsgBoxImage.Question, MessageBoxButton.YesNo);
@@ -429,9 +420,6 @@ public partial class BankTransferPage
 
     private void RemoveByAccountId(int? accountId)
     {
-        var vTotalByAccount = accountId?.ToISqlT<VTotalByAccount>();
-        if (vTotalByAccount is not null) DashBoardPage.VTotalByAccounts.Remove(vTotalByAccount);
-
         var accountToRemove = Accounts.FirstOrDefault(s => s.Id == accountId);
         if (accountToRemove is not null) Accounts.Remove(accountToRemove);
 
@@ -440,9 +428,6 @@ public partial class BankTransferPage
 
         accountToRemove = ToAccounts.FirstOrDefault(s => s.Id == accountId);
         if (accountToRemove is not null) ToAccounts.Remove(accountToRemove);
-
-        DashBoardPage.RefreshRadioButtonSelected();
-        DashBoardPage.RefreshAccountTotal();
     }
 
     #endregion

@@ -193,10 +193,8 @@ public partial class DashBoardPage : INotifyPropertyChanged
 
 
     private void ButtonMakeBankTransfer_OnClick(object sender, RoutedEventArgs e)
-    {
-        var bankTransferPage = new BankTransferPage { DashBoardPage = this };
-        nameof(MainWindow.FrameBody).NavigateTo(bankTransferPage);
-    }
+        => nameof(MainWindow.FrameBody).NavigateTo(typeof(BankTransferPage));
+
 
     private void ButtonRecordExpense_OnClick(object sender, RoutedEventArgs e)
     {
