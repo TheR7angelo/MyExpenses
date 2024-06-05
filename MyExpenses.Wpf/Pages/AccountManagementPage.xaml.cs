@@ -18,8 +18,6 @@ public partial class AccountManagementPage
 {
     public ObservableCollection<VTotalByAccount> TotalByAccounts { get; }
 
-    public required DashBoardPage DashBoardPage { get; init; }
-
     public AccountManagementPage()
     {
         using var context = new DataBaseContext();
@@ -57,9 +55,6 @@ public partial class AccountManagementPage
             var newVTotalByAccount = newAccount.ToVTotalByAccount()!;
 
             TotalByAccounts.AddAndSort(newVTotalByAccount, s => s.Name!);
-
-            DashBoardPage.RefreshAccountTotal();
-            Application.Current.Dispatcher.InvokeAsync(DashBoardPage.RefreshRadioButtonSelected, DispatcherPriority.ContextIdle);
         }
         else
         {
@@ -82,7 +77,6 @@ public partial class AccountManagementPage
         if (addEditAccountWindow.DeleteAccount)
         {
             TotalByAccounts.Remove(vTotalByAccount);
-            DashBoardPage.VTotalByAccounts.Remove(vTotalByAccount);
             return;
         }
 
@@ -101,12 +95,8 @@ public partial class AccountManagementPage
             var newVTotalByAccount = editedAccount.ToVTotalByAccount()!;
 
             TotalByAccounts.Remove(vTotalByAccount);
-            DashBoardPage.VTotalByAccounts.Remove(vTotalByAccount);
 
             TotalByAccounts.AddAndSort(newVTotalByAccount, s => s.Name!);
-
-            DashBoardPage.RefreshAccountTotal();
-            DashBoardPage.RefreshRadioButtonSelected();
         }
         else
         {

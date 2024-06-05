@@ -167,10 +167,8 @@ public partial class DashBoardPage : INotifyPropertyChanged
     #region Action
 
     private void ButtonAccountManagement_OnClick(object sender, RoutedEventArgs e)
-    {
-        var accountManagementPage = new AccountManagementPage { DashBoardPage = this };
-        nameof(MainWindow.FrameBody).NavigateTo(accountManagementPage);
-    }
+        => nameof(MainWindow.FrameBody).NavigateTo(typeof(AccountManagementPage));
+
 
     private void ButtonAccountTypeManagement_OnClick(object sender, RoutedEventArgs e)
     {
