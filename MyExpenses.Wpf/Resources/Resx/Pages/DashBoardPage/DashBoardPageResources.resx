@@ -75,4 +75,10 @@
     <data name="DataGridMenuItemHeaderDeleteRecord" xml:space="preserve">
         <value>Delete this record</value>
     </data>
+    <data name="ComboBoxYearsHintAssist" xml:space="preserve">
+        <value>Choice of the year:</value>
+    </data>
+    <data name="ComboBoxMonthHintAssist" xml:space="preserve">
+        <value>Choice of the month:</value>
+    </data>
 </root>

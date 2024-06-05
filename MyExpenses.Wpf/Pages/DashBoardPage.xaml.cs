@@ -93,6 +93,9 @@ public partial class DashBoardPage : INotifyPropertyChanged
 
     #endregion
 
+    public string ComboBoxYearsHintAssist { get; } = DashBoardPageResources.ComboBoxYearsHintAssist;
+    public string ComboBoxMonthHintAssist { get; } = DashBoardPageResources.ComboBoxMonthHintAssist;
+
     public ObservableCollection<CategoryTotal> CategoryTotals { get; } = [];
     public ObservableCollection<string> Years { get; }
     public ObservableCollection<string> Months { get; }

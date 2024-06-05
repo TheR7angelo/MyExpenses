@@ -226,5 +226,23 @@ namespace MyExpenses.Wpf.Resources.Resx.Pages.DashBoardPage {
                 return ResourceManager.GetString("DataGridMenuItemHeaderDeleteRecord", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Choice of the year:.
+        /// </summary>
+        internal static string ComboBoxYearsHintAssist {
+            get {
+                return ResourceManager.GetString("ComboBoxYearsHintAssist", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Choice of the month:.
+        /// </summary>
+        internal static string ComboBoxMonthHintAssist {
+            get {
+                return ResourceManager.GetString("ComboBoxMonthHintAssist", resourceCulture);
+            }
+        }
     }
 }
