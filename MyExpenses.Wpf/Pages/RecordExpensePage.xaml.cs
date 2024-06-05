@@ -63,8 +63,6 @@ public partial class RecordExpensePage
     public string ButtonDeleteContent { get; } = RecordExpensePageResources.ButtonDeleteContent;
     public string ButtonCancelContent { get; } = RecordExpensePageResources.ButtonCancelContent;
 
-    public required DashBoardPage DashBoardPage { get; init; }
-
     public ObservableCollection<TAccount> Accounts { get; }
     public ObservableCollection<TCategoryType> CategoryTypes { get; }
     public ObservableCollection<TModePayment> ModePayments { get; }
@@ -120,9 +118,6 @@ public partial class RecordExpensePage
         {
             var accountToRemove = Accounts.FirstOrDefault(s => s.Id == History.AccountFk);
             if (accountToRemove is not null) Accounts.Remove(accountToRemove);
-
-            DashBoardPage.RefreshAccountTotal();
-            DashBoardPage.RefreshRadioButtonSelected();
         }
         else
         {
@@ -164,9 +159,6 @@ public partial class RecordExpensePage
         {
             var categoryTypeToRemove = CategoryTypes.FirstOrDefault(s => s.Id == History.CategoryTypeFk);
             if (categoryTypeToRemove is not null) CategoryTypes.Remove(categoryTypeToRemove);
-
-            DashBoardPage.RefreshAccountTotal();
-            DashBoardPage.RefreshRadioButtonSelected();
         }
         else
         {
@@ -189,9 +181,6 @@ public partial class RecordExpensePage
                 Log.Information("{Json}", json);
 
                 MsgBox.Show(RecordExpensePageResources.MessageBoxEditCategorySuccess, MsgBoxImage.Check);
-
-                DashBoardPage.RefreshAccountTotal();
-                DashBoardPage.RefreshRadioButtonSelected();
             }
             else
             {
@@ -239,8 +228,6 @@ public partial class RecordExpensePage
                 Log.Information("{Json}", json);
 
                 MsgBox.Show(RecordExpensePageResources.MessageBoxEditModePaymentSuccess, MsgBoxImage.Check);
-
-                DashBoardPage.RefreshRadioButtonSelected();
             }
             else
             {
@@ -269,7 +256,6 @@ public partial class RecordExpensePage
         if (addEditLocationWindow.PlaceDeleted)
         {
             if (oldPlace is not null) Places.Remove(oldPlace);
-            DashBoardPage.RefreshRadioButtonSelected();
 
             return;
         }
@@ -288,8 +274,6 @@ public partial class RecordExpensePage
             Log.Information("{Json}", json);
 
             MsgBox.Show(RecordExpensePageResources.MessageBoxEditPlaceSuccess, MsgBoxImage.Check);
-
-            DashBoardPage.RefreshRadioButtonSelected();
         }
         else
         {
@@ -338,8 +322,6 @@ public partial class RecordExpensePage
             Log.Information("{Json}", json);
 
             MsgBox.Show(RecordExpensePageResources.MessageBoxAddHistorySuccess, MsgBoxImage.Check);
-
-            DashBoardPage.RefreshRadioButtonSelected();
 
             if (EditHistory)
             {

@@ -197,10 +197,8 @@ public partial class DashBoardPage : INotifyPropertyChanged
 
 
     private void ButtonRecordExpense_OnClick(object sender, RoutedEventArgs e)
-    {
-        var recordExpensePage = new RecordExpensePage { DashBoardPage = this };
-        nameof(MainWindow.FrameBody).NavigateTo(recordExpensePage);
-    }
+        => nameof(MainWindow.FrameBody).NavigateTo(typeof(RecordExpensePage));
+
 
     private void DataGridRow_PreviewMouseRightButtonDown(object sender, MouseButtonEventArgs e)
     {
@@ -234,7 +232,7 @@ public partial class DashBoardPage : INotifyPropertyChanged
         var history = vHistory.ToTHistory();
         if (history is null) return;
 
-        var recordExpensePage = new RecordExpensePage { DashBoardPage = this };
+        var recordExpensePage = new RecordExpensePage();
         recordExpensePage.SetTHistory(history);
 
         nameof(MainWindow.FrameBody).NavigateTo(recordExpensePage);
