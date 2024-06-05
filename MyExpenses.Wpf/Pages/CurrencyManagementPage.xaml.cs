@@ -15,7 +15,6 @@ namespace MyExpenses.Wpf.Pages;
 public partial class CurrencyManagementPage
 {
     public ObservableCollection<TCurrency> Currencies { get; }
-    public required DashBoardPage DashBoardPage { get; set; }
 
     public CurrencyManagementPage()
     {
