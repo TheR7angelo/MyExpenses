@@ -216,7 +216,7 @@ public partial class DashBoardPage : INotifyPropertyChanged
         var name = vHistory.Account!;
         var dateTime = DateTime.Now;
         UpdateGraph(name, dateTime);
-        RefreshDataGrid(name, dateTime);
+        RefreshDataGrid();
 
         //TODO refresh total account display
     }
@@ -240,7 +240,8 @@ public partial class DashBoardPage : INotifyPropertyChanged
 
         history!.Pointed = !history.Pointed;
         history.AddOrEdit();
-        RefreshDataGrid(vHistory.Account!, history.Date!.Value);
+
+        RefreshDataGrid();
     }
 
     private void ToggleButtonVTotalAccount_OnChecked(object sender, RoutedEventArgs e)
@@ -255,7 +256,7 @@ public partial class DashBoardPage : INotifyPropertyChanged
 
         var dateTime = DateTime.Now;
         UpdateGraph(name, dateTime);
-        RefreshDataGrid(name, dateTime);
+        RefreshDataGrid();
     }
 
     #endregion
@@ -269,14 +270,52 @@ public partial class DashBoardPage : INotifyPropertyChanged
         VTotalByAccounts.AddRange([..context.VTotalByAccounts]);
     }
 
-    private void RefreshDataGrid(string name, DateTime dateTime)
+    private void Selector_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        => RefreshDataGrid();
+
+
+    private void RefreshDataGrid()
     {
+        var radioButtons = ItemsControlVTotalAccount?.FindVisualChildren<RadioButton>().ToList() ?? [];
+        if (radioButtons.Count.Equals(0)) return;
+
+        var name = radioButtons.FirstOrDefault(s => (bool)s.IsChecked!)?.Content as string;
+        if (string.IsNullOrEmpty(name)) return;
+
         using var context = new DataBaseContext();
         VHistories.Clear();
-        var records = context.VHistories
-            .Where(s => s.Account == name)
-            .Where(s => s.Date!.Value.Year == dateTime.Year && s.Date!.Value.Month == dateTime.Month)
-            .OrderBy(s => s.Pointed).ThenByDescending(s => s.Date);
+
+        IEnumerable<VHistory> records;
+
+        if (!string.IsNullOrEmpty(SelectedMonth) && string.IsNullOrEmpty(SelectedYear))
+        {
+            var monthInt = Months.IndexOf(SelectedMonth);
+            records = context.VHistories
+                .Where(s => s.Account == name && s.Date!.Value.Month.Equals(monthInt))
+                .OrderBy(s => s.Pointed).ThenByDescending(s => s.Date);
+        }
+        else if (string.IsNullOrEmpty(SelectedMonth) && !string.IsNullOrEmpty(SelectedYear))
+        {
+            var yearInt = SelectedYear.ToInt();
+            records = context.VHistories
+                .Where(s => s.Account == name && s.Date!.Value.Year.Equals(yearInt))
+                .OrderBy(s => s.Pointed).ThenByDescending(s => s.Date);
+        }
+        else if (!string.IsNullOrEmpty(SelectedMonth) && !string.IsNullOrEmpty(SelectedYear))
+        {
+            var monthInt = Months.IndexOf(SelectedMonth) + 1;
+            var yearInt = SelectedYear.ToInt();
+            records = context.VHistories
+                .Where(s => s.Account == name && s.Date!.Value.Year.Equals(yearInt) && s.Date!.Value.Month.Equals(monthInt))
+                .OrderBy(s => s.Pointed).ThenByDescending(s => s.Date);
+        }
+        else
+        {
+            records = context.VHistories
+                .Where(s => s.Account == name)
+                .OrderBy(s => s.Pointed).ThenByDescending(s => s.Date);
+        }
+
         VHistories.AddRange(records);
     }
 
