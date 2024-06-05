@@ -137,14 +137,16 @@
                           SelectedItem="{Binding SelectedYear, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                           Style="{StaticResource MaterialDesignFilledComboBox}"
                           materialDesign:TextFieldAssist.HasClearButton="True"
-                          materialDesign:HintAssist.Hint="{Binding ComboBoxYearsHintAssist}">
+                          materialDesign:HintAssist.Hint="{Binding ComboBoxYearsHintAssist}"
+                          SelectionChanged="Selector_OnSelectionChanged">
                 </ComboBox>
 
                 <ComboBox Grid.Column="1" ItemsSource="{Binding Months, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                           SelectedItem="{Binding SelectedMonth, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                           Style="{StaticResource MaterialDesignFilledComboBox}"
                           materialDesign:TextFieldAssist.HasClearButton="True"
-                          materialDesign:HintAssist.Hint="{Binding ComboBoxMonthHintAssist}">
+                          materialDesign:HintAssist.Hint="{Binding ComboBoxMonthHintAssist}"
+                          SelectionChanged="Selector_OnSelectionChanged">
                 </ComboBox>
 
             </Grid>
