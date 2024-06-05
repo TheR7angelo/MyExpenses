@@ -267,7 +267,7 @@ public partial class DashBoardPage : INotifyPropertyChanged
 
     #region Function
 
-    internal void RefreshAccountTotal()
+    private void RefreshAccountTotal()
     {
         using var context = new DataBaseContext();
         VTotalByAccounts.Clear();
@@ -285,7 +285,7 @@ public partial class DashBoardPage : INotifyPropertyChanged
         VHistories.AddRange(records);
     }
 
-    internal void RefreshRadioButtonSelected()
+    private void RefreshRadioButtonSelected()
     {
         var radioButtons = ItemsControlVTotalAccount.FindVisualChildren<RadioButton>().ToList();
         foreach (var radioButton in radioButtons) radioButton.IsChecked = false;
@@ -295,7 +295,7 @@ public partial class DashBoardPage : INotifyPropertyChanged
         firstRadioButton.IsChecked = true;
     }
 
-    internal void UpdateGraph(string accountName, DateTime dateTime)
+    private void UpdateGraph(string accountName, DateTime dateTime)
     {
         using var context = new DataBaseContext();
         var categories = context.TCategoryTypes.ToList();
