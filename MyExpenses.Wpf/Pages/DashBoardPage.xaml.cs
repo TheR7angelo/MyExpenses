@@ -301,10 +301,12 @@ public partial class DashBoardPage : INotifyPropertyChanged
 
     internal void RefreshRadioButtonSelected()
     {
-        var radioButtons = ItemsControlVTotalAccount.FindVisualChildren<RadioButton>();
-        var radioButton = radioButtons.FirstOrDefault();
-        if (radioButton is null) return;
-        radioButton.IsChecked = true;
+        var radioButtons = ItemsControlVTotalAccount.FindVisualChildren<RadioButton>().ToList();
+        foreach (var radioButton in radioButtons) radioButton.IsChecked = false;
+
+        var firstRadioButton = radioButtons.FirstOrDefault();
+        if (firstRadioButton is null) return;
+        firstRadioButton.IsChecked = true;
     }
 
     internal void UpdateGraph(string accountName, DateTime dateTime)
