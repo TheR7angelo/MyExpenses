@@ -10,6 +10,7 @@
       xmlns:wpf="clr-namespace:LiveChartsCore.SkiaSharpView.WPF;assembly=LiveChartsCore.SkiaSharpView.WPF"
       xmlns:margin="clr-namespace:MyExpenses.Wpf.Utils.Margin;assembly=MyExpenses.Wpf.Utils"
       mc:Ignorable="d"
+
       Title="DashBoard"
 
       Background="{DynamicResource MaterialDesignPaper}"
