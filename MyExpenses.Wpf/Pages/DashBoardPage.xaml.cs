@@ -254,10 +254,7 @@ public partial class DashBoardPage : INotifyPropertyChanged
         var name = vTotalByAccount.Name;
         if (string.IsNullOrEmpty(name)) return;
 
-        var dateTime = DateTime.Now;
-
-        UpdateGraph(name, dateTime);
-        RefreshDataGrid();
+        RefreshDataGrid(name);
     }
 
     #endregion
@@ -275,19 +272,23 @@ public partial class DashBoardPage : INotifyPropertyChanged
         => RefreshDataGrid();
 
 
-    private void RefreshDataGrid()
+    private void RefreshDataGrid(string? accountName = null)
     {
-        var radioButtons = ItemsControlVTotalAccount?.FindVisualChildren<RadioButton>().ToList() ?? [];
-        if (radioButtons.Count.Equals(0)) return;
+        if (string.IsNullOrEmpty(accountName))
+        {
+            var radioButtons = ItemsControlVTotalAccount?.FindVisualChildren<RadioButton>().ToList() ?? [];
+            if (radioButtons.Count.Equals(0)) return;
 
-        var name = radioButtons.FirstOrDefault(s => (bool)s.IsChecked!)?.Content as string;
-        if (string.IsNullOrEmpty(name)) return;
+            accountName = radioButtons.FirstOrDefault(s => (bool)s.IsChecked!)?.Content as string;
+        }
+
+        if (string.IsNullOrEmpty(accountName)) return;
 
         using var context = new DataBaseContext();
         VHistories.Clear();
 
         var query = context.VHistories
-            .Where(s => s.Account == name);
+            .Where(s => s.Account == accountName);
 
         if (!string.IsNullOrEmpty(SelectedMonth))
         {
@@ -306,6 +307,7 @@ public partial class DashBoardPage : INotifyPropertyChanged
             .ThenByDescending(s => s.Date);
 
         VHistories.AddRange(records);
+        UpdateGraph(accountName, DateTime.Now);
     }
 
     private void RefreshRadioButtonSelected()
@@ -316,6 +318,8 @@ public partial class DashBoardPage : INotifyPropertyChanged
         var firstRadioButton = radioButtons.FirstOrDefault();
         if (firstRadioButton is null) return;
         firstRadioButton.IsChecked = true;
+
+        RefreshDataGrid();
     }
 
     private void UpdateGraph(string accountName, DateTime dateTime)
