@@ -100,10 +100,7 @@ public partial class DashBoardPage : INotifyPropertyChanged
     public ObservableCollection<string> Years { get; }
     public ObservableCollection<string> Months { get; }
 
-    //TODO work
-    private static string NoFilter => "All";
-
-    private string _selectedYear = NoFilter;
+    private string _selectedYear = string.Empty;
 
     public string SelectedYear
     {
@@ -115,7 +112,7 @@ public partial class DashBoardPage : INotifyPropertyChanged
         }
     }
 
-    private string _selectedMonth = NoFilter;
+    private string _selectedMonth = string.Empty;
 
     public string SelectedMonth
     {
@@ -132,7 +129,6 @@ public partial class DashBoardPage : INotifyPropertyChanged
         using var context = new DataBaseContext();
         Years =
         [
-            NoFilter,
             ..context
                 .THistories
                 .Where(s => s.Date.HasValue)
@@ -143,7 +139,6 @@ public partial class DashBoardPage : INotifyPropertyChanged
 
         Months =
         [
-            NoFilter,
             ..CultureInfo.CurrentCulture.DateTimeFormat.MonthNames
                 .Where(s => !string.IsNullOrEmpty(s))
                 .Select(s => s.ToFirstCharUpper())
@@ -152,7 +147,7 @@ public partial class DashBoardPage : INotifyPropertyChanged
         var now = DateTime.Now;
         if(Years.Count.Equals(0)) {Years.Add(DateTime.Now.Year.ToString());}
         SelectedYear = now.Year.ToString();
-        SelectedMonth = Months[now.Month];
+        SelectedMonth = Months[now.Month - 1];
 
         RefreshAccountTotal();
 
