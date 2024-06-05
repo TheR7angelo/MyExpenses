@@ -179,10 +179,8 @@ public partial class DashBoardPage : INotifyPropertyChanged
     }
 
     private void ButtonCategoryTypeManagement_OnClick(object sender, RoutedEventArgs e)
-    {
-        var categoryTypeManagementPage = new CategoryTypeManagementPage { DashBoardPage = this };
-        nameof(MainWindow.FrameBody).NavigateTo(categoryTypeManagementPage);
-    }
+        => nameof(MainWindow.FrameBody).NavigateTo(typeof(CategoryTypeManagementPage));
+
 
     private void ButtonColorManagement_OnClick(object sender, RoutedEventArgs e)
         => nameof(MainWindow.FrameBody).NavigateTo(typeof(ColorManagementPage));

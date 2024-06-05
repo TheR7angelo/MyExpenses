@@ -18,8 +18,6 @@ public partial class CategoryTypeManagementPage
 {
     public ObservableCollection<TCategoryType> CategoryTypes { get; }
 
-    public required DashBoardPage DashBoardPage { get; init; }
-
     public CategoryTypeManagementPage()
     {
         using var context = new DataBaseContext();
@@ -80,7 +78,6 @@ public partial class CategoryTypeManagementPage
         if (addEditCategoryTypeWindow.CategoryTypeDeleted)
         {
             CategoryTypes.Remove(categoryType);
-            DashBoardPage.RefreshAccountTotal();
             return;
         }
 
@@ -97,11 +94,6 @@ public partial class CategoryTypeManagementPage
                 context.TColors.FirstOrDefault(s => s.Id == editedCategoryTypeDeepCopy.ColorFk);
 
             CategoryTypes.AddAndSort(categoryType, editedCategoryTypeDeepCopy, s => s.Name!);
-
-            var radioButton = DashBoardPage.ItemsControlVTotalAccount
-                .FindVisualChildren<RadioButton>()
-                .FirstOrDefault(s => (bool)s.IsChecked!);
-            if (radioButton is not null) DashBoardPage.UpdateGraph((string)radioButton.Content, DateTime.Now);
 
             Log.Information("Category type was successfully edited");
             var json = editedCategoryTypeDeepCopy.ToJsonString();
