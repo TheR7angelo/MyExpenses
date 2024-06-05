@@ -255,6 +255,7 @@ public partial class DashBoardPage : INotifyPropertyChanged
         if (string.IsNullOrEmpty(name)) return;
 
         var dateTime = DateTime.Now;
+
         UpdateGraph(name, dateTime);
         RefreshDataGrid();
     }
