@@ -189,10 +189,8 @@ public partial class DashBoardPage : INotifyPropertyChanged
         => nameof(MainWindow.FrameBody).NavigateTo(typeof(LocationManagementPage));
 
     private void ButtonModePaymentManagement_OnClick(object sender, RoutedEventArgs e)
-    {
-        var modePaymentManagementPage = new ModePaymentManagementPage { DashBoardPage = this };
-        nameof(MainWindow.FrameBody).NavigateTo(modePaymentManagementPage);
-    }
+        => nameof(MainWindow.FrameBody).NavigateTo(typeof(ModePaymentManagementPage));
+
 
     private void ButtonMakeBankTransfer_OnClick(object sender, RoutedEventArgs e)
     {

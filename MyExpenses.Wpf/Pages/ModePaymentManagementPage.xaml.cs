@@ -14,8 +14,6 @@ namespace MyExpenses.Wpf.Pages;
 
 public partial class ModePaymentManagementPage
 {
-    public required DashBoardPage DashBoardPage { get; init; }
-
     public ObservableCollection<TModePayment> ModePayments { get; }
 
     public ModePaymentManagementPage()
@@ -86,8 +84,6 @@ public partial class ModePaymentManagementPage
                 Log.Information("{Json}", json);
 
                 MsgBox.Show(ModePaymentManagementPageResources.MessageBoxEditModePaymentSuccess, MsgBoxImage.Check);
-
-                DashBoardPage.RefreshRadioButtonSelected();
             }
             else
             {
