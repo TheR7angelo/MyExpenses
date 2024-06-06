@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using System.Windows.Input;
 using MyExpenses.Wpf.Resources.Resx.Windows.MainWindow;
 
 namespace MyExpenses.Wpf;
@@ -82,4 +83,9 @@ public partial class MainWindow
     private void MenuItemPrevious_OnClick(object sender, RoutedEventArgs e)
         => nameof(FrameBody).GoBack();
 
+    private void FrameBody_OnPreviewMouseDown(object sender, MouseButtonEventArgs e)
+    {
+        if (e.ChangedButton == MouseButton.XButton1) nameof(FrameBody).GoBack();
+        else if (e.ChangedButton == MouseButton.XButton2) nameof(FrameBody).GoForward();
+    }
 }
