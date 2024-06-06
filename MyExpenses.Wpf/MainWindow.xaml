@@ -115,7 +115,7 @@
         </materialDesign:Card>
 
         <Frame Grid.Row="1" x:Name="FrameBody" NavigationUIVisibility="Hidden"
-               Source="Pages/DashBoardPage.xaml">
+               Source="Pages/WelcomePage.xaml">
         </Frame>
 
     </Grid>
