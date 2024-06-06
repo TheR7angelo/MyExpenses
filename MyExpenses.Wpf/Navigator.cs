@@ -70,11 +70,6 @@ public static class Navigator
         }
     }
 
-    /// <summary>
-    /// The Navigator class provides navigation functionality for frames within a Windows Presentation Foundation (WPF) application.
-    /// </summary>
-    public static Dictionary<Type, Page> Pages { get; } = new();
-
     private static readonly Dictionary<string, NavigationService> NavigationServices = new();
 
     /// <summary>
@@ -133,13 +128,7 @@ public static class Navigator
             throw new ArgumentException("Type must be a subclass of Page");
         }
 
-        var isCache = Pages.TryGetValue(type, out var page);
-        if (!isCache)
-        {
-            page = Activator.CreateInstance(type) as Page;
-        }
-
-        Pages[type] = page!;
+        var page = Activator.CreateInstance(type) as Page;
 
         NavigationServices[nameOfFrame].Navigate(page);
         CanGoBack = true;
@@ -166,5 +155,7 @@ public static class Navigator
     public static void GoForward(this string nameOfFrame)
     {
         if (NavigationServices[nameOfFrame].CanGoForward) NavigationServices[nameOfFrame].GoForward();
+
+        CanGoBack = NavigationServices[nameOfFrame].CanGoBack;
     }
 }
