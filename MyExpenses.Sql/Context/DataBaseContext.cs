@@ -6,9 +6,9 @@ namespace MyExpenses.Sql.Context;
 
 public partial class DataBaseContext : DbContext
 {
-    private string? FilePath { get; }
+    public static string? FilePath { get; set; }
 
-    private static string? DataSource { get; set; }
+    private string? DataSource { get; set; }
 
     public DataBaseContext(string? filePath=null)
     {
