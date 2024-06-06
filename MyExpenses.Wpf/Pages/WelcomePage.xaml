@@ -4,6 +4,8 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:MyExpenses.Wpf.Pages"
+      xmlns:margin="clr-namespace:MyExpenses.Wpf.Utils.Margin;assembly=MyExpenses.Wpf.Utils"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       mc:Ignorable="d"
 
       Title="WelcomePage"
@@ -13,9 +15,66 @@
 
       DataContext="{Binding RelativeSource={RelativeSource Self}}">
 
-    <Grid>
+    <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
 
+        <StackPanel margin:PanelExtensions.MarginForAllChildren="5"
+                    Orientation="Vertical"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center">
 
+            <Button Height="56"
+                    Width="{Binding Height, RelativeSource={RelativeSource Self}}"
+                    Style="{StaticResource MaterialDesignFloatingActionDarkButton}"
+                    Click="ButtonAddDataBase_OnClick">
+                <Button.Content>
+                    <materialDesign:PackIcon Kind="Plus"
+                                             Height="{Binding Height, RelativeSource={RelativeSource AncestorType=Button}}"
+                                             Width="{Binding Height, RelativeSource={RelativeSource AncestorType=Button}}">
+                    </materialDesign:PackIcon>
+                </Button.Content>
+            </Button>
+
+            <ItemsControl ItemsSource="{Binding ExistingDatabases}">
+
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel margin:PanelExtensions.MarginForAllChildren="5"
+                                   Orientation="Horizontal">
+                        </WrapPanel>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+
+                        <Button
+                            Height="{Binding Height, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource Self}}"
+                            Style="{StaticResource MaterialDesignPaperButton}"
+                            Click="ButtonDatabase_OnClick">
+                            <Button.Content>
+
+                                <StackPanel Orientation="Vertical"
+                                            margin:PanelExtensions.MarginForAllChildren="3">
+
+                                    <materialDesign:PackIcon HorizontalAlignment="Center" Kind="Database"
+                                                             Height="48" Width="48">
+                                    </materialDesign:PackIcon>
+
+                                    <TextBlock HorizontalAlignment="Center"
+                                               Text="{Binding FileNameWithoutExtension}">
+                                    </TextBlock>
+
+                                </StackPanel>
+
+                            </Button.Content>
+                        </Button>
+
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+
+            </ItemsControl>
+
+        </StackPanel>
 
     </Grid>
 
