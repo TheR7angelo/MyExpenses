@@ -12,7 +12,7 @@ public partial class DataBaseContext : DbContext
 
     public DataBaseContext(string? filePath=null)
     {
-        FilePath = filePath;
+        if (!string.IsNullOrEmpty(filePath)) FilePath = filePath;
     }
 
     public DataBaseContext(DbContextOptions<DataBaseContext> options)
