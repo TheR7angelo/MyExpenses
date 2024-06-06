@@ -177,7 +177,7 @@
                                   Loaded="ItemsControlVTotalAccount_OnLoaded">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>
-                                <WrapPanel Orientation="Horizontal" />
+                                <WrapPanel Orientation="Horizontal" margin:PanelExtensions.MarginForAllChildren="3" />
                             </ItemsPanelTemplate>
                         </ItemsControl.ItemsPanel>
                         <ItemsControl.ItemTemplate>
