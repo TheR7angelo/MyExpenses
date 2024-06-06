@@ -10,10 +10,14 @@ namespace MyExpenses.Wpf.Pages;
 public partial class WelcomePage
 {
     private string DirectoryDatabase { get; } = Path.GetFullPath("Databases");
+    private string DatabaseModel { get; }
     public ObservableCollection<ExistingDatabase> ExistingDatabases { get; }
 
     public WelcomePage()
     {
+        var directoryDatabaseModel = Path.GetFullPath("Database Models");
+        DatabaseModel = Path.Join(directoryDatabaseModel, "Model.sqlite");
+
         if (!Directory.Exists(DirectoryDatabase)) Directory.CreateDirectory(DirectoryDatabase);
 
         var existingDatabases = Directory
