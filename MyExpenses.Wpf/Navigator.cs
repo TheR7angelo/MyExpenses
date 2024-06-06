@@ -155,5 +155,7 @@ public static class Navigator
     public static void GoForward(this string nameOfFrame)
     {
         if (NavigationServices[nameOfFrame].CanGoForward) NavigationServices[nameOfFrame].GoForward();
+
+        CanGoBack = NavigationServices[nameOfFrame].CanGoBack;
     }
 }
