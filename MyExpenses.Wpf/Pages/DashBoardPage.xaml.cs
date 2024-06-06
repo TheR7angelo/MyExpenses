@@ -179,6 +179,14 @@ public partial class DashBoardPage : INotifyPropertyChanged
     private void ButtonCurrencyManagement_OnClick(object sender, RoutedEventArgs e)
         => nameof(MainWindow.FrameBody).NavigateTo(typeof(CurrencyManagementPage));
 
+    private void ButtonDateNow_OnClick(object sender, RoutedEventArgs e)
+    {
+        var now = DateTime.Now;
+        var yearStr = now.Year.ToString();
+
+        SelectedYear = Years.Contains(yearStr) ? yearStr : string.Empty;
+        SelectedMonth = Months[now.Month - 1];
+    }
 
     private void ButtonLocationManagement_OnClick(object sender, RoutedEventArgs e)
         => nameof(MainWindow.FrameBody).NavigateTo(typeof(LocationManagementPage));
@@ -196,9 +204,8 @@ public partial class DashBoardPage : INotifyPropertyChanged
 
 
     private void DataGridRow_PreviewMouseRightButtonDown(object sender, MouseButtonEventArgs e)
-    {
-        DataGridRow = sender as DataGridRow;
-    }
+        => DataGridRow = sender as DataGridRow;
+
 
     private void ItemsControlVTotalAccount_OnLoaded(object sender, RoutedEventArgs e)
         => RefreshRadioButtonSelected();
