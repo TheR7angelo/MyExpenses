@@ -31,6 +31,7 @@ public partial class WelcomePage
         throw new NotImplementedException();
     }
 
+    //TODO make save automatically
     private void ButtonDatabase_OnClick(object sender, RoutedEventArgs e)
     {
         var button = (Button)sender;
