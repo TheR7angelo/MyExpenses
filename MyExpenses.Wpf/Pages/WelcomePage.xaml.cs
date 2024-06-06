@@ -1,7 +1,9 @@
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Windows;
+using System.Windows.Controls;
 using MyExpenses.Models.IO;
+using MyExpenses.Sql.Context;
 
 namespace MyExpenses.Wpf.Pages;
 
@@ -29,9 +31,12 @@ public partial class WelcomePage
         throw new NotImplementedException();
     }
 
-    //TODO work
     private void ButtonDatabase_OnClick(object sender, RoutedEventArgs e)
     {
-        throw new NotImplementedException();
+        var button = (Button)sender;
+        if (button.DataContext is not ExistingDatabase existingDatabase) return;
+
+        DataBaseContext.FilePath = existingDatabase.FilePath;
+        nameof(MainWindow.FrameBody).NavigateTo(typeof(DashBoardPage));
     }
 }
