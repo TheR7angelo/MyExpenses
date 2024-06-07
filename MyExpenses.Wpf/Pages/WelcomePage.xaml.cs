@@ -13,7 +13,7 @@ public partial class WelcomePage
 {
     private string DirectoryDatabase { get; } = Path.GetFullPath("Databases");
     private string DatabaseModel { get; }
-    public ObservableCollection<ExistingDatabase> ExistingDatabases { get; }
+    public ObservableCollection<ExistingDatabase> ExistingDatabases { get; } = [];
 
     public WelcomePage()
     {
@@ -22,13 +22,18 @@ public partial class WelcomePage
 
         if (!Directory.Exists(DirectoryDatabase)) Directory.CreateDirectory(DirectoryDatabase);
 
+        RefreshExistingDatabases();
+
+        InitializeComponent();
+    }
+
+    private void RefreshExistingDatabases()
+    {
+        ExistingDatabases.Clear();
         var existingDatabases = Directory
             .GetFiles(DirectoryDatabase, "*.sqlite")
             .Select(s => new ExistingDatabase { FilePath = s } );
-
-        ExistingDatabases = [..existingDatabases];
-
-        InitializeComponent();
+        ExistingDatabases.AddRange(existingDatabases);
     }
 
     //TODO work
@@ -47,6 +52,19 @@ public partial class WelcomePage
         removeDatabaseFile.ExistingDatabases.AddRange(ExistingDatabases);
 
         removeDatabaseFile.ShowDialog();
+
+        if (removeDatabaseFile.DialogResult is not true) return;
+
+        //TODO add a message to ask the user to consent to the deletion of the database
+        foreach (var existingDatabase in removeDatabaseFile.ExistingDatabasesToDelete)
+        {
+            if (string.IsNullOrEmpty(existingDatabase.FilePath)) continue;
+            if (!File.Exists(existingDatabase.FilePath)) continue;
+
+            File.Delete(existingDatabase.FilePath);
+        }
+
+        RefreshExistingDatabases();
     }
 
     //TODO make save automatically
