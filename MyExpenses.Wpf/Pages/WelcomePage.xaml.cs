@@ -35,6 +35,12 @@ public partial class WelcomePage
         throw new NotImplementedException();
     }
 
+    //TODO work
+    private void ButtonRemoveDataBase_OnClick(object sender, RoutedEventArgs e)
+    {
+        throw new NotImplementedException();
+    }
+
     //TODO make save automatically
     private void ButtonDatabase_OnClick(object sender, RoutedEventArgs e)
     {

@@ -22,17 +22,34 @@
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center">
 
-            <Button Height="56"
-                    Width="{Binding Height, RelativeSource={RelativeSource Self}}"
-                    Style="{StaticResource MaterialDesignFloatingActionDarkButton}"
-                    Click="ButtonAddDataBase_OnClick">
-                <Button.Content>
-                    <materialDesign:PackIcon Kind="Plus"
-                                             Height="{Binding Height, RelativeSource={RelativeSource AncestorType=Button}}"
-                                             Width="{Binding Height, RelativeSource={RelativeSource AncestorType=Button}}">
-                    </materialDesign:PackIcon>
-                </Button.Content>
-            </Button>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center"
+                        margin:PanelExtensions.MarginForAllChildren="3">
+
+                <Button Height="56"
+                        Width="{Binding Height, RelativeSource={RelativeSource Self}}"
+                        Style="{StaticResource MaterialDesignFloatingActionDarkButton}"
+                        Click="ButtonAddDataBase_OnClick">
+                    <Button.Content>
+                        <materialDesign:PackIcon Kind="Plus"
+                                                 Height="{Binding Height, RelativeSource={RelativeSource AncestorType=Button}}"
+                                                 Width="{Binding Height, RelativeSource={RelativeSource AncestorType=Button}}">
+                        </materialDesign:PackIcon>
+                    </Button.Content>
+                </Button>
+
+                <Button Height="56"
+                        Width="{Binding Height, RelativeSource={RelativeSource Self}}"
+                        Style="{StaticResource MaterialDesignFloatingActionSecondaryButton}"
+                        Click="ButtonRemoveDataBase_OnClick">
+                    <Button.Content>
+                        <materialDesign:PackIcon Kind="Minus"
+                                                 Height="{Binding Height, RelativeSource={RelativeSource AncestorType=Button}}"
+                                                 Width="{Binding Height, RelativeSource={RelativeSource AncestorType=Button}}">
+                        </materialDesign:PackIcon>
+                    </Button.Content>
+                </Button>
+
+            </StackPanel>
 
             <ItemsControl ItemsSource="{Binding ExistingDatabases}">
 
