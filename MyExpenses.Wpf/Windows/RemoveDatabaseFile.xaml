@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:MyExpenses.Wpf.Windows"
         xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
         xmlns:margin="clr-namespace:MyExpenses.Wpf.Utils.Margin;assembly=MyExpenses.Wpf.Utils"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
 
         Title="RemoveDatabaseFile"
@@ -47,7 +48,10 @@
             <ListView.ItemTemplate>
                 <DataTemplate>
 
-                    <CheckBox IsChecked="False" IsThreeState="False" Content="{Binding FileNameWithoutExtension}" />
+                    <CheckBox IsChecked="False" IsThreeState="False"
+                              materialDesign:CheckBoxAssist.CheckBoxSize="25"
+                              Content="{Binding FileNameWithoutExtension}">
+                    </CheckBox>
 
                 </DataTemplate>
             </ListView.ItemTemplate>
