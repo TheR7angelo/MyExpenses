@@ -67,7 +67,7 @@ public partial class DataBaseContext : DbContext
                 };
             }
             else dbPath = FilePath;
-            DataSource = $"Data Source={dbPath}";
+            DataSource = $"Data Source={dbPath};Pooling=False";
         }
 
         var dataSource = DataSource;
