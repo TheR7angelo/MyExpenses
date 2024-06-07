@@ -13,10 +13,10 @@
         d:DesignHeight="130"
         d:DesignWidth="394"
 
-        MinHeight="130"
-        MinWidth="394"
-        Height="130"
-        Width="394"
+        MinHeight="215"
+        MinWidth="400"
+        Height="215"
+        Width="400"
 
         TitleCharacterCasing="Normal"
         NonActiveWindowTitleBrush="Gray"
