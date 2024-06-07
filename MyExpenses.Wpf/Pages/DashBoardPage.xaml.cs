@@ -220,10 +220,10 @@ public partial class DashBoardPage : INotifyPropertyChanged
 
         VHistories.Remove(vHistory);
 
-        var name = vHistory.Account!;
-        var dateTime = DateTime.Now;
-        UpdateGraph(name, dateTime);
-        RefreshDataGrid();
+        var accountName = vHistory.Account!;
+
+        RefreshDataGrid(accountName);
+        UpdateGraph(accountName);
 
         //TODO refresh total account display
     }
@@ -276,7 +276,10 @@ public partial class DashBoardPage : INotifyPropertyChanged
     }
 
     private void Selector_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
-        => RefreshDataGrid();
+    {
+        RefreshDataGrid();
+        UpdateGraph();
+    }
 
 
     private void RefreshDataGrid(string? accountName = null)
@@ -314,7 +317,6 @@ public partial class DashBoardPage : INotifyPropertyChanged
             .ThenByDescending(s => s.Date);
 
         VHistories.AddRange(records);
-        UpdateGraph(accountName, DateTime.Now);
     }
 
     private void RefreshRadioButtonSelected()
@@ -327,23 +329,45 @@ public partial class DashBoardPage : INotifyPropertyChanged
         firstRadioButton.IsChecked = true;
 
         RefreshDataGrid();
+        UpdateGraph();
     }
 
-    private void UpdateGraph(string accountName, DateTime dateTime)
+    private void UpdateGraph(string? accountName = null)
     {
+        if (string.IsNullOrEmpty(accountName))
+        {
+            var radioButtons = ItemsControlVTotalAccount?.FindVisualChildren<RadioButton>().ToList() ?? [];
+            if (radioButtons.Count.Equals(0)) return;
+
+            accountName = radioButtons.FirstOrDefault(s => (bool)s.IsChecked!)?.Content as string;
+        }
+
         using var context = new DataBaseContext();
         var categories = context.TCategoryTypes.ToList();
-        var brutCategoriesTotals = context.VDetailTotalCategories
+
+        var query = context.VDetailTotalCategories
             .Where(s => s.Account == accountName);
 
-        var categoriesTotals = brutCategoriesTotals
-            .Where(s => s.Year == dateTime.Year && s.Month == dateTime.Month)
+        if (!string.IsNullOrEmpty(SelectedMonth))
+        {
+            var monthInt = Months.IndexOf(SelectedMonth) + 1;
+            query = query.Where(s => s.Month.Equals(monthInt));
+        }
+
+        if (!string.IsNullOrEmpty(SelectedYear))
+        {
+            var yearInt = SelectedYear.ToInt();
+            query = query.Where(s => s.Year.Equals(yearInt));
+        }
+
+        var categoriesTotals = query
             .GroupBy(s => s.Category)
             .Select(g => new
             {
                 Category = g.Key, Total = g.Sum(s => s.Value) ?? 0d,
                 g.First().Symbol, g.First().HexadecimalColorCode
             })
+            .OrderByDescending(s => Math.Abs(s.Total))
             .ToList();
 
         var grandTotal = Math.Round(categoriesTotals.Sum(ct => Math.Abs(ct.Total)), 2);
