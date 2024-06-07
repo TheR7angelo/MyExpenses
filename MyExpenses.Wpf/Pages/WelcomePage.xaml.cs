@@ -49,6 +49,18 @@ public partial class WelcomePage
     }
 
     //TODO work
+    private void ButtonExportDataBase_OnClick(object sender, RoutedEventArgs e)
+    {
+        //TODO work
+    }
+
+    //TODO work
+    private void ButtonImportDataBase_OnClick(object sender, RoutedEventArgs e)
+    {
+        //TODO work
+    }
+
+    //TODO work
     private void ButtonRemoveDataBase_OnClick(object sender, RoutedEventArgs e)
     {
         var removeDatabaseFile = new RemoveDatabaseFile();
