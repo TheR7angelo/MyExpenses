@@ -32,7 +32,10 @@ public partial class WelcomePage
     //TODO work
     private void ButtonAddDataBase_OnClick(object sender, RoutedEventArgs e)
     {
-        throw new NotImplementedException();
+        const string fileName = "test.sqlite";
+        var filePath = Path.Combine(DirectoryDatabase, fileName);
+        File.Copy(DatabaseModel, filePath, true);
+        ExistingDatabases.Add(new ExistingDatabase { FilePath = filePath });
     }
 
     //TODO work
