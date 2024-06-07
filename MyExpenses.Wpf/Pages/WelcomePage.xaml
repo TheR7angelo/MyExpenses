@@ -91,51 +91,57 @@
 
         </Grid>
 
-        <ScrollViewer Grid.Row="1"
-                      HorizontalScrollBarVisibility="Disabled"
-                      VerticalScrollBarVisibility="Visible">
+        <Border Grid.Row="1"
+                BorderBrush="{DynamicResource MaterialDesignBody}"
+                BorderThickness="2"
+                CornerRadius="3">
 
-            <ItemsControl ItemsSource="{Binding ExistingDatabases}">
+            <ScrollViewer HorizontalScrollBarVisibility="Disabled"
+                          VerticalScrollBarVisibility="Auto">
 
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <WrapPanel margin:PanelExtensions.MarginForAllChildren="5"
-                                   Orientation="Horizontal">
-                        </WrapPanel>
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
+                <ItemsControl ItemsSource="{Binding ExistingDatabases}">
 
-                <ItemsControl.ItemTemplate>
-                    <DataTemplate>
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel margin:PanelExtensions.MarginForAllChildren="5"
+                                       Orientation="Horizontal">
+                            </WrapPanel>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
 
-                        <Button
-                            Height="{Binding Height, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource Self}}"
-                            Style="{StaticResource MaterialDesignPaperButton}"
-                            Click="ButtonDatabase_OnClick">
-                            <Button.Content>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
 
-                                <StackPanel Orientation="Vertical"
-                                            margin:PanelExtensions.MarginForAllChildren="3">
+                            <Button
+                                Height="{Binding Height, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource Self}}"
+                                Style="{StaticResource MaterialDesignPaperButton}"
+                                Click="ButtonDatabase_OnClick">
+                                <Button.Content>
 
-                                    <materialDesign:PackIcon HorizontalAlignment="Center" Kind="Database"
-                                                             Height="48" Width="48">
-                                    </materialDesign:PackIcon>
+                                    <StackPanel Orientation="Vertical"
+                                                margin:PanelExtensions.MarginForAllChildren="3">
 
-                                    <TextBlock HorizontalAlignment="Center"
-                                               Text="{Binding FileNameWithoutExtension}">
-                                    </TextBlock>
+                                        <materialDesign:PackIcon HorizontalAlignment="Center" Kind="Database"
+                                                                 Height="48" Width="48">
+                                        </materialDesign:PackIcon>
 
-                                </StackPanel>
+                                        <TextBlock HorizontalAlignment="Center"
+                                                   Text="{Binding FileNameWithoutExtension}">
+                                        </TextBlock>
 
-                            </Button.Content>
-                        </Button>
+                                    </StackPanel>
 
-                    </DataTemplate>
-                </ItemsControl.ItemTemplate>
+                                </Button.Content>
+                            </Button>
 
-            </ItemsControl>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
 
-        </ScrollViewer>
+                </ItemsControl>
+
+            </ScrollViewer>
+
+        </Border>
 
     </Grid>
 
