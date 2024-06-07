@@ -17,78 +17,83 @@
 
     <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
 
-        <StackPanel margin:PanelExtensions.MarginForAllChildren="5"
-                    Orientation="Vertical"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
 
-            <Grid HorizontalAlignment="Center"
-                  VerticalAlignment="Center"
-                  margin:PanelExtensions.MarginForAllChildren="3">
+        <Grid Grid.Row="0"
+              HorizontalAlignment="Center"
+              VerticalAlignment="Center"
+              margin:PanelExtensions.MarginForAllChildren="3">
 
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
 
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
 
-                <Button Grid.Row="0" Grid.Column="0"
-                        Height="56"
-                        Width="{Binding Height, RelativeSource={RelativeSource Self}}"
-                        Style="{StaticResource MaterialDesignFloatingActionDarkButton}"
-                        Click="ButtonAddDataBase_OnClick">
-                    <Button.Content>
-                        <materialDesign:PackIcon Kind="Plus"
-                                                 Height="{Binding Height, RelativeSource={RelativeSource AncestorType=Button}}"
-                                                 Width="{Binding Height, RelativeSource={RelativeSource AncestorType=Button}}">
-                        </materialDesign:PackIcon>
-                    </Button.Content>
-                </Button>
+            <Button Grid.Row="0" Grid.Column="0"
+                    Height="56"
+                    Width="{Binding Height, RelativeSource={RelativeSource Self}}"
+                    Style="{StaticResource MaterialDesignFloatingActionDarkButton}"
+                    Click="ButtonAddDataBase_OnClick">
+                <Button.Content>
+                    <materialDesign:PackIcon Kind="Plus"
+                                             Height="{Binding Height, RelativeSource={RelativeSource AncestorType=Button}}"
+                                             Width="{Binding Height, RelativeSource={RelativeSource AncestorType=Button}}">
+                    </materialDesign:PackIcon>
+                </Button.Content>
+            </Button>
 
-                <Button Grid.Row="0" Grid.Column="1"
-                        Height="56"
-                        Width="{Binding Height, RelativeSource={RelativeSource Self}}"
-                        Style="{StaticResource MaterialDesignFloatingActionSecondaryButton}"
-                        Click="ButtonRemoveDataBase_OnClick">
-                    <Button.Content>
-                        <materialDesign:PackIcon Kind="Minus"
-                                                 Height="{Binding Height, RelativeSource={RelativeSource AncestorType=Button}}"
-                                                 Width="{Binding Height, RelativeSource={RelativeSource AncestorType=Button}}">
-                        </materialDesign:PackIcon>
-                    </Button.Content>
-                </Button>
+            <Button Grid.Row="0" Grid.Column="1"
+                    Height="56"
+                    Width="{Binding Height, RelativeSource={RelativeSource Self}}"
+                    Style="{StaticResource MaterialDesignFloatingActionSecondaryButton}"
+                    Click="ButtonRemoveDataBase_OnClick">
+                <Button.Content>
+                    <materialDesign:PackIcon Kind="Minus"
+                                             Height="{Binding Height, RelativeSource={RelativeSource AncestorType=Button}}"
+                                             Width="{Binding Height, RelativeSource={RelativeSource AncestorType=Button}}">
+                    </materialDesign:PackIcon>
+                </Button.Content>
+            </Button>
 
-                <Button Grid.Row="1" Grid.Column="0"
-                        Height="56"
-                        Width="{Binding Height, RelativeSource={RelativeSource Self}}"
-                        Style="{StaticResource MaterialDesignFloatingActionButton}"
-                        Click="ButtonImportDataBase_OnClick">
-                    <Button.Content>
-                        <materialDesign:PackIcon Kind="DatabaseImport"
-                                                 Height="{Binding Height, RelativeSource={RelativeSource AncestorType=Button}}"
-                                                 Width="{Binding Height, RelativeSource={RelativeSource AncestorType=Button}}">
-                        </materialDesign:PackIcon>
-                    </Button.Content>
-                </Button>
+            <Button Grid.Row="1" Grid.Column="0"
+                    Height="56"
+                    Width="{Binding Height, RelativeSource={RelativeSource Self}}"
+                    Style="{StaticResource MaterialDesignFloatingActionButton}"
+                    Click="ButtonImportDataBase_OnClick">
+                <Button.Content>
+                    <materialDesign:PackIcon Kind="DatabaseImport"
+                                             Height="{Binding Height, RelativeSource={RelativeSource AncestorType=Button}}"
+                                             Width="{Binding Height, RelativeSource={RelativeSource AncestorType=Button}}">
+                    </materialDesign:PackIcon>
+                </Button.Content>
+            </Button>
 
-                <Button Grid.Row="1" Grid.Column="1"
-                        Height="56"
-                        Width="{Binding Height, RelativeSource={RelativeSource Self}}"
-                        Style="{StaticResource MaterialDesignFloatingActionButton}"
-                        Click="ButtonExportDataBase_OnClick">
-                    <Button.Content>
-                        <materialDesign:PackIcon Kind="DatabaseExport"
-                                                 Height="{Binding Height, RelativeSource={RelativeSource AncestorType=Button}}"
-                                                 Width="{Binding Height, RelativeSource={RelativeSource AncestorType=Button}}">
-                        </materialDesign:PackIcon>
-                    </Button.Content>
-                </Button>
+            <Button Grid.Row="1" Grid.Column="1"
+                    Height="56"
+                    Width="{Binding Height, RelativeSource={RelativeSource Self}}"
+                    Style="{StaticResource MaterialDesignFloatingActionButton}"
+                    Click="ButtonExportDataBase_OnClick">
+                <Button.Content>
+                    <materialDesign:PackIcon Kind="DatabaseExport"
+                                             Height="{Binding Height, RelativeSource={RelativeSource AncestorType=Button}}"
+                                             Width="{Binding Height, RelativeSource={RelativeSource AncestorType=Button}}">
+                    </materialDesign:PackIcon>
+                </Button.Content>
+            </Button>
 
-            </Grid>
+        </Grid>
+
+        <ScrollViewer Grid.Row="1"
+                      HorizontalScrollBarVisibility="Disabled"
+                      VerticalScrollBarVisibility="Visible">
 
             <ItemsControl ItemsSource="{Binding ExistingDatabases}">
 
@@ -130,7 +135,7 @@
 
             </ItemsControl>
 
-        </StackPanel>
+        </ScrollViewer>
 
     </Grid>
 
