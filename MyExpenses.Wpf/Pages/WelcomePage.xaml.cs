@@ -4,6 +4,8 @@ using System.Windows;
 using System.Windows.Controls;
 using MyExpenses.Models.IO;
 using MyExpenses.Sql.Context;
+using MyExpenses.Utils.Collection;
+using MyExpenses.Wpf.Windows;
 
 namespace MyExpenses.Wpf.Pages;
 
@@ -41,7 +43,10 @@ public partial class WelcomePage
     //TODO work
     private void ButtonRemoveDataBase_OnClick(object sender, RoutedEventArgs e)
     {
-        throw new NotImplementedException();
+        var removeDatabaseFile = new RemoveDatabaseFile();
+        removeDatabaseFile.ExistingDatabases.AddRange(ExistingDatabases);
+
+        removeDatabaseFile.ShowDialog();
     }
 
     //TODO make save automatically
