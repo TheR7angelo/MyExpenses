@@ -96,6 +96,7 @@ public partial class WelcomePage
         ExistingDatabases.Clear();
         var existingDatabases = Directory
             .GetFiles(DirectoryDatabase, "*.sqlite")
+            .OrderByDescending(s => s)
             .Select(s => new ExistingDatabase { FilePath = s } );
         ExistingDatabases.AddRange(existingDatabases);
     }
