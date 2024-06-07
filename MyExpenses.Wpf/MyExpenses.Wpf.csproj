@@ -110,6 +110,10 @@
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>RemoveDatabaseFileResources.Designer.cs</LastGenOutput>
       </EmbeddedResource>
+      <EmbeddedResource Update="Resources\Resx\Pages\WelcomePage\WelcomePageResources.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>WelcomePageResources.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
     </ItemGroup>
 
     <ItemGroup>
@@ -224,6 +228,11 @@
         <DesignTime>True</DesignTime>
         <AutoGen>True</AutoGen>
         <DependentUpon>RemoveDatabaseFileResources.resx</DependentUpon>
+      </Compile>
+      <Compile Update="Resources\Resx\Pages\WelcomePage\WelcomePageResources.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>WelcomePageResources.resx</DependentUpon>
       </Compile>
     </ItemGroup>
 

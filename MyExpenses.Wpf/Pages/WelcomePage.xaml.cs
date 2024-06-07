@@ -5,7 +5,9 @@ using System.Windows.Controls;
 using MyExpenses.Models.IO;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils.Collection;
+using MyExpenses.Wpf.Resources.Resx.Pages.WelcomePage;
 using MyExpenses.Wpf.Windows;
+using MyExpenses.Wpf.Windows.MsgBox;
 
 namespace MyExpenses.Wpf.Pages;
 
@@ -70,7 +72,10 @@ public partial class WelcomePage
 
         if (removeDatabaseFile.DialogResult is not true) return;
 
-        //TODO add a message to ask the user to consent to the deletion of the database
+        var response = MsgBox.Show(WelcomePageResources.DeleteDatabaseQuestion, MsgBoxImage.Question, MessageBoxButton.YesNoCancel);
+
+        if (response is not MessageBoxResult.Yes) return;
+
         foreach (var existingDatabase in removeDatabaseFile.ExistingDatabasesToDelete)
         {
             if (string.IsNullOrEmpty(existingDatabase.FilePath)) continue;
