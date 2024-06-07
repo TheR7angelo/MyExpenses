@@ -27,14 +27,7 @@ public partial class WelcomePage
         InitializeComponent();
     }
 
-    private void RefreshExistingDatabases()
-    {
-        ExistingDatabases.Clear();
-        var existingDatabases = Directory
-            .GetFiles(DirectoryDatabase, "*.sqlite")
-            .Select(s => new ExistingDatabase { FilePath = s } );
-        ExistingDatabases.AddRange(existingDatabases);
-    }
+    #region Action
 
     //TODO work
     private void ButtonAddDataBase_OnClick(object sender, RoutedEventArgs e)
@@ -43,6 +36,16 @@ public partial class WelcomePage
         var filePath = Path.Combine(DirectoryDatabase, fileName);
         File.Copy(DatabaseModel, filePath, true);
         ExistingDatabases.Add(new ExistingDatabase { FilePath = filePath });
+    }
+
+    //TODO make save automatically
+    private void ButtonDatabase_OnClick(object sender, RoutedEventArgs e)
+    {
+        var button = (Button)sender;
+        if (button.DataContext is not ExistingDatabase existingDatabase) return;
+
+        DataBaseContext.FilePath = existingDatabase.FilePath;
+        nameof(MainWindow.FrameBody).NavigateTo(typeof(DashBoardPage));
     }
 
     //TODO work
@@ -67,13 +70,18 @@ public partial class WelcomePage
         RefreshExistingDatabases();
     }
 
-    //TODO make save automatically
-    private void ButtonDatabase_OnClick(object sender, RoutedEventArgs e)
-    {
-        var button = (Button)sender;
-        if (button.DataContext is not ExistingDatabase existingDatabase) return;
+    #endregion
 
-        DataBaseContext.FilePath = existingDatabase.FilePath;
-        nameof(MainWindow.FrameBody).NavigateTo(typeof(DashBoardPage));
+    #region Function
+
+    private void RefreshExistingDatabases()
+    {
+        ExistingDatabases.Clear();
+        var existingDatabases = Directory
+            .GetFiles(DirectoryDatabase, "*.sqlite")
+            .Select(s => new ExistingDatabase { FilePath = s } );
+        ExistingDatabases.AddRange(existingDatabases);
     }
+
+    #endregion
 }
