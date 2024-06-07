@@ -22,7 +22,9 @@
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center">
 
-            <Grid margin:PanelExtensions.MarginForAllChildren="3">
+            <Grid HorizontalAlignment="Center"
+                  VerticalAlignment="Center"
+                  margin:PanelExtensions.MarginForAllChildren="3">
 
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
