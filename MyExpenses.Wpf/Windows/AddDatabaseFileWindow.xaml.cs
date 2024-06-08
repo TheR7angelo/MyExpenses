@@ -18,8 +18,11 @@ public partial class AddDatabaseFileWindow
         set => SetValue(DatabaseFilenameProperty, value);
     }
 
+    //TODO work
     public string TextBoxHintAssist { get; } = "Database filename :";
+    //TODO work
     public string ButtonValidContent { get; } = "Valid";
+    //TODO work
     public string ButtonCancelContent { get; } = "Cancel";
 
     private List<ExistingDatabase> ExistingDatabases { get; } = [];
@@ -35,6 +38,7 @@ public partial class AddDatabaseFileWindow
     {
         if (string.IsNullOrEmpty(DatabaseFilename))
         {
+            //TODO work
             MsgBox.MsgBox.Show("Database filename cannot be empty", MsgBoxImage.Error);
             return;
         }
@@ -89,9 +93,11 @@ public partial class AddDatabaseFileWindow
         => ExistingDatabases.AddRange(existingDatabases);
 
 
+    //TODO work
     private void ShowErrorMessageAlreadyExist()
         => MsgBox.MsgBox.Show("Database filename already exist", MsgBoxImage.Warning);
 
+    //TODO work
     private void ShowErrorMessageContainsIncorrectChar()
         => MsgBox.MsgBox.Show("Database filename contains incorrect characters", MsgBoxImage.Error);
 
