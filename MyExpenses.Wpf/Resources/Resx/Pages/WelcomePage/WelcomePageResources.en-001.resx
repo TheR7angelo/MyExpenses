@@ -14,4 +14,10 @@
     <data name="DeleteDatabaseQuestion" xml:space="preserve">
         <value>Do you really want to delete all database selected ?</value>
     </data>
+    <data name="MessageBoxCreateNewDatabaseSuccess" xml:space="preserve">
+        <value>New database was successfully added</value>
+    </data>
+    <data name="MessageBoxCreateNewDatabaseError" xml:space="preserve">
+        <value>An error occurred while adding the new database</value>
+    </data>
 </root>

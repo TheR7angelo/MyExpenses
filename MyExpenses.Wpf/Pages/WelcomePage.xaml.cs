@@ -55,14 +55,14 @@ public partial class WelcomePage
             ExistingDatabases.AddAndSort(new ExistingDatabase { FilePath = filePath },
                 s => s.FileNameWithoutExtension!);
 
-            //TODO work
-            MsgBox.Show("New database was successfully added", MsgBoxImage.Check);
+            //TODO add all default values
+
+            MsgBox.Show(WelcomePageResources.MessageBoxCreateNewDatabaseSuccess, MsgBoxImage.Check);
         }
         catch (Exception exception)
         {
             Log.Error(exception, "An error occur");
-            //TODO work
-            MsgBox.Show("An error occurred while adding the new database", MsgBoxImage.Error);
+            MsgBox.Show(WelcomePageResources.MessageBoxCreateNewDatabaseError, MsgBoxImage.Error);
         }
     }
 

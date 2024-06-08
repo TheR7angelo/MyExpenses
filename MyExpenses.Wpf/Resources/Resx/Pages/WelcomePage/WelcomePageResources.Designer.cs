@@ -67,5 +67,23 @@ namespace MyExpenses.Wpf.Resources.Resx.Pages.WelcomePage {
                 return ResourceManager.GetString("DeleteDatabaseQuestion", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error occurred while adding the new database.
+        /// </summary>
+        internal static string MessageBoxCreateNewDatabaseError {
+            get {
+                return ResourceManager.GetString("MessageBoxCreateNewDatabaseError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New database was successfully added.
+        /// </summary>
+        internal static string MessageBoxCreateNewDatabaseSuccess {
+            get {
+                return ResourceManager.GetString("MessageBoxCreateNewDatabaseSuccess", resourceCulture);
+            }
+        }
     }
 }
