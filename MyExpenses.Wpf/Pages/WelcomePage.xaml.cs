@@ -34,10 +34,19 @@ public partial class WelcomePage
     //TODO work
     private void ButtonAddDataBase_OnClick(object sender, RoutedEventArgs e)
     {
-        const string fileName = "test.sqlite";
+        var addDatabaseFileWindow = new AddDatabaseFileWindow();
+        addDatabaseFileWindow.SetExistingDatabase(ExistingDatabases);
+
+        var result = addDatabaseFileWindow.ShowDialog();
+
+        if (result is not true) return;
+
+        var fileName = addDatabaseFileWindow.DatabaseFilename;
+        fileName = Path.ChangeExtension(fileName, ".sqlite");
         var filePath = Path.Combine(DirectoryDatabase, fileName);
         File.Copy(DatabaseModel, filePath, true);
-        ExistingDatabases.Add(new ExistingDatabase { FilePath = filePath });
+
+        RefreshExistingDatabases();
     }
 
     //TODO make save automatically
