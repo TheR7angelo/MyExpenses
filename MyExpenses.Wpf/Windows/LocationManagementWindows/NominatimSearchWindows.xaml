@@ -27,6 +27,9 @@
                  GlowBrush="Gray"
                  NonActiveGlowBrush="Gray"
 
+                 ShowIconOnTitleBar="True"
+                 Icon="../../Resources/Assets/Icon.png"
+
                  WindowStartupLocation="CenterScreen"
                  ResizeMode="CanResizeWithGrip"
 

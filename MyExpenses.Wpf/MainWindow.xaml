@@ -24,6 +24,9 @@
                  GlowBrush="Gray"
                  NonActiveGlowBrush="Gray"
 
+                 ShowIconOnTitleBar="True"
+                 Icon="Resources/Assets/Icon.png"
+
                  WindowStartupLocation="CenterScreen"
                  ResizeMode="CanResizeWithGrip"
 
@@ -32,11 +35,11 @@
 
                  DataContext="{Binding RelativeSource={RelativeSource Self}}">
 
-    <mah:MetroWindow.LeftWindowCommands>
-        <mah:WindowCommands>
-            <Image Source="/Resources/Assets/Icon.png" Width="22" Height="22" />
-        </mah:WindowCommands>
-    </mah:MetroWindow.LeftWindowCommands>
+    <!-- <mah:MetroWindow.LeftWindowCommands> -->
+    <!--     <mah:WindowCommands> -->
+    <!--         <Image Source="/Resources/Assets/Icon.png" Width="22" Height="22" /> -->
+    <!--     </mah:WindowCommands> -->
+    <!-- </mah:MetroWindow.LeftWindowCommands> -->
 
     <Grid>
 
