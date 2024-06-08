@@ -85,7 +85,8 @@ public partial class AddDatabaseFileWindow
 
     private bool CheckDatabaseFilenameIncorrectChar(string databaseFilename)
     {
-        var charsIncorrects = new[] { '\\', '/', ':', '*', '?', '"', '<', '>', '|' };
+        if (databaseFilename.StartsWith('.')) return true;
+        var charsIncorrects = new[] {'/', '\\', '?', '%', '*', ':', '|', '"', '<', '>', '\0'};
         return charsIncorrects.Any(databaseFilename.Contains);
     }
 
