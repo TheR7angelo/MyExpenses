@@ -6,7 +6,6 @@ using MyExpenses.Models.IO;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils.Collection;
 using MyExpenses.Wpf.Resources.Resx.Pages.WelcomePage;
-using MyExpenses.Wpf.Utils.Sql;
 using MyExpenses.Wpf.Windows;
 using MyExpenses.Wpf.Windows.MsgBox;
 using Serilog;
@@ -54,13 +53,11 @@ public partial class WelcomePage
             File.Copy(DatabaseModel, filePath, true);
 
             using var context = new DataBaseContext(filePath);
-            context.SetDefaultValues();
+            context.SetAllDefaultValues();
             context.SaveChanges();
 
             ExistingDatabases.AddAndSort(new ExistingDatabase { FilePath = filePath },
                 s => s.FileNameWithoutExtension!);
-
-            //TODO add all default values
 
             MsgBox.Show(WelcomePageResources.MessageBoxCreateNewDatabaseSuccess, MsgBoxImage.Check);
         }

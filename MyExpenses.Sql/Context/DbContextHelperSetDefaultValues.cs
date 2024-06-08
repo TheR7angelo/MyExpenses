@@ -1,20 +1,38 @@
 using System.Drawing;
 using MyExpenses.Models.Sql.Tables;
-using MyExpenses.Sql.Context;
-using MyExpenses.Wpf.Resources.Regex;
+using MyExpenses.Sql.Utils.Regex;
 
-namespace MyExpenses.Wpf.Utils.Sql;
+namespace MyExpenses.Sql.Context;
 
 public static class DbContextHelperSetDefaultValues
 {
-    public static bool SetDefaultValues(this DataBaseContext context)
+    public static bool SetAllDefaultValues(this DataBaseContext context)
     {
-        SetDefaultTColor(context);
-
-        return true;
+        try
+        {
+            SetDefaultTColor(context);
+            SetDefaultTModePayment(context);
+            SetDefaultTPlace(context);
+            return true;
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            return false;
+        }
     }
 
-    private static bool SetDefaultTColor(DataBaseContext context)
+    private static void SetDefaultTPlace(DataBaseContext context)
+    {
+        //TODO work
+    }
+
+    private static void SetDefaultTModePayment(DataBaseContext context)
+    {
+        //TODO work
+    }
+
+    private static void SetDefaultTColor(DataBaseContext context)
     {
         var blackList = new List<KnownColor>
         {
@@ -48,7 +66,5 @@ public static class DbContextHelperSetDefaultValues
         }
 
         context.TColors.AddRange(colors);
-
-        return true;
     }
 }
