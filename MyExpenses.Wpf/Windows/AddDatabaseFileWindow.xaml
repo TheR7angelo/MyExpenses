@@ -44,10 +44,9 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <!-- TODO work -->
         <TextBox Grid.Row="0"
                  Text="{Binding DatabaseFilename, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                 materialDesign:HintAssist.Hint="Database filename :"
+                 materialDesign:HintAssist.Hint="{Binding TextBoxHintAssist}"
                  Style="{StaticResource MaterialDesignFilledTextBox}"
                  PreviewLostKeyboardFocus="TextBoxDatabaseFilename_OnPreviewLostKeyboardFocus">
         </TextBox>
@@ -57,14 +56,12 @@
                     Orientation="Horizontal"
                     HorizontalAlignment="Right" VerticalAlignment="Bottom">
 
-            <!-- TODO work -->
-            <Button Content="Valid"
+            <Button Content="{Binding ButtonValidContent}"
                     Style="{StaticResource MaterialDesignPaperButton}"
                     Click="ButtonValid_OnClick">
             </Button>
 
-            <!-- TODO work -->
-            <Button Content="Cancel"
+            <Button Content="{Binding ButtonCancelContent}"
                     Style="{StaticResource MaterialDesignPaperSecondaryButton}"
                     Click="ButtonCancel_OnClick">
             </Button>

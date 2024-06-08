@@ -12,6 +12,16 @@ public partial class AddDatabaseFileWindow
         DependencyProperty.Register(nameof(DatabaseFilename), typeof(string), typeof(AddDatabaseFileWindow),
             new PropertyMetadata(default(string)));
 
+    public string DatabaseFilename
+    {
+        get => (string)GetValue(DatabaseFilenameProperty);
+        set => SetValue(DatabaseFilenameProperty, value);
+    }
+
+    public string TextBoxHintAssist { get; } = "Database filename :";
+    public string ButtonValidContent { get; } = "Valid";
+    public string ButtonCancelContent { get; } = "Cancel";
+
     private List<ExistingDatabase> ExistingDatabases { get; } = [];
 
     public string DatabaseFilename
