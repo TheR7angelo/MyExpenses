@@ -169,8 +169,10 @@ public partial class AddEditColorWindow
 
     public void SetTColor(int categoryTypeColorFk)
     {
-        var colorToEdit = categoryTypeColorFk.ToTColor();
-        SetTColor(colorToEdit!);
+        var colorToEdit = categoryTypeColorFk.ToISqlT<TColor>();
+        if (colorToEdit is null) return;
+
+        SetTColor(colorToEdit);
     }
 
     public void SetTColor(TColor colorToEdit)

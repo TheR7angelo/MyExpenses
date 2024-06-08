@@ -338,7 +338,7 @@ public partial class BankTransferPage
     private void SelectorFromAccount_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
     {
         var fromAccount = Accounts.FirstOrDefault(s => s.Id == BankTransfer.FromAccountFk);
-        VFromAccount = fromAccount?.ToVTotalByAccount();
+        VFromAccount = fromAccount?.Id.ToISqlT<VTotalByAccount>();
 
         RefreshListToAccount();
         RefreshVFromAccountReduce();
@@ -347,7 +347,7 @@ public partial class BankTransferPage
     private void SelectorToAccount_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
     {
         var toAccount = Accounts.FirstOrDefault(s => s.Id == BankTransfer.ToAccountFk);
-        VToAccount = toAccount?.ToVTotalByAccount();
+        VToAccount = toAccount?.Id.ToISqlT<VTotalByAccount>();
 
         RefreshListFromAccount();
         RefreshVToAccountIncrease();

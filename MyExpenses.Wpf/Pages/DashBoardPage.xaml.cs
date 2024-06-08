@@ -214,7 +214,7 @@ public partial class DashBoardPage : INotifyPropertyChanged
     private void MenuItemDeleteRecord_OnClick(object sender, RoutedEventArgs e)
     {
         if (DataGridRow!.DataContext is not VHistory vHistory) return;
-        var history = vHistory.ToTHistory();
+        var history = vHistory.Id.ToISqlT<THistory>();
 
         history?.Delete(true);
 
@@ -231,7 +231,7 @@ public partial class DashBoardPage : INotifyPropertyChanged
     private void MenuItemEditRecord_OnClick(object sender, RoutedEventArgs e)
     {
         if (DataGridRow!.DataContext is not VHistory vHistory) return;
-        var history = vHistory.ToTHistory();
+        var history = vHistory.Id.ToISqlT<THistory>();
         if (history is null) return;
 
         var recordExpensePage = new RecordExpensePage();
@@ -243,7 +243,7 @@ public partial class DashBoardPage : INotifyPropertyChanged
     private void MenuItemPointed_OnClick(object sender, RoutedEventArgs e)
     {
         if (DataGridRow!.DataContext is not VHistory vHistory) return;
-        var history = vHistory.ToTHistory();
+        var history = vHistory.Id.ToISqlT<THistory>();
 
         history!.Pointed = !history.Pointed;
         history.AddOrEdit();

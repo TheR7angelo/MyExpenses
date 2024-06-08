@@ -52,7 +52,8 @@ public partial class AccountManagementPage
 
             MsgBox.Show(AccountManagementPageResources.MessageBoxAddAccountSuccess, MsgBoxImage.Check);
 
-            var newVTotalByAccount = newAccount.ToVTotalByAccount()!;
+            var newVTotalByAccount = newAccount.Id.ToISqlT<VTotalByAccount>();
+            if (newVTotalByAccount is null) return;
 
             TotalByAccounts.AddAndSort(newVTotalByAccount, s => s.Name!);
         }
@@ -68,7 +69,9 @@ public partial class AccountManagementPage
         var button = (Button)sender;
         var vTotalByAccount = (VTotalByAccount)button.DataContext;
 
-        var account = vTotalByAccount.ToTAccount()!;
+        var account = vTotalByAccount.Id.ToISqlT<TAccount>();
+        if (account is null) return;
+
         var addEditAccountWindow = new AddEditAccountWindow();
         addEditAccountWindow.SetTAccount(account);
         addEditAccountWindow.ShowDialog();
@@ -92,7 +95,8 @@ public partial class AccountManagementPage
 
             MsgBox.Show(AccountManagementPageResources.MessageBoxEditAccountSuccess, MsgBoxImage.Check);
 
-            var newVTotalByAccount = editedAccount.ToVTotalByAccount()!;
+            var newVTotalByAccount = editedAccount.Id.ToISqlT<VTotalByAccount>();
+            if (newVTotalByAccount is null) return;
 
             TotalByAccounts.Remove(vTotalByAccount);
 
