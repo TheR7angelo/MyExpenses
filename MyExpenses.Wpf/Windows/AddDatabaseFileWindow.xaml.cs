@@ -35,8 +35,11 @@ public partial class AddDatabaseFileWindow
             return;
         }
 
+        var containsIncorrectChar = CheckDatabaseFilenameIncorrectChar(DatabaseFilename);
+        if (containsIncorrectChar) ShowErrorMessageContainsIncorrectChar();
+
         var alreadyExist = CheckDatabaseFilename(DatabaseFilename);
-        if (alreadyExist) ShowErrorMessage();
+        if (alreadyExist) ShowErrorMessageAlreadyExist();
         else
         {
             DialogResult = true;
@@ -57,9 +60,13 @@ public partial class AddDatabaseFileWindow
         var databaseFilename = textBox.Text;
         if (string.IsNullOrEmpty(databaseFilename)) return;
 
+        var containsIncorrectChar = CheckDatabaseFilenameIncorrectChar(databaseFilename);
+        if (containsIncorrectChar) ShowErrorMessageContainsIncorrectChar();
+
         var alreadyExist = CheckDatabaseFilename(databaseFilename);
-        if (alreadyExist) ShowErrorMessage();
+        if (alreadyExist) ShowErrorMessageAlreadyExist();
     }
+
 
     #endregion
 
@@ -68,12 +75,21 @@ public partial class AddDatabaseFileWindow
     private bool CheckDatabaseFilename(string databaseFilename)
         => ExistingDatabases.Select(s => s.FileNameWithoutExtension).Contains(databaseFilename);
 
+    private bool CheckDatabaseFilenameIncorrectChar(string databaseFilename)
+    {
+        var charsIncorrects = new[] { '\\', '/', ':', '*', '?', '"', '<', '>', '|' };
+        return charsIncorrects.Any(databaseFilename.Contains);
+    }
+
     public void SetExistingDatabase(IEnumerable<ExistingDatabase> existingDatabases)
         => ExistingDatabases.AddRange(existingDatabases);
 
 
-    private void ShowErrorMessage()
+    private void ShowErrorMessageAlreadyExist()
         => MsgBox.MsgBox.Show("Database filename already exist", MsgBoxImage.Warning);
+
+    private void ShowErrorMessageContainsIncorrectChar()
+        => MsgBox.MsgBox.Show("Database filename contains incorrect characters", MsgBoxImage.Error);
 
     #endregion
 }
