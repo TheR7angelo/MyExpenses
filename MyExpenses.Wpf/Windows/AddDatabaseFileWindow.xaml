@@ -1,0 +1,76 @@
+<mah:MetroWindow x:Class="MyExpenses.Wpf.Windows.AddDatabaseFileWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:local="clr-namespace:MyExpenses.Wpf.Windows"
+        xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:margin="clr-namespace:MyExpenses.Wpf.Utils.Margin;assembly=MyExpenses.Wpf.Utils"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+
+        Title="AddDatabaseFile"
+
+        d:DesignHeight="130"
+        d:DesignWidth="394"
+
+        MinHeight="130"
+        MinWidth="400"
+        Height="130"
+        Width="400"
+
+        TitleCharacterCasing="Normal"
+        NonActiveWindowTitleBrush="Gray"
+        WindowTitleBrush="Gray"
+        BorderBrush="Gray"
+        GlowBrush="Gray"
+        NonActiveGlowBrush="Gray"
+
+        ShowIconOnTitleBar="True"
+        Icon="../Resources/Assets/Icon.png"
+
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="CanResizeWithGrip"
+
+        Background="{DynamicResource MaterialDesignPaper}"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+
+        DataContext="{Binding RelativeSource={RelativeSource Self}}">
+
+    <Grid margin:PanelExtensions.MarginForAllChildren="5">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <!-- TODO work -->
+        <TextBox Grid.Row="0"
+                 Text="{Binding DatabaseFilename, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                 materialDesign:HintAssist.Hint="Database filename :"
+                 Style="{StaticResource MaterialDesignFilledTextBox}"
+                 PreviewLostKeyboardFocus="TextBoxDatabaseFilename_OnPreviewLostKeyboardFocus">
+        </TextBox>
+
+        <StackPanel Grid.Row="1"
+                    margin:PanelExtensions.MarginForAllChildren="5, 0, 5, 5"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right" VerticalAlignment="Bottom">
+
+            <!-- TODO work -->
+            <Button Content="Valid"
+                    Style="{StaticResource MaterialDesignPaperButton}"
+                    Click="ButtonValid_OnClick">
+            </Button>
+
+            <!-- TODO work -->
+            <Button Content="Cancel"
+                    Style="{StaticResource MaterialDesignPaperSecondaryButton}"
+                    Click="ButtonCancel_OnClick">
+            </Button>
+
+        </StackPanel>
+
+    </Grid>
+
+</mah:MetroWindow>
