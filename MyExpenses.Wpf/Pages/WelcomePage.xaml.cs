@@ -46,7 +46,7 @@ public partial class WelcomePage
         var filePath = Path.Combine(DirectoryDatabase, fileName);
         File.Copy(DatabaseModel, filePath, true);
 
-        RefreshExistingDatabases();
+        ExistingDatabases.AddAndSort(new ExistingDatabase { FilePath = filePath }, s => s.FileNameWithoutExtension!);
     }
 
     //TODO make save automatically
