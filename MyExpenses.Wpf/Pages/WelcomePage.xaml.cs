@@ -8,6 +8,7 @@ using MyExpenses.Utils.Collection;
 using MyExpenses.Wpf.Resources.Resx.Pages.WelcomePage;
 using MyExpenses.Wpf.Windows;
 using MyExpenses.Wpf.Windows.MsgBox;
+using Serilog;
 
 namespace MyExpenses.Wpf.Pages;
 
@@ -44,9 +45,25 @@ public partial class WelcomePage
         var fileName = addDatabaseFileWindow.DatabaseFilename;
         fileName = Path.ChangeExtension(fileName, ".sqlite");
         var filePath = Path.Combine(DirectoryDatabase, fileName);
-        File.Copy(DatabaseModel, filePath, true);
 
-        ExistingDatabases.AddAndSort(new ExistingDatabase { FilePath = filePath }, s => s.FileNameWithoutExtension!);
+        Log.Information("Create new database with name \"{FileName}\"", fileName);
+
+        try
+        {
+            File.Copy(DatabaseModel, filePath, true);
+
+            ExistingDatabases.AddAndSort(new ExistingDatabase { FilePath = filePath },
+                s => s.FileNameWithoutExtension!);
+
+            //TODO work
+            MsgBox.Show("New database was successfully added", MsgBoxImage.Check);
+        }
+        catch (Exception exception)
+        {
+            Log.Error(exception, "An error occur");
+            //TODO work
+            MsgBox.Show("An error occurred while adding the new database", MsgBoxImage.Error);
+        }
     }
 
     //TODO make save automatically
