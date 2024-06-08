@@ -24,12 +24,6 @@ public partial class AddDatabaseFileWindow
 
     private List<ExistingDatabase> ExistingDatabases { get; } = [];
 
-    public string DatabaseFilename
-    {
-        get => (string)GetValue(DatabaseFilenameProperty);
-        set => SetValue(DatabaseFilenameProperty, value);
-    }
-
     public AddDatabaseFileWindow()
     {
         InitializeComponent();
