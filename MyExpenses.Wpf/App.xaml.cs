@@ -22,8 +22,10 @@ public partial class App
         Log.Information("Starting the application");
 
         Log.Information("Start of database backup on start");
-        DbContextBackup.CleanBackupDatabase();
-        DbContextBackup.BackupDatabase();
+        var totalDatabaseDelete = DbContextBackup.CleanBackupDatabase();
+        var totalDatabaseBackup = DbContextBackup.BackupDatabase();
+        Log.Information("{TotalDatabaseDelete} backup database has been deleted", totalDatabaseDelete);
+        Log.Information("{TotalDatabaseBackup} database has been backuped", totalDatabaseBackup);
 
         Log.Information("Reading configuration file");
         var configuration = MyExpenses.Utils.Config.Configuration;

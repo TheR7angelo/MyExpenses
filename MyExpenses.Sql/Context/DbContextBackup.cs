@@ -29,11 +29,12 @@ public static class DbContextBackup
         return existingDatabases;
     }
 
-    public static void CleanBackupDatabase()
+    public static int CleanBackupDatabase()
     {
         var existingDatabases = GetExistingBackupDatabase();
 
-        if (existingDatabases.Length == 0) return;
+        var totalDelete = 0;
+        if (existingDatabases.Length == 0) return totalDelete;
 
         var now = DateTime.Now.AddDays(-15);
         foreach (var existingDatabase in existingDatabases)
@@ -42,18 +43,21 @@ public static class DbContextBackup
             if (!File.Exists(existingDatabase.FilePath)) continue;
 
             var fileInfo = new FileInfo(existingDatabase.FilePath);
-            if (fileInfo.LastWriteTime < now)
-            {
-                fileInfo.Delete();
-            }
+            if (fileInfo.LastWriteTime >= now) continue;
+
+            fileInfo.Delete();
+            Interlocked.Increment(ref totalDelete);
         }
+
+        return totalDelete;
     }
 
-    public static void BackupDatabase()
+    public static int BackupDatabase()
     {
         var existingDatabases = GetExistingDatabase();
 
-        if (existingDatabases.Length == 0) return;
+        var totalBackup = 0;
+        if (existingDatabases.Length == 0) return totalBackup;
 
         var directoryBackup = DirectoryBackupDatabase;
         Directory.CreateDirectory(directoryBackup);
@@ -70,6 +74,10 @@ public static class DbContextBackup
             var extension = Path.GetExtension(existingDatabase.FilePath);
             var destinationFileName = Path.Join(directory, $"{existingDatabase.FileNameWithoutExtension}_{timestamp}{extension}");
             File.Copy(existingDatabase.FilePath, destinationFileName, true);
+
+            Interlocked.Increment(ref totalBackup);
         }
+
+        return totalBackup;
     }
 }
