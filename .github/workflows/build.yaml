@@ -63,4 +63,4 @@ jobs:
         run: dotnet build --configuration Release
 
       - name: Test with dotnet
-        run: dotnet test ./Tests/*/*.csproj --logger "trx;LogFileName=test_results.trx"
+        run: dotnet test ./Tests/**/*.csproj --logger "trx;LogFileName=test_results.trx"
