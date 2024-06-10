@@ -13,8 +13,8 @@ public partial class VAccountMonthlyCumulativeSum
     public string? Account { get; set; }
 
     [Column("period")]
-    public byte[]? Period { get; set; }
+    public string? Period { get; set; }
 
     [Column("cumulative_sum")]
-    public byte[]? CumulativeSum { get; set; }
+    public double? CumulativeSum { get; set; }
 }
