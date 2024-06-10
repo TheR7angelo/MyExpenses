@@ -514,37 +514,62 @@ FROM t_bank_transfer bk
 
 DROP VIEW IF EXISTS v_account_monthly_cumulative_sum;
 CREATE VIEW v_account_monthly_cumulative_sum AS
-WITH
-    monthly AS (
-        SELECT
-            h.account_fk,
-            a.name AS account,
-            STRFTIME('%Y-%m', h.date) AS period,
-            SUM(h.value) as monthly_value
-        FROM t_history h
-                 LEFT JOIN t_account a
-                           ON h.account_fk = a.id
-        GROUP BY account_fk, period
-    ),
-    ranked AS (
-        SELECT
-            *,
-            ROW_NUMBER() OVER (PARTITION BY account_fk ORDER BY period) as rn
-        FROM monthly
-    ),
-    cumulative AS (
-        SELECT
-            r1.rn, r1.period, r1.account_fk, r1.account,
-            (SELECT SUM(r2.monthly_value)
-             FROM ranked r2
-             WHERE r2.rn <= r1.rn AND r2.account_fk = r1.account_fk) as cumulative_sum
-        FROM ranked r1
-    )
-SELECT
-    account_fk,
-    account,
-    period,
-    ROUND(cumulative_sum, 2) as cumulative_sum
+WITH all_periods AS (SELECT a.id                     AS account_fk,
+                            a.name                   AS account,
+                            y.year || '-' || m.month AS period
+                     FROM t_account a
+                              CROSS JOIN (SELECT DISTINCT STRFTIME('%Y', h.date) AS year
+                                          FROM t_history h) y
+                              CROSS JOIN (SELECT strftime('%m', date('2000-' || x || '-01')) AS month
+                                          FROM (SELECT '01' AS x
+                                                UNION
+                                                SELECT '02'
+                                                UNION
+                                                SELECT '03'
+                                                UNION
+                                                SELECT '04'
+                                                UNION
+                                                SELECT '05'
+                                                UNION
+                                                SELECT '06'
+                                                UNION
+                                                SELECT '07'
+                                                UNION
+                                                SELECT '08'
+                                                UNION
+                                                SELECT '09'
+                                                UNION
+                                                SELECT '10'
+                                                UNION
+                                                SELECT '11'
+                                                UNION
+                                                SELECT '12')) m
+                     WHERE y.year < strftime('%Y', 'now')
+                        OR (y.year == strftime('%Y', 'now') AND m.month <= strftime('%m', 'now'))),
+     monthly AS (SELECT ap.account_fk,
+                        ap.account,
+                        ap.period,
+                        COALESCE(SUM(h.value), 0) as monthly_value
+                 FROM all_periods ap
+                          LEFT JOIN t_history h
+                                    ON h.account_fk = ap.account_fk AND ap.period = strftime('%Y-%m', h.date)
+                 GROUP BY ap.account_fk, ap.period),
+     ranked AS (SELECT *,
+                       ROW_NUMBER() OVER (PARTITION BY account_fk ORDER BY period) as rn
+                FROM monthly),
+     cumulative AS (SELECT r1.rn,
+                           r1.period,
+                           r1.account_fk,
+                           r1.account,
+                           (SELECT SUM(r2.monthly_value)
+                            FROM ranked r2
+                            WHERE r2.rn <= r1.rn
+                              AND r2.account_fk = r1.account_fk) as cumulative_sum
+                    FROM ranked r1)
+SELECT account_fk,
+       account,
+       period,
+       ROUND(cumulative_sum, 2) as cumulative_sum
 FROM cumulative
 ORDER BY account_fk, rn;
 
