@@ -22,6 +22,7 @@ public partial class App
         Log.Information("Starting the application");
 
         Log.Information("Start of database backup on start");
+        DbContextBackup.CleanBackupDatabase();
         DbContextBackup.BackupDatabase();
 
         Log.Information("Reading configuration file");

@@ -5,6 +5,7 @@ namespace MyExpenses.Sql.Context;
 public static class DbContextBackup
 {
     public static string DirectoryDatabase { get; } = Path.GetFullPath("Databases");
+    public static string DirectoryBackupDatabase { get; } = Path.Join(DirectoryDatabase, "Backups");
 
     public static ExistingDatabase[] GetExistingDatabase()
     {
@@ -17,14 +18,44 @@ public static class DbContextBackup
         return existingDatabases;
     }
 
+    public static ExistingDatabase[] GetExistingBackupDatabase()
+    {
+        Directory.CreateDirectory(DirectoryBackupDatabase);
+
+        var existingDatabases = Directory
+            .GetFiles(DirectoryBackupDatabase, "*.sqlite", SearchOption.AllDirectories)
+            .Select(s => new ExistingDatabase { FilePath = s } ).ToArray();
+
+        return existingDatabases;
+    }
+
+    public static void CleanBackupDatabase()
+    {
+        var existingDatabases = GetExistingBackupDatabase();
+
+        if (existingDatabases.Length == 0) return;
+
+        var now = DateTime.Now.AddDays(-15);
+        foreach (var existingDatabase in existingDatabases)
+        {
+            if (string.IsNullOrEmpty(existingDatabase.FilePath)) continue;
+            if (!File.Exists(existingDatabase.FilePath)) continue;
+
+            var fileInfo = new FileInfo(existingDatabase.FilePath);
+            if (fileInfo.LastWriteTime < now)
+            {
+                fileInfo.Delete();
+            }
+        }
+    }
+
     public static void BackupDatabase()
     {
         var existingDatabases = GetExistingDatabase();
 
         if (existingDatabases.Length == 0) return;
 
-        var directoryBackup = Path.GetDirectoryName(existingDatabases.First().FilePath);
-        directoryBackup = Path.Join(directoryBackup, "Backups");
+        var directoryBackup = DirectoryBackupDatabase;
         Directory.CreateDirectory(directoryBackup);
 
         foreach (var existingDatabase in existingDatabases)
