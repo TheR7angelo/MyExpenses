@@ -14,7 +14,7 @@ namespace MyExpenses.Wpf.Pages;
 
 public partial class WelcomePage
 {
-    private string DirectoryDatabase { get; } = Path.GetFullPath("Databases");
+    private string DirectoryDatabase { get; } = DbContextBackup.DirectoryDatabase;
     private string DatabaseModel { get; }
     public ObservableCollection<ExistingDatabase> ExistingDatabases { get; } = [];
 

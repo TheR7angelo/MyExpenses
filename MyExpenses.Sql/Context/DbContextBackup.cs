@@ -4,13 +4,14 @@ namespace MyExpenses.Sql.Context;
 
 public static class DbContextBackup
 {
+    public static string DirectoryDatabase { get; } = Path.GetFullPath("Databases");
+
     public static ExistingDatabase[] GetExistingDatabase()
     {
-        var directoryDatabase = Path.GetFullPath("Databases");
-        Directory.CreateDirectory(directoryDatabase);
+        Directory.CreateDirectory(DirectoryDatabase);
 
         var existingDatabases = Directory
-            .GetFiles(directoryDatabase, "*.sqlite", SearchOption.TopDirectoryOnly)
+            .GetFiles(DirectoryDatabase, "*.sqlite", SearchOption.TopDirectoryOnly)
             .Select(s => new ExistingDatabase { FilePath = s } ).ToArray();
 
         return existingDatabases;
