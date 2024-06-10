@@ -11,7 +11,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyExpenses.Wpf.Utils", "MyE
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyExpenses.Utils", "MyExpenses.Utils\MyExpenses.Utils.csproj", "{C9108954-A945-4914-898E-3EB83C5E763A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyExpenses.Wpf.Test", "MyExpenses.Wpf.Test\MyExpenses.Wpf.Test.csproj", "{DC52B9E0-1961-40CC-9F43-2329EA5B3184}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyExpenses.Wpf.Calc", "MyExpenses.Wpf.Calc\MyExpenses.Wpf.Calc.csproj", "{DC52B9E0-1961-40CC-9F43-2329EA5B3184}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

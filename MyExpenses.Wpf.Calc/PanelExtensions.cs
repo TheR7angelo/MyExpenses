@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 
-namespace MyExpenses.Wpf.Test;
+namespace MyExpenses.Wpf.Calc;
 
 /// <summary>
 /// Provides attached properties for the <see cref="Panel"/> class.

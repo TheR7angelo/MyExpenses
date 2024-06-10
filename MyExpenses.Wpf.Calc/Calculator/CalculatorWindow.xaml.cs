@@ -2,7 +2,7 @@ using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
 
-namespace MyExpenses.Wpf.Test.Calculator;
+namespace MyExpenses.Wpf.Calc.Calculator;
 
 public partial class CalculatorWindow
 {

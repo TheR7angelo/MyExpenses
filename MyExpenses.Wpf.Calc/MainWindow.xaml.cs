@@ -1,6 +1,6 @@
-﻿using MyExpenses.Wpf.Test.Calculator;
+﻿using MyExpenses.Wpf.Calc.Calculator;
 
-namespace MyExpenses.Wpf.Test;
+namespace MyExpenses.Wpf.Calc;
 
 public partial class MainWindow
 {

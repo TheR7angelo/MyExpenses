@@ -2,7 +2,7 @@
 using System.Data;
 using System.Windows;
 
-namespace MyExpenses.Wpf.Test;
+namespace MyExpenses.Wpf.Calc;
 
 /// <summary>
 /// Interaction logic for App.xaml
