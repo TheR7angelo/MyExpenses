@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Media;
 using MaterialDesignThemes.Wpf;
+using MyExpenses.Sql.Context;
 using MyExpenses.Wpf.Utils;
 using Log = Serilog.Log;
 using Theme = MyExpenses.Models.Config.Interfaces.Theme;
@@ -19,6 +20,9 @@ public partial class App
 
         Log.Logger = MyExpenses.Utils.LoggerConfig.CreateConfig();
         Log.Information("Starting the application");
+
+        Log.Information("Start of database backup on start");
+        DbContextBackup.BackupDatabase();
 
         Log.Information("Reading configuration file");
         var configuration = MyExpenses.Utils.Config.Configuration;
@@ -71,6 +75,9 @@ public partial class App
 
     private static void CurrentDomainOnProcessExit(object? sender, EventArgs e)
     {
+        Log.Information("Start of database backup on exit");
+        DbContextBackup.BackupDatabase();
+
         Log.Information("Application exit");
         Log.CloseAndFlush();
     }
