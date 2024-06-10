@@ -46,6 +46,13 @@ public static class DbContextBackup
             if (fileInfo.LastWriteTime >= now) continue;
 
             fileInfo.Delete();
+
+            var directory = Path.GetDirectoryName(existingDatabase.FilePath);
+            if (string.IsNullOrEmpty(directory)) continue;
+            if (!Directory.Exists(directory)) continue;
+            var files = Directory.GetFiles(directory);
+            if (files.Length == 0) Directory.Delete(directory);
+
             Interlocked.Increment(ref totalDelete);
         }
 
