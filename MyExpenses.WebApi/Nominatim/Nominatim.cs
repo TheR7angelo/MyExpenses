@@ -7,7 +7,7 @@ namespace MyExpenses.WebApi.Nominatim;
 
 public static class Nominatim
 {
-    private static HttpClient HttpClient { get; set; } = null!;
+    private static HttpClient HttpClient { get; }
 
     static Nominatim()
     {
