@@ -512,6 +512,42 @@ FROM t_bank_transfer bk
          INNER JOIN t_account ta
             ON bk.to_account_fk = ta.id;
 
+DROP VIEW IF EXISTS v_account_monthly_cumulative_sum;
+CREATE VIEW v_account_monthly_cumulative_sum AS
+WITH
+    monthly AS (
+        SELECT
+            h.account_fk,
+            a.name AS account,
+            STRFTIME('%Y-%m', h.date) AS period,
+            SUM(h.value) as monthly_value
+        FROM t_history h
+                 LEFT JOIN t_account a
+                           ON h.account_fk = a.id
+        GROUP BY account_fk, period
+    ),
+    ranked AS (
+        SELECT
+            *,
+            ROW_NUMBER() OVER (PARTITION BY account_fk ORDER BY period) as rn
+        FROM monthly
+    ),
+    cumulative AS (
+        SELECT
+            r1.rn, r1.period, r1.account_fk, r1.account,
+            (SELECT SUM(r2.monthly_value)
+             FROM ranked r2
+             WHERE r2.rn <= r1.rn AND r2.account_fk = r1.account_fk) as cumulative_sum
+        FROM ranked r1
+    )
+SELECT
+    account_fk,
+    account,
+    period,
+    ROUND(cumulative_sum, 2) as cumulative_sum
+FROM cumulative
+ORDER BY account_fk, rn;
+
 -- endregion
 
 

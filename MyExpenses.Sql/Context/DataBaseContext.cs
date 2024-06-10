@@ -38,6 +38,8 @@ public partial class DataBaseContext : DbContext
 
     public virtual DbSet<TPlace> TPlaces { get; set; }
 
+    public virtual DbSet<VAccountMonthlyCumulativeSum> VAccountMonthlyCumulativeSums { get; set; }
+
     public virtual DbSet<VBankTransfer> VBankTransfers { get; set; }
 
     public virtual DbSet<VDetailTotalCategory> VDetailTotalCategories { get; set; }
@@ -125,6 +127,11 @@ public partial class DataBaseContext : DbContext
         {
             entity.Property(e => e.CanBeDeleted).HasDefaultValue(true);
             entity.Property(e => e.DateAdded).HasDefaultValueSql("CURRENT_TIMESTAMP");
+        });
+
+        modelBuilder.Entity<VAccountMonthlyCumulativeSum>(entity =>
+        {
+            entity.ToView("v_account_monthly_cumulative_sum");
         });
 
         modelBuilder.Entity<VBankTransfer>(entity =>
