@@ -63,4 +63,9 @@ jobs:
         run: dotnet build --configuration Release
 
       - name: Test with dotnet
-        run: dotnet test ./Tests/**/*.csproj --logger "trx;LogFileName=test_results.trx"
+        run: |
+          $projectFiles = Get-ChildItem -Path ./Tests/ -Recurse -Filter *.csproj
+          foreach ($projectFile in $projectFiles) {
+              dotnet test --logger "trx;LogFileName=test_results.trx" $projectFile.FullName
+          }
+        shell: pwsh
