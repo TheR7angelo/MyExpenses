@@ -72,22 +72,26 @@
 
             <Button x:Name="ButtonYes"
                     Content="{Binding ButtonYesContent}"
-                    Style="{StaticResource MaterialDesignPaperButton}" Click="ButtonYes_OnClick">
+                    Style="{StaticResource MaterialDesignPaperButton}"
+                    Click="ButtonYes_OnClick">
             </Button>
 
             <Button x:Name="ButtonNo"
                     Content="{Binding ButtonNoContent}"
-                    Style="{StaticResource MaterialDesignPaperButton}" Click="ButtonNo_OnClick">
+                    Style="{StaticResource MaterialDesignPaperSecondaryButton}"
+                    Click="ButtonNo_OnClick">
             </Button>
 
             <Button x:Name="ButtonOk"
                     Content="{Binding ButtonOkContent}"
-                    Style="{StaticResource MaterialDesignPaperButton}" Click="ButtonOk_OnClick">
+                    Style="{StaticResource MaterialDesignPaperButton}"
+                    Click="ButtonOk_OnClick">
             </Button>
 
             <Button x:Name="ButtonCancel"
                     Content="{Binding ButtonCancelContent}"
-                    Style="{StaticResource MaterialDesignPaperButton}" Click="ButtonCancel_OnClick">
+                    Style="{StaticResource MaterialDesignPaperSecondaryDarkButton}"
+                    Click="ButtonCancel_OnClick">
             </Button>
 
         </StackPanel>
