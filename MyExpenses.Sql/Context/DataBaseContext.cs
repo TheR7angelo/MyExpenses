@@ -38,6 +38,8 @@ public partial class DataBaseContext : DbContext
 
     public virtual DbSet<TPlace> TPlaces { get; set; }
 
+    public virtual DbSet<TVersion> TVersions { get; set; }
+
     public virtual DbSet<VAccountMonthlyCumulativeSum> VAccountMonthlyCumulativeSums { get; set; }
 
     public virtual DbSet<VBankTransfer> VBankTransfers { get; set; }

@@ -1,5 +1,14 @@
 -- region Tables
 
+DROP TABLE IF EXISTS t_version;
+CREATE TABLE t_version
+(
+    id      INTEGER
+        CONSTRAINT t_version_pk
+            PRIMARY KEY AUTOINCREMENT,
+    version TEXT
+);
+
 DROP TABLE IF EXISTS t_account_type;
 CREATE TABLE t_account_type
 (
