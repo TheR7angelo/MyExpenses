@@ -6,7 +6,6 @@
                  xmlns:local="clr-namespace:MyExpenses.Wpf.Windows.MsgBox"
                  xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
                  xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-                 xmlns:utils="clr-namespace:MyExpenses.Wpf.Utils;assembly=MyExpenses.Wpf.Utils"
                  xmlns:converters="clr-namespace:MyExpenses.Wpf.Converters"
                  xmlns:margin="clr-namespace:MyExpenses.Wpf.Utils.Margin;assembly=MyExpenses.Wpf.Utils"
                  mc:Ignorable="d"
