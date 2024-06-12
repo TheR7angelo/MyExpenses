@@ -85,13 +85,19 @@ public partial class WelcomePage
         //TODO work
     }
 
-    //TODO work
     private void ButtonImportDataBase_OnClick(object sender, RoutedEventArgs e)
     {
         //TODO work
         var dialog = new SqliteFileDialog();
         var file = dialog.GetFile();
-        Console.WriteLine(file);
+
+        if (string.IsNullOrEmpty(file)) return;
+
+        var fileName = Path.GetFileName(file);
+        var newFilePath = Path.Join(DirectoryDatabase, fileName);
+
+        //TODO work, ask user to confirm copy if file already exist
+        File.Copy(file, newFilePath, true);
     }
 
     //TODO work
