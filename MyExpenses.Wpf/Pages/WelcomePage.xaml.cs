@@ -6,6 +6,7 @@ using MyExpenses.Models.IO;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils.Collection;
 using MyExpenses.Wpf.Resources.Resx.Pages.WelcomePage;
+using MyExpenses.Wpf.Utils.FilePicker;
 using MyExpenses.Wpf.Windows;
 using MyExpenses.Wpf.Windows.MsgBox;
 using Serilog;
@@ -88,6 +89,9 @@ public partial class WelcomePage
     private void ButtonImportDataBase_OnClick(object sender, RoutedEventArgs e)
     {
         //TODO work
+        var dialog = new SqliteFileDialog();
+        var file = dialog.GetFile();
+        Console.WriteLine(file);
     }
 
     //TODO work
