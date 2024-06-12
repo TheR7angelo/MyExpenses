@@ -29,4 +29,19 @@
       </AdditionalFiles>
     </ItemGroup>
 
+    <ItemGroup>
+      <EmbeddedResource Update="Resources\Resx\DbContextHelperSetDefaultValues\DbContextHelperSetDefaultValuesResources.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>DbContextHelperSetDefaultValuesResources.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Update="Resources\Resx\DbContextHelperSetDefaultValues\DbContextHelperSetDefaultValuesResources.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>DbContextHelperSetDefaultValuesResources.resx</DependentUpon>
+      </Compile>
+    </ItemGroup>
+
 </Project>

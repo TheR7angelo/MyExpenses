@@ -1,5 +1,6 @@
 using System.Drawing;
 using MyExpenses.Models.Sql.Tables;
+using MyExpenses.Sql.Resources.Resx.DbContextHelperSetDefaultValues;
 using MyExpenses.Sql.Utils.Regex;
 
 namespace MyExpenses.Sql.Context;
@@ -24,19 +25,17 @@ public static class DbContextHelperSetDefaultValues
 
     private static void SetDefaultTPlace(DataBaseContext context)
     {
-        //TODO work
-        var place = new TPlace { Name = "Internet", CanBeDeleted = false };
+        var place = new TPlace { Name = DbContextHelperSetDefaultValuesResources.DefautTPlaceNameInternet, CanBeDeleted = false };
         context.TPlaces.Add(place);
     }
 
     private static void SetDefaultTModePayment(DataBaseContext context)
     {
-        //TODO work
         var paymentMode = new List<TModePayment>
         {
-            new() { Name = "Carte", CanBeDeleted = false },
-            new() { Name = "Virement", CanBeDeleted = false },
-            new() { Name = "Prélévement", CanBeDeleted = false }
+            new() { Name = DbContextHelperSetDefaultValuesResources.DefautTModePaymentNameBankCard, CanBeDeleted = false },
+            new() { Name = DbContextHelperSetDefaultValuesResources.DefautTModePaymentNameBankTransfer, CanBeDeleted = false },
+            new() { Name = DbContextHelperSetDefaultValuesResources.DefautTModePaymentNameBankDirectDebit, CanBeDeleted = false }
         };
         context.TModePayments.AddRange(paymentMode);
     }
