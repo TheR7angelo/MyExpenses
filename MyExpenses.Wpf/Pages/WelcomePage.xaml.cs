@@ -100,21 +100,20 @@ public partial class WelcomePage
         File.Copy(file, newFilePath, true);
     }
 
-    //TODO work
     private void ButtonRemoveDataBase_OnClick(object sender, RoutedEventArgs e)
     {
-        var removeDatabaseFile = new RemoveDatabaseFile();
-        removeDatabaseFile.ExistingDatabases.AddRange(ExistingDatabases);
+        var selectDatabaseFileWindow = new SelectDatabaseFileWindow();
+        selectDatabaseFileWindow.ExistingDatabases.AddRange(ExistingDatabases);
 
-        removeDatabaseFile.ShowDialog();
+        selectDatabaseFileWindow.ShowDialog();
 
-        if (removeDatabaseFile.DialogResult is not true) return;
+        if (selectDatabaseFileWindow.DialogResult is not true) return;
 
         var response = MsgBox.Show(WelcomePageResources.DeleteDatabaseQuestion, MsgBoxImage.Question, MessageBoxButton.YesNoCancel);
 
         if (response is not MessageBoxResult.Yes) return;
 
-        foreach (var existingDatabase in removeDatabaseFile.ExistingDatabasesToDelete)
+        foreach (var existingDatabase in selectDatabaseFileWindow.ExistingDatabasesSelected)
         {
             if (string.IsNullOrEmpty(existingDatabase.FilePath)) continue;
             if (!File.Exists(existingDatabase.FilePath)) continue;

@@ -7,16 +7,16 @@ using MyExpenses.Wpf.Utils;
 
 namespace MyExpenses.Wpf.Windows;
 
-public partial class RemoveDatabaseFile
+public partial class SelectDatabaseFileWindow
 {
     public string ButtonCancelContent { get; } = RemoveDatabaseFileResources.ButtonCancelCotent;
     public string ButtonValidContent { get; } = RemoveDatabaseFileResources.ButtonValidContent;
 
     public ObservableCollection<ExistingDatabase> ExistingDatabases { get; } = [];
 
-    internal List<ExistingDatabase> ExistingDatabasesToDelete { get; } = [];
+    internal List<ExistingDatabase> ExistingDatabasesSelected { get; } = [];
 
-    public RemoveDatabaseFile()
+    public SelectDatabaseFileWindow()
     {
         InitializeComponent();
     }
@@ -28,7 +28,7 @@ public partial class RemoveDatabaseFile
 
         foreach (var existingDatabase in checkBoxesChecked.Select(checkBoxChecked => checkBoxChecked.DataContext as ExistingDatabase).OfType<ExistingDatabase>())
         {
-            ExistingDatabasesToDelete.Add(existingDatabase);
+            ExistingDatabasesSelected.Add(existingDatabase);
         }
 
         DialogResult = true;
