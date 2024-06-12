@@ -82,7 +82,25 @@ public partial class WelcomePage
     //TODO work
     private void ButtonExportDataBase_OnClick(object sender, RoutedEventArgs e)
     {
-        //TODO work
+        var selectDatabaseFileWindow = new SelectDatabaseFileWindow();
+        selectDatabaseFileWindow.ExistingDatabases.AddRange(ExistingDatabases);
+
+        selectDatabaseFileWindow.ShowDialog();
+
+        if (selectDatabaseFileWindow.DialogResult is not true) return;
+
+        var folderDialog = new FolderDialog();
+        var selectedFolder = folderDialog.GetFile();
+
+        if (string.IsNullOrEmpty(selectedFolder)) return;
+
+        foreach (var existingDatabase in selectDatabaseFileWindow.ExistingDatabasesSelected)
+        {
+            var newFilePath = Path.Join(selectedFolder, existingDatabase.FileName);
+            File.Copy(existingDatabase.FilePath!, newFilePath, true);
+        }
+
+        //TODO make messagebox result
     }
 
     private void ButtonImportDataBase_OnClick(object sender, RoutedEventArgs e)
