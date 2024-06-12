@@ -51,6 +51,18 @@ public abstract class AFileDialog : IDialog
         return null;
     }
 
+    public string? GetFile()
+    {
+        var result = _vistaOpenFileDialog.ShowDialog();
+
+        if (result is true)
+        {
+            return _vistaOpenFileDialog.Multiselect ? _vistaOpenFileDialog.FileNames.First() : _vistaOpenFileDialog.FileName;
+        }
+
+        return null;
+    }
+
     public string? SaveFile()
     {
         var result = _vistaSaveFileDialog.ShowDialog();
