@@ -206,7 +206,8 @@ public partial class BankTransferPage
             ModePaymentFk = ModePayment?.Id,
             Value = -valueAbs,
             Date = BankTransfer.Date,
-            Pointed = IsPointed
+            Pointed = IsPointed,
+            PlaceFk = 1
         };
 
         var toHistory = new THistory
@@ -217,7 +218,8 @@ public partial class BankTransferPage
             ModePaymentFk = ModePayment?.Id,
             Value = valueAbs,
             Date = BankTransfer.Date,
-            Pointed = IsPointed
+            Pointed = IsPointed,
+            PlaceFk = 1
         };
 
         BankTransfer.THistories.Add(fromHistory);
