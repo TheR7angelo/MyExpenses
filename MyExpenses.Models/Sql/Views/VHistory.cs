@@ -18,6 +18,9 @@ public partial class VHistory : ISql
     [Column("category")]
     public string? Category { get; set; }
 
+    [Column("hexadecimal_color_code", TypeName = "TEXT(9)")]
+    public string? HexadecimalColorCode { get; set; }
+
     [Column("mode_payment")]
     public string? ModePayment { get; set; }
 

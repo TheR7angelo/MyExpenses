@@ -423,9 +423,10 @@ SELECT h.id,
        ta.name  AS account,
        h.description,
        tct.name AS category,
+       tco.hexadecimal_color_code,
        tmp.name AS mode_payment,
        h.value,
-       tc.symbol,
+       tcu.symbol,
        h.date,
        tp.name  AS place,
        h.pointed,
@@ -437,10 +438,12 @@ FROM t_history h
                    ON h.account_fk = ta.id
          LEFT JOIN t_category_type tct
                    ON h.category_type_fk = tct.id
+         LEFT JOIN t_color tco
+             ON tct.color_fk = tco.id
          LEFT JOIN t_mode_payment tmp
                    ON h.mode_payment_fk = tmp.id
-         LEFT JOIN t_currency tc
-                   ON ta.currency_fk = tc.id
+         LEFT JOIN t_currency tcu
+                   ON ta.currency_fk = tcu.id
          LEFT JOIN t_place tp
                    ON h.place_fk = tp.id
          LEFT JOIN t_bank_transfer bt

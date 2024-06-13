@@ -294,12 +294,29 @@
                         </DataGridTextColumn.Header>
                     </DataGridTextColumn>
 
-                    <DataGridTextColumn Binding="{Binding Category}">
-                        <DataGridTextColumn.Header>
-                            <TextBlock
-                                Text="{Binding DataGridTextColumnCategory, RelativeSource={RelativeSource AncestorType={x:Type local:DashBoardPage}}}" />
-                        </DataGridTextColumn.Header>
-                    </DataGridTextColumn>
+                    <DataGridTemplateColumn>
+                        <DataGridTemplateColumn.Header>
+                            <TextBlock Text="{Binding DataGridTextColumnCategory, RelativeSource={RelativeSource AncestorType={x:Type local:DashBoardPage}}}" />
+                        </DataGridTemplateColumn.Header>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal"
+                                            HorizontalAlignment="Left"
+                                            VerticalAlignment="Top">
+
+                                    <Ellipse Height="16" Width="{Binding Height, RelativeSource={RelativeSource Self}}"
+                                             Stroke="{DynamicResource MaterialDesignBody}"
+                                             StrokeThickness="1.5"
+                                             Fill="{Binding HexadecimalColorCode, Mode=OneWay}"
+                                             Margin="0, 0, 3, 0">
+                                    </Ellipse>
+
+                                    <TextBlock Text="{Binding Category}" Margin="3, 0, 0, 0" />
+
+                                </StackPanel>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
 
                     <DataGridTextColumn Binding="{Binding ModePayment}">
                         <DataGridTextColumn.Header>
