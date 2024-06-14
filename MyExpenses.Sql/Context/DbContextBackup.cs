@@ -33,29 +33,24 @@ public static class DbContextBackup
 
     public static int CleanBackupDatabase()
     {
-        var existingDatabases = GetExistingBackupDatabase();
-
+        const byte maxDatabaseBackup = 15;
         var totalDelete = 0;
-        if (existingDatabases.Length == 0) return totalDelete;
 
-        var now = DateTime.Now.AddDays(-15);
-        foreach (var existingDatabase in existingDatabases)
+        if (!Directory.Exists(DirectoryBackupDatabase)) return totalDelete;
+
+        var directories = Directory.GetDirectories(DirectoryBackupDatabase);
+        foreach (var directory in directories)
         {
-            if (string.IsNullOrEmpty(existingDatabase.FilePath)) continue;
-            if (!File.Exists(existingDatabase.FilePath)) continue;
+            var files = Directory.GetFiles(directory, $"*{Extension}").ToList();
+            if (files.Count <= maxDatabaseBackup) continue;
 
-            var fileInfo = new FileInfo(existingDatabase.FilePath);
-            if (fileInfo.LastWriteTime >= now) continue;
-
-            fileInfo.Delete();
-
-            var directory = Path.GetDirectoryName(existingDatabase.FilePath);
-            if (string.IsNullOrEmpty(directory)) continue;
-            if (!Directory.Exists(directory)) continue;
-            var files = Directory.GetFiles(directory);
-            if (files.Length == 0) Directory.Delete(directory);
-
-            Interlocked.Increment(ref totalDelete);
+            files = files.OrderBy(s => new FileInfo(s).CreationTime).ToList();
+            while (files.Count >= maxDatabaseBackup)
+            {
+                File.Delete(files[0]);
+                files.RemoveAt(0);
+                Interlocked.Increment(ref totalDelete);
+            }
         }
 
         return totalDelete;
