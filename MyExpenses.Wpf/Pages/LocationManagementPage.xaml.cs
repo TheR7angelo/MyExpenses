@@ -203,7 +203,7 @@ public partial class LocationManagementPage
         MapControl.Map.Navigator.ZoomTo(0);
     }
 
-    private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
+    private void CheckBoxPlaceIsOpen_OnClick(object sender, RoutedEventArgs e)
     {
         if (sender is not ToggleButton checkBox) return;
         if (checkBox.DataContext is not TPlace place) return;

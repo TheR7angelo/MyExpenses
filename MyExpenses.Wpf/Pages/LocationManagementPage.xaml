@@ -78,7 +78,7 @@
                                                   IsChecked="{Binding IsOpen, Mode=OneWay}"
                                                   Content="{Binding Name, Converter={StaticResource EmptyStringTreeViewConverter}}"
                                                   readOnly:ToggleButtonExtensions.IsReadOnly="True"
-                                                  Click="ButtonBase_OnClick">
+                                                  Click="CheckBoxPlaceIsOpen_OnClick">
                                         </CheckBox>
                                 </HierarchicalDataTemplate>
                             </HierarchicalDataTemplate.ItemTemplate>
