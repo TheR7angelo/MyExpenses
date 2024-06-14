@@ -17,13 +17,11 @@ using MyExpenses.Sql.Context;
 using MyExpenses.Utils;
 using MyExpenses.Utils.Collection;
 using MyExpenses.Utils.Maps;
-using MyExpenses.Utils.Sql;
 using MyExpenses.Wpf.Resources.Resx.Pages.LocationManagementPage;
 using MyExpenses.Wpf.Utils.Maps;
 using MyExpenses.Wpf.Windows.LocationManagementWindows;
 using MyExpenses.Wpf.Windows.MsgBox;
 using Serilog;
-using CheckBox = System.Windows.Forms.CheckBox;
 
 namespace MyExpenses.Wpf.Pages;
 
@@ -194,13 +192,26 @@ public partial class LocationManagementPage
     {
         if (sender is not TreeView treeView) return;
 
-        if (treeView.SelectedItem is not TPlace place) return;
+        var points = new List<MPoint>();
+        switch (treeView.SelectedItem)
+        {
+            case CountryGroup countryGroup:
+                var ps1 = countryGroup.CityGroups?
+                    .SelectMany(s => s.Places!)
+                    .Where(s => s.Geometry.X is not 0 && s.Geometry.Y is not 0)
+                    .Select(s => s.ToMPoint());
+                if (ps1 is not null) points.AddRange(ps1);
+                break;
 
-        if (place.Longitude is null || place.Longitude == 0 || place.Latitude is null || place.Latitude == 0) return;
+            case CityGroup cityGroup:
+                var ps2 = cityGroup.Places?
+                    .Where(s => s.Geometry.X is not 0 && s.Geometry.Y is not 0)
+                    .Select(s => s.ToMPoint());
+                if (ps2 is not null) points.AddRange(ps2);
+                break;
+        }
 
-        var pointFeature = place.ToFeature();
-        MapControl.Map.Navigator.CenterOn(pointFeature.Point);
-        MapControl.Map.Navigator.ZoomTo(0);
+        SetZoom(points.ToArray());
     }
 
     private void CheckBoxPlaceIsOpen_OnClick(object sender, RoutedEventArgs e)
@@ -210,9 +221,8 @@ public partial class LocationManagementPage
 
         if (place.Longitude is null || place.Longitude == 0 || place.Latitude is null || place.Latitude == 0) return;
 
-        var pointFeature = place.ToFeature();
-        MapControl.Map.Navigator.CenterOn(pointFeature.Point);
-        MapControl.Map.Navigator.ZoomTo(0);
+        var pointFeature = place.ToFeature().Point;
+        SetZoom(pointFeature);
     }
 
     #endregion
@@ -332,6 +342,35 @@ public partial class LocationManagementPage
         PointFeature = feature;
         var place = feature.ToTPlace();
         ClickTPlace = place;
+    }
+
+    private void SetZoom(params MPoint[] points)
+    {
+        switch (points.Length)
+        {
+            case 0:
+                break;
+            case 1:
+                MapControl.Map.Navigator.CenterOn(points[0]);
+                MapControl.Map.Navigator.ZoomTo(1);
+                break;
+
+            case > 1:
+                double minX = points.Min(p => p.X), maxX = points.Max(p => p.X);
+                double minY = points.Min(p => p.Y), maxY = points.Max(p => p.Y);
+
+                var width = maxX - minX;
+                var height = maxY - minY;
+
+                const double marginPercentage = 10; // Change this value to suit your needs
+                var marginX = width * marginPercentage / 100;
+                var marginY = height * marginPercentage / 100;
+
+                var mRect = new MRect(minX - marginX, minY - marginY, maxX + marginX, maxY + marginY);
+
+                MapControl.Map.Navigator.ZoomToBox(mRect);
+                break;
+        }
     }
 
     private void SetInitialZoom()
