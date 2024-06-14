@@ -8,11 +8,13 @@ public partial class DataBaseContext : DbContext
 {
     public static string? FilePath { get; set; }
 
+    private string? TempFilePath { get; set; }
+
     private string? DataSource { get; set; }
 
     public DataBaseContext(string? filePath=null)
     {
-        if (!string.IsNullOrEmpty(filePath)) FilePath = filePath;
+        if (!string.IsNullOrEmpty(filePath)) TempFilePath = filePath;
     }
 
     public DataBaseContext(DbContextOptions<DataBaseContext> options)
@@ -52,27 +54,9 @@ public partial class DataBaseContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        if (string.IsNullOrEmpty(DataSource))
-        {
-            string dbPath;
-            if (string.IsNullOrEmpty(FilePath))
-            {
-                // const string dbPath = @"C:\Users\ZP6177\Documents\Programmation\C#\MyExpenses\MyExpenses.Sql\Database Models\Model.sqlite";
-                const string dbPathPro = @"C:\Users\ZP6177\Documents\Programmation\C#\MyExpenses\MyExpenses.Sql\Database Models\Model - Using.sqlite";
-                const string dbPathPersonnel = @"C:\Users\Rapha\Documents\Programmation\MyExpenses\MyExpenses.Sql\Database Models\Model - Using.sqlite";
-                const string dbPathPortable = @"C:\Users\Rapha\RiderProjects\MyExpenses\MyExpenses.Sql\Database Models\Model - Using.sqlite";
-
-                var username = Environment.UserName;
-                dbPath = username switch
-                {
-                    "ZP6177" => dbPathPro,
-                    "Rapha" => File.Exists(dbPathPersonnel) ? dbPathPersonnel : dbPathPortable,
-                    _ => dbPathPortable
-                };
-            }
-            else dbPath = FilePath;
-            DataSource = $"Data Source={dbPath};Pooling=False";
-        }
+        DataSource = !string.IsNullOrEmpty(TempFilePath)
+            ? $"Data Source={TempFilePath};Pooling=False"
+            : $"Data Source={FilePath};Pooling=False";
 
         var dataSource = DataSource;
 
