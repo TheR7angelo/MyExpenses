@@ -24,4 +24,11 @@
       <ProjectReference Include="..\..\MyExpenses.Sql\MyExpenses.Sql.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <None Remove="Resources\Model - Using - Test.sqlite" />
+      <AdditionalFiles Include="Resources\Model - Using - Test.sqlite">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </AdditionalFiles>
+    </ItemGroup>
+
 </Project>
