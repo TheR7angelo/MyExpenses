@@ -91,6 +91,9 @@ public partial class DashBoardPage : INotifyPropertyChanged
     public string DataGridMenuItemHeaderEditRecord { get; } = DashBoardPageResources.DataGridMenuItemHeaderEditRecord;
     public string DataGridMenuItemHeaderDeleteRecord { get; } = DashBoardPageResources.DataGridMenuItemHeaderDeleteRecord;
 
+    // TODO work
+    // public string DataGridTemplateColumnCategorySortMemberPath { get; } = nameof(VHistory.Category);
+
     #endregion
 
     public string ComboBoxYearsHintAssist { get; } = DashBoardPageResources.ComboBoxYearsHintAssist;

@@ -294,7 +294,8 @@
                         </DataGridTextColumn.Header>
                     </DataGridTextColumn>
 
-                    <DataGridTemplateColumn>
+                    <!-- TODO work -->
+                    <DataGridTemplateColumn SortMemberPath="Category">
                         <DataGridTemplateColumn.Header>
                             <TextBlock Text="{Binding DataGridTextColumnCategory, RelativeSource={RelativeSource AncestorType={x:Type local:DashBoardPage}}}" />
                         </DataGridTemplateColumn.Header>
