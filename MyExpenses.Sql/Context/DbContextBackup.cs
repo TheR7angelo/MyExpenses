@@ -7,12 +7,14 @@ public static class DbContextBackup
     public static string DirectoryDatabase { get; } = Path.GetFullPath("Databases");
     public static string DirectoryBackupDatabase { get; } = Path.Join(DirectoryDatabase, "Backups");
 
+    public static string Extension => ".sqlite";
+
     public static ExistingDatabase[] GetExistingDatabase()
     {
         Directory.CreateDirectory(DirectoryDatabase);
 
         var existingDatabases = Directory
-            .GetFiles(DirectoryDatabase, "*.sqlite", SearchOption.TopDirectoryOnly)
+            .GetFiles(DirectoryDatabase, $"*{Extension}", SearchOption.TopDirectoryOnly)
             .Select(s => new ExistingDatabase { FilePath = s } ).ToArray();
 
         return existingDatabases;
@@ -23,7 +25,7 @@ public static class DbContextBackup
         Directory.CreateDirectory(DirectoryBackupDatabase);
 
         var existingDatabases = Directory
-            .GetFiles(DirectoryBackupDatabase, "*.sqlite", SearchOption.AllDirectories)
+            .GetFiles(DirectoryBackupDatabase, $"*{Extension}", SearchOption.AllDirectories)
             .Select(s => new ExistingDatabase { FilePath = s } ).ToArray();
 
         return existingDatabases;
