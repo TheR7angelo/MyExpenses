@@ -133,6 +133,15 @@ namespace MyExpenses.Wpf.Resources.Resx.Windows.AddEditLocationWindow {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The place is open :.
+        /// </summary>
+        internal static string CheckBoxContentIsOpen {
+            get {
+                return ResourceManager.GetString("CheckBoxContentIsOpen", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Several results were found, please choose one.
         /// </summary>
         internal static string HandleNominatimResultMultipleResult {

@@ -80,7 +80,7 @@ public partial class RecordExpensePage
         Accounts = [..context.TAccounts.OrderBy(s => s.Name)];
         CategoryTypes = [..context.TCategoryTypes.OrderBy(s => s.Name)];
         ModePayments = [..context.TModePayments.OrderBy(s => s.Name)];
-        Places = [..context.TPlaces.OrderBy(s => s.Name)];
+        Places = [..context.TPlaces.Where(s => (bool)s.IsOpen!).OrderBy(s => s.Name)];
 
         // TODO add listener color change
         var brush = (SolidColorBrush)FindResource("MaterialDesignPaper");

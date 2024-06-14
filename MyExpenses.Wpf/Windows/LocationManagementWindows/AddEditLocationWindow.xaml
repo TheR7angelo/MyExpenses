@@ -68,11 +68,27 @@
                  Text="{Binding Place.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
         </TextBox>
 
-        <TextBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
-                 materialDesign:HintAssist.Hint="{Binding TextBoxNumberHintAssist}"
-                 Style="{StaticResource MaterialDesignFilledTextBox}"
-                 Text="{Binding Place.Number, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-        </TextBox>
+        <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
+              margin:PanelExtensions.MarginForAllChildren="3">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <TextBox Grid.Column="0"
+                     materialDesign:HintAssist.Hint="{Binding TextBoxNumberHintAssist}"
+                     Style="{StaticResource MaterialDesignFilledTextBox}"
+                     Text="{Binding Place.Number, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+            </TextBox>
+
+            <CheckBox Grid.Column="1"
+                      IsThreeState="False"
+                      IsChecked="{Binding Place.IsOpen, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                      Content="{Binding CheckBoxContentIsOpen}">
+            </CheckBox>
+
+        </Grid>
 
         <TextBox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
                  materialDesign:HintAssist.Hint="{Binding TextBoxStreetHintAssist}"

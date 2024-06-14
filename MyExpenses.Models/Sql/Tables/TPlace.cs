@@ -52,6 +52,9 @@ public partial class TPlace : ISql
         }
     }
 
+    [Column("is_open", TypeName = "BOOLEAN")]
+    public bool? IsOpen { get; set; } = true;
+
     [Column("can_be_deleted", TypeName = "BOOLEAN")]
     public bool? CanBeDeleted { get; set; } = true;
 

@@ -127,6 +127,7 @@ public partial class DataBaseContext : DbContext
 
         modelBuilder.Entity<TPlace>(entity =>
         {
+            entity.Property(e => e.IsOpen).HasDefaultValue(true);
             entity.Property(e => e.CanBeDeleted).HasDefaultValue(true);
             entity.Property(e => e.DateAdded).HasDefaultValueSql("CURRENT_TIMESTAMP");
         });

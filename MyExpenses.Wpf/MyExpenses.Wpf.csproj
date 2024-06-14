@@ -300,6 +300,14 @@
       <Resource Include="Resources\Assets\Icon Resize.png">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </Resource>
+      <None Remove="Resources\Maps\BlueMarker.png" />
+      <AdditionalFiles Include="Resources\Maps\BlueMarker.png">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </AdditionalFiles>
+      <None Remove="Resources\Maps\BlueMarker.svg" />
+      <AdditionalFiles Include="Resources\Maps\BlueMarker.svg">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </AdditionalFiles>
     </ItemGroup>
 
     <ItemGroup>

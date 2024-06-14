@@ -1,6 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Media;
 using BruTile.Predefined;
@@ -22,6 +23,7 @@ using MyExpenses.Wpf.Utils.Maps;
 using MyExpenses.Wpf.Windows.LocationManagementWindows;
 using MyExpenses.Wpf.Windows.MsgBox;
 using Serilog;
+using CheckBox = System.Windows.Forms.CheckBox;
 
 namespace MyExpenses.Wpf.Pages;
 
@@ -57,7 +59,10 @@ public partial class LocationManagementPage
 
         var features = places
             .Where(s => s.Latitude is not null && s.Latitude is not 0 && s.Longitude is not null && s.Longitude is not 0)
-            .ToFeature(MapsuiStyleExtensions.RedMarkerStyle);
+            .Select(feature => feature.IsOpen is true
+                ? feature.ToFeature(MapsuiStyleExtensions.RedMarkerStyle)
+                : feature.ToFeature(MapsuiStyleExtensions.BlueMarkerStyle));
+
         PlaceLayer.AddRange(features);
 
         // TODO add listener color change
@@ -198,6 +203,18 @@ public partial class LocationManagementPage
         MapControl.Map.Navigator.ZoomTo(0);
     }
 
+    private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
+    {
+        if (sender is not ToggleButton checkBox) return;
+        if (checkBox.DataContext is not TPlace place) return;
+
+        if (place.Longitude is null || place.Longitude == 0 || place.Latitude is null || place.Latitude == 0) return;
+
+        var pointFeature = place.ToFeature();
+        MapControl.Map.Navigator.CenterOn(pointFeature.Point);
+        MapControl.Map.Navigator.ZoomTo(0);
+    }
+
     #endregion
 
     #region Function
@@ -233,7 +250,9 @@ public partial class LocationManagementPage
         var (success, _) = newPlace.AddOrEdit();
         if (success)
         {
-            var feature = newPlace.ToFeature(MapsuiStyleExtensions.RedMarkerStyle);
+            var feature = newPlace.IsOpen is true
+                ? newPlace.ToFeature(MapsuiStyleExtensions.RedMarkerStyle)
+                : newPlace.ToFeature(MapsuiStyleExtensions.BlueMarkerStyle);
 
             PlaceLayer.TryRemove(PointFeature!);
             PlaceLayer.Add(feature);
@@ -246,16 +265,20 @@ public partial class LocationManagementPage
                     MsgBox.Show(LocationManagementPageResources.MessageBoxProcessNewPlaceAddSuccess, MsgBoxImage.Check);
 
                     Log.Information("The new place was successfully added");
-                    json = newPlace.ToJsonString();
-                    Log.Information("{Json}", json);
+
+                    // Loop crash
+                    // json = newPlace.ToJsonString();
+                    // Log.Information("{Json}", json);
 
                     break;
                 case false when edit:
                     MsgBox.Show(LocationManagementPageResources.MessageBoxProcessNewPlaceEditSuccess, MsgBoxImage.Check);
 
                     Log.Information("The new place was successfully edited");
-                    json = newPlace.ToJsonString();
-                    Log.Information("{Json}", json);
+
+                    // Loop crash
+                    // json = newPlace.ToJsonString();
+                    // Log.Information("{Json}", json);
 
                     break;
             }

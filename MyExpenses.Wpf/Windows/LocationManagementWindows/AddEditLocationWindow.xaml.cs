@@ -51,6 +51,8 @@ public partial class AddEditLocationWindow
     public string ButtonContentDelete { get; } = AddEditLocationWindowResources.ButtonContentDelete;
     public string ButtonContentValid { get; } = AddEditLocationWindowResources.ButtonContentValid;
 
+    public string CheckBoxContentIsOpen { get; } = AddEditLocationWindowResources.CheckBoxContentIsOpen;
+
     #region Properties
 
     private const string ColumnTemp = "temp";

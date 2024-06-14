@@ -94,6 +94,8 @@ CREATE TABLE t_place
     country    TEXT,
     latitude   REAL,
     longitude  REAL,
+    is_open    BOOLEAN  DEFAULT TRUE,
+    can_be_deleted BOOLEAN DEFAULT TRUE,
     date_added DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -315,6 +317,7 @@ BEGIN
     WHERE id = NEW.id;
 END;
 
+DROP TRIGGER IF EXISTS after_insert_on_t_place;
 CREATE TRIGGER after_insert_on_t_place
     AFTER INSERT
     ON t_place
@@ -328,6 +331,7 @@ BEGIN
     WHERE id = NEW.id;
 END;
 
+DROP TRIGGER IF EXISTS after_update_on_t_place;
 CREATE TRIGGER after_update_on_t_place
     AFTER UPDATE
     ON t_place

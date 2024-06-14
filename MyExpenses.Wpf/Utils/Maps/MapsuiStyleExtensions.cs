@@ -7,11 +7,13 @@ public static class MapsuiStyleExtensions
 {
     public static SymbolStyle RedMarkerStyle { get; private set; }
     public static SymbolStyle GreenMarkerStyle { get; private set; }
+    public static SymbolStyle BlueMarkerStyle { get; private set; }
 
     static MapsuiStyleExtensions()
     {
         RedMarkerStyle = SetRedMarkerStyle();
         GreenMarkerStyle = SetGreenMarkerStyle();
+        BlueMarkerStyle = SetBlueMarkerStyle();
     }
 
     private static Offset Offset => new() { IsRelative = false, X = 0, Y = 1000 };
@@ -35,6 +37,19 @@ public static class MapsuiStyleExtensions
     private static SymbolStyle SetRedMarkerStyle()
     {
         var icon = Path.Join(IcoPath, "RedMarker.png");
+        var bitmapId = RegisterBitmap(icon);
+
+        return new SymbolStyle
+        {
+            BitmapId = bitmapId,
+            SymbolOffset = Offset,
+            SymbolScale = Scale
+        };
+    }
+
+    private static SymbolStyle SetBlueMarkerStyle()
+    {
+        var icon = Path.Join(IcoPath, "BlueMarker.png");
         var bitmapId = RegisterBitmap(icon);
 
         return new SymbolStyle
