@@ -258,7 +258,7 @@ public partial class LocationManagementPage
             PlaceLayer.Add(feature);
             MapControl.Refresh();
 
-            string json;
+            // string json;
             switch (add)
             {
                 case true when !edit:
