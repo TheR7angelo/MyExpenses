@@ -6,12 +6,12 @@ using System.Windows.Media;
 using MyExpenses.Wpf.Resources.Regex;
 using MyExpenses.Wpf.Utils;
 
-namespace MyExpenses.Wpf.UserControls;
+namespace MyExpenses.Wpf.UserControls.Colors;
 
 public sealed partial class ColorPickerControl
 {
     public static readonly DependencyProperty ColorProperty = DependencyProperty.Register(nameof(Color), typeof(Color),
-        typeof(ColorPickerControl), new PropertyMetadata(Colors.White, PropertyColor_OnChangedCallback));
+        typeof(ColorPickerControl), new PropertyMetadata(System.Windows.Media.Colors.White, PropertyColor_OnChangedCallback));
 
     private static void PropertyColor_OnChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
@@ -189,7 +189,7 @@ public sealed partial class ColorPickerControl
 
     public static readonly DependencyProperty SliderThumbFillProperty =
         DependencyProperty.Register(nameof(SliderThumbFill), typeof(Brush), typeof(ColorPickerControl),
-            new PropertyMetadata(new SolidColorBrush(Colors.Black)));
+            new PropertyMetadata(new SolidColorBrush(System.Windows.Media.Colors.Black)));
 
     public static readonly DependencyProperty SliderThumbStrokeProperty =
         DependencyProperty.Register(nameof(SliderThumbStroke), typeof(Brush), typeof(ColorPickerControl),

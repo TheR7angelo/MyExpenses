@@ -2,7 +2,7 @@
 using MyExpenses.Wpf.Utils;
 using SkiaSharp;
 
-namespace MyExpenses.Wpf.UserControls;
+namespace MyExpenses.Wpf.UserControls.Colors;
 
 public class ColorChangedEventArgs(Color newColor) : EventArgs
 {
