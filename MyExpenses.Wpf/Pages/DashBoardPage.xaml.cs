@@ -129,37 +129,39 @@ public partial class DashBoardPage : INotifyPropertyChanged
 
     public DashBoardPage()
     {
-        using var context = new DataBaseContext();
-        Years =
-        [
-            ..context
-                .THistories
-                .Where(s => s.Date.HasValue)
-                .Select(s => s.Date!.Value.Year.ToString())
-                .Distinct()
-                .OrderByDescending(y => y)
-        ];
-
-        Months =
-        [
-            ..CultureInfo.CurrentCulture.DateTimeFormat.MonthNames
-                .Where(s => !string.IsNullOrEmpty(s))
-                .Select(s => s.ToFirstCharUpper())
-        ];
-
-        var now = DateTime.Now;
-        if(Years.Count.Equals(0)) {Years.Add(DateTime.Now.Year.ToString());}
-        SelectedYear = now.Year.ToString();
-        SelectedMonth = Months[now.Month - 1];
-
-        RefreshAccountTotal();
-
         InitializeComponent();
 
-        // TODO add listener color change
-        var brush = (SolidColorBrush)FindResource("MaterialDesignBody");
-        var wpfColor = brush.Color;
-        PieChart.LegendTextPaint = new SolidColorPaint(wpfColor.ToSKColor());
+        // using var context = new DataBaseContext();
+        // Years =
+        // [
+        //     ..context
+        //         .THistories
+        //         .Where(s => s.Date.HasValue)
+        //         .Select(s => s.Date!.Value.Year.ToString())
+        //         .Distinct()
+        //         .OrderByDescending(y => y)
+        // ];
+        //
+        // Months =
+        // [
+        //     ..CultureInfo.CurrentCulture.DateTimeFormat.MonthNames
+        //         .Where(s => !string.IsNullOrEmpty(s))
+        //         .Select(s => s.ToFirstCharUpper())
+        // ];
+        //
+        // var now = DateTime.Now;
+        // if(Years.Count.Equals(0)) {Years.Add(DateTime.Now.Year.ToString());}
+        // SelectedYear = now.Year.ToString();
+        // SelectedMonth = Months[now.Month - 1];
+        //
+        // RefreshAccountTotal();
+        //
+        // InitializeComponent();
+        //
+        // // TODO add listener color change
+        // var brush = (SolidColorBrush)FindResource("MaterialDesignBody");
+        // var wpfColor = brush.Color;
+        // PieChart.LegendTextPaint = new SolidColorPaint(wpfColor.ToSKColor());
     }
 
     #region Action
@@ -210,26 +212,26 @@ public partial class DashBoardPage : INotifyPropertyChanged
         => DataGridRow = sender as DataGridRow;
 
 
-    private void ItemsControlVTotalAccount_OnLoaded(object sender, RoutedEventArgs e)
-        => RefreshRadioButtonSelected();
+    // private void ItemsControlVTotalAccount_OnLoaded(object sender, RoutedEventArgs e)
+    //     => RefreshRadioButtonSelected();
 
     //TODO work
-    private void MenuItemDeleteRecord_OnClick(object sender, RoutedEventArgs e)
-    {
-        if (DataGridRow!.DataContext is not VHistory vHistory) return;
-        var history = vHistory.Id.ToISqlT<THistory>();
-
-        history?.Delete(true);
-
-        VHistories.Remove(vHistory);
-
-        var accountName = vHistory.Account!;
-
-        RefreshDataGrid(accountName);
-        UpdateGraph(accountName);
-
-        //TODO refresh total account display
-    }
+    // private void MenuItemDeleteRecord_OnClick(object sender, RoutedEventArgs e)
+    // {
+    //     if (DataGridRow!.DataContext is not VHistory vHistory) return;
+    //     var history = vHistory.Id.ToISqlT<THistory>();
+    //
+    //     history?.Delete(true);
+    //
+    //     VHistories.Remove(vHistory);
+    //
+    //     var accountName = vHistory.Account!;
+    //
+    //     RefreshDataGrid(accountName);
+    //     UpdateGraph(accountName);
+    //
+    //     //TODO refresh total account display
+    // }
 
     private void MenuItemEditRecord_OnClick(object sender, RoutedEventArgs e)
     {
@@ -243,29 +245,29 @@ public partial class DashBoardPage : INotifyPropertyChanged
         nameof(MainWindow.FrameBody).NavigateTo(recordExpensePage);
     }
 
-    private void MenuItemPointed_OnClick(object sender, RoutedEventArgs e)
-    {
-        if (DataGridRow!.DataContext is not VHistory vHistory) return;
-        var history = vHistory.Id.ToISqlT<THistory>();
-
-        history!.Pointed = !history.Pointed;
-        history.AddOrEdit();
-
-        RefreshDataGrid();
-    }
-
-    private void ToggleButtonVTotalAccount_OnChecked(object sender, RoutedEventArgs e)
-    {
-        var button = (RadioButton)sender;
-        var vTotalByAccount = (VTotalByAccount)button.DataContext;
-        Total = vTotalByAccount.Total;
-        Symbol = vTotalByAccount.Symbol;
-
-        var name = vTotalByAccount.Name;
-        if (string.IsNullOrEmpty(name)) return;
-
-        RefreshDataGrid(name);
-    }
+    // private void MenuItemPointed_OnClick(object sender, RoutedEventArgs e)
+    // {
+    //     if (DataGridRow!.DataContext is not VHistory vHistory) return;
+    //     var history = vHistory.Id.ToISqlT<THistory>();
+    //
+    //     history!.Pointed = !history.Pointed;
+    //     history.AddOrEdit();
+    //
+    //     RefreshDataGrid();
+    // }
+    //
+    // private void ToggleButtonVTotalAccount_OnChecked(object sender, RoutedEventArgs e)
+    // {
+    //     var button = (RadioButton)sender;
+    //     var vTotalByAccount = (VTotalByAccount)button.DataContext;
+    //     Total = vTotalByAccount.Total;
+    //     Symbol = vTotalByAccount.Symbol;
+    //
+    //     var name = vTotalByAccount.Name;
+    //     if (string.IsNullOrEmpty(name)) return;
+    //
+    //     RefreshDataGrid(name);
+    // }
 
     #endregion
 
@@ -278,142 +280,142 @@ public partial class DashBoardPage : INotifyPropertyChanged
         VTotalByAccounts.AddRange([..context.VTotalByAccounts]);
     }
 
-    private void Selector_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
-    {
-        RefreshDataGrid();
-        UpdateGraph();
-    }
+    // private void Selector_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+    // {
+    //     RefreshDataGrid();
+    //     UpdateGraph();
+    // }
 
 
-    private void RefreshDataGrid(string? accountName = null)
-    {
-        if (string.IsNullOrEmpty(accountName))
-        {
-            var radioButtons = ItemsControlVTotalAccount?.FindVisualChildren<RadioButton>().ToList() ?? [];
-            if (radioButtons.Count.Equals(0)) return;
+    // private void RefreshDataGrid(string? accountName = null)
+    // {
+    //     if (string.IsNullOrEmpty(accountName))
+    //     {
+    //         var radioButtons = ItemsControlVTotalAccount?.FindVisualChildren<RadioButton>().ToList() ?? [];
+    //         if (radioButtons.Count.Equals(0)) return;
+    //
+    //         accountName = radioButtons.FirstOrDefault(s => (bool)s.IsChecked!)?.Content as string;
+    //     }
+    //
+    //     if (string.IsNullOrEmpty(accountName)) return;
+    //
+    //     using var context = new DataBaseContext();
+    //     VHistories.Clear();
+    //
+    //     var query = context.VHistories
+    //         .Where(s => s.Account == accountName);
+    //
+    //     if (!string.IsNullOrEmpty(SelectedMonth))
+    //     {
+    //         var monthInt = Months.IndexOf(SelectedMonth) + 1;
+    //         query = query.Where(s => s.Date!.Value.Month.Equals(monthInt));
+    //     }
+    //
+    //     if (!string.IsNullOrEmpty(SelectedYear))
+    //     {
+    //         var yearInt = SelectedYear.ToInt();
+    //         query = query.Where(s => s.Date!.Value.Year.Equals(yearInt));
+    //     }
+    //
+    //     var records = query
+    //         .OrderBy(s => s.Pointed)
+    //         .ThenByDescending(s => s.Date);
+    //
+    //     VHistories.AddRange(records);
+    // }
 
-            accountName = radioButtons.FirstOrDefault(s => (bool)s.IsChecked!)?.Content as string;
-        }
+    // private void RefreshRadioButtonSelected()
+    // {
+    //     var radioButtons = ItemsControlVTotalAccount.FindVisualChildren<RadioButton>().ToList();
+    //     foreach (var radioButton in radioButtons) radioButton.IsChecked = false;
+    //
+    //     var firstRadioButton = radioButtons.FirstOrDefault();
+    //     if (firstRadioButton is null) return;
+    //     firstRadioButton.IsChecked = true;
+    //
+    //     RefreshDataGrid();
+    //     UpdateGraph();
+    // }
 
-        if (string.IsNullOrEmpty(accountName)) return;
-
-        using var context = new DataBaseContext();
-        VHistories.Clear();
-
-        var query = context.VHistories
-            .Where(s => s.Account == accountName);
-
-        if (!string.IsNullOrEmpty(SelectedMonth))
-        {
-            var monthInt = Months.IndexOf(SelectedMonth) + 1;
-            query = query.Where(s => s.Date!.Value.Month.Equals(monthInt));
-        }
-
-        if (!string.IsNullOrEmpty(SelectedYear))
-        {
-            var yearInt = SelectedYear.ToInt();
-            query = query.Where(s => s.Date!.Value.Year.Equals(yearInt));
-        }
-
-        var records = query
-            .OrderBy(s => s.Pointed)
-            .ThenByDescending(s => s.Date);
-
-        VHistories.AddRange(records);
-    }
-
-    private void RefreshRadioButtonSelected()
-    {
-        var radioButtons = ItemsControlVTotalAccount.FindVisualChildren<RadioButton>().ToList();
-        foreach (var radioButton in radioButtons) radioButton.IsChecked = false;
-
-        var firstRadioButton = radioButtons.FirstOrDefault();
-        if (firstRadioButton is null) return;
-        firstRadioButton.IsChecked = true;
-
-        RefreshDataGrid();
-        UpdateGraph();
-    }
-
-    private void UpdateGraph(string? accountName = null)
-    {
-        if (string.IsNullOrEmpty(accountName))
-        {
-            var radioButtons = ItemsControlVTotalAccount?.FindVisualChildren<RadioButton>().ToList() ?? [];
-            if (radioButtons.Count.Equals(0)) return;
-
-            accountName = radioButtons.FirstOrDefault(s => (bool)s.IsChecked!)?.Content as string;
-        }
-
-        using var context = new DataBaseContext();
-        var categories = context.TCategoryTypes.ToList();
-
-        var query = context.VDetailTotalCategories
-            .Where(s => s.Account == accountName);
-
-        if (!string.IsNullOrEmpty(SelectedMonth))
-        {
-            var monthInt = Months.IndexOf(SelectedMonth) + 1;
-            query = query.Where(s => s.Month.Equals(monthInt));
-        }
-
-        if (!string.IsNullOrEmpty(SelectedYear))
-        {
-            var yearInt = SelectedYear.ToInt();
-            query = query.Where(s => s.Year.Equals(yearInt));
-        }
-
-        var categoriesTotals = query
-            .GroupBy(s => s.Category)
-            .Select(g => new
-            {
-                Category = g.Key, Total = g.Sum(s => s.Value) ?? 0d,
-                g.First().Symbol, g.First().HexadecimalColorCode
-            })
-            .OrderByDescending(s => Math.Abs(s.Total))
-            .ToList();
-
-        var grandTotal = Math.Round(categoriesTotals.Sum(ct => Math.Abs(ct.Total)), 2);
-
-        CategoryTotals.Clear();
-
-        var series = new List<PieSeries<double>>();
-        foreach (var categoryTotalTemp in categoriesTotals)
-        {
-            var total = Math.Round(categoryTotalTemp.Total, 2);
-            var absTotal = Math.Abs(total);
-            var percentage = Math.Round(absTotal / grandTotal * 100, 2);
-
-            var pieSeries = new PieSeries<double>
-            {
-                Values = new ObservableCollection<double> { absTotal },
-                Name = $"{categoryTotalTemp.Category} ({percentage}%)",
-                ToolTipLabelFormatter = _ => $"{total:F2} {categoryTotalTemp.Symbol}",
-                Tag = categories.First(s => s.Name == categoryTotalTemp.Category)
-            };
-
-            var hexadecimalCode = categoryTotalTemp.HexadecimalColorCode;
-            if (!string.IsNullOrEmpty(hexadecimalCode))
-            {
-                var skColor = hexadecimalCode.ToSkColor()!;
-                if (skColor is not null) pieSeries.Fill = new SolidColorPaint((SKColor)skColor);
-            }
-
-            series.Add(pieSeries);
-
-            var categoryTotal = new CategoryTotal
-            {
-                Name = categoryTotalTemp.Category,
-                HexadecimalColor = hexadecimalCode,
-                Percentage = percentage,
-                Value = total,
-                Symbol = categoryTotalTemp.Symbol
-            };
-            CategoryTotals.Add(categoryTotal);
-        }
-
-        PieChart.Series = series;
-    }
+    // private void UpdateGraph(string? accountName = null)
+    // {
+    //     if (string.IsNullOrEmpty(accountName))
+    //     {
+    //         var radioButtons = ItemsControlVTotalAccount?.FindVisualChildren<RadioButton>().ToList() ?? [];
+    //         if (radioButtons.Count.Equals(0)) return;
+    //
+    //         accountName = radioButtons.FirstOrDefault(s => (bool)s.IsChecked!)?.Content as string;
+    //     }
+    //
+    //     using var context = new DataBaseContext();
+    //     var categories = context.TCategoryTypes.ToList();
+    //
+    //     var query = context.VDetailTotalCategories
+    //         .Where(s => s.Account == accountName);
+    //
+    //     if (!string.IsNullOrEmpty(SelectedMonth))
+    //     {
+    //         var monthInt = Months.IndexOf(SelectedMonth) + 1;
+    //         query = query.Where(s => s.Month.Equals(monthInt));
+    //     }
+    //
+    //     if (!string.IsNullOrEmpty(SelectedYear))
+    //     {
+    //         var yearInt = SelectedYear.ToInt();
+    //         query = query.Where(s => s.Year.Equals(yearInt));
+    //     }
+    //
+    //     var categoriesTotals = query
+    //         .GroupBy(s => s.Category)
+    //         .Select(g => new
+    //         {
+    //             Category = g.Key, Total = g.Sum(s => s.Value) ?? 0d,
+    //             g.First().Symbol, g.First().HexadecimalColorCode
+    //         })
+    //         .OrderByDescending(s => Math.Abs(s.Total))
+    //         .ToList();
+    //
+    //     var grandTotal = Math.Round(categoriesTotals.Sum(ct => Math.Abs(ct.Total)), 2);
+    //
+    //     CategoryTotals.Clear();
+    //
+    //     var series = new List<PieSeries<double>>();
+    //     foreach (var categoryTotalTemp in categoriesTotals)
+    //     {
+    //         var total = Math.Round(categoryTotalTemp.Total, 2);
+    //         var absTotal = Math.Abs(total);
+    //         var percentage = Math.Round(absTotal / grandTotal * 100, 2);
+    //
+    //         var pieSeries = new PieSeries<double>
+    //         {
+    //             Values = new ObservableCollection<double> { absTotal },
+    //             Name = $"{categoryTotalTemp.Category} ({percentage}%)",
+    //             ToolTipLabelFormatter = _ => $"{total:F2} {categoryTotalTemp.Symbol}",
+    //             Tag = categories.First(s => s.Name == categoryTotalTemp.Category)
+    //         };
+    //
+    //         var hexadecimalCode = categoryTotalTemp.HexadecimalColorCode;
+    //         if (!string.IsNullOrEmpty(hexadecimalCode))
+    //         {
+    //             var skColor = hexadecimalCode.ToSkColor()!;
+    //             if (skColor is not null) pieSeries.Fill = new SolidColorPaint((SKColor)skColor);
+    //         }
+    //
+    //         series.Add(pieSeries);
+    //
+    //         var categoryTotal = new CategoryTotal
+    //         {
+    //             Name = categoryTotalTemp.Category,
+    //             HexadecimalColor = hexadecimalCode,
+    //             Percentage = percentage,
+    //             Value = total,
+    //             Symbol = categoryTotalTemp.Symbol
+    //         };
+    //         CategoryTotals.Add(categoryTotal);
+    //     }
+    //
+    //     PieChart.Series = series;
+    // }
 
     #endregion
 
