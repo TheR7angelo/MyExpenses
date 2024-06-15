@@ -129,8 +129,6 @@ public partial class DashBoardPage : INotifyPropertyChanged
 
     public DashBoardPage()
     {
-        InitializeComponent();
-
         using var context = new DataBaseContext();
         Years =
         [
