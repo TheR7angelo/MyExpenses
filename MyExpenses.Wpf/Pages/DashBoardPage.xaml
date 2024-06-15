@@ -32,65 +32,69 @@
 
         <StackPanel Grid.Column="0">
 
-            <!-- TODO work -->
-            <Expander Header="Action">
+            <materialDesign:Card>
 
-                <ScrollViewer HorizontalScrollBarVisibility="Auto"
-                              VerticalScrollBarVisibility="Auto">
+                <!-- TODO work -->
+                <Expander Header="Action">
 
-                    <StackPanel Orientation="Vertical"
-                                margin:PanelExtensions.MarginForAllChildren="3">
+                    <ScrollViewer HorizontalScrollBarVisibility="Auto"
+                                  VerticalScrollBarVisibility="Auto">
 
-                        <Button Content="{Binding ButtonAccountManagement}"
-                                Style="{StaticResource MaterialDesignPaperButton}"
-                                Click="ButtonAccountManagement_OnClick">
-                        </Button>
+                        <StackPanel Orientation="Vertical"
+                                    margin:PanelExtensions.MarginForAllChildren="5">
 
-                        <Button Content="{Binding ButtonAccountTypeManagement}"
-                                Style="{StaticResource MaterialDesignPaperButton}"
-                                Click="ButtonAccountTypeManagement_OnClick">
-                        </Button>
+                            <Button Content="{Binding ButtonAccountManagement}"
+                                    Style="{StaticResource MaterialDesignPaperButton}"
+                                    Click="ButtonAccountManagement_OnClick">
+                            </Button>
 
-                        <Button Content="{Binding ButtonCategoryTypeManagement}"
-                                Style="{StaticResource MaterialDesignPaperButton}"
-                                Click="ButtonCategoryTypeManagement_OnClick">
-                        </Button>
+                            <Button Content="{Binding ButtonAccountTypeManagement}"
+                                    Style="{StaticResource MaterialDesignPaperButton}"
+                                    Click="ButtonAccountTypeManagement_OnClick">
+                            </Button>
 
-                        <Button Content="{Binding ButtonLocationManagement}"
-                                Style="{StaticResource MaterialDesignPaperButton}"
-                                Click="ButtonLocationManagement_OnClick">
-                        </Button>
+                            <Button Content="{Binding ButtonCategoryTypeManagement}"
+                                    Style="{StaticResource MaterialDesignPaperButton}"
+                                    Click="ButtonCategoryTypeManagement_OnClick">
+                            </Button>
 
-                        <Button Content="{Binding ButtonColorManagement}"
-                                Style="{StaticResource MaterialDesignPaperButton}"
-                                Click="ButtonColorManagement_OnClick">
-                        </Button>
+                            <Button Content="{Binding ButtonLocationManagement}"
+                                    Style="{StaticResource MaterialDesignPaperButton}"
+                                    Click="ButtonLocationManagement_OnClick">
+                            </Button>
 
-                        <Button Content="{Binding ButtonCurrencyManagement}"
-                                Style="{StaticResource MaterialDesignPaperButton}"
-                                Click="ButtonCurrencyManagement_OnClick">
-                        </Button>
+                            <Button Content="{Binding ButtonColorManagement}"
+                                    Style="{StaticResource MaterialDesignPaperButton}"
+                                    Click="ButtonColorManagement_OnClick">
+                            </Button>
 
-                        <Button Content="{Binding ButtonModePaymentManagement}"
-                                Style="{StaticResource MaterialDesignPaperButton}"
-                                Click="ButtonModePaymentManagement_OnClick">
-                        </Button>
+                            <Button Content="{Binding ButtonCurrencyManagement}"
+                                    Style="{StaticResource MaterialDesignPaperButton}"
+                                    Click="ButtonCurrencyManagement_OnClick">
+                            </Button>
 
-                        <Button Content="{Binding ButtonMakeBankTransfer}"
-                                Style="{StaticResource MaterialDesignPaperButton}"
-                                Click="ButtonMakeBankTransfer_OnClick">
-                        </Button>
+                            <Button Content="{Binding ButtonModePaymentManagement}"
+                                    Style="{StaticResource MaterialDesignPaperButton}"
+                                    Click="ButtonModePaymentManagement_OnClick">
+                            </Button>
 
-                        <Button Content="{Binding ButtonRecordExpense}"
-                                Style="{StaticResource MaterialDesignPaperButton}"
-                                Click="ButtonRecordExpense_OnClick">
-                        </Button>
+                            <Button Content="{Binding ButtonMakeBankTransfer}"
+                                    Style="{StaticResource MaterialDesignPaperButton}"
+                                    Click="ButtonMakeBankTransfer_OnClick">
+                            </Button>
 
-                    </StackPanel>
+                            <Button Content="{Binding ButtonRecordExpense}"
+                                    Style="{StaticResource MaterialDesignPaperButton}"
+                                    Click="ButtonRecordExpense_OnClick">
+                            </Button>
 
-                </ScrollViewer>
+                        </StackPanel>
 
-            </Expander>
+                    </ScrollViewer>
+
+                </Expander>
+
+            </materialDesign:Card>
 
         </StackPanel>
 
