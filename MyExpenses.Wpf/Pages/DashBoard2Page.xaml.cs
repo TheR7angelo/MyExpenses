@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using System.Windows.Input;
 using MyExpenses.Wpf.Resources.Resx.Pages.DashBoardPage;
 
 namespace MyExpenses.Wpf.Pages;
@@ -54,4 +55,11 @@ public partial class DashBoard2Page
         => nameof(MainWindow.FrameBody).NavigateTo(typeof(RecordExpensePage));
 
     #endregion
+
+    private void LocationManagementUserControl_OnMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        => nameof(MainWindow.FrameBody).NavigateTo(typeof(LocationManagementPage));
+
+    private void LocationManagementUserControl_OnPreviewMouseWheel(object sender, MouseWheelEventArgs e)
+        => e.Handled = true;
+
 }

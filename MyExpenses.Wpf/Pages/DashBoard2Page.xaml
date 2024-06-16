@@ -6,6 +6,7 @@
       xmlns:local="clr-namespace:MyExpenses.Wpf.Pages"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:margin="clr-namespace:MyExpenses.Wpf.Utils.Margin;assembly=MyExpenses.Wpf.Utils"
+      xmlns:dashBoardPageCards="clr-namespace:MyExpenses.Wpf.UserControls.DashBoardPageCards"
       mc:Ignorable="d"
 
       Title="DashBoard"
@@ -93,7 +94,21 @@
         <WrapPanel Grid.Column="1"
                    Orientation="Horizontal">
 
+            <materialDesign:Card>
 
+                <StackPanel Orientation="Vertical" margin:PanelExtensions.MarginForAllChildren="5">
+
+                    <dashBoardPageCards:LocationManagementUserControl
+                        Height="256" Width="256"
+                        MouseLeftButtonDown="LocationManagementUserControl_OnMouseLeftButtonDown"
+                        PreviewMouseWheel="LocationManagementUserControl_OnPreviewMouseWheel">
+                    </dashBoardPageCards:LocationManagementUserControl>
+
+                    <Label Content="LocationManagementPage" />
+
+                </StackPanel>
+
+            </materialDesign:Card>
 
         </WrapPanel>
 
