@@ -120,7 +120,7 @@
 
         <Frame Grid.Row="1" x:Name="FrameBody" NavigationUIVisibility="Hidden"
                Source="Pages/WelcomePage.xaml"
-               PreviewMouseDown="FrameBody_OnPreviewMouseDown">
+               PreviewMouseUp="FrameBody_OnPreviewMouseUp">
         </Frame>
 
     </Grid>

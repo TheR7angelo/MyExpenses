@@ -48,9 +48,17 @@ public partial class MainWindow
     private void MenuItemPrevious_OnClick(object sender, RoutedEventArgs e)
         => nameof(FrameBody).GoBack();
 
-    private void FrameBody_OnPreviewMouseDown(object sender, MouseButtonEventArgs e)
+    private void FrameBody_OnPreviewMouseUp(object sender, MouseButtonEventArgs e)
     {
-        if (e.ChangedButton == MouseButton.XButton1) nameof(FrameBody).GoBack();
-        else if (e.ChangedButton == MouseButton.XButton2) nameof(FrameBody).GoForward();
+        if (e.ChangedButton == MouseButton.XButton1)
+        {
+            e.Handled = true;
+            nameof(FrameBody).GoBack();
+        }
+        else if (e.ChangedButton == MouseButton.XButton2)
+        {
+            e.Handled = true;
+            nameof(FrameBody).GoForward();
+        }
     }
 }
