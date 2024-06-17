@@ -28,12 +28,12 @@ public partial class DashBoard2Page
     #region Action
 
     private void ButtonAccountManagement_OnClick(object sender, RoutedEventArgs e)
-        => nameof(MainWindow.FrameBody).NavigateTo(typeof(AccountManagementPage));
-
-    private void ButtonAccountTypeManagement_OnClick(object sender, RoutedEventArgs e)
         => NavigateToAccountManagementPage();
     private void AccountManagementCard_OnPreviewMouseDown(object sender, MouseButtonEventArgs e)
         => NavigateToAccountManagementPage();
+
+    private void ButtonAccountTypeManagement_OnClick(object sender, RoutedEventArgs e)
+        => nameof(MainWindow.FrameBody).NavigateTo(typeof(AccountTypeManagementPage));
 
     private void ButtonCategoryTypeManagement_OnClick(object sender, RoutedEventArgs e)
         => nameof(MainWindow.FrameBody).NavigateTo(typeof(CategoryTypeManagementPage));
