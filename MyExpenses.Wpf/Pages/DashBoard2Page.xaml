@@ -23,7 +23,10 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <StackPanel Grid.Column="0">
+
+        <StackPanel Grid.Column="0"
+                    Orientation="Vertical"
+                    margin:PanelExtensions.MarginForAllChildren="5">
 
             <materialDesign:Card>
 
@@ -89,7 +92,32 @@
 
             </materialDesign:Card>
 
+            <materialDesign:Card>
+
+                <!-- TODO work -->
+                <Expander Header="Suivi">
+
+                    <ScrollViewer HorizontalScrollBarVisibility="Auto"
+                                  VerticalScrollBarVisibility="Auto">
+
+                        <StackPanel Orientation="Vertical"
+                                    margin:PanelExtensions.MarginForAllChildren="5">
+
+                            <Button Content="{Binding ButtonAccountManagement}"
+                                    Style="{StaticResource MaterialDesignPaperButton}"
+                                    Click="ButtonAccountManagement_OnClick">
+                            </Button>
+
+                        </StackPanel>
+
+                    </ScrollViewer>
+
+                </Expander>
+
+            </materialDesign:Card>
+
         </StackPanel>
+
 
         <WrapPanel Grid.Column="1"
                    Orientation="Horizontal">
