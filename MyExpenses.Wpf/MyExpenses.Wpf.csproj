@@ -313,6 +313,18 @@
       <AdditionalFiles Include="Resources\Maps\BlueMarker.svg">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </AdditionalFiles>
+      <None Remove="Resources\Assets\Cards\AccountManagementCard.ai" />
+      <AdditionalFiles Include="Resources\Assets\Cards\AccountManagementCard.ai">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </AdditionalFiles>
+      <None Remove="Resources\Assets\Cards\AccountManagementCard.png" />
+      <Resource Include="Resources\Assets\Cards\AccountManagementCard.png">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </Resource>
+      <None Remove="Resources\Assets\Cards\AccountManagementCard.svg" />
+      <AdditionalFiles Include="Resources\Assets\Cards\AccountManagementCard.svg">
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </AdditionalFiles>
     </ItemGroup>
 
     <ItemGroup>
