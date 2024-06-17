@@ -155,6 +155,7 @@
 
                     <Image Source="../Resources/Assets/Cards/AccountManagementCard.png" Height="256" Width="256" />
 
+                    <!-- TODO work -->
                     <Label HorizontalContentAlignment="Center"
                            Content="AccountManagement">
                     </Label>
