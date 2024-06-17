@@ -103,9 +103,10 @@
                         <StackPanel Orientation="Vertical"
                                     margin:PanelExtensions.MarginForAllChildren="5">
 
+                            <!-- TODO work -->
                             <Button Content="{Binding ButtonAccountManagement}"
                                     Style="{StaticResource MaterialDesignPaperButton}"
-                                    Click="ButtonAccountManagement_OnClick">
+                                    Click="ButtonFollowUp_OnClick">
                             </Button>
 
                         </StackPanel>
