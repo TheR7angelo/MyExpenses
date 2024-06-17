@@ -147,6 +147,22 @@
 
             </materialDesign:Card>
 
+            <materialDesign:Card Cursor="Hand"
+                                 PreviewMouseDown="AccountManagementCard_OnPreviewMouseDown">
+
+                <StackPanel Orientation="Vertical"
+                            margin:PanelExtensions.MarginForAllChildren="5">
+
+                    <materialDesign:PackIcon Kind="BankCircle" Height="256" Width="256" />
+
+                    <Label HorizontalContentAlignment="Center"
+                           Content="LocationManagementPage">
+                    </Label>
+
+                </StackPanel>
+
+            </materialDesign:Card>
+
         </WrapPanel>
 
     </Grid>

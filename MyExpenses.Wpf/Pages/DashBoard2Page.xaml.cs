@@ -64,4 +64,7 @@ public partial class DashBoard2Page
         => e.Handled = true;
 
     #endregion
+
+    private void AccountManagementCard_OnPreviewMouseDown(object sender, MouseButtonEventArgs e)
+        => nameof(MainWindow.FrameBody).NavigateTo(typeof(AccountManagementPage));
 }
