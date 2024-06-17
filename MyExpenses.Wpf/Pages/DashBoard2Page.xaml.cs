@@ -31,7 +31,9 @@ public partial class DashBoard2Page
         => nameof(MainWindow.FrameBody).NavigateTo(typeof(AccountManagementPage));
 
     private void ButtonAccountTypeManagement_OnClick(object sender, RoutedEventArgs e)
-        => nameof(MainWindow.FrameBody).NavigateTo(typeof(AccountTypeManagementPage));
+        => NavigateToAccountManagementPage();
+    private void AccountManagementCard_OnPreviewMouseDown(object sender, MouseButtonEventArgs e)
+        => NavigateToAccountManagementPage();
 
     private void ButtonCategoryTypeManagement_OnClick(object sender, RoutedEventArgs e)
         => nameof(MainWindow.FrameBody).NavigateTo(typeof(CategoryTypeManagementPage));
@@ -46,7 +48,9 @@ public partial class DashBoard2Page
         => nameof(MainWindow.FrameBody).NavigateTo(typeof(DashBoardPage));
 
     private void ButtonLocationManagement_OnClick(object sender, RoutedEventArgs e)
-        => nameof(MainWindow.FrameBody).NavigateTo(typeof(LocationManagementPage));
+        => NavigateToLocationManagementPage();
+    private void LocationManagementCard_OnMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        => NavigateToLocationManagementPage();
 
     private void ButtonModePaymentManagement_OnClick(object sender, RoutedEventArgs e)
         => nameof(MainWindow.FrameBody).NavigateTo(typeof(ModePaymentManagementPage));
@@ -57,14 +61,18 @@ public partial class DashBoard2Page
     private void ButtonRecordExpense_OnClick(object sender, RoutedEventArgs e)
         => nameof(MainWindow.FrameBody).NavigateTo(typeof(RecordExpensePage));
 
-    private void LocationManagementCard_OnMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        => nameof(MainWindow.FrameBody).NavigateTo(typeof(LocationManagementPage));
-
     private void LocationManagementUserControl_OnPreviewMouseWheel(object sender, MouseWheelEventArgs e)
         => e.Handled = true;
 
     #endregion
 
-    private void AccountManagementCard_OnPreviewMouseDown(object sender, MouseButtonEventArgs e)
+    #region Function
+
+    private static void NavigateToAccountManagementPage()
         => nameof(MainWindow.FrameBody).NavigateTo(typeof(AccountManagementPage));
+
+    private static void NavigateToLocationManagementPage()
+        => nameof(MainWindow.FrameBody).NavigateTo(typeof(LocationManagementPage));
+
+    #endregion
 }
