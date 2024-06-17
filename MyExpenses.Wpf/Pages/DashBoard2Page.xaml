@@ -31,9 +31,11 @@
             <materialDesign:Card>
 
                 <!-- TODO work -->
-                <Expander Header="Action">
+                <Expander Header="Action"
+                          MinWidth="{Binding ActualWidth, ElementName=ScrollViewerAction}">
 
-                    <ScrollViewer HorizontalScrollBarVisibility="Auto"
+                    <ScrollViewer x:Name="ScrollViewerAction"
+                                  HorizontalScrollBarVisibility="Auto"
                                   VerticalScrollBarVisibility="Auto">
 
                         <StackPanel Orientation="Vertical"
@@ -95,9 +97,11 @@
             <materialDesign:Card>
 
                 <!-- TODO work -->
-                <Expander Header="Suivi">
+                <Expander Header="Suivi"
+                          MinWidth="{Binding ActualWidth, ElementName=ScrollViewerFollowUp}">
 
-                    <ScrollViewer HorizontalScrollBarVisibility="Auto"
+                    <ScrollViewer x:Name="ScrollViewerFollowUp"
+                                  HorizontalScrollBarVisibility="Auto"
                                   VerticalScrollBarVisibility="Auto">
 
                         <StackPanel Orientation="Vertical"
