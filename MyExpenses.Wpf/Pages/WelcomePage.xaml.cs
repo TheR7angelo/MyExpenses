@@ -76,8 +76,7 @@ public partial class WelcomePage
         if (button.DataContext is not ExistingDatabase existingDatabase) return;
 
         DataBaseContext.FilePath = existingDatabase.FilePath;
-        nameof(MainWindow.FrameBody).NavigateTo(typeof(DashBoardPage));
-        // nameof(MainWindow.FrameBody).NavigateTo(typeof(DashBoard2Page));
+        nameof(MainWindow.FrameBody).NavigateTo(typeof(DashBoard2Page));
     }
 
     //TODO work
