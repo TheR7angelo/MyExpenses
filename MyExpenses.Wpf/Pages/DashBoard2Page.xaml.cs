@@ -33,7 +33,10 @@ public partial class DashBoard2Page
         => NavigateToAccountManagementPage();
 
     private void ButtonAccountTypeManagement_OnClick(object sender, RoutedEventArgs e)
-        => nameof(MainWindow.FrameBody).NavigateTo(typeof(AccountTypeManagementPage));
+        => NavigateToAccountTypeManagementPage();
+
+    private void AccountTypeManagementCard_OnPreviewMouseDown(object sender, MouseButtonEventArgs e)
+        => NavigateToAccountTypeManagementPage();
 
     private void ButtonCategoryTypeManagement_OnClick(object sender, RoutedEventArgs e)
         => nameof(MainWindow.FrameBody).NavigateTo(typeof(CategoryTypeManagementPage));
@@ -70,6 +73,9 @@ public partial class DashBoard2Page
 
     private static void NavigateToAccountManagementPage()
         => nameof(MainWindow.FrameBody).NavigateTo(typeof(AccountManagementPage));
+
+    private static void NavigateToAccountTypeManagementPage()
+        => nameof(MainWindow.FrameBody).NavigateTo(typeof(AccountTypeManagementPage));
 
     private static void NavigateToLocationManagementPage()
         => nameof(MainWindow.FrameBody).NavigateTo(typeof(LocationManagementPage));
