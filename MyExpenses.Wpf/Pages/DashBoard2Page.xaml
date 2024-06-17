@@ -156,7 +156,7 @@
                     <Image Source="../Resources/Assets/Cards/AccountManagementCard.png" Height="256" Width="256" />
 
                     <Label HorizontalContentAlignment="Center"
-                           Content="LocationManagementPage">
+                           Content="AccountManagement">
                     </Label>
 
                 </StackPanel>
