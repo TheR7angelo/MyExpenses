@@ -124,20 +124,24 @@
         </StackPanel>
 
 
-        <WrapPanel Grid.Column="1"
-                   Orientation="Horizontal">
+        <WrapPanel Grid.Column="1" Orientation="Horizontal"
+                   margin:PanelExtensions.MarginForAllChildren="5">
 
-            <materialDesign:Card>
+            <materialDesign:Card Cursor="Hand"
+                                 MouseLeftButtonDown="LocationManagementCard_OnMouseLeftButtonDown">
 
-                <StackPanel Orientation="Vertical" margin:PanelExtensions.MarginForAllChildren="5">
+                <StackPanel Orientation="Vertical"
+                            margin:PanelExtensions.MarginForAllChildren="5">
 
                     <dashBoardPageCards:LocationManagementUserControl
                         Height="256" Width="256"
-                        MouseLeftButtonDown="LocationManagementUserControl_OnMouseLeftButtonDown"
                         PreviewMouseWheel="LocationManagementUserControl_OnPreviewMouseWheel">
                     </dashBoardPageCards:LocationManagementUserControl>
 
-                    <Label Content="LocationManagementPage" />
+                    <!-- TODO work -->
+                    <Label HorizontalContentAlignment="Center"
+                           Content="LocationManagementPage">
+                    </Label>
 
                 </StackPanel>
 

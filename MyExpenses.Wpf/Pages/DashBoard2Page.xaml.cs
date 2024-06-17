@@ -57,7 +57,7 @@ public partial class DashBoard2Page
     private void ButtonRecordExpense_OnClick(object sender, RoutedEventArgs e)
         => nameof(MainWindow.FrameBody).NavigateTo(typeof(RecordExpensePage));
 
-    private void LocationManagementUserControl_OnMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+    private void LocationManagementCard_OnMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         => nameof(MainWindow.FrameBody).NavigateTo(typeof(LocationManagementPage));
 
     private void LocationManagementUserControl_OnPreviewMouseWheel(object sender, MouseWheelEventArgs e)
