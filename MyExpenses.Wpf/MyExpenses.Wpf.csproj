@@ -315,15 +315,27 @@
       </AdditionalFiles>
       <None Remove="Resources\Assets\Cards\AccountManagementCard.ai" />
       <AdditionalFiles Include="Resources\Assets\Cards\AccountManagementCard.ai">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </AdditionalFiles>
       <None Remove="Resources\Assets\Cards\AccountManagementCard.png" />
       <Resource Include="Resources\Assets\Cards\AccountManagementCard.png">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </Resource>
       <None Remove="Resources\Assets\Cards\AccountManagementCard.svg" />
       <AdditionalFiles Include="Resources\Assets\Cards\AccountManagementCard.svg">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </AdditionalFiles>
+      <None Remove="Resources\Assets\Cards\AccountTypeManagementCard.ai" />
+      <AdditionalFiles Include="Resources\Assets\Cards\AccountTypeManagementCard.ai">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </AdditionalFiles>
+      <None Remove="Resources\Assets\Cards\AccountTypeManagementCard.png" />
+      <Resource Include="Resources\Assets\Cards\AccountTypeManagementCard.png">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Resource>
+      <None Remove="Resources\Assets\Cards\AccountTypeManagementCard.svg" />
+      <AdditionalFiles Include="Resources\Assets\Cards\AccountTypeManagementCard.svg">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </AdditionalFiles>
     </ItemGroup>
 
