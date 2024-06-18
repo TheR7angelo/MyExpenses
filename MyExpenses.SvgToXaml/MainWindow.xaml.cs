@@ -71,15 +71,15 @@ public partial class MainWindow
 
         var resourceDict = new XElement(ns + "ResourceDictionary",
             new XAttribute(XNamespace.Xmlns + "x", xNs));
-        var mergedDicts = new XElement(ns + "ResourceDictionary.MergedDictionaries");
-        resourceDict.Add(mergedDicts);
+        var mergedDictionaries = new XElement(ns + "ResourceDictionary.MergedDictionaries");
+        resourceDict.Add(mergedDictionaries);
 
         foreach (var file in filePaths)
         {
             var fileName = Path.GetFileName(file);
             var resourceDictionary = new XElement(ns + "ResourceDictionary",
                 new XAttribute("Source", fileName));
-            mergedDicts.Add(resourceDictionary);
+            mergedDictionaries.Add(resourceDictionary);
         }
 
 
