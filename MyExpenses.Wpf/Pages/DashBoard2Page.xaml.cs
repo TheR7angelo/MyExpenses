@@ -38,6 +38,11 @@ public partial class DashBoard2Page
     private void AccountTypeManagementCard_OnPreviewMouseDown(object sender, MouseButtonEventArgs e)
         => NavigateToAccountTypeManagementPage();
 
+    private void ButtonBankTransfer_OnClick(object sender, RoutedEventArgs e)
+        => NavigateToBankTransferPage();
+    private void BankTransferCard_OnPreviewMouseDown(object sender, MouseButtonEventArgs e)
+        => NavigateToBankTransferPage();
+
     private void ButtonCategoryTypeManagement_OnClick(object sender, RoutedEventArgs e)
         => nameof(MainWindow.FrameBody).NavigateTo(typeof(CategoryTypeManagementPage));
 
@@ -58,9 +63,6 @@ public partial class DashBoard2Page
     private void ButtonModePaymentManagement_OnClick(object sender, RoutedEventArgs e)
         => nameof(MainWindow.FrameBody).NavigateTo(typeof(ModePaymentManagementPage));
 
-    private void ButtonMakeBankTransfer_OnClick(object sender, RoutedEventArgs e)
-        => nameof(MainWindow.FrameBody).NavigateTo(typeof(BankTransferPage));
-
     private void ButtonRecordExpense_OnClick(object sender, RoutedEventArgs e)
         => nameof(MainWindow.FrameBody).NavigateTo(typeof(RecordExpensePage));
 
@@ -79,6 +81,9 @@ public partial class DashBoard2Page
 
     private static void NavigateToLocationManagementPage()
         => nameof(MainWindow.FrameBody).NavigateTo(typeof(LocationManagementPage));
+
+    private static void NavigateToBankTransferPage()
+        => nameof(MainWindow.FrameBody).NavigateTo(typeof(BankTransferPage));
 
     #endregion
 }

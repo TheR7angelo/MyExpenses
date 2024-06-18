@@ -78,7 +78,7 @@
 
                             <Button Content="{Binding ButtonMakeBankTransfer}"
                                     Style="{StaticResource MaterialDesignPaperButton}"
-                                    Click="ButtonMakeBankTransfer_OnClick">
+                                    Click="ButtonBankTransfer_OnClick">
                             </Button>
 
                             <Button Content="{Binding ButtonRecordExpense}"
@@ -171,6 +171,23 @@
                             margin:PanelExtensions.MarginForAllChildren="5">
 
                     <Image Source="../Resources/Assets/Cards/AccountTypeManagementCard.png" Height="256" Width="256" />
+
+                    <!-- TODO work -->
+                    <Label HorizontalContentAlignment="Center"
+                           Content="AccountTypeManagement">
+                    </Label>
+
+                </StackPanel>
+
+            </materialDesign:Card>
+
+            <materialDesign:Card Cursor="Hand"
+                                 PreviewMouseDown="BankTransferCard_OnPreviewMouseDown">
+
+                <StackPanel Orientation="Vertical"
+                            margin:PanelExtensions.MarginForAllChildren="5">
+
+                    <Image Source="../Resources/Assets/Cards/BankTransferCard.png" Height="256" Width="256" />
 
                     <!-- TODO work -->
                     <Label HorizontalContentAlignment="Center"
