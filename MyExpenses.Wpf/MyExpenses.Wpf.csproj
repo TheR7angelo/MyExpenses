@@ -317,10 +317,6 @@
       <AdditionalFiles Include="Resources\Assets\Cards\AccountManagementCard.ai">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </AdditionalFiles>
-      <None Remove="Resources\Assets\Cards\AccountManagementCard.png" />
-      <Resource Include="Resources\Assets\Cards\AccountManagementCard.png">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </Resource>
       <None Remove="Resources\Assets\Cards\AccountManagementCard.svg" />
       <AdditionalFiles Include="Resources\Assets\Cards\AccountManagementCard.svg">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -329,10 +325,6 @@
       <AdditionalFiles Include="Resources\Assets\Cards\AccountTypeManagementCard.ai">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </AdditionalFiles>
-      <None Remove="Resources\Assets\Cards\AccountTypeManagementCard.png" />
-      <Resource Include="Resources\Assets\Cards\AccountTypeManagementCard.png">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </Resource>
       <None Remove="Resources\Assets\Cards\AccountTypeManagementCard.svg" />
       <AdditionalFiles Include="Resources\Assets\Cards\AccountTypeManagementCard.svg">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -342,10 +334,6 @@
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </AdditionalFiles>
       <None Remove="Resources\Assets\Cards\BankTransferCard.ico" />
-      <None Remove="Resources\Assets\Cards\BankTransferCard.png" />
-      <Resource Include="Resources\Assets\Cards\BankTransferCard.png">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </Resource>
       <None Remove="Resources\Assets\Cards\BankTransferCard.svg" />
       <AdditionalFiles Include="Resources\Assets\Cards\BankTransferCard.svg">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

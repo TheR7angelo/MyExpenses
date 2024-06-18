@@ -153,7 +153,7 @@
                 <StackPanel Orientation="Vertical"
                             margin:PanelExtensions.MarginForAllChildren="5">
 
-                    <Image Source="../Resources/Assets/Cards/AccountManagementCard.png" Height="256" Width="256" />
+                    <Image Source="{StaticResource AccountManagementCard}" Height="256" Width="256" />
 
                     <!-- TODO work -->
                     <Label HorizontalContentAlignment="Center"
@@ -170,7 +170,7 @@
                 <StackPanel Orientation="Vertical"
                             margin:PanelExtensions.MarginForAllChildren="5">
 
-                    <Image Source="../Resources/Assets/Cards/AccountTypeManagementCard.png" Height="256" Width="256" />
+                    <Image Source="{StaticResource AccountTypeManagementCard}" Height="256" Width="256" />
 
                     <!-- TODO work -->
                     <Label HorizontalContentAlignment="Center"
@@ -187,7 +187,7 @@
                 <StackPanel Orientation="Vertical"
                             margin:PanelExtensions.MarginForAllChildren="5">
 
-                    <Image Source="../Resources/Assets/Cards/BankTransferCard.png" Height="256" Width="256" />
+                    <Image Source="{StaticResource BankTransferCard}" Height="256" Width="256" />
 
                     <!-- TODO work -->
                     <Label HorizontalContentAlignment="Center"

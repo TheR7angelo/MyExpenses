@@ -23,6 +23,9 @@
 
                 <!-- Material Design: MahApps Compatibility -->
                 <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.MahApps;component/Themes/MaterialDesignTheme.MahApps.Defaults.xaml" />
+
+                <ResourceDictionary Source="Resources/Assets/Cards/Cards.xaml" />
+
             </ResourceDictionary.MergedDictionaries>
 
             <!-- MahApps -->
