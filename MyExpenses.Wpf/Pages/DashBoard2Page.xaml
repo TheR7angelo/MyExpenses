@@ -198,6 +198,23 @@
 
             </materialDesign:Card>
 
+            <materialDesign:Card Cursor="Hand"
+                                 PreviewMouseDown="CategoryTypeManagementCard_OnPreviewMouseDown">
+
+                <StackPanel Orientation="Vertical"
+                            margin:PanelExtensions.MarginForAllChildren="5">
+
+                    <Image Source="{StaticResource CategoryTypeManagementCard}" Height="256" Width="256" />
+
+                    <!-- TODO work -->
+                    <Label HorizontalContentAlignment="Center"
+                           Content="CategoryTypeManagement">
+                    </Label>
+
+                </StackPanel>
+
+            </materialDesign:Card>
+
         </WrapPanel>
 
     </Grid>

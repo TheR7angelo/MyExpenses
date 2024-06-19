@@ -44,7 +44,10 @@ public partial class DashBoard2Page
         => NavigateToBankTransferPage();
 
     private void ButtonCategoryTypeManagement_OnClick(object sender, RoutedEventArgs e)
-        => nameof(MainWindow.FrameBody).NavigateTo(typeof(CategoryTypeManagementPage));
+        => NavigateToCategoryTypeManagement();
+
+    private void CategoryTypeManagementCard_OnPreviewMouseDown(object sender, MouseButtonEventArgs e)
+        => NavigateToCategoryTypeManagement();
 
     private void ButtonColorManagement_OnClick(object sender, RoutedEventArgs e)
         => nameof(MainWindow.FrameBody).NavigateTo(typeof(ColorManagementPage));
@@ -84,6 +87,9 @@ public partial class DashBoard2Page
 
     private static void NavigateToBankTransferPage()
         => nameof(MainWindow.FrameBody).NavigateTo(typeof(BankTransferPage));
+
+    private static void NavigateToCategoryTypeManagement()
+        => nameof(MainWindow.FrameBody).NavigateTo(typeof(CategoryTypeManagementPage));
 
     #endregion
 }
