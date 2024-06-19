@@ -3,5 +3,6 @@
     <ResourceDictionary Source="AccountManagementCard.xaml" />
     <ResourceDictionary Source="AccountTypeManagementCard.xaml" />
     <ResourceDictionary Source="BankTransferCard.xaml" />
+    <ResourceDictionary Source="CategoryTypeManagementCard.xaml" />
   </ResourceDictionary.MergedDictionaries>
 </ResourceDictionary>
