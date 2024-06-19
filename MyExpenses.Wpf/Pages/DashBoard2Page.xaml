@@ -219,6 +219,23 @@
 
                 </materialDesign:Card>
 
+                <materialDesign:Card Cursor="Hand"
+                                     PreviewMouseDown="ColorManagementCard_OnPreviewMouseDown">
+
+                    <StackPanel Orientation="Vertical"
+                                margin:PanelExtensions.MarginForAllChildren="5">
+
+                        <Image Source="{StaticResource ColorManagementCard}" Height="256" Width="256" />
+
+                        <!-- TODO work -->
+                        <Label HorizontalContentAlignment="Center"
+                               Content="ColorManagement">
+                        </Label>
+
+                    </StackPanel>
+
+                </materialDesign:Card>
+
             </WrapPanel>
 
         </ScrollViewer>

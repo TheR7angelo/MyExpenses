@@ -50,7 +50,9 @@ public partial class DashBoard2Page
         => NavigateToCategoryTypeManagement();
 
     private void ButtonColorManagement_OnClick(object sender, RoutedEventArgs e)
-        => nameof(MainWindow.FrameBody).NavigateTo(typeof(ColorManagementPage));
+        => NavigateToColorManagement();
+    private void ColorManagementCard_OnPreviewMouseDown(object sender, MouseButtonEventArgs e)
+        => NavigateToColorManagement();
 
     private void ButtonCurrencyManagement_OnClick(object sender, RoutedEventArgs e)
         => nameof(MainWindow.FrameBody).NavigateTo(typeof(CurrencyManagementPage));
@@ -90,6 +92,9 @@ public partial class DashBoard2Page
 
     private static void NavigateToCategoryTypeManagement()
         => nameof(MainWindow.FrameBody).NavigateTo(typeof(CategoryTypeManagementPage));
+
+    private static void NavigateToColorManagement()
+        => nameof(MainWindow.FrameBody).NavigateTo(typeof(ColorManagementPage));
 
     #endregion
 }
