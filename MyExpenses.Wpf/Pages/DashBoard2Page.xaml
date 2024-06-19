@@ -11,6 +11,9 @@
 
       Title="DashBoard"
 
+      d:DesignHeight="820"
+      d:DesignWidth="1530"
+
       Background="{DynamicResource MaterialDesignPaper}"
       TextElement.Foreground="{DynamicResource MaterialDesignBody}"
 
