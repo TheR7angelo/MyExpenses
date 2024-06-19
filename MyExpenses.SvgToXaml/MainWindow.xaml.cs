@@ -50,6 +50,7 @@ public partial class MainWindow
             {
                 xElement.Attributes(xSvg + "SvgLink.Key").Remove();
                 xElement.Attributes(xSvg + "SvgObject.UniqueId").Remove();
+                xElement.Attributes(xSvg + "SvgObject.Class").Remove();
 
                 var penAttribute = xElement.Attribute("Pen");
                 if (penAttribute is not null && penAttribute.Value.Equals("{x:Null}"))
