@@ -28,8 +28,14 @@
 
 
         <StackPanel Grid.Column="0"
+                    x:Name="StackPanelCards"
                     Orientation="Vertical"
                     margin:PanelExtensions.MarginForAllChildren="5">
+
+            <TextBox Margin="5"
+                     Style="{StaticResource MaterialDesignFilledTextBox}"
+                     TextChanged="SearchBox_OnTextChanged">
+            </TextBox>
 
             <materialDesign:Card>
 
