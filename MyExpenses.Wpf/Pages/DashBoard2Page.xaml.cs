@@ -19,6 +19,8 @@ public partial class DashBoard2Page
     public string ButtonModePaymentManagement { get; } = DashBoardPageResources.ButtonModePaymentManagement;
     public string ButtonMakeBankTransfer { get; } = DashBoardPageResources.ButtonMakeBankTransfer;
     public string ButtonRecordExpense { get; } = DashBoardPageResources.ButtonRecordExpense;
+    // TODO work
+    public string TextBoxSearchHintAssist { get; } = "Search here";
 
     #endregion
 

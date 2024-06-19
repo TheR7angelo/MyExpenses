@@ -33,6 +33,7 @@
                     margin:PanelExtensions.MarginForAllChildren="5">
 
             <TextBox Margin="5"
+                     materialDesign:HintAssist.Hint="{Binding TextBoxSearchHintAssist}"
                      Style="{StaticResource MaterialDesignFilledTextBox}"
                      TextChanged="SearchBox_OnTextChanged">
             </TextBox>
