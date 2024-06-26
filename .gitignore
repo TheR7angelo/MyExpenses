@@ -2,6 +2,9 @@
 **/obj/
 **/.idea/
 /Python/
+
+/MyExpenses.WebApi/Dropbox/DropboxKeys.json
+
 /MyExpenses.Sql/Database Models/Model - Test.sqlite
 /MyExpenses.Sql/Database Models/Model - Using.sqlite
 /MyExpenses.Sql/Database Models/Model - Using - Real.sqlite

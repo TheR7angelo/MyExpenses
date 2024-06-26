@@ -10,4 +10,9 @@
       <ProjectReference Include="..\MyExpenses.Models\MyExpenses.Models.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <EmbeddedResource Include="Dropbox\DropboxKeys.json" />
+      <None Remove="Dropbox\DropboxKeys.json" />
+    </ItemGroup>
+
 </Project>
