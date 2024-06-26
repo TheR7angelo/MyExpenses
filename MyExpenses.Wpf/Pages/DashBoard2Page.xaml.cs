@@ -1,6 +1,8 @@
 ﻿using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using MyExpenses.Wpf.Resources.Resx.Pages.DashBoardPage;
+using MyExpenses.Wpf.Utils;
 
 namespace MyExpenses.Wpf.Pages;
 
@@ -17,6 +19,8 @@ public partial class DashBoard2Page
     public string ButtonModePaymentManagement { get; } = DashBoardPageResources.ButtonModePaymentManagement;
     public string ButtonMakeBankTransfer { get; } = DashBoardPageResources.ButtonMakeBankTransfer;
     public string ButtonRecordExpense { get; } = DashBoardPageResources.ButtonRecordExpense;
+    // TODO work
+    public string TextBoxSearchHintAssist { get; } = "Search here";
 
     #endregion
 
@@ -44,10 +48,15 @@ public partial class DashBoard2Page
         => NavigateToBankTransferPage();
 
     private void ButtonCategoryTypeManagement_OnClick(object sender, RoutedEventArgs e)
-        => nameof(MainWindow.FrameBody).NavigateTo(typeof(CategoryTypeManagementPage));
+        => NavigateToCategoryTypeManagement();
+
+    private void CategoryTypeManagementCard_OnPreviewMouseDown(object sender, MouseButtonEventArgs e)
+        => NavigateToCategoryTypeManagement();
 
     private void ButtonColorManagement_OnClick(object sender, RoutedEventArgs e)
-        => nameof(MainWindow.FrameBody).NavigateTo(typeof(ColorManagementPage));
+        => NavigateToColorManagement();
+    private void ColorManagementCard_OnPreviewMouseDown(object sender, MouseButtonEventArgs e)
+        => NavigateToColorManagement();
 
     private void ButtonCurrencyManagement_OnClick(object sender, RoutedEventArgs e)
         => nameof(MainWindow.FrameBody).NavigateTo(typeof(CurrencyManagementPage));
@@ -69,6 +78,62 @@ public partial class DashBoard2Page
     private void LocationManagementUserControl_OnPreviewMouseWheel(object sender, MouseWheelEventArgs e)
         => e.Handled = true;
 
+    private void SearchBox_OnTextChanged(object sender, TextChangedEventArgs e)
+    {
+        var textBox = (TextBox)sender;
+        var keyword = textBox.Text.Trim();
+
+        var cards = StackPanelCards.Children
+            .OfType<MaterialDesignThemes.Wpf.Card>().ToList();
+
+        if (string.IsNullOrWhiteSpace(keyword))
+        {
+            foreach (var expander in cards.SelectMany(card => card.FindVisualChildren<Expander>()))
+            {
+                expander.IsExpanded = false;
+
+                foreach (var button in expander.FindVisualChildren<Button>())
+                {
+                    button.Visibility = Visibility.Visible;
+                }
+
+                if (expander.Content is not ScrollViewer scrollViewer) continue;
+                if (scrollViewer.Content is not StackPanel stackPanel) continue;
+
+                foreach (var button in stackPanel.Children.OfType<Button>())
+                {
+                    button.Visibility = Visibility.Visible;
+                }
+            }
+        }
+        else
+        {
+            foreach (var expander in cards.SelectMany(card => card.FindVisualChildren<Expander>()))
+            {
+                var containsKeyword = false;
+
+                if (expander.Content is not ScrollViewer scrollViewer) continue;
+                if (scrollViewer.Content is not StackPanel stackPanel) continue;
+
+                foreach (var button in stackPanel.Children.OfType<Button>())
+                {
+                    var contentStr = button.Content.ToString() ?? string.Empty;
+                    if (contentStr.Contains(keyword, StringComparison.OrdinalIgnoreCase))
+                    {
+                        button.Visibility = Visibility.Visible;
+                        containsKeyword = true;
+                    }
+                    else
+                    {
+                        button.Visibility = Visibility.Collapsed;
+                    }
+                }
+
+                expander.IsExpanded = containsKeyword;
+            }
+        }
+    }
+
     #endregion
 
     #region Function
@@ -84,6 +149,12 @@ public partial class DashBoard2Page
 
     private static void NavigateToBankTransferPage()
         => nameof(MainWindow.FrameBody).NavigateTo(typeof(BankTransferPage));
+
+    private static void NavigateToCategoryTypeManagement()
+        => nameof(MainWindow.FrameBody).NavigateTo(typeof(CategoryTypeManagementPage));
+
+    private static void NavigateToColorManagement()
+        => nameof(MainWindow.FrameBody).NavigateTo(typeof(ColorManagementPage));
 
     #endregion
 }

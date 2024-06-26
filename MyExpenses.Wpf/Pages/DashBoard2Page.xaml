@@ -11,6 +11,9 @@
 
       Title="DashBoard"
 
+      d:DesignHeight="820"
+      d:DesignWidth="1530"
+
       Background="{DynamicResource MaterialDesignPaper}"
       TextElement.Foreground="{DynamicResource MaterialDesignBody}"
 
@@ -25,8 +28,15 @@
 
 
         <StackPanel Grid.Column="0"
+                    x:Name="StackPanelCards"
                     Orientation="Vertical"
                     margin:PanelExtensions.MarginForAllChildren="5">
+
+            <TextBox Margin="5"
+                     materialDesign:HintAssist.Hint="{Binding TextBoxSearchHintAssist}"
+                     Style="{StaticResource MaterialDesignFilledTextBox}"
+                     TextChanged="SearchBox_OnTextChanged">
+            </TextBox>
 
             <materialDesign:Card>
 
@@ -124,81 +134,121 @@
         </StackPanel>
 
 
-        <WrapPanel Grid.Column="1" Orientation="Horizontal"
-                   margin:PanelExtensions.MarginForAllChildren="5">
+        <ScrollViewer Grid.Column="1"
+                      HorizontalScrollBarVisibility="Disabled"
+                      VerticalScrollBarVisibility="Auto">
 
-            <materialDesign:Card Cursor="Hand"
-                                 MouseLeftButtonDown="LocationManagementCard_OnMouseLeftButtonDown">
+            <WrapPanel Orientation="Horizontal"
+                       margin:PanelExtensions.MarginForAllChildren="5">
 
-                <StackPanel Orientation="Vertical"
-                            margin:PanelExtensions.MarginForAllChildren="5">
+                <materialDesign:Card Cursor="Hand"
+                                     MouseLeftButtonDown="LocationManagementCard_OnMouseLeftButtonDown">
 
-                    <dashBoardPageCards:LocationManagementUserControl
-                        Height="256" Width="256"
-                        PreviewMouseWheel="LocationManagementUserControl_OnPreviewMouseWheel">
-                    </dashBoardPageCards:LocationManagementUserControl>
+                    <StackPanel Orientation="Vertical"
+                                margin:PanelExtensions.MarginForAllChildren="5">
 
-                    <!-- TODO work -->
-                    <Label HorizontalContentAlignment="Center"
-                           Content="LocationManagementPage">
-                    </Label>
+                        <dashBoardPageCards:LocationManagementUserControl
+                            Height="256" Width="256"
+                            PreviewMouseWheel="LocationManagementUserControl_OnPreviewMouseWheel">
+                        </dashBoardPageCards:LocationManagementUserControl>
 
-                </StackPanel>
+                        <!-- TODO work -->
+                        <Label HorizontalContentAlignment="Center"
+                               Content="LocationManagementPage">
+                        </Label>
 
-            </materialDesign:Card>
+                    </StackPanel>
 
-            <materialDesign:Card Cursor="Hand"
-                                 PreviewMouseDown="AccountManagementCard_OnPreviewMouseDown">
+                </materialDesign:Card>
 
-                <StackPanel Orientation="Vertical"
-                            margin:PanelExtensions.MarginForAllChildren="5">
+                <materialDesign:Card Cursor="Hand"
+                                     PreviewMouseDown="AccountManagementCard_OnPreviewMouseDown">
 
-                    <Image Source="{StaticResource AccountManagementCard}" Height="256" Width="256" />
+                    <StackPanel Orientation="Vertical"
+                                margin:PanelExtensions.MarginForAllChildren="5">
 
-                    <!-- TODO work -->
-                    <Label HorizontalContentAlignment="Center"
-                           Content="AccountManagement">
-                    </Label>
+                        <Image Source="{StaticResource AccountManagementCard}" Height="256" Width="256" />
 
-                </StackPanel>
+                        <!-- TODO work -->
+                        <Label HorizontalContentAlignment="Center"
+                               Content="AccountManagement">
+                        </Label>
 
-            </materialDesign:Card>
+                    </StackPanel>
 
-            <materialDesign:Card Cursor="Hand"
-                                 PreviewMouseDown="AccountTypeManagementCard_OnPreviewMouseDown">
+                </materialDesign:Card>
 
-                <StackPanel Orientation="Vertical"
-                            margin:PanelExtensions.MarginForAllChildren="5">
+                <materialDesign:Card Cursor="Hand"
+                                     PreviewMouseDown="AccountTypeManagementCard_OnPreviewMouseDown">
 
-                    <Image Source="{StaticResource AccountTypeManagementCard}" Height="256" Width="256" />
+                    <StackPanel Orientation="Vertical"
+                                margin:PanelExtensions.MarginForAllChildren="5">
 
-                    <!-- TODO work -->
-                    <Label HorizontalContentAlignment="Center"
-                           Content="AccountTypeManagement">
-                    </Label>
+                        <Image Source="{StaticResource AccountTypeManagementCard}" Height="256" Width="256" />
 
-                </StackPanel>
+                        <!-- TODO work -->
+                        <Label HorizontalContentAlignment="Center"
+                               Content="AccountTypeManagement">
+                        </Label>
 
-            </materialDesign:Card>
+                    </StackPanel>
 
-            <materialDesign:Card Cursor="Hand"
-                                 PreviewMouseDown="BankTransferCard_OnPreviewMouseDown">
+                </materialDesign:Card>
 
-                <StackPanel Orientation="Vertical"
-                            margin:PanelExtensions.MarginForAllChildren="5">
+                <materialDesign:Card Cursor="Hand"
+                                     PreviewMouseDown="BankTransferCard_OnPreviewMouseDown">
 
-                    <Image Source="{StaticResource BankTransferCard}" Height="256" Width="256" />
+                    <StackPanel Orientation="Vertical"
+                                margin:PanelExtensions.MarginForAllChildren="5">
 
-                    <!-- TODO work -->
-                    <Label HorizontalContentAlignment="Center"
-                           Content="AccountTypeManagement">
-                    </Label>
+                        <Image Source="{StaticResource BankTransferCard}" Height="256" Width="256" />
 
-                </StackPanel>
+                        <!-- TODO work -->
+                        <Label HorizontalContentAlignment="Center"
+                               Content="AccountTypeManagement">
+                        </Label>
 
-            </materialDesign:Card>
+                    </StackPanel>
 
-        </WrapPanel>
+                </materialDesign:Card>
+
+                <materialDesign:Card Cursor="Hand"
+                                     PreviewMouseDown="CategoryTypeManagementCard_OnPreviewMouseDown">
+
+                    <StackPanel Orientation="Vertical"
+                                margin:PanelExtensions.MarginForAllChildren="5">
+
+                        <Image Source="{StaticResource CategoryTypeManagementCard}" Height="256" Width="256" />
+
+                        <!-- TODO work -->
+                        <Label HorizontalContentAlignment="Center"
+                               Content="CategoryTypeManagement">
+                        </Label>
+
+                    </StackPanel>
+
+                </materialDesign:Card>
+
+                <materialDesign:Card Cursor="Hand"
+                                     PreviewMouseDown="ColorManagementCard_OnPreviewMouseDown">
+
+                    <StackPanel Orientation="Vertical"
+                                margin:PanelExtensions.MarginForAllChildren="5">
+
+                        <Image Source="{StaticResource ColorManagementCard}" Height="256" Width="256" />
+
+                        <!-- TODO work -->
+                        <Label HorizontalContentAlignment="Center"
+                               Content="ColorManagement">
+                        </Label>
+
+                    </StackPanel>
+
+                </materialDesign:Card>
+
+            </WrapPanel>
+
+        </ScrollViewer>
 
     </Grid>
 
