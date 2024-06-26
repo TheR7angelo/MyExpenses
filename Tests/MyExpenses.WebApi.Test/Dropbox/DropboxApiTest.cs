@@ -60,7 +60,7 @@ public class DropboxApiTest
         httpListener.Prefixes.Add(dropboxKeys.RedirectUri!);
         httpListener.Start();
 
-        var uri = $"https://www.dropbox.com/oauth2/authorize?client_id={dropboxKeys.AppKey}&response_type=code&redirect_uri={dropboxKeys.RedirectUri}";
+        var uri = $"https://www.dropbox.com/oauth2/authorize?client_id={dropboxKeys.AppKey}&redirect_uri={dropboxKeys.RedirectUri}&response_type=code&token_access_type=offline";
         var process = new Process();
         process.StartInfo.UseShellExecute = true;
         process.StartInfo.CreateNoWindow = false;
