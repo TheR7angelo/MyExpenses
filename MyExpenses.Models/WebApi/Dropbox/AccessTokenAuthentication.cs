@@ -10,6 +10,9 @@ public class AccessTokenAuthentication
     [JsonProperty("date_expiration")]
     public DateTime? DateExpiration { get; set; }
 
+    [JsonProperty("date_creation")]
+    public DateTime? DateCreation { get; set; }
+
     [JsonProperty("access_token")]
     public string? AccessToken { get; set; }
 
