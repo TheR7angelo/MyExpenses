@@ -6,10 +6,11 @@ using Dropbox.Api;
 using Dropbox.Api.Files;
 using MyExpenses.Models.WebApi.DropBox;
 using Newtonsoft.Json;
+using Xunit.Abstractions;
 
 namespace MyExpenses.WebApi.Test.Dropbox;
 
-public class DropboxApiTest
+public class DropboxApiTest(ITestOutputHelper testOutputHelper)
 {
     [Fact]
     private async Task Test()
@@ -38,7 +39,11 @@ public class DropboxApiTest
 
             var tempToken = GetTempToken(dropboxKeys)!;
             accessTokenAuthentication = await GetAccessTokenAuthentication(tempToken, dropboxKeys);
-            if (accessTokenAuthentication is not null) accessTokenAuthentication.DateCreation = DateTime.Now;
+            if (accessTokenAuthentication is not null)
+            {
+                accessTokenAuthentication.DateCreated = DateTime.Now;
+                accessTokenAuthentication.DateExpiration = DateTime.Now.AddSeconds(accessTokenAuthentication.ExpiresIn ?? 0);
+            }
 
             await File.WriteAllTextAsync(filePathSecretKeys, JsonConvert.SerializeObject(accessTokenAuthentication, Formatting.Indented));
         }
@@ -48,10 +53,20 @@ public class DropboxApiTest
             accessTokenAuthentication = JsonConvert.DeserializeObject<AccessTokenAuthentication>(jsonStr);
         }
 
-        using var client = new DropboxClient(accessTokenAuthentication!.AccessToken);
-        var content = $"Hello, World! {DateTime.Now}";
-        using var memStream = new MemoryStream(Encoding.UTF8.GetBytes(content));
-        await client.Files.UploadAsync("/test.txt", WriteMode.Overwrite.Instance, body: memStream);
+        if (accessTokenAuthentication is null) return;
+
+        var needToRefresh = accessTokenAuthentication.DateExpiration <= DateTime.Now;
+        if (needToRefresh)
+        {
+            testOutputHelper.WriteLine("need to refresh");
+        }
+        else
+        {
+            using var client = new DropboxClient(accessTokenAuthentication!.AccessToken);
+            var content = $"Hello, World! {DateTime.Now}";
+            using var memStream = new MemoryStream(Encoding.UTF8.GetBytes(content));
+            await client.Files.UploadAsync("/test.txt", WriteMode.Overwrite.Instance, body: memStream);
+        }
     }
 
     private static async Task<AccessTokenAuthentication?> GetAccessTokenAuthentication(string tempToken, DropboxKeys dropboxKeys)

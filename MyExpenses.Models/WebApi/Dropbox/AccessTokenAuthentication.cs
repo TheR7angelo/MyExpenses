@@ -4,8 +4,11 @@ namespace MyExpenses.Models.WebApi.DropBox;
 
 public class AccessTokenAuthentication
 {
-    [JsonProperty("date_creation")]
-    public DateTime? DateCreation { get; set; }
+    [JsonProperty("date_created")]
+    public DateTime? DateCreated { get; set; }
+
+    [JsonProperty("date_expiration")]
+    public DateTime? DateExpiration { get; set; }
 
     [JsonProperty("access_token")]
     public string? AccessToken { get; set; }
