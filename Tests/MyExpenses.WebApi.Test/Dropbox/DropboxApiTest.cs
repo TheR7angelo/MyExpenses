@@ -5,6 +5,7 @@ using System.Text;
 using Dropbox.Api;
 using Dropbox.Api.Files;
 using MyExpenses.Models.WebApi.DropBox;
+using MyExpenses.WebApi.Dropbox;
 using Newtonsoft.Json;
 using Xunit.Abstractions;
 
@@ -15,53 +16,58 @@ public class DropboxApiTest(ITestOutputHelper testOutputHelper)
     [Fact]
     private async Task Test()
     {
-        var directorySecretKeys = Path.GetFullPath("Api");
-        directorySecretKeys = Path.Join(directorySecretKeys, "Dropbox");
+        // var directorySecretKeys = Path.GetFullPath("Api");
+        // directorySecretKeys = Path.Join(directorySecretKeys, "Dropbox");
+        //
+        // var directoryInfo = Directory.CreateDirectory(directorySecretKeys);
+        // directoryInfo = directoryInfo.Parent;
+        // if (directoryInfo is not null) directoryInfo.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
+        //
+        // var filePathSecretKeys = Path.Join(directorySecretKeys, "AccessTokenAuthentication.json");
+        //
+        // AccessTokenAuthentication? accessTokenAuthentication;
+        // if (!File.Exists(filePathSecretKeys))
+        // {
+        //     var assembly = Assembly.GetAssembly(typeof(MyExpenses.WebApi.Nominatim.Nominatim))!;
+        //     var resources = assembly.GetManifestResourceNames();
+        //     var resourceName = resources.First(s => s.Contains("DropboxKeys.json"));
+        //
+        //     await using var stream = assembly.GetManifestResourceStream(resourceName)!;
+        //     using var reader = new StreamReader(stream);
+        //     var jsonStr = await reader.ReadToEndAsync();
+        //
+        //      var dropboxKeys = JsonConvert.DeserializeObject<DropboxKeys>(jsonStr)!;
+        //
+        //     var tempToken = GetTempToken(dropboxKeys)!;
+        //     accessTokenAuthentication = await GetAccessTokenAuthentication(tempToken, dropboxKeys);
+        //     if (accessTokenAuthentication is not null)
+        //     {
+        //         accessTokenAuthentication.DateCreated = DateTime.Now;
+        //         accessTokenAuthentication.DateExpiration = DateTime.Now.AddSeconds(accessTokenAuthentication.ExpiresIn ?? 0);
+        //     }
+        //
+        //     await File.WriteAllTextAsync(filePathSecretKeys, JsonConvert.SerializeObject(accessTokenAuthentication, Formatting.Indented));
+        // }
+        // else
+        // {
+        //     var jsonStr = await File.ReadAllTextAsync(filePathSecretKeys);
+        //     accessTokenAuthentication = JsonConvert.DeserializeObject<AccessTokenAuthentication>(jsonStr);
+        // }
+        //
+        // if (accessTokenAuthentication is null) return;
 
-        var directoryInfo = Directory.CreateDirectory(directorySecretKeys);
-        directoryInfo = directoryInfo.Parent;
-        if (directoryInfo is not null) directoryInfo.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
+        var dropboxService = new DropboxService();
+        if (dropboxService.AccessTokenAuthentication is null) dropboxService.AuthorizeApplication();
 
-        var filePathSecretKeys = Path.Join(directorySecretKeys, "AccessTokenAuthentication.json");
+        if (dropboxService.AccessTokenAuthentication is null) return;
 
-        AccessTokenAuthentication? accessTokenAuthentication;
-        if (!File.Exists(filePathSecretKeys))
-        {
-            var assembly = Assembly.GetAssembly(typeof(MyExpenses.WebApi.Nominatim.Nominatim))!;
-            var resources = assembly.GetManifestResourceNames();
-            var resourceName = resources.First(s => s.Contains("DropboxKeys.json"));
-
-            await using var stream = assembly.GetManifestResourceStream(resourceName)!;
-            using var reader = new StreamReader(stream);
-            var jsonStr = await reader.ReadToEndAsync();
-
-             var dropboxKeys = JsonConvert.DeserializeObject<DropboxKeys>(jsonStr)!;
-
-            var tempToken = GetTempToken(dropboxKeys)!;
-            accessTokenAuthentication = await GetAccessTokenAuthentication(tempToken, dropboxKeys);
-            if (accessTokenAuthentication is not null)
-            {
-                accessTokenAuthentication.DateCreated = DateTime.Now;
-                accessTokenAuthentication.DateExpiration = DateTime.Now.AddSeconds(accessTokenAuthentication.ExpiresIn ?? 0);
-            }
-
-            await File.WriteAllTextAsync(filePathSecretKeys, JsonConvert.SerializeObject(accessTokenAuthentication, Formatting.Indented));
-        }
-        else
-        {
-            var jsonStr = await File.ReadAllTextAsync(filePathSecretKeys);
-            accessTokenAuthentication = JsonConvert.DeserializeObject<AccessTokenAuthentication>(jsonStr);
-        }
-
-        if (accessTokenAuthentication is null) return;
-
-        if (accessTokenAuthentication.IsTokenValid())
+        if (!dropboxService.AccessTokenAuthentication.IsTokenValid())
         {
             testOutputHelper.WriteLine("need to refresh");
         }
         else
         {
-            using var client = new DropboxClient(accessTokenAuthentication!.AccessToken);
+            using var client = new DropboxClient(dropboxService.AccessTokenAuthentication.AccessToken);
             var content = $"Hello, World! {DateTime.Now}";
             using var memStream = new MemoryStream(Encoding.UTF8.GetBytes(content));
             await client.Files.UploadAsync("/test.txt", WriteMode.Overwrite.Instance, body: memStream);
