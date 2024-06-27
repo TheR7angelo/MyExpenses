@@ -16,6 +16,8 @@ public class DropboxApiTest(ITestOutputHelper testOutputHelper)
 
         if (dropboxService.AccessTokenAuthentication is null) return;
 
+        Assert.NotNull(dropboxService.AccessTokenAuthentication);
+
         if (!dropboxService.AccessTokenAuthentication.IsTokenValid())
         {
             testOutputHelper.WriteLine("need to refresh");
