@@ -21,7 +21,6 @@
                  NonActiveWindowTitleBrush="Gray"
                  WindowTitleBrush="Gray"
                  BorderBrush="Gray"
-                 GlowBrush="Gray"
                  NonActiveGlowBrush="Gray"
 
                  ShowIconOnTitleBar="True"
@@ -34,6 +33,8 @@
                  TextElement.Foreground="{DynamicResource MaterialDesignBody}"
 
                  DataContext="{Binding RelativeSource={RelativeSource Self}}">
+
+    <!-- GlowBrush="Gray" -->
 
     <!-- <mah:MetroWindow.LeftWindowCommands> -->
     <!--     <mah:WindowCommands> -->

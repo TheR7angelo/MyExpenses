@@ -1,5 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Input;
+using System.Windows.Interop;
+using MyExpenses.Utils.WindowStyle;
 using MyExpenses.Wpf.Resources.Resx.Windows.MainWindow;
 
 namespace MyExpenses.Wpf;
@@ -36,6 +38,17 @@ public partial class MainWindow
     public MainWindow()
     {
         InitializeComponent();
+
+        var hWnd = new WindowInteropHelper(GetWindow(this)!).EnsureHandle();
+
+        const DwmWindowAttribute attribute = DwmWindowAttribute.DwmwaWindowCornerPreference;
+
+        var osVersion = Environment.OSVersion;
+        var preference = osVersion.Version is { Major: >= 10, Build: >= 22000 }
+            ? DwmWindowCornerPreference.DwmWcpRound
+            : DwmWindowCornerPreference.DwmWcpDefault;
+
+        hWnd.DwmSetWindowAttribute(attribute, ref preference, sizeof(uint));
 
         Navigator.CanGoBackChanged += Navigator_OnCanGoBackChanged;
     }
