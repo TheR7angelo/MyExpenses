@@ -48,7 +48,7 @@ public class DropboxService
             body: memoryStream);
     }
 
-    private async Task<DropboxClient> GetDropboxClient()
+    public async Task<DropboxClient> GetDropboxClient()
     {
         DropboxClient? dropboxClient = null;
         try
