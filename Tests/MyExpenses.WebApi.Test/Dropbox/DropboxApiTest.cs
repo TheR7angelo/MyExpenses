@@ -18,7 +18,8 @@ public class DropboxApiTest
         directorySecretKeys = Path.Join(directorySecretKeys, "Dropbox");
 
         var directoryInfo = Directory.CreateDirectory(directorySecretKeys);
-        directoryInfo.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
+        directoryInfo = directoryInfo.Parent;
+        if (directoryInfo is not null) directoryInfo.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
 
         var filePathSecretKeys = Path.Join(directorySecretKeys, "AccessTokenAuthentication.json");
 
