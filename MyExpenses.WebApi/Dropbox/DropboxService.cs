@@ -1,6 +1,8 @@
 using System.Diagnostics;
 using System.Net;
 using System.Reflection;
+using Dropbox.Api;
+using Dropbox.Api.Files;
 using MyExpenses.Models.WebApi.DropBox;
 using Newtonsoft.Json;
 
@@ -25,6 +27,30 @@ public class DropboxService
 
         var jsonStr = File.ReadAllText(FilePathSecretKeys);
         AccessTokenAuthentication = JsonConvert.DeserializeObject<AccessTokenAuthentication>(jsonStr);
+    }
+
+    public async Task UploadFileAsync(string filePath, string? folder = null)
+    {
+        if (!AccessTokenAuthentication!.IsTokenValid())
+        {
+            await RefreshAccessTokenAuthentication();
+        }
+
+        if (!File.Exists(filePath))
+        {
+            throw new FileNotFoundException("File not found", filePath);
+        }
+
+        using var dropboxClient = new DropboxClient(AccessTokenAuthentication.AccessToken);
+        var content = await File.ReadAllBytesAsync(filePath);
+        using var memoryStream = new MemoryStream(content);
+
+        var dropboxFilePath = string.IsNullOrWhiteSpace(folder)
+            ? $"/{Path.GetFileName(filePath)}"
+            : $"/{folder.Trim('/')}/{Path.GetFileName(filePath)}";
+
+        await dropboxClient.Files.UploadAsync(dropboxFilePath, WriteMode.Overwrite.Instance,
+            body: memoryStream);
     }
 
     public async Task RefreshAccessTokenAuthentication()

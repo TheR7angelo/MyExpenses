@@ -25,9 +25,8 @@ public class DropboxApiTest(ITestOutputHelper testOutputHelper)
             await dropboxService.RefreshAccessTokenAuthentication();
         }
 
-        using var dropboxClient = new DropboxClient(dropboxService.AccessTokenAuthentication.AccessToken);
-        var content = $"Hello, World! {DateTime.Now}";
-        using var memStream = new MemoryStream(Encoding.UTF8.GetBytes(content));
-        await dropboxClient.Files.UploadAsync("/test.txt", WriteMode.Overwrite.Instance, body: memStream);
+        var filePath = Path.GetFullPath("test.txt");
+        await File.WriteAllTextAsync(filePath, $"Hello, World! {DateTime.Now}");
+        await dropboxService.UploadFileAsync(filePath, null);
     }
 }
