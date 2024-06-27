@@ -1,12 +1,7 @@
-using System.Diagnostics;
-using System.Net;
-using System.Reflection;
 using System.Text;
 using Dropbox.Api;
 using Dropbox.Api.Files;
-using MyExpenses.Models.WebApi.DropBox;
 using MyExpenses.WebApi.Dropbox;
-using Newtonsoft.Json;
 using Xunit.Abstractions;
 
 namespace MyExpenses.WebApi.Test.Dropbox;

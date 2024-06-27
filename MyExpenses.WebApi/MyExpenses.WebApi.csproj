@@ -15,4 +15,8 @@
       <None Remove="Dropbox\DropboxKeys.json" />
     </ItemGroup>
 
+    <ItemGroup>
+      <PackageReference Include="Dropbox.Api" Version="7.0.0" />
+    </ItemGroup>
+
 </Project>
