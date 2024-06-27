@@ -37,6 +37,7 @@ public class DropboxApiTest
 
             var tempToken = GetTempToken(dropboxKeys)!;
             accessTokenAuthentication = await GetAccessTokenAuthentication(tempToken, dropboxKeys);
+            if (accessTokenAuthentication is not null) accessTokenAuthentication.DateCreation = DateTime.Now;
 
             await File.WriteAllTextAsync(filePathSecretKeys, JsonConvert.SerializeObject(accessTokenAuthentication, Formatting.Indented));
         }
