@@ -31,17 +31,12 @@ public class DropboxService
 
     public async Task<FileMetadata> UploadFileAsync(string filePath, string? folder = null)
     {
-        if (!AccessTokenAuthentication!.IsTokenValid())
-        {
-            await RefreshAccessTokenAuthentication();
-        }
-
         if (!File.Exists(filePath))
         {
             throw new FileNotFoundException("File not found", filePath);
         }
 
-        using var dropboxClient = new DropboxClient(AccessTokenAuthentication.AccessToken);
+        using var dropboxClient = await GetDropboxClient();
         var content = await File.ReadAllBytesAsync(filePath);
         using var memoryStream = new MemoryStream(content);
 
@@ -51,6 +46,26 @@ public class DropboxService
 
         return await dropboxClient.Files.UploadAsync(dropboxFilePath, WriteMode.Overwrite.Instance,
             body: memoryStream);
+    }
+
+    private async Task<DropboxClient> GetDropboxClient()
+    {
+        DropboxClient? dropboxClient = null;
+        try
+        {
+            if (!AccessTokenAuthentication!.IsTokenValid())
+            {
+                await RefreshAccessTokenAuthentication();
+            }
+
+            dropboxClient = new DropboxClient(AccessTokenAuthentication.AccessToken);
+            return dropboxClient;
+        }
+        catch
+        {
+            dropboxClient?.Dispose();
+            throw;
+        }
     }
 
     public async Task RefreshAccessTokenAuthentication()
