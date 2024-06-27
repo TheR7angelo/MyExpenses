@@ -22,10 +22,10 @@ public class DropboxApiTest(ITestOutputHelper testOutputHelper)
         }
         else
         {
-            using var client = new DropboxClient(dropboxService.AccessTokenAuthentication.AccessToken);
+            using var dropboxClient = new DropboxClient(dropboxService.AccessTokenAuthentication.AccessToken);
             var content = $"Hello, World! {DateTime.Now}";
             using var memStream = new MemoryStream(Encoding.UTF8.GetBytes(content));
-            await client.Files.UploadAsync("/test.txt", WriteMode.Overwrite.Instance, body: memStream);
+            await dropboxClient.Files.UploadAsync("/test.txt", WriteMode.Overwrite.Instance, body: memStream);
         }
     }
 }
