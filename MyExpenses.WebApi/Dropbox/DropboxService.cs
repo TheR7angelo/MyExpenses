@@ -29,6 +29,30 @@ public class DropboxService
         AccessTokenAuthentication = JsonConvert.DeserializeObject<AccessTokenAuthentication>(jsonStr);
     }
 
+    public async Task<string> DownloadFileAsync(string filePath, string? destinationFilePath=null)
+    {
+        if (!filePath.StartsWith('/')) filePath = $"/{filePath}";
+
+        using var dropboxClient = await GetDropboxClient();
+        var response = await dropboxClient.Files.DownloadAsync(filePath);
+        var stream = await response.GetContentAsStreamAsync();
+
+        if (!string.IsNullOrWhiteSpace(destinationFilePath))
+        {
+            var directoryPath = Path.GetDirectoryName(destinationFilePath);
+            Directory.CreateDirectory(directoryPath!);
+        }
+        else
+        {
+            destinationFilePath = Path.GetFileName(filePath);
+        }
+
+        await using var fileStream = File.Create(destinationFilePath);
+        await stream.CopyToAsync(fileStream);
+
+        return destinationFilePath;
+    }
+
     public async Task<FileMetadata> UploadFileAsync(string filePath, string? folder = null)
     {
         if (!File.Exists(filePath))

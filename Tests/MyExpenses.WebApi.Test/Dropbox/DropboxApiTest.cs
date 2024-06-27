@@ -30,5 +30,8 @@ public class DropboxApiTest(ITestOutputHelper testOutputHelper)
         var fileMetadata = await dropboxService.UploadFileAsync(filePath, null);
 
         Assert.NotNull(fileMetadata);
+
+        filePath = await dropboxService.DownloadFileAsync(fileMetadata.PathDisplay);
+        Assert.True(File.Exists(filePath));
     }
 }
