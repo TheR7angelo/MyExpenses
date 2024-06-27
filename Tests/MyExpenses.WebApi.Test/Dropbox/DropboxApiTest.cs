@@ -27,6 +27,8 @@ public class DropboxApiTest(ITestOutputHelper testOutputHelper)
 
         var filePath = Path.GetFullPath("test.txt");
         await File.WriteAllTextAsync(filePath, $"Hello, World! {DateTime.Now}");
-        await dropboxService.UploadFileAsync(filePath, null);
+        var fileMetadata = await dropboxService.UploadFileAsync(filePath, null);
+
+        Assert.NotNull(fileMetadata);
     }
 }

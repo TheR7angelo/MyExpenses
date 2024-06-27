@@ -29,7 +29,7 @@ public class DropboxService
         AccessTokenAuthentication = JsonConvert.DeserializeObject<AccessTokenAuthentication>(jsonStr);
     }
 
-    public async Task UploadFileAsync(string filePath, string? folder = null)
+    public async Task<FileMetadata> UploadFileAsync(string filePath, string? folder = null)
     {
         if (!AccessTokenAuthentication!.IsTokenValid())
         {
@@ -49,7 +49,7 @@ public class DropboxService
             ? $"/{Path.GetFileName(filePath)}"
             : $"/{folder.Trim('/')}/{Path.GetFileName(filePath)}";
 
-        await dropboxClient.Files.UploadAsync(dropboxFilePath, WriteMode.Overwrite.Instance,
+        return await dropboxClient.Files.UploadAsync(dropboxFilePath, WriteMode.Overwrite.Instance,
             body: memoryStream);
     }
 
