@@ -21,13 +21,13 @@ public class DropboxApiTest(ITestOutputHelper testOutputHelper)
         if (!dropboxService.AccessTokenAuthentication.IsTokenValid())
         {
             testOutputHelper.WriteLine("need to refresh");
+
+            await dropboxService.RefreshAccessTokenAuthentication();
         }
-        else
-        {
-            using var dropboxClient = new DropboxClient(dropboxService.AccessTokenAuthentication.AccessToken);
-            var content = $"Hello, World! {DateTime.Now}";
-            using var memStream = new MemoryStream(Encoding.UTF8.GetBytes(content));
-            await dropboxClient.Files.UploadAsync("/test.txt", WriteMode.Overwrite.Instance, body: memStream);
-        }
+
+        using var dropboxClient = new DropboxClient(dropboxService.AccessTokenAuthentication.AccessToken);
+        var content = $"Hello, World! {DateTime.Now}";
+        using var memStream = new MemoryStream(Encoding.UTF8.GetBytes(content));
+        await dropboxClient.Files.UploadAsync("/test.txt", WriteMode.Overwrite.Instance, body: memStream);
     }
 }
