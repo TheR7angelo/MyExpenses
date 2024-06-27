@@ -55,8 +55,7 @@ public class DropboxApiTest(ITestOutputHelper testOutputHelper)
 
         if (accessTokenAuthentication is null) return;
 
-        var needToRefresh = accessTokenAuthentication.DateExpiration <= DateTime.Now;
-        if (needToRefresh)
+        if (accessTokenAuthentication.IsTokenValid())
         {
             testOutputHelper.WriteLine("need to refresh");
         }

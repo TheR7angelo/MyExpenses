@@ -30,4 +30,14 @@ public class AccessTokenAuthentication
 
     [JsonProperty("account_id")]
     public string? AccountId { get; set; }
+
+    public bool IsTokenValid()
+    {
+        if (DateExpiration is not null)
+        {
+            return DateExpiration > DateTime.Now;
+        }
+
+        return false;
+    }
 }
