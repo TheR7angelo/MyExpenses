@@ -14,18 +14,37 @@ public class DropboxApiTest
     [Fact]
     private async Task Test()
     {
-        var assembly = Assembly.GetAssembly(typeof(MyExpenses.WebApi.Nominatim.Nominatim))!;
-        var resources = assembly.GetManifestResourceNames();
-        var resourceName = resources.First(s => s.Contains("DropboxKeys.json"));
+        var directorySecretKeys = Path.GetFullPath("Api");
+        directorySecretKeys = Path.Join(directorySecretKeys, "Dropbox");
 
-        await using var stream = assembly.GetManifestResourceStream(resourceName)!;
-        using var reader = new StreamReader(stream);
-        var jsonStr = await reader.ReadToEndAsync();
+        var directoryInfo = Directory.CreateDirectory(directorySecretKeys);
+        directoryInfo.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
 
-         var dropboxKeys = JsonConvert.DeserializeObject<DropboxKeys>(jsonStr)!;
+        var filePathSecretKeys = Path.Join(directorySecretKeys, "AccessTokenAuthentication.json");
 
-        var tempToken = GetTempToken(dropboxKeys)!;
-        var accessTokenAuthentication = await GetAccessTokenAuthentication(tempToken, dropboxKeys);
+        AccessTokenAuthentication? accessTokenAuthentication;
+        if (!File.Exists(filePathSecretKeys))
+        {
+            var assembly = Assembly.GetAssembly(typeof(MyExpenses.WebApi.Nominatim.Nominatim))!;
+            var resources = assembly.GetManifestResourceNames();
+            var resourceName = resources.First(s => s.Contains("DropboxKeys.json"));
+
+            await using var stream = assembly.GetManifestResourceStream(resourceName)!;
+            using var reader = new StreamReader(stream);
+            var jsonStr = await reader.ReadToEndAsync();
+
+             var dropboxKeys = JsonConvert.DeserializeObject<DropboxKeys>(jsonStr)!;
+
+            var tempToken = GetTempToken(dropboxKeys)!;
+            accessTokenAuthentication = await GetAccessTokenAuthentication(tempToken, dropboxKeys);
+
+            await File.WriteAllTextAsync(filePathSecretKeys, JsonConvert.SerializeObject(accessTokenAuthentication, Formatting.Indented));
+        }
+        else
+        {
+            var jsonStr = await File.ReadAllTextAsync(filePathSecretKeys);
+            accessTokenAuthentication = JsonConvert.DeserializeObject<AccessTokenAuthentication>(jsonStr);
+        }
 
         using var client = new DropboxClient(accessTokenAuthentication!.AccessToken);
         const string content = "Hello, World!";
