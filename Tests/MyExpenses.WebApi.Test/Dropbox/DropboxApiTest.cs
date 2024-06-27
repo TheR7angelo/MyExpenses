@@ -47,7 +47,7 @@ public class DropboxApiTest
         }
 
         using var client = new DropboxClient(accessTokenAuthentication!.AccessToken);
-        const string content = "Hello, World!";
+        var content = $"Hello, World! {DateTime.Now}";
         using var memStream = new MemoryStream(Encoding.UTF8.GetBytes(content));
         await client.Files.UploadAsync("/test.txt", WriteMode.Overwrite.Instance, body: memStream);
     }
