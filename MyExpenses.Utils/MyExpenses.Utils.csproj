@@ -19,8 +19,4 @@
       <ProjectReference Include="..\MyExpenses.Sql\MyExpenses.Sql.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="DesktopWindowsManager\" />
-    </ItemGroup>
-
 </Project>
