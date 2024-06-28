@@ -4,15 +4,15 @@ using System.Runtime.InteropServices;
 namespace MyExpenses.Utils.WindowStyle;
 
 /// <summary>
-///     Extensions to handle the HResult
+/// Provides extension methods for the HResult enum.
 /// </summary>
 public static class HResultExtensions
 {
     /// <summary>
-    ///     Test if the HResult represents a fail
+    /// Extension method to check if the HResult represents a failure.
     /// </summary>
-    /// <param name="hResult">HResult</param>
-    /// <returns>bool</returns>
+    /// <param name="hResult">The HResult value</param>
+    /// <returns>True if the HResult represents a failure, otherwise false</returns>
     [Pure]
     public static bool Failed(this HResult hResult)
     {
@@ -20,10 +20,10 @@ public static class HResultExtensions
     }
 
     /// <summary>
-    ///     Test if the HResult represents a success
+    /// Extension method to check if the HResult represents a success
     /// </summary>
-    /// <param name="hResult">HResult</param>
-    /// <returns>bool</returns>
+    /// <param name="hResult">The HResult value</param>
+    /// <returns>True if the HResult represents a success, otherwise false</returns>
     [Pure]
     public static bool Succeeded(this HResult hResult)
     {
@@ -31,14 +31,15 @@ public static class HResultExtensions
     }
 
     /// <summary>
-    ///     Throw an exception on Failure
+    /// Throws an exception if the HResult represents a failure.
     /// </summary>
-    /// <param name="hResult">HResult</param>
+    /// <param name="hResult">The HResult to check.</param>
+    /// <exception cref="Exception">Thrown when the HResult represents a failure.</exception>
     public static void ThrowOnFailure(this HResult hResult)
     {
         if (Failed(hResult))
         {
-            throw Marshal.GetExceptionForHR((int) hResult);
+            throw Marshal.GetExceptionForHR((int) hResult)!;
         }
     }
 }
