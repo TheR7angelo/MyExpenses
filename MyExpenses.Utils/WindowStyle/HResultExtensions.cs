@@ -1,0 +1,44 @@
+using System.Diagnostics.Contracts;
+using System.Runtime.InteropServices;
+
+namespace MyExpenses.Utils.WindowStyle;
+
+/// <summary>
+///     Extensions to handle the HResult
+/// </summary>
+public static class HResultExtensions
+{
+    /// <summary>
+    ///     Test if the HResult represents a fail
+    /// </summary>
+    /// <param name="hResult">HResult</param>
+    /// <returns>bool</returns>
+    [Pure]
+    public static bool Failed(this HResult hResult)
+    {
+        return hResult < 0;
+    }
+
+    /// <summary>
+    ///     Test if the HResult represents a success
+    /// </summary>
+    /// <param name="hResult">HResult</param>
+    /// <returns>bool</returns>
+    [Pure]
+    public static bool Succeeded(this HResult hResult)
+    {
+        return hResult >= HResult.S_OK;
+    }
+
+    /// <summary>
+    ///     Throw an exception on Failure
+    /// </summary>
+    /// <param name="hResult">HResult</param>
+    public static void ThrowOnFailure(this HResult hResult)
+    {
+        if (Failed(hResult))
+        {
+            throw Marshal.GetExceptionForHR((int) hResult);
+        }
+    }
+}

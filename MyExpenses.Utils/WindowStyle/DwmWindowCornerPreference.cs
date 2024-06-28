@@ -1,12 +1,24 @@
 namespace MyExpenses.Utils.WindowStyle;
 
-// The DWM_WINDOW_CORNER_PREFERENCE enum for DwmSetWindowAttribute's third parameter, which tells the function
-// what value of the enum to set.
-// Copied from dwmapi.h
-public enum DwmWindowCornerPreference
+/// <summary>
+/// Flags used by the DwmSetWindowAttribute function to specify the rounded corner preference for a window.
+/// </summary>
+public enum DwmWindowCornerPreference : uint
 {
-    DwmWcpDefault      = 0,
-    DwmWcpDoNotRound   = 1,
-    DwmWcpRound        = 2,
-    DwmWcpSmallRound   = 3
+    /// <summary>
+    /// Let the system decide when to round window corners.
+    /// </summary>
+    Default = 0,
+    /// <summary>
+    /// Never round window corners.
+    /// </summary>
+    DoNotRound = 1,
+    /// <summary>
+    /// Round the corners, if appropriate.
+    /// </summary>
+    Round = 2,
+    /// <summary>
+    /// Round the corners if appropriate, with a small radius.
+    /// </summary>
+    RoundSmall = 3
 }

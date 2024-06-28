@@ -40,15 +40,7 @@ public partial class MainWindow
         InitializeComponent();
 
         var hWnd = new WindowInteropHelper(GetWindow(this)!).EnsureHandle();
-
-        const DwmWindowAttribute attribute = DwmWindowAttribute.DwmwaWindowCornerPreference;
-        
-        var osVersion = Environment.OSVersion;
-        var preference = osVersion.Version is { Major: >= 10, Build: >= 22000 }
-            ? DwmWindowCornerPreference.DwmWcpRound
-            : DwmWindowCornerPreference.DwmWcpDefault;
-
-        hWnd.DwmSetWindowAttribute(attribute, ref preference, sizeof(uint));
+        hWnd.SetWindowCornerPreference(DwmWindowCornerPreference.Round);
 
         Navigator.CanGoBackChanged += Navigator_OnCanGoBackChanged;
     }
