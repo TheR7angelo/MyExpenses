@@ -1,6 +1,3 @@
-using System.Text;
-using Dropbox.Api;
-using Dropbox.Api.Files;
 using MyExpenses.WebApi.Dropbox;
 using Xunit.Abstractions;
 
