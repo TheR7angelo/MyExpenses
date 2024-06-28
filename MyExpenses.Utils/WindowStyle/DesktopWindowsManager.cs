@@ -25,7 +25,7 @@ public static partial class DesktopWindowsManager
         {
             refToWindowCornerPreference = new IntPtr(Unsafe.AsPointer(ref windowCornerPreference));
         }
-        var result = DwmSetWindowAttribute(hWnd, DwmWindowAttributes.WindowCornerPreference, refToWindowCornerPreference, Marshal.SizeOf(typeof(DwmWindowCornerPreference)));
+        var result = DwmSetWindowAttribute(hWnd, DwmWindowAttributes.WindowCornerPreference, refToWindowCornerPreference, Marshal.SizeOf(typeof(uint)));
         return result.Succeeded();
     }
 
@@ -36,6 +36,7 @@ public static partial class DesktopWindowsManager
     ///         DwmSetWindowAttribute
     ///         function
     ///     </a>
+
     /// </summary>
     /// <param name="hWnd">IntPtr with the handle to the window that will receive the attributes.</param>
     /// <param name="dwAttributeToSet">
