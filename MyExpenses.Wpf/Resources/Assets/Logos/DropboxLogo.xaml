@@ -1,0 +1,18 @@
+<ResourceDictionary xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+  <DrawingImage x:Key="DropboxLogo">
+    <DrawingImage.Drawing>
+      <DrawingGroup>
+        <DrawingGroup.Children>
+          <GeometryDrawing Brush="#FF007EE5">
+            <GeometryDrawing.Geometry>
+              <PathGeometry FillRule="Nonzero" Figures="M150.94,17.51L0,115.32 105.06,199.85 256,105.66C256,105.66,150.94,17.51,150.94,17.51z M0,281.96L150.94,380.97999999999996 256,292.8299999999999 105.06,199.8499999999999C105.06,199.8499999999999,0,281.96,0,281.96z M256,292.83L362.26,380.98 512,283.17 408.15,199.85000000000002C408.15,199.85000000000002,255.99999999999997,292.83000000000004,255.99999999999997,292.83000000000004z M512,115.32L362.26,17.51 256,105.66000000000001 408.15,199.85000000000002 512,115.32000000000002z M257.21,312.15L150.95,400.29999999999995 106.26999999999998,370.10999999999996 106.26999999999998,403.91999999999996 257.21,494.48999999999995 408.15,403.91999999999996 408.15,370.10999999999996 362.26,400.29999999999995C362.26,400.29999999999995,257.2,312.15,257.2,312.15z" />
+            </GeometryDrawing.Geometry>
+          </GeometryDrawing>
+        </DrawingGroup.Children>
+        <DrawingGroup.ClipGeometry>
+          <RectangleGeometry Rect="0,0,512,512" />
+        </DrawingGroup.ClipGeometry>
+      </DrawingGroup>
+    </DrawingImage.Drawing>
+  </DrawingImage>
+</ResourceDictionary>
