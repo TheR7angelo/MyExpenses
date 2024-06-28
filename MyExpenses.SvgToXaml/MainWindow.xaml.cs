@@ -1,6 +1,8 @@
 ﻿using System.IO;
+using System.Windows;
 using System.Windows.Markup;
 using System.Xml.Linq;
+using Microsoft.Win32;
 using SharpVectors.Converters;
 using SharpVectors.Renderers.Wpf;
 
@@ -8,20 +10,39 @@ namespace MyExpenses.SvgToXaml;
 
 public partial class MainWindow
 {
+    public static readonly DependencyProperty PathDirectoryProperty = DependencyProperty.Register(nameof(PathDirectory),
+        typeof(string), typeof(MainWindow), new PropertyMetadata(default(string)));
+
     public MainWindow()
     {
         InitializeComponent();
-
-        MainConversion();
     }
 
-    private static void MainConversion()
+    public string PathDirectory
+    {
+        get => (string)GetValue(PathDirectoryProperty);
+        set => SetValue(PathDirectoryProperty, value);
+    }
+
+    private void ButtonTransform_OnClick(object sender, RoutedEventArgs e)
+        => MainConversion();
+
+    private void ButtonSelectDirectory_OnClick(object sender, RoutedEventArgs e)
+    {
+        var folderBrowser = new OpenFolderDialog { Multiselect = false };
+
+        var result = folderBrowser.ShowDialog();
+        if (result is not true) return;
+
+        PathDirectory = folderBrowser.FolderName;
+    }
+
+    private void MainConversion()
     {
         var settings = new WpfDrawingSettings();
         using var reader = new FileSvgReader(settings);
 
-        const string directoryPath = @"C:\Users\ZP6177\Documents\Programmation\C#\MyExpenses\MyExpenses.Wpf\Resources\Assets\Cards";
-        var files = Directory.GetFiles(directoryPath, "*.svg");
+        var files = Directory.GetFiles(PathDirectory, "*.svg");
 
         var xSvg = XNamespace.Get("http://sharpvectors.codeplex.com/runtime/");
         var ns = XNamespace.Get("http://schemas.microsoft.com/winfx/2006/xaml/presentation");
@@ -66,9 +87,10 @@ public partial class MainWindow
             File.WriteAllText(xamlFile, xamlStr);
         }
 
-        var directoryName = Path.GetFileName(directoryPath);
+        var directoryName = Path.GetFileName(PathDirectory);
         var outputFileName = $"{directoryName}.xaml";
-        var filePaths = Directory.GetFiles(directoryPath, "*.xaml").Where(s => Path.GetFileName(s) != outputFileName); // Get all .xaml files in the directory
+        var filePaths = Directory.GetFiles(PathDirectory, "*.xaml")
+            .Where(s => Path.GetFileName(s) != outputFileName); // Get all .xaml files in the directory
 
         var resourceDict = new XElement(ns + "ResourceDictionary",
             new XAttribute(XNamespace.Xmlns + "x", xNs));
@@ -84,7 +106,7 @@ public partial class MainWindow
         }
 
 
-        var outputPath = Path.Join(directoryPath, outputFileName);
+        var outputPath = Path.Join(PathDirectory, outputFileName);
 
         File.WriteAllText(outputPath, resourceDict.ToString());
     }

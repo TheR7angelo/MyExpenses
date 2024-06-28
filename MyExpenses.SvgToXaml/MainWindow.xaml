@@ -5,11 +5,30 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MyExpenses.SvgToXaml"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow"
 
-    <Grid>
+        Height="450" Width="800"
 
+        DataContext="{Binding RelativeSource={RelativeSource Self}}">
 
+    <Grid VerticalAlignment="Center">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+
+        <Button Grid.Row="0" Grid.Column="0" Content="Click me" Click="ButtonSelectDirectory_OnClick" />
+
+        <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding PathDirectory}" />
+
+        <Button Grid.Row="0" Grid.Column="2" Content="Transform" Click="ButtonTransform_OnClick" />
 
     </Grid>
 
