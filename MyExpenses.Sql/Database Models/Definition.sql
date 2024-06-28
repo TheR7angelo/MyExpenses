@@ -560,9 +560,8 @@ WITH all_periods AS (SELECT a.id                     AS account_fk,
                                                 SELECT '11'
                                                 UNION
                                                 SELECT '12')) m
-                     WHERE y.year < (SELECT strftime('%Y', MAX(date)) FROM t_history)
-                        OR (y.year == (SELECT strftime('%Y', MAX(date)) FROM t_history)
-                         AND m.month <= (SELECT strftime('%m', MAX(date)) FROM t_history))),
+                     WHERE y.year <= (SELECT strftime('%Y', MAX(date)) FROM t_history)
+                         AND m.month <= (SELECT strftime('%m', MAX(date)) FROM t_history)),
      monthly AS (SELECT ap.account_fk,
                         ap.account,
                         ap.period,
