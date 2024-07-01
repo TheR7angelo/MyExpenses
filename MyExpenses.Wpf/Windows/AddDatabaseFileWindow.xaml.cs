@@ -1,7 +1,9 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Interop;
 using MyExpenses.Models.IO;
+using MyExpenses.Utils.WindowStyle;
 using MyExpenses.Wpf.Resources.Resx.Windows.AddDatabaseFileWindow;
 using MyExpenses.Wpf.Windows.MsgBox;
 
@@ -28,6 +30,9 @@ public partial class AddDatabaseFileWindow
     public AddDatabaseFileWindow()
     {
         InitializeComponent();
+
+        var hWnd = new WindowInteropHelper(GetWindow(this)!).EnsureHandle();
+        hWnd.SetWindowCornerPreference(DwmWindowCornerPreference.Round);
     }
 
     #region Action

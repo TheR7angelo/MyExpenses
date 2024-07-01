@@ -1,10 +1,12 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Interop;
 using Microsoft.Data.Sqlite;
 using MyExpenses.Models.Sql.Tables;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils.Sql;
+using MyExpenses.Utils.WindowStyle;
 using MyExpenses.Wpf.Resources.Resx.Windows.AddEditColorWindow;
 using MyExpenses.Wpf.Utils;
 using MyExpenses.Wpf.Windows.MsgBox;
@@ -56,6 +58,9 @@ public partial class AddEditColorWindow
         Colors = [..context.TColors];
 
         InitializeComponent();
+
+        var hWnd = new WindowInteropHelper(GetWindow(this)!).EnsureHandle();
+        hWnd.SetWindowCornerPreference(DwmWindowCornerPreference.Round);
     }
 
     #region Action

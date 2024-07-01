@@ -1,9 +1,11 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Interop;
 using Microsoft.Data.Sqlite;
 using MyExpenses.Models.Sql.Tables;
 using MyExpenses.Sql.Context;
+using MyExpenses.Utils.WindowStyle;
 using MyExpenses.Wpf.Resources.Resx.Windows.AddEditCurrencyWindow;
 using MyExpenses.Wpf.Utils;
 using MyExpenses.Wpf.Windows.MsgBox;
@@ -51,6 +53,10 @@ public partial class AddEditCurrencyWindow
         Currencies = [..context.TCurrencies];
 
         InitializeComponent();
+
+        var hWnd = new WindowInteropHelper(GetWindow(this)!).EnsureHandle();
+        hWnd.SetWindowCornerPreference(DwmWindowCornerPreference.Round);
+
         TextBoxCurrency.Focus();
     }
 

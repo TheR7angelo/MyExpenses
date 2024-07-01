@@ -1,10 +1,12 @@
 ﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
+using System.Windows.Interop;
 using Mapsui.Layers;
 using Mapsui.Styles;
 using MyExpenses.Models.AutoMapper;
 using MyExpenses.Models.Sql.Tables;
+using MyExpenses.Utils.WindowStyle;
 using MyExpenses.Wpf.Utils.Maps;
 
 namespace MyExpenses.Wpf.Windows.LocationManagementWindows;
@@ -42,6 +44,9 @@ public partial class NominatimSearchWindows : INotifyPropertyChanged
         map.Layers.Add(WritableLayer);
 
         InitializeComponent();
+
+        var hWnd = new WindowInteropHelper(GetWindow(this)!).EnsureHandle();
+        hWnd.SetWindowCornerPreference(DwmWindowCornerPreference.Round);
 
         MapControl.Map = map;
     }

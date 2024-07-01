@@ -1,7 +1,9 @@
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Interop;
 using MyExpenses.Models.IO;
+using MyExpenses.Utils.WindowStyle;
 using MyExpenses.Wpf.Resources.Resx.Windows.RemoveDatabaseFile;
 using MyExpenses.Wpf.Utils;
 
@@ -19,6 +21,9 @@ public partial class SelectDatabaseFileWindow
     public SelectDatabaseFileWindow()
     {
         InitializeComponent();
+
+        var hWnd = new WindowInteropHelper(GetWindow(this)!).EnsureHandle();
+        hWnd.SetWindowCornerPreference(DwmWindowCornerPreference.Round);
     }
 
     private void ButtonValid_OnClick(object sender, RoutedEventArgs e)
