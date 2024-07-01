@@ -88,15 +88,13 @@ public partial class WelcomePage
 
         if (selectDatabaseFileWindow.DialogResult is not true) return;
 
-        var folderDialog = new FolderDialog();
-        var selectedFolder = folderDialog.GetFile();
-
-        if (string.IsNullOrEmpty(selectedFolder)) return;
-
-        foreach (var existingDatabase in selectDatabaseFileWindow.ExistingDatabasesSelected)
+        if (selectDatabaseFileWindow.ExistingDatabasesSelected.Count is 1)
         {
-            var newFilePath = Path.Join(selectedFolder, existingDatabase.FileName);
-            File.Copy(existingDatabase.FilePath!, newFilePath, true);
+            ExportToFile(selectDatabaseFileWindow);
+        }
+        else
+        {
+            ExportToDirectory(selectDatabaseFileWindow);
         }
 
         //TODO make messagebox result
@@ -144,6 +142,32 @@ public partial class WelcomePage
     #endregion
 
     #region Function
+
+    private static void ExportToDirectory(SelectDatabaseFileWindow selectDatabaseFileWindow)
+    {
+        var folderDialog = new FolderDialog();
+        var selectedFolder = folderDialog.GetFile();
+
+        if (string.IsNullOrEmpty(selectedFolder)) return;
+
+        foreach (var existingDatabase in selectDatabaseFileWindow.ExistingDatabasesSelected)
+        {
+            var newFilePath = Path.Join(selectedFolder, existingDatabase.FileName);
+            File.Copy(existingDatabase.FilePath!, newFilePath, true);
+        }
+    }
+
+    private static void ExportToFile(SelectDatabaseFileWindow selectDatabaseFileWindow)
+    {
+        var sqliteDialog = new SqliteFileDialog();
+        var selectedDialog = sqliteDialog.SaveFile();
+
+        if (string.IsNullOrEmpty(selectedDialog)) return;
+
+        selectedDialog = Path.ChangeExtension(selectedDialog, DbContextBackup.Extension);
+        var selectedFilePath = selectDatabaseFileWindow.ExistingDatabasesSelected[0].FilePath!;
+        File.Copy(selectedFilePath, selectedDialog, true);
+    }
 
     private void RefreshExistingDatabases()
     {
