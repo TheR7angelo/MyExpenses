@@ -6,6 +6,7 @@ using MyExpenses.Models.IO;
 using MyExpenses.Models.Wpf.Save;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils.Collection;
+using MyExpenses.WebApi.Dropbox;
 using MyExpenses.Wpf.Resources.Resx.Pages.WelcomePage;
 using MyExpenses.Wpf.Utils.FilePicker;
 using MyExpenses.Wpf.Windows;
@@ -152,12 +153,24 @@ public partial class WelcomePage
 
     private void SaveToCloud(List<ExistingDatabase> existingDatabasesSelected)
     {
+        if (existingDatabasesSelected.Count is 1) ExportToCloudFile(existingDatabasesSelected.First());
+        else ExportToCloudDirectory(existingDatabasesSelected);
+    }
 
+    private static void ExportToCloudDirectory(List<ExistingDatabase> existingDatabasesSelected)
+    {
+
+    }
+
+    private static void ExportToCloudFile(ExistingDatabase existingDatabasesSelected)
+    {
+        var dropboxService = new DropboxService();
+        dropboxService.UploadFile(existingDatabasesSelected.FilePath!);
     }
 
     private static void SaveToLocal(List<ExistingDatabase> existingDatabasesSelected)
     {
-        if (existingDatabasesSelected.Count is 1) ExportToLocalFile(existingDatabasesSelected);
+        if (existingDatabasesSelected.Count is 1) ExportToLocalFile(existingDatabasesSelected.First());
         else ExportToLocalDirectory(existingDatabasesSelected);
     }
 
@@ -175,7 +188,7 @@ public partial class WelcomePage
         }
     }
 
-    private static void ExportToLocalFile(List<ExistingDatabase> existingDatabasesSelected)
+    private static void ExportToLocalFile(ExistingDatabase existingDatabasesSelected)
     {
         var sqliteDialog = new SqliteFileDialog();
         var selectedDialog = sqliteDialog.SaveFile();
@@ -183,7 +196,7 @@ public partial class WelcomePage
         if (string.IsNullOrEmpty(selectedDialog)) return;
 
         selectedDialog = Path.ChangeExtension(selectedDialog, DbContextBackup.Extension);
-        var selectedFilePath = existingDatabasesSelected[0].FilePath!;
+        var selectedFilePath = existingDatabasesSelected.FilePath!;
         File.Copy(selectedFilePath, selectedDialog, true);
     }
 

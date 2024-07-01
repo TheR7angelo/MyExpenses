@@ -53,6 +53,12 @@ public class DropboxService
         return destinationFilePath;
     }
 
+    public FileMetadata UploadFile(string filePath, string? folder = null)
+    {
+        var task = UploadFileAsync(filePath, folder);
+        return task.GetAwaiter().GetResult();
+    }
+
     public async Task<FileMetadata> UploadFileAsync(string filePath, string? folder = null)
     {
         if (!File.Exists(filePath))
