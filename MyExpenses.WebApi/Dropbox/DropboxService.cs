@@ -72,7 +72,7 @@ public class DropboxService
         }
 
         using var dropboxClient = await GetDropboxClient();
-        var content = await File.ReadAllBytesAsync(filePath);
+        var content = await File.ReadAllBytesAsync(filePath).ConfigureAwait(false);
         using var memoryStream = new MemoryStream(content);
 
         var dropboxFilePath = string.IsNullOrWhiteSpace(folder)
@@ -80,10 +80,10 @@ public class DropboxService
             : $"/{folder.Trim('/')}/{Path.GetFileName(filePath)}";
 
         return await dropboxClient.Files.UploadAsync(dropboxFilePath, WriteMode.Overwrite.Instance,
-            body: memoryStream);
+            body: memoryStream).ConfigureAwait(false);
     }
 
-    public async Task<DropboxClient> GetDropboxClient()
+    private async Task<DropboxClient> GetDropboxClient()
     {
         DropboxClient? dropboxClient = null;
         try
@@ -130,7 +130,7 @@ public class DropboxService
         await File.WriteAllTextAsync(FilePathSecretKeys, JsonConvert.SerializeObject(AccessTokenAuthentication, Formatting.Indented));
     }
 
-    public void AuthorizeApplication()
+    public AccessTokenAuthentication? AuthorizeApplication()
     {
         var tempToken = GetTempToken()!;
         var taskAccessTokenAuthentication = GetAccessTokenAuthentication(tempToken);
@@ -143,6 +143,7 @@ public class DropboxService
         }
 
         File.WriteAllText(FilePathSecretKeys, JsonConvert.SerializeObject(accessTokenAuthentication, Formatting.Indented));
+        return accessTokenAuthentication;
     }
 
     private static DropboxKeys GetDropboxKeys()
@@ -171,7 +172,7 @@ public class DropboxService
         };
 
         var requestContent = new FormUrlEncodedContent(requestData);
-        var response = await httpClient.PostAsync("https://api.dropbox.com/oauth2/token", requestContent);
+        var response = await httpClient.PostAsync("https://api.dropbox.com/oauth2/token", requestContent).ConfigureAwait(false);
         var responseContent = await response.Content.ReadAsStringAsync();
 
         var accessTokenResponse = JsonConvert.DeserializeObject<AccessTokenAuthentication>(responseContent);
