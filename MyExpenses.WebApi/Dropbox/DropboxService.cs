@@ -23,10 +23,15 @@ public class DropboxService
         var directorySecretKeys = GenerateDirectorySecretKeys();
         FilePathSecretKeys = Path.Join(directorySecretKeys, "AccessTokenAuthentication.json");
 
-        if (!File.Exists(FilePathSecretKeys)) return;
-
-        var jsonStr = File.ReadAllText(FilePathSecretKeys);
-        AccessTokenAuthentication = JsonConvert.DeserializeObject<AccessTokenAuthentication>(jsonStr);
+        if (!File.Exists(FilePathSecretKeys))
+        {
+            AccessTokenAuthentication = AuthorizeApplication();
+        }
+        else
+        {
+            var jsonStr = File.ReadAllText(FilePathSecretKeys);
+            AccessTokenAuthentication = JsonConvert.DeserializeObject<AccessTokenAuthentication>(jsonStr);
+        }
     }
 
     public async Task<string> DownloadFileAsync(string filePath, string? destinationFilePath=null)
