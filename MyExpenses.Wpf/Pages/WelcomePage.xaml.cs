@@ -97,10 +97,11 @@ public partial class WelcomePage
 
         try
         {
+            //TODO wait screen
             switch (saveLocationWindow.SaveLocationResult)
             {
                 case SaveLocation.Local:
-                    SaveToLocal(selectDatabaseFileWindow.ExistingDatabasesSelected);
+                    await SaveToLocal(selectDatabaseFileWindow.ExistingDatabasesSelected);
                     Log.Information("Database was successfully save to local");
                     break;
                 case SaveLocation.Dropbox:
@@ -181,13 +182,13 @@ public partial class WelcomePage
         await dropboxService.UploadFileAsync(existingDatabasesSelected.FilePath!, "Databases");
     }
 
-    private static void SaveToLocal(List<ExistingDatabase> existingDatabasesSelected)
+    private static async Task SaveToLocal(List<ExistingDatabase> existingDatabasesSelected)
     {
-        if (existingDatabasesSelected.Count is 1) ExportToLocalFile(existingDatabasesSelected.First());
-        else ExportToLocalDirectory(existingDatabasesSelected);
+        if (existingDatabasesSelected.Count is 1) await ExportToLocalFileAsync(existingDatabasesSelected.First());
+        else await ExportToLocalDirectoryAsync(existingDatabasesSelected);
     }
 
-    private static void ExportToLocalDirectory(List<ExistingDatabase> existingDatabasesSelected)
+    private static async Task ExportToLocalDirectoryAsync(List<ExistingDatabase> existingDatabasesSelected)
     {
         var folderDialog = new FolderDialog();
         var selectedFolder = folderDialog.GetFile();
@@ -197,11 +198,11 @@ public partial class WelcomePage
         foreach (var existingDatabase in existingDatabasesSelected)
         {
             var newFilePath = Path.Join(selectedFolder, existingDatabase.FileName);
-            File.Copy(existingDatabase.FilePath!, newFilePath, true);
+            await Task.Run(() => File.Copy(existingDatabase.FilePath!, newFilePath, true));
         }
     }
 
-    private static void ExportToLocalFile(ExistingDatabase existingDatabasesSelected)
+    private static async Task ExportToLocalFileAsync(ExistingDatabase existingDatabasesSelected)
     {
         var sqliteDialog = new SqliteFileDialog();
         var selectedDialog = sqliteDialog.SaveFile();
@@ -210,7 +211,7 @@ public partial class WelcomePage
 
         selectedDialog = Path.ChangeExtension(selectedDialog, DbContextBackup.Extension);
         var selectedFilePath = existingDatabasesSelected.FilePath!;
-        File.Copy(selectedFilePath, selectedDialog, true);
+        await Task.Run(() => File.Copy(selectedFilePath, selectedDialog, true));
     }
 
     private void RefreshExistingDatabases()
