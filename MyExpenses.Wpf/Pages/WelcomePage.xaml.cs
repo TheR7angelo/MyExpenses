@@ -81,7 +81,7 @@ public partial class WelcomePage
     }
 
     //TODO work
-    private void ButtonExportDataBase_OnClick(object sender, RoutedEventArgs e)
+    private async void ButtonExportDataBase_OnClick(object sender, RoutedEventArgs e)
     {
         var saveLocationWindow = new SaveLocationWindow();
         saveLocationWindow.ShowDialog();
@@ -104,7 +104,7 @@ public partial class WelcomePage
                     Log.Information("Database was successfully save to local");
                     break;
                 case SaveLocation.Dropbox:
-                    SaveToCloud(selectDatabaseFileWindow.ExistingDatabasesSelected);
+                    await SaveToCloudAsync(selectDatabaseFileWindow.ExistingDatabasesSelected);
                     Log.Information("Database was successfully save to cloud");
                     break;
             }
@@ -160,25 +160,25 @@ public partial class WelcomePage
 
     #region Function
 
-    private static void SaveToCloud(List<ExistingDatabase> existingDatabasesSelected)
+    private static async Task SaveToCloudAsync(List<ExistingDatabase> existingDatabasesSelected)
     {
-        if (existingDatabasesSelected.Count is 1) ExportToCloudFile(existingDatabasesSelected.First());
-        else ExportToCloudDirectory(existingDatabasesSelected);
+        if (existingDatabasesSelected.Count is 1) await ExportToCloudFileAsync(existingDatabasesSelected.First());
+        else await ExportToCloudDirectoryAsync(existingDatabasesSelected);
     }
 
-    private static void ExportToCloudDirectory(List<ExistingDatabase> existingDatabasesSelected)
+    private static async Task ExportToCloudDirectoryAsync(List<ExistingDatabase> existingDatabasesSelected)
     {
         var dropboxService = new DropboxService();
         foreach (var existingDatabase in existingDatabasesSelected)
         {
-            dropboxService.UploadFile(existingDatabase.FilePath!, "Databases");
+            await dropboxService.UploadFileAsync(existingDatabase.FilePath!, "Databases");
         }
     }
 
-    private static void ExportToCloudFile(ExistingDatabase existingDatabasesSelected)
+    private static async Task ExportToCloudFileAsync(ExistingDatabase existingDatabasesSelected)
     {
         var dropboxService = new DropboxService();
-        dropboxService.UploadFile(existingDatabasesSelected.FilePath!, "Databases");
+        await dropboxService.UploadFileAsync(existingDatabasesSelected.FilePath!, "Databases");
     }
 
     private static void SaveToLocal(List<ExistingDatabase> existingDatabasesSelected)

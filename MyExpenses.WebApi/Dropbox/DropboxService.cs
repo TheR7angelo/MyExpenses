@@ -76,12 +76,6 @@ public class DropboxService
         return destinationFilePath;
     }
 
-    public FileMetadata UploadFile(string filePath, string? folder = null)
-    {
-        var task = UploadFileAsync(filePath, folder);
-        return task.GetAwaiter().GetResult();
-    }
-
     public async Task<FileMetadata> UploadFileAsync(string filePath, string? folder = null)
     {
         if (!File.Exists(filePath))
@@ -98,7 +92,7 @@ public class DropboxService
             : $"/{folder.Trim('/')}/{Path.GetFileName(filePath)}";
 
         return await dropboxClient.Files.UploadAsync(dropboxFilePath, WriteMode.Overwrite.Instance,
-            body: memoryStream).ConfigureAwait(false);
+            body: memoryStream);
     }
 
     private async Task<DropboxClient> GetDropboxClient()
