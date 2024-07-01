@@ -24,8 +24,6 @@
                  NonActiveWindowTitleBrush="Gray"
                  WindowTitleBrush="Gray"
                  BorderBrush="Gray"
-                 GlowBrush="Gray"
-                 NonActiveGlowBrush="Gray"
 
                  ShowIconOnTitleBar="True"
                  Icon="../../Resources/Assets/Icon.png"
