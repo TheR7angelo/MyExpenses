@@ -151,7 +151,7 @@ public partial class WelcomePage
 
     #region Function
 
-    private void SaveToCloud(List<ExistingDatabase> existingDatabasesSelected)
+    private static void SaveToCloud(List<ExistingDatabase> existingDatabasesSelected)
     {
         if (existingDatabasesSelected.Count is 1) ExportToCloudFile(existingDatabasesSelected.First());
         else ExportToCloudDirectory(existingDatabasesSelected);
@@ -159,13 +159,17 @@ public partial class WelcomePage
 
     private static void ExportToCloudDirectory(List<ExistingDatabase> existingDatabasesSelected)
     {
-
+        var dropboxService = new DropboxService();
+        foreach (var existingDatabase in existingDatabasesSelected)
+        {
+            dropboxService.UploadFile(existingDatabase.FilePath!, "Databases");
+        }
     }
 
     private static void ExportToCloudFile(ExistingDatabase existingDatabasesSelected)
     {
         var dropboxService = new DropboxService();
-        dropboxService.UploadFile(existingDatabasesSelected.FilePath!);
+        dropboxService.UploadFile(existingDatabasesSelected.FilePath!, "Databases");
     }
 
     private static void SaveToLocal(List<ExistingDatabase> existingDatabasesSelected)
