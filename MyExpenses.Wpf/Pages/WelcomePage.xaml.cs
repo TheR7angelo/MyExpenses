@@ -95,14 +95,23 @@ public partial class WelcomePage
 
         if (selectDatabaseFileWindow.DialogResult is not true) return;
 
-        switch (saveLocationWindow.SaveLocationResult)
+        try
         {
-            case SaveLocation.Local:
-                SaveToLocal(selectDatabaseFileWindow.ExistingDatabasesSelected);
-                break;
-            case SaveLocation.Dropbox:
-                SaveToCloud(selectDatabaseFileWindow.ExistingDatabasesSelected);
-                break;
+            switch (saveLocationWindow.SaveLocationResult)
+            {
+                case SaveLocation.Local:
+                    SaveToLocal(selectDatabaseFileWindow.ExistingDatabasesSelected);
+                    Log.Information("Database was successfully save to local");
+                    break;
+                case SaveLocation.Dropbox:
+                    SaveToCloud(selectDatabaseFileWindow.ExistingDatabasesSelected);
+                    Log.Information("Database was successfully save to cloud");
+                    break;
+            }
+        }
+        catch (Exception exception)
+        {
+            Log.Error(exception, "An error occur please retry");
         }
 
         //TODO make messagebox result
