@@ -3,6 +3,7 @@ using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using MyExpenses.Models.IO;
+using MyExpenses.Models.Wpf.Save;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils.Collection;
 using MyExpenses.Wpf.Resources.Resx.Pages.WelcomePage;
@@ -81,6 +82,11 @@ public partial class WelcomePage
     //TODO work
     private void ButtonExportDataBase_OnClick(object sender, RoutedEventArgs e)
     {
+        var saveLocationWindow = new SaveLocationWindow();
+        saveLocationWindow.ShowDialog();
+
+        if (saveLocationWindow.DialogResult is not true) return;
+
         var selectDatabaseFileWindow = new SelectDatabaseFileWindow();
         selectDatabaseFileWindow.ExistingDatabases.AddRange(ExistingDatabases);
 
@@ -88,16 +94,22 @@ public partial class WelcomePage
 
         if (selectDatabaseFileWindow.DialogResult is not true) return;
 
-        if (selectDatabaseFileWindow.ExistingDatabasesSelected.Count is 1)
+        switch (saveLocationWindow.SaveLocationResult)
         {
-            ExportToFile(selectDatabaseFileWindow);
-        }
-        else
-        {
-            ExportToDirectory(selectDatabaseFileWindow);
+            case SaveLocation.Local:
+                SaveToLocal(selectDatabaseFileWindow.ExistingDatabasesSelected);
+                break;
+            case SaveLocation.Dropbox:
+                break;
         }
 
         //TODO make messagebox result
+    }
+
+    private void SaveToLocal(List<ExistingDatabase> existingDatabasesSelected)
+    {
+        if (existingDatabasesSelected.Count is 1) ExportToFile(existingDatabasesSelected);
+        else ExportToDirectory(existingDatabasesSelected);
     }
 
     private void ButtonImportDataBase_OnClick(object sender, RoutedEventArgs e)
@@ -143,21 +155,21 @@ public partial class WelcomePage
 
     #region Function
 
-    private static void ExportToDirectory(SelectDatabaseFileWindow selectDatabaseFileWindow)
+    private static void ExportToDirectory(List<ExistingDatabase> existingDatabasesSelected)
     {
         var folderDialog = new FolderDialog();
         var selectedFolder = folderDialog.GetFile();
 
         if (string.IsNullOrEmpty(selectedFolder)) return;
 
-        foreach (var existingDatabase in selectDatabaseFileWindow.ExistingDatabasesSelected)
+        foreach (var existingDatabase in existingDatabasesSelected)
         {
             var newFilePath = Path.Join(selectedFolder, existingDatabase.FileName);
             File.Copy(existingDatabase.FilePath!, newFilePath, true);
         }
     }
 
-    private static void ExportToFile(SelectDatabaseFileWindow selectDatabaseFileWindow)
+    private static void ExportToFile(List<ExistingDatabase> existingDatabasesSelected)
     {
         var sqliteDialog = new SqliteFileDialog();
         var selectedDialog = sqliteDialog.SaveFile();
@@ -165,7 +177,7 @@ public partial class WelcomePage
         if (string.IsNullOrEmpty(selectedDialog)) return;
 
         selectedDialog = Path.ChangeExtension(selectedDialog, DbContextBackup.Extension);
-        var selectedFilePath = selectDatabaseFileWindow.ExistingDatabasesSelected[0].FilePath!;
+        var selectedFilePath = existingDatabasesSelected[0].FilePath!;
         File.Copy(selectedFilePath, selectedDialog, true);
     }
 
