@@ -108,8 +108,8 @@ public partial class WelcomePage
 
     private void SaveToLocal(List<ExistingDatabase> existingDatabasesSelected)
     {
-        if (existingDatabasesSelected.Count is 1) ExportToFile(existingDatabasesSelected);
-        else ExportToDirectory(existingDatabasesSelected);
+        if (existingDatabasesSelected.Count is 1) ExportToLocalFile(existingDatabasesSelected);
+        else ExportToLocalDirectory(existingDatabasesSelected);
     }
 
     private void ButtonImportDataBase_OnClick(object sender, RoutedEventArgs e)
@@ -155,7 +155,7 @@ public partial class WelcomePage
 
     #region Function
 
-    private static void ExportToDirectory(List<ExistingDatabase> existingDatabasesSelected)
+    private static void ExportToLocalDirectory(List<ExistingDatabase> existingDatabasesSelected)
     {
         var folderDialog = new FolderDialog();
         var selectedFolder = folderDialog.GetFile();
@@ -169,7 +169,7 @@ public partial class WelcomePage
         }
     }
 
-    private static void ExportToFile(List<ExistingDatabase> existingDatabasesSelected)
+    private static void ExportToLocalFile(List<ExistingDatabase> existingDatabasesSelected)
     {
         var sqliteDialog = new SqliteFileDialog();
         var selectedDialog = sqliteDialog.SaveFile();
