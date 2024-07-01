@@ -2,6 +2,7 @@ using System.Diagnostics;
 using System.Net;
 using System.Reflection;
 using Dropbox.Api;
+using Dropbox.Api.FileProperties;
 using Dropbox.Api.Files;
 using MyExpenses.Models.WebApi.DropBox;
 using Newtonsoft.Json;
@@ -34,7 +35,24 @@ public class DropboxService
         }
     }
 
-    public async Task<string> DownloadFileAsync(string filePath, string? destinationFilePath=null)
+    public async Task<IEnumerable<Metadata>> ListFile(string? folder = null, bool recursive = false, bool includeMediaInfo = false,
+        bool includeDeleted = false, bool includeHasExplicitSharedMembers = false,
+        bool includeMountedFolders = true, uint? limit = null, SharedLink? sharedLink = null,
+        TemplateFilterBase? includePropertyGroups = null, bool includeNonDownloadableFiles = true)
+    {
+        folder ??= string.Empty;
+
+        if (!folder.StartsWith('/')) folder = $"/{folder}";
+
+        using var dropboxClient = await GetDropboxClient();
+        var list = await dropboxClient.Files.ListFolderAsync(folder, recursive, includeMediaInfo, includeDeleted,
+            includeHasExplicitSharedMembers, includeMountedFolders, limit, sharedLink, includePropertyGroups,
+            includeNonDownloadableFiles).ConfigureAwait(false);
+
+        return list.Entries.Where(s => s.IsFile);
+    }
+
+    public async Task<string> DownloadFileAsync(string filePath, string? destinationFilePath = null)
     {
         if (!filePath.StartsWith('/')) filePath = $"/{filePath}";
 
@@ -127,7 +145,8 @@ public class DropboxService
         AccessTokenAuthentication.DateCreated = now;
         AccessTokenAuthentication.DateExpiration = now.AddSeconds(accessTokenResponse.ExpiresIn ?? 0);
 
-        await File.WriteAllTextAsync(FilePathSecretKeys, JsonConvert.SerializeObject(AccessTokenAuthentication, Formatting.Indented));
+        await File.WriteAllTextAsync(FilePathSecretKeys,
+            JsonConvert.SerializeObject(AccessTokenAuthentication, Formatting.Indented));
     }
 
     public AccessTokenAuthentication? AuthorizeApplication()
@@ -139,10 +158,12 @@ public class DropboxService
         if (accessTokenAuthentication is not null)
         {
             accessTokenAuthentication.DateCreated = DateTime.Now;
-            accessTokenAuthentication.DateExpiration = DateTime.Now.AddSeconds(accessTokenAuthentication.ExpiresIn ?? 0);
+            accessTokenAuthentication.DateExpiration =
+                DateTime.Now.AddSeconds(accessTokenAuthentication.ExpiresIn ?? 0);
         }
 
-        File.WriteAllText(FilePathSecretKeys, JsonConvert.SerializeObject(accessTokenAuthentication, Formatting.Indented));
+        File.WriteAllText(FilePathSecretKeys,
+            JsonConvert.SerializeObject(accessTokenAuthentication, Formatting.Indented));
         return accessTokenAuthentication;
     }
 
@@ -172,12 +193,12 @@ public class DropboxService
         };
 
         var requestContent = new FormUrlEncodedContent(requestData);
-        var response = await httpClient.PostAsync("https://api.dropbox.com/oauth2/token", requestContent).ConfigureAwait(false);
+        var response = await httpClient.PostAsync("https://api.dropbox.com/oauth2/token", requestContent)
+            .ConfigureAwait(false);
         var responseContent = await response.Content.ReadAsStringAsync();
 
         var accessTokenResponse = JsonConvert.DeserializeObject<AccessTokenAuthentication>(responseContent);
         return accessTokenResponse;
-
     }
 
     private string? GetTempToken()
@@ -186,7 +207,8 @@ public class DropboxService
         httpListener.Prefixes.Add(DropboxKeys.RedirectUri!);
         httpListener.Start();
 
-        var uri = $"https://www.dropbox.com/oauth2/authorize?client_id={DropboxKeys.AppKey}&redirect_uri={DropboxKeys.RedirectUri}&response_type=code&token_access_type=offline";
+        var uri =
+            $"https://www.dropbox.com/oauth2/authorize?client_id={DropboxKeys.AppKey}&redirect_uri={DropboxKeys.RedirectUri}&response_type=code&token_access_type=offline";
         var process = new Process();
         process.StartInfo.UseShellExecute = true;
         process.StartInfo.CreateNoWindow = false;
