@@ -69,7 +69,6 @@ public partial class WelcomePage
         }
     }
 
-    //TODO make save automatically
     private void ButtonDatabase_OnClick(object sender, RoutedEventArgs e)
     {
         var button = (Button)sender;
