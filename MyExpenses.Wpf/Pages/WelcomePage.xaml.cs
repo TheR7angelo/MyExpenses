@@ -100,16 +100,11 @@ public partial class WelcomePage
                 SaveToLocal(selectDatabaseFileWindow.ExistingDatabasesSelected);
                 break;
             case SaveLocation.Dropbox:
+                SaveToCloud(selectDatabaseFileWindow.ExistingDatabasesSelected);
                 break;
         }
 
         //TODO make messagebox result
-    }
-
-    private void SaveToLocal(List<ExistingDatabase> existingDatabasesSelected)
-    {
-        if (existingDatabasesSelected.Count is 1) ExportToLocalFile(existingDatabasesSelected);
-        else ExportToLocalDirectory(existingDatabasesSelected);
     }
 
     private void ButtonImportDataBase_OnClick(object sender, RoutedEventArgs e)
@@ -154,6 +149,17 @@ public partial class WelcomePage
     #endregion
 
     #region Function
+
+    private void SaveToCloud(List<ExistingDatabase> existingDatabasesSelected)
+    {
+
+    }
+
+    private static void SaveToLocal(List<ExistingDatabase> existingDatabasesSelected)
+    {
+        if (existingDatabasesSelected.Count is 1) ExportToLocalFile(existingDatabasesSelected);
+        else ExportToLocalDirectory(existingDatabasesSelected);
+    }
 
     private static void ExportToLocalDirectory(List<ExistingDatabase> existingDatabasesSelected)
     {
