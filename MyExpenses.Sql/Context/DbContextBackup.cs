@@ -4,17 +4,17 @@ namespace MyExpenses.Sql.Context;
 
 public static class DbContextBackup
 {
-    public static string DirectoryDatabase { get; } = Path.GetFullPath("Databases");
-    public static string DirectoryBackupDatabase { get; } = Path.Join(DirectoryDatabase, "Backups");
+    public static string LocalDirectoryDatabase { get; } = Path.GetFullPath("Databases");
+    public static string LocalDirectoryBackupDatabase { get; } = Path.Join(LocalDirectoryDatabase, "Backups");
 
     public static string Extension => ".sqlite";
 
     public static ExistingDatabase[] GetExistingDatabase()
     {
-        Directory.CreateDirectory(DirectoryDatabase);
+        Directory.CreateDirectory(LocalDirectoryDatabase);
 
         var existingDatabases = Directory
-            .GetFiles(DirectoryDatabase, $"*{Extension}", SearchOption.TopDirectoryOnly)
+            .GetFiles(LocalDirectoryDatabase, $"*{Extension}", SearchOption.TopDirectoryOnly)
             .Select(s => new ExistingDatabase { FilePath = s } ).ToArray();
 
         return existingDatabases;
@@ -22,10 +22,10 @@ public static class DbContextBackup
 
     public static ExistingDatabase[] GetExistingBackupDatabase()
     {
-        Directory.CreateDirectory(DirectoryBackupDatabase);
+        Directory.CreateDirectory(LocalDirectoryBackupDatabase);
 
         var existingDatabases = Directory
-            .GetFiles(DirectoryBackupDatabase, $"*{Extension}", SearchOption.AllDirectories)
+            .GetFiles(LocalDirectoryBackupDatabase, $"*{Extension}", SearchOption.AllDirectories)
             .Select(s => new ExistingDatabase { FilePath = s } ).ToArray();
 
         return existingDatabases;
@@ -36,9 +36,9 @@ public static class DbContextBackup
         const byte maxDatabaseBackup = 15;
         var totalDelete = 0;
 
-        if (!Directory.Exists(DirectoryBackupDatabase)) return totalDelete;
+        if (!Directory.Exists(LocalDirectoryBackupDatabase)) return totalDelete;
 
-        var directories = Directory.GetDirectories(DirectoryBackupDatabase);
+        var directories = Directory.GetDirectories(LocalDirectoryBackupDatabase);
         foreach (var directory in directories)
         {
             var files = Directory.GetFiles(directory, $"*{Extension}").ToList();
@@ -63,7 +63,7 @@ public static class DbContextBackup
         var totalBackup = 0;
         if (existingDatabases.Length == 0) return totalBackup;
 
-        var directoryBackup = DirectoryBackupDatabase;
+        var directoryBackup = LocalDirectoryBackupDatabase;
         Directory.CreateDirectory(directoryBackup);
 
         foreach (var existingDatabase in existingDatabases)

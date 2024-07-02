@@ -17,7 +17,6 @@ namespace MyExpenses.Wpf.Pages;
 
 public partial class WelcomePage
 {
-    private string DirectoryDatabase { get; } = DbContextBackup.DirectoryDatabase;
     private string DatabaseModel { get; }
     public ObservableCollection<ExistingDatabase> ExistingDatabases { get; } = [];
 
@@ -26,7 +25,7 @@ public partial class WelcomePage
         var directoryDatabaseModel = Path.GetFullPath("Database Models");
         DatabaseModel = Path.Join(directoryDatabaseModel, "Model.sqlite");
 
-        if (!Directory.Exists(DirectoryDatabase)) Directory.CreateDirectory(DirectoryDatabase);
+        if (!Directory.Exists(DbContextBackup.LocalDirectoryDatabase)) Directory.CreateDirectory(DbContextBackup.LocalDirectoryDatabase);
 
         RefreshExistingDatabases();
 
@@ -47,7 +46,7 @@ public partial class WelcomePage
 
         var fileName = addDatabaseFileWindow.DatabaseFilename;
         fileName = Path.ChangeExtension(fileName, ".sqlite");
-        var filePath = Path.Combine(DirectoryDatabase, fileName);
+        var filePath = Path.Combine(DbContextBackup.LocalDirectoryDatabase, fileName);
 
         Log.Information("Create new database with name \"{FileName}\"", fileName);
 
@@ -167,7 +166,7 @@ public partial class WelcomePage
         foreach (var file in files)
         {
             var fileName = Path.GetFileName(file);
-            var newFilePath = Path.Join(DirectoryDatabase, fileName);
+            var newFilePath = Path.Join(DbContextBackup.LocalDirectoryDatabase, fileName);
 
             var temp = await dropboxService.DownloadFileAsync(file);
             File.Copy(temp, newFilePath, true);
@@ -186,7 +185,7 @@ public partial class WelcomePage
         await Parallel.ForEachAsync(files, (file, token) =>
         {
             var fileName = Path.GetFileName(file);
-            var newFilePath = Path.Join(DirectoryDatabase, fileName);
+            var newFilePath = Path.Join(DbContextBackup.LocalDirectoryDatabase, fileName);
 
             File.Copy(file, newFilePath, true);
 
