@@ -34,7 +34,6 @@ public partial class WelcomePage
 
     #region Action
 
-    //TODO work
     private void ButtonAddDataBase_OnClick(object sender, RoutedEventArgs e)
     {
         var addDatabaseFileWindow = new AddDatabaseFileWindow();
@@ -79,7 +78,6 @@ public partial class WelcomePage
         nameof(MainWindow.FrameBody).NavigateTo(typeof(DashBoard2Page));
     }
 
-    //TODO work
     private async void ButtonExportDataBase_OnClick(object sender, RoutedEventArgs e)
     {
         var saveLocationWindow = new SaveLocationWindow();
@@ -181,7 +179,6 @@ public partial class WelcomePage
 
     private async Task ImportFromLocal()
     {
-        //TODO work
         var dialog = new SqliteFileDialog(multiSelect:true);
         var files = dialog.GetFiles();
 
