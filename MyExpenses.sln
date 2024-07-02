@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyExpenses.Sql.Test", "Test
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyExpenses.SvgToXaml", "MyExpenses.SvgToXaml\MyExpenses.SvgToXaml.csproj", "{6399EB6F-C5EF-4139-878B-6779438FE047}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyExpenses.Core", "MyExpenses.Core\MyExpenses.Core.csproj", "{F2915007-9744-4E62-9CF5-D92358B69CDD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -71,5 +73,9 @@ Global
 		{6399EB6F-C5EF-4139-878B-6779438FE047}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6399EB6F-C5EF-4139-878B-6779438FE047}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6399EB6F-C5EF-4139-878B-6779438FE047}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F2915007-9744-4E62-9CF5-D92358B69CDD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F2915007-9744-4E62-9CF5-D92358B69CDD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F2915007-9744-4E62-9CF5-D92358B69CDD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F2915007-9744-4E62-9CF5-D92358B69CDD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
