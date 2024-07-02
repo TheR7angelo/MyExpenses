@@ -107,6 +107,8 @@ public partial class WelcomePage
                     await SaveToCloudAsync(selectDatabaseFileWindow.ExistingDatabasesSelected);
                     Log.Information("Database was successfully save to cloud");
                     break;
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
         }
         catch (Exception exception)
@@ -137,6 +139,8 @@ public partial class WelcomePage
                     await ImportFromCloudAsync();
                     Log.Information("Cloud Database was successfully imported");
                     break;
+                default:
+                    throw new ArgumentOutOfRangeException();
             }
 
             RefreshExistingDatabases();
