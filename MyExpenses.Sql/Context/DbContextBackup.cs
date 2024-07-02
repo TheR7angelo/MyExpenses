@@ -7,6 +7,8 @@ public static class DbContextBackup
     public static string LocalDirectoryDatabase { get; } = Path.GetFullPath("Databases");
     public static string LocalDirectoryBackupDatabase { get; } = Path.Join(LocalDirectoryDatabase, "Backups");
 
+    public static string CloudDirectoryBackupDatabase => "Databases";
+
     public static string Extension => ".sqlite";
 
     public static ExistingDatabase[] GetExistingDatabase()

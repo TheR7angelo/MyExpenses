@@ -150,7 +150,7 @@ public partial class WelcomePage
     private async Task ImportFromCloudAsync()
     {
         var dropboxService = new DropboxService();
-        var metadatas = await dropboxService.ListFile("Databases");
+        var metadatas = await dropboxService.ListFile(DbContextBackup.CloudDirectoryBackupDatabase);
         metadatas = metadatas.Where(s => Path.GetExtension(s.PathDisplay).Equals(DbContextBackup.Extension));
 
         var existingDatabase = metadatas.Select(s => new ExistingDatabase { FilePath = s.PathDisplay });
@@ -232,14 +232,14 @@ public partial class WelcomePage
         var dropboxService = new DropboxService();
         foreach (var existingDatabase in existingDatabasesSelected)
         {
-            await dropboxService.UploadFileAsync(existingDatabase.FilePath!, "Databases");
+            await dropboxService.UploadFileAsync(existingDatabase.FilePath!, DbContextBackup.CloudDirectoryBackupDatabase);
         }
     }
 
     private static async Task ExportToCloudFileAsync(ExistingDatabase existingDatabasesSelected)
     {
         var dropboxService = new DropboxService();
-        await dropboxService.UploadFileAsync(existingDatabasesSelected.FilePath!, "Databases");
+        await dropboxService.UploadFileAsync(existingDatabasesSelected.FilePath!, DbContextBackup.CloudDirectoryBackupDatabase);
     }
 
     private static async Task SaveToLocal(List<ExistingDatabase> existingDatabasesSelected)
