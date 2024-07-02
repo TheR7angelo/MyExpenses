@@ -68,13 +68,13 @@
                                 <materialDesign:PackIcon Kind="Database" />
                             </MenuItem.Icon>
 
-                            <MenuItem Header="{Binding MenuItemHeaderExportDatabase}">
+                            <MenuItem Header="{Binding MenuItemHeaderExportDatabase}" Click="MenuItemDatabaseExport_OnClick">
                                 <MenuItem.Icon>
                                     <materialDesign:PackIcon Kind="DatabaseExport" />
                                 </MenuItem.Icon>
                             </MenuItem>
 
-                            <MenuItem Header="{Binding MenuItemHeaderImportDatabase}">
+                            <MenuItem Header="{Binding MenuItemHeaderImportDatabase}" Click="MenuItemDatabaseImport_OnClick">
                                 <MenuItem.Icon>
                                     <materialDesign:PackIcon Kind="DatabaseImport" />
                                 </MenuItem.Icon>

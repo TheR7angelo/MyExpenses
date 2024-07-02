@@ -66,4 +66,16 @@ public partial class MainWindow
             nameof(FrameBody).GoForward();
         }
     }
+
+    private void MenuItemDatabaseExport_OnClick(object sender, RoutedEventArgs e)
+    {
+        //TODO work
+        Console.WriteLine("Need export");
+    }
+
+    private void MenuItemDatabaseImport_OnClick(object sender, RoutedEventArgs e)
+    {
+        //TODO work
+        Console.WriteLine("Need import");
+    }
 }
