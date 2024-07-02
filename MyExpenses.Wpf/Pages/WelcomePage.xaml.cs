@@ -182,7 +182,7 @@ public partial class WelcomePage
         if (files is null || files.Length.Equals(0)) return;
 
         //TODO work, ask user to confirm copy if file already exist
-        await Parallel.ForEachAsync(files, (file, token) =>
+        await Parallel.ForEachAsync(files, (file, _) =>
         {
             var fileName = Path.GetFileName(file);
             var newFilePath = Path.Join(DbContextBackup.LocalDirectoryDatabase, fileName);
