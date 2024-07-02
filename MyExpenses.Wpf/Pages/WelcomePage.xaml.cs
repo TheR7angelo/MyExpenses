@@ -138,6 +138,8 @@ public partial class WelcomePage
                     Log.Information("Cloud Database was successfully imported");
                     break;
             }
+
+            RefreshExistingDatabases();
         }
         catch (Exception exception)
         {
