@@ -48,7 +48,7 @@
                 Style="{StaticResource MaterialDesignPaperButton}"
                 Click="ButtonLocal_OnClick">
             <Button.Content>
-                <materialDesign:PackIcon Kind="ContentSave" Height="96" Width="96" />
+                <materialDesign:PackIcon Kind="Laptop" Height="96" Width="96" />
             </Button.Content>
         </Button>
 
