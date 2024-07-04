@@ -103,14 +103,12 @@ public partial class WelcomePage
                     waitScreenWindow.WaitMessage = "Saving to local storage... Please wait";
                     waitScreenWindow.Show();
                     await SaveToLocal(selectDatabaseFileWindow.ExistingDatabasesSelected);
-                    Log.Information("Database was successfully saved to local storage");
                     break;
 
                 case SaveLocation.Dropbox:
                     waitScreenWindow.WaitMessage = "Uploading to Dropbox... Please wait";
                     waitScreenWindow.Show();
                     await SaveToCloudAsync(selectDatabaseFileWindow.ExistingDatabasesSelected);
-                    Log.Information("Database was successfully uploaded to Dropbox");
                     break;
 
                 default:
@@ -144,11 +142,9 @@ public partial class WelcomePage
             {
                 case SaveLocation.Local:
                     await ImportFromLocal();
-                    Log.Information("Local database was successfully imported");
                     break;
                 case SaveLocation.Dropbox:
                     await ImportFromCloudAsync();
-                    Log.Information("Cloud Database was successfully imported");
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
@@ -162,51 +158,6 @@ public partial class WelcomePage
         }
 
         //TODO make messagebox result
-    }
-
-    private async Task ImportFromCloudAsync()
-    {
-        var dropboxService = new DropboxService();
-        var metadatas = await dropboxService.ListFile(DbContextBackup.CloudDirectoryBackupDatabase);
-        metadatas = metadatas.Where(s => Path.GetExtension(s.PathDisplay).Equals(DbContextBackup.Extension));
-
-        var existingDatabase = metadatas.Select(s => new ExistingDatabase { FilePath = s.PathDisplay });
-        var selectDatabaseFileWindow = new SelectDatabaseFileWindow();
-        selectDatabaseFileWindow.ExistingDatabases.AddRange(existingDatabase);
-
-        selectDatabaseFileWindow.ShowDialog();
-
-        if (selectDatabaseFileWindow.DialogResult is not true) return;
-
-        //TODO work, ask user to confirm copy if file already exist
-        var files = selectDatabaseFileWindow.ExistingDatabasesSelected.Select(s => s.FilePath!);
-        foreach (var file in files)
-        {
-            var fileName = Path.GetFileName(file);
-            var newFilePath = Path.Join(DbContextBackup.LocalDirectoryDatabase, fileName);
-
-            var temp = await dropboxService.DownloadFileAsync(file);
-            File.Copy(temp, newFilePath, true);
-        }
-    }
-
-    private async Task ImportFromLocal()
-    {
-        var dialog = new SqliteFileDialog(multiSelect:true);
-        var files = dialog.GetFiles();
-
-        if (files is null || files.Length.Equals(0)) return;
-
-        //TODO work, ask user to confirm copy if file already exist
-        await Parallel.ForEachAsync(files, (file, _) =>
-        {
-            var fileName = Path.GetFileName(file);
-            var newFilePath = Path.Join(DbContextBackup.LocalDirectoryDatabase, fileName);
-
-            File.Copy(file, newFilePath, true);
-
-            return default;
-        });
     }
 
     private void ButtonRemoveDataBase_OnClick(object sender, RoutedEventArgs e)
@@ -308,6 +259,62 @@ public partial class WelcomePage
         });
         Log.Information("Database successfully copied to local storage");
     }
+
+private static async Task ImportFromCloudAsync()
+{
+    Log.Information("Starting to import the database from cloud storage");
+    var dropboxService = new DropboxService();
+    var metadatas = await dropboxService.ListFile(DbContextBackup.CloudDirectoryBackupDatabase);
+    metadatas = metadatas.Where(s => Path.GetExtension(s.PathDisplay).Equals(DbContextBackup.Extension));
+
+    var existingDatabase = metadatas.Select(s => new ExistingDatabase { FilePath = s.PathDisplay });
+    var selectDatabaseFileWindow = new SelectDatabaseFileWindow();
+    selectDatabaseFileWindow.ExistingDatabases.AddRange(existingDatabase);
+    selectDatabaseFileWindow.ShowDialog();
+
+    if (selectDatabaseFileWindow.DialogResult is not true)
+    {
+        Log.Warning("Import cancelled. No database selected");
+        return;
+    }
+
+    var files = selectDatabaseFileWindow.ExistingDatabasesSelected.Select(s => s.FilePath!);
+    foreach (var file in files)
+    {
+        var fileName = Path.GetFileName(file);
+        var newFilePath = Path.Join(DbContextBackup.LocalDirectoryDatabase, fileName);
+
+        var temp = await dropboxService.DownloadFileAsync(file);
+        Log.Information("Downloading {FileName} from cloud storage", fileName);
+        File.Copy(temp, newFilePath, true);
+        Log.Information("Successfully downloaded {FileName} from cloud storage", fileName);
+    }
+}
+
+private static async Task ImportFromLocal()
+{
+    Log.Information("Starting to import the database from local storage");
+    var dialog = new SqliteFileDialog(multiSelect:true);
+    var files = dialog.GetFiles();
+
+    if (files is null || files.Length.Equals(0))
+    {
+        Log.Warning("Import cancelled. No files selected");
+        return;
+    }
+
+    await Parallel.ForEachAsync(files, (file, _) =>
+    {
+        var fileName = Path.GetFileName(file);
+        var newFilePath = Path.Join(DbContextBackup.LocalDirectoryDatabase, fileName);
+
+        Log.Information("Copying {FileName} to local storage", fileName);
+        File.Copy(file, newFilePath, true);
+        Log.Information("Successfully copied {FileName} to local storage", fileName);
+
+        return default;
+    });
+}
 
     private void RefreshExistingDatabases()
     {
