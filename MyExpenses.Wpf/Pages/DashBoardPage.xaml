@@ -330,7 +330,8 @@
                         </DataGridTextColumn.Header>
                     </DataGridTextColumn>
 
-                    <DataGridTextColumn>
+                    <!-- TODO work -->
+                    <DataGridTextColumn SortMemberPath="Value">
                         <DataGridTextColumn.Header>
                             <TextBlock
                                 Text="{Binding DataGridTextColumnValue, RelativeSource={RelativeSource AncestorType={x:Type local:DashBoardPage}}}" />
