@@ -5,6 +5,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:local="clr-namespace:MyExpenses.Wpf.Windows"
         xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:margin="clr-namespace:MyExpenses.Wpf.Utils.Margin;assembly=MyExpenses.Wpf.Utils"
         mc:Ignorable="d"
 
         Title="WaitScreenWindow"
@@ -26,7 +27,7 @@
         Icon="../Resources/Assets/Icon.png"
 
         WindowStartupLocation="CenterScreen"
-        ResizeMode="CanResizeWithGrip"
+        ResizeMode="NoResize"
 
         Background="{DynamicResource MaterialDesignPaper}"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -37,7 +38,8 @@
 
         DataContext="{Binding RelativeSource={RelativeSource Self}}">
 
-    <Grid>
+    <Grid VerticalAlignment="Center"
+          margin:PanelExtensions.MarginForAllChildren="5">
 
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
