@@ -1,4 +1,5 @@
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
@@ -92,6 +93,12 @@ public partial class WelcomePage
 
         if (selectDatabaseFileWindow.DialogResult is not true) return;
 
+        var waitScreenWindow = new WaitScreenWindow
+        {
+            WaitMessage = "Task running..."
+        };
+        waitScreenWindow.Show();
+
         try
         {
             //TODO wait screen
@@ -113,6 +120,8 @@ public partial class WelcomePage
         {
             Log.Error(exception, "An error occur please retry");
         }
+
+        waitScreenWindow.Close();
 
         //TODO make messagebox result
     }
