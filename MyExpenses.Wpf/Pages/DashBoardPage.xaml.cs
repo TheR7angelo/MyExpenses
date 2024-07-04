@@ -6,6 +6,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using FilterDataGrid;
 using LiveChartsCore.Kernel;
 using LiveChartsCore.Kernel.Sketches;
 using LiveChartsCore.SkiaSharpView;
@@ -18,6 +19,7 @@ using MyExpenses.Utils.Collection;
 using MyExpenses.Utils.Strings;
 using MyExpenses.Wpf.Resources.Resx.Pages.DashBoardPage;
 using MyExpenses.Wpf.Utils;
+using MyExpenses.Wpf.Utils.FilterDataGrid;
 using SkiaSharp;
 using SkiaSharp.Views.WPF;
 
@@ -127,6 +129,8 @@ public partial class DashBoardPage : INotifyPropertyChanged
         }
     }
 
+    public Local LocalLanguage { get; }
+
     public DashBoardPage()
     {
         using var context = new DataBaseContext();
@@ -153,6 +157,9 @@ public partial class DashBoardPage : INotifyPropertyChanged
         SelectedMonth = Months[now.Month - 1];
 
         RefreshAccountTotal();
+
+        var currentCulture = CultureInfo.CurrentCulture;
+        LocalLanguage = currentCulture.ToLocal();
 
         InitializeComponent();
 

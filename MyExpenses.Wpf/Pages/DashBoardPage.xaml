@@ -267,6 +267,8 @@
                                            HorizontalScrollBarVisibility="Auto"
                                            VerticalScrollBarVisibility="Auto"
 
+                                           FilterLanguage="{Binding LocalLanguage}"
+
                                            DateFormatString="dd/MM/yyyy HH:mm">
 
                 <filterDataGrid:FilterDataGrid.ItemContainerStyle>
