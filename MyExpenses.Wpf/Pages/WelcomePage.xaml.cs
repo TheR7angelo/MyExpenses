@@ -135,29 +135,40 @@ public partial class WelcomePage
 
         if (saveLocationWindow.DialogResult is not true) return;
 
+        //TODO message
+        var waitScreenWindow = new WaitScreenWindow();
         try
         {
-            //TODO wait screen
             switch (saveLocationWindow.SaveLocationResult)
             {
                 case SaveLocation.Local:
+                    waitScreenWindow.WaitMessage = "Import from local storage... Please wait";
+                    waitScreenWindow.Show();
                     await ImportFromLocal();
                     break;
+
                 case SaveLocation.Dropbox:
+                    waitScreenWindow.WaitMessage = "Import from cloud storage... Please wait";
+                    waitScreenWindow.Show();
                     await ImportFromCloudAsync();
                     break;
+
                 default:
                     throw new ArgumentOutOfRangeException();
             }
 
             RefreshExistingDatabases();
+
+            waitScreenWindow.Close();
+            MsgBox.Show("Database import operation was successful", MsgBoxImage.Check);
         }
         catch (Exception exception)
         {
-            Log.Error(exception, "An error occur please retry");
-        }
+            Log.Error(exception, "An error occurred. Please try again");
+            waitScreenWindow.Close();
 
-        //TODO make messagebox result
+            MsgBox.Show("An error occurred. Please try again", MsgBoxImage.Warning);
+        }
     }
 
     private void ButtonRemoveDataBase_OnClick(object sender, RoutedEventArgs e)
