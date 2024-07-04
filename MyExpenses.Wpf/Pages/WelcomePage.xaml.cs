@@ -276,7 +276,7 @@ public partial class WelcomePage
 
     private static async Task ExportToLocalFileAsync(ExistingDatabase existingDatabasesSelected)
     {
-        var sqliteDialog = new SqliteFileDialog();
+        var sqliteDialog = new SqliteFileDialog(defaultFileName: existingDatabasesSelected.FileName);
         var selectedDialog = sqliteDialog.SaveFile();
 
         if (string.IsNullOrEmpty(selectedDialog)) return;

@@ -12,7 +12,7 @@ public abstract class AFileDialog : IDialog
     private readonly VistaSaveFileDialog _vistaSaveFileDialog;
 
     protected AFileDialog(string? titleOpenFile, string? titleSaveFile, bool multiselect,
-        IEnumerable<string> extensions, string filterText)
+        IEnumerable<string> extensions, string filterText, string? defaultFileName=null)
     {
         Extensions = extensions;
         FilterText = filterText;
@@ -29,7 +29,8 @@ public abstract class AFileDialog : IDialog
         _vistaSaveFileDialog = new VistaSaveFileDialog
         {
             Title = titleSaveFile,
-            Filter = filter
+            Filter = filter,
+            FileName = defaultFileName
         };
     }
 
