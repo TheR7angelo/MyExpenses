@@ -248,14 +248,18 @@ public partial class WelcomePage
         var dropboxService = new DropboxService();
         foreach (var existingDatabase in existingDatabasesSelected)
         {
+            Log.Information("Starting to upload {ExistingDatabaseFileName} to cloud storage", existingDatabase.FileName);
             await dropboxService.UploadFileAsync(existingDatabase.FilePath!, DbContextBackup.CloudDirectoryBackupDatabase);
+            Log.Information("Successfully uploaded {ExistingDatabaseFileName} to cloud storage", existingDatabase.FileName);
         }
     }
 
     private static async Task ExportToCloudFileAsync(ExistingDatabase existingDatabasesSelected)
     {
         var dropboxService = new DropboxService();
+        Log.Information("Starting to upload {FileName} to cloud storage", existingDatabasesSelected.FileName);
         await dropboxService.UploadFileAsync(existingDatabasesSelected.FilePath!, DbContextBackup.CloudDirectoryBackupDatabase);
+        Log.Information("Successfully uploaded {FileName} to cloud storage", existingDatabasesSelected.FileName);
     }
 
     private static async Task SaveToLocal(List<ExistingDatabase> existingDatabasesSelected)
@@ -269,12 +273,18 @@ public partial class WelcomePage
         var folderDialog = new FolderDialog();
         var selectedFolder = folderDialog.GetFile();
 
-        if (string.IsNullOrEmpty(selectedFolder)) return;
+        if (string.IsNullOrEmpty(selectedFolder))
+        {
+            Log.Warning("Export cancelled. No directory selected");
+            return;
+        }
 
         foreach (var existingDatabase in existingDatabasesSelected)
         {
             var newFilePath = Path.Join(selectedFolder, existingDatabase.FileName);
+            Log.Information("Starting to copy {ExistingDatabaseFileName} to {NewFilePath}", existingDatabase.FileName, newFilePath);
             await Task.Run(() => File.Copy(existingDatabase.FilePath!, newFilePath, true));
+            Log.Information("Successfully copied {ExistingDatabaseFileName} to {NewFilePath}", existingDatabase.FileName, newFilePath);
         }
     }
 
@@ -283,11 +293,20 @@ public partial class WelcomePage
         var sqliteDialog = new SqliteFileDialog(defaultFileName: existingDatabasesSelected.FileName);
         var selectedDialog = sqliteDialog.SaveFile();
 
-        if (string.IsNullOrEmpty(selectedDialog)) return;
+        if (string.IsNullOrEmpty(selectedDialog))
+        {
+            Log.Warning("Export cancelled. No file path provided");
+            return;
+        }
 
         selectedDialog = Path.ChangeExtension(selectedDialog, DbContextBackup.Extension);
         var selectedFilePath = existingDatabasesSelected.FilePath!;
-        await Task.Run(() => File.Copy(selectedFilePath, selectedDialog, true));
+        Log.Information("Starting to copy database to {SelectedDialog}", selectedDialog);
+        await Task.Run(() =>
+        {
+            File.Copy(selectedFilePath, selectedDialog, true);
+        });
+        Log.Information("Database successfully copied to local storage");
     }
 
     private void RefreshExistingDatabases()
