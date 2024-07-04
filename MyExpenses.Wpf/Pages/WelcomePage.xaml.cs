@@ -93,37 +93,41 @@ public partial class WelcomePage
 
         if (selectDatabaseFileWindow.DialogResult is not true) return;
 
-        var waitScreenWindow = new WaitScreenWindow
-        {
-            WaitMessage = "Task running..."
-        };
-        waitScreenWindow.Show();
-
+        //TODO message
+        var waitScreenWindow = new WaitScreenWindow();
         try
         {
-            //TODO wait screen
             switch (saveLocationWindow.SaveLocationResult)
             {
                 case SaveLocation.Local:
+                    waitScreenWindow.WaitMessage = "Saving to local storage... Please wait";
+                    waitScreenWindow.Show();
                     await SaveToLocal(selectDatabaseFileWindow.ExistingDatabasesSelected);
-                    Log.Information("Database was successfully save to local");
+                    Log.Information("Database was successfully saved to local storage");
                     break;
+
                 case SaveLocation.Dropbox:
+                    waitScreenWindow.WaitMessage = "Uploading to Dropbox... Please wait";
+                    waitScreenWindow.Show();
                     await SaveToCloudAsync(selectDatabaseFileWindow.ExistingDatabasesSelected);
-                    Log.Information("Database was successfully save to cloud");
+                    Log.Information("Database was successfully uploaded to Dropbox");
                     break;
+
                 default:
                     throw new ArgumentOutOfRangeException();
             }
+
+            waitScreenWindow.Close();
+
+            MsgBox.Show("Database backup operation was successful", MsgBoxImage.Check);
         }
         catch (Exception exception)
         {
-            Log.Error(exception, "An error occur please retry");
+            Log.Error(exception, "An error occurred. Please try again");
+            waitScreenWindow.Close();
+
+            MsgBox.Show("An error occurred. Please try again", MsgBoxImage.Warning);
         }
-
-        waitScreenWindow.Close();
-
-        //TODO make messagebox result
     }
 
     private async void ButtonImportDataBase_OnClick(object sender, RoutedEventArgs e)
