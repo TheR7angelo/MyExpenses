@@ -30,7 +30,7 @@ public partial class DashBoardPage : INotifyPropertyChanged
     protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
         => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
 
-    public ObservableCollection<VHistory> VHistories { get; } = [];
+    public ObservableCollection<VHistory> VHistories { get; }
     public ObservableCollection<VTotalByAccount> VTotalByAccounts { get; } = [];
 
     private double? _total = 0d;
@@ -86,7 +86,7 @@ public partial class DashBoardPage : INotifyPropertyChanged
     public string DataGridTextColumnValue { get; } = DashBoardPageResources.DataGridTextColumnValue;
     public string DataGridTextColumnDate { get; } = DashBoardPageResources.DataGridTextColumnDate;
     public string DataGridTextColumnPlace { get; } = DashBoardPageResources.DataGridTextColumnPlace;
-    public string DataGridTextColumnPointed { get; } = DashBoardPageResources.DataGridTextColumnPointed;
+    public string DataGridCheckBoxColumnPointed { get; } = DashBoardPageResources.DataGridTextColumnPointed;
 
     public string DataGridMenuItemHeaderEditRecord { get; } = DashBoardPageResources.DataGridMenuItemHeaderEditRecord;
     public string DataGridMenuItemHeaderDeleteRecord { get; } = DashBoardPageResources.DataGridMenuItemHeaderDeleteRecord;
@@ -155,6 +155,18 @@ public partial class DashBoardPage : INotifyPropertyChanged
         RefreshAccountTotal();
 
         InitializeComponent();
+
+        VHistories = new ObservableCollection<VHistory>();
+        FilterDataGrid.ItemsSource = VHistories;
+
+        TextColumnAccount.Header = DataGridTextColumnAccount;
+        TextColumnDescription.Header = DataGridTextColumnDescription;
+        TemplateColumnCategory.Header = DataGridTextColumnCategory;
+        TextColumnModePayment.Header = DataGridTextColumnModePayment;
+        TemplateColumnValue.Header = DataGridTextColumnValue;
+        TextColumnDate.Header = DataGridTextColumnDate;
+        TextColumnPlace.Header = DataGridTextColumnPlace;
+        CheckBoxColumnPointed.Header = DataGridCheckBoxColumnPointed;
 
         // TODO add listener color change
         var brush = (SolidColorBrush)FindResource("MaterialDesignBody");

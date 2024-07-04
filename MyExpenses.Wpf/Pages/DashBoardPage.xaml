@@ -8,6 +8,7 @@
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:wpf="clr-namespace:LiveChartsCore.SkiaSharpView.WPF;assembly=LiveChartsCore.SkiaSharpView.WPF"
       xmlns:margin="clr-namespace:MyExpenses.Wpf.Utils.Margin;assembly=MyExpenses.Wpf.Utils"
+      xmlns:filterDataGrid="http://filterdatagrid.control.com/2021"
       mc:Ignorable="d"
 
       Title="DashBoard"
@@ -257,53 +258,49 @@
 
         <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3">
 
-            <DataGrid ItemsSource="{Binding VHistories, Mode=OneWay}"
-                      IsReadOnly="True" AutoGenerateColumns="False"
-                      CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False"
-                      HorizontalScrollBarVisibility="Auto"
-                      VerticalScrollBarVisibility="Auto">
+            <filterDataGrid:FilterDataGrid x:Name="FilterDataGrid"
+                                           ShowStatusBar="True" ShowElapsedTime="True"
+                                           FilterPopupBackground="{DynamicResource MaterialDesignPaper}"
+                                           IsReadOnly="True" AutoGenerateColumns="False"
+                                           ItemsSource="{Binding VHistories, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                                           CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False"
+                                           HorizontalScrollBarVisibility="Auto"
+                                           VerticalScrollBarVisibility="Auto"
 
-                <DataGrid.ItemContainerStyle>
+                                           DateFormatString="dd/MM/yyyy HH:mm">
+
+                <filterDataGrid:FilterDataGrid.ItemContainerStyle>
                     <Style TargetType="DataGridRow" BasedOn="{StaticResource {x:Type DataGridRow}}">
                         <EventSetter Event="PreviewMouseRightButtonDown"
                                      Handler="DataGridRow_PreviewMouseRightButtonDown">
                         </EventSetter>
                     </Style>
-                </DataGrid.ItemContainerStyle>
+                </filterDataGrid:FilterDataGrid.ItemContainerStyle>
 
-                <DataGrid.ContextMenu>
+                <filterDataGrid:FilterDataGrid.ContextMenu>
                     <ContextMenu>
                         <MenuItem Header="{Binding DataGridMenuItemHeaderEditRecord}"
                                   Click="MenuItemEditRecord_OnClick" />
-                        <MenuItem Header="{Binding DataGridTextColumnPointed}" Click="MenuItemPointed_OnClick" />
+                        <MenuItem Header="{Binding DataGridCheckBoxColumnPointed}" Click="MenuItemPointed_OnClick" />
                         <MenuItem Header="{Binding DataGridMenuItemHeaderDeleteRecord}"
                                   Click="MenuItemDeleteRecord_OnClick" />
                     </ContextMenu>
-                </DataGrid.ContextMenu>
+                </filterDataGrid:FilterDataGrid.ContextMenu>
 
-                <DataGrid.Columns>
+                <filterDataGrid:FilterDataGrid.Columns>
 
-                    <DataGridTextColumn Binding="{Binding Account}">
-                        <DataGridTextColumn.Header>
-                            <TextBlock
-                                Text="{Binding DataGridTextColumnAccount, RelativeSource={RelativeSource AncestorType={x:Type local:DashBoardPage}}}" />
-                        </DataGridTextColumn.Header>
-                    </DataGridTextColumn>
+                    <filterDataGrid:DataGridTextColumn x:Name="TextColumnAccount" IsColumnFiltered="True"
+                                                       Binding="{Binding Account}">
+                    </filterDataGrid:DataGridTextColumn>
 
-                    <DataGridTextColumn Binding="{Binding Description}">
-                        <DataGridTextColumn.Header>
-                            <TextBlock
-                                Text="{Binding DataGridTextColumnDescription, RelativeSource={RelativeSource AncestorType={x:Type local:DashBoardPage}}}" />
-                        </DataGridTextColumn.Header>
-                    </DataGridTextColumn>
+                    <filterDataGrid:DataGridTextColumn x:Name="TextColumnDescription" IsColumnFiltered="True"
+                                                       Binding="{Binding Description}">
+                    </filterDataGrid:DataGridTextColumn>
 
                     <!-- TODO work -->
-                    <DataGridTemplateColumn SortMemberPath="Category">
-                        <DataGridTemplateColumn.Header>
-                            <TextBlock
-                                Text="{Binding DataGridTextColumnCategory, RelativeSource={RelativeSource AncestorType={x:Type local:DashBoardPage}}}" />
-                        </DataGridTemplateColumn.Header>
-                        <DataGridTemplateColumn.CellTemplate>
+                    <filterDataGrid:DataGridTemplateColumn x:Name="TemplateColumnCategory" IsColumnFiltered="True"
+                                                           SortMemberPath="Category" FieldName="Category">
+                        <filterDataGrid:DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal"
                                             HorizontalAlignment="Left"
@@ -320,50 +317,41 @@
 
                                 </StackPanel>
                             </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
+                        </filterDataGrid:DataGridTemplateColumn.CellTemplate>
+                    </filterDataGrid:DataGridTemplateColumn>
 
-                    <DataGridTextColumn Binding="{Binding ModePayment}">
-                        <DataGridTextColumn.Header>
-                            <TextBlock
-                                Text="{Binding DataGridTextColumnModePayment, RelativeSource={RelativeSource AncestorType={x:Type local:DashBoardPage}}}" />
-                        </DataGridTextColumn.Header>
-                    </DataGridTextColumn>
+                    <filterDataGrid:DataGridTextColumn x:Name="TextColumnModePayment" IsColumnFiltered="True"
+                                                       Binding="{Binding ModePayment}">
+                    </filterDataGrid:DataGridTextColumn>
 
                     <!-- TODO work -->
-                    <DataGridTextColumn SortMemberPath="Value">
-                        <DataGridTextColumn.Header>
-                            <TextBlock
-                                Text="{Binding DataGridTextColumnValue, RelativeSource={RelativeSource AncestorType={x:Type local:DashBoardPage}}}" />
-                        </DataGridTextColumn.Header>
-                        <DataGridTextColumn.Binding>
-                            <MultiBinding Converter="{StaticResource ValueSymbolConverter}">
-                                <Binding Path="Value" />
-                                <Binding Path="Symbol" />
-                            </MultiBinding>
-                        </DataGridTextColumn.Binding>
-                    </DataGridTextColumn>
+                    <filterDataGrid:DataGridTemplateColumn x:Name="TemplateColumnValue" IsColumnFiltered="True"
+                                                           SortMemberPath="Value" FieldName="Value">
+                        <filterDataGrid:DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock>
+                                    <TextBlock.Text>
+                                        <MultiBinding Converter="{StaticResource ValueSymbolConverter}">
+                                            <Binding Path="Value" />
+                                            <Binding Path="Symbol" />
+                                        </MultiBinding>
+                                    </TextBlock.Text>
+                                </TextBlock>
+                            </DataTemplate>
+                        </filterDataGrid:DataGridTemplateColumn.CellTemplate>
+                    </filterDataGrid:DataGridTemplateColumn>
 
-                    <DataGridTextColumn Binding="{Binding Date, StringFormat={}{0:dd/MM/yyyy HH:mm}}">
-                        <DataGridTextColumn.Header>
-                            <TextBlock
-                                Text="{Binding DataGridTextColumnDate, RelativeSource={RelativeSource AncestorType={x:Type local:DashBoardPage}}}" />
-                        </DataGridTextColumn.Header>
-                    </DataGridTextColumn>
+                    <filterDataGrid:DataGridTextColumn x:Name="TextColumnDate" IsColumnFiltered="True"
+                                                       Binding="{Binding Date}">
+                    </filterDataGrid:DataGridTextColumn>
 
-                    <DataGridTextColumn Binding="{Binding Place}">
-                        <DataGridTextColumn.Header>
-                            <TextBlock
-                                Text="{Binding DataGridTextColumnPlace, RelativeSource={RelativeSource AncestorType={x:Type local:DashBoardPage}}}" />
-                        </DataGridTextColumn.Header>
-                    </DataGridTextColumn>
+                    <filterDataGrid:DataGridTextColumn x:Name="TextColumnPlace" IsColumnFiltered="True"
+                                                       Binding="{Binding Place}">
+                    </filterDataGrid:DataGridTextColumn>
 
-                    <DataGridCheckBoxColumn IsThreeState="False" Binding="{Binding Pointed}">
-                        <DataGridCheckBoxColumn.Header>
-                            <TextBlock
-                                Text="{Binding DataGridTextColumnPointed, RelativeSource={RelativeSource AncestorType={x:Type local:DashBoardPage}}}" />
-                        </DataGridCheckBoxColumn.Header>
-                    </DataGridCheckBoxColumn>
+                    <filterDataGrid:DataGridCheckBoxColumn x:Name="CheckBoxColumnPointed" IsColumnFiltered="True"
+                                                           IsThreeState="False" Binding="{Binding Pointed}">
+                    </filterDataGrid:DataGridCheckBoxColumn>
 
                     <!-- ~1~ TODO work @1@ -->
                     <!-- <DataGridTemplateColumn> -->
@@ -377,9 +365,9 @@
                     <!--     </DataGridTemplateColumn.CellTemplate> -->
                     <!-- </DataGridTemplateColumn> -->
 
-                </DataGrid.Columns>
+                </filterDataGrid:FilterDataGrid.Columns>
 
-            </DataGrid>
+            </filterDataGrid:FilterDataGrid>
         </Grid>
 
     </Grid>
