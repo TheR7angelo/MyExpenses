@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MyExpenses.Models.Sql.Tables;
 
-public class TVersion
+public class TVersion : ISql
 {
     [Key]
     [Column("id")]
