@@ -92,20 +92,19 @@ public partial class WelcomePage
 
         if (selectDatabaseFileWindow.DialogResult is not true) return;
 
-        //TODO message
         var waitScreenWindow = new WaitScreenWindow();
         try
         {
             switch (saveLocationWindow.SaveLocationResult)
             {
                 case SaveLocation.Local:
-                    waitScreenWindow.WaitMessage = "Saving to local storage... Please wait";
+                    waitScreenWindow.WaitMessage = WelcomePageResources.ButtonExportDataBaseWaitMessageExportToLocal;
                     waitScreenWindow.Show();
                     await SaveToLocal(selectDatabaseFileWindow.ExistingDatabasesSelected);
                     break;
 
                 case SaveLocation.Dropbox:
-                    waitScreenWindow.WaitMessage = "Uploading to Dropbox... Please wait";
+                    waitScreenWindow.WaitMessage = WelcomePageResources.ButtonExportDataBaseWaitMessageExportToCloud;
                     waitScreenWindow.Show();
                     await SaveToCloudAsync(selectDatabaseFileWindow.ExistingDatabasesSelected);
                     break;
@@ -116,14 +115,14 @@ public partial class WelcomePage
 
             waitScreenWindow.Close();
 
-            MsgBox.Show("Database backup operation was successful", MsgBoxImage.Check);
+            MsgBox.Show(WelcomePageResources.ButtonExportDataBaseSucess, MsgBoxImage.Check);
         }
         catch (Exception exception)
         {
             Log.Error(exception, "An error occurred. Please try again");
             waitScreenWindow.Close();
 
-            MsgBox.Show("An error occurred. Please try again", MsgBoxImage.Warning);
+            MsgBox.Show(WelcomePageResources.ButtonExportDataBaseError, MsgBoxImage.Warning);
         }
     }
 
@@ -134,20 +133,19 @@ public partial class WelcomePage
 
         if (saveLocationWindow.DialogResult is not true) return;
 
-        //TODO message
         var waitScreenWindow = new WaitScreenWindow();
         try
         {
             switch (saveLocationWindow.SaveLocationResult)
             {
                 case SaveLocation.Local:
-                    waitScreenWindow.WaitMessage = "Import from local storage... Please wait";
+                    waitScreenWindow.WaitMessage = WelcomePageResources.ButtonImportDataBaseWaitMessageImportFromLocal;
                     waitScreenWindow.Show();
                     await ImportFromLocal();
                     break;
 
                 case SaveLocation.Dropbox:
-                    waitScreenWindow.WaitMessage = "Import from cloud storage... Please wait";
+                    waitScreenWindow.WaitMessage = WelcomePageResources.ButtonImportDataBaseWaitMessageImportFromCloud;
                     waitScreenWindow.Show();
                     await ImportFromCloudAsync();
                     break;
@@ -159,14 +157,14 @@ public partial class WelcomePage
             RefreshExistingDatabases();
 
             waitScreenWindow.Close();
-            MsgBox.Show("Database import operation was successful", MsgBoxImage.Check);
+            MsgBox.Show(WelcomePageResources.ButtonImportDataBaseImportSucess, MsgBoxImage.Check);
         }
         catch (Exception exception)
         {
             Log.Error(exception, "An error occurred. Please try again");
             waitScreenWindow.Close();
 
-            MsgBox.Show("An error occurred. Please try again", MsgBoxImage.Warning);
+            MsgBox.Show(WelcomePageResources.ButtonImportDataBaseError, MsgBoxImage.Warning);
         }
     }
 

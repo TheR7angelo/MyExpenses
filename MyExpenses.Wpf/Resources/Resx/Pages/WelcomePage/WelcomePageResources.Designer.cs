@@ -60,6 +60,78 @@ namespace MyExpenses.Wpf.Resources.Resx.Pages.WelcomePage {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to An error occurred. Please try again.
+        /// </summary>
+        internal static string ButtonExportDataBaseError {
+            get {
+                return ResourceManager.GetString("ButtonExportDataBaseError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Database backup operation was successful.
+        /// </summary>
+        internal static string ButtonExportDataBaseSucess {
+            get {
+                return ResourceManager.GetString("ButtonExportDataBaseSucess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Uploading to Dropbox... Please wait.
+        /// </summary>
+        internal static string ButtonExportDataBaseWaitMessageExportToCloud {
+            get {
+                return ResourceManager.GetString("ButtonExportDataBaseWaitMessageExportToCloud", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Saving to local storage... Please wait.
+        /// </summary>
+        internal static string ButtonExportDataBaseWaitMessageExportToLocal {
+            get {
+                return ResourceManager.GetString("ButtonExportDataBaseWaitMessageExportToLocal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error occurred. Please try again.
+        /// </summary>
+        internal static string ButtonImportDataBaseError {
+            get {
+                return ResourceManager.GetString("ButtonImportDataBaseError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Database import operation was successful.
+        /// </summary>
+        internal static string ButtonImportDataBaseImportSucess {
+            get {
+                return ResourceManager.GetString("ButtonImportDataBaseImportSucess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Import from cloud storage... Please wait.
+        /// </summary>
+        internal static string ButtonImportDataBaseWaitMessageImportFromCloud {
+            get {
+                return ResourceManager.GetString("ButtonImportDataBaseWaitMessageImportFromCloud", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Import from local storage... Please wait.
+        /// </summary>
+        internal static string ButtonImportDataBaseWaitMessageImportFromLocal {
+            get {
+                return ResourceManager.GetString("ButtonImportDataBaseWaitMessageImportFromLocal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Do you really want to delete all database selected ?.
         /// </summary>
         internal static string DeleteDatabaseQuestion {

@@ -27,4 +27,28 @@
     <data name="MessageBoxCreateNewDatabaseError" xml:space="preserve">
         <value>An error occurred while adding the new database</value>
     </data>
+    <data name="ButtonImportDataBaseWaitMessageImportFromLocal" xml:space="preserve">
+        <value>Import from local storage... Please wait</value>
+    </data>
+    <data name="ButtonImportDataBaseWaitMessageImportFromCloud" xml:space="preserve">
+        <value>Import from cloud storage... Please wait</value>
+    </data>
+    <data name="ButtonImportDataBaseImportSucess" xml:space="preserve">
+        <value>Database import operation was successful</value>
+    </data>
+    <data name="ButtonImportDataBaseError" xml:space="preserve">
+        <value>An error occurred. Please try again</value>
+    </data>
+    <data name="ButtonExportDataBaseWaitMessageExportToLocal" xml:space="preserve">
+        <value>Saving to local storage... Please wait</value>
+    </data>
+    <data name="ButtonExportDataBaseWaitMessageExportToCloud" xml:space="preserve">
+        <value>Uploading to Dropbox... Please wait</value>
+    </data>
+    <data name="ButtonExportDataBaseSucess" xml:space="preserve">
+        <value>Database backup operation was successful</value>
+    </data>
+    <data name="ButtonExportDataBaseError" xml:space="preserve">
+        <value>An error occurred. Please try again</value>
+    </data>
 </root>
