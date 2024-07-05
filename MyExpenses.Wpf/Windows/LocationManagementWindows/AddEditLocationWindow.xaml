@@ -36,6 +36,8 @@
                  TextElement.Foreground="{DynamicResource MaterialDesignBody}"
                  DataContext="{Binding RelativeSource={RelativeSource Self}}">
 
+    <!-- TODO add window Title -->
+
     <mah:MetroWindow.Resources>
         <converters:SplitUpperCaseWordsConverter x:Key="SplitCamelCaseConverter" />
         <converters:InverseBooleanToVisibilityConverter x:Key="InverseBooleanToVisibilityConverter" />

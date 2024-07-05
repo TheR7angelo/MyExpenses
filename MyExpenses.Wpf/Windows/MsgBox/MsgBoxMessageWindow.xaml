@@ -30,6 +30,8 @@
 
                  DataContext="{Binding RelativeSource={RelativeSource Self}}">
 
+    <!-- TODO add window Title -->
+
     <mah:MetroWindow.Resources>
         <converters:MsgBoxImageConverter x:Key="MsgBoxImageConverter" />
     </mah:MetroWindow.Resources>

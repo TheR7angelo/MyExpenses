@@ -38,6 +38,8 @@
 
                  DataContext="{Binding RelativeSource={RelativeSource Self}}">
 
+    <!-- TODO add window Title -->
+
     <mah:MetroWindow.Resources>
         <colors:HexToColorConverter x:Key="HexToColorConverter" />
     </mah:MetroWindow.Resources>

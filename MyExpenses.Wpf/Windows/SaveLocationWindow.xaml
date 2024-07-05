@@ -34,6 +34,8 @@
 
                  DataContext="{Binding RelativeSource={RelativeSource Self}}">
 
+    <!-- TODO add window Title -->
+
     <Grid margin:PanelExtensions.MarginForAllChildren="7.5">
 
         <Grid.ColumnDefinitions>
