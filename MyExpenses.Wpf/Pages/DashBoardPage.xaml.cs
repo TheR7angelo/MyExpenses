@@ -265,9 +265,12 @@ public partial class DashBoardPage : INotifyPropertyChanged
     private void MenuItemPointed_OnClick(object sender, RoutedEventArgs e)
     {
         if (DataGridRow!.DataContext is not VHistory vHistory) return;
-        var history = vHistory.Id.ToISqlT<THistory>();
+        var history = vHistory.Id.ToISqlT<THistory>()!;
 
-        history!.Pointed = !history.Pointed;
+        history.Pointed = !history.Pointed;
+
+        if ((bool)history.Pointed!) history.DatePointed = DateTime.Now;
+
         history.AddOrEdit();
 
         RefreshDataGrid();

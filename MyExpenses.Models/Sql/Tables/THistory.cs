@@ -50,7 +50,7 @@ public partial class THistory : ISql
     public DateTime? DateAdded { get; set; } = DateTime.Now;
 
     [Column("date_pointed", TypeName = "DATETIME")]
-    public DateTime? DatePointed { get; set; } = DateTime.Now;
+    public DateTime? DatePointed { get; set; }
 
     [ForeignKey("AccountFk")]
     [InverseProperty("THistories")]
