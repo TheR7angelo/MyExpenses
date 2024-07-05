@@ -269,7 +269,8 @@ public partial class DashBoardPage : INotifyPropertyChanged
 
         history.Pointed = !history.Pointed;
 
-        if ((bool)history.Pointed!) history.DatePointed = DateTime.Now;
+        if (history.Pointed is true) history.DatePointed = DateTime.Now;
+        else history.DatePointed = null;
 
         history.AddOrEdit();
 

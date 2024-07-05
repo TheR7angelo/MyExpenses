@@ -314,6 +314,10 @@ public partial class RecordExpensePage
         }
 
         Log.Information("Attempting to inject the new history");
+
+        if (History.Pointed is true) History.DatePointed = DateTime.Now;
+        else History.DatePointed = null;
+
         var (success, exception) = History.AddOrEdit();
         if (success)
         {
