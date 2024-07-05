@@ -84,8 +84,13 @@ public class DropboxService
         }
 
         using var dropboxClient = await GetDropboxClient();
-        var content = await File.ReadAllBytesAsync(filePath).ConfigureAwait(false);
-        using var memoryStream = new MemoryStream(content);
+
+        await using var fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+        var byteArray = new byte[fileStream.Length];
+        var content = new Memory<byte>(byteArray);
+        _ = await fileStream.ReadAsync(content, CancellationToken.None).ConfigureAwait(false);
+
+        using var memoryStream = new MemoryStream(byteArray);
 
         var dropboxFilePath = string.IsNullOrWhiteSpace(folder)
             ? $"/{Path.GetFileName(filePath)}"
