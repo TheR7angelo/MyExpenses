@@ -36,4 +36,16 @@
     <data name="MenuItemHeaderPrevious" xml:space="preserve">
         <value>Previous</value>
     </data>
+    <data name="MenuItemDatabaseExportWaitMessageExportToLocal" xml:space="preserve">
+        <value>Saving to local storage... Please wait</value>
+    </data>
+    <data name="MenuItemDatabaseExportWaitMessageExportToCloud" xml:space="preserve">
+        <value>Uploading to Dropbox... Please wait</value>
+    </data>
+    <data name="MenuItemDatabaseExportSucess" xml:space="preserve">
+        <value>Database backup operation was successful</value>
+    </data>
+    <data name="MenuItemDatabaseExportError" xml:space="preserve">
+        <value>An error occurred. Please try again</value>
+    </data>
 </root>

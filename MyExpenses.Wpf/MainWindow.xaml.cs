@@ -85,20 +85,19 @@ public partial class MainWindow
 
         var database = DataBaseContext.FilePath!;
 
-        //TODO message
         var waitScreenWindow = new WaitScreenWindow();
         try
         {
             switch (saveLocationWindow.SaveLocationResult)
             {
                 case SaveLocation.Local:
-                    waitScreenWindow.WaitMessage = "Saving to local storage... Please wait";
+                    waitScreenWindow.WaitMessage = MainWindowResources.MenuItemDatabaseExportWaitMessageExportToLocal;
                     waitScreenWindow.Show();
                     await SaveToLocal(database);
                     break;
 
                 case SaveLocation.Dropbox:
-                    waitScreenWindow.WaitMessage = "Uploading to Dropbox... Please wait";
+                    waitScreenWindow.WaitMessage = MainWindowResources.MenuItemDatabaseExportWaitMessageExportToCloud;
                     waitScreenWindow.Show();
                     await SaveToCloudAsync(database);
                     break;
@@ -108,14 +107,14 @@ public partial class MainWindow
             }
 
             waitScreenWindow.Close();
-            MsgBox.Show("Database backup operation was successful", MsgBoxImage.Check);
+            MsgBox.Show(MainWindowResources.MenuItemDatabaseExportSucess, MsgBoxImage.Check);
         }
         catch (Exception exception)
         {
             Log.Error(exception, "An error occurred. Please try again");
             waitScreenWindow.Close();
 
-            MsgBox.Show("An error occurred. Please try again", MsgBoxImage.Warning);
+            MsgBox.Show(MainWindowResources.MenuItemDatabaseExportError, MsgBoxImage.Warning);
         }
     }
 

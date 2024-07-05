@@ -29,4 +29,16 @@
     <data name="MenuItemHeaderSettings" xml:space="preserve">
         <value>Paramètres</value>
     </data>
+    <data name="MenuItemDatabaseExportWaitMessageExportToLocal" xml:space="preserve">
+        <value>Enregistrement sur le stockage local... Veuillez patienter</value>
+    </data>
+    <data name="MenuItemDatabaseExportWaitMessageExportToCloud" xml:space="preserve">
+        <value>Téléchargement vers Dropbox... Veuillez patienter</value>
+    </data>
+    <data name="MenuItemDatabaseExportSucess" xml:space="preserve">
+        <value>L'opération de sauvegarde de la base de données a réussi</value>
+    </data>
+    <data name="MenuItemDatabaseExportError" xml:space="preserve">
+        <value>Une erreur s'est produite. Veuillez réessayer</value>
+    </data>
 </root>

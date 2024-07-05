@@ -109,5 +109,41 @@ namespace MyExpenses.Wpf.Resources.Resx.Windows.MainWindow {
                 return ResourceManager.GetString("MenuItemHeaderSettings", resourceCulture);
             }
         }
+
+        /// <summary>
+        /// Looks up a localized string similar to Saving to local storage... Please wait.
+        /// </summary>
+        internal static string MenuItemDatabaseExportWaitMessageExportToLocal {
+            get {
+                return ResourceManager.GetString("MenuItemDatabaseExportWaitMessageExportToLocal", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        /// Looks up a localized string similar to Uploading to Dropbox... Please wait.
+        /// </summary>
+        internal static string MenuItemDatabaseExportWaitMessageExportToCloud {
+            get {
+                return ResourceManager.GetString("MenuItemDatabaseExportWaitMessageExportToCloud", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        /// Looks up a localized string similar to Database backup operation was successful.
+        /// </summary>
+        internal static string MenuItemDatabaseExportSucess {
+            get {
+                return ResourceManager.GetString("MenuItemDatabaseExportSucess", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        /// Looks up a localized string similar to An error occurred. Please try again.
+        /// </summary>
+        internal static string MenuItemDatabaseExportError {
+            get {
+                return ResourceManager.GetString("MenuItemDatabaseExportError", resourceCulture);
+            }
+        }
     }
 }
