@@ -49,6 +49,9 @@ public partial class THistory : ISql
     [Column("date_added", TypeName = "DATETIME")]
     public DateTime? DateAdded { get; set; } = DateTime.Now;
 
+    [Column("date_pointed", TypeName = "DATETIME")]
+    public DateTime? DatePointed { get; set; } = DateTime.Now;
+
     [ForeignKey("AccountFk")]
     [InverseProperty("THistories")]
     public virtual TAccount? AccountFkNavigation { get; set; }

@@ -143,7 +143,8 @@ CREATE TABLE t_history
     bank_transfer_fk INTEGER
         CONSTRAINT t_history_t_bank_transfer_id_fk
             REFERENCES t_bank_transfer,
-    date_added       DATETIME DEFAULT CURRENT_TIMESTAMP
+    date_added       DATETIME DEFAULT CURRENT_TIMESTAMP,
+    date_pointed     DATETIME
 );
 
 -- endregion
@@ -359,6 +360,11 @@ BEGIN
         date_added = CASE
                          WHEN typeof(NEW.date_added) = 'integer' THEN datetime(NEW.date_added / 1000, 'unixepoch')
                          ELSE NEW.date_added
+            END,
+        date_pointed = CASE
+                           WHEN NEW.pointed = 1 AND typeof(NEW.date) = 'integer' THEN datetime(NEW.date / 1000, 'unixepoch')
+                           WHEN NEW.pointed = 0 THEN NULL
+                           ELSE date_pointed
             END
     WHERE id = NEW.id;
 END;
@@ -377,6 +383,11 @@ BEGIN
         date_added = CASE
                          WHEN typeof(NEW.date_added) = 'integer' THEN datetime(NEW.date_added / 1000, 'unixepoch')
                          ELSE NEW.date_added
+            END,
+        date_pointed = CASE
+                           WHEN NEW.pointed = 1 AND typeof(NEW.date) = 'integer' THEN datetime(NEW.date / 1000, 'unixepoch')
+                           WHEN NEW.pointed = 0 THEN NULL
+                           ELSE date_pointed
             END
     WHERE id = NEW.id;
 END;
