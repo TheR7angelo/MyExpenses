@@ -15,7 +15,7 @@
                  MinHeight="560"
                  MinWidth="560"
 
-                 Title="MainWindow"
+                 Title="{Binding ApplicationName}"
 
                  TitleCharacterCasing="Normal"
                  NonActiveWindowTitleBrush="Gray"

@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Reflection;
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Interop;
@@ -36,6 +37,8 @@ public partial class MainWindow
     public string MenuItemHeaderPrevious { get; } = MainWindowResources.MenuItemHeaderPrevious;
     public string MenuItemHeaderSettings { get; } = MainWindowResources.MenuItemHeaderSettings;
 
+    public string ApplicationName { get; }
+
     public bool CanGoBack
     {
         get => (bool)GetValue(CanGoBackProperty);
@@ -46,6 +49,9 @@ public partial class MainWindow
 
     public MainWindow()
     {
+        var assembly = Assembly.GetEntryAssembly()!;
+        ApplicationName = assembly.GetName().Name!;
+
         InitializeComponent();
 
         var hWnd = new WindowInteropHelper(GetWindow(this)!).EnsureHandle();
