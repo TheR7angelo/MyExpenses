@@ -17,6 +17,7 @@ using MyExpenses.Wpf.Resources.Regex;
 using MyExpenses.Wpf.Utils.Maps;
 using MyExpenses.Wpf.Windows;
 using MyExpenses.Utils.Sql;
+using MyExpenses.Wpf.Converters;
 using MyExpenses.Wpf.Resources.Resx.Pages.RecordExpensePage;
 using MyExpenses.Wpf.Utils;
 using MyExpenses.Wpf.Windows.CategoryTypeManagementWindow;
