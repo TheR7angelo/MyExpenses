@@ -505,14 +505,13 @@ public partial class RecordExpensePage
             records = query;
         }
 
-        var results = records.ToList();
-        var citiesResults = results.Select(s => EmptyStringTreeViewConverter.ToUnknown(s.City)).Distinct();
+        var citiesResults = records.Select(s => EmptyStringTreeViewConverter.ToUnknown(s.City)).Distinct();
 
         CitiesCollection.Clear();
         CitiesCollection.AddRangeAndSort(citiesResults, s => s);
 
         PlacesCollection.Clear();
-        PlacesCollection.AddRangeAndSort(results, s => s.Name!);
+        PlacesCollection.AddRangeAndSort(records, s => s.Name!);
     }
 
     private void SelectorCity_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
