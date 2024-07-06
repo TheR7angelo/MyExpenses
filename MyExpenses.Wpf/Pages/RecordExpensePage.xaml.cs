@@ -440,6 +440,65 @@ public partial class RecordExpensePage
     private void MapControl_OnLoaded(object sender, RoutedEventArgs e)
         => UpdateTileLayer();
 
+    private void SelectorCity_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        var comboBox = (ComboBox)sender;
+        var city = comboBox.SelectedItem as string;
+
+        using var context = new DataBaseContext();
+        var query = context.TPlaces.Where(s => s.IsOpen.Equals(true));
+
+        IQueryable<TPlace> records;
+
+        if (!string.IsNullOrEmpty(city))
+        {
+            records = city.Equals(EmptyStringTreeViewConverterResources.Unknown)
+                ? query.Where(s => s.City == null)
+                : query.Where(s => s.City == city);
+        }
+        else
+        {
+            records = query;
+        }
+
+        ComboBoxSelectorCountry.SelectionChanged -= SelectorCountry_OnSelectionChanged;
+        SelectedCountry = records.First().Country;
+        ComboBoxSelectorCountry.SelectionChanged += SelectorCountry_OnSelectionChanged;
+
+        PlacesCollection.Clear();
+        PlacesCollection.AddRangeAndSort(records, s => s.Name!);
+    }
+
+    private void SelectorCountry_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        var comboBox = (ComboBox)sender;
+        var country = comboBox.SelectedItem as string;
+
+        using var context = new DataBaseContext();
+        var query = context.TPlaces.Where(s => s.IsOpen.Equals(true));
+
+        IQueryable<TPlace> records;
+
+        if (!string.IsNullOrEmpty(country))
+        {
+            records = country.Equals(EmptyStringTreeViewConverterResources.Unknown)
+                ? query.Where(s => s.Country == null)
+                : query.Where(s => s.Country == country);
+        }
+        else
+        {
+            records = query;
+        }
+
+        var citiesResults = records.Select(s => EmptyStringTreeViewConverter.ToUnknown(s.City)).Distinct();
+
+        CitiesCollection.Clear();
+        CitiesCollection.AddRangeAndSort(citiesResults, s => s);
+
+        PlacesCollection.Clear();
+        PlacesCollection.AddRangeAndSort(records, s => s.Name!);
+    }
+
     private void SelectorPlace_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
     {
         var place = History.PlaceFk?.ToISqlT<TPlace>();
@@ -503,63 +562,4 @@ public partial class RecordExpensePage
     }
 
     #endregion
-
-    private void SelectorCountry_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
-    {
-        var comboBox = (ComboBox)sender;
-        var country = comboBox.SelectedItem as string;
-
-        using var context = new DataBaseContext();
-        var query = context.TPlaces.Where(s => s.IsOpen.Equals(true));
-
-        IQueryable<TPlace> records;
-
-        if (!string.IsNullOrEmpty(country))
-        {
-            records = country.Equals(EmptyStringTreeViewConverterResources.Unknown)
-                ? query.Where(s => s.Country == null)
-                : query.Where(s => s.Country == country);
-        }
-        else
-        {
-            records = query;
-        }
-
-        var citiesResults = records.Select(s => EmptyStringTreeViewConverter.ToUnknown(s.City)).Distinct();
-
-        CitiesCollection.Clear();
-        CitiesCollection.AddRangeAndSort(citiesResults, s => s);
-
-        PlacesCollection.Clear();
-        PlacesCollection.AddRangeAndSort(records, s => s.Name!);
-    }
-
-    private void SelectorCity_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
-    {
-        var comboBox = (ComboBox)sender;
-        var city = comboBox.SelectedItem as string;
-
-        using var context = new DataBaseContext();
-        var query = context.TPlaces.Where(s => s.IsOpen.Equals(true));
-
-        IQueryable<TPlace> records;
-
-        if (!string.IsNullOrEmpty(city))
-        {
-            records = city.Equals(EmptyStringTreeViewConverterResources.Unknown)
-                ? query.Where(s => s.City == null)
-                : query.Where(s => s.City == city);
-        }
-        else
-        {
-            records = query;
-        }
-
-        ComboBoxSelectorCountry.SelectionChanged -= SelectorCountry_OnSelectionChanged;
-        SelectedCountry = records.First().Country;
-        ComboBoxSelectorCountry.SelectionChanged += SelectorCountry_OnSelectionChanged;
-
-        PlacesCollection.Clear();
-        PlacesCollection.AddRangeAndSort(records, s => s.Name!);
-    }
 }
