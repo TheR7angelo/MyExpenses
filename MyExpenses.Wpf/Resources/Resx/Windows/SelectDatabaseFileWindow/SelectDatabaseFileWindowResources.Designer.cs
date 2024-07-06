@@ -7,10 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MyExpenses.Wpf.Resources.Resx.Windows.RemoveDatabaseFile {
-    using System;
-    
-    
+namespace MyExpenses.Wpf.Resources.Resx.Windows.SelectDatabaseFileWindow {
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
     /// </summary>
@@ -38,8 +35,7 @@ namespace MyExpenses.Wpf.Resources.Resx.Windows.RemoveDatabaseFile {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MyExpenses.Wpf.Resources.Resx.Windows.RemoveDatabaseFile.SelectDatabaseFileWindow" +
-                            "Resources", typeof(SelectDatabaseFileWindowResources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MyExpenses.Wpf.Resources.Resx.Windows.SelectDatabaseFileWindow.SelectDatabaseFileWindowResources", typeof(SelectDatabaseFileWindowResources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

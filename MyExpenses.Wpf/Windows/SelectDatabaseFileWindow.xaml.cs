@@ -4,7 +4,7 @@ using System.Windows.Controls;
 using System.Windows.Interop;
 using MyExpenses.Models.IO;
 using MyExpenses.Utils.WindowStyle;
-using MyExpenses.Wpf.Resources.Resx.Windows.RemoveDatabaseFile;
+using MyExpenses.Wpf.Resources.Resx.Windows.SelectDatabaseFileWindow;
 using MyExpenses.Wpf.Utils;
 
 namespace MyExpenses.Wpf.Windows;
@@ -17,6 +17,7 @@ public partial class SelectDatabaseFileWindow
     public ObservableCollection<ExistingDatabase> ExistingDatabases { get; } = [];
 
     internal List<ExistingDatabase> ExistingDatabasesSelected { get; } = [];
+    public List<ExistingDatabase> ExistingDatabasesSelected { get; } = [];
 
     public SelectDatabaseFileWindow()
     {
