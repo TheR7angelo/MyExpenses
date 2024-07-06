@@ -8,7 +8,7 @@
         xmlns:margin="clr-namespace:MyExpenses.Wpf.Utils.Margin;assembly=MyExpenses.Wpf.Utils"
         mc:Ignorable="d"
 
-        Title="WaitScreenWindow"
+        Title="{Binding WaitScreenWindowTitle}"
 
         d:DesignHeight="130"
         d:DesignWidth="394"
@@ -37,8 +37,6 @@
         ShowCloseButton="False"
 
         DataContext="{Binding RelativeSource={RelativeSource Self}}">
-
-    <!-- TODO add window Title -->
 
     <Grid VerticalAlignment="Center"
           margin:PanelExtensions.MarginForAllChildren="5">
