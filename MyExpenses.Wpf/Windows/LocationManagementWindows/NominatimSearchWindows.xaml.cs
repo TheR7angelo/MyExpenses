@@ -84,9 +84,7 @@ public partial class NominatimSearchWindows : INotifyPropertyChanged
     }
 
     private void UpdateTitle()
-    {
-        Title = $"{Index}/{Total} - {CurrentPlace}";
-    }
+        => Title = $"{Index}/{Total} - {CurrentPlace}";
 
     private void ButtonGoBack_OnClick(object sender, RoutedEventArgs e)
     {
