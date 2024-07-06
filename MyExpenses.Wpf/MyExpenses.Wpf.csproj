@@ -108,7 +108,7 @@
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>RecordExpensePageResources.Designer.cs</LastGenOutput>
       </EmbeddedResource>
-      <EmbeddedResource Update="Resources\Resx\Windows\RemoveDatabaseFile\RemoveDatabaseFileResources.resx">
+      <EmbeddedResource Update="Resources\Resx\Windows\RemoveDatabaseFile\SelectDatabaseFileWindowResources.resx">
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>RemoveDatabaseFileResources.Designer.cs</LastGenOutput>
       </EmbeddedResource>
@@ -234,10 +234,10 @@
         <AutoGen>True</AutoGen>
         <DependentUpon>RecordExpensePageResources.resx</DependentUpon>
       </Compile>
-      <Compile Update="Resources\Resx\Windows\RemoveDatabaseFile\RemoveDatabaseFileResources.Designer.cs">
+      <Compile Update="Resources\Resx\Windows\RemoveDatabaseFile\SelectDatabaseFileWindowResources.Designer.cs">
         <DesignTime>True</DesignTime>
         <AutoGen>True</AutoGen>
-        <DependentUpon>RemoveDatabaseFileResources.resx</DependentUpon>
+        <DependentUpon>SelectDatabaseFileWindowResources.resx</DependentUpon>
       </Compile>
       <Compile Update="Resources\Resx\Pages\WelcomePage\WelcomePageResources.Designer.cs">
         <DesignTime>True</DesignTime>

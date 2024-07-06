@@ -11,8 +11,8 @@ namespace MyExpenses.Wpf.Windows;
 
 public partial class SelectDatabaseFileWindow
 {
-    public string ButtonCancelContent { get; } = RemoveDatabaseFileResources.ButtonCancelCotent;
-    public string ButtonValidContent { get; } = RemoveDatabaseFileResources.ButtonValidContent;
+    public string ButtonCancelContent { get; } = SelectDatabaseFileWindowResources.ButtonCancelCotent;
+    public string ButtonValidContent { get; } = SelectDatabaseFileWindowResources.ButtonValidContent;
 
     public ObservableCollection<ExistingDatabase> ExistingDatabases { get; } = [];
 

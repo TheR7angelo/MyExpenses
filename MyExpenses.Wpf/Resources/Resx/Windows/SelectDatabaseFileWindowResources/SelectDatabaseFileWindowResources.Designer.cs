@@ -21,14 +21,14 @@ namespace MyExpenses.Wpf.Resources.Resx.Windows.RemoveDatabaseFile {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class RemoveDatabaseFileResources {
+    internal class SelectDatabaseFileWindowResources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal RemoveDatabaseFileResources() {
+        internal SelectDatabaseFileWindowResources() {
         }
         
         /// <summary>
@@ -38,8 +38,8 @@ namespace MyExpenses.Wpf.Resources.Resx.Windows.RemoveDatabaseFile {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MyExpenses.Wpf.Resources.Resx.Windows.RemoveDatabaseFile.RemoveDatabaseFileResour" +
-                            "ces", typeof(RemoveDatabaseFileResources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MyExpenses.Wpf.Resources.Resx.Windows.RemoveDatabaseFile.SelectDatabaseFileWindow" +
+                            "Resources", typeof(SelectDatabaseFileWindowResources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
