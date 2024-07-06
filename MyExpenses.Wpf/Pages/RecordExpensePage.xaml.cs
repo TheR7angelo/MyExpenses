@@ -34,6 +34,10 @@ public partial class RecordExpensePage
     public static readonly DependencyProperty EditHistoryProperty = DependencyProperty.Register(nameof(EditHistory),
         typeof(bool), typeof(RecordExpensePage), new PropertyMetadata(default(bool)));
 
+    public static readonly DependencyProperty SelectedCountryProperty =
+        DependencyProperty.Register(nameof(SelectedCountry), typeof(string), typeof(RecordExpensePage),
+            new PropertyMetadata(default(string)));
+
     public bool EditHistory
     {
         get => (bool)GetValue(EditHistoryProperty);
@@ -78,6 +82,12 @@ public partial class RecordExpensePage
     public List<KnownTileSource> KnownTileSources { get; }
     public KnownTileSource KnownTileSourceSelected { get; set; }
 
+    public string? SelectedCountry
+    {
+        get => (string)GetValue(SelectedCountryProperty);
+        set => SetValue(SelectedCountryProperty, value);
+    }
+
     public RecordExpensePage()
     {
         KnownTileSources = [..MapsuiMapExtensions.GetAllKnowTileSource()];
@@ -89,7 +99,8 @@ public partial class RecordExpensePage
 
         PlacesCollection = [..context.TPlaces.Where(s => (bool)s.IsOpen!).OrderBy(s => s.Name)];
 
-        var records = PlacesCollection.Select(s => EmptyStringTreeViewConverter.ToUnknown(s.Country)).Order().Distinct();
+        var records = PlacesCollection.Select(s => EmptyStringTreeViewConverter.ToUnknown(s.Country)).Order()
+            .Distinct();
         CountriesCollection = new ObservableCollection<string>(records);
 
         records = PlacesCollection.Select(s => EmptyStringTreeViewConverter.ToUnknown(s.City)).Order().Distinct();
@@ -274,7 +285,8 @@ public partial class RecordExpensePage
         }
 
         var editedPlace = addEditLocationWindow.Place;
-        Log.Information("Attempting to update place id:\"{EditedPlaceId}\", name:\"{EditedPlaceName}\"", editedPlace.Id, editedPlace.Name);
+        Log.Information("Attempting to update place id:\"{EditedPlaceId}\", name:\"{EditedPlaceName}\"", editedPlace.Id,
+            editedPlace.Name);
 
         var (success, exception) = editedPlace.AddOrEdit();
         if (success)
@@ -310,8 +322,10 @@ public partial class RecordExpensePage
             {
                 nameof(THistory.AccountFk) => nameof(RecordExpensePageResources.MessageBoxValidationAccountFkError),
                 nameof(THistory.Description) => nameof(RecordExpensePageResources.MessageBoxValidationDescriptionError),
-                nameof(THistory.CategoryTypeFk) => nameof(RecordExpensePageResources.MessageBoxValidationCategoryTypeFkError),
-                nameof(THistory.ModePaymentFk) => nameof(RecordExpensePageResources.MessageBoxValidationModePaymentFkError),
+                nameof(THistory.CategoryTypeFk) => nameof(RecordExpensePageResources
+                    .MessageBoxValidationCategoryTypeFkError),
+                nameof(THistory.ModePaymentFk) => nameof(RecordExpensePageResources
+                    .MessageBoxValidationModePaymentFkError),
                 nameof(THistory.Value) => nameof(RecordExpensePageResources.MessageBoxValidationValueError),
                 nameof(THistory.Date) => nameof(RecordExpensePageResources.MessageBoxValidationDateError),
                 nameof(THistory.PlaceFk) => nameof(RecordExpensePageResources.MessageBoxValidationPlaceFkError),
@@ -368,7 +382,8 @@ public partial class RecordExpensePage
 
     private void ButtonDelete_OnClick(object sender, RoutedEventArgs e)
     {
-        var response = MsgBox.Show(RecordExpensePageResources.MessageBoxDeleteRecordQuestion, MsgBoxImage.Question, MessageBoxButton.YesNoCancel);
+        var response = MsgBox.Show(RecordExpensePageResources.MessageBoxDeleteRecordQuestion, MsgBoxImage.Question,
+            MessageBoxButton.YesNoCancel);
 
         if (response is not MessageBoxResult.Yes) return;
 
@@ -396,7 +411,8 @@ public partial class RecordExpensePage
 
             if (response is not MessageBoxResult.Yes) return;
 
-            Log.Information("Attempting to remove this record \"{HistoryToDeleteDescriiption}\" with all relative element",
+            Log.Information(
+                "Attempting to remove this record \"{HistoryToDeleteDescriiption}\" with all relative element",
                 History.Description);
             History.Delete(true);
             Log.Information("This record and all relative element was successfully removed");
@@ -428,6 +444,10 @@ public partial class RecordExpensePage
     {
         var place = History.PlaceFk?.ToISqlT<TPlace>();
         UpdateMapPoint(place);
+
+        ComboBoxSelectorCountry.SelectedItem = place?.Country;
+        ComboBoxSelectorCity.SelectedItem = place?.City;
+        History.PlaceFk = place?.Id;
     }
 
     private void SelectorTile_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -517,6 +537,29 @@ public partial class RecordExpensePage
     private void SelectorCity_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
     {
         var comboBox = (ComboBox)sender;
-        Console.WriteLine(comboBox.SelectedItem);
+        var city = comboBox.SelectedItem as string;
+
+        using var context = new DataBaseContext();
+        var query = context.TPlaces.Where(s => s.IsOpen.Equals(true));
+
+        IQueryable<TPlace> records;
+
+        if (!string.IsNullOrEmpty(city))
+        {
+            records = city.Equals(EmptyStringTreeViewConverterResources.Unknown)
+                ? query.Where(s => s.City == null)
+                : query.Where(s => s.City == city);
+        }
+        else
+        {
+            records = query;
+        }
+
+        ComboBoxSelectorCountry.SelectionChanged -= SelectorCountry_OnSelectionChanged;
+        SelectedCountry = records.First().Country;
+        ComboBoxSelectorCountry.SelectionChanged += SelectorCountry_OnSelectionChanged;
+
+        PlacesCollection.Clear();
+        PlacesCollection.AddRangeAndSort(records, s => s.Name!);
     }
 }

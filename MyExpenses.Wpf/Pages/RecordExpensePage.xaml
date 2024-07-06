@@ -185,14 +185,17 @@
             </Grid.ColumnDefinitions>
 
             <ComboBox Grid.Row="0" Grid.Column="0"
+                      x:Name="ComboBoxSelectorCountry"
                       Style="{StaticResource MaterialDesignFilledComboBox}"
                       materialDesign:TextFieldAssist.HasClearButton="True"
                       materialDesign:HintAssist.Hint="{Binding ComboBoxPlaceHintAssist}"
                       ItemsSource="{Binding CountriesCollection, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                      SelectedItem="{Binding SelectedCountry, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                       SelectionChanged="SelectorCountry_OnSelectionChanged">
             </ComboBox>
 
             <ComboBox Grid.Row="0" Grid.Column="1"
+                      x:Name="ComboBoxSelectorCity"
                       Style="{StaticResource MaterialDesignFilledComboBox}"
                       materialDesign:TextFieldAssist.HasClearButton="True"
                       materialDesign:HintAssist.Hint="{Binding ComboBoxPlaceHintAssist}"
