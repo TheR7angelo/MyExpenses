@@ -11,6 +11,7 @@ using MyExpenses.Wpf.Resources.Resx.Pages.WelcomePage;
 using MyExpenses.Wpf.Utils.FilePicker;
 using MyExpenses.Wpf.Windows;
 using MyExpenses.Wpf.Windows.MsgBox;
+using MyExpenses.Wpf.Windows.SaveLocationWindow;
 using Serilog;
 
 namespace MyExpenses.Wpf.Pages;

@@ -3,7 +3,7 @@ using System.Windows.Interop;
 using MyExpenses.Models.Wpf.Save;
 using MyExpenses.Utils.WindowStyle;
 
-namespace MyExpenses.Wpf.Windows;
+namespace MyExpenses.Wpf.Windows.SaveLocationWindow;
 
 public partial class SaveLocationWindow
 {
