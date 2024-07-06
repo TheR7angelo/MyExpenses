@@ -47,7 +47,7 @@ public partial class RecordExpensePage
     public string SelectedValuePathModePayment { get; } = nameof(TModePayment.Id);
     public string DisplayMemberPathModePayment { get; } = nameof(TModePayment.Name);
     public string SelectedValuePathPlace { get; } = nameof(TPlace.Id);
-    public string DisplayMemberPathPlace { get; } = nameof(TPlace.Name);
+    public string DisplayMemberPathPlaceName { get; } = nameof(TPlace.Name);
 
     public string ComboBoxAccountHintAssist { get; } = RecordExpensePageResources.ComboBoxAccountHintAssist;
     public string TextBoxDescriptionHintAssist { get; } = RecordExpensePageResources.TextBoxDescriptionHintAssist;
@@ -66,7 +66,11 @@ public partial class RecordExpensePage
     public ObservableCollection<TAccount> Accounts { get; }
     public ObservableCollection<TCategoryType> CategoryTypes { get; }
     public ObservableCollection<TModePayment> ModePayments { get; }
-    public ObservableCollection<TPlace> Places { get; }
+
+    public ObservableCollection<string> CountriesCollection { get; }
+
+    public ObservableCollection<string> CitiesCollection { get; }
+    public ObservableCollection<TPlace> PlacesCollection { get; }
 
     private WritableLayer PlaceLayer { get; } = new() { Style = null, IsMapInfoLayer = true, Tag = typeof(TPlace) };
     public List<KnownTileSource> KnownTileSources { get; }
@@ -80,7 +84,14 @@ public partial class RecordExpensePage
         Accounts = [..context.TAccounts.OrderBy(s => s.Name)];
         CategoryTypes = [..context.TCategoryTypes.OrderBy(s => s.Name)];
         ModePayments = [..context.TModePayments.OrderBy(s => s.Name)];
-        Places = [..context.TPlaces.Where(s => (bool)s.IsOpen!).OrderBy(s => s.Name)];
+
+        PlacesCollection = [..context.TPlaces.Where(s => (bool)s.IsOpen!).OrderBy(s => s.Name)];
+
+        var records = PlacesCollection.Select(s => EmptyStringTreeViewConverter.ToUnknown(s.Country)).Order().Distinct();
+        CountriesCollection = new ObservableCollection<string>(records);
+
+        records = PlacesCollection.Select(s => EmptyStringTreeViewConverter.ToUnknown(s.City)).Order().Distinct();
+        CitiesCollection = new ObservableCollection<string>(records);
 
         // TODO add listener color change
         var brush = (SolidColorBrush)FindResource("MaterialDesignPaper");
@@ -252,10 +263,10 @@ public partial class RecordExpensePage
         var result = addEditLocationWindow.ShowDialog();
         if (result is not true) return;
 
-        var oldPlace = Places.FirstOrDefault(s => s.Id == History.PlaceFk);
+        var oldPlace = PlacesCollection.FirstOrDefault(s => s.Id == History.PlaceFk);
         if (addEditLocationWindow.PlaceDeleted)
         {
-            if (oldPlace is not null) Places.Remove(oldPlace);
+            if (oldPlace is not null) PlacesCollection.Remove(oldPlace);
 
             return;
         }
@@ -266,7 +277,7 @@ public partial class RecordExpensePage
         var (success, exception) = editedPlace.AddOrEdit();
         if (success)
         {
-            Places!.AddAndSort(oldPlace, editedPlace, s => s!.Name!);
+            PlacesCollection!.AddAndSort(oldPlace, editedPlace, s => s!.Name!);
             History.PlaceFk = editedPlace.Id;
 
             Log.Information("Place was successfully edited");
@@ -471,4 +482,25 @@ public partial class RecordExpensePage
 
     #endregion
 
+    private void SelectorCountry_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        var comboBox = (ComboBox)sender;
+        var country = comboBox.SelectedItem as string;
+
+        using var context = new DataBaseContext();
+        var query = context.TPlaces.Where(s => s.IsOpen.Equals(true));
+
+        var records = string.IsNullOrEmpty(country)
+            ? query.ToList()
+            : query.Where(s => s.Country != null && s.Country.Equals(country)).ToList();
+
+        PlacesCollection.Clear();
+        PlacesCollection.AddRangeAndSort(records, s => s.Name!);
+    }
+
+    private void SelectorCity_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        var comboBox = (ComboBox)sender;
+        Console.WriteLine(comboBox.SelectedItem);
+    }
 }

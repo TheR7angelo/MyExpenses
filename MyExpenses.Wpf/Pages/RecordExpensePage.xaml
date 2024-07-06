@@ -171,16 +171,47 @@
 
         </Grid>
 
-        <ComboBox Grid.Row="6" Grid.Column="0"
-                  Style="{StaticResource MaterialDesignFilledComboBox}"
-                  materialDesign:TextFieldAssist.HasClearButton="True"
-                  materialDesign:HintAssist.Hint="{Binding ComboBoxPlaceHintAssist}"
-                  ItemsSource="{Binding Places, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                  SelectedValue="{Binding History.PlaceFk, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                  SelectedValuePath="{Binding SelectedValuePathPlace}"
-                  DisplayMemberPath="{Binding DisplayMemberPathPlace}"
-                  SelectionChanged="SelectorPlace_OnSelectionChanged">
-        </ComboBox>
+        <Grid Grid.Row="6" Grid.Column="0"
+              margin:PanelExtensions.MarginForAllChildren="3">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <ComboBox Grid.Row="0" Grid.Column="0"
+                      Style="{StaticResource MaterialDesignFilledComboBox}"
+                      materialDesign:TextFieldAssist.HasClearButton="True"
+                      materialDesign:HintAssist.Hint="{Binding ComboBoxPlaceHintAssist}"
+                      ItemsSource="{Binding CountriesCollection, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                      SelectionChanged="SelectorCountry_OnSelectionChanged">
+            </ComboBox>
+
+            <ComboBox Grid.Row="0" Grid.Column="1"
+                      Style="{StaticResource MaterialDesignFilledComboBox}"
+                      materialDesign:TextFieldAssist.HasClearButton="True"
+                      materialDesign:HintAssist.Hint="{Binding ComboBoxPlaceHintAssist}"
+                      ItemsSource="{Binding CitiesCollection, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                      SelectionChanged="SelectorCity_OnSelectionChanged">
+            </ComboBox>
+
+            <ComboBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
+                      Style="{StaticResource MaterialDesignFilledComboBox}"
+                      materialDesign:TextFieldAssist.HasClearButton="True"
+                      materialDesign:HintAssist.Hint="{Binding ComboBoxPlaceHintAssist}"
+                      ItemsSource="{Binding PlacesCollection, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                      SelectedValue="{Binding History.PlaceFk, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                      SelectedValuePath="{Binding SelectedValuePathPlace}"
+                      DisplayMemberPath="{Binding DisplayMemberPathPlaceName}"
+                      SelectionChanged="SelectorPlace_OnSelectionChanged">
+            </ComboBox>
+
+        </Grid>
 
         <Button Grid.Row="6" Grid.Column="1"
                 HorizontalAlignment="Left"
