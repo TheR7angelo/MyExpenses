@@ -18,6 +18,7 @@ using MyExpenses.Wpf.Utils.Maps;
 using MyExpenses.Wpf.Windows;
 using MyExpenses.Utils.Sql;
 using MyExpenses.Wpf.Converters;
+using MyExpenses.Wpf.Resources.Resx.Converters;
 using MyExpenses.Wpf.Resources.Resx.Pages.RecordExpensePage;
 using MyExpenses.Wpf.Utils;
 using MyExpenses.Wpf.Windows.CategoryTypeManagementWindow;
@@ -491,12 +492,27 @@ public partial class RecordExpensePage
         using var context = new DataBaseContext();
         var query = context.TPlaces.Where(s => s.IsOpen.Equals(true));
 
-        var records = string.IsNullOrEmpty(country)
-            ? query.ToList()
-            : query.Where(s => s.Country != null && s.Country.Equals(country)).ToList();
+        IQueryable<TPlace> records;
+
+        if (!string.IsNullOrEmpty(country))
+        {
+            records = country.Equals(EmptyStringTreeViewConverterResources.Unknown)
+                ? query.Where(s => s.Country == null)
+                : query.Where(s => s.Country == country);
+        }
+        else
+        {
+            records = query;
+        }
+
+        var results = records.ToList();
+        var citiesResults = results.Select(s => EmptyStringTreeViewConverter.ToUnknown(s.City)).Distinct();
+
+        CitiesCollection.Clear();
+        CitiesCollection.AddRangeAndSort(citiesResults, s => s);
 
         PlacesCollection.Clear();
-        PlacesCollection.AddRangeAndSort(records, s => s.Name!);
+        PlacesCollection.AddRangeAndSort(results, s => s.Name!);
     }
 
     private void SelectorCity_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
