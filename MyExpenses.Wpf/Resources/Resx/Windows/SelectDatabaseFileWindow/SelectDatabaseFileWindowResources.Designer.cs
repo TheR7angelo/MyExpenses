@@ -8,6 +8,9 @@
 //------------------------------------------------------------------------------
 
 namespace MyExpenses.Wpf.Resources.Resx.Windows.SelectDatabaseFileWindow {
+    using System;
+    
+    
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
     /// </summary>
@@ -35,7 +38,8 @@ namespace MyExpenses.Wpf.Resources.Resx.Windows.SelectDatabaseFileWindow {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MyExpenses.Wpf.Resources.Resx.Windows.SelectDatabaseFileWindow.SelectDatabaseFileWindowResources", typeof(SelectDatabaseFileWindowResources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MyExpenses.Wpf.Resources.Resx.Windows.SelectDatabaseFileWindow.SelectDatabaseFile" +
+                            "WindowResources", typeof(SelectDatabaseFileWindowResources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -71,6 +75,15 @@ namespace MyExpenses.Wpf.Resources.Resx.Windows.SelectDatabaseFileWindow {
         internal static string ButtonValidContent {
             get {
                 return ResourceManager.GetString("ButtonValidContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select one or more database(s).
+        /// </summary>
+        internal static string SelectDatabaseFileWindowTitle {
+            get {
+                return ResourceManager.GetString("SelectDatabaseFileWindowTitle", resourceCulture);
             }
         }
     }

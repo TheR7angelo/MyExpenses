@@ -16,8 +16,9 @@ public partial class SelectDatabaseFileWindow
 
     public ObservableCollection<ExistingDatabase> ExistingDatabases { get; } = [];
 
-    internal List<ExistingDatabase> ExistingDatabasesSelected { get; } = [];
     public List<ExistingDatabase> ExistingDatabasesSelected { get; } = [];
+
+    public string SelectDatabaseFileWindowTitle { get; } = SelectDatabaseFileWindowResources.SelectDatabaseFileWindowTitle;
 
     public SelectDatabaseFileWindow()
     {

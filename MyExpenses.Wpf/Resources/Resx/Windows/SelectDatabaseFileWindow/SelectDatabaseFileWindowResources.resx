@@ -24,4 +24,7 @@
     <data name="ButtonCancelCotent" xml:space="preserve">
         <value>Cancel</value>
     </data>
+    <data name="SelectDatabaseFileWindowTitle" xml:space="preserve">
+        <value>Select one or more database(s)</value>
+    </data>
 </root>

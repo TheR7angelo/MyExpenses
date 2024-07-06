@@ -17,4 +17,7 @@
     <data name="ButtonValidContent" xml:space="preserve">
         <value>Valid</value>
     </data>
+    <data name="SelectDatabaseFileWindowTitle" xml:space="preserve">
+        <value>Select one or more database(s)</value>
+    </data>
 </root>
