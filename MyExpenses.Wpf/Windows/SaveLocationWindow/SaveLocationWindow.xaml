@@ -8,7 +8,6 @@
                  xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
                  xmlns:margin="clr-namespace:MyExpenses.Wpf.Utils.Margin;assembly=MyExpenses.Wpf.Utils"
                  mc:Ignorable="d"
-                 Title="SaveLocationWindow"
 
                  d:DesignHeight="130"
                  d:DesignWidth="394"
@@ -33,8 +32,6 @@
                  TextElement.Foreground="{DynamicResource MaterialDesignBody}"
 
                  DataContext="{Binding RelativeSource={RelativeSource Self}}">
-
-    <!-- TODO add window Title -->
 
     <Grid margin:PanelExtensions.MarginForAllChildren="7.5">
 

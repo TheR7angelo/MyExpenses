@@ -82,10 +82,8 @@ public partial class WelcomePage
 
     private async void ButtonExportDataBase_OnClick(object sender, RoutedEventArgs e)
     {
-        var saveLocationWindow = new SaveLocationWindow();
-        saveLocationWindow.ShowDialog();
-
-        if (saveLocationWindow.DialogResult is not true) return;
+        var saveLocation = SaveLocationUtils.GetExportSaveLocation();
+        if (saveLocation is null) return;
 
         var selectDatabaseFileWindow = new SelectDatabaseFileWindow();
         selectDatabaseFileWindow.ExistingDatabases.AddRange(ExistingDatabases);
@@ -97,7 +95,7 @@ public partial class WelcomePage
         var waitScreenWindow = new WaitScreenWindow();
         try
         {
-            switch (saveLocationWindow.SaveLocationResult)
+            switch (saveLocation)
             {
                 case SaveLocation.Local:
                     waitScreenWindow.WaitMessage = WelcomePageResources.ButtonExportDataBaseWaitMessageExportToLocal;
@@ -130,15 +128,13 @@ public partial class WelcomePage
 
     private async void ButtonImportDataBase_OnClick(object sender, RoutedEventArgs e)
     {
-        var saveLocationWindow = new SaveLocationWindow();
-        saveLocationWindow.ShowDialog();
-
-        if (saveLocationWindow.DialogResult is not true) return;
+        var saveLocation = SaveLocationUtils.GetImportSaveLocation();
+        if (saveLocation is null) return;
 
         var waitScreenWindow = new WaitScreenWindow();
         try
         {
-            switch (saveLocationWindow.SaveLocationResult)
+            switch (saveLocation)
             {
                 case SaveLocation.Local:
                     waitScreenWindow.WaitMessage = WelcomePageResources.ButtonImportDataBaseWaitMessageImportFromLocal;

@@ -124,6 +124,10 @@
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>WaitScreenWindowResources.Designer.cs</LastGenOutput>
       </EmbeddedResource>
+      <EmbeddedResource Update="Resources\Resx\Windows\SaveLocationWindow\SaveLocationWindowResources.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>SaveLocationWindowResources.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
     </ItemGroup>
 
     <ItemGroup>
@@ -253,6 +257,11 @@
         <DesignTime>True</DesignTime>
         <AutoGen>True</AutoGen>
         <DependentUpon>WaitScreenWindowResources.resx</DependentUpon>
+      </Compile>
+      <Compile Update="Resources\Resx\Windows\SaveLocationWindow\SaveLocationWindowResources.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>SaveLocationWindowResources.resx</DependentUpon>
       </Compile>
     </ItemGroup>
 
