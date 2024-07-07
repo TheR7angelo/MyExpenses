@@ -2,6 +2,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Xml.Linq;
 using MyExpenses.Sql.Context;
+using MyExpenses.WebApi.Maps;
 using NetTopologySuite.Geometries;
 
 namespace MyExpenses.WebApi.Test.Maps;
@@ -13,16 +14,7 @@ public class StreetViewTest
     [Fact]
     private void GoToGoogleEarthWeb()
     {
-        const int altitudeLevel = 200;
-
-        var googleEarthUrl =
-            $"https://earth.google.com/web/@{Point.Y.ToString(CultureInfo.InvariantCulture)},{Point.X.ToString(CultureInfo.InvariantCulture)},{altitudeLevel}a,0d,30y,0h,0t,0r";
-
-        Process.Start(new ProcessStartInfo
-        {
-            FileName = googleEarthUrl,
-            UseShellExecute = true
-        });
+        Point.GoToGoogleEarthWeb();
     }
 
     [Fact]
