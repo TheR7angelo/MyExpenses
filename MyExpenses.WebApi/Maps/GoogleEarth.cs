@@ -8,10 +8,8 @@ namespace MyExpenses.WebApi.Maps;
 
 public static class GoogleEarth
 {
-    public static string ToKmlFile(this Point point, string fileSavePath, string name = "Point")
+    public static void ToKmlFile(this Point point, string fileSavePath, string name = "Point")
     {
-        fileSavePath = Path.ChangeExtension(fileSavePath, ".kml");
-
         var (yInvariant, xInvariant) = point.ToInvariantCoordinate();
 
         var ns = XNamespace.Get("http://www.opengis.net/kml/2.2");
@@ -25,8 +23,6 @@ public static class GoogleEarth
                             $"{xInvariant}, {yInvariant},0")))));
 
         kml.Save(fileSavePath);
-
-        return fileSavePath;
     }
 
     public static void GoToGoogleEarthWeb(this TPlace place, int altitudeLevel = 200)
