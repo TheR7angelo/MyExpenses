@@ -23,6 +23,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyExpenses.SvgToXaml", "MyE
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyExpenses.Core", "MyExpenses.Core\MyExpenses.Core.csproj", "{F2915007-9744-4E62-9CF5-D92358B69CDD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyExpenses.IO", "MyExpenses.IO\MyExpenses.IO.csproj", "{E371D400-96EC-4EC7-89E3-D84A9308D9C1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyExpenses.IO.Test", "Tests\MyExpenses.IO.Test\MyExpenses.IO.Test.csproj", "{D3317DD0-DD56-4699-A946-66540C989AD0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -77,5 +81,13 @@ Global
 		{F2915007-9744-4E62-9CF5-D92358B69CDD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F2915007-9744-4E62-9CF5-D92358B69CDD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F2915007-9744-4E62-9CF5-D92358B69CDD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E371D400-96EC-4EC7-89E3-D84A9308D9C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E371D400-96EC-4EC7-89E3-D84A9308D9C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E371D400-96EC-4EC7-89E3-D84A9308D9C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E371D400-96EC-4EC7-89E3-D84A9308D9C1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D3317DD0-DD56-4699-A946-66540C989AD0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D3317DD0-DD56-4699-A946-66540C989AD0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D3317DD0-DD56-4699-A946-66540C989AD0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D3317DD0-DD56-4699-A946-66540C989AD0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
