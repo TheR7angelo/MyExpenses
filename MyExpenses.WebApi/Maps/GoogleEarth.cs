@@ -9,6 +9,8 @@ namespace MyExpenses.WebApi.Maps;
 
 public static class GoogleEarth
 {
+    private static XNamespace KmlNamespace => XNamespace.Get("http://www.opengis.net/kml/2.2");
+
     public static void ToKmlFile(this Point point, string fileSavePath, string name = "Point")
     {
         var extension = Path.GetExtension(fileSavePath).ToLower();
@@ -21,14 +23,13 @@ public static class GoogleEarth
 
         var (yInvariant, xInvariant) = point.ToInvariantCoordinate();
 
-        var ns = XNamespace.Get("http://www.opengis.net/kml/2.2");
         var kml = new XDocument(
             new XDeclaration("1.0", "UTF-8", string.Empty),
-            new XElement(ns + "kml",
-                new XElement(ns + "Placemark",
-                    new XElement(ns + "name", name),
-                    new XElement(ns + "Point",
-                        new XElement(ns + "coordinates",
+            new XElement(KmlNamespace + "kml",
+                new XElement(KmlNamespace + "Placemark",
+                    new XElement(KmlNamespace + "name", name),
+                    new XElement(KmlNamespace + "Point",
+                        new XElement(KmlNamespace + "coordinates",
                             $"{xInvariant}, {yInvariant},0")))));
 
         SaveToKmlKmzFile(fileSavePath, kml, extension);
