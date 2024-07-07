@@ -150,6 +150,8 @@ public static class KmlWriter
 
         if (extension == ".kmz")
         {
+            if (File.Exists(fileSavePath)) File.Delete(fileSavePath);
+
             using var zip = ZipFile.Open(fileSavePath, ZipArchiveMode.Create);
             zip.CreateEntryFromFile(tempFilePath, Path.GetFileName(tempFilePath));
 
