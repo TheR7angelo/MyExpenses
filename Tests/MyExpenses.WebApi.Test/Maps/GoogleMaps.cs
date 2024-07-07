@@ -27,7 +27,7 @@ public class StreetViewTest
     }
 
     [Fact]
-    private void GoToKmlMultiPoint()
+    private void GoToKmlMultiPlace()
     {
         using var context = new DataBaseContext();
         var places = context.TPlaces.Where(s => s.Latitude != null && s.Latitude != 0 && s.Longitude != null && s.Longitude != 0).ToList();
