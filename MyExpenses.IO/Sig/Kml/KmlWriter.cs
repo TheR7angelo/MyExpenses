@@ -1,12 +1,47 @@
 using System.Globalization;
 using System.IO.Compression;
 using System.Xml.Linq;
+using MyExpenses.Models.IO.Sig.Interfaces;
 using NetTopologySuite.Geometries;
 
 namespace MyExpenses.IO.Sig.Kml;
 
 public static class KmlWriter
 {
+    public static void ToKmlFile(this ISig sig, string fileSavePath, string name = "Point")
+    {
+        var extension = Path.GetExtension(fileSavePath).ToLower();
+
+        var extensions = new List<string> { ".kml", ".kmz" };
+        if (!extensions.Contains(extension))
+        {
+            throw new ArgumentException($"The file extension must be .kml or .kmz. The provided extension was {extension}.");
+        }
+
+        var fields = sig.GetFields();
+        var filenameWithoutExtension = Path.GetFileNameWithoutExtension(fileSavePath);
+        var schemaElement = fields.CreateKmlSchema(filenameWithoutExtension);
+        var kmlAttribute = sig.CreateKmlAttribute(filenameWithoutExtension);
+
+        var (yInvariant, xInvariant) = ((Point)sig.Geometry!).ToInvariantCoordinate();
+
+        var kml = new XDocument(
+            new XDeclaration("1.0", "UTF-8", string.Empty),
+            new XElement(KmlUtils.KmlNamespace + "kml",
+
+                new XElement(KmlUtils.KmlNamespace + "Document",
+                    new XAttribute("id", "root_doc"),
+                    schemaElement,
+                new XElement(KmlUtils.KmlNamespace + "Placemark",
+                    kmlAttribute,
+                    new XElement(KmlUtils.KmlNamespace + "name", name),
+                    new XElement(KmlUtils.KmlNamespace + "Point",
+                        new XElement(KmlUtils.KmlNamespace + "coordinates",
+                            $"{yInvariant}, {xInvariant}"))))));
+
+        SaveToKmlKmzFile(fileSavePath, kml, extension);
+    }
+
     public static void ToKmlFile(this IEnumerable<Point> points, string fileSavePath, string name = "Point")
     {
         var extension = Path.GetExtension(fileSavePath).ToLower();

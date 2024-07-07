@@ -23,7 +23,8 @@ public class KmlWriterTest
     [Fact]
     private void GoToKmlMultiPoint()
     {
-        using var context = new DataBaseContext();
+        const string temp = @"C:\Users\Rapha\Documents\Programmation\MyExpenses\MyExpenses.Wpf\bin\Debug\net8.0-windows\Databases\Model - Using.sqlite";
+        using var context = new DataBaseContext(temp);
         var points = context.TPlaces
             .Where(s => s.Latitude != null && s.Latitude != 0 && s.Longitude != null && s.Longitude != 0)
             .Select(s => s.Geometry).ToList();
@@ -44,29 +45,11 @@ public class KmlWriterTest
         var mapping = Models.AutoMapper.Mapping.Mapper;
         var placeSig = mapping.Map<PlaceSig>(place);
 
-        const string filename = "location.kml";
-        var filenameWithoutExtension = Path.GetFileNameWithoutExtension(filename);
-        var fields = placeSig.GetFields();
-        var schemaElement = fields.CreateKmlSchema(filenameWithoutExtension);
-        var kmlAttribute = placeSig.CreateKmlAttribute(filenameWithoutExtension);
+        const string filename = "location place.kmz";
 
-        var (yInvariant, xInvariant) = ToInvariantCoordinate(place.Geometry);
+        placeSig.ToKmlFile(filename);
 
-        var kml = new XDocument(
-            new XDeclaration("1.0", "UTF-8", string.Empty),
-            new XElement(KmlUtils.KmlNamespace + "kml",
-
-                new XElement(KmlUtils.KmlNamespace + "Document",
-                    new XAttribute("id", "root_doc"),
-                    schemaElement,
-                new XElement(KmlUtils.KmlNamespace + "Placemark",
-                    kmlAttribute,
-                    new XElement(KmlUtils.KmlNamespace + "name", place.Name),
-                    new XElement(KmlUtils.KmlNamespace + "Point",
-                        new XElement(KmlUtils.KmlNamespace + "coordinates",
-                            $"{yInvariant}, {xInvariant}"))))));
-
-        kml.Save(filename);
+        Assert.True(File.Exists(filename));
     }
 
     private (string YInvariant, string XInvariant) ToInvariantCoordinate(Point point)
