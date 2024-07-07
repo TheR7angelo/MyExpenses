@@ -10,6 +10,14 @@ public static class GoogleEarth
 {
     public static void ToKmlFile(this Point point, string fileSavePath, string name = "Point")
     {
+        var extension = Path.GetExtension(fileSavePath).ToLower();
+
+        var extensions = new List<string> { ".kml", ".kmz" };
+        if (!extensions.Contains(extension))
+        {
+            throw new InvalidDataException($"The file extension must be .kml or .kmz. The provided extension was {extension}.");
+        }
+
         var (yInvariant, xInvariant) = point.ToInvariantCoordinate();
 
         var ns = XNamespace.Get("http://www.opengis.net/kml/2.2");
