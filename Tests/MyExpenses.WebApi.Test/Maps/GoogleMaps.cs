@@ -1,6 +1,5 @@
 using System.Diagnostics;
 using System.Globalization;
-using System.Text;
 using System.Xml.Linq;
 using MyExpenses.Sql.Context;
 using NetTopologySuite.Geometries;
