@@ -1,5 +1,3 @@
-using System.Globalization;
-using System.Xml.Linq;
 using MyExpenses.IO.Sig.Kml;
 using MyExpenses.Models.IO.Sig.Keyhole_Markup_Language;
 using MyExpenses.Sql.Context;
@@ -23,8 +21,7 @@ public class KmlWriterTest
     [Fact]
     private void GoToKmlMultiPoint()
     {
-        const string temp = @"C:\Users\Rapha\Documents\Programmation\MyExpenses\MyExpenses.Wpf\bin\Debug\net8.0-windows\Databases\Model - Using.sqlite";
-        using var context = new DataBaseContext(temp);
+        using var context = new DataBaseContext();
         var points = context.TPlaces
             .Where(s => s.Latitude != null && s.Latitude != 0 && s.Longitude != null && s.Longitude != 0)
             .Select(s => s.Geometry).ToList();
@@ -52,11 +49,20 @@ public class KmlWriterTest
         Assert.True(File.Exists(filename));
     }
 
-    private (string YInvariant, string XInvariant) ToInvariantCoordinate(Point point)
+    [Fact]
+    private void GoToKmlPlaces()
     {
-        var yInvariant = point.Y.ToString(CultureInfo.InvariantCulture);
-        var xInvariant = point.X.ToString(CultureInfo.InvariantCulture);
+        using var context = new DataBaseContext();
+        var places = context.TPlaces.Where(s =>
+            s.Latitude != null && s.Latitude != 0 && s.Longitude != null && s.Longitude != 0).ToList();
 
-        return (yInvariant, xInvariant);
+        var mapping = Models.AutoMapper.Mapping.Mapper;
+        var placeSigs = places.Select(s => mapping.Map<PlaceSig>(s));
+
+        const string filename = "location places.kml";
+
+        placeSigs.ToKmlFile(filename);
+
+        Assert.True(File.Exists(filename));
     }
 }
