@@ -34,28 +34,10 @@ public class StreetViewTest
             .Where(s => s.Latitude != null && s.Latitude != 0 && s.Longitude != null && s.Longitude != 0)
             .Select(s => s.Geometry).ToList();
 
-        XNamespace ns = "http://www.opengis.net/kml/2.2";
+        const string fileSavePath = "locations.kml";
+        points.ToKmlFile(fileSavePath);
 
-        var kml = new XDocument(
-            new XDeclaration("1.0", "UTF-8", string.Empty),
-            new XElement(ns + "kml",
-                new XElement(ns + "Document")
-            )
-        );
-
-        foreach (var point in points)
-        {
-            kml.Root!.Element(ns+"Document")!.Add(
-                new XElement(ns + "Placemark",
-                    new XElement(ns + "name", "Location"),
-                    new XElement(ns + "Point",
-                        new XElement(ns + "coordinates", $"{point.Y.ToString(CultureInfo.InvariantCulture)},{point.X.ToString(CultureInfo.InvariantCulture)},0")
-                    )
-                )
-            );
-        }
-
-        kml.Save("location.kml");
+        Assert.True(File.Exists(fileSavePath));
     }
 
     [Fact]
