@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using System.Globalization;
+using System.IO.Compression;
 using System.Xml.Linq;
 using MyExpenses.Models.Sql.Tables;
 using NetTopologySuite.Geometries;
@@ -15,7 +16,7 @@ public static class GoogleEarth
         var extensions = new List<string> { ".kml", ".kmz" };
         if (!extensions.Contains(extension))
         {
-            throw new InvalidDataException($"The file extension must be .kml or .kmz. The provided extension was {extension}.");
+            throw new ArgumentException($"The file extension must be .kml or .kmz. The provided extension was {extension}.");
         }
 
         var (yInvariant, xInvariant) = point.ToInvariantCoordinate();
@@ -30,7 +31,27 @@ public static class GoogleEarth
                         new XElement(ns + "coordinates",
                             $"{xInvariant}, {yInvariant},0")))));
 
-        kml.Save(fileSavePath);
+        SaveToKmlKmzFile(fileSavePath, kml, extension);
+    }
+
+    private static void SaveToKmlKmzFile(string fileSavePath, XDocument kml, string extension)
+    {
+        var tempFilePath = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
+
+        tempFilePath = Path.ChangeExtension(tempFilePath, ".kml");
+        kml.Save(tempFilePath);
+
+        if (extension == ".kmz")
+        {
+            using var zip = ZipFile.Open(fileSavePath, ZipArchiveMode.Create);
+            zip.CreateEntryFromFile(tempFilePath, Path.GetFileName(tempFilePath));
+
+            File.Delete(tempFilePath);
+        }
+        else
+        {
+            File.Move(tempFilePath, fileSavePath, true);
+        }
     }
 
     public static void GoToGoogleEarthWeb(this TPlace place, int altitudeLevel = 200)
