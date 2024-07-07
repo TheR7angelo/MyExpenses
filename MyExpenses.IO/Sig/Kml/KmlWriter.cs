@@ -7,8 +7,6 @@ namespace MyExpenses.IO.Sig.Kml;
 
 public static class KmlWriter
 {
-    private static XNamespace KmlNamespace => XNamespace.Get("http://www.opengis.net/kml/2.2");
-
     public static void ToKmlFile(this IEnumerable<Point> points, string fileSavePath, string name = "Point")
     {
         var extension = Path.GetExtension(fileSavePath).ToLower();
@@ -21,8 +19,8 @@ public static class KmlWriter
 
         var kml = new XDocument(
             new XDeclaration("1.0", "UTF-8", string.Empty),
-            new XElement(KmlNamespace + "kml",
-                new XElement(KmlNamespace + "Document")
+            new XElement(KmlUtils.KmlNamespace + "kml",
+                new XElement(KmlUtils.KmlNamespace + "Document")
             )
         );
 
@@ -31,12 +29,12 @@ public static class KmlWriter
             var indexedName = $"{name} {obj.i + 1}";
             var (yInvariant, xInvariant) = obj.point.ToInvariantCoordinate();
 
-            kml.Root!.Element(KmlNamespace +"Document")!.Add(
-                new XElement(KmlNamespace + "Placemark",
-                    new XElement(KmlNamespace + "name", indexedName),
-                    new XElement(KmlNamespace + "Point",
-                        new XElement(KmlNamespace + "coordinates",
-                            $"{yInvariant}, {xInvariant}, 0")
+            kml.Root!.Element(KmlUtils.KmlNamespace +"Document")!.Add(
+                new XElement(KmlUtils.KmlNamespace + "Placemark",
+                    new XElement(KmlUtils.KmlNamespace + "name", indexedName),
+                    new XElement(KmlUtils.KmlNamespace + "Point",
+                        new XElement(KmlUtils.KmlNamespace + "coordinates",
+                            $"{yInvariant}, {xInvariant}")
                     )
                 )
             );
@@ -59,12 +57,12 @@ public static class KmlWriter
 
         var kml = new XDocument(
             new XDeclaration("1.0", "UTF-8", string.Empty),
-            new XElement(KmlNamespace + "kml",
-                new XElement(KmlNamespace + "Placemark",
-                    new XElement(KmlNamespace + "name", name),
-                    new XElement(KmlNamespace + "Point",
-                        new XElement(KmlNamespace + "coordinates",
-                            $"{xInvariant}, {yInvariant}, 0")))));
+            new XElement(KmlUtils.KmlNamespace + "kml",
+                new XElement(KmlUtils.KmlNamespace + "Placemark",
+                    new XElement(KmlUtils.KmlNamespace + "name", name),
+                    new XElement(KmlUtils.KmlNamespace + "Point",
+                        new XElement(KmlUtils.KmlNamespace + "coordinates",
+                            $"{xInvariant}, {yInvariant}")))));
 
         SaveToKmlKmzFile(fileSavePath, kml, extension);
     }
