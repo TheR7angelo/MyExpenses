@@ -1,3 +1,5 @@
+using System.Globalization;
+using System.Xml.Linq;
 using MyExpenses.IO.Sig.Kml;
 using MyExpenses.Models.IO.Sig.Keyhole_Markup_Language;
 using MyExpenses.Sql.Context;
@@ -42,41 +44,36 @@ public class KmlWriterTest
         var mapping = Models.AutoMapper.Mapping.Mapper;
         var placeSig = mapping.Map<PlaceSig>(place);
 
-        var properties = placeSig.GetType().GetProperties();
+        const string filename = "location.kml";
+        var filenameWithoutExtension = Path.GetFileNameWithoutExtension(filename);
+        var fields = placeSig.GetFields();
+        var schemaElement = fields.CreateKmlSchema(filenameWithoutExtension);
+        var kmlAttribute = placeSig.CreateKmlAttribute(filenameWithoutExtension);
 
-        // XNamespace ns = "http://www.opengis.net/kml/2.2";
-        //
-        // var kml = new XDocument(
-        //     new XDeclaration("1.0", "UTF-8", string.Empty),
-        //     new XElement(ns + "kml",
-        //         new XElement(ns + "Document", new XAttribute("id", "root_doc"),
-        //             new XElement(ns + "Schema", new XAttribute("name", "location_data"),
-        //                 new XAttribute("id", "location_data"),
-        //                 new XElement(ns + "SimpleField", new XAttribute("name", "attribute1"),
-        //                     new XAttribute("type", "string")),
-        //                 new XElement(ns + "SimpleField", new XAttribute("name", "attribute2"),
-        //                     new XAttribute("type", "int")),
-        //                 new XElement(ns + "SimpleField", new XAttribute("name", "attribute3"),
-        //                     new XAttribute("type", "string"))
-        //             ),
-        //             new XElement(ns + "Placemark",
-        //                 new XElement(ns + "name", place.Name),
-        //                 new XElement(ns + "ExtendedData",
-        //                     new XElement(ns + "SchemaData", new XAttribute("schemaUrl", "#location_data"),
-        //                         new XElement(ns + "SimpleData", new XAttribute("name", "attribute1"), "value1"),
-        //                         new XElement(ns + "SimpleData", new XAttribute("name", "attribute2"), "123"),
-        //                         new XElement(ns + "SimpleData", new XAttribute("name", "attribute3"), "value3")
-        //                     )
-        //                 ),
-        //                 new XElement(ns + "Point",
-        //                     new XElement(ns + "coordinates",
-        //                         $"{place.Longitude!.Value.ToString(CultureInfo.InvariantCulture)},{place.Latitude!.Value.ToString(CultureInfo.InvariantCulture)},0")
-        //                 )
-        //             )
-        //         )
-        //     )
-        // );
-        //
-        // kml.Save("location.kml");
+        var (yInvariant, xInvariant) = ToInvariantCoordinate(place.Geometry);
+
+        var kml = new XDocument(
+            new XDeclaration("1.0", "UTF-8", string.Empty),
+            new XElement(KmlUtils.KmlNamespace + "kml",
+
+                new XElement(KmlUtils.KmlNamespace + "Document",
+                    new XAttribute("id", "root_doc"),
+                    schemaElement,
+                new XElement(KmlUtils.KmlNamespace + "Placemark",
+                    kmlAttribute,
+                    new XElement(KmlUtils.KmlNamespace + "name", place.Name),
+                    new XElement(KmlUtils.KmlNamespace + "Point",
+                        new XElement(KmlUtils.KmlNamespace + "coordinates",
+                            $"{yInvariant}, {xInvariant}"))))));
+
+        kml.Save(filename);
+    }
+
+    private (string YInvariant, string XInvariant) ToInvariantCoordinate(Point point)
+    {
+        var yInvariant = point.Y.ToString(CultureInfo.InvariantCulture);
+        var xInvariant = point.X.ToString(CultureInfo.InvariantCulture);
+
+        return (yInvariant, xInvariant);
     }
 }
