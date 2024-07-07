@@ -5,9 +5,9 @@ using NetTopologySuite.Geometries;
 
 namespace MyExpenses.IO.Sig.Kml;
 
-public static class Writer
+public static class KmlWriter
 {
-        private static XNamespace KmlNamespace => XNamespace.Get("http://www.opengis.net/kml/2.2");
+    private static XNamespace KmlNamespace => XNamespace.Get("http://www.opengis.net/kml/2.2");
 
     public static void ToKmlFile(this IEnumerable<Point> points, string fileSavePath, string name = "Point")
     {

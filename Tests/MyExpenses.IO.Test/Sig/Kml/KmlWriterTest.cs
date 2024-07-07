@@ -5,7 +5,7 @@ using NetTopologySuite.Geometries;
 
 namespace MyExpenses.IO.Test.Sig.Kml;
 
-public class WriterTest
+public class KmlWriterTest
 {
     private Point Point { get; } = new(-0.5754690669950785, 44.837624634089);
 
