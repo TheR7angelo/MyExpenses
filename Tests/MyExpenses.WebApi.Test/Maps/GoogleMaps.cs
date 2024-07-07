@@ -1,6 +1,7 @@
 using System.Diagnostics;
 using System.Globalization;
 using System.Xml.Linq;
+using MyExpenses.Models.IO.Sig.Keyhole_Markup_Language;
 using MyExpenses.Sql.Context;
 using MyExpenses.WebApi.Maps;
 using NetTopologySuite.Geometries;
@@ -46,6 +47,9 @@ public class StreetViewTest
         using var context = new DataBaseContext();
         var place = context.TPlaces.First(s =>
             s.Latitude != null && s.Latitude != 0 && s.Longitude != null && s.Longitude != 0);
+
+        var mapping = Models.AutoMapper.Mapping.Mapper;
+        var placeSig = mapping.Map<PlaceSig>(place);
 
         XNamespace ns = "http://www.opengis.net/kml/2.2";
 
