@@ -20,17 +20,10 @@ public class StreetViewTest
     [Fact]
     private void GoToKml()
     {
-        var ns = XNamespace.Get("http://www.opengis.net/kml/2.2");
-        var kml = new XDocument(
-            new XDeclaration("1.0", "UTF-8", string.Empty),
-            new XElement(ns + "kml",
-                new XElement(ns + "Placemark",
-                    new XElement(ns + "name", "Location"),
-                    new XElement(ns + "Point",
-                        new XElement(ns + "coordinates",
-                            $"{Point.X.ToString(CultureInfo.InvariantCulture)},{Point.Y.ToString(CultureInfo.InvariantCulture)},0")))));
+        const string fileSavePath = "location.kml";
+        Point.ToKmlFile(fileSavePath);
 
-        kml.Save("location.kml");
+        Assert.True(File.Exists(fileSavePath));
     }
 
     [Fact]
