@@ -1,11 +1,15 @@
 using System.Diagnostics;
 using System.Globalization;
+using MyExpenses.Models.Sql.Tables;
 using NetTopologySuite.Geometries;
 
 namespace MyExpenses.WebApi.Maps;
 
 public static class GoogleEarth
 {
+    public static void GoToGoogleEarthWeb(this TPlace place, int altitudeLevel = 200)
+        => place.Geometry.GoToGoogleEarthWeb(altitudeLevel);
+
     public static void GoToGoogleEarthWeb(this Point point, int altitudeLevel = 200)
     {
         var yInvariant = point.Y.ToString(CultureInfo.InvariantCulture);
