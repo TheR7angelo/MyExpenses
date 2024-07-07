@@ -66,7 +66,7 @@ public static class GoogleEarth
                     new XElement(KmlNamespace + "name", name),
                     new XElement(KmlNamespace + "Point",
                         new XElement(KmlNamespace + "coordinates",
-                            $"{xInvariant}, {yInvariant},0")))));
+                            $"{xInvariant}, {yInvariant}, 0")))));
 
         SaveToKmlKmzFile(fileSavePath, kml, extension);
     }
