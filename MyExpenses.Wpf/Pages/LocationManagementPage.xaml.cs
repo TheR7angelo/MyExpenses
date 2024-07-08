@@ -17,6 +17,7 @@ using MyExpenses.Sql.Context;
 using MyExpenses.Utils;
 using MyExpenses.Utils.Collection;
 using MyExpenses.Utils.Maps;
+using MyExpenses.WebApi.Maps;
 using MyExpenses.Wpf.Resources.Resx.Pages.LocationManagementPage;
 using MyExpenses.Wpf.Utils.Maps;
 using MyExpenses.Wpf.Windows.LocationManagementWindows;
@@ -223,6 +224,21 @@ public partial class LocationManagementPage
 
         var pointFeature = place.ToFeature().Point;
         SetZoom(pointFeature);
+    }
+
+    private void MenuItemToGoogleEarthWeb_OnClick(object sender, RoutedEventArgs e)
+    {
+        ClickPoint.ToGoogleEarthWeb();
+    }
+
+    private void MenuItemToGoogleMaps_OnClick(object sender, RoutedEventArgs e)
+    {
+        ClickPoint.ToGoogleMaps();
+    }
+
+    private void MenuItemToGoogleStreetView_OnClick(object sender, RoutedEventArgs e)
+    {
+        ClickPoint.ToGoogleStreetView();
     }
 
     #endregion

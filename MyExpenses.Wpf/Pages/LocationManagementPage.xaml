@@ -119,6 +119,26 @@
                               Click="MenuItemDeleteFeature_OnClick">
                     </MenuItem>
 
+                    <!-- TODO work -->
+                    <MenuItem Header="Maps">
+
+                        <!-- TODO work -->
+                        <MenuItem Header="Go to Google Earth web"
+                                  Click="MenuItemToGoogleEarthWeb_OnClick">
+                        </MenuItem>
+
+                        <!-- TODO work -->
+                        <MenuItem Header="Go to Google Maps"
+                                  Click="MenuItemToGoogleMaps_OnClick">
+                        </MenuItem>
+
+                        <!-- TODO work -->
+                        <MenuItem Header="Go to Google StreetView"
+                                  Click="MenuItemToGoogleStreetView_OnClick">
+                        </MenuItem>
+
+                    </MenuItem>
+
                 </ContextMenu>
             </wpf:MapControl.ContextMenu>
         </wpf:MapControl>
