@@ -1,6 +1,6 @@
 using System.Diagnostics;
-using System.Globalization;
 using MyExpenses.Models.Sql.Tables;
+using MyExpenses.Utils.Maps;
 using NetTopologySuite.Geometries;
 
 namespace MyExpenses.WebApi.Maps;
@@ -37,13 +37,5 @@ public static class GoogleMaps
             FileName = url,
             UseShellExecute = true
         });
-    }
-
-    private static (string YInvariant, string XInvariant) ToInvariantCoordinate(this Point point)
-    {
-        var yInvariant = point.Y.ToString(CultureInfo.InvariantCulture);
-        var xInvariant = point.X.ToString(CultureInfo.InvariantCulture);
-
-        return (yInvariant, xInvariant);
     }
 }

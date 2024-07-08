@@ -1,7 +1,3 @@
-using System.Diagnostics;
-using System.Globalization;
-using System.Xml.Linq;
-using MyExpenses.Sql.Context;
 using MyExpenses.WebApi.Maps;
 using NetTopologySuite.Geometries;
 

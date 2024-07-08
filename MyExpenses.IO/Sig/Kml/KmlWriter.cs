@@ -1,7 +1,7 @@
-using System.Globalization;
 using System.IO.Compression;
 using System.Xml.Linq;
 using MyExpenses.Models.IO.Sig.Interfaces;
+using MyExpenses.Utils.Maps;
 using NetTopologySuite.Geometries;
 
 namespace MyExpenses.IO.Sig.Kml;
@@ -161,13 +161,5 @@ public static class KmlWriter
         {
             File.Move(tempFilePath, fileSavePath, true);
         }
-    }
-
-    private static (string YInvariant, string XInvariant) ToInvariantCoordinate(this Point point)
-    {
-        var yInvariant = point.Y.ToString(CultureInfo.InvariantCulture);
-        var xInvariant = point.X.ToString(CultureInfo.InvariantCulture);
-
-        return (yInvariant, xInvariant);
     }
 }
