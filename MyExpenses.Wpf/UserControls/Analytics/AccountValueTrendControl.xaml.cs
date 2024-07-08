@@ -92,7 +92,9 @@ public partial class AccountValueTrendControl
         foreach (var groupVAccountMonthlyCumulativeSums in groupsVAccountMonthlyCumulativeSums)
         {
             var name = groupVAccountMonthlyCumulativeSums.Key;
-            var values = groupVAccountMonthlyCumulativeSums.Select(s => (double)s.CumulativeSum!);
+            var values = groupVAccountMonthlyCumulativeSums
+                .Select(s => (double)s.CumulativeSum!)
+                .ToList();
 
             var lineSeries = new LineSeries<double>
             {
@@ -101,19 +103,52 @@ public partial class AccountValueTrendControl
                 Fill = null
             };
 
+            var xData = Enumerable.Range(1, values.Count).Select(i => (double)i).ToArray();
+            CalculateLinearTrend(xData, values.ToArray(), out var a, out var b);
+            var trendValues = xData.Select(x => Math.Round(a * x + b, 2)).ToArray();
+            var trendSeries = new LineSeries<double>
+            {
+                Name = $"{name} Trend",
+                Values = trendValues,
+                Fill = null,
+                GeometrySize = 0
+            };
+
             series.Add(lineSeries);
+            series.Add(trendSeries);
 
             var checkBox = new CheckBox
             {
                 Content = name,
-                IsChecked = true,
+                IsChecked = lineSeries.IsVisible,
                 Margin = new Thickness(5)
             };
-            checkBox.Click += (_, _) => { lineSeries.IsVisible = !lineSeries.IsVisible; };
+            checkBox.Click += (_, _) => {
+            {
+                lineSeries.IsVisible = !lineSeries.IsVisible;
+                trendSeries.IsVisible = !trendSeries.IsVisible;
+            } };
 
             CheckBoxes.Add(checkBox);
         }
 
         Series = series.ToArray();
+    }
+
+    private static void CalculateLinearTrend(double[] xData, double[] yData, out double a, out double b)
+    {
+        var n = xData.Length;
+        double sumX = 0, sumY = 0, sumXy = 0, sumXx = 0;
+
+        for (var i = 0; i < n; i++)
+        {
+            sumX += xData[i];
+            sumY += yData[i];
+            sumXy += xData[i] * yData[i];
+            sumXx += xData[i] * xData[i];
+        }
+
+        a = (n * sumXy - sumX * sumY) / (n * sumXx - sumX * sumX); // slope
+        b = (sumY / n) - (a * sumX / n); // intercept
     }
 }
