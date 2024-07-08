@@ -1,4 +1,6 @@
 using System.Globalization;
+using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media;
 using LiveChartsCore;
 using LiveChartsCore.Kernel.Sketches;
@@ -18,6 +20,8 @@ public partial class AccountValueTrendControl
 
     public SolidColorPaint TextPaint { get; }
 
+    private List<Button> Buttons { get; set; } = [];
+
     public AccountValueTrendControl()
     {
         // TODO add listener color change
@@ -28,7 +32,12 @@ public partial class AccountValueTrendControl
         SetChart();
 
         InitializeComponent();
+
+        SetButtonPanel();
     }
+
+    private void SetButtonPanel()
+        => Buttons.ForEach(s => ButtonPanel.Children.Add(s));
 
     private void SetChart()
     {
@@ -93,6 +102,15 @@ public partial class AccountValueTrendControl
             };
 
             series.Add(lineSeries);
+
+            var button = new Button
+            {
+                Content = name,
+                Margin = new Thickness(5)
+            };
+            button.Click += (_, _) => { lineSeries.IsVisible = !lineSeries.IsVisible; };
+
+            Buttons.Add(button);
         }
 
         Series = series.ToArray();

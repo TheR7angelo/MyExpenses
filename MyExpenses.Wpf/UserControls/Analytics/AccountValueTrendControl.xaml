@@ -10,7 +10,14 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
 
-        <wpf:CartesianChart
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" x:Name="ButtonPanel" Orientation="Horizontal" />
+
+        <wpf:CartesianChart Grid.Row="1"
             Series="{Binding Series, RelativeSource={RelativeSource AncestorType={x:Type local:AccountValueTrendControl}}}"
             XAxes="{Binding XAxis, RelativeSource={RelativeSource AncestorType={x:Type local:AccountValueTrendControl}}}"
             YAxes="{Binding YAxis, RelativeSource={RelativeSource AncestorType={x:Type local:AccountValueTrendControl}}}"
