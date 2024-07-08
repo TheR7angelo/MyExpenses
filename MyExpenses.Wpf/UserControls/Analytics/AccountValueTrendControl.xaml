@@ -12,12 +12,14 @@
 
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
         <StackPanel Grid.Row="0" x:Name="CheckboxPanel" Orientation="Horizontal" HorizontalAlignment="Center" />
+        <StackPanel Grid.Row="1" x:Name="CheckboxTrendPanel" Orientation="Horizontal" HorizontalAlignment="Center" />
 
-        <wpf:CartesianChart Grid.Row="1"
+        <wpf:CartesianChart Grid.Row="2"
             Series="{Binding Series, RelativeSource={RelativeSource AncestorType={x:Type local:AccountValueTrendControl}}}"
             XAxes="{Binding XAxis, RelativeSource={RelativeSource AncestorType={x:Type local:AccountValueTrendControl}}}"
             YAxes="{Binding YAxis, RelativeSource={RelativeSource AncestorType={x:Type local:AccountValueTrendControl}}}"

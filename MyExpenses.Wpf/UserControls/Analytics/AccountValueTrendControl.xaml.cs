@@ -21,6 +21,7 @@ public partial class AccountValueTrendControl
     public SolidColorPaint TextPaint { get; }
 
     private List<CheckBox> CheckBoxes { get; } = [];
+    private List<CheckBox> CheckBoxesTrend { get; } = [];
 
     public AccountValueTrendControl()
     {
@@ -37,7 +38,10 @@ public partial class AccountValueTrendControl
     }
 
     private void SetButtonPanel()
-        => CheckBoxes.ForEach(s => CheckboxPanel.Children.Add(s));
+    {
+        CheckBoxes.ForEach(s => CheckboxPanel.Children.Add(s));
+        CheckBoxesTrend.ForEach(s => CheckboxTrendPanel.Children.Add(s));
+    }
 
     private void SetChart()
     {
@@ -111,6 +115,7 @@ public partial class AccountValueTrendControl
                 Name = $"{name} Trend",
                 Values = trendValues,
                 Fill = null,
+                IsVisible = false,
                 GeometrySize = 0
             };
 
@@ -126,10 +131,20 @@ public partial class AccountValueTrendControl
             checkBox.Click += (_, _) => {
             {
                 lineSeries.IsVisible = !lineSeries.IsVisible;
-                trendSeries.IsVisible = !trendSeries.IsVisible;
-            } };
-
+            }};
             CheckBoxes.Add(checkBox);
+
+            var checkBoxTrend = new CheckBox
+            {
+                Content = $"{name} trend",
+                IsChecked = trendSeries.IsVisible,
+                Margin = new Thickness(5)
+            };
+            checkBoxTrend.Click += (_, _) => {
+            {
+                trendSeries.IsVisible = !trendSeries.IsVisible;
+            }};
+            CheckBoxesTrend.Add(checkBoxTrend);
         }
 
         Series = series.ToArray();
