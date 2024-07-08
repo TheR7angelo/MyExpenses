@@ -190,6 +190,8 @@ public partial class DashBoardPage : INotifyPropertyChanged
     private void ButtonAccountTypeManagement_OnClick(object sender, RoutedEventArgs e)
         => nameof(MainWindow.FrameBody).NavigateTo(typeof(AccountTypeManagementPage));
 
+    private void ButtonAnalytics_OnClick(object sender, RoutedEventArgs e)
+        => nameof(MainWindow.FrameBody).NavigateTo(typeof(AnalyticsPage));
 
     private void ButtonCategoryTypeManagement_OnClick(object sender, RoutedEventArgs e)
         => nameof(MainWindow.FrameBody).NavigateTo(typeof(CategoryTypeManagementPage));
@@ -216,18 +218,14 @@ public partial class DashBoardPage : INotifyPropertyChanged
     private void ButtonModePaymentManagement_OnClick(object sender, RoutedEventArgs e)
         => nameof(MainWindow.FrameBody).NavigateTo(typeof(ModePaymentManagementPage));
 
-
     private void ButtonMakeBankTransfer_OnClick(object sender, RoutedEventArgs e)
         => nameof(MainWindow.FrameBody).NavigateTo(typeof(BankTransferPage));
-
 
     private void ButtonRecordExpense_OnClick(object sender, RoutedEventArgs e)
         => nameof(MainWindow.FrameBody).NavigateTo(typeof(RecordExpensePage));
 
-
     private void DataGridRow_PreviewMouseRightButtonDown(object sender, MouseButtonEventArgs e)
         => DataGridRow = sender as DataGridRow;
-
 
     private void ItemsControlVTotalAccount_OnLoaded(object sender, RoutedEventArgs e)
         => RefreshRadioButtonSelected();

@@ -89,6 +89,11 @@
                     Click="ButtonRecordExpense_OnClick">
             </Button>
 
+            <Button Content="Analytics"
+                    Style="{StaticResource MaterialDesignPaperButton}"
+                    Click="ButtonAnalytics_OnClick">
+            </Button>
+
         </WrapPanel>
 
         <Grid Grid.Row="0" Grid.Column="1"
