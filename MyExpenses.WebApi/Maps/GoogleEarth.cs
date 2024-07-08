@@ -1,6 +1,6 @@
 using System.Diagnostics;
-using System.Globalization;
 using MyExpenses.Models.Sql.Tables;
+using MyExpenses.Utils.Maps;
 using NetTopologySuite.Geometries;
 
 namespace MyExpenses.WebApi.Maps;
@@ -12,10 +12,10 @@ public static class GoogleEarth
 
     public static void ToGoogleEarthWeb(this Point point, int altitudeLevel = 200)
     {
-        var yInvariant = point.Y.ToString(CultureInfo.InvariantCulture);
-        var xInvariant = point.X.ToString(CultureInfo.InvariantCulture);
+        var (yInvariant, xInvariant) = point.ToInvariantCoordinate();
 
-        var googleEarthUrl = $"https://earth.google.com/web/@{yInvariant},{xInvariant},{altitudeLevel}a,0d,30y,0h,0t,0r";
+        var googleEarthUrl = $"https://earth.google.com/web/@{xInvariant},{yInvariant},{altitudeLevel}a,0d,30y,0h,0t,0r";
+        Console.WriteLine(googleEarthUrl);
 
         Process.Start(new ProcessStartInfo
         {

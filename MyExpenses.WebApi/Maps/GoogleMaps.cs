@@ -14,7 +14,7 @@ public static class GoogleMaps
     {
         var (yInvariant, xInvariant) = point.ToInvariantCoordinate();
 
-        var url = $"https://www.google.com/maps/@?api=1&map_action=pano&viewpoint={yInvariant}, {xInvariant}&zoom={zoomLevel}";
+        var url = $"https://www.google.com/maps/@?api=1&map_action=pano&viewpoint={xInvariant}, {yInvariant}&zoom={zoomLevel}";
 
         Process.Start(new ProcessStartInfo
         {
@@ -30,7 +30,7 @@ public static class GoogleMaps
     {
         var (yInvariant, xInvariant) = point.ToInvariantCoordinate();
 
-        var url = $"https://maps.google.com/maps?q={yInvariant}, {xInvariant}";
+        var url = $"https://maps.google.com/maps?q={xInvariant}, {yInvariant}";
 
         Process.Start(new ProcessStartInfo
         {
