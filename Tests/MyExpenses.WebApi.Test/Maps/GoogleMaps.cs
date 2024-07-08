@@ -20,27 +20,12 @@ public class StreetViewTest
     [Fact]
     private void GoToMaps()
     {
-        var url =
-            $"https://maps.google.com/maps?q={Point.Y.ToString(CultureInfo.InvariantCulture)},{Point.X.ToString(CultureInfo.InvariantCulture)}";
-
-        Process.Start(new ProcessStartInfo
-        {
-            FileName = url,
-            UseShellExecute = true
-        });
+        Point.ToGoogleMaps();
     }
 
     [Fact]
     private void GoToStreetView()
     {
-        const int zoomLevel = 0;
-        var url =
-            $"https://www.google.com/maps/@?api=1&map_action=pano&viewpoint={Point.Y.ToString(CultureInfo.InvariantCulture)}, {Point.X.ToString(CultureInfo.InvariantCulture)}&zoom={zoomLevel}";
-
-        Process.Start(new ProcessStartInfo
-        {
-            FileName = url,
-            UseShellExecute = true
-        });
+        Point.ToGoogleStreetView();
     }
 }
