@@ -148,7 +148,7 @@ public static class KmlWriter
         tempFilePath = Path.ChangeExtension(tempFilePath, ".kml");
         kml.Save(tempFilePath);
 
-        if (extension == ".kmz")
+        if (extension is ".kmz")
         {
             if (File.Exists(fileSavePath)) File.Delete(fileSavePath);
 
