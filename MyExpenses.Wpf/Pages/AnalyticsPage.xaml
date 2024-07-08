@@ -6,6 +6,7 @@
       xmlns:local="clr-namespace:MyExpenses.Wpf.Pages"
       xmlns:margin="clr-namespace:MyExpenses.Wpf.Utils.Margin;assembly=MyExpenses.Wpf.Utils"
       xmlns:analytics="clr-namespace:MyExpenses.Wpf.UserControls.Analytics"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       mc:Ignorable="d"
 
       Title="AnalyticsPage"
@@ -21,17 +22,18 @@
     <Grid
         margin:PanelExtensions.MarginForAllChildren="5">
 
-        <TabControl
+        <materialDesign:Card>
 
-            Style="{StaticResource MaterialDesignFilledTabControl}">
+            <TabControl
+                Style="{StaticResource MaterialDesignFilledTabControl}">
 
-            <TabItem Header="Hello">
+                <TabItem Header="Hello">
+                    <analytics:AccountValueTrendControl />
+                </TabItem>
 
-                <analytics:AccountValueTrendControl />
+            </TabControl>
 
-            </TabItem>
-
-        </TabControl>
+        </materialDesign:Card>
 
     </Grid>
 
