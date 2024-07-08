@@ -10,7 +10,7 @@ public class StreetViewTest
     [Fact]
     private void GoToGoogleEarthWeb()
     {
-        Point.GoToGoogleEarthWeb();
+        Point.ToGoogleEarthWeb();
     }
 
     [Fact]

@@ -7,10 +7,10 @@ namespace MyExpenses.WebApi.Maps;
 
 public static class GoogleEarth
 {
-    public static void GoToGoogleEarthWeb(this TPlace place, int altitudeLevel = 200)
-        => place.Geometry.GoToGoogleEarthWeb(altitudeLevel);
+    public static void ToGoogleEarthWeb(this TPlace place, int altitudeLevel = 200)
+        => place.Geometry.ToGoogleEarthWeb(altitudeLevel);
 
-    public static void GoToGoogleEarthWeb(this Point point, int altitudeLevel = 200)
+    public static void ToGoogleEarthWeb(this Point point, int altitudeLevel = 200)
     {
         var yInvariant = point.Y.ToString(CultureInfo.InvariantCulture);
         var xInvariant = point.X.ToString(CultureInfo.InvariantCulture);
