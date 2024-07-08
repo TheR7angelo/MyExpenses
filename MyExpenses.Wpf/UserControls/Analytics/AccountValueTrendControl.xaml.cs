@@ -108,7 +108,7 @@ public partial class AccountValueTrendControl
             };
 
             var xData = Enumerable.Range(1, values.Count).Select(i => (double)i).ToArray();
-            CalculateLinearTrend(xData, values.ToArray(), out var a, out var b);
+            var (a, b) = CalculateLinearTrend(xData, values.ToArray());
             var trendValues = xData.Select(x => Math.Round(a * x + b, 2)).ToArray();
             var trendSeries = new LineSeries<double>
             {
@@ -150,11 +150,11 @@ public partial class AccountValueTrendControl
         Series = series.ToArray();
     }
 
-    private static void CalculateLinearTrend(double[] xData, double[] yData, out double a, out double b)
+    private static (double a, double b) CalculateLinearTrend(double[] xData, double[] yData)
     {
-        var n = xData.Length;
         double sumX = 0, sumY = 0, sumXy = 0, sumXx = 0;
 
+        var n = xData.Length;
         for (var i = 0; i < n; i++)
         {
             sumX += xData[i];
@@ -163,7 +163,9 @@ public partial class AccountValueTrendControl
             sumXx += xData[i] * xData[i];
         }
 
-        a = (n * sumXy - sumX * sumY) / (n * sumXx - sumX * sumX); // slope
-        b = (sumY / n) - (a * sumX / n); // intercept
+        var a = (n * sumXy - sumX * sumY) / (n * sumXx - sumX * sumX); // slope
+        var b = (sumY / n) - (a * sumX / n); // intercept
+
+        return (a, b);
     }
 }
