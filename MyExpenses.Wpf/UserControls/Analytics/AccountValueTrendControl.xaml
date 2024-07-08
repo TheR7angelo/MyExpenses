@@ -13,7 +13,10 @@
         <wpf:CartesianChart
             Series="{Binding Series, RelativeSource={RelativeSource AncestorType={x:Type local:AccountValueTrendControl}}}"
             XAxes="{Binding XAxis, RelativeSource={RelativeSource AncestorType={x:Type local:AccountValueTrendControl}}}"
-            LegendPosition="Bottom">
+            YAxes="{Binding YAxis, RelativeSource={RelativeSource AncestorType={x:Type local:AccountValueTrendControl}}}"
+            LegendTextPaint="{Binding TextPaint, RelativeSource={RelativeSource AncestorType={x:Type local:AccountValueTrendControl}}}"
+            LegendPosition="Bottom"
+            ZoomMode="X">
         </wpf:CartesianChart>
 
     </Grid>
