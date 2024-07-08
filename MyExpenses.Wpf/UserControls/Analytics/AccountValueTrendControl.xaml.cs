@@ -20,7 +20,7 @@ public partial class AccountValueTrendControl
 
     public SolidColorPaint TextPaint { get; }
 
-    private List<Button> Buttons { get; set; } = [];
+    private List<CheckBox> CheckBoxes { get; } = [];
 
     public AccountValueTrendControl()
     {
@@ -37,7 +37,7 @@ public partial class AccountValueTrendControl
     }
 
     private void SetButtonPanel()
-        => Buttons.ForEach(s => ButtonPanel.Children.Add(s));
+        => CheckBoxes.ForEach(s => CheckboxPanel.Children.Add(s));
 
     private void SetChart()
     {
@@ -103,14 +103,15 @@ public partial class AccountValueTrendControl
 
             series.Add(lineSeries);
 
-            var button = new Button
+            var checkBox = new CheckBox
             {
                 Content = name,
+                IsChecked = true,
                 Margin = new Thickness(5)
             };
-            button.Click += (_, _) => { lineSeries.IsVisible = !lineSeries.IsVisible; };
+            checkBox.Click += (_, _) => { lineSeries.IsVisible = !lineSeries.IsVisible; };
 
-            Buttons.Add(button);
+            CheckBoxes.Add(checkBox);
         }
 
         Series = series.ToArray();

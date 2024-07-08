@@ -15,7 +15,7 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <StackPanel Grid.Row="0" x:Name="ButtonPanel" Orientation="Horizontal" />
+        <StackPanel Grid.Row="0" x:Name="CheckboxPanel" Orientation="Horizontal" HorizontalAlignment="Center" />
 
         <wpf:CartesianChart Grid.Row="1"
             Series="{Binding Series, RelativeSource={RelativeSource AncestorType={x:Type local:AccountValueTrendControl}}}"
