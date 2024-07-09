@@ -63,7 +63,8 @@
                       Width="2">
         </GridSplitter>
 
-        <TabControl Grid.Row="0" Grid.Column="2" Grid.RowSpan="2">
+        <TabControl x:Name="TabControl"
+                    Grid.Row="0" Grid.Column="2" Grid.RowSpan="2">
 
             <TabControl.Resources>
                 <Style TargetType="TabItem">
