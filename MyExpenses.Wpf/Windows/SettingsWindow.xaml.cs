@@ -2,6 +2,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using MaterialDesignColors.ColorManipulation;
 using MaterialDesignThemes.Wpf;
 using MyExpenses.Wpf.Utils;
 
@@ -70,18 +71,13 @@ public partial class SettingsWindow
         BackgroundSecondaryMindBrush = new SolidColorBrush(theme.SecondaryMid.Color);
         BackgroundSecondaryDarkBrush = new SolidColorBrush(theme.SecondaryDark.Color);
 
-        ForegroundPrimaryLightBrush =
-            new SolidColorBrush(IsLight(theme.PrimaryLight.Color) ? Colors.Black : Colors.White);
-        ForegroundPrimaryMindBrush = new SolidColorBrush(IsLight(theme.PrimaryMid.Color) ? Colors.Black : Colors.White);
-        ForegroundPrimaryDarkBrush =
-            new SolidColorBrush(IsLight(theme.PrimaryDark.Color) ? Colors.Black : Colors.White);
+        ForegroundPrimaryLightBrush = new SolidColorBrush(theme.PrimaryLight.Color.ContrastingForegroundColor());
+        ForegroundPrimaryMindBrush = new SolidColorBrush(theme.PrimaryMid.Color.ContrastingForegroundColor());
+        ForegroundPrimaryDarkBrush = new SolidColorBrush(theme.PrimaryDark.Color.ContrastingForegroundColor());
 
-        ForegroundSecondaryLightBrush =
-            new SolidColorBrush(IsLight(theme.SecondaryLight.Color) ? Colors.Black : Colors.White);
-        ForegroundSecondaryMindBrush =
-            new SolidColorBrush(IsLight(theme.SecondaryMid.Color) ? Colors.Black : Colors.White);
-        ForegroundSecondaryDarkBrush =
-            new SolidColorBrush(IsLight(theme.SecondaryDark.Color) ? Colors.Black : Colors.White);
+        ForegroundSecondaryLightBrush = new SolidColorBrush(theme.SecondaryLight.Color.ContrastingForegroundColor());
+        ForegroundSecondaryMindBrush = new SolidColorBrush(theme.SecondaryMid.Color.ContrastingForegroundColor());
+        ForegroundSecondaryDarkBrush = new SolidColorBrush(theme.SecondaryDark.Color.ContrastingForegroundColor());
 
         InitializeComponent();
     }
@@ -171,11 +167,5 @@ public partial class SettingsWindow
     {
         var children = tabControl.FindVisualChildren<TabItem>();
         return children.FirstOrDefault(child => child.Header.Equals(header));
-    }
-
-    public static bool IsLight(Color color)
-    {
-        var yiq = (299 * color.R + 587 * color.G + 114 * color.B) / 1000;
-        return yiq >= 128;
     }
 }
