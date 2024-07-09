@@ -1,14 +1,161 @@
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
+using MaterialDesignThemes.Wpf;
 using MyExpenses.Wpf.Utils;
 
 namespace MyExpenses.Wpf.Windows;
 
 public partial class SettingsWindow
 {
+    public static readonly DependencyProperty BackgroundPrimaryMindBrushProperty = DependencyProperty.Register(
+        nameof(BackgroundPrimaryMindBrush),
+        typeof(Brush), typeof(SettingsWindow), new PropertyMetadata(default(Brush)));
+
+    public static readonly DependencyProperty BackgroundPrimaryLightBrushProperty =
+        DependencyProperty.Register(nameof(BackgroundPrimaryLightBrush), typeof(Brush), typeof(SettingsWindow),
+            new PropertyMetadata(default(Brush)));
+
+    public static readonly DependencyProperty BackgroundPrimaryDarkBrushProperty =
+        DependencyProperty.Register(nameof(BackgroundPrimaryDarkBrush), typeof(Brush), typeof(SettingsWindow),
+            new PropertyMetadata(default(Brush)));
+
+    public static readonly DependencyProperty BackgroundSecondaryLightBrushProperty =
+        DependencyProperty.Register(nameof(BackgroundSecondaryLightBrush), typeof(Brush), typeof(SettingsWindow),
+            new PropertyMetadata(default(Brush)));
+
+    public static readonly DependencyProperty BackgroundSecondaryMindBrushProperty =
+        DependencyProperty.Register(nameof(BackgroundSecondaryMindBrush), typeof(Brush), typeof(SettingsWindow),
+            new PropertyMetadata(default(Brush)));
+
+    public static readonly DependencyProperty BackgroundSecondaryDarkBrushProperty =
+        DependencyProperty.Register(nameof(BackgroundSecondaryDarkBrush), typeof(Brush), typeof(SettingsWindow),
+            new PropertyMetadata(default(Brush)));
+
+    public static readonly DependencyProperty ForegroundPrimaryMindBrushProperty =
+        DependencyProperty.Register(nameof(ForegroundPrimaryMindBrush), typeof(Brush), typeof(SettingsWindow),
+            new PropertyMetadata(default(Brush)));
+
+    public static readonly DependencyProperty ForegroundPrimaryLightBrushProperty =
+        DependencyProperty.Register(nameof(ForegroundPrimaryLightBrush), typeof(Brush), typeof(SettingsWindow),
+            new PropertyMetadata(default(Brush)));
+
+    public static readonly DependencyProperty ForegroundPrimaryDarkBrushProperty =
+        DependencyProperty.Register(nameof(ForegroundPrimaryDarkBrush), typeof(Brush), typeof(SettingsWindow),
+            new PropertyMetadata(default(Brush)));
+
+    public static readonly DependencyProperty ForegroundSecondaryLightBrushProperty =
+        DependencyProperty.Register(nameof(ForegroundSecondaryLightBrush), typeof(Brush), typeof(SettingsWindow),
+            new PropertyMetadata(default(Brush)));
+
+    public static readonly DependencyProperty ForegroundSecondaryMindBrushProperty =
+        DependencyProperty.Register(nameof(ForegroundSecondaryMindBrush), typeof(Brush), typeof(SettingsWindow),
+            new PropertyMetadata(default(Brush)));
+
+    public static readonly DependencyProperty ForegroundSecondaryDarkBrushProperty =
+        DependencyProperty.Register(nameof(ForegroundSecondaryDarkBrush), typeof(Brush), typeof(SettingsWindow),
+            new PropertyMetadata(default(Brush)));
+
     public SettingsWindow()
     {
+        var paletteHelper = new PaletteHelper();
+        var theme = paletteHelper.GetTheme();
+
+        BackgroundPrimaryLightBrush = new SolidColorBrush(theme.PrimaryLight.Color);
+        BackgroundPrimaryMindBrush = new SolidColorBrush(theme.PrimaryMid.Color);
+        BackgroundPrimaryDarkBrush = new SolidColorBrush(theme.PrimaryDark.Color);
+
+        BackgroundSecondaryLightBrush = new SolidColorBrush(theme.SecondaryLight.Color);
+        BackgroundSecondaryMindBrush = new SolidColorBrush(theme.SecondaryMid.Color);
+        BackgroundSecondaryDarkBrush = new SolidColorBrush(theme.SecondaryDark.Color);
+
+        ForegroundPrimaryLightBrush =
+            new SolidColorBrush(IsLight(theme.PrimaryLight.Color) ? Colors.Black : Colors.White);
+        ForegroundPrimaryMindBrush = new SolidColorBrush(IsLight(theme.PrimaryMid.Color) ? Colors.Black : Colors.White);
+        ForegroundPrimaryDarkBrush =
+            new SolidColorBrush(IsLight(theme.PrimaryDark.Color) ? Colors.Black : Colors.White);
+
+        ForegroundSecondaryLightBrush =
+            new SolidColorBrush(IsLight(theme.SecondaryLight.Color) ? Colors.Black : Colors.White);
+        ForegroundSecondaryMindBrush =
+            new SolidColorBrush(IsLight(theme.SecondaryMid.Color) ? Colors.Black : Colors.White);
+        ForegroundSecondaryDarkBrush =
+            new SolidColorBrush(IsLight(theme.SecondaryDark.Color) ? Colors.Black : Colors.White);
+
         InitializeComponent();
+    }
+
+    public Brush BackgroundPrimaryMindBrush
+    {
+        get => (Brush)GetValue(BackgroundPrimaryMindBrushProperty);
+        set => SetValue(BackgroundPrimaryMindBrushProperty, value);
+    }
+
+    public Brush BackgroundPrimaryLightBrush
+    {
+        get => (Brush)GetValue(BackgroundPrimaryLightBrushProperty);
+        set => SetValue(BackgroundPrimaryLightBrushProperty, value);
+    }
+
+    public Brush BackgroundPrimaryDarkBrush
+    {
+        get => (Brush)GetValue(BackgroundPrimaryDarkBrushProperty);
+        set => SetValue(BackgroundPrimaryDarkBrushProperty, value);
+    }
+
+    public Brush BackgroundSecondaryLightBrush
+    {
+        get => (Brush)GetValue(BackgroundSecondaryLightBrushProperty);
+        set => SetValue(BackgroundSecondaryLightBrushProperty, value);
+    }
+
+    public Brush BackgroundSecondaryMindBrush
+    {
+        get => (Brush)GetValue(BackgroundSecondaryMindBrushProperty);
+        set => SetValue(BackgroundSecondaryMindBrushProperty, value);
+    }
+
+    public Brush BackgroundSecondaryDarkBrush
+    {
+        get => (Brush)GetValue(BackgroundSecondaryDarkBrushProperty);
+        set => SetValue(BackgroundSecondaryDarkBrushProperty, value);
+    }
+
+    public Brush ForegroundPrimaryMindBrush
+    {
+        get => (Brush)GetValue(ForegroundPrimaryMindBrushProperty);
+        set => SetValue(ForegroundPrimaryMindBrushProperty, value);
+    }
+
+    public Brush ForegroundPrimaryLightBrush
+    {
+        get => (Brush)GetValue(ForegroundPrimaryLightBrushProperty);
+        set => SetValue(ForegroundPrimaryLightBrushProperty, value);
+    }
+
+    public Brush ForegroundPrimaryDarkBrush
+    {
+        get => (Brush)GetValue(ForegroundPrimaryDarkBrushProperty);
+        set => SetValue(ForegroundPrimaryDarkBrushProperty, value);
+    }
+
+    public Brush ForegroundSecondaryLightBrush
+    {
+        get => (Brush)GetValue(ForegroundSecondaryLightBrushProperty);
+        set => SetValue(ForegroundSecondaryLightBrushProperty, value);
+    }
+
+    public Brush ForegroundSecondaryMindBrush
+    {
+        get => (Brush)GetValue(ForegroundSecondaryMindBrushProperty);
+        set => SetValue(ForegroundSecondaryMindBrushProperty, value);
+    }
+
+    public Brush ForegroundSecondaryDarkBrush
+    {
+        get => (Brush)GetValue(ForegroundSecondaryDarkBrushProperty);
+        set => SetValue(ForegroundSecondaryDarkBrushProperty, value);
     }
 
     private void UIElement_OnMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
@@ -24,5 +171,11 @@ public partial class SettingsWindow
     {
         var children = tabControl.FindVisualChildren<TabItem>();
         return children.FirstOrDefault(child => child.Header.Equals(header));
+    }
+
+    public static bool IsLight(Color color)
+    {
+        var yiq = (299 * color.R + 587 * color.G + 114 * color.B) / 1000;
+        return yiq >= 128;
     }
 }
