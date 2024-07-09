@@ -30,7 +30,7 @@ public partial class App
 
         Log.Information("Start of database backup on start");
         var totalDatabaseBackup = DbContextBackup.BackupDatabase();
-        var totalDatabaseDelete = DbContextBackup.CleanBackupDatabase(configuration.System.MaxDaysBackupDatabase);
+        var totalDatabaseDelete = DbContextBackup.CleanBackupDatabase(configuration.System.MaxBackupDatabase);
         Log.Information("{TotalDatabaseDelete} backup(s) database has been deleted", totalDatabaseDelete);
         Log.Information("{TotalDatabaseBackup} database(s) has been backed up", totalDatabaseBackup);
 
