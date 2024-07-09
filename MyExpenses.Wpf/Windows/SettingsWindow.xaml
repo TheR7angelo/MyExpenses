@@ -35,7 +35,47 @@
 
     <Grid>
 
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
 
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <TreeView Grid.Row="1" Grid.Column="0">
+
+            <!-- TODO work -->
+            <TreeViewItem Header="Appearance" MouseLeftButtonUp="UIElement_OnMouseLeftButtonUp">
+
+
+
+            </TreeViewItem>
+
+        </TreeView>
+
+        <GridSplitter Grid.Row="0" Grid.Column="1" Grid.RowSpan="2"
+                      Width="2">
+        </GridSplitter>
+
+        <TabControl Grid.Row="0" Grid.Column="2" Grid.RowSpan="2">
+
+            <TabControl.Resources>
+                <Style TargetType="TabItem">
+                    <Setter Property="Visibility" Value="Collapsed"/>
+                </Style>
+            </TabControl.Resources>
+
+            <TabItem Header="Appearance">
+
+
+
+            </TabItem>
+
+        </TabControl>
 
     </Grid>
 
