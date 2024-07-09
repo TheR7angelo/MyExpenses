@@ -97,7 +97,8 @@
 
                     <!-- TODO work -->
                     <MenuItem Header="{Binding MenuItemHeaderSettings}"
-                              Margin="1.5">
+                              Margin="1.5"
+                              Click="MenuItemSetting_OnClick">
                         <MenuItem.Icon>
                             <materialDesign:PackIcon Kind="SettingsApplications" />
                         </MenuItem.Icon>

@@ -158,4 +158,10 @@ public partial class MainWindow
         //TODO work
         Console.WriteLine("Need import");
     }
+
+    private void MenuItemSetting_OnClick(object sender, RoutedEventArgs e)
+    {
+        var settingsWindow = new SettingsWindow();
+        settingsWindow.ShowDialog();
+    }
 }
