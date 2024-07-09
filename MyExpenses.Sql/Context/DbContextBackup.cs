@@ -33,9 +33,8 @@ public static class DbContextBackup
         return existingDatabases;
     }
 
-    public static int CleanBackupDatabase()
+    public static int CleanBackupDatabase(int maxDatabaseBackup)
     {
-        const byte maxDatabaseBackup = 15;
         var totalDelete = 0;
 
         if (!Directory.Exists(LocalDirectoryBackupDatabase)) return totalDelete;

@@ -21,18 +21,18 @@ public partial class App
         Log.Logger = MyExpenses.Utils.LoggerConfig.CreateConfig();
         Log.Information("Starting the application");
 
-        Log.Information("Start of database backup on start");
-        var totalDatabaseBackup = DbContextBackup.BackupDatabase();
-        var totalDatabaseDelete = DbContextBackup.CleanBackupDatabase();
-        Log.Information("{TotalDatabaseDelete} backup(s) database has been deleted", totalDatabaseDelete);
-        Log.Information("{TotalDatabaseBackup} database(s) has been backed up", totalDatabaseBackup);
-
         Log.Information("Reading configuration file");
         var configuration = MyExpenses.Utils.Config.Configuration;
         Log.Information("Configuration read :{NewLine}{Configuration}", Environment.NewLine, configuration);
 
         Log.Information("Apply log configuration");
-        LoadLogConfiguration(configuration.Log);
+        LoadLogConfiguration(configuration.System.MaxDaysLog);
+
+        Log.Information("Start of database backup on start");
+        var totalDatabaseBackup = DbContextBackup.BackupDatabase();
+        var totalDatabaseDelete = DbContextBackup.CleanBackupDatabase(configuration.System.MaxDaysBackupDatabase);
+        Log.Information("{TotalDatabaseDelete} backup(s) database has been deleted", totalDatabaseDelete);
+        Log.Information("{TotalDatabaseBackup} database(s) has been backed up", totalDatabaseBackup);
 
         Log.Information("Apply interface configuration");
         LoadInterfaceConfiguration(configuration.Interface.Theme);
@@ -61,9 +61,8 @@ public partial class App
         paletteHelper.SetTheme(theme);
     }
 
-    private static void LoadLogConfiguration(Models.Config.Log logConfiguration)
+    private static void LoadLogConfiguration(int logMaxDays)
     {
-        var logMaxDays = logConfiguration.MaxDaysLog;
         var numberOfLogDeleted = MyExpenses.Utils.LoggerConfig.RemoveOldLog(logMaxDays);
         Log.Information("{NumberOfLogDeleted} log was deleted", numberOfLogDeleted);
     }
