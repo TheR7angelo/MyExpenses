@@ -79,6 +79,7 @@ public partial class SettingsWindow
         ForegroundSecondaryMindBrush = new SolidColorBrush(theme.SecondaryMid.Color.ContrastingForegroundColor());
         ForegroundSecondaryDarkBrush = new SolidColorBrush(theme.SecondaryDark.Color.ContrastingForegroundColor());
 
+        // TODO WORK
         InitializeComponent();
     }
 
