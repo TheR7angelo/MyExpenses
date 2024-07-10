@@ -209,6 +209,15 @@ public partial class SettingsWindow
         UpdatePrimaryLabelTheme();
     }
 
+    private void ButtonSecondaryColor_OnClick(object sender, RoutedEventArgs e)
+    {
+        var color = Theme.PrimaryMid.Color;
+        var newColor = GetNewColor(color);
+
+        Theme.SetSecondaryColor(newColor);
+        UpdateSecondaryLabelTheme();
+    }
+
     private static Color GetNewColor(Color defaultColor)
     {
         var colorPickerWindow = new ColorPickerWindow();

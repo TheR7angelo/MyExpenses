@@ -153,7 +153,8 @@
                             </Button>
 
                             <Button Content="Secondary color"
-                                    Style="{StaticResource MaterialDesignPaperSecondaryButton}">
+                                    Style="{StaticResource MaterialDesignPaperSecondaryButton}"
+                                    Click="ButtonSecondaryColor_OnClick">
                             </Button>
 
                         </StackPanel>
