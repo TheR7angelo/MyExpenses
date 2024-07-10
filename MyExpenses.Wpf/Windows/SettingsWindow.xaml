@@ -94,13 +94,37 @@
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
 
-                        <Label Grid.Row="0" Grid.Column="0"
-                               Content="Primary - Light"
-                               HorizontalContentAlignment="Center"
-                               VerticalContentAlignment="Center"
-                               Foreground="{Binding ForegroundPrimaryLightBrush, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                               Background="{Binding BackgroundPrimaryLightBrush, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
-                        </Label>
+                        <Grid Grid.Row="0" Grid.Column="0">
+                            <!-- <Polygon Fill="{Binding BackgroundPrimaryLightBrush, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Stretch="Fill"> -->
+                            <!--     <Polygon.Points> -->
+                            <!--         <PointCollection> -->
+                            <!--             <Point X="0" Y="0"/> -->
+                            <!--             <Point X="1" Y="0"/> -->
+                            <!--             <Point X="1" Y="1"/> -->
+                            <!--             <Point X="0.5" Y="1"/> -->
+                            <!--         </PointCollection> -->
+                            <!--     </Polygon.Points> -->
+                            <!-- </Polygon> -->
+                            <Path Fill="{Binding BackgroundPrimaryLightBrush, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Stretch="Fill">
+                                <Path.Data>
+                                    <PathGeometry>
+                                        <PathGeometry.Figures>
+                                            <PathFigure StartPoint="1, 0" IsClosed="True">
+                                                <LineSegment Point="1, 1" />
+                                                <LineSegment Point="0, 1" />
+                                                <BezierSegment Point1="0, 0" Point2="1, 0" Point3="1, 0"/>
+                                            </PathFigure>
+                                        </PathGeometry.Figures>
+                                    </PathGeometry>
+                                </Path.Data>
+                            </Path>
+                            <Label Content="Primary - Light"
+                                   HorizontalContentAlignment="Center"
+                                   VerticalContentAlignment="Center"
+                                   Foreground="{Binding ForegroundPrimaryLightBrush, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                                   Background="Transparent">
+                            </Label>
+                        </Grid>
 
                         <Label Grid.Row="0" Grid.Column="1"
                                Content="Primary - Mind"
@@ -110,21 +134,65 @@
                                Background="{Binding BackgroundPrimaryMindBrush, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
                         </Label>
 
-                        <Label Grid.Row="0" Grid.Column="2"
-                               Content="Primary - Dark"
-                               HorizontalContentAlignment="Center"
-                               VerticalContentAlignment="Center"
-                               Foreground="{Binding ForegroundPrimaryDarkBrush, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                               Background="{Binding BackgroundPrimaryDarkBrush, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
-                        </Label>
+                        <!-- <Label Grid.Row="0" Grid.Column="2" -->
+                        <!--        Content="Primary - Dark" -->
+                        <!--        HorizontalContentAlignment="Center" -->
+                        <!--        VerticalContentAlignment="Center" -->
+                        <!--        Foreground="{Binding ForegroundPrimaryDarkBrush, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" -->
+                        <!--        Background="{Binding BackgroundPrimaryDarkBrush, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"> -->
+                        <!-- </Label> -->
 
-                        <Label Grid.Row="1" Grid.Column="0"
-                               Content="Secondary - Light"
-                               HorizontalContentAlignment="Center"
-                               VerticalContentAlignment="Center"
-                               Foreground="{Binding ForegroundSecondaryLightBrush, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                               Background="{Binding BackgroundSecondaryLightBrush, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
-                        </Label>
+                        <Grid Grid.Row="0" Grid.Column="2">
+                            <Path Fill="{Binding BackgroundPrimaryDarkBrush, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Stretch="Fill">
+                                <Path.Data>
+                                    <PathGeometry>
+                                        <PathGeometry.Figures>
+                                            <PathFigure StartPoint="0, 0" IsClosed="True">
+                                                <LineSegment Point="0, 1" />
+                                                <LineSegment Point="1, 1" />
+                                                <BezierSegment Point1="1, 0" Point2="0, 0" Point3="0, 0" />
+                                            </PathFigure>
+                                        </PathGeometry.Figures>
+                                    </PathGeometry>
+                                </Path.Data>
+                            </Path>
+                            <Label Content="Primary - Dark"
+                                   HorizontalContentAlignment="Center"
+                                   VerticalContentAlignment="Center"
+                                   Foreground="{Binding ForegroundPrimaryDarkBrush, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                                   Background="Transparent">
+                            </Label>
+                        </Grid>
+
+                        <!-- <Label Grid.Row="1" Grid.Column="0" -->
+                        <!--        Content="Secondary - Light" -->
+                        <!--        HorizontalContentAlignment="Center" -->
+                        <!--        VerticalContentAlignment="Center" -->
+                        <!--        Foreground="{Binding ForegroundSecondaryLightBrush, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" -->
+                        <!--        Background="{Binding BackgroundSecondaryLightBrush, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"> -->
+                        <!-- </Label> -->
+
+                        <Grid Grid.Row="1" Grid.Column="0">
+                            <Path Fill="{Binding BackgroundSecondaryLightBrush, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Stretch="Fill">
+                                <Path.Data>
+                                    <PathGeometry>
+                                        <PathGeometry.Figures>
+                                            <PathFigure StartPoint="0, 0" IsClosed="True">
+                                                <LineSegment Point="1, 0"/>
+                                                <LineSegment Point="1, 1"/>
+                                                <BezierSegment Point1="0, 1" Point2="0, 0" Point3="0, 0" />
+                                            </PathFigure>
+                                        </PathGeometry.Figures>
+                                    </PathGeometry>
+                                </Path.Data>
+                            </Path>
+                            <Label Content="Secondary - Light"
+                                   HorizontalContentAlignment="Center"
+                                   VerticalContentAlignment="Center"
+                                   Foreground="{Binding ForegroundPrimaryLightBrush, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                                   Background="Transparent">
+                            </Label>
+                        </Grid>
 
                         <Label Grid.Row="1" Grid.Column="1"
                                Content="Secondary - Mind"
@@ -134,13 +202,35 @@
                                Background="{Binding BackgroundSecondaryMindBrush, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
                         </Label>
 
-                        <Label Grid.Row="1" Grid.Column="2"
-                               Content="Secondary - Dark"
-                               HorizontalContentAlignment="Center"
-                               VerticalContentAlignment="Center"
-                               Foreground="{Binding ForegroundSecondaryDarkBrush, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                               Background="{Binding BackgroundSecondaryDarkBrush, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
-                        </Label>
+                        <!-- <Label Grid.Row="1" Grid.Column="2" -->
+                        <!--        Content="Secondary - Dark" -->
+                        <!--        HorizontalContentAlignment="Center" -->
+                        <!--        VerticalContentAlignment="Center" -->
+                        <!--        Foreground="{Binding ForegroundSecondaryDarkBrush, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" -->
+                        <!--        Background="{Binding BackgroundSecondaryDarkBrush, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"> -->
+                        <!-- </Label> -->
+
+                        <Grid Grid.Row="1" Grid.Column="2">
+                            <Path Fill="{Binding BackgroundSecondaryLightBrush, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Stretch="Fill">
+                                <Path.Data>
+                                    <PathGeometry>
+                                        <PathGeometry.Figures>
+                                            <PathFigure StartPoint="0, 1" IsClosed="True">
+                                                <LineSegment Point="0, 0"/>
+                                                <LineSegment Point="1, 0"/>
+                                                <BezierSegment Point1="1, 0.5" Point2="0.5, 1" Point3="0, 1" />
+                                            </PathFigure>
+                                        </PathGeometry.Figures>
+                                    </PathGeometry>
+                                </Path.Data>
+                            </Path>
+                            <Label Content="Secondary - Dark"
+                                   HorizontalContentAlignment="Center"
+                                   VerticalContentAlignment="Center"
+                                   Foreground="{Binding ForegroundPrimaryLightBrush, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                                   Background="Transparent">
+                            </Label>
+                        </Grid>
 
                         <StackPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3"
                                     Orientation="Horizontal"
