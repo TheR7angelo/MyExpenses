@@ -232,7 +232,7 @@ public sealed partial class ColorPickerControl
         Color = color;
     }
 
-    private void InitializeValue(Color? color = null)
+    public void InitializeValue(Color? color = null)
     {
         var newColor = color ?? Color;
 
