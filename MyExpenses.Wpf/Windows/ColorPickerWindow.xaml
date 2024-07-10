@@ -1,0 +1,64 @@
+<mah:MetroWindow x:Class="MyExpenses.Wpf.Windows.ColorPickerWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:local="clr-namespace:MyExpenses.Wpf.Windows"
+        xmlns:colors="clr-namespace:MyExpenses.Wpf.UserControls.Colors"
+        xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:margin="clr-namespace:MyExpenses.Wpf.Utils.Margin;assembly=MyExpenses.Wpf.Utils"
+        mc:Ignorable="d"
+
+        Title="ColorPickerWindow"
+
+        Height="370" Width="500"
+        MinHeight="370" MinWidth="500"
+
+        d:DesignHeight="370"
+        d:DesignWidth="500"
+
+        TitleCharacterCasing="Normal"
+        NonActiveWindowTitleBrush="Gray"
+        WindowTitleBrush="Gray"
+        BorderBrush="Gray"
+
+        ShowIconOnTitleBar="True"
+        Icon="../Resources/Assets/Icon.png"
+
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="CanResizeWithGrip"
+
+        Background="{DynamicResource MaterialDesignPaper}"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+
+        DataContext="{Binding RelativeSource={RelativeSource Self}}">
+
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <colors:ColorPickerControl Grid.Row="0" x:Name="ColorPickerControl" />
+
+        <StackPanel Grid.Row="1"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right"
+                    margin:PanelExtensions.MarginForAllChildren="5">
+
+            <!-- TODO Work -->
+            <Button Content="Valid"
+                    Style="{StaticResource MaterialDesignPaperButton}">
+            </Button>
+
+            <!-- TODO Work -->
+            <Button Content="Cancel"
+                    Style="{StaticResource MaterialDesignPaperSecondaryButton}">
+            </Button>
+
+        </StackPanel>
+
+    </Grid>
+
+</mah:MetroWindow>
