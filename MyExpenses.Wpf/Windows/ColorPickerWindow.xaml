@@ -33,6 +33,8 @@
 
         DataContext="{Binding RelativeSource={RelativeSource Self}}">
 
+    <!-- TODO title -->
+
     <Grid>
 
         <Grid.RowDefinitions>
@@ -49,12 +51,14 @@
 
             <!-- TODO Work -->
             <Button Content="Valid"
-                    Style="{StaticResource MaterialDesignPaperButton}">
+                    Style="{StaticResource MaterialDesignPaperButton}"
+                    Click="ButtonValid_OnClick">
             </Button>
 
             <!-- TODO Work -->
             <Button Content="Cancel"
-                    Style="{StaticResource MaterialDesignPaperSecondaryButton}">
+                    Style="{StaticResource MaterialDesignPaperSecondaryButton}"
+                    Click="ButtonCancel_OnClick">
             </Button>
 
         </StackPanel>
