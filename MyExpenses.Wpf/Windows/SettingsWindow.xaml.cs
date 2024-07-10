@@ -62,8 +62,16 @@ public partial class SettingsWindow
 
     public SettingsWindow()
     {
-        var paletteHelper = new PaletteHelper();
-        Theme = paletteHelper.GetTheme();
+       var configuration = MyExpenses.Utils.Config.Configuration;
+        var primaryColor = configuration.Interface.Theme.HexadecimalCodePrimaryColor.ToColor();
+        var secondaryColor = configuration.Interface.Theme.HexadecimalCodeSecondaryColor.ToColor();
+
+        Theme = new Theme();
+        if (primaryColor is not null && secondaryColor is not null)
+        {
+            Theme.SetPrimaryColor((Color)primaryColor);
+            Theme.SetSecondaryColor((Color)secondaryColor);
+        }
 
         UpdatePrimaryLabelTheme();
         UpdateSecondaryLabelTheme();
