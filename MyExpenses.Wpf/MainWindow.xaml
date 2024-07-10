@@ -100,7 +100,7 @@
                               Margin="1.5"
                               Click="MenuItemSetting_OnClick">
                         <MenuItem.Icon>
-                            <materialDesign:PackIcon Kind="SettingsApplications" />
+                            <materialDesign:PackIcon Kind="Cog" />
                         </MenuItem.Icon>
 
                     </MenuItem>
