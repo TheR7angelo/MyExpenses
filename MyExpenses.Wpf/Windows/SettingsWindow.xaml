@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:MyExpenses.Wpf.Windows"
         xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:margin="clr-namespace:MyExpenses.Wpf.Utils.Margin;assembly=MyExpenses.Wpf.Utils"
         mc:Ignorable="d"
 
         Title="SettingsWindow"
@@ -77,7 +78,7 @@
 
                 <materialDesign:Card>
 
-                    <Grid>
+                    <Grid margin:PanelExtensions.MarginForAllChildren="5">
 
                         <Grid.RowDefinitions>
                             <RowDefinition Height="*" />
@@ -91,43 +92,37 @@
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
 
-                        <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"
-                               Content="Primary - Mind"
-                               Foreground="{Binding ForegroundPrimaryMindBrush, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                               Background="{Binding BackgroundPrimaryMindBrush, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
-                        </Label>
-
-                        <Label Grid.Row="1" Grid.Column="0"
+                        <Label Grid.Row="0" Grid.Column="0"
                                Content="Primary - Light"
                                Foreground="{Binding ForegroundPrimaryLightBrush, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                                Background="{Binding BackgroundPrimaryLightBrush, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
                         </Label>
 
-                        <Label Grid.Row="1" Grid.Column="1"
+                        <Label Grid.Row="0" Grid.Column="1"
                                Content="Primary - Mind"
                                Foreground="{Binding ForegroundPrimaryMindBrush, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                                Background="{Binding BackgroundPrimaryMindBrush, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
                         </Label>
 
-                        <Label Grid.Row="1" Grid.Column="2"
+                        <Label Grid.Row="0" Grid.Column="2"
                                Content="Primary - Dark"
                                Foreground="{Binding ForegroundPrimaryDarkBrush, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                                Background="{Binding BackgroundPrimaryDarkBrush, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
                         </Label>
 
-                        <Label Grid.Row="2" Grid.Column="0"
+                        <Label Grid.Row="1" Grid.Column="0"
                                Content="Secondary - Light"
                                Foreground="{Binding ForegroundSecondaryLightBrush, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                                Background="{Binding BackgroundSecondaryLightBrush, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
                         </Label>
 
-                        <Label Grid.Row="2" Grid.Column="1"
+                        <Label Grid.Row="1" Grid.Column="1"
                                Content="Secondary - Mind"
                                Foreground="{Binding ForegroundSecondaryMindBrush, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                                Background="{Binding BackgroundSecondaryMindBrush, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
                         </Label>
 
-                        <Label Grid.Row="2" Grid.Column="2"
+                        <Label Grid.Row="1" Grid.Column="2"
                                Content="Secondary - Dark"
                                Foreground="{Binding ForegroundSecondaryDarkBrush, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                                Background="{Binding BackgroundSecondaryDarkBrush, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
