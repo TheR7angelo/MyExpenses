@@ -65,24 +65,33 @@ public partial class SettingsWindow
         var paletteHelper = new PaletteHelper();
         Theme = paletteHelper.GetTheme();
 
-        BackgroundPrimaryLightBrush = new SolidColorBrush(Theme.PrimaryLight.Color);
-        BackgroundPrimaryMindBrush = new SolidColorBrush(Theme.PrimaryMid.Color);
-        BackgroundPrimaryDarkBrush = new SolidColorBrush(Theme.PrimaryDark.Color);
+        UpdatePrimaryLabelTheme();
+        UpdateSecondaryLabelTheme();
 
+        // TODO WORK
+        InitializeComponent();
+    }
+
+    private void UpdateSecondaryLabelTheme()
+    {
         BackgroundSecondaryLightBrush = new SolidColorBrush(Theme.SecondaryLight.Color);
         BackgroundSecondaryMindBrush = new SolidColorBrush(Theme.SecondaryMid.Color);
         BackgroundSecondaryDarkBrush = new SolidColorBrush(Theme.SecondaryDark.Color);
 
-        ForegroundPrimaryLightBrush = new SolidColorBrush(Theme.PrimaryLight.Color.ContrastingForegroundColor());
-        ForegroundPrimaryMindBrush = new SolidColorBrush(Theme.PrimaryMid.Color.ContrastingForegroundColor());
-        ForegroundPrimaryDarkBrush = new SolidColorBrush(Theme.PrimaryDark.Color.ContrastingForegroundColor());
-
         ForegroundSecondaryLightBrush = new SolidColorBrush(Theme.SecondaryLight.Color.ContrastingForegroundColor());
         ForegroundSecondaryMindBrush = new SolidColorBrush(Theme.SecondaryMid.Color.ContrastingForegroundColor());
         ForegroundSecondaryDarkBrush = new SolidColorBrush(Theme.SecondaryDark.Color.ContrastingForegroundColor());
+    }
 
-        // TODO WORK
-        InitializeComponent();
+    private void UpdatePrimaryLabelTheme()
+    {
+        BackgroundPrimaryLightBrush = new SolidColorBrush(Theme.PrimaryLight.Color);
+        BackgroundPrimaryMindBrush = new SolidColorBrush(Theme.PrimaryMid.Color);
+        BackgroundPrimaryDarkBrush = new SolidColorBrush(Theme.PrimaryDark.Color);
+
+        ForegroundPrimaryLightBrush = new SolidColorBrush(Theme.PrimaryLight.Color.ContrastingForegroundColor());
+        ForegroundPrimaryMindBrush = new SolidColorBrush(Theme.PrimaryMid.Color.ContrastingForegroundColor());
+        ForegroundPrimaryDarkBrush = new SolidColorBrush(Theme.PrimaryDark.Color.ContrastingForegroundColor());
     }
 
     public Brush BackgroundPrimaryMindBrush
