@@ -159,7 +159,9 @@
                     margin:PanelExtensions.MarginForAllChildren="5">
 
             <!-- TODO Work -->
-            <Button Content="Save" Style="{StaticResource MaterialDesignPaperButton}" />
+            <Button Content="Save"
+                    Style="{StaticResource MaterialDesignPaperButton}">
+            </Button>
 
             <Button Content="Cancel"
                     Style="{StaticResource MaterialDesignPaperSecondaryButton}"
