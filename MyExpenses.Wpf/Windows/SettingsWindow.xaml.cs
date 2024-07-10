@@ -211,7 +211,7 @@ public partial class SettingsWindow
 
     private void ButtonSecondaryColor_OnClick(object sender, RoutedEventArgs e)
     {
-        var color = Theme.PrimaryMid.Color;
+        var color = Theme.SecondaryMid.Color;
         var newColor = GetNewColor(color);
 
         Theme.SetSecondaryColor(newColor);
