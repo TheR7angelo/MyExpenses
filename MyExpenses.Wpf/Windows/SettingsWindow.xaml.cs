@@ -1,9 +1,11 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Interop;
 using System.Windows.Media;
 using MaterialDesignColors.ColorManipulation;
 using MaterialDesignThemes.Wpf;
+using MyExpenses.Utils.WindowStyle;
 using MyExpenses.Wpf.Utils;
 
 namespace MyExpenses.Wpf.Windows;
@@ -78,6 +80,9 @@ public partial class SettingsWindow
 
         // TODO WORK
         InitializeComponent();
+
+        var hWnd = new WindowInteropHelper(GetWindow(this)!).EnsureHandle();
+        hWnd.SetWindowCornerPreference(DwmWindowCornerPreference.Round);
     }
 
     public Brush BackgroundPrimaryMindBrush
