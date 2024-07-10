@@ -72,28 +72,6 @@ public partial class SettingsWindow
         InitializeComponent();
     }
 
-    private void UpdateSecondaryLabelTheme()
-    {
-        BackgroundSecondaryLightBrush = new SolidColorBrush(Theme.SecondaryLight.Color);
-        BackgroundSecondaryMindBrush = new SolidColorBrush(Theme.SecondaryMid.Color);
-        BackgroundSecondaryDarkBrush = new SolidColorBrush(Theme.SecondaryDark.Color);
-
-        ForegroundSecondaryLightBrush = new SolidColorBrush(Theme.SecondaryLight.Color.ContrastingForegroundColor());
-        ForegroundSecondaryMindBrush = new SolidColorBrush(Theme.SecondaryMid.Color.ContrastingForegroundColor());
-        ForegroundSecondaryDarkBrush = new SolidColorBrush(Theme.SecondaryDark.Color.ContrastingForegroundColor());
-    }
-
-    private void UpdatePrimaryLabelTheme()
-    {
-        BackgroundPrimaryLightBrush = new SolidColorBrush(Theme.PrimaryLight.Color);
-        BackgroundPrimaryMindBrush = new SolidColorBrush(Theme.PrimaryMid.Color);
-        BackgroundPrimaryDarkBrush = new SolidColorBrush(Theme.PrimaryDark.Color);
-
-        ForegroundPrimaryLightBrush = new SolidColorBrush(Theme.PrimaryLight.Color.ContrastingForegroundColor());
-        ForegroundPrimaryMindBrush = new SolidColorBrush(Theme.PrimaryMid.Color.ContrastingForegroundColor());
-        ForegroundPrimaryDarkBrush = new SolidColorBrush(Theme.PrimaryDark.Color.ContrastingForegroundColor());
-    }
-
     public Brush BackgroundPrimaryMindBrush
     {
         get => (Brush)GetValue(BackgroundPrimaryMindBrushProperty);
@@ -166,6 +144,11 @@ public partial class SettingsWindow
         set => SetValue(ForegroundSecondaryDarkBrushProperty, value);
     }
 
+    #region Action
+
+    private void ButtonCancel_OnClick(object sender, RoutedEventArgs e)
+        => Close();
+
     private void UIElement_OnMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
     {
         var treeViewItem = (TreeViewItem)sender;
@@ -175,13 +158,38 @@ public partial class SettingsWindow
         if (tabItem is not null) tabItem.IsSelected = true;
     }
 
+    #endregion
+
+    #region Function
+
     private static TabItem? FindTabItemByHeader(TabControl tabControl, string header)
     {
         var children = tabControl.FindVisualChildren<TabItem>();
         return children.FirstOrDefault(child => child.Header.Equals(header));
     }
 
-    private void ButtonCancel_OnClick(object sender, RoutedEventArgs e)
-        => Close();
+    private void UpdateSecondaryLabelTheme()
+    {
+        BackgroundSecondaryLightBrush = new SolidColorBrush(Theme.SecondaryLight.Color);
+        BackgroundSecondaryMindBrush = new SolidColorBrush(Theme.SecondaryMid.Color);
+        BackgroundSecondaryDarkBrush = new SolidColorBrush(Theme.SecondaryDark.Color);
+
+        ForegroundSecondaryLightBrush = new SolidColorBrush(Theme.SecondaryLight.Color.ContrastingForegroundColor());
+        ForegroundSecondaryMindBrush = new SolidColorBrush(Theme.SecondaryMid.Color.ContrastingForegroundColor());
+        ForegroundSecondaryDarkBrush = new SolidColorBrush(Theme.SecondaryDark.Color.ContrastingForegroundColor());
+    }
+
+    private void UpdatePrimaryLabelTheme()
+    {
+        BackgroundPrimaryLightBrush = new SolidColorBrush(Theme.PrimaryLight.Color);
+        BackgroundPrimaryMindBrush = new SolidColorBrush(Theme.PrimaryMid.Color);
+        BackgroundPrimaryDarkBrush = new SolidColorBrush(Theme.PrimaryDark.Color);
+
+        ForegroundPrimaryLightBrush = new SolidColorBrush(Theme.PrimaryLight.Color.ContrastingForegroundColor());
+        ForegroundPrimaryMindBrush = new SolidColorBrush(Theme.PrimaryMid.Color.ContrastingForegroundColor());
+        ForegroundPrimaryDarkBrush = new SolidColorBrush(Theme.PrimaryDark.Color.ContrastingForegroundColor());
+    }
+
+    #endregion
 
 }
