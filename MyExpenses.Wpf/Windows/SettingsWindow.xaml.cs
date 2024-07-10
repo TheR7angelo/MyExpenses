@@ -192,4 +192,17 @@ public partial class SettingsWindow
 
     #endregion
 
+    private void ButtonPrimaryColor_OnClick(object sender, RoutedEventArgs e)
+    {
+        var colorPickerWindow = new ColorPickerWindow();
+        colorPickerWindow.ColorPickerControl.InitializeValue(Theme.PrimaryMid.Color);
+        colorPickerWindow.ShowDialog();
+
+        if (colorPickerWindow.DialogResult is not true) return;
+
+        var newColor = colorPickerWindow.ColorResult ?? default;
+
+        Theme.SetPrimaryColor(newColor);
+        UpdatePrimaryLabelTheme();
+    }
 }

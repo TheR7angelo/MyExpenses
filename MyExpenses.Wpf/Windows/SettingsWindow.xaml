@@ -148,7 +148,8 @@
                                     margin:PanelExtensions.MarginForAllChildren="5">
 
                             <Button Content="Primary color"
-                                    Style="{StaticResource MaterialDesignPaperButton}">
+                                    Style="{StaticResource MaterialDesignPaperButton}"
+                                    Click="ButtonPrimaryColor_OnClick">
                             </Button>
 
                             <Button Content="Secondary color"
