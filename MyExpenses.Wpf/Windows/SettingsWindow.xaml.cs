@@ -202,15 +202,22 @@ public partial class SettingsWindow
 
     private void ButtonPrimaryColor_OnClick(object sender, RoutedEventArgs e)
     {
-        var colorPickerWindow = new ColorPickerWindow();
-        colorPickerWindow.ColorPickerControl.InitializeValue(Theme.PrimaryMid.Color);
-        colorPickerWindow.ShowDialog();
-
-        if (colorPickerWindow.DialogResult is not true) return;
-
-        var newColor = colorPickerWindow.ColorResult ?? default;
+        var color = Theme.PrimaryMid.Color;
+        var newColor = GetNewColor(color);
 
         Theme.SetPrimaryColor(newColor);
         UpdatePrimaryLabelTheme();
+    }
+
+    private static Color GetNewColor(Color defaultColor)
+    {
+        var colorPickerWindow = new ColorPickerWindow();
+        colorPickerWindow.ColorPickerControl.InitializeValue(defaultColor);
+        colorPickerWindow.ShowDialog();
+
+        if (colorPickerWindow.DialogResult is not true) return defaultColor;
+
+        var newColor = colorPickerWindow.ColorResult ?? defaultColor;
+        return newColor;
     }
 }
