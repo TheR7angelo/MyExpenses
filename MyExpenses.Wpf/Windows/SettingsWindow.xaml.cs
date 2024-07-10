@@ -169,4 +169,8 @@ public partial class SettingsWindow
         var children = tabControl.FindVisualChildren<TabItem>();
         return children.FirstOrDefault(child => child.Header.Equals(header));
     }
+
+    private void ButtonCancel_OnClick(object sender, RoutedEventArgs e)
+        => Close();
+
 }

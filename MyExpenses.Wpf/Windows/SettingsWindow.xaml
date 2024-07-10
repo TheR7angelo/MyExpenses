@@ -40,6 +40,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
@@ -48,7 +49,7 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <TreeView Grid.Row="1" Grid.Column="0">
+        <TreeView Grid.Row="1" Grid.Column="0" Grid.RowSpan="2">
 
             <!-- TODO work -->
             <TreeViewItem x:Name="ItemAppearance"
@@ -83,7 +84,8 @@
                         <Grid.RowDefinitions>
                             <RowDefinition Height="*" />
                             <RowDefinition Height="*" />
-                            <RowDefinition Height="*" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
 
                         <Grid.ColumnDefinitions>
@@ -150,6 +152,21 @@
             </TabItem>
 
         </TabControl>
+
+        <StackPanel Grid.Row="2" Grid.Column="2"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right"
+                    margin:PanelExtensions.MarginForAllChildren="5">
+
+            <!-- TODO Work -->
+            <Button Content="Save" Style="{StaticResource MaterialDesignPaperButton}" />
+
+            <Button Content="Cancel"
+                    Style="{StaticResource MaterialDesignPaperSecondaryButton}"
+                    Click="ButtonCancel_OnClick">
+            </Button>
+
+        </StackPanel>
 
     </Grid>
 
