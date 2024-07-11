@@ -79,7 +79,7 @@
 
                 <materialDesign:Card>
 
-                    <Grid margin:PanelExtensions.MarginForAllChildren="5">
+                    <Grid margin:PanelExtensions.MarginForAllChildren="1.75">
 
                         <Grid.RowDefinitions>
                             <RowDefinition Height="*" />
