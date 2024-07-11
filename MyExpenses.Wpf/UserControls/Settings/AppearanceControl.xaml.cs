@@ -13,9 +13,9 @@ public partial class AppearanceControl
 
     #region DependencyProperties
 
-    public static readonly DependencyProperty BackgroundPrimaryMindBrushProperty = DependencyProperty.Register(
-        nameof(BackgroundPrimaryMindBrush),
-        typeof(Brush), typeof(SettingsWindow), new PropertyMetadata(default(Brush)));
+    public static readonly DependencyProperty BackgroundPrimaryMindBrushProperty =
+        DependencyProperty.Register(nameof(BackgroundPrimaryMindBrush), typeof(Brush), typeof(AppearanceControl),
+            new PropertyMetadata(default(Brush)));
 
     public Brush BackgroundPrimaryMindBrush
     {
@@ -24,7 +24,7 @@ public partial class AppearanceControl
     }
 
     public static readonly DependencyProperty BackgroundPrimaryLightBrushProperty =
-        DependencyProperty.Register(nameof(BackgroundPrimaryLightBrush), typeof(Brush), typeof(SettingsWindow),
+        DependencyProperty.Register(nameof(BackgroundPrimaryLightBrush), typeof(Brush), typeof(AppearanceControl),
             new PropertyMetadata(default(Brush)));
 
     public Brush BackgroundPrimaryLightBrush
@@ -34,7 +34,7 @@ public partial class AppearanceControl
     }
 
     public static readonly DependencyProperty BackgroundPrimaryDarkBrushProperty =
-        DependencyProperty.Register(nameof(BackgroundPrimaryDarkBrush), typeof(Brush), typeof(SettingsWindow),
+        DependencyProperty.Register(nameof(BackgroundPrimaryDarkBrush), typeof(Brush), typeof(AppearanceControl),
             new PropertyMetadata(default(Brush)));
 
     public Brush BackgroundPrimaryDarkBrush
@@ -44,7 +44,7 @@ public partial class AppearanceControl
     }
 
     public static readonly DependencyProperty BackgroundSecondaryLightBrushProperty =
-        DependencyProperty.Register(nameof(BackgroundSecondaryLightBrush), typeof(Brush), typeof(SettingsWindow),
+        DependencyProperty.Register(nameof(BackgroundSecondaryLightBrush), typeof(Brush), typeof(AppearanceControl),
             new PropertyMetadata(default(Brush)));
 
     public Brush BackgroundSecondaryLightBrush
@@ -54,7 +54,7 @@ public partial class AppearanceControl
     }
 
     public static readonly DependencyProperty BackgroundSecondaryMindBrushProperty =
-        DependencyProperty.Register(nameof(BackgroundSecondaryMindBrush), typeof(Brush), typeof(SettingsWindow),
+        DependencyProperty.Register(nameof(BackgroundSecondaryMindBrush), typeof(Brush), typeof(AppearanceControl),
             new PropertyMetadata(default(Brush)));
 
     public Brush BackgroundSecondaryMindBrush
@@ -64,7 +64,7 @@ public partial class AppearanceControl
     }
 
     public static readonly DependencyProperty BackgroundSecondaryDarkBrushProperty =
-        DependencyProperty.Register(nameof(BackgroundSecondaryDarkBrush), typeof(Brush), typeof(SettingsWindow),
+        DependencyProperty.Register(nameof(BackgroundSecondaryDarkBrush), typeof(Brush), typeof(AppearanceControl),
             new PropertyMetadata(default(Brush)));
 
     public Brush BackgroundSecondaryDarkBrush
@@ -74,7 +74,7 @@ public partial class AppearanceControl
     }
 
     public static readonly DependencyProperty ForegroundPrimaryMindBrushProperty =
-        DependencyProperty.Register(nameof(ForegroundPrimaryMindBrush), typeof(Brush), typeof(SettingsWindow),
+        DependencyProperty.Register(nameof(ForegroundPrimaryMindBrush), typeof(Brush), typeof(AppearanceControl),
             new PropertyMetadata(default(Brush)));
 
     public Brush ForegroundPrimaryMindBrush
@@ -84,7 +84,7 @@ public partial class AppearanceControl
     }
 
     public static readonly DependencyProperty ForegroundPrimaryLightBrushProperty =
-        DependencyProperty.Register(nameof(ForegroundPrimaryLightBrush), typeof(Brush), typeof(SettingsWindow),
+        DependencyProperty.Register(nameof(ForegroundPrimaryLightBrush), typeof(Brush), typeof(AppearanceControl),
             new PropertyMetadata(default(Brush)));
 
     public Brush ForegroundPrimaryLightBrush
@@ -94,7 +94,7 @@ public partial class AppearanceControl
     }
 
     public static readonly DependencyProperty ForegroundPrimaryDarkBrushProperty =
-        DependencyProperty.Register(nameof(ForegroundPrimaryDarkBrush), typeof(Brush), typeof(SettingsWindow),
+        DependencyProperty.Register(nameof(ForegroundPrimaryDarkBrush), typeof(Brush), typeof(AppearanceControl),
             new PropertyMetadata(default(Brush)));
 
     public Brush ForegroundPrimaryDarkBrush
@@ -104,7 +104,7 @@ public partial class AppearanceControl
     }
 
     public static readonly DependencyProperty ForegroundSecondaryLightBrushProperty =
-        DependencyProperty.Register(nameof(ForegroundSecondaryLightBrush), typeof(Brush), typeof(SettingsWindow),
+        DependencyProperty.Register(nameof(ForegroundSecondaryLightBrush), typeof(Brush), typeof(AppearanceControl),
             new PropertyMetadata(default(Brush)));
 
     public Brush ForegroundSecondaryLightBrush
@@ -114,7 +114,7 @@ public partial class AppearanceControl
     }
 
     public static readonly DependencyProperty ForegroundSecondaryMindBrushProperty =
-        DependencyProperty.Register(nameof(ForegroundSecondaryMindBrush), typeof(Brush), typeof(SettingsWindow),
+        DependencyProperty.Register(nameof(ForegroundSecondaryMindBrush), typeof(Brush), typeof(AppearanceControl),
             new PropertyMetadata(default(Brush)));
 
     public Brush ForegroundSecondaryMindBrush
@@ -124,7 +124,7 @@ public partial class AppearanceControl
     }
 
     public static readonly DependencyProperty ForegroundSecondaryDarkBrushProperty =
-        DependencyProperty.Register(nameof(ForegroundSecondaryDarkBrush), typeof(Brush), typeof(SettingsWindow),
+        DependencyProperty.Register(nameof(ForegroundSecondaryDarkBrush), typeof(Brush), typeof(AppearanceControl),
             new PropertyMetadata(default(Brush)));
 
     public Brush ForegroundSecondaryDarkBrush
@@ -135,7 +135,7 @@ public partial class AppearanceControl
 
     #endregion
 
-    private Theme Theme { get; }
+    public Theme Theme { get; }
 
     #endregion
 
