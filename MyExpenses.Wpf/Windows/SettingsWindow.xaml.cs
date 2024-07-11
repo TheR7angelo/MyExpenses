@@ -2,6 +2,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Interop;
+using MyExpenses.Models.Config;
 using MyExpenses.Utils;
 using MyExpenses.Utils.WindowStyle;
 using MyExpenses.Wpf.Utils;
@@ -28,12 +29,12 @@ public partial class SettingsWindow
     {
         if (TabControl.SelectedItem is not TabItem tabItem) return;
 
+        var configuration = Config.Configuration;
         if (tabItem.Header.Equals(ItemAppearance.Header))
         {
             var primaryColor = AppearanceControl.Theme.PrimaryMid.Color;
             var secondaryColor = AppearanceControl.Theme.SecondaryMid.Color;
 
-            var configuration = Config.Configuration;
             configuration.Interface.Theme.HexadecimalCodePrimaryColor = primaryColor.ToHexadecimal();
             configuration.Interface.Theme.HexadecimalCodeSecondaryColor = secondaryColor.ToHexadecimal();
 
@@ -41,6 +42,8 @@ public partial class SettingsWindow
 
             App.LoadInterfaceConfiguration(configuration.Interface.Theme);
         }
+
+        Configuration.OnConfigurationChanged(this, new ConfigurationChangedEventArgs(configuration));
     }
 
     private void UIElement_OnMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
