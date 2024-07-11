@@ -7,20 +7,33 @@ public static class Config
 {
     private static string ConfigurationFilePath { get; } = Path.GetFullPath("appsettings.json");
     
-    public static Configuration Configuration { get; }
-    
+    public static Configuration Configuration { get; private set; }
+
     static Config()
     {
         if (File.Exists(ConfigurationFilePath))
         {
-            var json = File.ReadAllText(ConfigurationFilePath);
-            Configuration = JsonConvert.DeserializeObject<Configuration>(json) ?? new Configuration();
+            Configuration = ReadConfiguration();
         }
         else
         {
-            Configuration = new Configuration();
-            var json = JsonConvert.SerializeObject(Configuration, Formatting.Indented);
-            File.WriteAllText(ConfigurationFilePath, json);
+            var configuration = new Configuration();
+            configuration.WriteConfiguration();
+
+            Configuration = configuration;
         }
+    }
+
+    private static Configuration ReadConfiguration()
+    {
+        var json = File.ReadAllText(ConfigurationFilePath);
+        var configuration = JsonConvert.DeserializeObject<Configuration>(json) ?? new Configuration();
+        return configuration;
+    }
+
+    public static void WriteConfiguration(this Configuration configuration)
+    {
+        var json = JsonConvert.SerializeObject(configuration, Formatting.Indented);
+        File.WriteAllText(ConfigurationFilePath, json);
     }
 }
