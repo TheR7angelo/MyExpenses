@@ -7,9 +7,11 @@ using System.Windows.Input;
 using System.Windows.Markup;
 using System.Windows.Media;
 using BruTile.Predefined;
+using Mapsui;
 using Mapsui.Layers;
 using Mapsui.Tiling.Layers;
 using Microsoft.Data.Sqlite;
+using MyExpenses.Models.Config;
 using MyExpenses.Models.Sql.Tables;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils.Collection;
@@ -107,12 +109,12 @@ public partial class RecordExpensePage
         CitiesCollection = new ObservableCollection<string>(records);
 
         // TODO add listener color change
-        var brush = (SolidColorBrush)FindResource("MaterialDesignPaper");
-        var backColor = brush.ToMapsuiColor();
-
+        var backColor = GetMapsUiBackColor();
         var map = MapsuiMapExtensions.GetMap(true, backColor);
+        UpdateMapBackColor(map);
         map.Layers.Add(PlaceLayer);
 
+        Configuration.ConfigurationChanged += Configuration_OnConfigurationChanged;
         InitializeComponent();
 
         History.Date = DateTime.Now;
@@ -427,6 +429,12 @@ public partial class RecordExpensePage
         MsgBox.Show(RecordExpensePageResources.MessageBoxDeleteHistoryError, MsgBoxImage.Error);
     }
 
+    private void Configuration_OnConfigurationChanged(object sender, ConfigurationChangedEventArgs e)
+    {
+        var backColor = GetMapsUiBackColor();
+        MapControl.Map.BackColor = backColor;
+    }
+
     private void TextBoxValue_OnTextChanged(object sender, TextChangedEventArgs e)
     {
         var textBox = (TextBox)sender;
@@ -524,10 +532,28 @@ public partial class RecordExpensePage
 
     #region Function
 
+    private Mapsui.Styles.Color GetMapsUiBackColor()
+    {
+        var brush = (SolidColorBrush)FindResource("MaterialDesignPaper");
+        var backColor = brush.ToMapsuiColor();
+
+        return backColor;
+    }
+
     public void SetTHistory(THistory history)
     {
         history.CopyPropertiesTo(History);
         EditHistory = true;
+    }
+
+    private void UpdateMapBackColor(Map? map = null)
+    {
+        map ??= MapControl.Map;
+
+        var brush = (SolidColorBrush)FindResource("MaterialDesignPaper");
+        var backColor = brush.ToMapsuiColor();
+
+        map.BackColor = backColor;
     }
 
     private void UpdateMapPoint(TPlace? place)
