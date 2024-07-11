@@ -43,12 +43,7 @@ public partial class App
 
     public static void LoadInterfaceConfiguration(Theme configurationTheme)
     {
-        var baseThemeStr = configurationTheme.BaseTheme;
-        if (!Enum.TryParse<BaseTheme>(baseThemeStr, true, out var baseTheme))
-        {
-            baseTheme = BaseTheme.Inherit;
-        }
-
+        var baseTheme = (BaseTheme)configurationTheme.BaseTheme;
         var primaryColor = configurationTheme.HexadecimalCodePrimaryColor.ToColor() ?? Color.FromRgb(0, 128, 0);
         var secondaryColor = configurationTheme.HexadecimalCodeSecondaryColor.ToColor() ?? Color.FromRgb(255, 165, 0);
 
