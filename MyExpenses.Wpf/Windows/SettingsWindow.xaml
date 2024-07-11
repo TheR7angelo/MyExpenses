@@ -77,7 +77,7 @@
 
             <TabItem Header="{Binding Header, ElementName=ItemAppearance}">
 
-                <materialDesign:Card>
+                <materialDesign:Card Margin="5">
 
                     <Grid margin:PanelExtensions.MarginForAllChildren="1.75">
 
