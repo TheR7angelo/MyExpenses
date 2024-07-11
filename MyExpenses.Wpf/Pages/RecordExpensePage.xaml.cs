@@ -108,7 +108,6 @@ public partial class RecordExpensePage
         records = PlacesCollection.Select(s => EmptyStringTreeViewConverter.ToUnknown(s.City)).Order().Distinct();
         CitiesCollection = new ObservableCollection<string>(records);
 
-        // TODO add listener color change
         var backColor = GetMapsUiBackColor();
         var map = MapsuiMapExtensions.GetMap(true, backColor);
         UpdateMapBackColor(map);
