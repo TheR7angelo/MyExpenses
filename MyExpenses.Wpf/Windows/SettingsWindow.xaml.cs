@@ -29,7 +29,7 @@ public partial class SettingsWindow
 
         if (tabItem.Header.Equals(ItemAppearance.Header))
         {
-            Console.WriteLine("hey");
+            Console.WriteLine(AppearanceControl.Theme.PrimaryMid.Color);
         }
     }
 
