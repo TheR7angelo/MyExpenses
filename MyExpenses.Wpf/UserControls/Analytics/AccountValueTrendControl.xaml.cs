@@ -6,35 +6,57 @@ using LiveChartsCore;
 using LiveChartsCore.Kernel.Sketches;
 using LiveChartsCore.SkiaSharpView;
 using LiveChartsCore.SkiaSharpView.Painting;
+using MyExpenses.Models.Config;
 using MyExpenses.Models.Sql.Views;
 using MyExpenses.Sql.Context;
+using SkiaSharp;
 using SkiaSharp.Views.WPF;
 
 namespace MyExpenses.Wpf.UserControls.Analytics;
 
 public partial class AccountValueTrendControl
 {
+    public static readonly DependencyProperty TextPaintProperty = DependencyProperty.Register(nameof(TextPaint),
+        typeof(SolidColorPaint), typeof(AccountValueTrendControl), new PropertyMetadata(default(SolidColorPaint)));
+
     public ISeries[] Series { get; set; } = null!;
     public ICartesianAxis[] XAxis { get; set; } = null!;
     public ICartesianAxis[] YAxis { get; set; } = null!;
 
-    public SolidColorPaint TextPaint { get; }
-
     private List<CheckBox> CheckBoxes { get; } = [];
     private List<CheckBox> CheckBoxesTrend { get; } = [];
 
+    public SolidColorPaint TextPaint
+    {
+        get => (SolidColorPaint)GetValue(TextPaintProperty);
+        set => SetValue(TextPaintProperty, value);
+    }
+
     public AccountValueTrendControl()
     {
-        // TODO add listener color change
-        var brush = (SolidColorBrush)FindResource("MaterialDesignBody");
-        var wpfColor = brush.Color;
-        TextPaint = new SolidColorPaint(wpfColor.ToSKColor());
+        var skColor = GetSkColor();
+        TextPaint = new SolidColorPaint(skColor);
 
         SetChart();
 
+        Configuration.ConfigurationChanged += Configuration_OnConfigurationChanged;
         InitializeComponent();
 
         SetButtonPanel();
+    }
+
+    private void Configuration_OnConfigurationChanged(object sender, ConfigurationChangedEventArgs e)
+    {
+        var skColor = GetSkColor();
+        TextPaint = new SolidColorPaint(skColor);
+    }
+
+    private SKColor GetSkColor()
+    {
+        var brush = (SolidColorBrush)FindResource("MaterialDesignBody");
+        var wpfColor = brush.Color;
+        var skColor = wpfColor.ToSKColor();
+        return skColor;
     }
 
     private void SetButtonPanel()
@@ -128,10 +150,12 @@ public partial class AccountValueTrendControl
                 IsChecked = lineSeries.IsVisible,
                 Margin = new Thickness(5)
             };
-            checkBox.Click += (_, _) => {
+            checkBox.Click += (_, _) =>
             {
-                lineSeries.IsVisible = !lineSeries.IsVisible;
-            }};
+                {
+                    lineSeries.IsVisible = !lineSeries.IsVisible;
+                }
+            };
             CheckBoxes.Add(checkBox);
 
             var checkBoxTrend = new CheckBox
@@ -140,10 +164,12 @@ public partial class AccountValueTrendControl
                 IsChecked = trendSeries.IsVisible,
                 Margin = new Thickness(5)
             };
-            checkBoxTrend.Click += (_, _) => {
+            checkBoxTrend.Click += (_, _) =>
             {
-                trendSeries.IsVisible = !trendSeries.IsVisible;
-            }};
+                {
+                    trendSeries.IsVisible = !trendSeries.IsVisible;
+                }
+            };
             CheckBoxesTrend.Add(checkBoxTrend);
         }
 
