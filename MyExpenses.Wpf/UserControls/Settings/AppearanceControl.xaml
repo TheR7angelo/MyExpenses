@@ -5,9 +5,14 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:MyExpenses.Wpf.UserControls.Settings"
              xmlns:margin="clr-namespace:MyExpenses.Wpf.Utils.Margin;assembly=MyExpenses.Wpf.Utils"
+             xmlns:colors="clr-namespace:MyExpenses.Wpf.Converters.Colors"
              mc:Ignorable="d"
 
              d:DesignHeight="300" d:DesignWidth="300">
+
+    <UserControl.Resources>
+        <colors:SolidColorBrushToSolidColorBrushContrastingForegroundColorConverter x:Key="SolidColorBrushToSolidColorBrushContrastingForegroundColorConverter" />
+    </UserControl.Resources>
 
     <Grid margin:PanelExtensions.MarginForAllChildren="1.75">
 
@@ -42,7 +47,7 @@
             <Label Content="Primary - Light"
                    HorizontalContentAlignment="Center"
                    VerticalContentAlignment="Center"
-                   Foreground="{Binding ForegroundPrimaryLightBrush, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:AppearanceControl}}}"
+                   Foreground="{Binding BackgroundPrimaryLightBrush, Converter={StaticResource SolidColorBrushToSolidColorBrushContrastingForegroundColorConverter}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:AppearanceControl}}}"
                    Background="Transparent">
             </Label>
         </Grid>
@@ -51,7 +56,7 @@
                Content="Primary - Mind"
                HorizontalContentAlignment="Center"
                VerticalContentAlignment="Center"
-               Foreground="{Binding ForegroundPrimaryMindBrush, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:AppearanceControl}}}"
+               Foreground="{Binding BackgroundPrimaryMindBrush, Converter={StaticResource SolidColorBrushToSolidColorBrushContrastingForegroundColorConverter}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:AppearanceControl}}}"
                Background="{Binding BackgroundPrimaryMindBrush, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:AppearanceControl}}}">
         </Label>
 
@@ -73,7 +78,7 @@
             <Label Content="Primary - Dark"
                    HorizontalContentAlignment="Center"
                    VerticalContentAlignment="Center"
-                   Foreground="{Binding ForegroundPrimaryDarkBrush, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:AppearanceControl}}}"
+                   Foreground="{Binding BackgroundPrimaryDarkBrush, Converter={StaticResource SolidColorBrushToSolidColorBrushContrastingForegroundColorConverter}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:AppearanceControl}}}"
                    Background="Transparent">
             </Label>
         </Grid>
@@ -96,7 +101,7 @@
             <Label Content="Secondary - Light"
                    HorizontalContentAlignment="Center"
                    VerticalContentAlignment="Center"
-                   Foreground="{Binding ForegroundSecondaryLightBrush, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:AppearanceControl}}}"
+                   Foreground="{Binding BackgroundSecondaryLightBrush, Converter={StaticResource SolidColorBrushToSolidColorBrushContrastingForegroundColorConverter}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:AppearanceControl}}}"
                    Background="Transparent">
             </Label>
         </Grid>
@@ -105,7 +110,7 @@
                Content="Secondary - Mind"
                HorizontalContentAlignment="Center"
                VerticalContentAlignment="Center"
-               Foreground="{Binding ForegroundSecondaryMindBrush, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:AppearanceControl}}}"
+               Foreground="{Binding BackgroundSecondaryMindBrush, Converter={StaticResource SolidColorBrushToSolidColorBrushContrastingForegroundColorConverter}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:AppearanceControl}}}"
                Background="{Binding BackgroundSecondaryMindBrush, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:AppearanceControl}}}">
         </Label>
 
@@ -127,7 +132,7 @@
             <Label Content="Secondary - Dark"
                    HorizontalContentAlignment="Center"
                    VerticalContentAlignment="Center"
-                   Foreground="{Binding ForegroundSecondaryDarkBrush, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:AppearanceControl}}}"
+                   Foreground="{Binding BackgroundSecondaryDarkBrush, Converter={StaticResource SolidColorBrushToSolidColorBrushContrastingForegroundColorConverter}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:AppearanceControl}}}"
                    Background="Transparent">
             </Label>
         </Grid>

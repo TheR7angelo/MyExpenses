@@ -73,66 +73,6 @@ public partial class AppearanceControl
         set => SetValue(BackgroundSecondaryDarkBrushProperty, value);
     }
 
-    public static readonly DependencyProperty ForegroundPrimaryMindBrushProperty =
-        DependencyProperty.Register(nameof(ForegroundPrimaryMindBrush), typeof(Brush), typeof(AppearanceControl),
-            new PropertyMetadata(default(Brush)));
-
-    public Brush ForegroundPrimaryMindBrush
-    {
-        get => (Brush)GetValue(ForegroundPrimaryMindBrushProperty);
-        set => SetValue(ForegroundPrimaryMindBrushProperty, value);
-    }
-
-    public static readonly DependencyProperty ForegroundPrimaryLightBrushProperty =
-        DependencyProperty.Register(nameof(ForegroundPrimaryLightBrush), typeof(Brush), typeof(AppearanceControl),
-            new PropertyMetadata(default(Brush)));
-
-    public Brush ForegroundPrimaryLightBrush
-    {
-        get => (Brush)GetValue(ForegroundPrimaryLightBrushProperty);
-        set => SetValue(ForegroundPrimaryLightBrushProperty, value);
-    }
-
-    public static readonly DependencyProperty ForegroundPrimaryDarkBrushProperty =
-        DependencyProperty.Register(nameof(ForegroundPrimaryDarkBrush), typeof(Brush), typeof(AppearanceControl),
-            new PropertyMetadata(default(Brush)));
-
-    public Brush ForegroundPrimaryDarkBrush
-    {
-        get => (Brush)GetValue(ForegroundPrimaryDarkBrushProperty);
-        set => SetValue(ForegroundPrimaryDarkBrushProperty, value);
-    }
-
-    public static readonly DependencyProperty ForegroundSecondaryLightBrushProperty =
-        DependencyProperty.Register(nameof(ForegroundSecondaryLightBrush), typeof(Brush), typeof(AppearanceControl),
-            new PropertyMetadata(default(Brush)));
-
-    public Brush ForegroundSecondaryLightBrush
-    {
-        get => (Brush)GetValue(ForegroundSecondaryLightBrushProperty);
-        set => SetValue(ForegroundSecondaryLightBrushProperty, value);
-    }
-
-    public static readonly DependencyProperty ForegroundSecondaryMindBrushProperty =
-        DependencyProperty.Register(nameof(ForegroundSecondaryMindBrush), typeof(Brush), typeof(AppearanceControl),
-            new PropertyMetadata(default(Brush)));
-
-    public Brush ForegroundSecondaryMindBrush
-    {
-        get => (Brush)GetValue(ForegroundSecondaryMindBrushProperty);
-        set => SetValue(ForegroundSecondaryMindBrushProperty, value);
-    }
-
-    public static readonly DependencyProperty ForegroundSecondaryDarkBrushProperty =
-        DependencyProperty.Register(nameof(ForegroundSecondaryDarkBrush), typeof(Brush), typeof(AppearanceControl),
-            new PropertyMetadata(default(Brush)));
-
-    public Brush ForegroundSecondaryDarkBrush
-    {
-        get => (Brush)GetValue(ForegroundSecondaryDarkBrushProperty);
-        set => SetValue(ForegroundSecondaryDarkBrushProperty, value);
-    }
-
     #endregion
 
     public Theme Theme { get; }
@@ -163,10 +103,6 @@ public partial class AppearanceControl
         BackgroundSecondaryLightBrush = new SolidColorBrush(Theme.SecondaryLight.Color);
         BackgroundSecondaryMindBrush = new SolidColorBrush(Theme.SecondaryMid.Color);
         BackgroundSecondaryDarkBrush = new SolidColorBrush(Theme.SecondaryDark.Color);
-
-        ForegroundSecondaryLightBrush = new SolidColorBrush(Theme.SecondaryLight.Color.ContrastingForegroundColor());
-        ForegroundSecondaryMindBrush = new SolidColorBrush(Theme.SecondaryMid.Color.ContrastingForegroundColor());
-        ForegroundSecondaryDarkBrush = new SolidColorBrush(Theme.SecondaryDark.Color.ContrastingForegroundColor());
     }
 
     private void UpdatePrimaryLabelTheme()
@@ -174,10 +110,6 @@ public partial class AppearanceControl
         BackgroundPrimaryLightBrush = new SolidColorBrush(Theme.PrimaryLight.Color);
         BackgroundPrimaryMindBrush = new SolidColorBrush(Theme.PrimaryMid.Color);
         BackgroundPrimaryDarkBrush = new SolidColorBrush(Theme.PrimaryDark.Color);
-
-        ForegroundPrimaryLightBrush = new SolidColorBrush(Theme.PrimaryLight.Color.ContrastingForegroundColor());
-        ForegroundPrimaryMindBrush = new SolidColorBrush(Theme.PrimaryMid.Color.ContrastingForegroundColor());
-        ForegroundPrimaryDarkBrush = new SolidColorBrush(Theme.PrimaryDark.Color.ContrastingForegroundColor());
     }
 
     private void ButtonPrimaryColor_OnClick(object sender, RoutedEventArgs e)
