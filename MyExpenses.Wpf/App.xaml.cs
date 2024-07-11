@@ -41,7 +41,7 @@ public partial class App
         AppDomain.CurrentDomain.UnhandledException += CurrentDomainOnUnhandledException;
     }
 
-    private static void LoadInterfaceConfiguration(Theme configurationTheme)
+    public static void LoadInterfaceConfiguration(Theme configurationTheme)
     {
         var baseThemeStr = configurationTheme.BaseTheme;
         if (!Enum.TryParse<BaseTheme>(baseThemeStr, true, out var baseTheme))
