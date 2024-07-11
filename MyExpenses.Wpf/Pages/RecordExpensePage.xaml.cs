@@ -118,11 +118,7 @@ public partial class RecordExpensePage
 
         History.Date = DateTime.Now;
 
-        var language = XmlLanguage.GetLanguage(Thread.CurrentThread.CurrentCulture.Name);
-        DatePicker.Language = language;
-
-        var configuration = MyExpenses.Utils.Config.Configuration;
-        TimePicker.Is24Hours = configuration.Interface.Clock.Is24Hours;
+        UpdateConfiguration();
 
         MapControl.Map = map;
     }
@@ -429,10 +425,7 @@ public partial class RecordExpensePage
     }
 
     private void Configuration_OnConfigurationChanged(object sender, ConfigurationChangedEventArgs e)
-    {
-        var backColor = GetMapsUiBackColor();
-        MapControl.Map.BackColor = backColor;
-    }
+        => UpdateConfiguration(e.Configuration);
 
     private void TextBoxValue_OnTextChanged(object sender, TextChangedEventArgs e)
     {
@@ -543,6 +536,20 @@ public partial class RecordExpensePage
     {
         history.CopyPropertiesTo(History);
         EditHistory = true;
+    }
+
+    private void UpdateConfiguration(Configuration? configuration = null)
+    {
+        configuration ??= MyExpenses.Utils.Config.Configuration;
+
+        //TODO update language
+        var language = XmlLanguage.GetLanguage(Thread.CurrentThread.CurrentCulture.Name);
+        DatePicker.Language = language;
+
+        TimePicker.Is24Hours = configuration.Interface.Clock.Is24Hours;
+
+        var backColor = GetMapsUiBackColor();
+        MapControl.Map.BackColor = backColor;
     }
 
     private void UpdateMapBackColor(Map? map = null)
