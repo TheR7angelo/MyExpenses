@@ -11,6 +11,7 @@ using Mapsui.Layers;
 using Mapsui.Projections;
 using Mapsui.Tiling.Layers;
 using Microsoft.Data.Sqlite;
+using MyExpenses.Models.Config;
 using MyExpenses.Models.Sql.Groups;
 using MyExpenses.Models.Sql.Tables;
 using MyExpenses.Sql.Context;
@@ -23,6 +24,7 @@ using MyExpenses.Wpf.Utils.Maps;
 using MyExpenses.Wpf.Windows.LocationManagementWindows;
 using MyExpenses.Wpf.Windows.MsgBox;
 using Serilog;
+using Color = Mapsui.Styles.Color;
 
 namespace MyExpenses.Wpf.Pages;
 
@@ -64,13 +66,11 @@ public partial class LocationManagementPage
 
         PlaceLayer.AddRange(features);
 
-        // TODO add listener color change
-        var brush = (SolidColorBrush)FindResource("MaterialDesignPaper");
-        var backColor = brush.ToMapsuiColor();
-
+        var backColor = GetMapsUiBackColor();
         var map = MapsuiMapExtensions.GetMap(true, backColor);
         map.Layers.Add(PlaceLayer);
 
+        Configuration.ConfigurationChanged += Configuration_OnConfigurationChanged;
         InitializeComponent();
 
         MapControl.Map = map;
@@ -79,6 +79,20 @@ public partial class LocationManagementPage
     }
 
     #region Action
+
+    private void CheckBoxPlaceIsOpen_OnClick(object sender, RoutedEventArgs e)
+    {
+        if (sender is not ToggleButton checkBox) return;
+        if (checkBox.DataContext is not TPlace place) return;
+
+        if (place.Longitude is null || place.Longitude == 0 || place.Latitude is null || place.Latitude == 0) return;
+
+        var pointFeature = place.ToFeature().Point;
+        SetZoom(pointFeature);
+    }
+
+    private void Configuration_OnConfigurationChanged(object sender, ConfigurationChangedEventArgs e)
+        => UpdateMapBackColor();
 
     private void MapControl_OnLoaded(object sender, RoutedEventArgs e)
         => UpdateTileLayer();
@@ -186,6 +200,18 @@ public partial class LocationManagementPage
         AddPlaceTreeViewCountryGroup(editedPlace);
     }
 
+    private void MenuItemToGoogleEarthWeb_OnClick(object sender, RoutedEventArgs e)
+        => ClickPoint.ToGoogleEarthWeb();
+
+
+    private void MenuItemToGoogleMaps_OnClick(object sender, RoutedEventArgs e)
+        => ClickPoint.ToGoogleMaps();
+
+
+    private void MenuItemToGoogleStreetView_OnClick(object sender, RoutedEventArgs e)
+        => ClickPoint.ToGoogleStreetView();
+
+
     private void Selector_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         => UpdateTileLayer();
 
@@ -215,30 +241,10 @@ public partial class LocationManagementPage
         SetZoom(points.ToArray());
     }
 
-    private void CheckBoxPlaceIsOpen_OnClick(object sender, RoutedEventArgs e)
+    private void UpdateMapBackColor()
     {
-        if (sender is not ToggleButton checkBox) return;
-        if (checkBox.DataContext is not TPlace place) return;
-
-        if (place.Longitude is null || place.Longitude == 0 || place.Latitude is null || place.Latitude == 0) return;
-
-        var pointFeature = place.ToFeature().Point;
-        SetZoom(pointFeature);
-    }
-
-    private void MenuItemToGoogleEarthWeb_OnClick(object sender, RoutedEventArgs e)
-    {
-        ClickPoint.ToGoogleEarthWeb();
-    }
-
-    private void MenuItemToGoogleMaps_OnClick(object sender, RoutedEventArgs e)
-    {
-        ClickPoint.ToGoogleMaps();
-    }
-
-    private void MenuItemToGoogleStreetView_OnClick(object sender, RoutedEventArgs e)
-    {
-        ClickPoint.ToGoogleStreetView();
+        var backColor = GetMapsUiBackColor();
+        MapControl.Map.BackColor = backColor;
     }
 
     #endregion
@@ -269,6 +275,14 @@ public partial class LocationManagementPage
         {
             cityGroup.Places?.AddAndSort(placeToAdd, s => s.Name ?? string.Empty);
         }
+    }
+
+    private Color GetMapsUiBackColor()
+    {
+        var brush = (SolidColorBrush)FindResource("MaterialDesignPaper");
+        var backColor = brush.ToMapsuiColor();
+
+        return backColor;
     }
 
     private void ProcessNewPlace(TPlace newPlace, bool add = false, bool edit = false)

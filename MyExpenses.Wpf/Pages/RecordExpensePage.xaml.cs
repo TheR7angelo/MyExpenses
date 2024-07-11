@@ -110,7 +110,6 @@ public partial class RecordExpensePage
 
         var backColor = GetMapsUiBackColor();
         var map = MapsuiMapExtensions.GetMap(true, backColor);
-        UpdateMapBackColor(map);
         map.Layers.Add(PlaceLayer);
 
         Configuration.ConfigurationChanged += Configuration_OnConfigurationChanged;
@@ -550,16 +549,6 @@ public partial class RecordExpensePage
 
         var backColor = GetMapsUiBackColor();
         MapControl.Map.BackColor = backColor;
-    }
-
-    private void UpdateMapBackColor(Map? map = null)
-    {
-        map ??= MapControl.Map;
-
-        var brush = (SolidColorBrush)FindResource("MaterialDesignPaper");
-        var backColor = brush.ToMapsuiColor();
-
-        map.BackColor = backColor;
     }
 
     private void UpdateMapPoint(TPlace? place)
