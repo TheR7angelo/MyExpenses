@@ -2,6 +2,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Interop;
+using MyExpenses.Utils;
 using MyExpenses.Utils.WindowStyle;
 using MyExpenses.Wpf.Utils;
 
@@ -29,7 +30,16 @@ public partial class SettingsWindow
 
         if (tabItem.Header.Equals(ItemAppearance.Header))
         {
-            Console.WriteLine(AppearanceControl.Theme.PrimaryMid.Color);
+            var primaryColor = AppearanceControl.Theme.PrimaryMid.Color;
+            var secondaryColor = AppearanceControl.Theme.SecondaryMid.Color;
+
+            var configuration = Config.Configuration;
+            configuration.Interface.Theme.HexadecimalCodePrimaryColor = primaryColor.ToHexadecimal();
+            configuration.Interface.Theme.HexadecimalCodeSecondaryColor = secondaryColor.ToHexadecimal();
+
+            configuration.WriteConfiguration();
+
+            App.LoadInterfaceConfiguration(configuration.Interface.Theme);
         }
     }
 
