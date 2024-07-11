@@ -10,6 +10,7 @@ using Mapsui.Styles;
 using Mapsui.Tiling.Layers;
 using Microsoft.Data.Sqlite;
 using MyExpenses.Models.AutoMapper;
+using MyExpenses.Models.Config;
 using MyExpenses.Models.Sql.Tables;
 using MyExpenses.Models.WebApi.Nominatim;
 using MyExpenses.Sql.Context;
@@ -71,12 +72,11 @@ public partial class AddEditLocationWindow
     {
         KnownTileSources = [..MapsuiMapExtensions.GetAllKnowTileSource()];
 
-        // TODO add listener color change
-        var brush = (SolidColorBrush)FindResource("MaterialDesignPaper");
-        var backColor = brush.ToMapsuiColor();
+        var backColor = GetMapsUiBackColor();
         var map = MapsuiMapExtensions.GetMap(true, backColor);
         map.Layers.Add(WritableLayer);
 
+        Configuration.ConfigurationChanged += Configuration_OnConfigurationChanged;
         InitializeComponent();
 
         var hWnd = new WindowInteropHelper(GetWindow(this)!).EnsureHandle();
@@ -233,6 +233,12 @@ public partial class AddEditLocationWindow
 
     #endregion
 
+    private void Configuration_OnConfigurationChanged(object sender, ConfigurationChangedEventArgs e)
+    {
+        var backColor = GetMapsUiBackColor();
+        MapControl.Map.BackColor = backColor;
+    }
+
     private void MapControl_OnInfo(object? sender, MapInfoEventArgs e)
     {
         var worldPosition = e.MapInfo!.WorldPosition!;
@@ -256,6 +262,14 @@ public partial class AddEditLocationWindow
     #endregion
 
     #region Function
+
+    private Mapsui.Styles.Color GetMapsUiBackColor()
+    {
+        var brush = (SolidColorBrush)FindResource("MaterialDesignPaper");
+        var backColor = brush.ToMapsuiColor();
+
+        return backColor;
+    }
 
     private void HandleNominatimResult(IReadOnlyCollection<NominatimSearchResult> nominatimSearchResults)
     {
