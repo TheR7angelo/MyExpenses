@@ -95,16 +95,6 @@
                         </Grid.ColumnDefinitions>
 
                         <Grid Grid.Row="0" Grid.Column="0">
-                            <!-- <Polygon Fill="{Binding BackgroundPrimaryLightBrush, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Stretch="Fill"> -->
-                            <!--     <Polygon.Points> -->
-                            <!--         <PointCollection> -->
-                            <!--             <Point X="0" Y="0"/> -->
-                            <!--             <Point X="1" Y="0"/> -->
-                            <!--             <Point X="1" Y="1"/> -->
-                            <!--             <Point X="0.5" Y="1"/> -->
-                            <!--         </PointCollection> -->
-                            <!--     </Polygon.Points> -->
-                            <!-- </Polygon> -->
                             <Path Fill="{Binding BackgroundPrimaryLightBrush, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Stretch="Fill">
                                 <Path.Data>
                                     <PathGeometry>
@@ -134,14 +124,6 @@
                                Background="{Binding BackgroundPrimaryMindBrush, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
                         </Label>
 
-                        <!-- <Label Grid.Row="0" Grid.Column="2" -->
-                        <!--        Content="Primary - Dark" -->
-                        <!--        HorizontalContentAlignment="Center" -->
-                        <!--        VerticalContentAlignment="Center" -->
-                        <!--        Foreground="{Binding ForegroundPrimaryDarkBrush, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" -->
-                        <!--        Background="{Binding BackgroundPrimaryDarkBrush, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"> -->
-                        <!-- </Label> -->
-
                         <Grid Grid.Row="0" Grid.Column="2">
                             <Path Fill="{Binding BackgroundPrimaryDarkBrush, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Stretch="Fill">
                                 <Path.Data>
@@ -163,14 +145,6 @@
                                    Background="Transparent">
                             </Label>
                         </Grid>
-
-                        <!-- <Label Grid.Row="1" Grid.Column="0" -->
-                        <!--        Content="Secondary - Light" -->
-                        <!--        HorizontalContentAlignment="Center" -->
-                        <!--        VerticalContentAlignment="Center" -->
-                        <!--        Foreground="{Binding ForegroundSecondaryLightBrush, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" -->
-                        <!--        Background="{Binding BackgroundSecondaryLightBrush, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"> -->
-                        <!-- </Label> -->
 
                         <Grid Grid.Row="1" Grid.Column="0">
                             <Path Fill="{Binding BackgroundSecondaryLightBrush, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Stretch="Fill">
@@ -201,14 +175,6 @@
                                Foreground="{Binding ForegroundSecondaryMindBrush, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                                Background="{Binding BackgroundSecondaryMindBrush, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
                         </Label>
-
-                        <!-- <Label Grid.Row="1" Grid.Column="2" -->
-                        <!--        Content="Secondary - Dark" -->
-                        <!--        HorizontalContentAlignment="Center" -->
-                        <!--        VerticalContentAlignment="Center" -->
-                        <!--        Foreground="{Binding ForegroundSecondaryDarkBrush, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" -->
-                        <!--        Background="{Binding BackgroundSecondaryDarkBrush, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"> -->
-                        <!-- </Label> -->
 
                         <Grid Grid.Row="1" Grid.Column="2">
                             <Path Fill="{Binding BackgroundSecondaryLightBrush, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Stretch="Fill">
