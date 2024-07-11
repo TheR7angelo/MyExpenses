@@ -11,6 +11,7 @@ using LiveChartsCore.Kernel;
 using LiveChartsCore.Kernel.Sketches;
 using LiveChartsCore.SkiaSharpView;
 using LiveChartsCore.SkiaSharpView.Painting;
+using MyExpenses.Models.Config;
 using MyExpenses.Models.Sql.Tables;
 using MyExpenses.Models.Sql.Views;
 using MyExpenses.Models.Wpf.Charts;
@@ -161,6 +162,7 @@ public partial class DashBoardPage : INotifyPropertyChanged
         var currentCulture = CultureInfo.CurrentCulture;
         LocalLanguage = currentCulture.ToLocal();
 
+        Configuration.ConfigurationChanged += Configuration_OnConfigurationChanged;
         InitializeComponent();
 
         VHistories = new ObservableCollection<VHistory>();
@@ -175,10 +177,7 @@ public partial class DashBoardPage : INotifyPropertyChanged
         TextColumnPlace.Header = DataGridTextColumnPlace;
         CheckBoxColumnPointed.Header = DataGridCheckBoxColumnPointed;
 
-        // TODO add listener color change
-        var brush = (SolidColorBrush)FindResource("MaterialDesignBody");
-        var wpfColor = brush.Color;
-        PieChart.LegendTextPaint = new SolidColorPaint(wpfColor.ToSKColor());
+        UpdatePieChartLegendTextPaint();
     }
 
     #region Action
@@ -195,7 +194,6 @@ public partial class DashBoardPage : INotifyPropertyChanged
 
     private void ButtonCategoryTypeManagement_OnClick(object sender, RoutedEventArgs e)
         => nameof(MainWindow.FrameBody).NavigateTo(typeof(CategoryTypeManagementPage));
-
 
     private void ButtonColorManagement_OnClick(object sender, RoutedEventArgs e)
         => nameof(MainWindow.FrameBody).NavigateTo(typeof(ColorManagementPage));
@@ -223,6 +221,9 @@ public partial class DashBoardPage : INotifyPropertyChanged
 
     private void ButtonRecordExpense_OnClick(object sender, RoutedEventArgs e)
         => nameof(MainWindow.FrameBody).NavigateTo(typeof(RecordExpensePage));
+
+    private void Configuration_OnConfigurationChanged(object sender, ConfigurationChangedEventArgs e)
+        => UpdatePieChartLegendTextPaint();
 
     private void DataGridRow_PreviewMouseRightButtonDown(object sender, MouseButtonEventArgs e)
         => DataGridRow = sender as DataGridRow;
@@ -275,6 +276,12 @@ public partial class DashBoardPage : INotifyPropertyChanged
         RefreshDataGrid();
     }
 
+    private void Selector_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        RefreshDataGrid();
+        UpdateGraph();
+    }
+
     private void ToggleButtonVTotalAccount_OnChecked(object sender, RoutedEventArgs e)
     {
         var button = (RadioButton)sender;
@@ -298,13 +305,6 @@ public partial class DashBoardPage : INotifyPropertyChanged
         VTotalByAccounts.Clear();
         VTotalByAccounts.AddRange([..context.VTotalByAccounts]);
     }
-
-    private void Selector_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
-    {
-        RefreshDataGrid();
-        UpdateGraph();
-    }
-
 
     private void RefreshDataGrid(string? accountName = null)
     {
@@ -434,6 +434,13 @@ public partial class DashBoardPage : INotifyPropertyChanged
         }
 
         PieChart.Series = series;
+    }
+
+    private void UpdatePieChartLegendTextPaint()
+    {
+        var brush = (SolidColorBrush)FindResource("MaterialDesignBody");
+        var wpfColor = brush.Color;
+        PieChart.LegendTextPaint = new SolidColorPaint(wpfColor.ToSKColor());
     }
 
     #endregion
