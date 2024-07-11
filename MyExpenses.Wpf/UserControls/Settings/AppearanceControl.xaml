@@ -6,17 +6,20 @@
              xmlns:local="clr-namespace:MyExpenses.Wpf.UserControls.Settings"
              xmlns:margin="clr-namespace:MyExpenses.Wpf.Utils.Margin;assembly=MyExpenses.Wpf.Utils"
              xmlns:colors="clr-namespace:MyExpenses.Wpf.Converters.Colors"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d"
 
              d:DesignHeight="300" d:DesignWidth="300">
 
     <UserControl.Resources>
-        <colors:SolidColorBrushToSolidColorBrushContrastingForegroundColorConverter x:Key="SolidColorBrushToSolidColorBrushContrastingForegroundColorConverter" />
+        <colors:SolidColorBrushToSolidColorBrushContrastingForegroundColorConverter
+            x:Key="SolidColorBrushToSolidColorBrushContrastingForegroundColorConverter" />
     </UserControl.Resources>
 
     <Grid margin:PanelExtensions.MarginForAllChildren="1.75">
 
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
@@ -29,9 +32,35 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <Grid Grid.Row="0" Grid.Column="0">
-            <Path Fill="{Binding BackgroundPrimaryLightBrush, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:AppearanceControl}}}"
-                  Stretch="Fill">
+        <!-- TODO work -->
+        <Label Grid.Row="0" Grid.Column="0" Content="Theme mode :" />
+        <CheckBox Grid.Row="0" Grid.Column="1"
+                  x:Name="CheckBoxSyncWithOs"
+                  Content="Sync with os" IsThreeState="False"
+                  Checked="CheckBoxSyncWithOs_OnChecked"
+                  Unchecked="CheckBoxSyncWithOs_OnUnchecked"
+                  IsChecked="{Binding SyncWithOs, Mode=TwoWay, RelativeSource={RelativeSource AncestorType={x:Type local:AppearanceControl}}}">
+        </CheckBox>
+        <ToggleButton Grid.Row="0" Grid.Column="2"
+                      x:Name="ToggleButtonLightDark"
+                      IsEnabled="{Binding IsChecked, Converter={StaticResource InvertBooleanConverter}, ElementName=CheckBoxSyncWithOs}"
+                      Style="{StaticResource MaterialDesignSwitchToggleButton}"
+                      Checked="ToggleButtonLightDark_OnChecked"
+                      Unchecked="ToggleButtonLightDark_OnUnchecked"
+                      IsChecked="{Binding LightDark, Mode=TwoWay, RelativeSource={RelativeSource AncestorType={x:Type local:AppearanceControl}}}">
+
+            <materialDesign:PackIcon Kind="WhiteBalanceSunny" />
+
+            <materialDesign:ToggleButtonAssist.OnContent>
+                <materialDesign:PackIcon Kind="MoonWaningCrescent" />
+            </materialDesign:ToggleButtonAssist.OnContent>
+
+        </ToggleButton>
+
+        <Grid Grid.Row="1" Grid.Column="0">
+            <Path
+                Fill="{Binding BackgroundPrimaryLightBrush, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:AppearanceControl}}}"
+                Stretch="Fill">
                 <Path.Data>
                     <PathGeometry>
                         <PathGeometry.Figures>
@@ -52,7 +81,7 @@
             </Label>
         </Grid>
 
-        <Label Grid.Row="0" Grid.Column="1"
+        <Label Grid.Row="1" Grid.Column="1"
                Content="Primary - Mind"
                HorizontalContentAlignment="Center"
                VerticalContentAlignment="Center"
@@ -60,9 +89,10 @@
                Background="{Binding BackgroundPrimaryMindBrush, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:AppearanceControl}}}">
         </Label>
 
-        <Grid Grid.Row="0" Grid.Column="2">
-            <Path Fill="{Binding BackgroundPrimaryDarkBrush, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:AppearanceControl}}}"
-                  Stretch="Fill">
+        <Grid Grid.Row="1" Grid.Column="2">
+            <Path
+                Fill="{Binding BackgroundPrimaryDarkBrush, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:AppearanceControl}}}"
+                Stretch="Fill">
                 <Path.Data>
                     <PathGeometry>
                         <PathGeometry.Figures>
@@ -83,9 +113,10 @@
             </Label>
         </Grid>
 
-        <Grid Grid.Row="1" Grid.Column="0">
-            <Path Fill="{Binding BackgroundSecondaryLightBrush, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:AppearanceControl}}}"
-                  Stretch="Fill">
+        <Grid Grid.Row="2" Grid.Column="0">
+            <Path
+                Fill="{Binding BackgroundSecondaryLightBrush, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:AppearanceControl}}}"
+                Stretch="Fill">
                 <Path.Data>
                     <PathGeometry>
                         <PathGeometry.Figures>
@@ -106,7 +137,7 @@
             </Label>
         </Grid>
 
-        <Label Grid.Row="1" Grid.Column="1"
+        <Label Grid.Row="2" Grid.Column="1"
                Content="Secondary - Mind"
                HorizontalContentAlignment="Center"
                VerticalContentAlignment="Center"
@@ -114,9 +145,10 @@
                Background="{Binding BackgroundSecondaryMindBrush, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:AppearanceControl}}}">
         </Label>
 
-        <Grid Grid.Row="1" Grid.Column="2">
-            <Path Fill="{Binding BackgroundSecondaryDarkBrush, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:AppearanceControl}}}"
-                  Stretch="Fill">
+        <Grid Grid.Row="2" Grid.Column="2">
+            <Path
+                Fill="{Binding BackgroundSecondaryDarkBrush, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:AppearanceControl}}}"
+                Stretch="Fill">
                 <Path.Data>
                     <PathGeometry>
                         <PathGeometry.Figures>
@@ -137,7 +169,7 @@
             </Label>
         </Grid>
 
-        <StackPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3"
+        <StackPanel Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3"
                     Orientation="Horizontal"
                     HorizontalAlignment="Center"
                     margin:PanelExtensions.MarginForAllChildren="5">

@@ -1,9 +1,10 @@
 using System.Windows;
 using System.Windows.Media;
-using MaterialDesignColors.ColorManipulation;
 using MaterialDesignThemes.Wpf;
+using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Wpf.Utils;
 using MyExpenses.Wpf.Windows;
+using Theme = MaterialDesignThemes.Wpf.Theme;
 
 namespace MyExpenses.Wpf.UserControls.Settings;
 
@@ -67,6 +68,24 @@ public partial class AppearanceControl
         DependencyProperty.Register(nameof(BackgroundSecondaryDarkBrush), typeof(Brush), typeof(AppearanceControl),
             new PropertyMetadata(default(Brush)));
 
+    public static readonly DependencyProperty SyncWithOsProperty = DependencyProperty.Register(nameof(SyncWithOs),
+        typeof(bool), typeof(AppearanceControl), new PropertyMetadata(default(bool)));
+
+    public bool SyncWithOs
+    {
+        get => (bool)GetValue(SyncWithOsProperty);
+        set => SetValue(SyncWithOsProperty, value);
+    }
+
+    public static readonly DependencyProperty LightDarkProperty = DependencyProperty.Register(nameof(LightDark),
+        typeof(bool), typeof(AppearanceControl), new PropertyMetadata(default(bool)));
+
+    public bool LightDark
+    {
+        get => (bool)GetValue(LightDarkProperty);
+        set => SetValue(LightDarkProperty, value);
+    }
+
     public Brush BackgroundSecondaryDarkBrush
     {
         get => (Brush)GetValue(BackgroundSecondaryDarkBrushProperty);
@@ -82,18 +101,20 @@ public partial class AppearanceControl
     public AppearanceControl()
     {
         var configuration = MyExpenses.Utils.Config.Configuration;
-        var primaryColor = configuration.Interface.Theme.HexadecimalCodePrimaryColor.ToColor();
-        var secondaryColor = configuration.Interface.Theme.HexadecimalCodeSecondaryColor.ToColor();
+        var baseTheme = (BaseTheme)configuration.Interface.Theme.BaseTheme;
+        var primaryColor = (Color)configuration.Interface.Theme.HexadecimalCodePrimaryColor.ToColor()!;
+        var secondaryColor = (Color)configuration.Interface.Theme.HexadecimalCodeSecondaryColor.ToColor()!;
 
         Theme = new Theme();
-        if (primaryColor is not null && secondaryColor is not null)
-        {
-            Theme.SetPrimaryColor((Color)primaryColor);
-            Theme.SetSecondaryColor((Color)secondaryColor);
-        }
+        Theme.SetBaseTheme(baseTheme);
+        Theme.SetPrimaryColor(primaryColor);
+        Theme.SetSecondaryColor(secondaryColor);
 
         UpdatePrimaryLabelTheme();
         UpdateSecondaryLabelTheme();
+
+        if (baseTheme is BaseTheme.Inherit) SyncWithOs = true;
+        else if (baseTheme is BaseTheme.Dark) LightDark = true;
 
         InitializeComponent();
     }
@@ -140,5 +161,31 @@ public partial class AppearanceControl
 
         var newColor = colorPickerWindow.ColorResult ?? defaultColor;
         return newColor;
+    }
+
+    private void CheckBoxSyncWithOs_OnChecked(object sender, RoutedEventArgs e)
+        => UpdateBaseTheme();
+
+    private void CheckBoxSyncWithOs_OnUnchecked(object sender, RoutedEventArgs e)
+        => UpdateBaseTheme();
+
+    private void ToggleButtonLightDark_OnChecked(object sender, RoutedEventArgs e)
+        => UpdateBaseTheme();
+
+    private void ToggleButtonLightDark_OnUnchecked(object sender, RoutedEventArgs e)
+        => UpdateBaseTheme();
+
+    private void UpdateBaseTheme()
+    {
+        var configuration = MyExpenses.Utils.Config.Configuration;
+        var paletteHelper = new PaletteHelper();
+
+        configuration.Interface.Theme.BaseTheme = SyncWithOs ? (EBaseTheme)BaseTheme.Inherit :
+            LightDark is false ? (EBaseTheme)BaseTheme.Light : (EBaseTheme)BaseTheme.Dark;
+
+        var theme = paletteHelper.GetTheme();
+        theme.SetBaseTheme((BaseTheme)configuration.Interface.Theme.BaseTheme);
+
+        paletteHelper.SetTheme(theme);
     }
 }
