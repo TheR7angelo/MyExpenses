@@ -5,7 +5,7 @@ namespace MyExpenses.Models.Config.Interfaces;
 public class Theme
 {
     [JsonProperty("base_theme")]
-    public string BaseTheme { get; set; } = "Inherit";
+    public EBaseTheme BaseTheme { get; set; } = EBaseTheme.Inherit;
 
     [JsonProperty("hexadecimal_code_primary_color")]
     public string HexadecimalCodePrimaryColor { get; set; } = "#FF008000";
