@@ -9,7 +9,8 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d"
 
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="300" d:DesignWidth="300"
+             TextElement.Foreground="{DynamicResource MaterialDesignBody}">
 
     <UserControl.Resources>
         <colors:SolidColorBrushToSolidColorBrushContrastingForegroundColorConverter
@@ -20,44 +21,60 @@
 
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="5" />
             <RowDefinition Height="*" />
-            <RowDefinition Height="*" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Row="0"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Left"
+                    margin:PanelExtensions.MarginForAllChildren="5">
 
-        <!-- TODO work -->
-        <Label Grid.Row="0" Grid.Column="0" Content="Theme mode :" />
-        <CheckBox Grid.Row="0" Grid.Column="1"
-                  x:Name="CheckBoxSyncWithOs"
-                  Content="Sync with os" IsThreeState="False"
-                  Checked="CheckBoxSyncWithOs_OnChecked"
-                  Unchecked="CheckBoxSyncWithOs_OnUnchecked"
-                  IsChecked="{Binding SyncWithOs, Mode=TwoWay, RelativeSource={RelativeSource AncestorType={x:Type local:AppearanceControl}}}">
-        </CheckBox>
-        <ToggleButton Grid.Row="0" Grid.Column="2"
-                      x:Name="ToggleButtonLightDark"
-                      IsEnabled="{Binding IsChecked, Converter={StaticResource InvertBooleanConverter}, ElementName=CheckBoxSyncWithOs}"
-                      Style="{StaticResource MaterialDesignSwitchToggleButton}"
-                      Checked="ToggleButtonLightDark_OnChecked"
-                      Unchecked="ToggleButtonLightDark_OnUnchecked"
-                      IsChecked="{Binding LightDark, Mode=TwoWay, RelativeSource={RelativeSource AncestorType={x:Type local:AppearanceControl}}}">
+            <!-- TODO work -->
+            <Label Content="Theme mode :"
+                   VerticalContentAlignment="Center">
+            </Label>
 
-            <materialDesign:PackIcon Kind="WhiteBalanceSunny" />
+            <CheckBox
+                x:Name="CheckBoxSyncWithOs"
+                      Content="Sync with os" IsThreeState="False"
+                      Checked="CheckBoxSyncWithOs_OnChecked"
+                      Unchecked="CheckBoxSyncWithOs_OnUnchecked"
+                      IsChecked="{Binding SyncWithOs, Mode=TwoWay, RelativeSource={RelativeSource AncestorType={x:Type local:AppearanceControl}}}">
+            </CheckBox>
+            <ToggleButton IsEnabled="{Binding IsChecked, Converter={StaticResource InvertBooleanConverter}, ElementName=CheckBoxSyncWithOs}"
+                          Style="{StaticResource MaterialDesignSwitchToggleButton}"
+                          Checked="ToggleButtonLightDark_OnChecked"
+                          Unchecked="ToggleButtonLightDark_OnUnchecked"
+                          IsChecked="{Binding LightDark, Mode=TwoWay, RelativeSource={RelativeSource AncestorType={x:Type local:AppearanceControl}}}">
 
-            <materialDesign:ToggleButtonAssist.OnContent>
-                <materialDesign:PackIcon Kind="MoonWaningCrescent" />
-            </materialDesign:ToggleButtonAssist.OnContent>
+                <materialDesign:PackIcon Kind="WhiteBalanceSunny" />
 
-        </ToggleButton>
+                <materialDesign:ToggleButtonAssist.OnContent>
+                    <materialDesign:PackIcon Kind="MoonWaningCrescent" />
+                </materialDesign:ToggleButtonAssist.OnContent>
 
-        <Grid Grid.Row="1" Grid.Column="0">
+            </ToggleButton>
+
+        </StackPanel>
+
+
+        <Grid Grid.Row="2">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Row="0" Grid.Column="0">
             <Path
                 Fill="{Binding BackgroundPrimaryLightBrush, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:AppearanceControl}}}"
                 Stretch="Fill">
@@ -81,7 +98,7 @@
             </Label>
         </Grid>
 
-        <Label Grid.Row="1" Grid.Column="1"
+        <Label Grid.Row="0" Grid.Column="1"
                Content="Primary - Mind"
                HorizontalContentAlignment="Center"
                VerticalContentAlignment="Center"
@@ -89,7 +106,7 @@
                Background="{Binding BackgroundPrimaryMindBrush, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:AppearanceControl}}}">
         </Label>
 
-        <Grid Grid.Row="1" Grid.Column="2">
+        <Grid Grid.Row="0" Grid.Column="2">
             <Path
                 Fill="{Binding BackgroundPrimaryDarkBrush, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:AppearanceControl}}}"
                 Stretch="Fill">
@@ -113,7 +130,7 @@
             </Label>
         </Grid>
 
-        <Grid Grid.Row="2" Grid.Column="0">
+        <Grid Grid.Row="1" Grid.Column="0">
             <Path
                 Fill="{Binding BackgroundSecondaryLightBrush, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:AppearanceControl}}}"
                 Stretch="Fill">
@@ -137,7 +154,7 @@
             </Label>
         </Grid>
 
-        <Label Grid.Row="2" Grid.Column="1"
+        <Label Grid.Row="1" Grid.Column="1"
                Content="Secondary - Mind"
                HorizontalContentAlignment="Center"
                VerticalContentAlignment="Center"
@@ -145,7 +162,7 @@
                Background="{Binding BackgroundSecondaryMindBrush, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:AppearanceControl}}}">
         </Label>
 
-        <Grid Grid.Row="2" Grid.Column="2">
+        <Grid Grid.Row="1" Grid.Column="2">
             <Path
                 Fill="{Binding BackgroundSecondaryDarkBrush, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:AppearanceControl}}}"
                 Stretch="Fill">
@@ -169,7 +186,7 @@
             </Label>
         </Grid>
 
-        <StackPanel Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3"
+        <StackPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3"
                     Orientation="Horizontal"
                     HorizontalAlignment="Center"
                     margin:PanelExtensions.MarginForAllChildren="5">
@@ -185,6 +202,8 @@
             </Button>
 
         </StackPanel>
+
+        </Grid>
 
     </Grid>
 
