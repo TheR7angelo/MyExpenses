@@ -18,14 +18,10 @@ namespace MyExpenses.Wpf.Pages;
 
 public partial class WelcomePage
 {
-    private string DatabaseModel { get; }
     public ObservableCollection<ExistingDatabase> ExistingDatabases { get; } = [];
 
     public WelcomePage()
     {
-        var directoryDatabaseModel = Path.GetFullPath("Database Models");
-        DatabaseModel = Path.Join(directoryDatabaseModel, "Model.sqlite");
-
         if (!Directory.Exists(DbContextBackup.LocalDirectoryDatabase)) Directory.CreateDirectory(DbContextBackup.LocalDirectoryDatabase);
 
         RefreshExistingDatabases();
@@ -52,7 +48,7 @@ public partial class WelcomePage
 
         try
         {
-            File.Copy(DatabaseModel, filePath, true);
+            File.Copy(DbContextBackup.LocalFilePathDataBaseModel, filePath, true);
 
             using var context = new DataBaseContext(filePath);
             context.SetAllDefaultValues();

@@ -9,7 +9,15 @@ public static class DbContextBackup
 
     public static string CloudDirectoryBackupDatabase => "Databases";
 
+    public static string LocalFilePathDataBaseModel { get; }
+
     public static string Extension => ".sqlite";
+
+    static DbContextBackup()
+    {
+        var directoryDatabaseModel = Path.GetFullPath("Database Models");
+        LocalFilePathDataBaseModel = Path.Join(directoryDatabaseModel, "Model.sqlite");
+    }
 
     public static ExistingDatabase[] GetExistingDatabase()
     {
