@@ -8,6 +8,7 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:margin="clr-namespace:MyExpenses.Wpf.Utils.Margin;assembly=MyExpenses.Wpf.Utils"
         xmlns:settings="clr-namespace:MyExpenses.Wpf.UserControls.Settings"
+        xmlns:converters="clr-namespace:MyExpenses.Wpf.Converters"
         mc:Ignorable="d"
 
         Title="SettingsWindow"
@@ -36,6 +37,9 @@
 
     <!-- TODO add window Title -->
 
+    <mah:MetroWindow.Resources>
+        <converters:FirstCharUpperConverter x:Key="FirstCharUpperConverter" />
+    </mah:MetroWindow.Resources>
     <Grid>
 
         <Grid.RowDefinitions>
@@ -56,9 +60,12 @@
             <TreeViewItem x:Name="ItemAppearance"
                           Header="Appearance"
                           MouseLeftButtonUp="UIElement_OnMouseLeftButtonUp">
+            </TreeViewItem>
 
-
-
+            <!-- TODO work -->
+            <TreeViewItem x:Name="ItemLanguage"
+                          Header="Language"
+                          MouseLeftButtonUp="UIElement_OnMouseLeftButtonUp">
             </TreeViewItem>
 
         </TreeView>
@@ -76,14 +83,33 @@
                 </Style>
             </TabControl.Resources>
 
-            <TabItem Header="{Binding Header, ElementName=ItemAppearance}"
-                     IsSelected="True">
+            <TabItem Header="{Binding Header, ElementName=ItemAppearance}">
 
                 <materialDesign:Card Margin="5">
 
                     <settings:AppearanceControl x:Name="AppearanceControl" />
 
                 </materialDesign:Card>
+
+            </TabItem>
+
+            <TabItem Header="{Binding Header, ElementName=ItemLanguage}">
+
+                <ComboBox ItemsSource="{Binding CultureInfos, Mode=OneWay}">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+
+                                <Label Content="{Binding DisplayName, Converter={StaticResource FirstCharUpperConverter}}" />
+                                <Label Content="|" />
+                                <Label Content="{Binding EnglishName, Converter={StaticResource FirstCharUpperConverter}}" />
+                                <Label Content="|" />
+                                <Label Content="{Binding NativeName, Converter={StaticResource FirstCharUpperConverter}}" />
+
+                            </StackPanel>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
 
             </TabItem>
 
