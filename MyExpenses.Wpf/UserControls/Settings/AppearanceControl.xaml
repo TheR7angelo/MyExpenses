@@ -9,7 +9,7 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d"
 
-             d:DesignHeight="300" d:DesignWidth="300"
+             d:DesignHeight="300" d:DesignWidth="350"
              TextElement.Foreground="{DynamicResource MaterialDesignBody}">
 
     <UserControl.Resources>
@@ -21,7 +21,7 @@
 
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="5" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
@@ -37,16 +37,17 @@
 
             <CheckBox
                 x:Name="CheckBoxSyncWithOs"
-                      Content="Sync with os" IsThreeState="False"
-                      Checked="CheckBoxSyncWithOs_OnChecked"
-                      Unchecked="CheckBoxSyncWithOs_OnUnchecked"
-                      IsChecked="{Binding SyncWithOs, Mode=TwoWay, RelativeSource={RelativeSource AncestorType={x:Type local:AppearanceControl}}}">
+                Content="Sync with os" IsThreeState="False"
+                Checked="CheckBoxSyncWithOs_OnChecked"
+                Unchecked="CheckBoxSyncWithOs_OnUnchecked"
+                IsChecked="{Binding SyncWithOs, Mode=TwoWay, RelativeSource={RelativeSource AncestorType={x:Type local:AppearanceControl}}}">
             </CheckBox>
-            <ToggleButton IsEnabled="{Binding IsChecked, Converter={StaticResource InvertBooleanConverter}, ElementName=CheckBoxSyncWithOs}"
-                          Style="{StaticResource MaterialDesignSwitchToggleButton}"
-                          Checked="ToggleButtonLightDark_OnChecked"
-                          Unchecked="ToggleButtonLightDark_OnUnchecked"
-                          IsChecked="{Binding LightDark, Mode=TwoWay, RelativeSource={RelativeSource AncestorType={x:Type local:AppearanceControl}}}">
+            <ToggleButton
+                IsEnabled="{Binding IsChecked, Converter={StaticResource InvertBooleanConverter}, ElementName=CheckBoxSyncWithOs}"
+                Style="{StaticResource MaterialDesignSwitchToggleButton}"
+                Checked="ToggleButtonLightDark_OnChecked"
+                Unchecked="ToggleButtonLightDark_OnUnchecked"
+                IsChecked="{Binding LightDark, Mode=TwoWay, RelativeSource={RelativeSource AncestorType={x:Type local:AppearanceControl}}}">
 
                 <materialDesign:PackIcon Kind="WhiteBalanceSunny" />
 
@@ -58,13 +59,14 @@
 
         </StackPanel>
 
+        <Separator Grid.Row="1" Height="5" Margin="5" />
 
-        <Grid Grid.Row="2">
+        <Grid Grid.Row="2"
+              margin:PanelExtensions.MarginForAllChildren="1">
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
                 <RowDefinition Height="*" />
-                <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
@@ -75,133 +77,133 @@
             </Grid.ColumnDefinitions>
 
             <Grid Grid.Row="0" Grid.Column="0">
-            <Path
-                Fill="{Binding BackgroundPrimaryLightBrush, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:AppearanceControl}}}"
-                Stretch="Fill">
-                <Path.Data>
-                    <PathGeometry>
-                        <PathGeometry.Figures>
-                            <PathFigure StartPoint="1, 0" IsClosed="True">
-                                <LineSegment Point="1, 1" />
-                                <LineSegment Point="0, 1" />
-                                <BezierSegment Point1="0, 0" Point2="1, 0" Point3="1, 0" />
-                            </PathFigure>
-                        </PathGeometry.Figures>
-                    </PathGeometry>
-                </Path.Data>
-            </Path>
-            <Label Content="Primary - Light"
+                <Path
+                    Fill="{Binding BackgroundPrimaryLightBrush, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:AppearanceControl}}}"
+                    Stretch="Fill">
+                    <Path.Data>
+                        <PathGeometry>
+                            <PathGeometry.Figures>
+                                <PathFigure StartPoint="1, 0" IsClosed="True">
+                                    <LineSegment Point="1, 1" />
+                                    <LineSegment Point="0, 1" />
+                                    <BezierSegment Point1="0, 0" Point2="1, 0" Point3="1, 0" />
+                                </PathFigure>
+                            </PathGeometry.Figures>
+                        </PathGeometry>
+                    </Path.Data>
+                </Path>
+                <Label Content="Primary - Light"
+                       HorizontalContentAlignment="Center"
+                       VerticalContentAlignment="Center"
+                       Foreground="{Binding BackgroundPrimaryLightBrush, Converter={StaticResource SolidColorBrushToSolidColorBrushContrastingForegroundColorConverter}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:AppearanceControl}}}"
+                       Background="Transparent">
+                </Label>
+            </Grid>
+
+            <Label Grid.Row="0" Grid.Column="1"
+                   Content="Primary - Mind"
                    HorizontalContentAlignment="Center"
                    VerticalContentAlignment="Center"
-                   Foreground="{Binding BackgroundPrimaryLightBrush, Converter={StaticResource SolidColorBrushToSolidColorBrushContrastingForegroundColorConverter}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:AppearanceControl}}}"
-                   Background="Transparent">
+                   Foreground="{Binding BackgroundPrimaryMindBrush, Converter={StaticResource SolidColorBrushToSolidColorBrushContrastingForegroundColorConverter}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:AppearanceControl}}}"
+                   Background="{Binding BackgroundPrimaryMindBrush, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:AppearanceControl}}}">
             </Label>
-        </Grid>
 
-        <Label Grid.Row="0" Grid.Column="1"
-               Content="Primary - Mind"
-               HorizontalContentAlignment="Center"
-               VerticalContentAlignment="Center"
-               Foreground="{Binding BackgroundPrimaryMindBrush, Converter={StaticResource SolidColorBrushToSolidColorBrushContrastingForegroundColorConverter}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:AppearanceControl}}}"
-               Background="{Binding BackgroundPrimaryMindBrush, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:AppearanceControl}}}">
-        </Label>
+            <Grid Grid.Row="0" Grid.Column="2">
+                <Path
+                    Fill="{Binding BackgroundPrimaryDarkBrush, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:AppearanceControl}}}"
+                    Stretch="Fill">
+                    <Path.Data>
+                        <PathGeometry>
+                            <PathGeometry.Figures>
+                                <PathFigure StartPoint="0, 0" IsClosed="True">
+                                    <LineSegment Point="0, 1" />
+                                    <LineSegment Point="1, 1" />
+                                    <BezierSegment Point1="1, 0" Point2="0, 0" Point3="0, 0" />
+                                </PathFigure>
+                            </PathGeometry.Figures>
+                        </PathGeometry>
+                    </Path.Data>
+                </Path>
+                <Label Content="Primary - Dark"
+                       HorizontalContentAlignment="Center"
+                       VerticalContentAlignment="Center"
+                       Foreground="{Binding BackgroundPrimaryDarkBrush, Converter={StaticResource SolidColorBrushToSolidColorBrushContrastingForegroundColorConverter}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:AppearanceControl}}}"
+                       Background="Transparent">
+                </Label>
+            </Grid>
 
-        <Grid Grid.Row="0" Grid.Column="2">
-            <Path
-                Fill="{Binding BackgroundPrimaryDarkBrush, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:AppearanceControl}}}"
-                Stretch="Fill">
-                <Path.Data>
-                    <PathGeometry>
-                        <PathGeometry.Figures>
-                            <PathFigure StartPoint="0, 0" IsClosed="True">
-                                <LineSegment Point="0, 1" />
-                                <LineSegment Point="1, 1" />
-                                <BezierSegment Point1="1, 0" Point2="0, 0" Point3="0, 0" />
-                            </PathFigure>
-                        </PathGeometry.Figures>
-                    </PathGeometry>
-                </Path.Data>
-            </Path>
-            <Label Content="Primary - Dark"
+            <Grid Grid.Row="1" Grid.Column="0">
+                <Path
+                    Fill="{Binding BackgroundSecondaryLightBrush, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:AppearanceControl}}}"
+                    Stretch="Fill">
+                    <Path.Data>
+                        <PathGeometry>
+                            <PathGeometry.Figures>
+                                <PathFigure StartPoint="0, 0" IsClosed="True">
+                                    <LineSegment Point="1, 0" />
+                                    <LineSegment Point="1, 1" />
+                                    <BezierSegment Point1="0, 1" Point2="0, 0" Point3="0, 0" />
+                                </PathFigure>
+                            </PathGeometry.Figures>
+                        </PathGeometry>
+                    </Path.Data>
+                </Path>
+                <Label Content="Secondary - Light"
+                       HorizontalContentAlignment="Center"
+                       VerticalContentAlignment="Center"
+                       Foreground="{Binding BackgroundSecondaryLightBrush, Converter={StaticResource SolidColorBrushToSolidColorBrushContrastingForegroundColorConverter}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:AppearanceControl}}}"
+                       Background="Transparent">
+                </Label>
+            </Grid>
+
+            <Label Grid.Row="1" Grid.Column="1"
+                   Content="Secondary - Mind"
                    HorizontalContentAlignment="Center"
                    VerticalContentAlignment="Center"
-                   Foreground="{Binding BackgroundPrimaryDarkBrush, Converter={StaticResource SolidColorBrushToSolidColorBrushContrastingForegroundColorConverter}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:AppearanceControl}}}"
-                   Background="Transparent">
+                   Foreground="{Binding BackgroundSecondaryMindBrush, Converter={StaticResource SolidColorBrushToSolidColorBrushContrastingForegroundColorConverter}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:AppearanceControl}}}"
+                   Background="{Binding BackgroundSecondaryMindBrush, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:AppearanceControl}}}">
             </Label>
-        </Grid>
 
-        <Grid Grid.Row="1" Grid.Column="0">
-            <Path
-                Fill="{Binding BackgroundSecondaryLightBrush, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:AppearanceControl}}}"
-                Stretch="Fill">
-                <Path.Data>
-                    <PathGeometry>
-                        <PathGeometry.Figures>
-                            <PathFigure StartPoint="0, 0" IsClosed="True">
-                                <LineSegment Point="1, 0" />
-                                <LineSegment Point="1, 1" />
-                                <BezierSegment Point1="0, 1" Point2="0, 0" Point3="0, 0" />
-                            </PathFigure>
-                        </PathGeometry.Figures>
-                    </PathGeometry>
-                </Path.Data>
-            </Path>
-            <Label Content="Secondary - Light"
-                   HorizontalContentAlignment="Center"
-                   VerticalContentAlignment="Center"
-                   Foreground="{Binding BackgroundSecondaryLightBrush, Converter={StaticResource SolidColorBrushToSolidColorBrushContrastingForegroundColorConverter}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:AppearanceControl}}}"
-                   Background="Transparent">
-            </Label>
-        </Grid>
+            <Grid Grid.Row="1" Grid.Column="2">
+                <Path
+                    Fill="{Binding BackgroundSecondaryDarkBrush, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:AppearanceControl}}}"
+                    Stretch="Fill">
+                    <Path.Data>
+                        <PathGeometry>
+                            <PathGeometry.Figures>
+                                <PathFigure StartPoint="0, 1" IsClosed="True">
+                                    <LineSegment Point="0, 0" />
+                                    <LineSegment Point="1, 0" />
+                                    <BezierSegment Point1="1, 0.5" Point2="0.5, 1" Point3="0, 1" />
+                                </PathFigure>
+                            </PathGeometry.Figures>
+                        </PathGeometry>
+                    </Path.Data>
+                </Path>
+                <Label Content="Secondary - Dark"
+                       HorizontalContentAlignment="Center"
+                       VerticalContentAlignment="Center"
+                       Foreground="{Binding BackgroundSecondaryDarkBrush, Converter={StaticResource SolidColorBrushToSolidColorBrushContrastingForegroundColorConverter}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:AppearanceControl}}}"
+                       Background="Transparent">
+                </Label>
+            </Grid>
 
-        <Label Grid.Row="1" Grid.Column="1"
-               Content="Secondary - Mind"
-               HorizontalContentAlignment="Center"
-               VerticalContentAlignment="Center"
-               Foreground="{Binding BackgroundSecondaryMindBrush, Converter={StaticResource SolidColorBrushToSolidColorBrushContrastingForegroundColorConverter}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:AppearanceControl}}}"
-               Background="{Binding BackgroundSecondaryMindBrush, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:AppearanceControl}}}">
-        </Label>
+            <StackPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3"
+                        Orientation="Horizontal"
+                        HorizontalAlignment="Center"
+                        margin:PanelExtensions.MarginForAllChildren="5">
 
-        <Grid Grid.Row="1" Grid.Column="2">
-            <Path
-                Fill="{Binding BackgroundSecondaryDarkBrush, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:AppearanceControl}}}"
-                Stretch="Fill">
-                <Path.Data>
-                    <PathGeometry>
-                        <PathGeometry.Figures>
-                            <PathFigure StartPoint="0, 1" IsClosed="True">
-                                <LineSegment Point="0, 0" />
-                                <LineSegment Point="1, 0" />
-                                <BezierSegment Point1="1, 0.5" Point2="0.5, 1" Point3="0, 1" />
-                            </PathFigure>
-                        </PathGeometry.Figures>
-                    </PathGeometry>
-                </Path.Data>
-            </Path>
-            <Label Content="Secondary - Dark"
-                   HorizontalContentAlignment="Center"
-                   VerticalContentAlignment="Center"
-                   Foreground="{Binding BackgroundSecondaryDarkBrush, Converter={StaticResource SolidColorBrushToSolidColorBrushContrastingForegroundColorConverter}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:AppearanceControl}}}"
-                   Background="Transparent">
-            </Label>
-        </Grid>
+                <Button Content="Primary color"
+                        Style="{StaticResource MaterialDesignPaperButton}"
+                        Click="ButtonPrimaryColor_OnClick">
+                </Button>
 
-        <StackPanel Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3"
-                    Orientation="Horizontal"
-                    HorizontalAlignment="Center"
-                    margin:PanelExtensions.MarginForAllChildren="5">
+                <Button Content="Secondary color"
+                        Style="{StaticResource MaterialDesignPaperSecondaryButton}"
+                        Click="ButtonSecondaryColor_OnClick">
+                </Button>
 
-            <Button Content="Primary color"
-                    Style="{StaticResource MaterialDesignPaperButton}"
-                    Click="ButtonPrimaryColor_OnClick">
-            </Button>
-
-            <Button Content="Secondary color"
-                    Style="{StaticResource MaterialDesignPaperSecondaryButton}"
-                    Click="ButtonSecondaryColor_OnClick">
-            </Button>
-
-        </StackPanel>
+            </StackPanel>
 
         </Grid>
 
