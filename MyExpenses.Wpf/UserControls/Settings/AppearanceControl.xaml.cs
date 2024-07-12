@@ -1,9 +1,7 @@
-using System.Globalization;
 using System.Windows;
 using System.Windows.Media;
 using MaterialDesignThemes.Wpf;
 using MyExpenses.Models.Config.Interfaces;
-using MyExpenses.Sql.Context;
 using MyExpenses.Wpf.Utils;
 using MyExpenses.Wpf.Windows;
 using Theme = MaterialDesignThemes.Wpf.Theme;
@@ -102,7 +100,6 @@ public partial class AppearanceControl
 
     public AppearanceControl()
     {
-        _ = GetAllCultures();
         var configuration = MyExpenses.Utils.Config.Configuration;
         var baseTheme = (BaseTheme)configuration.Interface.Theme.BaseTheme;
         var primaryColor = (Color)configuration.Interface.Theme.HexadecimalCodePrimaryColor.ToColor()!;
@@ -120,22 +117,6 @@ public partial class AppearanceControl
         else if (baseTheme is BaseTheme.Dark) LightDark = true;
 
         InitializeComponent();
-    }
-
-    public List<CultureInfo> GetAllCultures()
-    {
-        var localFilePathDataBaseModel = DbContextBackup.LocalFilePathDataBaseModel;
-        using var context = new DataBaseContext(localFilePathDataBaseModel);
-        var supportedLanguages = context.TSupportedLanguages.ToList();
-
-        var cultures = new List<CultureInfo>();
-        foreach (var supportedLanguage in supportedLanguages)
-        {
-            var culture = new CultureInfo(supportedLanguage.Code);
-            cultures.Add(culture);
-        }
-
-        return cultures;
     }
 
     private void UpdateSecondaryLabelTheme()
