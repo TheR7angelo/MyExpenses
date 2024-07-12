@@ -9,6 +9,20 @@ CREATE TABLE t_version
     version TEXT
 );
 
+DROP TABLE IF EXISTS t_supported_languages;
+CREATE TABLE t_supported_languages
+(
+    id   INTEGER
+        CONSTRAINT t_supported_languages_pk
+            PRIMARY KEY AUTOINCREMENT,
+    code TEXT NOT NULL
+        CONSTRAINT t_supported_languages_pk_2
+            UNIQUE,
+    native_name TEXT NOT NULL,
+    english_name TEXT NOT NULL,
+    date_added DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
 DROP TABLE IF EXISTS t_account_type;
 CREATE TABLE t_account_type
 (
@@ -150,6 +164,34 @@ CREATE TABLE t_history
 -- endregion
 
 -- region Triggers
+DROP TRIGGER IF EXISTS after_insert_on_t_supported_languages;
+CREATE TRIGGER after_insert_on_t_supported_languages
+    AFTER INSERT
+    ON t_supported_languages
+    FOR EACH ROW
+BEGIN
+    UPDATE t_supported_languages
+    SET date_added = CASE
+                         WHEN typeof(NEW.date_added) = 'integer' THEN datetime(NEW.date_added / 1000, 'unixepoch')
+                         ELSE NEW.date_added
+        END
+    WHERE id = NEW.id;
+END;
+
+DROP TRIGGER IF EXISTS after_update_on_t_supported_languages;
+CREATE TRIGGER after_update_on_t_supported_languages
+    AFTER UPDATE
+    ON t_supported_languages
+    FOR EACH ROW
+BEGIN
+    UPDATE t_supported_languages
+    SET date_added = CASE
+                         WHEN typeof(NEW.date_added) = 'integer' THEN datetime(NEW.date_added / 1000, 'unixepoch')
+                         ELSE NEW.date_added
+        END
+    WHERE id = NEW.id;
+END;
+
 DROP TRIGGER IF EXISTS after_insert_on_t_account_type;
 CREATE TRIGGER after_insert_on_t_account_type
     AFTER INSERT

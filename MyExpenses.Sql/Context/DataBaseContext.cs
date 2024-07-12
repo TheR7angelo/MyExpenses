@@ -40,6 +40,8 @@ public partial class DataBaseContext : DbContext
 
     public virtual DbSet<TPlace> TPlaces { get; set; }
 
+    public virtual DbSet<TSupportedLanguage> TSupportedLanguages { get; set; }
+
     public virtual DbSet<TVersion> TVersions { get; set; }
 
     public virtual DbSet<VAccountMonthlyCumulativeSum> VAccountMonthlyCumulativeSums { get; set; }
@@ -114,6 +116,11 @@ public partial class DataBaseContext : DbContext
             entity.Property(e => e.CanBeDeleted).HasDefaultValueSql("TRUE");
             entity.Property(e => e.DateAdded).HasDefaultValueSql("CURRENT_TIMESTAMP");
             entity.Property(e => e.IsOpen).HasDefaultValueSql("TRUE");
+        });
+
+        modelBuilder.Entity<TSupportedLanguage>(entity =>
+        {
+            entity.Property(e => e.DateAdded).HasDefaultValueSql("CURRENT_TIMESTAMP");
         });
 
         modelBuilder.Entity<VAccountMonthlyCumulativeSum>(entity =>
