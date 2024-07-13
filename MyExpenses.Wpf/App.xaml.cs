@@ -1,6 +1,8 @@
-﻿using System.Windows;
+﻿using System.Globalization;
+using System.Windows;
 using System.Windows.Media;
 using MaterialDesignThemes.Wpf;
+using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Sql.Context;
 using MyExpenses.Wpf.Utils;
 using Log = Serilog.Log;
@@ -35,13 +37,26 @@ public partial class App
         Log.Information("{TotalDatabaseBackup} database(s) has been backed up", totalDatabaseBackup);
 
         Log.Information("Apply interface configuration");
-        LoadInterfaceConfiguration(configuration.Interface.Theme);
+        LoadInterfaceConfiguration(configuration.Interface);
 
         AppDomain.CurrentDomain.ProcessExit += CurrentDomainOnProcessExit;
         AppDomain.CurrentDomain.UnhandledException += CurrentDomainOnUnhandledException;
     }
 
-    public static void LoadInterfaceConfiguration(Theme configurationTheme)
+    private static void LoadInterfaceConfiguration(Interface configurationInterface)
+    {
+        LoadInterfaceTheme(configurationInterface.Theme);
+        LoadInterfaceLanguage(configurationInterface.Language ?? "en-001");
+    }
+
+    public static void LoadInterfaceLanguage(string cultureInfoCode)
+    {
+        var cultureInfo = new CultureInfo(cultureInfoCode);
+        Thread.CurrentThread.CurrentCulture = cultureInfo;
+        Thread.CurrentThread.CurrentUICulture = cultureInfo;
+    }
+
+    public static void LoadInterfaceTheme(Theme configurationTheme)
     {
         var baseTheme = (BaseTheme)configurationTheme.BaseTheme;
         var primaryColor = configurationTheme.HexadecimalCodePrimaryColor.ToColor() ?? Color.FromRgb(0, 128, 0);

@@ -16,7 +16,8 @@
 
     <Grid>
 
-        <ComboBox ItemsSource="{Binding CultureInfos, Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type local:LanguageControl}}}">
+        <ComboBox ItemsSource="{Binding CultureInfos, Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type local:LanguageControl}}}"
+                  SelectedItem="{Binding CultureInfoSelected, Mode=TwoWay, RelativeSource={RelativeSource AncestorType={x:Type local:LanguageControl}}}">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">

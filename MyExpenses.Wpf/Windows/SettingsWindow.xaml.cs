@@ -39,7 +39,7 @@ public partial class SettingsWindow
 
             configuration.WriteConfiguration();
 
-            App.LoadInterfaceConfiguration(configuration.Interface.Theme);
+            App.LoadInterfaceTheme(configuration.Interface.Theme);
         }
 
         Configuration.OnConfigurationChanged(this, new ConfigurationChangedEventArgs(configuration));
