@@ -3,6 +3,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Interop;
 using MyExpenses.Models.Config;
+using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Utils;
 using MyExpenses.Utils.WindowStyle;
 using MyExpenses.Wpf.Utils;
@@ -40,6 +41,21 @@ public partial class SettingsWindow
             configuration.WriteConfiguration();
 
             App.LoadInterfaceTheme(configuration.Interface.Theme);
+
+            Interface.OnThemeChanged(this, new ConfigurationThemeChangedEventArgs(configuration.Interface.Theme));
+        }
+
+        if (tabItem.Header.Equals(ItemLanguage.Header))
+        {
+            var cultureInfoCode = LanguageControl.CultureInfoSelected.Name;
+
+            configuration.Interface.Language = cultureInfoCode;
+            configuration.WriteConfiguration();
+
+            //TODO add listener to update all text ...
+            App.LoadInterfaceLanguage(cultureInfoCode);
+
+            Interface.OnLanguageChanged(this, new ConfigurationLanguageChangedEventArgs(cultureInfoCode));
         }
 
         Configuration.OnConfigurationChanged(this, new ConfigurationChangedEventArgs(configuration));

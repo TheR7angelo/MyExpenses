@@ -13,6 +13,15 @@ public class Interface
         ThemeChanged?.Invoke(sender, e);
     }
 
+    public delegate void LanguageChangedEventHandler(object sender, ConfigurationLanguageChangedEventArgs e);
+
+    public static event LanguageChangedEventHandler? LanguageChanged;
+
+    public static void OnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
+    {
+        LanguageChanged?.Invoke(sender, e);
+    }
+
     [JsonProperty("theme")]
     public Theme Theme { get; set; } = new();
 
