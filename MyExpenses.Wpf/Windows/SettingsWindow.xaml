@@ -8,7 +8,6 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:margin="clr-namespace:MyExpenses.Wpf.Utils.Margin;assembly=MyExpenses.Wpf.Utils"
         xmlns:settings="clr-namespace:MyExpenses.Wpf.UserControls.Settings"
-        xmlns:converters="clr-namespace:MyExpenses.Wpf.Converters"
         mc:Ignorable="d"
 
         Title="SettingsWindow"
@@ -37,9 +36,6 @@
 
     <!-- TODO add window Title -->
 
-    <mah:MetroWindow.Resources>
-        <converters:FirstCharUpperConverter x:Key="FirstCharUpperConverter" />
-    </mah:MetroWindow.Resources>
     <Grid>
 
         <Grid.RowDefinitions>
@@ -95,21 +91,11 @@
 
             <TabItem Header="{Binding Header, ElementName=ItemLanguage}">
 
-                <ComboBox ItemsSource="{Binding CultureInfos, Mode=OneWay}">
-                    <ComboBox.ItemTemplate>
-                        <DataTemplate>
-                            <StackPanel Orientation="Horizontal">
+                <materialDesign:Card Margin="5">
 
-                                <Label Content="{Binding DisplayName, Converter={StaticResource FirstCharUpperConverter}}" />
-                                <Label Content="|" />
-                                <Label Content="{Binding EnglishName, Converter={StaticResource FirstCharUpperConverter}}" />
-                                <Label Content="|" />
-                                <Label Content="{Binding NativeName, Converter={StaticResource FirstCharUpperConverter}}" />
+                    <settings:LanguageControl x:Name="LanguageControl" />
 
-                            </StackPanel>
-                        </DataTemplate>
-                    </ComboBox.ItemTemplate>
-                </ComboBox>
+                </materialDesign:Card>
 
             </TabItem>
 

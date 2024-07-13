@@ -1,10 +1,8 @@
-using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Interop;
 using MyExpenses.Models.Config;
-using MyExpenses.Sql.Context;
 using MyExpenses.Utils;
 using MyExpenses.Utils.WindowStyle;
 using MyExpenses.Wpf.Utils;
@@ -13,22 +11,8 @@ namespace MyExpenses.Wpf.Windows;
 
 public partial class SettingsWindow
 {
-    public List<CultureInfo> CultureInfos { get; } = [];
-
     public SettingsWindow()
     {
-        var localFilePathDataBaseModel = DbContextBackup.LocalFilePathDataBaseModel;
-        using var context = new DataBaseContext(localFilePathDataBaseModel);
-        foreach (var supportedLanguage in context.TSupportedLanguages)
-        {
-            var cultureInfo = new CultureInfo(supportedLanguage.Code);
-            CultureInfos.Add(cultureInfo);
-        }
-
-        var z = new CultureInfo("pt-PT");
-        CultureInfos.Add(z);
-
-        // TODO WORK
         InitializeComponent();
 
         var hWnd = new WindowInteropHelper(GetWindow(this)!).EnsureHandle();
