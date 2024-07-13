@@ -12,6 +12,7 @@ using LiveChartsCore.Kernel.Sketches;
 using LiveChartsCore.SkiaSharpView;
 using LiveChartsCore.SkiaSharpView.Painting;
 using MyExpenses.Models.Config;
+using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Sql.Tables;
 using MyExpenses.Models.Sql.Views;
 using MyExpenses.Models.Wpf.Charts;
@@ -162,7 +163,7 @@ public partial class DashBoardPage : INotifyPropertyChanged
         var currentCulture = CultureInfo.CurrentCulture;
         LocalLanguage = currentCulture.ToLocal();
 
-        Configuration.ConfigurationChanged += Configuration_OnConfigurationChanged;
+        Interface.ThemeChanged += Interface_OnThemeChanged;
         InitializeComponent();
 
         VHistories = new ObservableCollection<VHistory>();
@@ -184,7 +185,6 @@ public partial class DashBoardPage : INotifyPropertyChanged
 
     private void ButtonAccountManagement_OnClick(object sender, RoutedEventArgs e)
         => nameof(MainWindow.FrameBody).NavigateTo(typeof(AccountManagementPage));
-
 
     private void ButtonAccountTypeManagement_OnClick(object sender, RoutedEventArgs e)
         => nameof(MainWindow.FrameBody).NavigateTo(typeof(AccountTypeManagementPage));
@@ -222,11 +222,11 @@ public partial class DashBoardPage : INotifyPropertyChanged
     private void ButtonRecordExpense_OnClick(object sender, RoutedEventArgs e)
         => nameof(MainWindow.FrameBody).NavigateTo(typeof(RecordExpensePage));
 
-    private void Configuration_OnConfigurationChanged(object sender, ConfigurationChangedEventArgs e)
-        => UpdatePieChartLegendTextPaint();
-
     private void DataGridRow_PreviewMouseRightButtonDown(object sender, MouseButtonEventArgs e)
         => DataGridRow = sender as DataGridRow;
+
+    private void Interface_OnThemeChanged(object sender, ConfigurationThemeChangedEventArgs e)
+        => UpdatePieChartLegendTextPaint();
 
     private void ItemsControlVTotalAccount_OnLoaded(object sender, RoutedEventArgs e)
         => RefreshRadioButtonSelected();

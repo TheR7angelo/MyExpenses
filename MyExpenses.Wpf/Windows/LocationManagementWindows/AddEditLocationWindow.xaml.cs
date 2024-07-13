@@ -11,6 +11,7 @@ using Mapsui.Tiling.Layers;
 using Microsoft.Data.Sqlite;
 using MyExpenses.Models.AutoMapper;
 using MyExpenses.Models.Config;
+using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Sql.Tables;
 using MyExpenses.Models.WebApi.Nominatim;
 using MyExpenses.Sql.Context;
@@ -76,7 +77,7 @@ public partial class AddEditLocationWindow
         var map = MapsuiMapExtensions.GetMap(true, backColor);
         map.Layers.Add(WritableLayer);
 
-        Configuration.ConfigurationChanged += Configuration_OnConfigurationChanged;
+        Interface.ThemeChanged += Interface_OnThemeChanged;
         InitializeComponent();
 
         var hWnd = new WindowInteropHelper(GetWindow(this)!).EnsureHandle();
@@ -233,7 +234,7 @@ public partial class AddEditLocationWindow
 
     #endregion
 
-    private void Configuration_OnConfigurationChanged(object sender, ConfigurationChangedEventArgs e)
+    private void Interface_OnThemeChanged(object sender, ConfigurationThemeChangedEventArgs e)
     {
         var backColor = GetMapsUiBackColor();
         MapControl.Map.BackColor = backColor;

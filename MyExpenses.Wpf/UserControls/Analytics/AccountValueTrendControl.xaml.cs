@@ -7,6 +7,7 @@ using LiveChartsCore.Kernel.Sketches;
 using LiveChartsCore.SkiaSharpView;
 using LiveChartsCore.SkiaSharpView.Painting;
 using MyExpenses.Models.Config;
+using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Sql.Views;
 using MyExpenses.Sql.Context;
 using SkiaSharp;
@@ -39,13 +40,13 @@ public partial class AccountValueTrendControl
 
         SetChart();
 
-        Configuration.ConfigurationChanged += Configuration_OnConfigurationChanged;
+        Interface.ThemeChanged += Interface_OnThemeChanged;
         InitializeComponent();
 
         SetButtonPanel();
     }
 
-    private void Configuration_OnConfigurationChanged(object sender, ConfigurationChangedEventArgs e)
+    private void Interface_OnThemeChanged(object sender, ConfigurationThemeChangedEventArgs e)
     {
         var skColor = GetSkColor();
         TextPaint = new SolidColorPaint(skColor);

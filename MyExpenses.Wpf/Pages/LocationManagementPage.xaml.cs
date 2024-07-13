@@ -12,6 +12,7 @@ using Mapsui.Projections;
 using Mapsui.Tiling.Layers;
 using Microsoft.Data.Sqlite;
 using MyExpenses.Models.Config;
+using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Sql.Groups;
 using MyExpenses.Models.Sql.Tables;
 using MyExpenses.Sql.Context;
@@ -70,7 +71,7 @@ public partial class LocationManagementPage
         var map = MapsuiMapExtensions.GetMap(true, backColor);
         map.Layers.Add(PlaceLayer);
 
-        Configuration.ConfigurationChanged += Configuration_OnConfigurationChanged;
+        Interface.ThemeChanged += Interface_OnThemeChanged;
         InitializeComponent();
 
         MapControl.Map = map;
@@ -91,7 +92,7 @@ public partial class LocationManagementPage
         SetZoom(pointFeature);
     }
 
-    private void Configuration_OnConfigurationChanged(object sender, ConfigurationChangedEventArgs e)
+    private void Interface_OnThemeChanged(object sender, ConfigurationThemeChangedEventArgs e)
         => UpdateMapBackColor();
 
     private void MapControl_OnLoaded(object sender, RoutedEventArgs e)
