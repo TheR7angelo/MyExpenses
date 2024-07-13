@@ -291,8 +291,10 @@ public partial class RecordExpensePage
             History.PlaceFk = editedPlace.Id;
 
             Log.Information("Place was successfully edited");
-            var json = editedPlace.ToJsonString();
-            Log.Information("{Json}", json);
+
+            // Loop crash
+            // var json = editedPlace.ToJsonString();
+            // Log.Information("{Json}", json);
 
             MsgBox.Show(RecordExpensePageResources.MessageBoxEditPlaceSuccess, MsgBoxImage.Check);
         }
