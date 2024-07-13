@@ -14,7 +14,8 @@
 
     <UserControl.Resources>
         <colors:SolidColorBrushToSolidColorBrushContrastingForegroundColorConverter
-            x:Key="SolidColorBrushToSolidColorBrushContrastingForegroundColorConverter" />
+            x:Key="SolidColorBrushToSolidColorBrushContrastingForegroundColorConverter">
+        </colors:SolidColorBrushToSolidColorBrushContrastingForegroundColorConverter>
     </UserControl.Resources>
 
     <Grid margin:PanelExtensions.MarginForAllChildren="1.75">
