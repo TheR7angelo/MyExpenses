@@ -20,7 +20,7 @@ public partial class LanguageControl
 
     public LanguageControl()
     {
-
+        CultureInfoSelected = CultureInfo.CurrentUICulture;
 
         var localFilePathDataBaseModel = DbContextBackup.LocalFilePathDataBaseModel;
         using var context = new DataBaseContext(localFilePathDataBaseModel);
@@ -30,8 +30,8 @@ public partial class LanguageControl
             CultureInfos.Add(cultureInfo);
         }
 
-        var z = new CultureInfo("pt-PT");
-        CultureInfos.Add(z);
+        // var z = new CultureInfo("pt-PT");
+        // CultureInfos.Add(z);
 
         InitializeComponent();
     }
