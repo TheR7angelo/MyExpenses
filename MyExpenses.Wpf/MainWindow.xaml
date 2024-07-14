@@ -55,18 +55,18 @@
                               Margin="1.5">
 
                         <MenuItem Visibility="{Binding CanGoBack, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BooleanToVisibilityConverter}}"
-                                  Header="{Binding MenuItemHeaderDatabase}">
+                                  Header="{Binding MenuItemHeaderDatabase, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
                             <MenuItem.Icon>
                                 <materialDesign:PackIcon Kind="Database" />
                             </MenuItem.Icon>
 
-                            <MenuItem Header="{Binding MenuItemHeaderExportDatabase}" Click="MenuItemDatabaseExport_OnClick">
+                            <MenuItem Header="{Binding MenuItemHeaderExportDatabase, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Click="MenuItemDatabaseExport_OnClick">
                                 <MenuItem.Icon>
                                     <materialDesign:PackIcon Kind="DatabaseExport" />
                                 </MenuItem.Icon>
                             </MenuItem>
 
-                            <MenuItem Header="{Binding MenuItemHeaderImportDatabase}" Click="MenuItemDatabaseImport_OnClick">
+                            <MenuItem Header="{Binding MenuItemHeaderImportDatabase, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Click="MenuItemDatabaseImport_OnClick">
                                 <MenuItem.Icon>
                                     <materialDesign:PackIcon Kind="DatabaseImport" />
                                 </MenuItem.Icon>
@@ -88,7 +88,7 @@
                 <Menu Grid.Column="2">
 
                     <!-- TODO work -->
-                    <MenuItem Header="{Binding MenuItemHeaderSettings}"
+                    <MenuItem Header="{Binding MenuItemHeaderSettings, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                               Margin="1.5"
                               Click="MenuItemSetting_OnClick">
                         <MenuItem.Icon>
@@ -97,7 +97,7 @@
 
                     </MenuItem>
 
-                    <MenuItem Header="{Binding MenuItemHeaderPrevious}"
+                    <MenuItem Header="{Binding MenuItemHeaderPrevious, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                               Margin="1.5"
                               Visibility="{Binding CanGoBack, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BooleanToVisibilityConverter}}"
                               Click="MenuItemPrevious_OnClick">
