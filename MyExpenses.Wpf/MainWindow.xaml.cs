@@ -38,15 +38,57 @@ public partial class MainWindow
 
     #region MenuItem Database
 
-    public string MenuItemHeaderDatabase { get; } = MainWindowResources.MenuItemHeaderDatabase;
+    public static readonly DependencyProperty MenuItemHeaderDatabaseProperty =
+        DependencyProperty.Register(nameof(MenuItemHeaderDatabase), typeof(string), typeof(MainWindow),
+            new PropertyMetadata(default(string)));
 
-    public string MenuItemHeaderExportDatabase { get; } = MainWindowResources.MenuItemHeaderExportDatabase;
-    public string MenuItemHeaderImportDatabase { get; } = MainWindowResources.MenuItemHeaderImportDatabase;
+    public string MenuItemHeaderDatabase
+    {
+        get => (string)GetValue(MenuItemHeaderDatabaseProperty);
+        set => SetValue(MenuItemHeaderDatabaseProperty, value);
+    }
+
+    public static readonly DependencyProperty MenuItemHeaderExportDatabaseProperty =
+        DependencyProperty.Register(nameof(MenuItemHeaderExportDatabase), typeof(string), typeof(MainWindow),
+            new PropertyMetadata(default(string)));
+
+    public string MenuItemHeaderExportDatabase
+    {
+        get => (string)GetValue(MenuItemHeaderExportDatabaseProperty);
+        set => SetValue(MenuItemHeaderExportDatabaseProperty, value);
+    }
+
+    public static readonly DependencyProperty MenuItemHeaderImportDatabaseProperty =
+        DependencyProperty.Register(nameof(MenuItemHeaderImportDatabase), typeof(string), typeof(MainWindow),
+            new PropertyMetadata(default(string)));
+
+    public string MenuItemHeaderImportDatabase
+    {
+        get => (string)GetValue(MenuItemHeaderImportDatabaseProperty);
+        set => SetValue(MenuItemHeaderImportDatabaseProperty, value);
+    }
 
     #endregion
 
-    public string MenuItemHeaderPrevious { get; } = MainWindowResources.MenuItemHeaderPrevious;
-    public string MenuItemHeaderSettings { get; } = MainWindowResources.MenuItemHeaderSettings;
+    public static readonly DependencyProperty MenuItemHeaderSettingsProperty =
+        DependencyProperty.Register(nameof(MenuItemHeaderSettings), typeof(string), typeof(MainWindow),
+            new PropertyMetadata(default(string)));
+
+    public string MenuItemHeaderSettings
+    {
+        get => (string)GetValue(MenuItemHeaderSettingsProperty);
+        set => SetValue(MenuItemHeaderSettingsProperty, value);
+    }
+
+    public static readonly DependencyProperty MenuItemHeaderPreviousProperty =
+        DependencyProperty.Register(nameof(MenuItemHeaderPrevious), typeof(string), typeof(MainWindow),
+            new PropertyMetadata(default(string)));
+
+    public string MenuItemHeaderPrevious
+    {
+        get => (string)GetValue(MenuItemHeaderPreviousProperty);
+        set => SetValue(MenuItemHeaderPreviousProperty, value);
+    }
 
     public string ApplicationName { get; }
 
@@ -157,6 +199,13 @@ public partial class MainWindow
     private void UpdateStringLanguage()
     {
         MenuItemHeaderFile = MainWindowResources.MenuItemHeaderFile;
+
+        MenuItemHeaderDatabase = MainWindowResources.MenuItemHeaderDatabase;
+        MenuItemHeaderExportDatabase = MainWindowResources.MenuItemHeaderExportDatabase;
+        MenuItemHeaderImportDatabase = MainWindowResources.MenuItemHeaderImportDatabase;
+
+        MenuItemHeaderSettings = MainWindowResources.MenuItemHeaderSettings;
+        MenuItemHeaderPrevious = MainWindowResources.MenuItemHeaderPrevious;
     }
 
     private static async Task<FileMetadata> SaveToCloudAsync(string database)
