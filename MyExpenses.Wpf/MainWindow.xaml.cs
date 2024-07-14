@@ -4,6 +4,8 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Interop;
 using Dropbox.Api.Files;
+using MyExpenses.Models.Config;
+using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Wpf.Save;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils.WindowStyle;
@@ -24,7 +26,15 @@ public partial class MainWindow
 
     #region MenuItemFile
 
-    public string MenuItemHeaderFile { get; } = MainWindowResources.MenuItemHeaderFile;
+    public static readonly DependencyProperty MenuItemHeaderFileProperty =
+        DependencyProperty.Register(nameof(MenuItemHeaderFile), typeof(string), typeof(MainWindow),
+            new PropertyMetadata(default(string)));
+
+    public string MenuItemHeaderFile
+    {
+        get => (string)GetValue(MenuItemHeaderFileProperty);
+        set => SetValue(MenuItemHeaderFileProperty, value);
+    }
 
     #region MenuItem Database
 
@@ -53,6 +63,8 @@ public partial class MainWindow
         var assembly = Assembly.GetEntryAssembly()!;
         ApplicationName = assembly.GetName().Name!;
 
+        Interface.LanguageChanged += Interface_OnLanguageChanged;
+        UpdateStringLanguage();
         InitializeComponent();
 
         var hWnd = new WindowInteropHelper(GetWindow(this)!).EnsureHandle();
@@ -61,13 +73,7 @@ public partial class MainWindow
         Navigator.CanGoBackChanged += Navigator_OnCanGoBackChanged;
     }
 
-    private void Navigator_OnCanGoBackChanged(object? sender, NavigatorEventArgs e)
-    {
-        CanGoBack = e.CanGoBack;
-    }
-
-    private void MenuItemPrevious_OnClick(object sender, RoutedEventArgs e)
-        => nameof(FrameBody).GoBack();
+    #region Action
 
     private void FrameBody_OnPreviewMouseUp(object sender, MouseButtonEventArgs e)
     {
@@ -82,6 +88,9 @@ public partial class MainWindow
             nameof(FrameBody).GoForward();
         }
     }
+
+    private void Interface_OnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
+        => UpdateStringLanguage();
 
     private async void MenuItemDatabaseExport_OnClick(object sender, RoutedEventArgs e)
     {
@@ -123,6 +132,33 @@ public partial class MainWindow
         }
     }
 
+    private void MenuItemDatabaseImport_OnClick(object sender, RoutedEventArgs e)
+    {
+        //TODO work
+        Console.WriteLine("Need import");
+    }
+
+    private void MenuItemSetting_OnClick(object sender, RoutedEventArgs e)
+    {
+        var settingsWindow = new SettingsWindow();
+        settingsWindow.ShowDialog();
+    }
+
+    private void MenuItemPrevious_OnClick(object sender, RoutedEventArgs e)
+        => nameof(FrameBody).GoBack();
+
+    private void Navigator_OnCanGoBackChanged(object? sender, NavigatorEventArgs e)
+        => CanGoBack = e.CanGoBack;
+
+    #endregion
+
+    #region Function
+
+    private void UpdateStringLanguage()
+    {
+        MenuItemHeaderFile = MainWindowResources.MenuItemHeaderFile;
+    }
+
     private static async Task<FileMetadata> SaveToCloudAsync(string database)
     {
         var dropboxService = new DropboxService();
@@ -146,22 +182,9 @@ public partial class MainWindow
 
         selectedDialog = Path.ChangeExtension(selectedDialog, DbContextBackup.Extension);
         Log.Information("Starting to copy database to {SelectedDialog}", selectedDialog);
-        await Task.Run(() =>
-        {
-            File.Copy(database, selectedDialog, true);
-        });
+        await Task.Run(() => { File.Copy(database, selectedDialog, true); });
         Log.Information("Database successfully copied to local storage");
     }
 
-    private void MenuItemDatabaseImport_OnClick(object sender, RoutedEventArgs e)
-    {
-        //TODO work
-        Console.WriteLine("Need import");
-    }
-
-    private void MenuItemSetting_OnClick(object sender, RoutedEventArgs e)
-    {
-        var settingsWindow = new SettingsWindow();
-        settingsWindow.ShowDialog();
-    }
+    #endregion
 }
