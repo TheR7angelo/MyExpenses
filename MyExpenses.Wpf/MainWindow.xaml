@@ -34,14 +34,6 @@
 
                  DataContext="{Binding RelativeSource={RelativeSource Self}}">
 
-    <!-- GlowBrush="Gray" -->
-
-    <!-- <mah:MetroWindow.LeftWindowCommands> -->
-    <!--     <mah:WindowCommands> -->
-    <!--         <Image Source="/Resources/Assets/Icon.png" Width="22" Height="22" /> -->
-    <!--     </mah:WindowCommands> -->
-    <!-- </mah:MetroWindow.LeftWindowCommands> -->
-
     <Grid>
 
         <Grid.RowDefinitions>
