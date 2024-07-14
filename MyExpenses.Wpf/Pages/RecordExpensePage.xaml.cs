@@ -90,6 +90,7 @@ public partial class RecordExpensePage
         set => SetValue(SelectedCountryProperty, value);
     }
 
+    //TODO add language
     public RecordExpensePage()
     {
         KnownTileSources = [..MapsuiMapExtensions.GetAllKnowTileSource()];

@@ -69,6 +69,7 @@ public partial class AddEditLocationWindow
 
     #endregion
 
+    //TODO add language
     public AddEditLocationWindow()
     {
         KnownTileSources = [..MapsuiMapExtensions.GetAllKnowTileSource()];

@@ -36,7 +36,7 @@ public partial class AddEditModePaymentWindow
     public string ButtonCancelContent { get; } = AddEditModePaymentWindowResources.ButtonCancelContent;
     public bool ModePaymentDeleted { get; private set; }
 
-
+    //TODO add language
     public AddEditModePaymentWindow()
     {
         using var context = new DataBaseContext();

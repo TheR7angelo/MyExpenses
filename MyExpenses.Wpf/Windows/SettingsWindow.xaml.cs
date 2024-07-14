@@ -12,6 +12,7 @@ namespace MyExpenses.Wpf.Windows;
 
 public partial class SettingsWindow
 {
+    //TODO add language
     public SettingsWindow()
     {
         InitializeComponent();

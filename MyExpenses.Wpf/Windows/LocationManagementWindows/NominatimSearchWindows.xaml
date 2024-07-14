@@ -53,36 +53,42 @@
             <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
 
+        <!-- TODO work -->
         <TextBox Grid.Row="0" Grid.Column="1"
                  materialDesign:HintAssist.Hint="Name :"
                  Style="{StaticResource MaterialDesignFilledTextBox}"
                  Text="{Binding CurrentPlace.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
         </TextBox>
 
+        <!-- TODO work -->
         <TextBox Grid.Row="1" Grid.Column="1"
                  materialDesign:HintAssist.Hint="Number :"
                  Style="{StaticResource MaterialDesignFilledTextBox}"
                  Text="{Binding CurrentPlace.Number, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
         </TextBox>
 
+        <!-- TODO work -->
         <TextBox Grid.Row="2" Grid.Column="1"
                  materialDesign:HintAssist.Hint="Street :"
                  Style="{StaticResource MaterialDesignFilledTextBox}"
                  Text="{Binding CurrentPlace.Street, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
         </TextBox>
 
+        <!-- TODO work -->
         <TextBox Grid.Row="3" Grid.Column="1"
                  materialDesign:HintAssist.Hint="Postal :"
                  Style="{StaticResource MaterialDesignFilledTextBox}"
                  Text="{Binding CurrentPlace.Postal, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
         </TextBox>
 
+        <!-- TODO work -->
         <TextBox Grid.Row="4" Grid.Column="1"
                  materialDesign:HintAssist.Hint="City :"
                  Style="{StaticResource MaterialDesignFilledTextBox}"
                  Text="{Binding CurrentPlace.City, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
         </TextBox>
 
+        <!-- TODO work -->
         <TextBox Grid.Row="5" Grid.Column="1"
                  materialDesign:HintAssist.Hint="Country :"
                  Style="{StaticResource MaterialDesignFilledTextBox}"
@@ -103,6 +109,7 @@
                 </Button.Content>
             </Button>
 
+            <!-- TODO work -->
             <Button materialDesign:ButtonAssist.CornerRadius="5"
                     Style="{StaticResource MaterialDesignPaperSecondaryButton}"
                     Content="Cancel"
@@ -132,6 +139,7 @@
                 </Button.Content>
             </Button>
 
+            <!-- TODO work -->
             <Button materialDesign:ButtonAssist.CornerRadius="5"
                     Style="{StaticResource MaterialDesignPaperButton}"
                     Content="Valid"

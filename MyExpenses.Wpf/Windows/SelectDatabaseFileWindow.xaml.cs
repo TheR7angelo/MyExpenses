@@ -20,6 +20,7 @@ public partial class SelectDatabaseFileWindow
 
     public string SelectDatabaseFileWindowTitle { get; } = SelectDatabaseFileWindowResources.SelectDatabaseFileWindowTitle;
 
+    //TODO add language
     public SelectDatabaseFileWindow()
     {
         InitializeComponent();

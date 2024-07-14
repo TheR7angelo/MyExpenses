@@ -44,6 +44,7 @@ public partial class AddEditAccountTypeWindow
 
     #endregion
 
+    //TODO add language
     public AddEditAccountTypeWindow()
     {
         using var context = new DataBaseContext();

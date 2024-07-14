@@ -52,6 +52,7 @@ public partial class AddEditColorWindow
 
     public bool DeleteColor { get; private set; }
 
+    //TODO add language
     public AddEditColorWindow()
     {
         using var context = new DataBaseContext();

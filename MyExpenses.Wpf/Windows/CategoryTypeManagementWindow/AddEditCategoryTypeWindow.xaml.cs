@@ -50,6 +50,7 @@ public partial class AddEditCategoryTypeWindow
 
     public string ComboBoxColorSelectedValuePath { get; } = nameof(TColor.Id);
 
+    //TODO add language
     public AddEditCategoryTypeWindow()
     {
         using var context = new DataBaseContext();

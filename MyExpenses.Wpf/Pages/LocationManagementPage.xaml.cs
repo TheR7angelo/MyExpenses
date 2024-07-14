@@ -49,6 +49,7 @@ public partial class LocationManagementPage
     private NetTopologySuite.Geometries.Point ClickPoint { get; set; } = NetTopologySuite.Geometries.Point.Empty;
     private PointFeature? PointFeature { get; set; }
 
+    //TODO add language
     public LocationManagementPage()
     {
         KnownTileSources = [..MapsuiMapExtensions.GetAllKnowTileSource()];

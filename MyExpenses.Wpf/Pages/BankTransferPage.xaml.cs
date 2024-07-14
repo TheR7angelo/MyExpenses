@@ -132,6 +132,7 @@ public partial class BankTransferPage
 
     #endregion
 
+    //TODO add language
     public BankTransferPage()
     {
         using var context = new DataBaseContext();

@@ -27,6 +27,7 @@ public partial class AddDatabaseFileWindow
 
     private List<ExistingDatabase> ExistingDatabases { get; } = [];
 
+    //TODO add language
     public AddDatabaseFileWindow()
     {
         InitializeComponent();

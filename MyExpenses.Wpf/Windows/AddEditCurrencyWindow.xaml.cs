@@ -34,7 +34,7 @@ public partial class AddEditCurrencyWindow
 
     private List<TCurrency> Currencies { get; }
 
-    public bool CurrencyDeleted { get; set; }
+    public bool CurrencyDeleted { get; private set; }
 
     #endregion
 
@@ -47,6 +47,7 @@ public partial class AddEditCurrencyWindow
 
     #endregion
 
+    //TODO add language
     public AddEditCurrencyWindow()
     {
         using var context = new DataBaseContext();
