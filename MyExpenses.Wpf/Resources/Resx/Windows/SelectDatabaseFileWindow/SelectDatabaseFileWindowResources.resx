@@ -21,7 +21,7 @@
     <data name="ButtonValidContent" xml:space="preserve">
         <value>Valid</value>
     </data>
-    <data name="ButtonCancelCotent" xml:space="preserve">
+    <data name="ButtonCancelContent" xml:space="preserve">
         <value>Cancel</value>
     </data>
     <data name="SelectDatabaseFileWindowTitle" xml:space="preserve">

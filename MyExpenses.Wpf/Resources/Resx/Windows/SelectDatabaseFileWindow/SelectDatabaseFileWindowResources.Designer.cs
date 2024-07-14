@@ -65,7 +65,7 @@ namespace MyExpenses.Wpf.Resources.Resx.Windows.SelectDatabaseFileWindow {
         /// </summary>
         internal static string ButtonCancelCotent {
             get {
-                return ResourceManager.GetString("ButtonCancelCotent", resourceCulture);
+                return ResourceManager.GetString("ButtonCancelContent", resourceCulture);
             }
         }
         

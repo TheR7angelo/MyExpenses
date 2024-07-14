@@ -9,7 +9,7 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
 
-        Title="{Binding SelectDatabaseFileWindowTitle}"
+        Title="{Binding SelectDatabaseFileWindowTitle, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
 
         d:DesignHeight="130"
         d:DesignWidth="394"
@@ -61,12 +61,12 @@
                     HorizontalAlignment="Center"
                     margin:PanelExtensions.MarginForAllChildren="3">
 
-            <Button Content="{Binding ButtonValidContent}"
+            <Button Content="{Binding ButtonValidContent, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                     Style="{StaticResource MaterialDesignPaperButton}"
                     Click="ButtonValid_OnClick">
             </Button>
 
-            <Button Content="{Binding ButtonCancelContent}"
+            <Button Content="{Binding ButtonCancelContent, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                     Style="{StaticResource MaterialDesignPaperSecondaryButton}"
                     Click="ButtonCancel_OnClick">
             </Button>
