@@ -87,7 +87,6 @@
 
                 <Menu Grid.Column="2">
 
-                    <!-- TODO work -->
                     <MenuItem Header="{Binding MenuItemHeaderSettings, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                               Margin="1.5"
                               Click="MenuItemSetting_OnClick">
