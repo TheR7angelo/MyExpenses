@@ -94,5 +94,50 @@ namespace MyExpenses.Wpf.Resources.Resx.Windows.MsgBox {
                 return ResourceManager.GetString("ButtonYes", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        public static string CaptionError {
+            get {
+                return ResourceManager.GetString("CaptionError", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Question.
+        /// </summary>
+        public static string CaptionQuestion {
+            get {
+                return ResourceManager.GetString("CaptionQuestion", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Warning.
+        /// </summary>
+        public static string CaptionWarning {
+            get {
+                return ResourceManager.GetString("CaptionWarning", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Information.
+        /// </summary>
+        public static string CaptionInformation {
+            get {
+                return ResourceManager.GetString("CaptionInformation", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Confirm.
+        /// </summary>
+        public static string CaptionCheck {
+            get {
+                return ResourceManager.GetString("CaptionCheck", resourceCulture);
+            }
+        }
     }
 }

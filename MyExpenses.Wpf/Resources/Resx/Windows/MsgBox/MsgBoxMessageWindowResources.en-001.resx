@@ -23,4 +23,19 @@
     <data name="ButtonYes" xml:space="preserve">
         <value>Yes</value>
     </data>
+    <data name="CaptionError" xml:space="preserve">
+        <value>Error</value>
+    </data>
+    <data name="CaptionQuestion" xml:space="preserve">
+        <value>Question</value>
+    </data>
+    <data name="CaptionWarning" xml:space="preserve">
+        <value>Warning</value>
+    </data>
+    <data name="CaptionInformation" xml:space="preserve">
+        <value>Information</value>
+    </data>
+    <data name="CaptionCheck" xml:space="preserve">
+        <value>Confirm</value>
+    </data>
 </root>

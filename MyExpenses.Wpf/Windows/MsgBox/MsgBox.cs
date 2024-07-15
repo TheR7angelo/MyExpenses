@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using MyExpenses.Wpf.Resources.Resx.Windows.MsgBox;
 
 namespace MyExpenses.Wpf.Windows.MsgBox;
 
@@ -40,6 +41,23 @@ public static class MsgBox
         MessageBoxButton button = MessageBoxButton.OK, MsgBoxImage icon = MsgBoxImage.None,
         MessageBoxResult defaultResult = MessageBoxResult.None)
     {
+        caption = string.IsNullOrWhiteSpace(caption)
+            ? icon switch
+            {
+                MsgBoxImage.Error => MsgBoxMessageWindowResources.CaptionError,
+                MsgBoxImage.Question => MsgBoxMessageWindowResources.CaptionQuestion,
+                MsgBoxImage.Warning => MsgBoxMessageWindowResources.CaptionWarning,
+                MsgBoxImage.Information => MsgBoxMessageWindowResources.CaptionInformation,
+                MsgBoxImage.Check => MsgBoxMessageWindowResources.CaptionCheck,
+                MsgBoxImage.Asterisk => string.Empty,
+                MsgBoxImage.Exclamation => string.Empty,
+                MsgBoxImage.Stop => string.Empty,
+                MsgBoxImage.Hand => string.Empty,
+                MsgBoxImage.None => string.Empty,
+                _ => string.Empty
+            }
+            : caption;
+
         var msgBoxMessageWindow = new MsgBoxMessageWindow
         {
             MessageBoxText = messageBoxText,
