@@ -132,7 +132,6 @@
                 </Button.Content>
             </Button>
 
-            <!-- TODO work -->
             <Button materialDesign:ButtonAssist.CornerRadius="5"
                     Style="{StaticResource MaterialDesignPaperButton}"
                     Content="{Binding ButtonValidContent, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
