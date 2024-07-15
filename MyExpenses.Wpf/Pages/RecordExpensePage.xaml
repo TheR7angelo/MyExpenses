@@ -49,7 +49,7 @@
         <ComboBox Grid.Row="0" Grid.Column="0"
                   Style="{StaticResource MaterialDesignFilledComboBox}"
                   materialDesign:TextFieldAssist.HasClearButton="True"
-                  materialDesign:HintAssist.Hint="{Binding ComboBoxAccountHintAssist}"
+                  materialDesign:HintAssist.Hint="{Binding ComboBoxAccountHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                   ItemsSource="{Binding Accounts, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                   SelectedValue="{Binding History.AccountFk, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                   SelectedValuePath="{Binding SelectedValuePathAccount}"
@@ -68,7 +68,7 @@
         </Button>
 
         <TextBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
-                 materialDesign:HintAssist.Hint="{Binding TextBoxDescriptionHintAssist}"
+                 materialDesign:HintAssist.Hint="{Binding TextBoxDescriptionHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                  Style="{StaticResource MaterialDesignFilledTextBox}"
                  Text="{Binding History.Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                  TextWrapping="Wrap" AcceptsReturn="True" AcceptsTab="True">
@@ -77,7 +77,7 @@
         <ComboBox Grid.Row="2" Grid.Column="0"
                   Style="{StaticResource MaterialDesignFilledComboBox}"
                   materialDesign:TextFieldAssist.HasClearButton="True"
-                  materialDesign:HintAssist.Hint="{Binding ComboBoxCategoryTypeHintAssist}"
+                  materialDesign:HintAssist.Hint="{Binding ComboBoxCategoryTypeHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                   ItemsSource="{Binding CategoryTypes, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                   SelectedValue="{Binding History.CategoryTypeFk, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                   SelectedValuePath="{Binding SelectedValuePathCategoryType}"
@@ -98,7 +98,7 @@
         <ComboBox Grid.Row="3" Grid.Column="0"
                   Style="{StaticResource MaterialDesignFilledComboBox}"
                   materialDesign:TextFieldAssist.HasClearButton="True"
-                  materialDesign:HintAssist.Hint="{Binding ComboBoxModePaymentHintAssist}"
+                  materialDesign:HintAssist.Hint="{Binding ComboBoxModePaymentHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                   ItemsSource="{Binding ModePayments, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                   SelectedValue="{Binding History.ModePaymentFk, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                   SelectedValuePath="{Binding SelectedValuePathModePayment}"
@@ -117,7 +117,7 @@
         </Button>
 
         <TextBox Grid.Row="4" Grid.Column="0"
-                 materialDesign:HintAssist.Hint="{Binding TextBoxValueHintAssist}"
+                 materialDesign:HintAssist.Hint="{Binding TextBoxValueHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                  Style="{StaticResource MaterialDesignFilledTextBox}"
                  Text="{Binding History.Value, Mode=TwoWay}"
                  AcceptsReturn="False" AcceptsTab="False"
@@ -146,13 +146,13 @@
             </Grid.ColumnDefinitions>
 
             <DatePicker Grid.Column="0" x:Name="DatePicker"
-                        materialDesign:HintAssist.Hint="{Binding DatePickerWhenHintAssist}"
+                        materialDesign:HintAssist.Hint="{Binding DatePickerWhenHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                         Style="{StaticResource MaterialDesignFilledDatePicker}"
                         SelectedDate="{Binding History.Date, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
             </DatePicker>
 
             <materialDesign:TimePicker Grid.Column="1" x:Name="TimePicker"
-                                       materialDesign:HintAssist.Hint="{Binding TimePickerWhenHintAssist}"
+                                       materialDesign:HintAssist.Hint="{Binding TimePickerWhenHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                                        Style="{StaticResource MaterialDesignFilledTimePicker}"
                                        SelectedTime="{Binding History.Date, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                                        SelectedTimeFormat="Long">
@@ -188,7 +188,7 @@
                       x:Name="ComboBoxSelectorCountry"
                       Style="{StaticResource MaterialDesignFilledComboBox}"
                       materialDesign:TextFieldAssist.HasClearButton="True"
-                      materialDesign:HintAssist.Hint="{Binding ComboBoxPlaceHintAssist}"
+                      materialDesign:HintAssist.Hint="{Binding ComboBoxPlaceHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                       ItemsSource="{Binding CountriesCollection, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                       SelectedItem="{Binding SelectedCountry, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                       SelectionChanged="SelectorCountry_OnSelectionChanged">
@@ -198,7 +198,7 @@
                       x:Name="ComboBoxSelectorCity"
                       Style="{StaticResource MaterialDesignFilledComboBox}"
                       materialDesign:TextFieldAssist.HasClearButton="True"
-                      materialDesign:HintAssist.Hint="{Binding ComboBoxPlaceHintAssist}"
+                      materialDesign:HintAssist.Hint="{Binding ComboBoxPlaceHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                       ItemsSource="{Binding CitiesCollection, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                       SelectionChanged="SelectorCity_OnSelectionChanged">
             </ComboBox>
@@ -206,7 +206,7 @@
             <ComboBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
                       Style="{StaticResource MaterialDesignFilledComboBox}"
                       materialDesign:TextFieldAssist.HasClearButton="True"
-                      materialDesign:HintAssist.Hint="{Binding ComboBoxPlaceHintAssist}"
+                      materialDesign:HintAssist.Hint="{Binding ComboBoxPlaceHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                       ItemsSource="{Binding PlacesCollection, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                       SelectedValue="{Binding History.PlaceFk, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                       SelectedValuePath="{Binding SelectedValuePathPlace}"
@@ -229,7 +229,7 @@
 
         <CheckBox Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2"
                   HorizontalContentAlignment="Center"
-                  Content="{Binding CheckBoxPointedContent}"
+                  Content="{Binding CheckBoxPointedContent, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                   materialDesign:CheckBoxAssist.CheckBoxSize="30"
                   IsChecked="{Binding History.Pointed, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                   HorizontalAlignment="Right"
@@ -247,12 +247,12 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <Button Grid.Column="0" Content="{Binding ButtonValidContent}"
+            <Button Grid.Column="0" Content="{Binding ButtonValidContent, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                     Style="{StaticResource MaterialDesignPaperButton}"
                     Click="ButtonValid_OnClick">
             </Button>
 
-            <Button Grid.Column="1" Content="{Binding ButtonCancelContent}"
+            <Button Grid.Column="1" Content="{Binding ButtonCancelContent, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                     Style="{StaticResource MaterialDesignPaperSecondaryButton}"
                     Click="ButtonCancel_OnClick">
             </Button>
@@ -269,17 +269,17 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <Button Grid.Column="0" Content="{Binding ButtonValidContent}"
+            <Button Grid.Column="0" Content="{Binding ButtonValidContent, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                     Style="{StaticResource MaterialDesignPaperButton}"
                     Click="ButtonValid_OnClick">
             </Button>
 
-            <Button Grid.Column="1" Content="{Binding ButtonDeleteContent}"
+            <Button Grid.Column="1" Content="{Binding ButtonDeleteContent, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                     Style="{StaticResource MaterialDesignPaperSecondaryButton}"
                     Click="ButtonDelete_OnClick">
             </Button>
 
-            <Button Grid.Column="2" Content="{Binding ButtonCancelContent}"
+            <Button Grid.Column="2" Content="{Binding ButtonCancelContent, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                     Style="{StaticResource MaterialDesignPaperSecondaryButton}"
                     Click="ButtonCancel_OnClick">
             </Button>
@@ -288,7 +288,7 @@
 
         <ComboBox Grid.Row="0" Grid.Column="2"
                   Style="{StaticResource MaterialDesignFilledComboBox}"
-                  materialDesign:HintAssist.Hint="{Binding ComboBoxBackgroundHintAssist}"
+                  materialDesign:HintAssist.Hint="{Binding ComboBoxBackgroundHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                   ItemsSource="{Binding KnownTileSources}"
                   SelectedItem="{Binding KnownTileSourceSelected}"
                   SelectionChanged="SelectorTile_OnSelectionChanged">
