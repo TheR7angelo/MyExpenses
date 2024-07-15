@@ -82,6 +82,26 @@ public partial class NominatimSearchWindow
         set => SetValue(PlaceCountryHintAssistProperty, value);
     }
 
+    public static readonly DependencyProperty ButtonCancelContentProperty =
+        DependencyProperty.Register(nameof(ButtonCancelContent), typeof(string), typeof(NominatimSearchWindow),
+            new PropertyMetadata(default(string)));
+
+    public string ButtonCancelContent
+    {
+        get => (string)GetValue(ButtonCancelContentProperty);
+        set => SetValue(ButtonCancelContentProperty, value);
+    }
+
+    public static readonly DependencyProperty ButtonValidContentProperty =
+        DependencyProperty.Register(nameof(ButtonValidContent), typeof(string), typeof(NominatimSearchWindow),
+            new PropertyMetadata(default(string)));
+
+    public string ButtonValidContent
+    {
+        get => (string)GetValue(ButtonValidContentProperty);
+        set => SetValue(ButtonValidContentProperty, value);
+    }
+
     private List<TPlace> Places { get; } = [];
 
     private int Index { get; set; }
@@ -113,6 +133,9 @@ public partial class NominatimSearchWindow
         PlacePostalHintAssist = "Postal code :";
         PlaceCityHintAssist = "City :";
         PlaceCountryHintAssist = "Country :";
+
+        ButtonCancelContent = "Cancel";
+        ButtonValidContent = "Valid";
     }
 
     public void AddRange(IEnumerable<TPlace> places)

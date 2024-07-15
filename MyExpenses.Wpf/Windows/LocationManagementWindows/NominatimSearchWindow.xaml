@@ -103,10 +103,9 @@
                 </Button.Content>
             </Button>
 
-            <!-- TODO work -->
             <Button materialDesign:ButtonAssist.CornerRadius="5"
                     Style="{StaticResource MaterialDesignPaperSecondaryButton}"
-                    Content="Cancel"
+                    Content="{Binding ButtonCancelContent, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                     Click="ButtonCancel_OnClick">
             </Button>
 
@@ -136,7 +135,7 @@
             <!-- TODO work -->
             <Button materialDesign:ButtonAssist.CornerRadius="5"
                     Style="{StaticResource MaterialDesignPaperButton}"
-                    Content="Valid"
+                    Content="{Binding ButtonValidContent, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                     Click="ButtonValid_OnClick">
             </Button>
 
