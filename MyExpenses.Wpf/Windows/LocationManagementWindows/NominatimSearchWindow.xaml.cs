@@ -116,6 +116,8 @@ public partial class NominatimSearchWindow
         map.Layers.Add(Mapsui.Tiling.OpenStreetMap.CreateTileLayer());
         map.Layers.Add(WritableLayer);
 
+        UpdateLanguage();
+
         Interface.LanguageChanged += Interface_OnLanguageChanged;
         InitializeComponent();
 
@@ -126,6 +128,9 @@ public partial class NominatimSearchWindow
     }
 
     private void Interface_OnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
+        => UpdateLanguage();
+
+    private void UpdateLanguage()
     {
         PlaceNameHintAssist = NominatimSearchWindowResources.PlaceNameHintAssist;
         PlaceNumberHintAssist = NominatimSearchWindowResources.PlaceNumberHintAssist;
