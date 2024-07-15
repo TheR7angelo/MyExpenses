@@ -53,44 +53,38 @@
             <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
 
-        <!-- TODO work -->
         <TextBox Grid.Row="0" Grid.Column="1"
-                 materialDesign:HintAssist.Hint="Name :"
+                 materialDesign:HintAssist.Hint="{Binding PlaceNameHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                  Style="{StaticResource MaterialDesignFilledTextBox}"
                  Text="{Binding CurrentPlace.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
         </TextBox>
 
-        <!-- TODO work -->
         <TextBox Grid.Row="1" Grid.Column="1"
-                 materialDesign:HintAssist.Hint="Number :"
+                 materialDesign:HintAssist.Hint="{Binding PlaceNumberHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                  Style="{StaticResource MaterialDesignFilledTextBox}"
                  Text="{Binding CurrentPlace.Number, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
         </TextBox>
 
-        <!-- TODO work -->
         <TextBox Grid.Row="2" Grid.Column="1"
-                 materialDesign:HintAssist.Hint="Street :"
+                 materialDesign:HintAssist.Hint="{Binding PlaceStreetHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                  Style="{StaticResource MaterialDesignFilledTextBox}"
                  Text="{Binding CurrentPlace.Street, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
         </TextBox>
 
-        <!-- TODO work -->
         <TextBox Grid.Row="3" Grid.Column="1"
-                 materialDesign:HintAssist.Hint="Postal :"
+                 materialDesign:HintAssist.Hint="{Binding PlacePostalHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                  Style="{StaticResource MaterialDesignFilledTextBox}"
                  Text="{Binding CurrentPlace.Postal, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
         </TextBox>
 
-        <!-- TODO work -->
         <TextBox Grid.Row="4" Grid.Column="1"
-                 materialDesign:HintAssist.Hint="City :"
+                 materialDesign:HintAssist.Hint="{Binding PlaceCityHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                  Style="{StaticResource MaterialDesignFilledTextBox}"
                  Text="{Binding CurrentPlace.City, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
         </TextBox>
 
-        <!-- TODO work -->
         <TextBox Grid.Row="5" Grid.Column="1"
-                 materialDesign:HintAssist.Hint="Country :"
+                 materialDesign:HintAssist.Hint="{Binding PlaceCountryHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                  Style="{StaticResource MaterialDesignFilledTextBox}"
                  Text="{Binding CurrentPlace.Country, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
         </TextBox>
