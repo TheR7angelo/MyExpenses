@@ -188,7 +188,7 @@
                       x:Name="ComboBoxSelectorCountry"
                       Style="{StaticResource MaterialDesignFilledComboBox}"
                       materialDesign:TextFieldAssist.HasClearButton="True"
-                      materialDesign:HintAssist.Hint="{Binding ComboBoxPlaceHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                      materialDesign:HintAssist.Hint="{Binding ComboBoxPlaceCountryHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                       ItemsSource="{Binding CountriesCollection, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                       SelectedItem="{Binding SelectedCountry, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                       SelectionChanged="SelectorCountry_OnSelectionChanged">
@@ -198,7 +198,7 @@
                       x:Name="ComboBoxSelectorCity"
                       Style="{StaticResource MaterialDesignFilledComboBox}"
                       materialDesign:TextFieldAssist.HasClearButton="True"
-                      materialDesign:HintAssist.Hint="{Binding ComboBoxPlaceHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                      materialDesign:HintAssist.Hint="{Binding ComboBoxPlaceCityHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                       ItemsSource="{Binding CitiesCollection, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                       SelectionChanged="SelectorCity_OnSelectionChanged">
             </ComboBox>

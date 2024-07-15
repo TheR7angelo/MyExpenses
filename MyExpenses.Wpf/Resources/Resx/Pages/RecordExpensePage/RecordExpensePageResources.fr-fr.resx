@@ -125,4 +125,10 @@
     <data name="MessageBoxDeleteHistoryError" xml:space="preserve">
         <value>Une erreur s'est produite, veuillez réessayer</value>
     </data>
+    <data name="ComboBoxPlaceCountryHintAssist" xml:space="preserve">
+        <value>Pays :</value>
+    </data>
+    <data name="ComboBoxPlaceCityHintAssist" xml:space="preserve">
+        <value>Ville :</value>
+    </data>
 </root>

@@ -181,6 +181,26 @@ public partial class RecordExpensePage
         set => SetValue(ComboBoxBackgroundHintAssistProperty, value);
     }
 
+    public static readonly DependencyProperty ComboBoxPlaceCountryHintAssistProperty =
+        DependencyProperty.Register(nameof(ComboBoxPlaceCountryHintAssist), typeof(string), typeof(RecordExpensePage),
+            new PropertyMetadata(default(string)));
+
+    public string ComboBoxPlaceCountryHintAssist
+    {
+        get => (string)GetValue(ComboBoxPlaceCountryHintAssistProperty);
+        set => SetValue(ComboBoxPlaceCountryHintAssistProperty, value);
+    }
+
+    public static readonly DependencyProperty ComboBoxPlaceCityHintAssistProperty =
+        DependencyProperty.Register(nameof(ComboBoxPlaceCityHintAssist), typeof(string), typeof(RecordExpensePage),
+            new PropertyMetadata(default(string)));
+
+    public string ComboBoxPlaceCityHintAssist
+    {
+        get => (string)GetValue(ComboBoxPlaceCityHintAssistProperty);
+        set => SetValue(ComboBoxPlaceCityHintAssistProperty, value);
+    }
+
     public THistory History { get; } = new();
 
     public string SelectedValuePathAccount { get; } = nameof(TAccount.Id);
@@ -679,6 +699,8 @@ public partial class RecordExpensePage
         TextBoxValueHintAssist = RecordExpensePageResources.TextBoxValueHintAssist;
         DatePickerWhenHintAssist = RecordExpensePageResources.DatePickerWhenHintAssist;
         TimePickerWhenHintAssist = RecordExpensePageResources.TimePickerWhenHintAssist;
+        ComboBoxPlaceCountryHintAssist = RecordExpensePageResources.ComboBoxPlaceCountryHintAssist;
+        ComboBoxPlaceCityHintAssist = RecordExpensePageResources.ComboBoxPlaceCityHintAssist;
         ComboBoxPlaceHintAssist = RecordExpensePageResources.ComboBoxPlaceHintAssist;
         CheckBoxPointedContent = RecordExpensePageResources.CheckBoxPointedContent;
         ComboBoxBackgroundHintAssist = RecordExpensePageResources.ComboBoxBackgroundHintAssist;

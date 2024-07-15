@@ -132,6 +132,24 @@ namespace MyExpenses.Wpf.Resources.Resx.Pages.RecordExpensePage {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to City :.
+        /// </summary>
+        internal static string ComboBoxPlaceCityHintAssist {
+            get {
+                return ResourceManager.GetString("ComboBoxPlaceCityHintAssist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Country :.
+        /// </summary>
+        internal static string ComboBoxPlaceCountryHintAssist {
+            get {
+                return ResourceManager.GetString("ComboBoxPlaceCountryHintAssist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Place :.
         /// </summary>
         internal static string ComboBoxPlaceHintAssist {
