@@ -7,7 +7,6 @@ using System.Windows.Input;
 using System.Windows.Markup;
 using System.Windows.Media;
 using BruTile.Predefined;
-using Mapsui;
 using Mapsui.Layers;
 using Mapsui.Tiling.Layers;
 using Microsoft.Data.Sqlite;
@@ -36,14 +35,150 @@ public partial class RecordExpensePage
     public static readonly DependencyProperty EditHistoryProperty = DependencyProperty.Register(nameof(EditHistory),
         typeof(bool), typeof(RecordExpensePage), new PropertyMetadata(default(bool)));
 
-    public static readonly DependencyProperty SelectedCountryProperty =
-        DependencyProperty.Register(nameof(SelectedCountry), typeof(string), typeof(RecordExpensePage),
-            new PropertyMetadata(default(string)));
-
     public bool EditHistory
     {
         get => (bool)GetValue(EditHistoryProperty);
         set => SetValue(EditHistoryProperty, value);
+    }
+
+    public static readonly DependencyProperty SelectedCountryProperty =
+        DependencyProperty.Register(nameof(SelectedCountry), typeof(string), typeof(RecordExpensePage),
+            new PropertyMetadata(default(string)));
+
+    public string? SelectedCountry
+    {
+        get => (string)GetValue(SelectedCountryProperty);
+        set => SetValue(SelectedCountryProperty, value);
+    }
+
+    public static readonly DependencyProperty ComboBoxAccountHintAssistProperty =
+        DependencyProperty.Register(nameof(ComboBoxAccountHintAssist), typeof(string), typeof(RecordExpensePage),
+            new PropertyMetadata(default(string)));
+
+    public string ComboBoxAccountHintAssist
+    {
+        get => (string)GetValue(ComboBoxAccountHintAssistProperty);
+        set => SetValue(ComboBoxAccountHintAssistProperty, value);
+    }
+
+    public static readonly DependencyProperty TextBoxDescriptionHintAssistProperty =
+        DependencyProperty.Register(nameof(TextBoxDescriptionHintAssist), typeof(string), typeof(RecordExpensePage),
+            new PropertyMetadata(default(string)));
+
+    public string TextBoxDescriptionHintAssist
+    {
+        get => (string)GetValue(TextBoxDescriptionHintAssistProperty);
+        set => SetValue(TextBoxDescriptionHintAssistProperty, value);
+    }
+
+    public static readonly DependencyProperty ComboBoxCategoryTypeHintAssistProperty =
+        DependencyProperty.Register(nameof(ComboBoxCategoryTypeHintAssist), typeof(string), typeof(RecordExpensePage),
+            new PropertyMetadata(default(string)));
+
+    public string ComboBoxCategoryTypeHintAssist
+    {
+        get => (string)GetValue(ComboBoxCategoryTypeHintAssistProperty);
+        set => SetValue(ComboBoxCategoryTypeHintAssistProperty, value);
+    }
+
+    public static readonly DependencyProperty ComboBoxModePaymentHintAssistProperty =
+        DependencyProperty.Register(nameof(ComboBoxModePaymentHintAssist), typeof(string), typeof(RecordExpensePage),
+            new PropertyMetadata(default(string)));
+
+    public string ComboBoxModePaymentHintAssist
+    {
+        get => (string)GetValue(ComboBoxModePaymentHintAssistProperty);
+        set => SetValue(ComboBoxModePaymentHintAssistProperty, value);
+    }
+
+    public static readonly DependencyProperty TextBoxValueHintAssistProperty =
+        DependencyProperty.Register(nameof(TextBoxValueHintAssist), typeof(string), typeof(RecordExpensePage),
+            new PropertyMetadata(default(string)));
+
+    public string TextBoxValueHintAssist
+    {
+        get => (string)GetValue(TextBoxValueHintAssistProperty);
+        set => SetValue(TextBoxValueHintAssistProperty, value);
+    }
+
+    public static readonly DependencyProperty DatePickerWhenHintAssistProperty =
+        DependencyProperty.Register(nameof(DatePickerWhenHintAssist), typeof(string), typeof(RecordExpensePage),
+            new PropertyMetadata(default(string)));
+
+    public string DatePickerWhenHintAssist
+    {
+        get => (string)GetValue(DatePickerWhenHintAssistProperty);
+        set => SetValue(DatePickerWhenHintAssistProperty, value);
+    }
+
+    public static readonly DependencyProperty TimePickerWhenHintAssistProperty =
+        DependencyProperty.Register(nameof(TimePickerWhenHintAssist), typeof(string), typeof(RecordExpensePage),
+            new PropertyMetadata(default(string)));
+
+    public string TimePickerWhenHintAssist
+    {
+        get => (string)GetValue(TimePickerWhenHintAssistProperty);
+        set => SetValue(TimePickerWhenHintAssistProperty, value);
+    }
+
+    public static readonly DependencyProperty ComboBoxPlaceHintAssistProperty =
+        DependencyProperty.Register(nameof(ComboBoxPlaceHintAssist), typeof(string), typeof(RecordExpensePage),
+            new PropertyMetadata(default(string)));
+
+    public string ComboBoxPlaceHintAssist
+    {
+        get => (string)GetValue(ComboBoxPlaceHintAssistProperty);
+        set => SetValue(ComboBoxPlaceHintAssistProperty, value);
+    }
+
+    public static readonly DependencyProperty CheckBoxPointedContentProperty =
+        DependencyProperty.Register(nameof(CheckBoxPointedContent), typeof(string), typeof(RecordExpensePage),
+            new PropertyMetadata(default(string)));
+
+    public string CheckBoxPointedContent
+    {
+        get => (string)GetValue(CheckBoxPointedContentProperty);
+        set => SetValue(CheckBoxPointedContentProperty, value);
+    }
+
+    public static readonly DependencyProperty ButtonValidContentProperty =
+        DependencyProperty.Register(nameof(ButtonValidContent), typeof(string), typeof(RecordExpensePage),
+            new PropertyMetadata(default(string)));
+
+    public string ButtonValidContent
+    {
+        get => (string)GetValue(ButtonValidContentProperty);
+        set => SetValue(ButtonValidContentProperty, value);
+    }
+
+    public static readonly DependencyProperty ButtonCancelContentProperty =
+        DependencyProperty.Register(nameof(ButtonCancelContent), typeof(string), typeof(RecordExpensePage),
+            new PropertyMetadata(default(string)));
+
+    public string ButtonCancelContent
+    {
+        get => (string)GetValue(ButtonCancelContentProperty);
+        set => SetValue(ButtonCancelContentProperty, value);
+    }
+
+    public static readonly DependencyProperty ButtonDeleteContentProperty =
+        DependencyProperty.Register(nameof(ButtonDeleteContent), typeof(string), typeof(RecordExpensePage),
+            new PropertyMetadata(default(string)));
+
+    public string ButtonDeleteContent
+    {
+        get => (string)GetValue(ButtonDeleteContentProperty);
+        set => SetValue(ButtonDeleteContentProperty, value);
+    }
+
+    public static readonly DependencyProperty ComboBoxBackgroundHintAssistProperty =
+        DependencyProperty.Register(nameof(ComboBoxBackgroundHintAssist), typeof(string), typeof(RecordExpensePage),
+            new PropertyMetadata(default(string)));
+
+    public string ComboBoxBackgroundHintAssist
+    {
+        get => (string)GetValue(ComboBoxBackgroundHintAssistProperty);
+        set => SetValue(ComboBoxBackgroundHintAssistProperty, value);
     }
 
     public THistory History { get; } = new();
@@ -56,20 +191,6 @@ public partial class RecordExpensePage
     public string DisplayMemberPathModePayment { get; } = nameof(TModePayment.Name);
     public string SelectedValuePathPlace { get; } = nameof(TPlace.Id);
     public string DisplayMemberPathPlaceName { get; } = nameof(TPlace.Name);
-
-    public string ComboBoxAccountHintAssist { get; } = RecordExpensePageResources.ComboBoxAccountHintAssist;
-    public string TextBoxDescriptionHintAssist { get; } = RecordExpensePageResources.TextBoxDescriptionHintAssist;
-    public string ComboBoxCategoryTypeHintAssist { get; } = RecordExpensePageResources.ComboBoxCategoryTypeHintAssist;
-    public string ComboBoxModePaymentHintAssist { get; } = RecordExpensePageResources.ComboBoxModePaymentHintAssist;
-    public string TextBoxValueHintAssist { get; } = RecordExpensePageResources.TextBoxValueHintAssist;
-    public string DatePickerWhenHintAssist { get; } = RecordExpensePageResources.DatePickerWhenHintAssist;
-    public string TimePickerWhenHintAssist { get; } = RecordExpensePageResources.TimePickerWhenHintAssist;
-    public string ComboBoxPlaceHintAssist { get; } = RecordExpensePageResources.ComboBoxPlaceHintAssist;
-    public string CheckBoxPointedContent { get; } = RecordExpensePageResources.CheckBoxPointedContent;
-    public string ComboBoxBackgroundHintAssist { get; } = RecordExpensePageResources.ComboBoxBackgroundHintAssist;
-    public string ButtonValidContent { get; } = RecordExpensePageResources.ButtonValidContent;
-    public string ButtonDeleteContent { get; } = RecordExpensePageResources.ButtonDeleteContent;
-    public string ButtonCancelContent { get; } = RecordExpensePageResources.ButtonCancelContent;
 
     public ObservableCollection<TAccount> Accounts { get; }
     public ObservableCollection<TCategoryType> CategoryTypes { get; }
@@ -84,13 +205,6 @@ public partial class RecordExpensePage
     public List<KnownTileSource> KnownTileSources { get; }
     public KnownTileSource KnownTileSourceSelected { get; set; }
 
-    public string? SelectedCountry
-    {
-        get => (string)GetValue(SelectedCountryProperty);
-        set => SetValue(SelectedCountryProperty, value);
-    }
-
-    //TODO add language
     public RecordExpensePage()
     {
         KnownTileSources = [..MapsuiMapExtensions.GetAllKnowTileSource()];
@@ -544,14 +658,33 @@ public partial class RecordExpensePage
     {
         configuration ??= MyExpenses.Utils.Config.Configuration;
 
-        //TODO update language
-        var language = XmlLanguage.GetLanguage(Thread.CurrentThread.CurrentCulture.Name);
-        DatePicker.Language = language;
+        UpdateLanguage(configuration.Interface.Language!);
 
+        // TODO time format
         TimePicker.Is24Hours = configuration.Interface.Clock.Is24Hours;
 
         var backColor = GetMapsUiBackColor();
         MapControl.Map.BackColor = backColor;
+    }
+
+    private void UpdateLanguage(string cultureInfoCode)
+    {
+        var xmlLanguage = XmlLanguage.GetLanguage(cultureInfoCode);
+        DatePicker.Language = xmlLanguage;
+
+        ComboBoxAccountHintAssist = RecordExpensePageResources.ComboBoxAccountHintAssist;
+        TextBoxDescriptionHintAssist = RecordExpensePageResources.TextBoxDescriptionHintAssist;
+        ComboBoxCategoryTypeHintAssist = RecordExpensePageResources.ComboBoxCategoryTypeHintAssist;
+        ComboBoxModePaymentHintAssist = RecordExpensePageResources.ComboBoxModePaymentHintAssist;
+        TextBoxValueHintAssist = RecordExpensePageResources.TextBoxValueHintAssist;
+        DatePickerWhenHintAssist = RecordExpensePageResources.DatePickerWhenHintAssist;
+        TimePickerWhenHintAssist = RecordExpensePageResources.TimePickerWhenHintAssist;
+        ComboBoxPlaceHintAssist = RecordExpensePageResources.ComboBoxPlaceHintAssist;
+        CheckBoxPointedContent = RecordExpensePageResources.CheckBoxPointedContent;
+        ComboBoxBackgroundHintAssist = RecordExpensePageResources.ComboBoxBackgroundHintAssist;
+        ButtonValidContent = RecordExpensePageResources.ButtonValidContent;
+        ButtonDeleteContent = RecordExpensePageResources.ButtonDeleteContent;
+        ButtonCancelContent = RecordExpensePageResources.ButtonCancelContent;
     }
 
     private void UpdateMapPoint(TPlace? place)
