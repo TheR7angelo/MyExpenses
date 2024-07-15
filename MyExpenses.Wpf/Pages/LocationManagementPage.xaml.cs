@@ -227,15 +227,6 @@ public partial class LocationManagementPage
         ClickPoint.ToGoogleStreetView();
     }
 
-    private string GetLogAction(string action)
-    {
-        var log = ClickTPlace is not null
-            ? $"Launch to {action} at \"{ClickTPlace}\", Latitude={ClickTPlace.Latitude} Longitude={ClickTPlace.Longitude}"
-            : $"Launch to {action}, Latitude={ClickPoint.Y} Longitude={ClickPoint.X}";
-
-        return log;
-    }
-
     private void Selector_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         => UpdateTileLayer();
 
@@ -299,6 +290,15 @@ public partial class LocationManagementPage
         {
             cityGroup.Places?.AddAndSort(placeToAdd, s => s.Name ?? string.Empty);
         }
+    }
+
+    private string GetLogAction(string action)
+    {
+        var log = ClickTPlace is not null
+            ? $"Launch to {action} at \"{ClickTPlace}\", Latitude={ClickTPlace.Latitude} Longitude={ClickTPlace.Longitude}"
+            : $"Launch to {action}, Latitude={ClickPoint.Y} Longitude={ClickPoint.X}";
+
+        return log;
     }
 
     private Color GetMapsUiBackColor()
