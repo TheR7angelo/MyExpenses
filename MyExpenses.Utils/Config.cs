@@ -24,6 +24,10 @@ public static class Config
         }
     }
 
+    /// <summary>
+    /// Reads the configuration from the appsettings.json file.
+    /// </summary>
+    /// <returns>The Configuration object representing the configuration settings.</returns>
     private static Configuration ReadConfiguration()
     {
         var json = File.ReadAllText(ConfigurationFilePath);
@@ -31,6 +35,10 @@ public static class Config
         return configuration;
     }
 
+    /// <summary>
+    /// Writes the configuration object to the appsettings.json file.
+    /// </summary>
+    /// <param name="configuration">The Configuration object representing the configuration settings.</param>
     public static void WriteConfiguration(this Configuration configuration)
     {
         var json = JsonConvert.SerializeObject(configuration, Formatting.Indented);
