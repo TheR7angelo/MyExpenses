@@ -7,6 +7,7 @@ using MyExpenses.Models.Config;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Sql.Tables;
 using MyExpenses.Utils.WindowStyle;
+using MyExpenses.Wpf.Resources.Resx.Windows.NominatimSearchWindow;
 using MyExpenses.Wpf.Utils.Maps;
 
 namespace MyExpenses.Wpf.Windows.LocationManagementWindows;
@@ -126,16 +127,15 @@ public partial class NominatimSearchWindow
 
     private void Interface_OnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
     {
-        //TODO work
-        PlaceNameHintAssist = "Name :";
-        PlaceNumberHintAssist = "Number :";
-        PlaceStreetHintAssist = "Street :";
-        PlacePostalHintAssist = "Postal code :";
-        PlaceCityHintAssist = "City :";
-        PlaceCountryHintAssist = "Country :";
+        PlaceNameHintAssist = NominatimSearchWindowResources.PlaceNameHintAssist;
+        PlaceNumberHintAssist = NominatimSearchWindowResources.PlaceNumberHintAssist;
+        PlaceStreetHintAssist = NominatimSearchWindowResources.PlaceStreetHintAssist;
+        PlacePostalHintAssist = NominatimSearchWindowResources.PlacePostalHintAssist;
+        PlaceCityHintAssist = NominatimSearchWindowResources.PlaceCityHintAssist;
+        PlaceCountryHintAssist = NominatimSearchWindowResources.PlaceCountryHintAssist;
 
-        ButtonCancelContent = "Cancel";
-        ButtonValidContent = "Valid";
+        ButtonCancelContent = NominatimSearchWindowResources.ButtonCancelContent;
+        ButtonValidContent = NominatimSearchWindowResources.ButtonValidContent;
     }
 
     public void AddRange(IEnumerable<TPlace> places)

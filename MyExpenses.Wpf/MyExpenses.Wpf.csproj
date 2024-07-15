@@ -128,6 +128,10 @@
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>SaveLocationWindowResources.Designer.cs</LastGenOutput>
       </EmbeddedResource>
+      <EmbeddedResource Update="Resources\Resx\Windows\NominatimSearchWindow\NominatimSearchWindowResources.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>NominatimSearchWindowResources.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
     </ItemGroup>
 
     <ItemGroup>
@@ -262,6 +266,11 @@
         <DesignTime>True</DesignTime>
         <AutoGen>True</AutoGen>
         <DependentUpon>SaveLocationWindowResources.resx</DependentUpon>
+      </Compile>
+      <Compile Update="Resources\Resx\Windows\NominatimSearchWindow\NominatimSearchWindowResources.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>NominatimSearchWindowResources.resx</DependentUpon>
       </Compile>
     </ItemGroup>
 
