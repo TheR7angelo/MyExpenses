@@ -31,6 +31,46 @@ namespace MyExpenses.Wpf.Pages;
 
 public partial class LocationManagementPage
 {
+    public static readonly DependencyProperty ComboBoxBasemapHintAssistProperty =
+        DependencyProperty.Register(nameof(ComboBoxBasemapHintAssist), typeof(string), typeof(LocationManagementPage),
+            new PropertyMetadata(default(string)));
+
+    public object ComboBoxBasemapHintAssist
+    {
+        get => (string)GetValue(ComboBoxBasemapHintAssistProperty);
+        set => SetValue(ComboBoxBasemapHintAssistProperty, value);
+    }
+
+    public static readonly DependencyProperty MenuItemHeaderAddPointProperty =
+        DependencyProperty.Register(nameof(MenuItemHeaderAddPoint), typeof(string), typeof(LocationManagementPage),
+            new PropertyMetadata(default(string)));
+
+    public string MenuItemHeaderAddPoint
+    {
+        get => (string)GetValue(MenuItemHeaderAddPointProperty);
+        set => SetValue(MenuItemHeaderAddPointProperty, value);
+    }
+
+    public static readonly DependencyProperty MenuItemHeaderEditFeatureProperty =
+        DependencyProperty.Register(nameof(MenuItemHeaderEditFeature), typeof(string), typeof(LocationManagementPage),
+            new PropertyMetadata(default(string)));
+
+    public string MenuItemHeaderEditFeature
+    {
+        get => (string)GetValue(MenuItemHeaderEditFeatureProperty);
+        set => SetValue(MenuItemHeaderEditFeatureProperty, value);
+    }
+
+    public static readonly DependencyProperty MenuItemHeaderDeleteFeatureProperty =
+        DependencyProperty.Register(nameof(MenuItemHeaderDeleteFeature), typeof(string), typeof(LocationManagementPage),
+            new PropertyMetadata(default(string)));
+
+    public string MenuItemHeaderDeleteFeature
+    {
+        get => (string)GetValue(MenuItemHeaderDeleteFeatureProperty);
+        set => SetValue(MenuItemHeaderDeleteFeatureProperty, value);
+    }
+
     public ObservableCollection<CountryGroup> CountryGroups { get; }
     public List<KnownTileSource> KnownTileSources { get; }
     public KnownTileSource KnownTileSourceSelected { get; set; }
@@ -53,7 +93,8 @@ public partial class LocationManagementPage
         CountryGroups = [..groups];
 
         var features = places
-            .Where(s => s.Latitude is not null && s.Latitude is not 0 && s.Longitude is not null && s.Longitude is not 0)
+            .Where(s => s.Latitude is not null && s.Latitude is not 0 && s.Longitude is not null &&
+                        s.Longitude is not 0)
             .Select(feature => feature.IsOpen is true
                 ? feature.ToFeature(MapsuiStyleExtensions.RedMarkerStyle)
                 : feature.ToFeature(MapsuiStyleExtensions.BlueMarkerStyle));
@@ -65,6 +106,9 @@ public partial class LocationManagementPage
         map.Layers.Add(PlaceLayer);
 
         Interface.ThemeChanged += Interface_OnThemeChanged;
+        Interface.LanguageChanged += Interface_OnLanguageChanged;
+        UpdateLanguage();
+
         InitializeComponent();
 
         MapControl.Map = map;
@@ -85,11 +129,11 @@ public partial class LocationManagementPage
         SetZoom(pointFeature);
     }
 
+    private void Interface_OnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
+        => UpdateLanguage();
+
     private void Interface_OnThemeChanged(object sender, ConfigurationThemeChangedEventArgs e)
-    {
-        UpdateLanguage();
-        UpdateMapBackColor();
-    }
+        => UpdateMapBackColor();
 
     private void MapControl_OnLoaded(object sender, RoutedEventArgs e)
         => UpdateTileLayer();
@@ -325,7 +369,8 @@ public partial class LocationManagementPage
 
                     break;
                 case false when edit:
-                    MsgBox.Show(LocationManagementPageResources.MessageBoxProcessNewPlaceEditSuccess, MsgBoxImage.Check);
+                    MsgBox.Show(LocationManagementPageResources.MessageBoxProcessNewPlaceEditSuccess,
+                        MsgBoxImage.Check);
 
                     Log.Information("The new place was successfully edited");
 
