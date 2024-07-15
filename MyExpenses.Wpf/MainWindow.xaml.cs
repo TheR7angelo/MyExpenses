@@ -106,7 +106,8 @@ public partial class MainWindow
         ApplicationName = assembly.GetName().Name!;
 
         Interface.LanguageChanged += Interface_OnLanguageChanged;
-        UpdateStringLanguage();
+        UpdateLanguage();
+
         InitializeComponent();
 
         var hWnd = new WindowInteropHelper(GetWindow(this)!).EnsureHandle();
@@ -132,7 +133,7 @@ public partial class MainWindow
     }
 
     private void Interface_OnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
-        => UpdateStringLanguage();
+        => UpdateLanguage();
 
     private async void MenuItemDatabaseExport_OnClick(object sender, RoutedEventArgs e)
     {
@@ -196,7 +197,7 @@ public partial class MainWindow
 
     #region Function
 
-    private void UpdateStringLanguage()
+    private void UpdateLanguage()
     {
         MenuItemHeaderFile = MainWindowResources.MenuItemHeaderFile;
 
