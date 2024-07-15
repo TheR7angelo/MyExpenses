@@ -11,11 +11,11 @@ using MyExpenses.Wpf.Utils.Maps;
 
 namespace MyExpenses.Wpf.Windows.LocationManagementWindows;
 
-public partial class NominatimSearchWindows
+public partial class NominatimSearchWindow
 {
     public static readonly DependencyProperty PlaceNameHintAssistProperty = DependencyProperty.Register(
         nameof(PlaceNameHintAssist),
-        typeof(string), typeof(NominatimSearchWindows), new PropertyMetadata(default(string)));
+        typeof(string), typeof(NominatimSearchWindow), new PropertyMetadata(default(string)));
 
     public string PlaceNameHintAssist
     {
@@ -24,7 +24,7 @@ public partial class NominatimSearchWindows
     }
 
     public static readonly DependencyProperty PlaceNumberHintAssistProperty =
-        DependencyProperty.Register(nameof(PlaceNumberHintAssist), typeof(string), typeof(NominatimSearchWindows),
+        DependencyProperty.Register(nameof(PlaceNumberHintAssist), typeof(string), typeof(NominatimSearchWindow),
             new PropertyMetadata(default(string)));
 
     public string PlaceNumberHintAssist
@@ -34,7 +34,7 @@ public partial class NominatimSearchWindows
     }
 
     public static readonly DependencyProperty CurrentPlaceProperty = DependencyProperty.Register(nameof(CurrentPlace),
-        typeof(TPlace), typeof(NominatimSearchWindows), new PropertyMetadata(default(TPlace)));
+        typeof(TPlace), typeof(NominatimSearchWindow), new PropertyMetadata(default(TPlace)));
 
     public TPlace CurrentPlace
     {
@@ -43,7 +43,7 @@ public partial class NominatimSearchWindows
     }
 
     public static readonly DependencyProperty PlaceStreetHintAssistProperty =
-        DependencyProperty.Register(nameof(PlaceStreetHintAssist), typeof(string), typeof(NominatimSearchWindows),
+        DependencyProperty.Register(nameof(PlaceStreetHintAssist), typeof(string), typeof(NominatimSearchWindow),
             new PropertyMetadata(default(string)));
 
     public string PlaceStreetHintAssist
@@ -53,7 +53,7 @@ public partial class NominatimSearchWindows
     }
 
     public static readonly DependencyProperty PlacePostalHintAssistProperty =
-        DependencyProperty.Register(nameof(PlacePostalHintAssist), typeof(string), typeof(NominatimSearchWindows),
+        DependencyProperty.Register(nameof(PlacePostalHintAssist), typeof(string), typeof(NominatimSearchWindow),
             new PropertyMetadata(default(string)));
 
     public string PlacePostalHintAssist
@@ -63,7 +63,7 @@ public partial class NominatimSearchWindows
     }
 
     public static readonly DependencyProperty PlaceCityHintAssistProperty =
-        DependencyProperty.Register(nameof(PlaceCityHintAssist), typeof(string), typeof(NominatimSearchWindows),
+        DependencyProperty.Register(nameof(PlaceCityHintAssist), typeof(string), typeof(NominatimSearchWindow),
             new PropertyMetadata(default(string)));
 
     public string PlaceCityHintAssist
@@ -73,7 +73,7 @@ public partial class NominatimSearchWindows
     }
 
     public static readonly DependencyProperty PlaceCountryHintAssistProperty =
-        DependencyProperty.Register(nameof(PlaceCountryHintAssist), typeof(string), typeof(NominatimSearchWindows),
+        DependencyProperty.Register(nameof(PlaceCountryHintAssist), typeof(string), typeof(NominatimSearchWindow),
             new PropertyMetadata(default(string)));
 
     public string PlaceCountryHintAssist
@@ -89,7 +89,7 @@ public partial class NominatimSearchWindows
 
     private WritableLayer WritableLayer { get; } = new() { Style = null };
 
-    public NominatimSearchWindows()
+    public NominatimSearchWindow()
     {
         var map = MapsuiMapExtensions.GetMap(false);
         map.Layers.Add(Mapsui.Tiling.OpenStreetMap.CreateTileLayer());

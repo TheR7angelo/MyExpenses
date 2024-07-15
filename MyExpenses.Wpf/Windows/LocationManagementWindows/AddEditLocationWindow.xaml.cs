@@ -295,7 +295,7 @@ public partial class AddEditLocationWindow
                     MsgBoxImage.Information);
 
                 var places = nominatimSearchResults.Select(s => mapper.Map<TPlace>(s));
-                var nominatimSearchWindows = new NominatimSearchWindows();
+                var nominatimSearchWindows = new NominatimSearchWindow();
                 nominatimSearchWindows.AddRange(places);
                 nominatimSearchWindows.ShowDialog();
 
