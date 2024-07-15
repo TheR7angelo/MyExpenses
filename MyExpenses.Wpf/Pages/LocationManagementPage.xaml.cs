@@ -203,16 +203,38 @@ public partial class LocationManagementPage
     }
 
     private void MenuItemToGoogleEarthWeb_OnClick(object sender, RoutedEventArgs e)
-        => ClickPoint.ToGoogleEarthWeb();
+    {
+        var log = GetLogAction("Google Earth web");
+
+        Log.Information("{Log}", log);
+        ClickPoint.ToGoogleEarthWeb();
+    }
 
 
     private void MenuItemToGoogleMaps_OnClick(object sender, RoutedEventArgs e)
-        => ClickPoint.ToGoogleMaps();
+    {
+        var log = GetLogAction("Google Maps");
 
+        Log.Information("{Log}", log);
+        ClickPoint.ToGoogleMaps();
+    }
 
     private void MenuItemToGoogleStreetView_OnClick(object sender, RoutedEventArgs e)
-        => ClickPoint.ToGoogleStreetView();
+    {
+        var log = GetLogAction("Google Street View");
 
+        Log.Information("{Log}", log);
+        ClickPoint.ToGoogleStreetView();
+    }
+
+    private string GetLogAction(string action)
+    {
+        var log = ClickTPlace is not null
+            ? $"Launch to {action} at \"{ClickTPlace}\", Latitude={ClickTPlace.Latitude} Longitude={ClickTPlace.Longitude}"
+            : $"Launch to {action}, Latitude={ClickPoint.Y} Longitude={ClickPoint.X}";
+
+        return log;
+    }
 
     private void Selector_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         => UpdateTileLayer();
@@ -464,14 +486,4 @@ public partial class LocationManagementPage
     //     var s = ClickPoint.ToNominatim();
     //     Console.WriteLine(s);
     // }
-
-    private void MenuItemEditPlace_OnClick(object sender, RoutedEventArgs e)
-    {
-        //TODO work
-    }
-
-    private void MenuItemDeletePlace_OnClick(object sender, RoutedEventArgs e)
-    {
-        //TODO work
-    }
 }
