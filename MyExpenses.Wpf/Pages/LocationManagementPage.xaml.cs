@@ -31,14 +31,6 @@ namespace MyExpenses.Wpf.Pages;
 
 public partial class LocationManagementPage
 {
-
-    public string MenuItemHeaderAddPoint { get; } = LocationManagementPageResources.MenuItemHeaderAddPoint;
-    public string MenuItemHeaderEditFeature { get; } = LocationManagementPageResources.MenuItemHeaderEditFeature;
-    public string MenuItemHeaderDeleteFeature { get; } = LocationManagementPageResources.MenuItemHeaderDeleteFeature;
-
-    //TODO work
-    public string ComboBoxBasemapHintAssist { get; } = "Basemap :";
-
     public ObservableCollection<CountryGroup> CountryGroups { get; }
     public List<KnownTileSource> KnownTileSources { get; }
     public KnownTileSource KnownTileSourceSelected { get; set; }
@@ -94,7 +86,10 @@ public partial class LocationManagementPage
     }
 
     private void Interface_OnThemeChanged(object sender, ConfigurationThemeChangedEventArgs e)
-        => UpdateMapBackColor();
+    {
+        UpdateLanguage();
+        UpdateMapBackColor();
+    }
 
     private void MapControl_OnLoaded(object sender, RoutedEventArgs e)
         => UpdateTileLayer();
@@ -254,12 +249,6 @@ public partial class LocationManagementPage
         }
 
         SetZoom(points.ToArray());
-    }
-
-    private void UpdateMapBackColor()
-    {
-        var backColor = GetMapsUiBackColor();
-        MapControl.Map.BackColor = backColor;
     }
 
     #endregion
@@ -458,6 +447,20 @@ public partial class LocationManagementPage
                 MapControl.Map.Home = navigator => { navigator.ZoomToBox(mRect); };
                 break;
         }
+    }
+
+    private void UpdateLanguage()
+    {
+        MenuItemHeaderAddPoint = LocationManagementPageResources.MenuItemHeaderAddPoint;
+        MenuItemHeaderEditFeature = LocationManagementPageResources.MenuItemHeaderEditFeature;
+        MenuItemHeaderDeleteFeature = LocationManagementPageResources.MenuItemHeaderDeleteFeature;
+        ComboBoxBasemapHintAssist = "Basemap :";
+    }
+
+    private void UpdateMapBackColor()
+    {
+        var backColor = GetMapsUiBackColor();
+        MapControl.Map.BackColor = backColor;
     }
 
     private void UpdateTileLayer()

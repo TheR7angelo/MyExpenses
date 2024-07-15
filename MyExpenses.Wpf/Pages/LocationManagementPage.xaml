@@ -41,7 +41,7 @@
 
         <ComboBox Grid.Row="0" Grid.Column="0"
                   Style="{StaticResource MaterialDesignFilledComboBox}"
-                  materialDesign:HintAssist.Hint="{Binding ComboBoxBasemapHintAssist}"
+                  materialDesign:HintAssist.Hint="{Binding ComboBoxBasemapHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                   ItemsSource="{Binding KnownTileSources}"
                   SelectedItem="{Binding KnownTileSourceSelected}"
                   SelectionChanged="Selector_OnSelectionChanged">
@@ -97,25 +97,19 @@
                         Loaded="MapControl_OnLoaded">
             <wpf:MapControl.ContextMenu>
                 <ContextMenu>
-
-                    <!-- ~1~ TODO work @1@ -->
-                    <!-- <MenuItem Header="Display coordinate" Click="Option1_Click" /> -->
-                    <!-- -->
-                    <!-- ~1~ TODO work @1@ -->
-                    <!-- <MenuItem Header="Display address" Click="Option2_Click" /> -->
                     
                     <MenuItem x:Name="MenuItemAddFeature"
-                              Header="{Binding MenuItemHeaderAddPoint}"
+                              Header="{Binding MenuItemHeaderAddPoint, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                               Click="MenuItemAddFeature_OnClick">
                     </MenuItem>
 
                     <MenuItem x:Name="MenuItemEditFeature"
-                              Header="{Binding MenuItemHeaderEditFeature}"
+                              Header="{Binding MenuItemHeaderEditFeature, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                               Click="MenuItemEditFeature_OnClick">
                     </MenuItem>
 
                     <MenuItem x:Name="MenuItemDeleteFeature"
-                              Header="{Binding MenuItemHeaderDeleteFeature}"
+                              Header="{Binding MenuItemHeaderDeleteFeature, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                               Click="MenuItemDeleteFeature_OnClick">
                     </MenuItem>
 
