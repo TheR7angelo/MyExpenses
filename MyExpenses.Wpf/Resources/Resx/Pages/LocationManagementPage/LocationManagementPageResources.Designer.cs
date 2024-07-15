@@ -61,6 +61,15 @@ namespace MyExpenses.Wpf.Resources.Resx.Pages.LocationManagementPage {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Basemap :.
+        /// </summary>
+        internal static string ComboBoxBasemapHintAssist {
+            get {
+                return ResourceManager.GetString("ComboBoxBasemapHintAssist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add new point.
         /// </summary>
         internal static string MenuItemHeaderAddPoint {
@@ -84,6 +93,42 @@ namespace MyExpenses.Wpf.Resources.Resx.Pages.LocationManagementPage {
         internal static string MenuItemHeaderEditFeature {
             get {
                 return ResourceManager.GetString("MenuItemHeaderEditFeature", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Go to Google Earth web.
+        /// </summary>
+        internal static string MenuItemHeaderGoogleEarthWeb {
+            get {
+                return ResourceManager.GetString("MenuItemHeaderGoogleEarthWeb", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Go to Google Maps.
+        /// </summary>
+        internal static string MenuItemHeaderGoogleMaps {
+            get {
+                return ResourceManager.GetString("MenuItemHeaderGoogleMaps", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Go to Google Street View.
+        /// </summary>
+        internal static string MenuItemHeaderGoogleStreetView {
+            get {
+                return ResourceManager.GetString("MenuItemHeaderGoogleStreetView", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Maps.
+        /// </summary>
+        internal static string MenuItemHeaderMaps {
+            get {
+                return ResourceManager.GetString("MenuItemHeaderMaps", resourceCulture);
             }
         }
         

@@ -113,21 +113,17 @@
                               Click="MenuItemDeleteFeature_OnClick">
                     </MenuItem>
 
-                    <!-- TODO work -->
-                    <MenuItem Header="Maps">
+                    <MenuItem Header="{Binding MenuItemHeaderMaps, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
 
-                        <!-- TODO work -->
-                        <MenuItem Header="Go to Google Earth web"
+                        <MenuItem Header="{Binding MenuItemHeaderGoogleEarthWeb, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                                   Click="MenuItemToGoogleEarthWeb_OnClick">
                         </MenuItem>
 
-                        <!-- TODO work -->
-                        <MenuItem Header="Go to Google Maps"
+                        <MenuItem Header="{Binding MenuItemHeaderGoogleMaps, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                                   Click="MenuItemToGoogleMaps_OnClick">
                         </MenuItem>
 
-                        <!-- TODO work -->
-                        <MenuItem Header="Go to Google StreetView"
+                        <MenuItem Header="{Binding MenuItemHeaderGoogleStreetView, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                                   Click="MenuItemToGoogleStreetView_OnClick">
                         </MenuItem>
 

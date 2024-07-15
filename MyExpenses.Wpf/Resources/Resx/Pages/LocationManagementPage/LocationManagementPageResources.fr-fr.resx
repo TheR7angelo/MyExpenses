@@ -44,4 +44,19 @@
     <data name="MessageBoxDeleteQuestion" xml:space="preserve">
         <value>Etes-vous sûr de vouloir supprimer le lieu "{0}" ?</value>
     </data>
+    <data name="ComboBoxBasemapHintAssist" xml:space="preserve">
+        <value>Fond de carte :</value>
+    </data>
+    <data name="MenuItemHeaderMaps" xml:space="preserve">
+        <value>Plans</value>
+    </data>
+    <data name="MenuItemHeaderGoogleEarthWeb" xml:space="preserve">
+        <value>Accédez au site Web de Google Earth</value>
+    </data>
+    <data name="MenuItemHeaderGoogleMaps" xml:space="preserve">
+        <value>Allez sur Google Maps</value>
+    </data>
+    <data name="MenuItemHeaderGoogleStreetView" xml:space="preserve">
+        <value>Accédez à Google Street View</value>
+    </data>
 </root>

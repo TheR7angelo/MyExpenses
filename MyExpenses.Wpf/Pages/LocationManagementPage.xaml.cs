@@ -71,6 +71,46 @@ public partial class LocationManagementPage
         set => SetValue(MenuItemHeaderDeleteFeatureProperty, value);
     }
 
+    public static readonly DependencyProperty MenuItemHeaderMapsProperty =
+        DependencyProperty.Register(nameof(MenuItemHeaderMaps), typeof(string), typeof(LocationManagementPage),
+            new PropertyMetadata(default(string)));
+
+    public string MenuItemHeaderMaps
+    {
+        get => (string)GetValue(MenuItemHeaderMapsProperty);
+        set => SetValue(MenuItemHeaderMapsProperty, value);
+    }
+
+    public static readonly DependencyProperty MenuItemHeaderGoogleEarthWebProperty =
+        DependencyProperty.Register(nameof(MenuItemHeaderGoogleEarthWeb), typeof(string),
+            typeof(LocationManagementPage), new PropertyMetadata(default(string)));
+
+    public string MenuItemHeaderGoogleEarthWeb
+    {
+        get => (string)GetValue(MenuItemHeaderGoogleEarthWebProperty);
+        set => SetValue(MenuItemHeaderGoogleEarthWebProperty, value);
+    }
+
+    public static readonly DependencyProperty MenuItemHeaderGoogleMapsProperty =
+        DependencyProperty.Register(nameof(MenuItemHeaderGoogleMaps), typeof(string), typeof(LocationManagementPage),
+            new PropertyMetadata(default(string)));
+
+    public string MenuItemHeaderGoogleMaps
+    {
+        get => (string)GetValue(MenuItemHeaderGoogleMapsProperty);
+        set => SetValue(MenuItemHeaderGoogleMapsProperty, value);
+    }
+
+    public static readonly DependencyProperty MenuItemHeaderGoogleStreetViewProperty =
+        DependencyProperty.Register(nameof(MenuItemHeaderGoogleStreetView), typeof(string),
+            typeof(LocationManagementPage), new PropertyMetadata(default(string)));
+
+    public string MenuItemHeaderGoogleStreetView
+    {
+        get => (string)GetValue(MenuItemHeaderGoogleStreetViewProperty);
+        set => SetValue(MenuItemHeaderGoogleStreetViewProperty, value);
+    }
+
     public ObservableCollection<CountryGroup> CountryGroups { get; }
     public List<KnownTileSource> KnownTileSources { get; }
     public KnownTileSource KnownTileSourceSelected { get; set; }
@@ -81,7 +121,6 @@ public partial class LocationManagementPage
     private NetTopologySuite.Geometries.Point ClickPoint { get; set; } = NetTopologySuite.Geometries.Point.Empty;
     private PointFeature? PointFeature { get; set; }
 
-    //TODO add language
     public LocationManagementPage()
     {
         KnownTileSources = [..MapsuiMapExtensions.GetAllKnowTileSource()];
@@ -496,10 +535,16 @@ public partial class LocationManagementPage
 
     private void UpdateLanguage()
     {
+        ComboBoxBasemapHintAssist = LocationManagementPageResources.ComboBoxBasemapHintAssist;
+
         MenuItemHeaderAddPoint = LocationManagementPageResources.MenuItemHeaderAddPoint;
         MenuItemHeaderEditFeature = LocationManagementPageResources.MenuItemHeaderEditFeature;
         MenuItemHeaderDeleteFeature = LocationManagementPageResources.MenuItemHeaderDeleteFeature;
-        ComboBoxBasemapHintAssist = "Basemap :";
+
+        MenuItemHeaderMaps = LocationManagementPageResources.MenuItemHeaderMaps;
+        MenuItemHeaderGoogleEarthWeb = LocationManagementPageResources.MenuItemHeaderGoogleEarthWeb;
+        MenuItemHeaderGoogleMaps = LocationManagementPageResources.MenuItemHeaderGoogleMaps;
+        MenuItemHeaderGoogleStreetView = LocationManagementPageResources.MenuItemHeaderGoogleStreetView;
     }
 
     private void UpdateMapBackColor()
