@@ -89,7 +89,6 @@
                     Click="ButtonRecordExpense_OnClick">
             </Button>
 
-            <!-- TODO WORK -->
             <Button Content="{Binding ButtonAnalytics, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                     Style="{StaticResource MaterialDesignPaperButton}"
                     Click="ButtonAnalytics_OnClick">
