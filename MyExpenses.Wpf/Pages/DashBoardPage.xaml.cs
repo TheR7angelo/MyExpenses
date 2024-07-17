@@ -248,7 +248,6 @@ public partial class DashBoardPage : INotifyPropertyChanged
 
     public Local LocalLanguage { get; }
 
-    //TODO add language
     public DashBoardPage()
     {
         using var context = new DataBaseContext();
