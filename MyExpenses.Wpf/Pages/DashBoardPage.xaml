@@ -44,51 +44,52 @@
                    ScrollViewer.VerticalScrollBarVisibility="Auto"
                    margin:PanelExtensions.MarginForAllChildren="5">
 
-            <Button Content="{Binding ButtonAccountManagement}"
+            <Button Content="{Binding ButtonAccountManagement, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                     Style="{StaticResource MaterialDesignPaperButton}"
                     Click="ButtonAccountManagement_OnClick">
             </Button>
 
-            <Button Content="{Binding ButtonAccountTypeManagement}"
+            <Button Content="{Binding ButtonAccountTypeManagement, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                     Style="{StaticResource MaterialDesignPaperButton}"
                     Click="ButtonAccountTypeManagement_OnClick">
             </Button>
 
-            <Button Content="{Binding ButtonCategoryTypeManagement}"
+            <Button Content="{Binding ButtonCategoryTypeManagement, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                     Style="{StaticResource MaterialDesignPaperButton}"
                     Click="ButtonCategoryTypeManagement_OnClick">
             </Button>
 
-            <Button Content="{Binding ButtonLocationManagement}"
+            <Button Content="{Binding ButtonLocationManagement, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                     Style="{StaticResource MaterialDesignPaperButton}"
                     Click="ButtonLocationManagement_OnClick">
             </Button>
 
-            <Button Content="{Binding ButtonColorManagement}"
+            <Button Content="{Binding ButtonColorManagement, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                     Style="{StaticResource MaterialDesignPaperButton}"
                     Click="ButtonColorManagement_OnClick">
             </Button>
 
-            <Button Content="{Binding ButtonCurrencyManagement}"
+            <Button Content="{Binding ButtonCurrencyManagement, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                     Style="{StaticResource MaterialDesignPaperButton}"
                     Click="ButtonCurrencyManagement_OnClick">
             </Button>
 
-            <Button Content="{Binding ButtonModePaymentManagement}"
+            <Button Content="{Binding ButtonModePaymentManagement, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                     Style="{StaticResource MaterialDesignPaperButton}"
                     Click="ButtonModePaymentManagement_OnClick">
             </Button>
 
-            <Button Content="{Binding ButtonMakeBankTransfer}"
+            <Button Content="{Binding ButtonMakeBankTransfer, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                     Style="{StaticResource MaterialDesignPaperButton}"
                     Click="ButtonMakeBankTransfer_OnClick">
             </Button>
 
-            <Button Content="{Binding ButtonRecordExpense}"
+            <Button Content="{Binding ButtonRecordExpense, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                     Style="{StaticResource MaterialDesignPaperButton}"
                     Click="ButtonRecordExpense_OnClick">
             </Button>
 
+            <!-- TODO WORK -->
             <Button Content="Analytics"
                     Style="{StaticResource MaterialDesignPaperButton}"
                     Click="ButtonAnalytics_OnClick">
@@ -142,7 +143,7 @@
                           SelectedItem="{Binding SelectedYear, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                           Style="{StaticResource MaterialDesignFilledComboBox}"
                           materialDesign:TextFieldAssist.HasClearButton="True"
-                          materialDesign:HintAssist.Hint="{Binding ComboBoxYearsHintAssist}"
+                          materialDesign:HintAssist.Hint="{Binding ComboBoxYearsHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                           SelectionChanged="Selector_OnSelectionChanged">
                 </ComboBox>
 
@@ -151,7 +152,7 @@
                           SelectedItem="{Binding SelectedMonth, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                           Style="{StaticResource MaterialDesignFilledComboBox}"
                           materialDesign:TextFieldAssist.HasClearButton="True"
-                          materialDesign:HintAssist.Hint="{Binding ComboBoxMonthHintAssist}"
+                          materialDesign:HintAssist.Hint="{Binding ComboBoxMonthHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                           SelectionChanged="Selector_OnSelectionChanged">
                 </ComboBox>
 
@@ -290,10 +291,10 @@
 
                 <filterDataGrid:FilterDataGrid.ContextMenu>
                     <ContextMenu>
-                        <MenuItem Header="{Binding DataGridMenuItemHeaderEditRecord}"
+                        <MenuItem Header="{Binding DataGridMenuItemHeaderEditRecord, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                                   Click="MenuItemEditRecord_OnClick" />
-                        <MenuItem Header="{Binding DataGridCheckBoxColumnPointed}" Click="MenuItemPointed_OnClick" />
-                        <MenuItem Header="{Binding DataGridMenuItemHeaderDeleteRecord}"
+                        <MenuItem Header="{Binding DataGridCheckBoxColumnPointed, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Click="MenuItemPointed_OnClick" />
+                        <MenuItem Header="{Binding DataGridMenuItemHeaderDeleteRecord, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                                   Click="MenuItemDeleteRecord_OnClick" />
                     </ContextMenu>
                 </filterDataGrid:FilterDataGrid.ContextMenu>
