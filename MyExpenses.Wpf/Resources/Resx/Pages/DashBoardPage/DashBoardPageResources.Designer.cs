@@ -244,5 +244,14 @@ namespace MyExpenses.Wpf.Resources.Resx.Pages.DashBoardPage {
                 return ResourceManager.GetString("ComboBoxMonthHintAssist", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Graphical analyzes.
+        /// </summary>
+        internal static string ButtonAnalytics {
+            get {
+                return ResourceManager.GetString("ButtonAnalytics", resourceCulture);
+            }
+        }
     }
 }

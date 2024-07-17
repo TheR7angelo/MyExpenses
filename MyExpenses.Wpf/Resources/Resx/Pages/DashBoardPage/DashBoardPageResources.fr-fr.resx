@@ -74,4 +74,7 @@
     <data name="ComboBoxMonthHintAssist" xml:space="preserve">
         <value>Choix du mois :</value>
     </data>
+    <data name="ButtonAnalytics" xml:space="preserve">
+        <value>Analyses graphiques</value>
+    </data>
 </root>

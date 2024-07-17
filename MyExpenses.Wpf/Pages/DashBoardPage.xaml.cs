@@ -356,8 +356,7 @@ public partial class DashBoardPage : INotifyPropertyChanged
         ButtonModePaymentManagement = DashBoardPageResources.ButtonModePaymentManagement;
         ButtonMakeBankTransfer = DashBoardPageResources.ButtonMakeBankTransfer;
         ButtonRecordExpense = DashBoardPageResources.ButtonRecordExpense;
-        // TODO work
-        ButtonAnalytics = "Analytics";
+        ButtonAnalytics = DashBoardPageResources.ButtonAnalytics;
 
         TextColumnAccount.Header = DashBoardPageResources.DataGridTextColumnAccount;
         TextColumnDescription.Header = DashBoardPageResources.DataGridTextColumnDescription;
