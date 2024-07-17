@@ -69,39 +69,154 @@ public partial class DashBoardPage : INotifyPropertyChanged
 
     #region Button WrapPanel
 
-    public string ButtonAccountManagement { get; } = DashBoardPageResources.ButtonAccountManagement;
-    public string ButtonAccountTypeManagement { get; } = DashBoardPageResources.ButtonAccountTypeManagement;
-    public string ButtonCategoryTypeManagement { get; } = DashBoardPageResources.ButtonCategoryTypeManagement;
-    public string ButtonColorManagement { get; } = DashBoardPageResources.ButtonColorManagement;
-    public string ButtonCurrencyManagement { get; } = DashBoardPageResources.ButtonCurrencyManagement;
-    public string ButtonLocationManagement { get; } = DashBoardPageResources.ButtonLocationManagement;
-    public string ButtonModePaymentManagement { get; } = DashBoardPageResources.ButtonModePaymentManagement;
-    public string ButtonMakeBankTransfer { get; } = DashBoardPageResources.ButtonMakeBankTransfer;
-    public string ButtonRecordExpense { get; } = DashBoardPageResources.ButtonRecordExpense;
+    public static readonly DependencyProperty ButtonAccountManagementProperty =
+        DependencyProperty.Register(nameof(ButtonAccountManagement), typeof(string), typeof(DashBoardPage),
+            new PropertyMetadata(default(string)));
+
+    public string ButtonAccountManagement
+    {
+        get => (string)GetValue(ButtonAccountManagementProperty);
+        set => SetValue(ButtonAccountManagementProperty, value);
+    }
+
+    public static readonly DependencyProperty ButtonAccountTypeManagementProperty =
+        DependencyProperty.Register(nameof(ButtonAccountTypeManagement), typeof(string), typeof(DashBoardPage),
+            new PropertyMetadata(default(string)));
+
+    public string ButtonAccountTypeManagement
+    {
+        get => (string)GetValue(ButtonAccountTypeManagementProperty);
+        set => SetValue(ButtonAccountTypeManagementProperty, value);
+    }
+
+    public static readonly DependencyProperty ButtonCategoryTypeManagementProperty =
+        DependencyProperty.Register(nameof(ButtonCategoryTypeManagement), typeof(string), typeof(DashBoardPage),
+            new PropertyMetadata(default(string)));
+
+    public string ButtonCategoryTypeManagement
+    {
+        get => (string)GetValue(ButtonCategoryTypeManagementProperty);
+        set => SetValue(ButtonCategoryTypeManagementProperty, value);
+    }
+
+    public static readonly DependencyProperty ButtonLocationManagementProperty =
+        DependencyProperty.Register(nameof(ButtonLocationManagement), typeof(string), typeof(DashBoardPage),
+            new PropertyMetadata(default(string)));
+
+    public string ButtonLocationManagement
+    {
+        get => (string)GetValue(ButtonLocationManagementProperty);
+        set => SetValue(ButtonLocationManagementProperty, value);
+    }
+
+    public static readonly DependencyProperty ButtonColorManagementProperty =
+        DependencyProperty.Register(nameof(ButtonColorManagement), typeof(string), typeof(DashBoardPage),
+            new PropertyMetadata(default(string)));
+
+    public string ButtonColorManagement
+    {
+        get => (string)GetValue(ButtonColorManagementProperty);
+        set => SetValue(ButtonColorManagementProperty, value);
+    }
+
+    public static readonly DependencyProperty ButtonCurrencyManagementProperty =
+        DependencyProperty.Register(nameof(ButtonCurrencyManagement), typeof(string), typeof(DashBoardPage),
+            new PropertyMetadata(default(string)));
+
+    public string ButtonCurrencyManagement
+    {
+        get => (string)GetValue(ButtonCurrencyManagementProperty);
+        set => SetValue(ButtonCurrencyManagementProperty, value);
+    }
+
+    public static readonly DependencyProperty ButtonModePaymentManagementProperty =
+        DependencyProperty.Register(nameof(ButtonModePaymentManagement), typeof(string), typeof(DashBoardPage),
+            new PropertyMetadata(default(string)));
+
+    public string ButtonModePaymentManagement
+    {
+        get => (string)GetValue(ButtonModePaymentManagementProperty);
+        set => SetValue(ButtonModePaymentManagementProperty, value);
+    }
+
+    public static readonly DependencyProperty ButtonMakeBankTransferProperty =
+        DependencyProperty.Register(nameof(ButtonMakeBankTransfer), typeof(string), typeof(DashBoardPage),
+            new PropertyMetadata(default(string)));
+
+    public string ButtonMakeBankTransfer
+    {
+        get => (string)GetValue(ButtonMakeBankTransferProperty);
+        set => SetValue(ButtonMakeBankTransferProperty, value);
+    }
+
+    public static readonly DependencyProperty ButtonRecordExpenseProperty =
+        DependencyProperty.Register(nameof(ButtonRecordExpense), typeof(string), typeof(DashBoardPage),
+            new PropertyMetadata(default(string)));
+
+    public string ButtonRecordExpense
+    {
+        get => (string)GetValue(ButtonRecordExpenseProperty);
+        set => SetValue(ButtonRecordExpenseProperty, value);
+    }
+
+    public static readonly DependencyProperty ButtonAnalyticsProperty =
+        DependencyProperty.Register(nameof(ButtonAnalytics), typeof(string), typeof(DashBoardPage),
+            new PropertyMetadata(default(string)));
+
+    public string ButtonAnalytics
+    {
+        get => (string)GetValue(ButtonAnalyticsProperty);
+        set => SetValue(ButtonAnalyticsProperty, value);
+    }
 
     #endregion
 
     #region DataGrid
 
-    public string DataGridTextColumnAccount { get; } = DashBoardPageResources.DataGridTextColumnAccount;
-    public string DataGridTextColumnDescription { get; } = DashBoardPageResources.DataGridTextColumnDescription;
-    public string DataGridTextColumnCategory { get; } = DashBoardPageResources.DataGridTextColumnCategory;
-    public string DataGridTextColumnModePayment { get; } = DashBoardPageResources.DataGridTextColumnModePayment;
-    public string DataGridTextColumnValue { get; } = DashBoardPageResources.DataGridTextColumnValue;
-    public string DataGridTextColumnDate { get; } = DashBoardPageResources.DataGridTextColumnDate;
-    public string DataGridTextColumnPlace { get; } = DashBoardPageResources.DataGridTextColumnPlace;
-    public string DataGridCheckBoxColumnPointed { get; } = DashBoardPageResources.DataGridTextColumnPointed;
+    public static readonly DependencyProperty DataGridMenuItemHeaderEditRecordProperty =
+        DependencyProperty.Register(nameof(DataGridMenuItemHeaderEditRecord), typeof(string), typeof(DashBoardPage),
+            new PropertyMetadata(default(string)));
 
-    public string DataGridMenuItemHeaderEditRecord { get; } = DashBoardPageResources.DataGridMenuItemHeaderEditRecord;
-    public string DataGridMenuItemHeaderDeleteRecord { get; } = DashBoardPageResources.DataGridMenuItemHeaderDeleteRecord;
+    public string DataGridMenuItemHeaderEditRecord
+    {
+        get => (string)GetValue(DataGridMenuItemHeaderEditRecordProperty);
+        set => SetValue(DataGridMenuItemHeaderEditRecordProperty, value);
+    }
+
+    public static readonly DependencyProperty DataGridMenuItemHeaderDeleteRecordProperty =
+        DependencyProperty.Register(nameof(DataGridMenuItemHeaderDeleteRecord), typeof(string), typeof(DashBoardPage),
+            new PropertyMetadata(default(string)));
+
+    public string DataGridMenuItemHeaderDeleteRecord
+    {
+        get => (string)GetValue(DataGridMenuItemHeaderDeleteRecordProperty);
+        set => SetValue(DataGridMenuItemHeaderDeleteRecordProperty, value);
+    }
 
     // TODO work
     // public string DataGridTemplateColumnCategorySortMemberPath { get; } = nameof(VHistory.Category);
 
     #endregion
 
-    public string ComboBoxYearsHintAssist { get; } = DashBoardPageResources.ComboBoxYearsHintAssist;
-    public string ComboBoxMonthHintAssist { get; } = DashBoardPageResources.ComboBoxMonthHintAssist;
+    public static readonly DependencyProperty ComboBoxYearsHintAssistProperty =
+        DependencyProperty.Register(nameof(ComboBoxYearsHintAssist), typeof(string), typeof(DashBoardPage),
+            new PropertyMetadata(default(string)));
+
+    public string ComboBoxYearsHintAssist
+    {
+        get => (string)GetValue(ComboBoxYearsHintAssistProperty);
+        set => SetValue(ComboBoxYearsHintAssistProperty, value);
+    }
+
+    public static readonly DependencyProperty ComboBoxMonthHintAssistProperty =
+        DependencyProperty.Register(nameof(ComboBoxMonthHintAssist), typeof(string), typeof(DashBoardPage),
+            new PropertyMetadata(default(string)));
+
+    public string ComboBoxMonthHintAssist
+    {
+        get => (string)GetValue(ComboBoxMonthHintAssistProperty);
+        set => SetValue(ComboBoxMonthHintAssistProperty, value);
+    }
 
     public ObservableCollection<CategoryTotal> CategoryTotals { get; } = [];
     public ObservableCollection<string> Years { get; }
@@ -155,7 +270,11 @@ public partial class DashBoardPage : INotifyPropertyChanged
         ];
 
         var now = DateTime.Now;
-        if(Years.Count.Equals(0)) {Years.Add(DateTime.Now.Year.ToString());}
+        if (Years.Count.Equals(0))
+        {
+            Years.Add(DateTime.Now.Year.ToString());
+        }
+
         SelectedYear = now.Year.ToString();
         SelectedMonth = Months[now.Month - 1];
 
@@ -165,19 +284,13 @@ public partial class DashBoardPage : INotifyPropertyChanged
         LocalLanguage = currentCulture.ToLocal();
 
         Interface.ThemeChanged += Interface_OnThemeChanged;
+        Interface.LanguageChanged += Interface_OnLanguageChanged;
+
         InitializeComponent();
+        UpdateLanguage();
 
         VHistories = new ObservableCollection<VHistory>();
         FilterDataGrid.ItemsSource = VHistories;
-
-        TextColumnAccount.Header = DataGridTextColumnAccount;
-        TextColumnDescription.Header = DataGridTextColumnDescription;
-        TemplateColumnCategory.Header = DataGridTextColumnCategory;
-        TextColumnModePayment.Header = DataGridTextColumnModePayment;
-        TemplateColumnValue.Header = DataGridTextColumnValue;
-        TextColumnDate.Header = DataGridTextColumnDate;
-        TextColumnPlace.Header = DataGridTextColumnPlace;
-        CheckBoxColumnPointed.Header = DataGridCheckBoxColumnPointed;
 
         UpdatePieChartLegendTextPaint();
     }
@@ -229,23 +342,56 @@ public partial class DashBoardPage : INotifyPropertyChanged
     private void Interface_OnThemeChanged(object sender, ConfigurationThemeChangedEventArgs e)
         => UpdatePieChartLegendTextPaint();
 
+    private void Interface_OnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
+        => UpdateLanguage();
+
+    private void UpdateLanguage()
+    {
+        ButtonAccountManagement = DashBoardPageResources.ButtonAccountManagement;
+        ButtonAccountTypeManagement = DashBoardPageResources.ButtonAccountTypeManagement;
+        ButtonCategoryTypeManagement = DashBoardPageResources.ButtonCategoryTypeManagement;
+        ButtonColorManagement = DashBoardPageResources.ButtonColorManagement;
+        ButtonCurrencyManagement = DashBoardPageResources.ButtonCurrencyManagement;
+        ButtonLocationManagement = DashBoardPageResources.ButtonLocationManagement;
+        ButtonModePaymentManagement = DashBoardPageResources.ButtonModePaymentManagement;
+        ButtonMakeBankTransfer = DashBoardPageResources.ButtonMakeBankTransfer;
+        ButtonRecordExpense = DashBoardPageResources.ButtonRecordExpense;
+        // TODO work
+        ButtonAnalytics = "Analytics";
+
+        TextColumnAccount.Header = DashBoardPageResources.DataGridTextColumnAccount;
+        TextColumnDescription.Header = DashBoardPageResources.DataGridTextColumnDescription;
+        TemplateColumnCategory.Header = DashBoardPageResources.DataGridTextColumnCategory;
+        TextColumnModePayment.Header = DashBoardPageResources.DataGridTextColumnModePayment;
+        TemplateColumnValue.Header = DashBoardPageResources.DataGridTextColumnValue;
+        TextColumnDate.Header = DashBoardPageResources.DataGridTextColumnDate;
+        TextColumnPlace.Header = DashBoardPageResources.DataGridTextColumnPlace;
+        CheckBoxColumnPointed.Header = DashBoardPageResources.DataGridTextColumnPointed;
+
+        DataGridMenuItemHeaderEditRecord = DashBoardPageResources.DataGridMenuItemHeaderEditRecord;
+        DataGridMenuItemHeaderDeleteRecord = DashBoardPageResources.DataGridMenuItemHeaderDeleteRecord;
+
+        ComboBoxYearsHintAssist = DashBoardPageResources.ComboBoxYearsHintAssist;
+        ComboBoxMonthHintAssist = DashBoardPageResources.ComboBoxMonthHintAssist;
+    }
+
     private void ItemsControlVTotalAccount_OnLoaded(object sender, RoutedEventArgs e)
         => RefreshRadioButtonSelected();
 
     // TODO work
     private void MenuItemDeleteRecord_OnClick(object sender, RoutedEventArgs e)
     {
-         if (DataGridRow!.DataContext is not VHistory vHistory) return;
-         var history = vHistory.Id.ToISqlT<THistory>();
+        if (DataGridRow!.DataContext is not VHistory vHistory) return;
+        var history = vHistory.Id.ToISqlT<THistory>();
 
-         history?.Delete(true);
+        history?.Delete(true);
 
-         VHistories.Remove(vHistory);
+        VHistories.Remove(vHistory);
 
-         var accountName = vHistory.Account!;
+        var accountName = vHistory.Account!;
 
-         RefreshDataGrid(accountName);
-         UpdateGraph(accountName);
+        RefreshDataGrid(accountName);
+        UpdateGraph(accountName);
 
         //TODO refresh total account display
     }
