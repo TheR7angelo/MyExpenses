@@ -135,8 +135,11 @@ public partial class AppearanceControl
 
     private void ButtonPrimaryColor_OnClick(object sender, RoutedEventArgs e)
     {
+        //TODO add language
+        var title = "Get new primary color";
+
         var color = Theme.PrimaryMid.Color;
-        var newColor = GetNewColor(color);
+        var newColor = GetNewColor(color, title);
 
         Theme.SetPrimaryColor(newColor);
         UpdatePrimaryLabelTheme();
@@ -144,16 +147,19 @@ public partial class AppearanceControl
 
     private void ButtonSecondaryColor_OnClick(object sender, RoutedEventArgs e)
     {
+        //TODO add language
+        var title = "Get new secondary color";
+
         var color = Theme.SecondaryMid.Color;
-        var newColor = GetNewColor(color);
+        var newColor = GetNewColor(color, title);
 
         Theme.SetSecondaryColor(newColor);
         UpdateSecondaryLabelTheme();
     }
 
-    private static Color GetNewColor(Color defaultColor)
+    private static Color GetNewColor(Color defaultColor, string title)
     {
-        var colorPickerWindow = new ColorPickerWindow();
+        var colorPickerWindow = new ColorPickerWindow { Title = title };
         colorPickerWindow.ColorPickerControl.InitializeValue(defaultColor);
         colorPickerWindow.ShowDialog();
 

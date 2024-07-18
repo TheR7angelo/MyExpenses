@@ -33,8 +33,6 @@
 
         DataContext="{Binding RelativeSource={RelativeSource Self}}">
 
-    <!-- TODO title -->
-
     <Grid>
 
         <Grid.RowDefinitions>
