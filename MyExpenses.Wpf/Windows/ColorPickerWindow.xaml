@@ -47,14 +47,12 @@
                     HorizontalAlignment="Right"
                     margin:PanelExtensions.MarginForAllChildren="5">
 
-            <!-- TODO Work -->
-            <Button Content="Valid"
+            <Button Content="{Binding ButtonValidContent}"
                     Style="{StaticResource MaterialDesignPaperButton}"
                     Click="ButtonValid_OnClick">
             </Button>
 
-            <!-- TODO Work -->
-            <Button Content="Cancel"
+            <Button Content="{Binding ButtonCancelContent}"
                     Style="{StaticResource MaterialDesignPaperSecondaryButton}"
                     Click="ButtonCancel_OnClick">
             </Button>

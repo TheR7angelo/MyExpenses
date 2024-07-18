@@ -136,6 +136,10 @@
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>AppearanceControlResources.Designer.cs</LastGenOutput>
       </EmbeddedResource>
+      <EmbeddedResource Update="Resources\Resx\Windows\ColorPickerWindow\ColorPickerWindowResources.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>ColorPickerWindowResources.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
     </ItemGroup>
 
     <ItemGroup>
@@ -280,6 +284,11 @@
         <DesignTime>True</DesignTime>
         <AutoGen>True</AutoGen>
         <DependentUpon>AppearanceControlResources.resx</DependentUpon>
+      </Compile>
+      <Compile Update="Resources\Resx\Windows\ColorPickerWindow\ColorPickerWindowResources.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>ColorPickerWindowResources.resx</DependentUpon>
       </Compile>
     </ItemGroup>
 
