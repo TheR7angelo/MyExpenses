@@ -260,8 +260,8 @@ public partial class BankTransferPage
         ToAccounts = new ObservableCollection<TAccount>(Accounts);
 
         Interface.LanguageChanged += Interface_OnLanguageChanged;
-        UpdateLanguage();
         InitializeComponent();
+        UpdateLanguage();
     }
 
     #region Action
