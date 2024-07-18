@@ -4,6 +4,8 @@ using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using MyExpenses.Models.Config;
+using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Sql.Tables;
 using MyExpenses.Models.Sql.Views;
 using MyExpenses.Sql.Context;
@@ -116,23 +118,138 @@ public partial class BankTransferPage
     public string DisplayMemberPathModePayment { get; } = nameof(TModePayment.Name);
     public string SelectedValuePathAccount { get; } = nameof(TAccount.Id);
 
-    public string ComboBoxFromAccountHintAssist { get; } = BankTransferPageResources.ComboBoxFromAccountHintAssist;
-    public string ComboBoxToAccountHintAssist { get; } = BankTransferPageResources.ComboBoxToAccountHintAssist;
-    public string ComboBoxCategoryTypeHintAssist { get; } = BankTransferPageResources.ComboBoxCategoryTypeHintAssist;
-    public string ComboBoxModePaymentHintAssist { get; } = BankTransferPageResources.ComboBoxModePaymentHintAssist;
-    public string CheckBoxPointedHintAssist { get; } = BankTransferPageResources.CheckBoxPointedHintAssist;
-    public string DatePickerWhenHintAssist { get; } = BankTransferPageResources.DatePickerWhenHintAssist;
-    public string TextBoxValueHintAssist { get; } = BankTransferPageResources.TextBoxValueHintAssist;
-    public string TextBoxMainReasonHintAssist { get; } = BankTransferPageResources.TextBoxMainReasonHintAssist;
-    public string TextBoxAdditionalReasonHintAssist { get; } = BankTransferPageResources.TextBoxAdditionalReasonHintAssist;
-    public string ButtonPrepareValidContent { get; } = BankTransferPageResources.ButtonPrepareValidContent;
-    public string ButtonPrepareCancelContent { get; } = BankTransferPageResources.ButtonPrepareCancelContent;
-    public string ButtonPreviewValidContent { get; } = BankTransferPageResources.ButtonPreviewValidContent;
-    public string ButtonPreviewCancelContent { get; } = BankTransferPageResources.ButtonPreviewCancelContent;
+    public static readonly DependencyProperty ComboBoxFromAccountHintAssistProperty =
+        DependencyProperty.Register(nameof(ComboBoxFromAccountHintAssist), typeof(string), typeof(BankTransferPage),
+            new PropertyMetadata(default(string)));
+
+    public string ComboBoxFromAccountHintAssist
+    {
+        get => (string)GetValue(ComboBoxFromAccountHintAssistProperty);
+        set => SetValue(ComboBoxFromAccountHintAssistProperty, value);
+    }
+
+    public static readonly DependencyProperty ComboBoxToAccountHintAssistProperty =
+        DependencyProperty.Register(nameof(ComboBoxToAccountHintAssist), typeof(string), typeof(BankTransferPage),
+            new PropertyMetadata(default(string)));
+
+    public string ComboBoxToAccountHintAssist
+    {
+        get => (string)GetValue(ComboBoxToAccountHintAssistProperty);
+        set => SetValue(ComboBoxToAccountHintAssistProperty, value);
+    }
+
+    public static readonly DependencyProperty ComboBoxCategoryTypeHintAssistProperty =
+        DependencyProperty.Register(nameof(ComboBoxCategoryTypeHintAssist), typeof(string), typeof(BankTransferPage),
+            new PropertyMetadata(default(string)));
+
+    public string ComboBoxCategoryTypeHintAssist
+    {
+        get => (string)GetValue(ComboBoxCategoryTypeHintAssistProperty);
+        set => SetValue(ComboBoxCategoryTypeHintAssistProperty, value);
+    }
+
+    public static readonly DependencyProperty ComboBoxModePaymentHintAssistProperty =
+        DependencyProperty.Register(nameof(ComboBoxModePaymentHintAssist), typeof(string), typeof(BankTransferPage),
+            new PropertyMetadata(default(string)));
+
+    public string ComboBoxModePaymentHintAssist
+    {
+        get => (string)GetValue(ComboBoxModePaymentHintAssistProperty);
+        set => SetValue(ComboBoxModePaymentHintAssistProperty, value);
+    }
+
+    public static readonly DependencyProperty CheckBoxPointedHintAssistProperty =
+        DependencyProperty.Register(nameof(CheckBoxPointedHintAssist), typeof(string), typeof(BankTransferPage),
+            new PropertyMetadata(default(string)));
+
+    public string CheckBoxPointedHintAssist
+    {
+        get => (string)GetValue(CheckBoxPointedHintAssistProperty);
+        set => SetValue(CheckBoxPointedHintAssistProperty, value);
+    }
+
+    public static readonly DependencyProperty DatePickerWhenHintAssistProperty =
+        DependencyProperty.Register(nameof(DatePickerWhenHintAssist), typeof(string), typeof(BankTransferPage),
+            new PropertyMetadata(default(string)));
+
+    public string DatePickerWhenHintAssist
+    {
+        get => (string)GetValue(DatePickerWhenHintAssistProperty);
+        set => SetValue(DatePickerWhenHintAssistProperty, value);
+    }
+
+    public static readonly DependencyProperty TextBoxValueHintAssistProperty =
+        DependencyProperty.Register(nameof(TextBoxValueHintAssist), typeof(string), typeof(BankTransferPage),
+            new PropertyMetadata(default(string)));
+
+    public string TextBoxValueHintAssist
+    {
+        get => (string)GetValue(TextBoxValueHintAssistProperty);
+        set => SetValue(TextBoxValueHintAssistProperty, value);
+    }
+
+    public static readonly DependencyProperty TextBoxMainReasonHintAssistProperty =
+        DependencyProperty.Register(nameof(TextBoxMainReasonHintAssist), typeof(string), typeof(BankTransferPage),
+            new PropertyMetadata(default(string)));
+
+    public string TextBoxMainReasonHintAssist
+    {
+        get => (string)GetValue(TextBoxMainReasonHintAssistProperty);
+        set => SetValue(TextBoxMainReasonHintAssistProperty, value);
+    }
+
+    public static readonly DependencyProperty TextBoxAdditionalReasonHintAssistProperty =
+        DependencyProperty.Register(nameof(TextBoxAdditionalReasonHintAssist), typeof(string), typeof(BankTransferPage),
+            new PropertyMetadata(default(string)));
+
+    public string TextBoxAdditionalReasonHintAssist
+    {
+        get => (string)GetValue(TextBoxAdditionalReasonHintAssistProperty);
+        set => SetValue(TextBoxAdditionalReasonHintAssistProperty, value);
+    }
+
+    public static readonly DependencyProperty ButtonPrepareValidContentProperty =
+        DependencyProperty.Register(nameof(ButtonPrepareValidContent), typeof(string), typeof(BankTransferPage),
+            new PropertyMetadata(default(string)));
+
+    public string ButtonPrepareValidContent
+    {
+        get => (string)GetValue(ButtonPrepareValidContentProperty);
+        set => SetValue(ButtonPrepareValidContentProperty, value);
+    }
+
+    public static readonly DependencyProperty ButtonPrepareCancelContentProperty =
+        DependencyProperty.Register(nameof(ButtonPrepareCancelContent), typeof(string), typeof(BankTransferPage),
+            new PropertyMetadata(default(string)));
+
+    public string ButtonPrepareCancelContent
+    {
+        get => (string)GetValue(ButtonPrepareCancelContentProperty);
+        set => SetValue(ButtonPrepareCancelContentProperty, value);
+    }
+
+    public static readonly DependencyProperty ButtonPreviewValidContentProperty =
+        DependencyProperty.Register(nameof(ButtonPreviewValidContent), typeof(string), typeof(BankTransferPage),
+            new PropertyMetadata(default(string)));
+
+    public string ButtonPreviewValidContent
+    {
+        get => (string)GetValue(ButtonPreviewValidContentProperty);
+        set => SetValue(ButtonPreviewValidContentProperty, value);
+    }
+
+    public static readonly DependencyProperty ButtonPreviewCancelContentProperty =
+        DependencyProperty.Register(nameof(ButtonPreviewCancelContent), typeof(string), typeof(BankTransferPage),
+            new PropertyMetadata(default(string)));
+
+    public string ButtonPreviewCancelContent
+    {
+        get => (string)GetValue(ButtonPreviewCancelContentProperty);
+        set => SetValue(ButtonPreviewCancelContentProperty, value);
+    }
 
     #endregion
 
-    //TODO add language
     public BankTransferPage()
     {
         using var context = new DataBaseContext();
@@ -142,9 +259,9 @@ public partial class BankTransferPage
         FromAccounts = new ObservableCollection<TAccount>(Accounts);
         ToAccounts = new ObservableCollection<TAccount>(Accounts);
 
+        Interface.LanguageChanged += Interface_OnLanguageChanged;
+        UpdateLanguage();
         InitializeComponent();
-
-        DatePicker.Language = System.Windows.Markup.XmlLanguage.GetLanguage(Thread.CurrentThread.CurrentCulture.Name);
     }
 
     #region Action
@@ -165,11 +282,14 @@ public partial class BankTransferPage
 
             var messageErrorKey = propertyMemberName switch
             {
-                nameof(TBankTransfer.FromAccountFk) => nameof(BankTransferPageResources.MessageBoxButtonValidationFromAccountFkError),
-                nameof(TBankTransfer.ToAccountFk) => nameof(BankTransferPageResources.MessageBoxButtonValidationToAccountFkError),
+                nameof(TBankTransfer.FromAccountFk) => nameof(BankTransferPageResources
+                    .MessageBoxButtonValidationFromAccountFkError),
+                nameof(TBankTransfer.ToAccountFk) => nameof(BankTransferPageResources
+                    .MessageBoxButtonValidationToAccountFkError),
                 nameof(TBankTransfer.Value) => nameof(BankTransferPageResources.MessageBoxButtonValidationValueError),
                 nameof(TBankTransfer.Date) => nameof(BankTransferPageResources.MessageBoxButtonValidationDateError),
-                nameof(TBankTransfer.MainReason) => nameof(BankTransferPageResources.MessageBoxButtonValidationMainReasonError),
+                nameof(TBankTransfer.MainReason) => nameof(BankTransferPageResources
+                    .MessageBoxButtonValidationMainReasonError),
                 _ => null
             };
 
@@ -183,13 +303,15 @@ public partial class BankTransferPage
 
         if (Category is null)
         {
-            MsgBox.Show(BankTransferPageResources.MessageBoxButtonValidBankTransferPrepareCategoryIsNullError, MsgBoxImage.Warning);
+            MsgBox.Show(BankTransferPageResources.MessageBoxButtonValidBankTransferPrepareCategoryIsNullError,
+                MsgBoxImage.Warning);
             return;
         }
 
         if (ModePayment is null)
         {
-            MsgBox.Show(BankTransferPageResources.MessageBoxButtonValidBankTransferPrepareModePaymentIsNullError, MsgBoxImage.Warning);
+            MsgBox.Show(BankTransferPageResources.MessageBoxButtonValidBankTransferPrepareModePaymentIsNullError,
+                MsgBoxImage.Warning);
             return;
         }
 
@@ -229,7 +351,8 @@ public partial class BankTransferPage
         var (success, exception) = BankTransfer.AddOrEdit();
         if (success)
         {
-            Log.Information("The transfer has been successfully completed, {FromName} to {ToName} with value {ValueAbs}",
+            Log.Information(
+                "The transfer has been successfully completed, {FromName} to {ToName} with value {ValueAbs}",
                 VFromAccount!.Name, VToAccount!.Name, valueAbs);
 
             // Loop crash
@@ -238,7 +361,8 @@ public partial class BankTransferPage
 
             MsgBox.Show(BankTransferPageResources.MessageBoxButtonValidBankTransferPreviewSuccess, MsgBoxImage.Check);
 
-            var response = MsgBox.Show(BankTransferPageResources.MessageBoxButtonValidBankTransferPreviewNewTransferQuestion,
+            var response = MsgBox.Show(
+                BankTransferPageResources.MessageBoxButtonValidBankTransferPreviewNewTransferQuestion,
                 MsgBoxImage.Question, MessageBoxButton.YesNo);
 
             if (response is not MessageBoxResult.Yes) nameof(MainWindow.FrameBody).GoBack();
@@ -338,6 +462,9 @@ public partial class BankTransferPage
         }
     }
 
+    private void Interface_OnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
+        => UpdateLanguage();
+
     private void SelectorFromAccount_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
     {
         var fromAccount = Accounts.FirstOrDefault(s => s.Id == BankTransfer.FromAccountFk);
@@ -380,6 +507,25 @@ public partial class BankTransferPage
     #endregion
 
     #region Function
+
+    private void UpdateLanguage()
+    {
+        ComboBoxFromAccountHintAssist = BankTransferPageResources.ComboBoxFromAccountHintAssist;
+        ComboBoxToAccountHintAssist = BankTransferPageResources.ComboBoxToAccountHintAssist;
+        ComboBoxCategoryTypeHintAssist = BankTransferPageResources.ComboBoxCategoryTypeHintAssist;
+        ComboBoxModePaymentHintAssist = BankTransferPageResources.ComboBoxModePaymentHintAssist;
+        CheckBoxPointedHintAssist = BankTransferPageResources.CheckBoxPointedHintAssist;
+        DatePickerWhenHintAssist = BankTransferPageResources.DatePickerWhenHintAssist;
+        TextBoxValueHintAssist = BankTransferPageResources.TextBoxValueHintAssist;
+        TextBoxMainReasonHintAssist = BankTransferPageResources.TextBoxMainReasonHintAssist;
+        TextBoxAdditionalReasonHintAssist = BankTransferPageResources.TextBoxAdditionalReasonHintAssist;
+        ButtonPrepareValidContent = BankTransferPageResources.ButtonPrepareValidContent;
+        ButtonPrepareCancelContent = BankTransferPageResources.ButtonPrepareCancelContent;
+        ButtonPreviewValidContent = BankTransferPageResources.ButtonPreviewValidContent;
+        ButtonPreviewCancelContent = BankTransferPageResources.ButtonPreviewCancelContent;
+
+        DatePicker.Language = System.Windows.Markup.XmlLanguage.GetLanguage(Thread.CurrentThread.CurrentCulture.Name);
+    }
 
     private void RefreshListFromAccount()
     {
