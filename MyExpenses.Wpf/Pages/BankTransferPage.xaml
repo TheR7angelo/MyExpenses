@@ -51,7 +51,7 @@
                 <ComboBox Grid.Column="0"
                           Style="{StaticResource MaterialDesignFilledComboBox}"
                           materialDesign:TextFieldAssist.HasClearButton="True"
-                          materialDesign:HintAssist.Hint="{Binding ComboBoxFromAccountHintAssist}"
+                          materialDesign:HintAssist.Hint="{Binding ComboBoxFromAccountHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                           ItemsSource="{Binding FromAccounts, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                           SelectedValue="{Binding BankTransfer.FromAccountFk, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                           SelectedValuePath="{Binding SelectedValuePathAccount}"
@@ -83,7 +83,7 @@
                 <ComboBox Grid.Column="0"
                           Style="{StaticResource MaterialDesignFilledComboBox}"
                           materialDesign:TextFieldAssist.HasClearButton="True"
-                          materialDesign:HintAssist.Hint="{Binding ComboBoxToAccountHintAssist}"
+                          materialDesign:HintAssist.Hint="{Binding ComboBoxToAccountHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                           ItemsSource="{Binding ToAccounts, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                           SelectedValue="{Binding BankTransfer.ToAccountFk, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                           SelectedValuePath="{Binding SelectedValuePathAccount}"
@@ -116,7 +116,7 @@
                 <ComboBox Grid.Column="0"
                           Style="{StaticResource MaterialDesignFilledComboBox}"
                           materialDesign:TextFieldAssist.HasClearButton="True"
-                          materialDesign:HintAssist.Hint="{Binding ComboBoxCategoryTypeHintAssist}"
+                          materialDesign:HintAssist.Hint="{Binding ComboBoxCategoryTypeHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                           ItemsSource="{Binding CategoryTypes, Mode=OneWay}"
                           DisplayMemberPath="{Binding DisplayMemberPathCategoryType}"
                           SelectedItem="{Binding Category, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
@@ -125,7 +125,7 @@
                 <ComboBox Grid.Column="1"
                           Style="{StaticResource MaterialDesignFilledComboBox}"
                           materialDesign:TextFieldAssist.HasClearButton="True"
-                          materialDesign:HintAssist.Hint="{Binding ComboBoxModePaymentHintAssist}"
+                          materialDesign:HintAssist.Hint="{Binding ComboBoxModePaymentHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                           ItemsSource="{Binding ModePayments, Mode=OneWay}"
                           DisplayMemberPath="{Binding DisplayMemberPathModePayment}"
                           SelectedItem="{Binding ModePayment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
@@ -133,20 +133,20 @@
 
                 <CheckBox Grid.Column="2"
                           materialDesign:CheckBoxAssist.CheckBoxSize="30"
-                          Content="{Binding CheckBoxPointedHintAssist}"
+                          Content="{Binding CheckBoxPointedHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                           IsChecked="{Binding IsPointed, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                 </CheckBox>
 
             </Grid>
 
             <DatePicker Grid.Row="3" x:Name="DatePicker"
-                        materialDesign:HintAssist.Hint="{Binding DatePickerWhenHintAssist}"
+                        materialDesign:HintAssist.Hint="{Binding DatePickerWhenHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                         Style="{StaticResource MaterialDesignFilledDatePicker}"
                         SelectedDate="{Binding BankTransfer.Date, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
             </DatePicker>
 
             <TextBox Grid.Row="4"
-                     materialDesign:HintAssist.Hint="{Binding TextBoxValueHintAssist}"
+                     materialDesign:HintAssist.Hint="{Binding TextBoxValueHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                      Style="{StaticResource MaterialDesignFilledTextBox}"
                      Text="{Binding BankTransfer.Value, Mode=TwoWay}"
                      AcceptsReturn="False" AcceptsTab="False"
@@ -155,7 +155,7 @@
             </TextBox>
 
             <TextBox Grid.Row="5"
-                     materialDesign:HintAssist.Hint="{Binding TextBoxMainReasonHintAssist}"
+                     materialDesign:HintAssist.Hint="{Binding TextBoxMainReasonHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                      Style="{StaticResource MaterialDesignFilledTextBox}"
                      Text="{Binding BankTransfer.MainReason, Mode=TwoWay}"
                      AcceptsReturn="False" AcceptsTab="False">
@@ -163,7 +163,7 @@
 
             <TextBox Grid.Row="6"
                      MinHeight="75"
-                     materialDesign:HintAssist.Hint="{Binding TextBoxAdditionalReasonHintAssist}"
+                     materialDesign:HintAssist.Hint="{Binding TextBoxAdditionalReasonHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                      Style="{StaticResource MaterialDesignFilledTextBox}"
                      Text="{Binding BankTransfer.AdditionalReason, Mode=TwoWay}"
                      AcceptsReturn="True" AcceptsTab="True">
@@ -174,12 +174,12 @@
                         Orientation="Horizontal"
                         HorizontalAlignment="Center">
 
-                <Button Content="{Binding ButtonPrepareValidContent}"
+                <Button Content="{Binding ButtonPrepareValidContent, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                         Style="{StaticResource MaterialDesignPaperButton}"
                         Click="ButtonValidBankTransferPrepare_OnClick">
                 </Button>
 
-                <Button Content="{Binding ButtonPrepareCancelContent}"
+                <Button Content="{Binding ButtonPrepareCancelContent, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                         Style="{StaticResource MaterialDesignPaperSecondaryButton}"
                         Click="ButtonCancelBankTransferPrepare_OnClick">
                 </Button>
@@ -322,14 +322,14 @@
             <TextBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3"
                      IsReadOnly="True"
                      Style="{StaticResource MaterialDesignFilledTextBox}"
-                     materialDesign:HintAssist.Hint="{Binding TextBoxMainReasonHintAssist}"
+                     materialDesign:HintAssist.Hint="{Binding TextBoxMainReasonHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                      Text="{Binding BankTransfer.MainReason, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
             </TextBox>
 
             <TextBox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3"
                      IsReadOnly="True"
                      Style="{StaticResource MaterialDesignFilledTextBox}"
-                     materialDesign:HintAssist.Hint="{Binding TextBoxAdditionalReasonHintAssist}"
+                     materialDesign:HintAssist.Hint="{Binding TextBoxAdditionalReasonHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                      Text="{Binding BankTransfer.AdditionalReason, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
             </TextBox>
 
@@ -339,12 +339,12 @@
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center">
 
-                <Button Content="{Binding ButtonPreviewValidContent}"
+                <Button Content="{Binding ButtonPreviewValidContent, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                         Style="{StaticResource MaterialDesignPaperButton}"
                         Click="ButtonValidBankTransferPreview_OnClick">
                 </Button>
 
-                <Button Content="{Binding ButtonPreviewCancelContent}"
+                <Button Content="{Binding ButtonPreviewCancelContent, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                         Style="{StaticResource MaterialDesignPaperSecondaryButton}"
                         Click="ButtonCancelBankTransferPreview_OnClick">
                 </Button>
