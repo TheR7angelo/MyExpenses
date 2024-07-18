@@ -2,6 +2,7 @@ using System.Windows;
 using System.Windows.Media;
 using MaterialDesignThemes.Wpf;
 using MyExpenses.Models.Config.Interfaces;
+using MyExpenses.Wpf.Resources.Resx.UserControls;
 using MyExpenses.Wpf.Utils;
 using MyExpenses.Wpf.Windows;
 using Theme = MaterialDesignThemes.Wpf.Theme;
@@ -135,8 +136,7 @@ public partial class AppearanceControl
 
     private void ButtonPrimaryColor_OnClick(object sender, RoutedEventArgs e)
     {
-        //TODO add language
-        var title = "Get new primary color";
+        var title = AppearanceControlResources.ButtonPrimaryColorTitle;
 
         var color = Theme.PrimaryMid.Color;
         var newColor = GetNewColor(color, title);
@@ -147,8 +147,7 @@ public partial class AppearanceControl
 
     private void ButtonSecondaryColor_OnClick(object sender, RoutedEventArgs e)
     {
-        //TODO add language
-        var title = "Get new secondary color";
+        var title = AppearanceControlResources.ButtonSecondaryColorTitle;
 
         var color = Theme.SecondaryMid.Color;
         var newColor = GetNewColor(color, title);
