@@ -62,15 +62,24 @@ public partial class AddEditModePaymentWindow
         set => SetValue(ButtonDeleteContentProperty, value);
     }
 
+    public static readonly DependencyProperty ButtonCancelContentProperty =
+        DependencyProperty.Register(nameof(ButtonCancelContent), typeof(string), typeof(AddEditModePaymentWindow),
+            new PropertyMetadata(default(string)));
+
     public string ButtonCancelContent
     {
         get => (string)GetValue(ButtonCancelContentProperty);
         set => SetValue(ButtonCancelContentProperty, value);
     }
 
-    public static readonly DependencyProperty ButtonCancelContentProperty =
-        DependencyProperty.Register(nameof(ButtonCancelContent), typeof(string), typeof(AddEditModePaymentWindow),
-            new PropertyMetadata(default(string)));
+    public static readonly DependencyProperty WindowTitleProperty = DependencyProperty.Register(nameof(WindowTitle),
+        typeof(string), typeof(AddEditModePaymentWindow), new PropertyMetadata(default(string)));
+
+    public string WindowTitle
+    {
+        get => (string)GetValue(WindowTitleProperty);
+        set => SetValue(WindowTitleProperty, value);
+    }
 
     public bool ModePaymentDeleted { get; private set; }
 
@@ -94,6 +103,8 @@ public partial class AddEditModePaymentWindow
 
     private void UpdateLanguage()
     {
+        WindowTitle = "AddEditModePaymentWindow";
+
         TextBoxModePaymentName = AddEditModePaymentWindowResources.TextBoxModePaymentName;
         ButtonValidContent = AddEditModePaymentWindowResources.ButtonValidContent;
         ButtonDeleteContent = AddEditModePaymentWindowResources.ButtonDeleteContent;
