@@ -46,7 +46,7 @@
 
         <TextBox x:Name="TextBoxModePayment" Grid.Row="0"
                  Text="{Binding ModePayment.Name}"
-                 materialDesign:HintAssist.Hint="{Binding TextBoxModePaymentName}"
+                 materialDesign:HintAssist.Hint="{Binding TextBoxModePaymentName, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                  Style="{StaticResource MaterialDesignFilledTextBox}"
                  PreviewLostKeyboardFocus="TextBoxModePayment_OnPreviewLostKeyboardFocus">
         </TextBox>
@@ -56,18 +56,18 @@
                     Orientation="Horizontal"
                     HorizontalAlignment="Right" VerticalAlignment="Bottom">
 
-            <Button Content="{Binding ButtonValidContent}"
+            <Button Content="{Binding ButtonValidContent, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                     Style="{StaticResource MaterialDesignPaperButton}"
                     Click="ButtonValid_OnClick">
             </Button>
 
-            <Button Content="{Binding ButtonDeleteContent}"
+            <Button Content="{Binding ButtonDeleteContent, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                     Style="{StaticResource MaterialDesignPaperDarkButton}"
                     Visibility="{Binding EditModePayment, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BooleanToVisibilityConverter}}"
                     Click="ButtonDelete_OnClick">
             </Button>
 
-            <Button Content="{Binding ButtonCancelContent}"
+            <Button Content="{Binding ButtonCancelContent, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                     Style="{StaticResource MaterialDesignPaperSecondaryButton}"
                     Click="ButtonCancel_OnClick">
             </Button>
