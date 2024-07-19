@@ -158,5 +158,14 @@ namespace MyExpenses.Wpf.Resources.Resx.Windows.AddEditModePaymentWindow {
                 return ResourceManager.GetString("TextBoxModePaymentName", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add or edit a payment method.
+        /// </summary>
+        internal static string WindowTitle {
+            get {
+                return ResourceManager.GetString("WindowTitle", resourceCulture);
+            }
+        }
     }
 }

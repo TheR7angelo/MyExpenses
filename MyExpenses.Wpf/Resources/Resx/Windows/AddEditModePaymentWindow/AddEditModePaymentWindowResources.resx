@@ -51,4 +51,7 @@
     <data name="MessageBoxModePaymentNameEmptyError" xml:space="preserve">
         <value>Mode payment name cannot be empty</value>
     </data>
+    <data name="WindowTitle" xml:space="preserve">
+        <value>Add or edit a payment method</value>
+    </data>
 </root>

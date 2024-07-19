@@ -103,7 +103,7 @@ public partial class AddEditModePaymentWindow
 
     private void UpdateLanguage()
     {
-        WindowTitle = "AddEditModePaymentWindow";
+        WindowTitle = AddEditModePaymentWindowResources.WindowTitle;
 
         TextBoxModePaymentName = AddEditModePaymentWindowResources.TextBoxModePaymentName;
         ButtonValidContent = AddEditModePaymentWindowResources.ButtonValidContent;
