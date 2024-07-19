@@ -193,6 +193,17 @@ public partial class DashBoardPage : INotifyPropertyChanged
         set => SetValue(DataGridMenuItemHeaderDeleteRecordProperty, value);
     }
 
+    public static readonly DependencyProperty DataGridCheckBoxColumnPointedProperty =
+        DependencyProperty.Register(nameof(DataGridCheckBoxColumnPointed), typeof(string), typeof(DashBoardPage),
+            new PropertyMetadata(default(string)));
+
+    public string DataGridCheckBoxColumnPointed
+    {
+        get => (string)GetValue(DataGridCheckBoxColumnPointedProperty);
+        set => SetValue(DataGridCheckBoxColumnPointedProperty, value);
+    }
+
+
     // TODO work
     // public string DataGridTemplateColumnCategorySortMemberPath { get; } = nameof(VHistory.Category);
 
@@ -366,6 +377,7 @@ public partial class DashBoardPage : INotifyPropertyChanged
         TextColumnPlace.Header = DashBoardPageResources.DataGridTextColumnPlace;
         CheckBoxColumnPointed.Header = DashBoardPageResources.DataGridTextColumnPointed;
 
+        DataGridCheckBoxColumnPointed = DashBoardPageResources.DataGridTextColumnPointed;
         DataGridMenuItemHeaderEditRecord = DashBoardPageResources.DataGridMenuItemHeaderEditRecord;
         DataGridMenuItemHeaderDeleteRecord = DashBoardPageResources.DataGridMenuItemHeaderDeleteRecord;
 
