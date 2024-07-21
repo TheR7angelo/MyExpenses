@@ -28,6 +28,8 @@ namespace MyExpenses.Wpf.Windows.LocationManagementWindows;
 
 public partial class AddEditLocationWindow
 {
+    #region Properties
+
     public static readonly DependencyProperty EditPlaceProperty = DependencyProperty.Register(nameof(EditPlace),
         typeof(bool), typeof(AddEditLocationWindow), new PropertyMetadata(default(bool)));
 
@@ -37,27 +39,175 @@ public partial class AddEditLocationWindow
         set => SetValue(EditPlaceProperty, value);
     }
 
-    public string TextBoxCityHintAssist { get; } = AddEditLocationWindowResources.TextBoxCityHintAssist;
-    public string TextBoxCountryHintAssist { get; } = AddEditLocationWindowResources.TextBoxCountryHintAssist;
-    public string TextBoxLatitudeHintAssist { get; } = AddEditLocationWindowResources.TextBoxLatitudeHintAssist;
-    public string TextBoxLongitudeHintAssist { get; } = AddEditLocationWindowResources.TextBoxLongitudeHintAssist;
-    public string TextBoxNameHintAssist { get; } = AddEditLocationWindowResources.TextBoxNameHintAssist;
-    public string TextBoxNumberHintAssist { get; } = AddEditLocationWindowResources.TextBoxNumberHintAssist;
-    public string TextBoxPostalCodeHintAssist { get; } = AddEditLocationWindowResources.TextBoxPostalCodeHintAssist;
-    public string TextBoxStreetHintAssist { get; } = AddEditLocationWindowResources.TextBoxStreetHintAssist;
-    public string ButtonContentValidNewPoint { get; } = AddEditLocationWindowResources.ButtonContentValidNewPoint;
-    public string ButtonContentZoomToPoint { get; } = AddEditLocationWindowResources.ButtonContentZoomToPoint;
-    public string ButtonContentSearchByAddress { get; } = AddEditLocationWindowResources.ButtonContentSearchByAddress;
+    public static readonly DependencyProperty TextBoxNameHintAssistProperty =
+        DependencyProperty.Register(nameof(TextBoxNameHintAssist), typeof(string), typeof(AddEditLocationWindow),
+            new PropertyMetadata(default(string)));
 
-    public string ButtonContentSearchByCoordinate { get; } = AddEditLocationWindowResources.ButtonContentSearchByCoordinate;
+    public string TextBoxNameHintAssist
+    {
+        get => (string)GetValue(TextBoxNameHintAssistProperty);
+        set => SetValue(TextBoxNameHintAssistProperty, value);
+    }
 
-    public string ButtonContentCancel { get; } = AddEditLocationWindowResources.ButtonContentCancel;
-    public string ButtonContentDelete { get; } = AddEditLocationWindowResources.ButtonContentDelete;
-    public string ButtonContentValid { get; } = AddEditLocationWindowResources.ButtonContentValid;
+    public static readonly DependencyProperty TextBoxNumberHintAssistProperty =
+        DependencyProperty.Register(nameof(TextBoxNumberHintAssist), typeof(string), typeof(AddEditLocationWindow),
+            new PropertyMetadata(default(string)));
 
-    public string CheckBoxContentIsOpen { get; } = AddEditLocationWindowResources.CheckBoxContentIsOpen;
+    public string TextBoxNumberHintAssist
+    {
+        get => (string)GetValue(TextBoxNumberHintAssistProperty);
+        set => SetValue(TextBoxNumberHintAssistProperty, value);
+    }
 
-    #region Properties
+    public static readonly DependencyProperty CheckBoxContentIsOpenProperty =
+        DependencyProperty.Register(nameof(CheckBoxContentIsOpen), typeof(string), typeof(AddEditLocationWindow),
+            new PropertyMetadata(default(string)));
+
+    public string CheckBoxContentIsOpen
+    {
+        get => (string)GetValue(CheckBoxContentIsOpenProperty);
+        set => SetValue(CheckBoxContentIsOpenProperty, value);
+    }
+
+    public static readonly DependencyProperty TextBoxStreetHintAssistProperty =
+        DependencyProperty.Register(nameof(TextBoxStreetHintAssist), typeof(string), typeof(AddEditLocationWindow),
+            new PropertyMetadata(default(string)));
+
+    public string TextBoxStreetHintAssist
+    {
+        get => (string)GetValue(TextBoxStreetHintAssistProperty);
+        set => SetValue(TextBoxStreetHintAssistProperty, value);
+    }
+
+    public static readonly DependencyProperty TextBoxPostalCodeHintAssistProperty =
+        DependencyProperty.Register(nameof(TextBoxPostalCodeHintAssist), typeof(string), typeof(AddEditLocationWindow),
+            new PropertyMetadata(default(string)));
+
+    public string TextBoxPostalCodeHintAssist
+    {
+        get => (string)GetValue(TextBoxPostalCodeHintAssistProperty);
+        set => SetValue(TextBoxPostalCodeHintAssistProperty, value);
+    }
+
+    public static readonly DependencyProperty TextBoxCityHintAssistProperty =
+        DependencyProperty.Register(nameof(TextBoxCityHintAssist), typeof(string), typeof(AddEditLocationWindow),
+            new PropertyMetadata(default(string)));
+
+    public string TextBoxCityHintAssist
+    {
+        get => (string)GetValue(TextBoxCityHintAssistProperty);
+        set => SetValue(TextBoxCityHintAssistProperty, value);
+    }
+
+    public static readonly DependencyProperty TextBoxCountryHintAssistProperty =
+        DependencyProperty.Register(nameof(TextBoxCountryHintAssist), typeof(string), typeof(AddEditLocationWindow),
+            new PropertyMetadata(default(string)));
+
+    public string TextBoxCountryHintAssist
+    {
+        get => (string)GetValue(TextBoxCountryHintAssistProperty);
+        set => SetValue(TextBoxCountryHintAssistProperty, value);
+    }
+
+    public static readonly DependencyProperty TextBoxLatitudeHintAssistProperty =
+        DependencyProperty.Register(nameof(TextBoxLatitudeHintAssist), typeof(string), typeof(AddEditLocationWindow),
+            new PropertyMetadata(default(string)));
+
+    public string TextBoxLatitudeHintAssist
+    {
+        get => (string)GetValue(TextBoxLatitudeHintAssistProperty);
+        set => SetValue(TextBoxLatitudeHintAssistProperty, value);
+    }
+
+    public static readonly DependencyProperty ButtonContentValidNewPointProperty =
+        DependencyProperty.Register(nameof(ButtonContentValidNewPoint), typeof(string), typeof(AddEditLocationWindow),
+            new PropertyMetadata(default(string)));
+
+    public string ButtonContentValidNewPoint
+    {
+        get => (string)GetValue(ButtonContentValidNewPointProperty);
+        set => SetValue(ButtonContentValidNewPointProperty, value);
+    }
+
+    public static readonly DependencyProperty ButtonContentZoomToPointProperty =
+        DependencyProperty.Register(nameof(ButtonContentZoomToPoint), typeof(string), typeof(AddEditLocationWindow),
+            new PropertyMetadata(default(string)));
+
+    public string ButtonContentZoomToPoint
+    {
+        get => (string)GetValue(ButtonContentZoomToPointProperty);
+        set => SetValue(ButtonContentZoomToPointProperty, value);
+    }
+
+    public static readonly DependencyProperty TextBoxLongitudeHintAssistProperty =
+        DependencyProperty.Register(nameof(TextBoxLongitudeHintAssist), typeof(string), typeof(AddEditLocationWindow),
+            new PropertyMetadata(default(string)));
+
+    public string TextBoxLongitudeHintAssist
+    {
+        get => (string)GetValue(TextBoxLongitudeHintAssistProperty);
+        set => SetValue(TextBoxLongitudeHintAssistProperty, value);
+    }
+
+    public static readonly DependencyProperty ComboBoxBackgroundHintAssistProperty =
+        DependencyProperty.Register(nameof(ComboBoxBackgroundHintAssist), typeof(string), typeof(AddEditLocationWindow),
+            new PropertyMetadata(default(string)));
+
+    public string ComboBoxBackgroundHintAssist
+    {
+        get => (string)GetValue(ComboBoxBackgroundHintAssistProperty);
+        set => SetValue(ComboBoxBackgroundHintAssistProperty, value);
+    }
+
+    public static readonly DependencyProperty ButtonContentSearchByAddressProperty =
+        DependencyProperty.Register(nameof(ButtonContentSearchByAddress), typeof(string), typeof(AddEditLocationWindow),
+            new PropertyMetadata(default(string)));
+
+    public string ButtonContentSearchByAddress
+    {
+        get => (string)GetValue(ButtonContentSearchByAddressProperty);
+        set => SetValue(ButtonContentSearchByAddressProperty, value);
+    }
+
+    public static readonly DependencyProperty ButtonContentSearchByCoordinateProperty =
+        DependencyProperty.Register(nameof(ButtonContentSearchByCoordinate), typeof(string),
+            typeof(AddEditLocationWindow), new PropertyMetadata(default(string)));
+
+    public string ButtonContentSearchByCoordinate
+    {
+        get => (string)GetValue(ButtonContentSearchByCoordinateProperty);
+        set => SetValue(ButtonContentSearchByCoordinateProperty, value);
+    }
+
+    public static readonly DependencyProperty ButtonContentValidProperty =
+        DependencyProperty.Register(nameof(ButtonContentValid), typeof(string), typeof(AddEditLocationWindow),
+            new PropertyMetadata(default(string)));
+
+    public string ButtonContentValid
+    {
+        get => (string)GetValue(ButtonContentValidProperty);
+        set => SetValue(ButtonContentValidProperty, value);
+    }
+
+    public static readonly DependencyProperty ButtonContentDeleteProperty =
+        DependencyProperty.Register(nameof(ButtonContentDelete), typeof(string), typeof(AddEditLocationWindow),
+            new PropertyMetadata(default(string)));
+
+    public string ButtonContentDelete
+    {
+        get => (string)GetValue(ButtonContentDeleteProperty);
+        set => SetValue(ButtonContentDeleteProperty, value);
+    }
+
+    public static readonly DependencyProperty ButtonContentCancelProperty =
+        DependencyProperty.Register(nameof(ButtonContentCancel), typeof(string), typeof(AddEditLocationWindow),
+            new PropertyMetadata(default(string)));
+
+    public string ButtonContentCancel
+    {
+        get => (string)GetValue(ButtonContentCancelProperty);
+        set => SetValue(ButtonContentCancelProperty, value);
+    }
 
     private const string ColumnTemp = "temp";
     public TPlace Place { get; } = new();
@@ -69,7 +219,6 @@ public partial class AddEditLocationWindow
 
     #endregion
 
-    //TODO add language
     public AddEditLocationWindow()
     {
         KnownTileSources = [..MapsuiMapExtensions.GetAllKnowTileSource()];
@@ -79,12 +228,41 @@ public partial class AddEditLocationWindow
         map.Layers.Add(WritableLayer);
 
         Interface.ThemeChanged += Interface_OnThemeChanged;
+        Interface.LanguageChanged += Interface_OnLanguageChanged;
+
+        UpdateLanguage();
         InitializeComponent();
 
         var hWnd = new WindowInteropHelper(GetWindow(this)!).EnsureHandle();
         hWnd.SetWindowCornerPreference(DwmWindowCornerPreference.Round);
 
         MapControl.Map = map;
+    }
+
+    private void Interface_OnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
+        => UpdateLanguage();
+
+    private void UpdateLanguage()
+    {
+        TextBoxCityHintAssist = AddEditLocationWindowResources.TextBoxCityHintAssist;
+        TextBoxCountryHintAssist = AddEditLocationWindowResources.TextBoxCountryHintAssist;
+        TextBoxLatitudeHintAssist = AddEditLocationWindowResources.TextBoxLatitudeHintAssist;
+        TextBoxLongitudeHintAssist = AddEditLocationWindowResources.TextBoxLongitudeHintAssist;
+        TextBoxNameHintAssist = AddEditLocationWindowResources.TextBoxNameHintAssist;
+        TextBoxNumberHintAssist = AddEditLocationWindowResources.TextBoxNumberHintAssist;
+        TextBoxPostalCodeHintAssist = AddEditLocationWindowResources.TextBoxPostalCodeHintAssist;
+        TextBoxStreetHintAssist = AddEditLocationWindowResources.TextBoxStreetHintAssist;
+        ButtonContentValidNewPoint = AddEditLocationWindowResources.ButtonContentValidNewPoint;
+        ButtonContentZoomToPoint = AddEditLocationWindowResources.ButtonContentZoomToPoint;
+        ButtonContentSearchByAddress = AddEditLocationWindowResources.ButtonContentSearchByAddress;
+
+        ButtonContentSearchByCoordinate = AddEditLocationWindowResources.ButtonContentSearchByCoordinate;
+
+        ButtonContentCancel = AddEditLocationWindowResources.ButtonContentCancel;
+        ButtonContentDelete = AddEditLocationWindowResources.ButtonContentDelete;
+        ButtonContentValid = AddEditLocationWindowResources.ButtonContentValid;
+
+        CheckBoxContentIsOpen = AddEditLocationWindowResources.CheckBoxContentIsOpen;
     }
 
     #region Action
