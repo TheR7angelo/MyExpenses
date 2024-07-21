@@ -63,7 +63,7 @@
         </Grid.ColumnDefinitions>
 
         <TextBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
-                 materialDesign:HintAssist.Hint="{Binding TextBoxNameHintAssist}"
+                 materialDesign:HintAssist.Hint="{Binding TextBoxNameHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                  Style="{StaticResource MaterialDesignFilledTextBox}"
                  Text="{Binding Place.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
         </TextBox>
@@ -77,7 +77,7 @@
             </Grid.ColumnDefinitions>
 
             <TextBox Grid.Column="0"
-                     materialDesign:HintAssist.Hint="{Binding TextBoxNumberHintAssist}"
+                     materialDesign:HintAssist.Hint="{Binding TextBoxNumberHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                      Style="{StaticResource MaterialDesignFilledTextBox}"
                      Text="{Binding Place.Number, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
             </TextBox>
@@ -85,37 +85,37 @@
             <CheckBox Grid.Column="1"
                       IsThreeState="False"
                       IsChecked="{Binding Place.IsOpen, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                      Content="{Binding CheckBoxContentIsOpen}">
+                      Content="{Binding CheckBoxContentIsOpen, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
             </CheckBox>
 
         </Grid>
 
         <TextBox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
-                 materialDesign:HintAssist.Hint="{Binding TextBoxStreetHintAssist}"
+                 materialDesign:HintAssist.Hint="{Binding TextBoxStreetHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                  Style="{StaticResource MaterialDesignFilledTextBox}"
                  Text="{Binding Place.Street, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
         </TextBox>
 
         <TextBox Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"
-                 materialDesign:HintAssist.Hint="{Binding TextBoxPostalCodeHintAssist}"
+                 materialDesign:HintAssist.Hint="{Binding TextBoxPostalCodeHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                  Style="{StaticResource MaterialDesignFilledTextBox}"
                  Text="{Binding Place.Postal, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
         </TextBox>
 
         <TextBox Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2"
-                 materialDesign:HintAssist.Hint="{Binding TextBoxCityHintAssist}"
+                 materialDesign:HintAssist.Hint="{Binding TextBoxCityHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                  Style="{StaticResource MaterialDesignFilledTextBox}"
                  Text="{Binding Place.City, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
         </TextBox>
 
         <TextBox Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2"
-                 materialDesign:HintAssist.Hint="{Binding TextBoxCountryHintAssist}"
+                 materialDesign:HintAssist.Hint="{Binding TextBoxCountryHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                  Style="{StaticResource MaterialDesignFilledTextBox}"
                  Text="{Binding Place.Country, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
         </TextBox>
 
         <TextBox Grid.Row="6" Grid.Column="0"
-                 materialDesign:HintAssist.Hint="{Binding TextBoxLatitudeHintAssist}"
+                 materialDesign:HintAssist.Hint="{Binding TextBoxLatitudeHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                  Style="{StaticResource MaterialDesignFilledTextBox}"
                  Text="{Binding Place.Latitude, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
         </TextBox>
@@ -128,20 +128,20 @@
 
             <Button materialDesign:ButtonAssist.CornerRadius="5"
                     Style="{StaticResource MaterialDesignPaperButton}"
-                    Content="{Binding ButtonContentValidNewPoint}"
+                    Content="{Binding ButtonContentValidNewPoint, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                     Click="ButtonValidNewPoint_OnClick">
             </Button>
 
             <Button materialDesign:ButtonAssist.CornerRadius="5"
                     Style="{StaticResource MaterialDesignPaperLightButton}"
-                    Content="{Binding ButtonContentZoomToPoint}"
+                    Content="{Binding ButtonContentZoomToPoint, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                     Click="ButtonZoomToPoint_OnClick">
             </Button>
 
         </StackPanel>
 
         <TextBox Grid.Row="7" Grid.Column="0"
-                 materialDesign:HintAssist.Hint="{Binding TextBoxLongitudeHintAssist}"
+                 materialDesign:HintAssist.Hint="{Binding TextBoxLongitudeHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                  Style="{StaticResource MaterialDesignFilledTextBox}"
                  Text="{Binding Place.Longitude, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
         </TextBox>
@@ -166,10 +166,9 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <!-- TODO work -->
             <ComboBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="6"
                       Style="{StaticResource MaterialDesignFilledComboBox}"
-                      materialDesign:HintAssist.Hint="{Binding ComboBoxBackgroundHintAssist}"
+                      materialDesign:HintAssist.Hint="{Binding ComboBoxBackgroundHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                       ItemsSource="{Binding KnownTileSources}"
                       SelectedItem="{Binding KnownTileSourceSelected}"
                       SelectionChanged="Selector_OnSelectionChanged">
@@ -183,21 +182,21 @@
             <Button Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3"
                     materialDesign:ButtonAssist.CornerRadius="5"
                     Style="{StaticResource MaterialDesignPaperLightButton}"
-                    Content="{Binding ButtonContentSearchByAddress}"
+                    Content="{Binding ButtonContentSearchByAddress, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                     Click="ButtonSearchByAddress_OnClick">
             </Button>
 
             <Button Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="3"
                     materialDesign:ButtonAssist.CornerRadius="5"
                     Style="{StaticResource MaterialDesignPaperLightButton}"
-                    Content="{Binding ButtonContentSearchByCoordinate}"
+                    Content="{Binding ButtonContentSearchByCoordinate, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                     Click="ButtonSearchByCoordinate_OnClick">
             </Button>
 
             <Button Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
                     materialDesign:ButtonAssist.CornerRadius="5"
                     Style="{StaticResource MaterialDesignPaperButton}"
-                    Content="{Binding ButtonContentValid}"
+                    Content="{Binding ButtonContentValid, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                     Visibility="{Binding EditPlace, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}, UpdateSourceTrigger=PropertyChanged}"
                     Click="ButtonValid_OnClick">
             </Button>
@@ -205,7 +204,7 @@
             <Button Grid.Row="2" Grid.Column="2" Grid.ColumnSpan="2"
                     materialDesign:ButtonAssist.CornerRadius="5"
                     Style="{StaticResource MaterialDesignPaperSecondaryButton}"
-                    Content="{Binding ButtonContentDelete}"
+                    Content="{Binding ButtonContentDelete, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                     Visibility="{Binding EditPlace, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}, UpdateSourceTrigger=PropertyChanged}"
                     Click="ButtonDelete_OnClick">
             </Button>
@@ -213,7 +212,7 @@
             <Button Grid.Row="2" Grid.Column="4" Grid.ColumnSpan="2"
                     materialDesign:ButtonAssist.CornerRadius="5"
                     Style="{StaticResource MaterialDesignPaperSecondaryButton}"
-                    Content="{Binding ButtonContentCancel}"
+                    Content="{Binding ButtonContentCancel, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                     Visibility="{Binding EditPlace, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}, UpdateSourceTrigger=PropertyChanged}"
                     Click="ButtonCancel_OnClick">
             </Button>
@@ -221,7 +220,7 @@
             <Button Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3"
                     materialDesign:ButtonAssist.CornerRadius="5"
                     Style="{StaticResource MaterialDesignPaperButton}"
-                    Content="{Binding ButtonContentValid}"
+                    Content="{Binding ButtonContentValid, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                     Visibility="{Binding EditPlace, Mode=OneWay, Converter={StaticResource InverseBooleanToVisibilityConverter}, UpdateSourceTrigger=PropertyChanged}"
                     Click="ButtonValid_OnClick">
             </Button>
@@ -229,7 +228,7 @@
             <Button Grid.Row="2" Grid.Column="3" Grid.ColumnSpan="3"
                     materialDesign:ButtonAssist.CornerRadius="5"
                     Style="{StaticResource MaterialDesignPaperSecondaryButton}"
-                    Content="{Binding ButtonContentCancel}"
+                    Content="{Binding ButtonContentCancel, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                     Visibility="{Binding EditPlace, Mode=OneWay, Converter={StaticResource InverseBooleanToVisibilityConverter}, UpdateSourceTrigger=PropertyChanged}"
                     Click="ButtonCancel_OnClick">
             </Button>
