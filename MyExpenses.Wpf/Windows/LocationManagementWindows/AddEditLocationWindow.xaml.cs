@@ -209,6 +209,15 @@ public partial class AddEditLocationWindow
         set => SetValue(ButtonContentCancelProperty, value);
     }
 
+    public static readonly DependencyProperty TitleWindowProperty = DependencyProperty.Register(nameof(TitleWindow),
+        typeof(string), typeof(AddEditLocationWindow), new PropertyMetadata(default(string)));
+
+    public string TitleWindow
+    {
+        get => (string)GetValue(TitleWindowProperty);
+        set => SetValue(TitleWindowProperty, value);
+    }
+
     private const string ColumnTemp = "temp";
     public TPlace Place { get; } = new();
     public bool PlaceDeleted { get; set; }
@@ -244,6 +253,8 @@ public partial class AddEditLocationWindow
 
     private void UpdateLanguage()
     {
+        TitleWindow = AddEditLocationWindowResources.TitleWindow;
+
         TextBoxCityHintAssist = AddEditLocationWindowResources.TextBoxCityHintAssist;
         TextBoxCountryHintAssist = AddEditLocationWindowResources.TextBoxCountryHintAssist;
         TextBoxLatitudeHintAssist = AddEditLocationWindowResources.TextBoxLatitudeHintAssist;

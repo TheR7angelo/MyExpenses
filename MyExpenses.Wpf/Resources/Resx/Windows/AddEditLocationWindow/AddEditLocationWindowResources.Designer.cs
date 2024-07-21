@@ -284,5 +284,14 @@ namespace MyExpenses.Wpf.Resources.Resx.Windows.AddEditLocationWindow {
                 return ResourceManager.GetString("TextBoxStreetHintAssist", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Adding or editing a location.
+        /// </summary>
+        internal static string TitleWindow {
+            get {
+                return ResourceManager.GetString("TitleWindow", resourceCulture);
+            }
+        }
     }
 }

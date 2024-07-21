@@ -93,4 +93,7 @@
     <data name="CheckBoxContentIsOpen" xml:space="preserve">
         <value>The place is open</value>
     </data>
+    <data name="TitleWindow" xml:space="preserve">
+        <value>Adding or editing a location</value>
+    </data>
 </root>

@@ -10,7 +10,7 @@
                  xmlns:converters="clr-namespace:MyExpenses.Wpf.Converters"
                  mc:Ignorable="d"
 
-                 Title="AddEditLocationWindow"
+                 Title="{Binding TitleWindow, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
 
                  TitleCharacterCasing="Normal"
                  NonActiveWindowTitleBrush="Gray"
@@ -35,8 +35,6 @@
                  Background="{DynamicResource MaterialDesignPaper}"
                  TextElement.Foreground="{DynamicResource MaterialDesignBody}"
                  DataContext="{Binding RelativeSource={RelativeSource Self}}">
-
-    <!-- TODO add window Title -->
 
     <mah:MetroWindow.Resources>
         <converters:SplitUpperCaseWordsConverter x:Key="SplitCamelCaseConverter" />
