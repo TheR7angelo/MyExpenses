@@ -85,7 +85,8 @@
             <CheckBox Grid.Column="1"
                       IsThreeState="False"
                       IsChecked="{Binding Place.IsOpen, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                      Content="{Binding CheckBoxContentIsOpen, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
+                      Content="{Binding CheckBoxContentIsOpen, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                      materialDesign:CheckBoxAssist.CheckBoxSize="30">
             </CheckBox>
 
         </Grid>
