@@ -88,7 +88,7 @@ public partial class App
 
     private static void LoadLogConfiguration(int logMaxDays)
     {
-        var numberOfLogDeleted = MyExpenses.Utils.LoggerConfig.RemoveOldLog(logMaxDays);
+        var numberOfLogDeleted = LoggerConfig.RemoveOldLog(logMaxDays);
         Log.Information("{NumberOfLogDeleted} log was deleted", numberOfLogDeleted);
     }
 
