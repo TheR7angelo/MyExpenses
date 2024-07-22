@@ -20,6 +20,7 @@ CREATE TABLE t_supported_languages
             UNIQUE,
     native_name TEXT NOT NULL,
     english_name TEXT NOT NULL,
+    default_language BOOLEAN NOT NULL DEFAULT FALSE,
     date_added DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 

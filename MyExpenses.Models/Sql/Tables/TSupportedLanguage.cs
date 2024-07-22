@@ -21,6 +21,9 @@ public partial class TSupportedLanguage
     [Column("english_name")]
     public string EnglishName { get; set; } = null!;
 
+    [Column("default_language", TypeName = "BOOLEAN")]
+    public bool? DefaultLanguage { get; set; } = false;
+
     [Column("date_added", TypeName = "DATETIME")]
     public DateTime? DateAdded { get; set; }
 }

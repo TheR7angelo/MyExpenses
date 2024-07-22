@@ -120,6 +120,7 @@ public partial class DataBaseContext : DbContext
 
         modelBuilder.Entity<TSupportedLanguage>(entity =>
         {
+            entity.Property(e => e.DefaultLanguage).HasDefaultValueSql("FALSE");
             entity.Property(e => e.DateAdded).HasDefaultValueSql("CURRENT_TIMESTAMP");
         });
 
