@@ -155,5 +155,14 @@ namespace MyExpenses.Wpf.Resources.Resx.Windows.AddEditCurrencyWindow {
                 return ResourceManager.GetString("MessageBoxCurrencySymbolCannotEmpty", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Adding or changing account currencies.
+        /// </summary>
+        public static string TitleWindow {
+            get {
+                return ResourceManager.GetString("TitleWindow", resourceCulture);
+            }
+        }
     }
 }

@@ -44,4 +44,7 @@
     <data name="MessageBoxCurrencySymbolCannotEmpty" xml:space="preserve">
         <value>Le symbole monétaire ne peut pas être vide</value>
     </data>
+    <data name="TitleWindow" xml:space="preserve">
+        <value>Ajout ou modification des devises des compte</value>
+    </data>
 </root>

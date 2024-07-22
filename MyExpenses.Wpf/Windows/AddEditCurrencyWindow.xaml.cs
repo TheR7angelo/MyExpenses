@@ -82,6 +82,15 @@ public partial class AddEditCurrencyWindow
         set => SetValue(ButtonCancelContentProperty, value);
     }
 
+    public static readonly DependencyProperty TitleWindowProperty = DependencyProperty.Register(nameof(TitleWindow),
+        typeof(string), typeof(AddEditCurrencyWindow), new PropertyMetadata(default(string)));
+
+    public string TitleWindow
+    {
+        get => (string)GetValue(TitleWindowProperty);
+        set => SetValue(TitleWindowProperty, value);
+    }
+
     #endregion
 
     public AddEditCurrencyWindow()
@@ -104,6 +113,8 @@ public partial class AddEditCurrencyWindow
 
     private void UpdateLanguage()
     {
+        TitleWindow = AddEditCurrencyWindowResources.TitleWindow;
+
         TextBoxCurrencySymbol = AddEditCurrencyWindowResources.TextBoxCurrencySymbol;
         ButtonValidContent = AddEditCurrencyWindowResources.ButtonValidContent;
         ButtonDeleteContent = AddEditCurrencyWindowResources.ButtonDeleteContent;
