@@ -4,6 +4,7 @@ using System.Windows.Media;
 using MaterialDesignThemes.Wpf;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Sql.Context;
+using MyExpenses.Utils;
 using MyExpenses.Wpf.Utils;
 using Log = Serilog.Log;
 using Theme = MyExpenses.Models.Config.Interfaces.Theme;
@@ -20,11 +21,11 @@ public partial class App
         var splashScreenWindow = new SplashScreen("Resources\\Assets\\Icon Resize.png");
         splashScreenWindow.Show(true, true);
 
-        Log.Logger = MyExpenses.Utils.LoggerConfig.CreateConfig();
+        Log.Logger = LoggerConfig.CreateConfig();
         Log.Information("Starting the application");
 
         Log.Information("Reading configuration file");
-        var configuration = MyExpenses.Utils.Config.Configuration;
+        var configuration = Config.Configuration;
         Log.Information("Configuration read :{NewLine}{Configuration}", Environment.NewLine, configuration);
 
         Log.Information("Apply log configuration");
@@ -46,11 +47,25 @@ public partial class App
     private static void LoadInterfaceConfiguration(Interface configurationInterface)
     {
         LoadInterfaceTheme(configurationInterface.Theme);
-        LoadInterfaceLanguage(configurationInterface.Language ?? "en-001");
+        LoadInterfaceLanguage(configurationInterface.Language);
     }
 
-    public static void LoadInterfaceLanguage(string cultureInfoCode)
+    public static void LoadInterfaceLanguage(string? cultureInfoCode)
     {
+        if (string.IsNullOrEmpty(cultureInfoCode))
+        {
+            var currentCurrentCulture = CultureInfo.CurrentUICulture.Name;
+            using var context = new DataBaseContext(DbContextBackup.LocalFilePathDataBaseModel);
+            var supportedLanguages = context.TSupportedLanguages.ToList();
+
+            cultureInfoCode = supportedLanguages.Select(s => s.Code).Contains(currentCurrentCulture)
+                ? currentCurrentCulture
+                : supportedLanguages.First(s => (bool)s.DefaultLanguage!).Code;
+            var configuration = Config.Configuration;
+            configuration.Interface.Language = cultureInfoCode;
+            configuration.WriteConfiguration();
+        }
+        
         var cultureInfo = new CultureInfo(cultureInfoCode);
         Thread.CurrentThread.CurrentCulture = cultureInfo;
         Thread.CurrentThread.CurrentUICulture = cultureInfo;
