@@ -113,5 +113,14 @@ namespace MyExpenses.Wpf.Resources.Resx.Windows.AddDatabaseFileWindow {
                 return ResourceManager.GetString("TextBoxHintAssist", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Adding a Database File.
+        /// </summary>
+        internal static string TitleWindow {
+            get {
+                return ResourceManager.GetString("TitleWindow", resourceCulture);
+            }
+        }
     }
 }

@@ -2,6 +2,8 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Interop;
+using MyExpenses.Models.Config;
+using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.IO;
 using MyExpenses.Utils.WindowStyle;
 using MyExpenses.Wpf.Resources.Resx.Windows.AddDatabaseFileWindow;
@@ -15,6 +17,8 @@ public partial class AddDatabaseFileWindow
         DependencyProperty.Register(nameof(DatabaseFilename), typeof(string), typeof(AddDatabaseFileWindow),
             new PropertyMetadata(default(string)));
 
+    public static readonly DependencyProperty TitleWindowProperty = DependencyProperty.Register(nameof(TitleWindow), typeof(string), typeof(AddDatabaseFileWindow), new PropertyMetadata(default(string)));
+
     public string DatabaseFilename
     {
         get => (string)GetValue(DatabaseFilenameProperty);
@@ -27,13 +31,28 @@ public partial class AddDatabaseFileWindow
 
     private List<ExistingDatabase> ExistingDatabases { get; } = [];
 
-    //TODO add language
+    public object TitleWindow
+    {
+        get => (string)GetValue(TitleWindowProperty);
+        set => SetValue(TitleWindowProperty, value);
+    }
+
     public AddDatabaseFileWindow()
     {
+        Interface.LanguageChanged += Interface_OnLanguageChanged;
+        UpdateLanguage();
         InitializeComponent();
 
         var hWnd = new WindowInteropHelper(GetWindow(this)!).EnsureHandle();
         hWnd.SetWindowCornerPreference(DwmWindowCornerPreference.Round);
+    }
+
+    private void Interface_OnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
+        => UpdateLanguage();
+
+    private void UpdateLanguage()
+    {
+        TitleWindow = AddDatabaseFileWindowResources.TitleWindow;
     }
 
     #region Action

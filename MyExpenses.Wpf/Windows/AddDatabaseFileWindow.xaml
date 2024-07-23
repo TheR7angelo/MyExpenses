@@ -9,7 +9,7 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
 
-        Title="AddDatabaseFile"
+        Title="{Binding TitleWindow, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
 
         d:DesignHeight="130"
         d:DesignWidth="394"
@@ -34,8 +34,6 @@
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
 
         DataContext="{Binding RelativeSource={RelativeSource Self}}">
-
-    <!-- TODO add window Title -->
 
     <Grid margin:PanelExtensions.MarginForAllChildren="5">
 

@@ -29,4 +29,7 @@
     <data name="MessageBoxDatabaseFilenameContainsIncorrectCharError" xml:space="preserve">
         <value>Database file name contains incorrect characters</value>
     </data>
+    <data name="TitleWindow" xml:space="preserve">
+        <value>Adding a Database File</value>
+    </data>
 </root>
