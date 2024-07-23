@@ -79,6 +79,15 @@ public partial class AddEditAccountTypeWindow
         set => SetValue(ButtonCancelContentProperty, value);
     }
 
+    public static readonly DependencyProperty TitleWindowProperty = DependencyProperty.Register(nameof(TitleWindow),
+        typeof(string), typeof(AddEditAccountTypeWindow), new PropertyMetadata(default(string)));
+
+    public string TitleWindow
+    {
+        get => (string)GetValue(TitleWindowProperty);
+        set => SetValue(TitleWindowProperty, value);
+    }
+
     #endregion
 
     public AddEditAccountTypeWindow()
@@ -213,6 +222,8 @@ public partial class AddEditAccountTypeWindow
 
     private void UpdateLanguage()
     {
+        TitleWindow = AddEditAccountTypeWindowResources.TitleWindow;
+
         TextBoxAccountTypeName = AddEditAccountTypeWindowResources.TextBoxAccountTypeName;
         ButtonValidContent = AddEditAccountTypeWindowResources.ButtonValidContent;
         ButtonDeleteContent = AddEditAccountTypeWindowResources.ButtonDeleteContent;

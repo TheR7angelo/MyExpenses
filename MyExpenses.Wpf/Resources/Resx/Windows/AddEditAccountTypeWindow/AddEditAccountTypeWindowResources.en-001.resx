@@ -44,4 +44,7 @@
     <data name="MessageBoxAccountTypeNameCannotEmptyError" xml:space="preserve">
         <value>Account type name cannot be empty</value>
     </data>
+    <data name="TitleWindow" xml:space="preserve">
+        <value>Add or Change account type</value>
+    </data>
 </root>

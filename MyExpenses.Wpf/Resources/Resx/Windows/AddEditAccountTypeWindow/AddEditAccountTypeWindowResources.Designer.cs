@@ -155,5 +155,14 @@ namespace MyExpenses.Wpf.Resources.Resx.Windows.AddEditAccountTypeWindow {
                 return ResourceManager.GetString("MessageBoxAccountTypeNameCannotEmptyError", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to TitleWindow.
+        /// </summary>
+        internal static string TitleWindow {
+            get {
+                return ResourceManager.GetString("TitleWindow", resourceCulture);
+            }
+        }
     }
 }
