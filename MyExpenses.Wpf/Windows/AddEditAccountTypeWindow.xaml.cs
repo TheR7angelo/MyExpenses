@@ -3,6 +3,8 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Interop;
 using Microsoft.Data.Sqlite;
+using MyExpenses.Models.Config;
+using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Sql.Tables;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils.WindowStyle;
@@ -37,19 +39,55 @@ public partial class AddEditAccountTypeWindow
 
     #region Resx
 
-    public string TextBoxAccountTypeName { get; } = AddEditAccountTypeWindowResources.TextBoxAccountTypeName;
-    public string ButtonValidContent { get; } = AddEditAccountTypeWindowResources.ButtonValidContent;
-    public string ButtonDeleteContent { get; } = AddEditAccountTypeWindowResources.ButtonDeleteContent;
-    public string ButtonCancelContent { get; } = AddEditAccountTypeWindowResources.ButtonCancelContent;
+    public static readonly DependencyProperty TextBoxAccountTypeNameProperty =
+        DependencyProperty.Register(nameof(TextBoxAccountTypeName), typeof(string), typeof(AddEditAccountTypeWindow),
+            new PropertyMetadata(default(string)));
+
+    public string TextBoxAccountTypeName
+    {
+        get => (string)GetValue(TextBoxAccountTypeNameProperty);
+        set => SetValue(TextBoxAccountTypeNameProperty, value);
+    }
+
+    public static readonly DependencyProperty ButtonValidContentProperty = DependencyProperty.Register(
+        nameof(ButtonValidContent),
+        typeof(string), typeof(AddEditAccountTypeWindow), new PropertyMetadata(default(string)));
+
+    public string ButtonValidContent
+    {
+        get => (string)GetValue(ButtonValidContentProperty);
+        set => SetValue(ButtonValidContentProperty, value);
+    }
+
+    public static readonly DependencyProperty ButtonDeleteContentProperty =
+        DependencyProperty.Register(nameof(ButtonDeleteContent), typeof(string), typeof(AddEditAccountTypeWindow),
+            new PropertyMetadata(default(string)));
+
+    public string ButtonDeleteContent
+    {
+        get => (string)GetValue(ButtonDeleteContentProperty);
+        set => SetValue(ButtonDeleteContentProperty, value);
+    }
+
+    public static readonly DependencyProperty ButtonCancelContentProperty =
+        DependencyProperty.Register(nameof(ButtonCancelContent), typeof(string), typeof(AddEditAccountTypeWindow),
+            new PropertyMetadata(default(string)));
+
+    public string ButtonCancelContent
+    {
+        get => (string)GetValue(ButtonCancelContentProperty);
+        set => SetValue(ButtonCancelContentProperty, value);
+    }
 
     #endregion
 
-    //TODO add language
     public AddEditAccountTypeWindow()
     {
         using var context = new DataBaseContext();
         AccountTypes = [..context.TAccountTypes];
 
+        Interface.LanguageChanged += Interface_OnLanguageChanged;
+        UpdateLanguage();
         InitializeComponent();
 
         var hWnd = new WindowInteropHelper(GetWindow(this)!).EnsureHandle();
@@ -58,7 +96,7 @@ public partial class AddEditAccountTypeWindow
         TextBoxAccountType.Focus();
     }
 
-        #region Action
+    #region Action
 
     private void ButtonCancel_OnClick(object sender, RoutedEventArgs e)
     {
@@ -78,7 +116,8 @@ public partial class AddEditAccountTypeWindow
         if (success)
         {
             Log.Information("Account was successfully removed");
-            MsgBox.MsgBox.Show(AddEditAccountTypeWindowResources.MessageBoxDeleteAccountTypeNoUseSuccess, MsgBoxImage.Check);
+            MsgBox.MsgBox.Show(AddEditAccountTypeWindowResources.MessageBoxDeleteAccountTypeNoUseSuccess,
+                MsgBoxImage.Check);
 
             AccountTypeDeleted = true;
             DialogResult = true;
@@ -98,11 +137,13 @@ public partial class AddEditAccountTypeWindow
 
             if (response is not MessageBoxResult.Yes) return;
 
-            Log.Information("Attempting to remove the account type \"{AccountTypeToDeleteName}\" with all relative element",
+            Log.Information(
+                "Attempting to remove the account type \"{AccountTypeToDeleteName}\" with all relative element",
                 AccountType.Name);
             AccountType.Delete(true);
             Log.Information("Account type and all relative element was successfully removed");
-            MsgBox.MsgBox.Show(AddEditAccountTypeWindowResources.MessageBoxDeleteAccountTypeUseSuccess, MsgBoxImage.Check);
+            MsgBox.MsgBox.Show(AddEditAccountTypeWindowResources.MessageBoxDeleteAccountTypeUseSuccess,
+                MsgBoxImage.Check);
 
             AccountTypeDeleted = true;
             DialogResult = true;
@@ -121,7 +162,8 @@ public partial class AddEditAccountTypeWindow
 
         if (string.IsNullOrEmpty(accountTypeName))
         {
-            MsgBox.MsgBox.Show(AddEditAccountTypeWindowResources.MessageBoxAccountTypeNameCannotEmptyError, MsgBoxImage.Error);
+            MsgBox.MsgBox.Show(AddEditAccountTypeWindowResources.MessageBoxAccountTypeNameCannotEmptyError,
+                MsgBoxImage.Error);
             return;
         }
 
@@ -155,6 +197,9 @@ public partial class AddEditAccountTypeWindow
         if (alreadyExist) ShowErrorMessage();
     }
 
+    private void Interface_OnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
+        => UpdateLanguage();
+
     #endregion
 
     #region Function
@@ -165,6 +210,14 @@ public partial class AddEditAccountTypeWindow
     private void ShowErrorMessage()
         => MsgBox.MsgBox.Show(AddEditAccountTypeWindowResources.MessageBoxAccountTypeNameAlreadyExists,
             MsgBoxImage.Warning);
+
+    private void UpdateLanguage()
+    {
+        TextBoxAccountTypeName = AddEditAccountTypeWindowResources.TextBoxAccountTypeName;
+        ButtonValidContent = AddEditAccountTypeWindowResources.ButtonValidContent;
+        ButtonDeleteContent = AddEditAccountTypeWindowResources.ButtonDeleteContent;
+        ButtonCancelContent = AddEditAccountTypeWindowResources.ButtonCancelContent;
+    }
 
     #endregion
 }
