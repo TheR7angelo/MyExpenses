@@ -31,29 +31,57 @@ public partial class TPlace : ISql
     [Column("country")]
     public string? Country { get; set; }
 
+    [NotMapped]
+    private double? _latitude;
+
     [Column("latitude")]
-    public double? Latitude { get; set; }
+    public double? Latitude
+    {
+        get => _latitude;
+        set
+        {
+            _latitude = value;
+            UpdateGeometry();
+        }
+    }
+
+    [NotMapped]
+    private double? _longitude;
 
     [Column("longitude")]
-    public double? Longitude { get; set; }
+    public double? Longitude
+    {
+        get => _longitude;
+        set
+        {
+            _longitude = value;
+            UpdateGeometry();
+        }
+
+    }
+
+    [NotMapped]
+    private Point? _geometry;
 
     [Column("geometry")]
-    public Point? Geometry { get; set; }
-
-    // [NotMapped]
-    // public Point Geometry
-    // {
-    //     get =>
-    //         new(Latitude.GetValueOrDefault(), Longitude.GetValueOrDefault())
-    //         {
-    //             SRID = 4326
-    //         };
-    //     set
-    //     {
-    //         Latitude = value.X;
-    //         Longitude = value.Y;
-    //     }
-    // }
+    public Point? Geometry
+    {
+        get => _geometry;
+        set
+        {
+            _geometry = value;
+            if (_geometry is null)
+            {
+                _latitude = null;
+                _longitude = null;
+            }
+            else
+            {
+                _latitude = _geometry.X;
+                _longitude = _geometry.Y;
+            }
+        }
+    }
 
     [Column("is_open", TypeName = "BOOLEAN")]
     public bool? IsOpen { get; set; } = true;
@@ -76,5 +104,17 @@ public partial class TPlace : ISql
         if (!string.IsNullOrEmpty(City)) partAddress.Add(City);
         if (!string.IsNullOrEmpty(Country)) partAddress.Add(Country);
         return string.Join(", ", partAddress);
+    }
+
+    private void UpdateGeometry()
+    {
+        if (_latitude.HasValue && _longitude.HasValue)
+        {
+            _geometry = new Point(_latitude.Value, _longitude.Value) { SRID = 4326 };
+        }
+        else
+        {
+            _geometry = null;
+        }
     }
 }
