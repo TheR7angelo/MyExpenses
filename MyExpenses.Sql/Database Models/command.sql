@@ -19,3 +19,15 @@ DELETE FROM t_supported_languages;
 INSERT INTO t_supported_languages(id, code, native_name, english_name, default_language, date_added)
 VALUES (1,'en-001','English (World)','English (World)', true,'2024-07-12 09:19:06'),
        (2,'fr-FR','Français (France)','French (France)', false,'2024-07-12 09:19:06');
+
+INSERT INTO t_place(id, name, number, street, postal, city, country, latitude, longitude, is_open, can_be_deleted, date_added)
+SELECT id, name, number, street, postal, city, country, latitude, longitude, is_open, can_be_deleted, date_added FROM t_place_2;
+
+SELECT load_extension('mod_spatialite');
+
+SELECT name, geometry, ST_SRID(geometry), ST_ASTEXT(geometry)
+FROM t_place;
+
+
+INSERT INTO t_geometry_columns(f_table_name, f_geometry_column, type, coord_dimension, srid)
+VALUES('t_place', 'geometry', 'POINT', 2, 4326);

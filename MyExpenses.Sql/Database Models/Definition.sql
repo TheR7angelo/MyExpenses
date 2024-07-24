@@ -12,16 +12,43 @@ CREATE TABLE t_version
 DROP TABLE IF EXISTS t_supported_languages;
 CREATE TABLE t_supported_languages
 (
-    id   INTEGER
+    id               INTEGER
         CONSTRAINT t_supported_languages_pk
             PRIMARY KEY AUTOINCREMENT,
-    code TEXT NOT NULL
+    code             TEXT    NOT NULL
         CONSTRAINT t_supported_languages_pk_2
             UNIQUE,
-    native_name TEXT NOT NULL,
-    english_name TEXT NOT NULL,
+    native_name      TEXT    NOT NULL,
+    english_name     TEXT    NOT NULL,
     default_language BOOLEAN NOT NULL DEFAULT FALSE,
-    date_added DATETIME DEFAULT CURRENT_TIMESTAMP
+    date_added       DATETIME         DEFAULT CURRENT_TIMESTAMP
+);
+
+DROP TABLE IF EXISTS spatial_ref_sys;
+CREATE TABLE spatial_ref_sys
+(
+    srid      INTEGER NOT NULL
+        constraint spatial_ref_sys_pk
+            primary key,
+    auth_name TEXT NOT NULL,
+    auth_srid TEXT NOT NULL,
+    srtext    TEXT NOT NULL,
+    proj4text TEXT NOT NULL,
+    constraint spatial_ref_sys_srid_check
+        check (srid > 0 AND srid <= 998999)
+);
+
+DROP TABLE IF EXISTS t_geometry_columns;
+CREATE TABLE t_geometry_columns
+(
+    id                INTEGER
+        constraint t_account_type_pk
+            PRIMARY KEY AUTOINCREMENT,
+    f_table_name      TEXT    NOT NULL,
+    f_geometry_column TEXT    NOT NULL,
+    type              TEXT    NOT NULL,
+    coord_dimension   INTEGER NOT NULL,
+    srid              INTEGER NOT NULL
 );
 
 DROP TABLE IF EXISTS t_account_type;
@@ -98,20 +125,21 @@ CREATE TABLE t_mode_payment
 DROP TABLE IF EXISTS t_place;
 CREATE TABLE t_place
 (
-    id         INTEGER
+    id             INTEGER
         CONSTRAINT t_place_pk
             PRIMARY KEY AUTOINCREMENT,
-    name       TEXT,
-    number     TEXT,
-    street     TEXT,
-    postal     TEXT,
-    city       TEXT,
-    country    TEXT,
-    latitude   REAL,
-    longitude  REAL,
-    is_open    BOOLEAN  DEFAULT TRUE,
-    can_be_deleted BOOLEAN DEFAULT TRUE,
-    date_added DATETIME DEFAULT CURRENT_TIMESTAMP
+    name           TEXT,
+    number         TEXT,
+    street         TEXT,
+    postal         TEXT,
+    city           TEXT,
+    country        TEXT,
+    latitude       REAL,
+    longitude      REAL,
+    geometry       BLOB,
+    is_open        BOOLEAN  DEFAULT TRUE,
+    can_be_deleted BOOLEAN  DEFAULT TRUE,
+    date_added     DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
 DROP TABLE IF EXISTS t_bank_transfer;
@@ -124,7 +152,7 @@ CREATE TABLE t_bank_transfer
     from_account_fk   INTEGER
         CONSTRAINT t_bank_transfer_t_account_id_fk
             REFERENCES t_account,
-    to_account_fk        INTEGER
+    to_account_fk     INTEGER
         CONSTRAINT t_bank_transfer_t_account_id_fk_2
             REFERENCES t_account,
     main_reason       TEXT,
@@ -396,16 +424,17 @@ CREATE TRIGGER after_insert_on_t_history
     FOR EACH ROW
 BEGIN
     UPDATE t_history
-    SET date       = CASE
-                         WHEN typeof(NEW.date) = 'integer' THEN datetime(NEW.date / 1000, 'unixepoch')
-                         ELSE NEW.date
+    SET date         = CASE
+                           WHEN typeof(NEW.date) = 'integer' THEN datetime(NEW.date / 1000, 'unixepoch')
+                           ELSE NEW.date
         END,
-        date_added = CASE
-                         WHEN typeof(NEW.date_added) = 'integer' THEN datetime(NEW.date_added / 1000, 'unixepoch')
-                         ELSE NEW.date_added
+        date_added   = CASE
+                           WHEN typeof(NEW.date_added) = 'integer' THEN datetime(NEW.date_added / 1000, 'unixepoch')
+                           ELSE NEW.date_added
             END,
         date_pointed = CASE
-                           WHEN NEW.pointed = 1 AND typeof(NEW.date) = 'integer' THEN datetime(NEW.date / 1000, 'unixepoch')
+                           WHEN NEW.pointed = 1 AND typeof(NEW.date) = 'integer'
+                               THEN datetime(NEW.date / 1000, 'unixepoch')
                            WHEN NEW.pointed = 0 THEN NULL
                            ELSE date_pointed
             END
@@ -419,16 +448,17 @@ CREATE TRIGGER after_update_on_t_history
     FOR EACH ROW
 BEGIN
     UPDATE t_history
-    SET date       = CASE
-                         WHEN typeof(NEW.date) = 'integer' THEN datetime(NEW.date / 1000, 'unixepoch')
-                         ELSE NEW.date
+    SET date         = CASE
+                           WHEN typeof(NEW.date) = 'integer' THEN datetime(NEW.date / 1000, 'unixepoch')
+                           ELSE NEW.date
         END,
-        date_added = CASE
-                         WHEN typeof(NEW.date_added) = 'integer' THEN datetime(NEW.date_added / 1000, 'unixepoch')
-                         ELSE NEW.date_added
+        date_added   = CASE
+                           WHEN typeof(NEW.date_added) = 'integer' THEN datetime(NEW.date_added / 1000, 'unixepoch')
+                           ELSE NEW.date_added
             END,
         date_pointed = CASE
-                           WHEN NEW.pointed = 1 AND typeof(NEW.date) = 'integer' THEN datetime(NEW.date / 1000, 'unixepoch')
+                           WHEN NEW.pointed = 1 AND typeof(NEW.date) = 'integer'
+                               THEN datetime(NEW.date / 1000, 'unixepoch')
                            WHEN NEW.pointed = 0 THEN NULL
                            ELSE date_pointed
             END
@@ -497,7 +527,7 @@ FROM t_history h
          LEFT JOIN t_category_type tct
                    ON h.category_type_fk = tct.id
          LEFT JOIN t_color tco
-             ON tct.color_fk = tco.id
+                   ON tct.color_fk = tco.id
          LEFT JOIN t_mode_payment tmp
                    ON h.mode_payment_fk = tmp.id
          LEFT JOIN t_currency tcu
@@ -580,7 +610,7 @@ FROM t_bank_transfer bk
          INNER JOIN t_account fa
                     ON bk.from_account_fk = fa.id
          INNER JOIN t_account ta
-            ON bk.to_account_fk = ta.id;
+                    ON bk.to_account_fk = ta.id;
 
 DROP VIEW IF EXISTS v_account_monthly_cumulative_sum;
 CREATE VIEW v_account_monthly_cumulative_sum AS
@@ -645,5 +675,3 @@ FROM cumulative
 ORDER BY account_fk, rn;
 
 -- endregion
-
-

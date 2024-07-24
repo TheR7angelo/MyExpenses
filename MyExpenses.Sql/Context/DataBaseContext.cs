@@ -62,7 +62,8 @@ public partial class DataBaseContext : DbContext
 
         var dataSource = DataSource;
 
-        optionsBuilder.UseSqlite(dataSource)
+        optionsBuilder.UseSqlite(dataSource,
+                builder => builder.UseNetTopologySuite())
             .EnableSensitiveDataLogging();
     }
 

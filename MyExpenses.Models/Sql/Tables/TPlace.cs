@@ -37,20 +37,23 @@ public partial class TPlace : ISql
     [Column("longitude")]
     public double? Longitude { get; set; }
 
-    [NotMapped]
-    public Point Geometry
-    {
-        get =>
-            new(Latitude.GetValueOrDefault(), Longitude.GetValueOrDefault())
-            {
-                SRID = 4326
-            };
-        set
-        {
-            Latitude = value.X;
-            Longitude = value.Y;
-        }
-    }
+    [Column("geometry")]
+    public Point? Geometry { get; set; }
+
+    // [NotMapped]
+    // public Point Geometry
+    // {
+    //     get =>
+    //         new(Latitude.GetValueOrDefault(), Longitude.GetValueOrDefault())
+    //         {
+    //             SRID = 4326
+    //         };
+    //     set
+    //     {
+    //         Latitude = value.X;
+    //         Longitude = value.Y;
+    //     }
+    // }
 
     [Column("is_open", TypeName = "BOOLEAN")]
     public bool? IsOpen { get; set; } = true;
