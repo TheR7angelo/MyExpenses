@@ -17,8 +17,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyExpenses.WebApi.Test", "T
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyExpenses.Wpf.Test", "Tests\MyExpenses.Wpf.Test\MyExpenses.Wpf.Test.csproj", "{A90648BB-81E7-4D73-AE4F-25EC51E91F39}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyExpenses.Sql.Test", "Tests\MyExpenses.Sql.Test\MyExpenses.Sql.Test.csproj", "{8EEF7B15-47B9-4DFD-9622-0B4B84D57C91}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyExpenses.SvgToXaml", "MyExpenses.SvgToXaml\MyExpenses.SvgToXaml.csproj", "{6399EB6F-C5EF-4139-878B-6779438FE047}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyExpenses.Core", "MyExpenses.Core\MyExpenses.Core.csproj", "{F2915007-9744-4E62-9CF5-D92358B69CDD}"
@@ -69,10 +67,6 @@ Global
 		{A90648BB-81E7-4D73-AE4F-25EC51E91F39}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A90648BB-81E7-4D73-AE4F-25EC51E91F39}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A90648BB-81E7-4D73-AE4F-25EC51E91F39}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8EEF7B15-47B9-4DFD-9622-0B4B84D57C91}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8EEF7B15-47B9-4DFD-9622-0B4B84D57C91}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8EEF7B15-47B9-4DFD-9622-0B4B84D57C91}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8EEF7B15-47B9-4DFD-9622-0B4B84D57C91}.Release|Any CPU.Build.0 = Release|Any CPU
 		{6399EB6F-C5EF-4139-878B-6779438FE047}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{6399EB6F-C5EF-4139-878B-6779438FE047}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6399EB6F-C5EF-4139-878B-6779438FE047}.Release|Any CPU.ActiveCfg = Release|Any CPU
