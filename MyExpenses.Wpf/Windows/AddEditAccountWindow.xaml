@@ -5,7 +5,6 @@
                  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                  xmlns:local="clr-namespace:MyExpenses.Wpf.Pages"
                  xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-                 xmlns:utils="clr-namespace:MyExpenses.Wpf.Utils;assembly=MyExpenses.Wpf.Utils"
                  xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
                  xmlns:converters="clr-namespace:MyExpenses.Wpf.Converters"
                  xmlns:margin="clr-namespace:MyExpenses.Wpf.Utils.Margin;assembly=MyExpenses.Wpf.Utils"
