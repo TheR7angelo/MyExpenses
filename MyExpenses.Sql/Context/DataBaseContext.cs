@@ -57,8 +57,9 @@ public partial class DataBaseContext : DbContext
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         DataSource = !string.IsNullOrEmpty(TempFilePath)
-            ? $"Data Source={TempFilePath};Pooling=False"
-            : $"Data Source={FilePath};Pooling=False";
+            ? $"Data Source={TempFilePath}"
+            : $"Data Source={FilePath}";
+        DataSource = $"{DataSource};Pooling=False";
 
         var dataSource = DataSource;
 
