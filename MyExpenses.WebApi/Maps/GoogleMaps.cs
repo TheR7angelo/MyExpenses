@@ -8,7 +8,7 @@ namespace MyExpenses.WebApi.Maps;
 public static class GoogleMaps
 {
     public static void ToGoogleStreetView(this TPlace place, int zoomLevel = 0)
-        => place.Geometry.ToGoogleStreetView(zoomLevel);
+        => place.Geometry?.ToGoogleStreetView(zoomLevel);
 
     public static void ToGoogleStreetView(this Point point, int zoomLevel = 0)
     {
@@ -24,7 +24,7 @@ public static class GoogleMaps
     }
 
     public static void ToGoogleMaps(this TPlace place)
-        => place.Geometry.ToGoogleMaps();
+        => place.Geometry?.ToGoogleMaps();
 
     public static void ToGoogleMaps(this Point point)
     {
