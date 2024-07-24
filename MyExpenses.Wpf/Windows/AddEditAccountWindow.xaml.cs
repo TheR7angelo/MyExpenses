@@ -4,6 +4,8 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Interop;
 using Microsoft.Data.Sqlite;
+using MyExpenses.Models.Config;
+using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Sql.Tables;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils.Collection;
@@ -36,27 +38,99 @@ public partial class AddEditAccountWindow
 
     #region HintAssist
 
-    public string HintAssistTextBoxAccountName { get; } = AddEditAccountWindowResources.TextBoxAccountName;
-    public string HintAssistComboBoxAccountType { get; } = AddEditAccountWindowResources.ComboBoxAccountType;
+    public static readonly DependencyProperty HintAssistTextBoxAccountNameProperty =
+        DependencyProperty.Register(nameof(HintAssistTextBoxAccountName), typeof(string), typeof(AddEditAccountWindow),
+            new PropertyMetadata(default(string)));
 
-    public string HintAssistComboBoxAccountCategoryType { get; } =
-        AddEditAccountWindowResources.ComboBoxAccountCategoryType;
+    public string HintAssistTextBoxAccountName
+    {
+        get => (string)GetValue(HintAssistTextBoxAccountNameProperty);
+        set => SetValue(HintAssistTextBoxAccountNameProperty, value);
+    }
 
-    public string HintAssistComboBoxAccountCurrency { get; } = AddEditAccountWindowResources.ComboBoxAccountCurrency;
+    public static readonly DependencyProperty HintAssistComboBoxAccountTypeProperty =
+        DependencyProperty.Register(nameof(HintAssistComboBoxAccountType), typeof(string), typeof(AddEditAccountWindow),
+            new PropertyMetadata(default(string)));
 
-    public string HintAssistTextBoxAccountStartingBalance { get; } =
-        AddEditAccountWindowResources.TextBoxAccountStartingBalance;
+    public string HintAssistComboBoxAccountType
+    {
+        get => (string)GetValue(HintAssistComboBoxAccountTypeProperty);
+        set => SetValue(HintAssistComboBoxAccountTypeProperty, value);
+    }
 
-    public string HintAssistTextBoxAccountStartingBalanceDescription { get; } =
-        AddEditAccountWindowResources.TextBoxAccountStartingBalanceDescription;
+    public static readonly DependencyProperty HintAssistComboBoxAccountCurrencyProperty =
+        DependencyProperty.Register(nameof(HintAssistComboBoxAccountCurrency), typeof(string),
+            typeof(AddEditAccountWindow), new PropertyMetadata(default(string)));
+
+    public string HintAssistComboBoxAccountCurrency
+    {
+        get => (string)GetValue(HintAssistComboBoxAccountCurrencyProperty);
+        set => SetValue(HintAssistComboBoxAccountCurrencyProperty, value);
+    }
+
+    public static readonly DependencyProperty HintAssistTextBoxAccountStartingBalanceDescriptionProperty =
+        DependencyProperty.Register(nameof(HintAssistTextBoxAccountStartingBalanceDescription), typeof(string),
+            typeof(AddEditAccountWindow), new PropertyMetadata(default(string)));
+
+    public string HintAssistTextBoxAccountStartingBalanceDescription
+    {
+        get => (string)GetValue(HintAssistTextBoxAccountStartingBalanceDescriptionProperty);
+        set => SetValue(HintAssistTextBoxAccountStartingBalanceDescriptionProperty, value);
+    }
+
+    public static readonly DependencyProperty HintAssistTextBoxAccountStartingBalanceProperty =
+        DependencyProperty.Register(nameof(HintAssistTextBoxAccountStartingBalance), typeof(string),
+            typeof(AddEditAccountWindow), new PropertyMetadata(default(string)));
+
+    public string HintAssistTextBoxAccountStartingBalance
+    {
+        get => (string)GetValue(HintAssistTextBoxAccountStartingBalanceProperty);
+        set => SetValue(HintAssistTextBoxAccountStartingBalanceProperty, value);
+    }
+
+    public static readonly DependencyProperty HintAssistComboBoxAccountCategoryTypeProperty =
+        DependencyProperty.Register(nameof(HintAssistComboBoxAccountCategoryType), typeof(string),
+            typeof(AddEditAccountWindow), new PropertyMetadata(default(string)));
+
+    public string HintAssistComboBoxAccountCategoryType
+    {
+        get => (string)GetValue(HintAssistComboBoxAccountCategoryTypeProperty);
+        set => SetValue(HintAssistComboBoxAccountCategoryTypeProperty, value);
+    }
 
     #endregion
 
     #region Button
 
-    public string ButtonCancelContent { get; } = AddEditAccountWindowResources.ButtonCancelContent;
-    public string ButtonDeleteContent { get; } = AddEditAccountWindowResources.ButtonDeleteContent;
-    public string ButtonValidContent { get; } = AddEditAccountWindowResources.ButtonValidContent;
+    public static readonly DependencyProperty ButtonValidContentProperty =
+        DependencyProperty.Register(nameof(ButtonValidContent), typeof(string), typeof(AddEditAccountWindow),
+            new PropertyMetadata(default(string)));
+
+    public string ButtonValidContent
+    {
+        get => (string)GetValue(ButtonValidContentProperty);
+        set => SetValue(ButtonValidContentProperty, value);
+    }
+
+    public static readonly DependencyProperty ButtonDeleteContentProperty =
+        DependencyProperty.Register(nameof(ButtonDeleteContent), typeof(string), typeof(AddEditAccountWindow),
+            new PropertyMetadata(default(string)));
+
+    public string ButtonDeleteContent
+    {
+        get => (string)GetValue(ButtonDeleteContentProperty);
+        set => SetValue(ButtonDeleteContentProperty, value);
+    }
+
+    public static readonly DependencyProperty ButtonCancelContentProperty =
+        DependencyProperty.Register(nameof(ButtonCancelContent), typeof(string), typeof(AddEditAccountWindow),
+            new PropertyMetadata(default(string)));
+
+    public string ButtonCancelContent
+    {
+        get => (string)GetValue(ButtonCancelContentProperty);
+        set => SetValue(ButtonCancelContentProperty, value);
+    }
 
     #endregion
 
@@ -100,7 +174,6 @@ public partial class AddEditAccountWindow
 
     #endregion
 
-    //TODO add language
     public AddEditAccountWindow()
     {
         using var context = new DataBaseContext();
@@ -109,6 +182,8 @@ public partial class AddEditAccountWindow
         Currencies = [..context.TCurrencies.OrderBy(s => s.Symbol)];
         CategoryTypes = [..context.TCategoryTypes.OrderBy(s => s.Name)];
 
+        Interface.LanguageChanged += Interface_OnLanguageChanged;
+        UpdateLanguage();
         InitializeComponent();
 
         var hWnd = new WindowInteropHelper(GetWindow(this)!).EnsureHandle();
@@ -209,7 +284,9 @@ public partial class AddEditAccountWindow
 
     private void ButtonDelete_OnClick(object sender, RoutedEventArgs e)
     {
-        var response = MsgBox.MsgBox.Show(string.Format(AddEditAccountWindowResources.MessageBoxDeleteAccountQuestion, Account.Name), MsgBoxImage.Question,
+        var response = MsgBox.MsgBox.Show(
+            string.Format(AddEditAccountWindowResources.MessageBoxDeleteAccountQuestion, Account.Name),
+            MsgBoxImage.Question,
             MessageBoxButton.YesNoCancel);
         if (response is not MessageBoxResult.Yes) return;
 
@@ -264,6 +341,9 @@ public partial class AddEditAccountWindow
         DialogResult = true;
         Close();
     }
+
+    private void Interface_OnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
+        => UpdateLanguage();
 
     private void TextBoxAccountName_OnLostFocus(object sender, RoutedEventArgs e)
     {
@@ -338,6 +418,21 @@ public partial class AddEditAccountWindow
     {
         account.CopyPropertiesTo(Account);
         EditAccount = true;
+    }
+
+    private void UpdateLanguage()
+    {
+        HintAssistTextBoxAccountName = AddEditAccountWindowResources.TextBoxAccountName;
+        HintAssistComboBoxAccountType = AddEditAccountWindowResources.ComboBoxAccountType;
+        HintAssistComboBoxAccountCategoryType = AddEditAccountWindowResources.ComboBoxAccountCategoryType;
+        HintAssistComboBoxAccountCurrency = AddEditAccountWindowResources.ComboBoxAccountCurrency;
+        HintAssistTextBoxAccountStartingBalance = AddEditAccountWindowResources.TextBoxAccountStartingBalance;
+        HintAssistTextBoxAccountStartingBalanceDescription =
+            AddEditAccountWindowResources.TextBoxAccountStartingBalanceDescription;
+
+        ButtonCancelContent = AddEditAccountWindowResources.ButtonCancelContent;
+        ButtonDeleteContent = AddEditAccountWindowResources.ButtonDeleteContent;
+        ButtonValidContent = AddEditAccountWindowResources.ButtonValidContent;
     }
 
     #endregion
