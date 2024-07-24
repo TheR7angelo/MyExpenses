@@ -34,11 +34,15 @@ public partial class DataBaseContext : DbContext
 
     public virtual DbSet<TCurrency> TCurrencies { get; set; }
 
+    public virtual DbSet<TGeometryColumn> TGeometryColumns { get; set; }
+
     public virtual DbSet<THistory> THistories { get; set; }
 
     public virtual DbSet<TModePayment> TModePayments { get; set; }
 
     public virtual DbSet<TPlace> TPlaces { get; set; }
+
+    public virtual DbSet<TSpatialRefSy> TSpatialRefSys { get; set; }
 
     public virtual DbSet<TSupportedLanguage> TSupportedLanguages { get; set; }
 
@@ -101,6 +105,11 @@ public partial class DataBaseContext : DbContext
             entity.Property(e => e.DateAdded).HasDefaultValueSql("CURRENT_TIMESTAMP");
         });
 
+        modelBuilder.Entity<TGeometryColumn>(entity =>
+        {
+            entity.HasOne(d => d.Sr).WithMany(p => p.TGeometryColumns).OnDelete(DeleteBehavior.ClientSetNull);
+        });
+
         modelBuilder.Entity<THistory>(entity =>
         {
             entity.Property(e => e.DateAdded).HasDefaultValueSql("CURRENT_TIMESTAMP");
@@ -120,10 +129,15 @@ public partial class DataBaseContext : DbContext
             entity.Property(e => e.IsOpen).HasDefaultValueSql("TRUE");
         });
 
+        modelBuilder.Entity<TSpatialRefSy>(entity =>
+        {
+            entity.Property(e => e.Srid).ValueGeneratedNever();
+        });
+
         modelBuilder.Entity<TSupportedLanguage>(entity =>
         {
-            entity.Property(e => e.DefaultLanguage).HasDefaultValueSql("FALSE");
             entity.Property(e => e.DateAdded).HasDefaultValueSql("CURRENT_TIMESTAMP");
+            entity.Property(e => e.DefaultLanguage).HasDefaultValueSql("FALSE");
         });
 
         modelBuilder.Entity<VAccountMonthlyCumulativeSum>(entity =>

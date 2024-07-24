@@ -24,17 +24,17 @@ CREATE TABLE t_supported_languages
     date_added       DATETIME         DEFAULT CURRENT_TIMESTAMP
 );
 
-DROP TABLE IF EXISTS spatial_ref_sys;
-CREATE TABLE spatial_ref_sys
+DROP TABLE IF EXISTS t_spatial_ref_sys;
+CREATE TABLE t_spatial_ref_sys
 (
-    srid      INTEGER NOT NULL
-        constraint spatial_ref_sys_pk
+    srid      INTEGER not null
+        constraint t_spatial_ref_sys_pk
             primary key,
-    auth_name TEXT NOT NULL,
-    auth_srid TEXT NOT NULL,
-    srtext    TEXT NOT NULL,
-    proj4text TEXT NOT NULL,
-    constraint spatial_ref_sys_srid_check
+    auth_name TEXT    not null,
+    auth_srid TEXT    not null,
+    srtext    TEXT    not null,
+    proj4text TEXT    not null,
+    constraint t_spatial_ref_sys_srid_check
         check (srid > 0 AND srid <= 998999)
 );
 
@@ -42,13 +42,15 @@ DROP TABLE IF EXISTS t_geometry_columns;
 CREATE TABLE t_geometry_columns
 (
     id                INTEGER
-        constraint t_account_type_pk
-            PRIMARY KEY AUTOINCREMENT,
-    f_table_name      TEXT    NOT NULL,
-    f_geometry_column TEXT    NOT NULL,
-    type              TEXT    NOT NULL,
-    coord_dimension   INTEGER NOT NULL,
-    srid              INTEGER NOT NULL
+        constraint t_geometry_columns_pk
+            primary key autoincrement,
+    f_table_name      TEXT    not null,
+    f_geometry_column TEXT    not null,
+    type              TEXT    not null,
+    coord_dimension   INTEGER not null,
+    srid              INTEGER not null
+        constraint t_geometry_columns_t_spatial_ref_sys_srid_fk
+            references t_spatial_ref_sys
 );
 
 DROP TABLE IF EXISTS t_account_type;
