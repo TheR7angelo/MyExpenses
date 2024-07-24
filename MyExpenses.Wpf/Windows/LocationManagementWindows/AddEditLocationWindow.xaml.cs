@@ -296,7 +296,7 @@ public partial class AddEditLocationWindow
         var point = Place.Geometry;
         Log.Information("Using the nominatim API to search via a point : {Point}", point);
 
-        var nominatimSearchResult = point.ToNominatim();
+        var nominatimSearchResult = point?.ToNominatim();
 
         var mapper = Mapping.Mapper;
         var newPlace = mapper.Map<TPlace>(nominatimSearchResult);
