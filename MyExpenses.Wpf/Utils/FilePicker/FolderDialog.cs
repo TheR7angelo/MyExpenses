@@ -29,7 +29,5 @@ public class FolderDialog(string? titleOpenFile = null, bool multiSelect = false
     }
 
     public string? SaveFile()
-    {
-        throw new NotImplementedException();
-    }
+        => null;
 }
