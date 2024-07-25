@@ -77,4 +77,7 @@
     <data name="MessageBoxDeleteAccountError" xml:space="preserve">
         <value>An error occurred please retry</value>
     </data>
+    <data name="TitleWindow" xml:space="preserve">
+        <value>Add or change a color</value>
+    </data>
 </root>

@@ -11,7 +11,7 @@
                  xmlns:margin="clr-namespace:MyExpenses.Wpf.Utils.Margin;assembly=MyExpenses.Wpf.Utils"
                  mc:Ignorable="d"
 
-                 Title="AddEditColorWindow"
+                 Title="{Binding TitleWindow, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
 
                  d:DesignHeight="450"
                  d:DesignWidth="525"
@@ -37,8 +37,6 @@
                  TextElement.Foreground="{DynamicResource MaterialDesignBody}"
 
                  DataContext="{Binding RelativeSource={RelativeSource Self}}">
-
-    <!-- TODO add window Title -->
 
     <mah:MetroWindow.Resources>
         <colors:HexToColorConverter x:Key="HexToColorConverter" />

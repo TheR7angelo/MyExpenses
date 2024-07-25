@@ -29,6 +29,15 @@ public partial class AddEditColorWindow
 
     #region Resx
 
+    public static readonly DependencyProperty TitleWindowProperty = DependencyProperty.Register(nameof(TitleWindow),
+        typeof(string), typeof(AddEditColorWindow), new PropertyMetadata(default(string)));
+
+    public string TitleWindow
+    {
+        get => (string)GetValue(TitleWindowProperty);
+        set => SetValue(TitleWindowProperty, value);
+    }
+
     public static readonly DependencyProperty TextBoxColorNameProperty =
         DependencyProperty.Register(nameof(TextBoxColorName), typeof(string), typeof(AddEditColorWindow),
             new PropertyMetadata(default(string)));
@@ -181,6 +190,8 @@ public partial class AddEditColorWindow
 
     private void UpdateLanguage()
     {
+        TitleWindow = AddEditColorWindowResources.TitleWindow;
+
         LabelRedChannel = AddEditColorWindowResources.LabelRedChannel;
         LabelGreenChannel = AddEditColorWindowResources.LabelGreenChannel;
         LabelBlueChannel = AddEditColorWindowResources.LabelBlueChannel;

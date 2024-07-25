@@ -257,5 +257,14 @@ namespace MyExpenses.Wpf.Resources.Resx.Windows.AddEditColorWindow {
                 return ResourceManager.GetString("TextBoxColorName", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add or change a color.
+        /// </summary>
+        internal static string TitleWindow {
+            get {
+                return ResourceManager.GetString("TitleWindow", resourceCulture);
+            }
+        }
     }
 }
