@@ -210,5 +210,14 @@ namespace MyExpenses.Wpf.Resources.Resx.Windows.AddEditCategoryTypeWindow {
                 return ResourceManager.GetString("MessageBoxDeleteCategoryTypeError", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to TitleWindow.
+        /// </summary>
+        internal static string TitleWindow {
+            get {
+                return ResourceManager.GetString("TitleWindow", resourceCulture);
+            }
+        }
     }
 }

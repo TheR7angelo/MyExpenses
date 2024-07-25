@@ -62,4 +62,7 @@
     <data name="MessageBoxDeleteCategoryTypeError" xml:space="preserve">
         <value>An error occurred please retry</value>
     </data>
+    <data name="TitleWindow" xml:space="preserve">
+        <value>Add or edit a category type</value>
+    </data>
 </root>

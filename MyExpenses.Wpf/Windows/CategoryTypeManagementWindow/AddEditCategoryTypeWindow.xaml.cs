@@ -121,7 +121,7 @@ public partial class AddEditCategoryTypeWindow
 
     private void UpdateLanguage()
     {
-        TitleWindow = "AddEditCategoryType";
+        TitleWindow = AddEditCategoryTypeWindowResources.TitleWindow;
 
         TextBoxCategoryTypeName = AddEditCategoryTypeWindowResources.TextBoxCategoryTypeName;
         ComboBoxColorValue = AddEditCategoryTypeWindowResources.ComboBoxColorValue;
