@@ -36,6 +36,15 @@ public partial class AddEditAccountWindow
 
     #region Resx
 
+    public static readonly DependencyProperty TitleWindowProperty = DependencyProperty.Register(nameof(TitleWindow),
+        typeof(string), typeof(AddEditAccountWindow), new PropertyMetadata(default(string)));
+
+    public string TitleWindow
+    {
+        get => (string)GetValue(TitleWindowProperty);
+        set => SetValue(TitleWindowProperty, value);
+    }
+
     #region HintAssist
 
     public static readonly DependencyProperty HintAssistTextBoxAccountNameProperty =
@@ -422,6 +431,8 @@ public partial class AddEditAccountWindow
 
     private void UpdateLanguage()
     {
+        TitleWindow = AddEditAccountWindowResources.TitleWindow;
+
         HintAssistTextBoxAccountName = AddEditAccountWindowResources.TextBoxAccountName;
         HintAssistComboBoxAccountType = AddEditAccountWindowResources.ComboBoxAccountType;
         HintAssistComboBoxAccountCategoryType = AddEditAccountWindowResources.ComboBoxAccountCategoryType;

@@ -90,4 +90,7 @@
     <data name="MessageBoxDeleteAccountQuestion" xml:space="preserve">
         <value>Are you sure you want to delete account "{0}" ?</value>
     </data>
+    <data name="TitleWindow" xml:space="preserve">
+        <value>Add or edit account</value>
+    </data>
 </root>

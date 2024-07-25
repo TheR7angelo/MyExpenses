@@ -271,5 +271,14 @@ namespace MyExpenses.Wpf.Resources.Resx.Windows.AddAccountWindow {
                 return ResourceManager.GetString("MessageBoxDeleteAccountQuestion", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to TitleWindow.
+        /// </summary>
+        internal static string TitleWindow {
+            get {
+                return ResourceManager.GetString("TitleWindow", resourceCulture);
+            }
+        }
     }
 }

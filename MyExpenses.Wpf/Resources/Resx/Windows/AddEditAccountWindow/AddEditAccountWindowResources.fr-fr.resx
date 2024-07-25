@@ -83,4 +83,7 @@
     <data name="MessageBoxDeleteAccountQuestion" xml:space="preserve">
         <value>Etes-vous sûr de vouloir supprimer le compte "{0}" ?</value>
     </data>
+    <data name="TitleWindow" xml:space="preserve">
+        <value>Ajouter ou modifier le compte</value>
+    </data>
 </root>
