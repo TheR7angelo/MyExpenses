@@ -4,6 +4,8 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Interop;
 using Microsoft.Data.Sqlite;
+using MyExpenses.Models.Config;
+using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Sql.Tables;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils.Collection;
@@ -40,27 +42,92 @@ public partial class AddEditCategoryTypeWindow
 
     #region Resx
 
-    public string TextBoxCategoryTypeName { get; } = AddEditCategoryTypeWindowResources.TextBoxCategoryTypeName;
-    public string ComboBoxColorValue { get; } = AddEditCategoryTypeWindowResources.ComboBoxColorValue;
-    public string ButtonValidContent { get; } = AddEditCategoryTypeWindowResources.ButtonValidContent;
-    public string ButtonDeleteContent { get; } = AddEditCategoryTypeWindowResources.ButtonDeleteContent;
-    public string ButtonCancelContent { get; } = AddEditCategoryTypeWindowResources.ButtonCancelContent;
+    public static readonly DependencyProperty TitleWindowProperty = DependencyProperty.Register(nameof(TitleWindow),
+        typeof(string), typeof(AddEditCategoryTypeWindow), new PropertyMetadata(default(string)));
+
+    public string TitleWindow
+    {
+        get => (string)GetValue(TitleWindowProperty);
+        set => SetValue(TitleWindowProperty, value);
+    }
+
+    public static readonly DependencyProperty TextBoxCategoryTypeNameProperty =
+        DependencyProperty.Register(nameof(TextBoxCategoryTypeName), typeof(string), typeof(AddEditCategoryTypeWindow),
+            new PropertyMetadata(default(string)));
+
+    public string TextBoxCategoryTypeName
+    {
+        get => (string)GetValue(TextBoxCategoryTypeNameProperty);
+        set => SetValue(TextBoxCategoryTypeNameProperty, value);
+    }
+
+    public static readonly DependencyProperty ComboBoxColorValueProperty =
+        DependencyProperty.Register(nameof(ComboBoxColorValue), typeof(string), typeof(AddEditCategoryTypeWindow),
+            new PropertyMetadata(default(string)));
+
+    public string ComboBoxColorValue
+    {
+        get => (string)GetValue(ComboBoxColorValueProperty);
+        set => SetValue(ComboBoxColorValueProperty, value);
+    }
+
+    public static readonly DependencyProperty ButtonValidContentProperty =
+        DependencyProperty.Register(nameof(ButtonValidContent), typeof(string), typeof(AddEditCategoryTypeWindow),
+            new PropertyMetadata(default(string)));
+
+    public string ButtonValidContent
+    {
+        get => (string)GetValue(ButtonValidContentProperty);
+        set => SetValue(ButtonValidContentProperty, value);
+    }
+
+    public static readonly DependencyProperty ButtonDeleteContentProperty =
+        DependencyProperty.Register(nameof(ButtonDeleteContent), typeof(string), typeof(AddEditCategoryTypeWindow),
+            new PropertyMetadata(default(string)));
+
+    public string ButtonDeleteContent
+    {
+        get => (string)GetValue(ButtonDeleteContentProperty);
+        set => SetValue(ButtonDeleteContentProperty, value);
+    }
+
+    public static readonly DependencyProperty ButtonCancelContentProperty =
+        DependencyProperty.Register(nameof(ButtonCancelContent), typeof(string), typeof(AddEditCategoryTypeWindow),
+            new PropertyMetadata(default(string)));
+
+    public string ButtonCancelContent
+    {
+        get => (string)GetValue(ButtonCancelContentProperty);
+        set => SetValue(ButtonCancelContentProperty, value);
+    }
 
     #endregion
 
     public string ComboBoxColorSelectedValuePath { get; } = nameof(TColor.Id);
 
-    //TODO add language
     public AddEditCategoryTypeWindow()
     {
         using var context = new DataBaseContext();
         CategoryTypes = [..context.TCategoryTypes];
         Colors = [..context.TColors.OrderBy(s => s.Name)];
 
+        Interface.LanguageChanged += Interface_OnLanguageChanged;
+        UpdateLanguage();
         InitializeComponent();
 
         var hWnd = new WindowInteropHelper(GetWindow(this)!).EnsureHandle();
         hWnd.SetWindowCornerPreference(DwmWindowCornerPreference.Round);
+    }
+
+    private void UpdateLanguage()
+    {
+        TitleWindow = "AddEditCategoryType";
+
+        TextBoxCategoryTypeName = AddEditCategoryTypeWindowResources.TextBoxCategoryTypeName;
+        ComboBoxColorValue = AddEditCategoryTypeWindowResources.ComboBoxColorValue;
+        ButtonValidContent = AddEditCategoryTypeWindowResources.ButtonValidContent;
+        ButtonDeleteContent = AddEditCategoryTypeWindowResources.ButtonDeleteContent;
+        ButtonCancelContent = AddEditCategoryTypeWindowResources.ButtonCancelContent;
     }
 
     #region Action
@@ -83,7 +150,8 @@ public partial class AddEditCategoryTypeWindow
         if (success)
         {
             Log.Information("Category type was successfully removed");
-            MsgBox.MsgBox.Show(AddEditCategoryTypeWindowResources.MessageBoxDeleteCategoryTypeNoUseSuccess, MsgBoxImage.Check);
+            MsgBox.MsgBox.Show(AddEditCategoryTypeWindowResources.MessageBoxDeleteCategoryTypeNoUseSuccess,
+                MsgBoxImage.Check);
 
             CategoryTypeDeleted = true;
             DialogResult = true;
@@ -104,11 +172,13 @@ public partial class AddEditCategoryTypeWindow
 
             if (response is not MessageBoxResult.Yes) return;
 
-            Log.Information("Attempting to remove the category type \"{CategoryTypeToDeleteName}\" with all relative element",
+            Log.Information(
+                "Attempting to remove the category type \"{CategoryTypeToDeleteName}\" with all relative element",
                 CategoryType.Name);
             CategoryType.Delete(true);
             Log.Information("Category type and all relative element was successfully removed");
-            MsgBox.MsgBox.Show(AddEditCategoryTypeWindowResources.MessageBoxDeleteCategoryTypeUseSuccess, MsgBoxImage.Check);
+            MsgBox.MsgBox.Show(AddEditCategoryTypeWindowResources.MessageBoxDeleteCategoryTypeUseSuccess,
+                MsgBoxImage.Check);
 
             CategoryTypeDeleted = true;
             DialogResult = true;
@@ -126,7 +196,8 @@ public partial class AddEditCategoryTypeWindow
         var categoryTypeName = CategoryType.Name;
         if (string.IsNullOrWhiteSpace(categoryTypeName))
         {
-            MsgBox.MsgBox.Show(AddEditCategoryTypeWindowResources.MessageBoxCategoryNameCannotBeEmptyError, MsgBoxImage.Error);
+            MsgBox.MsgBox.Show(AddEditCategoryTypeWindowResources.MessageBoxCategoryNameCannotBeEmptyError,
+                MsgBoxImage.Error);
             return;
         }
 
@@ -138,13 +209,17 @@ public partial class AddEditCategoryTypeWindow
 
         if (CategoryType.ColorFk is null)
         {
-            MsgBox.MsgBox.Show(AddEditCategoryTypeWindowResources.MessageBoxCategoryColorCannotBeEmptyError, MsgBoxImage.Error);
+            MsgBox.MsgBox.Show(AddEditCategoryTypeWindowResources.MessageBoxCategoryColorCannotBeEmptyError,
+                MsgBoxImage.Error);
             return;
         }
 
         DialogResult = true;
         Close();
     }
+
+    private void Interface_OnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
+        => UpdateLanguage();
 
     private void TextBoxCategoryType_OnPreviewLostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
     {
@@ -228,7 +303,8 @@ public partial class AddEditCategoryTypeWindow
 
         var newColor = addEditColorWindow.Color;
 
-        Log.Information("Attempt to inject the new color \"{ColorName}\" with hexadecimal code \"{ColorHexadecimalColorCode}\"",
+        Log.Information(
+            "Attempt to inject the new color \"{ColorName}\" with hexadecimal code \"{ColorHexadecimalColorCode}\"",
             newColor.Name, newColor.HexadecimalColorCode);
 
         var (success, exception) = newColor.AddOrEdit();

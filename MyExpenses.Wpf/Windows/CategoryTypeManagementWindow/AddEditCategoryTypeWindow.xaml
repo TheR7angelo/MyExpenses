@@ -9,7 +9,7 @@
         xmlns:margin="clr-namespace:MyExpenses.Wpf.Utils.Margin;assembly=MyExpenses.Wpf.Utils"
         mc:Ignorable="d"
 
-        Title="AddEditCategoryType"
+        Title="{Binding TitleWindow, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
 
         d:DesignHeight="250"
         d:DesignWidth="400"
@@ -48,7 +48,7 @@
         <TextBox Grid.Row="0"
                  Text="{Binding CategoryType.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                  materialDesign:TextFieldAssist.HasClearButton="True"
-                 materialDesign:HintAssist.Hint="{Binding TextBoxCategoryTypeName}"
+                 materialDesign:HintAssist.Hint="{Binding TextBoxCategoryTypeName, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                  Style="{StaticResource MaterialDesignFilledTextBox}"
                  PreviewLostKeyboardFocus="TextBoxCategoryType_OnPreviewLostKeyboardFocus">
         </TextBox>
@@ -62,7 +62,7 @@
             </Grid.ColumnDefinitions>
 
             <ComboBox x:Name="ComboBoxColors" Grid.Column="0"
-                      materialDesign:HintAssist.Hint="{Binding ComboBoxColorValue}"
+                      materialDesign:HintAssist.Hint="{Binding ComboBoxColorValue, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                       materialDesign:TextFieldAssist.HasClearButton="True"
                       ItemsSource="{Binding Colors}"
                       Style="{StaticResource MaterialDesignFilledComboBox}"
@@ -111,18 +111,18 @@
                     Orientation="Horizontal"
                     HorizontalAlignment="Center" VerticalAlignment="Center">
 
-            <Button Content="{Binding ButtonValidContent}"
+            <Button Content="{Binding ButtonValidContent, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                     Style="{StaticResource MaterialDesignPaperButton}"
                     Click="ButtonValid_OnClick">
             </Button>
 
-            <Button Content="{Binding ButtonDeleteContent}"
+            <Button Content="{Binding ButtonDeleteContent, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                     Style="{StaticResource MaterialDesignPaperDarkButton}"
                     Visibility="{Binding EditCategoryType, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BooleanToVisibilityConverter}}"
                     Click="ButtonDelete_OnClick">
             </Button>
 
-            <Button Content="{Binding ButtonCancelContent}"
+            <Button Content="{Binding ButtonCancelContent, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                     Style="{StaticResource MaterialDesignPaperSecondaryButton}"
                     Click="ButtonCancel_OnClick">
             </Button>
