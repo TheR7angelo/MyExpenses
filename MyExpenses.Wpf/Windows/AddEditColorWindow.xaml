@@ -61,15 +61,15 @@
         </TextBox>
 
         <userControls:ColorPickerControl Grid.Row="1"
-            LabelRedChannel="{Binding LabelRedChannel}"
-            LabelGreenChannel="{Binding LabelGreenChannel}"
-            LabelBlueChannel="{Binding LabelBlueChannel}"
-            LabelHueChannel="{Binding LabelHueChannel}"
-            LabelSaturationChannel="{Binding LabelSaturationChannel}"
-            LabelValueChannel="{Binding LabelValueChannel}"
-            LabelAlphaChannel="{Binding LabelAlphaChannel}"
-            LabelHexadecimalCode="{Binding LabelHexadecimalCode}"
-            LabelPreview="{Binding LabelPreview}"
+            LabelRedChannel="{Binding LabelRedChannel, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+            LabelGreenChannel="{Binding LabelGreenChannel, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+            LabelBlueChannel="{Binding LabelBlueChannel, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+            LabelHueChannel="{Binding LabelHueChannel, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+            LabelSaturationChannel="{Binding LabelSaturationChannel, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+            LabelValueChannel="{Binding LabelValueChannel, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+            LabelAlphaChannel="{Binding LabelAlphaChannel, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+            LabelHexadecimalCode="{Binding LabelHexadecimalCode, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+            LabelPreview="{Binding LabelPreview, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
 
             SliderThumbFill="{DynamicResource MaterialDesignPaper}"
             SliderThumbStroke="{DynamicResource MaterialDesignBody}"
@@ -86,18 +86,18 @@
                     Orientation="Horizontal"
                     HorizontalAlignment="Center">
 
-            <Button Content="{Binding ButtonValidContent}"
+            <Button Content="{Binding ButtonValidContent, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                     Style="{StaticResource MaterialDesignPaperButton}"
                     Click="ButtonValid_OnClick">
             </Button>
 
-            <Button Content="{Binding ButtonDeleteContent}"
+            <Button Content="{Binding ButtonDeleteContent, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                     Style="{StaticResource MaterialDesignPaperDarkButton}"
                     Visibility="{Binding EditColor, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BooleanToVisibilityConverter}}"
                     Click="ButtonDelete_OnClick">
             </Button>
 
-            <Button Content="{Binding ButtonCancelContent}"
+            <Button Content="{Binding ButtonCancelContent, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                     Style="{StaticResource MaterialDesignPaperSecondaryButton}"
                     Click="ButtonCancel_OnClick">
             </Button>
