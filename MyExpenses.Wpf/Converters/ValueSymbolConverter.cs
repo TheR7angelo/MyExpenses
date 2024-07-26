@@ -5,10 +5,10 @@ namespace MyExpenses.Wpf.Converters;
 
 public class ValueSymbolConverter : IMultiValueConverter
 {
-    public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
+    public object Convert(object?[] values, Type targetType, object parameter, CultureInfo culture)
     {
-        var value = ((double)values[0]).ToString("F2");
-        var symbol = values[1].ToString() ?? string.Empty;
+        var value = ((double)(values[0] ?? 0d)).ToString("F2");
+        var symbol = values[1]?.ToString();
 
         return !string.IsNullOrWhiteSpace(symbol) ? $"{value} {symbol}" : value;
     }
