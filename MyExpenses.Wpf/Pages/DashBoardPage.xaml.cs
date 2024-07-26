@@ -238,6 +238,7 @@ public partial class DashBoardPage
 
     private static VTotalByAccount? CurrentVTotalByAccount { get; set; }
 
+    // TODO update language
     public DashBoardPage()
     {
         using var context = new DataBaseContext();
