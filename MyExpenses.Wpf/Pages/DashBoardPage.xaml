@@ -151,6 +151,7 @@
                           SelectionChanged="Selector_OnSelectionChanged">
                 </ComboBox>
 
+                <!-- TODO add language -->
                 <ComboBox Grid.Column="1"
                           ItemsSource="{Binding Months, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                           SelectedItem="{Binding SelectedMonth, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
