@@ -133,44 +133,73 @@
 
             </StackPanel>
 
-            <Grid Grid.Row="2"
-                  margin:PanelExtensions.MarginForAllChildren="3">
+            <Grid Grid.Row="2">
 
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
 
-                <ComboBox Grid.Column="0"
-                          ItemsSource="{Binding Years, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                          SelectedItem="{Binding SelectedYear, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                          Style="{StaticResource MaterialDesignFilledComboBox}"
-                          materialDesign:TextFieldAssist.HasClearButton="True"
-                          materialDesign:HintAssist.Hint="{Binding ComboBoxYearsHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                          SelectionChanged="Selector_OnSelectionChanged">
-                </ComboBox>
+                <StackPanel Grid.Row="0"
+                            Orientation="Horizontal"
+                            HorizontalAlignment="Center"
+                            margin:PanelExtensions.MarginForAllChildren="3">
 
-                <!-- TODO add language -->
-                <ComboBox Grid.Column="1"
-                          ItemsSource="{Binding Months, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                          SelectedItem="{Binding SelectedMonth, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                          Style="{StaticResource MaterialDesignFilledComboBox}"
-                          materialDesign:TextFieldAssist.HasClearButton="True"
-                          materialDesign:HintAssist.Hint="{Binding ComboBoxMonthHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                          SelectionChanged="Selector_OnSelectionChanged">
-                </ComboBox>
+                    <Button Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}">
 
-                <Button Grid.Column="2"
-                        HorizontalAlignment="Left"
-                        Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
-                        Click="ButtonDateNow_OnClick">
+                        <Button.Content>
+                            <materialDesign:PackIcon Kind="PlusBold" />
+                        </Button.Content>
 
-                    <Button.Content>
-                        <materialDesign:PackIcon Kind="ClockFast" />
-                    </Button.Content>
+                    </Button>
 
-                </Button>
+                    <Button HorizontalAlignment="Left"
+                            Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
+                            Click="ButtonDateNow_OnClick">
+
+                        <Button.Content>
+                            <materialDesign:PackIcon Kind="ClockFast" />
+                        </Button.Content>
+
+                    </Button>
+
+                    <Button Style="{StaticResource MaterialDesignFloatingActionMiniSecondaryDarkButton}">
+
+                        <Button.Content>
+                            <materialDesign:PackIcon Kind="MinusThick" />
+                        </Button.Content>
+
+                    </Button>
+
+                </StackPanel>
+
+                <Grid Grid.Row="1" margin:PanelExtensions.MarginForAllChildren="3">
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <ComboBox Grid.Column="0"
+                              ItemsSource="{Binding Years, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                              SelectedItem="{Binding SelectedYear, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                              Style="{StaticResource MaterialDesignFilledComboBox}"
+                              materialDesign:TextFieldAssist.HasClearButton="True"
+                              materialDesign:HintAssist.Hint="{Binding ComboBoxYearsHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                              SelectionChanged="Selector_OnSelectionChanged">
+                    </ComboBox>
+
+                    <!-- TODO add language -->
+                    <ComboBox Grid.Column="1"
+                              ItemsSource="{Binding Months, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                              SelectedItem="{Binding SelectedMonth, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                              Style="{StaticResource MaterialDesignFilledComboBox}"
+                              materialDesign:TextFieldAssist.HasClearButton="True"
+                              materialDesign:HintAssist.Hint="{Binding ComboBoxMonthHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                              SelectionChanged="Selector_OnSelectionChanged">
+                    </ComboBox>
+
+                </Grid>
 
             </Grid>
 
@@ -274,7 +303,8 @@
                                            FilterPopupBackground="{DynamicResource MaterialDesignPaper}"
                                            IsReadOnly="True" AutoGenerateColumns="False"
                                            ItemsSource="{Binding VHistories, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                                           CanUserAddRows="False" CanUserDeleteRows="False" CanUserReorderColumns="False"
+                                           CanUserAddRows="False" CanUserDeleteRows="False"
+                                           CanUserReorderColumns="False"
                                            HorizontalScrollBarVisibility="Auto"
                                            VerticalScrollBarVisibility="Auto"
 
@@ -296,11 +326,15 @@
 
                 <filterDataGrid:FilterDataGrid.ContextMenu>
                     <ContextMenu>
-                        <MenuItem Header="{Binding DataGridMenuItemHeaderEditRecord, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                                  Click="MenuItemEditRecord_OnClick" />
-                        <MenuItem Header="{Binding DataGridCheckBoxColumnPointed, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Click="MenuItemPointed_OnClick" />
-                        <MenuItem Header="{Binding DataGridMenuItemHeaderDeleteRecord, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                                  Click="MenuItemDeleteRecord_OnClick" />
+                        <MenuItem
+                            Header="{Binding DataGridMenuItemHeaderEditRecord, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                            Click="MenuItemEditRecord_OnClick" />
+                        <MenuItem
+                            Header="{Binding DataGridCheckBoxColumnPointed, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                            Click="MenuItemPointed_OnClick" />
+                        <MenuItem
+                            Header="{Binding DataGridMenuItemHeaderDeleteRecord, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                            Click="MenuItemDeleteRecord_OnClick" />
                     </ContextMenu>
                 </filterDataGrid:FilterDataGrid.ContextMenu>
 
