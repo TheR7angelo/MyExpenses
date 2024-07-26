@@ -145,7 +145,8 @@
                             HorizontalAlignment="Center"
                             margin:PanelExtensions.MarginForAllChildren="3">
 
-                    <Button Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}">
+                    <Button Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}"
+                            Click="ButtonAddMonth_OnClick">
 
                         <Button.Content>
                             <materialDesign:PackIcon Kind="PlusBold" />
@@ -153,8 +154,7 @@
 
                     </Button>
 
-                    <Button HorizontalAlignment="Left"
-                            Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
+                    <Button Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
                             Click="ButtonDateNow_OnClick">
 
                         <Button.Content>
@@ -163,7 +163,8 @@
 
                     </Button>
 
-                    <Button Style="{StaticResource MaterialDesignFloatingActionMiniSecondaryDarkButton}">
+                    <Button Style="{StaticResource MaterialDesignFloatingActionMiniSecondaryDarkButton}"
+                            Click="ButtonRemoveMonth_OnClick">
 
                         <Button.Content>
                             <materialDesign:PackIcon Kind="MinusThick" />

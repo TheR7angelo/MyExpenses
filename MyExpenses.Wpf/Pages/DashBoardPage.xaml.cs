@@ -305,14 +305,11 @@ public partial class DashBoardPage
     private void ButtonCurrencyManagement_OnClick(object sender, RoutedEventArgs e)
         => nameof(MainWindow.FrameBody).NavigateTo(typeof(CurrencyManagementPage));
 
-    //TODO add security
+    //TODO add messagebox error
     private void ButtonDateNow_OnClick(object sender, RoutedEventArgs e)
     {
-        var now = DateTime.Now;
-        var yearStr = now.Year.ToString();
-
-        SelectedYear = Years.Contains(yearStr) ? yearStr : string.Empty;
-        SelectedMonth = Months[now.Month - 1];
+        var now = DateOnly.FromDateTime(DateTime.Now);
+        var result = UpdateFilterDate(now);
     }
 
     private void ButtonLocationManagement_OnClick(object sender, RoutedEventArgs e)
@@ -647,4 +644,38 @@ public partial class DashBoardPage
     //     var json = vHistory.ToJsonString();
     //     Console.WriteLine(json);
     // }
+    private void ButtonAddMonth_OnClick(object sender, RoutedEventArgs e)
+    {
+        var monthIndex = Months.IndexOf(SelectedMonth) + 1;
+        var year = int.Parse(SelectedYear);
+        var date = DateOnly.Parse($"{year}/{monthIndex}/01");
+        date = date.AddMonths(1);
+
+        var result = UpdateFilterDate(date);
+    }
+
+    //TODO add messagebox error
+    private void ButtonRemoveMonth_OnClick(object sender, RoutedEventArgs e)
+    {
+        var monthIndex = Months.IndexOf(SelectedMonth) + 1;
+        var year = int.Parse(SelectedYear);
+        var date = DateOnly.Parse($"{year}/{monthIndex}/01");
+        date = date.AddMonths(-1);
+
+        var result = UpdateFilterDate(date);
+    }
+
+    //TODO add messagebox error
+    private bool UpdateFilterDate(DateOnly date)
+    {
+        var yearStr = date.Year.ToString();
+        if (!Years.Contains(yearStr)) return false;
+
+        if (!yearStr.Equals(SelectedYear)) SelectedYear = yearStr;
+
+        var monthIndex = date.Month - 1;
+        SelectedMonth = Months[monthIndex];
+
+        return true;
+    }
 }
