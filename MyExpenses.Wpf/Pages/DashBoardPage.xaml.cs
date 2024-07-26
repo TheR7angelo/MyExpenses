@@ -271,6 +271,8 @@ public partial class DashBoardPage
         Interface.ThemeChanged += Interface_OnThemeChanged;
         Interface.LanguageChanged += Interface_OnLanguageChanged;
 
+        RefreshAccountTotal();
+
         InitializeComponent();
         UpdateLanguage();
 
@@ -416,6 +418,8 @@ public partial class DashBoardPage
 
     private void ToggleButtonVTotalAccount_OnChecked(object sender, RoutedEventArgs e)
     {
+        RefreshAccountTotal();
+
         var button = (RadioButton)sender;
         var vTotalByAccount = (VTotalByAccount)button.DataContext;
         Total = vTotalByAccount.Total;
@@ -434,14 +438,34 @@ public partial class DashBoardPage
     private void RefreshAccountTotal()
     {
         using var context = new DataBaseContext();
-        VTotalByAccounts.Clear();
-        VTotalByAccounts.AddRange([..context.VTotalByAccounts]);
+        var newVTotalByAccounts = context.VTotalByAccounts.ToList();
+
+        var itemsToDelete = VTotalByAccounts
+            .Where(s => newVTotalByAccounts.All(n => n.Id != s.Id));
+        foreach (var item in itemsToDelete)
+        {
+            VTotalByAccounts.Remove(item);
+        }
+
+        foreach (var vTotalByAccount in newVTotalByAccounts)
+        {
+            var exist = VTotalByAccounts.FirstOrDefault(s => s.Id == vTotalByAccount.Id);
+            if (exist is not null)
+            {
+                vTotalByAccount.CopyPropertiesTo(exist);
+            }
+            else
+            {
+                VTotalByAccounts.AddAndSort(vTotalByAccount, s => s.Name!);
+            }
+        }
+
+        // VTotalByAccounts.Clear();
+        // VTotalByAccounts.AddRange([..context.VTotalByAccounts]);
     }
 
     private void RefreshDataGrid(string? accountName = null)
     {
-        RefreshAccountTotal();
-
         if (string.IsNullOrEmpty(accountName))
         {
             var radioButtons = ItemsControlVTotalAccount?.FindVisualChildren<RadioButton>().ToList() ?? [];
