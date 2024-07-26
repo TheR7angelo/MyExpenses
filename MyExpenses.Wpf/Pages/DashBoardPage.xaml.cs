@@ -236,6 +236,8 @@ public partial class DashBoardPage
 
     public Local LocalLanguage { get; }
 
+    private static VTotalByAccount? CurrentVTotalByAccount { get; set; }
+
     public DashBoardPage()
     {
         using var context = new DataBaseContext();
@@ -421,6 +423,7 @@ public partial class DashBoardPage
         var button = (RadioButton)sender;
         if (button.DataContext is not VTotalByAccount vTotalByAccount) return;
 
+        CurrentVTotalByAccount = vTotalByAccount;
         RefreshAccountTotal(vTotalByAccount.Id);
 
         Total = vTotalByAccount.Total;
@@ -430,6 +433,7 @@ public partial class DashBoardPage
         if (string.IsNullOrEmpty(name)) return;
 
         RefreshDataGrid(name);
+        UpdateGraph(name);
     }
 
     #endregion
@@ -514,14 +518,17 @@ public partial class DashBoardPage
     private void RefreshRadioButtonSelected()
     {
         var radioButtons = ItemsControlVTotalAccount.FindVisualChildren<RadioButton>().ToList();
-        foreach (var radioButton in radioButtons) radioButton.IsChecked = false;
 
-        var firstRadioButton = radioButtons.FirstOrDefault();
-        if (firstRadioButton is null) return;
-        firstRadioButton.IsChecked = true;
+        var radioButton = CurrentVTotalByAccount is null
+            ? radioButtons.FirstOrDefault()
+            : radioButtons.FirstOrDefault(rb => rb.DataContext is VTotalByAccount vTotalByAccount && vTotalByAccount.Id.Equals(CurrentVTotalByAccount.Id));
+
+        CurrentVTotalByAccount = radioButton?.DataContext as VTotalByAccount;
+
+        if (radioButton is null) return;
+        radioButton.IsChecked = true;
 
         RefreshDataGrid();
-        UpdateGraph();
     }
 
     private void UpdateGraph(string? accountName = null)
