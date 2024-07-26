@@ -6,6 +6,7 @@
                  xmlns:local="clr-namespace:MyExpenses.Wpf"
                  xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
                  xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+                 xmlns:converters="clr-namespace:MyExpenses.Wpf.Converters"
 
                  mc:Ignorable="d"
 
@@ -34,6 +35,10 @@
 
                  DataContext="{Binding RelativeSource={RelativeSource Self}}">
 
+    <mah:MetroWindow.Resources>
+        <converters:InverseBooleanToVisibilityConverter x:Key="InverseBooleanToVisibilityConverter" />
+    </mah:MetroWindow.Resources>
+
     <Grid>
 
         <Grid.RowDefinitions>
@@ -54,55 +59,91 @@
                     <MenuItem Header="{Binding MenuItemHeaderFile, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                               Margin="1.5">
 
-                        <MenuItem Visibility="{Binding CanGoBack, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BooleanToVisibilityConverter}}"
-                                  Header="{Binding MenuItemHeaderDatabase, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
+                        <MenuItem
+                            Header="{Binding MenuItemHeaderDatabase, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
+
                             <MenuItem.Icon>
                                 <materialDesign:PackIcon Kind="Database" />
                             </MenuItem.Icon>
 
-                            <MenuItem Header="{Binding MenuItemHeaderExportDatabase, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Click="MenuItemDatabaseExport_OnClick">
+                            <MenuItem Header="{Binding MenuItemHeaderExportDatabase, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                                      Visibility="{Binding CanGoBack, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                      Click="MenuItemDatabaseExport_OnClick">
+
                                 <MenuItem.Icon>
                                     <materialDesign:PackIcon Kind="DatabaseExport" />
                                 </MenuItem.Icon>
+
                             </MenuItem>
 
-                            <MenuItem Header="{Binding MenuItemHeaderImportDatabase, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Click="MenuItemDatabaseImport_OnClick">
+                            <MenuItem Header="{Binding MenuItemHeaderImportDatabase, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                                      Visibility="{Binding CanGoBack, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                      Click="MenuItemDatabaseImport_OnClick">
+
                                 <MenuItem.Icon>
                                     <materialDesign:PackIcon Kind="DatabaseImport" />
                                 </MenuItem.Icon>
+
+                            </MenuItem>
+
+                            <!-- todo add language -->
+                            <MenuItem Header="VACUUM databases"
+                                      Visibility="{Binding CanGoBack, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource InverseBooleanToVisibilityConverter}}"
+                                      Click="MenuItemVacuumDatabases_OnClick">
+
+                                <MenuItem.Icon>
+                                    <materialDesign:PackIcon Kind="DatabaseArrowDown" />
+                                </MenuItem.Icon>
+
+                            </MenuItem>
+
+                            <!-- todo add language -->
+                            <MenuItem Header="VACUUM database"
+                                      Visibility="{Binding CanGoBack, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                      Click="MenuItemVacuumDatabase_OnClick">
+
+                                <MenuItem.Icon>
+                                    <materialDesign:PackIcon Kind="DatabaseArrowDown" />
+                                </MenuItem.Icon>
+
                             </MenuItem>
 
                         </MenuItem>
 
                     </MenuItem>
 
-                    <MenuItem Header="Open log directory"
-                              Margin="1.5">
-                        <MenuItem.Icon>
-                            <materialDesign:PackIcon Kind="FolderFile" />
-                        </MenuItem.Icon>
-                    </MenuItem>
+                    <!-- <MenuItem Header="Open log directory" -->
+                    <!--           Margin="1.5"> -->
+                    <!--     <MenuItem.Icon> -->
+                    <!--         <materialDesign:PackIcon Kind="FolderFile" /> -->
+                    <!--     </MenuItem.Icon> -->
+                    <!-- </MenuItem> -->
 
                 </Menu>
 
                 <Menu Grid.Column="2">
 
-                    <MenuItem Header="{Binding MenuItemHeaderSettings, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                              Margin="1.5"
-                              Click="MenuItemSetting_OnClick">
+                    <MenuItem
+                        Header="{Binding MenuItemHeaderSettings, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                        Margin="1.5"
+                        Click="MenuItemSetting_OnClick">
+
                         <MenuItem.Icon>
                             <materialDesign:PackIcon Kind="Cog" />
                         </MenuItem.Icon>
 
                     </MenuItem>
 
-                    <MenuItem Header="{Binding MenuItemHeaderPrevious, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                              Margin="1.5"
-                              Visibility="{Binding CanGoBack, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BooleanToVisibilityConverter}}"
-                              Click="MenuItemPrevious_OnClick">
+                    <MenuItem
+                        Header="{Binding MenuItemHeaderPrevious, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                        Margin="1.5"
+                        Visibility="{Binding CanGoBack, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BooleanToVisibilityConverter}}"
+                        Click="MenuItemPrevious_OnClick">
+
                         <MenuItem.Icon>
                             <materialDesign:PackIcon Kind="ArrowLeftCircle" />
                         </MenuItem.Icon>
+
                     </MenuItem>
 
                 </Menu>

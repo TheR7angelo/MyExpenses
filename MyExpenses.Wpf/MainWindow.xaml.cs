@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Interop;
 using Dropbox.Api.Files;
+using Microsoft.EntityFrameworkCore;
 using MyExpenses.Models.Config;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Wpf.Save;
@@ -181,6 +182,42 @@ public partial class MainWindow
         Console.WriteLine("Need import");
     }
 
+    private void MenuItemVacuumDatabases_OnClick(object sender, RoutedEventArgs e)
+    {
+        var listSuccess = new List<bool>();
+        foreach (var existingDatabase in DbContextBackup.GetExistingDatabase())
+        {
+            var result = VacuumDatabase(existingDatabase.FilePath);
+            listSuccess.Add(result);
+        }
+
+        if (listSuccess.Contains(false))
+        {
+            //TODO add language
+            MsgBox.Show("An error occured while vacuuming the database", MsgBoxImage.Error, MessageBoxButton.OK);
+        }
+        else
+        {
+            //TODO add language
+            MsgBox.Show("Database vacuumed successfully", MsgBoxImage.Check, MessageBoxButton.OK);
+        }
+    }
+
+    private void MenuItemVacuumDatabase_OnClick(object sender, RoutedEventArgs e)
+    {
+        var result = VacuumDatabase();
+        if (result)
+        {
+            //TODO add language
+            MsgBox.Show("Database vacuumed successfully", MsgBoxImage.Check, MessageBoxButton.OK);
+        }
+        else
+        {
+            //TODO add language
+            MsgBox.Show("An error occured while vacuuming the database", MsgBoxImage.Error, MessageBoxButton.OK);
+        }
+    }
+
     private void MenuItemSetting_OnClick(object sender, RoutedEventArgs e)
     {
         var settingsWindow = new SettingsWindow();
@@ -234,6 +271,28 @@ public partial class MainWindow
         Log.Information("Starting to copy database to {SelectedDialog}", selectedDialog);
         await Task.Run(() => { File.Copy(database, selectedDialog, true); });
         Log.Information("Database successfully copied to local storage");
+    }
+
+    private static bool VacuumDatabase(string? dataBaseFilePath = null)
+    {
+        dataBaseFilePath ??= DataBaseContext.FilePath;
+
+        Log.Information("Starting to vacuum database: {DatabasePath}", dataBaseFilePath);
+
+        try
+        {
+            using var context = new DataBaseContext(dataBaseFilePath);
+            context.Database.ExecuteSqlRaw("VACUUM ;");
+
+            Log.Information("Database vacuumed successfully");
+            return true;
+        }
+        catch (Exception e)
+        {
+            //TODO add language
+            Log.Error(e, "An error occured while vacuuming the database");
+            return false;
+        }
     }
 
     #endregion
