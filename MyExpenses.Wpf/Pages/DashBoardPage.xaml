@@ -122,8 +122,13 @@
                 </materialDesign:PackIcon>
 
                 <Label HorizontalContentAlignment="Center"
-                       Content="{Binding TotalStr, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, FallbackValue=0.00}"
                        FontWeight="Bold">
+                    <Label.Content>
+                        <MultiBinding Converter="{StaticResource ValueSymbolConverter}">
+                            <Binding Path="Total" Mode="OneWay" UpdateSourceTrigger="PropertyChanged" />
+                            <Binding Path="Symbol" Mode="OneWay" UpdateSourceTrigger="PropertyChanged" />
+                        </MultiBinding>
+                    </Label.Content>
                 </Label>
 
             </StackPanel>

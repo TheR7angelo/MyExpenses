@@ -1,7 +1,5 @@
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Globalization;
-using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -27,43 +25,28 @@ using SkiaSharp.Views.WPF;
 
 namespace MyExpenses.Wpf.Pages;
 
-public partial class DashBoardPage : INotifyPropertyChanged
+public partial class DashBoardPage
 {
-    public event PropertyChangedEventHandler? PropertyChanged;
-
-    protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
-        => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-
     public ObservableCollection<VHistory> VHistories { get; }
     public ObservableCollection<VTotalByAccount> VTotalByAccounts { get; } = [];
 
-    private double? _total = 0d;
+    public static readonly DependencyProperty SymbolProperty = DependencyProperty.Register(nameof(Symbol),
+        typeof(string), typeof(DashBoardPage), new PropertyMetadata(default(string)));
+
+    public string? Symbol
+    {
+        get => (string)GetValue(SymbolProperty);
+        set => SetValue(SymbolProperty, value);
+    }
+
+    public static readonly DependencyProperty TotalProperty = DependencyProperty.Register(nameof(Total), typeof(double),
+        typeof(DashBoardPage), new PropertyMetadata(default(double)));
 
     public double? Total
     {
-        get => _total;
-        set
-        {
-            _total = value;
-            OnPropertyChanged();
-            OnPropertyChanged(nameof(TotalStr));
-        }
+        get => (double)GetValue(TotalProperty);
+        set => SetValue(TotalProperty, value);
     }
-
-    private string? _symbol;
-
-    private string? Symbol
-    {
-        get => _symbol;
-        set
-        {
-            _symbol = value;
-            OnPropertyChanged();
-            OnPropertyChanged(nameof(TotalStr));
-        }
-    }
-
-    public string TotalStr => (Total.HasValue ? Total.Value.ToString("F2") : 0d.ToString("F2")) + $" {Symbol}";
 
     private DataGridRow? DataGridRow { get; set; }
 
@@ -233,28 +216,22 @@ public partial class DashBoardPage : INotifyPropertyChanged
     public ObservableCollection<string> Years { get; }
     public ObservableCollection<string> Months { get; }
 
-    private string _selectedYear = string.Empty;
+    public static readonly DependencyProperty SelectedYearProperty = DependencyProperty.Register(nameof(SelectedYear),
+        typeof(string), typeof(DashBoardPage), new PropertyMetadata(default(string)));
 
     public string SelectedYear
     {
-        get => _selectedYear;
-        set
-        {
-            _selectedYear = value;
-            OnPropertyChanged();
-        }
+        get => (string)GetValue(SelectedYearProperty);
+        set => SetValue(SelectedYearProperty, value);
     }
 
-    private string _selectedMonth = string.Empty;
+    public static readonly DependencyProperty SelectedMonthProperty = DependencyProperty.Register(nameof(SelectedMonth),
+        typeof(string), typeof(DashBoardPage), new PropertyMetadata(default(string)));
 
     public string SelectedMonth
     {
-        get => _selectedMonth;
-        set
-        {
-            _selectedMonth = value;
-            OnPropertyChanged();
-        }
+        get => (string)GetValue(SelectedMonthProperty);
+        set => SetValue(SelectedMonthProperty, value);
     }
 
     public Local LocalLanguage { get; }
