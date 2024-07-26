@@ -305,6 +305,7 @@ public partial class DashBoardPage
     private void ButtonCurrencyManagement_OnClick(object sender, RoutedEventArgs e)
         => nameof(MainWindow.FrameBody).NavigateTo(typeof(CurrencyManagementPage));
 
+    //TODO add security
     private void ButtonDateNow_OnClick(object sender, RoutedEventArgs e)
     {
         var now = DateTime.Now;
