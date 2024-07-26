@@ -418,10 +418,11 @@ public partial class DashBoardPage
 
     private void ToggleButtonVTotalAccount_OnChecked(object sender, RoutedEventArgs e)
     {
-        RefreshAccountTotal();
-
         var button = (RadioButton)sender;
-        var vTotalByAccount = (VTotalByAccount)button.DataContext;
+        if (button.DataContext is not VTotalByAccount vTotalByAccount) return;
+
+        RefreshAccountTotal(vTotalByAccount.Id);
+
         Total = vTotalByAccount.Total;
         Symbol = vTotalByAccount.Symbol;
 
@@ -434,6 +435,18 @@ public partial class DashBoardPage
     #endregion
 
     #region Function
+
+    private void RefreshAccountTotal(int id)
+    {
+        using var context = new DataBaseContext();
+        var newVTotalByAccount = context.VTotalByAccounts.FirstOrDefault(s => s.Id.Equals(id));
+        if (newVTotalByAccount is null) return;
+
+        var vTotalByAccount = VTotalByAccounts.FirstOrDefault(s => s.Id.Equals(id));
+        if (vTotalByAccount is null) return;
+
+        newVTotalByAccount.CopyPropertiesTo(vTotalByAccount);
+    }
 
     private void RefreshAccountTotal()
     {
@@ -459,9 +472,6 @@ public partial class DashBoardPage
                 VTotalByAccounts.AddAndSort(vTotalByAccount, s => s.Name!);
             }
         }
-
-        // VTotalByAccounts.Clear();
-        // VTotalByAccounts.AddRange([..context.VTotalByAccounts]);
     }
 
     private void RefreshDataGrid(string? accountName = null)
