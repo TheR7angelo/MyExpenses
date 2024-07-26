@@ -39,7 +39,7 @@ public partial class DashBoardPage
         set => SetValue(SymbolProperty, value);
     }
 
-    public static readonly DependencyProperty TotalProperty = DependencyProperty.Register(nameof(Total), typeof(double),
+    public static readonly DependencyProperty TotalProperty = DependencyProperty.Register(nameof(Total), typeof(double?),
         typeof(DashBoardPage), new PropertyMetadata(default(double)));
 
     public double? Total
@@ -265,8 +265,6 @@ public partial class DashBoardPage
         SelectedYear = now.Year.ToString();
         SelectedMonth = Months[now.Month - 1];
 
-        RefreshAccountTotal();
-
         var currentCulture = CultureInfo.CurrentCulture;
         LocalLanguage = currentCulture.ToLocal();
 
@@ -442,6 +440,8 @@ public partial class DashBoardPage
 
     private void RefreshDataGrid(string? accountName = null)
     {
+        RefreshAccountTotal();
+
         if (string.IsNullOrEmpty(accountName))
         {
             var radioButtons = ItemsControlVTotalAccount?.FindVisualChildren<RadioButton>().ToList() ?? [];
