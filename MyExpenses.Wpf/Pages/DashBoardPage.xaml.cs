@@ -644,11 +644,10 @@ public partial class DashBoardPage
     //     var json = vHistory.ToJsonString();
     //     Console.WriteLine(json);
     // }
+    //TODO add messagebox error
     private void ButtonAddMonth_OnClick(object sender, RoutedEventArgs e)
     {
-        var monthIndex = Months.IndexOf(SelectedMonth) + 1;
-        var year = int.Parse(SelectedYear);
-        var date = DateOnly.Parse($"{year}/{monthIndex}/01");
+        var date = GetDateOnlyFilter();
         date = date.AddMonths(1);
 
         var result = UpdateFilterDate(date);
@@ -657,12 +656,24 @@ public partial class DashBoardPage
     //TODO add messagebox error
     private void ButtonRemoveMonth_OnClick(object sender, RoutedEventArgs e)
     {
-        var monthIndex = Months.IndexOf(SelectedMonth) + 1;
-        var year = int.Parse(SelectedYear);
-        var date = DateOnly.Parse($"{year}/{monthIndex}/01");
+        var date = GetDateOnlyFilter();
         date = date.AddMonths(-1);
 
         var result = UpdateFilterDate(date);
+    }
+
+    private DateOnly GetDateOnlyFilter()
+    {
+        var monthIndex = string.IsNullOrEmpty(SelectedMonth)
+            ? DateTime.Now.Month
+            : Months.IndexOf(SelectedMonth) + 1;
+
+        var year = string.IsNullOrEmpty(SelectedYear)
+            ? DateTime.Now.Year
+            : int.Parse(SelectedYear);
+
+        var date = DateOnly.Parse($"{year}/{monthIndex}/01");
+        return date;
     }
 
     //TODO add messagebox error
