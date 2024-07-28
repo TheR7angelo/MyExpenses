@@ -6,6 +6,7 @@ using System.Windows.Interop;
 using Dropbox.Api.Files;
 using MyExpenses.Models.Config;
 using MyExpenses.Models.Config.Interfaces;
+using MyExpenses.Models.IO;
 using MyExpenses.Models.Wpf.Save;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils.WindowStyle;
@@ -224,11 +225,21 @@ public partial class MainWindow
 
     private void MenuItemVacuumDatabase_OnClick(object sender, RoutedEventArgs e)
     {
+        var existingDatabase = new ExistingDatabase(DataBaseContext.FilePath!);
+
         var result = VacuumDatabase();
         if (result)
         {
             MsgBox.Show(MainWindowResources.MessageBoxMenuItemVacuumDatabaseSucess, MsgBoxImage.Check,
                 MessageBoxButton.OK);
+
+            var newSize = new ExistingDatabase(DataBaseContext.FilePath!).FileInfo.Length;
+            var sizeDatabase = new SizeDatabase
+            {
+                FileNameWithoutExtension = existingDatabase.FileNameWithoutExtension,
+                OldSize = existingDatabase.FileInfo.Length,
+                NewSize = newSize
+            };
         }
         else
         {
