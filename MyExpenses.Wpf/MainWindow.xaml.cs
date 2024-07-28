@@ -4,7 +4,6 @@ using System.Windows;
 using System.Windows.Input;
 using System.Windows.Interop;
 using Dropbox.Api.Files;
-using Microsoft.EntityFrameworkCore;
 using MyExpenses.Models.Config;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Wpf.Save;
@@ -281,8 +280,7 @@ public partial class MainWindow
 
         try
         {
-            using var context = new DataBaseContext(dataBaseFilePath);
-            context.Database.ExecuteSqlRaw("VACUUM ;");
+            "VACUUM ;".ExecuteRawSql(dataBaseFilePath);
 
             Log.Information("Database vacuumed successfully");
             return true;
