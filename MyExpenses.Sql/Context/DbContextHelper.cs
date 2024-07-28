@@ -8,6 +8,18 @@ namespace MyExpenses.Sql.Context;
 
 public static class DbContextHelper
 {
+    public static async Task<int> ExecuteRawSqlAsync(this string sql, string? tempFilePath = null)
+    {
+        await using var context = new DataBaseContext(tempFilePath);
+        return await context.Database.ExecuteSqlRawAsync(sql);
+    }
+
+    public static int ExecuteRawSql(this string sql, string? tempFilePath = null)
+    {
+        using var context = new DataBaseContext(tempFilePath);
+        return context.Database.ExecuteSqlRaw(sql);
+    }
+
     public static (bool Success, Exception? Exception) Delete<T>(this T entity, bool cascade = false)
         where T : class, ISql
     {
