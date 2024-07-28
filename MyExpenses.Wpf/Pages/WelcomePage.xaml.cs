@@ -54,7 +54,7 @@ public partial class WelcomePage
             context.SetAllDefaultValues();
             context.SaveChanges();
 
-            ExistingDatabases.AddAndSort(new ExistingDatabase { FilePath = filePath },
+            ExistingDatabases.AddAndSort(new ExistingDatabase(filePath),
                 s => s.FileNameWithoutExtension!);
 
             MsgBox.Show(WelcomePageResources.MessageBoxCreateNewDatabaseSuccess, MsgBoxImage.Check);
@@ -269,7 +269,7 @@ private static async Task ImportFromCloudAsync()
     var metadatas = await dropboxService.ListFile(DbContextBackup.CloudDirectoryBackupDatabase);
     metadatas = metadatas.Where(s => Path.GetExtension(s.PathDisplay).Equals(DbContextBackup.Extension));
 
-    var existingDatabase = metadatas.Select(s => new ExistingDatabase { FilePath = s.PathDisplay });
+    var existingDatabase = metadatas.Select(s => new ExistingDatabase(s.PathDisplay));
     var selectDatabaseFileWindow = new SelectDatabaseFileWindow();
     selectDatabaseFileWindow.ExistingDatabases.AddRange(existingDatabase);
     selectDatabaseFileWindow.ShowDialog();

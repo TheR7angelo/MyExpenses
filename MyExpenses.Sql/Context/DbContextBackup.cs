@@ -25,7 +25,7 @@ public static class DbContextBackup
 
         var existingDatabases = Directory
             .GetFiles(LocalDirectoryDatabase, $"*{Extension}", SearchOption.TopDirectoryOnly)
-            .Select(s => new ExistingDatabase { FilePath = s } ).ToArray();
+            .Select(s => new ExistingDatabase(s)).ToArray();
 
         return existingDatabases;
     }
@@ -36,7 +36,7 @@ public static class DbContextBackup
 
         var existingDatabases = Directory
             .GetFiles(LocalDirectoryBackupDatabase, $"*{Extension}", SearchOption.AllDirectories)
-            .Select(s => new ExistingDatabase { FilePath = s } ).ToArray();
+            .Select(s => new ExistingDatabase(s)).ToArray();
 
         return existingDatabases;
     }
