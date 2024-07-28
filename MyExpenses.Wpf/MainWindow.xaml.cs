@@ -277,13 +277,11 @@ public partial class MainWindow
         try
         {
             "VACUUM ;".ExecuteRawSql(dataBaseFilePath);
-
             Log.Information("Database vacuumed successfully");
             return true;
         }
         catch (Exception e)
         {
-            //TODO add language
             Log.Error(e, "An error occured while vacuuming the database");
             return false;
         }
