@@ -26,14 +26,13 @@
         Icon="../Resources/Assets/Icon.png"
 
         WindowStartupLocation="CenterScreen"
-        ResizeMode="NoResize"
+        ResizeMode="CanResizeWithGrip"
 
         Background="{DynamicResource MaterialDesignPaper}"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
 
         ShowMinButton="False"
         ShowMaxRestoreButton="False"
-        ShowCloseButton="False"
 
         DataContext="{Binding RelativeSource={RelativeSource Self}}">
 
