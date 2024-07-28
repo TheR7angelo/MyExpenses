@@ -240,6 +240,10 @@ public partial class MainWindow
                 OldSize = existingDatabase.FileInfo.Length,
                 NewSize = newSize
             };
+
+            // TODO work
+            var vacuumDatabaseUpdateWindow = new VacuumDatabaseUpdateWindow(sizeDatabase);
+            vacuumDatabaseUpdateWindow.ShowDialog();
         }
         else
         {
