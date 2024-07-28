@@ -90,6 +90,26 @@ public partial class MainWindow
         set => SetValue(MenuItemHeaderPreviousProperty, value);
     }
 
+    public static readonly DependencyProperty MenuItemHeaderVacuumDatabasesProperty =
+        DependencyProperty.Register(nameof(MenuItemHeaderVacuumDatabases), typeof(string), typeof(MainWindow),
+            new PropertyMetadata(default(string)));
+
+    public string MenuItemHeaderVacuumDatabases
+    {
+        get => (string)GetValue(MenuItemHeaderVacuumDatabasesProperty);
+        set => SetValue(MenuItemHeaderVacuumDatabasesProperty, value);
+    }
+
+    public static readonly DependencyProperty MenuItemHeaderVacuumDatabaseProperty =
+        DependencyProperty.Register(nameof(MenuItemHeaderVacuumDatabase), typeof(string), typeof(MainWindow),
+            new PropertyMetadata(default(string)));
+
+    public string MenuItemHeaderVacuumDatabase
+    {
+        get => (string)GetValue(MenuItemHeaderVacuumDatabaseProperty);
+        set => SetValue(MenuItemHeaderVacuumDatabaseProperty, value);
+    }
+
     public string ApplicationName { get; }
 
     public bool CanGoBack
@@ -192,11 +212,13 @@ public partial class MainWindow
 
         if (listSuccess.Contains(false))
         {
-            MsgBox.Show(MainWindowResources.MessageBoxMenuItemVacuumDatabasesError, MsgBoxImage.Error, MessageBoxButton.OK);
+            MsgBox.Show(MainWindowResources.MessageBoxMenuItemVacuumDatabasesError, MsgBoxImage.Error,
+                MessageBoxButton.OK);
         }
         else
         {
-            MsgBox.Show(MainWindowResources.MessageBoxMenuItemVacuumDatabasesSucess, MsgBoxImage.Check, MessageBoxButton.OK);
+            MsgBox.Show(MainWindowResources.MessageBoxMenuItemVacuumDatabasesSucess, MsgBoxImage.Check,
+                MessageBoxButton.OK);
         }
     }
 
@@ -205,11 +227,13 @@ public partial class MainWindow
         var result = VacuumDatabase();
         if (result)
         {
-            MsgBox.Show(MainWindowResources.MessageBoxMenuItemVacuumDatabaseSucess, MsgBoxImage.Check, MessageBoxButton.OK);
+            MsgBox.Show(MainWindowResources.MessageBoxMenuItemVacuumDatabaseSucess, MsgBoxImage.Check,
+                MessageBoxButton.OK);
         }
         else
         {
-            MsgBox.Show(MainWindowResources.MessageBoxMenuItemVacuumDatabaseError, MsgBoxImage.Error, MessageBoxButton.OK);
+            MsgBox.Show(MainWindowResources.MessageBoxMenuItemVacuumDatabaseError, MsgBoxImage.Error,
+                MessageBoxButton.OK);
         }
     }
 
@@ -236,6 +260,8 @@ public partial class MainWindow
         MenuItemHeaderDatabase = MainWindowResources.MenuItemHeaderDatabase;
         MenuItemHeaderExportDatabase = MainWindowResources.MenuItemHeaderExportDatabase;
         MenuItemHeaderImportDatabase = MainWindowResources.MenuItemHeaderImportDatabase;
+        MenuItemHeaderVacuumDatabases = MainWindowResources.MenuItemHeaderVacuumDatabases;
+        MenuItemHeaderVacuumDatabase = MainWindowResources.MenuItemHeaderVacuumDatabase;
 
         MenuItemHeaderSettings = MainWindowResources.MenuItemHeaderSettings;
         MenuItemHeaderPrevious = MainWindowResources.MenuItemHeaderPrevious;

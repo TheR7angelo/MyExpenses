@@ -60,4 +60,10 @@
     <data name="MessageBoxMenuItemVacuumDatabaseError" xml:space="preserve">
         <value>An error occurred while cleaning the database</value>
     </data>
+    <data name="MenuItemHeaderVacuumDatabases" xml:space="preserve">
+        <value>Database cleanup</value>
+    </data>
+    <data name="MenuItemHeaderVacuumDatabase" xml:space="preserve">
+        <value>Cleaning the database</value>
+    </data>
 </root>

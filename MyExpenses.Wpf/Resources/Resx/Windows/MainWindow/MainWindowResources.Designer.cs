@@ -181,5 +181,23 @@ namespace MyExpenses.Wpf.Resources.Resx.Windows.MainWindow {
                 return ResourceManager.GetString("MessageBoxMenuItemVacuumDatabaseError", resourceCulture);
             }
         }
+
+        /// <summary>
+        /// Looks up a localized string similar to Database cleanup.
+        /// </summary>
+        internal static string MenuItemHeaderVacuumDatabases {
+            get {
+                return ResourceManager.GetString("MenuItemHeaderVacuumDatabases", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        /// Looks up a localized string similar to Cleaning the database.
+        /// </summary>
+        internal static string MenuItemHeaderVacuumDatabase {
+            get {
+                return ResourceManager.GetString("MenuItemHeaderVacuumDatabase", resourceCulture);
+            }
+        }
     }
 }
