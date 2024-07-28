@@ -41,4 +41,10 @@
     <data name="MenuItemDatabaseExportError" xml:space="preserve">
         <value>Une erreur s'est produite. Veuillez réessayer</value>
     </data>
+    <data name="MessageBoxMenuItemVacuumDatabasesError" xml:space="preserve">
+        <value>Une erreur s'est produite lors du nettoyage des bases de données</value>
+    </data>
+    <data name="MessageBoxMenuItemVacuumDatabasesSucess" xml:space="preserve">
+        <value>Les bases de données ont été nettoyées avec succès</value>
+    </data>
 </root>

@@ -192,13 +192,11 @@ public partial class MainWindow
 
         if (listSuccess.Contains(false))
         {
-            //TODO add language
-            MsgBox.Show("An error occured while vacuuming the database", MsgBoxImage.Error, MessageBoxButton.OK);
+            MsgBox.Show(MainWindowResources.MessageBoxMenuItemVacuumDatabasesError, MsgBoxImage.Error, MessageBoxButton.OK);
         }
         else
         {
-            //TODO add language
-            MsgBox.Show("Database vacuumed successfully", MsgBoxImage.Check, MessageBoxButton.OK);
+            MsgBox.Show(MainWindowResources.MessageBoxMenuItemVacuumDatabasesSucess, MsgBoxImage.Check, MessageBoxButton.OK);
         }
     }
 
