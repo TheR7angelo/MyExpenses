@@ -205,13 +205,11 @@ public partial class MainWindow
         var result = VacuumDatabase();
         if (result)
         {
-            //TODO add language
-            MsgBox.Show("Database vacuumed successfully", MsgBoxImage.Check, MessageBoxButton.OK);
+            MsgBox.Show(MainWindowResources.MessageBoxMenuItemVacuumDatabaseSucess, MsgBoxImage.Check, MessageBoxButton.OK);
         }
         else
         {
-            //TODO add language
-            MsgBox.Show("An error occured while vacuuming the database", MsgBoxImage.Error, MessageBoxButton.OK);
+            MsgBox.Show(MainWindowResources.MessageBoxMenuItemVacuumDatabaseError, MsgBoxImage.Error, MessageBoxButton.OK);
         }
     }
 

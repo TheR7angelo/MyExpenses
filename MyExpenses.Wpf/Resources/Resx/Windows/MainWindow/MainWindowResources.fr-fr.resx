@@ -47,4 +47,10 @@
     <data name="MessageBoxMenuItemVacuumDatabasesSucess" xml:space="preserve">
         <value>Les bases de données ont été nettoyées avec succès</value>
     </data>
+    <data name="MessageBoxMenuItemVacuumDatabaseSucess" xml:space="preserve">
+        <value>La base de données a été nettoyée avec succès</value>
+    </data>
+    <data name="MessageBoxMenuItemVacuumDatabaseError" xml:space="preserve">
+        <value>Une erreur s'est produite lors du nettoyage de la base de données</value>
+    </data>
 </root>
