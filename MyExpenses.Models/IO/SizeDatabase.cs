@@ -70,9 +70,9 @@ public class SizeDatabase
         }
     }
 
-    private static long GetNormalizeByteSize(long bytes, out string unit)
+    private static double GetNormalizeByteSize(long bytes, out string unit)
     {
-        var absoluteBytes = Math.Abs(bytes);
+        var absoluteBytes = Math.Abs((double)bytes);
 
         string[] units = [
             SizeDatabaseResources.ByteUnit, SizeDatabaseResources.KiloByteUnit, SizeDatabaseResources.MegaByteUnit,
