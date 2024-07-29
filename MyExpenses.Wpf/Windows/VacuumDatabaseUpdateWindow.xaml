@@ -38,6 +38,49 @@
 
     <Grid>
 
+        <ListView ItemsSource="{Binding SizeDatabases, Mode=OneWay}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+
+                    <Button>
+                        <Button.Content>
+
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+
+                                <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"
+                                       Content="{Binding FileNameWithoutExtension}"
+                                       HorizontalContentAlignment="Center"
+                                       VerticalContentAlignment="Center">
+                                </Label>
+
+                                <Label Grid.Row="1" Grid.Column="1"
+                                       Content="{Binding GainInBytes}"
+                                       HorizontalContentAlignment="Center"
+                                       VerticalContentAlignment="Center">
+                                </Label>
+
+                            </Grid>
+
+                        </Button.Content>
+                    </Button>
+
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
     </Grid>
 
 </mah:MetroWindow>
