@@ -6,7 +6,7 @@ namespace MyExpenses.Wpf.Windows;
 
 public partial class VacuumDatabaseUpdateWindow
 {
-    public ObservableCollection<SizeDatabase> SizeDatabases = [];
+    public ObservableCollection<SizeDatabase> SizeDatabases { get; } = [];
 
     public VacuumDatabaseUpdateWindow(SizeDatabase sizeDatabase)
     {
