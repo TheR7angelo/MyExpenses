@@ -1,7 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Threading;
 using MyExpenses.Models.Sql.Tables;
 using MyExpenses.Models.Sql.Views;
 using MyExpenses.Sql.Context;
@@ -17,6 +16,7 @@ namespace MyExpenses.Wpf.Pages;
 public partial class AccountManagementPage
 {
     public ObservableCollection<VTotalByAccount> TotalByAccounts { get; }
+    internal DashBoardPage? DashBoardPage { get; init; }
 
     public AccountManagementPage()
     {
@@ -56,6 +56,7 @@ public partial class AccountManagementPage
             if (newVTotalByAccount is null) return;
 
             TotalByAccounts.AddAndSort(newVTotalByAccount, s => s.Name!);
+            DashBoardPage?.RefreshAccountTotal();
         }
         else
         {
@@ -80,6 +81,7 @@ public partial class AccountManagementPage
         if (addEditAccountWindow.DeleteAccount)
         {
             TotalByAccounts.Remove(vTotalByAccount);
+            DashBoardPage?.RefreshAccountTotal();
             return;
         }
 
@@ -101,6 +103,7 @@ public partial class AccountManagementPage
             TotalByAccounts.Remove(vTotalByAccount);
 
             TotalByAccounts.AddAndSort(newVTotalByAccount, s => s.Name!);
+            DashBoardPage?.RefreshAccountTotal();
         }
         else
         {
