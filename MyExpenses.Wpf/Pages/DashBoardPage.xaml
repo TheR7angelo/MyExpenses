@@ -116,7 +116,7 @@
             <StackPanel Grid.Row="0" Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
 
                 <materialDesign:PackIcon
-                    Kind="{Binding Total, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource TotalToIconConverter}}"
+                    Kind="{Binding CurrentVTotalByAccount.Total, FallbackValue=0, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource TotalToIconConverter}}"
                     Height="96" Width="96"
                     HorizontalAlignment="Center">
                 </materialDesign:PackIcon>
