@@ -1,8 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
+using PropertyChanged;
 
 namespace MyExpenses.Models.Sql.Views;
 
+[AddINotifyPropertyChangedInterface]
 [Keyless]
 public partial class VTotalByAccount : ISql
 {
