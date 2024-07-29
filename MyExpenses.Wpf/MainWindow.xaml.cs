@@ -245,6 +245,7 @@ public partial class MainWindow
     {
         var existingDatabase = new ExistingDatabase(DataBaseContext.FilePath!);
 
+        var oldSize = existingDatabase.FileInfo.Length;
         var result = VacuumDatabase();
         if (result)
         {
@@ -255,7 +256,7 @@ public partial class MainWindow
             var sizeDatabase = new SizeDatabase
             {
                 FileNameWithoutExtension = existingDatabase.FileNameWithoutExtension,
-                OldSize = existingDatabase.FileInfo.Length,
+                OldSize = oldSize,
                 NewSize = newSize
             };
 
