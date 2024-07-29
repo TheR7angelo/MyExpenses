@@ -30,24 +30,6 @@ public partial class DashBoardPage
     public ObservableCollection<VHistory> VHistories { get; }
     public ObservableCollection<VTotalByAccount> VTotalByAccounts { get; } = [];
 
-    public static readonly DependencyProperty SymbolProperty = DependencyProperty.Register(nameof(Symbol),
-        typeof(string), typeof(DashBoardPage), new PropertyMetadata(default(string)));
-
-    public string? Symbol
-    {
-        get => (string)GetValue(SymbolProperty);
-        set => SetValue(SymbolProperty, value);
-    }
-
-    public static readonly DependencyProperty TotalProperty = DependencyProperty.Register(nameof(Total), typeof(double?),
-        typeof(DashBoardPage), new PropertyMetadata(default(double)));
-
-    public double? Total
-    {
-        get => (double)GetValue(TotalProperty);
-        set => SetValue(TotalProperty, value);
-    }
-
     private DataGridRow? DataGridRow { get; set; }
 
     #region Button WrapPanel
@@ -236,11 +218,36 @@ public partial class DashBoardPage
 
     public Local LocalLanguage { get; }
 
-    private static VTotalByAccount? CurrentVTotalByAccount { get; set; }
+    private static VTotalByAccount? _staticVTotalByAccount;
+
+    public static readonly DependencyProperty CurrentVTotalByAccountProperty =
+        DependencyProperty.Register(nameof(CurrentVTotalByAccount), typeof(VTotalByAccount), typeof(DashBoardPage),
+            new PropertyMetadata(default(VTotalByAccount)));
+
+    public VTotalByAccount? CurrentVTotalByAccount
+    {
+        get => (VTotalByAccount)GetValue(CurrentVTotalByAccountProperty);
+        set => SetValue(CurrentVTotalByAccountProperty, value);
+    }
+
+    private static DashBoardPage Instance { get; set; } = null!;
+
+    private static VTotalByAccount? StaticVTotalByAccount
+    {
+        get => _staticVTotalByAccount;
+        set
+        {
+            _staticVTotalByAccount = value;
+            Instance.CurrentVTotalByAccount = value;
+        }
+    }
+
 
     // TODO update language
     public DashBoardPage()
     {
+        Instance = this;
+
         using var context = new DataBaseContext();
         Years =
         [
@@ -382,6 +389,7 @@ public partial class DashBoardPage
         UpdateGraph(accountName);
 
         //TODO refresh total account display
+        RefreshAccountTotal(CurrentVTotalByAccount!.Id);
     }
 
     private void MenuItemEditRecord_OnClick(object sender, RoutedEventArgs e)
@@ -422,11 +430,10 @@ public partial class DashBoardPage
         var button = (RadioButton)sender;
         if (button.DataContext is not VTotalByAccount vTotalByAccount) return;
 
-        CurrentVTotalByAccount = vTotalByAccount;
-        RefreshAccountTotal(vTotalByAccount.Id);
+        StaticVTotalByAccount = vTotalByAccount;
 
-        Total = vTotalByAccount.Total;
-        Symbol = vTotalByAccount.Symbol;
+        // Total = vTotalByAccount.Total;
+        // Symbol = vTotalByAccount.Symbol;
 
         var name = vTotalByAccount.Name;
         if (string.IsNullOrEmpty(name)) return;
@@ -518,11 +525,13 @@ public partial class DashBoardPage
     {
         var radioButtons = ItemsControlVTotalAccount.FindVisualChildren<RadioButton>().ToList();
 
-        var radioButton = CurrentVTotalByAccount is null
+        var radioButton = StaticVTotalByAccount is null
             ? radioButtons.FirstOrDefault()
-            : radioButtons.FirstOrDefault(rb => rb.DataContext is VTotalByAccount vTotalByAccount && vTotalByAccount.Id.Equals(CurrentVTotalByAccount.Id));
+            : radioButtons.FirstOrDefault(rb =>
+                rb.DataContext is VTotalByAccount vTotalByAccount &&
+                vTotalByAccount.Id.Equals(StaticVTotalByAccount.Id));
 
-        CurrentVTotalByAccount = radioButton?.DataContext as VTotalByAccount;
+        StaticVTotalByAccount = radioButton?.DataContext as VTotalByAccount;
 
         if (radioButton is null) return;
         radioButton.IsChecked = true;
