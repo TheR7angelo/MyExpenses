@@ -205,10 +205,22 @@ public partial class MainWindow
     private void MenuItemVacuumDatabases_OnClick(object sender, RoutedEventArgs e)
     {
         var listSuccess = new List<bool>();
+        var sizeDatabases = new List<SizeDatabase>();
         foreach (var existingDatabase in DbContextBackup.GetExistingDatabase())
         {
             var result = VacuumDatabase(existingDatabase.FilePath);
             listSuccess.Add(result);
+
+            if (result is not true) continue;
+
+            var newSize = new ExistingDatabase(existingDatabase.FilePath).FileInfo.Length;
+            var sizeDatabase = new SizeDatabase
+            {
+                FileNameWithoutExtension = existingDatabase.FileNameWithoutExtension,
+                OldSize = existingDatabase.FileInfo.Length,
+                NewSize = newSize
+            };
+            sizeDatabases.Add(sizeDatabase);
         }
 
         if (listSuccess.Contains(false))
@@ -221,6 +233,12 @@ public partial class MainWindow
             MsgBox.Show(MainWindowResources.MessageBoxMenuItemVacuumDatabasesSucess, MsgBoxImage.Check,
                 MessageBoxButton.OK);
         }
+
+        if (!listSuccess.Any(s => s)) return;
+
+        // TODO work
+        var vacuumDatabaseUpdateWindow = new VacuumDatabaseUpdateWindow(sizeDatabases);
+        vacuumDatabaseUpdateWindow.ShowDialog();
     }
 
     private void MenuItemVacuumDatabase_OnClick(object sender, RoutedEventArgs e)
