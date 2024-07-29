@@ -42,23 +42,11 @@ public class SizeDatabase
     {
         var gainInBytes = _oldSize - _newSize;
 
-        var absoluteGain = Math.Abs(gainInBytes);
-        string[] units =
-        [
-            SizeDatabaseResources.ByteUnit, SizeDatabaseResources.KiloByteUnit, SizeDatabaseResources.MegaByteUnit,
-            SizeDatabaseResources.GigaByteUnit, SizeDatabaseResources.TeraByteUnit, SizeDatabaseResources.PetaByteUnit,
-            SizeDatabaseResources.ExaByteUnit, SizeDatabaseResources.ZettaByteUnit, SizeDatabaseResources.YottaByteUnit
-        ];
-        var unitIndex = 0;
-        while (absoluteGain >= 1024 && unitIndex < units.Length - 1)
-        {
-            absoluteGain /= 1024;
-            ++unitIndex;
-        }
+        var absoluteGain = GetNormalizeByteSize(gainInBytes, out var unit);
 
         var sign = gainInBytes >= 0 ? "-" : "+";
 
-        GainInBytes = $"{sign}{absoluteGain:F2} {units[unitIndex]}";
+        GainInBytes = $"{sign}{absoluteGain:F2} {unit}";
     }
 
     private void UpdateGainInPercentage()
@@ -74,5 +62,26 @@ public class SizeDatabase
 
             GainInPercentage = $"{(gainInPercentage > 0 ? "+" : "")}{gainInPercentage} %";
         }
+    }
+
+    private static long GetNormalizeByteSize(long bytes, out string unit)
+    {
+        var absoluteBytes = Math.Abs(bytes);
+
+        string[] units = [
+            SizeDatabaseResources.ByteUnit, SizeDatabaseResources.KiloByteUnit, SizeDatabaseResources.MegaByteUnit,
+            SizeDatabaseResources.GigaByteUnit, SizeDatabaseResources.TeraByteUnit, SizeDatabaseResources.PetaByteUnit,
+            SizeDatabaseResources.ExaByteUnit, SizeDatabaseResources.ZettaByteUnit, SizeDatabaseResources.YottaByteUnit
+        ];
+
+        var unitIndex = 0;
+        while (absoluteBytes >= 1024 && unitIndex < units.Length - 1)
+        {
+            absoluteBytes /= 1024;
+            ++unitIndex;
+        }
+
+        unit = units[unitIndex];
+        return absoluteBytes;
     }
 }
