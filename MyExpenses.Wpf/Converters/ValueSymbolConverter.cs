@@ -7,7 +7,12 @@ public class ValueSymbolConverter : IMultiValueConverter
 {
     public object Convert(object?[] values, Type targetType, object parameter, CultureInfo culture)
     {
-        var value = ((double)(values[0] ?? 0d)).ToString("F2");
+        if (values.Length < 2) return Binding.DoNothing;
+        if (values[0] is null || values[1] is null) return Binding.DoNothing;
+
+        if (!double.TryParse(values[0]?.ToString(), out var numericValue)) return Binding.DoNothing;
+
+        var value = numericValue.ToString("F2");
         var symbol = values[1]?.ToString();
 
         return !string.IsNullOrWhiteSpace(symbol) ? $"{value} {symbol}" : value;
