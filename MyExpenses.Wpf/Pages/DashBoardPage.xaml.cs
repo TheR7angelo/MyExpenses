@@ -242,7 +242,6 @@ public partial class DashBoardPage
         }
     }
 
-
     // TODO update language
     public DashBoardPage()
     {
