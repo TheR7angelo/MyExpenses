@@ -536,6 +536,7 @@ public partial class DashBoardPage
         radioButton.IsChecked = true;
 
         RefreshDataGrid();
+        RefreshAccountTotal(StaticVTotalByAccount!.Id);
     }
 
     private void UpdateGraph(string? accountName = null)
