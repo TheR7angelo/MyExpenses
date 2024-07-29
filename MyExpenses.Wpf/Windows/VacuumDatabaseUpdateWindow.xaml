@@ -72,6 +72,12 @@
                                        VerticalContentAlignment="Center">
                                 </Label>
 
+                                <Label Grid.Row="3" Grid.Column="1"
+                                       Content="{Binding GainInPercentage}"
+                                       HorizontalContentAlignment="Center"
+                                       VerticalContentAlignment="Center">
+                                </Label>
+
                             </Grid>
 
                         </Button.Content>

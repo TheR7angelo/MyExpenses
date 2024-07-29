@@ -14,7 +14,7 @@ public class SizeDatabase
         set
         {
             _oldSize = value;
-            UpdateGainInBytes();
+            UpdateGain();
         }
     } // in bytes
 
@@ -24,11 +24,19 @@ public class SizeDatabase
         set
         {
             _newSize = value;
-            UpdateGainInBytes();
+            UpdateGain();
         }
     } // in bytes
 
-    public string GainInBytes { get; private set; } = "0.00 o";
+    public string GainInBytes { get; private set; } = $"{0d:F2} {SizeDatabaseResources.ByteUnit}";
+
+    public string GainInPercentage { get; private set; } = $"{0d: F2} %";
+
+    private void UpdateGain()
+    {
+        UpdateGainInBytes();
+        UpdateGainInPercentage();
+    }
 
     private void UpdateGainInBytes()
     {
@@ -51,5 +59,20 @@ public class SizeDatabase
         var sign = gainInBytes >= 0 ? "-" : "+";
 
         GainInBytes = $"{sign}{absoluteGain:F2} {units[unitIndex]}";
+    }
+
+    private void UpdateGainInPercentage()
+    {
+        if (_newSize.Equals(0))
+        {
+            GainInPercentage = "N/A";
+        }
+        else
+        {
+            var gainInPercentage = ((double)_oldSize / _newSize - 1d) * 100d * -1d;
+            gainInPercentage = double.Round(gainInPercentage, 2);
+
+            GainInPercentage = $"{(gainInPercentage > 0 ? "+" : "")}{gainInPercentage} %";
+        }
     }
 }
