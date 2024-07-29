@@ -14,9 +14,12 @@ public class SizeDatabase
         set
         {
             _oldSize = value;
+            OldNormalizeByteSize = $"{GetNormalizeByteSize(_oldSize, out var unit):F2} {unit}";
             UpdateGain();
         }
     } // in bytes
+
+    public string OldNormalizeByteSize { get; private set; } = $"{0d:F2} {SizeDatabaseResources.ByteUnit}";
 
     public long NewSize
     {
@@ -24,9 +27,12 @@ public class SizeDatabase
         set
         {
             _newSize = value;
+            NewNormalizeByteSize = $"{GetNormalizeByteSize(_newSize, out var unit):F2} {unit}";
             UpdateGain();
         }
     } // in bytes
+
+    public string NewNormalizeByteSize { get; private set; } = $"{0d:F2} {SizeDatabaseResources.ByteUnit}";
 
     public string GainInBytes { get; private set; } = $"{0d:F2} {SizeDatabaseResources.ByteUnit}";
 

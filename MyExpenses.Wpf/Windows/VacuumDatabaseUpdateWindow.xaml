@@ -72,6 +72,18 @@
                                        VerticalContentAlignment="Center">
                                 </Label>
 
+                                <Label Grid.Row="2" Grid.Column="0"
+                                       Content="{Binding OldNormalizeByteSize}"
+                                       HorizontalContentAlignment="Center"
+                                       VerticalContentAlignment="Center">
+                                </Label>
+
+                                <Label Grid.Row="2" Grid.Column="2"
+                                       Content="{Binding NewNormalizeByteSize}"
+                                       HorizontalContentAlignment="Center"
+                                       VerticalContentAlignment="Center">
+                                </Label>
+
                                 <Label Grid.Row="3" Grid.Column="1"
                                        Content="{Binding GainInPercentage}"
                                        HorizontalContentAlignment="Center"
