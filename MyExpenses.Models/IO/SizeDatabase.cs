@@ -30,7 +30,7 @@ public class SizeDatabase
 
     public string GainInBytes { get; private set; } = $"{0d:F2} {SizeDatabaseResources.ByteUnit}";
 
-    public string GainInPercentage { get; private set; } = $"{0d: F2} %";
+    public string GainInPercentage { get; private set; } = $"{0d:F2} %";
 
     private void UpdateGain()
     {
