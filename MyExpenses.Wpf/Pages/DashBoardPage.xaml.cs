@@ -1,3 +1,4 @@
+using System.Collections.Immutable;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Windows;
@@ -294,7 +295,10 @@ public partial class DashBoardPage
     #region Action
 
     private void ButtonAccountManagement_OnClick(object sender, RoutedEventArgs e)
-        => nameof(MainWindow.FrameBody).NavigateTo(typeof(AccountManagementPage));
+    {
+        var page = new AccountManagementPage { DashBoardPage = this };
+        nameof(MainWindow.FrameBody).NavigateTo(page);
+    }
 
     private void ButtonAccountTypeManagement_OnClick(object sender, RoutedEventArgs e)
         => nameof(MainWindow.FrameBody).NavigateTo(typeof(AccountTypeManagementPage));
@@ -457,13 +461,14 @@ public partial class DashBoardPage
         newVTotalByAccount.CopyPropertiesTo(vTotalByAccount);
     }
 
-    private void RefreshAccountTotal()
+    internal void RefreshAccountTotal()
     {
         using var context = new DataBaseContext();
         var newVTotalByAccounts = context.VTotalByAccounts.ToList();
 
         var itemsToDelete = VTotalByAccounts
-            .Where(s => newVTotalByAccounts.All(n => n.Id != s.Id));
+            .Where(s => newVTotalByAccounts.All(n => n.Id != s.Id)).ToImmutableArray();
+
         foreach (var item in itemsToDelete)
         {
             VTotalByAccounts.Remove(item);
