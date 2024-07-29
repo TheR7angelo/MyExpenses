@@ -125,8 +125,8 @@
                        FontWeight="Bold">
                     <Label.Content>
                         <MultiBinding Converter="{StaticResource ValueSymbolConverter}">
-                            <Binding Path="Total" Mode="OneWay" UpdateSourceTrigger="PropertyChanged" />
-                            <Binding Path="Symbol" Mode="OneWay" UpdateSourceTrigger="PropertyChanged" />
+                            <Binding Path="CurrentVTotalByAccount.Total" FallbackValue="" Mode="OneWay" UpdateSourceTrigger="PropertyChanged" />
+                            <Binding Path="CurrentVTotalByAccount.Symbol" FallbackValue="" Mode="OneWay" UpdateSourceTrigger="PropertyChanged" />
                         </MultiBinding>
                     </Label.Content>
                 </Label>
