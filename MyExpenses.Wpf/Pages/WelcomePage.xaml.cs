@@ -1,3 +1,4 @@
+using System.Collections.Immutable;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Windows;
@@ -8,6 +9,7 @@ using MyExpenses.Sql.Context;
 using MyExpenses.Utils.Collection;
 using MyExpenses.WebApi.Dropbox;
 using MyExpenses.Wpf.Resources.Resx.Pages.WelcomePage;
+using MyExpenses.Wpf.Utils;
 using MyExpenses.Wpf.Utils.FilePicker;
 using MyExpenses.Wpf.Windows;
 using MyExpenses.Wpf.Windows.MsgBox;
@@ -320,11 +322,27 @@ private static async Task ImportFromLocal()
 
     private void RefreshExistingDatabases()
     {
-        ExistingDatabases.Clear();
-        var existingDatabases = DbContextBackup.GetExistingDatabase()
-                .OrderByDescending(s => s.FileNameWithoutExtension);
+        var itemsToDelete = ExistingDatabases
+            .Where(s => !File.Exists(s.FilePath)).ToImmutableArray();
 
-        ExistingDatabases.AddRange(existingDatabases);
+        foreach (var item in itemsToDelete)
+        {
+            ExistingDatabases.Remove(item);
+        }
+
+        var newExistingDatabases = DbContextBackup.GetExistingDatabase();
+        foreach (var existingDatabase in newExistingDatabases)
+        {
+            var exist = ExistingDatabases.FirstOrDefault(s => s.FilePath == existingDatabase.FilePath);
+            if (exist is not null)
+            {
+                existingDatabase.CopyPropertiesTo(exist);
+            }
+            else
+            {
+                ExistingDatabases.AddAndSort(existingDatabase, s => s.FileNameWithoutExtension);
+            }
+        }
     }
 
     #endregion
