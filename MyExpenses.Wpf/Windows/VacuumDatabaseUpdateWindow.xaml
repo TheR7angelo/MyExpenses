@@ -93,6 +93,12 @@
                                        VerticalContentAlignment="Center">
                                 </Label>
 
+                                <materialDesign:PackIcon Grid.Row="3" Grid.Column="1"
+                                                         VerticalAlignment="Center"
+                                                         HorizontalAlignment="Center"
+                                                         Kind="ArrowRightBold">
+                                </materialDesign:PackIcon>
+
                                 <Label Grid.Row="3" Grid.Column="2"
                                        Content="{Binding NewNormalizeByteSize}"
                                        HorizontalContentAlignment="Center"
