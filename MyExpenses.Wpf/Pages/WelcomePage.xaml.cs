@@ -164,7 +164,7 @@ public partial class WelcomePage
         }
     }
 
-    private void ButtonRemoveDataBase_OnClick(object sender, RoutedEventArgs e)
+    private async void ButtonRemoveDataBase_OnClick(object sender, RoutedEventArgs e)
     {
         var selectDatabaseFileWindow = new SelectDatabaseFileWindow();
         selectDatabaseFileWindow.ExistingDatabases.AddRange(ExistingDatabases);
@@ -189,6 +189,22 @@ public partial class WelcomePage
         }
 
         RefreshExistingDatabases();
+
+        //TODO trad
+        response = MsgBox.Show("Do you want to delete cloud databases if it also exists ?", MsgBoxImage.Question,
+            MessageBoxButton.YesNoCancel);
+
+        if (response is not MessageBoxResult.Yes) return;
+
+        var files = selectDatabaseFileWindow.ExistingDatabasesSelected.Select(s => s.FileName).ToArray();
+        Log.Information("Preparing to delete the following files: {Files}", files);
+
+        var dropboxService = new DropboxService();
+        await dropboxService.DeleteFilesAsync(files, DbContextBackup.CloudDirectoryBackupDatabase);
+
+        Log.Information("Files successfully deleted");
+        //TODO trad
+        MsgBox.Show("All database as been deleted", MsgBoxImage.Check, MessageBoxButton.OK);
     }
 
     #endregion
