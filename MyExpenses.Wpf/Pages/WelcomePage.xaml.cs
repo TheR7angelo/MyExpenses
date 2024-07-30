@@ -287,7 +287,7 @@ private static async Task ImportFromCloudAsync()
 {
     Log.Information("Starting to import the database from cloud storage");
     var dropboxService = new DropboxService();
-    var metadatas = await dropboxService.ListFile(DbContextBackup.CloudDirectoryBackupDatabase);
+    var metadatas = await dropboxService.ListFileAsync(DbContextBackup.CloudDirectoryBackupDatabase);
     metadatas = metadatas.Where(s => Path.GetExtension(s.PathDisplay).Equals(DbContextBackup.Extension));
 
     var existingDatabase = metadatas.Select(s => new ExistingDatabase(s.PathDisplay));
