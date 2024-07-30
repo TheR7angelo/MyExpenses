@@ -12,6 +12,7 @@ using MyExpenses.Sql.Context;
 using MyExpenses.Utils.WindowStyle;
 using MyExpenses.WebApi.Dropbox;
 using MyExpenses.Wpf.Resources.Resx.Windows.MainWindow;
+using MyExpenses.Wpf.Utils;
 using MyExpenses.Wpf.Utils.FilePicker;
 using MyExpenses.Wpf.Windows;
 using MyExpenses.Wpf.Windows.MsgBox;
@@ -131,8 +132,10 @@ public partial class MainWindow
 
         InitializeComponent();
 
-        var hWnd = new WindowInteropHelper(GetWindow(this)!).EnsureHandle();
-        hWnd.SetWindowCornerPreference(DwmWindowCornerPreference.Round);
+        // var hWnd = new WindowInteropHelper(GetWindow(this)!).EnsureHandle();
+        // hWnd.SetWindowCornerPreference(DwmWindowCornerPreference.Round);
+
+        this.SetWindowCornerPreference();
 
         Navigator.CanGoBackChanged += Navigator_OnCanGoBackChanged;
     }
