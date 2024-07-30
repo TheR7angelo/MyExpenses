@@ -44,6 +44,13 @@
 
         <ListView Grid.Row="0" x:Name="ListView"
                   ItemsSource="{Binding ExistingDatabases, Mode=OneWay}">
+
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                </Style>
+            </ListView.ItemContainerStyle>
+
             <ListView.ItemTemplate>
                 <DataTemplate>
 
