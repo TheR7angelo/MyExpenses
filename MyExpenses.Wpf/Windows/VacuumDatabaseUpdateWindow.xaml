@@ -48,6 +48,7 @@
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
                                     <RowDefinition Height="*" />
                                     <RowDefinition Height="*" />
                                     <RowDefinition Height="*" />
@@ -60,31 +61,36 @@
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
 
-                                <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"
-                                       Content="{Binding FileNameWithoutExtension}"
-                                       HorizontalContentAlignment="Center"
-                                       VerticalContentAlignment="Center">
-                                </Label>
+                                <ScrollViewer Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"
+                                              HorizontalScrollBarVisibility="Auto"
+                                              VerticalScrollBarVisibility="Disabled">
+                                    <TextBlock Text="{Binding FileNameWithoutExtension}"
+                                               HorizontalAlignment="Center"
+                                               VerticalAlignment="Center">
+                                    </TextBlock>
+                                </ScrollViewer>
 
-                                <Label Grid.Row="1" Grid.Column="1"
+                                <Separator Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Height="5" Margin="0, 5" />
+
+                                <Label Grid.Row="2" Grid.Column="1"
                                        Content="{Binding GainInBytes}"
                                        HorizontalContentAlignment="Center"
                                        VerticalContentAlignment="Center">
                                 </Label>
 
-                                <Label Grid.Row="2" Grid.Column="0"
+                                <Label Grid.Row="3" Grid.Column="0"
                                        Content="{Binding OldNormalizeByteSize}"
                                        HorizontalContentAlignment="Center"
                                        VerticalContentAlignment="Center">
                                 </Label>
 
-                                <Label Grid.Row="2" Grid.Column="2"
+                                <Label Grid.Row="3" Grid.Column="2"
                                        Content="{Binding NewNormalizeByteSize}"
                                        HorizontalContentAlignment="Center"
                                        VerticalContentAlignment="Center">
                                 </Label>
 
-                                <Label Grid.Row="3" Grid.Column="1"
+                                <Label Grid.Row="4" Grid.Column="1"
                                        Content="{Binding GainInPercentage}"
                                        HorizontalContentAlignment="Center"
                                        VerticalContentAlignment="Center">
