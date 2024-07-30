@@ -185,9 +185,7 @@ public partial class WelcomePage
             File.Delete(existingDatabase.FilePath);
 
             var backupDirectory = Path.Join(DbContextBackup.LocalDirectoryBackupDatabase, existingDatabase.FileNameWithoutExtension);
-            if (!Directory.Exists(backupDirectory)) continue;
-
-            Directory.Delete(backupDirectory, true);
+            if (Directory.Exists(backupDirectory)) Directory.Delete(backupDirectory, true);
         }
 
         RefreshExistingDatabases();
