@@ -35,7 +35,39 @@ public class DropboxService
         }
     }
 
-    public async Task<IEnumerable<Metadata>> ListFile(string? folder = null, bool recursive = false, bool includeMediaInfo = false,
+    public async Task<List<DeleteResult?>> DeleteFilesAsync(string[] filePaths, string? folder = null)
+    {
+        var results = new List<DeleteResult?>();
+
+        foreach (var filePath in filePaths)
+        {
+            var result = await DeleteFileAsync(filePath, folder);
+            results.Add(result);
+        }
+
+        return results;
+    }
+
+    public async Task<DeleteResult?> DeleteFileAsync(string filePath, string? folder = null)
+    {
+        folder ??= string.Empty;
+
+        if (!folder.StartsWith('/')) folder = $"/{folder}";
+
+        var metadatas = await ListFileAsync(folder);
+        var files = metadatas.Select(s => s.PathDisplay);
+
+        filePath = $"{folder}/{filePath}";
+
+        if (!files.Contains(filePath)) return null;
+
+        using var dropboxClient = await GetDropboxClient();
+        var deleteResult = await dropboxClient.Files.DeleteV2Async(filePath);
+
+        return deleteResult;
+    }
+
+    public async Task<IEnumerable<Metadata>> ListFileAsync(string? folder = null, bool recursive = false, bool includeMediaInfo = false,
         bool includeDeleted = false, bool includeHasExplicitSharedMembers = false,
         bool includeMountedFolders = true, uint? limit = null, SharedLink? sharedLink = null,
         TemplateFilterBase? includePropertyGroups = null, bool includeNonDownloadableFiles = true)
