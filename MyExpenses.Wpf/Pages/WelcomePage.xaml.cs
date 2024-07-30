@@ -57,7 +57,7 @@ public partial class WelcomePage
             context.SaveChanges();
 
             ExistingDatabases.AddAndSort(new ExistingDatabase(filePath),
-                s => s.FileNameWithoutExtension!);
+                s => s.FileNameWithoutExtension);
 
             MsgBox.Show(WelcomePageResources.MessageBoxCreateNewDatabaseSuccess, MsgBoxImage.Check);
         }
@@ -204,7 +204,7 @@ public partial class WelcomePage
         foreach (var existingDatabase in existingDatabasesSelected)
         {
             Log.Information("Starting to upload {ExistingDatabaseFileName} to cloud storage", existingDatabase.FileName);
-            await dropboxService.UploadFileAsync(existingDatabase.FilePath!, DbContextBackup.CloudDirectoryBackupDatabase);
+            await dropboxService.UploadFileAsync(existingDatabase.FilePath, DbContextBackup.CloudDirectoryBackupDatabase);
             Log.Information("Successfully uploaded {ExistingDatabaseFileName} to cloud storage", existingDatabase.FileName);
         }
     }
@@ -213,7 +213,7 @@ public partial class WelcomePage
     {
         var dropboxService = new DropboxService();
         Log.Information("Starting to upload {FileName} to cloud storage", existingDatabasesSelected.FileName);
-        await dropboxService.UploadFileAsync(existingDatabasesSelected.FilePath!, DbContextBackup.CloudDirectoryBackupDatabase);
+        await dropboxService.UploadFileAsync(existingDatabasesSelected.FilePath, DbContextBackup.CloudDirectoryBackupDatabase);
         Log.Information("Successfully uploaded {FileName} to cloud storage", existingDatabasesSelected.FileName);
     }
 
@@ -238,7 +238,7 @@ public partial class WelcomePage
         {
             var newFilePath = Path.Join(selectedFolder, existingDatabase.FileName);
             Log.Information("Starting to copy {ExistingDatabaseFileName} to {NewFilePath}", existingDatabase.FileName, newFilePath);
-            await Task.Run(() => File.Copy(existingDatabase.FilePath!, newFilePath, true));
+            await Task.Run(() => File.Copy(existingDatabase.FilePath, newFilePath, true));
             Log.Information("Successfully copied {ExistingDatabaseFileName} to {NewFilePath}", existingDatabase.FileName, newFilePath);
         }
     }
@@ -255,7 +255,7 @@ public partial class WelcomePage
         }
 
         selectedDialog = Path.ChangeExtension(selectedDialog, DbContextBackup.Extension);
-        var selectedFilePath = existingDatabasesSelected.FilePath!;
+        var selectedFilePath = existingDatabasesSelected.FilePath;
         Log.Information("Starting to copy database to {SelectedDialog}", selectedDialog);
         await Task.Run(() =>
         {
@@ -282,7 +282,7 @@ private static async Task ImportFromCloudAsync()
         return;
     }
 
-    var files = selectDatabaseFileWindow.ExistingDatabasesSelected.Select(s => s.FilePath!);
+    var files = selectDatabaseFileWindow.ExistingDatabasesSelected.Select(s => s.FilePath);
     foreach (var file in files)
     {
         var fileName = Path.GetFileName(file);
