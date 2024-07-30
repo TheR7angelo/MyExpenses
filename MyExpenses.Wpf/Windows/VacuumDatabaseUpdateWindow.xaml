@@ -39,10 +39,19 @@
     <Grid>
 
         <ListView ItemsSource="{Binding SizeDatabases, Mode=OneWay}">
+
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                </Style>
+            </ListView.ItemContainerStyle>
+
             <ListView.ItemTemplate>
                 <DataTemplate>
 
-                    <Button>
+                    <Button Style="{StaticResource MaterialDesignPaperButton}"
+                            Height="{Binding Height, RelativeSource={RelativeSource Self}}"
+                            HorizontalContentAlignment="Stretch">
                         <Button.Content>
 
                             <Grid>
