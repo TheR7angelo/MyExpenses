@@ -208,6 +208,7 @@ public partial class MainWindow
         var sizeDatabases = new List<SizeDatabase>();
         foreach (var existingDatabase in DbContextBackup.GetExistingDatabase())
         {
+            var oldSize = existingDatabase.FileInfo.Length;
             var result = VacuumDatabase(existingDatabase.FilePath);
             listSuccess.Add(result);
 
@@ -217,7 +218,7 @@ public partial class MainWindow
             var sizeDatabase = new SizeDatabase
             {
                 FileNameWithoutExtension = existingDatabase.FileNameWithoutExtension,
-                OldSize = existingDatabase.FileInfo.Length,
+                OldSize = oldSize,
                 NewSize = newSize
             };
             sizeDatabases.Add(sizeDatabase);
