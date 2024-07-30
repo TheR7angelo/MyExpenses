@@ -6,7 +6,6 @@ namespace MyExpenses.Wpf.Utils;
 
 public static class WindowUtils
 {
-    // TODO try
     public static bool SetWindowCornerPreference(this Window window, DwmWindowCornerPreference dwmWindowCornerPreference = DwmWindowCornerPreference.Round)
     {
         var w = Window.GetWindow(window)!;

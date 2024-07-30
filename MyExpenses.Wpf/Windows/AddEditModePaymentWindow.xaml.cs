@@ -1,13 +1,11 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Interop;
 using Microsoft.Data.Sqlite;
 using MyExpenses.Models.Config;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Sql.Tables;
 using MyExpenses.Sql.Context;
-using MyExpenses.Utils.WindowStyle;
 using MyExpenses.Wpf.Resources.Resx.Windows.AddEditCurrencyWindow;
 using MyExpenses.Wpf.Resources.Resx.Windows.AddEditModePaymentWindow;
 using MyExpenses.Wpf.Utils;
@@ -92,8 +90,7 @@ public partial class AddEditModePaymentWindow
         UpdateLanguage();
         InitializeComponent();
 
-        var hWnd = new WindowInteropHelper(GetWindow(this)!).EnsureHandle();
-        hWnd.SetWindowCornerPreference(DwmWindowCornerPreference.Round);
+        this.SetWindowCornerPreference();
 
         TextBoxModePayment.Focus();
     }

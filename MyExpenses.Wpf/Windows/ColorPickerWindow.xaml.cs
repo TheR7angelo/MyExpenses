@@ -1,6 +1,7 @@
 using System.Windows;
 using System.Windows.Media;
 using MyExpenses.Wpf.Resources.Resx.Windows.ColorPickerWindow;
+using MyExpenses.Wpf.Utils;
 
 namespace MyExpenses.Wpf.Windows;
 
@@ -14,6 +15,8 @@ public partial class ColorPickerWindow
     public ColorPickerWindow()
     {
         InitializeComponent();
+
+        this.SetWindowCornerPreference();
     }
 
     private void ButtonValid_OnClick(object sender, RoutedEventArgs e)

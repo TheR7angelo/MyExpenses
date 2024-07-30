@@ -1,7 +1,6 @@
 using System.Windows;
-using System.Windows.Interop;
-using MyExpenses.Utils.WindowStyle;
 using MyExpenses.Wpf.Resources.Resx.Windows.WaitScreenWindow;
+using MyExpenses.Wpf.Utils;
 
 namespace MyExpenses.Wpf.Windows;
 
@@ -16,8 +15,7 @@ public partial class WaitScreenWindow
     {
         InitializeComponent();
 
-        var hWnd = new WindowInteropHelper(GetWindow(this)!).EnsureHandle();
-        hWnd.SetWindowCornerPreference(DwmWindowCornerPreference.Round);
+        this.SetWindowCornerPreference();
     }
 
     public string WaitMessage

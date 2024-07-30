@@ -1,8 +1,7 @@
 using System.Collections.ObjectModel;
-using System.Windows.Interop;
 using MyExpenses.Models.IO;
 using MyExpenses.Utils.Collection;
-using MyExpenses.Utils.WindowStyle;
+using MyExpenses.Wpf.Utils;
 
 namespace MyExpenses.Wpf.Windows;
 
@@ -27,8 +26,6 @@ public partial class VacuumDatabaseUpdateWindow
     }
 
     private void SetRoundWindow()
-    {
-        var hWnd = new WindowInteropHelper(GetWindow(this)!).EnsureHandle();
-        hWnd.SetWindowCornerPreference(DwmWindowCornerPreference.Round);
-    }
+        => this.SetWindowCornerPreference();
+
 }

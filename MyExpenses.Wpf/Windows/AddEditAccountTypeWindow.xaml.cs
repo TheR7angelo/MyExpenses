@@ -1,13 +1,11 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Interop;
 using Microsoft.Data.Sqlite;
 using MyExpenses.Models.Config;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Sql.Tables;
 using MyExpenses.Sql.Context;
-using MyExpenses.Utils.WindowStyle;
 using MyExpenses.Wpf.Resources.Resx.Windows.AddEditAccountTypeWindow;
 using MyExpenses.Wpf.Utils;
 using MyExpenses.Wpf.Windows.MsgBox;
@@ -99,8 +97,7 @@ public partial class AddEditAccountTypeWindow
         UpdateLanguage();
         InitializeComponent();
 
-        var hWnd = new WindowInteropHelper(GetWindow(this)!).EnsureHandle();
-        hWnd.SetWindowCornerPreference(DwmWindowCornerPreference.Round);
+        this.SetWindowCornerPreference();
 
         TextBoxAccountType.Focus();
     }

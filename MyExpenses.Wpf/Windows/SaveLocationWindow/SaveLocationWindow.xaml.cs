@@ -1,7 +1,6 @@
 using System.Windows;
-using System.Windows.Interop;
 using MyExpenses.Models.Wpf.Save;
-using MyExpenses.Utils.WindowStyle;
+using MyExpenses.Wpf.Utils;
 
 namespace MyExpenses.Wpf.Windows.SaveLocationWindow;
 
@@ -13,8 +12,7 @@ public partial class SaveLocationWindow
     {
         InitializeComponent();
 
-        var hWnd = new WindowInteropHelper(GetWindow(this)!).EnsureHandle();
-        hWnd.SetWindowCornerPreference(DwmWindowCornerPreference.Round);
+        this.SetWindowCornerPreference();
     }
 
     private void ButtonDropbox_OnClick(object sender, RoutedEventArgs e)

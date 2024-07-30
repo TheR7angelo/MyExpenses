@@ -2,7 +2,6 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Interop;
 using Microsoft.Data.Sqlite;
 using MyExpenses.Models.Config;
 using MyExpenses.Models.Config.Interfaces;
@@ -10,7 +9,6 @@ using MyExpenses.Models.Sql.Tables;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils.Collection;
 using MyExpenses.Utils.Sql;
-using MyExpenses.Utils.WindowStyle;
 using MyExpenses.Wpf.Resources.Regex;
 using MyExpenses.Wpf.Resources.Resx.Windows.AddAccountWindow;
 using MyExpenses.Wpf.Utils;
@@ -195,8 +193,7 @@ public partial class AddEditAccountWindow
         UpdateLanguage();
         InitializeComponent();
 
-        var hWnd = new WindowInteropHelper(GetWindow(this)!).EnsureHandle();
-        hWnd.SetWindowCornerPreference(DwmWindowCornerPreference.Round);
+        this.SetWindowCornerPreference();
     }
 
     #region Action

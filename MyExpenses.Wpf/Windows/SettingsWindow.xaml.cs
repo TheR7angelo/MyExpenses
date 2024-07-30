@@ -1,11 +1,9 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Interop;
 using MyExpenses.Models.Config;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Utils;
-using MyExpenses.Utils.WindowStyle;
 using MyExpenses.Wpf.Utils;
 
 namespace MyExpenses.Wpf.Windows;
@@ -17,8 +15,7 @@ public partial class SettingsWindow
     {
         InitializeComponent();
 
-        var hWnd = new WindowInteropHelper(GetWindow(this)!).EnsureHandle();
-        hWnd.SetWindowCornerPreference(DwmWindowCornerPreference.Round);
+        this.SetWindowCornerPreference();
     }
 
     #region Action

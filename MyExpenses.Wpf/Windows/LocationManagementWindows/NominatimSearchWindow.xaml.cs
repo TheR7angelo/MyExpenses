@@ -1,13 +1,12 @@
 ﻿using System.Windows;
-using System.Windows.Interop;
 using Mapsui.Layers;
 using Mapsui.Styles;
 using MyExpenses.Models.AutoMapper;
 using MyExpenses.Models.Config;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Sql.Tables;
-using MyExpenses.Utils.WindowStyle;
 using MyExpenses.Wpf.Resources.Resx.Windows.NominatimSearchWindow;
+using MyExpenses.Wpf.Utils;
 using MyExpenses.Wpf.Utils.Maps;
 
 namespace MyExpenses.Wpf.Windows.LocationManagementWindows;
@@ -121,8 +120,7 @@ public partial class NominatimSearchWindow
         Interface.LanguageChanged += Interface_OnLanguageChanged;
         InitializeComponent();
 
-        var hWnd = new WindowInteropHelper(GetWindow(this)!).EnsureHandle();
-        hWnd.SetWindowCornerPreference(DwmWindowCornerPreference.Round);
+        this.SetWindowCornerPreference();
 
         MapControl.Map = map;
     }

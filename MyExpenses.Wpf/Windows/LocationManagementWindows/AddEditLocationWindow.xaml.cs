@@ -1,6 +1,5 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Interop;
 using System.Windows.Media;
 using BruTile.Predefined;
 using Mapsui;
@@ -15,7 +14,6 @@ using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Sql.Tables;
 using MyExpenses.Models.WebApi.Nominatim;
 using MyExpenses.Sql.Context;
-using MyExpenses.Utils.WindowStyle;
 using MyExpenses.WebApi.Nominatim;
 using MyExpenses.Wpf.Resources.Resx.Windows.AddEditLocationWindow;
 using MyExpenses.Wpf.Utils;
@@ -242,8 +240,7 @@ public partial class AddEditLocationWindow
         UpdateLanguage();
         InitializeComponent();
 
-        var hWnd = new WindowInteropHelper(GetWindow(this)!).EnsureHandle();
-        hWnd.SetWindowCornerPreference(DwmWindowCornerPreference.Round);
+        this.SetWindowCornerPreference();
 
         MapControl.Map = map;
     }

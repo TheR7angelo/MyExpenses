@@ -2,14 +2,12 @@
 using System.Reflection;
 using System.Windows;
 using System.Windows.Input;
-using System.Windows.Interop;
 using Dropbox.Api.Files;
 using MyExpenses.Models.Config;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.IO;
 using MyExpenses.Models.Wpf.Save;
 using MyExpenses.Sql.Context;
-using MyExpenses.Utils.WindowStyle;
 using MyExpenses.WebApi.Dropbox;
 using MyExpenses.Wpf.Resources.Resx.Windows.MainWindow;
 using MyExpenses.Wpf.Utils;
@@ -131,9 +129,6 @@ public partial class MainWindow
         UpdateLanguage();
 
         InitializeComponent();
-
-        // var hWnd = new WindowInteropHelper(GetWindow(this)!).EnsureHandle();
-        // hWnd.SetWindowCornerPreference(DwmWindowCornerPreference.Round);
 
         this.SetWindowCornerPreference();
 

@@ -1,8 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Interop;
-using MyExpenses.Utils.WindowStyle;
 using MyExpenses.Wpf.Resources.Resx.Windows.MsgBox;
+using MyExpenses.Wpf.Utils;
 
 namespace MyExpenses.Wpf.Windows.MsgBox;
 
@@ -47,8 +46,7 @@ public partial class MsgBoxMessageWindow
     {
         InitializeComponent();
 
-        var hWnd = new WindowInteropHelper(GetWindow(this)!).EnsureHandle();
-        hWnd.SetWindowCornerPreference(DwmWindowCornerPreference.Round);
+        this.SetWindowCornerPreference();
 
         SetButtonVisibility();
     }
