@@ -28,3 +28,8 @@ FROM t_place;
 
 INSERT INTO t_geometry_columns(f_table_name, f_geometry_column, type, coord_dimension, srid)
 VALUES('t_place', 'geometry', 'POINT', 2, 4326);
+
+
+SELECT *
+FROM v_history h
+WHERE h.date BETWEEN '2024-07-01' AND '2024-08-01';
