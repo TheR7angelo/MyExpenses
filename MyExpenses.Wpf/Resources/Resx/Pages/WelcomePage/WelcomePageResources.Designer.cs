@@ -157,5 +157,23 @@ namespace MyExpenses.Wpf.Resources.Resx.Pages.WelcomePage {
                 return ResourceManager.GetString("MessageBoxCreateNewDatabaseSuccess", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you want to delete cloud databases if it also exists ?.
+        /// </summary>
+        internal static string MessageBoxDeleteCloudQuestion {
+            get {
+                return ResourceManager.GetString("MessageBoxDeleteCloudQuestion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to All databases have been deleted.
+        /// </summary>
+        internal static string MessageBoxDeleteCloudQuestionSuccess {
+            get {
+                return ResourceManager.GetString("MessageBoxDeleteCloudQuestionSuccess", resourceCulture);
+            }
+        }
     }
 }

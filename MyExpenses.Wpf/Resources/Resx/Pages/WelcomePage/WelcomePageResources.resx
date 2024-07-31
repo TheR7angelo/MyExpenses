@@ -51,4 +51,10 @@
     <data name="ButtonExportDataBaseError" xml:space="preserve">
         <value>An error occurred. Please try again</value>
     </data>
+    <data name="MessageBoxDeleteCloudQuestion" xml:space="preserve">
+        <value>Do you want to delete cloud databases if it also exists ?</value>
+    </data>
+    <data name="MessageBoxDeleteCloudQuestionSuccess" xml:space="preserve">
+        <value>All databases have been deleted</value>
+    </data>
 </root>

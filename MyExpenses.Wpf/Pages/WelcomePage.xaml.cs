@@ -190,8 +190,7 @@ public partial class WelcomePage
 
         RefreshExistingDatabases();
 
-        //TODO trad
-        response = MsgBox.Show("Do you want to delete cloud databases if it also exists ?", MsgBoxImage.Question,
+        response = MsgBox.Show(WelcomePageResources.MessageBoxDeleteCloudQuestion, MsgBoxImage.Question,
             MessageBoxButton.YesNoCancel);
 
         if (response is not MessageBoxResult.Yes) return;
@@ -203,8 +202,7 @@ public partial class WelcomePage
         await dropboxService.DeleteFilesAsync(files, DbContextBackup.CloudDirectoryBackupDatabase);
 
         Log.Information("Files successfully deleted");
-        //TODO trad
-        MsgBox.Show("All database as been deleted", MsgBoxImage.Check, MessageBoxButton.OK);
+        MsgBox.Show(WelcomePageResources.MessageBoxDeleteCloudQuestionSuccess, MsgBoxImage.Check, MessageBoxButton.OK);
     }
 
     #endregion
