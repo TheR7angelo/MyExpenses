@@ -12,12 +12,14 @@
 >        - [X] From cloud ([API Dropbox](https://www.dropbox.com/developers/documentation/http/documentation)) (database file format only)
 >        - [ ] From xslx format (.shp if geometry data)
 >        - [ ] From ods format (.shp if geometry data)
+>        - [ ] From xlsx format (.shp if geometry data)
 >        - [ ] From csv format (.shp if geometry data)
 >      - [ ] Export database
 >        - [X] To database format
 >        - [X] To cloud ([API Dropbox](https://www.dropbox.com/developers/documentation/http/documentation)) (database file format only)
 >        - [ ] To xslx format (.shp if geometry data)
 >        - [ ] To ods format (.shp if geometry data)
+>        - [ ] To xlsx format (.shp if geometry data)
 >        - [ ] To csv format (.shp if geometry data)
 >      - [X] Clean database
 >    - [ ] Help
