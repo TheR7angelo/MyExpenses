@@ -1,6 +1,6 @@
 # TODO LIST
 
-> # Sql tables
+> # Sql tables / View
 > - [ ] adding a recursive expense table
 > - [ ] CREATE VIEW nbr total sum by month / year and year by place
 
