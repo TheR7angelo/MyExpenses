@@ -21,7 +21,8 @@
 >        - [ ] To csv format (.shp if geometry data)
 >      - [X] Clean database
 >    - [ ] Help
->    - [ ] Version
+>      - [ ] Tutorial (MultiLanguage) 
+>      - [ ] Version
 
 > # Other
 > - [ ] added error tracking / fix / added function
