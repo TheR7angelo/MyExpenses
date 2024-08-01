@@ -197,7 +197,7 @@ public partial class DashBoardPage
 
     public ObservableCollection<CategoryTotal> CategoryTotals { get; } = [];
     public ObservableCollection<string> Years { get; }
-    public ObservableCollection<string> Months { get; }
+    public ObservableCollection<string> Months { get; } = [];
 
     public static readonly DependencyProperty SelectedYearProperty = DependencyProperty.Register(nameof(SelectedYear),
         typeof(string), typeof(DashBoardPage), new PropertyMetadata(default(string)));
@@ -255,6 +255,8 @@ public partial class DashBoardPage
     {
         Instance = this;
 
+        UpdateMonthLanguage();
+
         using var context = new DataBaseContext();
         Years =
         [
@@ -266,13 +268,6 @@ public partial class DashBoardPage
                 .OrderByDescending(y => y)
         ];
 
-        Months =
-        [
-            ..CultureInfo.CurrentCulture.DateTimeFormat.MonthNames
-                .Where(s => !string.IsNullOrEmpty(s))
-                .Select(s => s.ToFirstCharUpper())
-        ];
-
         var now = DateTime.Now;
         if (Years.Count.Equals(0))
         {
@@ -281,9 +276,6 @@ public partial class DashBoardPage
 
         SelectedYear = now.Year.ToString();
         SelectedMonth = Months[now.Month - 1];
-
-        var currentCulture = CultureInfo.CurrentCulture;
-        LocalLanguage = currentCulture.ToLocal();
 
         Interface.ThemeChanged += Interface_OnThemeChanged;
         Interface.LanguageChanged += Interface_OnLanguageChanged;
@@ -297,6 +289,31 @@ public partial class DashBoardPage
         FilterDataGrid.ItemsSource = VHistories;
 
         UpdatePieChartLegendTextPaint();
+    }
+
+    private void UpdateMonthLanguage()
+    {
+        var currentCulture = CultureInfo.CurrentCulture;
+        LocalLanguage = currentCulture.ToLocal();
+
+        var months = currentCulture.DateTimeFormat.MonthNames
+            .Where(s => !string.IsNullOrEmpty(s))
+            .Select(s => s.ToFirstCharUpper()).ToImmutableArray();
+
+        if (Months.Count > 0)
+        {
+            var selectedMonth = Months.FirstOrDefault(month => month.Equals(SelectedMonth)) ?? string.Empty;
+            for (var i = 0; i < months.Length; i++)
+            {
+                Months[i] = months[i];
+            }
+
+            SelectedMonth = selectedMonth;
+        }
+        else
+        {
+            Months.AddRange(months);
+        }
     }
 
     #region Action
@@ -348,7 +365,10 @@ public partial class DashBoardPage
         => UpdatePieChartLegendTextPaint();
 
     private void Interface_OnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
-        => UpdateLanguage();
+    {
+        UpdateLanguage();
+        UpdateMonthLanguage();
+    }
 
     private void UpdateLanguage()
     {
