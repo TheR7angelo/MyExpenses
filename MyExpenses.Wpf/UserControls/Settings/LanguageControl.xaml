@@ -39,7 +39,12 @@
             </ComboBox.ItemTemplate>
         </ComboBox>
 
-
+        <StackPanel Grid.Row="1" Orientation="Horizontal">
+            <Label Content="Is 24h format" />
+            <ToggleButton IsChecked="{Binding Is24Hours, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:LanguageControl}}}"
+                          IsThreeState="False">
+            </ToggleButton>
+        </StackPanel>
 
     </Grid>
 
