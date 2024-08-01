@@ -14,24 +14,30 @@
         <converters:FirstCharUpperConverter x:Key="FirstCharUpperConverter" />
     </UserControl.Resources>
 
-    <Grid>
+    <Grid VerticalAlignment="Center">
 
-        <ComboBox ItemsSource="{Binding CultureInfos, Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type local:LanguageControl}}}"
-                  SelectedItem="{Binding CultureInfoSelected, Mode=TwoWay, RelativeSource={RelativeSource AncestorType={x:Type local:LanguageControl}}}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <ComboBox Grid.Row="0" ItemsSource="{Binding CultureInfos, Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type local:LanguageControl}}}"
+                  SelectedItem="{Binding CultureInfoSelected, Mode=TwoWay, RelativeSource={RelativeSource AncestorType={x:Type local:LanguageControl}}}"
+                  Style="{StaticResource MaterialDesignFilledComboBox}">
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
-
                         <Label Content="{Binding DisplayName, Converter={StaticResource FirstCharUpperConverter}}" />
                         <Label Content="|" />
                         <Label Content="{Binding EnglishName, Converter={StaticResource FirstCharUpperConverter}}" />
                         <Label Content="|" />
                         <Label Content="{Binding NativeName, Converter={StaticResource FirstCharUpperConverter}}" />
-
                     </StackPanel>
                 </DataTemplate>
             </ComboBox.ItemTemplate>
         </ComboBox>
+
+
 
     </Grid>
 
