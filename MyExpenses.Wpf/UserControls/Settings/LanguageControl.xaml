@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:MyExpenses.Wpf.UserControls.Settings"
              xmlns:converters="clr-namespace:MyExpenses.Wpf.Converters"
+             xmlns:margin="clr-namespace:MyExpenses.Wpf.Utils.Margin;assembly=MyExpenses.Wpf.Utils"
              mc:Ignorable="d"
 
              d:DesignHeight="300" d:DesignWidth="350"
@@ -14,7 +15,8 @@
         <converters:FirstCharUpperConverter x:Key="FirstCharUpperConverter" />
     </UserControl.Resources>
 
-    <Grid VerticalAlignment="Center">
+    <Grid VerticalAlignment="Center"
+          margin:PanelExtensions.MarginForAllChildren="5">
 
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
