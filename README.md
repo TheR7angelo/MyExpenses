@@ -17,4 +17,4 @@ The application also generates a graph each month to help users understand their
 Anyone wishing to contribute to the project is welcome. If you find an error or possible improvement, please feel free
 to open an issue or make a pull request.
 
-## [See the todo list](https://github.com/TheR7angelo/MyExpenses/blob/master/Prototype/TODO%20LIST.md)
+## [See the todo list](TODO%20LIST.md)
