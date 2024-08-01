@@ -7,9 +7,15 @@
 > # Interface
 >  - [ ] Create ToolBar with :
 >    - [ ] File:
->      - [X] Import database
+>      - [ ] Import database
+>        - [X] From database file
+>        - [X] From cloud (API Dropbox) (database file format only)
+>        - [ ] From xslx format (.shp if geometry data)
+>        - [ ] From ods format (.shp if geometry data)
+>        - [ ] From csv format (.shp if geometry data)
 >      - [ ] Export database
 >        - [X] To database format
+>        - [X] To cloud (API Dropbox) (database file format only)
 >        - [ ] To xslx format (.shp if geometry data)
 >        - [ ] To ods format (.shp if geometry data)
 >        - [ ] To csv format (.shp if geometry data)
