@@ -680,7 +680,6 @@ public partial class RecordExpensePage
 
         UpdateLanguage(configuration.Interface.Language!);
 
-        // TODO time format
         TimePicker.Is24Hours = configuration.Interface.Clock.Is24Hours;
 
         var backColor = GetMapsUiBackColor();
