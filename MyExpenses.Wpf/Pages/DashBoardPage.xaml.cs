@@ -217,7 +217,14 @@ public partial class DashBoardPage
         set => SetValue(SelectedMonthProperty, value);
     }
 
-    public Local LocalLanguage { get; }
+    public static readonly DependencyProperty LocalLanguageProperty = DependencyProperty.Register(nameof(LocalLanguage),
+        typeof(Local), typeof(DashBoardPage), new PropertyMetadata(default(Local)));
+
+    public Local LocalLanguage
+    {
+        get => (Local)GetValue(LocalLanguageProperty);
+        set => SetValue(LocalLanguageProperty, value);
+    }
 
     private static VTotalByAccount? _staticVTotalByAccount;
 
