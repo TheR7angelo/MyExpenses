@@ -5,7 +5,7 @@
 > - [ ] CREATE VIEW nbr total sum by month / year and year by place
 
 > # Interface
->  - [ ] Create ToolBar with ![0%](https://progress-bar.dev/0)<!-- [0/2] -->
+>  - [ ] Create ToolBar with item ![0%](https://progress-bar.dev/0)<!-- [0/2] -->
 >    - [ ] File ![33%](https://progress-bar.dev/33) <!-- [1/3] -->
 >      - [ ] Import database ![40%](https://progress-bar.dev/40) <!-- [2/5] -->
 >        - [X] From database file
