@@ -235,7 +235,6 @@ public partial class MainWindow
 
         if (!listSuccess.Any(s => s)) return;
 
-        // TODO work
         var vacuumDatabaseUpdateWindow = new VacuumDatabaseUpdateWindow(sizeDatabases);
         vacuumDatabaseUpdateWindow.ShowDialog();
     }
@@ -259,7 +258,6 @@ public partial class MainWindow
                 NewSize = newSize
             };
 
-            // TODO work
             var vacuumDatabaseUpdateWindow = new VacuumDatabaseUpdateWindow(sizeDatabase);
             vacuumDatabaseUpdateWindow.ShowDialog();
         }
