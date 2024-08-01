@@ -48,6 +48,8 @@ public partial class SettingsWindow
             var cultureInfoCode = LanguageControl.CultureInfoSelected.Name;
 
             configuration.Interface.Language = cultureInfoCode;
+            configuration.Interface.Clock.Is24Hours = LanguageControl.Is24Hours;
+
             configuration.WriteConfiguration();
 
             //TODO add listener to update all text ...
