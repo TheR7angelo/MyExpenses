@@ -347,7 +347,6 @@ public partial class DashBoardPage
     private void ItemsControlVTotalAccount_OnLoaded(object sender, RoutedEventArgs e)
         => RefreshRadioButtonSelected();
 
-    // TODO work
     private void MenuItemDeleteRecord_OnClick(object sender, RoutedEventArgs e)
     {
         if (DataGridRow!.DataContext is not VHistory vHistory) return;
@@ -362,7 +361,6 @@ public partial class DashBoardPage
         RefreshDataGrid(accountName);
         UpdateGraph(accountName);
 
-        //TODO refresh total account display
         RefreshAccountTotal(CurrentVTotalByAccount!.Id);
     }
 
