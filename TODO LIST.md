@@ -19,7 +19,7 @@
 >        - [ ] To xlsx format (.shp if geometry data)
 >        - [ ] To ods format (.shp if geometry data) (not required because LibreOffice can read xlsx files)
 >        - [ ] To csv format (.shp if geometry data)
->      - [X] Clean database
+>      - [X] Clean database (SQL query `VACUUM;`)
 >    - [ ] Help
 >      - [ ] Tutorial (MultiLanguage) 
 >      - [ ] Version
