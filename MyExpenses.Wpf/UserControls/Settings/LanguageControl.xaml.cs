@@ -1,6 +1,7 @@
 using System.Globalization;
 using System.Windows;
 using MyExpenses.Sql.Context;
+using MyExpenses.Utils;
 
 namespace MyExpenses.Wpf.UserControls.Settings;
 
@@ -14,6 +15,15 @@ public partial class LanguageControl
     {
         get => (CultureInfo)GetValue(CultureInfoSelectedProperty);
         set => SetValue(CultureInfoSelectedProperty, value);
+    }
+
+    public static readonly DependencyProperty Is24HoursProperty = DependencyProperty.Register(nameof(Is24Hours),
+        typeof(bool), typeof(LanguageControl), new PropertyMetadata(default(bool)));
+
+    public bool Is24Hours
+    {
+        get => (bool)GetValue(Is24HoursProperty);
+        set => SetValue(Is24HoursProperty, value);
     }
 
     public List<CultureInfo> CultureInfos { get; } = [];
@@ -30,8 +40,8 @@ public partial class LanguageControl
             CultureInfos.Add(cultureInfo);
         }
 
-        // var z = new CultureInfo("pt-PT");
-        // CultureInfos.Add(z);
+        var configuration = Config.Configuration;
+        Is24Hours = configuration.Interface.Clock.Is24Hours;
 
         InitializeComponent();
     }
