@@ -250,7 +250,6 @@ public partial class DashBoardPage
         }
     }
 
-    // TODO update language
     public DashBoardPage()
     {
         Instance = this;
@@ -289,31 +288,6 @@ public partial class DashBoardPage
         FilterDataGrid.ItemsSource = VHistories;
 
         UpdatePieChartLegendTextPaint();
-    }
-
-    private void UpdateMonthLanguage()
-    {
-        var currentCulture = CultureInfo.CurrentCulture;
-        LocalLanguage = currentCulture.ToLocal();
-
-        var months = currentCulture.DateTimeFormat.MonthNames
-            .Where(s => !string.IsNullOrEmpty(s))
-            .Select(s => s.ToFirstCharUpper()).ToImmutableArray();
-
-        if (Months.Count > 0)
-        {
-            var selectedMonth = Months.FirstOrDefault(month => month.Equals(SelectedMonth)) ?? string.Empty;
-            for (var i = 0; i < months.Length; i++)
-            {
-                Months[i] = months[i];
-            }
-
-            SelectedMonth = selectedMonth;
-        }
-        else
-        {
-            Months.AddRange(months);
-        }
     }
 
     #region Action
@@ -368,36 +342,6 @@ public partial class DashBoardPage
     {
         UpdateLanguage();
         UpdateMonthLanguage();
-    }
-
-    private void UpdateLanguage()
-    {
-        ButtonAccountManagement = DashBoardPageResources.ButtonAccountManagement;
-        ButtonAccountTypeManagement = DashBoardPageResources.ButtonAccountTypeManagement;
-        ButtonCategoryTypeManagement = DashBoardPageResources.ButtonCategoryTypeManagement;
-        ButtonColorManagement = DashBoardPageResources.ButtonColorManagement;
-        ButtonCurrencyManagement = DashBoardPageResources.ButtonCurrencyManagement;
-        ButtonLocationManagement = DashBoardPageResources.ButtonLocationManagement;
-        ButtonModePaymentManagement = DashBoardPageResources.ButtonModePaymentManagement;
-        ButtonMakeBankTransfer = DashBoardPageResources.ButtonMakeBankTransfer;
-        ButtonRecordExpense = DashBoardPageResources.ButtonRecordExpense;
-        ButtonAnalytics = DashBoardPageResources.ButtonAnalytics;
-
-        TextColumnAccount.Header = DashBoardPageResources.DataGridTextColumnAccount;
-        TextColumnDescription.Header = DashBoardPageResources.DataGridTextColumnDescription;
-        TemplateColumnCategory.Header = DashBoardPageResources.DataGridTextColumnCategory;
-        TextColumnModePayment.Header = DashBoardPageResources.DataGridTextColumnModePayment;
-        TemplateColumnValue.Header = DashBoardPageResources.DataGridTextColumnValue;
-        TextColumnDate.Header = DashBoardPageResources.DataGridTextColumnDate;
-        TextColumnPlace.Header = DashBoardPageResources.DataGridTextColumnPlace;
-        CheckBoxColumnPointed.Header = DashBoardPageResources.DataGridTextColumnPointed;
-
-        DataGridCheckBoxColumnPointed = DashBoardPageResources.DataGridTextColumnPointed;
-        DataGridMenuItemHeaderEditRecord = DashBoardPageResources.DataGridMenuItemHeaderEditRecord;
-        DataGridMenuItemHeaderDeleteRecord = DashBoardPageResources.DataGridMenuItemHeaderDeleteRecord;
-
-        ComboBoxYearsHintAssist = DashBoardPageResources.ComboBoxYearsHintAssist;
-        ComboBoxMonthHintAssist = DashBoardPageResources.ComboBoxMonthHintAssist;
     }
 
     private void ItemsControlVTotalAccount_OnLoaded(object sender, RoutedEventArgs e)
@@ -649,6 +593,61 @@ public partial class DashBoardPage
         }
 
         PieChart.Series = series;
+    }
+
+    private void UpdateMonthLanguage()
+    {
+        var currentCulture = CultureInfo.CurrentCulture;
+        LocalLanguage = currentCulture.ToLocal();
+
+        var months = currentCulture.DateTimeFormat.MonthNames
+            .Where(s => !string.IsNullOrEmpty(s))
+            .Select(s => s.ToFirstCharUpper()).ToImmutableArray();
+
+        if (Months.Count > 0)
+        {
+            var selectedMonth = Months.FirstOrDefault(month => month.Equals(SelectedMonth)) ?? string.Empty;
+            for (var i = 0; i < months.Length; i++)
+            {
+                Months[i] = months[i];
+            }
+
+            SelectedMonth = selectedMonth;
+        }
+        else
+        {
+            Months.AddRange(months);
+        }
+    }
+
+    private void UpdateLanguage()
+    {
+        ButtonAccountManagement = DashBoardPageResources.ButtonAccountManagement;
+        ButtonAccountTypeManagement = DashBoardPageResources.ButtonAccountTypeManagement;
+        ButtonCategoryTypeManagement = DashBoardPageResources.ButtonCategoryTypeManagement;
+        ButtonColorManagement = DashBoardPageResources.ButtonColorManagement;
+        ButtonCurrencyManagement = DashBoardPageResources.ButtonCurrencyManagement;
+        ButtonLocationManagement = DashBoardPageResources.ButtonLocationManagement;
+        ButtonModePaymentManagement = DashBoardPageResources.ButtonModePaymentManagement;
+        ButtonMakeBankTransfer = DashBoardPageResources.ButtonMakeBankTransfer;
+        ButtonRecordExpense = DashBoardPageResources.ButtonRecordExpense;
+        ButtonAnalytics = DashBoardPageResources.ButtonAnalytics;
+
+        TextColumnAccount.Header = DashBoardPageResources.DataGridTextColumnAccount;
+        TextColumnDescription.Header = DashBoardPageResources.DataGridTextColumnDescription;
+        TemplateColumnCategory.Header = DashBoardPageResources.DataGridTextColumnCategory;
+        TextColumnModePayment.Header = DashBoardPageResources.DataGridTextColumnModePayment;
+        TemplateColumnValue.Header = DashBoardPageResources.DataGridTextColumnValue;
+        TextColumnDate.Header = DashBoardPageResources.DataGridTextColumnDate;
+        TextColumnPlace.Header = DashBoardPageResources.DataGridTextColumnPlace;
+        CheckBoxColumnPointed.Header = DashBoardPageResources.DataGridTextColumnPointed;
+
+        DataGridCheckBoxColumnPointed = DashBoardPageResources.DataGridTextColumnPointed;
+        DataGridMenuItemHeaderEditRecord = DashBoardPageResources.DataGridMenuItemHeaderEditRecord;
+        DataGridMenuItemHeaderDeleteRecord = DashBoardPageResources.DataGridMenuItemHeaderDeleteRecord;
+
+        ComboBoxYearsHintAssist = DashBoardPageResources.ComboBoxYearsHintAssist;
+        ComboBoxMonthHintAssist = DashBoardPageResources.ComboBoxMonthHintAssist;
     }
 
     private void UpdatePieChartLegendTextPaint()
