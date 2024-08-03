@@ -701,4 +701,19 @@ public partial class DashBoardPage
 
         return true;
     }
+
+    // TODO work
+    private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
+    {
+        var button = (Button)sender;
+        if (button.DataContext is not VHistory vHistory) return;
+        
+        var history = vHistory.Id.ToISqlT<THistory>();
+        if (history is null) return;
+
+        var recordExpensePage = new RecordExpensePage();
+        recordExpensePage.SetTHistory(history);
+
+        nameof(MainWindow.FrameBody).NavigateTo(recordExpensePage);
+    }
 }

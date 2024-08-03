@@ -346,7 +346,7 @@
                     <filterDataGrid:DataGridTextColumn x:Name="TextColumnDescription" IsColumnFiltered="True"
                                                        Binding="{Binding Description}">
                     </filterDataGrid:DataGridTextColumn>
-                    
+
                     <filterDataGrid:DataGridTemplateColumn x:Name="TemplateColumnCategory" IsColumnFiltered="True"
                                                            SortMemberPath="Category" FieldName="Category">
                         <filterDataGrid:DataGridTemplateColumn.CellTemplate>
@@ -401,17 +401,17 @@
                                                            IsThreeState="False" Binding="{Binding Pointed}">
                     </filterDataGrid:DataGridCheckBoxColumn>
 
-                    <!-- ~1~ TODO work @1@ -->
-                    <!-- <DataGridTemplateColumn> -->
-                    <!--     <DataGridTemplateColumn.Header> -->
-                    <!--         <TextBlock Text="Edit" /> -->
-                    <!--     </DataGridTemplateColumn.Header> -->
-                    <!--     <DataGridTemplateColumn.CellTemplate> -->
-                    <!--         <DataTemplate> -->
-                    <!--             <Button Content="Click me" Click="ButtonBase_OnClick" /> -->
-                    <!--         </DataTemplate> -->
-                    <!--     </DataGridTemplateColumn.CellTemplate> -->
-                    <!-- </DataGridTemplateColumn> -->
+                    <!-- TODO work -->
+                    <filterDataGrid:DataGridTemplateColumn>
+                        <filterDataGrid:DataGridTemplateColumn.Header>
+                            <TextBlock Text="Edit" />
+                        </filterDataGrid:DataGridTemplateColumn.Header>
+                        <filterDataGrid:DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Content="Click me" Click="ButtonBase_OnClick" />
+                            </DataTemplate>
+                        </filterDataGrid:DataGridTemplateColumn.CellTemplate>
+                    </filterDataGrid:DataGridTemplateColumn>
 
                 </filterDataGrid:FilterDataGrid.Columns>
 
