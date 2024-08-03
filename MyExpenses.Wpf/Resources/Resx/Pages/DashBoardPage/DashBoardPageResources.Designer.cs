@@ -253,5 +253,23 @@ namespace MyExpenses.Wpf.Resources.Resx.Pages.DashBoardPage {
                 return ResourceManager.GetString("ButtonAnalytics", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to No additional dates are available.
+        /// </summary>
+        internal static string MessageBoxAddMonthError {
+            get {
+                return ResourceManager.GetString("MessageBoxAddMonthError", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to No lower dates are available.
+        /// </summary>
+        internal static string MessageBoxRemoveMonthError {
+            get {
+                return ResourceManager.GetString("MessageBoxRemoveMonthError", resourceCulture);
+            }
+        }
     }
 }

@@ -77,4 +77,10 @@
     <data name="ButtonAnalytics" xml:space="preserve">
         <value>Analyses graphiques</value>
     </data>
+    <data name="MessageBoxAddMonthError" xml:space="preserve">
+        <value>Aucune date supplémentaire n'est disponible</value>
+    </data>
+    <data name="MessageBoxRemoveMonthError" xml:space="preserve">
+        <value>Aucune date inférieure n'est disponible</value>
+    </data>
 </root>

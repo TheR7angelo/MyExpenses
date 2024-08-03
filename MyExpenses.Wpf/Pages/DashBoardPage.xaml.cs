@@ -21,6 +21,7 @@ using MyExpenses.Utils.Strings;
 using MyExpenses.Wpf.Resources.Resx.Pages.DashBoardPage;
 using MyExpenses.Wpf.Utils;
 using MyExpenses.Wpf.Utils.FilterDataGrid;
+using MyExpenses.Wpf.Windows.MsgBox;
 using SkiaSharp;
 using SkiaSharp.Views.WPF;
 
@@ -312,12 +313,11 @@ public partial class DashBoardPage
 
     private void ButtonCurrencyManagement_OnClick(object sender, RoutedEventArgs e)
         => nameof(MainWindow.FrameBody).NavigateTo(typeof(CurrencyManagementPage));
-
-    //TODO add messagebox error
+    
     private void ButtonDateNow_OnClick(object sender, RoutedEventArgs e)
     {
         var now = DateOnly.FromDateTime(DateTime.Now);
-        var result = UpdateFilterDate(now);
+        UpdateFilterDate(now);
     }
 
     private void ButtonLocationManagement_OnClick(object sender, RoutedEventArgs e)
@@ -682,22 +682,29 @@ public partial class DashBoardPage
     //     var json = vHistory.ToJsonString();
     //     Console.WriteLine(json);
     // }
-    //TODO add messagebox error
+    
     private void ButtonAddMonth_OnClick(object sender, RoutedEventArgs e)
     {
         var date = GetDateOnlyFilter();
         date = date.AddMonths(1);
 
         var result = UpdateFilterDate(date);
-    }
 
-    //TODO add messagebox error
+        if (!result) return;
+
+        MsgBox.Show(DashBoardPageResources.MessageBoxAddMonthError, MsgBoxImage.Warning, MessageBoxButton.OK);
+    }
+    
     private void ButtonRemoveMonth_OnClick(object sender, RoutedEventArgs e)
     {
         var date = GetDateOnlyFilter();
         date = date.AddMonths(-1);
 
         var result = UpdateFilterDate(date);
+        
+        if (!result) return;
+
+        MsgBox.Show(DashBoardPageResources.MessageBoxRemoveMonthError, MsgBoxImage.Warning, MessageBoxButton.OK);
     }
 
     private DateOnly GetDateOnlyFilter()
@@ -713,8 +720,7 @@ public partial class DashBoardPage
         var date = DateOnly.Parse($"{year}/{monthIndex}/01");
         return date;
     }
-
-    //TODO add messagebox error
+    
     private bool UpdateFilterDate(DateOnly date)
     {
         var yearStr = date.Year.ToString();
