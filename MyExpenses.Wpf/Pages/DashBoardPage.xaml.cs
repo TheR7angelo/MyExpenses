@@ -170,10 +170,6 @@ public partial class DashBoardPage
         set => SetValue(DataGridCheckBoxColumnPointedProperty, value);
     }
 
-
-    // TODO work
-    // public string DataGridTemplateColumnCategorySortMemberPath { get; } = nameof(VHistory.Category);
-
     #endregion
 
     public static readonly DependencyProperty ComboBoxYearsHintAssistProperty =
@@ -656,32 +652,6 @@ public partial class DashBoardPage
     }
 
     #endregion
-
-    private void PieChart_OnDataPointerDown(IChartView chart, IEnumerable<ChartPoint> points)
-    {
-        // TODO zoom on data clicked
-        var categoryType = (points.FirstOrDefault()?.Context.Series as PieSeries<double>)?.Tag as TCategoryType;
-        Console.WriteLine(categoryType?.Name);
-    }
-
-    //TODO work
-    private void ButtonPieChart_OnClick(object sender, RoutedEventArgs e)
-    {
-        var button = (Button)sender;
-        if (button.DataContext is not CategoryTotal categoryTotal) return;
-
-        Console.WriteLine(categoryTotal.Name);
-    }
-
-    // //TODO work
-    // private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
-    // {
-    //     var button = (Button)sender;
-    //     if (button.DataContext is not VHistory vHistory) return;
-    //
-    //     var json = vHistory.ToJsonString();
-    //     Console.WriteLine(json);
-    // }
     
     private void ButtonAddMonth_OnClick(object sender, RoutedEventArgs e)
     {
