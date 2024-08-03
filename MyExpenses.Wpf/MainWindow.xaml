@@ -76,16 +76,6 @@
 
                             </MenuItem>
 
-                            <MenuItem Header="{Binding MenuItemHeaderImportDatabase, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                                      Visibility="{Binding CanGoBack, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BooleanToVisibilityConverter}}"
-                                      Click="MenuItemDatabaseImport_OnClick">
-
-                                <MenuItem.Icon>
-                                    <materialDesign:PackIcon Kind="DatabaseImport" />
-                                </MenuItem.Icon>
-
-                            </MenuItem>
-
                             <MenuItem Header="{Binding MenuItemHeaderVacuumDatabases, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                                       Visibility="{Binding CanGoBack, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource InverseBooleanToVisibilityConverter}}"
                                       Click="MenuItemVacuumDatabases_OnClick">

@@ -194,12 +194,6 @@ public partial class MainWindow
         }
     }
 
-    private void MenuItemDatabaseImport_OnClick(object sender, RoutedEventArgs e)
-    {
-        //TODO work
-        Console.WriteLine("Need import");
-    }
-
     private void MenuItemVacuumDatabases_OnClick(object sender, RoutedEventArgs e)
     {
         var listSuccess = new List<bool>();
