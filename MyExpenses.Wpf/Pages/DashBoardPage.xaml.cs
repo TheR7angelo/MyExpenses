@@ -168,6 +168,16 @@ public partial class DashBoardPage
         set => SetValue(DataGridCheckBoxColumnPointedProperty, value);
     }
 
+    public static readonly DependencyProperty ButtonContentEditRecordProperty =
+        DependencyProperty.Register(nameof(ButtonContentEditRecord), typeof(string), typeof(DashBoardPage),
+            new PropertyMetadata(default(string)));
+
+    public string ButtonContentEditRecord
+    {
+        get => (string)GetValue(ButtonContentEditRecordProperty);
+        set => SetValue(ButtonContentEditRecordProperty, value);
+    }
+    
     #endregion
 
     public static readonly DependencyProperty ComboBoxYearsHintAssistProperty =
@@ -226,7 +236,7 @@ public partial class DashBoardPage
     public static readonly DependencyProperty CurrentVTotalByAccountProperty =
         DependencyProperty.Register(nameof(CurrentVTotalByAccount), typeof(VTotalByAccount), typeof(DashBoardPage),
             new PropertyMetadata(default(VTotalByAccount)));
-
+    
     public VTotalByAccount? CurrentVTotalByAccount
     {
         get => (VTotalByAccount)GetValue(CurrentVTotalByAccountProperty);
@@ -307,7 +317,7 @@ public partial class DashBoardPage
 
         MsgBox.Show(DashBoardPageResources.MessageBoxAddMonthError, MsgBoxImage.Warning, MessageBoxButton.OK);
     }
-    
+
     private void ButtonAnalytics_OnClick(object sender, RoutedEventArgs e)
         => nameof(MainWindow.FrameBody).NavigateTo(typeof(AnalyticsPage));
 
@@ -319,7 +329,7 @@ public partial class DashBoardPage
 
     private void ButtonCurrencyManagement_OnClick(object sender, RoutedEventArgs e)
         => nameof(MainWindow.FrameBody).NavigateTo(typeof(CurrencyManagementPage));
-    
+
     private void ButtonDateNow_OnClick(object sender, RoutedEventArgs e)
     {
         var now = DateOnly.FromDateTime(DateTime.Now);
@@ -330,7 +340,7 @@ public partial class DashBoardPage
     {
         var button = (Button)sender;
         if (button.DataContext is not VHistory vHistory) return;
-        
+
         var history = vHistory.Id.ToISqlT<THistory>();
         if (history is null) return;
 
@@ -339,7 +349,7 @@ public partial class DashBoardPage
 
         nameof(MainWindow.FrameBody).NavigateTo(recordExpensePage);
     }
-    
+
     private void ButtonLocationManagement_OnClick(object sender, RoutedEventArgs e)
         => nameof(MainWindow.FrameBody).NavigateTo(typeof(LocationManagementPage));
 
@@ -358,12 +368,12 @@ public partial class DashBoardPage
         date = date.AddMonths(-1);
 
         var result = UpdateFilterDate(date);
-        
+
         if (!result) return;
 
         MsgBox.Show(DashBoardPageResources.MessageBoxRemoveMonthError, MsgBoxImage.Warning, MessageBoxButton.OK);
     }
-    
+
     private void DataGridRow_PreviewMouseRightButtonDown(object sender, MouseButtonEventArgs e)
         => DataGridRow = sender as DataGridRow;
 
@@ -463,7 +473,7 @@ public partial class DashBoardPage
         var date = DateOnly.Parse($"{year}/{monthIndex}/01");
         return date;
     }
-    
+
     private void RefreshAccountTotal(int id)
     {
         using var context = new DataBaseContext();
@@ -571,7 +581,7 @@ public partial class DashBoardPage
 
         return true;
     }
-    
+
     private void UpdateGraph(string? accountName = null)
     {
         if (string.IsNullOrEmpty(accountName))
