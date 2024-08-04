@@ -93,4 +93,7 @@
     <data name="ButtonContentEditRecord" xml:space="preserve">
         <value>Edit</value>
     </data>
+    <data name="DataGridTemplateColumnActionsHeader" xml:space="preserve">
+        <value>Actions</value>
+    </data>
 </root>

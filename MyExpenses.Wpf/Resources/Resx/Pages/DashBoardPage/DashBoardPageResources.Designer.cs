@@ -280,5 +280,14 @@ namespace MyExpenses.Wpf.Resources.Resx.Pages.DashBoardPage {
                 return ResourceManager.GetString("ButtonContentEditRecord", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Actions.
+        /// </summary>
+        internal static object DataGridTemplateColumnActionsHeader {
+            get {
+                return ResourceManager.GetString("DataGridTemplateColumnActionsHeader", resourceCulture);
+            }
+        }
     }
 }

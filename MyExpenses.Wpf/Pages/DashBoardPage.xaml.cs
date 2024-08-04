@@ -708,8 +708,7 @@ public partial class DashBoardPage
         TextColumnDate.Header = DashBoardPageResources.DataGridTextColumnDate;
         TextColumnPlace.Header = DashBoardPageResources.DataGridTextColumnPlace;
         CheckBoxColumnPointed.Header = DashBoardPageResources.DataGridTextColumnPointed;
-        // TODO work
-        TemplateColumnActions.Header = "Actions";
+        TemplateColumnActions.Header = DashBoardPageResources.DataGridTemplateColumnActionsHeader;
         ButtonContentEditRecord = DashBoardPageResources.ButtonContentEditRecord;
 
         DataGridCheckBoxColumnPointed = DashBoardPageResources.DataGridTextColumnPointed;
