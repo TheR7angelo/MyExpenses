@@ -406,10 +406,20 @@
                         <filterDataGrid:DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 
-                                <Button Style="{StaticResource MaterialDesignPaperButton}"
-                                        Content="{Binding ButtonContentEditRecord, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:DashBoardPage}}}"
-                                        Click="ButtonEditRecord_OnClick">
-                                </Button>
+                                <StackPanel Orientation="Horizontal"
+                                            margin:PanelExtensions.MarginForAllChildren="3">
+                                    
+                                    <Button Style="{StaticResource MaterialDesignPaperButton}"
+                                            Content="{Binding ButtonContentEditRecord, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:DashBoardPage}}}"
+                                            Click="ButtonEditRecord_OnClick">
+                                    </Button>
+                                    
+                                    <Button Style="{StaticResource MaterialDesignPaperButton}"
+                                            Content="{Binding ButtonContentDeleteRecord, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:DashBoardPage}}}"
+                                            Click="ButtonDeleteRecord_OnClick">
+                                    </Button>
+                                    
+                                </StackPanel>
                                 
                             </DataTemplate>
                         </filterDataGrid:DataGridTemplateColumn.CellTemplate>
