@@ -178,6 +178,16 @@ public partial class DashBoardPage
         set => SetValue(ButtonContentEditRecordProperty, value);
     }
     
+    public static readonly DependencyProperty ButtonContentDeleteRecordProperty =
+        DependencyProperty.Register(nameof(ButtonContentDeleteRecord), typeof(string), typeof(DashBoardPage),
+            new PropertyMetadata(default(string)));
+
+    public string ButtonContentDeleteRecord
+    {
+        get => (string)GetValue(ButtonContentDeleteRecordProperty);
+        set => SetValue(ButtonContentDeleteRecordProperty, value);
+    }
+
     #endregion
 
     public static readonly DependencyProperty ComboBoxYearsHintAssistProperty =
@@ -338,17 +348,17 @@ public partial class DashBoardPage
 
     private void ButtonDeleteRecord_OnClick(object sender, RoutedEventArgs e)
     {
-        var response = MsgBox.Show(DashBoardPageResources.MessageBoxDeleteRecordQuestion, 
+        var response = MsgBox.Show(DashBoardPageResources.MessageBoxDeleteRecordQuestion,
             MsgBoxImage.Question, MessageBoxButton.YesNoCancel);
 
         if (response is not MessageBoxResult.Yes) return;
-        
+
         var button = (Button)sender;
         if (button.DataContext is not VHistory vHistory) return;
 
         DeleteRecord(vHistory);
     }
-    
+
     private void ButtonEditRecord_OnClick(object sender, RoutedEventArgs e)
     {
         var button = (Button)sender;
@@ -398,20 +408,20 @@ public partial class DashBoardPage
 
     private void MenuItemDeleteRecord_OnClick(object sender, RoutedEventArgs e)
     {
-        var response = MsgBox.Show(DashBoardPageResources.MessageBoxDeleteRecordQuestion, 
+        var response = MsgBox.Show(DashBoardPageResources.MessageBoxDeleteRecordQuestion,
             MsgBoxImage.Question, MessageBoxButton.YesNoCancel);
 
         if (response is not MessageBoxResult.Yes) return;
-        
+
         if (DataGridRow!.DataContext is not VHistory vHistory) return;
-        
+
         DeleteRecord(vHistory);
     }
 
     private void MenuItemEditRecord_OnClick(object sender, RoutedEventArgs e)
     {
         if (DataGridRow!.DataContext is not VHistory vHistory) return;
-        
+
         EditRecord(vHistory);
     }
 
@@ -460,19 +470,19 @@ public partial class DashBoardPage
     private void DeleteRecord(VHistory vHistory)
     {
         var history = vHistory.Id.ToISqlT<THistory>();
-        
+
         history?.Delete(true);
-        
+
         VHistories.Remove(vHistory);
-        
+
         var accountName = vHistory.Account!;
-        
+
         RefreshDataGrid(accountName);
         UpdateGraph(accountName);
-        
+
         RefreshAccountTotal(CurrentVTotalByAccount!.Id);
     }
-    
+
     private static void EditRecord(VHistory vHistory)
     {
         var history = vHistory.Id.ToISqlT<THistory>();
@@ -483,7 +493,7 @@ public partial class DashBoardPage
 
         nameof(MainWindow.FrameBody).NavigateTo(recordExpensePage);
     }
-    
+
     private DateOnly GetDateOnlyFilter()
     {
         var monthIndex = string.IsNullOrEmpty(SelectedMonth)
@@ -734,6 +744,7 @@ public partial class DashBoardPage
         CheckBoxColumnPointed.Header = DashBoardPageResources.DataGridTextColumnPointed;
         TemplateColumnActions.Header = DashBoardPageResources.DataGridTemplateColumnActionsHeader;
         ButtonContentEditRecord = DashBoardPageResources.ButtonContentEditRecord;
+        ButtonContentDeleteRecord = DashBoardPageResources.ButtonContentDeleteRecord;
 
         DataGridCheckBoxColumnPointed = DashBoardPageResources.DataGridTextColumnPointed;
         DataGridMenuItemHeaderEditRecord = DashBoardPageResources.DataGridMenuItemHeaderEditRecord;
