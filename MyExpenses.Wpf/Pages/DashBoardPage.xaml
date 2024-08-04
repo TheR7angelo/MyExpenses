@@ -415,6 +415,11 @@
                                     </Button>
                                     
                                     <Button Style="{StaticResource MaterialDesignPaperButton}"
+                                            Content="{Binding ButtonContentPointedRecord, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:DashBoardPage}}}"
+                                            Click="ButtonPointedRecord_OnClick">
+                                    </Button>
+                                    
+                                    <Button Style="{StaticResource MaterialDesignPaperButton}"
                                             Content="{Binding ButtonContentDeleteRecord, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:DashBoardPage}}}"
                                             Click="ButtonDeleteRecord_OnClick">
                                     </Button>
