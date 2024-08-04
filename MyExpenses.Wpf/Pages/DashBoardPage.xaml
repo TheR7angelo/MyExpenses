@@ -400,14 +400,12 @@
                     <filterDataGrid:DataGridCheckBoxColumn x:Name="CheckBoxColumnPointed" IsColumnFiltered="True"
                                                            IsThreeState="False" Binding="{Binding Pointed}">
                     </filterDataGrid:DataGridCheckBoxColumn>
-
-                    <!-- TODO work -->
-                    <filterDataGrid:DataGridTemplateColumn>
-                        <filterDataGrid:DataGridTemplateColumn.Header>
-                            <TextBlock Text="Edit" />
-                        </filterDataGrid:DataGridTemplateColumn.Header>
+                    
+                    <filterDataGrid:DataGridTemplateColumn x:Name="TemplateColumnActions" IsColumnFiltered="False"
+                                                           IsReadOnly="True">
                         <filterDataGrid:DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
+                                <!-- TODO work -->
                                 <Button Content="Click me" Click="ButtonEditRecord_OnClick" />
                             </DataTemplate>
                         </filterDataGrid:DataGridTemplateColumn.CellTemplate>
