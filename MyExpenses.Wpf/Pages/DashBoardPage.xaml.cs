@@ -313,7 +313,7 @@ public partial class DashBoardPage
 
         var result = UpdateFilterDate(date);
 
-        if (!result) return;
+        if (result) return;
 
         MsgBox.Show(DashBoardPageResources.MessageBoxAddMonthError, MsgBoxImage.Warning, MessageBoxButton.OK);
     }
@@ -369,7 +369,7 @@ public partial class DashBoardPage
 
         var result = UpdateFilterDate(date);
 
-        if (!result) return;
+        if (result) return;
 
         MsgBox.Show(DashBoardPageResources.MessageBoxRemoveMonthError, MsgBoxImage.Warning, MessageBoxButton.OK);
     }
