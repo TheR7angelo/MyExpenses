@@ -84,6 +84,12 @@ public partial class ProgressBarWindow
         return speedTimer;
     }
 
+    /// <summary>
+    /// Handles the actions to be performed when the ProgressBarWindow is closed.
+    /// Cancels and disposes the cancellation token source if the download is not done.
+    /// </summary>
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">An EventArgs that contains the event data.</param>
     private void ProgressBarWindow_OnClosed(object? sender, EventArgs e)
     {
         if (DownloadIsDone) return;
