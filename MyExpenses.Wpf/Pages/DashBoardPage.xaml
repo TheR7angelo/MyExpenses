@@ -406,7 +406,8 @@
                         <filterDataGrid:DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
                                 <!-- TODO work -->
-                                <Button Content="Click me" Click="ButtonEditRecord_OnClick" />
+                                <Button Content="{Binding ButtonContentEditRecord, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:DashBoardPage}}}"
+                                        Click="ButtonEditRecord_OnClick" />
                             </DataTemplate>
                         </filterDataGrid:DataGridTemplateColumn.CellTemplate>
                     </filterDataGrid:DataGridTemplateColumn>

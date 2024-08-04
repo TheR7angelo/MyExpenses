@@ -271,5 +271,14 @@ namespace MyExpenses.Wpf.Resources.Resx.Pages.DashBoardPage {
                 return ResourceManager.GetString("MessageBoxRemoveMonthError", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Delete.
+        /// </summary>
+        internal static string ButtonContentEditRecord {
+            get {
+                return ResourceManager.GetString("ButtonContentEditRecord", resourceCulture);
+            }
+        }
     }
 }
