@@ -354,13 +354,7 @@ public partial class DashBoardPage
         var button = (Button)sender;
         if (button.DataContext is not VHistory vHistory) return;
 
-        var history = vHistory.Id.ToISqlT<THistory>();
-        if (history is null) return;
-
-        var recordExpensePage = new RecordExpensePage();
-        recordExpensePage.SetTHistory(history);
-
-        nameof(MainWindow.FrameBody).NavigateTo(recordExpensePage);
+        EditRecord(vHistory);
     }
 
     private void ButtonLocationManagement_OnClick(object sender, RoutedEventArgs e)
@@ -417,13 +411,8 @@ public partial class DashBoardPage
     private void MenuItemEditRecord_OnClick(object sender, RoutedEventArgs e)
     {
         if (DataGridRow!.DataContext is not VHistory vHistory) return;
-        var history = vHistory.Id.ToISqlT<THistory>();
-        if (history is null) return;
-
-        var recordExpensePage = new RecordExpensePage();
-        recordExpensePage.SetTHistory(history);
-
-        nameof(MainWindow.FrameBody).NavigateTo(recordExpensePage);
+        
+        EditRecord(vHistory);
     }
 
     private void MenuItemPointed_OnClick(object sender, RoutedEventArgs e)
@@ -482,6 +471,17 @@ public partial class DashBoardPage
         UpdateGraph(accountName);
         
         RefreshAccountTotal(CurrentVTotalByAccount!.Id);
+    }
+    
+    private static void EditRecord(VHistory vHistory)
+    {
+        var history = vHistory.Id.ToISqlT<THistory>();
+        if (history is null) return;
+
+        var recordExpensePage = new RecordExpensePage();
+        recordExpensePage.SetTHistory(history);
+
+        nameof(MainWindow.FrameBody).NavigateTo(recordExpensePage);
     }
     
     private DateOnly GetDateOnlyFilter()
