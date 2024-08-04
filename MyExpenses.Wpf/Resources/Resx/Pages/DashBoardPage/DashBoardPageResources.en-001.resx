@@ -83,4 +83,7 @@
     <data name="MessageBoxRemoveMonthError" xml:space="preserve">
         <value>No lower dates are available</value>
     </data>
+    <data name="ButtonContentEditRecord" xml:space="preserve">
+        <value>Edit</value>
+    </data>
 </root>
