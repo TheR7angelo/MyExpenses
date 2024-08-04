@@ -296,6 +296,18 @@ public partial class DashBoardPage
     private void ButtonAccountTypeManagement_OnClick(object sender, RoutedEventArgs e)
         => nameof(MainWindow.FrameBody).NavigateTo(typeof(AccountTypeManagementPage));
 
+    private void ButtonAddMonth_OnClick(object sender, RoutedEventArgs e)
+    {
+        var date = GetDateOnlyFilter();
+        date = date.AddMonths(1);
+
+        var result = UpdateFilterDate(date);
+
+        if (!result) return;
+
+        MsgBox.Show(DashBoardPageResources.MessageBoxAddMonthError, MsgBoxImage.Warning, MessageBoxButton.OK);
+    }
+    
     private void ButtonAnalytics_OnClick(object sender, RoutedEventArgs e)
         => nameof(MainWindow.FrameBody).NavigateTo(typeof(AnalyticsPage));
 
@@ -340,6 +352,18 @@ public partial class DashBoardPage
     private void ButtonRecordExpense_OnClick(object sender, RoutedEventArgs e)
         => nameof(MainWindow.FrameBody).NavigateTo(typeof(RecordExpensePage));
 
+    private void ButtonRemoveMonth_OnClick(object sender, RoutedEventArgs e)
+    {
+        var date = GetDateOnlyFilter();
+        date = date.AddMonths(-1);
+
+        var result = UpdateFilterDate(date);
+        
+        if (!result) return;
+
+        MsgBox.Show(DashBoardPageResources.MessageBoxRemoveMonthError, MsgBoxImage.Warning, MessageBoxButton.OK);
+    }
+    
     private void DataGridRow_PreviewMouseRightButtonDown(object sender, MouseButtonEventArgs e)
         => DataGridRow = sender as DataGridRow;
 
@@ -426,6 +450,20 @@ public partial class DashBoardPage
 
     #region Function
 
+    private DateOnly GetDateOnlyFilter()
+    {
+        var monthIndex = string.IsNullOrEmpty(SelectedMonth)
+            ? DateTime.Now.Month
+            : Months.IndexOf(SelectedMonth) + 1;
+
+        var year = string.IsNullOrEmpty(SelectedYear)
+            ? DateTime.Now.Year
+            : int.Parse(SelectedYear);
+
+        var date = DateOnly.Parse($"{year}/{monthIndex}/01");
+        return date;
+    }
+    
     private void RefreshAccountTotal(int id)
     {
         using var context = new DataBaseContext();
@@ -521,6 +559,19 @@ public partial class DashBoardPage
         RefreshAccountTotal(StaticVTotalByAccount!.Id);
     }
 
+    private bool UpdateFilterDate(DateOnly date)
+    {
+        var yearStr = date.Year.ToString();
+        if (!Years.Contains(yearStr)) return false;
+
+        if (!yearStr.Equals(SelectedYear)) SelectedYear = yearStr;
+
+        var monthIndex = date.Month - 1;
+        SelectedMonth = Months[monthIndex];
+
+        return true;
+    }
+    
     private void UpdateGraph(string? accountName = null)
     {
         if (string.IsNullOrEmpty(accountName))
@@ -664,70 +715,4 @@ public partial class DashBoardPage
     }
 
     #endregion
-    
-    private void ButtonAddMonth_OnClick(object sender, RoutedEventArgs e)
-    {
-        var date = GetDateOnlyFilter();
-        date = date.AddMonths(1);
-
-        var result = UpdateFilterDate(date);
-
-        if (!result) return;
-
-        MsgBox.Show(DashBoardPageResources.MessageBoxAddMonthError, MsgBoxImage.Warning, MessageBoxButton.OK);
-    }
-    
-    private void ButtonRemoveMonth_OnClick(object sender, RoutedEventArgs e)
-    {
-        var date = GetDateOnlyFilter();
-        date = date.AddMonths(-1);
-
-        var result = UpdateFilterDate(date);
-        
-        if (!result) return;
-
-        MsgBox.Show(DashBoardPageResources.MessageBoxRemoveMonthError, MsgBoxImage.Warning, MessageBoxButton.OK);
-    }
-
-    private DateOnly GetDateOnlyFilter()
-    {
-        var monthIndex = string.IsNullOrEmpty(SelectedMonth)
-            ? DateTime.Now.Month
-            : Months.IndexOf(SelectedMonth) + 1;
-
-        var year = string.IsNullOrEmpty(SelectedYear)
-            ? DateTime.Now.Year
-            : int.Parse(SelectedYear);
-
-        var date = DateOnly.Parse($"{year}/{monthIndex}/01");
-        return date;
-    }
-    
-    private bool UpdateFilterDate(DateOnly date)
-    {
-        var yearStr = date.Year.ToString();
-        if (!Years.Contains(yearStr)) return false;
-
-        if (!yearStr.Equals(SelectedYear)) SelectedYear = yearStr;
-
-        var monthIndex = date.Month - 1;
-        SelectedMonth = Months[monthIndex];
-
-        return true;
-    }
-
-    // TODO work
-    private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
-    {
-        var button = (Button)sender;
-        if (button.DataContext is not VHistory vHistory) return;
-        
-        var history = vHistory.Id.ToISqlT<THistory>();
-        if (history is null) return;
-
-        var recordExpensePage = new RecordExpensePage();
-        recordExpensePage.SetTHistory(history);
-
-        nameof(MainWindow.FrameBody).NavigateTo(recordExpensePage);
-    }
 }
