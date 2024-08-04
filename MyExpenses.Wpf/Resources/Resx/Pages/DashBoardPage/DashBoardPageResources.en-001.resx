@@ -89,4 +89,7 @@
     <data name="DataGridTemplateColumnActionsHeader" xml:space="preserve">
         <value>Actions</value>
     </data>
+    <data name="MessageBoxDeleteRecordQuestion" xml:space="preserve">
+        <value>Are you sure you want to delete this recording ?</value>
+    </data>
 </root>
