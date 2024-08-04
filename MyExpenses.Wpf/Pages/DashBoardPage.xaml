@@ -405,9 +405,12 @@
                                                            IsReadOnly="True">
                         <filterDataGrid:DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <!-- TODO work -->
-                                <Button Content="{Binding ButtonContentEditRecord, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:DashBoardPage}}}"
-                                        Click="ButtonEditRecord_OnClick" />
+                                
+                                <Button Style="{StaticResource MaterialDesignPaperButton}"
+                                        Content="{Binding ButtonContentEditRecord, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:DashBoardPage}}}"
+                                        Click="ButtonEditRecord_OnClick">
+                                </Button>
+                                
                             </DataTemplate>
                         </filterDataGrid:DataGridTemplateColumn.CellTemplate>
                     </filterDataGrid:DataGridTemplateColumn>
