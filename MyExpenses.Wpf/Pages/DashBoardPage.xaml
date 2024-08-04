@@ -408,7 +408,7 @@
                         </filterDataGrid:DataGridTemplateColumn.Header>
                         <filterDataGrid:DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                <Button Content="Click me" Click="ButtonBase_OnClick" />
+                                <Button Content="Click me" Click="ButtonEditRecord_OnClick" />
                             </DataTemplate>
                         </filterDataGrid:DataGridTemplateColumn.CellTemplate>
                     </filterDataGrid:DataGridTemplateColumn>
