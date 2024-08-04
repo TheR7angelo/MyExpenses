@@ -93,6 +93,7 @@
                         </PathGeometry>
                     </Path.Data>
                 </Path>
+                <!-- TODO work -->
                 <Label Content="Primary - Light"
                        HorizontalContentAlignment="Center"
                        VerticalContentAlignment="Center"
@@ -101,6 +102,7 @@
                 </Label>
             </Grid>
 
+            <!-- TODO work -->
             <Label Grid.Row="0" Grid.Column="1"
                    Content="Primary - Mind"
                    HorizontalContentAlignment="Center"
@@ -125,6 +127,7 @@
                         </PathGeometry>
                     </Path.Data>
                 </Path>
+                <!-- TODO work -->
                 <Label Content="Primary - Dark"
                        HorizontalContentAlignment="Center"
                        VerticalContentAlignment="Center"
@@ -149,6 +152,7 @@
                         </PathGeometry>
                     </Path.Data>
                 </Path>
+                <!-- TODO work -->
                 <Label Content="Secondary - Light"
                        HorizontalContentAlignment="Center"
                        VerticalContentAlignment="Center"
@@ -157,6 +161,7 @@
                 </Label>
             </Grid>
 
+            <!-- TODO work -->
             <Label Grid.Row="1" Grid.Column="1"
                    Content="Secondary - Mind"
                    HorizontalContentAlignment="Center"
@@ -181,6 +186,7 @@
                         </PathGeometry>
                     </Path.Data>
                 </Path>
+                <!-- TODO work -->
                 <Label Content="Secondary - Dark"
                        HorizontalContentAlignment="Center"
                        VerticalContentAlignment="Center"
@@ -194,11 +200,13 @@
                         HorizontalAlignment="Center"
                         margin:PanelExtensions.MarginForAllChildren="5">
 
+                <!-- TODO work -->
                 <Button Content="Primary color"
                         Style="{StaticResource MaterialDesignPaperButton}"
                         Click="ButtonPrimaryColor_OnClick">
                 </Button>
 
+                <!-- TODO work -->
                 <Button Content="Secondary color"
                         Style="{StaticResource MaterialDesignPaperSecondaryButton}"
                         Click="ButtonSecondaryColor_OnClick">
