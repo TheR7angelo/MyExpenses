@@ -289,5 +289,14 @@ namespace MyExpenses.Wpf.Resources.Resx.Pages.DashBoardPage {
                 return ResourceManager.GetString("DataGridTemplateColumnActionsHeader", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to delete this recording ?.
+        /// </summary>
+        internal static string MessageBoxDeleteRecordQuestion {
+            get {
+                return ResourceManager.GetString("MessageBoxDeleteRecordQuestion", resourceCulture);
+            }
+        }
     }
 }
