@@ -698,6 +698,8 @@ public partial class DashBoardPage
         TextColumnDate.Header = DashBoardPageResources.DataGridTextColumnDate;
         TextColumnPlace.Header = DashBoardPageResources.DataGridTextColumnPlace;
         CheckBoxColumnPointed.Header = DashBoardPageResources.DataGridTextColumnPointed;
+        // TODO work
+        TemplateColumnActions.Header = "Actions";
 
         DataGridCheckBoxColumnPointed = DashBoardPageResources.DataGridTextColumnPointed;
         DataGridMenuItemHeaderEditRecord = DashBoardPageResources.DataGridMenuItemHeaderEditRecord;
