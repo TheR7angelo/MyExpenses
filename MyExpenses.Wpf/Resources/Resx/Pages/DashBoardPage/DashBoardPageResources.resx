@@ -99,4 +99,7 @@
     <data name="MessageBoxDeleteRecordQuestion" xml:space="preserve">
         <value>Are you sure you want to delete this recording ?</value>
     </data>
+    <data name="ButtonContentDeleteRecord" xml:space="preserve">
+        <value>Delete</value>
+    </data>
 </root>
