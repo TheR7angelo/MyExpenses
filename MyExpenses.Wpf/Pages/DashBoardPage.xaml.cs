@@ -177,7 +177,7 @@ public partial class DashBoardPage
         get => (string)GetValue(ButtonContentEditRecordProperty);
         set => SetValue(ButtonContentEditRecordProperty, value);
     }
-    
+
     public static readonly DependencyProperty ButtonContentDeleteRecordProperty =
         DependencyProperty.Register(nameof(ButtonContentDeleteRecord), typeof(string), typeof(DashBoardPage),
             new PropertyMetadata(default(string)));
@@ -186,6 +186,16 @@ public partial class DashBoardPage
     {
         get => (string)GetValue(ButtonContentDeleteRecordProperty);
         set => SetValue(ButtonContentDeleteRecordProperty, value);
+    }
+    
+    public static readonly DependencyProperty ButtonContentPointedRecordProperty =
+        DependencyProperty.Register(nameof(ButtonContentPointedRecord), typeof(string), typeof(DashBoardPage),
+            new PropertyMetadata(default(string)));
+
+    public string ButtonContentPointedRecord
+    {
+        get => (string)GetValue(ButtonContentPointedRecordProperty);
+        set => SetValue(ButtonContentPointedRecordProperty, value);
     }
 
     #endregion
@@ -376,6 +386,14 @@ public partial class DashBoardPage
     private void ButtonMakeBankTransfer_OnClick(object sender, RoutedEventArgs e)
         => nameof(MainWindow.FrameBody).NavigateTo(typeof(BankTransferPage));
 
+    private void ButtonPointedRecord_OnClick(object sender, RoutedEventArgs e)
+    {
+        var button = (Button)sender;
+        if (button.DataContext is not VHistory vHistory) return;
+
+        PointRecord(vHistory);
+    }
+
     private void ButtonRecordExpense_OnClick(object sender, RoutedEventArgs e)
         => nameof(MainWindow.FrameBody).NavigateTo(typeof(RecordExpensePage));
 
@@ -428,16 +446,7 @@ public partial class DashBoardPage
     private void MenuItemPointed_OnClick(object sender, RoutedEventArgs e)
     {
         if (DataGridRow!.DataContext is not VHistory vHistory) return;
-        var history = vHistory.Id.ToISqlT<THistory>()!;
-
-        history.Pointed = !history.Pointed;
-
-        if (history.Pointed is true) history.DatePointed = DateTime.Now;
-        else history.DatePointed = null;
-
-        history.AddOrEdit();
-
-        RefreshDataGrid();
+        PointRecord(vHistory);
     }
 
     private void Selector_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -506,6 +515,20 @@ public partial class DashBoardPage
 
         var date = DateOnly.Parse($"{year}/{monthIndex}/01");
         return date;
+    }
+
+    private void PointRecord(VHistory vHistory)
+    {
+        var history = vHistory.Id.ToISqlT<THistory>()!;
+
+        history.Pointed = !history.Pointed;
+
+        if (history.Pointed is true) history.DatePointed = DateTime.Now;
+        else history.DatePointed = null;
+
+        history.AddOrEdit();
+
+        RefreshDataGrid();
     }
 
     private void RefreshAccountTotal(int id)
@@ -744,6 +767,7 @@ public partial class DashBoardPage
         CheckBoxColumnPointed.Header = DashBoardPageResources.DataGridTextColumnPointed;
         TemplateColumnActions.Header = DashBoardPageResources.DataGridTemplateColumnActionsHeader;
         ButtonContentEditRecord = DashBoardPageResources.ButtonContentEditRecord;
+        ButtonContentPointedRecord = DashBoardPageResources.DataGridTextColumnPointed;
         ButtonContentDeleteRecord = DashBoardPageResources.ButtonContentDeleteRecord;
 
         DataGridCheckBoxColumnPointed = DashBoardPageResources.DataGridTextColumnPointed;
