@@ -336,6 +336,19 @@ public partial class DashBoardPage
         UpdateFilterDate(now);
     }
 
+    private void ButtonDeleteRecord_OnClick(object sender, RoutedEventArgs e)
+    {
+        var response = MsgBox.Show(DashBoardPageResources.MessageBoxDeleteRecordQuestion, 
+            MsgBoxImage.Question, MessageBoxButton.YesNoCancel);
+
+        if (response is not MessageBoxResult.Yes) return;
+        
+        var button = (Button)sender;
+        if (button.DataContext is not VHistory vHistory) return;
+
+        DeleteRecord(vHistory);
+    }
+    
     private void ButtonEditRecord_OnClick(object sender, RoutedEventArgs e)
     {
         var button = (Button)sender;
@@ -391,19 +404,14 @@ public partial class DashBoardPage
 
     private void MenuItemDeleteRecord_OnClick(object sender, RoutedEventArgs e)
     {
+        var response = MsgBox.Show(DashBoardPageResources.MessageBoxDeleteRecordQuestion, 
+            MsgBoxImage.Question, MessageBoxButton.YesNoCancel);
+
+        if (response is not MessageBoxResult.Yes) return;
+        
         if (DataGridRow!.DataContext is not VHistory vHistory) return;
-        var history = vHistory.Id.ToISqlT<THistory>();
-
-        history?.Delete(true);
-
-        VHistories.Remove(vHistory);
-
-        var accountName = vHistory.Account!;
-
-        RefreshDataGrid(accountName);
-        UpdateGraph(accountName);
-
-        RefreshAccountTotal(CurrentVTotalByAccount!.Id);
+        
+        DeleteRecord(vHistory);
     }
 
     private void MenuItemEditRecord_OnClick(object sender, RoutedEventArgs e)
@@ -460,6 +468,22 @@ public partial class DashBoardPage
 
     #region Function
 
+    private void DeleteRecord(VHistory vHistory)
+    {
+        var history = vHistory.Id.ToISqlT<THistory>();
+        
+        history?.Delete(true);
+        
+        VHistories.Remove(vHistory);
+        
+        var accountName = vHistory.Account!;
+        
+        RefreshDataGrid(accountName);
+        UpdateGraph(accountName);
+        
+        RefreshAccountTotal(CurrentVTotalByAccount!.Id);
+    }
+    
     private DateOnly GetDateOnlyFilter()
     {
         var monthIndex = string.IsNullOrEmpty(SelectedMonth)
