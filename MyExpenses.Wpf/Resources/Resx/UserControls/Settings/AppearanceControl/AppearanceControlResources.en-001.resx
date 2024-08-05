@@ -17,4 +17,34 @@
     <data name="ButtonSecondaryColorTitle" xml:space="preserve">
         <value>What is the new secondary color ?</value>
     </data>
+    <data name="LabelThemeMode" xml:space="preserve">
+        <value>Theme mode :</value>
+    </data>
+    <data name="CheckBoxContentSyncWithOs" xml:space="preserve">
+        <value>Synchronize with the operating system</value>
+    </data>
+    <data name="LabelContentPrimaryLight" xml:space="preserve">
+        <value>Primary - Light</value>
+    </data>
+    <data name="LabelContentPrimaryMind" xml:space="preserve">
+        <value>Primary - Average</value>
+    </data>
+    <data name="LabelContentPrimaryDark" xml:space="preserve">
+        <value>Primary - Dark</value>
+    </data>
+    <data name="LabelContentSecondaryLight" xml:space="preserve">
+        <value>Secondary - Light</value>
+    </data>
+    <data name="LabelContentSecondaryMind" xml:space="preserve">
+        <value>Secondary - Average</value>
+    </data>
+    <data name="LabelContentSecondaryDark" xml:space="preserve">
+        <value>Secondary - Dark</value>
+    </data>
+    <data name="ButtonContentPrimaryColor" xml:space="preserve">
+        <value>Primary color</value>
+    </data>
+    <data name="ButtonContentSecondaryColor" xml:space="preserve">
+        <value>Secondary color</value>
+    </data>
 </root>

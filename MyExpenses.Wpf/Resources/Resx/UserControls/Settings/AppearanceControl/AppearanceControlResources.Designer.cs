@@ -8,6 +8,9 @@
 //------------------------------------------------------------------------------
 
 namespace MyExpenses.Wpf.Resources.Resx.UserControls.Settings.AppearanceControl {
+    using System;
+    
+    
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
     /// </summary>
@@ -35,7 +38,8 @@ namespace MyExpenses.Wpf.Resources.Resx.UserControls.Settings.AppearanceControl 
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MyExpenses.Wpf.Resources.Resx.UserControls.Settings.AppearanceControl.AppearanceControlResources", typeof(AppearanceControlResources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MyExpenses.Wpf.Resources.Resx.UserControls.Settings.AppearanceControl.AppearanceC" +
+                            "ontrolResources", typeof(AppearanceControlResources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -57,6 +61,24 @@ namespace MyExpenses.Wpf.Resources.Resx.UserControls.Settings.AppearanceControl 
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Primary color.
+        /// </summary>
+        internal static string ButtonContentPrimaryColor {
+            get {
+                return ResourceManager.GetString("ButtonContentPrimaryColor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Secondary color.
+        /// </summary>
+        internal static string ButtonContentSecondaryColor {
+            get {
+                return ResourceManager.GetString("ButtonContentSecondaryColor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to What is the new primary color ?.
         /// </summary>
         internal static string ButtonPrimaryColorTitle {
@@ -71,6 +93,78 @@ namespace MyExpenses.Wpf.Resources.Resx.UserControls.Settings.AppearanceControl 
         internal static string ButtonSecondaryColorTitle {
             get {
                 return ResourceManager.GetString("ButtonSecondaryColorTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Synchronize with the operating system.
+        /// </summary>
+        internal static string CheckBoxContentSyncWithOs {
+            get {
+                return ResourceManager.GetString("CheckBoxContentSyncWithOs", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Primary - Dark.
+        /// </summary>
+        internal static string LabelContentPrimaryDark {
+            get {
+                return ResourceManager.GetString("LabelContentPrimaryDark", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Primary - Light.
+        /// </summary>
+        internal static string LabelContentPrimaryLight {
+            get {
+                return ResourceManager.GetString("LabelContentPrimaryLight", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Primary - Average.
+        /// </summary>
+        internal static string LabelContentPrimaryMind {
+            get {
+                return ResourceManager.GetString("LabelContentPrimaryMind", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Secondary - Dark.
+        /// </summary>
+        internal static string LabelContentSecondaryDark {
+            get {
+                return ResourceManager.GetString("LabelContentSecondaryDark", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Secondary - Light.
+        /// </summary>
+        internal static string LabelContentSecondaryLight {
+            get {
+                return ResourceManager.GetString("LabelContentSecondaryLight", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Secondary - Average.
+        /// </summary>
+        internal static string LabelContentSecondaryMind {
+            get {
+                return ResourceManager.GetString("LabelContentSecondaryMind", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Theme mode :.
+        /// </summary>
+        internal static string LabelThemeMode {
+            get {
+                return ResourceManager.GetString("LabelThemeMode", resourceCulture);
             }
         }
     }

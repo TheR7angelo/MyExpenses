@@ -227,18 +227,18 @@ public partial class AppearanceControl
 
     private void UpdateLanguage()
     {
-        // TODO work
-        LabelThemeMode = "Theme mode :";
-        CheckBoxContentSyncWithOs = "Sync with os";
+        LabelThemeMode = AppearanceControlResources.LabelThemeMode;
+        CheckBoxContentSyncWithOs = AppearanceControlResources.CheckBoxContentSyncWithOs;
 
-        LabelContentPrimaryLight = "Primary - Light";
-        LabelContentPrimaryMind = "Primary - Mind";
-        LabelContentPrimaryDark = "Primary - Dark";
-        LabelContentSecondaryLight = "Secondary - Light";
-        LabelContentSecondaryMind = "Secondary - Mind";
-        LabelContentSecondaryDark = "Secondary - Dark";
-        ButtonContentPrimaryColor = "Primary color";
-        ButtonContentSecondaryColor = "Secondary color";
+        LabelContentPrimaryLight = AppearanceControlResources.LabelContentPrimaryLight;
+        LabelContentPrimaryMind = AppearanceControlResources.LabelContentPrimaryMind;
+        LabelContentPrimaryDark = AppearanceControlResources.LabelContentPrimaryDark;
+        LabelContentSecondaryLight = AppearanceControlResources.LabelContentSecondaryLight;
+        LabelContentSecondaryMind = AppearanceControlResources.LabelContentSecondaryMind;
+        LabelContentSecondaryDark = AppearanceControlResources.LabelContentSecondaryDark;
+
+        ButtonContentPrimaryColor = AppearanceControlResources.ButtonContentPrimaryColor;
+        ButtonContentSecondaryColor = AppearanceControlResources.ButtonContentSecondaryColor;
     }
 
     #region Action

@@ -17,4 +17,34 @@
     <data name="ButtonSecondaryColorTitle" xml:space="preserve">
         <value>Quelle est la nouvelle couleurs secondaire ?</value>
     </data>
+    <data name="LabelThemeMode" xml:space="preserve">
+        <value>Mode thème :</value>
+    </data>
+    <data name="CheckBoxContentSyncWithOs" xml:space="preserve">
+        <value>Synchroniser avec le système d'exploitation</value>
+    </data>
+    <data name="LabelContentPrimaryLight" xml:space="preserve">
+        <value>Primaire - Clair</value>
+    </data>
+    <data name="LabelContentPrimaryMind" xml:space="preserve">
+        <value>Primaire - Moyenne</value>
+    </data>
+    <data name="LabelContentPrimaryDark" xml:space="preserve">
+        <value>Primaire - Sombre</value>
+    </data>
+    <data name="LabelContentSecondaryLight" xml:space="preserve">
+        <value>Secondaire - Clair</value>
+    </data>
+    <data name="LabelContentSecondaryMind" xml:space="preserve">
+        <value>Secondaire - Moyenne</value>
+    </data>
+    <data name="LabelContentSecondaryDark" xml:space="preserve">
+        <value>Secondaire - Sombre</value>
+    </data>
+    <data name="ButtonContentPrimaryColor" xml:space="preserve">
+        <value>Couleur primaire</value>
+    </data>
+    <data name="ButtonContentSecondaryColor" xml:space="preserve">
+        <value>Couleur secondaire</value>
+    </data>
 </root>
