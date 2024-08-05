@@ -26,6 +26,46 @@ public partial class AppearanceControl
         set => SetValue(LabelThemeModeProperty, value);
     }
 
+    public static readonly DependencyProperty CheckBoxContentSyncWithOsProperty =
+        DependencyProperty.Register(nameof(CheckBoxContentSyncWithOs), typeof(string), typeof(AppearanceControl),
+            new PropertyMetadata(default(string)));
+
+    public string CheckBoxContentSyncWithOs
+    {
+        get => (string)GetValue(CheckBoxContentSyncWithOsProperty);
+        set => SetValue(CheckBoxContentSyncWithOsProperty, value);
+    }
+
+    public static readonly DependencyProperty LabelContentPrimaryLightProperty =
+        DependencyProperty.Register(nameof(LabelContentPrimaryLight), typeof(string), typeof(AppearanceControl),
+            new PropertyMetadata(default(string)));
+
+    public string LabelContentPrimaryLight
+    {
+        get => (string)GetValue(LabelContentPrimaryLightProperty);
+        set => SetValue(LabelContentPrimaryLightProperty, value);
+    }
+
+    public static readonly DependencyProperty LabelContentPrimaryMindProperty =
+        DependencyProperty.Register(nameof(LabelContentPrimaryMind), typeof(string), typeof(AppearanceControl),
+            new PropertyMetadata(default(string)));
+
+    public string LabelContentPrimaryMind
+    {
+        get => (string)GetValue(LabelContentPrimaryMindProperty);
+        set => SetValue(LabelContentPrimaryMindProperty, value);
+    }
+
+    public static readonly DependencyProperty LabelContentPrimaryDarkProperty =
+        DependencyProperty.Register(nameof(LabelContentPrimaryDark), typeof(string), typeof(AppearanceControl),
+            new PropertyMetadata(default(string)));
+
+    public string LabelContentPrimaryDark
+    {
+        get => (string)GetValue(LabelContentPrimaryDarkProperty);
+        set => SetValue(LabelContentPrimaryDarkProperty, value);
+    }
+
     public static readonly DependencyProperty BackgroundPrimaryMindBrushProperty =
         DependencyProperty.Register(nameof(BackgroundPrimaryMindBrush), typeof(Brush), typeof(AppearanceControl),
             new PropertyMetadata(default(Brush)));
@@ -138,6 +178,11 @@ public partial class AppearanceControl
     {
         // TODO work
         LabelThemeMode = "Theme mode :";
+        CheckBoxContentSyncWithOs = "Sync with os";
+
+        LabelContentPrimaryLight = "Primary - Light";
+        LabelContentPrimaryMind = "Primary - Mind";
+        LabelContentPrimaryDark = "Primary - Dark";
     }
 
     #region Action
