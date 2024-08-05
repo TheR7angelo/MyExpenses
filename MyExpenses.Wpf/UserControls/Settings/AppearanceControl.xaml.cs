@@ -127,12 +127,7 @@ public partial class AppearanceControl
         BackgroundSecondaryDarkBrush = new SolidColorBrush(Theme.SecondaryDark.Color);
     }
 
-    private void UpdatePrimaryLabelTheme()
-    {
-        BackgroundPrimaryLightBrush = new SolidColorBrush(Theme.PrimaryLight.Color);
-        BackgroundPrimaryMindBrush = new SolidColorBrush(Theme.PrimaryMid.Color);
-        BackgroundPrimaryDarkBrush = new SolidColorBrush(Theme.PrimaryDark.Color);
-    }
+    #region Action
 
     private void ButtonPrimaryColor_OnClick(object sender, RoutedEventArgs e)
     {
@@ -156,6 +151,25 @@ public partial class AppearanceControl
         UpdateSecondaryLabelTheme();
     }
 
+    private void CheckBoxSyncWithOs_OnChecked(object sender, RoutedEventArgs e)
+        => UpdateBaseTheme();
+
+    private void CheckBoxSyncWithOs_OnUnchecked(object sender, RoutedEventArgs e)
+        => UpdateBaseTheme();
+
+    private void Interface_OnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
+        => UpdateLanguage();
+
+    private void ToggleButtonLightDark_OnChecked(object sender, RoutedEventArgs e)
+        => UpdateBaseTheme();
+
+    private void ToggleButtonLightDark_OnUnchecked(object sender, RoutedEventArgs e)
+        => UpdateBaseTheme();
+
+    #endregion
+
+    #region Function
+
     private static Color GetNewColor(Color defaultColor, string title)
     {
         var colorPickerWindow = new ColorPickerWindow { Title = title };
@@ -167,18 +181,6 @@ public partial class AppearanceControl
         var newColor = colorPickerWindow.ColorResult ?? defaultColor;
         return newColor;
     }
-
-    private void CheckBoxSyncWithOs_OnChecked(object sender, RoutedEventArgs e)
-        => UpdateBaseTheme();
-
-    private void CheckBoxSyncWithOs_OnUnchecked(object sender, RoutedEventArgs e)
-        => UpdateBaseTheme();
-
-    private void ToggleButtonLightDark_OnChecked(object sender, RoutedEventArgs e)
-        => UpdateBaseTheme();
-
-    private void ToggleButtonLightDark_OnUnchecked(object sender, RoutedEventArgs e)
-        => UpdateBaseTheme();
 
     private void UpdateBaseTheme()
     {
@@ -193,4 +195,20 @@ public partial class AppearanceControl
 
         paletteHelper.SetTheme(theme);
     }
+
+    private void UpdatePrimaryLabelTheme()
+    {
+        BackgroundPrimaryLightBrush = new SolidColorBrush(Theme.PrimaryLight.Color);
+        BackgroundPrimaryMindBrush = new SolidColorBrush(Theme.PrimaryMid.Color);
+        BackgroundPrimaryDarkBrush = new SolidColorBrush(Theme.PrimaryDark.Color);
+    }
+
+    private void UpdateSecondaryLabelTheme()
+    {
+        BackgroundSecondaryLightBrush = new SolidColorBrush(Theme.SecondaryLight.Color);
+        BackgroundSecondaryMindBrush = new SolidColorBrush(Theme.SecondaryMid.Color);
+        BackgroundSecondaryDarkBrush = new SolidColorBrush(Theme.SecondaryDark.Color);
+    }
+
+    #endregion
 }
