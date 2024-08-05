@@ -79,7 +79,7 @@
                 </Style>
             </TabControl.Resources>
 
-            <TabItem Header="{Binding Header, ElementName=ItemAppearance}">
+            <TabItem Header="{Binding Header, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, ElementName=ItemAppearance}">
 
                 <materialDesign:Card Margin="5">
 
@@ -89,7 +89,7 @@
 
             </TabItem>
 
-            <TabItem Header="{Binding Header, ElementName=ItemLanguage}">
+            <TabItem Header="{Binding Header, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, ElementName=ItemLanguage}">
 
                 <materialDesign:Card Margin="5">
 
