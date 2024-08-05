@@ -728,7 +728,11 @@ public partial class DashBoardPage
             .Where(s => !string.IsNullOrEmpty(s))
             .Select(s => s.ToFirstCharUpper()).ToImmutableArray();
 
-        if (Months.Count > 0)
+        if (Months.Count is 0)
+        {
+            Months.AddRange(months);
+        }
+        else
         {
             var selectedMonth = Months.FirstOrDefault(month => month.Equals(SelectedMonth)) ?? string.Empty;
             for (var i = 0; i < months.Length; i++)
@@ -737,10 +741,6 @@ public partial class DashBoardPage
             }
 
             SelectedMonth = selectedMonth;
-        }
-        else
-        {
-            Months.AddRange(months);
         }
     }
 
