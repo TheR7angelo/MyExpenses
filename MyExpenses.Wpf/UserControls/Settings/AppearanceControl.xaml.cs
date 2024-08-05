@@ -1,6 +1,7 @@
 using System.Windows;
 using System.Windows.Media;
 using MaterialDesignThemes.Wpf;
+using MyExpenses.Models.Config;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Wpf.Resources.Resx.UserControls;
 using MyExpenses.Wpf.Utils;
@@ -14,6 +15,16 @@ public partial class AppearanceControl
     #region Properties
 
     #region DependencyProperties
+
+    public static readonly DependencyProperty LabelThemeModeProperty =
+        DependencyProperty.Register(nameof(LabelThemeMode), typeof(string), typeof(AppearanceControl),
+            new PropertyMetadata(default(string)));
+
+    public string LabelThemeMode
+    {
+        get => (string)GetValue(LabelThemeModeProperty);
+        set => SetValue(LabelThemeModeProperty, value);
+    }
 
     public static readonly DependencyProperty BackgroundPrimaryMindBrushProperty =
         DependencyProperty.Register(nameof(BackgroundPrimaryMindBrush), typeof(Brush), typeof(AppearanceControl),
@@ -117,14 +128,16 @@ public partial class AppearanceControl
         if (baseTheme is BaseTheme.Inherit) SyncWithOs = true;
         else if (baseTheme is BaseTheme.Dark) LightDark = true;
 
+        UpdateLanguage();
+        Interface.LanguageChanged += Interface_OnLanguageChanged;
+
         InitializeComponent();
     }
 
-    private void UpdateSecondaryLabelTheme()
+    private void UpdateLanguage()
     {
-        BackgroundSecondaryLightBrush = new SolidColorBrush(Theme.SecondaryLight.Color);
-        BackgroundSecondaryMindBrush = new SolidColorBrush(Theme.SecondaryMid.Color);
-        BackgroundSecondaryDarkBrush = new SolidColorBrush(Theme.SecondaryDark.Color);
+        // TODO work
+        LabelThemeMode = "Theme mode :";
     }
 
     #region Action
