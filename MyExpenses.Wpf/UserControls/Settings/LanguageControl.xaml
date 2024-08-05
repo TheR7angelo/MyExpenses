@@ -24,9 +24,8 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <!-- TODO work -->
         <ComboBox Grid.Row="0" ItemsSource="{Binding CultureInfos, Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type local:LanguageControl}}}"
-                  materialDesign:HintAssist.Hint="Some item with a very long hint text that will cut off when floating"
+                  materialDesign:HintAssist.Hint="{Binding ComboBoxLanguageSelectorHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:LanguageControl}}}"
                   SelectedItem="{Binding CultureInfoSelected, Mode=TwoWay, RelativeSource={RelativeSource AncestorType={x:Type local:LanguageControl}}}"
                   Style="{StaticResource MaterialDesignFilledComboBox}">
 
@@ -45,8 +44,7 @@
         </ComboBox>
 
         <StackPanel Grid.Row="1" Orientation="Horizontal">
-            <!-- TODO work -->
-            <Label Content="Is 24h format" />
+            <Label Content="{Binding LabelIs24HFormat, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:LanguageControl}}}" />
             <ToggleButton IsChecked="{Binding Is24Hours, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:LanguageControl}}}"
                           IsThreeState="False">
             </ToggleButton>
