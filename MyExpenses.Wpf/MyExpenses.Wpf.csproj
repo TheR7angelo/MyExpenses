@@ -132,13 +132,13 @@
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>NominatimSearchWindowResources.Designer.cs</LastGenOutput>
       </EmbeddedResource>
-      <EmbeddedResource Update="Resources\Resx\UserControls\AppearanceControlResources.resx">
-        <Generator>ResXFileCodeGenerator</Generator>
-        <LastGenOutput>AppearanceControlResources.Designer.cs</LastGenOutput>
-      </EmbeddedResource>
       <EmbeddedResource Update="Resources\Resx\Windows\ColorPickerWindow\ColorPickerWindowResources.resx">
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>ColorPickerWindowResources.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+      <EmbeddedResource Update="Resources\Resx\UserControls\Settings\AppearanceControl\AppearanceControlResources.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>AppearanceControlResources.Designer.cs</LastGenOutput>
       </EmbeddedResource>
     </ItemGroup>
 
@@ -280,15 +280,15 @@
         <AutoGen>True</AutoGen>
         <DependentUpon>NominatimSearchWindowResources.resx</DependentUpon>
       </Compile>
-      <Compile Update="Resources\Resx\UserControls\AppearanceControlResources.Designer.cs">
-        <DesignTime>True</DesignTime>
-        <AutoGen>True</AutoGen>
-        <DependentUpon>AppearanceControlResources.resx</DependentUpon>
-      </Compile>
       <Compile Update="Resources\Resx\Windows\ColorPickerWindow\ColorPickerWindowResources.Designer.cs">
         <DesignTime>True</DesignTime>
         <AutoGen>True</AutoGen>
         <DependentUpon>ColorPickerWindowResources.resx</DependentUpon>
+      </Compile>
+      <Compile Update="Resources\Resx\UserControls\Settings\AppearanceControl\AppearanceControlResources.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>AppearanceControlResources.resx</DependentUpon>
       </Compile>
     </ItemGroup>
 
