@@ -148,8 +148,8 @@
                         </PathGeometry>
                     </Path.Data>
                 </Path>
-                <!-- TODO work -->
-                <Label Content="Secondary - Light"
+
+                <Label Content="{Binding LabelContentSecondaryLight, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:AppearanceControl}}}"
                        HorizontalContentAlignment="Center"
                        VerticalContentAlignment="Center"
                        Foreground="{Binding BackgroundSecondaryLightBrush, Converter={StaticResource SolidColorBrushToSolidColorBrushContrastingForegroundColorConverter}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:AppearanceControl}}}"
@@ -157,9 +157,8 @@
                 </Label>
             </Grid>
 
-            <!-- TODO work -->
             <Label Grid.Row="1" Grid.Column="1"
-                   Content="Secondary - Mind"
+                   Content="{Binding LabelContentSecondaryMind, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:AppearanceControl}}}"
                    HorizontalContentAlignment="Center"
                    VerticalContentAlignment="Center"
                    Foreground="{Binding BackgroundSecondaryMindBrush, Converter={StaticResource SolidColorBrushToSolidColorBrushContrastingForegroundColorConverter}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:AppearanceControl}}}"
@@ -167,9 +166,8 @@
             </Label>
 
             <Grid Grid.Row="1" Grid.Column="2">
-                <Path
-                    Fill="{Binding BackgroundSecondaryDarkBrush, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:AppearanceControl}}}"
-                    Stretch="Fill">
+                <Path Fill="{Binding BackgroundSecondaryDarkBrush, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:AppearanceControl}}}"
+                      Stretch="Fill">
                     <Path.Data>
                         <PathGeometry>
                             <PathGeometry.Figures>
@@ -182,8 +180,8 @@
                         </PathGeometry>
                     </Path.Data>
                 </Path>
-                <!-- TODO work -->
-                <Label Content="Secondary - Dark"
+
+                <Label Content="{Binding LabelContentSecondaryDark, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:AppearanceControl}}}"
                        HorizontalContentAlignment="Center"
                        VerticalContentAlignment="Center"
                        Foreground="{Binding BackgroundSecondaryDarkBrush, Converter={StaticResource SolidColorBrushToSolidColorBrushContrastingForegroundColorConverter}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:AppearanceControl}}}"
@@ -196,14 +194,12 @@
                         HorizontalAlignment="Center"
                         margin:PanelExtensions.MarginForAllChildren="5">
 
-                <!-- TODO work -->
-                <Button Content="Primary color"
+                <Button Content="{Binding ButtonContentPrimaryColor, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:AppearanceControl}}}"
                         Style="{StaticResource MaterialDesignPaperButton}"
                         Click="ButtonPrimaryColor_OnClick">
                 </Button>
 
-                <!-- TODO work -->
-                <Button Content="Secondary color"
+                <Button Content="{Binding ButtonContentSecondaryColor, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:AppearanceControl}}}"
                         Style="{StaticResource MaterialDesignPaperSecondaryButton}"
                         Click="ButtonSecondaryColor_OnClick">
                 </Button>
