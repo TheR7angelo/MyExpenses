@@ -140,6 +140,10 @@
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>AppearanceControlResources.Designer.cs</LastGenOutput>
       </EmbeddedResource>
+      <EmbeddedResource Update="Resources\Resx\UserControls\Settings\LanguageControl\LanguageControlResources.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>LanguageControlResources.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
     </ItemGroup>
 
     <ItemGroup>
@@ -289,6 +293,11 @@
         <DesignTime>True</DesignTime>
         <AutoGen>True</AutoGen>
         <DependentUpon>AppearanceControlResources.resx</DependentUpon>
+      </Compile>
+      <Compile Update="Resources\Resx\UserControls\Settings\LanguageControl\LanguageControlResources.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>LanguageControlResources.resx</DependentUpon>
       </Compile>
     </ItemGroup>
 

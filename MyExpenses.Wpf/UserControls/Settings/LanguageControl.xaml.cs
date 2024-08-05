@@ -4,6 +4,7 @@ using MyExpenses.Models.Config;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils;
+using MyExpenses.Wpf.Resources.Resx.UserControls.Settings.LanguageControl;
 
 namespace MyExpenses.Wpf.UserControls.Settings;
 
@@ -80,8 +81,7 @@ public partial class LanguageControl
 
     private void UpdateLanguage()
     {
-        // TODO work
-        ComboBoxLanguageSelectorHintAssist = "Choice of application language";
-        LabelIs24HFormat = "Is 24h format";
+        ComboBoxLanguageSelectorHintAssist = LanguageControlResources.ComboBoxLanguageSelectorHintAssist;
+        LabelIs24HFormat = LanguageControlResources.LabelIs24HFormat;
     }
 }
