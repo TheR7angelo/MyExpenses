@@ -52,7 +52,6 @@ public partial class SettingsWindow
 
             configuration.WriteConfiguration();
 
-            //TODO add listener to update all text ...
             App.LoadInterfaceLanguage(cultureInfoCode);
 
             Interface.OnLanguageChanged(this, new ConfigurationLanguageChangedEventArgs(cultureInfoCode));
