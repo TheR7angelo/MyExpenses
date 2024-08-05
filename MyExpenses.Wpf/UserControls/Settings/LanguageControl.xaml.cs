@@ -1,3 +1,4 @@
+using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Windows;
 using MyExpenses.Models.Config;
@@ -53,7 +54,8 @@ public partial class LanguageControl
         set => SetValue(Is24HoursProperty, value);
     }
 
-    public List<CultureInfo> CultureInfos { get; } = [];
+    public ObservableCollection<CultureInfo> CultureInfos { get; } = [];
+    private List<string> CultureInfoCodes { get; }
 
     public LanguageControl()
     {
@@ -61,9 +63,10 @@ public partial class LanguageControl
 
         var localFilePathDataBaseModel = DbContextBackup.LocalFilePathDataBaseModel;
         using var context = new DataBaseContext(localFilePathDataBaseModel);
-        foreach (var supportedLanguage in context.TSupportedLanguages)
+        CultureInfoCodes = [..context.TSupportedLanguages.Select(s => s.Code)];
+        foreach (var cultureInfoCode in CultureInfoCodes)
         {
-            var cultureInfo = new CultureInfo(supportedLanguage.Code);
+            var cultureInfo = new CultureInfo(cultureInfoCode);
             CultureInfos.Add(cultureInfo);
         }
 
