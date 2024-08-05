@@ -5,6 +5,7 @@ using MyExpenses.Models.Config;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils;
+using MyExpenses.Utils.Collection;
 using MyExpenses.Wpf.Resources.Resx.UserControls.Settings.LanguageControl;
 
 namespace MyExpenses.Wpf.UserControls.Settings;
@@ -64,11 +65,6 @@ public partial class LanguageControl
         var localFilePathDataBaseModel = DbContextBackup.LocalFilePathDataBaseModel;
         using var context = new DataBaseContext(localFilePathDataBaseModel);
         CultureInfoCodes = [..context.TSupportedLanguages.Select(s => s.Code)];
-        foreach (var cultureInfoCode in CultureInfoCodes)
-        {
-            var cultureInfo = new CultureInfo(cultureInfoCode);
-            CultureInfos.Add(cultureInfo);
-        }
 
         var configuration = Config.Configuration;
         Is24Hours = configuration.Interface.Clock.Is24Hours;
@@ -86,5 +82,21 @@ public partial class LanguageControl
     {
         ComboBoxLanguageSelectorHintAssist = LanguageControlResources.ComboBoxLanguageSelectorHintAssist;
         LabelIs24HFormat = LanguageControlResources.LabelIs24HFormat;
+
+        if (CultureInfos.Count is 0)
+        {
+            var cultureInfos = CultureInfoCodes.Select(s => new CultureInfo(s));
+            CultureInfos.AddRange(cultureInfos);
+        }
+        else
+        {
+            var selectedCultureInfoCode = CultureInfoSelected.Name;
+            for (var i = 0; i < CultureInfoCodes.Count; i++)
+            {
+                CultureInfos[i] = new CultureInfo(CultureInfoCodes[i]);
+            }
+
+            CultureInfoSelected = new CultureInfo(selectedCultureInfoCode);
+        }
     }
 }
