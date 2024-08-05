@@ -36,19 +36,20 @@
                    VerticalContentAlignment="Center">
             </Label>
 
-            <CheckBox
-                x:Name="CheckBoxSyncWithOs"
-                Content="Sync with os" IsThreeState="False"
-                Checked="CheckBoxSyncWithOs_OnChecked"
-                Unchecked="CheckBoxSyncWithOs_OnUnchecked"
-                IsChecked="{Binding SyncWithOs, Mode=TwoWay, RelativeSource={RelativeSource AncestorType={x:Type local:AppearanceControl}}}">
+            <CheckBox x:Name="CheckBoxSyncWithOs"
+                      Content="Sync with os"
+                      IsThreeState="False"
+                      Checked="CheckBoxSyncWithOs_OnChecked"
+                      Unchecked="CheckBoxSyncWithOs_OnUnchecked"
+                      IsChecked="{Binding SyncWithOs, Mode=TwoWay, RelativeSource={RelativeSource AncestorType={x:Type local:AppearanceControl}}}">
             </CheckBox>
-            <ToggleButton
-                IsEnabled="{Binding IsChecked, Converter={StaticResource InvertBooleanConverter}, ElementName=CheckBoxSyncWithOs}"
-                Style="{StaticResource MaterialDesignSwitchToggleButton}"
-                Checked="ToggleButtonLightDark_OnChecked"
-                Unchecked="ToggleButtonLightDark_OnUnchecked"
-                IsChecked="{Binding LightDark, Mode=TwoWay, RelativeSource={RelativeSource AncestorType={x:Type local:AppearanceControl}}}">
+
+            <!-- TODO work -->
+            <ToggleButton IsEnabled="{Binding IsChecked, Converter={StaticResource InvertBooleanConverter}, ElementName=CheckBoxSyncWithOs}"
+                          Style="{StaticResource MaterialDesignSwitchToggleButton}"
+                          Checked="ToggleButtonLightDark_OnChecked"
+                          Unchecked="ToggleButtonLightDark_OnUnchecked"
+                          IsChecked="{Binding LightDark, Mode=TwoWay, RelativeSource={RelativeSource AncestorType={x:Type local:AppearanceControl}}}">
 
                 <materialDesign:PackIcon Kind="WhiteBalanceSunny" />
 
