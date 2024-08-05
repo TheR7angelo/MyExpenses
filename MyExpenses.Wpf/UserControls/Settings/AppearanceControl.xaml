@@ -36,14 +36,13 @@
             </Label>
 
             <CheckBox x:Name="CheckBoxSyncWithOs"
-                      Content="Sync with os"
+                      Content="{Binding CheckBoxContentSyncWithOs, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:AppearanceControl}}}"
                       IsThreeState="False"
                       Checked="CheckBoxSyncWithOs_OnChecked"
                       Unchecked="CheckBoxSyncWithOs_OnUnchecked"
                       IsChecked="{Binding SyncWithOs, Mode=TwoWay, RelativeSource={RelativeSource AncestorType={x:Type local:AppearanceControl}}}">
             </CheckBox>
 
-            <!-- TODO work -->
             <ToggleButton IsEnabled="{Binding IsChecked, Converter={StaticResource InvertBooleanConverter}, ElementName=CheckBoxSyncWithOs}"
                           Style="{StaticResource MaterialDesignSwitchToggleButton}"
                           Checked="ToggleButtonLightDark_OnChecked"
@@ -78,9 +77,8 @@
             </Grid.ColumnDefinitions>
 
             <Grid Grid.Row="0" Grid.Column="0">
-                <Path
-                    Fill="{Binding BackgroundPrimaryLightBrush, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:AppearanceControl}}}"
-                    Stretch="Fill">
+                <Path Fill="{Binding BackgroundPrimaryLightBrush, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:AppearanceControl}}}"
+                      Stretch="Fill">
                     <Path.Data>
                         <PathGeometry>
                             <PathGeometry.Figures>
@@ -93,8 +91,8 @@
                         </PathGeometry>
                     </Path.Data>
                 </Path>
-                <!-- TODO work -->
-                <Label Content="Primary - Light"
+
+                <Label Content="{Binding LabelContentPrimaryLight, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:AppearanceControl}}}"
                        HorizontalContentAlignment="Center"
                        VerticalContentAlignment="Center"
                        Foreground="{Binding BackgroundPrimaryLightBrush, Converter={StaticResource SolidColorBrushToSolidColorBrushContrastingForegroundColorConverter}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:AppearanceControl}}}"
@@ -102,9 +100,8 @@
                 </Label>
             </Grid>
 
-            <!-- TODO work -->
             <Label Grid.Row="0" Grid.Column="1"
-                   Content="Primary - Mind"
+                   Content="{Binding LabelContentPrimaryMind, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:AppearanceControl}}}"
                    HorizontalContentAlignment="Center"
                    VerticalContentAlignment="Center"
                    Foreground="{Binding BackgroundPrimaryMindBrush, Converter={StaticResource SolidColorBrushToSolidColorBrushContrastingForegroundColorConverter}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:AppearanceControl}}}"
@@ -112,9 +109,8 @@
             </Label>
 
             <Grid Grid.Row="0" Grid.Column="2">
-                <Path
-                    Fill="{Binding BackgroundPrimaryDarkBrush, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:AppearanceControl}}}"
-                    Stretch="Fill">
+                <Path Fill="{Binding BackgroundPrimaryDarkBrush, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:AppearanceControl}}}"
+                      Stretch="Fill">
                     <Path.Data>
                         <PathGeometry>
                             <PathGeometry.Figures>
@@ -127,8 +123,8 @@
                         </PathGeometry>
                     </Path.Data>
                 </Path>
-                <!-- TODO work -->
-                <Label Content="Primary - Dark"
+
+                <Label Content="{Binding LabelContentPrimaryDark, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:AppearanceControl}}}"
                        HorizontalContentAlignment="Center"
                        VerticalContentAlignment="Center"
                        Foreground="{Binding BackgroundPrimaryDarkBrush, Converter={StaticResource SolidColorBrushToSolidColorBrushContrastingForegroundColorConverter}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:AppearanceControl}}}"
