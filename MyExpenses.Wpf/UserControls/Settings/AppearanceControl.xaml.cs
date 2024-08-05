@@ -4,6 +4,7 @@ using MaterialDesignThemes.Wpf;
 using MyExpenses.Models.Config;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Wpf.Resources.Resx.UserControls;
+using MyExpenses.Wpf.Resources.Resx.UserControls.Settings.AppearanceControl;
 using MyExpenses.Wpf.Utils;
 using MyExpenses.Wpf.Windows;
 using Theme = MaterialDesignThemes.Wpf.Theme;
