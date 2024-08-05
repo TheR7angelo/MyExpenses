@@ -225,22 +225,6 @@ public partial class AppearanceControl
         InitializeComponent();
     }
 
-    private void UpdateLanguage()
-    {
-        LabelThemeMode = AppearanceControlResources.LabelThemeMode;
-        CheckBoxContentSyncWithOs = AppearanceControlResources.CheckBoxContentSyncWithOs;
-
-        LabelContentPrimaryLight = AppearanceControlResources.LabelContentPrimaryLight;
-        LabelContentPrimaryMind = AppearanceControlResources.LabelContentPrimaryMind;
-        LabelContentPrimaryDark = AppearanceControlResources.LabelContentPrimaryDark;
-        LabelContentSecondaryLight = AppearanceControlResources.LabelContentSecondaryLight;
-        LabelContentSecondaryMind = AppearanceControlResources.LabelContentSecondaryMind;
-        LabelContentSecondaryDark = AppearanceControlResources.LabelContentSecondaryDark;
-
-        ButtonContentPrimaryColor = AppearanceControlResources.ButtonContentPrimaryColor;
-        ButtonContentSecondaryColor = AppearanceControlResources.ButtonContentSecondaryColor;
-    }
-
     #region Action
 
     private void ButtonPrimaryColor_OnClick(object sender, RoutedEventArgs e)
@@ -308,6 +292,22 @@ public partial class AppearanceControl
         theme.SetBaseTheme((BaseTheme)configuration.Interface.Theme.BaseTheme);
 
         paletteHelper.SetTheme(theme);
+    }
+
+    private void UpdateLanguage()
+    {
+        LabelThemeMode = AppearanceControlResources.LabelThemeMode;
+        CheckBoxContentSyncWithOs = AppearanceControlResources.CheckBoxContentSyncWithOs;
+
+        LabelContentPrimaryLight = AppearanceControlResources.LabelContentPrimaryLight;
+        LabelContentPrimaryMind = AppearanceControlResources.LabelContentPrimaryMind;
+        LabelContentPrimaryDark = AppearanceControlResources.LabelContentPrimaryDark;
+        LabelContentSecondaryLight = AppearanceControlResources.LabelContentSecondaryLight;
+        LabelContentSecondaryMind = AppearanceControlResources.LabelContentSecondaryMind;
+        LabelContentSecondaryDark = AppearanceControlResources.LabelContentSecondaryDark;
+
+        ButtonContentPrimaryColor = AppearanceControlResources.ButtonContentPrimaryColor;
+        ButtonContentSecondaryColor = AppearanceControlResources.ButtonContentSecondaryColor;
     }
 
     private void UpdatePrimaryLabelTheme()
