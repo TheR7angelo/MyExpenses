@@ -7,10 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MyExpenses.Wpf.Resources.Resx.UserControls {
-    using System;
-    
-    
+namespace MyExpenses.Wpf.Resources.Resx.UserControls.Settings.AppearanceControl {
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
     /// </summary>
@@ -38,7 +35,7 @@ namespace MyExpenses.Wpf.Resources.Resx.UserControls {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MyExpenses.Wpf.Resources.Resx.UserControls.AppearanceControlResources", typeof(AppearanceControlResources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MyExpenses.Wpf.Resources.Resx.UserControls.Settings.AppearanceControl.AppearanceControlResources", typeof(AppearanceControlResources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
