@@ -66,6 +66,56 @@ public partial class AppearanceControl
         set => SetValue(LabelContentPrimaryDarkProperty, value);
     }
 
+    public static readonly DependencyProperty LabelContentSecondaryLightProperty =
+        DependencyProperty.Register(nameof(LabelContentSecondaryLight), typeof(string), typeof(AppearanceControl),
+            new PropertyMetadata(default(string)));
+
+    public string LabelContentSecondaryLight
+    {
+        get => (string)GetValue(LabelContentSecondaryLightProperty);
+        set => SetValue(LabelContentSecondaryLightProperty, value);
+    }
+
+    public static readonly DependencyProperty LabelContentSecondaryMindProperty =
+        DependencyProperty.Register(nameof(LabelContentSecondaryMind), typeof(string), typeof(AppearanceControl),
+            new PropertyMetadata(default(string)));
+
+    public string LabelContentSecondaryMind
+    {
+        get => (string)GetValue(LabelContentSecondaryMindProperty);
+        set => SetValue(LabelContentSecondaryMindProperty, value);
+    }
+
+    public string LabelContentSecondaryDark
+    {
+        get => (string)GetValue(LabelContentSecondaryDarkProperty);
+        set => SetValue(LabelContentSecondaryDarkProperty, value);
+    }
+
+    public static readonly DependencyProperty LabelContentSecondaryDarkProperty =
+        DependencyProperty.Register(nameof(LabelContentSecondaryDark), typeof(string), typeof(AppearanceControl),
+            new PropertyMetadata(default(string)));
+
+    public static readonly DependencyProperty ButtonContentPrimaryColorProperty =
+        DependencyProperty.Register(nameof(ButtonContentPrimaryColor), typeof(string), typeof(AppearanceControl),
+            new PropertyMetadata(default(string)));
+
+    public string ButtonContentPrimaryColor
+    {
+        get => (string)GetValue(ButtonContentPrimaryColorProperty);
+        set => SetValue(ButtonContentPrimaryColorProperty, value);
+    }
+
+    public static readonly DependencyProperty ButtonContentSecondaryColorProperty =
+        DependencyProperty.Register(nameof(ButtonContentSecondaryColor), typeof(string), typeof(AppearanceControl),
+            new PropertyMetadata(default(string)));
+
+    public string ButtonContentSecondaryColor
+    {
+        get => (string)GetValue(ButtonContentSecondaryColorProperty);
+        set => SetValue(ButtonContentSecondaryColorProperty, value);
+    }
+
     public static readonly DependencyProperty BackgroundPrimaryMindBrushProperty =
         DependencyProperty.Register(nameof(BackgroundPrimaryMindBrush), typeof(Brush), typeof(AppearanceControl),
             new PropertyMetadata(default(Brush)));
@@ -183,6 +233,11 @@ public partial class AppearanceControl
         LabelContentPrimaryLight = "Primary - Light";
         LabelContentPrimaryMind = "Primary - Mind";
         LabelContentPrimaryDark = "Primary - Dark";
+        LabelContentSecondaryLight = "Secondary - Light";
+        LabelContentSecondaryMind = "Secondary - Mind";
+        LabelContentSecondaryDark = "Secondary - Dark";
+        ButtonContentPrimaryColor = "Primary color";
+        ButtonContentSecondaryColor = "Secondary color";
     }
 
     #region Action
