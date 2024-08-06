@@ -31,6 +31,10 @@
                     <analytics:AccountValueTrendControl />
                 </TabItem>
 
+                <TabItem Header="Hello 2">
+                    <analytics:CumulativeSumChartControl />
+                </TabItem>
+
             </TabControl>
 
         </materialDesign:Card>
