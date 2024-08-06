@@ -1,4 +1,3 @@
-using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -10,6 +9,7 @@ using MyExpenses.Models.Config;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Sql.Views;
 using MyExpenses.Sql.Context;
+using MyExpenses.Wpf.Converters.Analytics;
 using SkiaSharp;
 using SkiaSharp.Views.WPF;
 
@@ -94,18 +94,7 @@ public partial class AccountValueTrendControl
 
     private void SetXAxis(IEnumerable<string> labels)
     {
-        var transformedLabels = labels.Select(label =>
-        {
-            var labelSplit = label.Split('-');
-
-            if (!int.TryParse(labelSplit[0], out var year) || !int.TryParse(labelSplit[1], out var month))
-                throw new FormatException($"Invalid format for label '{label}'. Expected 'YYYY-MM' format.");
-
-            var d = new DateOnly(year, month, 1);
-            var newLabel = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(d.ToString("Y"));
-
-            return newLabel;
-        }).ToList();
+        var transformedLabels = labels.ToTransformLabelsToTitleCaseDateFormat();
 
         var axis = new Axis
         {
