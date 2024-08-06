@@ -28,6 +28,7 @@ public partial class CumulativeSumChartControl
     public ISeries[] Series { get; private set; } = null!;
 
     public ICartesianAxis[] XAxis { get; set; } = null!;
+    public ICartesianAxis[] YAxis { get; set; } = null!;
 
     public CumulativeSumChartControl()
     {
@@ -67,8 +68,19 @@ public partial class CumulativeSumChartControl
 
         var axis = groupsByPeriods.First().Select(s => s.Period!);
 
-        SetXAxis(axis);
         SetSeries(groupsByPeriods);
+
+        SetXAxis(axis);
+        SetYAxis();
+    }
+
+    private void SetYAxis()
+    {
+        var axis = new Axis
+        {
+            LabelsPaint = TextPaint
+        };
+        YAxis = [axis];
     }
 
     private void SetXAxis(IEnumerable<string> labels)
