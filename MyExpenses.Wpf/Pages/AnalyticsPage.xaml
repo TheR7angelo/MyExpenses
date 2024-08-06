@@ -35,6 +35,10 @@
                     <analytics:CumulativeSumChartControl />
                 </TabItem>
 
+                <TabItem Header="CumulativeTotalSumChartControl">
+                    <analytics:CumulativeTotalSumChartControl />
+                </TabItem>
+
             </TabControl>
 
         </materialDesign:Card>
