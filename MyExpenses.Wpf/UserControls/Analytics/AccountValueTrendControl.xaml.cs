@@ -20,18 +20,18 @@ public partial class AccountValueTrendControl
     public static readonly DependencyProperty TextPaintProperty = DependencyProperty.Register(nameof(TextPaint),
         typeof(SolidColorPaint), typeof(AccountValueTrendControl), new PropertyMetadata(default(SolidColorPaint)));
 
+    public SolidColorPaint TextPaint
+    {
+        get => (SolidColorPaint)GetValue(TextPaintProperty);
+        set => SetValue(TextPaintProperty, value);
+    }
+
     public ISeries[] Series { get; set; } = null!;
     public ICartesianAxis[] XAxis { get; set; } = null!;
     public ICartesianAxis[] YAxis { get; set; } = null!;
 
     private List<CheckBox> CheckBoxes { get; } = [];
     private List<CheckBox> CheckBoxesTrend { get; } = [];
-
-    public SolidColorPaint TextPaint
-    {
-        get => (SolidColorPaint)GetValue(TextPaintProperty);
-        set => SetValue(TextPaintProperty, value);
-    }
 
     public AccountValueTrendControl()
     {
@@ -73,6 +73,8 @@ public partial class AccountValueTrendControl
             .ToList()
             .GroupBy(s => s.Account)
             .ToList();
+
+        if (groupsVAccountMonthlyCumulativeSums.Count is 0) return;
 
         var axis = groupsVAccountMonthlyCumulativeSums.First().Select(s => s.Period!);
 
