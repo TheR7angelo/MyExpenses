@@ -125,8 +125,7 @@ public partial class CumulativeSumChartControl
             var stakedColumnSeries = new StackedColumnSeries<double>
             {
                 Values = values,
-                Name = groupsByAccount.First().Account,
-                Stroke = null,
+                Name = groupsByAccount.First().Account
             };
 
             series.Add(stakedColumnSeries);
