@@ -1,0 +1,24 @@
+<UserControl x:Class="MyExpenses.Wpf.UserControls.Analytics.CumulativeTotalSumChartControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:MyExpenses.Wpf.UserControls.Analytics"
+             xmlns:wpf="clr-namespace:LiveChartsCore.SkiaSharpView.WPF;assembly=LiveChartsCore.SkiaSharpView.WPF"
+             mc:Ignorable="d"
+
+             d:DesignHeight="300" d:DesignWidth="300">
+
+    <Grid>
+
+        <wpf:CartesianChart Series="{Binding Series, RelativeSource={RelativeSource AncestorType={x:Type local:CumulativeTotalSumChartControl}}}"
+                            XAxes="{Binding XAxis, RelativeSource={RelativeSource AncestorType={x:Type local:CumulativeTotalSumChartControl}}}"
+                            YAxes="{Binding YAxis, RelativeSource={RelativeSource AncestorType={x:Type local:CumulativeTotalSumChartControl}}}"
+                            LegendTextPaint="{Binding TextPaint, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:CumulativeTotalSumChartControl}}}"
+                            LegendPosition="Bottom"
+                            ZoomMode="X">
+        </wpf:CartesianChart>
+
+    </Grid>
+
+</UserControl>
