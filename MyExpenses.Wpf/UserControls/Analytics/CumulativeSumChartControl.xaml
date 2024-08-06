@@ -13,6 +13,7 @@
 
         <wpf:CartesianChart Series="{Binding Series, RelativeSource={RelativeSource AncestorType={x:Type local:CumulativeSumChartControl}}}"
                             XAxes="{Binding XAxis, RelativeSource={RelativeSource AncestorType={x:Type local:CumulativeSumChartControl}}}"
+                            YAxes="{Binding YAxis, RelativeSource={RelativeSource AncestorType={x:Type local:CumulativeSumChartControl}}}"
                             LegendTextPaint="{Binding TextPaint, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:CumulativeSumChartControl}}}"
                             LegendPosition="Bottom"
                             ZoomMode="X">
