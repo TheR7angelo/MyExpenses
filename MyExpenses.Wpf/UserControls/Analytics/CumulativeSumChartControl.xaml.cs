@@ -45,6 +45,25 @@ public partial class CumulativeSumChartControl
     {
         var skColor = GetSkColor();
         TextPaint = new SolidColorPaint(skColor);
+
+        UpdateAxisTextPaint();
+    }
+
+    private void UpdateAxisTextPaint()
+    {
+        for (var i = 0; i < YAxis.Length; i++)
+        {
+            var tmp = YAxis[i] as Axis;
+            tmp!.LabelsPaint = TextPaint;
+            YAxis[i] = tmp;
+        }
+
+        for (var i = 0; i < XAxis.Length; i++)
+        {
+            var tmp = XAxis[i] as Axis;
+            tmp!.LabelsPaint = TextPaint;
+            XAxis[i] = tmp;
+        }
     }
 
     private SKColor GetSkColor()
