@@ -128,6 +128,7 @@ public partial class CumulativeSumChartControl
                 Name = groupsByAccount.First().Account,
                 Stroke = null,
             };
+
             series.Add(stakedColumnSeries);
         }
 
