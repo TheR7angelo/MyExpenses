@@ -27,11 +27,11 @@
             <TabControl
                 Style="{StaticResource MaterialDesignFilledTabControl}">
 
-                <TabItem Header="Hello">
+                <TabItem Header="AccountValueTrendControl">
                     <analytics:AccountValueTrendControl />
                 </TabItem>
 
-                <TabItem Header="Hello 2">
+                <TabItem Header="CumulativeSumChartControl">
                     <analytics:CumulativeSumChartControl />
                 </TabItem>
 
