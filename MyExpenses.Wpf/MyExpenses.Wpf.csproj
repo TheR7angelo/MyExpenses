@@ -183,9 +183,6 @@
       <None Remove="Resources\Assets\Icon.ico" />
       <None Remove="Resources\Assets\Icon.png" />
       <None Remove="Resources\Assets\Icon.svg" />
-      <Resource Include="Resources\Assets\Icon.svg">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </Resource>
       <Compile Update="Resources\Resx\Pages\LocationManagementPage\LocationManagementPageResources.Designer.cs">
         <DesignTime>True</DesignTime>
         <AutoGen>True</AutoGen>
@@ -379,9 +376,6 @@
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </AdditionalFiles>
       <None Remove="Resources\Assets\Icon Resize.png" />
-      <Resource Include="Resources\Assets\Icon Resize.png">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </Resource>
       <None Remove="Resources\Maps\BlueMarker.png" />
       <AdditionalFiles Include="Resources\Maps\BlueMarker.png">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -432,6 +426,17 @@
         <Link>Resources\Assets\Icon.png</Link>
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </Resource>
+      <Resource Include="..\Resources\Assets\Icon.svg">
+        <Link>Resources\Assets\Icon.svg</Link>
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Resource>
+      <Resource Include="..\Resources\Assets\Icon Resize.png">
+        <Link>Resources\Assets\Icon Resize.png</Link>
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Resource>
+      <None Include="..\Resources\Assets\prompt icone.txt">
+        <Link>Resources\Assets\prompt icone.txt</Link>
+      </None>
       <Content Include="..\TODO LIST.md">
         <Link>TODO LIST.md</Link>
       </Content>
