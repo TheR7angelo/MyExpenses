@@ -11,6 +11,7 @@ using MyExpenses.Models.Sql.Views;
 using MyExpenses.Models.Wpf.Charts;
 using MyExpenses.Sql.Context;
 using MyExpenses.Wpf.Converters.Analytics;
+using MyExpenses.Wpf.Resources.Resx.UserControls.Analytics;
 using SkiaSharp;
 using SkiaSharp.Views.WPF;
 
@@ -52,7 +53,7 @@ public partial class AccountValueTrendControl
 
     private void UpdateLanguage()
     {
-        var trend = "trend";
+        var trend = AccountValueTrendControlResources.Trend;
 
         foreach (var iSeries in Series)
         {
@@ -151,8 +152,7 @@ public partial class AccountValueTrendControl
 
     private void SetSeries(List<IGrouping<string?, VAccountMonthlyCumulativeSum>> groupsVAccountMonthlyCumulativeSums)
     {
-        // TODO add tradusction
-        var trend = "trend";
+        var trend = AccountValueTrendControlResources.Trend;
 
         var series = new List<ISeries>();
         foreach (var groupVAccountMonthlyCumulativeSums in groupsVAccountMonthlyCumulativeSums)
