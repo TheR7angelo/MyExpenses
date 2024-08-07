@@ -144,6 +144,10 @@
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>LanguageControlResources.Designer.cs</LastGenOutput>
       </EmbeddedResource>
+      <EmbeddedResource Update="Resources\Resx\Windows\SettingsWindow\SettingsWindowResources.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>SettingsWindowResources.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
     </ItemGroup>
 
     <ItemGroup>
@@ -298,6 +302,11 @@
         <DesignTime>True</DesignTime>
         <AutoGen>True</AutoGen>
         <DependentUpon>LanguageControlResources.resx</DependentUpon>
+      </Compile>
+      <Compile Update="Resources\Resx\Windows\SettingsWindow\SettingsWindowResources.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>SettingsWindowResources.resx</DependentUpon>
       </Compile>
     </ItemGroup>
 
