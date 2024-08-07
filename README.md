@@ -27,12 +27,20 @@ And more if needed.
 - SQL
 <!-- - Maui -->
 
+### Installer
+
+The installer for the application is built with the help of Advanced Installer.
+
+[![Advanced Installer Logo](Resources/AiLogoColorRightText.svg)](https://www.advancedinstaller.com)
+
 ### Contribution
 
 Anyone wishing to contribute to the project is welcome. If you find an error or possible improvement, please feel free
 to open an issue or make a pull request.
 
 ### [See the todo list](TODO%20LIST.md)
+
+---
 
 ## _Version française_
 
@@ -58,6 +66,12 @@ Et plus si besoin.
 - WPF
 - SQL
 <!-- - Maui -->
+
+### Installateur
+
+Le programme d'installation de l'application est construit à l'aide du logiciel Advanced Installer.
+
+[![Advanced Installer Logo](Resources/AiLogoColorRightText.svg)](https://www.advancedinstaller.com)
 
 ### Contribution
 
