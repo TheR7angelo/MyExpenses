@@ -31,7 +31,9 @@ And more if needed.
 
 The installer for the application is built with the help of Advanced Installer.
 
-[![Advanced Installer Logo](Resources/AiLogoColorRightText.svg)](https://www.advancedinstaller.com)
+<a href="https://www.advancedinstaller.com">
+    <img src="Resources/Assets/AiLogoColorRightText.svg" width="424" alt="Advanced Installer Logo">
+</a>
 
 ### Contribution
 
@@ -71,7 +73,9 @@ Et plus si besoin.
 
 Le programme d'installation de l'application est construit à l'aide du logiciel Advanced Installer.
 
-[![Advanced Installer Logo](Resources/AiLogoColorRightText.svg)](https://www.advancedinstaller.com)
+<a href="https://www.advancedinstaller.com">
+    <img src="Resources/Assets/AiLogoColorRightText.svg" width="424" alt="Advanced Installer Logo">
+</a>
 
 ### Contribution
 
