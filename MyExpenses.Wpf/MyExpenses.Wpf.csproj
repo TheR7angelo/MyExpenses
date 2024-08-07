@@ -6,7 +6,7 @@
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
         <UseWPF>true</UseWPF>
-        <ApplicationIcon>Resources\Assets\Icon.ico</ApplicationIcon>
+        <ApplicationIcon>..\Resources\Assets\Icon.ico</ApplicationIcon>
         <AssemblyName>MyExpenses</AssemblyName>
     </PropertyGroup>
 
@@ -181,13 +181,7 @@
         <DependentUpon>AddEditCategoryTypeResources.resx</DependentUpon>
       </Compile>
       <None Remove="Resources\Assets\Icon.ico" />
-      <Resource Include="Resources\Assets\Icon.ico">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </Resource>
       <None Remove="Resources\Assets\Icon.png" />
-      <Resource Include="Resources\Assets\Icon.png">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </Resource>
       <None Remove="Resources\Assets\Icon.svg" />
       <Resource Include="Resources\Assets\Icon.svg">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -427,6 +421,17 @@
       <Content Include="..\README.md">
         <Link>README.md</Link>
       </Content>
+      <None Include="..\Resources\Assets\Icon.ai">
+        <Link>Resources\Assets\Icon.ai</Link>
+      </None>
+      <Resource Include="..\Resources\Assets\Icon.ico">
+        <Link>Resources\Assets\Icon.ico</Link>
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Resource>
+      <Resource Include="..\Resources\Assets\Icon.png">
+        <Link>Resources\Assets\Icon.png</Link>
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Resource>
       <Content Include="..\TODO LIST.md">
         <Link>TODO LIST.md</Link>
       </Content>
