@@ -41,14 +41,14 @@ public partial class AccountValueTrendControl
         TextPaint = new SolidColorPaint(skColor);
 
         SetChart();
-
-        Interface.ThemeChanged += Interface_OnThemeChanged;
-        Interface.LanguageChanged += InterfaceOnLanguageChanged;
         UpdateLanguage();
 
         InitializeComponent();
 
         SetButtonPanel();
+
+        Interface.ThemeChanged += Interface_OnThemeChanged;
+        Interface.LanguageChanged += InterfaceOnLanguageChanged;
     }
 
     private void UpdateLanguage()
