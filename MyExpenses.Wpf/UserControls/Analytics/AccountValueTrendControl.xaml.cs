@@ -42,10 +42,34 @@ public partial class AccountValueTrendControl
         SetChart();
 
         Interface.ThemeChanged += Interface_OnThemeChanged;
+        Interface.LanguageChanged += InterfaceOnLanguageChanged;
+        UpdateLanguage();
+
         InitializeComponent();
 
         SetButtonPanel();
     }
+
+    private void UpdateLanguage()
+    {
+        var trend = "trend";
+
+        foreach (var iSeries in Series)
+        {
+            var series = (LineSeries<double>)iSeries;
+            if (series.Tag is not IsSeriesTranslatable { IsTranslatable: true } isSeriesTranslatable) continue;
+
+            var name = series.Name!;
+            var checkBox = CheckBoxesTrend.First(s => s.Content.Equals(name));
+
+            var newName = $"{isSeriesTranslatable.OriginalName} {trend}";
+            series.Name = newName;
+            checkBox.Content = newName;
+        }
+    }
+
+    private void InterfaceOnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
+        => UpdateLanguage();
 
     private void Interface_OnThemeChanged(object sender, ConfigurationThemeChangedEventArgs e)
     {
@@ -112,6 +136,7 @@ public partial class AccountValueTrendControl
         YAxis = [axis];
     }
 
+    // TODO translate
     private void SetXAxis(IEnumerable<string> labels)
     {
         var transformedLabels = labels.ToTransformLabelsToTitleCaseDateFormat();
@@ -126,6 +151,9 @@ public partial class AccountValueTrendControl
 
     private void SetSeries(List<IGrouping<string?, VAccountMonthlyCumulativeSum>> groupsVAccountMonthlyCumulativeSums)
     {
+        // TODO add tradusction
+        var trend = "trend";
+
         var series = new List<ISeries>();
         foreach (var groupVAccountMonthlyCumulativeSums in groupsVAccountMonthlyCumulativeSums)
         {
@@ -134,24 +162,22 @@ public partial class AccountValueTrendControl
                 .Select(s => (double)s.CumulativeSum!)
                 .ToList();
 
-            var isSeriesTranslatable = new IsSeriesTranslatable { OriginalName = name };
             var lineSeries = new LineSeries<double>
             {
                 Name = name,
                 Values = values,
-                Fill = null,
-                Tag = isSeriesTranslatable
+                Fill = null
             };
 
             var xData = Enumerable.Range(1, values.Count).Select(i => (double)i).ToArray();
             var (a, b) = CalculateLinearTrend(xData, values.ToArray());
             var trendValues = xData.Select(x => Math.Round(a * x + b, 2)).ToArray();
 
-            //TODO work
+            var trendName = $"{name} {trend}";
             var isSeriesTranslatableTrend = new IsSeriesTranslatable { OriginalName = name, IsTranslatable = true };
             var trendSeries = new LineSeries<double>
             {
-                Name = $"{name} Trend",
+                Name = trendName,
                 Values = trendValues,
                 Fill = null,
                 IsVisible = false,
@@ -178,7 +204,7 @@ public partial class AccountValueTrendControl
 
             var checkBoxTrend = new CheckBox
             {
-                Content = $"{name} trend",
+                Content = trendName,
                 IsChecked = trendSeries.IsVisible,
                 Margin = new Thickness(5)
             };
