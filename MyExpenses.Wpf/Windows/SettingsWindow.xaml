@@ -10,7 +10,7 @@
         xmlns:settings="clr-namespace:MyExpenses.Wpf.UserControls.Settings"
         mc:Ignorable="d"
 
-        Title="SettingsWindow"
+        Title="{Binding TitleWindow, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
 
         Height="450" Width="800"
         MinHeight="450" MinWidth="800"
@@ -33,8 +33,6 @@
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
 
         DataContext="{Binding RelativeSource={RelativeSource Self}}">
-
-    <!-- TODO add window Title -->
 
     <Grid>
 
