@@ -123,12 +123,43 @@ public partial class CumulativeTotalSumChartControl
             sums.Add(value);
         }
 
+        var deltas = CalculateDeltas(sums);
+        var deltaSeries = new LineSeries<double>
+        {
+            Values = deltas,
+            Name = "Deltas line",
+            Fill = null,
+            DataLabelsFormatter = values => values.Coordinate.SecondaryValue.ToString("F2")
+        };
+
         // TODO work
         var columnSeries = new ColumnSeries<double>
         {
             Values = sums,
             Name = "Totals"
         };
-        Series = [columnSeries];
+        Series = [columnSeries, deltaSeries];
+    }
+
+    private List<double> CalculateDeltas(List<double> sums)
+    {
+        var deltas = new List<double> { 0d };
+
+        for (var i = 1; i < sums.Count; i++)
+        {
+            double calc;
+            if (sums[i - 1] < 0)
+            {
+                calc = sums[i] + Math.Abs(sums[i - 1]);
+            }
+            else
+            {
+                calc = sums[i] - sums[i - 1];
+            }
+
+            deltas.Add(calc);
+        }
+
+        return deltas;
     }
 }
