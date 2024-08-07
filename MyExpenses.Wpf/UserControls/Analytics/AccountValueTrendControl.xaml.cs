@@ -48,28 +48,12 @@ public partial class AccountValueTrendControl
         SetButtonPanel();
 
         Interface.ThemeChanged += Interface_OnThemeChanged;
-        Interface.LanguageChanged += InterfaceOnLanguageChanged;
+        Interface.LanguageChanged += Interface_OnLanguageChanged;
     }
 
-    private void UpdateLanguage()
-    {
-        var trend = AccountValueTrendControlResources.Trend;
+    #region Action
 
-        foreach (var iSeries in Series)
-        {
-            var series = (LineSeries<double>)iSeries;
-            if (series.Tag is not IsSeriesTranslatable { IsTranslatable: true } isSeriesTranslatable) continue;
-
-            var name = series.Name!;
-            var checkBox = CheckBoxesTrend.First(s => s.Content.Equals(name));
-
-            var newName = $"{isSeriesTranslatable.OriginalName} {trend}";
-            series.Name = newName;
-            checkBox.Content = newName;
-        }
-    }
-
-    private void InterfaceOnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
+    private void Interface_OnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
         => UpdateLanguage();
 
     private void Interface_OnThemeChanged(object sender, ConfigurationThemeChangedEventArgs e)
@@ -80,21 +64,27 @@ public partial class AccountValueTrendControl
         UpdateAxisTextPaint();
     }
 
-    private void UpdateAxisTextPaint()
+    #endregion
+
+    #region Function
+
+    private static (double a, double b) CalculateLinearTrend(double[] xData, double[] yData)
     {
-        for (var i = 0; i < YAxis.Length; i++)
+        double sumX = 0, sumY = 0, sumXy = 0, sumXx = 0;
+
+        var n = xData.Length;
+        for (var i = 0; i < n; i++)
         {
-            var tmp = YAxis[i] as Axis;
-            tmp!.LabelsPaint = TextPaint;
-            YAxis[i] = tmp;
+            sumX += xData[i];
+            sumY += yData[i];
+            sumXy += xData[i] * yData[i];
+            sumXx += xData[i] * xData[i];
         }
 
-        for (var i = 0; i < XAxis.Length; i++)
-        {
-            var tmp = XAxis[i] as Axis;
-            tmp!.LabelsPaint = TextPaint;
-            XAxis[i] = tmp;
-        }
+        var a = (n * sumXy - sumX * sumY) / (n * sumXx - sumX * sumX); // slope
+        var b = (sumY / n) - (a * sumX / n); // intercept
+
+        return (a, b);
     }
 
     private SKColor GetSkColor()
@@ -126,28 +116,6 @@ public partial class AccountValueTrendControl
         SetSeries(groupsVAccountMonthlyCumulativeSums);
         SetXAxis(axis);
         SetYAxis();
-    }
-
-    private void SetYAxis()
-    {
-        var axis = new Axis
-        {
-            LabelsPaint = TextPaint
-        };
-        YAxis = [axis];
-    }
-
-    // TODO translate
-    private void SetXAxis(IEnumerable<string> labels)
-    {
-        var transformedLabels = labels.ToTransformLabelsToTitleCaseDateFormat();
-
-        var axis = new Axis
-        {
-            Labels = transformedLabels,
-            LabelsPaint = TextPaint
-        };
-        XAxis = [axis];
     }
 
     private void SetSeries(List<IGrouping<string?, VAccountMonthlyCumulativeSum>> groupsVAccountMonthlyCumulativeSums)
@@ -220,22 +188,62 @@ public partial class AccountValueTrendControl
         Series = series.ToArray();
     }
 
-    private static (double a, double b) CalculateLinearTrend(double[] xData, double[] yData)
+    // TODO translate
+    private void SetXAxis(IEnumerable<string> labels)
     {
-        double sumX = 0, sumY = 0, sumXy = 0, sumXx = 0;
+        var transformedLabels = labels.ToTransformLabelsToTitleCaseDateFormat();
 
-        var n = xData.Length;
-        for (var i = 0; i < n; i++)
+        var axis = new Axis
         {
-            sumX += xData[i];
-            sumY += yData[i];
-            sumXy += xData[i] * yData[i];
-            sumXx += xData[i] * xData[i];
+            Labels = transformedLabels,
+            LabelsPaint = TextPaint
+        };
+        XAxis = [axis];
+    }
+
+    private void SetYAxis()
+    {
+        var axis = new Axis
+        {
+            LabelsPaint = TextPaint
+        };
+        YAxis = [axis];
+    }
+
+    private void UpdateAxisTextPaint()
+    {
+        for (var i = 0; i < YAxis.Length; i++)
+        {
+            var tmp = YAxis[i] as Axis;
+            tmp!.LabelsPaint = TextPaint;
+            YAxis[i] = tmp;
         }
 
-        var a = (n * sumXy - sumX * sumY) / (n * sumXx - sumX * sumX); // slope
-        var b = (sumY / n) - (a * sumX / n); // intercept
-
-        return (a, b);
+        for (var i = 0; i < XAxis.Length; i++)
+        {
+            var tmp = XAxis[i] as Axis;
+            tmp!.LabelsPaint = TextPaint;
+            XAxis[i] = tmp;
+        }
     }
+
+    private void UpdateLanguage()
+    {
+        var trend = AccountValueTrendControlResources.Trend;
+
+        foreach (var iSeries in Series)
+        {
+            var series = (LineSeries<double>)iSeries;
+            if (series.Tag is not IsSeriesTranslatable { IsTranslatable: true } isSeriesTranslatable) continue;
+
+            var name = series.Name!;
+            var checkBox = CheckBoxesTrend.First(s => s.Content.Equals(name));
+
+            var newName = $"{isSeriesTranslatable.OriginalName} {trend}";
+            series.Name = newName;
+            checkBox.Content = newName;
+        }
+    }
+
+    #endregion
 }
