@@ -251,6 +251,8 @@ public partial class AccountValueTrendControl
             series.Name = newName;
             checkBox.Content = newName;
         }
+
+        UpdateLayout();
     }
 
     #endregion

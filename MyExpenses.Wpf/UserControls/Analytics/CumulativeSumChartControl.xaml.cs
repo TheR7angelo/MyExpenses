@@ -156,6 +156,8 @@ public partial class CumulativeSumChartControl
                 .ToTransformLabelsToTitleCaseDateFormat();
             XAxis[i] = tmp;
         }
+
+        UpdateLayout();
     }
 
     #endregion
