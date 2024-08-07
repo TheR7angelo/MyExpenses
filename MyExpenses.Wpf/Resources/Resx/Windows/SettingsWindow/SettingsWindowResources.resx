@@ -30,4 +30,7 @@
     <data name="ButtonCancelContent" xml:space="preserve">
         <value>Cancel</value>
     </data>
+    <data name="TitleWindow" xml:space="preserve">
+        <value>Settings</value>
+    </data>
 </root>

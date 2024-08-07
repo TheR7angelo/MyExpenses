@@ -23,4 +23,7 @@
     <data name="TreeViewItemAppearanceHeader" xml:space="preserve">
         <value>Apparence</value>
     </data>
+    <data name="TitleWindow" xml:space="preserve">
+        <value>Paramètres</value>
+    </data>
 </root>

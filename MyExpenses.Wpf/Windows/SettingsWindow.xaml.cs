@@ -13,6 +13,15 @@ public partial class SettingsWindow
 {
     #region Resx
 
+    public static readonly DependencyProperty TitleWindowProperty = DependencyProperty.Register(nameof(TitleWindow),
+        typeof(string), typeof(SettingsWindow), new PropertyMetadata(default(string)));
+
+    public string TitleWindow
+    {
+        get => (string)GetValue(TitleWindowProperty);
+        set => SetValue(TitleWindowProperty, value);
+    }
+
     public static readonly DependencyProperty TreeViewItemAppearanceHeaderProperty =
         DependencyProperty.Register(nameof(TreeViewItemAppearanceHeader), typeof(string), typeof(SettingsWindow),
             new PropertyMetadata(default(string)));
@@ -67,6 +76,8 @@ public partial class SettingsWindow
 
     private void UpdateLanguage()
     {
+        TitleWindow = SettingsWindowResources.TitleWindow;
+
         TreeViewItemAppearanceHeader = SettingsWindowResources.TreeViewItemAppearanceHeader;
         TreeViewItemLanguageHeader = SettingsWindowResources.TreeViewItemLanguageHeader;
 
