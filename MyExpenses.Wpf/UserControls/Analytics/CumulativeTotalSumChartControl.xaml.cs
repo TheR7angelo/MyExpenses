@@ -123,6 +123,7 @@ public partial class CumulativeTotalSumChartControl
             sums.Add(value);
         }
 
+        // TODO work
         var columnSeries = new ColumnSeries<double>
         {
             Values = sums,
