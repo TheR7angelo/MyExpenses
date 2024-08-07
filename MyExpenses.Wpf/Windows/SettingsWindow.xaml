@@ -52,15 +52,13 @@
 
         <TreeView Grid.Row="1" Grid.Column="0" Grid.RowSpan="2">
 
-            <!-- TODO work -->
             <TreeViewItem x:Name="ItemAppearance"
-                          Header="Appearance"
+                          Header="{Binding TreeViewItemAppearanceHeader, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                           MouseLeftButtonUp="UIElement_OnMouseLeftButtonUp">
             </TreeViewItem>
 
-            <!-- TODO work -->
             <TreeViewItem x:Name="ItemLanguage"
-                          Header="Language"
+                          Header="{Binding TreeViewItemLanguageHeader, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                           MouseLeftButtonUp="UIElement_OnMouseLeftButtonUp">
             </TreeViewItem>
 
@@ -106,14 +104,12 @@
                     HorizontalAlignment="Right"
                     margin:PanelExtensions.MarginForAllChildren="5">
 
-            <!-- TODO Work -->
-            <Button Content="Save"
+            <Button Content="{Binding ButtonSaveContent, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                     Style="{StaticResource MaterialDesignPaperButton}"
                     Click="ButtonValid_OnClick">
             </Button>
 
-            <!-- TODO Work -->
-            <Button Content="Cancel"
+            <Button Content="{Binding ButtonCancelContent, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                     Style="{StaticResource MaterialDesignPaperSecondaryButton}"
                     Click="ButtonCancel_OnClick">
             </Button>
