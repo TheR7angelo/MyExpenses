@@ -36,10 +36,18 @@ public partial class CumulativeTotalSumChartControl
         TextPaint = new SolidColorPaint(skColor);
 
         SetChart();
+        UpdateLanguage();
+
+        InitializeComponent();
 
         Interface.ThemeChanged += Interface_OnThemeChanged;
-        InitializeComponent();
+        Interface.LanguageChanged += Interface_OnLanguageChanged;
     }
+
+    #region Action
+
+    private void Interface_OnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
+        => UpdateLanguage();
 
     private void Interface_OnThemeChanged(object sender, ConfigurationThemeChangedEventArgs e)
     {
@@ -49,21 +57,30 @@ public partial class CumulativeTotalSumChartControl
         UpdateAxisTextPaint();
     }
 
-    private void UpdateAxisTextPaint()
+    #endregion
+
+    #region Function
+
+    private List<double> CalculatePreviousDeltas(List<double> sums)
     {
-        for (var i = 0; i < YAxis.Length; i++)
+        var deltas = new List<double> { 0d };
+
+        for (var i = 1; i < sums.Count; i++)
         {
-            var tmp = YAxis[i] as Axis;
-            tmp!.LabelsPaint = TextPaint;
-            YAxis[i] = tmp;
+            double calc;
+            if (sums[i - 1] < 0)
+            {
+                calc = sums[i] + Math.Abs(sums[i - 1]);
+            }
+            else
+            {
+                calc = sums[i] - sums[i - 1];
+            }
+
+            deltas.Add(calc);
         }
 
-        for (var i = 0; i < XAxis.Length; i++)
-        {
-            var tmp = XAxis[i] as Axis;
-            tmp!.LabelsPaint = TextPaint;
-            XAxis[i] = tmp;
-        }
+        return deltas;
     }
 
     private SKColor GetSkColor()
@@ -91,27 +108,6 @@ public partial class CumulativeTotalSumChartControl
 
         SetXAxis(axis);
         SetYAxis();
-    }
-
-    private void SetYAxis()
-    {
-        var axis = new Axis
-        {
-            LabelsPaint = TextPaint
-        };
-        YAxis = [axis];
-    }
-
-    private void SetXAxis(IEnumerable<string> labels)
-    {
-        var transformedLabels = labels.ToTransformLabelsToTitleCaseDateFormat();
-
-        var axis = new Axis
-        {
-            Labels = transformedLabels,
-            LabelsPaint = TextPaint
-        };
-        XAxis = [axis];
     }
 
     private void SetSeries(List<IGrouping<string?, VAccountMonthlyCumulativeSum>> groupsByPeriods)
@@ -143,25 +139,57 @@ public partial class CumulativeTotalSumChartControl
         Series = [columnSeries, deltaSeries];
     }
 
-    private List<double> CalculatePreviousDeltas(List<double> sums)
+    private void SetXAxis(IEnumerable<string> labels)
     {
-        var deltas = new List<double> { 0d };
+        var transformedLabels = labels.ToTransformLabelsToTitleCaseDateFormat();
 
-        for (var i = 1; i < sums.Count; i++)
+        var axis = new Axis
         {
-            double calc;
-            if (sums[i - 1] < 0)
-            {
-                calc = sums[i] + Math.Abs(sums[i - 1]);
-            }
-            else
-            {
-                calc = sums[i] - sums[i - 1];
-            }
+            Labels = transformedLabels,
+            LabelsPaint = TextPaint
+        };
+        XAxis = [axis];
+    }
 
-            deltas.Add(calc);
+    private void SetYAxis()
+    {
+        var axis = new Axis
+        {
+            LabelsPaint = TextPaint
+        };
+        YAxis = [axis];
+    }
+
+    private void UpdateAxisTextPaint()
+    {
+        for (var i = 0; i < YAxis.Length; i++)
+        {
+            var tmp = YAxis[i] as Axis;
+            tmp!.LabelsPaint = TextPaint;
+            YAxis[i] = tmp;
         }
 
-        return deltas;
+        for (var i = 0; i < XAxis.Length; i++)
+        {
+            var tmp = XAxis[i] as Axis;
+            tmp!.LabelsPaint = TextPaint;
+            XAxis[i] = tmp;
+        }
     }
+
+    private void UpdateLanguage()
+    {
+        for (var i = 0; i < XAxis.Length; i++)
+        {
+            var tmp = XAxis[i] as Axis;
+            tmp!.Labels = tmp.Labels!
+                .ToTransformLabelsToTitleCaseDateFormatConvertBack()
+                .ToTransformLabelsToTitleCaseDateFormat();
+            XAxis[i] = tmp;
+        }
+
+        UpdateLayout();
+    }
+
+    #endregion
 }
