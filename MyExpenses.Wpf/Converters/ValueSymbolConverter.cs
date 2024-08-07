@@ -21,8 +21,9 @@ public class ValueSymbolConverter : IMultiValueConverter
         return !string.IsNullOrWhiteSpace(symbol) ? $"{value} {symbol}" : value;
     }
 
-    public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
+    public object[]? ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
     {
-        throw new NotImplementedException();
+        // No return
+        return null;
     }
 }
