@@ -188,7 +188,6 @@ public partial class AccountValueTrendControl
         Series = series.ToArray();
     }
 
-    // TODO translate
     private void SetXAxis(IEnumerable<string> labels)
     {
         var transformedLabels = labels.ToTransformLabelsToTitleCaseDateFormat();
@@ -229,6 +228,15 @@ public partial class AccountValueTrendControl
 
     private void UpdateLanguage()
     {
+        for (var i = 0; i < XAxis.Length; i++)
+        {
+            var tmp = XAxis[i] as Axis;
+            tmp!.Labels = tmp.Labels!
+                .ToTransformLabelsToTitleCaseDateFormatConvertBack()
+                .ToTransformLabelsToTitleCaseDateFormat();
+            XAxis[i] = tmp;
+        }
+
         var trend = AccountValueTrendControlResources.Trend;
 
         foreach (var iSeries in Series)
