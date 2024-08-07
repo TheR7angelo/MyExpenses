@@ -123,7 +123,15 @@ public partial class CumulativeTotalSumChartControl
             sums.Add(value);
         }
 
+        // TODO work
+        var columnSeries = new ColumnSeries<double>
+        {
+            Values = sums,
+            Name = "Totals"
+        };
+
         var deltas = CalculateDeltas(sums);
+        // TODO work
         var deltaSeries = new LineSeries<double>
         {
             Values = deltas,
@@ -132,12 +140,6 @@ public partial class CumulativeTotalSumChartControl
             DataLabelsFormatter = values => values.Coordinate.SecondaryValue.ToString("F2")
         };
 
-        // TODO work
-        var columnSeries = new ColumnSeries<double>
-        {
-            Values = sums,
-            Name = "Totals"
-        };
         Series = [columnSeries, deltaSeries];
     }
 
