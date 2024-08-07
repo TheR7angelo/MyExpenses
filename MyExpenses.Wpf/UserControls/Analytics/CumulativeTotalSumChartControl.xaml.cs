@@ -130,11 +130,11 @@ public partial class CumulativeTotalSumChartControl
             Name = "Totals"
         };
 
-        var deltas = CalculateDeltas(sums);
+        var previousDeltas = CalculatePreviousDeltas(sums);
         // TODO work
         var deltaSeries = new LineSeries<double>
         {
-            Values = deltas,
+            Values = previousDeltas,
             Name = "Deltas line",
             Fill = null,
             DataLabelsFormatter = values => values.Coordinate.SecondaryValue.ToString("F2")
@@ -143,7 +143,7 @@ public partial class CumulativeTotalSumChartControl
         Series = [columnSeries, deltaSeries];
     }
 
-    private List<double> CalculateDeltas(List<double> sums)
+    private List<double> CalculatePreviousDeltas(List<double> sums)
     {
         var deltas = new List<double> { 0d };
 
