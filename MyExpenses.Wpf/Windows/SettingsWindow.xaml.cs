@@ -10,13 +10,72 @@ namespace MyExpenses.Wpf.Windows;
 
 public partial class SettingsWindow
 {
-    //TODO add language
+    #region Resx
+
+    public static readonly DependencyProperty TreeViewItemAppearanceHeaderProperty =
+        DependencyProperty.Register(nameof(TreeViewItemAppearanceHeader), typeof(string), typeof(SettingsWindow),
+            new PropertyMetadata(default(string)));
+
+    public string TreeViewItemAppearanceHeader
+    {
+        get => (string)GetValue(TreeViewItemAppearanceHeaderProperty);
+        set => SetValue(TreeViewItemAppearanceHeaderProperty, value);
+    }
+
+    public static readonly DependencyProperty TreeViewItemLanguageHeaderProperty =
+        DependencyProperty.Register(nameof(TreeViewItemLanguageHeader), typeof(string), typeof(SettingsWindow),
+            new PropertyMetadata(default(string)));
+
+    public string TreeViewItemLanguageHeader
+    {
+        get => (string)GetValue(TreeViewItemLanguageHeaderProperty);
+        set => SetValue(TreeViewItemLanguageHeaderProperty, value);
+    }
+
+    public static readonly DependencyProperty ButtonSaveContentProperty =
+        DependencyProperty.Register(nameof(ButtonSaveContent), typeof(string), typeof(SettingsWindow),
+            new PropertyMetadata(default(string)));
+
+    public string ButtonSaveContent
+    {
+        get => (string)GetValue(ButtonSaveContentProperty);
+        set => SetValue(ButtonSaveContentProperty, value);
+    }
+
+    public static readonly DependencyProperty ButtonCancelContentProperty =
+        DependencyProperty.Register(nameof(ButtonCancelContent), typeof(string), typeof(SettingsWindow),
+            new PropertyMetadata(default(string)));
+
+    public string ButtonCancelContent
+    {
+        get => (string)GetValue(ButtonCancelContentProperty);
+        set => SetValue(ButtonCancelContentProperty, value);
+    }
+
+    #endregion
+
     public SettingsWindow()
     {
+        Interface.LanguageChanged += Interface_OnLanguageChanged;
+        UpdateLanguage();
+
         InitializeComponent();
 
         this.SetWindowCornerPreference();
     }
+
+    private void UpdateLanguage()
+    {
+        //TODO work
+        TreeViewItemAppearanceHeader = "Appearance";
+        TreeViewItemLanguageHeader = "Language";
+
+        ButtonSaveContent = "Save";
+        ButtonCancelContent = "Cancel";
+    }
+
+    private void Interface_OnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
+        => UpdateLanguage();
 
     #region Action
 
