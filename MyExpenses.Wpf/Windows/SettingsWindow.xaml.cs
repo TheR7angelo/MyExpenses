@@ -4,6 +4,7 @@ using System.Windows.Input;
 using MyExpenses.Models.Config;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Utils;
+using MyExpenses.Wpf.Resources.Resx.Windows.SettingsWindow;
 using MyExpenses.Wpf.Utils;
 
 namespace MyExpenses.Wpf.Windows;
@@ -66,12 +67,11 @@ public partial class SettingsWindow
 
     private void UpdateLanguage()
     {
-        //TODO work
-        TreeViewItemAppearanceHeader = "Appearance";
-        TreeViewItemLanguageHeader = "Language";
+        TreeViewItemAppearanceHeader = SettingsWindowResources.TreeViewItemAppearanceHeader;
+        TreeViewItemLanguageHeader = SettingsWindowResources.TreeViewItemLanguageHeader;
 
-        ButtonSaveContent = "Save";
-        ButtonCancelContent = "Cancel";
+        ButtonSaveContent = SettingsWindowResources.ButtonSaveContent;
+        ButtonCancelContent = SettingsWindowResources.ButtonCancelContent;
     }
 
     private void Interface_OnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
