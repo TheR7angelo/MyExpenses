@@ -78,6 +78,15 @@ namespace MyExpenses.Wpf.Resources.Resx.Windows.SettingsWindow {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Settings.
+        /// </summary>
+        internal static string TitleWindow {
+            get {
+                return ResourceManager.GetString("TitleWindow", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Appearance.
         /// </summary>
         internal static string TreeViewItemAppearanceHeader {
