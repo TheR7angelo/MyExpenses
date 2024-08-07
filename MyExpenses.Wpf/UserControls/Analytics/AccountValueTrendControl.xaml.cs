@@ -143,6 +143,8 @@ public partial class AccountValueTrendControl
             var xData = Enumerable.Range(1, values.Count).Select(i => (double)i).ToArray();
             var (a, b) = CalculateLinearTrend(xData, values.ToArray());
             var trendValues = xData.Select(x => Math.Round(a * x + b, 2)).ToArray();
+
+            //TODO work
             var trendSeries = new LineSeries<double>
             {
                 Name = $"{name} Trend",
