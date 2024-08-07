@@ -8,6 +8,7 @@ using LiveChartsCore.SkiaSharpView.Painting;
 using MyExpenses.Models.Config;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Sql.Views;
+using MyExpenses.Models.Wpf.Charts;
 using MyExpenses.Sql.Context;
 using MyExpenses.Wpf.Converters.Analytics;
 using SkiaSharp;
@@ -133,11 +134,13 @@ public partial class AccountValueTrendControl
                 .Select(s => (double)s.CumulativeSum!)
                 .ToList();
 
+            var isSeriesTranslatable = new IsSeriesTranslatable { OriginalName = name };
             var lineSeries = new LineSeries<double>
             {
                 Name = name,
                 Values = values,
-                Fill = null
+                Fill = null,
+                Tag = isSeriesTranslatable
             };
 
             var xData = Enumerable.Range(1, values.Count).Select(i => (double)i).ToArray();
@@ -145,13 +148,15 @@ public partial class AccountValueTrendControl
             var trendValues = xData.Select(x => Math.Round(a * x + b, 2)).ToArray();
 
             //TODO work
+            var isSeriesTranslatableTrend = new IsSeriesTranslatable { OriginalName = name, IsTranslatable = true };
             var trendSeries = new LineSeries<double>
             {
                 Name = $"{name} Trend",
                 Values = trendValues,
                 Fill = null,
                 IsVisible = false,
-                GeometrySize = 0
+                GeometrySize = 0,
+                Tag = isSeriesTranslatableTrend
             };
 
             series.Add(lineSeries);
