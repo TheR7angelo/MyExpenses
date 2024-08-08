@@ -148,7 +148,7 @@
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>SettingsWindowResources.Designer.cs</LastGenOutput>
       </EmbeddedResource>
-      <EmbeddedResource Update="Resources\Resx\UserControls\Analytics\AccountValueTrendControlResources.resx">
+      <EmbeddedResource Update="Resources\Resx\UserControls\Analytics\AccountValueTrendControl\AccountValueTrendControlResources.resx">
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>AccountValueTrendControlResources.Designer.cs</LastGenOutput>
       </EmbeddedResource>
@@ -303,7 +303,7 @@
         <AutoGen>True</AutoGen>
         <DependentUpon>SettingsWindowResources.resx</DependentUpon>
       </Compile>
-      <Compile Update="Resources\Resx\UserControls\Analytics\AccountValueTrendControlResources.Designer.cs">
+      <Compile Update="Resources\Resx\UserControls\Analytics\AccountValueTrendControl\AccountValueTrendControlResources.Designer.cs">
         <DesignTime>True</DesignTime>
         <AutoGen>True</AutoGen>
         <DependentUpon>AccountValueTrendControlResources.resx</DependentUpon>
