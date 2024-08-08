@@ -152,6 +152,10 @@
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>AccountValueTrendControlResources.Designer.cs</LastGenOutput>
       </EmbeddedResource>
+      <EmbeddedResource Update="Resources\Resx\UserControls\Analytics\CumulativeTotalSumChartControl\CumulativeTotalSumChartControlResources.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>CumulativeTotalSumChartControlResources.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
     </ItemGroup>
 
     <ItemGroup>
@@ -307,6 +311,11 @@
         <DesignTime>True</DesignTime>
         <AutoGen>True</AutoGen>
         <DependentUpon>AccountValueTrendControlResources.resx</DependentUpon>
+      </Compile>
+      <Compile Update="Resources\Resx\UserControls\Analytics\CumulativeTotalSumChartControl\CumulativeTotalSumChartControlResources.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>CumulativeTotalSumChartControlResources.resx</DependentUpon>
       </Compile>
     </ItemGroup>
 
