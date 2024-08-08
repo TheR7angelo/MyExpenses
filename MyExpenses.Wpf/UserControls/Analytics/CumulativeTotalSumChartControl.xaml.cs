@@ -9,6 +9,7 @@ using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Sql.Views;
 using MyExpenses.Sql.Context;
 using MyExpenses.Wpf.Converters.Analytics;
+using MyExpenses.Wpf.Resources.Resx.UserControls.Analytics.CumulativeTotalSumChartControl;
 using SkiaSharp;
 using SkiaSharp.Views.WPF;
 
@@ -119,19 +120,17 @@ public partial class CumulativeTotalSumChartControl
             sums.Add(value);
         }
 
-        // TODO work
         var columnSeries = new ColumnSeries<double>
         {
             Values = sums,
-            Name = "Totals"
+            Name = CumulativeTotalSumChartControlResources.ColumnSeriesTotalName
         };
 
         var previousDeltas = CalculatePreviousDeltas(sums);
-        // TODO work
         var deltaSeries = new LineSeries<double>
         {
             Values = previousDeltas,
-            Name = "Deltas line",
+            Name = CumulativeTotalSumChartControlResources.LineSeriesPreviousDeltaName,
             Fill = null,
             DataLabelsFormatter = values => values.Coordinate.SecondaryValue.ToString("F2")
         };
@@ -186,6 +185,19 @@ public partial class CumulativeTotalSumChartControl
                 .ToTransformLabelsToTitleCaseDateFormatConvertBack()
                 .ToTransformLabelsToTitleCaseDateFormat();
             XAxis[i] = tmp;
+        }
+
+        foreach (var series in Series)
+        {
+            switch (series)
+            {
+                case LineSeries<double> lineSeries:
+                    lineSeries.Name = CumulativeTotalSumChartControlResources.LineSeriesPreviousDeltaName;
+                    break;
+                case ColumnSeries<double> columnSeries:
+                    columnSeries.Name = CumulativeTotalSumChartControlResources.ColumnSeriesTotalName;
+                    break;
+            }
         }
 
         UpdateLayout();
