@@ -7,10 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MyExpenses.Wpf.Resources.Resx.UserControls.Analytics {
-    using System;
-    
-    
+namespace MyExpenses.Wpf.Resources.Resx.UserControls.Analytics.AccountValueTrendControl {
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
     /// </summary>
@@ -38,7 +35,7 @@ namespace MyExpenses.Wpf.Resources.Resx.UserControls.Analytics {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MyExpenses.Wpf.Resources.Resx.UserControls.Analytics.AccountValueTrendControlReso" +
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MyExpenses.Wpf.Resources.Resx.UserControls.Analytics.AccountValueTrendControl.AccountValueTrendControlReso" +
                             "urces", typeof(AccountValueTrendControlResources).Assembly);
                     resourceMan = temp;
                 }

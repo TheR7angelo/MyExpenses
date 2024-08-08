@@ -11,7 +11,7 @@ using MyExpenses.Models.Sql.Views;
 using MyExpenses.Models.Wpf.Charts;
 using MyExpenses.Sql.Context;
 using MyExpenses.Wpf.Converters.Analytics;
-using MyExpenses.Wpf.Resources.Resx.UserControls.Analytics;
+using MyExpenses.Wpf.Resources.Resx.UserControls.Analytics.AccountValueTrendControl;
 using SkiaSharp;
 using SkiaSharp.Views.WPF;
 
