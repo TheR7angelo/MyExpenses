@@ -43,15 +43,22 @@ public static class Nominatim
         }
     }
 
-    public static IEnumerable<NominatimSearchResult>? ToNominatim(this string address)
-        => _ToNominatim(address).Result;
+    public static IEnumerable<NominatimSearchResult>? ToNominatim(this string address, bool addressDetails = false, bool polygon = false, bool polygonGeojson = false)
+        => address._ToNominatim(addressDetails, polygon, polygonGeojson).Result;
 
-    private static async Task<List<NominatimSearchResult>?> _ToNominatim(string address)
+    private static async Task<List<NominatimSearchResult>?> _ToNominatim(this string address, bool addressDetails, bool polygon, bool polygonGeojson)
     {
         try
         {
+            var parameters = new List<string> { $"search?q={Http.ParseToUrlFormat(address)}&format=json" };
+            if (addressDetails) parameters.Add("addressdetails=1");
+            if (polygon) parameters.Add("polygon=1");
+            if (polygonGeojson) parameters.Add("polygon_geojson=1");
+
+            var url = string.Join('&', parameters);
+
             var httpResult = await HttpClient
-                .GetAsync($"search?q={Http.ParseToUrlFormat(address)}&format=json&polygon=1&addressdetails=1")
+                .GetAsync(url)
                 .ConfigureAwait(false);
             var result = await httpResult.Content.ReadAsStringAsync();
 
