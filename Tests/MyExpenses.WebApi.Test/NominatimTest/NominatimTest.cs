@@ -9,14 +9,6 @@ public class NominatimTest
     private const string Address = "Avenue des Champs-Élysées, 75008, Paris";
 
     [Fact]
-    public void PointToGeoNominatim()
-    {
-        var nominatim = Point.ToGeoNominatim();
-
-        Assert.NotNull(nominatim);
-    }
-
-    [Fact]
     public void StringToNominatimTest()
     {
         var nominatim = Address.ToNominatim();
@@ -26,11 +18,21 @@ public class NominatimTest
     }
 
     [Fact]
-    public void PointToNominatimTest()
+    public void PointToNominatimGeoJsonTest()
+    {
+        var nominatim = Point.ToNominatim(polygonGeojson:true);
+
+        Assert.NotNull(nominatim);
+        Assert.NotNull(nominatim.GeoJson);
+    }
+
+    [Fact]
+    public void PointToNominatimAllFalseTest()
     {
         var nominatim = Point.ToNominatim();
 
         Assert.NotNull(nominatim);
+        Assert.Null(nominatim.GeoJson);
     }
 
 }
