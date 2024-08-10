@@ -27,18 +27,15 @@
             <TabControl
                 Style="{StaticResource MaterialDesignFilledTabControl}">
 
-                <!-- TODO work -->
-                <TabItem Header="AccountValueTrendControl">
+                <TabItem Header="{Binding TabItemAccountValueTrendControlHeader, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
                     <analytics:AccountValueTrendControl />
                 </TabItem>
 
-                <!-- TODO work -->
-                <TabItem Header="CumulativeSumChartControl">
+                <TabItem Header="{Binding TabItemCumulativeSumChartControlHeader, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
                     <analytics:CumulativeSumChartControl />
                 </TabItem>
 
-                <!-- TODO work -->
-                <TabItem Header="CumulativeTotalSumChartControl">
+                <TabItem Header="{Binding TabItemCumulativeTotalSumChartControlHeader, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
                     <analytics:CumulativeTotalSumChartControl />
                 </TabItem>
 
