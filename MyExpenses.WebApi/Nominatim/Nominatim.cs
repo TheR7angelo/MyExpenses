@@ -17,9 +17,6 @@ public static class Nominatim
     public static IEnumerable<NominatimSearchResult>? ToNominatim(this string address)
         => _ToNominatim(address).Result;
 
-    public static NominatimSearchResult? ToNominatim(this Point position)
-        => _ToNominatim(position).Result;
-
     private static async Task<List<NominatimSearchResult>?> _ToNominatim(string address)
     {
         try
@@ -36,6 +33,9 @@ public static class Nominatim
             return null;
         }
     }
+
+    public static NominatimSearchResult? ToNominatim(this Point position)
+        => _ToNominatim(position).Result;
 
     private static async Task<NominatimSearchResult?> _ToNominatim(Point position)
     {
