@@ -9,23 +9,27 @@ public class NominatiumGeoJson
     public string? Type { get; set; }
 
     [JsonProperty("coordinates")]
-    public object? Coordinates { get; set; }
+    public JArray? Coordinates { get; set; }
 
-    public List<List<double>> GetLineStringCoordinates()
+    public List<List<double>>? GetLineStringCoordinates()
     {
-        if (Type?.ToLower() is "linestring" && Coordinates is JArray jArray)
+        if (Type?.ToLower() is "linestring" && Coordinates is not null)
         {
-            return jArray.ToObject<List<List<double>>>()!;
+            return Coordinates.ToObject<List<List<double>>>()!;
         }
+
+        if (Coordinates is null) return null;
         throw new InvalidOperationException("Coordinates doesn't represent a LineString");
     }
 
-    public List<List<List<double>>> GetPolygonCoordinates()
+    public List<List<List<double>>>? GetPolygonCoordinates()
     {
-        if (Type?.ToLower() is "polygon" && Coordinates is JArray jArray)
+        if (Type?.ToLower() is "polygon" && Coordinates is not null)
         {
-            return jArray.ToObject<List<List<List<double>>>>()!;
+            return Coordinates.ToObject<List<List<List<double>>>>()!;
         }
+
+        if (Coordinates is null) return null;
         throw new InvalidOperationException("Coordinates doesn't represent a Polygon");
     }
 }
