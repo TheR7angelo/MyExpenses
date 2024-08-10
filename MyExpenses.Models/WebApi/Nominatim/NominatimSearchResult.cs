@@ -17,10 +17,10 @@ public class NominatimSearchResult
     public long? OsmId { get; set; }
 
     [JsonProperty("lat")]
-    public float? Latitude { get; set; }
+    public double? Latitude { get; set; }
 
     [JsonProperty("lon")]
-    public float? Longitude { get; set; }
+    public double? Longitude { get; set; }
 
     [JsonProperty("class")]
     public string? Class { get; set; }
@@ -48,6 +48,9 @@ public class NominatimSearchResult
 
     [JsonProperty("boundingbox")]
     public IEnumerable<float>? BoundingBox { get; set; }
+
+    [JsonProperty("geojson")]
+    public NominatiumGeoJson? GeoJson { get; set; }
 
     public override string? ToString()
         => DisplayName;
