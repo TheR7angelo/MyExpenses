@@ -37,6 +37,16 @@ public partial class AnalyticsPage
         set => SetValue(TabItemCumulativeTotalSumChartControlHeaderProperty, value);
     }
 
+    public static readonly DependencyProperty TabItemAccountTotalEllipseControlHeaderProperty =
+        DependencyProperty.Register(nameof(TabItemAccountTotalEllipseControlHeader), typeof(string),
+            typeof(AnalyticsPage), new PropertyMetadata(default(string)));
+
+    public string TabItemAccountTotalEllipseControlHeader
+    {
+        get => (string)GetValue(TabItemAccountTotalEllipseControlHeaderProperty);
+        set => SetValue(TabItemAccountTotalEllipseControlHeaderProperty, value);
+    }
+
     public AnalyticsPage()
     {
         UpdateLanguage();
@@ -52,8 +62,8 @@ public partial class AnalyticsPage
     private void UpdateLanguage()
     {
         TabItemAccountValueTrendControlHeader = AnalyticsPageResources.TabItemAccountValueTrendControlHeader;
-        TabItemCumulativeSumChartControlHeader = AnalyticsPageResources.TabItemAccountValueTrendControlHeader;
-        TabItemCumulativeTotalSumChartControlHeader =
-            AnalyticsPageResources.TabItemCumulativeTotalSumChartControlHeader;
+        TabItemCumulativeSumChartControlHeader = AnalyticsPageResources.TabItemCumulativeSumChartControlHeader;
+        TabItemCumulativeTotalSumChartControlHeader = AnalyticsPageResources.TabItemCumulativeTotalSumChartControlHeader;
+        TabItemAccountTotalEllipseControlHeader = AnalyticsPageResources.TabItemAccountTotalEllipseControlHeader;
     }
 }

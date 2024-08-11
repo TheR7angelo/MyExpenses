@@ -19,12 +19,15 @@
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
     <data name="TabItemAccountValueTrendControlHeader" xml:space="preserve">
-        <value>Account Growth Trend</value>
+        <value>Growth trend</value>
     </data>
     <data name="TabItemCumulativeSumChartControlHeader" xml:space="preserve">
         <value>Cumulative Sum</value>
     </data>
     <data name="TabItemCumulativeTotalSumChartControlHeader" xml:space="preserve">
         <value>Cumulative Total Sum</value>
+    </data>
+    <data name="TabItemAccountTotalEllipseControlHeader" xml:space="preserve">
+        <value>Projection and status</value>
     </data>
 </root>
