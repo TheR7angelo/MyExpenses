@@ -2,7 +2,7 @@ using System.Collections.ObjectModel;
 using MyExpenses.Models.Sql.Views;
 using MyExpenses.Sql.Context;
 
-namespace MyExpenses.Wpf.UserControls.Analytics;
+namespace MyExpenses.Wpf.UserControls.Analytics.AccountTotalEllipseControl;
 
 public partial class AccountTotalEllipseControl
 {
