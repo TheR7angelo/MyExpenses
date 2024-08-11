@@ -3,9 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:local="clr-namespace:MyExpenses.Wpf.UserControls.Analytics"
+             xmlns:local="clr-namespace:MyExpenses.Wpf.UserControls.Analytics.AccountTotalEllipseControl"
              xmlns:margin="clr-namespace:MyExpenses.Wpf.Utils.Margin;assembly=MyExpenses.Wpf.Utils"
-             xmlns:accountTotalEllipseControl="clr-namespace:MyExpenses.Wpf.UserControls.Analytics.AccountTotalEllipseControl"
              mc:Ignorable="d"
 
              d:DesignHeight="300" d:DesignWidth="300">
@@ -25,20 +24,24 @@
                                        Total="{Binding VTotalByAccount.TotalNotPointed, Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type accountTotalEllipseControl:StackedTotalEllipseControl}}}"
                                        Symbol="{Binding VTotalByAccount.Symbol, Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type accountTotalEllipseControl:StackedTotalEllipseControl}}}" >
             </accountTotalEllipseControl:TotalEllipseControl>
+            <local:TotalEllipseControl Grid.Column="0"
+                                       Total="{Binding VTotalByAccount.TotalNotPointed, Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type local:StackedTotalEllipseControl}}}"
+                                       Symbol="{Binding VTotalByAccount.Symbol, Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type local:StackedTotalEllipseControl}}}" >
+            </local:TotalEllipseControl>
 
             <!-- TODO work -->
-            <accountTotalEllipseControl:TotalEllipseControl Grid.Column="1"
+            <local:TotalEllipseControl Grid.Column="1"
                                        TitleTotal="Total"
-                                       Total="{Binding VTotalByAccount.Total, Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type accountTotalEllipseControl:StackedTotalEllipseControl}}}"
-                                       Symbol="{Binding VTotalByAccount.Symbol, Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type accountTotalEllipseControl:StackedTotalEllipseControl}}}" >
-            </accountTotalEllipseControl:TotalEllipseControl>
+                                       Total="{Binding VTotalByAccount.Total, Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type local:StackedTotalEllipseControl}}}"
+                                       Symbol="{Binding VTotalByAccount.Symbol, Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type local:StackedTotalEllipseControl}}}" >
+            </local:TotalEllipseControl>
 
             <!-- TODO work -->
-            <accountTotalEllipseControl:TotalEllipseControl Grid.Column="2"
+            <local:TotalEllipseControl Grid.Column="2"
                                        TitleTotal="TotalPointed"
-                                       Total="{Binding VTotalByAccount.TotalPointed, Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type accountTotalEllipseControl:StackedTotalEllipseControl}}}"
-                                       Symbol="{Binding VTotalByAccount.Symbol, Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type accountTotalEllipseControl:StackedTotalEllipseControl}}}" >
-            </accountTotalEllipseControl:TotalEllipseControl>
+                                       Total="{Binding VTotalByAccount.TotalPointed, Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type local:StackedTotalEllipseControl}}}"
+                                       Symbol="{Binding VTotalByAccount.Symbol, Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type local:StackedTotalEllipseControl}}}" >
+            </local:TotalEllipseControl>
 
     </Grid>
 
