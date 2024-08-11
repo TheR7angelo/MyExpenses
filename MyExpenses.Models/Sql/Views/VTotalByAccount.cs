@@ -17,6 +17,12 @@ public partial class VTotalByAccount : ISql
     [Column("total")]
     public double? Total { get; set; }
 
+    [Column("total_pointed")]
+    public double? TotalPointed { get; set; }
+
+    [Column("total_not_pointed")]
+    public double? TotalNotPointed { get; set; }
+
     [Column("symbol")]
     public string? Symbol { get; set; }
 }
