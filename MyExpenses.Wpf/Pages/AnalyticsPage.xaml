@@ -32,6 +32,10 @@
                     <accountTotalEllipseControl:AccountTotalEllipseControl />
                 </TabItem>
 
+                <TabItem Header="AccountsCategorySumControl">
+                    <analytics:AccountsCategorySumControl />
+                </TabItem>
+
                 <TabItem Header="{Binding TabItemAccountValueTrendControlHeader, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
                     <analytics:AccountValueTrendControl />
                 </TabItem>
