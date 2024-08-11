@@ -2,6 +2,7 @@ using System.Windows;
 using MyExpenses.Models.Config;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Sql.Views;
+using MyExpenses.Wpf.Resources.Resx.UserControls.Analytics.AccountValueTrendControl.StackedTotalEllipseControl;
 
 namespace MyExpenses.Wpf.UserControls.Analytics.AccountTotalEllipseControl;
 
@@ -61,9 +62,8 @@ public partial class StackedTotalEllipseControl
 
     private void UpdateLanguage()
     {
-        // TODO work
-        TitleTotalTotalNotPointed = "TotalNotPointed";
-        TitleTotalTotal = "Total";
-        TitleTotalTotalPointed = "TotalPointed";
+        TitleTotalTotalNotPointed = StackedTotalEllipseControlResources.TitleTotalTotalNotPointed;
+        TitleTotalTotal = StackedTotalEllipseControlResources.TitleTotalTotal;
+        TitleTotalTotalPointed = StackedTotalEllipseControlResources.TitleTotalTotalPointed;
     }
 }
