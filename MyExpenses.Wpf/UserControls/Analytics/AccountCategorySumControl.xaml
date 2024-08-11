@@ -14,9 +14,8 @@
         <wpf:CartesianChart Series="{Binding Series, RelativeSource={RelativeSource AncestorType={x:Type local:AccountCategorySumControl}}}"
                             XAxes="{Binding XAxis, RelativeSource={RelativeSource AncestorType={x:Type local:AccountCategorySumControl}}}"
                             YAxes="{Binding YAxis, RelativeSource={RelativeSource AncestorType={x:Type local:AccountCategorySumControl}}}"
-
                             LegendTextPaint="{Binding TextPaint, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:AccountCategorySumControl}}}"
-                            LegendPosition="Bottom"
+                            LegendPosition="Left"
                             ZoomMode="X">
         </wpf:CartesianChart>
 
