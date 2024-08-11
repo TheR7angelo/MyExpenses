@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 namespace MyExpenses.Models.Sql.Views;
 
 [Keyless]
-public partial class VAccountCategoryMonthlyCumulativeSum
+public partial class VAccountCategoryMonthlySum
 {
     [Column("account_fk")]
     public int? AccountFk { get; set; }
@@ -15,9 +15,12 @@ public partial class VAccountCategoryMonthlyCumulativeSum
     [Column("category_type")]
     public string? CategoryType { get; set; }
 
+    [Column("color_code")]
+    public string? ColorCode { get; set; }
+
     [Column("period")]
     public string? Period { get; set; }
 
-    [Column("cumulative_sum")]
-    public double? CumulativeSum { get; set; }
+    [Column("monthly_sum")]
+    public double? MonthlySum { get; set; }
 }

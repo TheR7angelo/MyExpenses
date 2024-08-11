@@ -48,7 +48,7 @@ public partial class DataBaseContext : DbContext
 
     public virtual DbSet<TVersion> TVersions { get; set; }
 
-    public virtual DbSet<VAccountCategoryMonthlyCumulativeSum> VAccountCategoryMonthlyCumulativeSums { get; set; }
+    public virtual DbSet<VAccountCategoryMonthlySum> VAccountCategoryMonthlyCumulativeSums { get; set; }
 
     public virtual DbSet<VAccountMonthlyCumulativeSum> VAccountMonthlyCumulativeSums { get; set; }
 
@@ -142,9 +142,9 @@ public partial class DataBaseContext : DbContext
             entity.Property(e => e.DefaultLanguage).HasDefaultValueSql("FALSE");
         });
 
-        modelBuilder.Entity<VAccountCategoryMonthlyCumulativeSum>(entity =>
+        modelBuilder.Entity<VAccountCategoryMonthlySum>(entity =>
         {
-            entity.ToView("v_account_category_monthly_cumulative_sum");
+            entity.ToView("v_account_category_monthly_sum");
         });
 
         modelBuilder.Entity<VAccountMonthlyCumulativeSum>(entity =>
