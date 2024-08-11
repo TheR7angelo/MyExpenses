@@ -4,6 +4,8 @@ using LiveChartsCore;
 using LiveChartsCore.Kernel.Sketches;
 using LiveChartsCore.SkiaSharpView;
 using LiveChartsCore.SkiaSharpView.Painting;
+using MyExpenses.Models.Config;
+using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Sql.Tables;
 using MyExpenses.Models.Sql.Views;
 using MyExpenses.Sql.Context;
@@ -45,8 +47,54 @@ public partial class AccountCategorySumControl
         TextPaint = new SolidColorPaint(skColor);
 
         SetChart();
+        UpdateLanguage();
 
         InitializeComponent();
+
+        Interface.ThemeChanged += Interface_OnThemeChanged;
+        Interface.LanguageChanged += Interface_OnLanguageChanged;
+    }
+
+    private void Interface_OnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
+        => UpdateLanguage();
+
+    private void Interface_OnThemeChanged(object sender, ConfigurationThemeChangedEventArgs e)
+    {
+        var skColor = GetSkColor();
+        TextPaint = new SolidColorPaint(skColor);
+
+        UpdateAxisTextPaint();
+    }
+
+    private void UpdateAxisTextPaint()
+    {
+        for (var i = 0; i < YAxis.Length; i++)
+        {
+            var tmp = YAxis[i] as Axis;
+            tmp!.LabelsPaint = TextPaint;
+            YAxis[i] = tmp;
+        }
+
+        for (var i = 0; i < XAxis.Length; i++)
+        {
+            var tmp = XAxis[i] as Axis;
+            tmp!.LabelsPaint = TextPaint;
+            XAxis[i] = tmp;
+        }
+    }
+
+    private void UpdateLanguage()
+    {
+        for (var i = 0; i < XAxis.Length; i++)
+        {
+            var tmp = XAxis[i] as Axis;
+            tmp!.Labels = tmp.Labels!
+                .ToTransformLabelsToTitleCaseDateFormatConvertBack()
+                .ToTransformLabelsToTitleCaseDateFormat();
+            XAxis[i] = tmp;
+        }
+
+        UpdateLayout();
     }
 
     private void SetChart()
