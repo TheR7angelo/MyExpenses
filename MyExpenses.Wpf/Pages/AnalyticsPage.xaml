@@ -27,6 +27,11 @@
             <TabControl
                 Style="{StaticResource MaterialDesignFilledTabControl}">
 
+                <!-- TODO work -->
+                <TabItem Header="AccountTotalEllipseControl">
+                    <analytics:AccountTotalEllipseControl />
+                </TabItem>
+
                 <TabItem Header="{Binding TabItemAccountValueTrendControlHeader, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
                     <analytics:AccountValueTrendControl />
                 </TabItem>

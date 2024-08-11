@@ -1,0 +1,38 @@
+using System.Windows;
+
+namespace MyExpenses.Wpf.UserControls.Analytics;
+
+public partial class TotalEllipseControl
+{
+    public static readonly DependencyProperty TotalProperty = DependencyProperty.Register(nameof(Total), typeof(double),
+        typeof(TotalEllipseControl), new PropertyMetadata(default(double)));
+
+    public double? Total
+    {
+        get => (double)GetValue(TotalProperty);
+        set => SetValue(TotalProperty, value);
+    }
+
+    public static readonly DependencyProperty SymbolProperty = DependencyProperty.Register(nameof(Symbol),
+        typeof(string), typeof(TotalEllipseControl), new PropertyMetadata(default(string)));
+
+    public string Symbol
+    {
+        get => (string)GetValue(SymbolProperty);
+        set => SetValue(SymbolProperty, value);
+    }
+
+    public static readonly DependencyProperty TitleTotalProperty = DependencyProperty.Register(nameof(TitleTotal),
+        typeof(string), typeof(TotalEllipseControl), new PropertyMetadata(default(string)));
+
+    public string TitleTotal
+    {
+        get => (string)GetValue(TitleTotalProperty);
+        set => SetValue(TitleTotalProperty, value);
+    }
+
+    public TotalEllipseControl()
+    {
+        InitializeComponent();
+    }
+}
