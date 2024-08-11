@@ -18,27 +18,20 @@
             <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
 
-            <!-- TODO work -->
-            <accountTotalEllipseControl:TotalEllipseControl Grid.Column="0"
-                                       TitleTotal="TotalNotPointed"
-                                       Total="{Binding VTotalByAccount.TotalNotPointed, Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type accountTotalEllipseControl:StackedTotalEllipseControl}}}"
-                                       Symbol="{Binding VTotalByAccount.Symbol, Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type accountTotalEllipseControl:StackedTotalEllipseControl}}}" >
-            </accountTotalEllipseControl:TotalEllipseControl>
             <local:TotalEllipseControl Grid.Column="0"
+                                       TitleTotal="{Binding TitleTotalTotalNotPointed, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:StackedTotalEllipseControl}}}"
                                        Total="{Binding VTotalByAccount.TotalNotPointed, Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type local:StackedTotalEllipseControl}}}"
                                        Symbol="{Binding VTotalByAccount.Symbol, Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type local:StackedTotalEllipseControl}}}" >
             </local:TotalEllipseControl>
 
-            <!-- TODO work -->
             <local:TotalEllipseControl Grid.Column="1"
-                                       TitleTotal="Total"
+                                       TitleTotal="{Binding TitleTotalTotal, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:StackedTotalEllipseControl}}}"
                                        Total="{Binding VTotalByAccount.Total, Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type local:StackedTotalEllipseControl}}}"
                                        Symbol="{Binding VTotalByAccount.Symbol, Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type local:StackedTotalEllipseControl}}}" >
             </local:TotalEllipseControl>
 
-            <!-- TODO work -->
             <local:TotalEllipseControl Grid.Column="2"
-                                       TitleTotal="TotalPointed"
+                                       TitleTotal="{Binding TitleTotalTotalPointed, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:StackedTotalEllipseControl}}}"
                                        Total="{Binding VTotalByAccount.TotalPointed, Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type local:StackedTotalEllipseControl}}}"
                                        Symbol="{Binding VTotalByAccount.Symbol, Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type local:StackedTotalEllipseControl}}}" >
             </local:TotalEllipseControl>
