@@ -12,12 +12,15 @@
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
     <data name="TabItemAccountValueTrendControlHeader" xml:space="preserve">
-        <value>Tendance de Croissance du Compte</value>
+        <value>Tendance de Croissance</value>
     </data>
     <data name="TabItemCumulativeSumChartControlHeader" xml:space="preserve">
         <value>Somme Cumulative</value>
     </data>
     <data name="TabItemCumulativeTotalSumChartControlHeader" xml:space="preserve">
         <value>Somme Totale Cumulative</value>
+    </data>
+    <data name="TabItemAccountTotalEllipseControlHeader" xml:space="preserve">
+        <value>Projection et statut</value>
     </data>
 </root>
