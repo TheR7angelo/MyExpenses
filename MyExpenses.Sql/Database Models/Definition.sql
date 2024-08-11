@@ -678,7 +678,7 @@ SELECT account_fk,
 FROM cumulative
 ORDER BY account_fk, rn;
 
-DROP VIEW IF EXISTS v_account_category_monthly_cumulative_sum;
+DROP VIEW IF EXISTS v_account_category_monthly_sum;
 CREATE VIEW v_account_category_monthly_sum AS
 WITH all_periods AS (
          SELECT a.id                     AS account_fk,
