@@ -16,8 +16,8 @@
 
     <Grid>
 
-        <Ellipse MinHeight="25"
-                 Width="{Binding ActualHeight, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource self}}"
+        <Ellipse MinWidth="250"
+                 Height="{Binding ActualWidth, RelativeSource={RelativeSource Self}}"
                  Stroke="{DynamicResource MaterialDesignBody}"
                  StrokeThickness="3">
         </Ellipse>
