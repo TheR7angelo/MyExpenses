@@ -7,6 +7,7 @@
       xmlns:margin="clr-namespace:MyExpenses.Wpf.Utils.Margin;assembly=MyExpenses.Wpf.Utils"
       xmlns:analytics="clr-namespace:MyExpenses.Wpf.UserControls.Analytics"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      xmlns:accountTotalEllipseControl="clr-namespace:MyExpenses.Wpf.UserControls.Analytics.AccountTotalEllipseControl"
       mc:Ignorable="d"
 
       Title="AnalyticsPage"
@@ -29,7 +30,7 @@
 
                 <!-- TODO work -->
                 <TabItem Header="AccountTotalEllipseControl">
-                    <analytics:AccountTotalEllipseControl />
+                    <accountTotalEllipseControl:AccountTotalEllipseControl />
                 </TabItem>
 
                 <TabItem Header="{Binding TabItemAccountValueTrendControlHeader, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">

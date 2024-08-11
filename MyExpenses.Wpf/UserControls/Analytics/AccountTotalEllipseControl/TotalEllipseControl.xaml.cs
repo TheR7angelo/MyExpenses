@@ -1,6 +1,6 @@
 using System.Windows;
 
-namespace MyExpenses.Wpf.UserControls.Analytics;
+namespace MyExpenses.Wpf.UserControls.Analytics.AccountTotalEllipseControl;
 
 public partial class TotalEllipseControl
 {
