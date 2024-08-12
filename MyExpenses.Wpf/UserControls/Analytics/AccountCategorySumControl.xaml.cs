@@ -32,7 +32,7 @@ public partial class AccountCategorySumControl : INotifyPropertyChanged
     public TAccount Account
     {
         get => (TAccount)GetValue(AccountProperty);
-        set => SetValue(AccountProperty, value);
+        init => SetValue(AccountProperty, value);
     }
 
     public static readonly DependencyProperty TextPaintProperty = DependencyProperty.Register(nameof(TextPaint),
@@ -61,7 +61,7 @@ public partial class AccountCategorySumControl : INotifyPropertyChanged
     public ICartesianAxis[] XAxis
     {
         get => _xAxis;
-        set
+        private set
         {
             _xAxis = value;
             OnPropertyChanged();
@@ -73,7 +73,7 @@ public partial class AccountCategorySumControl : INotifyPropertyChanged
     public ICartesianAxis[] YAxis
     {
         get => _yAxis;
-        set
+        private set
         {
             _yAxis = value;
             OnPropertyChanged();
