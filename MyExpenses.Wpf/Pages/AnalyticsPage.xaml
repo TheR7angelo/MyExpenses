@@ -32,6 +32,7 @@
                     <accountTotalEllipseControl:AccountTotalEllipseControl />
                 </TabItem>
 
+                <!-- TODO work -->
                 <TabItem Header="AccountsCategorySumControl">
                     <analytics:AccountsCategorySumControl />
                 </TabItem>
