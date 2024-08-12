@@ -9,21 +9,9 @@
 
     <Grid>
 
-        <TabControl ItemsSource="{Binding Accounts, Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type local:AccountsCategorySumControl}}}"
+        <!-- ItemsSource="{Binding Accounts, Mode=OneWay, RelativeSource={RelativeSource AncestorType={x:Type local:AccountsCategorySumControl}}}" -->
+        <TabControl x:Name="TabControl"
                     TabStripPlacement="Bottom">
-
-            <TabControl.ItemTemplate>
-                <DataTemplate>
-                    <TextBlock Text="{Binding Name}" />
-                </DataTemplate>
-            </TabControl.ItemTemplate>
-
-            <TabControl.ContentTemplate>
-                <DataTemplate>
-                    <local:AccountCategorySumControl TAccount="{Binding .}" />
-                </DataTemplate>
-            </TabControl.ContentTemplate>
-
         </TabControl>
 
     </Grid>

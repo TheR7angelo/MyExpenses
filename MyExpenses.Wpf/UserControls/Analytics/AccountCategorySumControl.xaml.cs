@@ -1,3 +1,5 @@
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Media;
 using LiveChartsCore;
@@ -16,15 +18,21 @@ using SkiaSharp.Views.WPF;
 
 namespace MyExpenses.Wpf.UserControls.Analytics;
 
-public partial class AccountCategorySumControl
+//TODO work bug legende
+public partial class AccountCategorySumControl : INotifyPropertyChanged
 {
-    public static readonly DependencyProperty TAccountProperty = DependencyProperty.Register(nameof(TAccount),
+    public event PropertyChangedEventHandler? PropertyChanged;
+
+    protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
+        => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+
+    public static readonly DependencyProperty AccountProperty = DependencyProperty.Register(nameof(Account),
         typeof(TAccount), typeof(AccountCategorySumControl), new PropertyMetadata(default(TAccount)));
 
-    public TAccount TAccount
+    public TAccount Account
     {
-        get => (TAccount)GetValue(TAccountProperty);
-        set => SetValue(TAccountProperty, value);
+        get => (TAccount)GetValue(AccountProperty);
+        set => SetValue(AccountProperty, value);
     }
 
     public static readonly DependencyProperty TextPaintProperty = DependencyProperty.Register(nameof(TextPaint),
@@ -36,18 +44,46 @@ public partial class AccountCategorySumControl
         set => SetValue(TextPaintProperty, value);
     }
 
-    public ISeries[] Series { get; private set; } = null!;
+    private ISeries[] _series { get; set; } = null!;
 
-    public ICartesianAxis[] XAxis { get; set; } = null!;
-    public ICartesianAxis[] YAxis { get; set; } = null!;
+    public ISeries[] Series
+    {
+        get => _series;
+        private set
+        {
+            _series = value;
+            OnPropertyChanged();
+        }
+    }
+
+    private ICartesianAxis[] _xAxis { get; set; } = null!;
+
+    public ICartesianAxis[] XAxis
+    {
+        get => _xAxis;
+        set
+        {
+            _xAxis = value;
+            OnPropertyChanged();
+        }
+    }
+
+    private ICartesianAxis[] _yAxis { get; set; } = null!;
+
+    public ICartesianAxis[] YAxis
+    {
+        get => _yAxis;
+        set
+        {
+            _yAxis = value;
+            OnPropertyChanged();
+        }
+    }
 
     public AccountCategorySumControl()
     {
         var skColor = GetSkColor();
         TextPaint = new SolidColorPaint(skColor);
-
-        SetChart();
-        UpdateLanguage();
 
         InitializeComponent();
 
@@ -97,11 +133,11 @@ public partial class AccountCategorySumControl
         UpdateLayout();
     }
 
-    private void SetChart()
+    internal void SetChart()
     {
         using var context = new DataBaseContext();
         var groupsByCategories = context.VAccountCategoryMonthlyCumulativeSums
-            .Where(s => s.AccountFk == 1)
+            .Where(s => s.AccountFk == Account.Id)
             .OrderBy(s => s.Period).ThenBy(s => s.CategoryType)
             .ToList().GroupBy(s => s.CategoryType).ToList();
 
@@ -166,5 +202,11 @@ public partial class AccountCategorySumControl
         var wpfColor = brush.Color;
         var skColor = wpfColor.ToSKColor();
         return skColor;
+    }
+
+    private void AccountCategorySumControl_OnLoaded(object sender, RoutedEventArgs e)
+    {
+        SetChart();
+        UpdateLanguage();
     }
 }

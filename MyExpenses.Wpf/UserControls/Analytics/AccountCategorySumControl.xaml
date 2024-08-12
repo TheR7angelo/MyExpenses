@@ -7,14 +7,16 @@
              xmlns:wpf="clr-namespace:LiveChartsCore.SkiaSharpView.WPF;assembly=LiveChartsCore.SkiaSharpView.WPF"
              mc:Ignorable="d"
 
+             Loaded="AccountCategorySumControl_OnLoaded"
+
              d:DesignHeight="300" d:DesignWidth="300">
 
     <Grid>
 
-        <wpf:CartesianChart Series="{Binding Series, RelativeSource={RelativeSource AncestorType={x:Type local:AccountCategorySumControl}}}"
-                            XAxes="{Binding XAxis, RelativeSource={RelativeSource AncestorType={x:Type local:AccountCategorySumControl}}}"
-                            YAxes="{Binding YAxis, RelativeSource={RelativeSource AncestorType={x:Type local:AccountCategorySumControl}}}"
-                            LegendTextPaint="{Binding TextPaint, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:AccountCategorySumControl}}}"
+        <wpf:CartesianChart Series="{Binding Series, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:AccountCategorySumControl}}}"
+                            XAxes="{Binding XAxis, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:AccountCategorySumControl}}}"
+                            YAxes="{Binding YAxis, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:AccountCategorySumControl}}}"
+                            LegendTextPaint="{Binding TextPaint, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:AccountCategorySumControl}}}"
                             LegendPosition="Left"
                             ZoomMode="X">
         </wpf:CartesianChart>
