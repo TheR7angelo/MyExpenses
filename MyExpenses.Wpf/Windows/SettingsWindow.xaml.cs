@@ -153,11 +153,13 @@ public partial class SettingsWindow
 
     private static void UpdateDbLanguage()
     {
-        if (string.IsNullOrEmpty(DataBaseContext.FilePath)) return;
-
-        using var context = new DataBaseContext();
-        context.UpdateAllDefaultValues();
-        context.SaveChanges();
+        var newExistingDatabases = DbContextBackup.GetExistingDatabase();
+        foreach (var newExistingDatabase in newExistingDatabases)
+        {
+            using var context = new DataBaseContext(newExistingDatabase.FilePath);
+            context.UpdateAllDefaultValues();
+            context.SaveChanges();
+        }
     }
 
     #endregion
