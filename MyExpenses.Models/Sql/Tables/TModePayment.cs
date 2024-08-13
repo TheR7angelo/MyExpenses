@@ -23,4 +23,7 @@ public partial class TModePayment : ISql
 
     [InverseProperty("ModePaymentFkNavigation")]
     public virtual ICollection<THistory> THistories { get; set; } = new List<THistory>();
+
+    [InverseProperty("ModePaymentFkNavigation")]
+    public virtual ICollection<TRecursiveExpense> TRecursiveExpenses { get; set; } = new List<TRecursiveExpense>();
 }
