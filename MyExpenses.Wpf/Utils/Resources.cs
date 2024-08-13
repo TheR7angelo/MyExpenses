@@ -1,4 +1,5 @@
 ﻿using System.Windows.Media;
+using MyExpenses.Wpf.Utils.Maps;
 using SkiaSharp;
 using SkiaSharp.Views.WPF;
 
@@ -10,6 +11,14 @@ public static class Resources
     {
         var frameworkElement = new System.Windows.FrameworkElement();
         return frameworkElement.FindResource(resourceKey);
+    }
+
+    public static Mapsui.Styles.Color GetMaterialDesignPaperMapsUiStylesColor()
+    {
+        var brush = (SolidColorBrush)"MaterialDesignPaper".GetFindResource();
+        var backColor = brush.ToMapsuiColor();
+
+        return backColor;
     }
 
     public static SKColor GetMaterialDesignBodySkColor()

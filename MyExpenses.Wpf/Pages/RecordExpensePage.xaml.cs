@@ -5,7 +5,6 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Markup;
-using System.Windows.Media;
 using BruTile.Predefined;
 using Mapsui.Layers;
 using Mapsui.Tiling.Layers;
@@ -243,7 +242,7 @@ public partial class RecordExpensePage
         records = PlacesCollection.Select(s => EmptyStringTreeViewConverter.ToUnknown(s.City)).Order().Distinct();
         CitiesCollection = new ObservableCollection<string>(records);
 
-        var backColor = GetMapsUiBackColor();
+        var backColor = Utils.Resources.GetMaterialDesignPaperMapsUiStylesColor();
         var map = MapsuiMapExtensions.GetMap(true, backColor);
         map.Layers.Add(PlaceLayer);
 
@@ -660,14 +659,6 @@ public partial class RecordExpensePage
 
     #region Function
 
-    private Mapsui.Styles.Color GetMapsUiBackColor()
-    {
-        var brush = (SolidColorBrush)FindResource("MaterialDesignPaper");
-        var backColor = brush.ToMapsuiColor();
-
-        return backColor;
-    }
-
     public void SetTHistory(THistory history)
     {
         history.CopyPropertiesTo(History);
@@ -682,7 +673,7 @@ public partial class RecordExpensePage
 
         TimePicker.Is24Hours = configuration.Interface.Clock.Is24Hours;
 
-        var backColor = GetMapsUiBackColor();
+        var backColor = Utils.Resources.GetMaterialDesignPaperMapsUiStylesColor();
         MapControl.Map.BackColor = backColor;
     }
 

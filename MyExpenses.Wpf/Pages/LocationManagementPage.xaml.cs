@@ -3,7 +3,6 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
-using System.Windows.Media;
 using BruTile.Predefined;
 using Mapsui;
 using Mapsui.Extensions;
@@ -25,7 +24,6 @@ using MyExpenses.Wpf.Utils.Maps;
 using MyExpenses.Wpf.Windows.LocationManagementWindows;
 using MyExpenses.Wpf.Windows.MsgBox;
 using Serilog;
-using Color = Mapsui.Styles.Color;
 
 namespace MyExpenses.Wpf.Pages;
 
@@ -140,7 +138,7 @@ public partial class LocationManagementPage
 
         PlaceLayer.AddRange(features);
 
-        var backColor = GetMapsUiBackColor();
+        var backColor = Utils.Resources.GetMaterialDesignPaperMapsUiStylesColor();
         var map = MapsuiMapExtensions.GetMap(true, backColor);
         map.Layers.Add(PlaceLayer);
 
@@ -373,14 +371,6 @@ public partial class LocationManagementPage
         return log;
     }
 
-    private Color GetMapsUiBackColor()
-    {
-        var brush = (SolidColorBrush)FindResource("MaterialDesignPaper");
-        var backColor = brush.ToMapsuiColor();
-
-        return backColor;
-    }
-
     private void ProcessNewPlace(TPlace newPlace, bool add = false, bool edit = false)
     {
         var (success, _) = newPlace.AddOrEdit();
@@ -549,7 +539,7 @@ public partial class LocationManagementPage
 
     private void UpdateMapBackColor()
     {
-        var backColor = GetMapsUiBackColor();
+        var backColor = Utils.Resources.GetMaterialDesignPaperMapsUiStylesColor();
         MapControl.Map.BackColor = backColor;
     }
 

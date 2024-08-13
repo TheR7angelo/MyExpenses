@@ -1,6 +1,5 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
 using BruTile.Predefined;
 using Mapsui;
 using Mapsui.Layers;
@@ -230,7 +229,7 @@ public partial class AddEditLocationWindow
     {
         KnownTileSources = [..MapsuiMapExtensions.GetAllKnowTileSource()];
 
-        var backColor = GetMapsUiBackColor();
+        var backColor = Utils.Resources.GetMaterialDesignPaperMapsUiStylesColor();
         var map = MapsuiMapExtensions.GetMap(true, backColor);
         map.Layers.Add(WritableLayer);
 
@@ -423,7 +422,7 @@ public partial class AddEditLocationWindow
 
     private void Interface_OnThemeChanged(object sender, ConfigurationThemeChangedEventArgs e)
     {
-        var backColor = GetMapsUiBackColor();
+        var backColor = Utils.Resources.GetMaterialDesignPaperMapsUiStylesColor();
         MapControl.Map.BackColor = backColor;
     }
 
@@ -450,14 +449,6 @@ public partial class AddEditLocationWindow
     #endregion
 
     #region Function
-
-    private Mapsui.Styles.Color GetMapsUiBackColor()
-    {
-        var brush = (SolidColorBrush)FindResource("MaterialDesignPaper");
-        var backColor = brush.ToMapsuiColor();
-
-        return backColor;
-    }
 
     private void HandleNominatimResult(IReadOnlyCollection<NominatimSearchResult> nominatimSearchResults)
     {
