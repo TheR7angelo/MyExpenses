@@ -1,4 +1,4 @@
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Media;
 using LiveChartsCore;
 using LiveChartsCore.Kernel.Sketches;
@@ -15,7 +15,6 @@ using SkiaSharp.Views.WPF;
 
 namespace MyExpenses.Wpf.UserControls.Analytics;
 
-//TODO work bug legende
 public partial class AccountCategorySumControl
 {
     public static readonly DependencyProperty TextPaintProperty = DependencyProperty.Register(nameof(TextPaint),
@@ -42,7 +41,7 @@ public partial class AccountCategorySumControl
 
         SetChart();
         UpdateLanguage();
-        
+
         InitializeComponent();
 
         Interface.ThemeChanged += Interface_OnThemeChanged;
@@ -51,6 +50,20 @@ public partial class AccountCategorySumControl
 
     private void Interface_OnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
         => UpdateLanguage();
+
+    private void UpdateLanguage()
+    {
+        for (var i = 0; i < XAxis.Length; i++)
+        {
+            var tmp = XAxis[i] as Axis;
+            tmp!.Labels = tmp.Labels!
+                .ToTransformLabelsToTitleCaseDateFormatConvertBack()
+                .ToTransformLabelsToTitleCaseDateFormat();
+            XAxis[i] = tmp;
+        }
+
+        UpdateLayout();
+    }
 
     private void Interface_OnThemeChanged(object sender, ConfigurationThemeChangedEventArgs e)
     {
@@ -77,50 +90,6 @@ public partial class AccountCategorySumControl
         }
     }
 
-    private void UpdateLanguage()
-    {
-        for (var i = 0; i < XAxis.Length; i++)
-        {
-            var tmp = XAxis[i] as Axis;
-            tmp!.Labels = tmp.Labels!
-                .ToTransformLabelsToTitleCaseDateFormatConvertBack()
-                .ToTransformLabelsToTitleCaseDateFormat();
-            XAxis[i] = tmp;
-        }
-
-        UpdateLayout();
-    }
-
-    internal void SetChart()
-    {
-        using var context = new DataBaseContext();
-        var groupsByCategories = context.VAccountCategoryMonthlyCumulativeSums
-            .Where(s => s.AccountFk == AccountId)
-            .OrderBy(s => s.Period).ThenBy(s => s.CategoryType)
-            .ToList().GroupBy(s => s.CategoryType).ToList();
-
-        if (groupsByCategories.Count is 0) return;
-
-        var axis = groupsByCategories.First().Select(s => s.Period!);
-
-        SetSeries(groupsByCategories);
-        SetXAxis(axis);
-        SetYAxis();
-    }
-
-    private void SetXAxis(IEnumerable<string> labels)
-    {
-        var transformedLabels = labels.ToTransformLabelsToTitleCaseDateFormat();
-
-        var axis = new Axis
-        {
-            Labels = transformedLabels,
-            SeparatorsPaint = TextPaint,
-            LabelsPaint = TextPaint
-        };
-        XAxis = [axis];
-    }
-
     private void SetYAxis()
     {
         var axis = new Axis
@@ -130,11 +99,23 @@ public partial class AccountCategorySumControl
         YAxis = [axis];
     }
 
+    private void SetXAxis(IEnumerable<string> labels)
+    {
+        var transformedLabels = labels.ToTransformLabelsToTitleCaseDateFormat();
+
+        var axis = new Axis
+        {
+            Labels = transformedLabels,
+            LabelsPaint = TextPaint
+        };
+        XAxis = [axis];
+    }
+
     private void SetSeries(List<IGrouping<string?, VAccountCategoryMonthlySum>> groupsByCategories)
     {
-        var series = new List<ISeries<double>>();
 
-        var i = 0;
+        var series = new List<ISeries>();
+
         foreach (var groupsByCategory in groupsByCategories)
         {
             var name = groupsByCategory.Key;
@@ -150,12 +131,25 @@ public partial class AccountCategorySumControl
             };
 
             series.Add(columnSeries);
-
-            if (i > 2) break;
-            i++;
         }
-
         Series = [..series];
+    }
+
+    private void SetChart()
+    {
+        using var context = new DataBaseContext();
+        var groupsByCategories = context.VAccountCategoryMonthlyCumulativeSums
+            .Where(s => s.AccountFk == AccountId)
+            .OrderBy(s => s.Period).ThenBy(s => s.CategoryType)
+            .ToList().GroupBy(s => s.CategoryType).ToList();
+
+        if (groupsByCategories.Count is 0) return;
+
+        var axis = groupsByCategories.First().Select(s => s.Period!);
+
+        SetSeries(groupsByCategories);
+        SetXAxis(axis);
+        SetYAxis();
     }
 
     private SKColor GetSkColor()
