@@ -23,4 +23,28 @@
     <data name="DefaultTModePaymentNameBankTransfer" xml:space="preserve">
         <value>Bank transfer</value>
     </data>
+    <data name="DefaultTRecursiveFrequencyDailyDefinition" xml:space="preserve">
+        <value>Which happens every day</value>
+    </data>
+    <data name="DefaultTRecursiveFrequencyDaily" xml:space="preserve">
+        <value>Daily</value>
+    </data>
+    <data name="DefaultTRecursiveFrequencyMonthly" xml:space="preserve">
+        <value>Monthly</value>
+    </data>
+    <data name="DefaultTRecursiveFrequencyMonthlyDefinition" xml:space="preserve">
+        <value>Which is done every month</value>
+    </data>
+    <data name="DefaultTRecursiveFrequencyWeekly" xml:space="preserve">
+        <value>Weekly</value>
+    </data>
+    <data name="DefaultTRecursiveFrequencyWeeklyDefinition" xml:space="preserve">
+        <value>Which is done every week</value>
+    </data>
+    <data name="DefaultTRecursiveFrequencyYearly" xml:space="preserve">
+        <value>Yearly</value>
+    </data>
+    <data name="DefaultTRecursiveFrequencyYearlyDefinition" xml:space="preserve">
+        <value>Which is done every year</value>
+    </data>
 </root>
