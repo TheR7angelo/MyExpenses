@@ -24,10 +24,50 @@ public static class DbContextHelperSetDefaultValues
         }
     }
 
-    //TODO work
     private static void SetDefaultRecursiveFrequency(this DataBaseContext context)
     {
+        var recursiveFrequencies = new List<TRecursiveFrequency>
+        {
+            new()
+            {
+                Frequency = DbContextHelperSetDefaultValuesResources.DefaultTRecursiveFrequencyDaily,
+                Description = DbContextHelperSetDefaultValuesResources.DefaultTRecursiveFrequencyDailyDefinition
+            },
+            new()
+            {
+                Frequency = DbContextHelperSetDefaultValuesResources.DefaultTRecursiveFrequencyWeekly,
+                Description = DbContextHelperSetDefaultValuesResources.DefaultTRecursiveFrequencyWeeklyDefinition
+            },
+            new()
+            {
+                Frequency = DbContextHelperSetDefaultValuesResources.DefaultTRecursiveFrequencyMonthly,
+                Description = DbContextHelperSetDefaultValuesResources.DefaultTRecursiveFrequencyMonthlyDefinition
+            },
+            new()
+            {
+                Frequency = DbContextHelperSetDefaultValuesResources.DefaultTRecursiveFrequencyYearly,
+                Description = DbContextHelperSetDefaultValuesResources.DefaultTRecursiveFrequencyYearlyDefinition
+            }
+        };
 
+        context.TRecursiveFrequencies.AddRange(recursiveFrequencies);
+    }
+
+    public static void UpdateDefaultRecursiveFrequency(this DataBaseContext context)
+    {
+        var oldDefaultTRecursiveFrequencyDaily = context.TRecursiveFrequencies.First(s => s.Id.Equals(1));
+        var oldDefaultTRecursiveFrequencyWeekly = context.TRecursiveFrequencies.First(s => s.Id.Equals(2));
+        var oldDefaultTRecursiveFrequencyMonthly = context.TRecursiveFrequencies.First(s => s.Id.Equals(3));
+        var oldDefaultTRecursiveFrequencyYearly = context.TRecursiveFrequencies.First(s => s.Id.Equals(4));
+
+        oldDefaultTRecursiveFrequencyDaily.Frequency = DbContextHelperSetDefaultValuesResources.DefaultTRecursiveFrequencyDaily;
+        oldDefaultTRecursiveFrequencyDaily.Description = DbContextHelperSetDefaultValuesResources.DefaultTRecursiveFrequencyDailyDefinition;
+        oldDefaultTRecursiveFrequencyWeekly.Frequency = DbContextHelperSetDefaultValuesResources.DefaultTRecursiveFrequencyWeekly;
+        oldDefaultTRecursiveFrequencyWeekly.Description = DbContextHelperSetDefaultValuesResources.DefaultTRecursiveFrequencyWeeklyDefinition;
+        oldDefaultTRecursiveFrequencyMonthly.Frequency = DbContextHelperSetDefaultValuesResources.DefaultTRecursiveFrequencyMonthly;
+        oldDefaultTRecursiveFrequencyMonthly.Description = DbContextHelperSetDefaultValuesResources.DefaultTRecursiveFrequencyMonthlyDefinition;
+        oldDefaultTRecursiveFrequencyYearly.Frequency = DbContextHelperSetDefaultValuesResources.DefaultTRecursiveFrequencyYearly;
+        oldDefaultTRecursiveFrequencyYearly.Description = DbContextHelperSetDefaultValuesResources.DefaultTRecursiveFrequencyYearlyDefinition;
     }
 
     private static void SetDefaultTPlace(this DataBaseContext context)

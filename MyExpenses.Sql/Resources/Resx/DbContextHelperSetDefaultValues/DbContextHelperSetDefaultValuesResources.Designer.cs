@@ -95,5 +95,77 @@ namespace MyExpenses.Sql.Resources.Resx.DbContextHelperSetDefaultValues {
                 return ResourceManager.GetString("DefaultTPlaceNameInternet", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Daily.
+        /// </summary>
+        internal static string DefaultTRecursiveFrequencyDaily {
+            get {
+                return ResourceManager.GetString("DefaultTRecursiveFrequencyDaily", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Which happens every day.
+        /// </summary>
+        internal static string DefaultTRecursiveFrequencyDailyDefinition {
+            get {
+                return ResourceManager.GetString("DefaultTRecursiveFrequencyDailyDefinition", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Monthly.
+        /// </summary>
+        internal static string DefaultTRecursiveFrequencyMonthly {
+            get {
+                return ResourceManager.GetString("DefaultTRecursiveFrequencyMonthly", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Which is done every month.
+        /// </summary>
+        internal static string DefaultTRecursiveFrequencyMonthlyDefinition {
+            get {
+                return ResourceManager.GetString("DefaultTRecursiveFrequencyMonthlyDefinition", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Weekly.
+        /// </summary>
+        internal static string DefaultTRecursiveFrequencyWeekly {
+            get {
+                return ResourceManager.GetString("DefaultTRecursiveFrequencyWeekly", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Which is done every week.
+        /// </summary>
+        internal static string DefaultTRecursiveFrequencyWeeklyDefinition {
+            get {
+                return ResourceManager.GetString("DefaultTRecursiveFrequencyWeeklyDefinition", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yearly.
+        /// </summary>
+        internal static string DefaultTRecursiveFrequencyYearly {
+            get {
+                return ResourceManager.GetString("DefaultTRecursiveFrequencyYearly", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Which is done every year.
+        /// </summary>
+        internal static string DefaultTRecursiveFrequencyYearlyDefinition {
+            get {
+                return ResourceManager.GetString("DefaultTRecursiveFrequencyYearlyDefinition", resourceCulture);
+            }
+        }
     }
 }
