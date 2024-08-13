@@ -32,23 +32,23 @@ public static class DbContextHelperSetDefaultValues
 
     private static void SetDefaultTPlace(this DataBaseContext context)
     {
-        var place = new TPlace { Name = DbContextHelperSetDefaultValuesResources.DefautTPlaceNameInternet, CanBeDeleted = false };
+        var place = new TPlace { Name = DbContextHelperSetDefaultValuesResources.DefaultTPlaceNameInternet, CanBeDeleted = false };
         context.TPlaces.Add(place);
     }
 
     public static void UpdateDefaultTPlace(this DataBaseContext context)
     {
         var oldDefaultTPlace = context.TPlaces.First(s => s.Id.Equals(1));
-        oldDefaultTPlace.Name = DbContextHelperSetDefaultValuesResources.DefautTPlaceNameInternet;
+        oldDefaultTPlace.Name = DbContextHelperSetDefaultValuesResources.DefaultTPlaceNameInternet;
     }
 
     private static void SetDefaultTModePayment(this DataBaseContext context)
     {
         var paymentMode = new List<TModePayment>
         {
-            new() { Name = DbContextHelperSetDefaultValuesResources.DefautTModePaymentNameBankCard, CanBeDeleted = false },
-            new() { Name = DbContextHelperSetDefaultValuesResources.DefautTModePaymentNameBankTransfer, CanBeDeleted = false },
-            new() { Name = DbContextHelperSetDefaultValuesResources.DefautTModePaymentNameBankDirectDebit, CanBeDeleted = false }
+            new() { Name = DbContextHelperSetDefaultValuesResources.DefaultTModePaymentNameBankCard, CanBeDeleted = false },
+            new() { Name = DbContextHelperSetDefaultValuesResources.DefaultTModePaymentNameBankTransfer, CanBeDeleted = false },
+            new() { Name = DbContextHelperSetDefaultValuesResources.DefaultTModePaymentNameBankDirectDebit, CanBeDeleted = false }
         };
         context.TModePayments.AddRange(paymentMode);
     }
@@ -59,9 +59,9 @@ public static class DbContextHelperSetDefaultValues
         var oldDefaultPaymentModeBankTransfer = context.TModePayments.First(s => s.Id.Equals(2));
         var oldDefaultPaymentModeBankDirectDebit = context.TModePayments.First(s => s.Id.Equals(3));
 
-        oldDefaultPaymentModeBankCard.Name = DbContextHelperSetDefaultValuesResources.DefautTModePaymentNameBankCard;
-        oldDefaultPaymentModeBankTransfer.Name = DbContextHelperSetDefaultValuesResources.DefautTModePaymentNameBankTransfer;
-        oldDefaultPaymentModeBankDirectDebit.Name = DbContextHelperSetDefaultValuesResources.DefautTModePaymentNameBankDirectDebit;
+        oldDefaultPaymentModeBankCard.Name = DbContextHelperSetDefaultValuesResources.DefaultTModePaymentNameBankCard;
+        oldDefaultPaymentModeBankTransfer.Name = DbContextHelperSetDefaultValuesResources.DefaultTModePaymentNameBankTransfer;
+        oldDefaultPaymentModeBankDirectDebit.Name = DbContextHelperSetDefaultValuesResources.DefaultTModePaymentNameBankDirectDebit;
     }
 
     private static void SetDefaultTColor(this DataBaseContext context)

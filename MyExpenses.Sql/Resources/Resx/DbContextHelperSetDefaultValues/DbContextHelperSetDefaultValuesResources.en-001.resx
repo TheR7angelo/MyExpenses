@@ -11,16 +11,16 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-    <data name="DefautTPlaceNameInternet" xml:space="preserve">
+    <data name="DefaultTPlaceNameInternet" xml:space="preserve">
         <value>Internet</value>
     </data>
-    <data name="DefautTModePaymentNameBankCard" xml:space="preserve">
+    <data name="DefaultTModePaymentNameBankCard" xml:space="preserve">
         <value>Bank card</value>
     </data>
-    <data name="DefautTModePaymentNameBankDirectDebit" xml:space="preserve">
+    <data name="DefaultTModePaymentNameBankDirectDebit" xml:space="preserve">
         <value>Bank direct debit</value>
     </data>
-    <data name="DefautTModePaymentNameBankTransfer" xml:space="preserve">
+    <data name="DefaultTModePaymentNameBankTransfer" xml:space="preserve">
         <value>Bank transfer</value>
     </data>
 </root>
