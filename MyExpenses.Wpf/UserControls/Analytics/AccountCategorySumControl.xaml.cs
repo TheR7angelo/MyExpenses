@@ -1,5 +1,3 @@
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Media;
 using LiveChartsCore;
@@ -8,7 +6,6 @@ using LiveChartsCore.SkiaSharpView;
 using LiveChartsCore.SkiaSharpView.Painting;
 using MyExpenses.Models.Config;
 using MyExpenses.Models.Config.Interfaces;
-using MyExpenses.Models.Sql.Tables;
 using MyExpenses.Models.Sql.Views;
 using MyExpenses.Sql.Context;
 using MyExpenses.Wpf.Converters.Analytics;
@@ -19,22 +16,8 @@ using SkiaSharp.Views.WPF;
 namespace MyExpenses.Wpf.UserControls.Analytics;
 
 //TODO work bug legende
-public partial class AccountCategorySumControl : INotifyPropertyChanged
+public partial class AccountCategorySumControl
 {
-    public event PropertyChangedEventHandler? PropertyChanged;
-
-    protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
-        => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-
-    public static readonly DependencyProperty AccountProperty = DependencyProperty.Register(nameof(Account),
-        typeof(TAccount), typeof(AccountCategorySumControl), new PropertyMetadata(default(TAccount)));
-
-    public TAccount Account
-    {
-        get => (TAccount)GetValue(AccountProperty);
-        init => SetValue(AccountProperty, value);
-    }
-
     public static readonly DependencyProperty TextPaintProperty = DependencyProperty.Register(nameof(TextPaint),
         typeof(SolidColorPaint), typeof(AccountCategorySumControl), new PropertyMetadata(default(SolidColorPaint)));
 
@@ -44,47 +27,22 @@ public partial class AccountCategorySumControl : INotifyPropertyChanged
         set => SetValue(TextPaintProperty, value);
     }
 
-    private ISeries[] _series { get; set; } = null!;
+    public ISeries[] Series { get; set; } = null!;
+    public ICartesianAxis[] XAxis { get; set; } = null!;
+    public ICartesianAxis[] YAxis { get; set; } = null!;
 
-    public ISeries[] Series
+    private int AccountId { get; }
+
+    public AccountCategorySumControl(int accountId)
     {
-        get => _series;
-        private set
-        {
-            _series = value;
-            OnPropertyChanged();
-        }
-    }
+        AccountId = accountId;
 
-    private ICartesianAxis[] _xAxis { get; set; } = null!;
-
-    public ICartesianAxis[] XAxis
-    {
-        get => _xAxis;
-        private set
-        {
-            _xAxis = value;
-            OnPropertyChanged();
-        }
-    }
-
-    private ICartesianAxis[] _yAxis { get; set; } = null!;
-
-    public ICartesianAxis[] YAxis
-    {
-        get => _yAxis;
-        private set
-        {
-            _yAxis = value;
-            OnPropertyChanged();
-        }
-    }
-
-    public AccountCategorySumControl()
-    {
         var skColor = GetSkColor();
         TextPaint = new SolidColorPaint(skColor);
 
+        SetChart();
+        UpdateLanguage();
+        
         InitializeComponent();
 
         Interface.ThemeChanged += Interface_OnThemeChanged;
@@ -137,7 +95,7 @@ public partial class AccountCategorySumControl : INotifyPropertyChanged
     {
         using var context = new DataBaseContext();
         var groupsByCategories = context.VAccountCategoryMonthlyCumulativeSums
-            .Where(s => s.AccountFk == Account.Id)
+            .Where(s => s.AccountFk == AccountId)
             .OrderBy(s => s.Period).ThenBy(s => s.CategoryType)
             .ToList().GroupBy(s => s.CategoryType).ToList();
 
@@ -176,6 +134,7 @@ public partial class AccountCategorySumControl : INotifyPropertyChanged
     {
         var series = new List<ISeries<double>>();
 
+        var i = 0;
         foreach (var groupsByCategory in groupsByCategories)
         {
             var name = groupsByCategory.Key;
@@ -191,6 +150,9 @@ public partial class AccountCategorySumControl : INotifyPropertyChanged
             };
 
             series.Add(columnSeries);
+
+            if (i > 2) break;
+            i++;
         }
 
         Series = [..series];
@@ -202,11 +164,5 @@ public partial class AccountCategorySumControl : INotifyPropertyChanged
         var wpfColor = brush.Color;
         var skColor = wpfColor.ToSKColor();
         return skColor;
-    }
-
-    private void AccountCategorySumControl_OnLoaded(object sender, RoutedEventArgs e)
-    {
-        SetChart();
-        UpdateLanguage();
     }
 }
