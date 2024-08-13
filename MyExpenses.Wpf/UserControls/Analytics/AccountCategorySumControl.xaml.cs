@@ -34,7 +34,7 @@ public partial class AccountCategorySumControl
     {
         AccountId = accountId;
 
-        var skColor = Utils.Resources.GetSkColor();
+        var skColor = Utils.Resources.GetMaterialDesignBodySkColor();
         TextPaint = new SolidColorPaint(skColor);
 
         SetChart();
@@ -53,7 +53,7 @@ public partial class AccountCategorySumControl
 
     private void Interface_OnThemeChanged(object sender, ConfigurationThemeChangedEventArgs e)
     {
-        var skColor = MyExpenses.Wpf.Utils.Resources.GetSkColor();
+        var skColor = MyExpenses.Wpf.Utils.Resources.GetMaterialDesignBodySkColor();
         TextPaint = new SolidColorPaint(skColor);
 
         UpdateAxisTextPaint();

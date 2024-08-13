@@ -12,7 +12,7 @@ public static class Resources
         return frameworkElement.FindResource(resourceKey);
     }
 
-    public static SKColor GetSkColor()
+    public static SKColor GetMaterialDesignBodySkColor()
     {
         var brush = (SolidColorBrush)"MaterialDesignBody".GetFindResource();
         var wpfColor = brush.Color;
