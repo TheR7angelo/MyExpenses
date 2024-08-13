@@ -15,12 +15,15 @@
         <value>Growth trend</value>
     </data>
     <data name="TabItemCumulativeSumChartControlHeader" xml:space="preserve">
-        <value>Cumulative Sum</value>
+        <value>Cumulative sum</value>
     </data>
     <data name="TabItemCumulativeTotalSumChartControlHeader" xml:space="preserve">
-        <value>Cumulative Total Sum</value>
+        <value>Cumulative total sum</value>
     </data>
     <data name="TabItemAccountTotalEllipseControlHeader" xml:space="preserve">
         <value>Projection and status</value>
+    </data>
+    <data name="TabItemAccountsCategorySumControlHeader" xml:space="preserve">
+        <value>Sum of categories</value>
     </data>
 </root>
