@@ -3,6 +3,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using MyExpenses.Models.Config;
 using MyExpenses.Models.Config.Interfaces;
+using MyExpenses.Sql.Context;
 using MyExpenses.Utils;
 using MyExpenses.Wpf.Resources.Resx.Windows.SettingsWindow;
 using MyExpenses.Wpf.Utils;
@@ -123,6 +124,7 @@ public partial class SettingsWindow
             configuration.WriteConfiguration();
 
             App.LoadInterfaceLanguage(cultureInfoCode);
+            UpdateDbLanguage();
 
             Interface.OnLanguageChanged(this, new ConfigurationLanguageChangedEventArgs(cultureInfoCode));
         }
@@ -147,6 +149,16 @@ public partial class SettingsWindow
     {
         var children = tabControl.FindVisualChildren<TabItem>();
         return children.FirstOrDefault(child => child.Header.Equals(header));
+    }
+
+    private static void UpdateDbLanguage()
+    {
+        if (string.IsNullOrEmpty(DataBaseContext.FilePath)) return;
+
+        using var context = new DataBaseContext();
+        context.UpdateDefaultTPlace();
+        context.UpdateDefaultTModePayment();
+        context.SaveChanges();
     }
 
     #endregion
