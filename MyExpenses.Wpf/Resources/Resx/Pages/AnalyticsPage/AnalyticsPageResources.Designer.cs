@@ -60,6 +60,15 @@ namespace MyExpenses.Wpf.Resources.Resx.Pages.AnalyticsPage {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Sum of categories.
+        /// </summary>
+        internal static string TabItemAccountsCategorySumControlHeader {
+            get {
+                return ResourceManager.GetString("TabItemAccountsCategorySumControlHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Projection and status.
         /// </summary>
         internal static string TabItemAccountTotalEllipseControlHeader {
@@ -78,7 +87,7 @@ namespace MyExpenses.Wpf.Resources.Resx.Pages.AnalyticsPage {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cumulative Sum.
+        ///   Looks up a localized string similar to Cumulative sum.
         /// </summary>
         internal static string TabItemCumulativeSumChartControlHeader {
             get {
@@ -87,7 +96,7 @@ namespace MyExpenses.Wpf.Resources.Resx.Pages.AnalyticsPage {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cumulative Total Sum.
+        ///   Looks up a localized string similar to Cumulative total sum.
         /// </summary>
         internal static string TabItemCumulativeTotalSumChartControlHeader {
             get {
