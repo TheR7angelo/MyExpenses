@@ -14,6 +14,7 @@ public static class DbContextHelperSetDefaultValues
             context.SetDefaultTColor();
             context.SetDefaultTModePayment();
             context.SetDefaultTPlace();
+            context.SetDefaultRecursiveFrequency();
             return true;
         }
         catch (Exception e)
@@ -21,6 +22,12 @@ public static class DbContextHelperSetDefaultValues
             Console.WriteLine(e);
             return false;
         }
+    }
+
+    //TODO work
+    private static void SetDefaultRecursiveFrequency(this DataBaseContext context)
+    {
+
     }
 
     private static void SetDefaultTPlace(this DataBaseContext context)
