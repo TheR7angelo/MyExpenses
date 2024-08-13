@@ -48,22 +48,10 @@ public partial class AccountCategorySumControl
         Interface.LanguageChanged += Interface_OnLanguageChanged;
     }
 
+    #region Action
+
     private void Interface_OnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
         => UpdateLanguage();
-
-    private void UpdateLanguage()
-    {
-        for (var i = 0; i < XAxis.Length; i++)
-        {
-            var tmp = XAxis[i] as Axis;
-            tmp!.Labels = tmp.Labels!
-                .ToTransformLabelsToTitleCaseDateFormatConvertBack()
-                .ToTransformLabelsToTitleCaseDateFormat();
-            XAxis[i] = tmp;
-        }
-
-        UpdateLayout();
-    }
 
     private void Interface_OnThemeChanged(object sender, ConfigurationThemeChangedEventArgs e)
     {
@@ -73,42 +61,33 @@ public partial class AccountCategorySumControl
         UpdateAxisTextPaint();
     }
 
-    private void UpdateAxisTextPaint()
-    {
-        for (var i = 0; i < YAxis.Length; i++)
-        {
-            var tmp = YAxis[i] as Axis;
-            tmp!.LabelsPaint = TextPaint;
-            YAxis[i] = tmp;
-        }
+    #endregion
 
-        for (var i = 0; i < XAxis.Length; i++)
-        {
-            var tmp = XAxis[i] as Axis;
-            tmp!.LabelsPaint = TextPaint;
-            XAxis[i] = tmp;
-        }
+    #region Function
+
+    private SKColor GetSkColor()
+    {
+        var brush = (SolidColorBrush)FindResource("MaterialDesignBody");
+        var wpfColor = brush.Color;
+        var skColor = wpfColor.ToSKColor();
+        return skColor;
     }
 
-    private void SetYAxis()
+    private void SetChart()
     {
-        var axis = new Axis
-        {
-            LabelsPaint = TextPaint
-        };
-        YAxis = [axis];
-    }
+        using var context = new DataBaseContext();
+        var groupsByCategories = context.VAccountCategoryMonthlyCumulativeSums
+            .Where(s => s.AccountFk == AccountId)
+            .OrderBy(s => s.Period).ThenBy(s => s.CategoryType)
+            .ToList().GroupBy(s => s.CategoryType).ToList();
 
-    private void SetXAxis(IEnumerable<string> labels)
-    {
-        var transformedLabels = labels.ToTransformLabelsToTitleCaseDateFormat();
+        if (groupsByCategories.Count is 0) return;
 
-        var axis = new Axis
-        {
-            Labels = transformedLabels,
-            LabelsPaint = TextPaint
-        };
-        XAxis = [axis];
+        var axis = groupsByCategories.First().Select(s => s.Period!);
+
+        SetSeries(groupsByCategories);
+        SetXAxis(axis);
+        SetYAxis();
     }
 
     private void SetSeries(List<IGrouping<string?, VAccountCategoryMonthlySum>> groupsByCategories)
@@ -135,28 +114,57 @@ public partial class AccountCategorySumControl
         Series = [..series];
     }
 
-    private void SetChart()
+    private void SetXAxis(IEnumerable<string> labels)
     {
-        using var context = new DataBaseContext();
-        var groupsByCategories = context.VAccountCategoryMonthlyCumulativeSums
-            .Where(s => s.AccountFk == AccountId)
-            .OrderBy(s => s.Period).ThenBy(s => s.CategoryType)
-            .ToList().GroupBy(s => s.CategoryType).ToList();
+        var transformedLabels = labels.ToTransformLabelsToTitleCaseDateFormat();
 
-        if (groupsByCategories.Count is 0) return;
-
-        var axis = groupsByCategories.First().Select(s => s.Period!);
-
-        SetSeries(groupsByCategories);
-        SetXAxis(axis);
-        SetYAxis();
+        var axis = new Axis
+        {
+            Labels = transformedLabels,
+            LabelsPaint = TextPaint
+        };
+        XAxis = [axis];
     }
 
-    private SKColor GetSkColor()
+    private void SetYAxis()
     {
-        var brush = (SolidColorBrush)FindResource("MaterialDesignBody");
-        var wpfColor = brush.Color;
-        var skColor = wpfColor.ToSKColor();
-        return skColor;
+        var axis = new Axis
+        {
+            LabelsPaint = TextPaint
+        };
+        YAxis = [axis];
     }
+
+    private void UpdateAxisTextPaint()
+    {
+        for (var i = 0; i < YAxis.Length; i++)
+        {
+            var tmp = YAxis[i] as Axis;
+            tmp!.LabelsPaint = TextPaint;
+            YAxis[i] = tmp;
+        }
+
+        for (var i = 0; i < XAxis.Length; i++)
+        {
+            var tmp = XAxis[i] as Axis;
+            tmp!.LabelsPaint = TextPaint;
+            XAxis[i] = tmp;
+        }
+    }
+
+    private void UpdateLanguage()
+    {
+        for (var i = 0; i < XAxis.Length; i++)
+        {
+            var tmp = XAxis[i] as Axis;
+            tmp!.Labels = tmp.Labels!
+                .ToTransformLabelsToTitleCaseDateFormatConvertBack()
+                .ToTransformLabelsToTitleCaseDateFormat();
+            XAxis[i] = tmp;
+        }
+
+        UpdateLayout();
+    }
+
+    #endregion
 }
