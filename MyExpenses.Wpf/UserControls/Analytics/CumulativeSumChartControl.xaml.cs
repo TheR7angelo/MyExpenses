@@ -29,7 +29,7 @@ public partial class CumulativeSumChartControl
 
     public CumulativeSumChartControl()
     {
-        var skColor = Utils.Resources.GetSkColor();
+        var skColor = Utils.Resources.GetMaterialDesignBodySkColor();
         TextPaint = new SolidColorPaint(skColor);
 
         SetChart();
@@ -48,7 +48,7 @@ public partial class CumulativeSumChartControl
 
     private void Interface_OnThemeChanged(object sender, ConfigurationThemeChangedEventArgs e)
     {
-        var skColor = Utils.Resources.GetSkColor();
+        var skColor = Utils.Resources.GetMaterialDesignBodySkColor();
         TextPaint = new SolidColorPaint(skColor);
 
         UpdateAxisTextPaint();
