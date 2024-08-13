@@ -32,4 +32,4 @@ VALUES('t_place', 'geometry', 'POINT', 2, 4326);
 
 SELECT *
 FROM v_history h
-WHERE h.date BETWEEN '2024-07-01' AND '2024-08-01';
+WHERE h.date BETWEEN '2024-08-01' AND '2024-09-01';
