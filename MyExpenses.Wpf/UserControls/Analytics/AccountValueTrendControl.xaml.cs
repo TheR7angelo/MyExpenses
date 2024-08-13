@@ -185,6 +185,7 @@ public partial class AccountValueTrendControl
             CheckBoxesTrend.Add(checkBoxTrend);
         }
 
+        Series = [..series];
         Series = series.ToArray();
     }
 
