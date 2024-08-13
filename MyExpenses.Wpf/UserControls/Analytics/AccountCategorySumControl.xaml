@@ -7,8 +7,6 @@
              xmlns:wpf="clr-namespace:LiveChartsCore.SkiaSharpView.WPF;assembly=LiveChartsCore.SkiaSharpView.WPF"
              mc:Ignorable="d"
 
-             Loaded="AccountCategorySumControl_OnLoaded"
-
              d:DesignHeight="300" d:DesignWidth="300">
 
     <Grid>

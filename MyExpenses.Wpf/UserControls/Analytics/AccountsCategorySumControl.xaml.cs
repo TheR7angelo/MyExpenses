@@ -16,8 +16,7 @@ public partial class AccountsCategorySumControl
 
         foreach (var account in accounts)
         {
-            var accountCategorySumControl = new AccountCategorySumControl { Account = account };
-            accountCategorySumControl.SetChart();
+            var accountCategorySumControl = new AccountCategorySumControl(account.Id);
 
             var tabItem = new TabItem
             {
