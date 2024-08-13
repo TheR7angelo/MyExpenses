@@ -479,8 +479,4 @@
       </Content>
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Resources\Resx\UserControls\Analytics\TotalEllipseControl\" />
-    </ItemGroup>
-
 </Project>
