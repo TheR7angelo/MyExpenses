@@ -63,36 +63,36 @@ namespace MyExpenses.Sql.Resources.Resx.DbContextHelperSetDefaultValues {
         /// <summary>
         ///   Looks up a localized string similar to Bank card.
         /// </summary>
-        internal static string DefautTModePaymentNameBankCard {
+        internal static string DefaultTModePaymentNameBankCard {
             get {
-                return ResourceManager.GetString("DefautTModePaymentNameBankCard", resourceCulture);
+                return ResourceManager.GetString("DefaultTModePaymentNameBankCard", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Bank direct debit.
         /// </summary>
-        internal static string DefautTModePaymentNameBankDirectDebit {
+        internal static string DefaultTModePaymentNameBankDirectDebit {
             get {
-                return ResourceManager.GetString("DefautTModePaymentNameBankDirectDebit", resourceCulture);
+                return ResourceManager.GetString("DefaultTModePaymentNameBankDirectDebit", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Bank transfer.
         /// </summary>
-        internal static string DefautTModePaymentNameBankTransfer {
+        internal static string DefaultTModePaymentNameBankTransfer {
             get {
-                return ResourceManager.GetString("DefautTModePaymentNameBankTransfer", resourceCulture);
+                return ResourceManager.GetString("DefaultTModePaymentNameBankTransfer", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Internet.
         /// </summary>
-        internal static string DefautTPlaceNameInternet {
+        internal static string DefaultTPlaceNameInternet {
             get {
-                return ResourceManager.GetString("DefautTPlaceNameInternet", resourceCulture);
+                return ResourceManager.GetString("DefaultTPlaceNameInternet", resourceCulture);
             }
         }
     }
