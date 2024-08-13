@@ -1,5 +1,4 @@
 ﻿using System.Windows;
-using System.Windows.Media;
 using LiveChartsCore;
 using LiveChartsCore.Kernel.Sketches;
 using LiveChartsCore.SkiaSharpView;
@@ -11,7 +10,6 @@ using MyExpenses.Sql.Context;
 using MyExpenses.Wpf.Converters.Analytics;
 using MyExpenses.Wpf.Utils;
 using SkiaSharp;
-using SkiaSharp.Views.WPF;
 
 namespace MyExpenses.Wpf.UserControls.Analytics;
 
@@ -36,7 +34,7 @@ public partial class AccountCategorySumControl
     {
         AccountId = accountId;
 
-        var skColor = GetSkColor();
+        var skColor = Utils.Resources.GetSkColor();
         TextPaint = new SolidColorPaint(skColor);
 
         SetChart();
@@ -55,7 +53,7 @@ public partial class AccountCategorySumControl
 
     private void Interface_OnThemeChanged(object sender, ConfigurationThemeChangedEventArgs e)
     {
-        var skColor = GetSkColor();
+        var skColor = MyExpenses.Wpf.Utils.Resources.GetSkColor();
         TextPaint = new SolidColorPaint(skColor);
 
         UpdateAxisTextPaint();
@@ -64,14 +62,6 @@ public partial class AccountCategorySumControl
     #endregion
 
     #region Function
-
-    private SKColor GetSkColor()
-    {
-        var brush = (SolidColorBrush)FindResource("MaterialDesignBody");
-        var wpfColor = brush.Color;
-        var skColor = wpfColor.ToSKColor();
-        return skColor;
-    }
 
     private void SetChart()
     {
