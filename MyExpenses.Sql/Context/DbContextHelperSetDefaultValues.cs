@@ -24,6 +24,22 @@ public static class DbContextHelperSetDefaultValues
         }
     }
 
+    public static bool UpdateAllDefaultValues(this DataBaseContext context)
+    {
+        try
+        {
+            context.UpdateDefaultTModePayment();
+            context.UpdateDefaultTPlace();
+            context.UpdateDefaultRecursiveFrequency();
+            return true;
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            return false;
+        }
+    }
+
     private static void SetDefaultRecursiveFrequency(this DataBaseContext context)
     {
         var recursiveFrequencies = new List<TRecursiveFrequency>
@@ -53,7 +69,7 @@ public static class DbContextHelperSetDefaultValues
         context.TRecursiveFrequencies.AddRange(recursiveFrequencies);
     }
 
-    public static void UpdateDefaultRecursiveFrequency(this DataBaseContext context)
+    private static void UpdateDefaultRecursiveFrequency(this DataBaseContext context)
     {
         var oldDefaultTRecursiveFrequencyDaily = context.TRecursiveFrequencies.First(s => s.Id.Equals(1));
         var oldDefaultTRecursiveFrequencyWeekly = context.TRecursiveFrequencies.First(s => s.Id.Equals(2));
@@ -76,7 +92,7 @@ public static class DbContextHelperSetDefaultValues
         context.TPlaces.Add(place);
     }
 
-    public static void UpdateDefaultTPlace(this DataBaseContext context)
+    private static void UpdateDefaultTPlace(this DataBaseContext context)
     {
         var oldDefaultTPlace = context.TPlaces.First(s => s.Id.Equals(1));
         oldDefaultTPlace.Name = DbContextHelperSetDefaultValuesResources.DefaultTPlaceNameInternet;
@@ -93,7 +109,7 @@ public static class DbContextHelperSetDefaultValues
         context.TModePayments.AddRange(paymentModes);
     }
 
-    public static void UpdateDefaultTModePayment(this DataBaseContext context)
+    private static void UpdateDefaultTModePayment(this DataBaseContext context)
     {
         var oldDefaultPaymentModeBankCard = context.TModePayments.First(s => s.Id.Equals(1));
         var oldDefaultPaymentModeBankTransfer = context.TModePayments.First(s => s.Id.Equals(2));

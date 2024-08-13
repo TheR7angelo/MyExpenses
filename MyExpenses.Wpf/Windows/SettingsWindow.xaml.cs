@@ -156,8 +156,7 @@ public partial class SettingsWindow
         if (string.IsNullOrEmpty(DataBaseContext.FilePath)) return;
 
         using var context = new DataBaseContext();
-        context.UpdateDefaultTPlace();
-        context.UpdateDefaultTModePayment();
+        context.UpdateAllDefaultValues();
         context.SaveChanges();
     }
 
