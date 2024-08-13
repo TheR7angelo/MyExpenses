@@ -11,9 +11,9 @@ public static class DbContextHelperSetDefaultValues
     {
         try
         {
-            SetDefaultTColor(context);
-            SetDefaultTModePayment(context);
-            SetDefaultTPlace(context);
+            context.SetDefaultTColor();
+            context.SetDefaultTModePayment();
+            context.SetDefaultTPlace();
             return true;
         }
         catch (Exception e)
@@ -23,7 +23,7 @@ public static class DbContextHelperSetDefaultValues
         }
     }
 
-    private static void SetDefaultTPlace(DataBaseContext context)
+    private static void SetDefaultTPlace(this DataBaseContext context)
     {
         var place = new TPlace { Name = DbContextHelperSetDefaultValuesResources.DefautTPlaceNameInternet, CanBeDeleted = false };
         context.TPlaces.Add(place);
@@ -46,7 +46,6 @@ public static class DbContextHelperSetDefaultValues
         context.TModePayments.AddRange(paymentMode);
     }
 
-    private static void SetDefaultTColor(DataBaseContext context)
     public static void UpdateDefaultTModePayment(this DataBaseContext context)
     {
         var oldDefaultPaymentModeBankCard = context.TModePayments.First(s => s.Id.Equals(1));
@@ -58,6 +57,7 @@ public static class DbContextHelperSetDefaultValues
         oldDefaultPaymentModeBankDirectDebit.Name = DbContextHelperSetDefaultValuesResources.DefautTModePaymentNameBankDirectDebit;
     }
 
+    private static void SetDefaultTColor(this DataBaseContext context)
     {
         var blackList = new List<KnownColor>
         {
