@@ -201,7 +201,7 @@ CREATE TABLE t_recursive_expense
             REFERENCES t_recursive_frequency,
     next_due_date     DATE              NOT NULL,
     is_active         BOOLEAN DEFAULT TRUE,
-    date_added        DATE    DEFAULT CURRENT_TIMESTAMP
+    date_added        DATETIME    DEFAULT CURRENT_TIMESTAMP
 );
 
 DROP TABLE IF EXISTS t_history;
@@ -554,7 +554,15 @@ CREATE TRIGGER after_insert_on_t_recursive_expense
     FOR EACH ROW
 BEGIN
     UPDATE t_recursive_expense
-    SET date_added = CASE
+    SET start_date = CASE
+                         WHEN typeof(NEW.start_date) = 'integer' THEN datetime(NEW.start_date / 1000, 'unixepoch')
+                         ELSE NEW.start_date
+            END,
+        next_due_date = CASE
+                         WHEN typeof(NEW.next_due_date) = 'integer' THEN datetime(NEW.next_due_date / 1000, 'unixepoch')
+                         ELSE NEW.next_due_date
+            END,
+        date_added = CASE
                          WHEN typeof(NEW.date_added) = 'integer' THEN datetime(NEW.date_added / 1000, 'unixepoch')
                          ELSE NEW.date_added
             END
@@ -567,8 +575,16 @@ CREATE TRIGGER after_update_on_t_recursive_expense
     ON t_recursive_expense
     FOR EACH ROW
 BEGIN
-    UPDATE t_bank_transfer
-    SET date_added = CASE
+    UPDATE t_recursive_expense
+    SET start_date = CASE
+                         WHEN typeof(NEW.start_date) = 'integer' THEN datetime(NEW.start_date / 1000, 'unixepoch')
+                         ELSE NEW.start_date
+            END,
+        next_due_date = CASE
+                         WHEN typeof(NEW.next_due_date) = 'integer' THEN datetime(NEW.next_due_date / 1000, 'unixepoch')
+                         ELSE NEW.next_due_date
+            END,
+        date_added = CASE
                          WHEN typeof(NEW.date_added) = 'integer' THEN datetime(NEW.date_added / 1000, 'unixepoch')
                          ELSE NEW.date_added
             END
