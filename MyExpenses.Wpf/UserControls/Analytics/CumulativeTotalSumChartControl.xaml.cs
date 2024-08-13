@@ -1,5 +1,4 @@
 using System.Windows;
-using System.Windows.Media;
 using LiveChartsCore;
 using LiveChartsCore.Kernel.Sketches;
 using LiveChartsCore.SkiaSharpView;
@@ -10,8 +9,6 @@ using MyExpenses.Models.Sql.Views;
 using MyExpenses.Sql.Context;
 using MyExpenses.Wpf.Converters.Analytics;
 using MyExpenses.Wpf.Resources.Resx.UserControls.Analytics.CumulativeTotalSumChartControl;
-using SkiaSharp;
-using SkiaSharp.Views.WPF;
 
 namespace MyExpenses.Wpf.UserControls.Analytics;
 
@@ -33,7 +30,7 @@ public partial class CumulativeTotalSumChartControl
 
     public CumulativeTotalSumChartControl()
     {
-        var skColor = GetSkColor();
+        var skColor = Utils.Resources.GetSkColor();
         TextPaint = new SolidColorPaint(skColor);
 
         SetChart();
@@ -52,7 +49,7 @@ public partial class CumulativeTotalSumChartControl
 
     private void Interface_OnThemeChanged(object sender, ConfigurationThemeChangedEventArgs e)
     {
-        var skColor = GetSkColor();
+        var skColor = Utils.Resources.GetSkColor();
         TextPaint = new SolidColorPaint(skColor);
 
         UpdateAxisTextPaint();
@@ -82,14 +79,6 @@ public partial class CumulativeTotalSumChartControl
         }
 
         return deltas;
-    }
-
-    private SKColor GetSkColor()
-    {
-        var brush = (SolidColorBrush)FindResource("MaterialDesignBody");
-        var wpfColor = brush.Color;
-        var skColor = wpfColor.ToSKColor();
-        return skColor;
     }
 
     private void SetChart()

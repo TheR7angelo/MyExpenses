@@ -37,7 +37,7 @@ public partial class AccountValueTrendControl
 
     public AccountValueTrendControl()
     {
-        var skColor = GetSkColor();
+        var skColor = Utils.Resources.GetSkColor();
         TextPaint = new SolidColorPaint(skColor);
 
         SetChart();
@@ -58,7 +58,7 @@ public partial class AccountValueTrendControl
 
     private void Interface_OnThemeChanged(object sender, ConfigurationThemeChangedEventArgs e)
     {
-        var skColor = GetSkColor();
+        var skColor = Utils.Resources.GetSkColor();
         TextPaint = new SolidColorPaint(skColor);
 
         UpdateAxisTextPaint();
@@ -85,14 +85,6 @@ public partial class AccountValueTrendControl
         var b = (sumY / n) - (a * sumX / n); // intercept
 
         return (a, b);
-    }
-
-    private SKColor GetSkColor()
-    {
-        var brush = (SolidColorBrush)FindResource("MaterialDesignBody");
-        var wpfColor = brush.Color;
-        var skColor = wpfColor.ToSKColor();
-        return skColor;
     }
 
     private void SetButtonPanel()
