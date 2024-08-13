@@ -44,13 +44,13 @@ public static class DbContextHelperSetDefaultValues
 
     private static void SetDefaultTModePayment(this DataBaseContext context)
     {
-        var paymentMode = new List<TModePayment>
+        var paymentModes = new List<TModePayment>
         {
             new() { Name = DbContextHelperSetDefaultValuesResources.DefaultTModePaymentNameBankCard, CanBeDeleted = false },
             new() { Name = DbContextHelperSetDefaultValuesResources.DefaultTModePaymentNameBankTransfer, CanBeDeleted = false },
             new() { Name = DbContextHelperSetDefaultValuesResources.DefaultTModePaymentNameBankDirectDebit, CanBeDeleted = false }
         };
-        context.TModePayments.AddRange(paymentMode);
+        context.TModePayments.AddRange(paymentModes);
     }
 
     public static void UpdateDefaultTModePayment(this DataBaseContext context)
