@@ -95,6 +95,9 @@ public partial class TPlace : ISql
     [InverseProperty("PlaceFkNavigation")]
     public virtual ICollection<THistory> THistories { get; set; } = new List<THistory>();
 
+    [InverseProperty("PlaceFkNavigation")]
+    public virtual ICollection<TRecursiveExpense> TRecursiveExpenses { get; set; } = new List<TRecursiveExpense>();
+
     public override string ToString()
     {
         var partAddress = new List<string>();

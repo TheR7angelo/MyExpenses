@@ -27,4 +27,7 @@ public partial class TCategoryType : ISql
 
     [InverseProperty("CategoryTypeFkNavigation")]
     public virtual ICollection<THistory> THistories { get; set; } = new List<THistory>();
+
+    [InverseProperty("CategoryTypeFkNavigation")]
+    public virtual ICollection<TRecursiveExpense> TRecursiveExpenses { get; set; } = new List<TRecursiveExpense>();
 }

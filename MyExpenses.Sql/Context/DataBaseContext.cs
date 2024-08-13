@@ -42,13 +42,17 @@ public partial class DataBaseContext : DbContext
 
     public virtual DbSet<TPlace> TPlaces { get; set; }
 
+    public virtual DbSet<TRecursiveExpense> TRecursiveExpenses { get; set; }
+
+    public virtual DbSet<TRecursiveFrequency> TRecursiveFrequencies { get; set; }
+
     public virtual DbSet<TSpatialRefSy> TSpatialRefSys { get; set; }
 
     public virtual DbSet<TSupportedLanguage> TSupportedLanguages { get; set; }
 
     public virtual DbSet<TVersion> TVersions { get; set; }
 
-    public virtual DbSet<VAccountCategoryMonthlySum> VAccountCategoryMonthlyCumulativeSums { get; set; }
+    public virtual DbSet<VAccountCategoryMonthlySum> VAccountCategoryMonthlySums { get; set; }
 
     public virtual DbSet<VAccountMonthlyCumulativeSum> VAccountMonthlyCumulativeSums { get; set; }
 
@@ -129,6 +133,15 @@ public partial class DataBaseContext : DbContext
             entity.Property(e => e.CanBeDeleted).HasDefaultValueSql("TRUE");
             entity.Property(e => e.DateAdded).HasDefaultValueSql("CURRENT_TIMESTAMP");
             entity.Property(e => e.IsOpen).HasDefaultValueSql("TRUE");
+        });
+
+        modelBuilder.Entity<TRecursiveExpense>(entity =>
+        {
+            entity.Property(e => e.DateAdded).HasDefaultValueSql("CURRENT_TIMESTAMP");
+            entity.Property(e => e.IsActive).HasDefaultValueSql("TRUE");
+            entity.Property(e => e.PlaceFk).HasDefaultValue(0);
+
+            entity.HasOne(d => d.FrequencyFkNavigation).WithMany(p => p.TRecursiveExpenses).OnDelete(DeleteBehavior.ClientSetNull);
         });
 
         modelBuilder.Entity<TSpatialRefSy>(entity =>

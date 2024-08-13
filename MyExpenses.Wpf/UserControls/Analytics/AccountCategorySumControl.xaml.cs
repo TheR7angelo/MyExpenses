@@ -66,7 +66,7 @@ public partial class AccountCategorySumControl
     private void SetChart()
     {
         using var context = new DataBaseContext();
-        var groupsByCategories = context.VAccountCategoryMonthlyCumulativeSums
+        var groupsByCategories = context.VAccountCategoryMonthlySums
             .Where(s => s.AccountFk == AccountId)
             .OrderBy(s => s.Period).ThenBy(s => s.CategoryType)
             .ToList().GroupBy(s => s.CategoryType).ToList();

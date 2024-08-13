@@ -24,6 +24,16 @@ CREATE TABLE t_supported_languages
     date_added       DATETIME         DEFAULT CURRENT_TIMESTAMP
 );
 
+DROP TABLE IF EXISTS t_recursive_frequency;
+CREATE TABLE t_recursive_frequency
+(
+    id          INTEGER
+        CONSTRAINT t_recursive_frequency_pk
+            PRIMARY KEY AUTOINCREMENT ,
+    frequency   TEXT,
+    description TEXT
+);
+
 DROP TABLE IF EXISTS t_spatial_ref_sys;
 CREATE TABLE t_spatial_ref_sys
 (
@@ -163,6 +173,37 @@ CREATE TABLE t_bank_transfer
     date_added        DATETIME default CURRENT_TIMESTAMP
 );
 
+DROP TABLE IF EXISTS t_recursive_expense;
+CREATE TABLE t_recursive_expense
+(
+    id                INTEGER
+        CONSTRAINT t_recursive_expense_pk
+            PRIMARY KEY AUTOINCREMENT ,
+    account_fk        INTEGER
+        CONSTRAINT t_recursive_expense_t_account_id_fk
+            REFERENCES t_account,
+    description       TEXT,
+    category_type_fk  INTEGER
+        CONSTRAINT t_recursive_expense_t_category_type_id_fk
+            REFERENCES t_category_type,
+    mode_payment_fk   INTEGER
+        CONSTRAINT t_recursive_expense_t_mode_payment_id_fk
+            REFERENCES t_mode_payment,
+    value             REAL,
+    place_fk          INTEGER DEFAULT 0
+        CONSTRAINT t_recursive_expense_t_place_id_fk
+            REFERENCES t_place,
+    start_date        DATE              NOT NULL,
+    recursive_total   INTEGER,
+    recursive_count INTEGER DEFAULT 0 NOT NULL,
+    frequency_fk      INTEGER           NOT NULL
+        CONSTRAINT t_recursive_expense_t_recursive_frequency_id_fk
+            REFERENCES t_recursive_frequency,
+    next_due_date     DATE              NOT NULL,
+    is_active         BOOLEAN DEFAULT TRUE,
+    date_added        DATE    DEFAULT CURRENT_TIMESTAMP
+);
+
 DROP TABLE IF EXISTS t_history;
 CREATE TABLE t_history
 (
@@ -188,6 +229,9 @@ CREATE TABLE t_history
     bank_transfer_fk INTEGER
         CONSTRAINT t_history_t_bank_transfer_id_fk
             REFERENCES t_bank_transfer,
+    recursive_expense_fk INTEGER
+        CONSTRAINT t_history_t_recursive_expense_id_fk
+            REFERENCES t_recursive_expense,
     date_added       DATETIME DEFAULT CURRENT_TIMESTAMP,
     date_pointed     DATETIME
 );
@@ -497,6 +541,34 @@ BEGIN
                          ELSE NEW.date
         END,
         date_added = CASE
+                         WHEN typeof(NEW.date_added) = 'integer' THEN datetime(NEW.date_added / 1000, 'unixepoch')
+                         ELSE NEW.date_added
+            END
+    WHERE id = NEW.id;
+END;
+
+DROP TRIGGER IF EXISTS after_insert_on_t_recursive_expense;
+CREATE TRIGGER after_insert_on_t_recursive_expense
+    AFTER INSERT
+    ON t_recursive_expense
+    FOR EACH ROW
+BEGIN
+    UPDATE t_recursive_expense
+    SET date_added = CASE
+                         WHEN typeof(NEW.date_added) = 'integer' THEN datetime(NEW.date_added / 1000, 'unixepoch')
+                         ELSE NEW.date_added
+            END
+    WHERE id = NEW.id;
+END;
+
+DROP TRIGGER IF EXISTS after_update_on_t_recursive_expense;
+CREATE TRIGGER after_update_on_t_recursive_expense
+    AFTER UPDATE
+    ON t_recursive_expense
+    FOR EACH ROW
+BEGIN
+    UPDATE t_bank_transfer
+    SET date_added = CASE
                          WHEN typeof(NEW.date_added) = 'integer' THEN datetime(NEW.date_added / 1000, 'unixepoch')
                          ELSE NEW.date_added
             END

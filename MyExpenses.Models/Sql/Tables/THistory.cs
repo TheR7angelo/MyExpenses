@@ -46,6 +46,9 @@ public partial class THistory : ISql
     [Column("bank_transfer_fk")]
     public int? BankTransferFk { get; set; }
 
+    [Column("recursive_expense_fk")]
+    public int? RecursiveExpenseFk { get; set; }
+
     [Column("date_added", TypeName = "DATETIME")]
     public DateTime? DateAdded { get; set; } = DateTime.Now;
 
@@ -71,4 +74,8 @@ public partial class THistory : ISql
     [ForeignKey("PlaceFk")]
     [InverseProperty("THistories")]
     public virtual TPlace? PlaceFkNavigation { get; set; }
+
+    [ForeignKey("RecursiveExpenseFk")]
+    [InverseProperty("THistories")]
+    public virtual TRecursiveExpense? RecursiveExpenseFkNavigation { get; set; }
 }

@@ -43,4 +43,7 @@ public partial class TAccount : ISql
 
     [InverseProperty("AccountFkNavigation")]
     public virtual ICollection<THistory> THistories { get; set; } = new List<THistory>();
+
+    [InverseProperty("AccountFkNavigation")]
+    public virtual ICollection<TRecursiveExpense> TRecursiveExpenses { get; set; } = new List<TRecursiveExpense>();
 }
