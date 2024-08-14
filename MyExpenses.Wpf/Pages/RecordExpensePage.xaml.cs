@@ -572,11 +572,10 @@ public partial class RecordExpensePage
         if (double.TryParse(txt, NumberStyles.Any, CultureInfo.InvariantCulture, out var value))
         {
             History.Value = value;
-            Console.WriteLine(value);
         }
         else if (!txt.EndsWith('.'))
         {
-            History.Value = null;
+            History.Value = 0;
         }
 
         textBox.CaretIndex = position;
