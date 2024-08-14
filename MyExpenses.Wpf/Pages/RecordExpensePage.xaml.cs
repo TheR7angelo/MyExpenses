@@ -575,7 +575,7 @@ public partial class RecordExpensePage
         }
         else if (!txt.EndsWith('.'))
         {
-            History.Value = 0;
+            History.Value = null;
         }
 
         textBox.CaretIndex = position;
