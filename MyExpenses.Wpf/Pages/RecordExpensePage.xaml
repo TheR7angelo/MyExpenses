@@ -121,6 +121,7 @@
                  Style="{StaticResource MaterialDesignFilledTextBox}"
                  Text="{Binding History.Value, Mode=OneTime}"
                  AcceptsReturn="False" AcceptsTab="False"
+                 PreviewKeyDown="UIElement_OnPreviewKeyDown"
                  PreviewTextInput="UIElement_OnPreviewTextInput"
                  TextChanged="TextBoxValue_OnTextChanged">
         </TextBox>
