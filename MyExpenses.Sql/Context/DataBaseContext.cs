@@ -62,6 +62,8 @@ public partial class DataBaseContext : DbContext
 
     public virtual DbSet<VHistory> VHistories { get; set; }
 
+    public virtual DbSet<VRecursiveExpense> VRecursiveExpenses { get; set; }
+
     public virtual DbSet<VTotalByAccount> VTotalByAccounts { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -178,6 +180,11 @@ public partial class DataBaseContext : DbContext
         modelBuilder.Entity<VHistory>(entity =>
         {
             entity.ToView("v_history");
+        });
+
+        modelBuilder.Entity<VRecursiveExpense>(entity =>
+        {
+            entity.ToView("v_recursive_expense");
         });
 
         modelBuilder.Entity<VTotalByAccount>(entity =>

@@ -704,6 +704,39 @@ FROM t_bank_transfer bk
          INNER JOIN t_account ta
                     ON bk.to_account_fk = ta.id;
 
+DROP VIEW IF EXISTS v_recursive_expense;
+CREATE VIEW v_recursive_expense AS
+SELECT tre.id,
+       tre.account_fk,
+       ta.name AS account,
+       tre.description,
+       tre.category_type_fk,
+       tct.name AS category,
+       tre.mode_payment_fk,
+       tmp.name AS mode_payment,
+       tre.value,
+       tre.place_fk,
+       tp.name AS place,
+       tre.start_date,
+       tre.recursive_total,
+       tre.recursive_count,
+       tre.frequency_fk,
+       trf.frequency,
+       tre.next_due_date,
+       tre.is_active,
+       tre.date_added
+FROM t_recursive_expense tre
+         INNER JOIN t_account ta
+                    ON tre.account_fk = ta.id
+         INNER JOIN t_category_type tct
+                    ON tre.category_type_fk = tct.id
+         INNER JOIN t_mode_payment tmp
+                    ON tre.mode_payment_fk = tmp.id
+         INNER JOIN t_place tp
+                    ON tre.place_fk = tp.id
+         INNER JOIN t_recursive_frequency trf
+                    ON tre.frequency_fk = trf.id;
+
 DROP VIEW IF EXISTS v_account_monthly_cumulative_sum;
 CREATE VIEW v_account_monthly_cumulative_sum AS
 WITH all_periods AS (SELECT a.id                     AS account_fk,
