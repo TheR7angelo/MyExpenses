@@ -95,4 +95,7 @@
     <data name="ButtonContentDeleteRecord" xml:space="preserve">
         <value>Supprimer</value>
     </data>
+    <data name="FilterDataGridDateFormatString" xml:space="preserve">
+        <value>dd/MM/yyyy HH:mm</value>
+    </data>
 </root>

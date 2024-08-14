@@ -308,8 +308,7 @@
                                            VerticalScrollBarVisibility="Auto"
 
                                            FilterLanguage="{Binding LocalLanguage, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-
-                                           DateFormatString="dd/MM/yyyy HH:mm">
+                                           DateFormatString="{Binding DateFormatString, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
 
                 <filterDataGrid:FilterDataGrid.Resources>
                     <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignPaperButton}" />
