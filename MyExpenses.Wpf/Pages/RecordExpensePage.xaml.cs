@@ -566,10 +566,20 @@ public partial class RecordExpensePage
     {
         var textBox = (TextBox)sender;
         var txt = textBox.Text;
+        var position = textBox.CaretIndex;
 
+        txt = txt.Replace(',', '.');
         if (double.TryParse(txt, NumberStyles.Any, CultureInfo.InvariantCulture, out var value))
+        {
             History.Value = value;
-        else if (!txt.EndsWith('.')) History.Value = null;
+            Console.WriteLine(value);
+        }
+        else if (!txt.EndsWith('.'))
+        {
+            History.Value = null;
+        }
+
+        textBox.CaretIndex = position;
     }
 
     private void MapControl_OnLoaded(object sender, RoutedEventArgs e)
