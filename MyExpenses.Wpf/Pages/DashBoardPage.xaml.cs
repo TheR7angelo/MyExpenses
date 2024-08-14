@@ -279,9 +279,21 @@ public partial class DashBoardPage
     {
         Instance = this;
 
+        var now = DateTime.Now;
+        using var context = new DataBaseContext();
+        var recurrences = context.VRecursiveExpenses
+            .Where(s => (bool)s.IsActive!)
+            .Where(s => s.NextDueDate!.Value.Year.Equals(now.Year) && s.NextDueDate!.Value.Month.Equals(now.Month))
+            .ToList();
+
+        // TODO work
+        if (recurrences.Count > 0)
+        {
+            Console.WriteLine("Need to insert new recurrences");
+        }
+
         UpdateMonthLanguage();
 
-        using var context = new DataBaseContext();
         Years =
         [
             ..context
@@ -292,7 +304,6 @@ public partial class DashBoardPage
                 .OrderByDescending(y => y)
         ];
 
-        var now = DateTime.Now;
         if (Years.Count.Equals(0))
         {
             Years.Add(DateTime.Now.Year.ToString());
