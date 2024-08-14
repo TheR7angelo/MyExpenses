@@ -4,7 +4,6 @@ using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Media;
 using FilterDataGrid;
 using LiveChartsCore.SkiaSharpView;
 using LiveChartsCore.SkiaSharpView.Painting;
@@ -21,7 +20,6 @@ using MyExpenses.Wpf.Utils;
 using MyExpenses.Wpf.Utils.FilterDataGrid;
 using MyExpenses.Wpf.Windows.MsgBox;
 using SkiaSharp;
-using SkiaSharp.Views.WPF;
 
 namespace MyExpenses.Wpf.Pages;
 
@@ -803,9 +801,8 @@ public partial class DashBoardPage
 
     private void UpdatePieChartLegendTextPaint()
     {
-        var brush = (SolidColorBrush)FindResource("MaterialDesignBody");
-        var wpfColor = brush.Color;
-        PieChart.LegendTextPaint = new SolidColorPaint(wpfColor.ToSKColor());
+        var wpfColor = MyExpenses.Wpf.Utils.Resources.GetMaterialDesignBodySkColor();
+        PieChart.LegendTextPaint = new SolidColorPaint(wpfColor);
     }
 
     #endregion
