@@ -289,7 +289,7 @@ public partial class DashBoardPage
         // TODO work
         if (recurrences.Count > 0)
         {
-            Console.WriteLine("Need to insert new recurrences");
+            MsgBox.Show("Need to insert new recurrences", MsgBoxImage.Question, MessageBoxButton.OK);
         }
 
         UpdateMonthLanguage();
