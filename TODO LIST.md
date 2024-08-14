@@ -4,7 +4,7 @@
 > - [ ] CREATE VIEW nbr total sum by month / year and year by place
 
 > # Function
-> - [ ] Recursive expenses ![33%](https://progress-bar.dev/0)<!-- [1/3] -->
+> - [ ] Recursive expenses ![33%](https://progress-bar.dev/33)<!-- [1/3] -->
 >   - [X] Add new table Sql for recursive expense with all details / definition of time
 >   - [ ] Add Method to add / edit Sql table with application
 >   - [ ] At each start of database with application, prompt message to the user to ask if he wants to add all recurse expenses for the current month
