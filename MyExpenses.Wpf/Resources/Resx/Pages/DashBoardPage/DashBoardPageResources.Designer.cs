@@ -307,5 +307,14 @@ namespace MyExpenses.Wpf.Resources.Resx.Pages.DashBoardPage {
                 return ResourceManager.GetString("ButtonContentDeleteRecord", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to yyyy/MM/dd HH:mm.
+        /// </summary>
+        internal static string FilterDataGridDateFormatString {
+            get {
+                return ResourceManager.GetString("FilterDataGridDateFormatString", resourceCulture);
+            }
+        }
     }
 }

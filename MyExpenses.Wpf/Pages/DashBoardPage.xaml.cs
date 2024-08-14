@@ -187,7 +187,7 @@ public partial class DashBoardPage
         get => (string)GetValue(ButtonContentDeleteRecordProperty);
         set => SetValue(ButtonContentDeleteRecordProperty, value);
     }
-    
+
     public static readonly DependencyProperty ButtonContentPointedRecordProperty =
         DependencyProperty.Register(nameof(ButtonContentPointedRecord), typeof(string), typeof(DashBoardPage),
             new PropertyMetadata(default(string)));
@@ -251,12 +251,22 @@ public partial class DashBoardPage
         set => SetValue(LocalLanguageProperty, value);
     }
 
+    public static readonly DependencyProperty DateFormatStringProperty =
+        DependencyProperty.Register(nameof(DateFormatString), typeof(string), typeof(DashBoardPage),
+            new PropertyMetadata(default(string)));
+
+    public string DateFormatString
+    {
+        get => (string)GetValue(DateFormatStringProperty);
+        set => SetValue(DateFormatStringProperty, value);
+    }
+
     private static VTotalByAccount? _staticVTotalByAccount;
 
     public static readonly DependencyProperty CurrentVTotalByAccountProperty =
         DependencyProperty.Register(nameof(CurrentVTotalByAccount), typeof(VTotalByAccount), typeof(DashBoardPage),
             new PropertyMetadata(default(VTotalByAccount)));
-    
+
     public VTotalByAccount? CurrentVTotalByAccount
     {
         get => (VTotalByAccount)GetValue(CurrentVTotalByAccountProperty);
@@ -787,6 +797,8 @@ public partial class DashBoardPage
 
         ComboBoxYearsHintAssist = DashBoardPageResources.ComboBoxYearsHintAssist;
         ComboBoxMonthHintAssist = DashBoardPageResources.ComboBoxMonthHintAssist;
+
+        DateFormatString = DashBoardPageResources.FilterDataGridDateFormatString;
     }
 
     private void UpdatePieChartLegendTextPaint()
