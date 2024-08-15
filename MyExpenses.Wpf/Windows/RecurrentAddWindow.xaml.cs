@@ -41,6 +41,7 @@ public partial class RecurrentAddWindow
 
         UpdateLanguage();
         InitializeComponent();
+        Width = currentWidth;
 
         Interface.LanguageChanged += Interface_OnLanguageChanged;
 
