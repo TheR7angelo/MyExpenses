@@ -39,7 +39,7 @@ public partial class RecurrentAddWindow
         VRecursiveExpensesDerives =
             [
                 ..recursiveExpenses
-                    .Select(s => s.Id.ToISqlT<VRecursiveExpense>())!
+                    .Select(s => s.Id.ToISql<VRecursiveExpense>())!
                     .Select(s => mapper.Map<VRecursiveExpenseDerive>(s))
             ];
 

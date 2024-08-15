@@ -10,7 +10,7 @@ public static class DbContextHelperConverter
     /// <typeparam name="T">The type of ISql object to convert to.</typeparam>
     /// <param name="id">The id of the ISql object.</param>
     /// <returns>The ISql object of type T with the specified id, or null if no ISql object is found with the id.</returns>
-    public static T? ToISqlT<T>(this int id) where T : class, ISql
+    public static T? ToISql<T>(this int id) where T : class, ISql
     {
         using var context = new DataBaseContext();
         var result = context.Set<T>().FirstOrDefault(s => s.Id == id);

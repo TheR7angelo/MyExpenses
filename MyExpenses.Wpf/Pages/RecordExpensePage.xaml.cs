@@ -262,7 +262,7 @@ public partial class RecordExpensePage
     {
         var addEditAccountWindow = new AddEditAccountWindow();
 
-        var account = History.AccountFk?.ToISqlT<TAccount>();
+        var account = History.AccountFk?.ToISql<TAccount>();
         if (account is not null) addEditAccountWindow.SetTAccount(account);
 
         addEditAccountWindow.ShowDialog();
@@ -303,7 +303,7 @@ public partial class RecordExpensePage
     private void ButtonCategoryType_OnClick(object sender, RoutedEventArgs e)
     {
         var addEditCategoryTypeWindow = new AddEditCategoryTypeWindow();
-        var categoryType = History.CategoryTypeFk?.ToISqlT<TCategoryType>();
+        var categoryType = History.CategoryTypeFk?.ToISql<TCategoryType>();
         if (categoryType is not null) addEditCategoryTypeWindow.SetTCategoryType(categoryType);
 
         var result = addEditCategoryTypeWindow.ShowDialog();
@@ -346,7 +346,7 @@ public partial class RecordExpensePage
 
     private void ButtonModePayment_OnClick(object sender, RoutedEventArgs e)
     {
-        var modePayment = History.ModePaymentFk?.ToISqlT<TModePayment>();
+        var modePayment = History.ModePaymentFk?.ToISql<TModePayment>();
         if (modePayment?.CanBeDeleted is false)
         {
             MsgBox.Show(RecordExpensePageResources.MessageBoxModePaymentCantEdit, MsgBoxImage.Error);
@@ -393,7 +393,7 @@ public partial class RecordExpensePage
 
     private void ButtonPlace_OnClick(object sender, RoutedEventArgs e)
     {
-        var place = History.PlaceFk?.ToISqlT<TPlace>();
+        var place = History.PlaceFk?.ToISql<TPlace>();
         if (place?.CanBeDeleted is false)
         {
             MsgBox.Show(RecordExpensePageResources.MessageBoxPlaceCantEdit, MsgBoxImage.Error);
@@ -645,7 +645,7 @@ public partial class RecordExpensePage
 
     private void SelectorPlace_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        var place = History.PlaceFk?.ToISqlT<TPlace>();
+        var place = History.PlaceFk?.ToISql<TPlace>();
         UpdateMapPoint(place);
 
         ComboBoxSelectorCountry.SelectedItem = place?.Country;
