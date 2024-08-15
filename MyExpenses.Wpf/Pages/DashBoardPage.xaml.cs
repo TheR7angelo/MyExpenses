@@ -298,7 +298,10 @@ public partial class DashBoardPage
         // TODO work
         if (recurrences.Count > 0)
         {
-            var recurrentAddWindow = new RecurrentAddWindow(recurrences);
+            var mainWindow = Application.Current.MainWindow;
+            var actualWidth = mainWindow!.ActualWidth;
+
+            var recurrentAddWindow = new RecurrentAddWindow(recurrences, actualWidth);
             recurrentAddWindow.ShowDialog();
         }
 
