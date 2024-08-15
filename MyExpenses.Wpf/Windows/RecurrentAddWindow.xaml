@@ -6,15 +6,19 @@
         xmlns:local="clr-namespace:MyExpenses.Wpf.Windows"
         xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
         xmlns:margin="clr-namespace:MyExpenses.Wpf.Utils.Margin;assembly=MyExpenses.Wpf.Utils"
+        xmlns:converters="clr-namespace:MyExpenses.Wpf.Converters"
         mc:Ignorable="d"
 
         Title="{Binding TitleWindow, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
 
-        Height="450" Width="800"
-        MinHeight="450" MinWidth="800"
-
         d:DesignHeight="450"
         d:DesignWidth="800"
+
+        Height="450"
+        Width="560"
+
+        MinHeight="450"
+        MinWidth="560"
 
         TitleCharacterCasing="Normal"
         NonActiveWindowTitleBrush="Gray"
@@ -32,7 +36,12 @@
 
         DataContext="{Binding RelativeSource={RelativeSource Self}}">
 
-    <Grid margin:PanelExtensions.MarginForAllChildren="5">
+    <mah:MetroWindow.Resources>
+        <converters:ValueSymbolConverter x:Key="ValueSymbolConverter" />
+    </mah:MetroWindow.Resources>
+
+    <Grid margin:PanelExtensions.MarginForAllChildren="5"
+          ShowGridLines="True">
 
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -43,9 +52,94 @@
         <TextBlock Grid.Row="0"
                    Text="{Binding TextBlockAddRecurrenceNeeded, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                    TextWrapping="Wrap"
-                   HorizontalAlignment="Center"
-                   VerticalAlignment="Top">
+                   HorizontalAlignment="Center">
         </TextBlock>
+
+        <DataGrid Grid.Row="1"
+                  ItemsSource="{Binding VRecursiveExpenses, Mode=OneTime}"
+                  IsReadOnly="True" AutoGenerateColumns="False"
+                  CanUserAddRows="False" CanUserDeleteRows="False"
+                  CanUserReorderColumns="False"
+                  HorizontalScrollBarVisibility="Auto"
+                  VerticalScrollBarVisibility="Auto">
+
+            <DataGrid.Columns>
+
+                <DataGridTextColumn Binding="{Binding Account}">
+                    <DataGridTextColumn.Header>
+                        <TextBlock Text="Account" />
+                    </DataGridTextColumn.Header>
+                </DataGridTextColumn>
+
+                <DataGridTextColumn Binding="{Binding Description}">
+                    <DataGridTextColumn.Header>
+                        <TextBlock Text="Description" />
+                    </DataGridTextColumn.Header>
+                </DataGridTextColumn>
+
+                <DataGridTemplateColumn SortMemberPath="Category">
+                    <DataGridTemplateColumn.Header>
+                        <TextBlock Text="Category" />
+                    </DataGridTemplateColumn.Header>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal"
+                                        HorizontalAlignment="Left"
+                                        VerticalAlignment="Top">
+
+                                <Ellipse Height="16" Width="{Binding Height, RelativeSource={RelativeSource Self}}"
+                                         Stroke="{DynamicResource MaterialDesignBody}"
+                                         StrokeThickness="1.5"
+                                         Fill="{Binding HexadecimalColorCode, Mode=OneWay}"
+                                         Margin="0, 0, 3, 0">
+                                </Ellipse>
+
+                                <TextBlock Text="{Binding Category}" Margin="3, 0, 0, 0" />
+
+                            </StackPanel>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTextColumn Binding="{Binding ModePayment}">
+                    <DataGridTextColumn.Header>
+                        <TextBlock Text="ModePayment" />
+                    </DataGridTextColumn.Header>
+                </DataGridTextColumn>
+
+                <DataGridTemplateColumn SortMemberPath="Value">
+                    <DataGridTemplateColumn.Header>
+                        <TextBlock Text="Value" />
+                    </DataGridTemplateColumn.Header>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock>
+                                <TextBlock.Text>
+                                    <MultiBinding Converter="{StaticResource ValueSymbolConverter}">
+                                        <Binding Path="Value" />
+                                        <Binding Path="Symbol" />
+                                    </MultiBinding>
+                                </TextBlock.Text>
+                            </TextBlock>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTextColumn Binding="{Binding NextDueDate}">
+                    <DataGridTextColumn.Header>
+                        <TextBlock Text="NextDueDate" />
+                    </DataGridTextColumn.Header>
+                </DataGridTextColumn>
+
+                <DataGridTextColumn Binding="{Binding Place}">
+                    <DataGridTextColumn.Header>
+                        <TextBlock Text="Place" />
+                    </DataGridTextColumn.Header>
+                </DataGridTextColumn>
+
+            </DataGrid.Columns>
+
+        </DataGrid>
 
     </Grid>
 
