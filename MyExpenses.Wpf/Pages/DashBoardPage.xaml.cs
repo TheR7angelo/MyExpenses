@@ -289,9 +289,9 @@ public partial class DashBoardPage
 
         var now = DateTime.Now;
         using var context = new DataBaseContext();
-        var recurrences = context.VRecursiveExpenses
+        var recurrences = context.TRecursiveExpenses
             .Where(s => (bool)s.IsActive!)
-            .Where(s => s.NextDueDate!.Value.Year.Equals(now.Year) && s.NextDueDate!.Value.Month.Equals(now.Month))
+            .Where(s => s.NextDueDate.Year.Equals(now.Year) && s.NextDueDate.Month.Equals(now.Month))
             .ToList();
 
         // TODO work
