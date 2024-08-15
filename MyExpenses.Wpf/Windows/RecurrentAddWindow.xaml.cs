@@ -63,7 +63,7 @@ public partial class RecurrentAddWindow
         var vRecursiveExpenseDerives = VRecursiveExpensesDerives
             .Where(s => s.RecursiveToAdd);
 
-        var histories = new List<THistory>();
+        var timeOnly = new TimeOnly(0);
         foreach (var vRecursiveExpenseDerive in vRecursiveExpenseDerives)
         {
             var history = new THistory
@@ -73,20 +73,16 @@ public partial class RecurrentAddWindow
                 CategoryTypeFk = vRecursiveExpenseDerive.CategoryTypeFk,
                 ModePaymentFk = vRecursiveExpenseDerive.ModePaymentFk,
                 Value = vRecursiveExpenseDerive.Value,
-                Date = vRecursiveExpenseDerive.NextDueDate,
+                Date = vRecursiveExpenseDerive.NextDueDate.ToDateTime(timeOnly),
                 PlaceFk = vRecursiveExpenseDerive.PlaceFk,
                 RecursiveExpenseFk = vRecursiveExpenseDerive.Id
             };
-            histories.Add(history);
+            history.AddOrEdit();
 
             var recurcive = vRecursiveExpenseDerive.Id.ToISql<TRecursiveExpense>()!;
             recurcive = UpdateTRecursiveExpense(recurcive);
             recurcive.AddOrEdit();
         }
-
-        using var context = new DataBaseContext();
-        context.THistories.AddRange(histories);
-        context.SaveChanges();
 
         Close();
     }
