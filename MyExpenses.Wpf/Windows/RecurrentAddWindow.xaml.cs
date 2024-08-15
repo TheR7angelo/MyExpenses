@@ -3,6 +3,7 @@ using MyExpenses.Models.Config;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Models.Sql.Bases.Views;
+using MyExpenses.Models.Sql.Derivatives.Views;
 using MyExpenses.Sql.Context;
 using MyExpenses.Wpf.Utils;
 
@@ -29,7 +30,7 @@ public partial class RecurrentAddWindow
         set => SetValue(TextBlockAddRecurrenceNeededProperty, value);
     }
 
-    public List<VRecursiveExpense> VRecursiveExpenses { get; }
+    public List<VRecursiveExpenseDerive> VRecursiveExpensesDerives { get; }
 
     public RecurrentAddWindow(IEnumerable<TRecursiveExpense> recursiveExpenses)
     {

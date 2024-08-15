@@ -55,7 +55,7 @@
         </TextBlock>
 
         <DataGrid Grid.Row="1"
-                  ItemsSource="{Binding VRecursiveExpenses, Mode=OneTime}"
+                  ItemsSource="{Binding VRecursiveExpensesDerives, Mode=OneTime}"
                   IsReadOnly="True" AutoGenerateColumns="False"
                   CanUserAddRows="False" CanUserDeleteRows="False"
                   CanUserReorderColumns="False"
