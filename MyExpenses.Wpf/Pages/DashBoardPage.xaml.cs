@@ -502,7 +502,7 @@ public partial class DashBoardPage
 
     private void DeleteRecord(VHistory vHistory)
     {
-        var history = vHistory.Id.ToISqlT<THistory>();
+        var history = vHistory.Id.ToISql<THistory>();
 
         history?.Delete(true);
 
@@ -518,7 +518,7 @@ public partial class DashBoardPage
 
     private static void EditRecord(VHistory vHistory)
     {
-        var history = vHistory.Id.ToISqlT<THistory>();
+        var history = vHistory.Id.ToISql<THistory>();
         if (history is null) return;
 
         var recordExpensePage = new RecordExpensePage();
@@ -543,7 +543,7 @@ public partial class DashBoardPage
 
     private void PointRecord(VHistory vHistory)
     {
-        var history = vHistory.Id.ToISqlT<THistory>()!;
+        var history = vHistory.Id.ToISql<THistory>()!;
 
         history.Pointed = !history.Pointed;
 

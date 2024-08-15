@@ -387,7 +387,7 @@ public partial class BankTransferPage
     private void ButtonFromAddAccount_OnClick(object sender, RoutedEventArgs e)
     {
         var addEditAccountWindow = new AddEditAccountWindow();
-        var fromAccount = BankTransfer.FromAccountFk?.ToISqlT<TAccount>();
+        var fromAccount = BankTransfer.FromAccountFk?.ToISql<TAccount>();
         if (fromAccount is not null) addEditAccountWindow.SetTAccount(fromAccount);
 
         addEditAccountWindow.ShowDialog();
@@ -426,7 +426,7 @@ public partial class BankTransferPage
     private void ButtonToAddAccount_OnClick(object sender, RoutedEventArgs e)
     {
         var addEditAccountWindow = new AddEditAccountWindow();
-        var fromAccount = BankTransfer.ToAccountFk?.ToISqlT<TAccount>();
+        var fromAccount = BankTransfer.ToAccountFk?.ToISql<TAccount>();
         if (fromAccount is not null) addEditAccountWindow.SetTAccount(fromAccount);
 
         addEditAccountWindow.ShowDialog();
@@ -469,7 +469,7 @@ public partial class BankTransferPage
     private void SelectorFromAccount_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
     {
         var fromAccount = Accounts.FirstOrDefault(s => s.Id == BankTransfer.FromAccountFk);
-        VFromAccount = fromAccount?.Id.ToISqlT<VTotalByAccount>();
+        VFromAccount = fromAccount?.Id.ToISql<VTotalByAccount>();
 
         RefreshListToAccount();
         RefreshVFromAccountReduce();
@@ -478,7 +478,7 @@ public partial class BankTransferPage
     private void SelectorToAccount_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
     {
         var toAccount = Accounts.FirstOrDefault(s => s.Id == BankTransfer.ToAccountFk);
-        VToAccount = toAccount?.Id.ToISqlT<VTotalByAccount>();
+        VToAccount = toAccount?.Id.ToISql<VTotalByAccount>();
 
         RefreshListFromAccount();
         RefreshVToAccountIncrease();
