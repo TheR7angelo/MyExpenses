@@ -18,6 +18,7 @@ using MyExpenses.Utils.Strings;
 using MyExpenses.Wpf.Resources.Resx.Pages.DashBoardPage;
 using MyExpenses.Wpf.Utils;
 using MyExpenses.Wpf.Utils.FilterDataGrid;
+using MyExpenses.Wpf.Windows;
 using MyExpenses.Wpf.Windows.MsgBox;
 using SkiaSharp;
 
@@ -297,7 +298,8 @@ public partial class DashBoardPage
         // TODO work
         if (recurrences.Count > 0)
         {
-            MsgBox.Show("Need to insert new recurrences", MsgBoxImage.Question, MessageBoxButton.OK);
+            var recurrentAddWindow = new RecurrentAddWindow(recurrences);
+            recurrentAddWindow.ShowDialog();
         }
 
         UpdateMonthLanguage();
