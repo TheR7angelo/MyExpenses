@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using MyExpenses.Models.Sql.Enums;
 
 namespace MyExpenses.Models.Sql.Tables;
 
@@ -39,6 +40,13 @@ public partial class TRecursiveExpense
 
     [Column("frequency_fk")]
     public int FrequencyFk { get; set; }
+
+    [NotMapped]
+    public ERecursiveFrequency ERecursiveFrequency
+    {
+        get => (ERecursiveFrequency)FrequencyFk;
+        set => FrequencyFk = (int)value;
+    }
 
     [Column("next_due_date", TypeName = "DATE")]
     public DateTime NextDueDate { get; set; }
