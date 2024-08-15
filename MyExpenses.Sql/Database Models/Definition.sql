@@ -731,6 +731,7 @@ SELECT tre.id,
        tre.mode_payment_fk,
        tmp.name AS mode_payment,
        tre.value,
+       tc.symbol,
        tre.place_fk,
        tp.name AS place,
        tre.start_date,
@@ -744,6 +745,8 @@ SELECT tre.id,
 FROM t_recursive_expense tre
          INNER JOIN t_account ta
                     ON tre.account_fk = ta.id
+         INNER JOIN t_currency tc
+            ON ta.currency_fk = tc.id
          INNER JOIN t_category_type tct
                     ON tre.category_type_fk = tct.id
          INNER JOIN t_mode_payment tmp

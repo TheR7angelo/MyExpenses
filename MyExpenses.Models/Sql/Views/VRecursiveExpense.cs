@@ -34,6 +34,9 @@ public partial class VRecursiveExpense : ISql
     [Column("value")]
     public double? Value { get; set; }
 
+    [Column("symbol")]
+    public string? Symbol { get; set; }
+
     [Column("place_fk")]
     public int? PlaceFk { get; set; }
 
