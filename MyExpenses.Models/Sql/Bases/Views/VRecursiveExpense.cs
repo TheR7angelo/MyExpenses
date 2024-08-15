@@ -47,7 +47,7 @@ public partial class VRecursiveExpense : ISql
     public string? Place { get; set; }
 
     [Column("start_date", TypeName = "DATE")]
-    public DateTime? StartDate { get; set; }
+    public DateOnly? StartDate { get; set; }
 
     [Column("recursive_total")]
     public int? RecursiveTotal { get; set; }
@@ -69,7 +69,7 @@ public partial class VRecursiveExpense : ISql
     public string? Frequency { get; set; }
 
     [Column("next_due_date", TypeName = "DATE")]
-    public DateTime NextDueDate { get; set; }
+    public DateOnly NextDueDate { get; set; }
 
     [Column("is_active", TypeName = "BOOLEAN")]
     public bool IsActive { get; set; }
