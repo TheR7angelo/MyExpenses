@@ -1,13 +1,14 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
+using MyExpenses.Models.Sql.Enums;
 
 namespace MyExpenses.Models.Sql.Views;
 
 [Keyless]
-public partial class VRecursiveExpense
+public partial class VRecursiveExpense : ISql
 {
     [Column("id")]
-    public int? Id { get; set; }
+    public int Id { get; set; }
 
     [Column("account_fk")]
     public int? AccountFk { get; set; }
@@ -49,16 +50,23 @@ public partial class VRecursiveExpense
     public int? RecursiveCount { get; set; }
 
     [Column("frequency_fk")]
-    public int? FrequencyFk { get; set; }
+    public int FrequencyFk { get; set; }
+
+    [NotMapped]
+    public ERecursiveFrequency ERecursiveFrequency
+    {
+        get => (ERecursiveFrequency)FrequencyFk;
+        set => FrequencyFk = (int)value;
+    }
 
     [Column("frequency")]
     public string? Frequency { get; set; }
 
     [Column("next_due_date", TypeName = "DATE")]
-    public DateTime? NextDueDate { get; set; }
+    public DateTime NextDueDate { get; set; }
 
     [Column("is_active", TypeName = "BOOLEAN")]
-    public bool? IsActive { get; set; }
+    public bool IsActive { get; set; }
 
     [Column("date_added", TypeName = "DATETIME")]
     public DateTime? DateAdded { get; set; }
