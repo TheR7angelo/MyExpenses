@@ -1,7 +1,7 @@
 using System.Windows;
 using MyExpenses.Models.Config;
 using MyExpenses.Models.Config.Interfaces;
-using MyExpenses.Models.Sql.Views;
+using MyExpenses.Models.Sql.Bases.Views;
 using MyExpenses.Wpf.Resources.Resx.UserControls.Analytics.AccountValueTrendControl.StackedTotalEllipseControl;
 
 namespace MyExpenses.Wpf.UserControls.Analytics.AccountTotalEllipseControl;

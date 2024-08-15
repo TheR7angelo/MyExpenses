@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace MyExpenses.Models.Sql.Tables;
+namespace MyExpenses.Models.Sql.Bases.Tables;
 
 [Table("t_recursive_frequency")]
 public partial class TRecursiveFrequency

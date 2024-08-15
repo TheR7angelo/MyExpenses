@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 
-namespace MyExpenses.Models.Sql.Tables;
+namespace MyExpenses.Models.Sql.Bases.Tables;
 
 [Table("t_supported_languages")]
 [Index("Code", IsUnique = true)]

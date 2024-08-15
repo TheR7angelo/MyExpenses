@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using MyExpenses.Models.Sql.Enums;
+using MyExpenses.Models.Sql.Bases.Enums;
 
-namespace MyExpenses.Models.Sql.Tables;
+namespace MyExpenses.Models.Sql.Bases.Tables;
 
 [Table("t_recursive_expense")]
 public partial class TRecursiveExpense
@@ -59,11 +59,11 @@ public partial class TRecursiveExpense
 
     [ForeignKey("AccountFk")]
     [InverseProperty("TRecursiveExpenses")]
-    public virtual TAccount? AccountFkNavigation { get; set; }
+    public virtual Bases.Tables.TAccount? AccountFkNavigation { get; set; }
 
     [ForeignKey("CategoryTypeFk")]
     [InverseProperty("TRecursiveExpenses")]
-    public virtual TCategoryType? CategoryTypeFkNavigation { get; set; }
+    public virtual Bases.Tables.TCategoryType? CategoryTypeFkNavigation { get; set; }
 
     [ForeignKey("FrequencyFk")]
     [InverseProperty("TRecursiveExpenses")]

@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using PropertyChanged;
 
-namespace MyExpenses.Models.Sql.Tables;
+namespace MyExpenses.Models.Sql.Bases.Tables;
 
 [AddINotifyPropertyChangedInterface]
 [Table("t_bank_transfer")]
@@ -40,12 +40,12 @@ public partial class TBankTransfer : ISql
 
     [ForeignKey("FromAccountFk")]
     [InverseProperty("TBankTransferFromAccountFkNavigations")]
-    public virtual TAccount? FromAccountFkNavigation { get; set; }
+    public virtual Bases.Tables.TAccount? FromAccountFkNavigation { get; set; }
 
     [InverseProperty("BankTransferFkNavigation")]
     public virtual ICollection<THistory> THistories { get; set; } = new List<THistory>();
 
     [ForeignKey("ToAccountFk")]
     [InverseProperty("TBankTransferToAccountFkNavigations")]
-    public virtual TAccount? ToAccountFkNavigation { get; set; }
+    public virtual Bases.Tables.TAccount? ToAccountFkNavigation { get; set; }
 }

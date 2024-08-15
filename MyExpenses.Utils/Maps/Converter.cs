@@ -1,7 +1,7 @@
 ﻿using Mapsui;
 using Mapsui.Layers;
 using MyExpenses.Models.AutoMapper;
-using MyExpenses.Models.Sql.Tables;
+using MyExpenses.Models.Sql.Bases.Tables;
 
 namespace MyExpenses.Utils.Maps;
 

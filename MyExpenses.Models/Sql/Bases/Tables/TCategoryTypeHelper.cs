@@ -1,10 +1,10 @@
-﻿namespace MyExpenses.Models.Sql.Tables;
+﻿namespace MyExpenses.Models.Sql.Bases.Tables;
 
 public partial class TCategoryType
 {
-    public TCategoryType DeepCopy()
+    public Bases.Tables.TCategoryType DeepCopy()
     {
-        return new TCategoryType
+        return new Bases.Tables.TCategoryType
         {
             Id = Id,
             Name = Name,

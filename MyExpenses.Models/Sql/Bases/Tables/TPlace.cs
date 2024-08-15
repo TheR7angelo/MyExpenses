@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using NetTopologySuite.Geometries;
 using PropertyChanged;
 
-namespace MyExpenses.Models.Sql.Tables;
+namespace MyExpenses.Models.Sql.Bases.Tables;
 
 [AddINotifyPropertyChangedInterface]
 [Table("t_place")]

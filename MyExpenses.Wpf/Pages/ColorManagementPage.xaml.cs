@@ -2,7 +2,7 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Windows;
 using System.Windows.Controls;
-using MyExpenses.Models.Sql.Tables;
+using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils.Collection;
 using MyExpenses.Utils.Sql;

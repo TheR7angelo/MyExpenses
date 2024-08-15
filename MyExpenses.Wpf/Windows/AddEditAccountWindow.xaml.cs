@@ -5,7 +5,7 @@ using System.Windows.Input;
 using Microsoft.Data.Sqlite;
 using MyExpenses.Models.Config;
 using MyExpenses.Models.Config.Interfaces;
-using MyExpenses.Models.Sql.Tables;
+using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils.Collection;
 using MyExpenses.Utils.Sql;
@@ -15,6 +15,7 @@ using MyExpenses.Wpf.Utils;
 using MyExpenses.Wpf.Windows.CategoryTypeManagementWindow;
 using MyExpenses.Wpf.Windows.MsgBox;
 using Serilog;
+using TCategoryType = MyExpenses.Models.Sql.Bases.Tables.TCategoryType;
 
 namespace MyExpenses.Wpf.Windows;
 
