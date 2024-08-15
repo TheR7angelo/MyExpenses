@@ -15,7 +15,6 @@ using MyExpenses.Wpf.Utils;
 using MyExpenses.Wpf.Windows.CategoryTypeManagementWindow;
 using MyExpenses.Wpf.Windows.MsgBox;
 using Serilog;
-using TCategoryType = MyExpenses.Models.Sql.Bases.Tables.TCategoryType;
 
 namespace MyExpenses.Wpf.Windows;
 
