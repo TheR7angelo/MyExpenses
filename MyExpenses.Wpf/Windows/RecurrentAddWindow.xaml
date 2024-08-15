@@ -40,8 +40,7 @@
         <converters:ValueSymbolConverter x:Key="ValueSymbolConverter" />
     </mah:MetroWindow.Resources>
 
-    <Grid margin:PanelExtensions.MarginForAllChildren="5"
-          ShowGridLines="True">
+    <Grid margin:PanelExtensions.MarginForAllChildren="5">
 
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
