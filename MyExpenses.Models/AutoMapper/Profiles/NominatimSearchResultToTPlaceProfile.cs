@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
+using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Models.WebApi.Nominatim;
-using TPlace = MyExpenses.Models.Sql.Bases.Tables.TPlace;
 
 namespace MyExpenses.Models.AutoMapper.Profiles;
 

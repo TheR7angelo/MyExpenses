@@ -23,5 +23,5 @@ public partial class TColor : ISql
     public DateTime? DateAdded { get; set; } = DateTime.Now;
 
     [InverseProperty("ColorFkNavigation")]
-    public virtual ICollection<Bases.Tables.TCategoryType> TCategoryTypes { get; set; } = new List<Bases.Tables.TCategoryType>();
+    public virtual ICollection<TCategoryType> TCategoryTypes { get; set; } = new List<TCategoryType>();
 }

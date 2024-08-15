@@ -13,7 +13,6 @@ using MyExpenses.Wpf.Resources.Resx.Windows.AddEditCategoryTypeWindow;
 using MyExpenses.Wpf.Utils;
 using MyExpenses.Wpf.Windows.MsgBox;
 using Serilog;
-using TCategoryType = MyExpenses.Models.Sql.Bases.Tables.TCategoryType;
 
 namespace MyExpenses.Wpf.Windows.CategoryTypeManagementWindow;
 

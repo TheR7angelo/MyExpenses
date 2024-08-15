@@ -19,5 +19,5 @@ public partial class TAccountType : ISql
     public DateTime? DateAdded { get; set; } = DateTime.Now;
 
     [InverseProperty("AccountTypeFkNavigation")]
-    public virtual ICollection<Bases.Tables.TAccount> TAccounts { get; set; } = new List<Bases.Tables.TAccount>();
+    public virtual ICollection<TAccount> TAccounts { get; set; } = new List<TAccount>();
 }

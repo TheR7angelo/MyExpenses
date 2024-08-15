@@ -19,5 +19,5 @@ public partial class TCurrency : ISql
     public DateTime? DateAdded { get; set; } = DateTime.Now;
 
     [InverseProperty("CurrencyFkNavigation")]
-    public virtual ICollection<Bases.Tables.TAccount> TAccounts { get; set; } = new List<Bases.Tables.TAccount>();
+    public virtual ICollection<TAccount> TAccounts { get; set; } = new List<TAccount>();
 }

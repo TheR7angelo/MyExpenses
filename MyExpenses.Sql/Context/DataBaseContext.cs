@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Models.Sql.Bases.Views;
-using TCategoryType = MyExpenses.Models.Sql.Bases.Tables.TCategoryType;
 
 namespace MyExpenses.Sql.Context;
 
