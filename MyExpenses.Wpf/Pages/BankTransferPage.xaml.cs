@@ -17,7 +17,6 @@ using MyExpenses.Wpf.Utils;
 using MyExpenses.Wpf.Windows;
 using MyExpenses.Wpf.Windows.MsgBox;
 using Serilog;
-using TCategoryType = MyExpenses.Models.Sql.Bases.Tables.TCategoryType;
 using ValidationResult = System.ComponentModel.DataAnnotations.ValidationResult;
 
 namespace MyExpenses.Wpf.Pages;

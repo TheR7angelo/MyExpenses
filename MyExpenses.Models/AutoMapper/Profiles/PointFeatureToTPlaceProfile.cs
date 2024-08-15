@@ -3,7 +3,7 @@ using System.Reflection;
 using AutoMapper;
 using Mapsui.Layers;
 using Mapsui.Projections;
-using TPlace = MyExpenses.Models.Sql.Bases.Tables.TPlace;
+using MyExpenses.Models.Sql.Bases.Tables;
 
 namespace MyExpenses.Models.AutoMapper.Profiles;
 

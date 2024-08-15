@@ -59,11 +59,11 @@ public partial class TRecursiveExpense : ISql
 
     [ForeignKey("AccountFk")]
     [InverseProperty("TRecursiveExpenses")]
-    public virtual Bases.Tables.TAccount? AccountFkNavigation { get; set; }
+    public virtual TAccount? AccountFkNavigation { get; set; }
 
     [ForeignKey("CategoryTypeFk")]
     [InverseProperty("TRecursiveExpenses")]
-    public virtual Bases.Tables.TCategoryType? CategoryTypeFkNavigation { get; set; }
+    public virtual TCategoryType? CategoryTypeFkNavigation { get; set; }
 
     [ForeignKey("FrequencyFk")]
     [InverseProperty("TRecursiveExpenses")]

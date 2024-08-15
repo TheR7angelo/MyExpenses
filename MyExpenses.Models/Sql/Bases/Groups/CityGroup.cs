@@ -1,5 +1,5 @@
 ﻿using System.Collections.ObjectModel;
-using TPlace = MyExpenses.Models.Sql.Bases.Tables.TPlace;
+using MyExpenses.Models.Sql.Bases.Tables;
 
 namespace MyExpenses.Models.Sql.Bases.Groups;
 

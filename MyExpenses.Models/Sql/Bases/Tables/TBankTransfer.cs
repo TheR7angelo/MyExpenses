@@ -40,12 +40,12 @@ public partial class TBankTransfer : ISql
 
     [ForeignKey("FromAccountFk")]
     [InverseProperty("TBankTransferFromAccountFkNavigations")]
-    public virtual Bases.Tables.TAccount? FromAccountFkNavigation { get; set; }
+    public virtual TAccount? FromAccountFkNavigation { get; set; }
 
     [InverseProperty("BankTransferFkNavigation")]
     public virtual ICollection<THistory> THistories { get; set; } = new List<THistory>();
 
     [ForeignKey("ToAccountFk")]
     [InverseProperty("TBankTransferToAccountFkNavigations")]
-    public virtual Bases.Tables.TAccount? ToAccountFkNavigation { get; set; }
+    public virtual TAccount? ToAccountFkNavigation { get; set; }
 }

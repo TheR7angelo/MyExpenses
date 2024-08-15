@@ -2,9 +2,9 @@
 
 public partial class TCategoryType
 {
-    public Bases.Tables.TCategoryType DeepCopy()
+    public TCategoryType DeepCopy()
     {
-        return new Bases.Tables.TCategoryType
+        return new TCategoryType
         {
             Id = Id,
             Name = Name,
