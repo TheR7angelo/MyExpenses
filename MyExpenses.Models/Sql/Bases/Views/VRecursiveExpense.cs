@@ -76,4 +76,7 @@ public partial class VRecursiveExpense : ISql
 
     [Column("date_added", TypeName = "DATETIME")]
     public DateTime? DateAdded { get; set; }
+
+    [Column("last_updated", TypeName = "DATE")]
+    public DateTime? LastUpdated { get; set; }
 }

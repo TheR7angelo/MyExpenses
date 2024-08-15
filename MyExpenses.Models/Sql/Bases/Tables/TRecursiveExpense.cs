@@ -57,6 +57,9 @@ public partial class TRecursiveExpense : ISql
     [Column("date_added", TypeName = "DATE")]
     public DateTime? DateAdded { get; set; } = DateTime.Now;
 
+    [Column("last_updated", TypeName = "DATE")]
+    public DateTime? LastUpdated { get; set; }
+
     [ForeignKey("AccountFk")]
     [InverseProperty("TRecursiveExpenses")]
     public virtual TAccount? AccountFkNavigation { get; set; }
