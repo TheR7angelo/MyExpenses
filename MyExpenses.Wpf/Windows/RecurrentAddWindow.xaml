@@ -136,6 +136,13 @@
                     </DataGridTextColumn.Header>
                 </DataGridTextColumn>
 
+                <DataGridCheckBoxColumn Binding="{Binding RecursiveToAdd}"
+                                        IsReadOnly="False">
+                    <DataGridCheckBoxColumn.Header>
+                        <TextBlock Text="RecursiveToAdd" />
+                    </DataGridCheckBoxColumn.Header>
+                </DataGridCheckBoxColumn>
+
             </DataGrid.Columns>
 
         </DataGrid>

@@ -4,5 +4,5 @@ namespace MyExpenses.Models.Sql.Derivatives.Views;
 
 public class VRecursiveExpenseDerive : VRecursiveExpense
 {
-    public bool RecursiveToAdd { get; set; }
+    public bool RecursiveToAdd { get; set; } = true;
 }

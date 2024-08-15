@@ -1,4 +1,5 @@
 using System.Windows;
+using MyExpenses.Models.AutoMapper;
 using MyExpenses.Models.Config;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Sql.Bases.Tables;
