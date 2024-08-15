@@ -591,6 +591,22 @@ BEGIN
     WHERE id = NEW.id;
 END;
 
+DROP TRIGGER IF EXISTS after_update_on_t_recursive_expense_when_recursive_total_not_null;
+CREATE TRIGGER after_update_on_t_recursive_expense_when_recursive_total_not_null
+    AFTER UPDATE
+    ON t_recursive_expense
+    FOR EACH ROW
+    WHEN NEW.recursive_total IS NOT NULL
+BEGIN
+
+    UPDATE t_recursive_expense
+    SET is_active = CASE
+                        WHEN NEW.recursive_total > NEW.recursive_count THEN TRUE
+                        ELSE FALSE END
+    WHERE id = NEW.id;
+
+END;
+
 -- endregion
 
 -- region Views
