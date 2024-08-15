@@ -64,18 +64,21 @@
 
             <DataGrid.Columns>
 
+                <!-- TODO work -->
                 <DataGridTextColumn Binding="{Binding Account}">
                     <DataGridTextColumn.Header>
                         <TextBlock Text="Account" />
                     </DataGridTextColumn.Header>
                 </DataGridTextColumn>
 
+                <!-- TODO work -->
                 <DataGridTextColumn Binding="{Binding Description}">
                     <DataGridTextColumn.Header>
                         <TextBlock Text="Description" />
                     </DataGridTextColumn.Header>
                 </DataGridTextColumn>
 
+                <!-- TODO work -->
                 <DataGridTemplateColumn SortMemberPath="Category">
                     <DataGridTemplateColumn.Header>
                         <TextBlock Text="Category" />
@@ -100,12 +103,14 @@
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
 
+                <!-- TODO work -->
                 <DataGridTextColumn Binding="{Binding ModePayment}">
                     <DataGridTextColumn.Header>
                         <TextBlock Text="ModePayment" />
                     </DataGridTextColumn.Header>
                 </DataGridTextColumn>
 
+                <!-- TODO work -->
                 <DataGridTemplateColumn SortMemberPath="Value">
                     <DataGridTemplateColumn.Header>
                         <TextBlock Text="Value" />
@@ -124,20 +129,22 @@
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
 
+                <!-- TODO work -->
                 <DataGridTextColumn Binding="{Binding NextDueDate}">
                     <DataGridTextColumn.Header>
                         <TextBlock Text="NextDueDate" />
                     </DataGridTextColumn.Header>
                 </DataGridTextColumn>
 
+                <!-- TODO work -->
                 <DataGridTextColumn Binding="{Binding Place}">
                     <DataGridTextColumn.Header>
                         <TextBlock Text="Place" />
                     </DataGridTextColumn.Header>
                 </DataGridTextColumn>
 
-                <DataGridCheckBoxColumn Binding="{Binding RecursiveToAdd}"
-                                        IsReadOnly="False">
+                <!-- TODO work -->
+                <DataGridCheckBoxColumn Binding="{Binding RecursiveToAdd}">
                     <DataGridCheckBoxColumn.Header>
                         <TextBlock Text="RecursiveToAdd" />
                     </DataGridCheckBoxColumn.Header>
