@@ -2,6 +2,7 @@ using System.Windows;
 using MyExpenses.Models.AutoMapper;
 using MyExpenses.Models.Config;
 using MyExpenses.Models.Config.Interfaces;
+using MyExpenses.Models.Sql.Bases.Enums;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Models.Sql.Bases.Views;
 using MyExpenses.Models.Sql.Derivatives.Views;
@@ -53,6 +54,63 @@ public partial class RecurrentAddWindow
     }
 
     #region Action
+
+    private void ButtonCancel_OnClick(object sender, RoutedEventArgs e)
+        => Close();
+
+    private void ButtonValid_OnClick(object sender, RoutedEventArgs e)
+    {
+        var vRecursiveExpenseDerives = VRecursiveExpensesDerives
+            .Where(s => s.RecursiveToAdd);
+
+        var histories = new List<THistory>();
+        foreach (var vRecursiveExpenseDerive in vRecursiveExpenseDerives)
+        {
+            var history = new THistory
+            {
+                AccountFk = vRecursiveExpenseDerive.AccountFk,
+                Description = vRecursiveExpenseDerive.Description,
+                CategoryTypeFk = vRecursiveExpenseDerive.CategoryTypeFk,
+                ModePaymentFk = vRecursiveExpenseDerive.ModePaymentFk,
+                Value = vRecursiveExpenseDerive.Value,
+                Date = vRecursiveExpenseDerive.NextDueDate,
+                PlaceFk = vRecursiveExpenseDerive.PlaceFk,
+                RecursiveExpenseFk = vRecursiveExpenseDerive.Id
+            };
+            histories.Add(history);
+
+            var recurcive = vRecursiveExpenseDerive.Id.ToISql<TRecursiveExpense>()!;
+            recurcive = UpdateTRecursiveExpense(recurcive);
+            recurcive.AddOrEdit();
+        }
+
+        using var context = new DataBaseContext();
+        context.THistories.AddRange(histories);
+        context.SaveChanges();
+
+        Close();
+    }
+
+    private TRecursiveExpense UpdateTRecursiveExpense(TRecursiveExpense recursiveExpense)
+    {
+        recursiveExpense.RecursiveCount += 1;
+
+        if (recursiveExpense.RecursiveTotal.HasValue && recursiveExpense.RecursiveTotal < recursiveExpense.RecursiveCount)
+        {
+            return recursiveExpense;
+        }
+
+        recursiveExpense.NextDueDate = recursiveExpense.ERecursiveFrequency switch
+        {
+            ERecursiveFrequency.Daily => recursiveExpense.NextDueDate.AddDays(1),
+            ERecursiveFrequency.Weekly => recursiveExpense.NextDueDate.AddDays(7),
+            ERecursiveFrequency.Monthly => recursiveExpense.NextDueDate.AddMonths(1),
+            ERecursiveFrequency.Yearly => recursiveExpense.NextDueDate.AddYears(1),
+            _ => throw new ArgumentOutOfRangeException()
+        };
+
+        return recursiveExpense;
+    }
 
     private void Interface_OnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
         => UpdateLanguage();
