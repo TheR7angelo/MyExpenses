@@ -37,6 +37,9 @@ public partial class VRecursiveExpense : ISql
     [Column("symbol")]
     public string? Symbol { get; set; }
 
+    [Column("hexadecimal_color_code")]
+    public string? HexadecimalColorCode { get; set; }
+
     [Column("place_fk")]
     public int? PlaceFk { get; set; }
 
