@@ -154,6 +154,25 @@
 
         </DataGrid>
 
+        <StackPanel Grid.Row="2"
+                    margin:PanelExtensions.MarginForAllChildren="5"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right">
+
+            <!-- TODO work -->
+            <Button Content="Valid"
+                    Style="{StaticResource MaterialDesignPaperDarkButton}"
+                    Click="ButtonValid_OnClick">
+            </Button>
+
+            <!-- TODO work -->
+            <Button Content="Cancel"
+                    Style="{StaticResource MaterialDesignPaperSecondaryButton}"
+                    Click="ButtonCancel_OnClick">
+            </Button>
+
+        </StackPanel>
+
     </Grid>
 
 </mah:MetroWindow>
