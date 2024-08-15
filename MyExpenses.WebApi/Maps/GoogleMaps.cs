@@ -1,5 +1,5 @@
 using System.Diagnostics;
-using MyExpenses.Models.Sql.Tables;
+using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Utils.Maps;
 using NetTopologySuite.Geometries;
 

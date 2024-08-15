@@ -2,11 +2,11 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using PropertyChanged;
 
-namespace MyExpenses.Models.Sql.Tables;
+namespace MyExpenses.Models.Sql.Bases.Tables;
 
 [AddINotifyPropertyChangedInterface]
-[Table("t_color")]
-public partial class TColor : ISql
+[Table("t_account_type")]
+public partial class TAccountType : ISql
 {
     [Key]
     [Column("id")]
@@ -15,13 +15,9 @@ public partial class TColor : ISql
     [Column("name")]
     public string? Name { get; set; }
 
-    [Column("hexadecimal_color_code", TypeName = "TEXT(9)")]
-    [MaxLength(9)]
-    public string? HexadecimalColorCode { get; set; }
-
     [Column("date_added", TypeName = "DATETIME")]
     public DateTime? DateAdded { get; set; } = DateTime.Now;
 
-    [InverseProperty("ColorFkNavigation")]
-    public virtual ICollection<TCategoryType> TCategoryTypes { get; set; } = new List<TCategoryType>();
+    [InverseProperty("AccountTypeFkNavigation")]
+    public virtual ICollection<Bases.Tables.TAccount> TAccounts { get; set; } = new List<Bases.Tables.TAccount>();
 }

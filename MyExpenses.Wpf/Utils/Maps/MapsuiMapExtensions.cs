@@ -7,7 +7,7 @@ using Mapsui.Widgets;
 using Mapsui.Widgets.ScaleBar;
 using Mapsui.Widgets.Zoom;
 using MyExpenses.Models.AutoMapper;
-using MyExpenses.Models.Sql.Tables;
+using MyExpenses.Models.Sql.Bases.Tables;
 
 namespace MyExpenses.Wpf.Utils.Maps;
 

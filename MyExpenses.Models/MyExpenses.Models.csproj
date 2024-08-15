@@ -29,5 +29,10 @@
         <DependentUpon>SizeDatabaseResources.resx</DependentUpon>
       </Compile>
     </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Sql\Bases\" />
+      <Folder Include="Sql\Derivatives\" />
+    </ItemGroup>
     
 </Project>

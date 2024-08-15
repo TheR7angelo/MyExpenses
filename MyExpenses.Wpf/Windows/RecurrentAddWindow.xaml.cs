@@ -1,8 +1,8 @@
 using System.Windows;
 using MyExpenses.Models.Config;
 using MyExpenses.Models.Config.Interfaces;
-using MyExpenses.Models.Sql.Tables;
-using MyExpenses.Models.Sql.Views;
+using MyExpenses.Models.Sql.Bases.Tables;
+using MyExpenses.Models.Sql.Bases.Views;
 using MyExpenses.Sql.Context;
 using MyExpenses.Wpf.Utils;
 

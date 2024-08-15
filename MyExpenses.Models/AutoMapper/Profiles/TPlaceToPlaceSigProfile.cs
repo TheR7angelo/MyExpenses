@@ -1,6 +1,6 @@
 using AutoMapper;
 using MyExpenses.Models.IO.Sig.Keyhole_Markup_Language;
-using MyExpenses.Models.Sql.Tables;
+using TPlace = MyExpenses.Models.Sql.Bases.Tables.TPlace;
 
 namespace MyExpenses.Models.AutoMapper.Profiles;
 

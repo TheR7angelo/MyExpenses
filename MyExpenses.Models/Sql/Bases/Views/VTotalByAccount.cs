@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using PropertyChanged;
 
-namespace MyExpenses.Models.Sql.Views;
+namespace MyExpenses.Models.Sql.Bases.Views;
 
 [AddINotifyPropertyChangedInterface]
 [Keyless]

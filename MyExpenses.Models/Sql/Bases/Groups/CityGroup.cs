@@ -1,7 +1,7 @@
 ﻿using System.Collections.ObjectModel;
-using MyExpenses.Models.Sql.Tables;
+using TPlace = MyExpenses.Models.Sql.Bases.Tables.TPlace;
 
-namespace MyExpenses.Models.Sql.Groups;
+namespace MyExpenses.Models.Sql.Bases.Groups;
 
 public class CityGroup
 {

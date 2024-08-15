@@ -10,7 +10,7 @@ using Microsoft.Data.Sqlite;
 using MyExpenses.Models.AutoMapper;
 using MyExpenses.Models.Config;
 using MyExpenses.Models.Config.Interfaces;
-using MyExpenses.Models.Sql.Tables;
+using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Models.WebApi.Nominatim;
 using MyExpenses.Sql.Context;
 using MyExpenses.WebApi.Nominatim;

@@ -4,7 +4,7 @@ using Mapsui.Styles;
 using MyExpenses.Models.AutoMapper;
 using MyExpenses.Models.Config;
 using MyExpenses.Models.Config.Interfaces;
-using MyExpenses.Models.Sql.Tables;
+using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Wpf.Resources.Resx.Windows.NominatimSearchWindow;
 using MyExpenses.Wpf.Utils;
 using MyExpenses.Wpf.Utils.Maps;

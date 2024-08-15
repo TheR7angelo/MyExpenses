@@ -1,6 +1,6 @@
 ﻿using System.Collections.ObjectModel;
-using MyExpenses.Models.Sql.Groups;
-using MyExpenses.Models.Sql.Tables;
+using MyExpenses.Models.Sql.Bases.Groups;
+using MyExpenses.Models.Sql.Bases.Tables;
 
 namespace MyExpenses.Utils;
 

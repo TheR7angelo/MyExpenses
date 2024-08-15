@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
-using MyExpenses.Models.Sql.Enums;
+using MyExpenses.Models.Sql.Bases.Enums;
 
-namespace MyExpenses.Models.Sql.Views;
+namespace MyExpenses.Models.Sql.Bases.Views;
 
 [Keyless]
 public partial class VRecursiveExpense : ISql

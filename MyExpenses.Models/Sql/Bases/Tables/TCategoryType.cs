@@ -2,11 +2,11 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using PropertyChanged;
 
-namespace MyExpenses.Models.Sql.Tables;
+namespace MyExpenses.Models.Sql.Bases.Tables;
 
 [AddINotifyPropertyChangedInterface]
-[Table("t_mode_payment")]
-public partial class TModePayment : ISql
+[Table("t_category_type")]
+public partial class TCategoryType : ISql
 {
     [Key]
     [Column("id")]
@@ -15,15 +15,19 @@ public partial class TModePayment : ISql
     [Column("name")]
     public string? Name { get; set; }
 
-    [Column("can_be_deleted", TypeName = "BOOLEAN")]
-    public bool? CanBeDeleted { get; set; } = true;
+    [Column("color_fk")]
+    public int? ColorFk { get; set; }
 
     [Column("date_added", TypeName = "DATETIME")]
     public DateTime? DateAdded { get; set; } = DateTime.Now;
 
-    [InverseProperty("ModePaymentFkNavigation")]
+    [ForeignKey("ColorFk")]
+    [InverseProperty("TCategoryTypes")]
+    public virtual TColor? ColorFkNavigation { get; set; }
+
+    [InverseProperty("CategoryTypeFkNavigation")]
     public virtual ICollection<THistory> THistories { get; set; } = new List<THistory>();
 
-    [InverseProperty("ModePaymentFkNavigation")]
+    [InverseProperty("CategoryTypeFkNavigation")]
     public virtual ICollection<TRecursiveExpense> TRecursiveExpenses { get; set; } = new List<TRecursiveExpense>();
 }

@@ -1,4 +1,4 @@
-namespace MyExpenses.Models.Sql.Enums;
+namespace MyExpenses.Models.Sql.Bases.Enums;
 
 public enum ERecursiveFrequency
 {

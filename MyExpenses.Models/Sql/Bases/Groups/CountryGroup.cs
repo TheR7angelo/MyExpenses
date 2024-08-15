@@ -1,6 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 
-namespace MyExpenses.Models.Sql.Groups;
+namespace MyExpenses.Models.Sql.Bases.Groups;
 
 public class CountryGroup
 {
