@@ -32,12 +32,14 @@ public partial class RecurrentAddWindow
 
     public List<VRecursiveExpenseDerive> VRecursiveExpensesDerives { get; }
 
-    public RecurrentAddWindow(IEnumerable<TRecursiveExpense> recursiveExpenses)
+    public RecurrentAddWindow(IEnumerable<TRecursiveExpense> recursiveExpenses, double currentWidth)
     {
-        VRecursiveExpenses =
+        var mapper = Mapping.Mapper;
+        VRecursiveExpensesDerives =
             [
                 ..recursiveExpenses
                     .Select(s => s.Id.ToISqlT<VRecursiveExpense>())!
+                    .Select(s => mapper.Map<VRecursiveExpenseDerive>(s))
             ];
 
         UpdateLanguage();
