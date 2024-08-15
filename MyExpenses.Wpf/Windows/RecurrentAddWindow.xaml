@@ -5,6 +5,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:local="clr-namespace:MyExpenses.Wpf.Windows"
         xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:margin="clr-namespace:MyExpenses.Wpf.Utils.Margin;assembly=MyExpenses.Wpf.Utils"
         mc:Ignorable="d"
 
         Title="{Binding TitleWindow, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
@@ -31,7 +32,7 @@
 
         DataContext="{Binding RelativeSource={RelativeSource Self}}">
 
-    <Grid>
+    <Grid margin:PanelExtensions.MarginForAllChildren="5">
 
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -41,7 +42,9 @@
 
         <TextBlock Grid.Row="0"
                    Text="{Binding TextBlockAddRecurrenceNeeded, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                   TextWrapping="Wrap">
+                   TextWrapping="Wrap"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Top">
         </TextBlock>
 
     </Grid>
