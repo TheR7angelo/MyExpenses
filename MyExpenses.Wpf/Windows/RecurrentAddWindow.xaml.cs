@@ -94,6 +94,7 @@ public partial class RecurrentAddWindow
     private TRecursiveExpense UpdateTRecursiveExpense(TRecursiveExpense recursiveExpense)
     {
         recursiveExpense.RecursiveCount += 1;
+        recursiveExpense.LastUpdated = DateTime.Now;
 
         if (recursiveExpense.RecursiveTotal.HasValue && recursiveExpense.RecursiveTotal < recursiveExpense.RecursiveCount)
         {

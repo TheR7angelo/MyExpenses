@@ -201,7 +201,8 @@ CREATE TABLE t_recursive_expense
             REFERENCES t_recursive_frequency,
     next_due_date     DATE              NOT NULL,
     is_active         BOOLEAN DEFAULT TRUE,
-    date_added        DATETIME    DEFAULT CURRENT_TIMESTAMP
+    date_added        DATETIME    DEFAULT CURRENT_TIMESTAMP,
+    last_updated      DATETIME
 );
 
 DROP TABLE IF EXISTS t_history;
@@ -587,6 +588,10 @@ BEGIN
         date_added = CASE
                          WHEN typeof(NEW.date_added) = 'integer' THEN datetime(NEW.date_added / 1000, 'unixepoch')
                          ELSE NEW.date_added
+            END,
+        last_updated = CASE
+                         WHEN typeof(NEW.last_updated) = 'integer' THEN datetime(NEW.last_updated / 1000, 'unixepoch')
+                         ELSE NEW.last_updated
             END
     WHERE id = NEW.id;
 END;
@@ -742,7 +747,8 @@ SELECT tre.id,
        trf.frequency,
        tre.next_due_date,
        tre.is_active,
-       tre.date_added
+       tre.date_added,
+       tre.last_updated
 FROM t_recursive_expense tre
          INNER JOIN t_account ta
                     ON tre.account_fk = ta.id
