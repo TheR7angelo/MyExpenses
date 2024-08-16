@@ -325,9 +325,6 @@ public partial class DashBoardPage
         SelectedYear = now.Year.ToString();
         SelectedMonth = Months[now.Month - 1];
 
-        Interface.ThemeChanged += Interface_OnThemeChanged;
-        Interface.LanguageChanged += Interface_OnLanguageChanged;
-
         RefreshAccountTotal();
 
         InitializeComponent();
@@ -337,6 +334,9 @@ public partial class DashBoardPage
         FilterDataGrid.ItemsSource = VHistories;
 
         UpdatePieChartLegendTextPaint();
+
+        Interface.ThemeChanged += Interface_OnThemeChanged;
+        Interface.LanguageChanged += Interface_OnLanguageChanged;
     }
 
     #region Action
