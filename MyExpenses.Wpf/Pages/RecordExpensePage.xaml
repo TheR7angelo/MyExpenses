@@ -119,7 +119,7 @@
         <TextBox Grid.Row="4" Grid.Column="0"
                  materialDesign:HintAssist.Hint="{Binding TextBoxValueHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                  Style="{StaticResource MaterialDesignFilledTextBox}"
-                 Text="{Binding History.Value, Mode=OneTime}"
+                 Text="{Binding History.Value, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                  AcceptsReturn="False" AcceptsTab="False"
                  PreviewKeyDown="UIElement_OnPreviewKeyDown"
                  PreviewTextInput="UIElement_OnPreviewTextInput"
