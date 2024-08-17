@@ -1,4 +1,6 @@
-﻿SELECT ROUND(SUM(value), 2)
+﻿VACUUM;
+
+SELECT ROUND(SUM(value), 2)
 FROM t_history
 WHERE account_fk = 1
   AND pointed = 1;
