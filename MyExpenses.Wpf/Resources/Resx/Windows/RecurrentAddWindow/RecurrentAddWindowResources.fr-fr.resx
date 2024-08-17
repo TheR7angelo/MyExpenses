@@ -54,4 +54,16 @@ Veuillez désactiver ceux que vous ne souhaitez pas ajouter ou annuler pour n'en
     <data name="DataGridDateFormatString" xml:space="preserve">
         <value>dd/MM/yyyy hh:mm</value>
     </data>
+    <data name="DataGridTextColumnFrequencyHeader" xml:space="preserve">
+        <value>Fréquence</value>
+    </data>
+    <data name="DataGridTextColumnRecursiveCountHeader" xml:space="preserve">
+        <value>Compteur</value>
+    </data>
+    <data name="DataGridTextColumnRecursiveTotalHeader" xml:space="preserve">
+        <value>Total</value>
+    </data>
+    <data name="DataGridTextColumnStartDateHeader" xml:space="preserve">
+        <value>Date de début</value>
+    </data>
 </root>

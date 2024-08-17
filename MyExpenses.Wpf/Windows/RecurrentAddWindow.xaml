@@ -8,6 +8,7 @@
         xmlns:margin="clr-namespace:MyExpenses.Wpf.Utils.Margin;assembly=MyExpenses.Wpf.Utils"
         xmlns:converters="clr-namespace:MyExpenses.Wpf.Converters"
         xmlns:filterDataGrid="http://filterdatagrid.control.com/2021"
+        xmlns:recurrentExpenseFrequencyConverter="clr-namespace:MyExpenses.Wpf.Converters.RecurrentExpenseFrequencyConverter"
         mc:Ignorable="d"
 
         Title="{Binding TitleWindow, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
@@ -39,6 +40,7 @@
 
     <mah:MetroWindow.Resources>
         <converters:ValueSymbolConverter x:Key="ValueSymbolConverter" />
+        <recurrentExpenseFrequencyConverter:RecurrentExpenseFrequencyConverter x:Key="RecurrentExpenseFrequencyConverter" />
     </mah:MetroWindow.Resources>
 
     <Grid margin:PanelExtensions.MarginForAllChildren="5">
@@ -157,6 +159,30 @@
                         </DataTemplate>
                     </filterDataGrid:DataGridTemplateColumn.CellTemplate>
                 </filterDataGrid:DataGridTemplateColumn>
+
+                <filterDataGrid:DataGridTextColumn x:Name="DataGridTextColumnStartDate" IsColumnFiltered="True"
+                                                   Binding="{Binding StartDate}">
+                </filterDataGrid:DataGridTextColumn>
+
+                <filterDataGrid:DataGridTextColumn x:Name="DataGridTextColumnRecursiveTotal" IsColumnFiltered="True"
+                                                   Binding="{Binding RecursiveTotal}">
+                </filterDataGrid:DataGridTextColumn>
+
+                <filterDataGrid:DataGridTextColumn x:Name="DataGridTextColumnRecursiveCount" IsColumnFiltered="True"
+                                                   Binding="{Binding RecursiveCount}">
+                </filterDataGrid:DataGridTextColumn>
+
+                <filterDataGrid:DataGridTextColumn x:Name="DataGridTextColumnFrequency" IsColumnFiltered="True"
+                                                   Binding="{Binding Frequency}">
+
+                    <filterDataGrid:DataGridTextColumn.CellStyle>
+                        <Style TargetType="DataGridCell">
+                            <!-- ReSharper disable once Xaml.BindingWithContextNotResolved -->
+                            <Setter Property="ToolTip" Value="{Binding ERecursiveFrequency, Converter={StaticResource RecurrentExpenseFrequencyConverter}}" />
+                        </Style>
+                    </filterDataGrid:DataGridTextColumn.CellStyle>
+
+                </filterDataGrid:DataGridTextColumn>
 
                 <filterDataGrid:DataGridTextColumn x:Name="DataGridTextColumnNextDueDate" IsColumnFiltered="True"
                                                    Binding="{Binding NextDueDate}">
