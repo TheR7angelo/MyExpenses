@@ -94,7 +94,7 @@
                     Click="ButtonAnalytics_OnClick">
             </Button>
 
-            <Button Content="RecurrentExpensePage"
+            <Button Content="{Binding ButtonRecurrentExpense, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                     Style="{StaticResource MaterialDesignPaperButton}"
                     Click="ButtonRecurrentExpense_OnClick">
             </Button>
