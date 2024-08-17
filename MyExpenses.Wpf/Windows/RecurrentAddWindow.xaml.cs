@@ -99,27 +99,39 @@ public partial class RecurrentAddWindow
 
     public ObservableCollection<VRecursiveExpenseDerive> VRecursiveExpensesDerives { get; }
 
-    public RecurrentAddWindow(IEnumerable<TRecursiveExpense> recursiveExpenses, double currentWidth)
+    public RecurrentAddWindow(double currentWidth)
     {
-        var mapper = Mapping.Mapper;
-
         UpdateLocalLanguage();
+
         InitializeComponent();
+
         UpdateLanguage();
         Width = currentWidth;
 
         VRecursiveExpensesDerives = [];
         FilterDataGrid.ItemsSource = VRecursiveExpensesDerives;
 
-        var records = recursiveExpenses
-            .Select(s => s.Id.ToISql<VRecursiveExpense>())!
-            .Select(s => mapper.Map<VRecursiveExpenseDerive>(s))
-            .ToList();
-        VRecursiveExpensesDerives.AddRange(records);
+        UpdateDataGrid();
 
         Interface.LanguageChanged += Interface_OnLanguageChanged;
 
         this.SetWindowCornerPreference();
+    }
+
+    private void UpdateDataGrid()
+    {
+        var mapper = Mapping.Mapper;
+
+        var now = DateTime.Now;
+        using var context = new DataBaseContext();
+        var records = context.TRecursiveExpenses
+            .Where(s => (bool)s.IsActive!)
+            .Where(s => s.NextDueDate.Year.Equals(now.Year) && s.NextDueDate.Month.Equals(now.Month))
+            .Select(s => s.Id.ToISql<VRecursiveExpense>())!
+            .Select(s => mapper.Map<VRecursiveExpenseDerive>(s));
+
+        VRecursiveExpensesDerives.Clear();
+        VRecursiveExpensesDerives.AddRange(records);
     }
 
     #region Action
