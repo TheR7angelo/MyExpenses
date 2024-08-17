@@ -76,6 +76,12 @@
                     </DataGridTextColumn.Header>
                 </DataGridTextColumn>
 
+                <DataGridTextColumn Binding="{Binding Note}">
+                    <DataGridTextColumn.Header>
+                        <TextBlock Text="{Binding DataGridTextColumnNoteHeader, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType=local:RecurrentAddWindow}}" />
+                    </DataGridTextColumn.Header>
+                </DataGridTextColumn>
+
                 <DataGridTemplateColumn SortMemberPath="Category">
                     <DataGridTemplateColumn.Header>
                         <TextBlock Text="{Binding DataGridTemplateColumnCategoryHeader, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType=local:RecurrentAddWindow}}" />
