@@ -94,6 +94,11 @@
                     Click="ButtonAnalytics_OnClick">
             </Button>
 
+            <Button Content="RecurrentExpensePage"
+                    Style="{StaticResource MaterialDesignPaperButton}"
+                    Click="ButtonRecurrentExpense_OnClick">
+            </Button>
+
         </WrapPanel>
 
         <Grid Grid.Row="0" Grid.Column="1"
