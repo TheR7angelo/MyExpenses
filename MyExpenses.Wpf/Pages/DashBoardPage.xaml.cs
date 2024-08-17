@@ -133,6 +133,16 @@ public partial class DashBoardPage
         set => SetValue(ButtonAnalyticsProperty, value);
     }
 
+    public static readonly DependencyProperty ButtonRecurrentExpenseProperty =
+        DependencyProperty.Register(nameof(ButtonRecurrentExpense), typeof(string), typeof(DashBoardPage),
+            new PropertyMetadata(default(string)));
+
+    public string ButtonRecurrentExpense
+    {
+        get => (string)GetValue(ButtonRecurrentExpenseProperty);
+        set => SetValue(ButtonRecurrentExpenseProperty, value);
+    }
+
     #endregion
 
     #region DataGrid
@@ -352,7 +362,7 @@ public partial class DashBoardPage
 
     private void ButtonAccountTypeManagement_OnClick(object sender, RoutedEventArgs e)
         => nameof(MainWindow.FrameBody).NavigateTo(typeof(AccountTypeManagementPage));
-    
+
     private void ButtonAnalytics_OnClick(object sender, RoutedEventArgs e)
         => nameof(MainWindow.FrameBody).NavigateTo(typeof(AnalyticsPage));
 
@@ -364,7 +374,7 @@ public partial class DashBoardPage
 
     private void ButtonCurrencyManagement_OnClick(object sender, RoutedEventArgs e)
         => nameof(MainWindow.FrameBody).NavigateTo(typeof(CurrencyManagementPage));
-    
+
     private void ButtonLocationManagement_OnClick(object sender, RoutedEventArgs e)
         => nameof(MainWindow.FrameBody).NavigateTo(typeof(LocationManagementPage));
 
@@ -373,7 +383,7 @@ public partial class DashBoardPage
 
     private void ButtonMakeBankTransfer_OnClick(object sender, RoutedEventArgs e)
         => nameof(MainWindow.FrameBody).NavigateTo(typeof(BankTransferPage));
-    
+
     private void ButtonRecordExpense_OnClick(object sender, RoutedEventArgs e)
         => nameof(MainWindow.FrameBody).NavigateTo(typeof(RecordExpensePage));
 
@@ -788,6 +798,7 @@ public partial class DashBoardPage
         ButtonMakeBankTransfer = DashBoardPageResources.ButtonMakeBankTransfer;
         ButtonRecordExpense = DashBoardPageResources.ButtonRecordExpense;
         ButtonAnalytics = DashBoardPageResources.ButtonAnalytics;
+        ButtonRecurrentExpense = DashBoardPageResources.ButtonRecurrentExpense;
 
         TextColumnAccount.Header = DashBoardPageResources.DataGridTextColumnAccount;
         TextColumnDescription.Header = DashBoardPageResources.DataGridTextColumnDescription;

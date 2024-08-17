@@ -316,5 +316,14 @@ namespace MyExpenses.Wpf.Resources.Resx.Pages.DashBoardPage {
                 return ResourceManager.GetString("FilterDataGridDateFormatString", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Management of recurring expenses.
+        /// </summary>
+        internal static string ButtonRecurrentExpense {
+            get {
+                return ResourceManager.GetString("ButtonRecurrentExpense", resourceCulture);
+            }
+        }
     }
 }

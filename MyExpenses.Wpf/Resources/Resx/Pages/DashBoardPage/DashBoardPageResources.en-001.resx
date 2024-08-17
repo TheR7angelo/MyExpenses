@@ -98,4 +98,7 @@
     <data name="FilterDataGridDateFormatString" xml:space="preserve">
         <value>yyyy/MM/dd HH:mm</value>
     </data>
+    <data name="ButtonRecurrentExpense" xml:space="preserve">
+        <value>Management of recurring expenses</value>
+    </data>
 </root>
