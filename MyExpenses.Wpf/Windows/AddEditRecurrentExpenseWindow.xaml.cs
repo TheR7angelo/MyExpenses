@@ -1,5 +1,8 @@
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Models.Sql.Bases.Views;
 using MyExpenses.Sql.Context;
@@ -175,5 +178,67 @@ public partial class AddEditRecurrentExpenseWindow
                 MsgBox.MsgBox.Show(RecordExpensePageResources.MessageBoxEditModePaymentError, MsgBoxImage.Error);
             }
         }
+    }
+
+    private void UIElement_OnPreviewTextInput(object sender, TextCompositionEventArgs e)
+    {
+        var textBox = (TextBox)sender;
+        var txt = textBox.Text.Insert(textBox.SelectionStart, e.Text);
+
+        if (txt.Equals("-") || txt.Equals("+"))
+        {
+            e.Handled = false;
+            return;
+        }
+
+        txt = txt.Replace(',', '.');
+        var canConvert = double.TryParse(txt, NumberStyles.Any, CultureInfo.InvariantCulture, out _);
+
+        e.Handled = !canConvert;
+    }
+
+    private void UIElement_OnPreviewKeyDown(object sender, KeyEventArgs e)
+    {
+        var textBox = (TextBox)sender;
+        var textBeforeEdit = textBox.Text;
+        var caretPosition = textBox.CaretIndex;
+
+        var characterToDelete = e.Key switch
+        {
+            Key.Delete when caretPosition < textBeforeEdit.Length => textBox.Text.Substring(caretPosition, 1),
+            Key.Back when caretPosition > 0 => textBox.Text.Substring(caretPosition - 1, 1),
+            _ => ""
+        };
+
+        if (characterToDelete != "." && characterToDelete != ",") {return;}
+
+        var textAfterEdit = textBeforeEdit.Remove(caretPosition - (e.Key == Key.Back ? 1 : 0), 1); // Simulate deletion
+
+        textAfterEdit = textAfterEdit.Replace(',', '.');
+        if (double.TryParse(textAfterEdit, NumberStyles.Any, CultureInfo.InvariantCulture, out _))
+        {
+            return;
+        }
+        e.Handled = true;
+        textBox.CaretIndex = caretPosition;
+    }
+
+    private void TextBoxValue_OnTextChanged(object sender, TextChangedEventArgs e)
+    {
+        var textBox = (TextBox)sender;
+        var txt = textBox.Text;
+        var position = textBox.CaretIndex;
+
+        txt = txt.Replace(',', '.');
+        if (double.TryParse(txt, NumberStyles.Any, CultureInfo.InvariantCulture, out var value))
+        {
+            RecursiveExpense.Value = value;
+        }
+        else if (!txt.EndsWith('.'))
+        {
+            RecursiveExpense.Value = null;
+        }
+
+        textBox.CaretIndex = position;
     }
 }
