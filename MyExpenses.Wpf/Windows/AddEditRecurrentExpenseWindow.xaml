@@ -143,6 +143,27 @@
 
         </Button>
 
+        <TextBox Grid.Row="5" Grid.Column="0"
+                 materialDesign:HintAssist.Hint="{Binding TextBoxValueHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                 Style="{StaticResource MaterialDesignFilledTextBox}"
+                 Text="{Binding RecursiveExpense.Value, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                 AcceptsReturn="False" AcceptsTab="False"
+                 PreviewKeyDown="UIElement_OnPreviewKeyDown"
+                 PreviewTextInput="UIElement_OnPreviewTextInput"
+                 TextChanged="TextBoxValue_OnTextChanged">
+        </TextBox>
+
+        <Button Grid.Row="5" Grid.Column="1"
+                HorizontalAlignment="Left"
+                Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}">
+            <!-- Click="ButtonModePayment_OnClick"> -->
+
+            <Button.Content>
+                <materialDesign:PackIcon Kind="Calculator" />
+            </Button.Content>
+
+        </Button>
+
     </Grid>
 
 </mah:MetroWindow>
