@@ -88,6 +88,15 @@ namespace MyExpenses.Wpf.Resources.Resx.Windows.RecurrentAddWindow {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to yyyy/MM/dd hh:mm.
+        /// </summary>
+        internal static string DataGridDateFormatString {
+            get {
+                return ResourceManager.GetString("DataGridDateFormatString", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Category.
         /// </summary>
         internal static string DataGridTemplateColumnCategoryHeader {

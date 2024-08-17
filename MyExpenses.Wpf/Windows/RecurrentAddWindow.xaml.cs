@@ -1,4 +1,9 @@
+using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Input;
+using FilterDataGrid;
 using MyExpenses.Models.AutoMapper;
 using MyExpenses.Models.Config;
 using MyExpenses.Models.Config.Interfaces;
@@ -7,8 +12,10 @@ using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Models.Sql.Bases.Views;
 using MyExpenses.Models.Sql.Derivatives.Views;
 using MyExpenses.Sql.Context;
+using MyExpenses.Utils.Collection;
 using MyExpenses.Wpf.Resources.Resx.Windows.RecurrentAddWindow;
 using MyExpenses.Wpf.Utils;
+using MyExpenses.Wpf.Utils.FilterDataGrid;
 
 namespace MyExpenses.Wpf.Windows;
 
@@ -20,94 +27,23 @@ public partial class RecurrentAddWindow
 
     #region DataGrid
 
-    public static readonly DependencyProperty DataGridTextColumnAccountHeaderProperty =
-        DependencyProperty.Register(nameof(DataGridTextColumnAccountHeader), typeof(string), typeof(RecurrentAddWindow),
+    public static readonly DependencyProperty LocalLanguageProperty = DependencyProperty.Register(nameof(LocalLanguage),
+        typeof(Local), typeof(RecurrentAddWindow), new PropertyMetadata(default(Local)));
+
+    public Local LocalLanguage
+    {
+        get => (Local)GetValue(LocalLanguageProperty);
+        set => SetValue(LocalLanguageProperty, value);
+    }
+
+    public static readonly DependencyProperty DateFormatStringProperty =
+        DependencyProperty.Register(nameof(DateFormatString), typeof(string), typeof(RecurrentAddWindow),
             new PropertyMetadata(default(string)));
 
-    public string DataGridTextColumnAccountHeader
+    public string DateFormatString
     {
-        get => (string)GetValue(DataGridTextColumnAccountHeaderProperty);
-        set => SetValue(DataGridTextColumnAccountHeaderProperty, value);
-    }
-
-    public static readonly DependencyProperty DataGridTextColumnDescriptionHeaderProperty =
-        DependencyProperty.Register(nameof(DataGridTextColumnDescriptionHeader), typeof(string),
-            typeof(RecurrentAddWindow), new PropertyMetadata(default(string)));
-
-    public string DataGridTextColumnDescriptionHeader
-    {
-        get => (string)GetValue(DataGridTextColumnDescriptionHeaderProperty);
-        set => SetValue(DataGridTextColumnDescriptionHeaderProperty, value);
-    }
-
-    public static readonly DependencyProperty DataGridTextColumnNoteHeaderProperty =
-        DependencyProperty.Register(nameof(DataGridTextColumnNoteHeader), typeof(string), typeof(RecurrentAddWindow),
-            new PropertyMetadata(default(string)));
-
-    public string DataGridTextColumnNoteHeader
-    {
-        get => (string)GetValue(DataGridTextColumnNoteHeaderProperty);
-        set => SetValue(DataGridTextColumnNoteHeaderProperty, value);
-    }
-
-    public static readonly DependencyProperty DataGridTemplateColumnCategoryHeaderProperty =
-        DependencyProperty.Register(nameof(DataGridTemplateColumnCategoryHeader), typeof(string),
-            typeof(RecurrentAddWindow), new PropertyMetadata(default(string)));
-
-    public string DataGridTemplateColumnCategoryHeader
-    {
-        get => (string)GetValue(DataGridTemplateColumnCategoryHeaderProperty);
-        set => SetValue(DataGridTemplateColumnCategoryHeaderProperty, value);
-    }
-
-    public static readonly DependencyProperty DataGridTextColumnModePaymentHeaderProperty =
-        DependencyProperty.Register(nameof(DataGridTextColumnModePaymentHeader), typeof(string),
-            typeof(RecurrentAddWindow), new PropertyMetadata(default(string)));
-
-    public string DataGridTextColumnModePaymentHeader
-    {
-        get => (string)GetValue(DataGridTextColumnModePaymentHeaderProperty);
-        set => SetValue(DataGridTextColumnModePaymentHeaderProperty, value);
-    }
-
-    public static readonly DependencyProperty DataGridTemplateColumnValueHeaderProperty =
-        DependencyProperty.Register(nameof(DataGridTemplateColumnValueHeader), typeof(string),
-            typeof(RecurrentAddWindow), new PropertyMetadata(default(string)));
-
-    public string DataGridTemplateColumnValueHeader
-    {
-        get => (string)GetValue(DataGridTemplateColumnValueHeaderProperty);
-        set => SetValue(DataGridTemplateColumnValueHeaderProperty, value);
-    }
-
-    public static readonly DependencyProperty DataGridTextColumnNextDueDateHeaderProperty =
-        DependencyProperty.Register(nameof(DataGridTextColumnNextDueDateHeader), typeof(string),
-            typeof(RecurrentAddWindow), new PropertyMetadata(default(string)));
-
-    public string DataGridTextColumnNextDueDateHeader
-    {
-        get => (string)GetValue(DataGridTextColumnNextDueDateHeaderProperty);
-        set => SetValue(DataGridTextColumnNextDueDateHeaderProperty, value);
-    }
-
-    public static readonly DependencyProperty DataGridTextColumnPlaceHeaderProperty =
-        DependencyProperty.Register(nameof(DataGridTextColumnPlaceHeader), typeof(string), typeof(RecurrentAddWindow),
-            new PropertyMetadata(default(string)));
-
-    public string DataGridTextColumnPlaceHeader
-    {
-        get => (string)GetValue(DataGridTextColumnPlaceHeaderProperty);
-        set => SetValue(DataGridTextColumnPlaceHeaderProperty, value);
-    }
-
-    public static readonly DependencyProperty DataGridCheckBoxColumnRecursiveToAddHeaderProperty =
-        DependencyProperty.Register(nameof(DataGridCheckBoxColumnRecursiveToAddHeader), typeof(string),
-            typeof(RecurrentAddWindow), new PropertyMetadata(default(string)));
-
-    public string DataGridCheckBoxColumnRecursiveToAddHeader
-    {
-        get => (string)GetValue(DataGridCheckBoxColumnRecursiveToAddHeaderProperty);
-        set => SetValue(DataGridCheckBoxColumnRecursiveToAddHeaderProperty, value);
+        get => (string)GetValue(DateFormatStringProperty);
+        set => SetValue(DateFormatStringProperty, value);
     }
 
     #endregion
@@ -159,21 +95,27 @@ public partial class RecurrentAddWindow
 
     #endregion
 
-    public List<VRecursiveExpenseDerive> VRecursiveExpensesDerives { get; }
+    private DataGridRow? DataGridRow { get; set; }
+
+    public ObservableCollection<VRecursiveExpenseDerive> VRecursiveExpensesDerives { get; }
 
     public RecurrentAddWindow(IEnumerable<TRecursiveExpense> recursiveExpenses, double currentWidth)
     {
         var mapper = Mapping.Mapper;
-        VRecursiveExpensesDerives =
-        [
-            ..recursiveExpenses
-                .Select(s => s.Id.ToISql<VRecursiveExpense>())!
-                .Select(s => mapper.Map<VRecursiveExpenseDerive>(s))
-        ];
 
-        UpdateLanguage();
+        UpdateLocalLanguage();
         InitializeComponent();
+        UpdateLanguage();
         Width = currentWidth;
+
+        VRecursiveExpensesDerives = [];
+        FilterDataGrid.ItemsSource = VRecursiveExpensesDerives;
+
+        var records = recursiveExpenses
+            .Select(s => s.Id.ToISql<VRecursiveExpense>())!
+            .Select(s => mapper.Map<VRecursiveExpenseDerive>(s))
+            .ToList();
+        VRecursiveExpensesDerives.AddRange(records);
 
         Interface.LanguageChanged += Interface_OnLanguageChanged;
 
@@ -214,6 +156,9 @@ public partial class RecurrentAddWindow
         Close();
     }
 
+    private void DataGridRow_PreviewMouseRightButtonDown(object sender, MouseButtonEventArgs e)
+        => DataGridRow = sender as DataGridRow;
+
     private TRecursiveExpense UpdateTRecursiveExpense(TRecursiveExpense recursiveExpense)
     {
         recursiveExpense.RecursiveCount += 1;
@@ -249,18 +194,27 @@ public partial class RecurrentAddWindow
         TitleWindow = RecurrentAddWindowResources.TitleWindow;
         TextBlockAddRecurrenceNeeded = RecurrentAddWindowResources.TextBlockAddRecurrenceNeeded;
 
-        DataGridTextColumnAccountHeader = RecurrentAddWindowResources.DataGridTextColumnAccountHeader;
-        DataGridTextColumnDescriptionHeader = RecurrentAddWindowResources.DataGridTextColumnDescriptionHeader;
-        DataGridTextColumnNoteHeader = RecurrentAddWindowResources.DataGridTextColumnNoteHeader;
-        DataGridTemplateColumnCategoryHeader = RecurrentAddWindowResources.DataGridTemplateColumnCategoryHeader;
-        DataGridTextColumnModePaymentHeader = RecurrentAddWindowResources.DataGridTextColumnModePaymentHeader;
-        DataGridTemplateColumnValueHeader = RecurrentAddWindowResources.DataGridTemplateColumnValueHeader;
-        DataGridTextColumnNextDueDateHeader = RecurrentAddWindowResources.DataGridTextColumnNextDueDateHeader;
-        DataGridTextColumnPlaceHeader = RecurrentAddWindowResources.DataGridTextColumnPlaceHeader;
-        DataGridCheckBoxColumnRecursiveToAddHeader = RecurrentAddWindowResources.DataGridCheckBoxColumnRecursiveToAddHeader;
+        UpdateLocalLanguage();
+        DateFormatString = RecurrentAddWindowResources.DataGridDateFormatString;
+
+        DataGridTextColumnAccount.Header = RecurrentAddWindowResources.DataGridTextColumnAccountHeader;
+        DataGridTextColumnDescription.Header = RecurrentAddWindowResources.DataGridTextColumnDescriptionHeader;
+        DataGridTextColumnNote.Header = RecurrentAddWindowResources.DataGridTextColumnNoteHeader;
+        DataGridTemplateColumnCategory.Header = RecurrentAddWindowResources.DataGridTemplateColumnCategoryHeader;
+        DataGridTextColumnModePayment.Header = RecurrentAddWindowResources.DataGridTextColumnModePaymentHeader;
+        DataGridTemplateColumnValue.Header = RecurrentAddWindowResources.DataGridTemplateColumnValueHeader;
+        DataGridTextColumnNextDueDate.Header = RecurrentAddWindowResources.DataGridTextColumnNextDueDateHeader;
+        DataGridTextColumnPlace.Header = RecurrentAddWindowResources.DataGridTextColumnPlaceHeader;
+        DataGridCheckBoxColumnRecursiveToAdd.Header = RecurrentAddWindowResources.DataGridCheckBoxColumnRecursiveToAddHeader;
 
         ButtonValidContent = RecurrentAddWindowResources.ButtonValidContent;
         ButtonCancelContent = RecurrentAddWindowResources.ButtonCancelContent;
+    }
+
+    private void UpdateLocalLanguage()
+    {
+        var currentCulture = CultureInfo.CurrentCulture;
+        LocalLanguage = currentCulture.ToLocal();
     }
 
     #endregion

@@ -51,4 +51,7 @@ Please disable the ones you don't want to add or cancel to not add any.</value>
     <data name="ButtonCancelContent" xml:space="preserve">
         <value>Cancel</value>
     </data>
+    <data name="DataGridDateFormatString" xml:space="preserve">
+        <value>yyyy/MM/dd hh:mm</value>
+    </data>
 </root>
