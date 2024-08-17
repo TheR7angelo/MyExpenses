@@ -7,6 +7,7 @@
         xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
         xmlns:margin="clr-namespace:MyExpenses.Wpf.Utils.Margin;assembly=MyExpenses.Wpf.Utils"
         xmlns:converters="clr-namespace:MyExpenses.Wpf.Converters"
+        xmlns:filterDataGrid="http://filterdatagrid.control.com/2021"
         mc:Ignorable="d"
 
         Title="{Binding TitleWindow, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
@@ -61,39 +62,63 @@
 
         </Border>
 
-        <DataGrid Grid.Row="1"
-                  ItemsSource="{Binding VRecursiveExpensesDerives, Mode=OneTime}"
-                  IsReadOnly="True" AutoGenerateColumns="False"
-                  CanUserAddRows="False" CanUserDeleteRows="False"
-                  CanUserReorderColumns="False"
-                  HorizontalScrollBarVisibility="Auto"
-                  VerticalScrollBarVisibility="Auto">
+        <filterDataGrid:FilterDataGrid Grid.Row="1"
+                                       x:Name="FilterDataGrid"
+                                       ShowStatusBar="True" ShowElapsedTime="True"
+                                       FilterPopupBackground="{DynamicResource MaterialDesignPaper}"
+                                       ItemsSource="{Binding VRecursiveExpensesDerives, Mode=OneWay}"
+                                       IsReadOnly="True" AutoGenerateColumns="False"
+                                       CanUserAddRows="False" CanUserDeleteRows="False"
+                                       CanUserReorderColumns="False"
+                                       HorizontalScrollBarVisibility="Auto"
+                                       VerticalScrollBarVisibility="Auto"
 
-            <DataGrid.Columns>
+                                       FilterLanguage="{Binding LocalLanguage, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                                       DateFormatString="{Binding DateFormatString, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
 
-                <DataGridTextColumn Binding="{Binding Account}">
-                    <DataGridTextColumn.Header>
-                        <TextBlock Text="{Binding DataGridTextColumnAccountHeader, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType=local:RecurrentAddWindow}}" />
-                    </DataGridTextColumn.Header>
-                </DataGridTextColumn>
+            <filterDataGrid:FilterDataGrid.Resources>
+                <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignPaperButton}" />
+            </filterDataGrid:FilterDataGrid.Resources>
 
-                <DataGridTextColumn Binding="{Binding Description}">
-                    <DataGridTextColumn.Header>
-                        <TextBlock Text="{Binding DataGridTextColumnDescriptionHeader, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType=local:RecurrentAddWindow}}" />
-                    </DataGridTextColumn.Header>
-                </DataGridTextColumn>
+            <filterDataGrid:FilterDataGrid.ItemContainerStyle>
+                <Style TargetType="DataGridRow" BasedOn="{StaticResource {x:Type DataGridRow}}">
+                    <EventSetter Event="PreviewMouseRightButtonDown"
+                                 Handler="DataGridRow_PreviewMouseRightButtonDown">
+                    </EventSetter>
+                </Style>
+            </filterDataGrid:FilterDataGrid.ItemContainerStyle>
 
-                <DataGridTextColumn Binding="{Binding Note}">
-                    <DataGridTextColumn.Header>
-                        <TextBlock Text="{Binding DataGridTextColumnNoteHeader, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType=local:RecurrentAddWindow}}" />
-                    </DataGridTextColumn.Header>
-                </DataGridTextColumn>
+            <!-- <filterDataGrid:FilterDataGrid.ContextMenu> -->
+            <!--     <ContextMenu> -->
+            <!--         <MenuItem -->
+            <!--             Header="{Binding DataGridMenuItemHeaderEditRecord, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" -->
+            <!--             Click="MenuItemEditRecord_OnClick" /> -->
+            <!--         <MenuItem -->
+            <!--             Header="{Binding DataGridCheckBoxColumnPointed, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" -->
+            <!--             Click="MenuItemPointed_OnClick" /> -->
+            <!--         <MenuItem -->
+            <!--             Header="{Binding DataGridMenuItemHeaderDeleteRecord, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" -->
+            <!--             Click="MenuItemDeleteRecord_OnClick" /> -->
+            <!--     </ContextMenu> -->
+            <!-- </filterDataGrid:FilterDataGrid.ContextMenu> -->
 
-                <DataGridTemplateColumn SortMemberPath="Category">
-                    <DataGridTemplateColumn.Header>
-                        <TextBlock Text="{Binding DataGridTemplateColumnCategoryHeader, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType=local:RecurrentAddWindow}}" />
-                    </DataGridTemplateColumn.Header>
-                    <DataGridTemplateColumn.CellTemplate>
+            <filterDataGrid:FilterDataGrid.Columns>
+
+                <filterDataGrid:DataGridTextColumn x:Name="DataGridTextColumnAccount" IsColumnFiltered="True"
+                                                  Binding="{Binding Account}">
+                </filterDataGrid:DataGridTextColumn>
+
+                <filterDataGrid:DataGridTextColumn x:Name="DataGridTextColumnDescription" IsColumnFiltered="True"
+                                                   Binding="{Binding Description}">
+                </filterDataGrid:DataGridTextColumn>
+
+                <filterDataGrid:DataGridTextColumn x:Name="DataGridTextColumnNote" IsColumnFiltered="True"
+                                                   Binding="{Binding Note}">
+                </filterDataGrid:DataGridTextColumn>
+
+                <filterDataGrid:DataGridTemplateColumn x:Name="DataGridTemplateColumnCategory" IsColumnFiltered="True"
+                                                       SortMemberPath="Category" FieldName="Category">
+                    <filterDataGrid:DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <StackPanel Orientation="Horizontal"
                                         HorizontalAlignment="Left"
@@ -110,20 +135,16 @@
 
                             </StackPanel>
                         </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
+                    </filterDataGrid:DataGridTemplateColumn.CellTemplate>
+                </filterDataGrid:DataGridTemplateColumn>
 
-                <DataGridTextColumn Binding="{Binding ModePayment}">
-                    <DataGridTextColumn.Header>
-                        <TextBlock Text="{Binding DataGridTextColumnModePaymentHeader, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType=local:RecurrentAddWindow}}" />
-                    </DataGridTextColumn.Header>
-                </DataGridTextColumn>
+                <filterDataGrid:DataGridTextColumn x:Name="DataGridTextColumnModePayment" IsColumnFiltered="True"
+                                                   Binding="{Binding ModePayment}">
+                </filterDataGrid:DataGridTextColumn>
 
-                <DataGridTemplateColumn SortMemberPath="Value">
-                    <DataGridTemplateColumn.Header>
-                        <TextBlock Text="{Binding DataGridTemplateColumnValueHeader, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType=local:RecurrentAddWindow}}" />
-                    </DataGridTemplateColumn.Header>
-                    <DataGridTemplateColumn.CellTemplate>
+                <filterDataGrid:DataGridTemplateColumn x:Name="DataGridTemplateColumnValue" IsColumnFiltered="True"
+                                                       SortMemberPath="Value" FieldName="Value">
+                    <filterDataGrid:DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <TextBlock>
                                 <TextBlock.Text>
@@ -134,30 +155,24 @@
                                 </TextBlock.Text>
                             </TextBlock>
                         </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
+                    </filterDataGrid:DataGridTemplateColumn.CellTemplate>
+                </filterDataGrid:DataGridTemplateColumn>
 
-                <DataGridTextColumn Binding="{Binding NextDueDate}">
-                    <DataGridTextColumn.Header>
-                        <TextBlock Text="{Binding DataGridTextColumnNextDueDateHeader, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType=local:RecurrentAddWindow}}" />
-                    </DataGridTextColumn.Header>
-                </DataGridTextColumn>
+                <filterDataGrid:DataGridTextColumn x:Name="DataGridTextColumnNextDueDate" IsColumnFiltered="True"
+                                                   Binding="{Binding NextDueDate}">
+                </filterDataGrid:DataGridTextColumn>
 
-                <DataGridTextColumn Binding="{Binding Place}">
-                    <DataGridTextColumn.Header>
-                        <TextBlock Text="{Binding DataGridTextColumnPlaceHeader, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType=local:RecurrentAddWindow}}" />
-                    </DataGridTextColumn.Header>
-                </DataGridTextColumn>
+                <filterDataGrid:DataGridTextColumn x:Name="DataGridTextColumnPlace" IsColumnFiltered="True"
+                                                   Binding="{Binding Place}">
+                </filterDataGrid:DataGridTextColumn>
 
-                <DataGridCheckBoxColumn Binding="{Binding RecursiveToAdd}">
-                    <DataGridCheckBoxColumn.Header>
-                        <TextBlock Text="{Binding DataGridCheckBoxColumnRecursiveToAddHeader, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType=local:RecurrentAddWindow}}" />
-                    </DataGridCheckBoxColumn.Header>
-                </DataGridCheckBoxColumn>
+                <filterDataGrid:DataGridCheckBoxColumn x:Name="DataGridCheckBoxColumnRecursiveToAdd" IsColumnFiltered="True"
+                                                       Binding="{Binding RecursiveToAdd}">
+                </filterDataGrid:DataGridCheckBoxColumn>
 
-            </DataGrid.Columns>
+            </filterDataGrid:FilterDataGrid.Columns>
 
-        </DataGrid>
+        </filterDataGrid:FilterDataGrid>
 
         <StackPanel Grid.Row="2"
                     margin:PanelExtensions.MarginForAllChildren="5"

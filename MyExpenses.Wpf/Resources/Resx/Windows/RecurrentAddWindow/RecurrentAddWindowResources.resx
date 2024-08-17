@@ -3,7 +3,7 @@
 <root>
     <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <xsd:element name="root" msdata:IsDataSet="true">
-            
+
         </xsd:element>
     </xsd:schema>
     <resheader name="resmimetype">
@@ -57,5 +57,8 @@ Please disable the ones you don't want to add or cancel to not add any.</value>
     </data>
     <data name="ButtonCancelContent" xml:space="preserve">
         <value>Cancel</value>
+    </data>
+    <data name="DataGridDateFormatString" xml:space="preserve">
+        <value>yyyy/MM/dd hh:mm</value>
     </data>
 </root>
