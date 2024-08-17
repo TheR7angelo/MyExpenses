@@ -128,8 +128,8 @@
 
         <Button Grid.Row="4" Grid.Column="1"
                 HorizontalAlignment="Left"
-                Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
-                Click="ButtonModePayment_OnClick">
+                Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}">
+                <!-- Click="ButtonModePayment_OnClick"> -->
 
             <Button.Content>
                 <materialDesign:PackIcon Kind="Calculator" />
