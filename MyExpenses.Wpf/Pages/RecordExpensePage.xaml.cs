@@ -286,7 +286,7 @@ public partial class RecordExpensePage
 
                 MsgBox.Show(RecordExpensePageResources.MessageBoxEditAccountSuccess, MsgBoxImage.Check);
 
-                var accountToRemove = Accounts.FirstOrDefault(s => s.Id == History.Id);
+                var accountToRemove = Accounts.FirstOrDefault(s => s.Id == History.AccountFk);
                 Accounts!.AddAndSort(accountToRemove, editedAccount, s => s?.Name!);
 
                 History.AccountFk = editedAccount.Id;
