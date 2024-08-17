@@ -11,6 +11,7 @@ using MyExpenses.Sql.Context;
 using MyExpenses.Utils.Collection;
 using MyExpenses.Wpf.Resources.Resx.Pages.RecurrentExpensePage;
 using MyExpenses.Wpf.Utils.FilterDataGrid;
+using MyExpenses.Wpf.Windows;
 
 namespace MyExpenses.Wpf.Pages;
 
@@ -115,5 +116,16 @@ public partial class RecurrentExpensePage
     private void ButtonAddNewRecurrent_OnClick(object sender, RoutedEventArgs e)
     {
         Console.WriteLine("Adding new Recurent Expense");
+    }
+
+    private void MenuItemEditRecurrentExpense_OnClick(object sender, RoutedEventArgs e)
+    {
+        if (DataGridRow?.DataContext is not VRecursiveExpense vRecurrentExpense) return;
+
+        var addEditRecurrentExpenseWindow = new AddEditRecurrentExpenseWindow();
+        addEditRecurrentExpenseWindow.SetVRecursiveExpense(vRecurrentExpense);
+
+        addEditRecurrentExpenseWindow.ShowDialog();
+
     }
 }
