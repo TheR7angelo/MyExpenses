@@ -39,6 +39,16 @@ public partial class RecurrentAddWindow
         set => SetValue(DataGridTextColumnDescriptionHeaderProperty, value);
     }
 
+    public static readonly DependencyProperty DataGridTextColumnNoteHeaderProperty =
+        DependencyProperty.Register(nameof(DataGridTextColumnNoteHeader), typeof(string), typeof(RecurrentAddWindow),
+            new PropertyMetadata(default(string)));
+
+    public string DataGridTextColumnNoteHeader
+    {
+        get => (string)GetValue(DataGridTextColumnNoteHeaderProperty);
+        set => SetValue(DataGridTextColumnNoteHeaderProperty, value);
+    }
+
     public static readonly DependencyProperty DataGridTemplateColumnCategoryHeaderProperty =
         DependencyProperty.Register(nameof(DataGridTemplateColumnCategoryHeader), typeof(string),
             typeof(RecurrentAddWindow), new PropertyMetadata(default(string)));
@@ -241,6 +251,7 @@ public partial class RecurrentAddWindow
 
         DataGridTextColumnAccountHeader = "DataGridTextColumnAccountHeader";
         DataGridTextColumnDescriptionHeader = "DataGridTextColumnDescriptionHeader";
+        DataGridTextColumnNoteHeader = "DataGridTextColumnNoteHeader";
         DataGridTemplateColumnCategoryHeader = "DataGridTemplateColumnCategoryHeader";
         DataGridTextColumnModePaymentHeader = "DataGridTextColumnModePaymentHeader";
         DataGridTemplateColumnValueHeader = "DataGridTemplateColumnValueHeader";
