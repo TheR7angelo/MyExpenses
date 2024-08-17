@@ -341,6 +341,8 @@ public partial class DashBoardPage
 
     #region Action
 
+    #region ButtonNavigate
+
     private void ButtonAccountManagement_OnClick(object sender, RoutedEventArgs e)
     {
         var page = new AccountManagementPage { DashBoardPage = this };
@@ -349,6 +351,35 @@ public partial class DashBoardPage
 
     private void ButtonAccountTypeManagement_OnClick(object sender, RoutedEventArgs e)
         => nameof(MainWindow.FrameBody).NavigateTo(typeof(AccountTypeManagementPage));
+    
+    private void ButtonAnalytics_OnClick(object sender, RoutedEventArgs e)
+        => nameof(MainWindow.FrameBody).NavigateTo(typeof(AnalyticsPage));
+
+    private void ButtonCategoryTypeManagement_OnClick(object sender, RoutedEventArgs e)
+        => nameof(MainWindow.FrameBody).NavigateTo(typeof(CategoryTypeManagementPage));
+
+    private void ButtonColorManagement_OnClick(object sender, RoutedEventArgs e)
+        => nameof(MainWindow.FrameBody).NavigateTo(typeof(ColorManagementPage));
+
+    private void ButtonCurrencyManagement_OnClick(object sender, RoutedEventArgs e)
+        => nameof(MainWindow.FrameBody).NavigateTo(typeof(CurrencyManagementPage));
+    
+    private void ButtonLocationManagement_OnClick(object sender, RoutedEventArgs e)
+        => nameof(MainWindow.FrameBody).NavigateTo(typeof(LocationManagementPage));
+
+    private void ButtonModePaymentManagement_OnClick(object sender, RoutedEventArgs e)
+        => nameof(MainWindow.FrameBody).NavigateTo(typeof(ModePaymentManagementPage));
+
+    private void ButtonMakeBankTransfer_OnClick(object sender, RoutedEventArgs e)
+        => nameof(MainWindow.FrameBody).NavigateTo(typeof(BankTransferPage));
+    
+    private void ButtonRecordExpense_OnClick(object sender, RoutedEventArgs e)
+        => nameof(MainWindow.FrameBody).NavigateTo(typeof(RecordExpensePage));
+
+    private void ButtonRecurrentExpense_OnClick(object sender, RoutedEventArgs e)
+        => nameof(MainWindow.FrameBody).NavigateTo(typeof(RecurrentExpensePage));
+
+    #endregion
 
     private void ButtonAddMonth_OnClick(object sender, RoutedEventArgs e)
     {
@@ -361,18 +392,6 @@ public partial class DashBoardPage
 
         MsgBox.Show(DashBoardPageResources.MessageBoxAddMonthError, MsgBoxImage.Warning, MessageBoxButton.OK);
     }
-
-    private void ButtonAnalytics_OnClick(object sender, RoutedEventArgs e)
-        => nameof(MainWindow.FrameBody).NavigateTo(typeof(AnalyticsPage));
-
-    private void ButtonCategoryTypeManagement_OnClick(object sender, RoutedEventArgs e)
-        => nameof(MainWindow.FrameBody).NavigateTo(typeof(CategoryTypeManagementPage));
-
-    private void ButtonColorManagement_OnClick(object sender, RoutedEventArgs e)
-        => nameof(MainWindow.FrameBody).NavigateTo(typeof(ColorManagementPage));
-
-    private void ButtonCurrencyManagement_OnClick(object sender, RoutedEventArgs e)
-        => nameof(MainWindow.FrameBody).NavigateTo(typeof(CurrencyManagementPage));
 
     private void ButtonDateNow_OnClick(object sender, RoutedEventArgs e)
     {
@@ -401,15 +420,6 @@ public partial class DashBoardPage
         EditRecord(vHistory);
     }
 
-    private void ButtonLocationManagement_OnClick(object sender, RoutedEventArgs e)
-        => nameof(MainWindow.FrameBody).NavigateTo(typeof(LocationManagementPage));
-
-    private void ButtonModePaymentManagement_OnClick(object sender, RoutedEventArgs e)
-        => nameof(MainWindow.FrameBody).NavigateTo(typeof(ModePaymentManagementPage));
-
-    private void ButtonMakeBankTransfer_OnClick(object sender, RoutedEventArgs e)
-        => nameof(MainWindow.FrameBody).NavigateTo(typeof(BankTransferPage));
-
     private void ButtonPointedRecord_OnClick(object sender, RoutedEventArgs e)
     {
         var button = (Button)sender;
@@ -417,12 +427,6 @@ public partial class DashBoardPage
 
         PointRecord(vHistory);
     }
-
-    private void ButtonRecordExpense_OnClick(object sender, RoutedEventArgs e)
-        => nameof(MainWindow.FrameBody).NavigateTo(typeof(RecordExpensePage));
-
-    private void ButtonRecurrentExpense_OnClick(object sender, RoutedEventArgs e)
-        => nameof(MainWindow.FrameBody).NavigateTo(typeof(RecurrentExpensePage));
 
     private void ButtonRemoveMonth_OnClick(object sender, RoutedEventArgs e)
     {
