@@ -13,6 +13,94 @@ namespace MyExpenses.Wpf.Windows;
 
 public partial class RecurrentAddWindow
 {
+    #region Properties
+
+    #region DependencyProperty
+
+    #region DataGrid
+
+    public static readonly DependencyProperty DataGridTextColumnAccountHeaderProperty =
+        DependencyProperty.Register(nameof(DataGridTextColumnAccountHeader), typeof(string), typeof(RecurrentAddWindow),
+            new PropertyMetadata(default(string)));
+
+    public string DataGridTextColumnAccountHeader
+    {
+        get => (string)GetValue(DataGridTextColumnAccountHeaderProperty);
+        set => SetValue(DataGridTextColumnAccountHeaderProperty, value);
+    }
+
+    public static readonly DependencyProperty DataGridTextColumnDescriptionHeaderProperty =
+        DependencyProperty.Register(nameof(DataGridTextColumnDescriptionHeader), typeof(string),
+            typeof(RecurrentAddWindow), new PropertyMetadata(default(string)));
+
+    public string DataGridTextColumnDescriptionHeader
+    {
+        get => (string)GetValue(DataGridTextColumnDescriptionHeaderProperty);
+        set => SetValue(DataGridTextColumnDescriptionHeaderProperty, value);
+    }
+
+    public static readonly DependencyProperty DataGridTemplateColumnCategoryHeaderProperty =
+        DependencyProperty.Register(nameof(DataGridTemplateColumnCategoryHeader), typeof(string),
+            typeof(RecurrentAddWindow), new PropertyMetadata(default(string)));
+
+    public string DataGridTemplateColumnCategoryHeader
+    {
+        get => (string)GetValue(DataGridTemplateColumnCategoryHeaderProperty);
+        set => SetValue(DataGridTemplateColumnCategoryHeaderProperty, value);
+    }
+
+    public static readonly DependencyProperty DataGridTextColumnModePaymentHeaderProperty =
+        DependencyProperty.Register(nameof(DataGridTextColumnModePaymentHeader), typeof(string),
+            typeof(RecurrentAddWindow), new PropertyMetadata(default(string)));
+
+    public string DataGridTextColumnModePaymentHeader
+    {
+        get => (string)GetValue(DataGridTextColumnModePaymentHeaderProperty);
+        set => SetValue(DataGridTextColumnModePaymentHeaderProperty, value);
+    }
+
+    public static readonly DependencyProperty DataGridTemplateColumnValueHeaderProperty =
+        DependencyProperty.Register(nameof(DataGridTemplateColumnValueHeader), typeof(string),
+            typeof(RecurrentAddWindow), new PropertyMetadata(default(string)));
+
+    public string DataGridTemplateColumnValueHeader
+    {
+        get => (string)GetValue(DataGridTemplateColumnValueHeaderProperty);
+        set => SetValue(DataGridTemplateColumnValueHeaderProperty, value);
+    }
+
+    public static readonly DependencyProperty DataGridTextColumnNextDueDateHeaderProperty =
+        DependencyProperty.Register(nameof(DataGridTextColumnNextDueDateHeader), typeof(string),
+            typeof(RecurrentAddWindow), new PropertyMetadata(default(string)));
+
+    public string DataGridTextColumnNextDueDateHeader
+    {
+        get => (string)GetValue(DataGridTextColumnNextDueDateHeaderProperty);
+        set => SetValue(DataGridTextColumnNextDueDateHeaderProperty, value);
+    }
+
+    public static readonly DependencyProperty DataGridTextColumnPlaceHeaderProperty =
+        DependencyProperty.Register(nameof(DataGridTextColumnPlaceHeader), typeof(string), typeof(RecurrentAddWindow),
+            new PropertyMetadata(default(string)));
+
+    public string DataGridTextColumnPlaceHeader
+    {
+        get => (string)GetValue(DataGridTextColumnPlaceHeaderProperty);
+        set => SetValue(DataGridTextColumnPlaceHeaderProperty, value);
+    }
+
+    public static readonly DependencyProperty DataGridCheckBoxColumnRecursiveToAddHeaderProperty =
+        DependencyProperty.Register(nameof(DataGridCheckBoxColumnRecursiveToAddHeader), typeof(string),
+            typeof(RecurrentAddWindow), new PropertyMetadata(default(string)));
+
+    public string DataGridCheckBoxColumnRecursiveToAddHeader
+    {
+        get => (string)GetValue(DataGridCheckBoxColumnRecursiveToAddHeaderProperty);
+        set => SetValue(DataGridCheckBoxColumnRecursiveToAddHeaderProperty, value);
+    }
+
+    #endregion
+
     public static readonly DependencyProperty TitleWindowProperty = DependencyProperty.Register(nameof(TitleWindow),
         typeof(string), typeof(RecurrentAddWindow), new PropertyMetadata(default(string)));
 
@@ -26,11 +114,15 @@ public partial class RecurrentAddWindow
         DependencyProperty.Register(nameof(TextBlockAddRecurrenceNeeded), typeof(string), typeof(RecurrentAddWindow),
             new PropertyMetadata(default(string)));
 
+    #endregion
+
     public string TextBlockAddRecurrenceNeeded
     {
         get => (string)GetValue(TextBlockAddRecurrenceNeededProperty);
         set => SetValue(TextBlockAddRecurrenceNeededProperty, value);
     }
+
+    #endregion
 
     public List<VRecursiveExpenseDerive> VRecursiveExpensesDerives { get; }
 
@@ -38,11 +130,11 @@ public partial class RecurrentAddWindow
     {
         var mapper = Mapping.Mapper;
         VRecursiveExpensesDerives =
-            [
-                ..recursiveExpenses
-                    .Select(s => s.Id.ToISql<VRecursiveExpense>())!
-                    .Select(s => mapper.Map<VRecursiveExpenseDerive>(s))
-            ];
+        [
+            ..recursiveExpenses
+                .Select(s => s.Id.ToISql<VRecursiveExpense>())!
+                .Select(s => mapper.Map<VRecursiveExpenseDerive>(s))
+        ];
 
         UpdateLanguage();
         InitializeComponent();
@@ -92,7 +184,8 @@ public partial class RecurrentAddWindow
         recursiveExpense.RecursiveCount += 1;
         recursiveExpense.LastUpdated = DateTime.Now;
 
-        if (recursiveExpense.RecursiveTotal.HasValue && recursiveExpense.RecursiveTotal < recursiveExpense.RecursiveCount)
+        if (recursiveExpense.RecursiveTotal.HasValue &&
+            recursiveExpense.RecursiveTotal < recursiveExpense.RecursiveCount)
         {
             return recursiveExpense;
         }
@@ -121,6 +214,15 @@ public partial class RecurrentAddWindow
         // TODO work
         TitleWindow = "RecurrentAddWindow";
         TextBlockAddRecurrenceNeeded = "Need to insert new recurrences";
+
+        DataGridTextColumnAccountHeader = "DataGridTextColumnAccountHeader";
+        DataGridTextColumnDescriptionHeader = "DataGridTextColumnDescriptionHeader";
+        DataGridTemplateColumnCategoryHeader = "DataGridTemplateColumnCategoryHeader";
+        DataGridTextColumnModePaymentHeader = "DataGridTextColumnModePaymentHeader";
+        DataGridTemplateColumnValueHeader = "DataGridTemplateColumnValueHeader";
+        DataGridTextColumnNextDueDateHeader = "DataGridTextColumnNextDueDateHeader";
+        DataGridTextColumnPlaceHeader = "DataGridTextColumnPlaceHeader";
+        DataGridCheckBoxColumnRecursiveToAddHeader = "DataGridCheckBoxColumnRecursiveToAddHeader";
     }
 
     #endregion

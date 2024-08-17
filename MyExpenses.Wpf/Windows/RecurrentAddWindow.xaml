@@ -64,24 +64,21 @@
 
             <DataGrid.Columns>
 
-                <!-- TODO work -->
                 <DataGridTextColumn Binding="{Binding Account}">
                     <DataGridTextColumn.Header>
-                        <TextBlock Text="Account" />
+                        <TextBlock Text="{Binding DataGridTextColumnAccountHeader, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType=local:RecurrentAddWindow}}" />
                     </DataGridTextColumn.Header>
                 </DataGridTextColumn>
 
-                <!-- TODO work -->
                 <DataGridTextColumn Binding="{Binding Description}">
                     <DataGridTextColumn.Header>
-                        <TextBlock Text="Description" />
+                        <TextBlock Text="{Binding DataGridTextColumnDescriptionHeader, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType=local:RecurrentAddWindow}}" />
                     </DataGridTextColumn.Header>
                 </DataGridTextColumn>
 
-                <!-- TODO work -->
                 <DataGridTemplateColumn SortMemberPath="Category">
                     <DataGridTemplateColumn.Header>
-                        <TextBlock Text="Category" />
+                        <TextBlock Text="{Binding DataGridTemplateColumnCategoryHeader, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType=local:RecurrentAddWindow}}" />
                     </DataGridTemplateColumn.Header>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
@@ -103,17 +100,15 @@
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
 
-                <!-- TODO work -->
                 <DataGridTextColumn Binding="{Binding ModePayment}">
                     <DataGridTextColumn.Header>
-                        <TextBlock Text="ModePayment" />
+                        <TextBlock Text="{Binding DataGridTextColumnModePaymentHeader, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType=local:RecurrentAddWindow}}" />
                     </DataGridTextColumn.Header>
                 </DataGridTextColumn>
 
-                <!-- TODO work -->
                 <DataGridTemplateColumn SortMemberPath="Value">
                     <DataGridTemplateColumn.Header>
-                        <TextBlock Text="Value" />
+                        <TextBlock Text="{Binding DataGridTemplateColumnValueHeader, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType=local:RecurrentAddWindow}}" />
                     </DataGridTemplateColumn.Header>
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
@@ -129,24 +124,21 @@
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
 
-                <!-- TODO work -->
                 <DataGridTextColumn Binding="{Binding NextDueDate}">
                     <DataGridTextColumn.Header>
-                        <TextBlock Text="NextDueDate" />
+                        <TextBlock Text="{Binding DataGridTextColumnNextDueDateHeader, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType=local:RecurrentAddWindow}}" />
                     </DataGridTextColumn.Header>
                 </DataGridTextColumn>
 
-                <!-- TODO work -->
                 <DataGridTextColumn Binding="{Binding Place}">
                     <DataGridTextColumn.Header>
-                        <TextBlock Text="Place" />
+                        <TextBlock Text="{Binding DataGridTextColumnPlaceHeader, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType=local:RecurrentAddWindow}}" />
                     </DataGridTextColumn.Header>
                 </DataGridTextColumn>
 
-                <!-- TODO work -->
                 <DataGridCheckBoxColumn Binding="{Binding RecursiveToAdd}">
                     <DataGridCheckBoxColumn.Header>
-                        <TextBlock Text="RecursiveToAdd" />
+                        <TextBlock Text="{Binding DataGridCheckBoxColumnRecursiveToAddHeader, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType=local:RecurrentAddWindow}}" />
                     </DataGridCheckBoxColumn.Header>
                 </DataGridCheckBoxColumn>
 
