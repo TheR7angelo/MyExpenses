@@ -1,0 +1,172 @@
+<Page x:Class="MyExpenses.Wpf.Pages.RecurrentExpensePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="clr-namespace:MyExpenses.Wpf.Pages"
+      xmlns:filterDataGrid="http://filterdatagrid.control.com/2021"
+      xmlns:converters="clr-namespace:MyExpenses.Wpf.Converters"
+      xmlns:margin="clr-namespace:MyExpenses.Wpf.Utils.Margin;assembly=MyExpenses.Wpf.Utils"
+      xmlns:recurrentExpenseFrequencyConverter="clr-namespace:MyExpenses.Wpf.Converters.RecurrentExpenseFrequencyConverter"
+      mc:Ignorable="d"
+
+      Title="RecurrentExpensePage"
+
+      Background="{DynamicResource MaterialDesignPaper}"
+      TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+
+      DataContext="{Binding RelativeSource={RelativeSource Self}}">
+
+    <Page.Resources>
+        <converters:ValueSymbolConverter x:Key="ValueSymbolConverter" />
+        <recurrentExpenseFrequencyConverter:RecurrentExpenseFrequencyConverter x:Key="RecurrentExpenseFrequencyConverter" />
+    </Page.Resources>
+
+    <Grid margin:PanelExtensions.MarginForAllChildren="5">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0"
+                    Orientation="Horizontal">
+
+        </StackPanel>
+
+        <filterDataGrid:FilterDataGrid Grid.Row="1"
+                                       x:Name="FilterDataGrid"
+                                       ShowStatusBar="True" ShowElapsedTime="True"
+                                       FilterPopupBackground="{DynamicResource MaterialDesignPaper}"
+                                       ItemsSource="{Binding VRecursiveExpenses, Mode=OneWay}"
+                                       IsReadOnly="True" AutoGenerateColumns="False"
+                                       CanUserAddRows="False" CanUserDeleteRows="False"
+                                       CanUserReorderColumns="False"
+                                       HorizontalScrollBarVisibility="Auto"
+                                       VerticalScrollBarVisibility="Auto"
+
+                                       FilterLanguage="{Binding LocalLanguage, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                                       DateFormatString="{Binding DateFormatString, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
+
+            <filterDataGrid:FilterDataGrid.Resources>
+                <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignPaperButton}" />
+            </filterDataGrid:FilterDataGrid.Resources>
+
+            <filterDataGrid:FilterDataGrid.ItemContainerStyle>
+                <Style TargetType="DataGridRow" BasedOn="{StaticResource {x:Type DataGridRow}}">
+                    <EventSetter Event="PreviewMouseRightButtonDown"
+                                 Handler="DataGridRow_PreviewMouseRightButtonDown">
+                    </EventSetter>
+                </Style>
+            </filterDataGrid:FilterDataGrid.ItemContainerStyle>
+
+            <!-- <filterDataGrid:FilterDataGrid.ContextMenu> -->
+            <!--     <ContextMenu> -->
+            <!--         <MenuItem -->
+            <!--             Header="{Binding DataGridMenuItemHeaderEditRecord, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" -->
+            <!--             Click="MenuItemEditRecord_OnClick" /> -->
+            <!--         <MenuItem -->
+            <!--             Header="{Binding DataGridMenuItemHeaderDeleteRecord, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" -->
+            <!--             Click="MenuItemDeleteRecord_OnClick" /> -->
+            <!--     </ContextMenu> -->
+            <!-- </filterDataGrid:FilterDataGrid.ContextMenu> -->
+
+            <filterDataGrid:FilterDataGrid.Columns>
+
+                <filterDataGrid:DataGridTextColumn x:Name="DataGridTextColumnAccount" IsColumnFiltered="True"
+                                                  Binding="{Binding Account}">
+                </filterDataGrid:DataGridTextColumn>
+
+                <filterDataGrid:DataGridTextColumn x:Name="DataGridTextColumnDescription" IsColumnFiltered="True"
+                                                   Binding="{Binding Description}">
+                </filterDataGrid:DataGridTextColumn>
+
+                <filterDataGrid:DataGridTextColumn x:Name="DataGridTextColumnNote" IsColumnFiltered="True"
+                                                   Binding="{Binding Note}">
+                </filterDataGrid:DataGridTextColumn>
+
+                <filterDataGrid:DataGridTemplateColumn x:Name="DataGridTemplateColumnCategory" IsColumnFiltered="True"
+                                                       SortMemberPath="Category" FieldName="Category">
+                    <filterDataGrid:DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal"
+                                        HorizontalAlignment="Left"
+                                        VerticalAlignment="Top">
+
+                                <Ellipse Height="16" Width="{Binding Height, RelativeSource={RelativeSource Self}}"
+                                         Stroke="{DynamicResource MaterialDesignBody}"
+                                         StrokeThickness="1.5"
+                                         Fill="{Binding HexadecimalColorCode, Mode=OneWay}"
+                                         Margin="0, 0, 3, 0">
+                                </Ellipse>
+
+                                <TextBlock Text="{Binding Category}" Margin="3, 0, 0, 0" />
+
+                            </StackPanel>
+                        </DataTemplate>
+                    </filterDataGrid:DataGridTemplateColumn.CellTemplate>
+                </filterDataGrid:DataGridTemplateColumn>
+
+                <filterDataGrid:DataGridTextColumn x:Name="DataGridTextColumnModePayment" IsColumnFiltered="True"
+                                                   Binding="{Binding ModePayment}">
+                </filterDataGrid:DataGridTextColumn>
+
+                <filterDataGrid:DataGridTemplateColumn x:Name="DataGridTemplateColumnValue" IsColumnFiltered="True"
+                                                       SortMemberPath="Value" FieldName="Value">
+                    <filterDataGrid:DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock>
+                                <TextBlock.Text>
+                                    <MultiBinding Converter="{StaticResource ValueSymbolConverter}">
+                                        <Binding Path="Value" />
+                                        <Binding Path="Symbol" />
+                                    </MultiBinding>
+                                </TextBlock.Text>
+                            </TextBlock>
+                        </DataTemplate>
+                    </filterDataGrid:DataGridTemplateColumn.CellTemplate>
+                </filterDataGrid:DataGridTemplateColumn>
+
+                <filterDataGrid:DataGridTextColumn x:Name="DataGridTextColumnStartDate" IsColumnFiltered="True"
+                                                   Binding="{Binding StartDate}">
+                </filterDataGrid:DataGridTextColumn>
+
+                <filterDataGrid:DataGridTextColumn x:Name="DataGridTextColumnRecursiveTotal" IsColumnFiltered="True"
+                                                   Binding="{Binding RecursiveTotal}">
+                </filterDataGrid:DataGridTextColumn>
+
+                <filterDataGrid:DataGridTextColumn x:Name="DataGridTextColumnRecursiveCount" IsColumnFiltered="True"
+                                                   Binding="{Binding RecursiveCount}">
+                </filterDataGrid:DataGridTextColumn>
+
+                <filterDataGrid:DataGridTextColumn x:Name="DataGridTextColumnFrequency" IsColumnFiltered="True"
+                                                   Binding="{Binding Frequency}">
+
+                    <filterDataGrid:DataGridTextColumn.CellStyle>
+                        <Style TargetType="DataGridCell">
+                            <!-- ReSharper disable once Xaml.BindingWithContextNotResolved -->
+                            <Setter Property="ToolTip" Value="{Binding ERecursiveFrequency, Converter={StaticResource RecurrentExpenseFrequencyConverter}}" />
+                        </Style>
+                    </filterDataGrid:DataGridTextColumn.CellStyle>
+
+                </filterDataGrid:DataGridTextColumn>
+
+                <filterDataGrid:DataGridTextColumn x:Name="DataGridTextColumnNextDueDate" IsColumnFiltered="True"
+                                                   Binding="{Binding NextDueDate}">
+                </filterDataGrid:DataGridTextColumn>
+
+                <filterDataGrid:DataGridTextColumn x:Name="DataGridTextColumnPlace" IsColumnFiltered="True"
+                                                   Binding="{Binding Place}">
+                </filterDataGrid:DataGridTextColumn>
+
+                <filterDataGrid:DataGridCheckBoxColumn x:Name="DataGridCheckBoxColumnIsActive" IsColumnFiltered="True"
+                                                   Binding="{Binding IsActive}">
+                </filterDataGrid:DataGridCheckBoxColumn>
+
+            </filterDataGrid:FilterDataGrid.Columns>
+
+        </filterDataGrid:FilterDataGrid>
+
+    </Grid>
+
+</Page>
