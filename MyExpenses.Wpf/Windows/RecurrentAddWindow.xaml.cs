@@ -138,13 +138,13 @@ public partial class RecurrentAddWindow
         DependencyProperty.Register(nameof(TextBlockAddRecurrenceNeeded), typeof(string), typeof(RecurrentAddWindow),
             new PropertyMetadata(default(string)));
 
-    #endregion
-
     public string TextBlockAddRecurrenceNeeded
     {
         get => (string)GetValue(TextBlockAddRecurrenceNeededProperty);
         set => SetValue(TextBlockAddRecurrenceNeededProperty, value);
     }
+
+    #endregion
 
     #endregion
 
