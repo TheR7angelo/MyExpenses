@@ -101,6 +101,30 @@ public partial class RecurrentAddWindow
 
     #endregion
 
+    #region Button
+
+    public static readonly DependencyProperty ButtonCancelContentProperty =
+        DependencyProperty.Register(nameof(ButtonCancelContent), typeof(string), typeof(RecurrentAddWindow),
+            new PropertyMetadata(default(string)));
+
+    public string ButtonCancelContent
+    {
+        get => (string)GetValue(ButtonCancelContentProperty);
+        set => SetValue(ButtonCancelContentProperty, value);
+    }
+
+    public static readonly DependencyProperty ButtonValidContentProperty =
+        DependencyProperty.Register(nameof(ButtonValidContent), typeof(string), typeof(RecurrentAddWindow),
+            new PropertyMetadata(default(string)));
+
+    public string ButtonValidContent
+    {
+        get => (string)GetValue(ButtonValidContentProperty);
+        set => SetValue(ButtonValidContentProperty, value);
+    }
+
+    #endregion
+
     public static readonly DependencyProperty TitleWindowProperty = DependencyProperty.Register(nameof(TitleWindow),
         typeof(string), typeof(RecurrentAddWindow), new PropertyMetadata(default(string)));
 
@@ -223,6 +247,9 @@ public partial class RecurrentAddWindow
         DataGridTextColumnNextDueDateHeader = "DataGridTextColumnNextDueDateHeader";
         DataGridTextColumnPlaceHeader = "DataGridTextColumnPlaceHeader";
         DataGridCheckBoxColumnRecursiveToAddHeader = "DataGridCheckBoxColumnRecursiveToAddHeader";
+
+        ButtonValidContent = "Valid";
+        ButtonCancelContent = "Cancel";
     }
 
     #endregion

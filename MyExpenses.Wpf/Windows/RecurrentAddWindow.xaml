@@ -151,14 +151,12 @@
                     Orientation="Horizontal"
                     HorizontalAlignment="Right">
 
-            <!-- TODO work -->
-            <Button Content="Valid"
+            <Button Content="{Binding ButtonValidContent, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                     Style="{StaticResource MaterialDesignPaperDarkButton}"
                     Click="ButtonValid_OnClick">
             </Button>
 
-            <!-- TODO work -->
-            <Button Content="Cancel"
+            <Button Content="{Binding ButtonCancelContent, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                     Style="{StaticResource MaterialDesignPaperSecondaryButton}"
                     Click="ButtonCancel_OnClick">
             </Button>
