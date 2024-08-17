@@ -1,0 +1,89 @@
+<mah:MetroWindow x:Class="MyExpenses.Wpf.Windows.AddEditRecurrentExpenseWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:local="clr-namespace:MyExpenses.Wpf.Windows"
+        xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:margin="clr-namespace:MyExpenses.Wpf.Utils.Margin;assembly=MyExpenses.Wpf.Utils"
+        mc:Ignorable="d"
+
+        Title="AddEditRecurrentExpenseWindow"
+
+        TitleCharacterCasing="Normal"
+        NonActiveWindowTitleBrush="Gray"
+        WindowTitleBrush="Gray"
+        BorderBrush="Gray"
+
+        ShowIconOnTitleBar="True"
+        Icon="../../Resources/Assets/Icon.png"
+
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="CanResizeWithGrip"
+
+        d:DesignHeight="656"
+        d:DesignWidth="780"
+
+        MinHeight="656"
+        MinWidth="780"
+
+        Height="656"
+        Width="780"
+
+        Background="{DynamicResource MaterialDesignPaper}"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        DataContext="{Binding RelativeSource={RelativeSource Self}}">
+
+    <Grid margin:PanelExtensions.MarginForAllChildren="5"
+          VerticalAlignment="Center">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" MinWidth="250" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <ComboBox Grid.Row="0" Grid.Column="0"
+                  Style="{StaticResource MaterialDesignFilledComboBox}"
+                  materialDesign:TextFieldAssist.HasClearButton="True"
+                  materialDesign:HintAssist.Hint="{Binding ComboBoxAccountHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                  ItemsSource="{Binding Accounts, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                  SelectedValue="{Binding RecursiveExpense.AccountFk, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                  SelectedValuePath="{Binding SelectedValuePathAccount}"
+                  DisplayMemberPath="{Binding DisplayMemberPathAccount}">
+        </ComboBox>
+
+        <Button Grid.Row="0" Grid.Column="1"
+                HorizontalAlignment="Left"
+                Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
+                Click="ButtonAccount_OnClick">
+
+            <Button.Content>
+                <materialDesign:PackIcon Kind="PencilPlus" />
+            </Button.Content>
+
+        </Button>
+
+    </Grid>
+
+</mah:MetroWindow>
