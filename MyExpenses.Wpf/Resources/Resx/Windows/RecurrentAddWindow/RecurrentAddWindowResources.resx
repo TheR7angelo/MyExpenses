@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+            
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <data name="TitleWindow" xml:space="preserve">
+        <value>Add recurring expenses</value>
+    </data>
+    <data name="TextBlockAddRecurrenceNeeded" xml:space="preserve">
+        <value>You have one or more recurring expenses to add.
+Please disable the ones you don't want to add or cancel to not add any.</value>
+    </data>
+    <data name="DataGridTextColumnAccountHeader" xml:space="preserve">
+        <value>Account</value>
+    </data>
+    <data name="DataGridTextColumnDescriptionHeader" xml:space="preserve">
+        <value>Description</value>
+    </data>
+    <data name="DataGridTextColumnNoteHeader" xml:space="preserve">
+        <value>Note</value>
+    </data>
+    <data name="DataGridTemplateColumnCategoryHeader" xml:space="preserve">
+        <value>Category</value>
+    </data>
+    <data name="DataGridTextColumnModePaymentHeader" xml:space="preserve">
+        <value>Payment method</value>
+    </data>
+    <data name="DataGridTemplateColumnValueHeader" xml:space="preserve">
+        <value>Value</value>
+    </data>
+    <data name="DataGridTextColumnNextDueDateHeader" xml:space="preserve">
+        <value>Next due date</value>
+    </data>
+    <data name="DataGridTextColumnPlaceHeader" xml:space="preserve">
+        <value>Place</value>
+    </data>
+    <data name="DataGridCheckBoxColumnRecursiveToAddHeader" xml:space="preserve">
+        <value>Activate</value>
+    </data>
+    <data name="ButtonValidContent" xml:space="preserve">
+        <value>Valid</value>
+    </data>
+    <data name="ButtonCancelContent" xml:space="preserve">
+        <value>Cancel</value>
+    </data>
+</root>
