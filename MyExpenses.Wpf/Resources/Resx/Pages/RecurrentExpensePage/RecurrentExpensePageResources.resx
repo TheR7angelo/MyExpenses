@@ -57,4 +57,10 @@
     <data name="DataGridTextColumnFrequencyHeader" xml:space="preserve">
         <value>Frequency</value>
     </data>
+    <data name="DataGridCheckBoxColumnForceDeactivateHeader" xml:space="preserve">
+        <value>Force deactivation</value>
+    </data>
+    <data name="DateFormatString" xml:space="preserve">
+        <value>yyyy/MM/dd</value>
+    </data>
 </root>
