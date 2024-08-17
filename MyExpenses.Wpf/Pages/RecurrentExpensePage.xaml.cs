@@ -100,7 +100,7 @@ public partial class RecurrentExpensePage
         DataGridTextColumnNextDueDate.Header = RecurrentExpensePageResources.DataGridTextColumnNextDueDateHeader;
         DataGridTextColumnPlace.Header = RecurrentExpensePageResources.DataGridTextColumnPlaceHeader;
         DataGridCheckBoxColumnIsActive.Header = RecurrentExpensePageResources.DataGridCheckBoxColumnIsActiveHeader;
-        DataGridCheckBoxColumnForceDeactivate.Header = "Force deactivate";
+        DataGridCheckBoxColumnForceDeactivate.Header = RecurrentExpensePageResources.DataGridCheckBoxColumnForceDeactivateHeader;
     }
 
     private void UpdateLocalLanguage()
