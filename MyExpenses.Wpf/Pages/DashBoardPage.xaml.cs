@@ -301,7 +301,7 @@ public partial class DashBoardPage
             var mainWindow = Application.Current.MainWindow;
             var actualWidth = mainWindow!.ActualWidth;
 
-            var recurrentAddWindow = new RecurrentAddWindow(recurrences, actualWidth);
+            var recurrentAddWindow = new RecurrentAddWindow(actualWidth);
             recurrentAddWindow.ShowDialog();
         }
 
