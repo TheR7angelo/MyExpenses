@@ -19,6 +19,9 @@ public partial class VRecursiveExpense : ISql
     [Column("description")]
     public string? Description { get; set; }
 
+    [Column("note")]
+    public string? Note { get; set; }
+
     [Column("category_type_fk")]
     public int? CategoryTypeFk { get; set; }
 
