@@ -201,7 +201,8 @@ CREATE TABLE t_recursive_expense
         CONSTRAINT t_recursive_expense_t_recursive_frequency_id_fk
             REFERENCES t_recursive_frequency,
     next_due_date     DATE              NOT NULL,
-    is_active         BOOLEAN DEFAULT TRUE,
+    is_active         BOOLEAN DEFAULT TRUE NOT NULL,
+    force_deactivate  BOOLEAN DEFAULT FALSE NOT NULL,
     date_added        DATETIME    DEFAULT CURRENT_TIMESTAMP,
     last_updated      DATETIME
 );
@@ -749,6 +750,7 @@ SELECT tre.id,
        trf.frequency,
        tre.next_due_date,
        tre.is_active,
+       tre.force_deactivate,
        tre.date_added,
        tre.last_updated
 FROM t_recursive_expense tre

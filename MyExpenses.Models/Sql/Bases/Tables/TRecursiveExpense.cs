@@ -55,7 +55,10 @@ public partial class TRecursiveExpense : ISql
     public DateOnly NextDueDate { get; set; }
 
     [Column("is_active", TypeName = "BOOLEAN")]
-    public bool? IsActive { get; set; }
+    public bool IsActive { get; set; }
+
+    [Column("force_deactivate", TypeName = "BOOLEAN")]
+    public bool ForceDeactivate { get; set; }
 
     [Column("date_added", TypeName = "DATE")]
     public DateTime? DateAdded { get; set; } = DateTime.Now;
