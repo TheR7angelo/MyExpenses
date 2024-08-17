@@ -7,6 +7,7 @@ using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Models.Sql.Bases.Views;
 using MyExpenses.Models.Sql.Derivatives.Views;
 using MyExpenses.Sql.Context;
+using MyExpenses.Wpf.Resources.Resx.Windows.RecurrentAddWindow;
 using MyExpenses.Wpf.Utils;
 
 namespace MyExpenses.Wpf.Windows;
@@ -245,22 +246,21 @@ public partial class RecurrentAddWindow
 
     private void UpdateLanguage()
     {
-        // TODO work
-        TitleWindow = "RecurrentAddWindow";
-        TextBlockAddRecurrenceNeeded = "Need to insert new recurrences";
+        TitleWindow = RecurrentAddWindowResources.TitleWindow;
+        TextBlockAddRecurrenceNeeded = RecurrentAddWindowResources.TextBlockAddRecurrenceNeeded;
 
-        DataGridTextColumnAccountHeader = "DataGridTextColumnAccountHeader";
-        DataGridTextColumnDescriptionHeader = "DataGridTextColumnDescriptionHeader";
-        DataGridTextColumnNoteHeader = "DataGridTextColumnNoteHeader";
-        DataGridTemplateColumnCategoryHeader = "DataGridTemplateColumnCategoryHeader";
-        DataGridTextColumnModePaymentHeader = "DataGridTextColumnModePaymentHeader";
-        DataGridTemplateColumnValueHeader = "DataGridTemplateColumnValueHeader";
-        DataGridTextColumnNextDueDateHeader = "DataGridTextColumnNextDueDateHeader";
-        DataGridTextColumnPlaceHeader = "DataGridTextColumnPlaceHeader";
-        DataGridCheckBoxColumnRecursiveToAddHeader = "DataGridCheckBoxColumnRecursiveToAddHeader";
+        DataGridTextColumnAccountHeader = RecurrentAddWindowResources.DataGridTextColumnAccountHeader;
+        DataGridTextColumnDescriptionHeader = RecurrentAddWindowResources.DataGridTextColumnDescriptionHeader;
+        DataGridTextColumnNoteHeader = RecurrentAddWindowResources.DataGridTextColumnNoteHeader;
+        DataGridTemplateColumnCategoryHeader = RecurrentAddWindowResources.DataGridTemplateColumnCategoryHeader;
+        DataGridTextColumnModePaymentHeader = RecurrentAddWindowResources.DataGridTextColumnModePaymentHeader;
+        DataGridTemplateColumnValueHeader = RecurrentAddWindowResources.DataGridTemplateColumnValueHeader;
+        DataGridTextColumnNextDueDateHeader = RecurrentAddWindowResources.DataGridTextColumnNextDueDateHeader;
+        DataGridTextColumnPlaceHeader = RecurrentAddWindowResources.DataGridTextColumnPlaceHeader;
+        DataGridCheckBoxColumnRecursiveToAddHeader = RecurrentAddWindowResources.DataGridCheckBoxColumnRecursiveToAddHeader;
 
-        ButtonValidContent = "Valid";
-        ButtonCancelContent = "Cancel";
+        ButtonValidContent = RecurrentAddWindowResources.ButtonValidContent;
+        ButtonCancelContent = RecurrentAddWindowResources.ButtonCancelContent;
     }
 
     #endregion

@@ -164,6 +164,10 @@
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>StackedTotalEllipseControlResources.Designer.cs</LastGenOutput>
       </EmbeddedResource>
+      <EmbeddedResource Update="Resources\Resx\Windows\RecurrentAddWindow\RecurrentAddWindowResources.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>RecurrentAddWindowResources.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
     </ItemGroup>
 
     <ItemGroup>
@@ -334,6 +338,11 @@
         <DesignTime>True</DesignTime>
         <AutoGen>True</AutoGen>
         <DependentUpon>StackedTotalEllipseControlResources.resx</DependentUpon>
+      </Compile>
+      <Compile Update="Resources\Resx\Windows\RecurrentAddWindow\RecurrentAddWindowResources.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>RecurrentAddWindowResources.resx</DependentUpon>
       </Compile>
     </ItemGroup>
 
