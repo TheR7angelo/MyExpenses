@@ -421,6 +421,9 @@ public partial class DashBoardPage
     private void ButtonRecordExpense_OnClick(object sender, RoutedEventArgs e)
         => nameof(MainWindow.FrameBody).NavigateTo(typeof(RecordExpensePage));
 
+    private void ButtonRecurrentExpense_OnClick(object sender, RoutedEventArgs e)
+        => nameof(MainWindow.FrameBody).NavigateTo(typeof(RecurrentExpensePage));
+
     private void ButtonRemoveMonth_OnClick(object sender, RoutedEventArgs e)
     {
         var date = GetDateOnlyFilter();
