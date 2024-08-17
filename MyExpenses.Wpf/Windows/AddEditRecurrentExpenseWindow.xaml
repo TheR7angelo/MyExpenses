@@ -99,6 +99,28 @@
                  TextWrapping="Wrap" AcceptsReturn="True" AcceptsTab="True">
         </TextBox>
 
+        <!-- TODO work -->
+        <ComboBox Grid.Row="3" Grid.Column="0"
+                  Style="{StaticResource MaterialDesignFilledComboBox}"
+                  materialDesign:TextFieldAssist.HasClearButton="True"
+                  materialDesign:HintAssist.Hint="{Binding ComboBoxCategoryTypeHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                  ItemsSource="{Binding CategoryTypes, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                  SelectedValue="{Binding RecursiveExpense.CategoryTypeFk, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                  SelectedValuePath="{Binding SelectedValuePathCategoryType}"
+                  DisplayMemberPath="{Binding DisplayMemberPathCategoryType}">
+        </ComboBox>
+
+        <Button Grid.Row="3" Grid.Column="1"
+                HorizontalAlignment="Left"
+                Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
+                Click="ButtonCategoryType_OnClick">
+
+            <Button.Content>
+                <materialDesign:PackIcon Kind="PencilPlus" />
+            </Button.Content>
+
+        </Button>
+
     </Grid>
 
 </mah:MetroWindow>
