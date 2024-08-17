@@ -171,6 +171,10 @@
                                                    Binding="{Binding IsActive}">
                 </filterDataGrid:DataGridCheckBoxColumn>
 
+                <filterDataGrid:DataGridCheckBoxColumn x:Name="DataGridCheckBoxColumnForceDeactivate" IsColumnFiltered="True"
+                                                       Binding="{Binding ForceDeactivate}">
+                </filterDataGrid:DataGridCheckBoxColumn>
+
             </filterDataGrid:FilterDataGrid.Columns>
 
         </filterDataGrid:FilterDataGrid>

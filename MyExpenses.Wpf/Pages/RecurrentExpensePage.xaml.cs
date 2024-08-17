@@ -84,7 +84,7 @@ public partial class RecurrentExpensePage
 
     private void UpdateLanguage()
     {
-        DateFormatString = "dd/MM/yyyy";
+        DateFormatString = RecurrentExpensePageResources.DateFormatString;
         UpdateLocalLanguage();
 
         DataGridTextColumnAccount.Header = RecurrentExpensePageResources.DataGridTextColumnAccountHeader;
@@ -100,6 +100,7 @@ public partial class RecurrentExpensePage
         DataGridTextColumnNextDueDate.Header = RecurrentExpensePageResources.DataGridTextColumnNextDueDateHeader;
         DataGridTextColumnPlace.Header = RecurrentExpensePageResources.DataGridTextColumnPlaceHeader;
         DataGridCheckBoxColumnIsActive.Header = RecurrentExpensePageResources.DataGridCheckBoxColumnIsActiveHeader;
+        DataGridCheckBoxColumnForceDeactivate.Header = "Force deactivate";
     }
 
     private void UpdateLocalLanguage()

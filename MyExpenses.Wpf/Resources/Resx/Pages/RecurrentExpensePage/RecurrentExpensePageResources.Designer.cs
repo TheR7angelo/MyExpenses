@@ -61,6 +61,15 @@ namespace MyExpenses.Wpf.Resources.Resx.Pages.RecurrentExpensePage {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Force deactivation.
+        /// </summary>
+        internal static string DataGridCheckBoxColumnForceDeactivateHeader {
+            get {
+                return ResourceManager.GetString("DataGridCheckBoxColumnForceDeactivateHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Enable.
         /// </summary>
         internal static string DataGridCheckBoxColumnIsActiveHeader {
@@ -174,6 +183,15 @@ namespace MyExpenses.Wpf.Resources.Resx.Pages.RecurrentExpensePage {
         internal static string DataGridTextColumnStartDateHeader {
             get {
                 return ResourceManager.GetString("DataGridTextColumnStartDateHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to yyyy/MM/dd.
+        /// </summary>
+        internal static string DateFormatString {
+            get {
+                return ResourceManager.GetString("DateFormatString", resourceCulture);
             }
         }
     }

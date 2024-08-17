@@ -50,4 +50,10 @@
     <data name="DataGridTextColumnStartDateHeader" xml:space="preserve">
         <value>Date de début</value>
     </data>
+    <data name="DataGridCheckBoxColumnForceDeactivateHeader" xml:space="preserve">
+        <value>Forcer la désactivation</value>
+    </data>
+    <data name="DateFormatString" xml:space="preserve">
+        <value>dd/MM/yyyy</value>
+    </data>
 </root>
