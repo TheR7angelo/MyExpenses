@@ -111,7 +111,7 @@ public partial class RecurrentExpensePage
 
     #endregion
 
-    private void ButtonAddNewRecurent_OnClick(object sender, RoutedEventArgs e)
+    private void ButtonAddNewRecurrent_OnClick(object sender, RoutedEventArgs e)
     {
         Console.WriteLine("Adding new Recurent Expense");
     }
