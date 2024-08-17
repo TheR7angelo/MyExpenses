@@ -118,22 +118,6 @@ public partial class RecurrentAddWindow
         this.SetWindowCornerPreference();
     }
 
-    private void UpdateDataGrid()
-    {
-        var mapper = Mapping.Mapper;
-
-        var now = DateTime.Now;
-        using var context = new DataBaseContext();
-        var records = context.TRecursiveExpenses
-            .Where(s => (bool)s.IsActive!)
-            .Where(s => s.NextDueDate.Year.Equals(now.Year) && s.NextDueDate.Month.Equals(now.Month))
-            .Select(s => s.Id.ToISql<VRecursiveExpense>())!
-            .Select(s => mapper.Map<VRecursiveExpenseDerive>(s));
-
-        VRecursiveExpensesDerives.Clear();
-        VRecursiveExpensesDerives.AddRange(records);
-    }
-
     #region Action
 
     private void ButtonCancel_OnClick(object sender, RoutedEventArgs e)
@@ -200,6 +184,22 @@ public partial class RecurrentAddWindow
     #endregion
 
     #region Function
+
+    private void UpdateDataGrid()
+    {
+        var mapper = Mapping.Mapper;
+
+        var now = DateTime.Now;
+        using var context = new DataBaseContext();
+        var records = context.TRecursiveExpenses
+            .Where(s => (bool)s.IsActive!)
+            .Where(s => s.NextDueDate.Year.Equals(now.Year) && s.NextDueDate.Month.Equals(now.Month))
+            .Select(s => s.Id.ToISql<VRecursiveExpense>())!
+            .Select(s => mapper.Map<VRecursiveExpenseDerive>(s));
+
+        VRecursiveExpensesDerives.Clear();
+        VRecursiveExpensesDerives.AddRange(records);
+    }
 
     private void UpdateLanguage()
     {
