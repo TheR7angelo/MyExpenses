@@ -77,6 +77,9 @@ public partial class VRecursiveExpense : ISql
     [Column("is_active", TypeName = "BOOLEAN")]
     public bool IsActive { get; set; }
 
+    [Column("force_deactivate", TypeName = "BOOLEAN")]
+    public bool ForceDeactivate { get; set; }
+
     [Column("date_added", TypeName = "DATETIME")]
     public DateTime? DateAdded { get; set; }
 

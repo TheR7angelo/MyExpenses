@@ -192,7 +192,8 @@ public partial class RecurrentAddWindow
         var now = DateTime.Now;
         using var context = new DataBaseContext();
         var records = context.TRecursiveExpenses
-            .Where(s => (bool)s.IsActive!)
+            .Where(s => !s.ForceDeactivate)
+            .Where(s => s.IsActive)
             .Where(s => s.NextDueDate.Year.Equals(now.Year) && s.NextDueDate.Month.Equals(now.Month))
             .OrderBy(s => s.NextDueDate)
             .Select(s => s.Id.ToISql<VRecursiveExpense>())!
