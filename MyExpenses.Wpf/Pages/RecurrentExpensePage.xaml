@@ -33,7 +33,7 @@
         <Button Height="56"
                 Width="{Binding Height, RelativeSource={RelativeSource Self}}"
                 Style="{StaticResource MaterialDesignFloatingActionDarkButton}"
-                Click="ButtonAddNewRecurent_OnClick">
+                Click="ButtonAddNewRecurrent_OnClick">
             <Button.Content>
                 <materialDesign:PackIcon Kind="Plus"
                                          Height="{Binding Height, RelativeSource={RelativeSource AncestorType=Button}}"
