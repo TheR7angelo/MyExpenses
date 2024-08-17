@@ -1,9 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using MyExpenses.Models.Sql.Bases.Enums;
+using PropertyChanged;
 
 namespace MyExpenses.Models.Sql.Bases.Tables;
 
+[AddINotifyPropertyChangedInterface]
 [Table("t_recursive_expense")]
 public partial class TRecursiveExpense : ISql
 {
