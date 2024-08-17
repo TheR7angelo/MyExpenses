@@ -8,6 +8,7 @@
       xmlns:converters="clr-namespace:MyExpenses.Wpf.Converters"
       xmlns:margin="clr-namespace:MyExpenses.Wpf.Utils.Margin;assembly=MyExpenses.Wpf.Utils"
       xmlns:recurrentExpenseFrequencyConverter="clr-namespace:MyExpenses.Wpf.Converters.RecurrentExpenseFrequencyConverter"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       mc:Ignorable="d"
 
       Title="RecurrentExpensePage"
@@ -29,10 +30,17 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <StackPanel Grid.Row="0"
-                    Orientation="Horizontal">
-
-        </StackPanel>
+        <Button Height="56"
+                Width="{Binding Height, RelativeSource={RelativeSource Self}}"
+                Style="{StaticResource MaterialDesignFloatingActionDarkButton}"
+                Click="ButtonAddNewRecurent_OnClick">
+            <Button.Content>
+                <materialDesign:PackIcon Kind="Plus"
+                                         Height="{Binding Height, RelativeSource={RelativeSource AncestorType=Button}}"
+                                         Width="{Binding Height, RelativeSource={RelativeSource AncestorType=Button}}">
+                </materialDesign:PackIcon>
+            </Button.Content>
+        </Button>
 
         <filterDataGrid:FilterDataGrid Grid.Row="1"
                                        x:Name="FilterDataGrid"
