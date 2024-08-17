@@ -74,7 +74,8 @@ public partial class RecurrentExpensePage
     {
         using var context = new DataBaseContext();
         var records = context.VRecursiveExpenses
-            .OrderBy(s => s.IsActive)
+            .OrderBy(s => !s.ForceDeactivate)
+            .ThenBy(s => s.IsActive)
             .ThenBy(s => s.NextDueDate)
             .ToList();
 
