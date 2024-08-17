@@ -183,6 +183,7 @@ CREATE TABLE t_recursive_expense
         CONSTRAINT t_recursive_expense_t_account_id_fk
             REFERENCES t_account,
     description       TEXT,
+    note              TEXT,
     category_type_fk  INTEGER
         CONSTRAINT t_recursive_expense_t_category_type_id_fk
             REFERENCES t_category_type,
@@ -731,6 +732,7 @@ SELECT tre.id,
        tre.account_fk,
        ta.name AS account,
        tre.description,
+       tre.note,
        tre.category_type_fk,
        tct.name AS category,
        tco.hexadecimal_color_code,
