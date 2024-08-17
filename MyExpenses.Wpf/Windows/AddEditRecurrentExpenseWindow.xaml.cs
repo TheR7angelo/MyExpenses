@@ -20,6 +20,8 @@ public partial class AddEditRecurrentExpenseWindow
         Accounts = [..context.TAccounts.OrderBy(s => s.Name)];
 
         InitializeComponent();
+
+        this.SetWindowCornerPreference();
     }
 
     private void ButtonAccount_OnClick(object sender, RoutedEventArgs e)

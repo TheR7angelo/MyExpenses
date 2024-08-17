@@ -40,10 +40,8 @@
 
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" MinHeight="75" />
+            <RowDefinition Height="Auto" MinHeight="75" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
@@ -63,6 +61,7 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
+        <!-- TODO work -->
         <ComboBox Grid.Row="0" Grid.Column="0"
                   Style="{StaticResource MaterialDesignFilledComboBox}"
                   materialDesign:TextFieldAssist.HasClearButton="True"
@@ -83,6 +82,22 @@
             </Button.Content>
 
         </Button>
+
+        <!-- TODO work -->
+        <TextBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
+                 materialDesign:HintAssist.Hint="{Binding TextBoxDescriptionHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                 Style="{StaticResource MaterialDesignFilledTextBox}"
+                 Text="{Binding RecursiveExpense.Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                 TextWrapping="Wrap" AcceptsReturn="True" AcceptsTab="True">
+        </TextBox>
+
+        <!-- TODO work -->
+        <TextBox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
+                 materialDesign:HintAssist.Hint="{Binding TextBoxNoteHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                 Style="{StaticResource MaterialDesignFilledTextBox}"
+                 Text="{Binding RecursiveExpense.Note, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                 TextWrapping="Wrap" AcceptsReturn="True" AcceptsTab="True">
+        </TextBox>
 
     </Grid>
 
