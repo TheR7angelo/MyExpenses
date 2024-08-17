@@ -133,6 +133,15 @@ namespace MyExpenses.Wpf.Resources.Resx.Windows.RecurrentAddWindow {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Frequency.
+        /// </summary>
+        internal static string DataGridTextColumnFrequencyHeader {
+            get {
+                return ResourceManager.GetString("DataGridTextColumnFrequencyHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Payment method.
         /// </summary>
         internal static string DataGridTextColumnModePaymentHeader {
@@ -165,6 +174,33 @@ namespace MyExpenses.Wpf.Resources.Resx.Windows.RecurrentAddWindow {
         internal static string DataGridTextColumnPlaceHeader {
             get {
                 return ResourceManager.GetString("DataGridTextColumnPlaceHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Counter.
+        /// </summary>
+        internal static string DataGridTextColumnRecursiveCountHeader {
+            get {
+                return ResourceManager.GetString("DataGridTextColumnRecursiveCountHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Total.
+        /// </summary>
+        internal static string DataGridTextColumnRecursiveTotalHeader {
+            get {
+                return ResourceManager.GetString("DataGridTextColumnRecursiveTotalHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Start date.
+        /// </summary>
+        internal static string DataGridTextColumnStartDateHeader {
+            get {
+                return ResourceManager.GetString("DataGridTextColumnStartDateHeader", resourceCulture);
             }
         }
         

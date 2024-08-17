@@ -215,6 +215,10 @@ public partial class RecurrentAddWindow
         DataGridTemplateColumnCategory.Header = RecurrentAddWindowResources.DataGridTemplateColumnCategoryHeader;
         DataGridTextColumnModePayment.Header = RecurrentAddWindowResources.DataGridTextColumnModePaymentHeader;
         DataGridTemplateColumnValue.Header = RecurrentAddWindowResources.DataGridTemplateColumnValueHeader;
+        DataGridTextColumnStartDate.Header = RecurrentAddWindowResources.DataGridTextColumnStartDateHeader;
+        DataGridTextColumnRecursiveTotal.Header = RecurrentAddWindowResources.DataGridTextColumnRecursiveTotalHeader;
+        DataGridTextColumnRecursiveCount.Header = RecurrentAddWindowResources.DataGridTextColumnRecursiveCountHeader;
+        DataGridTextColumnFrequency.Header = RecurrentAddWindowResources.DataGridTextColumnFrequencyHeader;
         DataGridTextColumnNextDueDate.Header = RecurrentAddWindowResources.DataGridTextColumnNextDueDateHeader;
         DataGridTextColumnPlace.Header = RecurrentAddWindowResources.DataGridTextColumnPlaceHeader;
         DataGridCheckBoxColumnRecursiveToAdd.Header = RecurrentAddWindowResources.DataGridCheckBoxColumnRecursiveToAddHeader;
