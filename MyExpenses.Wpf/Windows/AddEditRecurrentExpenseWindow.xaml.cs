@@ -17,11 +17,14 @@ public partial class AddEditRecurrentExpenseWindow
 {
     public ObservableCollection<TAccount> Accounts { get; }
     public ObservableCollection<TCategoryType> CategoryTypes { get; }
+    public ObservableCollection<TModePayment> ModePayments { get; }
 
     public string SelectedValuePathAccount { get; } = nameof(TAccount.Id);
     public string DisplayMemberPathAccount { get; } = nameof(TAccount.Name);
     public string SelectedValuePathCategoryType { get; } = nameof(TCategoryType.Id);
     public string DisplayMemberPathCategoryType { get; } = nameof(TCategoryType.Name);
+    public string SelectedValuePathModePayment { get; } = nameof(TModePayment.Id);
+    public string DisplayMemberPathModePayment { get; } = nameof(TModePayment.Name);
 
     public TRecursiveExpense RecursiveExpense { get; set; } = new();
     public AddEditRecurrentExpenseWindow()
@@ -29,6 +32,7 @@ public partial class AddEditRecurrentExpenseWindow
         using var context = new DataBaseContext();
         Accounts = [..context.TAccounts.OrderBy(s => s.Name)];
         CategoryTypes = [..context.TCategoryTypes.OrderBy(s => s.Name)];
+        ModePayments = [..context.TModePayments.OrderBy(s => s.Name)];
 
         InitializeComponent();
 
@@ -122,6 +126,53 @@ public partial class AddEditRecurrentExpenseWindow
             {
                 Log.Error(exception, "An error occurred please retry");
                 MsgBox.MsgBox.Show(RecordExpensePageResources.MessageBoxEditCategoryError, MsgBoxImage.Error);
+            }
+        }
+    }
+
+    private void ButtonModePayment_OnClick(object sender, RoutedEventArgs e)
+    {
+        var modePayment = RecursiveExpense.ModePaymentFk?.ToISql<TModePayment>();
+        if (modePayment?.CanBeDeleted is false)
+        {
+            MsgBox.MsgBox.Show(RecordExpensePageResources.MessageBoxModePaymentCantEdit, MsgBoxImage.Error);
+            return;
+        }
+
+        var addEditModePaymentWindow = new AddEditModePaymentWindow();
+        if (modePayment is not null) addEditModePaymentWindow.SetTModePayment(modePayment);
+
+        var result = addEditModePaymentWindow.ShowDialog();
+        if (result is not true) return;
+
+        var modePaymentToRemove = ModePayments.FirstOrDefault(s => s.Id == RecursiveExpense.ModePaymentFk);
+        if (addEditModePaymentWindow.ModePaymentDeleted)
+        {
+            if (modePaymentToRemove is not null) ModePayments.Remove(modePaymentToRemove);
+        }
+        else
+        {
+            var editedModePayment = addEditModePaymentWindow.ModePayment;
+            Log.Information(
+                "Attempting to update mode payment id:\"{EditedModePaymentId}\", name:\"{EditedModePaymentName}\"",
+                editedModePayment.Id, editedModePayment.Name);
+
+            var (success, exception) = editedModePayment.AddOrEdit();
+            if (success)
+            {
+                ModePayments!.AddAndSort(modePaymentToRemove, editedModePayment, s => s!.Name!);
+                RecursiveExpense.ModePaymentFk = editedModePayment.Id;
+
+                Log.Information("Mode payment was successfully edited");
+                var json = editedModePayment.ToJsonString();
+                Log.Information("{Json}", json);
+
+                MsgBox.MsgBox.Show(RecordExpensePageResources.MessageBoxEditModePaymentSuccess, MsgBoxImage.Check);
+            }
+            else
+            {
+                Log.Error(exception, "An error occurred please retry");
+                MsgBox.MsgBox.Show(RecordExpensePageResources.MessageBoxEditModePaymentError, MsgBoxImage.Error);
             }
         }
     }
