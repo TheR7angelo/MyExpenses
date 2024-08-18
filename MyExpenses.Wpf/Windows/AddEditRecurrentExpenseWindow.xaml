@@ -172,6 +172,7 @@
         <!-- TODO work -->
         <TextBox Grid.Row="7" Grid.Column="0"
                  materialDesign:HintAssist.Hint="{Binding TextBoxValueHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                 materialDesign:TextFieldAssist.HasClearButton="True"
                  Style="{StaticResource MaterialDesignFilledTextBox}"
                  Text="{Binding RecursiveExpense.RecursiveTotal, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                  AcceptsReturn="False" AcceptsTab="False"
@@ -181,6 +182,7 @@
         <!-- TODO work -->
         <TextBox Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="2"
                  materialDesign:HintAssist.Hint="{Binding TextBoxValueHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                 materialDesign:TextFieldAssist.HasClearButton="True"
                  Style="{StaticResource MaterialDesignFilledTextBox}"
                  Text="{Binding RecursiveExpense.RecursiveCount, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                  AcceptsReturn="False" AcceptsTab="False"
