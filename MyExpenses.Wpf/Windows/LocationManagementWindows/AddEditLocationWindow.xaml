@@ -81,6 +81,7 @@
             </TextBox>
 
             <CheckBox Grid.Column="1"
+                      FlowDirection="RightToLeft"
                       IsThreeState="False"
                       IsChecked="{Binding Place.IsOpen, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                       Content="{Binding CheckBoxContentIsOpen, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
