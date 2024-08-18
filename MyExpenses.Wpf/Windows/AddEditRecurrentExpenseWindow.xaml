@@ -329,6 +329,18 @@
 
         </Button>
 
+        <StackPanel Grid.Row="10" Grid.Column="3"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    margin:PanelExtensions.MarginForAllChildren="5">
+
+            <Button Content="Valid" />
+            <Button Content="Delete" />
+            <Button Content="Cancel" />
+
+        </StackPanel>
+
     </Grid>
 
 </mah:MetroWindow>
