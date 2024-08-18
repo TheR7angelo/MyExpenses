@@ -217,6 +217,32 @@
                   IsReadOnly="True">
         </TextBox>
 
+        <StackPanel Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="2"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center">
+
+            <!-- TODO work -->
+            <CheckBox HorizontalAlignment="Left"
+                      FlowDirection="RightToLeft"
+                      IsThreeState="False"
+                      IsChecked="{Binding RecursiveExpense.ForceDeactivate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                      Content="ForceDeactivate"
+                      materialDesign:CheckBoxAssist.CheckBoxSize="30">
+            </CheckBox>
+
+            <!-- TODO work -->
+            <CheckBox HorizontalAlignment="Left"
+                      FlowDirection="RightToLeft"
+                      IsThreeState="False"
+                      IsChecked="{Binding RecursiveExpense.IsActive, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                      Content="IsActive"
+                      materialDesign:CheckBoxAssist.CheckBoxSize="30"
+                      IsEnabled="False">
+            </CheckBox>
+
+        </StackPanel>
+
     </Grid>
 
 </mah:MetroWindow>
