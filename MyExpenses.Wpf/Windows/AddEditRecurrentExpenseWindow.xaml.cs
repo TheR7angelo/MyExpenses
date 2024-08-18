@@ -32,6 +32,8 @@ namespace MyExpenses.Wpf.Windows;
 
 public partial class AddEditRecurrentExpenseWindow
 {
+    #region DependencyProperty
+
     public static readonly DependencyProperty WindowTitleProperty = DependencyProperty.Register(nameof(WindowTitle),
         typeof(string), typeof(AddEditRecurrentExpenseWindow), new PropertyMetadata(default(string)));
 
@@ -231,6 +233,10 @@ public partial class AddEditRecurrentExpenseWindow
         set => SetValue(SelectedCountryProperty, value);
     }
 
+    #endregion
+
+    #region Property
+
     public ObservableCollection<TAccount> Accounts { get; }
     public ObservableCollection<TCategoryType> CategoryTypes { get; }
     public ObservableCollection<TModePayment> ModePayments { get; }
@@ -257,6 +263,8 @@ public partial class AddEditRecurrentExpenseWindow
     public KnownTileSource KnownTileSourceSelected { get; set; }
 
     public TRecursiveExpense RecursiveExpense { get; set; } = new();
+
+    #endregion
 
     public AddEditRecurrentExpenseWindow()
     {
@@ -290,43 +298,7 @@ public partial class AddEditRecurrentExpenseWindow
         this.SetWindowCornerPreference();
     }
 
-    private void Interface_OnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
-        => UpdaterLanguage(e.CultureInfoCode);
-
-    public void SetVRecursiveExpense(VRecursiveExpense vRecurrentExpense)
-    {
-        EditRecurrentExpense = true;
-        vRecurrentExpense.CopyPropertiesTo(RecursiveExpense);
-    }
-
-    private void UpdaterLanguage(string? cultureInfoCode = null)
-    {
-        cultureInfoCode ??= CultureInfo.CurrentCulture.Name;
-
-        var xmlLanguage = XmlLanguage.GetLanguage(cultureInfoCode);
-        DatePicker.Language = xmlLanguage;
-
-        // TODO work
-        WindowTitle = "AddEditRecurrentExpenseWindow";
-
-        ComboBoxAccountHintAssist = "ComboBoxAccountHintAssist";
-        ComboBoxBackgroundHintAssist = "ComboBoxBackgroundHintAssist";
-        TextBoxDescriptionHintAssist = "TextBoxDescriptionHintAssist";
-        TextBoxNoteHintAssist = "TextBoxNoteHintAssist";
-        ComboBoxCategoryTypeHintAssist = "ComboBoxCategoryTypeHintAssist";
-        ComboBoxCategoryTypeHintAssist = "ComboBoxCategoryTypeHintAssist";
-        TextBoxValueHintAssist = "TextBoxValueHintAssist";
-        ComboBoxFrequencyHintAssist = "ComboBoxFrequencyHintAssist";
-        TextBoxRecursiveTotalHintAssist = "TextBoxRecursiveTotalHintAssist";
-        TextBoxRecursiveCountHintAssist = "TextBoxRecursiveCountHintAssist";
-        DatePickerStartDateHintAssist = "DatePickerStartDateHintAssist";
-        TextBoxNextDueDateHintAssist = "TextBoxNextDueDateHintAssist";
-        CheckBoxForceDeactivate = "CheckBoxForceDeactivate";
-        CheckBoxIsActive = "CheckBoxIsActive";
-        ComboBoxPlaceCountryHintAssist = "ComboBoxPlaceCountryHintAssist";
-        ComboBoxPlaceCityHintAssist = "ComboBoxPlaceCityHintAssist";
-        ComboBoxPlaceHintAssist = "ComboBoxPlaceHintAssist";
-    }
+    #region Action
 
     private void ButtonAccount_OnClick(object sender, RoutedEventArgs e)
     {
@@ -368,6 +340,12 @@ public partial class AddEditRecurrentExpenseWindow
                 MsgBox.MsgBox.Show(RecordExpensePageResources.MessageBoxEditAccountError, MsgBoxImage.Warning);
             }
         }
+    }
+
+    private void ButtonCancel_OnClick(object sender, RoutedEventArgs e)
+    {
+        DialogResult = false;
+        Close();
     }
 
     private void ButtonCategoryType_OnClick(object sender, RoutedEventArgs e)
@@ -412,6 +390,12 @@ public partial class AddEditRecurrentExpenseWindow
                 MsgBox.MsgBox.Show(RecordExpensePageResources.MessageBoxEditCategoryError, MsgBoxImage.Error);
             }
         }
+    }
+
+    // TODO work
+    private void ButtonDelete_OnClick(object sender, RoutedEventArgs e)
+    {
+        throw new NotImplementedException();
     }
 
     private void ButtonModePayment_OnClick(object sender, RoutedEventArgs e)
@@ -461,93 +445,99 @@ public partial class AddEditRecurrentExpenseWindow
         }
     }
 
-    private void UIElementDoubleOnly_OnPreviewTextInput(object sender, TextCompositionEventArgs e)
+    private void ButtonPlace_OnClick(object sender, RoutedEventArgs e)
     {
-        var textBox = (TextBox)sender;
-        var txt = textBox.Text.Insert(textBox.SelectionStart, e.Text);
-
-        if (txt.Equals("-") || txt.Equals("+"))
+        var place = RecursiveExpense.PlaceFk?.ToISql<TPlace>();
+        if (place?.CanBeDeleted is false)
         {
-            e.Handled = false;
+            MsgBox.MsgBox.Show(RecordExpensePageResources.MessageBoxPlaceCantEdit, MsgBoxImage.Error);
             return;
         }
 
-        var canConvert = txt.ToDouble(out _);
+        var addEditLocationWindow = new AddEditLocationWindow();
+        if (place is not null) addEditLocationWindow.SetPlace(place, false);
 
-        e.Handled = !canConvert;
-    }
+        var result = addEditLocationWindow.ShowDialog();
+        if (result is not true) return;
 
-    private void UIElementDoubleOnly_OnPreviewKeyDown(object sender, KeyEventArgs e)
-    {
-        var textBox = (TextBox)sender;
-        var textBeforeEdit = textBox.Text;
-        var caretPosition = textBox.CaretIndex;
-
-        var characterToDelete = e.Key switch
+        var oldPlace = PlacesCollection.FirstOrDefault(s => s.Id == RecursiveExpense.PlaceFk);
+        if (addEditLocationWindow.PlaceDeleted)
         {
-            Key.Delete when caretPosition < textBeforeEdit.Length => textBox.Text.Substring(caretPosition, 1),
-            Key.Back when caretPosition > 0 => textBox.Text.Substring(caretPosition - 1, 1),
-            _ => ""
-        };
+            if (oldPlace is not null) PlacesCollection.Remove(oldPlace);
 
-        if (characterToDelete != "." && characterToDelete != ",")
-        {
             return;
         }
 
-        var textAfterEdit = textBeforeEdit.Remove(caretPosition - (e.Key == Key.Back ? 1 : 0), 1); // Simulate deletion
+        var editedPlace = addEditLocationWindow.Place;
+        Log.Information("Attempting to update place id:\"{EditedPlaceId}\", name:\"{EditedPlaceName}\"", editedPlace.Id,
+            editedPlace.Name);
 
-        textAfterEdit = textAfterEdit.Replace(',', '.');
-        if (double.TryParse(textAfterEdit, NumberStyles.Any, CultureInfo.InvariantCulture, out _))
+        var (success, exception) = editedPlace.AddOrEdit();
+        if (success)
         {
+            PlacesCollection!.AddAndSort(oldPlace, editedPlace, s => s!.Name!);
+            RecursiveExpense.PlaceFk = editedPlace.Id;
+
+            Log.Information("Place was successfully edited");
+
+            // Loop crash
+            // var json = editedPlace.ToJsonString();
+            // Log.Information("{Json}", json);
+
+            MsgBox.MsgBox.Show(RecordExpensePageResources.MessageBoxEditPlaceSuccess, MsgBoxImage.Check);
+        }
+        else
+        {
+            Log.Error(exception, "An error occurred please retry");
+            MsgBox.MsgBox.Show(RecordExpensePageResources.MessageBoxEditPlaceError, MsgBoxImage.Error);
+        }
+    }
+
+    // TODO work
+    private void ButtonValid_OnClick(object sender, RoutedEventArgs e)
+    {
+        var validationContext = new ValidationContext(RecursiveExpense, serviceProvider: null, items: null);
+        var validationResults = new List<ValidationResult>();
+        var isValid = Validator.TryValidateObject(RecursiveExpense, validationContext, validationResults, true);
+
+        if (!isValid)
+        {
+            var propertyError = validationResults.First();
+            var propertyMemberName = propertyError.MemberNames.First();
+
+            // var messageErrorKey = propertyMemberName switch
+            // {
+            //     nameof(TBankTransfer.FromAccountFk) => nameof(BankTransferPageResources
+            //         .MessageBoxButtonValidationFromAccountFkError),
+            //     nameof(TBankTransfer.ToAccountFk) => nameof(BankTransferPageResources
+            //         .MessageBoxButtonValidationToAccountFkError),
+            //     nameof(TBankTransfer.Value) => nameof(BankTransferPageResources.MessageBoxButtonValidationValueError),
+            //     nameof(TBankTransfer.Date) => nameof(BankTransferPageResources.MessageBoxButtonValidationDateError),
+            //     nameof(TBankTransfer.MainReason) => nameof(BankTransferPageResources
+            //         .MessageBoxButtonValidationMainReasonError),
+            //     _ => null
+            // };
+
+            // var localizedErrorMessage = string.IsNullOrEmpty(messageErrorKey)
+            //     ? propertyError.ErrorMessage!
+            //     : BankTransferPageResources.ResourceManager.GetString(messageErrorKey)!;
+            //
+            // MsgBox.Show(localizedErrorMessage, MsgBoxImage.Error);
             return;
         }
-
-        e.Handled = true;
-        textBox.CaretIndex = caretPosition;
     }
-
-    private void TextBoxValueDoubleOnly_OnTextChanged(object sender, TextChangedEventArgs e)
-    {
-        var textBox = (TextBox)sender;
-        var txt = textBox.Text;
-        var position = textBox.CaretIndex;
-
-        _ = txt.ToDouble(out var value);
-        RecursiveExpense.Value = value;
-
-        textBox.CaretIndex = position;
-    }
-
-    private void UIElementIntOnly_OnPreviewTextInput(object sender, TextCompositionEventArgs e)
-    {
-        var txt = e.Text;
-        var success = txt.ToInt(out var value);
-
-        if (success) success = value! > 0;
-
-        e.Handled = !success;
-    }
-
-    private void Selector_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
-        => UpdateNextDueDate();
 
     private void DatePicker_OnSelectedDateChanged(object? sender, SelectionChangedEventArgs e)
         => UpdateNextDueDate();
 
-    private void UpdateNextDueDate()
-    {
-        var selectedFrequency = RecursiveFrequencies.FirstOrDefault(s => s.Id == RecursiveExpense.FrequencyFk);
-        if (selectedFrequency is null)
-        {
-            RecursiveExpense.NextDueDate = RecursiveExpense.StartDate;
-            return;
-        }
+    private void Interface_OnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
+        => UpdaterLanguage(e.CultureInfoCode);
 
-        var dateOnly = RecursiveExpense.ERecursiveFrequency.CalculateNextDueDate(RecursiveExpense.StartDate);
+    private void MapControl_OnLoaded(object sender, RoutedEventArgs e)
+        => UpdateTileLayer();
 
-        RecursiveExpense.NextDueDate = dateOnly;
-    }
+    private void Selector_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        => UpdateNextDueDate();
 
     private void SelectorCity_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
     {
@@ -618,6 +608,116 @@ public partial class AddEditRecurrentExpenseWindow
         RecursiveExpense.PlaceFk = place?.Id;
     }
 
+    private void SelectorTile_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        => UpdateTileLayer();
+
+    private void TextBoxValueDoubleOnly_OnTextChanged(object sender, TextChangedEventArgs e)
+    {
+        var textBox = (TextBox)sender;
+        var txt = textBox.Text;
+        var position = textBox.CaretIndex;
+
+        _ = txt.ToDouble(out var value);
+        RecursiveExpense.Value = value;
+
+        textBox.CaretIndex = position;
+    }
+
+    private void UIElementDoubleOnly_OnPreviewTextInput(object sender, TextCompositionEventArgs e)
+    {
+        var textBox = (TextBox)sender;
+        var txt = textBox.Text.Insert(textBox.SelectionStart, e.Text);
+
+        if (txt.Equals("-") || txt.Equals("+"))
+        {
+            e.Handled = false;
+            return;
+        }
+
+        var canConvert = txt.ToDouble(out _);
+
+        e.Handled = !canConvert;
+    }
+
+    private void UIElementDoubleOnly_OnPreviewKeyDown(object sender, KeyEventArgs e)
+    {
+        var textBox = (TextBox)sender;
+        var textBeforeEdit = textBox.Text;
+        var caretPosition = textBox.CaretIndex;
+
+        var characterToDelete = e.Key switch
+        {
+            Key.Delete when caretPosition < textBeforeEdit.Length => textBox.Text.Substring(caretPosition, 1),
+            Key.Back when caretPosition > 0 => textBox.Text.Substring(caretPosition - 1, 1),
+            _ => ""
+        };
+
+        if (characterToDelete != "." && characterToDelete != ",")
+        {
+            return;
+        }
+
+        var textAfterEdit = textBeforeEdit.Remove(caretPosition - (e.Key == Key.Back ? 1 : 0), 1); // Simulate deletion
+
+        textAfterEdit = textAfterEdit.Replace(',', '.');
+        if (double.TryParse(textAfterEdit, NumberStyles.Any, CultureInfo.InvariantCulture, out _))
+        {
+            return;
+        }
+
+        e.Handled = true;
+        textBox.CaretIndex = caretPosition;
+    }
+
+    private void UIElementIntOnly_OnPreviewTextInput(object sender, TextCompositionEventArgs e)
+    {
+        var txt = e.Text;
+        var success = txt.ToInt(out var value);
+
+        if (success) success = value! > 0;
+
+        e.Handled = !success;
+    }
+
+    #endregion
+
+    #region Function
+
+    public void SetVRecursiveExpense(VRecursiveExpense vRecurrentExpense)
+    {
+        EditRecurrentExpense = true;
+        vRecurrentExpense.CopyPropertiesTo(RecursiveExpense);
+    }
+
+    private void UpdaterLanguage(string? cultureInfoCode = null)
+    {
+        cultureInfoCode ??= CultureInfo.CurrentCulture.Name;
+
+        var xmlLanguage = XmlLanguage.GetLanguage(cultureInfoCode);
+        DatePicker.Language = xmlLanguage;
+
+        // TODO work
+        WindowTitle = "AddEditRecurrentExpenseWindow";
+
+        ComboBoxAccountHintAssist = "ComboBoxAccountHintAssist";
+        ComboBoxBackgroundHintAssist = "ComboBoxBackgroundHintAssist";
+        TextBoxDescriptionHintAssist = "TextBoxDescriptionHintAssist";
+        TextBoxNoteHintAssist = "TextBoxNoteHintAssist";
+        ComboBoxCategoryTypeHintAssist = "ComboBoxCategoryTypeHintAssist";
+        ComboBoxCategoryTypeHintAssist = "ComboBoxCategoryTypeHintAssist";
+        TextBoxValueHintAssist = "TextBoxValueHintAssist";
+        ComboBoxFrequencyHintAssist = "ComboBoxFrequencyHintAssist";
+        TextBoxRecursiveTotalHintAssist = "TextBoxRecursiveTotalHintAssist";
+        TextBoxRecursiveCountHintAssist = "TextBoxRecursiveCountHintAssist";
+        DatePickerStartDateHintAssist = "DatePickerStartDateHintAssist";
+        TextBoxNextDueDateHintAssist = "TextBoxNextDueDateHintAssist";
+        CheckBoxForceDeactivate = "CheckBoxForceDeactivate";
+        CheckBoxIsActive = "CheckBoxIsActive";
+        ComboBoxPlaceCountryHintAssist = "ComboBoxPlaceCountryHintAssist";
+        ComboBoxPlaceCityHintAssist = "ComboBoxPlaceCityHintAssist";
+        ComboBoxPlaceHintAssist = "ComboBoxPlaceHintAssist";
+    }
+
     private void UpdateMapPoint(TPlace? place)
     {
         PlaceLayer.Clear();
@@ -635,6 +735,20 @@ public partial class AddEditRecurrentExpenseWindow
         MapControl.Map.Navigator.ZoomTo(0);
     }
 
+    private void UpdateNextDueDate()
+    {
+        var selectedFrequency = RecursiveFrequencies.FirstOrDefault(s => s.Id == RecursiveExpense.FrequencyFk);
+        if (selectedFrequency is null)
+        {
+            RecursiveExpense.NextDueDate = RecursiveExpense.StartDate;
+            return;
+        }
+
+        var dateOnly = RecursiveExpense.ERecursiveFrequency.CalculateNextDueDate(RecursiveExpense.StartDate);
+
+        RecursiveExpense.NextDueDate = dateOnly;
+    }
+
     private void UpdateTileLayer()
     {
         const string layerName = "Background";
@@ -649,101 +763,5 @@ public partial class AddEditRecurrentExpenseWindow
         MapControl?.Map.Layers.Insert(0, tileLayer);
     }
 
-    private void SelectorTile_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
-        => UpdateTileLayer();
-
-    private void ButtonPlace_OnClick(object sender, RoutedEventArgs e)
-    {
-        var place = RecursiveExpense.PlaceFk?.ToISql<TPlace>();
-        if (place?.CanBeDeleted is false)
-        {
-            MsgBox.MsgBox.Show(RecordExpensePageResources.MessageBoxPlaceCantEdit, MsgBoxImage.Error);
-            return;
-        }
-
-        var addEditLocationWindow = new AddEditLocationWindow();
-        if (place is not null) addEditLocationWindow.SetPlace(place, false);
-
-        var result = addEditLocationWindow.ShowDialog();
-        if (result is not true) return;
-
-        var oldPlace = PlacesCollection.FirstOrDefault(s => s.Id == RecursiveExpense.PlaceFk);
-        if (addEditLocationWindow.PlaceDeleted)
-        {
-            if (oldPlace is not null) PlacesCollection.Remove(oldPlace);
-
-            return;
-        }
-
-        var editedPlace = addEditLocationWindow.Place;
-        Log.Information("Attempting to update place id:\"{EditedPlaceId}\", name:\"{EditedPlaceName}\"", editedPlace.Id,
-            editedPlace.Name);
-
-        var (success, exception) = editedPlace.AddOrEdit();
-        if (success)
-        {
-            PlacesCollection!.AddAndSort(oldPlace, editedPlace, s => s!.Name!);
-            RecursiveExpense.PlaceFk = editedPlace.Id;
-
-            Log.Information("Place was successfully edited");
-
-            // Loop crash
-            // var json = editedPlace.ToJsonString();
-            // Log.Information("{Json}", json);
-
-            MsgBox.MsgBox.Show(RecordExpensePageResources.MessageBoxEditPlaceSuccess, MsgBoxImage.Check);
-        }
-        else
-        {
-            Log.Error(exception, "An error occurred please retry");
-            MsgBox.MsgBox.Show(RecordExpensePageResources.MessageBoxEditPlaceError, MsgBoxImage.Error);
-        }
-    }
-
-    private void MapControl_OnLoaded(object sender, RoutedEventArgs e)
-        => UpdateTileLayer();
-
-    private void ButtonValid_OnClick(object sender, RoutedEventArgs e)
-    {
-        var validationContext = new ValidationContext(RecursiveExpense, serviceProvider: null, items: null);
-        var validationResults = new List<ValidationResult>();
-        var isValid = Validator.TryValidateObject(RecursiveExpense, validationContext, validationResults, true);
-
-        if (!isValid)
-        {
-            var propertyError = validationResults.First();
-            var propertyMemberName = propertyError.MemberNames.First();
-
-            // var messageErrorKey = propertyMemberName switch
-            // {
-            //     nameof(TBankTransfer.FromAccountFk) => nameof(BankTransferPageResources
-            //         .MessageBoxButtonValidationFromAccountFkError),
-            //     nameof(TBankTransfer.ToAccountFk) => nameof(BankTransferPageResources
-            //         .MessageBoxButtonValidationToAccountFkError),
-            //     nameof(TBankTransfer.Value) => nameof(BankTransferPageResources.MessageBoxButtonValidationValueError),
-            //     nameof(TBankTransfer.Date) => nameof(BankTransferPageResources.MessageBoxButtonValidationDateError),
-            //     nameof(TBankTransfer.MainReason) => nameof(BankTransferPageResources
-            //         .MessageBoxButtonValidationMainReasonError),
-            //     _ => null
-            // };
-
-            // var localizedErrorMessage = string.IsNullOrEmpty(messageErrorKey)
-            //     ? propertyError.ErrorMessage!
-            //     : BankTransferPageResources.ResourceManager.GetString(messageErrorKey)!;
-            //
-            // MsgBox.Show(localizedErrorMessage, MsgBoxImage.Error);
-            return;
-        }
-    }
-
-    private void ButtonDelete_OnClick(object sender, RoutedEventArgs e)
-    {
-        throw new NotImplementedException();
-    }
-
-    private void ButtonCancel_OnClick(object sender, RoutedEventArgs e)
-    {
-        DialogResult = false;
-        Close();
-    }
+    #endregion
 }
