@@ -15,15 +15,15 @@
 >      - [ ] Import database ![40%](https://progress-bar.dev/40) <!-- [2/5] -->
 >        - [X] From database file
 >        - [X] From cloud ([API Dropbox](https://www.dropbox.com/developers/documentation/http/documentation)) (database file format only)
->        - [ ] From xlsx format (.shp if geometry data)
->        - [ ] From ods format (.shp if geometry data) (not required because LibreOffice can read xlsx files)
->        - [ ] From csv format (.shp if geometry data)
+>        - [ ] From xlsx format (.shp/.kml/.kmz if geometry data)
+>        - [ ] From ods format (.shp/.kml/.kmz if geometry data) (not required because LibreOffice can read xlsx files)
+>        - [ ] From csv format (.shp/.kml/.kmz if geometry data)
 >      - [ ] Export database ![40%](https://progress-bar.dev/40) <!-- [2/5] -->
 >        - [X] To database format
 >        - [X] To cloud ([API Dropbox](https://www.dropbox.com/developers/documentation/http/documentation)) (database file format only)
->        - [ ] To xlsx format (.shp if geometry data)
->        - [ ] To ods format (.shp if geometry data) (not required because LibreOffice can read xlsx files)
->        - [ ] To csv format (.shp if geometry data)
+>        - [ ] To xlsx format (.shp/.kml/.kmz if geometry data)
+>        - [ ] To ods format (.shp/.kml/.kmz if geometry data) (not required because LibreOffice can read xlsx files)
+>        - [ ] To csv format (.shp/.kml/.kmz if geometry data)
 >      - [X] Clean database (SQL query `VACUUM;`)
 >    - [ ] Help ![0%](https://progress-bar.dev/0) <!-- [0/2] -->
 >      - [ ] Tutorial (MultiLanguage) 
