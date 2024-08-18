@@ -21,9 +21,13 @@ public static class PropertyCopyHelper
         var sourceProperties = typeof(TSource).GetProperties(BindingFlags.Public | BindingFlags.Instance);
         var destinationProperties = typeof(TDestination).GetProperties(BindingFlags.Public | BindingFlags.Instance);
 
-        foreach(var sourceProperty in sourceProperties)
+        foreach (var sourceProperty in sourceProperties)
         {
-            var destinationProperty = destinationProperties.FirstOrDefault(d => d.Name == sourceProperty.Name && d.PropertyType == sourceProperty.PropertyType);
+            var sourceType = Nullable.GetUnderlyingType(sourceProperty.PropertyType) ?? sourceProperty.PropertyType;
+
+            var destinationProperty = destinationProperties.FirstOrDefault(d =>
+                d.Name == sourceProperty.Name &&
+                (Nullable.GetUnderlyingType(d.PropertyType) ?? d.PropertyType) == sourceType);
 
             if (destinationProperty == null || !destinationProperty.CanWrite) continue;
             var value = sourceProperty.GetValue(source);
