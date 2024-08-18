@@ -177,6 +177,30 @@
                                                        Binding="{Binding ForceDeactivate}">
                 </filterDataGrid:DataGridCheckBoxColumn>
 
+                <filterDataGrid:DataGridTemplateColumn x:Name="TemplateColumnActions" IsColumnFiltered="False"
+                                                       IsReadOnly="True">
+                        <filterDataGrid:DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+
+                                <StackPanel Orientation="Horizontal"
+                                            margin:PanelExtensions.MarginForAllChildren="3">
+
+                                    <Button Style="{StaticResource MaterialDesignPaperButton}"
+                                            Content="{Binding ButtonContentEditRecord, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:RecordExpensePage}}}"
+                                            Click="ButtonEditRecord_OnClick">
+                                    </Button>
+
+                                    <Button Style="{StaticResource MaterialDesignPaperButton}"
+                                            Content="{Binding ButtonContentDeleteRecord, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:RecordExpensePage}}}"
+                                            Click="ButtonDeleteRecord_OnClick">
+                                    </Button>
+
+                                </StackPanel>
+
+                            </DataTemplate>
+                        </filterDataGrid:DataGridTemplateColumn.CellTemplate>
+                </filterDataGrid:DataGridTemplateColumn>
+
             </filterDataGrid:FilterDataGrid.Columns>
 
         </filterDataGrid:FilterDataGrid>
