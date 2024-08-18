@@ -178,7 +178,8 @@
                   SelectedValue="{Binding RecursiveExpense.FrequencyFk, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                   SelectedValuePath="{Binding SelectedValuePathFrequencyFk}"
                   DisplayMemberPath="{Binding DisplayMemberPathFrequencyFk}"
-                  ToolTip="{Binding Path=SelectedItem.Description, RelativeSource={RelativeSource Self}}">
+                  ToolTip="{Binding Path=SelectedItem.Description, RelativeSource={RelativeSource Self}}"
+                  SelectionChanged="Selector_OnSelectionChanged">
         </ComboBox>
 
         <!-- TODO work -->
@@ -206,7 +207,8 @@
                     materialDesign:HintAssist.Hint="{Binding DatePickerWhenHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                     Style="{StaticResource MaterialDesignFilledDatePicker}"
                     SelectedDate="{Binding RecursiveExpense.StartDate, Converter={StaticResource DateOnlyToDateTimeConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                    IsTodayHighlighted="True">
+                    IsTodayHighlighted="True"
+                    SelectedDateChanged="DatePicker_OnSelectedDateChanged">
         </DatePicker>
 
         <!-- TODO work -->
