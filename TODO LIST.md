@@ -21,9 +21,21 @@
 >      - [ ] Export database ![40%](https://progress-bar.dev/40) <!-- [2/5] -->
 >        - [X] To database format
 >        - [X] To cloud ([API Dropbox](https://www.dropbox.com/developers/documentation/http/documentation)) (database file format only)
->        - [ ] To xlsx format (.shp/.kml/.kmz if geometry data with Qgis project (.qgs/.qgz))
+>        - [ ] To xlsx format (.shp/.kml/.kmz if geometry data with Qgis project (.qgs/.qgz)) ![0%](https://progress-bar.dev/0)<!-- [0/6] -->
+>          - [ ] xlsx
+>          - [ ] .shp
+>          - [ ] .kml
+>          - [ ] .kmz
+>          - [ ] .qgs
+>          - [ ] .qgz
 >        - [ ] To ods format (.shp/.kml/.kmz if geometry data with Qgis project (.qgs/.qgz)) (not required because LibreOffice can read xlsx files)
->        - [ ] To csv format (.shp/.kml/.kmz if geometry data with Qgis project (.qgs/.qgz))
+>        - [ ] To csv format (.shp/.kml/.kmz if geometry data with Qgis project (.qgs/.qgz)) ![0%](https://progress-bar.dev/0)<!-- [0/6] -->
+>          - [ ] csv
+>          - [ ] .shp
+>          - [ ] .kml
+>          - [ ] .kmz
+>          - [ ] .qgs
+>          - [ ] .qgz
 >      - [X] Clean database (SQL query `VACUUM;`)
 >    - [ ] Help ![0%](https://progress-bar.dev/0) <!-- [0/2] -->
 >      - [ ] Tutorial (MultiLanguage) 
