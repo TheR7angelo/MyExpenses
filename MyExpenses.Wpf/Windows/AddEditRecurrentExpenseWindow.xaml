@@ -148,9 +148,9 @@
                  Style="{StaticResource MaterialDesignFilledTextBox}"
                  Text="{Binding RecursiveExpense.Value, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                  AcceptsReturn="False" AcceptsTab="False"
-                 PreviewKeyDown="UIElement_OnPreviewKeyDown"
-                 PreviewTextInput="UIElement_OnPreviewTextInput"
-                 TextChanged="TextBoxValue_OnTextChanged">
+                 PreviewKeyDown="UIElementDoubleOnly_OnPreviewKeyDown"
+                 PreviewTextInput="UIElementDoubleOnly_OnPreviewTextInput"
+                 TextChanged="TextBoxValueDoubleOnly_OnTextChanged">
         </TextBox>
 
         <Button Grid.Row="5" Grid.Column="1"
