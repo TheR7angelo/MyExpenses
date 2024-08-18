@@ -24,14 +24,14 @@
         WindowStartupLocation="CenterScreen"
         ResizeMode="CanResizeWithGrip"
 
-        d:DesignHeight="656"
-        d:DesignWidth="780"
+        d:DesignHeight="685"
+        d:DesignWidth="825"
 
-        MinHeight="656"
-        MinWidth="780"
+        MinHeight="685"
+        MinWidth="825"
 
-        Height="656"
-        Width="780"
+        Height="685"
+        Width="825"
 
         Background="{DynamicResource MaterialDesignPaper}"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
