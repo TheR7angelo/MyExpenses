@@ -1,3 +1,5 @@
+using MyExpenses.Models.Sql.Bases.Enums;
+
 namespace MyExpenses.Utils.Dates;
 
 public static class DateExtensions
@@ -22,5 +24,18 @@ public static class DateExtensions
     {
         if (dateTime is null) return null;
         return new DateOnly(dateTime.Value.Year, dateTime.Value.Month, dateTime.Value.Day);
+    }
+
+    public static DateOnly CalculateNextDueDate(this ERecursiveFrequency recursiveFrequency, DateOnly baseDate)
+    {
+        var dateOnly = recursiveFrequency switch
+        {
+            ERecursiveFrequency.Daily => baseDate.AddDays(1),
+            ERecursiveFrequency.Weekly => baseDate.AddDays(7),
+            ERecursiveFrequency.Monthly => baseDate.AddMonths(1),
+            ERecursiveFrequency.Yearly => baseDate.AddYears(1),
+            _ => throw new ArgumentOutOfRangeException()
+        };
+        return dateOnly;
     }
 }

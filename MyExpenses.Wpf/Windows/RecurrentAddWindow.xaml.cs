@@ -7,12 +7,12 @@ using FilterDataGrid;
 using MyExpenses.Models.AutoMapper;
 using MyExpenses.Models.Config;
 using MyExpenses.Models.Config.Interfaces;
-using MyExpenses.Models.Sql.Bases.Enums;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Models.Sql.Bases.Views;
 using MyExpenses.Models.Sql.Derivatives.Views;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils.Collection;
+using MyExpenses.Utils.Dates;
 using MyExpenses.Wpf.Resources.Resx.Windows.RecurrentAddWindow;
 using MyExpenses.Wpf.Utils;
 using MyExpenses.Wpf.Utils.FilterDataGrid;
@@ -137,7 +137,7 @@ public partial class RecurrentAddWindow
                 CategoryTypeFk = vRecursiveExpenseDerive.CategoryTypeFk,
                 ModePaymentFk = vRecursiveExpenseDerive.ModePaymentFk,
                 Value = vRecursiveExpenseDerive.Value,
-                Date = MyExpenses.Utils.Dates.DateExtensions.ToDateTime(vRecursiveExpenseDerive.NextDueDate),
+                Date = DateExtensions.ToDateTime(vRecursiveExpenseDerive.NextDueDate),
                 PlaceFk = vRecursiveExpenseDerive.PlaceFk,
                 RecursiveExpenseFk = vRecursiveExpenseDerive.Id
             };
@@ -165,14 +165,8 @@ public partial class RecurrentAddWindow
             return recursiveExpense;
         }
 
-        recursiveExpense.NextDueDate = recursiveExpense.ERecursiveFrequency switch
-        {
-            ERecursiveFrequency.Daily => recursiveExpense.NextDueDate.AddDays(1),
-            ERecursiveFrequency.Weekly => recursiveExpense.NextDueDate.AddDays(7),
-            ERecursiveFrequency.Monthly => recursiveExpense.NextDueDate.AddMonths(1),
-            ERecursiveFrequency.Yearly => recursiveExpense.NextDueDate.AddYears(1),
-            _ => throw new ArgumentOutOfRangeException()
-        };
+        var dateOnly = recursiveExpense.ERecursiveFrequency.CalculateNextDueDate(recursiveExpense.StartDate);
+        recursiveExpense.NextDueDate = dateOnly;
 
         return recursiveExpense;
     }
