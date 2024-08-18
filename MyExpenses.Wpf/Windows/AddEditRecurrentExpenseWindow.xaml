@@ -219,13 +219,16 @@
                   IsReadOnly="True">
         </TextBox>
 
-        <StackPanel Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="2"
-                    Orientation="Horizontal"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center">
+        <Grid Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="2">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
 
             <!-- TODO work -->
-            <CheckBox HorizontalAlignment="Left"
+            <CheckBox Grid.Column="0"
+                      HorizontalAlignment="Left"
                       FlowDirection="RightToLeft"
                       IsThreeState="False"
                       IsChecked="{Binding RecursiveExpense.ForceDeactivate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
@@ -234,7 +237,8 @@
             </CheckBox>
 
             <!-- TODO work -->
-            <CheckBox HorizontalAlignment="Left"
+            <CheckBox Grid.Column="1"
+                      HorizontalAlignment="Left"
                       FlowDirection="RightToLeft"
                       IsThreeState="False"
                       IsChecked="{Binding RecursiveExpense.IsActive, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
@@ -243,7 +247,7 @@
                       IsEnabled="False">
             </CheckBox>
 
-        </StackPanel>
+        </Grid>
 
     </Grid>
 
