@@ -63,6 +63,26 @@ public partial class RecurrentExpensePage
         set => SetValue(DataGridMenuItemHeaderDeleteRecordProperty, value);
     }
 
+    public static readonly DependencyProperty ButtonContentEditRecordProperty =
+        DependencyProperty.Register(nameof(ButtonContentEditRecord), typeof(string), typeof(RecurrentExpensePage),
+            new PropertyMetadata(default(string)));
+
+    public string ButtonContentEditRecord
+    {
+        get => (string)GetValue(ButtonContentEditRecordProperty);
+        set => SetValue(ButtonContentEditRecordProperty, value);
+    }
+
+    public static readonly DependencyProperty ButtonContentDeleteRecordProperty =
+        DependencyProperty.Register(nameof(ButtonContentDeleteRecord), typeof(string), typeof(RecurrentExpensePage),
+            new PropertyMetadata(default(string)));
+
+    public string ButtonContentDeleteRecord
+    {
+        get => (string)GetValue(ButtonContentDeleteRecordProperty);
+        set => SetValue(ButtonContentDeleteRecordProperty, value);
+    }
+
     #endregion
 
     private DataGridRow? DataGridRow { get; set; }
@@ -228,8 +248,12 @@ public partial class RecurrentExpensePage
         DataGridTextColumnPlace.Header = RecurrentExpensePageResources.DataGridTextColumnPlaceHeader;
         DataGridCheckBoxColumnIsActive.Header = RecurrentExpensePageResources.DataGridCheckBoxColumnIsActiveHeader;
         DataGridCheckBoxColumnForceDeactivate.Header = RecurrentExpensePageResources.DataGridCheckBoxColumnForceDeactivateHeader;
+        DataGridTemplateColumnActions.Header = RecurrentExpensePageResources.DataGridTemplateColumnActionsHeader;
         DataGridMenuItemHeaderEditRecord = RecurrentExpensePageResources.DataGridMenuItemHeaderEditRecord;
         DataGridMenuItemHeaderDeleteRecord = RecurrentExpensePageResources.DataGridMenuItemHeaderDeleteRecord;
+
+        ButtonContentEditRecord = RecurrentExpensePageResources.ButtonContentEditRecord;
+        ButtonContentDeleteRecord = RecurrentExpensePageResources.ButtonContentDeleteRecord;
     }
 
     private void UpdateLocalLanguage()
