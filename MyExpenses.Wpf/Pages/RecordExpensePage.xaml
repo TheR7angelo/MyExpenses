@@ -149,7 +149,8 @@
             <DatePicker Grid.Column="0" x:Name="DatePicker"
                         materialDesign:HintAssist.Hint="{Binding DatePickerWhenHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                         Style="{StaticResource MaterialDesignFilledDatePicker}"
-                        SelectedDate="{Binding History.Date, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                        SelectedDate="{Binding History.Date, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        IsTodayHighlighted="True">
             </DatePicker>
 
             <materialDesign:TimePicker Grid.Column="1" x:Name="TimePicker"
