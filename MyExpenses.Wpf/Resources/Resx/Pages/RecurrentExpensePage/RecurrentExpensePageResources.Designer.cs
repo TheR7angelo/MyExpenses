@@ -79,6 +79,15 @@ namespace MyExpenses.Wpf.Resources.Resx.Pages.RecurrentExpensePage {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Delete this record.
+        /// </summary>
+        internal static string DataGridMenuItemHeaderDeleteRecord {
+            get {
+                return ResourceManager.GetString("DataGridMenuItemHeaderDeleteRecord", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Edit this record.
         /// </summary>
         internal static string DataGridMenuItemHeaderEditRecord {

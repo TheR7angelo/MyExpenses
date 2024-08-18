@@ -71,4 +71,7 @@
     <data name="MessageBoxDeleteRecursiveExpenseError" xml:space="preserve">
         <value>An error has occurred, please try again</value>
     </data>
+    <data name="DataGridMenuItemHeaderDeleteRecord" xml:space="preserve">
+        <value>Delete this record</value>
+    </data>
 </root>

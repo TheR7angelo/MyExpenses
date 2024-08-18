@@ -53,6 +53,16 @@ public partial class RecurrentExpensePage
         set => SetValue(DataGridMenuItemHeaderEditRecordProperty, value);
     }
 
+    public static readonly DependencyProperty DataGridMenuItemHeaderDeleteRecordProperty =
+        DependencyProperty.Register(nameof(DataGridMenuItemHeaderDeleteRecord), typeof(string),
+            typeof(RecurrentExpensePage), new PropertyMetadata(default(string)));
+
+    public string DataGridMenuItemHeaderDeleteRecord
+    {
+        get => (string)GetValue(DataGridMenuItemHeaderDeleteRecordProperty);
+        set => SetValue(DataGridMenuItemHeaderDeleteRecordProperty, value);
+    }
+
     #endregion
 
     private DataGridRow? DataGridRow { get; set; }
@@ -147,6 +157,7 @@ public partial class RecurrentExpensePage
         DataGridCheckBoxColumnIsActive.Header = RecurrentExpensePageResources.DataGridCheckBoxColumnIsActiveHeader;
         DataGridCheckBoxColumnForceDeactivate.Header = RecurrentExpensePageResources.DataGridCheckBoxColumnForceDeactivateHeader;
         DataGridMenuItemHeaderEditRecord = RecurrentExpensePageResources.DataGridMenuItemHeaderEditRecord;
+        DataGridMenuItemHeaderDeleteRecord = RecurrentExpensePageResources.DataGridMenuItemHeaderDeleteRecord;
     }
 
     private void UpdateLocalLanguage()
@@ -171,7 +182,8 @@ public partial class RecurrentExpensePage
         if (response is not MessageBoxResult.Yes) return;
 
         var recurrentExpense = vRecurrentExpense.Id.ToISql<TRecursiveExpense>()!;
-        Log.Information("Attempting to remove the recursive expense \"{RecursiveExpenseDescription}\"", recurrentExpense.Description);
+        Log.Information("Attempting to remove the recursive expense \"{RecursiveExpenseDescription}\"",
+            recurrentExpense.Description);
         var (success, exception) = recurrentExpense.Delete();
 
         if (success)
@@ -196,7 +208,8 @@ public partial class RecurrentExpensePage
 
             if (response is not MessageBoxResult.Yes) return;
 
-            Log.Information("Attempting to remove the recursive expense \"{RecursiveExpenseDescription}\" with all relative element",
+            Log.Information(
+                "Attempting to remove the recursive expense \"{RecursiveExpenseDescription}\" with all relative element",
                 recurrentExpense.Description);
             recurrentExpense.Delete(true);
             Log.Information("Recursive expense and all relative element was successfully removed");
