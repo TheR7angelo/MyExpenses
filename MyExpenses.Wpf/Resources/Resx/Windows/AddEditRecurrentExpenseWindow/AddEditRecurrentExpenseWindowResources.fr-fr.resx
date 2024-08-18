@@ -111,7 +111,7 @@
         <value>La dépense récursive a été supprimé avec succès</value>
     </data>
     <data name="MessageBoxDeleteRecursiveExpenseUseQuestion" xml:space="preserve">
-        <value>This recursive spending is used. Are you sure you want to remove this payment method and everything related to it?</value>
+        <value>Cette dépense récursive est utilisée. Êtes-vous sûr de vouloir supprimer ce mode de paiement et tout ce qui s'y rapporte ?</value>
     </data>
     <data name="MessageBoxDeleteRecursiveExpenseUseSuccess" xml:space="preserve">
         <value>Les dépenses récursives et tous les éléments associés ont été supprimés avec succès</value>
