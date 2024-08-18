@@ -3,19 +3,18 @@ namespace MyExpenses.Utils.Strings;
 public static class StringsExtensions
 {
     /// <summary>
-    /// Converts the specified string representation of a number to an equivalent 32-bit signed integer.
+    /// Converts a string to an int value (nullable).
     /// </summary>
-    /// <param name="input">The string to convert.</param>
-    /// <returns>The 32-bit signed integer equivalent to the number specified in the string.</returns>
-    /// <exception cref="FormatException">The string does not contain a valid representation of a number.</exception>
-    public static int ToInt(this string input)
+    /// <param name="input">The input string.</param>
+    /// <param name="output">The converted int value (nullable).</param>
+    /// <returns>A boolean indicating if the conversion was successful.</returns>
+    public static bool ToInt(this string input, out int? output)
     {
-        if (int.TryParse(input, out var i))
-        {
-            return i;
-        }
+        var success = int.TryParse(input, out var i);
 
-        throw new FormatException();
+        output = success ? i : null;
+
+        return success;
     }
 
     /// <summary>
