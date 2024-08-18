@@ -4,6 +4,9 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Markup;
+using BruTile.Predefined;
+using Mapsui.Layers;
+using Mapsui.Tiling.Layers;
 using MyExpenses.Models.Config;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Sql.Bases.Tables;
@@ -13,9 +16,13 @@ using MyExpenses.Utils.Collection;
 using MyExpenses.Utils.Dates;
 using MyExpenses.Utils.Sql;
 using MyExpenses.Utils.Strings;
+using MyExpenses.Wpf.Converters;
+using MyExpenses.Wpf.Resources.Resx.Converters;
 using MyExpenses.Wpf.Resources.Resx.Pages.RecordExpensePage;
 using MyExpenses.Wpf.Utils;
+using MyExpenses.Wpf.Utils.Maps;
 using MyExpenses.Wpf.Windows.CategoryTypeManagementWindow;
+using MyExpenses.Wpf.Windows.LocationManagementWindows;
 using MyExpenses.Wpf.Windows.MsgBox;
 using Serilog;
 
@@ -23,10 +30,25 @@ namespace MyExpenses.Wpf.Windows;
 
 public partial class AddEditRecurrentExpenseWindow
 {
+    public static readonly DependencyProperty SelectedCountryProperty =
+        DependencyProperty.Register(nameof(SelectedCountry), typeof(string), typeof(AddEditRecurrentExpenseWindow),
+            new PropertyMetadata(default(string)));
+
+    public string? SelectedCountry
+    {
+        get => (string)GetValue(SelectedCountryProperty);
+        set => SetValue(SelectedCountryProperty, value);
+    }
+
     public ObservableCollection<TAccount> Accounts { get; }
     public ObservableCollection<TCategoryType> CategoryTypes { get; }
     public ObservableCollection<TModePayment> ModePayments { get; }
     public ObservableCollection<TRecursiveFrequency> RecursiveFrequencies { get; }
+
+    public ObservableCollection<string> CountriesCollection { get; }
+
+    public ObservableCollection<string> CitiesCollection { get; }
+    public ObservableCollection<TPlace> PlacesCollection { get; }
 
     public string SelectedValuePathAccount { get; } = nameof(TAccount.Id);
     public string DisplayMemberPathAccount { get; } = nameof(TAccount.Name);
@@ -36,18 +58,42 @@ public partial class AddEditRecurrentExpenseWindow
     public string DisplayMemberPathModePayment { get; } = nameof(TModePayment.Name);
     public string SelectedValuePathFrequencyFk { get; } = nameof(TRecursiveFrequency.Id);
     public string DisplayMemberPathFrequencyFk { get; } = nameof(TRecursiveFrequency.Frequency);
+    public string SelectedValuePathPlace { get; } = nameof(TPlace.Id);
+    public string DisplayMemberPathPlaceName { get; } = nameof(TPlace.Name);
+
+    private WritableLayer PlaceLayer { get; } = new() { Style = null, IsMapInfoLayer = true, Tag = typeof(TPlace) };
+    public List<KnownTileSource> KnownTileSources { get; }
+    public KnownTileSource KnownTileSourceSelected { get; set; }
 
     public TRecursiveExpense RecursiveExpense { get; set; } = new();
+
     public AddEditRecurrentExpenseWindow()
     {
+        KnownTileSources = [..MapsuiMapExtensions.GetAllKnowTileSource()];
+
         using var context = new DataBaseContext();
         Accounts = [..context.TAccounts.OrderBy(s => s.Name)];
         CategoryTypes = [..context.TCategoryTypes.OrderBy(s => s.Name)];
         ModePayments = [..context.TModePayments.OrderBy(s => s.Name)];
         RecursiveFrequencies = [..context.TRecursiveFrequencies.OrderBy(s => s.Id)];
 
+        PlacesCollection = [..context.TPlaces.Where(s => (bool)s.IsOpen!).OrderBy(s => s.Name)];
+
+        var records = PlacesCollection.Select(s => EmptyStringTreeViewConverter.ToUnknown(s.Country)).Order()
+            .Distinct();
+        CountriesCollection = new ObservableCollection<string>(records);
+
+        records = PlacesCollection.Select(s => EmptyStringTreeViewConverter.ToUnknown(s.City)).Order().Distinct();
+        CitiesCollection = new ObservableCollection<string>(records);
+
+        var backColor = Utils.Resources.GetMaterialDesignPaperMapsUiStylesColor();
+        var map = MapsuiMapExtensions.GetMap(true, backColor);
+        map.Layers.Add(PlaceLayer);
+
         InitializeComponent();
         UpdaterLanguage();
+
+        MapControl.Map = map;
 
         Interface.LanguageChanged += Interface_OnLanguageChanged;
         this.SetWindowCornerPreference();
@@ -285,4 +331,158 @@ public partial class AddEditRecurrentExpenseWindow
 
         RecursiveExpense.NextDueDate = dateOnly;
     }
+
+     private void SelectorCity_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        var comboBox = (ComboBox)sender;
+        var city = comboBox.SelectedItem as string;
+
+        using var context = new DataBaseContext();
+        var query = context.TPlaces.Where(s => s.IsOpen.Equals(true));
+
+        IQueryable<TPlace> records;
+
+        if (!string.IsNullOrEmpty(city))
+        {
+            records = city.Equals(EmptyStringTreeViewConverterResources.Unknown)
+                ? query.Where(s => s.City == null)
+                : query.Where(s => s.City == city);
+        }
+        else
+        {
+            records = query;
+        }
+
+        ComboBoxSelectorCountry.SelectionChanged -= SelectorCountry_OnSelectionChanged;
+        SelectedCountry = records.First().Country;
+        ComboBoxSelectorCountry.SelectionChanged += SelectorCountry_OnSelectionChanged;
+
+        PlacesCollection.Clear();
+        PlacesCollection.AddRangeAndSort(records, s => s.Name!);
+    }
+
+    private void SelectorCountry_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        var comboBox = (ComboBox)sender;
+        var country = comboBox.SelectedItem as string;
+
+        using var context = new DataBaseContext();
+        var query = context.TPlaces.Where(s => s.IsOpen.Equals(true));
+
+        IQueryable<TPlace> records;
+
+        if (!string.IsNullOrEmpty(country))
+        {
+            records = country.Equals(EmptyStringTreeViewConverterResources.Unknown)
+                ? query.Where(s => s.Country == null)
+                : query.Where(s => s.Country == country);
+        }
+        else
+        {
+            records = query;
+        }
+
+        var citiesResults = records.Select(s => EmptyStringTreeViewConverter.ToUnknown(s.City)).Distinct();
+
+        CitiesCollection.Clear();
+        CitiesCollection.AddRangeAndSort(citiesResults, s => s);
+
+        PlacesCollection.Clear();
+        PlacesCollection.AddRangeAndSort(records, s => s.Name!);
+    }
+
+    private void SelectorPlace_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        var place = RecursiveExpense.PlaceFk?.ToISql<TPlace>();
+        UpdateMapPoint(place);
+
+        ComboBoxSelectorCountry.SelectedItem = place?.Country;
+        ComboBoxSelectorCity.SelectedItem = place?.City;
+        RecursiveExpense.PlaceFk = place?.Id;
+    }
+
+    private void UpdateMapPoint(TPlace? place)
+    {
+        PlaceLayer.Clear();
+
+        if (place is null)
+        {
+            MapControl.Refresh();
+            return;
+        }
+
+        var pointFeature = place.ToFeature(MapsuiStyleExtensions.RedMarkerStyle);
+
+        PlaceLayer.Add(pointFeature);
+        MapControl.Map.Navigator.CenterOn(pointFeature.Point);
+        MapControl.Map.Navigator.ZoomTo(0);
+    }
+
+    private void UpdateTileLayer()
+    {
+        const string layerName = "Background";
+
+        var httpTileSource = BruTile.Predefined.KnownTileSources.Create(KnownTileSourceSelected);
+        var tileLayer = new TileLayer(httpTileSource);
+        tileLayer.Name = layerName;
+
+        var layers = MapControl?.Map.Layers.FindLayer(layerName);
+        if (layers is not null) MapControl?.Map.Layers.Remove(layers.ToArray());
+
+        MapControl?.Map.Layers.Insert(0, tileLayer);
+    }
+
+    private void SelectorTile_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        => UpdateTileLayer();
+
+    private void ButtonPlace_OnClick(object sender, RoutedEventArgs e)
+    {
+        var place = RecursiveExpense.PlaceFk?.ToISql<TPlace>();
+        if (place?.CanBeDeleted is false)
+        {
+            MsgBox.MsgBox.Show(RecordExpensePageResources.MessageBoxPlaceCantEdit, MsgBoxImage.Error);
+            return;
+        }
+
+        var addEditLocationWindow = new AddEditLocationWindow();
+        if (place is not null) addEditLocationWindow.SetPlace(place, false);
+
+        var result = addEditLocationWindow.ShowDialog();
+        if (result is not true) return;
+
+        var oldPlace = PlacesCollection.FirstOrDefault(s => s.Id == RecursiveExpense.PlaceFk);
+        if (addEditLocationWindow.PlaceDeleted)
+        {
+            if (oldPlace is not null) PlacesCollection.Remove(oldPlace);
+
+            return;
+        }
+
+        var editedPlace = addEditLocationWindow.Place;
+        Log.Information("Attempting to update place id:\"{EditedPlaceId}\", name:\"{EditedPlaceName}\"", editedPlace.Id,
+            editedPlace.Name);
+
+        var (success, exception) = editedPlace.AddOrEdit();
+        if (success)
+        {
+            PlacesCollection!.AddAndSort(oldPlace, editedPlace, s => s!.Name!);
+            RecursiveExpense.PlaceFk = editedPlace.Id;
+
+            Log.Information("Place was successfully edited");
+
+            // Loop crash
+            // var json = editedPlace.ToJsonString();
+            // Log.Information("{Json}", json);
+
+            MsgBox.MsgBox.Show(RecordExpensePageResources.MessageBoxEditPlaceSuccess, MsgBoxImage.Check);
+        }
+        else
+        {
+            Log.Error(exception, "An error occurred please retry");
+            MsgBox.MsgBox.Show(RecordExpensePageResources.MessageBoxEditPlaceError, MsgBoxImage.Error);
+        }
+    }
+
+    private void MapControl_OnLoaded(object sender, RoutedEventArgs e)
+        => UpdateTileLayer();
 }
