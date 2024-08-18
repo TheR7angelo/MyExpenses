@@ -727,6 +727,28 @@ public partial class AddEditRecurrentExpenseWindow
     private void SelectorTile_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         => UpdateTileLayer();
 
+    private void TextBoxRecursiveTotal_OnTextChanged(object sender, TextChangedEventArgs e)
+    {
+        var textBox = (TextBox)sender;
+        if (string.IsNullOrWhiteSpace(textBox.Text))
+        {
+            RecursiveExpense.RecursiveTotal = null;
+        }
+
+        UpdateIsActive();
+    }
+
+    private void TextBoxRecursiveCount_OnTextChanged(object sender, TextChangedEventArgs e)
+    {
+        var textBox = (TextBox)sender;
+        if (string.IsNullOrWhiteSpace(textBox.Text))
+        {
+            RecursiveExpense.RecursiveCount = 0;
+        }
+
+        UpdateIsActive();
+    }
+
     private void TextBoxValueDoubleOnly_OnTextChanged(object sender, TextChangedEventArgs e)
     {
         var textBox = (TextBox)sender;
@@ -785,9 +807,11 @@ public partial class AddEditRecurrentExpenseWindow
         textBox.CaretIndex = caretPosition;
     }
 
-    private void UIElementIntOnly_OnPreviewTextInput(object sender, TextCompositionEventArgs e)
+    private void UIElementIntOnlyRecursiveTotal_OnPreviewTextInput(object sender, TextCompositionEventArgs e)
     {
-        var txt = e.Text;
+        var textBox = (TextBox)sender;
+        var txt = textBox.Text.Insert(textBox.SelectionStart, e.Text);
+
         var success = txt.ToInt(out var value);
 
         if (success) success = value! > 0;
@@ -803,6 +827,13 @@ public partial class AddEditRecurrentExpenseWindow
     {
         EditRecurrentExpense = true;
         vRecurrentExpense.CopyPropertiesTo(RecursiveExpense);
+    }
+
+    private void UpdateIsActive()
+    {
+        if (RecursiveExpense.RecursiveTotal is null) RecursiveExpense.IsActive = true;
+
+        RecursiveExpense.IsActive = RecursiveExpense.RecursiveTotal > RecursiveExpense.RecursiveCount;
     }
 
     private void UpdaterLanguage(string? cultureInfoCode = null)
@@ -882,17 +913,4 @@ public partial class AddEditRecurrentExpenseWindow
     }
 
     #endregion
-
-    private void TextBoxRecursiveTotal_OnTextChanged(object sender, TextChangedEventArgs e)
-        => UpdateIsActive();
-
-    private void TextBoxRecursiveCount_OnTextChanged(object sender, TextChangedEventArgs e)
-        => UpdateIsActive();
-
-    private void UpdateIsActive()
-    {
-        if (RecursiveExpense.RecursiveTotal is null) RecursiveExpense.IsActive = true;
-
-        RecursiveExpense.IsActive = RecursiveExpense.RecursiveTotal > RecursiveExpense.RecursiveCount;
-    }
 }

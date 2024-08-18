@@ -200,7 +200,7 @@
                  Style="{StaticResource MaterialDesignFilledTextBox}"
                  Text="{Binding RecursiveExpense.RecursiveTotal, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                  AcceptsReturn="False" AcceptsTab="False"
-                 PreviewTextInput="UIElementIntOnly_OnPreviewTextInput"
+                 PreviewTextInput="UIElementIntOnlyRecursiveTotal_OnPreviewTextInput"
                  TextChanged="TextBoxRecursiveTotal_OnTextChanged">
         </TextBox>
 
@@ -210,7 +210,7 @@
                  Style="{StaticResource MaterialDesignFilledTextBox}"
                  Text="{Binding RecursiveExpense.RecursiveCount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                  AcceptsReturn="False" AcceptsTab="False"
-                 PreviewTextInput="UIElementIntOnly_OnPreviewTextInput"
+                 PreviewTextInput="UIElementIntOnlyRecursiveTotal_OnPreviewTextInput"
                  TextChanged="TextBoxRecursiveCount_OnTextChanged">
         </TextBox>
 
