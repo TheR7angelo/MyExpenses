@@ -178,6 +178,33 @@ namespace MyExpenses.Wpf.Resources.Resx.Windows.AddEditRecurrentExpenseWindow {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to An error occurred please retry.
+        /// </summary>
+        internal static string MessageBoxAddRecursiveExpenseError {
+            get {
+                return ResourceManager.GetString("MessageBoxAddRecursiveExpenseError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you want to record a new recursive expense ?.
+        /// </summary>
+        internal static string MessageBoxAddRecursiveExpenseQuestion {
+            get {
+                return ResourceManager.GetString("MessageBoxAddRecursiveExpenseQuestion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The new recursive expense has been added successfully.
+        /// </summary>
+        internal static string MessageBoxAddRecursiveExpenseSuccess {
+            get {
+                return ResourceManager.GetString("MessageBoxAddRecursiveExpenseSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Account name cannot be null.
         /// </summary>
         internal static string MessageBoxButtonValidationAccountFkError {

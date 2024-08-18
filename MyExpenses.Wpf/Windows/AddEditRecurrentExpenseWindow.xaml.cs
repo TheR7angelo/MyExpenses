@@ -524,7 +524,6 @@ public partial class AddEditRecurrentExpenseWindow
         }
     }
 
-    // TODO work
     private void ButtonValid_OnClick(object sender, RoutedEventArgs e)
     {
         var validationContext = new ValidationContext(RecursiveExpense, serviceProvider: null, items: null);
@@ -563,6 +562,36 @@ public partial class AddEditRecurrentExpenseWindow
 
             MsgBox.MsgBox.Show(localizedErrorMessage, MsgBoxImage.Error);
             return;
+        }
+
+        Log.Information("Attempting to inject the new recursive expense");
+
+        var (success, exception) = RecursiveExpense.AddOrEdit();
+        if (success)
+        {
+            Log.Information("Recursive expense was successfully added");
+            var json = RecursiveExpense.ToJsonString();
+            Log.Information("{Json}", json);
+
+            MsgBox.MsgBox.Show(AddEditRecurrentExpenseWindowResources.MessageBoxAddRecursiveExpenseSuccess, MsgBoxImage.Check);
+
+            if (EditRecurrentExpense)
+            {
+                nameof(MainWindow.FrameBody).GoBack();
+                return;
+            }
+
+            var response = MsgBox.MsgBox.Show(AddEditRecurrentExpenseWindowResources.MessageBoxAddRecursiveExpenseQuestion, MsgBoxImage.Question,
+                MessageBoxButton.YesNoCancel);
+            if (response is not MessageBoxResult.Yes) nameof(MainWindow.FrameBody).GoBack();
+
+            var newRecursiveExpense = new TRecursiveExpense();
+            newRecursiveExpense.CopyPropertiesTo(RecursiveExpense);
+        }
+        else
+        {
+            Log.Error(exception, "An error occurred please retry");
+            MsgBox.MsgBox.Show(AddEditRecurrentExpenseWindowResources.MessageBoxAddRecursiveExpenseError, MsgBoxImage.Error);
         }
     }
 
