@@ -182,6 +182,13 @@
                  PreviewTextInput="UIElementIntOnly_OnPreviewTextInput">
         </TextBox>
 
+        <!-- TODO work -->
+        <DatePicker Grid.Row="7" Grid.Column="0" x:Name="DatePicker"
+                    materialDesign:HintAssist.Hint="{Binding DatePickerWhenHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                    Style="{StaticResource MaterialDesignFilledDatePicker}"
+                    SelectedDate="{Binding RecursiveExpense.StartDate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+        </DatePicker>
+
     </Grid>
 
 </mah:MetroWindow>
