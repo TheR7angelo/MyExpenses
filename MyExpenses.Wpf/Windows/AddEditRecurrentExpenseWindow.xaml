@@ -62,7 +62,6 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" MinWidth="250" />
             <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
@@ -87,7 +86,7 @@
 
         </Button>
 
-        <ComboBox Grid.Row="0" Grid.Column="3"
+        <ComboBox Grid.Row="0" Grid.Column="2"
                   Style="{StaticResource MaterialDesignFilledComboBox}"
                   materialDesign:HintAssist.Hint="{Binding ComboBoxBackgroundHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                   ItemsSource="{Binding KnownTileSources}"
@@ -100,7 +99,7 @@
             </ComboBox.ItemTemplate>
         </ComboBox>
 
-        <wpf:MapControl Grid.Row="1" Grid.Column="3" Grid.RowSpan="9"
+        <wpf:MapControl Grid.Row="1" Grid.Column="2" Grid.RowSpan="9"
                         x:Name="MapControl"
                         Background="{DynamicResource MaterialDesignPaper}"
                         Loaded="MapControl_OnLoaded">
@@ -204,7 +203,7 @@
                  PreviewTextInput="UIElementIntOnly_OnPreviewTextInput">
         </TextBox>
 
-        <TextBox Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="2"
+        <TextBox Grid.Row="7" Grid.Column="1"
                  materialDesign:HintAssist.Hint="{Binding TextBoxRecursiveCountHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                  materialDesign:TextFieldAssist.HasClearButton="True"
                  Style="{StaticResource MaterialDesignFilledTextBox}"
@@ -221,7 +220,7 @@
                     SelectedDateChanged="DatePicker_OnSelectedDateChanged">
         </DatePicker>
 
-        <TextBox  Grid.Row="8" Grid.Column="1" Grid.ColumnSpan="2"
+        <TextBox  Grid.Row="8" Grid.Column="1"
                   materialDesign:HintAssist.Hint="{Binding TextBoxNextDueDateHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                   Style="{StaticResource MaterialDesignFilledTextBox}"
                   Text="{Binding RecursiveExpense.NextDueDate, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
@@ -312,7 +311,7 @@
 
         </Button>
 
-        <StackPanel Grid.Row="10" Grid.Column="3"
+        <StackPanel Grid.Row="10" Grid.Column="2"
                     Orientation="Horizontal"
                     HorizontalAlignment="Right"
                     VerticalAlignment="Center"
