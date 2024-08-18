@@ -78,4 +78,28 @@
     <data name="ButtonCancelContent" xml:space="preserve">
         <value>Cancel</value>
     </data>
+    <data name="MessageBoxButtonValidationAccountFkError" xml:space="preserve">
+        <value>Account name cannot be null</value>
+    </data>
+    <data name="MessageBoxButtonValidationDescriptionError" xml:space="preserve">
+        <value>Description cannot be null</value>
+    </data>
+    <data name="MessageBoxButtonValidationCategoryTypeFkError" xml:space="preserve">
+        <value>Category cannot be null</value>
+    </data>
+    <data name="MessageBoxButtonValidationModePaymentFkError" xml:space="preserve">
+        <value>Payment method cannot be null...</value>
+    </data>
+    <data name="MessageBoxButtonValidationValueError" xml:space="preserve">
+        <value>Value cannot be null</value>
+    </data>
+    <data name="MessageBoxButtonValidationPlaceFkError" xml:space="preserve">
+        <value>Place cannot be null</value>
+    </data>
+    <data name="MessageBoxButtonValidationStartDateError" xml:space="preserve">
+        <value>Start date cannot be null</value>
+    </data>
+    <data name="MessageBoxButtonValidationFrequencyFkError" xml:space="preserve">
+        <value>Frequency cannot be null</value>
+    </data>
 </root>

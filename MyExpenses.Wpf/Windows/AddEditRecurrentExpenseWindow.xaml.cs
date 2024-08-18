@@ -536,24 +536,32 @@ public partial class AddEditRecurrentExpenseWindow
             var propertyError = validationResults.First();
             var propertyMemberName = propertyError.MemberNames.First();
 
-            // var messageErrorKey = propertyMemberName switch
-            // {
-            //     nameof(TBankTransfer.FromAccountFk) => nameof(BankTransferPageResources
-            //         .MessageBoxButtonValidationFromAccountFkError),
-            //     nameof(TBankTransfer.ToAccountFk) => nameof(BankTransferPageResources
-            //         .MessageBoxButtonValidationToAccountFkError),
-            //     nameof(TBankTransfer.Value) => nameof(BankTransferPageResources.MessageBoxButtonValidationValueError),
-            //     nameof(TBankTransfer.Date) => nameof(BankTransferPageResources.MessageBoxButtonValidationDateError),
-            //     nameof(TBankTransfer.MainReason) => nameof(BankTransferPageResources
-            //         .MessageBoxButtonValidationMainReasonError),
-            //     _ => null
-            // };
+            var messageErrorKey = propertyMemberName switch
+            {
+                nameof(TRecursiveExpense.AccountFk) => nameof(AddEditRecurrentExpenseWindowResources
+                    .MessageBoxButtonValidationAccountFkError),
+                nameof(TRecursiveExpense.Description) => nameof(AddEditRecurrentExpenseWindowResources
+                    .MessageBoxButtonValidationDescriptionError),
+                nameof(TRecursiveExpense.CategoryTypeFk) => nameof(AddEditRecurrentExpenseWindowResources
+                    .MessageBoxButtonValidationCategoryTypeFkError),
+                nameof(TRecursiveExpense.ModePaymentFk) => nameof(AddEditRecurrentExpenseWindowResources
+                    .MessageBoxButtonValidationModePaymentFkError),
+                nameof(TRecursiveExpense.Value) => nameof(AddEditRecurrentExpenseWindowResources
+                    .MessageBoxButtonValidationValueError),
+                nameof(TRecursiveExpense.PlaceFk) => nameof(AddEditRecurrentExpenseWindowResources
+                    .MessageBoxButtonValidationPlaceFkError),
+                nameof(TRecursiveExpense.StartDate) => nameof(AddEditRecurrentExpenseWindowResources
+                    .MessageBoxButtonValidationStartDateError),
+                nameof(TRecursiveExpense.FrequencyFk) => nameof(AddEditRecurrentExpenseWindowResources
+                    .MessageBoxButtonValidationFrequencyFkError),
+                _ => null
+            };
 
-            // var localizedErrorMessage = string.IsNullOrEmpty(messageErrorKey)
-            //     ? propertyError.ErrorMessage!
-            //     : BankTransferPageResources.ResourceManager.GetString(messageErrorKey)!;
-            //
-            // MsgBox.Show(localizedErrorMessage, MsgBoxImage.Error);
+            var localizedErrorMessage = string.IsNullOrEmpty(messageErrorKey)
+                ? propertyError.ErrorMessage!
+                : AddEditRecurrentExpenseWindowResources.ResourceManager.GetString(messageErrorKey)!;
+
+            MsgBox.MsgBox.Show(localizedErrorMessage, MsgBoxImage.Error);
             return;
         }
     }
