@@ -25,6 +25,7 @@ public partial class AddEditRecurrentExpenseWindow
     public ObservableCollection<TAccount> Accounts { get; }
     public ObservableCollection<TCategoryType> CategoryTypes { get; }
     public ObservableCollection<TModePayment> ModePayments { get; }
+    public ObservableCollection<TRecursiveFrequency> RecursiveFrequencies { get; }
 
     public string SelectedValuePathAccount { get; } = nameof(TAccount.Id);
     public string DisplayMemberPathAccount { get; } = nameof(TAccount.Name);
@@ -32,6 +33,8 @@ public partial class AddEditRecurrentExpenseWindow
     public string DisplayMemberPathCategoryType { get; } = nameof(TCategoryType.Name);
     public string SelectedValuePathModePayment { get; } = nameof(TModePayment.Id);
     public string DisplayMemberPathModePayment { get; } = nameof(TModePayment.Name);
+    public string SelectedValuePathFrequencyFk { get; } = nameof(TRecursiveFrequency.Id);
+    public string DisplayMemberPathFrequencyFk { get; } = nameof(TRecursiveFrequency.Frequency);
 
     public TRecursiveExpense RecursiveExpense { get; set; } = new();
     public AddEditRecurrentExpenseWindow()
@@ -40,6 +43,7 @@ public partial class AddEditRecurrentExpenseWindow
         Accounts = [..context.TAccounts.OrderBy(s => s.Name)];
         CategoryTypes = [..context.TCategoryTypes.OrderBy(s => s.Name)];
         ModePayments = [..context.TModePayments.OrderBy(s => s.Name)];
+        RecursiveFrequencies = [..context.TRecursiveFrequencies.OrderBy(s => s.Id)];
 
         InitializeComponent();
         UpdaterLanguage();
