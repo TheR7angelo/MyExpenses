@@ -130,7 +130,9 @@ public partial class RecurrentExpensePage
         var addEditRecurrentExpenseWindow = new AddEditRecurrentExpenseWindow();
         addEditRecurrentExpenseWindow.SetVRecursiveExpense(vRecurrentExpense);
 
-        addEditRecurrentExpenseWindow.ShowDialog();
+        var result = addEditRecurrentExpenseWindow.ShowDialog();
+        if (result is not true) return;
 
+        UpdateDataGrid();
     }
 }
