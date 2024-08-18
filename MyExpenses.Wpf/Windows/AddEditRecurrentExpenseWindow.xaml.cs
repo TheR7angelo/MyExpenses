@@ -180,7 +180,7 @@ public partial class AddEditRecurrentExpenseWindow
         }
     }
 
-    private void UIElement_OnPreviewTextInput(object sender, TextCompositionEventArgs e)
+    private void UIElementDoubleOnly_OnPreviewTextInput(object sender, TextCompositionEventArgs e)
     {
         var textBox = (TextBox)sender;
         var txt = textBox.Text.Insert(textBox.SelectionStart, e.Text);
@@ -197,7 +197,7 @@ public partial class AddEditRecurrentExpenseWindow
         e.Handled = !canConvert;
     }
 
-    private void UIElement_OnPreviewKeyDown(object sender, KeyEventArgs e)
+    private void UIElementDoubleOnly_OnPreviewKeyDown(object sender, KeyEventArgs e)
     {
         var textBox = (TextBox)sender;
         var textBeforeEdit = textBox.Text;
@@ -223,7 +223,7 @@ public partial class AddEditRecurrentExpenseWindow
         textBox.CaretIndex = caretPosition;
     }
 
-    private void TextBoxValue_OnTextChanged(object sender, TextChangedEventArgs e)
+    private void TextBoxValueDoubleOnly_OnTextChanged(object sender, TextChangedEventArgs e)
     {
         var textBox = (TextBox)sender;
         var txt = textBox.Text;
