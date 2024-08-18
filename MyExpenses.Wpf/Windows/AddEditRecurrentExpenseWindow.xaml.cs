@@ -8,6 +8,7 @@ using System.Windows.Markup;
 using BruTile.Predefined;
 using Mapsui.Layers;
 using Mapsui.Tiling.Layers;
+using Microsoft.Data.Sqlite;
 using MyExpenses.Models.Config;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Sql.Bases.Tables;
@@ -289,6 +290,7 @@ public partial class AddEditRecurrentExpenseWindow
     public string SelectedValuePathPlace { get; } = nameof(TPlace.Id);
     public string DisplayMemberPathPlaceName { get; } = nameof(TPlace.Name);
 
+    public bool RecursiveExpenseDeleted { get; set; }
     private WritableLayer PlaceLayer { get; } = new() { Style = null, IsMapInfoLayer = true, Tag = typeof(TPlace) };
     public List<KnownTileSource> KnownTileSources { get; }
     public KnownTileSource KnownTileSourceSelected { get; set; }
@@ -423,10 +425,55 @@ public partial class AddEditRecurrentExpenseWindow
         }
     }
 
-    // TODO work
     private void ButtonDelete_OnClick(object sender, RoutedEventArgs e)
     {
-        throw new NotImplementedException();
+        var response = MsgBox.MsgBox.Show(AddEditRecurrentExpenseWindowResources.MessageBoxDeleteQuestion,
+            MsgBoxImage.Question, MessageBoxButton.YesNoCancel);
+        if (response is not MessageBoxResult.Yes) return;
+
+        Log.Information("Attempting to remove the recursive expense \"{RecursiveExpenseDescription}\"", RecursiveExpense.Description);
+        var (success, exception) = RecursiveExpense.Delete();
+
+        if (success)
+        {
+            Log.Information("Recursive expense was successfully removed");
+            MsgBox.MsgBox.Show(AddEditRecurrentExpenseWindowResources.MessageBoxDeleteRecursiveExpenseNoUseSuccess,
+                MsgBoxImage.Check);
+
+            RecursiveExpenseDeleted = true;
+            DialogResult = true;
+            Close();
+            return;
+        }
+
+        if (exception!.InnerException is SqliteException
+            {
+                SqliteExtendedErrorCode: SQLitePCL.raw.SQLITE_CONSTRAINT_FOREIGNKEY
+            })
+        {
+            Log.Error("Foreign key constraint violation");
+
+            response = MsgBox.MsgBox.Show(AddEditRecurrentExpenseWindowResources.MessageBoxDeleteRecursiveExpenseUseQuestion,
+                MsgBoxImage.Question, MessageBoxButton.YesNoCancel);
+
+            if (response is not MessageBoxResult.Yes) return;
+
+            Log.Information("Attempting to remove the recursive expense \"{RecursiveExpenseDescription}\" with all relative element",
+                RecursiveExpense.Description);
+            RecursiveExpense.Delete(true);
+            Log.Information("Recursive expense and all relative element was successfully removed");
+            MsgBox.MsgBox.Show(AddEditRecurrentExpenseWindowResources.MessageBoxDeleteRecursiveExpenseUseSuccess,
+                MsgBoxImage.Check);
+
+            RecursiveExpenseDeleted = true;
+            DialogResult = true;
+            Close();
+
+            return;
+        }
+
+        Log.Error(exception, "An error occurred please retry");
+        MsgBox.MsgBox.Show(AddEditRecurrentExpenseWindowResources.MessageBoxDeleteRecursiveExpenseError, MsgBoxImage.Error);
     }
 
     private void ButtonModePayment_OnClick(object sender, RoutedEventArgs e)

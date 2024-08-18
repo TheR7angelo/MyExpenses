@@ -277,6 +277,51 @@ namespace MyExpenses.Wpf.Resources.Resx.Windows.AddEditRecurrentExpenseWindow {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Do you really want to delete this recursive expense ?.
+        /// </summary>
+        internal static string MessageBoxDeleteQuestion {
+            get {
+                return ResourceManager.GetString("MessageBoxDeleteQuestion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error occurred please retry.
+        /// </summary>
+        internal static string MessageBoxDeleteRecursiveExpenseError {
+            get {
+                return ResourceManager.GetString("MessageBoxDeleteRecursiveExpenseError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The recursive spend was successfully removed.
+        /// </summary>
+        internal static string MessageBoxDeleteRecursiveExpenseNoUseSuccess {
+            get {
+                return ResourceManager.GetString("MessageBoxDeleteRecursiveExpenseNoUseSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This recursive spending is used. Are you sure you want to remove this payment method and everything related to it ?.
+        /// </summary>
+        internal static string MessageBoxDeleteRecursiveExpenseUseQuestion {
+            get {
+                return ResourceManager.GetString("MessageBoxDeleteRecursiveExpenseUseQuestion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Recursive spend and all related items have been successfully removed.
+        /// </summary>
+        internal static string MessageBoxDeleteRecursiveExpenseUseSuccess {
+            get {
+                return ResourceManager.GetString("MessageBoxDeleteRecursiveExpenseUseSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Description :.
         /// </summary>
         internal static string TextBoxDescriptionHintAssist {
