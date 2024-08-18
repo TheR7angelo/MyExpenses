@@ -115,7 +115,12 @@ public partial class RecurrentExpensePage
 
     private void ButtonAddNewRecurrent_OnClick(object sender, RoutedEventArgs e)
     {
-        Console.WriteLine("Adding new Recurent Expense");
+        var addEditRecurrentExpenseWindow = new AddEditRecurrentExpenseWindow();
+
+        var result = addEditRecurrentExpenseWindow.ShowDialog();
+        if (result is not true) return;
+
+        UpdateDataGrid();
     }
 
     private void MenuItemEditRecurrentExpense_OnClick(object sender, RoutedEventArgs e)
