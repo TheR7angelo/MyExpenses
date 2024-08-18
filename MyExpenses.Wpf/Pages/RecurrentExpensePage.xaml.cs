@@ -4,14 +4,19 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using FilterDataGrid;
+using Microsoft.Data.Sqlite;
 using MyExpenses.Models.Config;
 using MyExpenses.Models.Config.Interfaces;
+using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Models.Sql.Bases.Views;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils.Collection;
 using MyExpenses.Wpf.Resources.Resx.Pages.RecurrentExpensePage;
+using MyExpenses.Wpf.Resources.Resx.Windows.AddEditRecurrentExpenseWindow;
 using MyExpenses.Wpf.Utils.FilterDataGrid;
 using MyExpenses.Wpf.Windows;
+using MyExpenses.Wpf.Windows.MsgBox;
+using Serilog;
 
 namespace MyExpenses.Wpf.Pages;
 
@@ -151,4 +156,58 @@ public partial class RecurrentExpensePage
     }
 
     #endregion
+
+    private void MenuItemDeleteRecord_OnClick(object sender, RoutedEventArgs e)
+    {
+        if (DataGridRow?.DataContext is not VRecursiveExpense vRecurrentExpense) return;
+
+        DeleteRecord(vRecurrentExpense);
+    }
+
+    private void DeleteRecord(VRecursiveExpense vRecurrentExpense)
+    {
+        var response = MsgBox.Show(RecurrentExpensePageResources.MessageBoxDeleteQuestion,
+            MsgBoxImage.Question, MessageBoxButton.YesNoCancel);
+        if (response is not MessageBoxResult.Yes) return;
+
+        var recurrentExpense = vRecurrentExpense.Id.ToISql<TRecursiveExpense>()!;
+        Log.Information("Attempting to remove the recursive expense \"{RecursiveExpenseDescription}\"", recurrentExpense.Description);
+        var (success, exception) = recurrentExpense.Delete();
+
+        if (success)
+        {
+            Log.Information("Recursive expense was successfully removed");
+            MsgBox.Show(RecurrentExpensePageResources.MessageBoxDeleteRecursiveExpenseNoUseSuccess,
+                MsgBoxImage.Check);
+
+            UpdateDataGrid();
+            return;
+        }
+
+        if (exception!.InnerException is SqliteException
+            {
+                SqliteExtendedErrorCode: SQLitePCL.raw.SQLITE_CONSTRAINT_FOREIGNKEY
+            })
+        {
+            Log.Error("Foreign key constraint violation");
+
+            response = MsgBox.Show(RecurrentExpensePageResources.MessageBoxDeleteRecursiveExpenseUseQuestion,
+                MsgBoxImage.Question, MessageBoxButton.YesNoCancel);
+
+            if (response is not MessageBoxResult.Yes) return;
+
+            Log.Information("Attempting to remove the recursive expense \"{RecursiveExpenseDescription}\" with all relative element",
+                recurrentExpense.Description);
+            recurrentExpense.Delete(true);
+            Log.Information("Recursive expense and all relative element was successfully removed");
+            MsgBox.Show(RecurrentExpensePageResources.MessageBoxDeleteRecursiveExpenseUseSuccess,
+                MsgBoxImage.Check);
+
+            UpdateDataGrid();
+            return;
+        }
+
+        Log.Error(exception, "An error occurred please retry");
+        MsgBox.Show(RecurrentExpensePageResources.MessageBoxDeleteRecursiveExpenseError, MsgBoxImage.Error);
+    }
 }
