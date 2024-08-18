@@ -638,7 +638,7 @@ public partial class DashBoardPage
 
         if (!string.IsNullOrEmpty(SelectedYear))
         {
-            var yearInt = SelectedYear.ToInt();
+            _ = SelectedYear.ToInt(out var yearInt);
             query = query.Where(s => s.Date!.Value.Year.Equals(yearInt));
         }
 
@@ -705,7 +705,7 @@ public partial class DashBoardPage
 
         if (!string.IsNullOrEmpty(SelectedYear))
         {
-            var yearInt = SelectedYear.ToInt();
+            _ = SelectedYear.ToInt(out var yearInt);
             query = query.Where(s => s.Year.Equals(yearInt));
         }
 
