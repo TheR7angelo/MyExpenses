@@ -624,13 +624,14 @@ public partial class AddEditRecurrentExpenseWindow
 
             if (EditRecurrentExpense)
             {
-                nameof(MainWindow.FrameBody).GoBack();
+                DialogResult = true;
+                Close();
                 return;
             }
 
             var response = MsgBox.MsgBox.Show(AddEditRecurrentExpenseWindowResources.MessageBoxAddRecursiveExpenseQuestion, MsgBoxImage.Question,
                 MessageBoxButton.YesNoCancel);
-            if (response is not MessageBoxResult.Yes) nameof(MainWindow.FrameBody).GoBack();
+            if (response is not MessageBoxResult.Yes) Close();
 
             var newRecursiveExpense = new TRecursiveExpense();
             newRecursiveExpense.CopyPropertiesTo(RecursiveExpense);
