@@ -164,7 +164,7 @@
         <TextBox Grid.Row="5" Grid.Column="0"
                  materialDesign:HintAssist.Hint="{Binding TextBoxValueHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                  Style="{StaticResource MaterialDesignFilledTextBox}"
-                 Text="{Binding RecursiveExpense.Value, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                 Text="{Binding RecursiveExpense.Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                  AcceptsReturn="False" AcceptsTab="False"
                  PreviewKeyDown="UIElementDoubleOnly_OnPreviewKeyDown"
                  PreviewTextInput="UIElementDoubleOnly_OnPreviewTextInput"
@@ -198,18 +198,20 @@
                  materialDesign:HintAssist.Hint="{Binding TextBoxRecursiveTotalHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                  materialDesign:TextFieldAssist.HasClearButton="True"
                  Style="{StaticResource MaterialDesignFilledTextBox}"
-                 Text="{Binding RecursiveExpense.RecursiveTotal, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                 Text="{Binding RecursiveExpense.RecursiveTotal, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                  AcceptsReturn="False" AcceptsTab="False"
-                 PreviewTextInput="UIElementIntOnly_OnPreviewTextInput">
+                 PreviewTextInput="UIElementIntOnly_OnPreviewTextInput"
+                 TextChanged="TextBoxRecursiveTotal_OnTextChanged">
         </TextBox>
 
         <TextBox Grid.Row="7" Grid.Column="1"
                  materialDesign:HintAssist.Hint="{Binding TextBoxRecursiveCountHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                  materialDesign:TextFieldAssist.HasClearButton="True"
                  Style="{StaticResource MaterialDesignFilledTextBox}"
-                 Text="{Binding RecursiveExpense.RecursiveCount, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                 Text="{Binding RecursiveExpense.RecursiveCount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                  AcceptsReturn="False" AcceptsTab="False"
-                 PreviewTextInput="UIElementIntOnly_OnPreviewTextInput">
+                 PreviewTextInput="UIElementIntOnly_OnPreviewTextInput"
+                 TextChanged="TextBoxRecursiveCount_OnTextChanged">
         </TextBox>
 
         <DatePicker Grid.Row="8" Grid.Column="0" x:Name="DatePicker"
