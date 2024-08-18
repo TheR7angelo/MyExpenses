@@ -882,4 +882,17 @@ public partial class AddEditRecurrentExpenseWindow
     }
 
     #endregion
+
+    private void TextBoxRecursiveTotal_OnTextChanged(object sender, TextChangedEventArgs e)
+        => UpdateIsActive();
+
+    private void TextBoxRecursiveCount_OnTextChanged(object sender, TextChangedEventArgs e)
+        => UpdateIsActive();
+
+    private void UpdateIsActive()
+    {
+        if (RecursiveExpense.RecursiveTotal is null) RecursiveExpense.IsActive = true;
+
+        RecursiveExpense.IsActive = RecursiveExpense.RecursiveTotal > RecursiveExpense.RecursiveCount;
+    }
 }
