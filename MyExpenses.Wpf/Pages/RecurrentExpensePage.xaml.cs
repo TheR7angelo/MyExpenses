@@ -38,6 +38,16 @@ public partial class RecurrentExpensePage
         set => SetValue(DateFormatStringProperty, value);
     }
 
+    public static readonly DependencyProperty DataGridMenuItemHeaderEditRecordProperty =
+        DependencyProperty.Register(nameof(DataGridMenuItemHeaderEditRecord), typeof(string),
+            typeof(RecurrentExpensePage), new PropertyMetadata(default(string)));
+
+    public string DataGridMenuItemHeaderEditRecord
+    {
+        get => (string)GetValue(DataGridMenuItemHeaderEditRecordProperty);
+        set => SetValue(DataGridMenuItemHeaderEditRecordProperty, value);
+    }
+
     #endregion
 
     private DataGridRow? DataGridRow { get; set; }
@@ -103,6 +113,7 @@ public partial class RecurrentExpensePage
         DataGridTextColumnPlace.Header = RecurrentExpensePageResources.DataGridTextColumnPlaceHeader;
         DataGridCheckBoxColumnIsActive.Header = RecurrentExpensePageResources.DataGridCheckBoxColumnIsActiveHeader;
         DataGridCheckBoxColumnForceDeactivate.Header = RecurrentExpensePageResources.DataGridCheckBoxColumnForceDeactivateHeader;
+        DataGridMenuItemHeaderEditRecord = RecurrentExpensePageResources.DataGridMenuItemHeaderEditRecord;
     }
 
     private void UpdateLocalLanguage()

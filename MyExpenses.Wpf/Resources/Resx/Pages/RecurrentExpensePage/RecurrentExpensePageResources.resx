@@ -63,4 +63,7 @@
     <data name="DateFormatString" xml:space="preserve">
         <value>yyyy/MM/dd</value>
     </data>
+    <data name="DataGridMenuItemHeaderEditRecord" xml:space="preserve">
+        <value>Edit this record</value>
+    </data>
 </root>
