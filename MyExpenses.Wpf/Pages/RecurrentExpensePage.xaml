@@ -70,14 +70,14 @@
 
             <filterDataGrid:FilterDataGrid.ContextMenu>
                 <ContextMenu>
-                    <!-- TODO work -->
                     <MenuItem
                         Header="{Binding DataGridMenuItemHeaderEditRecord, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                         Click="MenuItemEditRecurrentExpense_OnClick">
                     </MenuItem>
-                    <!-- <MenuItem -->
-                    <!--     Header="{Binding DataGridMenuItemHeaderDeleteRecord, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" -->
-                    <!--     Click="MenuItemDeleteRecord_OnClick" /> -->
+                    <MenuItem
+                        Header="{Binding DataGridMenuItemHeaderDeleteRecord, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                        Click="MenuItemDeleteRecord_OnClick">
+                    </MenuItem>
                 </ContextMenu>
             </filterDataGrid:FilterDataGrid.ContextMenu>
 
