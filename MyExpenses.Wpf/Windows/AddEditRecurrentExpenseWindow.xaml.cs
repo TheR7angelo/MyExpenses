@@ -544,6 +544,7 @@ public partial class AddEditRecurrentExpenseWindow
 
     private void ButtonCancel_OnClick(object sender, RoutedEventArgs e)
     {
-        throw new NotImplementedException();
+        DialogResult = false;
+        Close();
     }
 }
