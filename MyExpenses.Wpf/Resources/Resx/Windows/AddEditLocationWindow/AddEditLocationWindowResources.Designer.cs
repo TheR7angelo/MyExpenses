@@ -133,7 +133,7 @@ namespace MyExpenses.Wpf.Resources.Resx.Windows.AddEditLocationWindow {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The place is open.
+        ///   Looks up a localized string similar to The place is open :.
         /// </summary>
         internal static string CheckBoxContentIsOpen {
             get {

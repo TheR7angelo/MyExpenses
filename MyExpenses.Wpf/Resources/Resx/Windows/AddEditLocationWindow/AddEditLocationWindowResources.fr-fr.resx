@@ -84,7 +84,7 @@
         <value>Voulez-vous supprimer cet emplacement ?</value>
     </data>
     <data name="CheckBoxContentIsOpen" xml:space="preserve">
-        <value>Le lieu est ouvert</value>
+        <value>Le lieu est ouvert :</value>
     </data>
     <data name="TitleWindow" xml:space="preserve">
         <value>Ajouter ou modifier un emplacement</value>
