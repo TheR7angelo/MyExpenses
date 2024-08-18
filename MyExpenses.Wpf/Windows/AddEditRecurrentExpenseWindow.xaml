@@ -190,6 +190,14 @@
                     IsTodayHighlighted="True">
         </DatePicker>
 
+        <!-- TODO work -->
+        <TextBox  Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="2"
+                  materialDesign:HintAssist.Hint="{Binding TextBoxValueHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                  Style="{StaticResource MaterialDesignFilledTextBox}"
+                  Text="{Binding RecursiveExpense.NextDueDate, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                  IsReadOnly="True">
+        </TextBox>
+
     </Grid>
 
 </mah:MetroWindow>
