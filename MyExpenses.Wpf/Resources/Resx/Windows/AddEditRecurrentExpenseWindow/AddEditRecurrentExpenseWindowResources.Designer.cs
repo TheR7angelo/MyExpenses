@@ -61,6 +61,33 @@ namespace MyExpenses.Wpf.Resources.Resx.Windows.AddEditRecurrentExpenseWindow {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        internal static string ButtonCancelContent {
+            get {
+                return ResourceManager.GetString("ButtonCancelContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete.
+        /// </summary>
+        internal static string ButtonDeleteContent {
+            get {
+                return ResourceManager.GetString("ButtonDeleteContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Valid.
+        /// </summary>
+        internal static string ButtonValidContent {
+            get {
+                return ResourceManager.GetString("ButtonValidContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Force deactivate :.
         /// </summary>
         internal static string CheckBoxForceDeactivate {

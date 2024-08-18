@@ -214,6 +214,36 @@ public partial class AddEditRecurrentExpenseWindow
         set => SetValue(ComboBoxPlaceHintAssistProperty, value);
     }
 
+    public static readonly DependencyProperty ButtonValidContentProperty =
+        DependencyProperty.Register(nameof(ButtonValidContent), typeof(string), typeof(AddEditRecurrentExpenseWindow),
+            new PropertyMetadata(default(string)));
+
+    public string ButtonValidContent
+    {
+        get => (string)GetValue(ButtonValidContentProperty);
+        set => SetValue(ButtonValidContentProperty, value);
+    }
+
+    public static readonly DependencyProperty ButtonDeleteContentProperty =
+        DependencyProperty.Register(nameof(ButtonDeleteContent), typeof(string), typeof(AddEditRecurrentExpenseWindow),
+            new PropertyMetadata(default(string)));
+
+    public string ButtonDeleteContent
+    {
+        get => (string)GetValue(ButtonDeleteContentProperty);
+        set => SetValue(ButtonDeleteContentProperty, value);
+    }
+
+    public static readonly DependencyProperty ButtonCancelContentProperty =
+        DependencyProperty.Register(nameof(ButtonCancelContent), typeof(string), typeof(AddEditRecurrentExpenseWindow),
+            new PropertyMetadata(default(string)));
+
+    public string ButtonCancelContent
+    {
+        get => (string)GetValue(ButtonCancelContentProperty);
+        set => SetValue(ButtonCancelContentProperty, value);
+    }
+
     public static readonly DependencyProperty EditRecurrentExpenseProperty =
         DependencyProperty.Register(nameof(EditRecurrentExpense), typeof(bool), typeof(AddEditRecurrentExpenseWindow),
             new PropertyMetadata(default(bool)));
@@ -696,7 +726,7 @@ public partial class AddEditRecurrentExpenseWindow
 
         var xmlLanguage = XmlLanguage.GetLanguage(cultureInfoCode);
         DatePicker.Language = xmlLanguage;
-        
+
         WindowTitle = AddEditRecurrentExpenseWindowResources.WindowTitle;
 
         ComboBoxAccountHintAssist = AddEditRecurrentExpenseWindowResources.ComboBoxAccountHintAssist;
@@ -715,6 +745,10 @@ public partial class AddEditRecurrentExpenseWindow
         ComboBoxPlaceCountryHintAssist = AddEditRecurrentExpenseWindowResources.ComboBoxPlaceCountryHintAssist;
         ComboBoxPlaceCityHintAssist = AddEditRecurrentExpenseWindowResources.ComboBoxPlaceCityHintAssist;
         ComboBoxPlaceHintAssist = AddEditRecurrentExpenseWindowResources.ComboBoxPlaceHintAssist;
+
+        ButtonValidContent = AddEditRecurrentExpenseWindowResources.ButtonValidContent;
+        ButtonDeleteContent = AddEditRecurrentExpenseWindowResources.ButtonDeleteContent;
+        ButtonCancelContent = AddEditRecurrentExpenseWindowResources.ButtonCancelContent;
     }
 
     private void UpdateMapPoint(TPlace? place)
