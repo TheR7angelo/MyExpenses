@@ -101,7 +101,7 @@ public partial class RecurrentExpensePage
         var button = (Button)sender;
         if (button.DataContext is not VRecursiveExpense vRecurrentExpense) return;
 
-        DeleteRecord(vRecurrentExpense);
+        DeleteRecurrentExpense(vRecurrentExpense);
     }
 
     private void ButtonEditRecord_OnClick(object sender, RoutedEventArgs e)
@@ -109,7 +109,7 @@ public partial class RecurrentExpensePage
         var button = (Button)sender;
         if (button.DataContext is not VRecursiveExpense vRecurrentExpense) return;
 
-        EditRecurrentExpenseWindow(vRecurrentExpense);
+        EditRecurrentExpense(vRecurrentExpense);
     }
 
     private void DataGridRow_PreviewMouseRightButtonDown(object sender, MouseButtonEventArgs e)
@@ -122,21 +122,21 @@ public partial class RecurrentExpensePage
     {
         if (DataGridRow?.DataContext is not VRecursiveExpense vRecurrentExpense) return;
 
-        DeleteRecord(vRecurrentExpense);
+        DeleteRecurrentExpense(vRecurrentExpense);
     }
 
     private void MenuItemEditRecurrentExpense_OnClick(object sender, RoutedEventArgs e)
     {
         if (DataGridRow?.DataContext is not VRecursiveExpense vRecurrentExpense) return;
 
-        EditRecurrentExpenseWindow(vRecurrentExpense);
+        EditRecurrentExpense(vRecurrentExpense);
     }
 
     #endregion
 
     #region Function
 
-    private void DeleteRecord(VRecursiveExpense vRecurrentExpense)
+    private void DeleteRecurrentExpense(VRecursiveExpense vRecurrentExpense)
     {
         var response = MsgBox.Show(RecurrentExpensePageResources.MessageBoxDeleteQuestion,
             MsgBoxImage.Question, MessageBoxButton.YesNoCancel);
@@ -185,7 +185,7 @@ public partial class RecurrentExpensePage
         MsgBox.Show(RecurrentExpensePageResources.MessageBoxDeleteRecursiveExpenseError, MsgBoxImage.Error);
     }
 
-    private void EditRecurrentExpenseWindow(VRecursiveExpense vRecurrentExpense)
+    private void EditRecurrentExpense(VRecursiveExpense vRecurrentExpense)
     {
         var addEditRecurrentExpenseWindow = new AddEditRecurrentExpenseWindow();
         addEditRecurrentExpenseWindow.SetVRecursiveExpense(vRecurrentExpense);
