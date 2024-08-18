@@ -59,4 +59,19 @@
     <data name="DataGridMenuItemHeaderEditRecord" xml:space="preserve">
         <value>Modifier cet enregistrement</value>
     </data>
+    <data name="MessageBoxDeleteQuestion" xml:space="preserve">
+        <value>Voulez-vous vraiment supprimer cette dépense récursive ?</value>
+    </data>
+    <data name="MessageBoxDeleteRecursiveExpenseNoUseSuccess" xml:space="preserve">
+        <value>La dépense récursive a été supprimé avec succès</value>
+    </data>
+    <data name="MessageBoxDeleteRecursiveExpenseUseQuestion" xml:space="preserve">
+        <value>Cette dépense récursive est utilisée. Êtes-vous sûr de vouloir supprimer ce mode de paiement et tout ce qui s'y rapporte ?</value>
+    </data>
+    <data name="MessageBoxDeleteRecursiveExpenseUseSuccess" xml:space="preserve">
+        <value>La dépense récursive et tous les éléments associés ont été supprimés avec succès</value>
+    </data>
+    <data name="MessageBoxDeleteRecursiveExpenseError" xml:space="preserve">
+        <value>Une erreur s'est produite, veuillez réessayer</value>
+    </data>
 </root>
