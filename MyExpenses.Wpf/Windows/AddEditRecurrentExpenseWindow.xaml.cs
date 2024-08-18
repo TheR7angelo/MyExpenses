@@ -1,4 +1,5 @@
 using System.Collections.ObjectModel;
+using System.ComponentModel.DataAnnotations;
 using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
@@ -25,11 +26,22 @@ using MyExpenses.Wpf.Windows.CategoryTypeManagementWindow;
 using MyExpenses.Wpf.Windows.LocationManagementWindows;
 using MyExpenses.Wpf.Windows.MsgBox;
 using Serilog;
+using ValidationResult = System.ComponentModel.DataAnnotations.ValidationResult;
 
 namespace MyExpenses.Wpf.Windows;
 
 public partial class AddEditRecurrentExpenseWindow
 {
+    public static readonly DependencyProperty EditRecurrentExpenseProperty =
+        DependencyProperty.Register(nameof(EditRecurrentExpense), typeof(bool), typeof(AddEditRecurrentExpenseWindow),
+            new PropertyMetadata(default(bool)));
+
+    public bool EditRecurrentExpense
+    {
+        get => (bool)GetValue(EditRecurrentExpenseProperty);
+        set => SetValue(EditRecurrentExpenseProperty, value);
+    }
+
     public static readonly DependencyProperty SelectedCountryProperty =
         DependencyProperty.Register(nameof(SelectedCountry), typeof(string), typeof(AddEditRecurrentExpenseWindow),
             new PropertyMetadata(default(string)));
@@ -104,6 +116,7 @@ public partial class AddEditRecurrentExpenseWindow
 
     public void SetVRecursiveExpense(VRecursiveExpense vRecurrentExpense)
     {
+        EditRecurrentExpense = true;
         vRecurrentExpense.CopyPropertiesTo(RecursiveExpense);
     }
 
@@ -277,7 +290,10 @@ public partial class AddEditRecurrentExpenseWindow
             _ => ""
         };
 
-        if (characterToDelete != "." && characterToDelete != ",") {return;}
+        if (characterToDelete != "." && characterToDelete != ",")
+        {
+            return;
+        }
 
         var textAfterEdit = textBeforeEdit.Remove(caretPosition - (e.Key == Key.Back ? 1 : 0), 1); // Simulate deletion
 
@@ -286,6 +302,7 @@ public partial class AddEditRecurrentExpenseWindow
         {
             return;
         }
+
         e.Handled = true;
         textBox.CaretIndex = caretPosition;
     }
@@ -332,7 +349,7 @@ public partial class AddEditRecurrentExpenseWindow
         RecursiveExpense.NextDueDate = dateOnly;
     }
 
-     private void SelectorCity_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+    private void SelectorCity_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
     {
         var comboBox = (ComboBox)sender;
         var city = comboBox.SelectedItem as string;
@@ -485,4 +502,48 @@ public partial class AddEditRecurrentExpenseWindow
 
     private void MapControl_OnLoaded(object sender, RoutedEventArgs e)
         => UpdateTileLayer();
+
+    private void ButtonValid_OnClick(object sender, RoutedEventArgs e)
+    {
+        var validationContext = new ValidationContext(RecursiveExpense, serviceProvider: null, items: null);
+        var validationResults = new List<ValidationResult>();
+        var isValid = Validator.TryValidateObject(RecursiveExpense, validationContext, validationResults, true);
+
+        if (!isValid)
+        {
+            var propertyError = validationResults.First();
+            var propertyMemberName = propertyError.MemberNames.First();
+
+            // var messageErrorKey = propertyMemberName switch
+            // {
+            //     nameof(TBankTransfer.FromAccountFk) => nameof(BankTransferPageResources
+            //         .MessageBoxButtonValidationFromAccountFkError),
+            //     nameof(TBankTransfer.ToAccountFk) => nameof(BankTransferPageResources
+            //         .MessageBoxButtonValidationToAccountFkError),
+            //     nameof(TBankTransfer.Value) => nameof(BankTransferPageResources.MessageBoxButtonValidationValueError),
+            //     nameof(TBankTransfer.Date) => nameof(BankTransferPageResources.MessageBoxButtonValidationDateError),
+            //     nameof(TBankTransfer.MainReason) => nameof(BankTransferPageResources
+            //         .MessageBoxButtonValidationMainReasonError),
+            //     _ => null
+            // };
+
+            // var localizedErrorMessage = string.IsNullOrEmpty(messageErrorKey)
+            //     ? propertyError.ErrorMessage!
+            //     : BankTransferPageResources.ResourceManager.GetString(messageErrorKey)!;
+            //
+            // MsgBox.Show(localizedErrorMessage, MsgBoxImage.Error);
+            return;
+        }
+
+    }
+
+    private void ButtonDelete_OnClick(object sender, RoutedEventArgs e)
+    {
+        throw new NotImplementedException();
+    }
+
+    private void ButtonCancel_OnClick(object sender, RoutedEventArgs e)
+    {
+        throw new NotImplementedException();
+    }
 }
