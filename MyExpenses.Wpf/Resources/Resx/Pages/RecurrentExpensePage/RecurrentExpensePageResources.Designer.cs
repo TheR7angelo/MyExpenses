@@ -79,6 +79,15 @@ namespace MyExpenses.Wpf.Resources.Resx.Pages.RecurrentExpensePage {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Edit this record.
+        /// </summary>
+        internal static string DataGridMenuItemHeaderEditRecord {
+            get {
+                return ResourceManager.GetString("DataGridMenuItemHeaderEditRecord", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Category.
         /// </summary>
         internal static string DataGridTemplateColumnCategoryHeader {
