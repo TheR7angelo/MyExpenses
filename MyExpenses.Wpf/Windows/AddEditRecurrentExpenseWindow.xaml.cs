@@ -10,6 +10,7 @@ using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Models.Sql.Bases.Views;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils.Collection;
+using MyExpenses.Utils.Dates;
 using MyExpenses.Utils.Sql;
 using MyExpenses.Utils.Strings;
 using MyExpenses.Wpf.Resources.Resx.Pages.RecordExpensePage;
@@ -263,5 +264,25 @@ public partial class AddEditRecurrentExpenseWindow
         if (success) success = value! > 0;
 
         e.Handled = !success;
+    }
+
+    private void Selector_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        => UpdateNextDueDate();
+
+    private void DatePicker_OnSelectedDateChanged(object? sender, SelectionChangedEventArgs e)
+        => UpdateNextDueDate();
+
+    private void UpdateNextDueDate()
+    {
+        var selectedFrequency = RecursiveFrequencies.FirstOrDefault(s => s.Id == RecursiveExpense.FrequencyFk);
+        if (selectedFrequency is null)
+        {
+            RecursiveExpense.NextDueDate = RecursiveExpense.StartDate;
+            return;
+        }
+
+        var dateOnly = RecursiveExpense.ERecursiveFrequency.CalculateNextDueDate(RecursiveExpense.StartDate);
+
+        RecursiveExpense.NextDueDate = dateOnly;
     }
 }
