@@ -596,6 +596,12 @@ BEGIN
                          ELSE NEW.last_updated
             END
     WHERE id = NEW.id;
+
+    UPDATE t_history
+    SET description = NEW.description
+    WHERE t_history.recursive_expense_fk = NEW.id
+    AND t_history.description != NEW.description;
+
 END;
 
 DROP TRIGGER IF EXISTS after_update_on_t_recursive_expense_when_recursive_total_not_null;
