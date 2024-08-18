@@ -128,7 +128,6 @@ public partial class RecurrentAddWindow
         var vRecursiveExpenseDerives = VRecursiveExpensesDerives
             .Where(s => s.RecursiveToAdd);
 
-        var timeOnly = new TimeOnly(0);
         foreach (var vRecursiveExpenseDerive in vRecursiveExpenseDerives)
         {
             var history = new THistory
@@ -138,7 +137,7 @@ public partial class RecurrentAddWindow
                 CategoryTypeFk = vRecursiveExpenseDerive.CategoryTypeFk,
                 ModePaymentFk = vRecursiveExpenseDerive.ModePaymentFk,
                 Value = vRecursiveExpenseDerive.Value,
-                Date = vRecursiveExpenseDerive.NextDueDate.ToDateTime(timeOnly),
+                Date = MyExpenses.Utils.Dates.DateExtensions.ToDateTime(vRecursiveExpenseDerive.NextDueDate),
                 PlaceFk = vRecursiveExpenseDerive.PlaceFk,
                 RecursiveExpenseFk = vRecursiveExpenseDerive.Id
             };
