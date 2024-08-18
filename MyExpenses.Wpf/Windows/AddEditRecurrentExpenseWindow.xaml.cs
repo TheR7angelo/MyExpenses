@@ -20,6 +20,7 @@ using MyExpenses.Utils.Strings;
 using MyExpenses.Wpf.Converters;
 using MyExpenses.Wpf.Resources.Resx.Converters;
 using MyExpenses.Wpf.Resources.Resx.Pages.RecordExpensePage;
+using MyExpenses.Wpf.Resources.Resx.Windows.AddEditRecurrentExpenseWindow;
 using MyExpenses.Wpf.Utils;
 using MyExpenses.Wpf.Utils.Maps;
 using MyExpenses.Wpf.Windows.CategoryTypeManagementWindow;
@@ -695,27 +696,25 @@ public partial class AddEditRecurrentExpenseWindow
 
         var xmlLanguage = XmlLanguage.GetLanguage(cultureInfoCode);
         DatePicker.Language = xmlLanguage;
+        
+        WindowTitle = AddEditRecurrentExpenseWindowResources.WindowTitle;
 
-        // TODO work
-        WindowTitle = "AddEditRecurrentExpenseWindow";
-
-        ComboBoxAccountHintAssist = "ComboBoxAccountHintAssist";
-        ComboBoxBackgroundHintAssist = "ComboBoxBackgroundHintAssist";
-        TextBoxDescriptionHintAssist = "TextBoxDescriptionHintAssist";
-        TextBoxNoteHintAssist = "TextBoxNoteHintAssist";
-        ComboBoxCategoryTypeHintAssist = "ComboBoxCategoryTypeHintAssist";
-        ComboBoxCategoryTypeHintAssist = "ComboBoxCategoryTypeHintAssist";
-        TextBoxValueHintAssist = "TextBoxValueHintAssist";
-        ComboBoxFrequencyHintAssist = "ComboBoxFrequencyHintAssist";
-        TextBoxRecursiveTotalHintAssist = "TextBoxRecursiveTotalHintAssist";
-        TextBoxRecursiveCountHintAssist = "TextBoxRecursiveCountHintAssist";
-        DatePickerStartDateHintAssist = "DatePickerStartDateHintAssist";
-        TextBoxNextDueDateHintAssist = "TextBoxNextDueDateHintAssist";
-        CheckBoxForceDeactivate = "CheckBoxForceDeactivate";
-        CheckBoxIsActive = "CheckBoxIsActive";
-        ComboBoxPlaceCountryHintAssist = "ComboBoxPlaceCountryHintAssist";
-        ComboBoxPlaceCityHintAssist = "ComboBoxPlaceCityHintAssist";
-        ComboBoxPlaceHintAssist = "ComboBoxPlaceHintAssist";
+        ComboBoxAccountHintAssist = AddEditRecurrentExpenseWindowResources.ComboBoxAccountHintAssist;
+        ComboBoxBackgroundHintAssist = AddEditRecurrentExpenseWindowResources.ComboBoxBackgroundHintAssist;
+        TextBoxDescriptionHintAssist = AddEditRecurrentExpenseWindowResources.TextBoxDescriptionHintAssist;
+        TextBoxNoteHintAssist = AddEditRecurrentExpenseWindowResources.TextBoxNoteHintAssist;
+        ComboBoxCategoryTypeHintAssist = AddEditRecurrentExpenseWindowResources.ComboBoxCategoryTypeHintAssist;
+        TextBoxValueHintAssist = AddEditRecurrentExpenseWindowResources.TextBoxValueHintAssist;
+        ComboBoxFrequencyHintAssist = AddEditRecurrentExpenseWindowResources.ComboBoxFrequencyHintAssist;
+        TextBoxRecursiveTotalHintAssist = AddEditRecurrentExpenseWindowResources.TextBoxRecursiveTotalHintAssist;
+        TextBoxRecursiveCountHintAssist = AddEditRecurrentExpenseWindowResources.TextBoxRecursiveCountHintAssist;
+        DatePickerStartDateHintAssist = AddEditRecurrentExpenseWindowResources.DatePickerStartDateHintAssist;
+        TextBoxNextDueDateHintAssist = AddEditRecurrentExpenseWindowResources.TextBoxNextDueDateHintAssist;
+        CheckBoxForceDeactivate = AddEditRecurrentExpenseWindowResources.CheckBoxForceDeactivate;
+        CheckBoxIsActive = AddEditRecurrentExpenseWindowResources.CheckBoxIsActive;
+        ComboBoxPlaceCountryHintAssist = AddEditRecurrentExpenseWindowResources.ComboBoxPlaceCountryHintAssist;
+        ComboBoxPlaceCityHintAssist = AddEditRecurrentExpenseWindowResources.ComboBoxPlaceCityHintAssist;
+        ComboBoxPlaceHintAssist = AddEditRecurrentExpenseWindowResources.ComboBoxPlaceHintAssist;
     }
 
     private void UpdateMapPoint(TPlace? place)
