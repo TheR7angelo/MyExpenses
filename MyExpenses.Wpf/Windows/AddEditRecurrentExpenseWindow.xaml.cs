@@ -191,8 +191,7 @@ public partial class AddEditRecurrentExpenseWindow
             return;
         }
 
-        txt = txt.Replace(',', '.');
-        var canConvert = double.TryParse(txt, NumberStyles.Any, CultureInfo.InvariantCulture, out _);
+        var canConvert = txt.ToDouble(out _);
 
         e.Handled = !canConvert;
     }
@@ -229,15 +228,8 @@ public partial class AddEditRecurrentExpenseWindow
         var txt = textBox.Text;
         var position = textBox.CaretIndex;
 
-        txt = txt.Replace(',', '.');
-        if (double.TryParse(txt, NumberStyles.Any, CultureInfo.InvariantCulture, out var value))
-        {
-            RecursiveExpense.Value = value;
-        }
-        else if (!txt.EndsWith('.'))
-        {
-            RecursiveExpense.Value = null;
-        }
+        _ = txt.ToDouble(out var value);
+        RecursiveExpense.Value = value;
 
         textBox.CaretIndex = position;
     }
