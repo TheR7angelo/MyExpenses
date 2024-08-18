@@ -66,7 +66,6 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <!-- TODO work -->
         <ComboBox Grid.Row="0" Grid.Column="0"
                   Style="{StaticResource MaterialDesignFilledComboBox}"
                   materialDesign:TextFieldAssist.HasClearButton="True"
@@ -88,7 +87,6 @@
 
         </Button>
 
-        <!-- TODO work -->
         <ComboBox Grid.Row="0" Grid.Column="3"
                   Style="{StaticResource MaterialDesignFilledComboBox}"
                   materialDesign:HintAssist.Hint="{Binding ComboBoxBackgroundHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
@@ -108,7 +106,6 @@
                         Loaded="MapControl_OnLoaded">
         </wpf:MapControl>
 
-        <!-- TODO work -->
         <TextBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
                  materialDesign:HintAssist.Hint="{Binding TextBoxDescriptionHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                  Style="{StaticResource MaterialDesignFilledTextBox}"
@@ -116,7 +113,6 @@
                  TextWrapping="Wrap" AcceptsReturn="True" AcceptsTab="True">
         </TextBox>
 
-        <!-- TODO work -->
         <TextBox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
                  materialDesign:HintAssist.Hint="{Binding TextBoxNoteHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                  Style="{StaticResource MaterialDesignFilledTextBox}"
@@ -124,7 +120,6 @@
                  TextWrapping="Wrap" AcceptsReturn="True" AcceptsTab="True">
         </TextBox>
 
-        <!-- TODO work -->
         <ComboBox Grid.Row="3" Grid.Column="0"
                   Style="{StaticResource MaterialDesignFilledComboBox}"
                   materialDesign:TextFieldAssist.HasClearButton="True"
@@ -146,7 +141,6 @@
 
         </Button>
 
-        <!-- TODO work -->
         <ComboBox Grid.Row="4" Grid.Column="0"
                   Style="{StaticResource MaterialDesignFilledComboBox}"
                   materialDesign:TextFieldAssist.HasClearButton="True"
@@ -168,7 +162,6 @@
 
         </Button>
 
-        <!-- TODO work -->
         <TextBox Grid.Row="5" Grid.Column="0"
                  materialDesign:HintAssist.Hint="{Binding TextBoxValueHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                  Style="{StaticResource MaterialDesignFilledTextBox}"
@@ -190,11 +183,10 @@
 
         </Button>
 
-        <!-- TODO work -->
         <ComboBox Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2"
                   Style="{StaticResource MaterialDesignFilledComboBox}"
                   materialDesign:TextFieldAssist.HasClearButton="True"
-                  materialDesign:HintAssist.Hint="{Binding ComboBoxModePaymentHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                  materialDesign:HintAssist.Hint="{Binding ComboBoxFrequencyHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                   ItemsSource="{Binding RecursiveFrequencies, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                   SelectedValue="{Binding RecursiveExpense.FrequencyFk, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                   SelectedValuePath="{Binding SelectedValuePathFrequencyFk}"
@@ -203,9 +195,8 @@
                   SelectionChanged="Selector_OnSelectionChanged">
         </ComboBox>
 
-        <!-- TODO work -->
         <TextBox Grid.Row="7" Grid.Column="0"
-                 materialDesign:HintAssist.Hint="{Binding TextBoxValueHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                 materialDesign:HintAssist.Hint="{Binding TextBoxRecursiveTotalHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                  materialDesign:TextFieldAssist.HasClearButton="True"
                  Style="{StaticResource MaterialDesignFilledTextBox}"
                  Text="{Binding RecursiveExpense.RecursiveTotal, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
@@ -213,9 +204,8 @@
                  PreviewTextInput="UIElementIntOnly_OnPreviewTextInput">
         </TextBox>
 
-        <!-- TODO work -->
         <TextBox Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="2"
-                 materialDesign:HintAssist.Hint="{Binding TextBoxValueHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                 materialDesign:HintAssist.Hint="{Binding TextBoxRecursiveCountHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                  materialDesign:TextFieldAssist.HasClearButton="True"
                  Style="{StaticResource MaterialDesignFilledTextBox}"
                  Text="{Binding RecursiveExpense.RecursiveCount, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
@@ -223,18 +213,16 @@
                  PreviewTextInput="UIElementIntOnly_OnPreviewTextInput">
         </TextBox>
 
-        <!-- TODO work -->
         <DatePicker Grid.Row="8" Grid.Column="0" x:Name="DatePicker"
-                    materialDesign:HintAssist.Hint="{Binding DatePickerWhenHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                    materialDesign:HintAssist.Hint="{Binding DatePickerStartDateHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                     Style="{StaticResource MaterialDesignFilledDatePicker}"
                     SelectedDate="{Binding RecursiveExpense.StartDate, Converter={StaticResource DateOnlyToDateTimeConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                     IsTodayHighlighted="True"
                     SelectedDateChanged="DatePicker_OnSelectedDateChanged">
         </DatePicker>
 
-        <!-- TODO work -->
         <TextBox  Grid.Row="8" Grid.Column="1" Grid.ColumnSpan="2"
-                  materialDesign:HintAssist.Hint="{Binding TextBoxValueHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                  materialDesign:HintAssist.Hint="{Binding TextBoxNextDueDateHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                   Style="{StaticResource MaterialDesignFilledTextBox}"
                   Text="{Binding RecursiveExpense.NextDueDate, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                   IsReadOnly="True">
@@ -243,27 +231,25 @@
         <Grid Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="2">
 
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <!-- TODO work -->
             <CheckBox Grid.Column="0"
                       HorizontalAlignment="Left"
                       FlowDirection="RightToLeft"
                       IsThreeState="False"
                       IsChecked="{Binding RecursiveExpense.ForceDeactivate, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                      Content="ForceDeactivate"
+                      Content="{Binding CheckBoxForceDeactivate, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                       materialDesign:CheckBoxAssist.CheckBoxSize="30">
             </CheckBox>
 
-            <!-- TODO work -->
             <CheckBox Grid.Column="1"
                       HorizontalAlignment="Left"
                       FlowDirection="RightToLeft"
                       IsThreeState="False"
                       IsChecked="{Binding RecursiveExpense.IsActive, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                      Content="IsActive"
+                      Content="{Binding CheckBoxIsActive, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                       materialDesign:CheckBoxAssist.CheckBoxSize="30"
                       IsEnabled="False">
             </CheckBox>
@@ -283,7 +269,6 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <!-- TODO work -->
             <ComboBox Grid.Row="0" Grid.Column="0"
                       x:Name="ComboBoxSelectorCountry"
                       Style="{StaticResource MaterialDesignFilledComboBox}"
@@ -294,7 +279,6 @@
                       SelectionChanged="SelectorCountry_OnSelectionChanged">
             </ComboBox>
 
-            <!-- TODO work -->
             <ComboBox Grid.Row="0" Grid.Column="1"
                       x:Name="ComboBoxSelectorCity"
                       Style="{StaticResource MaterialDesignFilledComboBox}"
@@ -304,7 +288,6 @@
                       SelectionChanged="SelectorCity_OnSelectionChanged">
             </ComboBox>
 
-            <!-- TODO work -->
             <ComboBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
                       Style="{StaticResource MaterialDesignFilledComboBox}"
                       materialDesign:TextFieldAssist.HasClearButton="True"
