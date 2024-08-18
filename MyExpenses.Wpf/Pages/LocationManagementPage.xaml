@@ -10,7 +10,6 @@
       xmlns:converters="clr-namespace:MyExpenses.Wpf.Converters"
       xmlns:margin="clr-namespace:MyExpenses.Wpf.Utils.Margin;assembly=MyExpenses.Wpf.Utils"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-      xmlns:readOnly="clr-namespace:MyExpenses.Wpf.Utils.ReadOnly;assembly=MyExpenses.Wpf.Utils"
       mc:Ignorable="d"
       Title="LocationManagementPage"
 
@@ -77,7 +76,6 @@
                                         <CheckBox IsThreeState="False"
                                                   IsChecked="{Binding IsOpen, Mode=OneWay}"
                                                   Content="{Binding Name, Converter={StaticResource EmptyStringTreeViewConverter}}"
-                                                  readOnly:ToggleButtonExtensions.IsReadOnly="True"
                                                   Click="CheckBoxPlaceIsOpen_OnClick">
                                         </CheckBox>
                                 </HierarchicalDataTemplate>
