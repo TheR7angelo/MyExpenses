@@ -51,7 +51,6 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
@@ -170,6 +169,15 @@
                  materialDesign:HintAssist.Hint="{Binding TextBoxValueHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                  Style="{StaticResource MaterialDesignFilledTextBox}"
                  Text="{Binding RecursiveExpense.RecursiveTotal, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                 AcceptsReturn="False" AcceptsTab="False"
+                 PreviewTextInput="UIElementIntOnly_OnPreviewTextInput">
+        </TextBox>
+
+        <!-- TODO work -->
+        <TextBox Grid.Row="6" Grid.Column="2"
+                 materialDesign:HintAssist.Hint="{Binding TextBoxValueHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                 Style="{StaticResource MaterialDesignFilledTextBox}"
+                 Text="{Binding RecursiveExpense.RecursiveCount, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                  AcceptsReturn="False" AcceptsTab="False"
                  PreviewTextInput="UIElementIntOnly_OnPreviewTextInput">
         </TextBox>
