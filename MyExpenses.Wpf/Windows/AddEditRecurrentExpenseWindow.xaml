@@ -11,7 +11,7 @@
         xmlns:wpf="clr-namespace:Mapsui.UI.Wpf;assembly=Mapsui.UI.Wpf"
         mc:Ignorable="d"
 
-        Title="AddEditRecurrentExpenseWindow"
+        Title="{Binding WindowTitle, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
 
         TitleCharacterCasing="Normal"
         NonActiveWindowTitleBrush="Gray"

@@ -32,6 +32,15 @@ namespace MyExpenses.Wpf.Windows;
 
 public partial class AddEditRecurrentExpenseWindow
 {
+    public static readonly DependencyProperty WindowTitleProperty = DependencyProperty.Register(nameof(WindowTitle),
+        typeof(string), typeof(AddEditRecurrentExpenseWindow), new PropertyMetadata(default(string)));
+
+    public string WindowTitle
+    {
+        get => (string)GetValue(WindowTitleProperty);
+        set => SetValue(WindowTitleProperty, value);
+    }
+
     public static readonly DependencyProperty ComboBoxAccountHintAssistProperty =
         DependencyProperty.Register(nameof(ComboBoxAccountHintAssist), typeof(string),
             typeof(AddEditRecurrentExpenseWindow), new PropertyMetadata(default(string)));
@@ -298,6 +307,8 @@ public partial class AddEditRecurrentExpenseWindow
         DatePicker.Language = xmlLanguage;
 
         // TODO work
+        WindowTitle = "AddEditRecurrentExpenseWindow";
+
         ComboBoxAccountHintAssist = "ComboBoxAccountHintAssist";
         ComboBoxBackgroundHintAssist = "ComboBoxBackgroundHintAssist";
         TextBoxDescriptionHintAssist = "TextBoxDescriptionHintAssist";
