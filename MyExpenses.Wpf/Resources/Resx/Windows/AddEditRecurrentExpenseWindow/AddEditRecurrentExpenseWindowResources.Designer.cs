@@ -178,6 +178,78 @@ namespace MyExpenses.Wpf.Resources.Resx.Windows.AddEditRecurrentExpenseWindow {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Account name cannot be null.
+        /// </summary>
+        internal static string MessageBoxButtonValidationAccountFkError {
+            get {
+                return ResourceManager.GetString("MessageBoxButtonValidationAccountFkError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Category cannot be null.
+        /// </summary>
+        internal static string MessageBoxButtonValidationCategoryTypeFkError {
+            get {
+                return ResourceManager.GetString("MessageBoxButtonValidationCategoryTypeFkError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Description cannot be null.
+        /// </summary>
+        internal static string MessageBoxButtonValidationDescriptionError {
+            get {
+                return ResourceManager.GetString("MessageBoxButtonValidationDescriptionError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Frequency cannot be null.
+        /// </summary>
+        internal static string MessageBoxButtonValidationFrequencyFkError {
+            get {
+                return ResourceManager.GetString("MessageBoxButtonValidationFrequencyFkError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Payment method cannot be null....
+        /// </summary>
+        internal static string MessageBoxButtonValidationModePaymentFkError {
+            get {
+                return ResourceManager.GetString("MessageBoxButtonValidationModePaymentFkError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Place cannot be null.
+        /// </summary>
+        internal static string MessageBoxButtonValidationPlaceFkError {
+            get {
+                return ResourceManager.GetString("MessageBoxButtonValidationPlaceFkError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Start date cannot be null.
+        /// </summary>
+        internal static string MessageBoxButtonValidationStartDateError {
+            get {
+                return ResourceManager.GetString("MessageBoxButtonValidationStartDateError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Value cannot be null.
+        /// </summary>
+        internal static string MessageBoxButtonValidationValueError {
+            get {
+                return ResourceManager.GetString("MessageBoxButtonValidationValueError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Description :.
         /// </summary>
         internal static string TextBoxDescriptionHintAssist {
