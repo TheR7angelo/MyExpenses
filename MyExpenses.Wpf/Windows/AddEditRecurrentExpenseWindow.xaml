@@ -170,6 +170,18 @@
         </Button>
 
         <!-- TODO work -->
+        <ComboBox Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2"
+                  Style="{StaticResource MaterialDesignFilledComboBox}"
+                  materialDesign:TextFieldAssist.HasClearButton="True"
+                  materialDesign:HintAssist.Hint="{Binding ComboBoxModePaymentHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                  ItemsSource="{Binding RecursiveFrequencies, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                  SelectedValue="{Binding RecursiveExpense.FrequencyFk, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                  SelectedValuePath="{Binding SelectedValuePathFrequencyFk}"
+                  DisplayMemberPath="{Binding DisplayMemberPathFrequencyFk}"
+                  ToolTip="{Binding Path=SelectedItem.Description, RelativeSource={RelativeSource Self}}">
+        </ComboBox>
+
+        <!-- TODO work -->
         <TextBox Grid.Row="7" Grid.Column="0"
                  materialDesign:HintAssist.Hint="{Binding TextBoxValueHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                  materialDesign:TextFieldAssist.HasClearButton="True"
