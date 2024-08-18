@@ -16,6 +16,7 @@ using MyExpenses.Utils.Collection;
 using MyExpenses.Wpf.Utils.Maps;
 using MyExpenses.Wpf.Windows;
 using MyExpenses.Utils.Sql;
+using MyExpenses.Utils.Strings;
 using MyExpenses.Wpf.Converters;
 using MyExpenses.Wpf.Resources.Resx.Converters;
 using MyExpenses.Wpf.Resources.Resx.Pages.RecordExpensePage;
@@ -567,15 +568,8 @@ public partial class RecordExpensePage
         var txt = textBox.Text;
         var position = textBox.CaretIndex;
 
-        txt = txt.Replace(',', '.');
-        if (double.TryParse(txt, NumberStyles.Any, CultureInfo.InvariantCulture, out var value))
-        {
-            History.Value = value;
-        }
-        else if (!txt.EndsWith('.'))
-        {
-            History.Value = null;
-        }
+        _ = txt.ToDouble(out var value);
+        History.Value = value;
 
         textBox.CaretIndex = position;
     }
@@ -666,8 +660,7 @@ public partial class RecordExpensePage
             return;
         }
 
-        txt = txt.Replace(',', '.');
-        var canConvert = double.TryParse(txt, NumberStyles.Any, CultureInfo.InvariantCulture, out _);
+        var canConvert = txt.ToDouble(out _);
 
         e.Handled = !canConvert;
     }
