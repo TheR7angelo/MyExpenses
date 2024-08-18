@@ -9,7 +9,7 @@ public class DateOnlyToDateTimeConverter : IValueConverter
     {
         if (value is DateOnly dateOnly)
         {
-            return new DateTime(dateOnly.Year, dateOnly.Month, dateOnly.Day);
+            return MyExpenses.Utils.Dates.DateExtensions.ToDateTime(dateOnly);
         }
         return value;
     }
@@ -18,7 +18,7 @@ public class DateOnlyToDateTimeConverter : IValueConverter
     {
         if (value is DateTime dateTime)
         {
-            return DateOnly.FromDateTime(dateTime);
+            return MyExpenses.Utils.Dates.DateExtensions.ToDateOnly(dateTime);
         }
         return value;
     }
