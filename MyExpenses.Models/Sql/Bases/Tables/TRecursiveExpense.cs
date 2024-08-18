@@ -13,27 +13,34 @@ public partial class TRecursiveExpense : ISql
     [Column("id")]
     public int Id { get; set; }
 
+    [Required]
     [Column("account_fk")]
     public int? AccountFk { get; set; }
 
+    [Required]
     [Column("description")]
     public string? Description { get; set; }
 
     [Column("note")]
     public string? Note { get; set; }
 
+    [Required]
     [Column("category_type_fk")]
     public int? CategoryTypeFk { get; set; }
 
+    [Required]
     [Column("mode_payment_fk")]
     public int? ModePaymentFk { get; set; }
 
+    [Required]
     [Column("value")]
     public double? Value { get; set; }
 
+    [Required]
     [Column("place_fk")]
     public int? PlaceFk { get; set; }
 
+    [Required]
     [Column("start_date", TypeName = "DATE")]
     public DateOnly StartDate { get; set; }
 
@@ -43,6 +50,7 @@ public partial class TRecursiveExpense : ISql
     [Column("recursive_count")]
     public int RecursiveCount { get; set; }
 
+    [Required]
     [Column("frequency_fk")]
     public int FrequencyFk { get; set; }
 
