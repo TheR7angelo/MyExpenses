@@ -172,6 +172,10 @@
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>RecurrentExpensePageResources.Designer.cs</LastGenOutput>
       </EmbeddedResource>
+      <EmbeddedResource Update="Resources\Resx\Windows\AddEditRecurrentExpenseWindow\AddEditRecurrentExpenseWindowResources.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>AddEditRecurrentExpenseWindowResources.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
     </ItemGroup>
 
     <ItemGroup>
@@ -352,6 +356,11 @@
         <DesignTime>True</DesignTime>
         <AutoGen>True</AutoGen>
         <DependentUpon>RecurrentExpensePageResources.resx</DependentUpon>
+      </Compile>
+      <Compile Update="Resources\Resx\Windows\AddEditRecurrentExpenseWindow\AddEditRecurrentExpenseWindowResources.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>AddEditRecurrentExpenseWindowResources.resx</DependentUpon>
       </Compile>
     </ItemGroup>
 
