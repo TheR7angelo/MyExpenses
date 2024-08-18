@@ -32,6 +32,176 @@ namespace MyExpenses.Wpf.Windows;
 
 public partial class AddEditRecurrentExpenseWindow
 {
+    public static readonly DependencyProperty ComboBoxAccountHintAssistProperty =
+        DependencyProperty.Register(nameof(ComboBoxAccountHintAssist), typeof(string),
+            typeof(AddEditRecurrentExpenseWindow), new PropertyMetadata(default(string)));
+
+    public string ComboBoxAccountHintAssist
+    {
+        get => (string)GetValue(ComboBoxAccountHintAssistProperty);
+        set => SetValue(ComboBoxAccountHintAssistProperty, value);
+    }
+
+    public static readonly DependencyProperty ComboBoxBackgroundHintAssistProperty =
+        DependencyProperty.Register(nameof(ComboBoxBackgroundHintAssist), typeof(string),
+            typeof(AddEditRecurrentExpenseWindow), new PropertyMetadata(default(string)));
+
+    public string ComboBoxBackgroundHintAssist
+    {
+        get => (string)GetValue(ComboBoxBackgroundHintAssistProperty);
+        set => SetValue(ComboBoxBackgroundHintAssistProperty, value);
+    }
+
+    public static readonly DependencyProperty TextBoxDescriptionHintAssistProperty =
+        DependencyProperty.Register(nameof(TextBoxDescriptionHintAssist), typeof(string),
+            typeof(AddEditRecurrentExpenseWindow), new PropertyMetadata(default(string)));
+
+    public string TextBoxDescriptionHintAssist
+    {
+        get => (string)GetValue(TextBoxDescriptionHintAssistProperty);
+        set => SetValue(TextBoxDescriptionHintAssistProperty, value);
+    }
+
+    public static readonly DependencyProperty TextBoxNoteHintAssistProperty =
+        DependencyProperty.Register(nameof(TextBoxNoteHintAssist), typeof(string),
+            typeof(AddEditRecurrentExpenseWindow), new PropertyMetadata(default(string)));
+
+    public string TextBoxNoteHintAssist
+    {
+        get => (string)GetValue(TextBoxNoteHintAssistProperty);
+        set => SetValue(TextBoxNoteHintAssistProperty, value);
+    }
+
+    public static readonly DependencyProperty ComboBoxModePaymentHintAssistProperty =
+        DependencyProperty.Register(nameof(ComboBoxModePaymentHintAssist), typeof(string),
+            typeof(AddEditRecurrentExpenseWindow), new PropertyMetadata(default(string)));
+
+    public string ComboBoxModePaymentHintAssist
+    {
+        get => (string)GetValue(ComboBoxModePaymentHintAssistProperty);
+        set => SetValue(ComboBoxModePaymentHintAssistProperty, value);
+    }
+
+    public static readonly DependencyProperty ComboBoxCategoryTypeHintAssistProperty =
+        DependencyProperty.Register(nameof(ComboBoxCategoryTypeHintAssist), typeof(string),
+            typeof(AddEditRecurrentExpenseWindow), new PropertyMetadata(default(string)));
+
+    public string ComboBoxCategoryTypeHintAssist
+    {
+        get => (string)GetValue(ComboBoxCategoryTypeHintAssistProperty);
+        set => SetValue(ComboBoxCategoryTypeHintAssistProperty, value);
+    }
+
+    public static readonly DependencyProperty TextBoxValueHintAssistProperty =
+        DependencyProperty.Register(nameof(TextBoxValueHintAssist), typeof(string),
+            typeof(AddEditRecurrentExpenseWindow), new PropertyMetadata(default(string)));
+
+    public string TextBoxValueHintAssist
+    {
+        get => (string)GetValue(TextBoxValueHintAssistProperty);
+        set => SetValue(TextBoxValueHintAssistProperty, value);
+    }
+
+    public static readonly DependencyProperty ComboBoxFrequencyHintAssistProperty =
+        DependencyProperty.Register(nameof(ComboBoxFrequencyHintAssist), typeof(string),
+            typeof(AddEditRecurrentExpenseWindow), new PropertyMetadata(default(string)));
+
+    public string ComboBoxFrequencyHintAssist
+    {
+        get => (string)GetValue(ComboBoxFrequencyHintAssistProperty);
+        set => SetValue(ComboBoxFrequencyHintAssistProperty, value);
+    }
+
+    public static readonly DependencyProperty TextBoxRecursiveTotalHintAssistProperty =
+        DependencyProperty.Register(nameof(TextBoxRecursiveTotalHintAssist), typeof(string),
+            typeof(AddEditRecurrentExpenseWindow), new PropertyMetadata(default(string)));
+
+    public string TextBoxRecursiveTotalHintAssist
+    {
+        get => (string)GetValue(TextBoxRecursiveTotalHintAssistProperty);
+        set => SetValue(TextBoxRecursiveTotalHintAssistProperty, value);
+    }
+
+    public static readonly DependencyProperty TextBoxRecursiveCountHintAssistProperty =
+        DependencyProperty.Register(nameof(TextBoxRecursiveCountHintAssist), typeof(string),
+            typeof(AddEditRecurrentExpenseWindow), new PropertyMetadata(default(string)));
+
+    public string TextBoxRecursiveCountHintAssist
+    {
+        get => (string)GetValue(TextBoxRecursiveCountHintAssistProperty);
+        set => SetValue(TextBoxRecursiveCountHintAssistProperty, value);
+    }
+
+    public static readonly DependencyProperty DatePickerStartDateHintAssistProperty =
+        DependencyProperty.Register(nameof(DatePickerStartDateHintAssist), typeof(string),
+            typeof(AddEditRecurrentExpenseWindow), new PropertyMetadata(default(string)));
+
+    public string DatePickerStartDateHintAssist
+    {
+        get => (string)GetValue(DatePickerStartDateHintAssistProperty);
+        set => SetValue(DatePickerStartDateHintAssistProperty, value);
+    }
+
+    public static readonly DependencyProperty TextBoxNextDueDateHintAssistProperty =
+        DependencyProperty.Register(nameof(TextBoxNextDueDateHintAssist), typeof(string),
+            typeof(AddEditRecurrentExpenseWindow), new PropertyMetadata(default(string)));
+
+    public string TextBoxNextDueDateHintAssist
+    {
+        get => (string)GetValue(TextBoxNextDueDateHintAssistProperty);
+        set => SetValue(TextBoxNextDueDateHintAssistProperty, value);
+    }
+
+    public static readonly DependencyProperty CheckBoxForceDeactivateProperty =
+        DependencyProperty.Register(nameof(CheckBoxForceDeactivate), typeof(string),
+            typeof(AddEditRecurrentExpenseWindow), new PropertyMetadata(default(string)));
+
+    public string CheckBoxForceDeactivate
+    {
+        get => (string)GetValue(CheckBoxForceDeactivateProperty);
+        set => SetValue(CheckBoxForceDeactivateProperty, value);
+    }
+
+    public static readonly DependencyProperty CheckBoxIsActiveProperty =
+        DependencyProperty.Register(nameof(CheckBoxIsActive), typeof(string), typeof(AddEditRecurrentExpenseWindow),
+            new PropertyMetadata(default(string)));
+
+    public string CheckBoxIsActive
+    {
+        get => (string)GetValue(CheckBoxIsActiveProperty);
+        set => SetValue(CheckBoxIsActiveProperty, value);
+    }
+
+    public static readonly DependencyProperty ComboBoxPlaceCountryHintAssistProperty =
+        DependencyProperty.Register(nameof(ComboBoxPlaceCountryHintAssist), typeof(string),
+            typeof(AddEditRecurrentExpenseWindow), new PropertyMetadata(default(string)));
+
+    public string ComboBoxPlaceCountryHintAssist
+    {
+        get => (string)GetValue(ComboBoxPlaceCountryHintAssistProperty);
+        set => SetValue(ComboBoxPlaceCountryHintAssistProperty, value);
+    }
+
+    public static readonly DependencyProperty ComboBoxPlaceCityHintAssistProperty =
+        DependencyProperty.Register(nameof(ComboBoxPlaceCityHintAssist), typeof(string),
+            typeof(AddEditRecurrentExpenseWindow), new PropertyMetadata(default(string)));
+
+    public string ComboBoxPlaceCityHintAssist
+    {
+        get => (string)GetValue(ComboBoxPlaceCityHintAssistProperty);
+        set => SetValue(ComboBoxPlaceCityHintAssistProperty, value);
+    }
+
+    public static readonly DependencyProperty ComboBoxPlaceHintAssistProperty =
+        DependencyProperty.Register(nameof(ComboBoxPlaceHintAssist), typeof(string),
+            typeof(AddEditRecurrentExpenseWindow), new PropertyMetadata(default(string)));
+
+    public string ComboBoxPlaceHintAssist
+    {
+        get => (string)GetValue(ComboBoxPlaceHintAssistProperty);
+        set => SetValue(ComboBoxPlaceHintAssistProperty, value);
+    }
+
     public static readonly DependencyProperty EditRecurrentExpenseProperty =
         DependencyProperty.Register(nameof(EditRecurrentExpense), typeof(bool), typeof(AddEditRecurrentExpenseWindow),
             new PropertyMetadata(default(bool)));
@@ -126,6 +296,25 @@ public partial class AddEditRecurrentExpenseWindow
 
         var xmlLanguage = XmlLanguage.GetLanguage(cultureInfoCode);
         DatePicker.Language = xmlLanguage;
+
+        // TODO work
+        ComboBoxAccountHintAssist = "ComboBoxAccountHintAssist";
+        ComboBoxBackgroundHintAssist = "ComboBoxBackgroundHintAssist";
+        TextBoxDescriptionHintAssist = "TextBoxDescriptionHintAssist";
+        TextBoxNoteHintAssist = "TextBoxNoteHintAssist";
+        ComboBoxCategoryTypeHintAssist = "ComboBoxCategoryTypeHintAssist";
+        ComboBoxCategoryTypeHintAssist = "ComboBoxCategoryTypeHintAssist";
+        TextBoxValueHintAssist = "TextBoxValueHintAssist";
+        ComboBoxFrequencyHintAssist = "ComboBoxFrequencyHintAssist";
+        TextBoxRecursiveTotalHintAssist = "TextBoxRecursiveTotalHintAssist";
+        TextBoxRecursiveCountHintAssist = "TextBoxRecursiveCountHintAssist";
+        DatePickerStartDateHintAssist = "DatePickerStartDateHintAssist";
+        TextBoxNextDueDateHintAssist = "TextBoxNextDueDateHintAssist";
+        CheckBoxForceDeactivate = "CheckBoxForceDeactivate";
+        CheckBoxIsActive = "CheckBoxIsActive";
+        ComboBoxPlaceCountryHintAssist = "ComboBoxPlaceCountryHintAssist";
+        ComboBoxPlaceCityHintAssist = "ComboBoxPlaceCityHintAssist";
+        ComboBoxPlaceHintAssist = "ComboBoxPlaceHintAssist";
     }
 
     private void ButtonAccount_OnClick(object sender, RoutedEventArgs e)
@@ -534,7 +723,6 @@ public partial class AddEditRecurrentExpenseWindow
             // MsgBox.Show(localizedErrorMessage, MsgBoxImage.Error);
             return;
         }
-
     }
 
     private void ButtonDelete_OnClick(object sender, RoutedEventArgs e)
