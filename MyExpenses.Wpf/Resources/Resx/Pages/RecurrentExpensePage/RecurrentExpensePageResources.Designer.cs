@@ -61,6 +61,24 @@ namespace MyExpenses.Wpf.Resources.Resx.Pages.RecurrentExpensePage {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Delete this record.
+        /// </summary>
+        internal static string ButtonContentDeleteRecord {
+            get {
+                return ResourceManager.GetString("ButtonContentDeleteRecord", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit this record.
+        /// </summary>
+        internal static string ButtonContentEditRecord {
+            get {
+                return ResourceManager.GetString("ButtonContentEditRecord", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Force deactivation.
         /// </summary>
         internal static string DataGridCheckBoxColumnForceDeactivateHeader {
@@ -93,6 +111,15 @@ namespace MyExpenses.Wpf.Resources.Resx.Pages.RecurrentExpensePage {
         internal static string DataGridMenuItemHeaderEditRecord {
             get {
                 return ResourceManager.GetString("DataGridMenuItemHeaderEditRecord", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Actions.
+        /// </summary>
+        internal static string DataGridTemplateColumnActionsHeader {
+            get {
+                return ResourceManager.GetString("DataGridTemplateColumnActionsHeader", resourceCulture);
             }
         }
         

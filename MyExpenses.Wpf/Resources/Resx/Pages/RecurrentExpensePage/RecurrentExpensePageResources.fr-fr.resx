@@ -77,4 +77,13 @@
     <data name="DataGridMenuItemHeaderDeleteRecord" xml:space="preserve">
         <value>Supprimer cet enregistrement</value>
     </data>
+    <data name="ButtonContentEditRecord" xml:space="preserve">
+        <value>Modifier cet enregistrement</value>
+    </data>
+    <data name="ButtonContentDeleteRecord" xml:space="preserve">
+        <value>Supprimer cet enregistrement</value>
+    </data>
+    <data name="DataGridTemplateColumnActionsHeader" xml:space="preserve">
+        <value>Actions</value>
+    </data>
 </root>

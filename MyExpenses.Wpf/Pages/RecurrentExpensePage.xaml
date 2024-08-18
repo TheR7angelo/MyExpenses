@@ -177,7 +177,7 @@
                                                        Binding="{Binding ForceDeactivate}">
                 </filterDataGrid:DataGridCheckBoxColumn>
 
-                <filterDataGrid:DataGridTemplateColumn x:Name="TemplateColumnActions" IsColumnFiltered="False"
+                <filterDataGrid:DataGridTemplateColumn x:Name="DataGridTemplateColumnActions" IsColumnFiltered="False"
                                                        IsReadOnly="True">
                         <filterDataGrid:DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
@@ -186,12 +186,12 @@
                                             margin:PanelExtensions.MarginForAllChildren="3">
 
                                     <Button Style="{StaticResource MaterialDesignPaperButton}"
-                                            Content="{Binding ButtonContentEditRecord, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:RecordExpensePage}}}"
+                                            Content="{Binding ButtonContentEditRecord, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:RecurrentExpensePage}}}"
                                             Click="ButtonEditRecord_OnClick">
                                     </Button>
 
                                     <Button Style="{StaticResource MaterialDesignPaperButton}"
-                                            Content="{Binding ButtonContentDeleteRecord, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:RecordExpensePage}}}"
+                                            Content="{Binding ButtonContentDeleteRecord, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:RecurrentExpensePage}}}"
                                             Click="ButtonDeleteRecord_OnClick">
                                     </Button>
 
