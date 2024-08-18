@@ -170,7 +170,7 @@
         </Button>
 
         <!-- TODO work -->
-        <TextBox Grid.Row="6" Grid.Column="0"
+        <TextBox Grid.Row="7" Grid.Column="0"
                  materialDesign:HintAssist.Hint="{Binding TextBoxValueHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                  Style="{StaticResource MaterialDesignFilledTextBox}"
                  Text="{Binding RecursiveExpense.RecursiveTotal, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
@@ -179,7 +179,7 @@
         </TextBox>
 
         <!-- TODO work -->
-        <TextBox Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="2"
+        <TextBox Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="2"
                  materialDesign:HintAssist.Hint="{Binding TextBoxValueHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                  Style="{StaticResource MaterialDesignFilledTextBox}"
                  Text="{Binding RecursiveExpense.RecursiveCount, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
