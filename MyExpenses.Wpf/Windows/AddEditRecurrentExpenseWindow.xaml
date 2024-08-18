@@ -188,7 +188,7 @@
         </TextBox>
 
         <!-- TODO work -->
-        <DatePicker Grid.Row="7" Grid.Column="0" x:Name="DatePicker"
+        <DatePicker Grid.Row="8" Grid.Column="0" x:Name="DatePicker"
                     materialDesign:HintAssist.Hint="{Binding DatePickerWhenHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                     Style="{StaticResource MaterialDesignFilledDatePicker}"
                     SelectedDate="{Binding RecursiveExpense.StartDate, Converter={StaticResource DateOnlyToDateTimeConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
@@ -196,7 +196,7 @@
         </DatePicker>
 
         <!-- TODO work -->
-        <TextBox  Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="2"
+        <TextBox  Grid.Row="8" Grid.Column="1" Grid.ColumnSpan="2"
                   materialDesign:HintAssist.Hint="{Binding TextBoxValueHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                   Style="{StaticResource MaterialDesignFilledTextBox}"
                   Text="{Binding RecursiveExpense.NextDueDate, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
