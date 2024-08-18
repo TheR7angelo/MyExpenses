@@ -71,15 +71,43 @@ public partial class RecurrentExpensePage
 
     #region Action
 
+    private void ButtonAddNewRecurrent_OnClick(object sender, RoutedEventArgs e)
+    {
+        var addEditRecurrentExpenseWindow = new AddEditRecurrentExpenseWindow();
+
+        var result = addEditRecurrentExpenseWindow.ShowDialog();
+        if (result is not true) return;
+
+        UpdateDataGrid();
+    }
+
     private void DataGridRow_PreviewMouseRightButtonDown(object sender, MouseButtonEventArgs e)
         => DataGridRow = sender as DataGridRow;
 
     private void Interface_OnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
         => UpdateLanguage();
 
+    private void MenuItemEditRecurrentExpense_OnClick(object sender, RoutedEventArgs e)
+    {
+        if (DataGridRow?.DataContext is not VRecursiveExpense vRecurrentExpense) return;
+
+        EditRecurrentExpenseWindow(vRecurrentExpense);
+    }
+
     #endregion
 
     #region Function
+
+    private void EditRecurrentExpenseWindow(VRecursiveExpense vRecurrentExpense)
+    {
+        var addEditRecurrentExpenseWindow = new AddEditRecurrentExpenseWindow();
+        addEditRecurrentExpenseWindow.SetVRecursiveExpense(vRecurrentExpense);
+
+        var result = addEditRecurrentExpenseWindow.ShowDialog();
+        if (result is not true) return;
+
+        UpdateDataGrid();
+    }
 
     private void UpdateDataGrid()
     {
@@ -123,27 +151,4 @@ public partial class RecurrentExpensePage
     }
 
     #endregion
-
-    private void ButtonAddNewRecurrent_OnClick(object sender, RoutedEventArgs e)
-    {
-        var addEditRecurrentExpenseWindow = new AddEditRecurrentExpenseWindow();
-
-        var result = addEditRecurrentExpenseWindow.ShowDialog();
-        if (result is not true) return;
-
-        UpdateDataGrid();
-    }
-
-    private void MenuItemEditRecurrentExpense_OnClick(object sender, RoutedEventArgs e)
-    {
-        if (DataGridRow?.DataContext is not VRecursiveExpense vRecurrentExpense) return;
-
-        var addEditRecurrentExpenseWindow = new AddEditRecurrentExpenseWindow();
-        addEditRecurrentExpenseWindow.SetVRecursiveExpense(vRecurrentExpense);
-
-        var result = addEditRecurrentExpenseWindow.ShowDialog();
-        if (result is not true) return;
-
-        UpdateDataGrid();
-    }
 }
