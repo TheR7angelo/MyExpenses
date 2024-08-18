@@ -102,4 +102,13 @@
     <data name="MessageBoxButtonValidationFrequencyFkError" xml:space="preserve">
         <value>Frequency cannot be null</value>
     </data>
+    <data name="MessageBoxAddRecursiveExpenseSuccess" xml:space="preserve">
+        <value>The new recursive expense has been added successfully</value>
+    </data>
+    <data name="MessageBoxAddRecursiveExpenseQuestion" xml:space="preserve">
+        <value>Do you want to record a new recursive expense ?</value>
+    </data>
+    <data name="MessageBoxAddRecursiveExpenseError" xml:space="preserve">
+        <value>An error occurred please retry</value>
+    </data>
 </root>
