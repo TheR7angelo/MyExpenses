@@ -33,7 +33,7 @@
         <value>Mode payment was successfully removed</value>
     </data>
     <data name="MessageBoxDeleteModePaymentUseQuestion" xml:space="preserve">
-        <value>Thismode payment is in use. Are you sure you want to delete this mode payment and everything linked to it ?</value>
+        <value>This mode payment is in use. Are you sure you want to delete this mode payment and everything linked to it ?</value>
     </data>
     <data name="MessageBoxDeleteModePaymentUseSuccess" xml:space="preserve">
         <value>Mode payment and all relative element was successfully removed</value>

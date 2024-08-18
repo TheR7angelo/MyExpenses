@@ -106,7 +106,7 @@ namespace MyExpenses.Wpf.Resources.Resx.Windows.AddEditModePaymentWindow {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Thismode payment is in use. Are you sure you want to delete this mode payment and everything linked to it ?.
+        ///   Looks up a localized string similar to This mode payment is in use. Are you sure you want to delete this mode payment and everything linked to it ?.
         /// </summary>
         internal static string MessageBoxDeleteModePaymentUseQuestion {
             get {
