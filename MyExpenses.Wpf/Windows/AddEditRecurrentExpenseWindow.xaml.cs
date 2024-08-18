@@ -3,6 +3,9 @@ using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Markup;
+using MyExpenses.Models.Config;
+using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Models.Sql.Bases.Views;
 using MyExpenses.Sql.Context;
@@ -39,13 +42,26 @@ public partial class AddEditRecurrentExpenseWindow
         ModePayments = [..context.TModePayments.OrderBy(s => s.Name)];
 
         InitializeComponent();
+        UpdaterLanguage();
 
+        Interface.LanguageChanged += Interface_OnLanguageChanged;
         this.SetWindowCornerPreference();
     }
+
+    private void Interface_OnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
+        => UpdaterLanguage(e.CultureInfoCode);
 
     public void SetVRecursiveExpense(VRecursiveExpense vRecurrentExpense)
     {
         vRecurrentExpense.CopyPropertiesTo(RecursiveExpense);
+    }
+
+    private void UpdaterLanguage(string? cultureInfoCode = null)
+    {
+        cultureInfoCode ??= CultureInfo.CurrentCulture.Name;
+
+        var xmlLanguage = XmlLanguage.GetLanguage(cultureInfoCode);
+        DatePicker.Language = xmlLanguage;
     }
 
     private void ButtonAccount_OnClick(object sender, RoutedEventArgs e)
