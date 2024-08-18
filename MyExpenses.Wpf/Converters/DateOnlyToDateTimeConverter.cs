@@ -1,5 +1,6 @@
 using System.Globalization;
 using System.Windows.Data;
+using MyExpenses.Utils.Dates;
 
 namespace MyExpenses.Wpf.Converters;
 
@@ -9,7 +10,7 @@ public class DateOnlyToDateTimeConverter : IValueConverter
     {
         if (value is DateOnly dateOnly)
         {
-            return MyExpenses.Utils.Dates.DateExtensions.ToDateTime(dateOnly);
+            return DateExtensions.ToDateTime(dateOnly);
         }
         return value;
     }
@@ -18,7 +19,7 @@ public class DateOnlyToDateTimeConverter : IValueConverter
     {
         if (value is DateTime dateTime)
         {
-            return MyExpenses.Utils.Dates.DateExtensions.ToDateOnly(dateTime);
+            return DateExtensions.ToDateOnly(dateTime);
         }
         return value;
     }
