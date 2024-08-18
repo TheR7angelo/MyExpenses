@@ -306,12 +306,11 @@ public partial class DashBoardPage
             .Where(s => s.NextDueDate.Year.Equals(now.Year) && s.NextDueDate.Month.Equals(now.Month))
             .ToList();
 
-        // TODO work
         if (recurrences.Count > 0)
         {
-            var mainWindow = Application.Current.MainWindow;
-            var actualWidth = mainWindow!.ActualWidth;
-            var actualHeight = mainWindow!.ActualHeight;
+            var mainWindow = Application.Current.MainWindow!;
+            var actualWidth = mainWindow.ActualWidth;
+            var actualHeight = mainWindow.ActualHeight;
             var size = new Size(actualWidth, actualHeight);
 
             var recurrentAddWindow = new RecurrentAddWindow(size);
