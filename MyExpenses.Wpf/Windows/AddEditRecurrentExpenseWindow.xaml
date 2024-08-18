@@ -165,6 +165,15 @@
 
         </Button>
 
+        <!-- TODO work -->
+        <TextBox Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2"
+                 materialDesign:HintAssist.Hint="{Binding TextBoxValueHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                 Style="{StaticResource MaterialDesignFilledTextBox}"
+                 Text="{Binding RecursiveExpense.RecursiveTotal, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                 AcceptsReturn="False" AcceptsTab="False"
+                 PreviewTextInput="UIElementIntOnly_OnPreviewTextInput">
+        </TextBox>
+
     </Grid>
 
 </mah:MetroWindow>

@@ -8,6 +8,7 @@ using MyExpenses.Models.Sql.Bases.Views;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils.Collection;
 using MyExpenses.Utils.Sql;
+using MyExpenses.Utils.Strings;
 using MyExpenses.Wpf.Resources.Resx.Pages.RecordExpensePage;
 using MyExpenses.Wpf.Utils;
 using MyExpenses.Wpf.Windows.CategoryTypeManagementWindow;
@@ -232,5 +233,15 @@ public partial class AddEditRecurrentExpenseWindow
         RecursiveExpense.Value = value;
 
         textBox.CaretIndex = position;
+    }
+
+    private void UIElementIntOnly_OnPreviewTextInput(object sender, TextCompositionEventArgs e)
+    {
+        var txt = e.Text;
+        var success = txt.ToInt(out var value);
+
+        if (success) success = value! > 0;
+
+        e.Handled = !success;
     }
 }
