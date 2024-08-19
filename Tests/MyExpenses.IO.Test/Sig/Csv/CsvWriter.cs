@@ -68,7 +68,7 @@ public class CsvWriter
 
 public class TypeSwitch
 {
-    readonly Dictionary<Type, Func<object, object>> _matches = new();
+    private readonly Dictionary<Type, Func<object, object>> _matches = new();
 
     public TypeSwitch Case<T>(Func<T, object> action)
     {
