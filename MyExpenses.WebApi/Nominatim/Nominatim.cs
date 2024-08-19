@@ -23,7 +23,7 @@ public static class Nominatim
         {
             var parameters = new List<string>
             {
-                $"reverse?format=json&lat={position.X.ToString(CultureInfo.InvariantCulture)}&lon={position.Y.ToString(CultureInfo.InvariantCulture)}"
+                $"reverse?format=json&lat={position.Y.ToString(CultureInfo.InvariantCulture)}&lon={position.X.ToString(CultureInfo.InvariantCulture)}"
             };
             if (addressDetails) parameters.Add("addressdetails=1");
             if (polygon) parameters.Add("polygon=1");
