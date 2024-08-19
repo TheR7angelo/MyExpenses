@@ -92,7 +92,7 @@ public partial class TPlace : ISql, ISig
     public bool? CanBeDeleted { get; set; } = true;
 
     [Column("date_added", TypeName = "DATETIME")]
-    public DateTime? DateAdded { get; set; }
+    public DateTime? DateAdded { get; set; } = DateTime.Now;
 
     [InverseProperty("PlaceFkNavigation")]
     public virtual ICollection<THistory> THistories { get; set; } = new List<THistory>();
