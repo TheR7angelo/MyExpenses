@@ -8,7 +8,7 @@ namespace MyExpenses.IO.Sig.Kml;
 
 public static class KmlWriter
 {
-    public static void ToKmlFile(this IEnumerable<ISig> sigs, string fileSavePath, string name = "Point")
+    public static void ToKmlFile(this IEnumerable<ISig> sigs, string fileSavePath, string geomType = "Point")
     {
         var extension = Path.GetExtension(fileSavePath);
         extension.TestExtensionError();
@@ -30,7 +30,7 @@ public static class KmlWriter
 
         foreach (var obj in enumerable.Select((point, i) => new { i, point }))
         {
-            var indexedName = $"{name} {obj.i + 1}";
+            var indexedName = $"{geomType} {obj.i + 1}";
             var (yInvariant, xInvariant) = ((Point)obj.point.Geometry!).ToInvariantCoordinate();
 
             var kmlAttribute = obj.point.CreateKmlAttribute(filenameWithoutExtension);
@@ -50,7 +50,7 @@ public static class KmlWriter
         SaveToKmlKmzFile(fileSavePath, kml, extension);
     }
 
-    public static void ToKmlFile(this ISig sig, string fileSavePath, string name = "Point")
+    public static void ToKmlFile(this ISig sig, string fileSavePath, string geomType = "Point")
     {
         var extension = Path.GetExtension(fileSavePath);
         extension.TestExtensionError();
@@ -72,7 +72,7 @@ public static class KmlWriter
                     schemaElement,
                 new XElement(KmlUtils.KmlNamespace + "Placemark",
                     kmlAttribute,
-                    new XElement(KmlUtils.KmlNamespace + "name", name),
+                    new XElement(KmlUtils.KmlNamespace + "name", geomType),
                     new XElement(KmlUtils.KmlNamespace + "Point",
                         new XElement(KmlUtils.KmlNamespace + "coordinates",
                             $"{yInvariant}, {xInvariant}"))))));
@@ -80,7 +80,7 @@ public static class KmlWriter
         SaveToKmlKmzFile(fileSavePath, kml, extension);
     }
 
-    public static void ToKmlFile(this IEnumerable<Point> points, string fileSavePath, string name = "Point")
+    public static void ToKmlFile(this IEnumerable<Point> points, string fileSavePath, string geomType = "Point")
     {
         var extension = Path.GetExtension(fileSavePath);
         extension.TestExtensionError();
@@ -94,7 +94,7 @@ public static class KmlWriter
 
         foreach (var obj in points.Select((point, i) => new { i, point }))
         {
-            var indexedName = $"{name} {obj.i + 1}";
+            var indexedName = $"{geomType} {obj.i + 1}";
             var (yInvariant, xInvariant) = obj.point.ToInvariantCoordinate();
 
             kml.Root!.Element(KmlUtils.KmlNamespace +"Document")!.Add(
@@ -111,7 +111,7 @@ public static class KmlWriter
         SaveToKmlKmzFile(fileSavePath, kml, extension);
     }
 
-    public static void ToKmlFile(this Point point, string fileSavePath, string name = "Point")
+    public static void ToKmlFile(this Point point, string fileSavePath, string geomType = "Point")
     {
         var extension = Path.GetExtension(fileSavePath);
         extension.TestExtensionError();
@@ -122,7 +122,7 @@ public static class KmlWriter
             new XDeclaration("1.0", "UTF-8", string.Empty),
             new XElement(KmlUtils.KmlNamespace + "kml",
                 new XElement(KmlUtils.KmlNamespace + "Placemark",
-                    new XElement(KmlUtils.KmlNamespace + "name", name),
+                    new XElement(KmlUtils.KmlNamespace + "name", geomType),
                     new XElement(KmlUtils.KmlNamespace + "Point",
                         new XElement(KmlUtils.KmlNamespace + "coordinates",
                             $"{xInvariant}, {yInvariant}")))));
