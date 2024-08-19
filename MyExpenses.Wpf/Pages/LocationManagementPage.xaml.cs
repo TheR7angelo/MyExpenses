@@ -284,7 +284,8 @@ public partial class LocationManagementPage
         var log = GetLogAction("Google Earth web");
 
         Log.Information("{Log}", log);
-        ClickPoint.ToGoogleEarthWeb();
+        var uri = ClickPoint.ToGoogleEarthWeb();
+        Log.Information("{Uri}", uri);
     }
 
 
@@ -293,7 +294,8 @@ public partial class LocationManagementPage
         var log = GetLogAction("Google Maps");
 
         Log.Information("{Log}", log);
-        ClickPoint.ToGoogleMaps();
+        var uri = ClickPoint.ToGoogleMaps();
+        Log.Information("{Uri}", uri);
     }
 
     private void MenuItemToGoogleStreetView_OnClick(object sender, RoutedEventArgs e)
@@ -301,7 +303,8 @@ public partial class LocationManagementPage
         var log = GetLogAction("Google Street View");
 
         Log.Information("{Log}", log);
-        ClickPoint.ToGoogleStreetView();
+        var uri = ClickPoint.ToGoogleStreetView();
+        Log.Information("{Uri}", uri);
     }
 
     private void Selector_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
