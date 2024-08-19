@@ -25,5 +25,5 @@ public partial class TSupportedLanguage
     public bool? DefaultLanguage { get; set; } = false;
 
     [Column("date_added", TypeName = "DATETIME")]
-    public DateTime? DateAdded { get; set; }
+    public DateTime? DateAdded { get; set; } = DateTime.Now;
 }
