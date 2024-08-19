@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using MyExpenses.Models.IO.Sig.Interfaces;
 using NetTopologySuite.Geometries;
 using PropertyChanged;
 
@@ -7,7 +8,7 @@ namespace MyExpenses.Models.Sql.Bases.Tables;
 
 [AddINotifyPropertyChangedInterface]
 [Table("t_place")]
-public partial class TPlace : ISql
+public partial class TPlace : ISql, ISig
 {
     [Key]
     [Column("id")]
@@ -61,10 +62,10 @@ public partial class TPlace : ISql
     }
 
     [NotMapped]
-    private Point? _geometry;
+    private Geometry? _geometry;
 
     [Column("geometry")]
-    public Point? Geometry
+    public Geometry? Geometry
     {
         get => _geometry;
         set
@@ -77,8 +78,9 @@ public partial class TPlace : ISql
             }
             else
             {
-                _latitude = _geometry.X;
-                _longitude = _geometry.Y;
+                var point = (Point)_geometry;
+                _latitude = point.X;
+                _longitude = point.Y;
             }
         }
     }
