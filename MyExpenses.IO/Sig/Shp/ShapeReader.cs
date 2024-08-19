@@ -109,11 +109,14 @@ public static class ShapeReader
 
             foreach (var name in feature.Attributes.GetNames())
             {
-                var property = name.GetPropertiesInfoByName<T, ColumnAttribute>();
+                var tmpName = name;
+                if (tmpName.Length > 10) tmpName = tmpName[..10];
+
+                var property = tmpName.GetPropertiesInfoByName<T, ColumnAttribute>();
                 if (property is null) continue;
                 if (!property.CanWrite) continue;
 
-                var value = feature.Attributes[name];
+                var value = feature.Attributes[tmpName];
 
                 try
                 {
