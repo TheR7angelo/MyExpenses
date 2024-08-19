@@ -5,7 +5,6 @@
 
         <ResourceDictionary Source="Cards/Cards.xaml" />
         <ResourceDictionary Source="Logos/Logos.xaml" />
-        <ResourceDictionary Source="Extensions/Extensions.xaml" />
 
     </ResourceDictionary.MergedDictionaries>
 
