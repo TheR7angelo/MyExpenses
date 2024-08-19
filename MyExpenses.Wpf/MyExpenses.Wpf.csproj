@@ -420,20 +420,20 @@
         <XamlRuntime>Wpf</XamlRuntime>
         <SubType>Designer</SubType>
       </Page>
-      <Page Include="..\MyExpenses.Commons\Resources\Assets\Logos\Services\Advanced Installer\Advanced Installer Full.xaml">
-        <Link>Resources\Assets\Logos\Services\Advanced Installer\Advanced Installer Full.xaml</Link>
+      <Page Include="..\MyExpenses.Commons\Resources\Assets\Logos\Advanced Installer\Advanced Installer Full.xaml">
+        <Link>Resources\Assets\Logos\Advanced Installer\Advanced Installer Full.xaml</Link>
       </Page>
-      <Page Include="..\MyExpenses.Commons\Resources\Assets\Logos\Services\Advanced Installer\Advanced Installer.xaml">
-        <Link>Resources\Assets\Logos\Services\Advanced Installer\Advanced Installer.xaml</Link>
+      <Page Include="..\MyExpenses.Commons\Resources\Assets\Logos\Advanced Installer\Advanced Installer.xaml">
+        <Link>Resources\Assets\Logos\Advanced Installer\Advanced Installer.xaml</Link>
       </Page>
-      <Page Include="..\MyExpenses.Commons\Resources\Assets\Logos\Services\Dropbox\Dropbox.xaml">
-        <Link>Resources\Assets\Logos\Services\Dropbox\Dropbox.xaml</Link>
+      <Page Include="..\MyExpenses.Commons\Resources\Assets\Logos\Dropbox\Dropbox.xaml">
+        <Link>Resources\Assets\Logos\Dropbox\Dropbox.xaml</Link>
       </Page>
-      <Page Include="..\MyExpenses.Commons\Resources\Assets\Logos\Services\Dropbox\DropboxLogo.xaml">
-        <Link>Resources\Assets\Logos\Services\Dropbox\DropboxLogo.xaml</Link>
+      <Page Include="..\MyExpenses.Commons\Resources\Assets\Logos\Dropbox\DropboxLogo.xaml">
+        <Link>Resources\Assets\Logos\Dropbox\DropboxLogo.xaml</Link>
       </Page>
-      <Page Include="..\MyExpenses.Commons\Resources\Assets\Logos\Services\Services.xaml">
-        <Link>Resources\Assets\Logos\Services\Services.xaml</Link>
+      <Page Include="..\MyExpenses.Commons\Resources\Assets\Logos\Logos.xaml">
+        <Link>Resources\Assets\Logos\Logos.xaml</Link>
       </Page>
     </ItemGroup>
 
@@ -507,14 +507,14 @@
         <Link>Resources\Assets\Applications\Icon.svg</Link>
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </Resource>
-      <Content Include="..\MyExpenses.Commons\Resources\Assets\Logos\Services\Advanced Installer\Advanced Installer Full.svg">
-        <Link>Resources\Assets\Logos\Services\Advanced Installer\Advanced Installer Full.svg</Link>
+      <Content Include="..\MyExpenses.Commons\Resources\Assets\Logos\Advanced Installer\Advanced Installer Full.svg">
+        <Link>Resources\Assets\Logos\Advanced Installer\Advanced Installer Full.svg</Link>
       </Content>
-      <Content Include="..\MyExpenses.Commons\Resources\Assets\Logos\Services\Dropbox\DropboxLogo.ai">
-        <Link>Resources\Assets\Logos\Services\Dropbox\DropboxLogo.ai</Link>
+      <Content Include="..\MyExpenses.Commons\Resources\Assets\Logos\Dropbox\DropboxLogo.ai">
+        <Link>Resources\Assets\Logos\Dropbox\DropboxLogo.ai</Link>
       </Content>
-      <Content Include="..\MyExpenses.Commons\Resources\Assets\Logos\Services\Dropbox\DropboxLogo.svg">
-        <Link>Resources\Assets\Logos\Services\Dropbox\DropboxLogo.svg</Link>
+      <Content Include="..\MyExpenses.Commons\Resources\Assets\Logos\Dropbox\DropboxLogo.svg">
+        <Link>Resources\Assets\Logos\Dropbox\DropboxLogo.svg</Link>
       </Content>
       <Content Include="..\README.md">
         <Link>README.md</Link>
