@@ -62,14 +62,14 @@ public class ExportTPlace : ISig
             _geometry = value;
             if (_geometry is null)
             {
-                _latitude = null;
                 _longitude = null;
+                _latitude = null;
             }
             else
             {
                 var point = (Point)_geometry;
-                _latitude = point.X;
-                _longitude = point.Y;
+                _longitude = point.X;
+                _latitude = point.Y;
             }
         }
     }
@@ -85,9 +85,9 @@ public class ExportTPlace : ISig
 
     private void UpdateGeometry()
     {
-        if (_latitude.HasValue && _longitude.HasValue)
+        if (_longitude.HasValue && _latitude.HasValue)
         {
-            _geometry = new Point(_latitude.Value, _longitude.Value) { SRID = 4326 };
+            _geometry = new Point(_longitude.Value, _latitude.Value) { SRID = 4326 };
         }
         else
         {
