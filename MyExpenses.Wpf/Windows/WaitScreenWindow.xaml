@@ -24,7 +24,7 @@
         BorderBrush="Gray"
 
         ShowIconOnTitleBar="True"
-        Icon="../Resources/Assets/Icon.png"
+        Icon="../Resources/Assets/Applications/Icon.ico"
 
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize"
