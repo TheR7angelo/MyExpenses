@@ -36,7 +36,7 @@ public class ExportTPlace : ISig
     [DisplayName("country")]
     public string? Country { get; set; }
 
-    [NotMapped]
+    [Ignore]
     private double? _latitude;
 
     [Name("latitude")]
@@ -72,6 +72,7 @@ public class ExportTPlace : ISig
 
     [Name("geometry")]
     [DisplayName("geometry")]
+    [Ignore]
     public Geometry? Geometry
     {
         get => _geometry;
