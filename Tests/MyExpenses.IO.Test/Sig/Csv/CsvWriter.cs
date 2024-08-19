@@ -3,6 +3,7 @@ using System.Reflection;
 using Microsoft.EntityFrameworkCore;
 using MyExpenses.IO.Csv;
 using MyExpenses.IO.Sig.Kml;
+using MyExpenses.IO.Sig.Shp;
 using MyExpenses.Models.AutoMapper;
 using MyExpenses.Models.IO.Export;
 using MyExpenses.Models.IO.Export.Sql.Tables;
@@ -81,6 +82,13 @@ public class CsvWriter
 
                 recordGeoms.ToKmlFile($"{name}.kml");
                 recordGeoms.ToKmlFile($"{name}.kmz");
+                var geomType = recordGeoms.First().Geometry!.GetType().Name;
+
+                var projection = ShapeReader.GeographicCoordinateSystems.First(s => s.WellKnownId is 4326);
+
+                recordGeoms.ToKmlFile($"{name}.kml", geomType);
+                recordGeoms.ToKmlFile($"{name}.kmz", geomType);
+                recordGeoms.WriteToShapeFile(name, projection.Prj);
             }
             else
             {
