@@ -24,7 +24,7 @@ public class KmlWriterTest
         using var context = new DataBaseContext();
         var points = context.TPlaces
             .Where(s => s.Latitude != null && s.Latitude != 0 && s.Longitude != null && s.Longitude != 0)
-            .Select(s => s.Geometry).ToList();
+            .Select(s => (Point)s.Geometry!).ToList();
 
         const string fileSavePath = "locations.kml";
         points.ToKmlFile(fileSavePath);
