@@ -11,15 +11,15 @@ public class ExportTGeometryColumn
 
     [Name("f_table_name")]
     [DisplayName("f_table_name")]
-    public string FTableName { get; set; }
+    public string FTableName { get; set; } = null!;
 
     [Name("f_geometry_column")]
     [DisplayName("f_geometry_column")]
-    public string FGeometryName { get; set; }
+    public string FGeometryName { get; set; } = null!;
 
     [Name("type")]
     [DisplayName("type")]
-    public string Type { get; set; }
+    public string Type { get; set; } = null!;
 
     [Name("coord_dimension")]
     [DisplayName("coord_dimension")]

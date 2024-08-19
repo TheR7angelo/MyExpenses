@@ -11,17 +11,17 @@ public class ExportTSpatialRefSy
 
     [Name("auth_name")]
     [DisplayName("auth_name")]
-    public string AuthName { get; set; }
+    public string AuthName { get; set; } = null!;
 
     [Name("auth_srid")]
     [DisplayName("auth_srid")]
-    public string AuthSrid { get; set; }
+    public string AuthSrid { get; set; } = null!;
 
     [Name("srtext")]
     [DisplayName("srtext")]
-    public string Srtext { get; set; }
+    public string Srtext { get; set; } = null!;
 
     [Name("proj4text")]
     [DisplayName("proj4text")]
-    public string Proj4text { get; set; }
+    public string Proj4text { get; set; } = null!;
 }
