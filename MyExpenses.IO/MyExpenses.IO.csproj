@@ -16,4 +16,14 @@
       <ProjectReference Include="..\MyExpenses.Utils\MyExpenses.Utils.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <None Remove="Sig\Shp\cordinate system.csv" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <AdditionalFiles Include="Resources\Projections\ProjectionSystem.csv">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </AdditionalFiles>
+    </ItemGroup>
+
 </Project>
