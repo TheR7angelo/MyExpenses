@@ -30,7 +30,7 @@ FROM t_place;
 
 UPDATE t_place
 -- SET geometry = GeomFromText('POINT(' || longitude || ' ' || latitude || ')', 4326)
-SET geometry = GeomFromText('POINT(' || 0 || ' ' || 0 || ')', 4326)
+SET geometry = NULL
 WHERE id = 1;
 
 SELECT 'POINT(' || longitude || ' ' || latitude || ')'
