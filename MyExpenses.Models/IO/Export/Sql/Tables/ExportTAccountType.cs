@@ -1,0 +1,19 @@
+﻿using System.ComponentModel;
+using CsvHelper.Configuration.Attributes;
+
+namespace MyExpenses.Models.IO.Export.Sql.Tables;
+
+public class ExportTAccountType
+{
+    [Name("id")]
+    [DisplayName("id")]
+    public int Id { get; set; }
+
+    [Name("name")]
+    [DisplayName("name")]
+    public string? Name { get; set; }
+
+    [Name("date_added")]
+    [DisplayName("date_added")]
+    public DateTime? DateAdded { get; set; }
+}
