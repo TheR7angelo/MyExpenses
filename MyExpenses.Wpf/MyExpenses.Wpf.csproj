@@ -6,7 +6,7 @@
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
         <UseWPF>true</UseWPF>
-        <ApplicationIcon>..\Resources\Assets\Icon.ico</ApplicationIcon>
+        <ApplicationIcon>..\MyExpenses.Commons\Resources\Assets\Applications\Icon.ico</ApplicationIcon>
         <AssemblyName>MyExpenses</AssemblyName>
     </PropertyGroup>
 
@@ -420,11 +420,20 @@
         <XamlRuntime>Wpf</XamlRuntime>
         <SubType>Designer</SubType>
       </Page>
-      <Page Include="..\Resources\Assets\Logos\Services\DropboxLogo.xaml">
-        <Link>Resources\Assets\Logos\Services\DropboxLogo.xaml</Link>
+      <Page Include="..\MyExpenses.Commons\Resources\Assets\Logos\Services\Advanced Installer\Advanced Installer Full.xaml">
+        <Link>Resources\Assets\Logos\Services\Advanced Installer\Advanced Installer Full.xaml</Link>
       </Page>
-      <Page Include="..\Resources\Assets\Logos\Services\Logos.xaml">
-        <Link>Resources\Assets\Logos\Services\Logos.xaml</Link>
+      <Page Include="..\MyExpenses.Commons\Resources\Assets\Logos\Services\Advanced Installer\Advanced Installer.xaml">
+        <Link>Resources\Assets\Logos\Services\Advanced Installer\Advanced Installer.xaml</Link>
+      </Page>
+      <Page Include="..\MyExpenses.Commons\Resources\Assets\Logos\Services\Dropbox\Dropbox.xaml">
+        <Link>Resources\Assets\Logos\Services\Dropbox\Dropbox.xaml</Link>
+      </Page>
+      <Page Include="..\MyExpenses.Commons\Resources\Assets\Logos\Services\Dropbox\DropboxLogo.xaml">
+        <Link>Resources\Assets\Logos\Services\Dropbox\DropboxLogo.xaml</Link>
+      </Page>
+      <Page Include="..\MyExpenses.Commons\Resources\Assets\Logos\Services\Services.xaml">
+        <Link>Resources\Assets\Logos\Services\Services.xaml</Link>
       </Page>
     </ItemGroup>
 
@@ -482,36 +491,33 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Resource Include="..\MyExpenses.Commons\Resources\Assets\Applications\Icon.ico">
+        <Link>Resources\Assets\Applications\Icon.ico</Link>
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Resource>
+      <Resource Include="..\MyExpenses.Commons\Resources\Assets\Applications\Icon Resize.png">
+        <Link>Resources\Assets\Applications\Icon Resize.png</Link>
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Resource>
+      <Resource Include="..\MyExpenses.Commons\Resources\Assets\Applications\Icon.png">
+        <Link>Resources\Assets\Applications\Icon.png</Link>
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Resource>
+      <Resource Include="..\MyExpenses.Commons\Resources\Assets\Applications\Icon.svg">
+        <Link>Resources\Assets\Applications\Icon.svg</Link>
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </Resource>
+      <Content Include="..\MyExpenses.Commons\Resources\Assets\Logos\Services\Advanced Installer\Advanced Installer Full.svg">
+        <Link>Resources\Assets\Logos\Services\Advanced Installer\Advanced Installer Full.svg</Link>
+      </Content>
+      <Content Include="..\MyExpenses.Commons\Resources\Assets\Logos\Services\Dropbox\DropboxLogo.ai">
+        <Link>Resources\Assets\Logos\Services\Dropbox\DropboxLogo.ai</Link>
+      </Content>
+      <Content Include="..\MyExpenses.Commons\Resources\Assets\Logos\Services\Dropbox\DropboxLogo.svg">
+        <Link>Resources\Assets\Logos\Services\Dropbox\DropboxLogo.svg</Link>
+      </Content>
       <Content Include="..\README.md">
         <Link>README.md</Link>
-      </Content>
-      <None Include="..\Resources\Assets\Icon.ai">
-        <Link>Resources\Assets\Icon.ai</Link>
-      </None>
-      <Resource Include="..\Resources\Assets\Icon.ico">
-        <Link>Resources\Assets\Icon.ico</Link>
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </Resource>
-      <Resource Include="..\Resources\Assets\Icon.png">
-        <Link>Resources\Assets\Icon.png</Link>
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </Resource>
-      <Resource Include="..\Resources\Assets\Icon.svg">
-        <Link>Resources\Assets\Icon.svg</Link>
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </Resource>
-      <Resource Include="..\Resources\Assets\Icon Resize.png">
-        <Link>Resources\Assets\Icon Resize.png</Link>
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </Resource>
-      <None Include="..\Resources\Assets\prompt icone.txt">
-        <Link>Resources\Assets\prompt icone.txt</Link>
-      </None>
-      <Content Include="..\Resources\Assets\Logos\Services\DropboxLogo.ai">
-        <Link>Resources\Assets\Logos\Services\DropboxLogo.ai</Link>
-      </Content>
-      <Content Include="..\Resources\Assets\Logos\Services\DropboxLogo.svg">
-        <Link>Resources\Assets\Logos\Services\DropboxLogo.svg</Link>
       </Content>
       <Content Include="..\TODO LIST.md">
         <Link>TODO LIST.md</Link>
