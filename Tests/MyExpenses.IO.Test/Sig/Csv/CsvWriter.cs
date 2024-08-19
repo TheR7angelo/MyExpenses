@@ -2,9 +2,11 @@
 using System.Reflection;
 using Microsoft.EntityFrameworkCore;
 using MyExpenses.IO.Csv;
+using MyExpenses.IO.Sig.Kml;
 using MyExpenses.Models.AutoMapper;
 using MyExpenses.Models.IO.Export;
 using MyExpenses.Models.IO.Export.Sql.Tables;
+using MyExpenses.Models.IO.Sig.Interfaces;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Sql.Context;
 
@@ -60,13 +62,30 @@ public class CsvWriter
             }
 
             var name = table.GetCustomAttribute<TableAttribute>()!.Name;
-            exportRecords.Add(new ExportRecord { Name = name, Records = records });
+            var exportRecord = new ExportRecord { Name = name, Source = table, Records = records };
+            exportRecords.Add(exportRecord);
         }
 
         foreach (var exportRecord in exportRecords)
         {
+            var name = exportRecord.Name;
             var records = exportRecord.Records;
-            records.WriteCsv(exportRecord.Name);
+
+            var isGeom = exportRecord.Source.GetInterfaces().Contains(typeof(ISig));
+            if (isGeom)
+            {
+                var recordGeoms = records.Where(x => x is ISig)
+                    .Cast<ISig>()
+                    .Where(s => s.Geometry is not null)
+                    .ToList();
+
+                recordGeoms.ToKmlFile($"{name}.kml");
+                recordGeoms.ToKmlFile($"{name}.kmz");
+            }
+            else
+            {
+                records.WriteCsv(name);
+            }
         }
     }
 }
