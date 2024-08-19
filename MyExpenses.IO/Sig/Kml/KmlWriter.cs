@@ -31,7 +31,7 @@ public static class KmlWriter
         foreach (var obj in enumerable.Select((point, i) => new { i, point }))
         {
             var indexedName = $"{geomType} {obj.i + 1}";
-            var (yInvariant, xInvariant) = ((Point)obj.point.Geometry!).ToInvariantCoordinate();
+            var (xInvariant, yInvariant) = ((Point)obj.point.Geometry!).ToInvariantCoordinate();
 
             var kmlAttribute = obj.point.CreateKmlAttribute(filenameWithoutExtension);
 
@@ -61,7 +61,7 @@ public static class KmlWriter
         var fields = sig.GetFields();
         var schemaElement = fields.CreateKmlSchema(filenameWithoutExtension);
 
-        var (yInvariant, xInvariant) = ((Point)sig.Geometry!).ToInvariantCoordinate();
+        var (xInvariant, yInvariant) = ((Point)sig.Geometry!).ToInvariantCoordinate();
 
         var kml = new XDocument(
             new XDeclaration("1.0", "UTF-8", string.Empty),
@@ -95,7 +95,7 @@ public static class KmlWriter
         foreach (var obj in points.Select((point, i) => new { i, point }))
         {
             var indexedName = $"{geomType} {obj.i + 1}";
-            var (yInvariant, xInvariant) = obj.point.ToInvariantCoordinate();
+            var (xInvariant, yInvariant) = obj.point.ToInvariantCoordinate();
 
             kml.Root!.Element(KmlUtils.KmlNamespace +"Document")!.Add(
                 new XElement(KmlUtils.KmlNamespace + "Placemark",
@@ -116,7 +116,7 @@ public static class KmlWriter
         var extension = Path.GetExtension(fileSavePath);
         extension.TestExtensionError();
 
-        var (yInvariant, xInvariant) = point.ToInvariantCoordinate();
+        var (xInvariant, yInvariant) = point.ToInvariantCoordinate();
 
         var kml = new XDocument(
             new XDeclaration("1.0", "UTF-8", string.Empty),
