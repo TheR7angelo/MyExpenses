@@ -4,7 +4,7 @@
     <ResourceDictionary.MergedDictionaries>
 
         <ResourceDictionary Source="Cards/Cards.xaml" />
-        <ResourceDictionary Source="Logos/Logos.xaml" />
+        <ResourceDictionary Source="Logos/Services/Services.xaml" />
 
     </ResourceDictionary.MergedDictionaries>
 

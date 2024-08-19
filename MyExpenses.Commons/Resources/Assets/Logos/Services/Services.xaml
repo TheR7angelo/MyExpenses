@@ -1,0 +1,6 @@
+<ResourceDictionary xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+  <ResourceDictionary.MergedDictionaries>
+    <ResourceDictionary Source="Advanced Installer/Advanced Installer.xaml" />
+    <ResourceDictionary Source="Dropbox/DropboxLogo.xaml" />
+  </ResourceDictionary.MergedDictionaries>
+</ResourceDictionary>
