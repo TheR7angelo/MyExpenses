@@ -7,41 +7,47 @@ namespace MyExpenses.WebApi.Maps;
 
 public static class GoogleMaps
 {
-    public static void ToGoogleStreetView(this TPlace place, int zoomLevel = 0)
+    public static Uri ToGoogleStreetView(this TPlace place, int zoomLevel = 0)
     {
         var point = place.Geometry as Point;
-        point?.ToGoogleStreetView(zoomLevel);
+        return point?.ToGoogleStreetView(zoomLevel)!;
     }
 
-    public static void ToGoogleStreetView(this Point point, int zoomLevel = 0)
+    public static Uri ToGoogleStreetView(this Point point, int zoomLevel = 0)
     {
         var (xInvariant, yInvariant) = point.ToInvariantCoordinate();
 
         var url = $"https://www.google.com/maps/@?api=1&map_action=pano&viewpoint={xInvariant}, {yInvariant}&zoom={zoomLevel}";
+        var uri = new Uri(url);
 
         Process.Start(new ProcessStartInfo
         {
             FileName = url,
             UseShellExecute = true
         });
+
+        return uri;
     }
 
-    public static void ToGoogleMaps(this TPlace place)
+    public static Uri ToGoogleMaps(this TPlace place)
     {
         var point = place.Geometry as Point;
-        point?.ToGoogleMaps();
+        return point?.ToGoogleMaps()!;
     }
 
-    public static void ToGoogleMaps(this Point point)
+    public static Uri ToGoogleMaps(this Point point)
     {
         var (xInvariant, yInvariant) = point.ToInvariantCoordinate();
 
         var url = $"https://maps.google.com/maps?q={xInvariant}, {yInvariant}";
+        var uri = new Uri(url);
 
         Process.Start(new ProcessStartInfo
         {
             FileName = url,
             UseShellExecute = true
         });
+
+        return uri;
     }
 }
