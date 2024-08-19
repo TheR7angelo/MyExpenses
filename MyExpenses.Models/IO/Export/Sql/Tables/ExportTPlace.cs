@@ -7,8 +7,8 @@ public class ExportTPlace : ISig
     [Column("id")]
     public int Id { get; set; }
     
-    [ColumnAttribute("ColumnAttribute")]
-    public string? ColumnAttribute { get; set; }
+    [ColumnAttribute("name")]
+    public string? Name { get; set; }
 
     [ColumnAttribute("number")]
     public string? Number { get; set; }
@@ -54,7 +54,6 @@ public class ExportTPlace : ISig
 
     private Geometry? _geometry;
 
-    [ColumnAttribute("geometry")]
     public Geometry? Geometry
     {
         get => _geometry;
