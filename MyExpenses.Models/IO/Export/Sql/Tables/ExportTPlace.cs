@@ -1,45 +1,33 @@
-﻿using System.ComponentModel;
-using CsvHelper.Configuration.Attributes;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 using MyExpenses.Models.IO.Sig.Interfaces;
 using NetTopologySuite.Geometries;
 
-namespace MyExpenses.Models.IO.Export.Sql.Tables;
-
 public class ExportTPlace : ISig
 {
-    [Name("id")]
-    [DisplayName("id")]
+    [Column("id")]
     public int Id { get; set; }
+    
+    [ColumnAttribute("ColumnAttribute")]
+    public string? ColumnAttribute { get; set; }
 
-    [Name("name")]
-    [DisplayName("name")]
-    public string? Name { get; set; }
-
-    [Name("number")]
-    [DisplayName("number")]
+    [ColumnAttribute("number")]
     public string? Number { get; set; }
 
-    [Name("street")]
-    [DisplayName("street")]
+    [ColumnAttribute("street")]
     public string? Street { get; set; }
 
-    [Name("postal")]
-    [DisplayName("postal")]
+    [ColumnAttribute("postal")]
     public string? Postal { get; set; }
 
-    [Name("city")]
-    [DisplayName("city")]
+    [ColumnAttribute("city")]
     public string? City { get; set; }
 
-    [Name("country")]
-    [DisplayName("country")]
+    [ColumnAttribute("country")]
     public string? Country { get; set; }
 
-    [Ignore]
     private double? _latitude;
 
-    [Name("latitude")]
-    [DisplayName("latitude")]
+    [ColumnAttribute("latitude")]
     public double? Latitude
     {
         get => _latitude;
@@ -50,11 +38,9 @@ public class ExportTPlace : ISig
         }
     }
 
-    [Ignore]
     private double? _longitude;
 
-    [Name("longitude")]
-    [DisplayName("longitude")]
+    [ColumnAttribute("longitude")]
     public double? Longitude
     {
         get => _longitude;
@@ -66,12 +52,9 @@ public class ExportTPlace : ISig
 
     }
 
-    [Ignore]
     private Geometry? _geometry;
 
-    [Name("geometry")]
-    [DisplayName("geometry")]
-    [Ignore]
+    [ColumnAttribute("geometry")]
     public Geometry? Geometry
     {
         get => _geometry;
@@ -92,16 +75,13 @@ public class ExportTPlace : ISig
         }
     }
 
-    [Name("is_open")]
-    [DisplayName("is_open")]
+    [ColumnAttribute("is_open")]
     public bool? IsOpen { get; set; } = true;
 
-    [Name("can_be_deleted")]
-    [DisplayName("can_be_deleted")]
+    [ColumnAttribute("can_be_deleted")]
     public bool? CanBeDeleted { get; set; } = true;
 
-    [Name("date_added")]
-    [DisplayName("date_added")]
+    [ColumnAttribute("date_added")]
     public DateTime? DateAdded { get; set; }
 
     private void UpdateGeometry()
