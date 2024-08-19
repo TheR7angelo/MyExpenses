@@ -24,6 +24,7 @@ using MyExpenses.Wpf.Utils.Maps;
 using MyExpenses.Wpf.Windows.LocationManagementWindows;
 using MyExpenses.Wpf.Windows.MsgBox;
 using Serilog;
+using Point = NetTopologySuite.Geometries.Point;
 
 namespace MyExpenses.Wpf.Pages;
 
@@ -316,14 +317,14 @@ public partial class LocationManagementPage
             case CountryGroup countryGroup:
                 var ps1 = countryGroup.CityGroups?
                     .SelectMany(s => s.Places!)
-                    .Where(s => s.Geometry?.X is not 0 && s.Geometry?.Y is not 0)
+                    .Where(s => (s.Geometry as Point)?.X is not 0 && (s.Geometry as Point)?.Y is not 0)
                     .Select(s => s.ToMPoint());
                 if (ps1 is not null) points.AddRange(ps1);
                 break;
 
             case CityGroup cityGroup:
                 var ps2 = cityGroup.Places?
-                    .Where(s => s.Geometry?.X is not 0 && s.Geometry?.Y is not 0)
+                    .Where(s => (s.Geometry as Point)?.X is not 0 && (s.Geometry as Point)?.Y is not 0)
                     .Select(s => s.ToMPoint());
                 if (ps2 is not null) points.AddRange(ps2);
                 break;

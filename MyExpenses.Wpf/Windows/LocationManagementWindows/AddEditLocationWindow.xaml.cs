@@ -289,7 +289,7 @@ public partial class AddEditLocationWindow
 
     private void ButtonSearchByCoordinate_OnClick(object sender, RoutedEventArgs e)
     {
-        var point = Place.Geometry;
+        var point = Place.Geometry as Point;
         Log.Information("Using the nominatim API to search via a point : {Point}", point);
 
         var nominatimSearchResult = point?.ToNominatim();
