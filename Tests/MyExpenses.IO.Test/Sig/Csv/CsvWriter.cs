@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.Reflection;
 using Microsoft.EntityFrameworkCore;
+using MyExpenses.IO.Csv;
 using MyExpenses.Models.AutoMapper;
 using MyExpenses.Models.IO.Export;
 using MyExpenses.Models.IO.Export.Sql.Tables;
@@ -62,7 +63,11 @@ public class CsvWriter
             exportRecords.Add(new ExportRecord { Name = name, Records = records });
         }
 
-        Console.WriteLine("hey");
+        foreach (var exportRecord in exportRecords)
+        {
+            var records = exportRecord.Records;
+            records.WriteCsv(exportRecord.Name);
+        }
     }
 }
 
