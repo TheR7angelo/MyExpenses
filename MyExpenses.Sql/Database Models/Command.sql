@@ -28,6 +28,13 @@ SELECT load_extension('mod_spatialite');
 SELECT name, geometry, ST_SRID(geometry), ST_ASTEXT(geometry)
 FROM t_place;
 
+UPDATE t_place
+-- SET geometry = GeomFromText('POINT(' || longitude || ' ' || latitude || ')', 4326)
+SET geometry = GeomFromText('POINT(' || 0 || ' ' || 0 || ')', 4326)
+WHERE id = 1;
+
+SELECT 'POINT(' || longitude || ' ' || latitude || ')'
+FROM t_place;
 
 INSERT INTO t_geometry_columns(f_table_name, f_geometry_column, type, coord_dimension, srid)
 VALUES ('t_place', 'geometry', 'POINT', 2, 4326);
