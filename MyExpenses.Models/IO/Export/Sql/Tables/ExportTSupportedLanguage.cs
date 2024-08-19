@@ -11,15 +11,15 @@ public class ExportTSupportedLanguage
 
     [Name("code")]
     [DisplayName("code")]
-    public string Code { get; set; }
+    public string Code { get; set; } = null!;
 
     [Name("native_name")]
     [DisplayName("native_name")]
-    public string NativeName { get; set; }
+    public string NativeName { get; set; } = null!;
 
     [Name("english_name")]
     [DisplayName("english_name")]
-    public string EnglishName { get; set; }
+    public string EnglishName { get; set; } = null!;
 
     [Name("default_language")]
     [DisplayName("default_language")]
