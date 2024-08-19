@@ -420,6 +420,12 @@
         <XamlRuntime>Wpf</XamlRuntime>
         <SubType>Designer</SubType>
       </Page>
+      <Page Include="..\Resources\Assets\Logos\DropboxLogo.xaml">
+        <Link>Resources\Assets\Logos\DropboxLogo.xaml</Link>
+      </Page>
+      <Page Include="..\Resources\Assets\Logos\Logos.xaml">
+        <Link>Resources\Assets\Logos\Logos.xaml</Link>
+      </Page>
     </ItemGroup>
 
     <ItemGroup>
@@ -501,6 +507,12 @@
       <None Include="..\Resources\Assets\prompt icone.txt">
         <Link>Resources\Assets\prompt icone.txt</Link>
       </None>
+      <Content Include="..\Resources\Assets\Logos\DropboxLogo.ai">
+        <Link>Resources\Assets\Logos\DropboxLogo.ai</Link>
+      </Content>
+      <Content Include="..\Resources\Assets\Logos\DropboxLogo.svg">
+        <Link>Resources\Assets\Logos\DropboxLogo.svg</Link>
+      </Content>
       <Content Include="..\TODO LIST.md">
         <Link>TODO LIST.md</Link>
       </Content>
