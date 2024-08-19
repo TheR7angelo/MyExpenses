@@ -8,7 +8,10 @@ namespace MyExpenses.WebApi.Maps;
 public static class GoogleEarth
 {
     public static void ToGoogleEarthWeb(this TPlace place, int altitudeLevel = 200)
-        => place.Geometry?.ToGoogleEarthWeb(altitudeLevel);
+    {
+        var point = place.Geometry as Point;
+        point?.ToGoogleEarthWeb(altitudeLevel);
+    }
 
     public static void ToGoogleEarthWeb(this Point point, int altitudeLevel = 200)
     {
