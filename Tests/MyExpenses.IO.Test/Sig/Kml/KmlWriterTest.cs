@@ -1,5 +1,4 @@
 using MyExpenses.IO.Sig.Kml;
-using MyExpenses.Models.IO.Sig.Keyhole_Markup_Language;
 using MyExpenses.Sql.Context;
 using NetTopologySuite.Geometries;
 
@@ -40,7 +39,7 @@ public class KmlWriterTest
             s.Latitude != null && s.Latitude != 0 && s.Longitude != null && s.Longitude != 0);
 
         var mapping = Models.AutoMapper.Mapping.Mapper;
-        var placeSig = mapping.Map<PlaceSig>(place);
+        var placeSig = mapping.Map<ExportTPlace>(place);
 
         const string filename = "location place.kmz";
 
@@ -57,7 +56,7 @@ public class KmlWriterTest
             s.Latitude != null && s.Latitude != 0 && s.Longitude != null && s.Longitude != 0).ToList();
 
         var mapping = Models.AutoMapper.Mapping.Mapper;
-        var placeSigs = places.Select(s => mapping.Map<PlaceSig>(s));
+        var placeSigs = places.Select(s => mapping.Map<ExportTPlace>(s));
 
         const string filename = "location places.kml";
 
