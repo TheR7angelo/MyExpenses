@@ -117,7 +117,7 @@ public partial class LocationManagementPage
     private WritableLayer PlaceLayer { get; } = new() { Style = null, IsMapInfoLayer = true, Tag = typeof(TPlace) };
 
     private TPlace? ClickTPlace { get; set; }
-    private NetTopologySuite.Geometries.Point ClickPoint { get; set; } = NetTopologySuite.Geometries.Point.Empty;
+    private Point ClickPoint { get; set; } = Point.Empty;
     private PointFeature? PointFeature { get; set; }
 
     public LocationManagementPage()
@@ -182,7 +182,7 @@ public partial class LocationManagementPage
         var worldPosition = MapControl.Map.Navigator.Viewport.ScreenToWorld(screenPosition.X, screenPosition.Y);
 
         var lonLat = SphericalMercator.ToLonLat(worldPosition.X, worldPosition.Y);
-        ClickPoint = new NetTopologySuite.Geometries.Point(lonLat.lat, lonLat.lon);
+        ClickPoint = new Point(lonLat.lat, lonLat.lon);
 
         var mPoint = new MPoint(screenPosition.X, screenPosition.Y);
         var mapInfo = MapControl.GetMapInfo(mPoint);
