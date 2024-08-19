@@ -119,6 +119,8 @@ public static class ShapeWriter
         {
             if (property.GetValueByProperty<ColumnAttribute>() is not string name) continue;
 
+            if (name.Length > 10) name = name[..10];
+
             var maxLength = property.GetValueByProperty<MaxLengthAttribute>() as int?;
             var precision = property.GetValueByProperty<PrecisionAttribute>() as int?;
             var type = Nullable.GetUnderlyingType(property.PropertyType) ?? property.PropertyType;
