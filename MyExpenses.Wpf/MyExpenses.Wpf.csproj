@@ -420,6 +420,12 @@
         <XamlRuntime>Wpf</XamlRuntime>
         <SubType>Designer</SubType>
       </Page>
+      <Page Include="..\MyExpenses.Commons\Resources\Assets\Extensions\Csv.xaml">
+        <Link>Resources\Assets\Extensions\Csv.xaml</Link>
+      </Page>
+      <Page Include="..\MyExpenses.Commons\Resources\Assets\Extensions\Extensions.xaml">
+        <Link>Resources\Assets\Extensions\Extensions.xaml</Link>
+      </Page>
       <Page Include="..\MyExpenses.Commons\Resources\Assets\Logos\Advanced Installer\Advanced Installer Full.xaml">
         <Link>Resources\Assets\Logos\Advanced Installer\Advanced Installer Full.xaml</Link>
       </Page>
@@ -507,6 +513,9 @@
         <Link>Resources\Assets\Applications\Icon.svg</Link>
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </Resource>
+      <Content Include="..\MyExpenses.Commons\Resources\Assets\Extensions\Csv.svg">
+        <Link>Resources\Assets\Extensions\Csv.svg</Link>
+      </Content>
       <Content Include="..\MyExpenses.Commons\Resources\Assets\Logos\Advanced Installer\Advanced Installer Full.svg">
         <Link>Resources\Assets\Logos\Advanced Installer\Advanced Installer Full.svg</Link>
       </Content>
