@@ -15,7 +15,7 @@ public static class GoogleEarth
 
     public static void ToGoogleEarthWeb(this Point point, int altitudeLevel = 200)
     {
-        var (yInvariant, xInvariant) = point.ToInvariantCoordinate();
+        var (xInvariant, yInvariant) = point.ToInvariantCoordinate();
 
         var googleEarthUrl = $"https://earth.google.com/web/@{xInvariant},{yInvariant},{altitudeLevel}a,0d,30y,0h,0t,0r";
         Console.WriteLine(googleEarthUrl);

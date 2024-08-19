@@ -15,7 +15,7 @@ public static class GoogleMaps
 
     public static void ToGoogleStreetView(this Point point, int zoomLevel = 0)
     {
-        var (yInvariant, xInvariant) = point.ToInvariantCoordinate();
+        var (xInvariant, yInvariant) = point.ToInvariantCoordinate();
 
         var url = $"https://www.google.com/maps/@?api=1&map_action=pano&viewpoint={xInvariant}, {yInvariant}&zoom={zoomLevel}";
 
@@ -34,7 +34,7 @@ public static class GoogleMaps
 
     public static void ToGoogleMaps(this Point point)
     {
-        var (yInvariant, xInvariant) = point.ToInvariantCoordinate();
+        var (xInvariant, yInvariant) = point.ToInvariantCoordinate();
 
         var url = $"https://maps.google.com/maps?q={xInvariant}, {yInvariant}";
 
