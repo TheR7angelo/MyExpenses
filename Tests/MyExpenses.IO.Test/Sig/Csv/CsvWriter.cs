@@ -80,8 +80,6 @@ public class CsvWriter
                     .Where(s => s.Geometry is not null)
                     .ToList();
 
-                recordGeoms.ToKmlFile($"{name}.kml");
-                recordGeoms.ToKmlFile($"{name}.kmz");
                 var geomType = recordGeoms.First().Geometry!.GetType().Name;
 
                 var projection = ShapeReader.GeographicCoordinateSystems.First(s => s.WellKnownId is 4326);
