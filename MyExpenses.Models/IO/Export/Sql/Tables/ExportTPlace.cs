@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel;
-using System.ComponentModel.DataAnnotations.Schema;
 using CsvHelper.Configuration.Attributes;
 using MyExpenses.Models.IO.Sig.Interfaces;
 using NetTopologySuite.Geometries;
