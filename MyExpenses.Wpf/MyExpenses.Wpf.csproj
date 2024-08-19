@@ -420,12 +420,6 @@
         <XamlRuntime>Wpf</XamlRuntime>
         <SubType>Designer</SubType>
       </Page>
-      <Page Include="..\MyExpenses.Commons\Resources\Assets\Extensions\Csv.xaml">
-        <Link>Resources\Assets\Extensions\Csv.xaml</Link>
-      </Page>
-      <Page Include="..\MyExpenses.Commons\Resources\Assets\Extensions\Extensions.xaml">
-        <Link>Resources\Assets\Extensions\Extensions.xaml</Link>
-      </Page>
       <Page Include="..\MyExpenses.Commons\Resources\Assets\Logos\Advanced Installer\Advanced Installer Full.xaml">
         <Link>Resources\Assets\Logos\Advanced Installer\Advanced Installer Full.xaml</Link>
       </Page>
