@@ -182,7 +182,7 @@ public partial class LocationManagementPage
         var worldPosition = MapControl.Map.Navigator.Viewport.ScreenToWorld(screenPosition.X, screenPosition.Y);
 
         var lonLat = SphericalMercator.ToLonLat(worldPosition.X, worldPosition.Y);
-        ClickPoint = new Point(lonLat.lat, lonLat.lon);
+        ClickPoint = new Point(lonLat.lon, lonLat.lat);
 
         var mPoint = new MPoint(screenPosition.X, screenPosition.Y);
         var mapInfo = MapControl.GetMapInfo(mPoint);
