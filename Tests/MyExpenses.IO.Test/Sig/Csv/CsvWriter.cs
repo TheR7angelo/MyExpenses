@@ -2,6 +2,7 @@
 using System.Reflection;
 using Microsoft.EntityFrameworkCore;
 using MyExpenses.IO.Csv;
+using MyExpenses.IO.Sig.GeoJson;
 using MyExpenses.IO.Sig.Kml;
 using MyExpenses.IO.Sig.Shp;
 using MyExpenses.Models.AutoMapper;
@@ -87,6 +88,7 @@ public class CsvWriter
                 recordGeoms.ToKmlFile($"{name}.kml", geomType);
                 recordGeoms.ToKmlFile($"{name}.kmz", geomType);
                 recordGeoms.ToShapeFile(name, projection.Prj);
+                recordGeoms.ToGeoJson(name);
             }
             else
             {
