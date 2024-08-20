@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
-using System.Data;
 using GeoReso.Models.IO.Shape.Converters;
 using MyExpenses.IO.Csv;
 using MyExpenses.Models.IO.Sig.Interfaces;
@@ -7,9 +6,8 @@ using MyExpenses.Models.IO.Sig.Shp;
 using MyExpenses.Models.IO.Sig.Shp.Converters;
 using MyExpenses.Utils.Properties;
 using NetTopologySuite.Features;
-using NetTopologySuite.Geometries;
 using NetTopologySuite.Geometries.Utilities;
-using NetTopologySuite.IO;
+using NetTopologySuite.IO.Esri;
 using Serilog;
 
 namespace MyExpenses.IO.Sig.Shp;
@@ -53,7 +51,8 @@ public static class ShapeReader
             Log.Warning("Fichier .prj introuvable");
         }
 
-        var features = filePath.ReadFeatures(geographicCoordinateSystem);
+        // var features = filePath.ReadFeatures(geographicCoordinateSystem);
+        var features = filePath.ReadFeatures();
 
         //TODO work
         Log.Information("Shape \"{FilePath}\" lu, Nombre entité: {NbCount}", filePath, features.Count);
@@ -61,38 +60,39 @@ public static class ShapeReader
         return (features.ToList<T>(), projection);
     }
 
-    public static (List<Feature> Features, string? Projection) ReadShapeFile(this string filePath)
-    {
-        //TODO work
-        Log.Information("Lecture du shape \"{FilePath}\"", filePath);
-
-        string? projection = null;
-        GeographicCoordinateSystem? geographicCoordinateSystem = null;
-        var prjFilePath = Path.ChangeExtension(filePath, "prj");
-        if (File.Exists(prjFilePath))
-        {
-            //TODO work
-            Log.Information("Tentative de lecture du fichier .prj");
-
-            projection = File.ReadAllText(prjFilePath);
-            geographicCoordinateSystem = GetGeographicCoordinateSystemFromPrj(projection);
-
-            //TODO work
-            Log.Information("Système trouvé => {Name}", geographicCoordinateSystem?.Name);
-        }
-        else
-        {
-            //TODO work
-            Log.Warning("Fichier .prj introuvable");
-        }
-
-        var features = filePath.ReadFeatures(geographicCoordinateSystem);
-
-        //TODO work
-        Log.Information("Shape \"{FilePath}\" lu, Nombre entité: {NbCount}", filePath, features.Count);
-
-        return (features, projection);
-    }
+    // public static (List<Feature> Features, string? Projection) ReadShapeFile(this string filePath)
+    // {
+    //     //TODO work
+    //     Log.Information("Lecture du shape \"{FilePath}\"", filePath);
+    //
+    //     string? projection = null;
+    //     GeographicCoordinateSystem? geographicCoordinateSystem = null;
+    //     var prjFilePath = Path.ChangeExtension(filePath, "prj");
+    //     if (File.Exists(prjFilePath))
+    //     {
+    //         //TODO work
+    //         Log.Information("Tentative de lecture du fichier .prj");
+    //
+    //         projection = File.ReadAllText(prjFilePath);
+    //         geographicCoordinateSystem = GetGeographicCoordinateSystemFromPrj(projection);
+    //
+    //         //TODO work
+    //         Log.Information("Système trouvé => {Name}", geographicCoordinateSystem?.Name);
+    //     }
+    //     else
+    //     {
+    //         //TODO work
+    //         Log.Warning("Fichier .prj introuvable");
+    //     }
+    //
+    //     // var features = filePath.ReadFeatures(geographicCoordinateSystem);
+    //     var features = filePath.ReadFeatures();
+    //
+    //     //TODO work
+    //     Log.Information("Shape \"{FilePath}\" lu, Nombre entité: {NbCount}", filePath, features.Count);
+    //
+    //     return (features, projection);
+    // }
 
     private static GeographicCoordinateSystem? GetGeographicCoordinateSystemFromPrj(this string projectionString)
         => GeographicCoordinateSystems.FirstOrDefault(s => s.Prj.Equals(projectionString));
@@ -155,55 +155,33 @@ public static class ShapeReader
         return results;
     }
 
-    private static List<Feature> ReadFeatures(this string filePath,
-        GeographicCoordinateSystem? geographicCoordinateSystem = null)
+    private static List<Feature> ReadFeatures(this string filePath) //, GeographicCoordinateSystem? geographicCoordinateSystem = null)
     {
-        var geometryFactory = new GeometryFactory();
-        if (geographicCoordinateSystem is not null)
-        {
-            geometryFactory = new GeometryFactory(new PrecisionModel(), geographicCoordinateSystem.WellKnownId);
-        }
-
         var features = new List<Feature>();
 
-        using var reader = new ShapefileDataReader(filePath, geometryFactory);
-        while (reader.Read())
+        foreach (var feature in Shapefile.ReadAllFeatures(filePath))
         {
-            try
+            if (!feature.Geometry.IsValid)
             {
-                var geom = (Geometry)reader[GeometryColumn];
-                if (!geom.IsValid)
-                {
-                    geom = GeometryFixer.Fix(geom);
-                }
-
-                var feature = new Feature
-                {
-                    Geometry = geom,
-                    Attributes = new AttributesTable()
-                };
-
-                AddAttributes(reader, feature);
-                features.Add(feature);
+                feature.Geometry = GeometryFixer.Fix(feature.Geometry);
             }
-            catch (Exception e)
-            {
-                Console.WriteLine(e);
-                throw;
-            }
+
+            var newFeature = feature.CleanFeature();
+            features.Add(newFeature);
         }
 
         return features;
     }
 
-    private static void AddAttributes(IDataRecord reader, IFeature feature)
+    private static Feature CleanFeature(this Feature feature)
     {
-        for (var i = 0; i < reader.FieldCount; i++)
+        var newFeature = new Feature { Geometry = feature.Geometry };
+
+        foreach (var name in feature.Attributes.GetNames())
         {
-            var name = reader.GetName(i);
             if (name == GeometryColumn) continue;
 
-            var value = reader[name];
+            var value = feature.Attributes[name];
             if (value is string str)
             {
                 str = str.Trim('*', ' ');
@@ -214,16 +192,9 @@ public static class ShapeReader
                 value = dateConvert ?? value;
             }
 
-            feature.Attributes.Add(name, value);
+            newFeature.Attributes.Add(name, value);
         }
+
+        return newFeature;
     }
-    // private static ShapefileReaderOptions GetShapeReaderOption()
-    // {
-    //     var opts = new ShapefileReaderOptions
-    //     {
-    //         GeometryBuilderMode = GeometryBuilderMode.FixInvalidShapes
-    //     };
-    //
-    //     return opts;
-    // }
 }
