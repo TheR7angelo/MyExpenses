@@ -1,33 +1,42 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations.Schema;
 using MyExpenses.Models.IO.Sig.Interfaces;
 using NetTopologySuite.Geometries;
 
 public class ExportTPlace : ISig
 {
     [ColumnAttribute("id")]
+    [DisplayName("id")]
     public int Id { get; set; }
     
     [ColumnAttribute("name")]
+    [DisplayName("name")]
     public string? Name { get; set; }
 
     [ColumnAttribute("number")]
+    [DisplayName("number")]
     public string? Number { get; set; }
 
     [ColumnAttribute("street")]
+    [DisplayName("street")]
     public string? Street { get; set; }
 
     [ColumnAttribute("postal")]
+    [DisplayName("postal")]
     public string? Postal { get; set; }
 
     [ColumnAttribute("city")]
+    [DisplayName("city")]
     public string? City { get; set; }
 
     [ColumnAttribute("country")]
+    [DisplayName("country")]
     public string? Country { get; set; }
 
     private double? _latitude;
 
     [ColumnAttribute("latitude")]
+    [DisplayName("latitude")]
     public double? Latitude
     {
         get => _latitude;
@@ -41,6 +50,7 @@ public class ExportTPlace : ISig
     private double? _longitude;
 
     [ColumnAttribute("longitude")]
+    [DisplayName("longitude")]
     public double? Longitude
     {
         get => _longitude;
@@ -75,12 +85,15 @@ public class ExportTPlace : ISig
     }
 
     [ColumnAttribute("is_open")]
+    [DisplayName("is_open")]
     public bool? IsOpen { get; set; } = true;
 
     [ColumnAttribute("can_be_deleted")]
+    [DisplayName("can_be_deleted")]
     public bool? CanBeDeleted { get; set; } = true;
 
     [ColumnAttribute("date_added")]
+    [DisplayName("date_added")]
     public DateTime? DateAdded { get; set; }
 
     private void UpdateGeometry()
