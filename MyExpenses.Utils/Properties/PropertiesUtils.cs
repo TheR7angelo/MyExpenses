@@ -49,6 +49,7 @@ public static class PropertiesUtils
         return null;
     }
 
+    // TODO work
     public static object? GetValueByProperty<TAttribute>(this PropertyInfo property) where TAttribute : Attribute
     {
         var attribute = property.GetCustomAttribute<TAttribute>();
