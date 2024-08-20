@@ -2,6 +2,7 @@
 using System.Reflection;
 using Microsoft.EntityFrameworkCore;
 using MyExpenses.IO.Csv;
+using MyExpenses.IO.Excel;
 using MyExpenses.IO.Sig.GeoJson;
 using MyExpenses.IO.Sig.Kml;
 using MyExpenses.IO.Sig.Shp;
@@ -68,6 +69,7 @@ public class CsvWriter
             exportRecords.Add(exportRecord);
         }
 
+        exportRecords.ToExcelWorksheet("test");
         foreach (var exportRecord in exportRecords)
         {
             var name = exportRecord.Name;
