@@ -29,9 +29,9 @@ SELECT name, geometry, ST_SRID(geometry), ST_ASTEXT(geometry)
 FROM t_place;
 
 UPDATE t_place
--- SET geometry = GeomFromText('POINT(' || longitude || ' ' || latitude || ')', 4326)
-SET geometry = NULL
-WHERE id = 1;
+SET geometry = GeomFromText('POINT(' || longitude || ' ' || latitude || ')', 4326);
+-- SET geometry = NULL
+-- WHERE id = 1;
 
 SELECT 'POINT(' || longitude || ' ' || latitude || ')'
 FROM t_place;
