@@ -86,7 +86,7 @@ public class CsvWriter
 
                 recordGeoms.ToKmlFile($"{name}.kml", geomType);
                 recordGeoms.ToKmlFile($"{name}.kmz", geomType);
-                recordGeoms.WriteToShapeFile(name, projection.Prj);
+                recordGeoms.ToShapeFile(name, projection.Prj);
             }
             else
             {

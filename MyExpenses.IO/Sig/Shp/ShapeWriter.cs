@@ -13,7 +13,7 @@ namespace MyExpenses.IO.Sig.Shp;
 
 public static class ShapeWriter
 {
-    public static bool WriteToShapeFile(this IEnumerable<ISig> features, string savePath, string? projection = null,
+    public static bool ToShapeFile(this IEnumerable<ISig> features, string savePath, string? projection = null,
         Encoding? encoding = null, ShapeType? shapeType = null)
     {
         try
@@ -137,7 +137,7 @@ public static class ShapeWriter
         return fields;
     }
 
-    public static ShapeType? GetShapeType(this Geometry geometry)
+    private static ShapeType? GetShapeType(this Geometry geometry)
     {
         return geometry switch
         {
