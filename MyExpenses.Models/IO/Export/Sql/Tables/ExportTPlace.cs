@@ -4,7 +4,7 @@ using NetTopologySuite.Geometries;
 
 public class ExportTPlace : ISig
 {
-    [Column("id")]
+    [ColumnAttribute("id")]
     public int Id { get; set; }
     
     [ColumnAttribute("name")]
