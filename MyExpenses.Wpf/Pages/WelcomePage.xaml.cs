@@ -99,7 +99,7 @@ public partial class WelcomePage
                 case SaveLocation.Database:
                     waitScreenWindow.WaitMessage = WelcomePageResources.ButtonExportDataBaseWaitMessageExportToLocal;
                     waitScreenWindow.Show();
-                    await SaveToLocal(selectDatabaseFileWindow.ExistingDatabasesSelected);
+                    await SaveToLocalDatabase(selectDatabaseFileWindow.ExistingDatabasesSelected);
                     break;
 
                 case SaveLocation.Dropbox:
@@ -235,13 +235,13 @@ public partial class WelcomePage
         Log.Information("Successfully uploaded {FileName} to cloud storage", existingDatabasesSelected.FileName);
     }
 
-    private static async Task SaveToLocal(List<ExistingDatabase> existingDatabasesSelected)
+    private static async Task SaveToLocalDatabase(List<ExistingDatabase> existingDatabasesSelected)
     {
-        if (existingDatabasesSelected.Count is 1) await ExportToLocalFileAsync(existingDatabasesSelected.First());
-        else await ExportToLocalDirectoryAsync(existingDatabasesSelected);
+        if (existingDatabasesSelected.Count is 1) await ExportToLocalDatabaseFileAsync(existingDatabasesSelected.First());
+        else await ExportToLocalDirectoryDatabaseAsync(existingDatabasesSelected);
     }
 
-    private static async Task ExportToLocalDirectoryAsync(List<ExistingDatabase> existingDatabasesSelected)
+    private static async Task ExportToLocalDirectoryDatabaseAsync(List<ExistingDatabase> existingDatabasesSelected)
     {
         var folderDialog = new FolderDialog();
         var selectedFolder = folderDialog.GetFile();
@@ -261,7 +261,7 @@ public partial class WelcomePage
         }
     }
 
-    private static async Task ExportToLocalFileAsync(ExistingDatabase existingDatabasesSelected)
+    private static async Task ExportToLocalDatabaseFileAsync(ExistingDatabase existingDatabasesSelected)
     {
         var sqliteDialog = new SqliteFileDialog(defaultFileName: existingDatabasesSelected.FileName);
         var selectedDialog = sqliteDialog.SaveFile();
