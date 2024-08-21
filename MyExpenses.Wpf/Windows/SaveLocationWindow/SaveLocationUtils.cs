@@ -16,10 +16,12 @@ public static class SaveLocationUtils
         var title = SaveLocationWindowResources.ExportSaveLocationTitle;
         var saveLocation = title.GetSaveLocation(SaveLocationMode.LocalDropbox);
 
-        if (saveLocation is not SaveLocation.Dropbox)
-        {
-            saveLocation = title.GetSaveLocation(SaveLocationMode.FolderDatabase);
-        }
+        if (saveLocation is SaveLocation.Dropbox) return saveLocation;
+
+        saveLocation = title.GetSaveLocation(SaveLocationMode.FolderDatabase);
+        if (saveLocation is SaveLocation.Database) return saveLocation;
+
+        saveLocation = title.GetSaveLocation(SaveLocationMode.NotCompressCompress);
 
         return saveLocation;
     }
