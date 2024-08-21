@@ -86,11 +86,11 @@ public class ExportTPlace : ISig
 
     [ColumnAttribute("is_open")]
     [DisplayName("is_open")]
-    public bool? IsOpen { get; set; } = true;
+    public int? IsOpen { get; set; }
 
     [ColumnAttribute("can_be_deleted")]
     [DisplayName("can_be_deleted")]
-    public bool? CanBeDeleted { get; set; } = true;
+    public int? CanBeDeleted { get; set; }
 
     [ColumnAttribute("date_added")]
     [DisplayName("date_added")]
