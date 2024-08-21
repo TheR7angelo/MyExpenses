@@ -18,7 +18,7 @@
 >        - [ ] From xlsx format (.shp/.kml/.kmz if geometry data)
 >        - [ ] From ods format (.shp/.kml/.kmz if geometry data) (not required because LibreOffice can read xlsx files)
 >        - [ ] From csv format (.shp/.kml/.kmz if geometry data)
->      - [ ] Export database ![40%](https://geps.dev/progress/40) <!-- [2/5] -->
+>      - [ ] Export database ![50%](https://geps.dev/progress/50) <!-- [2/4] -->
 >        - [X] To database format
 >        - [X] To cloud ([API Dropbox](https://www.dropbox.com/developers/documentation/http/documentation)) (database file format only)
 >        - [ ] To xlsx format (.shp/.kml/.kmz if geometry data with Qgis project (.qgs/.qgz)) ![0%](https://geps.dev/progress/0)<!-- [0/6] -->
@@ -28,7 +28,6 @@
 >          - [ ] .kmz
 >          - [ ] .qgs
 >          - [ ] .qgz
->        - [ ] To ods format (.shp/.kml/.kmz if geometry data with Qgis project (.qgs/.qgz)) (not required because LibreOffice can read xlsx files)
 >        - [ ] To csv format (.shp/.kml/.kmz if geometry data with Qgis project (.qgs/.qgz)) ![50%](https://geps.dev/progress/50)<!-- [3/6] -->
 >          - [X] .csv
 >          - [ ] .shp (.shx, .dbf)
