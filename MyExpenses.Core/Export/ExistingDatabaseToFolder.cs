@@ -56,39 +56,7 @@ public static class ExistingDatabaseToFolder
                 return default;
             });
 
-
-            var resoucesDirectory = Path.GetFullPath("Resources");
-
-            var qgisDirectory = Path.Join(resoucesDirectory, "Qgis");
-            const string qgisProjectFilename = "GeoVisionary";
-            var qgisProjectFilePath = Path.Join(qgisDirectory, $"{qgisProjectFilename}.qgs");
-            const string qgisProjectAttachmentsFilename = "GeoVisionary_attachments.zip";
-            var qgisProjectAttachmentsFilePath = Path.Join(qgisDirectory, qgisProjectAttachmentsFilename);
-
-            // TODO add .qgz
-            if (!isCompress)
-            {
-                var newQgisProjectFilePath = Path.Join(saveFolder, $"{qgisProjectFilename}.qgs");
-                File.Copy(qgisProjectFilePath, newQgisProjectFilePath, true);
-
-                var newQgisProjectAttachmentsFilePath = Path.Join(saveFolder, qgisProjectAttachmentsFilename);
-                File.Copy(qgisProjectAttachmentsFilePath, newQgisProjectAttachmentsFilePath, true);
-            }
-
-            var assetsDirectory = Path.Join(saveFolder, "Assets");
-            Directory.CreateDirectory(assetsDirectory);
-
-            var mapsDirectory = Path.Join(resoucesDirectory, "Maps");
-            var bleuMarkerFilePath = Path.Join(mapsDirectory, "BlueMarker.svg");
-            var greenMarkerFilePath = Path.Join(mapsDirectory, "GreenMarker.svg");
-            var redMarkerFilePath = Path.Join(mapsDirectory, "RedMarker.svg");
-            var svgs = new List<string> { bleuMarkerFilePath, greenMarkerFilePath, redMarkerFilePath };
-            foreach (var svg in svgs)
-            {
-                var filename = Path.GetFileName(svg);
-                var newFilePath = Path.Join(assetsDirectory, filename);
-                File.Copy(svg, newFilePath, true);
-            }
+            AddQgisProject(isCompress, saveFolder);
 
             return true;
         }
@@ -96,6 +64,42 @@ public static class ExistingDatabaseToFolder
         {
             Log.Error(e, "Error while exporting records");
             return false;
+        }
+    }
+
+    private static void AddQgisProject(bool isCompress, string saveFolder)
+    {
+        var resoucesDirectory = Path.GetFullPath("Resources");
+
+        var qgisDirectory = Path.Join(resoucesDirectory, "Qgis");
+        const string qgisProjectFilename = "GeoVisionary";
+        var qgisProjectFilePath = Path.Join(qgisDirectory, $"{qgisProjectFilename}.qgs");
+        const string qgisProjectAttachmentsFilename = "GeoVisionary_attachments.zip";
+        var qgisProjectAttachmentsFilePath = Path.Join(qgisDirectory, qgisProjectAttachmentsFilename);
+
+        // TODO add .qgz
+        if (!isCompress)
+        {
+            var newQgisProjectFilePath = Path.Join(saveFolder, $"{qgisProjectFilename}.qgs");
+            File.Copy(qgisProjectFilePath, newQgisProjectFilePath, true);
+
+            var newQgisProjectAttachmentsFilePath = Path.Join(saveFolder, qgisProjectAttachmentsFilename);
+            File.Copy(qgisProjectAttachmentsFilePath, newQgisProjectAttachmentsFilePath, true);
+        }
+
+        var assetsDirectory = Path.Join(saveFolder, "Assets");
+        Directory.CreateDirectory(assetsDirectory);
+
+        var mapsDirectory = Path.Join(resoucesDirectory, "Maps");
+        var bleuMarkerFilePath = Path.Join(mapsDirectory, "BlueMarker.svg");
+        var greenMarkerFilePath = Path.Join(mapsDirectory, "GreenMarker.svg");
+        var redMarkerFilePath = Path.Join(mapsDirectory, "RedMarker.svg");
+        var svgs = new List<string> { bleuMarkerFilePath, greenMarkerFilePath, redMarkerFilePath };
+        foreach (var svg in svgs)
+        {
+            var filename = Path.GetFileName(svg);
+            var newFilePath = Path.Join(assetsDirectory, filename);
+            File.Copy(svg, newFilePath, true);
         }
     }
 }
