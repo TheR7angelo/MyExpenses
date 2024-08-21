@@ -13,7 +13,7 @@ public static class ExistingDatabaseToFolder
         Directory.CreateDirectory(folderPath);
 
         var saveFolder = Path.Join(folderPath, existingDatabase.FileNameWithoutExtension);
-        Directory.CreateDirectory(saveFolder);
+        if (Directory.Exists(saveFolder)) Directory.Delete(saveFolder, true);
 
         try
         {
