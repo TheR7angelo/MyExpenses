@@ -25,7 +25,7 @@ public partial class SaveLocationWindow
     public bool ButtonDatabaseVisibility
     {
         get => (bool)GetValue(ButtonDatabaseVisibilityProperty);
-        set => SetValue(ButtonDatabaseVisibilityProperty, value);
+        init => SetValue(ButtonDatabaseVisibilityProperty, value);
     }
 
     public static readonly DependencyProperty ButtonFolderVisibilityProperty =
@@ -35,7 +35,7 @@ public partial class SaveLocationWindow
     public bool ButtonFolderVisibility
     {
         get => (bool)GetValue(ButtonFolderVisibilityProperty);
-        set => SetValue(ButtonFolderVisibilityProperty, value);
+        init => SetValue(ButtonFolderVisibilityProperty, value);
     }
 
     public static readonly DependencyProperty ButtonDropboxVisibilityProperty =
@@ -45,7 +45,7 @@ public partial class SaveLocationWindow
     public bool ButtonDropboxVisibility
     {
         get => (bool)GetValue(ButtonDropboxVisibilityProperty);
-        set => SetValue(ButtonDropboxVisibilityProperty, value);
+        init => SetValue(ButtonDropboxVisibilityProperty, value);
     }
 
     public static readonly DependencyProperty ButtonLocalVisibilityProperty =
@@ -55,7 +55,7 @@ public partial class SaveLocationWindow
     public bool ButtonLocalVisibility
     {
         get => (bool)GetValue(ButtonLocalVisibilityProperty);
-        set => SetValue(ButtonLocalVisibilityProperty, value);
+        init => SetValue(ButtonLocalVisibilityProperty, value);
     }
 
     #endregion
@@ -114,6 +114,13 @@ public partial class SaveLocationWindow
     private void ButtonDatabase_OnClick(object sender, RoutedEventArgs e)
     {
         SaveLocationResult = SaveLocation.Database;
+        DialogResult = true;
+        Close();
+    }
+
+    private void ButtonCompress_OnClick(object sender, RoutedEventArgs e)
+    {
+        SaveLocationResult = SaveLocation.Compress;
         DialogResult = true;
         Close();
     }
