@@ -156,7 +156,7 @@ public partial class MainWindow
 
     private async void MenuItemDatabaseExport_OnClick(object sender, RoutedEventArgs e)
     {
-        var saveLocation = SaveLocationUtils.GetExportSaveLocation();
+        var saveLocation = SaveLocationUtils.GetExportSaveLocation(SaveLocationMode.LocalDropbox);
         if (saveLocation is null) return;
 
         var database = DataBaseContext.FilePath!;
