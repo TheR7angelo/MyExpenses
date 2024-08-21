@@ -22,7 +22,6 @@ public static class SaveLocationUtils
         var saveLocationWindow = new SaveLocationWindow { Title = title };
         saveLocationWindow.ShowDialog();
 
-        if (saveLocationWindow.DialogResult is not true) return null;
-        return saveLocationWindow.SaveLocationResult;
+        return saveLocationWindow.DialogResult is not true ? null : saveLocationWindow.SaveLocationResult!;
     }
 }

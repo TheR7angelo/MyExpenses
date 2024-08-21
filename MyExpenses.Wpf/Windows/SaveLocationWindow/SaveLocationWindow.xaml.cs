@@ -6,7 +6,7 @@ namespace MyExpenses.Wpf.Windows.SaveLocationWindow;
 
 public partial class SaveLocationWindow
 {
-    public SaveLocation SaveLocationResult { get; private set; } = SaveLocation.Local;
+    public SaveLocation? SaveLocationResult { get; private set; }
 
     public SaveLocationWindow()
     {
@@ -24,6 +24,7 @@ public partial class SaveLocationWindow
 
     private void ButtonLocal_OnClick(object sender, RoutedEventArgs e)
     {
+        SaveLocationResult = SaveLocation.Local;
         DialogResult = true;
         Close();
     }
