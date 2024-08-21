@@ -5,5 +5,6 @@ public enum SaveLocation
     Local,
     Dropbox,
     Folder,
-    Database
+    Database,
+    Compress
 }
