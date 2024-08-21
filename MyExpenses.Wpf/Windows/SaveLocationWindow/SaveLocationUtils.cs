@@ -19,12 +19,7 @@ public static class SaveLocationUtils
         if (saveLocation is SaveLocation.Dropbox) return saveLocation;
         if (saveLocation is null) return null;
 
-        saveLocation = title.GetSaveLocation(SaveLocationMode.FolderDatabase);
-        if (saveLocation is SaveLocation.Database) return saveLocation;
-        if (saveLocation is null) return null;
-
-        saveLocation = title.GetSaveLocation(SaveLocationMode.NotCompressCompress);
-
+        saveLocation = title.GetSaveLocation(SaveLocationMode.FolderFolderCompressDatabase);
         return saveLocation;
     }
 
