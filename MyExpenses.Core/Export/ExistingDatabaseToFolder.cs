@@ -8,7 +8,7 @@ namespace MyExpenses.Core.Export;
 
 public static class ExistingDatabaseToFolder
 {
-    public static async Task<bool> ToFolderAsync(this ExistingDatabase existingDatabase, string folderPath)
+    public static async Task<bool> ToFolderAsync(this ExistingDatabase existingDatabase, string folderPath, bool isCompress)
     {
         Directory.CreateDirectory(folderPath);
 
@@ -40,8 +40,8 @@ public static class ExistingDatabaseToFolder
                         .ToList();
                 
                     var geomType = recordGeoms.First().Geometry!.GetType().Name;
-                
-                    filePath = $"{filePath}.kml";
+
+                    filePath = isCompress ? $"{filePath}.kmz" : $"{filePath}.kml";
                     Log.Information("Exporting {Name} to kml file at \"{FilePath}\"", name, filePath);
                 
                     recordGeoms.ToKmlFile(filePath, geomType);
