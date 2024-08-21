@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
+using MyExpenses.Core.Export;
 using MyExpenses.Models.IO;
 using MyExpenses.Models.Wpf.Save;
 using MyExpenses.Sql.Context;
@@ -100,6 +101,12 @@ public partial class WelcomePage
                     waitScreenWindow.WaitMessage = WelcomePageResources.ButtonExportDataBaseWaitMessageExportToLocal;
                     waitScreenWindow.Show();
                     await SaveToLocalDatabase(selectDatabaseFileWindow.ExistingDatabasesSelected);
+                    break;
+
+                case SaveLocation.Folder:
+                    waitScreenWindow.WaitMessage = WelcomePageResources.ButtonExportDataBaseWaitMessageExportToLocal;
+                    waitScreenWindow.Show();
+                    await SaveToLocalFolder(selectDatabaseFileWindow.ExistingDatabasesSelected);
                     break;
 
                 case SaveLocation.Dropbox:
@@ -233,6 +240,29 @@ public partial class WelcomePage
         Log.Information("Starting to upload {FileName} to cloud storage", existingDatabasesSelected.FileName);
         await dropboxService.UploadFileAsync(existingDatabasesSelected.FilePath, DbContextBackup.CloudDirectoryBackupDatabase);
         Log.Information("Successfully uploaded {FileName} to cloud storage", existingDatabasesSelected.FileName);
+    }
+
+
+    private static async Task SaveToLocalFolder(List<ExistingDatabase> existingDatabasesSelected)
+    {
+        if (existingDatabasesSelected.Count is 1) await ExportToLocalFolderAsync(existingDatabasesSelected.First());
+        // else await ExportToLocalDirectoryDatabaseAsync(existingDatabasesSelected);
+    }
+
+    private static async Task ExportToLocalFolderAsync(ExistingDatabase existingDatabasesSelected)
+    {
+        var folderDialog = new FolderDialog();
+        var selectedDialog = folderDialog.GetFile();
+
+        if (string.IsNullOrEmpty(selectedDialog))
+        {
+            Log.Warning("Export cancelled. No file path provided");
+            return;
+        }
+
+        Log.Information("Starting to export database to {SelectedDialog}", selectedDialog);
+        await existingDatabasesSelected.ToFolderAsync(selectedDialog);
+        Log.Information("Database successfully copied to local storage");
     }
 
     private static async Task SaveToLocalDatabase(List<ExistingDatabase> existingDatabasesSelected)
