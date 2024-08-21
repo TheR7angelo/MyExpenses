@@ -12,6 +12,7 @@ using MyExpenses.Models.IO.Export.Sql.Tables;
 using MyExpenses.Models.IO.Sig.Interfaces;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Sql.Context;
+using MyExpenses.Utils.Switch;
 
 namespace MyExpenses.IO.Test.Sig.Csv;
 
@@ -97,21 +98,5 @@ public class CsvWriter
                 records.WriteCsv(name);
             }
         }
-    }
-}
-
-public class TypeSwitch
-{
-    private readonly Dictionary<Type, Func<object, object>> _matches = new();
-
-    public TypeSwitch Case<T>(Func<T, object> action)
-    {
-        _matches.Add(typeof(T), (x) => action((T)x));
-        return this;
-    }
-
-    public object Switch(object x)
-    {
-        return _matches[x.GetType()](x);
     }
 }
