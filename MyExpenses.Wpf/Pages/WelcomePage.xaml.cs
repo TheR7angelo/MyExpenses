@@ -80,7 +80,8 @@ public partial class WelcomePage
 
     private async void ButtonExportDataBase_OnClick(object sender, RoutedEventArgs e)
     {
-        var saveLocation = SaveLocationUtils.GetExportSaveLocation(SaveLocationMode.LocalDropbox);
+        // TODO work
+        var saveLocation = SaveLocationUtils.GetExportSaveLocation();
         if (saveLocation is null) return;
 
         var selectDatabaseFileWindow = new SelectDatabaseFileWindow();
@@ -95,7 +96,7 @@ public partial class WelcomePage
         {
             switch (saveLocation)
             {
-                case SaveLocation.Local:
+                case SaveLocation.Database:
                     waitScreenWindow.WaitMessage = WelcomePageResources.ButtonExportDataBaseWaitMessageExportToLocal;
                     waitScreenWindow.Show();
                     await SaveToLocal(selectDatabaseFileWindow.ExistingDatabasesSelected);

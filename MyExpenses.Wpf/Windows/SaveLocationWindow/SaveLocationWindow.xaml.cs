@@ -8,6 +8,26 @@ public partial class SaveLocationWindow
 {
     #region DependencyProperty
 
+    public static readonly DependencyProperty ButtonDatabaseVisibilityProperty =
+        DependencyProperty.Register(nameof(ButtonDatabaseVisibility), typeof(bool), typeof(SaveLocationWindow),
+            new PropertyMetadata(default(bool)));
+
+    public bool ButtonDatabaseVisibility
+    {
+        get => (bool)GetValue(ButtonDatabaseVisibilityProperty);
+        set => SetValue(ButtonDatabaseVisibilityProperty, value);
+    }
+
+    public static readonly DependencyProperty ButtonFolderVisibilityProperty =
+        DependencyProperty.Register(nameof(ButtonFolderVisibility), typeof(bool), typeof(SaveLocationWindow),
+            new PropertyMetadata(default(bool)));
+
+    public bool ButtonFolderVisibility
+    {
+        get => (bool)GetValue(ButtonFolderVisibilityProperty);
+        set => SetValue(ButtonFolderVisibilityProperty, value);
+    }
+
     public static readonly DependencyProperty ButtonDropboxVisibilityProperty =
         DependencyProperty.Register(nameof(ButtonDropboxVisibility), typeof(bool), typeof(SaveLocationWindow),
             new PropertyMetadata(default(bool)));
@@ -40,6 +60,11 @@ public partial class SaveLocationWindow
                 ButtonLocalVisibility = true;
                 ButtonDropboxVisibility = true;
                 break;
+
+            case SaveLocationMode.FolderDatabase:
+                ButtonFolderVisibility = true;
+                ButtonDatabaseVisibility = true;
+                break;
             default:
                 throw new ArgumentOutOfRangeException(nameof(saveLocationMode), saveLocationMode, null);
         }
@@ -59,6 +84,20 @@ public partial class SaveLocationWindow
     private void ButtonLocal_OnClick(object sender, RoutedEventArgs e)
     {
         SaveLocationResult = SaveLocation.Local;
+        DialogResult = true;
+        Close();
+    }
+
+    private void ButtonFolder_OnClick(object sender, RoutedEventArgs e)
+    {
+        SaveLocationResult = SaveLocation.Folder;
+        DialogResult = true;
+        Close();
+    }
+
+    private void ButtonDatabase_OnClick(object sender, RoutedEventArgs e)
+    {
+        SaveLocationResult = SaveLocation.Database;
         DialogResult = true;
         Close();
     }

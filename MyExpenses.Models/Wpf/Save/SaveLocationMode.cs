@@ -3,5 +3,5 @@
 public enum SaveLocationMode
 {
     LocalDropbox,
-
+    FolderDatabase
 }
