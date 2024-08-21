@@ -45,6 +45,7 @@
                 Width="{Binding Height, RelativeSource={RelativeSource Self}}"
                 materialDesign:ButtonAssist.CornerRadius="10"
                 Style="{StaticResource MaterialDesignPaperButton}"
+                Visibility="{Binding ButtonLocalVisibility, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"
                 Click="ButtonLocal_OnClick">
             <Button.Content>
                 <materialDesign:PackIcon Kind="Laptop" Height="96" Width="96" />
@@ -56,6 +57,7 @@
                 Width="{Binding Height, RelativeSource={RelativeSource Self}}"
                 materialDesign:ButtonAssist.CornerRadius="10"
                 Style="{StaticResource MaterialDesignPaperButton}"
+                Visibility="{Binding ButtonDropboxVisibility, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"
                 Click="ButtonDropbox_OnClick">
             <Button.Content>
                 <Image Source="{StaticResource DropboxLogo}" Height="96" />

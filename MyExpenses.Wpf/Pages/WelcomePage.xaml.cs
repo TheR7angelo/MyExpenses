@@ -80,7 +80,7 @@ public partial class WelcomePage
 
     private async void ButtonExportDataBase_OnClick(object sender, RoutedEventArgs e)
     {
-        var saveLocation = SaveLocationUtils.GetExportSaveLocation();
+        var saveLocation = SaveLocationUtils.GetExportSaveLocation(SaveLocationMode.LocalDropbox);
         if (saveLocation is null) return;
 
         var selectDatabaseFileWindow = new SelectDatabaseFileWindow();
@@ -126,7 +126,7 @@ public partial class WelcomePage
 
     private async void ButtonImportDataBase_OnClick(object sender, RoutedEventArgs e)
     {
-        var saveLocation = SaveLocationUtils.GetImportSaveLocation();
+        var saveLocation = SaveLocationUtils.GetImportSaveLocation(SaveLocationMode.LocalDropbox);
         if (saveLocation is null) return;
 
         var waitScreenWindow = new WaitScreenWindow();
