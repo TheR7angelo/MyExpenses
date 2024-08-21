@@ -10,10 +10,13 @@ public static class ExistingDatabaseToFolder
 {
     public static async Task<bool> ToFolderAsync(this ExistingDatabase existingDatabase, string folderPath)
     {
+        Directory.CreateDirectory(folderPath);
+
+        var saveFolder = Path.Join(folderPath, existingDatabase.FileNameWithoutExtension);
+        Directory.CreateDirectory(saveFolder);
+
         try
         {
-            Directory.CreateDirectory(folderPath);
-            
             Log.Information("Getting all records from all tables");
             var exportRecords = existingDatabase.GetExportRecords();
             Log.Information("All records have been recovered");
@@ -26,7 +29,7 @@ public static class ExistingDatabaseToFolder
                 var name = exportRecord.Name;
                 var records = exportRecord.Records;
                 
-                var filePath = Path.Combine(folderPath, name);
+                var filePath = Path.Combine(saveFolder, name);
                 
                 var isGeom = exportRecord.Source.GetInterfaces().Contains(typeof(ISig));
                 if (isGeom)
@@ -38,10 +41,10 @@ public static class ExistingDatabaseToFolder
                 
                     var geomType = recordGeoms.First().Geometry!.GetType().Name;
                 
-                    var savePath = $"{filePath}.kml";
-                    Log.Information("Exporting {Name} to kml file at \"{SavePath}\"", name, savePath);
+                    filePath = $"{filePath}.kml";
+                    Log.Information("Exporting {Name} to kml file at \"{FilePath}\"", name, filePath);
                 
-                    recordGeoms.ToKmlFile(savePath, geomType);
+                    recordGeoms.ToKmlFile(filePath, geomType);
                 }
                 else
                 {
