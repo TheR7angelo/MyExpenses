@@ -8,6 +8,16 @@ public partial class SaveLocationWindow
 {
     #region DependencyProperty
 
+    public static readonly DependencyProperty ButtonCompressVisibilityProperty =
+        DependencyProperty.Register(nameof(ButtonCompressVisibility), typeof(bool), typeof(SaveLocationWindow),
+            new PropertyMetadata(default(bool)));
+
+    public bool ButtonCompressVisibility
+    {
+        get => (bool)GetValue(ButtonCompressVisibilityProperty);
+        set => SetValue(ButtonCompressVisibilityProperty, value);
+    }
+
     public static readonly DependencyProperty ButtonDatabaseVisibilityProperty =
         DependencyProperty.Register(nameof(ButtonDatabaseVisibility), typeof(bool), typeof(SaveLocationWindow),
             new PropertyMetadata(default(bool)));
@@ -65,6 +75,12 @@ public partial class SaveLocationWindow
                 ButtonFolderVisibility = true;
                 ButtonDatabaseVisibility = true;
                 break;
+
+            case SaveLocationMode.NotCompressCompress:
+                ButtonFolderVisibility = true;
+                ButtonCompressVisibility = true;
+                break;
+
             default:
                 throw new ArgumentOutOfRangeException(nameof(saveLocationMode), saveLocationMode, null);
         }
