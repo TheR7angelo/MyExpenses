@@ -7,6 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\MyExpenses.IO\MyExpenses.IO.csproj" />
       <ProjectReference Include="..\MyExpenses.Sql\MyExpenses.Sql.csproj" />
       <ProjectReference Include="..\MyExpenses.Utils\MyExpenses.Utils.csproj" />
       <ProjectReference Include="..\MyExpenses.WebApi\MyExpenses.WebApi.csproj" />
