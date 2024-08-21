@@ -106,7 +106,7 @@ public partial class WelcomePage
                 case SaveLocation.Folder:
                     waitScreenWindow.WaitMessage = WelcomePageResources.ButtonExportDataBaseWaitMessageExportToLocal;
                     waitScreenWindow.Show();
-                    await SaveToLocalFolder(selectDatabaseFileWindow.ExistingDatabasesSelected);
+                    await ExportToLocalFolderAsync(selectDatabaseFileWindow.ExistingDatabasesSelected);
                     break;
 
                 case SaveLocation.Dropbox:
@@ -242,14 +242,7 @@ public partial class WelcomePage
         Log.Information("Successfully uploaded {FileName} to cloud storage", existingDatabasesSelected.FileName);
     }
 
-
-    private static async Task SaveToLocalFolder(List<ExistingDatabase> existingDatabasesSelected)
-    {
-        if (existingDatabasesSelected.Count is 1) await ExportToLocalFolderAsync(existingDatabasesSelected.First());
-        // else await ExportToLocalDirectoryDatabaseAsync(existingDatabasesSelected);
-    }
-
-    private static async Task ExportToLocalFolderAsync(ExistingDatabase existingDatabasesSelected)
+    private static async Task ExportToLocalFolderAsync(List<ExistingDatabase> existingDatabasesSelected)
     {
         var folderDialog = new FolderDialog();
         var selectedDialog = folderDialog.GetFile();
@@ -261,7 +254,16 @@ public partial class WelcomePage
         }
 
         Log.Information("Starting to export database to {SelectedDialog}", selectedDialog);
-        await existingDatabasesSelected.ToFolderAsync(selectedDialog);
+
+        await Task.Run(async () =>
+        {
+            foreach (var existingDatabase in existingDatabasesSelected)
+            {
+                Log.Information("Starting to export {ExistingDatabaseFileName}", existingDatabase.FileNameWithoutExtension);
+                await existingDatabase.ToFolderAsync(selectedDialog);
+            }
+        });
+
         Log.Information("Database successfully copied to local storage");
     }
 
