@@ -26,6 +26,18 @@
       <AdditionalFiles Include="Resources\Projections\ProjectionSystem.csv">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </AdditionalFiles>
+      <None Remove="Resources\Qgis\GeoVisionary.qgs" />
+      <AdditionalFiles Include="Resources\Qgis\GeoVisionary.qgs">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </AdditionalFiles>
+      <None Remove="Resources\Qgis\GeoVisionary_attachments.zip" />
+      <AdditionalFiles Include="Resources\Qgis\GeoVisionary_attachments.zip">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </AdditionalFiles>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Resources\Qgis\" />
     </ItemGroup>
 
 </Project>
