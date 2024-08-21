@@ -156,7 +156,8 @@ public partial class MainWindow
 
     private async void MenuItemDatabaseExport_OnClick(object sender, RoutedEventArgs e)
     {
-        var saveLocation = SaveLocationUtils.GetExportSaveLocation(SaveLocationMode.LocalDropbox);
+        // TODO work
+        var saveLocation = SaveLocationUtils.GetExportSaveLocation();
         if (saveLocation is null) return;
 
         var database = DataBaseContext.FilePath!;
@@ -166,7 +167,7 @@ public partial class MainWindow
         {
             switch (saveLocation)
             {
-                case SaveLocation.Local:
+                case SaveLocation.Database:
                     waitScreenWindow.WaitMessage = MainWindowResources.MenuItemDatabaseExportWaitMessageExportToLocal;
                     waitScreenWindow.Show();
                     await SaveToLocal(database);

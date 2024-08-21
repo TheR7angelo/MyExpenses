@@ -11,10 +11,17 @@ public static class SaveLocationUtils
         return title.GetSaveLocation(saveLocationMode);
     }
 
-    public static SaveLocation? GetExportSaveLocation(SaveLocationMode saveLocationMode)
+    public static SaveLocation? GetExportSaveLocation()
     {
         var title = SaveLocationWindowResources.ExportSaveLocationTitle;
-        return title.GetSaveLocation(saveLocationMode);
+        var saveLocation = title.GetSaveLocation(SaveLocationMode.LocalDropbox);
+
+        if (saveLocation is not SaveLocation.Dropbox)
+        {
+            saveLocation = title.GetSaveLocation(SaveLocationMode.FolderDatabase);
+        }
+
+        return saveLocation;
     }
 
     private static SaveLocation? GetSaveLocation(this string? title, SaveLocationMode saveLocationMode)
