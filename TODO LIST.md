@@ -29,11 +29,11 @@
 >          - [ ] .qgs
 >          - [ ] .qgz
 >        - [ ] To ods format (.shp/.kml/.kmz if geometry data with Qgis project (.qgs/.qgz)) (not required because LibreOffice can read xlsx files)
->        - [ ] To csv format (.shp/.kml/.kmz if geometry data with Qgis project (.qgs/.qgz)) ![0%](https://geps.dev/progress/0)<!-- [0/6] -->
->          - [ ] .csv
+>        - [ ] To csv format (.shp/.kml/.kmz if geometry data with Qgis project (.qgs/.qgz)) ![50%](https://geps.dev/progress/50)<!-- [3/6] -->
+>          - [X] .csv
 >          - [ ] .shp (.shx, .dbf)
->          - [ ] .kml
->          - [ ] .kmz
+>          - [X] .kml
+>          - [X] .kmz
 >          - [ ] .qgs
 >          - [ ] .qgz
 >      - [X] Clean database (SQL query `VACUUM;`)
