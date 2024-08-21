@@ -106,7 +106,13 @@ public partial class WelcomePage
                 case SaveLocation.Folder:
                     waitScreenWindow.WaitMessage = WelcomePageResources.ButtonExportDataBaseWaitMessageExportToLocal;
                     waitScreenWindow.Show();
-                    await ExportToLocalFolderAsync(selectDatabaseFileWindow.ExistingDatabasesSelected);
+                    await ExportToLocalFolderAsync(selectDatabaseFileWindow.ExistingDatabasesSelected, false);
+                    break;
+
+                case SaveLocation.Compress:
+                    waitScreenWindow.WaitMessage = WelcomePageResources.ButtonExportDataBaseWaitMessageExportToLocal;
+                    waitScreenWindow.Show();
+                    await ExportToLocalFolderAsync(selectDatabaseFileWindow.ExistingDatabasesSelected, true);
                     break;
 
                 case SaveLocation.Dropbox:
@@ -242,7 +248,7 @@ public partial class WelcomePage
         Log.Information("Successfully uploaded {FileName} to cloud storage", existingDatabasesSelected.FileName);
     }
 
-    private static async Task ExportToLocalFolderAsync(List<ExistingDatabase> existingDatabasesSelected)
+    private static async Task ExportToLocalFolderAsync(List<ExistingDatabase> existingDatabasesSelected, bool isCompress)
     {
         var folderDialog = new FolderDialog();
         var selectedDialog = folderDialog.GetFile();
@@ -260,7 +266,7 @@ public partial class WelcomePage
             foreach (var existingDatabase in existingDatabasesSelected)
             {
                 Log.Information("Starting to export {ExistingDatabaseFileName}", existingDatabase.FileNameWithoutExtension);
-                await existingDatabase.ToFolderAsync(selectedDialog);
+                await existingDatabase.ToFolderAsync(selectedDialog, isCompress);
             }
         });
 
