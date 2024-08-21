@@ -14,6 +14,7 @@ public static class ExistingDatabaseToFolder
 
         var saveFolder = Path.Join(folderPath, existingDatabase.FileNameWithoutExtension);
         if (Directory.Exists(saveFolder)) Directory.Delete(saveFolder, true);
+        Directory.CreateDirectory(saveFolder);
 
         try
         {
