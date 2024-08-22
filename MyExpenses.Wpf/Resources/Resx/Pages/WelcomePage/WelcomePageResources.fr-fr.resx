@@ -50,4 +50,7 @@
     <data name="MessageBoxDeleteCloudQuestionSuccess" xml:space="preserve">
         <value>Toutes les bases de données ont été supprimées</value>
     </data>
+    <data name="MessageBoxOpenExportFolderQuestion" xml:space="preserve">
+        <value>Voulez-vous ouvrir le dossier d'exportation ?</value>
+    </data>
 </root>

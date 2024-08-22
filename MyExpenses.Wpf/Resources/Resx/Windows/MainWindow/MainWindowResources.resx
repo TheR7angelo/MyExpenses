@@ -66,4 +66,7 @@
     <data name="MenuItemHeaderVacuumDatabase" xml:space="preserve">
         <value>Cleaning the database</value>
     </data>
+    <data name="MessageBoxOpenExportFolderQuestion" xml:space="preserve">
+        <value>Do you want to open the export folder ?</value>
+    </data>
 </root>
