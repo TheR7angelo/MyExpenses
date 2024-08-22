@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Reflection;
 using System.Text;
 using Microsoft.EntityFrameworkCore;
 using MyExpenses.Models.IO.Sig.Interfaces;
@@ -117,12 +118,13 @@ public static class ShapeWriter
 
         foreach (var property in properties)
         {
-            if (property.GetValueByProperty<ColumnAttribute>() is not string name) continue;
+            var name = property.GetCustomAttribute<ColumnAttribute>()?.Name;
+            if (string.IsNullOrEmpty(name)) continue;
 
             if (name.Length > 10) name = name[..10];
 
-            var maxLength = property.GetValueByProperty<MaxLengthAttribute>() as int?;
-            var precision = property.GetValueByProperty<PrecisionAttribute>() as int?;
+            var maxLength = property.GetCustomAttribute<MaxLengthAttribute>()?.Length;
+            var precision = property.GetCustomAttribute<PrecisionAttribute>()?.Precision;
             var type = Nullable.GetUnderlyingType(property.PropertyType) ?? property.PropertyType;
 
             if (!fieldCreators.TryGetValue(type, out var fieldCreator))

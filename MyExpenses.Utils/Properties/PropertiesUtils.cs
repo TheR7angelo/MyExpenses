@@ -1,7 +1,5 @@
-using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Reflection;
-using Microsoft.EntityFrameworkCore;
 
 namespace MyExpenses.Utils.Properties;
 
@@ -47,19 +45,5 @@ public static class PropertiesUtils
         }
 
         return null;
-    }
-
-    // TODO work
-    public static object? GetValueByProperty<TAttribute>(this PropertyInfo property) where TAttribute : Attribute
-    {
-        var attribute = property.GetCustomAttribute<TAttribute>();
-
-        return attribute switch
-        {
-            ColumnAttribute columnAttribute => columnAttribute.Name,
-            MaxLengthAttribute maxLengthAttribute => maxLengthAttribute.Length,
-            PrecisionAttribute precisionAttribute => precisionAttribute.Precision,
-            _ => null
-        };
     }
 }
