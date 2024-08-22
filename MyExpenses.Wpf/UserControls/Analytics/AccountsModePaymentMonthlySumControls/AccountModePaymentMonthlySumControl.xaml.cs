@@ -154,7 +154,8 @@ public partial class AccountModePaymentMonthlySumControl
                 {
                     var index = point.Index;
                     var dataPoint = monthlyPaymentDataPoints[index];
-                    return dataPoint.MonthlyModePayment.ToString();
+                    var count = dataPoint.MonthlyModePayment is 0 ? string.Empty : dataPoint.MonthlyModePayment.ToString();
+                    return count;
                 },
                 DataLabelsPaint = new SolidColorPaint(TextPaint.Color),
                 DataLabelsPosition = DataLabelsPosition.Middle
