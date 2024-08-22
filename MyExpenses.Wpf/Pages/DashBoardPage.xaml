@@ -79,6 +79,11 @@
                     Click="ButtonModePaymentManagement_OnClick">
             </Button>
 
+            <Button Content="{Binding ButtonRecurrentExpense, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                    Style="{StaticResource MaterialDesignPaperButton}"
+                    Click="ButtonRecurrentExpense_OnClick">
+            </Button>
+
             <Button Content="{Binding ButtonMakeBankTransfer, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                     Style="{StaticResource MaterialDesignPaperButton}"
                     Click="ButtonMakeBankTransfer_OnClick">
@@ -92,11 +97,6 @@
             <Button Content="{Binding ButtonAnalytics, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                     Style="{StaticResource MaterialDesignPaperButton}"
                     Click="ButtonAnalytics_OnClick">
-            </Button>
-
-            <Button Content="{Binding ButtonRecurrentExpense, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                    Style="{StaticResource MaterialDesignPaperButton}"
-                    Click="ButtonRecurrentExpense_OnClick">
             </Button>
 
         </WrapPanel>
