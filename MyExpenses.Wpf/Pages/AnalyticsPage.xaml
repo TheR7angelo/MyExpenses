@@ -36,6 +36,11 @@
                     <analytics:AccountsCategorySumControl />
                 </TabItem>
 
+                <!-- TODO work -->
+                <TabItem Header="{Binding TabItemAccountsCategorySumControlHeader, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
+                    <analytics:AccountsModePaymentMonthlySumControl />
+                </TabItem>
+
                 <TabItem Header="{Binding TabItemAccountValueTrendControlHeader, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
                     <analytics:AccountValueTrendControl />
                 </TabItem>
