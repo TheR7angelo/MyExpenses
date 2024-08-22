@@ -54,6 +54,8 @@ public partial class DataBaseContext : DbContext
 
     public virtual DbSet<VAccountCategoryMonthlySum> VAccountCategoryMonthlySums { get; set; }
 
+    public virtual DbSet<VAccountModePaymentMonthlySum> VAccountModePaymentMonthlySums { get; set; }
+
     public virtual DbSet<VAccountMonthlyCumulativeSum> VAccountMonthlyCumulativeSums { get; set; }
 
     public virtual DbSet<VBankTransfer> VBankTransfers { get; set; }
@@ -140,6 +142,7 @@ public partial class DataBaseContext : DbContext
         modelBuilder.Entity<TRecursiveExpense>(entity =>
         {
             entity.Property(e => e.DateAdded).HasDefaultValueSql("CURRENT_TIMESTAMP");
+            entity.Property(e => e.ForceDeactivate).HasDefaultValueSql("FALSE");
             entity.Property(e => e.IsActive).HasDefaultValueSql("TRUE");
             entity.Property(e => e.PlaceFk).HasDefaultValue(0);
 
@@ -160,6 +163,11 @@ public partial class DataBaseContext : DbContext
         modelBuilder.Entity<VAccountCategoryMonthlySum>(entity =>
         {
             entity.ToView("v_account_category_monthly_sum");
+        });
+
+        modelBuilder.Entity<VAccountModePaymentMonthlySum>(entity =>
+        {
+            entity.ToView("v_account_mode_payment_monthly_sum");
         });
 
         modelBuilder.Entity<VAccountMonthlyCumulativeSum>(entity =>
