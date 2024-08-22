@@ -182,7 +182,7 @@
                         <filterDataGrid:DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
 
-                                <StackPanel Orientation="Horizontal"
+                                <StackPanel Orientation="Vertical"
                                             margin:PanelExtensions.MarginForAllChildren="3">
 
                                     <Button Style="{StaticResource MaterialDesignPaperButton}"
