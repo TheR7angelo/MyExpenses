@@ -91,6 +91,7 @@ public partial class WelcomePage
         selectDatabaseFileWindow.ShowDialog();
 
         if (selectDatabaseFileWindow.DialogResult is not true) return;
+        if (selectDatabaseFileWindow.ExistingDatabasesSelected.Count.Equals(0)) return;
 
         var waitScreenWindow = new WaitScreenWindow();
         try
