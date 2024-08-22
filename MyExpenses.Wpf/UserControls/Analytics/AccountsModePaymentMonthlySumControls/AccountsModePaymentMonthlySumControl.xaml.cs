@@ -1,7 +1,7 @@
 ﻿using System.Windows.Controls;
 using MyExpenses.Sql.Context;
 
-namespace MyExpenses.Wpf.UserControls.Analytics;
+namespace MyExpenses.Wpf.UserControls.Analytics.AccountsModePaymentMonthlySumControls;
 
 public partial class AccountsModePaymentMonthlySumControl
 {
