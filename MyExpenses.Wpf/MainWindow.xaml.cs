@@ -3,11 +3,13 @@ using System.Reflection;
 using System.Windows;
 using System.Windows.Input;
 using Dropbox.Api.Files;
+using MyExpenses.Core.Export;
 using MyExpenses.Models.Config;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.IO;
 using MyExpenses.Models.Wpf.Save;
 using MyExpenses.Sql.Context;
+using MyExpenses.Utils;
 using MyExpenses.WebApi.Dropbox;
 using MyExpenses.Wpf.Resources.Resx.Windows.MainWindow;
 using MyExpenses.Wpf.Utils;
@@ -173,6 +175,18 @@ public partial class MainWindow
                     await SaveToLocal(database);
                     break;
 
+                case SaveLocation.Folder:
+                    waitScreenWindow.WaitMessage = MainWindowResources.MenuItemDatabaseExportWaitMessageExportToLocal;
+                    waitScreenWindow.Show();
+                    await ExportToLocalFolderAsync(database, false);
+                    break;
+
+                case SaveLocation.Compress:
+                    waitScreenWindow.WaitMessage = MainWindowResources.MenuItemDatabaseExportWaitMessageExportToLocal;
+                    waitScreenWindow.Show();
+                    await ExportToLocalFolderAsync(database, true);
+                    break;
+
                 case SaveLocation.Dropbox:
                     waitScreenWindow.WaitMessage = MainWindowResources.MenuItemDatabaseExportWaitMessageExportToCloud;
                     waitScreenWindow.Show();
@@ -301,6 +315,32 @@ public partial class MainWindow
         Log.Information("Successfully uploaded {FileName} to cloud storage", Path.GetFileName(database));
 
         return fileMetadata;
+    }
+
+    private static async Task ExportToLocalFolderAsync(string databaseFilePath, bool isCompress)
+    {
+        var folderDialog = new FolderDialog();
+        var selectedDialog = folderDialog.GetFile();
+
+        if (string.IsNullOrEmpty(selectedDialog))
+        {
+            Log.Warning("Export cancelled. No file path provided");
+            return;
+        }
+
+        Log.Information("Starting to export database to {SelectedDialog}", selectedDialog);
+
+        await Task.Run(async () =>
+        {
+            var existingDatabase = new ExistingDatabase(databaseFilePath);
+            await existingDatabase.ToFolderAsync(selectedDialog, isCompress);
+        });
+
+        Log.Information("Database successfully copied to local storage");
+
+        var response = MsgBox.Show(MainWindowResources.MessageBoxOpenExportFolderQuestion, MsgBoxImage.Question,
+            MessageBoxButton.YesNo);
+        if (response is MessageBoxResult.Yes) selectedDialog.StartFile();
     }
 
     private static async Task SaveToLocal(string database)

@@ -7,6 +7,7 @@ using MyExpenses.Core.Export;
 using MyExpenses.Models.IO;
 using MyExpenses.Models.Wpf.Save;
 using MyExpenses.Sql.Context;
+using MyExpenses.Utils;
 using MyExpenses.Utils.Collection;
 using MyExpenses.WebApi.Dropbox;
 using MyExpenses.Wpf.Resources.Resx.Pages.WelcomePage;
@@ -272,6 +273,10 @@ public partial class WelcomePage
         });
 
         Log.Information("Database successfully copied to local storage");
+
+        var response = MsgBox.Show(WelcomePageResources.MessageBoxOpenExportFolderQuestion, MsgBoxImage.Question,
+            MessageBoxButton.YesNo);
+        if (response is MessageBoxResult.Yes) selectedDialog.StartFile();
     }
 
     private static async Task SaveToLocalDatabase(List<ExistingDatabase> existingDatabasesSelected)

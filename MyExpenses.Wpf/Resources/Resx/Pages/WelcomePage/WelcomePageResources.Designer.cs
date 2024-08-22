@@ -175,5 +175,14 @@ namespace MyExpenses.Wpf.Resources.Resx.Pages.WelcomePage {
                 return ResourceManager.GetString("MessageBoxDeleteCloudQuestionSuccess", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you want to open the export folder ?.
+        /// </summary>
+        internal static string MessageBoxOpenExportFolderQuestion {
+            get {
+                return ResourceManager.GetString("MessageBoxOpenExportFolderQuestion", resourceCulture);
+            }
+        }
     }
 }
