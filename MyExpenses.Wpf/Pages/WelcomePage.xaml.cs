@@ -82,7 +82,6 @@ public partial class WelcomePage
 
     private async void ButtonExportDataBase_OnClick(object sender, RoutedEventArgs e)
     {
-        // TODO work
         var saveLocation = SaveLocationUtils.GetExportSaveLocation();
         if (saveLocation is null) return;
 
@@ -303,6 +302,10 @@ public partial class WelcomePage
             await Task.Run(() => File.Copy(existingDatabase.FilePath, newFilePath, true));
             Log.Information("Successfully copied {ExistingDatabaseFileName} to {NewFilePath}", existingDatabase.FileName, newFilePath);
         }
+
+        var response = MsgBox.Show(WelcomePageResources.MessageBoxOpenExportFolderQuestion, MsgBoxImage.Question,
+            MessageBoxButton.YesNo);
+        if (response is MessageBoxResult.Yes) selectedFolder.StartFile();
     }
 
     private static async Task ExportToLocalDatabaseFileAsync(ExistingDatabase existingDatabasesSelected)
@@ -324,6 +327,11 @@ public partial class WelcomePage
             File.Copy(selectedFilePath, selectedDialog, true);
         });
         Log.Information("Database successfully copied to local storage");
+
+        var parentDirectory = Path.GetDirectoryName(selectedDialog)!;
+        var response = MsgBox.Show(WelcomePageResources.MessageBoxOpenExportFolderQuestion, MsgBoxImage.Question,
+            MessageBoxButton.YesNo);
+        if (response is MessageBoxResult.Yes) parentDirectory.StartFile();
     }
 
 private static async Task ImportFromCloudAsync()

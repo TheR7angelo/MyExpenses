@@ -158,7 +158,6 @@ public partial class MainWindow
 
     private async void MenuItemDatabaseExport_OnClick(object sender, RoutedEventArgs e)
     {
-        // TODO work
         var saveLocation = SaveLocationUtils.GetExportSaveLocation();
         if (saveLocation is null) return;
 
@@ -358,6 +357,11 @@ public partial class MainWindow
         Log.Information("Starting to copy database to {SelectedDialog}", selectedDialog);
         await Task.Run(() => { File.Copy(database, selectedDialog, true); });
         Log.Information("Database successfully copied to local storage");
+
+        var parentDirectory = Path.GetDirectoryName(selectedDialog)!;
+        var response = MsgBox.Show(MainWindowResources.MessageBoxOpenExportFolderQuestion, MsgBoxImage.Question,
+            MessageBoxButton.YesNo);
+        if (response is MessageBoxResult.Yes) parentDirectory.StartFile();
     }
 
     private static bool VacuumDatabase(string? dataBaseFilePath = null)
