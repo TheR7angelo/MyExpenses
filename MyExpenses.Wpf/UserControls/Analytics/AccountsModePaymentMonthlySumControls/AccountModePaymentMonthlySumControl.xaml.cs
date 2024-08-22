@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using LiveChartsCore;
 using LiveChartsCore.Kernel.Sketches;
+using LiveChartsCore.Measure;
 using LiveChartsCore.SkiaSharpView;
 using LiveChartsCore.SkiaSharpView.Painting;
 using MyExpenses.Models.Config;
@@ -155,7 +156,8 @@ public partial class AccountModePaymentMonthlySumControl
                     var dataPoint = monthlyPaymentDataPoints[index];
                     return dataPoint.MonthlyModePayment.ToString();
                 },
-                DataLabelsPaint = new SolidColorPaint(TextPaint.Color)
+                DataLabelsPaint = new SolidColorPaint(TextPaint.Color),
+                DataLabelsPosition = DataLabelsPosition.Middle
             };
 
             series.Add(columnSeries);
