@@ -899,4 +899,68 @@ SELECT account_fk,
 FROM monthly
 ORDER BY account_fk, period, category_type;
 
+DROP VIEW IF EXISTS v_account_mode_payment_monthly_sum;
+CREATE VIEW v_account_mode_payment_monthly_sum AS
+WITH all_periods AS (
+    SELECT a.id                     AS account_fk,
+           a.name                   AS account,
+           tmp.id                   AS mode_payment_fk,
+           tmp.name                 AS mode_payment,
+           y.year || '-' || m.month AS period
+    FROM t_account a
+             CROSS JOIN t_mode_payment tmp
+             CROSS JOIN (SELECT DISTINCT strftime('%Y', h.date) AS year
+                         FROM t_history h) y
+             CROSS JOIN (SELECT strftime('%m', date('2000-' || x || '-01')) AS month
+                         FROM (SELECT '01' AS x
+                               UNION
+                               SELECT '02'
+                               UNION
+                               SELECT '03'
+                               UNION
+                               SELECT '04'
+                               UNION
+                               SELECT '05'
+                               UNION
+                               SELECT '06'
+                               UNION
+                               SELECT '07'
+                               UNION
+                               SELECT '08'
+                               UNION
+                               SELECT '09'
+                               UNION
+                               SELECT '10'
+                               UNION
+                               SELECT '11'
+                               UNION
+                               SELECT '12')) m
+    WHERE y.year < (SELECT strftime('%Y', MAX(date)) FROM t_history)
+       OR (y.year == (SELECT strftime('%Y', MAX(date)) FROM t_history)
+        AND m.month <= (SELECT strftime('%m', MAX(date)) FROM t_history))
+),
+     monthly AS (
+         SELECT ap.account_fk,
+                ap.account,
+                ap.mode_payment_fk,
+                ap.mode_payment,
+                ap.period,
+                COUNT(CASE WHEN h.value IS NOT NULL THEN h.mode_payment_fk END) AS monthly_mode_payment,
+                COALESCE(SUM(h.value), 0) AS monthly_value
+         FROM all_periods ap
+                  LEFT JOIN t_history h
+                            ON h.account_fk = ap.account_fk
+                                AND h.mode_payment_fk = ap.mode_payment_fk
+                                AND ap.period = strftime('%Y-%m', h.date)
+         GROUP BY ap.account_fk, ap.mode_payment_fk, ap.period
+     )
+SELECT account_fk,
+       account,
+       mode_payment,
+       period,
+       ROUND(monthly_value, 2) AS monthly_sum,
+       monthly_mode_payment
+FROM monthly
+ORDER BY account_fk, period, mode_payment;
+
 -- endregion
