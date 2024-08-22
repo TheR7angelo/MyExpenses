@@ -8,6 +8,7 @@
       xmlns:analytics="clr-namespace:MyExpenses.Wpf.UserControls.Analytics"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:accountTotalEllipseControl="clr-namespace:MyExpenses.Wpf.UserControls.Analytics.AccountTotalEllipseControl"
+      xmlns:accountsModePaymentMonthlySumControls="clr-namespace:MyExpenses.Wpf.UserControls.Analytics.AccountsModePaymentMonthlySumControls"
       mc:Ignorable="d"
 
       Title="AnalyticsPage"
@@ -38,7 +39,7 @@
 
                 <!-- TODO work -->
                 <TabItem Header="{Binding TabItemAccountsCategorySumControlHeader, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
-                    <analytics:AccountsModePaymentMonthlySumControl />
+                    <accountsModePaymentMonthlySumControls:AccountsModePaymentMonthlySumControl />
                 </TabItem>
 
                 <TabItem Header="{Binding TabItemAccountValueTrendControlHeader, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">

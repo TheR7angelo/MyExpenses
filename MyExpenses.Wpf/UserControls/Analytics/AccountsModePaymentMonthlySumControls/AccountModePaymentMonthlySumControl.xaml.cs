@@ -9,7 +9,7 @@ using MyExpenses.Models.Sql.Bases.Views;
 using MyExpenses.Sql.Context;
 using MyExpenses.Wpf.Converters.Analytics;
 
-namespace MyExpenses.Wpf.UserControls.Analytics;
+namespace MyExpenses.Wpf.UserControls.Analytics.AccountsModePaymentMonthlySumControls;
 
 public partial class AccountModePaymentMonthlySumControl
 {

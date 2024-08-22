@@ -436,6 +436,16 @@
       <Page Include="..\MyExpenses.Commons\Resources\Assets\Logos\Logos.xaml">
         <Link>Resources\Assets\Logos\Logos.xaml</Link>
       </Page>
+      <Page Update="UserControls\Analytics\AccountsModePaymentMonthlySumControls\AccountsModePaymentMonthlySumControl.xaml">
+        <Generator>MSBuild:Compile</Generator>
+        <XamlRuntime>Wpf</XamlRuntime>
+        <SubType>Designer</SubType>
+      </Page>
+      <Page Update="UserControls\Analytics\AccountsModePaymentMonthlySumControls\AccountModePaymentMonthlySumControl.xaml">
+        <Generator>MSBuild:Compile</Generator>
+        <XamlRuntime>Wpf</XamlRuntime>
+        <SubType>Designer</SubType>
+      </Page>
     </ItemGroup>
 
     <ItemGroup>
