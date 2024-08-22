@@ -33,4 +33,7 @@
     <data name="TabItemAccountsCategorySumControlHeader" xml:space="preserve">
         <value>Sum of categories</value>
     </data>
+    <data name="TabItemAccountsModePaymentMonthlySumControlHeader" xml:space="preserve">
+        <value>Monthly Statistics</value>
+    </data>
 </root>

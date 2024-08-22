@@ -69,6 +69,15 @@ namespace MyExpenses.Wpf.Resources.Resx.Pages.AnalyticsPage {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Monthly Statistics.
+        /// </summary>
+        internal static string TabItemAccountsModePaymentMonthlySumControlHeader {
+            get {
+                return ResourceManager.GetString("TabItemAccountsModePaymentMonthlySumControlHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Projection and status.
         /// </summary>
         internal static string TabItemAccountTotalEllipseControlHeader {
