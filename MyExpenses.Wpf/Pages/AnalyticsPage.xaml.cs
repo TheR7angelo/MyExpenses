@@ -7,6 +7,10 @@ namespace MyExpenses.Wpf.Pages;
 
 public partial class AnalyticsPage
 {
+    public static readonly DependencyProperty TabItemAccountsModePaymentMonthlySumControlHeaderProperty =
+        DependencyProperty.Register(nameof(TabItemAccountsModePaymentMonthlySumControlHeader), typeof(string),
+            typeof(AnalyticsPage), new PropertyMetadata(default(string)));
+
     public static readonly DependencyProperty TabItemAccountValueTrendControlHeaderProperty =
         DependencyProperty.Register(nameof(TabItemAccountValueTrendControlHeader), typeof(string),
             typeof(AnalyticsPage), new PropertyMetadata(default(string)));
@@ -57,6 +61,12 @@ public partial class AnalyticsPage
         set => SetValue(TabItemAccountsCategorySumControlHeaderProperty, value);
     }
 
+    public string TabItemAccountsModePaymentMonthlySumControlHeader
+    {
+        get => (string)GetValue(TabItemAccountsModePaymentMonthlySumControlHeaderProperty);
+        set => SetValue(TabItemAccountsModePaymentMonthlySumControlHeaderProperty, value);
+    }
+
     public AnalyticsPage()
     {
         UpdateLanguage();
@@ -76,5 +86,6 @@ public partial class AnalyticsPage
         TabItemCumulativeTotalSumChartControlHeader = AnalyticsPageResources.TabItemCumulativeTotalSumChartControlHeader;
         TabItemAccountTotalEllipseControlHeader = AnalyticsPageResources.TabItemAccountTotalEllipseControlHeader;
         TabItemAccountsCategorySumControlHeader = AnalyticsPageResources.TabItemAccountsCategorySumControlHeader;
+        TabItemAccountsModePaymentMonthlySumControlHeader = AnalyticsPageResources.TabItemAccountsModePaymentMonthlySumControlHeader;
     }
 }
