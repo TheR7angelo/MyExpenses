@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.Reflection;
 using MyExpenses.Models.IO.Sig.Interfaces;
 using MyExpenses.Utils.Properties;
 using NetTopologySuite.Features;
@@ -22,7 +23,8 @@ public static class GeoJsonWriter
             var attributeTable = new AttributesTable();
             foreach (var propertyInfo in properties)
             {
-                if (propertyInfo.GetValueByProperty<ColumnAttribute>() is not string columnName) continue;
+                var columnName = propertyInfo.GetCustomAttribute<ColumnAttribute>()?.Name;
+                if (string.IsNullOrEmpty(columnName)) continue;
 
                 attributeTable.Add(columnName, propertyInfo.GetValue(feature, null));
             }
