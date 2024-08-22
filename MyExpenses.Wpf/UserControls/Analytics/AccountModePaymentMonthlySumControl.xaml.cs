@@ -1,0 +1,165 @@
+﻿using System.Windows;
+using LiveChartsCore;
+using LiveChartsCore.Kernel.Sketches;
+using LiveChartsCore.SkiaSharpView;
+using LiveChartsCore.SkiaSharpView.Painting;
+using MyExpenses.Models.Config;
+using MyExpenses.Models.Config.Interfaces;
+using MyExpenses.Models.Sql.Bases.Views;
+using MyExpenses.Sql.Context;
+using MyExpenses.Wpf.Converters.Analytics;
+
+namespace MyExpenses.Wpf.UserControls.Analytics;
+
+public partial class AccountModePaymentMonthlySumControl
+{
+    public static readonly DependencyProperty TextPaintProperty = DependencyProperty.Register(nameof(TextPaint),
+        typeof(SolidColorPaint), typeof(AccountModePaymentMonthlySumControl), new PropertyMetadata(default(SolidColorPaint)));
+
+    public SolidColorPaint TextPaint
+    {
+        get => (SolidColorPaint)GetValue(TextPaintProperty);
+        set => SetValue(TextPaintProperty, value);
+    }
+
+    public ISeries[] Series { get; set; } = null!;
+    public ICartesianAxis[] XAxis { get; set; } = null!;
+    public ICartesianAxis[] YAxis { get; set; } = null!;
+
+    private int AccountId { get; }
+
+    public AccountModePaymentMonthlySumControl(int accountId)
+    {
+        AccountId = accountId;
+
+        var skColor = Utils.Resources.GetMaterialDesignBodySkColor();
+        TextPaint = new SolidColorPaint(skColor);
+
+        SetChart();
+        UpdateLanguage();
+
+        InitializeComponent();
+
+        Interface.ThemeChanged += Interface_OnThemeChanged;
+        Interface.LanguageChanged += Interface_OnLanguageChanged;
+    }
+
+    private void Interface_OnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
+        => UpdateLanguage();
+
+    private void Interface_OnThemeChanged(object sender, ConfigurationThemeChangedEventArgs e)
+    {
+        var skColor = Utils.Resources.GetMaterialDesignBodySkColor();
+        TextPaint = new SolidColorPaint(skColor);
+
+        UpdateAxisTextPaint();
+    }
+
+    private void UpdateAxisTextPaint()
+    {
+        for (var i = 0; i < YAxis.Length; i++)
+        {
+            var tmp = YAxis[i] as Axis;
+            tmp!.LabelsPaint = TextPaint;
+            YAxis[i] = tmp;
+        }
+
+        for (var i = 0; i < XAxis.Length; i++)
+        {
+            var tmp = XAxis[i] as Axis;
+            tmp!.LabelsPaint = TextPaint;
+            XAxis[i] = tmp;
+        }
+
+        for (var i = 0; i < Series.Length; i++)
+        {
+            var tmp = Series[i] as ColumnSeries<double>;
+            tmp!.DataLabelsPaint = new SolidColorPaint(TextPaint.Color);
+            Series[i] = tmp;
+        }
+    }
+
+    private void UpdateLanguage()
+    {
+        for (var i = 0; i < XAxis.Length; i++)
+        {
+            var tmp = XAxis[i] as Axis;
+            tmp!.Labels = tmp.Labels!
+                .ToTransformLabelsToTitleCaseDateFormatConvertBack()
+                .ToTransformLabelsToTitleCaseDateFormat();
+            XAxis[i] = tmp;
+        }
+
+        UpdateLayout();
+    }
+
+    private void SetChart()
+    {
+        using var context = new DataBaseContext();
+        var groupsByModePayments = context.VAccountModePaymentMonthlySums
+            .Where(s => s.AccountFk == AccountId)
+            .OrderBy(s => s.Period).ThenBy(s => s.ModePayment)
+            .ToList().GroupBy(s => s.ModePayment).ToList();
+
+        if (groupsByModePayments.Count is 0) return;
+
+        var axis = groupsByModePayments.First().Select(s => s.Period!);
+
+        SetSeries(groupsByModePayments);
+        SetXAxis(axis);
+        SetYAxis();
+    }
+
+    private void SetYAxis()
+    {
+        var axis = new Axis
+        {
+            LabelsPaint = TextPaint
+        };
+        YAxis = [axis];
+    }
+
+    private void SetXAxis(IEnumerable<string> labels)
+    {
+        var transformedLabels = labels.ToTransformLabelsToTitleCaseDateFormat();
+
+        var axis = new Axis
+        {
+            Labels = transformedLabels,
+            LabelsPaint = TextPaint
+        };
+        XAxis = [axis];
+    }
+
+    private void SetSeries(List<IGrouping<string?, VAccountModePaymentMonthlySum>> groupsByModePayments)
+    {
+        var series = new List<ISeries>();
+
+        foreach (var groupsByCategory in groupsByModePayments)
+        {
+            var name = groupsByCategory.Key;
+
+            var monthlyPaymentDataPoints = groupsByCategory.Select(s => new
+            {
+                MonthlySum = Math.Round(s.MonthlySum ?? 0, 2),
+                MonthlyModePayment = s.MonthlyModePayment ?? 0
+            }).ToList();
+
+            var columnSeries = new ColumnSeries<double>
+            {
+                Name = name,
+                Values = monthlyPaymentDataPoints.Select(s => s.MonthlySum),
+                DataLabelsFormatter = point =>
+                {
+                    var index = point.Index;
+                    var dataPoint = monthlyPaymentDataPoints[index];
+                    return dataPoint.MonthlyModePayment.ToString();
+                },
+                DataLabelsPaint = new SolidColorPaint(TextPaint.Color)
+            };
+
+            series.Add(columnSeries);
+        }
+        Series = [..series];
+    }
+}
