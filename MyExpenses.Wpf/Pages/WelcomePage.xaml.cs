@@ -261,12 +261,12 @@ public partial class WelcomePage
 
         Log.Information("Starting to export database to {SelectedDialog}", selectedDialog);
 
-        await Task.Run(async () =>
+        await Task.Run(() =>
         {
             foreach (var existingDatabase in existingDatabasesSelected)
             {
                 Log.Information("Starting to export {ExistingDatabaseFileName}", existingDatabase.FileNameWithoutExtension);
-                await existingDatabase.ToFolderAsync(selectedDialog, isCompress);
+                existingDatabase.ToFolderAsync(selectedDialog, isCompress);
             }
         });
 
