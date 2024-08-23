@@ -32,7 +32,7 @@ And more if needed.
 The installer for the application is built with the help of Advanced Installer.
 
 <a href="https://www.advancedinstaller.com">
-    <img src="MyExpenses.Commons/Resources/Assets/Logos/Services/Advanced Installer/Advanced Installer Full.svg" width="424" alt="Advanced Installer Logo">
+    <img src="MyExpenses.Commons/Resources/Assets/Logos/Advanced%20Installer/Advanced%20Installer%20Full.svg" width="424" alt="Advanced Installer Logo">
 </a>
 
 ### Contribution
@@ -74,7 +74,7 @@ Et plus si besoin.
 Le programme d'installation de l'application est construit à l'aide du logiciel Advanced Installer.
 
 <a href="https://www.advancedinstaller.com">
-    <img src="MyExpenses.Commons/Resources/Assets/Logos/Services/Advanced Installer/Advanced Installer Full.svg" width="424" alt="Advanced Installer Logo">
+    <img src="MyExpenses.Commons/Resources/Assets/Logos/Advanced%20Installer/Advanced%20Installer%20Full.svg" width="424" alt="Advanced Installer Logo">
 </a>
 
 ### Contribution
