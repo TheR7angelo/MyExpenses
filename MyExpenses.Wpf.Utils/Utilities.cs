@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media;
 
 namespace MyExpenses.Wpf.Utils;
@@ -8,6 +9,18 @@ namespace MyExpenses.Wpf.Utils;
 /// </summary>
 public static class Utilities
 {
+    /// <summary>
+    /// Finds the TabItem in the visual tree of a specified TabControl that has a matching header.
+    /// </summary>
+    /// <param name="tabControl">The TabControl to search.</param>
+    /// <param name="header">The header text to match.</param>
+    /// <returns>The TabItem with a matching header, or null if not found.</returns>
+    public static TabItem? FindTabItemByHeader(this TabControl tabControl, string header)
+    {
+        var children = tabControl.FindVisualChildren<TabItem>();
+        return children.FirstOrDefault(child => child.Header.Equals(header));
+    }
+
     /// <summary>
     /// Recursively finds the first child of a specified type in the visual tree of a given DependencyObject.
     /// </summary>

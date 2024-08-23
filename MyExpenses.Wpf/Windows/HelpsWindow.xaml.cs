@@ -51,7 +51,7 @@ public partial class HelpsWindow
         var treeViewItem = (TreeViewItem)sender;
         if (treeViewItem.Header is not string header) return;
 
-        var tabItem = FindTabItemByHeader(TabControl, header);
+        var tabItem = TabControl.FindTabItemByHeader(header);
         if (tabItem is not null) tabItem.IsSelected = true;
     }
 
