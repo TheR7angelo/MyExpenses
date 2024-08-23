@@ -60,6 +60,7 @@ public partial class CumulativeSumChartControl
 
     private void SetChart()
     {
+        // TODO optimise
         using var context = new DataBaseContext();
         var groupsByPeriods = context.VAccountMonthlyCumulativeSums
             .OrderBy(s => s.Period).ThenBy(s => s.AccountFk)
