@@ -72,6 +72,16 @@ public partial class MainWindow
 
     #endregion
 
+    public static readonly DependencyProperty MenuItemHeaderHelpProperty =
+        DependencyProperty.Register(nameof(MenuItemHeaderHelp), typeof(string), typeof(MainWindow),
+            new PropertyMetadata(default(string)));
+
+    public string MenuItemHeaderHelp
+    {
+        get => (string)GetValue(MenuItemHeaderHelpProperty);
+        set => SetValue(MenuItemHeaderHelpProperty, value);
+    }
+
     public static readonly DependencyProperty MenuItemHeaderSettingsProperty =
         DependencyProperty.Register(nameof(MenuItemHeaderSettings), typeof(string), typeof(MainWindow),
             new PropertyMetadata(default(string)));
@@ -301,6 +311,8 @@ public partial class MainWindow
         MenuItemHeaderImportDatabase = MainWindowResources.MenuItemHeaderImportDatabase;
         MenuItemHeaderVacuumDatabases = MainWindowResources.MenuItemHeaderVacuumDatabases;
         MenuItemHeaderVacuumDatabase = MainWindowResources.MenuItemHeaderVacuumDatabase;
+
+        MenuItemHeaderHelp = MainWindowResources.MenuItemHeaderHelp;
 
         MenuItemHeaderSettings = MainWindowResources.MenuItemHeaderSettings;
         MenuItemHeaderPrevious = MainWindowResources.MenuItemHeaderPrevious;
