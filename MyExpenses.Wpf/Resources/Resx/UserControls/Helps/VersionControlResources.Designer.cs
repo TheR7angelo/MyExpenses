@@ -76,5 +76,14 @@ namespace MyExpenses.Wpf.Resources.Resx.UserControls.Helps {
                 return ResourceManager.GetString("DatabaseVersion", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to SQlite version.
+        /// </summary>
+        internal static string SqliteVersion {
+            get {
+                return ResourceManager.GetString("SqliteVersion", resourceCulture);
+            }
+        }
     }
 }

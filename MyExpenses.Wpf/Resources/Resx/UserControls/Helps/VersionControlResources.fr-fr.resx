@@ -17,4 +17,7 @@
     <data name="DatabaseVersion" xml:space="preserve">
         <value>Version de la base de données</value>
     </data>
+    <data name="SqliteVersion" xml:space="preserve">
+        <value>Version de SQlite</value>
+    </data>
 </root>

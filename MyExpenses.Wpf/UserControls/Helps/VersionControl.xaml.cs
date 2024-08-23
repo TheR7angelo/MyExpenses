@@ -1,5 +1,6 @@
 using System.Reflection;
 using System.Windows;
+using Microsoft.EntityFrameworkCore;
 using MyExpenses.Models.Config;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Sql.Context;
@@ -51,6 +52,25 @@ public partial class VersionControl
         set => SetValue(DatabaseVersionValueProperty, value);
     }
 
+    public static readonly DependencyProperty SqliteVersionProperty = DependencyProperty.Register(nameof(SqliteVersion),
+        typeof(string), typeof(VersionControl), new PropertyMetadata(default(string)));
+
+    public string SqliteVersion
+    {
+        get => (string)GetValue(SqliteVersionProperty);
+        set => SetValue(SqliteVersionProperty, value);
+    }
+
+    public static readonly DependencyProperty SqliteVersionValueProperty =
+        DependencyProperty.Register(nameof(SqliteVersionValue), typeof(string), typeof(VersionControl),
+            new PropertyMetadata(default(string)));
+
+    public string SqliteVersionValue
+    {
+        get => (string)GetValue(SqliteVersionValueProperty);
+        set => SetValue(SqliteVersionValueProperty, value);
+    }
+
     #endregion
 
     public VersionControl()
@@ -76,12 +96,31 @@ public partial class VersionControl
     {
         ApplicationVersion = VersionControlResources.ApplicationVersion;
         DatabaseVersion = VersionControlResources.DatabaseVersion;
+        SqliteVersion = VersionControlResources.SqliteVersion;
     }
 
     private void UpdateValues()
     {
         SetApplicationVersionValue();
         SetDatabaseVersionValue();
+        SetSqliteVersionValue();
+    }
+
+    private void SetSqliteVersionValue()
+    {
+        var dbPath = DbContextBackup.LocalFilePathDataBaseModel;
+        using var context = new DataBaseContext(dbPath);
+
+        var command = context.Database.GetDbConnection().CreateCommand();
+        command.CommandText = "SELECT sqlite_version();";
+
+        context.Database.OpenConnection();
+
+        using var reader = command.ExecuteReader();
+        reader.Read();
+        SqliteVersionValue = reader.GetString(0);
+
+        context.Database.CloseConnection();
     }
 
     private void SetDatabaseVersionValue()
@@ -89,7 +128,7 @@ public partial class VersionControl
         var dbPath = DbContextBackup.LocalFilePathDataBaseModel;
         using var context = new DataBaseContext(dbPath);
         var version = context.TVersions.First();
-        
+
         DatabaseVersionValue = $"{version.Version!.Major}.{version.Version!.Minor}.{version.Version!.Build}";
     }
 

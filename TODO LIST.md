@@ -31,10 +31,10 @@
 >          - [ ] .qgz
 >      - [X] Clean database (SQL query `VACUUM;`)
 >    - [ ] Help ![0%](https://geps.dev/progress/0) <!-- [0/3] -->
->      - [ ] Version ![0%](https://geps.dev/progress/0) <!-- [0/3] -->
->        - [ ] Application version
->        - [ ] Database version
->        - [ ] Sqlite version
+>      - [X] Version ![100%](https://geps.dev/progress/100) <!-- [3/3] -->
+>        - [X] Application version
+>        - [X] Database version
+>        - [X] Sqlite version
 >      - [ ] Changelog
 >      - [ ] How to use (MultiLanguage) ![0%](https://geps.dev/progress/0)<!-- [0/3] -->
 >        - [ ] English
