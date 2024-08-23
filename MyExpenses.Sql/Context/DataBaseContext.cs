@@ -58,7 +58,7 @@ public partial class DataBaseContext : DbContext
 
     public virtual DbSet<VAccountCategoryMonthlySum> VAccountCategoryMonthlySums { get; set; }
 
-    public virtual DbSet<VAccountModePaymentMonthlySum> VAccountModePaymentMonthlySums { get; set; }
+    public virtual DbSet<VAccountModePaymentCategoryMonthlySum> VAccountModePaymentCategoryMonthlySums { get; set; }
 
     public virtual DbSet<VAccountMonthlyCumulativeSum> VAccountMonthlyCumulativeSums { get; set; }
 
@@ -170,9 +170,9 @@ public partial class DataBaseContext : DbContext
             entity.ToView("v_account_category_monthly_sum");
         });
 
-        modelBuilder.Entity<VAccountModePaymentMonthlySum>(entity =>
+        modelBuilder.Entity<VAccountModePaymentCategoryMonthlySum>(entity =>
         {
-            entity.ToView("v_account_mode_payment_monthly_sum");
+            entity.ToView("v_account_mode_payment_category_monthly_sum");
         });
 
         modelBuilder.Entity<VAccountMonthlyCumulativeSum>(entity =>
