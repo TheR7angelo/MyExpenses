@@ -22,7 +22,8 @@ public static class LoggerConfig
 
         var logPath = Path.Combine(LogDirectoryPath, logName);
         var loggerConfiguration = new LoggerConfiguration()
-            .MinimumLevel.Debug()
+            // .MinimumLevel.Debug()
+            .MinimumLevel.Information()
             .WriteTo.Console(outputTemplate: template, theme: AnsiConsoleTheme.Code, applyThemeToRedirectedOutput: true)
             .WriteTo.File(logPath, outputTemplate: template, flushToDiskInterval: TimeSpan.FromSeconds(1))
             .CreateLogger();
