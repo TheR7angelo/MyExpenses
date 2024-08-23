@@ -1,11 +1,15 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Models.Sql.Bases.Views;
+using Serilog.Extensions.Logging;
 
 namespace MyExpenses.Sql.Context;
 
 public partial class DataBaseContext : DbContext
 {
+    private static readonly ILoggerFactory LoggerFactory = new SerilogLoggerFactory();
+
     public static string? FilePath { get; set; }
 
     private string? TempFilePath { get; set; }
@@ -79,6 +83,7 @@ public partial class DataBaseContext : DbContext
 
         optionsBuilder.UseSqlite(dataSource,
                 builder => builder.UseNetTopologySuite())
+            .UseLoggerFactory(LoggerFactory)
             .EnableSensitiveDataLogging();
     }
 
