@@ -3,9 +3,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using MyExpenses.Models.Config;
 using MyExpenses.Models.Config.Interfaces;
-using MyExpenses.Sql.Context;
-using MyExpenses.Utils;
-using MyExpenses.Wpf.Resources.Resx.Windows.SettingsWindow;
+using MyExpenses.Wpf.Resources.Resx.Windows.HelpsWindow;
 using MyExpenses.Wpf.Utils;
 
 namespace MyExpenses.Wpf.Windows;
@@ -23,6 +21,16 @@ public partial class HelpsWindow
         set => SetValue(TitleWindowProperty, value);
     }
 
+    public static readonly DependencyProperty TreeViewItemItemVersionHeaderProperty =
+        DependencyProperty.Register(nameof(TreeViewItemItemVersionHeader), typeof(string), typeof(HelpsWindow),
+            new PropertyMetadata(default(string)));
+
+    public string TreeViewItemItemVersionHeader
+    {
+        get => (string)GetValue(TreeViewItemItemVersionHeaderProperty);
+        set => SetValue(TreeViewItemItemVersionHeaderProperty, value);
+    }
+
     #endregion
 
     public HelpsWindow()
@@ -37,8 +45,9 @@ public partial class HelpsWindow
 
     private void UpdateLanguage()
     {
-        TitleWindow = SettingsWindowResources.TitleWindow;
+        TitleWindow = HelpsWindowResources.TitleWindow;
 
+        TreeViewItemItemVersionHeader = HelpsWindowResources.TreeViewItemItemVersionHeader;
     }
 
     private void Interface_OnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
@@ -53,27 +62,6 @@ public partial class HelpsWindow
 
         var tabItem = TabControl.FindTabItemByHeader(header);
         if (tabItem is not null) tabItem.IsSelected = true;
-    }
-
-    #endregion
-
-    #region Function
-
-    private static TabItem? FindTabItemByHeader(TabControl tabControl, string header)
-    {
-        var children = tabControl.FindVisualChildren<TabItem>();
-        return children.FirstOrDefault(child => child.Header.Equals(header));
-    }
-
-    private static void UpdateDbLanguage()
-    {
-        var newExistingDatabases = DbContextBackup.GetExistingDatabase();
-        foreach (var newExistingDatabase in newExistingDatabases)
-        {
-            using var context = new DataBaseContext(newExistingDatabase.FilePath);
-            context.UpdateAllDefaultValues();
-            context.SaveChanges();
-        }
     }
 
     #endregion

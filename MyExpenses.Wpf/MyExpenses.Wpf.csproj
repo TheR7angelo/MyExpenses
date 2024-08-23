@@ -177,6 +177,10 @@
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>AddEditRecurrentExpenseWindowResources.Designer.cs</LastGenOutput>
       </EmbeddedResource>
+      <EmbeddedResource Update="Resources\Resx\Windows\HelpsWindow\HelpsWindowResources.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>HelpsWindowResources.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
     </ItemGroup>
 
     <ItemGroup>
@@ -362,6 +366,11 @@
         <DesignTime>True</DesignTime>
         <AutoGen>True</AutoGen>
         <DependentUpon>AddEditRecurrentExpenseWindowResources.resx</DependentUpon>
+      </Compile>
+      <Compile Update="Resources\Resx\Windows\HelpsWindow\HelpsWindowResources.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>HelpsWindowResources.resx</DependentUpon>
       </Compile>
     </ItemGroup>
 
