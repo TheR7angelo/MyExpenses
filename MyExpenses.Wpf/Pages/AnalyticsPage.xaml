@@ -37,7 +37,6 @@
                     <analytics:AccountsCategorySumControl />
                 </TabItem>
 
-                <!-- TODO work -->
                 <TabItem Header="{Binding TabItemAccountsModePaymentMonthlySumControlHeader, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
                     <accountsModePaymentMonthlySumControls:AccountsModePaymentMonthlySumControl />
                 </TabItem>
