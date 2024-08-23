@@ -36,9 +36,10 @@
 >        - [ ] Database version
 >        - [ ] Sqlite version
 >      - [ ] Changelog
->      - [ ] How to use (MultiLanguage) ![0%](https://geps.dev/progress/0)<!-- [0/2] -->
+>      - [ ] How to use (MultiLanguage) ![0%](https://geps.dev/progress/0)<!-- [0/3] -->
 >        - [ ] English
 >        - [ ] French
+>        - [ ] Portuguese
 
 > # Other
 > - [ ] added error tracking / fix / added function
