@@ -100,8 +100,8 @@
 
                     </MenuItem>
 
-                    <MenuItem Header="{Binding MenuItemHeaderHelp, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
-
+                    <MenuItem Header="{Binding MenuItemHeaderHelp, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                              Click="MenuItemHelp_OnClick">
                     </MenuItem>
 
                     <!-- <MenuItem Header="Open log directory" -->

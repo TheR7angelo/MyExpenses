@@ -396,4 +396,10 @@ public partial class MainWindow
     }
 
     #endregion
+
+    private void MenuItemHelp_OnClick(object sender, RoutedEventArgs e)
+    {
+        var helpsWindow = new HelpsWindow();
+        helpsWindow.ShowDialog();
+    }
 }
