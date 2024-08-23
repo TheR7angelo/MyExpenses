@@ -208,5 +208,14 @@ namespace MyExpenses.Wpf.Resources.Resx.Windows.MainWindow {
                 return ResourceManager.GetString("MessageBoxOpenExportFolderQuestion", resourceCulture);
             }
         }
+
+        /// <summary>
+        /// Looks up a localized string similar to Help.
+        /// </summary>
+        internal static string MenuItemHeaderHelp {
+            get {
+                return ResourceManager.GetString("MenuItemHeaderHelp", resourceCulture);
+            }
+        }
     }
 }

@@ -100,6 +100,10 @@
 
                     </MenuItem>
 
+                    <MenuItem Header="{Binding MenuItemHeaderHelp, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
+
+                    </MenuItem>
+
                     <!-- <MenuItem Header="Open log directory" -->
                     <!--           Margin="1.5"> -->
                     <!--     <MenuItem.Icon> -->

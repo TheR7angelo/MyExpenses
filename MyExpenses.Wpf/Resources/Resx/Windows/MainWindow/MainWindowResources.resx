@@ -69,4 +69,7 @@
     <data name="MessageBoxOpenExportFolderQuestion" xml:space="preserve">
         <value>Do you want to open the export folder ?</value>
     </data>
+    <data name="MenuItemHeaderHelp" xml:space="preserve">
+        <value>Help</value>
+    </data>
 </root>
