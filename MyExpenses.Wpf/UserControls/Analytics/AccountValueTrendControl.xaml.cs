@@ -95,10 +95,9 @@ public partial class AccountValueTrendControl
 
     private void SetChart()
     {
-        // TODO optimise
         using var context = new DataBaseContext();
         var groupsVAccountMonthlyCumulativeSums = context.VAccountMonthlyCumulativeSums
-            .ToList()
+            .AsEnumerable()
             .GroupBy(s => s.Account)
             .ToList();
 
