@@ -6,7 +6,7 @@ using LiveChartsCore.SkiaSharpView;
 using LiveChartsCore.SkiaSharpView.Painting;
 using MyExpenses.Models.Config;
 using MyExpenses.Models.Config.Interfaces;
-using MyExpenses.Models.Sql.Bases.Views;
+using MyExpenses.Models.Sql.Bases.Groups.VAccountModePaymentCategoryMonthlySums;
 using MyExpenses.Sql.Context;
 using MyExpenses.Wpf.Converters.Analytics;
 
@@ -97,16 +97,27 @@ public partial class AccountModePaymentMonthlySumControl
     private void SetChart()
     {
         using var context = new DataBaseContext();
-        var groupsByModePayments = context.VAccountModePaymentMonthlySums
+        var groupsByModePaymentCategory = context.VAccountModePaymentCategoryMonthlySums
             .Where(s => s.AccountFk == AccountId)
+            .GroupBy(v => new { v.AccountFk, v.Account, v.ModePayment, v.Period })
+            .Select(g => new GroupsByModePaymentCategory
+            {
+                AccountFk = g.Key.AccountFk,
+                Account = g.Key.Account,
+                ModePayment = g.Key.ModePayment,
+                Period = g.Key.Period,
+                TotalMonthlySum = g.Sum(v => Math.Round(v.MonthlySum ?? 0, 2)),
+                TotalMonthlyModePayment = g.Sum(v => v.MonthlyModePayment)
+            })
             .OrderBy(s => s.Period).ThenBy(s => s.ModePayment)
-            .ToList().GroupBy(s => s.ModePayment).ToList();
+            .AsEnumerable()
+            .GroupBy(s => s.ModePayment).ToList();
 
-        if (groupsByModePayments.Count is 0) return;
+        if (groupsByModePaymentCategory.Count is 0) return;
 
-        var axis = groupsByModePayments.First().Select(s => s.Period!);
+        var axis = groupsByModePaymentCategory.First().Select(s => s.Period!);
 
-        SetSeries(groupsByModePayments);
+        SetSeries(groupsByModePaymentCategory);
         SetXAxis(axis);
         SetYAxis();
     }
@@ -132,7 +143,7 @@ public partial class AccountModePaymentMonthlySumControl
         XAxis = [axis];
     }
 
-    private void SetSeries(List<IGrouping<string?, VAccountModePaymentMonthlySum>> groupsByModePayments)
+    private void SetSeries(List<IGrouping<string?, GroupsByModePaymentCategory>> groupsByModePayments)
     {
         var series = new List<ISeries>();
 
@@ -140,11 +151,14 @@ public partial class AccountModePaymentMonthlySumControl
         {
             var name = groupsByCategory.Key;
 
-            var monthlyPaymentDataPoints = groupsByCategory.Select(s => new
-            {
-                MonthlySum = Math.Round(s.MonthlySum ?? 0, 2),
-                MonthlyModePayment = s.MonthlyModePayment ?? 0
-            }).ToList();
+            var monthlyPaymentDataPoints = groupsByCategory
+                .GroupBy(s => s.Period)
+                .Select(g => new
+                {
+                    MonthlySum = Math.Round(g.Sum(v => v.TotalMonthlySum ?? 0), 2),
+                    MonthlyModePayment = g.Sum(v => v.TotalMonthlyModePayment)
+                })
+                .ToList();
 
             var columnSeries = new ColumnSeries<double>
             {
@@ -154,7 +168,7 @@ public partial class AccountModePaymentMonthlySumControl
                 {
                     var index = point.Index;
                     var dataPoint = monthlyPaymentDataPoints[index];
-                    var count = dataPoint.MonthlyModePayment is 0 ? string.Empty : dataPoint.MonthlyModePayment.ToString();
+                    var count = dataPoint.MonthlyModePayment is 0 ? string.Empty : dataPoint.MonthlyModePayment.ToString()!;
                     return count;
                 },
                 DataLabelsPaint = new SolidColorPaint(TextPaint.Color),
