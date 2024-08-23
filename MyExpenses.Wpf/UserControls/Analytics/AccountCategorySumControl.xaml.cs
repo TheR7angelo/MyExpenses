@@ -5,7 +5,7 @@ using LiveChartsCore.SkiaSharpView;
 using LiveChartsCore.SkiaSharpView.Painting;
 using MyExpenses.Models.Config;
 using MyExpenses.Models.Config.Interfaces;
-using MyExpenses.Models.Sql.Bases.Views;
+using MyExpenses.Models.Sql.Bases.Groups.VAccountCategoryMonthlySums;
 using MyExpenses.Sql.Context;
 using MyExpenses.Wpf.Converters.Analytics;
 using MyExpenses.Wpf.Utils;
@@ -66,10 +66,23 @@ public partial class AccountCategorySumControl
     private void SetChart()
     {
         using var context = new DataBaseContext();
+
         var groupsByCategories = context.VAccountCategoryMonthlySums
             .Where(s => s.AccountFk == AccountId)
+            .GroupBy(s => new { s.AccountFk, s.Account, s.Period, s.CategoryType, s.ColorCode })
+            .Select(g => new GroupsByCategories
+            {
+                AccountFk = g.Key.AccountFk,
+                Account = g.Key.Account,
+                Period = g.Key.Period,
+                CategoryType = g.Key.CategoryType,
+                ColorCode = g.Key.ColorCode,
+                SumMonthlySum = Math.Round(g.Sum(v => v.MonthlySum ?? 0), 2)
+            })
             .OrderBy(s => s.Period).ThenBy(s => s.CategoryType)
-            .ToList().GroupBy(s => s.CategoryType).ToList();
+            .AsEnumerable()
+            .GroupBy(s => s.CategoryType)
+            .ToList();
 
         if (groupsByCategories.Count is 0) return;
 
@@ -80,7 +93,7 @@ public partial class AccountCategorySumControl
         SetYAxis();
     }
 
-    private void SetSeries(List<IGrouping<string?, VAccountCategoryMonthlySum>> groupsByCategories)
+    private void SetSeries(List<IGrouping<string?, GroupsByCategories>> groupsByCategories)
     {
 
         var series = new List<ISeries>();
@@ -90,7 +103,7 @@ public partial class AccountCategorySumControl
             var name = groupsByCategory.Key;
             var colorCode = groupsByCategory.First().ColorCode;
             var skColor = (SKColor)colorCode!.ToSkColor()!;
-            var values = groupsByCategory.Select(s => Math.Round(s.MonthlySum ?? 0, 2));
+            var values = groupsByCategory.Select(s => Math.Round(s.SumMonthlySum ?? 0, 2));
 
             var columnSeries = new ColumnSeries<double>
             {
