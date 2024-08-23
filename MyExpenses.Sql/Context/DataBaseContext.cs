@@ -83,7 +83,7 @@ public partial class DataBaseContext : DbContext
 
         optionsBuilder.UseSqlite(dataSource,
                 builder => builder.UseNetTopologySuite())
-            .UseLoggerFactory(LoggerFactory)
+            // .UseLoggerFactory(LoggerFactory)
             .EnableSensitiveDataLogging();
     }
 
