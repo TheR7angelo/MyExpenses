@@ -136,8 +136,7 @@ public static class DbContextHelperSetDefaultValues
         };
         var knownColors = Enum.GetValues<KnownColor>()
             .Where(s => !blackList.Contains(s))
-            .OrderBy(s => s.ToString())
-            .ToList();
+            .OrderBy(s => s.ToString());
 
         var colors = new List<TColor>();
         foreach (var knownColor in knownColors)
