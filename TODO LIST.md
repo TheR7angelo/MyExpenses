@@ -30,7 +30,7 @@
 >          - [ ] .qgs
 >          - [ ] .qgz
 >      - [X] Clean database (SQL query `VACUUM;`)
->    - [ ] Help ![0%](https://geps.dev/progress/0) <!-- [0/3] -->
+>    - [ ] Help ![33%](https://geps.dev/progress/33) <!-- [1/3] -->
 >      - [X] Version ![100%](https://geps.dev/progress/100) <!-- [3/3] -->
 >        - [X] Application version
 >        - [X] Database version
