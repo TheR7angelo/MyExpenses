@@ -69,6 +69,15 @@ namespace MyExpenses.Wpf.Resources.Resx.Pages.AnalyticsPage {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Sum of positive and negative categories.
+        /// </summary>
+        internal static string TabItemAccountsCategorySumPositiveNegativeControl {
+            get {
+                return ResourceManager.GetString("TabItemAccountsCategorySumPositiveNegativeControl", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Monthly Statistics.
         /// </summary>
         internal static string TabItemAccountsModePaymentMonthlySumControlHeader {
