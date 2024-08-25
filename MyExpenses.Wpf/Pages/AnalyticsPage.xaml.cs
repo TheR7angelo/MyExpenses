@@ -97,6 +97,6 @@ public partial class AnalyticsPage
         TabItemAccountTotalEllipseControlHeader = AnalyticsPageResources.TabItemAccountTotalEllipseControlHeader;
         TabItemAccountsCategorySumControlHeader = AnalyticsPageResources.TabItemAccountsCategorySumControlHeader;
         TabItemAccountsModePaymentMonthlySumControlHeader = AnalyticsPageResources.TabItemAccountsModePaymentMonthlySumControlHeader;
-        TabItemAccountsCategorySumPositiveNegativeControl = "Under working";
+        TabItemAccountsCategorySumPositiveNegativeControl = AnalyticsPageResources.TabItemAccountsCategorySumPositiveNegativeControl;
     }
 }

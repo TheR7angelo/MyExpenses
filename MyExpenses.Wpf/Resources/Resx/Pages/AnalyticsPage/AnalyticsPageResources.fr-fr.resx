@@ -29,4 +29,7 @@
     <data name="TabItemAccountsModePaymentMonthlySumControlHeader" xml:space="preserve">
         <value>Statistiques mensuelles</value>
     </data>
+    <data name="TabItemAccountsCategorySumPositiveNegativeControl" xml:space="preserve">
+        <value>Somme des catégories positive et négative</value>
+    </data>
 </root>
