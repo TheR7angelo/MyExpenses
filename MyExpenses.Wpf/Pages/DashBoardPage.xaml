@@ -134,8 +134,12 @@
                        FontWeight="Bold">
                     <Label.Content>
                         <MultiBinding Converter="{StaticResource ValueSymbolConverter}">
-                            <Binding Path="CurrentVTotalByAccount.Total" FallbackValue="" Mode="OneWay" UpdateSourceTrigger="PropertyChanged" />
-                            <Binding Path="CurrentVTotalByAccount.Symbol" FallbackValue="" Mode="OneWay" UpdateSourceTrigger="PropertyChanged" />
+                            <Binding Path="CurrentVTotalByAccount.Total" FallbackValue="" Mode="OneWay"
+                                     UpdateSourceTrigger="PropertyChanged">
+                            </Binding>
+                            <Binding Path="CurrentVTotalByAccount.Symbol" FallbackValue="" Mode="OneWay"
+                                     UpdateSourceTrigger="PropertyChanged">
+                            </Binding>
                         </MultiBinding>
                     </Label.Content>
                 </Label>
@@ -380,7 +384,7 @@
                     <filterDataGrid:DataGridTextColumn x:Name="TextColumnModePayment" IsColumnFiltered="True"
                                                        Binding="{Binding ModePayment}">
                     </filterDataGrid:DataGridTextColumn>
-                    
+
                     <filterDataGrid:DataGridTemplateColumn x:Name="TemplateColumnValue" IsColumnFiltered="True"
                                                            SortMemberPath="Value" FieldName="Value">
                         <filterDataGrid:DataGridTemplateColumn.CellTemplate>
@@ -408,32 +412,32 @@
                     <filterDataGrid:DataGridCheckBoxColumn x:Name="CheckBoxColumnPointed" IsColumnFiltered="True"
                                                            IsThreeState="False" Binding="{Binding Pointed}">
                     </filterDataGrid:DataGridCheckBoxColumn>
-                    
+
                     <filterDataGrid:DataGridTemplateColumn x:Name="TemplateColumnActions" IsColumnFiltered="False"
                                                            IsReadOnly="True">
                         <filterDataGrid:DataGridTemplateColumn.CellTemplate>
                             <DataTemplate>
-                                
+
                                 <StackPanel Orientation="Horizontal"
                                             margin:PanelExtensions.MarginForAllChildren="3">
-                                    
+
                                     <Button Style="{StaticResource MaterialDesignPaperButton}"
                                             Content="{Binding ButtonContentEditRecord, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:DashBoardPage}}}"
                                             Click="ButtonEditRecord_OnClick">
                                     </Button>
-                                    
+
                                     <Button Style="{StaticResource MaterialDesignPaperButton}"
                                             Content="{Binding ButtonContentPointedRecord, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:DashBoardPage}}}"
                                             Click="ButtonPointedRecord_OnClick">
                                     </Button>
-                                    
+
                                     <Button Style="{StaticResource MaterialDesignPaperButton}"
                                             Content="{Binding ButtonContentDeleteRecord, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:DashBoardPage}}}"
                                             Click="ButtonDeleteRecord_OnClick">
                                     </Button>
-                                    
+
                                 </StackPanel>
-                                
+
                             </DataTemplate>
                         </filterDataGrid:DataGridTemplateColumn.CellTemplate>
                     </filterDataGrid:DataGridTemplateColumn>
