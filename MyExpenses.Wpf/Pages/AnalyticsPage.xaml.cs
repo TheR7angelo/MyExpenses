@@ -67,6 +67,16 @@ public partial class AnalyticsPage
         set => SetValue(TabItemAccountsModePaymentMonthlySumControlHeaderProperty, value);
     }
 
+    public static readonly DependencyProperty TabItemAccountsCategorySumPositiveNegativeControlProperty =
+        DependencyProperty.Register(nameof(TabItemAccountsCategorySumPositiveNegativeControl), typeof(string),
+            typeof(AnalyticsPage), new PropertyMetadata(default(string)));
+
+    public string TabItemAccountsCategorySumPositiveNegativeControl
+    {
+        get => (string)GetValue(TabItemAccountsCategorySumPositiveNegativeControlProperty);
+        set => SetValue(TabItemAccountsCategorySumPositiveNegativeControlProperty, value);
+    }
+    
     public AnalyticsPage()
     {
         UpdateLanguage();
@@ -87,5 +97,6 @@ public partial class AnalyticsPage
         TabItemAccountTotalEllipseControlHeader = AnalyticsPageResources.TabItemAccountTotalEllipseControlHeader;
         TabItemAccountsCategorySumControlHeader = AnalyticsPageResources.TabItemAccountsCategorySumControlHeader;
         TabItemAccountsModePaymentMonthlySumControlHeader = AnalyticsPageResources.TabItemAccountsModePaymentMonthlySumControlHeader;
+        TabItemAccountsCategorySumPositiveNegativeControl = "Under working";
     }
 }
