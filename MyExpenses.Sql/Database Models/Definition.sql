@@ -837,47 +837,47 @@ SELECT account_fk,
 FROM cumulative
 ORDER BY account_fk, rn;
 
-DROP VIEW IF EXISTS v_account_category_monthly_sum;
-CREATE VIEW v_account_category_monthly_sum AS
+DROP VIEW IF EXISTS v_account_category_monthly_sum_positive_negative;
+CREATE VIEW v_account_category_monthly_sum_positive_negative AS
 WITH all_periods AS (
-         SELECT a.id                     AS account_fk,
-                a.name                   AS account,
-                tct.id                   AS category_type_fk,
-                tct.name                 AS category_type,
-                tc.hexadecimal_color_code AS color_code,
-                y.year || '-' || m.month AS period
-         FROM t_account a
-                  CROSS JOIN t_category_type tct
-                  LEFT JOIN t_color tc ON tct.color_fk = tc.id
-                  CROSS JOIN (SELECT DISTINCT strftime('%Y', h.date) AS year
-                              FROM t_history h) y
-                  CROSS JOIN (SELECT strftime('%m', date('2000-' || x || '-01')) AS month
-                              FROM (SELECT '01' AS x
-                                    UNION
-                                    SELECT '02'
-                                    UNION
-                                    SELECT '03'
-                                    UNION
-                                    SELECT '04'
-                                    UNION
-                                    SELECT '05'
-                                    UNION
-                                    SELECT '06'
-                                    UNION
-                                    SELECT '07'
-                                    UNION
-                                    SELECT '08'
-                                    UNION
-                                    SELECT '09'
-                                    UNION
-                                    SELECT '10'
-                                    UNION
-                                    SELECT '11'
-                                    UNION
-                                    SELECT '12')) m
-         WHERE y.year < (SELECT strftime('%Y', MAX(date)) FROM t_history)
-            OR (y.year == (SELECT strftime('%Y', MAX(date)) FROM t_history)
-                AND m.month <= (SELECT strftime('%m', MAX(date)) FROM t_history))),
+    SELECT a.id                     AS account_fk,
+           a.name                   AS account,
+           tct.id                   AS category_type_fk,
+           tct.name                 AS category_type,
+           tc.hexadecimal_color_code AS color_code,
+           y.year || '-' || m.month AS period
+    FROM t_account a
+             CROSS JOIN t_category_type tct
+             LEFT JOIN t_color tc ON tct.color_fk = tc.id
+             CROSS JOIN (SELECT DISTINCT strftime('%Y', h.date) AS year
+                         FROM t_history h) y
+             CROSS JOIN (SELECT strftime('%m', date('2000-' || x || '-01')) AS month
+                         FROM (SELECT '01' AS x
+                               UNION
+                               SELECT '02'
+                               UNION
+                               SELECT '03'
+                               UNION
+                               SELECT '04'
+                               UNION
+                               SELECT '05'
+                               UNION
+                               SELECT '06'
+                               UNION
+                               SELECT '07'
+                               UNION
+                               SELECT '08'
+                               UNION
+                               SELECT '09'
+                               UNION
+                               SELECT '10'
+                               UNION
+                               SELECT '11'
+                               UNION
+                               SELECT '12')) m
+    WHERE y.year < (SELECT strftime('%Y', MAX(date)) FROM t_history)
+       OR (y.year == (SELECT strftime('%Y', MAX(date)) FROM t_history)
+        AND m.month <= (SELECT strftime('%m', MAX(date)) FROM t_history))),
      monthly AS (
          SELECT ap.account_fk,
                 ap.account,
@@ -885,18 +885,33 @@ WITH all_periods AS (
                 ap.category_type,
                 ap.color_code,
                 ap.period,
-                COALESCE(SUM(h.value), 0) as monthly_value
+                COALESCE(SUM(CASE WHEN h.value < 0 THEN h.value ELSE 0 END), 0) AS monthly_negative_value,
+                COALESCE(SUM(CASE WHEN h.value >= 0 THEN h.value ELSE 0 END), 0) AS monthly_positive_value
          FROM all_periods ap
                   LEFT JOIN t_history h
-                            ON h.account_fk = ap.account_fk AND h.category_type_fk = ap.category_type_fk AND ap.period = strftime('%Y-%m', h.date)
+                            ON h.account_fk = ap.account_fk
+                                AND h.category_type_fk = ap.category_type_fk
+                                AND ap.period = strftime('%Y-%m', h.date)
          GROUP BY ap.account_fk, ap.category_type_fk, ap.period)
 SELECT account_fk,
        account,
        category_type,
        color_code,
        period,
-       ROUND(monthly_value, 2) AS monthly_sum
+       ROUND(monthly_negative_value, 2) AS monthly_negative_sum,
+       ROUND(monthly_positive_value, 2) AS monthly_positive_sum
 FROM monthly
+ORDER BY account_fk, period, category_type;
+
+DROP VIEW IF EXISTS v_account_category_monthly_sum;
+CREATE VIEW v_account_category_monthly_sum AS
+SELECT account_fk,
+       account,
+       category_type,
+       color_code,
+       period,
+       ROUND(monthly_negative_sum + monthly_positive_sum, 2) AS monthly_sum
+FROM v_account_category_monthly_sum_positive_negative
 ORDER BY account_fk, period, category_type;
 
 DROP VIEW IF EXISTS v_account_mode_payment_category_monthly_sum;

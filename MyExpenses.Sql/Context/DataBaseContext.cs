@@ -58,6 +58,8 @@ public partial class DataBaseContext : DbContext
 
     public virtual DbSet<VAccountCategoryMonthlySum> VAccountCategoryMonthlySums { get; set; }
 
+    public virtual DbSet<VAccountCategoryMonthlySumPositiveNegative> VAccountCategoryMonthlySumPositiveNegatives { get; set; }
+
     public virtual DbSet<VAccountModePaymentCategoryMonthlySum> VAccountModePaymentCategoryMonthlySums { get; set; }
 
     public virtual DbSet<VAccountMonthlyCumulativeSum> VAccountMonthlyCumulativeSums { get; set; }
@@ -168,6 +170,11 @@ public partial class DataBaseContext : DbContext
         modelBuilder.Entity<VAccountCategoryMonthlySum>(entity =>
         {
             entity.ToView("v_account_category_monthly_sum");
+        });
+
+        modelBuilder.Entity<VAccountCategoryMonthlySumPositiveNegative>(entity =>
+        {
+            entity.ToView("v_account_category_monthly_sum_positive_negative");
         });
 
         modelBuilder.Entity<VAccountModePaymentCategoryMonthlySum>(entity =>
