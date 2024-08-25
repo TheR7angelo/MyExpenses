@@ -9,6 +9,7 @@
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:accountTotalEllipseControl="clr-namespace:MyExpenses.Wpf.UserControls.Analytics.AccountTotalEllipseControl"
       xmlns:accountsModePaymentMonthlySumControls="clr-namespace:MyExpenses.Wpf.UserControls.Analytics.AccountsModePaymentMonthlySumControls"
+      xmlns:accountsCategorySumPositiveNegativeControls="clr-namespace:MyExpenses.Wpf.UserControls.Analytics.AccountsCategorySumPositiveNegativeControls"
       mc:Ignorable="d"
 
       Title="AnalyticsPage"
@@ -31,6 +32,11 @@
 
                 <TabItem Header="{Binding TabItemAccountTotalEllipseControlHeader, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
                     <accountTotalEllipseControl:AccountTotalEllipseControl />
+                </TabItem>
+                
+                <!-- TODO work -->
+                <TabItem Header="{Binding TabItemAccountTotalEllipseControlHeader, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
+                    <accountsCategorySumPositiveNegativeControls:AccountsCategorySumPositiveNegativeControl />
                 </TabItem>
 
                 <TabItem Header="{Binding TabItemAccountsCategorySumControlHeader, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
