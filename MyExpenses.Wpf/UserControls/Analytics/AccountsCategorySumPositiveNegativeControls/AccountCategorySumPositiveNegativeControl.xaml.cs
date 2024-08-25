@@ -150,13 +150,14 @@ public partial class AccountCategorySumPositiveNegativeControl
             var colorCode = record.First().ColorCode;
             var skColor = (SKColor)colorCode!.ToSkColor()!;
         
-            var negativeValues = record.Select(s => Math.Round(s.MonthlyNegativeSum ?? 0));
-            var positiveValues = record.Select(s => Math.Round(s.MonthlyPositiveSum ?? 0));
+            var negativeValues = record.Select(s => Math.Abs(Math.Round(s.MonthlyNegativeSum ?? 0, 2)));
+            var positiveValues = record.Select(s => Math.Round(s.MonthlyPositiveSum ?? 0, 2));
 
             var negativeStackedColumnSeries = new StackedColumnSeries<double>
             {
                 Name = name,
                 Values = negativeValues,
+                YToolTipLabelFormatter = y => (-1 * y.Model).ToString("F2"),
                 Fill = new SolidColorPaint(skColor),
                 StackGroup = 0
             };
