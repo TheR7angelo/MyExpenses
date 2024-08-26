@@ -53,6 +53,7 @@ public class ToHtmlTest
                          
                               body{
                                   background-color: var(--backgroundColor);
+                                  color: var(--foregroundColor);
                               }
                          
                               blockquote{
