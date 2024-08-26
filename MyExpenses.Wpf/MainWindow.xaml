@@ -35,6 +35,16 @@
 
                  DataContext="{Binding RelativeSource={RelativeSource Self}}">
 
+    <mah:MetroWindow.LeftWindowCommands>
+        <mah:WindowCommands>
+            <Button Click="ButtonGithubPage_OnClick">
+                <Button.Content>
+                    <materialDesign:PackIcon Kind="Github" />
+                </Button.Content>
+            </Button>
+        </mah:WindowCommands>
+    </mah:MetroWindow.LeftWindowCommands>
+
     <mah:MetroWindow.Resources>
         <converters:InverseBooleanToVisibilityConverter x:Key="InverseBooleanToVisibilityConverter" />
     </mah:MetroWindow.Resources>
