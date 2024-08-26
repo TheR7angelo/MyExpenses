@@ -7,6 +7,32 @@ namespace MyExpenses.Utils;
 public static class Utils
 {
     /// <summary>
+    /// Opens the MyExpenses GitHub page.
+    /// </summary>
+    /// <remarks>
+    /// This method opens the web page for the MyExpenses project on GitHub.
+    /// The URL for the page is "https://github.com/TheR7angelo/MyExpenses".
+    /// </remarks>
+    /// <seealso cref="StartProcess(string)"/>
+    public static void OpenGithubPage()
+    {
+        const string url = "https://github.com/TheR7angelo/MyExpenses";
+        url.StartProcess();
+    }
+
+    /// <summary>
+    /// Opens the specified process.
+    /// </summary>
+    /// <param name="process">The path or name of the process to be opened.</param>
+    /// <remarks>
+    /// This method opens the specified process using the default program associated with it.
+    /// </remarks>
+    public static void StartProcess(this string process)
+    {
+        Process.Start(new ProcessStartInfo(process) { UseShellExecute = true });
+    }
+
+    /// <summary>
     /// Opens the specified file in the default file explorer on the Windows platform.
     /// </summary>
     /// <param name="file">The path to the file to be opened.</param>
