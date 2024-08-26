@@ -75,10 +75,15 @@ public partial class AccountCategorySumPositiveNegativeControl
             XAxis[i] = tmp;
         }
 
+        var configuration = MyExpenses.Utils.Config.Configuration;
+        var primaryColor = ((Color)configuration.Interface.Theme.HexadecimalCodePrimaryColor.ToColor()!).ToSkColor();
+        var secondaryColor = ((Color)configuration.Interface.Theme.HexadecimalCodeSecondaryColor.ToColor()!).ToSkColor();
+        var skColors = new List<SKColor> { secondaryColor, primaryColor };
+
         for (var i = 0; i < Series.Length; i++)
         {
             var tmp = Series[i] as ColumnSeries<double>;
-            tmp!.DataLabelsPaint = new SolidColorPaint(TextPaint.Color);
+            tmp!.Fill = new SolidColorPaint(skColors[i]);
             Series[i] = tmp;
         }
     }
@@ -92,6 +97,17 @@ public partial class AccountCategorySumPositiveNegativeControl
                 .ToTransformLabelsToTitleCaseDateFormatConvertBack()
                 .ToTransformLabelsToTitleCaseDateFormat();
             XAxis[i] = tmp;
+        }
+
+        var names = new List<string>
+        {
+            AccountsCategorySumPositiveNegativeControlsResources.ColumnSeriesNegativeName,
+            AccountsCategorySumPositiveNegativeControlsResources.ColumnSeriesPositiveName
+        };
+
+        for (var i = 0; i < names.Count; i++)
+        {
+            Series[i].Name = names[i];
         }
 
         UpdateLayout();
@@ -138,8 +154,6 @@ public partial class AccountCategorySumPositiveNegativeControl
 
     private void SetSeries(List<IGrouping<string?, VAccountCategoryMonthlySumPositiveNegative>> records)
     {
-        var negativeSeries = new List<ISeries>();
-        var positiveSeries = new List<ISeries>();
         var positiveValues = records.Select(g =>
             Math.Round(g.Sum(r => Math.Abs(r.MonthlyPositiveSum ?? 0)), 2));
 
