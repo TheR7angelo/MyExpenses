@@ -1,5 +1,4 @@
-﻿using MyExpenses.Models.WebApi.Github;
-using Newtonsoft.Json;
+﻿using MyExpenses.WebApi.GitHub;
 using Xunit.Abstractions;
 
 namespace MyExpenses.WebApi.Test.Github;
@@ -9,23 +8,21 @@ public class GetReleaseGithubTest(ITestOutputHelper testOutputHelper)
     [Fact]
     public async Task GetRelease()
     {
-        const string url = "https://api.github.com/repos/ravibpatel/AutoUpdater.NET/releases";
+        var gitHubClient = new GitHubClient();
+        var releases = await gitHubClient.GetReleaseNotes("qgis", "QGIS");
 
-        var httpClient = new HttpClient();
-        httpClient.DefaultRequestHeaders.Add("User-Agent", "CSharpApp");
-        var response = await httpClient.GetAsync(url);
-
-        var content = await response.Content.ReadAsStringAsync();
-        var releases = JsonConvert.DeserializeObject<List<Release>>(content)!;
-
+        var xmls = new List<string>();
         foreach (var release in releases)
         {
-            var releaseName = release.Name;
-            var body = release.Body;
+            var version = release.TagName;
+            var date = release.PublishedAt;
 
-            testOutputHelper.WriteLine($"Release: {releaseName}");
-            testOutputHelper.WriteLine($"Notes de release:\n{body}");
-            testOutputHelper.WriteLine("==================================");
+            var body = release.Body;
+            var xml = $"{version}\t\t{date.ToShortDateString()}\n\n{body}";
+            xmls.Add(xml);
         }
+
+        var str = string.Join("\n\n___\n\n", xmls);
+        testOutputHelper.WriteLine(str);
     }
 }
