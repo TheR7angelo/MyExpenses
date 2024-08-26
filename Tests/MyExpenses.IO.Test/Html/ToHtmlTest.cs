@@ -22,6 +22,9 @@ public class ToHtmlTest
 
         var fullHtml = mdPath.ToHtml(backgroundColor, foregroundColor, huePrimaryColor);
 
-        File.WriteAllText("test.html", fullHtml);
+        var outputFilePath = Path.GetFullPath("test.html");
+        File.WriteAllText(outputFilePath, fullHtml);
+
+        outputFilePath.StartFile();
     }
 }
