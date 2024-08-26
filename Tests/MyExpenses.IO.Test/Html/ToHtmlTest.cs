@@ -25,6 +25,6 @@ public class ToHtmlTest
         var outputFilePath = Path.GetFullPath("test.html");
         File.WriteAllText(outputFilePath, fullHtml);
 
-        outputFilePath.StartFile();
+        outputFilePath.StartProcess();
     }
 }
