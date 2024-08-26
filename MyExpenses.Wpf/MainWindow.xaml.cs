@@ -149,6 +149,9 @@ public partial class MainWindow
 
     #region Action
 
+    private void ButtonGithubPage_OnClick(object sender, RoutedEventArgs e)
+        => MyExpenses.Utils.Utils.OpenGithubPage();
+
     private void FrameBody_OnPreviewMouseUp(object sender, MouseButtonEventArgs e)
     {
         if (e.ChangedButton == MouseButton.XButton1)
