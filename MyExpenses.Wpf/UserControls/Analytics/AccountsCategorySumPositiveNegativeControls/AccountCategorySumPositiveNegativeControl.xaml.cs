@@ -140,44 +140,31 @@ public partial class AccountCategorySumPositiveNegativeControl
     {
         var negativeSeries = new List<ISeries>();
         var positiveSeries = new List<ISeries>();
+        var positiveValues = records.Select(g =>
+            Math.Round(g.Sum(r => Math.Abs(r.MonthlyPositiveSum ?? 0)), 2));
 
-        var newRecords = records.SelectMany(s => s)
-            .GroupBy(s => s.CategoryType)
-            .ToList();
-    
-        foreach (var record in newRecords)
+        var negativeValues = records.Select(g =>
+            Math.Round(g.Sum(r => Math.Abs(r.MonthlyNegativeSum ?? 0)), 2));
+
+        var configuration = MyExpenses.Utils.Config.Configuration;
+        var primaryColor = (Color)configuration.Interface.Theme.HexadecimalCodePrimaryColor.ToColor()!;
+        var secondaryColor = (Color)configuration.Interface.Theme.HexadecimalCodeSecondaryColor.ToColor()!;
+
+        var positiveSeries = new ColumnSeries<double>
         {
-            var name = record.Key;
-        
-            var colorCode = record.First().ColorCode;
-            var skColor = (SKColor)colorCode!.ToSkColor()!;
-        
-            var negativeValues = record.Select(s => Math.Abs(Math.Round(s.MonthlyNegativeSum ?? 0, 2)));
-            var positiveValues = record.Select(s => Math.Round(s.MonthlyPositiveSum ?? 0, 2));
+            Name = AccountsCategorySumPositiveNegativeControlsResources.ColumnSeriesPositiveName,
+            Values = positiveValues,
+            Fill = new SolidColorPaint(primaryColor.ToSkColor())
+        };
 
-            var negativeStackedColumnSeries = new StackedColumnSeries<double>
-            {
-                Name = name,
-                Values = negativeValues,
-                YToolTipLabelFormatter = y => (-1 * y.Model).ToString("F2"),
-                Fill = new SolidColorPaint(skColor),
-                StackGroup = 0
-            };
-        
-            var positiveStackedColumnSeries = new StackedColumnSeries<double>
-            {
-                Name = name,
-                IsVisibleAtLegend = false,
-                Values = positiveValues,
-                Fill = new SolidColorPaint(skColor),
-                StackGroup = 1
-            };
+        var negativeSeries = new ColumnSeries<double>
+        {
+            Name = AccountsCategorySumPositiveNegativeControlsResources.ColumnSeriesNegativeName,
+            Values = negativeValues,
+            Fill = new SolidColorPaint(secondaryColor.ToSkColor()),
+            YToolTipLabelFormatter = y => (-1 * y.Model).ToString("F2"),
+        };
 
-            negativeSeries.Add(negativeStackedColumnSeries);
-            positiveSeries.Add(positiveStackedColumnSeries);
-        }
-
-        var series = negativeSeries.Concat(positiveSeries);
-        Series = [..series];
+        Series = [negativeSeries, positiveSeries];
     }
 }
