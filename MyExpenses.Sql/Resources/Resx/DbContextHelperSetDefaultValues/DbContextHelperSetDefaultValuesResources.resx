@@ -54,4 +54,7 @@
     <data name="DefaultTRecursiveFrequencyYearlyDefinition" xml:space="preserve">
         <value>Which is done every year</value>
     </data>
+    <data name="DefaultTModePaymentNameBankCheck" xml:space="preserve">
+        <value>Bank check</value>
+    </data>
 </root>
