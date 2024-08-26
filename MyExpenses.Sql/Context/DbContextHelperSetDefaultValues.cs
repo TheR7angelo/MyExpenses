@@ -71,27 +71,23 @@ public static class DbContextHelperSetDefaultValues
 
     private static void UpdateDefaultRecursiveFrequency(this DataBaseContext context)
     {
-        var oldDefaultTRecursiveFrequencyFrequency = new List<string>
+        var oldDefaultTRecursiveFrequency = new List<(string Frequency, string Description)>
         {
-            DbContextHelperSetDefaultValuesResources.DefaultTRecursiveFrequencyDaily,
-            DbContextHelperSetDefaultValuesResources.DefaultTRecursiveFrequencyWeekly,
-            DbContextHelperSetDefaultValuesResources.DefaultTRecursiveFrequencyMonthly,
-            DbContextHelperSetDefaultValuesResources.DefaultTRecursiveFrequencyYearly
+            (DbContextHelperSetDefaultValuesResources.DefaultTRecursiveFrequencyDaily,
+                DbContextHelperSetDefaultValuesResources.DefaultTRecursiveFrequencyDailyDefinition),
+            (DbContextHelperSetDefaultValuesResources.DefaultTRecursiveFrequencyWeekly,
+                DbContextHelperSetDefaultValuesResources.DefaultTRecursiveFrequencyWeeklyDefinition),
+            (DbContextHelperSetDefaultValuesResources.DefaultTRecursiveFrequencyMonthly,
+                DbContextHelperSetDefaultValuesResources.DefaultTRecursiveFrequencyMonthlyDefinition),
+            (DbContextHelperSetDefaultValuesResources.DefaultTRecursiveFrequencyYearly,
+                DbContextHelperSetDefaultValuesResources.DefaultTRecursiveFrequencyYearlyDefinition)
         };
 
-        var oldDefaultTRecursiveFrequencyDescription = new List<string>
-        {
-            DbContextHelperSetDefaultValuesResources.DefaultTRecursiveFrequencyDailyDefinition,
-            DbContextHelperSetDefaultValuesResources.DefaultTRecursiveFrequencyWeeklyDefinition,
-            DbContextHelperSetDefaultValuesResources.DefaultTRecursiveFrequencyMonthlyDefinition,
-            DbContextHelperSetDefaultValuesResources.DefaultTRecursiveFrequencyYearlyDefinition
-        };
-
-        var records = context.TRecursiveFrequencies.Take(oldDefaultTRecursiveFrequencyFrequency.Count).AsEnumerable();
+        var records = context.TRecursiveFrequencies.Take(oldDefaultTRecursiveFrequency.Count).AsEnumerable();
         foreach (var record in records)
         {
-            record.Frequency = oldDefaultTRecursiveFrequencyFrequency[record.Id - 1];
-            record.Description = oldDefaultTRecursiveFrequencyDescription[record.Id - 1];
+            record.Frequency = oldDefaultTRecursiveFrequency[record.Id - 1].Frequency;
+            record.Description = oldDefaultTRecursiveFrequency[record.Id - 1].Description;
         }
     }
 
