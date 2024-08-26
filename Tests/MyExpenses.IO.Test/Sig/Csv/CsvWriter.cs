@@ -12,6 +12,7 @@ using MyExpenses.Models.IO.Export.Sql.Tables;
 using MyExpenses.Models.IO.Sig.Interfaces;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Sql.Context;
+using MyExpenses.Utils;
 using MyExpenses.Utils.Switch;
 
 namespace MyExpenses.IO.Test.Sig.Csv;
@@ -21,7 +22,10 @@ public class CsvWriter
     [Fact]
     public void Test()
     {
-        using var context = new DataBaseContext();
+        var executablePath = Assembly.GetExecutingAssembly().Location;
+        var path = executablePath.GetParentDirectory(6);
+        var dbFile = Path.Join(path, "MyExpenses.Wpf", "bin", "Debug", "net8.0-windows", "Databases", "Model - Using.sqlite");
+        using var context = new DataBaseContext(dbFile);
 
         var tables = context.Model.GetEntityTypes()
             .SelectMany(s => s.GetTableMappings())
