@@ -112,15 +112,19 @@ public static class DbContextHelperSetDefaultValues
 
     private static void UpdateDefaultTModePayment(this DataBaseContext context)
     {
-        var oldDefaultPaymentModeBankCard = context.TModePayments.First(s => s.Id.Equals(1));
-        var oldDefaultPaymentModeBankTransfer = context.TModePayments.First(s => s.Id.Equals(2));
-        var oldDefaultPaymentModeBankDirectDebit = context.TModePayments.First(s => s.Id.Equals(3));
-        var oldDefaultPaymentModeBankCheck = context.TModePayments.First(s => s.Id.Equals(4));
+        var oldDefaultTModePayments = new List<string>
+        {
+            DbContextHelperSetDefaultValuesResources.DefaultTModePaymentNameBankCard,
+            DbContextHelperSetDefaultValuesResources.DefaultTModePaymentNameBankTransfer,
+            DbContextHelperSetDefaultValuesResources.DefaultTModePaymentNameBankDirectDebit,
+            DbContextHelperSetDefaultValuesResources.DefaultTModePaymentNameBankCheck
+        };
 
-        oldDefaultPaymentModeBankCard.Name = DbContextHelperSetDefaultValuesResources.DefaultTModePaymentNameBankCard;
-        oldDefaultPaymentModeBankTransfer.Name = DbContextHelperSetDefaultValuesResources.DefaultTModePaymentNameBankTransfer;
-        oldDefaultPaymentModeBankDirectDebit.Name = DbContextHelperSetDefaultValuesResources.DefaultTModePaymentNameBankDirectDebit;
-        oldDefaultPaymentModeBankCheck.Name = DbContextHelperSetDefaultValuesResources.DefaultTModePaymentNameBankCheck;
+        var records = context.TModePayments.Take(oldDefaultTModePayments.Count).AsEnumerable();
+        foreach (var record in records)
+        {
+            record.Name = oldDefaultTModePayments[record.Id - 1];
+        }
     }
 
     private static void SetDefaultTColor(this DataBaseContext context)
