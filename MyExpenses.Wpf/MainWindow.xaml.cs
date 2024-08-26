@@ -221,6 +221,12 @@ public partial class MainWindow
         }
     }
 
+    private void MenuItemHelp_OnClick(object sender, RoutedEventArgs e)
+    {
+        var helpsWindow = new HelpsWindow();
+        helpsWindow.ShowDialog();
+    }
+
     private void MenuItemVacuumDatabases_OnClick(object sender, RoutedEventArgs e)
     {
         var listSuccess = new List<bool>();
@@ -399,10 +405,4 @@ public partial class MainWindow
     }
 
     #endregion
-
-    private void MenuItemHelp_OnClick(object sender, RoutedEventArgs e)
-    {
-        var helpsWindow = new HelpsWindow();
-        helpsWindow.ShowDialog();
-    }
 }
