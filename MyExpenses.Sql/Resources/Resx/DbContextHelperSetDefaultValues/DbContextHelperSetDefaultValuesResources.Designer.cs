@@ -70,6 +70,15 @@ namespace MyExpenses.Sql.Resources.Resx.DbContextHelperSetDefaultValues {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Bank check.
+        /// </summary>
+        internal static string DefaultTModePaymentNameBankCheck {
+            get {
+                return ResourceManager.GetString("DefaultTModePaymentNameBankCheck", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Bank direct debit.
         /// </summary>
         internal static string DefaultTModePaymentNameBankDirectDebit {
