@@ -142,6 +142,15 @@ namespace MyExpenses.Wpf.Resources.Resx.Windows.AddEditRecurrentExpenseWindow {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Mode payment :.
+        /// </summary>
+        internal static string ComboBoxModePaymentHintAssist {
+            get {
+                return ResourceManager.GetString("ComboBoxModePaymentHintAssist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to City :.
         /// </summary>
         internal static string ComboBoxPlaceCityHintAssist {

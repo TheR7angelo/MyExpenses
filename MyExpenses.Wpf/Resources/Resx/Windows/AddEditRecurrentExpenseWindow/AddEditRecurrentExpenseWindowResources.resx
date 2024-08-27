@@ -126,4 +126,7 @@
     <data name="MessageBoxDeleteRecursiveExpenseError" xml:space="preserve">
         <value>An error occurred please retry</value>
     </data>
+    <data name="ComboBoxModePaymentHintAssist" xml:space="preserve">
+        <value>Mode payment :</value>
+    </data>
 </root>
