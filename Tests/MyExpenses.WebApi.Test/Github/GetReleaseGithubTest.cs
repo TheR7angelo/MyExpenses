@@ -12,7 +12,7 @@ public class GetReleaseGithubTest(ITestOutputHelper testOutputHelper)
         var releases = await gitHubClient.GetReleaseNotes("qgis", "QGIS");
 
         var xmls = new List<string>();
-        foreach (var release in releases)
+        foreach (var release in releases!)
         {
             var version = release.TagName;
             var date = release.PublishedAt;
