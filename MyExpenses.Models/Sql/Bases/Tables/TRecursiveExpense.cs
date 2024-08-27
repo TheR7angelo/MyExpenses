@@ -42,7 +42,7 @@ public partial class TRecursiveExpense : ISql
 
     [Required]
     [Column("start_date", TypeName = "DATE")]
-    public DateOnly StartDate { get; set; }
+    public DateOnly StartDate { get; set; } = DateOnly.FromDateTime(DateTime.Now);
 
     [Column("recursive_total")]
     public int? RecursiveTotal { get; set; }
