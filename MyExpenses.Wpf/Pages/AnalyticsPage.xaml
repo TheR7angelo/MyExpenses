@@ -27,28 +27,12 @@
 
         <materialDesign:Card>
 
-            <TabControl
-                Style="{StaticResource MaterialDesignFilledTabControl}">
-
-                <!-- <TabControl.Template> -->
-                <!--     <ControlTemplate TargetType="TabControl"> -->
-                <!--         <Grid> -->
-                <!--             <Grid.RowDefinitions> -->
-                <!--                 <RowDefinition Height="Auto"/> -->
-                <!--                 <RowDefinition/> -->
-                <!--             </Grid.RowDefinitions> -->
-                <!--             <ScrollViewer Grid.Row="0" HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Disabled"> -->
-                <!--                 <TabPanel x:Name="HeaderPanel" IsItemsHost="True" Margin="0,4,0,0"/> -->
-                <!--             </ScrollViewer> -->
-                <!--             <ContentPresenter x:Name="PART_SelectedContentHost" Margin="4" ContentSource="SelectedContent" Grid.Row="1"/> -->
-                <!--         </Grid> -->
-                <!--     </ControlTemplate> -->
-                <!-- </TabControl.Template> -->
+            <TabControl Style="{StaticResource MaterialDesignFilledTabControlScrollViewer}">
 
                 <TabItem Header="{Binding TabItemAccountTotalEllipseControlHeader, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
                     <accountTotalEllipseControl:AccountTotalEllipseControl />
                 </TabItem>
-                
+
                 <TabItem Header="{Binding TabItemAccountsCategorySumPositiveNegativeControl, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
                     <accountsCategorySumPositiveNegativeControls:AccountsCategorySumPositiveNegativeControl />
                 </TabItem>
