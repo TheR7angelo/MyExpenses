@@ -1,8 +1,4 @@
-using System.IO;
-using System.Text;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Markup;
 using MyExpenses.Models.Config;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Wpf.Resources.Resx.Pages.AnalyticsPage;
@@ -88,49 +84,6 @@ public partial class AnalyticsPage
         InitializeComponent();
 
         Interface.LanguageChanged += Interface_OnLanguageChanged;
-
-        const string dictionaryUri = "pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/materialdesign3.defaults.xaml";
-        const string outputPath = "extractedStyles.xaml";
-
-        ExtractStyles(dictionaryUri, outputPath);
-    }
-
-    public static void ExtractStyles(string dictionaryUri, string outputPath)
-    {
-        var resource = new ResourceDictionary
-        {
-            Source = new Uri(dictionaryUri, UriKind.Absolute)
-        };
-
-        var stringBuilder = new StringBuilder();
-
-        foreach (var key in resource.Keys)
-        {
-            try
-            {
-                var value = resource[key];
-                if (value is not (System.Windows.Style or ControlTemplate)) continue;
-                var xaml = XamlWriter.Save(value);
-                stringBuilder.AppendLine($"<!-- Resource Key: {key} -->");
-                stringBuilder.AppendLine(xaml);
-                stringBuilder.AppendLine();
-            }
-            catch (XamlParseException ex)
-            {
-                Console.WriteLine($"Skipped: {key}, due to XamlParseException: {ex.Message}");
-            }
-            catch (InvalidOperationException ex)
-            {
-                Console.WriteLine($"Skipped: {key}, due to InvalidOperationException: {ex.Message}");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Skipped: {key}, due to unexpected Exception: {ex.Message}");
-            }
-        }
-
-        File.WriteAllText(outputPath, stringBuilder.ToString());
-        Console.WriteLine($"Styles extracted to {outputPath}");
     }
 
     private void Interface_OnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
