@@ -19,7 +19,7 @@ using MyExpenses.Utils.Dates;
 using MyExpenses.Utils.Sql;
 using MyExpenses.Utils.Strings;
 using MyExpenses.Wpf.Converters;
-using MyExpenses.Wpf.Resources.Resx.Converters;
+using MyExpenses.Wpf.Resources.Resx.Converters.EmptyStringTreeViewConverter;
 using MyExpenses.Wpf.Resources.Resx.Pages.RecordExpensePage;
 using MyExpenses.Wpf.Resources.Resx.Windows.AddEditRecurrentExpenseWindow;
 using MyExpenses.Wpf.Utils;

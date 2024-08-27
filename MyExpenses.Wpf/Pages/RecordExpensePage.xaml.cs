@@ -18,7 +18,7 @@ using MyExpenses.Wpf.Windows;
 using MyExpenses.Utils.Sql;
 using MyExpenses.Utils.Strings;
 using MyExpenses.Wpf.Converters;
-using MyExpenses.Wpf.Resources.Resx.Converters;
+using MyExpenses.Wpf.Resources.Resx.Converters.EmptyStringTreeViewConverter;
 using MyExpenses.Wpf.Resources.Resx.Pages.RecordExpensePage;
 using MyExpenses.Wpf.Utils;
 using MyExpenses.Wpf.Windows.CategoryTypeManagementWindow;
