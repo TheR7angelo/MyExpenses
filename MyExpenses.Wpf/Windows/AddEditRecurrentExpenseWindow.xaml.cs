@@ -849,6 +849,7 @@ public partial class AddEditRecurrentExpenseWindow
         ComboBoxBackgroundHintAssist = AddEditRecurrentExpenseWindowResources.ComboBoxBackgroundHintAssist;
         TextBoxDescriptionHintAssist = AddEditRecurrentExpenseWindowResources.TextBoxDescriptionHintAssist;
         TextBoxNoteHintAssist = AddEditRecurrentExpenseWindowResources.TextBoxNoteHintAssist;
+        ComboBoxModePaymentHintAssist = AddEditRecurrentExpenseWindowResources.ComboBoxModePaymentHintAssist;
         ComboBoxCategoryTypeHintAssist = AddEditRecurrentExpenseWindowResources.ComboBoxCategoryTypeHintAssist;
         TextBoxValueHintAssist = AddEditRecurrentExpenseWindowResources.TextBoxValueHintAssist;
         ComboBoxFrequencyHintAssist = AddEditRecurrentExpenseWindowResources.ComboBoxFrequencyHintAssist;
