@@ -47,7 +47,7 @@ public class Release
     public DateTime PublishedAt { get; set; }
 
     [JsonProperty("assets")]
-    public List<Asset?> Assets { get; set; }
+    public List<Asset?>? Assets { get; set; }
 
     [JsonProperty("tarball_url")]
     public string? TarballUrl { get; set; }
