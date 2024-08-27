@@ -20,6 +20,7 @@ using MyExpenses.Wpf.Utils;
 using MyExpenses.Wpf.Utils.FilterDataGrid;
 using MyExpenses.Wpf.Windows;
 using MyExpenses.Wpf.Windows.MsgBox;
+using Serilog;
 using SkiaSharp;
 
 namespace MyExpenses.Wpf.Pages;
@@ -569,7 +570,9 @@ public partial class DashBoardPage
         if (history.Pointed is true) history.DatePointed = DateTime.Now;
         else history.DatePointed = null;
 
+        Log.Information("Attention to pointed record, id: \"{HistoryId}\"", history.Id);
         history.AddOrEdit();
+        Log.Information("The recording was successfully clocked");
 
         RefreshDataGrid();
     }
