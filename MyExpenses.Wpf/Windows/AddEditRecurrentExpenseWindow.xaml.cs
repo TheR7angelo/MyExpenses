@@ -894,7 +894,11 @@ public partial class AddEditRecurrentExpenseWindow
             return;
         }
 
-        var dateOnly = RecursiveExpense.ERecursiveFrequency.CalculateNextDueDate(RecursiveExpense.StartDate);
+        var now = DateOnly.FromDateTime(DateTime.Now);
+
+        var dateOnly = RecursiveExpense.StartDate >= now
+            ? RecursiveExpense.StartDate
+            : RecursiveExpense.ERecursiveFrequency.CalculateNextDueDate(RecursiveExpense.StartDate);
 
         RecursiveExpense.NextDueDate = dateOnly;
     }
