@@ -20,7 +20,7 @@ public class Asset
     public string? Label { get; set; }
 
     [JsonProperty("uploader")]
-    public Uploader Uploader { get; set; }
+    public Uploader? Uploader { get; set; }
 
     [JsonProperty("content_type")]
     public string? ContentType { get; set; }
