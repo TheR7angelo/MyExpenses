@@ -40,6 +40,7 @@
     <mah:MetroWindow.Resources>
         <converters:DateOnlyToDateTimeConverter x:Key="DateOnlyToDateTimeConverter" />
         <converters:SplitUpperCaseWordsConverter x:Key="SplitCamelCaseConverter" />
+        <converters:DateOnlyToStringConverter x:Key="DateOnlyToStringConverter" />
     </mah:MetroWindow.Resources>
 
     <Grid margin:PanelExtensions.MarginForAllChildren="5"
@@ -225,7 +226,7 @@
         <TextBox  Grid.Row="8" Grid.Column="1"
                   materialDesign:HintAssist.Hint="{Binding TextBoxNextDueDateHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                   Style="{StaticResource MaterialDesignFilledTextBox}"
-                  Text="{Binding RecursiveExpense.NextDueDate, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                  Text="{Binding RecursiveExpense.NextDueDate, Mode=OneWay, Converter={StaticResource DateOnlyToStringConverter}, UpdateSourceTrigger=PropertyChanged}"
                   IsReadOnly="True">
         </TextBox>
 
