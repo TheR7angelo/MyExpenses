@@ -99,7 +99,7 @@ public partial class AccountModePaymentMonthlySumControl
         using var context = new DataBaseContext();
         var groupsByModePaymentCategory = context.VAccountModePaymentCategoryMonthlySums
             .Where(s => s.AccountFk == AccountId)
-            .GroupBy(v => new { v.AccountFk, v.Account, v.ModePayment, v.Period })
+            .GroupBy(v => new { v.AccountFk, v.Account, v.ModePayment, v.Period, v.CurrencyFk, v.Currency })
             .Select(g => new GroupsByModePaymentCategory
             {
                 AccountFk = g.Key.AccountFk,
@@ -107,6 +107,8 @@ public partial class AccountModePaymentMonthlySumControl
                 ModePayment = g.Key.ModePayment,
                 Period = g.Key.Period,
                 TotalMonthlySum = g.Sum(v => Math.Round(v.MonthlySum ?? 0, 2)),
+                CurrencyFk = g.Key.CurrencyFk,
+                Currency = g.Key.Currency,
                 TotalMonthlyModePayment = g.Sum(v => v.MonthlyModePayment)
             })
             .OrderBy(s => s.Period).ThenBy(s => s.ModePayment)
@@ -145,6 +147,7 @@ public partial class AccountModePaymentMonthlySumControl
 
     private void SetSeries(List<IGrouping<string?, GroupsByModePaymentCategory>> groupsByModePayments)
     {
+        var currency = groupsByModePayments.First().Select(s => s.Currency).First();
         var series = new List<ISeries>();
 
         foreach (var groupsByCategory in groupsByModePayments)
@@ -164,6 +167,7 @@ public partial class AccountModePaymentMonthlySumControl
             {
                 Name = name,
                 Values = monthlyPaymentDataPoints.Select(s => s.MonthlySum),
+                YToolTipLabelFormatter = point => $"{point.Model} {currency}",
                 DataLabelsFormatter = point =>
                 {
                     var index = point.Index;

@@ -27,6 +27,12 @@ public partial class VAccountModePaymentCategoryMonthlySum
     [Column("monthly_sum")]
     public double? MonthlySum { get; set; }
 
+    [Column("currency_fk")]
+    public int? CurrencyFk { get; set; }
+
+    [Column("currency")]
+    public string? Currency { get; set; }
+
     [Column("monthly_mode_payment")]
     public int? MonthlyModePayment { get; set; }
 }

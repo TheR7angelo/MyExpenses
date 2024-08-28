@@ -928,6 +928,8 @@ CREATE VIEW v_account_mode_payment_category_monthly_sum AS
 WITH all_periods AS (
     SELECT a.id                     AS account_fk,
            a.name                   AS account,
+           tcu.id               AS currency_fk,
+           tcu.symbol               AS currency,
            tmp.id                   AS mode_payment_fk,
            tmp.name                 AS mode_payment,
            y.year || '-' || m.month AS period,
@@ -938,6 +940,7 @@ WITH all_periods AS (
              CROSS JOIN t_mode_payment tmp
              CROSS JOIN t_category_type ct
              LEFT JOIN t_color tc ON ct.color_fk = tc.id
+             LEFT JOIN t_currency tcu on a.currency_fk = tcu.id
              CROSS JOIN (SELECT DISTINCT strftime('%Y', h.date) AS year
                          FROM t_history h) y
              CROSS JOIN (SELECT strftime('%m', date('2000-' || x || '-01')) AS month
@@ -971,6 +974,8 @@ WITH all_periods AS (
      monthly AS (
          SELECT ap.account_fk,
                 ap.account,
+                ap.currency_fk,
+                ap.currency,
                 ap.mode_payment_fk,
                 ap.mode_payment,
                 ap.period,
@@ -994,6 +999,8 @@ SELECT account_fk,
        category,
        hexadecimal_color_code,
        ROUND(monthly_value, 2) AS monthly_sum,
+       currency_fk,
+       currency,
        monthly_mode_payment
 FROM monthly
 ORDER BY account_fk, period, mode_payment, category;
