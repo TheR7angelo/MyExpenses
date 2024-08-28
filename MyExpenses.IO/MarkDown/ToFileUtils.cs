@@ -47,7 +47,7 @@ public static class ToFileUtils
                                     blockquote{
                                         box-shadow: -5px 0 0 rgba(94, 158, 255, 100%);
                                         padding: 5px;
-                                        background-color: background-color: var(--backgroundColor);
+                                        background-color: var(--backgroundColor);
                                         color: var(--foregroundColor);
                                         border-radius: 5px;
                                         border-top: 2px solid var(--huePrimaryColor);
@@ -55,6 +55,20 @@ public static class ToFileUtils
                                         border-bottom: 2px solid var(--huePrimaryColor);
                                         font-size: 12px;
                                     }
+                                    
+                                    table {
+                                         border-collapse: collapse; /* Pour s'assurer que les bordures sont collées */
+                                         width: 100%;
+                                     }
+                                     th, td {
+                                         border: 2px solid var(--foregroundColor); /* Couleur des bordures */
+                                         text-align: left;
+                                         padding: 8px;
+                                     }
+                                     th {
+                                         background-color: var(--backgroundColor); /* Fond de l'en-tête du tableau */
+                                         color: var(--foregroundColor); /* Couleur du texte de l'en-tête */
+                                     }
                                 </style>
                             </head>
                             <body>
