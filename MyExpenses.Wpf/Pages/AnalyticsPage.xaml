@@ -29,7 +29,6 @@
 
             <TabControl Style="{StaticResource MaterialDesignFilledTabControlScrollViewer}">
 
-                <!-- TODO add accountSymbol -->
                 <TabItem Header="{Binding TabItemAccountTotalEllipseControlHeader, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
                     <accountTotalEllipseControl:AccountTotalEllipseControl />
                 </TabItem>
