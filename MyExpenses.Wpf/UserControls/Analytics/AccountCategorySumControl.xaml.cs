@@ -69,7 +69,7 @@ public partial class AccountCategorySumControl
 
         var groupsByCategories = context.VAccountCategoryMonthlySums
             .Where(s => s.AccountFk == AccountId)
-            .GroupBy(s => new { s.AccountFk, s.Account, s.Period, s.CategoryType, s.ColorCode })
+            .GroupBy(s => new { s.AccountFk, s.Account, s.Period, s.CategoryType, s.ColorCode, s.CurrencyFk, s.Currency })
             .Select(g => new GroupsByCategories
             {
                 AccountFk = g.Key.AccountFk,
@@ -77,7 +77,9 @@ public partial class AccountCategorySumControl
                 Period = g.Key.Period,
                 CategoryType = g.Key.CategoryType,
                 ColorCode = g.Key.ColorCode,
-                SumMonthlySum = Math.Round(g.Sum(v => v.MonthlySum ?? 0), 2)
+                SumMonthlySum = Math.Round(g.Sum(v => v.MonthlySum ?? 0), 2),
+                CurrencyFk = g.Key.CurrencyFk,
+                Currency = g.Key.Currency
             })
             .OrderBy(s => s.Period).ThenBy(s => s.CategoryType)
             .AsEnumerable()
@@ -95,6 +97,7 @@ public partial class AccountCategorySumControl
 
     private void SetSeries(List<IGrouping<string?, GroupsByCategories>> groupsByCategories)
     {
+        var currency = groupsByCategories.First().Select(s => s.Currency).First();
 
         var series = new List<ISeries>();
 
@@ -109,7 +112,8 @@ public partial class AccountCategorySumControl
             {
                 Name = name,
                 Fill = new SolidColorPaint(skColor),
-                Values = values
+                Values = values,
+                YToolTipLabelFormatter = point => $"{point.Model} {currency}"
             };
 
             series.Add(columnSeries);

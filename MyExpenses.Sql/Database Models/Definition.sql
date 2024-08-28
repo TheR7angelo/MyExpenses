@@ -917,7 +917,9 @@ SELECT account_fk,
        category_type,
        color_code,
        period,
-       ROUND(monthly_negative_sum + monthly_positive_sum, 2) AS monthly_sum
+       ROUND(monthly_negative_sum + monthly_positive_sum, 2) AS monthly_sum,
+       currency_fk,
+       currency
 FROM v_account_category_monthly_sum_positive_negative
 ORDER BY account_fk, period, category_type;
 

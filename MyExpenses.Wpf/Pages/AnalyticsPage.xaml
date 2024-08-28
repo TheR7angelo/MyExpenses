@@ -37,7 +37,6 @@
                     <accountsCategorySumPositiveNegativeControls:AccountsCategorySumPositiveNegativeControl />
                 </TabItem>
 
-                <!-- TODO add accountSymbol -->
                 <TabItem Header="{Binding TabItemAccountsCategorySumControlHeader, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
                     <analytics:AccountsCategorySumControl />
                 </TabItem>
