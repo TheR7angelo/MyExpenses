@@ -121,12 +121,14 @@ public partial class AccountValueTrendControl
             var values = groupVAccountMonthlyCumulativeSums
                 .Select(s => (double)s.CumulativeSum!)
                 .ToList();
+            var currency = groupVAccountMonthlyCumulativeSums.Select(s => s.Currency).First();
 
             var lineSeries = new LineSeries<double>
             {
                 Name = name,
                 Values = values,
-                Fill = null
+                Fill = null,
+                YToolTipLabelFormatter = point => $"{point.Model} {currency}",
             };
 
             var xData = Enumerable.Range(1, values.Count).Select(i => (double)i).ToArray();
@@ -140,6 +142,7 @@ public partial class AccountValueTrendControl
                 Name = trendName,
                 Values = trendValues,
                 Fill = null,
+                YToolTipLabelFormatter = point => $"{point.Model} {currency}",
                 IsVisible = false,
                 GeometrySize = 0,
                 Tag = isSeriesTranslatableTrend
