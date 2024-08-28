@@ -842,11 +842,14 @@ CREATE VIEW v_account_category_monthly_sum_positive_negative AS
 WITH all_periods AS (
     SELECT a.id                     AS account_fk,
            a.name                   AS account,
+           a.currency_fk            AS currency_fk,
+           tca.symbol               AS currency,
            tct.id                   AS category_type_fk,
            tct.name                 AS category_type,
            tc.hexadecimal_color_code AS color_code,
            y.year || '-' || m.month AS period
     FROM t_account a
+             LEFT JOIN t_currency tca ON a.currency_fk = tca.id
              CROSS JOIN t_category_type tct
              LEFT JOIN t_color tc ON tct.color_fk = tc.id
              CROSS JOIN (SELECT DISTINCT strftime('%Y', h.date) AS year
@@ -881,6 +884,8 @@ WITH all_periods AS (
      monthly AS (
          SELECT ap.account_fk,
                 ap.account,
+                ap.currency_fk,
+                ap.currency,
                 ap.category_type_fk,
                 ap.category_type,
                 ap.color_code,
@@ -899,7 +904,9 @@ SELECT account_fk,
        color_code,
        period,
        ROUND(monthly_negative_value, 2) AS monthly_negative_sum,
-       ROUND(monthly_positive_value, 2) AS monthly_positive_sum
+       ROUND(monthly_positive_value, 2) AS monthly_positive_sum,
+       currency_fk,
+       currency
 FROM monthly
 ORDER BY account_fk, period, category_type;
 

@@ -154,6 +154,8 @@ public partial class AccountCategorySumPositiveNegativeControl
 
     private void SetSeries(List<IGrouping<string?, VAccountCategoryMonthlySumPositiveNegative>> records)
     {
+        var symbol = records.First().Select(s => s.Currency).First();
+
         var positiveValues = records.Select(g =>
             Math.Round(g.Sum(r => Math.Abs(r.MonthlyPositiveSum ?? 0)), 2));
 
@@ -176,7 +178,11 @@ public partial class AccountCategorySumPositiveNegativeControl
             Name = AccountsCategorySumPositiveNegativeControlsResources.ColumnSeriesNegativeName,
             Values = negativeValues,
             Fill = new SolidColorPaint(secondaryColor.ToSkColor()),
-            YToolTipLabelFormatter = y => (-1 * y.Model).ToString("F2"),
+            YToolTipLabelFormatter = y =>
+            {
+                var value = -1 * y.Model;
+                return $"{value:F2} {symbol}";
+            },
         };
 
         Series = [negativeSeries, positiveSeries];
