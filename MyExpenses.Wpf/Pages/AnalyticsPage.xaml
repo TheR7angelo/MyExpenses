@@ -49,7 +49,6 @@
                     <analytics:AccountValueTrendControl />
                 </TabItem>
 
-                <!-- TODO add accountSymbol -->
                 <TabItem Header="{Binding TabItemCumulativeSumChartControlHeader, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
                     <analytics:CumulativeSumChartControl />
                 </TabItem>
