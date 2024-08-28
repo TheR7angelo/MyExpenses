@@ -31,7 +31,16 @@ public partial class WelcomePage
         RefreshExistingDatabases();
 
         InitializeComponent();
+        // InitializeAsync();
     }
+
+    // private async void InitializeAsync()
+    // {
+    //     await WebBrowser.EnsureCoreWebView2Async();
+    //
+    //     const string htmlFilePath = @"C:\Users\ZP6177\Documents\Programmation\C#\MyExpenses\Tests\MyExpenses.IO.Test\bin\Debug\net8.0\test.html";
+    //     WebBrowser.CoreWebView2.Navigate(htmlFilePath);
+    // }
 
     #region Action
 
