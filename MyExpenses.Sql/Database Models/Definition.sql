@@ -683,7 +683,7 @@ CREATE VIEW v_total_by_account AS
 SELECT ta.id,
        ta.name,
        ROUND(SUM(th.value), 2) AS total,
-       ROUND(SUM(CASE WHEN th.pointed = TRUE THEN th.value ELSE 1 END), 2) AS total_pointed,
+       ROUND(SUM(CASE WHEN th.pointed = TRUE THEN th.value ELSE 0 END), 2) AS total_pointed,
        ROUND(SUM(CASE WHEN th.pointed = FALSE THEN th.value ELSE 0 END), 2) AS total_not_pointed,
        tc.symbol
 FROM t_account ta
