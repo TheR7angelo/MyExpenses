@@ -75,6 +75,7 @@ public partial class CumulativeTotalSumChartControl
                 calc = sums[i] - sums[i - 1];
             }
 
+            calc = Math.Round(calc, 2);
             deltas.Add(calc);
         }
 
@@ -102,17 +103,20 @@ public partial class CumulativeTotalSumChartControl
 
     private void SetSeries(List<IGrouping<string?, VAccountMonthlyCumulativeSum>> groupsByPeriods)
     {
+        var currency = groupsByPeriods.First().Select(s => s.Currency).First();
+
         var sums = new List<double>();
         foreach (var groupsByPeriod in groupsByPeriods)
         {
-            var value = groupsByPeriod.Select(s => Math.Round(s.CumulativeSum ?? 0, 2)).Sum();
+            var value = Math.Round(groupsByPeriod.Sum(s => s.CumulativeSum ?? 0), 2);
             sums.Add(value);
         }
 
         var columnSeries = new ColumnSeries<double>
         {
             Values = sums,
-            Name = CumulativeTotalSumChartControlResources.ColumnSeriesTotalName
+            Name = CumulativeTotalSumChartControlResources.ColumnSeriesTotalName,
+            YToolTipLabelFormatter = point => $"{point.Model} {currency}"
         };
 
         var previousDeltas = CalculatePreviousDeltas(sums);
@@ -121,7 +125,7 @@ public partial class CumulativeTotalSumChartControl
             Values = previousDeltas,
             Name = CumulativeTotalSumChartControlResources.LineSeriesPreviousDeltaName,
             Fill = null,
-            DataLabelsFormatter = values => values.Coordinate.SecondaryValue.ToString("F2")
+            YToolTipLabelFormatter = point => $"{point.Model} {currency}"
         };
 
         Series = [columnSeries, deltaSeries];
