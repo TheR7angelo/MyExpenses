@@ -1,4 +1,6 @@
-﻿using MyExpenses.WebApi.GitHub;
+﻿using System.Reflection;
+using MyExpenses.Utils;
+using MyExpenses.WebApi.GitHub;
 using Xunit.Abstractions;
 
 namespace MyExpenses.WebApi.Test.Github;
@@ -9,7 +11,7 @@ public class GetReleaseGithubTest(ITestOutputHelper testOutputHelper)
     public async Task GetRelease()
     {
         var gitHubClient = new GitHubClient();
-        var releases = await gitHubClient.GetReleaseNotes("qgis", "QGIS");
+        var releases = await gitHubClient.GetReleaseNotes("microsoft", "PowerToys");
 
         var xmls = new List<string>();
         foreach (var release in releases!)
@@ -17,12 +19,20 @@ public class GetReleaseGithubTest(ITestOutputHelper testOutputHelper)
             var version = release.TagName;
             var date = release.PublishedAt;
 
-            var body = release.Body;
-            var xml = $"{version}\t\t{date.ToShortDateString()}\n\n{body}";
+            var bodies = release.Body?.Split('\n').Select(t => $"> {t}").Select(s => s.Trim())!;
+
+            var body = string.Join("\n", bodies);
+            var xml = $"# {version}\t\t{date.ToShortDateString()}\n\n{body}";
             xmls.Add(xml);
         }
 
-        var str = string.Join("\n\n___\n\n", xmls);
-        testOutputHelper.WriteLine(str);
+        var md = string.Join("\n\n___\n\n", xmls);
+
+        var executablePath = Assembly.GetExecutingAssembly().Location;
+        var directory = executablePath.GetParentDirectory(6);
+        directory = Path.Join(directory, "Tests", "MyExpenses.IO.Test", "test.md");
+        await File.WriteAllTextAsync(directory, md);
+
+        testOutputHelper.WriteLine(md);
     }
 }
