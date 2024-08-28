@@ -79,6 +79,8 @@ public partial class CumulativeSumChartControl
 
     private void SetSeries(List<IGrouping<int?, VAccountMonthlyCumulativeSum>> groupsByAccounts)
     {
+        var currency = groupsByAccounts.First().Select(s => s.Currency).First();
+
         var series = new List<ISeries>();
 
         foreach (var groupsByAccount in groupsByAccounts)
@@ -88,13 +90,14 @@ public partial class CumulativeSumChartControl
             var stakedColumnSeries = new StackedColumnSeries<double>
             {
                 Values = values,
-                Name = groupsByAccount.First().Account
+                Name = groupsByAccount.First().Account,
+                YToolTipLabelFormatter = point => $"{point.Model} {currency}",
             };
 
             series.Add(stakedColumnSeries);
         }
 
-        Series = series.ToArray();
+        Series = [..series];
     }
 
     private void SetXAxis(IEnumerable<string> labels)
