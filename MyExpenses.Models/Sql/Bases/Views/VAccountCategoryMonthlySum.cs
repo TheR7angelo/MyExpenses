@@ -23,4 +23,10 @@ public partial class VAccountCategoryMonthlySum
 
     [Column("monthly_sum")]
     public double? MonthlySum { get; set; }
+
+    [Column("currency_fk")]
+    public int? CurrencyFk { get; set; }
+
+    [Column("currency")]
+    public string? Currency { get; set; }
 }
