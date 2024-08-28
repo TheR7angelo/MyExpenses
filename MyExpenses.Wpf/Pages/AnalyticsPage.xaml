@@ -33,7 +33,6 @@
                     <accountTotalEllipseControl:AccountTotalEllipseControl />
                 </TabItem>
 
-                <!-- TODO add accountSymbol -->
                 <TabItem Header="{Binding TabItemAccountsCategorySumPositiveNegativeControl, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
                     <accountsCategorySumPositiveNegativeControls:AccountsCategorySumPositiveNegativeControl />
                 </TabItem>
