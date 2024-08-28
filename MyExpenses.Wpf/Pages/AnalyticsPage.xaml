@@ -41,7 +41,6 @@
                     <analytics:AccountsCategorySumControl />
                 </TabItem>
 
-                <!-- TODO add accountSymbol -->
                 <TabItem Header="{Binding TabItemAccountsModePaymentMonthlySumControlHeader, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
                     <accountsModePaymentMonthlySumControls:AccountsModePaymentMonthlySumControl />
                 </TabItem>
