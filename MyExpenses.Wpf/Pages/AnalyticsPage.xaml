@@ -29,30 +29,37 @@
 
             <TabControl Style="{StaticResource MaterialDesignFilledTabControlScrollViewer}">
 
+                <!-- TODO add accountSymbol -->
                 <TabItem Header="{Binding TabItemAccountTotalEllipseControlHeader, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
                     <accountTotalEllipseControl:AccountTotalEllipseControl />
                 </TabItem>
 
+                <!-- TODO add accountSymbol -->
                 <TabItem Header="{Binding TabItemAccountsCategorySumPositiveNegativeControl, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
                     <accountsCategorySumPositiveNegativeControls:AccountsCategorySumPositiveNegativeControl />
                 </TabItem>
 
+                <!-- TODO add accountSymbol -->
                 <TabItem Header="{Binding TabItemAccountsCategorySumControlHeader, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
                     <analytics:AccountsCategorySumControl />
                 </TabItem>
 
+                <!-- TODO add accountSymbol -->
                 <TabItem Header="{Binding TabItemAccountsModePaymentMonthlySumControlHeader, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
                     <accountsModePaymentMonthlySumControls:AccountsModePaymentMonthlySumControl />
                 </TabItem>
 
+                <!-- TODO add accountSymbol -->
                 <TabItem Header="{Binding TabItemAccountValueTrendControlHeader, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
                     <analytics:AccountValueTrendControl />
                 </TabItem>
 
+                <!-- TODO add accountSymbol -->
                 <TabItem Header="{Binding TabItemCumulativeSumChartControlHeader, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
                     <analytics:CumulativeSumChartControl />
                 </TabItem>
 
+                <!-- TODO add accountSymbol -->
                 <TabItem Header="{Binding TabItemCumulativeTotalSumChartControlHeader, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
                     <analytics:CumulativeTotalSumChartControl />
                 </TabItem>
