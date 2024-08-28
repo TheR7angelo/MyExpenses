@@ -10,9 +10,9 @@ public class ToHtmlTest
     public void HtmlToHtmlTest()
     {
         var executablePath = Assembly.GetExecutingAssembly().Location;
-        var directory = executablePath.GetParentDirectory(6);
+        var directory = executablePath.GetParentDirectory(4);
 
-        var mdPath = Path.Join(directory, "TODO LIST.md");
+        var mdPath = Path.Join(directory, "test.md");
 
         // var content = File.ReadAllText(mdPath);
 
