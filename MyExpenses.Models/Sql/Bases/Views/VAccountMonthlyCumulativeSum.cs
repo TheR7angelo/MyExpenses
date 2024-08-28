@@ -17,4 +17,10 @@ public partial class VAccountMonthlyCumulativeSum
 
     [Column("cumulative_sum")]
     public double? CumulativeSum { get; set; }
+
+    [Column("currency_fk")]
+    public int? CurrencyFk { get; set; }
+
+    [Column("currency")]
+    public string? Currency { get; set; }
 }

@@ -779,8 +779,11 @@ DROP VIEW IF EXISTS v_account_monthly_cumulative_sum;
 CREATE VIEW v_account_monthly_cumulative_sum AS
 WITH all_periods AS (SELECT a.id                     AS account_fk,
                             a.name                   AS account,
+                            tc.id                    AS currency_fk,
+                            tc.symbol                AS currency,
                             y.year || '-' || m.month AS period
                      FROM t_account a
+                              LEFT JOIN t_currency tc on a.currency_fk = tc.id
                               CROSS JOIN (SELECT DISTINCT STRFTIME('%Y', h.date) AS year
                                           FROM t_history h) y
                               CROSS JOIN (SELECT strftime('%m', date('2000-' || x || '-01')) AS month
@@ -812,6 +815,8 @@ WITH all_periods AS (SELECT a.id                     AS account_fk,
                          AND m.month <= (SELECT strftime('%m', MAX(date)) FROM t_history))),
      monthly AS (SELECT ap.account_fk,
                         ap.account,
+                        ap.currency_fk,
+                        ap.currency,
                         ap.period,
                         COALESCE(SUM(h.value), 0) as monthly_value
                  FROM all_periods ap
@@ -825,6 +830,8 @@ WITH all_periods AS (SELECT a.id                     AS account_fk,
                            r1.period,
                            r1.account_fk,
                            r1.account,
+                           r1.currency_fk,
+                           r1.currency,
                            (SELECT SUM(r2.monthly_value)
                             FROM ranked r2
                             WHERE r2.rn <= r1.rn
@@ -833,7 +840,9 @@ WITH all_periods AS (SELECT a.id                     AS account_fk,
 SELECT account_fk,
        account,
        period,
-       ROUND(cumulative_sum, 2) as cumulative_sum
+       ROUND(cumulative_sum, 2) as cumulative_sum,
+       currency_fk,
+       currency
 FROM cumulative
 ORDER BY account_fk, rn;
 
