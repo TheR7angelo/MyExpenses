@@ -15,7 +15,7 @@ public static class Resources
 
     public static Mapsui.Styles.Color GetMaterialDesignPaperMapsUiStylesColor()
     {
-        var brush = (SolidColorBrush)"MaterialDesignPaper".GetFindResource();
+        var brush = "MaterialDesignPaper".GetSolidColorBrush();
         var backColor = brush.ToMapsuiColor();
 
         return backColor;
@@ -23,11 +23,16 @@ public static class Resources
 
     public static SKColor GetMaterialDesignBodySkColor()
     {
-        var brush = (SolidColorBrush)"MaterialDesignBody".GetFindResource();
-        var wpfColor = brush.Color;
+        var wpfColor = "MaterialDesignBody".GetColor();
         var skColor = wpfColor.ToSKColor();
         return skColor;
     }
+
+    private static SolidColorBrush GetSolidColorBrush(this string resourceKey)
+        => (SolidColorBrush)resourceKey.GetFindResource();
+
+    private static Color GetColor(this string resourceKey)
+        => ((SolidColorBrush)resourceKey.GetFindResource()).Color;
 
     public static string GetMaterialDesignBodyColorHexadecimal()
         => "MaterialDesignBody".GetHexadecimalCode();
@@ -37,8 +42,7 @@ public static class Resources
 
     private static string GetHexadecimalCode(this string resourceKey)
     {
-        var brush = (SolidColorBrush)resourceKey.GetFindResource();
-        var wpfColor = brush.Color;
+        var wpfColor = resourceKey.GetColor();
         var code = wpfColor.ToHexadecimal();
 
         return code;
