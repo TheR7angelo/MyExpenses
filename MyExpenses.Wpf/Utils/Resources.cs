@@ -28,4 +28,19 @@ public static class Resources
         var skColor = wpfColor.ToSKColor();
         return skColor;
     }
+
+    public static string GetMaterialDesignBodyColorHexadecimal()
+        => "MaterialDesignBody".GetHexadecimalCode();
+
+    public static string GetMaterialDesignPaperColorHexadecimal()
+        => "MaterialDesignPaper".GetHexadecimalCode();
+
+    private static string GetHexadecimalCode(this string resourceKey)
+    {
+        var brush = (SolidColorBrush)resourceKey.GetFindResource();
+        var wpfColor = brush.Color;
+        var code = wpfColor.ToHexadecimal();
+
+        return code;
+    }
 }
