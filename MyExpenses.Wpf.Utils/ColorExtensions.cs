@@ -47,6 +47,13 @@ public static class ColorExtensions
     public static string ToHexadecimal(this Color color)
         => $"#{color.A:X2}{color.R:X2}{color.G:X2}{color.B:X2}";
 
+    /// <summary>
+    /// Converts a System.Drawing.Color object to a hexadecimal color code without including the alpha channel.
+    /// </summary>
+    /// <param name="color">The System.Drawing.Color object to convert.</param>
+    /// <returns>The hexadecimal color code representing the converted color without the alpha channel as a string.</returns>
+    public static string ToHexadecimalWithoutAlpha(this Color color)
+        => $"#{color.R:X2}{color.G:X2}{color.B:X2}";
 
     /// <summary>
     /// Converts HSV values to a System.Drawing.Color object.
