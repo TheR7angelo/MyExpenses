@@ -12,17 +12,20 @@ public static class AutoUpdaterGitHub
 
     public static void CheckUpdateGitHub()
     {
-        Task.Run(async () => { await CheckUpdateGitHubAsync(); });
+        Task.Run(async () =>
+        {
+            var needUpdate = await CheckUpdateGitHubAsync();
+        });
     }
 
-    private static async Task CheckUpdateGitHubAsync()
+    private static async Task<bool> CheckUpdateGitHubAsync()
     {
         using var gitHubClient = new GitHubClient();
 
         try
         {
             var releasesNotes = await gitHubClient.GetReleaseNotes(ApplicationOwner, ApplicationRepository);
-            if (releasesNotes is null) return; // Juste for testing
+            if (releasesNotes is null) return false; // Juste for testing
 
 
         }
@@ -31,6 +34,8 @@ public static class AutoUpdaterGitHub
             Console.WriteLine(e);
             throw;
         }
+
+        return false;
     }
 
     private static void Initialize()
