@@ -551,6 +551,14 @@
       <AdditionalFiles Include="Resources\Assets\Cards\BankTransferCard.svg">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </AdditionalFiles>
+      <None Remove="Resources\Versioning\version.md" />
+      <AdditionalFiles Include="Resources\Versioning\version.md">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </AdditionalFiles>
+      <None Remove="Resources\Versioning\versioning.html" />
+      <AdditionalFiles Include="Resources\Versioning\versioning.html">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </AdditionalFiles>
     </ItemGroup>
 
     <ItemGroup>
