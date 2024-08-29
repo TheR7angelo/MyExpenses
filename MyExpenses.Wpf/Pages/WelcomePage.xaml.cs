@@ -14,6 +14,7 @@ using MyExpenses.Wpf.Resources.Resx.Pages.WelcomePage;
 using MyExpenses.Wpf.Utils;
 using MyExpenses.Wpf.Utils.FilePicker;
 using MyExpenses.Wpf.Windows;
+using MyExpenses.Wpf.Windows.AutoUpdaterGitHub;
 using MyExpenses.Wpf.Windows.MsgBox;
 using MyExpenses.Wpf.Windows.SaveLocationWindow;
 using Serilog;
@@ -31,16 +32,20 @@ public partial class WelcomePage
         RefreshExistingDatabases();
 
         InitializeComponent();
-        // InitializeAsync();
+
+        Initialize();
     }
 
-    // private async void InitializeAsync()
-    // {
-    //     await WebBrowser.EnsureCoreWebView2Async();
-    //
-    //     const string htmlFilePath = @"C:\Users\ZP6177\Documents\Programmation\C#\MyExpenses\Tests\MyExpenses.IO.Test\bin\Debug\net8.0\test.html";
-    //     WebBrowser.CoreWebView2.Navigate(htmlFilePath);
-    // }
+    private void Initialize()
+    {
+        const string releasesUrl = @"C:\Users\ZP6177\Documents\Programmation\C#\MyExpenses\Tests\MyExpenses.IO.Test\bin\Debug\net8.0\test.html";
+
+        var autoUpdaterGitHubWindow = new AutoUpdaterGitHubWindow(releasesUrl)
+        {
+            Owner = Application.Current.MainWindow,
+        };
+        autoUpdaterGitHubWindow.ShowDialog();
+    }
 
     #region Action
 
