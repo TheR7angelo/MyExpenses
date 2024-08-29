@@ -572,7 +572,7 @@ public partial class DashBoardPage
 
         Log.Information("Attention to pointed record, id: \"{HistoryId}\"", history.Id);
         history.AddOrEdit();
-        Log.Information("The recording was successfully clocked");
+        Log.Information("The recording was successfully pointed");
 
         RefreshDataGrid();
     }
