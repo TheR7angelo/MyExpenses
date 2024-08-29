@@ -4,13 +4,13 @@ using Serilog;
 
 namespace MyExpenses.WebApi.GitHub;
 
-public class GitHubClient : Http
+public class GitHubClient : Http, IDisposable
 {
     private HttpClient HttpClient { get; } = GetHttpClient("https://api.github.com/repos/");
 
-    public async Task<List<Release>?> GetReleaseNotes(string owner, string repo)
+    public async Task<List<Release>?> GetReleaseNotes(string owner, string repository)
     {
-        var response = await HttpClient.GetAsync($"{owner}/{repo}/releases");
+        var response = await HttpClient.GetAsync($"{owner}/{repository}/releases");
 
         if (!response.IsSuccessStatusCode)
         {
@@ -22,5 +22,11 @@ public class GitHubClient : Http
         var releases = JsonConvert.DeserializeObject<List<Release>>(content)!;
 
         return releases;
+    }
+
+    public void Dispose()
+    {
+        HttpClient.Dispose();
+        GC.SuppressFinalize(this);
     }
 }
