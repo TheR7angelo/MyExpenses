@@ -30,6 +30,7 @@ public static class AutoUpdaterGitHub
         });
     }
 
+    //TODO work
     private static async Task<bool> CheckUpdateGitHubAsync()
     {
         using var gitHubClient = new GitHubClient();
