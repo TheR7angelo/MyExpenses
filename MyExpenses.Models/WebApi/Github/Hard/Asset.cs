@@ -1,6 +1,6 @@
 using Newtonsoft.Json;
 
-namespace MyExpenses.Models.WebApi.Github;
+namespace MyExpenses.Models.WebApi.Github.Hard;
 
 public class Asset
 {
