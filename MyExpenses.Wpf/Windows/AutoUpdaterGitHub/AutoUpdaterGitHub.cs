@@ -15,6 +15,11 @@ public static class AutoUpdaterGitHub
         Task.Run(async () =>
         {
             var needUpdate = await CheckUpdateGitHubAsync();
+
+            if (!needUpdate) return;
+
+            const string releasesUrl = @"C:\Users\ZP6177\Documents\Programmation\C#\MyExpenses\Tests\MyExpenses.IO.Test\bin\Debug\net8.0\test.html";
+            Application.Current.Dispatcher.Invoke(() => Initialize(releasesUrl));
         });
     }
 
@@ -27,21 +32,18 @@ public static class AutoUpdaterGitHub
             var releasesNotes = await gitHubClient.GetReleaseNotes(ApplicationOwner, ApplicationRepository);
             if (releasesNotes is null) return false; // Juste for testing
 
-
+            return true;
         }
         catch (Exception e)
         {
             Console.WriteLine(e);
-            throw;
-        }
 
-        return false;
+            return false;
+        }
     }
 
-    private static void Initialize()
+    private static void Initialize(this string releasesUrl)
     {
-        const string releasesUrl = @"C:\Users\ZP6177\Documents\Programmation\C#\MyExpenses\Tests\MyExpenses.IO.Test\bin\Debug\net8.0\test.html";
-
         var autoUpdaterGitHubWindow = new AutoUpdaterGitHubWindow(releasesUrl)
         {
             Owner = Application.Current.MainWindow,
