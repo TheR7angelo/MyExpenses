@@ -33,18 +33,7 @@ public partial class WelcomePage
 
         InitializeComponent();
 
-        Initialize();
-    }
-
-    private void Initialize()
-    {
-        const string releasesUrl = @"C:\Users\ZP6177\Documents\Programmation\C#\MyExpenses\Tests\MyExpenses.IO.Test\bin\Debug\net8.0\test.html";
-
-        var autoUpdaterGitHubWindow = new AutoUpdaterGitHubWindow(releasesUrl)
-        {
-            Owner = Application.Current.MainWindow,
-        };
-        autoUpdaterGitHubWindow.ShowDialog();
+        AutoUpdaterGitHub.CheckUpdateGitHub();
     }
 
     #region Action
