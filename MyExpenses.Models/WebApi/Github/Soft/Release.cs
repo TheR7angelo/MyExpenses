@@ -1,6 +1,6 @@
 using Newtonsoft.Json;
 
-namespace MyExpenses.Models.WebApi.Github;
+namespace MyExpenses.Models.WebApi.Github.Soft;
 
 public class Release
 {
@@ -18,9 +18,6 @@ public class Release
 
     [JsonProperty("id")]
     public int? Id { get; set; }
-
-    [JsonProperty("author")]
-    public Author? Author { get; set; }
 
     [JsonProperty("node_id")]
     public string? NodeId { get; set; }

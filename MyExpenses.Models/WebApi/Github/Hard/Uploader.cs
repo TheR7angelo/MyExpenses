@@ -1,8 +1,8 @@
-﻿namespace MyExpenses.Models.WebApi.Github;
-
 using Newtonsoft.Json;
 
-public class Author
+namespace MyExpenses.Models.WebApi.Github.Hard;
+
+public class Uploader
 {
     [JsonProperty("login")]
     public string? Login { get; set; }

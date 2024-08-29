@@ -1,5 +1,5 @@
 ﻿using Markdig;
-using MyExpenses.Models.WebApi.Github;
+using MyExpenses.Models.WebApi.Github.Soft;
 
 namespace MyExpenses.IO.MarkDown;
 
