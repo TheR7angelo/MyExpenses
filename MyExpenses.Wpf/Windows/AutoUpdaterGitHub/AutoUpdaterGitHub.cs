@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Text.RegularExpressions;
 using System.Windows;
 using MyExpenses.IO.MarkDown;
 using MyExpenses.WebApi.GitHub;
@@ -54,6 +55,20 @@ public static class AutoUpdaterGitHub
 
                 await File.WriteAllTextAsync(MarkDownFilePath, markDown);
                 await File.WriteAllTextAsync(HtmlFilePath, htmlContent);
+
+                const string pattern = "<!--\\s([\\s\\S]*?)-->\\s+___";
+                var matches = Regex.Matches(markDown, pattern, RegexOptions.Multiline);
+
+                foreach (Match match in matches)
+                {
+                    // Iterate over the groups starting from index 1 to skip the entire match (Group[0])
+                    for (int i = 1; i < match.Groups.Count; i++)
+                    {
+                        Group group = match.Groups[i];
+                        var value = group.Value;
+                        Console.WriteLine($"Group {i}: {value}");
+                    }
+                }
             }
         }
         catch (Exception e)
