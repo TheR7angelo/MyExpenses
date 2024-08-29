@@ -4,26 +4,11 @@ namespace MyExpenses.Models.WebApi.Github.Soft;
 
 public class Asset
 {
-    [JsonProperty("url")]
-    public string? Url { get; set; }
-
-    [JsonProperty("id")]
-    public int? Id { get; set; }
-
-    [JsonProperty("node_id")]
-    public string? NodeId { get; set; }
-
     [JsonProperty("name")]
     public string? Name { get; set; }
 
-    [JsonProperty("label")]
-    public string? Label { get; set; }
-
     [JsonProperty("content_type")]
     public string? ContentType { get; set; }
-
-    [JsonProperty("state")]
-    public string? State { get; set; }
 
     [JsonProperty("size")]
     public int? Size { get; set; }
