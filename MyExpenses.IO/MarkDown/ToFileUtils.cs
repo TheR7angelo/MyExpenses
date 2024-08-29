@@ -1,5 +1,6 @@
 ﻿using Markdig;
 using MyExpenses.Models.WebApi.Github.Soft;
+using Newtonsoft.Json;
 
 namespace MyExpenses.IO.MarkDown;
 
@@ -16,7 +17,11 @@ public static class ToFileUtils
             var bodies = release.Body?.Split('\n').Select(t => $"> {t}").Select(s => s.Trim())!;
 
             var body = string.Join("\n", bodies);
-            var xml = $"# {version}\t\t{date.ToShortDateString()}\n\n{body}";
+            var xml = $"# {version}\t\t{date.ToShortDateString()}{Environment.NewLine}{Environment.NewLine}{body}";
+
+            var json = JsonConvert.SerializeObject(release, Formatting.Indented);
+            xml = $"{xml}{Environment.NewLine}<!--{Environment.NewLine}{json}{Environment.NewLine}-->";
+
             xmls.Add(xml);
         }
 
