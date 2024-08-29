@@ -8,7 +8,7 @@ public static class ToFileUtils
     public static string ToMarkDown(this List<Release> releases)
     {
         var xmls = new List<string>();
-        foreach (var release in releases!)
+        foreach (var release in releases)
         {
             var version = release.TagName;
             var date = release.PublishedAt;
