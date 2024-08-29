@@ -18,9 +18,8 @@ public class ToHtmlTest
 
         const string backgroundColor = "#1e1f22";
         const string foregroundColor = "#bcbec4";
-        const string huePrimaryColor = "#FFFFFF";
 
-        var fullHtml = mdPath.ToHtml(backgroundColor, foregroundColor, huePrimaryColor);
+        var fullHtml = mdPath.ToHtml(backgroundColor, foregroundColor);
 
         var outputFilePath = Path.GetFullPath("test.html");
         File.WriteAllText(outputFilePath, fullHtml);
