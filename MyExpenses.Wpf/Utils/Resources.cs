@@ -58,28 +58,55 @@ public static class Resources
         => ((SolidColorBrush)resourceKey.GetFindResource()).Color;
 
     /// <summary>
-    /// Retrieves the hexadecimal code associated with the SkiaSharp color object of the MaterialDesignBody resource.
+    /// Retrieves the hexadecimal code associated with the color object of the MaterialDesignBody resource.
     /// </summary>
     /// <returns>The hexadecimal code associated with the SkiaSharp color object of the MaterialDesignBody resource.</returns>
     public static string GetMaterialDesignBodyColorHexadecimal()
         => "MaterialDesignBody".GetHexadecimalCode();
 
     /// <summary>
-    /// Retrieves the hexadecimal code associated with the SkiaSharp color object of the MaterialDesignPaper resource.
+    /// Retrieves the hexadecimal code associated with the color object of the MaterialDesignBody resource, excluding the alpha channel.
     /// </summary>
-    /// <returns>The hexadecimal code associated with the SkiaSharp color object of the MaterialDesignPaper resource.</returns>
+    /// <returns>The hexadecimal color code of the specified resource key, excluding the alpha channel, as a string.</returns>
+    public static string GetMaterialDesignBodyColorHexadecimalWithoutAlpha()
+        => "MaterialDesignBody".GetHexadecimalCodeWithoutAlpha();
+
+    /// <summary>
+    /// Retrieves the hexadecimal code associated with the color object of the MaterialDesignPaper resource.
+    /// </summary>
+    /// <returns>The hexadecimal code associated with the color object of the MaterialDesignPaper resource.</returns>
     public static string GetMaterialDesignPaperColorHexadecimal()
         => "MaterialDesignPaper".GetHexadecimalCode();
 
     /// <summary>
-    /// Retrieves the hexadecimal code associated with the SkiaSharp color object of the specified resource key.
+    /// Retrieves the hexadecimal code associated with the color object of the MaterialDesignPaper resource, excluding the alpha channel.
+    /// </summary>
+    /// <returns>The hexadecimal color code of the specified resource key, excluding the alpha channel, as a string.</returns>
+    public static string GetMaterialDesignPaperColorHexadecimalWithoutAlpha()
+        => "MaterialDesignPaper".GetHexadecimalCodeWithoutAlpha();
+
+    /// <summary>
+    /// Retrieves the hexadecimal code associated with the color object of the specified resource key.
     /// </summary>
     /// <param name="resourceKey">The key of the resource object to retrieve the hexadecimal code for.</param>
-    /// <returns>The hexadecimal code associated with the SkiaSharp color object of the specified resource key.</returns>
+    /// <returns>The hexadecimal code associated with the color object of the specified resource key.</returns>
     private static string GetHexadecimalCode(this string resourceKey)
     {
         var wpfColor = resourceKey.GetColor();
         var code = wpfColor.ToHexadecimal();
+
+        return code;
+    }
+
+    /// <summary>
+    /// Retrieves the hexadecimal color code of the specified resource key, excluding the alpha channel.
+    /// </summary>
+    /// <param name="resourceKey">The key of the resource object to retrieve the hexadecimal color code from.</param>
+    /// <returns>The hexadecimal color code of the specified resource key, excluding the alpha channel, as a string.</returns>
+    private static string GetHexadecimalCodeWithoutAlpha(this string resourceKey)
+    {
+        var wpfColor = resourceKey.GetColor();
+        var code = wpfColor.ToHexadecimalWithoutAlpha();
 
         return code;
     }
