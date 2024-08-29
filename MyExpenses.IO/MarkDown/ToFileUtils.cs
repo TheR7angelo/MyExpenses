@@ -5,6 +5,7 @@ namespace MyExpenses.IO.MarkDown;
 public static class ToFileUtils
 {
     public static string ToHtml(this string file, string backgroundColor, string foregroundColor, string huePrimaryColor)
+    public static string ToHtml(this string file, string backgroundColor, string foregroundColor)
     {
         var content = File.Exists(file) ? File.ReadAllText(file) : file;
 
@@ -20,7 +21,6 @@ public static class ToFileUtils
                                     :root{
                                         --backgroundColor: {{backgroundColor}};
                                         --foregroundColor: {{foregroundColor}};
-                                        --huePrimaryColor: {{huePrimaryColor}};
                                     }
                               
                                     ::-webkit-scrollbar {
@@ -50,18 +50,18 @@ public static class ToFileUtils
                                         background-color: var(--backgroundColor);
                                         color: var(--foregroundColor);
                                         border-radius: 5px;
-                                        border-top: 2px solid var(--huePrimaryColor);
-                                        border-right: 2px solid var(--huePrimaryColor);
-                                        border-bottom: 2px solid var(--huePrimaryColor);
+                                        border-top: 2px solid var(--foregroundColor);
+                                        border-right: 2px solid var(--foregroundColor);
+                                        border-bottom: 2px solid var(--foregroundColor);
                                         font-size: 12px;
                                     }
                                     
                                     table {
-                                         border-collapse: collapse; /* Pour s'assurer que les bordures sont collées */
+                                         border-collapse: collapse;
                                          width: 100%;
                                      }
                                      th, td {
-                                         border: 2px solid var(--foregroundColor); /* Couleur des bordures */
+                                         border: 2px solid var(--foregroundColor);
                                          text-align: left;
                                          padding: 8px;
                                      }
