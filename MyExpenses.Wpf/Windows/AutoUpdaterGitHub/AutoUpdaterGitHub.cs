@@ -1,4 +1,6 @@
-﻿using System.Windows;
+﻿using System.IO;
+using System.Windows;
+using MyExpenses.IO.MarkDown;
 using MyExpenses.WebApi.GitHub;
 
 namespace MyExpenses.Wpf.Windows.AutoUpdaterGitHub;
@@ -31,6 +33,27 @@ public static class AutoUpdaterGitHub
         {
             var releasesNotes = await gitHubClient.GetReleaseNotes(ApplicationOwner, ApplicationRepository);
             if (releasesNotes is null) return false; // Juste for testing
+
+            string background = null!;
+            string foreground = null!;
+
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                background = Utils.Resources.GetMaterialDesignPaperColorHexadecimalWithoutAlpha();
+                foreground = Utils.Resources.GetMaterialDesignBodyColorHexadecimalWithoutAlpha();
+            });
+
+            var markDown = releasesNotes.ToMarkDown();
+            var htmlContent = markDown.ToHtml(background, foreground);
+
+            var resourcePath = Path.GetFullPath("Resources");
+            var versioningPath = Path.Join(resourcePath, "Versioning");
+
+            var mdFilePath = Path.Join(versioningPath, "version.md");
+            var htmlFilePath = Path.Join(versioningPath, "versioning.html");
+
+            await File.WriteAllTextAsync(mdFilePath, markDown);
+            await File.WriteAllTextAsync(htmlFilePath, htmlContent);
 
             return true;
         }
