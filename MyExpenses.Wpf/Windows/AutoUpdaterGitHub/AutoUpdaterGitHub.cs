@@ -33,36 +33,36 @@ public static class AutoUpdaterGitHub
     //TODO work
     private static async Task<bool> CheckUpdateGitHubAsync()
     {
-        using var gitHubClient = new GitHubClient();
-
+        var markDown = await File.ReadAllTextAsync(MarkDownFilePath);
         try
         {
+            using var gitHubClient = new GitHubClient();
             var releasesNotes = await gitHubClient.GetReleaseNotes(ApplicationOwner, ApplicationRepository);
-            if (releasesNotes is null) return false; // Juste for testing
-
-            string background = null!;
-            string foreground = null!;
-
-            Application.Current.Dispatcher.Invoke(() =>
+            if (releasesNotes is not null)
             {
-                background = Utils.Resources.GetMaterialDesignPaperColorHexadecimalWithoutAlpha();
-                foreground = Utils.Resources.GetMaterialDesignBodyColorHexadecimalWithoutAlpha();
-            });
+                string background = null!;
+                string foreground = null!;
 
-            var markDown = releasesNotes.ToMarkDown();
-            var htmlContent = markDown.ToHtml(background, foreground);
+                Application.Current.Dispatcher.Invoke(() =>
+                {
+                    background = Utils.Resources.GetMaterialDesignPaperColorHexadecimalWithoutAlpha();
+                    foreground = Utils.Resources.GetMaterialDesignBodyColorHexadecimalWithoutAlpha();
+                });
 
-            await File.WriteAllTextAsync(MarkDownFilePath, markDown);
-            await File.WriteAllTextAsync(HtmlFilePath, htmlContent);
+                markDown = releasesNotes.ToMarkDown();
+                var htmlContent = markDown.ToHtml(background, foreground);
 
-            return true;
+                await File.WriteAllTextAsync(MarkDownFilePath, markDown);
+                await File.WriteAllTextAsync(HtmlFilePath, htmlContent);
+            }
         }
         catch (Exception e)
         {
             Console.WriteLine(e);
-
-            return false;
         }
+
+        Console.WriteLine(markDown); // Juste for testing
+        return true;
     }
 
     private static void Initialize()
