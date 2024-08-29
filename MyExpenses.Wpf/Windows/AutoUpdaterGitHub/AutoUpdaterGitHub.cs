@@ -7,6 +7,12 @@ namespace MyExpenses.Wpf.Windows.AutoUpdaterGitHub;
 
 public static class AutoUpdaterGitHub
 {
+    private static string ResourcePath => Path.GetFullPath("Resources");
+    private static string VersioningPath => Path.Join(ResourcePath, "Versioning");
+    private static string FileName => "version";
+    private static string MarkDownFilePath => Path.Join(VersioningPath, Path.ChangeExtension(FileName, ".md"));
+    private static string HtmlFilePath => Path.Join(VersioningPath, Path.ChangeExtension(FileName, ".html"));
+
     // Juste for testing
     private const string ApplicationOwner = "microsoft";
     // Juste for testing
@@ -20,8 +26,7 @@ public static class AutoUpdaterGitHub
 
             if (!needUpdate) return;
 
-            const string releasesUrl = @"C:\Users\ZP6177\Documents\Programmation\C#\MyExpenses\Tests\MyExpenses.IO.Test\bin\Debug\net8.0\test.html";
-            Application.Current.Dispatcher.Invoke(() => Initialize(releasesUrl));
+            Application.Current.Dispatcher.Invoke(Initialize);
         });
     }
 
@@ -46,14 +51,8 @@ public static class AutoUpdaterGitHub
             var markDown = releasesNotes.ToMarkDown();
             var htmlContent = markDown.ToHtml(background, foreground);
 
-            var resourcePath = Path.GetFullPath("Resources");
-            var versioningPath = Path.Join(resourcePath, "Versioning");
-
-            var mdFilePath = Path.Join(versioningPath, "version.md");
-            var htmlFilePath = Path.Join(versioningPath, "versioning.html");
-
-            await File.WriteAllTextAsync(mdFilePath, markDown);
-            await File.WriteAllTextAsync(htmlFilePath, htmlContent);
+            await File.WriteAllTextAsync(MarkDownFilePath, markDown);
+            await File.WriteAllTextAsync(HtmlFilePath, htmlContent);
 
             return true;
         }
@@ -65,9 +64,9 @@ public static class AutoUpdaterGitHub
         }
     }
 
-    private static void Initialize(this string releasesUrl)
+    private static void Initialize()
     {
-        var autoUpdaterGitHubWindow = new AutoUpdaterGitHubWindow(releasesUrl)
+        var autoUpdaterGitHubWindow = new AutoUpdaterGitHubWindow(HtmlFilePath)
         {
             Owner = Application.Current.MainWindow,
         };
