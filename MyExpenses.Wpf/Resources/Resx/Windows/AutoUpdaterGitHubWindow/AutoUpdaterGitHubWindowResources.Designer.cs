@@ -61,6 +61,24 @@ namespace MyExpenses.Wpf.Resources.Resx.Windows.AutoUpdaterGitHubWindow {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Call back later.
+        /// </summary>
+        internal static string ButtonCallBackLaterContent {
+            get {
+                return ResourceManager.GetString("ButtonCallBackLaterContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update.
+        /// </summary>
+        internal static string ButtonUpdateNowContent {
+            get {
+                return ResourceManager.GetString("ButtonUpdateNowContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to A new version of {0} is available!.
         /// </summary>
         internal static string TextBlockNewVersionIsAvailable {

@@ -23,4 +23,10 @@
     <data name="TextBlockVersionNote" xml:space="preserve">
         <value>Release notes :</value>
     </data>
+    <data name="ButtonCallBackLaterContent" xml:space="preserve">
+        <value>Call back later</value>
+    </data>
+    <data name="ButtonUpdateNowContent" xml:space="preserve">
+        <value>Update</value>
+    </data>
 </root>
