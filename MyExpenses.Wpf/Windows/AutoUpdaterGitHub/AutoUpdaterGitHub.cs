@@ -32,13 +32,8 @@ public static class AutoUpdaterGitHub
         {
             var needUpdate = await CheckUpdateGitHubAsync();
 
-            if (!needUpdate)
-            {
-                Log.Information("No update necessary");
-                return;
-            }
+            if (!needUpdate) return;
 
-            Log.Information("Update necessary. Initializing update process");
             Application.Current.Dispatcher.Invoke(Initialize);
         });
     }
@@ -69,12 +64,8 @@ public static class AutoUpdaterGitHub
         }
 
         var lastRelease = releasesNotes.OrderByDescending(s => s.PublishedAt).First();
-        var updateNecessary = lastRelease.NeedUpdate();
 
-        if (updateNecessary) Log.Information("An update is necessary");
-        else Log.Information("No update necessary based on the latest release");
-
-        return updateNecessary;
+        return lastRelease.NeedUpdate();
     }
 
     /// <summary>
