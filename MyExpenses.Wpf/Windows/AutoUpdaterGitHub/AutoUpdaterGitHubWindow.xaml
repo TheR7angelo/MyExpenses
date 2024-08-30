@@ -62,28 +62,24 @@
                                      Kind="DownloadCircle">
             </materialDesign:PackIcon>
 
-            <!-- TODO work -->
             <TextBlock Grid.Row="0" Grid.Column="1"
-                       FontWeight="Bold">
-                <TextBlock.Text>
-                    Une nouvelle version de Contrôle Owf est disponible !
-                </TextBlock.Text>
+                       FontWeight="Bold"
+                       Text="{Binding TextBlockNewVersionIsAvailable, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
             </TextBlock>
 
-            <!-- TODO work -->
-            <TextBlock Grid.Row="1" Grid.Column="1">
-                <TextBlock.Text>
-                    Contrôle Owf 1.20.1.0 est matenant disponible. Vous disposez de la version 1.20.0.0 installé.&#10;
-                    Voulez-vous la télécharger maintenant ?
-                </TextBlock.Text>
+            <TextBlock Grid.Row="1" Grid.Column="1"
+                       TextAlignment="Left"
+                       VerticalAlignment="Center"
+                       Text="{Binding TextBlockNewVersionIsAvailableParagraph, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
             </TextBlock>
 
             <!-- TODO work -->
             <TextBlock Grid.Row="2" Grid.Column="1"
-                       FontWeight="Bold">
-                <TextBlock.Text>
-                    Notes de version :
-                </TextBlock.Text>
+                       FontWeight="Bold"
+                       Text="{Binding TextBlockVersionNote, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
+                <!-- <TextBlock.Text> -->
+                <!--     Notes de version : -->
+                <!-- </TextBlock.Text> -->
             </TextBlock>
 
         </Grid>

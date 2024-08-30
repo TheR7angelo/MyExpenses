@@ -61,6 +61,33 @@ namespace MyExpenses.Wpf.Resources.Resx.Windows.AutoUpdaterGitHubWindow {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to A new version of {0} is available!.
+        /// </summary>
+        internal static string TextBlockNewVersionIsAvailable {
+            get {
+                return ResourceManager.GetString("TextBlockNewVersionIsAvailable", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to {0} {1} is now available. You have version {2} installed.{3}Would you like to download it now?.
+        /// </summary>
+        internal static string TextBlockNewVersionIsAvailableParagraph {
+            get {
+                return ResourceManager.GetString("TextBlockNewVersionIsAvailableParagraph", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Release notes :.
+        /// </summary>
+        internal static string TextBlockVersionNote {
+            get {
+                return ResourceManager.GetString("TextBlockVersionNote", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {0} {1} is available !.
         /// </summary>
         internal static string TitleWindow {
