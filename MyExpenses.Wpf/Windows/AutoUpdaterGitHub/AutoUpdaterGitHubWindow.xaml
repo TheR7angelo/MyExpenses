@@ -107,7 +107,8 @@
                 </Button.Content>
             </Button>
 
-            <Button Style="{StaticResource MaterialDesignPaperButton}">
+            <Button Style="{StaticResource MaterialDesignPaperButton}"
+                    Click="ButtonUpdateNow_OnClick">
                 <Button.Content>
                     <StackPanel Orientation="Horizontal">
 
