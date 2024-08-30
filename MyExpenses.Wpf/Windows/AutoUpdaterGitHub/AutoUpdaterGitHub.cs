@@ -96,10 +96,9 @@ public static class AutoUpdaterGitHub
     private static void Initialize()
     {
         Log.Information("Initializing update dialog");
-        var autoUpdaterGitHubWindow = new AutoUpdaterGitHubWindow(HtmlFilePath)
+        var autoUpdaterGitHubWindow = new AutoUpdaterGitHubWindow(HtmlFilePath, LastRelease!)
         {
-            Owner = Application.Current.MainWindow,
-            LastRelease = LastRelease
+            Owner = Application.Current.MainWindow
         };
         autoUpdaterGitHubWindow.ShowDialog();
     }
