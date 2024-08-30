@@ -1,5 +1,5 @@
 ﻿using MyExpenses.Models.AutoMapper;
-using Newtonsoft.Json;
+using MyExpenses.Utils;
 using Serilog;
 
 namespace MyExpenses.WebApi.GitHub;
@@ -19,7 +19,7 @@ public class GitHubClient : Http, IDisposable
         }
 
         var content = await response.Content.ReadAsStringAsync();
-        var hardReleases = JsonConvert.DeserializeObject<List<MyExpenses.Models.WebApi.Github.Hard.Release>>(content)!;
+        var hardReleases = content.ToObject<List<MyExpenses.Models.WebApi.Github.Hard.Release>>()!;
 
         var mapper = Mapping.Mapper;
         var softReleases = hardReleases.Select(s => mapper.Map<MyExpenses.Models.WebApi.Github.Soft.Release>(s)).ToList();

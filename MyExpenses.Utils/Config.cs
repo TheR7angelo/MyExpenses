@@ -31,7 +31,7 @@ public static class Config
     private static Configuration ReadConfiguration()
     {
         var json = File.ReadAllText(ConfigurationFilePath);
-        var configuration = JsonConvert.DeserializeObject<Configuration>(json) ?? new Configuration();
+        var configuration = json.ToObject<Configuration>() ?? new Configuration();
         return configuration;
     }
 

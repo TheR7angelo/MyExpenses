@@ -5,6 +5,7 @@ using Dropbox.Api;
 using Dropbox.Api.FileProperties;
 using Dropbox.Api.Files;
 using MyExpenses.Models.WebApi.DropBox;
+using MyExpenses.Utils;
 using Newtonsoft.Json;
 
 namespace MyExpenses.WebApi.Dropbox;
@@ -31,7 +32,7 @@ public class DropboxService
         else
         {
             var jsonStr = File.ReadAllText(FilePathSecretKeys);
-            AccessTokenAuthentication = JsonConvert.DeserializeObject<AccessTokenAuthentication>(jsonStr);
+            AccessTokenAuthentication = jsonStr.ToObject<AccessTokenAuthentication>();
         }
     }
 
@@ -167,7 +168,7 @@ public class DropboxService
         var response = await httpClient.PostAsync("https://api.dropbox.com/oauth2/token", requestContent);
         var responseContent = await response.Content.ReadAsStringAsync();
 
-        var accessTokenResponse = JsonConvert.DeserializeObject<AccessTokenAuthentication>(responseContent);
+        var accessTokenResponse = responseContent.ToObject<AccessTokenAuthentication>();
         AccessTokenAuthentication.AccessToken = accessTokenResponse!.AccessToken;
         AccessTokenAuthentication.ExpiresIn = accessTokenResponse.ExpiresIn;
         AccessTokenAuthentication.TokenType = accessTokenResponse.TokenType;
@@ -208,7 +209,7 @@ public class DropboxService
         using var reader = new StreamReader(stream);
         var jsonStr = reader.ReadToEnd();
 
-        return JsonConvert.DeserializeObject<DropboxKeys>(jsonStr)!;
+        return jsonStr.ToObject<DropboxKeys>()!;
     }
 
     private async Task<AccessTokenAuthentication?> GetAccessTokenAuthentication(string tempToken)
@@ -228,7 +229,7 @@ public class DropboxService
             .ConfigureAwait(false);
         var responseContent = await response.Content.ReadAsStringAsync();
 
-        var accessTokenResponse = JsonConvert.DeserializeObject<AccessTokenAuthentication>(responseContent);
+        var accessTokenResponse = responseContent.ToObject<AccessTokenAuthentication>();
         return accessTokenResponse;
     }
 
