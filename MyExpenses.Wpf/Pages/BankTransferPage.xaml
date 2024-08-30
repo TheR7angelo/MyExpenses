@@ -110,7 +110,6 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
                 <ComboBox Grid.Column="0"
@@ -130,12 +129,6 @@
                           DisplayMemberPath="{Binding DisplayMemberPathModePayment}"
                           SelectedItem="{Binding ModePayment, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
                 </ComboBox>
-
-                <CheckBox Grid.Column="2"
-                          materialDesign:CheckBoxAssist.CheckBoxSize="30"
-                          Content="{Binding CheckBoxPointedHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                          IsChecked="{Binding IsPointed, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
-                </CheckBox>
 
             </Grid>
 

@@ -320,6 +320,7 @@ public partial class BankTransferPage
 
     private void ButtonValidBankTransferPreview_OnClick(object sender, RoutedEventArgs e)
     {
+        var now = DateTime.Now;
         var valueAbs = Math.Abs(BankTransfer.Value ?? 0);
         var fromHistory = new THistory
         {
@@ -329,8 +330,10 @@ public partial class BankTransferPage
             ModePaymentFk = ModePayment?.Id,
             Value = -valueAbs,
             Date = BankTransfer.Date,
-            Pointed = IsPointed,
-            PlaceFk = 1
+            Pointed = true,
+            PlaceFk = 1,
+            DateAdded = now,
+            DatePointed = now,
         };
 
         var toHistory = new THistory
@@ -341,8 +344,10 @@ public partial class BankTransferPage
             ModePaymentFk = ModePayment?.Id,
             Value = valueAbs,
             Date = BankTransfer.Date,
-            Pointed = IsPointed,
-            PlaceFk = 1
+            Pointed = true,
+            PlaceFk = 1,
+            DateAdded = now,
+            DatePointed = now,
         };
 
         BankTransfer.THistories.Add(fromHistory);
