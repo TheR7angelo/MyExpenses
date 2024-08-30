@@ -5,6 +5,7 @@ using MyExpenses.IO.MarkDown;
 using MyExpenses.Models.WebApi.Github.Soft;
 using MyExpenses.Utils;
 using MyExpenses.WebApi.GitHub;
+using Serilog;
 
 namespace MyExpenses.Wpf.Windows.AutoUpdaterGitHub;
 
@@ -26,12 +27,18 @@ public static class AutoUpdaterGitHub
     /// </summary>
     public static void CheckUpdateGitHub()
     {
+        Log.Information("Starting update check");
         Task.Run(async () =>
         {
             var needUpdate = await CheckUpdateGitHubAsync();
 
-            if (!needUpdate) return;
+            if (!needUpdate)
+            {
+                Log.Information("No update necessary");
+                return;
+            }
 
+            Log.Information("Update necessary. Initializing update process");
             Application.Current.Dispatcher.Invoke(Initialize);
         });
     }
@@ -47,17 +54,23 @@ public static class AutoUpdaterGitHub
         var releasesNotes = GetDefaultReleaseNotes();
         try
         {
+            Log.Information("Fetched release notes from GitHub");
             using var gitHubClient = new GitHubClient();
             var releasesNotesTmp = await gitHubClient.GetReleaseNotes(ApplicationOwner, ApplicationRepository);
             if (releasesNotesTmp is not null && releasesNotesTmp.Count > 0) releasesNotes = await UpdateReleaseNotesFiles(releasesNotesTmp);
         }
         catch (Exception e)
         {
-            Console.WriteLine(e);
+            Log.Error(e, "Failed to fetch release notes from GitHub");
         }
 
         var lastRelease = releasesNotes.OrderByDescending(s => s.PublishedAt).First();
-        return lastRelease.NeedUpdate();
+        var updateNecessary = lastRelease.NeedUpdate();
+
+        if (updateNecessary) Log.Information("An update is necessary");
+        else Log.Information("No update necessary based on the latest release");
+
+        return updateNecessary;
     }
 
     /// <summary>
@@ -81,8 +94,12 @@ public static class AutoUpdaterGitHub
         var markDown = releasesNotes.ToMarkDown();
         var htmlContent = markDown.ToHtml(background, foreground);
 
+        Log.Information("Writing release notes to JSON file");
         await File.WriteAllTextAsync(JsonFilePath, json);
+
+        Log.Information("Writing release notes to HTML file");
         await File.WriteAllTextAsync(HtmlFilePath, htmlContent);
+
         return releasesNotes;
     }
 
@@ -101,7 +118,10 @@ public static class AutoUpdaterGitHub
 
         var githubLastVersion = new Version(tagName);
 
-        return githubLastVersion > currentAssembly.Version;
+        var result = githubLastVersion > currentAssembly.Version;
+        Log.Information("Comparing versions: Local - {LocalVersion}, GitHub - {GitHubVersion}, Update Needed: {UpdateNeeded}", currentAssembly.Version, githubLastVersion, result);
+
+        return result;
     }
 
     /// <summary>
@@ -109,6 +129,7 @@ public static class AutoUpdaterGitHub
     /// </summary>
     private static void Initialize()
     {
+        Log.Information("Initializing update dialog");
         var autoUpdaterGitHubWindow = new AutoUpdaterGitHubWindow(HtmlFilePath)
         {
             Owner = Application.Current.MainWindow,
@@ -122,6 +143,7 @@ public static class AutoUpdaterGitHub
     /// <returns>A list of Release objects representing the release notes.</returns>
     private static List<Release> GetDefaultReleaseNotes()
     {
+        Log.Information("Loading default release notes from JSON file");
         var json = File.ReadAllText(JsonFilePath);
         var releasesNotes = json.ToObject<List<Release>>()!;
 
