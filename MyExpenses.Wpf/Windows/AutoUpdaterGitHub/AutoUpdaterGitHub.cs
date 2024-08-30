@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Reflection;
 using System.Windows;
 using MyExpenses.IO.MarkDown;
 using MyExpenses.Models.WebApi.Github.Soft;
@@ -65,8 +66,21 @@ public static class AutoUpdaterGitHub
             Console.WriteLine(e);
         }
 
-        Console.WriteLine(releasesNotes);
-        return true;
+        var lastRelease = releasesNotes.OrderByDescending(s => s.PublishedAt).First();
+        return lastRelease.NeedUpdate();
+    }
+
+    private static bool NeedUpdate(this Release release)
+    {
+        var currentAssembly = Assembly.GetExecutingAssembly().GetName();
+
+        var tagName = release.TagName;
+        if (string.IsNullOrEmpty(tagName)) tagName = currentAssembly.Version!.ToString();
+        tagName = tagName.Replace("v", string.Empty);
+
+        var githubLastVersion = new Version(tagName);
+
+        return githubLastVersion > currentAssembly.Version;
     }
 
     private static void Initialize()
