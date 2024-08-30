@@ -92,7 +92,7 @@
                     HorizontalAlignment="Right"
                     margin:PanelExtensions.MarginForAllChildren="5">
 
-            <Button>
+            <Button Style="{StaticResource MaterialDesignPaperSecondaryButton}">
                 <Button.Content>
                     <StackPanel Orientation="Horizontal">
 
@@ -107,7 +107,7 @@
                 </Button.Content>
             </Button>
 
-            <Button>
+            <Button Style="{StaticResource MaterialDesignPaperButton}">
                 <Button.Content>
                     <StackPanel Orientation="Horizontal">
 
