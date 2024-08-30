@@ -1,6 +1,7 @@
 ﻿using System.IO;
 using System.Windows;
 using MyExpenses.IO.MarkDown;
+using MyExpenses.Models.WebApi.Github.Soft;
 using MyExpenses.Utils;
 using MyExpenses.WebApi.GitHub;
 
@@ -34,13 +35,14 @@ public static class AutoUpdaterGitHub
     //TODO work
     private static async Task<bool> CheckUpdateGitHubAsync()
     {
-        var json = await File.ReadAllTextAsync(JsonFilePath);
+        var releasesNotes = GetDefaultReleaseNotes();
         try
         {
             using var gitHubClient = new GitHubClient();
-            var releasesNotes = await gitHubClient.GetReleaseNotes(ApplicationOwner, ApplicationRepository);
-            if (releasesNotes is not null)
+            var releasesNotesTmp = await gitHubClient.GetReleaseNotes(ApplicationOwner, ApplicationRepository);
+            if (releasesNotesTmp is not null)
             {
+                releasesNotes = releasesNotesTmp;
                 string background = null!;
                 string foreground = null!;
 
@@ -50,8 +52,8 @@ public static class AutoUpdaterGitHub
                     foreground = Utils.Resources.GetMaterialDesignBodyColorHexadecimalWithoutAlpha();
                 });
 
-                json = releasesNotes.ToJson();
-                var markDown = releasesNotes.ToMarkDown();
+                var json = releasesNotesTmp.ToJson();
+                var markDown = releasesNotesTmp.ToMarkDown();
                 var htmlContent = markDown.ToHtml(background, foreground);
 
                 await File.WriteAllTextAsync(JsonFilePath, json);
@@ -63,7 +65,7 @@ public static class AutoUpdaterGitHub
             Console.WriteLine(e);
         }
 
-        Console.WriteLine(json); // Juste for testing
+        Console.WriteLine(releasesNotes);
         return true;
     }
 
@@ -74,5 +76,13 @@ public static class AutoUpdaterGitHub
             Owner = Application.Current.MainWindow,
         };
         autoUpdaterGitHubWindow.ShowDialog();
+    }
+
+    private static List<Release> GetDefaultReleaseNotes()
+    {
+        var json = File.ReadAllText(JsonFilePath);
+        var releasesNotes = json.ToObject<List<Release>>()!;
+
+        return releasesNotes;
     }
 }
