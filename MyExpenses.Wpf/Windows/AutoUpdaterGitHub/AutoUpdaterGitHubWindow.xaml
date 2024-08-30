@@ -73,13 +73,9 @@
                        Text="{Binding TextBlockNewVersionIsAvailableParagraph, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
             </TextBlock>
 
-            <!-- TODO work -->
             <TextBlock Grid.Row="2" Grid.Column="1"
                        FontWeight="Bold"
                        Text="{Binding TextBlockVersionNote, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
-                <!-- <TextBlock.Text> -->
-                <!--     Notes de version : -->
-                <!-- </TextBlock.Text> -->
             </TextBlock>
 
         </Grid>
