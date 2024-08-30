@@ -59,6 +59,7 @@ public abstract class Http
         var lastLogTime = DateTime.Now;
         int bytesRead;
 
+        Log.Information("Starting to download file \"{Url}\"", url);
         while ((bytesRead = await sourceStream.ReadAsync(buffer)) > 0)
         {
             await destinationStream.WriteAsync(buffer.AsMemory(0, bytesRead));
