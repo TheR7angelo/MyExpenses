@@ -6,7 +6,6 @@ using Dropbox.Api.FileProperties;
 using Dropbox.Api.Files;
 using MyExpenses.Models.WebApi.DropBox;
 using MyExpenses.Utils;
-using Newtonsoft.Json;
 
 namespace MyExpenses.WebApi.Dropbox;
 
@@ -177,8 +176,7 @@ public class DropboxService
         AccessTokenAuthentication.DateCreated = now;
         AccessTokenAuthentication.DateExpiration = now.AddSeconds(accessTokenResponse.ExpiresIn ?? 0);
 
-        await File.WriteAllTextAsync(FilePathSecretKeys,
-            JsonConvert.SerializeObject(AccessTokenAuthentication, Formatting.Indented));
+        await File.WriteAllTextAsync(FilePathSecretKeys, AccessTokenAuthentication.ToJson());
     }
 
     public AccessTokenAuthentication? AuthorizeApplication()
@@ -194,8 +192,7 @@ public class DropboxService
                 DateTime.Now.AddSeconds(accessTokenAuthentication.ExpiresIn ?? 0);
         }
 
-        File.WriteAllText(FilePathSecretKeys,
-            JsonConvert.SerializeObject(accessTokenAuthentication, Formatting.Indented));
+        File.WriteAllText(FilePathSecretKeys, accessTokenAuthentication?.ToJson());
         return accessTokenAuthentication;
     }
 

@@ -1,5 +1,4 @@
 using MyExpenses.Models.Config;
-using Newtonsoft.Json;
 
 namespace MyExpenses.Utils;
 
@@ -41,7 +40,7 @@ public static class Config
     /// <param name="configuration">The Configuration object representing the configuration settings.</param>
     public static void WriteConfiguration(this Configuration configuration)
     {
-        var json = JsonConvert.SerializeObject(configuration, Formatting.Indented);
+        var json = configuration.ToJson();
         File.WriteAllText(ConfigurationFilePath, json);
     }
 }
