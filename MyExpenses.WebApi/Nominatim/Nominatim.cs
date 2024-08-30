@@ -1,7 +1,7 @@
 ﻿using System.Globalization;
 using MyExpenses.Models.WebApi.Nominatim;
+using MyExpenses.Utils;
 using NetTopologySuite.Geometries;
-using Newtonsoft.Json;
 
 namespace MyExpenses.WebApi.Nominatim;
 
@@ -35,7 +35,7 @@ public static class Nominatim
                 .GetAsync(url)
                 .ConfigureAwait(false);
             var result = await httpResult.Content.ReadAsStringAsync();
-            return JsonConvert.DeserializeObject<NominatimSearchResult>(result);
+            return result.ToObject<NominatimSearchResult>();
         }
         catch (Exception)
         {
@@ -62,7 +62,7 @@ public static class Nominatim
                 .ConfigureAwait(false);
             var result = await httpResult.Content.ReadAsStringAsync();
 
-            return JsonConvert.DeserializeObject<List<NominatimSearchResult>>(result);
+            return result.ToObject<List<NominatimSearchResult>>();
         }
         catch (Exception)
         {
