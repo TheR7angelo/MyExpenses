@@ -17,8 +17,10 @@ public static class AutoUpdaterGitHub
     private static string HtmlFilePath => Path.Join(VersioningPath, Path.ChangeExtension(FileName, ".html"));
 
     // Juste for testing
+    // TODO adjust
     private const string ApplicationOwner = "microsoft";
     // Juste for testing
+    // TODO adjust
     private const string ApplicationRepository = "PowerToys";
 
     public static void CheckUpdateGitHub()
@@ -33,7 +35,6 @@ public static class AutoUpdaterGitHub
         });
     }
 
-    //TODO work
     private static async Task<bool> CheckUpdateGitHubAsync()
     {
         var releasesNotes = GetDefaultReleaseNotes();
