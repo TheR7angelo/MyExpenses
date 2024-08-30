@@ -49,6 +49,7 @@ public abstract class Http
         response.EnsureSuccessStatusCode();
 
         var totalBytes = response.Content.Headers.ContentLength ?? throw new InvalidOperationException("Unable to determine file size.");
+        var totalMegabytes = totalBytes / (1024.0 * 1024.0);
         var buffer = new byte[1024 * 1024]; // 1MB buffer
 
         await using var sourceStream = await response.Content.ReadAsStreamAsync();
@@ -90,6 +91,7 @@ public abstract class Http
         var totalDuration = endTime - startTime;
 
         // Log final details
-        Log.Information("Download completed successfully, start time: {StartTime:g} | end time: {EndTime:g} | total duration: {TotalDuration:g}", startTime, endTime, totalDuration);
+        Log.Information("Download completed successfully, start time: {StartTime:g} | end time: {EndTime:g} | total duration: {TotalDuration:g} | file size: {TotalSize:F2} MB",
+            startTime, endTime, totalDuration, totalMegabytes);
     }
 }
