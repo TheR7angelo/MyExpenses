@@ -552,9 +552,6 @@
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </AdditionalFiles>
       <None Remove="Resources\Versioning\version.md" />
-      <AdditionalFiles Include="Resources\Versioning\version.md">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </AdditionalFiles>
       <None Remove="Resources\Versioning\versioning.html" />
     </ItemGroup>
 
