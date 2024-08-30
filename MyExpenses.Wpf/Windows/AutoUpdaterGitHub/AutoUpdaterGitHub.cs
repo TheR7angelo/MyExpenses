@@ -40,6 +40,12 @@ public static class AutoUpdaterGitHub
         });
     }
 
+    /// <summary>
+    /// Runs a task asynchronously
+    /// to check if an update is necessary
+    /// by comparing the latest GitHub release with the current assembly version.
+    /// </summary>
+    /// <returns>True if an update is necessary, false otherwise.</returns>
     private static async Task<bool> CheckUpdateGitHubAsync()
     {
         var releasesNotes = GetDefaultReleaseNotes();
