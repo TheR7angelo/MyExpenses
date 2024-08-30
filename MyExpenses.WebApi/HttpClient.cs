@@ -49,7 +49,6 @@ public abstract class Http
         response.EnsureSuccessStatusCode();
 
         var totalBytes = response.Content.Headers.ContentLength ?? throw new InvalidOperationException("Unable to determine file size.");
-        var totalMegabytes = totalBytes / (1024.0 * 1024.0);
         var buffer = new byte[1024 * 1024]; // 1MB buffer
 
         await using var sourceStream = await response.Content.ReadAsStreamAsync();
@@ -91,7 +90,25 @@ public abstract class Http
         var totalDuration = endTime - startTime;
 
         // Log final details
-        Log.Information("Download completed successfully, start time: {StartTime:g} | end time: {EndTime:g} | total duration: {TotalDuration:g} | file size: {TotalSize:F2} MB",
-            startTime, endTime, totalDuration, totalMegabytes);
+        var normalizeBytes = GetNormalizeByteSize(totalBytes, out var normalizeBytesUnit);
+        Log.Information("Download completed successfully, start time: {StartTime:g} | end time: {EndTime:g} | total duration: {TotalDuration:g} | file size: {TotalSize:F2} {NormalizeBytesUnit}",
+            startTime, endTime, totalDuration, normalizeBytes, normalizeBytesUnit);
+    }
+
+    private static double GetNormalizeByteSize(long bytes, out string unit)
+    {
+        var absoluteBytes = Math.Abs((double)bytes);
+
+        string[] units = ["B", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"];
+
+        var unitIndex = 0;
+        while (absoluteBytes >= 1024 && unitIndex < units.Length - 1)
+        {
+            absoluteBytes /= 1024;
+            ++unitIndex;
+        }
+
+        unit = units[unitIndex];
+        return absoluteBytes;
     }
 }
