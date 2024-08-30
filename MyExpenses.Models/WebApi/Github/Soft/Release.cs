@@ -10,6 +10,17 @@ public class Release
     [JsonProperty("tag_name")]
     public string? TagName { get; set; }
 
+    [JsonIgnore]
+    public Version? Version
+    {
+        get
+        {
+            if (string.IsNullOrEmpty(TagName)) return null;
+            var tagName = TagName.Replace("v", string.Empty);
+           return new Version(tagName);
+        }
+    }
+
     [JsonProperty("name")]
     public string? Name { get; set; }
 
