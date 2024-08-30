@@ -47,25 +47,7 @@ public static class AutoUpdaterGitHub
         {
             using var gitHubClient = new GitHubClient();
             var releasesNotesTmp = await gitHubClient.GetReleaseNotes(ApplicationOwner, ApplicationRepository);
-            if (releasesNotesTmp is not null)
-            {
-                releasesNotes = releasesNotesTmp;
-                string background = null!;
-                string foreground = null!;
-
-                Application.Current.Dispatcher.Invoke(() =>
-                {
-                    background = Utils.Resources.GetMaterialDesignPaperColorHexadecimalWithoutAlpha();
-                    foreground = Utils.Resources.GetMaterialDesignBodyColorHexadecimalWithoutAlpha();
-                });
-
-                var json = releasesNotesTmp.ToJson();
-                var markDown = releasesNotesTmp.ToMarkDown();
-                var htmlContent = markDown.ToHtml(background, foreground);
-
-                await File.WriteAllTextAsync(JsonFilePath, json);
-                await File.WriteAllTextAsync(HtmlFilePath, htmlContent);
-            }
+            if (releasesNotesTmp is not null) releasesNotes = await UpdateReleaseNotesFiles(releasesNotesTmp);
         }
         catch (Exception e)
         {
@@ -74,6 +56,32 @@ public static class AutoUpdaterGitHub
 
         var lastRelease = releasesNotes.OrderByDescending(s => s.PublishedAt).First();
         return lastRelease.NeedUpdate();
+    }
+
+    /// <summary>
+    /// Updates the release notes files by converting the release notes to JSON, Markdown, and HTML formats
+    /// and writing them to the corresponding files.
+    /// </summary>
+    /// <param name="releasesNotes">The list of release notes to update</param>
+    /// <returns>The updated list of release notes</returns>
+    private static async Task<List<Release>> UpdateReleaseNotesFiles(List<Release> releasesNotes)
+    {
+        string background = null!;
+        string foreground = null!;
+
+        Application.Current.Dispatcher.Invoke(() =>
+        {
+            background = Utils.Resources.GetMaterialDesignPaperColorHexadecimalWithoutAlpha();
+            foreground = Utils.Resources.GetMaterialDesignBodyColorHexadecimalWithoutAlpha();
+        });
+
+        var json = releasesNotes.ToJson();
+        var markDown = releasesNotes.ToMarkDown();
+        var htmlContent = markDown.ToHtml(background, foreground);
+
+        await File.WriteAllTextAsync(JsonFilePath, json);
+        await File.WriteAllTextAsync(HtmlFilePath, htmlContent);
+        return releasesNotes;
     }
 
     /// <summary>
