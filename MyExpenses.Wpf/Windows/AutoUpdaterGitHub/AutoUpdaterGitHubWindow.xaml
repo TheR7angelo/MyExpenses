@@ -100,8 +100,7 @@
                                                  Kind="Alarm">
                         </materialDesign:PackIcon>
 
-                        <Label Content="Rappeler plus tard">
-                        </Label>
+                        <Label Content="{Binding ButtonCallBackLaterContent, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
 
                     </StackPanel>
 
@@ -116,8 +115,7 @@
                                                  Kind="DownloadCircle">
                         </materialDesign:PackIcon>
 
-                        <Label Content="Mettre à jour">
-                        </Label>
+                        <Label Content="{Binding ButtonUpdateNowContent, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
 
                     </StackPanel>
 

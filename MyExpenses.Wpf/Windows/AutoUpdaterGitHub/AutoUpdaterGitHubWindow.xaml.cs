@@ -51,6 +51,26 @@ public partial class AutoUpdaterGitHubWindow
         set => SetValue(TextBlockVersionNoteProperty, value);
     }
 
+    public static readonly DependencyProperty ButtonCallBackLaterContentProperty =
+        DependencyProperty.Register(nameof(ButtonCallBackLaterContent), typeof(string), typeof(AutoUpdaterGitHubWindow),
+            new PropertyMetadata(default(string)));
+
+    public string ButtonCallBackLaterContent
+    {
+        get => (string)GetValue(ButtonCallBackLaterContentProperty);
+        set => SetValue(ButtonCallBackLaterContentProperty, value);
+    }
+
+    public static readonly DependencyProperty ButtonUpdateNowContentProperty =
+        DependencyProperty.Register(nameof(ButtonUpdateNowContent), typeof(string), typeof(AutoUpdaterGitHubWindow),
+            new PropertyMetadata(default(string)));
+
+    public string ButtonUpdateNowContent
+    {
+        get => (string)GetValue(ButtonUpdateNowContentProperty);
+        set => SetValue(ButtonUpdateNowContentProperty, value);
+    }
+
     #endregion
 
     private Release LastRelease { get; }
@@ -94,6 +114,9 @@ public partial class AutoUpdaterGitHubWindow
         TextBlockNewVersionIsAvailable = string.Format(AutoUpdaterGitHubWindowResources.TextBlockNewVersionIsAvailable, assembly.Name);
         TextBlockNewVersionIsAvailableParagraph = string.Format(AutoUpdaterGitHubWindowResources.TextBlockNewVersionIsAvailableParagraph, assembly.Name, LastRelease.Version, assembly.Version, Environment.NewLine);
         TextBlockVersionNote = AutoUpdaterGitHubWindowResources.TextBlockVersionNote;
+
+        ButtonCallBackLaterContent = AutoUpdaterGitHubWindowResources.ButtonCallBackLaterContent;
+        ButtonUpdateNowContent = AutoUpdaterGitHubWindowResources.ButtonUpdateNowContent;
     }
 
     #endregion
