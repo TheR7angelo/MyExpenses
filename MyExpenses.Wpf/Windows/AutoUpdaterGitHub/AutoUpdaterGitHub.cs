@@ -57,7 +57,11 @@ public static class AutoUpdaterGitHub
             Log.Information("Fetched release notes from GitHub");
             using var gitHubClient = new GitHubClient();
             var releasesNotesTmp = await gitHubClient.GetReleaseNotes(ApplicationOwner, ApplicationRepository);
-            if (releasesNotesTmp is not null && releasesNotesTmp.Count > 0) releasesNotes = await UpdateReleaseNotesFiles(releasesNotesTmp);
+            if (releasesNotesTmp is not null && releasesNotesTmp.Count > 0)
+            {
+                releasesNotes = releasesNotesTmp;
+                await UpdateReleaseNotesFiles(releasesNotes);
+            }
         }
         catch (Exception e)
         {
@@ -82,6 +86,8 @@ public static class AutoUpdaterGitHub
         Log.Information("Loading default release notes from JSON file");
         var json = File.ReadAllText(JsonFilePath);
         var releasesNotes = json.ToObject<List<Release>>()!;
+
+        if (!File.Exists(HtmlFilePath)) _ = releasesNotes.UpdateReleaseNotesFiles();
 
         return releasesNotes;
     }
@@ -126,7 +132,7 @@ public static class AutoUpdaterGitHub
     /// </summary>
     /// <param name="releasesNotes">The list of release notes to update</param>
     /// <returns>The updated list of release notes</returns>
-    private static async Task<List<Release>> UpdateReleaseNotesFiles(List<Release> releasesNotes)
+    private static async Task UpdateReleaseNotesFiles(this List<Release> releasesNotes)
     {
         string background = null!;
         string foreground = null!;
@@ -146,7 +152,5 @@ public static class AutoUpdaterGitHub
 
         Log.Information("Writing release notes to HTML file");
         await File.WriteAllTextAsync(HtmlFilePath, htmlContent);
-
-        return releasesNotes;
     }
 }
