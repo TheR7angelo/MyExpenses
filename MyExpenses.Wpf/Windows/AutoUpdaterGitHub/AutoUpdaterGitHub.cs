@@ -23,6 +23,11 @@ public static class AutoUpdaterGitHub
     // TODO adjust
     private const string ApplicationRepository = "PowerToys";
 
+    /// <summary>
+    /// Runs a task asynchronously
+    /// to check if an update is necessary
+    /// by comparing the latest GitHub release with the current assembly version.
+    /// </summary>
     public static void CheckUpdateGitHub()
     {
         Task.Run(async () =>
@@ -71,6 +76,11 @@ public static class AutoUpdaterGitHub
         return lastRelease.NeedUpdate();
     }
 
+    /// <summary>
+    /// Determines if an update is necessary by comparing the latest GitHub release with the current assembly version.
+    /// </summary>
+    /// <param name="release">The latest release information from GitHub.</param>
+    /// <returns>True if an update is necessary, false otherwise.</returns>
     private static bool NeedUpdate(this Release release)
     {
         var currentAssembly = Assembly.GetExecutingAssembly().GetName();
@@ -84,6 +94,9 @@ public static class AutoUpdaterGitHub
         return githubLastVersion > currentAssembly.Version;
     }
 
+    /// <summary>
+    /// Represents a static class that provides methods to perform automatic updates using GitHub as the source.
+    /// </summary>
     private static void Initialize()
     {
         var autoUpdaterGitHubWindow = new AutoUpdaterGitHubWindow(HtmlFilePath)
@@ -93,6 +106,10 @@ public static class AutoUpdaterGitHub
         autoUpdaterGitHubWindow.ShowDialog();
     }
 
+    /// <summary>
+    /// Gets the default release notes from the JSON file.
+    /// </summary>
+    /// <returns>A list of Release objects representing the release notes.</returns>
     private static List<Release> GetDefaultReleaseNotes()
     {
         var json = File.ReadAllText(JsonFilePath);
