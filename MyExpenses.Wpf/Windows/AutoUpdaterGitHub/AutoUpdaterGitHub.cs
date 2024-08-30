@@ -16,12 +16,8 @@ public static class AutoUpdaterGitHub
     private static string JsonFilePath => Path.Join(VersioningPath, Path.ChangeExtension(FileName, ".json"));
     private static string HtmlFilePath => Path.Join(VersioningPath, Path.ChangeExtension(FileName, ".html"));
 
-    // Juste for testing
-    // TODO adjust
-    private const string ApplicationOwner = "microsoft";
-    // Juste for testing
-    // TODO adjust
-    private const string ApplicationRepository = "PowerToys";
+    private const string ApplicationOwner = "TheR7angelo";
+    private const string ApplicationRepository = "MyExpenses";
 
     /// <summary>
     /// Runs a task asynchronously
@@ -53,7 +49,7 @@ public static class AutoUpdaterGitHub
         {
             using var gitHubClient = new GitHubClient();
             var releasesNotesTmp = await gitHubClient.GetReleaseNotes(ApplicationOwner, ApplicationRepository);
-            if (releasesNotesTmp is not null) releasesNotes = await UpdateReleaseNotesFiles(releasesNotesTmp);
+            if (releasesNotesTmp is not null && releasesNotesTmp.Count > 0) releasesNotes = await UpdateReleaseNotesFiles(releasesNotesTmp);
         }
         catch (Exception e)
         {
