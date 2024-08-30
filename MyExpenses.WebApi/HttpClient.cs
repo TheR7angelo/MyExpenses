@@ -22,14 +22,15 @@ public abstract class Http
     /// <param name="url">The URL of the file to download.</param>
     /// <param name="destinationFile">The destination file path where the downloaded file will be saved.</param>
     /// <param name="overwrite">Optional. Determines whether to overwrite the destination file if it already exists. The default value is false.</param>
+    /// <param name="logInterval">Optional. The interval at which logs should be recorded in seconds. The default value is 5 seconds.</param>
     /// <param name="percentProgress">Optional. An object that reports the percentage progress of the download. The default value is null.</param>
     /// <param name="speedProgress">Optional. An object that reports the speed of the download in megabytes per second. The default value is null.</param>
     /// <param name="timeLeftProgress">Optional. An object that reports the estimated time remaining for the download to complete. The default value is null.</param>
     /// <exception cref="IOException">Thrown when the overwrite parameter is false and the destination file already exists.</exception>
     /// <exception cref="InvalidOperationException">Thrown when the file size can't be determined.</exception>
     /// <returns>A Task representing the asynchronous operation.</returns>
-    protected static async Task DownloadFileWithReportAsync(string url, string destinationFile,
-        bool overwrite = false,
+    public async Task DownloadFileWithReportAsync(string url, string destinationFile,
+        bool overwrite = false, int logInterval = 5,
         IProgress<double>? percentProgress = null, IProgress<double>? speedProgress = null,
         IProgress<TimeSpan>? timeLeftProgress = null)
     {
@@ -55,6 +56,7 @@ public abstract class Http
 
         var totalBytesRead = 0L;
         var startTime = DateTime.Now;
+        var lastLogTime = DateTime.Now;
         int bytesRead;
 
         while ((bytesRead = await sourceStream.ReadAsync(buffer)) > 0)
@@ -75,8 +77,18 @@ public abstract class Http
             speedProgress?.Report(speedInMBps);
             timeLeftProgress?.Report(remainingTime);
 
-            // Update Progress log
-            progressLog.Report((percentage, speedInMBps, remainingTime));
+            var currentTime = DateTime.Now;
+            if (!((currentTime - lastLogTime).TotalSeconds >= logInterval)) continue;
+
+            // Log Progress at intervals
+            progressLog?.Report((percentage, speedInMBps, remainingTime));
+            lastLogTime = currentTime;
         }
+
+        var endTime = DateTime.Now;
+        var totalDuration = endTime - startTime;
+
+        // Log final details
+        Log.Information("Download completed successfully, start time: {StartTime:g} | end time: {EndTime:g} | total duration: {TotalDuration:g}", startTime, endTime, totalDuration);
     }
 }
