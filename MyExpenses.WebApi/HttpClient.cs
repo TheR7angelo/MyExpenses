@@ -29,7 +29,7 @@ public abstract class Http
     /// <exception cref="IOException">Thrown when the overwrite parameter is false and the destination file already exists.</exception>
     /// <exception cref="InvalidOperationException">Thrown when the file size can't be determined.</exception>
     /// <returns>A Task representing the asynchronous operation.</returns>
-    public async Task DownloadFileWithReportAsync(string url, string destinationFile,
+    public static async Task DownloadFileWithReportAsync(string url, string destinationFile,
         bool overwrite = false, int logInterval = 5,
         IProgress<double>? percentProgress = null, IProgress<double>? speedProgress = null,
         IProgress<TimeSpan>? timeLeftProgress = null)
