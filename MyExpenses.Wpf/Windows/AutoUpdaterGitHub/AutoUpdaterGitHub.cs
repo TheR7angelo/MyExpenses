@@ -74,6 +74,53 @@ public static class AutoUpdaterGitHub
     }
 
     /// <summary>
+    /// Gets the default release notes from the JSON file.
+    /// </summary>
+    /// <returns>A list of Release objects representing the release notes.</returns>
+    private static List<Release> GetDefaultReleaseNotes()
+    {
+        Log.Information("Loading default release notes from JSON file");
+        var json = File.ReadAllText(JsonFilePath);
+        var releasesNotes = json.ToObject<List<Release>>()!;
+
+        return releasesNotes;
+    }
+
+    /// <summary>
+    /// Represents a static class that provides methods to perform automatic updates using GitHub as the source.
+    /// </summary>
+    private static void Initialize()
+    {
+        Log.Information("Initializing update dialog");
+        var autoUpdaterGitHubWindow = new AutoUpdaterGitHubWindow(HtmlFilePath)
+        {
+            Owner = Application.Current.MainWindow,
+        };
+        autoUpdaterGitHubWindow.ShowDialog();
+    }
+
+    /// <summary>
+    /// Determines if an update is necessary by comparing the latest GitHub release with the current assembly version.
+    /// </summary>
+    /// <param name="release">The latest release information from GitHub.</param>
+    /// <returns>True if an update is necessary, false otherwise.</returns>
+    private static bool NeedUpdate(this Release release)
+    {
+        var currentAssembly = Assembly.GetExecutingAssembly().GetName();
+
+        var tagName = release.TagName;
+        if (string.IsNullOrEmpty(tagName)) tagName = currentAssembly.Version!.ToString();
+        tagName = tagName.Replace("v", string.Empty);
+
+        var githubLastVersion = new Version(tagName);
+
+        var result = githubLastVersion > currentAssembly.Version;
+        Log.Information("Comparing versions: Local - {LocalVersion}, GitHub - {GitHubVersion}, Update Needed: {UpdateNeeded}", currentAssembly.Version, githubLastVersion, result);
+
+        return result;
+    }
+
+    /// <summary>
     /// Updates the release notes files by converting the release notes to JSON, Markdown, and HTML formats
     /// and writing them to the corresponding files.
     /// </summary>
@@ -99,53 +146,6 @@ public static class AutoUpdaterGitHub
 
         Log.Information("Writing release notes to HTML file");
         await File.WriteAllTextAsync(HtmlFilePath, htmlContent);
-
-        return releasesNotes;
-    }
-
-    /// <summary>
-    /// Determines if an update is necessary by comparing the latest GitHub release with the current assembly version.
-    /// </summary>
-    /// <param name="release">The latest release information from GitHub.</param>
-    /// <returns>True if an update is necessary, false otherwise.</returns>
-    private static bool NeedUpdate(this Release release)
-    {
-        var currentAssembly = Assembly.GetExecutingAssembly().GetName();
-
-        var tagName = release.TagName;
-        if (string.IsNullOrEmpty(tagName)) tagName = currentAssembly.Version!.ToString();
-        tagName = tagName.Replace("v", string.Empty);
-
-        var githubLastVersion = new Version(tagName);
-
-        var result = githubLastVersion > currentAssembly.Version;
-        Log.Information("Comparing versions: Local - {LocalVersion}, GitHub - {GitHubVersion}, Update Needed: {UpdateNeeded}", currentAssembly.Version, githubLastVersion, result);
-
-        return result;
-    }
-
-    /// <summary>
-    /// Represents a static class that provides methods to perform automatic updates using GitHub as the source.
-    /// </summary>
-    private static void Initialize()
-    {
-        Log.Information("Initializing update dialog");
-        var autoUpdaterGitHubWindow = new AutoUpdaterGitHubWindow(HtmlFilePath)
-        {
-            Owner = Application.Current.MainWindow,
-        };
-        autoUpdaterGitHubWindow.ShowDialog();
-    }
-
-    /// <summary>
-    /// Gets the default release notes from the JSON file.
-    /// </summary>
-    /// <returns>A list of Release objects representing the release notes.</returns>
-    private static List<Release> GetDefaultReleaseNotes()
-    {
-        Log.Information("Loading default release notes from JSON file");
-        var json = File.ReadAllText(JsonFilePath);
-        var releasesNotes = json.ToObject<List<Release>>()!;
 
         return releasesNotes;
     }
