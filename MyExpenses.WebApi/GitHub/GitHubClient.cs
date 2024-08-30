@@ -8,7 +8,18 @@ public class GitHubClient : Http, IDisposable
 {
     private HttpClient HttpClient { get; } = GetHttpClient("https://api.github.com/repos/");
 
-    public async Task<List<MyExpenses.Models.WebApi.Github.Soft.Release>?> GetReleaseNotes(string owner, string repository)
+    /// <summary>
+    /// Retrieves the release notes for a specific GitHub repository.
+    /// </summary>
+    /// <param name="owner">The owner of the GitHub repository.</param>
+    /// <param name="repository">The name of the GitHub repository.</param>
+    /// <returns>
+    /// A <see cref="Task"/> representing the asynchronous operation.
+    /// The task result contains a collection of <see cref="MyExpenses.Models.WebApi.Github.Soft.Release"/> objects representing the release notes.
+    /// If the GitHub API request fails or no release notes are found, the result is null.
+    /// </returns>
+    public async Task<List<MyExpenses.Models.WebApi.Github.Soft.Release>?> GetReleaseNotes(string owner,
+        string repository)
     {
         var response = await HttpClient.GetAsync($"{owner}/{repository}/releases");
 
@@ -27,6 +38,9 @@ public class GitHubClient : Http, IDisposable
         return softReleases;
     }
 
+    /// <summary>
+    /// Releases the resources used by the HttpClient and suppresses the finalization of the current object.
+    /// </summary>
     public void Dispose()
     {
         HttpClient.Dispose();
