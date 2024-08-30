@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.Reflection;
+using System.Windows;
 using MyExpenses.Models.Config;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.WebApi.Github.Soft;
@@ -18,6 +19,36 @@ public partial class AutoUpdaterGitHubWindow
     {
         get => (string)GetValue(TitleWindowProperty);
         set => SetValue(TitleWindowProperty, value);
+    }
+
+    public static readonly DependencyProperty TextBlockNewVersionIsAvailableProperty =
+        DependencyProperty.Register(nameof(TextBlockNewVersionIsAvailable), typeof(string),
+            typeof(AutoUpdaterGitHubWindow), new PropertyMetadata(default(string)));
+
+    public string TextBlockNewVersionIsAvailable
+    {
+        get => (string)GetValue(TextBlockNewVersionIsAvailableProperty);
+        set => SetValue(TextBlockNewVersionIsAvailableProperty, value);
+    }
+
+    public static readonly DependencyProperty TextBlockNewVersionIsAvailableParagraphProperty =
+        DependencyProperty.Register(nameof(TextBlockNewVersionIsAvailableParagraph), typeof(string),
+            typeof(AutoUpdaterGitHubWindow), new PropertyMetadata(default(string)));
+
+    public string TextBlockNewVersionIsAvailableParagraph
+    {
+        get => (string)GetValue(TextBlockNewVersionIsAvailableParagraphProperty);
+        set => SetValue(TextBlockNewVersionIsAvailableParagraphProperty, value);
+    }
+
+    public static readonly DependencyProperty TextBlockVersionNoteProperty =
+        DependencyProperty.Register(nameof(TextBlockVersionNote), typeof(string), typeof(AutoUpdaterGitHubWindow),
+            new PropertyMetadata(default(string)));
+
+    public string TextBlockVersionNote
+    {
+        get => (string)GetValue(TextBlockVersionNoteProperty);
+        set => SetValue(TextBlockVersionNoteProperty, value);
     }
 
     #endregion
@@ -57,7 +88,12 @@ public partial class AutoUpdaterGitHubWindow
 
     private void UpdateLanguage()
     {
-        TitleWindow = string.Format(AutoUpdaterGitHubWindowResources.TitleWindow, AutoUpdaterGitHub.ApplicationRepository, LastRelease.Version);
+        var assembly = Assembly.GetExecutingAssembly().GetName();
+
+        TitleWindow = string.Format(AutoUpdaterGitHubWindowResources.TitleWindow, assembly.Name, LastRelease.Version);
+        TextBlockNewVersionIsAvailable = string.Format(AutoUpdaterGitHubWindowResources.TextBlockNewVersionIsAvailable, assembly.Name);
+        TextBlockNewVersionIsAvailableParagraph = string.Format(AutoUpdaterGitHubWindowResources.TextBlockNewVersionIsAvailableParagraph, assembly.Name, LastRelease.Version, assembly.Version, Environment.NewLine);
+        TextBlockVersionNote = AutoUpdaterGitHubWindowResources.TextBlockVersionNote;
     }
 
     #endregion

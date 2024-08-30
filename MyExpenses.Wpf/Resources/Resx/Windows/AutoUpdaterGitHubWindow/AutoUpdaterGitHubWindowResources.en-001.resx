@@ -14,4 +14,13 @@
     <data name="TitleWindow" xml:space="preserve">
         <value>{0} {1} is available !</value>
     </data>
+    <data name="TextBlockNewVersionIsAvailable" xml:space="preserve">
+        <value>A new version of {0} is available!</value>
+    </data>
+    <data name="TextBlockNewVersionIsAvailableParagraph" xml:space="preserve">
+        <value>{0} {1} is now available. You have version {2} installed.{3}Would you like to download it now?</value>
+    </data>
+    <data name="TextBlockVersionNote" xml:space="preserve">
+        <value>Release notes :</value>
+    </data>
 </root>
