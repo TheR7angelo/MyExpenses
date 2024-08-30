@@ -1,8 +1,10 @@
-﻿using System.Reflection;
+﻿using System.IO;
+using System.Reflection;
 using System.Windows;
 using MyExpenses.Models.Config;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.WebApi.Github.Soft;
+using MyExpenses.WebApi;
 using MyExpenses.Wpf.Resources.Resx.Windows.AutoUpdaterGitHubWindow;
 using MyExpenses.Wpf.Utils;
 
@@ -120,4 +122,16 @@ public partial class AutoUpdaterGitHubWindow
     }
 
     #endregion
+
+    // TODO work
+    private async void ButtonUpdateNow_OnClick(object sender, RoutedEventArgs e)
+    {
+        var tempDirectory = Path.GetFullPath("temp");
+        Directory.CreateDirectory(tempDirectory);
+
+        var assetTest = LastRelease.Assets![5]!;
+        var pathTest = Path.Join(tempDirectory, assetTest.Name);
+
+        await Http.DownloadFileWithReportAsync(assetTest.BrowserDownloadUrl!, pathTest, overwrite:true);
+    }
 }

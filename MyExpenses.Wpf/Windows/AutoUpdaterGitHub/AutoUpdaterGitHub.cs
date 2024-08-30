@@ -4,7 +4,6 @@ using System.Windows;
 using MyExpenses.IO.MarkDown;
 using MyExpenses.Models.WebApi.Github.Soft;
 using MyExpenses.Utils;
-using MyExpenses.WebApi;
 using MyExpenses.WebApi.GitHub;
 using Serilog;
 
@@ -65,12 +64,7 @@ public static class AutoUpdaterGitHub
             Log.Error(e, "Failed to fetch release notes from GitHub");
         }
 
-        //TODO work
         LastRelease = releasesNotes.OrderByDescending(s => s.PublishedAt).First();
-        var assetTest = LastRelease.Assets![5]!;
-        var pathTest = Path.Join(VersioningPath, assetTest.Name);
-
-        await Http.DownloadFileWithReportAsync(assetTest.BrowserDownloadUrl!, pathTest, overwrite:true);
 
         return LastRelease.NeedUpdate();
     }
