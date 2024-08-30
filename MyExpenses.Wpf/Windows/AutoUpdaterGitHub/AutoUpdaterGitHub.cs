@@ -16,7 +16,7 @@ public static class AutoUpdaterGitHub
     private static string FileName => "version";
     private static string JsonFilePath => Path.Join(VersioningPath, Path.ChangeExtension(FileName, ".json"));
     private static string HtmlFilePath => Path.Join(VersioningPath, Path.ChangeExtension(FileName, ".html"));
-    public static Release? LastRelease { get; private set; }
+    private static Release? LastRelease { get; set; }
 
     private const string ApplicationOwner = "TheR7angelo";
     private const string ApplicationRepository = "MyExpenses";
@@ -93,6 +93,7 @@ public static class AutoUpdaterGitHub
         var autoUpdaterGitHubWindow = new AutoUpdaterGitHubWindow(HtmlFilePath)
         {
             Owner = Application.Current.MainWindow,
+            LastRelease = LastRelease
         };
         autoUpdaterGitHubWindow.ShowDialog();
     }
