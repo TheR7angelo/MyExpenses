@@ -16,6 +16,7 @@ public static class AutoUpdaterGitHub
     private static string FileName => "version";
     private static string JsonFilePath => Path.Join(VersioningPath, Path.ChangeExtension(FileName, ".json"));
     private static string HtmlFilePath => Path.Join(VersioningPath, Path.ChangeExtension(FileName, ".html"));
+    public static Release? LastRelease { get; private set; }
 
     private const string ApplicationOwner = "TheR7angelo";
     private const string ApplicationRepository = "MyExpenses";
@@ -63,9 +64,9 @@ public static class AutoUpdaterGitHub
             Log.Error(e, "Failed to fetch release notes from GitHub");
         }
 
-        var lastRelease = releasesNotes.OrderByDescending(s => s.PublishedAt).First();
+        LastRelease = releasesNotes.OrderByDescending(s => s.PublishedAt).First();
 
-        return lastRelease.NeedUpdate();
+        return LastRelease.NeedUpdate();
     }
 
     /// <summary>
