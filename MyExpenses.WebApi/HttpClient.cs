@@ -98,7 +98,7 @@ public abstract class Http
 
     private static double GetNormalizeByteSize(double bytes, out string unit)
     {
-        var absoluteBytes = Math.Abs((double)bytes);
+        var absoluteBytes = Math.Abs(bytes);
 
         string[] units = ["B", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"];
 
