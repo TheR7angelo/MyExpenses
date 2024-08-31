@@ -70,6 +70,15 @@ public partial class ProgressBarWindow
         set => SetValue(LabelSpeedProperty, value);
     }
 
+    public static readonly DependencyProperty TitleWindowProperty = DependencyProperty.Register(nameof(TitleWindow),
+        typeof(string), typeof(ProgressBarWindow), new PropertyMetadata(default(string)));
+
+    public string TitleWindow
+    {
+        get => (string)GetValue(TitleWindowProperty);
+        set => SetValue(TitleWindowProperty, value);
+    }
+
     #endregion
 
     private CancellationTokenSource? CancellationTokenSource { get; set; }
@@ -93,6 +102,8 @@ public partial class ProgressBarWindow
 
     private void UpdateLanguage()
     {
+        TitleWindow = ProgressBarWindowResources.TitleWindow;
+
         LabelTimeElapsed = ProgressBarWindowResources.LabelTimeElapsed;
         LabelTimeLeft = ProgressBarWindowResources.LabelTimeLeft;
         LabelSpeed = ProgressBarWindowResources.LabelSpeed;

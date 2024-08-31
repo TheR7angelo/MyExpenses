@@ -27,4 +27,7 @@
     <data name="LabelSpeed" xml:space="preserve">
         <value>Current speed:</value>
     </data>
+    <data name="TitleWindow" xml:space="preserve">
+        <value>Download in progress</value>
+    </data>
 </root>

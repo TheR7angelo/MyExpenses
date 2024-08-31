@@ -8,7 +8,7 @@
         xmlns:margin="clr-namespace:MyExpenses.Wpf.Utils.Margin;assembly=MyExpenses.Wpf.Utils"
         mc:Ignorable="d"
 
-        Title="ProgressBarWindow"
+        Title="{Binding TitleWindow, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
 
         MinHeight="160"
         MinWidth="425"

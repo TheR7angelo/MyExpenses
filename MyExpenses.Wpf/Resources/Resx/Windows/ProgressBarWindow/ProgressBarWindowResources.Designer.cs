@@ -86,5 +86,14 @@ namespace MyExpenses.Wpf.Resources.Resx.Windows.ProgressBarWindow {
                 return ResourceManager.GetString("LabelTimeLeft", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Download in progress.
+        /// </summary>
+        internal static string TitleWindow {
+            get {
+                return ResourceManager.GetString("TitleWindow", resourceCulture);
+            }
+        }
     }
 }
