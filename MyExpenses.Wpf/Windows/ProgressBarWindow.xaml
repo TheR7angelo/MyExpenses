@@ -54,39 +54,43 @@
                    Text="{Binding Value, StringFormat={}{0:0} %, ElementName=ProgressBarPercent}">
         </TextBlock>
 
-        <StackPanel Grid.Row="2"
-                    Orientation="Horizontal"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center">
+        <Grid Grid.Row="1"
+              HorizontalAlignment="Center"
+              VerticalAlignment="Center">
 
-            <Label Content="Temps restant :" />
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
 
-            <TextBlock HorizontalAlignment="Center"
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <Label Grid.Row="0" Grid.Column="0" Content="Temps restant :" />
+
+            <TextBlock Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center"
                        VerticalAlignment="Center"
                        Text="{Binding TimeLeftProgress, StringFormat={}{0:hh\\:mm\\:ss}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
             </TextBlock>
 
-        </StackPanel>
+            <Label Grid.Row="1" Grid.Column="0" Content="Temps écoulé :" />
 
-        <StackPanel Grid.Row="1"
-                    Orientation="Horizontal"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center">
-
-            <Label Content="Temps écoulé :" />
-
-            <TextBlock HorizontalAlignment="Center"
+            <TextBlock Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center"
                        VerticalAlignment="Center"
                        Text="{Binding TimeElapsed, StringFormat={}{0:hh\\:mm\\:ss}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
             </TextBlock>
 
-        </StackPanel>
+            <Label Grid.Row="2" Grid.Column="0" Content="Vitesse actuel :" />
 
-        <TextBlock Grid.Row="3"
-                   HorizontalAlignment="Center"
-                   VerticalAlignment="Center"
-                   Text="{Binding SpeedProgress, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
-        </TextBlock>
+            <TextBlock Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       Text="{Binding SpeedProgress, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
+            </TextBlock>
+
+        </Grid>
 
     </Grid>
 
