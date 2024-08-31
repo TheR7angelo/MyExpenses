@@ -86,7 +86,6 @@ public partial class ProgressBarWindow
 
     private Stopwatch Stopwatch { get; } = new();
 
-    //TODO title
     public ProgressBarWindow()
     {
         UpdateLanguage();
@@ -97,56 +96,31 @@ public partial class ProgressBarWindow
         this.SetWindowCornerPreference();
     }
 
+    #region Action
+
+    private void DispatcherTimer_OnTick(object? sender, EventArgs e)
+        => Dispatcher.Invoke(() => { TimeElapsed = Stopwatch.Elapsed; });
+
     private void Interface_OnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
         => UpdateLanguage();
 
-    private void UpdateLanguage()
-    {
-        TitleWindow = ProgressBarWindowResources.TitleWindow;
-
-        LabelTimeElapsed = ProgressBarWindowResources.LabelTimeElapsed;
-        LabelTimeLeft = ProgressBarWindowResources.LabelTimeLeft;
-        LabelSpeed = ProgressBarWindowResources.LabelSpeed;
-    }
-
     /// <summary>
-    /// Initiates the download process for a file with progress reporting.
+    /// Handles the actions to be performed when the ProgressBarWindow is closed.
+    /// Cancels and disposes the cancellation token source if the download is not done.
     /// </summary>
-    /// <param name="url">The URL of the file to be downloaded.</param>
-    /// <param name="destinationFile">The local path where the downloaded file will be saved.</param>
-    /// <param name="overwrite">If true, the existing file at the destination path will be overwritten if it exists.</param>
-    /// <returns>A Task representing the asynchronous download operation.</returns>
-    public async Task StartProgressBarDownload(string url, string destinationFile, bool overwrite = false)
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">An EventArgs that contains the event data.</param>
+    private void ProgressBarWindow_OnClosed(object? sender, EventArgs e)
     {
-        var dispatcherTimer = new DispatcherTimer { Interval = TimeSpan.FromSeconds(1) };
-        dispatcherTimer.Tick += DispatcherTimer_OnTick;
+        if (DownloadIsDone) return;
 
-        IProgress<double> percentProgress = new Progress<double>(d => { ProgressBarPercent.Value = d; });
-
-        using var speedTimer = GetSpeedProgress(out var speedProgress);
-        using var timeRemainingTimer = GetTimeLeftProgress(out var timeLeftProgress);
-
+        CancellationTokenSource?.Cancel();
         CancellationTokenSource?.Dispose();
-        CancellationTokenSource = new CancellationTokenSource();
-
-        dispatcherTimer.Start();
-        Stopwatch.Start();
-        await Http.DownloadFileWithReportAsync(url, destinationFile, overwrite, percentProgress: percentProgress,
-            speedProgress: speedProgress, timeLeftProgress: timeLeftProgress,
-            cancellationToken: CancellationTokenSource.Token);
-
-        DownloadIsDone = true;
-        speedTimer.Stop();
-        dispatcherTimer.Stop();
-        Stopwatch.Stop();
-
-        Thread.Sleep(TimeSpan.FromSeconds(2.5));
     }
 
-    private void DispatcherTimer_OnTick(object? sender, EventArgs e)
-    {
-        Dispatcher.Invoke(() => { TimeElapsed = Stopwatch.Elapsed; });
-    }
+    #endregion
+
+    #region Function
 
     /// <summary>
     /// Creates and starts a timer to update the estimated time left for the progress.
@@ -193,16 +167,47 @@ public partial class ProgressBarWindow
     }
 
     /// <summary>
-    /// Handles the actions to be performed when the ProgressBarWindow is closed.
-    /// Cancels and disposes the cancellation token source if the download is not done.
+    /// Initiates the download process for a file with progress reporting.
     /// </summary>
-    /// <param name="sender">The source of the event.</param>
-    /// <param name="e">An EventArgs that contains the event data.</param>
-    private void ProgressBarWindow_OnClosed(object? sender, EventArgs e)
+    /// <param name="url">The URL of the file to be downloaded.</param>
+    /// <param name="destinationFile">The local path where the downloaded file will be saved.</param>
+    /// <param name="overwrite">If true, the existing file at the destination path will be overwritten if it exists.</param>
+    /// <returns>A Task representing the asynchronous download operation.</returns>
+    public async Task StartProgressBarDownload(string url, string destinationFile, bool overwrite = false)
     {
-        if (DownloadIsDone) return;
+        var dispatcherTimer = new DispatcherTimer { Interval = TimeSpan.FromSeconds(1) };
+        dispatcherTimer.Tick += DispatcherTimer_OnTick;
 
-        CancellationTokenSource?.Cancel();
+        IProgress<double> percentProgress = new Progress<double>(d => { ProgressBarPercent.Value = d; });
+
+        using var speedTimer = GetSpeedProgress(out var speedProgress);
+        using var timeRemainingTimer = GetTimeLeftProgress(out var timeLeftProgress);
+
         CancellationTokenSource?.Dispose();
+        CancellationTokenSource = new CancellationTokenSource();
+
+        dispatcherTimer.Start();
+        Stopwatch.Start();
+        await Http.DownloadFileWithReportAsync(url, destinationFile, overwrite, percentProgress: percentProgress,
+            speedProgress: speedProgress, timeLeftProgress: timeLeftProgress,
+            cancellationToken: CancellationTokenSource.Token);
+
+        DownloadIsDone = true;
+        speedTimer.Stop();
+        dispatcherTimer.Stop();
+        Stopwatch.Stop();
+
+        Thread.Sleep(TimeSpan.FromSeconds(2.5));
     }
+
+    private void UpdateLanguage()
+    {
+        TitleWindow = ProgressBarWindowResources.TitleWindow;
+
+        LabelTimeElapsed = ProgressBarWindowResources.LabelTimeElapsed;
+        LabelTimeLeft = ProgressBarWindowResources.LabelTimeLeft;
+        LabelSpeed = ProgressBarWindowResources.LabelSpeed;
+    }
+
+    #endregion
 }
