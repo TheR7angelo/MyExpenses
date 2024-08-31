@@ -134,7 +134,9 @@ public partial class AutoUpdaterGitHubWindow
         var progressBarWindow = new ProgressBarWindow();
         progressBarWindow.Show();
 
-        await progressBarWindow.StartProgressBarDownload(assetTest.BrowserDownloadUrl!, pathTest, true);
+        // await progressBarWindow.StartProgressBarDownload(assetTest.BrowserDownloadUrl!, pathTest, true);
+        //TODO test with 10GB file download
+        await progressBarWindow.StartProgressBarDownload("https://ash-speed.hetzner.com/10GB.bin", pathTest, true);
 
         progressBarWindow.Close();
     }
