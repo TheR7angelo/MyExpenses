@@ -31,6 +31,13 @@ public partial class ProgressBarWindow
         this.SetWindowCornerPreference();
     }
 
+    /// <summary>
+    /// Initiates the download process for a file with progress reporting.
+    /// </summary>
+    /// <param name="url">The URL of the file to be downloaded.</param>
+    /// <param name="destinationFile">The local path where the downloaded file will be saved.</param>
+    /// <param name="overwrite">If true, the existing file at the destination path will be overwritten if it exists.</param>
+    /// <returns>A Task representing the asynchronous download operation.</returns>
     public async Task StartProgressBarDownload(string url, string destinationFile, bool overwrite = false)
     {
         IProgress<double> percentProgress = new Progress<double>(d => { ProgressBarPercent.Value = d; });
@@ -49,6 +56,11 @@ public partial class ProgressBarWindow
         Thread.Sleep(TimeSpan.FromSeconds(2.5));
     }
 
+    /// <summary>
+    /// Initializes and returns a timer that updates the speed progress.
+    /// </summary>
+    /// <param name="speedProgress">The progress reporter for speed updates.</param>
+    /// <returns>A Timer instance that updates the speed progress at regular intervals.</returns>
     private Timer GetSpeedProgress(out IProgress<(double NormalizeBytes, string NormalizeBytesUnit)> speedProgress)
     {
         double latestSpeed = 0;
