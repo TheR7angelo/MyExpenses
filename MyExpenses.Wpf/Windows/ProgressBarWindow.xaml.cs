@@ -35,7 +35,7 @@ public partial class ProgressBarWindow
     {
         IProgress<double> percentProgress = new Progress<double>(d => { ProgressBarPercent.Value = d; });
 
-        var speedTimer = GetSpeedProgress(out var speedProgress);
+        using var speedTimer = GetSpeedProgress(out var speedProgress);
 
         CancellationTokenSource?.Dispose();
         CancellationTokenSource = new CancellationTokenSource();
