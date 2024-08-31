@@ -26,13 +26,14 @@ public abstract class Http
     /// <param name="percentProgress">Optional. An object that reports the percentage progress of the download. The default value is null.</param>
     /// <param name="speedProgress">Optional. An object that reports the speed of the download in megabytes per second. The default value is null.</param>
     /// <param name="timeLeftProgress">Optional. An object that reports the estimated time remaining for the download to complete. The default value is null.</param>
+    /// <param name="cancellationToken">Optional. A token that can be used to cancel the download. The default value is CancellationToken.None.</param>
     /// <exception cref="IOException">Thrown when the overwrite parameter is false and the destination file already exists.</exception>
     /// <exception cref="InvalidOperationException">Thrown when the file size can't be determined.</exception>
     /// <returns>A Task representing the asynchronous operation.</returns>
     public static async Task DownloadFileWithReportAsync(string url, string destinationFile,
         bool overwrite = false, int logInterval = 5,
         IProgress<double>? percentProgress = null, IProgress<(double NormalizeBytes, string NormalizeBytesUnit)>? speedProgress = null,
-        IProgress<TimeSpan>? timeLeftProgress = null)
+        IProgress<TimeSpan>? timeLeftProgress = null, CancellationToken cancellationToken = default)
     {
         if (!overwrite && File.Exists(destinationFile))
         {
@@ -44,56 +45,75 @@ public abstract class Http
                 value => Log.Information("Progress: {Percentage:F2}% | Speed: {Speed:F2} {NormalizeBytesUnit}/s | Time Left: {TimeLeft:g}",
                     value.Percentage, value.NormalizeBytes, value.NormalizeBytesUnit, value.TimeLeft));
 
-        using var httpClient = GetHttpClient();
-        using var response = await httpClient.GetAsync(url, HttpCompletionOption.ResponseHeadersRead);
-        response.EnsureSuccessStatusCode();
-
-        var totalBytes = response.Content.Headers.ContentLength ?? throw new InvalidOperationException("Unable to determine file size.");
-        var buffer = new byte[1024 * 1024]; // 1MB buffer
-
-        await using var sourceStream = await response.Content.ReadAsStreamAsync();
-        await using var destinationStream = File.Create(destinationFile);
-
-        var totalBytesRead = 0L;
-        var startTime = DateTime.Now;
-        var lastLogTime = DateTime.Now;
-        int bytesRead;
-
-        Log.Information("Starting to download file \"{Url}\" to \"{DestinationFile}\"", url, destinationFile);
-        while ((bytesRead = await sourceStream.ReadAsync(buffer)) > 0)
+        try
         {
-            await destinationStream.WriteAsync(buffer.AsMemory(0, bytesRead));
-            totalBytesRead += bytesRead;
+            using var httpClient = GetHttpClient();
+            using var response = await httpClient.GetAsync(url, HttpCompletionOption.ResponseHeadersRead, cancellationToken);
+            response.EnsureSuccessStatusCode();
 
-            // Calculate percentage, speed and time left
-            var percentage = (double)totalBytesRead / totalBytes * 100;
-            var duration = DateTime.Now - startTime;
-            var bytesPerSecond = totalBytesRead / duration.TotalSeconds;
-            var remainingBytes = totalBytes - totalBytesRead;
-            var remainingTime = TimeSpan.FromSeconds(remainingBytes / bytesPerSecond);
+            var totalBytes = response.Content.Headers.ContentLength ?? throw new InvalidOperationException("Unable to determine file size.");
+            var buffer = new byte[1024 * 1024]; // 1MB buffer
 
-            var normalizeBytes = GetNormalizeByteSize(bytesPerSecond, out var normalizeBytesUnit);
+            await using var sourceStream = await response.Content.ReadAsStreamAsync(cancellationToken);
+            await using var destinationStream = File.Create(destinationFile);
 
-            // Update Progress
-            percentProgress?.Report(percentage);
-            speedProgress?.Report((normalizeBytes, normalizeBytesUnit));
-            timeLeftProgress?.Report(remainingTime);
+            var totalBytesRead = 0L;
+            var startTime = DateTime.Now;
+            var lastLogTime = DateTime.Now;
+            int bytesRead;
 
-            var currentTime = DateTime.Now;
-            if (!((currentTime - lastLogTime).TotalSeconds >= logInterval)) continue;
+            Log.Information("Starting to download file \"{Url}\" to \"{DestinationFile}\"", url, destinationFile);
+            while ((bytesRead = await sourceStream.ReadAsync(buffer, 0, buffer.Length, cancellationToken)) > 0)
+            {
+                await destinationStream.WriteAsync(buffer.AsMemory(0, bytesRead), cancellationToken);
+                totalBytesRead += bytesRead;
 
-            // Log Progress at intervals
-            progressLog?.Report((percentage, normalizeBytes, normalizeBytesUnit, remainingTime));
-            lastLogTime = currentTime;
+                // Calculate percentage, speed and time left
+                var percentage = (double)totalBytesRead / totalBytes * 100;
+                var duration = DateTime.Now - startTime;
+                var bytesPerSecond = totalBytesRead / duration.TotalSeconds;
+                var remainingBytes = totalBytes - totalBytesRead;
+                var remainingTime = TimeSpan.FromSeconds(remainingBytes / bytesPerSecond);
+
+                var normalizeBytes = GetNormalizeByteSize(bytesPerSecond, out var normalizeBytesUnit);
+
+                // Update Progress
+                percentProgress?.Report(percentage);
+                speedProgress?.Report((normalizeBytes, normalizeBytesUnit));
+                timeLeftProgress?.Report(remainingTime);
+
+                var currentTime = DateTime.Now;
+                if ((currentTime - lastLogTime).TotalSeconds >= logInterval)
+                {
+                    // Log Progress at intervals
+                    progressLog?.Report((percentage, normalizeBytes, normalizeBytesUnit, remainingTime));
+                    lastLogTime = currentTime;
+                }
+
+                // Check for cancellation
+                cancellationToken.ThrowIfCancellationRequested();
+            }
+
+            var endTime = DateTime.Now;
+            var totalDuration = endTime - startTime;
+
+            // Log final details
+            var normalizeBytesFinal = GetNormalizeByteSize(totalBytes, out var normalizeBytesUnitFinal);
+            Log.Information(
+                "Download completed successfully, start time: {StartTime:g} | end time: {EndTime:g} | total duration: {TotalDuration:g} | file size: {TotalSize:F2} {NormalizeBytesUnit}",
+                startTime, endTime, totalDuration, normalizeBytesFinal, normalizeBytesUnitFinal);
         }
+        catch (OperationCanceledException)
+        {
+            // Ensure the partially downloaded file is deleted if the operation is cancelled
+            if (File.Exists(destinationFile))
+            {
+                File.Delete(destinationFile);
+            }
 
-        var endTime = DateTime.Now;
-        var totalDuration = endTime - startTime;
-
-        // Log final details
-        var normalizeBytesFinal = GetNormalizeByteSize(totalBytes, out var normalizeBytesUnitFinal);
-        Log.Information("Download completed successfully, start time: {StartTime:g} | end time: {EndTime:g} | total duration: {TotalDuration:g} | file size: {TotalSize:F2} {NormalizeBytesUnit}",
-            startTime, endTime, totalDuration, normalizeBytesFinal, normalizeBytesUnitFinal);
+            Log.Information("Download was cancelled and the file \"{DestinationFile}\" was deleted", destinationFile);
+            throw;
+        }
     }
 
     private static double GetNormalizeByteSize(double bytes, out string unit)
