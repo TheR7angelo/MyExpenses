@@ -1,0 +1,53 @@
+<mah:MetroWindow x:Class="MyExpenses.Wpf.Windows.ProgressBarWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:local="clr-namespace:MyExpenses.Wpf.Windows"
+        xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:margin="clr-namespace:MyExpenses.Wpf.Utils.Margin;assembly=MyExpenses.Wpf.Utils"
+        mc:Ignorable="d"
+
+        Title="ProgressBarWindow"
+
+        MinHeight="160"
+        MinWidth="425"
+        Height="160"
+        Width="425"
+
+        TitleCharacterCasing="Normal"
+        NonActiveWindowTitleBrush="Gray"
+        WindowTitleBrush="Gray"
+        BorderBrush="Gray"
+
+        ShowIconOnTitleBar="True"
+        Icon="../Resources/Assets/Applications/Icon.png"
+
+        WindowStartupLocation="CenterScreen"
+
+        Background="{DynamicResource MaterialDesignPaper}"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+
+        DataContext="{Binding RelativeSource={RelativeSource Self}}">
+
+    <Grid margin:PanelExtensions.MarginForAllChildren="5">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <ProgressBar x:Name="ProgressBarPercent"
+                     Grid.Row="0"
+                     Height="20"
+                     Minimum="0" Maximum="100">
+        </ProgressBar>
+
+        <TextBlock Grid.Row="0"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   Text="{Binding Value, StringFormat={}{0:0} %, ElementName=ProgressBarPercent}">
+        </TextBlock>
+
+    </Grid>
+
+</mah:MetroWindow>
