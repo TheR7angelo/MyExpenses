@@ -4,7 +4,6 @@ using System.Windows;
 using MyExpenses.Models.Config;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.WebApi.Github.Soft;
-using MyExpenses.WebApi;
 using MyExpenses.Wpf.Resources.Resx.Windows.AutoUpdaterGitHubWindow;
 using MyExpenses.Wpf.Utils;
 
@@ -132,6 +131,11 @@ public partial class AutoUpdaterGitHubWindow
         var assetTest = LastRelease.Assets![5]!;
         var pathTest = Path.Join(tempDirectory, assetTest.Name);
 
-        await Http.DownloadFileWithReportAsync(assetTest.BrowserDownloadUrl!, pathTest, overwrite:true);
+        var progressBarWindow = new ProgressBarWindow();
+        progressBarWindow.Show();
+
+        await progressBarWindow.StartProgressBarDownload(assetTest.BrowserDownloadUrl!, pathTest, true);
+
+        progressBarWindow.Close();
     }
 }
