@@ -32,10 +32,13 @@
 
         Closed="ProgressBarWindow_OnClosed">
 
-    <Grid margin:PanelExtensions.MarginForAllChildren="5">
+    <Grid VerticalAlignment="Center"
+        margin:PanelExtensions.MarginForAllChildren="5">
 
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
@@ -51,7 +54,35 @@
                    Text="{Binding Value, StringFormat={}{0:0} %, ElementName=ProgressBarPercent}">
         </TextBlock>
 
-        <TextBlock Grid.Row="1"
+        <StackPanel Grid.Row="2"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center">
+
+            <Label Content="Temps restant :" />
+
+            <TextBlock HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       Text="{Binding TimeLeftProgress, StringFormat={}{0:hh\\:mm\\:ss}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
+            </TextBlock>
+
+        </StackPanel>
+
+        <StackPanel Grid.Row="1"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center">
+
+            <Label Content="Temps écoulé :" />
+
+            <TextBlock HorizontalAlignment="Center"
+                       VerticalAlignment="Center"
+                       Text="{Binding TimeElapsed, StringFormat={}{0:hh\\:mm\\:ss}, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
+            </TextBlock>
+
+        </StackPanel>
+
+        <TextBlock Grid.Row="3"
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
                    Text="{Binding SpeedProgress, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">

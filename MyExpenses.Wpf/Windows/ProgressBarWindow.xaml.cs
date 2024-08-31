@@ -1,4 +1,6 @@
+using System.Diagnostics;
 using System.Windows;
+using System.Windows.Threading;
 using MyExpenses.WebApi;
 using MyExpenses.Wpf.Utils;
 using Timer = System.Timers.Timer;
@@ -18,11 +20,31 @@ public partial class ProgressBarWindow
         set => SetValue(SpeedProgressProperty, value);
     }
 
+    public static readonly DependencyProperty TimeLeftProgressProperty =
+        DependencyProperty.Register(nameof(TimeLeftProgress), typeof(TimeSpan), typeof(ProgressBarWindow),
+            new PropertyMetadata(default(TimeSpan)));
+
+    public TimeSpan TimeLeftProgress
+    {
+        get => (TimeSpan)GetValue(TimeLeftProgressProperty);
+        set => SetValue(TimeLeftProgressProperty, value);
+    }
+
+    public static readonly DependencyProperty TimeElapsedProperty = DependencyProperty.Register(nameof(TimeElapsed),
+        typeof(TimeSpan), typeof(ProgressBarWindow), new PropertyMetadata(default(TimeSpan)));
+
+    public TimeSpan TimeElapsed
+    {
+        get => (TimeSpan)GetValue(TimeElapsedProperty);
+        set => SetValue(TimeElapsedProperty, value);
+    }
+
     #endregion
 
     private CancellationTokenSource? CancellationTokenSource { get; set; }
     private bool DownloadIsDone { get; set; }
 
+    private Stopwatch Stopwatch { get; } = new();
     //TODO title
     public ProgressBarWindow()
     {
@@ -40,20 +62,61 @@ public partial class ProgressBarWindow
     /// <returns>A Task representing the asynchronous download operation.</returns>
     public async Task StartProgressBarDownload(string url, string destinationFile, bool overwrite = false)
     {
+        var dispatcherTimer = new DispatcherTimer { Interval = TimeSpan.FromSeconds(1) };
+        dispatcherTimer.Tick += DispatcherTimer_OnTick;
+
         IProgress<double> percentProgress = new Progress<double>(d => { ProgressBarPercent.Value = d; });
 
         using var speedTimer = GetSpeedProgress(out var speedProgress);
+        using var timeRemainingTimer = GetTimeLeftProgress(out var timeLeftProgress);
 
         CancellationTokenSource?.Dispose();
         CancellationTokenSource = new CancellationTokenSource();
 
+        dispatcherTimer.Start();
+        Stopwatch.Start();
         await Http.DownloadFileWithReportAsync(url, destinationFile, overwrite, percentProgress: percentProgress,
-            speedProgress: speedProgress, cancellationToken: CancellationTokenSource.Token);
+            speedProgress: speedProgress, timeLeftProgress:timeLeftProgress, cancellationToken: CancellationTokenSource.Token);
 
         DownloadIsDone = true;
         speedTimer.Stop();
+        dispatcherTimer.Stop();
+        Stopwatch.Stop();
 
         Thread.Sleep(TimeSpan.FromSeconds(2.5));
+    }
+
+    private void DispatcherTimer_OnTick(object? sender, EventArgs e)
+    {
+        Dispatcher.Invoke(() =>
+        {
+            TimeElapsed = Stopwatch.Elapsed;
+        });
+    }
+
+    /// <summary>
+    /// Creates and starts a timer to update the estimated time left for the progress.
+    /// </summary>
+    /// <param name="timeLeftProgress">The progress reporter for the remaining time.</param>
+    /// <returns>A Timer object that updates the remaining time.</returns>
+    private Timer GetTimeLeftProgress(out IProgress<TimeSpan> timeLeftProgress)
+    {
+        var timeLeft = new TimeSpan();
+        var timeLeftTimer = new Timer(TimeSpan.FromSeconds(1));
+        timeLeftTimer.Elapsed += (_, _) =>
+        {
+            Dispatcher.Invoke(() =>
+            {
+                TimeLeftProgress = timeLeft;
+            });
+        };
+        timeLeftTimer.Start();
+
+        timeLeftProgress = new Progress<TimeSpan>(d =>
+        {
+            timeLeft = d;
+        });
+        return timeLeftTimer;
     }
 
     /// <summary>
