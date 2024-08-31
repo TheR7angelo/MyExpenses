@@ -31,7 +31,7 @@ public abstract class Http
     /// <returns>A Task representing the asynchronous operation.</returns>
     public static async Task DownloadFileWithReportAsync(string url, string destinationFile,
         bool overwrite = false, int logInterval = 5,
-        IProgress<double>? percentProgress = null, IProgress<double>? speedProgress = null,
+        IProgress<double>? percentProgress = null, IProgress<(double NormalizeBytes, string NormalizeBytesUnit)>? speedProgress = null,
         IProgress<TimeSpan>? timeLeftProgress = null)
     {
         if (!overwrite && File.Exists(destinationFile))
@@ -39,10 +39,10 @@ public abstract class Http
             throw new IOException($"Destination file {destinationFile} already exists.");
         }
 
-        IProgress<(double Percentage, double Speed, TimeSpan TimeLeft)> progressLog =
-            new Progress<(double Percentage, double Speed, TimeSpan TimeLeft)>(
-                value => Log.Information("Progress: {Percentage:F2}% | Speed: {Speed:F2} MB/s | Time Left: {TimeLeft:g}",
-                    value.Percentage, value.Speed, value.TimeLeft));
+        IProgress<(double Percentage, double NormalizeBytes, string NormalizeBytesUnit, TimeSpan TimeLeft)> progressLog =
+            new Progress<(double Percentage, double NormalizeBytes, string NormalizeBytesUnit, TimeSpan TimeLeft)>(
+                value => Log.Information("Progress: {Percentage:F2}% | Speed: {Speed:F2} {NormalizeBytesUnit}/s | Time Left: {TimeLeft:g}",
+                    value.Percentage, value.NormalizeBytes, value.NormalizeBytesUnit, value.TimeLeft));
 
         using var httpClient = GetHttpClient();
         using var response = await httpClient.GetAsync(url, HttpCompletionOption.ResponseHeadersRead);
@@ -71,18 +71,19 @@ public abstract class Http
             var bytesPerSecond = totalBytesRead / duration.TotalSeconds;
             var remainingBytes = totalBytes - totalBytesRead;
             var remainingTime = TimeSpan.FromSeconds(remainingBytes / bytesPerSecond);
-            var speedInMBps = bytesPerSecond / (1024 * 1024);
+
+            var normalizeBytes = GetNormalizeByteSize(bytesPerSecond, out var normalizeBytesUnit);
 
             // Update Progress
             percentProgress?.Report(percentage);
-            speedProgress?.Report(speedInMBps);
+            speedProgress?.Report((normalizeBytes, normalizeBytesUnit));
             timeLeftProgress?.Report(remainingTime);
 
             var currentTime = DateTime.Now;
             if (!((currentTime - lastLogTime).TotalSeconds >= logInterval)) continue;
 
             // Log Progress at intervals
-            progressLog?.Report((percentage, speedInMBps, remainingTime));
+            progressLog?.Report((percentage, normalizeBytes, normalizeBytesUnit, remainingTime));
             lastLogTime = currentTime;
         }
 
@@ -90,12 +91,12 @@ public abstract class Http
         var totalDuration = endTime - startTime;
 
         // Log final details
-        var normalizeBytes = GetNormalizeByteSize(totalBytes, out var normalizeBytesUnit);
+        var normalizeBytesFinal = GetNormalizeByteSize(totalBytes, out var normalizeBytesUnitFinal);
         Log.Information("Download completed successfully, start time: {StartTime:g} | end time: {EndTime:g} | total duration: {TotalDuration:g} | file size: {TotalSize:F2} {NormalizeBytesUnit}",
-            startTime, endTime, totalDuration, normalizeBytes, normalizeBytesUnit);
+            startTime, endTime, totalDuration, normalizeBytesFinal, normalizeBytesUnitFinal);
     }
 
-    private static double GetNormalizeByteSize(long bytes, out string unit)
+    private static double GetNormalizeByteSize(double bytes, out string unit)
     {
         var absoluteBytes = Math.Abs((double)bytes);
 
