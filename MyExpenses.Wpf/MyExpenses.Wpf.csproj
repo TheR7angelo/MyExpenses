@@ -199,6 +199,10 @@
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>AutoUpdaterGitHubWindowResources.Designer.cs</LastGenOutput>
       </EmbeddedResource>
+      <EmbeddedResource Update="Resources\Resx\Windows\ProgressBarWindow\ProgressBarWindowResources.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>ProgressBarWindowResources.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
     </ItemGroup>
 
     <ItemGroup>
@@ -409,6 +413,11 @@
         <DesignTime>True</DesignTime>
         <AutoGen>True</AutoGen>
         <DependentUpon>AutoUpdaterGitHubWindowResources.resx</DependentUpon>
+      </Compile>
+      <Compile Update="Resources\Resx\Windows\ProgressBarWindow\ProgressBarWindowResources.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>ProgressBarWindowResources.resx</DependentUpon>
       </Compile>
     </ItemGroup>
 

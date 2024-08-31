@@ -1,7 +1,10 @@
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Threading;
+using MyExpenses.Models.Config;
+using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.WebApi;
+using MyExpenses.Wpf.Resources.Resx.Windows.ProgressBarWindow;
 using MyExpenses.Wpf.Utils;
 using Timer = System.Timers.Timer;
 
@@ -39,18 +42,60 @@ public partial class ProgressBarWindow
         set => SetValue(TimeElapsedProperty, value);
     }
 
+    public static readonly DependencyProperty LabelTimeElapsedProperty =
+        DependencyProperty.Register(nameof(LabelTimeElapsed), typeof(string), typeof(ProgressBarWindow),
+            new PropertyMetadata(default(string)));
+
+    public string LabelTimeElapsed
+    {
+        get => (string)GetValue(LabelTimeElapsedProperty);
+        set => SetValue(LabelTimeElapsedProperty, value);
+    }
+
+    public static readonly DependencyProperty LabelTimeLeftProperty = DependencyProperty.Register(nameof(LabelTimeLeft),
+        typeof(string), typeof(ProgressBarWindow), new PropertyMetadata(default(string)));
+
+    public string LabelTimeLeft
+    {
+        get => (string)GetValue(LabelTimeLeftProperty);
+        set => SetValue(LabelTimeLeftProperty, value);
+    }
+
+    public static readonly DependencyProperty LabelSpeedProperty = DependencyProperty.Register(nameof(LabelSpeed),
+        typeof(string), typeof(ProgressBarWindow), new PropertyMetadata(default(string)));
+
+    public string LabelSpeed
+    {
+        get => (string)GetValue(LabelSpeedProperty);
+        set => SetValue(LabelSpeedProperty, value);
+    }
+
     #endregion
 
     private CancellationTokenSource? CancellationTokenSource { get; set; }
     private bool DownloadIsDone { get; set; }
 
     private Stopwatch Stopwatch { get; } = new();
+
     //TODO title
     public ProgressBarWindow()
     {
+        UpdateLanguage();
+
         InitializeComponent();
 
+        Interface.LanguageChanged += Interface_OnLanguageChanged;
         this.SetWindowCornerPreference();
+    }
+
+    private void Interface_OnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
+        => UpdateLanguage();
+
+    private void UpdateLanguage()
+    {
+        LabelTimeElapsed = ProgressBarWindowResources.LabelTimeElapsed;
+        LabelTimeLeft = ProgressBarWindowResources.LabelTimeLeft;
+        LabelSpeed = ProgressBarWindowResources.LabelSpeed;
     }
 
     /// <summary>
@@ -76,7 +121,8 @@ public partial class ProgressBarWindow
         dispatcherTimer.Start();
         Stopwatch.Start();
         await Http.DownloadFileWithReportAsync(url, destinationFile, overwrite, percentProgress: percentProgress,
-            speedProgress: speedProgress, timeLeftProgress:timeLeftProgress, cancellationToken: CancellationTokenSource.Token);
+            speedProgress: speedProgress, timeLeftProgress: timeLeftProgress,
+            cancellationToken: CancellationTokenSource.Token);
 
         DownloadIsDone = true;
         speedTimer.Stop();
@@ -88,10 +134,7 @@ public partial class ProgressBarWindow
 
     private void DispatcherTimer_OnTick(object? sender, EventArgs e)
     {
-        Dispatcher.Invoke(() =>
-        {
-            TimeElapsed = Stopwatch.Elapsed;
-        });
+        Dispatcher.Invoke(() => { TimeElapsed = Stopwatch.Elapsed; });
     }
 
     /// <summary>
@@ -103,19 +146,10 @@ public partial class ProgressBarWindow
     {
         var timeLeft = new TimeSpan();
         var timeLeftTimer = new Timer(TimeSpan.FromSeconds(1));
-        timeLeftTimer.Elapsed += (_, _) =>
-        {
-            Dispatcher.Invoke(() =>
-            {
-                TimeLeftProgress = timeLeft;
-            });
-        };
+        timeLeftTimer.Elapsed += (_, _) => { Dispatcher.Invoke(() => { TimeLeftProgress = timeLeft; }); };
         timeLeftTimer.Start();
 
-        timeLeftProgress = new Progress<TimeSpan>(d =>
-        {
-            timeLeft = d;
-        });
+        timeLeftProgress = new Progress<TimeSpan>(d => { timeLeft = d; });
         return timeLeftTimer;
     }
 
