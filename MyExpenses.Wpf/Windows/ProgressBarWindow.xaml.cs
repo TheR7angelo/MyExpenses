@@ -5,6 +5,8 @@ namespace MyExpenses.Wpf.Windows;
 
 public partial class ProgressBarWindow
 {
+
+    //TODO title
     public ProgressBarWindow()
     {
         InitializeComponent();
