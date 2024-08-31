@@ -28,12 +28,15 @@
         Background="{DynamicResource MaterialDesignPaper}"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
 
-        DataContext="{Binding RelativeSource={RelativeSource Self}}">
+        DataContext="{Binding RelativeSource={RelativeSource Self}}"
+
+        Closed="ProgressBarWindow_OnClosed">
 
     <Grid margin:PanelExtensions.MarginForAllChildren="5">
 
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
         <ProgressBar x:Name="ProgressBarPercent"
@@ -46,6 +49,12 @@
                    HorizontalAlignment="Center"
                    VerticalAlignment="Center"
                    Text="{Binding Value, StringFormat={}{0:0} %, ElementName=ProgressBarPercent}">
+        </TextBlock>
+
+        <TextBlock Grid.Row="1"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   Text="{Binding SpeedProgress, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
         </TextBlock>
 
     </Grid>
