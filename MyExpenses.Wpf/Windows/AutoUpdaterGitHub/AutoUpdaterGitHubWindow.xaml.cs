@@ -142,4 +142,11 @@ public partial class AutoUpdaterGitHubWindow
         pathTest.StartProcess();
         Application.Current.Shutdown();
     }
+
+    //TODO work
+    private void ButtonCallBackLater_OnClick(object sender, RoutedEventArgs e)
+    {
+        var callBackLaterWindow = new CallBackLaterWindow();
+        callBackLaterWindow.ShowDialog();
+    }
 }

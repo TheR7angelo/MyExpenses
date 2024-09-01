@@ -1,0 +1,95 @@
+<mah:MetroWindow x:Class="MyExpenses.Wpf.Windows.AutoUpdaterGitHub.CallBackLaterWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:local="clr-namespace:MyExpenses.Wpf.Windows.AutoUpdaterGitHub"
+        xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:margin="clr-namespace:MyExpenses.Wpf.Utils.Margin;assembly=MyExpenses.Wpf.Utils"
+        mc:Ignorable="d"
+
+        Title="{Binding TitleWindow, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+
+        Height="225"
+        Width="700"
+        d:DesignHeight="225"
+        d:DesignWidth="700"
+
+        TitleCharacterCasing="Normal"
+        NonActiveWindowTitleBrush="Gray"
+        WindowTitleBrush="Gray"
+        BorderBrush="Gray"
+
+        ShowIconOnTitleBar="True"
+        Icon="../../Resources/Assets/Applications/Icon.png"
+
+        WindowStartupLocation="CenterScreen"
+        ResizeMode="CanResizeWithGrip"
+
+        SizeChanged="CallBackLaterWindow_OnSizeChanged"
+
+        Background="{DynamicResource MaterialDesignPaper}"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+
+        DataContext="{Binding RelativeSource={RelativeSource Self}}">
+
+    <Grid margin:PanelExtensions.MarginForAllChildren="5">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+
+        <materialDesign:PackIcon Grid.Row="0" Grid.Column="0" Grid.RowSpan="5"
+                                 HorizontalAlignment="Center"
+                                 VerticalAlignment="Center"
+                                 Height="64"
+                                 Width="{Binding Height, RelativeSource={RelativeSource Self}}"
+                                 Kind="Alarm">
+        </materialDesign:PackIcon>
+
+        <TextBlock Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2"
+                   VerticalAlignment="Center"
+                   FontWeight="Bold"
+                   Text="Voulez-vous télécharger les mises à jour plus tard ?">
+        </TextBlock>
+
+        <TextBlock Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2"
+                   VerticalAlignment="Center"
+                   TextWrapping="Wrap"
+                   Text="Vous devez télécharger les mises à jour maintenant. Cela ne prend que quelques minutes selon votre connexion internet et vous assure d'avoir toute dernière version de l'application.">
+        </TextBlock>
+
+        <RadioButton Grid.Row="2" Grid.Column="1"
+                     x:Name="RadioButtonCallBackLater"
+                     Content="Oui, s'il vous plait rappelez-moi plus tard :"
+                     GroupName="RadioButtonOption">
+        </RadioButton>
+
+        <ComboBox Grid.Row="2" Grid.Column="2">
+        </ComboBox>
+
+        <RadioButton Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2"
+                     FontWeight="Bold"
+                     Content="Non, télécharger les mises à jour maintenant (recommandé)"
+                     GroupName="{Binding GroupName, ElementName=RadioButtonCallBackLater}">
+        </RadioButton>
+
+        <Button Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3"
+                HorizontalAlignment="Right"
+                Content="Ok">
+        </Button>
+
+    </Grid>
+
+</mah:MetroWindow>

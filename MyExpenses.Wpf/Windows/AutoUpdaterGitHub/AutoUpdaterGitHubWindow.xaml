@@ -92,7 +92,8 @@
                     HorizontalAlignment="Right"
                     margin:PanelExtensions.MarginForAllChildren="5">
 
-            <Button Style="{StaticResource MaterialDesignPaperSecondaryButton}">
+            <Button Style="{StaticResource MaterialDesignPaperSecondaryButton}"
+                    Click="ButtonCallBackLater_OnClick">
                 <Button.Content>
                     <StackPanel Orientation="Horizontal">
 
