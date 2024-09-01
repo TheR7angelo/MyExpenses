@@ -166,7 +166,7 @@ public partial class RecurrentAddWindow
             return recursiveExpense;
         }
 
-        var dateOnly = recursiveExpense.ERecursiveFrequency.CalculateNextDueDate(recursiveExpense.StartDate);
+        var dateOnly = recursiveExpense.ERecursiveFrequency.CalculateNextDueDate(recursiveExpense.NextDueDate);
         recursiveExpense.NextDueDate = dateOnly;
 
         return recursiveExpense;
