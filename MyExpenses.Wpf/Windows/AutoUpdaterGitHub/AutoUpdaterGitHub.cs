@@ -28,6 +28,7 @@ public static class AutoUpdaterGitHub
     /// </summary>
     public static void CheckUpdateGitHub()
     {
+        // TODO add check if need to wait from appsettings.json
         Log.Information("Starting update check");
         Task.Run(async () =>
         {
