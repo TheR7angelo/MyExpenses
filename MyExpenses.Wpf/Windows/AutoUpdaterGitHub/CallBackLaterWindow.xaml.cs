@@ -84,6 +84,8 @@ public partial class CallBackLaterWindow
     ];
 
     public CallBackLaterTime? SelectedCallBackLaterTime { get; set; } = CallBackLaterTime.After30Minutes;
+    public bool RadioButtonDownloadLaterYesIsChecked { get; set; } = true;
+    public bool RadioButtonDownloadLaterNoIsChecked { get; set; }
 
     public CallBackLaterWindow()
     {
@@ -112,5 +114,10 @@ public partial class CallBackLaterWindow
         RadioButtonDownloadLaterYes = CallBackLaterWindowResources.RadioButtonDownloadLaterYes;
         RadioButtonDownloadLaterNo = CallBackLaterWindowResources.RadioButtonDownloadLaterNo;
         ButtonOkContent = CallBackLaterWindowResources.ButtonOkContent;
+    }
+
+    private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
+    {
+        Console.WriteLine(RadioButtonDownloadLaterYesIsChecked);
     }
 }

@@ -77,7 +77,7 @@
                      x:Name="RadioButtonCallBackLater"
                      Content="{Binding RadioButtonDownloadLaterYes, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                      GroupName="RadioButtonOption"
-                     IsChecked="True">
+                     IsChecked="{Binding RadioButtonDownloadLaterYesIsChecked, Mode=TwoWay}">
         </RadioButton>
 
         <ComboBox Grid.Row="2" Grid.Column="2"
@@ -94,13 +94,15 @@
         <RadioButton Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2"
                      FontWeight="Bold"
                      Content="{Binding RadioButtonDownloadLaterNo, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                     GroupName="{Binding GroupName, ElementName=RadioButtonCallBackLater}">
+                     GroupName="{Binding GroupName, ElementName=RadioButtonCallBackLater}"
+                     IsChecked="{Binding RadioButtonDownloadLaterNoIsChecked, Mode=TwoWay}">
         </RadioButton>
 
         <Button Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3"
                 Style="{StaticResource MaterialDesignPaperButton}"
                 HorizontalAlignment="Right"
-                Content="{Binding ButtonOkContent, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
+                Content="{Binding ButtonOkContent, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                Click="ButtonBase_OnClick">
         </Button>
 
     </Grid>
