@@ -100,10 +100,18 @@ public partial class CallBackLaterWindow
 
     #region Action
 
+    private void ButtonOk_OnClick(object sender, RoutedEventArgs e)
+    {
+        DialogResult = true;
+        Close();
+    }
+
     private void Interface_OnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
         => UpdateLanguage();
 
     #endregion
+
+    #region Function
 
     private void UpdateLanguage()
     {
@@ -116,8 +124,5 @@ public partial class CallBackLaterWindow
         ButtonOkContent = CallBackLaterWindowResources.ButtonOkContent;
     }
 
-    private void ButtonBase_OnClick(object sender, RoutedEventArgs e)
-    {
-        Console.WriteLine(RadioButtonDownloadLaterYesIsChecked);
-    }
+    #endregion
 }

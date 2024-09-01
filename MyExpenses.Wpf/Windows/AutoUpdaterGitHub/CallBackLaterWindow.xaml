@@ -102,7 +102,7 @@
                 Style="{StaticResource MaterialDesignPaperButton}"
                 HorizontalAlignment="Right"
                 Content="{Binding ButtonOkContent, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                Click="ButtonBase_OnClick">
+                Click="ButtonOk_OnClick">
         </Button>
 
     </Grid>
