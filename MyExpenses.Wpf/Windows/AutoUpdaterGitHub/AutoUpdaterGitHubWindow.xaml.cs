@@ -4,6 +4,7 @@ using System.Windows;
 using MyExpenses.Models.Config;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.WebApi.Github.Soft;
+using MyExpenses.Utils;
 using MyExpenses.Wpf.Resources.Resx.Windows.AutoUpdaterGitHubWindow;
 using MyExpenses.Wpf.Utils;
 
@@ -138,6 +139,7 @@ public partial class AutoUpdaterGitHubWindow
         //TODO test with 10GB file download
         await progressBarWindow.StartProgressBarDownload("https://ash-speed.hetzner.com/10GB.bin", pathTest, true);
 
-        progressBarWindow.Close();
+        pathTest.StartProcess();
+        Application.Current.Shutdown();
     }
 }
