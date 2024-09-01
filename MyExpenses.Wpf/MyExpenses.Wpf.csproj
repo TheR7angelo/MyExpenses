@@ -203,6 +203,10 @@
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>ProgressBarWindowResources.Designer.cs</LastGenOutput>
       </EmbeddedResource>
+      <EmbeddedResource Update="Resources\Resx\Converters\CallBackLaterTimeToStringConverter\CallBackLaterTimeToStringConverterResources.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>CallBackLaterTimeToStringConverterResources.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
     </ItemGroup>
 
     <ItemGroup>
@@ -418,6 +422,11 @@
         <DesignTime>True</DesignTime>
         <AutoGen>True</AutoGen>
         <DependentUpon>ProgressBarWindowResources.resx</DependentUpon>
+      </Compile>
+      <Compile Update="Resources\Resx\Converters\CallBackLaterTimeToStringConverter\CallBackLaterTimeToStringConverterResources.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>CallBackLaterTimeToStringConverterResources.resx</DependentUpon>
       </Compile>
     </ItemGroup>
 

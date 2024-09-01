@@ -1,6 +1,7 @@
 using System.Windows;
 using MyExpenses.Models.Config;
 using MyExpenses.Models.Config.Interfaces;
+using MyExpenses.Models.Wpf.AutoUpdaterGitHub;
 using MyExpenses.Wpf.Utils;
 
 namespace MyExpenses.Wpf.Windows.AutoUpdaterGitHub;
@@ -19,6 +20,19 @@ public partial class CallBackLaterWindow
     }
 
     #endregion
+
+    public List<CallBackLaterTime> CallBackLaterTimes { get; } =
+    [
+        CallBackLaterTime.After30Minutes,
+        CallBackLaterTime.After12Hours,
+        CallBackLaterTime.After1Days,
+        CallBackLaterTime.After2Days,
+        CallBackLaterTime.After4Days,
+        CallBackLaterTime.After8Days,
+        CallBackLaterTime.After10Days
+    ];
+
+    public CallBackLaterTime? SelectedCallBackLaterTime { get; set; } = CallBackLaterTime.After30Minutes;
 
     public CallBackLaterWindow()
     {

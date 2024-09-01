@@ -7,6 +7,7 @@
         xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:margin="clr-namespace:MyExpenses.Wpf.Utils.Margin;assembly=MyExpenses.Wpf.Utils"
+        xmlns:converters="clr-namespace:MyExpenses.Wpf.Converters"
         mc:Ignorable="d"
 
         Title="{Binding TitleWindow, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
@@ -33,6 +34,10 @@
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
 
         DataContext="{Binding RelativeSource={RelativeSource Self}}">
+
+    <mah:MetroWindow.Resources>
+        <converters:CallBackLaterTimeToStringConverter x:Key="CallBackLaterTimeToStringConverter" />
+    </mah:MetroWindow.Resources>
 
     <Grid margin:PanelExtensions.MarginForAllChildren="5">
 
@@ -73,10 +78,18 @@
         <RadioButton Grid.Row="2" Grid.Column="1"
                      x:Name="RadioButtonCallBackLater"
                      Content="Oui, s'il vous plait rappelez-moi plus tard :"
-                     GroupName="RadioButtonOption">
+                     GroupName="RadioButtonOption"
+                     IsChecked="True">
         </RadioButton>
 
-        <ComboBox Grid.Row="2" Grid.Column="2">
+        <ComboBox Grid.Row="2" Grid.Column="2"
+                  ItemsSource="{Binding CallBackLaterTimes, Mode=OneWay}"
+                  SelectedItem="{Binding SelectedCallBackLaterTime, Mode=OneWay}">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Converter={StaticResource CallBackLaterTimeToStringConverter}}" />
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
         </ComboBox>
 
         <RadioButton Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2"

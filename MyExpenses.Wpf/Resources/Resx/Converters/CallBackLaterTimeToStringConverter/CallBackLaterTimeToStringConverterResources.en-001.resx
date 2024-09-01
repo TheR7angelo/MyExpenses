@@ -1,0 +1,35 @@
+<root>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <data name="After30Minutes" xml:space="preserve">
+        <value>After 30 minutes</value>
+    </data>
+    <data name="After10Days" xml:space="preserve">
+        <value>After 10 days</value>
+    </data>
+    <data name="After2Days" xml:space="preserve">
+        <value>After 2 days</value>
+    </data>
+    <data name="After4Days" xml:space="preserve">
+        <value>After 4 days</value>
+    </data>
+    <data name="After8Days" xml:space="preserve">
+        <value>After 8 days</value>
+    </data>
+    <data name="After12Hours" xml:space="preserve">
+        <value>After 12 hours</value>
+    </data>
+    <data name="After1Days" xml:space="preserve">
+        <value>After 1 days</value>
+    </data>
+</root>
