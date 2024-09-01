@@ -12,7 +12,6 @@ using MyExpenses.Models.Sql.Bases.Views;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils.Collection;
 using MyExpenses.Wpf.Resources.Resx.Pages.RecurrentExpensePage;
-using MyExpenses.Wpf.Resources.Resx.Windows.AddEditRecurrentExpenseWindow;
 using MyExpenses.Wpf.Utils.FilterDataGrid;
 using MyExpenses.Wpf.Windows;
 using MyExpenses.Wpf.Windows.MsgBox;
