@@ -91,6 +91,7 @@ public static class AutoUpdaterGitHub
     {
         Log.Information("Initializing update dialog");
         var autoUpdaterGitHubWindow = new AutoUpdaterGitHubWindow(HtmlFilePath, LastRelease!);
+        Log.Information("Show update dialog");
         autoUpdaterGitHubWindow.ShowDialog();
     }
 
