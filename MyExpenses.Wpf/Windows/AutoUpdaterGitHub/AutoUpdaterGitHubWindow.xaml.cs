@@ -4,9 +4,11 @@ using System.Windows;
 using MyExpenses.Models.Config;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.WebApi.Github.Soft;
+using MyExpenses.Models.Wpf.AutoUpdaterGitHub;
 using MyExpenses.Utils;
 using MyExpenses.Wpf.Resources.Resx.Windows.AutoUpdaterGitHubWindow;
 using MyExpenses.Wpf.Utils;
+using Timer = System.Timers.Timer;
 
 namespace MyExpenses.Wpf.Windows.AutoUpdaterGitHub;
 
@@ -123,8 +125,52 @@ public partial class AutoUpdaterGitHubWindow
 
     #endregion
 
-    // TODO work
     private async void ButtonUpdateNow_OnClick(object sender, RoutedEventArgs e)
+        => await UpdateApplication();
+
+    //TODO work
+    private async void ButtonCallBackLater_OnClick(object sender, RoutedEventArgs e)
+    {
+        var callBackLaterWindow = new CallBackLaterWindow();
+        var result = callBackLaterWindow.ShowDialog();
+
+        if (result is false or null) Close();
+
+        if (callBackLaterWindow.RadioButtonDownloadLaterNoIsChecked) await UpdateApplication();
+
+        var now = DateTime.Now;
+        var newAsk = callBackLaterWindow.SelectedCallBackLaterTime switch
+        {
+            CallBackLaterTime.After30Minutes => now.AddMinutes(30),
+            CallBackLaterTime.After12Hours => now.AddHours(12),
+            CallBackLaterTime.After1Days => now.AddDays(1),
+            CallBackLaterTime.After2Days => now.AddDays(2),
+            CallBackLaterTime.After4Days => now.AddDays(4),
+            CallBackLaterTime.After8Days => now.AddDays(8),
+            CallBackLaterTime.After10Days => now.AddDays(10),
+            _ => throw new ArgumentOutOfRangeException()
+        };
+
+        var configuration = Config.Configuration;
+        configuration.System.CallBackLaterTime = newAsk;
+
+        var timer = new Timer(newAsk - now);
+        timer.Elapsed += (_, _) =>
+        {
+            timer.Stop();
+            Dispatcher.Invoke(() =>
+            {
+                ShowDialog();
+                Activate();
+            });
+        };
+
+        Hide();
+        timer.Start();
+    }
+
+    // TODO work
+    private async Task UpdateApplication()
     {
         var tempDirectory = Path.GetFullPath("temp");
         Directory.CreateDirectory(tempDirectory);
@@ -133,7 +179,7 @@ public partial class AutoUpdaterGitHubWindow
         var pathTest = Path.Join(tempDirectory, assetTest.Name);
 
         var progressBarWindow = new ProgressBarWindow();
-        progressBarWindow.Show();
+        progressBarWindow.ShowDialog();
 
         // await progressBarWindow.StartProgressBarDownload(assetTest.BrowserDownloadUrl!, pathTest, true);
         //TODO test with 10GB file download
@@ -141,12 +187,5 @@ public partial class AutoUpdaterGitHubWindow
 
         pathTest.StartProcess();
         Application.Current.Shutdown();
-    }
-
-    //TODO work
-    private void ButtonCallBackLater_OnClick(object sender, RoutedEventArgs e)
-    {
-        var callBackLaterWindow = new CallBackLaterWindow();
-        callBackLaterWindow.ShowDialog();
     }
 }
