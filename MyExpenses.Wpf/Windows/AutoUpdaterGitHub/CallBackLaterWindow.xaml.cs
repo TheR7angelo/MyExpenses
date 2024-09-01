@@ -56,9 +56,4 @@ public partial class CallBackLaterWindow
     {
         TitleWindow = "Rappelez-moi plus tard la mise à jour";
     }
-
-    private void CallBackLaterWindow_OnSizeChanged(object sender, SizeChangedEventArgs e)
-    {
-        Console.WriteLine(e.NewSize);
-    }
 }

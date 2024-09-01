@@ -28,8 +28,6 @@
         WindowStartupLocation="CenterScreen"
         ResizeMode="CanResizeWithGrip"
 
-        SizeChanged="CallBackLaterWindow_OnSizeChanged"
-
         Background="{DynamicResource MaterialDesignPaper}"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
 
