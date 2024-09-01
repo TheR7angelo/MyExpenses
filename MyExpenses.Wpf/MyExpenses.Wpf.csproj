@@ -207,6 +207,10 @@
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>CallBackLaterTimeToStringConverterResources.Designer.cs</LastGenOutput>
       </EmbeddedResource>
+      <EmbeddedResource Update="Resources\Resx\Windows\CallBackLaterWindow\CallBackLaterWindowResources.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>CallBackLaterWindowResources.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
     </ItemGroup>
 
     <ItemGroup>
@@ -427,6 +431,11 @@
         <DesignTime>True</DesignTime>
         <AutoGen>True</AutoGen>
         <DependentUpon>CallBackLaterTimeToStringConverterResources.resx</DependentUpon>
+      </Compile>
+      <Compile Update="Resources\Resx\Windows\CallBackLaterWindow\CallBackLaterWindowResources.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>CallBackLaterWindowResources.resx</DependentUpon>
       </Compile>
     </ItemGroup>
 

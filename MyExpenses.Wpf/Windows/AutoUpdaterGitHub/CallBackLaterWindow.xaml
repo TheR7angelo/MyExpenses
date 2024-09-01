@@ -64,23 +64,24 @@
         <TextBlock Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2"
                    VerticalAlignment="Center"
                    FontWeight="Bold"
-                   Text="Voulez-vous télécharger les mises à jour plus tard ?">
+                   Text="{Binding TextBlockDownloadLaterQuestion, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
         </TextBlock>
 
         <TextBlock Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2"
                    VerticalAlignment="Center"
                    TextWrapping="Wrap"
-                   Text="Vous devez télécharger les mises à jour maintenant. Cela ne prend que quelques minutes selon votre connexion internet et vous assure d'avoir toute dernière version de l'application.">
+                   Text="{Binding TextBlockDownloadLaterContent, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
         </TextBlock>
 
         <RadioButton Grid.Row="2" Grid.Column="1"
                      x:Name="RadioButtonCallBackLater"
-                     Content="Oui, s'il vous plait rappelez-moi plus tard :"
+                     Content="{Binding RadioButtonDownloadLaterYes, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                      GroupName="RadioButtonOption"
                      IsChecked="True">
         </RadioButton>
 
         <ComboBox Grid.Row="2" Grid.Column="2"
+                  Style="{StaticResource MaterialDesignFilledComboBox}"
                   ItemsSource="{Binding CallBackLaterTimes, Mode=OneWay}"
                   SelectedItem="{Binding SelectedCallBackLaterTime, Mode=OneWay}">
             <ComboBox.ItemTemplate>
@@ -92,13 +93,14 @@
 
         <RadioButton Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2"
                      FontWeight="Bold"
-                     Content="Non, télécharger les mises à jour maintenant (recommandé)"
+                     Content="{Binding RadioButtonDownloadLaterNo, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                      GroupName="{Binding GroupName, ElementName=RadioButtonCallBackLater}">
         </RadioButton>
 
         <Button Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3"
+                Style="{StaticResource MaterialDesignPaperButton}"
                 HorizontalAlignment="Right"
-                Content="Ok">
+                Content="{Binding ButtonOkContent, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
         </Button>
 
     </Grid>
