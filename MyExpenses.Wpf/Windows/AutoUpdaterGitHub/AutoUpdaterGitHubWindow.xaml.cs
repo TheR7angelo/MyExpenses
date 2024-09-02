@@ -8,6 +8,7 @@ using MyExpenses.Models.Wpf.AutoUpdaterGitHub;
 using MyExpenses.Utils;
 using MyExpenses.Wpf.Resources.Resx.Windows.AutoUpdaterGitHubWindow;
 using MyExpenses.Wpf.Utils;
+using Serilog;
 
 namespace MyExpenses.Wpf.Windows.AutoUpdaterGitHub;
 
@@ -127,6 +128,17 @@ public partial class AutoUpdaterGitHubWindow
     private async void ButtonUpdateNow_OnClick(object sender, RoutedEventArgs e)
         => await UpdateApplication();
 
+    /// <summary>
+    /// Handles the click event for the "Call Back Later" button. Displays a window
+    /// to determine a new callback time and updates the configuration accordingly.
+    /// The method delays the operation until the selected time has passed.
+    /// If "Download Later Now" is chosen, the application is updated immediately.
+    /// </summary>
+    /// <param name="sender">The source of the event.</param>
+    /// <param name="e">The event data.</param>
+    /// <exception cref="ArgumentOutOfRangeException">
+    /// Thrown when the selected callback time is out of the predefined range.
+    /// </exception>
     private async void ButtonCallBackLater_OnClick(object sender, RoutedEventArgs e)
     {
         var callBackLaterWindow = new CallBackLaterWindow();
@@ -134,7 +146,12 @@ public partial class AutoUpdaterGitHubWindow
 
         if (result is false or null) Close();
 
-        if (callBackLaterWindow.RadioButtonDownloadLaterNoIsChecked) await UpdateApplication();
+        if (callBackLaterWindow.RadioButtonDownloadLaterNoIsChecked)
+        {
+            Log.Information("Download later now selected. Updating application now");
+            await UpdateApplication();
+            return;
+        }
 
         var now = DateTime.Now;
         var newAsk = callBackLaterWindow.SelectedCallBackLaterTime switch
@@ -149,27 +166,35 @@ public partial class AutoUpdaterGitHubWindow
             _ => throw new ArgumentOutOfRangeException()
         };
 
+        Log.Information("New callback time set to: {NewAsk} (hh:mm:ss)", newAsk.ToString(@"hh\:mm\:ss"));
+
         var configuration = Config.Configuration;
         configuration.System.CallBackLaterTime = newAsk;
         configuration.WriteConfiguration();
+
+        Log.Information("Configuration updated with new callback time");
 
         Hide();
 
         try
         {
+            Log.Information("Delaying operation for {Delay} (hh:mm:ss)", (newAsk - now).ToString(@"hh\:mm\:ss"));
             await Task.Delay(newAsk - now, App.CancellationTokenSource.Token);
 
             if (App.CancellationTokenSource.Token.IsCancellationRequested)
             {
+                Log.Information("Operation cancelled");
                 Close();
                 return;
             }
 
+            Log.Information("Resuming operation after delay");
             ShowDialog();
             Activate();
         }
         catch (TaskCanceledException)
         {
+            Log.Information("Task was cancelled during delay");
             Close();
         }
     }
