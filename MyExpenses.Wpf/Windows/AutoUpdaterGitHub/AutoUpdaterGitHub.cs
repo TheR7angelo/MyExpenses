@@ -154,4 +154,26 @@ public static class AutoUpdaterGitHub
         Log.Information("Writing release notes to HTML file");
         File.WriteAllText(HtmlFilePath, htmlContent);
     }
+
+    /// <summary>
+    /// Updates the application by downloading the specified asset
+    /// and executing the necessary steps for installation.
+    /// </summary>
+    /// <param name="asset">The asset containing the information required for the update.</param>
+    /// <returns>A task that represents the asynchronous operation.</returns>
+    public static async Task UpdateApplication(this Asset asset)
+    {
+        var tempDirectory = Path.GetFullPath("Auto Update");
+        Directory.CreateDirectory(tempDirectory);
+
+        var savePath = Path.Join(tempDirectory, asset.Name);
+
+        var progressBarWindow = new ProgressBarWindow();
+        progressBarWindow.Show();
+
+        await progressBarWindow.StartProgressBarDownload(asset.BrowserDownloadUrl!, savePath, true);
+
+        savePath.StartProcess();
+        Application.Current.Shutdown();
+    }
 }
