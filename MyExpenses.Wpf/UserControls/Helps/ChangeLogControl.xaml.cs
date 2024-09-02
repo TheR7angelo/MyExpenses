@@ -2,6 +2,7 @@ using System.Windows;
 using Microsoft.Web.WebView2.Core;
 using MyExpenses.Models.Config;
 using MyExpenses.Models.Config.Interfaces;
+using MyExpenses.Models.WebApi.Github.Soft;
 using MyExpenses.Utils;
 using MyExpenses.Wpf.Resources.Resx.UserControls.Helps.ChangeLogControl;
 using MyExpenses.Wpf.Windows.AutoUpdaterGitHub;
@@ -61,6 +62,18 @@ public partial class ChangeLogControl
     }
 
     #region Action
+
+    //TODO test with 10GB file download
+    private async void ButtonUpdate_OnClick(object sender, RoutedEventArgs e)
+    {
+        var assetTest = new Asset
+        {
+            Name = "10GB.bin",
+            BrowserDownloadUrl = "https://ash-speed.hetzner.com/10GB.bin"
+        };
+
+        await assetTest.UpdateApplication();
+    }
 
     private void Interface_OnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
         => UpdateLanguage();

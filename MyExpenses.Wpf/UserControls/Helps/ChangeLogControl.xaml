@@ -43,11 +43,11 @@
                    Text="{Binding TextBlockNewVersionIsAvailable, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:ChangeLogControl}}}">
         </TextBlock>
 
-        <!-- TODO add function at click -->
         <Button Grid.Row="0" Grid.Column="1"
                 Style="{StaticResource MaterialDesignPaperButton}"
                 Visibility="{Binding IsNeedUpdate, Converter={StaticResource BooleanToVisibilityConverter}, RelativeSource={RelativeSource AncestorType={x:Type local:ChangeLogControl}}}"
-                Content="{Binding ButtonUpdateContent, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:ChangeLogControl}}}">
+                Content="{Binding ButtonUpdateContent, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:ChangeLogControl}}}"
+                Click="ButtonUpdate_OnClick">
         </Button>
 
         <Border Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" CornerRadius="1"
