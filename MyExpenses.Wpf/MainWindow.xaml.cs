@@ -393,8 +393,9 @@ public partial class MainWindow
 
         try
         {
-            "VACUUM ;".ExecuteRawSql(dataBaseFilePath);
+            var row = "VACUUM ;".ExecuteRawSql(dataBaseFilePath);
             Log.Information("Database vacuumed successfully");
+            Log.Information("Number of rows affected: {Row}", row);
             return true;
         }
         catch (Exception e)
