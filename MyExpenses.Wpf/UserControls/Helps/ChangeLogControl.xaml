@@ -11,7 +11,29 @@
 
     <Grid>
 
-        <Border CornerRadius="1"
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Grid.Row="0" Grid.Column="0"
+                   FontWeight="Bold"
+                   Text="{Binding TextBlockNewVersionIsAvailable, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
+        </TextBlock>
+
+        <Button Grid.Row="0" Grid.Column="1" Content="Click me" />
+
+        <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+                   FontWeight="Bold"
+                   Text="{Binding TextBlockVersion, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
+        </TextBlock>
+
+        <Border Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" CornerRadius="1"
                 BorderBrush="{DynamicResource MaterialDesignBody}"
                 BorderThickness="2">
 
