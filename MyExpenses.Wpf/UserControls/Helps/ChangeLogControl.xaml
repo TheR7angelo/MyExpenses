@@ -31,12 +31,14 @@
 
         <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
                    FontWeight="Bold"
+                   VerticalAlignment="Center"
                    Visibility="{Binding IsNeedUpdate, Converter={StaticResource InverseBooleanToVisibilityConverter}, RelativeSource={RelativeSource AncestorType={x:Type local:ChangeLogControl}}}"
                    Text="{Binding TextBlockVersion, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:ChangeLogControl}}}">
         </TextBlock>
 
         <TextBlock Grid.Row="0" Grid.Column="0"
                    FontWeight="Bold"
+                   VerticalAlignment="Center"
                    Visibility="{Binding IsNeedUpdate, Converter={StaticResource BooleanToVisibilityConverter}, RelativeSource={RelativeSource AncestorType={x:Type local:ChangeLogControl}}}"
                    Text="{Binding TextBlockNewVersionIsAvailable, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:ChangeLogControl}}}">
         </TextBlock>
