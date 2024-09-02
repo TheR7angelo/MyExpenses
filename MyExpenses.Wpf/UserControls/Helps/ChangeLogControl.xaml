@@ -9,6 +9,8 @@
              xmlns:margin="clr-namespace:MyExpenses.Wpf.Utils.Margin;assembly=MyExpenses.Wpf.Utils"
              mc:Ignorable="d"
 
+             TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+
              d:DesignHeight="300" d:DesignWidth="300">
 
     <UserControl.Resources>
