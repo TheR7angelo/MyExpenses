@@ -15,7 +15,7 @@ public static class AutoUpdaterGitHub
     private static string VersioningPath => Path.Join(ResourcePath, "Versioning");
     private static string FileName => "version";
     private static string JsonFilePath => Path.Join(VersioningPath, Path.ChangeExtension(FileName, ".json"));
-    private static string HtmlFilePath => Path.Join(VersioningPath, Path.ChangeExtension(FileName, ".html"));
+    public static string HtmlFilePath => Path.Join(VersioningPath, Path.ChangeExtension(FileName, ".html"));
     private static Release? LastRelease { get; set; }
 
     private const string ApplicationOwner = "TheR7angelo";
