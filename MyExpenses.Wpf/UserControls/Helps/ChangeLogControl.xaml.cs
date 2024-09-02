@@ -1,18 +1,48 @@
+using System.Windows;
 using Microsoft.Web.WebView2.Core;
 using MyExpenses.Models.Config;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Utils;
+using MyExpenses.Wpf.Resources.Resx.UserControls.Helps.ChangeLogControl;
 using MyExpenses.Wpf.Windows.AutoUpdaterGitHub;
 
 namespace MyExpenses.Wpf.UserControls.Helps;
 
 public partial class ChangeLogControl
 {
+    #region DependencyProperty
+
+    public static readonly DependencyProperty TextBlockVersionProperty =
+        DependencyProperty.Register(nameof(TextBlockVersion), typeof(string), typeof(ChangeLogControl),
+            new PropertyMetadata(default(string)));
+
+    public string TextBlockVersion
+    {
+        get => (string)GetValue(TextBlockVersionProperty);
+        set => SetValue(TextBlockVersionProperty, value);
+    }
+
+    public static readonly DependencyProperty TextBlockNewVersionIsAvailableProperty =
+        DependencyProperty.Register(nameof(TextBlockNewVersionIsAvailable), typeof(string), typeof(ChangeLogControl),
+            new PropertyMetadata(default(string)));
+
+    public string TextBlockNewVersionIsAvailable
+    {
+        get => (string)GetValue(TextBlockNewVersionIsAvailableProperty);
+        set => SetValue(TextBlockNewVersionIsAvailableProperty, value);
+    }
+
+    #endregion
+
+    public bool IsNeedUpdate { get; }
     private bool InitialNavigation { get; set; } = true;
 
     public ChangeLogControl()
     {
         UpdateLanguage();
+
+        // IsNeedUpdate = AutoUpdaterGitHub.NeedUpdate();
+        IsNeedUpdate = false;
 
         InitializeComponent();
 
@@ -52,7 +82,8 @@ public partial class ChangeLogControl
 
     private void UpdateLanguage()
     {
-
+        TextBlockVersion = ChangeLogControlResources.TextBlockVersion;
+        TextBlockNewVersionIsAvailable = ChangeLogControlResources.TextBlockNewVersionIsAvailable;
     }
 
     #endregion
