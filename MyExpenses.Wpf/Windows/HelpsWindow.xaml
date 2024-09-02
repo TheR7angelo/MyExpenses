@@ -53,6 +53,11 @@
                           MouseLeftButtonUp="UIElement_OnMouseLeftButtonUp">
             </TreeViewItem>
 
+            <TreeViewItem x:Name="ItemChangelog"
+                          Header="{Binding TreeViewItemItemChangelogHeader, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                          MouseLeftButtonUp="UIElement_OnMouseLeftButtonUp">
+            </TreeViewItem>
+
         </TreeView>
 
         <GridSplitter Grid.Row="0" Grid.Column="1" Grid.RowSpan="2"
@@ -73,6 +78,16 @@
                 <materialDesign:Card Margin="5">
 
                     <helps:VersionControl />
+
+                </materialDesign:Card>
+
+            </TabItem>
+
+            <TabItem Header="{Binding Header, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, ElementName=ItemChangelog}">
+
+                <materialDesign:Card Margin="5">
+
+
 
                 </materialDesign:Card>
 

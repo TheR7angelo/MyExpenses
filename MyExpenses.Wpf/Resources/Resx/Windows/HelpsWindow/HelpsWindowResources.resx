@@ -24,4 +24,7 @@
     <data name="TreeViewItemItemVersionHeader" xml:space="preserve">
         <value>Versions</value>
     </data>
+    <data name="TreeViewItemItemChangelogHeader" xml:space="preserve">
+        <value>Changelog</value>
+    </data>
 </root>

@@ -69,6 +69,15 @@ namespace MyExpenses.Wpf.Resources.Resx.Windows.HelpsWindow {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Changelog.
+        /// </summary>
+        internal static string TreeViewItemItemChangelogHeader {
+            get {
+                return ResourceManager.GetString("TreeViewItemItemChangelogHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Versions.
         /// </summary>
         internal static string TreeViewItemItemVersionHeader {

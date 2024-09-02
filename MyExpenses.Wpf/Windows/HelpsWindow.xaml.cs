@@ -31,6 +31,16 @@ public partial class HelpsWindow
         set => SetValue(TreeViewItemItemVersionHeaderProperty, value);
     }
 
+    public static readonly DependencyProperty TreeViewItemItemChangelogHeaderProperty =
+        DependencyProperty.Register(nameof(TreeViewItemItemChangelogHeader), typeof(string), typeof(HelpsWindow),
+            new PropertyMetadata(default(string)));
+
+    public string TreeViewItemItemChangelogHeader
+    {
+        get => (string)GetValue(TreeViewItemItemChangelogHeaderProperty);
+        set => SetValue(TreeViewItemItemChangelogHeaderProperty, value);
+    }
+
     #endregion
 
     public HelpsWindow()
@@ -66,6 +76,7 @@ public partial class HelpsWindow
         TitleWindow = HelpsWindowResources.TitleWindow;
 
         TreeViewItemItemVersionHeader = HelpsWindowResources.TreeViewItemItemVersionHeader;
+        TreeViewItemItemChangelogHeader = HelpsWindowResources.TreeViewItemItemChangelogHeader;
     }
 
     #endregion
