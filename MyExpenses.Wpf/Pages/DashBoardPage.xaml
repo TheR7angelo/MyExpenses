@@ -216,7 +216,8 @@
 
             </Grid>
 
-            <Border Grid.Row="3" HorizontalAlignment="Center"
+            <Border Grid.Row="3"
+                    HorizontalAlignment="Center"
                     CornerRadius="1"
                     BorderBrush="{DynamicResource MaterialDesignBody}"
                     BorderThickness="2">
