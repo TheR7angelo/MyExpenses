@@ -66,6 +66,9 @@ public partial class ChangeLogControl
     //TODO test with 10GB file download
     private async void ButtonUpdate_OnClick(object sender, RoutedEventArgs e)
     {
+        // TODO add real last release
+        var lastRelease = AutoUpdaterGitHub.LastRelease!;
+
         var assetTest = new Asset
         {
             Name = "10GB.bin",

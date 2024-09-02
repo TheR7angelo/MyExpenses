@@ -216,6 +216,9 @@ public partial class AutoUpdaterGitHubWindow
     //TODO test with 10GB file download
     private async Task UpdateApplication()
     {
+        // TODO add real last release
+        var lastRelease = AutoUpdaterGitHub.LastRelease!;
+
         var assetTest = new Asset
         {
             Name = "10GB.bin",
