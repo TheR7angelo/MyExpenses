@@ -1,5 +1,4 @@
-﻿using System.IO;
-using System.Reflection;
+﻿using System.Reflection;
 using System.Windows;
 using Microsoft.Web.WebView2.Core;
 using MyExpenses.Models.Config;
@@ -214,22 +213,15 @@ public partial class AutoUpdaterGitHubWindow
         }
     }
 
+    //TODO test with 10GB file download
     private async Task UpdateApplication()
     {
-        var tempDirectory = Path.GetFullPath("Auto Update");
-        Directory.CreateDirectory(tempDirectory);
+        var assetTest = new Asset
+        {
+            Name = "10GB.bin",
+            BrowserDownloadUrl = "https://ash-speed.hetzner.com/10GB.bin"
+        };
 
-        var assetTest = LastRelease.Assets![5]!;
-        var pathTest = Path.Join(tempDirectory, assetTest.Name);
-
-        var progressBarWindow = new ProgressBarWindow();
-        progressBarWindow.Show();
-
-        // await progressBarWindow.StartProgressBarDownload(assetTest.BrowserDownloadUrl!, pathTest, true);
-        //TODO test with 10GB file download
-        await progressBarWindow.StartProgressBarDownload("https://ash-speed.hetzner.com/10GB.bin", pathTest, true);
-
-        pathTest.StartProcess();
-        Application.Current.Shutdown();
+        await assetTest.UpdateApplication();
     }
 }
