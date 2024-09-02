@@ -49,6 +49,7 @@
         <TreeView Grid.Row="0" Grid.Column="0">
 
             <TreeViewItem x:Name="ItemVersion"
+                          IsSelected="True"
                           Header="{Binding TreeViewItemItemVersionHeader, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                           MouseLeftButtonUp="UIElement_OnMouseLeftButtonUp">
             </TreeViewItem>

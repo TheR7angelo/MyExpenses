@@ -51,6 +51,7 @@
         <TreeView Grid.Row="1" Grid.Column="0" Grid.RowSpan="2">
 
             <TreeViewItem x:Name="ItemAppearance"
+                          IsSelected="True"
                           Header="{Binding TreeViewItemAppearanceHeader, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                           MouseLeftButtonUp="UIElement_OnMouseLeftButtonUp">
             </TreeViewItem>
