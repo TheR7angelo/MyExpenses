@@ -39,10 +39,12 @@ public static class AutoUpdaterGitHub
 
                 if (callBackLaterTime > now)
                 {
-                    await Task.Delay((DateTime)callBackLaterTime - now, App.CancellationTokenSource.Token);
+                    var delay = (DateTime)callBackLaterTime - now;
+                    Log.Information("Delaying update check for {Delay} (hh:mm:ss) due to callback later time", delay.ToString(@"hh\:mm\:ss"));
+
+                    await Task.Delay(delay, App.CancellationTokenSource.Token);
                 }
 
-                // Vérifier si le jeton de cancellation a été annulé avant de poursuivre
                 App.CancellationTokenSource.Token.ThrowIfCancellationRequested();
 
                 var needUpdate = await CheckUpdateGitHubAsync();
