@@ -127,7 +127,6 @@ public partial class AutoUpdaterGitHubWindow
     private async void ButtonUpdateNow_OnClick(object sender, RoutedEventArgs e)
         => await UpdateApplication();
 
-    //TODO work
     private async void ButtonCallBackLater_OnClick(object sender, RoutedEventArgs e)
     {
         var callBackLaterWindow = new CallBackLaterWindow();
