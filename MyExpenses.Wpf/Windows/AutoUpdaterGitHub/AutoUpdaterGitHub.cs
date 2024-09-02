@@ -28,16 +28,31 @@ public static class AutoUpdaterGitHub
     /// </summary>
     public static void CheckUpdateGitHub()
     {
-        // TODO add check if need to wait from appsettings.json
         Log.Information("Starting update check");
         Task.Run(async () =>
         {
-            var needUpdate = await CheckUpdateGitHubAsync();
+            await Task.Factory.StartNew(async () =>
+            {
+                var now = DateTime.Now;
+                var configuration = Config.Configuration;
+                var callBackLaterTime = configuration.System.CallBackLaterTime;
 
-            if (!needUpdate) return;
+                if (callBackLaterTime > now)
+                {
+                    await Task.Delay((DateTime)callBackLaterTime - now, App.CancellationTokenSource.Token);
+                }
 
-            Application.Current.Dispatcher.Invoke(Initialize);
-        });
+                // Vérifier si le jeton de cancellation a été annulé avant de poursuivre
+                App.CancellationTokenSource.Token.ThrowIfCancellationRequested();
+
+                var needUpdate = await CheckUpdateGitHubAsync();
+
+                if (!needUpdate) return;
+
+                Application.Current.Dispatcher.Invoke(Initialize);
+
+            }, App.CancellationTokenSource.Token, TaskCreationOptions.LongRunning, TaskScheduler.Default).Unwrap();
+        }, App.CancellationTokenSource.Token);
     }
 
     /// <summary>
