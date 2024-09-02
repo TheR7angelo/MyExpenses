@@ -14,9 +14,13 @@ namespace MyExpenses.Wpf;
 
 public partial class App
 {
+    public static CancellationTokenSource CancellationTokenSource { get; private set; } = null!;
+
     protected override void OnStartup(StartupEventArgs e)
     {
         base.OnStartup(e);
+
+        CancellationTokenSource = new CancellationTokenSource();
 
         var splashScreenWindow = new SplashScreen("Resources\\Assets\\Applications\\Icon Resize.png");
         splashScreenWindow.Show(true, true);

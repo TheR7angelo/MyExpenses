@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.ComponentModel;
+using System.IO;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Input;
@@ -168,6 +169,9 @@ public partial class MainWindow
 
     private void Interface_OnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
         => UpdateLanguage();
+
+    private void MainWindow_OnClosing(object? sender, CancelEventArgs e)
+        => App.CancellationTokenSource.Cancel();
 
     private async void MenuItemDatabaseExport_OnClick(object sender, RoutedEventArgs e)
     {

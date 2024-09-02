@@ -33,6 +33,8 @@
                  Background="{DynamicResource MaterialDesignPaper}"
                  TextElement.Foreground="{DynamicResource MaterialDesignBody}"
 
+                 Closing="MainWindow_OnClosing"
+
                  DataContext="{Binding RelativeSource={RelativeSource Self}}">
 
     <mah:MetroWindow.LeftWindowCommands>
