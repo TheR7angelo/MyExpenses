@@ -153,17 +153,7 @@ public partial class AutoUpdaterGitHubWindow
 
         var configuration = Config.Configuration;
         configuration.System.CallBackLaterTime = newAsk;
-
-        var timer = new Timer(newAsk - now);
-        timer.Elapsed += (_, _) =>
-        {
-            timer.Stop();
-            Dispatcher.Invoke(() =>
-            {
-                ShowDialog();
-                Activate();
-            });
-        };
+        configuration.WriteConfiguration();
 
         Hide();
         timer.Start();
