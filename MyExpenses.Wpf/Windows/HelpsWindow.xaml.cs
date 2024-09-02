@@ -43,17 +43,10 @@ public partial class HelpsWindow
         this.SetWindowCornerPreference();
     }
 
-    private void UpdateLanguage()
-    {
-        TitleWindow = HelpsWindowResources.TitleWindow;
-
-        TreeViewItemItemVersionHeader = HelpsWindowResources.TreeViewItemItemVersionHeader;
-    }
+    #region Action
 
     private void Interface_OnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
         => UpdateLanguage();
-
-    #region Action
 
     private void UIElement_OnMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
     {
@@ -62,6 +55,17 @@ public partial class HelpsWindow
 
         var tabItem = TabControl.FindTabItemByHeader(header);
         if (tabItem is not null) tabItem.IsSelected = true;
+    }
+
+    #endregion
+
+    #region Function
+
+    private void UpdateLanguage()
+    {
+        TitleWindow = HelpsWindowResources.TitleWindow;
+
+        TreeViewItemItemVersionHeader = HelpsWindowResources.TreeViewItemItemVersionHeader;
     }
 
     #endregion
