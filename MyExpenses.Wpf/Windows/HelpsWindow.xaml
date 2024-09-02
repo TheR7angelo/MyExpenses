@@ -87,7 +87,7 @@
 
                 <materialDesign:Card Margin="5">
 
-
+                    <helps:ChangeLogControl />
 
                 </materialDesign:Card>
 
