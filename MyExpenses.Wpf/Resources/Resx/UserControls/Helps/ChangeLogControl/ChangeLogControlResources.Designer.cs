@@ -61,6 +61,15 @@ namespace MyExpenses.Wpf.Resources.Resx.UserControls.Helps.ChangeLogControl {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Update now.
+        /// </summary>
+        internal static string ButtonUpdateContent {
+            get {
+                return ResourceManager.GetString("ButtonUpdateContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to A new version is available, would you like to download it ?.
         /// </summary>
         internal static string TextBlockNewVersionIsAvailable {

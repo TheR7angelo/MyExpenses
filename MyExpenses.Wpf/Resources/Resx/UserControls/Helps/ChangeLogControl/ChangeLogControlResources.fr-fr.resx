@@ -17,4 +17,7 @@
     <data name="TextBlockNewVersionIsAvailable" xml:space="preserve">
         <value>Une nouvelle version est disponible, souhaitez-vous la télécharger ?</value>
     </data>
+    <data name="ButtonUpdateContent" xml:space="preserve">
+        <value>Mettre à jour maintenant</value>
+    </data>
 </root>

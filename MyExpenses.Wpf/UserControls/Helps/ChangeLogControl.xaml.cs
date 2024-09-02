@@ -32,6 +32,16 @@ public partial class ChangeLogControl
         set => SetValue(TextBlockNewVersionIsAvailableProperty, value);
     }
 
+    public static readonly DependencyProperty ButtonUpdateContentProperty =
+        DependencyProperty.Register(nameof(ButtonUpdateContent), typeof(string), typeof(ChangeLogControl),
+            new PropertyMetadata(default(string)));
+
+    public string ButtonUpdateContent
+    {
+        get => (string)GetValue(ButtonUpdateContentProperty);
+        set => SetValue(ButtonUpdateContentProperty, value);
+    }
+
     #endregion
 
     public bool IsNeedUpdate { get; }
@@ -83,7 +93,9 @@ public partial class ChangeLogControl
     private void UpdateLanguage()
     {
         TextBlockVersion = ChangeLogControlResources.TextBlockVersion;
+
         TextBlockNewVersionIsAvailable = ChangeLogControlResources.TextBlockNewVersionIsAvailable;
+        ButtonUpdateContent = ChangeLogControlResources.ButtonUpdateContent;
     }
 
     #endregion
