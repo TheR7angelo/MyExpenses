@@ -78,6 +78,8 @@ public partial class AutoUpdaterGitHubWindow
 
     #endregion
 
+    private bool InitialNavigation { get; set; } = true;
+
     private Release LastRelease { get; }
 
     public AutoUpdaterGitHubWindow(string releasesUrl, Release lastRelease)
@@ -102,15 +104,14 @@ public partial class AutoUpdaterGitHubWindow
 
     private void WebView2_NavigationStarting(object? sender, CoreWebView2NavigationStartingEventArgs e)
     {
-        var uri = e.Uri;
-
-        if (uri.StartsWith("file:///"))
+        if (InitialNavigation)
         {
+            InitialNavigation = false;
             return;
         }
 
         e.Cancel = true;
-        uri.StartProcess();
+        e.Uri.StartProcess();
     }
 
     #endregion

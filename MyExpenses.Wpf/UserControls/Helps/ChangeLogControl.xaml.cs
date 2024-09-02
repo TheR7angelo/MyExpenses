@@ -6,6 +6,8 @@ namespace MyExpenses.Wpf.UserControls.Helps;
 
 public partial class ChangeLogControl
 {
+    private bool InitialNavigation { get; set; } = true;
+
     public ChangeLogControl()
     {
         InitializeComponent();
@@ -15,15 +17,14 @@ public partial class ChangeLogControl
 
     private void WebView2_NavigationStarting(object? sender, CoreWebView2NavigationStartingEventArgs e)
     {
-        var uri = e.Uri;
-
-        if (uri.StartsWith("file:///"))
+        if (InitialNavigation)
         {
+            InitialNavigation = false;
             return;
         }
 
         e.Cancel = true;
-        uri.StartProcess();
+        e.Uri.StartProcess();
     }
 
     private async void InitializeAsync()
