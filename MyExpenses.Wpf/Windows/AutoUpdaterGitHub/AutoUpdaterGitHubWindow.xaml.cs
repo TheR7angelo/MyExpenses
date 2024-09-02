@@ -179,7 +179,7 @@ public partial class AutoUpdaterGitHubWindow
         var pathTest = Path.Join(tempDirectory, assetTest.Name);
 
         var progressBarWindow = new ProgressBarWindow();
-        progressBarWindow.ShowDialog();
+        progressBarWindow.Show();
 
         // await progressBarWindow.StartProgressBarDownload(assetTest.BrowserDownloadUrl!, pathTest, true);
         //TODO test with 10GB file download
