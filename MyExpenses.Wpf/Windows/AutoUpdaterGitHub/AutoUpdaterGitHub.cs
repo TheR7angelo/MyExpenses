@@ -16,7 +16,7 @@ public static class AutoUpdaterGitHub
     private static string FileName => "version";
     private static string JsonFilePath => Path.Join(VersioningPath, Path.ChangeExtension(FileName, ".json"));
     public static string HtmlFilePath => Path.Join(VersioningPath, Path.ChangeExtension(FileName, ".html"));
-    private static Release? LastRelease { get; set; }
+    public static Release? LastRelease { get; set; }
 
     private const string ApplicationOwner = "TheR7angelo";
     private const string ApplicationRepository = "MyExpenses";
@@ -74,7 +74,7 @@ public static class AutoUpdaterGitHub
             if (releasesNotesTmp is not null && releasesNotesTmp.Count > 0)
             {
                 releasesNotes = releasesNotesTmp;
-                await UpdateReleaseNotesFiles(releasesNotes);
+                UpdateReleaseNotesFiles(releasesNotes);
             }
         }
         catch (Exception e)
@@ -84,7 +84,7 @@ public static class AutoUpdaterGitHub
 
         LastRelease = releasesNotes.OrderByDescending(s => s.PublishedAt).First();
 
-        return LastRelease.NeedUpdate();
+        return NeedUpdate();
     }
 
     /// <summary>
@@ -97,7 +97,7 @@ public static class AutoUpdaterGitHub
         var json = File.ReadAllText(JsonFilePath);
         var releasesNotes = json.ToObject<List<Release>>()!;
 
-        if (!File.Exists(HtmlFilePath)) _ = releasesNotes.UpdateReleaseNotesFiles();
+        if (!File.Exists(HtmlFilePath)) releasesNotes.UpdateReleaseNotesFiles();
 
         return releasesNotes;
     }
@@ -116,14 +116,13 @@ public static class AutoUpdaterGitHub
     /// <summary>
     /// Determines if an update is necessary by comparing the latest GitHub release with the current assembly version.
     /// </summary>
-    /// <param name="release">The latest release information from GitHub.</param>
     /// <returns>True if an update is necessary, false otherwise.</returns>
-    private static bool NeedUpdate(this Release release)
+    public static bool NeedUpdate()
     {
         var currentAssembly = Assembly.GetExecutingAssembly().GetName();
 
-        var result = release.Version > currentAssembly.Version;
-        Log.Information("Comparing versions: Local - {LocalVersion}, GitHub - {GitHubVersion}, Update Needed: {UpdateNeeded}", currentAssembly.Version, release.Version, result);
+        var result = LastRelease?.Version > currentAssembly.Version;
+        Log.Information("Comparing versions: Local - {LocalVersion}, GitHub - {GitHubVersion}, Update Needed: {UpdateNeeded}", currentAssembly.Version, LastRelease?.Version, result);
 
         return result;
     }
@@ -134,7 +133,7 @@ public static class AutoUpdaterGitHub
     /// </summary>
     /// <param name="releasesNotes">The list of release notes to update</param>
     /// <returns>The updated list of release notes</returns>
-    private static async Task UpdateReleaseNotesFiles(this List<Release> releasesNotes)
+    private static void UpdateReleaseNotesFiles(this List<Release> releasesNotes)
     {
         string background = null!;
         string foreground = null!;
@@ -150,9 +149,9 @@ public static class AutoUpdaterGitHub
         var htmlContent = markDown.ToHtml(background, foreground);
 
         Log.Information("Writing release notes to JSON file");
-        await File.WriteAllTextAsync(JsonFilePath, json);
+        File.WriteAllText(JsonFilePath, json);
 
         Log.Information("Writing release notes to HTML file");
-        await File.WriteAllTextAsync(HtmlFilePath, htmlContent);
+        File.WriteAllText(HtmlFilePath, htmlContent);
     }
 }
