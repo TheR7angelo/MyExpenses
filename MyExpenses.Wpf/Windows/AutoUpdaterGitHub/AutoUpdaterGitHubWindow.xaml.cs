@@ -8,7 +8,6 @@ using MyExpenses.Models.Wpf.AutoUpdaterGitHub;
 using MyExpenses.Utils;
 using MyExpenses.Wpf.Resources.Resx.Windows.AutoUpdaterGitHubWindow;
 using MyExpenses.Wpf.Utils;
-using Timer = System.Timers.Timer;
 
 namespace MyExpenses.Wpf.Windows.AutoUpdaterGitHub;
 
@@ -156,7 +155,24 @@ public partial class AutoUpdaterGitHubWindow
         configuration.WriteConfiguration();
 
         Hide();
-        timer.Start();
+
+        try
+        {
+            await Task.Delay(newAsk - now, App.CancellationTokenSource.Token);
+
+            if (App.CancellationTokenSource.Token.IsCancellationRequested)
+            {
+                Close();
+                return;
+            }
+
+            ShowDialog();
+            Activate();
+        }
+        catch (TaskCanceledException)
+        {
+            Close();
+        }
     }
 
     // TODO work
