@@ -6,7 +6,6 @@
         xmlns:local="clr-namespace:MyExpenses.Wpf.Windows"
         xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        xmlns:margin="clr-namespace:MyExpenses.Wpf.Utils.Margin;assembly=MyExpenses.Wpf.Utils"
         xmlns:helps="clr-namespace:MyExpenses.Wpf.UserControls.Helps"
         mc:Ignorable="d"
 
