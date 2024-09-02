@@ -179,10 +179,6 @@
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>HelpsWindowResources.Designer.cs</LastGenOutput>
       </EmbeddedResource>
-      <EmbeddedResource Update="Resources\Resx\UserControls\Helps\VersionControlResources.resx">
-        <Generator>ResXFileCodeGenerator</Generator>
-        <LastGenOutput>VersionControlResources.Designer.cs</LastGenOutput>
-      </EmbeddedResource>
       <EmbeddedResource Update="Resources\Resx\UserControls\Analytics\AccountsCategorySumPositiveNegativeControls\AccountsCategorySumPositiveNegativeControlsResources.resx">
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>AccountsCategorySumPositiveNegativeControlsResources.Designer.cs</LastGenOutput>
@@ -210,6 +206,10 @@
       <EmbeddedResource Update="Resources\Resx\Windows\CallBackLaterWindow\CallBackLaterWindowResources.resx">
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>CallBackLaterWindowResources.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+      <EmbeddedResource Update="Resources\Resx\UserControls\Helps\VersionControl\VersionControlResources.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>VersionControlResources.Designer.cs</LastGenOutput>
       </EmbeddedResource>
     </ItemGroup>
 
@@ -397,11 +397,6 @@
         <AutoGen>True</AutoGen>
         <DependentUpon>HelpsWindowResources.resx</DependentUpon>
       </Compile>
-      <Compile Update="Resources\Resx\UserControls\Helps\VersionControlResources.Designer.cs">
-        <DesignTime>True</DesignTime>
-        <AutoGen>True</AutoGen>
-        <DependentUpon>VersionControlResources.resx</DependentUpon>
-      </Compile>
       <Compile Update="Resources\Resx\UserControls\Analytics\AccountsCategorySumPositiveNegativeControls\AccountsCategorySumPositiveNegativeControlsResources.Designer.cs">
         <DesignTime>True</DesignTime>
         <AutoGen>True</AutoGen>
@@ -436,6 +431,11 @@
         <DesignTime>True</DesignTime>
         <AutoGen>True</AutoGen>
         <DependentUpon>CallBackLaterWindowResources.resx</DependentUpon>
+      </Compile>
+      <Compile Update="Resources\Resx\UserControls\Helps\VersionControl\VersionControlResources.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>VersionControlResources.resx</DependentUpon>
       </Compile>
     </ItemGroup>
 
