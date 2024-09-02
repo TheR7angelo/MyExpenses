@@ -37,8 +37,12 @@
                     <accountsCategorySumPositiveNegativeControls:AccountsCategorySumPositiveNegativeControl />
                 </TabItem>
 
-                <TabItem Header="{Binding TabItemAccountsCategorySumControlHeader, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
-                    <analytics:AccountsCategorySumControl />
+                <TabItem Header="{Binding TabItemCumulativeSumChartControlHeader, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
+                    <analytics:CumulativeSumChartControl />
+                </TabItem>
+
+                <TabItem Header="{Binding TabItemCumulativeTotalSumChartControlHeader, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
+                    <analytics:CumulativeTotalSumChartControl />
                 </TabItem>
 
                 <TabItem Header="{Binding TabItemAccountsModePaymentMonthlySumControlHeader, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
@@ -49,12 +53,8 @@
                     <analytics:AccountValueTrendControl />
                 </TabItem>
 
-                <TabItem Header="{Binding TabItemCumulativeSumChartControlHeader, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
-                    <analytics:CumulativeSumChartControl />
-                </TabItem>
-
-                <TabItem Header="{Binding TabItemCumulativeTotalSumChartControlHeader, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
-                    <analytics:CumulativeTotalSumChartControl />
+                <TabItem Header="{Binding TabItemAccountsCategorySumControlHeader, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
+                    <analytics:AccountsCategorySumControl />
                 </TabItem>
 
             </TabControl>
