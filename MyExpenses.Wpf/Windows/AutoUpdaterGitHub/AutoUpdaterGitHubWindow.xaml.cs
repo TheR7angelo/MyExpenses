@@ -1,6 +1,7 @@
 ﻿using System.IO;
 using System.Reflection;
 using System.Windows;
+using Microsoft.Web.WebView2.Core;
 using MyExpenses.Models.Config;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.WebApi.Github.Soft;
@@ -98,6 +99,19 @@ public partial class AutoUpdaterGitHubWindow
 
     private void Interface_OnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
         => UpdateLanguage();
+
+    private void WebView2_NavigationStarting(object? sender, CoreWebView2NavigationStartingEventArgs e)
+    {
+        var uri = e.Uri;
+
+        if (uri.StartsWith("file:///"))
+        {
+            return;
+        }
+
+        e.Cancel = true;
+        uri.StartProcess();
+    }
 
     #endregion
 

@@ -84,7 +84,7 @@
                 BorderBrush="{DynamicResource MaterialDesignBody}"
                 BorderThickness="3"
                 CornerRadius="3">
-            <wpf:WebView2 x:Name="WebView2" />
+            <wpf:WebView2 x:Name="WebView2" NavigationStarting="WebView2_NavigationStarting" />
         </Border>
 
         <StackPanel Grid.Row="2"
