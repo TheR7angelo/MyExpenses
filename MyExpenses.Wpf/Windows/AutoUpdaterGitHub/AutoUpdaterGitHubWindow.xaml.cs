@@ -174,10 +174,9 @@ public partial class AutoUpdaterGitHubWindow
         }
     }
 
-    // TODO work
     private async Task UpdateApplication()
     {
-        var tempDirectory = Path.GetFullPath("temp");
+        var tempDirectory = Path.GetFullPath("Auto Update");
         Directory.CreateDirectory(tempDirectory);
 
         var assetTest = LastRelease.Assets![5]!;
