@@ -51,8 +51,7 @@ public partial class ChangeLogControl
     {
         UpdateLanguage();
 
-        // IsNeedUpdate = AutoUpdaterGitHub.NeedUpdate();
-        IsNeedUpdate = false;
+        IsNeedUpdate = AutoUpdaterGitHub.NeedUpdate();
 
         InitializeComponent();
 
