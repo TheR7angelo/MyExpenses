@@ -596,9 +596,6 @@
       <None Remove="Resources\Versioning\version.md" />
       <None Remove="Resources\Versioning\versioning.html" />
       <None Remove="Resources\Versioning\version.json" />
-      <AdditionalFiles Include="Resources\Versioning\version.json">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </AdditionalFiles>
     </ItemGroup>
 
     <ItemGroup>
