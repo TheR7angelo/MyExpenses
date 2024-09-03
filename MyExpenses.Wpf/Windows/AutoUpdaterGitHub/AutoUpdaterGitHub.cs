@@ -69,7 +69,7 @@ public static class AutoUpdaterGitHub
         var releasesNotes = GetDefaultReleaseNotes();
         try
         {
-            Log.Information("Fetched release notes from GitHub");
+            Log.Information($"Fetched release notes from GitHub with owner: \"{ApplicationOwner}\" and repository: \"{ApplicationRepository}\"");
             using var gitHubClient = new GitHubClient();
             var releasesNotesTmp = await gitHubClient.GetReleaseNotes(ApplicationOwner, ApplicationRepository);
             if (releasesNotesTmp is not null && releasesNotesTmp.Count > 0)
