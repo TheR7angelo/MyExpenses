@@ -22,6 +22,11 @@ public static class AutoUpdaterGitHub
     private const string ApplicationOwner = "TheR7angelo";
     private const string ApplicationRepository = "MyExpenses";
 
+    static AutoUpdaterGitHub()
+    {
+        Directory.CreateDirectory(VersioningPath);
+    }
+
     /// <summary>
     /// Runs a task asynchronously
     /// to check if an update is necessary
