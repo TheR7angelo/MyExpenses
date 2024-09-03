@@ -123,8 +123,11 @@ public static class AutoUpdaterGitHub
     public static bool NeedUpdate()
     {
         var currentAssembly = Assembly.GetExecutingAssembly().GetName();
+        var versionCompare = LastRelease is null
+            ? currentAssembly.Version
+            : LastRelease.Version;
 
-        var result = LastRelease?.Version > currentAssembly.Version;
+        var result = versionCompare > currentAssembly.Version;
         Log.Information("Comparing versions: Local - {LocalVersion}, GitHub - {GitHubVersion}, Update Needed: {UpdateNeeded}", currentAssembly.Version, LastRelease?.Version, result);
 
         return result;
