@@ -216,8 +216,8 @@ public partial class AutoUpdaterGitHubWindow
     //TODO test with 10GB file download
     private async Task UpdateApplication()
     {
-        // TODO add real last release
         var lastRelease = AutoUpdaterGitHub.LastRelease!;
+        var asset = lastRelease.Assets!.GetAssetForThisSystem();
 
         var assetTest = new Asset
         {

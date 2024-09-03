@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Windows;
 using MyExpenses.IO.MarkDown;
 using MyExpenses.Models.WebApi.Github.Soft;
@@ -153,6 +154,33 @@ public static class AutoUpdaterGitHub
 
         Log.Information("Writing release notes to HTML file");
         File.WriteAllText(HtmlFilePath, htmlContent);
+    }
+
+    /// <summary>
+    /// Identifies and returns the appropriate asset for the current system based on its architecture.
+    /// </summary>
+    /// <param name="assets">A collection of assets to search through.</param>
+    /// <returns>The asset that matches the system's architecture and file extension, or null if no match is found.</returns>
+    /// <exception cref="ArgumentOutOfRangeException">Thrown when the system architecture is not recognized.</exception>
+    public static Asset? GetAssetForThisSystem(this IEnumerable<Asset> assets)
+    {
+        var architectureSuffix = RuntimeInformation.OSArchitecture switch
+        {
+            Architecture.X86 => "x86",
+            Architecture.X64 => "x64",
+            Architecture.Arm64 => "arm64",
+            _ => throw new ArgumentOutOfRangeException(null,
+                @$"The system architecture '{RuntimeInformation.OSArchitecture}' is not recognized or supported")
+        };
+
+        var possibleExtensions = new[] { ".msi", ".exe" };
+
+        var matchingAssets = assets
+            .Where(a => a.Name is not null)
+            .Where(a => possibleExtensions.Any(ext =>
+                    a.Name!.EndsWith($"{architectureSuffix}{ext}", StringComparison.OrdinalIgnoreCase)));
+
+        return matchingAssets.FirstOrDefault();
     }
 
     /// <summary>
