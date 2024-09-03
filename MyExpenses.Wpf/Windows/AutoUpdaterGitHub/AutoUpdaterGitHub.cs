@@ -92,8 +92,10 @@ public static class AutoUpdaterGitHub
     /// Gets the default release notes from the JSON file.
     /// </summary>
     /// <returns>A list of Release objects representing the release notes.</returns>
-    private static List<Release> GetDefaultReleaseNotes()
+    private static List<Release>? GetDefaultReleaseNotes()
     {
+        if (!File.Exists(JsonFilePath)) return null;
+
         Log.Information("Loading default release notes from JSON file");
         var json = File.ReadAllText(JsonFilePath);
         var releasesNotes = json.ToObject<List<Release>>()!;
