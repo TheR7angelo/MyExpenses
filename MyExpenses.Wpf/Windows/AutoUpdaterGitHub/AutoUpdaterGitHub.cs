@@ -83,7 +83,7 @@ public static class AutoUpdaterGitHub
             Log.Error(e, "Failed to fetch release notes from GitHub");
         }
 
-        LastRelease = releasesNotes.OrderByDescending(s => s.PublishedAt).First();
+        LastRelease = releasesNotes?.OrderByDescending(s => s.PublishedAt).FirstOrDefault();
 
         return NeedUpdate();
     }
