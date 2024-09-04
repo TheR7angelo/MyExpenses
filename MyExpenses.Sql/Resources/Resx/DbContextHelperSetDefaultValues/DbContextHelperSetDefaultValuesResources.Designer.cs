@@ -106,6 +106,24 @@ namespace MyExpenses.Sql.Resources.Resx.DbContextHelperSetDefaultValues {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Bimonthly.
+        /// </summary>
+        internal static string DefaultTRecursiveFrequencyBimonthly {
+            get {
+                return ResourceManager.GetString("DefaultTRecursiveFrequencyBimonthly", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Which is done every two month.
+        /// </summary>
+        internal static string DefaultTRecursiveFrequencyBimonthlyDefinition {
+            get {
+                return ResourceManager.GetString("DefaultTRecursiveFrequencyBimonthlyDefinition", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Daily.
         /// </summary>
         internal static string DefaultTRecursiveFrequencyDaily {
@@ -138,6 +156,60 @@ namespace MyExpenses.Sql.Resources.Resx.DbContextHelperSetDefaultValues {
         internal static string DefaultTRecursiveFrequencyMonthlyDefinition {
             get {
                 return ResourceManager.GetString("DefaultTRecursiveFrequencyMonthlyDefinition", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Quadrimestriel.
+        /// </summary>
+        internal static string DefaultTRecursiveFrequencyQuadrimestriel {
+            get {
+                return ResourceManager.GetString("DefaultTRecursiveFrequencyQuadrimestriel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Which is done every four month.
+        /// </summary>
+        internal static string DefaultTRecursiveFrequencyQuadrimestrielDefinition {
+            get {
+                return ResourceManager.GetString("DefaultTRecursiveFrequencyQuadrimestrielDefinition", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Quarterly.
+        /// </summary>
+        internal static string DefaultTRecursiveFrequencyQuarterly {
+            get {
+                return ResourceManager.GetString("DefaultTRecursiveFrequencyQuarterly", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Which is done every three month.
+        /// </summary>
+        internal static string DefaultTRecursiveFrequencyQuarterlyDefinition {
+            get {
+                return ResourceManager.GetString("DefaultTRecursiveFrequencyQuarterlyDefinition", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Semi-annual.
+        /// </summary>
+        internal static string DefaultTRecursiveFrequencySemiAnnual {
+            get {
+                return ResourceManager.GetString("DefaultTRecursiveFrequencySemiAnnual", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Which is done every six month.
+        /// </summary>
+        internal static string DefaultTRecursiveFrequencySemiAnnualDefinition {
+            get {
+                return ResourceManager.GetString("DefaultTRecursiveFrequencySemiAnnualDefinition", resourceCulture);
             }
         }
         

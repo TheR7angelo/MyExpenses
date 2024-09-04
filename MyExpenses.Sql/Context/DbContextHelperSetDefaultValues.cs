@@ -61,6 +61,26 @@ public static class DbContextHelperSetDefaultValues
             },
             new()
             {
+                Frequency = DbContextHelperSetDefaultValuesResources.DefaultTRecursiveFrequencyBimonthly,
+                Description = DbContextHelperSetDefaultValuesResources.DefaultTRecursiveFrequencyBimonthlyDefinition
+            },
+            new()
+            {
+                Frequency = DbContextHelperSetDefaultValuesResources.DefaultTRecursiveFrequencyQuarterly,
+                Description = DbContextHelperSetDefaultValuesResources.DefaultTRecursiveFrequencyQuarterlyDefinition
+            },
+            new()
+            {
+                Frequency = DbContextHelperSetDefaultValuesResources.DefaultTRecursiveFrequencyQuadrimestriel,
+                Description = DbContextHelperSetDefaultValuesResources.DefaultTRecursiveFrequencyQuadrimestrielDefinition
+            },
+            new()
+            {
+                Frequency = DbContextHelperSetDefaultValuesResources.DefaultTRecursiveFrequencySemiAnnual,
+                Description = DbContextHelperSetDefaultValuesResources.DefaultTRecursiveFrequencySemiAnnualDefinition
+            },
+            new()
+            {
                 Frequency = DbContextHelperSetDefaultValuesResources.DefaultTRecursiveFrequencyYearly,
                 Description = DbContextHelperSetDefaultValuesResources.DefaultTRecursiveFrequencyYearlyDefinition
             }
@@ -79,6 +99,14 @@ public static class DbContextHelperSetDefaultValues
                 DbContextHelperSetDefaultValuesResources.DefaultTRecursiveFrequencyWeeklyDefinition),
             (DbContextHelperSetDefaultValuesResources.DefaultTRecursiveFrequencyMonthly,
                 DbContextHelperSetDefaultValuesResources.DefaultTRecursiveFrequencyMonthlyDefinition),
+            (DbContextHelperSetDefaultValuesResources.DefaultTRecursiveFrequencyBimonthly,
+                DbContextHelperSetDefaultValuesResources.DefaultTRecursiveFrequencyBimonthlyDefinition),
+            (DbContextHelperSetDefaultValuesResources.DefaultTRecursiveFrequencyQuarterly,
+                DbContextHelperSetDefaultValuesResources.DefaultTRecursiveFrequencyQuarterlyDefinition),
+            (DbContextHelperSetDefaultValuesResources.DefaultTRecursiveFrequencyQuadrimestriel,
+                DbContextHelperSetDefaultValuesResources.DefaultTRecursiveFrequencyQuadrimestrielDefinition),
+            (DbContextHelperSetDefaultValuesResources.DefaultTRecursiveFrequencySemiAnnual,
+                DbContextHelperSetDefaultValuesResources.DefaultTRecursiveFrequencySemiAnnualDefinition),
             (DbContextHelperSetDefaultValuesResources.DefaultTRecursiveFrequencyYearly,
                 DbContextHelperSetDefaultValuesResources.DefaultTRecursiveFrequencyYearlyDefinition)
         };

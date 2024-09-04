@@ -50,4 +50,28 @@
     <data name="DefaultTModePaymentNameBankCheck" xml:space="preserve">
         <value>Bank check</value>
     </data>
+    <data name="DefaultTRecursiveFrequencyBimonthlyDefinition" xml:space="preserve">
+        <value>Which is done every two month</value>
+    </data>
+    <data name="DefaultTRecursiveFrequencyBimonthly" xml:space="preserve">
+        <value>Bimonthly</value>
+    </data>
+    <data name="DefaultTRecursiveFrequencyQuarterly" xml:space="preserve">
+        <value>Quarterly</value>
+    </data>
+    <data name="DefaultTRecursiveFrequencyQuarterlyDefinition" xml:space="preserve">
+        <value>Which is done every three month</value>
+    </data>
+    <data name="DefaultTRecursiveFrequencyQuadrimestriel" xml:space="preserve">
+        <value>Quadrimestriel</value>
+    </data>
+    <data name="DefaultTRecursiveFrequencyQuadrimestrielDefinition" xml:space="preserve">
+        <value>Which is done every four month</value>
+    </data>
+    <data name="DefaultTRecursiveFrequencySemiAnnual" xml:space="preserve">
+        <value>Semi-annual</value>
+    </data>
+    <data name="DefaultTRecursiveFrequencySemiAnnualDefinition" xml:space="preserve">
+        <value>Which is done every six month</value>
+    </data>
 </root>
