@@ -201,11 +201,11 @@ public sealed partial class ColorPickerControl
 
     public ColorPickerControl()
     {
+        UpdateLanguage();
+
         InitializeComponent();
 
         InitializeValue();
-
-        UpdateLanguage();
 
         Interface.LanguageChanged += Interface_OnLanguageChanged;
     }
