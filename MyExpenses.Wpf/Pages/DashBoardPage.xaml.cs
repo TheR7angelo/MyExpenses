@@ -648,7 +648,8 @@ public partial class DashBoardPage
 
         var records = query
             .OrderBy(s => s.Pointed)
-            .ThenByDescending(s => s.Date);
+            .ThenByDescending(s => s.Date)
+            .ThenBy(s => s.Category);
 
         VHistories.AddRange(records);
     }
