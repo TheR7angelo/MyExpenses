@@ -46,95 +46,6 @@ public partial class AddEditColorWindow
         set => SetValue(TextBoxColorNameProperty, value);
     }
 
-    public static readonly DependencyProperty LabelRedChannelProperty =
-        DependencyProperty.Register(nameof(LabelRedChannel), typeof(string), typeof(AddEditColorWindow),
-            new PropertyMetadata(default(string)));
-
-    public string LabelRedChannel
-    {
-        get => (string)GetValue(LabelRedChannelProperty);
-        set => SetValue(LabelRedChannelProperty, value);
-    }
-
-    public static readonly DependencyProperty LabelGreenChannelProperty =
-        DependencyProperty.Register(nameof(LabelGreenChannel), typeof(string), typeof(AddEditColorWindow),
-            new PropertyMetadata(default(string)));
-
-    public string LabelGreenChannel
-    {
-        get => (string)GetValue(LabelGreenChannelProperty);
-        set => SetValue(LabelGreenChannelProperty, value);
-    }
-
-    public static readonly DependencyProperty LabelBlueChannelProperty =
-        DependencyProperty.Register(nameof(LabelBlueChannel), typeof(string), typeof(AddEditColorWindow),
-            new PropertyMetadata(default(string)));
-
-    public string LabelBlueChannel
-    {
-        get => (string)GetValue(LabelBlueChannelProperty);
-        set => SetValue(LabelBlueChannelProperty, value);
-    }
-
-    public static readonly DependencyProperty LabelHueChannelProperty =
-        DependencyProperty.Register(nameof(LabelHueChannel), typeof(string), typeof(AddEditColorWindow),
-            new PropertyMetadata(default(string)));
-
-    public string LabelHueChannel
-    {
-        get => (string)GetValue(LabelHueChannelProperty);
-        set => SetValue(LabelHueChannelProperty, value);
-    }
-
-    public static readonly DependencyProperty LabelSaturationChannelProperty =
-        DependencyProperty.Register(nameof(LabelSaturationChannel), typeof(string), typeof(AddEditColorWindow),
-            new PropertyMetadata(default(string)));
-
-    public string LabelSaturationChannel
-    {
-        get => (string)GetValue(LabelSaturationChannelProperty);
-        set => SetValue(LabelSaturationChannelProperty, value);
-    }
-
-    public static readonly DependencyProperty LabelValueChannelProperty =
-        DependencyProperty.Register(nameof(LabelValueChannel), typeof(string), typeof(AddEditColorWindow),
-            new PropertyMetadata(default(string)));
-
-    public string LabelValueChannel
-    {
-        get => (string)GetValue(LabelValueChannelProperty);
-        set => SetValue(LabelValueChannelProperty, value);
-    }
-
-    public static readonly DependencyProperty LabelAlphaChannelProperty =
-        DependencyProperty.Register(nameof(LabelAlphaChannel), typeof(string), typeof(AddEditColorWindow),
-            new PropertyMetadata(default(string)));
-
-    public string LabelAlphaChannel
-    {
-        get => (string)GetValue(LabelAlphaChannelProperty);
-        set => SetValue(LabelAlphaChannelProperty, value);
-    }
-
-    public static readonly DependencyProperty LabelHexadecimalCodeProperty =
-        DependencyProperty.Register(nameof(LabelHexadecimalCode), typeof(string), typeof(AddEditColorWindow),
-            new PropertyMetadata(default(string)));
-
-    public string LabelHexadecimalCode
-    {
-        get => (string)GetValue(LabelHexadecimalCodeProperty);
-        set => SetValue(LabelHexadecimalCodeProperty, value);
-    }
-
-    public static readonly DependencyProperty LabelPreviewProperty = DependencyProperty.Register(nameof(LabelPreview),
-        typeof(string), typeof(AddEditColorWindow), new PropertyMetadata(default(string)));
-
-    public string LabelPreview
-    {
-        get => (string)GetValue(LabelPreviewProperty);
-        set => SetValue(LabelPreviewProperty, value);
-    }
-
     public static readonly DependencyProperty ButtonValidContentProperty =
         DependencyProperty.Register(nameof(ButtonValidContent), typeof(string), typeof(AddEditColorWindow),
             new PropertyMetadata(default(string)));
@@ -188,16 +99,6 @@ public partial class AddEditColorWindow
     private void UpdateLanguage()
     {
         TitleWindow = AddEditColorWindowResources.TitleWindow;
-
-        LabelRedChannel = AddEditColorWindowResources.LabelRedChannel;
-        LabelGreenChannel = AddEditColorWindowResources.LabelGreenChannel;
-        LabelBlueChannel = AddEditColorWindowResources.LabelBlueChannel;
-        LabelHueChannel = AddEditColorWindowResources.LabelHueChannel;
-        LabelSaturationChannel = AddEditColorWindowResources.LabelSaturationChannel;
-        LabelValueChannel = AddEditColorWindowResources.LabelValueChannel;
-        LabelAlphaChannel = AddEditColorWindowResources.LabelAlphaChannel;
-        LabelPreview = AddEditColorWindowResources.LabelPreview;
-        LabelHexadecimalCode = AddEditColorWindowResources.LabelHexadecimalCode;
 
         TextBoxColorName = AddEditColorWindowResources.TextBoxColorName;
 

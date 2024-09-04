@@ -3,7 +3,10 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
+using MyExpenses.Models.Config;
+using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Wpf.Resources.Regex;
+using MyExpenses.Wpf.Resources.Resx.UserControls.ColorPickerControl;
 using MyExpenses.Wpf.Utils;
 
 namespace MyExpenses.Wpf.UserControls.Colors;
@@ -146,58 +149,38 @@ public sealed partial class ColorPickerControl
 
     public static readonly DependencyProperty LabelRedChannelProperty =
         DependencyProperty.Register(nameof(LabelRedChannel), typeof(string), typeof(ColorPickerControl),
-            new PropertyMetadata("R"));
+            new PropertyMetadata(default(string)));
 
     public static readonly DependencyProperty LabelGreenChannelProperty =
         DependencyProperty.Register(nameof(LabelGreenChannel), typeof(string), typeof(ColorPickerControl),
-            new PropertyMetadata("G"));
+            new PropertyMetadata(default(string)));
 
     public static readonly DependencyProperty LabelBlueChannelProperty =
         DependencyProperty.Register(nameof(LabelBlueChannel), typeof(string), typeof(ColorPickerControl),
-            new PropertyMetadata("B"));
+            new PropertyMetadata(default(string)));
 
     public static readonly DependencyProperty LabelHueChannelProperty =
         DependencyProperty.Register(nameof(LabelHueChannel), typeof(string), typeof(ColorPickerControl),
-            new PropertyMetadata("H"));
+            new PropertyMetadata(default(string)));
 
     public static readonly DependencyProperty LabelSaturationChannelProperty =
         DependencyProperty.Register(nameof(LabelSaturationChannel), typeof(string), typeof(ColorPickerControl),
-            new PropertyMetadata("S"));
+            new PropertyMetadata(default(string)));
 
     public static readonly DependencyProperty LabelValueChannelProperty =
         DependencyProperty.Register(nameof(LabelValueChannel), typeof(string), typeof(ColorPickerControl),
-            new PropertyMetadata("V"));
+            new PropertyMetadata(default(string)));
 
     public static readonly DependencyProperty LabelAlphaChannelProperty =
         DependencyProperty.Register(nameof(LabelAlphaChannel), typeof(string), typeof(ColorPickerControl),
             new PropertyMetadata("A"));
 
     public static readonly DependencyProperty LabelPreviewProperty = DependencyProperty.Register(nameof(LabelPreview),
-        typeof(string), typeof(ColorPickerControl), new PropertyMetadata("Preview :"));
-
-    public static readonly DependencyProperty RectanglePreviewThicknessProperty =
-        DependencyProperty.Register(nameof(RectanglePreviewThickness), typeof(double), typeof(ColorPickerControl),
-            new PropertyMetadata(default(double)));
-
-    public static readonly DependencyProperty RectanglePreviewStrokeProperty =
-        DependencyProperty.Register(nameof(RectanglePreviewStroke), typeof(Brush), typeof(ColorPickerControl),
-            new PropertyMetadata(default(Brush)));
+        typeof(string), typeof(ColorPickerControl), new PropertyMetadata(default(string)));
 
     public static readonly DependencyProperty LabelHexadecimalCodeProperty =
         DependencyProperty.Register(nameof(LabelHexadecimalCode), typeof(string), typeof(ColorPickerControl),
-            new PropertyMetadata("Hexadecimal code :"));
-
-    public static readonly DependencyProperty SliderThumbFillProperty =
-        DependencyProperty.Register(nameof(SliderThumbFill), typeof(Brush), typeof(ColorPickerControl),
-            new PropertyMetadata(new SolidColorBrush(System.Windows.Media.Colors.Black)));
-
-    public static readonly DependencyProperty SliderThumbStrokeProperty =
-        DependencyProperty.Register(nameof(SliderThumbStroke), typeof(Brush), typeof(ColorPickerControl),
-            new PropertyMetadata(default(Brush)));
-
-    public static readonly DependencyProperty SliderThumbThicknessProperty =
-        DependencyProperty.Register(nameof(SliderThumbThickness), typeof(double), typeof(ColorPickerControl),
-            new PropertyMetadata(default(double)));
+            new PropertyMetadata(default(string)));
 
     private static void PropertyAlphaValue_OnChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
@@ -219,7 +202,28 @@ public sealed partial class ColorPickerControl
     public ColorPickerControl()
     {
         InitializeComponent();
+
         InitializeValue();
+
+        UpdateLanguage();
+
+        Interface.LanguageChanged += Interface_OnLanguageChanged;
+    }
+
+    private void Interface_OnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
+        => UpdateLanguage();
+
+    private void UpdateLanguage()
+    {
+        LabelRedChannel = ColorPickerControlResources.LabelRedChannel;
+        LabelGreenChannel = ColorPickerControlResources.LabelGreenChannel;
+        LabelBlueChannel = ColorPickerControlResources.LabelBlueChannel;
+        LabelHueChannel = ColorPickerControlResources.LabelHueChannel;
+        LabelSaturationChannel = ColorPickerControlResources.LabelSaturationChannel;
+        LabelValueChannel = ColorPickerControlResources.LabelValueChannel;
+        LabelAlphaChannel = ColorPickerControlResources.LabelAlphaChannel;
+        LabelHexadecimalCode = ColorPickerControlResources.LabelHexadecimalCode;
+        LabelPreview = ColorPickerControlResources.LabelPreview;
     }
 
     private void UpdateHsvValue()
@@ -430,40 +434,10 @@ public sealed partial class ColorPickerControl
         set => SetValue(LabelPreviewProperty, value);
     }
 
-    public double RectanglePreviewThickness
-    {
-        get => (double)GetValue(RectanglePreviewThicknessProperty);
-        set => SetValue(RectanglePreviewThicknessProperty, value);
-    }
-
-    public Brush RectanglePreviewStroke
-    {
-        get => (Brush)GetValue(RectanglePreviewStrokeProperty);
-        set => SetValue(RectanglePreviewStrokeProperty, value);
-    }
-
     public string LabelHexadecimalCode
     {
         get => (string)GetValue(LabelHexadecimalCodeProperty);
         set => SetValue(LabelHexadecimalCodeProperty, value);
-    }
-
-    public Brush SliderThumbFill
-    {
-        get => (Brush)GetValue(SliderThumbFillProperty);
-        set => SetValue(SliderThumbFillProperty, value);
-    }
-
-    public Brush SliderThumbStroke
-    {
-        get => (Brush)GetValue(SliderThumbStrokeProperty);
-        set => SetValue(SliderThumbStrokeProperty, value);
-    }
-
-    public double SliderThumbThickness
-    {
-        get => (double)GetValue(SliderThumbThicknessProperty);
-        set => SetValue(SliderThumbThicknessProperty, value);
     }
 
     private void UpdateGradiantSlider()

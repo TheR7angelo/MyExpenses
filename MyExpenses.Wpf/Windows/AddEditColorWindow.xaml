@@ -59,23 +59,6 @@
         </TextBox>
 
         <userControls:ColorPickerControl Grid.Row="1"
-            LabelRedChannel="{Binding LabelRedChannel, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-            LabelGreenChannel="{Binding LabelGreenChannel, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-            LabelBlueChannel="{Binding LabelBlueChannel, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-            LabelHueChannel="{Binding LabelHueChannel, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-            LabelSaturationChannel="{Binding LabelSaturationChannel, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-            LabelValueChannel="{Binding LabelValueChannel, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-            LabelAlphaChannel="{Binding LabelAlphaChannel, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-            LabelHexadecimalCode="{Binding LabelHexadecimalCode, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-            LabelPreview="{Binding LabelPreview, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-
-            SliderThumbFill="{DynamicResource MaterialDesignPaper}"
-            SliderThumbStroke="{DynamicResource MaterialDesignBody}"
-            SliderThumbThickness="1.5"
-
-            RectanglePreviewStroke="{DynamicResource MaterialDesignBody}"
-            RectanglePreviewThickness="1.5"
-
             Color="{Binding Color.HexadecimalColorCode, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource HexToColorConverter}}">
         </userControls:ColorPickerControl>
 

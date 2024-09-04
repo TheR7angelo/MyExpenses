@@ -29,9 +29,9 @@
                                             <ControlTemplate>
                                                 <Grid>
                                                     <Polygon Margin="-4, 0, -6, -8"
-                                                             Fill="{Binding SliderThumbFill, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:ColorPickerControl}}}"
-                                                             Stroke="{Binding SliderThumbStroke, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:ColorPickerControl}}}"
-                                                             StrokeThickness="{Binding SliderThumbThickness, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:ColorPickerControl}}}"
+                                                             Fill="{DynamicResource MaterialDesignPaper}"
+                                                             Stroke="{DynamicResource MaterialDesignBody}"
+                                                             StrokeThickness="1.5"
                                                              Points="15,0 10,5 10,20 15,25 0,25 5,20 5,5 0,0 15,0">
                                                     </Polygon>
                                                 </Grid>
@@ -307,8 +307,8 @@
         </Label>
 
         <Rectangle Grid.Row="7" Grid.Column="1"
-                   StrokeThickness="{Binding RectanglePreviewThickness, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:ColorPickerControl}}}"
-                   Stroke="{Binding RectanglePreviewStroke, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:ColorPickerControl}}}"
+                   StrokeThickness="1.5"
+                   Stroke="{DynamicResource MaterialDesignBody}"
                    Fill="{Binding Color, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource ColorToHexConverter}, RelativeSource={RelativeSource AncestorType={x:Type local:ColorPickerControl}}}">
         </Rectangle>
 

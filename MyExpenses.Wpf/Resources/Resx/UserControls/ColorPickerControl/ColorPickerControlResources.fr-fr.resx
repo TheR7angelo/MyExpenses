@@ -1,0 +1,41 @@
+<root>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <data name="LabelAlphaChannel" xml:space="preserve">
+        <value>Alpha :</value>
+    </data>
+    <data name="LabelBlueChannel" xml:space="preserve">
+        <value>Bleu :</value>
+    </data>
+    <data name="LabelGreenChannel" xml:space="preserve">
+        <value>Vert :</value>
+    </data>
+    <data name="LabelHexadecimalCode" xml:space="preserve">
+        <value>Code hexadécimal :</value>
+    </data>
+    <data name="LabelHueChannel" xml:space="preserve">
+        <value>Teinte :</value>
+    </data>
+    <data name="LabelPreview" xml:space="preserve">
+        <value>Aperçu :</value>
+    </data>
+    <data name="LabelRedChannel" xml:space="preserve">
+        <value>Rouge :</value>
+    </data>
+    <data name="LabelSaturationChannel" xml:space="preserve">
+        <value>Saturation :</value>
+    </data>
+    <data name="LabelValueChannel" xml:space="preserve">
+        <value>Valeur :</value>
+    </data>
+</root>
