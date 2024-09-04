@@ -61,7 +61,7 @@ namespace MyExpenses.Wpf.Resources.Resx.Windows.ColorPickerWindow {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Valid.
+        ///   Looks up a localized string similar to Cancel.
         /// </summary>
         internal static string ButtonCancelContent {
             get {
@@ -70,7 +70,7 @@ namespace MyExpenses.Wpf.Resources.Resx.Windows.ColorPickerWindow {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cancel.
+        ///   Looks up a localized string similar to Valid.
         /// </summary>
         internal static string ButtonValidContent {
             get {
