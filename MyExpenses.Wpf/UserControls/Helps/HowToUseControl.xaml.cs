@@ -18,13 +18,7 @@ public partial class HowToUseControl
         InitializeAsync();
     }
 
-    private async void InitializeAsync()
-    {
-        await WebView2.EnsureCoreWebView2Async();
-
-        var url = HowToUseCulturePaths.First().Path;
-        WebView2.CoreWebView2.Navigate(url);
-    }
+    #region Function
 
     private static List<HowToUseCulturePath> GetCultureInfoHowToUse()
     {
@@ -57,6 +51,18 @@ public partial class HowToUseControl
 
         return results;
     }
+    
+    private async void InitializeAsync()
+    {
+        await WebView2.EnsureCoreWebView2Async();
+
+        var url = HowToUseCulturePaths.First().Path;
+        WebView2.CoreWebView2.Navigate(url);
+    }
+
+    #endregion
+
+    #region Action
 
     private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
@@ -65,4 +71,6 @@ public partial class HowToUseControl
 
         WebView2.CoreWebView2.Navigate(selectedItem.Path);
     }
+
+    #endregion
 }
