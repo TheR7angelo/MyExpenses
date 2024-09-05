@@ -13,6 +13,16 @@ public partial class HowToUseControl
         HowToUseCulturePaths = GetCultureInfoHowToUse();
 
         InitializeComponent();
+
+        InitializeAsync();
+    }
+
+    private async void InitializeAsync()
+    {
+        await WebView2.EnsureCoreWebView2Async();
+
+        var url = HowToUseCulturePaths.First().Path;
+        WebView2.CoreWebView2.Navigate(url);
     }
 
     private static List<HowToUseCulturePath> GetCultureInfoHowToUse()
