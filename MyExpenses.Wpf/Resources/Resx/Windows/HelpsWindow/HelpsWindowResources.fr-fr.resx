@@ -20,4 +20,7 @@
     <data name="TreeViewItemItemChangelogHeader" xml:space="preserve">
         <value>Journal des modifications</value>
     </data>
+    <data name="TreeViewItemItemHowToUseHeader" xml:space="preserve">
+        <value>Mode d'emploi</value>
+    </data>
 </root>

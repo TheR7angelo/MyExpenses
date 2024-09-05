@@ -78,6 +78,15 @@ namespace MyExpenses.Wpf.Resources.Resx.Windows.HelpsWindow {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Instructions for use.
+        /// </summary>
+        internal static string TreeViewItemItemHowToUseHeader {
+            get {
+                return ResourceManager.GetString("TreeViewItemItemHowToUseHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Versions.
         /// </summary>
         internal static string TreeViewItemItemVersionHeader {
