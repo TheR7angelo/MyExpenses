@@ -602,9 +602,10 @@
       <AdditionalFiles Include="Resources\Assets\Cards\BankTransferCard.svg">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </AdditionalFiles>
-      <None Remove="Resources\Versioning\version.md" />
-      <None Remove="Resources\Versioning\versioning.html" />
-      <None Remove="Resources\Versioning\version.json" />
+      <None Remove="Resources\How to use\How to use_fr.pdf" />
+      <AdditionalFiles Include="Resources\How to use\How to use_fr.pdf">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </AdditionalFiles>
     </ItemGroup>
 
     <ItemGroup>
