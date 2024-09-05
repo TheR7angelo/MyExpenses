@@ -1,24 +1,26 @@
 using System.Globalization;
 using System.IO;
+using MyExpenses.Models.Wpf.Helps;
 
 namespace MyExpenses.Wpf.UserControls.Helps;
 
 public partial class HowToUseControl
 {
-    public List<CultureInfo> CultureInfos { get; }
+    public List<HowToUseCulturePath> HowToUseCulturePaths { get; }
+
     public HowToUseControl()
     {
-        CultureInfos = GetCultureInfoHowToUse();
+        HowToUseCulturePaths = GetCultureInfoHowToUse();
 
         InitializeComponent();
     }
 
-    private static List<CultureInfo> GetCultureInfoHowToUse()
+    private static List<HowToUseCulturePath> GetCultureInfoHowToUse()
     {
         var directory = Path.GetFullPath("Resources");
         directory = Path.Join(directory, "How to use");
 
-        var results = new List<CultureInfo>();
+        var results = new List<HowToUseCulturePath>();
         var allCulture = CultureInfo.GetCultures(CultureTypes.AllCultures);
         var files = Directory.GetFiles(directory, "*.pdf");
         foreach (var file in files)
@@ -30,8 +32,17 @@ public partial class HowToUseControl
             var cultureName = filenameSplit[1];
 
             var cultureInfo = allCulture.FirstOrDefault(c => c.EnglishName.Contains(cultureName, StringComparison.CurrentCultureIgnoreCase));
-            if (cultureInfo is not null) results.Add(cultureInfo);
+            if (cultureInfo is null) continue;
+
+            var howToUseCulturePath = new HowToUseCulturePath
+            {
+                CultureInfo = cultureInfo,
+                Path = file
+            };
+            results.Add(howToUseCulturePath);
         }
+
+        results = results.OrderBy(r => r.CultureInfo.Name).ToList();
 
         return results;
     }
