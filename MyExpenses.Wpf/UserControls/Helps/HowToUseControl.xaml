@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:MyExpenses.Wpf.UserControls.Helps"
              xmlns:converters="clr-namespace:MyExpenses.Wpf.Converters"
              xmlns:wpf="clr-namespace:Microsoft.Web.WebView2.Wpf;assembly=Microsoft.Web.WebView2.Wpf"
+             xmlns:margin="clr-namespace:MyExpenses.Wpf.Utils.Margin;assembly=MyExpenses.Wpf.Utils"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
 
@@ -13,7 +14,7 @@
         <converters:FirstCharUpperConverter x:Key="FirstCharUpperConverter" />
     </UserControl.Resources>
 
-    <Grid>
+    <Grid margin:PanelExtensions.MarginForAllChildren="5">
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
