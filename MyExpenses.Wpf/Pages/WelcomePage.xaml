@@ -103,9 +103,7 @@
 
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
-                            <WrapPanel margin:PanelExtensions.MarginForAllChildren="5"
-                                       Orientation="Horizontal">
-                            </WrapPanel>
+                            <WrapPanel Orientation="Horizontal" />
                         </ItemsPanelTemplate>
                     </ItemsControl.ItemsPanel>
 
@@ -114,7 +112,9 @@
 
                             <Button
                                 Height="{Binding Height, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource Self}}"
+                                Width="{Binding Width, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource Self}}"
                                 Style="{StaticResource MaterialDesignPaperButton}"
+                                Margin="5"
                                 Click="ButtonDatabase_OnClick">
                                 <Button.Content>
 
