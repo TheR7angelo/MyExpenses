@@ -1,5 +1,6 @@
 using System.Globalization;
 using System.IO;
+using System.Windows.Controls;
 using MyExpenses.Models.Wpf.Helps;
 
 namespace MyExpenses.Wpf.UserControls.Helps;
@@ -55,5 +56,13 @@ public partial class HowToUseControl
         results = results.OrderBy(r => r.CultureInfo.Name).ToList();
 
         return results;
+    }
+
+    private void ListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        if (e.AddedItems.Count <= 0) return;
+        if (e.AddedItems[0] is not HowToUseCulturePath selectedItem) return;
+
+        WebView2.CoreWebView2.Navigate(selectedItem.Path);
     }
 }

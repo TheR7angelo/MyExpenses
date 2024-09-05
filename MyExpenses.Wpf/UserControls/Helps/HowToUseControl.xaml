@@ -21,7 +21,8 @@
         </Grid.ColumnDefinitions>
 
         <ListView Grid.Column="0"
-                  ItemsSource="{Binding HowToUseCulturePaths, Mode=OneTime, RelativeSource={RelativeSource AncestorType={x:Type local:HowToUseControl}}}">
+                  ItemsSource="{Binding HowToUseCulturePaths, Mode=OneTime, RelativeSource={RelativeSource AncestorType={x:Type local:HowToUseControl}}}"
+                  SelectionChanged="ListView_SelectionChanged">
 
             <ListView.ItemTemplate>
                 <DataTemplate>
