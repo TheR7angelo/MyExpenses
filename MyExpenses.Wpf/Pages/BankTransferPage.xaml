@@ -210,7 +210,7 @@
                                 VerticalAlignment="Center">
 
                         <materialDesign:PackIcon
-                            Kind="{Binding VFromAccount.Total, FallbackValue=0, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource TotalToIconConverter}}"
+                            Kind="{Binding VFromAccountReduce, FallbackValue=0, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource TotalToIconConverter}}"
                             Height="96" Width="96"
                             HorizontalAlignment="Center">
                         </materialDesign:PackIcon>
@@ -269,7 +269,7 @@
                                 VerticalAlignment="Center">
 
                         <materialDesign:PackIcon
-                            Kind="{Binding VToAccount.Total, FallbackValue=0, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource TotalToIconConverter}}"
+                            Kind="{Binding VToAccountIncrease, FallbackValue=0, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource TotalToIconConverter}}"
                             Height="96" Width="96"
                             HorizontalAlignment="Center">
                         </materialDesign:PackIcon>
