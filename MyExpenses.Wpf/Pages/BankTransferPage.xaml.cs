@@ -561,14 +561,14 @@ public partial class BankTransferPage
     private void RefreshVFromAccountReduce()
     {
         VFromAccountReduce = VFromAccount is not null && BankTransfer.Value is not null
-            ? Math.Round(VFromAccount.Total - Math.Abs(BankTransfer.Value ?? 0) ?? 0, 2)
+            ? Math.Round((VFromAccount.Total ?? 0) - Math.Abs(BankTransfer.Value ?? 0), 2)
             : 0;
     }
 
     private void RefreshVToAccountIncrease()
     {
         VToAccountIncrease = VToAccount is not null && BankTransfer.Value is not null
-            ? Math.Round(VToAccount?.Total + Math.Abs(BankTransfer.Value ?? 0) ?? 0, 2)
+            ? Math.Round((VToAccount.Total ?? 0) + Math.Abs(BankTransfer.Value ?? 0), 2)
             : 0;
     }
 

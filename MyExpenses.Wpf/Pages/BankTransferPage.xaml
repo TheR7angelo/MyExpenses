@@ -225,7 +225,7 @@
                                     HorizontalAlignment="Center">
 
                             <TextBlock
-                                Text="{Binding VFromAccount.Total, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, FallbackValue=0}"
+                                Text="{Binding VFromAccount.Total, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, FallbackValue=0, TargetNullValue=0}"
                                 HorizontalAlignment="Center" VerticalAlignment="Center">
                             </TextBlock>
 
@@ -284,7 +284,7 @@
                                     HorizontalAlignment="Center">
 
                             <TextBlock
-                                Text="{Binding VToAccount.Total, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, FallbackValue=0}"
+                                Text="{Binding VToAccount.Total, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, FallbackValue=0, TargetNullValue=0}"
                                 HorizontalAlignment="Center" VerticalAlignment="Center">
                             </TextBlock>
 
