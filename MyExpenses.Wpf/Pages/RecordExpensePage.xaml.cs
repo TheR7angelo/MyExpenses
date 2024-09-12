@@ -641,9 +641,15 @@ public partial class RecordExpensePage
         var place = History.PlaceFk?.ToISql<TPlace>();
         UpdateMapPoint(place);
 
+        ComboBoxSelectorCountry.SelectionChanged -= SelectorCountry_OnSelectionChanged;
+        ComboBoxSelectorCity.SelectionChanged -= SelectorCity_OnSelectionChanged;
+
         ComboBoxSelectorCountry.SelectedItem = place?.Country;
         ComboBoxSelectorCity.SelectedItem = place?.City;
         History.PlaceFk = place?.Id;
+
+        ComboBoxSelectorCountry.SelectionChanged += SelectorCountry_OnSelectionChanged;
+        ComboBoxSelectorCity.SelectionChanged += SelectorCity_OnSelectionChanged;
     }
 
     private void SelectorTile_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
