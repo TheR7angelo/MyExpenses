@@ -78,6 +78,8 @@ public partial class WelcomePage
         var button = (Button)sender;
         if (button.DataContext is not ExistingDatabase existingDatabase) return;
 
+        Log.Information("Connection to the database : \"{FileName}\"", existingDatabase.FileNameWithoutExtension);
+
         DataBaseContext.FilePath = existingDatabase.FilePath;
         // nameof(MainWindow.FrameBody).NavigateTo(typeof(DashBoard2Page));
         nameof(MainWindow.FrameBody).NavigateTo(typeof(DashBoardPage));
