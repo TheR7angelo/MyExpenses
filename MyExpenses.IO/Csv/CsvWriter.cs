@@ -7,10 +7,16 @@ public static class CsvWriter
 {
     private static CsvConfiguration CsvConfiguration()
     {
+        const string delimiter = ";";
+        const char quote = '"';
+
         return new CsvConfiguration(CultureInfo.InvariantCulture)
         {
             NewLine = Environment.NewLine,
-            Delimiter = ";"
+            Delimiter = delimiter,
+            ShouldQuote = args => args.Field is not null && (args.Field.Contains('\n') ||
+                                                             args.Field.Contains(quote) ||
+                                                             args.Field.Contains(delimiter))
         };
     }
 
