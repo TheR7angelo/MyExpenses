@@ -128,7 +128,8 @@
 
         <Button Grid.Row="4" Grid.Column="1"
                 HorizontalAlignment="Left"
-                Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}">
+                Style="{StaticResource MaterialDesignFloatingActionMiniDarkButton}"
+                Visibility="Collapsed">
                 <!-- Click="ButtonModePayment_OnClick"> -->
 
             <Button.Content>
