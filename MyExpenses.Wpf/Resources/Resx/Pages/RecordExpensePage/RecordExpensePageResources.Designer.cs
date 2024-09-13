@@ -177,7 +177,7 @@ namespace MyExpenses.Wpf.Resources.Resx.Pages.RecordExpensePage {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Do you want to record a new expense ?.
+        ///   Looks up a localized string similar to Do you want to register a new banking transaction ?.
         /// </summary>
         internal static string MessageBoxAddHistoryQuestion {
             get {

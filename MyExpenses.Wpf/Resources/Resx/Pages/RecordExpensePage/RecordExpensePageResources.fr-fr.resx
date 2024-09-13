@@ -102,7 +102,7 @@
         <value>L'enregistrement de la dépense a été ajouté avec succès</value>
     </data>
     <data name="MessageBoxAddHistoryQuestion" xml:space="preserve">
-        <value>Vous souhaitez enregistrer une nouvelle dépense ?</value>
+        <value>Vous souhaitez enregistrer une nouvelle opération bancaire ?</value>
     </data>
     <data name="MessageBoxAddHistoryError" xml:space="preserve">
         <value>Une erreur s'est produite, veuillez réessayer</value>

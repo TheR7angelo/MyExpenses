@@ -109,7 +109,7 @@
         <value>The expense record was added successfully</value>
     </data>
     <data name="MessageBoxAddHistoryQuestion" xml:space="preserve">
-        <value>Do you want to record a new expense ?</value>
+        <value>Do you want to register a new banking transaction ?</value>
     </data>
     <data name="MessageBoxAddHistoryError" xml:space="preserve">
         <value>An error occurred please retry</value>
