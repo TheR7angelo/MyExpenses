@@ -17,7 +17,7 @@ public static class GoogleEarth
     {
         var (xInvariant, yInvariant) = point.ToInvariantCoordinate();
 
-        var googleEarthUrl = $"https://earth.google.com/web/@{xInvariant},{yInvariant},{altitudeLevel}a,0d,30y,0h,0t,0r";
+        var googleEarthUrl = $"https://earth.google.com/web/@{yInvariant},{xInvariant},{altitudeLevel}a,0d,30y,0h,0t,0r";
         var uri = new Uri(googleEarthUrl);
 
         Process.Start(new ProcessStartInfo
