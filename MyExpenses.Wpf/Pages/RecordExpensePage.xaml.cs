@@ -638,22 +638,22 @@ public partial class RecordExpensePage
 
     private void SelectorPlace_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        var place = History.PlaceFk?.ToISql<TPlace>()!;
+        var place = History.PlaceFk?.ToISql<TPlace>();
         UpdateMapPoint(place);
 
         ComboBoxSelectorCity.SelectionChanged -= SelectorCity_OnSelectionChanged;
 
-        var country = string.IsNullOrEmpty(place.Country)
+        var country = string.IsNullOrEmpty(place?.Country)
             ? EmptyStringTreeViewConverterResources.Unknown
             : place.Country;
 
-        var city = string.IsNullOrEmpty(place.City)
+        var city = string.IsNullOrEmpty(place?.City)
             ? EmptyStringTreeViewConverterResources.Unknown
             : place.City;
 
         ComboBoxSelectorCountry.SelectedItem = country;
         ComboBoxSelectorCity.SelectedItem = city;
-        History.PlaceFk = place.Id;
+        History.PlaceFk = place?.Id;
 
         ComboBoxSelectorCity.SelectionChanged += SelectorCity_OnSelectionChanged;
     }
