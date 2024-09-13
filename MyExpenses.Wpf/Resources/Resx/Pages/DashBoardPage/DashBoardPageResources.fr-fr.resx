@@ -60,7 +60,7 @@
         <value>Effectuer un virement bancaire</value>
     </data>
     <data name="ButtonRecordExpense" xml:space="preserve">
-        <value>Enregistrer une dépense</value>
+        <value>Enregistrer une transaction financière</value>
     </data>
     <data name="DataGridMenuItemHeaderEditRecord" xml:space="preserve">
         <value>Modifier cet enregistrement</value>

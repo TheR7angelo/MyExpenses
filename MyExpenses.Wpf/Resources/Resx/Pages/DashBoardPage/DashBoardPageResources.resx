@@ -67,7 +67,7 @@
         <value>Make a bank transfer</value>
     </data>
     <data name="ButtonRecordExpense" xml:space="preserve">
-        <value>Record an expense</value>
+        <value>Record a financial transaction</value>
     </data>
     <data name="DataGridMenuItemHeaderEditRecord" xml:space="preserve">
         <value>Edit this record</value>
