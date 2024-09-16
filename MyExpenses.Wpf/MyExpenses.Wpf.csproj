@@ -606,6 +606,10 @@
       <AdditionalFiles Include="Resources\How to use\How to use_french.pdf">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </AdditionalFiles>
+      <None Remove="Resources\How to use\How to use_english.pdf" />
+      <AdditionalFiles Include="Resources\How to use\How to use_english.pdf">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </AdditionalFiles>
     </ItemGroup>
 
     <ItemGroup>
