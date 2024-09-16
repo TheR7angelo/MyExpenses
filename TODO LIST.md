@@ -36,9 +36,9 @@
 >         - [X] Database version
 >         - [X] Sqlite version
 >       - [X] Changelog
->       - [ ] How to use (MultiLanguage) ![0%](https://geps.dev/progress/0)<!-- [0/3] -->
+>       - [ ] How to use (MultiLanguage) ![33%](https://geps.dev/progress/33)<!-- [1/3] -->
 >         - [ ] English
->         - [ ] French
+>         - [X] French
 >         - [ ] Portuguese
 > - [ ] Language ![66%](https://geps.dev/progress/66) <!-- [2/3] -->
 >   - [X] English
@@ -47,4 +47,4 @@
 
 > # Other
 > - [ ] added error tracking / fix / added function
-> - [ ] Auto updater with GitHub
+> - [X] Auto updater with GitHub
