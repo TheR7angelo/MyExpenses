@@ -17,7 +17,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyExpenses.WebApi.Test", "T
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyExpenses.Wpf.Test", "Tests\MyExpenses.Wpf.Test\MyExpenses.Wpf.Test.csproj", "{A90648BB-81E7-4D73-AE4F-25EC51E91F39}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyExpenses.SvgToXaml", "MyExpenses.SvgToXaml\MyExpenses.SvgToXaml.csproj", "{6399EB6F-C5EF-4139-878B-6779438FE047}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyExpenses.SvgToXaml", "Helpers\MyExpenses.SvgToXaml\MyExpenses.SvgToXaml.csproj", "{6399EB6F-C5EF-4139-878B-6779438FE047}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyExpenses.Core", "MyExpenses.Core\MyExpenses.Core.csproj", "{F2915007-9744-4E62-9CF5-D92358B69CDD}"
 EndProject
