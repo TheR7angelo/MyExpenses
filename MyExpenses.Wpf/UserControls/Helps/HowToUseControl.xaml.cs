@@ -1,5 +1,6 @@
 using System.Globalization;
 using System.IO;
+using System.Windows;
 using System.Windows.Controls;
 using MyExpenses.Models.Wpf.Helps;
 
@@ -7,6 +8,16 @@ namespace MyExpenses.Wpf.UserControls.Helps;
 
 public partial class HowToUseControl
 {
+    public static readonly DependencyProperty HowToUseCulturePathProperty =
+        DependencyProperty.Register(nameof(HowToUseCulturePath), typeof(HowToUseCulturePath), typeof(HowToUseControl),
+            new PropertyMetadata(default(HowToUseCulturePath)));
+
+    public HowToUseCulturePath? HowToUseCulturePath
+    {
+        get => (HowToUseCulturePath)GetValue(HowToUseCulturePathProperty);
+        set => SetValue(HowToUseCulturePathProperty, value);
+    }
+
     public List<HowToUseCulturePath> HowToUseCulturePaths { get; }
 
     public HowToUseControl()
@@ -36,7 +47,8 @@ public partial class HowToUseControl
 
             var cultureName = filenameSplit[1];
 
-            var cultureInfo = allCulture.FirstOrDefault(c => c.EnglishName.Contains(cultureName, StringComparison.CurrentCultureIgnoreCase));
+            var cultureInfo = allCulture.FirstOrDefault(c =>
+                c.EnglishName.Contains(cultureName, StringComparison.CurrentCultureIgnoreCase));
             if (cultureInfo is null) continue;
 
             var howToUseCulturePath = new HowToUseCulturePath
@@ -51,13 +63,18 @@ public partial class HowToUseControl
 
         return results;
     }
-    
+
     private async void InitializeAsync()
     {
         await WebView2.EnsureCoreWebView2Async();
 
-        var url = HowToUseCulturePaths.First().Path;
-        WebView2.CoreWebView2.Navigate(url);
+        var currentCulture = CultureInfo.CurrentCulture;
+        HowToUseCulturePath = HowToUseCulturePaths.First(s => s.CultureInfo.TwoLetterISOLanguageName.ToLower().Equals(currentCulture.TwoLetterISOLanguageName.ToLower()));
+
+        if (HowToUseCulturePath is null) return;
+        WebView2.CoreWebView2.Navigate(HowToUseCulturePath.Path);
+
+        ListView.SelectionChanged += ListView_SelectionChanged;
     }
 
     #endregion
