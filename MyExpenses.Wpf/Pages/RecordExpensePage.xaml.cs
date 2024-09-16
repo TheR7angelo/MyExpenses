@@ -224,6 +224,8 @@ public partial class RecordExpensePage
     public List<KnownTileSource> KnownTileSources { get; }
     public KnownTileSource KnownTileSourceSelected { get; set; }
 
+    private bool _canUpdatePlace = true;
+
     public RecordExpensePage()
     {
         KnownTileSources = [..MapsuiMapExtensions.GetAllKnowTileSource()];
@@ -634,6 +636,8 @@ public partial class RecordExpensePage
 
         PlacesCollection.Clear();
         PlacesCollection.AddRangeAndSort(records, s => s.Name!);
+
+        if (_canUpdatePlace is false) ComboBoxSelectorPlace.SelectedItem = PlacesCollection.FirstOrDefault(s => s.Id.Equals(History.PlaceFk));
     }
 
     private void SelectorPlace_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -709,8 +713,12 @@ public partial class RecordExpensePage
 
     public void SetTHistory(THistory history)
     {
+        _canUpdatePlace = false;
+
         history.CopyPropertiesTo(History);
         EditHistory = true;
+
+        _canUpdatePlace = true;
     }
 
     private void UpdateConfiguration(Configuration? configuration = null)
