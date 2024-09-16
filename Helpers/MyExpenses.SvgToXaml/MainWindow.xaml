@@ -24,7 +24,7 @@
             <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
 
-        <Button Grid.Row="0" Grid.Column="0" Content="Click me" Click="ButtonSelectDirectory_OnClick" />
+        <Button Grid.Row="0" Grid.Column="0" Content="Select directory" Click="ButtonSelectDirectory_OnClick" />
 
         <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding PathDirectory}" />
 
