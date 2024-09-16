@@ -25,6 +25,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyExpenses.IO", "MyExpenses
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyExpenses.IO.Test", "Tests\MyExpenses.IO.Test\MyExpenses.IO.Test.csproj", "{D3317DD0-DD56-4699-A946-66540C989AD0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyExpenses.Wpf.WordRelativePath", "Helpers\MyExpenses.Wpf.WordRelativePath\MyExpenses.Wpf.WordRelativePath.csproj", "{084FA9E2-0CF4-4554-8C02-2DA58B5745DD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -83,5 +85,9 @@ Global
 		{D3317DD0-DD56-4699-A946-66540C989AD0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D3317DD0-DD56-4699-A946-66540C989AD0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D3317DD0-DD56-4699-A946-66540C989AD0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{084FA9E2-0CF4-4554-8C02-2DA58B5745DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{084FA9E2-0CF4-4554-8C02-2DA58B5745DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{084FA9E2-0CF4-4554-8C02-2DA58B5745DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{084FA9E2-0CF4-4554-8C02-2DA58B5745DD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

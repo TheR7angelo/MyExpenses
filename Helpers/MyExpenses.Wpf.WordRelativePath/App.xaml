@@ -1,0 +1,9 @@
+﻿<Application x:Class="MyExpenses.Wpf.WordRelativePath.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:MyExpenses.Wpf.WordRelativePath"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+         
+    </Application.Resources>
+</Application>
