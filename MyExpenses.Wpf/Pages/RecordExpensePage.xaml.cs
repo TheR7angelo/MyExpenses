@@ -31,6 +31,7 @@ namespace MyExpenses.Wpf.Pages;
 
 public partial class RecordExpensePage
 {
+
     public static readonly DependencyProperty EditHistoryProperty = DependencyProperty.Register(nameof(EditHistory),
         typeof(bool), typeof(RecordExpensePage), new PropertyMetadata(default(bool)));
 
@@ -48,6 +49,15 @@ public partial class RecordExpensePage
     {
         get => (string)GetValue(SelectedCountryProperty);
         set => SetValue(SelectedCountryProperty, value);
+    }
+
+    public static readonly DependencyProperty SelectedCityProperty = DependencyProperty.Register(nameof(SelectedCity),
+        typeof(string), typeof(RecordExpensePage), new PropertyMetadata(default(string)));
+
+    public string SelectedCity
+    {
+        get => (string)GetValue(SelectedCityProperty);
+        set => SetValue(SelectedCityProperty, value);
     }
 
     public static readonly DependencyProperty ComboBoxAccountHintAssistProperty =
@@ -598,9 +608,12 @@ public partial class RecordExpensePage
             records = query;
         }
 
-        ComboBoxSelectorCountry.SelectionChanged -= SelectorCountry_OnSelectionChanged;
-        SelectedCountry = records.First().Country;
-        ComboBoxSelectorCountry.SelectionChanged += SelectorCountry_OnSelectionChanged;
+        if (SelectedCountry is null)
+        {
+            ComboBoxSelectorCountry.SelectionChanged -= SelectorCountry_OnSelectionChanged;
+            SelectedCountry = records.First().Country;
+            ComboBoxSelectorCountry.SelectionChanged += SelectorCountry_OnSelectionChanged;
+        }
 
         PlacesCollection.Clear();
         PlacesCollection.AddRangeAndSort(records, s => s.Name!);
@@ -629,6 +642,9 @@ public partial class RecordExpensePage
 
         var citiesResults = records.Select(s => EmptyStringTreeViewConverter.ToUnknown(s.City)).Distinct();
 
+        ComboBoxSelectorCity.SelectionChanged -= SelectorCity_OnSelectionChanged;
+        ComboBoxSelectorPlace.SelectionChanged -= SelectorPlace_OnSelectionChanged;
+
         CitiesCollection.Clear();
         CitiesCollection.AddRangeAndSort(citiesResults, s => s);
 
@@ -636,6 +652,7 @@ public partial class RecordExpensePage
         PlacesCollection.AddRangeAndSort(records, s => s.Name!);
 
         ComboBoxSelectorCity.SelectionChanged += SelectorCity_OnSelectionChanged;
+        ComboBoxSelectorPlace.SelectionChanged += SelectorPlace_OnSelectionChanged;
     }
 
     private void SelectorPlace_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -643,6 +660,7 @@ public partial class RecordExpensePage
         var place = History.PlaceFk?.ToISql<TPlace>();
         UpdateMapPoint(place);
 
+        ComboBoxSelectorCountry.SelectionChanged -= SelectorCountry_OnSelectionChanged;
         ComboBoxSelectorCity.SelectionChanged -= SelectorCity_OnSelectionChanged;
 
         var country = string.IsNullOrEmpty(place?.Country)
@@ -657,6 +675,7 @@ public partial class RecordExpensePage
         ComboBoxSelectorCity.SelectedItem = city;
         History.PlaceFk = place?.Id;
 
+        ComboBoxSelectorCountry.SelectionChanged += SelectorCountry_OnSelectionChanged;
         ComboBoxSelectorCity.SelectionChanged += SelectorCity_OnSelectionChanged;
     }
 
@@ -692,7 +711,7 @@ public partial class RecordExpensePage
             _ => ""
         };
 
-        if (characterToDelete != "." && characterToDelete != ",") {return;}
+        if (characterToDelete != "." && characterToDelete != ",") return;
 
         var textAfterEdit = textBeforeEdit.Remove(caretPosition - (e.Key == Key.Back ? 1 : 0), 1); // Simulate deletion
 
@@ -701,6 +720,7 @@ public partial class RecordExpensePage
         {
             return;
         }
+
         e.Handled = true;
         textBox.CaretIndex = caretPosition;
     }
@@ -711,21 +731,12 @@ public partial class RecordExpensePage
 
     public void SetTHistory(THistory history)
     {
+        var place = history.PlaceFk?.ToISql<TPlace>();
+        SelectedCountry = EmptyStringTreeViewConverter.ToUnknown(place?.Country);
+        SelectedCity = EmptyStringTreeViewConverter.ToUnknown(place?.City);
+
         history.CopyPropertiesTo(History);
         EditHistory = true;
-
-        ComboBoxSelectorCountry.SelectionChanged -= SelectorCountry_OnSelectionChanged;
-        ComboBoxSelectorCity.SelectionChanged -= SelectorCity_OnSelectionChanged;
-        ComboBoxSelectorPlace.SelectionChanged -= SelectorPlace_OnSelectionChanged;
-
-        var place = history.PlaceFk?.ToISql<TPlace>();
-        ComboBoxSelectorCountry.SelectedItem = EmptyStringTreeViewConverter.ToUnknown(place?.Country);
-        ComboBoxSelectorCity.SelectedItem = EmptyStringTreeViewConverter.ToUnknown(place?.City);
-        ComboBoxSelectorPlace.SelectedItem = place;
-
-        ComboBoxSelectorCountry.SelectionChanged += SelectorCountry_OnSelectionChanged;
-        ComboBoxSelectorCity.SelectionChanged += SelectorCity_OnSelectionChanged;
-        ComboBoxSelectorCountry.SelectionChanged += SelectorCountry_OnSelectionChanged;
     }
 
     private void UpdateConfiguration(Configuration? configuration = null)

@@ -203,6 +203,7 @@
                       materialDesign:TextFieldAssist.HasClearButton="True"
                       materialDesign:HintAssist.Hint="{Binding ComboBoxPlaceCityHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                       ItemsSource="{Binding CitiesCollection, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                      SelectedItem="{Binding SelectedCity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                       SelectionChanged="SelectorCity_OnSelectionChanged">
             </ComboBox>
 
