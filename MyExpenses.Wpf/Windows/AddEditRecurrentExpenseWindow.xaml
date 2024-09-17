@@ -287,10 +287,12 @@
                       materialDesign:TextFieldAssist.HasClearButton="True"
                       materialDesign:HintAssist.Hint="{Binding ComboBoxPlaceCityHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                       ItemsSource="{Binding CitiesCollection, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                      SelectedItem="{Binding SelectedCity, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                       SelectionChanged="SelectorCity_OnSelectionChanged">
             </ComboBox>
 
             <ComboBox Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
+                      x:Name="ComboBoxSelectorPlace"
                       Style="{StaticResource MaterialDesignFilledComboBox}"
                       materialDesign:TextFieldAssist.HasClearButton="True"
                       materialDesign:HintAssist.Hint="{Binding ComboBoxPlaceHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"

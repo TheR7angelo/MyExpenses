@@ -265,6 +265,15 @@ public partial class AddEditRecurrentExpenseWindow
         set => SetValue(SelectedCountryProperty, value);
     }
 
+    public static readonly DependencyProperty SelectedCityProperty = DependencyProperty.Register(nameof(SelectedCity),
+        typeof(string), typeof(AddEditRecurrentExpenseWindow), new PropertyMetadata(default(string)));
+
+    public string SelectedCity
+    {
+        get => (string)GetValue(SelectedCityProperty);
+        set => SetValue(SelectedCityProperty, value);
+    }
+
     #endregion
 
     #region Property
@@ -677,9 +686,12 @@ public partial class AddEditRecurrentExpenseWindow
             records = query;
         }
 
-        ComboBoxSelectorCountry.SelectionChanged -= SelectorCountry_OnSelectionChanged;
-        SelectedCountry = records.First().Country;
-        ComboBoxSelectorCountry.SelectionChanged += SelectorCountry_OnSelectionChanged;
+        if (SelectedCountry is null)
+        {
+            ComboBoxSelectorCountry.SelectionChanged -= SelectorCountry_OnSelectionChanged;
+            SelectedCountry = records.First().Country;
+            ComboBoxSelectorCountry.SelectionChanged += SelectorCountry_OnSelectionChanged;
+        }
 
         PlacesCollection.Clear();
         PlacesCollection.AddRangeAndSort(records, s => s.Name!);
@@ -708,11 +720,17 @@ public partial class AddEditRecurrentExpenseWindow
 
         var citiesResults = records.Select(s => EmptyStringTreeViewConverter.ToUnknown(s.City)).Distinct();
 
+        ComboBoxSelectorCity.SelectionChanged -= SelectorCity_OnSelectionChanged;
+        ComboBoxSelectorPlace.SelectionChanged -= SelectorPlace_OnSelectionChanged;
+
         CitiesCollection.Clear();
         CitiesCollection.AddRangeAndSort(citiesResults, s => s);
 
         PlacesCollection.Clear();
         PlacesCollection.AddRangeAndSort(records, s => s.Name!);
+
+        ComboBoxSelectorCity.SelectionChanged += SelectorCity_OnSelectionChanged;
+        ComboBoxSelectorPlace.SelectionChanged += SelectorPlace_OnSelectionChanged;
     }
 
     private void SelectorPlace_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -720,9 +738,23 @@ public partial class AddEditRecurrentExpenseWindow
         var place = RecursiveExpense.PlaceFk?.ToISql<TPlace>();
         UpdateMapPoint(place);
 
-        ComboBoxSelectorCountry.SelectedItem = place?.Country;
-        ComboBoxSelectorCity.SelectedItem = place?.City;
+        ComboBoxSelectorCountry.SelectionChanged -= SelectorCountry_OnSelectionChanged;
+        ComboBoxSelectorCity.SelectionChanged -= SelectorCity_OnSelectionChanged;
+
+        var country = string.IsNullOrEmpty(place?.Country)
+            ? EmptyStringTreeViewConverterResources.Unknown
+            : place.Country;
+
+        var city = string.IsNullOrEmpty(place?.City)
+            ? EmptyStringTreeViewConverterResources.Unknown
+            : place.City;
+
+        ComboBoxSelectorCountry.SelectedItem = country;
+        ComboBoxSelectorCity.SelectedItem = city;
         RecursiveExpense.PlaceFk = place?.Id;
+
+        ComboBoxSelectorCountry.SelectionChanged += SelectorCountry_OnSelectionChanged;
+        ComboBoxSelectorCity.SelectionChanged += SelectorCity_OnSelectionChanged;
     }
 
     private void SelectorTile_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -826,6 +858,10 @@ public partial class AddEditRecurrentExpenseWindow
 
     public void SetVRecursiveExpense(VRecursiveExpense vRecurrentExpense)
     {
+        var place = vRecurrentExpense.PlaceFk?.ToISql<TPlace>();
+        SelectedCountry = EmptyStringTreeViewConverter.ToUnknown(place?.Country);
+        SelectedCity = EmptyStringTreeViewConverter.ToUnknown(place?.City);
+
         EditRecurrentExpense = true;
         vRecurrentExpense.CopyPropertiesTo(RecursiveExpense);
     }
