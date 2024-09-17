@@ -613,6 +613,7 @@ public partial class AddEditRecurrentExpenseWindow
 
         Log.Information("Attempting to inject the new recursive expense");
 
+        RecursiveExpense.LastUpdated = DateTime.Now;
         var (success, exception) = RecursiveExpense.AddOrEdit();
         if (success)
         {
