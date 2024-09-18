@@ -39,10 +39,10 @@
         <value>Account management</value>
     </data>
     <data name="ButtonAccountTypeManagement" xml:space="preserve">
-        <value>Managing account types</value>
+        <value>Account types management</value>
     </data>
     <data name="ButtonCategoryTypeManagement" xml:space="preserve">
-        <value>Managing category types</value>
+        <value>Category types management</value>
     </data>
     <data name="ButtonColorManagement" xml:space="preserve">
         <value>Color management</value>
@@ -54,13 +54,13 @@
         <value>Currency symbols management</value>
     </data>
     <data name="ButtonModePaymentManagement" xml:space="preserve">
-        <value>Mode payment management</value>
+        <value>Payment method management</value>
     </data>
     <data name="ButtonMakeBankTransfer" xml:space="preserve">
         <value>Make a bank transfer</value>
     </data>
     <data name="ButtonRecordExpense" xml:space="preserve">
-        <value>Record a financial transaction</value>
+        <value>Record financial transaction</value>
     </data>
     <data name="DataGridMenuItemHeaderEditRecord" xml:space="preserve">
         <value>Edit this record</value>
@@ -75,7 +75,7 @@
         <value>Choice of the month:</value>
     </data>
     <data name="ButtonAnalytics" xml:space="preserve">
-        <value>Graphical analyzes</value>
+        <value>Graphical analysis</value>
     </data>
     <data name="MessageBoxAddMonthError" xml:space="preserve">
         <value>No additional dates are available</value>
@@ -99,6 +99,6 @@
         <value>yyyy/MM/dd HH:mm</value>
     </data>
     <data name="ButtonRecurrentExpense" xml:space="preserve">
-        <value>Management of recurring expenses</value>
+        <value>Recurring expense management</value>
     </data>
 </root>
