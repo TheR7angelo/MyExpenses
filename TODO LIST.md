@@ -36,8 +36,8 @@
 >         - [X] Database version
 >         - [X] Sqlite version
 >       - [X] Changelog
->       - [ ] How to use (MultiLanguage) ![33%](https://geps.dev/progress/33)<!-- [1/3] -->
->         - [ ] English
+>       - [ ] How to use (MultiLanguage) ![66%](https://geps.dev/progress/66)<!-- [2/3] -->
+>         - [X] English
 >         - [X] French
 >         - [ ] Portuguese
 > - [ ] Language ![66%](https://geps.dev/progress/66) <!-- [2/3] -->
