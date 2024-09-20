@@ -26,6 +26,20 @@ public partial class DataBaseContext : DbContext
     {
     }
 
+    public virtual DbSet<AnalysisVAccountCategoryMonthlySum> AnalysisVAccountCategoryMonthlySums { get; set; }
+
+    public virtual DbSet<AnalysisVAccountCategoryMonthlySumPositiveNegative> AnalysisVAccountCategoryMonthlySumPositiveNegatives { get; set; }
+
+    public virtual DbSet<AnalysisVAccountModePaymentCategoryMonthlySum> AnalysisVAccountModePaymentCategoryMonthlySums { get; set; }
+
+    public virtual DbSet<AnalysisVAccountMonthlyCumulativeSum> AnalysisVAccountMonthlyCumulativeSums { get; set; }
+
+    public virtual DbSet<AnalysisVBudgetMonthly> AnalysisVBudgetMonthlies { get; set; }
+
+    public virtual DbSet<AnalysisVBudgetPeriodAnnual> AnalysisVBudgetPeriodAnnuals { get; set; }
+
+    public virtual DbSet<AnalysisVBudgetTotalAnnual> AnalysisVBudgetTotalAnnuals { get; set; }
+
     public virtual DbSet<TAccount> TAccounts { get; set; }
 
     public virtual DbSet<TAccountType> TAccountTypes { get; set; }
@@ -56,14 +70,6 @@ public partial class DataBaseContext : DbContext
 
     public virtual DbSet<TVersion> TVersions { get; set; }
 
-    public virtual DbSet<AnalysisVAccountCategoryMonthlySum> AnalysisVAccountCategoryMonthlySums { get; set; }
-
-    public virtual DbSet<AnalysisVAccountCategoryMonthlySumPositiveNegative> AnalysisVAccountCategoryMonthlySumPositiveNegatives { get; set; }
-
-    public virtual DbSet<AnalysisVAccountModePaymentCategoryMonthlySum> AnalysisVAccountModePaymentCategoryMonthlySums { get; set; }
-
-    public virtual DbSet<AnalysisVAccountMonthlyCumulativeSum> AnalysisVAccountMonthlyCumulativeSums { get; set; }
-
     public virtual DbSet<VBankTransfer> VBankTransfers { get; set; }
 
     public virtual DbSet<VDetailTotalCategory> VDetailTotalCategories { get; set; }
@@ -91,6 +97,41 @@ public partial class DataBaseContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<AnalysisVAccountCategoryMonthlySum>(entity =>
+        {
+            entity.ToView("analysis_v_account_category_monthly_sum");
+        });
+
+        modelBuilder.Entity<AnalysisVAccountCategoryMonthlySumPositiveNegative>(entity =>
+        {
+            entity.ToView("analysis_v_account_category_monthly_sum_positive_negative");
+        });
+
+        modelBuilder.Entity<AnalysisVAccountModePaymentCategoryMonthlySum>(entity =>
+        {
+            entity.ToView("analysis_v_account_mode_payment_category_monthly_sum");
+        });
+
+        modelBuilder.Entity<AnalysisVAccountMonthlyCumulativeSum>(entity =>
+        {
+            entity.ToView("analysis_v_account_monthly_cumulative_sum");
+        });
+
+        modelBuilder.Entity<AnalysisVBudgetMonthly>(entity =>
+        {
+            entity.ToView("analysis_v_budget_monthly");
+        });
+
+        modelBuilder.Entity<AnalysisVBudgetPeriodAnnual>(entity =>
+        {
+            entity.ToView("analysis_v_budget_period_annual");
+        });
+
+        modelBuilder.Entity<AnalysisVBudgetTotalAnnual>(entity =>
+        {
+            entity.ToView("analysis_v_budget_total_annual");
+        });
+
         modelBuilder.Entity<TAccount>(entity =>
         {
             entity.Property(e => e.Active).HasDefaultValueSql("TRUE");
@@ -165,26 +206,6 @@ public partial class DataBaseContext : DbContext
         {
             entity.Property(e => e.DateAdded).HasDefaultValueSql("CURRENT_TIMESTAMP");
             entity.Property(e => e.DefaultLanguage).HasDefaultValueSql("FALSE");
-        });
-
-        modelBuilder.Entity<AnalysisVAccountCategoryMonthlySum>(entity =>
-        {
-            entity.ToView("analysis_v_account_category_monthly_sum");
-        });
-
-        modelBuilder.Entity<AnalysisVAccountCategoryMonthlySumPositiveNegative>(entity =>
-        {
-            entity.ToView("analysis_v_account_category_monthly_sum_positive_negative");
-        });
-
-        modelBuilder.Entity<AnalysisVAccountModePaymentCategoryMonthlySum>(entity =>
-        {
-            entity.ToView("analysis_v_account_mode_payment_category_monthly_sum");
-        });
-
-        modelBuilder.Entity<AnalysisVAccountMonthlyCumulativeSum>(entity =>
-        {
-            entity.ToView("analysis_v_account_monthly_cumulative_sum");
         });
 
         modelBuilder.Entity<VBankTransfer>(entity =>
