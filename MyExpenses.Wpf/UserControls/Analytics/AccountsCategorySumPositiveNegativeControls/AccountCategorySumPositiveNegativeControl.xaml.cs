@@ -116,7 +116,7 @@ public partial class AccountCategorySumPositiveNegativeControl
     private void SetChart()
     {
         using var context = new DataBaseContext();
-        var records = context.VAccountCategoryMonthlySumPositiveNegatives
+        var records = context.AnalysisVAccountCategoryMonthlySumPositiveNegatives
             .Where(s => s.AccountFk == AccountId)
             .AsEnumerable()
             .GroupBy(s => s.Period)
@@ -152,7 +152,7 @@ public partial class AccountCategorySumPositiveNegativeControl
         XAxis = [axis];
     }
 
-    private void SetSeries(List<IGrouping<string?, VAccountCategoryMonthlySumPositiveNegative>> records)
+    private void SetSeries(List<IGrouping<string?, AnalysisVAccountCategoryMonthlySumPositiveNegative>> records)
     {
         var symbol = records.First().Select(s => s.Currency).First();
 

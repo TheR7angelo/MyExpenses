@@ -67,7 +67,7 @@ public partial class AccountCategorySumControl
     {
         using var context = new DataBaseContext();
 
-        var groupsByCategories = context.VAccountCategoryMonthlySums
+        var groupsByCategories = context.AnalysisVAccountCategoryMonthlySums
             .Where(s => s.AccountFk == AccountId)
             .GroupBy(s => new { s.AccountFk, s.Account, s.Period, s.CategoryType, s.ColorCode, s.CurrencyFk, s.Currency })
             .Select(g => new GroupsByCategories

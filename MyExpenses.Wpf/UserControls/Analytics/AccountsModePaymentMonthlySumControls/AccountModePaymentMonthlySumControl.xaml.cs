@@ -97,7 +97,7 @@ public partial class AccountModePaymentMonthlySumControl
     private void SetChart()
     {
         using var context = new DataBaseContext();
-        var groupsByModePaymentCategory = context.VAccountModePaymentCategoryMonthlySums
+        var groupsByModePaymentCategory = context.AnalysisVAccountModePaymentCategoryMonthlySums
             .Where(s => s.AccountFk == AccountId)
             .GroupBy(v => new { v.AccountFk, v.Account, v.ModePayment, v.Period, v.CurrencyFk, v.Currency })
             .Select(g => new GroupsByModePaymentCategory

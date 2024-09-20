@@ -61,7 +61,7 @@ public partial class CumulativeSumChartControl
     private void SetChart()
     {
         using var context = new DataBaseContext();
-        var groupsByPeriods = context.VAccountMonthlyCumulativeSums
+        var groupsByPeriods = context.AnalysisVAccountMonthlyCumulativeSums
             .OrderBy(s => s.Period).ThenBy(s => s.AccountFk)
             .AsEnumerable()
             .GroupBy(s => s.AccountFk)
@@ -77,7 +77,7 @@ public partial class CumulativeSumChartControl
         SetYAxis();
     }
 
-    private void SetSeries(List<IGrouping<int?, VAccountMonthlyCumulativeSum>> groupsByAccounts)
+    private void SetSeries(List<IGrouping<int?, AnalysisVAccountMonthlyCumulativeSum>> groupsByAccounts)
     {
         var currency = groupsByAccounts.First().Select(s => s.Currency).First();
 

@@ -93,7 +93,7 @@ public partial class AccountValueTrendControl
     private void SetChart()
     {
         using var context = new DataBaseContext();
-        var groupsVAccountMonthlyCumulativeSums = context.VAccountMonthlyCumulativeSums
+        var groupsVAccountMonthlyCumulativeSums = context.AnalysisVAccountMonthlyCumulativeSums
             .AsEnumerable()
             .GroupBy(s => s.Account)
             .ToList();
@@ -107,7 +107,7 @@ public partial class AccountValueTrendControl
         SetYAxis();
     }
 
-    private void SetSeries(List<IGrouping<string?, VAccountMonthlyCumulativeSum>> groupsVAccountMonthlyCumulativeSums)
+    private void SetSeries(List<IGrouping<string?, AnalysisVAccountMonthlyCumulativeSum>> groupsVAccountMonthlyCumulativeSums)
     {
         var trend = AccountValueTrendControlResources.Trend;
 
