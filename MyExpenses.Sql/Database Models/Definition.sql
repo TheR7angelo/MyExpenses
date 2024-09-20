@@ -1180,21 +1180,13 @@ WITH monthly_values AS (SELECT STRFTIME('%Y-%m', h.date) as month,
      cumulative_values AS (SELECT month,
                                   STRFTIME('%m', month) as month_of_year,
                                   STRFTIME('%Y', month) as year,
-                                  total_value,
-                                  ROUND(SUM(total_value) OVER (ORDER BY month),
-                                        2)              as cumulative_value,
-                                  ROUND(SUM(total_value)
-                                            OVER (ORDER BY month ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW) /
-                                        COUNT(*) OVER (ORDER BY month),
-                                        2)              as moving_average
+                                  total_value
                            FROM monthly_values)
-SELECT cv.month                                                          as current_month,
-       ROUND(cv.total_value, 2)                                          as current_month_value,
-       COALESCE(ROUND(pre_cv.total_value, 2), 0)                         as previous_year_month_value,
+SELECT cv.month                                                          as current_period,
+       ROUND(cv.total_value, 2)                                          as current_period_value,
        COALESCE(STRFTIME('%Y-%m', date(cv.month || '-01', '-1 year')),
-                CAST(cv.year AS INTEGER) - 1 || '-' || cv.month_of_year) as previous_year_month,
-       cv.cumulative_value,
-       cv.moving_average,
+                CAST(cv.year AS INTEGER) - 1 || '-' || cv.month_of_year) as previous_period,
+           COALESCE(ROUND(pre_cv.total_value, 2), 0)                         as previous_period_value,
        CASE
            WHEN cv.total_value >= COALESCE(pre_cv.total_value, 0) THEN 'gain'
            ELSE 'deficit'

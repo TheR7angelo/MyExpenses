@@ -6,23 +6,17 @@ namespace MyExpenses.Models.Sql.Bases.Views;
 [Keyless]
 public partial class AnalysisVBudgetPeriodAnnualGlobal
 {
-    [Column("current_month")]
+    [Column("current_period")]
     public string? CurrentMonth { get; set; }
 
-    [Column("current_month_value")]
+    [Column("current_period_value")]
     public double? CurrentMonthValue { get; set; }
 
-    [Column("previous_year_month_value")]
-    public int? PreviousYearMonthValue { get; set; }
-
-    [Column("previous_year_month")]
+    [Column("previous_period")]
     public string? PreviousYearMonth { get; set; }
 
-    [Column("cumulative_value")]
-    public double? CumulativeValue { get; set; }
-
-    [Column("moving_average")]
-    public double? MovingAverage { get; set; }
+    [Column("previous_period_value")]
+    public double? PreviousYearMonthValue { get; set; }
 
     [Column("status")]
     public string? Status { get; set; }
