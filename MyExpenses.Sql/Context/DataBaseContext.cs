@@ -36,9 +36,15 @@ public partial class DataBaseContext : DbContext
 
     public virtual DbSet<AnalysisVBudgetMonthly> AnalysisVBudgetMonthlies { get; set; }
 
+    public virtual DbSet<AnalysisVBudgetMonthlyGlobal> AnalysisVBudgetMonthlyGlobals { get; set; }
+
     public virtual DbSet<AnalysisVBudgetPeriodAnnual> AnalysisVBudgetPeriodAnnuals { get; set; }
 
+    public virtual DbSet<AnalysisVBudgetPeriodAnnualGlobal> AnalysisVBudgetPeriodAnnualGlobals { get; set; }
+
     public virtual DbSet<AnalysisVBudgetTotalAnnual> AnalysisVBudgetTotalAnnuals { get; set; }
+
+    public virtual DbSet<AnalysisVBudgetTotalAnnualGlobal> AnalysisVBudgetTotalAnnualGlobals { get; set; }
 
     public virtual DbSet<TAccount> TAccounts { get; set; }
 
@@ -122,14 +128,29 @@ public partial class DataBaseContext : DbContext
             entity.ToView("analysis_v_budget_monthly");
         });
 
+        modelBuilder.Entity<AnalysisVBudgetMonthlyGlobal>(entity =>
+        {
+            entity.ToView("analysis_v_budget_monthly_global");
+        });
+
         modelBuilder.Entity<AnalysisVBudgetPeriodAnnual>(entity =>
         {
             entity.ToView("analysis_v_budget_period_annual");
         });
 
+        modelBuilder.Entity<AnalysisVBudgetPeriodAnnualGlobal>(entity =>
+        {
+            entity.ToView("analysis_v_budget_period_annual_global");
+        });
+
         modelBuilder.Entity<AnalysisVBudgetTotalAnnual>(entity =>
         {
             entity.ToView("analysis_v_budget_total_annual");
+        });
+
+        modelBuilder.Entity<AnalysisVBudgetTotalAnnualGlobal>(entity =>
+        {
+            entity.ToView("analysis_v_budget_total_annual_global");
         });
 
         modelBuilder.Entity<TAccount>(entity =>
