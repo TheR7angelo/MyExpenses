@@ -1184,9 +1184,8 @@ WITH monthly_values AS (SELECT STRFTIME('%Y-%m', h.date) as month,
                            FROM monthly_values)
 SELECT cv.month                                                          as current_period,
        ROUND(cv.total_value, 2)                                          as current_period_value,
-       COALESCE(STRFTIME('%Y-%m', date(cv.month || '-01', '-1 year')),
-                CAST(cv.year AS INTEGER) - 1 || '-' || cv.month_of_year) as previous_period,
-           COALESCE(ROUND(pre_cv.total_value, 2), 0)                         as previous_period_value,
+       STRFTIME('%Y-%m', date(cv.month || '-01', '-1 year'))             as previous_period,
+       COALESCE(ROUND(pre_cv.total_value, 2), 0)                         as previous_period_value,
        CASE
            WHEN cv.total_value >= COALESCE(pre_cv.total_value, 0) THEN 'gain'
            ELSE 'deficit'
@@ -1206,7 +1205,7 @@ SELECT cv.month                                                          as curr
        ROUND((cv.total_value - COALESCE(pre_cv.total_value, 0)), 2)      AS difference_value
 FROM cumulative_values cv
          LEFT JOIN cumulative_values pre_cv
-                   ON STRFTIME('%Y-%m', date(cv.month || '-1 year')) = pre_cv.month;
+                   ON STRFTIME('%Y-%m', date(cv.month || '-01', '-1 year')) = pre_cv.month;
 
 DROP VIEW IF EXISTS analysis_v_budget_total_annual_global;
 CREATE VIEW analysis_v_budget_total_annual_global AS
