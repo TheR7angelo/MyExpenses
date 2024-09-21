@@ -10,6 +10,7 @@
       xmlns:accountTotalEllipseControl="clr-namespace:MyExpenses.Wpf.UserControls.Analytics.AccountTotalEllipseControl"
       xmlns:accountsModePaymentMonthlySumControls="clr-namespace:MyExpenses.Wpf.UserControls.Analytics.AccountsModePaymentMonthlySumControls"
       xmlns:accountsCategorySumPositiveNegativeControls="clr-namespace:MyExpenses.Wpf.UserControls.Analytics.AccountsCategorySumPositiveNegativeControls"
+      xmlns:budgetsControl="clr-namespace:MyExpenses.Wpf.UserControls.Analytics.BudgetsControl"
       mc:Ignorable="d"
 
       Title="AnalyticsPage"
@@ -39,6 +40,10 @@
 
                 <TabItem Header="{Binding TabItemCumulativeSumChartControlHeader, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
                     <analytics:CumulativeSumChartControl />
+                </TabItem>
+
+                <TabItem Header="Test">
+                    <budgetsControl:BudgetsControl />
                 </TabItem>
 
                 <TabItem Header="{Binding TabItemCumulativeTotalSumChartControlHeader, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
