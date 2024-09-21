@@ -7,7 +7,7 @@ namespace MyExpenses.Models.Sql.Bases.Views;
 public partial class AnalysisVBudgetTotalAnnualGlobal
 {
     [Column("year")]
-    public string? Year { get; set; }
+    public int? Year { get; set; }
 
     [Column("current_year_value")]
     public double? CurrentYearValue { get; set; }

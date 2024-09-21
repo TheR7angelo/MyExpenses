@@ -12,8 +12,8 @@ public partial class AnalysisVBudgetTotalAnnual
     [Column("account_name")]
     public string? AccountName { get; set; }
 
-    [Column("year")]
-    public string? Year { get; set; }
+    [Column("current_year")]
+    public int? CurrentYear { get; set; }
 
     [Column("current_year_value")]
     public double? CurrentYearValue { get; set; }
@@ -32,7 +32,4 @@ public partial class AnalysisVBudgetTotalAnnual
 
     [Column("difference_value")]
     public double? DifferenceValue { get; set; }
-
-    [Column("total_previous")]
-    public double? TotalPrevious { get; set; }
 }

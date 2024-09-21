@@ -18,11 +18,11 @@ public partial class AnalysisVBudgetPeriodAnnual
     [Column("current_period_value")]
     public double? CurrentPeriodValue { get; set; }
 
-    [Column("previous_period_value")]
-    public double? PreviousPeriodValue { get; set; }
-
     [Column("previous_period")]
     public string? PreviousPeriod { get; set; }
+
+    [Column("previous_period_value")]
+    public double? PreviousPeriodValue { get; set; }
 
     [Column("status")]
     public string? Status { get; set; }
