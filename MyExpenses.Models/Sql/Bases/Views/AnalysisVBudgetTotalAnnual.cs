@@ -7,14 +7,14 @@ namespace MyExpenses.Models.Sql.Bases.Views;
 [Keyless]
 public partial class AnalysisVBudgetTotalAnnual
 {
-    [Column("account_id")]
-    public int? AccountId { get; init; }
+    [Column("account_fk")]
+    public int? AccountFk { get; init; }
 
     [Column("account_name")]
     public string? AccountName { get; init; }
 
-    [Column("symbol_id")]
-    public int? SymbolId { get; init; }
+    [Column("symbol_fk")]
+    public int? SymbolFk { get; init; }
 
     [Column("symbol")]
     public string? Symbol { get; init; }

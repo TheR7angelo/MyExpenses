@@ -1016,9 +1016,9 @@ ORDER BY account_fk, period, mode_payment, category;
 
 DROP VIEW IF EXISTS analysis_v_budget_monthly;
 CREATE VIEW analysis_v_budget_monthly AS
-WITH monthly_values AS (SELECT a.id                      as account_id,
+WITH monthly_values AS (SELECT a.id                      as account_fk,
                                a.name                    as account_name,
-                               tc.id                     AS symbol_id,
+                               tc.id                     AS symbol_fk,
                                tc.symbol                 AS symbol,
                                STRFTIME('%Y-%m', h.date) as period,
                                SUM(h.value)              as total_value
@@ -1029,19 +1029,19 @@ WITH monthly_values AS (SELECT a.id                      as account_id,
                                             on a.currency_fk = tc.id
 
                         GROUP BY a.id, period),
-     cumulative_values AS (SELECT mv.account_id,
+     cumulative_values AS (SELECT mv.account_fk,
                                   mv.account_name,
-                                  mv.symbol_id,
+                                  mv.symbol_fk,
                                   mv.symbol,
                                   mv.period,
                                   (SELECT SUM(mv2.total_value)
                                    FROM monthly_values mv2
-                                   WHERE mv2.account_id = mv.account_id
+                                   WHERE mv2.account_fk = mv.account_fk
                                      AND mv2.period <= mv.period) as cumulative_total_value
                            FROM monthly_values mv)
-SELECT cv.account_id,
+SELECT cv.account_fk,
        cv.account_name,
-       cv.symbol_id,
+       cv.symbol_fk,
        cv.symbol,
        cv.period,
        ROUND(cv.cumulative_total_value, 2)                                                          AS period_value,
@@ -1066,7 +1066,7 @@ SELECT cv.account_id,
        ROUND((cv.cumulative_total_value - COALESCE(pre_cv.cumulative_total_value, 0)), 2) AS difference_value
 FROM cumulative_values cv
          LEFT JOIN cumulative_values pre_cv
-                   ON cv.account_id = pre_cv.account_id
+                   ON cv.account_fk = pre_cv.account_fk
                        AND STRFTIME('%Y-%m', DATE(cv.period || '-01', '-1 month')) = pre_cv.period;
 
 DROP VIEW IF EXISTS analysis_v_budget_monthly_global;
@@ -1107,9 +1107,9 @@ FROM cumulative_values cv
 
 DROP VIEW IF EXISTS analysis_v_budget_period_annual;
 CREATE VIEW analysis_v_budget_period_annual AS
-WITH monthly_values AS (SELECT a.id                      as account_id,
+WITH monthly_values AS (SELECT a.id                      as account_fk,
                                a.name                    as account_name,
-                               tc.id                     AS symbol_id,
+                               tc.id                     AS symbol_fk,
                                tc.symbol                 AS symbol,
                                STRFTIME('%Y-%m', h.date) as period,
                                SUM(h.value)              as total_value
@@ -1119,21 +1119,21 @@ WITH monthly_values AS (SELECT a.id                      as account_id,
                                  INNER JOIN t_currency tc
                                             ON a.currency_fk = tc.id
                         GROUP BY a.id, period),
-     cumulative_values AS (SELECT mv.account_id,
+     cumulative_values AS (SELECT mv.account_fk,
                                   mv.account_name,
-                                  mv.symbol_id,
+                                  mv.symbol_fk,
                                   mv.symbol,
                                   mv.period,
                                   STRFTIME('%m', mv.period)       as month_of_year,
                                   STRFTIME('%Y', mv.period)       as year,
                                   (SELECT SUM(mv2.total_value)
                                    FROM monthly_values mv2
-                                   WHERE mv2.account_id = mv.account_id
+                                   WHERE mv2.account_fk = mv.account_fk
                                      AND mv2.period <= mv.period) as cumulative_total_value
                            FROM monthly_values mv)
-SELECT cv.account_id,
+SELECT cv.account_fk,
        cv.account_name,
-       cv.symbol_id,
+       cv.symbol_fk,
        cv.symbol,
        cv.period                                                                          as period,
        ROUND(cv.cumulative_total_value, 2)                                                as period_value,
@@ -1159,7 +1159,7 @@ SELECT cv.account_id,
        ROUND((cv.cumulative_total_value - COALESCE(pre_cv.cumulative_total_value, 0)), 2) as difference_value
 FROM cumulative_values cv
          LEFT JOIN cumulative_values pre_cv
-                   ON cv.account_id = pre_cv.account_id
+                   ON cv.account_fk = pre_cv.account_fk
                        AND STRFTIME('%Y-%m', DATE(cv.period || '-01', '-1 year')) = pre_cv.period;
 
 DROP VIEW IF EXISTS analysis_v_budget_period_annual_global;
@@ -1202,9 +1202,9 @@ FROM cumulative_values cv
 
 DROP VIEW IF EXISTS analysis_v_budget_total_annual;
 CREATE VIEW analysis_v_budget_total_annual AS
-WITH annual_values AS (SELECT a.id                   as account_id,
+WITH annual_values AS (SELECT a.id                   as account_fk,
                               a.name                 as account_name,
-                              tc.id                  AS symbol_id,
+                              tc.id                  AS symbol_fk,
                               tc.symbol              AS symbol,
                               STRFTIME('%Y', h.date) as year,
                               SUM(h.value)           as total_value
@@ -1214,19 +1214,19 @@ WITH annual_values AS (SELECT a.id                   as account_id,
                                 INNER JOIN t_currency tc
                                            ON tc.id = a.currency_fk
                        GROUP BY a.id, year),
-     cumulative_values AS (SELECT av.account_id,
+     cumulative_values AS (SELECT av.account_fk,
                                   av.account_name,
-                                  av.symbol_id,
+                                  av.symbol_fk,
                                   av.symbol,
                                   av.year,
                                   (SELECT SUM(av2.total_value)
                                    FROM annual_values av2
-                                   WHERE av2.account_id = av.account_id
+                                   WHERE av2.account_fk = av.account_fk
                                      AND av2.year <= av.year) as cumulative_total_value
                            FROM annual_values av)
-SELECT cv.account_id,
+SELECT cv.account_fk,
        cv.account_name,
-       cv.symbol_id,
+       cv.symbol_fk,
        cv.symbol,
        cv.year                                                                            AS period,
        ROUND(cv.cumulative_total_value, 2)                                                as period_value,
@@ -1251,7 +1251,7 @@ SELECT cv.account_id,
        ROUND((cv.cumulative_total_value - COALESCE(pre_cv.cumulative_total_value, 0)), 2) as difference_value
 FROM cumulative_values cv
          LEFT JOIN cumulative_values pre_cv
-                   ON cv.account_id = pre_cv.account_id
+                   ON cv.account_fk = pre_cv.account_fk
                        AND CAST(cv.year AS INTEGER) - 1 = CAST(pre_cv.year AS INTEGER);
 
 DROP VIEW IF EXISTS analysis_v_budget_total_annual_global;
