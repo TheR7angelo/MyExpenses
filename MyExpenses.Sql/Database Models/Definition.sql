@@ -1044,7 +1044,7 @@ SELECT cv.account_id,
        cv.symbol_id,
        cv.symbol,
        cv.period,
-       cv.cumulative_total_value                                                          AS period_value,
+       ROUND(cv.cumulative_total_value, 2)                                                          AS period_value,
        STRFTIME('%Y-%m', DATE(cv.period || '-01', '-1 month'))                            AS previous_period,
        ROUND(COALESCE(pre_cv.cumulative_total_value, 0), 2)                               AS previous_period_value,
        CASE
@@ -1081,7 +1081,7 @@ WITH monthly_values AS (SELECT STRFTIME('%Y-%m', h.date) as period,
                                    WHERE mv2.period <= mv.period) as cumulative_total_value
                            FROM monthly_values mv)
 SELECT cv.period,
-       cv.cumulative_total_value                                                          AS period_value,
+       ROUND(cv.cumulative_total_value, 2)                                                          AS period_value,
        STRFTIME('%Y-%m', DATE(cv.period || '-01', '-1 month'))                            AS previous_period,
        ROUND(COALESCE(pre_cv.cumulative_total_value, 0), 2)                               AS previous_period_value,
        CASE
