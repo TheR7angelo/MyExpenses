@@ -8,13 +8,13 @@ namespace MyExpenses.Models.Sql.Bases.Views;
 public partial class AnalysisVBudgetTotalAnnualGlobal
 {
     [Column("period")]
-    public int? Period { get; init; }
+    public string? Period { get; init; }
 
     [Column("period_value")]
     public double? PeriodValue { get; init; }
 
     [Column("previous_period")]
-    public int? PreviousPeriod { get; init; }
+    public string? PreviousPeriod { get; init; }
 
     [Column("previous_period_value")]
     public double? PreviousPeriodValue { get; init; }

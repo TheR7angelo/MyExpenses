@@ -20,13 +20,13 @@ public partial class AnalysisVBudgetTotalAnnual
     public string? Symbol { get; init; }
 
     [Column("period")]
-    public int? Period { get; init; }
+    public string? Period { get; init; }
 
     [Column("period_value")]
     public double? PeriodValue { get; init; }
 
     [Column("previous_period")]
-    public int? PreviousPeriod { get; init; }
+    public string? PreviousPeriod { get; init; }
 
     [Column("previous_period_value")]
     public double? PreviousPeriodValue { get; init; }
