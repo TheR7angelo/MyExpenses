@@ -7,20 +7,20 @@ namespace MyExpenses.Models.Sql.Bases.Views;
 public partial class AnalysisVAccountMonthlyCumulativeSum
 {
     [Column("account_fk")]
-    public int? AccountFk { get; set; }
+    public int? AccountFk { get; init; }
 
     [Column("account")]
-    public string? Account { get; set; }
+    public string? Account { get; init; }
 
     [Column("period")]
-    public string? Period { get; set; }
+    public string? Period { get; init; }
 
     [Column("cumulative_sum")]
-    public double? CumulativeSum { get; set; }
+    public double? CumulativeSum { get; init; }
 
     [Column("currency_fk")]
-    public int? CurrencyFk { get; set; }
+    public int? CurrencyFk { get; init; }
 
     [Column("currency")]
-    public string? Currency { get; set; }
+    public string? Currency { get; init; }
 }
