@@ -12,6 +12,7 @@ public partial class BudgetsControl
 
         InitializeComponent();
 
+        //TODO add trad
         var budgetGlobal = new BudgetGlobalControl();
         var tabItem = new TabItem
         {

@@ -8,6 +8,7 @@ public partial class BudgetControl
     {
         InitializeComponent();
 
+        //TODO add trad
         var budgetMonthlyControl = new BudgetMonthlyControl(accountId);
         var tabItemBudgetMonthlyControl = new TabItem
         {
