@@ -59,8 +59,29 @@ public partial class BudgetMonthlyControl
         var axis = records.Select(s => s.Key!);
 
         // SetSeries(records);
-        // SetXAxis(axis);
-        // SetYAxis();
+        SetXAxis(axis);
+        SetYAxis();
+    }
+
+    private void SetYAxis()
+    {
+        var axis = new Axis
+        {
+            LabelsPaint = TextPaint
+        };
+        YAxis = [axis];
+    }
+
+    private void SetXAxis(IEnumerable<string> labels)
+    {
+        var transformedLabels = labels.ToTransformLabelsToTitleCaseDateFormat();
+
+        var axis = new Axis
+        {
+            Labels = transformedLabels,
+            LabelsPaint = TextPaint
+        };
+        XAxis = [axis];
     }
 
     private void Interface_OnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
