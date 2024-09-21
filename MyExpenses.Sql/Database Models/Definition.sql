@@ -1018,14 +1018,21 @@ DROP VIEW IF EXISTS analysis_v_budget_monthly;
 CREATE VIEW analysis_v_budget_monthly AS
 WITH monthly_values AS (SELECT a.id                      as account_id,
                                a.name                    as account_name,
+                               tc.id                     AS symbol_id,
+                               tc.symbol                 AS symbol,
                                STRFTIME('%Y-%m', h.date) as period,
                                SUM(h.value)              as total_value
                         FROM t_history h
-                                 JOIN t_account a
-                                      ON h.account_fk = a.id
+                                 INNER JOIN t_account a
+                                            ON h.account_fk = a.id
+                                 INNER JOIN t_currency tc
+                                            on a.currency_fk = tc.id
+
                         GROUP BY a.id, period),
      cumulative_values AS (SELECT mv.account_id,
                                   mv.account_name,
+                                  mv.symbol_id,
+                                  mv.symbol,
                                   mv.period,
                                   (SELECT SUM(mv2.total_value)
                                    FROM monthly_values mv2
@@ -1034,13 +1041,15 @@ WITH monthly_values AS (SELECT a.id                      as account_id,
                            FROM monthly_values mv)
 SELECT cv.account_id,
        cv.account_name,
+       cv.symbol_id,
+       cv.symbol,
        cv.period,
-       cv.cumulative_total_value                                                          AS current_period_value,
+       cv.cumulative_total_value                                                          AS period_value,
        STRFTIME('%Y-%m', DATE(cv.period || '-01', '-1 month'))                            AS previous_period,
        ROUND(COALESCE(pre_cv.cumulative_total_value, 0), 2)                               AS previous_period_value,
        CASE
-           WHEN cv.cumulative_total_value >= COALESCE(pre_cv.cumulative_total_value, 0) THEN 'gain'
-           ELSE 'deficit'
+           WHEN cv.cumulative_total_value >= COALESCE(pre_cv.cumulative_total_value, 0) THEN 'Gain'
+           ELSE 'Deficit'
            END                                                                            AS status,
        ROUND(
                100 * CASE
@@ -1072,12 +1081,12 @@ WITH monthly_values AS (SELECT STRFTIME('%Y-%m', h.date) as period,
                                    WHERE mv2.period <= mv.period) as cumulative_total_value
                            FROM monthly_values mv)
 SELECT cv.period,
-       cv.cumulative_total_value                                                          AS current_period_value,
+       cv.cumulative_total_value                                                          AS period_value,
        STRFTIME('%Y-%m', DATE(cv.period || '-01', '-1 month'))                            AS previous_period,
        ROUND(COALESCE(pre_cv.cumulative_total_value, 0), 2)                               AS previous_period_value,
        CASE
-           WHEN cv.cumulative_total_value >= COALESCE(pre_cv.cumulative_total_value, 0) THEN 'gain'
-           ELSE 'deficit'
+           WHEN cv.cumulative_total_value >= COALESCE(pre_cv.cumulative_total_value, 0) THEN 'Gain'
+           ELSE 'Deficit'
            END                                                                            AS status,
        ROUND(
                100 * CASE
@@ -1100,14 +1109,20 @@ DROP VIEW IF EXISTS analysis_v_budget_period_annual;
 CREATE VIEW analysis_v_budget_period_annual AS
 WITH monthly_values AS (SELECT a.id                      as account_id,
                                a.name                    as account_name,
+                               tc.id                     AS symbol_id,
+                               tc.symbol                 AS symbol,
                                STRFTIME('%Y-%m', h.date) as period,
                                SUM(h.value)              as total_value
                         FROM t_history h
-                                 JOIN t_account a
-                                      ON h.account_fk = a.id
+                                 INNER JOIN t_account a
+                                            ON h.account_fk = a.id
+                                 INNER JOIN t_currency tc
+                                            ON a.currency_fk = tc.id
                         GROUP BY a.id, period),
      cumulative_values AS (SELECT mv.account_id,
                                   mv.account_name,
+                                  mv.symbol_id,
+                                  mv.symbol,
                                   mv.period,
                                   STRFTIME('%m', mv.period)       as month_of_year,
                                   STRFTIME('%Y', mv.period)       as year,
@@ -1118,14 +1133,16 @@ WITH monthly_values AS (SELECT a.id                      as account_id,
                            FROM monthly_values mv)
 SELECT cv.account_id,
        cv.account_name,
-       cv.period                                                                          as current_period,
-       ROUND(cv.cumulative_total_value, 2)                                                as current_period_value,
+       cv.symbol_id,
+       cv.symbol,
+       cv.period                                                                          as period,
+       ROUND(cv.cumulative_total_value, 2)                                                as period_value,
        COALESCE(STRFTIME('%Y-%m', DATE(cv.period || '-01', '-1 year')),
                 CAST(cv.year AS INTEGER) - 1 || '-' || cv.month_of_year)                  as previous_period,
        COALESCE(ROUND(pre_cv.cumulative_total_value, 2), 0)                               as previous_period_value,
        CASE
-           WHEN cv.cumulative_total_value >= COALESCE(pre_cv.cumulative_total_value, 0) THEN 'gain'
-           ELSE 'deficit'
+           WHEN cv.cumulative_total_value >= COALESCE(pre_cv.cumulative_total_value, 0) THEN 'Gain'
+           ELSE 'Deficit'
            END                                                                            as status,
        ROUND(
                100 * CASE
@@ -1158,13 +1175,13 @@ WITH monthly_values AS (SELECT STRFTIME('%Y-%m', h.date) as month,
                                    FROM monthly_values mv2
                                    WHERE mv2.month <= mv.month) as cumulative_total_value
                            FROM monthly_values mv)
-SELECT cv.month                                                                           as current_period,
-       ROUND(cv.cumulative_total_value, 2)                                                as current_period_value,
+SELECT cv.month                                                                           as period,
+       ROUND(cv.cumulative_total_value, 2)                                                as period_value,
        STRFTIME('%Y-%m', DATE(cv.month || '-01', '-1 year'))                              as previous_period,
        COALESCE(ROUND(pre_cv.cumulative_total_value, 2), 0)                               as previous_period_value,
        CASE
-           WHEN cv.cumulative_total_value >= COALESCE(pre_cv.cumulative_total_value, 0) THEN 'gain'
-           ELSE 'deficit'
+           WHEN cv.cumulative_total_value >= COALESCE(pre_cv.cumulative_total_value, 0) THEN 'Gain'
+           ELSE 'Deficit'
            END                                                                            as status,
        ROUND(
                100 * CASE
@@ -1187,14 +1204,20 @@ DROP VIEW IF EXISTS analysis_v_budget_total_annual;
 CREATE VIEW analysis_v_budget_total_annual AS
 WITH annual_values AS (SELECT a.id                   as account_id,
                               a.name                 as account_name,
+                              tc.id                  AS symbol_id,
+                              tc.symbol              AS symbol,
                               STRFTIME('%Y', h.date) as year,
                               SUM(h.value)           as total_value
                        FROM t_history h
-                                JOIN t_account a
-                                     ON h.account_fk = a.id
+                                INNER JOIN t_account a
+                                           ON h.account_fk = a.id
+                                INNER JOIN t_currency tc
+                                           ON tc.id = a.currency_fk
                        GROUP BY a.id, year),
      cumulative_values AS (SELECT av.account_id,
                                   av.account_name,
+                                  av.symbol_id,
+                                  av.symbol,
                                   av.year,
                                   (SELECT SUM(av2.total_value)
                                    FROM annual_values av2
@@ -1203,13 +1226,15 @@ WITH annual_values AS (SELECT a.id                   as account_id,
                            FROM annual_values av)
 SELECT cv.account_id,
        cv.account_name,
-       cv.year                                                                            AS current_year,
-       ROUND(cv.cumulative_total_value, 2)                                                as current_year_value,
+       cv.symbol_id,
+       cv.symbol,
+       cv.year                                                                            AS year,
+       ROUND(cv.cumulative_total_value, 2)                                                as year_value,
        CAST(cv.year AS INTEGER) - 1                                                       as previous_year,
        COALESCE(ROUND(pre_cv.cumulative_total_value, 2), 0)                               as previous_year_value,
        CASE
-           WHEN cv.cumulative_total_value >= COALESCE(pre_cv.cumulative_total_value, 0) THEN 'gain'
-           ELSE 'deficit'
+           WHEN cv.cumulative_total_value >= COALESCE(pre_cv.cumulative_total_value, 0) THEN 'Gain'
+           ELSE 'Deficit'
            END                                                                            as status,
        ROUND(
                100 * CASE
@@ -1226,8 +1251,8 @@ SELECT cv.account_id,
        ROUND((cv.cumulative_total_value - COALESCE(pre_cv.cumulative_total_value, 0)), 2) as difference_value
 FROM cumulative_values cv
          LEFT JOIN cumulative_values pre_cv
-             ON cv.account_id = pre_cv.account_id
-                    AND CAST(cv.year AS INTEGER) - 1 = CAST(pre_cv.year AS INTEGER);
+                   ON cv.account_id = pre_cv.account_id
+                       AND CAST(cv.year AS INTEGER) - 1 = CAST(pre_cv.year AS INTEGER);
 
 DROP VIEW IF EXISTS analysis_v_budget_total_annual_global;
 CREATE VIEW analysis_v_budget_total_annual_global AS
@@ -1241,12 +1266,12 @@ WITH annual_values AS (SELECT STRFTIME('%Y', h.date) as year,
                                    WHERE av2.year <= av.year) as cumulative_total_value
                            FROM annual_values av)
 SELECT cv.year,
-       ROUND(cv.cumulative_total_value, 2)                                                as current_year_value,
+       ROUND(cv.cumulative_total_value, 2)                                                as year_value,
        CAST(cv.year AS INTEGER) - 1                                                       as previous_year,
        COALESCE(ROUND(pre_cv.cumulative_total_value, 2), 0)                               as previous_year_value,
        CASE
-           WHEN cv.cumulative_total_value >= COALESCE(pre_cv.cumulative_total_value, 0) THEN 'gain'
-           ELSE 'deficit'
+           WHEN cv.cumulative_total_value >= COALESCE(pre_cv.cumulative_total_value, 0) THEN 'Gain'
+           ELSE 'Deficit'
            END                                                                            as status,
        ROUND(
                100 * CASE

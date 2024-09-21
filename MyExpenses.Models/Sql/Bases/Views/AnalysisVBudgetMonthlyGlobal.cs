@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
+using MyExpenses.Models.Sql.Bases.Enums;
 
 namespace MyExpenses.Models.Sql.Bases.Views;
 
@@ -7,23 +8,29 @@ namespace MyExpenses.Models.Sql.Bases.Views;
 public partial class AnalysisVBudgetMonthlyGlobal
 {
     [Column("period")]
-    public string? Period { get; set; }
+    public string? Period { get; init; }
 
-    [Column("current_period_value")]
-    public double? CurrentPeriodValue { get; set; }
+    [Column("period_value")]
+    public double? PeriodValue { get; init; }
 
     [Column("previous_period")]
-    public string? PreviousPeriod { get; set; }
+    public string? PreviousPeriod { get; init; }
 
     [Column("previous_period_value")]
-    public double? PreviousPeriodValue { get; set; }
+    public double? PreviousPeriodValue { get; init; }
 
     [Column("status")]
-    public string? Status { get; set; }
+    public string? Status { get; init; }
+
+    [NotMapped]
+    public EAnalysisVBudgetStatut? EAnalysisVBudgetStatut
+        => string.IsNullOrWhiteSpace(Status)
+            ? null
+            : (EAnalysisVBudgetStatut)Enum.Parse(typeof(EAnalysisVBudgetStatut), Status, true);
 
     [Column("percentage")]
-    public double? Percentage { get; set; }
+    public double? Percentage { get; init; }
 
     [Column("difference_value")]
-    public double? DifferenceValue { get; set; }
+    public double? DifferenceValue { get; init; }
 }
