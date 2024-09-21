@@ -1228,10 +1228,10 @@ SELECT cv.account_id,
        cv.account_name,
        cv.symbol_id,
        cv.symbol,
-       cv.year                                                                            AS year,
-       ROUND(cv.cumulative_total_value, 2)                                                as year_value,
-       CAST(cv.year AS INTEGER) - 1                                                       as previous_year,
-       COALESCE(ROUND(pre_cv.cumulative_total_value, 2), 0)                               as previous_year_value,
+       cv.year                                                                            AS period,
+       ROUND(cv.cumulative_total_value, 2)                                                as period_value,
+       CAST(cv.year AS INTEGER) - 1                                                       as previous_period,
+       COALESCE(ROUND(pre_cv.cumulative_total_value, 2), 0)                               as previous_period_value,
        CASE
            WHEN cv.cumulative_total_value >= COALESCE(pre_cv.cumulative_total_value, 0) THEN 'Gain'
            ELSE 'Deficit'
@@ -1265,10 +1265,10 @@ WITH annual_values AS (SELECT STRFTIME('%Y', h.date) as year,
                                    FROM annual_values av2
                                    WHERE av2.year <= av.year) as cumulative_total_value
                            FROM annual_values av)
-SELECT cv.year,
-       ROUND(cv.cumulative_total_value, 2)                                                as year_value,
-       CAST(cv.year AS INTEGER) - 1                                                       as previous_year,
-       COALESCE(ROUND(pre_cv.cumulative_total_value, 2), 0)                               as previous_year_value,
+SELECT cv.year AS period,
+       ROUND(cv.cumulative_total_value, 2)                                                as period_value,
+       CAST(cv.year AS INTEGER) - 1                                                       as previous_period,
+       COALESCE(ROUND(pre_cv.cumulative_total_value, 2), 0)                               as previous_period_value,
        CASE
            WHEN cv.cumulative_total_value >= COALESCE(pre_cv.cumulative_total_value, 0) THEN 'Gain'
            ELSE 'Deficit'

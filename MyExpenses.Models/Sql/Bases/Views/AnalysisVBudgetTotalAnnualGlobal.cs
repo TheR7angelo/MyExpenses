@@ -7,17 +7,17 @@ namespace MyExpenses.Models.Sql.Bases.Views;
 [Keyless]
 public partial class AnalysisVBudgetTotalAnnualGlobal
 {
-    [Column("year")]
-    public int? Year { get; init; }
+    [Column("period")]
+    public int? Period { get; init; }
 
-    [Column("year_value")]
-    public double? YearValue { get; init; }
+    [Column("period_value")]
+    public double? PeriodValue { get; init; }
 
-    [Column("previous_year")]
-    public int? PreviousYear { get; init; }
+    [Column("previous_period")]
+    public int? PreviousPeriod { get; init; }
 
-    [Column("previous_year_value")]
-    public double? PreviousYearValue { get; init; }
+    [Column("previous_period_value")]
+    public double? PreviousPeriodValue { get; init; }
 
     [Column("status")]
     public string? Status { get; init; }
