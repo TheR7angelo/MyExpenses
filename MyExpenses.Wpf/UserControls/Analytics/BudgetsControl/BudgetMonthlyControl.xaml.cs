@@ -11,7 +11,7 @@ using MyExpenses.Models.Sql.Bases.Views;
 using MyExpenses.Models.Wpf.Charts;
 using MyExpenses.Sql.Context;
 using MyExpenses.Wpf.Converters.Analytics;
-using MyExpenses.Wpf.Resources.Resx.UserControls.Analytics.AccountValueTrendControl;
+using MyExpenses.Wpf.Resources.Resx.UserControls.BudgetMonthlyControl;
 using MyExpenses.Wpf.Utils;
 using SkiaSharp;
 
@@ -72,10 +72,10 @@ public partial class BudgetMonthlyControl
         using var context = new DataBaseContext();
         var records = context.AnalysisVBudgetMonthlyGlobals.ToList();
 
-        var trend = AccountValueTrendControlResources.Trend;
+        var trend = BudgetMonthlyControlResources.Trend;
         var series = new List<ISeries>();
 
-        const string name = "Global";
+        var name = BudgetMonthlyControlResources.Gloabal;
         var values = records.Select(s => Math.Round(s.PeriodValue ?? 0, 2)).ToList();
 
         var lineSeries = new LineSeries<double>
@@ -87,7 +87,8 @@ public partial class BudgetMonthlyControl
                 var dataPoint = records[point.Index];
                 return $"{dataPoint.PeriodValue}{Environment.NewLine}" +
                        $"{dataPoint.Status} {dataPoint.DifferenceValue ?? 0:F2} ({dataPoint.Percentage}%)";
-            }
+            },
+            Tag = new IsSeriesTranslatable { OriginalName = name, IsTranslatable = true, IsGlobal = true, IsTrend = false }
         };
 
         var xData = Enumerable.Range(1, values.Count).Select(i => (double)i).ToArray();
@@ -95,7 +96,7 @@ public partial class BudgetMonthlyControl
         var trendValues = xData.Select(x => Math.Round(a * x + b, 2)).ToArray();
 
         var trendName = $"{name} {trend}";
-        var isSeriesTranslatableTrend = new IsSeriesTranslatable { OriginalName = name, IsTranslatable = true };
+        var isSeriesTranslatableTrend = new IsSeriesTranslatable { OriginalName = name, IsTranslatable = true, IsGlobal = true };
         var trendSeries = new LineSeries<double>
         {
             Name = trendName,
@@ -143,7 +144,7 @@ public partial class BudgetMonthlyControl
 
     private void SetSeries(List<IGrouping<string?, AnalysisVBudgetMonthly>> records)
     {
-        var trend = AccountValueTrendControlResources.Trend;
+        var trend = BudgetMonthlyControlResources.Trend;
 
         var currency = records.First().Select(s => s.Symbol).First();
         var series = new List<ISeries>();
@@ -315,16 +316,24 @@ public partial class BudgetMonthlyControl
             XAxis[i] = tmp;
         }
 
-        // var names = new List<string>
-        // {
-        //     AccountsCategorySumPositiveNegativeControlsResources.ColumnSeriesNegativeName,
-        //     AccountsCategorySumPositiveNegativeControlsResources.ColumnSeriesPositiveName
-        // };
-        //
-        // for (var i = 0; i < names.Count; i++)
-        // {
-        //     Series[i].Name = names[i];
-        // }
+        var trend = BudgetMonthlyControlResources.Trend;
+        var global = BudgetMonthlyControlResources.Gloabal;
+
+        foreach (var iSeries in Series)
+        {
+            var series = (LineSeries<double>)iSeries;
+            if (series.Tag is not IsSeriesTranslatable { IsTranslatable: true } isSeriesTranslatable) continue;
+
+            var name = series.Name!;
+            var checkBox = CheckBoxesTrend.FirstOrDefault(s => s.Content.Equals(name)) ?? CheckBoxes.First(s => s.Content.Equals(name));
+
+            var newName = isSeriesTranslatable.IsGlobal
+                ? isSeriesTranslatable.IsTrend ? $"{global} {trend}" : global
+                : $"{isSeriesTranslatable.OriginalName} {trend}";
+
+            series.Name = newName;
+            checkBox.Content = newName;
+        }
 
         UpdateLayout();
     }
