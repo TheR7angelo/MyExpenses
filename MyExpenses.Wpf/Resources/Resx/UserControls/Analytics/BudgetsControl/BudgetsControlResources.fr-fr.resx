@@ -20,4 +20,7 @@
     <data name="BudgetMonthlyControlHeader" xml:space="preserve">
         <value>Mensuel</value>
     </data>
+    <data name="BudgetAnnualControlHeader" xml:space="preserve">
+        <value>Annuel</value>
+    </data>
 </root>
