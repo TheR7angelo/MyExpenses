@@ -1074,7 +1074,7 @@ SELECT cv.account_fk,
        ROUND(COALESCE(pre_cv.cumulative_total_value, 0), 2)                               AS previous_period_value,
        CASE
            WHEN cv.cumulative_total_value > COALESCE(pre_cv.cumulative_total_value, 0) THEN 'Gain'
-           WHEN cv.cumulative_total_value < COALESCE(pre_cv.cumulative_total_value, 0) THEN 'Déficit'
+           WHEN cv.cumulative_total_value < COALESCE(pre_cv.cumulative_total_value, 0) THEN 'Deficit'
            ELSE 'Stable'
            END                                                                            AS status,
        ROUND(
@@ -1227,7 +1227,7 @@ SELECT cv.account_fk,
                     FROM cumulative_values pre_cv
                     WHERE pre_cv.account_fk = cv.account_fk
                       AND STRFTIME('%Y-%m', DATE(cv.period || '-01', '-1 year')) = pre_cv.period),
-                   0) THEN 'Déficit'
+                   0) THEN 'Deficit'
            ELSE 'Stable'
            END                                                          AS status,
        ROUND(
