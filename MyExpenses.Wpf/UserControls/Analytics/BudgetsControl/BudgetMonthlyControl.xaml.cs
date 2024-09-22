@@ -11,7 +11,6 @@ using MyExpenses.Models.Sql.Bases.Views;
 using MyExpenses.Models.Wpf.Charts;
 using MyExpenses.Sql.Context;
 using MyExpenses.Wpf.Converters.Analytics;
-using MyExpenses.Wpf.Resources.Resx.UserControls.Analytics.AccountsCategorySumPositiveNegativeControls;
 using MyExpenses.Wpf.Resources.Resx.UserControls.Analytics.AccountValueTrendControl;
 using MyExpenses.Wpf.Utils;
 using SkiaSharp;
@@ -82,11 +81,18 @@ public partial class BudgetMonthlyControl
             var name = recordsByAccount.First().AccountName;
             var values = recordsByAccount.Select(s => Math.Round(s.PeriodValue ?? 0, 2)).ToList();
 
+            var analysisVBudgetMonthlies = recordsByAccount.Select(s => s)
+                .ToList();
             var lineSeries = new LineSeries<double>
             {
                 Name = name,
                 Values = values,
-                YToolTipLabelFormatter = point => $"{point.Model} {currency}",
+                YToolTipLabelFormatter = point =>
+                {
+                    var dataPoint = analysisVBudgetMonthlies[point.Index];
+                    return $"{dataPoint.PeriodValue} {currency}{Environment.NewLine}" +
+                           $"{dataPoint.Status} {dataPoint.DifferenceValue ?? 0:F2}{currency} ({dataPoint.Percentage}%)";
+                }
             };
 
             var xData = Enumerable.Range(1, values.Count).Select(i => (double)i).ToArray();
