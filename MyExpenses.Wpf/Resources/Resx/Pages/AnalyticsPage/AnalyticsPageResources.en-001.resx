@@ -14,9 +14,6 @@
     <data name="TabItemCumulativeSumChartControlHeader" xml:space="preserve">
         <value>Cumulative sum</value>
     </data>
-    <data name="TabItemCumulativeTotalSumChartControlHeader" xml:space="preserve">
-        <value>Cumulative total sum</value>
-    </data>
     <data name="TabItemAccountTotalEllipseControlHeader" xml:space="preserve">
         <value>Projection and status</value>
     </data>
@@ -28,5 +25,8 @@
     </data>
     <data name="TabItemAccountsCategorySumPositiveNegativeControl" xml:space="preserve">
         <value>Sum of positive and negative categories</value>
+    </data>
+    <data name="TabItemBudgetsControlHeader" xml:space="preserve">
+        <value>Budget balance sheet</value>
     </data>
 </root>

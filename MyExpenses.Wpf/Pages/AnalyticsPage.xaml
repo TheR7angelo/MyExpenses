@@ -42,7 +42,7 @@
                     <analytics:CumulativeSumChartControl />
                 </TabItem>
 
-                <TabItem Header="Test">
+                <TabItem Header="{Binding TabItemBudgetsControlHeader, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
                     <budgetsControl:BudgetsControl />
                 </TabItem>
 

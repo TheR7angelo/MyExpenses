@@ -11,6 +11,12 @@ public partial class AnalyticsPage
         DependencyProperty.Register(nameof(TabItemAccountsModePaymentMonthlySumControlHeader), typeof(string),
             typeof(AnalyticsPage), new PropertyMetadata(default(string)));
 
+    public string TabItemAccountsModePaymentMonthlySumControlHeader
+    {
+        get => (string)GetValue(TabItemAccountsModePaymentMonthlySumControlHeaderProperty);
+        set => SetValue(TabItemAccountsModePaymentMonthlySumControlHeaderProperty, value);
+    }
+
     public static readonly DependencyProperty TabItemCumulativeSumChartControlHeaderProperty =
         DependencyProperty.Register(nameof(TabItemCumulativeSumChartControlHeader), typeof(string),
             typeof(AnalyticsPage), new PropertyMetadata(default(string)));
@@ -19,16 +25,6 @@ public partial class AnalyticsPage
     {
         get => (string)GetValue(TabItemCumulativeSumChartControlHeaderProperty);
         set => SetValue(TabItemCumulativeSumChartControlHeaderProperty, value);
-    }
-
-    public static readonly DependencyProperty TabItemCumulativeTotalSumChartControlHeaderProperty =
-        DependencyProperty.Register(nameof(TabItemCumulativeTotalSumChartControlHeader), typeof(string),
-            typeof(AnalyticsPage), new PropertyMetadata(default(string)));
-
-    public string TabItemCumulativeTotalSumChartControlHeader
-    {
-        get => (string)GetValue(TabItemCumulativeTotalSumChartControlHeaderProperty);
-        set => SetValue(TabItemCumulativeTotalSumChartControlHeaderProperty, value);
     }
 
     public static readonly DependencyProperty TabItemAccountTotalEllipseControlHeaderProperty =
@@ -51,12 +47,6 @@ public partial class AnalyticsPage
         set => SetValue(TabItemAccountsCategorySumControlHeaderProperty, value);
     }
 
-    public string TabItemAccountsModePaymentMonthlySumControlHeader
-    {
-        get => (string)GetValue(TabItemAccountsModePaymentMonthlySumControlHeaderProperty);
-        set => SetValue(TabItemAccountsModePaymentMonthlySumControlHeaderProperty, value);
-    }
-
     public static readonly DependencyProperty TabItemAccountsCategorySumPositiveNegativeControlProperty =
         DependencyProperty.Register(nameof(TabItemAccountsCategorySumPositiveNegativeControl), typeof(string),
             typeof(AnalyticsPage), new PropertyMetadata(default(string)));
@@ -66,7 +56,17 @@ public partial class AnalyticsPage
         get => (string)GetValue(TabItemAccountsCategorySumPositiveNegativeControlProperty);
         set => SetValue(TabItemAccountsCategorySumPositiveNegativeControlProperty, value);
     }
-    
+
+    public static readonly DependencyProperty TabItemBudgetsControlHeaderProperty =
+        DependencyProperty.Register(nameof(TabItemBudgetsControlHeader), typeof(string), typeof(AnalyticsPage),
+            new PropertyMetadata(default(string)));
+
+    public string TabItemBudgetsControlHeader
+    {
+        get => (string)GetValue(TabItemBudgetsControlHeaderProperty);
+        set => SetValue(TabItemBudgetsControlHeaderProperty, value);
+    }
+
     public AnalyticsPage()
     {
         UpdateLanguage();
@@ -82,10 +82,10 @@ public partial class AnalyticsPage
     private void UpdateLanguage()
     {
         TabItemCumulativeSumChartControlHeader = AnalyticsPageResources.TabItemCumulativeSumChartControlHeader;
-        TabItemCumulativeTotalSumChartControlHeader = AnalyticsPageResources.TabItemCumulativeTotalSumChartControlHeader;
         TabItemAccountTotalEllipseControlHeader = AnalyticsPageResources.TabItemAccountTotalEllipseControlHeader;
         TabItemAccountsCategorySumControlHeader = AnalyticsPageResources.TabItemAccountsCategorySumControlHeader;
         TabItemAccountsModePaymentMonthlySumControlHeader = AnalyticsPageResources.TabItemAccountsModePaymentMonthlySumControlHeader;
         TabItemAccountsCategorySumPositiveNegativeControl = AnalyticsPageResources.TabItemAccountsCategorySumPositiveNegativeControl;
+        TabItemBudgetsControlHeader = AnalyticsPageResources.TabItemBudgetsControlHeader;
     }
 }

@@ -96,20 +96,20 @@ namespace MyExpenses.Wpf.Resources.Resx.Pages.AnalyticsPage {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Budget balance sheet.
+        /// </summary>
+        internal static string TabItemBudgetsControlHeader {
+            get {
+                return ResourceManager.GetString("TabItemBudgetsControlHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cumulative sum.
         /// </summary>
         internal static string TabItemCumulativeSumChartControlHeader {
             get {
                 return ResourceManager.GetString("TabItemCumulativeSumChartControlHeader", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Cumulative total sum.
-        /// </summary>
-        internal static string TabItemCumulativeTotalSumChartControlHeader {
-            get {
-                return ResourceManager.GetString("TabItemCumulativeTotalSumChartControlHeader", resourceCulture);
             }
         }
     }
