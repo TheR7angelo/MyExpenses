@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:MyExpenses.Wpf.UserControls.Analytics.BudgetsControl"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
+
     <Grid>
 
         <TabControl TabStripPlacement="Bottom">

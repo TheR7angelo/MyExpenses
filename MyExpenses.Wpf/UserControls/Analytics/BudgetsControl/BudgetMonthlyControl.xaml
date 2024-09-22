@@ -6,9 +6,7 @@
              xmlns:local="clr-namespace:MyExpenses.Wpf.UserControls.Analytics.BudgetsControl"
              xmlns:wpf="clr-namespace:LiveChartsCore.SkiaSharpView.WPF;assembly=LiveChartsCore.SkiaSharpView.WPF"
              mc:Ignorable="d"
-             d:DesignHeight="300" d:DesignWidth="300"
-
-             TextElement.Foreground="{DynamicResource MaterialDesignBody}">
+             d:DesignHeight="300" d:DesignWidth="300">
 
     <Grid>
 
@@ -21,9 +19,13 @@
         <ItemsControl Grid.Row="0" HorizontalAlignment="Center"
                       ItemsSource="{Binding CheckBoxes, RelativeSource={RelativeSource AncestorType={x:Type local:BudgetMonthlyControl}}}">
 
+            <ItemsControl.Resources>
+                <Style TargetType="CheckBox" BasedOn="{StaticResource {x:Type CheckBox}}" />
+            </ItemsControl.Resources>
+
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <WrapPanel Orientation="Horizontal"/>
+                    <WrapPanel Orientation="Horizontal" />
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
 
@@ -31,6 +33,10 @@
 
         <ItemsControl Grid.Row="1" HorizontalAlignment="Center"
                       ItemsSource="{Binding CheckBoxesTrend, RelativeSource={RelativeSource AncestorType={x:Type local:BudgetMonthlyControl}}}">
+
+            <ItemsControl.Resources>
+                <Style TargetType="CheckBox" BasedOn="{StaticResource {x:Type CheckBox}}" />
+            </ItemsControl.Resources>
 
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
