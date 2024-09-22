@@ -8,8 +8,12 @@
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
 
-        <TabControl x:Name="TabControl"
-                    TabStripPlacement="Bottom">
+        <TabControl TabStripPlacement="Bottom">
+
+            <TabItem Header="Monthly">
+                <local:BudgetMonthlyControl />
+            </TabItem>
+
         </TabControl>
 
     </Grid>
