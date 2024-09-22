@@ -1,0 +1,60 @@
+<UserControl x:Class="MyExpenses.Wpf.UserControls.Analytics.BudgetsControl.BudgetAnnualControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:MyExpenses.Wpf.UserControls.Analytics.BudgetsControl"
+             xmlns:wpf="clr-namespace:LiveChartsCore.SkiaSharpView.WPF;assembly=LiveChartsCore.SkiaSharpView.WPF"
+             mc:Ignorable="d"
+             d:DesignHeight="300" d:DesignWidth="300">
+
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <ItemsControl Grid.Row="0" HorizontalAlignment="Center"
+                      ItemsSource="{Binding CheckBoxes, RelativeSource={RelativeSource AncestorType={x:Type local:BudgetAnnualControl}}}">
+
+            <ItemsControl.Resources>
+                <Style TargetType="CheckBox" BasedOn="{StaticResource {x:Type CheckBox}}" />
+            </ItemsControl.Resources>
+
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel Orientation="Horizontal" />
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+
+        </ItemsControl>
+
+        <ItemsControl Grid.Row="1" HorizontalAlignment="Center"
+                      ItemsSource="{Binding CheckBoxesTrend, RelativeSource={RelativeSource AncestorType={x:Type local:BudgetAnnualControl}}}">
+
+            <ItemsControl.Resources>
+                <Style TargetType="CheckBox" BasedOn="{StaticResource {x:Type CheckBox}}" />
+            </ItemsControl.Resources>
+
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel Orientation="Horizontal"/>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+
+        </ItemsControl>
+
+        <wpf:CartesianChart Grid.Row="2"
+                            Series="{Binding Series, RelativeSource={RelativeSource AncestorType={x:Type local:BudgetAnnualControl}}}"
+                            XAxes="{Binding XAxis, RelativeSource={RelativeSource AncestorType={x:Type local:BudgetAnnualControl}}}"
+                            YAxes="{Binding YAxis, RelativeSource={RelativeSource AncestorType={x:Type local:BudgetAnnualControl}}}"
+                            LegendTextPaint="{Binding TextPaint, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:BudgetAnnualControl}}}"
+                            LegendPosition="Bottom"
+                            ZoomMode="X">
+        </wpf:CartesianChart>
+
+    </Grid>
+
+</UserControl>

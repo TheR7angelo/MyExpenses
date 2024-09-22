@@ -1149,12 +1149,21 @@ WITH date_bounds AS (SELECT STRFTIME('%Y-%m', MIN(h.date)) AS min_date,
                      date_bounds
                 WHERE period < max_date),
 
-     filtered_accounts AS (SELECT DISTINCT a.id AS account_fk, a.name AS account_name, tc.id AS symbol_fk, tc.symbol
+     filtered_accounts AS (SELECT DISTINCT a.id   AS account_fk,
+                                           a.name AS account_name,
+                                           tc.id  AS symbol_fk,
+                                           tc.symbol
                            FROM t_account a
-                                    INNER JOIN t_history h ON h.account_fk = a.id
-                                    INNER JOIN t_currency tc ON a.currency_fk = tc.id),
+                                    INNER JOIN t_history h
+                                               ON h.account_fk = a.id
+                                    INNER JOIN t_currency tc
+                                               ON a.currency_fk = tc.id),
 
-     account_months AS (SELECT a.account_fk, a.account_name, a.symbol_fk, a.symbol, m.period
+     account_months AS (SELECT a.account_fk,
+                               a.account_name,
+                               a.symbol_fk,
+                               a.symbol,
+                               m.period
                         FROM filtered_accounts a
                                  CROSS JOIN months m),
 
@@ -1165,8 +1174,10 @@ WITH date_bounds AS (SELECT STRFTIME('%Y-%m', MIN(h.date)) AS min_date,
                                STRFTIME('%Y-%m', h.date) AS period,
                                SUM(h.value)              AS total_value
                         FROM t_history h
-                                 INNER JOIN t_account a ON h.account_fk = a.id
-                                 INNER JOIN t_currency tc ON a.currency_fk = tc.id
+                                 INNER JOIN t_account a
+                                            ON h.account_fk = a.id
+                                 INNER JOIN t_currency tc
+                                            ON a.currency_fk = tc.id
                         GROUP BY a.id, period),
 
      cumulative_values AS (SELECT am.account_fk,
@@ -1174,61 +1185,93 @@ WITH date_bounds AS (SELECT STRFTIME('%Y-%m', MIN(h.date)) AS min_date,
                                   am.symbol_fk,
                                   am.symbol,
                                   am.period,
-                                  STRFTIME('%m', am.period) AS month_of_year,
-                                  STRFTIME('%Y', am.period) AS year,
+                                  STRFTIME('%m', am.period)                   AS month_of_year,
+                                  STRFTIME('%Y', am.period)                   AS year,
                                   COALESCE(
                                           (SELECT SUM(mv2.total_value)
                                            FROM monthly_values mv2
                                            WHERE mv2.account_fk = am.account_fk
-                                             AND mv2.period <= am.period),
-                                          0
-                                  )                         AS cumulative_total_value
+                                             AND mv2.period <= am.period), 0) AS cumulative_total_value
                            FROM account_months am
                                     LEFT JOIN monthly_values mv
-                                              ON am.account_fk = mv.account_fk AND am.period = mv.period),
+                                              ON am.account_fk = mv.account_fk AND am.period = mv.period)
 
-     final_values AS (SELECT cv.account_fk,
-                             cv.account_name,
-                             cv.symbol_fk,
-                             cv.symbol,
-                             cv.period,
-                             ROUND(cv.cumulative_total_value, 2)                                                AS period_value,
-                             COALESCE(STRFTIME('%Y-%m', DATE(cv.period || '-01', '-1 year')),
-                                      CAST(cv.year AS INTEGER) - 1 || '-' ||
-                                                                 cv.month_of_year)                              AS previous_period,
-                             COALESCE(ROUND(pre_cv.cumulative_total_value, 2), 0)                               AS previous_period_value,
-                             CASE
-                                 WHEN cv.cumulative_total_value > COALESCE(pre_cv.cumulative_total_value, 0) THEN 'Gain'
-                                 WHEN cv.cumulative_total_value < COALESCE(pre_cv.cumulative_total_value, 0)
-                                     THEN 'Déficit'
-                                 ELSE 'Stable'
-                                 END                                                                            AS status,
-                             ROUND(
-                                     CASE
-                                         WHEN cv.cumulative_total_value = COALESCE(pre_cv.cumulative_total_value, 0)
-                                             THEN 0
-                                         ELSE 100 * CASE
-                                                        WHEN COALESCE(pre_cv.cumulative_total_value, 0) = 0 THEN
-                                                            CASE
-                                                                WHEN cv.cumulative_total_value >
-                                                                     COALESCE(pre_cv.cumulative_total_value, 0) THEN 1
-                                                                ELSE -1
-                                                                END
-                                                        ELSE (cv.cumulative_total_value -
-                                                              COALESCE(pre_cv.cumulative_total_value, 0))
-                                                            / ABS(COALESCE(pre_cv.cumulative_total_value, 1))
-                                             END
-                                         END, 2
-                             )                                                                                  AS percentage,
-                             ROUND((cv.cumulative_total_value - COALESCE(pre_cv.cumulative_total_value, 0)),
-                                   2)                                                                           AS difference_value
-                      FROM cumulative_values cv
-                               LEFT JOIN cumulative_values pre_cv
-                                         ON cv.account_fk = pre_cv.account_fk AND
-                                            STRFTIME('%Y-%m', DATE(cv.period || '-1 year')) = pre_cv.period)
-
-SELECT *
-FROM final_values
+SELECT cv.account_fk,
+       cv.account_name,
+       cv.symbol_fk,
+       cv.symbol,
+       cv.period,
+       ROUND(cv.cumulative_total_value, 2)                              AS period_value,
+       COALESCE(
+               STRFTIME('%Y-%m', DATE(cv.period || '-01', '-1 year')),
+               CAST(cv.year AS INTEGER) - 1 || '-' || cv.month_of_year) AS previous_period,
+       COALESCE(
+               (SELECT ROUND(pre_cv.cumulative_total_value, 2)
+                FROM cumulative_values pre_cv
+                WHERE pre_cv.account_fk = cv.account_fk
+                  AND STRFTIME('%Y-%m', DATE(cv.period || '-01', '-1 year')) = pre_cv.period),
+               0)                                                       AS previous_period_value,
+       CASE
+           WHEN cv.cumulative_total_value > COALESCE(
+                   (SELECT pre_cv.cumulative_total_value
+                    FROM cumulative_values pre_cv
+                    WHERE pre_cv.account_fk = cv.account_fk
+                      AND STRFTIME('%Y-%m', DATE(cv.period || '-01', '-1 year')) = pre_cv.period),
+                   0) THEN 'Gain'
+           WHEN cv.cumulative_total_value < COALESCE(
+                   (SELECT pre_cv.cumulative_total_value
+                    FROM cumulative_values pre_cv
+                    WHERE pre_cv.account_fk = cv.account_fk
+                      AND STRFTIME('%Y-%m', DATE(cv.period || '-01', '-1 year')) = pre_cv.period),
+                   0) THEN 'Déficit'
+           ELSE 'Stable'
+           END                                                          AS status,
+       ROUND(
+               CASE
+                   WHEN cv.cumulative_total_value = COALESCE(
+                           (SELECT pre_cv.cumulative_total_value
+                            FROM cumulative_values pre_cv
+                            WHERE pre_cv.account_fk = cv.account_fk
+                              AND STRFTIME('%Y-%m', DATE(cv.period || '-01', '-1 year')) =
+                                  pre_cv.period), 0) THEN 0
+                   ELSE 100 * CASE
+                                  WHEN COALESCE(
+                                               (SELECT pre_cv.cumulative_total_value
+                                                FROM cumulative_values pre_cv
+                                                WHERE pre_cv.account_fk = cv.account_fk
+                                                  AND STRFTIME('%Y-%m', DATE(cv.period || '-01', '-1 year')) =
+                                                      pre_cv.period), 0) = 0 THEN
+                                      CASE
+                                          WHEN cv.cumulative_total_value > COALESCE(
+                                                  (SELECT pre_cv.cumulative_total_value
+                                                   FROM cumulative_values pre_cv
+                                                   WHERE pre_cv.account_fk = cv.account_fk
+                                                     AND STRFTIME('%Y-%m', DATE(cv.period || '-01', '-1 year')) =
+                                                         pre_cv.period), 0) THEN 1
+                                          ELSE -1
+                                          END
+                                  ELSE (cv.cumulative_total_value - COALESCE(
+                                          (SELECT pre_cv.cumulative_total_value
+                                           FROM cumulative_values pre_cv
+                                           WHERE pre_cv.account_fk = cv.account_fk
+                                             AND STRFTIME('%Y-%m', DATE(cv.period || '-01', '-1 year')) =
+                                                 pre_cv.period), 0)) / ABS(
+                                               COALESCE(
+                                                       (SELECT pre_cv.cumulative_total_value
+                                                        FROM cumulative_values pre_cv
+                                                        WHERE pre_cv.account_fk = cv.account_fk
+                                                          AND STRFTIME('%Y-%m', DATE(cv.period || '-01', '-1 year')) =
+                                                              pre_cv.period), 1))
+                       END
+                   END, 2)                                              AS percentage,
+       ROUND(
+               (cv.cumulative_total_value - COALESCE(
+                       (SELECT pre_cv.cumulative_total_value
+                        FROM cumulative_values pre_cv
+                        WHERE pre_cv.account_fk = cv.account_fk
+                          AND STRFTIME('%Y-%m', DATE(cv.period || '-01', '-1 year')) =
+                              pre_cv.period), 0)), 2)                   AS difference_value
+FROM cumulative_values cv
 ORDER BY account_fk, period;
 
 DROP VIEW IF EXISTS analysis_v_budget_period_annual_global;
