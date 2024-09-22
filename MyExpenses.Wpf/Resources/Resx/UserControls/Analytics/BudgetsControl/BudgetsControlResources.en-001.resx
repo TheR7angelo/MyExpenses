@@ -17,4 +17,7 @@
     <data name="Trend" xml:space="preserve">
         <value>trend</value>
     </data>
+    <data name="BudgetMonthlyControlHeader" xml:space="preserve">
+        <value>Monthly</value>
+    </data>
 </root>

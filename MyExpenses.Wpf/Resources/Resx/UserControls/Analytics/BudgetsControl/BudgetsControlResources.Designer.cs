@@ -61,6 +61,15 @@ namespace MyExpenses.Wpf.Resources.Resx.UserControls.Analytics.BudgetsControl {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Monthly.
+        /// </summary>
+        internal static string BudgetMonthlyControlHeader {
+            get {
+                return ResourceManager.GetString("BudgetMonthlyControlHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Global.
         /// </summary>
         internal static string Global {

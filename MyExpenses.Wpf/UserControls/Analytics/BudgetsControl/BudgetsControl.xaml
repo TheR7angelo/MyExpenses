@@ -11,7 +11,7 @@
 
         <TabControl TabStripPlacement="Bottom">
 
-            <TabItem Header="Monthly">
+            <TabItem Header="{Binding BudgetMonthlyControlHeader, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:BudgetsControl}}}">
                 <local:BudgetMonthlyControl />
             </TabItem>
 
