@@ -79,7 +79,7 @@ public partial class BudgetAnnualControl
             XAxis[i] = tmp;
         }
 
-        var configuration = MyExpenses.Utils.Config.Configuration;
+        var configuration = Config.Configuration;
         var primaryColor = ((Color)configuration.Interface.Theme.HexadecimalCodePrimaryColor.ToColor()!).ToSkColor();
         var secondaryColor = ((Color)configuration.Interface.Theme.HexadecimalCodeSecondaryColor.ToColor()!).ToSkColor();
         var skColors = new List<SKColor> { secondaryColor, primaryColor };
