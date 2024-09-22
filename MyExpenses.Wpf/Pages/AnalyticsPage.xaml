@@ -46,10 +46,6 @@
                     <budgetsControl:BudgetsControl />
                 </TabItem>
 
-                <TabItem Header="{Binding TabItemCumulativeTotalSumChartControlHeader, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
-                    <analytics:CumulativeTotalSumChartControl />
-                </TabItem>
-
                 <TabItem Header="{Binding TabItemAccountsModePaymentMonthlySumControlHeader, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
                     <accountsModePaymentMonthlySumControls:AccountsModePaymentMonthlySumControl />
                 </TabItem>

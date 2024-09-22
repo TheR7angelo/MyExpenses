@@ -147,10 +147,6 @@
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>SettingsWindowResources.Designer.cs</LastGenOutput>
       </EmbeddedResource>
-      <EmbeddedResource Update="Resources\Resx\UserControls\Analytics\CumulativeTotalSumChartControl\CumulativeTotalSumChartControlResources.resx">
-        <Generator>ResXFileCodeGenerator</Generator>
-        <LastGenOutput>CumulativeTotalSumChartControlResources.Designer.cs</LastGenOutput>
-      </EmbeddedResource>
       <EmbeddedResource Update="Resources\Resx\Pages\AnalyticsPage\AnalyticsPageResources.resx">
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>AnalyticsPageResources.Designer.cs</LastGenOutput>
@@ -365,11 +361,6 @@
         <AutoGen>True</AutoGen>
         <DependentUpon>SettingsWindowResources.resx</DependentUpon>
       </Compile>
-      <Compile Update="Resources\Resx\UserControls\Analytics\CumulativeTotalSumChartControl\CumulativeTotalSumChartControlResources.Designer.cs">
-        <DesignTime>True</DesignTime>
-        <AutoGen>True</AutoGen>
-        <DependentUpon>CumulativeTotalSumChartControlResources.resx</DependentUpon>
-      </Compile>
       <Compile Update="Resources\Resx\Pages\AnalyticsPage\AnalyticsPageResources.Designer.cs">
         <DesignTime>True</DesignTime>
         <AutoGen>True</AutoGen>
@@ -494,11 +485,6 @@
         <SubType>Designer</SubType>
       </Page>
       <Page Update="Windows\SaveLocationWindow\SaveLocationWindow.xaml">
-        <Generator>MSBuild:Compile</Generator>
-        <XamlRuntime>Wpf</XamlRuntime>
-        <SubType>Designer</SubType>
-      </Page>
-      <Page Update="UserControls\Analytics\CumulativeTotalSumChartControl.xaml">
         <Generator>MSBuild:Compile</Generator>
         <XamlRuntime>Wpf</XamlRuntime>
         <SubType>Designer</SubType>
