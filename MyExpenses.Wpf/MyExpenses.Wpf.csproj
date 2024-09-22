@@ -147,10 +147,6 @@
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>SettingsWindowResources.Designer.cs</LastGenOutput>
       </EmbeddedResource>
-      <EmbeddedResource Update="Resources\Resx\UserControls\Analytics\AccountValueTrendControl\AccountValueTrendControlResources.resx">
-        <Generator>ResXFileCodeGenerator</Generator>
-        <LastGenOutput>AccountValueTrendControlResources.Designer.cs</LastGenOutput>
-      </EmbeddedResource>
       <EmbeddedResource Update="Resources\Resx\UserControls\Analytics\CumulativeTotalSumChartControl\CumulativeTotalSumChartControlResources.resx">
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>CumulativeTotalSumChartControlResources.Designer.cs</LastGenOutput>
@@ -158,10 +154,6 @@
       <EmbeddedResource Update="Resources\Resx\Pages\AnalyticsPage\AnalyticsPageResources.resx">
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>AnalyticsPageResources.Designer.cs</LastGenOutput>
-      </EmbeddedResource>
-      <EmbeddedResource Update="Resources\Resx\UserControls\Analytics\AccountValueTrendControl\StackedTotalEllipseControl\StackedTotalEllipseControlResources.resx">
-        <Generator>ResXFileCodeGenerator</Generator>
-        <LastGenOutput>StackedTotalEllipseControlResources.Designer.cs</LastGenOutput>
       </EmbeddedResource>
       <EmbeddedResource Update="Resources\Resx\Windows\RecurrentAddWindow\RecurrentAddWindowResources.resx">
         <Generator>ResXFileCodeGenerator</Generator>
@@ -222,6 +214,10 @@
       <EmbeddedResource Update="Resources\Resx\UserControls\Analytics\BudgetsControl\BudgetsControlResources.resx">
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>BudgetsControlResources.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+      <EmbeddedResource Update="Resources\Resx\UserControls\Analytics\StackedTotalEllipseControl\StackedTotalEllipseControlResources.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>StackedTotalEllipseControlResources.Designer.cs</LastGenOutput>
       </EmbeddedResource>
     </ItemGroup>
 
@@ -369,11 +365,6 @@
         <AutoGen>True</AutoGen>
         <DependentUpon>SettingsWindowResources.resx</DependentUpon>
       </Compile>
-      <Compile Update="Resources\Resx\UserControls\Analytics\AccountValueTrendControl\AccountValueTrendControlResources.Designer.cs">
-        <DesignTime>True</DesignTime>
-        <AutoGen>True</AutoGen>
-        <DependentUpon>AccountValueTrendControlResources.resx</DependentUpon>
-      </Compile>
       <Compile Update="Resources\Resx\UserControls\Analytics\CumulativeTotalSumChartControl\CumulativeTotalSumChartControlResources.Designer.cs">
         <DesignTime>True</DesignTime>
         <AutoGen>True</AutoGen>
@@ -383,11 +374,6 @@
         <DesignTime>True</DesignTime>
         <AutoGen>True</AutoGen>
         <DependentUpon>AnalyticsPageResources.resx</DependentUpon>
-      </Compile>
-      <Compile Update="Resources\Resx\UserControls\Analytics\AccountValueTrendControl\StackedTotalEllipseControl\StackedTotalEllipseControlResources.Designer.cs">
-        <DesignTime>True</DesignTime>
-        <AutoGen>True</AutoGen>
-        <DependentUpon>StackedTotalEllipseControlResources.resx</DependentUpon>
       </Compile>
       <Compile Update="Resources\Resx\Windows\RecurrentAddWindow\RecurrentAddWindowResources.Designer.cs">
         <DesignTime>True</DesignTime>
@@ -463,6 +449,11 @@
         <DesignTime>True</DesignTime>
         <AutoGen>True</AutoGen>
         <DependentUpon>BudgetsControlResources.resx</DependentUpon>
+      </Compile>
+      <Compile Update="Resources\Resx\UserControls\Analytics\StackedTotalEllipseControl\StackedTotalEllipseControlResources.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>StackedTotalEllipseControlResources.resx</DependentUpon>
       </Compile>
     </ItemGroup>
 

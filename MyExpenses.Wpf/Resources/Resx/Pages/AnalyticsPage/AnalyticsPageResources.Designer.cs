@@ -96,15 +96,6 @@ namespace MyExpenses.Wpf.Resources.Resx.Pages.AnalyticsPage {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Growth trend.
-        /// </summary>
-        internal static string TabItemAccountValueTrendControlHeader {
-            get {
-                return ResourceManager.GetString("TabItemAccountValueTrendControlHeader", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Cumulative sum.
         /// </summary>
         internal static string TabItemCumulativeSumChartControlHeader {
