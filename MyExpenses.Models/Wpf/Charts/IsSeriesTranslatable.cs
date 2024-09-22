@@ -2,6 +2,8 @@ namespace MyExpenses.Models.Wpf.Charts;
 
 public class IsSeriesTranslatable
 {
-    public bool IsTranslatable { get; set; }
-    public string? OriginalName { get; set; }
+    public bool IsTranslatable { get; init; }
+    public bool IsGlobal { get; init; }
+    public bool IsTrend { get; init; } = true;
+    public string? OriginalName { get; init; }
 }
