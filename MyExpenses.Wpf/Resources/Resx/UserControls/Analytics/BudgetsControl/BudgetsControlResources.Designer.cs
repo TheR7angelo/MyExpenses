@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MyExpenses.Wpf.Resources.Resx.UserControls.BudgetMonthlyControl {
+namespace MyExpenses.Wpf.Resources.Resx.UserControls.Analytics.BudgetsControl {
     using System;
     
     
@@ -21,14 +21,14 @@ namespace MyExpenses.Wpf.Resources.Resx.UserControls.BudgetMonthlyControl {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class BudgetMonthlyControlResources {
+    internal class BudgetsControlResources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal BudgetMonthlyControlResources() {
+        internal BudgetsControlResources() {
         }
         
         /// <summary>
@@ -38,8 +38,8 @@ namespace MyExpenses.Wpf.Resources.Resx.UserControls.BudgetMonthlyControl {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MyExpenses.Wpf.Resources.Resx.UserControls.BudgetMonthlyControl.BudgetMonthlyCont" +
-                            "rolResources", typeof(BudgetMonthlyControlResources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MyExpenses.Wpf.Resources.Resx.UserControls.Analytics.BudgetsControl.BudgetsContro" +
+                            "lResources", typeof(BudgetsControlResources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -63,9 +63,9 @@ namespace MyExpenses.Wpf.Resources.Resx.UserControls.BudgetMonthlyControl {
         /// <summary>
         ///   Looks up a localized string similar to Global.
         /// </summary>
-        internal static string Gloabal {
+        internal static string Global {
             get {
-                return ResourceManager.GetString("Gloabal", resourceCulture);
+                return ResourceManager.GetString("Global", resourceCulture);
             }
         }
         

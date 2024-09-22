@@ -11,7 +11,7 @@ using MyExpenses.Models.Sql.Bases.Views;
 using MyExpenses.Models.Wpf.Charts;
 using MyExpenses.Sql.Context;
 using MyExpenses.Wpf.Converters.Analytics;
-using MyExpenses.Wpf.Resources.Resx.UserControls.BudgetMonthlyControl;
+using MyExpenses.Wpf.Resources.Resx.UserControls.Analytics.BudgetsControl;
 using MyExpenses.Wpf.Utils;
 using SkiaSharp;
 
@@ -72,10 +72,10 @@ public partial class BudgetMonthlyControl
         using var context = new DataBaseContext();
         var records = context.AnalysisVBudgetMonthlyGlobals.ToList();
 
-        var trend = BudgetMonthlyControlResources.Trend;
+        var trend = BudgetsControlResources.Trend;
         var series = new List<ISeries>();
 
-        var name = BudgetMonthlyControlResources.Gloabal;
+        var name = BudgetsControlResources.Global;
         var values = records.Select(s => Math.Round(s.PeriodValue ?? 0, 2)).ToList();
 
         var lineSeries = new LineSeries<double>
@@ -144,7 +144,7 @@ public partial class BudgetMonthlyControl
 
     private void SetSeries(List<IGrouping<string?, AnalysisVBudgetMonthly>> records)
     {
-        var trend = BudgetMonthlyControlResources.Trend;
+        var trend = BudgetsControlResources.Trend;
 
         var currency = records.First().Select(s => s.Symbol).First();
         var series = new List<ISeries>();
@@ -316,8 +316,8 @@ public partial class BudgetMonthlyControl
             XAxis[i] = tmp;
         }
 
-        var trend = BudgetMonthlyControlResources.Trend;
-        var global = BudgetMonthlyControlResources.Gloabal;
+        var trend = BudgetsControlResources.Trend;
+        var global = BudgetsControlResources.Global;
 
         foreach (var iSeries in Series)
         {
