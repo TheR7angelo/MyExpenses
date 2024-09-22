@@ -44,5 +44,5 @@ public partial class AnalysisVBudgetMonthly
     public double? Percentage { get; init; }
 
     [Column("difference_value")]
-    public byte[]? DifferenceValue { get; init; }
+    public double? DifferenceValue { get; init; }
 }
