@@ -19,6 +19,10 @@
                 <local:BudgetAnnualControl />
             </TabItem>
 
+            <TabItem Header="{Binding BudgetTotalAnnualControlHeader, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:BudgetsControl}}}">
+                <local:BudgetTotalAnnualControl />
+            </TabItem>
+
         </TabControl>
 
     </Grid>

@@ -27,6 +27,16 @@ public partial class BudgetsControl
         set => SetValue(BudgetAnnualControlHeaderProperty, value);
     }
 
+    public static readonly DependencyProperty BudgetTotalAnnualControlHeaderProperty =
+        DependencyProperty.Register(nameof(BudgetTotalAnnualControlHeader), typeof(string), typeof(BudgetsControl),
+            new PropertyMetadata(default(string)));
+
+    public string BudgetTotalAnnualControlHeader
+    {
+        get => (string)GetValue(BudgetTotalAnnualControlHeaderProperty);
+        set => SetValue(BudgetTotalAnnualControlHeaderProperty, value);
+    }
+
     public BudgetsControl()
     {
         UpdateLanguage();
@@ -43,5 +53,6 @@ public partial class BudgetsControl
     {
         BudgetMonthlyControlHeader = BudgetsControlResources.BudgetMonthlyControlHeader;
         BudgetAnnualControlHeader = BudgetsControlResources.BudgetAnnualControlHeader;
+        BudgetTotalAnnualControlHeader = BudgetsControlResources.BudgetTotalAnnualControlHeader;
     }
 }

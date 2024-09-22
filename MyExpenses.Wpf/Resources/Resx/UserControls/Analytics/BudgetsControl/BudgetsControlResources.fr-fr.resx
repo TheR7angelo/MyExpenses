@@ -23,4 +23,7 @@
     <data name="BudgetAnnualControlHeader" xml:space="preserve">
         <value>Annuel</value>
     </data>
+    <data name="BudgetTotalAnnualControlHeader" xml:space="preserve">
+        <value>Total annuel</value>
+    </data>
 </root>
