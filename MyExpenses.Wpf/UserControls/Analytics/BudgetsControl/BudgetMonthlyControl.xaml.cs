@@ -61,9 +61,84 @@ public partial class BudgetMonthlyControl
 
         var axis = records.Select(s => s.Key!);
 
+        SetSeriesGlobal();
         SetSeries(records);
         SetXAxis(axis);
         SetYAxis();
+    }
+
+    private void SetSeriesGlobal()
+    {
+        using var context = new DataBaseContext();
+        var records = context.AnalysisVBudgetMonthlyGlobals.ToList();
+
+        var trend = AccountValueTrendControlResources.Trend;
+        var series = new List<ISeries>();
+
+        const string name = "Global";
+        var values = records.Select(s => Math.Round(s.PeriodValue ?? 0, 2)).ToList();
+
+        var lineSeries = new LineSeries<double>
+        {
+            Name = name,
+            Values = values,
+            YToolTipLabelFormatter = point =>
+            {
+                var dataPoint = records[point.Index];
+                return $"{dataPoint.PeriodValue}{Environment.NewLine}" +
+                       $"{dataPoint.Status} {dataPoint.DifferenceValue ?? 0:F2} ({dataPoint.Percentage}%)";
+            }
+        };
+
+        var xData = Enumerable.Range(1, values.Count).Select(i => (double)i).ToArray();
+        var (a, b) = CalculateLinearTrend(xData, values.ToArray());
+        var trendValues = xData.Select(x => Math.Round(a * x + b, 2)).ToArray();
+
+        var trendName = $"{name} {trend}";
+        var isSeriesTranslatableTrend = new IsSeriesTranslatable { OriginalName = name, IsTranslatable = true };
+        var trendSeries = new LineSeries<double>
+        {
+            Name = trendName,
+            Values = trendValues,
+            Fill = null,
+            YToolTipLabelFormatter = point => $"{point.Model}",
+            IsVisible = false,
+            GeometrySize = 0,
+            Tag = isSeriesTranslatableTrend
+        };
+
+        series.Add(lineSeries);
+        series.Add(trendSeries);
+
+        var checkBox = new CheckBox
+        {
+            Content = name,
+            IsChecked = lineSeries.IsVisible,
+            Margin = new Thickness(5)
+        };
+        checkBox.Click += (_, _) =>
+        {
+            {
+                lineSeries.IsVisible = !lineSeries.IsVisible;
+            }
+        };
+        CheckBoxes.Add(checkBox);
+
+        var checkBoxTrend = new CheckBox
+        {
+            Content = trendName,
+            IsChecked = trendSeries.IsVisible,
+            Margin = new Thickness(5)
+        };
+        checkBoxTrend.Click += (_, _) =>
+        {
+            {
+                trendSeries.IsVisible = !trendSeries.IsVisible;
+            }
+        };
+        CheckBoxesTrend.Add(checkBoxTrend);
+
+        Series = [..series];
     }
 
     private void SetSeries(List<IGrouping<string?, AnalysisVBudgetMonthly>> records)
@@ -144,7 +219,9 @@ public partial class BudgetMonthlyControl
             CheckBoxesTrend.Add(checkBoxTrend);
         }
 
-        Series = [..series];
+        var newSeries = Series.ToList();
+        newSeries.AddRange(series);
+        Series = [..newSeries];
     }
 
     private static (double a, double b) CalculateLinearTrend(double[] xData, double[] yData)
