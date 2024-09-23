@@ -1,25 +1,24 @@
-﻿using System.IO;
+using System.IO;
 using System.IO.Compression;
 using System.Windows;
 using Microsoft.Win32;
 
-namespace MyExpenses.Wpf.WordRelativePath;
+namespace MyExpenses.Wpf.Helper.Pages.WordRelativePath;
 
-
-public partial class MainWindow
+public partial class WordRelativePathPage
 {
     public static readonly DependencyProperty FilePathProperty = DependencyProperty.Register(nameof(FilePath),
-        typeof(string), typeof(MainWindow), new PropertyMetadata(default(string)));
-
-    public MainWindow()
-    {
-        InitializeComponent();
-    }
+        typeof(string), typeof(WordRelativePathPage), new PropertyMetadata(default(string)));
 
     public string FilePath
     {
         get => (string)GetValue(FilePathProperty);
         set => SetValue(FilePathProperty, value);
+    }
+
+    public WordRelativePathPage()
+    {
+        InitializeComponent();
     }
 
     private void ButtonSelectWord_OnClick(object sender, RoutedEventArgs e)
@@ -48,7 +47,7 @@ public partial class MainWindow
         File.Move(temp, filePath, true);
     }
 
-    private void EditZipArchive(string temp)
+    private static void EditZipArchive(string temp)
     {
         using var fileStream = new FileStream(temp, FileMode.Open);
         using var zipArchive = new ZipArchive(fileStream, ZipArchiveMode.Update);
@@ -72,16 +71,16 @@ public partial class MainWindow
         // var wordDirectory = new DirectoryInfo(Path.GetDirectoryName(FilePath)!).Name.Replace(" ", "%20");
         // foreach (var relationShip in relationShips!.Elements(XName.Get("Relationship", "http://schemas.openxmlformats.org/package/2006/relationships")))
         // {
-            // var targetAttr = relationShip.Attribute("Target");
-            // if (targetAttr is null) continue;
-            //
-            // var value = targetAttr.Value;
-            // if (value.StartsWith("file:"))
-            // {
-            //     var relativePath = value.Split(wordDirectory).Last();
-            //     relativePath = $"{wordDirectory}{relativePath}";
-            //     targetAttr.Value = relativePath;
-            // }
+        // var targetAttr = relationShip.Attribute("Target");
+        // if (targetAttr is null) continue;
+        //
+        // var value = targetAttr.Value;
+        // if (value.StartsWith("file:"))
+        // {
+        //     var relativePath = value.Split(wordDirectory).Last();
+        //     relativePath = $"{wordDirectory}{relativePath}";
+        //     targetAttr.Value = relativePath;
+        // }
         // }
         //
         // var writer = new StreamWriter(entryStream);

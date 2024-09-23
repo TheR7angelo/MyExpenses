@@ -11,7 +11,8 @@
 
         <WrapPanel Orientation="Horizontal">
 
-            <Button Content="SvgToXml" Click="ButtonSvgToXml_OnClick"></Button>
+            <Button Content="SvgToXml" Click="ButtonSvgToXml_OnClick" />
+            <Button Content="WordRelativePath" Click="ButtonWordRelativePath_OnClick" />
 
         </WrapPanel>
 
