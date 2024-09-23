@@ -1,13 +1,13 @@
-﻿using System.IO;
+using System.IO;
 using System.Windows;
 using Microsoft.Win32;
 
-namespace MyExpenses.Wpf.CleanRelease;
+namespace MyExpenses.Wpf.Helper.Pages.CleanRelease;
 
-public partial class MainWindow
+public partial class CleanReleasePage
 {
     public static readonly DependencyProperty PathDirectoryProperty = DependencyProperty.Register(nameof(PathDirectory),
-        typeof(string), typeof(MainWindow), new PropertyMetadata(default(string)));
+        typeof(string), typeof(CleanReleasePage), new PropertyMetadata(default(string)));
 
     public string PathDirectory
     {
@@ -15,7 +15,7 @@ public partial class MainWindow
         set => SetValue(PathDirectoryProperty, value);
     }
 
-    public MainWindow()
+    public CleanReleasePage()
     {
         InitializeComponent();
     }

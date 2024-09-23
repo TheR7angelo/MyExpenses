@@ -4,15 +4,20 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:MyExpenses.Wpf.Helper.Pages"
+      xmlns:margin="clr-namespace:MyExpenses.Wpf.Utils.Margin;assembly=MyExpenses.Wpf.Utils"
       mc:Ignorable="d"
       Title="MainPage" Height="450" Width="800">
 
     <Grid>
 
-        <WrapPanel Orientation="Horizontal">
+        <WrapPanel Orientation="Horizontal"
+                   HorizontalAlignment="Center"
+                   VerticalAlignment="Center"
+                   margin:PanelExtensions.MarginForAllChildren="5">
 
             <Button Content="SvgToXml" Click="ButtonSvgToXml_OnClick" />
             <Button Content="WordRelativePath" Click="ButtonWordRelativePath_OnClick" />
+            <Button Content="CleanRelease" Click="ButtonCleanRelease_OnClick" />
 
         </WrapPanel>
 

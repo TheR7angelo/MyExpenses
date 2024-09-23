@@ -1,4 +1,5 @@
 using System.Windows;
+using MyExpenses.Wpf.Helper.Pages.CleanRelease;
 using MyExpenses.Wpf.Helper.Pages.SvgToXml;
 using MyExpenses.Wpf.Helper.Pages.WordRelativePath;
 
@@ -16,4 +17,7 @@ public partial class MainPage
 
     private void ButtonWordRelativePath_OnClick(object sender, RoutedEventArgs e)
         => nameof(MainWindow.FrameBody).NavigateTo(typeof(WordRelativePathPage));
+
+    private void ButtonCleanRelease_OnClick(object sender, RoutedEventArgs e)
+        => nameof(MainWindow.FrameBody).NavigateTo(typeof(CleanReleasePage));
 }
