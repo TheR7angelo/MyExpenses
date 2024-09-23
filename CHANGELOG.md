@@ -1,4 +1,4 @@
-#  (2024-09-20)
+#  (2024-09-23)
 
 
 ### Features
@@ -13,6 +13,7 @@
 * **Update:** Update data extraction from properties in MainWindow ([f40a7bd](https://github.com/TheR7angelo/MyExpenses/commit/f40a7bd6e315457a5143c7481a07ef90befea7eb))
 * **Update:** Update DataGrid columns in MainWindow.xaml ([9df867d](https://github.com/TheR7angelo/MyExpenses/commit/9df867d096bcdb001c565c4e7d0322e53d9cdeb5))
 * **Update:** Update place deletion handling in RecordExpensePage ([4d97ccc](https://github.com/TheR7angelo/MyExpenses/commit/4d97ccc6d2b7f072ddb618e66ec59492de77dbb4))
+* **Update:** Update translation for budget header in French resources ([f0a3809](https://github.com/TheR7angelo/MyExpenses/commit/f0a3809f7cd5e1fb42b20886191600ced894430e))
 
 
 
