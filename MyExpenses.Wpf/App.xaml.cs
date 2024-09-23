@@ -59,13 +59,16 @@ public partial class App
         if (string.IsNullOrEmpty(cultureInfoCode))
         {
             var currentCurrentCulture = CultureInfo.CurrentUICulture.Name;
-            using var context = new DataBaseContext(DbContextBackup.LocalFilePathDataBaseModel);
-            var supportedLanguages = context.TSupportedLanguages.ToList();
 
-            cultureInfoCode = supportedLanguages.Select(s => s.Code).Contains(currentCurrentCulture)
+            using var context = new DataBaseContext(DbContextBackup.LocalFilePathDataBaseModel);
+
+            var currentCultureIsSupported = context.TSupportedLanguages.FirstOrDefault(s => s.Code == currentCurrentCulture) is not null;
+            cultureInfoCode = currentCultureIsSupported
                 ? currentCurrentCulture
-                : supportedLanguages.First(s => (bool)s.DefaultLanguage!).Code;
+                : context.TSupportedLanguages.First(s => (bool)s.DefaultLanguage!).Code;
+
             var configuration = Config.Configuration;
+
             configuration.Interface.Language = cultureInfoCode;
             configuration.WriteConfiguration();
         }
