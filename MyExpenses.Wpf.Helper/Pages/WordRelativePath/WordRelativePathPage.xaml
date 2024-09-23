@@ -5,7 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:MyExpenses.Wpf.Helper.Pages.WordRelativePath"
       mc:Ignorable="d"
-      Title="WordRelativePathPage" Height="450" Width="800"
+      Title="WordRelativePathPage"
 
       DataContext="{Binding RelativeSource={RelativeSource Self}}">
 
