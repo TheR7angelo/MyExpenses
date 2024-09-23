@@ -24,9 +24,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <AdditionalFiles Include="Resources\Projections\ProjectionSystem.csv">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </AdditionalFiles>
+      <None Include="Resources\Projections\ProjectionSystem.csv" />
       <None Remove="Resources\Html\material-components-web.min.css" />
       <None Remove="Resources\Html\material-components-web.min.js" />
     </ItemGroup>
