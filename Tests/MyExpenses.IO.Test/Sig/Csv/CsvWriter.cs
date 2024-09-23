@@ -75,6 +75,8 @@ public class CsvWriter
         }
 
         exportRecords.ToExcelWorksheet("test");
+
+        var projection = context.TSpatialRefSys.First(s => s.Srid.Equals(4326));
         foreach (var exportRecord in exportRecords)
         {
             var name = exportRecord.Name;
@@ -90,11 +92,9 @@ public class CsvWriter
 
                 var geomType = recordGeoms.First().Geometry!.GetType().Name;
 
-                var projection = ShapeReader.GeographicCoordinateSystems.First(s => s.WellKnownId is 4326);
-
                 recordGeoms.ToKmlFile($"{name}.kml", geomType);
                 recordGeoms.ToKmlFile($"{name}.kmz", geomType);
-                recordGeoms.ToShapeFile(name, projection.Prj);
+                recordGeoms.ToShapeFile(name, projection.Proj4text);
                 recordGeoms.ToGeoJson(name);
             }
             else

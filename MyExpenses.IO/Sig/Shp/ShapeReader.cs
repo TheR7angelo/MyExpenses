@@ -1,9 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using GeoReso.Models.IO.Shape.Converters;
-using MyExpenses.IO.Csv;
 using MyExpenses.Models.IO.Sig.Interfaces;
-using MyExpenses.Models.IO.Sig.Shp;
 using MyExpenses.Models.IO.Sig.Shp.Converters;
+using MyExpenses.Models.Sql.Bases.Tables;
+using MyExpenses.Sql.Context;
 using MyExpenses.Utils.Properties;
 using NetTopologySuite.Features;
 using NetTopologySuite.Geometries.Utilities;
@@ -17,13 +17,11 @@ public static class ShapeReader
     private const string GeometryColumn = "Geometry";
     private static readonly DateTimeConverter DateTimeConverterObject = new();
 
-    public static List<GeographicCoordinateSystem> GeographicCoordinateSystems { get; }
-
     static ShapeReader()
     {
-        var csvFile = Path.GetFullPath("Resources");
-        csvFile = Path.Combine(csvFile, "Projections", "ProjectionSystem.csv");
-        GeographicCoordinateSystems = csvFile.ReadCsv<GeographicCoordinateSystem>().ToList();
+        // var csvFile = Path.GetFullPath("Resources");
+        // csvFile = Path.Combine(csvFile, "Projections", "ProjectionSystem.csv");
+        // GeographicCoordinateSystems = csvFile.ReadCsv<GeographicCoordinateSystem>().ToList();
     }
 
     public static (List<T> Features, string? Projection) ReadShapeFile<T>(this string filePath) where T : class
@@ -32,7 +30,6 @@ public static class ShapeReader
         Log.Information("Lecture du shape \"{FilePath}\"", filePath);
 
         string? projection = null;
-        GeographicCoordinateSystem? geographicCoordinateSystem = null;
         var prjFilePath = Path.ChangeExtension(filePath, "prj");
         if (File.Exists(prjFilePath))
         {
@@ -40,10 +37,10 @@ public static class ShapeReader
             Log.Information("Tentative de lecture du fichier .prj");
 
             projection = File.ReadAllText(prjFilePath);
-            geographicCoordinateSystem = GetGeographicCoordinateSystemFromPrj(projection);
+            var geographicCoordinateSystem = GetGeographicCoordinateSystemFromPrj(projection);
 
             //TODO work
-            Log.Information("Système trouvé => {Name}", geographicCoordinateSystem?.Name);
+            Log.Information("Système trouvé => {Name}", geographicCoordinateSystem?.AuthName);
         }
         else
         {
@@ -94,8 +91,11 @@ public static class ShapeReader
     //     return (features, projection);
     // }
 
-    private static GeographicCoordinateSystem? GetGeographicCoordinateSystemFromPrj(this string projectionString)
-        => GeographicCoordinateSystems.FirstOrDefault(s => s.Prj.Equals(projectionString));
+    private static TSpatialRefSy? GetGeographicCoordinateSystemFromPrj(this string projectionString)
+    {
+        using var context = new DataBaseContext(DbContextBackup.LocalFilePathDataBaseModel);
+        return context.TSpatialRefSys.FirstOrDefault(s => s.Proj4text.Equals(projectionString));
+    }
 
 
     private static List<T> ToList<T>(this IEnumerable<Feature> features) where T : class
