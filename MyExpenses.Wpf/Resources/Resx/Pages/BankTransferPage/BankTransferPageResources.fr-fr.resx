@@ -69,13 +69,13 @@
         <value>Raison supplémentaire :</value>
     </data>
     <data name="ButtonPrepareValidContent" xml:space="preserve">
-        <value>Validé</value>
+        <value>Valider</value>
     </data>
     <data name="ButtonPrepareCancelContent" xml:space="preserve">
         <value>Annuler</value>
     </data>
     <data name="ButtonPreviewValidContent" xml:space="preserve">
-        <value>Validé</value>
+        <value>Valider</value>
     </data>
     <data name="ButtonPreviewCancelContent" xml:space="preserve">
         <value>Annuler</value>
