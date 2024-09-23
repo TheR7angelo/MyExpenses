@@ -110,4 +110,15 @@ public static class DbContextHelper
             ).ToArray();
         return properties;
     }
+
+    public static void UpdateDbLanguage()
+    {
+        var newExistingDatabases = DbContextBackup.GetExistingDatabase();
+        foreach (var newExistingDatabase in newExistingDatabases)
+        {
+            using var context = new DataBaseContext(newExistingDatabase.FilePath);
+            context.UpdateAllDefaultValues();
+            context.SaveChanges();
+        }
+    }
 }

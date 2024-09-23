@@ -56,19 +56,20 @@ public partial class App
 
     public static void LoadInterfaceLanguage(string? cultureInfoCode)
     {
+        var currentCultureIsSupported = false;
+
         if (string.IsNullOrEmpty(cultureInfoCode))
         {
             var currentCurrentCulture = CultureInfo.CurrentUICulture.Name;
 
             using var context = new DataBaseContext(DbContextBackup.LocalFilePathDataBaseModel);
 
-            var currentCultureIsSupported = context.TSupportedLanguages.FirstOrDefault(s => s.Code == currentCurrentCulture) is not null;
+            currentCultureIsSupported = context.TSupportedLanguages.Any(s => s.Code == currentCurrentCulture);
             cultureInfoCode = currentCultureIsSupported
                 ? currentCurrentCulture
                 : context.TSupportedLanguages.First(s => (bool)s.DefaultLanguage!).Code;
 
             var configuration = Config.Configuration;
-
             configuration.Interface.Language = cultureInfoCode;
             configuration.WriteConfiguration();
         }
@@ -76,6 +77,8 @@ public partial class App
         var cultureInfo = new CultureInfo(cultureInfoCode);
         Thread.CurrentThread.CurrentCulture = cultureInfo;
         Thread.CurrentThread.CurrentUICulture = cultureInfo;
+
+        if (currentCultureIsSupported) DbContextHelper.UpdateDbLanguage();
     }
 
     public static void LoadInterfaceTheme(Theme configurationTheme)

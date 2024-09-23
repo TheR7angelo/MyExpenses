@@ -124,7 +124,7 @@ public partial class SettingsWindow
             configuration.WriteConfiguration();
 
             App.LoadInterfaceLanguage(cultureInfoCode);
-            UpdateDbLanguage();
+            DbContextHelper.UpdateDbLanguage();
 
             Interface.OnLanguageChanged(this, new ConfigurationLanguageChangedEventArgs(cultureInfoCode));
         }
@@ -139,21 +139,6 @@ public partial class SettingsWindow
 
         var tabItem = TabControl.FindTabItemByHeader(header);
         if (tabItem is not null) tabItem.IsSelected = true;
-    }
-
-    #endregion
-
-    #region Function
-
-    private static void UpdateDbLanguage()
-    {
-        var newExistingDatabases = DbContextBackup.GetExistingDatabase();
-        foreach (var newExistingDatabase in newExistingDatabases)
-        {
-            using var context = new DataBaseContext(newExistingDatabase.FilePath);
-            context.UpdateAllDefaultValues();
-            context.SaveChanges();
-        }
     }
 
     #endregion
