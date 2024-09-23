@@ -41,72 +41,29 @@
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiDirsComponent">
     <ROW Directory="APPDIR" Directory_Parent="TARGETDIR" DefaultDir="APPDIR:." IsPseudoRoot="1"/>
-    <ROW Directory="BrowserMetrics_Dir" Directory_Parent="EBWebView_Dir" DefaultDir="BROWSE~1|BrowserMetrics"/>
-    <ROW Directory="ClientCertificates_Dir" Directory_Parent="Default_Dir" DefaultDir="CLIENT~1|ClientCertificates"/>
-    <ROW Directory="CodeCache_Dir" Directory_Parent="Default_Dir" DefaultDir="CODECA~1|Code Cache"/>
-    <ROW Directory="Crashpad_Dir" Directory_Parent="EBWebView_Dir" DefaultDir="Crashpad"/>
     <ROW Directory="DatabaseModels_Dir" Directory_Parent="APPDIR" DefaultDir="DATABA~1|Database Models"/>
-    <ROW Directory="DawnGraphiteCache_Dir" Directory_Parent="Default_Dir" DefaultDir="DAWNGR~1|DawnGraphiteCache"/>
-    <ROW Directory="DawnWebGPUCache_Dir" Directory_Parent="Default_Dir" DefaultDir="DAWNWE~1|DawnWebGPUCache"/>
-    <ROW Directory="Default_Dir" Directory_Parent="EBWebView_Dir" DefaultDir="Default"/>
     <ROW Directory="DesktopFolder" Directory_Parent="TARGETDIR" DefaultDir="DESKTO~1|DesktopFolder" IsPseudoRoot="1"/>
-    <ROW Directory="EBWebView_Dir" Directory_Parent="MyExpenses.exe.WebView2_Dir" DefaultDir="EBWEBV~1|EBWebView"/>
-    <ROW Directory="EdgeHubAppUsage_Dir" Directory_Parent="Default_Dir" DefaultDir="EDGEHU~1|EdgeHubAppUsage"/>
-    <ROW Directory="ExtensionRules_Dir" Directory_Parent="Default_Dir" DefaultDir="EXTENS~1|Extension Rules"/>
-    <ROW Directory="ExtensionScripts_Dir" Directory_Parent="Default_Dir" DefaultDir="EXTENS~2|Extension Scripts"/>
-    <ROW Directory="ExtensionState_Dir" Directory_Parent="Default_Dir" DefaultDir="EXTENS~3|Extension State"/>
-    <ROW Directory="GPUCache_Dir" Directory_Parent="Default_Dir" DefaultDir="GPUCache"/>
-    <ROW Directory="GrShaderCache_Dir" Directory_Parent="EBWebView_Dir" DefaultDir="GRSHAD~1|GrShaderCache"/>
-    <ROW Directory="GraphiteDawnCache_Dir" Directory_Parent="EBWebView_Dir" DefaultDir="GRAPHI~1|GraphiteDawnCache"/>
     <ROW Directory="Howtouse_Dir" Directory_Parent="Resources_Dir" DefaultDir="HOWTOU~1|How to use"/>
-    <ROW Directory="LevelDB_Dir" Directory_Parent="SyncData_Dir" DefaultDir="LevelDB"/>
-    <ROW Directory="LocalStorage_Dir" Directory_Parent="Default_Dir" DefaultDir="LOCALS~1|Local Storage"/>
     <ROW Directory="Maps_Dir" Directory_Parent="Resources_Dir" DefaultDir="Maps"/>
-    <ROW Directory="MyExpenses.exe.WebView2_Dir" Directory_Parent="APPDIR" DefaultDir="MYEXPE~1.WEB|MyExpenses.exe.WebView2"/>
-    <ROW Directory="Network_Dir" Directory_Parent="Default_Dir" DefaultDir="Network"/>
-    <ROW Directory="PersistentOriginTrials_Dir" Directory_Parent="Default_Dir" DefaultDir="PERSIS~1|PersistentOriginTrials"/>
-    <ROW Directory="Projections_Dir" Directory_Parent="Resources_Dir" DefaultDir="PROJEC~1|Projections"/>
-    <ROW Directory="Qgis_Dir" Directory_Parent="Resources_Dir" DefaultDir="Qgis"/>
-    <ROW Directory="RemoteData_Dir" Directory_Parent="SmartScreen_Dir" DefaultDir="REMOTE~1|RemoteData"/>
     <ROW Directory="Resources_Dir" Directory_Parent="APPDIR" DefaultDir="RESOUR~1|Resources"/>
     <ROW Directory="SHORTCUTDIR" Directory_Parent="TARGETDIR" DefaultDir="SHORTC~1|SHORTCUTDIR" IsPseudoRoot="1"/>
-    <ROW Directory="SafeBrowsingNetwork_Dir" Directory_Parent="Default_Dir" DefaultDir="SAFEBR~1|Safe Browsing Network"/>
-    <ROW Directory="SessionStorage_Dir" Directory_Parent="Default_Dir" DefaultDir="SESSIO~1|Session Storage"/>
-    <ROW Directory="ShaderCache_Dir" Directory_Parent="EBWebView_Dir" DefaultDir="SHADER~1|ShaderCache"/>
-    <ROW Directory="SharedDictionary_Dir" Directory_Parent="Default_Dir" DefaultDir="SHARED~1|Shared Dictionary"/>
-    <ROW Directory="SiteCharacteristicsDatabase_Dir" Directory_Parent="Default_Dir" DefaultDir="SITECH~1|Site Characteristics Database"/>
-    <ROW Directory="SmartScreen_Dir" Directory_Parent="EBWebView_Dir" DefaultDir="SMARTS~1|SmartScreen"/>
     <ROW Directory="StartMenuFolder" Directory_Parent="TARGETDIR" DefaultDir="STARTM~1|StartMenuFolder" IsPseudoRoot="1"/>
-    <ROW Directory="SyncData_Dir" Directory_Parent="Default_Dir" DefaultDir="SYNCDA~1|Sync Data"/>
     <ROW Directory="TARGETDIR" DefaultDir="SourceDir"/>
-    <ROW Directory="cache_Dir" Directory_Parent="SharedDictionary_Dir" DefaultDir="cache"/>
-    <ROW Directory="commerce_subscription_db_Dir" Directory_Parent="Default_Dir" DefaultDir="COMMER~1|commerce_subscription_db"/>
     <ROW Directory="cs_Dir" Directory_Parent="APPDIR" DefaultDir="cs"/>
     <ROW Directory="de_Dir" Directory_Parent="APPDIR" DefaultDir="de"/>
-    <ROW Directory="discounts_db_Dir" Directory_Parent="Default_Dir" DefaultDir="DISCOU~1|discounts_db"/>
     <ROW Directory="en001_Dir" Directory_Parent="APPDIR" DefaultDir="en-001"/>
     <ROW Directory="es_Dir" Directory_Parent="APPDIR" DefaultDir="es"/>
     <ROW Directory="fr_Dir" Directory_Parent="APPDIR" DefaultDir="fr"/>
     <ROW Directory="frfr_Dir" Directory_Parent="APPDIR" DefaultDir="fr-fr"/>
-    <ROW Directory="indexdir_1_Dir" Directory_Parent="wasm_Dir" DefaultDir="INDEX-~1|index-dir"/>
-    <ROW Directory="indexdir_2_Dir" Directory_Parent="cache_Dir" DefaultDir="INDEX-~1|index-dir"/>
-    <ROW Directory="indexdir_Dir" Directory_Parent="js_Dir" DefaultDir="INDEX-~1|index-dir"/>
     <ROW Directory="it_Dir" Directory_Parent="APPDIR" DefaultDir="it"/>
     <ROW Directory="ja_Dir" Directory_Parent="APPDIR" DefaultDir="ja"/>
-    <ROW Directory="js_Dir" Directory_Parent="CodeCache_Dir" DefaultDir="js"/>
     <ROW Directory="ko_Dir" Directory_Parent="APPDIR" DefaultDir="ko"/>
-    <ROW Directory="leveldb_Dir" Directory_Parent="LocalStorage_Dir" DefaultDir="leveldb"/>
-    <ROW Directory="log_Dir" Directory_Parent="APPDIR" DefaultDir="log"/>
-    <ROW Directory="metadata_Dir" Directory_Parent="shared_proto_db_Dir" DefaultDir="metadata"/>
     <ROW Directory="native_Dir" Directory_Parent="winx64_Dir" DefaultDir="native"/>
-    <ROW Directory="parcel_tracking_db_Dir" Directory_Parent="Default_Dir" DefaultDir="PARCEL~1|parcel_tracking_db"/>
     <ROW Directory="pl_Dir" Directory_Parent="APPDIR" DefaultDir="pl"/>
     <ROW Directory="ptBR_Dir" Directory_Parent="APPDIR" DefaultDir="pt-BR"/>
     <ROW Directory="ru_Dir" Directory_Parent="APPDIR" DefaultDir="ru"/>
     <ROW Directory="runtimes_Dir" Directory_Parent="APPDIR" DefaultDir="runtimes"/>
-    <ROW Directory="shared_proto_db_Dir" Directory_Parent="Default_Dir" DefaultDir="SHARED~2|shared_proto_db"/>
     <ROW Directory="tr_Dir" Directory_Parent="APPDIR" DefaultDir="tr"/>
-    <ROW Directory="wasm_Dir" Directory_Parent="CodeCache_Dir" DefaultDir="wasm"/>
     <ROW Directory="winx64_Dir" Directory_Parent="runtimes_Dir" DefaultDir="win-x64"/>
     <ROW Directory="zhHans_Dir" Directory_Parent="APPDIR" DefaultDir="zh-Hans"/>
     <ROW Directory="zhHant_Dir" Directory_Parent="APPDIR" DefaultDir="zh-Hant"/>
@@ -119,7 +76,6 @@
     <ROW Component="Accessibility.dll" ComponentId="{6C34D228-1A96-4ACD-B3B0-EB0C9C852514}" Directory_="APPDIR" Attributes="0" KeyPath="Accessibility.dll"/>
     <ROW Component="AutoMapper.dll" ComponentId="{135D966F-6D67-497C-9246-82E32E677CA3}" Directory_="APPDIR" Attributes="0" KeyPath="AutoMapper.dll"/>
     <ROW Component="BlueMarker.png" ComponentId="{34E03D73-1099-45CD-9A52-45B63DEDDB91}" Directory_="Maps_Dir" Attributes="0" KeyPath="BlueMarker.png" Type="0"/>
-    <ROW Component="BrowserMetrics66ED6FA93140.pma" ComponentId="{14EF226F-55FE-467F-BB84-AFF3F127A2C1}" Directory_="BrowserMetrics_Dir" Attributes="0" KeyPath="BrowserMetrics66ED6FA93140.pma" Type="0"/>
     <ROW Component="BruTile.dll" ComponentId="{E9E67F25-1629-4B9E-BEFA-F32E9C24E018}" Directory_="APPDIR" Attributes="0" KeyPath="BruTile.dll"/>
     <ROW Component="ControlzEx.dll" ComponentId="{BDD438DD-1E6B-409A-B8B1-819D5E40C3A1}" Directory_="APPDIR" Attributes="0" KeyPath="ControlzEx.dll"/>
     <ROW Component="CsvHelper.dll" ComponentId="{AC765A8E-7D58-4A7F-BDFD-EBB9E2C4F301}" Directory_="APPDIR" Attributes="0" KeyPath="CsvHelper.dll"/>
@@ -129,19 +85,10 @@
     <ROW Component="EPPlus.Interfaces.dll" ComponentId="{6D0C753D-9888-4368-B6A1-B14E608A6D4E}" Directory_="APPDIR" Attributes="0" KeyPath="EPPlus.Interfaces.dll"/>
     <ROW Component="EPPlus.System.Drawing.dll" ComponentId="{5A048BF7-C112-40CC-A131-6D785417D51D}" Directory_="APPDIR" Attributes="0" KeyPath="EPPlus.System.Drawing.dll"/>
     <ROW Component="EPPlus.dll" ComponentId="{1D67664F-D5E0-4EEB-BA95-DA87FE5383A3}" Directory_="APPDIR" Attributes="0" KeyPath="EPPlus.dll"/>
-    <ROW Component="EdgeHubAppUsageSQLite.db" ComponentId="{547F9DEA-B6E1-4BA3-8330-9BD98B131A88}" Directory_="EdgeHubAppUsage_Dir" Attributes="0" KeyPath="EdgeHubAppUsageSQLite.db" Type="0"/>
     <ROW Component="ExCSS.dll" ComponentId="{A8ADD0A4-0433-4997-BF39-C72D7892CA25}" Directory_="APPDIR" Attributes="0" KeyPath="ExCSS.dll"/>
-    <ROW Component="Favicons" ComponentId="{769DE7C6-517E-4A26-AEC5-10DABE41F698}" Directory_="Default_Dir" Attributes="0" KeyPath="Favicons" Type="0"/>
     <ROW Component="FilterDataGrid.dll" ComponentId="{C511247D-BF5F-42F1-B2BE-BAE1BF3488DE}" Directory_="APPDIR" Attributes="0" KeyPath="FilterDataGrid.dll"/>
-    <ROW Component="GeoVisionary.qgs" ComponentId="{45CE1FC9-03E0-49EC-B2AE-3602D9BE4660}" Directory_="Qgis_Dir" Attributes="0" KeyPath="GeoVisionary.qgs" Type="0"/>
     <ROW Component="HarfBuzzSharp.dll" ComponentId="{7B418615-5C6C-4D86-90CE-78925E943B7A}" Directory_="APPDIR" Attributes="0" KeyPath="HarfBuzzSharp.dll"/>
     <ROW Component="Howtouse_english.pdf" ComponentId="{C0684371-838A-400A-9DED-75EAB97E5FF0}" Directory_="Howtouse_Dir" Attributes="0" KeyPath="Howtouse_english.pdf" Type="0"/>
-    <ROW Component="LOCK" ComponentId="{14748BD0-6C30-45EF-B555-AACFA8F2085A}" Directory_="ClientCertificates_Dir" Attributes="0" KeyPath="LOCK" Type="0"/>
-    <ROW Component="LOCK_1" ComponentId="{00D25BA3-8D46-4FD9-A879-AABC52FC0210}" Directory_="commerce_subscription_db_Dir" Attributes="0" KeyPath="LOCK_1" Type="0"/>
-    <ROW Component="LOCK_2" ComponentId="{57D87252-7FD1-4270-A400-7ACA0D24B0E1}" Directory_="discounts_db_Dir" Attributes="0" KeyPath="LOCK_2" Type="0"/>
-    <ROW Component="LOCK_3" ComponentId="{62FDD2C3-DB28-4B53-901D-E8EDAF16EF2F}" Directory_="parcel_tracking_db_Dir" Attributes="0" KeyPath="LOCK_8" Type="0"/>
-    <ROW Component="LOCK_4" ComponentId="{B2BB6F61-2628-4157-AC10-5205A3125FB4}" Directory_="PersistentOriginTrials_Dir" Attributes="0" KeyPath="LOCK_9" Type="0"/>
-    <ROW Component="LastVersion" ComponentId="{5049295D-5AB5-4528-ADE5-450758908304}" Directory_="EBWebView_Dir" Attributes="0" KeyPath="LastVersion" Type="0"/>
     <ROW Component="LiveChartsCore.SkiaSharpView.WPF.dll" ComponentId="{EE1831D6-6090-43D2-B612-DAEC2FF55286}" Directory_="APPDIR" Attributes="0" KeyPath="LiveChartsCore.SkiaSharpView.WPF.dll"/>
     <ROW Component="LiveChartsCore.SkiaSharpView.dll" ComponentId="{B450E79A-1302-4900-998C-A1FA12407EB6}" Directory_="APPDIR" Attributes="0" KeyPath="LiveChartsCore.SkiaSharpView.dll"/>
     <ROW Component="LiveChartsCore.dll" ComponentId="{35CC26B5-EF29-414F-8FDD-C0F72A3BDCBF}" Directory_="APPDIR" Attributes="0" KeyPath="LiveChartsCore.dll"/>
@@ -226,8 +173,6 @@
     <ROW Component="NetTopologySuite.IO.GeoJSON4STJ.dll" ComponentId="{C543C579-D23B-4ADE-8A8F-13B05218C1F4}" Directory_="APPDIR" Attributes="0" KeyPath="NetTopologySuite.IO.GeoJSON4STJ.dll"/>
     <ROW Component="NetTopologySuite.IO.SpatiaLite.dll" ComponentId="{9C31086D-3623-40A2-AEA3-93D93531E3D6}" Directory_="APPDIR" Attributes="0" KeyPath="NetTopologySuite.IO.SpatiaLite.dll"/>
     <ROW Component="NetTopologySuite.dll" ComponentId="{ABBAA7E8-D755-468B-BAAF-54BBDBB992C1}" Directory_="APPDIR" Attributes="0" KeyPath="NetTopologySuite.dll"/>
-    <ROW Component="NetworkDataMigrated" ComponentId="{32D1C9D9-5CC6-4FE6-8080-F69C4DC0A124}" Directory_="SafeBrowsingNetwork_Dir" Attributes="0" KeyPath="NetworkDataMigrated_1" Type="0"/>
-    <ROW Component="NetworkPersistentState" ComponentId="{0C7F31F1-5816-458D-BEA9-450901CC1707}" Directory_="Network_Dir" Attributes="0" KeyPath="NetworkPersistentState" Type="0"/>
     <ROW Component="Newtonsoft.Json.dll" ComponentId="{53EDFBCD-1EDE-433C-A7B8-FF6AC97749CE}" Directory_="APPDIR" Attributes="0" KeyPath="Newtonsoft.Json.dll"/>
     <ROW Component="Ookii.Dialogs.Wpf.dll" ComponentId="{91060A67-31D6-4B2E-A423-B3953889876A}" Directory_="APPDIR" Attributes="0" KeyPath="Ookii.Dialogs.Wpf.dll"/>
     <ROW Component="PenImc_cor3.dll" ComponentId="{5B41464F-64F1-4200-977B-71088B870264}" Directory_="APPDIR" Attributes="256" KeyPath="PenImc_cor3.dll"/>
@@ -286,7 +231,6 @@
     <ROW Component="PresentationUI.resources.dll_8" ComponentId="{18707E35-1F20-4BD5-A9D5-46957648B339}" Directory_="ptBR_Dir" Attributes="0" KeyPath="PresentationUI.resources.dll_8"/>
     <ROW Component="PresentationUI.resources.dll_9" ComponentId="{7CEDF390-55C1-4D82-8358-2522088996FD}" Directory_="ru_Dir" Attributes="0" KeyPath="PresentationUI.resources.dll_9"/>
     <ROW Component="ProductInformation" ComponentId="{A7A93AD6-5B47-4CFD-8A0B-3FA2093E76B7}" Directory_="APPDIR" Attributes="260" KeyPath="Version"/>
-    <ROW Component="ProjectionSystem.csv" ComponentId="{F7C45B5F-2651-4B1C-9EB0-267B7F403062}" Directory_="Projections_Dir" Attributes="0" KeyPath="ProjectionSystem.csv" Type="0"/>
     <ROW Component="ReachFramework.dll" ComponentId="{A3BF217E-9C2F-4D75-B61D-F30CB159329B}" Directory_="APPDIR" Attributes="256" KeyPath="ReachFramework.dll"/>
     <ROW Component="ReachFramework.resources.dll" ComponentId="{B4E7D2C8-9B70-4F04-9421-FDD95643DA96}" Directory_="cs_Dir" Attributes="0" KeyPath="ReachFramework.resources.dll"/>
     <ROW Component="ReachFramework.resources.dll_1" ComponentId="{96A94636-E988-46F8-9978-0E338342977B}" Directory_="de_Dir" Attributes="0" KeyPath="ReachFramework.resources.dll_1"/>
@@ -670,27 +614,14 @@
     <ROW Component="WindowsFormsIntegration.resources.dll_7" ComponentId="{3886A5C7-A515-41AF-89E7-C521DECD2543}" Directory_="pl_Dir" Attributes="0" KeyPath="WindowsFormsIntegration.resources.dll_7"/>
     <ROW Component="WindowsFormsIntegration.resources.dll_8" ComponentId="{CFB9501E-2D70-4F92-B921-A39F7A16FFEF}" Directory_="ptBR_Dir" Attributes="0" KeyPath="WindowsFormsIntegration.resources.dll_8"/>
     <ROW Component="WindowsFormsIntegration.resources.dll_9" ComponentId="{5AE12C16-358C-47B5-9A5B-B17F8993D184}" Directory_="ru_Dir" Attributes="0" KeyPath="WindowsFormsIntegration.resources.dll_9"/>
-    <ROW Component="_145040.log" ComponentId="{4804A5D9-4C51-4D7B-BF10-E1D74B3438C4}" Directory_="log_Dir" Attributes="0" KeyPath="_145040.log" Type="0"/>
-    <ROW Component="appsettings.json" ComponentId="{48CA52FA-9CC5-4665-BDA9-67AB70AF838B}" Directory_="APPDIR" Attributes="0" KeyPath="appsettings.json" Type="0"/>
     <ROW Component="clretwrc.dll" ComponentId="{EAC6C69C-4A53-4904-ADA0-1000D5D86CCC}" Directory_="APPDIR" Attributes="256" KeyPath="clretwrc.dll"/>
     <ROW Component="clrgc.dll" ComponentId="{EB247394-590D-45D3-8D76-7BF2CA8939F6}" Directory_="APPDIR" Attributes="256" KeyPath="clrgc.dll"/>
     <ROW Component="clrjit.dll" ComponentId="{2A4F26B8-B7DC-4794-AAF1-53F54BA5F4F0}" Directory_="APPDIR" Attributes="256" KeyPath="clrjit.dll"/>
     <ROW Component="coreclr.dll" ComponentId="{783C4193-B275-42D1-97CB-D14FC17431D0}" Directory_="APPDIR" Attributes="256" KeyPath="coreclr.dll"/>
     <ROW Component="createdump.exe" ComponentId="{C286E001-7E1F-4D4F-A4AF-26B6D6DE8C3E}" Directory_="APPDIR" Attributes="256" KeyPath="createdump.exe"/>
-    <ROW Component="d3d20f895a141d8_0" ComponentId="{2D30CB05-8CF5-49FA-ABFB-9C55683013E0}" Directory_="js_Dir" Attributes="0" KeyPath="d3d20f895a141d8_0" Type="0"/>
-    <ROW Component="data_0" ComponentId="{C1F1D554-3400-4D92-88E9-4F579F0FB736}" Directory_="DawnGraphiteCache_Dir" Attributes="0" KeyPath="data_0" Type="0"/>
-    <ROW Component="data_0_1" ComponentId="{A5D92584-E729-4851-BA43-9806FE423867}" Directory_="DawnWebGPUCache_Dir" Attributes="0" KeyPath="data_0_1" Type="0"/>
-    <ROW Component="data_0_2" ComponentId="{4F0E5BF4-A3CB-448E-85A2-AB7E429DE102}" Directory_="GPUCache_Dir" Attributes="0" KeyPath="data_0_2" Type="0"/>
-    <ROW Component="data_0_3" ComponentId="{06AC243C-0474-41E5-92A8-3015BE2505D2}" Directory_="GraphiteDawnCache_Dir" Attributes="0" KeyPath="data_0_3" Type="0"/>
-    <ROW Component="data_0_4" ComponentId="{8489DAA8-C493-4B92-AAC0-3BB8698644E9}" Directory_="GrShaderCache_Dir" Attributes="0" KeyPath="data_0_4" Type="0"/>
-    <ROW Component="data_0_5" ComponentId="{99A8F26F-85D0-421B-9079-31890729D70D}" Directory_="ShaderCache_Dir" Attributes="0" KeyPath="data_0_5" Type="0"/>
-    <ROW Component="db" ComponentId="{4F3150D3-3A4B-4543-AC35-76C417DE0016}" Directory_="SharedDictionary_Dir" Attributes="0" KeyPath="db" Type="0"/>
     <ROW Component="e_sqlite3.dll" ComponentId="{F97CDDC6-9DCE-4562-B94B-93AC12EB51B8}" Directory_="APPDIR" Attributes="256" KeyPath="e_sqlite3.dll"/>
-    <ROW Component="edgeSettings" ComponentId="{81EBDD16-AAA6-413B-96B7-857CB7C0721B}" Directory_="RemoteData_Dir" Attributes="0" KeyPath="edgeSettings" Type="0"/>
     <ROW Component="hostfxr.dll" ComponentId="{575A9446-6652-4FC7-A833-A9855B670270}" Directory_="APPDIR" Attributes="256" KeyPath="hostfxr.dll"/>
     <ROW Component="hostpolicy.dll" ComponentId="{EB3E5427-D57E-4A72-9341-87C1DB4BE9A7}" Directory_="APPDIR" Attributes="256" KeyPath="hostpolicy.dll"/>
-    <ROW Component="index" ComponentId="{98D2C47F-730C-4D94-87FB-E11F4025CE10}" Directory_="wasm_Dir" Attributes="0" KeyPath="index_1" Type="0"/>
-    <ROW Component="index_1" ComponentId="{0B8616E6-AFBF-4990-B537-604E12A59412}" Directory_="cache_Dir" Attributes="0" KeyPath="index_5" Type="0"/>
     <ROW Component="libHarfBuzzSharp.dll" ComponentId="{BAC35E8C-3BB0-431A-9C09-3D02E05D150A}" Directory_="APPDIR" Attributes="256" KeyPath="libHarfBuzzSharp.dll"/>
     <ROW Component="libSkiaSharp.dll" ComponentId="{4B8372B1-5171-4D24-8616-66723E911CB2}" Directory_="APPDIR" Attributes="256" KeyPath="libSkiaSharp.dll"/>
     <ROW Component="libfreexl1.dll" ComponentId="{9806A29E-921F-4257-BDD6-637F704E9259}" Directory_="APPDIR" Attributes="256" KeyPath="libfreexl1.dll"/>
@@ -703,27 +634,14 @@
     <ROW Component="libstdc6.dll" ComponentId="{B1555BC6-F908-46DA-9C92-CA1F8BED3CFB}" Directory_="APPDIR" Attributes="256" KeyPath="libstdc6.dll"/>
     <ROW Component="libwinpthread1.dll" ComponentId="{D70E12D8-1856-4812-B473-C261AE1E6018}" Directory_="APPDIR" Attributes="256" KeyPath="libwinpthread1.dll"/>
     <ROW Component="libxml22.dll" ComponentId="{D6F9AE1E-8618-43A4-AA11-287425DB4FE1}" Directory_="APPDIR" Attributes="256" KeyPath="libxml22.dll"/>
-    <ROW Component="log_1" ComponentId="{84EA0AAF-5015-443D-994D-7626A5399018}" Directory_="ExtensionRules_Dir" Attributes="0" KeyPath="log_3" Type="0"/>
-    <ROW Component="log_2" ComponentId="{0A8FE395-AEF6-4A4A-AF8A-05EB81CA7E66}" Directory_="ExtensionScripts_Dir" Attributes="0" KeyPath="log_5" Type="0"/>
-    <ROW Component="log_3" ComponentId="{27D4BE78-8692-4592-96FC-5727A9C04A67}" Directory_="ExtensionState_Dir" Attributes="0" KeyPath="log_7" Type="0"/>
-    <ROW Component="log_4" ComponentId="{B9371F66-6267-43B8-A1EC-0876DC19D1EB}" Directory_="leveldb_Dir" Attributes="0" KeyPath="log_9" Type="0"/>
-    <ROW Component="log_5" ComponentId="{66F7080F-D3B7-4428-87E6-DA78D16D782B}" Directory_="SessionStorage_Dir" Attributes="0" KeyPath="log_14" Type="0"/>
-    <ROW Component="log_6" ComponentId="{F91B2F91-687B-4379-9CB5-29BF7407C851}" Directory_="shared_proto_db_Dir" Attributes="0" KeyPath="log_16" Type="0"/>
-    <ROW Component="log_7" ComponentId="{B4098F5D-B5D1-4868-8032-38AF4C08559C}" Directory_="metadata_Dir" Attributes="0" KeyPath="log_18" Type="0"/>
-    <ROW Component="log_8" ComponentId="{AA6FF36E-A836-419D-A5A1-03FEEF7849A9}" Directory_="SiteCharacteristicsDatabase_Dir" Attributes="0" KeyPath="log_20" Type="0"/>
-    <ROW Component="log_9" ComponentId="{5A2ED5AA-1739-478C-8641-38AB2270A078}" Directory_="LevelDB_Dir" Attributes="0" KeyPath="log_22" Type="0"/>
-    <ROW Component="metadata" ComponentId="{4D4FB9E6-7F42-4533-97DB-7477CBAA0983}" Directory_="Crashpad_Dir" Attributes="0" KeyPath="metadata" Type="0"/>
     <ROW Component="mod_spatialite.dll" ComponentId="{997ABEB8-9EC5-4854-A810-3C198F7EFDC2}" Directory_="APPDIR" Attributes="256" KeyPath="mod_spatialite.dll"/>
     <ROW Component="mscordaccore.dll" ComponentId="{4C90EC97-685F-4305-9354-FA5E334BA784}" Directory_="APPDIR" Attributes="256" KeyPath="mscordaccore.dll"/>
-    <ROW Component="mscordaccore_amd64_amd64_8.0.724.31311.dll" ComponentId="{5B975A0A-D0EA-4165-9D2B-73727BC78B51}" Directory_="APPDIR" Attributes="256" KeyPath="mscordaccore_amd64_amd64_8.0.724.31311.dll"/>
+    <ROW Component="mscordaccore_amd64_amd64_8.0.824.36612.dll" ComponentId="{369999D3-B6BB-439A-A8BB-5CA345E6A589}" Directory_="APPDIR" Attributes="256" KeyPath="mscordaccore_amd64_amd64_8.0.824.36612.dll"/>
     <ROW Component="mscordbi.dll" ComponentId="{A81E4FD7-E97D-4F1E-B118-4FEBF7790BF4}" Directory_="APPDIR" Attributes="256" KeyPath="mscordbi.dll"/>
     <ROW Component="mscorlib.dll" ComponentId="{6C6150C3-C92F-465D-B6BC-726D38A6DFF0}" Directory_="APPDIR" Attributes="0" KeyPath="mscorlib.dll"/>
     <ROW Component="mscorrc.dll" ComponentId="{3BDFF883-465E-4889-9CDC-45A18A58C1E9}" Directory_="APPDIR" Attributes="256" KeyPath="mscorrc.dll"/>
     <ROW Component="msquic.dll" ComponentId="{EFF84872-97C4-4DDA-9108-7151920DC596}" Directory_="APPDIR" Attributes="256" KeyPath="msquic.dll"/>
     <ROW Component="netstandard.dll" ComponentId="{06ECF5C6-3F61-4D63-B1AE-FEF2952E9491}" Directory_="APPDIR" Attributes="0" KeyPath="netstandard.dll"/>
-    <ROW Component="therealindex" ComponentId="{C5863ADD-746C-4B92-A444-CF71CD5D912E}" Directory_="indexdir_Dir" Attributes="0" KeyPath="therealindex" Type="0"/>
-    <ROW Component="therealindex_1" ComponentId="{FFEA9755-9140-44A8-9949-76C0E690DB33}" Directory_="indexdir_1_Dir" Attributes="0" KeyPath="therealindex_1" Type="0"/>
-    <ROW Component="therealindex_2" ComponentId="{345A9AB5-E59D-4FA5-B02D-C76F26328079}" Directory_="indexdir_2_Dir" Attributes="0" KeyPath="therealindex_2" Type="0"/>
     <ROW Component="vcruntime140_cor3.dll" ComponentId="{893E48AD-A2FE-4D1E-9040-AC208E473FA0}" Directory_="APPDIR" Attributes="256" KeyPath="vcruntime140_cor3.dll"/>
     <ROW Component="wpfgfx_cor3.dll" ComponentId="{C6D4C384-686C-45D5-967B-6599439D15C8}" Directory_="APPDIR" Attributes="256" KeyPath="wpfgfx_cor3.dll"/>
     <ROW Component="zlib1.dll" ComponentId="{84D30146-FD9D-4854-BDE7-691A707B6E7A}" Directory_="APPDIR" Attributes="256" KeyPath="zlib1.dll"/>
@@ -736,7 +654,6 @@
     <ROW File="Microsoft.Xaml.Behaviors.dll" Component_="Microsoft.Xaml.Behaviors.dll" FileName="MICROS~1.DLL|Microsoft.Xaml.Behaviors.dll" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\Microsoft.Xaml.Behaviors.dll" SelfReg="false"/>
     <ROW File="mod_spatialite.dll" Component_="mod_spatialite.dll" FileName="MOD_SP~1.DLL|mod_spatialite.dll" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\mod_spatialite.dll" SelfReg="false"/>
     <ROW File="mscordaccore.dll" Component_="mscordaccore.dll" FileName="MSCORD~1.DLL|mscordaccore.dll" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\mscordaccore.dll" SelfReg="false"/>
-    <ROW File="mscordaccore_amd64_amd64_8.0.724.31311.dll" Component_="mscordaccore_amd64_amd64_8.0.724.31311.dll" FileName="MSCORD~2.DLL|mscordaccore_amd64_amd64_8.0.724.31311.dll" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\mscordaccore_amd64_amd64_8.0.724.31311.dll" SelfReg="false"/>
     <ROW File="mscordbi.dll" Component_="mscordbi.dll" FileName="mscordbi.dll" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\mscordbi.dll" SelfReg="false"/>
     <ROW File="mscorlib.dll" Component_="mscorlib.dll" FileName="mscorlib.dll" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\mscorlib.dll" SelfReg="false"/>
     <ROW File="mscorrc.dll" Component_="mscorrc.dll" FileName="mscorrc.dll" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\mscorrc.dll" SelfReg="false"/>
@@ -1116,141 +1033,6 @@
     <ROW File="UIAutomationTypes.resources.dll_6" Component_="UIAutomationTypes.resources.dll_6" FileName="UIAUTO~4.DLL|UIAutomationTypes.resources.dll" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\ko\UIAutomationTypes.resources.dll" SelfReg="false"/>
     <ROW File="WindowsBase.resources.dll_6" Component_="WindowsBase.resources.dll_6" FileName="WINDOW~1.DLL|WindowsBase.resources.dll" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\ko\WindowsBase.resources.dll" SelfReg="false"/>
     <ROW File="WindowsFormsIntegration.resources.dll_6" Component_="WindowsFormsIntegration.resources.dll_6" FileName="WINDOW~2.DLL|WindowsFormsIntegration.resources.dll" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\ko\WindowsFormsIntegration.resources.dll" SelfReg="false"/>
-    <ROW File="_145040.log" Component_="_145040.log" FileName="2024-0~1.LOG|2024-09-20_14-50-40.log" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\log\2024-09-20_14-50-40.log" SelfReg="false"/>
-    <ROW File="BrowserMetrics66ED6FA93140.pma" Component_="BrowserMetrics66ED6FA93140.pma" FileName="BROWSE~1.PMA|BrowserMetrics-66ED6FA9-3140.pma" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe.WebView2\EBWebView\BrowserMetrics\BrowserMetrics-66ED6FA9-3140.pma" SelfReg="false"/>
-    <ROW File="metadata" Component_="metadata" FileName="metadata" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe.WebView2\EBWebView\Crashpad\metadata" SelfReg="false"/>
-    <ROW File="settings.dat" Component_="metadata" FileName="settings.dat" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe.WebView2\EBWebView\Crashpad\settings.dat" SelfReg="false"/>
-    <ROW File="throttle_store.dat" Component_="metadata" FileName="THROTT~1.DAT|throttle_store.dat" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe.WebView2\EBWebView\Crashpad\throttle_store.dat" SelfReg="false"/>
-    <ROW File="LOCK" Component_="LOCK" FileName="LOCK" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe.WebView2\EBWebView\Default\ClientCertificates\LOCK" SelfReg="false"/>
-    <ROW File="LOG" Component_="LOCK" FileName="LOG" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe.WebView2\EBWebView\Default\ClientCertificates\LOG" SelfReg="false"/>
-    <ROW File="d3d20f895a141d8_0" Component_="d3d20f895a141d8_0" FileName="0D3D20~1|0d3d20f895a141d8_0" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe.WebView2\EBWebView\Default\Code Cache\js\0d3d20f895a141d8_0" SelfReg="false"/>
-    <ROW File="ac5d4bc87bc0821b_0" Component_="d3d20f895a141d8_0" FileName="AC5D4B~1|ac5d4bc87bc0821b_0" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe.WebView2\EBWebView\Default\Code Cache\js\ac5d4bc87bc0821b_0" SelfReg="false"/>
-    <ROW File="c2e45e21b1c3556d_0" Component_="d3d20f895a141d8_0" FileName="C2E45E~1|c2e45e21b1c3556d_0" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe.WebView2\EBWebView\Default\Code Cache\js\c2e45e21b1c3556d_0" SelfReg="false"/>
-    <ROW File="c8a683b9059c30bd_0" Component_="d3d20f895a141d8_0" FileName="C8A683~1|c8a683b9059c30bd_0" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe.WebView2\EBWebView\Default\Code Cache\js\c8a683b9059c30bd_0" SelfReg="false"/>
-    <ROW File="fbc933169a605245_0" Component_="d3d20f895a141d8_0" FileName="FBC933~1|fbc933169a605245_0" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe.WebView2\EBWebView\Default\Code Cache\js\fbc933169a605245_0" SelfReg="false"/>
-    <ROW File="fe7c21120661a159_0" Component_="d3d20f895a141d8_0" FileName="FE7C21~1|fe7c21120661a159_0" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe.WebView2\EBWebView\Default\Code Cache\js\fe7c21120661a159_0" SelfReg="false"/>
-    <ROW File="index" Component_="d3d20f895a141d8_0" FileName="index" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe.WebView2\EBWebView\Default\Code Cache\js\index" SelfReg="false"/>
-    <ROW File="therealindex" Component_="therealindex" FileName="THE-RE~1|the-real-index" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe.WebView2\EBWebView\Default\Code Cache\js\index-dir\the-real-index" SelfReg="false"/>
-    <ROW File="index_1" Component_="index" FileName="index" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe.WebView2\EBWebView\Default\Code Cache\wasm\index" SelfReg="false"/>
-    <ROW File="therealindex_1" Component_="therealindex_1" FileName="THE-RE~1|the-real-index" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe.WebView2\EBWebView\Default\Code Cache\wasm\index-dir\the-real-index" SelfReg="false"/>
-    <ROW File="LOCK_1" Component_="LOCK_1" FileName="LOCK" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe.WebView2\EBWebView\Default\commerce_subscription_db\LOCK" SelfReg="false"/>
-    <ROW File="LOG_1" Component_="LOCK_1" FileName="LOG" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe.WebView2\EBWebView\Default\commerce_subscription_db\LOG" SelfReg="false"/>
-    <ROW File="data_0" Component_="data_0" FileName="data_0" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe.WebView2\EBWebView\Default\DawnGraphiteCache\data_0" SelfReg="false"/>
-    <ROW File="data_1" Component_="data_0" FileName="data_1" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe.WebView2\EBWebView\Default\DawnGraphiteCache\data_1" SelfReg="false"/>
-    <ROW File="data_2" Component_="data_0" FileName="data_2" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe.WebView2\EBWebView\Default\DawnGraphiteCache\data_2" SelfReg="false"/>
-    <ROW File="data_3" Component_="data_0" FileName="data_3" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe.WebView2\EBWebView\Default\DawnGraphiteCache\data_3" SelfReg="false"/>
-    <ROW File="index_2" Component_="data_0" FileName="index" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe.WebView2\EBWebView\Default\DawnGraphiteCache\index" SelfReg="false"/>
-    <ROW File="data_0_1" Component_="data_0_1" FileName="data_0" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe.WebView2\EBWebView\Default\DawnWebGPUCache\data_0" SelfReg="false"/>
-    <ROW File="data_1_1" Component_="data_0_1" FileName="data_1" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe.WebView2\EBWebView\Default\DawnWebGPUCache\data_1" SelfReg="false"/>
-    <ROW File="data_2_1" Component_="data_0_1" FileName="data_2" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe.WebView2\EBWebView\Default\DawnWebGPUCache\data_2" SelfReg="false"/>
-    <ROW File="data_3_1" Component_="data_0_1" FileName="data_3" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe.WebView2\EBWebView\Default\DawnWebGPUCache\data_3" SelfReg="false"/>
-    <ROW File="index_3" Component_="data_0_1" FileName="index" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe.WebView2\EBWebView\Default\DawnWebGPUCache\index" SelfReg="false"/>
-    <ROW File="LOCK_2" Component_="LOCK_2" FileName="LOCK" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe.WebView2\EBWebView\Default\discounts_db\LOCK" SelfReg="false"/>
-    <ROW File="LOG_2" Component_="LOCK_2" FileName="LOG" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe.WebView2\EBWebView\Default\discounts_db\LOG" SelfReg="false"/>
-    <ROW File="EdgeHubAppUsageSQLite.db" Component_="EdgeHubAppUsageSQLite.db" FileName="EDGEHU~1.DB|EdgeHubAppUsageSQLite.db" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe.WebView2\EBWebView\Default\EdgeHubAppUsage\EdgeHubAppUsageSQLite.db" SelfReg="false"/>
-    <ROW File="EdgeHubAppUsageSQLite.dbjournal" Component_="EdgeHubAppUsageSQLite.db" FileName="EDGEHU~1.DB-|EdgeHubAppUsageSQLite.db-journal" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe.WebView2\EBWebView\Default\EdgeHubAppUsage\EdgeHubAppUsageSQLite.db-journal" SelfReg="false"/>
-    <ROW File="log_3" Component_="log_1" FileName="000003.log" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe.WebView2\EBWebView\Default\Extension Rules\000003.log" SelfReg="false"/>
-    <ROW File="CURRENT" Component_="log_1" FileName="CURRENT" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe.WebView2\EBWebView\Default\Extension Rules\CURRENT" SelfReg="false"/>
-    <ROW File="LOCK_3" Component_="log_1" FileName="LOCK" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe.WebView2\EBWebView\Default\Extension Rules\LOCK" SelfReg="false"/>
-    <ROW File="LOG_4" Component_="log_1" FileName="LOG" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe.WebView2\EBWebView\Default\Extension Rules\LOG" SelfReg="false"/>
-    <ROW File="MANIFEST000001" Component_="log_1" FileName="MANIFE~1|MANIFEST-000001" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe.WebView2\EBWebView\Default\Extension Rules\MANIFEST-000001" SelfReg="false"/>
-    <ROW File="log_5" Component_="log_2" FileName="000003.log" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe.WebView2\EBWebView\Default\Extension Scripts\000003.log" SelfReg="false"/>
-    <ROW File="CURRENT_1" Component_="log_2" FileName="CURRENT" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe.WebView2\EBWebView\Default\Extension Scripts\CURRENT" SelfReg="false"/>
-    <ROW File="LOCK_4" Component_="log_2" FileName="LOCK" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe.WebView2\EBWebView\Default\Extension Scripts\LOCK" SelfReg="false"/>
-    <ROW File="LOG_6" Component_="log_2" FileName="LOG" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe.WebView2\EBWebView\Default\Extension Scripts\LOG" SelfReg="false"/>
-    <ROW File="MANIFEST000001_1" Component_="log_2" FileName="MANIFE~1|MANIFEST-000001" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe.WebView2\EBWebView\Default\Extension Scripts\MANIFEST-000001" SelfReg="false"/>
-    <ROW File="log_7" Component_="log_3" FileName="000003.log" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe.WebView2\EBWebView\Default\Extension State\000003.log" SelfReg="false"/>
-    <ROW File="CURRENT_2" Component_="log_3" FileName="CURRENT" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe.WebView2\EBWebView\Default\Extension State\CURRENT" SelfReg="false"/>
-    <ROW File="LOCK_5" Component_="log_3" FileName="LOCK" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe.WebView2\EBWebView\Default\Extension State\LOCK" SelfReg="false"/>
-    <ROW File="LOG_8" Component_="log_3" FileName="LOG" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe.WebView2\EBWebView\Default\Extension State\LOG" SelfReg="false"/>
-    <ROW File="MANIFEST000001_2" Component_="log_3" FileName="MANIFE~1|MANIFEST-000001" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe.WebView2\EBWebView\Default\Extension State\MANIFEST-000001" SelfReg="false"/>
-    <ROW File="Favicons" Component_="Favicons" FileName="Favicons" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe.WebView2\EBWebView\Default\Favicons" SelfReg="false"/>
-    <ROW File="Faviconsjournal" Component_="Favicons" FileName="FAVICO~1|Favicons-journal" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe.WebView2\EBWebView\Default\Favicons-journal" SelfReg="false"/>
-    <ROW File="data_0_2" Component_="data_0_2" FileName="data_0" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe.WebView2\EBWebView\Default\GPUCache\data_0" SelfReg="false"/>
-    <ROW File="data_1_2" Component_="data_0_2" FileName="data_1" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe.WebView2\EBWebView\Default\GPUCache\data_1" SelfReg="false"/>
-    <ROW File="data_2_2" Component_="data_0_2" FileName="data_2" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe.WebView2\EBWebView\Default\GPUCache\data_2" SelfReg="false"/>
-    <ROW File="data_3_2" Component_="data_0_2" FileName="data_3" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe.WebView2\EBWebView\Default\GPUCache\data_3" SelfReg="false"/>
-    <ROW File="index_4" Component_="data_0_2" FileName="index" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe.WebView2\EBWebView\Default\GPUCache\index" SelfReg="false"/>
-    <ROW File="History" Component_="Favicons" FileName="History" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe.WebView2\EBWebView\Default\History" SelfReg="false"/>
-    <ROW File="Historyjournal" Component_="Favicons" FileName="HISTOR~1|History-journal" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe.WebView2\EBWebView\Default\History-journal" SelfReg="false"/>
-    <ROW File="log_9" Component_="log_4" FileName="000003.log" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe.WebView2\EBWebView\Default\Local Storage\leveldb\000003.log" SelfReg="false"/>
-    <ROW File="CURRENT_3" Component_="log_4" FileName="CURRENT" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe.WebView2\EBWebView\Default\Local Storage\leveldb\CURRENT" SelfReg="false"/>
-    <ROW File="LOCK_6" Component_="log_4" FileName="LOCK" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe.WebView2\EBWebView\Default\Local Storage\leveldb\LOCK" SelfReg="false"/>
-    <ROW File="LOG_10" Component_="log_4" FileName="LOG" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe.WebView2\EBWebView\Default\Local Storage\leveldb\LOG" SelfReg="false"/>
-    <ROW File="MANIFEST000001_3" Component_="log_4" FileName="MANIFE~1|MANIFEST-000001" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe.WebView2\EBWebView\Default\Local Storage\leveldb\MANIFEST-000001" SelfReg="false"/>
-    <ROW File="LOCK_7" Component_="Favicons" FileName="LOCK" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe.WebView2\EBWebView\Default\LOCK" SelfReg="false"/>
-    <ROW File="LOG_11" Component_="Favicons" FileName="LOG" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe.WebView2\EBWebView\Default\LOG" SelfReg="false"/>
-    <ROW File="LoginData" Component_="Favicons" FileName="LOGIND~1|Login Data" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe.WebView2\EBWebView\Default\Login Data" SelfReg="false"/>
-    <ROW File="LoginDatajournal" Component_="Favicons" FileName="LOGIND~2|Login Data-journal" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe.WebView2\EBWebView\Default\Login Data-journal" SelfReg="false"/>
-    <ROW File="NetworkPersistentState" Component_="NetworkPersistentState" FileName="NETWOR~1|Network Persistent State" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe.WebView2\EBWebView\Default\Network\Network Persistent State" SelfReg="false"/>
-    <ROW File="NetworkDataMigrated" Component_="NetworkPersistentState" FileName="NETWOR~2|NetworkDataMigrated" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe.WebView2\EBWebView\Default\Network\NetworkDataMigrated" SelfReg="false"/>
-    <ROW File="SCTAuditingPendingReports" Component_="NetworkPersistentState" FileName="SCTAUD~1|SCT Auditing Pending Reports" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe.WebView2\EBWebView\Default\Network\SCT Auditing Pending Reports" SelfReg="false"/>
-    <ROW File="SdchDictionaries" Component_="NetworkPersistentState" FileName="SDCHDI~1|Sdch Dictionaries" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe.WebView2\EBWebView\Default\Network\Sdch Dictionaries" SelfReg="false"/>
-    <ROW File="TrustTokens" Component_="NetworkPersistentState" FileName="TRUSTT~1|Trust Tokens" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe.WebView2\EBWebView\Default\Network\Trust Tokens" SelfReg="false"/>
-    <ROW File="TrustTokensjournal" Component_="NetworkPersistentState" FileName="TRUSTT~2|Trust Tokens-journal" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe.WebView2\EBWebView\Default\Network\Trust Tokens-journal" SelfReg="false"/>
-    <ROW File="LOCK_8" Component_="LOCK_3" FileName="LOCK" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe.WebView2\EBWebView\Default\parcel_tracking_db\LOCK" SelfReg="false"/>
-    <ROW File="LOG_12" Component_="LOCK_3" FileName="LOG" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe.WebView2\EBWebView\Default\parcel_tracking_db\LOG" SelfReg="false"/>
-    <ROW File="LOCK_9" Component_="LOCK_4" FileName="LOCK" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe.WebView2\EBWebView\Default\PersistentOriginTrials\LOCK" SelfReg="false"/>
-    <ROW File="LOG_13" Component_="LOCK_4" FileName="LOG" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe.WebView2\EBWebView\Default\PersistentOriginTrials\LOG" SelfReg="false"/>
-    <ROW File="Preferences" Component_="Favicons" FileName="PREFER~1|Preferences" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe.WebView2\EBWebView\Default\Preferences" SelfReg="false"/>
-    <ROW File="README" Component_="Favicons" FileName="README" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe.WebView2\EBWebView\Default\README" SelfReg="false"/>
-    <ROW File="NetworkDataMigrated_1" Component_="NetworkDataMigrated" FileName="NETWOR~1|NetworkDataMigrated" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe.WebView2\EBWebView\Default\Safe Browsing Network\NetworkDataMigrated" SelfReg="false"/>
-    <ROW File="SafeBrowsingCookies" Component_="NetworkDataMigrated" FileName="SAFEBR~1|Safe Browsing Cookies" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe.WebView2\EBWebView\Default\Safe Browsing Network\Safe Browsing Cookies" SelfReg="false"/>
-    <ROW File="SafeBrowsingCookiesjournal" Component_="NetworkDataMigrated" FileName="SAFEBR~2|Safe Browsing Cookies-journal" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe.WebView2\EBWebView\Default\Safe Browsing Network\Safe Browsing Cookies-journal" SelfReg="false"/>
-    <ROW File="SecurePreferences" Component_="Favicons" FileName="SECURE~1|Secure Preferences" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe.WebView2\EBWebView\Default\Secure Preferences" SelfReg="false"/>
-    <ROW File="log_14" Component_="log_5" FileName="000003.log" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe.WebView2\EBWebView\Default\Session Storage\000003.log" SelfReg="false"/>
-    <ROW File="CURRENT_4" Component_="log_5" FileName="CURRENT" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe.WebView2\EBWebView\Default\Session Storage\CURRENT" SelfReg="false"/>
-    <ROW File="LOCK_10" Component_="log_5" FileName="LOCK" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe.WebView2\EBWebView\Default\Session Storage\LOCK" SelfReg="false"/>
-    <ROW File="LOG_15" Component_="log_5" FileName="LOG" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe.WebView2\EBWebView\Default\Session Storage\LOG" SelfReg="false"/>
-    <ROW File="MANIFEST000001_4" Component_="log_5" FileName="MANIFE~1|MANIFEST-000001" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe.WebView2\EBWebView\Default\Session Storage\MANIFEST-000001" SelfReg="false"/>
-    <ROW File="index_5" Component_="index_1" FileName="index" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe.WebView2\EBWebView\Default\Shared Dictionary\cache\index" SelfReg="false"/>
-    <ROW File="therealindex_2" Component_="therealindex_2" FileName="THE-RE~1|the-real-index" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe.WebView2\EBWebView\Default\Shared Dictionary\cache\index-dir\the-real-index" SelfReg="false"/>
-    <ROW File="db" Component_="db" FileName="db" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe.WebView2\EBWebView\Default\Shared Dictionary\db" SelfReg="false"/>
-    <ROW File="dbjournal" Component_="db" FileName="DB-JOU~1|db-journal" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe.WebView2\EBWebView\Default\Shared Dictionary\db-journal" SelfReg="false"/>
-    <ROW File="SharedStorage" Component_="Favicons" FileName="SHARED~1|SharedStorage" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe.WebView2\EBWebView\Default\SharedStorage" SelfReg="false"/>
-    <ROW File="log_16" Component_="log_6" FileName="000003.log" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe.WebView2\EBWebView\Default\shared_proto_db\000003.log" SelfReg="false"/>
-    <ROW File="CURRENT_5" Component_="log_6" FileName="CURRENT" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe.WebView2\EBWebView\Default\shared_proto_db\CURRENT" SelfReg="false"/>
-    <ROW File="LOCK_11" Component_="log_6" FileName="LOCK" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe.WebView2\EBWebView\Default\shared_proto_db\LOCK" SelfReg="false"/>
-    <ROW File="LOG_17" Component_="log_6" FileName="LOG" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe.WebView2\EBWebView\Default\shared_proto_db\LOG" SelfReg="false"/>
-    <ROW File="MANIFEST000001_5" Component_="log_6" FileName="MANIFE~1|MANIFEST-000001" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe.WebView2\EBWebView\Default\shared_proto_db\MANIFEST-000001" SelfReg="false"/>
-    <ROW File="log_18" Component_="log_7" FileName="000003.log" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe.WebView2\EBWebView\Default\shared_proto_db\metadata\000003.log" SelfReg="false"/>
-    <ROW File="CURRENT_6" Component_="log_7" FileName="CURRENT" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe.WebView2\EBWebView\Default\shared_proto_db\metadata\CURRENT" SelfReg="false"/>
-    <ROW File="LOCK_12" Component_="log_7" FileName="LOCK" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe.WebView2\EBWebView\Default\shared_proto_db\metadata\LOCK" SelfReg="false"/>
-    <ROW File="LOG_19" Component_="log_7" FileName="LOG" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe.WebView2\EBWebView\Default\shared_proto_db\metadata\LOG" SelfReg="false"/>
-    <ROW File="MANIFEST000001_6" Component_="log_7" FileName="MANIFE~1|MANIFEST-000001" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe.WebView2\EBWebView\Default\shared_proto_db\metadata\MANIFEST-000001" SelfReg="false"/>
-    <ROW File="log_20" Component_="log_8" FileName="000003.log" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe.WebView2\EBWebView\Default\Site Characteristics Database\000003.log" SelfReg="false"/>
-    <ROW File="CURRENT_7" Component_="log_8" FileName="CURRENT" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe.WebView2\EBWebView\Default\Site Characteristics Database\CURRENT" SelfReg="false"/>
-    <ROW File="LOCK_13" Component_="log_8" FileName="LOCK" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe.WebView2\EBWebView\Default\Site Characteristics Database\LOCK" SelfReg="false"/>
-    <ROW File="LOG_21" Component_="log_8" FileName="LOG" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe.WebView2\EBWebView\Default\Site Characteristics Database\LOG" SelfReg="false"/>
-    <ROW File="MANIFEST000001_7" Component_="log_8" FileName="MANIFE~1|MANIFEST-000001" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe.WebView2\EBWebView\Default\Site Characteristics Database\MANIFEST-000001" SelfReg="false"/>
-    <ROW File="log_22" Component_="log_9" FileName="000003.log" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe.WebView2\EBWebView\Default\Sync Data\LevelDB\000003.log" SelfReg="false"/>
-    <ROW File="CURRENT_8" Component_="log_9" FileName="CURRENT" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe.WebView2\EBWebView\Default\Sync Data\LevelDB\CURRENT" SelfReg="false"/>
-    <ROW File="LOCK_14" Component_="log_9" FileName="LOCK" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe.WebView2\EBWebView\Default\Sync Data\LevelDB\LOCK" SelfReg="false"/>
-    <ROW File="LOG_23" Component_="log_9" FileName="LOG" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe.WebView2\EBWebView\Default\Sync Data\LevelDB\LOG" SelfReg="false"/>
-    <ROW File="MANIFEST000001_8" Component_="log_9" FileName="MANIFE~1|MANIFEST-000001" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe.WebView2\EBWebView\Default\Sync Data\LevelDB\MANIFEST-000001" SelfReg="false"/>
-    <ROW File="VisitedLinks" Component_="Favicons" FileName="VISITE~1|Visited Links" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe.WebView2\EBWebView\Default\Visited Links" SelfReg="false"/>
-    <ROW File="WebData" Component_="Favicons" FileName="WEBDAT~1|Web Data" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe.WebView2\EBWebView\Default\Web Data" SelfReg="false"/>
-    <ROW File="WebDatajournal" Component_="Favicons" FileName="WEBDAT~2|Web Data-journal" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe.WebView2\EBWebView\Default\Web Data-journal" SelfReg="false"/>
-    <ROW File="data_0_3" Component_="data_0_3" FileName="data_0" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe.WebView2\EBWebView\GraphiteDawnCache\data_0" SelfReg="false"/>
-    <ROW File="data_1_3" Component_="data_0_3" FileName="data_1" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe.WebView2\EBWebView\GraphiteDawnCache\data_1" SelfReg="false"/>
-    <ROW File="data_2_3" Component_="data_0_3" FileName="data_2" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe.WebView2\EBWebView\GraphiteDawnCache\data_2" SelfReg="false"/>
-    <ROW File="data_3_3" Component_="data_0_3" FileName="data_3" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe.WebView2\EBWebView\GraphiteDawnCache\data_3" SelfReg="false"/>
-    <ROW File="index_6" Component_="data_0_3" FileName="index" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe.WebView2\EBWebView\GraphiteDawnCache\index" SelfReg="false"/>
-    <ROW File="data_0_4" Component_="data_0_4" FileName="data_0" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe.WebView2\EBWebView\GrShaderCache\data_0" SelfReg="false"/>
-    <ROW File="data_1_4" Component_="data_0_4" FileName="data_1" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe.WebView2\EBWebView\GrShaderCache\data_1" SelfReg="false"/>
-    <ROW File="data_2_4" Component_="data_0_4" FileName="data_2" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe.WebView2\EBWebView\GrShaderCache\data_2" SelfReg="false"/>
-    <ROW File="data_3_4" Component_="data_0_4" FileName="data_3" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe.WebView2\EBWebView\GrShaderCache\data_3" SelfReg="false"/>
-    <ROW File="index_7" Component_="data_0_4" FileName="index" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe.WebView2\EBWebView\GrShaderCache\index" SelfReg="false"/>
-    <ROW File="LastVersion" Component_="LastVersion" FileName="LASTVE~1|Last Version" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe.WebView2\EBWebView\Last Version" SelfReg="false"/>
-    <ROW File="LocalState" Component_="LastVersion" FileName="LOCALS~1|Local State" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe.WebView2\EBWebView\Local State" SelfReg="false"/>
-    <ROW File="data_0_5" Component_="data_0_5" FileName="data_0" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe.WebView2\EBWebView\ShaderCache\data_0" SelfReg="false"/>
-    <ROW File="data_1_5" Component_="data_0_5" FileName="data_1" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe.WebView2\EBWebView\ShaderCache\data_1" SelfReg="false"/>
-    <ROW File="data_2_5" Component_="data_0_5" FileName="data_2" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe.WebView2\EBWebView\ShaderCache\data_2" SelfReg="false"/>
-    <ROW File="data_3_5" Component_="data_0_5" FileName="data_3" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe.WebView2\EBWebView\ShaderCache\data_3" SelfReg="false"/>
-    <ROW File="index_8" Component_="data_0_5" FileName="index" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe.WebView2\EBWebView\ShaderCache\index" SelfReg="false"/>
-    <ROW File="edgeSettings" Component_="edgeSettings" FileName="EDGESE~1|edgeSettings" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe.WebView2\EBWebView\SmartScreen\RemoteData\edgeSettings" SelfReg="false"/>
-    <ROW File="edgeSettings_2.00" Component_="edgeSettings" FileName="EDGESE~1.0-0|edgeSettings_2.0-0" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe.WebView2\EBWebView\SmartScreen\RemoteData\edgeSettings_2.0-0" SelfReg="false"/>
-    <ROW File="Variations" Component_="LastVersion" FileName="VARIAT~1|Variations" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe.WebView2\EBWebView\Variations" SelfReg="false"/>
     <ROW File="Microsoft.VisualBasic.Forms.resour_7_ces.dll" Component_="Microsoft.VisualBasic.Forms.resour_7_ces.dll" FileName="MICROS~1.DLL|Microsoft.VisualBasic.Forms.resources.dll" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\pl\Microsoft.VisualBasic.Forms.resources.dll" SelfReg="false"/>
     <ROW File="PresentationCore.resources.dll_7" Component_="PresentationCore.resources.dll_7" FileName="PRESEN~1.DLL|PresentationCore.resources.dll" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\pl\PresentationCore.resources.dll" SelfReg="false"/>
     <ROW File="PresentationFramework.resources.dll_7" Component_="PresentationFramework.resources.dll_7" FileName="PRESEN~2.DLL|PresentationFramework.resources.dll" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\pl\PresentationFramework.resources.dll" SelfReg="false"/>
@@ -1293,9 +1075,6 @@
     <ROW File="GreenMarker.svg" Component_="BlueMarker.png" FileName="GREENM~1.SVG|GreenMarker.svg" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\Resources\Maps\GreenMarker.svg" SelfReg="false"/>
     <ROW File="RedMarker.png" Component_="BlueMarker.png" FileName="REDMAR~1.PNG|RedMarker.png" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\Resources\Maps\RedMarker.png" SelfReg="false"/>
     <ROW File="RedMarker.svg" Component_="BlueMarker.png" FileName="REDMAR~1.SVG|RedMarker.svg" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\Resources\Maps\RedMarker.svg" SelfReg="false"/>
-    <ROW File="ProjectionSystem.csv" Component_="ProjectionSystem.csv" FileName="PROJEC~1.CSV|ProjectionSystem.csv" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\Resources\Projections\ProjectionSystem.csv" SelfReg="false"/>
-    <ROW File="GeoVisionary.qgs" Component_="GeoVisionary.qgs" FileName="GEOVIS~1.QGS|GeoVisionary.qgs" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\Resources\Qgis\GeoVisionary.qgs" SelfReg="false"/>
-    <ROW File="GeoVisionary_attachments.zip" Component_="GeoVisionary.qgs" FileName="GEOVIS~1.ZIP|GeoVisionary_attachments.zip" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\Resources\Qgis\GeoVisionary_attachments.zip" SelfReg="false"/>
     <ROW File="Microsoft.VisualBasic.Forms.resour_9_ces.dll" Component_="Microsoft.VisualBasic.Forms.resour_9_ces.dll" FileName="MICROS~1.DLL|Microsoft.VisualBasic.Forms.resources.dll" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\ru\Microsoft.VisualBasic.Forms.resources.dll" SelfReg="false"/>
     <ROW File="PresentationCore.resources.dll_9" Component_="PresentationCore.resources.dll_9" FileName="PRESEN~1.DLL|PresentationCore.resources.dll" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\ru\PresentationCore.resources.dll" SelfReg="false"/>
     <ROW File="PresentationFramework.resources.dll_9" Component_="PresentationFramework.resources.dll_9" FileName="PRESEN~2.DLL|PresentationFramework.resources.dll" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\ru\PresentationFramework.resources.dll" SelfReg="false"/>
@@ -1366,7 +1145,6 @@
     <ROW File="WindowsBase.resources.dll_12" Component_="WindowsBase.resources.dll_12" FileName="WINDOW~1.DLL|WindowsBase.resources.dll" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\zh-Hant\WindowsBase.resources.dll" SelfReg="false"/>
     <ROW File="WindowsFormsIntegration.resources.dll_12" Component_="WindowsFormsIntegration.resources._102_dll" FileName="WINDOW~2.DLL|WindowsFormsIntegration.resources.dll" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\zh-Hant\WindowsFormsIntegration.resources.dll" SelfReg="false"/>
     <ROW File="Accessibility.dll" Component_="Accessibility.dll" FileName="ACCESS~1.DLL|Accessibility.dll" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\Accessibility.dll" SelfReg="false"/>
-    <ROW File="appsettings.json" Component_="appsettings.json" FileName="APPSET~1.JSO|appsettings.json" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\appsettings.json" SelfReg="false"/>
     <ROW File="AutoMapper.dll" Component_="AutoMapper.dll" FileName="AUTOMA~1.DLL|AutoMapper.dll" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\AutoMapper.dll" SelfReg="false"/>
     <ROW File="BruTile.dll" Component_="BruTile.dll" FileName="BruTile.dll" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\BruTile.dll" SelfReg="false"/>
     <ROW File="clretwrc.dll" Component_="clretwrc.dll" FileName="clretwrc.dll" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\clretwrc.dll" SelfReg="false"/>
@@ -1442,15 +1220,13 @@
     <ROW File="Microsoft.VisualBasic.dll" Component_="Microsoft.VisualBasic.dll" FileName="MICRO~28.DLL|Microsoft.VisualBasic.dll" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\Microsoft.VisualBasic.dll" SelfReg="false"/>
     <ROW File="Microsoft.VisualBasic.Forms.dll" Component_="Microsoft.VisualBasic.Forms.dll" FileName="MICRO~29.DLL|Microsoft.VisualBasic.Forms.dll" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\Microsoft.VisualBasic.Forms.dll" SelfReg="false"/>
     <ROW File="Microsoft.Web.WebView2.Core.dll" Component_="Microsoft.Web.WebView2.Core.dll" FileName="MICRO~30.DLL|Microsoft.Web.WebView2.Core.dll" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\Microsoft.Web.WebView2.Core.dll" SelfReg="false"/>
-    <ROW File="Microsoft.Web.WebView2.Core.xml" Component_="appsettings.json" FileName="MICROS~1.XML|Microsoft.Web.WebView2.Core.xml" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\Microsoft.Web.WebView2.Core.xml" SelfReg="false"/>
     <ROW File="Microsoft.Web.WebView2.WinForms.dll" Component_="Microsoft.Web.WebView2.WinForms.dll" FileName="MICRO~31.DLL|Microsoft.Web.WebView2.WinForms.dll" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\Microsoft.Web.WebView2.WinForms.dll" SelfReg="false"/>
-    <ROW File="Microsoft.Web.WebView2.WinForms.xml" Component_="appsettings.json" FileName="MICROS~2.XML|Microsoft.Web.WebView2.WinForms.xml" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\Microsoft.Web.WebView2.WinForms.xml" SelfReg="false"/>
     <ROW File="Microsoft.Web.WebView2.Wpf.dll" Component_="Microsoft.Web.WebView2.Wpf.dll" FileName="MICRO~32.DLL|Microsoft.Web.WebView2.Wpf.dll" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\Microsoft.Web.WebView2.Wpf.dll" SelfReg="false"/>
-    <ROW File="Microsoft.Web.WebView2.Wpf.xml" Component_="appsettings.json" FileName="MICROS~3.XML|Microsoft.Web.WebView2.Wpf.xml" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\Microsoft.Web.WebView2.Wpf.xml" SelfReg="false"/>
     <ROW File="Microsoft.Win32.Primitives.dll" Component_="Microsoft.Win32.Primitives.dll" FileName="MICRO~33.DLL|Microsoft.Win32.Primitives.dll" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\Microsoft.Win32.Primitives.dll" SelfReg="false"/>
     <ROW File="Microsoft.Win32.Registry.AccessControl.dll" Component_="Microsoft.Win32.Registry.AccessControl.dll" FileName="MICRO~34.DLL|Microsoft.Win32.Registry.AccessControl.dll" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\Microsoft.Win32.Registry.AccessControl.dll" SelfReg="false"/>
     <ROW File="Microsoft.Win32.Registry.dll" Component_="Microsoft.Win32.Registry.dll" FileName="MICRO~35.DLL|Microsoft.Win32.Registry.dll" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\Microsoft.Win32.Registry.dll" SelfReg="false"/>
     <ROW File="Microsoft.Win32.SystemEvents.dll" Component_="Microsoft.Win32.SystemEvents.dll" FileName="MICRO~36.DLL|Microsoft.Win32.SystemEvents.dll" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\Microsoft.Win32.SystemEvents.dll" SelfReg="false"/>
+    <ROW File="mscordaccore_amd64_amd64_8.0.824.36612.dll" Component_="mscordaccore_amd64_amd64_8.0.824.36612.dll" FileName="MSCORD~3.DLL|mscordaccore_amd64_amd64_8.0.824.36612.dll" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\mscordaccore_amd64_amd64_8.0.824.36612.dll" SelfReg="false"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.AiPersistentPropComponent">
     <ROW Property="AI_SHORTCUTSREG" Registry="AI_SHORTCUTSREG" HklmSearch="AI_SHORTCUTSREG" HkcuSearch="AI_SHORTCUTSREG_1" Hklm64Search="AI_SHORTCUTSREG_2" Hkcu64Search="AI_SHORTCUTSREG_3"/>
@@ -1596,7 +1372,6 @@
     <ROW Feature_="MainFeature" Component_="Microsoft.Xaml.Behaviors.dll"/>
     <ROW Feature_="MainFeature" Component_="mod_spatialite.dll"/>
     <ROW Feature_="MainFeature" Component_="mscordaccore.dll"/>
-    <ROW Feature_="MainFeature" Component_="mscordaccore_amd64_amd64_8.0.724.31311.dll"/>
     <ROW Feature_="MainFeature" Component_="mscordbi.dll"/>
     <ROW Feature_="MainFeature" Component_="mscorlib.dll"/>
     <ROW Feature_="MainFeature" Component_="mscorrc.dll"/>
@@ -1976,42 +1751,6 @@
     <ROW Feature_="MainFeature" Component_="UIAutomationTypes.resources.dll_6"/>
     <ROW Feature_="MainFeature" Component_="WindowsBase.resources.dll_6"/>
     <ROW Feature_="MainFeature" Component_="WindowsFormsIntegration.resources.dll_6"/>
-    <ROW Feature_="MainFeature" Component_="_145040.log"/>
-    <ROW Feature_="MainFeature" Component_="BrowserMetrics66ED6FA93140.pma"/>
-    <ROW Feature_="MainFeature" Component_="metadata"/>
-    <ROW Feature_="MainFeature" Component_="LOCK"/>
-    <ROW Feature_="MainFeature" Component_="d3d20f895a141d8_0"/>
-    <ROW Feature_="MainFeature" Component_="therealindex"/>
-    <ROW Feature_="MainFeature" Component_="index"/>
-    <ROW Feature_="MainFeature" Component_="therealindex_1"/>
-    <ROW Feature_="MainFeature" Component_="LOCK_1"/>
-    <ROW Feature_="MainFeature" Component_="data_0"/>
-    <ROW Feature_="MainFeature" Component_="data_0_1"/>
-    <ROW Feature_="MainFeature" Component_="LOCK_2"/>
-    <ROW Feature_="MainFeature" Component_="EdgeHubAppUsageSQLite.db"/>
-    <ROW Feature_="MainFeature" Component_="log_1"/>
-    <ROW Feature_="MainFeature" Component_="log_2"/>
-    <ROW Feature_="MainFeature" Component_="log_3"/>
-    <ROW Feature_="MainFeature" Component_="Favicons"/>
-    <ROW Feature_="MainFeature" Component_="data_0_2"/>
-    <ROW Feature_="MainFeature" Component_="log_4"/>
-    <ROW Feature_="MainFeature" Component_="NetworkPersistentState"/>
-    <ROW Feature_="MainFeature" Component_="LOCK_3"/>
-    <ROW Feature_="MainFeature" Component_="LOCK_4"/>
-    <ROW Feature_="MainFeature" Component_="NetworkDataMigrated"/>
-    <ROW Feature_="MainFeature" Component_="log_5"/>
-    <ROW Feature_="MainFeature" Component_="index_1"/>
-    <ROW Feature_="MainFeature" Component_="therealindex_2"/>
-    <ROW Feature_="MainFeature" Component_="db"/>
-    <ROW Feature_="MainFeature" Component_="log_6"/>
-    <ROW Feature_="MainFeature" Component_="log_7"/>
-    <ROW Feature_="MainFeature" Component_="log_8"/>
-    <ROW Feature_="MainFeature" Component_="log_9"/>
-    <ROW Feature_="MainFeature" Component_="data_0_3"/>
-    <ROW Feature_="MainFeature" Component_="data_0_4"/>
-    <ROW Feature_="MainFeature" Component_="LastVersion"/>
-    <ROW Feature_="MainFeature" Component_="data_0_5"/>
-    <ROW Feature_="MainFeature" Component_="edgeSettings"/>
     <ROW Feature_="MainFeature" Component_="Microsoft.VisualBasic.Forms.resour_7_ces.dll"/>
     <ROW Feature_="MainFeature" Component_="PresentationCore.resources.dll_7"/>
     <ROW Feature_="MainFeature" Component_="PresentationFramework.resources.dll_7"/>
@@ -2048,8 +1787,6 @@
     <ROW Feature_="MainFeature" Component_="WindowsFormsIntegration.resources.dll_8"/>
     <ROW Feature_="MainFeature" Component_="Howtouse_english.pdf"/>
     <ROW Feature_="MainFeature" Component_="BlueMarker.png"/>
-    <ROW Feature_="MainFeature" Component_="ProjectionSystem.csv"/>
-    <ROW Feature_="MainFeature" Component_="GeoVisionary.qgs"/>
     <ROW Feature_="MainFeature" Component_="Microsoft.VisualBasic.Forms.resour_9_ces.dll"/>
     <ROW Feature_="MainFeature" Component_="PresentationCore.resources.dll_9"/>
     <ROW Feature_="MainFeature" Component_="PresentationFramework.resources.dll_9"/>
@@ -2120,7 +1857,6 @@
     <ROW Feature_="MainFeature" Component_="WindowsBase.resources.dll_12"/>
     <ROW Feature_="MainFeature" Component_="WindowsFormsIntegration.resources._102_dll"/>
     <ROW Feature_="MainFeature" Component_="Accessibility.dll"/>
-    <ROW Feature_="MainFeature" Component_="appsettings.json"/>
     <ROW Feature_="MainFeature" Component_="AutoMapper.dll"/>
     <ROW Feature_="MainFeature" Component_="BruTile.dll"/>
     <ROW Feature_="MainFeature" Component_="clretwrc.dll"/>
@@ -2206,6 +1942,7 @@
     <ROW Feature_="MainFeature" Component_="AI_INSTALLPERUSER"/>
     <ROW Feature_="MainFeature" Component_="AI_ExePath"/>
     <ROW Feature_="MainFeature" Component_="AI_SHORTCUTSREG"/>
+    <ROW Feature_="MainFeature" Component_="mscordaccore_amd64_amd64_8.0.824.36612.dll"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiIconsComponent">
     <ROW Name="MyExpenses.exe" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe" Index="0"/>
