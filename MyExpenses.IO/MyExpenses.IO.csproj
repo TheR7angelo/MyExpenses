@@ -24,7 +24,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <None Include="Resources\Projections\ProjectionSystem.csv" />
       <None Remove="Resources\Html\material-components-web.min.css" />
       <None Remove="Resources\Html\material-components-web.min.js" />
     </ItemGroup>
