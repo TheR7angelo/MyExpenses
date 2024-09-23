@@ -1,9 +1,9 @@
-﻿<Application x:Class="MyExpenses.SvgToXaml.App"
+﻿<Application x:Class="MyExpenses.Wpf.Helper.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:local="clr-namespace:MyExpenses.SvgToXaml"
+             xmlns:local="clr-namespace:MyExpenses.Wpf.Helper"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-
+         
     </Application.Resources>
 </Application>

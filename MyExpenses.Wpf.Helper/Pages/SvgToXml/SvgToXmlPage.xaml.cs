@@ -1,4 +1,4 @@
-﻿using System.IO;
+using System.IO;
 using System.Windows;
 using System.Windows.Markup;
 using System.Xml.Linq;
@@ -6,17 +6,12 @@ using Microsoft.Win32;
 using SharpVectors.Converters;
 using SharpVectors.Renderers.Wpf;
 
-namespace MyExpenses.SvgToXaml;
+namespace MyExpenses.Wpf.Helper.Pages.SvgToXml;
 
-public partial class MainWindow
+public partial class SvgToXmlPage
 {
     public static readonly DependencyProperty PathDirectoryProperty = DependencyProperty.Register(nameof(PathDirectory),
-        typeof(string), typeof(MainWindow), new PropertyMetadata(default(string)));
-
-    public MainWindow()
-    {
-        InitializeComponent();
-    }
+        typeof(string), typeof(SvgToXmlPage), new PropertyMetadata(default(string)));
 
     public string PathDirectory
     {
@@ -24,8 +19,10 @@ public partial class MainWindow
         set => SetValue(PathDirectoryProperty, value);
     }
 
-    private void ButtonTransform_OnClick(object sender, RoutedEventArgs e)
-        => MainConversion();
+    public SvgToXmlPage()
+    {
+        InitializeComponent();
+    }
 
     private void ButtonSelectDirectory_OnClick(object sender, RoutedEventArgs e)
     {
@@ -36,6 +33,9 @@ public partial class MainWindow
 
         PathDirectory = folderBrowser.FolderName;
     }
+
+    private void ButtonTransform_OnClick(object sender, RoutedEventArgs e)
+        => MainConversion();
 
     private void MainConversion()
     {
