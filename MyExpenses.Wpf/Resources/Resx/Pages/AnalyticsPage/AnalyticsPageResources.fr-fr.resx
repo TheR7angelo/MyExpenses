@@ -27,6 +27,6 @@
         <value>Somme des catégories positive et négative</value>
     </data>
     <data name="TabItemBudgetsControlHeader" xml:space="preserve">
-        <value>Bilan Budgétaire</value>
+        <value>Bilan budgétaire</value>
     </data>
 </root>
