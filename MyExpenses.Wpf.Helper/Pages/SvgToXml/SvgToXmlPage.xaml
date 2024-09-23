@@ -4,12 +4,14 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:local="clr-namespace:MyExpenses.Wpf.Helper.Pages.SvgToXml"
+      xmlns:margin="clr-namespace:MyExpenses.Wpf.Utils.Margin;assembly=MyExpenses.Wpf.Utils"
       mc:Ignorable="d"
       Title="SvgToXmlPage"
 
       DataContext="{Binding RelativeSource={RelativeSource Self}}">
 
-    <Grid VerticalAlignment="Center">
+    <Grid VerticalAlignment="Center"
+          margin:PanelExtensions.MarginForAllChildren="5">
 
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
