@@ -1480,7 +1480,7 @@ SELECT tct.id,
        tct.date_added
 FROM t_category_type tct
     INNER JOIN t_color tc
-        ON tct.color_fk = tc.id
+        ON tct.color_fk = tc.id;
 
 -- endregion
 
