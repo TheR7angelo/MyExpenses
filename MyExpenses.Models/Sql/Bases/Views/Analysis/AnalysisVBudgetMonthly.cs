@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using MyExpenses.Models.Sql.Bases.Enums;
 
-namespace MyExpenses.Models.Sql.Bases.Views;
+namespace MyExpenses.Models.Sql.Bases.Views.Analysis;
 
 [Keyless]
 public partial class AnalysisVBudgetMonthly

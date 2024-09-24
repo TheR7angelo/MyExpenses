@@ -1,10 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 
-namespace MyExpenses.Models.Sql.Bases.Views;
+namespace MyExpenses.Models.Sql.Bases.Views.Analysis;
 
 [Keyless]
-public partial class AnalysisVAccountModePaymentCategoryMonthlySum
+public partial class AnalysisVAccountCategoryMonthlySum
 {
     [Column("account_fk")]
     public int? AccountFk { get; init; }
@@ -12,17 +12,14 @@ public partial class AnalysisVAccountModePaymentCategoryMonthlySum
     [Column("account")]
     public string? Account { get; init; }
 
-    [Column("mode_payment")]
-    public string? ModePayment { get; init; }
+    [Column("category_type")]
+    public string? CategoryType { get; init; }
+
+    [Column("color_code")]
+    public string? ColorCode { get; init; }
 
     [Column("period")]
     public string? Period { get; init; }
-
-    [Column("category")]
-    public string? Category { get; init; }
-
-    [Column("hexadecimal_color_code", TypeName = "TEXT(9)")]
-    public string? HexadecimalColorCode { get; init; }
 
     [Column("monthly_sum")]
     public double? MonthlySum { get; init; }
@@ -32,7 +29,4 @@ public partial class AnalysisVAccountModePaymentCategoryMonthlySum
 
     [Column("currency")]
     public string? Currency { get; init; }
-
-    [Column("monthly_mode_payment")]
-    public int? MonthlyModePayment { get; init; }
 }

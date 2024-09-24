@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Logging;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Models.Sql.Bases.Views;
+using MyExpenses.Models.Sql.Bases.Views.Analysis;
 using Serilog.Extensions.Logging;
 
 namespace MyExpenses.Sql.Context;

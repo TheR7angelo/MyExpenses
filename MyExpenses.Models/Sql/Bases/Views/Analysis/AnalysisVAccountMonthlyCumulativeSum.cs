@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 
-namespace MyExpenses.Models.Sql.Bases.Views;
+namespace MyExpenses.Models.Sql.Bases.Views.Analysis;
 
 [Keyless]
 public partial class AnalysisVAccountMonthlyCumulativeSum

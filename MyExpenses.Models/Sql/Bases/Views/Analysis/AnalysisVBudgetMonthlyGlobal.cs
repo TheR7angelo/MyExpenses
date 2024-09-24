@@ -2,10 +2,10 @@
 using Microsoft.EntityFrameworkCore;
 using MyExpenses.Models.Sql.Bases.Enums;
 
-namespace MyExpenses.Models.Sql.Bases.Views;
+namespace MyExpenses.Models.Sql.Bases.Views.Analysis;
 
 [Keyless]
-public partial class AnalysisVBudgetPeriodAnnualGlobal
+public partial class AnalysisVBudgetMonthlyGlobal
 {
     [Column("period")]
     public string? Period { get; init; }
