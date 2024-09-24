@@ -1463,8 +1463,25 @@ FROM t_account ta
                     ON ta.account_type_fk = tat.id
          INNER JOIN t_currency tc
                     ON ta.currency_fk = tc.id;
+
+DROP VIEW IF EXISTS export_v_color;
+CREATE VIEW export_v_color AS
+SELECT tc.id,
+       tc.name,
+       tc.hexadecimal_color_code,
+       tc.date_added
+FROM t_color tc;
+
+DROP VIEW IF EXISTS export_v_category_type;
+CREATE VIEW export_v_category_type AS
+SELECT tct.id,
+       tct.name,
+       tc.name AS color_name,
+       tct.date_added
+FROM t_category_type tct
+    INNER JOIN t_color tc
+        ON tct.color_fk = tc.id
+
 -- endregion
-
-
 
 -- endregion

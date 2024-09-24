@@ -52,6 +52,10 @@ public partial class DataBaseContext : DbContext
 
     public virtual DbSet<ExportVAccountType> ExportVAccountTypes { get; set; }
 
+    public virtual DbSet<ExportVCategoryType> ExportVCategoryTypes { get; set; }
+
+    public virtual DbSet<ExportVColor> ExportVColors { get; set; }
+
     public virtual DbSet<ExportVCurrency> ExportVCurrencies { get; set; }
 
     public virtual DbSet<ExportVRecursiveFrequency> ExportVRecursiveFrequencies { get; set; }
@@ -171,6 +175,16 @@ public partial class DataBaseContext : DbContext
         modelBuilder.Entity<ExportVAccountType>(entity =>
         {
             entity.ToView("export_v_account_type");
+        });
+
+        modelBuilder.Entity<ExportVCategoryType>(entity =>
+        {
+            entity.ToView("export_v_category_type");
+        });
+
+        modelBuilder.Entity<ExportVColor>(entity =>
+        {
+            entity.ToView("export_v_color");
         });
 
         modelBuilder.Entity<ExportVCurrency>(entity =>
