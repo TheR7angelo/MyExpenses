@@ -60,6 +60,12 @@ public partial class DataBaseContext : DbContext
 
     public virtual DbSet<ExportVCurrency> ExportVCurrencies { get; set; }
 
+    public virtual DbSet<ExportVModePayment> ExportVModePayments { get; set; }
+
+    public virtual DbSet<ExportVPlace> ExportVPlaces { get; set; }
+
+    public virtual DbSet<ExportVRecursiveExpense> ExportVRecursiveExpenses { get; set; }
+
     public virtual DbSet<ExportVRecursiveFrequency> ExportVRecursiveFrequencies { get; set; }
 
     public virtual DbSet<TAccount> TAccounts { get; set; }
@@ -197,6 +203,21 @@ public partial class DataBaseContext : DbContext
         modelBuilder.Entity<ExportVCurrency>(entity =>
         {
             entity.ToView("export_v_currency");
+        });
+
+        modelBuilder.Entity<ExportVModePayment>(entity =>
+        {
+            entity.ToView("export_v_mode_payment");
+        });
+
+        modelBuilder.Entity<ExportVPlace>(entity =>
+        {
+            entity.ToView("export_v_place");
+        });
+
+        modelBuilder.Entity<ExportVRecursiveExpense>(entity =>
+        {
+            entity.ToView("export_v_recursive_expense");
         });
 
         modelBuilder.Entity<ExportVRecursiveFrequency>(entity =>
