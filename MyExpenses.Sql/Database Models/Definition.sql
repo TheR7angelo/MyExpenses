@@ -1482,6 +1482,22 @@ FROM t_category_type tct
     INNER JOIN t_color tc
         ON tct.color_fk = tc.id;
 
+DROP VIEW IF EXISTS export_v_bank_transfer;
+CREATE VIEW export_v_bank_transfer AS
+SELECT tbt.id,
+       tbt.value,
+       ta_fr.name AS from_account_name,
+       ta_to.name AS to_account_name,
+       tbt.main_reason,
+       tbt.additional_reason,
+       tbt.date,
+       tbt.date_added
+FROM t_bank_transfer tbt
+    INNER JOIN t_account ta_fr
+        ON ta_fr.id = tbt.from_account_fk
+    INNER JOIN t_account ta_to
+        ON ta_to.id = tbt.to_account_fk;
+
 -- endregion
 
 -- endregion

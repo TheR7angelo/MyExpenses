@@ -52,6 +52,8 @@ public partial class DataBaseContext : DbContext
 
     public virtual DbSet<ExportVAccountType> ExportVAccountTypes { get; set; }
 
+    public virtual DbSet<ExportVBankTransfer> ExportVBankTransfers { get; set; }
+
     public virtual DbSet<ExportVCategoryType> ExportVCategoryTypes { get; set; }
 
     public virtual DbSet<ExportVColor> ExportVColors { get; set; }
@@ -175,6 +177,11 @@ public partial class DataBaseContext : DbContext
         modelBuilder.Entity<ExportVAccountType>(entity =>
         {
             entity.ToView("export_v_account_type");
+        });
+
+        modelBuilder.Entity<ExportVBankTransfer>(entity =>
+        {
+            entity.ToView("export_v_bank_transfer");
         });
 
         modelBuilder.Entity<ExportVCategoryType>(entity =>
