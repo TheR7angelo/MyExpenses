@@ -48,7 +48,11 @@ public partial class DataBaseContext : DbContext
 
     public virtual DbSet<AnalysisVBudgetTotalAnnualGlobal> AnalysisVBudgetTotalAnnualGlobals { get; set; }
 
+    public virtual DbSet<ExportVAccount> ExportVAccounts { get; set; }
+
     public virtual DbSet<ExportVAccountType> ExportVAccountTypes { get; set; }
+
+    public virtual DbSet<ExportVCurrency> ExportVCurrencies { get; set; }
 
     public virtual DbSet<ExportVRecursiveFrequency> ExportVRecursiveFrequencies { get; set; }
 
@@ -159,9 +163,19 @@ public partial class DataBaseContext : DbContext
             entity.ToView("analysis_v_budget_total_annual_global");
         });
 
+        modelBuilder.Entity<ExportVAccount>(entity =>
+        {
+            entity.ToView("export_v_account");
+        });
+
         modelBuilder.Entity<ExportVAccountType>(entity =>
         {
             entity.ToView("export_v_account_type");
+        });
+
+        modelBuilder.Entity<ExportVCurrency>(entity =>
+        {
+            entity.ToView("export_v_currency");
         });
 
         modelBuilder.Entity<ExportVRecursiveFrequency>(entity =>

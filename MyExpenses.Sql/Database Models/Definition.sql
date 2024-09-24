@@ -1440,4 +1440,25 @@ SELECT tat.id,
        tat.date_added
 FROM t_account_type tat;
 
+DROP VIEW IF EXISTS export_v_currency;
+CREATE VIEW export_v_currency AS
+SELECT tc.id,
+       tc.symbol,
+       tc.date_added
+FROM t_currency tc;
+
+DROP VIEW IF EXISTS export_v_account;
+CREATE VIEW export_v_account AS
+SELECT ta.id,
+       ta.name,
+       tat.name AS account_type,
+       tc.symbol AS currency,
+       ta.active,
+       ta.date_added
+FROM t_account ta
+         INNER JOIN t_account_type tat
+                    ON ta.account_type_fk = tat.id
+         INNER JOIN t_currency tc
+                    ON ta.currency_fk = tc.id;
+
 -- endregion
