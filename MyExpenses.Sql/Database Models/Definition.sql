@@ -775,6 +775,7 @@ FROM t_recursive_expense tre
          INNER JOIN t_recursive_frequency trf
                     ON tre.frequency_fk = trf.id;
 
+-- region Analysis
 DROP VIEW IF EXISTS analysis_v_account_monthly_cumulative_sum;
 CREATE VIEW analysis_v_account_monthly_cumulative_sum AS
 WITH all_periods AS (SELECT a.id                     AS account_fk,
@@ -1425,7 +1426,9 @@ FROM cumulative_values cv
      cumulative_values pre_cv
      ON
          CAST(cv.year AS INTEGER) - 1 = CAST(pre_cv.year AS INTEGER);
+-- endregion
 
+-- region Exports
 DROP VIEW IF EXISTS export_v_recursive_frequency;
 CREATE VIEW export_v_recursive_frequency AS
 SELECT trf.id,
@@ -1460,5 +1463,8 @@ FROM t_account ta
                     ON ta.account_type_fk = tat.id
          INNER JOIN t_currency tc
                     ON ta.currency_fk = tc.id;
+-- endregion
+
+
 
 -- endregion
