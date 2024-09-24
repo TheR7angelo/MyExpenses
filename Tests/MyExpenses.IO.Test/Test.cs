@@ -24,13 +24,7 @@ public class Test
         using var package = new ExcelPackage();
         var workbook = package.Workbook;
 
-        var worksheet = workbook.Worksheets.Add("param");
-        worksheet.Cells["A1"].Value = "Boolean value";
-        worksheet.Cells["A2"].Value = false;
-        worksheet.Cells["A3"].Value = true;
-        var range = worksheet.Cells["A1:A3"];
-        worksheet.SetExcelTableStyle(range, "Boolean_value");
-        worksheet.Hidden = eWorkSheetHidden.VeryHidden;
+        var booleanTable = workbook.AddBooleanTable();
 
         // var exportVRecursiveFrequency = context.ExportVRecursiveFrequencies.AsEnumerable();
         var exportVAccountType = context.ExportVAccountTypes.AsEnumerable();

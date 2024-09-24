@@ -49,6 +49,26 @@ public static class ExcelHelper
     }
 
     /// <summary>
+    /// Adds a worksheet with a predefined boolean table to the Excel workbook.
+    /// </summary>
+    /// <param name="workbook">The Excel workbook to which the worksheet and boolean table will be added.</param>
+    /// <param name="worksheetName">The name of the worksheet to be created. Defaults to "BooleanSheet".</param>
+    /// <returns>The created Excel table containing the boolean values.</returns>
+    public static ExcelTable AddBooleanTable(this ExcelWorkbook workbook, string worksheetName = "BooleanSheet")
+    {
+        var worksheet = workbook.Worksheets.Add(worksheetName);
+        worksheet.Cells["A1"].Value = "Boolean value";
+        worksheet.Cells["A2"].Value = false;
+        worksheet.Cells["A3"].Value = true;
+        var range = worksheet.Cells["A1:A3"];
+
+        var tableName = worksheetName.Replace(" ", "_");
+        var booleanTable = worksheet.SetExcelTableStyle(range, tableName);
+        worksheet.Hidden = eWorkSheetHidden.VeryHidden;
+        return booleanTable;
+    }
+
+    /// <summary>
     /// Applies date formatting to specified columns in an Excel worksheet.
     /// </summary>
     /// <param name="worksheet">The Excel worksheet where the date formatting will be applied.</param>
