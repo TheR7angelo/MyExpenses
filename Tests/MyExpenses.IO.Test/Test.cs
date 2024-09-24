@@ -26,7 +26,6 @@ public class Test
 
         var booleanTable = workbook.AddBooleanTable();
 
-        // var exportVRecursiveFrequency = context.ExportVRecursiveFrequencies.AsEnumerable();
         var exportVAccountType = context.ExportVAccountTypes.AsEnumerable();
         var exportVCurrency = context.ExportVCurrencies.AsEnumerable();
         var exportVAccount = context.ExportVAccounts.AsEnumerable();
@@ -39,6 +38,16 @@ public class Test
         exportVAccountRange.AddListValidation(exportVCurrencyTable, typeof(ExportVAccount), nameof(ExportVAccount.Currency), nameof(ExportVCurrency.Symbol));
         exportVAccountRange.AddListValidationTrueFalse(booleanTable, typeof(ExportVAccount), nameof(ExportVAccount.Active));
 
+        var exportVColor = context.ExportVColors.AsEnumerable();
+        var exportVCategoryType = context.ExportVCategoryTypes.AsEnumerable();
+
+        var exportVColorTable = workbook.AddTableCollection(exportVColor, context);
+        var exportVCategoryTypeTable = workbook.AddTableCollection(exportVCategoryType, context);
+
+        exportVCategoryTypeTable.AddListValidation(exportVColorTable, typeof(ExportVCategoryType), nameof(ExportVCategoryType.ColorName), nameof(ExportVColor.Name));
+
+
+        // var exportVRecursiveFrequency = context.ExportVRecursiveFrequencies.AsEnumerable();
         // _ = workbook.SetTableCollection(exportVRecursiveFrequency, context);
         const string filePath = "Test.xlsx";
         package.SaveAs(filePath);
