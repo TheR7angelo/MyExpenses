@@ -8,29 +8,44 @@ namespace MyExpenses.IO.Excel;
 public static class ExcelHelper
 {
     /// <summary>
-    /// Creates a new worksheet in the given Excel workbook, loads a collection of data into it, and applies table formatting and date styles.
+    /// Adds list validation to a specified column in an Excel table based on the values from another Excel table.
     /// </summary>
-    /// <param name="workbook">The Excel workbook where the new worksheet will be added.</param>
-    /// <param name="collection">The collection of data to be loaded into the worksheet.</param>
-    /// <param name="context">Database context used to determine the name of the table.</param>
-    /// <param name="tableName">Outputs the name of the created table.</param>
-    /// <typeparam name="T">The type of the data in the collection.</typeparam>
-    /// <returns>The range of cells that were loaded with the collection.</returns>
-    public static ExcelRangeBase AddTableCollection<T>(this ExcelWorkbook workbook, IEnumerable<T> collection,
-        DataBaseContext context, out string tableName)
+    /// <param name="onExcelTable">The Excel table on which the validation will be applied.</param>
+    /// <param name="fromExcelTable">The Excel table providing the list of valid values for validation.</param>
+    /// <param name="onType">The Type of the object representing the structure of the target Excel table.</param>
+    /// <param name="onPropertyName">The name of the property in the target Type that corresponds to the column to be validated.</param>
+    /// <param name="fromPropertyName">The name of the property in the source Excel table that provides the valid values for validation.</param>
+    public static void AddListValidation(this ExcelTable onExcelTable, ExcelTable fromExcelTable, Type onType,
+        string onPropertyName, string fromPropertyName)
+    {
+        var index = Array.IndexOf(onType.GetProperties(), onType.GetProperty(onPropertyName)) + 1;
+        var validationPlage = onExcelTable.Range.Worksheet.Cells[2, index, onExcelTable.Range.End.Row, index];
+        var validation = onExcelTable.Range.Worksheet.DataValidations.AddListValidation(validationPlage.Address);
+        validation.Formula.ExcelFormula = $"= INDIRECT(\"{fromExcelTable.Name}[{fromPropertyName}]\")";
+    }
+
+    /// <summary>
+    /// Adds a collection of data to a new Excel worksheet and formats it as a table.
+    /// </summary>
+    /// <typeparam name="T">The type of elements in the collection.</typeparam>
+    /// <param name="workbook">The Excel workbook to which the table will be added.</param>
+    /// <param name="collection">The collection of data to be added to the Excel worksheet.</param>
+    /// <param name="context">The database context used to retrieve the table name.</param>
+    /// <returns>An instance of <see cref="ExcelTable"/> representing the formatted table in the worksheet.</returns>
+    public static ExcelTable AddTableCollection<T>(this ExcelWorkbook workbook, IEnumerable<T> collection,
+        DataBaseContext context)
     {
         var type = typeof(T);
         var collectionName = context.GetTableName(type);
-        tableName = $"{collectionName}_table";
 
         var worksheet = workbook.Worksheets.Add(collectionName);
         var range = worksheet.Cells["A1"].LoadFromCollection(collection, true);
 
-        worksheet.SetExcelTableStyle(range, tableName);
+        var excelTable = worksheet.SetExcelTableStyle(range, $"{collectionName}_table");
         worksheet.SetDateStyle(type.GetProperties(), range);
         range.AutoFitColumns();
 
-        return range;
+        return excelTable;
     }
 
     /// <summary>
@@ -59,18 +74,18 @@ public static class ExcelHelper
     }
 
     /// <summary>
-    /// Applies a specified Excel table style to a range within a worksheet and names the table.
+    /// Adds a new table to the specified Excel worksheet using the provided range, applies the given table style, and names the table.
     /// </summary>
-    /// <param name="worksheet">The Excel worksheet where the table will be created.</param>
-    /// <param name="excelRangeBase">The range within the worksheet to be styled as a table.</param>
-    /// <param name="tableName">The name to be assigned to the table.</param>
-    /// <param name="tableStyles">The style to be applied to the table. Defaults to TableStyles.Medium7.</param>
-    /// <returns>Returns the ExcelRangeBase object representing the styled table within the worksheet.</returns>
-    public static ExcelRangeBase SetExcelTableStyle(this ExcelWorksheet worksheet, ExcelRangeBase excelRangeBase,
+    /// <param name="worksheet">The Excel worksheet where the table will be added.</param>
+    /// <param name="excelRangeBase">The range of cells that will be included in the table.</param>
+    /// <param name="tableName">The name to be assigned to the created table.</param>
+    /// <param name="tableStyles">The style to be applied to the table (default is Medium7).</param>
+    /// <returns>The created Excel table with the applied style.</returns>
+    public static ExcelTable SetExcelTableStyle(this ExcelWorksheet worksheet, ExcelRangeBase excelRangeBase,
         string tableName, TableStyles tableStyles = TableStyles.Medium7)
     {
-        var table = worksheet.Tables.Add(excelRangeBase, tableName);
-        table.TableStyle = tableStyles;
-        return excelRangeBase;
+        var excelTable = worksheet.Tables.Add(excelRangeBase, tableName);
+        excelTable.TableStyle = tableStyles;
+        return excelTable;
     }
 }
