@@ -32,11 +32,11 @@ public class Test
 
         var exportVAccountTypeTable = workbook.AddTableCollection(exportVAccountType, context);
         var exportVCurrencyTable = workbook.AddTableCollection(exportVCurrency, context);
-        var exportVAccountRange = workbook.AddTableCollection(exportVAccount, context);
+        var exportVAccountTable = workbook.AddTableCollection(exportVAccount, context);
 
-        exportVAccountRange.AddListValidation(exportVAccountTypeTable, typeof(ExportVAccount), nameof(ExportVAccount.AccountType), nameof(ExportVAccountType.Name));
-        exportVAccountRange.AddListValidation(exportVCurrencyTable, typeof(ExportVAccount), nameof(ExportVAccount.Currency), nameof(ExportVCurrency.Symbol));
-        exportVAccountRange.AddListValidationTrueFalse(booleanTable, typeof(ExportVAccount), nameof(ExportVAccount.Active));
+        exportVAccountTable.AddListValidation(exportVAccountTypeTable, typeof(ExportVAccount), nameof(ExportVAccount.AccountType), nameof(ExportVAccountType.Name));
+        exportVAccountTable.AddListValidation(exportVCurrencyTable, typeof(ExportVAccount), nameof(ExportVAccount.Currency), nameof(ExportVCurrency.Symbol));
+        exportVAccountTable.AddListValidationTrueFalse(booleanTable, typeof(ExportVAccount), nameof(ExportVAccount.Active));
 
         var exportVColor = context.ExportVColors.AsEnumerable();
         var exportVCategoryType = context.ExportVCategoryTypes.AsEnumerable();
