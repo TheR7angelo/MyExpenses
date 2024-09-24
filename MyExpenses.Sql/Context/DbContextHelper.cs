@@ -121,4 +121,12 @@ public static class DbContextHelper
             context.SaveChanges();
         }
     }
+
+    public static string? GetTableName(this DataBaseContext context, Type tableType)
+    {
+        var tableName = context.Model.FindEntityType(tableType)?.GetTableName();
+        var viewName = context.Model.FindEntityType(tableType)?.GetViewName();
+
+        return tableName ?? viewName;
+    }
 }
