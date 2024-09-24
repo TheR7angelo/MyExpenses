@@ -138,43 +138,9 @@ CREATE TABLE t_recursive_frequency
 (
     id          INTEGER
         CONSTRAINT t_recursive_frequency_pk
-            PRIMARY KEY AUTOINCREMENT ,
+            PRIMARY KEY AUTOINCREMENT,
     frequency   TEXT,
     description TEXT
-);
-
-DROP TABLE IF EXISTS t_recursive_expense;
-CREATE TABLE t_recursive_expense
-(
-    id                INTEGER
-        CONSTRAINT t_recursive_expense_pk
-            PRIMARY KEY AUTOINCREMENT ,
-    account_fk        INTEGER
-        CONSTRAINT t_recursive_expense_t_account_id_fk
-            REFERENCES t_account,
-    description       TEXT,
-    note              TEXT,
-    category_type_fk  INTEGER
-        CONSTRAINT t_recursive_expense_t_category_type_id_fk
-            REFERENCES t_category_type,
-    mode_payment_fk   INTEGER
-        CONSTRAINT t_recursive_expense_t_mode_payment_id_fk
-            REFERENCES t_mode_payment,
-    value             REAL,
-    place_fk          INTEGER DEFAULT 0
-        CONSTRAINT t_recursive_expense_t_place_id_fk
-            REFERENCES t_place,
-    start_date        DATE              NOT NULL,
-    recursive_total   INTEGER,
-    recursive_count INTEGER DEFAULT 0 NOT NULL,
-    frequency_fk      INTEGER           NOT NULL
-        CONSTRAINT t_recursive_expense_t_recursive_frequency_id_fk
-            REFERENCES t_recursive_frequency,
-    next_due_date     DATE              NOT NULL,
-    is_active         BOOLEAN DEFAULT TRUE NOT NULL,
-    force_deactivate  BOOLEAN DEFAULT FALSE NOT NULL,
-    date_added        DATETIME    DEFAULT CURRENT_TIMESTAMP,
-    last_updated      DATETIME
 );
 
 DROP TABLE IF EXISTS t_mode_payment;
@@ -207,36 +173,70 @@ CREATE TABLE t_place
     date_added     DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
+DROP TABLE IF EXISTS t_recursive_expense;
+CREATE TABLE t_recursive_expense
+(
+    id               INTEGER
+        CONSTRAINT t_recursive_expense_pk
+            PRIMARY KEY AUTOINCREMENT,
+    account_fk       INTEGER
+        CONSTRAINT t_recursive_expense_t_account_id_fk
+            REFERENCES t_account,
+    description      TEXT,
+    note             TEXT,
+    category_type_fk INTEGER
+        CONSTRAINT t_recursive_expense_t_category_type_id_fk
+            REFERENCES t_category_type,
+    mode_payment_fk  INTEGER
+        CONSTRAINT t_recursive_expense_t_mode_payment_id_fk
+            REFERENCES t_mode_payment,
+    value            REAL,
+    place_fk         INTEGER  DEFAULT 0
+        CONSTRAINT t_recursive_expense_t_place_id_fk
+            REFERENCES t_place,
+    start_date       DATE                   NOT NULL,
+    recursive_total  INTEGER,
+    recursive_count  INTEGER  DEFAULT 0     NOT NULL,
+    frequency_fk     INTEGER                NOT NULL
+        CONSTRAINT t_recursive_expense_t_recursive_frequency_id_fk
+            REFERENCES t_recursive_frequency,
+    next_due_date    DATE                   NOT NULL,
+    is_active        BOOLEAN  DEFAULT TRUE  NOT NULL,
+    force_deactivate BOOLEAN  DEFAULT FALSE NOT NULL,
+    date_added       DATETIME DEFAULT CURRENT_TIMESTAMP,
+    last_updated     DATETIME
+);
+
 DROP TABLE IF EXISTS t_history;
 CREATE TABLE t_history
 (
-    id               INTEGER
+    id                   INTEGER
         CONSTRAINT t_history_pk
             PRIMARY KEY AUTOINCREMENT,
-    account_fk       INTEGER
+    account_fk           INTEGER
         CONSTRAINT t_history_t_account_id_fk
             REFERENCES t_account,
-    description      TEXT,
-    category_type_fk INTEGER
+    description          TEXT,
+    category_type_fk     INTEGER
         CONSTRAINT t_history_t_category_type_id_fk
             REFERENCES t_category_type,
-    mode_payment_fk  INTEGER
+    mode_payment_fk      INTEGER
         CONSTRAINT t_history_t_mode_payment_id_fk
             REFERENCES t_mode_payment,
-    value            REAL,
-    date             DATETIME,
-    place_fk         INTEGER
+    value                REAL,
+    date                 DATETIME,
+    place_fk             INTEGER
         constraint t_history_t_place_id_fk
             references t_place,
-    pointed          BOOLEAN  DEFAULT FALSE,
-    bank_transfer_fk INTEGER
+    pointed              BOOLEAN  DEFAULT FALSE,
+    bank_transfer_fk     INTEGER
         CONSTRAINT t_history_t_bank_transfer_id_fk
             REFERENCES t_bank_transfer,
     recursive_expense_fk INTEGER
         CONSTRAINT t_history_t_recursive_expense_id_fk
             REFERENCES t_recursive_expense,
-    date_added       DATETIME DEFAULT CURRENT_TIMESTAMP,
-    date_pointed     DATETIME
+    date_added           DATETIME DEFAULT CURRENT_TIMESTAMP,
+    date_pointed         DATETIME
 );
 
 -- endregion
@@ -557,17 +557,18 @@ CREATE TRIGGER after_insert_on_t_recursive_expense
     FOR EACH ROW
 BEGIN
     UPDATE t_recursive_expense
-    SET start_date = CASE
-                         WHEN typeof(NEW.start_date) = 'integer' THEN datetime(NEW.start_date / 1000, 'unixepoch')
-                         ELSE NEW.start_date
-            END,
+    SET start_date    = CASE
+                            WHEN typeof(NEW.start_date) = 'integer' THEN datetime(NEW.start_date / 1000, 'unixepoch')
+                            ELSE NEW.start_date
+        END,
         next_due_date = CASE
-                         WHEN typeof(NEW.next_due_date) = 'integer' THEN datetime(NEW.next_due_date / 1000, 'unixepoch')
-                         ELSE NEW.next_due_date
+                            WHEN typeof(NEW.next_due_date) = 'integer'
+                                THEN datetime(NEW.next_due_date / 1000, 'unixepoch')
+                            ELSE NEW.next_due_date
             END,
-        date_added = CASE
-                         WHEN typeof(NEW.date_added) = 'integer' THEN datetime(NEW.date_added / 1000, 'unixepoch')
-                         ELSE NEW.date_added
+        date_added    = CASE
+                            WHEN typeof(NEW.date_added) = 'integer' THEN datetime(NEW.date_added / 1000, 'unixepoch')
+                            ELSE NEW.date_added
             END
     WHERE id = NEW.id;
 END;
@@ -579,28 +580,30 @@ CREATE TRIGGER after_update_on_t_recursive_expense
     FOR EACH ROW
 BEGIN
     UPDATE t_recursive_expense
-    SET start_date = CASE
-                         WHEN typeof(NEW.start_date) = 'integer' THEN datetime(NEW.start_date / 1000, 'unixepoch')
-                         ELSE NEW.start_date
-            END,
+    SET start_date    = CASE
+                            WHEN typeof(NEW.start_date) = 'integer' THEN datetime(NEW.start_date / 1000, 'unixepoch')
+                            ELSE NEW.start_date
+        END,
         next_due_date = CASE
-                         WHEN typeof(NEW.next_due_date) = 'integer' THEN datetime(NEW.next_due_date / 1000, 'unixepoch')
-                         ELSE NEW.next_due_date
+                            WHEN typeof(NEW.next_due_date) = 'integer'
+                                THEN datetime(NEW.next_due_date / 1000, 'unixepoch')
+                            ELSE NEW.next_due_date
             END,
-        date_added = CASE
-                         WHEN typeof(NEW.date_added) = 'integer' THEN datetime(NEW.date_added / 1000, 'unixepoch')
-                         ELSE NEW.date_added
+        date_added    = CASE
+                            WHEN typeof(NEW.date_added) = 'integer' THEN datetime(NEW.date_added / 1000, 'unixepoch')
+                            ELSE NEW.date_added
             END,
-        last_updated = CASE
-                         WHEN typeof(NEW.last_updated) = 'integer' THEN datetime(NEW.last_updated / 1000, 'unixepoch')
-                         ELSE NEW.last_updated
+        last_updated  = CASE
+                            WHEN typeof(NEW.last_updated) = 'integer'
+                                THEN datetime(NEW.last_updated / 1000, 'unixepoch')
+                            ELSE NEW.last_updated
             END
     WHERE id = NEW.id;
 
     UPDATE t_history
     SET description = NEW.description
     WHERE t_history.recursive_expense_fk = NEW.id
-    AND t_history.description != NEW.description;
+      AND t_history.description != NEW.description;
 
 END;
 
@@ -682,8 +685,8 @@ DROP VIEW IF EXISTS v_total_by_account;
 CREATE VIEW v_total_by_account AS
 SELECT ta.id,
        ta.name,
-       ROUND(SUM(th.value), 2) AS total,
-       ROUND(SUM(CASE WHEN th.pointed = TRUE THEN th.value ELSE 0 END), 2) AS total_pointed,
+       ROUND(SUM(th.value), 2)                                              AS total,
+       ROUND(SUM(CASE WHEN th.pointed = TRUE THEN th.value ELSE 0 END), 2)  AS total_pointed,
        ROUND(SUM(CASE WHEN th.pointed = FALSE THEN th.value ELSE 0 END), 2) AS total_not_pointed,
        tc.symbol
 FROM t_account ta
@@ -737,7 +740,7 @@ DROP VIEW IF EXISTS v_recursive_expense;
 CREATE VIEW v_recursive_expense AS
 SELECT tre.id,
        tre.account_fk,
-       ta.name AS account,
+       ta.name  AS account,
        tre.description,
        tre.note,
        tre.category_type_fk,
@@ -748,7 +751,7 @@ SELECT tre.id,
        tre.value,
        tcr.symbol,
        tre.place_fk,
-       tp.name AS place,
+       tp.name  AS place,
        tre.start_date,
        tre.recursive_total,
        tre.recursive_count,
@@ -763,11 +766,11 @@ FROM t_recursive_expense tre
          INNER JOIN t_account ta
                     ON tre.account_fk = ta.id
          INNER JOIN t_currency tcr
-            ON ta.currency_fk = tcr.id
+                    ON ta.currency_fk = tcr.id
          INNER JOIN t_category_type tct
                     ON tre.category_type_fk = tct.id
          INNER JOIN t_color tco
-            ON tct.color_fk = tco.id
+                    ON tct.color_fk = tco.id
          INNER JOIN t_mode_payment tmp
                     ON tre.mode_payment_fk = tmp.id
          INNER JOIN t_place tp
@@ -849,65 +852,63 @@ ORDER BY account_fk, rn;
 
 DROP VIEW IF EXISTS analysis_v_account_category_monthly_sum_positive_negative;
 CREATE VIEW analysis_v_account_category_monthly_sum_positive_negative AS
-WITH all_periods AS (
-    SELECT a.id                     AS account_fk,
-           a.name                   AS account,
-           a.currency_fk            AS currency_fk,
-           tca.symbol               AS currency,
-           tct.id                   AS category_type_fk,
-           tct.name                 AS category_type,
-           tc.hexadecimal_color_code AS color_code,
-           y.year || '-' || m.month AS period
-    FROM t_account a
-             LEFT JOIN t_currency tca ON a.currency_fk = tca.id
-             CROSS JOIN t_category_type tct
-             LEFT JOIN t_color tc ON tct.color_fk = tc.id
-             CROSS JOIN (SELECT DISTINCT strftime('%Y', h.date) AS year
-                         FROM t_history h) y
-             CROSS JOIN (SELECT strftime('%m', date('2000-' || x || '-01')) AS month
-                         FROM (SELECT '01' AS x
-                               UNION
-                               SELECT '02'
-                               UNION
-                               SELECT '03'
-                               UNION
-                               SELECT '04'
-                               UNION
-                               SELECT '05'
-                               UNION
-                               SELECT '06'
-                               UNION
-                               SELECT '07'
-                               UNION
-                               SELECT '08'
-                               UNION
-                               SELECT '09'
-                               UNION
-                               SELECT '10'
-                               UNION
-                               SELECT '11'
-                               UNION
-                               SELECT '12')) m
-    WHERE y.year < (SELECT strftime('%Y', MAX(date)) FROM t_history)
-       OR (y.year == (SELECT strftime('%Y', MAX(date)) FROM t_history)
-        AND m.month <= (SELECT strftime('%m', MAX(date)) FROM t_history))),
-     monthly AS (
-         SELECT ap.account_fk,
-                ap.account,
-                ap.currency_fk,
-                ap.currency,
-                ap.category_type_fk,
-                ap.category_type,
-                ap.color_code,
-                ap.period,
-                COALESCE(SUM(CASE WHEN h.value < 0 THEN h.value ELSE 0 END), 0) AS monthly_negative_value,
-                COALESCE(SUM(CASE WHEN h.value >= 0 THEN h.value ELSE 0 END), 0) AS monthly_positive_value
-         FROM all_periods ap
-                  LEFT JOIN t_history h
-                            ON h.account_fk = ap.account_fk
-                                AND h.category_type_fk = ap.category_type_fk
-                                AND ap.period = strftime('%Y-%m', h.date)
-         GROUP BY ap.account_fk, ap.category_type_fk, ap.period)
+WITH all_periods AS (SELECT a.id                      AS account_fk,
+                            a.name                    AS account,
+                            a.currency_fk             AS currency_fk,
+                            tca.symbol                AS currency,
+                            tct.id                    AS category_type_fk,
+                            tct.name                  AS category_type,
+                            tc.hexadecimal_color_code AS color_code,
+                            y.year || '-' || m.month  AS period
+                     FROM t_account a
+                              LEFT JOIN t_currency tca ON a.currency_fk = tca.id
+                              CROSS JOIN t_category_type tct
+                              LEFT JOIN t_color tc ON tct.color_fk = tc.id
+                              CROSS JOIN (SELECT DISTINCT strftime('%Y', h.date) AS year
+                                          FROM t_history h) y
+                              CROSS JOIN (SELECT strftime('%m', date('2000-' || x || '-01')) AS month
+                                          FROM (SELECT '01' AS x
+                                                UNION
+                                                SELECT '02'
+                                                UNION
+                                                SELECT '03'
+                                                UNION
+                                                SELECT '04'
+                                                UNION
+                                                SELECT '05'
+                                                UNION
+                                                SELECT '06'
+                                                UNION
+                                                SELECT '07'
+                                                UNION
+                                                SELECT '08'
+                                                UNION
+                                                SELECT '09'
+                                                UNION
+                                                SELECT '10'
+                                                UNION
+                                                SELECT '11'
+                                                UNION
+                                                SELECT '12')) m
+                     WHERE y.year < (SELECT strftime('%Y', MAX(date)) FROM t_history)
+                        OR (y.year == (SELECT strftime('%Y', MAX(date)) FROM t_history)
+                         AND m.month <= (SELECT strftime('%m', MAX(date)) FROM t_history))),
+     monthly AS (SELECT ap.account_fk,
+                        ap.account,
+                        ap.currency_fk,
+                        ap.currency,
+                        ap.category_type_fk,
+                        ap.category_type,
+                        ap.color_code,
+                        ap.period,
+                        COALESCE(SUM(CASE WHEN h.value < 0 THEN h.value ELSE 0 END), 0)  AS monthly_negative_value,
+                        COALESCE(SUM(CASE WHEN h.value >= 0 THEN h.value ELSE 0 END), 0) AS monthly_positive_value
+                 FROM all_periods ap
+                          LEFT JOIN t_history h
+                                    ON h.account_fk = ap.account_fk
+                                        AND h.category_type_fk = ap.category_type_fk
+                                        AND ap.period = strftime('%Y-%m', h.date)
+                 GROUP BY ap.account_fk, ap.category_type_fk, ap.period)
 SELECT account_fk,
        account,
        category_type,
@@ -935,73 +936,69 @@ ORDER BY account_fk, period, category_type;
 
 DROP VIEW IF EXISTS analysis_v_account_mode_payment_category_monthly_sum;
 CREATE VIEW analysis_v_account_mode_payment_category_monthly_sum AS
-WITH all_periods AS (
-    SELECT a.id                     AS account_fk,
-           a.name                   AS account,
-           tcu.id               AS currency_fk,
-           tcu.symbol               AS currency,
-           tmp.id                   AS mode_payment_fk,
-           tmp.name                 AS mode_payment,
-           y.year || '-' || m.month AS period,
-           ct.id                    AS category_fk,
-           ct.name                  AS category,
-           tc.hexadecimal_color_code
-    FROM t_account a
-             CROSS JOIN t_mode_payment tmp
-             CROSS JOIN t_category_type ct
-             LEFT JOIN t_color tc ON ct.color_fk = tc.id
-             LEFT JOIN t_currency tcu on a.currency_fk = tcu.id
-             CROSS JOIN (SELECT DISTINCT strftime('%Y', h.date) AS year
-                         FROM t_history h) y
-             CROSS JOIN (SELECT strftime('%m', date('2000-' || x || '-01')) AS month
-                         FROM (SELECT '01' AS x
-                               UNION
-                               SELECT '02'
-                               UNION
-                               SELECT '03'
-                               UNION
-                               SELECT '04'
-                               UNION
-                               SELECT '05'
-                               UNION
-                               SELECT '06'
-                               UNION
-                               SELECT '07'
-                               UNION
-                               SELECT '08'
-                               UNION
-                               SELECT '09'
-                               UNION
-                               SELECT '10'
-                               UNION
-                               SELECT '11'
-                               UNION
-                               SELECT '12')) m
-    WHERE y.year < (SELECT strftime('%Y', MAX(date)) FROM t_history)
-       OR (y.year = (SELECT strftime('%Y', MAX(date)) FROM t_history)
-        AND m.month <= (SELECT strftime('%m', MAX(date)) FROM t_history))
-),
-     monthly AS (
-         SELECT ap.account_fk,
-                ap.account,
-                ap.currency_fk,
-                ap.currency,
-                ap.mode_payment_fk,
-                ap.mode_payment,
-                ap.period,
-                ap.category_fk,
-                ap.category,
-                ap.hexadecimal_color_code,
-                COUNT(CASE WHEN h.value IS NOT NULL THEN h.mode_payment_fk END) AS monthly_mode_payment,
-                COALESCE(SUM(h.value), 0) AS monthly_value
-         FROM all_periods ap
-                  LEFT JOIN t_history h
-                            ON h.account_fk = ap.account_fk
-                                AND h.mode_payment_fk = ap.mode_payment_fk
-                                AND h.category_type_fk = ap.category_fk
-                                AND ap.period = strftime('%Y-%m', h.date)
-         GROUP BY ap.account_fk, ap.mode_payment_fk, ap.period, ap.category_fk
-     )
+WITH all_periods AS (SELECT a.id                     AS account_fk,
+                            a.name                   AS account,
+                            tcu.id                   AS currency_fk,
+                            tcu.symbol               AS currency,
+                            tmp.id                   AS mode_payment_fk,
+                            tmp.name                 AS mode_payment,
+                            y.year || '-' || m.month AS period,
+                            ct.id                    AS category_fk,
+                            ct.name                  AS category,
+                            tc.hexadecimal_color_code
+                     FROM t_account a
+                              CROSS JOIN t_mode_payment tmp
+                              CROSS JOIN t_category_type ct
+                              LEFT JOIN t_color tc ON ct.color_fk = tc.id
+                              LEFT JOIN t_currency tcu on a.currency_fk = tcu.id
+                              CROSS JOIN (SELECT DISTINCT strftime('%Y', h.date) AS year
+                                          FROM t_history h) y
+                              CROSS JOIN (SELECT strftime('%m', date('2000-' || x || '-01')) AS month
+                                          FROM (SELECT '01' AS x
+                                                UNION
+                                                SELECT '02'
+                                                UNION
+                                                SELECT '03'
+                                                UNION
+                                                SELECT '04'
+                                                UNION
+                                                SELECT '05'
+                                                UNION
+                                                SELECT '06'
+                                                UNION
+                                                SELECT '07'
+                                                UNION
+                                                SELECT '08'
+                                                UNION
+                                                SELECT '09'
+                                                UNION
+                                                SELECT '10'
+                                                UNION
+                                                SELECT '11'
+                                                UNION
+                                                SELECT '12')) m
+                     WHERE y.year < (SELECT strftime('%Y', MAX(date)) FROM t_history)
+                        OR (y.year = (SELECT strftime('%Y', MAX(date)) FROM t_history)
+                         AND m.month <= (SELECT strftime('%m', MAX(date)) FROM t_history))),
+     monthly AS (SELECT ap.account_fk,
+                        ap.account,
+                        ap.currency_fk,
+                        ap.currency,
+                        ap.mode_payment_fk,
+                        ap.mode_payment,
+                        ap.period,
+                        ap.category_fk,
+                        ap.category,
+                        ap.hexadecimal_color_code,
+                        COUNT(CASE WHEN h.value IS NOT NULL THEN h.mode_payment_fk END) AS monthly_mode_payment,
+                        COALESCE(SUM(h.value), 0)                                       AS monthly_value
+                 FROM all_periods ap
+                          LEFT JOIN t_history h
+                                    ON h.account_fk = ap.account_fk
+                                        AND h.mode_payment_fk = ap.mode_payment_fk
+                                        AND h.category_type_fk = ap.category_fk
+                                        AND ap.period = strftime('%Y-%m', h.date)
+                 GROUP BY ap.account_fk, ap.mode_payment_fk, ap.period, ap.category_fk)
 SELECT account_fk,
        account,
        mode_payment,
@@ -1454,7 +1451,7 @@ DROP VIEW IF EXISTS export_v_account;
 CREATE VIEW export_v_account AS
 SELECT ta.id,
        ta.name,
-       tat.name AS account_type,
+       tat.name  AS account_type,
        tc.symbol AS currency,
        ta.active,
        ta.date_added
@@ -1479,8 +1476,8 @@ SELECT tct.id,
        tc.name AS color_name,
        tct.date_added
 FROM t_category_type tct
-    INNER JOIN t_color tc
-        ON tct.color_fk = tc.id;
+         INNER JOIN t_color tc
+                    ON tct.color_fk = tc.id;
 
 DROP VIEW IF EXISTS export_v_bank_transfer;
 CREATE VIEW export_v_bank_transfer AS
@@ -1493,10 +1490,10 @@ SELECT tbt.id,
        tbt.date,
        tbt.date_added
 FROM t_bank_transfer tbt
-    INNER JOIN t_account ta_fr
-        ON ta_fr.id = tbt.from_account_fk
-    INNER JOIN t_account ta_to
-        ON ta_to.id = tbt.to_account_fk;
+         INNER JOIN t_account ta_fr
+                    ON ta_fr.id = tbt.from_account_fk
+         INNER JOIN t_account ta_to
+                    ON ta_to.id = tbt.to_account_fk;
 
 -- endregion
 
