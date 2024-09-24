@@ -37,6 +37,7 @@ public class Test
 
         exportVAccountRange.AddListValidation(exportVAccountTypeTable, typeof(ExportVAccount), nameof(ExportVAccount.AccountType), nameof(ExportVAccountType.Name));
         exportVAccountRange.AddListValidation(exportVCurrencyTable, typeof(ExportVAccount), nameof(ExportVAccount.Currency), nameof(ExportVCurrency.Symbol));
+        exportVAccountRange.AddListValidationTrueFalse(booleanTable, typeof(ExportVAccount), nameof(ExportVAccount.Active));
 
         // _ = workbook.SetTableCollection(exportVRecursiveFrequency, context);
         const string filePath = "Test.xlsx";
