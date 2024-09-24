@@ -46,6 +46,12 @@ public class Test
 
         exportVCategoryTypeTable.AddListValidation(exportVColorTable, typeof(ExportVCategoryType), nameof(ExportVCategoryType.ColorName), nameof(ExportVColor.Name));
 
+        var exportVBankTransfert = context.ExportVBankTransfers.AsEnumerable();
+
+        var exportVBankTransferTypeTable = workbook.AddTableCollection(exportVBankTransfert, context);
+
+        exportVBankTransferTypeTable.AddListValidation(exportVAccountTable, typeof(ExportVBankTransfer), nameof(ExportVBankTransfer.FromAccountName), nameof(ExportVAccount.Name));
+        exportVBankTransferTypeTable.AddListValidation(exportVAccountTable, typeof(ExportVBankTransfer), nameof(ExportVBankTransfer.ToAccountName), nameof(ExportVAccount.Name));
 
         // var exportVRecursiveFrequency = context.ExportVRecursiveFrequencies.AsEnumerable();
         // _ = workbook.SetTableCollection(exportVRecursiveFrequency, context);
