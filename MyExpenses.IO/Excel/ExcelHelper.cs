@@ -8,6 +8,24 @@ namespace MyExpenses.IO.Excel;
 public static class ExcelHelper
 {
     /// <summary>
+    /// Adds list validation of boolean values ("True" or "False") to a specified column in an Excel table.
+    /// </summary>
+    /// <param name="onExcelTable">The Excel table on which the validation will be applied.</param>
+    /// <param name="fromExcelTable">The Excel table providing the list of boolean values for validation.</param>
+    /// <param name="onType">The Type of the object representing the structure of the target Excel table.</param>
+    /// <param name="onPropertyName">The name of the property in the target Type that corresponds to the column to be validated.</param>
+    public static void AddListValidationTrueFalse(this ExcelTable onExcelTable, ExcelTable fromExcelTable, Type onType,
+        string onPropertyName)
+    {
+        var columnHeader = fromExcelTable.Columns[0].Name;
+
+        var index = Array.IndexOf(onType.GetProperties(), onType.GetProperty(onPropertyName)) + 1;
+        var validationPlage = onExcelTable.Range.Worksheet.Cells[2, index, onExcelTable.Range.End.Row, index];
+        var validation = onExcelTable.Range.Worksheet.DataValidations.AddListValidation(validationPlage.Address);
+        validation.Formula.ExcelFormula = $"=INDIRECT(\"{fromExcelTable.Name}[{columnHeader}]\")";
+    }
+
+    /// <summary>
     /// Adds list validation to a specified column in an Excel table based on the values from another Excel table.
     /// </summary>
     /// <param name="onExcelTable">The Excel table on which the validation will be applied.</param>
