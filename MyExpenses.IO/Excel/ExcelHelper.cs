@@ -67,15 +67,17 @@ public static class ExcelHelper
     }
 
     /// <summary>
-    /// Adds a worksheet with a predefined boolean table to the Excel workbook.
+    /// Adds a new worksheet containing boolean values (true/false) as a table to the specified Excel workbook.
     /// </summary>
-    /// <param name="workbook">The Excel workbook to which the worksheet and boolean table will be added.</param>
+    /// <param name="workbook">The ExcelWorkbook object to which the boolean table will be added.</param>
     /// <param name="worksheetName">The name of the worksheet to be created. Defaults to "BooleanSheet".</param>
-    /// <returns>The created Excel table containing the boolean values.</returns>
-    public static ExcelTable AddBooleanTable(this ExcelWorkbook workbook, string worksheetName = "BooleanSheet")
+    /// <param name="columnHeader">The header for the boolean values column. Defaults to "Boolean values".</param>
+    /// <returns>Returns an ExcelTable object representing the table of boolean values.</returns>
+    public static ExcelTable AddBooleanTable(this ExcelWorkbook workbook, string worksheetName = "BooleanSheet",
+        string columnHeader = "Boolean values")
     {
         var worksheet = workbook.Worksheets.Add(worksheetName);
-        worksheet.Cells["A1"].Value = "Boolean value";
+        worksheet.Cells["A1"].Value = columnHeader;
         worksheet.Cells["A2"].Value = false;
         worksheet.Cells["A3"].Value = true;
         var range = worksheet.Cells["A1:A3"];
