@@ -1426,4 +1426,18 @@ FROM cumulative_values cv
      ON
          CAST(cv.year AS INTEGER) - 1 = CAST(pre_cv.year AS INTEGER);
 
+DROP VIEW IF EXISTS export_v_recursive_frequency;
+CREATE VIEW export_v_recursive_frequency AS
+SELECT trf.id,
+       trf.frequency,
+       trf.description
+FROM t_recursive_frequency trf;
+
+DROP VIEW IF EXISTS export_v_account_type;
+CREATE VIEW export_v_account_type AS
+SELECT tat.id,
+       tat.name,
+       tat.date_added
+FROM t_account_type tat;
+
 -- endregion

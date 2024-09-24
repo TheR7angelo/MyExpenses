@@ -3,6 +3,7 @@ using Microsoft.Extensions.Logging;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Models.Sql.Bases.Views;
 using MyExpenses.Models.Sql.Bases.Views.Analysis;
+using MyExpenses.Models.Sql.Bases.Views.Exports;
 using Serilog.Extensions.Logging;
 
 namespace MyExpenses.Sql.Context;
@@ -46,6 +47,10 @@ public partial class DataBaseContext : DbContext
     public virtual DbSet<AnalysisVBudgetTotalAnnual> AnalysisVBudgetTotalAnnuals { get; set; }
 
     public virtual DbSet<AnalysisVBudgetTotalAnnualGlobal> AnalysisVBudgetTotalAnnualGlobals { get; set; }
+
+    public virtual DbSet<ExportVAccountType> ExportVAccountTypes { get; set; }
+
+    public virtual DbSet<ExportVRecursiveFrequency> ExportVRecursiveFrequencies { get; set; }
 
     public virtual DbSet<TAccount> TAccounts { get; set; }
 
@@ -152,6 +157,16 @@ public partial class DataBaseContext : DbContext
         modelBuilder.Entity<AnalysisVBudgetTotalAnnualGlobal>(entity =>
         {
             entity.ToView("analysis_v_budget_total_annual_global");
+        });
+
+        modelBuilder.Entity<ExportVAccountType>(entity =>
+        {
+            entity.ToView("export_v_account_type");
+        });
+
+        modelBuilder.Entity<ExportVRecursiveFrequency>(entity =>
+        {
+            entity.ToView("export_v_recursive_frequency");
         });
 
         modelBuilder.Entity<TAccount>(entity =>
