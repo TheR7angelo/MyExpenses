@@ -4,8 +4,6 @@ using MyExpenses.Models.Sql.Bases.Views.Exports;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils;
 using OfficeOpenXml;
-using OfficeOpenXml.DataValidation.Contracts;
-using OfficeOpenXml.Table;
 
 namespace MyExpenses.IO.Test;
 
