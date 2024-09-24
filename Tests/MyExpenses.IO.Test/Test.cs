@@ -53,8 +53,22 @@ public class Test
         exportVBankTransferTypeTable.AddListValidation(exportVAccountTable, typeof(ExportVBankTransfer), nameof(ExportVBankTransfer.FromAccountName), nameof(ExportVAccount.Name));
         exportVBankTransferTypeTable.AddListValidation(exportVAccountTable, typeof(ExportVBankTransfer), nameof(ExportVBankTransfer.ToAccountName), nameof(ExportVAccount.Name));
 
-        // var exportVRecursiveFrequency = context.ExportVRecursiveFrequencies.AsEnumerable();
-        // _ = workbook.SetTableCollection(exportVRecursiveFrequency, context);
+        var exportVModePayment = context.ExportVModePayments.AsEnumerable();
+        var exportVPlace = context.ExportVPlaces.AsEnumerable();
+        var exportVRecursiveFrequency = context.ExportVRecursiveFrequencies.AsEnumerable();
+        var exportVRecursiveExpense = context.ExportVRecursiveExpenses.AsEnumerable();
+
+        var exportVModePaymentTable = workbook.AddTableCollection(exportVModePayment, context);
+        var exportVPlaceTable = workbook.AddTableCollection(exportVPlace, context);
+        var exportVRecursiveFrequencyTable = workbook.AddTableCollection(exportVRecursiveFrequency, context);
+        var exportVRecursiveExpenseTable = workbook.AddTableCollection(exportVRecursiveExpense, context);
+
+        exportVRecursiveExpenseTable.AddListValidation(exportVAccountTable, typeof(ExportVRecursiveExpense), nameof(ExportVRecursiveExpense.AccountName), nameof(ExportVAccount.Name));
+        exportVRecursiveExpenseTable.AddListValidation(exportVCategoryTypeTable, typeof(ExportVRecursiveExpense), nameof(ExportVRecursiveExpense.CategoryType), nameof(ExportVCategoryType.Name));
+        exportVRecursiveExpenseTable.AddListValidation(exportVModePaymentTable, typeof(ExportVRecursiveExpense), nameof(ExportVRecursiveExpense.ModePayment), nameof(ExportVModePayment.Name));
+        exportVRecursiveExpenseTable.AddListValidation(exportVPlaceTable, typeof(ExportVRecursiveExpense), nameof(ExportVRecursiveExpense.PlaceName), nameof(ExportVPlace.Name));
+        exportVRecursiveExpenseTable.AddListValidation(exportVRecursiveFrequencyTable, typeof(ExportVRecursiveExpense), nameof(ExportVRecursiveExpense.Frequency), nameof(ExportVRecursiveFrequency.Frequency));
+
         const string filePath = "Test.xlsx";
         package.SaveAs(filePath);
     }
