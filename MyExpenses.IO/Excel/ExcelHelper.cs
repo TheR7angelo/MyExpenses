@@ -8,24 +8,28 @@ namespace MyExpenses.IO.Excel;
 public static class ExcelHelper
 {
     /// <summary>
-    /// Sets a collection of data into an Excel table within a workbook and applies styling.
+    /// Creates a new worksheet in the given Excel workbook, loads a collection of data into it, and applies table formatting and date styles.
     /// </summary>
-    /// <typeparam name="T">The type of the elements in the collection.</typeparam>
-    /// <param name="workbook">The Excel workbook where the table will be created.</param>
-    /// <param name="collection">The collection of data to be added to the Excel table.</param>
-    /// <param name="context">The database context to retrieve table name information.</param>
-    /// <returns>Returns the ExcelRangeBase object representing the created table within the worksheet.</returns>
+    /// <param name="workbook">The Excel workbook where the new worksheet will be added.</param>
+    /// <param name="collection">The collection of data to be loaded into the worksheet.</param>
+    /// <param name="context">Database context used to determine the name of the table.</param>
+    /// <param name="tableName">Outputs the name of the created table.</param>
+    /// <typeparam name="T">The type of the data in the collection.</typeparam>
+    /// <returns>The range of cells that were loaded with the collection.</returns>
     public static ExcelRangeBase SetTableCollection<T>(this ExcelWorkbook workbook, IEnumerable<T> collection,
-        DataBaseContext context)
+        DataBaseContext context, out string tableName)
     {
         var type = typeof(T);
         var collectionName = context.GetTableName(type);
+        tableName = $"{collectionName}_table";
 
         var worksheet = workbook.Worksheets.Add(collectionName);
         var range = worksheet.Cells["A1"].LoadFromCollection(collection, true);
-        worksheet.SetExcelTableStyle(range, $"{collectionName}_table");
+
+        worksheet.SetExcelTableStyle(range, tableName);
         worksheet.SetDateStyle(type.GetProperties(), range);
         range.AutoFitColumns();
+
         return range;
     }
 
