@@ -24,16 +24,6 @@ CREATE TABLE t_supported_languages
     date_added       DATETIME         DEFAULT CURRENT_TIMESTAMP
 );
 
-DROP TABLE IF EXISTS t_recursive_frequency;
-CREATE TABLE t_recursive_frequency
-(
-    id          INTEGER
-        CONSTRAINT t_recursive_frequency_pk
-            PRIMARY KEY AUTOINCREMENT ,
-    frequency   TEXT,
-    description TEXT
-);
-
 DROP TABLE IF EXISTS t_spatial_ref_sys;
 CREATE TABLE t_spatial_ref_sys
 (
@@ -124,36 +114,6 @@ CREATE TABLE t_category_type
     date_added DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
-DROP TABLE IF EXISTS t_mode_payment;
-CREATE TABLE t_mode_payment
-(
-    id         INTEGER
-        CONSTRAINT t_mode_payment_pk
-            PRIMARY KEY AUTOINCREMENT,
-    name       TEXT,
-    date_added DATETIME DEFAULT CURRENT_TIMESTAMP
-);
-
-DROP TABLE IF EXISTS t_place;
-CREATE TABLE t_place
-(
-    id             INTEGER
-        CONSTRAINT t_place_pk
-            PRIMARY KEY AUTOINCREMENT,
-    name           TEXT,
-    number         TEXT,
-    street         TEXT,
-    postal         TEXT,
-    city           TEXT,
-    country        TEXT,
-    latitude       REAL,
-    longitude      REAL,
-    geometry       BLOB,
-    is_open        BOOLEAN  DEFAULT TRUE,
-    can_be_deleted BOOLEAN  DEFAULT TRUE,
-    date_added     DATETIME DEFAULT CURRENT_TIMESTAMP
-);
-
 DROP TABLE IF EXISTS t_bank_transfer;
 CREATE TABLE t_bank_transfer
 (
@@ -171,6 +131,16 @@ CREATE TABLE t_bank_transfer
     additional_reason TEXT,
     date              DATETIME,
     date_added        DATETIME default CURRENT_TIMESTAMP
+);
+
+DROP TABLE IF EXISTS t_recursive_frequency;
+CREATE TABLE t_recursive_frequency
+(
+    id          INTEGER
+        CONSTRAINT t_recursive_frequency_pk
+            PRIMARY KEY AUTOINCREMENT ,
+    frequency   TEXT,
+    description TEXT
 );
 
 DROP TABLE IF EXISTS t_recursive_expense;
@@ -205,6 +175,36 @@ CREATE TABLE t_recursive_expense
     force_deactivate  BOOLEAN DEFAULT FALSE NOT NULL,
     date_added        DATETIME    DEFAULT CURRENT_TIMESTAMP,
     last_updated      DATETIME
+);
+
+DROP TABLE IF EXISTS t_mode_payment;
+CREATE TABLE t_mode_payment
+(
+    id         INTEGER
+        CONSTRAINT t_mode_payment_pk
+            PRIMARY KEY AUTOINCREMENT,
+    name       TEXT,
+    date_added DATETIME DEFAULT CURRENT_TIMESTAMP
+);
+
+DROP TABLE IF EXISTS t_place;
+CREATE TABLE t_place
+(
+    id             INTEGER
+        CONSTRAINT t_place_pk
+            PRIMARY KEY AUTOINCREMENT,
+    name           TEXT,
+    number         TEXT,
+    street         TEXT,
+    postal         TEXT,
+    city           TEXT,
+    country        TEXT,
+    latitude       REAL,
+    longitude      REAL,
+    geometry       BLOB,
+    is_open        BOOLEAN  DEFAULT TRUE,
+    can_be_deleted BOOLEAN  DEFAULT TRUE,
+    date_added     DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
 DROP TABLE IF EXISTS t_history;
