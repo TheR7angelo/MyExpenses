@@ -16,7 +16,7 @@ public static class ExcelHelper
     /// <param name="tableName">Outputs the name of the created table.</param>
     /// <typeparam name="T">The type of the data in the collection.</typeparam>
     /// <returns>The range of cells that were loaded with the collection.</returns>
-    public static ExcelRangeBase SetTableCollection<T>(this ExcelWorkbook workbook, IEnumerable<T> collection,
+    public static ExcelRangeBase AddTableCollection<T>(this ExcelWorkbook workbook, IEnumerable<T> collection,
         DataBaseContext context, out string tableName)
     {
         var type = typeof(T);
