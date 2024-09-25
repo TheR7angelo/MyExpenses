@@ -1,5 +1,6 @@
 using System.Drawing;
 using System.Reflection;
+using MyExpenses.IO.Csv;
 using MyExpenses.IO.Excel;
 using MyExpenses.Models.Sql.Bases.Views.Exports;
 using MyExpenses.Sql.Context;
@@ -82,5 +83,58 @@ public class Test
 
         const string filePath = "Test.xlsx";
         package.SaveAs(filePath);
+    }
+
+    [Fact]
+    private void CsvTest()
+    {
+        var executablePath = Assembly.GetExecutingAssembly().Location;
+        var path = executablePath.GetParentDirectory(6);
+        var dbFile = Path.Combine(path, "MyExpenses.Wpf", "bin", "Debug", "net8.0-windows", "Databases", "Model - Using.sqlite");
+        using var context = new DataBaseContext(dbFile);
+
+        var exportVAccountTypeName = context.GetTableName(typeof(ExportVAccountType));
+        var exportVAccountType = context.ExportVAccountTypes.AsEnumerable();
+        exportVAccountType.WriteCsv(exportVAccountTypeName!);
+
+        var exportVCurrencyName = context.GetTableName(typeof(ExportVCurrency));
+        var exportVCurrency = context.ExportVCurrencies.AsEnumerable();
+        exportVCurrency.WriteCsv(exportVCurrencyName!);
+
+        var exportVAccountName = context.GetTableName(typeof(ExportVAccount));
+        var exportVAccount = context.ExportVAccounts.AsEnumerable();
+        exportVAccount.WriteCsv(exportVAccountName!);
+
+        var exportVColorName = context.GetTableName(typeof(ExportVColor));
+        var exportVColor = context.ExportVColors.AsEnumerable();
+        exportVColor.WriteCsv(exportVColorName!);
+
+        var exportVCategoryTypeName = context.GetTableName(typeof(ExportVCategoryType));
+        var exportVCategoryType = context.ExportVCategoryTypes.AsEnumerable();
+        exportVCategoryType.WriteCsv(exportVCategoryTypeName!);
+
+        var exportVBankTransferName = context.GetTableName(typeof(ExportVBankTransfer));
+        var exportVBankTransfer = context.ExportVBankTransfers.AsEnumerable();
+        exportVBankTransfer.WriteCsv(exportVBankTransferName!);
+
+        var exportVModePaymentName = context.GetTableName(typeof(ExportVModePayment));
+        var exportVModePayment = context.ExportVModePayments.AsEnumerable();
+        exportVModePayment.WriteCsv(exportVModePaymentName!);
+
+        var exportVPlaceName = context.GetTableName(typeof(ExportVPlace));
+        var exportVPlace = context.ExportVPlaces.AsEnumerable();
+        exportVPlace.WriteCsv(exportVPlaceName!);
+
+        var exportVRecursiveFrequencyName = context.GetTableName(typeof(ExportVRecursiveFrequency));
+        var exportVRecursiveFrequency = context.ExportVRecursiveFrequencies.AsEnumerable();
+        exportVRecursiveFrequency.WriteCsv(exportVRecursiveFrequencyName!);
+
+        var exportVRecursiveExpenseName = context.GetTableName(typeof(ExportVRecursiveExpense));
+        var exportVRecursiveExpense = context.ExportVRecursiveExpenses.AsEnumerable();
+        exportVRecursiveExpense.WriteCsv(exportVRecursiveExpenseName!);
+
+        var exportVHistoryName = context.GetTableName(typeof(ExportVHistory));
+        var exportVHistory = context.ExportVHistories.AsEnumerable();
+        exportVHistory.WriteCsv(exportVHistoryName!);
     }
 }
