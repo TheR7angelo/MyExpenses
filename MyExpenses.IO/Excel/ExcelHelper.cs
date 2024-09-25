@@ -1,3 +1,4 @@
+using System.Drawing;
 using System.Reflection;
 using MyExpenses.Sql.Context;
 using OfficeOpenXml;
@@ -43,15 +44,16 @@ public static class ExcelHelper
     }
 
     /// <summary>
-    /// Adds a collection of data to a new Excel worksheet and formats it as a table.
+    /// Adds a collection of data to an Excel workbook as a table with optional tab color customization.
     /// </summary>
-    /// <typeparam name="T">The type of elements in the collection.</typeparam>
-    /// <param name="workbook">The Excel workbook to which the table will be added.</param>
-    /// <param name="collection">The collection of data to be added to the Excel worksheet.</param>
-    /// <param name="context">The database context used to retrieve the table name.</param>
-    /// <returns>An instance of <see cref="ExcelTable"/> representing the formatted table in the worksheet.</returns>
+    /// <param name="workbook">The Excel workbook where the table will be added.</param>
+    /// <param name="collection">The collection of data to be added as a table.</param>
+    /// <param name="context">The database context used to retrieve table name information.</param>
+    /// <param name="tabColor">Optional tab color for the worksheet.</param>
+    /// <typeparam name="T">The type of the elements in the collection.</typeparam>
+    /// <returns>The created Excel table.</returns>
     public static ExcelTable AddTableCollection<T>(this ExcelWorkbook workbook, IEnumerable<T> collection,
-        DataBaseContext context)
+        DataBaseContext context, Color? tabColor = null)
     {
         var type = typeof(T);
         var collectionName = context.GetTableName(type);
@@ -62,6 +64,8 @@ public static class ExcelHelper
         var excelTable = worksheet.SetExcelTableStyle(range, $"{collectionName}_table");
         worksheet.SetDateStyle(type.GetProperties(), range);
         range.AutoFitColumns();
+
+        if (tabColor is not null) worksheet.TabColor = tabColor.Value;
 
         return excelTable;
     }
