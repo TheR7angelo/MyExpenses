@@ -44,9 +44,9 @@ public class Test
 
         exportVCategoryTypeTable.AddListValidation(exportVColorTable, typeof(ExportVCategoryType), nameof(ExportVCategoryType.ColorName), nameof(ExportVColor.Name));
 
-        var exportVBankTransfert = context.ExportVBankTransfers.AsEnumerable();
+        var exportVBankTransfer = context.ExportVBankTransfers.AsEnumerable();
 
-        var exportVBankTransferTypeTable = workbook.AddTableCollection(exportVBankTransfert, context);
+        var exportVBankTransferTypeTable = workbook.AddTableCollection(exportVBankTransfer, context);
 
         exportVBankTransferTypeTable.AddListValidation(exportVAccountTable, typeof(ExportVBankTransfer), nameof(ExportVBankTransfer.FromAccountName), nameof(ExportVAccount.Name));
         exportVBankTransferTypeTable.AddListValidation(exportVAccountTable, typeof(ExportVBankTransfer), nameof(ExportVBankTransfer.ToAccountName), nameof(ExportVAccount.Name));
