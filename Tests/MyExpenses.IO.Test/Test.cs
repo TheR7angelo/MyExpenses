@@ -1,14 +1,20 @@
+using System.Drawing;
 using System.Reflection;
 using MyExpenses.IO.Excel;
 using MyExpenses.Models.Sql.Bases.Views.Exports;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils;
 using OfficeOpenXml;
+using Xunit.Abstractions;
 
 namespace MyExpenses.IO.Test;
 
 public class Test
 {
+    private readonly Color _colorLevel1 = Color.Aqua;
+    private readonly Color _colorLevel2 = Color.Blue;
+    private readonly Color _colorLevel3 = Color.Green;
+
     [Fact]
     private void SecondTest()
     {
@@ -28,9 +34,9 @@ public class Test
         var exportVCurrency = context.ExportVCurrencies.AsEnumerable();
         var exportVAccount = context.ExportVAccounts.AsEnumerable();
 
-        var exportVAccountTypeTable = workbook.AddTableCollection(exportVAccountType, context);
-        var exportVCurrencyTable = workbook.AddTableCollection(exportVCurrency, context);
-        var exportVAccountTable = workbook.AddTableCollection(exportVAccount, context);
+        var exportVAccountTypeTable = workbook.AddTableCollection(exportVAccountType, context, _colorLevel1);
+        var exportVCurrencyTable = workbook.AddTableCollection(exportVCurrency, context, _colorLevel1);
+        var exportVAccountTable = workbook.AddTableCollection(exportVAccount, context, _colorLevel2);
 
         exportVAccountTable.AddListValidation(exportVAccountTypeTable, typeof(ExportVAccount), nameof(ExportVAccount.AccountType), nameof(ExportVAccountType.Name));
         exportVAccountTable.AddListValidation(exportVCurrencyTable, typeof(ExportVAccount), nameof(ExportVAccount.Currency), nameof(ExportVCurrency.Symbol));
@@ -39,14 +45,14 @@ public class Test
         var exportVColor = context.ExportVColors.AsEnumerable();
         var exportVCategoryType = context.ExportVCategoryTypes.AsEnumerable();
 
-        var exportVColorTable = workbook.AddTableCollection(exportVColor, context);
-        var exportVCategoryTypeTable = workbook.AddTableCollection(exportVCategoryType, context);
+        var exportVColorTable = workbook.AddTableCollection(exportVColor, context, _colorLevel1);
+        var exportVCategoryTypeTable = workbook.AddTableCollection(exportVCategoryType, context, _colorLevel2);
 
         exportVCategoryTypeTable.AddListValidation(exportVColorTable, typeof(ExportVCategoryType), nameof(ExportVCategoryType.ColorName), nameof(ExportVColor.Name));
 
         var exportVBankTransfer = context.ExportVBankTransfers.AsEnumerable();
 
-        var exportVBankTransferTypeTable = workbook.AddTableCollection(exportVBankTransfer, context);
+        var exportVBankTransferTypeTable = workbook.AddTableCollection(exportVBankTransfer, context, _colorLevel3);
 
         exportVBankTransferTypeTable.AddListValidation(exportVAccountTable, typeof(ExportVBankTransfer), nameof(ExportVBankTransfer.FromAccountName), nameof(ExportVAccount.Name));
         exportVBankTransferTypeTable.AddListValidation(exportVAccountTable, typeof(ExportVBankTransfer), nameof(ExportVBankTransfer.ToAccountName), nameof(ExportVAccount.Name));
@@ -56,10 +62,10 @@ public class Test
         var exportVRecursiveFrequency = context.ExportVRecursiveFrequencies.AsEnumerable();
         var exportVRecursiveExpense = context.ExportVRecursiveExpenses.AsEnumerable();
 
-        var exportVModePaymentTable = workbook.AddTableCollection(exportVModePayment, context);
-        var exportVPlaceTable = workbook.AddTableCollection(exportVPlace, context);
-        var exportVRecursiveFrequencyTable = workbook.AddTableCollection(exportVRecursiveFrequency, context);
-        var exportVRecursiveExpenseTable = workbook.AddTableCollection(exportVRecursiveExpense, context);
+        var exportVModePaymentTable = workbook.AddTableCollection(exportVModePayment, context, _colorLevel1);
+        var exportVPlaceTable = workbook.AddTableCollection(exportVPlace, context, _colorLevel1);
+        var exportVRecursiveFrequencyTable = workbook.AddTableCollection(exportVRecursiveFrequency, context, _colorLevel1);
+        var exportVRecursiveExpenseTable = workbook.AddTableCollection(exportVRecursiveExpense, context, _colorLevel3);
 
         exportVRecursiveExpenseTable.AddListValidation(exportVAccountTable, typeof(ExportVRecursiveExpense), nameof(ExportVRecursiveExpense.AccountName), nameof(ExportVAccount.Name));
         exportVRecursiveExpenseTable.AddListValidation(exportVCategoryTypeTable, typeof(ExportVRecursiveExpense), nameof(ExportVRecursiveExpense.CategoryType), nameof(ExportVCategoryType.Name));
@@ -71,7 +77,7 @@ public class Test
 
         var exportVHistory = context.ExportVHistories.AsEnumerable();
 
-        var exportVHistoryTable = workbook.AddTableCollection(exportVHistory, context);
+        var exportVHistoryTable = workbook.AddTableCollection(exportVHistory, context, _colorLevel3);
 
         exportVHistoryTable.AddListValidation(exportVAccountTable, typeof(ExportVHistory), nameof(ExportVHistory.AccountName), nameof(ExportVAccount.Name));
         exportVHistoryTable.AddListValidation(exportVCategoryTypeTable, typeof(ExportVHistory), nameof(ExportVHistory.CategoryType), nameof(ExportVCategoryType.Name));
