@@ -1,6 +1,5 @@
 using System.Reflection;
 using MyExpenses.IO.Sig.Kml;
-using MyExpenses.Models.Sql.Bases.Views.Exports;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils;
 using NetTopologySuite.Geometries;
@@ -49,12 +48,9 @@ public class KmlWriterTest
         var place = context.TPlaces.First(s =>
             s.Latitude != null && s.Latitude != 0 && s.Longitude != null && s.Longitude != 0);
 
-        var mapping = Models.AutoMapper.Mapping.Mapper;
-        var placeSig = mapping.Map<ExportVPlace>(place);
-
         const string filename = "location place.kmz";
 
-        placeSig.ToKmlFile(filename);
+        place.ToKmlFile(filename);
 
         Assert.True(File.Exists(filename));
     }
@@ -70,12 +66,9 @@ public class KmlWriterTest
         var places = context.TPlaces.Where(s =>
             s.Latitude != null && s.Latitude != 0 && s.Longitude != null && s.Longitude != 0).ToList();
 
-        var mapping = Models.AutoMapper.Mapping.Mapper;
-        var placeSigs = places.Select(s => mapping.Map<ExportTPlace>(s));
-
         const string filename = "location places.kml";
 
-        placeSigs.ToKmlFile(filename);
+        places.ToKmlFile(filename);
 
         Assert.True(File.Exists(filename));
     }
