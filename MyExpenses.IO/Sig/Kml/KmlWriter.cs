@@ -17,6 +17,7 @@ public static class KmlWriter
         extension.TestExtensionError();
 
         var enumerable = sigs as ISig[] ?? sigs.ToArray();
+        enumerable = enumerable.Where(s => s.Geometry is not null).ToArray();
         var firstSig = enumerable.First();
 
         var filenameWithoutExtension = Path.GetFileNameWithoutExtension(fileSavePath);
