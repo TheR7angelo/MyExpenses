@@ -5,6 +5,8 @@ using MyExpenses.Models.Sql.Bases.Views.Exports;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils;
 using OfficeOpenXml;
+using OfficeOpenXml.Sorting;
+using OfficeOpenXml.Table;
 using Xunit.Abstractions;
 
 namespace MyExpenses.IO.Test;
@@ -78,6 +80,8 @@ public class Test
         exportVHistoryTable.AddListValidation(exportVModePaymentTable, typeof(ExportVHistory), nameof(ExportVHistory.ModePayment), nameof(ExportVModePayment.Name));
         exportVHistoryTable.AddListValidation(exportVPlaceTable, typeof(ExportVHistory), nameof(ExportVHistory.Place), nameof(ExportVPlace.Name));
         exportVHistoryTable.AddListValidationTrueFalse(booleanTable, typeof(ExportVHistory), nameof(ExportVHistory.Pointed));
+
+        exportVHistoryTable.OrderTable(typeof(ExportVHistory), nameof(ExportVHistory.Date), eSortOrder.Descending);
 
         const string filePath = "Test.xlsx";
         package.SaveAs(filePath);
