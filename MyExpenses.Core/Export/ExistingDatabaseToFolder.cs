@@ -1,7 +1,7 @@
 ﻿using MyExpenses.IO.Excel;
 using MyExpenses.IO.Sig.Kml;
 using MyExpenses.Models.IO;
-using MyExpenses.Models.IO.Sig.Interfaces;
+using MyExpenses.Sql.Context;
 using Serilog;
 
 namespace MyExpenses.Core.Export;
@@ -19,47 +19,52 @@ public static class ExistingDatabaseToFolder
 
         try
         {
-            Log.Information("Getting all records from all tables");
-            var exportRecords = existingDatabase.GetExportRecords();
-            Log.Information("All records have been recovered");
-
-            Log.Information("Use of {ProcessorCount} processor for export", Environment.ProcessorCount);
-            var parallelOptions = new ParallelOptions { MaxDegreeOfParallelism = Environment.ProcessorCount };
-
-            await Parallel.ForEachAsync(exportRecords, parallelOptions, (exportRecord, _) =>
-            {
-                var name = exportRecord.Name;
-                var records = exportRecord.Records;
-
-                var filePath = Path.Combine(saveFolder, name);
-
-                var isGeom = exportRecord.Source.GetInterfaces().Contains(typeof(ISig));
-                if (isGeom)
-                {
-                    var recordGeoms = records.Where(x => x is ISig)
-                        .Cast<ISig>()
-                        .Where(s => s.Geometry is not null)
-                        .ToList();
-
-                    var geomType = recordGeoms.First().Geometry!.GetType().Name;
-
-                    filePath = isCompress ? $"{filePath}.kmz" : $"{filePath}.kml";
-                    Log.Information("Exporting {Name} to kml file at \"{FilePath}\"", name, filePath);
-
-                    recordGeoms.ToKmlFile(filePath, geomType);
-                }
-                // else
-                // {
-                //     filePath = Path.ChangeExtension(filePath, ".csv");
-                //     Log.Information("Exporting {Name} to csv file at \"{FilePath}\"", name, filePath);
-                //     records.WriteCsv(filePath);
-                // }
-                return default;
-            });
+            // Log.Information("Getting all records from all tables");
+            // var exportRecords = existingDatabase.GetExportRecords();
+            // Log.Information("All records have been recovered");
+            //
+            // Log.Information("Use of {ProcessorCount} processor for export", Environment.ProcessorCount);
+            // var parallelOptions = new ParallelOptions { MaxDegreeOfParallelism = Environment.ProcessorCount };
+            //
+            // await Parallel.ForEachAsync(exportRecords, parallelOptions, (exportRecord, _) =>
+            // {
+            //     var name = exportRecord.Name;
+            //     var records = exportRecord.Records;
+            //
+            //     var filePath = Path.Combine(saveFolder, name);
+            //
+            //     var isGeom = exportRecord.Source.GetInterfaces().Contains(typeof(ISig));
+            //     if (isGeom)
+            //     {
+            //         var recordGeoms = records.Where(x => x is ISig)
+            //             .Cast<ISig>()
+            //             .Where(s => s.Geometry is not null)
+            //             .ToList();
+            //
+            //         var geomType = recordGeoms.First().Geometry!.GetType().Name;
+            //
+            //         filePath = isCompress ? $"{filePath}.kmz" : $"{filePath}.kml";
+            //         Log.Information("Exporting {Name} to kml file at \"{FilePath}\"", name, filePath);
+            //
+            //         recordGeoms.ToKmlFile(filePath, geomType);
+            //     }
+            //     // else
+            //     // {
+            //     //     filePath = Path.ChangeExtension(filePath, ".csv");
+            //     //     Log.Information("Exporting {Name} to csv file at \"{FilePath}\"", name, filePath);
+            //     //     records.WriteCsv(filePath);
+            //     // }
+            //     return default;
+            // });
 
             var saveExcel = Path.Join(saveFolder, $"{existingDatabase.FileNameWithoutExtension}.xlsx");
             Log.Information("Exporting records to Excel file at \"{SaveExcel}\"", saveExcel);
-            exportRecords.ToExcelWorksheet(saveExcel);
+
+            await using var context = new DataBaseContext(existingDatabase.FilePath);
+            context.ToExcelWorksheet(saveExcel);
+            var place = context.TPlaces.AsEnumerable();
+            var saveKml = Path.Join(saveFolder, $"{existingDatabase.FileNameWithoutExtension}.kml");
+            place.ToKmlFile(saveKml);
 
             // TODO work
             // AddQgisProject(isCompress, saveFolder);
