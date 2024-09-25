@@ -69,7 +69,6 @@ public class Test
         exportVRecursiveExpenseTable.AddListValidationTrueFalse(booleanTable, typeof(ExportVRecursiveExpense), nameof(ExportVRecursiveExpense.IsActive));
         exportVRecursiveExpenseTable.AddListValidationTrueFalse(booleanTable, typeof(ExportVRecursiveExpense), nameof(ExportVRecursiveExpense.ForceDeactivate));
 
-
         var exportVHistory = context.ExportVHistories.AsEnumerable();
 
         var exportVHistoryTable = workbook.AddTableCollection(exportVHistory, context);
