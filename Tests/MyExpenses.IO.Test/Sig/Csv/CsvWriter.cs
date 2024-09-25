@@ -1,4 +1,8 @@
-﻿namespace MyExpenses.IO.Test.Sig.Csv;
+﻿using System.Reflection;
+using MyExpenses.Sql.Context;
+using MyExpenses.Utils;
+
+namespace MyExpenses.IO.Test.Sig.Csv;
 
 public class CsvWriter
 {
@@ -6,11 +10,11 @@ public class CsvWriter
     [Fact]
     public void Test()
     {
-        // var executablePath = Assembly.GetExecutingAssembly().Location;
-        // var path = executablePath.GetParentDirectory(6);
-        // var dbFile = Path.Join(path, "MyExpenses.Wpf", "bin", "Debug", "net8.0-windows", "Databases", "Model - Using.sqlite");
-        // using var context = new DataBaseContext(dbFile);
-        //
+        var executablePath = Assembly.GetExecutingAssembly().Location;
+        var path = executablePath.GetParentDirectory(6);
+        var dbFile = Path.Join(path, "MyExpenses.Wpf", "bin", "Debug", "net8.0-windows", "Databases", "Model - Using.sqlite");
+        using var context = new DataBaseContext(dbFile);
+
         // var tables = context.Model.GetEntityTypes()
         //     .SelectMany(s => s.GetTableMappings())
         //     .Select(s => s.TypeBase)
@@ -59,8 +63,8 @@ public class CsvWriter
         // }
         //
         // exportRecords.ToExcelWorksheet("test");
-        //
-        // var projection = context.TSpatialRefSys.First(s => s.Srid.Equals(4326));
+
+        var projection = context.TSpatialRefSys.First(s => s.Srid.Equals(4326));
         // foreach (var exportRecord in exportRecords)
         // {
         //     var name = exportRecord.Name;
