@@ -15,7 +15,7 @@ public class Test
     private readonly Color _colorLevel3 = Color.Green;
 
     [Fact]
-    private void SecondTest()
+    private void ExcelTest()
     {
         ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
 
