@@ -38,8 +38,8 @@ public static class ExcelHelper
         string onPropertyName, string fromPropertyName)
     {
         var index = Array.IndexOf(onType.GetProperties(), onType.GetProperty(onPropertyName)) + 1;
-        var validationPlage = onExcelTable.Range.Worksheet.Cells[2, index, onExcelTable.Range.End.Row, index];
-        var validation = onExcelTable.Range.Worksheet.DataValidations.AddListValidation(validationPlage.Address);
+        var validationRange = onExcelTable.Range.Worksheet.Cells[2, index, onExcelTable.Range.End.Row, index];
+        var validation = onExcelTable.Range.Worksheet.DataValidations.AddListValidation(validationRange.Address);
         validation.Formula.ExcelFormula = $"=INDIRECT(\"{fromExcelTable.Name}[{fromPropertyName}]\")";
     }
 
