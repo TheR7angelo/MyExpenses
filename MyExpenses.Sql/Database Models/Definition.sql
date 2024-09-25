@@ -1521,13 +1521,13 @@ FROM t_place tp;
 DROP VIEW IF EXISTS export_v_recursive_expense;
 CREATE VIEW export_v_recursive_expense AS
 SELECT tre.id,
-       ta.name  AS account_name,
+       ta.name       AS account_name,
        tre.description,
        tre.note,
-       tct.name AS category_type,
-       tmp.name AS mode_payment,
+       tct.name      AS category_type,
+       tmp.name      AS mode_payment,
        tre.value,
-       tp.name AS place_name,
+       tp.name       AS place_name,
        tre.start_date,
        tre.recursive_total,
        tre.recursive_count,
@@ -1545,9 +1545,35 @@ FROM t_recursive_expense tre
          INNER JOIN t_mode_payment tmp
                     ON tre.mode_payment_fk = tmp.id
          INNER JOIN t_place tp
-             ON tre.place_fk = tp.id
+                    ON tre.place_fk = tp.id
          INNER JOIN t_recursive_frequency trf
-             ON tre.frequency_fk = trf.id;
+                    ON tre.frequency_fk = trf.id;
+
+DROP VIEW IF EXISTS export_v_history;
+CREATE VIEW export_v_history AS
+SELECT th.id,
+       ta.name AS account_name,
+       th.description,
+       tct.name AS category_type,
+       tmp.name AS mode_payment,
+       th.value,
+       th.date,
+       tp.name AS place,
+       th.pointed,
+--        th.bank_transfer_fk,
+--        th.recursive_expense_fk,
+       th.date_added,
+       th.date_pointed
+FROM t_history th
+    INNER JOIN t_account ta
+        ON th.account_fk = ta.id
+    INNER JOIN t_category_type tct
+        ON th.category_type_fk = tct.id
+    INNER JOIN t_mode_payment tmp
+        ON th.mode_payment_fk = tmp.id
+    INNER JOIN t_place tp
+        ON th.place_fk = tp.id;
+
 -- endregion
 
 -- endregion

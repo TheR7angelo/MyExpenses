@@ -60,6 +60,8 @@ public partial class DataBaseContext : DbContext
 
     public virtual DbSet<ExportVCurrency> ExportVCurrencies { get; set; }
 
+    public virtual DbSet<ExportVHistory> ExportVHistories { get; set; }
+
     public virtual DbSet<ExportVModePayment> ExportVModePayments { get; set; }
 
     public virtual DbSet<ExportVPlace> ExportVPlaces { get; set; }
@@ -203,6 +205,11 @@ public partial class DataBaseContext : DbContext
         modelBuilder.Entity<ExportVCurrency>(entity =>
         {
             entity.ToView("export_v_currency");
+        });
+
+        modelBuilder.Entity<ExportVHistory>(entity =>
+        {
+            entity.ToView("export_v_history");
         });
 
         modelBuilder.Entity<ExportVModePayment>(entity =>
