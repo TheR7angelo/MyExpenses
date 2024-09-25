@@ -5,9 +5,6 @@ using MyExpenses.Models.Sql.Bases.Views.Exports;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils;
 using OfficeOpenXml;
-using OfficeOpenXml.Sorting;
-using OfficeOpenXml.Table;
-using Xunit.Abstractions;
 
 namespace MyExpenses.IO.Test;
 
@@ -42,6 +39,8 @@ public class Test
         var exportVRecursiveExpense = context.ExportVRecursiveExpenses.AsEnumerable();
         var exportVHistory = context.ExportVHistories.AsEnumerable();
 
+        var worksheet = workbook.Worksheets.Add("Sheet1");
+
         var exportVHistoryTable = workbook.AddTableCollection(exportVHistory, context, _colorLevel3);
         var exportVBankTransferTypeTable = workbook.AddTableCollection(exportVBankTransfer, context, _colorLevel3);
         var exportVRecursiveExpenseTable = workbook.AddTableCollection(exportVRecursiveExpense, context, _colorLevel3);
@@ -57,6 +56,8 @@ public class Test
         var exportVRecursiveFrequencyTable = workbook.AddTableCollection(exportVRecursiveFrequency, context, _colorLevel1);
 
         var booleanTable = workbook.AddBooleanTable();
+
+        worksheet.Cells["A1"].Hyperlink = new ExcelHyperLink($"{exportVHistoryTable.WorkSheet.Name}!A1", "Sheet1");
 
         exportVAccountTable.AddListValidation(exportVAccountTypeTable, typeof(ExportVAccount), nameof(ExportVAccount.AccountType), nameof(ExportVAccountType.Name));
         exportVAccountTable.AddListValidation(exportVCurrencyTable, typeof(ExportVAccount), nameof(ExportVAccount.Currency), nameof(ExportVCurrency.Symbol));
