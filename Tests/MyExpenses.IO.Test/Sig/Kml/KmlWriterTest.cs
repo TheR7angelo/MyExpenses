@@ -1,5 +1,8 @@
+using System.Reflection;
 using MyExpenses.IO.Sig.Kml;
+using MyExpenses.Models.Sql.Bases.Views.Exports;
 using MyExpenses.Sql.Context;
+using MyExpenses.Utils;
 using NetTopologySuite.Geometries;
 
 namespace MyExpenses.IO.Test.Sig.Kml;
@@ -20,7 +23,11 @@ public class KmlWriterTest
     [Fact]
     private void GoToKmlMultiPoint()
     {
-        using var context = new DataBaseContext();
+        var executablePath = Assembly.GetExecutingAssembly().Location;
+        var path = executablePath.GetParentDirectory(6);
+        var dbFile = Path.Combine(path, "MyExpenses.Wpf", "bin", "Debug", "net8.0-windows", "Databases", "Model - Using.sqlite");
+        using var context = new DataBaseContext(dbFile);
+
         var points = context.TPlaces
             .Where(s => s.Latitude != null && s.Latitude != 0 && s.Longitude != null && s.Longitude != 0)
             .Select(s => (Point)s.Geometry!).ToList();
@@ -34,12 +41,16 @@ public class KmlWriterTest
     [Fact]
     private void GoToKmlPlace()
     {
-        using var context = new DataBaseContext();
+        var executablePath = Assembly.GetExecutingAssembly().Location;
+        var path = executablePath.GetParentDirectory(6);
+        var dbFile = Path.Combine(path, "MyExpenses.Wpf", "bin", "Debug", "net8.0-windows", "Databases", "Model - Using.sqlite");
+        using var context = new DataBaseContext(dbFile);
+
         var place = context.TPlaces.First(s =>
             s.Latitude != null && s.Latitude != 0 && s.Longitude != null && s.Longitude != 0);
 
         var mapping = Models.AutoMapper.Mapping.Mapper;
-        var placeSig = mapping.Map<ExportTPlace>(place);
+        var placeSig = mapping.Map<ExportVPlace>(place);
 
         const string filename = "location place.kmz";
 
@@ -51,7 +62,11 @@ public class KmlWriterTest
     [Fact]
     private void GoToKmlPlaces()
     {
-        using var context = new DataBaseContext();
+        var executablePath = Assembly.GetExecutingAssembly().Location;
+        var path = executablePath.GetParentDirectory(6);
+        var dbFile = Path.Combine(path, "MyExpenses.Wpf", "bin", "Debug", "net8.0-windows", "Databases", "Model - Using.sqlite");
+        using var context = new DataBaseContext(dbFile);
+
         var places = context.TPlaces.Where(s =>
             s.Latitude != null && s.Latitude != 0 && s.Longitude != null && s.Longitude != 0).ToList();
 
