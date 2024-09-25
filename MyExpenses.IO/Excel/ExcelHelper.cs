@@ -44,6 +44,20 @@ public static class ExcelHelper
     }
 
     /// <summary>
+    /// Sorts an Excel table based on a specified property and sort order.
+    /// </summary>
+    /// <param name="excelTable">The Excel table to be sorted.</param>
+    /// <param name="onType">The Type of the object representing the structure of the target Excel table.</param>
+    /// <param name="onPropertyName">The name of the property in the target Type that corresponds to the column to be sorted.</param>
+    /// <param name="sortOrder">The order in which to sort the column (ascending or descending).</param>
+    public static void OrderTable(this ExcelTable excelTable, Type onType, string onPropertyName,
+        eSortOrder sortOrder = eSortOrder.Ascending)
+    {
+        var index = Array.IndexOf(onType.GetProperties(), onType.GetProperty(onPropertyName));
+        excelTable.Sort(s => s.SortBy.Column(index, sortOrder));
+    }
+
+    /// <summary>
     /// Adds a collection of data to an Excel workbook as a table with optional tab color customization.
     /// </summary>
     /// <param name="workbook">The Excel workbook where the table will be added.</param>
