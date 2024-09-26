@@ -1,4 +1,4 @@
-using System.Drawing;
+using MyExpenses.Models.IO.Excel;
 using MyExpenses.Models.Sql.Bases.Views.Exports;
 using MyExpenses.Sql.Context;
 using OfficeOpenXml;
@@ -8,10 +8,6 @@ namespace MyExpenses.IO.Excel;
 
 public static class ImportExportDataTableExcel
 {
-    private static readonly Color ColorLevel1 = Color.Aqua;
-    private static readonly Color ColorLevel2 = Color.Blue;
-    private static readonly Color ColorLevel3 = Color.Green;
-
     static ImportExportDataTableExcel()
     {
         ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
@@ -36,19 +32,19 @@ public static class ImportExportDataTableExcel
         var exportVRecursiveExpense = context.ExportVRecursiveExpenses.AsEnumerable();
         var exportVHistory = context.ExportVHistories.AsEnumerable();
 
-        var exportVHistoryTable = workbook.AddTableCollection(exportVHistory, context, ColorLevel3);
-        var exportVBankTransferTypeTable = workbook.AddTableCollection(exportVBankTransfer, context, ColorLevel3);
-        var exportVRecursiveExpenseTable = workbook.AddTableCollection(exportVRecursiveExpense, context, ColorLevel3);
+        var exportVHistoryTable = workbook.AddTableCollection(exportVHistory, context, ETableLevel.Level3);
+        var exportVBankTransferTypeTable = workbook.AddTableCollection(exportVBankTransfer, context, ETableLevel.Level3);
+        var exportVRecursiveExpenseTable = workbook.AddTableCollection(exportVRecursiveExpense, context, ETableLevel.Level3);
 
-        var exportVAccountTable = workbook.AddTableCollection(exportVAccount, context, ColorLevel2);
-        var exportVCategoryTypeTable = workbook.AddTableCollection(exportVCategoryType, context, ColorLevel2);
+        var exportVAccountTable = workbook.AddTableCollection(exportVAccount, context, ETableLevel.Level2);
+        var exportVCategoryTypeTable = workbook.AddTableCollection(exportVCategoryType, context, ETableLevel.Level2);
 
-        var exportVAccountTypeTable = workbook.AddTableCollection(exportVAccountType, context, ColorLevel1);
-        var exportVCurrencyTable = workbook.AddTableCollection(exportVCurrency, context, ColorLevel1);
-        var exportVColorTable = workbook.AddTableCollection(exportVColor, context, ColorLevel1);
-        var exportVModePaymentTable = workbook.AddTableCollection(exportVModePayment, context, ColorLevel1);
-        var exportVPlaceTable = workbook.AddTableCollection(exportVPlace, context, ColorLevel1);
-        var exportVRecursiveFrequencyTable = workbook.AddTableCollection(exportVRecursiveFrequency, context, ColorLevel1);
+        var exportVAccountTypeTable = workbook.AddTableCollection(exportVAccountType, context, ETableLevel.Level1);
+        var exportVCurrencyTable = workbook.AddTableCollection(exportVCurrency, context, ETableLevel.Level1);
+        var exportVColorTable = workbook.AddTableCollection(exportVColor, context, ETableLevel.Level1);
+        var exportVModePaymentTable = workbook.AddTableCollection(exportVModePayment, context, ETableLevel.Level1);
+        var exportVPlaceTable = workbook.AddTableCollection(exportVPlace, context, ETableLevel.Level1);
+        var exportVRecursiveFrequencyTable = workbook.AddTableCollection(exportVRecursiveFrequency, context, ETableLevel.Level1);
 
         var booleanTable = workbook.AddBooleanTable();
 
