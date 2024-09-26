@@ -1,5 +1,6 @@
 using System.Drawing;
 using System.Reflection;
+using MyExpenses.Models.IO.Excel;
 using MyExpenses.Sql.Context;
 using OfficeOpenXml;
 using OfficeOpenXml.Table;
@@ -58,14 +59,47 @@ public static class ExcelHelper
     }
 
     /// <summary>
-    /// Adds a collection of data to an Excel workbook as a table with optional tab color customization.
+    /// Adds a collection of objects to a new worksheet in the Excel workbook and styles the worksheet based on the table level.
     /// </summary>
-    /// <param name="workbook">The Excel workbook where the table will be added.</param>
-    /// <param name="collection">The collection of data to be added as a table.</param>
-    /// <param name="context">The database context used to retrieve table name information.</param>
-    /// <param name="tabColor">Optional tab color for the worksheet.</param>
-    /// <typeparam name="T">The type of the elements in the collection.</typeparam>
-    /// <returns>The created Excel table.</returns>
+    /// <typeparam name="T">The type of objects in the collection.</typeparam>
+    /// <param name="workbook">The Excel workbook to which the new worksheet will be added.</param>
+    /// <param name="collection">The collection of objects to be added to the worksheet.</param>
+    /// <param name="context">The database context that provides the table name for the worksheet.</param>
+    /// <param name="tableLevel">The level of the table which determines the tab color and table style of the worksheet.</param>
+    /// <returns>An ExcelTable object representing the added table in the worksheet.</returns>
+    /// <exception cref="ArgumentOutOfRangeException">Thrown when the table level is out of the defined range.</exception>
+    public static ExcelTable AddTableCollection<T>(this ExcelWorkbook workbook, IEnumerable<T> collection,
+        DataBaseContext context, ETableLevel tableLevel)
+    {
+        var type = typeof(T);
+        var collectionName = context.GetTableName(type);
+
+        var worksheet = workbook.Worksheets.Add(collectionName);
+        worksheet.TabColor = tableLevel switch
+        {
+            ETableLevel.Level1 => Color.Aqua,
+            ETableLevel.Level2 => Color.Blue,
+            ETableLevel.Level3 => Color.Green,
+            _ => throw new ArgumentOutOfRangeException(nameof(tableLevel), tableLevel, null)
+        };
+
+        var range = worksheet.Cells["A1"].LoadFromCollection(collection, true);
+
+        var tableStyle = tableLevel switch
+        {
+            ETableLevel.Level1 => TableStyles.Medium5,
+            ETableLevel.Level2 => TableStyles.Medium2,
+            ETableLevel.Level3 => TableStyles.Medium7,
+            _ => throw new ArgumentOutOfRangeException(nameof(tableLevel), tableLevel, null)
+        };
+
+        var excelTable = worksheet.SetExcelTableStyle(range, $"{collectionName}_table", tableStyle);
+        worksheet.SetDateStyle(type.GetProperties(), range);
+        range.AutoFitColumns();
+
+        return excelTable;
+    }
+
     public static ExcelTable AddTableCollection<T>(this ExcelWorkbook workbook, IEnumerable<T> collection,
         DataBaseContext context, Color? tabColor = null)
     {
