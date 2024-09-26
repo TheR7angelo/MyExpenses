@@ -2,7 +2,6 @@ using MyExpenses.Models.IO.Excel;
 using MyExpenses.Models.Sql.Bases.Views.Exports;
 using MyExpenses.Sql.Context;
 using OfficeOpenXml;
-using LicenseContext = OfficeOpenXml.LicenseContext;
 
 namespace MyExpenses.IO.Excel;
 
