@@ -1,4 +1,3 @@
-using System.Drawing;
 using System.Reflection;
 using MyExpenses.IO.Csv;
 using MyExpenses.IO.Excel;
