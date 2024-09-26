@@ -78,8 +78,10 @@ public class Test
 
         exportVHistoryTable.OrderTable(typeof(ExportVHistory), nameof(ExportVHistory.Date), eSortOrder.Descending);
 
-        const string filePath = "Test.xlsx";
+        var filePath = Path.GetFullPath("Test.xlsx");
         package.SaveAs(filePath);
+
+        filePath.StartFile();
     }
 
     [Fact]
