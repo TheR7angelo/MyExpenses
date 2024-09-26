@@ -112,7 +112,7 @@ public static class ExcelHelper
     /// <param name="worksheet">The Excel worksheet where the date formatting will be applied.</param>
     /// <param name="headers">An array of PropertyInfo objects representing the headers of each column.</param>
     /// <param name="excelRangeBase">The range within the worksheet where the data is located.</param>
-    public static void SetDateStyle(this ExcelWorksheet worksheet, PropertyInfo[] headers,
+    private static void SetDateStyle(this ExcelWorksheet worksheet, PropertyInfo[] headers,
         ExcelRangeBase excelRangeBase)
     {
         foreach (var header in headers)
@@ -139,7 +139,7 @@ public static class ExcelHelper
     /// <param name="tableName">The name to be assigned to the created table.</param>
     /// <param name="tableStyles">The style to be applied to the table (default is Medium7).</param>
     /// <returns>The created Excel table with the applied style.</returns>
-    public static ExcelTable SetExcelTableStyle(this ExcelWorksheet worksheet, ExcelRangeBase excelRangeBase,
+    private static ExcelTable SetExcelTableStyle(this ExcelWorksheet worksheet, ExcelRangeBase excelRangeBase,
         string tableName, TableStyles tableStyles = TableStyles.Medium7)
     {
         var excelTable = worksheet.Tables.Add(excelRangeBase, tableName);
