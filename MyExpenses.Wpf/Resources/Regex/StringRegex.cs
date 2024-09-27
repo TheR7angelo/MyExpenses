@@ -1,6 +1,4 @@
-﻿using System.Text.RegularExpressions;
-
-namespace MyExpenses.Wpf.Resources.Regex;
+﻿namespace MyExpenses.Wpf.Resources.Regex;
 
 public static partial class StringRegex
 {
@@ -11,10 +9,8 @@ public static partial class StringRegex
     /// <returns>The input string with spaces inserted between each word.</returns>
     public static string SplitUpperCaseWord(this string str)
     {
-        str = SplitUpperCaseWordRegex().Replace(str, "$1 ");
+        var regex = new System.Text.RegularExpressions.Regex("([a-z](?=[A-Z0-9])|[A-Z](?=[A-Z][a-z]))");
+        str = regex.Replace(str, "$1 ");
         return str;
     }
-
-    [GeneratedRegex("([a-z](?=[A-Z0-9])|[A-Z](?=[A-Z][a-z]))")]
-    private static partial System.Text.RegularExpressions.Regex SplitUpperCaseWordRegex();
 }

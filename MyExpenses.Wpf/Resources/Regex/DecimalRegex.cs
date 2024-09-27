@@ -1,8 +1,6 @@
-﻿using System.Text.RegularExpressions;
+﻿namespace MyExpenses.Wpf.Resources.Regex;
 
-namespace MyExpenses.Wpf.Resources.Regex;
-
-public static partial class DecimalRegex
+public static class DecimalRegex
 {
     /// <summary>
     /// Checks if the given string contains only decimal numbers.
@@ -11,11 +9,8 @@ public static partial class DecimalRegex
     /// <returns>True if the string contains only decimal numbers, otherwise false.</returns>
     public static bool IsOnlyDecimal(this string txt)
     {
-        var regex = IsOnlyDecimalRegex();
+        var regex = new System.Text.RegularExpressions.Regex("^-?[.][0-9]+$|^-?[0-9]*[.]{0,1}[0-9]*$|^-?[0-9]*[,]{0,1}[0-9]*$");
         var result = !regex.IsMatch(txt);
         return result;
     }
-
-    [GeneratedRegex("^-?[.][0-9]+$|^-?[0-9]*[.]{0,1}[0-9]*$|^-?[0-9]*[,]{0,1}[0-9]*$")]
-    private static partial System.Text.RegularExpressions.Regex IsOnlyDecimalRegex();
 }

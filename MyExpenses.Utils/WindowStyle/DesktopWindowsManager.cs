@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 
 namespace MyExpenses.Utils.WindowStyle;
 
-public static partial class DesktopWindowsManager
+public static class DesktopWindowsManager
 {
     private const string DwmApiDll = "dwmapi.dll";
 
@@ -49,6 +49,6 @@ public static partial class DesktopWindowsManager
     /// </param>
     /// <param name="cbAttribute">The size, in bytes, of the value type pointed to by the pvAttribute parameter.</param>
     /// <returns></returns>
-    [LibraryImport(DwmApiDll, SetLastError = true)]
-    private static partial HResult DwmSetWindowAttribute(IntPtr hWnd, DwmWindowAttributes dwAttributeToSet, IntPtr pvAttributeValue, int cbAttribute);
+    [DllImport(DwmApiDll, SetLastError = true)]
+    private static extern HResult DwmSetWindowAttribute(IntPtr hWnd, DwmWindowAttributes dwAttributeToSet, IntPtr pvAttributeValue, int cbAttribute);
 }
