@@ -1,8 +1,6 @@
-﻿using System.Text.RegularExpressions;
+﻿namespace MyExpenses.Sql.Utils.Regex;
 
-namespace MyExpenses.Sql.Utils.Regex;
-
-public static partial class StringRegex
+public static class StringRegex
 {
     /// <summary>
     /// Splits a string into separate words based on uppercase letters.
