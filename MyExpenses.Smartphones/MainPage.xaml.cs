@@ -1,8 +1,8 @@
 ﻿namespace MyExpenses.Smartphones;
 
-public partial class MainPage : ContentPage
+public partial class MainPage
 {
-    int count = 0;
+    private int _count;
 
     public MainPage()
     {
@@ -11,12 +11,11 @@ public partial class MainPage : ContentPage
 
     private void OnCounterClicked(object sender, EventArgs e)
     {
-        count++;
+        _count++;
 
-        if (count == 1)
-            CounterBtn.Text = $"Clicked {count} time";
-        else
-            CounterBtn.Text = $"Clicked {count} times";
+        CounterBtn.Text = _count is 1
+            ? $"Clicked {_count} time"
+            : $"Clicked {_count} times";
 
         SemanticScreenReader.Announce(CounterBtn.Text);
     }
