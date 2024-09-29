@@ -64,7 +64,7 @@ public partial class TPlace : ISql, ISig
     [NotMapped]
     private Geometry? _geometry;
 
-    [Column("geometry")]
+    [NotMapped]
     public Geometry? Geometry
     {
         get => _geometry;

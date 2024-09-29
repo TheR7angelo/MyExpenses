@@ -167,7 +167,6 @@ CREATE TABLE t_place
     country        TEXT,
     latitude       REAL,
     longitude      REAL,
-    geometry       BLOB,
     is_open        BOOLEAN  DEFAULT TRUE,
     can_be_deleted BOOLEAN  DEFAULT TRUE,
     date_added     DATETIME DEFAULT CURRENT_TIMESTAMP
