@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:MyExpenses.Smartphones"
              x:Class="MyExpenses.Smartphones.MainPage">
 
     <ScrollView>
@@ -8,12 +9,14 @@
             Padding="30,0"
             Spacing="25">
 
-            <Image
-                Source="dotnet_bot.png"
-                HeightRequest="185"
-                Aspect="AspectFit"
-                SemanticProperties.Description="dot net bot in a race car number eight">
-            </Image>
+            <!-- <Image -->
+            <!--     Source="dotnet_bot.png" -->
+            <!--     HeightRequest="185" -->
+            <!--     Aspect="AspectFit" -->
+            <!--     SemanticProperties.Description="dot net bot in a race car number eight"> -->
+            <!-- </Image> -->
+
+            <Label Text="{Binding LabelContent, Mode=OneWay, Source={RelativeSource AncestorType={x:Type local:MainPage}}}" />
 
             <Label
                 Text="Hello, World!"
