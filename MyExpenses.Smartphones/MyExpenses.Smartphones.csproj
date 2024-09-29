@@ -72,4 +72,10 @@
       <ProjectReference Include="..\MyExpenses.WebApi\MyExpenses.WebApi.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <MauiAsset Include="..\MyExpenses.Sql\Database Models\Model.sqlite">
+        <Link>Resources\Raw\Database Models\Model.sqlite</Link>
+      </MauiAsset>
+    </ItemGroup>
+
 </Project>
