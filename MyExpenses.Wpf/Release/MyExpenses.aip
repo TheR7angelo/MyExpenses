@@ -106,7 +106,6 @@
     <ROW Component="Microsoft.DiaSymReader.Native.amd64.dll" ComponentId="{7AC80BB1-98C7-471A-B6AE-6D8BAAA62240}" Directory_="APPDIR" Attributes="256" KeyPath="Microsoft.DiaSymReader.Native.amd64.dll"/>
     <ROW Component="Microsoft.EntityFrameworkCore.Abstractions.dll" ComponentId="{FB46FC3E-218C-4472-805C-33C9F286516C}" Directory_="APPDIR" Attributes="0" KeyPath="Microsoft.EntityFrameworkCore.Abstractions.dll"/>
     <ROW Component="Microsoft.EntityFrameworkCore.Relational.dll" ComponentId="{DE46B7A3-F6C8-4A93-8F3A-3D2F386D2FFF}" Directory_="APPDIR" Attributes="0" KeyPath="Microsoft.EntityFrameworkCore.Relational.dll"/>
-    <ROW Component="Microsoft.EntityFrameworkCore.Sqlite.NetTopologySuite.dll" ComponentId="{3444BF33-57B3-4D98-8DF9-9FC75ECA4BD2}" Directory_="APPDIR" Attributes="0" KeyPath="Microsoft.EntityFrameworkCore.Sqlite.NetTopologySuite.dll"/>
     <ROW Component="Microsoft.EntityFrameworkCore.Sqlite.dll" ComponentId="{D8579CB9-FFC1-4D77-9549-84CFF2AE6ABA}" Directory_="APPDIR" Attributes="0" KeyPath="Microsoft.EntityFrameworkCore.Sqlite.dll"/>
     <ROW Component="Microsoft.EntityFrameworkCore.dll" ComponentId="{FFB6BBFA-5813-49E2-BC02-D6B469E528E9}" Directory_="APPDIR" Attributes="0" KeyPath="Microsoft.EntityFrameworkCore.dll"/>
     <ROW Component="Microsoft.Extensions.Caching.Abstractions.dll" ComponentId="{1B9E1323-2E63-46D0-A46D-A0F08D5A9000}" Directory_="APPDIR" Attributes="0" KeyPath="Microsoft.Extensions.Caching.Abstractions.dll"/>
@@ -170,7 +169,6 @@
     <ROW Component="NetTopologySuite.IO.Esri.Shapefile.dll" ComponentId="{DCFF48BF-60D5-4DCB-84CA-14820F076AEE}" Directory_="APPDIR" Attributes="0" KeyPath="NetTopologySuite.IO.Esri.Shapefile.dll"/>
     <ROW Component="NetTopologySuite.IO.GeoJSON.dll" ComponentId="{DAD9335D-80FD-4E25-B011-1FC5FA8EA60C}" Directory_="APPDIR" Attributes="0" KeyPath="NetTopologySuite.IO.GeoJSON.dll"/>
     <ROW Component="NetTopologySuite.IO.GeoJSON4STJ.dll" ComponentId="{C543C579-D23B-4ADE-8A8F-13B05218C1F4}" Directory_="APPDIR" Attributes="0" KeyPath="NetTopologySuite.IO.GeoJSON4STJ.dll"/>
-    <ROW Component="NetTopologySuite.IO.SpatiaLite.dll" ComponentId="{9C31086D-3623-40A2-AEA3-93D93531E3D6}" Directory_="APPDIR" Attributes="0" KeyPath="NetTopologySuite.IO.SpatiaLite.dll"/>
     <ROW Component="NetTopologySuite.dll" ComponentId="{ABBAA7E8-D755-468B-BAAF-54BBDBB992C1}" Directory_="APPDIR" Attributes="0" KeyPath="NetTopologySuite.dll"/>
     <ROW Component="Newtonsoft.Json.dll" ComponentId="{53EDFBCD-1EDE-433C-A7B8-FF6AC97749CE}" Directory_="APPDIR" Attributes="0" KeyPath="Newtonsoft.Json.dll"/>
     <ROW Component="Ookii.Dialogs.Wpf.dll" ComponentId="{91060A67-31D6-4B2E-A423-B3953889876A}" Directory_="APPDIR" Attributes="0" KeyPath="Ookii.Dialogs.Wpf.dll"/>
@@ -623,17 +621,6 @@
     <ROW Component="hostpolicy.dll" ComponentId="{EB3E5427-D57E-4A72-9341-87C1DB4BE9A7}" Directory_="APPDIR" Attributes="256" KeyPath="hostpolicy.dll"/>
     <ROW Component="libHarfBuzzSharp.dll" ComponentId="{BAC35E8C-3BB0-431A-9C09-3D02E05D150A}" Directory_="APPDIR" Attributes="256" KeyPath="libHarfBuzzSharp.dll"/>
     <ROW Component="libSkiaSharp.dll" ComponentId="{4B8372B1-5171-4D24-8616-66723E911CB2}" Directory_="APPDIR" Attributes="256" KeyPath="libSkiaSharp.dll"/>
-    <ROW Component="libfreexl1.dll" ComponentId="{9806A29E-921F-4257-BDD6-637F704E9259}" Directory_="APPDIR" Attributes="256" KeyPath="libfreexl1.dll"/>
-    <ROW Component="libgcc_s_seh1.dll" ComponentId="{0F141EBE-C747-478A-9F1B-CF2118E16A9B}" Directory_="APPDIR" Attributes="256" KeyPath="libgcc_s_seh1.dll"/>
-    <ROW Component="libgeos.dll" ComponentId="{9153C8AA-6C9B-44B4-882A-0E8B5CB651E0}" Directory_="APPDIR" Attributes="256" KeyPath="libgeos.dll"/>
-    <ROW Component="libgeos_c.dll" ComponentId="{105695D8-C9D8-40E6-AD08-2CFA9EB41B6C}" Directory_="APPDIR" Attributes="256" KeyPath="libgeos_c.dll"/>
-    <ROW Component="libiconv2.dll" ComponentId="{CF5FDB0C-3498-469C-B8C5-A4D008A82C7B}" Directory_="APPDIR" Attributes="256" KeyPath="libiconv2.dll"/>
-    <ROW Component="liblzma5.dll" ComponentId="{9CFA0B24-FFD4-4D9D-BCE3-2163B7B64474}" Directory_="APPDIR" Attributes="256" KeyPath="liblzma5.dll"/>
-    <ROW Component="libproj13.dll" ComponentId="{BF712E44-BC1F-4621-B228-085240C259B9}" Directory_="APPDIR" Attributes="256" KeyPath="libproj13.dll"/>
-    <ROW Component="libstdc6.dll" ComponentId="{B1555BC6-F908-46DA-9C92-CA1F8BED3CFB}" Directory_="APPDIR" Attributes="256" KeyPath="libstdc6.dll"/>
-    <ROW Component="libwinpthread1.dll" ComponentId="{D70E12D8-1856-4812-B473-C261AE1E6018}" Directory_="APPDIR" Attributes="256" KeyPath="libwinpthread1.dll"/>
-    <ROW Component="libxml22.dll" ComponentId="{D6F9AE1E-8618-43A4-AA11-287425DB4FE1}" Directory_="APPDIR" Attributes="256" KeyPath="libxml22.dll"/>
-    <ROW Component="mod_spatialite.dll" ComponentId="{997ABEB8-9EC5-4854-A810-3C198F7EFDC2}" Directory_="APPDIR" Attributes="256" KeyPath="mod_spatialite.dll"/>
     <ROW Component="mscordaccore.dll" ComponentId="{4C90EC97-685F-4305-9354-FA5E334BA784}" Directory_="APPDIR" Attributes="256" KeyPath="mscordaccore.dll"/>
     <ROW Component="mscordaccore_amd64_amd64_8.0.824.36612.dll" ComponentId="{369999D3-B6BB-439A-A8BB-5CA345E6A589}" Directory_="APPDIR" Attributes="256" KeyPath="mscordaccore_amd64_amd64_8.0.824.36612.dll"/>
     <ROW Component="mscordbi.dll" ComponentId="{A81E4FD7-E97D-4F1E-B118-4FEBF7790BF4}" Directory_="APPDIR" Attributes="256" KeyPath="mscordbi.dll"/>
@@ -643,7 +630,6 @@
     <ROW Component="netstandard.dll" ComponentId="{06ECF5C6-3F61-4D63-B1AE-FEF2952E9491}" Directory_="APPDIR" Attributes="0" KeyPath="netstandard.dll"/>
     <ROW Component="vcruntime140_cor3.dll" ComponentId="{893E48AD-A2FE-4D1E-9040-AC208E473FA0}" Directory_="APPDIR" Attributes="256" KeyPath="vcruntime140_cor3.dll"/>
     <ROW Component="wpfgfx_cor3.dll" ComponentId="{C6D4C384-686C-45D5-967B-6599439D15C8}" Directory_="APPDIR" Attributes="256" KeyPath="wpfgfx_cor3.dll"/>
-    <ROW Component="zlib1.dll" ComponentId="{84D30146-FD9D-4854-BDE7-691A707B6E7A}" Directory_="APPDIR" Attributes="256" KeyPath="zlib1.dll"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiFeatsComponent">
     <ROW Feature="MainFeature" Title="MainFeature" Description="Description" Display="1" Level="1" Directory_="APPDIR" Attributes="0"/>
@@ -651,7 +637,6 @@
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiFilesComponent">
     <ROW File="Microsoft.Xaml.Behaviors.dll" Component_="Microsoft.Xaml.Behaviors.dll" FileName="MICROS~1.DLL|Microsoft.Xaml.Behaviors.dll" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\Microsoft.Xaml.Behaviors.dll" SelfReg="false"/>
-    <ROW File="mod_spatialite.dll" Component_="mod_spatialite.dll" FileName="MOD_SP~1.DLL|mod_spatialite.dll" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\mod_spatialite.dll" SelfReg="false"/>
     <ROW File="mscordaccore.dll" Component_="mscordaccore.dll" FileName="MSCORD~1.DLL|mscordaccore.dll" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\mscordaccore.dll" SelfReg="false"/>
     <ROW File="mscordbi.dll" Component_="mscordbi.dll" FileName="mscordbi.dll" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\mscordbi.dll" SelfReg="false"/>
     <ROW File="mscorlib.dll" Component_="mscorlib.dll" FileName="mscorlib.dll" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\mscorlib.dll" SelfReg="false"/>
@@ -672,7 +657,6 @@
     <ROW File="NetTopologySuite.IO.Esri.Shapefile.dll" Component_="NetTopologySuite.IO.Esri.Shapefile.dll" FileName="NETTOP~3.DLL|NetTopologySuite.IO.Esri.Shapefile.dll" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\NetTopologySuite.IO.Esri.Shapefile.dll" SelfReg="false"/>
     <ROW File="NetTopologySuite.IO.GeoJSON.dll" Component_="NetTopologySuite.IO.GeoJSON.dll" FileName="NETTOP~4.DLL|NetTopologySuite.IO.GeoJSON.dll" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\NetTopologySuite.IO.GeoJSON.dll" SelfReg="false"/>
     <ROW File="NetTopologySuite.IO.GeoJSON4STJ.dll" Component_="NetTopologySuite.IO.GeoJSON4STJ.dll" FileName="NETTOP~5.DLL|NetTopologySuite.IO.GeoJSON4STJ.dll" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\NetTopologySuite.IO.GeoJSON4STJ.dll" SelfReg="false"/>
-    <ROW File="NetTopologySuite.IO.SpatiaLite.dll" Component_="NetTopologySuite.IO.SpatiaLite.dll" FileName="NETTOP~6.DLL|NetTopologySuite.IO.SpatiaLite.dll" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\NetTopologySuite.IO.SpatiaLite.dll" SelfReg="false"/>
     <ROW File="Newtonsoft.Json.dll" Component_="Newtonsoft.Json.dll" FileName="NEWTON~1.DLL|Newtonsoft.Json.dll" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\Newtonsoft.Json.dll" SelfReg="false"/>
     <ROW File="Ookii.Dialogs.Wpf.dll" Component_="Ookii.Dialogs.Wpf.dll" FileName="OOKIID~1.DLL|Ookii.Dialogs.Wpf.dll" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\Ookii.Dialogs.Wpf.dll" SelfReg="false"/>
     <ROW File="PenImc_cor3.dll" Component_="PenImc_cor3.dll" FileName="PENIMC~1.DLL|PenImc_cor3.dll" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\PenImc_cor3.dll" SelfReg="false"/>
@@ -905,7 +889,6 @@
     <ROW File="WindowsBase.dll" Component_="WindowsBase.dll" FileName="WINDOW~1.DLL|WindowsBase.dll" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\WindowsBase.dll" SelfReg="false"/>
     <ROW File="WindowsFormsIntegration.dll" Component_="WindowsFormsIntegration.dll" FileName="WINDOW~2.DLL|WindowsFormsIntegration.dll" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\WindowsFormsIntegration.dll" SelfReg="false"/>
     <ROW File="wpfgfx_cor3.dll" Component_="wpfgfx_cor3.dll" FileName="WPFGFX~1.DLL|wpfgfx_cor3.dll" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\wpfgfx_cor3.dll" SelfReg="false"/>
-    <ROW File="zlib1.dll" Component_="zlib1.dll" FileName="zlib1.dll" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\zlib1.dll" SelfReg="false"/>
     <ROW File="Microsoft.VisualBasic.Forms.resources.dll" Component_="Microsoft.VisualBasic.Forms.resources.dll" FileName="MICROS~1.DLL|Microsoft.VisualBasic.Forms.resources.dll" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\cs\Microsoft.VisualBasic.Forms.resources.dll" SelfReg="false"/>
     <ROW File="PresentationCore.resources.dll" Component_="PresentationCore.resources.dll" FileName="PRESEN~1.DLL|PresentationCore.resources.dll" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\cs\PresentationCore.resources.dll" SelfReg="false"/>
     <ROW File="PresentationFramework.resources.dll" Component_="PresentationFramework.resources.dll" FileName="PRESEN~2.DLL|PresentationFramework.resources.dll" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\cs\PresentationFramework.resources.dll" SelfReg="false"/>
@@ -1165,18 +1148,8 @@
     <ROW File="HarfBuzzSharp.dll" Component_="HarfBuzzSharp.dll" FileName="HARFBU~1.DLL|HarfBuzzSharp.dll" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\HarfBuzzSharp.dll" SelfReg="false"/>
     <ROW File="hostfxr.dll" Component_="hostfxr.dll" FileName="hostfxr.dll" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\hostfxr.dll" SelfReg="false"/>
     <ROW File="hostpolicy.dll" Component_="hostpolicy.dll" FileName="HOSTPO~1.DLL|hostpolicy.dll" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\hostpolicy.dll" SelfReg="false"/>
-    <ROW File="libfreexl1.dll" Component_="libfreexl1.dll" FileName="LIBFRE~1.DLL|libfreexl-1.dll" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\libfreexl-1.dll" SelfReg="false"/>
-    <ROW File="libgcc_s_seh1.dll" Component_="libgcc_s_seh1.dll" FileName="LIBGCC~1.DLL|libgcc_s_seh-1.dll" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\libgcc_s_seh-1.dll" SelfReg="false"/>
-    <ROW File="libgeos.dll" Component_="libgeos.dll" FileName="libgeos.dll" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\libgeos.dll" SelfReg="false"/>
-    <ROW File="libgeos_c.dll" Component_="libgeos_c.dll" FileName="LIBGEO~1.DLL|libgeos_c.dll" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\libgeos_c.dll" SelfReg="false"/>
     <ROW File="libHarfBuzzSharp.dll" Component_="libHarfBuzzSharp.dll" FileName="LIBHAR~1.DLL|libHarfBuzzSharp.dll" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\libHarfBuzzSharp.dll" SelfReg="false"/>
-    <ROW File="libiconv2.dll" Component_="libiconv2.dll" FileName="LIBICO~1.DLL|libiconv-2.dll" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\libiconv-2.dll" SelfReg="false"/>
-    <ROW File="liblzma5.dll" Component_="liblzma5.dll" FileName="LIBLZM~1.DLL|liblzma-5.dll" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\liblzma-5.dll" SelfReg="false"/>
-    <ROW File="libproj13.dll" Component_="libproj13.dll" FileName="LIBPRO~1.DLL|libproj-13.dll" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\libproj-13.dll" SelfReg="false"/>
     <ROW File="libSkiaSharp.dll" Component_="libSkiaSharp.dll" FileName="LIBSKI~1.DLL|libSkiaSharp.dll" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\libSkiaSharp.dll" SelfReg="false"/>
-    <ROW File="libstdc6.dll" Component_="libstdc6.dll" FileName="LIBSTD~1.DLL|libstdc++-6.dll" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\libstdc++-6.dll" SelfReg="false"/>
-    <ROW File="libwinpthread1.dll" Component_="libwinpthread1.dll" FileName="LIBWIN~1.DLL|libwinpthread-1.dll" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\libwinpthread-1.dll" SelfReg="false"/>
-    <ROW File="libxml22.dll" Component_="libxml22.dll" FileName="LIBXML~1.DLL|libxml2-2.dll" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\libxml2-2.dll" SelfReg="false"/>
     <ROW File="LiveChartsCore.dll" Component_="LiveChartsCore.dll" FileName="LIVECH~1.DLL|LiveChartsCore.dll" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\LiveChartsCore.dll" SelfReg="false"/>
     <ROW File="LiveChartsCore.SkiaSharpView.dll" Component_="LiveChartsCore.SkiaSharpView.dll" FileName="LIVECH~2.DLL|LiveChartsCore.SkiaSharpView.dll" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\LiveChartsCore.SkiaSharpView.dll" SelfReg="false"/>
     <ROW File="LiveChartsCore.SkiaSharpView.WPF.dll" Component_="LiveChartsCore.SkiaSharpView.WPF.dll" FileName="LIVECH~3.DLL|LiveChartsCore.SkiaSharpView.WPF.dll" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\LiveChartsCore.SkiaSharpView.WPF.dll" SelfReg="false"/>
@@ -1197,7 +1170,6 @@
     <ROW File="Microsoft.EntityFrameworkCore.dll" Component_="Microsoft.EntityFrameworkCore.dll" FileName="MICROS~6.DLL|Microsoft.EntityFrameworkCore.dll" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\Microsoft.EntityFrameworkCore.dll" SelfReg="false"/>
     <ROW File="Microsoft.EntityFrameworkCore.Relational.dll" Component_="Microsoft.EntityFrameworkCore.Relational.dll" FileName="MICROS~7.DLL|Microsoft.EntityFrameworkCore.Relational.dll" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\Microsoft.EntityFrameworkCore.Relational.dll" SelfReg="false"/>
     <ROW File="Microsoft.EntityFrameworkCore.Sqlite.dll" Component_="Microsoft.EntityFrameworkCore.Sqlite.dll" FileName="MICROS~8.DLL|Microsoft.EntityFrameworkCore.Sqlite.dll" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\Microsoft.EntityFrameworkCore.Sqlite.dll" SelfReg="false"/>
-    <ROW File="Microsoft.EntityFrameworkCore.Sqlite.NetTopologySuite.dll" Component_="Microsoft.EntityFrameworkCore.Sqlite.NetTopologySuite.dll" FileName="MICROS~9.DLL|Microsoft.EntityFrameworkCore.Sqlite.NetTopologySuite.dll" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\Microsoft.EntityFrameworkCore.Sqlite.NetTopologySuite.dll" SelfReg="false"/>
     <ROW File="Microsoft.Extensions.Caching.Abstractions.dll" Component_="Microsoft.Extensions.Caching.Abstractions.dll" FileName="MICRO~10.DLL|Microsoft.Extensions.Caching.Abstractions.dll" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\Microsoft.Extensions.Caching.Abstractions.dll" SelfReg="false"/>
     <ROW File="Microsoft.Extensions.Caching.Memory.dll" Component_="Microsoft.Extensions.Caching.Memory.dll" FileName="MICRO~11.DLL|Microsoft.Extensions.Caching.Memory.dll" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\Microsoft.Extensions.Caching.Memory.dll" SelfReg="false"/>
     <ROW File="Microsoft.Extensions.Configuration.Abstractions.dll" Component_="Microsoft.Extensions.Configuration.Abstractions.dll" FileName="MICRO~12.DLL|Microsoft.Extensions.Configuration.Abstractions.dll" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\Microsoft.Extensions.Configuration.Abstractions.dll" SelfReg="false"/>
@@ -1359,7 +1331,6 @@
     <ROW Feature_="MainFeature" Component_="APPDIR"/>
     <ROW Feature_="MainFeature" Component_="ProductInformation"/>
     <ROW Feature_="MainFeature" Component_="Microsoft.Xaml.Behaviors.dll"/>
-    <ROW Feature_="MainFeature" Component_="mod_spatialite.dll"/>
     <ROW Feature_="MainFeature" Component_="mscordaccore.dll"/>
     <ROW Feature_="MainFeature" Component_="mscordbi.dll"/>
     <ROW Feature_="MainFeature" Component_="mscorlib.dll"/>
@@ -1380,7 +1351,6 @@
     <ROW Feature_="MainFeature" Component_="NetTopologySuite.IO.Esri.Shapefile.dll"/>
     <ROW Feature_="MainFeature" Component_="NetTopologySuite.IO.GeoJSON.dll"/>
     <ROW Feature_="MainFeature" Component_="NetTopologySuite.IO.GeoJSON4STJ.dll"/>
-    <ROW Feature_="MainFeature" Component_="NetTopologySuite.IO.SpatiaLite.dll"/>
     <ROW Feature_="MainFeature" Component_="Newtonsoft.Json.dll"/>
     <ROW Feature_="MainFeature" Component_="Ookii.Dialogs.Wpf.dll"/>
     <ROW Feature_="MainFeature" Component_="PenImc_cor3.dll"/>
@@ -1613,7 +1583,6 @@
     <ROW Feature_="MainFeature" Component_="WindowsBase.dll"/>
     <ROW Feature_="MainFeature" Component_="WindowsFormsIntegration.dll"/>
     <ROW Feature_="MainFeature" Component_="wpfgfx_cor3.dll"/>
-    <ROW Feature_="MainFeature" Component_="zlib1.dll"/>
     <ROW Feature_="MainFeature" Component_="Microsoft.VisualBasic.Forms.resources.dll"/>
     <ROW Feature_="MainFeature" Component_="PresentationCore.resources.dll"/>
     <ROW Feature_="MainFeature" Component_="PresentationFramework.resources.dll"/>
@@ -1867,18 +1836,8 @@
     <ROW Feature_="MainFeature" Component_="HarfBuzzSharp.dll"/>
     <ROW Feature_="MainFeature" Component_="hostfxr.dll"/>
     <ROW Feature_="MainFeature" Component_="hostpolicy.dll"/>
-    <ROW Feature_="MainFeature" Component_="libfreexl1.dll"/>
-    <ROW Feature_="MainFeature" Component_="libgcc_s_seh1.dll"/>
-    <ROW Feature_="MainFeature" Component_="libgeos.dll"/>
-    <ROW Feature_="MainFeature" Component_="libgeos_c.dll"/>
     <ROW Feature_="MainFeature" Component_="libHarfBuzzSharp.dll"/>
-    <ROW Feature_="MainFeature" Component_="libiconv2.dll"/>
-    <ROW Feature_="MainFeature" Component_="liblzma5.dll"/>
-    <ROW Feature_="MainFeature" Component_="libproj13.dll"/>
     <ROW Feature_="MainFeature" Component_="libSkiaSharp.dll"/>
-    <ROW Feature_="MainFeature" Component_="libstdc6.dll"/>
-    <ROW Feature_="MainFeature" Component_="libwinpthread1.dll"/>
-    <ROW Feature_="MainFeature" Component_="libxml22.dll"/>
     <ROW Feature_="MainFeature" Component_="LiveChartsCore.dll"/>
     <ROW Feature_="MainFeature" Component_="LiveChartsCore.SkiaSharpView.dll"/>
     <ROW Feature_="MainFeature" Component_="LiveChartsCore.SkiaSharpView.WPF.dll"/>
@@ -1899,7 +1858,6 @@
     <ROW Feature_="MainFeature" Component_="Microsoft.EntityFrameworkCore.dll"/>
     <ROW Feature_="MainFeature" Component_="Microsoft.EntityFrameworkCore.Relational.dll"/>
     <ROW Feature_="MainFeature" Component_="Microsoft.EntityFrameworkCore.Sqlite.dll"/>
-    <ROW Feature_="MainFeature" Component_="Microsoft.EntityFrameworkCore.Sqlite.NetTopologySuite.dll"/>
     <ROW Feature_="MainFeature" Component_="Microsoft.Extensions.Caching.Abstractions.dll"/>
     <ROW Feature_="MainFeature" Component_="Microsoft.Extensions.Caching.Memory.dll"/>
     <ROW Feature_="MainFeature" Component_="Microsoft.Extensions.Configuration.Abstractions.dll"/>
