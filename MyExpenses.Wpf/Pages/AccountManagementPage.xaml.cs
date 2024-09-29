@@ -39,6 +39,7 @@ public partial class AccountManagementPage
         if (addEditAccountWindow.EnableStartingBalance)
         {
             var newHistory = addEditAccountWindow.History;
+            newHistory.ModePaymentFk = 1;
             newAccount.THistories = new List<THistory> { newHistory };
         }
 
