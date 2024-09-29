@@ -1,4 +1,5 @@
-﻿using MyExpenses.Sql.Context;
+﻿using System.Reflection;
+using MyExpenses.Sql.Context;
 
 namespace MyExpenses.Smartphones;
 
@@ -17,12 +18,18 @@ public partial class MainPage
 
     public MainPage()
     {
-        var dbFilePath = DbContextBackup.LocalFilePathDataBaseModel;
-        dbFilePath = Path.Join(FileSystem.AppDataDirectory, dbFilePath);
-        var z = File.Exists(dbFilePath);
-        using var context = new DataBaseContext(dbFilePath);
+        // var dbFilePath = DbContextBackup.LocalFilePathDataBaseModel;
+        // dbFilePath = Path.Join(FileSystem.AppDataDirectory, dbFilePath);
+        var y = FileSystem.Current.OpenAppPackageFileAsync("Database Models\\Model.sqlite")
+        .ConfigureAwait(false).GetAwaiter().GetResult();
+        // var dbFilePath = Path.Join(FileSystem.AppDataDirectory, "Model.sqlite");
+        // var z = File.Exists(dbFilePath);
+        // using var context = new DataBaseContext(dbFilePath);
+        //
+        // LabelContent = context.TVersions.First().Version!.ToString();
 
-        LabelContent = context.TVersions.First().Version!.ToString();
+        var assembly = Assembly.GetExecutingAssembly();
+        var resourceNames = assembly.GetManifestResourceNames();
 
         InitializeComponent();
     }
