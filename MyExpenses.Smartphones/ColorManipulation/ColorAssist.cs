@@ -6,10 +6,16 @@ public static class ColorAssist
 {
     public static float RelativeLuminance(this Color color)
     {
+        // Disable for Maui
+        // return
+        //     0.2126f * Calc(color.Red / 255f) +
+        //     0.7152f * Calc(color.Green / 255f) +
+        //     0.0722f * Calc(color.Blue / 255f);
+
         return
-            0.2126f * Calc(color.Red / 255f) +
-            0.7152f * Calc(color.Green / 255f) +
-            0.0722f * Calc(color.Blue / 255f);
+            0.2126f * Calc(color.Red) +
+            0.7152f * Calc(color.Green) +
+            0.0722f * Calc(color.Blue);
 
         static float Calc(float colorValue)
             => colorValue <= 0.03928f ? colorValue / 12.92f : (float)Math.Pow((colorValue + 0.055f) / 1.055f, 2.4);
