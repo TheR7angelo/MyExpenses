@@ -22,6 +22,11 @@ public partial class MainPage
 
         LabelContent = context.TVersions.First().Version!.ToString();
 
+        // var themeManager = new ThemeManager();
+        // themeManager.ApplyTheme(AppTheme.Light);
+        //
+        // themeManager.SetThemeColor("Primary", Colors.Blue,Colors.Aquamarine);
+        //
         InitializeComponent();
     }
 
