@@ -58,6 +58,10 @@
         <MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)"/>
     </ItemGroup>
 
+    <Target Name="CopyDatabaseModel" BeforeTargets="Build">
+        <Exec Command="powershell -ExecutionPolicy Bypass -File &quot;$(ProjectDir)CopyDatabaseModel.ps1&quot;" />
+    </Target>
+    
     <ItemGroup>
         <PackageReference Include="Microsoft.Maui.Controls" Version="8.0.91" />
         <PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="8.0.91" />
@@ -70,12 +74,6 @@
       <ProjectReference Include="..\MyExpenses.Sql\MyExpenses.Sql.csproj" />
       <ProjectReference Include="..\MyExpenses.Utils\MyExpenses.Utils.csproj" />
       <ProjectReference Include="..\MyExpenses.WebApi\MyExpenses.WebApi.csproj" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <MauiAsset Include="..\MyExpenses.Sql\Database Models\Model.sqlite">
-        <Link>Resources\Raw\Database Models\Model.sqlite</Link>
-      </MauiAsset>
     </ItemGroup>
 
 </Project>
