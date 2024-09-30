@@ -23,8 +23,7 @@ public partial class App
         var needUpdateFiles = false;
         if (File.Exists(jsonFile))
         {
-            var jsonString = File.ReadAllText(jsonFile);
-            var appVersionInfo = jsonString.ToObject<AppVersionInfo>()!;
+            var appVersionInfo = jsonFile.ToObject<AppVersionInfo>()!;
             if (currentVersion > appVersionInfo.Version)
             {
                 needUpdateFiles = true;

@@ -8,6 +8,9 @@ public static class JsonUtils
         => JsonConvert.SerializeObject(obj, formatting);
 
     public static T? ToObject<T>(this string json)
-        => JsonConvert.DeserializeObject<T>(json);
+    {
+        if (File.Exists(json)) json = File.ReadAllText(json);
 
+        return JsonConvert.DeserializeObject<T>(json);
+    }
 }
