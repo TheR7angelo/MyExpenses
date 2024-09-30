@@ -17,14 +17,14 @@ public partial class MainPage
 
     public MainPage()
     {
-        var stream = FileSystem.Current.OpenAppPackageFileAsync(Path.Join("Database Models", "Model.sqlite"))
-            .ConfigureAwait(false).GetAwaiter().GetResult();
-        var databaseFilePath = Path.Join(FileSystem.AppDataDirectory, "Database Models");
-        Directory.CreateDirectory(databaseFilePath);
-        databaseFilePath = Path.Join(databaseFilePath, "Model.sqlite");
-
-        using var fileStream = File.Create(databaseFilePath);
-        stream.CopyTo(fileStream);
+        // var stream = FileSystem.Current.OpenAppPackageFileAsync(Path.Join("Database Models", "Model.sqlite"))
+        //     .ConfigureAwait(false).GetAwaiter().GetResult();
+        // var databaseFilePath = Path.Join(FileSystem.AppDataDirectory, "Database Models");
+        // Directory.CreateDirectory(databaseFilePath);
+        // databaseFilePath = Path.Join(databaseFilePath, "Model.sqlite");
+        //
+        // using var fileStream = File.Create(databaseFilePath);
+        // stream.CopyTo(fileStream);
 
         var dbFilePath = Path.Join(FileSystem.AppDataDirectory, "Database Models", "Model.sqlite");
         using var context = new DataBaseContext(dbFilePath);
