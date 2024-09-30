@@ -1,4 +1,5 @@
-﻿using MyExpenses.Sql.Context;
+﻿using MyExpenses.Smartphones.ColorManipulation;
+using MyExpenses.Sql.Context;
 
 namespace MyExpenses.Smartphones;
 
@@ -28,6 +29,10 @@ public partial class MainPage
         // themeManager.SetThemeColor("Primary", Colors.Blue,Colors.Aquamarine);
         //
         InitializeComponent();
+
+        var primaryMid = Colors.DarkRed;
+        var primaryLight = primaryMid.Lighten();
+        var primaryDark = primaryMid.Darken();
     }
 
     private void OnCounterClicked(object sender, EventArgs e)
