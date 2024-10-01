@@ -1,5 +1,4 @@
-﻿using MyExpenses.Smartphones.ColorManipulation;
-using MyExpenses.Sql.Context;
+﻿using MyExpenses.Sql.Context;
 
 namespace MyExpenses.Smartphones;
 
@@ -23,16 +22,10 @@ public partial class MainPage
 
         LabelContent = context.TVersions.First().Version!.ToString();
 
-        // var themeManager = new ThemeManager();
-        // themeManager.ApplyTheme(AppTheme.Light);
-        //
-        // themeManager.SetThemeColor("Primary", Colors.Blue,Colors.Aquamarine);
-        //
         InitializeComponent();
 
-        var primaryMid = Colors.DarkRed;
-        var primaryLight = primaryMid.Lighten();
-        var primaryDark = primaryMid.Darken();
+        var themeManager = new ThemeManager();
+        themeManager.SetPrimaryColor(Colors.Aqua);
     }
 
     private void OnCounterClicked(object sender, EventArgs e)
