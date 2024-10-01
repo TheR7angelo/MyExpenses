@@ -11,6 +11,20 @@
         </ResourceDictionary>
     </ResourceDictionary.MergedDictionaries>
 
+    <!-- <Style x:Key="FocusVisual"> -->
+    <!--     <Setter Property="Control.Template"> -->
+    <!--         <Setter.Value> -->
+    <!--             <ControlTemplate> -->
+    <!--                 <Rectangle Margin="2" -->
+    <!--                            SnapsToDevicePixels="true" -->
+    <!--                            Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" -->
+    <!--                            StrokeDashArray="1 2" -->
+    <!--                            StrokeThickness="1" /> -->
+    <!--             </ControlTemplate> -->
+    <!--         </Setter.Value> -->
+    <!--     </Setter> -->
+    <!-- </Style> -->
+
     <converters:RangeLengthConverter x:Key="RangeLengthConverter" />
     <converters:MathConverter x:Key="MathAddConverter" Operation="Add" />
     <system:Int32 x:Key="ProgressRingStrokeWidth">8</system:Int32>
