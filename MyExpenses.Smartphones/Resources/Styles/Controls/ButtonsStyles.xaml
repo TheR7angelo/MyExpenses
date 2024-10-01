@@ -11,22 +11,28 @@
         </ResourceDictionary>
     </ResourceDictionary.MergedDictionaries>
 
-    <!-- <Style x:Key="FocusVisual"> -->
-    <!--     <Setter Property="Control.Template"> -->
-    <!--         <Setter.Value> -->
-    <!--             <ControlTemplate> -->
-    <!--                 <Rectangle Margin="2" -->
-    <!--                            SnapsToDevicePixels="true" -->
-    <!--                            Stroke="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}" -->
-    <!--                            StrokeDashArray="1 2" -->
-    <!--                            StrokeThickness="1" /> -->
-    <!--             </ControlTemplate> -->
-    <!--         </Setter.Value> -->
-    <!--     </Setter> -->
-    <!-- </Style> -->
-
     <converters:RangeLengthConverter x:Key="RangeLengthConverter" />
     <converters:MathConverter x:Key="MathAddConverter" Operation="Add" />
     <system:Int32 x:Key="ProgressRingStrokeWidth">8</system:Int32>
+    <converters:SolidColorBrushToSolidColorBrushContrastingForegroundColorConverter x:Key="SolidColorBrushToSolidColorBrushContrastingForegroundColorConverter" />
+
+    <ControlTemplate x:Key="ControlTemplate">
+
+    </ControlTemplate>
+
+    <Style x:Key="RaisedButton" TargetType="{x:Type Button}">
+        <Setter Property="Background" Value="{DynamicResource PrimaryMid}" />
+        <Setter Property="BorderColor" Value="{DynamicResource PrimaryMid}" />
+        <Setter Property="BorderWidth" Value="1" />
+        <Setter Property="TextColor" Value="White" />
+        <Setter Property="Height" Value="32" />
+        <Setter Property="HorizontalOptions" Value="Center" />
+        <Setter Property="VerticalOptions" Value="Center" />
+        <Setter Property="Padding" Value="16,4,16,4" />
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="FontAttributes" Value="None" />
+        <Setter Property="CornerRadius" Value="2" />
+        <Setter Property="Opacity" Value=".4" />
+    </Style>
 
 </ResourceDictionary>
