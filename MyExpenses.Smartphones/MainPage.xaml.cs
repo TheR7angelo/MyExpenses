@@ -23,9 +23,6 @@ public partial class MainPage
         LabelContent = context.TVersions.First().Version!.ToString();
 
         InitializeComponent();
-
-        var themeManager = new ThemeManager();
-        themeManager.SetPrimaryColor(Colors.Aqua);
     }
 
     private void OnCounterClicked(object sender, EventArgs e)
