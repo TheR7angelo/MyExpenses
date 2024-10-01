@@ -1,0 +1,18 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                    xmlns:converters="clr-namespace:MyExpenses.Smartphones.Resources.Styles.Converters"
+                    xmlns:system="clr-namespace:System;assembly=System.Runtime">
+
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary>
+            <converters:BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+            <converters:BorderClipConverter x:Key="BorderClipConverter" />
+            <converters:BrushOpacityConverter x:Key="BrushOpacityConverter" />
+        </ResourceDictionary>
+    </ResourceDictionary.MergedDictionaries>
+
+    <converters:RangeLengthConverter x:Key="RangeLengthConverter" />
+    <converters:MathConverter x:Key="MathAddConverter" Operation="Add" />
+    <system:Int32 x:Key="ProgressRingStrokeWidth">8</system:Int32>
+
+</ResourceDictionary>
