@@ -55,7 +55,7 @@
                         Clicked="OnCounterClicked">
                 </Button>
 
-                <Button Style="{StaticResource RaisedButton}"
+                <Button Style="{StaticResource RaisedMidButton}"
                         Text="Click me"
                         Clicked="OnCounterClicked">
                 </Button>
@@ -75,7 +75,7 @@
                         Clicked="OnCounterClicked">
                 </Button>
 
-                <Button Style="{StaticResource RaisedSecondaryButton}"
+                <Button Style="{StaticResource RaisedSecondaryMidButton}"
                         Text="Click me"
                         Clicked="OnCounterClicked">
                 </Button>

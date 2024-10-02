@@ -16,7 +16,7 @@
     <system:Int32 x:Key="ProgressRingStrokeWidth">8</system:Int32>
     <converters:SolidColorBrushToSolidColorBrushContrastingForegroundColorConverter x:Key="SolidColorBrushToSolidColorBrushContrastingForegroundColorConverter" />
 
-    <Style x:Key="RaisedButton" TargetType="{x:Type Button}">
+    <Style x:Key="RaisedMidButton" TargetType="{x:Type Button}">
         <Setter Property="Background" Value="{DynamicResource PrimaryMid}" />
         <Setter Property="BorderColor" Value="{DynamicResource PrimaryMid}" />
         <Setter Property="BorderWidth" Value="1" />
@@ -103,7 +103,7 @@
 
     <Style x:Key="RaisedLightButton"
            TargetType="{x:Type Button}"
-           BasedOn="{StaticResource RaisedButton}">
+           BasedOn="{StaticResource RaisedMidButton}">
         <Setter Property="Background" Value="{DynamicResource PrimaryLight}" />
         <Setter Property="BorderColor" Value="{DynamicResource PrimaryLight}" />
         <Setter Property="TextColor" Value="{DynamicResource White}" />
@@ -111,15 +111,15 @@
 
     <Style x:Key="RaisedDarkButton"
            TargetType="{x:Type Button}"
-           BasedOn="{StaticResource RaisedButton}">
+           BasedOn="{StaticResource RaisedMidButton}">
         <Setter Property="Background" Value="{DynamicResource PrimaryDark}" />
         <Setter Property="BorderColor" Value="{DynamicResource PrimaryDark}" />
         <Setter Property="TextColor" Value="{DynamicResource White}" />
     </Style>
 
-    <Style x:Key="RaisedSecondaryButton"
+    <Style x:Key="RaisedSecondaryMidButton"
            TargetType="{x:Type Button}"
-           BasedOn="{StaticResource RaisedButton}">
+           BasedOn="{StaticResource RaisedMidButton}">
         <Setter Property="Background" Value="{DynamicResource SecondaryMid}" />
         <Setter Property="BorderColor" Value="{DynamicResource SecondaryMid}" />
         <Setter Property="TextColor" Value="{DynamicResource Black}" />
@@ -127,7 +127,7 @@
 
     <Style x:Key="RaisedSecondaryLightButton"
            TargetType="{x:Type Button}"
-           BasedOn="{StaticResource RaisedButton}">
+           BasedOn="{StaticResource RaisedMidButton}">
         <Setter Property="Background" Value="{DynamicResource SecondaryLight}" />
         <Setter Property="BorderColor" Value="{DynamicResource SecondaryLight}" />
         <Setter Property="TextColor" Value="{DynamicResource Black}" />
@@ -135,7 +135,7 @@
 
     <Style x:Key="RaisedSecondaryDarkButton"
            TargetType="{x:Type Button}"
-           BasedOn="{StaticResource RaisedButton}">
+           BasedOn="{StaticResource RaisedMidButton}">
         <Setter Property="Background" Value="{DynamicResource SecondaryDark}" />
         <Setter Property="BorderColor" Value="{DynamicResource SecondaryDark}" />
         <Setter Property="TextColor" Value="{DynamicResource White}" />
