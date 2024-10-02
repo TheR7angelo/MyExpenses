@@ -98,7 +98,7 @@
         <Setter Property="FontSize" Value="14" />
         <Setter Property="FontAttributes" Value="None" />
         <Setter Property="CornerRadius" Value="2" />
-        <Setter Property="Opacity" Value=".4" />
+        <!-- <Setter Property="Opacity" Value=".4" /> -->
     </Style>
 
 </ResourceDictionary>
