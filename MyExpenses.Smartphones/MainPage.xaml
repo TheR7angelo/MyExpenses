@@ -47,6 +47,9 @@
             Padding="30, 0"
             Spacing="25">
 
+            <Label Text="{Binding LabelContent, Mode=OneWay, Source={RelativeSource AncestorType={x:Type local:MainPage}}}" />
+            <Label Text="{Binding LabelCountContent, Mode=OneWay, Source={RelativeSource AncestorType={x:Type local:MainPage}}}" />
+
             <HorizontalStackLayout HorizontalOptions="Center"
                                    Spacing="25">
 

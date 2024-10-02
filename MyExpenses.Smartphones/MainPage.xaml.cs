@@ -15,6 +15,15 @@ public partial class MainPage
         set => SetValue(LabelContentProperty, value);
     }
 
+    public static readonly BindableProperty LabelCountContentProperty =
+        BindableProperty.Create(nameof(LabelCountContent), typeof(string), typeof(MainPage), default(string));
+
+    public string LabelCountContent
+    {
+        get => (string)GetValue(LabelCountContentProperty);
+        set => SetValue(LabelCountContentProperty, value);
+    }
+
     public MainPage()
     {
         var dbFilePath = Path.Join(FileSystem.AppDataDirectory, "Database Models", "Model.sqlite");
@@ -29,10 +38,10 @@ public partial class MainPage
     {
         _count++;
 
-        CounterBtn.Text = _count is 1
-            ? $"Clicked {_count} time"
-            : $"Clicked {_count} times";
+        LabelCountContent = _count is 1
+        ? $"Clicked {_count} time"
+        : $"Clicked {_count} times";
 
-        SemanticScreenReader.Announce(CounterBtn.Text);
+        SemanticScreenReader.Announce(LabelCountContent);
     }
 }
