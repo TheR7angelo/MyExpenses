@@ -239,6 +239,24 @@
         <Setter Property="TextColor" Value="{DynamicResource PrimaryDark}" />
     </Style>
 
+    <Style x:Key="FlatSecondaryMidButton"
+           TargetType="{x:Type Button}"
+           BasedOn="{StaticResource FlatMidButton}">
+        <Setter Property="TextColor" Value="{DynamicResource SecondaryMid}" />
+    </Style>
+
+    <Style x:Key="FlatSecondaryLightButton"
+           TargetType="{x:Type Button}"
+           BasedOn="{StaticResource FlatSecondaryMidButton}">
+        <Setter Property="TextColor" Value="{DynamicResource SecondaryLight}" />
+    </Style>
+
+    <Style x:Key="FlatSecondaryDarkButton"
+           TargetType="{x:Type Button}"
+           BasedOn="{StaticResource FlatSecondaryMidButton}">
+        <Setter Property="TextColor" Value="{DynamicResource SecondaryDark}" />
+    </Style>
+
     <!-- End Flat Button -->
 
     <!-- https://github.com/MaterialDesignInXAML/MaterialDesignInXamlToolkit/blob/master/src/MaterialDesignThemes.Wpf/Themes/MaterialDesignTheme.Button.xaml -->
