@@ -16,10 +16,6 @@
     <system:Int32 x:Key="ProgressRingStrokeWidth">8</system:Int32>
     <converters:SolidColorBrushToSolidColorBrushContrastingForegroundColorConverter x:Key="SolidColorBrushToSolidColorBrushContrastingForegroundColorConverter" />
 
-    <ControlTemplate x:Key="ControlTemplate">
-
-    </ControlTemplate>
-
     <Style x:Key="RaisedButton" TargetType="{x:Type Button}">
         <Setter Property="Background" Value="{DynamicResource PrimaryMid}" />
         <Setter Property="BorderColor" Value="{DynamicResource PrimaryMid}" />
