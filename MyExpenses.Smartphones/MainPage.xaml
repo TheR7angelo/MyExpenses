@@ -103,7 +103,7 @@
                             Clicked="OnCounterClicked">
                     </Button>
 
-                    <Button Style="{StaticResource FlatMidButton}"
+                    <Button Style="{StaticResource FlatDarkButton}"
                             Text="Click me"
                             Clicked="OnCounterClicked">
                     </Button>
