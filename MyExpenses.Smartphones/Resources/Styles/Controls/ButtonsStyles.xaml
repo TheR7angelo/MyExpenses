@@ -227,6 +227,18 @@
         <!-- <Setter Property="Opacity" Value=".4" /> -->
     </Style>
 
+    <Style x:Key="FlatLightButton"
+           TargetType="{x:Type Button}"
+           BasedOn="{StaticResource FlatMidButton}">
+        <Setter Property="TextColor" Value="{DynamicResource PrimaryLight}" />
+    </Style>
+
+    <Style x:Key="FlatDarkButton"
+           TargetType="{x:Type Button}"
+           BasedOn="{StaticResource FlatMidButton}">
+        <Setter Property="TextColor" Value="{DynamicResource PrimaryDark}" />
+    </Style>
+
     <!-- End Flat Button -->
 
     <!-- https://github.com/MaterialDesignInXAML/MaterialDesignInXamlToolkit/blob/master/src/MaterialDesignThemes.Wpf/Themes/MaterialDesignTheme.Button.xaml -->
