@@ -145,10 +145,11 @@
 
     <!-- End RaiseButton -->
 
-    <!-- Flat Background Button -->
+    <!-- Flat Flat Button -->
 
 
+    <!-- End Flat Button -->
 
-    <!-- End Flat Background Button -->
+    <!-- https://github.com/MaterialDesignInXAML/MaterialDesignInXamlToolkit/blob/master/src/MaterialDesignThemes.Wpf/Themes/MaterialDesignTheme.Button.xaml -->
 
 </ResourceDictionary>
