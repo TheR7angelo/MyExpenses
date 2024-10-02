@@ -101,4 +101,44 @@
         <!-- <Setter Property="Opacity" Value=".4" /> -->
     </Style>
 
+    <Style x:Key="RaisedLightButton"
+           TargetType="{x:Type Button}"
+           BasedOn="{StaticResource RaisedButton}">
+        <Setter Property="Background" Value="{DynamicResource PrimaryLight}" />
+        <Setter Property="BorderColor" Value="{DynamicResource PrimaryLight}" />
+        <Setter Property="TextColor" Value="{DynamicResource White}" />
+    </Style>
+
+    <Style x:Key="RaisedDarkButton"
+           TargetType="{x:Type Button}"
+           BasedOn="{StaticResource RaisedButton}">
+        <Setter Property="Background" Value="{DynamicResource PrimaryDark}" />
+        <Setter Property="BorderColor" Value="{DynamicResource PrimaryDark}" />
+        <Setter Property="TextColor" Value="{DynamicResource White}" />
+    </Style>
+
+    <Style x:Key="RaisedSecondaryButton"
+           TargetType="{x:Type Button}"
+           BasedOn="{StaticResource RaisedButton}">
+        <Setter Property="Background" Value="{DynamicResource SecondaryMid}" />
+        <Setter Property="BorderColor" Value="{DynamicResource SecondaryMid}" />
+        <Setter Property="TextColor" Value="{DynamicResource Black}" />
+    </Style>
+
+    <Style x:Key="RaisedSecondaryLightButton"
+           TargetType="{x:Type Button}"
+           BasedOn="{StaticResource RaisedButton}">
+        <Setter Property="Background" Value="{DynamicResource SecondaryLight}" />
+        <Setter Property="BorderColor" Value="{DynamicResource SecondaryLight}" />
+        <Setter Property="TextColor" Value="{DynamicResource Black}" />
+    </Style>
+
+    <Style x:Key="RaisedSecondaryDarkButton"
+           TargetType="{x:Type Button}"
+           BasedOn="{StaticResource RaisedButton}">
+        <Setter Property="Background" Value="{DynamicResource SecondaryDark}" />
+        <Setter Property="BorderColor" Value="{DynamicResource SecondaryDark}" />
+        <Setter Property="TextColor" Value="{DynamicResource White}" />
+    </Style>
+
 </ResourceDictionary>
