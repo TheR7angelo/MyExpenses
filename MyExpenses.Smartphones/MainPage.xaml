@@ -110,6 +110,26 @@
 
             </HorizontalStackLayout>
 
+            <HorizontalStackLayout HorizontalOptions="Center"
+                                   Spacing="25">
+
+                    <Button Style="{StaticResource FlatSecondaryLightButton}"
+                            Text="Click me"
+                            Clicked="OnCounterClicked">
+                    </Button>
+
+                    <Button Style="{StaticResource FlatSecondaryMidButton}"
+                            Text="Click me"
+                            Clicked="OnCounterClicked">
+                    </Button>
+
+                    <Button Style="{StaticResource FlatSecondaryDarkButton}"
+                            Text="Click me"
+                            Clicked="OnCounterClicked">
+                    </Button>
+
+            </HorizontalStackLayout>
+
         </VerticalStackLayout>
 
     </ScrollView>
