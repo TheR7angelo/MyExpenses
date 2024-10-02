@@ -1,7 +1,8 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
                     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
                     xmlns:converters="clr-namespace:MyExpenses.Smartphones.Resources.Styles.Converters"
-                    xmlns:system="clr-namespace:System;assembly=System.Runtime">
+                    xmlns:system="clr-namespace:System;assembly=System.Runtime"
+                    xmlns:assists="clr-namespace:MyExpenses.Smartphones.Resources.Styles.Assists">
 
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary>
@@ -258,6 +259,46 @@
     </Style>
 
     <!-- End Flat Button -->
+
+    <!-- Flat Background Button -->
+
+    <Style x:Key="FlatLightBgButton"
+           TargetType="{x:Type Button}"
+           BasedOn="{StaticResource RaisedLightButton}">
+        <Setter Property="assists:ElevationAssist.Elevation" Value="Dp0" />
+    </Style>
+
+    <Style x:Key="FlatMidBgButton"
+           TargetType="{x:Type Button}"
+           BasedOn="{StaticResource RaisedMidButton}">
+        <Setter Property="assists:ElevationAssist.Elevation" Value="Dp0" />
+    </Style>
+
+    <Style x:Key="FlatDarkBgButton"
+           TargetType="{x:Type Button}"
+           BasedOn="{StaticResource RaisedDarkButton}">
+        <Setter Property="assists:ElevationAssist.Elevation" Value="Dp0" />
+    </Style>
+
+    <Style x:Key="FlatSecondaryLightBgButton"
+           TargetType="{x:Type Button}"
+           BasedOn="{StaticResource RaisedSecondaryLightButton}">
+        <Setter Property="assists:ElevationAssist.Elevation" Value="Dp0" />
+    </Style>
+
+    <Style x:Key="FlatSecondaryMidBgButton"
+           TargetType="{x:Type Button}"
+           BasedOn="{StaticResource RaisedSecondaryMidButton}">
+        <Setter Property="assists:ElevationAssist.Elevation" Value="Dp0" />
+    </Style>
+
+    <Style x:Key="FlatSecondaryDarkBgButton"
+           TargetType="{x:Type Button}"
+           BasedOn="{StaticResource RaisedSecondaryDarkButton}">
+        <Setter Property="assists:ElevationAssist.Elevation" Value="Dp0" />
+    </Style>
+
+    <!-- End Flat Background Button -->
 
     <!-- https://github.com/MaterialDesignInXAML/MaterialDesignInXamlToolkit/blob/master/src/MaterialDesignThemes.Wpf/Themes/MaterialDesignTheme.Button.xaml -->
 
