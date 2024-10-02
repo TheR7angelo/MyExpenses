@@ -1,0 +1,118 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <Color x:Key="Shadow">Black</Color>
+
+    <Shadow x:Key="ShadowDepth1"
+            Brush="{StaticResource Shadow}"
+            Opacity="0.42"
+            Radius="5"
+            Offset="1,1">
+    </Shadow>
+
+    <Shadow x:Key="ShadowDepth2"
+            Brush="{StaticResource Shadow}"
+            Opacity="0.42"
+            Radius="8"
+            Offset="0,1.5">
+    </Shadow>
+
+    <Shadow x:Key="ShadowDepth3"
+            Brush="{StaticResource Shadow}"
+            Opacity="0.42"
+            Radius="14"
+            Offset="0,4.5">
+    </Shadow>
+
+    <Shadow x:Key="ShadowDepth4"
+            Brush="{StaticResource Shadow}"
+            Opacity="0.42"
+            Radius="25"
+            Offset="0,8">
+    </Shadow>
+
+    <Shadow x:Key="ShadowDepth5"
+            Brush="{StaticResource Shadow}"
+            Opacity="0.42"
+            Radius="35"
+            Offset="0,13">
+    </Shadow>
+
+    <Shadow x:Key="ElevationShadow1"
+            Brush="{StaticResource Shadow}"
+            Opacity="0.45"
+            Radius="3"
+            Offset="0,1">
+    </Shadow>
+
+    <Shadow x:Key="ElevationShadow2"
+            Brush="{StaticResource Shadow}"
+            Opacity="0.45"
+            Radius="5"
+            Offset="0,1.5">
+    </Shadow>
+
+    <Shadow x:Key="ElevationShadow3"
+            Brush="{StaticResource Shadow}"
+            Opacity="0.45"
+            Radius="7"
+            Offset="0,2">
+    </Shadow>
+
+    <Shadow x:Key="ElevationShadow4"
+            Brush="{StaticResource Shadow}"
+            Opacity="0.45"
+            Radius="9"
+            Offset="0,2.5">
+    </Shadow>
+
+    <Shadow x:Key="ElevationShadow5"
+            Brush="{StaticResource Shadow}"
+            Opacity="0.45"
+            Radius="11"
+            Offset="0,3">
+    </Shadow>
+
+    <Shadow x:Key="ElevationShadow6"
+            Brush="{StaticResource Shadow}"
+            Opacity="0.45"
+            Radius="13"
+            Offset="0,3.5">
+    </Shadow>
+
+    <Shadow x:Key="ElevationShadow7"
+            Brush="{StaticResource Shadow}"
+            Opacity="0.45"
+            Radius="15"
+            Offset="0,4">
+    </Shadow>
+
+    <Shadow x:Key="ElevationShadow8"
+            Brush="{StaticResource Shadow}"
+            Opacity="0.45"
+            Radius="17"
+            Offset="0,4.5">
+    </Shadow>
+
+    <Shadow x:Key="ElevationShadow12"
+            Brush="{StaticResource Shadow}"
+            Opacity="0.45"
+            Radius="25"
+            Offset="0,6.5">
+    </Shadow>
+
+    <Shadow x:Key="ElevationShadow16"
+            Brush="{StaticResource Shadow}"
+            Opacity="0.45"
+            Radius="33"
+            Offset="0,8.5">
+    </Shadow>
+
+    <Shadow x:Key="ElevationShadow24"
+            Brush="{StaticResource Shadow}"
+            Opacity="0.45"
+            Radius="49"
+            Offset="0,12.5">
+    </Shadow>
+
+</ResourceDictionary>
