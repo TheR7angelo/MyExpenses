@@ -16,6 +16,8 @@
     <system:Int32 x:Key="ProgressRingStrokeWidth">8</system:Int32>
     <converters:SolidColorBrushToSolidColorBrushContrastingForegroundColorConverter x:Key="SolidColorBrushToSolidColorBrushContrastingForegroundColorConverter" />
 
+    <!-- RaiseButton -->
+
     <Style x:Key="RaisedMidButton" TargetType="{x:Type Button}">
         <Setter Property="Background" Value="{DynamicResource PrimaryMid}" />
         <Setter Property="BorderColor" Value="{DynamicResource PrimaryMid}" />
@@ -140,5 +142,13 @@
         <Setter Property="BorderColor" Value="{DynamicResource SecondaryDark}" />
         <Setter Property="TextColor" Value="{DynamicResource White}" />
     </Style>
+
+    <!-- End RaiseButton -->
+
+    <!-- Flat Background Button -->
+
+
+
+    <!-- End Flat Background Button -->
 
 </ResourceDictionary>
