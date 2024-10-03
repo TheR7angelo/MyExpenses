@@ -133,17 +133,17 @@
             <HorizontalStackLayout HorizontalOptions="Center"
                                    Spacing="25">
 
-                    <Button Style="{StaticResource FlatLightBgButton}"
+                    <Button Style="{StaticResource OutlinedLightButton}"
                             Text="Click me"
                             Clicked="OnCounterClicked">
                     </Button>
 
-                    <Button Style="{StaticResource FlatMidBgButton}"
+                    <Button Style="{StaticResource OutlinedMidButton}"
                             Text="Click me"
                             Clicked="OnCounterClicked">
                     </Button>
 
-                    <Button Style="{StaticResource FlatDarkBgButton}"
+                    <Button Style="{StaticResource OutlinedDarkButton}"
                             Text="Click me"
                             Clicked="OnCounterClicked">
                     </Button>
@@ -153,17 +153,17 @@
             <HorizontalStackLayout HorizontalOptions="Center"
                                    Spacing="25">
 
-                    <Button Style="{StaticResource FlatSecondaryLightBgButton}"
+                    <Button Style="{StaticResource OutlinedSecondaryLightButton}"
                             Text="Click me"
                             Clicked="OnCounterClicked">
                     </Button>
 
-                    <Button Style="{StaticResource FlatSecondaryMidBgButton}"
+                    <Button Style="{StaticResource OutlinedSecondaryMidButton}"
                             Text="Click me"
                             Clicked="OnCounterClicked">
                     </Button>
 
-                    <Button Style="{StaticResource FlatSecondaryDarkBgButton}"
+                    <Button Style="{StaticResource OutlinedSecondaryDarkButton}"
                             Text="Click me"
                             Clicked="OnCounterClicked">
                     </Button>
