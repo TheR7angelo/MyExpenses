@@ -339,6 +339,58 @@
 
             </Frame>
 
+            <Frame BorderColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
+                   CornerRadius="10"
+                   HasShadow="False">
+
+                <VerticalStackLayout Spacing="5">
+
+                    <Label Text="PaperButton" HorizontalOptions="Center" HorizontalTextAlignment="Center" />
+
+                    <HorizontalStackLayout HorizontalOptions="Center"
+                                           Spacing="5">
+
+                        <Button Style="{StaticResource PaperLightButton}"
+                                Text="+"
+                                Clicked="OnCounterClicked">
+                        </Button>
+
+                        <Button Style="{StaticResource PaperMidButton}"
+                                Text="+"
+                                Clicked="OnCounterClicked">
+                        </Button>
+
+                        <Button Style="{StaticResource PaperDarkButton}"
+                                Text="+"
+                                Clicked="OnCounterClicked">
+                        </Button>
+
+                    </HorizontalStackLayout>
+
+                    <HorizontalStackLayout HorizontalOptions="Center"
+                                           Spacing="5">
+
+                        <Button Style="{StaticResource PaperSecondaryLightButton}"
+                                Text="+"
+                                Clicked="OnCounterClicked">
+                        </Button>
+
+                        <Button Style="{StaticResource PaperSecondaryMidButton}"
+                                Text="+"
+                                Clicked="OnCounterClicked">
+                        </Button>
+
+                        <Button Style="{StaticResource PaperSecondaryDarkButton}"
+                                Text="+"
+                                Clicked="OnCounterClicked">
+                        </Button>
+
+                    </HorizontalStackLayout>
+
+                </VerticalStackLayout>
+
+            </Frame>
+
         </VerticalStackLayout>
 
     </ScrollView>
