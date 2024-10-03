@@ -24,7 +24,7 @@
         <Setter Property="Background" Value="{DynamicResource PrimaryMid}" />
         <Setter Property="BorderColor" Value="{DynamicResource PrimaryMid}" />
         <Setter Property="BorderWidth" Value="1" />
-        <Setter Property="TextColor" Value="White" />
+        <Setter Property="TextColor" Value="{DynamicResource PrimaryMidForeground}" />
         <Setter Property="Height" Value="32" />
         <Setter Property="HorizontalOptions" Value="Center" />
         <Setter Property="VerticalOptions" Value="Center" />
@@ -116,7 +116,7 @@
            BasedOn="{StaticResource RaisedMidButton}">
         <Setter Property="Background" Value="{DynamicResource PrimaryLight}" />
         <Setter Property="BorderColor" Value="{DynamicResource PrimaryLight}" />
-        <Setter Property="TextColor" Value="{DynamicResource White}" />
+        <Setter Property="TextColor" Value="{DynamicResource PrimaryLightForeground}" />
     </Style>
 
     <Style x:Key="RaisedDarkButton"
@@ -124,7 +124,7 @@
            BasedOn="{StaticResource RaisedMidButton}">
         <Setter Property="Background" Value="{DynamicResource PrimaryDark}" />
         <Setter Property="BorderColor" Value="{DynamicResource PrimaryDark}" />
-        <Setter Property="TextColor" Value="{DynamicResource White}" />
+        <Setter Property="TextColor" Value="{DynamicResource PrimaryDarkForeground}" />
     </Style>
 
     <Style x:Key="RaisedSecondaryMidButton"
@@ -132,7 +132,7 @@
            BasedOn="{StaticResource RaisedMidButton}">
         <Setter Property="Background" Value="{DynamicResource SecondaryMid}" />
         <Setter Property="BorderColor" Value="{DynamicResource SecondaryMid}" />
-        <Setter Property="TextColor" Value="{DynamicResource Black}" />
+        <Setter Property="TextColor" Value="{DynamicResource SecondaryMidForeground}" />
     </Style>
 
     <Style x:Key="RaisedSecondaryLightButton"
@@ -140,7 +140,7 @@
            BasedOn="{StaticResource RaisedMidButton}">
         <Setter Property="Background" Value="{DynamicResource SecondaryLight}" />
         <Setter Property="BorderColor" Value="{DynamicResource SecondaryLight}" />
-        <Setter Property="TextColor" Value="{DynamicResource Black}" />
+        <Setter Property="TextColor" Value="{DynamicResource SecondaryLightForeground}" />
     </Style>
 
     <Style x:Key="RaisedSecondaryDarkButton"
@@ -148,7 +148,7 @@
            BasedOn="{StaticResource RaisedMidButton}">
         <Setter Property="Background" Value="{DynamicResource SecondaryDark}" />
         <Setter Property="BorderColor" Value="{DynamicResource SecondaryDark}" />
-        <Setter Property="TextColor" Value="{DynamicResource White}" />
+        <Setter Property="TextColor" Value="{DynamicResource SecondaryDarkForeground}" />
     </Style>
 
     <!-- End RaiseButton -->
@@ -442,7 +442,8 @@
     <Style x:Key="ToolButton"
            TargetType="{x:Type Button}"
            BasedOn="{StaticResource FlatMidButton}">
-        <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}" />
+        <Setter Property="TextColor"
+                Value="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}" />
         <Setter Property="Padding" Value="4" />
         <!-- <Setter Property="Template"> -->
         <!--     <Setter.Value> -->
