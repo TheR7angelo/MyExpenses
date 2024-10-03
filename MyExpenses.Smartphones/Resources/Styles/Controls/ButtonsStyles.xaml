@@ -233,36 +233,48 @@
         <Setter Property="FontAttributes" Value="None" />
         <Setter Property="CornerRadius" Value="2" />
         <!-- <Setter Property="Opacity" Value=".4" /> -->
+        <Setter Property="assists:ButtonProgressAssist.IndicatorBackground" Value="Transparent" />
+        <Setter Property="assists:ButtonProgressAssist.IndicatorForeground" Value="{DynamicResource PrimaryMid}" />
+        <Setter Property="assists:ButtonProgressAssist.IsIndicatorVisible" Value="False" />
+        <Setter Property="assists:ButtonProgressAssist.Opacity" Value=".4" />
+        <Setter Property="assists:RippleAssist.Feedback" Value="{DynamicResource PrimaryMid}" />
     </Style>
 
     <Style x:Key="FlatLightButton"
            TargetType="{x:Type Button}"
            BasedOn="{StaticResource FlatMidButton}">
         <Setter Property="TextColor" Value="{DynamicResource PrimaryLight}" />
+        <Setter Property="assists:RippleAssist.Feedback" Value="{DynamicResource PrimaryLight}" />
     </Style>
 
     <Style x:Key="FlatDarkButton"
            TargetType="{x:Type Button}"
            BasedOn="{StaticResource FlatMidButton}">
         <Setter Property="TextColor" Value="{DynamicResource PrimaryDark}" />
+        <Setter Property="assists:RippleAssist.Feedback" Value="{DynamicResource PrimaryDark}" />
     </Style>
 
     <Style x:Key="FlatSecondaryMidButton"
            TargetType="{x:Type Button}"
            BasedOn="{StaticResource FlatMidButton}">
         <Setter Property="TextColor" Value="{DynamicResource SecondaryMid}" />
+        <Setter Property="assists:ButtonProgressAssist.IndicatorBackground" Value="{DynamicResource SecondaryMid}" />
+        <Setter Property="assists:ButtonProgressAssist.IndicatorForeground" Value="{DynamicResource Black}" />
+        <Setter Property="assists:RippleAssist.Feedback" Value="{DynamicResource SecondaryMid}" />
     </Style>
 
     <Style x:Key="FlatSecondaryLightButton"
            TargetType="{x:Type Button}"
            BasedOn="{StaticResource FlatSecondaryMidButton}">
         <Setter Property="TextColor" Value="{DynamicResource SecondaryLight}" />
+        <Setter Property="assists:RippleAssist.Feedback" Value="{DynamicResource SecondaryLight}" />
     </Style>
 
     <Style x:Key="FlatSecondaryDarkButton"
            TargetType="{x:Type Button}"
            BasedOn="{StaticResource FlatSecondaryMidButton}">
         <Setter Property="TextColor" Value="{DynamicResource SecondaryDark}" />
+        <Setter Property="assists:RippleAssist.Feedback" Value="{DynamicResource SecondaryDark}" />
     </Style>
 
     <!-- End Flat Button -->
