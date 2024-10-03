@@ -351,17 +351,17 @@
                                            Spacing="5">
 
                         <Button Style="{StaticResource PaperLightButton}"
-                                Text="+"
+                                Text="Click me"
                                 Clicked="OnCounterClicked">
                         </Button>
 
                         <Button Style="{StaticResource PaperMidButton}"
-                                Text="+"
+                                Text="Click me"
                                 Clicked="OnCounterClicked">
                         </Button>
 
                         <Button Style="{StaticResource PaperDarkButton}"
-                                Text="+"
+                                Text="Click me"
                                 Clicked="OnCounterClicked">
                         </Button>
 
@@ -371,17 +371,17 @@
                                            Spacing="5">
 
                         <Button Style="{StaticResource PaperSecondaryLightButton}"
-                                Text="+"
+                                Text="Click me"
                                 Clicked="OnCounterClicked">
                         </Button>
 
                         <Button Style="{StaticResource PaperSecondaryMidButton}"
-                                Text="+"
+                                Text="Click me"
                                 Clicked="OnCounterClicked">
                         </Button>
 
                         <Button Style="{StaticResource PaperSecondaryDarkButton}"
-                                Text="+"
+                                Text="Click me"
                                 Clicked="OnCounterClicked">
                         </Button>
 
