@@ -437,6 +437,45 @@
 
     <!-- End Outlined Button -->
 
+    <!-- Tool Button -->
+
+    <Style x:Key="ToolButton"
+           TargetType="{x:Type Button}"
+           BasedOn="{StaticResource FlatMidButton}">
+        <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}" />
+        <Setter Property="Padding" Value="4" />
+        <!-- <Setter Property="Template"> -->
+        <!--     <Setter.Value> -->
+        <!--         <ControlTemplate TargetType="ButtonBase"> -->
+        <!--             <wpf:Ripple Padding="{TemplateBinding Padding}" -->
+        <!--                         HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" -->
+        <!--                         VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" -->
+        <!--                         Content="{TemplateBinding Content}" -->
+        <!--                         ContentStringFormat="{TemplateBinding ContentStringFormat}" -->
+        <!--                         ContentTemplate="{TemplateBinding ContentTemplate}" -->
+        <!--                         Focusable="False" -->
+        <!--                         SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" /> -->
+        <!--             <ControlTemplate.Triggers> -->
+        <!--                 <Trigger Property="IsEnabled" Value="false"> -->
+        <!--                     <Setter Property="Opacity" Value="0.38" /> -->
+        <!--                 </Trigger> -->
+        <!--             </ControlTemplate.Triggers> -->
+        <!--         </ControlTemplate> -->
+        <!--     </Setter.Value> -->
+        <!-- </Setter> -->
+        <Setter Property="assists:RippleAssist.ClipToBounds" Value="False" />
+        <Setter Property="assists:RippleAssist.IsCentered" Value="True" />
+    </Style>
+
+    <Style x:Key="ToolForegroundButton"
+           TargetType="{x:Type Button}"
+           BasedOn="{StaticResource ToolButton}">
+        <!-- <Setter Property="Foreground" Value="{Binding RelativeSource={RelativeSource AncestorType={x:Type FrameworkElement}}, Path=(TextElement.Foreground)}" /> -->
+        <!-- <Setter Property="wpf:RippleAssist.Feedback" Value="{Binding RelativeSource={RelativeSource AncestorType={x:Type FrameworkElement}}, Path=(TextElement.Foreground)}" /> -->
+    </Style>
+
+    <!-- End Tool Button -->
+
     <!-- https://github.com/MaterialDesignInXAML/MaterialDesignInXamlToolkit/blob/master/src/MaterialDesignThemes.Wpf/Themes/MaterialDesignTheme.Button.xaml -->
 
 </ResourceDictionary>
