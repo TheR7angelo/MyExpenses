@@ -16,7 +16,7 @@ public partial class MainPage
     }
 
     public static readonly BindableProperty LabelCountContentProperty =
-        BindableProperty.Create(nameof(LabelCountContent), typeof(string), typeof(MainPage), default(string));
+        BindableProperty.Create(nameof(LabelCountContent), typeof(string), typeof(MainPage), "Clicked 0 time");
 
     public string LabelCountContent
     {
