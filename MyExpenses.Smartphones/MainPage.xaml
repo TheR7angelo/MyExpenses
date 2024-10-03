@@ -208,6 +208,33 @@
 
             </Frame>
 
+            <Frame BorderColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
+                   CornerRadius="10"
+                   HasShadow="False">
+
+                <VerticalStackLayout Spacing="5">
+
+                    <Label Text="ToolButton" HorizontalOptions="Center" HorizontalTextAlignment="Center" />
+
+                    <HorizontalStackLayout HorizontalOptions="Center"
+                                           Spacing="5">
+
+                        <Button Style="{StaticResource ToolButton}"
+                                Text="Click me"
+                                Clicked="OnCounterClicked">
+                        </Button>
+
+                        <Button Style="{StaticResource ToolForegroundButton}"
+                                Text="Click me"
+                                Clicked="OnCounterClicked">
+                        </Button>
+
+                    </HorizontalStackLayout>
+
+                </VerticalStackLayout>
+
+            </Frame>
+
         </VerticalStackLayout>
 
     </ScrollView>
