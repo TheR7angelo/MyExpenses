@@ -24,10 +24,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Entities\" />
-    </ItemGroup>
-
-    <ItemGroup>
       <None Remove="Database Models\Model.sqlite" />
       <AdditionalFiles Include="Database Models\Model.sqlite">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
