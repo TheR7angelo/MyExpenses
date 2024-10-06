@@ -1,4 +1,5 @@
-﻿using Serilog;
+﻿using MyExpenses.Sql.Context;
+using Serilog;
 using Serilog.Core;
 using Serilog.Sinks.SystemConsole.Themes;
 
@@ -9,7 +10,8 @@ namespace MyExpenses.Utils;
 /// </summary>
 public static class LoggerConfig
 {
-    private static string LogDirectoryPath { get; } = Directory.CreateDirectory("log").FullName;
+    private static string LogDirectoryPath { get; }
+        = Directory.CreateDirectory(Path.Join(DbContextBackup.OsBasePath, "log")).FullName;
 
     /// <summary>
     /// Creates a logger configuration for the application.
@@ -20,7 +22,7 @@ public static class LoggerConfig
         const string template = "[{Timestamp:HH:mm:ss} {Level}] {Message:lj}{NewLine}{Exception}";
         var logName = $"{DateTime.Now:yyyy-MM-dd_HH-mm-ss}.log";
 
-        var logPath = Path.Combine(LogDirectoryPath, logName);
+        var logPath = Path.Join(LogDirectoryPath, logName);
         var loggerConfiguration = new LoggerConfiguration()
             // .MinimumLevel.Debug()
             .MinimumLevel.Information()
