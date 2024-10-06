@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
 using MyExpenses.Models.IO.Smartphones;
+using MyExpenses.Sql.Context;
 using MyExpenses.Utils;
 
 namespace MyExpenses.Smartphones;
@@ -17,7 +18,7 @@ public partial class App
 
     private void SetInitialFile()
     {
-        var jsonFile = Path.Join(FileSystem.AppDataDirectory, "AppVersionInfo.json");
+        var jsonFile = Path.Join(DbContextBackup.OsBasePath, "AppVersionInfo.json");
 
         var currentVersion = Assembly.GetExecutingAssembly().GetName().Version;
         var needUpdateFiles = false;

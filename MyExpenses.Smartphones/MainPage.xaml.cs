@@ -26,7 +26,7 @@ public partial class MainPage
 
     public MainPage()
     {
-        var dbFilePath = Path.Join(FileSystem.AppDataDirectory, "Database Models", "Model.sqlite");
+        var dbFilePath = DbContextBackup.LocalFilePathDataBaseModel;
         using var context = new DataBaseContext(dbFilePath);
 
         LabelContent = context.TVersions.First().Version!.ToString();
