@@ -12,6 +12,7 @@ using Microsoft.Data.Sqlite;
 using MyExpenses.Models.Config;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Sql.Context;
+using MyExpenses.Utils;
 using MyExpenses.Utils.Collection;
 using MyExpenses.Wpf.Utils.Maps;
 using MyExpenses.Wpf.Windows;
