@@ -27,8 +27,6 @@ public partial class WelcomePage
 
     public WelcomePage()
     {
-        if (!Directory.Exists(DbContextBackup.LocalDirectoryDatabase)) Directory.CreateDirectory(DbContextBackup.LocalDirectoryDatabase);
-
         RefreshExistingDatabases();
 
         InitializeComponent();
