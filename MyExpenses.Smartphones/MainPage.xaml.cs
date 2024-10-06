@@ -1,5 +1,4 @@
-﻿using System.Collections.Immutable;
-using System.Collections.ObjectModel;
+﻿using System.Collections.ObjectModel;
 using MyExpenses.Models.IO;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils;
@@ -63,7 +62,7 @@ public partial class MainPage
     private void RefreshExistingDatabases()
     {
         var itemsToDelete = ExistingDatabases
-            .Where(s => !File.Exists(s.FilePath)).ToImmutableArray();
+            .Where(s => !File.Exists(s.FilePath)).AsEnumerable();
 
         foreach (var item in itemsToDelete)
         {
