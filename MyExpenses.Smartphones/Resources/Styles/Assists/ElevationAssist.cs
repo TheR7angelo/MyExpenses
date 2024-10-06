@@ -24,8 +24,8 @@ internal static class ElevationInfo
 
     static ElevationInfo()
     {
-        const string shadowsUri = "pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Shadows.xaml";
-        var resourceDictionary = new ResourceDictionary { Source = new Uri(shadowsUri, UriKind.Absolute) };
+        const string shadowsUri = "Resources/Styles/Controls/ShadowsStyles.xaml";
+        var resourceDictionary = new ResourceDictionary { Source = new Uri(shadowsUri, UriKind.Relative) };
 
         ShadowsDictionary = new Dictionary<Elevation, Shadow?>
         {

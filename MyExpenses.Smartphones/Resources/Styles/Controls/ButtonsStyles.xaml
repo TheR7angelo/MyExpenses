@@ -15,7 +15,8 @@
     <converters:RangeLengthConverter x:Key="RangeLengthConverter" />
     <converters:MathConverter x:Key="MathAddConverter" Operation="Add" />
     <system:Int32 x:Key="ProgressRingStrokeWidth">8</system:Int32>
-    <converters:SolidColorBrushToSolidColorBrushContrastingForegroundColorConverter x:Key="SolidColorBrushToSolidColorBrushContrastingForegroundColorConverter" />
+    <converters:SolidColorBrushToSolidColorBrushContrastingForegroundColorConverter
+        x:Key="SolidColorBrushToSolidColorBrushContrastingForegroundColorConverter" />
 
     <!-- RaiseButton -->
 
@@ -23,7 +24,7 @@
         <Setter Property="Background" Value="{DynamicResource PrimaryMid}" />
         <Setter Property="BorderColor" Value="{DynamicResource PrimaryMid}" />
         <Setter Property="BorderWidth" Value="1" />
-        <Setter Property="TextColor" Value="White" />
+        <Setter Property="TextColor" Value="{DynamicResource PrimaryMidForeground}" />
         <Setter Property="Height" Value="32" />
         <Setter Property="HorizontalOptions" Value="Center" />
         <Setter Property="VerticalOptions" Value="Center" />
@@ -102,6 +103,12 @@
         <Setter Property="FontAttributes" Value="None" />
         <Setter Property="CornerRadius" Value="2" />
         <!-- <Setter Property="Opacity" Value=".4" /> -->
+        <Setter Property="assists:ButtonProgressAssist.IndicatorBackground" Value="{DynamicResource PrimaryMid}" />
+        <Setter Property="assists:ButtonProgressAssist.IndicatorForeground" Value="{DynamicResource White}" />
+        <Setter Property="assists:ButtonProgressAssist.IsIndicatorVisible" Value="False" />
+        <Setter Property="assists:ButtonProgressAssist.Opacity" Value=".4" />
+        <Setter Property="assists:ElevationAssist.Elevation" Value="Dp2" />
+        <Setter Property="assists:RippleAssist.Feedback" Value="White" />
     </Style>
 
     <Style x:Key="RaisedLightButton"
@@ -109,7 +116,7 @@
            BasedOn="{StaticResource RaisedMidButton}">
         <Setter Property="Background" Value="{DynamicResource PrimaryLight}" />
         <Setter Property="BorderColor" Value="{DynamicResource PrimaryLight}" />
-        <Setter Property="TextColor" Value="{DynamicResource White}" />
+        <Setter Property="TextColor" Value="{DynamicResource PrimaryLightForeground}" />
     </Style>
 
     <Style x:Key="RaisedDarkButton"
@@ -117,7 +124,7 @@
            BasedOn="{StaticResource RaisedMidButton}">
         <Setter Property="Background" Value="{DynamicResource PrimaryDark}" />
         <Setter Property="BorderColor" Value="{DynamicResource PrimaryDark}" />
-        <Setter Property="TextColor" Value="{DynamicResource White}" />
+        <Setter Property="TextColor" Value="{DynamicResource PrimaryDarkForeground}" />
     </Style>
 
     <Style x:Key="RaisedSecondaryMidButton"
@@ -125,7 +132,7 @@
            BasedOn="{StaticResource RaisedMidButton}">
         <Setter Property="Background" Value="{DynamicResource SecondaryMid}" />
         <Setter Property="BorderColor" Value="{DynamicResource SecondaryMid}" />
-        <Setter Property="TextColor" Value="{DynamicResource Black}" />
+        <Setter Property="TextColor" Value="{DynamicResource SecondaryMidForeground}" />
     </Style>
 
     <Style x:Key="RaisedSecondaryLightButton"
@@ -133,7 +140,7 @@
            BasedOn="{StaticResource RaisedMidButton}">
         <Setter Property="Background" Value="{DynamicResource SecondaryLight}" />
         <Setter Property="BorderColor" Value="{DynamicResource SecondaryLight}" />
-        <Setter Property="TextColor" Value="{DynamicResource Black}" />
+        <Setter Property="TextColor" Value="{DynamicResource SecondaryLightForeground}" />
     </Style>
 
     <Style x:Key="RaisedSecondaryDarkButton"
@@ -141,7 +148,7 @@
            BasedOn="{StaticResource RaisedMidButton}">
         <Setter Property="Background" Value="{DynamicResource SecondaryDark}" />
         <Setter Property="BorderColor" Value="{DynamicResource SecondaryDark}" />
-        <Setter Property="TextColor" Value="{DynamicResource White}" />
+        <Setter Property="TextColor" Value="{DynamicResource SecondaryDarkForeground}" />
     </Style>
 
     <!-- End RaiseButton -->
@@ -226,36 +233,48 @@
         <Setter Property="FontAttributes" Value="None" />
         <Setter Property="CornerRadius" Value="2" />
         <!-- <Setter Property="Opacity" Value=".4" /> -->
+        <Setter Property="assists:ButtonProgressAssist.IndicatorBackground" Value="Transparent" />
+        <Setter Property="assists:ButtonProgressAssist.IndicatorForeground" Value="{DynamicResource PrimaryMid}" />
+        <Setter Property="assists:ButtonProgressAssist.IsIndicatorVisible" Value="False" />
+        <Setter Property="assists:ButtonProgressAssist.Opacity" Value=".4" />
+        <Setter Property="assists:RippleAssist.Feedback" Value="{DynamicResource PrimaryMid}" />
     </Style>
 
     <Style x:Key="FlatLightButton"
            TargetType="{x:Type Button}"
            BasedOn="{StaticResource FlatMidButton}">
         <Setter Property="TextColor" Value="{DynamicResource PrimaryLight}" />
+        <Setter Property="assists:RippleAssist.Feedback" Value="{DynamicResource PrimaryLight}" />
     </Style>
 
     <Style x:Key="FlatDarkButton"
            TargetType="{x:Type Button}"
            BasedOn="{StaticResource FlatMidButton}">
         <Setter Property="TextColor" Value="{DynamicResource PrimaryDark}" />
+        <Setter Property="assists:RippleAssist.Feedback" Value="{DynamicResource PrimaryDark}" />
     </Style>
 
     <Style x:Key="FlatSecondaryMidButton"
            TargetType="{x:Type Button}"
            BasedOn="{StaticResource FlatMidButton}">
         <Setter Property="TextColor" Value="{DynamicResource SecondaryMid}" />
+        <Setter Property="assists:ButtonProgressAssist.IndicatorBackground" Value="{DynamicResource SecondaryMid}" />
+        <Setter Property="assists:ButtonProgressAssist.IndicatorForeground" Value="{DynamicResource Black}" />
+        <Setter Property="assists:RippleAssist.Feedback" Value="{DynamicResource SecondaryMid}" />
     </Style>
 
     <Style x:Key="FlatSecondaryLightButton"
            TargetType="{x:Type Button}"
            BasedOn="{StaticResource FlatSecondaryMidButton}">
         <Setter Property="TextColor" Value="{DynamicResource SecondaryLight}" />
+        <Setter Property="assists:RippleAssist.Feedback" Value="{DynamicResource SecondaryLight}" />
     </Style>
 
     <Style x:Key="FlatSecondaryDarkButton"
            TargetType="{x:Type Button}"
            BasedOn="{StaticResource FlatSecondaryMidButton}">
         <Setter Property="TextColor" Value="{DynamicResource SecondaryDark}" />
+        <Setter Property="assists:RippleAssist.Feedback" Value="{DynamicResource SecondaryDark}" />
     </Style>
 
     <!-- End Flat Button -->
@@ -299,6 +318,488 @@
     </Style>
 
     <!-- End Flat Background Button -->
+
+    <!-- Outlined Button -->
+
+    <Style x:Key="OutlinedMidButton"
+           TargetType="{x:Type Button}"
+           BasedOn="{StaticResource FlatMidButton}">
+        <Setter Property="BorderColor" Value="{DynamicResource PrimaryMid}" />
+        <Setter Property="BorderWidth" Value="1" />
+        <!-- <Setter Property="Template"> -->
+        <!--     <Setter.Value> -->
+        <!--         <ControlTemplate TargetType="{x:Type ButtonBase}"> -->
+        <!--             <Grid> -->
+        <!--                 <Border x:Name="border" -->
+        <!--                         Background="{TemplateBinding Background}" -->
+        <!--                         BorderBrush="{TemplateBinding BorderBrush}" -->
+        <!--                         BorderThickness="{TemplateBinding BorderThickness}" -->
+        <!--                         CornerRadius="{Binding Path=(wpf:ButtonAssist.CornerRadius), RelativeSource={RelativeSource TemplatedParent}}" /> -->
+        <!--                 <ProgressBar x:Name="ProgressBar" -->
+        <!--                              Width="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type ButtonBase}}, Path=ActualWidth}" -->
+        <!--                              Height="{TemplateBinding Height}" -->
+        <!--                              HorizontalAlignment="Left" -->
+        <!--                              VerticalAlignment="Center" -->
+        <!--                              Background="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(wpf:ButtonProgressAssist.IndicatorBackground)}" -->
+        <!--                              BorderBrush="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(wpf:ButtonProgressAssist.IndicatorBackground)}" -->
+        <!--                              Foreground="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(wpf:ButtonProgressAssist.IndicatorForeground)}" -->
+        <!--                              IsIndeterminate="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(wpf:ButtonProgressAssist.IsIndeterminate)}" -->
+        <!--                              Maximum="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(wpf:ButtonProgressAssist.Maximum)}" -->
+        <!--                              Minimum="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(wpf:ButtonProgressAssist.Minimum)}" -->
+        <!--                              Opacity="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(wpf:ButtonProgressAssist.Opacity)}" -->
+        <!--                              Style="{DynamicResource MaterialDesignLinearProgressBar}" -->
+        <!--                              Visibility="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(wpf:ButtonProgressAssist.IsIndicatorVisible), Converter={StaticResource BooleanToVisibilityConverter}}" -->
+        <!--                              Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(wpf:ButtonProgressAssist.Value)}"> -->
+        <!--                     <ProgressBar.Clip> -->
+        <!--                         <MultiBinding Converter="{StaticResource BorderClipConverter}"> -->
+        <!--                             <Binding ElementName="border" Path="ActualWidth" /> -->
+        <!--                             <Binding ElementName="border" Path="ActualHeight" /> -->
+        <!--                             <Binding ElementName="border" Path="CornerRadius" /> -->
+        <!--                             <Binding ElementName="border" Path="BorderThickness" /> -->
+        <!--                         </MultiBinding> -->
+        <!--                     </ProgressBar.Clip> -->
+        <!--                 </ProgressBar> -->
+        <!-- -->
+        <!--                 <wpf:Ripple Padding="{TemplateBinding Padding}" -->
+        <!--                             HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" -->
+        <!--                             VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" -->
+        <!--                             Content="{TemplateBinding Content}" -->
+        <!--                             ContentStringFormat="{TemplateBinding ContentStringFormat}" -->
+        <!--                             ContentTemplate="{TemplateBinding ContentTemplate}" -->
+        <!--                             Focusable="False" -->
+        <!--                             SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"> -->
+        <!--                     <wpf:Ripple.Clip> -->
+        <!--                         <MultiBinding Converter="{StaticResource BorderClipConverter}"> -->
+        <!--                             <Binding ElementName="border" Path="ActualWidth" /> -->
+        <!--                             <Binding ElementName="border" Path="ActualHeight" /> -->
+        <!--                             <Binding ElementName="border" Path="CornerRadius" /> -->
+        <!--                             <Binding ElementName="border" Path="BorderThickness" /> -->
+        <!--                         </MultiBinding> -->
+        <!--                     </wpf:Ripple.Clip> -->
+        <!--                 </wpf:Ripple> -->
+        <!--             </Grid> -->
+        <!--             <ControlTemplate.Triggers> -->
+        <!--                 <Trigger Property="IsMouseOver" Value="true"> -->
+        <!--                     <Setter TargetName="border" Property="Background" -->
+        <!--                             Value="{Binding Foreground, RelativeSource={RelativeSource Mode=TemplatedParent}, Converter={StaticResource BrushOpacityConverter}, ConverterParameter=0.16}" /> -->
+        <!-- -->
+        <!--                 </Trigger> -->
+        <!--                 <Trigger Property="IsEnabled" Value="false"> -->
+        <!--                     <Setter Property="Opacity" Value="0.38" /> -->
+        <!--                 </Trigger> -->
+        <!--             </ControlTemplate.Triggers> -->
+        <!--         </ControlTemplate> -->
+        <!--     </Setter.Value> -->
+        <!-- </Setter> -->
+        <Setter Property="CornerRadius" Value="2" />
+    </Style>
+
+    <Style x:Key="OutlinedLightButton"
+           TargetType="{x:Type Button}"
+           BasedOn="{StaticResource OutlinedMidButton}">
+        <Setter Property="BorderColor" Value="{DynamicResource PrimaryLight}" />
+        <Setter Property="TextColor" Value="{DynamicResource PrimaryLight}" />
+    </Style>
+
+    <Style x:Key="OutlinedDarkButton"
+           TargetType="{x:Type Button}"
+           BasedOn="{StaticResource OutlinedMidButton}">
+        <Setter Property="BorderColor" Value="{DynamicResource PrimaryDark}" />
+        <Setter Property="TextColor" Value="{DynamicResource PrimaryDark}" />
+        <Setter Property="assists:RippleAssist.Feedback" Value="{DynamicResource PrimaryDark}" />
+    </Style>
+
+    <Style x:Key="OutlinedSecondaryMidButton"
+           TargetType="{x:Type Button}"
+           BasedOn="{StaticResource OutlinedMidButton}">
+        <Setter Property="BorderColor" Value="{DynamicResource SecondaryMid}" />
+        <Setter Property="TextColor" Value="{DynamicResource SecondaryMid}" />
+        <Setter Property="assists:ButtonProgressAssist.IndicatorBackground" Value="{DynamicResource SecondaryMid}" />
+        <Setter Property="assists:ButtonProgressAssist.IndicatorForeground" Value="{DynamicResource Black}" />
+        <Setter Property="assists:RippleAssist.Feedback" Value="{DynamicResource SecondaryMid}" />
+    </Style>
+
+    <Style x:Key="OutlinedSecondaryLightButton"
+           TargetType="{x:Type Button}"
+           BasedOn="{StaticResource OutlinedSecondaryMidButton}">
+        <Setter Property="BorderColor" Value="{DynamicResource SecondaryLight}" />
+        <Setter Property="TextColor" Value="{DynamicResource SecondaryLight}" />
+        <Setter Property="assists:RippleAssist.Feedback" Value="{DynamicResource SecondaryLight}" />
+    </Style>
+
+    <Style x:Key="OutlinedSecondaryDarkButton"
+           TargetType="{x:Type Button}"
+           BasedOn="{StaticResource OutlinedSecondaryMidButton}">
+        <Setter Property="BorderColor" Value="{DynamicResource SecondaryDark}" />
+        <Setter Property="TextColor" Value="{DynamicResource SecondaryDark}" />
+        <Setter Property="assists:RippleAssist.Feedback" Value="{DynamicResource SecondaryDark}" />
+    </Style>
+
+    <!-- End Outlined Button -->
+
+    <!-- Tool Button -->
+
+    <Style x:Key="ToolButton"
+           TargetType="{x:Type Button}"
+           BasedOn="{StaticResource FlatMidButton}">
+        <Setter Property="TextColor"
+                Value="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}" />
+        <Setter Property="Padding" Value="4" />
+        <!-- <Setter Property="Template"> -->
+        <!--     <Setter.Value> -->
+        <!--         <ControlTemplate TargetType="ButtonBase"> -->
+        <!--             <wpf:Ripple Padding="{TemplateBinding Padding}" -->
+        <!--                         HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" -->
+        <!--                         VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" -->
+        <!--                         Content="{TemplateBinding Content}" -->
+        <!--                         ContentStringFormat="{TemplateBinding ContentStringFormat}" -->
+        <!--                         ContentTemplate="{TemplateBinding ContentTemplate}" -->
+        <!--                         Focusable="False" -->
+        <!--                         SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" /> -->
+        <!--             <ControlTemplate.Triggers> -->
+        <!--                 <Trigger Property="IsEnabled" Value="false"> -->
+        <!--                     <Setter Property="Opacity" Value="0.38" /> -->
+        <!--                 </Trigger> -->
+        <!--             </ControlTemplate.Triggers> -->
+        <!--         </ControlTemplate> -->
+        <!--     </Setter.Value> -->
+        <!-- </Setter> -->
+        <Setter Property="assists:RippleAssist.ClipToBounds" Value="False" />
+        <Setter Property="assists:RippleAssist.IsCentered" Value="True" />
+    </Style>
+
+    <Style x:Key="ToolForegroundButton"
+           TargetType="{x:Type Button}"
+           BasedOn="{StaticResource ToolButton}">
+        <!-- <Setter Property="Foreground" Value="{Binding RelativeSource={RelativeSource AncestorType={x:Type FrameworkElement}}, Path=(TextElement.Foreground)}" /> -->
+        <!-- <Setter Property="wpf:RippleAssist.Feedback" Value="{Binding RelativeSource={RelativeSource AncestorType={x:Type FrameworkElement}}, Path=(TextElement.Foreground)}" /> -->
+    </Style>
+
+    <!-- End Tool Button -->
+
+    <!-- FAB -->
+
+    <Style x:Key="FloatingActionMiniMidButton" TargetType="{x:Type Button}">
+        <Setter Property="Background" Value="{DynamicResource PrimaryMid}" />
+        <Setter Property="BorderColor" Value="{DynamicResource PrimaryMid}" />
+        <Setter Property="BorderWidth" Value="1" />
+        <!-- <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}" /> -->
+        <Setter Property="TextColor" Value="{DynamicResource PrimaryMidForeground}" />
+        <Setter Property="Height" Value="40" />
+        <Setter Property="HorizontalOptions" Value="Center" />
+        <Setter Property="VerticalOptions" Value="Center" />
+        <Setter Property="Padding" Value="1" />
+        <!-- <Setter Property="Template"> -->
+        <!--     <Setter.Value> -->
+        <!--         <ControlTemplate TargetType="{x:Type ButtonBase}"> -->
+        <!--             <Grid> -->
+        <!--                 <AdornerDecorator -->
+        <!--                     CacheMode="{Binding RelativeSource={RelativeSource Self}, Path=(wpf:ShadowAssist.CacheMode)}"> -->
+        <!--                     <Ellipse x:Name="border" -->
+        <!--                              Effect="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(wpf:ElevationAssist.Elevation), Converter={x:Static converters:ShadowConverter.Instance}}" -->
+        <!--                              Fill="{TemplateBinding Background}" -->
+        <!--                              Stroke="{TemplateBinding BorderBrush}" -->
+        <!--                              StrokeThickness="{TemplateBinding BorderThickness}" /> -->
+        <!--                 </AdornerDecorator> -->
+        <!--                 <ProgressBar x:Name="ProgressBar" -->
+        <!--                              Width="{TemplateBinding Width, Converter={StaticResource MathAddConverter}, ConverterParameter={StaticResource ProgressRingStrokeWidth}}" -->
+        <!--                              Height="{TemplateBinding Height, Converter={StaticResource MathAddConverter}, ConverterParameter={StaticResource ProgressRingStrokeWidth}}" -->
+        <!--                              Margin="-8" -->
+        <!--                              HorizontalAlignment="Stretch" -->
+        <!--                              VerticalAlignment="Stretch" -->
+        <!--                              Background="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(wpf:ButtonProgressAssist.IndicatorBackground)}" -->
+        <!--                              Foreground="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(wpf:ButtonProgressAssist.IndicatorForeground)}" -->
+        <!--                              IsIndeterminate="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(wpf:ButtonProgressAssist.IsIndeterminate)}" -->
+        <!--                              Maximum="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(wpf:ButtonProgressAssist.Maximum)}" -->
+        <!--                              Minimum="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(wpf:ButtonProgressAssist.Minimum)}" -->
+        <!--                              Opacity="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(wpf:ButtonProgressAssist.Opacity)}" -->
+        <!--                              RenderTransformOrigin=".5, .5" -->
+        <!--                              Style="{DynamicResource MaterialDesignCircularProgressBar}" -->
+        <!--                              Visibility="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(wpf:ButtonProgressAssist.IsIndicatorVisible), Converter={StaticResource BooleanToVisibilityConverter}}" -->
+        <!--                              Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(wpf:ButtonProgressAssist.Value)}"> -->
+        <!--                     <ProgressBar.RenderTransform> -->
+        <!--                         <TransformGroup> -->
+        <!--                             <ScaleTransform ScaleX="0" ScaleY="0" /> -->
+        <!--                         </TransformGroup> -->
+        <!--                     </ProgressBar.RenderTransform> -->
+        <!--                 </ProgressBar> -->
+        <!--                 <Ellipse Fill="{TemplateBinding Background}" -->
+        <!--                          Stroke="{TemplateBinding BorderBrush}" -->
+        <!--                          StrokeThickness="{TemplateBinding BorderThickness}" /> -->
+        <!--                 <wpf:Ripple Padding="{TemplateBinding Padding}" -->
+        <!--                             HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" -->
+        <!--                             VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" -->
+        <!--                             Clip="{Binding ElementName=GeometryEllipse, Path=RenderedGeometry}" -->
+        <!--                             ClipToBounds="True" -->
+        <!--                             Content="{TemplateBinding Content}" -->
+        <!--                             ContentStringFormat="{TemplateBinding ContentStringFormat}" -->
+        <!--                             ContentTemplate="{TemplateBinding ContentTemplate}" -->
+        <!--                             Focusable="False" -->
+        <!--                             SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" /> -->
+        <!--                 <Ellipse x:Name="GeometryEllipse" -->
+        <!--                          Fill="Transparent" -->
+        <!--                          Focusable="False" -->
+        <!--                          IsHitTestVisible="False" /> -->
+        <!--             </Grid> -->
+        <!--             <ControlTemplate.Triggers> -->
+        <!--                 <Trigger Property="Button.IsDefaulted" Value="true"> -->
+        <!--                     <Setter TargetName="border" Property="Stroke" -->
+        <!--                             Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" /> -->
+        <!--                 </Trigger> -->
+        <!--                 <Trigger Property="IsEnabled" Value="false"> -->
+        <!--                     <Setter Property="Opacity" Value="0.38" /> -->
+        <!--                 </Trigger> -->
+        <!--                 <Trigger Property="IsMouseOver" Value="True"> -->
+        <!--                     <Setter TargetName="border" Property="wpf:ShadowAssist.Darken" Value="True" /> -->
+        <!--                 </Trigger> -->
+        <!--                 <Trigger Property="IsKeyboardFocused" Value="true"> -->
+        <!--                     <Setter TargetName="border" Property="wpf:ShadowAssist.Darken" Value="True" /> -->
+        <!--                 </Trigger> -->
+        <!--                 <Trigger Property="wpf:ButtonProgressAssist.IsIndicatorVisible" Value="True"> -->
+        <!--                     <Trigger.EnterActions> -->
+        <!--                         <BeginStoryboard> -->
+        <!--                             <Storyboard> -->
+        <!--                                 <DoubleAnimation Storyboard.TargetName="ProgressBar" -->
+        <!--                                                  Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)" -->
+        <!--                                                  From=".9" -->
+        <!--                                                  To="1" -->
+        <!--                                                  Duration="0:0:0.2" /> -->
+        <!--                                 <DoubleAnimation Storyboard.TargetName="ProgressBar" -->
+        <!--                                                  Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)" -->
+        <!--                                                  From=".9" -->
+        <!--                                                  To="1" -->
+        <!--                                                  Duration="0:0:0.2" /> -->
+        <!--                             </Storyboard> -->
+        <!--                         </BeginStoryboard> -->
+        <!--                     </Trigger.EnterActions> -->
+        <!--                     <Trigger.ExitActions> -->
+        <!--                         <BeginStoryboard> -->
+        <!--                             <Storyboard> -->
+        <!--                                 <DoubleAnimation Storyboard.TargetName="ProgressBar" -->
+        <!--                                                  Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)" -->
+        <!--                                                  From="1" -->
+        <!--                                                  To=".9" -->
+        <!--                                                  Duration="0:0:0.2" /> -->
+        <!--                                 <DoubleAnimation Storyboard.TargetName="ProgressBar" -->
+        <!--                                                  Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)" -->
+        <!--                                                  From="1" -->
+        <!--                                                  To=".9" -->
+        <!--                                                  Duration="0:0:0.2" /> -->
+        <!--                             </Storyboard> -->
+        <!--                         </BeginStoryboard> -->
+        <!--                     </Trigger.ExitActions> -->
+        <!--                 </Trigger> -->
+        <!--             </ControlTemplate.Triggers> -->
+        <!--         </ControlTemplate> -->
+        <!--     </Setter.Value> -->
+        <!-- </Setter> -->
+        <Setter Property="Width" Value="40" />
+        <!-- <Setter Property="assists:ButtonProgressAssist.IndicatorBackground" Value="{DynamicResource MaterialDesign.Brush.TextBox.HoverBackground}" /> -->
+        <Setter Property="assists:ButtonProgressAssist.IndicatorForeground" Value="{DynamicResource SecondaryMid}" />
+        <Setter Property="assists:ButtonProgressAssist.Opacity" Value="1" />
+        <Setter Property="assists:ElevationAssist.Elevation" Value="Dp6" />
+        <Setter Property="assists:RippleAssist.Feedback" Value="White" />
+        <Setter Property="CornerRadius" Value="20" />
+    </Style>
+
+    <Style x:Key="FloatingActionMidButton"
+           TargetType="{x:Type Button}"
+           BasedOn="{StaticResource FloatingActionMiniMidButton}">
+        <Setter Property="Height" Value="56" />
+        <Setter Property="Width" Value="56" />
+    </Style>
+
+    <Style x:Key="FloatingActionMiniLightButton"
+           TargetType="{x:Type Button}"
+           BasedOn="{StaticResource FloatingActionMiniMidButton}">
+        <Setter Property="Background" Value="{DynamicResource PrimaryLight}" />
+        <Setter Property="BorderColor" Value="{DynamicResource PrimaryLight}" />
+        <Setter Property="TextColor" Value="{DynamicResource PrimaryLightForeground}" />
+        <Setter Property="assists:ButtonProgressAssist.IndicatorForeground" Value="{DynamicResource PrimaryDark}" />
+    </Style>
+
+    <Style x:Key="FloatingActionMiniDarkButton"
+           TargetType="{x:Type Button}"
+           BasedOn="{StaticResource FloatingActionMiniMidButton}">
+        <Setter Property="Background" Value="{DynamicResource PrimaryDark}" />
+        <Setter Property="BorderColor" Value="{DynamicResource PrimaryDark}" />
+        <Setter Property="TextColor" Value="{DynamicResource PrimaryDarkForeground}" />
+        <Setter Property="assists:ButtonProgressAssist.IndicatorForeground" Value="{DynamicResource PrimaryLight}" />
+    </Style>
+
+    <Style x:Key="FloatingActionMiniSecondaryMidButton"
+           TargetType="{x:Type Button}"
+           BasedOn="{StaticResource FloatingActionMiniMidButton}">
+        <Setter Property="Background" Value="{DynamicResource SecondaryMid}" />
+        <Setter Property="BorderColor" Value="{DynamicResource SecondaryMid}" />
+        <Setter Property="TextColor" Value="{DynamicResource SecondaryMidForeground}" />
+        <Setter Property="assists:ButtonProgressAssist.IndicatorForeground" Value="{DynamicResource SecondaryMid}" />
+    </Style>
+
+    <Style x:Key="FloatingActionMiniSecondaryLightButton"
+           TargetType="{x:Type Button}"
+           BasedOn="{StaticResource FloatingActionMiniMidButton}">
+        <Setter Property="Background" Value="{DynamicResource SecondaryLight}" />
+        <Setter Property="BorderColor" Value="{DynamicResource SecondaryLight}" />
+        <Setter Property="TextColor" Value="{DynamicResource SecondaryLightForeground}" />
+        <Setter Property="assists:ButtonProgressAssist.IndicatorForeground" Value="{DynamicResource SecondaryDark}" />
+    </Style>
+
+    <Style x:Key="FloatingActionMiniSecondaryDarkButton"
+           TargetType="{x:Type Button}"
+           BasedOn="{StaticResource FloatingActionMiniMidButton}">
+        <Setter Property="Background" Value="{DynamicResource SecondaryDark}" />
+        <Setter Property="BorderColor" Value="{DynamicResource SecondaryDark}" />
+        <Setter Property="TextColor" Value="{DynamicResource SecondaryDarkForeground}" />
+        <Setter Property="assists:ButtonProgressAssist.IndicatorForeground" Value="{DynamicResource SecondaryLight}" />
+    </Style>
+
+    <Style x:Key="FloatingActionLightButton"
+           TargetType="{x:Type Button}"
+           BasedOn="{StaticResource FloatingActionMidButton}">
+        <Setter Property="Background" Value="{DynamicResource PrimaryLight}" />
+        <Setter Property="BorderColor" Value="{DynamicResource PrimaryLight}" />
+        <Setter Property="TextColor" Value="{DynamicResource PrimaryLightForeground}" />
+        <Setter Property="assists:ButtonProgressAssist.IndicatorForeground" Value="{DynamicResource PrimaryDark}" />
+    </Style>
+
+    <Style x:Key="FloatingActionDarkButton"
+           TargetType="{x:Type Button}"
+           BasedOn="{StaticResource FloatingActionMidButton}">
+        <Setter Property="Background" Value="{DynamicResource PrimaryDark}" />
+        <Setter Property="BorderColor" Value="{DynamicResource PrimaryDark}" />
+        <Setter Property="TextColor" Value="{DynamicResource PrimaryDarkForeground}" />
+        <Setter Property="assists:ButtonProgressAssist.IndicatorForeground" Value="{DynamicResource PrimaryLight}" />
+    </Style>
+
+    <Style x:Key="FloatingActionSecondaryMidButton"
+           TargetType="{x:Type Button}"
+           BasedOn="{StaticResource FloatingActionMidButton}">
+        <Setter Property="Background" Value="{DynamicResource SecondaryMid}" />
+        <Setter Property="BorderColor" Value="{DynamicResource SecondaryMid}" />
+        <Setter Property="TextColor" Value="{DynamicResource SecondaryMidForeground}" />
+        <Setter Property="assists:ButtonProgressAssist.IndicatorForeground" Value="{DynamicResource PrimaryMid}" />
+    </Style>
+
+    <Style x:Key="FloatingActionSecondaryLightButton"
+           TargetType="{x:Type Button}"
+           BasedOn="{StaticResource FloatingActionMidButton}">
+        <Setter Property="Background" Value="{DynamicResource SecondaryLight}" />
+        <Setter Property="BorderColor" Value="{DynamicResource SecondaryLight}" />
+        <Setter Property="TextColor" Value="{DynamicResource SecondaryLightForeground}" />
+        <Setter Property="assists:ButtonProgressAssist.IndicatorForeground" Value="{DynamicResource SecondaryDark}" />
+    </Style>
+
+    <Style x:Key="FloatingActionSecondaryDarkButton"
+           TargetType="{x:Type Button}"
+           BasedOn="{StaticResource FloatingActionMidButton}">
+        <Setter Property="Background" Value="{DynamicResource SecondaryDark}" />
+        <Setter Property="BorderColor" Value="{DynamicResource SecondaryDark}" />
+        <Setter Property="TextColor" Value="{DynamicResource SecondaryDarkForeground}" />
+        <Setter Property="assists:ButtonProgressAssist.IndicatorForeground" Value="{DynamicResource SecondaryLight}" />
+    </Style>
+
+    <!-- End FAB -->
+
+    <!-- Paper Button -->
+
+    <Style x:Key="PaperMidButton" TargetType="{x:Type Button}">
+        <Setter Property="Background" Value="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Black}}" />
+        <Setter Property="BorderColor" Value="{DynamicResource PrimaryMid}" />
+        <Setter Property="BorderWidth" Value="1" />
+        <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}" />
+        <Setter Property="Height" Value="32" />
+        <Setter Property="HorizontalOptions" Value="Center" />
+        <Setter Property="VerticalOptions" Value="Center" />
+        <Setter Property="Padding" Value="16,4,16,4" />
+        <!-- <Setter Property="Template"> -->
+        <!--     <Setter.Value> -->
+        <!--         <ControlTemplate TargetType="{x:Type ButtonBase}"> -->
+        <!--             <Grid> -->
+        <!--                 <AdornerDecorator -->
+        <!--                     CacheMode="{Binding RelativeSource={RelativeSource Self}, Path=(wpf:ShadowAssist.CacheMode)}"> -->
+        <!--                     <Grid> -->
+        <!--                         <Border x:Name="background" -->
+        <!--                                 Background="{TemplateBinding Background}" -->
+        <!--                                 CornerRadius="{Binding Path=(wpf:ButtonAssist.CornerRadius), RelativeSource={RelativeSource TemplatedParent}}" -->
+        <!--                                 Effect="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(wpf:ElevationAssist.Elevation), Converter={x:Static converters:ShadowConverter.Instance}}" /> -->
+        <!--                         <Border x:Name="border" -->
+        <!--                                 BorderBrush="{TemplateBinding BorderBrush}" -->
+        <!--                                 BorderThickness="{TemplateBinding BorderThickness}" -->
+        <!--                                 CornerRadius="{Binding Path=(wpf:ButtonAssist.CornerRadius), RelativeSource={RelativeSource TemplatedParent}}" /> -->
+        <!--                     </Grid> -->
+        <!--                 </AdornerDecorator> -->
+        <!--                 <wpf:Ripple Padding="{TemplateBinding Padding}" -->
+        <!--                             HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" -->
+        <!--                             VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" -->
+        <!--                             Content="{TemplateBinding Content}" -->
+        <!--                             ContentStringFormat="{TemplateBinding ContentStringFormat}" -->
+        <!--                             ContentTemplate="{TemplateBinding ContentTemplate}" -->
+        <!--                             Focusable="False" -->
+        <!--                             SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"> -->
+        <!--                     <wpf:Ripple.Clip> -->
+        <!--                         <MultiBinding Converter="{StaticResource BorderClipConverter}"> -->
+        <!--                             <Binding ElementName="border" Path="ActualWidth" /> -->
+        <!--                             <Binding ElementName="border" Path="ActualHeight" /> -->
+        <!--                             <Binding ElementName="border" Path="CornerRadius" /> -->
+        <!--                             <Binding ElementName="border" Path="BorderThickness" /> -->
+        <!--                         </MultiBinding> -->
+        <!--                     </wpf:Ripple.Clip> -->
+        <!--                 </wpf:Ripple> -->
+        <!--             </Grid> -->
+        <!--             <ControlTemplate.Triggers> -->
+        <!--                 <Trigger Property="IsMouseOver" Value="true"> -->
+        <!--                     <Setter TargetName="background" Property="wpf:ShadowAssist.Darken" Value="True" /> -->
+        <!--                     <Setter TargetName="border" Property="Background" -->
+        <!--                             Value="{Binding BorderBrush, RelativeSource={RelativeSource Mode=TemplatedParent}, Converter={StaticResource BrushOpacityConverter}, ConverterParameter=0.16}" /> -->
+        <!--                 </Trigger> -->
+        <!--                 <Trigger Property="IsEnabled" Value="false"> -->
+        <!--                     <Setter Property="Opacity" Value="0.38" /> -->
+        <!--                 </Trigger> -->
+        <!--             </ControlTemplate.Triggers> -->
+        <!--         </ControlTemplate> -->
+        <!--     </Setter.Value> -->
+        <!-- </Setter> -->
+        <Setter Property="FontSize" Value="14" />
+        <Setter Property="FontAttributes" Value="None" />
+        <Setter Property="assists:ElevationAssist.Elevation" Value="Dp2" />
+        <Setter Property="assists:RippleAssist.Feedback" Value="{DynamicResource PrimaryMid}" />
+    </Style>
+
+    <Style x:Key="PaperLightButton"
+           TargetType="{x:Type Button}"
+           BasedOn="{StaticResource PaperMidButton}">
+        <Setter Property="BorderColor" Value="{DynamicResource PrimaryLight}" />
+        <Setter Property="assists:RippleAssist.Feedback" Value="{DynamicResource PrimaryLight}" />
+    </Style>
+
+    <Style x:Key="PaperDarkButton"
+           TargetType="{x:Type Button}"
+           BasedOn="{StaticResource PaperMidButton}">
+        <Setter Property="BorderColor" Value="{DynamicResource PrimaryDark}" />
+        <Setter Property="assists:RippleAssist.Feedback" Value="{DynamicResource PrimaryDark}" />
+    </Style>
+
+    <Style x:Key="PaperSecondaryLightButton"
+           TargetType="{x:Type Button}"
+           BasedOn="{StaticResource PaperMidButton}">
+        <Setter Property="BorderColor" Value="{DynamicResource SecondaryLight}" />
+        <Setter Property="assists:RippleAssist.Feedback" Value="{DynamicResource SecondaryLight}" />
+    </Style>
+    <Style x:Key="PaperSecondaryMidButton"
+           TargetType="{x:Type Button}"
+           BasedOn="{StaticResource PaperMidButton}">
+        <Setter Property="BorderColor" Value="{DynamicResource SecondaryMid}" />
+        <Setter Property="assists:RippleAssist.Feedback" Value="{DynamicResource SecondaryMid}" />
+    </Style>
+    <Style x:Key="PaperSecondaryDarkButton"
+           TargetType="{x:Type Button}"
+           BasedOn="{StaticResource PaperMidButton}">
+        <Setter Property="BorderColor" Value="{DynamicResource SecondaryDark}" />
+        <Setter Property="assists:RippleAssist.Feedback" Value="{DynamicResource SecondaryDark}" />
+    </Style>
+
+    <!-- End Paper Button -->
 
     <!-- https://github.com/MaterialDesignInXAML/MaterialDesignInXamlToolkit/blob/master/src/MaterialDesignThemes.Wpf/Themes/MaterialDesignTheme.Button.xaml -->
 
