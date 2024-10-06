@@ -43,16 +43,22 @@ public partial class MainPage
         InitializeComponent();
     }
 
+    #region Action
+
     private void OnCounterClicked(object sender, EventArgs e)
     {
         _count++;
 
         LabelCountContent = _count is 1
-        ? $"Clicked {_count} time"
-        : $"Clicked {_count} times";
+            ? $"Clicked {_count} time"
+            : $"Clicked {_count} times";
 
         SemanticScreenReader.Announce(LabelCountContent);
     }
+
+    #endregion
+
+    #region Function
 
     private void RefreshExistingDatabases()
     {
@@ -78,4 +84,6 @@ public partial class MainPage
             }
         }
     }
+
+    #endregion
 }
