@@ -4,8 +4,8 @@ namespace MyExpenses.Sql.Context;
 
 public static class DbContextBackup
 {
-    public static string LocalDirectoryDatabase { get; } = Path.GetFullPath("Databases");
-    public static string LocalDirectoryBackupDatabase { get; } = Path.Join(LocalDirectoryDatabase, "Backups");
+    public static string LocalDirectoryDatabase { get; }
+    public static string LocalDirectoryBackupDatabase { get; }
 
     public static string CloudDirectoryBackupDatabase => "Databases";
 
@@ -13,16 +13,21 @@ public static class DbContextBackup
 
     public static string Extension => ".sqlite";
 
+    public static string OsBasePath { get; }
+
     static DbContextBackup()
     {
-        var directoryDatabaseModel = Path.GetFullPath("Database Models");
-        LocalFilePathDataBaseModel = Path.Join(directoryDatabaseModel, "Model.sqlite");
+        OsBasePath = AppContext.BaseDirectory;
+
+        LocalDirectoryDatabase = Path.Join(OsBasePath, "Databases");
+        if (!Directory.Exists(LocalDirectoryDatabase)) Directory.CreateDirectory(LocalDirectoryDatabase);
+
+        LocalDirectoryBackupDatabase = Path.Join(LocalDirectoryDatabase, "Backups");
+        LocalFilePathDataBaseModel = Path.Join(OsBasePath, "Database Models", "Model.sqlite");
     }
 
     public static ExistingDatabase[] GetExistingDatabase()
     {
-        Directory.CreateDirectory(LocalDirectoryDatabase);
-
         var existingDatabases = Directory
             .GetFiles(LocalDirectoryDatabase, $"*{Extension}", SearchOption.TopDirectoryOnly)
             .Select(s => new ExistingDatabase(s)).ToArray();
