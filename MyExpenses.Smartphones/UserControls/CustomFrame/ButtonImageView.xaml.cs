@@ -80,8 +80,19 @@ public partial class ButtonImageView
         set => SetValue(HorizontalImageOptionsProperty, value);
     }
 
+    public event EventHandler? Clicked;
+
     public ButtonImageView()
     {
         InitializeComponent();
     }
+
+    private void OnClicked()
+    {
+        Clicked?.Invoke(this, EventArgs.Empty);
+    }
+
+    private void TapGestureRecognizer_Tapped(object? sender, TappedEventArgs e)
+        => OnClicked();
+
 }
