@@ -27,6 +27,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyExpenses.Wpf.Helper", "My
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyExpenses.Smartphones", "MyExpenses.Smartphones\MyExpenses.Smartphones.csproj", "{4953D90E-CF54-4864-BA38-6FCEFF881287}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyExpenses.Maui.Utils", "MyExpenses.Maui.Utils\MyExpenses.Maui.Utils.csproj", "{42079AB5-69A2-45EB-97C3-111AA6079DE0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -89,5 +91,9 @@ Global
 		{4953D90E-CF54-4864-BA38-6FCEFF881287}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4953D90E-CF54-4864-BA38-6FCEFF881287}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4953D90E-CF54-4864-BA38-6FCEFF881287}.Release|Any CPU.Build.0 = Release|Any CPU
+		{42079AB5-69A2-45EB-97C3-111AA6079DE0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{42079AB5-69A2-45EB-97C3-111AA6079DE0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{42079AB5-69A2-45EB-97C3-111AA6079DE0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{42079AB5-69A2-45EB-97C3-111AA6079DE0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
