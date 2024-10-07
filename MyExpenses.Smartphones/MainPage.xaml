@@ -16,6 +16,82 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
+        <Grid Grid.Row="0"
+              HorizontalOptions="Center"
+              VerticalOptions="Center"
+              margin:LayoutExtensions.MarginForAllChildren="3">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <customFrame:ButtonImageView Grid.Row="0" Grid.Column="0"
+                                         Style="{StaticResource FloatingActionDarkButtonImageView}"
+                                         Margin="5"
+                                         GeometrySource="{StaticResource PlusGeometry}"
+                                         Clicked="ButtonImageView_OnClicked">
+            </customFrame:ButtonImageView>
+
+            <!-- <Button Grid.Row="0" Grid.Column="0" -->
+            <!--         Height="56" -->
+            <!--         Width="{Binding Height, Source={RelativeSource Self}}" -->
+            <!--         Style="{StaticResource MaterialDesignFloatingActionDarkButton}" -->
+            <!--         Click="ButtonAddDataBase_OnClick"> -->
+            <!--     <Button.Content> -->
+            <!--         <materialDesign:PackIcon Kind="Plus" -->
+            <!--                                  Height="{Binding Height, RelativeSource={RelativeSource AncestorType=Button}}" -->
+            <!--                                  Width="{Binding Height, RelativeSource={RelativeSource AncestorType=Button}}"> -->
+            <!--         </materialDesign:PackIcon> -->
+            <!--     </Button.Content> -->
+            <!-- </Button> -->
+
+            <!-- <Button Grid.Row="0" Grid.Column="1" -->
+            <!--         Height="56" -->
+            <!--         Width="{Binding Height, RelativeSource={RelativeSource Self}}" -->
+            <!--         Style="{StaticResource MaterialDesignFloatingActionSecondaryButton}" -->
+            <!--         Click="ButtonRemoveDataBase_OnClick"> -->
+            <!--     <Button.Content> -->
+            <!--         <materialDesign:PackIcon Kind="Minus" -->
+            <!--                                  Height="{Binding Height, RelativeSource={RelativeSource AncestorType=Button}}" -->
+            <!--                                  Width="{Binding Height, RelativeSource={RelativeSource AncestorType=Button}}"> -->
+            <!--         </materialDesign:PackIcon> -->
+            <!--     </Button.Content> -->
+            <!-- </Button> -->
+            <!-- -->
+            <!-- <Button Grid.Row="1" Grid.Column="0" -->
+            <!--         Height="56" -->
+            <!--         Width="{Binding Height, RelativeSource={RelativeSource Self}}" -->
+            <!--         Style="{StaticResource MaterialDesignFloatingActionButton}" -->
+            <!--         Click="ButtonImportDataBase_OnClick"> -->
+            <!--     <Button.Content> -->
+            <!--         <materialDesign:PackIcon Kind="DatabaseImport" -->
+            <!--                                  Height="{Binding Height, RelativeSource={RelativeSource AncestorType=Button}}" -->
+            <!--                                  Width="{Binding Height, RelativeSource={RelativeSource AncestorType=Button}}"> -->
+            <!--         </materialDesign:PackIcon> -->
+            <!--     </Button.Content> -->
+            <!-- </Button> -->
+            <!-- -->
+            <!-- <Button Grid.Row="1" Grid.Column="1" -->
+            <!--         Height="56" -->
+            <!--         Width="{Binding Height, RelativeSource={RelativeSource Self}}" -->
+            <!--         Style="{StaticResource MaterialDesignFloatingActionButton}" -->
+            <!--         Click="ButtonExportDataBase_OnClick"> -->
+            <!--     <Button.Content> -->
+            <!--         <materialDesign:PackIcon Kind="DatabaseExport" -->
+            <!--                                  Height="{Binding Height, RelativeSource={RelativeSource AncestorType=Button}}" -->
+            <!--                                  Width="{Binding Height, RelativeSource={RelativeSource AncestorType=Button}}"> -->
+            <!--         </materialDesign:PackIcon> -->
+            <!--     </Button.Content> -->
+            <!-- </Button> -->
+
+        </Grid>
+
         <Border Grid.Row="1"
                 StrokeThickness="2"
                 StrokeShape="RoundRectangle 10"
