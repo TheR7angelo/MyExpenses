@@ -31,12 +31,16 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <customFrame:ButtonImageTextView Grid.Row="0" Grid.Column="0"
+            <customFrame:ButtonImageView Grid.Row="0" Grid.Column="0"
                                          Style="{StaticResource FloatingActionDarkButtonImageView}"
                                          Margin="5"
                                          GeometrySource="{StaticResource PlusGeometry}"
+                                         ImageHeightRequest="32"
+                                         ImageWidthRequest="32"
+                                         HeightRequest="56"
+                                         WidthRequest="56"
                                          Clicked="ButtonImageView_OnClicked">
-            </customFrame:ButtonImageTextView>
+            </customFrame:ButtonImageView>
 
             <!-- <Button Grid.Row="0" Grid.Column="0" -->
             <!--         Height="56" -->
@@ -107,11 +111,11 @@
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
 
-                        <customFrame:ButtonImageTextView Style="{StaticResource PaperMidButtonImageView}"
-                                                     Margin="5"
-                                                     GeometrySource="{StaticResource DatabaseGeometry}"
-                                                     LabelText="{Binding FileNameWithoutExtension}"
-                                                     Clicked="ButtonImageView_OnClicked">
+                        <customFrame:ButtonImageTextView Style="{StaticResource PaperMidButtonImageTextView}"
+                                                         Margin="5"
+                                                         GeometrySource="{StaticResource DatabaseGeometry}"
+                                                         LabelText="{Binding FileNameWithoutExtension}"
+                                                         Clicked="ButtonImageView_OnClicked">
                         </customFrame:ButtonImageTextView>
 
                     </DataTemplate>
