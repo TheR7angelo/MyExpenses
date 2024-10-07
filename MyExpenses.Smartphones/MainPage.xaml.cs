@@ -60,7 +60,7 @@ public partial class MainPage
 
     private void ButtonImageView_OnClicked(object? sender, EventArgs e)
     {
-        var buttonImageView = (ButtonImageView)sender!;
+        var buttonImageView = (ButtonImageTextView)sender!;
         if (buttonImageView.BindingContext is not ExistingDatabase existingDatabase) return;
 
         DataBaseContext.FilePath = existingDatabase.FilePath;

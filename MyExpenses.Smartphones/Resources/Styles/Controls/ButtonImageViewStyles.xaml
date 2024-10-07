@@ -3,7 +3,7 @@
                     xmlns:customFrame="clr-namespace:MyExpenses.Smartphones.UserControls.CustomFrame"
                     xmlns:assists="clr-namespace:MyExpenses.Smartphones.Resources.Styles.Assists">
 
-    <Style x:Key="FloatingActionMiniMidButtonImageView" TargetType="{x:Type customFrame:ButtonImageView}">
+    <Style x:Key="FloatingActionMiniMidButtonImageView" TargetType="{x:Type customFrame:ButtonImageTextView}">
         <Setter Property="Background" Value="{DynamicResource PrimaryMid}" />
         <Setter Property="BorderColor" Value="{DynamicResource PrimaryMid}" />
         <!-- <Setter Property="BorderWidth" Value="1" /> -->
@@ -133,7 +133,7 @@
     </Style>
 
     <Style x:Key="FloatingActionMidButtonImageView"
-           TargetType="{x:Type customFrame:ButtonImageView}"
+           TargetType="{x:Type customFrame:ButtonImageTextView}"
            BasedOn="{StaticResource FloatingActionMiniMidButtonImageView}">
         <Setter Property="Height" Value="56" />
         <Setter Property="Width" Value="56" />
@@ -142,7 +142,7 @@
     </Style>
 
     <Style x:Key="FloatingActionDarkButtonImageView"
-           TargetType="{x:Type customFrame:ButtonImageView}"
+           TargetType="{x:Type customFrame:ButtonImageTextView}"
            BasedOn="{StaticResource FloatingActionMidButtonImageView}">
         <Setter Property="Background" Value="{DynamicResource PrimaryDark}" />
         <Setter Property="BorderColor" Value="{DynamicResource PrimaryDark}" />
@@ -150,7 +150,7 @@
         <Setter Property="assists:ButtonProgressAssist.IndicatorForeground" Value="{DynamicResource PrimaryLight}" />
     </Style>
 
-    <Style x:Key="PaperMidButtonImageView" TargetType="{x:Type customFrame:ButtonImageView}">
+    <Style x:Key="PaperMidButtonImageView" TargetType="{x:Type customFrame:ButtonImageTextView}">
         <Setter Property="Background" Value="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Black}}" />
         <Setter Property="BorderColor" Value="{DynamicResource PrimaryMid}" />
         <!-- <Setter Property="BorderWidth" Value="1" /> -->

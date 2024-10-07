@@ -31,12 +31,12 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <customFrame:ButtonImageView Grid.Row="0" Grid.Column="0"
+            <customFrame:ButtonImageTextView Grid.Row="0" Grid.Column="0"
                                          Style="{StaticResource FloatingActionDarkButtonImageView}"
                                          Margin="5"
                                          GeometrySource="{StaticResource PlusGeometry}"
                                          Clicked="ButtonImageView_OnClicked">
-            </customFrame:ButtonImageView>
+            </customFrame:ButtonImageTextView>
 
             <!-- <Button Grid.Row="0" Grid.Column="0" -->
             <!--         Height="56" -->
@@ -107,12 +107,12 @@
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
 
-                        <customFrame:ButtonImageView Style="{StaticResource PaperMidButtonImageView}"
+                        <customFrame:ButtonImageTextView Style="{StaticResource PaperMidButtonImageView}"
                                                      Margin="5"
                                                      GeometrySource="{StaticResource DatabaseGeometry}"
                                                      LabelText="{Binding FileNameWithoutExtension}"
                                                      Clicked="ButtonImageView_OnClicked">
-                        </customFrame:ButtonImageView>
+                        </customFrame:ButtonImageTextView>
 
                     </DataTemplate>
                 </CollectionView.ItemTemplate>

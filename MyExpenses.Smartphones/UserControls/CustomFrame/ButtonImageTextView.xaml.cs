@@ -2,10 +2,10 @@ using Microsoft.Maui.Controls.Shapes;
 
 namespace MyExpenses.Smartphones.UserControls.CustomFrame;
 
-public sealed partial class ButtonImageView
+public sealed partial class ButtonImageTextView
 {
     public static readonly BindableProperty TextColorProperty =
-        BindableProperty.Create(nameof(TextColor), typeof(Color), typeof(ButtonImageView), default(Color));
+        BindableProperty.Create(nameof(TextColor), typeof(Color), typeof(ButtonImageTextView), default(Color));
 
     public Color TextColor
     {
@@ -14,7 +14,7 @@ public sealed partial class ButtonImageView
     }
 
     public static readonly BindableProperty GeometrySourceProperty = BindableProperty.Create(nameof(GeometrySource),
-        typeof(Geometry), typeof(ButtonImageView), default(Geometry));
+        typeof(Geometry), typeof(ButtonImageTextView), default(Geometry));
 
     public Geometry GeometrySource
     {
@@ -23,7 +23,7 @@ public sealed partial class ButtonImageView
     }
 
     public static readonly BindableProperty VerticalLabelOptionsProperty =
-        BindableProperty.Create(nameof(VerticalLabelOptions), typeof(LayoutOptions), typeof(ButtonImageView),
+        BindableProperty.Create(nameof(VerticalLabelOptions), typeof(LayoutOptions), typeof(ButtonImageTextView),
             default(LayoutOptions));
 
     public LayoutOptions VerticalLabelOptions
@@ -33,7 +33,7 @@ public sealed partial class ButtonImageView
     }
 
     public static readonly BindableProperty HorizontalLabelOptionsProperty =
-        BindableProperty.Create(nameof(HorizontalLabelOptions), typeof(LayoutOptions), typeof(ButtonImageView),
+        BindableProperty.Create(nameof(HorizontalLabelOptions), typeof(LayoutOptions), typeof(ButtonImageTextView),
             default(LayoutOptions));
 
     public LayoutOptions HorizontalLabelOptions
@@ -43,7 +43,7 @@ public sealed partial class ButtonImageView
     }
 
     public static readonly BindableProperty LabelTextProperty =
-        BindableProperty.Create(nameof(LabelText), typeof(string), typeof(ButtonImageView), default(string));
+        BindableProperty.Create(nameof(LabelText), typeof(string), typeof(ButtonImageTextView), default(string));
 
     public string LabelText
     {
@@ -52,7 +52,7 @@ public sealed partial class ButtonImageView
     }
 
     public static readonly BindableProperty ImageHeightRequestProperty =
-        BindableProperty.Create(nameof(ImageHeightRequest), typeof(double), typeof(ButtonImageView), default(double));
+        BindableProperty.Create(nameof(ImageHeightRequest), typeof(double), typeof(ButtonImageTextView), default(double));
 
     public double ImageHeightRequest
     {
@@ -61,7 +61,7 @@ public sealed partial class ButtonImageView
     }
 
     public static readonly BindableProperty ImageWidthRequestProperty =
-        BindableProperty.Create(nameof(ImageWidthRequest), typeof(double), typeof(ButtonImageView), default(double));
+        BindableProperty.Create(nameof(ImageWidthRequest), typeof(double), typeof(ButtonImageTextView), default(double));
 
     public double ImageWidthRequest
     {
@@ -70,7 +70,7 @@ public sealed partial class ButtonImageView
     }
 
     public static readonly BindableProperty VerticalImageOptionsProperty =
-        BindableProperty.Create(nameof(VerticalImageOptions), typeof(LayoutOptions), typeof(ButtonImageView),
+        BindableProperty.Create(nameof(VerticalImageOptions), typeof(LayoutOptions), typeof(ButtonImageTextView),
             default(LayoutOptions));
 
     public LayoutOptions VerticalImageOptions
@@ -80,7 +80,7 @@ public sealed partial class ButtonImageView
     }
 
     public static readonly BindableProperty HorizontalImageOptionsProperty =
-        BindableProperty.Create(nameof(HorizontalImageOptions), typeof(LayoutOptions), typeof(ButtonImageView),
+        BindableProperty.Create(nameof(HorizontalImageOptions), typeof(LayoutOptions), typeof(ButtonImageTextView),
             default(LayoutOptions));
 
     public LayoutOptions HorizontalImageOptions
@@ -91,7 +91,7 @@ public sealed partial class ButtonImageView
 
     public event EventHandler? Clicked;
 
-    public ButtonImageView()
+    public ButtonImageTextView()
     {
         InitializeComponent();
     }
