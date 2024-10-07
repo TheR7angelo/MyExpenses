@@ -129,7 +129,7 @@
         <Setter Property="assists:ButtonProgressAssist.Opacity" Value="1" />
         <Setter Property="assists:ElevationAssist.Elevation" Value="Dp6" />
         <Setter Property="assists:RippleAssist.Feedback" Value="White" />
-        <Setter Property="CornerRadius" Value="10" />
+        <Setter Property="CornerRadius" Value="40" />
     </Style>
 
     <Style x:Key="FloatingActionMidButtonImageView"
@@ -139,6 +139,15 @@
         <Setter Property="Width" Value="56" />
         <Setter Property="ImageHeightRequest" Value="32" />
         <Setter Property="ImageWidthRequest" Value="32" />
+    </Style>
+
+    <Style x:Key="FloatingActionDarkButtonImageView"
+           TargetType="{x:Type customFrame:ButtonImageView}"
+           BasedOn="{StaticResource FloatingActionMidButtonImageView}">
+        <Setter Property="Background" Value="{DynamicResource PrimaryDark}" />
+        <Setter Property="BorderColor" Value="{DynamicResource PrimaryDark}" />
+        <Setter Property="TextColor" Value="{DynamicResource PrimaryDarkForeground}" />
+        <Setter Property="assists:ButtonProgressAssist.IndicatorForeground" Value="{DynamicResource PrimaryLight}" />
     </Style>
 
     <Style x:Key="PaperMidButtonImageView" TargetType="{x:Type customFrame:ButtonImageView}">
