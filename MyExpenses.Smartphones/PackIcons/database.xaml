@@ -1,0 +1,10 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <GeometryGroup x:Key="DatabaseGeometry" FillRule="Nonzero">
+        <GeometryGroup.Children>
+            <PathGeometry Figures="M128,0C57.3,0 0,28.6 0,64 0,99.4 57.3,128 128,128 198.7,128 256,99.4 256,64 256,28.599999999999994 198.7,0 128,0 M0,96L0,144C0,179.4 57.3,208 128,208 198.7,208 256,179.4 256,144L256,96C256,131.4 198.7,160 128,160 57.30000000000001,160 0,131.4 0,96 M0,176L0,224C0,259.4 57.3,288 128,288 198.7,288 256,259.4 256,224L256,176C256,211.4 198.7,240 128,240 57.30000000000001,240 0,211.4 0,176z" />
+        </GeometryGroup.Children>
+    </GeometryGroup>
+
+</ResourceDictionary>
