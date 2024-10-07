@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<Frame x:Class="MyExpenses.Smartphones.UserControls.CustomFrame.ButtonImageView"
+       xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       xmlns:local="clr-namespace:MyExpenses.Smartphones.UserControls.CustomFrame">
+
+    <VerticalStackLayout Margin="3">
+
+        <Path Aspect="Uniform"
+              Fill="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
+              Data="{Binding GeometrySource, Mode=OneWay, UpdateSourceEventName=PropertyChanged, Source={RelativeSource AncestorType={x:Type local:ButtonImageView}}}"
+              HorizontalOptions="{Binding HorizontalImageOptions, Mode=OneWay, UpdateSourceEventName=PropertyChanged, Source={RelativeSource AncestorType={x:Type local:ButtonImageView}}}"
+              VerticalOptions="{Binding VerticalImageOptions, Mode=OneWay, UpdateSourceEventName=PropertyChanged, Source={RelativeSource AncestorType={x:Type local:ButtonImageView}}}"
+              WidthRequest="{Binding ImageWidthRequest, Mode=OneWay, UpdateSourceEventName=PropertyChanged, Source={RelativeSource AncestorType={x:Type local:ButtonImageView}}}"
+              HeightRequest="{Binding ImageHeightRequest, Mode=OneWay, UpdateSourceEventName=PropertyChanged, Source={RelativeSource AncestorType={x:Type local:ButtonImageView}}}">
+        </Path>
+
+        <Label TextColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
+               Text="{Binding LabelText, Mode=OneWay, UpdateSourceEventName=PropertyChanged, Source={RelativeSource AncestorType={x:Type local:ButtonImageView}}}"
+               HorizontalOptions="{Binding HorizontalLabelOptions, Mode=OneWay, UpdateSourceEventName=PropertyChanged, Source={RelativeSource AncestorType={x:Type local:ButtonImageView}}}"
+               VerticalOptions="{Binding VerticalLabelOptions, Mode=OneWay, UpdateSourceEventName=PropertyChanged, Source={RelativeSource AncestorType={x:Type local:ButtonImageView}}}">
+        </Label>
+
+    </VerticalStackLayout>
+
+</Frame>
