@@ -1,0 +1,144 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                    xmlns:customFrame="clr-namespace:MyExpenses.Smartphones.UserControls.CustomFrame"
+                    xmlns:assists="clr-namespace:MyExpenses.Smartphones.Resources.Styles.Assists">
+
+    <Style x:Key="FloatingActionMiniMidButtonImageView" TargetType="{x:Type customFrame:ButtonImageView}">
+        <Setter Property="Background" Value="{DynamicResource PrimaryMid}" />
+        <Setter Property="BorderColor" Value="{DynamicResource PrimaryMid}" />
+        <!-- <Setter Property="BorderWidth" Value="1" /> -->
+        <!-- <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}" /> -->
+        <Setter Property="TextColor" Value="{DynamicResource PrimaryMidForeground}" />
+        <Setter Property="Height" Value="64" />
+        <Setter Property="ImageHeightRequest" Value="48" />
+        <Setter Property="ImageWidthRequest" Value="48" />
+        <Setter Property="HorizontalOptions" Value="Center" />
+        <Setter Property="HorizontalImageOptions" Value="Center" />
+        <Setter Property="HorizontalLabelOptions" Value="Center" />
+        <Setter Property="VerticalOptions" Value="Center" />
+        <Setter Property="VerticalImageOptions" Value="Center" />
+        <Setter Property="VerticalLabelOptions" Value="Center" />
+        <Setter Property="Padding" Value="1" />
+        <!-- <Setter Property="Template"> -->
+        <!--     <Setter.Value> -->
+        <!--         <ControlTemplate TargetType="{x:Type ButtonBase}"> -->
+        <!--             <Grid> -->
+        <!--                 <AdornerDecorator -->
+        <!--                     CacheMode="{Binding RelativeSource={RelativeSource Self}, Path=(wpf:ShadowAssist.CacheMode)}"> -->
+        <!--                     <Ellipse x:Name="border" -->
+        <!--                              Effect="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(wpf:ElevationAssist.Elevation), Converter={x:Static converters:ShadowConverter.Instance}}" -->
+        <!--                              Fill="{TemplateBinding Background}" -->
+        <!--                              Stroke="{TemplateBinding BorderBrush}" -->
+        <!--                              StrokeThickness="{TemplateBinding BorderThickness}" /> -->
+        <!--                 </AdornerDecorator> -->
+        <!--                 <ProgressBar x:Name="ProgressBar" -->
+        <!--                              Width="{TemplateBinding Width, Converter={StaticResource MathAddConverter}, ConverterParameter={StaticResource ProgressRingStrokeWidth}}" -->
+        <!--                              Height="{TemplateBinding Height, Converter={StaticResource MathAddConverter}, ConverterParameter={StaticResource ProgressRingStrokeWidth}}" -->
+        <!--                              Margin="-8" -->
+        <!--                              HorizontalAlignment="Stretch" -->
+        <!--                              VerticalAlignment="Stretch" -->
+        <!--                              Background="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(wpf:ButtonProgressAssist.IndicatorBackground)}" -->
+        <!--                              Foreground="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(wpf:ButtonProgressAssist.IndicatorForeground)}" -->
+        <!--                              IsIndeterminate="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(wpf:ButtonProgressAssist.IsIndeterminate)}" -->
+        <!--                              Maximum="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(wpf:ButtonProgressAssist.Maximum)}" -->
+        <!--                              Minimum="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(wpf:ButtonProgressAssist.Minimum)}" -->
+        <!--                              Opacity="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(wpf:ButtonProgressAssist.Opacity)}" -->
+        <!--                              RenderTransformOrigin=".5, .5" -->
+        <!--                              Style="{DynamicResource MaterialDesignCircularProgressBar}" -->
+        <!--                              Visibility="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(wpf:ButtonProgressAssist.IsIndicatorVisible), Converter={StaticResource BooleanToVisibilityConverter}}" -->
+        <!--                              Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(wpf:ButtonProgressAssist.Value)}"> -->
+        <!--                     <ProgressBar.RenderTransform> -->
+        <!--                         <TransformGroup> -->
+        <!--                             <ScaleTransform ScaleX="0" ScaleY="0" /> -->
+        <!--                         </TransformGroup> -->
+        <!--                     </ProgressBar.RenderTransform> -->
+        <!--                 </ProgressBar> -->
+        <!--                 <Ellipse Fill="{TemplateBinding Background}" -->
+        <!--                          Stroke="{TemplateBinding BorderBrush}" -->
+        <!--                          StrokeThickness="{TemplateBinding BorderThickness}" /> -->
+        <!--                 <wpf:Ripple Padding="{TemplateBinding Padding}" -->
+        <!--                             HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" -->
+        <!--                             VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" -->
+        <!--                             Clip="{Binding ElementName=GeometryEllipse, Path=RenderedGeometry}" -->
+        <!--                             ClipToBounds="True" -->
+        <!--                             Content="{TemplateBinding Content}" -->
+        <!--                             ContentStringFormat="{TemplateBinding ContentStringFormat}" -->
+        <!--                             ContentTemplate="{TemplateBinding ContentTemplate}" -->
+        <!--                             Focusable="False" -->
+        <!--                             SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" /> -->
+        <!--                 <Ellipse x:Name="GeometryEllipse" -->
+        <!--                          Fill="Transparent" -->
+        <!--                          Focusable="False" -->
+        <!--                          IsHitTestVisible="False" /> -->
+        <!--             </Grid> -->
+        <!--             <ControlTemplate.Triggers> -->
+        <!--                 <Trigger Property="Button.IsDefaulted" Value="true"> -->
+        <!--                     <Setter TargetName="border" Property="Stroke" -->
+        <!--                             Value="{DynamicResource {x:Static SystemColors.HighlightBrushKey}}" /> -->
+        <!--                 </Trigger> -->
+        <!--                 <Trigger Property="IsEnabled" Value="false"> -->
+        <!--                     <Setter Property="Opacity" Value="0.38" /> -->
+        <!--                 </Trigger> -->
+        <!--                 <Trigger Property="IsMouseOver" Value="True"> -->
+        <!--                     <Setter TargetName="border" Property="wpf:ShadowAssist.Darken" Value="True" /> -->
+        <!--                 </Trigger> -->
+        <!--                 <Trigger Property="IsKeyboardFocused" Value="true"> -->
+        <!--                     <Setter TargetName="border" Property="wpf:ShadowAssist.Darken" Value="True" /> -->
+        <!--                 </Trigger> -->
+        <!--                 <Trigger Property="wpf:ButtonProgressAssist.IsIndicatorVisible" Value="True"> -->
+        <!--                     <Trigger.EnterActions> -->
+        <!--                         <BeginStoryboard> -->
+        <!--                             <Storyboard> -->
+        <!--                                 <DoubleAnimation Storyboard.TargetName="ProgressBar" -->
+        <!--                                                  Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)" -->
+        <!--                                                  From=".9" -->
+        <!--                                                  To="1" -->
+        <!--                                                  Duration="0:0:0.2" /> -->
+        <!--                                 <DoubleAnimation Storyboard.TargetName="ProgressBar" -->
+        <!--                                                  Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)" -->
+        <!--                                                  From=".9" -->
+        <!--                                                  To="1" -->
+        <!--                                                  Duration="0:0:0.2" /> -->
+        <!--                             </Storyboard> -->
+        <!--                         </BeginStoryboard> -->
+        <!--                     </Trigger.EnterActions> -->
+        <!--                     <Trigger.ExitActions> -->
+        <!--                         <BeginStoryboard> -->
+        <!--                             <Storyboard> -->
+        <!--                                 <DoubleAnimation Storyboard.TargetName="ProgressBar" -->
+        <!--                                                  Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)" -->
+        <!--                                                  From="1" -->
+        <!--                                                  To=".9" -->
+        <!--                                                  Duration="0:0:0.2" /> -->
+        <!--                                 <DoubleAnimation Storyboard.TargetName="ProgressBar" -->
+        <!--                                                  Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)" -->
+        <!--                                                  From="1" -->
+        <!--                                                  To=".9" -->
+        <!--                                                  Duration="0:0:0.2" /> -->
+        <!--                             </Storyboard> -->
+        <!--                         </BeginStoryboard> -->
+        <!--                     </Trigger.ExitActions> -->
+        <!--                 </Trigger> -->
+        <!--             </ControlTemplate.Triggers> -->
+        <!--         </ControlTemplate> -->
+        <!--     </Setter.Value> -->
+        <!-- </Setter> -->
+        <Setter Property="Width" Value="40" />
+        <!-- <Setter Property="assists:ButtonProgressAssist.IndicatorBackground" Value="{DynamicResource MaterialDesign.Brush.TextBox.HoverBackground}" /> -->
+        <Setter Property="assists:ButtonProgressAssist.IndicatorForeground" Value="{DynamicResource SecondaryMid}" />
+        <Setter Property="assists:ButtonProgressAssist.Opacity" Value="1" />
+        <Setter Property="assists:ElevationAssist.Elevation" Value="Dp6" />
+        <Setter Property="assists:RippleAssist.Feedback" Value="White" />
+        <Setter Property="CornerRadius" Value="10" />
+    </Style>
+
+    <Style x:Key="FloatingActionMidButtonImageView"
+           TargetType="{x:Type customFrame:ButtonImageView}"
+           BasedOn="{StaticResource FloatingActionMiniMidButtonImageView}">
+        <Setter Property="Height" Value="56" />
+        <Setter Property="Width" Value="56" />
+        <Setter Property="ImageHeightRequest" Value="32" />
+        <Setter Property="ImageWidthRequest" Value="32" />
+    </Style>
+
+</ResourceDictionary>
