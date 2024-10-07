@@ -31,17 +31,10 @@
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
 
-                        <customFrame:ButtonImageView BorderColor="Red" BackgroundColor="Green"
-                                                     HorizontalOptions="Center" VerticalOptions="Center"
-                                                     Margin="5" CornerRadius="10"
-                                                     HorizontalImageOptions="Center"
-                                                     VerticalImageOptions="Center"
+                        <customFrame:ButtonImageView Style="{StaticResource FloatingActionMidButtonImageView}"
+                                                     Margin="5"
                                                      GeometrySource="{StaticResource DatabaseGeometry}"
-                                                     ImageHeightRequest="54"
-                                                     ImageWidthRequest="54"
                                                      LabelText="{Binding FileNameWithoutExtension}"
-                                                     HorizontalLabelOptions="Center"
-                                                     VerticalLabelOptions="Center"
                                                      Clicked="ButtonImageView_OnClicked">
                         </customFrame:ButtonImageView>
 
