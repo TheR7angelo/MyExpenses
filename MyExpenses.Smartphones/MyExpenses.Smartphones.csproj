@@ -76,4 +76,17 @@
       <ProjectReference Include="..\MyExpenses.WebApi\MyExpenses.WebApi.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <MauiXaml Update="AppShells\DashBoardShell.xaml">
+        <SubType>Designer</SubType>
+      </MauiXaml>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Update="AppShells\DashBoardShell.xaml.cs">
+        <DependentUpon>DashBoardShell.xaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+    </ItemGroup>
+
 </Project>

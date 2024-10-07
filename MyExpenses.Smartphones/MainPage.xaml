@@ -8,7 +8,7 @@
 
     <ScrollView>
 
-        <test:ButtonsStylesPage />
+        <Button Text="Click me" Clicked="Button_OnClicked"></Button>
 
     </ScrollView>
 

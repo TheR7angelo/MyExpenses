@@ -45,4 +45,10 @@ public partial class MainPage
     }
 
     #endregion
+
+    private void Button_OnClicked(object? sender, EventArgs e)
+    {
+        var dashBoardShell = new DashBoardShell();
+        Application.Current!.MainPage = dashBoardShell;
+    }
 }
