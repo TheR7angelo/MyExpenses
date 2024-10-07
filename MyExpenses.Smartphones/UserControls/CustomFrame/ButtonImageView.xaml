@@ -8,7 +8,7 @@
     <VerticalStackLayout Margin="3">
 
         <Path Aspect="Uniform"
-              Fill="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
+              Fill="{Binding TextColor, Mode=OneWay, UpdateSourceEventName=PropertyChanged, Source={RelativeSource AncestorType={x:Type local:ButtonImageView}}}"
               Data="{Binding GeometrySource, Mode=OneWay, UpdateSourceEventName=PropertyChanged, Source={RelativeSource AncestorType={x:Type local:ButtonImageView}}}"
               HorizontalOptions="{Binding HorizontalImageOptions, Mode=OneWay, UpdateSourceEventName=PropertyChanged, Source={RelativeSource AncestorType={x:Type local:ButtonImageView}}}"
               VerticalOptions="{Binding VerticalImageOptions, Mode=OneWay, UpdateSourceEventName=PropertyChanged, Source={RelativeSource AncestorType={x:Type local:ButtonImageView}}}"
@@ -16,7 +16,7 @@
               HeightRequest="{Binding ImageHeightRequest, Mode=OneWay, UpdateSourceEventName=PropertyChanged, Source={RelativeSource AncestorType={x:Type local:ButtonImageView}}}">
         </Path>
 
-        <Label TextColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
+        <Label TextColor="{Binding TextColor, Mode=OneWay, UpdateSourceEventName=PropertyChanged, Source={RelativeSource AncestorType={x:Type local:ButtonImageView}}}"
                Text="{Binding LabelText, Mode=OneWay, UpdateSourceEventName=PropertyChanged, Source={RelativeSource AncestorType={x:Type local:ButtonImageView}}}"
                HorizontalOptions="{Binding HorizontalLabelOptions, Mode=OneWay, UpdateSourceEventName=PropertyChanged, Source={RelativeSource AncestorType={x:Type local:ButtonImageView}}}"
                VerticalOptions="{Binding VerticalLabelOptions, Mode=OneWay, UpdateSourceEventName=PropertyChanged, Source={RelativeSource AncestorType={x:Type local:ButtonImageView}}}">

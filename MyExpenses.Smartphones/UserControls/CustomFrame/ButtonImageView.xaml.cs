@@ -4,6 +4,15 @@ namespace MyExpenses.Smartphones.UserControls.CustomFrame;
 
 public sealed partial class ButtonImageView
 {
+    public static readonly BindableProperty TextColorProperty =
+        BindableProperty.Create(nameof(TextColor), typeof(Color), typeof(ButtonImageView), default(Color));
+
+    public Color TextColor
+    {
+        get => (Color)GetValue(TextColorProperty);
+        set => SetValue(TextColorProperty, value);
+    }
+
     public static readonly BindableProperty GeometrySourceProperty = BindableProperty.Create(nameof(GeometrySource),
         typeof(Geometry), typeof(ButtonImageView), default(Geometry));
 
@@ -94,5 +103,4 @@ public sealed partial class ButtonImageView
 
     private void TapGestureRecognizer_Tapped(object? sender, TappedEventArgs e)
         => OnClicked();
-
 }
