@@ -2,7 +2,7 @@ using Microsoft.Maui.Controls.Shapes;
 
 namespace MyExpenses.Smartphones.UserControls.CustomFrame;
 
-public partial class ButtonImageView
+public sealed partial class ButtonImageView
 {
     public static readonly BindableProperty GeometrySourceProperty = BindableProperty.Create(nameof(GeometrySource),
         typeof(Geometry), typeof(ButtonImageView), default(Geometry));
