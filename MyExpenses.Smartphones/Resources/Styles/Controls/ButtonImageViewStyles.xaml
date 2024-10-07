@@ -141,4 +141,73 @@
         <Setter Property="ImageWidthRequest" Value="32" />
     </Style>
 
+    <Style x:Key="PaperMidButtonImageView" TargetType="{x:Type customFrame:ButtonImageView}">
+        <Setter Property="Background" Value="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Black}}" />
+        <Setter Property="BorderColor" Value="{DynamicResource PrimaryMid}" />
+        <!-- <Setter Property="BorderWidth" Value="1" /> -->
+        <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}" />
+        <Setter Property="Height" Value="64" />
+        <Setter Property="ImageHeightRequest" Value="48" />
+        <Setter Property="ImageWidthRequest" Value="48" />
+        <Setter Property="HorizontalOptions" Value="Center" />
+        <Setter Property="HorizontalImageOptions" Value="Center" />
+        <Setter Property="HorizontalLabelOptions" Value="Center" />
+        <Setter Property="VerticalOptions" Value="Center" />
+        <Setter Property="VerticalImageOptions" Value="Center" />
+        <Setter Property="VerticalLabelOptions" Value="Center" />
+        <Setter Property="Padding" Value="16,4,16,4" />
+        <!-- <Setter Property="Template"> -->
+        <!--     <Setter.Value> -->
+        <!--         <ControlTemplate TargetType="{x:Type ButtonBase}"> -->
+        <!--             <Grid> -->
+        <!--                 <AdornerDecorator -->
+        <!--                     CacheMode="{Binding RelativeSource={RelativeSource Self}, Path=(wpf:ShadowAssist.CacheMode)}"> -->
+        <!--                     <Grid> -->
+        <!--                         <Border x:Name="background" -->
+        <!--                                 Background="{TemplateBinding Background}" -->
+        <!--                                 CornerRadius="{Binding Path=(wpf:ButtonAssist.CornerRadius), RelativeSource={RelativeSource TemplatedParent}}" -->
+        <!--                                 Effect="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(wpf:ElevationAssist.Elevation), Converter={x:Static converters:ShadowConverter.Instance}}" /> -->
+        <!--                         <Border x:Name="border" -->
+        <!--                                 BorderBrush="{TemplateBinding BorderBrush}" -->
+        <!--                                 BorderThickness="{TemplateBinding BorderThickness}" -->
+        <!--                                 CornerRadius="{Binding Path=(wpf:ButtonAssist.CornerRadius), RelativeSource={RelativeSource TemplatedParent}}" /> -->
+        <!--                     </Grid> -->
+        <!--                 </AdornerDecorator> -->
+        <!--                 <wpf:Ripple Padding="{TemplateBinding Padding}" -->
+        <!--                             HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}" -->
+        <!--                             VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}" -->
+        <!--                             Content="{TemplateBinding Content}" -->
+        <!--                             ContentStringFormat="{TemplateBinding ContentStringFormat}" -->
+        <!--                             ContentTemplate="{TemplateBinding ContentTemplate}" -->
+        <!--                             Focusable="False" -->
+        <!--                             SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"> -->
+        <!--                     <wpf:Ripple.Clip> -->
+        <!--                         <MultiBinding Converter="{StaticResource BorderClipConverter}"> -->
+        <!--                             <Binding ElementName="border" Path="ActualWidth" /> -->
+        <!--                             <Binding ElementName="border" Path="ActualHeight" /> -->
+        <!--                             <Binding ElementName="border" Path="CornerRadius" /> -->
+        <!--                             <Binding ElementName="border" Path="BorderThickness" /> -->
+        <!--                         </MultiBinding> -->
+        <!--                     </wpf:Ripple.Clip> -->
+        <!--                 </wpf:Ripple> -->
+        <!--             </Grid> -->
+        <!--             <ControlTemplate.Triggers> -->
+        <!--                 <Trigger Property="IsMouseOver" Value="true"> -->
+        <!--                     <Setter TargetName="background" Property="wpf:ShadowAssist.Darken" Value="True" /> -->
+        <!--                     <Setter TargetName="border" Property="Background" -->
+        <!--                             Value="{Binding BorderBrush, RelativeSource={RelativeSource Mode=TemplatedParent}, Converter={StaticResource BrushOpacityConverter}, ConverterParameter=0.16}" /> -->
+        <!--                 </Trigger> -->
+        <!--                 <Trigger Property="IsEnabled" Value="false"> -->
+        <!--                     <Setter Property="Opacity" Value="0.38" /> -->
+        <!--                 </Trigger> -->
+        <!--             </ControlTemplate.Triggers> -->
+        <!--         </ControlTemplate> -->
+        <!--     </Setter.Value> -->
+        <!-- </Setter> -->
+        <!-- <Setter Property="FontSize" Value="14" /> -->
+        <!-- <Setter Property="FontAttributes" Value="None" /> -->
+        <Setter Property="assists:ElevationAssist.Elevation" Value="Dp2" />
+        <Setter Property="assists:RippleAssist.Feedback" Value="{DynamicResource PrimaryMid}" />
+    </Style>
+
 </ResourceDictionary>

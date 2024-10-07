@@ -18,6 +18,7 @@
 
         <Label TextColor="{Binding TextColor, Mode=OneWay, UpdateSourceEventName=PropertyChanged, Source={RelativeSource AncestorType={x:Type local:ButtonImageView}}}"
                Text="{Binding LabelText, Mode=OneWay, UpdateSourceEventName=PropertyChanged, Source={RelativeSource AncestorType={x:Type local:ButtonImageView}}}"
+               FontAutoScalingEnabled="True"
                HorizontalOptions="{Binding HorizontalLabelOptions, Mode=OneWay, UpdateSourceEventName=PropertyChanged, Source={RelativeSource AncestorType={x:Type local:ButtonImageView}}}"
                VerticalOptions="{Binding VerticalLabelOptions, Mode=OneWay, UpdateSourceEventName=PropertyChanged, Source={RelativeSource AncestorType={x:Type local:ButtonImageView}}}">
         </Label>

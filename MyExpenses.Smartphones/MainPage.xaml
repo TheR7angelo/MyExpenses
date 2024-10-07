@@ -31,7 +31,7 @@
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
 
-                        <customFrame:ButtonImageView Style="{StaticResource FloatingActionMidButtonImageView}"
+                        <customFrame:ButtonImageView Style="{StaticResource PaperMidButtonImageView}"
                                                      Margin="5"
                                                      GeometrySource="{StaticResource DatabaseGeometry}"
                                                      LabelText="{Binding FileNameWithoutExtension}"
@@ -40,36 +40,6 @@
 
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
-
-                <!--                 <ItemsControl.ItemTemplate> -->
-                <!--                     <DataTemplate> -->
-                <!-- -->
-                <!--                         <Button -->
-                <!--                             Height="{Binding Height, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource Self}}" -->
-                <!--                             Width="{Binding Width, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource Self}}" -->
-                <!--                             Style="{StaticResource MaterialDesignPaperButton}" -->
-                <!--                             Margin="5" -->
-                <!--                             Click="ButtonDatabase_OnClick"> -->
-                <!--                             <Button.Content> -->
-                <!-- -->
-                <!--                                 <StackPanel Orientation="Vertical" -->
-                <!--                                             margin:PanelExtensions.MarginForAllChildren="3"> -->
-                <!-- -->
-                <!--                                     <materialDesign:PackIcon HorizontalAlignment="Center" Kind="Database" -->
-                <!--                                                              Height="48" Width="48"> -->
-                <!--                                     </materialDesign:PackIcon> -->
-                <!-- -->
-                <!--                                     <TextBlock HorizontalAlignment="Center" -->
-                <!--                                                Text="{Binding FileNameWithoutExtension}"> -->
-                <!--                                     </TextBlock> -->
-                <!-- -->
-                <!--                                 </StackPanel> -->
-                <!-- -->
-                <!--                             </Button.Content> -->
-                <!--                         </Button> -->
-                <!-- -->
-                <!--                     </DataTemplate> -->
-                <!--                 </ItemsControl.ItemTemplate> -->
 
             </CollectionView>
 
