@@ -81,11 +81,18 @@
       <MauiXaml Update="AppShells\DashBoardShell.xaml">
         <SubType>Designer</SubType>
       </MauiXaml>
+      <MauiXaml Update="UserControls\CustomFrame\ButtonImageView.xaml">
+        <SubType>Designer</SubType>
+      </MauiXaml>
     </ItemGroup>
 
     <ItemGroup>
       <Compile Update="AppShells\DashBoardShell.xaml.cs">
         <DependentUpon>DashBoardShell.xaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="UserControls\CustomFrame\ButtonImageView.xaml.cs">
+        <DependentUpon>ButtonImageView.xaml</DependentUpon>
         <SubType>Code</SubType>
       </Compile>
     </ItemGroup>

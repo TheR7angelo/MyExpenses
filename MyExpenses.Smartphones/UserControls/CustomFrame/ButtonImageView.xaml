@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<Frame x:Class="MyExpenses.Smartphones.UserControls.CustomFrame.ButtonImageView"
+       xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       xmlns:local="clr-namespace:MyExpenses.Smartphones.UserControls.CustomFrame">
+
+    <Path Aspect="Uniform"
+          Fill="{Binding TextColor, Mode=OneWay, UpdateSourceEventName=PropertyChanged, Source={RelativeSource AncestorType={x:Type local:ButtonImageTextView}}}"
+          Data="{Binding GeometrySource, Mode=OneWay, UpdateSourceEventName=PropertyChanged, Source={RelativeSource AncestorType={x:Type local:ButtonImageTextView}}}"
+          HorizontalOptions="{Binding HorizontalImageOptions, Mode=OneWay, UpdateSourceEventName=PropertyChanged, Source={RelativeSource AncestorType={x:Type local:ButtonImageTextView}}}"
+          VerticalOptions="{Binding VerticalImageOptions, Mode=OneWay, UpdateSourceEventName=PropertyChanged, Source={RelativeSource AncestorType={x:Type local:ButtonImageTextView}}}"
+          WidthRequest="{Binding ImageWidthRequest, Mode=OneWay, UpdateSourceEventName=PropertyChanged, Source={RelativeSource AncestorType={x:Type local:ButtonImageTextView}}}"
+          HeightRequest="{Binding ImageHeightRequest, Mode=OneWay, UpdateSourceEventName=PropertyChanged, Source={RelativeSource AncestorType={x:Type local:ButtonImageTextView}}}">
+    </Path>
+
+    <Frame.GestureRecognizers>
+        <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
+    </Frame.GestureRecognizers>
+
+</Frame>
