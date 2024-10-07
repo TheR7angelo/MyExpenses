@@ -1,0 +1,362 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MyExpenses.Smartphones.Pages.Test.ButtonsStylesPage"
+             xmlns:local="clr-namespace:MyExpenses.Smartphones.Pages.Test">
+
+    <ContentView.Content>
+
+        <VerticalStackLayout
+            Padding="30, 0"
+            Spacing="25">
+
+            <Label
+                Text="{Binding LabelContent, Mode=OneWay, Source={RelativeSource AncestorType={x:Type local:ButtonsStylesPage}}}" />
+            <Label
+                Text="{Binding LabelCountContent, Mode=OneWay, Source={RelativeSource AncestorType={x:Type local:ButtonsStylesPage}}}" />
+
+            <Frame BorderColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
+                   CornerRadius="10"
+                   HasShadow="False">
+
+                <VerticalStackLayout Spacing="5">
+
+                    <Label Text="RaisedButton" HorizontalOptions="Center" HorizontalTextAlignment="Center" />
+
+                    <HorizontalStackLayout HorizontalOptions="Center"
+                                           Spacing="5">
+
+                        <Button Style="{StaticResource RaisedLightButton}"
+                                Text="Click me"
+                                Clicked="OnCounterClicked">
+                        </Button>
+
+                        <Button Style="{StaticResource RaisedMidButton}"
+                                Text="Click me"
+                                Clicked="OnCounterClicked">
+                        </Button>
+
+                        <Button Style="{StaticResource RaisedDarkButton}"
+                                Text="Click me"
+                                Clicked="OnCounterClicked">
+                        </Button>
+
+                    </HorizontalStackLayout>
+
+                    <HorizontalStackLayout HorizontalOptions="Center"
+                                           Spacing="5">
+
+                        <Button Style="{StaticResource RaisedSecondaryLightButton}"
+                                Text="Click me"
+                                Clicked="OnCounterClicked">
+                        </Button>
+
+                        <Button Style="{StaticResource RaisedSecondaryMidButton}"
+                                Text="Click me"
+                                Clicked="OnCounterClicked">
+                        </Button>
+
+                        <Button Style="{StaticResource RaisedSecondaryDarkButton}"
+                                Text="Click me"
+                                Clicked="OnCounterClicked">
+                        </Button>
+
+                    </HorizontalStackLayout>
+
+                </VerticalStackLayout>
+
+            </Frame>
+
+            <Frame BorderColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
+                   CornerRadius="10"
+                   HasShadow="False">
+
+                <VerticalStackLayout Spacing="5">
+
+                    <Label Text="FlatButton" HorizontalOptions="Center" HorizontalTextAlignment="Center" />
+
+                    <HorizontalStackLayout HorizontalOptions="Center"
+                                           Spacing="5">
+
+                        <Button Style="{StaticResource FlatLightButton}"
+                                Text="Click me"
+                                Clicked="OnCounterClicked">
+                        </Button>
+
+                        <Button Style="{StaticResource FlatMidButton}"
+                                Text="Click me"
+                                Clicked="OnCounterClicked">
+                        </Button>
+
+                        <Button Style="{StaticResource FlatDarkButton}"
+                                Text="Click me"
+                                Clicked="OnCounterClicked">
+                        </Button>
+
+                    </HorizontalStackLayout>
+
+                    <HorizontalStackLayout HorizontalOptions="Center"
+                                           Spacing="5">
+
+                        <Button Style="{StaticResource FlatSecondaryLightButton}"
+                                Text="Click me"
+                                Clicked="OnCounterClicked">
+                        </Button>
+
+                        <Button Style="{StaticResource FlatSecondaryMidButton}"
+                                Text="Click me"
+                                Clicked="OnCounterClicked">
+                        </Button>
+
+                        <Button Style="{StaticResource FlatSecondaryDarkButton}"
+                                Text="Click me"
+                                Clicked="OnCounterClicked">
+                        </Button>
+
+                    </HorizontalStackLayout>
+
+                </VerticalStackLayout>
+
+            </Frame>
+
+            <Frame BorderColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
+                   CornerRadius="10"
+                   HasShadow="False">
+
+                <VerticalStackLayout Spacing="5">
+
+                    <Label Text="OutlinedButton" HorizontalOptions="Center" HorizontalTextAlignment="Center" />
+
+                    <HorizontalStackLayout HorizontalOptions="Center"
+                                           Spacing="5">
+
+                        <Button Style="{StaticResource OutlinedLightButton}"
+                                Text="Click me"
+                                Clicked="OnCounterClicked">
+                        </Button>
+
+                        <Button Style="{StaticResource OutlinedMidButton}"
+                                Text="Click me"
+                                Clicked="OnCounterClicked">
+                        </Button>
+
+                        <Button Style="{StaticResource OutlinedDarkButton}"
+                                Text="Click me"
+                                Clicked="OnCounterClicked">
+                        </Button>
+
+                    </HorizontalStackLayout>
+
+                    <HorizontalStackLayout HorizontalOptions="Center"
+                                           Spacing="5">
+
+                        <Button Style="{StaticResource OutlinedSecondaryLightButton}"
+                                Text="Click me"
+                                Clicked="OnCounterClicked">
+                        </Button>
+
+                        <Button Style="{StaticResource OutlinedSecondaryMidButton}"
+                                Text="Click me"
+                                Clicked="OnCounterClicked">
+                        </Button>
+
+                        <Button Style="{StaticResource OutlinedSecondaryDarkButton}"
+                                Text="Click me"
+                                Clicked="OnCounterClicked">
+                        </Button>
+
+                    </HorizontalStackLayout>
+
+                </VerticalStackLayout>
+
+            </Frame>
+
+            <Frame BorderColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
+                   CornerRadius="10"
+                   HasShadow="False">
+
+                <VerticalStackLayout Spacing="5">
+
+                    <Label Text="ToolButton" HorizontalOptions="Center" HorizontalTextAlignment="Center" />
+
+                    <HorizontalStackLayout HorizontalOptions="Center"
+                                           Spacing="5">
+
+                        <Button Style="{StaticResource ToolButton}"
+                                Text="Click me"
+                                Clicked="OnCounterClicked">
+                        </Button>
+
+                        <Button Style="{StaticResource ToolForegroundButton}"
+                                Text="Click me"
+                                Clicked="OnCounterClicked">
+                        </Button>
+
+                    </HorizontalStackLayout>
+
+                </VerticalStackLayout>
+
+            </Frame>
+
+            <Frame BorderColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
+                   CornerRadius="10"
+                   HasShadow="False">
+
+                <VerticalStackLayout Spacing="5">
+
+                    <Label Text="FloatingActionMiniButton" HorizontalOptions="Center" HorizontalTextAlignment="Center" />
+
+                    <HorizontalStackLayout HorizontalOptions="Center"
+                                           Spacing="5">
+
+                        <Button Style="{StaticResource FloatingActionMiniLightButton}"
+                                Text="+"
+                                Clicked="OnCounterClicked">
+                        </Button>
+
+                        <Button Style="{StaticResource FloatingActionMiniMidButton}"
+                                Text="+"
+                                Clicked="OnCounterClicked">
+                        </Button>
+
+                        <Button Style="{StaticResource FloatingActionMiniDarkButton}"
+                                Text="+"
+                                Clicked="OnCounterClicked">
+                        </Button>
+
+                    </HorizontalStackLayout>
+
+                    <HorizontalStackLayout HorizontalOptions="Center"
+                                           Spacing="5">
+
+                        <Button Style="{StaticResource FloatingActionMiniSecondaryLightButton}"
+                                Text="+"
+                                Clicked="OnCounterClicked">
+                        </Button>
+
+                        <Button Style="{StaticResource FloatingActionMiniSecondaryMidButton}"
+                                Text="+"
+                                Clicked="OnCounterClicked">
+                        </Button>
+
+                        <Button Style="{StaticResource FloatingActionMiniSecondaryDarkButton}"
+                                Text="+"
+                                Clicked="OnCounterClicked">
+                        </Button>
+
+                    </HorizontalStackLayout>
+
+                </VerticalStackLayout>
+
+            </Frame>
+
+            <Frame BorderColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
+                   CornerRadius="10"
+                   HasShadow="False">
+
+                <VerticalStackLayout Spacing="5">
+
+                    <Label Text="FloatingActionButton" HorizontalOptions="Center" HorizontalTextAlignment="Center" />
+
+                    <HorizontalStackLayout HorizontalOptions="Center"
+                                           Spacing="5">
+
+                        <Button Style="{StaticResource FloatingActionLightButton}"
+                                Text="+"
+                                Clicked="OnCounterClicked">
+                        </Button>
+
+                        <Button Style="{StaticResource FloatingActionMidButton}"
+                                Text="+"
+                                Clicked="OnCounterClicked">
+                        </Button>
+
+                        <Button Style="{StaticResource FloatingActionDarkButton}"
+                                Text="+"
+                                Clicked="OnCounterClicked">
+                        </Button>
+
+                    </HorizontalStackLayout>
+
+                    <HorizontalStackLayout HorizontalOptions="Center"
+                                           Spacing="5">
+
+                        <Button Style="{StaticResource FloatingActionSecondaryLightButton}"
+                                Text="+"
+                                Clicked="OnCounterClicked">
+                        </Button>
+
+                        <Button Style="{StaticResource FloatingActionSecondaryMidButton}"
+                                Text="+"
+                                Clicked="OnCounterClicked">
+                        </Button>
+
+                        <Button Style="{StaticResource FloatingActionSecondaryDarkButton}"
+                                Text="+"
+                                Clicked="OnCounterClicked">
+                        </Button>
+
+                    </HorizontalStackLayout>
+
+                </VerticalStackLayout>
+
+            </Frame>
+
+            <Frame BorderColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
+                   CornerRadius="10"
+                   HasShadow="False">
+
+                <VerticalStackLayout Spacing="5">
+
+                    <Label Text="PaperButton" HorizontalOptions="Center" HorizontalTextAlignment="Center" />
+
+                    <HorizontalStackLayout HorizontalOptions="Center"
+                                           Spacing="5">
+
+                        <Button Style="{StaticResource PaperLightButton}"
+                                Text="Click me"
+                                Clicked="OnCounterClicked">
+                        </Button>
+
+                        <Button Style="{StaticResource PaperMidButton}"
+                                Text="Click me"
+                                Clicked="OnCounterClicked">
+                        </Button>
+
+                        <Button Style="{StaticResource PaperDarkButton}"
+                                Text="Click me"
+                                Clicked="OnCounterClicked">
+                        </Button>
+
+                    </HorizontalStackLayout>
+
+                    <HorizontalStackLayout HorizontalOptions="Center"
+                                           Spacing="5">
+
+                        <Button Style="{StaticResource PaperSecondaryLightButton}"
+                                Text="Click me"
+                                Clicked="OnCounterClicked">
+                        </Button>
+
+                        <Button Style="{StaticResource PaperSecondaryMidButton}"
+                                Text="Click me"
+                                Clicked="OnCounterClicked">
+                        </Button>
+
+                        <Button Style="{StaticResource PaperSecondaryDarkButton}"
+                                Text="Click me"
+                                Clicked="OnCounterClicked">
+                        </Button>
+
+                    </HorizontalStackLayout>
+
+                </VerticalStackLayout>
+
+            </Frame>
+
+        </VerticalStackLayout>
+
+    </ContentView.Content>
+
+</ContentView>
