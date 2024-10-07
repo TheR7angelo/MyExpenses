@@ -3,12 +3,8 @@
 <Frame x:Class="MyExpenses.Smartphones.UserControls.CustomFrame.ButtonImageTextView"
        xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-       xmlns:local="clr-namespace:MyExpenses.Smartphones.UserControls.CustomFrame"
-       xmlns:converters="clr-namespace:MyExpenses.Smartphones.Resources.Styles.Converters">
+       xmlns:local="clr-namespace:MyExpenses.Smartphones.UserControls.CustomFrame">
 
-    <Frame.Resources>
-        <converters:StringToBoolConverter x:Key="StringToBoolConverter" />
-    </Frame.Resources>
     <VerticalStackLayout Margin="3">
 
         <Path Aspect="Uniform"
@@ -24,8 +20,7 @@
                Text="{Binding LabelText, Mode=OneWay, UpdateSourceEventName=PropertyChanged, Source={RelativeSource AncestorType={x:Type local:ButtonImageTextView}}}"
                FontAutoScalingEnabled="True"
                HorizontalOptions="{Binding HorizontalLabelOptions, Mode=OneWay, UpdateSourceEventName=PropertyChanged, Source={RelativeSource AncestorType={x:Type local:ButtonImageTextView}}}"
-               VerticalOptions="{Binding VerticalLabelOptions, Mode=OneWay, UpdateSourceEventName=PropertyChanged, Source={RelativeSource AncestorType={x:Type local:ButtonImageTextView}}}"
-               IsVisible="{Binding LabelText, Mode=OneWay, Converter={StaticResource StringToBoolConverter}, UpdateSourceEventName=PropertyChanged, Source={RelativeSource AncestorType={x:Type local:ButtonImageTextView}}}">
+               VerticalOptions="{Binding VerticalLabelOptions, Mode=OneWay, UpdateSourceEventName=PropertyChanged, Source={RelativeSource AncestorType={x:Type local:ButtonImageTextView}}}">
         </Label>
 
     </VerticalStackLayout>
