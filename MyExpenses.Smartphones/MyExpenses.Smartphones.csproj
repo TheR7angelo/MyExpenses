@@ -84,6 +84,9 @@
       <MauiXaml Update="UserControls\CustomFrame\ButtonImageView.xaml">
         <SubType>Designer</SubType>
       </MauiXaml>
+      <MauiXaml Update="PackIcons\minus.xaml">
+        <SubType>Designer</SubType>
+      </MauiXaml>
     </ItemGroup>
 
     <ItemGroup>
@@ -95,6 +98,10 @@
         <DependentUpon>ButtonImageView.xaml</DependentUpon>
         <SubType>Code</SubType>
       </Compile>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="PackIcons\Temp\" />
     </ItemGroup>
 
 </Project>
