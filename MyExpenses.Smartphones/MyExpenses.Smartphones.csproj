@@ -87,6 +87,9 @@
       <MauiXaml Update="PackIcons\minus.xaml">
         <SubType>Designer</SubType>
       </MauiXaml>
+      <MauiXaml Update="PackIcons\database_import.xaml">
+        <SubType>Designer</SubType>
+      </MauiXaml>
     </ItemGroup>
 
     <ItemGroup>
