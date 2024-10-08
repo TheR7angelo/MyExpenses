@@ -53,19 +53,17 @@
                                          Clicked="ButtonRemoveDataBase_OnClick">
             </customFrame:ButtonImageView>
 
-            <!-- <Button Grid.Row="1" Grid.Column="0" -->
-            <!--         Height="56" -->
-            <!--         Width="{Binding Height, RelativeSource={RelativeSource Self}}" -->
-            <!--         Style="{StaticResource MaterialDesignFloatingActionButton}" -->
-            <!--         Click="ButtonImportDataBase_OnClick"> -->
-            <!--     <Button.Content> -->
-            <!--         <materialDesign:PackIcon Kind="DatabaseImport" -->
-            <!--                                  Height="{Binding Height, RelativeSource={RelativeSource AncestorType=Button}}" -->
-            <!--                                  Width="{Binding Height, RelativeSource={RelativeSource AncestorType=Button}}"> -->
-            <!--         </materialDesign:PackIcon> -->
-            <!--     </Button.Content> -->
-            <!-- </Button> -->
-            <!-- -->
+            <customFrame:ButtonImageView Grid.Row="1" Grid.Column="0"
+                                         Style="{StaticResource FloatingActionMidButtonImageView}"
+                                         Margin="5"
+                                         GeometrySource="{StaticResource DatabaseImportGeometry}"
+                                         ImageHeightRequest="24"
+                                         ImageWidthRequest="{Binding ImageHeightRequest, Source={RelativeSource Self}}"
+                                         HeightRequest="40"
+                                         WidthRequest="{Binding HeightRequest, Source={RelativeSource Self}}"
+                                         Clicked="ButtonImportDataBase_OnClick">
+            </customFrame:ButtonImageView>
+
             <!-- <Button Grid.Row="1" Grid.Column="1" -->
             <!--         Height="56" -->
             <!--         Width="{Binding Height, RelativeSource={RelativeSource Self}}" -->
