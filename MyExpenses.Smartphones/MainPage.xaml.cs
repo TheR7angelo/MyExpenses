@@ -83,4 +83,9 @@ public partial class MainPage
     {
         throw new NotImplementedException();
     }
+
+    private void ButtonExportDataBase_OnClick(object? sender, EventArgs e)
+    {
+        throw new NotImplementedException();
+    }
 }
