@@ -39,6 +39,8 @@
                                          ImageWidthRequest="32"
                                          HeightRequest="56"
                                          WidthRequest="56"
+                                         ImageWidthRequest="{Binding ImageHeightRequest, Source={RelativeSource Self}}"
+                                         WidthRequest="{Binding HeightRequest, Source={RelativeSource Self}}"
                                          Clicked="ButtonImageView_OnClicked">
             </customFrame:ButtonImageView>
 
