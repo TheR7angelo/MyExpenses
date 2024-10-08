@@ -3,6 +3,7 @@
 
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="database.xaml" />
+        <ResourceDictionary Source="database_export.xaml" />
         <ResourceDictionary Source="database_import.xaml" />
         <ResourceDictionary Source="minus.xaml" />
         <ResourceDictionary Source="plus.xaml" />

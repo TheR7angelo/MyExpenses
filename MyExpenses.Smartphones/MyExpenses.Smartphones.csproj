@@ -90,6 +90,9 @@
       <MauiXaml Update="PackIcons\database_import.xaml">
         <SubType>Designer</SubType>
       </MauiXaml>
+      <MauiXaml Update="PackIcons\database_export.xaml">
+        <SubType>Designer</SubType>
+      </MauiXaml>
     </ItemGroup>
 
     <ItemGroup>
@@ -101,10 +104,6 @@
         <DependentUpon>ButtonImageView.xaml</DependentUpon>
         <SubType>Code</SubType>
       </Compile>
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="PackIcons\Temp\" />
     </ItemGroup>
 
 </Project>
