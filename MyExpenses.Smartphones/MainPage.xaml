@@ -35,11 +35,9 @@
                                          Style="{StaticResource FloatingActionDarkButtonImageView}"
                                          Margin="5"
                                          GeometrySource="{StaticResource PlusGeometry}"
-                                         ImageHeightRequest="32"
-                                         ImageWidthRequest="32"
-                                         HeightRequest="56"
-                                         WidthRequest="56"
+                                         ImageHeightRequest="24"
                                          ImageWidthRequest="{Binding ImageHeightRequest, Source={RelativeSource Self}}"
+                                         HeightRequest="40"
                                          WidthRequest="{Binding HeightRequest, Source={RelativeSource Self}}"
                                          Clicked="ButtonImageView_OnClicked">
             </customFrame:ButtonImageView>
