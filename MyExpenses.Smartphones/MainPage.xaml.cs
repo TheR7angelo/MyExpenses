@@ -73,4 +73,9 @@ public partial class MainPage
     {
         throw new NotImplementedException();
     }
+
+    private void ButtonRemoveDataBase_OnClick(object? sender, EventArgs e)
+    {
+        throw new NotImplementedException();
+    }
 }

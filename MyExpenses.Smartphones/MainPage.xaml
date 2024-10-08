@@ -42,19 +42,17 @@
                                          Clicked="ButtonAddDataBase_OnClick">
             </customFrame:ButtonImageView>
 
-            <!-- <Button Grid.Row="0" Grid.Column="1" -->
-            <!--         Height="56" -->
-            <!--         Width="{Binding Height, RelativeSource={RelativeSource Self}}" -->
-            <!--         Style="{StaticResource MaterialDesignFloatingActionSecondaryButton}" -->
-            <!--         Click="ButtonRemoveDataBase_OnClick"> -->
-            <!--     <Button.Content> -->
-            <!--         <materialDesign:PackIcon Kind="Minus" -->
-            <!--                                  Height="{Binding Height, RelativeSource={RelativeSource AncestorType=Button}}" -->
-            <!--                                  Width="{Binding Height, RelativeSource={RelativeSource AncestorType=Button}}"> -->
-            <!--         </materialDesign:PackIcon> -->
-            <!--     </Button.Content> -->
-            <!-- </Button> -->
-            <!-- -->
+            <customFrame:ButtonImageView Grid.Row="0" Grid.Column="1"
+                                         Style="{StaticResource FloatingActionSecondaryMidButtonImageView}"
+                                         Margin="5"
+                                         GeometrySource="{StaticResource MinusGeometry}"
+                                         ImageHeightRequest="24"
+                                         ImageWidthRequest="{Binding ImageHeightRequest, Source={RelativeSource Self}}"
+                                         HeightRequest="40"
+                                         WidthRequest="{Binding HeightRequest, Source={RelativeSource Self}}"
+                                         Clicked="ButtonRemoveDataBase_OnClick">
+            </customFrame:ButtonImageView>
+
             <!-- <Button Grid.Row="1" Grid.Column="0" -->
             <!--         Height="56" -->
             <!--         Width="{Binding Height, RelativeSource={RelativeSource Self}}" -->
