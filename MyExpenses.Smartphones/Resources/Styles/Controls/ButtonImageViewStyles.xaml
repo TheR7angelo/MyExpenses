@@ -148,6 +148,15 @@
         <Setter Property="assists:ButtonProgressAssist.IndicatorForeground" Value="{DynamicResource PrimaryLight}" />
     </Style>
 
+    <Style x:Key="FloatingActionSecondaryMidButtonImageView"
+           TargetType="{x:Type customFrame:ButtonImageView}"
+           BasedOn="{StaticResource FloatingActionMidButtonImageView}">
+        <Setter Property="Background" Value="{DynamicResource SecondaryMid}" />
+        <Setter Property="BorderColor" Value="{DynamicResource SecondaryMid}" />
+        <Setter Property="GeometryColor" Value="{DynamicResource SecondaryMidForeground}" />
+        <Setter Property="assists:ButtonProgressAssist.IndicatorForeground" Value="{DynamicResource PrimaryMid}" />
+    </Style>
+
     <Style x:Key="FloatingActionMiniMidButtonImageTextView" TargetType="{x:Type customFrame:ButtonImageTextView}">
         <Setter Property="Background" Value="{DynamicResource PrimaryMid}" />
         <Setter Property="BorderColor" Value="{DynamicResource PrimaryMid}" />
