@@ -39,7 +39,7 @@
                                          ImageWidthRequest="{Binding ImageHeightRequest, Source={RelativeSource Self}}"
                                          HeightRequest="40"
                                          WidthRequest="{Binding HeightRequest, Source={RelativeSource Self}}"
-                                         Clicked="ButtonImageView_OnClicked">
+                                         Clicked="ButtonAddDataBase_OnClick">
             </customFrame:ButtonImageView>
 
             <!-- <Button Grid.Row="0" Grid.Column="0" -->

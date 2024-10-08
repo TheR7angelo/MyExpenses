@@ -68,4 +68,9 @@ public partial class MainPage
         var dashBoardShell = new DashBoardShell();
         Application.Current!.MainPage = dashBoardShell;
     }
+
+    private void ButtonAddDataBase_OnClick(object? sender, EventArgs e)
+    {
+        throw new NotImplementedException();
+    }
 }
