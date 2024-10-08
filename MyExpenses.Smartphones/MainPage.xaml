@@ -115,7 +115,7 @@
                                                          Margin="5"
                                                          GeometrySource="{StaticResource DatabaseGeometry}"
                                                          LabelText="{Binding FileNameWithoutExtension}"
-                                                         Clicked="ButtonImageView_OnClicked">
+                                                         Clicked="ButtonDatabase_OnClick">
                         </customFrame:ButtonImageTextView>
 
                     </DataTemplate>

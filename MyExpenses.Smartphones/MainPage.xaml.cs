@@ -58,7 +58,7 @@ public partial class MainPage
         Application.Current!.MainPage = dashBoardShell;
     }
 
-    private void ButtonImageView_OnClicked(object? sender, EventArgs e)
+    private void ButtonDatabase_OnClick(object? sender, EventArgs e)
     {
         var buttonImageView = (ButtonImageTextView)sender!;
         if (buttonImageView.BindingContext is not ExistingDatabase existingDatabase) return;
