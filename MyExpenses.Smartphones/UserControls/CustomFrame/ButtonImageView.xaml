@@ -6,12 +6,12 @@
        xmlns:local="clr-namespace:MyExpenses.Smartphones.UserControls.CustomFrame">
 
     <Path Aspect="Uniform"
-          Fill="{Binding TextColor, Mode=OneWay, UpdateSourceEventName=PropertyChanged, Source={RelativeSource AncestorType={x:Type local:ButtonImageTextView}}}"
-          Data="{Binding GeometrySource, Mode=OneWay, UpdateSourceEventName=PropertyChanged, Source={RelativeSource AncestorType={x:Type local:ButtonImageTextView}}}"
-          HorizontalOptions="{Binding HorizontalImageOptions, Mode=OneWay, UpdateSourceEventName=PropertyChanged, Source={RelativeSource AncestorType={x:Type local:ButtonImageTextView}}}"
-          VerticalOptions="{Binding VerticalImageOptions, Mode=OneWay, UpdateSourceEventName=PropertyChanged, Source={RelativeSource AncestorType={x:Type local:ButtonImageTextView}}}"
-          WidthRequest="{Binding ImageWidthRequest, Mode=OneWay, UpdateSourceEventName=PropertyChanged, Source={RelativeSource AncestorType={x:Type local:ButtonImageTextView}}}"
-          HeightRequest="{Binding ImageHeightRequest, Mode=OneWay, UpdateSourceEventName=PropertyChanged, Source={RelativeSource AncestorType={x:Type local:ButtonImageTextView}}}">
+          Fill="{Binding GeometryColor, Mode=OneWay, UpdateSourceEventName=PropertyChanged, Source={RelativeSource AncestorType={x:Type local:ButtonImageView}}}"
+          Data="{Binding GeometrySource, Mode=OneWay, UpdateSourceEventName=PropertyChanged, Source={RelativeSource AncestorType={x:Type local:ButtonImageView}}}"
+          HorizontalOptions="{Binding HorizontalImageOptions, Mode=OneWay, UpdateSourceEventName=PropertyChanged, Source={RelativeSource AncestorType={x:Type local:ButtonImageView}}}"
+          VerticalOptions="{Binding VerticalImageOptions, Mode=OneWay, UpdateSourceEventName=PropertyChanged, Source={RelativeSource AncestorType={x:Type local:ButtonImageView}}}"
+          WidthRequest="{Binding ImageWidthRequest, Mode=OneWay, UpdateSourceEventName=PropertyChanged, Source={RelativeSource AncestorType={x:Type local:ButtonImageView}}}"
+          HeightRequest="{Binding ImageHeightRequest, Mode=OneWay, UpdateSourceEventName=PropertyChanged, Source={RelativeSource AncestorType={x:Type local:ButtonImageView}}}">
     </Path>
 
     <Frame.GestureRecognizers>
