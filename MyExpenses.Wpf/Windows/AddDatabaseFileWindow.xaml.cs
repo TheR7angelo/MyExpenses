@@ -12,21 +12,49 @@ namespace MyExpenses.Wpf.Windows;
 
 public partial class AddDatabaseFileWindow
 {
+    public static readonly DependencyProperty TextBoxHintAssistProperty =
+        DependencyProperty.Register(nameof(TextBoxHintAssist), typeof(string), typeof(AddDatabaseFileWindow),
+            new PropertyMetadata(default(string)));
+
+    public string TextBoxHintAssist
+    {
+        get => (string)GetValue(TextBoxHintAssistProperty);
+        set => SetValue(TextBoxHintAssistProperty, value);
+    }
+
+
+    public static readonly DependencyProperty ButtonCancelContentProperty =
+        DependencyProperty.Register(nameof(ButtonCancelContent), typeof(string), typeof(AddDatabaseFileWindow),
+            new PropertyMetadata(default(string)));
+
+    public string ButtonCancelContent
+    {
+        get => (string)GetValue(ButtonCancelContentProperty);
+        set => SetValue(ButtonCancelContentProperty, value);
+    }
+
+    public static readonly DependencyProperty ButtonValidContentProperty =
+        DependencyProperty.Register(nameof(ButtonValidContent), typeof(string), typeof(AddDatabaseFileWindow),
+            new PropertyMetadata(default(string)));
+
+    public string ButtonValidContent
+    {
+        get => (string)GetValue(ButtonValidContentProperty);
+        set => SetValue(ButtonValidContentProperty, value);
+    }
+
     public static readonly DependencyProperty DatabaseFilenameProperty =
         DependencyProperty.Register(nameof(DatabaseFilename), typeof(string), typeof(AddDatabaseFileWindow),
             new PropertyMetadata(default(string)));
 
-    public static readonly DependencyProperty TitleWindowProperty = DependencyProperty.Register(nameof(TitleWindow), typeof(string), typeof(AddDatabaseFileWindow), new PropertyMetadata(default(string)));
+    public static readonly DependencyProperty TitleWindowProperty = DependencyProperty.Register(nameof(TitleWindow),
+        typeof(string), typeof(AddDatabaseFileWindow), new PropertyMetadata(default(string)));
 
     public string DatabaseFilename
     {
         get => (string)GetValue(DatabaseFilenameProperty);
         set => SetValue(DatabaseFilenameProperty, value);
     }
-
-    public string TextBoxHintAssist { get; } = AddDatabaseFileWindowResources.TextBoxHintAssist;
-    public string ButtonValidContent { get; } = AddDatabaseFileWindowResources.ButtonValidContent;
-    public string ButtonCancelContent { get; } = AddDatabaseFileWindowResources.ButtonCancelContent;
 
     private List<ExistingDatabase> ExistingDatabases { get; } = [];
 
@@ -53,6 +81,10 @@ public partial class AddDatabaseFileWindow
     private void UpdateLanguage()
     {
         TitleWindow = AddDatabaseFileWindowResources.TitleWindow;
+
+        TextBoxHintAssist = AddDatabaseFileWindowResources.TextBoxHintAssist;
+        ButtonValidContent = AddDatabaseFileWindowResources.ButtonValidContent;
+        ButtonCancelContent = AddDatabaseFileWindowResources.ButtonCancelContent;
     }
 
     #region Action
@@ -97,7 +129,6 @@ public partial class AddDatabaseFileWindow
         if (alreadyExist) ShowErrorMessageAlreadyExist();
     }
 
-
     #endregion
 
     #region Function
@@ -108,7 +139,7 @@ public partial class AddDatabaseFileWindow
     private bool CheckDatabaseFilenameIncorrectChar(string databaseFilename)
     {
         if (databaseFilename.StartsWith('.')) return true;
-        var charsIncorrects = new[] {'/', '\\', '?', '%', '*', ':', '|', '"', '<', '>', '\0'};
+        var charsIncorrects = new[] { '/', '\\', '?', '%', '*', ':', '|', '"', '<', '>', '\0' };
         return charsIncorrects.Any(databaseFilename.Contains);
     }
 
@@ -120,7 +151,8 @@ public partial class AddDatabaseFileWindow
         => MsgBox.MsgBox.Show(AddDatabaseFileWindowResources.MessageBoxDatabaseAlreadyExistError, MsgBoxImage.Warning);
 
     private void ShowErrorMessageContainsIncorrectChar()
-        => MsgBox.MsgBox.Show(AddDatabaseFileWindowResources.MessageBoxDatabaseFilenameContainsIncorrectCharError, MsgBoxImage.Error);
+        => MsgBox.MsgBox.Show(AddDatabaseFileWindowResources.MessageBoxDatabaseFilenameContainsIncorrectCharError,
+            MsgBoxImage.Error);
 
     #endregion
 }
