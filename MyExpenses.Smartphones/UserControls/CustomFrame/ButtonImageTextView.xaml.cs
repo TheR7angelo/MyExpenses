@@ -1,4 +1,5 @@
 using Microsoft.Maui.Controls.Shapes;
+using MyExpenses.Smartphones.PackIcons;
 
 namespace MyExpenses.Smartphones.UserControls.CustomFrame;
 
@@ -14,11 +15,11 @@ public sealed partial class ButtonImageTextView
     }
 
     public static readonly BindableProperty GeometrySourceProperty = BindableProperty.Create(nameof(GeometrySource),
-        typeof(Geometry), typeof(ButtonImageTextView), default(Geometry));
+        typeof(EPackIcons), typeof(ButtonImageTextView), default(EPackIcons));
 
-    public Geometry GeometrySource
+    public EPackIcons GeometrySource
     {
-        get => (Geometry)GetValue(GeometrySourceProperty);
+        get => (EPackIcons)GetValue(GeometrySourceProperty);
         set => SetValue(GeometrySourceProperty, value);
     }
 

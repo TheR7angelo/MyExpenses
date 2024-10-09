@@ -13,8 +13,6 @@
 
                 <ResourceDictionary Source="Resources/Styles/BaseStyles.xaml" />
 
-                <ResourceDictionary Source="PackIcons/PackIcons.xaml" />
-
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

@@ -5,11 +5,15 @@
        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
        xmlns:local="clr-namespace:MyExpenses.Smartphones.UserControls.CustomFrame">
 
+    <Frame.Resources>
+        <local:EPackIconsToGeometryConverter x:Key="StringToGeometryConverter" />
+    </Frame.Resources>
+    
     <VerticalStackLayout Margin="3">
 
         <Path Aspect="Uniform"
               Fill="{Binding TextColor, Mode=OneWay, UpdateSourceEventName=PropertyChanged, Source={RelativeSource AncestorType={x:Type local:ButtonImageTextView}}}"
-              Data="{Binding GeometrySource, Mode=OneWay, UpdateSourceEventName=PropertyChanged, Source={RelativeSource AncestorType={x:Type local:ButtonImageTextView}}}"
+              Data="{Binding GeometrySource, Mode=OneWay, Converter={StaticResource StringToGeometryConverter},  UpdateSourceEventName=PropertyChanged, Source={RelativeSource AncestorType={x:Type local:ButtonImageTextView}}}"
               HorizontalOptions="{Binding HorizontalImageOptions, Mode=OneWay, UpdateSourceEventName=PropertyChanged, Source={RelativeSource AncestorType={x:Type local:ButtonImageTextView}}}"
               VerticalOptions="{Binding VerticalImageOptions, Mode=OneWay, UpdateSourceEventName=PropertyChanged, Source={RelativeSource AncestorType={x:Type local:ButtonImageTextView}}}"
               WidthRequest="{Binding ImageWidthRequest, Mode=OneWay, UpdateSourceEventName=PropertyChanged, Source={RelativeSource AncestorType={x:Type local:ButtonImageTextView}}}"
