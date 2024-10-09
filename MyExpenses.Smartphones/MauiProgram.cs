@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using Material.Components.Maui.Extensions;
+using Microsoft.Extensions.Logging;
 
 namespace MyExpenses.Smartphones;
 
@@ -13,7 +14,8 @@ public static class MauiProgram
             {
                 fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                 fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
-            });
+            })
+            .UseMaterialComponents();
 
 #if DEBUG
         builder.Logging.AddDebug();
