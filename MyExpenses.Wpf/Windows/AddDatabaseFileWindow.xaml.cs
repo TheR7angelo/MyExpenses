@@ -38,11 +38,13 @@ public partial class AddDatabaseFileWindow
 
     public AddDatabaseFileWindow()
     {
-        Interface.LanguageChanged += Interface_OnLanguageChanged;
         UpdateLanguage();
+
         InitializeComponent();
 
         this.SetWindowCornerPreference();
+
+        Interface.LanguageChanged += Interface_OnLanguageChanged;
     }
 
     private void Interface_OnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
