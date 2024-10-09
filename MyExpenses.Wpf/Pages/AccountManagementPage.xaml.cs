@@ -69,7 +69,7 @@ public partial class AccountManagementPage
     private void ButtonVAccount_OnClick(object sender, RoutedEventArgs e)
     {
         var button = (Button)sender;
-        var vTotalByAccount = (VTotalByAccount)button.DataContext;
+        if (button.DataContext is not VTotalByAccount vTotalByAccount) return;
 
         var account = vTotalByAccount.Id.ToISql<TAccount>();
         if (account is null) return;
