@@ -63,6 +63,8 @@
     </Target>
     
     <ItemGroup>
+        <PackageReference Include="IconPacks.Material" Version="1.0.8940.2-build" />
+        <PackageReference Include="Material.Components.Maui" Version="0.2.2-preview" />
         <PackageReference Include="Microsoft.Maui.Controls" Version="8.0.91" />
         <PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="8.0.91" />
         <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0"/>
@@ -82,15 +84,6 @@
         <SubType>Designer</SubType>
       </MauiXaml>
       <MauiXaml Update="UserControls\CustomFrame\ButtonImageView.xaml">
-        <SubType>Designer</SubType>
-      </MauiXaml>
-      <MauiXaml Update="PackIcons\minus.xaml">
-        <SubType>Designer</SubType>
-      </MauiXaml>
-      <MauiXaml Update="PackIcons\database_import.xaml">
-        <SubType>Designer</SubType>
-      </MauiXaml>
-      <MauiXaml Update="PackIcons\database_export.xaml">
         <SubType>Designer</SubType>
       </MauiXaml>
     </ItemGroup>
