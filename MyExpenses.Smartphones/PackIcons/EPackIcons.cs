@@ -7,5 +7,4 @@ public enum EPackIcons
     DatabaseImport,
     Minus,
     Plus,
-
 }
