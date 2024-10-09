@@ -75,18 +75,6 @@ public partial class AddDatabaseFileWindow
         Interface.LanguageChanged += Interface_OnLanguageChanged;
     }
 
-    private void Interface_OnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
-        => UpdateLanguage();
-
-    private void UpdateLanguage()
-    {
-        TitleWindow = AddDatabaseFileWindowResources.TitleWindow;
-
-        TextBoxHintAssist = AddDatabaseFileWindowResources.TextBoxHintAssist;
-        ButtonValidContent = AddDatabaseFileWindowResources.ButtonValidContent;
-        ButtonCancelContent = AddDatabaseFileWindowResources.ButtonCancelContent;
-    }
-
     #region Action
 
     private void ButtonValid_OnClick(object sender, RoutedEventArgs e)
@@ -114,6 +102,9 @@ public partial class AddDatabaseFileWindow
         DialogResult = false;
         Close();
     }
+
+    private void Interface_OnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
+        => UpdateLanguage();
 
     private void TextBoxDatabaseFilename_OnPreviewLostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
     {
@@ -153,6 +144,15 @@ public partial class AddDatabaseFileWindow
     private void ShowErrorMessageContainsIncorrectChar()
         => MsgBox.MsgBox.Show(AddDatabaseFileWindowResources.MessageBoxDatabaseFilenameContainsIncorrectCharError,
             MsgBoxImage.Error);
+
+    private void UpdateLanguage()
+    {
+        TitleWindow = AddDatabaseFileWindowResources.TitleWindow;
+
+        TextBoxHintAssist = AddDatabaseFileWindowResources.TextBoxHintAssist;
+        ButtonValidContent = AddDatabaseFileWindowResources.ButtonValidContent;
+        ButtonCancelContent = AddDatabaseFileWindowResources.ButtonCancelContent;
+    }
 
     #endregion
 }
