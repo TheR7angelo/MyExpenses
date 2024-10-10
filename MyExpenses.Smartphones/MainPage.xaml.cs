@@ -1,9 +1,11 @@
 ﻿using System.Collections.ObjectModel;
 using MyExpenses.Models.IO;
+using MyExpenses.Smartphones.ContentPages;
 using MyExpenses.Smartphones.UserControls.CustomFrame;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils;
 using MyExpenses.Utils.Collection;
+using Serilog;
 
 namespace MyExpenses.Smartphones;
 
@@ -62,9 +64,22 @@ public partial class MainPage
 
     #endregion
 
-    private void ButtonAddDataBase_OnClick(object? sender, EventArgs e)
+    private async void ButtonAddDataBase_OnClick(object? sender, EventArgs e)
     {
-        throw new NotImplementedException();
+        var addDatabaseFileContentPage = new AddDatabaseFileContentPage();
+        addDatabaseFileContentPage.SetExistingDatabase(ExistingDatabases);
+
+        await Navigation.PushAsync(addDatabaseFileContentPage);
+
+        var result = await addDatabaseFileContentPage.ResultDialog;
+
+        if (result is not true) return;
+
+        var fileName = addDatabaseFileContentPage.DatabaseFilename;
+        fileName = Path.ChangeExtension(fileName, ".sqlite");
+        var filePath = Path.Combine(DbContextBackup.LocalDirectoryDatabase, fileName);
+
+        Log.Information("Create new database with name \"{FileName}\"", fileName);
     }
 
     private void ButtonRemoveDataBase_OnClick(object? sender, EventArgs e)

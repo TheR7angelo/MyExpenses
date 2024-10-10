@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:margin="clr-namespace:MyExpenses.Maui.Utils.Margin;assembly=MyExpenses.Maui.Utils"
+             x:Class="MyExpenses.Smartphones.ContentPages.AddDatabaseFileContentPage"
+             BindingContext="{Binding Source={RelativeSource Self}}">
+
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior Command="{Binding BackCommand}"></BackButtonBehavior>
+    </Shell.BackButtonBehavior>
+
+    <ContentPage.Content>
+
+        <Grid margin:LayoutExtensions.MarginForAllChildren="5">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <Entry Grid.Row="0"
+                   Placeholder="Test"
+                   Text="{Binding DatabaseFilename, Mode=TwoWay, UpdateSourceEventName=PropertyChanged}">
+            </Entry>
+
+            <!-- < Grid.Row="0" -->
+            <!--          Text="{Binding DatabaseFilename, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" -->
+            <!--          materialDesign:HintAssist.Hint="{Binding TextBoxHintAssist}" -->
+            <!--          Style="{StaticResource MaterialDesignFilledTextBox}" -->
+            <!--          PreviewLostKeyboardFocus="TextBoxDatabaseFilename_OnPreviewLostKeyboardFocus"> -->
+            <!-- </I> -->
+
+            <HorizontalStackLayout Grid.Row="1"
+                        margin:LayoutExtensions.MarginForAllChildren="5, 0, 5, 5"
+                        HorizontalOptions="End" VerticalOptions="End">
+
+                <Button Text="Valid"
+                        Clicked="ButtonValid_OnClicked">
+                </Button>
+
+                <Button Text="Cancel"
+                        Clicked="ButtonCancel_OnClicked">
+                </Button>
+
+                <!-- <Button Content="{Binding ButtonValidContent}" -->
+                <!--         Style="{StaticResource MaterialDesignPaperButton}" -->
+                <!--         Click="ButtonValid_OnClick"> -->
+                <!-- </Button> -->
+                <!-- -->
+                <!-- <Button Content="{Binding ButtonCancelContent}" -->
+                <!--         Style="{StaticResource MaterialDesignPaperSecondaryButton}" -->
+                <!--         Click="ButtonCancel_OnClick"> -->
+                <!-- </Button> -->
+
+            </HorizontalStackLayout>
+
+        </Grid>
+
+    </ContentPage.Content>
+
+</ContentPage>
