@@ -9,4 +9,10 @@ namespace MyExpenses.Smartphones;
                            ConfigChanges.ScreenLayout | ConfigChanges.SmallestScreenSize | ConfigChanges.Density)]
 public class MainActivity : MauiAppCompatActivity
 {
+    protected override void OnCreate(Bundle savedInstanceState)
+    {
+        base.OnCreate(savedInstanceState);
+
+        Window?.SetStatusBarColor(Android.Graphics.Color.ParseColor("#FFA500"));
+    }
 }
