@@ -1,4 +1,6 @@
-﻿using System.Reflection;
+﻿using System.Globalization;
+using System.Reflection;
+using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.IO.Smartphones;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils;
@@ -33,12 +35,63 @@ public partial class App
         AppDomain.CurrentDomain.ProcessExit += CurrentDomainOnProcessExit;
         AppDomain.CurrentDomain.UnhandledException += CurrentDomainOnUnhandledException;
 
+        Log.Information("Apply interface configuration");
+        LoadInterfaceConfiguration(configuration.Interface);
+
         SetInitialFile();
 
         InitializeComponent();
 
         MainPage = new AppShell();
     }
+
+    private static void LoadInterfaceConfiguration(Interface configurationInterface)
+    {
+        // LoadInterfaceTheme(configurationInterface.Theme);
+        LoadInterfaceLanguage(configurationInterface.Language);
+    }
+
+    public static void LoadInterfaceLanguage(string? cultureInfoCode)
+    {
+        var currentCultureIsSupported = false;
+
+        if (string.IsNullOrEmpty(cultureInfoCode))
+        {
+            var currentCurrentCulture = CultureInfo.CurrentUICulture.Name;
+
+            using var context = new DataBaseContext(DbContextBackup.LocalFilePathDataBaseModel);
+
+            currentCultureIsSupported = context.TSupportedLanguages.Any(s => s.Code == currentCurrentCulture);
+            cultureInfoCode = currentCultureIsSupported
+                ? currentCurrentCulture
+                : context.TSupportedLanguages.First(s => (bool)s.DefaultLanguage!).Code;
+
+            var configuration = Config.Configuration;
+            configuration.Interface.Language = cultureInfoCode;
+            configuration.WriteConfiguration();
+        }
+
+        var cultureInfo = new CultureInfo(cultureInfoCode);
+        Thread.CurrentThread.CurrentCulture = cultureInfo;
+        Thread.CurrentThread.CurrentUICulture = cultureInfo;
+
+        if (currentCultureIsSupported) DbContextHelper.UpdateDbLanguage();
+    }
+
+    // public static void LoadInterfaceTheme(Theme configurationTheme)
+    // {
+    //     var baseTheme = (BaseTheme)configurationTheme.BaseTheme;
+    //     var primaryColor = configurationTheme.HexadecimalCodePrimaryColor.ToColor() ?? Color.FromRgb(0, 128, 0);
+    //     var secondaryColor = configurationTheme.HexadecimalCodeSecondaryColor.ToColor() ?? Color.FromRgb(255, 165, 0);
+    //
+    //     var paletteHelper = new PaletteHelper();
+    //     var theme = paletteHelper.GetTheme();
+    //     theme.SetBaseTheme(baseTheme);
+    //     theme.SetPrimaryColor(primaryColor);
+    //     theme.SetSecondaryColor(secondaryColor);
+    //
+    //     paletteHelper.SetTheme(theme);
+    // }
 
     private static void LoadLogConfiguration(int logMaxDays)
     {
