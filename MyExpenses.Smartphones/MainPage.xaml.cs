@@ -47,6 +47,8 @@ public partial class MainPage
 
     #endregion
 
+    #region Action
+
     private void ButtonDatabase_OnClick(object? sender, EventArgs e)
     {
         var buttonImageView = (ButtonImageTextView)sender!;
@@ -57,6 +59,8 @@ public partial class MainPage
         var dashBoardShell = new DashBoardShell();
         Application.Current!.MainPage = dashBoardShell;
     }
+
+    #endregion
 
     private void ButtonAddDataBase_OnClick(object? sender, EventArgs e)
     {
