@@ -47,17 +47,6 @@ public partial class MainPage
 
     #endregion
 
-    private void TapGestureRecognizer_Tapped(object? sender, TappedEventArgs e)
-    {
-        var frame = (Frame)sender!;
-        if (frame.BindingContext is not ExistingDatabase existingDatabase) return;
-
-        DataBaseContext.FilePath = existingDatabase.FilePath;
-
-        var dashBoardShell = new DashBoardShell();
-        Application.Current!.MainPage = dashBoardShell;
-    }
-
     private void ButtonDatabase_OnClick(object? sender, EventArgs e)
     {
         var buttonImageView = (ButtonImageTextView)sender!;
