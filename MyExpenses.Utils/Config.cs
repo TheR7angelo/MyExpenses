@@ -1,10 +1,11 @@
 using MyExpenses.Models.Config;
+using MyExpenses.Sql.Context;
 
 namespace MyExpenses.Utils;
 
 public static class Config
 {
-    private static string ConfigurationFilePath { get; } = Path.GetFullPath("appsettings.json");
+    private static string ConfigurationFilePath { get; } = Path.Join(DbContextBackup.OsBasePath, "appsettings.json");
     
     public static Configuration Configuration { get; private set; }
 
