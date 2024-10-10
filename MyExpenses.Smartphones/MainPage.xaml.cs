@@ -80,6 +80,26 @@ public partial class MainPage
         var filePath = Path.Combine(DbContextBackup.LocalDirectoryDatabase, fileName);
 
         Log.Information("Create new database with name \"{FileName}\"", fileName);
+
+        try
+        {
+            File.Copy(DbContextBackup.LocalFilePathDataBaseModel, filePath, true);
+
+            await using var context = new DataBaseContext(filePath);
+            context.SetAllDefaultValues();
+            await context.SaveChangesAsync();
+
+            ExistingDatabases.AddAndSort(new ExistingDatabase(filePath),
+                s => s.FileNameWithoutExtension);
+
+            await DisplayAlert("Success", "Success", "Ok");
+        }
+        catch (Exception exception)
+        {
+            Log.Error(exception, "An error occur");
+
+            await DisplayAlert("An error occur", "An error occur", "Ok");
+        }
     }
 
     private void ButtonRemoveDataBase_OnClick(object? sender, EventArgs e)
