@@ -21,7 +21,7 @@
             </Grid.RowDefinitions>
 
             <customEntryControl:CustomEntryControl Grid.Row="0"
-                                             PlaceholderText="{Binding CustomEntryControlPlaceholderText}"
+                                             PlaceholderText="{Binding CustomEntryControlPlaceholderText, UpdateSourceEventName=PropertyChanged}"
                                              Text="{Binding DatabaseFilename, Mode=TwoWay, UpdateSourceEventName=PropertyChanged}">
             </customEntryControl:CustomEntryControl>
 
