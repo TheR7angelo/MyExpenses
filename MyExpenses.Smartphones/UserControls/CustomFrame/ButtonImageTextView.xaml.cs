@@ -1,4 +1,3 @@
-using Microsoft.Maui.Controls.Shapes;
 using MyExpenses.Smartphones.PackIcons;
 
 namespace MyExpenses.Smartphones.UserControls.CustomFrame;
