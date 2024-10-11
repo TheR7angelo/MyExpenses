@@ -20,4 +20,22 @@
     <data name="MessageBoxEmptyNameErrorOkButton" xml:space="preserve">
         <value>Ok</value>
     </data>
+    <data name="MessageBoxDatabaseFilenameContainsIncorrectCharErrorOkButton" xml:space="preserve">
+        <value>Ok</value>
+    </data>
+    <data name="MessageBoxDatabaseFilenameContainsIncorrectCharErrorTitle" xml:space="preserve">
+        <value>Error</value>
+    </data>
+    <data name="MessageBoxDatabaseFilenameContainsIncorrectCharErrorMessage" xml:space="preserve">
+        <value>Database file name contains incorrect characters</value>
+    </data>
+    <data name="MessageBoxDatabaseAlreadyExistErrorOkButton" xml:space="preserve">
+        <value>Ok</value>
+    </data>
+    <data name="MessageBoxDatabaseAlreadyExistErrorTitle" xml:space="preserve">
+        <value>Error</value>
+    </data>
+    <data name="MessageBoxDatabaseAlreadyExistErrorMessage" xml:space="preserve">
+        <value>Database file name already exist</value>
+    </data>
 </root>

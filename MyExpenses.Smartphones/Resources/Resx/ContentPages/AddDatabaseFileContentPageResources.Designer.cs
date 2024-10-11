@@ -61,6 +61,60 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Database file name already exist.
+        /// </summary>
+        internal static string MessageBoxDatabaseAlreadyExistErrorMessage {
+            get {
+                return ResourceManager.GetString("MessageBoxDatabaseAlreadyExistErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ok.
+        /// </summary>
+        internal static string MessageBoxDatabaseAlreadyExistErrorOkButton {
+            get {
+                return ResourceManager.GetString("MessageBoxDatabaseAlreadyExistErrorOkButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        internal static string MessageBoxDatabaseAlreadyExistErrorTitle {
+            get {
+                return ResourceManager.GetString("MessageBoxDatabaseAlreadyExistErrorTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Database file name contains incorrect characters.
+        /// </summary>
+        internal static string MessageBoxDatabaseFilenameContainsIncorrectCharErrorMessage {
+            get {
+                return ResourceManager.GetString("MessageBoxDatabaseFilenameContainsIncorrectCharErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ok.
+        /// </summary>
+        internal static string MessageBoxDatabaseFilenameContainsIncorrectCharErrorOkButton {
+            get {
+                return ResourceManager.GetString("MessageBoxDatabaseFilenameContainsIncorrectCharErrorOkButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        internal static string MessageBoxDatabaseFilenameContainsIncorrectCharErrorTitle {
+            get {
+                return ResourceManager.GetString("MessageBoxDatabaseFilenameContainsIncorrectCharErrorTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Database file name cannot be empty.
         /// </summary>
         internal static string MessageBoxEmptyNameErrorMessage {

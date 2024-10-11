@@ -51,20 +51,27 @@ public partial class AddDatabaseFileContentPage
     {
         if (string.IsNullOrEmpty(DatabaseFilename))
         {
-            await DisplayAlert(AddDatabaseFileContentPageResources.MessageBoxEmptyNameErrorTitle, AddDatabaseFileContentPageResources.MessageBoxEmptyNameErrorMessage, AddDatabaseFileContentPageResources.MessageBoxEmptyNameErrorOkButton);
+            await DisplayAlert(AddDatabaseFileContentPageResources.MessageBoxEmptyNameErrorTitle,
+                AddDatabaseFileContentPageResources.MessageBoxEmptyNameErrorMessage,
+                AddDatabaseFileContentPageResources.MessageBoxEmptyNameErrorOkButton);
             return;
         }
 
         var containsIncorrectChar = DatabaseFilename.CheckFilenameContainsIncorrectChar();
         if (containsIncorrectChar)
         {
-            //TODO trad
-            await DisplayAlert("Error", "Database file name contains incorrect characters", "Ok");
+            await DisplayAlert(
+                AddDatabaseFileContentPageResources.MessageBoxDatabaseFilenameContainsIncorrectCharErrorTitle,
+                AddDatabaseFileContentPageResources.MessageBoxDatabaseFilenameContainsIncorrectCharErrorMessage,
+                AddDatabaseFileContentPageResources.MessageBoxDatabaseFilenameContainsIncorrectCharErrorOkButton);
         }
 
-        //TODO trad
         var alreadyExist = ExistingDatabases.Select(s => s.FileNameWithoutExtension).Contains(DatabaseFilename);
-        if (alreadyExist) await DisplayAlert("Error", "Database file name already exist", "Ok");
+        if (alreadyExist)
+            await DisplayAlert(
+                AddDatabaseFileContentPageResources.MessageBoxDatabaseFilenameContainsIncorrectCharErrorTitle,
+                AddDatabaseFileContentPageResources.MessageBoxDatabaseFilenameContainsIncorrectCharErrorMessage,
+                AddDatabaseFileContentPageResources.MessageBoxDatabaseFilenameContainsIncorrectCharErrorOkButton);
         else
         {
             _taskCompletionSource.SetResult(true);
