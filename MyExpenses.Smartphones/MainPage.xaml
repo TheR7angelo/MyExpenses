@@ -83,26 +83,27 @@
                 Stroke="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
                 BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Black}}">
 
-            <CollectionView ItemsSource="{Binding ExistingDatabases}">
+            <FlexLayout BindableLayout.ItemsSource="{Binding ExistingDatabases}"
+                        HorizontalOptions="FillAndExpand"
+                        VerticalOptions="FillAndExpand"
+                        Wrap="Wrap"
+                        AlignItems="Center"
+                        Margin="3">
 
-                <CollectionView.ItemsLayout>
-                    <LinearItemsLayout Orientation="Horizontal" />
-                </CollectionView.ItemsLayout>
-
-                <CollectionView.ItemTemplate>
+                <BindableLayout.ItemTemplate>
                     <DataTemplate>
 
                         <customFrame:ButtonImageTextView Style="{StaticResource PaperMidButtonImageTextView}"
-                                                         Margin="5"
+                                                         Margin="1"
                                                          GeometrySource="Database"
                                                          LabelText="{Binding FileNameWithoutExtension}"
                                                          Clicked="ButtonDatabase_OnClick">
                         </customFrame:ButtonImageTextView>
 
                     </DataTemplate>
-                </CollectionView.ItemTemplate>
+                </BindableLayout.ItemTemplate>
 
-            </CollectionView>
+            </FlexLayout>
 
         </Border>
 
