@@ -13,10 +13,11 @@
 
     <ContentPage.Content>
 
-        <Grid margin:LayoutExtensions.MarginForAllChildren="5">
+        <Grid margin:LayoutExtensions.MarginForAllChildren="5"
+              VerticalOptions="Center">
 
             <Grid.RowDefinitions>
-                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
