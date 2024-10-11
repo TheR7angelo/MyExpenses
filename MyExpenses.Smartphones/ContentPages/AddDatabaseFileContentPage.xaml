@@ -39,16 +39,6 @@
                         Clicked="ButtonCancel_OnClicked">
                 </Button>
 
-                <!-- <Button Content="{Binding ButtonValidContent}" -->
-                <!--         Style="{StaticResource MaterialDesignPaperButton}" -->
-                <!--         Click="ButtonValid_OnClick"> -->
-                <!-- </Button> -->
-                <!-- -->
-                <!-- <Button Content="{Binding ButtonCancelContent}" -->
-                <!--         Style="{StaticResource MaterialDesignPaperSecondaryButton}" -->
-                <!--         Click="ButtonCancel_OnClick"> -->
-                <!-- </Button> -->
-
             </HorizontalStackLayout>
 
         </Grid>
