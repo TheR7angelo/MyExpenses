@@ -1,5 +1,6 @@
 using System.Windows.Input;
 using MyExpenses.Models.IO;
+using MyExpenses.Smartphones.Resources.Resx.ContentPages;
 using MyExpenses.Utils.Strings;
 
 namespace MyExpenses.Smartphones.ContentPages;
@@ -50,8 +51,7 @@ public partial class AddDatabaseFileContentPage
     {
         if (string.IsNullOrEmpty(DatabaseFilename))
         {
-            //TODO trad
-            await DisplayAlert("Error", "Database file name cannot be empty", "Ok");
+            await DisplayAlert(AddDatabaseFileContentPageResources.MessageBoxEmptyNameErrorTitle, AddDatabaseFileContentPageResources.MessageBoxEmptyNameErrorMessage, AddDatabaseFileContentPageResources.MessageBoxEmptyNameErrorOkButton);
             return;
         }
 
