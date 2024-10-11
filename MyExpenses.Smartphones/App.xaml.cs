@@ -14,6 +14,8 @@ public partial class App
 
     public App()
     {
+        SetInitialFile();
+
         CancellationTokenSource = new CancellationTokenSource();
 
         Log.Logger = LoggerConfig.CreateConfig();
@@ -37,8 +39,6 @@ public partial class App
 
         Log.Information("Apply interface configuration");
         LoadInterfaceConfiguration(configuration.Interface);
-
-        SetInitialFile();
 
         InitializeComponent();
 
