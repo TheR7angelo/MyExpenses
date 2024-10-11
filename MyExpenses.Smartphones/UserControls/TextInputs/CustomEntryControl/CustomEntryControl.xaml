@@ -10,21 +10,37 @@
         <converters:BooleanToInverseConverter x:Key="BooleanToInverseConverter" />
     </ContentView.Resources>
 
-    <StackLayout>
+    <Frame BorderColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
+           Padding="0"
+           HasShadow="False"
+           CornerRadius="5">
 
-        <Label Text="{Binding PlaceholderText, Source={RelativeSource AncestorType={x:Type local:CustomEntryControl}}}"
-               FontAttributes="Italic"
-               TextColor="{AppThemeBinding Light={StaticResource PlaceholderTextColorLight}, Dark={StaticResource PlaceholderTextColorDark}}"
-               IsVisible="{Binding IsPlaceholderVisible, Converter={StaticResource BooleanToInverseConverter}, Source={RelativeSource AncestorType={x:Type local:CustomEntryControl}}}">
-        </Label>
+        <Grid>
 
-        <Entry Text="{Binding Text, Mode=TwoWay, Source={RelativeSource AncestorType={x:Type local:CustomEntryControl}}}"
-               TextColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
-               TextChanged="InputView_OnTextChanged"
-               Placeholder="{Binding PlaceholderText, Source={RelativeSource AncestorType={x:Type local:CustomEntryControl}}}"
-               VerticalOptions="Start">
-        </Entry>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
 
-    </StackLayout>
+            <Label Grid.Row="0"
+                   Text="{Binding PlaceholderText, Source={RelativeSource AncestorType={x:Type local:CustomEntryControl}}}"
+                   FontAttributes="Italic"
+                   Margin="10,3,0,0"
+                   VerticalOptions="End"
+                   TextColor="{AppThemeBinding Light={StaticResource PlaceholderTextColorLight}, Dark={StaticResource PlaceholderTextColorDark}}"
+                   IsVisible="{Binding IsPlaceholderVisible, Converter={StaticResource BooleanToInverseConverter}, Source={RelativeSource AncestorType={x:Type local:CustomEntryControl}}}">
+            </Label>
+
+            <Entry Grid.Row="1"
+                Text="{Binding Text, Mode=TwoWay, Source={RelativeSource AncestorType={x:Type local:CustomEntryControl}}}"
+                TextColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
+                TextChanged="InputView_OnTextChanged"
+                Placeholder="{Binding PlaceholderText, Source={RelativeSource AncestorType={x:Type local:CustomEntryControl}}}"
+                VerticalOptions="CenterAndExpand"
+                Margin="5">
+            </Entry>
+        </Grid>
+
+    </Frame>
 
 </ContentView>
