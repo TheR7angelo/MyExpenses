@@ -4,6 +4,7 @@ using System.Windows.Input;
 using MyExpenses.Models.Config;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.IO;
+using MyExpenses.Utils.Strings;
 using MyExpenses.Wpf.Resources.Resx.Windows.AddDatabaseFileWindow;
 using MyExpenses.Wpf.Utils;
 using MyExpenses.Wpf.Windows.MsgBox;
@@ -85,7 +86,7 @@ public partial class AddDatabaseFileWindow
             return;
         }
 
-        var containsIncorrectChar = CheckDatabaseFilenameIncorrectChar(DatabaseFilename);
+        var containsIncorrectChar = DatabaseFilename.CheckFilenameContainsIncorrectChar();
         if (containsIncorrectChar) ShowErrorMessageContainsIncorrectChar();
 
         var alreadyExist = CheckDatabaseFilename(DatabaseFilename);
@@ -113,7 +114,7 @@ public partial class AddDatabaseFileWindow
         var databaseFilename = textBox.Text;
         if (string.IsNullOrEmpty(databaseFilename)) return;
 
-        var containsIncorrectChar = CheckDatabaseFilenameIncorrectChar(databaseFilename);
+        var containsIncorrectChar = databaseFilename.CheckFilenameContainsIncorrectChar();
         if (containsIncorrectChar) ShowErrorMessageContainsIncorrectChar();
 
         var alreadyExist = CheckDatabaseFilename(databaseFilename);
@@ -126,13 +127,6 @@ public partial class AddDatabaseFileWindow
 
     private bool CheckDatabaseFilename(string databaseFilename)
         => ExistingDatabases.Select(s => s.FileNameWithoutExtension).Contains(databaseFilename);
-
-    private bool CheckDatabaseFilenameIncorrectChar(string databaseFilename)
-    {
-        if (databaseFilename.StartsWith('.')) return true;
-        var charsIncorrects = new[] { '/', '\\', '?', '%', '*', ':', '|', '"', '<', '>', '\0' };
-        return charsIncorrects.Any(databaseFilename.Contains);
-    }
 
     public void SetExistingDatabase(IEnumerable<ExistingDatabase> existingDatabases)
         => ExistingDatabases.AddRange(existingDatabases);
