@@ -4,7 +4,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:MyExpenses.Smartphones"
              xmlns:margin="clr-namespace:MyExpenses.Maui.Utils.Margin;assembly=MyExpenses.Maui.Utils"
-             xmlns:customFrame="clr-namespace:MyExpenses.Smartphones.UserControls.CustomFrame"
+             xmlns:customFrame="clr-namespace:MyExpenses.Smartphones.UserControls.Buttons.CustomFrame"
              xmlns:io="clr-namespace:MyExpenses.Models.IO;assembly=MyExpenses.Models"
              x:Class="MyExpenses.Smartphones.MainPage"
              BindingContext="{Binding Source={RelativeSource Self}}">

@@ -1,4 +1,4 @@
-namespace MyExpenses.Smartphones.UserControls;
+namespace MyExpenses.Smartphones.UserControls.TextInputs.CustomEntryControl;
 
 public partial class CustomEntryControl
 {

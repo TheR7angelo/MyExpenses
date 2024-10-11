@@ -1,16 +1,16 @@
 using MyExpenses.Smartphones.PackIcons;
 
-namespace MyExpenses.Smartphones.UserControls.CustomFrame;
+namespace MyExpenses.Smartphones.UserControls.Buttons.CustomFrame;
 
-public sealed partial class ButtonImageView
+public sealed partial class ButtonImageTextView
 {
-    public static readonly BindableProperty GeometryColorProperty =
-        BindableProperty.Create(nameof(GeometryColor), typeof(Color), typeof(ButtonImageTextView), default(Color));
+    public static readonly BindableProperty TextColorProperty =
+        BindableProperty.Create(nameof(TextColor), typeof(Color), typeof(ButtonImageTextView), default(Color));
 
-    public Color GeometryColor
+    public Color TextColor
     {
-        get => (Color)GetValue(GeometryColorProperty);
-        set => SetValue(GeometryColorProperty, value);
+        get => (Color)GetValue(TextColorProperty);
+        set => SetValue(TextColorProperty, value);
     }
 
     public static readonly BindableProperty GeometrySourceProperty = BindableProperty.Create(nameof(GeometrySource),
@@ -20,6 +20,35 @@ public sealed partial class ButtonImageView
     {
         get => (EPackIcons)GetValue(GeometrySourceProperty);
         set => SetValue(GeometrySourceProperty, value);
+    }
+
+    public static readonly BindableProperty VerticalLabelOptionsProperty =
+        BindableProperty.Create(nameof(VerticalLabelOptions), typeof(LayoutOptions), typeof(ButtonImageTextView),
+            default(LayoutOptions));
+
+    public LayoutOptions VerticalLabelOptions
+    {
+        get => (LayoutOptions)GetValue(VerticalLabelOptionsProperty);
+        set => SetValue(VerticalLabelOptionsProperty, value);
+    }
+
+    public static readonly BindableProperty HorizontalLabelOptionsProperty =
+        BindableProperty.Create(nameof(HorizontalLabelOptions), typeof(LayoutOptions), typeof(ButtonImageTextView),
+            default(LayoutOptions));
+
+    public LayoutOptions HorizontalLabelOptions
+    {
+        get => (LayoutOptions)GetValue(HorizontalLabelOptionsProperty);
+        set => SetValue(HorizontalLabelOptionsProperty, value);
+    }
+
+    public static readonly BindableProperty LabelTextProperty =
+        BindableProperty.Create(nameof(LabelText), typeof(string), typeof(ButtonImageTextView), default(string));
+
+    public string LabelText
+    {
+        get => (string)GetValue(LabelTextProperty);
+        set => SetValue(LabelTextProperty, value);
     }
 
     public static readonly BindableProperty ImageHeightRequestProperty =
@@ -62,7 +91,7 @@ public sealed partial class ButtonImageView
 
     public event EventHandler? Clicked;
 
-    public ButtonImageView()
+    public ButtonImageTextView()
     {
         InitializeComponent();
     }

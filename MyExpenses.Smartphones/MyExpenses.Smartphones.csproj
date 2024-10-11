@@ -83,7 +83,10 @@
       <MauiXaml Update="AppShells\DashBoardShell.xaml">
         <SubType>Designer</SubType>
       </MauiXaml>
-      <MauiXaml Update="UserControls\CustomFrame\ButtonImageView.xaml">
+      <MauiXaml Update="UserControls\Buttons\CustomFrame\ButtonImageView.xaml">
+        <SubType>Designer</SubType>
+      </MauiXaml>
+      <MauiXaml Update="UserControls\TextInputs\CustomEntryControl\CustomEntryControl.xaml">
         <SubType>Designer</SubType>
       </MauiXaml>
     </ItemGroup>
