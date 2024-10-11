@@ -11,7 +11,6 @@ using MyExpenses.Utils;
 using MyExpenses.Utils.Collection;
 using MyExpenses.WebApi.Dropbox;
 using MyExpenses.Wpf.Resources.Resx.Pages.WelcomePage;
-using MyExpenses.Wpf.Utils;
 using MyExpenses.Wpf.Utils.FilePicker;
 using MyExpenses.Wpf.Windows;
 using MyExpenses.Wpf.Windows.AutoUpdaterGitHub;
