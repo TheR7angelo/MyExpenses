@@ -3,7 +3,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:margin="clr-namespace:MyExpenses.Maui.Utils.Margin;assembly=MyExpenses.Maui.Utils"
-             xmlns:userControls="clr-namespace:MyExpenses.Smartphones.UserControls"
+             xmlns:customEntryControl="clr-namespace:MyExpenses.Smartphones.UserControls.TextInputs.CustomEntryControl"
              x:Class="MyExpenses.Smartphones.ContentPages.AddDatabaseFileContentPage"
              BindingContext="{Binding Source={RelativeSource Self}}">
 
@@ -20,10 +20,10 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <userControls:CustomEntryControl Grid.Row="0"
+            <customEntryControl:CustomEntryControl Grid.Row="0"
                                              PlaceholderText="Test"
                                              Text="{Binding DatabaseFilename, Mode=TwoWay, UpdateSourceEventName=PropertyChanged}">
-            </userControls:CustomEntryControl>
+            </customEntryControl:CustomEntryControl>
 
             <!-- <Entry Grid.Row="0" -->
             <!--        Placeholder="Test" -->
