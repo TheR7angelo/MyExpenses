@@ -20,6 +20,9 @@
     <Color x:Key="SecondaryDark">#C67600</Color>
     <Color x:Key="SecondaryDarkForeground">White</Color>
 
+    <Color x:Key="PlaceholderTextColorLight">#333333</Color>
+    <Color x:Key="PlaceholderTextColorDark">#CCCCCC</Color>
+
     <!-- <Color x:Key="PrimaryDark">#ac99ea</Color> -->
     <Color x:Key="PrimaryDarkText">#242424</Color>
     <Color x:Key="Secondary">#DFD8F7</Color>

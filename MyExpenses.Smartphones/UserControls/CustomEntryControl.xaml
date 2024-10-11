@@ -14,7 +14,7 @@
 
         <Label Text="{Binding PlaceholderText, Source={RelativeSource AncestorType={x:Type local:CustomEntryControl}}}"
                FontAttributes="Italic"
-               TextColor="Gray"
+               TextColor="{AppThemeBinding Light={StaticResource PlaceholderTextColorLight}, Dark={StaticResource PlaceholderTextColorDark}}"
                IsVisible="{Binding IsPlaceholderVisible, Converter={StaticResource BooleanToInverseConverter}, Source={RelativeSource AncestorType={x:Type local:CustomEntryControl}}}">
         </Label>
 
