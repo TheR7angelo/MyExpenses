@@ -41,4 +41,10 @@
     <data name="CustomEntryControlPlaceholderText" xml:space="preserve">
         <value>Database file name :</value>
     </data>
+    <data name="ButtonValidContent" xml:space="preserve">
+        <value>Valid</value>
+    </data>
+    <data name="ButtonCancelContent" xml:space="preserve">
+        <value>Cancel</value>
+    </data>
 </root>

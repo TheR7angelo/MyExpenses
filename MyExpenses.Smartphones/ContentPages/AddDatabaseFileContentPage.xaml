@@ -29,11 +29,13 @@
                         margin:LayoutExtensions.MarginForAllChildren="5, 0, 5, 5"
                         HorizontalOptions="End" VerticalOptions="End">
 
-                <Button Text="Valid"
+                <Button Text="{Binding ButtonValidContent}"
+                        Style="{StaticResource PaperMidButton}"
                         Clicked="ButtonValid_OnClicked">
                 </Button>
 
-                <Button Text="Cancel"
+                <Button Text="{Binding ButtonCancelContent}"
+                        Style="{StaticResource PaperSecondaryMidButton}"
                         Clicked="ButtonCancel_OnClicked">
                 </Button>
 

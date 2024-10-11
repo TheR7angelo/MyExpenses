@@ -61,6 +61,24 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        internal static string ButtonCancelContent {
+            get {
+                return ResourceManager.GetString("ButtonCancelContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Valid.
+        /// </summary>
+        internal static string ButtonValidContent {
+            get {
+                return ResourceManager.GetString("ButtonValidContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Database file name :.
         /// </summary>
         internal static string CustomEntryControlPlaceholderText {

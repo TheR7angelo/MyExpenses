@@ -22,6 +22,26 @@ public partial class AddDatabaseFileContentPage
 
     private readonly TaskCompletionSource<bool> _taskCompletionSource;
 
+    public static readonly BindableProperty ButtonCancelContentProperty =
+        BindableProperty.Create(nameof(ButtonCancelContent), typeof(string), typeof(AddDatabaseFileContentPage),
+            default(string));
+
+    public string ButtonCancelContent
+    {
+        get => (string)GetValue(ButtonCancelContentProperty);
+        set => SetValue(ButtonCancelContentProperty, value);
+    }
+
+    public static readonly BindableProperty ButtonValidContentProperty =
+        BindableProperty.Create(nameof(ButtonValidContent), typeof(string), typeof(AddDatabaseFileContentPage),
+            default(string));
+
+    public string ButtonValidContent
+    {
+        get => (string)GetValue(ButtonValidContentProperty);
+        set => SetValue(ButtonValidContentProperty, value);
+    }
+
     public static readonly BindableProperty CustomEntryControlPlaceholderTextProperty =
         BindableProperty.Create(nameof(CustomEntryControlPlaceholderText), typeof(string),
             typeof(AddDatabaseFileContentPage), default(string));
@@ -55,6 +75,9 @@ public partial class AddDatabaseFileContentPage
     private void UpdateLanguage()
     {
         CustomEntryControlPlaceholderText = AddDatabaseFileContentPageResources.CustomEntryControlPlaceholderText;
+
+        ButtonValidContent = AddDatabaseFileContentPageResources.ButtonValidContent;
+        ButtonCancelContent = AddDatabaseFileContentPageResources.ButtonCancelContent;
     }
 
     private async void OnBackCommandPressed()
