@@ -83,27 +83,31 @@
                 Stroke="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
                 BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Black}}">
 
-            <FlexLayout BindableLayout.ItemsSource="{Binding ExistingDatabases}"
-                        HorizontalOptions="FillAndExpand"
-                        VerticalOptions="FillAndExpand"
-                        Wrap="Wrap"
-                        AlignItems="Center"
-                        Margin="3">
+            <ScrollView VerticalOptions="FillAndExpand">
 
-                <BindableLayout.ItemTemplate>
-                    <DataTemplate>
+                <FlexLayout BindableLayout.ItemsSource="{Binding ExistingDatabases}"
+                            HorizontalOptions="FillAndExpand"
+                            VerticalOptions="FillAndExpand"
+                            Wrap="Wrap"
+                            AlignItems="Center"
+                            Margin="3">
 
-                        <customFrame:ButtonImageTextView Style="{StaticResource PaperMidButtonImageTextView}"
-                                                         Margin="1"
-                                                         GeometrySource="Database"
-                                                         LabelText="{Binding FileNameWithoutExtension}"
-                                                         Clicked="ButtonDatabase_OnClick">
-                        </customFrame:ButtonImageTextView>
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate>
 
-                    </DataTemplate>
-                </BindableLayout.ItemTemplate>
+                            <customFrame:ButtonImageTextView Style="{StaticResource PaperMidButtonImageTextView}"
+                                                             Margin="1"
+                                                             GeometrySource="Database"
+                                                             LabelText="{Binding FileNameWithoutExtension}"
+                                                             Clicked="ButtonDatabase_OnClick">
+                            </customFrame:ButtonImageTextView>
 
-            </FlexLayout>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+
+                </FlexLayout>
+
+            </ScrollView>
 
         </Border>
 
