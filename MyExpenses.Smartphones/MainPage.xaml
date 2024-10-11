@@ -86,8 +86,8 @@
             <ScrollView VerticalOptions="FillAndExpand">
 
                 <FlexLayout BindableLayout.ItemsSource="{Binding ExistingDatabases}"
-                            HorizontalOptions="FillAndExpand"
-                            VerticalOptions="FillAndExpand"
+                            HorizontalOptions="CenterAndExpand"
+                            VerticalOptions="CenterAndExpand"
                             Wrap="Wrap"
                             AlignItems="Center"
                             Margin="3">
