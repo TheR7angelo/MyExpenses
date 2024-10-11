@@ -92,6 +92,7 @@ public partial class MainPage
             ExistingDatabases.AddAndSort(new ExistingDatabase(filePath),
                 s => s.FileNameWithoutExtension);
 
+            //TODO trad
             await DisplayAlert("Success", "Success", "Ok");
         }
         catch (Exception exception)
