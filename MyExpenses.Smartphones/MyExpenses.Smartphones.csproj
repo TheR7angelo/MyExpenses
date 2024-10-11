@@ -22,10 +22,10 @@
         <Nullable>enable</Nullable>
 
         <!-- Display name -->
-        <ApplicationTitle>MyExpenses.Smartphones</ApplicationTitle>
+        <ApplicationTitle>MyExpenses</ApplicationTitle>
 
         <!-- App Identifier -->
-        <ApplicationId>com.companyname.myexpenses.smartphones</ApplicationId>
+        <ApplicationId>com.ther7angelo.myexpenses.smartphones</ApplicationId>
 
         <!-- Versions -->
         <ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
