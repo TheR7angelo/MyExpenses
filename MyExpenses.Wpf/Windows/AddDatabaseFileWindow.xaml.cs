@@ -87,7 +87,11 @@ public partial class AddDatabaseFileWindow
         }
 
         var containsIncorrectChar = DatabaseFilename.CheckFilenameContainsIncorrectChar();
-        if (containsIncorrectChar) ShowErrorMessageContainsIncorrectChar();
+        if (containsIncorrectChar)
+        {
+            ShowErrorMessageContainsIncorrectChar();
+            return;
+        }
 
         var alreadyExist = CheckDatabaseFilename(DatabaseFilename);
         if (alreadyExist) ShowErrorMessageAlreadyExist();
