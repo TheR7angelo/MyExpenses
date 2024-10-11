@@ -1,4 +1,6 @@
 using System.Windows.Input;
+using MyExpenses.Models.Config;
+using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.IO;
 using MyExpenses.Smartphones.Resources.Resx.ContentPages;
 using MyExpenses.Utils.Strings;
@@ -20,6 +22,16 @@ public partial class AddDatabaseFileContentPage
 
     private readonly TaskCompletionSource<bool> _taskCompletionSource;
 
+    public static readonly BindableProperty CustomEntryControlPlaceholderTextProperty =
+        BindableProperty.Create(nameof(CustomEntryControlPlaceholderText), typeof(string),
+            typeof(AddDatabaseFileContentPage), default(string));
+
+    public string CustomEntryControlPlaceholderText
+    {
+        get => (string)GetValue(CustomEntryControlPlaceholderTextProperty);
+        set => SetValue(CustomEntryControlPlaceholderTextProperty, value);
+    }
+
     public Task<bool> ResultDialog
         => _taskCompletionSource.Task;
 
@@ -31,7 +43,18 @@ public partial class AddDatabaseFileContentPage
 
         _taskCompletionSource = new TaskCompletionSource<bool>();
 
+        UpdateLanguage();
         InitializeComponent();
+
+        Interface.LanguageChanged += InterfaceOnLanguageChanged;
+    }
+
+    private void InterfaceOnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
+        => UpdateLanguage();
+
+    private void UpdateLanguage()
+    {
+        CustomEntryControlPlaceholderText = AddDatabaseFileContentPageResources.CustomEntryControlPlaceholderText;
     }
 
     private async void OnBackCommandPressed()

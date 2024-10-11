@@ -21,21 +21,9 @@
             </Grid.RowDefinitions>
 
             <customEntryControl:CustomEntryControl Grid.Row="0"
-                                             PlaceholderText="Test"
+                                             PlaceholderText="{Binding CustomEntryControlPlaceholderText}"
                                              Text="{Binding DatabaseFilename, Mode=TwoWay, UpdateSourceEventName=PropertyChanged}">
             </customEntryControl:CustomEntryControl>
-
-            <!-- <Entry Grid.Row="0" -->
-            <!--        Placeholder="Test" -->
-            <!--        Text="{Binding DatabaseFilename, Mode=TwoWay, UpdateSourceEventName=PropertyChanged}"> -->
-            <!-- </Entry> -->
-
-            <!-- < Grid.Row="0" -->
-            <!--          Text="{Binding DatabaseFilename, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" -->
-            <!--          materialDesign:HintAssist.Hint="{Binding TextBoxHintAssist}" -->
-            <!--          Style="{StaticResource MaterialDesignFilledTextBox}" -->
-            <!--          PreviewLostKeyboardFocus="TextBoxDatabaseFilename_OnPreviewLostKeyboardFocus"> -->
-            <!-- </I> -->
 
             <HorizontalStackLayout Grid.Row="1"
                         margin:LayoutExtensions.MarginForAllChildren="5, 0, 5, 5"

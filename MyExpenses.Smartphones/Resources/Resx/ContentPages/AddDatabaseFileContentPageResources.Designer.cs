@@ -61,6 +61,15 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Database file name :.
+        /// </summary>
+        internal static string CustomEntryControlPlaceholderText {
+            get {
+                return ResourceManager.GetString("CustomEntryControlPlaceholderText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Database file name already exist.
         /// </summary>
         internal static string MessageBoxDatabaseAlreadyExistErrorMessage {

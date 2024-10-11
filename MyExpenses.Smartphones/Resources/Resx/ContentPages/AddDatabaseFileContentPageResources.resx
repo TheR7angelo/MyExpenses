@@ -45,4 +45,7 @@
     <data name="MessageBoxDatabaseAlreadyExistErrorOkButton" xml:space="preserve">
         <value>Ok</value>
     </data>
+    <data name="CustomEntryControlPlaceholderText" xml:space="preserve">
+        <value>Database file name :</value>
+    </data>
 </root>
