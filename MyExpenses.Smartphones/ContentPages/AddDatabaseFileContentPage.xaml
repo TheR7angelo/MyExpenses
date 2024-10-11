@@ -3,6 +3,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:margin="clr-namespace:MyExpenses.Maui.Utils.Margin;assembly=MyExpenses.Maui.Utils"
+             xmlns:userControls="clr-namespace:MyExpenses.Smartphones.UserControls"
              x:Class="MyExpenses.Smartphones.ContentPages.AddDatabaseFileContentPage"
              BindingContext="{Binding Source={RelativeSource Self}}">
 
@@ -19,10 +20,15 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <Entry Grid.Row="0"
-                   Placeholder="Test"
-                   Text="{Binding DatabaseFilename, Mode=TwoWay, UpdateSourceEventName=PropertyChanged}">
-            </Entry>
+            <userControls:CustomEntryControl Grid.Row="0"
+                                             PlaceholderText="Test"
+                                             Text="{Binding DatabaseFilename, Mode=TwoWay, UpdateSourceEventName=PropertyChanged}">
+            </userControls:CustomEntryControl>
+
+            <!-- <Entry Grid.Row="0" -->
+            <!--        Placeholder="Test" -->
+            <!--        Text="{Binding DatabaseFilename, Mode=TwoWay, UpdateSourceEventName=PropertyChanged}"> -->
+            <!-- </Entry> -->
 
             <!-- < Grid.Row="0" -->
             <!--          Text="{Binding DatabaseFilename, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" -->

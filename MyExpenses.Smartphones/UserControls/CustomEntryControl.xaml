@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MyExpenses.Smartphones.UserControls.CustomEntryControl"
+             xmlns:local="clr-namespace:MyExpenses.Smartphones.UserControls">
+
+    <StackLayout>
+
+        <Label Text="{Binding PlaceholderText, Source={RelativeSource AncestorType={x:Type local:CustomEntryControl}}}"
+               FontAttributes="Italic"
+               TextColor="Gray"
+               IsVisible="{Binding IsPlaceholderVisible, Source={RelativeSource AncestorType={x:Type local:CustomEntryControl}}}">
+        </Label>
+
+        <Entry Text="{Binding Text, Mode=TwoWay, Source={RelativeSource AncestorType={x:Type local:CustomEntryControl}}}"
+               TextChanged="InputView_OnTextChanged"
+               Placeholder="{Binding PlaceholderText, Source={RelativeSource AncestorType={x:Type local:CustomEntryControl}}}"
+               VerticalOptions="Start">
+        </Entry>
+
+    </StackLayout>
+
+</ContentView>
