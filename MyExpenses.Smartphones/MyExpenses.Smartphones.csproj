@@ -113,7 +113,11 @@
     </ItemGroup>
 
     <ItemGroup>
-      <EmbeddedResource Update="Resources\Resx\ContentPages\AddDatabaseFileContentPageResources.resx">
+      <EmbeddedResource Update="Resources\Resx\ContentPages\SelectDatabaseFileContentPage\SelectDatabaseFileContentPageResources.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>SelectDatabaseFileContentPageResources.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+      <EmbeddedResource Update="Resources\Resx\ContentPages\AddDatabaseFileContentPage\AddDatabaseFileContentPageResources.resx">
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>AddDatabaseFileContentPageResources.Designer.cs</LastGenOutput>
       </EmbeddedResource>
