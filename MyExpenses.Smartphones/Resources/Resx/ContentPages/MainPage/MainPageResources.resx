@@ -33,4 +33,25 @@
     <data name="MessageBoxAddDataBaseErrorMessage" xml:space="preserve">
         <value>An error occurred while adding the new database</value>
     </data>
+    <data name="MessageBoxRemoveDataBaseQuestionTitle" xml:space="preserve">
+        <value>Question</value>
+    </data>
+    <data name="MessageBoxRemoveDataBaseQuestionMessage" xml:space="preserve">
+        <value>Do you really want to delete all database selected ?</value>
+    </data>
+    <data name="MessageBoxRemoveDataBaseQuestionYesButton" xml:space="preserve">
+        <value>Yes</value>
+    </data>
+    <data name="MessageBoxRemoveDataBaseQuestionCancelButton" xml:space="preserve">
+        <value>Cancel</value>
+    </data>
+    <data name="MessageBoxRemoveDataBaseSuccessTitle" xml:space="preserve">
+        <value>Success</value>
+    </data>
+    <data name="MessageBoxRemoveDataBaseSuccessMessage" xml:space="preserve">
+        <value>All databases have been deleted</value>
+    </data>
+    <data name="MessageBoxRemoveDataBaseSuccessOkButton" xml:space="preserve">
+        <value>Ok</value>
+    </data>
 </root>

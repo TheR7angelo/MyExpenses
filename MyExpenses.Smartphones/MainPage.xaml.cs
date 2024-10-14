@@ -116,9 +116,10 @@ public partial class MainPage
 
         if (result is not true) return;
 
-        //TODO trad
-        var response = await DisplayAlert("Question", "Do you really want to delete all database selected ?", "Accept",
-            "Cancel");
+        var response = await DisplayAlert(MainPageResources.MessageBoxRemoveDataBaseQuestionTitle,
+            MainPageResources.MessageBoxRemoveDataBaseQuestionMessage,
+            MainPageResources.MessageBoxRemoveDataBaseQuestionYesButton,
+            MainPageResources.MessageBoxRemoveDataBaseQuestionCancelButton);
 
         if (!response) return;
 
@@ -147,9 +148,11 @@ public partial class MainPage
         //     var dropboxService = new DropboxService();
         //     await dropboxService.DeleteFilesAsync(files, DbContextBackup.CloudDirectoryBackupDatabase);
         // }
-        //
-        // Log.Information("Files successfully deleted");
-        // MsgBox.Show(WelcomePageResources.MessageBoxDeleteCloudQuestionSuccess, MsgBoxImage.Check, MessageBoxButton.OK);
+
+        Log.Information("Files successfully deleted");
+        await DisplayAlert(MainPageResources.MessageBoxRemoveDataBaseSuccessTitle,
+            MainPageResources.MessageBoxRemoveDataBaseSuccessMessage,
+            MainPageResources.MessageBoxRemoveDataBaseSuccessOkButton);
     }
 
     private void ButtonImportDataBase_OnClick(object? sender, EventArgs e)

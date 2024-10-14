@@ -103,5 +103,68 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.MainPage {
                 return ResourceManager.GetString("MessageBoxAddDataBaseSuccessTitle", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        internal static string MessageBoxRemoveDataBaseQuestionCancelButton {
+            get {
+                return ResourceManager.GetString("MessageBoxRemoveDataBaseQuestionCancelButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you really want to delete all database selected ?.
+        /// </summary>
+        internal static string MessageBoxRemoveDataBaseQuestionMessage {
+            get {
+                return ResourceManager.GetString("MessageBoxRemoveDataBaseQuestionMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Question.
+        /// </summary>
+        internal static string MessageBoxRemoveDataBaseQuestionTitle {
+            get {
+                return ResourceManager.GetString("MessageBoxRemoveDataBaseQuestionTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yes.
+        /// </summary>
+        internal static string MessageBoxRemoveDataBaseQuestionYesButton {
+            get {
+                return ResourceManager.GetString("MessageBoxRemoveDataBaseQuestionYesButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to All databases have been deleted.
+        /// </summary>
+        internal static string MessageBoxRemoveDataBaseSuccessMessage {
+            get {
+                return ResourceManager.GetString("MessageBoxRemoveDataBaseSuccessMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ok.
+        /// </summary>
+        internal static string MessageBoxRemoveDataBaseSuccessOkButton {
+            get {
+                return ResourceManager.GetString("MessageBoxRemoveDataBaseSuccessOkButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Success.
+        /// </summary>
+        internal static string MessageBoxRemoveDataBaseSuccessTitle {
+            get {
+                return ResourceManager.GetString("MessageBoxRemoveDataBaseSuccessTitle", resourceCulture);
+            }
+        }
     }
 }

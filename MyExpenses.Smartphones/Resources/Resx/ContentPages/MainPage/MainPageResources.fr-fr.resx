@@ -26,4 +26,25 @@
     <data name="MessageBoxAddDataBaseErrorTitle" xml:space="preserve">
         <value>Une erreur s'est produite</value>
     </data>
+    <data name="MessageBoxRemoveDataBaseQuestionTitle" xml:space="preserve">
+        <value>Question</value>
+    </data>
+    <data name="MessageBoxRemoveDataBaseQuestionMessage" xml:space="preserve">
+        <value>Voulez-vous vraiment supprimer toutes les bases de données sélectionnées ?</value>
+    </data>
+    <data name="MessageBoxRemoveDataBaseQuestionCancelButton" xml:space="preserve">
+        <value>Annuler</value>
+    </data>
+    <data name="MessageBoxRemoveDataBaseQuestionYesButton" xml:space="preserve">
+        <value>Oui</value>
+    </data>
+    <data name="MessageBoxRemoveDataBaseSuccessTitle" xml:space="preserve">
+        <value>Succès</value>
+    </data>
+    <data name="MessageBoxRemoveDataBaseSuccessOkButton" xml:space="preserve">
+        <value>Ok</value>
+    </data>
+    <data name="MessageBoxRemoveDataBaseSuccessMessage" xml:space="preserve">
+        <value>All databases have been deleted</value>
+    </data>
 </root>
