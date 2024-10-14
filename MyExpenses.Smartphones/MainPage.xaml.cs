@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using MyExpenses.Models.IO;
+using MyExpenses.Smartphones.AppShells;
 using MyExpenses.Smartphones.ContentPages;
 using MyExpenses.Smartphones.UserControls.Buttons.CustomFrame;
 using MyExpenses.Sql.Context;

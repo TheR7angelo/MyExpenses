@@ -1,4 +1,4 @@
-﻿namespace MyExpenses.Smartphones;
+﻿namespace MyExpenses.Smartphones.AppShells;
 
 public partial class DashBoardShell
 {
