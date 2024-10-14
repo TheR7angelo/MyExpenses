@@ -210,13 +210,14 @@ public partial class WelcomePage
         response = MsgBox.Show(WelcomePageResources.MessageBoxDeleteCloudQuestion, MsgBoxImage.Question,
             MessageBoxButton.YesNoCancel);
 
-        if (response is not MessageBoxResult.Yes) return;
+        if (response is MessageBoxResult.Yes)
+        {
+            var files = selectDatabaseFileWindow.ExistingDatabasesSelected.Select(s => s.FileName).ToArray();
+            Log.Information("Preparing to delete the following files: {Files}", files);
 
-        var files = selectDatabaseFileWindow.ExistingDatabasesSelected.Select(s => s.FileName).ToArray();
-        Log.Information("Preparing to delete the following files: {Files}", files);
-
-        var dropboxService = new DropboxService();
-        await dropboxService.DeleteFilesAsync(files, DbContextBackup.CloudDirectoryBackupDatabase);
+            var dropboxService = new DropboxService();
+            await dropboxService.DeleteFilesAsync(files, DbContextBackup.CloudDirectoryBackupDatabase);
+        }
 
         Log.Information("Files successfully deleted");
         MsgBox.Show(WelcomePageResources.MessageBoxDeleteCloudQuestionSuccess, MsgBoxImage.Check, MessageBoxButton.OK);
