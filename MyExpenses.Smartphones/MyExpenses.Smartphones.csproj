@@ -100,7 +100,12 @@
         <DependentUpon>ButtonImageView.xaml</DependentUpon>
         <SubType>Code</SubType>
       </Compile>
-      <Compile Update="Resources\Resx\ContentPages\AddDatabaseFileContentPageResources.Designer.cs">
+      <Compile Update="Resources\Resx\ContentPages\SelectDatabaseFileContentPage\SelectDatabaseFileContentPageResources.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>SelectDatabaseFileContentPageResources.resx</DependentUpon>
+      </Compile>
+      <Compile Update="Resources\Resx\ContentPages\AddDatabaseFileContentPage\AddDatabaseFileContentPageResources.Designer.cs">
         <DesignTime>True</DesignTime>
         <AutoGen>True</AutoGen>
         <DependentUpon>AddDatabaseFileContentPageResources.resx</DependentUpon>

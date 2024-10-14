@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MyExpenses.Smartphones.Resources.Resx.ContentPages {
+namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.AddDatabaseFileContentPage {
     using System;
     
     
@@ -38,8 +38,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MyExpenses.Smartphones.Resources.Resx.ContentPages.AddDatabaseFileContentPageReso" +
-                            "urces", typeof(AddDatabaseFileContentPageResources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MyExpenses.Smartphones.Resources.Resx.ContentPages.AddDatabaseFileContentPage.AddDatabaseFileContentPageResources", typeof(AddDatabaseFileContentPageResources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

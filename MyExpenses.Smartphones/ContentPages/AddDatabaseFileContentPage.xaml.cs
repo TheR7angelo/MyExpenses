@@ -2,7 +2,7 @@ using System.Windows.Input;
 using MyExpenses.Models.Config;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.IO;
-using MyExpenses.Smartphones.Resources.Resx.ContentPages;
+using MyExpenses.Smartphones.Resources.Resx.ContentPages.AddDatabaseFileContentPage;
 using MyExpenses.Utils.Strings;
 
 namespace MyExpenses.Smartphones.ContentPages;
