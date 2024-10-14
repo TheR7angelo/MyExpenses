@@ -61,6 +61,7 @@ public partial class WelcomePage
             ExistingDatabases.AddAndSort(new ExistingDatabase(filePath),
                 s => s.FileNameWithoutExtension);
 
+            Log.Information("New database was successfully added");
             MsgBox.Show(WelcomePageResources.MessageBoxCreateNewDatabaseSuccess, MsgBoxImage.Check);
         }
         catch (Exception exception)
