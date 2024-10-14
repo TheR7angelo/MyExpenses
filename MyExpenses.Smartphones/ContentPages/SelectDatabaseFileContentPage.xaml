@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MyExpenses.Smartphones.ContentPages.SelectDatabaseFileContentPage"
+             xmlns:margin="clr-namespace:MyExpenses.Maui.Utils.Margin;assembly=MyExpenses.Maui.Utils"
+             BindingContext="{Binding Source={RelativeSource Self}}">
+
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior Command="{Binding BackCommand}" />
+    </Shell.BackButtonBehavior>
+
+    <ContentPage.Content>
+
+        <Grid>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+
+            <ListView Grid.Row="0" x:Name="ListView"
+                      ItemsSource="{Binding ExistingDatabases, Mode=OneWay}"
+                      ItemTapped="ListView_OnItemTapped">
+
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <HorizontalStackLayout Padding="10">
+                                <CheckBox IsChecked="False" />
+                                <Label Text="{Binding FileNameWithoutExtension}"
+                                       VerticalOptions="Center"
+                                       Margin="10,0,0,0" />
+                            </HorizontalStackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <HorizontalStackLayout Grid.Row="1"
+                                   HorizontalOptions="Center"
+                                   margin:LayoutExtensions.MarginForAllChildren="5">
+
+                <!-- <Button Content="{Binding ButtonValidMidContent, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" -->
+                <Button Text="Valid"
+                        Style="{StaticResource PaperMidButton}"
+                        Clicked="ButtonValid_OnClick">
+                </Button>
+
+                <!-- <Button Content="{Binding ButtonCancelContent, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" -->
+                <Button Text="Cancel"
+                        Style="{StaticResource PaperSecondaryMidButton}"
+                        Clicked="ButtonCancel_OnClick">
+                </Button>
+
+            </HorizontalStackLayout>
+
+        </Grid>
+
+    </ContentPage.Content>
+
+</ContentPage>
