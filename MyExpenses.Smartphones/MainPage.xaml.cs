@@ -100,6 +100,7 @@ public partial class MainPage
         {
             Log.Error(exception, "An error occur");
 
+            //TODO trad
             await DisplayAlert("An error occur", "An error occur", "Ok");
         }
     }
@@ -115,33 +116,37 @@ public partial class MainPage
 
         if (result is not true) return;
 
-        // var response = MsgBox.Show(WelcomePageResources.DeleteDatabaseQuestion, MsgBoxImage.Question, MessageBoxButton.YesNoCancel);
-        //
-        // if (response is not MessageBoxResult.Yes) return;
-        //
-        // foreach (var existingDatabase in selectDatabaseFileWindow.ExistingDatabasesSelected)
-        // {
-        //     if (string.IsNullOrEmpty(existingDatabase.FilePath)) continue;
-        //     if (!File.Exists(existingDatabase.FilePath)) continue;
-        //
-        //     File.Delete(existingDatabase.FilePath);
-        //
-        //     var backupDirectory = Path.Join(DbContextBackup.LocalDirectoryBackupDatabase, existingDatabase.FileNameWithoutExtension);
-        //     if (Directory.Exists(backupDirectory)) Directory.Delete(backupDirectory, true);
-        // }
-        //
-        // RefreshExistingDatabases();
-        //
+        //TODO trad
+        var response = await DisplayAlert("Question", "Do you really want to delete all database selected ?", "Accept",
+            "Cancel");
+
+        if (!response) return;
+
+        foreach (var existingDatabase in selectDatabaseFileContentPage.ExistingDatabasesSelected)
+        {
+            if (string.IsNullOrEmpty(existingDatabase.FilePath)) continue;
+            if (!File.Exists(existingDatabase.FilePath)) continue;
+
+            File.Delete(existingDatabase.FilePath);
+
+            var backupDirectory = Path.Join(DbContextBackup.LocalDirectoryBackupDatabase, existingDatabase.FileNameWithoutExtension);
+            if (Directory.Exists(backupDirectory)) Directory.Delete(backupDirectory, true);
+        }
+
+        RefreshExistingDatabases();
+
+        //TODO dropbox connexion
         // response = MsgBox.Show(WelcomePageResources.MessageBoxDeleteCloudQuestion, MsgBoxImage.Question,
         //     MessageBoxButton.YesNoCancel);
         //
-        // if (response is not MessageBoxResult.Yes) return;
+        // if (response is MessageBoxResult.Yes)
+        // {
+        //     var files = selectDatabaseFileWindow.ExistingDatabasesSelected.Select(s => s.FileName).ToArray();
+        //     Log.Information("Preparing to delete the following files: {Files}", files);
         //
-        // var files = selectDatabaseFileWindow.ExistingDatabasesSelected.Select(s => s.FileName).ToArray();
-        // Log.Information("Preparing to delete the following files: {Files}", files);
-        //
-        // var dropboxService = new DropboxService();
-        // await dropboxService.DeleteFilesAsync(files, DbContextBackup.CloudDirectoryBackupDatabase);
+        //     var dropboxService = new DropboxService();
+        //     await dropboxService.DeleteFilesAsync(files, DbContextBackup.CloudDirectoryBackupDatabase);
+        // }
         //
         // Log.Information("Files successfully deleted");
         // MsgBox.Show(WelcomePageResources.MessageBoxDeleteCloudQuestionSuccess, MsgBoxImage.Check, MessageBoxButton.OK);
