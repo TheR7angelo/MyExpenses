@@ -71,7 +71,6 @@ public partial class SelectDatabaseFileWindow
         var checkBoxesChecked = ListView.FindVisualChildren<CheckBox>()
             .Where(s => (bool)s.IsChecked!).ToList();
 
-        // FIX
         ExistingDatabasesSelected.Clear();
         foreach (var existingDatabase in checkBoxesChecked
                      .Select(checkBoxChecked => checkBoxChecked.DataContext as ExistingDatabase)
