@@ -325,7 +325,7 @@ public partial class AddEditLocationWindow
         }
 
         var coordinate = SphericalMercator.ToLonLat(newFeature.Point);
-        Place.Geometry = new Point(coordinate.Y, coordinate.X);
+        Place.Geometry = new Point(coordinate.X, coordinate.Y);
 
         newFeature[ColumnTemp] = false;
         newFeature.Styles = new List<IStyle> { MapsuiStyleExtensions.RedMarkerStyle };
