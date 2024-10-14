@@ -110,6 +110,11 @@
         <AutoGen>True</AutoGen>
         <DependentUpon>AddDatabaseFileContentPageResources.resx</DependentUpon>
       </Compile>
+      <Compile Update="Resources\Resx\ContentPages\MainPage\MainPageResources.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>MainPageResources.resx</DependentUpon>
+      </Compile>
     </ItemGroup>
 
     <ItemGroup>
@@ -120,6 +125,10 @@
       <EmbeddedResource Update="Resources\Resx\ContentPages\AddDatabaseFileContentPage\AddDatabaseFileContentPageResources.resx">
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>AddDatabaseFileContentPageResources.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+      <EmbeddedResource Update="Resources\Resx\ContentPages\MainPage\MainPageResources.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>MainPageResources.Designer.cs</LastGenOutput>
       </EmbeddedResource>
     </ItemGroup>
 

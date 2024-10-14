@@ -2,6 +2,7 @@
 using MyExpenses.Models.IO;
 using MyExpenses.Smartphones.AppShells;
 using MyExpenses.Smartphones.ContentPages;
+using MyExpenses.Smartphones.Resources.Resx.ContentPages.MainPage;
 using MyExpenses.Smartphones.UserControls.Buttons.CustomFrame;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils;
@@ -93,15 +94,14 @@ public partial class MainPage
             ExistingDatabases.AddAndSort(new ExistingDatabase(filePath),
                 s => s.FileNameWithoutExtension);
 
-            //TODO trad
-            await DisplayAlert("Success", "Success", "Ok");
+            Log.Information("New database was successfully added");
+            await DisplayAlert(MainPageResources.MessageBoxAddDataBaseSuccessTitle, MainPageResources.MessageBoxAddDataBaseSuccessMessage, MainPageResources.MessageBoxAddDataBaseOkButton);
         }
         catch (Exception exception)
         {
             Log.Error(exception, "An error occur");
 
-            //TODO trad
-            await DisplayAlert("An error occur", "An error occur", "Ok");
+            await DisplayAlert(MainPageResources.MessageBoxAddDataBaseErrorTitle, MainPageResources.MessageBoxAddDataBaseErrorMessage, MainPageResources.MessageBoxAddDataBaseOkButton);
         }
     }
 
