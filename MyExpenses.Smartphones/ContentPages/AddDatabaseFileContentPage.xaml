@@ -8,7 +8,7 @@
              BindingContext="{Binding Source={RelativeSource Self}}">
 
     <Shell.BackButtonBehavior>
-        <BackButtonBehavior Command="{Binding BackCommand}"></BackButtonBehavior>
+        <BackButtonBehavior Command="{Binding BackCommand}" />
     </Shell.BackButtonBehavior>
 
     <ContentPage.Content>

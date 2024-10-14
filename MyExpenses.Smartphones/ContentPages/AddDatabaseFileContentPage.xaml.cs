@@ -20,8 +20,6 @@ public partial class AddDatabaseFileContentPage
 
     private List<ExistingDatabase> ExistingDatabases { get; } = [];
 
-    private readonly TaskCompletionSource<bool> _taskCompletionSource;
-
     public static readonly BindableProperty ButtonCancelContentProperty =
         BindableProperty.Create(nameof(ButtonCancelContent), typeof(string), typeof(AddDatabaseFileContentPage),
             default(string));
@@ -51,6 +49,8 @@ public partial class AddDatabaseFileContentPage
         get => (string)GetValue(CustomEntryControlPlaceholderTextProperty);
         set => SetValue(CustomEntryControlPlaceholderTextProperty, value);
     }
+
+    private readonly TaskCompletionSource<bool> _taskCompletionSource;
 
     public Task<bool> ResultDialog
         => _taskCompletionSource.Task;
