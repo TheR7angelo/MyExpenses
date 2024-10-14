@@ -42,14 +42,12 @@
                                    HorizontalOptions="Center"
                                    margin:LayoutExtensions.MarginForAllChildren="5">
 
-                <!-- <Button Content="{Binding ButtonValidMidContent, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" -->
-                <Button Text="Valid"
+                <Button Text="{Binding ButtonValidMidContent, Mode=OneWay, UpdateSourceEventName=PropertyChanged}"
                         Style="{StaticResource PaperMidButton}"
                         Clicked="ButtonValid_OnClick">
                 </Button>
 
-                <!-- <Button Content="{Binding ButtonCancelContent, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" -->
-                <Button Text="Cancel"
+                <Button Text="{Binding ButtonCancelContent, Mode=OneWay, UpdateSourceEventName=PropertyChanged}"
                         Style="{StaticResource PaperSecondaryMidButton}"
                         Clicked="ButtonCancel_OnClick">
                 </Button>
