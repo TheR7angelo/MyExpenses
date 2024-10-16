@@ -62,9 +62,9 @@ public static class ExistingDatabaseToFolder
 
             await using var context = new DataBaseContext(existingDatabase.FilePath);
             context.ToExcelWorksheet(saveExcel);
-            var place = context.TPlaces.AsEnumerable();
+            var places = context.TPlaces.AsEnumerable();
             var saveKmz = Path.Join(saveFolder, $"{existingDatabase.FileNameWithoutExtension}.kmz");
-            place.ToKmlFile(saveKmz);
+            places.ToKmlFile(saveKmz);
 
             // TODO work
             // AddQgisProject(isCompress, saveFolder);
