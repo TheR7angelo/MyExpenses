@@ -16,12 +16,10 @@ public static class KmlWriter
         var extension = Path.GetExtension(fileSavePath);
         extension.TestExtensionError();
 
-        var enumerable = sigs as ISig[] ?? sigs.ToArray();
-        enumerable = enumerable.Where(s => s.Geometry is not null).ToArray();
-        var firstSig = enumerable.First();
+        var typeSig = sigs.GetType().GetGenericArguments()[0];
 
         var filenameWithoutExtension = Path.GetFileNameWithoutExtension(fileSavePath);
-        var fields = firstSig.GetFields();
+        var fields = typeSig.GetISigFields();
         var schemaElement = fields.CreateKmlSchema(filenameWithoutExtension);
 
         var kml = new XDocument(
@@ -32,7 +30,10 @@ public static class KmlWriter
                     new XAttribute("id", "root_doc"),
                     schemaElement)));
 
-        var displayNameProperty = GetDisplayNameProperty(fields, firstSig);
+        var displayNameProperty = GetDisplayNameProperty(fields, typeSig);
+
+        var enumerable = sigs as ISig[] ?? sigs.ToArray();
+        enumerable = enumerable.Where(s => s.Geometry is not null).ToArray();
 
         foreach (var obj in enumerable.Select((point, i) => new { i, point }))
         {
@@ -59,14 +60,14 @@ public static class KmlWriter
         SaveToKmlKmzFile(fileSavePath, kml, extension);
     }
 
-    private static PropertyInfo? GetDisplayNameProperty(Dictionary<string, DbField> fields, ISig firstSig)
+    private static PropertyInfo? GetDisplayNameProperty(Dictionary<string, DbField> fields, Type type)
     {
         const string displayName = "name";
 
         PropertyInfo? displayNameProperty = null;
         if (!fields.ContainsKey(displayName)) return displayNameProperty;
 
-        var properties = firstSig.GetType().GetProperties();
+        var properties = type.GetProperties();
         foreach (var propertyInfo in properties)
         {
             if (propertyInfo.GetValueByProperty<ColumnAttribute>() is not string columnName) continue;
@@ -87,7 +88,7 @@ public static class KmlWriter
         var filenameWithoutExtension = Path.GetFileNameWithoutExtension(fileSavePath);
         var kmlAttribute = sig.CreateKmlAttribute(filenameWithoutExtension);
 
-        var fields = sig.GetFields();
+        var fields = sig.GetType().GetISigFields();
         var schemaElement = fields.CreateKmlSchema(filenameWithoutExtension);
 
         var (xInvariant, yInvariant) = ((Point)sig.Geometry!).ToInvariantCoordinate();

@@ -284,6 +284,9 @@ public partial class DataBaseContext : DbContext
             entity.Property(e => e.CanBeDeleted).HasDefaultValueSql("TRUE");
             entity.Property(e => e.DateAdded).HasDefaultValueSql("CURRENT_TIMESTAMP");
             entity.Property(e => e.IsOpen).HasDefaultValueSql("TRUE");
+
+            entity.Property(e => e.Latitude).HasField("_latitude").UsePropertyAccessMode(PropertyAccessMode.Property);
+            entity.Property(e => e.Longitude).HasField("_longitude").UsePropertyAccessMode(PropertyAccessMode.Property);
         });
 
         modelBuilder.Entity<TRecursiveExpense>(entity =>

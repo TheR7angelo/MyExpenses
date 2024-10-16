@@ -64,20 +64,20 @@ public static class KmlUtils
         };
     }
 
-    public static Dictionary<string, DbField> GetFields(this ISig sig)
+    public static Dictionary<string, DbField> GetISigFields(this Type type)
     {
-        var propertiesInfo = sig.GetType().GetProperties();
+        var propertiesInfo = type.GetProperties();
         var fields = new Dictionary<string, DbField>();
 
         foreach (var propertyInfo in propertiesInfo)
         {
             if (propertyInfo.GetValueByProperty<ColumnAttribute>() is not string columnName) continue;
-            var type = Nullable.GetUnderlyingType(propertyInfo.PropertyType) ?? propertyInfo.PropertyType;
+            var underlyingType = Nullable.GetUnderlyingType(propertyInfo.PropertyType) ?? propertyInfo.PropertyType;
 
             var dbField = new DbField
             {
                 Name = columnName,
-                Type = type
+                Type = underlyingType
             };
 
             fields[columnName] = dbField;
