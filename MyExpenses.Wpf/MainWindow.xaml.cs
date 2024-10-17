@@ -8,6 +8,7 @@ using MyExpenses.Core.Export;
 using MyExpenses.Models.Config;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.IO;
+using MyExpenses.Models.WebApi.Authenticator;
 using MyExpenses.Models.Wpf.Save;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils;
@@ -333,7 +334,7 @@ public partial class MainWindow
 
     private static async Task<FileMetadata> SaveToCloudAsync(string database)
     {
-        var dropboxService = new DropboxService();
+        var dropboxService = new DropboxService(ProjectSystem.Wpf);
         Log.Information("Starting to upload {FileName} to cloud storage", Path.GetFileName(database));
         var fileMetadata = await dropboxService.UploadFileAsync(database, DbContextBackup.CloudDirectoryBackupDatabase);
         Log.Information("Successfully uploaded {FileName} to cloud storage", Path.GetFileName(database));

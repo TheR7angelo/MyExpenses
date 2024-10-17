@@ -1,10 +1,10 @@
-using System.Diagnostics;
-using System.Net;
 using System.Reflection;
 using Dropbox.Api;
 using Dropbox.Api.FileProperties;
 using Dropbox.Api.Files;
+using MyExpenses.Models.WebApi.Authenticator;
 using MyExpenses.Models.WebApi.DropBox;
+using MyExpenses.Share.Core.WebApi;
 using MyExpenses.Utils;
 
 namespace MyExpenses.WebApi.Dropbox;
@@ -17,7 +17,7 @@ public class DropboxService
 
     private string FilePathSecretKeys { get; }
 
-    public DropboxService()
+    public DropboxService(ProjectSystem projectSystem)
     {
         DropboxKeys = GetDropboxKeys();
 
@@ -26,7 +26,7 @@ public class DropboxService
 
         if (!File.Exists(FilePathSecretKeys))
         {
-            AccessTokenAuthentication = AuthorizeApplication();
+            AccessTokenAuthentication = AuthorizeApplication(projectSystem);
         }
         else
         {
@@ -179,9 +179,14 @@ public class DropboxService
         await File.WriteAllTextAsync(FilePathSecretKeys, AccessTokenAuthentication.ToJson());
     }
 
-    public AccessTokenAuthentication? AuthorizeApplication()
+    public AccessTokenAuthentication? AuthorizeApplication(ProjectSystem projectSystem)
     {
-        var tempToken = GetTempToken()!;
+        var authenticator = projectSystem.CreateAuthenticator();
+        var task = authenticator.AuthenticateAsync(DropboxKeys);
+        var tempToken = task.ConfigureAwait(false).GetAwaiter().GetResult();
+        if (string.IsNullOrEmpty(tempToken)) return null;
+
+        // var tempToken = GetTempToken()!;
         var taskAccessTokenAuthentication = GetAccessTokenAuthentication(tempToken);
         var accessTokenAuthentication = taskAccessTokenAuthentication.GetAwaiter().GetResult();
 
@@ -230,36 +235,35 @@ public class DropboxService
         return accessTokenResponse;
     }
 
-    private string? GetTempToken()
-    {
-        var httpListener = new HttpListener();
-        httpListener.Prefixes.Add(DropboxKeys.RedirectUri!);
-        httpListener.Start();
-
-        var uri =
-            $"https://www.dropbox.com/oauth2/authorize?client_id={DropboxKeys.AppKey}&redirect_uri={DropboxKeys.RedirectUri}&response_type=code&token_access_type=offline";
-        var process = new Process();
-        process.StartInfo.UseShellExecute = true;
-        process.StartInfo.CreateNoWindow = false;
-        process.StartInfo.WindowStyle = ProcessWindowStyle.Normal;
-        process.StartInfo.FileName = uri;
-        process.Start();
-
-        var context = httpListener.GetContext();
-        var response = context.Response;
-
-        var tempToken = context.Request.QueryString["code"];
-
-        response.Close();
-        httpListener.Close();
-
-        return tempToken;
-    }
+    // private string? GetTempToken()
+    // {
+    //     var httpListener = new HttpListener();
+    //     httpListener.Prefixes.Add(DropboxKeys.RedirectUri!);
+    //     httpListener.Start();
+    //
+    //     var uri =
+    //         $"https://www.dropbox.com/oauth2/authorize?client_id={DropboxKeys.AppKey}&redirect_uri={DropboxKeys.RedirectUri}&response_type=code&token_access_type=offline";
+    //     var process = new Process();
+    //     process.StartInfo.UseShellExecute = true;
+    //     process.StartInfo.CreateNoWindow = false;
+    //     process.StartInfo.WindowStyle = ProcessWindowStyle.Normal;
+    //     process.StartInfo.FileName = uri;
+    //     process.Start();
+    //
+    //     var context = httpListener.GetContext();
+    //     var response = context.Response;
+    //
+    //     var tempToken = context.Request.QueryString["code"];
+    //
+    //     response.Close();
+    //     httpListener.Close();
+    //
+    //     return tempToken;
+    // }
 
     private static string GenerateDirectorySecretKeys()
     {
-        var directorySecretKeys = Path.GetFullPath("Api");
-        directorySecretKeys = Path.Join(directorySecretKeys, "Dropbox");
+        var directorySecretKeys = Path.Join(AppContext.BaseDirectory, "Api", "Dropbox");
 
         var directoryInfo = Directory.CreateDirectory(directorySecretKeys);
         directoryInfo = directoryInfo.Parent;

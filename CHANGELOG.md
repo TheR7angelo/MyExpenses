@@ -1,4 +1,21 @@
-#  (2024-09-27)
+# [](https://github.com/TheR7angelo/MyExpenses/compare/v1.0.0...v) (2024-10-15)
+
+
+### Bug Fixes
+
+* **Update:** Fix clearing of ExistingDatabasesSelected before adding new items ([92faaaf](https://github.com/TheR7angelo/MyExpenses/commit/92faaaf2b6021e524f1966d8100887cfd971ebbc))
+* **Update:** Fix conditional for cloud file deletion ([7bb6461](https://github.com/TheR7angelo/MyExpenses/commit/7bb646120b1d62a778736f90dcb0e0bf7b4dff72))
+* **Update:** Fix coordinate assignment bug in AddEditLocationWindow ([33b9c51](https://github.com/TheR7angelo/MyExpenses/commit/33b9c5196673519f37da55e239f1e2817ae3cf43))
+* **Update:** Fix positive series tooltip formatting in account category control ([b8db1bf](https://github.com/TheR7angelo/MyExpenses/commit/b8db1bfce6874f3f6c9bcb99e9631abe85abbb59))
+
+
+### Features
+
+* Update CHANGELOG date to 2024-09-27 ([b1389f0](https://github.com/TheR7angelo/MyExpenses/commit/b1389f0d37f6e94c3bac012b2dc5ad665956a8ca))
+
+
+
+# [1.0.0](https://github.com/TheR7angelo/MyExpenses/compare/f40a7bd6e315457a5143c7481a07ef90befea7eb...v1.0.0) (2024-09-27)
 
 
 ### Features

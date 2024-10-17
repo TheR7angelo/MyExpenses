@@ -29,6 +29,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyExpenses.Smartphones", "M
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyExpenses.Maui.Utils", "MyExpenses.Maui.Utils\MyExpenses.Maui.Utils.csproj", "{42079AB5-69A2-45EB-97C3-111AA6079DE0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyExpenses.Share.Core", "MyExpenses.Share.Core\MyExpenses.Share.Core.csproj", "{087284ED-F5F8-49F3-825D-11435E54476B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -95,5 +97,9 @@ Global
 		{42079AB5-69A2-45EB-97C3-111AA6079DE0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{42079AB5-69A2-45EB-97C3-111AA6079DE0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{42079AB5-69A2-45EB-97C3-111AA6079DE0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{087284ED-F5F8-49F3-825D-11435E54476B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{087284ED-F5F8-49F3-825D-11435E54476B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{087284ED-F5F8-49F3-825D-11435E54476B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{087284ED-F5F8-49F3-825D-11435E54476B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

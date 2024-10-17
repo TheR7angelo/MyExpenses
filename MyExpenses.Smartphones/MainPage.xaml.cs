@@ -1,5 +1,7 @@
 ﻿using System.Collections.ObjectModel;
+using Dropbox.Api;
 using MyExpenses.Models.IO;
+using MyExpenses.Models.WebApi.Authenticator;
 using MyExpenses.Smartphones.AppShells;
 using MyExpenses.Smartphones.ContentPages;
 using MyExpenses.Smartphones.Resources.Resx.ContentPages.MainPage;
@@ -7,6 +9,7 @@ using MyExpenses.Smartphones.UserControls.Buttons.CustomFrame;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils;
 using MyExpenses.Utils.Collection;
+using MyExpenses.WebApi.Dropbox;
 using Serilog;
 
 namespace MyExpenses.Smartphones;
@@ -27,7 +30,7 @@ public partial class MainPage
     private void RefreshExistingDatabases()
     {
         var itemsToDelete = ExistingDatabases
-            .Where(s => !File.Exists(s.FilePath)).AsEnumerable();
+            .Where(s => !File.Exists(s.FilePath)).ToArray();
 
         foreach (var item in itemsToDelete)
         {
@@ -116,6 +119,8 @@ public partial class MainPage
 
         if (result is not true) return;
 
+        // if (selectDatabaseFileContentPage.ExistingDatabasesSelected.Count.Equals(0)) return;
+
         var response = await DisplayAlert(MainPageResources.MessageBoxRemoveDataBaseQuestionTitle,
             MainPageResources.MessageBoxRemoveDataBaseQuestionMessage,
             MainPageResources.MessageBoxRemoveDataBaseQuestionYesButton,
@@ -135,6 +140,8 @@ public partial class MainPage
         }
 
         RefreshExistingDatabases();
+
+        var dropbox = new DropboxService(ProjectSystem.Maui);
 
         //TODO dropbox connexion
         // response = MsgBox.Show(WelcomePageResources.MessageBoxDeleteCloudQuestion, MsgBoxImage.Question,

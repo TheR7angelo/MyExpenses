@@ -5,6 +5,7 @@ using System.Windows;
 using System.Windows.Controls;
 using MyExpenses.Core.Export;
 using MyExpenses.Models.IO;
+using MyExpenses.Models.WebApi.Authenticator;
 using MyExpenses.Models.Wpf.Save;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils;
@@ -216,7 +217,7 @@ public partial class WelcomePage
             var files = selectDatabaseFileWindow.ExistingDatabasesSelected.Select(s => s.FileName).ToArray();
             Log.Information("Preparing to delete the following files: {Files}", files);
 
-            var dropboxService = new DropboxService();
+            var dropboxService = new DropboxService(ProjectSystem.Wpf);
             await dropboxService.DeleteFilesAsync(files, DbContextBackup.CloudDirectoryBackupDatabase);
         }
 
@@ -236,7 +237,7 @@ public partial class WelcomePage
 
     private static async Task ExportToCloudDirectoryAsync(List<ExistingDatabase> existingDatabasesSelected)
     {
-        var dropboxService = new DropboxService();
+        var dropboxService = new DropboxService(ProjectSystem.Wpf);
         foreach (var existingDatabase in existingDatabasesSelected)
         {
             Log.Information("Starting to upload {ExistingDatabaseFileName} to cloud storage", existingDatabase.FileName);
@@ -247,7 +248,7 @@ public partial class WelcomePage
 
     private static async Task ExportToCloudFileAsync(ExistingDatabase existingDatabasesSelected)
     {
-        var dropboxService = new DropboxService();
+        var dropboxService = new DropboxService(ProjectSystem.Wpf);
         Log.Information("Starting to upload {FileName} to cloud storage", existingDatabasesSelected.FileName);
         await dropboxService.UploadFileAsync(existingDatabasesSelected.FilePath, DbContextBackup.CloudDirectoryBackupDatabase);
         Log.Information("Successfully uploaded {FileName} to cloud storage", existingDatabasesSelected.FileName);
@@ -341,7 +342,7 @@ public partial class WelcomePage
 private static async Task ImportFromCloudAsync()
 {
     Log.Information("Starting to import the database from cloud storage");
-    var dropboxService = new DropboxService();
+    var dropboxService = new DropboxService(ProjectSystem.Wpf);
     var metadatas = await dropboxService.ListFileAsync(DbContextBackup.CloudDirectoryBackupDatabase);
     metadatas = metadatas.Where(s => Path.GetExtension(s.PathDisplay).Equals(DbContextBackup.Extension));
 
