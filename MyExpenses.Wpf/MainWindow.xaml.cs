@@ -334,7 +334,7 @@ public partial class MainWindow
 
     private static async Task<FileMetadata> SaveToCloudAsync(string database)
     {
-        var dropboxService = new DropboxService(ProjectSystem.Wpf);
+        var dropboxService = await DropboxService.CreateAsync(ProjectSystem.Wpf);
         Log.Information("Starting to upload {FileName} to cloud storage", Path.GetFileName(database));
         var fileMetadata = await dropboxService.UploadFileAsync(database, DbContextBackup.CloudDirectoryBackupDatabase);
         Log.Information("Successfully uploaded {FileName} to cloud storage", Path.GetFileName(database));

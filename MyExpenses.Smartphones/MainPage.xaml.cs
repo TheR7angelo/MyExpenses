@@ -141,7 +141,8 @@ public partial class MainPage
 
         RefreshExistingDatabases();
 
-        var dropbox = new DropboxService(ProjectSystem.Maui);
+        // var dropbox = new DropboxService(ProjectSystem.Maui);
+        var dropbox = await DropboxService.CreateAsync(ProjectSystem.Maui);
 
         //TODO dropbox connexion
         // response = MsgBox.Show(WelcomePageResources.MessageBoxDeleteCloudQuestion, MsgBoxImage.Question,

@@ -9,7 +9,7 @@ public class DropboxApiTest(ITestOutputHelper testOutputHelper)
     [Fact]
     private async Task Test()
     {
-        var dropboxService = new DropboxService(ProjectSystem.Wpf);
+        var dropboxService = new DropboxService();
         if (dropboxService.AccessTokenAuthentication is null) dropboxService.AuthorizeApplication(ProjectSystem.Wpf);
 
         if (dropboxService.AccessTokenAuthentication is null) return;

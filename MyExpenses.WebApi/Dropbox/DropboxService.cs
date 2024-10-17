@@ -11,28 +11,28 @@ namespace MyExpenses.WebApi.Dropbox;
 
 public class DropboxService
 {
-    public AccessTokenAuthentication? AccessTokenAuthentication { get; set; }
+    public AccessTokenAuthentication? AccessTokenAuthentication { get; private set; }
 
-    private DropboxKeys DropboxKeys { get; }
+    private DropboxKeys DropboxKeys { get; set; }
 
-    private string FilePathSecretKeys { get; }
+    private string FilePathSecretKeys { get; set; }
 
-    public DropboxService(ProjectSystem projectSystem)
+    public DropboxService()
     {
         DropboxKeys = GetDropboxKeys();
 
         var directorySecretKeys = GenerateDirectorySecretKeys();
         FilePathSecretKeys = Path.Join(directorySecretKeys, "AccessTokenAuthentication.json");
 
-        if (!File.Exists(FilePathSecretKeys))
-        {
-            AccessTokenAuthentication = AuthorizeApplication(projectSystem);
-        }
-        else
-        {
-            var jsonStr = File.ReadAllText(FilePathSecretKeys);
-            AccessTokenAuthentication = jsonStr.ToObject<AccessTokenAuthentication>();
-        }
+        // if (!File.Exists(FilePathSecretKeys))
+        // {
+        //     AccessTokenAuthentication = AuthorizeApplication(projectSystem);
+        // }
+        // else
+        // {
+        //     var jsonStr = File.ReadAllText(FilePathSecretKeys);
+        //     AccessTokenAuthentication = jsonStr.ToObject<AccessTokenAuthentication>();
+        // }
     }
 
     public async Task<List<DeleteResult?>> DeleteFilesAsync(string[] filePaths, string? folder = null)
@@ -179,11 +179,54 @@ public class DropboxService
         await File.WriteAllTextAsync(FilePathSecretKeys, AccessTokenAuthentication.ToJson());
     }
 
+    public static async Task<DropboxService> CreateAsync(ProjectSystem projectSystem)
+    {
+        var service = new DropboxService();
+        await service.InitializeAsync(projectSystem);
+        return service;
+    }
+
+    private async Task InitializeAsync(ProjectSystem projectSystem)
+    {
+        DropboxKeys = GetDropboxKeys();
+
+        var directorySecretKeys = GenerateDirectorySecretKeys();
+        FilePathSecretKeys = Path.Combine(directorySecretKeys, "AccessTokenAuthentication.json");
+
+        if (!File.Exists(FilePathSecretKeys))
+        {
+            AccessTokenAuthentication = await AuthorizeApplicationAsync(projectSystem);
+        }
+        else
+        {
+            var jsonStr = await File.ReadAllTextAsync(FilePathSecretKeys);
+            AccessTokenAuthentication = jsonStr.ToObject<AccessTokenAuthentication>();
+        }
+    }
+
+    private async Task<AccessTokenAuthentication?> AuthorizeApplicationAsync(ProjectSystem projectSystem)
+    {
+        var authenticator = projectSystem.CreateAuthenticator();
+        var tempToken = await authenticator.AuthenticateAsync(DropboxKeys);
+        if (string.IsNullOrEmpty(tempToken)) return null;
+
+        var accessTokenAuthentication = await GetAccessTokenAuthentication(tempToken);
+
+        if (accessTokenAuthentication is not null)
+        {
+            accessTokenAuthentication.DateCreated = DateTime.Now;
+            accessTokenAuthentication.DateExpiration =
+                DateTime.Now.AddSeconds(accessTokenAuthentication.ExpiresIn ?? 0);
+        }
+
+        await File.WriteAllTextAsync(FilePathSecretKeys, accessTokenAuthentication?.ToJson());
+        return accessTokenAuthentication;
+    }
+
     public AccessTokenAuthentication? AuthorizeApplication(ProjectSystem projectSystem)
     {
         var authenticator = projectSystem.CreateAuthenticator();
-        var task = authenticator.AuthenticateAsync(DropboxKeys);
-        var tempToken = task.ConfigureAwait(false).GetAwaiter().GetResult();
+        var tempToken = Task.Run(async () => await authenticator.AuthenticateAsync(DropboxKeys)).Result;
         if (string.IsNullOrEmpty(tempToken)) return null;
 
         // var tempToken = GetTempToken()!;
