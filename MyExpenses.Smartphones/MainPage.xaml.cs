@@ -1,5 +1,4 @@
 ﻿using System.Collections.ObjectModel;
-using Dropbox.Api;
 using MyExpenses.Models.IO;
 using MyExpenses.Models.WebApi.Authenticator;
 using MyExpenses.Smartphones.AppShells;
