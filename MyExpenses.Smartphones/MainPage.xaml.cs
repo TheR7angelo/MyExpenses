@@ -55,19 +55,6 @@ public partial class MainPage
 
     #region Action
 
-    private void ButtonDatabase_OnClick(object? sender, EventArgs e)
-    {
-        var buttonImageView = (ButtonImageTextView)sender!;
-        if (buttonImageView.BindingContext is not ExistingDatabase existingDatabase) return;
-
-        DataBaseContext.FilePath = existingDatabase.FilePath;
-
-        var dashBoardShell = new DashBoardShell();
-        Application.Current!.MainPage = dashBoardShell;
-    }
-
-    #endregion
-
     private async void ButtonAddDataBase_OnClick(object? sender, EventArgs e)
     {
         var addDatabaseFileContentPage = new AddDatabaseFileContentPage();
@@ -105,6 +92,17 @@ public partial class MainPage
 
             await DisplayAlert(MainPageResources.MessageBoxAddDataBaseErrorTitle, MainPageResources.MessageBoxAddDataBaseErrorMessage, MainPageResources.MessageBoxAddDataBaseOkButton);
         }
+    }
+
+    private void ButtonDatabase_OnClick(object? sender, EventArgs e)
+    {
+        var buttonImageView = (ButtonImageTextView)sender!;
+        if (buttonImageView.BindingContext is not ExistingDatabase existingDatabase) return;
+
+        DataBaseContext.FilePath = existingDatabase.FilePath;
+
+        var dashBoardShell = new DashBoardShell();
+        Application.Current!.MainPage = dashBoardShell;
     }
 
     private async void ButtonRemoveDataBase_OnClick(object? sender, EventArgs e)
@@ -160,6 +158,8 @@ public partial class MainPage
             MainPageResources.MessageBoxRemoveDataBaseSuccessMessage,
             MainPageResources.MessageBoxRemoveDataBaseSuccessOkButton);
     }
+
+    #endregion
 
     private void ButtonImportDataBase_OnClick(object? sender, EventArgs e)
     {
