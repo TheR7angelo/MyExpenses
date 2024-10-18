@@ -118,7 +118,7 @@ public partial class MainPage
 
         if (result is not true) return;
 
-        // if (selectDatabaseFileContentPage.ExistingDatabasesSelected.Count.Equals(0)) return;
+        if (selectDatabaseFileContentPage.ExistingDatabasesSelected.Count.Equals(0)) return;
 
         var response = await DisplayAlert(MainPageResources.MessageBoxRemoveDataBaseQuestionTitle,
             MainPageResources.MessageBoxRemoveDataBaseQuestionMessage,
@@ -140,19 +140,16 @@ public partial class MainPage
 
         RefreshExistingDatabases();
 
-        // var dropbox = new DropboxService(ProjectSystem.Maui);
-        var dropbox = await DropboxService.CreateAsync(ProjectSystem.Maui);
-
         //TODO dropbox connexion
         // response = MsgBox.Show(WelcomePageResources.MessageBoxDeleteCloudQuestion, MsgBoxImage.Question,
         //     MessageBoxButton.YesNoCancel);
-        //
+
         // if (response is MessageBoxResult.Yes)
         // {
         //     var files = selectDatabaseFileWindow.ExistingDatabasesSelected.Select(s => s.FileName).ToArray();
         //     Log.Information("Preparing to delete the following files: {Files}", files);
         //
-        //     var dropboxService = new DropboxService();
+        //     var dropbox = await DropboxService.CreateAsync(ProjectSystem.Maui);
         //     await dropboxService.DeleteFilesAsync(files, DbContextBackup.CloudDirectoryBackupDatabase);
         // }
 
