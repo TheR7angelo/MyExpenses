@@ -47,4 +47,16 @@
     <data name="MessageBoxRemoveDataBaseSuccessMessage" xml:space="preserve">
         <value>All databases have been deleted</value>
     </data>
+    <data name="MessageBoxRemoveDataBaseDropboxQuestionNoButton" xml:space="preserve">
+        <value>Non</value>
+    </data>
+    <data name="MessageBoxRemoveDataBaseDropboxQuestionYesButton" xml:space="preserve">
+        <value>Oui</value>
+    </data>
+    <data name="MessageBoxRemoveDataBaseDropboxQuestionTitle" xml:space="preserve">
+        <value>Question</value>
+    </data>
+    <data name="MessageBoxRemoveDataBaseDropboxQuestionMessage" xml:space="preserve">
+        <value>Voulez-vous supprimer les bases de données cloud si elles existent également ?</value>
+    </data>
 </root>

@@ -105,6 +105,42 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.MainPage {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Do you want to delete cloud databases if it also exists ?.
+        /// </summary>
+        internal static string MessageBoxRemoveDataBaseDropboxQuestionMessage {
+            get {
+                return ResourceManager.GetString("MessageBoxRemoveDataBaseDropboxQuestionMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No.
+        /// </summary>
+        internal static string MessageBoxRemoveDataBaseDropboxQuestionNoButton {
+            get {
+                return ResourceManager.GetString("MessageBoxRemoveDataBaseDropboxQuestionNoButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Question.
+        /// </summary>
+        internal static string MessageBoxRemoveDataBaseDropboxQuestionTitle {
+            get {
+                return ResourceManager.GetString("MessageBoxRemoveDataBaseDropboxQuestionTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yes.
+        /// </summary>
+        internal static string MessageBoxRemoveDataBaseDropboxQuestionYesButton {
+            get {
+                return ResourceManager.GetString("MessageBoxRemoveDataBaseDropboxQuestionYesButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cancel.
         /// </summary>
         internal static string MessageBoxRemoveDataBaseQuestionCancelButton {
