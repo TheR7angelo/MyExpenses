@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:customFrame="clr-namespace:MyExpenses.Smartphones.UserControls.Buttons.CustomFrame"
+             x:Class="MyExpenses.Smartphones.ContentPages.SaveLocationContentPage">
+
+    <ContentPage.Content>
+
+        <VerticalStackLayout VerticalOptions="Center">
+
+            <customFrame:ButtonImageView Style="{StaticResource FloatingActionMidButtonImageView}"
+                                         Margin="5"
+                                         GeometrySource="Cellphone"
+                                         ImageHeightRequest="96"
+                                         ImageWidthRequest="{Binding ImageHeightRequest, Source={RelativeSource Self}}"
+                                         HeightRequest="120"
+                                         WidthRequest="{Binding HeightRequest, Source={RelativeSource Self}}"
+                                         Clicked="ButtonImageViewCellphone_OnClicked">
+            </customFrame:ButtonImageView>
+            
+            <customFrame:ButtonImageView Style="{StaticResource FloatingActionMidButtonImageView}"
+                                         Margin="5"
+                                         GeometrySource="Dropbox"
+                                         GeometryColor="#FF007EE5"
+                                         ImageHeightRequest="96"
+                                         ImageWidthRequest="{Binding ImageHeightRequest, Source={RelativeSource Self}}"
+                                         HeightRequest="120"
+                                         WidthRequest="{Binding HeightRequest, Source={RelativeSource Self}}"
+                                         Clicked="ButtonImageViewDropbox_OnClicked">
+            </customFrame:ButtonImageView>
+
+        </VerticalStackLayout>
+
+    </ContentPage.Content>
+
+</ContentPage>

@@ -161,9 +161,17 @@ public partial class MainPage
 
     #endregion
 
-    private void ButtonImportDataBase_OnClick(object? sender, EventArgs e)
+    private async void ButtonImportDataBase_OnClick(object? sender, EventArgs e)
     {
-        throw new NotImplementedException();
+        var saveLocationContentPage = new SaveLocationContentPage();
+
+        await Navigation.PushAsync(saveLocationContentPage);
+
+        var result = await saveLocationContentPage.ResultDialog;
+
+        if (result is not true) return;
+        
+        var saveLocation = saveLocationContentPage.SaveLocationResult;
     }
 
     private void ButtonExportDataBase_OnClick(object? sender, EventArgs e)
