@@ -1,6 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using MyExpenses.Models.IO;
 using MyExpenses.Models.WebApi.Authenticator;
+using MyExpenses.Models.Wpf.Save;
 using MyExpenses.Smartphones.AppShells;
 using MyExpenses.Smartphones.ContentPages;
 using MyExpenses.Smartphones.Resources.Resx.ContentPages.MainPage;
@@ -172,6 +173,59 @@ public partial class MainPage
         if (result is not true) return;
         
         var saveLocation = saveLocationContentPage.SaveLocationResult;
+        
+        try
+        {
+            switch (saveLocation)
+            {
+                case SaveLocation.Local:
+                    await ImportFromLocalAsync();
+                    break;
+                case SaveLocation.Dropbox:
+
+                    break;
+                case SaveLocation.Folder:
+                case SaveLocation.Database:
+                case SaveLocation.Compress:
+                case null:
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+
+            RefreshExistingDatabases();
+
+            await DisplayAlert("Title", "Database import operation was successful", "Ok");
+        }
+        catch (Exception exception)
+        {
+            Log.Error(exception, "An error occurred. Please try again");
+            await DisplayAlert("Title", "An error occurred. Please try again", "Ok");
+        }
+    }
+
+    private static async Task ImportFromLocalAsync()
+    {
+        Log.Information("Starting to import the database from local storage");
+        var dictionary = new Dictionary<DevicePlatform, IEnumerable<string>>
+        {
+            { DevicePlatform.iOS, ["public.database"] },
+            { DevicePlatform.Android, ["application/octet-stream"] },
+            { DevicePlatform.MacCatalyst, ["public.database"] }
+        };
+
+        var filePickerOption = new PickOptions { FileTypes = new FilePickerFileType(dictionary) };
+        
+        var result = await FilePicker.PickAsync(filePickerOption);
+        if (result is null) return;
+        
+        var filePath = result.FullPath;
+        
+        var fileName = Path.GetFileName(filePath);
+        var newFilePath = Path.Join(DbContextBackup.LocalDirectoryDatabase, fileName);
+
+        Log.Information("Copying {FileName} to local storage", fileName);
+        File.Copy(filePath, newFilePath, true);
+        Log.Information("Successfully copied {FileName} to local storage", fileName);
     }
 
     private void ButtonExportDataBase_OnClick(object? sender, EventArgs e)
