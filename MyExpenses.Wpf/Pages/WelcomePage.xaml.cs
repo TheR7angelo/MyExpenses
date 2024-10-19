@@ -156,7 +156,7 @@ public partial class WelcomePage
                 case SaveLocation.Local:
                     waitScreenWindow.WaitMessage = WelcomePageResources.ButtonImportDataBaseWaitMessageImportFromLocal;
                     waitScreenWindow.Show();
-                    await ImportFromLocal();
+                    await ImportFromLocalAsync();
                     break;
 
                 case SaveLocation.Dropbox:
@@ -371,7 +371,7 @@ public partial class WelcomePage
         }
     }
 
-    private static async Task ImportFromLocal()
+    private static async Task ImportFromLocalAsync()
     {
         Log.Information("Starting to import the database from local storage");
         var dialog = new SqliteFileDialog(multiSelect: true);
