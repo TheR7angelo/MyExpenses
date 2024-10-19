@@ -182,7 +182,7 @@ public partial class MainPage
                     await ImportFromLocalAsync();
                     break;
                 case SaveLocation.Dropbox:
-
+                    await ImportFromCloudAsync();
                     break;
                 case SaveLocation.Folder:
                 case SaveLocation.Database:
@@ -200,6 +200,41 @@ public partial class MainPage
         {
             Log.Error(exception, "An error occurred. Please try again");
             await DisplayAlert("Title", "An error occurred. Please try again", "Ok");
+        }
+    }
+
+    private async Task ImportFromCloudAsync()
+    {
+        Log.Information("Starting to import the database from cloud storage");
+        var dropboxService = await DropboxService.CreateAsync(ProjectSystem.Maui);
+        var metadatas = await dropboxService.ListFileAsync(DbContextBackup.CloudDirectoryBackupDatabase);
+        metadatas = metadatas.Where(s => Path.GetExtension(s.PathDisplay).Equals(DbContextBackup.Extension));
+
+        var existingDatabase = metadatas.Select(s => new ExistingDatabase(s.PathDisplay));
+        
+        var selectDatabaseFileContentPage = new SelectDatabaseFileContentPage();
+        selectDatabaseFileContentPage.ExistingDatabases.AddRange(existingDatabase);
+        
+        await Navigation.PushAsync(selectDatabaseFileContentPage);
+
+        var result = await selectDatabaseFileContentPage.ResultDialog;
+
+        if (result is not true)
+        {
+            Log.Warning("Import cancelled. No database selected");
+            return;
+        }
+
+        var files = selectDatabaseFileContentPage.ExistingDatabasesSelected.Select(s => s.FilePath);
+        foreach (var file in files)
+        {
+            var fileName = Path.GetFileName(file);
+            var newFilePath = Path.Join(DbContextBackup.LocalDirectoryDatabase, fileName);
+
+            var temp = await dropboxService.DownloadFileAsync(file);
+            Log.Information("Downloading {FileName} from cloud storage", fileName);
+            File.Copy(temp, newFilePath, true);
+            Log.Information("Successfully downloaded {FileName} from cloud storage", fileName);
         }
     }
 
