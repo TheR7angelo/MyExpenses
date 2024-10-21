@@ -110,14 +110,12 @@ public partial class MainPage
 
             RefreshExistingDatabases();
 
-            //TODO trad
-            await DisplayAlert("Title", "Database import operation was successful", "Ok");
+            await DisplayAlert(MainPageResources.MessageBoxImportDatabaseSuccessTitle, MainPageResources.MessageBoxImportDatabaseSuccessMessage, MainPageResources.MessageBoxImportDatabaseSuccessOkButton);
         }
         catch (Exception exception)
         {
             Log.Error(exception, "An error occurred. Please try again");
-            //TODO trad
-            await DisplayAlert("Title", "An error occurred. Please try again", "Ok");
+            await DisplayAlert(MainPageResources.MessageBoxImportDatabaseErrorTitle, MainPageResources.MessageBoxImportDatabaseErrorMessage, MainPageResources.MessageBoxImportDatabaseErrorOkButton);
         }
     }
 

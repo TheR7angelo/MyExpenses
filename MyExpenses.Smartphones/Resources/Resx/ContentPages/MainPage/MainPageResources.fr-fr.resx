@@ -59,4 +59,22 @@
     <data name="MessageBoxRemoveDataBaseDropboxQuestionMessage" xml:space="preserve">
         <value>Voulez-vous supprimer les bases de données cloud si elles existent également ?</value>
     </data>
+    <data name="MessageBoxImportDatabaseSuccessTitle" xml:space="preserve">
+        <value>Succès</value>
+    </data>
+    <data name="MessageBoxImportDatabaseSuccessOkButton" xml:space="preserve">
+        <value>Ok</value>
+    </data>
+    <data name="MessageBoxImportDatabaseSuccessMessage" xml:space="preserve">
+        <value>L'opération d'importation de la base de données a réussi</value>
+    </data>
+    <data name="MessageBoxImportDatabaseErrorOkButton" xml:space="preserve">
+        <value>Ok</value>
+    </data>
+    <data name="MessageBoxImportDatabaseErrorTitle" xml:space="preserve">
+        <value>Une erreur s'est produite</value>
+    </data>
+    <data name="MessageBoxImportDatabaseErrorMessage" xml:space="preserve">
+        <value>Une erreur s'est produite. Veuillez réessayer</value>
+    </data>
 </root>

@@ -105,6 +105,60 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.MainPage {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to An error occurred. Please try again.
+        /// </summary>
+        internal static string MessageBoxImportDatabaseErrorMessage {
+            get {
+                return ResourceManager.GetString("MessageBoxImportDatabaseErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ok.
+        /// </summary>
+        internal static string MessageBoxImportDatabaseErrorOkButton {
+            get {
+                return ResourceManager.GetString("MessageBoxImportDatabaseErrorOkButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error occur.
+        /// </summary>
+        internal static string MessageBoxImportDatabaseErrorTitle {
+            get {
+                return ResourceManager.GetString("MessageBoxImportDatabaseErrorTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Database import operation was successful.
+        /// </summary>
+        internal static string MessageBoxImportDatabaseSuccessMessage {
+            get {
+                return ResourceManager.GetString("MessageBoxImportDatabaseSuccessMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ok.
+        /// </summary>
+        internal static string MessageBoxImportDatabaseSuccessOkButton {
+            get {
+                return ResourceManager.GetString("MessageBoxImportDatabaseSuccessOkButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Success.
+        /// </summary>
+        internal static string MessageBoxImportDatabaseSuccessTitle {
+            get {
+                return ResourceManager.GetString("MessageBoxImportDatabaseSuccessTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Do you want to delete cloud databases if it also exists ?.
         /// </summary>
         internal static string MessageBoxRemoveDataBaseDropboxQuestionMessage {
