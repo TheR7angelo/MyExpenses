@@ -89,6 +89,7 @@ public class DropboxService
         if (!filePath.StartsWith('/')) filePath = $"/{filePath}";
 
         using var dropboxClient = await GetDropboxClient();
+        
         var response = await dropboxClient.Files.DownloadAsync(filePath);
         var stream = await response.GetContentAsStreamAsync();
 
@@ -141,8 +142,8 @@ public class DropboxService
             {
                 await RefreshAccessTokenAuthentication();
             }
-
-            dropboxClient = new DropboxClient(AccessTokenAuthentication.AccessToken);
+            
+            dropboxClient = new DropboxClient(AccessTokenAuthentication.AccessToken, new DropboxClientConfig { HttpClient = new HttpClient() });
             return dropboxClient;
         }
         catch
@@ -201,16 +202,19 @@ public class DropboxService
         {
             var jsonStr = await File.ReadAllTextAsync(FilePathSecretKeys);
             AccessTokenAuthentication = jsonStr.ToObject<AccessTokenAuthentication>();
+            if (AccessTokenAuthentication!.AccessToken is null) AccessTokenAuthentication = await AuthorizeApplicationAsync(projectSystem);
         }
     }
 
     private async Task<AccessTokenAuthentication?> AuthorizeApplicationAsync(ProjectSystem projectSystem)
     {
+        var pkceData = Share.Core.WebApi.Utils.GeneratePkceData();
+        
         var authenticator = projectSystem.CreateAuthenticator();
-        var tempToken = await authenticator.AuthenticateAsync(DropboxKeys);
+        var tempToken = await authenticator.AuthenticateAsync(DropboxKeys, pkceData);
         if (string.IsNullOrEmpty(tempToken)) return null;
 
-        var accessTokenAuthentication = await GetAccessTokenAuthentication(tempToken);
+        var accessTokenAuthentication = await GetAccessTokenAuthentication(tempToken, pkceData);
 
         if (accessTokenAuthentication is not null)
         {
@@ -220,27 +224,6 @@ public class DropboxService
         }
 
         await File.WriteAllTextAsync(FilePathSecretKeys, accessTokenAuthentication?.ToJson());
-        return accessTokenAuthentication;
-    }
-
-    public AccessTokenAuthentication? AuthorizeApplication(ProjectSystem projectSystem)
-    {
-        var authenticator = projectSystem.CreateAuthenticator();
-        var tempToken = Task.Run(async () => await authenticator.AuthenticateAsync(DropboxKeys)).Result;
-        if (string.IsNullOrEmpty(tempToken)) return null;
-
-        // var tempToken = GetTempToken()!;
-        var taskAccessTokenAuthentication = GetAccessTokenAuthentication(tempToken);
-        var accessTokenAuthentication = taskAccessTokenAuthentication.GetAwaiter().GetResult();
-
-        if (accessTokenAuthentication is not null)
-        {
-            accessTokenAuthentication.DateCreated = DateTime.Now;
-            accessTokenAuthentication.DateExpiration =
-                DateTime.Now.AddSeconds(accessTokenAuthentication.ExpiresIn ?? 0);
-        }
-
-        File.WriteAllText(FilePathSecretKeys, accessTokenAuthentication?.ToJson());
         return accessTokenAuthentication;
     }
 
@@ -257,7 +240,7 @@ public class DropboxService
         return jsonStr.ToObject<DropboxKeys>()!;
     }
 
-    private async Task<AccessTokenAuthentication?> GetAccessTokenAuthentication(string tempToken)
+    private async Task<AccessTokenAuthentication?> GetAccessTokenAuthentication(string tempToken, Pkce pkceData)
     {
         using var httpClient = Http.GetHttpClient();
         var requestData = new Dictionary<string, string>
@@ -266,7 +249,8 @@ public class DropboxService
             { "grant_type", "authorization_code" },
             { "client_id", DropboxKeys.AppKey! },
             { "client_secret", DropboxKeys.AppSecret! },
-            { "redirect_uri", DropboxKeys.RedirectUri! }
+            { "redirect_uri", DropboxKeys.RedirectUri! },
+            { "code_verifier", pkceData.CodeVerifier }
         };
 
         var requestContent = new FormUrlEncodedContent(requestData);
@@ -277,32 +261,6 @@ public class DropboxService
         var accessTokenResponse = responseContent.ToObject<AccessTokenAuthentication>();
         return accessTokenResponse;
     }
-
-    // private string? GetTempToken()
-    // {
-    //     var httpListener = new HttpListener();
-    //     httpListener.Prefixes.Add(DropboxKeys.RedirectUri!);
-    //     httpListener.Start();
-    //
-    //     var uri =
-    //         $"https://www.dropbox.com/oauth2/authorize?client_id={DropboxKeys.AppKey}&redirect_uri={DropboxKeys.RedirectUri}&response_type=code&token_access_type=offline";
-    //     var process = new Process();
-    //     process.StartInfo.UseShellExecute = true;
-    //     process.StartInfo.CreateNoWindow = false;
-    //     process.StartInfo.WindowStyle = ProcessWindowStyle.Normal;
-    //     process.StartInfo.FileName = uri;
-    //     process.Start();
-    //
-    //     var context = httpListener.GetContext();
-    //     var response = context.Response;
-    //
-    //     var tempToken = context.Request.QueryString["code"];
-    //
-    //     response.Close();
-    //     httpListener.Close();
-    //
-    //     return tempToken;
-    // }
 
     private static string GenerateDirectorySecretKeys()
     {
