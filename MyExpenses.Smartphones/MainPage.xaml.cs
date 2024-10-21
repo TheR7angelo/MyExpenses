@@ -26,35 +26,6 @@ public partial class MainPage
         InitializeComponent();
     }
 
-    #region Function
-
-    private void RefreshExistingDatabases()
-    {
-        var itemsToDelete = ExistingDatabases
-            .Where(s => !File.Exists(s.FilePath)).ToArray();
-
-        foreach (var item in itemsToDelete)
-        {
-            ExistingDatabases.Remove(item);
-        }
-
-        var newExistingDatabases = DbContextBackup.GetExistingDatabase();
-        foreach (var existingDatabase in newExistingDatabases)
-        {
-            var exist = ExistingDatabases.FirstOrDefault(s => s.FilePath == existingDatabase.FilePath);
-            if (exist is not null)
-            {
-                existingDatabase.CopyPropertiesTo(exist);
-            }
-            else
-            {
-                ExistingDatabases.AddAndSort(existingDatabase, s => s.FileNameWithoutExtension);
-            }
-        }
-    }
-
-    #endregion
-
     #region Action
 
     private async void ButtonAddDataBase_OnClick(object? sender, EventArgs e)
@@ -105,6 +76,49 @@ public partial class MainPage
 
         var dashBoardShell = new DashBoardShell();
         Application.Current!.MainPage = dashBoardShell;
+    }
+
+    private async void ButtonImportDataBase_OnClick(object? sender, EventArgs e)
+    {
+        var saveLocationContentPage = new SaveLocationContentPage();
+
+        await Navigation.PushAsync(saveLocationContentPage);
+
+        var result = await saveLocationContentPage.ResultDialog;
+
+        if (result is not true) return;
+
+        var saveLocation = saveLocationContentPage.SaveLocationResult;
+
+        try
+        {
+            switch (saveLocation)
+            {
+                case SaveLocation.Local:
+                    await ImportFromLocalAsync();
+                    break;
+                case SaveLocation.Dropbox:
+                    await ImportFromCloudAsync();
+                    break;
+                case SaveLocation.Folder:
+                case SaveLocation.Database:
+                case SaveLocation.Compress:
+                case null:
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+
+            RefreshExistingDatabases();
+
+            //TODO trad
+            await DisplayAlert("Title", "Database import operation was successful", "Ok");
+        }
+        catch (Exception exception)
+        {
+            Log.Error(exception, "An error occurred. Please try again");
+            //TODO trad
+            await DisplayAlert("Title", "An error occurred. Please try again", "Ok");
+        }
     }
 
     private async void ButtonRemoveDataBase_OnClick(object? sender, EventArgs e)
@@ -163,46 +177,7 @@ public partial class MainPage
 
     #endregion
 
-    private async void ButtonImportDataBase_OnClick(object? sender, EventArgs e)
-    {
-        var saveLocationContentPage = new SaveLocationContentPage();
-
-        await Navigation.PushAsync(saveLocationContentPage);
-
-        var result = await saveLocationContentPage.ResultDialog;
-
-        if (result is not true) return;
-        
-        var saveLocation = saveLocationContentPage.SaveLocationResult;
-        
-        try
-        {
-            switch (saveLocation)
-            {
-                case SaveLocation.Local:
-                    await ImportFromLocalAsync();
-                    break;
-                case SaveLocation.Dropbox:
-                    await ImportFromCloudAsync();
-                    break;
-                case SaveLocation.Folder:
-                case SaveLocation.Database:
-                case SaveLocation.Compress:
-                case null:
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
-
-            RefreshExistingDatabases();
-
-            await DisplayAlert("Title", "Database import operation was successful", "Ok");
-        }
-        catch (Exception exception)
-        {
-            Log.Error(exception, "An error occurred. Please try again");
-            await DisplayAlert("Title", "An error occurred. Please try again", "Ok");
-        }
-    }
+    #region Function
 
     private async Task ImportFromCloudAsync()
     {
@@ -212,10 +187,10 @@ public partial class MainPage
         metadatas = metadatas.Where(s => Path.GetExtension(s.PathDisplay).Equals(DbContextBackup.Extension));
 
         var existingDatabase = metadatas.Select(s => new ExistingDatabase(s.PathDisplay));
-        
+
         var selectDatabaseFileContentPage = new SelectDatabaseFileContentPage();
         selectDatabaseFileContentPage.ExistingDatabases.AddRange(existingDatabase);
-        
+
         await Navigation.PushAsync(selectDatabaseFileContentPage);
 
         var result = await selectDatabaseFileContentPage.ResultDialog;
@@ -243,29 +218,56 @@ public partial class MainPage
     }
 
     private static async Task ImportFromLocalAsync()
-    {
-        Log.Information("Starting to import the database from local storage");
-        var dictionary = new Dictionary<DevicePlatform, IEnumerable<string>>
         {
-            { DevicePlatform.iOS, ["public.database"] },
-            { DevicePlatform.Android, ["application/octet-stream"] },
-            { DevicePlatform.MacCatalyst, ["public.database"] }
-        };
+            Log.Information("Starting to import the database from local storage");
+            var dictionary = new Dictionary<DevicePlatform, IEnumerable<string>>
+            {
+                { DevicePlatform.iOS, ["public.database"] },
+                { DevicePlatform.Android, ["application/octet-stream"] },
+                { DevicePlatform.MacCatalyst, ["public.database"] }
+            };
 
-        var filePickerOption = new PickOptions { FileTypes = new FilePickerFileType(dictionary) };
-        
-        var result = await FilePicker.PickAsync(filePickerOption);
-        if (result is null) return;
-        
-        var filePath = result.FullPath;
-        
-        var fileName = Path.GetFileName(filePath);
-        var newFilePath = Path.Join(DbContextBackup.LocalDirectoryDatabase, fileName);
+            var filePickerOption = new PickOptions { FileTypes = new FilePickerFileType(dictionary) };
 
-        Log.Information("Copying {FileName} to local storage", fileName);
-        File.Copy(filePath, newFilePath, true);
-        Log.Information("Successfully copied {FileName} to local storage", fileName);
+            var result = await FilePicker.PickAsync(filePickerOption);
+            if (result is null) return;
+
+            var filePath = result.FullPath;
+
+            var fileName = Path.GetFileName(filePath);
+            var newFilePath = Path.Join(DbContextBackup.LocalDirectoryDatabase, fileName);
+
+            Log.Information("Copying {FileName} to local storage", fileName);
+            File.Copy(filePath, newFilePath, true);
+            Log.Information("Successfully copied {FileName} to local storage", fileName);
+        }
+
+    private void RefreshExistingDatabases()
+    {
+        var itemsToDelete = ExistingDatabases
+            .Where(s => !File.Exists(s.FilePath)).ToArray();
+
+        foreach (var item in itemsToDelete)
+        {
+            ExistingDatabases.Remove(item);
+        }
+
+        var newExistingDatabases = DbContextBackup.GetExistingDatabase();
+        foreach (var existingDatabase in newExistingDatabases)
+        {
+            var exist = ExistingDatabases.FirstOrDefault(s => s.FilePath == existingDatabase.FilePath);
+            if (exist is not null)
+            {
+                existingDatabase.CopyPropertiesTo(exist);
+            }
+            else
+            {
+                ExistingDatabases.AddAndSort(existingDatabase, s => s.FileNameWithoutExtension);
+            }
+        }
     }
+
+    #endregion
 
     private void ButtonExportDataBase_OnClick(object? sender, EventArgs e)
     {
