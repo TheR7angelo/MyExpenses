@@ -233,9 +233,11 @@ public partial class MainPage
             var fileName = Path.GetFileName(file);
             var newFilePath = Path.Join(DbContextBackup.LocalDirectoryDatabase, fileName);
 
-            var temp = await dropboxService.DownloadFileAsync(file, httpClient:mauiClient);
+            var fileTemp = Path.Join(AppContext.BaseDirectory, "temp.sqlite");
+
+            var temp = await dropboxService.DownloadFileAsync(file, fileTemp, mauiClient);
             Log.Information("Downloading {FileName} from cloud storage", fileName);
-            File.Copy(temp, newFilePath, true);
+            File.Move(temp, newFilePath, true);
             Log.Information("Successfully downloaded {FileName} from cloud storage", fileName);
         }
     }
