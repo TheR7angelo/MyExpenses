@@ -8,7 +8,7 @@
         <UseWPF>true</UseWPF>
         <ApplicationIcon>..\MyExpenses.Commons\Resources\Assets\Applications\Icon.ico</ApplicationIcon>
         <AssemblyName>MyExpenses</AssemblyName>
-        <Version>1.0.3</Version>
+        <Version>1.0.4</Version>
         <LangVersion>13</LangVersion>
     </PropertyGroup>
 

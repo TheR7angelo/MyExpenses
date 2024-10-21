@@ -366,7 +366,7 @@ public partial class WelcomePage
 
             var temp = await dropboxService.DownloadFileAsync(file);
             Log.Information("Downloading {FileName} from cloud storage", fileName);
-            File.Copy(temp, newFilePath, true);
+            File.Move(temp, newFilePath, true);
             Log.Information("Successfully downloaded {FileName} from cloud storage", fileName);
         }
     }
