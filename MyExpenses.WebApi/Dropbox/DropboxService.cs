@@ -17,6 +17,8 @@ public class DropboxService
 
     private string FilePathSecretKeys { get; set; }
 
+    private ProjectSystem ProjectSystem { get; set; }
+
     public DropboxService()
     {
         DropboxKeys = GetDropboxKeys();
@@ -84,11 +86,16 @@ public class DropboxService
         return list.Entries.Where(s => s.IsFile);
     }
 
-    public async Task<string> DownloadFileAsync(string filePath, string? destinationFilePath = null)
+    public async Task<string> DownloadFileAsync(string filePath, string? destinationFilePath = null, HttpClient? httpClient = null)
     {
+        if (ProjectSystem is ProjectSystem.Maui && httpClient is null)
+        {
+            throw new InvalidOperationException("HttpClient is required for MAUI projects.");
+        }
+
         if (!filePath.StartsWith('/')) filePath = $"/{filePath}";
 
-        using var dropboxClient = await GetDropboxClient();
+        using var dropboxClient = await GetDropboxClient(httpClient);
         
         var response = await dropboxClient.Files.DownloadAsync(filePath);
         var stream = await response.GetContentAsStreamAsync();
@@ -133,7 +140,7 @@ public class DropboxService
             body: memoryStream);
     }
 
-    private async Task<DropboxClient> GetDropboxClient()
+    private async Task<DropboxClient> GetDropboxClient(HttpClient? httpClient = null)
     {
         DropboxClient? dropboxClient = null;
         try
@@ -142,8 +149,11 @@ public class DropboxService
             {
                 await RefreshAccessTokenAuthentication();
             }
-            
-            dropboxClient = new DropboxClient(AccessTokenAuthentication.AccessToken, new DropboxClientConfig { HttpClient = new HttpClient() });
+
+            dropboxClient = httpClient is null
+                ? new DropboxClient(AccessTokenAuthentication.AccessToken)
+                : new DropboxClient(AccessTokenAuthentication.AccessToken, new DropboxClientConfig { HttpClient = httpClient });
+
             return dropboxClient;
         }
         catch
@@ -182,7 +192,7 @@ public class DropboxService
 
     public static async Task<DropboxService> CreateAsync(ProjectSystem projectSystem)
     {
-        var service = new DropboxService();
+        var service = new DropboxService { ProjectSystem = projectSystem };
         await service.InitializeAsync(projectSystem);
         return service;
     }

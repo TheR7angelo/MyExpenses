@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using MyExpenses.Maui.Utils.WebApi;
 using MyExpenses.Models.IO;
 using MyExpenses.Models.WebApi.Authenticator;
 using MyExpenses.Models.Wpf.Save;
@@ -225,13 +226,14 @@ public partial class MainPage
             return;
         }
 
+        var mauiClient = HttpClientHandlerCustom.CreateHttpClientHandler();
         var files = selectDatabaseFileContentPage.ExistingDatabasesSelected.Select(s => s.FilePath);
         foreach (var file in files)
         {
             var fileName = Path.GetFileName(file);
             var newFilePath = Path.Join(DbContextBackup.LocalDirectoryDatabase, fileName);
 
-            var temp = await dropboxService.DownloadFileAsync(file);
+            var temp = await dropboxService.DownloadFileAsync(file, httpClient:mauiClient);
             Log.Information("Downloading {FileName} from cloud storage", fileName);
             File.Copy(temp, newFilePath, true);
             Log.Information("Successfully downloaded {FileName} from cloud storage", fileName);
