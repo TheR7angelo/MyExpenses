@@ -5,12 +5,10 @@ using MyExpenses.Models.WebApi.DropBox;
 
 namespace MyExpenses.Share.Core.WebApi;
 
-public class WpfAuthenticator : AAuthenticator, IAuthenticator
+public class WpfAuthenticator : IAuthenticator
 {
-    public async Task<string?> AuthenticateAsync(DropboxKeys dropboxKeys)
+    public async Task<string?> AuthenticateAsync(DropboxKeys dropboxKeys, Pkce pkceData)
     {
-        var pkceData = GeneratePkceData();
-
         var httpListener = new HttpListener();
         httpListener.Prefixes.Add(dropboxKeys.RedirectUri!);
         httpListener.Start();

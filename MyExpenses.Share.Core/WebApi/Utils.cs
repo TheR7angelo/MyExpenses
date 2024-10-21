@@ -1,11 +1,12 @@
 using System.Security.Cryptography;
 using System.Text;
+using MyExpenses.Models.WebApi.Authenticator;
 
-namespace MyExpenses.Models.WebApi.Authenticator;
+namespace MyExpenses.Share.Core.WebApi;
 
-public abstract class AAuthenticator
+public static class Utils
 {
-    protected static (string CodeVerifier, string CodeChallenge) GeneratePkceData()
+    public static Pkce GeneratePkceData()
     {
         var codeVerifierBytes = new byte[32];
         RandomNumberGenerator.Fill(codeVerifierBytes);
@@ -20,6 +21,9 @@ public abstract class AAuthenticator
             .TrimEnd('=')
             .Replace('+', '-')
             .Replace('/', '_');
-        return (codeVerifier, codeChallenge);
+        
+        var pkce = new Pkce { CodeChallenge = codeChallenge, CodeVerifier = codeVerifier };
+
+        return pkce;
     }
 }
