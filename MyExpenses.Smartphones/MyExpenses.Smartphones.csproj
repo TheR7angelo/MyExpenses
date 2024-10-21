@@ -63,6 +63,7 @@
     </Target>
     
     <ItemGroup>
+        <PackageReference Include="CommunityToolkit.Maui" Version="9.1.0" />
         <PackageReference Include="IconPacks.Material" Version="1.0.8940.2-build" />
         <PackageReference Include="Material.Components.Maui" Version="0.2.2-preview" />
         <PackageReference Include="Microsoft.Maui.Controls" Version="8.0.91" />

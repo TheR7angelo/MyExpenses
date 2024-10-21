@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using CommunityToolkit.Maui.Storage;
 using MyExpenses.Maui.Utils.WebApi;
 using MyExpenses.Models.IO;
 using MyExpenses.Models.WebApi.Authenticator;
@@ -267,8 +268,65 @@ public partial class MainPage
 
     #endregion
 
-    private void ButtonExportDataBase_OnClick(object? sender, EventArgs e)
+    private async void ButtonExportDataBase_OnClick(object? sender, EventArgs e)
     {
-        throw new NotImplementedException();
+        var saveLocationContentPage = new SaveLocationContentPage();
+        await Navigation.PushAsync(saveLocationContentPage);
+        var result = await saveLocationContentPage.ResultDialog;
+        if (result is not true) return;
+        var saveLocation = saveLocationContentPage.SaveLocationResult;
+
+        await Task.Delay(100);
+
+        var selectDatabaseFileContentPage = new SelectDatabaseFileContentPage();
+        selectDatabaseFileContentPage.ExistingDatabases.AddRange(ExistingDatabases);
+        await Navigation.PushAsync(selectDatabaseFileContentPage);
+        result = await selectDatabaseFileContentPage.ResultDialog;
+        if (result is not true) return;
+        if (selectDatabaseFileContentPage.ExistingDatabasesSelected.Count.Equals(0)) return;
+
+        var z = selectDatabaseFileContentPage.ExistingDatabasesSelected;
+
+        // try
+        // {
+        //     switch (saveLocation)
+        //     {
+        //         case SaveLocation.Local:
+        //         case SaveLocation.Database:
+        //             await SaveToLocalDatabase(selectDatabaseFileContentPage.ExistingDatabasesSelected);
+        //             break;
+        //
+        //         // case SaveLocation.Folder:
+        //         //     await ExportToLocalFolderAsync(selectDatabaseFileContentPage.ExistingDatabasesSelected, false);
+        //         //     break;
+        //
+        //         // case SaveLocation.Dropbox:
+        //         //     await SaveToCloudAsync(selectDatabaseFileContentPage.ExistingDatabasesSelected);
+        //         //     break;
+        //
+        //
+        //         case null:
+        //         case SaveLocation.Compress:
+        //         default:
+        //             throw new ArgumentOutOfRangeException();
+        //     }
+        //
+        //     // MsgBox.Show(WelcomePageResources.ButtonExportDataBaseSucess, MsgBoxImage.Check);
+        // }
+        // catch (Exception exception)
+        // {
+        //     Log.Error(exception, "An error occurred. Please try again");
+        //
+        //     // MsgBox.Show(WelcomePageResources.ButtonExportDataBaseError, MsgBoxImage.Warning);
+        // }
+    }
+
+    private async Task SaveToLocalDatabase(List<ExistingDatabase> existingDatabasesSelected)
+    {
+        var folderPickerResult = await FolderPicker.Default.PickAsync();
+        if (!folderPickerResult.IsSuccessful) return;
+
+        var path = folderPickerResult.Folder.Path;
+        await DisplayAlert("Répertoire sélectionné", path, "OK");
     }
 }
