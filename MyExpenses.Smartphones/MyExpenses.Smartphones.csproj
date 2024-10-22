@@ -91,6 +91,12 @@
       <MauiXaml Update="UserControls\TextInputs\CustomEntryControl\CustomEntryControl.xaml">
         <SubType>Designer</SubType>
       </MauiXaml>
+      <MauiXaml Update="ContentPages\SaveLocationContentPage\SelectDatabaseFileContentPage.xaml">
+        <SubType>Designer</SubType>
+      </MauiXaml>
+      <MauiXaml Update="ContentPages\SaveLocation\SaveLocationContentPage.xaml">
+        <SubType>Designer</SubType>
+      </MauiXaml>
     </ItemGroup>
 
     <ItemGroup>
@@ -116,6 +122,14 @@
         <DesignTime>True</DesignTime>
         <AutoGen>True</AutoGen>
         <DependentUpon>MainPageResources.resx</DependentUpon>
+      </Compile>
+      <Compile Update="ContentPages\SaveLocationContentPage\SelectDatabaseFileContentPage.xaml.cs">
+        <DependentUpon>SelectDatabaseFileContentPage.xaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="ContentPages\SaveLocation\SaveLocationContentPage.xaml.cs">
+        <DependentUpon>SaveLocationContentPage.xaml</DependentUpon>
+        <SubType>Code</SubType>
       </Compile>
     </ItemGroup>
 
