@@ -13,7 +13,6 @@
       <PackageReference Include="CsvHelper" Version="33.0.1" />
       <PackageReference Include="Mapsui" Version="4.1.7" />
       <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite.Core" Version="8.0.10" />
-      <PackageReference Include="Microsoft.Maui.Essentials" Version="8.0.91" />
       <PackageReference Include="NetTopologySuite" Version="2.5.0" />
       <PackageReference Include="NetTopologySuite.IO.Esri.Shapefile" Version="1.2.0" />
       <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
