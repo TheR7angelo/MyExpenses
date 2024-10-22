@@ -268,6 +268,22 @@ public partial class MainPage
         }
     }
 
+    private async Task SaveToLocalDatabase(List<ExistingDatabase> existingDatabasesSelected)
+    {
+        var folderPickerResult = await FolderPicker.Default.PickAsync();
+        if (!folderPickerResult.IsSuccessful) return;
+
+        var selectedFolder = folderPickerResult.Folder.Path;
+
+        foreach (var existingDatabase in existingDatabasesSelected)
+        {
+            var newFilePath = Path.Join(selectedFolder, existingDatabase.FileName);
+            Log.Information("Starting to copy {ExistingDatabaseFileName} to {NewFilePath}", existingDatabase.FileName, newFilePath);
+            await Task.Run(() => File.Copy(existingDatabase.FilePath, newFilePath, true));
+            Log.Information("Successfully copied {ExistingDatabaseFileName} to {NewFilePath}", existingDatabase.FileName, newFilePath);
+        }
+    }
+
     #endregion
 
     private async void ButtonExportDataBase_OnClick(object? sender, EventArgs e)
@@ -316,23 +332,5 @@ public partial class MainPage
 
             // MsgBox.Show(WelcomePageResources.ButtonExportDataBaseError, MsgBoxImage.Warning);
         }
-    }
-
-    private async Task SaveToLocalDatabase(List<ExistingDatabase> existingDatabasesSelected)
-    {
-        var folderPickerResult = await FolderPicker.Default.PickAsync();
-        if (!folderPickerResult.IsSuccessful) return;
-
-        var selectedFolder = folderPickerResult.Folder.Path;
-
-        foreach (var existingDatabase in existingDatabasesSelected)
-        {
-            var newFilePath = Path.Join(selectedFolder, existingDatabase.FileName);
-            Log.Information("Starting to copy {ExistingDatabaseFileName} to {NewFilePath}", existingDatabase.FileName, newFilePath);
-            await Task.Run(() => File.Copy(existingDatabase.FilePath, newFilePath, true));
-            Log.Information("Successfully copied {ExistingDatabaseFileName} to {NewFilePath}", existingDatabase.FileName, newFilePath);
-        }
-
-        await DisplayAlert("Répertoire sélectionné", selectedFolder, "OK");
     }
 }
