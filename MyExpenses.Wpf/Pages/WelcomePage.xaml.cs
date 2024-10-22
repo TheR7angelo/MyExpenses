@@ -126,6 +126,8 @@ public partial class WelcomePage
                     await SaveToCloudAsync(selectDatabaseFileWindow.ExistingDatabasesSelected);
                     break;
 
+                case null:
+                case SaveLocation.Local:
                 default:
                     throw new ArgumentOutOfRangeException();
             }
@@ -165,6 +167,10 @@ public partial class WelcomePage
                     await ImportFromCloudAsync();
                     break;
 
+                case null:
+                case SaveLocation.Folder:
+                case SaveLocation.Database:
+                case SaveLocation.Compress:
                 default:
                     throw new ArgumentOutOfRangeException();
             }
