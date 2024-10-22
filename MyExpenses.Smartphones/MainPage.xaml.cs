@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using CommunityToolkit.Maui.Storage;
+using MyExpenses.Core.Export;
 using MyExpenses.Maui.Utils.WebApi;
 using MyExpenses.Models.IO;
 using MyExpenses.Models.WebApi.Authenticator;
@@ -180,6 +181,43 @@ public partial class MainPage
 
     #region Function
 
+    private async Task ExportToLocalDatabase(List<ExistingDatabase> existingDatabasesSelected)
+    {
+        var folderPickerResult = await FolderPicker.Default.PickAsync();
+        if (!folderPickerResult.IsSuccessful) return;
+
+        var selectedFolder = folderPickerResult.Folder.Path;
+
+        foreach (var existingDatabase in existingDatabasesSelected)
+        {
+            var newFilePath = Path.Join(selectedFolder, existingDatabase.FileName);
+            Log.Information("Starting to copy {ExistingDatabaseFileName} to {NewFilePath}", existingDatabase.FileName, newFilePath);
+            await Task.Run(() => File.Copy(existingDatabase.FilePath, newFilePath, true));
+            Log.Information("Successfully copied {ExistingDatabaseFileName} to {NewFilePath}", existingDatabase.FileName, newFilePath);
+        }
+    }
+
+    private async Task ExportToLocalFolderAsync(List<ExistingDatabase> existingDatabasesSelected, bool isCompress)
+    {
+        var folderPickerResult = await FolderPicker.Default.PickAsync();
+        if (!folderPickerResult.IsSuccessful) return;
+
+        var selectedFolder = folderPickerResult.Folder.Path;
+
+        Log.Information("Starting to export database to {SelectedDialog}", selectedFolder);
+
+        await Task.Run(async () =>
+        {
+            foreach (var existingDatabase in existingDatabasesSelected)
+            {
+                Log.Information("Starting to export {ExistingDatabaseFileName}", existingDatabase.FileNameWithoutExtension);
+                await existingDatabase.ToFolderAsync(selectedFolder, isCompress);
+            }
+        });
+
+        Log.Information("Database successfully copied to local storage");
+    }
+
     private async Task ImportFromCloudAsync()
     {
         Log.Information("Starting to import the database from cloud storage");
@@ -268,22 +306,6 @@ public partial class MainPage
         }
     }
 
-    private async Task SaveToLocalDatabase(List<ExistingDatabase> existingDatabasesSelected)
-    {
-        var folderPickerResult = await FolderPicker.Default.PickAsync();
-        if (!folderPickerResult.IsSuccessful) return;
-
-        var selectedFolder = folderPickerResult.Folder.Path;
-
-        foreach (var existingDatabase in existingDatabasesSelected)
-        {
-            var newFilePath = Path.Join(selectedFolder, existingDatabase.FileName);
-            Log.Information("Starting to copy {ExistingDatabaseFileName} to {NewFilePath}", existingDatabase.FileName, newFilePath);
-            await Task.Run(() => File.Copy(existingDatabase.FilePath, newFilePath, true));
-            Log.Information("Successfully copied {ExistingDatabaseFileName} to {NewFilePath}", existingDatabase.FileName, newFilePath);
-        }
-    }
-
     #endregion
 
     private async void ButtonExportDataBase_OnClick(object? sender, EventArgs e)
@@ -305,12 +327,12 @@ public partial class MainPage
             switch (saveLocation)
             {
                 case SaveLocation.Database:
-                    await SaveToLocalDatabase(selectDatabaseFileContentPage.ExistingDatabasesSelected);
+                    await ExportToLocalDatabase(selectDatabaseFileContentPage.ExistingDatabasesSelected);
                     break;
 
-                // case SaveLocation.Folder:
-                //     await ExportToLocalFolderAsync(selectDatabaseFileContentPage.ExistingDatabasesSelected, false);
-                //     break;
+                case SaveLocation.Folder:
+                    await ExportToLocalFolderAsync(selectDatabaseFileContentPage.ExistingDatabasesSelected, false);
+                    break;
 
                 // case SaveLocation.Dropbox:
                 //     await SaveToCloudAsync(selectDatabaseFileContentPage.ExistingDatabasesSelected);
