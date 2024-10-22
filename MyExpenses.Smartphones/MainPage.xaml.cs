@@ -84,43 +84,36 @@ public partial class MainPage
     // TODO rework
     private async void ButtonImportDataBase_OnClick(object? sender, EventArgs e)
     {
-        // var saveLocationContentPage = new SaveLocationContentPage();
-        //
-        // await Navigation.PushAsync(saveLocationContentPage);
-        //
-        // var result = await saveLocationContentPage.ResultDialog;
-        //
-        // if (result is not true) return;
-        //
-        // var saveLocation = saveLocationContentPage.SaveLocationResult;
-        //
-        // try
-        // {
-        //     switch (saveLocation)
-        //     {
-        //         case SaveLocation.Local:
-        //             await ImportFromLocalAsync();
-        //             break;
-        //         case SaveLocation.Dropbox:
-        //             await ImportFromCloudAsync();
-        //             break;
-        //         case SaveLocation.Folder:
-        //         case SaveLocation.Database:
-        //         case SaveLocation.Compress:
-        //         case null:
-        //         default:
-        //             throw new ArgumentOutOfRangeException();
-        //     }
-        //
-        //     RefreshExistingDatabases();
-        //
-        //     await DisplayAlert(MainPageResources.MessageBoxImportDatabaseSuccessTitle, MainPageResources.MessageBoxImportDatabaseSuccessMessage, MainPageResources.MessageBoxImportDatabaseSuccessOkButton);
-        // }
-        // catch (Exception exception)
-        // {
-        //     Log.Error(exception, "An error occurred. Please try again");
-        //     await DisplayAlert(MainPageResources.MessageBoxImportDatabaseErrorTitle, MainPageResources.MessageBoxImportDatabaseErrorMessage, MainPageResources.MessageBoxImportDatabaseErrorOkButton);
-        // }
+        var saveLocation = await SaveLocationMode.LocalDropbox.GetImportSaveLocation();
+        if (saveLocation is null) return;
+
+        try
+        {
+            switch (saveLocation)
+            {
+                case SaveLocation.Local:
+                    await ImportFromLocalAsync();
+                    break;
+                case SaveLocation.Dropbox:
+                    await ImportFromCloudAsync();
+                    break;
+                case SaveLocation.Folder:
+                case SaveLocation.Database:
+                case SaveLocation.Compress:
+                case null:
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+
+            RefreshExistingDatabases();
+
+            await DisplayAlert(MainPageResources.MessageBoxImportDatabaseSuccessTitle, MainPageResources.MessageBoxImportDatabaseSuccessMessage, MainPageResources.MessageBoxImportDatabaseSuccessOkButton);
+        }
+        catch (Exception exception)
+        {
+            Log.Error(exception, "An error occurred. Please try again");
+            await DisplayAlert(MainPageResources.MessageBoxImportDatabaseErrorTitle, MainPageResources.MessageBoxImportDatabaseErrorMessage, MainPageResources.MessageBoxImportDatabaseErrorOkButton);
+        }
     }
 
     private async void ButtonRemoveDataBase_OnClick(object? sender, EventArgs e)
@@ -334,7 +327,7 @@ public partial class MainPage
                     await ExportToLocalFolderAsync(selectDatabaseFileContentPage.ExistingDatabasesSelected, false);
                     break;
 
-                //TODO finish
+                //TODO finish&
                 // case SaveLocation.Dropbox:
                 //     await ExportToCloudAsync(selectDatabaseFileContentPage.ExistingDatabasesSelected);
                 //     break;
