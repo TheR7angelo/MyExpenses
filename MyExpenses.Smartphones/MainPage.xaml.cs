@@ -81,6 +81,53 @@ public partial class MainPage
         Application.Current!.MainPage = dashBoardShell;
     }
 
+    private async void ButtonExportDataBase_OnClick(object? sender, EventArgs e)
+    {
+        var saveLocation = await SaveLocationContentPageUtils.GetExportSaveLocation();
+        if (saveLocation is null) return;
+
+        await Task.Delay(TimeSpan.FromMilliseconds(100));
+
+        var selectDatabaseFileContentPage = new SelectDatabaseFileContentPage();
+        selectDatabaseFileContentPage.ExistingDatabases.AddRange(ExistingDatabases);
+        await Navigation.PushAsync(selectDatabaseFileContentPage);
+        var result = await selectDatabaseFileContentPage.ResultDialog;
+        if (result is not true) return;
+        if (selectDatabaseFileContentPage.ExistingDatabasesSelected.Count.Equals(0)) return;
+
+        try
+        {
+            switch (saveLocation)
+            {
+                case SaveLocation.Database:
+                    await ExportToLocalDatabase(selectDatabaseFileContentPage.ExistingDatabasesSelected);
+                    break;
+
+                case SaveLocation.Folder:
+                    await ExportToLocalFolderAsync(selectDatabaseFileContentPage.ExistingDatabasesSelected, false);
+                    break;
+
+
+                case SaveLocation.Dropbox:
+                    await ExportToCloudAsync(selectDatabaseFileContentPage.ExistingDatabasesSelected);
+                    break;
+
+                case SaveLocation.Local:
+                case SaveLocation.Compress:
+                case null:
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+
+            await DisplayAlert(MainPageResources.MessageBoxExportDataBaseSuccessTitle, MainPageResources.MessageBoxExportDataBaseSuccessMessage, MainPageResources.MessageBoxExportDataBaseSuccessOkButton);
+        }
+        catch (Exception exception)
+        {
+            Log.Error(exception, "An error occurred. Please try again");
+            await DisplayAlert(MainPageResources.MessageBoxExportDataBaseErrorTitle, MainPageResources.MessageBoxExportDataBaseErrorMessage, MainPageResources.MessageBoxExportDataBaseErrorOkButton);
+        }
+    }
+
     private async void ButtonImportDataBase_OnClick(object? sender, EventArgs e)
     {
         var saveLocation = await SaveLocationMode.LocalDropbox.GetImportSaveLocation();
@@ -173,7 +220,18 @@ public partial class MainPage
 
     #region Function
 
-    private async Task ExportToLocalDatabase(List<ExistingDatabase> existingDatabasesSelected)
+    private static async Task ExportToCloudAsync(List<ExistingDatabase> existingDatabasesSelected)
+    {
+        var dropboxService = await DropboxService.CreateAsync(ProjectSystem.Maui);
+        foreach (var existingDatabase in existingDatabasesSelected)
+        {
+            Log.Information("Starting to upload {ExistingDatabaseFileName} to cloud storage", existingDatabase.FileName);
+            await dropboxService.UploadFileAsync(existingDatabase.FilePath, DbContextBackup.CloudDirectoryBackupDatabase);
+            Log.Information("Successfully uploaded {ExistingDatabaseFileName} to cloud storage", existingDatabase.FileName);
+        }
+    }
+
+    private static async Task ExportToLocalDatabase(List<ExistingDatabase> existingDatabasesSelected)
     {
         var folderPickerResult = await FolderPicker.Default.PickAsync();
         if (!folderPickerResult.IsSuccessful) return;
@@ -189,7 +247,7 @@ public partial class MainPage
         }
     }
 
-    private async Task ExportToLocalFolderAsync(List<ExistingDatabase> existingDatabasesSelected, bool isCompress)
+    private static async Task ExportToLocalFolderAsync(List<ExistingDatabase> existingDatabasesSelected, bool isCompress)
     {
         var folderPickerResult = await FolderPicker.Default.PickAsync();
         if (!folderPickerResult.IsSuccessful) return;
@@ -299,52 +357,4 @@ public partial class MainPage
     }
 
     #endregion
-
-    private async void ButtonExportDataBase_OnClick(object? sender, EventArgs e)
-    {
-        var saveLocation = await SaveLocationContentPageUtils.GetExportSaveLocation();
-        if (saveLocation is null) return;
-
-        await Task.Delay(TimeSpan.FromMilliseconds(100));
-
-        var selectDatabaseFileContentPage = new SelectDatabaseFileContentPage();
-        selectDatabaseFileContentPage.ExistingDatabases.AddRange(ExistingDatabases);
-        await Navigation.PushAsync(selectDatabaseFileContentPage);
-        var result = await selectDatabaseFileContentPage.ResultDialog;
-        if (result is not true) return;
-        if (selectDatabaseFileContentPage.ExistingDatabasesSelected.Count.Equals(0)) return;
-
-        try
-        {
-            switch (saveLocation)
-            {
-                case SaveLocation.Database:
-                    await ExportToLocalDatabase(selectDatabaseFileContentPage.ExistingDatabasesSelected);
-                    break;
-
-                case SaveLocation.Folder:
-                    await ExportToLocalFolderAsync(selectDatabaseFileContentPage.ExistingDatabasesSelected, false);
-                    break;
-
-                //TODO finish&
-                // case SaveLocation.Dropbox:
-                //     await ExportToCloudAsync(selectDatabaseFileContentPage.ExistingDatabasesSelected);
-                //     break;
-
-                case SaveLocation.Local:
-                case SaveLocation.Compress:
-                case null:
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
-
-            // MsgBox.Show(WelcomePageResources.ButtonExportDataBaseSucess, MsgBoxImage.Check);
-        }
-        catch (Exception exception)
-        {
-            Log.Error(exception, "An error occurred. Please try again");
-
-            // MsgBox.Show(WelcomePageResources.ButtonExportDataBaseError, MsgBoxImage.Warning);
-        }
-    }
 }

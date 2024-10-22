@@ -77,4 +77,22 @@
     <data name="MessageBoxImportDatabaseErrorMessage" xml:space="preserve">
         <value>An error occurred. Please try again</value>
     </data>
+    <data name="MessageBoxExportDataBaseSuccessMessage" xml:space="preserve">
+        <value>Database backup operation was successful</value>
+    </data>
+    <data name="MessageBoxExportDataBaseSuccessOkButton" xml:space="preserve">
+        <value>Ok</value>
+    </data>
+    <data name="MessageBoxExportDataBaseSuccessTitle" xml:space="preserve">
+        <value>Success</value>
+    </data>
+    <data name="MessageBoxExportDataBaseErrorTitle" xml:space="preserve">
+        <value>Error</value>
+    </data>
+    <data name="MessageBoxExportDataBaseErrorOkButton" xml:space="preserve">
+        <value>Ok</value>
+    </data>
+    <data name="MessageBoxExportDataBaseErrorMessage" xml:space="preserve">
+        <value>An error occurred. Please try again</value>
+    </data>
 </root>

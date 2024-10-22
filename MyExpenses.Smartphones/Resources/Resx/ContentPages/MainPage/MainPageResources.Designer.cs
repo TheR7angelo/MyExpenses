@@ -107,6 +107,60 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.MainPage {
         /// <summary>
         ///   Looks up a localized string similar to An error occurred. Please try again.
         /// </summary>
+        internal static string MessageBoxExportDataBaseErrorMessage {
+            get {
+                return ResourceManager.GetString("MessageBoxExportDataBaseErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ok.
+        /// </summary>
+        internal static string MessageBoxExportDataBaseErrorOkButton {
+            get {
+                return ResourceManager.GetString("MessageBoxExportDataBaseErrorOkButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        internal static string MessageBoxExportDataBaseErrorTitle {
+            get {
+                return ResourceManager.GetString("MessageBoxExportDataBaseErrorTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Database backup operation was successful.
+        /// </summary>
+        internal static string MessageBoxExportDataBaseSuccessMessage {
+            get {
+                return ResourceManager.GetString("MessageBoxExportDataBaseSuccessMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ok.
+        /// </summary>
+        internal static string MessageBoxExportDataBaseSuccessOkButton {
+            get {
+                return ResourceManager.GetString("MessageBoxExportDataBaseSuccessOkButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Success.
+        /// </summary>
+        internal static string MessageBoxExportDataBaseSuccessTitle {
+            get {
+                return ResourceManager.GetString("MessageBoxExportDataBaseSuccessTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error occurred. Please try again.
+        /// </summary>
         internal static string MessageBoxImportDatabaseErrorMessage {
             get {
                 return ResourceManager.GetString("MessageBoxImportDatabaseErrorMessage", resourceCulture);
