@@ -4,6 +4,9 @@ namespace MyExpenses.Smartphones.ContentPages.SaveLocation;
 
 public static class SaveLocationContentPageUtils
 {
+    public static async Task<Models.Wpf.Save.SaveLocation?> GetImportSaveLocation(this SaveLocationMode saveLocationMode)
+        => await saveLocationMode.GetSaveLocation();
+
     public static async Task<Models.Wpf.Save.SaveLocation?> GetExportSaveLocation()
     {
         var saveLocation = await SaveLocationMode.LocalDropbox.GetSaveLocation();
