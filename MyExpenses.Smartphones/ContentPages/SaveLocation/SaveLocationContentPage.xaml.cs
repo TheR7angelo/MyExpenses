@@ -7,7 +7,7 @@ public partial class SaveLocationContentPage
 {
     public static readonly BindableProperty ButtonLocalVisibilityProperty =
         BindableProperty.Create(nameof(ButtonLocalVisibility), typeof(bool), typeof(SaveLocationContentPage),
-            true);
+            default(bool));
 
     public bool ButtonLocalVisibility
     {
@@ -17,7 +17,7 @@ public partial class SaveLocationContentPage
 
     public static readonly BindableProperty ButtonDropboxVisibilityProperty =
         BindableProperty.Create(nameof(ButtonDropboxVisibility), typeof(bool), typeof(SaveLocationContentPage),
-            true);
+            default(bool));
 
     public bool ButtonDropboxVisibility
     {
@@ -27,7 +27,7 @@ public partial class SaveLocationContentPage
 
     public static readonly BindableProperty ButtonFolderVisibilityProperty =
         BindableProperty.Create(nameof(ButtonFolderVisibility), typeof(bool), typeof(SaveLocationContentPage),
-            false);
+            default(bool));
 
     public bool ButtonFolderVisibility
     {
@@ -39,7 +39,7 @@ public partial class SaveLocationContentPage
 
     public static readonly BindableProperty ButtonDatabaseVisibilityProperty =
         BindableProperty.Create(nameof(ButtonDatabaseVisibility), typeof(bool), typeof(SaveLocationContentPage),
-            false);
+            default(bool));
 
     public bool ButtonDatabaseVisibility
     {
@@ -63,10 +63,16 @@ public partial class SaveLocationContentPage
         switch (saveLocationMode)
         {
             case SaveLocationMode.LocalDropbox:
+                ButtonLocalVisibility = true;
+                ButtonDropboxVisibility = true;
+                break;
 
-                break;
             case SaveLocationMode.FolderFolderCompressDatabase:
+                ButtonFolderVisibility = true;
+                // ButtonFolderCompressVisibility = true;
+                ButtonDatabaseVisibility = true;
                 break;
+
             default:
                 throw new ArgumentOutOfRangeException(nameof(saveLocationMode), saveLocationMode, null);
         }
@@ -90,6 +96,20 @@ public partial class SaveLocationContentPage
     private async void ButtonImageViewDropbox_OnClicked(object? sender, EventArgs e)
     {
         SaveLocationResult = Models.Wpf.Save.SaveLocation.Dropbox;
+        _taskCompletionSource.SetResult(true);
+        await Navigation.PopAsync();
+    }
+
+    private async void ButtonImageViewFolder_OnClicked(object? sender, EventArgs e)
+    {
+        SaveLocationResult = Models.Wpf.Save.SaveLocation.Folder;
+        _taskCompletionSource.SetResult(true);
+        await Navigation.PopAsync();
+    }
+
+    private async void ButtonImageViewDatabase_OnClicked(object? sender, EventArgs e)
+    {
+        SaveLocationResult = Models.Wpf.Save.SaveLocation.Database;
         _taskCompletionSource.SetResult(true);
         await Navigation.PopAsync();
     }
