@@ -6,6 +6,7 @@ using MyExpenses.Models.WebApi.Authenticator;
 using MyExpenses.Models.Wpf.Save;
 using MyExpenses.Smartphones.AppShells;
 using MyExpenses.Smartphones.ContentPages;
+using MyExpenses.Smartphones.ContentPages.SaveLocation;
 using MyExpenses.Smartphones.Resources.Resx.ContentPages.MainPage;
 using MyExpenses.Smartphones.UserControls.Buttons.CustomFrame;
 using MyExpenses.Sql.Context;
@@ -79,45 +80,46 @@ public partial class MainPage
         Application.Current!.MainPage = dashBoardShell;
     }
 
+    // TODO rework
     private async void ButtonImportDataBase_OnClick(object? sender, EventArgs e)
     {
-        var saveLocationContentPage = new SaveLocationContentPage();
-
-        await Navigation.PushAsync(saveLocationContentPage);
-
-        var result = await saveLocationContentPage.ResultDialog;
-
-        if (result is not true) return;
-
-        var saveLocation = saveLocationContentPage.SaveLocationResult;
-
-        try
-        {
-            switch (saveLocation)
-            {
-                case SaveLocation.Local:
-                    await ImportFromLocalAsync();
-                    break;
-                case SaveLocation.Dropbox:
-                    await ImportFromCloudAsync();
-                    break;
-                case SaveLocation.Folder:
-                case SaveLocation.Database:
-                case SaveLocation.Compress:
-                case null:
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
-
-            RefreshExistingDatabases();
-
-            await DisplayAlert(MainPageResources.MessageBoxImportDatabaseSuccessTitle, MainPageResources.MessageBoxImportDatabaseSuccessMessage, MainPageResources.MessageBoxImportDatabaseSuccessOkButton);
-        }
-        catch (Exception exception)
-        {
-            Log.Error(exception, "An error occurred. Please try again");
-            await DisplayAlert(MainPageResources.MessageBoxImportDatabaseErrorTitle, MainPageResources.MessageBoxImportDatabaseErrorMessage, MainPageResources.MessageBoxImportDatabaseErrorOkButton);
-        }
+        // var saveLocationContentPage = new SaveLocationContentPage();
+        //
+        // await Navigation.PushAsync(saveLocationContentPage);
+        //
+        // var result = await saveLocationContentPage.ResultDialog;
+        //
+        // if (result is not true) return;
+        //
+        // var saveLocation = saveLocationContentPage.SaveLocationResult;
+        //
+        // try
+        // {
+        //     switch (saveLocation)
+        //     {
+        //         case SaveLocation.Local:
+        //             await ImportFromLocalAsync();
+        //             break;
+        //         case SaveLocation.Dropbox:
+        //             await ImportFromCloudAsync();
+        //             break;
+        //         case SaveLocation.Folder:
+        //         case SaveLocation.Database:
+        //         case SaveLocation.Compress:
+        //         case null:
+        //         default:
+        //             throw new ArgumentOutOfRangeException();
+        //     }
+        //
+        //     RefreshExistingDatabases();
+        //
+        //     await DisplayAlert(MainPageResources.MessageBoxImportDatabaseSuccessTitle, MainPageResources.MessageBoxImportDatabaseSuccessMessage, MainPageResources.MessageBoxImportDatabaseSuccessOkButton);
+        // }
+        // catch (Exception exception)
+        // {
+        //     Log.Error(exception, "An error occurred. Please try again");
+        //     await DisplayAlert(MainPageResources.MessageBoxImportDatabaseErrorTitle, MainPageResources.MessageBoxImportDatabaseErrorMessage, MainPageResources.MessageBoxImportDatabaseErrorOkButton);
+        // }
     }
 
     private async void ButtonRemoveDataBase_OnClick(object? sender, EventArgs e)
@@ -270,55 +272,50 @@ public partial class MainPage
 
     private async void ButtonExportDataBase_OnClick(object? sender, EventArgs e)
     {
-        var saveLocationContentPage = new SaveLocationContentPage();
-        await Navigation.PushAsync(saveLocationContentPage);
-        var result = await saveLocationContentPage.ResultDialog;
-        if (result is not true) return;
-        var saveLocation = saveLocationContentPage.SaveLocationResult;
+        var saveLocation = await SaveLocationContentPageUtils.GetExportSaveLocation();
+        if (saveLocation is null) return;
 
-        await Task.Delay(100);
+        await Task.Delay(TimeSpan.FromMilliseconds(100));
 
         var selectDatabaseFileContentPage = new SelectDatabaseFileContentPage();
         selectDatabaseFileContentPage.ExistingDatabases.AddRange(ExistingDatabases);
         await Navigation.PushAsync(selectDatabaseFileContentPage);
-        result = await selectDatabaseFileContentPage.ResultDialog;
+        var result = await selectDatabaseFileContentPage.ResultDialog;
         if (result is not true) return;
         if (selectDatabaseFileContentPage.ExistingDatabasesSelected.Count.Equals(0)) return;
 
-        var z = selectDatabaseFileContentPage.ExistingDatabasesSelected;
+        try
+        {
+            switch (saveLocation)
+            {
+                case SaveLocation.Database:
+                    await SaveToLocalDatabase(selectDatabaseFileContentPage.ExistingDatabasesSelected);
+                    break;
 
-        // try
-        // {
-        //     switch (saveLocation)
-        //     {
-        //         case SaveLocation.Local:
-        //         case SaveLocation.Database:
-        //             await SaveToLocalDatabase(selectDatabaseFileContentPage.ExistingDatabasesSelected);
-        //             break;
-        //
-        //         // case SaveLocation.Folder:
-        //         //     await ExportToLocalFolderAsync(selectDatabaseFileContentPage.ExistingDatabasesSelected, false);
-        //         //     break;
-        //
-        //         // case SaveLocation.Dropbox:
-        //         //     await SaveToCloudAsync(selectDatabaseFileContentPage.ExistingDatabasesSelected);
-        //         //     break;
-        //
-        //
-        //         case null:
-        //         case SaveLocation.Compress:
-        //         default:
-        //             throw new ArgumentOutOfRangeException();
-        //     }
-        //
-        //     // MsgBox.Show(WelcomePageResources.ButtonExportDataBaseSucess, MsgBoxImage.Check);
-        // }
-        // catch (Exception exception)
-        // {
-        //     Log.Error(exception, "An error occurred. Please try again");
-        //
-        //     // MsgBox.Show(WelcomePageResources.ButtonExportDataBaseError, MsgBoxImage.Warning);
-        // }
+                // case SaveLocation.Folder:
+                //     await ExportToLocalFolderAsync(selectDatabaseFileContentPage.ExistingDatabasesSelected, false);
+                //     break;
+
+                // case SaveLocation.Dropbox:
+                //     await SaveToCloudAsync(selectDatabaseFileContentPage.ExistingDatabasesSelected);
+                //     break;
+
+
+                case SaveLocation.Local:
+                case SaveLocation.Compress:
+                case null:
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+
+            // MsgBox.Show(WelcomePageResources.ButtonExportDataBaseSucess, MsgBoxImage.Check);
+        }
+        catch (Exception exception)
+        {
+            Log.Error(exception, "An error occurred. Please try again");
+
+            // MsgBox.Show(WelcomePageResources.ButtonExportDataBaseError, MsgBoxImage.Warning);
+        }
     }
 
     private async Task SaveToLocalDatabase(List<ExistingDatabase> existingDatabasesSelected)
@@ -326,7 +323,16 @@ public partial class MainPage
         var folderPickerResult = await FolderPicker.Default.PickAsync();
         if (!folderPickerResult.IsSuccessful) return;
 
-        var path = folderPickerResult.Folder.Path;
-        await DisplayAlert("Répertoire sélectionné", path, "OK");
+        var selectedFolder = folderPickerResult.Folder.Path;
+
+        foreach (var existingDatabase in existingDatabasesSelected)
+        {
+            var newFilePath = Path.Join(selectedFolder, existingDatabase.FileName);
+            Log.Information("Starting to copy {ExistingDatabaseFileName} to {NewFilePath}", existingDatabase.FileName, newFilePath);
+            await Task.Run(() => File.Copy(existingDatabase.FilePath, newFilePath, true));
+            Log.Information("Successfully copied {ExistingDatabaseFileName} to {NewFilePath}", existingDatabase.FileName, newFilePath);
+        }
+
+        await DisplayAlert("Répertoire sélectionné", selectedFolder, "OK");
     }
 }
