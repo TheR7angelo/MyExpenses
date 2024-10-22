@@ -81,7 +81,6 @@ public partial class MainPage
         Application.Current!.MainPage = dashBoardShell;
     }
 
-    // TODO rework
     private async void ButtonImportDataBase_OnClick(object? sender, EventArgs e)
     {
         var saveLocation = await SaveLocationMode.LocalDropbox.GetImportSaveLocation();
