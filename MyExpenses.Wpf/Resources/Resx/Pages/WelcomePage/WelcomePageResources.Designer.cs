@@ -71,9 +71,9 @@ namespace MyExpenses.Wpf.Resources.Resx.Pages.WelcomePage {
         /// <summary>
         ///   Looks up a localized string similar to Database backup operation was successful.
         /// </summary>
-        internal static string ButtonExportDataBaseSucess {
+        internal static string ButtonExportDataBaseSuccess {
             get {
-                return ResourceManager.GetString("ButtonExportDataBaseSucess", resourceCulture);
+                return ResourceManager.GetString("ButtonExportDataBaseSuccess", resourceCulture);
             }
         }
         

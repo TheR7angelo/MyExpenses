@@ -45,7 +45,7 @@
     <data name="ButtonExportDataBaseWaitMessageExportToCloud" xml:space="preserve">
         <value>Uploading to Dropbox... Please wait</value>
     </data>
-    <data name="ButtonExportDataBaseSucess" xml:space="preserve">
+    <data name="ButtonExportDataBaseSuccess" xml:space="preserve">
         <value>Database backup operation was successful</value>
     </data>
     <data name="ButtonExportDataBaseError" xml:space="preserve">

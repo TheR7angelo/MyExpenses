@@ -134,7 +134,7 @@ public partial class WelcomePage
 
             waitScreenWindow.Close();
 
-            MsgBox.Show(WelcomePageResources.ButtonExportDataBaseSucess, MsgBoxImage.Check);
+            MsgBox.Show(WelcomePageResources.ButtonExportDataBaseSuccess, MsgBoxImage.Check);
         }
         catch (Exception exception)
         {
