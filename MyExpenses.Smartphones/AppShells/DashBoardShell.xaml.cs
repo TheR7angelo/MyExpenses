@@ -1,4 +1,5 @@
-﻿using MyExpenses.Models.Config;
+﻿using MyExpenses.Maui.Utils;
+using MyExpenses.Models.Config;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.IO;
 using MyExpenses.Smartphones.Resources.Resx.AppShells.DashBoardShell;
@@ -34,12 +35,6 @@ public partial class DashBoardShell
         InitializeComponent();
 
         Interface.LanguageChanged += Interface_OnLanguageChanged;
-
-        //TODO test
-        var request = new GeolocationRequest(GeolocationAccuracy.Medium);
-        var location = Geolocation.GetLocationAsync(request).GetAwaiter().GetResult();
-
-        var isNorthernHemisphere = location?.Latitude >= 0;
     }
 
     #region Action
@@ -65,4 +60,10 @@ public partial class DashBoardShell
     }
 
     #endregion
+
+    public async Task SetHemisphere()
+    {
+        var location = await SensorRequestUtils.GetLocation();
+        var hemisphere = location.GetHemisphere();
+    }
 }
