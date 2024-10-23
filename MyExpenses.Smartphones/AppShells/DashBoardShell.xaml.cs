@@ -34,6 +34,12 @@ public partial class DashBoardShell
         InitializeComponent();
 
         Interface.LanguageChanged += Interface_OnLanguageChanged;
+
+        //TODO test
+        var request = new GeolocationRequest(GeolocationAccuracy.Medium);
+        var location = Geolocation.GetLocationAsync(request).GetAwaiter().GetResult();
+
+        var isNorthernHemisphere = location?.Latitude >= 0;
     }
 
     #region Action
