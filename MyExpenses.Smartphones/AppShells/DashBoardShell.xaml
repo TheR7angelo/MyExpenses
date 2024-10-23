@@ -38,22 +38,9 @@
                       ContentTemplate="{DataTemplate contentPages:DashBoardContentPage}"
                       Route="DashBoardContentPage">
         </ShellContent>
+
     </FlyoutItem>
 
-    <FlyoutItem Title="Home1">
-        <ShellContent
-            Title="Home1"
-            ContentTemplate="{DataTemplate local:MainPage}"
-            Route="MainPage">
-        </ShellContent>
-    </FlyoutItem>
-
-    <FlyoutItem Title="Home2">
-        <ShellContent
-            Title="Home2"
-            ContentTemplate="{DataTemplate local:MainPage}"
-            Route="MainPage">
-        </ShellContent>
-    </FlyoutItem>
+    <MenuItem Text="{Binding MenuItemLogoutText, Mode=OneWay}" Clicked="MenuItemLogout_OnClicked" />
 
 </Shell>
