@@ -4,29 +4,43 @@
        xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
        xmlns:local="clr-namespace:MyExpenses.Smartphones"
+       xmlns:contentPages="clr-namespace:MyExpenses.Smartphones.ContentPages"
        FlyoutBehavior="Flyout"
        Title="MyExpenses.Smartphones"
        BindingContext="{Binding Source={RelativeSource Self}}">
 
-    <!-- <FlyoutItem Title="Home" FlyoutItemIsVisible="False"> -->
-    <!--     <ShellContent -->
-    <!--         Title="Home" -->
-    <!--         ContentTemplate="{DataTemplate local:MainPage}" -->
-    <!--         Route="MainPage"> -->
-    <!--     </ShellContent> -->
-    <!-- </FlyoutItem> -->
-
-    <!-- <FlyoutItem Title="Home"> -->
-    <!--     <ShellContent -->
-    <!--         Title="Home" -->
-    <!--         ContentTemplate="{DataTemplate local:MainPage}" -->
-    <!--         Route="MainPage"> -->
-    <!--     </ShellContent> -->
-    <!-- </FlyoutItem> -->
+    <!-- TODO add idea -->
+    <Shell.FlyoutBackground>
+        <LinearGradientBrush StartPoint="0,0"
+                             EndPoint="1,1">
+            <GradientStop Color="#8A2387"
+                          Offset="0.1" />
+            <GradientStop Color="#E94057"
+                          Offset="0.6" />
+            <GradientStop Color="#F27121"
+                          Offset="1.0" />
+        </LinearGradientBrush>
+    </Shell.FlyoutBackground>
 
     <FlyoutItem Title="{Binding SelectedDatabase.FileNameWithoutExtension, Mode=OneWay}">
+
+        <ShellContent Title="{Binding SelectedDatabase.FileNameWithoutExtension, Mode=OneWay}"
+                      ContentTemplate="{DataTemplate contentPages:DashBoardContentPage}"
+                      Route="DashBoardContentPage">
+        </ShellContent>
+    </FlyoutItem>
+
+    <FlyoutItem Title="Home1">
         <ShellContent
-            Title="{Binding SelectedDatabase.FileNameWithoutExtension, Mode=OneWay}"
+            Title="Home1"
+            ContentTemplate="{DataTemplate local:MainPage}"
+            Route="MainPage">
+        </ShellContent>
+    </FlyoutItem>
+
+    <FlyoutItem Title="Home2">
+        <ShellContent
+            Title="Home2"
             ContentTemplate="{DataTemplate local:MainPage}"
             Route="MainPage">
         </ShellContent>
