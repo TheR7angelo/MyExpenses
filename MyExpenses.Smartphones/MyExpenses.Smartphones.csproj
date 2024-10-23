@@ -56,6 +56,7 @@
 
         <!-- Raw Assets (also remove the "Resources\Raw" prefix) -->
         <MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)"/>
+        <MauiImage Include="Resources\AppIcon\appiconfg.svg" />
     </ItemGroup>
 
     <Target Name="CopyDatabaseModel" BeforeTargets="Build">

@@ -9,6 +9,16 @@
        Title="MyExpenses.Smartphones"
        BindingContext="{Binding Source={RelativeSource Self}}">
 
+    <Shell.FlyoutHeaderTemplate>
+        <DataTemplate>
+            <Grid HeightRequest="200">
+                <Image Aspect="AspectFit"
+                       Source="appiconfg.svg">
+                </Image>
+            </Grid>
+        </DataTemplate>
+    </Shell.FlyoutHeaderTemplate>
+
     <!-- TODO add idea -->
     <Shell.FlyoutBackground>
         <LinearGradientBrush StartPoint="0,0"
