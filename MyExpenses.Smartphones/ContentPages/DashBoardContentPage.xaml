@@ -8,6 +8,8 @@
 
     <ContentPage.Content>
 
+        <Label Text="{Binding LabelLocation, Mode=OneWay}" />
+
     </ContentPage.Content>
 
 </ContentPage>
