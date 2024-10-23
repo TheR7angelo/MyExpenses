@@ -1,11 +1,12 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<Shell
-    x:Class="MyExpenses.Smartphones.AppShells.DashBoardShell"
-    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:local="clr-namespace:MyExpenses.Smartphones"
-    FlyoutBehavior="Flyout"
-    Title="MyExpenses.Smartphones">
+<?xml version="1.0" encoding="UTF-8"?>
+
+<Shell x:Class="MyExpenses.Smartphones.AppShells.DashBoardShell"
+       xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       xmlns:local="clr-namespace:MyExpenses.Smartphones"
+       FlyoutBehavior="Flyout"
+       Title="MyExpenses.Smartphones"
+       BindingContext="{Binding Source={RelativeSource Self}}">
 
     <!-- <FlyoutItem Title="Home" FlyoutItemIsVisible="False"> -->
     <!--     <ShellContent -->
@@ -23,9 +24,9 @@
     <!--     </ShellContent> -->
     <!-- </FlyoutItem> -->
 
-    <FlyoutItem Title="Home2">
+    <FlyoutItem Title="{Binding SelectedDatabase.FileNameWithoutExtension, Mode=OneWay}">
         <ShellContent
-            Title="Home2"
+            Title="{Binding SelectedDatabase.FileNameWithoutExtension, Mode=OneWay}"
             ContentTemplate="{DataTemplate local:MainPage}"
             Route="MainPage">
         </ShellContent>

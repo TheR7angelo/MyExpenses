@@ -77,7 +77,7 @@ public partial class MainPage
 
         DataBaseContext.FilePath = existingDatabase.FilePath;
 
-        var dashBoardShell = new DashBoardShell();
+        var dashBoardShell = new DashBoardShell { SelectedDatabase = existingDatabase };
         Application.Current!.MainPage = dashBoardShell;
     }
 
