@@ -79,7 +79,6 @@ public partial class MainPage
 
         var dashBoardShell = new DashBoardShell();
         Application.Current!.MainPage = dashBoardShell;
-        // TODO continue
     }
 
     private async void ButtonExportDataBase_OnClick(object? sender, EventArgs e)
