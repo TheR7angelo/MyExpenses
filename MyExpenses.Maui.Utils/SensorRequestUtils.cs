@@ -6,8 +6,8 @@ public static class SensorRequestUtils
 {
     public static async Task<Location?> GetLocation(GeolocationAccuracy geolocationAccuracy = GeolocationAccuracy.Default)
     {
-        var request = new GeolocationRequest(geolocationAccuracy);
-        var location = await Geolocation.GetLocationAsync(request);
+        var geolocationRequest = new GeolocationRequest(geolocationAccuracy);
+        var location = await Geolocation.GetLocationAsync(geolocationRequest);
 
         return location;
     }
