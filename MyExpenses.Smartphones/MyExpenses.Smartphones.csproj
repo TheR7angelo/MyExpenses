@@ -133,6 +133,11 @@
         <DependentUpon>SaveLocationContentPage.xaml</DependentUpon>
         <SubType>Code</SubType>
       </Compile>
+      <Compile Update="Resources\Resx\AppShells\DashBoardShell\DashBoardShellResources.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>DashBoardShellResources.resx</DependentUpon>
+      </Compile>
     </ItemGroup>
 
     <ItemGroup>
@@ -147,6 +152,10 @@
       <EmbeddedResource Update="Resources\Resx\ContentPages\MainPage\MainPageResources.resx">
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>MainPageResources.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+      <EmbeddedResource Update="Resources\Resx\AppShells\DashBoardShell\DashBoardShellResources.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>DashBoardShellResources.Designer.cs</LastGenOutput>
       </EmbeddedResource>
     </ItemGroup>
 
