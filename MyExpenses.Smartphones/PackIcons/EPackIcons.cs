@@ -2,6 +2,7 @@ namespace MyExpenses.Smartphones.PackIcons;
 
 public enum EPackIcons
 {
+    Abacus,
     Cellphone,
     Database,
     DatabaseExport,
