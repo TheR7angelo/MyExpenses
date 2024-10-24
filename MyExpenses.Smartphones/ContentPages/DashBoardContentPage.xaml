@@ -29,7 +29,9 @@
                      StrokeThickness="3">
             </Ellipse>
 
-            <VerticalStackLayout Grid.Row="0">
+            <VerticalStackLayout Grid.Row="0"
+                                 VerticalOptions="Center"
+                                 HorizontalOptions="Center">
 
                 <Path Aspect="Uniform"
                       Fill="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
