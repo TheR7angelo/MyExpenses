@@ -23,7 +23,7 @@
             </Grid.RowDefinitions>
 
             <Ellipse Grid.Row="0"
-                     HeightRequest="155"
+                     HeightRequest="192"
                      WidthRequest="{Binding HeightRequest, Source={RelativeSource Self}}"
                      Stroke="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
                      StrokeThickness="3">
