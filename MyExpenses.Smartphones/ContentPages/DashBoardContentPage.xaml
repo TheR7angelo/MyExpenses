@@ -8,7 +8,7 @@
 
     <ContentPage.Content>
 
-        <Label Text="{Binding LabelLocation, Mode=OneWay}" />
+        <Label Text="{Binding SelectedYear, Mode=OneWay}" />
 
     </ContentPage.Content>
 
