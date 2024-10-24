@@ -10,4 +10,7 @@ public enum EPackIcons
     Folder,
     Minus,
     Plus,
+    WeatherPartlyCloudy,
+    WeatherPouring,
+    WhiteBalanceSunny
 }
