@@ -7,6 +7,7 @@
        xmlns:contentPages="clr-namespace:MyExpenses.Smartphones.ContentPages"
        FlyoutBehavior="Flyout"
        Title="MyExpenses.Smartphones"
+       FlyoutBackdrop="Silver"
        BindingContext="{Binding Source={RelativeSource Self}}">
 
     <Shell.FlyoutHeaderTemplate>
