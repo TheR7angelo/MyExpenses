@@ -14,7 +14,7 @@ public partial class DashBoardContentPage
         BindableProperty.Create(nameof(CurrentVTotalByAccount), typeof(VTotalByAccount), typeof(DashBoardContentPage),
             default(VTotalByAccount));
 
-    private VTotalByAccount? CurrentVTotalByAccount
+    public VTotalByAccount? CurrentVTotalByAccount
     {
         get => (VTotalByAccount)GetValue(CurrentVTotalByAccountProperty);
         set => SetValue(CurrentVTotalByAccountProperty, value);
