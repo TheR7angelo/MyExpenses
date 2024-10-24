@@ -36,8 +36,8 @@
                       Data="{Binding CurrentVTotalByAccount.Total, FallbackValue=0, Mode=OneWay, Converter={StaticResource TotalToIconConverter}}"
                       HorizontalOptions="Center"
                       VerticalOptions="Center"
-                      WidthRequest="64"
-                      HeightRequest="64">
+                      HeightRequest="96"
+                      WidthRequest="{Binding HeightRequest, Source={RelativeSource Self}}">
                 </Path>
 
             </VerticalStackLayout>
