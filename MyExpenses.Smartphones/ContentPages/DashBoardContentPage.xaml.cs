@@ -1,6 +1,7 @@
 using System.Collections.Immutable;
 using System.Collections.ObjectModel;
 using System.Globalization;
+using MyExpenses.Models.Sql.Bases.Views;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils.Collection;
 using MyExpenses.Utils.Strings;
@@ -9,6 +10,16 @@ namespace MyExpenses.Smartphones.ContentPages;
 
 public partial class DashBoardContentPage
 {
+    public static readonly BindableProperty CurrentVTotalByAccountProperty =
+        BindableProperty.Create(nameof(CurrentVTotalByAccount), typeof(VTotalByAccount), typeof(DashBoardContentPage),
+            default(VTotalByAccount));
+
+    private VTotalByAccount? CurrentVTotalByAccount
+    {
+        get => (VTotalByAccount)GetValue(CurrentVTotalByAccountProperty);
+        set => SetValue(CurrentVTotalByAccountProperty, value);
+    }
+
     public static readonly BindableProperty SelectedYearProperty = BindableProperty.Create(nameof(SelectedYear),
         typeof(string), typeof(DashBoardContentPage), default(string));
 
@@ -29,6 +40,17 @@ public partial class DashBoardContentPage
 
     public ObservableCollection<string> Years { get; }
     public ObservableCollection<string> Months { get; } = [];
+
+    private static VTotalByAccount? _staticVTotalByAccount;
+    private static VTotalByAccount? StaticVTotalByAccount
+    {
+        get => _staticVTotalByAccount;
+        set
+        {
+            _staticVTotalByAccount = value;
+            Instance.CurrentVTotalByAccount = value;
+        }
+    }
 
     private static DashBoardContentPage Instance { get; set; } = null!;
 
@@ -58,6 +80,8 @@ public partial class DashBoardContentPage
 
         SelectedYear = now.Year.ToString();
         SelectedMonth = Months[now.Month - 1];
+
+        CurrentVTotalByAccount = context.VTotalByAccounts.FirstOrDefault();
 
         InitializeComponent();
     }

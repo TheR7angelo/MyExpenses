@@ -4,7 +4,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MyExpenses.Smartphones.ContentPages.DashBoardContentPage"
              xmlns:dg="clr-namespace:Maui.DataGrid;assembly=Maui.DataGrid"
+             xmlns:converters="clr-namespace:MyExpenses.Smartphones.Converters"
              BindingContext="{Binding Source={RelativeSource Self}}">
+
+    <ContentPage.Resources>
+        <converters:TotalToIconConverter x:Key="TotalToIconConverter" />
+    </ContentPage.Resources>
 
     <ContentPage.Content>
 
@@ -23,6 +28,19 @@
                      Stroke="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
                      StrokeThickness="3">
             </Ellipse>
+
+            <VerticalStackLayout Grid.Row="0">
+
+                <Path Aspect="Uniform"
+                      Fill="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
+                      Data="{Binding CurrentVTotalByAccount.Total, FallbackValue=0, Mode=OneWay, Converter={StaticResource TotalToIconConverter}}"
+                      HorizontalOptions="Center"
+                      VerticalOptions="Center"
+                      WidthRequest="64"
+                      HeightRequest="64">
+                </Path>
+
+            </VerticalStackLayout>
 
             <Label Grid.Row="3" Text="{Binding SelectedYear, Mode=OneWay}" />
 
