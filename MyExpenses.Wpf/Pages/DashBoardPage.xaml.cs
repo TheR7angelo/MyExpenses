@@ -326,9 +326,10 @@ public partial class DashBoardPage
             ..context
                 .THistories
                 .Where(s => s.Date.HasValue)
-                .Select(s => s.Date!.Value.Year.ToString())
+                .Select(s => s.Date!.Value.Year)
                 .Distinct()
                 .OrderByDescending(y => y)
+                .Select(y => y.ToString())
         ];
 
         if (Years.Count.Equals(0))
