@@ -30,8 +30,12 @@ public partial class DashBoardContentPage
     public ObservableCollection<string> Years { get; }
     public ObservableCollection<string> Months { get; } = [];
 
+    private static DashBoardContentPage Instance { get; set; } = null!;
+
     public DashBoardContentPage()
     {
+        Instance = this;
+
         UpdateMonthLanguage();
 
         var now = DateTime.Now;

@@ -8,7 +8,25 @@
 
     <ContentPage.Content>
 
-        <Label Text="{Binding SelectedYear, Mode=OneWay}" />
+        <Grid>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <Ellipse Grid.Row="0"
+                     HeightRequest="155"
+                     WidthRequest="{Binding HeightRequest, Source={RelativeSource Self}}"
+                     Stroke="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
+                     StrokeThickness="3">
+            </Ellipse>
+
+            <Label Grid.Row="3" Text="{Binding SelectedYear, Mode=OneWay}" />
+
+        </Grid>
 
     </ContentPage.Content>
 
