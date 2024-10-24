@@ -45,6 +45,7 @@
 
                 <Label HorizontalTextAlignment="Center"
                        FontAttributes="Bold"
+                       FontSize="18"
                        Margin="0, 5">
                     <Label.Text>
                         <MultiBinding Converter="{StaticResource ValueSymbolConverter}">
