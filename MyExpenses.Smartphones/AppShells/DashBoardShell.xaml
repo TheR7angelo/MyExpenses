@@ -19,9 +19,13 @@
         </DataTemplate>
     </Shell.FlyoutHeaderTemplate>
 
-    <!-- TODO add idea -->
     <Shell.FlyoutFooterTemplate>
-
+        <DataTemplate>
+            <VerticalStackLayout HorizontalOptions="Center">
+                <Label Text="{Binding ApplicationName, Mode=OneWay}" HorizontalTextAlignment="Center" />
+                <Label Text="{Binding ApplicationVersion, Mode=OneWay}" HorizontalTextAlignment="Center" />
+            </VerticalStackLayout>
+        </DataTemplate>
     </Shell.FlyoutFooterTemplate>
 
     <!-- TODO add idea -->

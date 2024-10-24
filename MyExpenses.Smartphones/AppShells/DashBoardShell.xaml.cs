@@ -1,4 +1,5 @@
-﻿using MyExpenses.Maui.Utils;
+﻿using System.Reflection;
+using MyExpenses.Maui.Utils;
 using MyExpenses.Models.Config;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.IO;
@@ -9,6 +10,24 @@ namespace MyExpenses.Smartphones.AppShells;
 
 public partial class DashBoardShell
 {
+    public static readonly BindableProperty ApplicationVersionProperty =
+        BindableProperty.Create(nameof(ApplicationVersion), typeof(Version), typeof(DashBoardShell), default(Version));
+
+    public Version ApplicationVersion
+    {
+        get => (Version)GetValue(ApplicationVersionProperty);
+        set => SetValue(ApplicationVersionProperty, value);
+    }
+
+    public static readonly BindableProperty ApplicationNameProperty =
+        BindableProperty.Create(nameof(ApplicationName), typeof(string), typeof(DashBoardShell), default(string));
+
+    public string ApplicationName
+    {
+        get => (string)GetValue(ApplicationNameProperty);
+        set => SetValue(ApplicationNameProperty, value);
+    }
+
     public static readonly BindableProperty MenuItemLogoutTextProperty =
         BindableProperty.Create(nameof(MenuItemLogoutText), typeof(string), typeof(DashBoardShell), default(string));
 
@@ -30,6 +49,10 @@ public partial class DashBoardShell
     // TODO continue
     public DashBoardShell()
     {
+        var assembly = Assembly.GetExecutingAssembly();
+        ApplicationName = assembly.GetName().Name!;
+        ApplicationVersion = assembly.GetName().Version!;
+
         UpdateLanguage();
 
         InitializeComponent();
@@ -65,5 +88,6 @@ public partial class DashBoardShell
     {
         var location = await SensorRequestUtils.GetLocation();
         var hemisphere = location.GetHemisphere();
+        var currentSeason = hemisphere.GetSeason();
     }
 }
