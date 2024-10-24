@@ -9,6 +9,7 @@
 
     <ContentPage.Resources>
         <converters:TotalToIconConverter x:Key="TotalToIconConverter" />
+        <converters:ValueSymbolConverter x:Key="ValueSymbolConverter" />
     </ContentPage.Resources>
 
     <ContentPage.Content>
@@ -41,6 +42,17 @@
                       HeightRequest="96"
                       WidthRequest="{Binding HeightRequest, Source={RelativeSource Self}}">
                 </Path>
+
+                <Label HorizontalTextAlignment="Center"
+                       FontAttributes="Bold"
+                       Margin="0, 5">
+                    <Label.Text>
+                        <MultiBinding Converter="{StaticResource ValueSymbolConverter}">
+                            <Binding Path="CurrentVTotalByAccount.Total" FallbackValue="" Mode="OneWay" />
+                            <Binding Path="CurrentVTotalByAccount.Symbol" FallbackValue="" Mode="OneWay" />
+                        </MultiBinding>
+                    </Label.Text>
+                </Label>
 
             </VerticalStackLayout>
 
