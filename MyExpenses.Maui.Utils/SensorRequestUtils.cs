@@ -31,12 +31,13 @@ public static class SensorRequestUtils
         var autumnStart = new DateTime(now.Year, 9, 21);
         var winterStart = new DateTime(now.Year, 12, 21);
 
-        ESeason currentSeason;
-
-        if (now >= springStart && now < summerStart) currentSeason = ESeason.Spring;
-        else if (now >= summerStart && now < autumnStart) currentSeason = ESeason.Summer;
-        else if (now >= autumnStart && now < winterStart) currentSeason = ESeason.Autumn;
-        else currentSeason = ESeason.Winter;
+        var currentSeason = now switch
+        {
+            _ when now >= springStart && now < summerStart => ESeason.Spring,
+            _ when now >= summerStart && now < autumnStart => ESeason.Summer,
+            _ when now >= autumnStart && now < winterStart => ESeason.Autumn,
+            _ => ESeason.Winter
+        };
 
         if (hemisphere is not EHemisphere.Southern) return currentSeason;
         return currentSeason switch
