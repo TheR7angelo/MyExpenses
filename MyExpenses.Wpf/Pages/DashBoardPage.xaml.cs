@@ -272,8 +272,6 @@ public partial class DashBoardPage
         set => SetValue(DateFormatStringProperty, value);
     }
 
-    private static VTotalByAccount? _staticVTotalByAccount;
-
     public static readonly DependencyProperty CurrentVTotalByAccountProperty =
         DependencyProperty.Register(nameof(CurrentVTotalByAccount), typeof(VTotalByAccount), typeof(DashBoardPage),
             new PropertyMetadata(default(VTotalByAccount)));
@@ -286,6 +284,7 @@ public partial class DashBoardPage
 
     private static DashBoardPage Instance { get; set; } = null!;
 
+    private static VTotalByAccount? _staticVTotalByAccount;
     private static VTotalByAccount? StaticVTotalByAccount
     {
         get => _staticVTotalByAccount;
