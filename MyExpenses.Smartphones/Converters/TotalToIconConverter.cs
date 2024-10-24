@@ -9,12 +9,15 @@ public class TotalToIconConverter : IValueConverter
     {
         value ??= 0d;
         if (value is not double total) return EPackIcons.Abacus;
-        return total switch
+
+        var icon =  total switch
         {
             < 0 => EPackIcons.WeatherPouring,
             0 => EPackIcons.WeatherPartlyCloudy,
             _ => EPackIcons.WhiteBalanceSunny
         };
+
+        return icon.ToGeometry();
     }
 
     public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
