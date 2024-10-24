@@ -29,18 +29,18 @@
         </DataTemplate>
     </Shell.FlyoutFooterTemplate>
 
-    <!-- TODO add idea -->
-    <Shell.FlyoutBackground>
-        <LinearGradientBrush StartPoint="0,0"
-                             EndPoint="1,1">
-            <GradientStop Color="#8A2387"
-                          Offset="0.1" />
-            <GradientStop Color="#E94057"
-                          Offset="0.6" />
-            <GradientStop Color="#F27121"
-                          Offset="1.0" />
-        </LinearGradientBrush>
-    </Shell.FlyoutBackground>
+    <!-- ~1~ TODO add idea @1@ -->
+    <!-- <Shell.FlyoutBackground> -->
+    <!--     <LinearGradientBrush StartPoint="0,0" -->
+    <!--                          EndPoint="1,1"> -->
+    <!--         <GradientStop Color="#8A2387" -->
+    <!--                       Offset="0.1" /> -->
+    <!--         <GradientStop Color="#E94057" -->
+    <!--                       Offset="0.6" /> -->
+    <!--         <GradientStop Color="#F27121" -->
+    <!--                       Offset="1.0" /> -->
+    <!--     </LinearGradientBrush> -->
+    <!-- </Shell.FlyoutBackground> -->
 
     <FlyoutItem Title="{Binding SelectedDatabase.FileNameWithoutExtension, Mode=OneWay}">
 
