@@ -20,6 +20,11 @@
     </Shell.FlyoutHeaderTemplate>
 
     <!-- TODO add idea -->
+    <Shell.FlyoutFooterTemplate>
+
+    </Shell.FlyoutFooterTemplate>
+
+    <!-- TODO add idea -->
     <Shell.FlyoutBackground>
         <LinearGradientBrush StartPoint="0,0"
                              EndPoint="1,1">
