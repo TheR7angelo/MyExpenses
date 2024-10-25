@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converters="clr-namespace:MyExpenses.Smartphones.Resources.Styles.Converters"
+             xmlns:local="clr-namespace:MyExpenses.Smartphones.UserControls.Pickers"
+             xmlns:customFrame="clr-namespace:MyExpenses.Smartphones.UserControls.Buttons.CustomFrame"
+             xmlns:converters1="clr-namespace:MyExpenses.Smartphones.Converters"
+             x:Class="MyExpenses.Smartphones.UserControls.Pickers.CustomPicker">
+
+    <ContentView.Resources>
+        <converters:BooleanToInverseConverter x:Key="BooleanToInverseConverter" />
+        <customFrame:EPackIconsToGeometryConverter x:Key="StringToGeometryConverter" />
+        <converters1:PercentageConverter x:Key="PercentageConverter" />
+    </ContentView.Resources>
+
+    <Frame BorderColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
+           Padding="0"
+           HasShadow="False"
+           CornerRadius="5">
+
+        <Grid>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+                   Text="{Binding PlaceholderText, Source={RelativeSource AncestorType={x:Type local:CustomPicker}}}"
+                   FontAttributes="Italic"
+                   Margin="10,3,0,0"
+                   VerticalOptions="End"
+                   TextColor="{AppThemeBinding Light={StaticResource PlaceholderTextColorLight}, Dark={StaticResource PlaceholderTextColorDark}}"
+                   IsVisible="{Binding IsPlaceholderVisible, Converter={StaticResource BooleanToInverseConverter}, Source={RelativeSource AncestorType={x:Type local:CustomPicker}}}">
+            </Label>
+
+            <Picker Grid.Row="1" Grid.Column="0"
+                    x:Name="Picker"
+                    ItemsSource="{Binding ItemsSource, Source={RelativeSource AncestorType={x:Type local:CustomPicker}}}"
+                    SelectedItem="{Binding SelectedItem, Source={RelativeSource AncestorType={x:Type local:CustomPicker}}}"
+                    Title="{Binding PlaceholderText, Source={RelativeSource AncestorType={x:Type local:CustomPicker}}}"
+                    Margin="5"
+                    SelectedIndexChanged="Picker_OnSelectedIndexChanged">
+            </Picker>
+
+            <Path Grid.Row="1" Grid.Column="1"
+                  Aspect="Uniform"
+                  Fill="{Binding GeometryColor, Mode=OneWay, UpdateSourceEventName=PropertyChanged, Source={RelativeSource AncestorType={x:Type local:CustomPicker}}}"
+                  Data="{Binding CloseCircle, Mode=OneWay, Converter={StaticResource StringToGeometryConverter}, UpdateSourceEventName=PropertyChanged, Source={RelativeSource AncestorType={x:Type local:CustomPicker}}}"
+                  HorizontalOptions="Center"
+                  VerticalOptions="Center"
+                  Margin="5"
+                  WidthRequest="{Binding Height, Converter={StaticResource PercentageConverter}, ConverterParameter=75, Source={x:Reference Picker}}"
+                  HeightRequest="{Binding Height, Converter={StaticResource PercentageConverter}, ConverterParameter=75, Source={x:Reference Picker}}"
+                  IsVisible="{Binding HasClearButton, Source={RelativeSource AncestorType={x:Type local:CustomPicker}}}">
+
+                <Path.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="TapGestureRecognizer_OnTapped" NumberOfTapsRequired="1"/>
+                </Path.GestureRecognizers>
+
+            </Path>
+
+        </Grid>
+
+    </Frame>
+
+</ContentView>
