@@ -70,7 +70,7 @@
                                       ItemsSource="{Binding Years, Mode=OneWay}"
                                       SelectedItem="{Binding SelectedYear, Mode=TwoWay}"
                                       GeometryColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
-                                      PlaceholderText="test"
+                                      PlaceholderText="{Binding ComboBoxYearsHintAssist, Mode=OneWay}"
                                       HasClearButton="True"
                                       SelectedIndexChanged="CustomPicker_OnSelectedIndexChanged">
                 </pickers:CustomPicker>
@@ -79,7 +79,7 @@
                                       ItemsSource="{Binding Months, Mode=OneWay}"
                                       SelectedItem="{Binding SelectedMonth, Mode=TwoWay}"
                                       GeometryColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
-                                      PlaceholderText="test"
+                                      PlaceholderText="{Binding ComboBoxMonthHintAssist, Mode=OneWay}"
                                       HasClearButton="True"
                                       SelectedIndexChanged="CustomPicker_OnSelectedIndexChanged">
                 </pickers:CustomPicker>

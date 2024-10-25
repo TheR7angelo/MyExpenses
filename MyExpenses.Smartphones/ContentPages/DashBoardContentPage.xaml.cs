@@ -1,7 +1,10 @@
 using System.Collections.Immutable;
 using System.Collections.ObjectModel;
 using System.Globalization;
+using MyExpenses.Models.Config;
+using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Sql.Bases.Views;
+using MyExpenses.Smartphones.Resources.Resx.ContentPages.DashBoardContentPage;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils.Collection;
 using MyExpenses.Utils.Strings;
@@ -10,6 +13,26 @@ namespace MyExpenses.Smartphones.ContentPages;
 
 public partial class DashBoardContentPage
 {
+    public static readonly BindableProperty ComboBoxMonthHintAssistProperty =
+        BindableProperty.Create(nameof(ComboBoxMonthHintAssist), typeof(string), typeof(DashBoardContentPage),
+            default(string));
+
+    public string ComboBoxMonthHintAssist
+    {
+        get => (string)GetValue(ComboBoxMonthHintAssistProperty);
+        set => SetValue(ComboBoxMonthHintAssistProperty, value);
+    }
+
+    public static readonly BindableProperty ComboBoxYearsHintAssistProperty =
+        BindableProperty.Create(nameof(ComboBoxYearsHintAssist), typeof(string), typeof(DashBoardContentPage),
+            default(string));
+
+    public string ComboBoxYearsHintAssist
+    {
+        get => (string)GetValue(ComboBoxYearsHintAssistProperty);
+        set => SetValue(ComboBoxYearsHintAssistProperty, value);
+    }
+
     public static readonly BindableProperty CurrentVTotalByAccountProperty =
         BindableProperty.Create(nameof(CurrentVTotalByAccount), typeof(VTotalByAccount), typeof(DashBoardContentPage),
             default(VTotalByAccount));
@@ -42,6 +65,7 @@ public partial class DashBoardContentPage
     public ObservableCollection<string> Months { get; } = [];
 
     private static VTotalByAccount? _staticVTotalByAccount;
+
     private static VTotalByAccount? StaticVTotalByAccount
     {
         get => _staticVTotalByAccount;
@@ -83,7 +107,22 @@ public partial class DashBoardContentPage
 
         CurrentVTotalByAccount = context.VTotalByAccounts.FirstOrDefault();
 
+        UpdateLanguage();
         InitializeComponent();
+
+        Interface.LanguageChanged += Interface_OnLanguageChanged;
+    }
+
+    private void Interface_OnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
+    {
+        UpdateLanguage();
+        UpdateMonthLanguage();
+    }
+
+    private void UpdateLanguage()
+    {
+        ComboBoxYearsHintAssist = DashBoardContentPageResources.ComboBoxYearsHintAssist;
+        ComboBoxMonthHintAssist  = DashBoardContentPageResources.ComboBoxMonthHintAssist;
     }
 
     private void UpdateMonthLanguage()
