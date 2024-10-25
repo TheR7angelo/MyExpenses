@@ -65,6 +65,15 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
 
+                <pickers:CustomPicker Grid.Column="0"
+                                      ItemsSource="{Binding Years, Mode=OneWay}"
+                                      SelectedItem="{Binding SelectedYear, Mode=TwoWay}"
+                                      GeometryColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
+                                      PlaceholderText="test"
+                                      HasClearButton="True"
+                                      SelectedIndexChanged="CustomPicker_OnSelectedIndexChanged">
+                </pickers:CustomPicker>
+
                 <pickers:CustomPicker Grid.Column="1"
                                       ItemsSource="{Binding Months, Mode=OneWay}"
                                       SelectedItem="{Binding SelectedMonth, Mode=TwoWay}"
@@ -75,8 +84,6 @@
                 </pickers:CustomPicker>
 
             </Grid>
-
-            <Label Grid.Row="3" Text="{Binding SelectedYear, Mode=OneWay}" />
 
         </Grid>
 

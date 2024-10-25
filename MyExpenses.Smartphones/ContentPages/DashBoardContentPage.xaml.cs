@@ -110,8 +110,9 @@ public partial class DashBoardContentPage
         }
     }
 
+    //TODO work
     private void CustomPicker_OnSelectedIndexChanged(object? sender, EventArgs e)
     {
-        Console.WriteLine("hey");
+        // RefreshDataGrid();
     }
 }
