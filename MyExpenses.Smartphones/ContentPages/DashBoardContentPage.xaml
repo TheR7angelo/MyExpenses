@@ -5,6 +5,7 @@
              x:Class="MyExpenses.Smartphones.ContentPages.DashBoardContentPage"
              xmlns:dg="clr-namespace:Maui.DataGrid;assembly=Maui.DataGrid"
              xmlns:converters="clr-namespace:MyExpenses.Smartphones.Converters"
+             xmlns:pickers="clr-namespace:MyExpenses.Smartphones.UserControls.Pickers"
              BindingContext="{Binding Source={RelativeSource Self}}">
 
     <ContentPage.Resources>
@@ -56,6 +57,24 @@
                 </Label>
 
             </VerticalStackLayout>
+
+            <Grid Grid.Row="2">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <pickers:CustomPicker Grid.Column="1"
+                                      ItemsSource="{Binding Months, Mode=OneWay}"
+                                      SelectedItem="{Binding SelectedMonth, Mode=TwoWay}"
+                                      GeometryColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
+                                      PlaceholderText="test"
+                                      HasClearButton="True"
+                                      SelectedIndexChanged="CustomPicker_OnSelectedIndexChanged">
+                </pickers:CustomPicker>
+
+            </Grid>
 
             <Label Grid.Row="3" Text="{Binding SelectedYear, Mode=OneWay}" />
 

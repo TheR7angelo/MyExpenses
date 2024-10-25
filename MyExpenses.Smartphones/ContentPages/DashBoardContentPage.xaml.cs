@@ -109,4 +109,9 @@ public partial class DashBoardContentPage
             SelectedMonth = selectedMonth;
         }
     }
+
+    private void CustomPicker_OnSelectedIndexChanged(object? sender, EventArgs e)
+    {
+        Console.WriteLine("hey");
+    }
 }
