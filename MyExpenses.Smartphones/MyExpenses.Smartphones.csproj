@@ -140,6 +140,11 @@
         <AutoGen>True</AutoGen>
         <DependentUpon>DashBoardShellResources.resx</DependentUpon>
       </Compile>
+      <Compile Update="Resources\Resx\ContentPages\DashBoardContentPage\DashBoardContentPageResources.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>DashBoardContentPageResources.resx</DependentUpon>
+      </Compile>
     </ItemGroup>
 
     <ItemGroup>
@@ -158,6 +163,10 @@
       <EmbeddedResource Update="Resources\Resx\AppShells\DashBoardShell\DashBoardShellResources.resx">
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>DashBoardShellResources.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+      <EmbeddedResource Update="Resources\Resx\ContentPages\DashBoardContentPage\DashBoardContentPageResources.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>DashBoardContentPageResources.Designer.cs</LastGenOutput>
       </EmbeddedResource>
     </ItemGroup>
 
