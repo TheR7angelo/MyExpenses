@@ -56,8 +56,8 @@
                   HorizontalOptions="Center"
                   VerticalOptions="Center"
                   Margin="5"
-                  WidthRequest="{Binding Height, Converter={StaticResource PercentageConverter}, ConverterParameter=75, Source={x:Reference Picker}}"
-                  HeightRequest="{Binding Height, Converter={StaticResource PercentageConverter}, ConverterParameter=75, Source={x:Reference Picker}}"
+                  WidthRequest="{Binding Height, Converter={StaticResource PercentageConverter}, ConverterParameter=50, Source={x:Reference Picker}}"
+                  HeightRequest="{Binding Height, Converter={StaticResource PercentageConverter}, ConverterParameter=50, Source={x:Reference Picker}}"
                   IsVisible="{Binding HasClearButton, Source={RelativeSource AncestorType={x:Type local:CustomPicker}}}">
 
                 <Path.GestureRecognizers>
