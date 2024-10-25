@@ -14,4 +14,7 @@
     <data name="MenuItemLogoutText" xml:space="preserve">
         <value>Déconnexion</value>
     </data>
+    <data name="FlyoutItemDashBoardContentPageTitle" xml:space="preserve">
+        <value>Tableau de bord</value>
+    </data>
 </root>

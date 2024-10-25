@@ -21,4 +21,7 @@
     <data name="MenuItemLogoutText" xml:space="preserve">
         <value>Logout</value>
     </data>
+    <data name="FlyoutItemDashBoardContentPageTitle" xml:space="preserve">
+        <value>DashBoard</value>
+    </data>
 </root>

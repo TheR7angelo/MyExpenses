@@ -61,6 +61,15 @@ namespace MyExpenses.Smartphones.Resources.Resx.AppShells.DashBoardShell {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to DashBoard.
+        /// </summary>
+        internal static string FlyoutItemDashBoardContentPageTitle {
+            get {
+                return ResourceManager.GetString("FlyoutItemDashBoardContentPageTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Logout.
         /// </summary>
         internal static string MenuItemLogoutText {

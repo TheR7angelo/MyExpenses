@@ -42,8 +42,8 @@
     <!--     </LinearGradientBrush> -->
     <!-- </Shell.FlyoutBackground> -->
 
-    <FlyoutItem Title="{Binding SelectedDatabase.FileNameWithoutExtension, Mode=OneWay}"
-                FlyoutItemIsVisible="False">
+    <FlyoutItem Title="{Binding FlyoutItemDashBoardContentPageTitle, Mode=OneWay}"
+                FlyoutItemIsVisible="True">
 
         <ShellContent Title="{Binding SelectedDatabase.FileNameWithoutExtension, Mode=OneWay}"
                       ContentTemplate="{DataTemplate contentPages:DashBoardContentPage}"
