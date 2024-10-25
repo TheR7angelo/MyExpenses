@@ -76,7 +76,6 @@ public partial class CustomPicker
     }
 
     private void TapGestureRecognizer_OnTapped(object? sender, TappedEventArgs e)
-    {
-        SelectedItem = null;
-    }
+        => SelectedItem = null;
+
 }
