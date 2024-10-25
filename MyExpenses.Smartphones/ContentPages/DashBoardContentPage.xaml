@@ -59,7 +59,7 @@
 
             </VerticalStackLayout>
 
-            <Grid Grid.Row="2" margin:LayoutExtensions.MarginForAllChildren="10">
+            <Grid Grid.Row="2" margin:LayoutExtensions.MarginForAllChildren="5">
 
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
