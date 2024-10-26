@@ -4,6 +4,7 @@ public enum EPackIcons
 {
     Abacus,
     Cellphone,
+    ClockFast,
     CloseCircle,
     Database,
     DatabaseExport,
