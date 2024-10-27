@@ -70,7 +70,7 @@ public partial class MainPage
         }
     }
 
-    private async void ButtonDatabase_OnClick(object? sender, EventArgs e)
+    private void ButtonDatabase_OnClick(object? sender, EventArgs e)
     {
         var buttonImageView = (ButtonImageTextView)sender!;
         if (buttonImageView.BindingContext is not ExistingDatabase existingDatabase) return;
@@ -78,7 +78,6 @@ public partial class MainPage
         DataBaseContext.FilePath = existingDatabase.FilePath;
 
         var dashBoardShell = new DashBoardShell { SelectedDatabase = existingDatabase };
-        await dashBoardShell.SetHemisphere();
         Application.Current!.MainPage = dashBoardShell;
     }
 

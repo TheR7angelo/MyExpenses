@@ -1,5 +1,4 @@
 ﻿using System.Reflection;
-using MyExpenses.Maui.Utils;
 using MyExpenses.Models.Config;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.IO;
@@ -94,11 +93,4 @@ public partial class DashBoardShell
     }
 
     #endregion
-
-    public async Task SetHemisphere()
-    {
-        var location = await SensorRequestUtils.GetLocation();
-        var hemisphere = location.GetHemisphere();
-        var currentSeason = hemisphere.GetSeason();
-    }
 }
