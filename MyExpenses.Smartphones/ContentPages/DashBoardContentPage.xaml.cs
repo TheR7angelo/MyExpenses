@@ -154,4 +154,63 @@ public partial class DashBoardContentPage
     {
         // RefreshDataGrid();
     }
+
+    private async void ButtonAddMonth_OnClick(object? sender, EventArgs e)
+    {
+        var date = GetDateOnlyFilter();
+        date = date.AddMonths(1);
+
+        var result = UpdateFilterDate(date);
+
+        if (result) return;
+
+        // TODO trad
+        await DisplayAlert("Title", "No additional dates are available", "Ok");
+    }
+
+    private bool UpdateFilterDate(DateOnly date)
+    {
+        var yearStr = date.Year.ToString();
+        if (!Years.Contains(yearStr)) return false;
+
+        if (!yearStr.Equals(SelectedYear)) SelectedYear = yearStr;
+
+        var monthIndex = date.Month - 1;
+        SelectedMonth = Months[monthIndex];
+
+        return true;
+    }
+
+    private DateOnly GetDateOnlyFilter()
+    {
+        var monthIndex = string.IsNullOrEmpty(SelectedMonth)
+            ? DateTime.Now.Month
+            : Months.IndexOf(SelectedMonth) + 1;
+
+        var year = string.IsNullOrEmpty(SelectedYear)
+            ? DateTime.Now.Year
+            : int.Parse(SelectedYear);
+
+        var date = DateOnly.Parse($"{year}/{monthIndex}/01");
+        return date;
+    }
+
+    private void ButtonDateNow_OnClick(object? sender, EventArgs e)
+    {
+        var now = DateOnly.FromDateTime(DateTime.Now);
+        UpdateFilterDate(now);
+    }
+
+    private async void ButtonRemoveMonth_OnClick(object? sender, EventArgs e)
+    {
+        var date = GetDateOnlyFilter();
+        date = date.AddMonths(-1);
+
+        var result = UpdateFilterDate(date);
+
+        if (result) return;
+
+        // TODO trad
+        await DisplayAlert("Title", "No lower dates are available", "Ok");
+    }
 }
