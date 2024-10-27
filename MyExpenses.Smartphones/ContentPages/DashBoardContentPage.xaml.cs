@@ -113,12 +113,45 @@ public partial class DashBoardContentPage
         Interface.LanguageChanged += Interface_OnLanguageChanged;
     }
 
+    #region Action
+
     private void Interface_OnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
     {
         UpdateLanguage();
         UpdateMonthLanguage();
     }
 
+    #endregion
+
+    #region Function
+
+    private DateOnly GetDateOnlyFilter()
+    {
+        var monthIndex = string.IsNullOrEmpty(SelectedMonth)
+            ? DateTime.Now.Month
+            : Months.IndexOf(SelectedMonth) + 1;
+
+        var year = string.IsNullOrEmpty(SelectedYear)
+            ? DateTime.Now.Year
+            : int.Parse(SelectedYear);
+
+        var date = DateOnly.Parse($"{year}/{monthIndex}/01");
+        return date;
+    }
+    
+    private bool UpdateFilterDate(DateOnly date)
+    {
+        var yearStr = date.Year.ToString();
+        if (!Years.Contains(yearStr)) return false;
+
+        if (!yearStr.Equals(SelectedYear)) SelectedYear = yearStr;
+
+        var monthIndex = date.Month - 1;
+        SelectedMonth = Months[monthIndex];
+
+        return true;
+    }
+    
     private void UpdateLanguage()
     {
         ComboBoxYearsHintAssist = DashBoardContentPageResources.ComboBoxYearsHintAssist;
@@ -148,6 +181,8 @@ public partial class DashBoardContentPage
             SelectedMonth = selectedMonth;
         }
     }
+    
+    #endregion
 
     //TODO work
     private void CustomPicker_OnSelectedIndexChanged(object? sender, EventArgs e)
@@ -166,33 +201,6 @@ public partial class DashBoardContentPage
 
         // TODO trad
         await DisplayAlert("Title", "No additional dates are available", "Ok");
-    }
-
-    private bool UpdateFilterDate(DateOnly date)
-    {
-        var yearStr = date.Year.ToString();
-        if (!Years.Contains(yearStr)) return false;
-
-        if (!yearStr.Equals(SelectedYear)) SelectedYear = yearStr;
-
-        var monthIndex = date.Month - 1;
-        SelectedMonth = Months[monthIndex];
-
-        return true;
-    }
-
-    private DateOnly GetDateOnlyFilter()
-    {
-        var monthIndex = string.IsNullOrEmpty(SelectedMonth)
-            ? DateTime.Now.Month
-            : Months.IndexOf(SelectedMonth) + 1;
-
-        var year = string.IsNullOrEmpty(SelectedYear)
-            ? DateTime.Now.Year
-            : int.Parse(SelectedYear);
-
-        var date = DateOnly.Parse($"{year}/{monthIndex}/01");
-        return date;
     }
 
     private void ButtonDateNow_OnClick(object? sender, EventArgs e)
