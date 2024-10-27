@@ -115,6 +115,36 @@ public partial class DashBoardContentPage
 
     #region Action
 
+    private async void ButtonAddMonth_OnClick(object? sender, EventArgs e)
+    {
+        var date = GetDateOnlyFilter();
+        date = date.AddMonths(1);
+
+        var result = UpdateFilterDate(date);
+
+        if (result) return;
+
+        await DisplayAlert(DashBoardContentPageResources.MessageBoxAddMonthErrorTitle, DashBoardContentPageResources.MessageBoxAddMonthErrorMessage, DashBoardContentPageResources.MessageBoxAddMonthErrorOkButton);
+    }
+
+    private void ButtonDateNow_OnClick(object? sender, EventArgs e)
+    {
+        var now = DateOnly.FromDateTime(DateTime.Now);
+        UpdateFilterDate(now);
+    }
+
+    private async void ButtonRemoveMonth_OnClick(object? sender, EventArgs e)
+    {
+        var date = GetDateOnlyFilter();
+        date = date.AddMonths(-1);
+
+        var result = UpdateFilterDate(date);
+
+        if (result) return;
+
+        await DisplayAlert(DashBoardContentPageResources.MessageBoxRemoveMonthErrorTitle, DashBoardContentPageResources.MessageBoxRemoveMonthErrorMessage, DashBoardContentPageResources.MessageBoxRemoveMonthErrorOkButton);
+    }
+
     private void Interface_OnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
     {
         UpdateLanguage();
@@ -188,37 +218,5 @@ public partial class DashBoardContentPage
     private void CustomPicker_OnSelectedIndexChanged(object? sender, EventArgs e)
     {
         // RefreshDataGrid();
-    }
-
-    private async void ButtonAddMonth_OnClick(object? sender, EventArgs e)
-    {
-        var date = GetDateOnlyFilter();
-        date = date.AddMonths(1);
-
-        var result = UpdateFilterDate(date);
-
-        if (result) return;
-
-        // TODO trad
-        await DisplayAlert("Title", "No additional dates are available", "Ok");
-    }
-
-    private void ButtonDateNow_OnClick(object? sender, EventArgs e)
-    {
-        var now = DateOnly.FromDateTime(DateTime.Now);
-        UpdateFilterDate(now);
-    }
-
-    private async void ButtonRemoveMonth_OnClick(object? sender, EventArgs e)
-    {
-        var date = GetDateOnlyFilter();
-        date = date.AddMonths(-1);
-
-        var result = UpdateFilterDate(date);
-
-        if (result) return;
-
-        // TODO trad
-        await DisplayAlert("Title", "No lower dates are available", "Ok");
     }
 }
