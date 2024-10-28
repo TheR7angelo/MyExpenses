@@ -84,17 +84,15 @@ public partial class DashBoardContentPage
 
     private static DashBoardContentPage Instance { get; set; } = null!;
 
+    public ICommand ShortPressCommand { get; }
+    private bool _isLongPressInvoked;
     public ICommand LongPressCommand { get; }
-
-    // TODO work
-    public async void LongPress()
-    {
-        await DisplayAlert("Long Press Command", "Long Press Pressed", "OK");
-    }
 
     public DashBoardContentPage()
     {
+        ShortPressCommand = new Command(ShortPress);
         LongPressCommand = new Command(LongPress);
+
         Instance = this;
 
         UpdateMonthLanguage();
@@ -351,4 +349,27 @@ public partial class DashBoardContentPage
     }
     
     #endregion
+
+    //TODO work
+    private async void ShortPress(object obj)
+    {
+        if (_isLongPressInvoked) return;
+
+        if (obj is not VHistory vHistory) return;
+
+        await DisplayAlert("ShortPress", $"You pressed {vHistory.Description}", "OK");
+    }
+
+    // TODO work
+    public async void LongPress(object obj)
+    {
+        if (obj is not VHistory vHistory) return;
+
+        _isLongPressInvoked = true;
+
+        await DisplayAlert("Long Press Command", $"You pressed {vHistory.Description}", "OK");
+
+        await Task.Delay(TimeSpan.FromSeconds(1));
+        _isLongPressInvoked = false;
+    }
 }
