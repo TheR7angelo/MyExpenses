@@ -5,12 +5,14 @@ using System.Windows.Input;
 using MyExpenses.Maui.Utils;
 using MyExpenses.Models.Config;
 using MyExpenses.Models.Config.Interfaces;
+using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Models.Sql.Bases.Views;
 using MyExpenses.Smartphones.Resources.Resx.ContentPages.DashBoardContentPage;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils;
 using MyExpenses.Utils.Collection;
 using MyExpenses.Utils.Strings;
+using Serilog;
 
 namespace MyExpenses.Smartphones.ContentPages;
 
@@ -367,7 +369,27 @@ public partial class DashBoardContentPage
 
         _isLongPressInvoked = true;
 
-        await DisplayAlert("Long Press Command", $"You pressed {vHistory.Description}", "OK");
+        var history = vHistory.Id.ToISql<THistory>()!;
+
+        var word = history.Pointed is true
+            ? "uncheck"
+            : "check";
+
+        //TODO work
+        var response = await DisplayAlert("Update history", $"Do you really want to {word} this record ?\n({history.Description})", "Yes", "No");
+        if (response)
+        {
+            history.Pointed = !history.Pointed;
+
+            if (history.Pointed is true) history.DatePointed = DateTime.Now;
+            else history.DatePointed = null;
+
+            Log.Information("Attention to pointed record, id: \"{HistoryId}\"", history.Id);
+            history.AddOrEdit();
+            Log.Information("The recording was successfully pointed");
+
+            RefreshDataGrid();
+        }
 
         await Task.Delay(TimeSpan.FromSeconds(1));
         _isLongPressInvoked = false;
