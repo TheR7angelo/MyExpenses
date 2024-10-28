@@ -1,11 +1,13 @@
 using System.Collections.Immutable;
 using System.Collections.ObjectModel;
 using System.Globalization;
+using MyExpenses.Maui.Utils;
 using MyExpenses.Models.Config;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Sql.Bases.Views;
 using MyExpenses.Smartphones.Resources.Resx.ContentPages.DashBoardContentPage;
 using MyExpenses.Sql.Context;
+using MyExpenses.Utils;
 using MyExpenses.Utils.Collection;
 using MyExpenses.Utils.Strings;
 
@@ -64,6 +66,9 @@ public partial class DashBoardContentPage
     public ObservableCollection<string> Years { get; }
     public ObservableCollection<string> Months { get; } = [];
 
+    public ObservableCollection<VHistory> VHistories { get; } = [];
+    public ObservableCollection<VTotalByAccount> VTotalByAccounts { get; } = [];
+
     private static VTotalByAccount? _staticVTotalByAccount;
 
     private static VTotalByAccount? StaticVTotalByAccount
@@ -107,6 +112,8 @@ public partial class DashBoardContentPage
 
         CurrentVTotalByAccount = context.VTotalByAccounts.FirstOrDefault();
 
+        RefreshAccountTotal();
+
         UpdateLanguage();
         InitializeComponent();
 
@@ -145,10 +152,35 @@ public partial class DashBoardContentPage
         await DisplayAlert(DashBoardContentPageResources.MessageBoxRemoveMonthErrorTitle, DashBoardContentPageResources.MessageBoxRemoveMonthErrorMessage, DashBoardContentPageResources.MessageBoxRemoveMonthErrorOkButton);
     }
 
+    private async void CollectionViewVTotalAccount_OnLoaded(object? sender, EventArgs e)
+    {
+        await Dispatcher.DispatchAsync(async () =>
+        {
+            await Task.Delay(TimeSpan.FromMilliseconds(100));
+            RefreshRadioButtonSelected();
+        });
+    }
+
+    private void CustomPicker_OnSelectedIndexChanged(object? sender, EventArgs e)
+        => RefreshDataGrid();
+
     private void Interface_OnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
     {
         UpdateLanguage();
         UpdateMonthLanguage();
+    }
+
+    private void RadioButton_OnCheckedChanged(object? sender, CheckedChangedEventArgs e)
+    {
+        var button = sender as RadioButton;
+        if (button?.BindingContext is not VTotalByAccount vTotalByAccount) return;
+
+        StaticVTotalByAccount = vTotalByAccount;
+
+        var name = vTotalByAccount.Name;
+        if (string.IsNullOrEmpty(name)) return;
+
+        RefreshDataGrid(name);
     }
 
     #endregion
@@ -168,7 +200,103 @@ public partial class DashBoardContentPage
         var date = DateOnly.Parse($"{year}/{monthIndex}/01");
         return date;
     }
-    
+
+    internal void RefreshAccountTotal()
+    {
+        using var context = new DataBaseContext();
+        var newVTotalByAccounts = context.VTotalByAccounts.ToList();
+
+        var itemsToDelete = VTotalByAccounts
+            .Where(s => newVTotalByAccounts.All(n => n.Id != s.Id)).ToImmutableArray();
+
+        foreach (var item in itemsToDelete)
+        {
+            VTotalByAccounts.Remove(item);
+        }
+
+        foreach (var vTotalByAccount in newVTotalByAccounts)
+        {
+            var exist = VTotalByAccounts.FirstOrDefault(s => s.Id == vTotalByAccount.Id);
+            if (exist is not null)
+            {
+                vTotalByAccount.CopyPropertiesTo(exist);
+            }
+            else
+            {
+                VTotalByAccounts.AddAndSort(vTotalByAccount, s => s.Name!);
+            }
+        }
+    }
+
+    private void RefreshAccountTotal(int id)
+    {
+        using var context = new DataBaseContext();
+        var newVTotalByAccount = context.VTotalByAccounts.FirstOrDefault(s => s.Id.Equals(id));
+        if (newVTotalByAccount is null) return;
+
+        var vTotalByAccount = VTotalByAccounts.FirstOrDefault(s => s.Id.Equals(id));
+        if (vTotalByAccount is null) return;
+
+        newVTotalByAccount.CopyPropertiesTo(vTotalByAccount);
+    }
+
+    private void RefreshDataGrid(string? accountName = null)
+    {
+        if (string.IsNullOrEmpty(accountName))
+        {
+            var radioButtons = CollectionViewVTotalAccount?.FindVisualChildren<RadioButton>().ToList() ?? [];
+            if (radioButtons.Count.Equals(0)) return;
+
+            accountName = radioButtons.FirstOrDefault(s => s.IsChecked)?.Content as string;
+        }
+
+        if (string.IsNullOrEmpty(accountName)) return;
+
+        using var context = new DataBaseContext();
+
+        var query = context.VHistories
+            .Where(s => s.Account == accountName);
+
+        if (!string.IsNullOrEmpty(SelectedMonth))
+        {
+            var monthInt = Months.IndexOf(SelectedMonth) + 1;
+            query = query.Where(s => s.Date!.Value.Month.Equals(monthInt));
+        }
+
+        if (!string.IsNullOrEmpty(SelectedYear))
+        {
+            _ = SelectedYear.ToInt(out var yearInt);
+            query = query.Where(s => s.Date!.Value.Year.Equals(yearInt));
+        }
+
+        var records = query
+            .OrderBy(s => s.Pointed)
+            .ThenByDescending(s => s.Date)
+            .ThenBy(s => s.Category);
+
+        VHistories.Clear();
+        VHistories.AddRange(records);
+    }
+
+    private void RefreshRadioButtonSelected()
+    {
+        var radioButtons = CollectionViewVTotalAccount.FindVisualChildren<RadioButton>().ToList();
+
+        var radioButton = StaticVTotalByAccount is null
+            ? radioButtons.FirstOrDefault()
+            : radioButtons.FirstOrDefault(rb =>
+                rb.BindingContext is VTotalByAccount vTotalByAccount &&
+                vTotalByAccount.Id.Equals(StaticVTotalByAccount.Id));
+
+        StaticVTotalByAccount = radioButton?.BindingContext as VTotalByAccount;
+
+        if (radioButton is null) return;
+        radioButton.IsChecked = true;
+
+        RefreshDataGrid();
+        RefreshAccountTotal(StaticVTotalByAccount!.Id);
+    }
+
     private bool UpdateFilterDate(DateOnly date)
     {
         var yearStr = date.Year.ToString();
@@ -213,10 +341,4 @@ public partial class DashBoardContentPage
     }
     
     #endregion
-
-    //TODO work
-    private void CustomPicker_OnSelectedIndexChanged(object? sender, EventArgs e)
-    {
-        // RefreshDataGrid();
-    }
 }

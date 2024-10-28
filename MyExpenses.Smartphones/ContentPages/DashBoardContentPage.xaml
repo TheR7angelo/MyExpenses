@@ -125,6 +125,37 @@
 
             </Grid>
 
+            <Border Grid.Row="3"
+                    Stroke="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
+                    StrokeThickness="2"
+                    HorizontalOptions="Center">
+
+                <ScrollView Orientation="Horizontal">
+
+                    <CollectionView x:Name="CollectionViewVTotalAccount"
+                                    ItemsSource="{Binding VTotalByAccounts}"
+                                    Loaded="CollectionViewVTotalAccount_OnLoaded">
+
+                        <CollectionView.ItemsLayout>
+                            <LinearItemsLayout Orientation="Horizontal" ItemSpacing="3" />
+                        </CollectionView.ItemsLayout>
+
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <RadioButton GroupName="ToggleButtonVTotalAccount"
+                                             Content="{Binding Name}"
+                                             Margin="3"
+                                             CheckedChanged="RadioButton_OnCheckedChanged">
+                                </RadioButton>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+
+                    </CollectionView>
+
+                </ScrollView>
+
+            </Border>
+
         </Grid>
 
     </ContentPage.Content>
