@@ -23,6 +23,7 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
@@ -32,43 +33,6 @@
                      Stroke="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
                      StrokeThickness="3">
             </Ellipse>
-
-            <HorizontalStackLayout Grid.Row="1"
-                                   HorizontalOptions="Center"
-                                   margin:LayoutExtensions.MarginForAllChildren="5">
-
-            <customFrame:ButtonImageView Style="{StaticResource FloatingActionMiniLightButtonImageView}"
-                                         Margin="5"
-                                         GeometrySource="Plus"
-                                         GeometryColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
-                                         ImageHeightRequest="24"
-                                         ImageWidthRequest="{Binding ImageHeightRequest, Source={RelativeSource Self}}"
-                                         HeightRequest="40"
-                                         WidthRequest="{Binding HeightRequest, Source={RelativeSource Self}}"
-                                         Clicked="ButtonAddMonth_OnClick">
-            </customFrame:ButtonImageView>
-
-            <customFrame:ButtonImageView Style="{StaticResource FloatingActionMiniDarkButtonImageView}"
-                                         Margin="5"
-                                         GeometrySource="ClockFast"
-                                         ImageHeightRequest="24"
-                                         ImageWidthRequest="{Binding ImageHeightRequest, Source={RelativeSource Self}}"
-                                         HeightRequest="40"
-                                         WidthRequest="{Binding HeightRequest, Source={RelativeSource Self}}"
-                                         Clicked="ButtonDateNow_OnClick">
-            </customFrame:ButtonImageView>
-
-            <customFrame:ButtonImageView Style="{StaticResource FloatingActionMiniSecondaryDarkButtonImageView}"
-                                         Margin="5"
-                                         GeometrySource="Minus"
-                                         ImageHeightRequest="24"
-                                         ImageWidthRequest="{Binding ImageHeightRequest, Source={RelativeSource Self}}"
-                                         HeightRequest="40"
-                                         WidthRequest="{Binding HeightRequest, Source={RelativeSource Self}}"
-                                         Clicked="ButtonRemoveMonth_OnClick">
-            </customFrame:ButtonImageView>
-
-            </HorizontalStackLayout>
 
             <VerticalStackLayout Grid.Row="0"
                                  VerticalOptions="Center"
@@ -96,6 +60,43 @@
                 </Label>
 
             </VerticalStackLayout>
+
+            <HorizontalStackLayout Grid.Row="1"
+                                   HorizontalOptions="Center"
+                                   margin:LayoutExtensions.MarginForAllChildren="5">
+
+                <customFrame:ButtonImageView Style="{StaticResource FloatingActionMiniLightButtonImageView}"
+                                             Margin="5"
+                                             GeometrySource="Plus"
+                                             GeometryColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
+                                             ImageHeightRequest="24"
+                                             ImageWidthRequest="{Binding ImageHeightRequest, Source={RelativeSource Self}}"
+                                             HeightRequest="40"
+                                             WidthRequest="{Binding HeightRequest, Source={RelativeSource Self}}"
+                                             Clicked="ButtonAddMonth_OnClick">
+                </customFrame:ButtonImageView>
+
+                <customFrame:ButtonImageView Style="{StaticResource FloatingActionMiniDarkButtonImageView}"
+                                             Margin="5"
+                                             GeometrySource="ClockFast"
+                                             ImageHeightRequest="24"
+                                             ImageWidthRequest="{Binding ImageHeightRequest, Source={RelativeSource Self}}"
+                                             HeightRequest="40"
+                                             WidthRequest="{Binding HeightRequest, Source={RelativeSource Self}}"
+                                             Clicked="ButtonDateNow_OnClick">
+                </customFrame:ButtonImageView>
+
+                <customFrame:ButtonImageView Style="{StaticResource FloatingActionMiniSecondaryDarkButtonImageView}"
+                                             Margin="5"
+                                             GeometrySource="Minus"
+                                             ImageHeightRequest="24"
+                                             ImageWidthRequest="{Binding ImageHeightRequest, Source={RelativeSource Self}}"
+                                             HeightRequest="40"
+                                             WidthRequest="{Binding HeightRequest, Source={RelativeSource Self}}"
+                                             Clicked="ButtonRemoveMonth_OnClick">
+                </customFrame:ButtonImageView>
+
+            </HorizontalStackLayout>
 
             <Grid Grid.Row="2" margin:LayoutExtensions.MarginForAllChildren="5">
 
