@@ -169,7 +169,8 @@
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
 
-                        <Border Stroke="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
+                        <Border x:Name="Border"
+                                Stroke="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
                                 StrokeThickness="2"
                                 Padding="0"
                                 Margin="0, 3">
@@ -179,7 +180,7 @@
                                 <Grid.Behaviors>
                                     <toolkit:TouchBehavior
                                         LongPressCommand="{Binding LongPressCommand, Source={x:Reference This}}"
-                                        LongPressCommandParameter="{Binding .}"
+                                        LongPressCommandParameter="{Binding Source={x:Reference Border}, Path=BindingContext}"
                                         LongPressDuration="1500">
                                     </toolkit:TouchBehavior>
                                 </Grid.Behaviors>
