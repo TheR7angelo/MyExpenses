@@ -177,9 +177,10 @@
                             <Grid>
 
                                 <Grid.Behaviors>
-                                    <toolkit:TouchBehavior LongPressCommand="{Binding LongPressCommand, Source={x:Reference This}}"
-                                                           LongPressCommandParameter="{Binding .}"
-                                                           LongPressDuration="2000">
+                                    <toolkit:TouchBehavior
+                                        LongPressCommand="{Binding LongPressCommand, Source={x:Reference This}}"
+                                        LongPressCommandParameter="{Binding .}"
+                                        LongPressDuration="1500">
                                     </toolkit:TouchBehavior>
                                 </Grid.Behaviors>
 
