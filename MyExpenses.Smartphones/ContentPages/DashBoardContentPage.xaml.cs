@@ -1,6 +1,7 @@
 using System.Collections.Immutable;
 using System.Collections.ObjectModel;
 using System.Globalization;
+using System.Windows.Input;
 using MyExpenses.Maui.Utils;
 using MyExpenses.Models.Config;
 using MyExpenses.Models.Config.Interfaces;
@@ -83,8 +84,17 @@ public partial class DashBoardContentPage
 
     private static DashBoardContentPage Instance { get; set; } = null!;
 
+    public ICommand LongPressCommand { get; }
+
+    // TODO work
+    public async void LongPress()
+    {
+        await DisplayAlert("Long Press Command", "Long Press Pressed", "OK");
+    }
+
     public DashBoardContentPage()
     {
+        LongPressCommand = new Command(LongPress);
         Instance = this;
 
         UpdateMonthLanguage();
