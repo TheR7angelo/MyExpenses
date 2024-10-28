@@ -13,6 +13,7 @@
     <ContentPage.Resources>
         <converters:TotalToIconConverter x:Key="TotalToIconConverter" />
         <converters:ValueSymbolConverter x:Key="ValueSymbolConverter" />
+        <converters:StringToBrushConverter x:Key="StringToBrushConverter" />
     </ContentPage.Resources>
 
     <ContentPage.Content>
@@ -175,6 +176,7 @@
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="*" />
                                     <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
                                 </Grid.RowDefinitions>
 
                                 <Grid.ColumnDefinitions>
@@ -184,17 +186,17 @@
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
 
-                                <Label Grid.Row="0" Grid.Column="0"
-                                       Text="{Binding Category}">
-                                </Label>
-
-                                <Label Grid.Row="1" Grid.Column="0"
-                                       HorizontalTextAlignment="Start"
-                                       Text="{Binding Date}">
-                                </Label>
+                                <Ellipse  Grid.Row="0" Grid.Column="0" Grid.RowSpan="2"
+                                          HeightRequest="16"
+                                          WidthRequest="{Binding HeightRequest, Source={RelativeSource Self}}"
+                                          Stroke="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
+                                          StrokeThickness="1.5"
+                                          Fill="{Binding HexadecimalColorCode, Mode=OneWay, Converter={StaticResource StringToBrushConverter}}"
+                                          Margin="10, 0">
+                                </Ellipse>
 
                                 <Label Grid.Row="0" Grid.Column="1"
-                                       HorizontalTextAlignment="Start"
+                                       HorizontalTextAlignment="Center"
                                        LineBreakMode="WordWrap"
                                        MaxLines="2"
                                        Text="{Binding Description}">
@@ -205,7 +207,7 @@
                                        Text="{Binding ModePayment}">
                                 </Label>
 
-                                <Label Grid.Row="0" Grid.Column="2" Grid.RowSpan="2"
+                                <Label Grid.Row="0" Grid.Column="2" Grid.RowSpan="3"
                                        HorizontalTextAlignment="Center"
                                        VerticalOptions="Center">
                                     <Label.Text>
@@ -216,12 +218,17 @@
                                     </Label.Text>
                                 </Label>
 
-                                <buttons:ReadOnlyCheckBox Grid.Row="0" Grid.Column="3" Grid.RowSpan="2"
+                                <buttons:ReadOnlyCheckBox Grid.Row="0" Grid.Column="3" Grid.RowSpan="3"
                                                   HorizontalOptions="Center"
                                                   VerticalOptions="Center"
                                                   IsChecked="{Binding Pointed}"
                                                   IsReadOnly="True">
                                 </buttons:ReadOnlyCheckBox>
+
+                                <Label Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3"
+                                       HorizontalTextAlignment="Start"
+                                       Text="{Binding Date}">
+                                </Label>
 
                             </Grid>
 
