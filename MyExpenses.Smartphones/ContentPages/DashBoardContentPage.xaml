@@ -185,9 +185,10 @@
                                 </Grid.Behaviors>
 
                                 <Grid.GestureRecognizers>
-                                    <TapGestureRecognizer Command="{Binding ShortPressCommand, Source={x:Reference This}}"
-                                                          CommandParameter="{Binding .}"
-                                                          NumberOfTapsRequired="1">
+                                    <TapGestureRecognizer
+                                        Command="{Binding ShortPressCommand, Source={x:Reference This}}"
+                                        CommandParameter="{Binding .}"
+                                        NumberOfTapsRequired="1">
                                     </TapGestureRecognizer>
                                 </Grid.GestureRecognizers>
 
@@ -204,13 +205,13 @@
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
 
-                                <Ellipse  Grid.Row="0" Grid.Column="0" Grid.RowSpan="2"
-                                          HeightRequest="16"
-                                          WidthRequest="{Binding HeightRequest, Source={RelativeSource Self}}"
-                                          Stroke="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
-                                          StrokeThickness="1.5"
-                                          Fill="{Binding HexadecimalColorCode, Mode=OneWay, Converter={StaticResource StringToBrushConverter}}"
-                                          Margin="10, 0">
+                                <Ellipse Grid.Row="0" Grid.Column="0" Grid.RowSpan="2"
+                                         HeightRequest="24"
+                                         WidthRequest="{Binding HeightRequest, Source={RelativeSource Self}}"
+                                         Stroke="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
+                                         StrokeThickness="1.5"
+                                         Fill="{Binding HexadecimalColorCode, Mode=OneWay, Converter={StaticResource StringToBrushConverter}}"
+                                         Margin="10, 0">
                                 </Ellipse>
 
                                 <Label Grid.Row="0" Grid.Column="1"
@@ -237,10 +238,10 @@
                                 </Label>
 
                                 <buttons:ReadOnlyCheckBox Grid.Row="0" Grid.Column="3" Grid.RowSpan="3"
-                                                  HorizontalOptions="Center"
-                                                  VerticalOptions="Center"
-                                                  IsChecked="{Binding Pointed}"
-                                                  IsReadOnly="True">
+                                                          HorizontalOptions="Center"
+                                                          VerticalOptions="Center"
+                                                          IsChecked="{Binding Pointed}"
+                                                          IsReadOnly="True">
                                 </buttons:ReadOnlyCheckBox>
 
                                 <Label Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3"
