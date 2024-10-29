@@ -87,7 +87,7 @@ public partial class DashBoardContentPage
     private static DashBoardContentPage Instance { get; set; } = null!;
 
     public ICommand CollectionViewVHistoryShortPressCommand { get; }
-    private bool _isLongPressInvoked;
+    private bool _isCollectionViewVHistoryLongPressInvoked;
     public ICommand CollectionViewVHistoryLongPressCommand { get; }
 
     public DashBoardContentPage()
@@ -355,7 +355,7 @@ public partial class DashBoardContentPage
     //TODO work
     private async void CollectionViewVHistoryShortPress(object obj)
     {
-        if (_isLongPressInvoked) return;
+        if (_isCollectionViewVHistoryLongPressInvoked) return;
 
         if (obj is not VHistory vHistory) return;
 
@@ -367,7 +367,7 @@ public partial class DashBoardContentPage
     {
         if (obj is not VHistory vHistory) return;
 
-        _isLongPressInvoked = true;
+        _isCollectionViewVHistoryLongPressInvoked = true;
 
         var history = vHistory.Id.ToISql<THistory>()!;
 
@@ -392,6 +392,6 @@ public partial class DashBoardContentPage
         }
 
         await Task.Delay(TimeSpan.FromSeconds(1));
-        _isLongPressInvoked = false;
+        _isCollectionViewVHistoryLongPressInvoked = false;
     }
 }
