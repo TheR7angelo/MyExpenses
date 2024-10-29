@@ -391,6 +391,7 @@ public partial class DashBoardContentPage
 
         if (obj is not VHistory vHistory) return;
 
-        await DisplayAlert("ShortPress", $"You pressed {vHistory.Description}", "OK");
+        var detailedRecordContentPage = new DetailedRecordContentPage(vHistory.Id);
+        await Navigation.PushAsync(detailedRecordContentPage);
     }
 }
