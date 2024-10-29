@@ -363,7 +363,7 @@ public partial class DashBoardContentPage
     }
 
     // TODO work
-    public async void LongPress(object obj)
+    private async void LongPress(object obj)
     {
         if (obj is not VHistory vHistory) return;
 
