@@ -162,6 +162,38 @@ public partial class DashBoardContentPage
         await DisplayAlert(DashBoardContentPageResources.MessageBoxRemoveMonthErrorTitle, DashBoardContentPageResources.MessageBoxRemoveMonthErrorMessage, DashBoardContentPageResources.MessageBoxRemoveMonthErrorOkButton);
     }
 
+    private async void CollectionViewVHistory_OnLongPress(object obj)
+    {
+        if (obj is not VHistory vHistory) return;
+
+        _isCollectionViewVHistoryLongPressInvoked = true;
+
+        var history = vHistory.Id.ToISql<THistory>()!;
+
+        var word = history.Pointed is true
+            ? DashBoardContentPageResources.MessageBoxCollectionViewVHistoryOnLongPressUnCheck
+            : DashBoardContentPageResources.MessageBoxCollectionViewVHistoryOnLongPressCheck;
+
+        var message = string.Format(DashBoardContentPageResources.MessageBoxCollectionViewVHistoryOnLongPressMessage, word, $"\n{history.Description}");
+        var response = await DisplayAlert(DashBoardContentPageResources.MessageBoxCollectionViewVHistoryOnLongPressTitle, message, DashBoardContentPageResources.MessageBoxCollectionViewVHistoryOnLongPressYesButton, DashBoardContentPageResources.MessageBoxCollectionViewVHistoryOnLongPressNoButton);
+        if (response)
+        {
+            history.Pointed = !history.Pointed;
+
+            if (history.Pointed is true) history.DatePointed = DateTime.Now;
+            else history.DatePointed = null;
+
+            Log.Information("Attention to pointed record, id: \"{HistoryId}\"", history.Id);
+            history.AddOrEdit();
+            Log.Information("The recording was successfully pointed");
+
+            RefreshDataGrid();
+        }
+
+        await Task.Delay(TimeSpan.FromSeconds(1));
+        _isCollectionViewVHistoryLongPressInvoked = false;
+    }
+
     private async void CollectionViewVTotalAccount_OnLoaded(object? sender, EventArgs e)
     {
         await Dispatcher.DispatchAsync(async () =>
@@ -360,38 +392,5 @@ public partial class DashBoardContentPage
         if (obj is not VHistory vHistory) return;
 
         await DisplayAlert("ShortPress", $"You pressed {vHistory.Description}", "OK");
-    }
-
-    // TODO work
-    private async void CollectionViewVHistory_OnLongPress(object obj)
-    {
-        if (obj is not VHistory vHistory) return;
-
-        _isCollectionViewVHistoryLongPressInvoked = true;
-
-        var history = vHistory.Id.ToISql<THistory>()!;
-
-        var word = history.Pointed is true
-            ? DashBoardContentPageResources.MessageBoxCollectionViewVHistoryOnLongPressUnCheck
-            : DashBoardContentPageResources.MessageBoxCollectionViewVHistoryOnLongPressCheck;
-
-        var message = string.Format(DashBoardContentPageResources.MessageBoxCollectionViewVHistoryOnLongPressMessage, word, $"\n{history.Description}");
-        var response = await DisplayAlert(DashBoardContentPageResources.MessageBoxCollectionViewVHistoryOnLongPressTitle, message, DashBoardContentPageResources.MessageBoxCollectionViewVHistoryOnLongPressYesButton, DashBoardContentPageResources.MessageBoxCollectionViewVHistoryOnLongPressNoButton);
-        if (response)
-        {
-            history.Pointed = !history.Pointed;
-
-            if (history.Pointed is true) history.DatePointed = DateTime.Now;
-            else history.DatePointed = null;
-
-            Log.Information("Attention to pointed record, id: \"{HistoryId}\"", history.Id);
-            history.AddOrEdit();
-            Log.Information("The recording was successfully pointed");
-
-            RefreshDataGrid();
-        }
-
-        await Task.Delay(TimeSpan.FromSeconds(1));
-        _isCollectionViewVHistoryLongPressInvoked = false;
     }
 }
