@@ -179,7 +179,7 @@
 
                                 <Grid.Behaviors>
                                     <toolkit:TouchBehavior
-                                        LongPressCommand="{Binding LongPressCommand, Source={x:Reference This}}"
+                                        LongPressCommand="{Binding CollectionViewVHistoryLongPressCommand, Source={x:Reference This}}"
                                         LongPressCommandParameter="{Binding Source={x:Reference Border}, Path=BindingContext}"
                                         LongPressDuration="1500">
                                     </toolkit:TouchBehavior>

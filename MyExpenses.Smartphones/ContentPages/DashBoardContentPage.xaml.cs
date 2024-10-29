@@ -88,12 +88,12 @@ public partial class DashBoardContentPage
 
     public ICommand ShortPressCommand { get; }
     private bool _isLongPressInvoked;
-    public ICommand LongPressCommand { get; }
+    public ICommand CollectionViewVHistoryLongPressCommand { get; }
 
     public DashBoardContentPage()
     {
         ShortPressCommand = new Command(ShortPress);
-        LongPressCommand = new Command(LongPress);
+        CollectionViewVHistoryLongPressCommand = new Command(CollectionViewVHistoryLongPress);
 
         Instance = this;
 
@@ -363,7 +363,7 @@ public partial class DashBoardContentPage
     }
 
     // TODO work
-    private async void LongPress(object obj)
+    private async void CollectionViewVHistoryLongPress(object obj)
     {
         if (obj is not VHistory vHistory) return;
 
