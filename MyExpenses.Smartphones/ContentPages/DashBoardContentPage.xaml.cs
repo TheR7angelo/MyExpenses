@@ -86,13 +86,13 @@ public partial class DashBoardContentPage
 
     private static DashBoardContentPage Instance { get; set; } = null!;
 
-    public ICommand ShortPressCommand { get; }
+    public ICommand CollectionViewVHistoryShortPressCommand { get; }
     private bool _isLongPressInvoked;
     public ICommand CollectionViewVHistoryLongPressCommand { get; }
 
     public DashBoardContentPage()
     {
-        ShortPressCommand = new Command(ShortPress);
+        CollectionViewVHistoryShortPressCommand = new Command(CollectionViewVHistoryShortPress);
         CollectionViewVHistoryLongPressCommand = new Command(CollectionViewVHistoryLongPress);
 
         Instance = this;
@@ -353,7 +353,7 @@ public partial class DashBoardContentPage
     #endregion
 
     //TODO work
-    private async void ShortPress(object obj)
+    private async void CollectionViewVHistoryShortPress(object obj)
     {
         if (_isLongPressInvoked) return;
 

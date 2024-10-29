@@ -187,7 +187,7 @@
 
                                 <Grid.GestureRecognizers>
                                     <TapGestureRecognizer
-                                        Command="{Binding ShortPressCommand, Source={x:Reference This}}"
+                                        Command="{Binding CollectionViewVHistoryShortPressCommand, Source={x:Reference This}}"
                                         CommandParameter="{Binding .}"
                                         NumberOfTapsRequired="1">
                                     </TapGestureRecognizer>
