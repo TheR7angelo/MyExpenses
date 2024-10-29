@@ -41,7 +41,7 @@ public partial class THistory : ISql
     public int? PlaceFk { get; set; }
 
     [Column("pointed", TypeName = "BOOLEAN")]
-    public bool? Pointed { get; set; } = false;
+    public bool Pointed { get; set; } = false;
 
     [Column("bank_transfer_fk")]
     public int? BankTransferFk { get; set; }

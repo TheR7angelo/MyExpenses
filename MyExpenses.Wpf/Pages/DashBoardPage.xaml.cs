@@ -568,7 +568,7 @@ public partial class DashBoardPage
 
         history.Pointed = !history.Pointed;
 
-        if (history.Pointed is true) history.DatePointed = DateTime.Now;
+        if (history.Pointed) history.DatePointed = DateTime.Now;
         else history.DatePointed = null;
 
         Log.Information("Attention to pointed record, id: \"{HistoryId}\"", history.Id);

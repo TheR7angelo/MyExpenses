@@ -227,7 +227,7 @@ CREATE TABLE t_history
     place_fk             INTEGER
         constraint t_history_t_place_id_fk
             references t_place,
-    pointed              BOOLEAN  DEFAULT FALSE,
+    pointed              BOOLEAN NOT NULL DEFAULT FALSE,
     bank_transfer_fk     INTEGER
         CONSTRAINT t_history_t_bank_transfer_id_fk
             REFERENCES t_bank_transfer,

@@ -21,7 +21,6 @@ using MyExpenses.Utils.Strings;
 using MyExpenses.Wpf.Converters;
 using MyExpenses.Wpf.Resources.Resx.Converters.EmptyStringTreeViewConverter;
 using MyExpenses.Wpf.Resources.Resx.Pages.RecordExpensePage;
-using MyExpenses.Wpf.Utils;
 using MyExpenses.Wpf.Windows.CategoryTypeManagementWindow;
 using MyExpenses.Wpf.Windows.LocationManagementWindows;
 using MyExpenses.Wpf.Windows.MsgBox;
@@ -485,7 +484,7 @@ public partial class RecordExpensePage
 
         Log.Information("Attempting to inject the new history");
 
-        if (History.Pointed is true) History.DatePointed = DateTime.Now;
+        if (History.Pointed) History.DatePointed = DateTime.Now;
         else History.DatePointed = null;
 
         var (success, exception) = History.AddOrEdit();

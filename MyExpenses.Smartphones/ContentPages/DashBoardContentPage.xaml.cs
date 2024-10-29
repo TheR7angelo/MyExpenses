@@ -170,7 +170,7 @@ public partial class DashBoardContentPage
 
         var history = vHistory.Id.ToISql<THistory>()!;
 
-        var word = history.Pointed is true
+        var word = history.Pointed
             ? DashBoardContentPageResources.MessageBoxCollectionViewVHistoryOnLongPressUnCheck
             : DashBoardContentPageResources.MessageBoxCollectionViewVHistoryOnLongPressCheck;
 
@@ -180,7 +180,7 @@ public partial class DashBoardContentPage
         {
             history.Pointed = !history.Pointed;
 
-            if (history.Pointed is true) history.DatePointed = DateTime.Now;
+            if (history.Pointed) history.DatePointed = DateTime.Now;
             else history.DatePointed = null;
 
             Log.Information("Attention to pointed record, id: \"{HistoryId}\"", history.Id);
