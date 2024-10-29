@@ -16,8 +16,6 @@ public partial class DetailedRecordContentPage
         set => SetValue(HistoryProperty, value);
     }
 
-    public string ItemDisplayBindingModePayment { get; } = nameof(TModePayment.Name);
-
     public ObservableCollection<TModePayment> ModePayments { get; private set; } = [];
 
     public DetailedRecordContentPage(int historyPk)
