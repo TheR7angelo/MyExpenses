@@ -92,8 +92,8 @@ public partial class DashBoardContentPage
 
     public DashBoardContentPage()
     {
-        CollectionViewVHistoryShortPressCommand = new Command(CollectionViewVHistoryShortPress);
-        CollectionViewVHistoryLongPressCommand = new Command(CollectionViewVHistoryLongPress);
+        CollectionViewVHistoryShortPressCommand = new Command(CollectionViewVHistory_OnShortPress);
+        CollectionViewVHistoryLongPressCommand = new Command(CollectionViewVHistory_OnLongPress);
 
         Instance = this;
 
@@ -353,7 +353,7 @@ public partial class DashBoardContentPage
     #endregion
 
     //TODO work
-    private async void CollectionViewVHistoryShortPress(object obj)
+    private async void CollectionViewVHistory_OnShortPress(object obj)
     {
         if (_isCollectionViewVHistoryLongPressInvoked) return;
 
@@ -363,7 +363,7 @@ public partial class DashBoardContentPage
     }
 
     // TODO work
-    private async void CollectionViewVHistoryLongPress(object obj)
+    private async void CollectionViewVHistory_OnLongPress(object obj)
     {
         if (obj is not VHistory vHistory) return;
 
