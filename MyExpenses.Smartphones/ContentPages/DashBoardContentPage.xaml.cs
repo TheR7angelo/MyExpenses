@@ -372,11 +372,11 @@ public partial class DashBoardContentPage
         var history = vHistory.Id.ToISql<THistory>()!;
 
         var word = history.Pointed is true
-            ? "uncheck"
-            : "check";
+            ? DashBoardContentPageResources.MessageBoxCollectionViewVHistoryOnLongPressUnCheck
+            : DashBoardContentPageResources.MessageBoxCollectionViewVHistoryOnLongPressCheck;
 
-        //TODO work
-        var response = await DisplayAlert("Update history", $"Do you really want to {word} this record ?\n({history.Description})", "Yes", "No");
+        var message = string.Format(DashBoardContentPageResources.MessageBoxCollectionViewVHistoryOnLongPressMessage, word, $"\n{history.Description}");
+        var response = await DisplayAlert(DashBoardContentPageResources.MessageBoxCollectionViewVHistoryOnLongPressTitle, message, DashBoardContentPageResources.MessageBoxCollectionViewVHistoryOnLongPressYesButton, DashBoardContentPageResources.MessageBoxCollectionViewVHistoryOnLongPressNoButton);
         if (response)
         {
             history.Pointed = !history.Pointed;

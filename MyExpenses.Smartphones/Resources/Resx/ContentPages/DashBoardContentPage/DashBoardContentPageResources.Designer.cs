@@ -106,6 +106,60 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.DashBoardContentPag
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to point.
+        /// </summary>
+        internal static string MessageBoxCollectionViewVHistoryOnLongPressCheck {
+            get {
+                return ResourceManager.GetString("MessageBoxCollectionViewVHistoryOnLongPressCheck", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you really want to {0} this record ?{1}.
+        /// </summary>
+        internal static string MessageBoxCollectionViewVHistoryOnLongPressMessage {
+            get {
+                return ResourceManager.GetString("MessageBoxCollectionViewVHistoryOnLongPressMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        internal static string MessageBoxCollectionViewVHistoryOnLongPressNoButton {
+            get {
+                return ResourceManager.GetString("MessageBoxCollectionViewVHistoryOnLongPressNoButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Confirm update of this record.
+        /// </summary>
+        internal static string MessageBoxCollectionViewVHistoryOnLongPressTitle {
+            get {
+                return ResourceManager.GetString("MessageBoxCollectionViewVHistoryOnLongPressTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to unpoint.
+        /// </summary>
+        internal static string MessageBoxCollectionViewVHistoryOnLongPressUnCheck {
+            get {
+                return ResourceManager.GetString("MessageBoxCollectionViewVHistoryOnLongPressUnCheck", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Confirm.
+        /// </summary>
+        internal static string MessageBoxCollectionViewVHistoryOnLongPressYesButton {
+            get {
+                return ResourceManager.GetString("MessageBoxCollectionViewVHistoryOnLongPressYesButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No lower dates are available.
         /// </summary>
         internal static string MessageBoxRemoveMonthErrorMessage {
