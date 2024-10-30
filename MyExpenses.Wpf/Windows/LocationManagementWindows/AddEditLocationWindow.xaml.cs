@@ -14,6 +14,7 @@ using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Models.WebApi.Nominatim;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils;
+using MyExpenses.Utils.Maps;
 using MyExpenses.WebApi.Nominatim;
 using MyExpenses.Wpf.Resources.Resx.Windows.AddEditLocationWindow;
 using MyExpenses.Wpf.Utils;
@@ -228,7 +229,7 @@ public partial class AddEditLocationWindow
 
     public AddEditLocationWindow()
     {
-        KnownTileSources = [..MyExpenses.Utils.Maps.MapsuiMapExtensions.GetAllKnowTileSource()];
+        KnownTileSources = [..MapsuiMapExtensions.GetAllKnowTileSource()];
 
         var backColor = Utils.Resources.GetMaterialDesignPaperMapsUiStylesColor();
         var map = MapsuiMapExtensions.GetMap(true, backColor);

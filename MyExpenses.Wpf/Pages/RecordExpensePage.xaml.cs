@@ -14,6 +14,7 @@ using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils;
 using MyExpenses.Utils.Collection;
+using MyExpenses.Utils.Maps;
 using MyExpenses.Wpf.Utils.Maps;
 using MyExpenses.Wpf.Windows;
 using MyExpenses.Utils.Sql;
@@ -236,7 +237,7 @@ public partial class RecordExpensePage
 
     public RecordExpensePage()
     {
-        KnownTileSources = [..MyExpenses.Utils.Maps.MapsuiMapExtensions.GetAllKnowTileSource()];
+        KnownTileSources = [..MapsuiMapExtensions.GetAllKnowTileSource()];
 
         using var context = new DataBaseContext();
         Accounts = [..context.TAccounts.OrderBy(s => s.Name)];
@@ -741,7 +742,7 @@ public partial class RecordExpensePage
 
     private void UpdateConfiguration(Configuration? configuration = null)
     {
-        configuration ??= MyExpenses.Utils.Config.Configuration;
+        configuration ??= Config.Configuration;
 
         UpdateLanguage(configuration.Interface.Language!);
 

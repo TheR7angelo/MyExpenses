@@ -17,6 +17,7 @@ using MyExpenses.Sql.Context;
 using MyExpenses.Utils;
 using MyExpenses.Utils.Collection;
 using MyExpenses.Utils.Dates;
+using MyExpenses.Utils.Maps;
 using MyExpenses.Utils.Sql;
 using MyExpenses.Utils.Strings;
 using MyExpenses.Wpf.Converters;
@@ -311,7 +312,7 @@ public partial class AddEditRecurrentExpenseWindow
 
     public AddEditRecurrentExpenseWindow()
     {
-        KnownTileSources = [..MyExpenses.Utils.Maps.MapsuiMapExtensions.GetAllKnowTileSource()];
+        KnownTileSources = [..MapsuiMapExtensions.GetAllKnowTileSource()];
 
         using var context = new DataBaseContext();
         Accounts = [..context.TAccounts.OrderBy(s => s.Name)];
