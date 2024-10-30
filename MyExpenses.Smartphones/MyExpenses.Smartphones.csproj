@@ -150,6 +150,11 @@
         <AutoGen>True</AutoGen>
         <DependentUpon>ValueToCreditDebitedConverterResources.resx</DependentUpon>
       </Compile>
+      <Compile Update="Resources\Resx\ContentPages\DetailedRecordContentPage\DetailedRecordContentPageResources.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>DetailedRecordContentPageResources.resx</DependentUpon>
+      </Compile>
     </ItemGroup>
 
     <ItemGroup>
@@ -176,6 +181,10 @@
       <EmbeddedResource Update="Resources\Resx\Converters\ValueToCreditDebitedConverter\ValueToCreditDebitedConverterResources.resx">
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>ValueToCreditDebitedConverterResources.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+      <EmbeddedResource Update="Resources\Resx\ContentPages\DetailedRecordContentPage\DetailedRecordContentPageResources.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>DetailedRecordContentPageResources.Designer.cs</LastGenOutput>
       </EmbeddedResource>
     </ItemGroup>
 

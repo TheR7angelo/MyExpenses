@@ -66,16 +66,31 @@
 
                     </HorizontalStackLayout>
 
-                    <!-- <Label HorizontalTextAlignment="Start" -->
-                    <!--        FontAttributes="Bold" -->
-                    <!--        Margin="5, 0, 0, 0"> -->
-                    <!--     <Label.Text> -->
-                    <!--         <MultiBinding Converter="{StaticResource ValueSymbolConverter}"> -->
-                    <!--             <Binding Path="History.Value" FallbackValue="" Mode="OneWay" /> -->
-                    <!--             <Binding Path="CurrencySymbol" FallbackValue="" Mode="OneWay" /> -->
-                    <!--         </MultiBinding> -->
-                    <!--     </Label.Text> -->
-                    <!-- </Label> -->
+                    <HorizontalStackLayout Grid.Row="3">
+
+                        <Label HorizontalTextAlignment="Start"
+                               Text="{Binding LabelTextAddedOn, Mode=OneWay}">
+                        </Label>
+
+                        <Label HorizontalTextAlignment="Start"
+                               Margin="5, 0, 0, 0"
+                               Text="{Binding History.DateAdded, Mode=OneWay}">
+                        </Label>
+
+                    </HorizontalStackLayout>
+
+                    <Label Grid.Row="4"
+                           HorizontalOptions="Center"
+                           HorizontalTextAlignment="Center"
+                           FontAttributes="Bold"
+                           FontSize="24">
+                        <Label.Text>
+                            <MultiBinding Converter="{StaticResource ValueSymbolConverter}">
+                                <Binding Path="History.Value" FallbackValue="" Mode="OneWay" />
+                                <Binding Path="CurrencySymbol" FallbackValue="" Mode="OneWay" />
+                            </MultiBinding>
+                        </Label.Text>
+                    </Label>
 
                 </Grid>
 

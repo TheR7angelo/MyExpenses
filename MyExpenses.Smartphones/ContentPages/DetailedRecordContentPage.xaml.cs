@@ -1,5 +1,8 @@
 using System.Collections.ObjectModel;
+using MyExpenses.Models.Config;
+using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Sql.Bases.Tables;
+using MyExpenses.Smartphones.Resources.Resx.ContentPages.DetailedRecordContentPage;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils.Collection;
 
@@ -7,6 +10,15 @@ namespace MyExpenses.Smartphones.ContentPages;
 
 public partial class DetailedRecordContentPage
 {
+    public static readonly BindableProperty LabelTextAddedOnProperty = BindableProperty.Create(nameof(LabelTextAddedOn),
+        typeof(string), typeof(DetailedRecordContentPage), default(string));
+
+    public string LabelTextAddedOn
+    {
+        get => (string)GetValue(LabelTextAddedOnProperty);
+        set => SetValue(LabelTextAddedOnProperty, value);
+    }
+
     public static readonly BindableProperty HistoryProperty = BindableProperty.Create(nameof(History),
         typeof(THistory), typeof(DetailedRecordContentPage), default(THistory));
 
@@ -43,6 +55,17 @@ public partial class DetailedRecordContentPage
         var account = context.TAccounts.First(s => s.Id.Equals(History.AccountFk));
         CurrencySymbol = context.TCurrencies.First(s => s.Id.Equals(account.CurrencyFk)).Symbol!;
 
+        UpdateLanguage();
         InitializeComponent();
+
+        Interface.LanguageChanged += Interface_OnLanguageChanged;
+    }
+
+    private void Interface_OnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
+        => UpdateLanguage();
+
+    private void UpdateLanguage()
+    {
+        LabelTextAddedOn = DetailedRecordContentPageResources.LabelTextAddedOn;
     }
 }
