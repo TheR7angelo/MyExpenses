@@ -15,6 +15,7 @@
         <converters:ISqlConverter x:Key="ISqlConverter" />
         <converters:ValueToCreditDebitedConverter x:Key="ValueToCreditDebitedConverter" />
         <converters:ValueSymbolConverter x:Key="ValueSymbolConverter" />
+        <converters:StringToBrushConverter x:Key="StringToBrushConverter" />
     </ContentPage.Resources>
 
     <ContentPage.Content>
@@ -43,25 +44,25 @@
 
                     <Label Grid.Row="0"
                            HorizontalTextAlignment="Start"
-                           Text="{Binding History.Description, Mode=OneWay}"
+                           Text="{Binding THistory.Description, Mode=OneWay}"
                            FontSize="24">
                     </Label>
 
                     <Picker Grid.Row="1"
                             ItemsSource="{Binding ModePayments, Mode=OneWay, Source={RelativeSource AncestorType={x:Type local:DetailedRecordContentPage}}}"
-                            SelectedItem="{Binding History.ModePaymentFk, Mode=TwoWay, Converter={StaticResource ISqlConverter}, ConverterParameter={Binding ModePayments, Source={Reference This}}, Source={Reference This}, Source={RelativeSource AncestorType={x:Type local:DetailedRecordContentPage}}}"
+                            SelectedItem="{Binding THistory.ModePaymentFk, Mode=TwoWay, Converter={StaticResource ISqlConverter}, ConverterParameter={Binding ModePayments, Source={Reference This}}, Source={Reference This}, Source={RelativeSource AncestorType={x:Type local:DetailedRecordContentPage}}}"
                             ItemDisplayBinding="{Binding Name}" x:DataType="tables:TModePayment">
                     </Picker>
 
                     <HorizontalStackLayout Grid.Row="2">
 
                         <Label HorizontalTextAlignment="Start"
-                               Text="{Binding History.Value, Mode=OneWay, Converter={StaticResource ValueToCreditDebitedConverter}}">
+                               Text="{Binding THistory.Value, Mode=OneWay, Converter={StaticResource ValueToCreditDebitedConverter}}">
                         </Label>
 
                         <Label HorizontalTextAlignment="Start"
                                Margin="5, 0, 0, 0"
-                               Text="{Binding History.Date, Mode=OneWay}">
+                               Text="{Binding THistory.Date, Mode=OneWay}">
                         </Label>
 
                     </HorizontalStackLayout>
@@ -74,7 +75,7 @@
 
                         <Label HorizontalTextAlignment="Start"
                                Margin="5, 0, 0, 0"
-                               Text="{Binding History.DateAdded, Mode=OneWay}">
+                               Text="{Binding THistory.DateAdded, Mode=OneWay}">
                         </Label>
 
                     </HorizontalStackLayout>
@@ -86,8 +87,8 @@
                            FontSize="24">
                         <Label.Text>
                             <MultiBinding Converter="{StaticResource ValueSymbolConverter}">
-                                <Binding Path="History.Value" FallbackValue="" Mode="OneWay" />
-                                <Binding Path="CurrencySymbol" FallbackValue="" Mode="OneWay" />
+                                <Binding Path="THistory.Value" FallbackValue="" Mode="OneWay" />
+                                <Binding Path="VHistory.Symbol" FallbackValue="" Mode="OneWay" />
                             </MultiBinding>
                         </Label.Text>
                     </Label>
@@ -113,10 +114,19 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
 
-                    <Picker Grid.Row="1" Grid.Column="1"
+                    <Ellipse Grid.Row="0" Grid.Column="0"
+                             HeightRequest="24"
+                             WidthRequest="{Binding HeightRequest, Source={RelativeSource Self}}"
+                             Stroke="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
+                             StrokeThickness="1.5"
+                             Fill="{Binding VHistory.HexadecimalColorCode, Mode=OneWay, Converter={StaticResource StringToBrushConverter}}"
+                             Margin="10, 0">
+                    </Ellipse>
+
+                    <Picker Grid.Row="0" Grid.Column="1"
                             HorizontalTextAlignment="Start"
                             ItemsSource="{Binding CategoryTypes, Mode=OneWay, Source={RelativeSource AncestorType={x:Type local:DetailedRecordContentPage}}}"
-                            SelectedItem="{Binding History.CategoryTypeFk, Mode=TwoWay, Converter={StaticResource ISqlConverter}, ConverterParameter={Binding CategoryTypes, Source={Reference This}}, Source={Reference This}, Source={RelativeSource AncestorType={x:Type local:DetailedRecordContentPage}}}"
+                            SelectedItem="{Binding THistory.CategoryTypeFk, Mode=TwoWay, Converter={StaticResource ISqlConverter}, ConverterParameter={Binding CategoryTypes, Source={Reference This}}, Source={Reference This}, Source={RelativeSource AncestorType={x:Type local:DetailedRecordContentPage}}}"
                             ItemDisplayBinding="{Binding Name}" x:DataType="tables:TCategoryType">
                     </Picker>
 

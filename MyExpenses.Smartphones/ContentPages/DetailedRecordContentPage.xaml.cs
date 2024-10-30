@@ -2,6 +2,7 @@ using System.Collections.ObjectModel;
 using MyExpenses.Models.Config;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Sql.Bases.Tables;
+using MyExpenses.Models.Sql.Bases.Views;
 using MyExpenses.Smartphones.Resources.Resx.ContentPages.DetailedRecordContentPage;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils.Collection;
@@ -19,16 +20,23 @@ public partial class DetailedRecordContentPage
         set => SetValue(LabelTextAddedOnProperty, value);
     }
 
-    public static readonly BindableProperty HistoryProperty = BindableProperty.Create(nameof(History),
+    public static readonly BindableProperty THistoryProperty = BindableProperty.Create(nameof(THistory),
         typeof(THistory), typeof(DetailedRecordContentPage), default(THistory));
 
-    public THistory History
+    public THistory THistory
     {
-        get => (THistory)GetValue(HistoryProperty);
-        set => SetValue(HistoryProperty, value);
+        get => (THistory)GetValue(THistoryProperty);
+        set => SetValue(THistoryProperty, value);
     }
 
-    public string CurrencySymbol { get; private set; } = null!;
+    public static readonly BindableProperty VHistoryProperty = BindableProperty.Create(nameof(VHistory),
+        typeof(VHistory), typeof(DetailedRecordContentPage), default(VHistory));
+
+    public VHistory VHistory
+    {
+        get => (VHistory)GetValue(VHistoryProperty);
+        set => SetValue(VHistoryProperty, value);
+    }
 
     public ObservableCollection<TModePayment> ModePayments { get; private set; } = [];
     public ObservableCollection<TCategoryType> CategoryTypes { get; private set; } = [];
@@ -36,14 +44,26 @@ public partial class DetailedRecordContentPage
     public DetailedRecordContentPage(int historyPk)
     {
         using var context = new DataBaseContext();
-        History = context.THistories.First(s => s.Id.Equals(historyPk));
+        THistory = context.THistories.First(s => s.Id.Equals(historyPk));
+        VHistory = context.VHistories.First(s => s.Id.Equals(historyPk));
 
         InitializeContentPage();
     }
 
     public DetailedRecordContentPage(THistory tHistory)
     {
-        History = tHistory;
+        using var context = new DataBaseContext();
+        THistory = tHistory;
+        VHistory = context.VHistories.First(s => s.Id.Equals(tHistory.Id));
+
+        InitializeContentPage();
+    }
+
+    public DetailedRecordContentPage(VHistory vHistory)
+    {
+        using var context = new DataBaseContext();
+        THistory = context.THistories.First(s => s.Id.Equals(vHistory.Id));
+        VHistory = vHistory;
 
         InitializeContentPage();
     }
@@ -53,9 +73,6 @@ public partial class DetailedRecordContentPage
         using var context = new DataBaseContext();
         ModePayments.AddRange(context.TModePayments);
         CategoryTypes.AddRange(context.TCategoryTypes);
-
-        var account = context.TAccounts.First(s => s.Id.Equals(History.AccountFk));
-        CurrencySymbol = context.TCurrencies.First(s => s.Id.Equals(account.CurrencyFk)).Symbol!;
 
         UpdateLanguage();
         InitializeComponent();
