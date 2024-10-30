@@ -10,8 +10,8 @@ public class ValueToCreditDebitedConverter : IValueConverter
         if (value is not double doubleValue) return null;
 
         return doubleValue >= 0
-            ? ValueToCreditDebitedConverterResources.Credited
-            : ValueToCreditDebitedConverterResources.Debited;
+            ? ValueToCreditDebitedConverterResources.CreditedOn
+            : ValueToCreditDebitedConverterResources.DebitedOn;
     }
 
     public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)

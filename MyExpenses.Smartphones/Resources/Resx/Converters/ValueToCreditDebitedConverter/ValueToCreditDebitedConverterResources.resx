@@ -18,10 +18,10 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-    <data name="Credited" xml:space="preserve">
-        <value>Credited :</value>
+    <data name="CreditedOn" xml:space="preserve">
+        <value>Credited on</value>
     </data>
-    <data name="Debited" xml:space="preserve">
-        <value>Debited :</value>
+    <data name="DebitedOn" xml:space="preserve">
+        <value>Debited on</value>
     </data>
 </root>

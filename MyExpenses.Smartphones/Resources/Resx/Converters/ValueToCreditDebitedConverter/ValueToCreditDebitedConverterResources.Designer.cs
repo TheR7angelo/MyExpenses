@@ -61,20 +61,20 @@ namespace MyExpenses.Smartphones.Resources.Resx.Converters.ValueToCreditDebitedC
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Credited :.
+        ///   Looks up a localized string similar to Credited on.
         /// </summary>
-        internal static string Credited {
+        internal static string CreditedOn {
             get {
-                return ResourceManager.GetString("Credited", resourceCulture);
+                return ResourceManager.GetString("CreditedOn", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Debited :.
+        ///   Looks up a localized string similar to Debited on.
         /// </summary>
-        internal static string Debited {
+        internal static string DebitedOn {
             get {
-                return ResourceManager.GetString("Debited", resourceCulture);
+                return ResourceManager.GetString("DebitedOn", resourceCulture);
             }
         }
     }
