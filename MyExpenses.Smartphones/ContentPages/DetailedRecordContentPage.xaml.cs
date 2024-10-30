@@ -109,7 +109,34 @@ public partial class DetailedRecordContentPage
 
         MapControl.Map = map;
 
+        var place = THistory.PlaceFk?.ToISql<TPlace>();
+        UpdateMapPoint(place);
+
         Interface.LanguageChanged += Interface_OnLanguageChanged;
+    }
+
+    private void UpdateMapPoint(TPlace? place)
+    {
+        // PlaceLayer.Clear();
+
+        if (place is null)
+        {
+            MapControl.Refresh();
+            return;
+        }
+
+        // var pointFeature = place.ToFeature(MapsuiStyleExtensions.RedMarkerStyle);
+        var pointFeature = place.ToFeature();
+
+        // PlaceLayer.Add(pointFeature);
+        // MapControl.Map.Navigator.CenterOn(pointFeature.Point);
+        // MapControl.Map.Navigator.ZoomTo(0);
+
+        MapControl.Map.Home = navigator =>
+        {
+            navigator.CenterOn(pointFeature.Point);
+            navigator.ZoomTo(1);
+        };
     }
 
     private void Interface_OnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
