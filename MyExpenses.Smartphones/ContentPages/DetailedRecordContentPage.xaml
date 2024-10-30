@@ -56,22 +56,26 @@
                     <HorizontalStackLayout Grid.Row="2">
 
                         <Label HorizontalTextAlignment="Start"
-                               FontAttributes="Bold"
                                Text="{Binding History.Value, Mode=OneWay, Converter={StaticResource ValueToCreditDebitedConverter}}">
                         </Label>
 
                         <Label HorizontalTextAlignment="Start"
-                               FontAttributes="Bold"
-                               Margin="5, 0, 0, 0">
-                            <Label.Text>
-                                <MultiBinding Converter="{StaticResource ValueSymbolConverter}">
-                                    <Binding Path="History.Value" FallbackValue="" Mode="OneWay" />
-                                    <Binding Path="CurrencySymbol" FallbackValue="" Mode="OneWay" />
-                                </MultiBinding>
-                            </Label.Text>
+                               Margin="5, 0, 0, 0"
+                               Text="{Binding History.Date, Mode=OneWay}">
                         </Label>
 
                     </HorizontalStackLayout>
+
+                    <!-- <Label HorizontalTextAlignment="Start" -->
+                    <!--        FontAttributes="Bold" -->
+                    <!--        Margin="5, 0, 0, 0"> -->
+                    <!--     <Label.Text> -->
+                    <!--         <MultiBinding Converter="{StaticResource ValueSymbolConverter}"> -->
+                    <!--             <Binding Path="History.Value" FallbackValue="" Mode="OneWay" /> -->
+                    <!--             <Binding Path="CurrencySymbol" FallbackValue="" Mode="OneWay" /> -->
+                    <!--         </MultiBinding> -->
+                    <!--     </Label.Text> -->
+                    <!-- </Label> -->
 
                 </Grid>
 
