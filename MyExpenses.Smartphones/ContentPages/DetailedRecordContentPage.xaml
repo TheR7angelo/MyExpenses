@@ -17,6 +17,7 @@
         <converters:ValueToCreditDebitedConverter x:Key="ValueToCreditDebitedConverter" />
         <converters:ValueSymbolConverter x:Key="ValueSymbolConverter" />
         <converters:StringToBrushConverter x:Key="StringToBrushConverter" />
+        <converters:SplitUpperCaseWordsConverter x:Key="SplitUpperCaseWordsConverter" />
     </ContentPage.Resources>
 
     <ContentPage.Content>
@@ -191,6 +192,13 @@
                                  Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3"
                                  Loaded="MapControl_OnLoaded">
                 </maui:MapControl>
+
+                <Picker Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3"
+                        ItemsSource="{Binding KnownTileSources, Mode=OneWay}"
+                        SelectedItem="{Binding KnownTileSourceSelected}"
+                        ItemDisplayBinding="{Binding ., Converter={StaticResource SplitUpperCaseWordsConverter}}"
+                        SelectedIndexChanged="PickerKnownTileSources_OnSelectedIndexChanged">
+                </Picker>
 
             </Grid>
 

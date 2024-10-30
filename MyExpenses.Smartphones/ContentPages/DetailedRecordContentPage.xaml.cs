@@ -168,4 +168,7 @@ public partial class DetailedRecordContentPage
 
     private void MapControl_OnLoaded(object? sender, EventArgs e)
         => UpdateTileLayer();
+
+    private void PickerKnownTileSources_OnSelectedIndexChanged(object? sender, EventArgs e)
+        => UpdateTileLayer();
 }
