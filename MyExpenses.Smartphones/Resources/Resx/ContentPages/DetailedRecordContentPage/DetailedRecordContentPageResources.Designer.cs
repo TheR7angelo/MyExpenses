@@ -68,5 +68,14 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.DetailedRecordConte
                 return ResourceManager.GetString("LabelTextAddedOn", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pointed operation.
+        /// </summary>
+        internal static string PointedOperation {
+            get {
+                return ResourceManager.GetString("PointedOperation", resourceCulture);
+            }
+        }
     }
 }

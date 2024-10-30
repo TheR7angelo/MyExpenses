@@ -109,26 +109,51 @@
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
 
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
+                    <Grid Grid.Row="0">
 
-                    <Ellipse Grid.Row="0" Grid.Column="0"
-                             HeightRequest="24"
-                             WidthRequest="{Binding HeightRequest, Source={RelativeSource Self}}"
-                             Stroke="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
-                             StrokeThickness="1.5"
-                             Fill="{Binding VHistory.HexadecimalColorCode, Mode=OneWay, Converter={StaticResource StringToBrushConverter}}"
-                             Margin="10, 0">
-                    </Ellipse>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
 
-                    <Picker Grid.Row="0" Grid.Column="1"
-                            HorizontalTextAlignment="Start"
-                            ItemsSource="{Binding CategoryTypes, Mode=OneWay, Source={RelativeSource AncestorType={x:Type local:DetailedRecordContentPage}}}"
-                            SelectedItem="{Binding THistory.CategoryTypeFk, Mode=TwoWay, Converter={StaticResource ISqlConverter}, ConverterParameter={Binding CategoryTypes, Source={Reference This}}, Source={Reference This}, Source={RelativeSource AncestorType={x:Type local:DetailedRecordContentPage}}}"
-                            ItemDisplayBinding="{Binding Name}" x:DataType="tables:TCategoryType">
-                    </Picker>
+                        <Ellipse Grid.Column="0"
+                                 HeightRequest="24"
+                                 WidthRequest="{Binding HeightRequest, Source={RelativeSource Self}}"
+                                 Stroke="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
+                                 StrokeThickness="1.5"
+                                 Fill="{Binding VHistory.HexadecimalColorCode, Mode=OneWay, Converter={StaticResource StringToBrushConverter}}"
+                                 Margin="10, 0">
+                        </Ellipse>
+
+                        <Picker Grid.Column="1"
+                                HorizontalTextAlignment="Start"
+                                ItemsSource="{Binding CategoryTypes, Mode=OneWay, Source={RelativeSource AncestorType={x:Type local:DetailedRecordContentPage}}}"
+                                SelectedItem="{Binding THistory.CategoryTypeFk, Mode=TwoWay, Converter={StaticResource ISqlConverter}, ConverterParameter={Binding CategoryTypes, Source={Reference This}}, Source={Reference This}, Source={RelativeSource AncestorType={x:Type local:DetailedRecordContentPage}}}"
+                                ItemDisplayBinding="{Binding Name}" x:DataType="tables:TCategoryType">
+                        </Picker>
+
+                    </Grid>
+
+                    <Grid Grid.Row="1">
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <Label Grid.Column="0"
+                               VerticalTextAlignment="Center"
+                               Text="{Binding PointedOperation, Mode=OneWay}">
+                        </Label>
+
+                        <Switch Grid.Column="2"
+                                HorizontalOptions="End"
+                                VerticalOptions="Center"
+                                IsToggled="{Binding THistory.Pointed, Mode=OneWay}">
+                        </Switch>
+
+                    </Grid>
 
                 </Grid>
 
