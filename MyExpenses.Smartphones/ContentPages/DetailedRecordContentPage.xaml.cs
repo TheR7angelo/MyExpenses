@@ -21,7 +21,7 @@ public partial class DetailedRecordContentPage
     public DetailedRecordContentPage(int historyPk)
     {
         using var context = new DataBaseContext();
-        History = context.THistories.First(s => s.Id == historyPk);
+        History = context.THistories.First(s => s.Id.Equals(historyPk));
 
         InitializeContentPage();
     }
