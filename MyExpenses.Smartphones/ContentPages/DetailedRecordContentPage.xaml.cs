@@ -1,5 +1,7 @@
 using System.Collections.ObjectModel;
 using BruTile.Predefined;
+using Mapsui.Layers;
+using Mapsui.Tiling.Layers;
 using MyExpenses.Models.Config;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Sql.Bases.Tables;
@@ -59,7 +61,9 @@ public partial class DetailedRecordContentPage
         set => SetValue(VHistoryProperty, value);
     }
 
+    private WritableLayer PlaceLayer { get; } = new() { Style = null, IsMapInfoLayer = true, Tag = typeof(TPlace) };
     public List<KnownTileSource> KnownTileSources { get; private set; } = [];
+    public KnownTileSource KnownTileSourceSelected { get; set; }
 
     public ObservableCollection<TModePayment> ModePayments { get; private set; } = [];
     public ObservableCollection<TCategoryType> CategoryTypes { get; private set; } = [];
@@ -102,7 +106,6 @@ public partial class DetailedRecordContentPage
         KnownTileSources.AddRange(knowTileSource);
 
         var map = MapsuiMapExtensions.GetMap(false);
-        map.Layers.Add(Mapsui.Tiling.OpenStreetMap.CreateTileLayer());
 
         UpdateLanguage();
         InitializeComponent();
@@ -139,6 +142,20 @@ public partial class DetailedRecordContentPage
         };
     }
 
+    private void UpdateTileLayer()
+    {
+        const string layerName = "Background";
+
+        var httpTileSource = BruTile.Predefined.KnownTileSources.Create(KnownTileSourceSelected);
+        var tileLayer = new TileLayer(httpTileSource);
+        tileLayer.Name = layerName;
+
+        var layers = MapControl?.Map.Layers.FindLayer(layerName);
+        if (layers is not null) MapControl?.Map.Layers.Remove(layers.ToArray());
+
+        MapControl?.Map.Layers.Insert(0, tileLayer);
+    }
+
     private void Interface_OnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
         => UpdateLanguage();
 
@@ -148,4 +165,7 @@ public partial class DetailedRecordContentPage
         PointedOperation = DetailedRecordContentPageResources.PointedOperation;
         LabelTextPointedOn = DetailedRecordContentPageResources.LabelTextPointedOn;
     }
+
+    private void MapControl_OnLoaded(object? sender, EventArgs e)
+        => UpdateTileLayer();
 }

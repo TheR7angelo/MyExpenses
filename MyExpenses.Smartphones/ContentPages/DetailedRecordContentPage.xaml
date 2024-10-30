@@ -188,7 +188,8 @@
                 </Grid.ColumnDefinitions>
 
                 <maui:MapControl x:Name="MapControl"
-                                 Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3">
+                                 Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3"
+                                 Loaded="MapControl_OnLoaded">
                 </maui:MapControl>
 
             </Grid>
