@@ -311,7 +311,7 @@ public partial class AddEditRecurrentExpenseWindow
 
     public AddEditRecurrentExpenseWindow()
     {
-        KnownTileSources = [..MapsuiMapExtensions.GetAllKnowTileSource()];
+        KnownTileSources = [..MyExpenses.Utils.Maps.MapsuiMapExtensions.GetAllKnowTileSource()];
 
         using var context = new DataBaseContext();
         Accounts = [..context.TAccounts.OrderBy(s => s.Name)];

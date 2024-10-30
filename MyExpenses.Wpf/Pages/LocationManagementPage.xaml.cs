@@ -122,7 +122,7 @@ public partial class LocationManagementPage
 
     public LocationManagementPage()
     {
-        KnownTileSources = [..MapsuiMapExtensions.GetAllKnowTileSource()];
+        KnownTileSources = [..MyExpenses.Utils.Maps.MapsuiMapExtensions.GetAllKnowTileSource()];
 
         using var context = new DataBaseContext();
         var places = context.TPlaces.OrderBy(s => s.Country).ThenBy(s => s.City).ThenBy(s => s.Name).ToList();
@@ -140,7 +140,7 @@ public partial class LocationManagementPage
         PlaceLayer.AddRange(features);
 
         var backColor = Utils.Resources.GetMaterialDesignPaperMapsUiStylesColor();
-        var map = MapsuiMapExtensions.GetMap(true, backColor);
+        var map = Utils.Maps.MapsuiMapExtensions.GetMap(true, backColor);
         map.Layers.Add(PlaceLayer);
 
         Interface.ThemeChanged += Interface_OnThemeChanged;

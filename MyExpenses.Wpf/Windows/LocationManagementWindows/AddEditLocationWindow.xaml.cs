@@ -228,7 +228,7 @@ public partial class AddEditLocationWindow
 
     public AddEditLocationWindow()
     {
-        KnownTileSources = [..MapsuiMapExtensions.GetAllKnowTileSource()];
+        KnownTileSources = [..MyExpenses.Utils.Maps.MapsuiMapExtensions.GetAllKnowTileSource()];
 
         var backColor = Utils.Resources.GetMaterialDesignPaperMapsUiStylesColor();
         var map = MapsuiMapExtensions.GetMap(true, backColor);

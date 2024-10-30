@@ -13,4 +13,8 @@
       <ProjectReference Include="..\MyExpenses.Sql\MyExpenses.Sql.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <PackageReference Include="Mapsui.Tiling" Version="4.1.8" />
+    </ItemGroup>
+
 </Project>

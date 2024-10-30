@@ -236,7 +236,7 @@ public partial class RecordExpensePage
 
     public RecordExpensePage()
     {
-        KnownTileSources = [..MapsuiMapExtensions.GetAllKnowTileSource()];
+        KnownTileSources = [..MyExpenses.Utils.Maps.MapsuiMapExtensions.GetAllKnowTileSource()];
 
         using var context = new DataBaseContext();
         Accounts = [..context.TAccounts.OrderBy(s => s.Name)];
