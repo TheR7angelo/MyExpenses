@@ -155,6 +155,19 @@
 
                     </Grid>
 
+                    <HorizontalStackLayout Grid.Row="2">
+
+                        <Label HorizontalTextAlignment="Start"
+                               Text="{Binding LabelTextPointedOn, Mode=OneWay}">
+                        </Label>
+
+                        <Label HorizontalTextAlignment="Start"
+                               Margin="5, 0, 0, 0"
+                               Text="{Binding THistory.DatePointed, Mode=OneWay}">
+                        </Label>
+
+                    </HorizontalStackLayout>
+
                 </Grid>
 
             </Frame>

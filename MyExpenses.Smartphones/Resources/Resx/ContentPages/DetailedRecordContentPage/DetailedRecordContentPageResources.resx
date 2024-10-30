@@ -24,4 +24,7 @@
     <data name="PointedOperation" xml:space="preserve">
         <value>Pointed operation</value>
     </data>
+    <data name="LabelTextPointedOn" xml:space="preserve">
+        <value>Pointed on</value>
+    </data>
 </root>

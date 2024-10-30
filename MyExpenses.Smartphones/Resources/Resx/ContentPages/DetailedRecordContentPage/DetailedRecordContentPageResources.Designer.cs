@@ -70,6 +70,15 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.DetailedRecordConte
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Pointed on.
+        /// </summary>
+        internal static string LabelTextPointedOn {
+            get {
+                return ResourceManager.GetString("LabelTextPointedOn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Pointed operation.
         /// </summary>
         internal static string PointedOperation {

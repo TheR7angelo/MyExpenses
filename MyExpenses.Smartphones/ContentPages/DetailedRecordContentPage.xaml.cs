@@ -11,6 +11,16 @@ namespace MyExpenses.Smartphones.ContentPages;
 
 public partial class DetailedRecordContentPage
 {
+    public static readonly BindableProperty LabelTextPointedOnProperty =
+        BindableProperty.Create(nameof(LabelTextPointedOn), typeof(string), typeof(DetailedRecordContentPage),
+            default(string));
+
+    public string LabelTextPointedOn
+    {
+        get => (string)GetValue(LabelTextPointedOnProperty);
+        set => SetValue(LabelTextPointedOnProperty, value);
+    }
+
     public static readonly BindableProperty PointedOperationProperty = BindableProperty.Create(nameof(PointedOperation),
         typeof(string), typeof(DetailedRecordContentPage), default(string));
 
@@ -96,5 +106,6 @@ public partial class DetailedRecordContentPage
     {
         LabelTextAddedOn = DetailedRecordContentPageResources.LabelTextAddedOn;
         PointedOperation = DetailedRecordContentPageResources.PointedOperation;
+        LabelTextPointedOn = DetailedRecordContentPageResources.LabelTextPointedOn;
     }
 }
