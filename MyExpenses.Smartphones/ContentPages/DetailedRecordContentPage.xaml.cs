@@ -1,4 +1,5 @@
 using System.Collections.ObjectModel;
+using BruTile.Predefined;
 using MyExpenses.Models.Config;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Sql.Bases.Tables;
@@ -6,6 +7,7 @@ using MyExpenses.Models.Sql.Bases.Views;
 using MyExpenses.Smartphones.Resources.Resx.ContentPages.DetailedRecordContentPage;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils.Collection;
+using MyExpenses.Utils.Maps;
 
 namespace MyExpenses.Smartphones.ContentPages;
 
@@ -57,6 +59,8 @@ public partial class DetailedRecordContentPage
         set => SetValue(VHistoryProperty, value);
     }
 
+    public List<KnownTileSource> KnownTileSources { get; private set; } = [];
+
     public ObservableCollection<TModePayment> ModePayments { get; private set; } = [];
     public ObservableCollection<TCategoryType> CategoryTypes { get; private set; } = [];
 
@@ -93,8 +97,17 @@ public partial class DetailedRecordContentPage
         ModePayments.AddRange(context.TModePayments);
         CategoryTypes.AddRange(context.TCategoryTypes);
 
+        //TODO work
+        var knowTileSource = MapsuiMapExtensions.GetAllKnowTileSource();
+        KnownTileSources.AddRange(knowTileSource);
+
+        var map = MapsuiMapExtensions.GetMap(false);
+        map.Layers.Add(Mapsui.Tiling.OpenStreetMap.CreateTileLayer());
+
         UpdateLanguage();
         InitializeComponent();
+
+        MapControl.Map = map;
 
         Interface.LanguageChanged += Interface_OnLanguageChanged;
     }

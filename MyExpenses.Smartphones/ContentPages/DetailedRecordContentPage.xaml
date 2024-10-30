@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:MyExpenses.Smartphones.ContentPages"
              xmlns:tables="clr-namespace:MyExpenses.Models.Sql.Bases.Tables;assembly=MyExpenses.Models"
              xmlns:converters="clr-namespace:MyExpenses.Smartphones.Converters"
+             xmlns:maui="clr-namespace:Mapsui.UI.Maui;assembly=Mapsui.UI.Maui"
              x:Class="MyExpenses.Smartphones.ContentPages.DetailedRecordContentPage"
              x:Name="This"
 
@@ -171,6 +172,27 @@
                 </Grid>
 
             </Frame>
+
+            <Grid Grid.Row="2">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <maui:MapControl x:Name="MapControl"
+                                 Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3">
+                </maui:MapControl>
+
+            </Grid>
+
 
         </Grid>
 
