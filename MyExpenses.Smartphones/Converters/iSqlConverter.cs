@@ -6,8 +6,6 @@ namespace MyExpenses.Smartphones.Converters;
 
 public class ISqlConverter : IValueConverter
 {
-    public IEnumerable<ISql> Collection { get; set; }
-
     public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
         if (value is not int id) return null;
