@@ -31,6 +31,7 @@ public partial class DetailedRecordContentPage
     public string CurrencySymbol { get; private set; } = null!;
 
     public ObservableCollection<TModePayment> ModePayments { get; private set; } = [];
+    public ObservableCollection<TCategoryType> CategoryTypes { get; private set; } = [];
 
     public DetailedRecordContentPage(int historyPk)
     {
@@ -51,6 +52,7 @@ public partial class DetailedRecordContentPage
     {
         using var context = new DataBaseContext();
         ModePayments.AddRange(context.TModePayments);
+        CategoryTypes.AddRange(context.TCategoryTypes);
 
         var account = context.TAccounts.First(s => s.Id.Equals(History.AccountFk));
         CurrencySymbol = context.TCurrencies.First(s => s.Id.Equals(account.CurrencyFk)).Symbol!;

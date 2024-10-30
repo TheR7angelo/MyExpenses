@@ -96,6 +96,34 @@
 
             </Frame>
 
+            <Frame Grid.Row="1"
+                   BackgroundColor="{AppThemeBinding Light={StaticResource Wheat}, Dark={StaticResource Black}}"
+                   CornerRadius="5">
+
+                <Grid>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Picker Grid.Row="1" Grid.Column="1"
+                            HorizontalTextAlignment="Start"
+                            ItemsSource="{Binding CategoryTypes, Mode=OneWay, Source={RelativeSource AncestorType={x:Type local:DetailedRecordContentPage}}}"
+                            SelectedItem="{Binding History.CategoryTypeFk, Mode=TwoWay, Converter={StaticResource ISqlConverter}, ConverterParameter={Binding CategoryTypes, Source={Reference This}}, Source={Reference This}, Source={RelativeSource AncestorType={x:Type local:DetailedRecordContentPage}}}"
+                            ItemDisplayBinding="{Binding Name}" x:DataType="tables:TCategoryType">
+                    </Picker>
+
+                </Grid>
+
+            </Frame>
+
         </Grid>
 
     </ContentPage.Content>
