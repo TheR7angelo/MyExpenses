@@ -145,6 +145,11 @@
         <AutoGen>True</AutoGen>
         <DependentUpon>DashBoardContentPageResources.resx</DependentUpon>
       </Compile>
+      <Compile Update="Resources\Resx\Converters\ValueToCreditDebitedConverter\ValueToCreditDebitedConverterResources.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>ValueToCreditDebitedConverterResources.resx</DependentUpon>
+      </Compile>
     </ItemGroup>
 
     <ItemGroup>
@@ -167,6 +172,10 @@
       <EmbeddedResource Update="Resources\Resx\ContentPages\DashBoardContentPage\DashBoardContentPageResources.resx">
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>DashBoardContentPageResources.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+      <EmbeddedResource Update="Resources\Resx\Converters\ValueToCreditDebitedConverter\ValueToCreditDebitedConverterResources.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>ValueToCreditDebitedConverterResources.Designer.cs</LastGenOutput>
       </EmbeddedResource>
     </ItemGroup>
 

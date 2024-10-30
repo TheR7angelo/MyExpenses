@@ -13,6 +13,8 @@
 
     <ContentPage.Resources>
         <converters:ISqlConverter x:Key="ISqlConverter" />
+        <converters:ValueToCreditDebitedConverter x:Key="ValueToCreditDebitedConverter" />
+        <converters:ValueSymbolConverter x:Key="ValueSymbolConverter" />
     </ContentPage.Resources>
 
     <ContentPage.Content>
@@ -35,6 +37,7 @@
                         <RowDefinition Height="2*" />
                         <RowDefinition Height="*" />
                         <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
                         <RowDefinition Height="2*" />
                     </Grid.RowDefinitions>
 
@@ -49,6 +52,26 @@
                             SelectedItem="{Binding History.ModePaymentFk, Mode=TwoWay, Converter={StaticResource ISqlConverter}, ConverterParameter={Binding ModePayments, Source={Reference This}}, Source={Reference This}, Source={RelativeSource AncestorType={x:Type local:DetailedRecordContentPage}}}"
                             ItemDisplayBinding="{Binding Name}" x:DataType="tables:TModePayment">
                     </Picker>
+
+                    <HorizontalStackLayout Grid.Row="2">
+
+                        <Label HorizontalTextAlignment="Start"
+                               FontAttributes="Bold"
+                               Text="{Binding History.Value, Mode=OneWay, Converter={StaticResource ValueToCreditDebitedConverter}}">
+                        </Label>
+
+                        <Label HorizontalTextAlignment="Start"
+                               FontAttributes="Bold"
+                               Margin="5, 0, 0, 0">
+                            <Label.Text>
+                                <MultiBinding Converter="{StaticResource ValueSymbolConverter}">
+                                    <Binding Path="History.Value" FallbackValue="" Mode="OneWay" />
+                                    <Binding Path="CurrencySymbol" FallbackValue="" Mode="OneWay" />
+                                </MultiBinding>
+                            </Label.Text>
+                        </Label>
+
+                    </HorizontalStackLayout>
 
                 </Grid>
 
