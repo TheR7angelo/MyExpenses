@@ -194,6 +194,7 @@
                 </maui:MapControl>
 
                 <Picker Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3"
+                        HorizontalTextAlignment="Center"
                         ItemsSource="{Binding KnownTileSources, Mode=OneWay}"
                         SelectedItem="{Binding KnownTileSourceSelected}"
                         ItemDisplayBinding="{Binding ., Converter={StaticResource SplitUpperCaseWordsConverter}}"
