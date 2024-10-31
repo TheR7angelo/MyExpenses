@@ -126,11 +126,11 @@ public partial class DetailedRecordContentPage
             return;
         }
 
-        var style = place.IsOpen
+        var symbolStyle = place.IsOpen
             ? MapsuiStyleExtensions.RedMarkerStyle
             : MapsuiStyleExtensions.BlueMarkerStyle;
 
-        var pointFeature = place.ToFeature(style);
+        var pointFeature = place.ToFeature(symbolStyle);
 
         PlaceLayer.Add(pointFeature);
         MapControl.Map.Navigator.CenterOn(pointFeature.Point);
