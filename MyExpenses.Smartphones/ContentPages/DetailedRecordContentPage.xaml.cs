@@ -79,17 +79,15 @@ public partial class DetailedRecordContentPage
 
     public DetailedRecordContentPage(THistory tHistory)
     {
-        using var context = new DataBaseContext();
         THistory = tHistory;
-        VHistory = context.VHistories.First(s => s.Id.Equals(tHistory.Id));
+        VHistory = tHistory.Id.ToISql<VHistory>()!;
 
         InitializeContentPage();
     }
 
     public DetailedRecordContentPage(VHistory vHistory)
     {
-        using var context = new DataBaseContext();
-        THistory = context.THistories.First(s => s.Id.Equals(vHistory.Id));
+        THistory = vHistory.Id.ToISql<THistory>()!;
         VHistory = vHistory;
 
         InitializeContentPage();
@@ -101,7 +99,6 @@ public partial class DetailedRecordContentPage
         ModePayments.AddRange(context.TModePayments);
         CategoryTypes.AddRange(context.TCategoryTypes);
 
-        //TODO work
         var knowTileSource = MapsuiMapExtensions.GetAllKnowTileSource();
         KnownTileSources.AddRange(knowTileSource);
 
