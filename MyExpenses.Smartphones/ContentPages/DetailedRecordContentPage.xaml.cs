@@ -103,6 +103,7 @@ public partial class DetailedRecordContentPage
         KnownTileSources.AddRange(knowTileSource);
 
         var map = MapsuiMapExtensions.GetMap(false);
+        map.Layers.Add(PlaceLayer);
 
         UpdateLanguage();
         InitializeComponent();
@@ -117,7 +118,7 @@ public partial class DetailedRecordContentPage
 
     private void UpdateMapPoint(TPlace? place)
     {
-        // PlaceLayer.Clear();
+        PlaceLayer.Clear();
 
         if (place is null)
         {
@@ -125,12 +126,15 @@ public partial class DetailedRecordContentPage
             return;
         }
 
-        // var pointFeature = place.ToFeature(MapsuiStyleExtensions.RedMarkerStyle);
-        var pointFeature = place.ToFeature();
+        var style = place.IsOpen is true
+            ? MapsuiStyleExtensions.RedMarkerStyle
+            : MapsuiStyleExtensions.BlueMarkerStyle;
 
-        // PlaceLayer.Add(pointFeature);
-        // MapControl.Map.Navigator.CenterOn(pointFeature.Point);
-        // MapControl.Map.Navigator.ZoomTo(0);
+        var pointFeature = place.ToFeature(style);
+
+        PlaceLayer.Add(pointFeature);
+        MapControl.Map.Navigator.CenterOn(pointFeature.Point);
+        MapControl.Map.Navigator.ZoomTo(0);
 
         MapControl.Map.Home = navigator =>
         {
