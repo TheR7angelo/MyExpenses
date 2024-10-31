@@ -23,7 +23,7 @@ public partial class LocationManagementUserControl
                                                 s.Longitude is not 0))
         {
             var feature = mapper.Map<PointFeature>(place);
-            feature.Styles = place.IsOpen is true
+            feature.Styles = place.IsOpen
                 ? [MapsuiStyleExtensions.RedMarkerStyle]
                 : new List<IStyle> { MapsuiStyleExtensions.BlueMarkerStyle };
             PlaceLayer.Add(feature);

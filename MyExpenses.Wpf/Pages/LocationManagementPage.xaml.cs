@@ -133,7 +133,7 @@ public partial class LocationManagementPage
         var features = places
             .Where(s => s.Latitude is not null && s.Latitude is not 0 && s.Longitude is not null &&
                         s.Longitude is not 0)
-            .Select(feature => feature.IsOpen is true
+            .Select(feature => feature.IsOpen
                 ? feature.ToFeature(MapsuiStyleExtensions.RedMarkerStyle)
                 : feature.ToFeature(MapsuiStyleExtensions.BlueMarkerStyle));
 
@@ -380,7 +380,7 @@ public partial class LocationManagementPage
         var (success, _) = newPlace.AddOrEdit();
         if (success)
         {
-            var feature = newPlace.IsOpen is true
+            var feature = newPlace.IsOpen
                 ? newPlace.ToFeature(MapsuiStyleExtensions.RedMarkerStyle)
                 : newPlace.ToFeature(MapsuiStyleExtensions.BlueMarkerStyle);
 

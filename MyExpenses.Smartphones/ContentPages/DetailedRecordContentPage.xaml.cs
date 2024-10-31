@@ -126,7 +126,7 @@ public partial class DetailedRecordContentPage
             return;
         }
 
-        var style = place.IsOpen is true
+        var style = place.IsOpen
             ? MapsuiStyleExtensions.RedMarkerStyle
             : MapsuiStyleExtensions.BlueMarkerStyle;
 

@@ -320,7 +320,7 @@ public partial class AddEditRecurrentExpenseWindow
         ModePayments = [..context.TModePayments.OrderBy(s => s.Name)];
         RecursiveFrequencies = [..context.TRecursiveFrequencies.OrderBy(s => s.Id)];
 
-        PlacesCollection = [..context.TPlaces.Where(s => (bool)s.IsOpen!).OrderBy(s => s.Name)];
+        PlacesCollection = [..context.TPlaces.Where(s => s.IsOpen).OrderBy(s => s.Name)];
 
         var records = PlacesCollection.Select(s => EmptyStringTreeViewConverter.ToUnknown(s.Country)).Order()
             .Distinct();
@@ -673,7 +673,7 @@ public partial class AddEditRecurrentExpenseWindow
         var city = comboBox.SelectedItem as string;
 
         using var context = new DataBaseContext();
-        var query = context.TPlaces.Where(s => s.IsOpen.Equals(true));
+        var query = context.TPlaces.Where(s => s.IsOpen);
 
         IQueryable<TPlace> records;
 
@@ -705,7 +705,7 @@ public partial class AddEditRecurrentExpenseWindow
         var country = comboBox.SelectedItem as string;
 
         using var context = new DataBaseContext();
-        var query = context.TPlaces.Where(s => s.IsOpen.Equals(true));
+        var query = context.TPlaces.Where(s => s.IsOpen);
 
         IQueryable<TPlace> records;
 
