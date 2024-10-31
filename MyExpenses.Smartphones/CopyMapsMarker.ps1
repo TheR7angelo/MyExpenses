@@ -11,5 +11,5 @@ if (-Not (Test-Path -Path $destinationPath)) {
 
 # Copy all .png files
 Get-ChildItem -Path $sourcePath -Filter "*.png" | ForEach-Object {
-    Copy-Item -Path $_.FullName -Destination $destinationPath
+    Copy-Item -Path $_.FullName -Destination $destinationPath -Force
 }
