@@ -784,7 +784,11 @@ public partial class RecordExpensePage
             return;
         }
 
-        var pointFeature = place.ToFeature(MapsuiStyleExtensions.RedMarkerStyle);
+        var symbolStyle = place.IsOpen
+            ? MapsuiStyleExtensions.RedMarkerStyle
+            : MapsuiStyleExtensions.BlueMarkerStyle;
+
+        var pointFeature = place.ToFeature(symbolStyle);
 
         PlaceLayer.Add(pointFeature);
         MapControl.Map.Navigator.CenterOn(pointFeature.Point);
