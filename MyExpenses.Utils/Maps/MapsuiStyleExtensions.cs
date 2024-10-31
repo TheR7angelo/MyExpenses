@@ -1,7 +1,6 @@
-﻿using System.IO;
-using Mapsui.Styles;
+﻿using Mapsui.Styles;
 
-namespace MyExpenses.Wpf.Utils.Maps;
+namespace MyExpenses.Utils.Maps;
 
 public static class MapsuiStyleExtensions
 {
@@ -19,7 +18,7 @@ public static class MapsuiStyleExtensions
     private static Offset Offset => new() { IsRelative = false, X = 0, Y = 1000 };
     private static double Scale => 0.02;
 
-    private static readonly string IcoPath = Path.Join(Path.GetFullPath("Resources"), "Maps");
+    private static readonly string IcoPath = Path.Join(AppContext.BaseDirectory, "Resources", "Maps");
 
     private static SymbolStyle SetGreenMarkerStyle()
     {
