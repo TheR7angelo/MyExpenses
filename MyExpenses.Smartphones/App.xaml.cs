@@ -145,7 +145,6 @@ public partial class App
 
         if (!needUpdateFiles) return;
 
-        var fileManager = new FileManager();
-        fileManager.AddAllFiles();
+        FileManager.AddAllFiles();
     }
 }
