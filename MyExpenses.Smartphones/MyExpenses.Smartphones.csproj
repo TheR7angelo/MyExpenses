@@ -61,8 +61,8 @@
         <MauiImage Include="Resources\AppIcon\appiconfg.svg" />
     </ItemGroup>
 
-    <Target Name="CopyDatabaseModel" BeforeTargets="Build">
-        <Exec Command="powershell -ExecutionPolicy Bypass -File &quot;$(ProjectDir)CopyDatabaseModel.ps1&quot;" />
+    <Target Name="ExecuteAll" BeforeTargets="Build">
+        <Exec Command="powershell -ExecutionPolicy Bypass -File &quot;$(ProjectDir)Resources\PowerShells\ExecuteAll.ps1&quot;" />
     </Target>
     
     <ItemGroup>
