@@ -1,4 +1,5 @@
 using System.Collections.ObjectModel;
+using System.Windows.Input;
 using BruTile.Predefined;
 using Mapsui.Layers;
 using Mapsui.Tiling.Layers;
@@ -81,6 +82,13 @@ public partial class DetailedRecordContentPage
     private bool IsDirty { get; set; }
     private THistory OriginalHistory { get; set; } = null!;
 
+    public ICommand BackCommand { get; set; } = null!;
+
+    private readonly TaskCompletionSource<bool> _taskCompletionSource = new();
+
+    public Task<bool> ResultDialog
+        => _taskCompletionSource.Task;
+
     public DetailedRecordContentPage(int historyPk)
     {
         using var context = new DataBaseContext();
@@ -123,6 +131,13 @@ public partial class DetailedRecordContentPage
     private void MapControl_OnLoaded(object? sender, EventArgs e)
         => UpdateTileLayer();
 
+    //TODO add update value if dirty
+    private async void OnBackCommandPressed()
+    {
+        _taskCompletionSource.SetResult(false);
+        await Navigation.PopAsync();
+    }
+
     private void PickerCategoryTypeFk_OnSelectedIndexChanged(object? sender, EventArgs e)
         => UpdateIsDirty();
 
@@ -141,6 +156,8 @@ public partial class DetailedRecordContentPage
 
     private void InitializeContentPage()
     {
+        BackCommand = new Command(OnBackCommandPressed);
+
         OriginalHistory = THistory.DeepCopy()!;
 
         using var context = new DataBaseContext();

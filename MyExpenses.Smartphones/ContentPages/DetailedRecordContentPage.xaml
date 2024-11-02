@@ -12,6 +12,10 @@
 
              BindingContext="{Binding Source={RelativeSource Self}}">
 
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior Command="{Binding BackCommand}" />
+    </Shell.BackButtonBehavior>
+
     <ContentPage.Resources>
         <converters:ISqlConverter x:Key="ISqlConverter" />
         <converters:ValueToCreditDebitedConverter x:Key="ValueToCreditDebitedConverter" />
