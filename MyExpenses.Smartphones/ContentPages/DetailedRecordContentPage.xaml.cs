@@ -223,4 +223,7 @@ public partial class DetailedRecordContentPage
 
         Title = IsDirty ? "Changes in progress" : string.Empty;
     }
+
+    private void EntryValue_OnTextChanged(object? sender, TextChangedEventArgs e)
+        => UpdateIsDirty();
 }

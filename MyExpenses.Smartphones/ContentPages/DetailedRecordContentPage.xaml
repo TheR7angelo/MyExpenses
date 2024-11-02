@@ -15,7 +15,6 @@
     <ContentPage.Resources>
         <converters:ISqlConverter x:Key="ISqlConverter" />
         <converters:ValueToCreditDebitedConverter x:Key="ValueToCreditDebitedConverter" />
-        <converters:ValueSymbolConverter x:Key="ValueSymbolConverter" />
         <converters:StringToBrushConverter x:Key="StringToBrushConverter" />
         <converters:SplitUpperCaseWordsConverter x:Key="SplitUpperCaseWordsConverter" />
     </ContentPage.Resources>
@@ -84,18 +83,28 @@
 
                     </HorizontalStackLayout>
 
-                    <Label Grid.Row="4"
-                           HorizontalOptions="Center"
-                           HorizontalTextAlignment="Center"
-                           FontAttributes="Bold"
-                           FontSize="24">
-                        <Label.Text>
-                            <MultiBinding Converter="{StaticResource ValueSymbolConverter}">
-                                <Binding Path="THistory.Value" FallbackValue="" Mode="OneWay" />
-                                <Binding Path="VHistory.Symbol" FallbackValue="" Mode="OneWay" />
-                            </MultiBinding>
-                        </Label.Text>
-                    </Label>
+                    <HorizontalStackLayout Grid.Row="4"
+                                           HorizontalOptions="Center">
+
+                        <Entry HorizontalOptions="Center"
+                               HorizontalTextAlignment="Center"
+                               FontAttributes="Bold"
+                               FontSize="24"
+                               Keyboard="Numeric"
+                               Text="{Binding THistory.Value, Mode=TwoWay}"
+                               TextChanged="EntryValue_OnTextChanged">
+                        </Entry>
+
+                        <Label HorizontalOptions="Center"
+                               HorizontalTextAlignment="Center"
+                               VerticalOptions="Center"
+                               VerticalTextAlignment="Center"
+                               FontAttributes="Bold"
+                               FontSize="24"
+                               Text="{Binding VHistory.Symbol, Mode=OneWay}">
+                        </Label>
+
+                    </HorizontalStackLayout>
 
                 </Grid>
 
