@@ -174,7 +174,8 @@
 
             </Frame>
 
-            <Grid Grid.Row="2">
+            <Grid Grid.Row="2"
+                  margin:LayoutExtensions.MarginForAllChildren="3">
 
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
