@@ -10,6 +10,7 @@ using MyExpenses.Smartphones.Resources.Resx.ContentPages.DetailedRecordContentPa
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils.Collection;
 using MyExpenses.Utils.Maps;
+using MyExpenses.Utils.Objects;
 
 namespace MyExpenses.Smartphones.ContentPages;
 
@@ -77,6 +78,8 @@ public partial class DetailedRecordContentPage
     public ObservableCollection<TModePayment> ModePayments { get; private set; } = [];
     public ObservableCollection<TCategoryType> CategoryTypes { get; private set; } = [];
 
+    private THistory OriginalHistory { get; set; } = null!;
+
     public DetailedRecordContentPage(int historyPk)
     {
         using var context = new DataBaseContext();
@@ -122,6 +125,8 @@ public partial class DetailedRecordContentPage
 
     private void InitializeContentPage()
     {
+        OriginalHistory = THistory.DeepCopy()!;
+
         using var context = new DataBaseContext();
         ModePayments.AddRange(context.TModePayments);
         CategoryTypes.AddRange(context.TCategoryTypes);
@@ -203,4 +208,15 @@ public partial class DetailedRecordContentPage
     }
 
     #endregion
+    private void PickerModePayment_OnSelectedIndexChanged(object? sender, EventArgs e)
+        => UpdateIsDirty();
+
+    private bool IsDirty { get; set; }
+
+    private void UpdateIsDirty()
+    {
+        IsDirty = !THistory.AreEqual(OriginalHistory);
+
+        Title = IsDirty ? "Changes in progress" : string.Empty;
+    }
 }

@@ -53,7 +53,8 @@
                     <Picker Grid.Row="1"
                             ItemsSource="{Binding ModePayments, Mode=OneWay, Source={RelativeSource AncestorType={x:Type local:DetailedRecordContentPage}}}"
                             SelectedItem="{Binding THistory.ModePaymentFk, Mode=TwoWay, Converter={StaticResource ISqlConverter}, ConverterParameter={Binding ModePayments, Source={Reference This}}, Source={Reference This}, Source={RelativeSource AncestorType={x:Type local:DetailedRecordContentPage}}}"
-                            ItemDisplayBinding="{Binding Name}" x:DataType="tables:TModePayment">
+                            ItemDisplayBinding="{Binding Name}" x:DataType="tables:TModePayment"
+                            SelectedIndexChanged="PickerModePayment_OnSelectedIndexChanged">
                     </Picker>
 
                     <HorizontalStackLayout Grid.Row="2">
