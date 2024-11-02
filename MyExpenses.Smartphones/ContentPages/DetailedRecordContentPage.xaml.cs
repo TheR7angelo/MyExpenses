@@ -226,4 +226,7 @@ public partial class DetailedRecordContentPage
 
     private void EntryValue_OnTextChanged(object? sender, TextChangedEventArgs e)
         => UpdateIsDirty();
+
+    private void PickerCategoryTypeFk_OnSelectedIndexChanged(object? sender, EventArgs e)
+        => UpdateIsDirty();
 }

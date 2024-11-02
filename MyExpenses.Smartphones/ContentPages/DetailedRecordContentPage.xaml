@@ -142,7 +142,8 @@
                                 HorizontalTextAlignment="Start"
                                 ItemsSource="{Binding CategoryTypes, Mode=OneWay, Source={RelativeSource AncestorType={x:Type local:DetailedRecordContentPage}}}"
                                 SelectedItem="{Binding THistory.CategoryTypeFk, Mode=TwoWay, Converter={StaticResource ISqlConverter}, ConverterParameter={Binding CategoryTypes, Source={Reference This}}, Source={Reference This}, Source={RelativeSource AncestorType={x:Type local:DetailedRecordContentPage}}}"
-                                ItemDisplayBinding="{Binding Name}" x:DataType="tables:TCategoryType">
+                                ItemDisplayBinding="{Binding Name}" x:DataType="tables:TCategoryType"
+                                SelectedIndexChanged="PickerCategoryTypeFk_OnSelectedIndexChanged">
                         </Picker>
 
                     </Grid>
