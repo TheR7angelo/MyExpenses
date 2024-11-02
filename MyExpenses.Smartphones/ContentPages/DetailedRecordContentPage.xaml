@@ -180,6 +180,7 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
                     <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
                 <Grid.ColumnDefinitions>
@@ -193,7 +194,13 @@
                                  Loaded="MapControl_OnLoaded">
                 </maui:MapControl>
 
-                <Picker Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3"
+                <Button Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3"
+                        Style="{StaticResource PaperMidButton}"
+                        Text="{Binding ButtonRefocusText, Mode=OneWay}"
+                        Clicked="ButtonRefocus_OnClicked">
+                </Button>
+
+                <Picker Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3"
                         HorizontalTextAlignment="Center"
                         ItemsSource="{Binding KnownTileSources, Mode=OneWay}"
                         SelectedItem="{Binding KnownTileSourceSelected}"

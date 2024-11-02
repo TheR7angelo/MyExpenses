@@ -20,4 +20,7 @@
     <data name="LabelTextPointedOn" xml:space="preserve">
         <value>Pointé le</value>
     </data>
+    <data name="ButtonRefocusText" xml:space="preserve">
+        <value>Recentrer</value>
+    </data>
 </root>

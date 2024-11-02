@@ -15,6 +15,15 @@ namespace MyExpenses.Smartphones.ContentPages;
 
 public partial class DetailedRecordContentPage
 {
+    public static readonly BindableProperty ButtonRefocusTextProperty = BindableProperty.Create(nameof(ButtonRefocusText),
+        typeof(string), typeof(DetailedRecordContentPage), default(string));
+
+    public string ButtonRefocusText
+    {
+        get => (string)GetValue(ButtonRefocusTextProperty);
+        set => SetValue(ButtonRefocusTextProperty, value);
+    }
+
     public static readonly BindableProperty LabelTextPointedOnProperty =
         BindableProperty.Create(nameof(LabelTextPointedOn), typeof(string), typeof(DetailedRecordContentPage),
             default(string));
@@ -133,6 +142,15 @@ public partial class DetailedRecordContentPage
         var pointFeature = place.ToFeature(symbolStyle);
 
         PlaceLayer.Add(pointFeature);
+        Refocus();
+    }
+
+    private void Refocus()
+    {
+        var features = PlaceLayer.GetFeatures();
+        var firstFeature = features.FirstOrDefault();
+        if (firstFeature is not PointFeature pointFeature) return;
+
         MapControl.Map.Navigator.CenterOn(pointFeature.Point);
         MapControl.Map.Navigator.ZoomTo(0);
 
@@ -165,6 +183,8 @@ public partial class DetailedRecordContentPage
         LabelTextAddedOn = DetailedRecordContentPageResources.LabelTextAddedOn;
         PointedOperation = DetailedRecordContentPageResources.PointedOperation;
         LabelTextPointedOn = DetailedRecordContentPageResources.LabelTextPointedOn;
+
+        ButtonRefocusText = DetailedRecordContentPageResources.ButtonRefocusText;
     }
 
     private void MapControl_OnLoaded(object? sender, EventArgs e)
@@ -172,4 +192,7 @@ public partial class DetailedRecordContentPage
 
     private void PickerKnownTileSources_OnSelectedIndexChanged(object? sender, EventArgs e)
         => UpdateTileLayer();
+
+    private void ButtonRefocus_OnClicked(object? sender, EventArgs e)
+        => Refocus();
 }
