@@ -208,6 +208,10 @@ public partial class DetailedRecordContentPage
     }
 
     #endregion
+
+    private void EntryDescription_OnTextChanged(object? sender, TextChangedEventArgs e)
+        => UpdateIsDirty();
+
     private void PickerModePayment_OnSelectedIndexChanged(object? sender, EventArgs e)
         => UpdateIsDirty();
 

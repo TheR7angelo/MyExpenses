@@ -44,11 +44,12 @@
                         <RowDefinition Height="2*" />
                     </Grid.RowDefinitions>
 
-                    <Label Grid.Row="0"
+                    <Entry Grid.Row="0"
                            HorizontalTextAlignment="Start"
-                           Text="{Binding THistory.Description, Mode=OneWay}"
-                           FontSize="24">
-                    </Label>
+                           Text="{Binding THistory.Description, Mode=TwoWay}"
+                           FontSize="24"
+                           TextChanged="EntryDescription_OnTextChanged">
+                    </Entry>
 
                     <Picker Grid.Row="1"
                             ItemsSource="{Binding ModePayments, Mode=OneWay, Source={RelativeSource AncestorType={x:Type local:DetailedRecordContentPage}}}"
