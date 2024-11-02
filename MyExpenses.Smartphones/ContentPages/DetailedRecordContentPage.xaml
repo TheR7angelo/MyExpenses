@@ -164,7 +164,8 @@
                         <Switch Grid.Column="2"
                                 HorizontalOptions="End"
                                 VerticalOptions="Center"
-                                IsToggled="{Binding THistory.Pointed, Mode=OneWay}">
+                                IsToggled="{Binding THistory.Pointed, Mode=TwoWay}"
+                                Toggled="SwitchPointed_OnToggled">
                         </Switch>
 
                     </Grid>

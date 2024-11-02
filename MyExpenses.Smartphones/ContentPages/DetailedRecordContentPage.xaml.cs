@@ -229,4 +229,7 @@ public partial class DetailedRecordContentPage
 
     private void PickerCategoryTypeFk_OnSelectedIndexChanged(object? sender, EventArgs e)
         => UpdateIsDirty();
+
+    private void SwitchPointed_OnToggled(object? sender, ToggledEventArgs e)
+        => UpdateIsDirty();
 }
