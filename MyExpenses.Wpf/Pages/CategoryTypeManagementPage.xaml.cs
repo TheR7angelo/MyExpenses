@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils.Collection;
+using MyExpenses.Utils.Objects;
 using MyExpenses.Utils.Sql;
 using MyExpenses.Wpf.Resources.Resx.Pages.CategoryTypeManagementPage;
 using MyExpenses.Wpf.Windows.CategoryTypeManagementWindow;
@@ -83,7 +84,7 @@ public partial class CategoryTypeManagementPage
         var editedCategoryType = addEditCategoryTypeWindow.CategoryType;
         Log.Information("Attempting to edit the category type id: {Id}", editedCategoryType.Id);
 
-        var editedCategoryTypeDeepCopy = editedCategoryType.DeepCopy();
+        var editedCategoryTypeDeepCopy = editedCategoryType.DeepCopy()!;
 
         var (success, exception) = editedCategoryTypeDeepCopy.AddOrEdit();
         if (success)

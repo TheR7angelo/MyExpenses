@@ -15,7 +15,7 @@ using MyExpenses.Sql.Context;
 using MyExpenses.Utils;
 using MyExpenses.Utils.Collection;
 using MyExpenses.Utils.Maps;
-using MyExpenses.Wpf.Utils.Maps;
+using MyExpenses.Utils.Objects;
 using MyExpenses.Wpf.Windows;
 using MyExpenses.Utils.Sql;
 using MyExpenses.Utils.Strings;
@@ -330,7 +330,7 @@ public partial class RecordExpensePage
             var editedCategoryType = addEditCategoryTypeWindow.CategoryType;
             Log.Information("Attempting to edit the category type id: {Id}", editedCategoryType.Id);
 
-            var editedCategoryTypeDeepCopy = editedCategoryType.DeepCopy();
+            var editedCategoryTypeDeepCopy = editedCategoryType.DeepCopy()!;
 
             var (success, exception) = editedCategoryType.AddOrEdit();
             if (success)

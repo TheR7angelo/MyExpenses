@@ -18,6 +18,7 @@ using MyExpenses.Utils;
 using MyExpenses.Utils.Collection;
 using MyExpenses.Utils.Dates;
 using MyExpenses.Utils.Maps;
+using MyExpenses.Utils.Objects;
 using MyExpenses.Utils.Sql;
 using MyExpenses.Utils.Strings;
 using MyExpenses.Wpf.Converters;
@@ -25,7 +26,6 @@ using MyExpenses.Wpf.Resources.Resx.Converters.EmptyStringTreeViewConverter;
 using MyExpenses.Wpf.Resources.Resx.Pages.RecordExpensePage;
 using MyExpenses.Wpf.Resources.Resx.Windows.AddEditRecurrentExpenseWindow;
 using MyExpenses.Wpf.Utils;
-using MyExpenses.Wpf.Utils.Maps;
 using MyExpenses.Wpf.Windows.CategoryTypeManagementWindow;
 using MyExpenses.Wpf.Windows.LocationManagementWindows;
 using MyExpenses.Wpf.Windows.MsgBox;
@@ -411,7 +411,7 @@ public partial class AddEditRecurrentExpenseWindow
             var editedCategoryType = addEditCategoryTypeWindow.CategoryType;
             Log.Information("Attempting to edit the category type id: {Id}", editedCategoryType.Id);
 
-            var editedCategoryTypeDeepCopy = editedCategoryType.DeepCopy();
+            var editedCategoryTypeDeepCopy = editedCategoryType.DeepCopy()!;
 
             var (success, exception) = editedCategoryType.AddOrEdit();
             if (success)
