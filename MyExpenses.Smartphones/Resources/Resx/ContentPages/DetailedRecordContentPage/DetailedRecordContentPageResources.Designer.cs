@@ -95,5 +95,14 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.DetailedRecordConte
                 return ResourceManager.GetString("PointedOperation", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Changes in progress.
+        /// </summary>
+        internal static string TitleIsDirty {
+            get {
+                return ResourceManager.GetString("TitleIsDirty", resourceCulture);
+            }
+        }
     }
 }

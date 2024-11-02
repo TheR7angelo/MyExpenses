@@ -23,4 +23,7 @@
     <data name="ButtonRefocusText" xml:space="preserve">
         <value>Refocus</value>
     </data>
+    <data name="TitleIsDirty" xml:space="preserve">
+        <value>Changes in progress</value>
+    </data>
 </root>

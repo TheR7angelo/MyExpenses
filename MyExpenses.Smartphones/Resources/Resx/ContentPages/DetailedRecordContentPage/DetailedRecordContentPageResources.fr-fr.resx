@@ -23,4 +23,7 @@
     <data name="ButtonRefocusText" xml:space="preserve">
         <value>Recentrer</value>
     </data>
+    <data name="TitleIsDirty" xml:space="preserve">
+        <value>Changements en cours</value>
+    </data>
 </root>

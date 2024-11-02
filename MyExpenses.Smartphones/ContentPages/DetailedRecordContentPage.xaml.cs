@@ -180,12 +180,13 @@ public partial class DetailedRecordContentPage
         };
     }
 
-    //TODO trad
     private void UpdateIsDirty()
     {
         IsDirty = !THistory.AreEqual(OriginalHistory);
 
-        Title = IsDirty ? "Changes in progress" : string.Empty;
+        Title = IsDirty
+            ? DetailedRecordContentPageResources.TitleIsDirty
+            : string.Empty;
     }
 
     private void UpdateLanguage()
@@ -195,6 +196,8 @@ public partial class DetailedRecordContentPage
         LabelTextPointedOn = DetailedRecordContentPageResources.LabelTextPointedOn;
 
         ButtonRefocusText = DetailedRecordContentPageResources.ButtonRefocusText;
+
+        if (IsDirty) Title = DetailedRecordContentPageResources.TitleIsDirty;
     }
 
     private void UpdateMapPoint(TPlace? place)
