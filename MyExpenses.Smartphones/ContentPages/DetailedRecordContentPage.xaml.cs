@@ -102,6 +102,24 @@ public partial class DetailedRecordContentPage
         InitializeContentPage();
     }
 
+    #region Action
+
+    private void ButtonRefocus_OnClicked(object? sender, EventArgs e)
+        => Refocus();
+
+    private void Interface_OnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
+        => UpdateLanguage();
+
+    private void MapControl_OnLoaded(object? sender, EventArgs e)
+        => UpdateTileLayer();
+
+    private void PickerKnownTileSources_OnSelectedIndexChanged(object? sender, EventArgs e)
+        => UpdateTileLayer();
+
+    #endregion
+
+    #region Function
+
     private void InitializeContentPage()
     {
         using var context = new DataBaseContext();
@@ -125,6 +143,31 @@ public partial class DetailedRecordContentPage
         Interface.LanguageChanged += Interface_OnLanguageChanged;
     }
 
+    private void Refocus()
+    {
+        var features = PlaceLayer.GetFeatures();
+        var firstFeature = features.FirstOrDefault();
+        if (firstFeature is not PointFeature pointFeature) return;
+
+        MapControl.Map.Navigator.CenterOn(pointFeature.Point);
+        MapControl.Map.Navigator.ZoomTo(0);
+
+        MapControl.Map.Home = navigator =>
+        {
+            navigator.CenterOn(pointFeature.Point);
+            navigator.ZoomTo(1);
+        };
+    }
+
+    private void UpdateLanguage()
+    {
+        LabelTextAddedOn = DetailedRecordContentPageResources.LabelTextAddedOn;
+        PointedOperation = DetailedRecordContentPageResources.PointedOperation;
+        LabelTextPointedOn = DetailedRecordContentPageResources.LabelTextPointedOn;
+
+        ButtonRefocusText = DetailedRecordContentPageResources.ButtonRefocusText;
+    }
+
     private void UpdateMapPoint(TPlace? place)
     {
         PlaceLayer.Clear();
@@ -145,22 +188,6 @@ public partial class DetailedRecordContentPage
         Refocus();
     }
 
-    private void Refocus()
-    {
-        var features = PlaceLayer.GetFeatures();
-        var firstFeature = features.FirstOrDefault();
-        if (firstFeature is not PointFeature pointFeature) return;
-
-        MapControl.Map.Navigator.CenterOn(pointFeature.Point);
-        MapControl.Map.Navigator.ZoomTo(0);
-
-        MapControl.Map.Home = navigator =>
-        {
-            navigator.CenterOn(pointFeature.Point);
-            navigator.ZoomTo(1);
-        };
-    }
-
     private void UpdateTileLayer()
     {
         const string layerName = "Background";
@@ -175,24 +202,5 @@ public partial class DetailedRecordContentPage
         MapControl?.Map.Layers.Insert(0, tileLayer);
     }
 
-    private void Interface_OnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
-        => UpdateLanguage();
-
-    private void UpdateLanguage()
-    {
-        LabelTextAddedOn = DetailedRecordContentPageResources.LabelTextAddedOn;
-        PointedOperation = DetailedRecordContentPageResources.PointedOperation;
-        LabelTextPointedOn = DetailedRecordContentPageResources.LabelTextPointedOn;
-
-        ButtonRefocusText = DetailedRecordContentPageResources.ButtonRefocusText;
-    }
-
-    private void MapControl_OnLoaded(object? sender, EventArgs e)
-        => UpdateTileLayer();
-
-    private void PickerKnownTileSources_OnSelectedIndexChanged(object? sender, EventArgs e)
-        => UpdateTileLayer();
-
-    private void ButtonRefocus_OnClicked(object? sender, EventArgs e)
-        => Refocus();
+    #endregion
 }
