@@ -78,6 +78,7 @@ public partial class DetailedRecordContentPage
     public ObservableCollection<TModePayment> ModePayments { get; private set; } = [];
     public ObservableCollection<TCategoryType> CategoryTypes { get; private set; } = [];
 
+    private bool IsDirty { get; set; }
     private THistory OriginalHistory { get; set; } = null!;
 
     public DetailedRecordContentPage(int historyPk)
@@ -110,14 +111,29 @@ public partial class DetailedRecordContentPage
     private void ButtonRefocus_OnClicked(object? sender, EventArgs e)
         => Refocus();
 
+    private void EntryDescription_OnTextChanged(object? sender, TextChangedEventArgs e)
+        => UpdateIsDirty();
+
+    private void EntryValue_OnTextChanged(object? sender, TextChangedEventArgs e)
+        => UpdateIsDirty();
+
     private void Interface_OnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
         => UpdateLanguage();
 
     private void MapControl_OnLoaded(object? sender, EventArgs e)
         => UpdateTileLayer();
 
+    private void PickerCategoryTypeFk_OnSelectedIndexChanged(object? sender, EventArgs e)
+        => UpdateIsDirty();
+
     private void PickerKnownTileSources_OnSelectedIndexChanged(object? sender, EventArgs e)
         => UpdateTileLayer();
+
+    private void PickerModePayment_OnSelectedIndexChanged(object? sender, EventArgs e)
+        => UpdateIsDirty();
+
+    private void SwitchPointed_OnToggled(object? sender, ToggledEventArgs e)
+        => UpdateIsDirty();
 
     #endregion
 
@@ -164,6 +180,14 @@ public partial class DetailedRecordContentPage
         };
     }
 
+    //TODO trad
+    private void UpdateIsDirty()
+    {
+        IsDirty = !THistory.AreEqual(OriginalHistory);
+
+        Title = IsDirty ? "Changes in progress" : string.Empty;
+    }
+
     private void UpdateLanguage()
     {
         LabelTextAddedOn = DetailedRecordContentPageResources.LabelTextAddedOn;
@@ -208,28 +232,4 @@ public partial class DetailedRecordContentPage
     }
 
     #endregion
-
-    private void EntryDescription_OnTextChanged(object? sender, TextChangedEventArgs e)
-        => UpdateIsDirty();
-
-    private void PickerModePayment_OnSelectedIndexChanged(object? sender, EventArgs e)
-        => UpdateIsDirty();
-
-    private bool IsDirty { get; set; }
-
-    private void UpdateIsDirty()
-    {
-        IsDirty = !THistory.AreEqual(OriginalHistory);
-
-        Title = IsDirty ? "Changes in progress" : string.Empty;
-    }
-
-    private void EntryValue_OnTextChanged(object? sender, TextChangedEventArgs e)
-        => UpdateIsDirty();
-
-    private void PickerCategoryTypeFk_OnSelectedIndexChanged(object? sender, EventArgs e)
-        => UpdateIsDirty();
-
-    private void SwitchPointed_OnToggled(object? sender, ToggledEventArgs e)
-        => UpdateIsDirty();
 }
