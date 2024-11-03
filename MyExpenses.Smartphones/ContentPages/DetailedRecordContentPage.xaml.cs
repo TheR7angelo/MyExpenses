@@ -179,8 +179,12 @@ public partial class DetailedRecordContentPage
     {
         if (IsDirty)
         {
-            // TODO trad
-            var response = await DisplayAlert("Question", "Do you want to update this record ?", "Yes", "No");
+            var response = await DisplayAlert(
+                DetailedRecordContentPageResources.MessageBoxOnBackCommandPressedTitle,
+                DetailedRecordContentPageResources.MessageBoxOnBackCommandPressedMessage,
+                DetailedRecordContentPageResources.MessageBoxOnBackCommandPressedYesButton,
+                DetailedRecordContentPageResources.MessageBoxOnBackCommandPressedNoButton);
+
             if (response)
             {
                 THistory.AddOrEdit();

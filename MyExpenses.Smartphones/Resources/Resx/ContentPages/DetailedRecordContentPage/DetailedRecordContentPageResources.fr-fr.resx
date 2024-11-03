@@ -32,4 +32,16 @@
     <data name="ButtonCancelUpdateText" xml:space="preserve">
         <value>Annuler</value>
     </data>
+    <data name="MessageBoxOnBackCommandPressedTitle" xml:space="preserve">
+        <value>Confirmation</value>
+    </data>
+    <data name="MessageBoxOnBackCommandPressedMessage" xml:space="preserve">
+        <value>Souhaitez-vous sauvegarder les modifications apportées à cet enregistrement ?</value>
+    </data>
+    <data name="MessageBoxOnBackCommandPressedYesButton" xml:space="preserve">
+        <value>Oui</value>
+    </data>
+    <data name="MessageBoxOnBackCommandPressedNoButton" xml:space="preserve">
+        <value>Non</value>
+    </data>
 </root>

@@ -106,6 +106,42 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.DetailedRecordConte
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Do you want to save the changes made to this record ?.
+        /// </summary>
+        internal static string MessageBoxOnBackCommandPressedMessage {
+            get {
+                return ResourceManager.GetString("MessageBoxOnBackCommandPressedMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No.
+        /// </summary>
+        internal static string MessageBoxOnBackCommandPressedNoButton {
+            get {
+                return ResourceManager.GetString("MessageBoxOnBackCommandPressedNoButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Confirm.
+        /// </summary>
+        internal static string MessageBoxOnBackCommandPressedTitle {
+            get {
+                return ResourceManager.GetString("MessageBoxOnBackCommandPressedTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yes.
+        /// </summary>
+        internal static string MessageBoxOnBackCommandPressedYesButton {
+            get {
+                return ResourceManager.GetString("MessageBoxOnBackCommandPressedYesButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Pointed operation.
         /// </summary>
         internal static string PointedOperation {
