@@ -13,6 +13,7 @@ using MyExpenses.Utils;
 using MyExpenses.Utils.Collection;
 using MyExpenses.Utils.Maps;
 using MyExpenses.Utils.Objects;
+using Serilog;
 
 namespace MyExpenses.Smartphones.ContentPages;
 
@@ -158,9 +159,16 @@ public partial class DetailedRecordContentPage
 
     private async void ButtonUpdateHistory_OnClicked(object? sender, EventArgs e)
     {
-        THistory.AddOrEdit();
-        _taskCompletionSource.SetResult(true);
-        await Navigation.PopAsync();
+        var success = AddOrEditHistory();
+        if (!success)
+        {
+            await DisplayAlert("Error", "There was an error updating the history. Please try again.", "OK");
+        }
+        else
+        {
+            _taskCompletionSource.SetResult(true);
+            await Navigation.PopAsync();
+        }
     }
 
     private void EntryDescription_OnTextChanged(object? sender, TextChangedEventArgs e)
@@ -187,7 +195,16 @@ public partial class DetailedRecordContentPage
 
             if (response)
             {
-                THistory.AddOrEdit();
+                var success = AddOrEditHistory();
+                if (!success)
+                {
+                    await DisplayAlert(
+                        DetailedRecordContentPageResources.MessageBoxOnBackCommandPressedErrorTitle,
+                        DetailedRecordContentPageResources.MessageBoxOnBackCommandPressedErrorMessage,
+                        DetailedRecordContentPageResources.MessageBoxOnBackCommandPressedErrorOkButton);
+                    return;
+                }
+
                 _taskCompletionSource.SetResult(true);
             }
             else _taskCompletionSource.SetResult(false);
@@ -211,6 +228,19 @@ public partial class DetailedRecordContentPage
     #endregion
 
     #region Function
+
+    private bool AddOrEditHistory()
+    {
+        var json = THistory.ToJson();
+
+        Log.Information("Attempting to add edit history : {Json}", json);
+        var (success, exception) = THistory.AddOrEdit();
+
+        if (success) Log.Information("Successful history editing");
+        else Log.Error(exception, "Failed history editing");
+
+        return success;
+    }
 
     private void InitializeContentPage()
     {

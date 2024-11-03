@@ -106,6 +106,33 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.DetailedRecordConte
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to There was an error updating the history. Please try again.
+        /// </summary>
+        internal static string MessageBoxOnBackCommandPressedErrorMessage {
+            get {
+                return ResourceManager.GetString("MessageBoxOnBackCommandPressedErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ok.
+        /// </summary>
+        internal static string MessageBoxOnBackCommandPressedErrorOkButton {
+            get {
+                return ResourceManager.GetString("MessageBoxOnBackCommandPressedErrorOkButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        internal static string MessageBoxOnBackCommandPressedErrorTitle {
+            get {
+                return ResourceManager.GetString("MessageBoxOnBackCommandPressedErrorTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Do you want to save the changes made to this record ?.
         /// </summary>
         internal static string MessageBoxOnBackCommandPressedMessage {

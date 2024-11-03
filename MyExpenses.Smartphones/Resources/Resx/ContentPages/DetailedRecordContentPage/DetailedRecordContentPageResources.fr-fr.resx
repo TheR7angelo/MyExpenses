@@ -44,4 +44,13 @@
     <data name="MessageBoxOnBackCommandPressedNoButton" xml:space="preserve">
         <value>Non</value>
     </data>
+    <data name="MessageBoxOnBackCommandPressedErrorOkButton" xml:space="preserve">
+        <value>Ok</value>
+    </data>
+    <data name="MessageBoxOnBackCommandPressedErrorTitle" xml:space="preserve">
+        <value>Erreur</value>
+    </data>
+    <data name="MessageBoxOnBackCommandPressedErrorMessage" xml:space="preserve">
+        <value>Une erreur s’est produite lors de la mise à jour de l’historique. Veuillez réessayer</value>
+    </data>
 </root>
