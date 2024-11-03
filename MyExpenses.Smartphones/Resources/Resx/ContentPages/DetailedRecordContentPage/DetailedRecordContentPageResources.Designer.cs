@@ -61,11 +61,29 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.DetailedRecordConte
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        internal static string ButtonCancelUpdateText {
+            get {
+                return ResourceManager.GetString("ButtonCancelUpdateText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Refocus.
         /// </summary>
         internal static string ButtonRefocusText {
             get {
                 return ResourceManager.GetString("ButtonRefocusText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update.
+        /// </summary>
+        internal static string ButtonUpdateText {
+            get {
+                return ResourceManager.GetString("ButtonUpdateText", resourceCulture);
             }
         }
         

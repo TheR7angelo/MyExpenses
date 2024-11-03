@@ -25,206 +25,231 @@
 
     <ContentPage.Content>
 
-        <Grid margin:LayoutExtensions.MarginForAllChildren="10">
+        <Grid>
 
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
-            <Frame Grid.Row="0"
-                   BackgroundColor="{AppThemeBinding Light={StaticResource Wheat}, Dark={StaticResource Black}}"
-                   CornerRadius="5">
+            <HorizontalStackLayout Grid.Row="0"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center"
+                                   IsVisible="{Binding IsDirty, Mode=OneWay}"
+                                   margin:LayoutExtensions.MarginForAllChildren="3, 0">
 
-                <Grid>
+                <Button Text="{Binding ButtonUpdateText, Mode=OneWay}"
+                        Style="{StaticResource PaperMidButton}">
+                </Button>
 
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="2*" />
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="2*" />
-                    </Grid.RowDefinitions>
+                <Button Text="{Binding ButtonCancelUpdateText, Mode=OneWay}"
+                        Style="{StaticResource PaperSecondaryMidButton}">
+                </Button>
 
-                    <Entry Grid.Row="0"
-                           HorizontalTextAlignment="Start"
-                           Text="{Binding THistory.Description, Mode=TwoWay}"
-                           FontSize="24"
-                           TextChanged="EntryDescription_OnTextChanged">
-                    </Entry>
+            </HorizontalStackLayout>
 
-                    <Picker Grid.Row="1"
-                            ItemsSource="{Binding ModePayments, Mode=OneWay, Source={RelativeSource AncestorType={x:Type local:DetailedRecordContentPage}}}"
-                            SelectedItem="{Binding THistory.ModePaymentFk, Mode=TwoWay, Converter={StaticResource ISqlConverter}, ConverterParameter={Binding ModePayments, Source={Reference This}}, Source={Reference This}, Source={RelativeSource AncestorType={x:Type local:DetailedRecordContentPage}}}"
-                            ItemDisplayBinding="{Binding Name}" x:DataType="tables:TModePayment"
-                            SelectedIndexChanged="PickerModePayment_OnSelectedIndexChanged">
-                    </Picker>
-
-                    <HorizontalStackLayout Grid.Row="2">
-
-                        <Label HorizontalTextAlignment="Start"
-                               Text="{Binding THistory.Value, Mode=OneWay, Converter={StaticResource ValueToCreditDebitedConverter}}">
-                        </Label>
-
-                        <Label HorizontalTextAlignment="Start"
-                               Margin="5, 0, 0, 0"
-                               Text="{Binding THistory.Date, Mode=OneWay}">
-                        </Label>
-
-                    </HorizontalStackLayout>
-
-                    <HorizontalStackLayout Grid.Row="3">
-
-                        <Label HorizontalTextAlignment="Start"
-                               Text="{Binding LabelTextAddedOn, Mode=OneWay}">
-                        </Label>
-
-                        <Label HorizontalTextAlignment="Start"
-                               Margin="5, 0, 0, 0"
-                               Text="{Binding THistory.DateAdded, Mode=OneWay}">
-                        </Label>
-
-                    </HorizontalStackLayout>
-
-                    <HorizontalStackLayout Grid.Row="4"
-                                           HorizontalOptions="Center">
-
-                        <Entry HorizontalOptions="Center"
-                               HorizontalTextAlignment="Center"
-                               FontAttributes="Bold"
-                               FontSize="24"
-                               Keyboard="Numeric"
-                               Text="{Binding THistory.Value, Mode=TwoWay}"
-                               TextChanged="EntryValue_OnTextChanged">
-                        </Entry>
-
-                        <Label HorizontalOptions="Center"
-                               HorizontalTextAlignment="Center"
-                               VerticalOptions="Center"
-                               VerticalTextAlignment="Center"
-                               FontAttributes="Bold"
-                               FontSize="24"
-                               Text="{Binding VHistory.Symbol, Mode=OneWay}">
-                        </Label>
-
-                    </HorizontalStackLayout>
-
-                </Grid>
-
-            </Frame>
-
-            <Frame Grid.Row="1"
-                   BackgroundColor="{AppThemeBinding Light={StaticResource Wheat}, Dark={StaticResource Black}}"
-                   CornerRadius="5">
-
-                <Grid>
-
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="*" />
-                    </Grid.RowDefinitions>
-
-                    <Grid Grid.Row="0">
-
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-
-                        <Ellipse Grid.Column="0"
-                                 HeightRequest="24"
-                                 WidthRequest="{Binding HeightRequest, Source={RelativeSource Self}}"
-                                 Stroke="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
-                                 StrokeThickness="1.5"
-                                 Fill="{Binding VHistory.HexadecimalColorCode, Mode=OneWay, Converter={StaticResource StringToBrushConverter}}"
-                                 Margin="10, 0">
-                        </Ellipse>
-
-                        <Picker Grid.Column="1"
-                                HorizontalTextAlignment="Start"
-                                ItemsSource="{Binding CategoryTypes, Mode=OneWay, Source={RelativeSource AncestorType={x:Type local:DetailedRecordContentPage}}}"
-                                SelectedItem="{Binding THistory.CategoryTypeFk, Mode=TwoWay, Converter={StaticResource ISqlConverter}, ConverterParameter={Binding CategoryTypes, Source={Reference This}}, Source={Reference This}, Source={RelativeSource AncestorType={x:Type local:DetailedRecordContentPage}}}"
-                                ItemDisplayBinding="{Binding Name}" x:DataType="tables:TCategoryType"
-                                SelectedIndexChanged="PickerCategoryTypeFk_OnSelectedIndexChanged">
-                        </Picker>
-
-                    </Grid>
-
-                    <Grid Grid.Row="1">
-
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
-
-                        <Label Grid.Column="0"
-                               VerticalTextAlignment="Center"
-                               Text="{Binding PointedOperation, Mode=OneWay}">
-                        </Label>
-
-                        <Switch Grid.Column="2"
-                                HorizontalOptions="End"
-                                VerticalOptions="Center"
-                                IsToggled="{Binding THistory.Pointed, Mode=TwoWay}"
-                                Toggled="SwitchPointed_OnToggled">
-                        </Switch>
-
-                    </Grid>
-
-                    <HorizontalStackLayout Grid.Row="2">
-
-                        <Label HorizontalTextAlignment="Start"
-                               Text="{Binding LabelTextPointedOn, Mode=OneWay}">
-                        </Label>
-
-                        <Label HorizontalTextAlignment="Start"
-                               Margin="5, 0, 0, 0"
-                               Text="{Binding THistory.DatePointed, Mode=OneWay}">
-                        </Label>
-
-                    </HorizontalStackLayout>
-
-                </Grid>
-
-            </Frame>
-
-            <Grid Grid.Row="2"
-                  margin:LayoutExtensions.MarginForAllChildren="3">
+            <Grid Grid.Row="1" margin:LayoutExtensions.MarginForAllChildren="10">
 
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
+                <Frame Grid.Row="0"
+                       BackgroundColor="{AppThemeBinding Light={StaticResource Wheat}, Dark={StaticResource Black}}"
+                       CornerRadius="5">
 
-                <maui:MapControl x:Name="MapControl"
-                                 Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3"
-                                 Loaded="MapControl_OnLoaded">
-                </maui:MapControl>
+                    <Grid>
 
-                <Button Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3"
-                        Style="{StaticResource PaperMidButton}"
-                        Text="{Binding ButtonRefocusText, Mode=OneWay}"
-                        Clicked="ButtonRefocus_OnClicked">
-                </Button>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="2*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="2*" />
+                        </Grid.RowDefinitions>
 
-                <Picker Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3"
-                        HorizontalTextAlignment="Center"
-                        ItemsSource="{Binding KnownTileSources, Mode=OneWay}"
-                        SelectedItem="{Binding KnownTileSourceSelected}"
-                        ItemDisplayBinding="{Binding ., Converter={StaticResource SplitUpperCaseWordsConverter}}"
-                        SelectedIndexChanged="PickerKnownTileSources_OnSelectedIndexChanged">
-                </Picker>
+                        <Entry Grid.Row="0"
+                               HorizontalTextAlignment="Start"
+                               Text="{Binding THistory.Description, Mode=TwoWay}"
+                               FontSize="24"
+                               TextChanged="EntryDescription_OnTextChanged">
+                        </Entry>
+
+                        <Picker Grid.Row="1"
+                                ItemsSource="{Binding ModePayments, Mode=OneWay, Source={RelativeSource AncestorType={x:Type local:DetailedRecordContentPage}}}"
+                                SelectedItem="{Binding THistory.ModePaymentFk, Mode=TwoWay, Converter={StaticResource ISqlConverter}, ConverterParameter={Binding ModePayments, Source={Reference This}}, Source={Reference This}, Source={RelativeSource AncestorType={x:Type local:DetailedRecordContentPage}}}"
+                                ItemDisplayBinding="{Binding Name}" x:DataType="tables:TModePayment"
+                                SelectedIndexChanged="PickerModePayment_OnSelectedIndexChanged">
+                        </Picker>
+
+                        <HorizontalStackLayout Grid.Row="2">
+
+                            <Label HorizontalTextAlignment="Start"
+                                   Text="{Binding THistory.Value, Mode=OneWay, Converter={StaticResource ValueToCreditDebitedConverter}}">
+                            </Label>
+
+                            <Label HorizontalTextAlignment="Start"
+                                   Margin="5, 0, 0, 0"
+                                   Text="{Binding THistory.Date, Mode=OneWay}">
+                            </Label>
+
+                        </HorizontalStackLayout>
+
+                        <HorizontalStackLayout Grid.Row="3">
+
+                            <Label HorizontalTextAlignment="Start"
+                                   Text="{Binding LabelTextAddedOn, Mode=OneWay}">
+                            </Label>
+
+                            <Label HorizontalTextAlignment="Start"
+                                   Margin="5, 0, 0, 0"
+                                   Text="{Binding THistory.DateAdded, Mode=OneWay}">
+                            </Label>
+
+                        </HorizontalStackLayout>
+
+                        <HorizontalStackLayout Grid.Row="4"
+                                               HorizontalOptions="Center">
+
+                            <Entry HorizontalOptions="Center"
+                                   HorizontalTextAlignment="Center"
+                                   FontAttributes="Bold"
+                                   FontSize="24"
+                                   Keyboard="Numeric"
+                                   Text="{Binding THistory.Value, Mode=TwoWay}"
+                                   TextChanged="EntryValue_OnTextChanged">
+                            </Entry>
+
+                            <Label HorizontalOptions="Center"
+                                   HorizontalTextAlignment="Center"
+                                   VerticalOptions="Center"
+                                   VerticalTextAlignment="Center"
+                                   FontAttributes="Bold"
+                                   FontSize="24"
+                                   Text="{Binding VHistory.Symbol, Mode=OneWay}">
+                            </Label>
+
+                        </HorizontalStackLayout>
+
+                    </Grid>
+
+                </Frame>
+
+                <Frame Grid.Row="1"
+                       BackgroundColor="{AppThemeBinding Light={StaticResource Wheat}, Dark={StaticResource Black}}"
+                       CornerRadius="5">
+
+                    <Grid>
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+
+                        <Grid Grid.Row="0">
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <Ellipse Grid.Column="0"
+                                     HeightRequest="24"
+                                     WidthRequest="{Binding HeightRequest, Source={RelativeSource Self}}"
+                                     Stroke="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
+                                     StrokeThickness="1.5"
+                                     Fill="{Binding VHistory.HexadecimalColorCode, Mode=OneWay, Converter={StaticResource StringToBrushConverter}}"
+                                     Margin="10, 0">
+                            </Ellipse>
+
+                            <Picker Grid.Column="1"
+                                    HorizontalTextAlignment="Start"
+                                    ItemsSource="{Binding CategoryTypes, Mode=OneWay, Source={RelativeSource AncestorType={x:Type local:DetailedRecordContentPage}}}"
+                                    SelectedItem="{Binding THistory.CategoryTypeFk, Mode=TwoWay, Converter={StaticResource ISqlConverter}, ConverterParameter={Binding CategoryTypes, Source={Reference This}}, Source={Reference This}, Source={RelativeSource AncestorType={x:Type local:DetailedRecordContentPage}}}"
+                                    ItemDisplayBinding="{Binding Name}" x:DataType="tables:TCategoryType"
+                                    SelectedIndexChanged="PickerCategoryTypeFk_OnSelectedIndexChanged">
+                            </Picker>
+
+                        </Grid>
+
+                        <Grid Grid.Row="1">
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <Label Grid.Column="0"
+                                   VerticalTextAlignment="Center"
+                                   Text="{Binding PointedOperation, Mode=OneWay}">
+                            </Label>
+
+                            <Switch Grid.Column="2"
+                                    HorizontalOptions="End"
+                                    VerticalOptions="Center"
+                                    IsToggled="{Binding THistory.Pointed, Mode=TwoWay}"
+                                    Toggled="SwitchPointed_OnToggled">
+                            </Switch>
+
+                        </Grid>
+
+                        <HorizontalStackLayout Grid.Row="2">
+
+                            <Label HorizontalTextAlignment="Start"
+                                   Text="{Binding LabelTextPointedOn, Mode=OneWay}">
+                            </Label>
+
+                            <Label HorizontalTextAlignment="Start"
+                                   Margin="5, 0, 0, 0"
+                                   Text="{Binding THistory.DatePointed, Mode=OneWay}">
+                            </Label>
+
+                        </HorizontalStackLayout>
+
+                    </Grid>
+
+                </Frame>
+
+                <Grid Grid.Row="2"
+                      margin:LayoutExtensions.MarginForAllChildren="3">
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <maui:MapControl x:Name="MapControl"
+                                     Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3"
+                                     Loaded="MapControl_OnLoaded">
+                    </maui:MapControl>
+
+                    <Button Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3"
+                            Style="{StaticResource PaperMidButton}"
+                            Text="{Binding ButtonRefocusText, Mode=OneWay}"
+                            Clicked="ButtonRefocus_OnClicked">
+                    </Button>
+
+                    <Picker Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3"
+                            HorizontalTextAlignment="Center"
+                            ItemsSource="{Binding KnownTileSources, Mode=OneWay}"
+                            SelectedItem="{Binding KnownTileSourceSelected}"
+                            ItemDisplayBinding="{Binding ., Converter={StaticResource SplitUpperCaseWordsConverter}}"
+                            SelectedIndexChanged="PickerKnownTileSources_OnSelectedIndexChanged">
+                    </Picker>
+
+                </Grid>
 
             </Grid>
 

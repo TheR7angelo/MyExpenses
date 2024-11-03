@@ -17,7 +17,27 @@ namespace MyExpenses.Smartphones.ContentPages;
 
 public partial class DetailedRecordContentPage
 {
-    public static readonly BindableProperty ButtonRefocusTextProperty = BindableProperty.Create(nameof(ButtonRefocusText),
+    public static readonly BindableProperty ButtonCancelUpdateTextProperty =
+        BindableProperty.Create(nameof(ButtonCancelUpdateText), typeof(string), typeof(DetailedRecordContentPage),
+            default(string));
+
+    public string ButtonCancelUpdateText
+    {
+        get => (string)GetValue(ButtonCancelUpdateTextProperty);
+        set => SetValue(ButtonCancelUpdateTextProperty, value);
+    }
+
+    public static readonly BindableProperty ButtonUpdateTextProperty = BindableProperty.Create(nameof(ButtonUpdateText),
+        typeof(string), typeof(DetailedRecordContentPage), default(string));
+
+    public string ButtonUpdateText
+    {
+        get => (string)GetValue(ButtonUpdateTextProperty);
+        set => SetValue(ButtonUpdateTextProperty, value);
+    }
+
+    public static readonly BindableProperty ButtonRefocusTextProperty = BindableProperty.Create(
+        nameof(ButtonRefocusText),
         typeof(string), typeof(DetailedRecordContentPage), default(string));
 
     public string ButtonRefocusText
@@ -54,6 +74,15 @@ public partial class DetailedRecordContentPage
         set => SetValue(LabelTextAddedOnProperty, value);
     }
 
+    public static readonly BindableProperty IsDirtyProperty = BindableProperty.Create(nameof(IsDirty), typeof(bool),
+        typeof(DetailedRecordContentPage), default(bool));
+
+    public bool IsDirty
+    {
+        get => (bool)GetValue(IsDirtyProperty);
+        set => SetValue(IsDirtyProperty, value);
+    }
+
     public static readonly BindableProperty THistoryProperty = BindableProperty.Create(nameof(THistory),
         typeof(THistory), typeof(DetailedRecordContentPage), default(THistory));
 
@@ -79,7 +108,6 @@ public partial class DetailedRecordContentPage
     public ObservableCollection<TModePayment> ModePayments { get; private set; } = [];
     public ObservableCollection<TCategoryType> CategoryTypes { get; private set; } = [];
 
-    private bool IsDirty { get; set; }
     private THistory OriginalHistory { get; set; } = null!;
 
     public ICommand BackCommand { get; set; } = null!;
@@ -208,6 +236,9 @@ public partial class DetailedRecordContentPage
 
     private void UpdateLanguage()
     {
+        ButtonUpdateText = DetailedRecordContentPageResources.ButtonUpdateText;
+        ButtonCancelUpdateText = DetailedRecordContentPageResources.ButtonCancelUpdateText;
+
         LabelTextAddedOn = DetailedRecordContentPageResources.LabelTextAddedOn;
         PointedOperation = DetailedRecordContentPageResources.PointedOperation;
         LabelTextPointedOn = DetailedRecordContentPageResources.LabelTextPointedOn;

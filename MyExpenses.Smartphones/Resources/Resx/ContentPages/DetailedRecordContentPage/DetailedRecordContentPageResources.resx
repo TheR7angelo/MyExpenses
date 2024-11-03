@@ -33,4 +33,10 @@
     <data name="TitleIsDirty" xml:space="preserve">
         <value>Changes in progress</value>
     </data>
+    <data name="ButtonUpdateText" xml:space="preserve">
+        <value>Update</value>
+    </data>
+    <data name="ButtonCancelUpdateText" xml:space="preserve">
+        <value>Cancel</value>
+    </data>
 </root>
