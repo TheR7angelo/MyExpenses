@@ -39,11 +39,13 @@
                                    margin:LayoutExtensions.MarginForAllChildren="3, 0">
 
                 <Button Text="{Binding ButtonUpdateText, Mode=OneWay}"
-                        Style="{StaticResource PaperMidButton}">
+                        Style="{StaticResource PaperMidButton}"
+                        Clicked="ButtonUpdateHistory_OnClicked">
                 </Button>
 
                 <Button Text="{Binding ButtonCancelUpdateText, Mode=OneWay}"
-                        Style="{StaticResource PaperSecondaryMidButton}">
+                        Style="{StaticResource PaperSecondaryMidButton}"
+                        Clicked="ButtonCancelUpdateHistory_OnClicked">
                 </Button>
 
             </HorizontalStackLayout>

@@ -9,6 +9,7 @@ using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Models.Sql.Bases.Views;
 using MyExpenses.Smartphones.Resources.Resx.ContentPages.DetailedRecordContentPage;
 using MyExpenses.Sql.Context;
+using MyExpenses.Utils;
 using MyExpenses.Utils.Collection;
 using MyExpenses.Utils.Maps;
 using MyExpenses.Utils.Objects;
@@ -144,8 +145,23 @@ public partial class DetailedRecordContentPage
 
     #region Action
 
+    private void ButtonCancelUpdateHistory_OnClicked(object? sender, EventArgs e)
+    {
+        OriginalHistory.CopyPropertiesTo(THistory);
+        Refocus();
+
+        UpdateIsDirty();
+    }
+
     private void ButtonRefocus_OnClicked(object? sender, EventArgs e)
         => Refocus();
+
+    private async void ButtonUpdateHistory_OnClicked(object? sender, EventArgs e)
+    {
+        THistory.AddOrEdit();
+        _taskCompletionSource.SetResult(true);
+        await Navigation.PopAsync();
+    }
 
     private void EntryDescription_OnTextChanged(object? sender, TextChangedEventArgs e)
         => UpdateIsDirty();
@@ -159,10 +175,20 @@ public partial class DetailedRecordContentPage
     private void MapControl_OnLoaded(object? sender, EventArgs e)
         => UpdateTileLayer();
 
-    //TODO add update value if dirty
     private async void OnBackCommandPressed()
     {
-        _taskCompletionSource.SetResult(false);
+        if (IsDirty)
+        {
+            // TODO trad
+            var response = await DisplayAlert("Question", "Do you want to update this record ?", "Yes", "No");
+            if (response)
+            {
+                THistory.AddOrEdit();
+                _taskCompletionSource.SetResult(true);
+            }
+            else _taskCompletionSource.SetResult(false);
+        }
+
         await Navigation.PopAsync();
     }
 
