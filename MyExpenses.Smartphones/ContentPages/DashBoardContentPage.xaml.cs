@@ -384,7 +384,6 @@ public partial class DashBoardContentPage
     
     #endregion
 
-    //TODO work
     private async void CollectionViewVHistory_OnShortPress(object obj)
     {
         if (_isCollectionViewVHistoryLongPressInvoked) return;
@@ -393,5 +392,11 @@ public partial class DashBoardContentPage
 
         var detailedRecordContentPage = new DetailedRecordContentPage(vHistory.Id);
         await Navigation.PushAsync(detailedRecordContentPage);
+
+        var result = await detailedRecordContentPage.ResultDialog;
+        if (result is not true) return;
+
+        RefreshDataGrid();
+        RefreshAccountTotal();
     }
 }
