@@ -194,6 +194,22 @@ public partial class DashBoardContentPage
         _isCollectionViewVHistoryLongPressInvoked = false;
     }
 
+    private async void CollectionViewVHistory_OnShortPress(object obj)
+    {
+        if (_isCollectionViewVHistoryLongPressInvoked) return;
+
+        if (obj is not VHistory vHistory) return;
+
+        var detailedRecordContentPage = new DetailedRecordContentPage(vHistory.Id);
+        await Navigation.PushAsync(detailedRecordContentPage);
+
+        var result = await detailedRecordContentPage.ResultDialog;
+        if (result is not true) return;
+
+        RefreshDataGrid();
+        RefreshAccountTotal();
+    }
+
     private async void CollectionViewVTotalAccount_OnLoaded(object? sender, EventArgs e)
     {
         await Dispatcher.DispatchAsync(async () =>
@@ -383,20 +399,4 @@ public partial class DashBoardContentPage
     }
     
     #endregion
-
-    private async void CollectionViewVHistory_OnShortPress(object obj)
-    {
-        if (_isCollectionViewVHistoryLongPressInvoked) return;
-
-        if (obj is not VHistory vHistory) return;
-
-        var detailedRecordContentPage = new DetailedRecordContentPage(vHistory.Id);
-        await Navigation.PushAsync(detailedRecordContentPage);
-
-        var result = await detailedRecordContentPage.ResultDialog;
-        if (result is not true) return;
-
-        RefreshDataGrid();
-        RefreshAccountTotal();
-    }
 }
