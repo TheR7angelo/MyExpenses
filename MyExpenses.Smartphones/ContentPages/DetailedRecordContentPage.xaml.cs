@@ -162,13 +162,15 @@ public partial class DetailedRecordContentPage
         var success = AddOrEditHistory();
         if (!success)
         {
-            await DisplayAlert("Error", "There was an error updating the history. Please try again.", "OK");
+            await DisplayAlert(
+                DetailedRecordContentPageResources.MessageBoxOnBackCommandPressedErrorTitle,
+                DetailedRecordContentPageResources.MessageBoxOnBackCommandPressedErrorMessage,
+                DetailedRecordContentPageResources.MessageBoxOnBackCommandPressedErrorOkButton);
+            return;
         }
-        else
-        {
-            _taskCompletionSource.SetResult(true);
-            await Navigation.PopAsync();
-        }
+
+        _taskCompletionSource.SetResult(true);
+        await Navigation.PopAsync();
     }
 
     private void EntryDescription_OnTextChanged(object? sender, TextChangedEventArgs e)
