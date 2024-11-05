@@ -8,7 +8,6 @@
              xmlns:converters="clr-namespace:MyExpenses.Smartphones.Converters"
              xmlns:maui="clr-namespace:Mapsui.UI.Maui;assembly=Mapsui.UI.Maui"
              xmlns:pickers="clr-namespace:MyExpenses.Smartphones.UserControls.Pickers"
-             xmlns:converters1="clr-namespace:MyExpenses.Smartphones.Resources.Styles.Converters"
              xmlns:customFrame="clr-namespace:MyExpenses.Smartphones.UserControls.Buttons.CustomFrame"
              x:Class="MyExpenses.Smartphones.ContentPages.DetailedRecordContentPage"
              x:Name="This"
@@ -24,8 +23,8 @@
         <converters:ValueToCreditDebitedConverter x:Key="ValueToCreditDebitedConverter" />
         <converters:StringToBrushConverter x:Key="StringToBrushConverter" />
         <converters:SplitUpperCaseWordsConverter x:Key="SplitUpperCaseWordsConverter" />
-        <converters1:BooleanToInverseConverter x:Key="BooleanToInverseConverter" />
-        <customFrame:EPackIconsToGeometryConverter x:Key="StringToGeometryConverter" />
+        <converters:BooleanToInverseConverter x:Key="BooleanToInverseConverter" />
+        <converters:EPackIconsToGeometryConverter x:Key="StringToGeometryConverter" />
         <converters:PercentageConverter x:Key="PercentageConverter" />
     </ContentPage.Resources>
 

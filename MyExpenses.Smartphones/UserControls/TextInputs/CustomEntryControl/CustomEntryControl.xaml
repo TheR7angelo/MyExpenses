@@ -4,10 +4,11 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MyExpenses.Smartphones.UserControls.TextInputs.CustomEntryControl.CustomEntryControl"
              xmlns:local="clr-namespace:MyExpenses.Smartphones.UserControls.TextInputs.CustomEntryControl"
-             xmlns:converters="clr-namespace:MyExpenses.Smartphones.Resources.Styles.Converters">
+             xmlns:converters="clr-namespace:MyExpenses.Smartphones.Resources.Styles.Converters"
+             xmlns:converters1="clr-namespace:MyExpenses.Smartphones.Converters">
 
     <ContentView.Resources>
-        <converters:BooleanToInverseConverter x:Key="BooleanToInverseConverter" />
+        <converters1:BooleanToInverseConverter x:Key="BooleanToInverseConverter" />
     </ContentView.Resources>
 
     <Frame BorderColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"

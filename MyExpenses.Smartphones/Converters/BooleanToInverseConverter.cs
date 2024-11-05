@@ -1,6 +1,6 @@
 using System.Globalization;
 
-namespace MyExpenses.Smartphones.Resources.Styles.Converters;
+namespace MyExpenses.Smartphones.Converters;
 
 public class BooleanToInverseConverter : IValueConverter
 {

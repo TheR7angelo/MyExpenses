@@ -9,8 +9,8 @@
              x:Class="MyExpenses.Smartphones.UserControls.Pickers.CustomPicker">
 
     <ContentView.Resources>
-        <converters:BooleanToInverseConverter x:Key="BooleanToInverseConverter" />
-        <customFrame:EPackIconsToGeometryConverter x:Key="StringToGeometryConverter" />
+        <converters1:BooleanToInverseConverter x:Key="BooleanToInverseConverter" />
+        <converters1:EPackIconsToGeometryConverter x:Key="StringToGeometryConverter" />
         <converters1:PercentageConverter x:Key="PercentageConverter" />
     </ContentView.Resources>
 
