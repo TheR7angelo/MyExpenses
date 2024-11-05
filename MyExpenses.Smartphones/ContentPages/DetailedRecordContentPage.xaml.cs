@@ -149,11 +149,11 @@ public partial class DetailedRecordContentPage
     public EPackIcons CloseCircle { get; } = EPackIcons.CloseCircle;
 
     private WritableLayer PlaceLayer { get; } = new() { Style = null, IsMapInfoLayer = true, Tag = typeof(TPlace) };
-    public List<KnownTileSource> KnownTileSources { get; private set; } = [];
+    public List<KnownTileSource> KnownTileSources { get; private init; } = [];
     public KnownTileSource KnownTileSourceSelected { get; set; }
 
-    public ObservableCollection<TModePayment> ModePayments { get; private set; } = [];
-    public ObservableCollection<TCategoryType> CategoryTypes { get; private set; } = [];
+    public ObservableCollection<TModePayment> ModePayments { get; private init; } = [];
+    public ObservableCollection<TCategoryType> CategoryTypes { get; private init; } = [];
     public ObservableCollection<string> CountriesCollection { get; private init; } = [];
 
     public ObservableCollection<string> CitiesCollection { get; private init; } = [];
