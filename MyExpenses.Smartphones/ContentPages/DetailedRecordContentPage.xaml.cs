@@ -4,17 +4,22 @@ using System.Windows.Input;
 using BruTile.Predefined;
 using Mapsui.Layers;
 using Mapsui.Tiling.Layers;
+using MyExpenses.Maui.Utils;
 using MyExpenses.Models.Config;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Models.Sql.Bases.Views;
+using MyExpenses.Smartphones.Converters;
+using MyExpenses.Smartphones.PackIcons;
 using MyExpenses.Smartphones.Resources.Resx.ContentPages.DetailedRecordContentPage;
+using MyExpenses.Smartphones.Resources.Resx.Converters.EmptyStringTreeViewConverter;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils;
 using MyExpenses.Utils.Collection;
 using MyExpenses.Utils.Maps;
 using MyExpenses.Utils.Objects;
 using Serilog;
+using Path = Microsoft.Maui.Controls.Shapes.Path;
 
 namespace MyExpenses.Smartphones.ContentPages;
 
@@ -37,6 +42,43 @@ public partial class DetailedRecordContentPage
     {
         get => (string)GetValue(ButtonUpdateTextProperty);
         set => SetValue(ButtonUpdateTextProperty, value);
+    }
+
+    public static readonly BindableProperty SelectedCountryProperty = BindableProperty.Create(nameof(SelectedCountry),
+        typeof(string), typeof(DetailedRecordContentPage), default(string));
+
+    public string? SelectedCountry
+    {
+        get => (string?)GetValue(SelectedCountryProperty);
+        set => SetValue(SelectedCountryProperty, value);
+    }
+
+    public static readonly BindableProperty SelectedCityProperty = BindableProperty.Create(nameof(SelectedCity),
+        typeof(string), typeof(DetailedRecordContentPage), default(string));
+
+    public string SelectedCity
+    {
+        get => (string)GetValue(SelectedCityProperty);
+        set => SetValue(SelectedCityProperty, value);
+    }
+
+    public static readonly BindableProperty IsPlaceholderVisibleProperty =
+        BindableProperty.Create(nameof(IsPlaceholderVisible), typeof(bool), typeof(DetailedRecordContentPage),
+            default(bool));
+
+    public bool IsPlaceholderVisible
+    {
+        get => (bool)GetValue(IsPlaceholderVisibleProperty);
+        set => SetValue(IsPlaceholderVisibleProperty, value);
+    }
+
+    public static readonly BindableProperty PlaceholderTextProperty = BindableProperty.Create(nameof(PlaceholderText),
+        typeof(string), typeof(DetailedRecordContentPage), default(string));
+
+    public string PlaceholderText
+    {
+        get => (string)GetValue(PlaceholderTextProperty);
+        set => SetValue(PlaceholderTextProperty, value);
     }
 
     public static readonly BindableProperty ButtonRefocusTextProperty = BindableProperty.Create(
@@ -104,12 +146,18 @@ public partial class DetailedRecordContentPage
         set => SetValue(VHistoryProperty, value);
     }
 
+    public EPackIcons CloseCircle { get; } = EPackIcons.CloseCircle;
+
     private WritableLayer PlaceLayer { get; } = new() { Style = null, IsMapInfoLayer = true, Tag = typeof(TPlace) };
     public List<KnownTileSource> KnownTileSources { get; private set; } = [];
     public KnownTileSource KnownTileSourceSelected { get; set; }
 
     public ObservableCollection<TModePayment> ModePayments { get; private set; } = [];
     public ObservableCollection<TCategoryType> CategoryTypes { get; private set; } = [];
+    public ObservableCollection<string> CountriesCollection { get; private init; } = [];
+
+    public ObservableCollection<string> CitiesCollection { get; private init; } = [];
+    public ObservableCollection<TPlace> PlacesCollection { get; private init; } = [];
 
     private THistory OriginalHistory { get; set; } = null!;
 
@@ -149,6 +197,10 @@ public partial class DetailedRecordContentPage
 
     private void ButtonCancelUpdateHistory_OnClicked(object? sender, EventArgs e)
     {
+        var place = OriginalHistory.PlaceFk?.ToISql<TPlace>();
+        SelectedCountry = EmptyStringTreeViewConverter.ToUnknown(place?.Country);
+        SelectedCity = EmptyStringTreeViewConverter.ToUnknown(place?.City);
+
         OriginalHistory.CopyPropertiesTo(THistory);
         Refocus();
 
@@ -228,8 +280,127 @@ public partial class DetailedRecordContentPage
     private void PickerModePayment_OnSelectedIndexChanged(object? sender, EventArgs e)
         => UpdateIsDirty();
 
+    private void SelectorCountry_OnSelectionChanged(object? sender, EventArgs e)
+    {
+        if (sender is not Picker comboBox) return;
+        var country = comboBox.SelectedItem as string;
+
+        using var context = new DataBaseContext();
+        var query = context.TPlaces.Where(s => s.IsOpen);
+
+        IQueryable<TPlace> records;
+
+        if (!string.IsNullOrEmpty(country))
+        {
+            records = country.Equals(EmptyStringTreeViewConverterResources.Unknown)
+                ? query.Where(s => s.Country == null)
+                : query.Where(s => s.Country == country);
+        }
+        else
+        {
+            records = query;
+        }
+
+        var citiesResults = records.Select(s => EmptyStringTreeViewConverter.ToUnknown(s.City)).Distinct();
+
+        ComboBoxSelectorCity.SelectedIndexChanged -= SelectorCity_OnSelectionChanged;
+        ComboBoxSelectorPlace.SelectedIndexChanged -= SelectorPlace_OnSelectionChanged;
+
+        CitiesCollection.Clear();
+        CitiesCollection.AddRangeAndSort(citiesResults, s => s);
+
+        PlacesCollection.Clear();
+        PlacesCollection.AddRangeAndSort(records, s => s.Name!);
+
+        ComboBoxSelectorCity.SelectedIndexChanged += SelectorCity_OnSelectionChanged;
+        ComboBoxSelectorPlace.SelectedIndexChanged += SelectorPlace_OnSelectionChanged;
+    }
+
+    private void SelectorCity_OnSelectionChanged(object? sender, EventArgs e)
+    {
+        if (sender is not Picker comboBox) return;
+        var city = comboBox.SelectedItem as string;
+
+        using var context = new DataBaseContext();
+        var query = context.TPlaces.Where(s => s.IsOpen);
+
+        IQueryable<TPlace> records;
+
+        if (!string.IsNullOrEmpty(city))
+        {
+            records = city.Equals(EmptyStringTreeViewConverterResources.Unknown)
+                ? query.Where(s => s.City == null)
+                : query.Where(s => s.City == city);
+        }
+        else
+        {
+            records = query;
+        }
+
+        if (SelectedCountry is null)
+        {
+            ComboBoxSelectorCountry.SelectedIndexChanged -= SelectorCountry_OnSelectionChanged;
+            SelectedCountry = records.First().Country;
+            ComboBoxSelectorCountry.SelectedIndexChanged += SelectorCountry_OnSelectionChanged;
+        }
+
+        PlacesCollection.Clear();
+        PlacesCollection.AddRangeAndSort(records, s => s.Name!);
+    }
+
+    private void SelectorPlace_OnSelectionChanged(object? sender, EventArgs e)
+    {
+        if (sender is not Picker picker) return;
+
+        IsPlaceholderVisible = picker.SelectedItem is null;
+
+        var place = THistory.PlaceFk?.ToISql<TPlace>();
+        UpdateMapPoint(place);
+
+        try
+        {
+            ComboBoxSelectorCountry.SelectedIndexChanged -= SelectorCountry_OnSelectionChanged;
+        }
+        catch (NullReferenceException)
+        {
+            // Pass
+            return;
+        }
+
+        // ComboBoxSelectorCountry.SelectedIndexChanged -= SelectorCountry_OnSelectionChanged;
+        ComboBoxSelectorCity.SelectedIndexChanged -= SelectorCity_OnSelectionChanged;
+
+        var country = string.IsNullOrEmpty(place?.Country)
+            ? EmptyStringTreeViewConverterResources.Unknown
+            : place.Country;
+
+        var city = string.IsNullOrEmpty(place?.City)
+            ? EmptyStringTreeViewConverterResources.Unknown
+            : place.City;
+
+        ComboBoxSelectorCountry.SelectedItem = country;
+        ComboBoxSelectorCity.SelectedItem = city;
+        THistory.PlaceFk = place?.Id;
+
+        ComboBoxSelectorCountry.SelectedIndexChanged += SelectorCountry_OnSelectionChanged;
+        ComboBoxSelectorCity.SelectedIndexChanged += SelectorCity_OnSelectionChanged;
+
+        UpdateIsDirty();
+    }
+
     private void SwitchPointed_OnToggled(object? sender, ToggledEventArgs e)
         => UpdateIsDirty();
+
+    private void TapGestureRecognizer_OnTapped(object? sender, TappedEventArgs e)
+    {
+        if (sender is not Path path) return;
+        if (path.Parent is not Grid grid) return;
+        var picker = grid.FindVisualChildren<Picker>().FirstOrDefault();
+        if (picker is null) return;
+
+        picker.SelectedItem = null;
+        UpdateIsDirty();
+    }
 
     private void TimePicker_OnTimeChanged(object? sender, PropertyChangedEventArgs e)
         => UpdateIsDirty();
@@ -261,6 +432,15 @@ public partial class DetailedRecordContentPage
         ModePayments.AddRange(context.TModePayments);
         CategoryTypes.AddRange(context.TCategoryTypes);
 
+        PlacesCollection.AddRange(context.TPlaces.OrderBy(s => s.Name));
+
+        var records = PlacesCollection.Select(s => EmptyStringTreeViewConverter.ToUnknown(s.Country)).Order()
+            .Distinct();
+        CountriesCollection.AddRange(records);
+
+        records = PlacesCollection.Select(s => EmptyStringTreeViewConverter.ToUnknown(s.City)).Order().Distinct();
+        CitiesCollection.AddRange(records);
+
         var knowTileSource = MapsuiMapExtensions.GetAllKnowTileSource();
         KnownTileSources.AddRange(knowTileSource);
 
@@ -272,26 +452,37 @@ public partial class DetailedRecordContentPage
 
         MapControl.Map = map;
 
-        var place = THistory.PlaceFk?.ToISql<TPlace>();
+        var place = context.TPlaces.FirstOrDefault(s => s.Id.Equals(THistory.PlaceFk));
         UpdateMapPoint(place);
+
+        SelectedCountry = EmptyStringTreeViewConverter.ToUnknown(place?.Country);
+        SelectedCity = EmptyStringTreeViewConverter.ToUnknown(place?.City);
+        ComboBoxSelectorPlace.SelectedItem = place;
 
         Interface.LanguageChanged += Interface_OnLanguageChanged;
     }
 
     private void Refocus()
     {
-        var features = PlaceLayer.GetFeatures();
-        var firstFeature = features.FirstOrDefault();
-        if (firstFeature is not PointFeature pointFeature) return;
-
-        MapControl.Map.Navigator.CenterOn(pointFeature.Point);
-        MapControl.Map.Navigator.ZoomTo(0);
-
-        MapControl.Map.Home = navigator =>
+        try
         {
-            navigator.CenterOn(pointFeature.Point);
-            navigator.ZoomTo(1);
-        };
+            var features = PlaceLayer.GetFeatures();
+            var firstFeature = features.FirstOrDefault();
+            if (firstFeature is not PointFeature pointFeature) return;
+
+            MapControl.Map.Navigator.CenterOn(pointFeature.Point);
+            MapControl.Map.Navigator.ZoomTo(0);
+
+            MapControl.Map.Home = navigator =>
+            {
+                navigator.CenterOn(pointFeature.Point);
+                navigator.ZoomTo(1);
+            };
+        }
+        catch (NullReferenceException e)
+        {
+            // Pass
+        }
     }
 
     private void UpdateIsDirty()
@@ -315,6 +506,8 @@ public partial class DetailedRecordContentPage
         ButtonRefocusText = DetailedRecordContentPageResources.ButtonRefocusText;
 
         if (IsDirty) Title = DetailedRecordContentPageResources.TitleIsDirty;
+
+        PlaceholderText = "test";
     }
 
     private void UpdateMapPoint(TPlace? place)

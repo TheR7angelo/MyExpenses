@@ -7,6 +7,9 @@
              xmlns:tables="clr-namespace:MyExpenses.Models.Sql.Bases.Tables;assembly=MyExpenses.Models"
              xmlns:converters="clr-namespace:MyExpenses.Smartphones.Converters"
              xmlns:maui="clr-namespace:Mapsui.UI.Maui;assembly=Mapsui.UI.Maui"
+             xmlns:pickers="clr-namespace:MyExpenses.Smartphones.UserControls.Pickers"
+             xmlns:converters1="clr-namespace:MyExpenses.Smartphones.Resources.Styles.Converters"
+             xmlns:customFrame="clr-namespace:MyExpenses.Smartphones.UserControls.Buttons.CustomFrame"
              x:Class="MyExpenses.Smartphones.ContentPages.DetailedRecordContentPage"
              x:Name="This"
 
@@ -21,6 +24,9 @@
         <converters:ValueToCreditDebitedConverter x:Key="ValueToCreditDebitedConverter" />
         <converters:StringToBrushConverter x:Key="StringToBrushConverter" />
         <converters:SplitUpperCaseWordsConverter x:Key="SplitUpperCaseWordsConverter" />
+        <converters1:BooleanToInverseConverter x:Key="BooleanToInverseConverter" />
+        <customFrame:EPackIconsToGeometryConverter x:Key="StringToGeometryConverter" />
+        <converters:PercentageConverter x:Key="PercentageConverter" />
     </ContentPage.Resources>
 
     <ContentPage.Content>
@@ -50,7 +56,7 @@
 
             </HorizontalStackLayout>
 
-            <Grid Grid.Row="1" margin:LayoutExtensions.MarginForAllChildren="10">
+            <Grid Grid.Row="1" margin:LayoutExtensions.MarginForAllChildren="5">
 
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
@@ -241,6 +247,84 @@
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
+
+                    <pickers:CustomPicker Grid.Row="0" Grid.Column="0"
+                                          x:Name="ComboBoxSelectorCountry"
+                                          HasClearButton="True"
+                                          GeometryColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
+                                          PlaceholderText="Country"
+                                          ItemsSource="{Binding CountriesCollection, Mode=OneWay}"
+                                          SelectedItem="{Binding SelectedCountry, Mode=TwoWay}"
+                                          SelectedIndexChanged="SelectorCountry_OnSelectionChanged">
+                    </pickers:CustomPicker>
+
+                    <pickers:CustomPicker Grid.Row="0" Grid.Column="1"
+                                          x:Name="ComboBoxSelectorCity"
+                                          HasClearButton="True"
+                                          GeometryColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
+                                          PlaceholderText="City"
+                                          ItemsSource="{Binding CitiesCollection, Mode=OneWay}"
+                                          SelectedItem="{Binding SelectedCity, Mode=TwoWay}"
+                                          SelectedIndexChanged="SelectorCity_OnSelectionChanged">
+                    </pickers:CustomPicker>
+
+                    <Frame Grid.Row="0" Grid.Column="2"
+                           BorderColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
+                           Padding="0"
+                           HasShadow="False"
+                           CornerRadius="5">
+
+                        <Grid>
+
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+                                   Text="{Binding PlaceholderText, Mode=OneWay}"
+                                   FontAttributes="Italic"
+                                   Margin="10,3,0,0"
+                                   VerticalOptions="End"
+                                   TextColor="{AppThemeBinding Light={StaticResource PlaceholderTextColorLight}, Dark={StaticResource PlaceholderTextColorDark}}"
+                                   IsVisible="{Binding IsPlaceholderVisible, Converter={StaticResource BooleanToInverseConverter}, Mode=OneWay}">
+                            </Label>
+
+                            <Picker Grid.Row="1" Grid.Column="0"
+                                    x:Name="ComboBoxSelectorPlace"
+                                    ItemsSource="{Binding PlacesCollection, Mode=OneWay, Source={RelativeSource AncestorType={x:Type local:DetailedRecordContentPage}}}"
+                                    SelectedItem="{Binding THistory.PlaceFk, Mode=TwoWay, Converter={StaticResource ISqlConverter}, ConverterParameter={Binding PlacesCollection, Source={Reference This}}, Source={Reference This}, Source={RelativeSource AncestorType={x:Type local:DetailedRecordContentPage}}}"
+                                    Title="{Binding PlaceholderText, Mode=OneWay, Source={RelativeSource AncestorType={x:Type local:DetailedRecordContentPage}}}"
+                                    ItemDisplayBinding="{Binding Name}" x:DataType="tables:TPlace"
+                                    Margin="5"
+                                    SelectedIndexChanged="SelectorPlace_OnSelectionChanged">
+                            </Picker>
+
+                            <Path Grid.Row="1" Grid.Column="1"
+                                  Aspect="Uniform"
+                                  Fill="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
+                                  Data="{Binding CloseCircle, Mode=OneWay, Converter={StaticResource StringToGeometryConverter}}"
+                                  HorizontalOptions="Center"
+                                  VerticalOptions="Center"
+                                  Margin="5"
+                                  WidthRequest="{Binding Height, Converter={StaticResource PercentageConverter}, ConverterParameter=50, Source={x:Reference ComboBoxSelectorPlace}}"
+                                  HeightRequest="{Binding Height, Converter={StaticResource PercentageConverter}, ConverterParameter=50, Source={x:Reference ComboBoxSelectorPlace}}">
+
+                                <Path.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="TapGestureRecognizer_OnTapped"
+                                                          NumberOfTapsRequired="1" />
+                                </Path.GestureRecognizers>
+
+                            </Path>
+
+                        </Grid>
+
+                    </Frame>
 
                     <maui:MapControl x:Name="MapControl"
                                      Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3"
