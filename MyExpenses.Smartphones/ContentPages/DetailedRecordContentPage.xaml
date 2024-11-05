@@ -89,13 +89,23 @@
                         <HorizontalStackLayout Grid.Row="2">
 
                             <Label HorizontalTextAlignment="Start"
+                                   VerticalOptions="Center"
                                    Text="{Binding THistory.Value, Mode=OneWay, Converter={StaticResource ValueToCreditDebitedConverter}}">
                             </Label>
 
-                            <Label HorizontalTextAlignment="Start"
-                                   Margin="5, 0, 0, 0"
-                                   Text="{Binding THistory.Date, Mode=OneWay}">
-                            </Label>
+                            <DatePicker HorizontalOptions="Start"
+                                        VerticalOptions="Center"
+                                        Margin="5, 0, 0, 0"
+                                        Date="{Binding THistory.Date, Mode=TwoWay}"
+                                        DateSelected="DatePicker_OnDateSelected">
+                            </DatePicker>
+
+                            <TimePicker HorizontalOptions="Start"
+                                        VerticalOptions="Center"
+                                        Margin="5, 0, 0, 0"
+                                        Time="{Binding THistory.Date, Mode=TwoWay}"
+                                        PropertyChanged="TimePicker_OnTimeChanged">
+                            </TimePicker>
 
                         </HorizontalStackLayout>
 

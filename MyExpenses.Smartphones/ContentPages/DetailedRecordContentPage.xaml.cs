@@ -1,4 +1,5 @@
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Windows.Input;
 using BruTile.Predefined;
 using Mapsui.Layers;
@@ -173,6 +174,9 @@ public partial class DetailedRecordContentPage
         await Navigation.PopAsync();
     }
 
+    private void DatePicker_OnDateSelected(object? sender, DateChangedEventArgs e)
+        => UpdateIsDirty();
+
     private void EntryDescription_OnTextChanged(object? sender, TextChangedEventArgs e)
         => UpdateIsDirty();
 
@@ -225,6 +229,9 @@ public partial class DetailedRecordContentPage
         => UpdateIsDirty();
 
     private void SwitchPointed_OnToggled(object? sender, ToggledEventArgs e)
+        => UpdateIsDirty();
+
+    private void TimePicker_OnTimeChanged(object? sender, PropertyChangedEventArgs e)
         => UpdateIsDirty();
 
     #endregion
