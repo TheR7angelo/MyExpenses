@@ -156,6 +156,11 @@
         <AutoGen>True</AutoGen>
         <DependentUpon>DetailedRecordContentPageResources.resx</DependentUpon>
       </Compile>
+      <Compile Update="Resources\Resx\Converters\EmptyStringTreeViewConverter\EmptyStringTreeViewConverterResources.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>EmptyStringTreeViewConverterResources.resx</DependentUpon>
+      </Compile>
     </ItemGroup>
 
     <ItemGroup>
@@ -186,6 +191,10 @@
       <EmbeddedResource Update="Resources\Resx\ContentPages\DetailedRecordContentPage\DetailedRecordContentPageResources.resx">
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>DetailedRecordContentPageResources.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+      <EmbeddedResource Update="Resources\Resx\Converters\EmptyStringTreeViewConverter\EmptyStringTreeViewConverterResources.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>EmptyStringTreeViewConverterResources.Designer.cs</LastGenOutput>
       </EmbeddedResource>
     </ItemGroup>
 
