@@ -9,6 +9,7 @@ using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Models.Sql.Bases.Views;
 using MyExpenses.Smartphones.Resources.Resx.ContentPages.DashBoardContentPage;
+using MyExpenses.Smartphones.UserControls.Images;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils;
 using MyExpenses.Utils.Collection;
@@ -401,7 +402,102 @@ public partial class DashBoardContentPage
 
     #endregion
 
-    private void InputView_OnTextChanged(object? sender, TextChangedEventArgs e)
+    // TODO work
+    private void CategoryTapGestureRecognizer_Tapped(object? sender, TappedEventArgs e)
+    {
+        var svgPath = FindSvgPath(sender);
+        if (svgPath is null) return;
+
+        FilterCategory(svgPath);
+    }
+
+    private void DescriptionTapGestureRecognizer_OnTapped(object? sender, TappedEventArgs e)
+    {
+        var svgPath = FindSvgPath(sender);
+        if (svgPath is null) return;
+
+        FilterDescription(svgPath);
+    }
+
+    private void PaymentModeTapGestureRecognizer_OnTapped(object? sender, TappedEventArgs e)
+    {
+        var svgPath = FindSvgPath(sender);
+        if (svgPath is null) return;
+
+        FilterPaymentMode(svgPath);
+    }
+
+    private void ValueTapGestureRecognizer_OnTapped(object? sender, TappedEventArgs e)
+    {
+        var svgPath = FindSvgPath(sender);
+        if (svgPath is null) return;
+
+        FilterValue(svgPath);
+    }
+
+    private void CategorySvgPath_OnClicked(object? sender, EventArgs e)
+    {
+        var svgPath = FindSvgPath(sender);
+        if (svgPath is null) return;
+
+        FilterCategory(svgPath);
+    }
+
+    private void DescriptionSvgPath_OnClicked(object? sender, EventArgs e)
+    {
+        var svgPath = FindSvgPath(sender);
+        if (svgPath is null) return;
+
+        FilterDescription(svgPath);
+    }
+
+    private void PaymentModeSvgPath_OnClicked(object? sender, EventArgs e)
+    {
+        var svgPath = FindSvgPath(sender);
+        if (svgPath is null) return;
+
+        FilterPaymentMode(svgPath);
+    }
+
+    private void ValueSvgPath_OnClicked(object? sender, EventArgs e)
+    {
+        var svgPath = FindSvgPath(sender);
+        if (svgPath is null) return;
+
+        FilterValue(svgPath);
+    }
+
+    private static SvgPath? FindSvgPath(object? sender)
+    {
+        return sender switch
+        {
+            null => null,
+            SvgPath svgPath => svgPath,
+            _ => sender is HorizontalStackLayout horizontalStackLayout
+                ? horizontalStackLayout.FindVisualChildren<SvgPath>().FirstOrDefault()
+                : null
+        };
+    }
+
+    private void FilterCategory(SvgPath svgPath)
+    {
+        var popup = new CustomPopup();
+        this.ShowPopup(popup);
+    }
+
+    private void FilterDescription(SvgPath svgPath)
+    {
+        var popup = new CustomPopup();
+        this.ShowPopup(popup);
+    }
+
+    private void FilterPaymentMode(SvgPath svgPath)
+    {
+        var popup = new CustomPopup();
+        this.ShowPopup(popup);
+    }
+
+    private void FilterValue(SvgPath svgPath)
     {
         var popup = new CustomPopup();
         this.ShowPopup(popup);
