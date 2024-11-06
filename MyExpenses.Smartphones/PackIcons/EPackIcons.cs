@@ -11,6 +11,7 @@ public enum EPackIcons
     DatabaseImport,
     Dropbox,
     Filter,
+    FilterCheck,
     Folder,
     Minus,
     Plus,
