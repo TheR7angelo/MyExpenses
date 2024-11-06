@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:MyExpenses.Smartphones.UserControls.Images"
+             xmlns:converters="clr-namespace:MyExpenses.Smartphones.Converters"
+             x:Class="MyExpenses.Smartphones.UserControls.Images.SvgPath">
+
+
+    <ContentView.Resources>
+        <converters:EPackIconsToGeometryConverter x:Key="StringToGeometryConverter" />
+    </ContentView.Resources>
+
+    <Path Aspect="Uniform"
+          Fill="{Binding GeometryColor, Mode=OneWay, UpdateSourceEventName=PropertyChanged, Source={RelativeSource AncestorType={x:Type local:SvgPath}}}"
+          Data="{Binding GeometrySource, Mode=OneWay, Converter={StaticResource StringToGeometryConverter}, UpdateSourceEventName=PropertyChanged, Source={RelativeSource AncestorType={x:Type local:SvgPath}}}"
+          WidthRequest="{Binding WidthRequest, Mode=OneWay, UpdateSourceEventName=PropertyChanged, Source={RelativeSource AncestorType={x:Type local:SvgPath}}}"
+          HeightRequest="{Binding HeightRequest, Mode=OneWay, UpdateSourceEventName=PropertyChanged, Source={RelativeSource AncestorType={x:Type local:SvgPath}}}"
+          HorizontalOptions="Center"
+          VerticalOptions="Center"
+          Margin="5">
+
+        <Path.GestureRecognizers>
+            <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped" NumberOfTapsRequired="1"/>
+        </Path.GestureRecognizers>
+
+    </Path>
+
+</ContentView>
