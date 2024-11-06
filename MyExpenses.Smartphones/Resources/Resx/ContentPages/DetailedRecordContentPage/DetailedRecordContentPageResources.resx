@@ -60,4 +60,13 @@
     <data name="MessageBoxOnBackCommandPressedErrorOkButton" xml:space="preserve">
         <value>Ok</value>
     </data>
+    <data name="PlaceholderTextCountry" xml:space="preserve">
+        <value>Country :</value>
+    </data>
+    <data name="PlaceholderTextCity" xml:space="preserve">
+        <value>City :</value>
+    </data>
+    <data name="PlaceholderTextPlace" xml:space="preserve">
+        <value>Place :</value>
+    </data>
 </root>

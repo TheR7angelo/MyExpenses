@@ -72,13 +72,34 @@ public partial class DetailedRecordContentPage
         set => SetValue(IsPlaceholderVisibleProperty, value);
     }
 
-    public static readonly BindableProperty PlaceholderTextProperty = BindableProperty.Create(nameof(PlaceholderText),
+    public static readonly BindableProperty PlaceholderTextPlaceProperty = BindableProperty.Create(
+        nameof(PlaceholderTextPlace),
         typeof(string), typeof(DetailedRecordContentPage), default(string));
 
-    public string PlaceholderText
+    public string PlaceholderTextPlace
     {
-        get => (string)GetValue(PlaceholderTextProperty);
-        set => SetValue(PlaceholderTextProperty, value);
+        get => (string)GetValue(PlaceholderTextPlaceProperty);
+        set => SetValue(PlaceholderTextPlaceProperty, value);
+    }
+
+    public static readonly BindableProperty PlaceholderTextCityProperty =
+        BindableProperty.Create(nameof(PlaceholderTextCity), typeof(string), typeof(DetailedRecordContentPage),
+            default(string));
+
+    public string PlaceholderTextCity
+    {
+        get => (string)GetValue(PlaceholderTextCityProperty);
+        set => SetValue(PlaceholderTextCityProperty, value);
+    }
+
+    public static readonly BindableProperty PlaceholderTextCountryProperty =
+        BindableProperty.Create(nameof(PlaceholderTextCountry), typeof(string), typeof(DetailedRecordContentPage),
+            default(object));
+
+    public string PlaceholderTextCountry
+    {
+        get => (string)GetValue(PlaceholderTextCountryProperty);
+        set => SetValue(PlaceholderTextCountryProperty, value);
     }
 
     public static readonly BindableProperty ButtonRefocusTextProperty = BindableProperty.Create(
@@ -507,7 +528,9 @@ public partial class DetailedRecordContentPage
 
         if (IsDirty) Title = DetailedRecordContentPageResources.TitleIsDirty;
 
-        PlaceholderText = "test";
+        PlaceholderTextCountry = DetailedRecordContentPageResources.PlaceholderTextCountry;
+        PlaceholderTextCity = DetailedRecordContentPageResources.PlaceholderTextCity;
+        PlaceholderTextPlace = DetailedRecordContentPageResources.PlaceholderTextPlace;
     }
 
     private void UpdateMapPoint(TPlace? place)

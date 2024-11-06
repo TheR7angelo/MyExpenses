@@ -250,7 +250,7 @@
                                           x:Name="ComboBoxSelectorCountry"
                                           HasClearButton="True"
                                           GeometryColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
-                                          PlaceholderText="Country"
+                                          PlaceholderText="{Binding PlaceholderTextCountry, Mode=OneWay}"
                                           ItemsSource="{Binding CountriesCollection, Mode=OneWay}"
                                           SelectedItem="{Binding SelectedCountry, Mode=TwoWay}"
                                           SelectedIndexChanged="SelectorCountry_OnSelectionChanged">
@@ -260,7 +260,7 @@
                                           x:Name="ComboBoxSelectorCity"
                                           HasClearButton="True"
                                           GeometryColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
-                                          PlaceholderText="City"
+                                          PlaceholderText="{Binding PlaceholderTextCity, Mode=OneWay}"
                                           ItemsSource="{Binding CitiesCollection, Mode=OneWay}"
                                           SelectedItem="{Binding SelectedCity, Mode=TwoWay}"
                                           SelectedIndexChanged="SelectorCity_OnSelectionChanged">
@@ -285,7 +285,7 @@
                             </Grid.ColumnDefinitions>
 
                             <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
-                                   Text="{Binding PlaceholderText, Mode=OneWay}"
+                                   Text="{Binding PlaceholderTextPlace, Mode=OneWay}"
                                    FontAttributes="Italic"
                                    Margin="10,3,0,0"
                                    VerticalOptions="End"
@@ -297,7 +297,7 @@
                                     x:Name="ComboBoxSelectorPlace"
                                     ItemsSource="{Binding PlacesCollection, Mode=OneWay, Source={RelativeSource AncestorType={x:Type local:DetailedRecordContentPage}}}"
                                     SelectedItem="{Binding THistory.PlaceFk, Mode=TwoWay, Converter={StaticResource ISqlConverter}, ConverterParameter={Binding PlacesCollection, Source={Reference This}}, Source={Reference This}, Source={RelativeSource AncestorType={x:Type local:DetailedRecordContentPage}}}"
-                                    Title="{Binding PlaceholderText, Mode=OneWay, Source={RelativeSource AncestorType={x:Type local:DetailedRecordContentPage}}}"
+                                    Title="{Binding PlaceholderTextPlace, Mode=OneWay, Source={RelativeSource AncestorType={x:Type local:DetailedRecordContentPage}}}"
                                     ItemDisplayBinding="{Binding Name}" x:DataType="tables:TPlace"
                                     Margin="5"
                                     SelectedIndexChanged="SelectorPlace_OnSelectionChanged">

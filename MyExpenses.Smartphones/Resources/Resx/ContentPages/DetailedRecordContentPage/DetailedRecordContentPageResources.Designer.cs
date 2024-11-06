@@ -169,6 +169,33 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.DetailedRecordConte
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to City :.
+        /// </summary>
+        internal static string PlaceholderTextCity {
+            get {
+                return ResourceManager.GetString("PlaceholderTextCity", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Country :.
+        /// </summary>
+        internal static string PlaceholderTextCountry {
+            get {
+                return ResourceManager.GetString("PlaceholderTextCountry", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Place :.
+        /// </summary>
+        internal static string PlaceholderTextPlace {
+            get {
+                return ResourceManager.GetString("PlaceholderTextPlace", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Pointed operation.
         /// </summary>
         internal static string PointedOperation {

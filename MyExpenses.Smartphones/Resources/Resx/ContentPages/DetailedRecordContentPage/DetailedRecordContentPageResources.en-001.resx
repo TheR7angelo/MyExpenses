@@ -53,4 +53,13 @@
     <data name="MessageBoxOnBackCommandPressedErrorMessage" xml:space="preserve">
         <value>There was an error updating the history. Please try again</value>
     </data>
+    <data name="PlaceholderTextCountry" xml:space="preserve">
+        <value>Country :</value>
+    </data>
+    <data name="PlaceholderTextCity" xml:space="preserve">
+        <value>City :</value>
+    </data>
+    <data name="PlaceholderTextPlace" xml:space="preserve">
+        <value>Place :</value>
+    </data>
 </root>
