@@ -10,6 +10,7 @@ public enum EPackIcons
     DatabaseExport,
     DatabaseImport,
     Dropbox,
+    Filter,
     Folder,
     Minus,
     Plus,
