@@ -367,11 +367,11 @@ public partial class DashBoardContentPage
 
         return true;
     }
-    
+
     private void UpdateLanguage()
     {
         ComboBoxYearsHintAssist = DashBoardContentPageResources.ComboBoxYearsHintAssist;
-        ComboBoxMonthHintAssist  = DashBoardContentPageResources.ComboBoxMonthHintAssist;
+        ComboBoxMonthHintAssist = DashBoardContentPageResources.ComboBoxMonthHintAssist;
     }
 
     private void UpdateMonthLanguage()
@@ -397,6 +397,6 @@ public partial class DashBoardContentPage
             SelectedMonth = selectedMonth;
         }
     }
-    
+
     #endregion
 }
