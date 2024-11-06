@@ -2,6 +2,7 @@ using System.Collections.Immutable;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Windows.Input;
+using CommunityToolkit.Maui.Views;
 using MyExpenses.Maui.Utils;
 using MyExpenses.Models.Config;
 using MyExpenses.Models.Config.Interfaces;
@@ -399,4 +400,10 @@ public partial class DashBoardContentPage
     }
 
     #endregion
+
+    private void InputView_OnTextChanged(object? sender, TextChangedEventArgs e)
+    {
+        var popup = new CustomPopup();
+        this.ShowPopup(popup);
+    }
 }

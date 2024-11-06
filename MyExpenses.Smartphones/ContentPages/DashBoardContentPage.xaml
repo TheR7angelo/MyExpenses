@@ -11,6 +11,7 @@
              xmlns:customFrame="clr-namespace:MyExpenses.Smartphones.UserControls.Buttons.CustomFrame"
              xmlns:buttons="clr-namespace:MyExpenses.Smartphones.UserControls.Buttons"
              xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:images="clr-namespace:MyExpenses.Smartphones.UserControls.Images"
 
              BindingContext="{Binding Source={RelativeSource Self}}">
 
@@ -22,9 +23,10 @@
 
     <ContentPage.Content>
 
-        <Grid margin:LayoutExtensions.MarginForAllChildren="10">
+        <Grid margin:LayoutExtensions.MarginForAllChildren="5">
 
             <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
@@ -163,7 +165,74 @@
 
             </Border>
 
-            <CollectionView Grid.Row="4"
+            <Grid Grid.Row="4">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <HorizontalStackLayout Grid.Row="0" Grid.Column="0" Grid.RowSpan="2"
+                                       VerticalOptions="Center">
+
+                    <Label Text="Category" />
+
+                    <images:SvgPath GeometryColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
+                                    GeometrySource="Filter"
+                                    WidthRequest="24"
+                                    HeightRequest="24">
+                    </images:SvgPath>
+
+                </HorizontalStackLayout>
+
+                <HorizontalStackLayout Grid.Row="0" Grid.Column="1"
+                                       VerticalOptions="Center">
+
+                    <Label Text="Description" />
+
+                    <images:SvgPath GeometryColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
+                                    GeometrySource="Filter"
+                                    WidthRequest="24"
+                                    HeightRequest="24">
+                    </images:SvgPath>
+
+                </HorizontalStackLayout>
+
+                <HorizontalStackLayout Grid.Row="1" Grid.Column="1"
+                                       VerticalOptions="Center">
+
+                    <Label Text="Payment mode" />
+
+                    <images:SvgPath GeometryColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
+                                    GeometrySource="Filter"
+                                    WidthRequest="24"
+                                    HeightRequest="24">
+                    </images:SvgPath>
+
+                </HorizontalStackLayout>
+
+                <HorizontalStackLayout Grid.Row="0" Grid.Column="2" Grid.RowSpan="2"
+                                       VerticalOptions="Center">
+
+                    <Label Text="Value" />
+
+                    <images:SvgPath GeometryColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
+                                    GeometrySource="Filter"
+                                    WidthRequest="24"
+                                    HeightRequest="24">
+                    </images:SvgPath>
+
+                </HorizontalStackLayout>
+
+            </Grid>
+
+            <CollectionView Grid.Row="5"
                             ItemsSource="{Binding VHistories, Mode=OneWay}">
 
                 <CollectionView.ItemTemplate>
