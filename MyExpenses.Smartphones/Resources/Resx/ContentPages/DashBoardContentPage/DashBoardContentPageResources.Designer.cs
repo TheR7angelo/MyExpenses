@@ -79,6 +79,42 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.DashBoardContentPag
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Category.
+        /// </summary>
+        internal static string LabelTextCategory {
+            get {
+                return ResourceManager.GetString("LabelTextCategory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Description.
+        /// </summary>
+        internal static string LabelTextDescription {
+            get {
+                return ResourceManager.GetString("LabelTextDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Payment method.
+        /// </summary>
+        internal static string LabelTextPaymentMode {
+            get {
+                return ResourceManager.GetString("LabelTextPaymentMode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Value.
+        /// </summary>
+        internal static string LabelTextValue {
+            get {
+                return ResourceManager.GetString("LabelTextValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No additional dates are available.
         /// </summary>
         internal static string MessageBoxAddMonthErrorMessage {

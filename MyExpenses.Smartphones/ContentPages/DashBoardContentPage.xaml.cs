@@ -22,6 +22,45 @@ namespace MyExpenses.Smartphones.ContentPages;
 
 public partial class DashBoardContentPage
 {
+    public static readonly BindableProperty LabelTextValueProperty = BindableProperty.Create(nameof(LabelTextValue),
+        typeof(string), typeof(DashBoardContentPage), default(string));
+
+    public string LabelTextValue
+    {
+        get => (string)GetValue(LabelTextValueProperty);
+        set => SetValue(LabelTextValueProperty, value);
+    }
+
+    public static readonly BindableProperty LabelTextPaymentModeProperty =
+        BindableProperty.Create(nameof(LabelTextPaymentMode), typeof(string), typeof(DashBoardContentPage),
+            default(string));
+
+    public string LabelTextPaymentMode
+    {
+        get => (string)GetValue(LabelTextPaymentModeProperty);
+        set => SetValue(LabelTextPaymentModeProperty, value);
+    }
+
+    public static readonly BindableProperty LabelTextDescriptionProperty =
+        BindableProperty.Create(nameof(LabelTextDescription), typeof(string), typeof(DashBoardContentPage),
+            default(string));
+
+    public string LabelTextDescription
+    {
+        get => (string)GetValue(LabelTextDescriptionProperty);
+        set => SetValue(LabelTextDescriptionProperty, value);
+    }
+
+    public static readonly BindableProperty LabelTextCategoryProperty =
+        BindableProperty.Create(nameof(LabelTextCategory), typeof(string), typeof(DashBoardContentPage),
+            default(string));
+
+    public string LabelTextCategory
+    {
+        get => (string)GetValue(LabelTextCategoryProperty);
+        set => SetValue(LabelTextCategoryProperty, value);
+    }
+
     public static readonly BindableProperty ComboBoxMonthHintAssistProperty =
         BindableProperty.Create(nameof(ComboBoxMonthHintAssist), typeof(string), typeof(DashBoardContentPage),
             default(string));
@@ -92,6 +131,7 @@ public partial class DashBoardContentPage
 
     public ICommand CollectionViewVHistoryShortPressCommand { get; }
     private bool _isCollectionViewVHistoryLongPressInvoked;
+
     public ICommand CollectionViewVHistoryLongPressCommand { get; }
 
     public DashBoardContentPage()
@@ -145,7 +185,9 @@ public partial class DashBoardContentPage
 
         if (result) return;
 
-        await DisplayAlert(DashBoardContentPageResources.MessageBoxAddMonthErrorTitle, DashBoardContentPageResources.MessageBoxAddMonthErrorMessage, DashBoardContentPageResources.MessageBoxAddMonthErrorOkButton);
+        await DisplayAlert(DashBoardContentPageResources.MessageBoxAddMonthErrorTitle,
+            DashBoardContentPageResources.MessageBoxAddMonthErrorMessage,
+            DashBoardContentPageResources.MessageBoxAddMonthErrorOkButton);
     }
 
     private void ButtonDateNow_OnClick(object? sender, EventArgs e)
@@ -163,7 +205,9 @@ public partial class DashBoardContentPage
 
         if (result) return;
 
-        await DisplayAlert(DashBoardContentPageResources.MessageBoxRemoveMonthErrorTitle, DashBoardContentPageResources.MessageBoxRemoveMonthErrorMessage, DashBoardContentPageResources.MessageBoxRemoveMonthErrorOkButton);
+        await DisplayAlert(DashBoardContentPageResources.MessageBoxRemoveMonthErrorTitle,
+            DashBoardContentPageResources.MessageBoxRemoveMonthErrorMessage,
+            DashBoardContentPageResources.MessageBoxRemoveMonthErrorOkButton);
     }
 
     private async void CollectionViewVHistory_OnLongPress(object obj)
@@ -178,8 +222,12 @@ public partial class DashBoardContentPage
             ? DashBoardContentPageResources.MessageBoxCollectionViewVHistoryOnLongPressUnCheck
             : DashBoardContentPageResources.MessageBoxCollectionViewVHistoryOnLongPressCheck;
 
-        var message = string.Format(DashBoardContentPageResources.MessageBoxCollectionViewVHistoryOnLongPressMessage, word, $"\n{history.Description}");
-        var response = await DisplayAlert(DashBoardContentPageResources.MessageBoxCollectionViewVHistoryOnLongPressTitle, message, DashBoardContentPageResources.MessageBoxCollectionViewVHistoryOnLongPressYesButton, DashBoardContentPageResources.MessageBoxCollectionViewVHistoryOnLongPressNoButton);
+        var message = string.Format(DashBoardContentPageResources.MessageBoxCollectionViewVHistoryOnLongPressMessage,
+            word, $"\n{history.Description}");
+        var response = await DisplayAlert(
+            DashBoardContentPageResources.MessageBoxCollectionViewVHistoryOnLongPressTitle, message,
+            DashBoardContentPageResources.MessageBoxCollectionViewVHistoryOnLongPressYesButton,
+            DashBoardContentPageResources.MessageBoxCollectionViewVHistoryOnLongPressNoButton);
         if (response)
         {
             history.Pointed = !history.Pointed;
@@ -376,6 +424,11 @@ public partial class DashBoardContentPage
     {
         ComboBoxYearsHintAssist = DashBoardContentPageResources.ComboBoxYearsHintAssist;
         ComboBoxMonthHintAssist = DashBoardContentPageResources.ComboBoxMonthHintAssist;
+
+        LabelTextCategory = DashBoardContentPageResources.LabelTextCategory;
+        LabelTextDescription = DashBoardContentPageResources.LabelTextDescription;
+        LabelTextPaymentMode = DashBoardContentPageResources.LabelTextPaymentMode;
+        LabelTextValue = DashBoardContentPageResources.LabelTextValue;
     }
 
     private void UpdateMonthLanguage()

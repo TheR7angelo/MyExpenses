@@ -171,7 +171,7 @@
 
                 <HorizontalStackLayout VerticalOptions="Center">
 
-                    <Label Text="Category" />
+                    <Label Text="{Binding LabelTextCategory, Mode=OneWay}" />
 
                     <images:SvgPath GeometryColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
                                     GeometrySource="Filter"
@@ -188,7 +188,7 @@
 
                 <HorizontalStackLayout VerticalOptions="Center">
 
-                    <Label Text="Description" />
+                    <Label Text="{Binding LabelTextDescription, Mode=OneWay}" />
 
                     <images:SvgPath GeometryColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
                                     GeometrySource="Filter"
@@ -205,7 +205,7 @@
 
                 <HorizontalStackLayout VerticalOptions="Center">
 
-                    <Label Text="Payment mode" />
+                    <Label Text="{Binding LabelTextPaymentMode, Mode=OneWay}" />
 
                     <images:SvgPath GeometryColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
                                     GeometrySource="Filter"
@@ -222,7 +222,7 @@
 
                 <HorizontalStackLayout VerticalOptions="Center">
 
-                    <Label Text="Value" />
+                    <Label Text="{Binding LabelTextValue, Mode=OneWay}" />
 
                     <images:SvgPath GeometryColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
                                     GeometrySource="Filter"

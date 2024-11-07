@@ -60,4 +60,16 @@
     <data name="MessageBoxCollectionViewVHistoryOnLongPressUnCheck" xml:space="preserve">
         <value>unpoint</value>
     </data>
+    <data name="LabelTextCategory" xml:space="preserve">
+        <value>Category</value>
+    </data>
+    <data name="LabelTextDescription" xml:space="preserve">
+        <value>Description</value>
+    </data>
+    <data name="LabelTextPaymentMode" xml:space="preserve">
+        <value>Payment method</value>
+    </data>
+    <data name="LabelTextValue" xml:space="preserve">
+        <value>Value</value>
+    </data>
 </root>
