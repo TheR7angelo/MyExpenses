@@ -58,7 +58,8 @@
 
             </CollectionView>
 
-            <Button Text="Close"
+            <Button Style="{StaticResource PaperMidButton}"
+                    Text="{Binding ButtonCloseText, Mode=OneWay}"
                     Clicked="Button_OnClicked"
                     HorizontalOptions="Center"
                     VerticalOptions="Center">
