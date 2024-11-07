@@ -68,5 +68,14 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.CustomPopups.Custom
                 return ResourceManager.GetString("ButtonCloseText", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search by category name.
+        /// </summary>
+        internal static string SearchBarPlaceHolderText {
+            get {
+                return ResourceManager.GetString("SearchBarPlaceHolderText", resourceCulture);
+            }
+        }
     }
 }

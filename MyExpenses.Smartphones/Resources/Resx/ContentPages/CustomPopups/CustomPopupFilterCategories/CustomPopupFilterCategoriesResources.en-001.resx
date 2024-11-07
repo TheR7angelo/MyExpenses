@@ -14,4 +14,7 @@
     <data name="ButtonCloseText" xml:space="preserve">
         <value>Close</value>
     </data>
+    <data name="SearchBarPlaceHolderText" xml:space="preserve">
+        <value>Search by category name</value>
+    </data>
 </root>
