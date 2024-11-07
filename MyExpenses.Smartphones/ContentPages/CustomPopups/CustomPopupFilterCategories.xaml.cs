@@ -44,6 +44,8 @@ public partial class CustomPopupFilterCategories
     private List<VCategoryDerive> OriginalCategories { get; }
     public ObservableCollection<VCategoryDerive> VCategoryDerives { get; }
 
+    private string? SearchText { get; set; }
+
     public CustomPopupFilterCategories(IReadOnlyCollection<VCategoryDerive>? categoryDerivesAlreadyChecked = null)
     {
         var mapper = Mapping.Mapper;
@@ -73,23 +75,56 @@ public partial class CustomPopupFilterCategories
     private void ButtonClose_OnClicked(object? sender, EventArgs e)
         => Close();
 
+    private void CheckBox_OnCheckedChanged(object? sender, CheckedChangedEventArgs e)
+        => CalculateCheckboxIconGeometrySource();
+
     private void Interface_OnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
         => UpdateLanguage();
 
     private void SearchBar_OnTextChanged(object? sender, TextChangedEventArgs e)
     {
-        var text = e.NewTextValue;
+        SearchText = e.NewTextValue;
 
-        var filterCategories = OriginalCategories.Where(s =>
-            s.CategoryName!.Contains(text, StringComparison.InvariantCultureIgnoreCase));
+        FilterCategoriesBySearchText();
+    }
 
-        VCategoryDerives.Clear();
-        VCategoryDerives.AddRange(filterCategories);
+    private void SvgPath_OnClicked(object? sender, EventArgs e)
+    {
+        var check = GeometrySource is EPackIcons.CheckboxBlankOutline;
+
+        OriginalCategories.ForEach(s => s.IsChecked = check);
+
+        FilterCategoriesBySearchText();
+        CalculateCheckboxIconGeometrySource();
     }
 
     #endregion
 
     #region Function
+
+    private void CalculateCheckboxIconGeometrySource()
+    {
+        var allCategoriesCount = OriginalCategories.Count;
+        var categoryDerivesCheckedCount = GetVCategoryDerivesCheckedCount();
+
+        EPackIcons icon;
+        if (categoryDerivesCheckedCount is 0) icon = EPackIcons.CheckboxBlankOutline;
+        else if (categoryDerivesCheckedCount.Equals(allCategoriesCount)) icon = EPackIcons.CheckboxOutline;
+        else icon = EPackIcons.MinusCheckboxOutline;
+
+        GeometrySource = icon;
+    }
+
+    private void FilterCategoriesBySearchText()
+    {
+        SearchText ??= string.Empty;
+
+        var filterCategories = OriginalCategories.Where(s =>
+            s.CategoryName!.Contains(SearchText, StringComparison.InvariantCultureIgnoreCase));
+
+        VCategoryDerives.Clear();
+        VCategoryDerives.AddRange(filterCategories);
+    }
 
     public IEnumerable<VCategoryDerive> GetVCategoryDerivesChecked()
         => VCategoryDerives.Where(s => s.IsChecked);
@@ -104,17 +139,4 @@ public partial class CustomPopupFilterCategories
     }
 
     #endregion
-
-    private void CheckBox_OnCheckedChanged(object? sender, CheckedChangedEventArgs e)
-    {
-        var allCategoriesCount = OriginalCategories.Count;
-        var categoryDerivesCheckedCount = GetVCategoryDerivesCheckedCount();
-
-        EPackIcons icon;
-        if (categoryDerivesCheckedCount is 0) icon = EPackIcons.CheckboxBlankOutline;
-        else if (categoryDerivesCheckedCount.Equals(allCategoriesCount)) icon = EPackIcons.CheckboxOutline;
-        else icon = EPackIcons.MinusCheckboxOutline;
-
-        GeometrySource = icon;
-    }
 }

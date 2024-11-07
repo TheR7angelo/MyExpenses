@@ -27,7 +27,8 @@
                 <images:SvgPath GeometryColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
                                 GeometrySource="{Binding GeometrySource, Mode=OneWay}"
                                 WidthRequest="24"
-                                HeightRequest="24">
+                                HeightRequest="24"
+                                Clicked="SvgPath_OnClicked">
                 </images:SvgPath>
 
                 <SearchBar Placeholder="{Binding SearchBarPlaceHolderText, Mode=OneWay}"
