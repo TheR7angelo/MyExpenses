@@ -8,6 +8,7 @@ using MyExpenses.Models.Config;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Models.Sql.Bases.Views;
+using MyExpenses.Models.Sql.Derivatives.Views;
 using MyExpenses.Smartphones.ContentPages.CustomPopups;
 using MyExpenses.Smartphones.PackIcons;
 using MyExpenses.Smartphones.Resources.Resx.ContentPages.DashBoardContentPage;
@@ -128,6 +129,8 @@ public partial class DashBoardContentPage
     }
 
     private static DashBoardContentPage Instance { get; set; } = null!;
+
+    private List<VCategoryDerive> VCategoryDerivesFilter { get; } = [];
 
     public ICommand CollectionViewVHistoryShortPressCommand { get; }
     private bool _isCollectionViewVHistoryLongPressInvoked;
@@ -379,6 +382,12 @@ public partial class DashBoardContentPage
             query = query.Where(s => s.Date!.Value.Year.Equals(yearInt));
         }
 
+        if (VCategoryDerivesFilter.Count > 0)
+        {
+            var categoryName = VCategoryDerivesFilter.Select(s => s.CategoryName!);
+            query = query.Where(s => categoryName.Contains(s.Category));
+        }
+
         var records = query
             .OrderBy(s => s.Pointed)
             .ThenByDescending(s => s.Date)
@@ -539,7 +548,9 @@ public partial class DashBoardContentPage
         var customPopupFilterCategories = new CustomPopupFilterCategories();
         await this.ShowPopupAsync(customPopupFilterCategories);
 
-        var categoryDerivesChecked = customPopupFilterCategories.GetVCategoryDerivesChecked();
+        VCategoryDerivesFilter.Clear();
+        VCategoryDerivesFilter.AddRange(customPopupFilterCategories.GetVCategoryDerivesChecked());
+
         var categoryDerivesCheckedCount = customPopupFilterCategories.GetVCategoryDerivesCheckedCount();
         var categoryCount = customPopupFilterCategories.VCategoryDerives.Count;
 
@@ -548,6 +559,8 @@ public partial class DashBoardContentPage
             : EPackIcons.FilterCheck;
 
         svgPath.GeometrySource = icon;
+
+        RefreshDataGrid();
     }
 
     // TODO work
