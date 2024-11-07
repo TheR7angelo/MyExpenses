@@ -1,10 +1,12 @@
 using System.Collections.Immutable;
+using System.Collections.ObjectModel;
 using MyExpenses.Models.AutoMapper;
 using MyExpenses.Models.Config;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Sql.Derivatives.Views;
 using MyExpenses.Smartphones.Resources.Resx.ContentPages.CustomPopups.CustomPopupFilterCategories;
 using MyExpenses.Sql.Context;
+using MyExpenses.Utils.Collection;
 
 namespace MyExpenses.Smartphones.ContentPages.CustomPopups;
 
@@ -19,14 +21,16 @@ public partial class CustomPopupFilterCategories
         set => SetValue(ButtonCloseTextProperty, value);
     }
 
-    public List<VCategoryDerive> VCategoryDerives { get; }
+    private List<VCategoryDerive> OriginalCategories { get; }
+    public ObservableCollection<VCategoryDerive> VCategoryDerives { get; }
 
     public CustomPopupFilterCategories(IReadOnlyCollection<VCategoryDerive>? categoryDerivesAlreadyChecked = null)
     {
         var mapper = Mapping.Mapper;
 
         using var context = new DataBaseContext();
-        VCategoryDerives = [..context.VCategories.OrderBy(s => s.CategoryName).Select(s => mapper.Map<VCategoryDerive>(s))];
+        OriginalCategories = [..context.VCategories.OrderBy(s => s.CategoryName).Select(s => mapper.Map<VCategoryDerive>(s))];
+        VCategoryDerives = new ObservableCollection<VCategoryDerive>(OriginalCategories);
 
         if (categoryDerivesAlreadyChecked is not null)
         {
@@ -54,7 +58,12 @@ public partial class CustomPopupFilterCategories
 
     private void SearchBar_OnTextChanged(object? sender, TextChangedEventArgs e)
     {
-        //TODO work
+        var text = e.NewTextValue;
+
+        var filterCategories = OriginalCategories.Where(s => s.CategoryName!.Contains(text, StringComparison.InvariantCultureIgnoreCase));
+
+        VCategoryDerives.Clear();
+        VCategoryDerives.AddRange(filterCategories);
     }
 
     #endregion
