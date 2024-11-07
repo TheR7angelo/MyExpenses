@@ -545,7 +545,7 @@ public partial class DashBoardContentPage
     // TODO work
     private async Task FilterCategory(SvgPath svgPath)
     {
-        var customPopupFilterCategories = new CustomPopupFilterCategories();
+        var customPopupFilterCategories = new CustomPopupFilterCategories(VCategoryDerivesFilter);
         await this.ShowPopupAsync(customPopupFilterCategories);
 
         VCategoryDerivesFilter.Clear();
