@@ -1,8 +1,10 @@
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using MyExpenses.Models.AutoMapper;
 using MyExpenses.Models.Config;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Sql.Derivatives.Views;
+using MyExpenses.Smartphones.PackIcons;
 using MyExpenses.Smartphones.Resources.Resx.ContentPages.CustomPopups.CustomPopupFilterCategories;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils.Collection;
@@ -11,6 +13,15 @@ namespace MyExpenses.Smartphones.ContentPages.CustomPopups;
 
 public partial class CustomPopupFilterCategories
 {
+    public static readonly BindableProperty GeometrySourceProperty = BindableProperty.Create(nameof(GeometrySource),
+        typeof(EPackIcons), typeof(CustomPopupFilterCategories), EPackIcons.CheckboxBlankOutline);
+
+    public EPackIcons GeometrySource
+    {
+        get => (EPackIcons)GetValue(GeometrySourceProperty);
+        set => SetValue(GeometrySourceProperty, value);
+    }
+
     public static readonly BindableProperty SearchBarPlaceHolderTextProperty =
         BindableProperty.Create(nameof(SearchBarPlaceHolderText), typeof(string), typeof(CustomPopupFilterCategories),
             default(string));
@@ -93,4 +104,17 @@ public partial class CustomPopupFilterCategories
     }
 
     #endregion
+
+    private void CheckBox_OnCheckedChanged(object? sender, CheckedChangedEventArgs e)
+    {
+        var allCategoriesCount = OriginalCategories.Count;
+        var categoryDerivesCheckedCount = GetVCategoryDerivesCheckedCount();
+
+        EPackIcons icon;
+        if (categoryDerivesCheckedCount is 0) icon = EPackIcons.CheckboxBlankOutline;
+        else if (categoryDerivesCheckedCount.Equals(allCategoriesCount)) icon = EPackIcons.CheckboxOutline;
+        else icon = EPackIcons.MinusCheckboxOutline;
+
+        GeometrySource = icon;
+    }
 }

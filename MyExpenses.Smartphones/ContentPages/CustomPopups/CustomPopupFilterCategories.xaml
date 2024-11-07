@@ -5,6 +5,7 @@
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:converters="clr-namespace:MyExpenses.Smartphones.Converters"
     xmlns:margin="clr-namespace:MyExpenses.Maui.Utils.Margin;assembly=MyExpenses.Maui.Utils"
+    xmlns:images="clr-namespace:MyExpenses.Smartphones.UserControls.Images"
     x:Class="MyExpenses.Smartphones.ContentPages.CustomPopups.CustomPopupFilterCategories"
 
     BindingContext="{Binding Source={RelativeSource Self}}">
@@ -21,9 +22,19 @@
 
         <VerticalStackLayout>
 
-            <SearchBar Placeholder="{Binding SearchBarPlaceHolderText, Mode=OneWay}"
-                       TextChanged="SearchBar_OnTextChanged">
-            </SearchBar>
+            <HorizontalStackLayout>
+
+                <images:SvgPath GeometryColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
+                                GeometrySource="{Binding GeometrySource, Mode=OneWay}"
+                                WidthRequest="24"
+                                HeightRequest="24">
+                </images:SvgPath>
+
+                <SearchBar Placeholder="{Binding SearchBarPlaceHolderText, Mode=OneWay}"
+                           TextChanged="SearchBar_OnTextChanged">
+                </SearchBar>
+
+            </HorizontalStackLayout>
 
             <CollectionView ItemsSource="{Binding VCategoryDerives, Mode=OneWay}">
 
@@ -37,7 +48,8 @@
                         <HorizontalStackLayout VerticalOptions="Center">
 
                             <CheckBox VerticalOptions="Center"
-                                      IsChecked="{Binding IsChecked, Mode=TwoWay}">
+                                      IsChecked="{Binding IsChecked, Mode=TwoWay}"
+                                      CheckedChanged="CheckBox_OnCheckedChanged">
                             </CheckBox>
 
                             <Ellipse HeightRequest="24"
