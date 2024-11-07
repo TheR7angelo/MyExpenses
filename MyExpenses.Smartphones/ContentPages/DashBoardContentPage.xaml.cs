@@ -8,6 +8,7 @@ using MyExpenses.Models.Config;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Models.Sql.Bases.Views;
+using MyExpenses.Smartphones.PackIcons;
 using MyExpenses.Smartphones.Resources.Resx.ContentPages.DashBoardContentPage;
 using MyExpenses.Smartphones.UserControls.Images;
 using MyExpenses.Sql.Context;
@@ -403,68 +404,68 @@ public partial class DashBoardContentPage
     #endregion
 
     // TODO work
-    private void CategoryTapGestureRecognizer_Tapped(object? sender, TappedEventArgs e)
+    private async void CategoryTapGestureRecognizer_Tapped(object? sender, TappedEventArgs e)
     {
         var svgPath = FindSvgPath(sender);
         if (svgPath is null) return;
 
-        FilterCategory(svgPath);
+        await FilterCategory(svgPath);
     }
 
-    private void DescriptionTapGestureRecognizer_OnTapped(object? sender, TappedEventArgs e)
+    private async void DescriptionTapGestureRecognizer_OnTapped(object? sender, TappedEventArgs e)
     {
         var svgPath = FindSvgPath(sender);
         if (svgPath is null) return;
 
-        FilterDescription(svgPath);
+        await FilterDescription(svgPath);
     }
 
-    private void PaymentModeTapGestureRecognizer_OnTapped(object? sender, TappedEventArgs e)
+    private async void PaymentModeTapGestureRecognizer_OnTapped(object? sender, TappedEventArgs e)
     {
         var svgPath = FindSvgPath(sender);
         if (svgPath is null) return;
 
-        FilterPaymentMode(svgPath);
+        await FilterPaymentMode(svgPath);
     }
 
-    private void ValueTapGestureRecognizer_OnTapped(object? sender, TappedEventArgs e)
+    private async void ValueTapGestureRecognizer_OnTapped(object? sender, TappedEventArgs e)
     {
         var svgPath = FindSvgPath(sender);
         if (svgPath is null) return;
 
-        FilterValue(svgPath);
+        await FilterValue(svgPath);
     }
 
-    private void CategorySvgPath_OnClicked(object? sender, EventArgs e)
+    private async void CategorySvgPath_OnClicked(object? sender, EventArgs e)
     {
         var svgPath = FindSvgPath(sender);
         if (svgPath is null) return;
 
-        FilterCategory(svgPath);
+        await FilterCategory(svgPath);
     }
 
-    private void DescriptionSvgPath_OnClicked(object? sender, EventArgs e)
+    private async void DescriptionSvgPath_OnClicked(object? sender, EventArgs e)
     {
         var svgPath = FindSvgPath(sender);
         if (svgPath is null) return;
 
-        FilterDescription(svgPath);
+        await FilterDescription(svgPath);
     }
 
-    private void PaymentModeSvgPath_OnClicked(object? sender, EventArgs e)
+    private async void PaymentModeSvgPath_OnClicked(object? sender, EventArgs e)
     {
         var svgPath = FindSvgPath(sender);
         if (svgPath is null) return;
 
-        FilterPaymentMode(svgPath);
+        await FilterPaymentMode(svgPath);
     }
 
-    private void ValueSvgPath_OnClicked(object? sender, EventArgs e)
+    private async void ValueSvgPath_OnClicked(object? sender, EventArgs e)
     {
         var svgPath = FindSvgPath(sender);
         if (svgPath is null) return;
 
-        FilterValue(svgPath);
+        await FilterValue(svgPath);
     }
 
     private static SvgPath? FindSvgPath(object? sender)
@@ -479,27 +480,35 @@ public partial class DashBoardContentPage
         };
     }
 
-    private void FilterCategory(SvgPath svgPath)
+    private async Task FilterCategory(SvgPath svgPath)
     {
         var popup = new CustomPopup();
-        this.ShowPopup(popup);
+        await this.ShowPopupAsync(popup);
+
+        svgPath.GeometrySource = EPackIcons.FilterCheck;
     }
 
-    private void FilterDescription(SvgPath svgPath)
+    private async Task FilterDescription(SvgPath svgPath)
     {
         var popup = new CustomPopup();
-        this.ShowPopup(popup);
+        await this.ShowPopupAsync(popup);
+
+        svgPath.GeometrySource = EPackIcons.FilterCheck;
     }
 
-    private void FilterPaymentMode(SvgPath svgPath)
+    private async Task FilterPaymentMode(SvgPath svgPath)
     {
         var popup = new CustomPopup();
-        this.ShowPopup(popup);
+        await this.ShowPopupAsync(popup);
+
+        svgPath.GeometrySource = EPackIcons.FilterCheck;
     }
 
-    private void FilterValue(SvgPath svgPath)
+    private async Task FilterValue(SvgPath svgPath)
     {
         var popup = new CustomPopup();
-        this.ShowPopup(popup);
+        await this.ShowPopupAsync(popup);
+
+        svgPath.GeometrySource = EPackIcons.FilterCheck;
     }
 }
