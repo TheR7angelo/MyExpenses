@@ -4,6 +4,8 @@ public enum EPackIcons
 {
     Abacus,
     Cellphone,
+    CheckboxBlankOutline,
+    CheckboxOutline,
     ClockFast,
     CloseCircle,
     Database,
@@ -14,6 +16,7 @@ public enum EPackIcons
     FilterCheck,
     Folder,
     Minus,
+    MinusCheckboxOutline,
     Plus,
     WeatherPartlyCloudy,
     WeatherPouring,
