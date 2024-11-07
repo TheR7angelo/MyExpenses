@@ -8,6 +8,7 @@ using MyExpenses.Models.Config;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Models.Sql.Bases.Views;
+using MyExpenses.Smartphones.ContentPages.CustomPopups;
 using MyExpenses.Smartphones.PackIcons;
 using MyExpenses.Smartphones.Resources.Resx.ContentPages.DashBoardContentPage;
 using MyExpenses.Smartphones.UserControls.Images;
@@ -482,7 +483,7 @@ public partial class DashBoardContentPage
 
     private async Task FilterCategory(SvgPath svgPath)
     {
-        var popup = new CustomPopup();
+        var popup = new CustomPopupFilterCategories();
         await this.ShowPopupAsync(popup);
 
         svgPath.GeometrySource = EPackIcons.FilterCheck;
