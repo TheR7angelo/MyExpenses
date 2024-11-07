@@ -1,16 +1,19 @@
-using MyExpenses.Models.Sql.Bases.Views;
+using MyExpenses.Models.AutoMapper;
+using MyExpenses.Models.Sql.Derivatives.Views;
 using MyExpenses.Sql.Context;
 
 namespace MyExpenses.Smartphones.ContentPages.CustomPopups;
 
 public partial class CustomPopupFilterCategories
 {
-    public List<VCategory> VCategories { get; }
+    public List<VCategoryDerive> VCategoryDerives { get; }
 
     public CustomPopupFilterCategories()
     {
+        var mapper = Mapping.Mapper;
+
         using var context = new DataBaseContext();
-        VCategories = [..context.VCategories];
+        VCategoryDerives = [..context.VCategories.Select(s => mapper.Map<VCategoryDerive>(s))];
 
         InitializeComponent();
     }

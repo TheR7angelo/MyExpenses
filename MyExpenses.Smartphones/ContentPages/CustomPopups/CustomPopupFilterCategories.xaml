@@ -22,7 +22,7 @@
             <SearchBar TextChanged="SearchBar_OnTextChanged">
             </SearchBar>
 
-            <CollectionView ItemsSource="{Binding VCategories, Mode=OneWay}">
+            <CollectionView ItemsSource="{Binding VCategoryDerives, Mode=OneWay}">
 
                 <CollectionView.ItemsLayout>
                     <LinearItemsLayout Orientation="Vertical" ItemSpacing="1" />
@@ -33,7 +33,9 @@
 
                         <HorizontalStackLayout VerticalOptions="Center">
 
-                            <CheckBox VerticalOptions="Center" IsChecked="False" />
+                            <CheckBox VerticalOptions="Center"
+                                      IsChecked="{Binding IsChecked, Mode=TwoWay}">
+                            </CheckBox>
 
                             <Ellipse HeightRequest="24"
                                      WidthRequest="{Binding HeightRequest, Source={RelativeSource Self}}"
@@ -43,7 +45,9 @@
                                      Margin="10, 0">
                             </Ellipse>
 
-                            <Label VerticalTextAlignment="Center" Text="{Binding CategoryName, Mode=OneWay}" />
+                            <Label VerticalTextAlignment="Center"
+                                   Text="{Binding CategoryName, Mode=OneWay}">
+                            </Label>
 
                         </HorizontalStackLayout>
 
