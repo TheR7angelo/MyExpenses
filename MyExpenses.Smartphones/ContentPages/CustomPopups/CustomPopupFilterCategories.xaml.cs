@@ -21,12 +21,22 @@ public partial class CustomPopupFilterCategories
 
     public List<VCategoryDerive> VCategoryDerives { get; }
 
-    public CustomPopupFilterCategories()
+    public CustomPopupFilterCategories(IReadOnlyCollection<VCategoryDerive>? categoryDerivesAlreadyChecked = null)
     {
         var mapper = Mapping.Mapper;
 
         using var context = new DataBaseContext();
         VCategoryDerives = [..context.VCategories.Select(s => mapper.Map<VCategoryDerive>(s))];
+
+        if (categoryDerivesAlreadyChecked is not null)
+        {
+            foreach (var categoryDeriveAlreadyChecked in categoryDerivesAlreadyChecked.Where(s => s.IsChecked))
+            {
+                var categoryDerive = VCategoryDerives.FirstOrDefault(s => s.Id == categoryDeriveAlreadyChecked.Id);
+                if (categoryDerive is null) continue;
+                categoryDerive.IsChecked = categoryDeriveAlreadyChecked.IsChecked;
+            }
+        }
 
         UpdateLanguage();
         InitializeComponent();
