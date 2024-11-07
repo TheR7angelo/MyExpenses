@@ -551,6 +551,7 @@ public partial class DashBoardContentPage
         svgPath.GeometrySource = icon;
     }
 
+    // TODO work
     private async Task FilterDescription(SvgPath svgPath)
     {
         var popup = new CustomPopup();
@@ -559,6 +560,7 @@ public partial class DashBoardContentPage
         svgPath.GeometrySource = EPackIcons.FilterCheck;
     }
 
+    // TODO work
     private async Task FilterPaymentMode(SvgPath svgPath)
     {
         var popup = new CustomPopup();
@@ -567,6 +569,7 @@ public partial class DashBoardContentPage
         svgPath.GeometrySource = EPackIcons.FilterCheck;
     }
 
+    // TODO work
     private async Task FilterValue(SvgPath svgPath)
     {
         var popup = new CustomPopup();
