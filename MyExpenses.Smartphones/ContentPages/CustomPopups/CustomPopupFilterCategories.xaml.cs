@@ -70,7 +70,8 @@ public partial class CustomPopupFilterCategories
     {
         var text = e.NewTextValue;
 
-        var filterCategories = OriginalCategories.Where(s => s.CategoryName!.Contains(text, StringComparison.InvariantCultureIgnoreCase));
+        var filterCategories = OriginalCategories.Where(s =>
+            s.CategoryName!.Contains(text, StringComparison.InvariantCultureIgnoreCase));
 
         VCategoryDerives.Clear();
         VCategoryDerives.AddRange(filterCategories);
