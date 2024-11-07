@@ -81,11 +81,11 @@ public partial class CustomPopupFilterCategories
 
     #region Function
 
-    public ImmutableList<VCategoryDerive> GetVCategoryDerivesChecked()
+    public IEnumerable<VCategoryDerive> GetVCategoryDerivesChecked()
         => VCategoryDerives.Where(s => s.IsChecked).ToImmutableList();
 
     public int GetVCategoryDerivesCheckedCount()
-        => GetVCategoryDerivesChecked().Count;
+        => VCategoryDerives.Count;
 
     private void UpdateLanguage()
     {
