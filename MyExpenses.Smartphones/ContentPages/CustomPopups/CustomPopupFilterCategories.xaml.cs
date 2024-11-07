@@ -32,7 +32,7 @@ public partial class CustomPopupFilterCategories
         {
             foreach (var categoryDeriveAlreadyChecked in categoryDerivesAlreadyChecked.Where(s => s.IsChecked))
             {
-                var categoryDerive = VCategoryDerives.FirstOrDefault(s => s.Id == categoryDeriveAlreadyChecked.Id);
+                var categoryDerive = VCategoryDerives.FirstOrDefault(s => s.Id.Equals(categoryDeriveAlreadyChecked.Id));
                 if (categoryDerive is null) continue;
                 categoryDerive.IsChecked = categoryDeriveAlreadyChecked.IsChecked;
             }
