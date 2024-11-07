@@ -82,8 +82,6 @@ public partial class DataBaseContext : DbContext
 
     public virtual DbSet<TCurrency> TCurrencies { get; set; }
 
-    public virtual DbSet<TGeometryColumn> TGeometryColumns { get; set; }
-
     public virtual DbSet<THistory> THistories { get; set; }
 
     public virtual DbSet<TModePayment> TModePayments { get; set; }
@@ -101,6 +99,8 @@ public partial class DataBaseContext : DbContext
     public virtual DbSet<TVersion> TVersions { get; set; }
 
     public virtual DbSet<VBankTransfer> VBankTransfers { get; set; }
+
+    public virtual DbSet<VCategory> VCategories { get; set; }
 
     public virtual DbSet<VDetailTotalCategory> VDetailTotalCategories { get; set; }
 
@@ -262,11 +262,6 @@ public partial class DataBaseContext : DbContext
             entity.Property(e => e.DateAdded).HasDefaultValueSql("CURRENT_TIMESTAMP");
         });
 
-        modelBuilder.Entity<TGeometryColumn>(entity =>
-        {
-            entity.HasOne(d => d.Sr).WithMany(p => p.TGeometryColumns).OnDelete(DeleteBehavior.ClientSetNull);
-        });
-
         modelBuilder.Entity<THistory>(entity =>
         {
             entity.Property(e => e.DateAdded).HasDefaultValueSql("CURRENT_TIMESTAMP");
@@ -313,6 +308,11 @@ public partial class DataBaseContext : DbContext
         modelBuilder.Entity<VBankTransfer>(entity =>
         {
             entity.ToView("v_bank_transfer");
+        });
+
+        modelBuilder.Entity<VCategory>(entity =>
+        {
+            entity.ToView("v_category");
         });
 
         modelBuilder.Entity<VDetailTotalCategory>(entity =>

@@ -658,6 +658,19 @@ FROM t_history h
          LEFT JOIN t_bank_transfer bt
                    ON h.bank_transfer_fk = bt.id;
 
+DROP VIEW IF EXISTS v_category;
+CREATE VIEW v_category AS
+SELECT tct.id,
+       tct.name AS category_name,
+       tct.color_fk,
+       tct.date_added AS date_category_added,
+       tc.name AS color_name,
+       tc.hexadecimal_color_code,
+       tc.date_added AS date_color_added
+FROM main.t_category_type tct
+         INNER JOIN t_color tc
+                    ON tct.color_fk = tc.id;
+
 -- DROP VIEW IF EXISTS v_value_by_month_year;
 -- CREATE VIEW v_value_by_month_year AS
 -- SELECT CAST(STRFTIME('%Y', h.date) AS INTEGER) AS year,
