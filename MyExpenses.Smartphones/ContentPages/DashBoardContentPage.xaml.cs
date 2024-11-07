@@ -483,8 +483,8 @@ public partial class DashBoardContentPage
 
     private async Task FilterCategory(SvgPath svgPath)
     {
-        var popup = new CustomPopupFilterCategories();
-        await this.ShowPopupAsync(popup);
+        var customPopupFilterCategories = new CustomPopupFilterCategories();
+        await this.ShowPopupAsync(customPopupFilterCategories);
 
         svgPath.GeometrySource = EPackIcons.FilterCheck;
     }
