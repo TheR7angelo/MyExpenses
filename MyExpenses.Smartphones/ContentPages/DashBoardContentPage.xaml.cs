@@ -457,7 +457,6 @@ public partial class DashBoardContentPage
 
     #endregion
 
-    // TODO work
     private async void CategoryTapGestureRecognizer_Tapped(object? sender, TappedEventArgs e)
     {
         var svgPath = FindSvgPath(sender);
