@@ -12,47 +12,54 @@
         <converters:StringToBrushConverter x:Key="StringToBrushConverter" />
     </toolkit:Popup.Resources>
 
-    <VerticalStackLayout BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Black}}">
+    <Border BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Black}}"
+            Padding="20"
+            StrokeThickness="1.5"
+            Stroke="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}">
 
-        <SearchBar TextChanged="SearchBar_OnTextChanged">
-        </SearchBar>
+        <VerticalStackLayout>
 
-        <CollectionView ItemsSource="{Binding VCategories, Mode=OneWay}">
+            <SearchBar TextChanged="SearchBar_OnTextChanged">
+            </SearchBar>
 
-            <CollectionView.ItemsLayout>
-                <LinearItemsLayout Orientation="Vertical" ItemSpacing="1" />
-            </CollectionView.ItemsLayout>
+            <CollectionView ItemsSource="{Binding VCategories, Mode=OneWay}">
 
-            <CollectionView.ItemTemplate>
-                <DataTemplate>
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Vertical" ItemSpacing="1" />
+                </CollectionView.ItemsLayout>
 
-                    <HorizontalStackLayout VerticalOptions="Center">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
 
-                        <CheckBox VerticalOptions="Center" IsChecked="False" />
+                        <HorizontalStackLayout VerticalOptions="Center">
 
-                        <Ellipse HeightRequest="24"
-                                 WidthRequest="{Binding HeightRequest, Source={RelativeSource Self}}"
-                                 Stroke="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
-                                 StrokeThickness="1.5"
-                                 Fill="{Binding HexadecimalColorCode, Mode=OneWay, Converter={StaticResource StringToBrushConverter}}"
-                                 Margin="10, 0">
-                        </Ellipse>
+                            <CheckBox VerticalOptions="Center" IsChecked="False" />
 
-                        <Label VerticalTextAlignment="Center" Text="{Binding CategoryName, Mode=OneWay}" />
+                            <Ellipse HeightRequest="24"
+                                     WidthRequest="{Binding HeightRequest, Source={RelativeSource Self}}"
+                                     Stroke="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
+                                     StrokeThickness="1.5"
+                                     Fill="{Binding HexadecimalColorCode, Mode=OneWay, Converter={StaticResource StringToBrushConverter}}"
+                                     Margin="10, 0">
+                            </Ellipse>
 
-                    </HorizontalStackLayout>
+                            <Label VerticalTextAlignment="Center" Text="{Binding CategoryName, Mode=OneWay}" />
 
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
+                        </HorizontalStackLayout>
 
-        </CollectionView>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
 
-        <Button Text="Close"
-                Clicked="Button_OnClicked"
-                HorizontalOptions="Center"
-                VerticalOptions="Center">
-        </Button>
+            </CollectionView>
 
-    </VerticalStackLayout>
+            <Button Text="Close"
+                    Clicked="Button_OnClicked"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center">
+            </Button>
+
+        </VerticalStackLayout>
+
+    </Border>
 
 </toolkit:Popup>
