@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<toolkit:Popup
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:converters="clr-namespace:MyExpenses.Smartphones.Converters"
+    x:Class="MyExpenses.Smartphones.ContentPages.CustomPopups.CustomPopupFilterCategories"
+
+    BindingContext="{Binding Source={RelativeSource Self}}">
+
+    <toolkit:Popup.Resources>
+        <converters:StringToBrushConverter x:Key="StringToBrushConverter" />
+    </toolkit:Popup.Resources>
+
+    <VerticalStackLayout BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Black}}">
+
+        <SearchBar TextChanged="SearchBar_OnTextChanged">
+        </SearchBar>
+
+        <CollectionView ItemsSource="{Binding VCategories, Mode=OneWay}">
+
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Vertical" ItemSpacing="1" />
+            </CollectionView.ItemsLayout>
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+
+                    <HorizontalStackLayout VerticalOptions="Center">
+
+                        <CheckBox VerticalOptions="Center" IsChecked="False" />
+
+                        <Ellipse HeightRequest="24"
+                                 WidthRequest="{Binding HeightRequest, Source={RelativeSource Self}}"
+                                 Stroke="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
+                                 StrokeThickness="1.5"
+                                 Fill="{Binding HexadecimalColorCode, Mode=OneWay, Converter={StaticResource StringToBrushConverter}}"
+                                 Margin="10, 0">
+                        </Ellipse>
+
+                        <Label VerticalTextAlignment="Center" Text="{Binding CategoryName, Mode=OneWay}" />
+
+                    </HorizontalStackLayout>
+
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+
+        </CollectionView>
+
+        <Button Text="Close"
+                Clicked="Button_OnClicked"
+                HorizontalOptions="Center"
+                VerticalOptions="Center">
+        </Button>
+
+    </VerticalStackLayout>
+
+</toolkit:Popup>

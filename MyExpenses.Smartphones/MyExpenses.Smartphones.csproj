@@ -102,6 +102,9 @@
       <MauiXaml Update="ContentPages\SaveLocation\SaveLocationContentPage.xaml">
         <SubType>Designer</SubType>
       </MauiXaml>
+      <MauiXaml Update="ContentPages\CustomPopups\CustomPopup.xaml">
+        <SubType>Designer</SubType>
+      </MauiXaml>
     </ItemGroup>
 
     <ItemGroup>
@@ -160,6 +163,10 @@
         <DesignTime>True</DesignTime>
         <AutoGen>True</AutoGen>
         <DependentUpon>EmptyStringTreeViewConverterResources.resx</DependentUpon>
+      </Compile>
+      <Compile Update="ContentPages\CustomPopups\CustomPopup.xaml.cs">
+        <DependentUpon>CustomPopup.xaml</DependentUpon>
+        <SubType>Code</SubType>
       </Compile>
     </ItemGroup>
 
