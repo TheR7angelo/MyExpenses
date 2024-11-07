@@ -1,3 +1,4 @@
+using System.Collections.Immutable;
 using MyExpenses.Models.AutoMapper;
 using MyExpenses.Models.Sql.Derivatives.Views;
 using MyExpenses.Sql.Context;
@@ -17,6 +18,12 @@ public partial class CustomPopupFilterCategories
 
         InitializeComponent();
     }
+
+    public ImmutableList<VCategoryDerive> GetVCategoryDerivesChecked()
+        => VCategoryDerives.Where(s => s.IsChecked).ToImmutableList();
+
+    public int GetVCategoryDerivesCheckedCount()
+        => GetVCategoryDerivesChecked().Count;
 
     private void Button_OnClicked(object? sender, EventArgs e)
     {
