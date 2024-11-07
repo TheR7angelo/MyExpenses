@@ -26,7 +26,7 @@ public partial class CustomPopupFilterCategories
         var mapper = Mapping.Mapper;
 
         using var context = new DataBaseContext();
-        VCategoryDerives = [..context.VCategories.Select(s => mapper.Map<VCategoryDerive>(s))];
+        VCategoryDerives = [..context.VCategories.OrderBy(s => s.CategoryName).Select(s => mapper.Map<VCategoryDerive>(s))];
 
         if (categoryDerivesAlreadyChecked is not null)
         {
