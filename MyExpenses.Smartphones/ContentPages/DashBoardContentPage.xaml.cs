@@ -481,12 +481,21 @@ public partial class DashBoardContentPage
         };
     }
 
+    // TODO work
     private async Task FilterCategory(SvgPath svgPath)
     {
         var customPopupFilterCategories = new CustomPopupFilterCategories();
         await this.ShowPopupAsync(customPopupFilterCategories);
 
-        svgPath.GeometrySource = EPackIcons.FilterCheck;
+        var categoryDerivesChecked = customPopupFilterCategories.GetVCategoryDerivesChecked();
+        var categoryDerivesCheckedCount = customPopupFilterCategories.GetVCategoryDerivesCheckedCount();
+        var categoryCount = customPopupFilterCategories.VCategoryDerives.Count;
+
+        var icon = categoryDerivesCheckedCount is 0 || categoryDerivesCheckedCount.Equals(categoryCount)
+            ? EPackIcons.Filter
+            : EPackIcons.FilterCheck;
+
+        svgPath.GeometrySource = icon;
     }
 
     private async Task FilterDescription(SvgPath svgPath)
