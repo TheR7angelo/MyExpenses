@@ -21,7 +21,8 @@
 
         <VerticalStackLayout>
 
-            <SearchBar TextChanged="SearchBar_OnTextChanged">
+            <SearchBar Placeholder="{Binding SearchBarPlaceHolderText, Mode=OneWay}"
+                       TextChanged="SearchBar_OnTextChanged">
             </SearchBar>
 
             <CollectionView ItemsSource="{Binding VCategoryDerives, Mode=OneWay}">

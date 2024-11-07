@@ -12,6 +12,16 @@ namespace MyExpenses.Smartphones.ContentPages.CustomPopups;
 
 public partial class CustomPopupFilterCategories
 {
+    public static readonly BindableProperty SearchBarPlaceHolderTextProperty =
+        BindableProperty.Create(nameof(SearchBarPlaceHolderText), typeof(string), typeof(CustomPopupFilterCategories),
+            default(string));
+
+    public string SearchBarPlaceHolderText
+    {
+        get => (string)GetValue(SearchBarPlaceHolderTextProperty);
+        set => SetValue(SearchBarPlaceHolderTextProperty, value);
+    }
+
     public static readonly BindableProperty ButtonCloseTextProperty = BindableProperty.Create(nameof(ButtonCloseText),
         typeof(string), typeof(CustomPopupFilterCategories), default(string));
 
@@ -78,6 +88,7 @@ public partial class CustomPopupFilterCategories
 
     private void UpdateLanguage()
     {
+        SearchBarPlaceHolderText = CustomPopupFilterCategoriesResources.SearchBarPlaceHolderText;
         ButtonCloseText = CustomPopupFilterCategoriesResources.ButtonCloseText;
     }
 
