@@ -168,6 +168,11 @@
         <DependentUpon>CustomPopup.xaml</DependentUpon>
         <SubType>Code</SubType>
       </Compile>
+      <Compile Update="Resources\Resx\ContentPages\CustomPopups\CustomPopupFilterCategories\CustomPopupFilterCategoriesResources.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>CustomPopupFilterCategoriesResources.resx</DependentUpon>
+      </Compile>
     </ItemGroup>
 
     <ItemGroup>
@@ -202,6 +207,10 @@
       <EmbeddedResource Update="Resources\Resx\Converters\EmptyStringTreeViewConverter\EmptyStringTreeViewConverterResources.resx">
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>EmptyStringTreeViewConverterResources.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+      <EmbeddedResource Update="Resources\Resx\ContentPages\CustomPopups\CustomPopupFilterCategories\CustomPopupFilterCategoriesResources.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>CustomPopupFilterCategoriesResources.Designer.cs</LastGenOutput>
       </EmbeddedResource>
     </ItemGroup>
 
