@@ -542,7 +542,6 @@ public partial class DashBoardContentPage
         };
     }
 
-    // TODO work
     private async Task FilterCategory(SvgPath svgPath)
     {
         var customPopupFilterCategories = new CustomPopupFilterCategories(VCategoryDerivesFilter);
