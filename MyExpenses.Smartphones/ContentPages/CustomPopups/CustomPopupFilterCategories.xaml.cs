@@ -34,14 +34,22 @@ public partial class CustomPopupFilterCategories
         Interface.LanguageChanged += Interface_OnLanguageChanged;
     }
 
+    #region Action
+
+    private void ButtonClose_OnClicked(object? sender, EventArgs e)
+        => Close();
+
     private void Interface_OnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
         => UpdateLanguage();
 
-    private void UpdateLanguage()
+    private void SearchBar_OnTextChanged(object? sender, TextChangedEventArgs e)
     {
-        ButtonCloseText = CustomPopupFilterCategoriesResources.ButtonCloseText;
+        //TODO work
     }
 
+    #endregion
+
+    #region Function
 
     public ImmutableList<VCategoryDerive> GetVCategoryDerivesChecked()
         => VCategoryDerives.Where(s => s.IsChecked).ToImmutableList();
@@ -49,13 +57,10 @@ public partial class CustomPopupFilterCategories
     public int GetVCategoryDerivesCheckedCount()
         => GetVCategoryDerivesChecked().Count;
 
-    private void Button_OnClicked(object? sender, EventArgs e)
+    private void UpdateLanguage()
     {
-        Close();
+        ButtonCloseText = CustomPopupFilterCategoriesResources.ButtonCloseText;
     }
 
-    private void SearchBar_OnTextChanged(object? sender, TextChangedEventArgs e)
-    {
-        //TODO work
-    }
+    #endregion
 }
