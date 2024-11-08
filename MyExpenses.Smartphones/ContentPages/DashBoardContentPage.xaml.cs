@@ -564,7 +564,7 @@ public partial class DashBoardContentPage
         var customPopupFilterCategories = new CustomPopupFilterCategories(vCategoryDerives, VCategoryDerivesFilter);
         await this.ShowPopupAsync(customPopupFilterCategories);
 
-        FilterManagement(svgPath, customPopupFilterCategories, FilterCategory);
+        FilterManagement(VCategoryDerivesFilter, customPopupFilterCategories, FilterCategory, svgPath);
     }
 
     // TODO work
@@ -625,8 +625,7 @@ public partial class DashBoardContentPage
         return icon is EPackIcons.FilterCheck;
     }
 
-    private void FilterManagement(SvgPath svgPath, CustomPopupFilterCategories customPopupFilterCategories,
-        Func<SvgPath, Task> filterFunc)
+    private void FilterManagement<T>(List<T> collection, ICustomPopupFilter<T> customPopupFilter, Func<SvgPath, Task> filterFunc, SvgPath svgPath)
     {
         if (Filters.Count is 0 || Filters.Last() != filterFunc)
         {
@@ -634,7 +633,7 @@ public partial class DashBoardContentPage
             OriginalVHistories.Add(VHistories.ToList());
         }
 
-        var isActive = RefreshFilter(VCategoryDerivesFilter, customPopupFilterCategories, svgPath);
+        var isActive = RefreshFilter(collection, customPopupFilter, svgPath);
 
         if (!isActive && Filters.Last() == filterFunc)
         {
