@@ -136,6 +136,7 @@ public partial class DashBoardContentPage
     private List<VCategoryDerive> VCategoryDerivesFilter { get; } = [];
     private List<StringIsChecked> HistoryDescriptions { get; } = [];
     private List<TModePaymentDerive> ModePaymentDeriveFilter { get; } = [];
+    private List<DoubleIsChecked> HistoryValues { get; } = [];
 
     public ICommand CollectionViewVHistoryShortPressCommand { get; }
     private bool _isCollectionViewVHistoryLongPressInvoked;
@@ -405,6 +406,12 @@ public partial class DashBoardContentPage
             query = query.Where(s => modePayments.Contains(s.ModePayment));
         }
 
+        if (HistoryValues.Count > 0)
+        {
+            var historyValues = HistoryValues.Select(s => s.DoubleValue);
+            query = query.Where(s => historyValues.Contains(s.Value));
+        }
+
         var records = query
             .OrderBy(s => s.Pointed)
             .ThenByDescending(s => s.Date)
@@ -634,13 +641,26 @@ public partial class DashBoardContentPage
         FilterManagement(ModePaymentDeriveFilter, customPopupFilterModePayment, FilterPaymentMode, svgPath);
     }
 
-    // TODO work
     private async Task FilterValue(SvgPath svgPath)
     {
-        var popup = new CustomPopup();
-        await this.ShowPopupAsync(popup);
+        IEnumerable<DoubleIsChecked> historyValues;
+        if (Filters.Count is 0) historyValues = VHistories.Select(s => new DoubleIsChecked { DoubleValue = s.Value });
+        else
+        {
+            var items = Filters.Last() == FilterValue
+                ? OriginalVHistories.Last().AsEnumerable()
+                : VHistories.AsEnumerable();
 
-        svgPath.GeometrySource = EPackIcons.FilterCheck;
+            historyValues = items.Select(s => new DoubleIsChecked { DoubleValue = s.Value });
+        }
+
+        historyValues = historyValues.Distinct();
+        historyValues = historyValues.OrderBy(s => s.DoubleValue);
+
+        var customPopupFilterHistoryValues = new CustomPopupFilterHistoryValues(historyValues, HistoryValues);
+        await this.ShowPopupAsync(customPopupFilterHistoryValues);
+
+        FilterManagement(HistoryValues, customPopupFilterHistoryValues, FilterValue, svgPath);
     }
 
     private static SvgPath? FindSvgPath(object? sender)
