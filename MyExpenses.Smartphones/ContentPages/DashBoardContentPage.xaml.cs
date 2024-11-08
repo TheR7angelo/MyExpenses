@@ -531,18 +531,6 @@ public partial class DashBoardContentPage
         await FilterValue(svgPath);
     }
 
-    private static SvgPath? FindSvgPath(object? sender)
-    {
-        return sender switch
-        {
-            null => null,
-            SvgPath svgPath => svgPath,
-            _ => sender is HorizontalStackLayout horizontalStackLayout
-                ? horizontalStackLayout.FindVisualChildren<SvgPath>().FirstOrDefault()
-                : null
-        };
-    }
-
     private async Task FilterCategory(SvgPath svgPath)
     {
         var customPopupFilterCategories = new CustomPopupFilterCategories(VCategoryDerivesFilter);
@@ -576,6 +564,18 @@ public partial class DashBoardContentPage
         await this.ShowPopupAsync(popup);
 
         svgPath.GeometrySource = EPackIcons.FilterCheck;
+    }
+
+    private static SvgPath? FindSvgPath(object? sender)
+    {
+        return sender switch
+        {
+            null => null,
+            SvgPath svgPath => svgPath,
+            _ => sender is HorizontalStackLayout horizontalStackLayout
+                ? horizontalStackLayout.FindVisualChildren<SvgPath>().FirstOrDefault()
+                : null
+        };
     }
 
     private void RefreshFilter<T>(List<T> collection, ICustomPopupFilter<T> customPopupFilter, SvgPath svgPath)
