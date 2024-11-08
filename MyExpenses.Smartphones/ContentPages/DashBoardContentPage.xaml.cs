@@ -133,7 +133,7 @@ public partial class DashBoardContentPage
     private static DashBoardContentPage Instance { get; set; } = null!;
 
     private List<VCategoryDerive> VCategoryDerivesFilter { get; } = [];
-    private List<(string HistoryDescriptions, bool IsChecked)> HistoryDescriptions { get; } = [];
+    private List<StringIsChecked> HistoryDescriptions { get; } = [];
 
     public ICommand CollectionViewVHistoryShortPressCommand { get; }
     private bool _isCollectionViewVHistoryLongPressInvoked;
@@ -393,7 +393,7 @@ public partial class DashBoardContentPage
 
         if (HistoryDescriptions.Count > 0)
         {
-            var historyDescriptions = HistoryDescriptions.Select(s => s.HistoryDescriptions);
+            var historyDescriptions = HistoryDescriptions.Select(s => s.StringValue);
             query = query.Where(s => historyDescriptions.Contains(s.Description));
         }
 
@@ -574,18 +574,17 @@ public partial class DashBoardContentPage
         FilterManagement(VCategoryDerivesFilter, customPopupFilterCategories, FilterCategory, svgPath);
     }
 
-    // TODO work
     private async Task FilterDescription(SvgPath svgPath)
     {
-        IEnumerable<(string HistoryDescriptions, bool IsChecked)> historyDescription;
-        if (Filters.Count is 0) historyDescription = VHistories.Select(s => (s.Description!, false));
+        IEnumerable<StringIsChecked> historyDescription;
+        if (Filters.Count is 0) historyDescription = VHistories.Select(s => new StringIsChecked { StringValue = s.Description});
         else
         {
-            var items = Filters.Last() == FilterCategory
+            var items = Filters.Last() == FilterDescription
                 ? OriginalVHistories.Last().AsEnumerable()
                 : VHistories.AsEnumerable();
 
-            historyDescription = items.Select(s => (s.Description!, true));
+            historyDescription = items.Select(s => new StringIsChecked { StringValue = s.Description});
         }
 
         var customPopupFilterDescription = new CustomPopupFilterDescription(historyDescription, HistoryDescriptions);
