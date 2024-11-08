@@ -2,6 +2,7 @@ using System.Collections.ObjectModel;
 using MyExpenses.Models.AutoMapper;
 using MyExpenses.Models.Config;
 using MyExpenses.Models.Config.Interfaces;
+using MyExpenses.Models.Maui.CustomPopupFilter;
 using MyExpenses.Models.Sql.Derivatives.Views;
 using MyExpenses.Smartphones.PackIcons;
 using MyExpenses.Smartphones.Resources.Resx.ContentPages.CustomPopups.CustomPopupFilterCategories;
@@ -10,7 +11,7 @@ using MyExpenses.Utils.Collection;
 
 namespace MyExpenses.Smartphones.ContentPages.CustomPopups;
 
-public partial class CustomPopupFilterCategories
+public partial class CustomPopupFilterCategories : ICustomPopupFilter<VCategoryDerive>
 {
     public static readonly BindableProperty GeometrySourceProperty = BindableProperty.Create(nameof(GeometrySource),
         typeof(EPackIcons), typeof(CustomPopupFilterCategories), EPackIcons.CheckboxBlankOutline);
@@ -104,7 +105,7 @@ public partial class CustomPopupFilterCategories
     private void CalculateCheckboxIconGeometrySource()
     {
         var allCategoriesCount = OriginalCategories.Count;
-        var categoryDerivesCheckedCount = GetVCategoryDerivesCheckedCount();
+        var categoryDerivesCheckedCount = GetFilteredItemCheckedCount();
 
         EPackIcons icon;
         if (categoryDerivesCheckedCount is 0) icon = EPackIcons.CheckboxBlankOutline;
@@ -125,11 +126,14 @@ public partial class CustomPopupFilterCategories
         VCategoryDerives.AddRange(filterCategories);
     }
 
-    public IEnumerable<VCategoryDerive> GetVCategoryDerivesChecked()
+    public IEnumerable<VCategoryDerive> GetFilteredItemChecked()
         => VCategoryDerives.Where(s => s.IsChecked);
 
-    public int GetVCategoryDerivesCheckedCount()
+    public int GetFilteredItemCheckedCount()
         => VCategoryDerives.Count(s => s.IsChecked);
+
+    public int GetFilteredItemCount()
+        => OriginalCategories.Count(s => s.IsChecked);
 
     private void UpdateLanguage()
     {
