@@ -10,6 +10,7 @@ using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Maui.CustomPopupFilter;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Models.Sql.Bases.Views;
+using MyExpenses.Models.Sql.Derivatives.Tables;
 using MyExpenses.Models.Sql.Derivatives.Views;
 using MyExpenses.Smartphones.ContentPages.CustomPopups;
 using MyExpenses.Smartphones.PackIcons;
@@ -134,6 +135,7 @@ public partial class DashBoardContentPage
 
     private List<VCategoryDerive> VCategoryDerivesFilter { get; } = [];
     private List<StringIsChecked> HistoryDescriptions { get; } = [];
+    private List<TModePaymentDerive> ModePaymentDeriveFilter { get; } = [];
 
     public ICommand CollectionViewVHistoryShortPressCommand { get; }
     private bool _isCollectionViewVHistoryLongPressInvoked;
@@ -397,6 +399,12 @@ public partial class DashBoardContentPage
             query = query.Where(s => historyDescriptions.Contains(s.Description));
         }
 
+        if (ModePaymentDeriveFilter.Count > 0)
+        {
+            var modePayments = ModePaymentDeriveFilter.Select(s => s.Name);
+            query = query.Where(s => modePayments.Contains(s.ModePayment));
+        }
+
         var records = query
             .OrderBy(s => s.Pointed)
             .ThenByDescending(s => s.Date)
@@ -594,13 +602,36 @@ public partial class DashBoardContentPage
         FilterManagement(HistoryDescriptions, customPopupFilterDescription, FilterDescription, svgPath);
     }
 
-    // TODO work
     private async Task FilterPaymentMode(SvgPath svgPath)
     {
-        var popup = new CustomPopup();
-        await this.ShowPopupAsync(popup);
+        IEnumerable<int> historyIds;
+        if (Filters.Count is 0) historyIds = VHistories.Select(s => s.Id);
+        else
+        {
+            var items = Filters.Last() == FilterPaymentMode
+                ? OriginalVHistories.Last().AsEnumerable()
+                : VHistories.AsEnumerable();
 
-        svgPath.GeometrySource = EPackIcons.FilterCheck;
+            historyIds = items.Select(s => s.Id);
+        }
+
+        var mapper = Mapping.Mapper;
+        await using var context = new DataBaseContext();
+        var modePaymentFk = context.THistories
+            .Where(s => historyIds.Contains(s.Id))
+            .Select(s => s.ModePaymentFk!)
+            .Distinct()
+            .ToList();
+
+        var tModePaymentDerives = context.TModePayments
+            .Where(s => modePaymentFk.Contains(s.Id))
+            .Select(s => mapper.Map<TModePaymentDerive>(s))
+            .ToList();
+
+        var customPopupFilterModePayment = new CustomPopupFilterModePayments(tModePaymentDerives, ModePaymentDeriveFilter);
+        await this.ShowPopupAsync(customPopupFilterModePayment);
+
+        FilterManagement(ModePaymentDeriveFilter, customPopupFilterModePayment, FilterPaymentMode, svgPath);
     }
 
     // TODO work
