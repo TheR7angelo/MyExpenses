@@ -6,6 +6,7 @@ using CommunityToolkit.Maui.Views;
 using MyExpenses.Maui.Utils;
 using MyExpenses.Models.Config;
 using MyExpenses.Models.Config.Interfaces;
+using MyExpenses.Models.Maui.CustomPopupFilter;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Models.Sql.Bases.Views;
 using MyExpenses.Models.Sql.Derivatives.Views;
@@ -547,19 +548,7 @@ public partial class DashBoardContentPage
         var customPopupFilterCategories = new CustomPopupFilterCategories(VCategoryDerivesFilter);
         await this.ShowPopupAsync(customPopupFilterCategories);
 
-        VCategoryDerivesFilter.Clear();
-        VCategoryDerivesFilter.AddRange(customPopupFilterCategories.GetVCategoryDerivesChecked());
-
-        var categoryDerivesCheckedCount = customPopupFilterCategories.GetVCategoryDerivesCheckedCount();
-        var categoryCount = customPopupFilterCategories.VCategoryDerives.Count;
-
-        var icon = categoryDerivesCheckedCount is 0 || categoryDerivesCheckedCount.Equals(categoryCount)
-            ? EPackIcons.Filter
-            : EPackIcons.FilterCheck;
-
-        svgPath.GeometrySource = icon;
-
-        RefreshDataGrid();
+        RefreshFilter(VCategoryDerivesFilter, customPopupFilterCategories, svgPath);
     }
 
     // TODO work
@@ -587,5 +576,22 @@ public partial class DashBoardContentPage
         await this.ShowPopupAsync(popup);
 
         svgPath.GeometrySource = EPackIcons.FilterCheck;
+    }
+
+    private void RefreshFilter<T>(List<T> collection, ICustomPopupFilter<T> customPopupFilter, SvgPath svgPath)
+    {
+        collection.Clear();
+        collection.AddRange(customPopupFilter.GetFilteredItemChecked());
+
+        var itemCheckedCount = customPopupFilter.GetFilteredItemCheckedCount();
+        var itemCount = customPopupFilter.GetFilteredItemCount();
+
+        var icon = itemCheckedCount is 0 || itemCheckedCount.Equals(itemCount)
+            ? EPackIcons.Filter
+            : EPackIcons.FilterCheck;
+
+        svgPath.GeometrySource = icon;
+
+        RefreshDataGrid();
     }
 }
