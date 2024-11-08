@@ -66,14 +66,13 @@ public partial class CustomPopupFilterDescription : ICustomPopupFilter<StringIsC
         Interface.LanguageChanged += Interface_OnLanguageChanged;
     }
 
-    private void Interface_OnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
-        => UpdateLanguage();
+    #region Action
 
-    private void UpdateLanguage()
-    {
-        SearchBarPlaceHolderText = CustomPopupFilterDescriptionResources.SearchBarPlaceHolderText;
-        ButtonCloseText = CustomPopupFilterDescriptionResources.ButtonCloseText;
-    }
+    private void ButtonClose_OnClicked(object? sender, EventArgs e)
+        => Close();
+
+    private void CheckBox_OnCheckedChanged(object? sender, CheckedChangedEventArgs e)
+        => CalculateCheckboxIconGeometrySource();
 
     public IEnumerable<StringIsChecked> GetFilteredItemChecked()
         => HistoryDescriptions.Where(s => s.IsChecked);
@@ -83,6 +82,13 @@ public partial class CustomPopupFilterDescription : ICustomPopupFilter<StringIsC
 
     public int GetFilteredItemCount()
         => OriginalHistoryDescriptions.Count;
+
+    private void SearchBar_OnTextChanged(object? sender, TextChangedEventArgs e)
+    {
+        SearchText = e.NewTextValue;
+
+        FilterHistoryDescriptionsBySearchText();
+    }
 
     private void SvgPath_OnClicked(object? sender, EventArgs e)
     {
@@ -94,26 +100,12 @@ public partial class CustomPopupFilterDescription : ICustomPopupFilter<StringIsC
         CalculateCheckboxIconGeometrySource();
     }
 
-    private void SearchBar_OnTextChanged(object? sender, TextChangedEventArgs e)
-    {
-        SearchText = e.NewTextValue;
+    private void Interface_OnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
+        => UpdateLanguage();
 
-        FilterHistoryDescriptionsBySearchText();
-    }
+    #endregion
 
-    private void CheckBox_OnCheckedChanged(object? sender, CheckedChangedEventArgs e)
-        => CalculateCheckboxIconGeometrySource();
-
-    private void FilterHistoryDescriptionsBySearchText()
-    {
-        SearchText ??= string.Empty;
-
-        var filterHistory = OriginalHistoryDescriptions.Where(s =>
-            s.StringValue!.Contains(SearchText, StringComparison.InvariantCultureIgnoreCase));
-
-        HistoryDescriptions.Clear();
-        HistoryDescriptions.AddRange(filterHistory);
-    }
+    #region Function
 
     private void CalculateCheckboxIconGeometrySource()
     {
@@ -128,6 +120,22 @@ public partial class CustomPopupFilterDescription : ICustomPopupFilter<StringIsC
         GeometrySource = icon;
     }
 
-    private void ButtonClose_OnClicked(object? sender, EventArgs e)
-        => Close();
+    private void FilterHistoryDescriptionsBySearchText()
+    {
+        SearchText ??= string.Empty;
+
+        var filterHistory = OriginalHistoryDescriptions.Where(s =>
+            s.StringValue!.Contains(SearchText, StringComparison.InvariantCultureIgnoreCase));
+
+        HistoryDescriptions.Clear();
+        HistoryDescriptions.AddRange(filterHistory);
+    }
+
+    private void UpdateLanguage()
+    {
+        SearchBarPlaceHolderText = CustomPopupFilterDescriptionResources.SearchBarPlaceHolderText;
+        ButtonCloseText = CustomPopupFilterDescriptionResources.ButtonCloseText;
+    }
+
+    #endregion
 }
