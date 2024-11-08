@@ -580,6 +580,7 @@ public partial class DashBoardContentPage
 
         var vCategoryDerives = context.VCategories
             .Where(s => categoryTypeFk.Contains(s.Id))
+            .OrderBy(s => s.CategoryName)
             .Select(s => mapper.Map<VCategoryDerive>(s))
             .ToList();
 
@@ -603,6 +604,8 @@ public partial class DashBoardContentPage
         }
 
         historyDescription = historyDescription.Distinct();
+        historyDescription = historyDescription.OrderBy(s => s.StringValue);
+
         var customPopupFilterDescription = new CustomPopupFilterHistoryDescriptions(historyDescription, HistoryDescriptions);
         await this.ShowPopupAsync(customPopupFilterDescription);
 
@@ -632,6 +635,7 @@ public partial class DashBoardContentPage
 
         var tModePaymentDerives = context.TModePayments
             .Where(s => modePaymentFk.Contains(s.Id))
+            .OrderBy(s => s.Name)
             .Select(s => mapper.Map<TModePaymentDerive>(s))
             .ToList();
 
