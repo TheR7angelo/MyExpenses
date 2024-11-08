@@ -128,7 +128,7 @@ public partial class CustomPopupFilterCategories : ICustomPopupFilter<VCategoryD
         => VCategoryDerives.Count(s => s.IsChecked);
 
     public int GetFilteredItemCount()
-        => OriginalCategories.Count(s => s.IsChecked);
+        => OriginalCategories.Count;
 
     private void UpdateLanguage()
     {
