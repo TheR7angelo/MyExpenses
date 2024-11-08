@@ -587,6 +587,7 @@ public partial class DashBoardContentPage
             historyDescription = items.Select(s => new StringIsChecked { StringValue = s.Description});
         }
 
+        historyDescription = historyDescription.Distinct();
         var customPopupFilterDescription = new CustomPopupFilterDescription(historyDescription, HistoryDescriptions);
         await this.ShowPopupAsync(customPopupFilterDescription);
 
