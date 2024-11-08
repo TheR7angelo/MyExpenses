@@ -588,7 +588,7 @@ public partial class DashBoardContentPage
         }
 
         historyDescription = historyDescription.Distinct();
-        var customPopupFilterDescription = new CustomPopupFilterDescription(historyDescription, HistoryDescriptions);
+        var customPopupFilterDescription = new CustomPopupFilterHistoryDescriptions(historyDescription, HistoryDescriptions);
         await this.ShowPopupAsync(customPopupFilterDescription);
 
         FilterManagement(HistoryDescriptions, customPopupFilterDescription, FilterDescription, svgPath);

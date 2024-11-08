@@ -7,10 +7,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.CustomPopups.CustomPopupFilterDescription {
+namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.CustomPopups.CustomPopupFilterHistoryDescriptions {
     using System;
-    
-    
+
+
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
     /// </summary>
@@ -21,16 +21,16 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.CustomPopups.Custom
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class CustomPopupFilterDescriptionResources {
-        
+    internal class CustomPopupFilterHistoryDescriptionsResources {
+
         private static global::System.Resources.ResourceManager resourceMan;
-        
+
         private static global::System.Globalization.CultureInfo resourceCulture;
-        
+
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal CustomPopupFilterDescriptionResources() {
+        internal CustomPopupFilterHistoryDescriptionsResources() {
         }
-        
+
         /// <summary>
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
@@ -39,13 +39,13 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.CustomPopups.Custom
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MyExpenses.Smartphones.Resources.Resx.ContentPages.CustomPopups.CustomPopupFilter" +
-                            "Description.CustomPopupFilterDescriptionResources", typeof(CustomPopupFilterDescriptionResources).Assembly);
+                            "HistoryDescriptions.CustomPopupFilterHistoryDescriptionsResources", typeof(CustomPopupFilterHistoryDescriptionsResources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
             }
         }
-        
+
         /// <summary>
         ///   Overrides the current thread's CurrentUICulture property for all
         ///   resource lookups using this strongly typed resource class.
@@ -59,7 +59,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.CustomPopups.Custom
                 resourceCulture = value;
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Search by description.
         /// </summary>
@@ -68,7 +68,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.CustomPopups.Custom
                 return ResourceManager.GetString("ButtonCloseText", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Close.
         /// </summary>

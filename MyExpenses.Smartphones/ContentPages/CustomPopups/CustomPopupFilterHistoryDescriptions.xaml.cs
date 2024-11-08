@@ -3,15 +3,15 @@ using MyExpenses.Models.Config;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Maui.CustomPopupFilter;
 using MyExpenses.Smartphones.PackIcons;
-using MyExpenses.Smartphones.Resources.Resx.ContentPages.CustomPopups.CustomPopupFilterDescription;
+using MyExpenses.Smartphones.Resources.Resx.ContentPages.CustomPopups.CustomPopupFilterHistoryDescriptions;
 using MyExpenses.Utils.Collection;
 
 namespace MyExpenses.Smartphones.ContentPages.CustomPopups;
 
-public partial class CustomPopupFilterDescription : ICustomPopupFilter<StringIsChecked>
+public partial class CustomPopupFilterHistoryDescriptions : ICustomPopupFilter<StringIsChecked>
 {
     public static readonly BindableProperty ButtonCloseTextProperty = BindableProperty.Create(nameof(ButtonCloseText),
-        typeof(string), typeof(CustomPopupFilterDescription), default(string));
+        typeof(string), typeof(CustomPopupFilterHistoryDescriptions), default(string));
 
     public string ButtonCloseText
     {
@@ -20,7 +20,7 @@ public partial class CustomPopupFilterDescription : ICustomPopupFilter<StringIsC
     }
 
     public static readonly BindableProperty SearchBarPlaceHolderTextProperty =
-        BindableProperty.Create(nameof(SearchBarPlaceHolderText), typeof(string), typeof(CustomPopupFilterDescription),
+        BindableProperty.Create(nameof(SearchBarPlaceHolderText), typeof(string), typeof(CustomPopupFilterHistoryDescriptions),
             default(string));
 
     public string SearchBarPlaceHolderText
@@ -30,7 +30,7 @@ public partial class CustomPopupFilterDescription : ICustomPopupFilter<StringIsC
     }
 
     public static readonly BindableProperty GeometrySourceProperty = BindableProperty.Create(nameof(GeometrySource),
-        typeof(EPackIcons), typeof(CustomPopupFilterDescription), EPackIcons.CheckboxBlankOutline);
+        typeof(EPackIcons), typeof(CustomPopupFilterHistoryDescriptions), EPackIcons.CheckboxBlankOutline);
 
     public EPackIcons GeometrySource
     {
@@ -43,7 +43,7 @@ public partial class CustomPopupFilterDescription : ICustomPopupFilter<StringIsC
 
     private string? SearchText { get; set; }
 
-    public CustomPopupFilterDescription(IEnumerable<StringIsChecked> currentHistoryDescriptions,
+    public CustomPopupFilterHistoryDescriptions(IEnumerable<StringIsChecked> currentHistoryDescriptions,
         IReadOnlyCollection<StringIsChecked>? historyDescriptionsAlreadyChecked = null)
     {
         OriginalHistoryDescriptions = [..currentHistoryDescriptions];
@@ -133,8 +133,8 @@ public partial class CustomPopupFilterDescription : ICustomPopupFilter<StringIsC
 
     private void UpdateLanguage()
     {
-        SearchBarPlaceHolderText = CustomPopupFilterDescriptionResources.SearchBarPlaceHolderText;
-        ButtonCloseText = CustomPopupFilterDescriptionResources.ButtonCloseText;
+        SearchBarPlaceHolderText = CustomPopupFilterHistoryDescriptionsResources.SearchBarPlaceHolderText;
+        ButtonCloseText = CustomPopupFilterHistoryDescriptionsResources.ButtonCloseText;
     }
 
     #endregion

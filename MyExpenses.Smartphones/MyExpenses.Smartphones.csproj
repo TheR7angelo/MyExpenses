@@ -105,6 +105,9 @@
       <MauiXaml Update="ContentPages\CustomPopups\CustomPopup.xaml">
         <SubType>Designer</SubType>
       </MauiXaml>
+      <MauiXaml Update="ContentPages\CustomPopups\CustomPopupFilterModePayments.xaml">
+        <SubType>Designer</SubType>
+      </MauiXaml>
     </ItemGroup>
 
     <ItemGroup>
@@ -177,6 +180,10 @@
         <DesignTime>True</DesignTime>
         <AutoGen>True</AutoGen>
         <DependentUpon>CustomPopupFilterDescriptionResources.resx</DependentUpon>
+      </Compile>
+      <Compile Update="ContentPages\CustomPopups\CustomPopupFilterModePayments.xaml.cs">
+        <DependentUpon>CustomPopupFilterModePayments.xaml</DependentUpon>
+        <SubType>Code</SubType>
       </Compile>
     </ItemGroup>
 
