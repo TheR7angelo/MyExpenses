@@ -138,6 +138,9 @@ public partial class DashBoardContentPage
     private List<TModePaymentDerive> ModePaymentDeriveFilter { get; } = [];
     private List<DoubleIsChecked> HistoryValues { get; } = [];
 
+    private List<Func<SvgPath, Task>> Filters { get; } = [];
+    private List<List<VHistory>> OriginalVHistories { get; } = [];
+
     public ICommand CollectionViewVHistoryShortPressCommand { get; }
     private bool _isCollectionViewVHistoryLongPressInvoked;
 
@@ -219,6 +222,22 @@ public partial class DashBoardContentPage
             DashBoardContentPageResources.MessageBoxRemoveMonthErrorOkButton);
     }
 
+    private async void CategoryTapGestureRecognizer_Tapped(object? sender, TappedEventArgs e)
+    {
+        var svgPath = FindSvgPath(sender);
+        if (svgPath is null) return;
+
+        await FilterCategory(svgPath);
+    }
+
+    private async void CategorySvgPath_OnClicked(object? sender, EventArgs e)
+    {
+        var svgPath = FindSvgPath(sender);
+        if (svgPath is null) return;
+
+        await FilterCategory(svgPath);
+    }
+
     private async void CollectionViewVHistory_OnLongPress(object obj)
     {
         if (obj is not VHistory vHistory) return;
@@ -283,10 +302,58 @@ public partial class DashBoardContentPage
     private void CustomPicker_OnSelectedIndexChanged(object? sender, EventArgs e)
         => RefreshDataGrid();
 
+    private async void DescriptionTapGestureRecognizer_OnTapped(object? sender, TappedEventArgs e)
+    {
+        var svgPath = FindSvgPath(sender);
+        if (svgPath is null) return;
+
+        await FilterDescription(svgPath);
+    }
+
+    private async void DescriptionSvgPath_OnClicked(object? sender, EventArgs e)
+    {
+        var svgPath = FindSvgPath(sender);
+        if (svgPath is null) return;
+
+        await FilterDescription(svgPath);
+    }
+
     private void Interface_OnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
     {
         UpdateLanguage();
         UpdateMonthLanguage();
+    }
+
+    private async void PaymentModeTapGestureRecognizer_OnTapped(object? sender, TappedEventArgs e)
+    {
+        var svgPath = FindSvgPath(sender);
+        if (svgPath is null) return;
+
+        await FilterPaymentMode(svgPath);
+    }
+
+    private async void PaymentModeSvgPath_OnClicked(object? sender, EventArgs e)
+    {
+        var svgPath = FindSvgPath(sender);
+        if (svgPath is null) return;
+
+        await FilterPaymentMode(svgPath);
+    }
+
+    private async void ValueTapGestureRecognizer_OnTapped(object? sender, TappedEventArgs e)
+    {
+        var svgPath = FindSvgPath(sender);
+        if (svgPath is null) return;
+
+        await FilterValue(svgPath);
+    }
+
+    private async void ValueSvgPath_OnClicked(object? sender, EventArgs e)
+    {
+        var svgPath = FindSvgPath(sender);
+        if (svgPath is null) return;
+
+        await FilterValue(svgPath);
     }
 
     private void RadioButton_OnCheckedChanged(object? sender, CheckedChangedEventArgs e)
@@ -305,6 +372,136 @@ public partial class DashBoardContentPage
     #endregion
 
     #region Function
+
+    private async Task FilterCategory(SvgPath svgPath)
+    {
+        IEnumerable<int> historyIds;
+        if (Filters.Count is 0) historyIds = VHistories.Select(s => s.Id);
+        else
+        {
+            var items = Filters.Last() == FilterCategory
+                ? OriginalVHistories.Last().AsEnumerable()
+                : VHistories.AsEnumerable();
+
+            historyIds = items.Select(s => s.Id);
+        }
+
+        var mapper = Mapping.Mapper;
+        await using var context = new DataBaseContext();
+        var categoryTypeFk = context.THistories
+            .Where(s => historyIds.Contains(s.Id))
+            .Select(s => s.CategoryTypeFk!)
+            .Distinct()
+            .ToList();
+
+        var vCategoryDerives = context.VCategories
+            .Where(s => categoryTypeFk.Contains(s.Id))
+            .OrderBy(s => s.CategoryName)
+            .Select(s => mapper.Map<VCategoryDerive>(s))
+            .ToList();
+
+        var customPopupFilterCategories = new CustomPopupFilterCategories(vCategoryDerives, VCategoryDerivesFilter);
+        await this.ShowPopupAsync(customPopupFilterCategories);
+
+        FilterManagement(VCategoryDerivesFilter, customPopupFilterCategories, FilterCategory, svgPath);
+    }
+
+    private async Task FilterDescription(SvgPath svgPath)
+    {
+        IEnumerable<StringIsChecked> historyDescription;
+        if (Filters.Count is 0) historyDescription = VHistories.Select(s => new StringIsChecked { StringValue = s.Description});
+        else
+        {
+            var items = Filters.Last() == FilterDescription
+                ? OriginalVHistories.Last().AsEnumerable()
+                : VHistories.AsEnumerable();
+
+            historyDescription = items.Select(s => new StringIsChecked { StringValue = s.Description});
+        }
+
+        historyDescription = historyDescription.Distinct();
+        historyDescription = historyDescription.OrderBy(s => s.StringValue);
+
+        var customPopupFilterDescription = new CustomPopupFilterHistoryDescriptions(historyDescription, HistoryDescriptions);
+        await this.ShowPopupAsync(customPopupFilterDescription);
+
+        FilterManagement(HistoryDescriptions, customPopupFilterDescription, FilterDescription, svgPath);
+    }
+
+    private void FilterManagement<T>(List<T> collection, ICustomPopupFilter<T> customPopupFilter, Func<SvgPath, Task> filterFunc, SvgPath svgPath)
+    {
+        if (Filters.Count is 0 || Filters.Last() != filterFunc)
+        {
+            Filters.Add(filterFunc);
+            OriginalVHistories.Add(VHistories.ToList());
+        }
+
+        var isActive = RefreshFilter(collection, customPopupFilter, svgPath);
+
+        if (!isActive && Filters.Last() == filterFunc)
+        {
+            var lastIndex = Filters.Count - 1;
+            Filters.RemoveAt(lastIndex);
+
+            lastIndex = OriginalVHistories.Count - 1;
+            OriginalVHistories.RemoveAt(lastIndex);
+        }
+    }
+
+    private async Task FilterPaymentMode(SvgPath svgPath)
+    {
+        IEnumerable<int> historyIds;
+        if (Filters.Count is 0) historyIds = VHistories.Select(s => s.Id);
+        else
+        {
+            var items = Filters.Last() == FilterPaymentMode
+                ? OriginalVHistories.Last().AsEnumerable()
+                : VHistories.AsEnumerable();
+
+            historyIds = items.Select(s => s.Id);
+        }
+
+        var mapper = Mapping.Mapper;
+        await using var context = new DataBaseContext();
+        var modePaymentFk = context.THistories
+            .Where(s => historyIds.Contains(s.Id))
+            .Select(s => s.ModePaymentFk!)
+            .Distinct()
+            .ToList();
+
+        var tModePaymentDerives = context.TModePayments
+            .Where(s => modePaymentFk.Contains(s.Id))
+            .OrderBy(s => s.Name)
+            .Select(s => mapper.Map<TModePaymentDerive>(s))
+            .ToList();
+
+        var customPopupFilterModePayment = new CustomPopupFilterModePayments(tModePaymentDerives, ModePaymentDeriveFilter);
+        await this.ShowPopupAsync(customPopupFilterModePayment);
+
+        FilterManagement(ModePaymentDeriveFilter, customPopupFilterModePayment, FilterPaymentMode, svgPath);
+    }
+
+    private async Task FilterValue(SvgPath svgPath)
+    {
+        IEnumerable<DoubleIsChecked> historyValues;
+        if (Filters.Count is 0) historyValues = VHistories.Select(s => new DoubleIsChecked { DoubleValue = s.Value });
+        else
+        {
+            var items = Filters.Last() == FilterValue
+                ? OriginalVHistories.Last().AsEnumerable()
+                : VHistories.AsEnumerable();
+
+            historyValues = items.Select(s => new DoubleIsChecked { DoubleValue = s.Value });
+        }
+
+        historyValues = historyValues.Distinct();
+        historyValues = historyValues.OrderBy(s => s.DoubleValue);
+
+        var customPopupFilterHistoryValues = new CustomPopupFilterHistoryValues(historyValues, HistoryValues);
+        await this.ShowPopupAsync(customPopupFilterHistoryValues);
+
+        FilterManagement(HistoryValues, customPopupFilterHistoryValues, FilterValue, svgPath);
+    }
 
     private DateOnly GetDateOnlyFilter()
     {
@@ -421,6 +618,25 @@ public partial class DashBoardContentPage
         VHistories.AddRange(records);
     }
 
+    private bool RefreshFilter<T>(List<T> collection, ICustomPopupFilter<T> customPopupFilter, SvgPath svgPath)
+    {
+        collection.Clear();
+        collection.AddRange(customPopupFilter.GetFilteredItemChecked());
+
+        var itemCheckedCount = customPopupFilter.GetFilteredItemCheckedCount();
+        var itemCount = customPopupFilter.GetFilteredItemCount();
+
+        var icon = itemCheckedCount is 0 || itemCheckedCount.Equals(itemCount)
+            ? EPackIcons.Filter
+            : EPackIcons.FilterCheck;
+
+        svgPath.GeometrySource = icon;
+
+        RefreshDataGrid();
+
+        return icon is EPackIcons.FilterCheck;
+    }
+
     private void RefreshRadioButtonSelected()
     {
         var radioButtons = CollectionViewVTotalAccount.FindVisualChildren<RadioButton>().ToList();
@@ -490,183 +706,6 @@ public partial class DashBoardContentPage
 
     #endregion
 
-    private async void CategoryTapGestureRecognizer_Tapped(object? sender, TappedEventArgs e)
-    {
-        var svgPath = FindSvgPath(sender);
-        if (svgPath is null) return;
-
-        await FilterCategory(svgPath);
-    }
-
-    private async void DescriptionTapGestureRecognizer_OnTapped(object? sender, TappedEventArgs e)
-    {
-        var svgPath = FindSvgPath(sender);
-        if (svgPath is null) return;
-
-        await FilterDescription(svgPath);
-    }
-
-    private async void PaymentModeTapGestureRecognizer_OnTapped(object? sender, TappedEventArgs e)
-    {
-        var svgPath = FindSvgPath(sender);
-        if (svgPath is null) return;
-
-        await FilterPaymentMode(svgPath);
-    }
-
-    private async void ValueTapGestureRecognizer_OnTapped(object? sender, TappedEventArgs e)
-    {
-        var svgPath = FindSvgPath(sender);
-        if (svgPath is null) return;
-
-        await FilterValue(svgPath);
-    }
-
-    private async void CategorySvgPath_OnClicked(object? sender, EventArgs e)
-    {
-        var svgPath = FindSvgPath(sender);
-        if (svgPath is null) return;
-
-        await FilterCategory(svgPath);
-    }
-
-    private async void DescriptionSvgPath_OnClicked(object? sender, EventArgs e)
-    {
-        var svgPath = FindSvgPath(sender);
-        if (svgPath is null) return;
-
-        await FilterDescription(svgPath);
-    }
-
-    private async void PaymentModeSvgPath_OnClicked(object? sender, EventArgs e)
-    {
-        var svgPath = FindSvgPath(sender);
-        if (svgPath is null) return;
-
-        await FilterPaymentMode(svgPath);
-    }
-
-    private async void ValueSvgPath_OnClicked(object? sender, EventArgs e)
-    {
-        var svgPath = FindSvgPath(sender);
-        if (svgPath is null) return;
-
-        await FilterValue(svgPath);
-    }
-
-    private List<Func<SvgPath, Task>> Filters { get; } = [];
-    private List<List<VHistory>> OriginalVHistories { get; } = [];
-
-    private async Task FilterCategory(SvgPath svgPath)
-    {
-        IEnumerable<int> historyIds;
-        if (Filters.Count is 0) historyIds = VHistories.Select(s => s.Id);
-        else
-        {
-            var items = Filters.Last() == FilterCategory
-                ? OriginalVHistories.Last().AsEnumerable()
-                : VHistories.AsEnumerable();
-
-            historyIds = items.Select(s => s.Id);
-        }
-
-        var mapper = Mapping.Mapper;
-        await using var context = new DataBaseContext();
-        var categoryTypeFk = context.THistories
-            .Where(s => historyIds.Contains(s.Id))
-            .Select(s => s.CategoryTypeFk!)
-            .Distinct()
-            .ToList();
-
-        var vCategoryDerives = context.VCategories
-            .Where(s => categoryTypeFk.Contains(s.Id))
-            .OrderBy(s => s.CategoryName)
-            .Select(s => mapper.Map<VCategoryDerive>(s))
-            .ToList();
-
-        var customPopupFilterCategories = new CustomPopupFilterCategories(vCategoryDerives, VCategoryDerivesFilter);
-        await this.ShowPopupAsync(customPopupFilterCategories);
-
-        FilterManagement(VCategoryDerivesFilter, customPopupFilterCategories, FilterCategory, svgPath);
-    }
-
-    private async Task FilterDescription(SvgPath svgPath)
-    {
-        IEnumerable<StringIsChecked> historyDescription;
-        if (Filters.Count is 0) historyDescription = VHistories.Select(s => new StringIsChecked { StringValue = s.Description});
-        else
-        {
-            var items = Filters.Last() == FilterDescription
-                ? OriginalVHistories.Last().AsEnumerable()
-                : VHistories.AsEnumerable();
-
-            historyDescription = items.Select(s => new StringIsChecked { StringValue = s.Description});
-        }
-
-        historyDescription = historyDescription.Distinct();
-        historyDescription = historyDescription.OrderBy(s => s.StringValue);
-
-        var customPopupFilterDescription = new CustomPopupFilterHistoryDescriptions(historyDescription, HistoryDescriptions);
-        await this.ShowPopupAsync(customPopupFilterDescription);
-
-        FilterManagement(HistoryDescriptions, customPopupFilterDescription, FilterDescription, svgPath);
-    }
-
-    private async Task FilterPaymentMode(SvgPath svgPath)
-    {
-        IEnumerable<int> historyIds;
-        if (Filters.Count is 0) historyIds = VHistories.Select(s => s.Id);
-        else
-        {
-            var items = Filters.Last() == FilterPaymentMode
-                ? OriginalVHistories.Last().AsEnumerable()
-                : VHistories.AsEnumerable();
-
-            historyIds = items.Select(s => s.Id);
-        }
-
-        var mapper = Mapping.Mapper;
-        await using var context = new DataBaseContext();
-        var modePaymentFk = context.THistories
-            .Where(s => historyIds.Contains(s.Id))
-            .Select(s => s.ModePaymentFk!)
-            .Distinct()
-            .ToList();
-
-        var tModePaymentDerives = context.TModePayments
-            .Where(s => modePaymentFk.Contains(s.Id))
-            .OrderBy(s => s.Name)
-            .Select(s => mapper.Map<TModePaymentDerive>(s))
-            .ToList();
-
-        var customPopupFilterModePayment = new CustomPopupFilterModePayments(tModePaymentDerives, ModePaymentDeriveFilter);
-        await this.ShowPopupAsync(customPopupFilterModePayment);
-
-        FilterManagement(ModePaymentDeriveFilter, customPopupFilterModePayment, FilterPaymentMode, svgPath);
-    }
-
-    private async Task FilterValue(SvgPath svgPath)
-    {
-        IEnumerable<DoubleIsChecked> historyValues;
-        if (Filters.Count is 0) historyValues = VHistories.Select(s => new DoubleIsChecked { DoubleValue = s.Value });
-        else
-        {
-            var items = Filters.Last() == FilterValue
-                ? OriginalVHistories.Last().AsEnumerable()
-                : VHistories.AsEnumerable();
-
-            historyValues = items.Select(s => new DoubleIsChecked { DoubleValue = s.Value });
-        }
-
-        historyValues = historyValues.Distinct();
-        historyValues = historyValues.OrderBy(s => s.DoubleValue);
-
-        var customPopupFilterHistoryValues = new CustomPopupFilterHistoryValues(historyValues, HistoryValues);
-        await this.ShowPopupAsync(customPopupFilterHistoryValues);
-
-        FilterManagement(HistoryValues, customPopupFilterHistoryValues, FilterValue, svgPath);
-    }
-
     private static SvgPath? FindSvgPath(object? sender)
     {
         return sender switch
@@ -677,44 +716,5 @@ public partial class DashBoardContentPage
                 ? horizontalStackLayout.FindVisualChildren<SvgPath>().FirstOrDefault()
                 : null
         };
-    }
-
-    private bool RefreshFilter<T>(List<T> collection, ICustomPopupFilter<T> customPopupFilter, SvgPath svgPath)
-    {
-        collection.Clear();
-        collection.AddRange(customPopupFilter.GetFilteredItemChecked());
-
-        var itemCheckedCount = customPopupFilter.GetFilteredItemCheckedCount();
-        var itemCount = customPopupFilter.GetFilteredItemCount();
-
-        var icon = itemCheckedCount is 0 || itemCheckedCount.Equals(itemCount)
-            ? EPackIcons.Filter
-            : EPackIcons.FilterCheck;
-
-        svgPath.GeometrySource = icon;
-
-        RefreshDataGrid();
-
-        return icon is EPackIcons.FilterCheck;
-    }
-
-    private void FilterManagement<T>(List<T> collection, ICustomPopupFilter<T> customPopupFilter, Func<SvgPath, Task> filterFunc, SvgPath svgPath)
-    {
-        if (Filters.Count is 0 || Filters.Last() != filterFunc)
-        {
-            Filters.Add(filterFunc);
-            OriginalVHistories.Add(VHistories.ToList());
-        }
-
-        var isActive = RefreshFilter(collection, customPopupFilter, svgPath);
-
-        if (!isActive && Filters.Last() == filterFunc)
-        {
-            var lastIndex = Filters.Count - 1;
-            Filters.RemoveAt(lastIndex);
-
-            lastIndex = OriginalVHistories.Count - 1;
-            OriginalVHistories.RemoveAt(lastIndex);
-        }
     }
 }
