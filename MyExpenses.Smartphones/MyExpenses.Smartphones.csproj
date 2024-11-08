@@ -190,6 +190,15 @@
         <AutoGen>True</AutoGen>
         <DependentUpon>CustomPopupFilterModePaymentsResources.resx</DependentUpon>
       </Compile>
+      <Compile Update="ContentPages\CustomPopups\CustomPopupFilterHistoryValues.xaml.cs">
+        <DependentUpon>CustomPopupFilterHistoryValues.xaml</DependentUpon>
+        <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="Resources\Resx\ContentPages\CustomPopups\CustomPopupFilterHistoryValues\CustomPopupFilterHistoryValuesResources.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>CustomPopupFilterHistoryValuesResources.resx</DependentUpon>
+      </Compile>
     </ItemGroup>
 
     <ItemGroup>
