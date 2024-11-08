@@ -108,6 +108,9 @@
       <MauiXaml Update="ContentPages\CustomPopups\CustomPopupFilterModePayments.xaml">
         <SubType>Designer</SubType>
       </MauiXaml>
+      <MauiXaml Update="ContentPages\CustomPopups\CustomPopupFilterHistoryValues.xaml">
+        <SubType>Designer</SubType>
+      </MauiXaml>
     </ItemGroup>
 
     <ItemGroup>
@@ -245,6 +248,10 @@
       <EmbeddedResource Update="Resources\Resx\ContentPages\CustomPopups\CustomPopupFilterModePayments\CustomPopupFilterModePaymentsResources.resx">
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>CustomPopupFilterModePaymentsResources.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+      <EmbeddedResource Update="Resources\Resx\ContentPages\CustomPopups\CustomPopupFilterHistoryValues\CustomPopupFilterHistoryValuesResources.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>CustomPopupFilterHistoryValuesResources.Designer.cs</LastGenOutput>
       </EmbeddedResource>
     </ItemGroup>
 
