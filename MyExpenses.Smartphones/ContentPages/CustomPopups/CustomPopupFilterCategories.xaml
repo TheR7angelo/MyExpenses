@@ -21,9 +21,15 @@
             Stroke="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
             margin:LayoutExtensions.MarginForAllChildren="5">
 
-        <VerticalStackLayout>
+        <Grid>
 
-            <HorizontalStackLayout>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <HorizontalStackLayout Grid.Row="0">
 
                 <images:SvgPath GeometryColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
                                 GeometrySource="{Binding GeometrySource, Mode=OneWay}"
@@ -38,49 +44,54 @@
 
             </HorizontalStackLayout>
 
-            <CollectionView ItemsSource="{Binding VCategoryDerives, Mode=OneWay}">
+            <ScrollView Grid.Row="1">
 
-                <CollectionView.ItemsLayout>
-                    <LinearItemsLayout Orientation="Vertical" ItemSpacing="1" />
-                </CollectionView.ItemsLayout>
+                <CollectionView ItemsSource="{Binding VCategoryDerives, Mode=OneWay}">
 
-                <CollectionView.ItemTemplate>
-                    <DataTemplate>
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Vertical" ItemSpacing="1" />
+                    </CollectionView.ItemsLayout>
 
-                        <HorizontalStackLayout VerticalOptions="Center">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
 
-                            <CheckBox VerticalOptions="Center"
-                                      IsChecked="{Binding IsChecked, Mode=TwoWay}"
-                                      CheckedChanged="CheckBox_OnCheckedChanged">
-                            </CheckBox>
+                            <HorizontalStackLayout VerticalOptions="Center">
 
-                            <Ellipse HeightRequest="24"
-                                     WidthRequest="{Binding HeightRequest, Source={RelativeSource Self}}"
-                                     Stroke="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
-                                     StrokeThickness="1.5"
-                                     Fill="{Binding HexadecimalColorCode, Mode=OneWay, Converter={StaticResource StringToBrushConverter}}"
-                                     Margin="10, 0">
-                            </Ellipse>
+                                <CheckBox VerticalOptions="Center"
+                                          IsChecked="{Binding IsChecked, Mode=TwoWay}"
+                                          CheckedChanged="CheckBox_OnCheckedChanged">
+                                </CheckBox>
 
-                            <Label VerticalTextAlignment="Center"
-                                   Text="{Binding CategoryName, Mode=OneWay}">
-                            </Label>
+                                <Ellipse HeightRequest="24"
+                                         WidthRequest="{Binding HeightRequest, Source={RelativeSource Self}}"
+                                         Stroke="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
+                                         StrokeThickness="1.5"
+                                         Fill="{Binding HexadecimalColorCode, Mode=OneWay, Converter={StaticResource StringToBrushConverter}}"
+                                         Margin="10, 0">
+                                </Ellipse>
 
-                        </HorizontalStackLayout>
+                                <Label VerticalTextAlignment="Center"
+                                       Text="{Binding CategoryName, Mode=OneWay}">
+                                </Label>
 
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
+                            </HorizontalStackLayout>
 
-            </CollectionView>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
 
-            <Button Style="{StaticResource PaperMidButton}"
+                </CollectionView>
+
+            </ScrollView>
+
+            <Button Grid.Row="2"
+                    Style="{StaticResource PaperMidButton}"
                     Text="{Binding ButtonCloseText, Mode=OneWay}"
                     Clicked="ButtonClose_OnClicked"
                     HorizontalOptions="Center"
                     VerticalOptions="Center">
             </Button>
 
-        </VerticalStackLayout>
+        </Grid>
 
     </Border>
 

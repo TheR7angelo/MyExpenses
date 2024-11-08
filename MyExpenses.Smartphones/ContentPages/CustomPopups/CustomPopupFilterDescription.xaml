@@ -6,7 +6,6 @@
                xmlns:margin="clr-namespace:MyExpenses.Maui.Utils.Margin;assembly=MyExpenses.Maui.Utils"
                xmlns:images="clr-namespace:MyExpenses.Smartphones.UserControls.Images"
                x:Class="MyExpenses.Smartphones.ContentPages.CustomPopups.CustomPopupFilterDescription"
-
                BindingContext="{Binding Source={RelativeSource Self}}">
 
     <Border BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Black}}"
@@ -15,9 +14,15 @@
             Stroke="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
             margin:LayoutExtensions.MarginForAllChildren="5">
 
-        <VerticalStackLayout>
+        <Grid>
 
-            <HorizontalStackLayout>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <HorizontalStackLayout Grid.Row="0">
 
                 <images:SvgPath GeometryColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
                                 GeometrySource="{Binding GeometrySource, Mode=OneWay}"
@@ -32,7 +37,7 @@
 
             </HorizontalStackLayout>
 
-            <ScrollView>
+            <ScrollView Grid.Row="1">
 
                 <CollectionView ItemsSource="{Binding HistoryDescriptions, Mode=OneWay}">
 
@@ -63,14 +68,15 @@
 
             </ScrollView>
 
-            <Button Style="{StaticResource PaperMidButton}"
+            <Button Grid.Row="2"
+                    Style="{StaticResource PaperMidButton}"
                     Text="{Binding ButtonCloseText, Mode=OneWay}"
                     Clicked="ButtonClose_OnClicked"
                     HorizontalOptions="Center"
-                    VerticalOptions="Center">
+                    VerticalOptions="End">
             </Button>
 
-        </VerticalStackLayout>
+        </Grid>
 
     </Border>
 
