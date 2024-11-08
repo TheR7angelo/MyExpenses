@@ -173,6 +173,11 @@
         <AutoGen>True</AutoGen>
         <DependentUpon>CustomPopupFilterCategoriesResources.resx</DependentUpon>
       </Compile>
+      <Compile Update="Resources\Resx\ContentPages\CustomPopups\CustomPopupFilterDescription\CustomPopupFilterDescriptionResources.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>CustomPopupFilterDescriptionResources.resx</DependentUpon>
+      </Compile>
     </ItemGroup>
 
     <ItemGroup>
@@ -211,6 +216,10 @@
       <EmbeddedResource Update="Resources\Resx\ContentPages\CustomPopups\CustomPopupFilterCategories\CustomPopupFilterCategoriesResources.resx">
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>CustomPopupFilterCategoriesResources.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+      <EmbeddedResource Update="Resources\Resx\ContentPages\CustomPopups\CustomPopupFilterDescription\CustomPopupFilterDescriptionResources.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>CustomPopupFilterDescriptionResources.Designer.cs</LastGenOutput>
       </EmbeddedResource>
     </ItemGroup>
 

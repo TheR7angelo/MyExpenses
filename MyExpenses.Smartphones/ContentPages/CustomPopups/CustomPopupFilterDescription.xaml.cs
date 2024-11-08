@@ -3,6 +3,7 @@ using MyExpenses.Models.Config;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Maui.CustomPopupFilter;
 using MyExpenses.Smartphones.PackIcons;
+using MyExpenses.Smartphones.Resources.Resx.ContentPages.CustomPopups.CustomPopupFilterDescription;
 using MyExpenses.Utils.Collection;
 
 namespace MyExpenses.Smartphones.ContentPages.CustomPopups;
@@ -70,8 +71,8 @@ public partial class CustomPopupFilterDescription : ICustomPopupFilter<StringIsC
 
     private void UpdateLanguage()
     {
-        SearchBarPlaceHolderText = "SearchBar";
-        ButtonCloseText = "Close";
+        SearchBarPlaceHolderText = CustomPopupFilterDescriptionResources.SearchBarPlaceHolderText;
+        ButtonCloseText = CustomPopupFilterDescriptionResources.ButtonCloseText;
     }
 
     public IEnumerable<StringIsChecked> GetFilteredItemChecked()
