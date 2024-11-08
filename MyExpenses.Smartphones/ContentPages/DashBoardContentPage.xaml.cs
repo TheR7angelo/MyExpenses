@@ -548,12 +548,11 @@ public partial class DashBoardContentPage
         }
         else
         {
-            var vHistoryId = VHistories.Select(s => s.Id);
-
-            var categoryFk = context.THistories
-                .Where(s => vHistoryId.Contains(s.Id))
-                .Select(s => s.CategoryTypeFk!);
-            var categoryTypeFk = categoryFk.Distinct().ToList();
+            var categoryTypeFk = context.THistories
+                .Where(s => VHistories.Any(v => v.Id == s.Id))
+                .Select(s => s.CategoryTypeFk!)
+                .Distinct()
+                .ToList();
 
             vCategoryDerives = context.VCategories
                 .Where(s => categoryTypeFk.Contains(s.Id))
@@ -564,7 +563,9 @@ public partial class DashBoardContentPage
         var customPopupFilterCategories = new CustomPopupFilterCategories(vCategoryDerives, VCategoryDerivesFilter);
         await this.ShowPopupAsync(customPopupFilterCategories);
 
-        RefreshFilter(VCategoryDerivesFilter, customPopupFilterCategories, svgPath);
+        var isActive = RefreshFilter(VCategoryDerivesFilter, customPopupFilterCategories, svgPath);
+
+        if (FirstFilter is not null && FirstFilter == FilterCategory && !isActive) FirstFilter = null;
     }
 
     // TODO work
@@ -606,7 +607,7 @@ public partial class DashBoardContentPage
         };
     }
 
-    private void RefreshFilter<T>(List<T> collection, ICustomPopupFilter<T> customPopupFilter, SvgPath svgPath)
+    private bool RefreshFilter<T>(List<T> collection, ICustomPopupFilter<T> customPopupFilter, SvgPath svgPath)
     {
         collection.Clear();
         collection.AddRange(customPopupFilter.GetFilteredItemChecked());
@@ -621,5 +622,7 @@ public partial class DashBoardContentPage
         svgPath.GeometrySource = icon;
 
         RefreshDataGrid();
+
+        return icon is EPackIcons.FilterCheck;
     }
 }
