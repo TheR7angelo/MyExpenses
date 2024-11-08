@@ -538,34 +538,24 @@ public partial class DashBoardContentPage
     {
         var mapper = Mapping.Mapper;
 
+        var historyIds = VHistories.Select(s => s.Id);
+
         await using var context = new DataBaseContext();
+        var categoryTypeFk = context.THistories
+            .Where(s => historyIds.Contains(s.Id))
+            .Select(s => s.CategoryTypeFk!)
+            .Distinct()
+            .ToList();
 
-        List<VCategoryDerive> vCategoryDerives;
-        if (FirstFilter is null || FirstFilter == FilterCategory)
-        {
-            vCategoryDerives = context.VCategories.Select(s => mapper.Map<VCategoryDerive>(s)).ToList();
-            FirstFilter = FilterCategory;
-        }
-        else
-        {
-            var categoryTypeFk = context.THistories
-                .Where(s => VHistories.Any(v => v.Id == s.Id))
-                .Select(s => s.CategoryTypeFk!)
-                .Distinct()
-                .ToList();
-
-            vCategoryDerives = context.VCategories
-                .Where(s => categoryTypeFk.Contains(s.Id))
-                .Select(s => mapper.Map<VCategoryDerive>(s))
-                .ToList();
-        }
+        var vCategoryDerives = context.VCategories
+            .Where(s => categoryTypeFk.Contains(s.Id))
+            .Select(s => mapper.Map<VCategoryDerive>(s))
+            .ToList();
 
         var customPopupFilterCategories = new CustomPopupFilterCategories(vCategoryDerives, VCategoryDerivesFilter);
         await this.ShowPopupAsync(customPopupFilterCategories);
 
-        var isActive = RefreshFilter(VCategoryDerivesFilter, customPopupFilterCategories, svgPath);
-
-        if (FirstFilter is not null && FirstFilter == FilterCategory && !isActive) FirstFilter = null;
+        RefreshFilter(VCategoryDerivesFilter, customPopupFilterCategories, svgPath);
     }
 
     // TODO work
