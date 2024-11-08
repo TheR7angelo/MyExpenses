@@ -532,14 +532,23 @@ public partial class DashBoardContentPage
         await FilterValue(svgPath);
     }
 
-    private Func<SvgPath,Task>? FirstFilter { get; set; }
+    private List<Func<SvgPath, Task>> Filters { get; } = [];
+    private List<List<VHistory>> OriginalVHistories { get; } = [];
 
     private async Task FilterCategory(SvgPath svgPath)
     {
+        IEnumerable<int> historyIds;
+        if (Filters.Count is 0) historyIds = VHistories.Select(s => s.Id);
+        else
+        {
+            var items = Filters.Last() == FilterCategory
+                ? OriginalVHistories.Last().AsEnumerable()
+                : VHistories.AsEnumerable();
+
+            historyIds = items.Select(s => s.Id);
+        }
+
         var mapper = Mapping.Mapper;
-
-        var historyIds = VHistories.Select(s => s.Id);
-
         await using var context = new DataBaseContext();
         var categoryTypeFk = context.THistories
             .Where(s => historyIds.Contains(s.Id))
@@ -555,7 +564,7 @@ public partial class DashBoardContentPage
         var customPopupFilterCategories = new CustomPopupFilterCategories(vCategoryDerives, VCategoryDerivesFilter);
         await this.ShowPopupAsync(customPopupFilterCategories);
 
-        RefreshFilter(VCategoryDerivesFilter, customPopupFilterCategories, svgPath);
+        FilterManagement(svgPath, customPopupFilterCategories, FilterCategory);
     }
 
     // TODO work
@@ -614,5 +623,26 @@ public partial class DashBoardContentPage
         RefreshDataGrid();
 
         return icon is EPackIcons.FilterCheck;
+    }
+
+    private void FilterManagement(SvgPath svgPath, CustomPopupFilterCategories customPopupFilterCategories,
+        Func<SvgPath, Task> filterFunc)
+    {
+        if (Filters.Count is 0 || Filters.Last() != filterFunc)
+        {
+            Filters.Add(filterFunc);
+            OriginalVHistories.Add(VHistories.ToList());
+        }
+
+        var isActive = RefreshFilter(VCategoryDerivesFilter, customPopupFilterCategories, svgPath);
+
+        if (!isActive && Filters.Last() == filterFunc)
+        {
+            var lastIndex = Filters.Count - 1;
+            Filters.RemoveAt(lastIndex);
+
+            lastIndex = OriginalVHistories.Count - 1;
+            OriginalVHistories.RemoveAt(lastIndex);
+        }
     }
 }
