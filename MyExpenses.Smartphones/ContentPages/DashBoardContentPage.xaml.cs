@@ -4,6 +4,7 @@ using System.Globalization;
 using System.Windows.Input;
 using CommunityToolkit.Maui.Views;
 using MyExpenses.Maui.Utils;
+using MyExpenses.Models.AutoMapper;
 using MyExpenses.Models.Config;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Maui.CustomPopupFilter;
@@ -531,9 +532,36 @@ public partial class DashBoardContentPage
         await FilterValue(svgPath);
     }
 
+    private Func<SvgPath,Task>? FirstFilter { get; set; }
+
     private async Task FilterCategory(SvgPath svgPath)
     {
-        var customPopupFilterCategories = new CustomPopupFilterCategories(VCategoryDerivesFilter);
+        var mapper = Mapping.Mapper;
+
+        await using var context = new DataBaseContext();
+
+        List<VCategoryDerive> vCategoryDerives;
+        if (FirstFilter is null || FirstFilter == FilterCategory)
+        {
+            vCategoryDerives = context.VCategories.Select(s => mapper.Map<VCategoryDerive>(s)).ToList();
+            FirstFilter = FilterCategory;
+        }
+        else
+        {
+            var vHistoryId = VHistories.Select(s => s.Id);
+
+            var categoryFk = context.THistories
+                .Where(s => vHistoryId.Contains(s.Id))
+                .Select(s => s.CategoryTypeFk!);
+            var categoryTypeFk = categoryFk.Distinct().ToList();
+
+            vCategoryDerives = context.VCategories
+                .Where(s => categoryTypeFk.Contains(s.Id))
+                .Select(s => mapper.Map<VCategoryDerive>(s))
+                .ToList();
+        }
+
+        var customPopupFilterCategories = new CustomPopupFilterCategories(vCategoryDerives, VCategoryDerivesFilter);
         await this.ShowPopupAsync(customPopupFilterCategories);
 
         RefreshFilter(VCategoryDerivesFilter, customPopupFilterCategories, svgPath);
