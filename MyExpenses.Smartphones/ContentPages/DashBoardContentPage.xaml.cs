@@ -133,6 +133,7 @@ public partial class DashBoardContentPage
     private static DashBoardContentPage Instance { get; set; } = null!;
 
     private List<VCategoryDerive> VCategoryDerivesFilter { get; } = [];
+    private List<(string HistoryDescriptions, bool IsChecked)> HistoryDescriptions { get; } = [];
 
     public ICommand CollectionViewVHistoryShortPressCommand { get; }
     private bool _isCollectionViewVHistoryLongPressInvoked;
@@ -390,6 +391,12 @@ public partial class DashBoardContentPage
             query = query.Where(s => categoryName.Contains(s.Category));
         }
 
+        if (HistoryDescriptions.Count > 0)
+        {
+            var historyDescriptions = HistoryDescriptions.Select(s => s.HistoryDescriptions);
+            query = query.Where(s => historyDescriptions.Contains(s.Description));
+        }
+
         var records = query
             .OrderBy(s => s.Pointed)
             .ThenByDescending(s => s.Date)
@@ -570,10 +577,21 @@ public partial class DashBoardContentPage
     // TODO work
     private async Task FilterDescription(SvgPath svgPath)
     {
-        var popup = new CustomPopup();
-        await this.ShowPopupAsync(popup);
+        IEnumerable<(string HistoryDescriptions, bool IsChecked)> historyDescription;
+        if (Filters.Count is 0) historyDescription = VHistories.Select(s => (s.Description!, false));
+        else
+        {
+            var items = Filters.Last() == FilterCategory
+                ? OriginalVHistories.Last().AsEnumerable()
+                : VHistories.AsEnumerable();
 
-        svgPath.GeometrySource = EPackIcons.FilterCheck;
+            historyDescription = items.Select(s => (s.Description!, true));
+        }
+
+        var customPopupFilterDescription = new CustomPopupFilterDescription(historyDescription, HistoryDescriptions);
+        await this.ShowPopupAsync(customPopupFilterDescription);
+
+        FilterManagement(HistoryDescriptions, customPopupFilterDescription, FilterDescription, svgPath);
     }
 
     // TODO work
