@@ -88,6 +88,15 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.DashBoardContentPag
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Pointed.
+        /// </summary>
+        internal static string LabelTextChecked {
+            get {
+                return ResourceManager.GetString("LabelTextChecked", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Description.
         /// </summary>
         internal static string LabelTextDescription {

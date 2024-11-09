@@ -26,6 +26,15 @@ namespace MyExpenses.Smartphones.ContentPages;
 
 public partial class DashBoardContentPage
 {
+    public static readonly BindableProperty LabelTextCheckedProperty = BindableProperty.Create(nameof(LabelTextChecked),
+        typeof(string), typeof(DashBoardContentPage), default(string));
+
+    public string LabelTextChecked
+    {
+        get => (string)GetValue(LabelTextCheckedProperty);
+        set => SetValue(LabelTextCheckedProperty, value);
+    }
+
     public static readonly BindableProperty LabelTextValueProperty = BindableProperty.Create(nameof(LabelTextValue),
         typeof(string), typeof(DashBoardContentPage), default(string));
 
@@ -137,6 +146,7 @@ public partial class DashBoardContentPage
     private List<StringIsChecked> HistoryDescriptions { get; } = [];
     private List<TModePaymentDerive> ModePaymentDeriveFilter { get; } = [];
     private List<DoubleIsChecked> HistoryValues { get; } = [];
+    private List<BoolIsChecked> HistoryChecked { get; } = [];
 
     private List<EFilter> Filters { get; } = [];
     private List<List<VHistory>> OriginalVHistories { get; } = [];
@@ -340,6 +350,22 @@ public partial class DashBoardContentPage
         await FilterPaymentMode(svgPath);
     }
 
+    private async void PointedTapGestureRecognizer_OnTapped(object? sender, TappedEventArgs e)
+    {
+        var svgPath = FindSvgPath(sender);
+        if (svgPath is null) return;
+
+        await FilterChecked(svgPath);
+    }
+
+    private async void PointedSvgPath_OnClicked(object? sender, EventArgs e)
+    {
+        var svgPath = FindSvgPath(sender);
+        if (svgPath is null) return;
+
+        await FilterChecked(svgPath);
+    }
+
     private async void ValueTapGestureRecognizer_OnTapped(object? sender, TappedEventArgs e)
     {
         var svgPath = FindSvgPath(sender);
@@ -408,31 +434,58 @@ public partial class DashBoardContentPage
         FilterManagement(VCategoryDerivesFilter, customPopupFilterCategories, eFilter, svgPath);
     }
 
-    private async Task FilterDescription(SvgPath svgPath)
+    private async Task FilterChecked(SvgPath svgPath)
     {
-        const EFilter eFilter = EFilter.Description;
+        const EFilter eFilter = EFilter.Checked;
 
-        IEnumerable<StringIsChecked> historyDescription;
-        if (Filters.Count is 0) historyDescription = VHistories.Select(s => new StringIsChecked { StringValue = s.Description});
+        IEnumerable<BoolIsChecked> isCheckeds;
+        if (Filters.Count is 0) isCheckeds = VHistories.Select(s => new BoolIsChecked { BoolValue = (bool)s.Pointed! } );
         else
         {
             var items = Filters.Last() == eFilter
                 ? OriginalVHistories.Last().AsEnumerable()
                 : VHistories.AsEnumerable();
 
-            historyDescription = items.Select(s => new StringIsChecked { StringValue = s.Description});
+            isCheckeds = items.Select(s => new BoolIsChecked { BoolValue = (bool)s.Pointed! });
+        }
+
+        isCheckeds = isCheckeds.Distinct();
+        isCheckeds = isCheckeds.OrderBy(s => s.BoolValue);
+
+        var customPopupFilterChecked = new CustomPopupFilterChecked(isCheckeds, HistoryChecked);
+        await this.ShowPopupAsync(customPopupFilterChecked);
+
+        FilterManagement(HistoryChecked, customPopupFilterChecked, eFilter, svgPath);
+    }
+
+    private async Task FilterDescription(SvgPath svgPath)
+    {
+        const EFilter eFilter = EFilter.Description;
+
+        IEnumerable<StringIsChecked> historyDescription;
+        if (Filters.Count is 0)
+            historyDescription = VHistories.Select(s => new StringIsChecked { StringValue = s.Description });
+        else
+        {
+            var items = Filters.Last() == eFilter
+                ? OriginalVHistories.Last().AsEnumerable()
+                : VHistories.AsEnumerable();
+
+            historyDescription = items.Select(s => new StringIsChecked { StringValue = s.Description });
         }
 
         historyDescription = historyDescription.Distinct();
         historyDescription = historyDescription.OrderBy(s => s.StringValue);
 
-        var customPopupFilterDescription = new CustomPopupFilterHistoryDescriptions(historyDescription, HistoryDescriptions);
+        var customPopupFilterDescription =
+            new CustomPopupFilterHistoryDescriptions(historyDescription, HistoryDescriptions);
         await this.ShowPopupAsync(customPopupFilterDescription);
 
         FilterManagement(HistoryDescriptions, customPopupFilterDescription, eFilter, svgPath);
     }
 
-    private void FilterManagement<T>(List<T> collection, ICustomPopupFilter<T> customPopupFilter, EFilter eFilter, SvgPath svgPath)
+    private void FilterManagement<T>(List<T> collection, ICustomPopupFilter<T> customPopupFilter, EFilter eFilter,
+        SvgPath svgPath)
     {
         if (Filters.Count is 0 || Filters.Last() != eFilter)
         {
@@ -617,6 +670,12 @@ public partial class DashBoardContentPage
             query = query.Where(s => historyValues.Contains(s.Value));
         }
 
+        if (HistoryChecked.Count > 0)
+        {
+            var historyChecked = HistoryChecked.Select(s => s.BoolValue);
+            query = query.Where(s => historyChecked.Contains((bool)s.Pointed!));
+        }
+
         var records = query
             .OrderBy(s => s.Pointed)
             .ThenByDescending(s => s.Date)
@@ -686,6 +745,7 @@ public partial class DashBoardContentPage
         LabelTextDescription = DashBoardContentPageResources.LabelTextDescription;
         LabelTextPaymentMode = DashBoardContentPageResources.LabelTextPaymentMode;
         LabelTextValue = DashBoardContentPageResources.LabelTextValue;
+        LabelTextChecked = DashBoardContentPageResources.LabelTextChecked;
     }
 
     private void UpdateMonthLanguage()
@@ -731,6 +791,7 @@ public partial class DashBoardContentPage
         Category,
         Description,
         PaymentMode,
-        Value
+        Value,
+        Checked
     }
 }

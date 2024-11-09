@@ -165,79 +165,118 @@
 
             </Border>
 
-            <HorizontalStackLayout Grid.Row="4"
-                                   HorizontalOptions="Center"
-                                   margin:LayoutExtensions.MarginForAllChildren="3">
+            <ScrollView Grid.Row="4"
+                        Orientation="Horizontal">
 
-                <HorizontalStackLayout VerticalOptions="Center">
+                <HorizontalStackLayout HorizontalOptions="Center"
+                                       margin:LayoutExtensions.MarginForAllChildren="3">
 
-                    <Label Text="{Binding LabelTextCategory, Mode=OneWay}" />
+                    <HorizontalStackLayout VerticalOptions="Center">
 
-                    <images:SvgPath GeometryColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
-                                    GeometrySource="Filter"
-                                    WidthRequest="24"
-                                    HeightRequest="24"
-                                    Clicked="CategorySvgPath_OnClicked">
-                    </images:SvgPath>
+                        <Label Text="{Binding LabelTextCategory, Mode=OneWay}" />
 
-                    <HorizontalStackLayout.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="CategoryTapGestureRecognizer_Tapped" NumberOfTapsRequired="1"/>
-                    </HorizontalStackLayout.GestureRecognizers>
+                        <images:SvgPath GeometryColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
+                                        GeometrySource="Filter"
+                                        WidthRequest="24"
+                                        HeightRequest="24"
+                                        Clicked="CategorySvgPath_OnClicked">
+                        </images:SvgPath>
 
-                </HorizontalStackLayout>
+                        <HorizontalStackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="CategoryTapGestureRecognizer_Tapped" NumberOfTapsRequired="1"/>
+                        </HorizontalStackLayout.GestureRecognizers>
 
-                <HorizontalStackLayout VerticalOptions="Center">
+                    </HorizontalStackLayout>
 
-                    <Label Text="{Binding LabelTextDescription, Mode=OneWay}" />
+                    <HorizontalStackLayout VerticalOptions="Center">
 
-                    <images:SvgPath GeometryColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
-                                    GeometrySource="Filter"
-                                    WidthRequest="24"
-                                    HeightRequest="24"
-                                    Clicked="DescriptionSvgPath_OnClicked">
-                    </images:SvgPath>
+                        <Label Text="{Binding LabelTextDescription, Mode=OneWay}" />
 
-                    <HorizontalStackLayout.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="DescriptionTapGestureRecognizer_OnTapped" NumberOfTapsRequired="1"/>
-                    </HorizontalStackLayout.GestureRecognizers>
+                        <images:SvgPath GeometryColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
+                                        GeometrySource="Filter"
+                                        WidthRequest="24"
+                                        HeightRequest="24"
+                                        Clicked="DescriptionSvgPath_OnClicked">
+                        </images:SvgPath>
 
-                </HorizontalStackLayout>
+                        <HorizontalStackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="DescriptionTapGestureRecognizer_OnTapped" NumberOfTapsRequired="1"/>
+                        </HorizontalStackLayout.GestureRecognizers>
 
-                <HorizontalStackLayout VerticalOptions="Center">
+                    </HorizontalStackLayout>
 
-                    <Label Text="{Binding LabelTextPaymentMode, Mode=OneWay}" />
+                    <HorizontalStackLayout VerticalOptions="Center">
 
-                    <images:SvgPath GeometryColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
-                                    GeometrySource="Filter"
-                                    WidthRequest="24"
-                                    HeightRequest="24"
-                                    Clicked="PaymentModeSvgPath_OnClicked">
-                    </images:SvgPath>
+                        <Label Text="{Binding LabelTextPaymentMode, Mode=OneWay}" />
 
-                    <HorizontalStackLayout.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="PaymentModeTapGestureRecognizer_OnTapped" NumberOfTapsRequired="1"/>
-                    </HorizontalStackLayout.GestureRecognizers>
+                        <images:SvgPath GeometryColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
+                                        GeometrySource="Filter"
+                                        WidthRequest="24"
+                                        HeightRequest="24"
+                                        Clicked="PaymentModeSvgPath_OnClicked">
+                        </images:SvgPath>
 
-                </HorizontalStackLayout>
+                        <HorizontalStackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="PaymentModeTapGestureRecognizer_OnTapped" NumberOfTapsRequired="1"/>
+                        </HorizontalStackLayout.GestureRecognizers>
 
-                <HorizontalStackLayout VerticalOptions="Center">
+                    </HorizontalStackLayout>
 
-                    <Label Text="{Binding LabelTextValue, Mode=OneWay}" />
+                    <HorizontalStackLayout VerticalOptions="Center">
 
-                    <images:SvgPath GeometryColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
-                                    GeometrySource="Filter"
-                                    WidthRequest="24"
-                                    HeightRequest="24"
-                                    Clicked="ValueSvgPath_OnClicked">
-                    </images:SvgPath>
+                        <Label Text="{Binding LabelTextValue, Mode=OneWay}" />
 
-                    <HorizontalStackLayout.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="ValueTapGestureRecognizer_OnTapped" NumberOfTapsRequired="1"/>
-                    </HorizontalStackLayout.GestureRecognizers>
+                        <images:SvgPath GeometryColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
+                                        GeometrySource="Filter"
+                                        WidthRequest="24"
+                                        HeightRequest="24"
+                                        Clicked="ValueSvgPath_OnClicked">
+                        </images:SvgPath>
 
-                </HorizontalStackLayout>
+                        <HorizontalStackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="ValueTapGestureRecognizer_OnTapped" NumberOfTapsRequired="1"/>
+                        </HorizontalStackLayout.GestureRecognizers>
+
+                    </HorizontalStackLayout>
+
+                    <HorizontalStackLayout VerticalOptions="Center">
+
+                        <!-- <Label Text="{Binding LabelTextChecked, Mode=OneWay}" /> -->
+                        <Label Text="Pointed" />
+
+                        <images:SvgPath GeometryColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
+                                        GeometrySource="Filter"
+                                        WidthRequest="24"
+                                        HeightRequest="24"
+                                        Clicked="PointedSvgPath_OnClicked">
+                        </images:SvgPath>
+
+                        <HorizontalStackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="PointedTapGestureRecognizer_OnTapped" NumberOfTapsRequired="1"/>
+                        </HorizontalStackLayout.GestureRecognizers>
+
+                    </HorizontalStackLayout>
+
+                    <HorizontalStackLayout VerticalOptions="Center">
+
+                        <Label Text="{Binding LabelTextValue, Mode=OneWay}" />
+
+                        <images:SvgPath GeometryColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
+                                        GeometrySource="Filter"
+                                        WidthRequest="24"
+                                        HeightRequest="24"
+                                        Clicked="ValueSvgPath_OnClicked">
+                        </images:SvgPath>
+
+                        <HorizontalStackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="ValueTapGestureRecognizer_OnTapped" NumberOfTapsRequired="1"/>
+                        </HorizontalStackLayout.GestureRecognizers>
+
+                    </HorizontalStackLayout>
 
             </HorizontalStackLayout>
+
+            </ScrollView>
 
             <CollectionView Grid.Row="5"
                             ItemsSource="{Binding VHistories, Mode=OneWay}">

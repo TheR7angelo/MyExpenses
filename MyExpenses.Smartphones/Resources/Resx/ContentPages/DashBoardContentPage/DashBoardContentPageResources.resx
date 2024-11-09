@@ -72,4 +72,7 @@
     <data name="LabelTextValue" xml:space="preserve">
         <value>Value</value>
     </data>
+    <data name="LabelTextChecked" xml:space="preserve">
+        <value>Pointed</value>
+    </data>
 </root>
