@@ -171,6 +171,13 @@
                 <HorizontalStackLayout HorizontalOptions="Center"
                                        margin:LayoutExtensions.MarginForAllChildren="3">
 
+                    <images:SvgPath GeometryColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
+                                    GeometrySource="Refresh"
+                                    WidthRequest="24"
+                                    HeightRequest="24"
+                                    Clicked="SvgPathRefresh_OnClicked">
+                    </images:SvgPath>
+
                     <HorizontalStackLayout VerticalOptions="Center">
 
                         <Label Text="{Binding LabelTextCategory, Mode=OneWay}" />
@@ -273,7 +280,14 @@
 
                     </HorizontalStackLayout>
 
-            </HorizontalStackLayout>
+                    <images:SvgPath GeometryColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
+                                    GeometrySource="Refresh"
+                                    WidthRequest="24"
+                                    HeightRequest="24"
+                                    Clicked="SvgPathRefresh_OnClicked">
+                    </images:SvgPath>
+
+                </HorizontalStackLayout>
 
             </ScrollView>
 

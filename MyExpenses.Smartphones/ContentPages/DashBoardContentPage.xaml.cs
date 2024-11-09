@@ -392,6 +392,30 @@ public partial class DashBoardContentPage
         await FilterChecked(svgPath);
     }
 
+    private void SvgPathRefresh_OnClicked(object? sender, EventArgs e)
+    {
+        if (sender is not SvgPath svgPath) return;
+        if (svgPath.Parent is not HorizontalStackLayout horizontalStackLayout) return;
+
+        var horizontalStackLayoutChildren = horizontalStackLayout.FindVisualChildren<HorizontalStackLayout>();
+        foreach (var horizontalStackLayoutChild in horizontalStackLayoutChildren)
+        {
+            var svgPathChild = horizontalStackLayoutChild.FindVisualChildren<SvgPath>().FirstOrDefault();
+            if (svgPathChild is null) continue;
+
+            svgPathChild.GeometrySource = EPackIcons.Filter;
+        }
+
+        VCategoryDerivesFilter.Clear();
+        HistoryDescriptions.Clear();
+        ModePaymentDeriveFilter.Clear();
+        HistoryValues.Clear();
+        HistoryChecked.Clear();
+        PlaceDeriveFilter.Clear();
+
+        RefreshDataGrid();
+    }
+
     private async void ValueTapGestureRecognizer_OnTapped(object? sender, TappedEventArgs e)
     {
         var svgPath = FindSvgPath(sender);
