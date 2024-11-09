@@ -241,8 +241,7 @@
 
                     <HorizontalStackLayout VerticalOptions="Center">
 
-                        <!-- <Label Text="{Binding LabelTextChecked, Mode=OneWay}" /> -->
-                        <Label Text="Pointed" />
+                        <Label Text="{Binding LabelTextChecked, Mode=OneWay}" />
 
                         <images:SvgPath GeometryColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
                                         GeometrySource="Filter"
