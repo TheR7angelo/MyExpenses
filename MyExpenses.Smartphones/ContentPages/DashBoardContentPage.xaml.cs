@@ -138,7 +138,7 @@ public partial class DashBoardContentPage
     private List<TModePaymentDerive> ModePaymentDeriveFilter { get; } = [];
     private List<DoubleIsChecked> HistoryValues { get; } = [];
 
-    private List<Func<SvgPath, Task>> Filters { get; } = [];
+    private List<EFilter> Filters { get; } = [];
     private List<List<VHistory>> OriginalVHistories { get; } = [];
 
     public ICommand CollectionViewVHistoryShortPressCommand { get; }
@@ -375,11 +375,13 @@ public partial class DashBoardContentPage
 
     private async Task FilterCategory(SvgPath svgPath)
     {
+        const EFilter eFilter = EFilter.Category;
+
         IEnumerable<int> historyIds;
         if (Filters.Count is 0) historyIds = VHistories.Select(s => s.Id);
         else
         {
-            var items = Filters.Last() == FilterCategory
+            var items = Filters.Last() == eFilter
                 ? OriginalVHistories.Last().AsEnumerable()
                 : VHistories.AsEnumerable();
 
@@ -403,16 +405,18 @@ public partial class DashBoardContentPage
         var customPopupFilterCategories = new CustomPopupFilterCategories(vCategoryDerives, VCategoryDerivesFilter);
         await this.ShowPopupAsync(customPopupFilterCategories);
 
-        FilterManagement(VCategoryDerivesFilter, customPopupFilterCategories, FilterCategory, svgPath);
+        FilterManagement(VCategoryDerivesFilter, customPopupFilterCategories, eFilter, svgPath);
     }
 
     private async Task FilterDescription(SvgPath svgPath)
     {
+        const EFilter eFilter = EFilter.Description;
+
         IEnumerable<StringIsChecked> historyDescription;
         if (Filters.Count is 0) historyDescription = VHistories.Select(s => new StringIsChecked { StringValue = s.Description});
         else
         {
-            var items = Filters.Last() == FilterDescription
+            var items = Filters.Last() == eFilter
                 ? OriginalVHistories.Last().AsEnumerable()
                 : VHistories.AsEnumerable();
 
@@ -425,20 +429,20 @@ public partial class DashBoardContentPage
         var customPopupFilterDescription = new CustomPopupFilterHistoryDescriptions(historyDescription, HistoryDescriptions);
         await this.ShowPopupAsync(customPopupFilterDescription);
 
-        FilterManagement(HistoryDescriptions, customPopupFilterDescription, FilterDescription, svgPath);
+        FilterManagement(HistoryDescriptions, customPopupFilterDescription, eFilter, svgPath);
     }
 
-    private void FilterManagement<T>(List<T> collection, ICustomPopupFilter<T> customPopupFilter, Func<SvgPath, Task> filterFunc, SvgPath svgPath)
+    private void FilterManagement<T>(List<T> collection, ICustomPopupFilter<T> customPopupFilter, EFilter eFilter, SvgPath svgPath)
     {
-        if (Filters.Count is 0 || Filters.Last() != filterFunc)
+        if (Filters.Count is 0 || Filters.Last() != eFilter)
         {
-            Filters.Add(filterFunc);
+            Filters.Add(eFilter);
             OriginalVHistories.Add(VHistories.ToList());
         }
 
         var isActive = RefreshFilter(collection, customPopupFilter, svgPath);
 
-        if (!isActive && Filters.Last() == filterFunc)
+        if (!isActive && Filters.Last() == eFilter)
         {
             var lastIndex = Filters.Count - 1;
             Filters.RemoveAt(lastIndex);
@@ -450,11 +454,13 @@ public partial class DashBoardContentPage
 
     private async Task FilterPaymentMode(SvgPath svgPath)
     {
+        const EFilter eFilter = EFilter.PaymentMode;
+
         IEnumerable<int> historyIds;
         if (Filters.Count is 0) historyIds = VHistories.Select(s => s.Id);
         else
         {
-            var items = Filters.Last() == FilterPaymentMode
+            var items = Filters.Last() == eFilter
                 ? OriginalVHistories.Last().AsEnumerable()
                 : VHistories.AsEnumerable();
 
@@ -478,16 +484,18 @@ public partial class DashBoardContentPage
         var customPopupFilterModePayment = new CustomPopupFilterModePayments(tModePaymentDerives, ModePaymentDeriveFilter);
         await this.ShowPopupAsync(customPopupFilterModePayment);
 
-        FilterManagement(ModePaymentDeriveFilter, customPopupFilterModePayment, FilterPaymentMode, svgPath);
+        FilterManagement(ModePaymentDeriveFilter, customPopupFilterModePayment, eFilter, svgPath);
     }
 
     private async Task FilterValue(SvgPath svgPath)
     {
+        const EFilter eFilter = EFilter.Value;
+
         IEnumerable<DoubleIsChecked> historyValues;
         if (Filters.Count is 0) historyValues = VHistories.Select(s => new DoubleIsChecked { DoubleValue = s.Value });
         else
         {
-            var items = Filters.Last() == FilterValue
+            var items = Filters.Last() == eFilter
                 ? OriginalVHistories.Last().AsEnumerable()
                 : VHistories.AsEnumerable();
 
@@ -500,7 +508,7 @@ public partial class DashBoardContentPage
         var customPopupFilterHistoryValues = new CustomPopupFilterHistoryValues(historyValues, HistoryValues);
         await this.ShowPopupAsync(customPopupFilterHistoryValues);
 
-        FilterManagement(HistoryValues, customPopupFilterHistoryValues, FilterValue, svgPath);
+        FilterManagement(HistoryValues, customPopupFilterHistoryValues, eFilter, svgPath);
     }
 
     private DateOnly GetDateOnlyFilter()
@@ -716,5 +724,13 @@ public partial class DashBoardContentPage
                 ? horizontalStackLayout.FindVisualChildren<SvgPath>().FirstOrDefault()
                 : null
         };
+    }
+
+    private enum EFilter
+    {
+        Category,
+        Description,
+        PaymentMode,
+        Value
     }
 }
