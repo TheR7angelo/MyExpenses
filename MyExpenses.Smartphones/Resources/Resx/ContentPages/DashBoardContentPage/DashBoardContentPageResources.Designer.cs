@@ -115,6 +115,15 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.DashBoardContentPag
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Place.
+        /// </summary>
+        internal static string LabelTextPlace {
+            get {
+                return ResourceManager.GetString("LabelTextPlace", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Value.
         /// </summary>
         internal static string LabelTextValue {

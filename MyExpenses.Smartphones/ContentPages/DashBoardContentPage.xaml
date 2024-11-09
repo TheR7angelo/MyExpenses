@@ -258,17 +258,17 @@
 
                     <HorizontalStackLayout VerticalOptions="Center">
 
-                        <Label Text="{Binding LabelTextValue, Mode=OneWay}" />
+                        <Label Text="{Binding LabelTextPlace, Mode=OneWay}" />
 
                         <images:SvgPath GeometryColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
                                         GeometrySource="Filter"
                                         WidthRequest="24"
                                         HeightRequest="24"
-                                        Clicked="ValueSvgPath_OnClicked">
+                                        Clicked="PlaceSvgPath_OnClicked">
                         </images:SvgPath>
 
                         <HorizontalStackLayout.GestureRecognizers>
-                            <TapGestureRecognizer Tapped="ValueTapGestureRecognizer_OnTapped" NumberOfTapsRequired="1"/>
+                            <TapGestureRecognizer Tapped="PlaceTapGestureRecognizer_OnTapped" NumberOfTapsRequired="1"/>
                         </HorizontalStackLayout.GestureRecognizers>
 
                     </HorizontalStackLayout>

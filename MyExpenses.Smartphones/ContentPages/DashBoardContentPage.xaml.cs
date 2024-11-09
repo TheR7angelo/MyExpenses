@@ -26,6 +26,15 @@ namespace MyExpenses.Smartphones.ContentPages;
 
 public partial class DashBoardContentPage
 {
+    public static readonly BindableProperty LabelTextPlaceProperty = BindableProperty.Create(nameof(LabelTextPlace),
+        typeof(string), typeof(DashBoardContentPage), default(string));
+
+    public string LabelTextPlace
+    {
+        get => (string)GetValue(LabelTextPlaceProperty);
+        set => SetValue(LabelTextPlaceProperty, value);
+    }
+
     public static readonly BindableProperty LabelTextCheckedProperty = BindableProperty.Create(nameof(LabelTextChecked),
         typeof(string), typeof(DashBoardContentPage), default(string));
 
@@ -147,6 +156,7 @@ public partial class DashBoardContentPage
     private List<TModePaymentDerive> ModePaymentDeriveFilter { get; } = [];
     private List<DoubleIsChecked> HistoryValues { get; } = [];
     private List<BoolIsChecked> HistoryChecked { get; } = [];
+    private List<TPlaceDerive> PlaceDeriveFilter { get; } = [];
 
     private List<EFilter> Filters { get; } = [];
     private List<List<VHistory>> OriginalVHistories { get; } = [];
@@ -350,6 +360,22 @@ public partial class DashBoardContentPage
         await FilterPaymentMode(svgPath);
     }
 
+    private async void PlaceTapGestureRecognizer_OnTapped(object? sender, TappedEventArgs e)
+    {
+        var svgPath = FindSvgPath(sender);
+        if (svgPath is null) return;
+
+        await FilterPlace(svgPath);
+    }
+
+    private async void PlaceSvgPath_OnClicked(object? sender, EventArgs e)
+    {
+        var svgPath = FindSvgPath(sender);
+        if (svgPath is null) return;
+
+        await FilterPlace(svgPath);
+    }
+
     private async void PointedTapGestureRecognizer_OnTapped(object? sender, TappedEventArgs e)
     {
         var svgPath = FindSvgPath(sender);
@@ -439,7 +465,7 @@ public partial class DashBoardContentPage
         const EFilter eFilter = EFilter.Checked;
 
         IEnumerable<BoolIsChecked> isCheckeds;
-        if (Filters.Count is 0) isCheckeds = VHistories.Select(s => new BoolIsChecked { BoolValue = (bool)s.Pointed! } );
+        if (Filters.Count is 0) isCheckeds = VHistories.Select(s => new BoolIsChecked { BoolValue = (bool)s.Pointed! });
         else
         {
             var items = Filters.Last() == eFilter
@@ -534,10 +560,46 @@ public partial class DashBoardContentPage
             .Select(s => mapper.Map<TModePaymentDerive>(s))
             .ToList();
 
-        var customPopupFilterModePayment = new CustomPopupFilterModePayments(tModePaymentDerives, ModePaymentDeriveFilter);
+        var customPopupFilterModePayment =
+            new CustomPopupFilterModePayments(tModePaymentDerives, ModePaymentDeriveFilter);
         await this.ShowPopupAsync(customPopupFilterModePayment);
 
         FilterManagement(ModePaymentDeriveFilter, customPopupFilterModePayment, eFilter, svgPath);
+    }
+
+    private async Task FilterPlace(SvgPath svgPath)
+    {
+        const EFilter eFilter = EFilter.Place;
+
+        IEnumerable<int> historyIds;
+        if (Filters.Count is 0) historyIds = VHistories.Select(s => s.Id);
+        else
+        {
+            var items = Filters.Last() == eFilter
+                ? OriginalVHistories.Last().AsEnumerable()
+                : VHistories.AsEnumerable();
+
+            historyIds = items.Select(s => s.Id);
+        }
+
+        var mapper = Mapping.Mapper;
+        await using var context = new DataBaseContext();
+        var placeFk = context.THistories
+            .Where(s => historyIds.Contains(s.Id))
+            .Select(s => s.PlaceFk!)
+            .Distinct()
+            .ToList();
+
+        var placeDerives = context.TPlaces
+            .Where(s => placeFk.Contains(s.Id))
+            .OrderBy(s => s.Name)
+            .Select(s => mapper.Map<TPlaceDerive>(s))
+            .ToList();
+
+        var customPopupFilterPlaces = new CustomPopupFilterPlaces(placeDerives, PlaceDeriveFilter);
+        await this.ShowPopupAsync(customPopupFilterPlaces);
+
+        FilterManagement(PlaceDeriveFilter, customPopupFilterPlaces, eFilter, svgPath);
     }
 
     private async Task FilterValue(SvgPath svgPath)
@@ -676,6 +738,12 @@ public partial class DashBoardContentPage
             query = query.Where(s => historyChecked.Contains((bool)s.Pointed!));
         }
 
+        if (PlaceDeriveFilter.Count > 0)
+        {
+            var historyPlaces = PlaceDeriveFilter.Select(s => s.Name);
+            query = query.Where(s => historyPlaces.Contains(s.Place));
+        }
+
         var records = query
             .OrderBy(s => s.Pointed)
             .ThenByDescending(s => s.Date)
@@ -746,6 +814,7 @@ public partial class DashBoardContentPage
         LabelTextPaymentMode = DashBoardContentPageResources.LabelTextPaymentMode;
         LabelTextValue = DashBoardContentPageResources.LabelTextValue;
         LabelTextChecked = DashBoardContentPageResources.LabelTextChecked;
+        LabelTextPlace = DashBoardContentPageResources.LabelTextPlace;
     }
 
     private void UpdateMonthLanguage()
@@ -792,6 +861,7 @@ public partial class DashBoardContentPage
         Description,
         PaymentMode,
         Value,
-        Checked
+        Checked,
+        Place
     }
 }
