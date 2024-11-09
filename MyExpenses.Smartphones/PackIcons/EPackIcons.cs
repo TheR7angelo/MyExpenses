@@ -18,6 +18,7 @@ public enum EPackIcons
     Minus,
     MinusCheckboxOutline,
     Plus,
+    Refresh,
     WeatherPartlyCloudy,
     WeatherPouring,
     WhiteBalanceSunny
