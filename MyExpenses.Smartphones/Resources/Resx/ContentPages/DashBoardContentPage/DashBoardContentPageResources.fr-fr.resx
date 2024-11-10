@@ -71,4 +71,10 @@
     <data name="LabelTextPlace" xml:space="preserve">
         <value>Lieu</value>
     </data>
+    <data name="RecordFoundOn" xml:space="preserve">
+        <value>enregistrement(s) trouvé(s) sur</value>
+    </data>
+    <data name="ElapsedTimeLoadingDataText" xml:space="preserve">
+        <value>Temps écoulé :</value>
+    </data>
 </root>

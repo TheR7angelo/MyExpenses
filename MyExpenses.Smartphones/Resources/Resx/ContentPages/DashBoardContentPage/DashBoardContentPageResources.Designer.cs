@@ -79,6 +79,15 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.DashBoardContentPag
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Elapsed time :.
+        /// </summary>
+        internal static string ElapsedTimeLoadingDataText {
+            get {
+                return ResourceManager.GetString("ElapsedTimeLoadingDataText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Category.
         /// </summary>
         internal static string LabelTextCategory {
@@ -237,6 +246,15 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.DashBoardContentPag
         internal static string MessageBoxRemoveMonthErrorTitle {
             get {
                 return ResourceManager.GetString("MessageBoxRemoveMonthErrorTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to record(s) found on.
+        /// </summary>
+        internal static string RecordFoundOn {
+            get {
+                return ResourceManager.GetString("RecordFoundOn", resourceCulture);
             }
         }
     }
