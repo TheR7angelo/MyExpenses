@@ -1,5 +1,6 @@
 using System.Collections.Immutable;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Globalization;
 using System.Windows.Input;
 using CommunityToolkit.Maui.Views;
@@ -26,6 +27,53 @@ namespace MyExpenses.Smartphones.ContentPages;
 
 public partial class DashBoardContentPage
 {
+    public static readonly BindableProperty RecordFoundOnProperty = BindableProperty.Create(nameof(RecordFoundOn),
+        typeof(string), typeof(DashBoardContentPage), default(string));
+
+    public string RecordFoundOn
+    {
+        get => (string)GetValue(RecordFoundOnProperty);
+        set => SetValue(RecordFoundOnProperty, value);
+    }
+
+    public static readonly BindableProperty RowTotalCountProperty =
+        BindableProperty.Create(nameof(RowTotalCount), typeof(int), typeof(DashBoardContentPage), default(int));
+
+    public int RowTotalCount
+    {
+        get => (int)GetValue(RowTotalCountProperty);
+        set => SetValue(RowTotalCountProperty, value);
+    }
+
+    public static readonly BindableProperty RowTotalFilteredCountProperty =
+        BindableProperty.Create(nameof(RowTotalFilteredCount), typeof(int), typeof(DashBoardContentPage), default(int));
+
+    public int RowTotalFilteredCount
+    {
+        get => (int)GetValue(RowTotalFilteredCountProperty);
+        set => SetValue(RowTotalFilteredCountProperty, value);
+    }
+
+    public static readonly BindableProperty ElapsedTimeProperty = BindableProperty.Create(
+        nameof(ElapsedTimeLoadingData),
+        typeof(string), typeof(DashBoardContentPage), default(string));
+
+    public string ElapsedTimeLoadingData
+    {
+        get => (string)GetValue(ElapsedTimeProperty);
+        set => SetValue(ElapsedTimeProperty, value);
+    }
+
+    public static readonly BindableProperty ElapsedTimeLoadingDataTextProperty =
+        BindableProperty.Create(nameof(ElapsedTimeLoadingDataText), typeof(string), typeof(DashBoardContentPage),
+            default(string));
+
+    public string ElapsedTimeLoadingDataText
+    {
+        get => (string)GetValue(ElapsedTimeLoadingDataTextProperty);
+        set => SetValue(ElapsedTimeLoadingDataTextProperty, value);
+    }
+
     public static readonly BindableProperty LabelTextPlaceProperty = BindableProperty.Create(nameof(LabelTextPlace),
         typeof(string), typeof(DashBoardContentPage), default(string));
 
@@ -715,6 +763,9 @@ public partial class DashBoardContentPage
 
         if (string.IsNullOrEmpty(accountName)) return;
 
+        var stopwatch = new Stopwatch();
+        stopwatch.Start();
+
         using var context = new DataBaseContext();
 
         var query = context.VHistories
@@ -731,6 +782,8 @@ public partial class DashBoardContentPage
             _ = SelectedYear.ToInt(out var yearInt);
             query = query.Where(s => s.Date!.Value.Year.Equals(yearInt));
         }
+
+        RowTotalCount = query.Count();
 
         if (VCategoryDerivesFilter.Count > 0)
         {
@@ -768,10 +821,15 @@ public partial class DashBoardContentPage
             query = query.Where(s => historyPlaces.Contains(s.Place));
         }
 
+        RowTotalFilteredCount = query.Count();
+
         var records = query
             .OrderBy(s => s.Pointed)
             .ThenByDescending(s => s.Date)
             .ThenBy(s => s.Category);
+
+        stopwatch.Stop();
+        ElapsedTimeLoadingData = stopwatch.Elapsed.ToString("hh\\:mm\\:ss");
 
         VHistories.Clear();
         VHistories.AddRange(records);
@@ -839,6 +897,9 @@ public partial class DashBoardContentPage
         LabelTextValue = DashBoardContentPageResources.LabelTextValue;
         LabelTextChecked = DashBoardContentPageResources.LabelTextChecked;
         LabelTextPlace = DashBoardContentPageResources.LabelTextPlace;
+
+        ElapsedTimeLoadingDataText = $"{DashBoardContentPageResources.ElapsedTimeLoadingDataText} ";
+        RecordFoundOn = $" {DashBoardContentPageResources.RecordFoundOn} ";
     }
 
     private void UpdateMonthLanguage()
