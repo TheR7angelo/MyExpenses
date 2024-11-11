@@ -52,6 +52,16 @@
 
     </FlyoutItem>
 
+    <FlyoutItem Title="{Binding FlyoutItemAccountManagementContentPageTitle, Mode=OneWay}"
+                FlyoutItemIsVisible="True">
+
+        <ShellContent Title="{Binding FlyoutItemAccountManagementContentPageTitle, Mode=OneWay}"
+                      ContentTemplate="{DataTemplate contentPages:AccountManagementContentPage}"
+                      Route="AccountManagementContentPage">
+        </ShellContent>
+
+    </FlyoutItem>
+
     <MenuItem Text="{Binding MenuItemLogoutText, Mode=OneWay}" Clicked="MenuItemLogout_OnClicked" />
 
 </Shell>

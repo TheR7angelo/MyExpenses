@@ -17,4 +17,7 @@
     <data name="FlyoutItemDashBoardContentPageTitle" xml:space="preserve">
         <value>Tableau de bord</value>
     </data>
+    <data name="FlyoutItemAccountManagementContentPageTitle" xml:space="preserve">
+        <value>Gestion des comptes</value>
+    </data>
 </root>

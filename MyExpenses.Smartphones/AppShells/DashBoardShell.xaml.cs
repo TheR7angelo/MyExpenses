@@ -9,6 +9,16 @@ namespace MyExpenses.Smartphones.AppShells;
 
 public partial class DashBoardShell
 {
+    public static readonly BindableProperty FlyoutItemAccountManagementContentPageTitleProperty =
+        BindableProperty.Create(nameof(FlyoutItemAccountManagementContentPageTitle), typeof(string),
+            typeof(DashBoardShell), default(string));
+
+    public string FlyoutItemAccountManagementContentPageTitle
+    {
+        get => (string)GetValue(FlyoutItemAccountManagementContentPageTitleProperty);
+        set => SetValue(FlyoutItemAccountManagementContentPageTitleProperty, value);
+    }
+
     public static readonly BindableProperty FlyoutItemDashBoardContentPageTitleProperty =
         BindableProperty.Create(nameof(FlyoutItemDashBoardContentPageTitle), typeof(string), typeof(DashBoardShell),
             default(string));
@@ -89,6 +99,7 @@ public partial class DashBoardShell
     private void UpdateLanguage()
     {
         FlyoutItemDashBoardContentPageTitle = DashBoardShellResources.FlyoutItemDashBoardContentPageTitle;
+        FlyoutItemAccountManagementContentPageTitle = DashBoardShellResources.FlyoutItemAccountManagementContentPageTitle;
         MenuItemLogoutText = DashBoardShellResources.MenuItemLogoutText;
     }
 
