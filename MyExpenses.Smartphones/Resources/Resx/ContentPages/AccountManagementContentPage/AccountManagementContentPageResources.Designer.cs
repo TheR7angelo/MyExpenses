@@ -68,5 +68,14 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.AccountManagementCo
                 return ResourceManager.GetString("LabelTextTransactionHistory", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New bank transfer.
+        /// </summary>
+        internal static string LabelTextTransactionTransfer {
+            get {
+                return ResourceManager.GetString("LabelTextTransactionTransfer", resourceCulture);
+            }
+        }
     }
 }

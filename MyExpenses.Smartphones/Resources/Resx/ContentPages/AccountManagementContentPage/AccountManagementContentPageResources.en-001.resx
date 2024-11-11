@@ -14,4 +14,7 @@
     <data name="LabelTextTransactionHistory" xml:space="preserve">
         <value>Transaction history</value>
     </data>
+    <data name="LabelTextTransactionTransfer" xml:space="preserve">
+        <value>New bank transfer</value>
+    </data>
 </root>
