@@ -73,6 +73,7 @@
                             <RowDefinition Height="*" />
                             <RowDefinition Height="*" />
                             <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
                             <RowDefinition Height="2*" />
                         </Grid.RowDefinitions>
 
@@ -126,7 +127,22 @@
 
                         </HorizontalStackLayout>
 
-                        <HorizontalStackLayout Grid.Row="4"
+                        <HorizontalStackLayout Grid.Row="4">
+
+                            <Label HorizontalTextAlignment="Start"
+                                   VerticalTextAlignment="Center"
+                                   Text="{Binding LabelTextOnTheAccount, Mode=OneWay}">
+                            </Label>
+
+                            <Picker ItemsSource="{Binding Accounts, Mode=OneWay, Source={RelativeSource AncestorType={x:Type local:DetailedRecordContentPage}}}"
+                                    SelectedItem="{Binding THistory.AccountFk, Mode=TwoWay, Converter={StaticResource ISqlConverter}, ConverterParameter={Binding Accounts, Source={Reference This}}, Source={Reference This}, Source={RelativeSource AncestorType={x:Type local:DetailedRecordContentPage}}}"
+                                    ItemDisplayBinding="{Binding Name}" x:DataType="tables:TAccount"
+                                    SelectedIndexChanged="PickerAccount_OnSelectedIndexChanged">
+                            </Picker>
+
+                        </HorizontalStackLayout>
+
+                        <HorizontalStackLayout Grid.Row="5"
                                                HorizontalOptions="Center">
 
                             <Entry HorizontalOptions="Center"

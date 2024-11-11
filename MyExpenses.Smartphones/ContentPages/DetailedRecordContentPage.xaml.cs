@@ -25,6 +25,16 @@ namespace MyExpenses.Smartphones.ContentPages;
 
 public partial class DetailedRecordContentPage
 {
+    public static readonly BindableProperty LabelTextOnTheAccountProperty =
+        BindableProperty.Create(nameof(LabelTextOnTheAccount), typeof(string), typeof(DetailedRecordContentPage),
+            default(string));
+
+    public string LabelTextOnTheAccount
+    {
+        get => (string)GetValue(LabelTextOnTheAccountProperty);
+        set => SetValue(LabelTextOnTheAccountProperty, value);
+    }
+
     public static readonly BindableProperty ButtonCancelUpdateTextProperty =
         BindableProperty.Create(nameof(ButtonCancelUpdateText), typeof(string), typeof(DetailedRecordContentPage),
             default(string));
@@ -174,6 +184,7 @@ public partial class DetailedRecordContentPage
     public KnownTileSource KnownTileSourceSelected { get; set; }
 
     public ObservableCollection<TModePayment> ModePayments { get; private init; } = [];
+    public ObservableCollection<TAccount> Accounts { get; private init; } = [];
     public ObservableCollection<TCategoryType> CategoryTypes { get; private init; } = [];
     public ObservableCollection<string> CountriesCollection { get; private init; } = [];
 
@@ -291,6 +302,9 @@ public partial class DetailedRecordContentPage
 
         await Navigation.PopAsync();
     }
+
+    private void PickerAccount_OnSelectedIndexChanged(object? sender, EventArgs e)
+        => UpdateIsDirty();
 
     private void PickerCategoryTypeFk_OnSelectedIndexChanged(object? sender, EventArgs e)
         => UpdateIsDirty();
@@ -450,8 +464,9 @@ public partial class DetailedRecordContentPage
         OriginalHistory = THistory.DeepCopy()!;
 
         using var context = new DataBaseContext();
-        ModePayments.AddRange(context.TModePayments);
-        CategoryTypes.AddRange(context.TCategoryTypes);
+        ModePayments.AddRange(context.TModePayments.OrderBy(s => s.Name));
+        CategoryTypes.AddRange(context.TCategoryTypes.OrderBy(s => s.Name));
+        Accounts.AddRange(context.TAccounts.OrderBy(s => s.Name));
 
         PlacesCollection.AddRange(context.TPlaces.OrderBy(s => s.Name));
 
@@ -523,6 +538,7 @@ public partial class DetailedRecordContentPage
         LabelTextAddedOn = DetailedRecordContentPageResources.LabelTextAddedOn;
         PointedOperation = DetailedRecordContentPageResources.PointedOperation;
         LabelTextPointedOn = DetailedRecordContentPageResources.LabelTextPointedOn;
+        LabelTextOnTheAccount = DetailedRecordContentPageResources.LabelTextOnTheAccount;
 
         ButtonRefocusText = DetailedRecordContentPageResources.ButtonRefocusText;
 
