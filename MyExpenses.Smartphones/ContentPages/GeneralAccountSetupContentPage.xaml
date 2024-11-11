@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:margin="clr-namespace:MyExpenses.Maui.Utils.Margin;assembly=MyExpenses.Maui.Utils"
+             x:Class="MyExpenses.Smartphones.ContentPages.GeneralAccountSetupContentPage"
+             BindingContext="{Binding Source={RelativeSource Self}}">
+
+    <ContentPage.Content>
+
+        <ScrollView VerticalOptions="Center">
+
+                <VerticalStackLayout margin:LayoutExtensions.MarginForAllChildren="5">
+
+                    <!-- TODO work -->
+                    <Button Text="{Binding ButtonTextAccountManagement, Mode=OneWay}"
+                            Style="{StaticResource RaisedMidButton}"
+                            Clicked="ButtonAccountManagement_OnClicked">
+                    </Button>
+
+                    <!-- TODO work -->
+                    <Button Text="{Binding ButtonTextManagingAccountTypes, Mode=OneWay}"
+                            Style="{StaticResource RaisedMidButton}">
+                    </Button>
+
+                    <!-- TODO work -->
+                    <Button Text="{Binding ButtonTextManagingCategoryTypes, Mode=OneWay}"
+                            Style="{StaticResource RaisedMidButton}">
+                    </Button>
+
+                    <!-- TODO work -->
+                    <Button Text="{Binding ButtonTextLocationManagement, Mode=OneWay}"
+                            Style="{StaticResource RaisedMidButton}">
+                    </Button>
+
+                    <!-- TODO work -->
+                    <Button Text="{Binding ButtonTextColorManagement, Mode=OneWay}"
+                            Style="{StaticResource RaisedMidButton}">
+                    </Button>
+
+                    <!-- TODO work -->
+                    <Button Text="{Binding ButtonTextCurrencySymbolManagement, Mode=OneWay}"
+                            Style="{StaticResource RaisedMidButton}">
+                    </Button>
+
+                    <!-- TODO work -->
+                    <Button Text="{Binding ButtonTextPaymentMethodManagement, Mode=OneWay}"
+                            Style="{StaticResource RaisedMidButton}">
+                    </Button>
+
+                </VerticalStackLayout>
+
+        </ScrollView>
+
+    </ContentPage.Content>
+
+</ContentPage>
