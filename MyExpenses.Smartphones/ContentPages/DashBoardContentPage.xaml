@@ -140,6 +140,10 @@
                     StrokeThickness="2"
                     HorizontalOptions="Center">
 
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="5" />
+                </Border.StrokeShape>
+
                 <ScrollView Orientation="Horizontal">
 
                     <CollectionView x:Name="CollectionViewVTotalAccount"
@@ -303,6 +307,10 @@
                                 StrokeThickness="2"
                                 Padding="0"
                                 Margin="0, 3">
+
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="5" />
+                            </Border.StrokeShape>
 
                             <Grid>
 
