@@ -97,6 +97,15 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.DetailedRecordConte
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to On the account :.
+        /// </summary>
+        internal static string LabelTextOnTheAccount {
+            get {
+                return ResourceManager.GetString("LabelTextOnTheAccount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Pointed on.
         /// </summary>
         internal static string LabelTextPointedOn {

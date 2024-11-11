@@ -62,4 +62,7 @@
     <data name="PlaceholderTextPlace" xml:space="preserve">
         <value>Lieu :</value>
     </data>
+    <data name="LabelTextOnTheAccount" xml:space="preserve">
+        <value>Sur le compte :</value>
+    </data>
 </root>
