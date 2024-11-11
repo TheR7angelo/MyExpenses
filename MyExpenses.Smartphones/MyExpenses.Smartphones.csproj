@@ -282,4 +282,13 @@
       </EmbeddedResource>
     </ItemGroup>
 
+    <ItemGroup>
+      <Content Include="..\README.md">
+        <Link>README.md</Link>
+      </Content>
+      <Content Include="..\TODO LIST.md">
+        <Link>TODO LIST.md</Link>
+      </Content>
+    </ItemGroup>
+
 </Project>
