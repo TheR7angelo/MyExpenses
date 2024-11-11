@@ -63,6 +63,7 @@
                                      HorizontalOptions="Center"
                                      VerticalOptions="Center">
 
+                    <!-- TODO click -->
                     <customFrame:ButtonImageView Style="{StaticResource FloatingActionMiniLightButtonImageView}"
                                                  GeometryColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
                                                  GeometrySource="History"
@@ -73,6 +74,26 @@
                     </customFrame:ButtonImageView>
 
                     <Label Text="{Binding LabelTextTransactionHistory, Mode=OneWay}"
+                           HorizontalTextAlignment="Center">
+                    </Label>
+
+                </VerticalStackLayout>
+
+                <VerticalStackLayout Grid.Column="2"
+                                     HorizontalOptions="Center"
+                                     VerticalOptions="Center">
+
+                    <!-- TODO click -->
+                    <customFrame:ButtonImageView Style="{StaticResource FloatingActionMiniDarkButtonImageView}"
+                                                 GeometryColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
+                                                 GeometrySource="SwapHorizontal"
+                                                 HeightRequest="64"
+                                                 WidthRequest="{Binding HeightRequest, Source={RelativeSource Self}}"
+                                                 ImageHeightRequest="40"
+                                                 ImageWidthRequest="{Binding ImageHeightRequest, Source={RelativeSource Self}}">
+                    </customFrame:ButtonImageView>
+
+                    <Label Text="{Binding LabelTextTransactionTransfer, Mode=OneWay}"
                            HorizontalTextAlignment="Center">
                     </Label>
 

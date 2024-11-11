@@ -9,6 +9,16 @@ namespace MyExpenses.Smartphones.ContentPages;
 
 public partial class AccountManagementContentPage
 {
+    public static readonly BindableProperty LabelTextTransactionTransferProperty =
+        BindableProperty.Create(nameof(LabelTextTransactionTransfer), typeof(string),
+            typeof(AccountManagementContentPage), default(string));
+
+    public string LabelTextTransactionTransfer
+    {
+        get => (string)GetValue(LabelTextTransactionTransferProperty);
+        set => SetValue(LabelTextTransactionTransferProperty, value);
+    }
+
     public static readonly BindableProperty LabelTextTransactionHistoryProperty =
         BindableProperty.Create(nameof(LabelTextTransactionHistory), typeof(string),
             typeof(AccountManagementContentPage), default(string));
@@ -48,5 +58,6 @@ public partial class AccountManagementContentPage
     private void UpdateLanguage()
     {
         LabelTextTransactionHistory = AccountManagementContentPageResources.LabelTextTransactionHistory;
+        LabelTextTransactionTransfer = AccountManagementContentPageResources.LabelTextTransactionTransfer;
     }
 }
