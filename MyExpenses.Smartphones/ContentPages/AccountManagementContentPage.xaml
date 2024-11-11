@@ -4,6 +4,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:converters="clr-namespace:MyExpenses.Smartphones.Converters"
              xmlns:customFrame="clr-namespace:MyExpenses.Smartphones.UserControls.Buttons.CustomFrame"
+             xmlns:margin="clr-namespace:MyExpenses.Maui.Utils.Margin;assembly=MyExpenses.Maui.Utils"
              x:Class="MyExpenses.Smartphones.ContentPages.AccountManagementContentPage"
              BindingContext="{Binding Source={RelativeSource Self}}">
 
@@ -13,7 +14,7 @@
 
     <ContentPage.Content>
 
-        <Grid>
+        <Grid margin:LayoutExtensions.MarginForAllChildren="5">
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
@@ -74,7 +75,8 @@
                     </customFrame:ButtonImageView>
 
                     <Label Text="{Binding LabelTextTransactionHistory, Mode=OneWay}"
-                           HorizontalTextAlignment="Center">
+                           HorizontalTextAlignment="Center"
+                           Margin="5, 0">
                     </Label>
 
                 </VerticalStackLayout>
@@ -94,7 +96,8 @@
                     </customFrame:ButtonImageView>
 
                     <Label Text="{Binding LabelTextTransactionTransfer, Mode=OneWay}"
-                           HorizontalTextAlignment="Center">
+                           HorizontalTextAlignment="Center"
+                           Margin="5, 0">
                     </Label>
 
                 </VerticalStackLayout>
