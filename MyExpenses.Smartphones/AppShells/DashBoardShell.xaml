@@ -52,12 +52,12 @@
 
     </FlyoutItem>
 
-    <FlyoutItem Title="{Binding FlyoutItemAccountManagementContentPageTitle, Mode=OneWay}"
+    <FlyoutItem Title="{Binding FlyoutItemGeneralAccountSetupContentPageTitle, Mode=OneWay}"
                 FlyoutItemIsVisible="True">
 
-        <ShellContent Title="{Binding FlyoutItemAccountManagementContentPageTitle, Mode=OneWay}"
-                      ContentTemplate="{DataTemplate contentPages:AccountManagementContentPage}"
-                      Route="AccountManagementContentPage">
+        <ShellContent Title="{Binding FlyoutItemGeneralAccountSetupContentPageTitle, Mode=OneWay}"
+                      ContentTemplate="{DataTemplate contentPages:GeneralAccountSetupContentPage}"
+                      Route="GeneralAccountSetupContentPage">
         </ShellContent>
 
     </FlyoutItem>
