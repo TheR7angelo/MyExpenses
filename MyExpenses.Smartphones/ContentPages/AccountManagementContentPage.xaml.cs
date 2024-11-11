@@ -43,7 +43,7 @@ public partial class AccountManagementContentPage
     public AccountManagementContentPage()
     {
         using var context = new DataBaseContext();
-        VTotalByAccounts = [..context.VTotalByAccounts];
+        VTotalByAccounts = [..context.VTotalByAccounts.OrderBy(s => s.Name)];
         TotalAllAccount = VTotalByAccounts.Sum(s => s.Total) ?? 0d;
 
         UpdateLanguage();
