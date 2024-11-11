@@ -51,6 +51,24 @@ ___
 
 # C# MAUI
 
+> # Interface
+> - [ ] Create Flyout menu item ![0%](https://geps.dev/progress/0)<!-- [0/4] -->
+>   - [ ] General configuration ![0%](https://geps.dev/progress/0)<!-- [0/7] -->
+>     - [ ] Account Management
+>     - [ ] Managing Account Types
+>     - [ ] Managing category types
+>     - [ ] Location Management
+>     - [ ] Color management
+>     - [ ] Currency symbol management
+>     - [ ] Payment method management
+>   - [ ] Recurring expenses ![0%](https://geps.dev/progress/0)<!-- [0/1] -->
+>     - [ ] Recurring Expense Management
+>   - [ ] Transactions ![0%](https://geps.dev/progress/0)<!-- [0/2] -->
+>     - [ ] Record a financial transaction
+>     - [ ] Making a bank transfer
+>   - [ ] Graphical report ![0%](https://geps.dev/progress/0)<!-- [0/1] -->
+>     - [ ] Graphical analysis
+
 ___
 
 # Other
