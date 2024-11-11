@@ -9,14 +9,14 @@ namespace MyExpenses.Smartphones.AppShells;
 
 public partial class DashBoardShell
 {
-    public static readonly BindableProperty FlyoutItemAccountManagementContentPageTitleProperty =
-        BindableProperty.Create(nameof(FlyoutItemAccountManagementContentPageTitle), typeof(string),
+    public static readonly BindableProperty FlyoutItemGeneralAccountSetupContentPageTitleProperty =
+        BindableProperty.Create(nameof(FlyoutItemGeneralAccountSetupContentPageTitle), typeof(string),
             typeof(DashBoardShell), default(string));
 
-    public string FlyoutItemAccountManagementContentPageTitle
+    public string FlyoutItemGeneralAccountSetupContentPageTitle
     {
-        get => (string)GetValue(FlyoutItemAccountManagementContentPageTitleProperty);
-        set => SetValue(FlyoutItemAccountManagementContentPageTitleProperty, value);
+        get => (string)GetValue(FlyoutItemGeneralAccountSetupContentPageTitleProperty);
+        set => SetValue(FlyoutItemGeneralAccountSetupContentPageTitleProperty, value);
     }
 
     public static readonly BindableProperty FlyoutItemDashBoardContentPageTitleProperty =
@@ -99,7 +99,7 @@ public partial class DashBoardShell
     private void UpdateLanguage()
     {
         FlyoutItemDashBoardContentPageTitle = DashBoardShellResources.FlyoutItemDashBoardContentPageTitle;
-        FlyoutItemAccountManagementContentPageTitle = DashBoardShellResources.FlyoutItemAccountManagementContentPageTitle;
+        FlyoutItemGeneralAccountSetupContentPageTitle = DashBoardShellResources.FlyoutItemGeneralAccountSetupContentPageTitle;
         MenuItemLogoutText = DashBoardShellResources.MenuItemLogoutText;
     }
 
