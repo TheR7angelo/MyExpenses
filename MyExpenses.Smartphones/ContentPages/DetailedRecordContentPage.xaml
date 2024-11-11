@@ -207,7 +207,7 @@
                             <Switch Grid.Column="2"
                                     HorizontalOptions="End"
                                     VerticalOptions="Center"
-                                    IsToggled="{Binding THistory.Pointed, Mode=TwoWay}"
+                                    IsToggled="{Binding THistory.IsPointed, Mode=TwoWay}"
                                     Toggled="SwitchPointed_OnToggled">
                             </Switch>
 
