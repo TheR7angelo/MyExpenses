@@ -6,10 +6,12 @@
              xmlns:customFrame="clr-namespace:MyExpenses.Smartphones.UserControls.Buttons.CustomFrame"
              xmlns:margin="clr-namespace:MyExpenses.Maui.Utils.Margin;assembly=MyExpenses.Maui.Utils"
              x:Class="MyExpenses.Smartphones.ContentPages.AccountManagementContentPage"
+             x:Name="This"
              BindingContext="{Binding Source={RelativeSource Self}}">
 
     <ContentPage.Resources>
         <converters:TotalToIconConverter x:Key="TotalToIconConverter" />
+        <converters:ValueSymbolConverter x:Key="ValueSymbolConverter" />
     </ContentPage.Resources>
 
     <ContentPage.Content>
@@ -103,6 +105,71 @@
                 </VerticalStackLayout>
 
             </Grid>
+
+            <ScrollView Grid.Row="2">
+
+                <CollectionView ItemsSource="{Binding VTotalByAccounts, Mode=OneWay}">
+
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Vertical" ItemSpacing="1.5" />
+                    </CollectionView.ItemsLayout>
+
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+
+                            <Border x:Name="Border"
+                                    Stroke="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
+                                    StrokeThickness="2"
+                                    Padding="0"
+                                    Margin="0, 3">
+
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="5" />
+                                </Border.StrokeShape>
+
+                                <Grid>
+
+                                    <!-- <Grid.GestureRecognizers> -->
+                                    <!--     <TapGestureRecognizer -->
+                                    <!--         Command="{Binding CollectionViewVVTotalByAccountsShortPressCommand, Source={x:Reference This}}" -->
+                                    <!--         CommandParameter="{Binding .}" -->
+                                    <!--         NumberOfTapsRequired="1"> -->
+                                    <!--     </TapGestureRecognizer> -->
+                                    <!-- </Grid.GestureRecognizers> -->
+
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <Label Grid.Column="0"
+                                           HorizontalTextAlignment="Center"
+                                           Margin="5"
+                                           Text="{Binding Name, Mode=OneWay}">
+                                    </Label>
+
+                                    <Label Grid.Column="2"
+                                           HorizontalTextAlignment="Center"
+                                           Margin="5">
+                                        <Label.Text>
+                                            <MultiBinding Converter="{StaticResource ValueSymbolConverter}">
+                                                <Binding Path="Total" FallbackValue="" Mode="OneWay" />
+                                                <Binding Path="Symbol" FallbackValue="" Mode="OneWay" />
+                                            </MultiBinding>
+                                        </Label.Text>
+                                    </Label>
+
+                                </Grid>
+
+                            </Border>
+
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+
+                </CollectionView>
+
+            </ScrollView>
 
         </Grid>
 
