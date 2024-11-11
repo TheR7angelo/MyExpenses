@@ -111,7 +111,7 @@
                 <CollectionView ItemsSource="{Binding VTotalByAccounts, Mode=OneWay}">
 
                     <CollectionView.ItemsLayout>
-                        <LinearItemsLayout Orientation="Vertical" ItemSpacing="1.5" />
+                        <LinearItemsLayout Orientation="Vertical" ItemSpacing="2" />
                     </CollectionView.ItemsLayout>
 
                     <CollectionView.ItemTemplate>
@@ -121,7 +121,7 @@
                                     Stroke="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
                                     StrokeThickness="2"
                                     Padding="0"
-                                    Margin="5">
+                                    Margin="5, 0">
 
                                 <Border.StrokeShape>
                                     <RoundRectangle CornerRadius="5" />
