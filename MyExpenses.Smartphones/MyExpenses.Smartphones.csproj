@@ -217,6 +217,11 @@
         <AutoGen>True</AutoGen>
         <DependentUpon>CustomPopupFilterPlacesResources.resx</DependentUpon>
       </Compile>
+      <Compile Update="Resources\Resx\ContentPages\AccountManagementContentPage\AccountManagementContentPageResources.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>AccountManagementContentPageResources.resx</DependentUpon>
+      </Compile>
     </ItemGroup>
 
     <ItemGroup>
@@ -279,6 +284,10 @@
       <EmbeddedResource Update="Resources\Resx\ContentPages\CustomPopups\CustomPopupFilterPlaces\CustomPopupFilterPlacesResources.resx">
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>CustomPopupFilterPlacesResources.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+      <EmbeddedResource Update="Resources\Resx\ContentPages\AccountManagementContentPage\AccountManagementContentPageResources.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>AccountManagementContentPageResources.Designer.cs</LastGenOutput>
       </EmbeddedResource>
     </ItemGroup>
 
