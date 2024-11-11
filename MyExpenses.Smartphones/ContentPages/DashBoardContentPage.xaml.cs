@@ -314,7 +314,7 @@ public partial class DashBoardContentPage
 
         var history = vHistory.Id.ToISql<THistory>()!;
 
-        var word = history.Pointed
+        var word = history.IsPointed
             ? DashBoardContentPageResources.MessageBoxCollectionViewVHistoryOnLongPressUnCheck
             : DashBoardContentPageResources.MessageBoxCollectionViewVHistoryOnLongPressCheck;
 
@@ -326,9 +326,9 @@ public partial class DashBoardContentPage
             DashBoardContentPageResources.MessageBoxCollectionViewVHistoryOnLongPressNoButton);
         if (response)
         {
-            history.Pointed = !history.Pointed;
+            history.IsPointed = !history.IsPointed;
 
-            if (history.Pointed) history.DatePointed = DateTime.Now;
+            if (history.IsPointed) history.DatePointed = DateTime.Now;
             else history.DatePointed = null;
 
             Log.Information("Attention to pointed record, id: \"{HistoryId}\"", history.Id);
@@ -537,14 +537,14 @@ public partial class DashBoardContentPage
         const EFilter eFilter = EFilter.Checked;
 
         IEnumerable<BoolIsChecked> isCheckeds;
-        if (Filters.Count is 0) isCheckeds = VHistories.Select(s => new BoolIsChecked { BoolValue = (bool)s.Pointed! });
+        if (Filters.Count is 0) isCheckeds = VHistories.Select(s => new BoolIsChecked { BoolValue = (bool)s.IsPointed! });
         else
         {
             var items = Filters.Last() == eFilter
                 ? OriginalVHistories.Last().AsEnumerable()
                 : VHistories.AsEnumerable();
 
-            isCheckeds = items.Select(s => new BoolIsChecked { BoolValue = (bool)s.Pointed! });
+            isCheckeds = items.Select(s => new BoolIsChecked { BoolValue = (bool)s.IsPointed! });
         }
 
         isCheckeds = isCheckeds.Distinct();
@@ -812,7 +812,7 @@ public partial class DashBoardContentPage
         if (HistoryChecked.Count > 0)
         {
             var historyChecked = HistoryChecked.Select(s => s.BoolValue);
-            query = query.Where(s => historyChecked.Contains((bool)s.Pointed!));
+            query = query.Where(s => historyChecked.Contains((bool)s.IsPointed!));
         }
 
         if (PlaceDeriveFilter.Count > 0)
@@ -824,7 +824,7 @@ public partial class DashBoardContentPage
         RowTotalFilteredCount = query.Count();
 
         var records = query
-            .OrderBy(s => s.Pointed)
+            .OrderBy(s => s.IsPointed)
             .ThenByDescending(s => s.Date)
             .ThenBy(s => s.Category);
 

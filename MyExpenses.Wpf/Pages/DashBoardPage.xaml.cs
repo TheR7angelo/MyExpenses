@@ -566,9 +566,9 @@ public partial class DashBoardPage
     {
         var history = vHistory.Id.ToISql<THistory>()!;
 
-        history.Pointed = !history.Pointed;
+        history.IsPointed = !history.IsPointed;
 
-        if (history.Pointed) history.DatePointed = DateTime.Now;
+        if (history.IsPointed) history.DatePointed = DateTime.Now;
         else history.DatePointed = null;
 
         Log.Information("Attention to pointed record, id: \"{HistoryId}\"", history.Id);
@@ -648,7 +648,7 @@ public partial class DashBoardPage
         }
 
         var records = query
-            .OrderBy(s => s.Pointed)
+            .OrderBy(s => s.IsPointed)
             .ThenByDescending(s => s.Date)
             .ThenBy(s => s.Category);
 

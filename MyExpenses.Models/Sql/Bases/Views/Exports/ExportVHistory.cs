@@ -30,8 +30,8 @@ public partial class ExportVHistory
     [Column("place")]
     public string? Place { get; set; }
 
-    [Column("pointed", TypeName = "BOOLEAN")]
-    public bool? Pointed { get; set; }
+    [Column("is_pointed", TypeName = "BOOLEAN")]
+    public bool? IsPointed { get; set; }
 
     [Column("date_added", TypeName = "DATETIME")]
     public DateTime? DateAdded { get; set; }

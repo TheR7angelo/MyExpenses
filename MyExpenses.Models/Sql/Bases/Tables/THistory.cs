@@ -40,8 +40,8 @@ public partial class THistory : ISql
     [Column("place_fk")]
     public int? PlaceFk { get; set; }
 
-    [Column("pointed", TypeName = "BOOLEAN")]
-    public bool Pointed { get; set; } = false;
+    [Column("is_pointed", TypeName = "BOOLEAN")]
+    public bool IsPointed { get; set; } = false;
 
     [Column("bank_transfer_fk")]
     public int? BankTransferFk { get; set; }

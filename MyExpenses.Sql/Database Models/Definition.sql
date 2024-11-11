@@ -227,7 +227,7 @@ CREATE TABLE t_history
     place_fk             INTEGER
         constraint t_history_t_place_id_fk
             references t_place,
-    pointed              BOOLEAN NOT NULL DEFAULT FALSE,
+    is_pointed              BOOLEAN NOT NULL DEFAULT FALSE,
     bank_transfer_fk     INTEGER
         CONSTRAINT t_history_t_bank_transfer_id_fk
             REFERENCES t_bank_transfer,
@@ -481,9 +481,9 @@ BEGIN
                            ELSE NEW.date_added
             END,
         date_pointed = CASE
-                           WHEN NEW.pointed = 1 AND typeof(NEW.date) = 'integer'
+                           WHEN NEW.is_pointed = 1 AND typeof(NEW.date) = 'integer'
                                THEN datetime(NEW.date / 1000, 'unixepoch')
-                           WHEN NEW.pointed = 0 THEN NULL
+                           WHEN NEW.is_pointed = 0 THEN NULL
                            ELSE date_pointed
             END
     WHERE id = NEW.id;
@@ -505,9 +505,9 @@ BEGIN
                            ELSE NEW.date_added
             END,
         date_pointed = CASE
-                           WHEN NEW.pointed = 1 AND typeof(NEW.date) = 'integer'
+                           WHEN NEW.is_pointed = 1 AND typeof(NEW.date) = 'integer'
                                THEN datetime(NEW.date / 1000, 'unixepoch')
-                           WHEN NEW.pointed = 0 THEN NULL
+                           WHEN NEW.is_pointed = 0 THEN NULL
                            ELSE date_pointed
             END
     WHERE id = NEW.id;
@@ -638,7 +638,7 @@ SELECT h.id,
        tcu.symbol,
        h.date,
        tp.name  AS place,
-       h.pointed,
+       h.is_pointed,
        bt.main_reason,
        h.date_added
 
@@ -698,8 +698,8 @@ CREATE VIEW v_total_by_account AS
 SELECT ta.id,
        ta.name,
        ROUND(SUM(th.value), 2)                                              AS total,
-       ROUND(SUM(CASE WHEN th.pointed = TRUE THEN th.value ELSE 0 END), 2)  AS total_pointed,
-       ROUND(SUM(CASE WHEN th.pointed = FALSE THEN th.value ELSE 0 END), 2) AS total_not_pointed,
+       ROUND(SUM(CASE WHEN th.is_pointed = TRUE THEN th.value ELSE 0 END), 2)  AS total_pointed,
+       ROUND(SUM(CASE WHEN th.is_pointed = FALSE THEN th.value ELSE 0 END), 2) AS total_not_pointed,
        tc.symbol
 FROM t_account ta
          LEFT JOIN t_history th
@@ -1571,7 +1571,7 @@ SELECT th.id,
        th.value,
        th.date,
        tp.name AS place,
-       th.pointed,
+       th.is_pointed,
 --        th.bank_transfer_fk,
 --        th.recursive_expense_fk,
        th.date_added,

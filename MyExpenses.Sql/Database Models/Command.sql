@@ -15,7 +15,7 @@ FROM t_history
 WHERE account_fk = 1;
 
 ALTER TABLE t_history
-    RENAME compte_fk TO account_fk;
+    RENAME pointed TO is_pointed;
 
 DELETE
 FROM t_supported_languages;

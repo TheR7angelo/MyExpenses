@@ -154,7 +154,7 @@ public partial class AddEditAccountWindow
     public bool DeleteAccount { get; private set; }
 
     public TAccount Account { get; } = new();
-    public THistory History { get; } = new() { Pointed = true };
+    public THistory History { get; } = new() { IsPointed = true };
 
     public string DisplayMemberPathAccountType => nameof(TAccountType.Name);
     public string SelectedValuePathAccountType => nameof(TAccountType.Id);

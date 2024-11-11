@@ -265,7 +265,7 @@ public partial class DataBaseContext : DbContext
         modelBuilder.Entity<THistory>(entity =>
         {
             entity.Property(e => e.DateAdded).HasDefaultValueSql("CURRENT_TIMESTAMP");
-            entity.Property(e => e.Pointed).HasDefaultValueSql("FALSE");
+            entity.Property(e => e.IsPointed).HasDefaultValueSql("FALSE");
         });
 
         modelBuilder.Entity<TModePayment>(entity =>
