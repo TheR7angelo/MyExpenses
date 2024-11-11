@@ -121,7 +121,7 @@
                                     Stroke="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
                                     StrokeThickness="2"
                                     Padding="0"
-                                    Margin="0, 3">
+                                    Margin="5">
 
                                 <Border.StrokeShape>
                                     <RoundRectangle CornerRadius="5" />
@@ -129,6 +129,7 @@
 
                                 <Grid>
 
+                                    <!-- TODO work -->
                                     <!-- <Grid.GestureRecognizers> -->
                                     <!--     <TapGestureRecognizer -->
                                     <!--         Command="{Binding CollectionViewVVTotalByAccountsShortPressCommand, Source={x:Reference This}}" -->
