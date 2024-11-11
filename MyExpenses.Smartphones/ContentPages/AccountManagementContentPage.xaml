@@ -172,6 +172,30 @@
 
             </ScrollView>
 
+            <HorizontalStackLayout Grid.Row="3"
+                                   HorizontalOptions="Center"
+                                   margin:LayoutExtensions.MarginForAllChildren="5">
+
+                <!-- TODO click -->
+                <customFrame:ButtonImageView Style="{StaticResource FloatingActionMiniMidButtonImageView}"
+                                             GeometrySource="Plus"
+                                             ImageHeightRequest="24"
+                                             ImageWidthRequest="{Binding ImageHeightRequest, Source={RelativeSource Self}}"
+                                             HeightRequest="40"
+                                             WidthRequest="{Binding HeightRequest, Source={RelativeSource Self}}">
+                </customFrame:ButtonImageView>
+
+                <!-- TODO click -->
+                <customFrame:ButtonImageView Style="{StaticResource FloatingActionMiniSecondaryDarkButtonImageView}"
+                                             GeometrySource="Minus"
+                                             ImageHeightRequest="24"
+                                             ImageWidthRequest="{Binding ImageHeightRequest, Source={RelativeSource Self}}"
+                                             HeightRequest="40"
+                                             WidthRequest="{Binding HeightRequest, Source={RelativeSource Self}}">
+                </customFrame:ButtonImageView>
+
+            </HorizontalStackLayout>
+
         </Grid>
 
     </ContentPage.Content>
