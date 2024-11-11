@@ -52,7 +52,8 @@ ___
 # C# MAUI
 
 > # Interface
-> - [ ] Create Flyout menu item ![0%](https://geps.dev/progress/0)<!-- [0/4] -->
+> - [ ] Create Flyout menu item ![33%](https://geps.dev/progress/33)<!-- [2/6] -->
+>   - [X] Dashboard main page
 >   - [ ] General configuration ![0%](https://geps.dev/progress/0)<!-- [0/7] -->
 >     - [ ] Account Management
 >     - [ ] Managing Account Types
@@ -68,6 +69,7 @@ ___
 >     - [ ] Making a bank transfer
 >   - [ ] Graphical report ![0%](https://geps.dev/progress/0)<!-- [0/1] -->
 >     - [ ] Graphical analysis
+>   - [X] Logout button
 
 ___
 
