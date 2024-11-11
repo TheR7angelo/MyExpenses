@@ -3,6 +3,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:converters="clr-namespace:MyExpenses.Smartphones.Converters"
+             xmlns:customFrame="clr-namespace:MyExpenses.Smartphones.UserControls.Buttons.CustomFrame"
              x:Class="MyExpenses.Smartphones.ContentPages.AccountManagementContentPage"
              BindingContext="{Binding Source={RelativeSource Self}}">
 
@@ -21,21 +22,14 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="Auto" />
-            </Grid.ColumnDefinitions>
-
-
-            <Ellipse Grid.Row="0" Grid.Column="1"
+            <Ellipse Grid.Row="0"
                      HeightRequest="192"
                      WidthRequest="{Binding HeightRequest, Source={RelativeSource Self}}"
                      Stroke="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
                      StrokeThickness="3">
             </Ellipse>
 
-            <VerticalStackLayout Grid.Row="0" Grid.Column="1"
+            <VerticalStackLayout Grid.Row="0"
                                  VerticalOptions="Center"
                                  HorizontalOptions="Center">
 
@@ -56,6 +50,35 @@
                 </Label>
 
             </VerticalStackLayout>
+
+            <Grid Grid.Row="1">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <VerticalStackLayout Grid.Column="0"
+                                     HorizontalOptions="Center"
+                                     VerticalOptions="Center">
+
+                    <customFrame:ButtonImageView Style="{StaticResource FloatingActionMiniLightButtonImageView}"
+                                                 GeometryColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
+                                                 GeometrySource="History"
+                                                 HeightRequest="64"
+                                                 WidthRequest="{Binding HeightRequest, Source={RelativeSource Self}}"
+                                                 ImageHeightRequest="40"
+                                                 ImageWidthRequest="{Binding ImageHeightRequest, Source={RelativeSource Self}}">
+                    </customFrame:ButtonImageView>
+
+                    <Label Text="{Binding LabelTextTransactionHistory, Mode=OneWay}"
+                           HorizontalTextAlignment="Center">
+                    </Label>
+
+                </VerticalStackLayout>
+
+            </Grid>
 
         </Grid>
 
