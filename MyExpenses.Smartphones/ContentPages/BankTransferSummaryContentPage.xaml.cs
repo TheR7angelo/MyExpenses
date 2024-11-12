@@ -38,7 +38,6 @@ public partial class BankTransferSummaryContentPage
     {
         UpdateMonthLanguage();
 
-        var now = DateTime.Now;
         using var context = new DataBaseContext();
         Years =
         [
@@ -55,6 +54,10 @@ public partial class BankTransferSummaryContentPage
         {
             Years.Add(DateTime.Now.Year.ToString());
         }
+
+        var now = DateTime.Now;
+        SelectedYear = now.Year.ToString();
+        SelectedMonth = Months[now.Month - 1];
 
         UpdateLanguage();
         InitializeComponent();
