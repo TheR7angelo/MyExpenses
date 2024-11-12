@@ -12,6 +12,7 @@
     <ContentPage.Resources>
         <converters:TotalToIconConverter x:Key="TotalToIconConverter" />
         <converters:ValueSymbolConverter x:Key="ValueSymbolConverter" />
+        <converters:DoubleToTwoDecimalConverter x:Key="DoubleToTwoDecimalConverter" />
     </ContentPage.Resources>
 
     <ContentPage.Content>
@@ -48,7 +49,7 @@
                 <Label HorizontalTextAlignment="Center"
                        FontAttributes="Bold"
                        FontSize="18"
-                       Text="{Binding TotalAllAccount, Mode=OneWay}"
+                       Text="{Binding TotalAllAccount, Mode=OneWay, Converter={StaticResource DoubleToTwoDecimalConverter}}"
                        Margin="0, 5">
                 </Label>
 
