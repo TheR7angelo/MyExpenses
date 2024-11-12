@@ -15,6 +15,16 @@ namespace MyExpenses.Smartphones.ContentPages;
 
 public partial class BankTransferSummaryContentPage
 {
+    public static readonly BindableProperty LabelTextToAccountProperty =
+        BindableProperty.Create(nameof(LabelTextToAccount), typeof(string), typeof(BankTransferSummaryContentPage),
+            default(string));
+
+    public string LabelTextToAccount
+    {
+        get => (string)GetValue(LabelTextToAccountProperty);
+        set => SetValue(LabelTextToAccountProperty, value);
+    }
+
     public static readonly BindableProperty LabelTextAfterProperty = BindableProperty.Create(nameof(LabelTextAfter),
         typeof(string), typeof(BankTransferSummaryContentPage), default(string));
 
@@ -138,6 +148,7 @@ public partial class BankTransferSummaryContentPage
         ComboBoxMonthHintAssist = BankTransferSummaryContentPageResources.ComboBoxMonthHintAssist;
 
         LabelTextFromAccount = BankTransferSummaryContentPageResources.LabelTextFromAccount;
+        LabelTextToAccount = BankTransferSummaryContentPageResources.LabelTextToAccount;
         LabelTextBalance = BankTransferSummaryContentPageResources.LabelTextBalance;
         LabelTextBefore = BankTransferSummaryContentPageResources.LabelTextBefore;
         LabelTextAfter = BankTransferSummaryContentPageResources.LabelTextAfter;

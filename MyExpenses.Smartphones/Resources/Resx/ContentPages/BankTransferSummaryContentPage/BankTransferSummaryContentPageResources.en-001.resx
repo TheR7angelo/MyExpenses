@@ -29,4 +29,7 @@
     <data name="LabelTextAfter" xml:space="preserve">
         <value>After</value>
     </data>
+    <data name="LabelTextToAccount" xml:space="preserve">
+        <value>To</value>
+    </data>
 </root>

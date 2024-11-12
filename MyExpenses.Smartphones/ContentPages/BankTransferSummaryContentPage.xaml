@@ -131,6 +131,18 @@
 
                                 </VerticalStackLayout>
 
+                                <VerticalStackLayout Grid.Row="0" Grid.Column="2">
+
+                                    <Label Text="{Binding LabelTextToAccount, Mode=OneWay, Source={RelativeSource AncestorType={x:Type local:BankTransferSummaryContentPage}}}"
+                                           HorizontalTextAlignment="Center">
+                                    </Label>
+
+                                    <Label Text="{Binding ToAccountName, Mode=OneWay}"
+                                           HorizontalTextAlignment="Center">
+                                    </Label>
+
+                                </VerticalStackLayout>
+
                                 <Grid Grid.Row="1" Grid.Column="0">
 
                                     <Grid.RowDefinitions>
@@ -176,6 +188,57 @@
                                             <MultiBinding Converter="{StaticResource ValueSymbolConverter}">
                                                 <Binding Path="FromAccountBalanceAfter" FallbackValue="" Mode="OneWay" />
                                                 <Binding Path="FromAccountSymbol" FallbackValue="" Mode="OneWay" />
+                                            </MultiBinding>
+                                        </Label.Text>
+                                    </Label>
+
+                                </Grid>
+
+                                <Grid Grid.Row="1" Grid.Column="2">
+
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="*" />
+                                    </Grid.RowDefinitions>
+
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"
+                                           Text="{Binding LabelTextBalance, Mode=OneWay, Source={RelativeSource AncestorType={x:Type local:BankTransferSummaryContentPage}}}"
+                                           HorizontalTextAlignment="Center">
+                                    </Label>
+
+                                    <Label Grid.Row="1" Grid.Column="0"
+                                           Text="{Binding LabelTextBefore, Mode=OneWay, Source={RelativeSource AncestorType={x:Type local:BankTransferSummaryContentPage}}}"
+                                           HorizontalTextAlignment="Center">
+                                    </Label>
+
+                                    <Label Grid.Row="2" Grid.Column="0"
+                                           HorizontalTextAlignment="Center">
+                                        <Label.Text>
+                                            <MultiBinding Converter="{StaticResource ValueSymbolConverter}">
+                                                <Binding Path="ToAccountBalanceBefore" FallbackValue="" Mode="OneWay" />
+                                                <Binding Path="ToAccountSymbol" FallbackValue="" Mode="OneWay" />
+                                            </MultiBinding>
+                                        </Label.Text>
+                                    </Label>
+
+                                    <Label Grid.Row="1" Grid.Column="2"
+                                           Text="{Binding LabelTextAfter, Mode=OneWay, Source={RelativeSource AncestorType={x:Type local:BankTransferSummaryContentPage}}}"
+                                           HorizontalTextAlignment="Center">
+                                    </Label>
+
+                                    <Label Grid.Row="2" Grid.Column="2"
+                                           HorizontalTextAlignment="Center">
+                                        <Label.Text>
+                                            <MultiBinding Converter="{StaticResource ValueSymbolConverter}">
+                                                <Binding Path="ToAccountBalanceAfter" FallbackValue="" Mode="OneWay" />
+                                                <Binding Path="ToAccountSymbol" FallbackValue="" Mode="OneWay" />
                                             </MultiBinding>
                                         </Label.Text>
                                     </Label>

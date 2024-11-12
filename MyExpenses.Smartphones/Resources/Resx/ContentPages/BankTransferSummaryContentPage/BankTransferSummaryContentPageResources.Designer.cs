@@ -113,5 +113,14 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.BankTransferSummary
                 return ResourceManager.GetString("LabelTextFromAccount", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to To.
+        /// </summary>
+        internal static string LabelTextToAccount {
+            get {
+                return ResourceManager.GetString("LabelTextToAccount", resourceCulture);
+            }
+        }
     }
 }
