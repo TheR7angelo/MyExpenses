@@ -60,4 +60,13 @@ public partial class AccountManagementContentPage
         LabelTextTransactionHistory = AccountManagementContentPageResources.LabelTextTransactionHistory;
         LabelTextTransactionTransfer = AccountManagementContentPageResources.LabelTextTransactionTransfer;
     }
+
+    private void ButtonImageViewHistory_OnClicked(object? sender, EventArgs e)
+        => NavigateTo(typeof(BankTransferSummaryContentPage));
+
+    private async void NavigateTo(Type type)
+    {
+        var contentPage = (ContentPage)Activator.CreateInstance(type)!;
+        await Navigation.PushAsync(contentPage);
+    }
 }
