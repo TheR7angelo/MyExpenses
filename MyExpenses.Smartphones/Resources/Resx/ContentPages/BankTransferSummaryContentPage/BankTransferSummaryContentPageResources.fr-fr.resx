@@ -62,4 +62,10 @@
     <data name="LabelTextDate" xml:space="preserve">
         <value>Date</value>
     </data>
+    <data name="LabelTextMainReason" xml:space="preserve">
+        <value>Raison principale :</value>
+    </data>
+    <data name="LabelTextAdditionalReason" xml:space="preserve">
+        <value>Raison supplémentaire :</value>
+    </data>
 </root>

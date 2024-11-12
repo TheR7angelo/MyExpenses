@@ -88,6 +88,15 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.BankTransferSummary
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Additional reason :.
+        /// </summary>
+        internal static string LabelTextAdditionalReason {
+            get {
+                return ResourceManager.GetString("LabelTextAdditionalReason", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to After.
         /// </summary>
         internal static string LabelTextAfter {
@@ -129,6 +138,15 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.BankTransferSummary
         internal static string LabelTextFromAccount {
             get {
                 return ResourceManager.GetString("LabelTextFromAccount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Main reason :.
+        /// </summary>
+        internal static string LabelTextMainReason {
+            get {
+                return ResourceManager.GetString("LabelTextMainReason", resourceCulture);
             }
         }
         
