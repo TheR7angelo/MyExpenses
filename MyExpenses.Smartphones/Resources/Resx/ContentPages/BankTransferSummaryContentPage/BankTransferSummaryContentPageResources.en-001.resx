@@ -32,4 +32,28 @@
     <data name="LabelTextToAccount" xml:space="preserve">
         <value>To</value>
     </data>
+    <data name="MessageBoxRemoveMonthErrorTitle" xml:space="preserve">
+        <value>Error</value>
+    </data>
+    <data name="MessageBoxRemoveMonthErrorMessage" xml:space="preserve">
+        <value>No lower dates are available</value>
+    </data>
+    <data name="MessageBoxRemoveMonthErrorOkButton" xml:space="preserve">
+        <value>Ok</value>
+    </data>
+    <data name="MessageBoxAddMonthErrorTitle" xml:space="preserve">
+        <value>Error</value>
+    </data>
+    <data name="MessageBoxAddMonthErrorMessage" xml:space="preserve">
+        <value>No additional dates are available</value>
+    </data>
+    <data name="MessageBoxAddMonthErrorOkButton" xml:space="preserve">
+        <value>Ok</value>
+    </data>
+    <data name="ElapsedTimeLoadingDataText" xml:space="preserve">
+        <value>Elapsed time :</value>
+    </data>
+    <data name="RecordFoundOn" xml:space="preserve">
+        <value>record(s) found on</value>
+    </data>
 </root>

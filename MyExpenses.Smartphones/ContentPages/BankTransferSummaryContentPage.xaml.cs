@@ -6,7 +6,6 @@ using MyExpenses.Models.Config;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Sql.Bases.Views;
 using MyExpenses.Smartphones.Resources.Resx.ContentPages.BankTransferSummaryContentPage;
-using MyExpenses.Smartphones.Resources.Resx.ContentPages.DashBoardContentPage;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils.Collection;
 using MyExpenses.Utils.Strings;
@@ -201,8 +200,8 @@ public partial class BankTransferSummaryContentPage
         LabelTextBefore = BankTransferSummaryContentPageResources.LabelTextBefore;
         LabelTextAfter = BankTransferSummaryContentPageResources.LabelTextAfter;
 
-        ElapsedTimeLoadingDataText = $"{DashBoardContentPageResources.ElapsedTimeLoadingDataText} ";
-        RecordFoundOn = $" {DashBoardContentPageResources.RecordFoundOn} ";
+        ElapsedTimeLoadingDataText = $"{BankTransferSummaryContentPageResources.ElapsedTimeLoadingDataText} ";
+        RecordFoundOn = $" {BankTransferSummaryContentPageResources.RecordFoundOn} ";
     }
 
     private void UpdateMonthLanguage()
@@ -238,9 +237,9 @@ public partial class BankTransferSummaryContentPage
 
         if (result) return;
 
-        await DisplayAlert(DashBoardContentPageResources.MessageBoxAddMonthErrorTitle,
-            DashBoardContentPageResources.MessageBoxAddMonthErrorMessage,
-            DashBoardContentPageResources.MessageBoxAddMonthErrorOkButton);
+        await DisplayAlert(BankTransferSummaryContentPageResources.MessageBoxAddMonthErrorTitle,
+            BankTransferSummaryContentPageResources.MessageBoxAddMonthErrorMessage,
+            BankTransferSummaryContentPageResources.MessageBoxAddMonthErrorOkButton);
     }
 
     private void ButtonDateNow_OnClick(object? sender, EventArgs e)
@@ -258,9 +257,9 @@ public partial class BankTransferSummaryContentPage
 
         if (result) return;
 
-        await DisplayAlert(DashBoardContentPageResources.MessageBoxRemoveMonthErrorTitle,
-            DashBoardContentPageResources.MessageBoxRemoveMonthErrorMessage,
-            DashBoardContentPageResources.MessageBoxRemoveMonthErrorOkButton);
+        await DisplayAlert(BankTransferSummaryContentPageResources.MessageBoxRemoveMonthErrorTitle,
+            BankTransferSummaryContentPageResources.MessageBoxRemoveMonthErrorMessage,
+            BankTransferSummaryContentPageResources.MessageBoxRemoveMonthErrorOkButton);
     }
 
     private DateOnly GetDateOnlyFilter()

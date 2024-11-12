@@ -79,6 +79,15 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.BankTransferSummary
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Elapsed time :.
+        /// </summary>
+        internal static string ElapsedTimeLoadingDataText {
+            get {
+                return ResourceManager.GetString("ElapsedTimeLoadingDataText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to After.
         /// </summary>
         internal static string LabelTextAfter {
@@ -120,6 +129,69 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.BankTransferSummary
         internal static string LabelTextToAccount {
             get {
                 return ResourceManager.GetString("LabelTextToAccount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No additional dates are available.
+        /// </summary>
+        internal static string MessageBoxAddMonthErrorMessage {
+            get {
+                return ResourceManager.GetString("MessageBoxAddMonthErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ok.
+        /// </summary>
+        internal static string MessageBoxAddMonthErrorOkButton {
+            get {
+                return ResourceManager.GetString("MessageBoxAddMonthErrorOkButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        internal static string MessageBoxAddMonthErrorTitle {
+            get {
+                return ResourceManager.GetString("MessageBoxAddMonthErrorTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No lower dates are available.
+        /// </summary>
+        internal static string MessageBoxRemoveMonthErrorMessage {
+            get {
+                return ResourceManager.GetString("MessageBoxRemoveMonthErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ok.
+        /// </summary>
+        internal static string MessageBoxRemoveMonthErrorOkButton {
+            get {
+                return ResourceManager.GetString("MessageBoxRemoveMonthErrorOkButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        internal static string MessageBoxRemoveMonthErrorTitle {
+            get {
+                return ResourceManager.GetString("MessageBoxRemoveMonthErrorTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to record(s) found on.
+        /// </summary>
+        internal static string RecordFoundOn {
+            get {
+                return ResourceManager.GetString("RecordFoundOn", resourceCulture);
             }
         }
     }
