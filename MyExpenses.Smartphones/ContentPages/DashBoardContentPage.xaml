@@ -378,7 +378,7 @@
                                 <buttons:ReadOnlyCheckBox Grid.Row="0" Grid.Column="3" Grid.RowSpan="3"
                                                           HorizontalOptions="Center"
                                                           VerticalOptions="Center"
-                                                          IsChecked="{Binding Pointed}"
+                                                          IsChecked="{Binding IsPointed}"
                                                           IsReadOnly="True">
                                 </buttons:ReadOnlyCheckBox>
 

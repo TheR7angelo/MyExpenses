@@ -411,7 +411,7 @@
                     </filterDataGrid:DataGridTextColumn>
 
                     <filterDataGrid:DataGridCheckBoxColumn x:Name="CheckBoxColumnPointed" IsColumnFiltered="True"
-                                                           IsThreeState="False" Binding="{Binding Pointed}">
+                                                           IsThreeState="False" Binding="{Binding IsPointed}">
                     </filterDataGrid:DataGridCheckBoxColumn>
 
                     <filterDataGrid:DataGridTemplateColumn x:Name="TemplateColumnActions" IsColumnFiltered="False"
