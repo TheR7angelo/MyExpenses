@@ -4,8 +4,14 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:margin="clr-namespace:MyExpenses.Maui.Utils.Margin;assembly=MyExpenses.Maui.Utils"
              xmlns:customFrame="clr-namespace:MyExpenses.Smartphones.UserControls.Buttons.CustomFrame"
+             xmlns:pickers="clr-namespace:MyExpenses.Smartphones.UserControls.Pickers"
+             xmlns:converters="clr-namespace:MyExpenses.Smartphones.Converters"
              x:Class="MyExpenses.Smartphones.ContentPages.BankTransferSummaryContentPage"
              BindingContext="{Binding Source={RelativeSource Self}}">
+
+    <ContentPage.Resources>
+        <converters:ValueSymbolConverter x:Key="ValueSymbolConverter" />
+    </ContentPage.Resources>
 
     <ContentPage.Content>
 
@@ -14,10 +20,12 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-                        <HorizontalStackLayout Grid.Row="1"
+            <HorizontalStackLayout Grid.Row="0"
                                    HorizontalOptions="Center"
                                    margin:LayoutExtensions.MarginForAllChildren="5">
 
@@ -53,6 +61,184 @@
                 </customFrame:ButtonImageView>
 
             </HorizontalStackLayout>
+
+            <Grid Grid.Row="1" margin:LayoutExtensions.MarginForAllChildren="5">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <pickers:CustomPicker Grid.Column="0"
+                                      ItemsSource="{Binding Years, Mode=OneWay}"
+                                      SelectedItem="{Binding SelectedYear, Mode=TwoWay}"
+                                      GeometryColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
+                                      PlaceholderText="{Binding ComboBoxYearsHintAssist, Mode=OneWay}"
+                                      HasClearButton="True"
+                                      SelectedIndexChanged="CustomPicker_OnSelectedIndexChanged">
+                </pickers:CustomPicker>
+
+                <pickers:CustomPicker Grid.Column="1"
+                                      ItemsSource="{Binding Months, Mode=OneWay}"
+                                      SelectedItem="{Binding SelectedMonth, Mode=TwoWay}"
+                                      GeometryColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
+                                      PlaceholderText="{Binding ComboBoxMonthHintAssist, Mode=OneWay}"
+                                      HasClearButton="True"
+                                      SelectedIndexChanged="CustomPicker_OnSelectedIndexChanged">
+                </pickers:CustomPicker>
+
+            </Grid>
+
+            <CollectionView Grid.Row="3"
+                            ItemsSource="{Binding BankTransferSummaries, Mode=OneWay}">
+
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+
+                        <Border x:Name="Border"
+                                Stroke="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
+                                StrokeThickness="2"
+                                Padding="0"
+                                Margin="0, 3">
+
+                            <Border.StrokeShape>
+                                <RoundRectangle CornerRadius="5" />
+                            </Border.StrokeShape>
+
+                            <Grid>
+
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+
+                                <VerticalStackLayout Grid.Row="0" Grid.Column="0">
+
+                                    <!-- TODO trad -->
+                                    <Label Text="From"
+                                           HorizontalTextAlignment="Center">
+                                    </Label>
+
+                                    <Label Text="{Binding FromAccountName, Mode=OneWay}"
+                                           HorizontalTextAlignment="Center">
+                                    </Label>
+
+                                </VerticalStackLayout>
+
+                                <Grid Grid.Row="1" Grid.Column="0">
+
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="*" />
+                                    </Grid.RowDefinitions>
+
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <!-- TODO trad -->
+                                    <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"
+                                           Text="Solde"
+                                           HorizontalTextAlignment="Center">
+                                    </Label>
+
+                                    <!-- TODO trad -->
+                                    <Label Grid.Row="1" Grid.Column="0"
+                                           Text="Before"
+                                           HorizontalTextAlignment="Center">
+                                    </Label>
+
+                                    <Label Grid.Row="2" Grid.Column="0"
+                                           HorizontalTextAlignment="Center">
+                                        <Label.Text>
+                                            <MultiBinding Converter="{StaticResource ValueSymbolConverter}">
+                                                <Binding Path="FromAccountBalanceBefore" FallbackValue="" Mode="OneWay" />
+                                                <Binding Path="FromAccountSymbol" FallbackValue="" Mode="OneWay" />
+                                            </MultiBinding>
+                                        </Label.Text>
+                                    </Label>
+
+                                    <!-- TODO trad -->
+                                    <Label Grid.Row="1" Grid.Column="2"
+                                           Text="After"
+                                           HorizontalTextAlignment="Center">
+                                    </Label>
+
+                                    <Label Grid.Row="2" Grid.Column="2"
+                                           HorizontalTextAlignment="Center">
+                                        <Label.Text>
+                                            <MultiBinding Converter="{StaticResource ValueSymbolConverter}">
+                                                <Binding Path="ToAccountBalanceBefore" FallbackValue="" Mode="OneWay" />
+                                                <Binding Path="ToAccountSymbol" FallbackValue="" Mode="OneWay" />
+                                            </MultiBinding>
+                                        </Label.Text>
+                                    </Label>
+
+                                </Grid>
+
+                            </Grid>
+
+                        </Border>
+
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+
+            </CollectionView>
+
+            <!-- <Grid Grid.Row="4"> -->
+            <!-- -->
+            <!--     <Grid.ColumnDefinitions> -->
+            <!--         <ColumnDefinition Width="Auto" /> -->
+            <!--         <ColumnDefinition Width="*" /> -->
+            <!--         <ColumnDefinition Width="Auto" /> -->
+            <!--     </Grid.ColumnDefinitions> -->
+            <!-- -->
+            <!--     <HorizontalStackLayout Grid.Column="0" -->
+            <!--                            HorizontalOptions="Start"> -->
+            <!-- -->
+            <!--         <Label x:Name="LabelRowTotal" -->
+            <!--                Text="{Binding RowTotalFilteredCount, Mode=OneWay}" -->
+            <!--                FontSize="12" -->
+            <!--                VerticalTextAlignment="Center"> -->
+            <!--         </Label> -->
+            <!-- -->
+            <!--         <Label Text="{Binding RecordFoundOn, Mode=OneWay}" -->
+            <!--                FontSize="{Binding FontSize, Source={x:Reference LabelRowTotal}}" -->
+            <!--                VerticalTextAlignment="Center"> -->
+            <!--         </Label> -->
+            <!-- -->
+            <!--         <Label Text="{Binding RowTotalCount, Mode=OneWay}" -->
+            <!--                FontSize="{Binding FontSize, Source={x:Reference LabelRowTotal}}" -->
+            <!--                VerticalTextAlignment="Center"> -->
+            <!--         </Label> -->
+            <!-- -->
+            <!--     </HorizontalStackLayout> -->
+            <!-- -->
+            <!--     <HorizontalStackLayout Grid.Column="2" -->
+            <!--                            HorizontalOptions="End"> -->
+            <!-- -->
+            <!--         <Label Text="{Binding ElapsedTimeLoadingDataText, Mode=OneWay}" -->
+            <!--                FontSize="{Binding FontSize, Source={x:Reference LabelRowTotal}}" -->
+            <!--                VerticalTextAlignment="Center"> -->
+            <!--         </Label> -->
+            <!-- -->
+            <!--         <Label Text="{Binding ElapsedTimeLoadingData, Mode=OneWay}" -->
+            <!--                FontSize="{Binding FontSize, Source={x:Reference LabelRowTotal}}" -->
+            <!--                VerticalTextAlignment="Center"> -->
+            <!--         </Label> -->
+            <!-- -->
+            <!--     </HorizontalStackLayout> -->
+            <!-- -->
+            <!-- </Grid> -->
 
         </Grid>
 

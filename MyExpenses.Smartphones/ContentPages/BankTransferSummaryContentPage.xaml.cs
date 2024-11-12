@@ -1,8 +1,10 @@
 using System.Collections.Immutable;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Globalization;
 using MyExpenses.Models.Config;
 using MyExpenses.Models.Config.Interfaces;
+using MyExpenses.Models.Sql.Bases.Views;
 using MyExpenses.Smartphones.Resources.Resx.ContentPages.DashBoardContentPage;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils.Collection;
@@ -12,6 +14,25 @@ namespace MyExpenses.Smartphones.ContentPages;
 
 public partial class BankTransferSummaryContentPage
 {
+    public static readonly BindableProperty ComboBoxMonthHintAssistProperty =
+        BindableProperty.Create(nameof(ComboBoxMonthHintAssist), typeof(string), typeof(BankTransferSummaryContentPage),
+            default(string));
+
+    public string ComboBoxMonthHintAssist
+    {
+        get => (string)GetValue(ComboBoxMonthHintAssistProperty);
+        set => SetValue(ComboBoxMonthHintAssistProperty, value);
+    }
+
+    public static readonly BindableProperty ComboBoxYearsHintAssistProperty =
+        BindableProperty.Create(nameof(ComboBoxYearsHintAssist), typeof(string), typeof(BankTransferSummaryContentPage),
+            default(string));
+
+    public string ComboBoxYearsHintAssist
+    {
+        get => (string)GetValue(ComboBoxYearsHintAssistProperty);
+        set => SetValue(ComboBoxYearsHintAssistProperty, value);
+    }
 
     public static readonly BindableProperty SelectedYearProperty = BindableProperty.Create(nameof(SelectedYear),
         typeof(string), typeof(BankTransferSummaryContentPage), default(string));
@@ -33,6 +54,8 @@ public partial class BankTransferSummaryContentPage
 
     public ObservableCollection<string> Years { get; }
     public ObservableCollection<string> Months { get; } = [];
+
+    public ObservableCollection<VBankTransferSummary> BankTransferSummaries { get; } = [];
 
     public BankTransferSummaryContentPage()
     {
@@ -74,6 +97,8 @@ public partial class BankTransferSummaryContentPage
     private void UpdateLanguage()
     {
         //TODO work
+        ComboBoxYearsHintAssist = "ComboBoxYearsHintAssist";
+        ComboBoxMonthHintAssist = "ComboBoxMonthHintAssist";
     }
 
     private void UpdateMonthLanguage()
@@ -159,5 +184,83 @@ public partial class BankTransferSummaryContentPage
         SelectedMonth = Months[monthIndex];
 
         return true;
+    }
+
+    private void CustomPicker_OnSelectedIndexChanged(object? sender, EventArgs e)
+    {
+        //TODO work
+        RefreshDataGrid();
+    }
+
+    private void RefreshDataGrid()
+    {
+        var stopwatch = new Stopwatch();
+        stopwatch.Start();
+
+        using var context = new DataBaseContext();
+
+        IQueryable<VBankTransferSummary>? query = context.VBankTransferSummaries;
+        if (query.Count() is 0) return;
+
+        if (!string.IsNullOrEmpty(SelectedMonth))
+        {
+            var monthInt = Months.IndexOf(SelectedMonth) + 1;
+            query = query.Where(s => s.Date!.Value.Month.Equals(monthInt));
+        }
+
+        if (!string.IsNullOrEmpty(SelectedYear))
+        {
+            _ = SelectedYear.ToInt(out var yearInt);
+            query = query.Where(s => s.Date!.Value.Year.Equals(yearInt));
+        }
+
+        // RowTotalCount = query.Count();
+
+        // if (VCategoryDerivesFilter.Count > 0)
+        // {
+        //     var categoryName = VCategoryDerivesFilter.Select(s => s.CategoryName!);
+        //     query = query.Where(s => categoryName.Contains(s.Category));
+        // }
+        //
+        // if (HistoryDescriptions.Count > 0)
+        // {
+        //     var historyDescriptions = HistoryDescriptions.Select(s => s.StringValue);
+        //     query = query.Where(s => historyDescriptions.Contains(s.Description));
+        // }
+        //
+        // if (ModePaymentDeriveFilter.Count > 0)
+        // {
+        //     var modePayments = ModePaymentDeriveFilter.Select(s => s.Name);
+        //     query = query.Where(s => modePayments.Contains(s.ModePayment));
+        // }
+        //
+        // if (HistoryValues.Count > 0)
+        // {
+        //     var historyValues = HistoryValues.Select(s => s.DoubleValue);
+        //     query = query.Where(s => historyValues.Contains(s.Value));
+        // }
+        //
+        // if (HistoryChecked.Count > 0)
+        // {
+        //     var historyChecked = HistoryChecked.Select(s => s.BoolValue);
+        //     query = query.Where(s => historyChecked.Contains((bool)s.IsPointed!));
+        // }
+        //
+        // if (PlaceDeriveFilter.Count > 0)
+        // {
+        //     var historyPlaces = PlaceDeriveFilter.Select(s => s.Name);
+        //     query = query.Where(s => historyPlaces.Contains(s.Place));
+        // }
+
+        // RowTotalFilteredCount = query.Count();
+
+        var records = query
+            .OrderByDescending(s => s.Date);
+
+        stopwatch.Stop();
+        // ElapsedTimeLoadingData = stopwatch.Elapsed.ToString("hh\\:mm\\:ss");
+
+        BankTransferSummaries.Clear();
+        BankTransferSummaries.AddRange(records);
     }
 }
