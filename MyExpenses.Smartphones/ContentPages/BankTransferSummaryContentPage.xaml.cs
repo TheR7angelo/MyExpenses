@@ -15,6 +15,54 @@ namespace MyExpenses.Smartphones.ContentPages;
 
 public partial class BankTransferSummaryContentPage
 {
+    public static readonly BindableProperty ElapsedTimeLoadingDataProperty =
+        BindableProperty.Create(nameof(ElapsedTimeLoadingData), typeof(string), typeof(BankTransferSummaryContentPage),
+            default(string));
+
+    public string ElapsedTimeLoadingData
+    {
+        get => (string)GetValue(ElapsedTimeLoadingDataProperty);
+        set => SetValue(ElapsedTimeLoadingDataProperty, value);
+    }
+
+    public static readonly BindableProperty ElapsedTimeLoadingDataTextProperty =
+        BindableProperty.Create(nameof(ElapsedTimeLoadingDataText), typeof(string),
+            typeof(BankTransferSummaryContentPage), default(string));
+
+    public string ElapsedTimeLoadingDataText
+    {
+        get => (string)GetValue(ElapsedTimeLoadingDataTextProperty);
+        set => SetValue(ElapsedTimeLoadingDataTextProperty, value);
+    }
+
+    public static readonly BindableProperty RowTotalCountProperty = BindableProperty.Create(nameof(RowTotalCount),
+        typeof(int), typeof(BankTransferSummaryContentPage), default(int));
+
+    public int RowTotalCount
+    {
+        get => (int)GetValue(RowTotalCountProperty);
+        set => SetValue(RowTotalCountProperty, value);
+    }
+
+    public static readonly BindableProperty RecordFoundOnProperty = BindableProperty.Create(nameof(RecordFoundOn),
+        typeof(string), typeof(BankTransferSummaryContentPage), default(string));
+
+    public string RecordFoundOn
+    {
+        get => (string)GetValue(RecordFoundOnProperty);
+        set => SetValue(RecordFoundOnProperty, value);
+    }
+
+    public static readonly BindableProperty RowTotalFilteredCountProperty =
+        BindableProperty.Create(nameof(RowTotalFilteredCount), typeof(int), typeof(BankTransferSummaryContentPage),
+            default(int));
+
+    public int RowTotalFilteredCount
+    {
+        get => (int)GetValue(RowTotalFilteredCountProperty);
+        set => SetValue(RowTotalFilteredCountProperty, value);
+    }
+
     public static readonly BindableProperty LabelTextToAccountProperty =
         BindableProperty.Create(nameof(LabelTextToAccount), typeof(string), typeof(BankTransferSummaryContentPage),
             default(string));
@@ -152,6 +200,9 @@ public partial class BankTransferSummaryContentPage
         LabelTextBalance = BankTransferSummaryContentPageResources.LabelTextBalance;
         LabelTextBefore = BankTransferSummaryContentPageResources.LabelTextBefore;
         LabelTextAfter = BankTransferSummaryContentPageResources.LabelTextAfter;
+
+        ElapsedTimeLoadingDataText = $"{DashBoardContentPageResources.ElapsedTimeLoadingDataText} ";
+        RecordFoundOn = $" {DashBoardContentPageResources.RecordFoundOn} ";
     }
 
     private void UpdateMonthLanguage()
@@ -240,10 +291,8 @@ public partial class BankTransferSummaryContentPage
     }
 
     private void CustomPicker_OnSelectedIndexChanged(object? sender, EventArgs e)
-    {
-        //TODO work
-        RefreshDataGrid();
-    }
+        => RefreshDataGrid();
+
 
     private void RefreshDataGrid()
     {
@@ -267,7 +316,7 @@ public partial class BankTransferSummaryContentPage
             query = query.Where(s => s.Date!.Value.Year.Equals(yearInt));
         }
 
-        // RowTotalCount = query.Count();
+        RowTotalCount = query.Count();
 
         // if (VCategoryDerivesFilter.Count > 0)
         // {
@@ -305,13 +354,13 @@ public partial class BankTransferSummaryContentPage
         //     query = query.Where(s => historyPlaces.Contains(s.Place));
         // }
 
-        // RowTotalFilteredCount = query.Count();
+        RowTotalFilteredCount = query.Count();
 
         var records = query
             .OrderByDescending(s => s.Date);
 
         stopwatch.Stop();
-        // ElapsedTimeLoadingData = stopwatch.Elapsed.ToString("hh\\:mm\\:ss");
+        ElapsedTimeLoadingData = stopwatch.Elapsed.ToString("hh\\:mm\\:ss");
 
         BankTransferSummaries.Clear();
         BankTransferSummaries.AddRange(records);

@@ -254,51 +254,51 @@
 
             </CollectionView>
 
-            <!-- <Grid Grid.Row="4"> -->
-            <!-- -->
-            <!--     <Grid.ColumnDefinitions> -->
-            <!--         <ColumnDefinition Width="Auto" /> -->
-            <!--         <ColumnDefinition Width="*" /> -->
-            <!--         <ColumnDefinition Width="Auto" /> -->
-            <!--     </Grid.ColumnDefinitions> -->
-            <!-- -->
-            <!--     <HorizontalStackLayout Grid.Column="0" -->
-            <!--                            HorizontalOptions="Start"> -->
-            <!-- -->
-            <!--         <Label x:Name="LabelRowTotal" -->
-            <!--                Text="{Binding RowTotalFilteredCount, Mode=OneWay}" -->
-            <!--                FontSize="12" -->
-            <!--                VerticalTextAlignment="Center"> -->
-            <!--         </Label> -->
-            <!-- -->
-            <!--         <Label Text="{Binding RecordFoundOn, Mode=OneWay}" -->
-            <!--                FontSize="{Binding FontSize, Source={x:Reference LabelRowTotal}}" -->
-            <!--                VerticalTextAlignment="Center"> -->
-            <!--         </Label> -->
-            <!-- -->
-            <!--         <Label Text="{Binding RowTotalCount, Mode=OneWay}" -->
-            <!--                FontSize="{Binding FontSize, Source={x:Reference LabelRowTotal}}" -->
-            <!--                VerticalTextAlignment="Center"> -->
-            <!--         </Label> -->
-            <!-- -->
-            <!--     </HorizontalStackLayout> -->
-            <!-- -->
-            <!--     <HorizontalStackLayout Grid.Column="2" -->
-            <!--                            HorizontalOptions="End"> -->
-            <!-- -->
-            <!--         <Label Text="{Binding ElapsedTimeLoadingDataText, Mode=OneWay}" -->
-            <!--                FontSize="{Binding FontSize, Source={x:Reference LabelRowTotal}}" -->
-            <!--                VerticalTextAlignment="Center"> -->
-            <!--         </Label> -->
-            <!-- -->
-            <!--         <Label Text="{Binding ElapsedTimeLoadingData, Mode=OneWay}" -->
-            <!--                FontSize="{Binding FontSize, Source={x:Reference LabelRowTotal}}" -->
-            <!--                VerticalTextAlignment="Center"> -->
-            <!--         </Label> -->
-            <!-- -->
-            <!--     </HorizontalStackLayout> -->
-            <!-- -->
-            <!-- </Grid> -->
+            <Grid Grid.Row="4">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <HorizontalStackLayout Grid.Column="0"
+                                       HorizontalOptions="Start">
+
+                    <Label x:Name="LabelRowTotal"
+                           Text="{Binding RowTotalFilteredCount, Mode=OneWay}"
+                           FontSize="12"
+                           VerticalTextAlignment="Center">
+                    </Label>
+
+                    <Label Text="{Binding RecordFoundOn, Mode=OneWay}"
+                           FontSize="{Binding FontSize, Source={x:Reference LabelRowTotal}}"
+                           VerticalTextAlignment="Center">
+                    </Label>
+
+                    <Label Text="{Binding RowTotalCount, Mode=OneWay}"
+                           FontSize="{Binding FontSize, Source={x:Reference LabelRowTotal}}"
+                           VerticalTextAlignment="Center">
+                    </Label>
+
+                </HorizontalStackLayout>
+
+                <HorizontalStackLayout Grid.Column="2"
+                                       HorizontalOptions="End">
+
+                    <Label Text="{Binding ElapsedTimeLoadingDataText, Mode=OneWay}"
+                           FontSize="{Binding FontSize, Source={x:Reference LabelRowTotal}}"
+                           VerticalTextAlignment="Center">
+                    </Label>
+
+                    <Label Text="{Binding ElapsedTimeLoadingData, Mode=OneWay}"
+                           FontSize="{Binding FontSize, Source={x:Reference LabelRowTotal}}"
+                           VerticalTextAlignment="Center">
+                    </Label>
+
+                </HorizontalStackLayout>
+
+            </Grid>
 
         </Grid>
 
