@@ -174,8 +174,8 @@
                                            HorizontalTextAlignment="Center">
                                         <Label.Text>
                                             <MultiBinding Converter="{StaticResource ValueSymbolConverter}">
-                                                <Binding Path="ToAccountBalanceBefore" FallbackValue="" Mode="OneWay" />
-                                                <Binding Path="ToAccountSymbol" FallbackValue="" Mode="OneWay" />
+                                                <Binding Path="FromAccountBalanceAfter" FallbackValue="" Mode="OneWay" />
+                                                <Binding Path="FromAccountSymbol" FallbackValue="" Mode="OneWay" />
                                             </MultiBinding>
                                         </Label.Text>
                                     </Label>
