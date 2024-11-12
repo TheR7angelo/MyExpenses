@@ -129,8 +129,6 @@
                                       PlaceholderText="{Binding ComboBoxMonthHintAssist, Mode=OneWay}"
                                       HasClearButton="True"
                                       SelectedIndexChanged="CustomPicker_OnSelectedIndexChanged">
-
-
                 </pickers:CustomPicker>
 
             </Grid>
