@@ -56,4 +56,10 @@
     <data name="RecordFoundOn" xml:space="preserve">
         <value>record(s) found on</value>
     </data>
+    <data name="LabelTextValue" xml:space="preserve">
+        <value>Amount</value>
+    </data>
+    <data name="LabelTextDate" xml:space="preserve">
+        <value>Date</value>
+    </data>
 </root>

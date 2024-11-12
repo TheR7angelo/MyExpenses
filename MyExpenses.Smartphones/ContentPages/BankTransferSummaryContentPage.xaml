@@ -7,11 +7,13 @@
              xmlns:pickers="clr-namespace:MyExpenses.Smartphones.UserControls.Pickers"
              xmlns:converters="clr-namespace:MyExpenses.Smartphones.Converters"
              xmlns:local="clr-namespace:MyExpenses.Smartphones.ContentPages"
+             xmlns:images="clr-namespace:MyExpenses.Smartphones.UserControls.Images"
              x:Class="MyExpenses.Smartphones.ContentPages.BankTransferSummaryContentPage"
              BindingContext="{Binding Source={RelativeSource Self}}">
 
     <ContentPage.Resources>
         <converters:ValueSymbolConverter x:Key="ValueSymbolConverter" />
+        <converters:DateTimeToDateOnlyConverter x:Key="DateTimeToDateOnlyConverter" />
     </ContentPage.Resources>
 
     <ContentPage.Content>
@@ -126,6 +128,37 @@
                                     </Label>
 
                                     <Label Text="{Binding FromAccountName, Mode=OneWay}"
+                                           HorizontalTextAlignment="Center">
+                                    </Label>
+
+                                </VerticalStackLayout>
+
+                                <VerticalStackLayout Grid.Row="0" Grid.Column="1" Grid.RowSpan="2">
+
+                                    <Label Text="{Binding LabelTextValue, Mode=OneWay, Source={RelativeSource AncestorType={x:Type local:BankTransferSummaryContentPage}}}"
+                                           HorizontalTextAlignment="Center">
+                                    </Label>
+
+                                    <Label HorizontalTextAlignment="Center">
+                                        <Label.Text>
+                                            <MultiBinding Converter="{StaticResource ValueSymbolConverter}">
+                                                <Binding Path="Value" FallbackValue="" Mode="OneWay" />
+                                                <Binding Path="FromAccountSymbol" FallbackValue="" Mode="OneWay" />
+                                            </MultiBinding>
+                                        </Label.Text>
+                                    </Label>
+
+                                    <images:SvgPath GeometryColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
+                                                    GeometrySource="ArrowRightThin"
+                                                    WidthRequest="64"
+                                                    HeightRequest="64">
+                                    </images:SvgPath>
+
+                                    <Label Text="{Binding LabelTextDate, Mode=OneWay, Source={RelativeSource AncestorType={x:Type local:BankTransferSummaryContentPage}}}"
+                                           HorizontalTextAlignment="Center">
+                                    </Label>
+
+                                    <Label Text="{Binding Date, Mode=OneWay, Converter={StaticResource DateTimeToDateOnlyConverter}}"
                                            HorizontalTextAlignment="Center">
                                     </Label>
 

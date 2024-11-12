@@ -14,6 +14,24 @@ namespace MyExpenses.Smartphones.ContentPages;
 
 public partial class BankTransferSummaryContentPage
 {
+    public static readonly BindableProperty LabelTextDateProperty = BindableProperty.Create(nameof(LabelTextDate),
+        typeof(string), typeof(BankTransferSummaryContentPage), default(string));
+
+    public string LabelTextDate
+    {
+        get => (string)GetValue(LabelTextDateProperty);
+        set => SetValue(LabelTextDateProperty, value);
+    }
+
+    public static readonly BindableProperty LabelTextValueProperty = BindableProperty.Create(nameof(LabelTextValue),
+        typeof(string), typeof(BankTransferSummaryContentPage), default(string));
+
+    public string LabelTextValue
+    {
+        get => (string)GetValue(LabelTextValueProperty);
+        set => SetValue(LabelTextValueProperty, value);
+    }
+
     public static readonly BindableProperty ElapsedTimeLoadingDataProperty =
         BindableProperty.Create(nameof(ElapsedTimeLoadingData), typeof(string), typeof(BankTransferSummaryContentPage),
             default(string));
@@ -199,6 +217,9 @@ public partial class BankTransferSummaryContentPage
         LabelTextBalance = BankTransferSummaryContentPageResources.LabelTextBalance;
         LabelTextBefore = BankTransferSummaryContentPageResources.LabelTextBefore;
         LabelTextAfter = BankTransferSummaryContentPageResources.LabelTextAfter;
+
+        LabelTextValue = BankTransferSummaryContentPageResources.LabelTextValue;
+        LabelTextDate = BankTransferSummaryContentPageResources.LabelTextDate;
 
         ElapsedTimeLoadingDataText = $"{BankTransferSummaryContentPageResources.ElapsedTimeLoadingDataText} ";
         RecordFoundOn = $" {BankTransferSummaryContentPageResources.RecordFoundOn} ";

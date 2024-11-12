@@ -115,6 +115,15 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.BankTransferSummary
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Date.
+        /// </summary>
+        internal static string LabelTextDate {
+            get {
+                return ResourceManager.GetString("LabelTextDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to From.
         /// </summary>
         internal static string LabelTextFromAccount {
@@ -129,6 +138,15 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.BankTransferSummary
         internal static string LabelTextToAccount {
             get {
                 return ResourceManager.GetString("LabelTextToAccount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Amount.
+        /// </summary>
+        internal static string LabelTextValue {
+            get {
+                return ResourceManager.GetString("LabelTextValue", resourceCulture);
             }
         }
         
