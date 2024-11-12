@@ -5,6 +5,7 @@ using System.Globalization;
 using MyExpenses.Models.Config;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Sql.Bases.Views;
+using MyExpenses.Smartphones.Resources.Resx.ContentPages.BankTransferSummaryContentPage;
 using MyExpenses.Smartphones.Resources.Resx.ContentPages.DashBoardContentPage;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils.Collection;
@@ -14,6 +15,43 @@ namespace MyExpenses.Smartphones.ContentPages;
 
 public partial class BankTransferSummaryContentPage
 {
+    public static readonly BindableProperty LabelTextAfterProperty = BindableProperty.Create(nameof(LabelTextAfter),
+        typeof(string), typeof(BankTransferSummaryContentPage), default(string));
+
+    public string LabelTextAfter
+    {
+        get => (string)GetValue(LabelTextAfterProperty);
+        set => SetValue(LabelTextAfterProperty, value);
+    }
+
+    public static readonly BindableProperty LabelTextBeforeProperty = BindableProperty.Create(nameof(LabelTextBefore),
+        typeof(string), typeof(BankTransferSummaryContentPage), default(string));
+
+    public string LabelTextBefore
+    {
+        get => (string)GetValue(LabelTextBeforeProperty);
+        set => SetValue(LabelTextBeforeProperty, value);
+    }
+
+    public static readonly BindableProperty LabelTextBalanceProperty = BindableProperty.Create(nameof(LabelTextBalance),
+        typeof(string), typeof(BankTransferSummaryContentPage), default(string));
+
+    public string LabelTextBalance
+    {
+        get => (string)GetValue(LabelTextBalanceProperty);
+        set => SetValue(LabelTextBalanceProperty, value);
+    }
+
+    public static readonly BindableProperty LabelTextFromAccountProperty =
+        BindableProperty.Create(nameof(LabelTextFromAccount), typeof(string), typeof(BankTransferSummaryContentPage),
+            default(string));
+
+    public string LabelTextFromAccount
+    {
+        get => (string)GetValue(LabelTextFromAccountProperty);
+        set => SetValue(LabelTextFromAccountProperty, value);
+    }
+
     public static readonly BindableProperty ComboBoxMonthHintAssistProperty =
         BindableProperty.Create(nameof(ComboBoxMonthHintAssist), typeof(string), typeof(BankTransferSummaryContentPage),
             default(string));
@@ -96,9 +134,13 @@ public partial class BankTransferSummaryContentPage
 
     private void UpdateLanguage()
     {
-        //TODO work
-        ComboBoxYearsHintAssist = "ComboBoxYearsHintAssist";
-        ComboBoxMonthHintAssist = "ComboBoxMonthHintAssist";
+        ComboBoxYearsHintAssist = BankTransferSummaryContentPageResources.ComboBoxYearsHintAssist;
+        ComboBoxMonthHintAssist = BankTransferSummaryContentPageResources.ComboBoxMonthHintAssist;
+
+        LabelTextFromAccount = BankTransferSummaryContentPageResources.LabelTextFromAccount;
+        LabelTextBalance = BankTransferSummaryContentPageResources.LabelTextBalance;
+        LabelTextBefore = BankTransferSummaryContentPageResources.LabelTextBefore;
+        LabelTextAfter = BankTransferSummaryContentPageResources.LabelTextAfter;
     }
 
     private void UpdateMonthLanguage()

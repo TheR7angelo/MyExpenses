@@ -6,6 +6,7 @@
              xmlns:customFrame="clr-namespace:MyExpenses.Smartphones.UserControls.Buttons.CustomFrame"
              xmlns:pickers="clr-namespace:MyExpenses.Smartphones.UserControls.Pickers"
              xmlns:converters="clr-namespace:MyExpenses.Smartphones.Converters"
+             xmlns:local="clr-namespace:MyExpenses.Smartphones.ContentPages"
              x:Class="MyExpenses.Smartphones.ContentPages.BankTransferSummaryContentPage"
              BindingContext="{Binding Source={RelativeSource Self}}">
 
@@ -120,8 +121,7 @@
 
                                 <VerticalStackLayout Grid.Row="0" Grid.Column="0">
 
-                                    <!-- TODO trad -->
-                                    <Label Text="From"
+                                    <Label Text="{Binding LabelTextFromAccount, Mode=OneWay, Source={RelativeSource AncestorType={x:Type local:BankTransferSummaryContentPage}}}"
                                            HorizontalTextAlignment="Center">
                                     </Label>
 
@@ -145,15 +145,13 @@
                                         <ColumnDefinition Width="*" />
                                     </Grid.ColumnDefinitions>
 
-                                    <!-- TODO trad -->
                                     <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"
-                                           Text="Solde"
+                                           Text="{Binding LabelTextBalance, Mode=OneWay, Source={RelativeSource AncestorType={x:Type local:BankTransferSummaryContentPage}}}"
                                            HorizontalTextAlignment="Center">
                                     </Label>
 
-                                    <!-- TODO trad -->
                                     <Label Grid.Row="1" Grid.Column="0"
-                                           Text="Before"
+                                           Text="{Binding LabelTextBefore, Mode=OneWay, Source={RelativeSource AncestorType={x:Type local:BankTransferSummaryContentPage}}}"
                                            HorizontalTextAlignment="Center">
                                     </Label>
 
@@ -167,9 +165,8 @@
                                         </Label.Text>
                                     </Label>
 
-                                    <!-- TODO trad -->
                                     <Label Grid.Row="1" Grid.Column="2"
-                                           Text="After"
+                                           Text="{Binding LabelTextAfter, Mode=OneWay, Source={RelativeSource AncestorType={x:Type local:BankTransferSummaryContentPage}}}"
                                            HorizontalTextAlignment="Center">
                                     </Label>
 

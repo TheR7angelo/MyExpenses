@@ -227,6 +227,11 @@
         <AutoGen>True</AutoGen>
         <DependentUpon>GeneralAccountSetupContentPageResources.resx</DependentUpon>
       </Compile>
+      <Compile Update="Resources\Resx\ContentPages\BankTransferSummaryContentPage\BankTransferSummaryContentPageResources.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>BankTransferSummaryContentPageResources.resx</DependentUpon>
+      </Compile>
     </ItemGroup>
 
     <ItemGroup>
@@ -297,6 +302,10 @@
       <EmbeddedResource Update="Resources\Resx\ContentPages\GeneralAccountSetupContentPage\GeneralAccountSetupContentPageResources.resx">
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>GeneralAccountSetupContentPageResources.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+      <EmbeddedResource Update="Resources\Resx\ContentPages\BankTransferSummaryContentPage\BankTransferSummaryContentPageResources.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>BankTransferSummaryContentPageResources.Designer.cs</LastGenOutput>
       </EmbeddedResource>
     </ItemGroup>
 
