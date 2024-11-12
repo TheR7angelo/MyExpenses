@@ -100,6 +100,8 @@ public partial class DataBaseContext : DbContext
 
     public virtual DbSet<VBankTransfer> VBankTransfers { get; set; }
 
+    public virtual DbSet<VBankTransferSummary> VBankTransferSummaries { get; set; }
+
     public virtual DbSet<VCategory> VCategories { get; set; }
 
     public virtual DbSet<VDetailTotalCategory> VDetailTotalCategories { get; set; }
@@ -308,6 +310,11 @@ public partial class DataBaseContext : DbContext
         modelBuilder.Entity<VBankTransfer>(entity =>
         {
             entity.ToView("v_bank_transfer");
+        });
+
+        modelBuilder.Entity<VBankTransferSummary>(entity =>
+        {
+            entity.ToView("v_bank_transfer_summary");
         });
 
         modelBuilder.Entity<VCategory>(entity =>

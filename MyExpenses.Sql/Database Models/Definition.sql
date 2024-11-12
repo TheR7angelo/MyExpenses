@@ -1435,6 +1435,49 @@ FROM cumulative_values cv
      cumulative_values pre_cv
      ON
          CAST(cv.year AS INTEGER) - 1 = CAST(pre_cv.year AS INTEGER);
+
+DROP VIEW IF EXISTS v_bank_transfer_summary;
+CREATE VIEW v_bank_transfer_summary AS
+WITH from_account_balance_before AS (SELECT bt.id,
+                                            SUM(th.value) AS balance
+                                     FROM t_bank_transfer bt
+                                              LEFT JOIN t_history th
+                                                        ON th.account_fk = bt.from_account_fk AND th.date < bt.date
+                                     GROUP BY bt.id),
+     to_account_balance_before AS (SELECT bt.id,
+                                          SUM(th.value) AS balance
+                                   FROM t_bank_transfer bt
+                                            LEFT JOIN t_history th
+                                                      ON th.account_fk = bt.to_account_fk AND th.date < bt.date
+                                   GROUP BY bt.id)
+SELECT bt.id,
+       a1.name                          AS from_account_name,
+       c1.symbol                        AS from_account_symbol,
+       a2.name                          AS to_account_name,
+       c2.symbol                        AS to_account_symbol,
+       bt.main_reason,
+       bt.additional_reason,
+       bt.date,
+       ROUND(fab.balance, 2)            AS from_account_balance_before,
+       ROUND(fab.balance - bt.value, 2) AS from_account_balance_after,
+       ROUND(bt.value, 2)               AS value,
+       ROUND(tab.balance, 2)            AS to_account_balance_before,
+       ROUND(tab.balance + bt.value, 2) AS to_account_balance_after,
+       bt.date_added
+FROM t_bank_transfer bt
+         INNER JOIN t_account a1
+                    ON bt.from_account_fk = a1.id
+         INNER JOIN t_account a2
+                    ON bt.to_account_fk = a2.id
+         INNER JOIN t_currency c1
+                    ON a1.currency_fk = c1.id
+         INNER JOIN t_currency c2
+                    ON a2.currency_fk = c2.id
+         INNER JOIN from_account_balance_before fab
+                    ON fab.id = bt.id
+         INNER JOIN to_account_balance_before tab
+                    ON tab.id = bt.id;
+
 -- endregion
 
 -- region Exports
