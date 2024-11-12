@@ -221,56 +221,7 @@ public partial class BankTransferSummaryContentPage
         Interface.LanguageChanged += Interface_OnLanguageChanged;
     }
 
-    private void Interface_OnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
-    {
-        UpdateLanguage();
-        UpdateMonthLanguage();
-    }
-
-    private void UpdateLanguage()
-    {
-        ComboBoxYearsHintAssist = BankTransferSummaryContentPageResources.ComboBoxYearsHintAssist;
-        ComboBoxMonthHintAssist = BankTransferSummaryContentPageResources.ComboBoxMonthHintAssist;
-
-        LabelTextFromAccount = BankTransferSummaryContentPageResources.LabelTextFromAccount;
-        LabelTextToAccount = BankTransferSummaryContentPageResources.LabelTextToAccount;
-        LabelTextBalance = BankTransferSummaryContentPageResources.LabelTextBalance;
-        LabelTextBefore = BankTransferSummaryContentPageResources.LabelTextBefore;
-        LabelTextAfter = BankTransferSummaryContentPageResources.LabelTextAfter;
-
-        LabelTextValue = BankTransferSummaryContentPageResources.LabelTextValue;
-        LabelTextDate = BankTransferSummaryContentPageResources.LabelTextDate;
-
-        LabelTextMainReason = $"{BankTransferSummaryContentPageResources.LabelTextMainReason} ";
-        LabelTextAdditionalReason = $"{BankTransferSummaryContentPageResources.LabelTextAdditionalReason} ";
-
-        ElapsedTimeLoadingDataText = $"{BankTransferSummaryContentPageResources.ElapsedTimeLoadingDataText} ";
-        RecordFoundOn = $" {BankTransferSummaryContentPageResources.RecordFoundOn} ";
-    }
-
-    private void UpdateMonthLanguage()
-    {
-        var currentCulture = CultureInfo.CurrentCulture;
-
-        var months = currentCulture.DateTimeFormat.MonthNames
-            .Where(s => !string.IsNullOrEmpty(s))
-            .Select(s => s.ToFirstCharUpper()).ToImmutableArray();
-
-        if (Months.Count is 0)
-        {
-            Months.AddRange(months);
-        }
-        else
-        {
-            var selectedMonth = Months.FirstOrDefault(month => month.Equals(SelectedMonth)) ?? string.Empty;
-            for (var i = 0; i < months.Length; i++)
-            {
-                Months[i] = months[i];
-            }
-
-            SelectedMonth = selectedMonth;
-        }
-    }
+    #region Action
 
     private async void ButtonAddMonth_OnClick(object? sender, EventArgs e)
     {
@@ -306,6 +257,19 @@ public partial class BankTransferSummaryContentPage
             BankTransferSummaryContentPageResources.MessageBoxRemoveMonthErrorOkButton);
     }
 
+    private void CustomPicker_OnSelectedIndexChanged(object? sender, EventArgs e)
+        => RefreshDataGrid();
+
+    private void Interface_OnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
+    {
+        UpdateLanguage();
+        UpdateMonthLanguage();
+    }
+
+    #endregion
+
+    #region Function
+
     private DateOnly GetDateOnlyFilter()
     {
         var monthIndex = string.IsNullOrEmpty(SelectedMonth)
@@ -333,9 +297,26 @@ public partial class BankTransferSummaryContentPage
         return true;
     }
 
-    private void CustomPicker_OnSelectedIndexChanged(object? sender, EventArgs e)
-        => RefreshDataGrid();
+    private void UpdateLanguage()
+    {
+        ComboBoxYearsHintAssist = BankTransferSummaryContentPageResources.ComboBoxYearsHintAssist;
+        ComboBoxMonthHintAssist = BankTransferSummaryContentPageResources.ComboBoxMonthHintAssist;
 
+        LabelTextFromAccount = BankTransferSummaryContentPageResources.LabelTextFromAccount;
+        LabelTextToAccount = BankTransferSummaryContentPageResources.LabelTextToAccount;
+        LabelTextBalance = BankTransferSummaryContentPageResources.LabelTextBalance;
+        LabelTextBefore = BankTransferSummaryContentPageResources.LabelTextBefore;
+        LabelTextAfter = BankTransferSummaryContentPageResources.LabelTextAfter;
+
+        LabelTextValue = BankTransferSummaryContentPageResources.LabelTextValue;
+        LabelTextDate = BankTransferSummaryContentPageResources.LabelTextDate;
+
+        LabelTextMainReason = $"{BankTransferSummaryContentPageResources.LabelTextMainReason} ";
+        LabelTextAdditionalReason = $"{BankTransferSummaryContentPageResources.LabelTextAdditionalReason} ";
+
+        ElapsedTimeLoadingDataText = $"{BankTransferSummaryContentPageResources.ElapsedTimeLoadingDataText} ";
+        RecordFoundOn = $" {BankTransferSummaryContentPageResources.RecordFoundOn} ";
+    }
 
     private void RefreshDataGrid()
     {
@@ -409,4 +390,30 @@ public partial class BankTransferSummaryContentPage
         BankTransferSummaries.Clear();
         BankTransferSummaries.AddRange(records);
     }
+
+    private void UpdateMonthLanguage()
+    {
+        var currentCulture = CultureInfo.CurrentCulture;
+
+        var months = currentCulture.DateTimeFormat.MonthNames
+            .Where(s => !string.IsNullOrEmpty(s))
+            .Select(s => s.ToFirstCharUpper()).ToImmutableArray();
+
+        if (Months.Count is 0)
+        {
+            Months.AddRange(months);
+        }
+        else
+        {
+            var selectedMonth = Months.FirstOrDefault(month => month.Equals(SelectedMonth)) ?? string.Empty;
+            for (var i = 0; i < months.Length; i++)
+            {
+                Months[i] = months[i];
+            }
+
+            SelectedMonth = selectedMonth;
+        }
+    }
+
+    #endregion
 }
