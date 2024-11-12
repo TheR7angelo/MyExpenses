@@ -361,6 +361,7 @@ public partial class BankTransferSummaryContentPage
 
         RowTotalCount = query.Count();
 
+        // TODO filter
         // if (VCategoryDerivesFilter.Count > 0)
         // {
         //     var categoryName = VCategoryDerivesFilter.Select(s => s.CategoryName!);
