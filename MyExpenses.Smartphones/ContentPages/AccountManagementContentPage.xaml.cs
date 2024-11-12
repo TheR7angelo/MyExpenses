@@ -52,8 +52,17 @@ public partial class AccountManagementContentPage
         Interface.LanguageChanged += Interface_OnLanguageChanged;
     }
 
+    #region Action
+
+    private void ButtonImageViewHistory_OnClicked(object? sender, EventArgs e)
+        => NavigateTo(typeof(BankTransferSummaryContentPage));
+
     private void Interface_OnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
         => UpdateLanguage();
+
+    #endregion
+
+    #region Function
 
     private void UpdateLanguage()
     {
@@ -61,12 +70,11 @@ public partial class AccountManagementContentPage
         LabelTextTransactionTransfer = AccountManagementContentPageResources.LabelTextTransactionTransfer;
     }
 
-    private void ButtonImageViewHistory_OnClicked(object? sender, EventArgs e)
-        => NavigateTo(typeof(BankTransferSummaryContentPage));
-
     private async void NavigateTo(Type type)
     {
         var contentPage = (ContentPage)Activator.CreateInstance(type)!;
         await Navigation.PushAsync(contentPage);
     }
+
+    #endregion
 }
