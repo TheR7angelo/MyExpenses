@@ -732,22 +732,6 @@ FROM t_category_type tct
                    ON tct.color_fk = tco.id
 ORDER BY year, week;
 
-DROP VIEW IF EXISTS v_bank_transfer;
-CREATE VIEW v_bank_transfer AS
-SELECT bk.id,
-       bk.value,
-       fa.name AS from_account,
-       ta.name AS to_account,
-       bk.main_reason,
-       bk.additional_reason,
-       bk.date,
-       bk.date_added
-FROM t_bank_transfer bk
-         INNER JOIN t_account fa
-                    ON bk.from_account_fk = fa.id
-         INNER JOIN t_account ta
-                    ON bk.to_account_fk = ta.id;
-
 DROP VIEW IF EXISTS v_recursive_expense;
 CREATE VIEW v_recursive_expense AS
 SELECT tre.id,

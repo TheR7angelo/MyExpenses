@@ -98,8 +98,6 @@ public partial class DataBaseContext : DbContext
 
     public virtual DbSet<TVersion> TVersions { get; set; }
 
-    public virtual DbSet<VBankTransfer> VBankTransfers { get; set; }
-
     public virtual DbSet<VBankTransferSummary> VBankTransferSummaries { get; set; }
 
     public virtual DbSet<VCategory> VCategories { get; set; }
@@ -305,11 +303,6 @@ public partial class DataBaseContext : DbContext
         {
             entity.Property(e => e.DateAdded).HasDefaultValueSql("CURRENT_TIMESTAMP");
             entity.Property(e => e.DefaultLanguage).HasDefaultValueSql("FALSE");
-        });
-
-        modelBuilder.Entity<VBankTransfer>(entity =>
-        {
-            entity.ToView("v_bank_transfer");
         });
 
         modelBuilder.Entity<VBankTransferSummary>(entity =>
