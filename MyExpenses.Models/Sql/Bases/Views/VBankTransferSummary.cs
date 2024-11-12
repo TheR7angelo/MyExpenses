@@ -31,19 +31,19 @@ public partial class VBankTransferSummary : ISql
     public DateTime? Date { get; set; }
 
     [Column("from_account_balance_before")]
-    public byte[]? FromAccountBalanceBefore { get; set; }
+    public double? FromAccountBalanceBefore { get; set; }
 
     [Column("from_account_balance_after")]
-    public byte[]? FromAccountBalanceAfter { get; set; }
+    public double? FromAccountBalanceAfter { get; set; }
 
     [Column("value")]
-    public byte[]? Value { get; set; }
+    public double? Value { get; set; }
 
     [Column("to_account_balance_before")]
-    public byte[]? ToAccountBalanceBefore { get; set; }
+    public double? ToAccountBalanceBefore { get; set; }
 
     [Column("to_account_balance_after")]
-    public byte[]? ToAccountBalanceAfter { get; set; }
+    public double? ToAccountBalanceAfter { get; set; }
 
     [Column("date_added", TypeName = "DATETIME")]
     public DateTime? DateAdded { get; set; }
