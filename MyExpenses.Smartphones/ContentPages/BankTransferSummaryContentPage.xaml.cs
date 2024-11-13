@@ -529,11 +529,10 @@ public partial class BankTransferSummaryContentPage
             .Select(s => mapper.Map<TAccountDerive>(s))
             .ToList();
 
-        var customPopupFilterBankTransferAccount =
-            new CustomPopupFilterBankTransferAccount(accountDerives, BankTransferToAccountsFilters);
-        await this.ShowPopupAsync(customPopupFilterBankTransferAccount);
+        var customPopupFilterAccount = new CustomPopupFilterAccount(accountDerives, BankTransferToAccountsFilters);
+        await this.ShowPopupAsync(customPopupFilterAccount);
 
-        FilterManagement(BankTransferToAccountsFilters, customPopupFilterBankTransferAccount, eFilter, svgPath);
+        FilterManagement(BankTransferToAccountsFilters, customPopupFilterAccount, eFilter, svgPath);
     }
 
     private async Task FilterFromAccount(SvgPath svgPath)
@@ -565,11 +564,10 @@ public partial class BankTransferSummaryContentPage
             .Select(s => mapper.Map<TAccountDerive>(s))
             .ToList();
 
-        var customPopupFilterBankTransferAccount =
-            new CustomPopupFilterBankTransferAccount(accountDerives, BankTransferFromAccountsFilters);
-        await this.ShowPopupAsync(customPopupFilterBankTransferAccount);
+        var customPopupFilterAccount = new CustomPopupFilterAccount(accountDerives, BankTransferFromAccountsFilters);
+        await this.ShowPopupAsync(customPopupFilterAccount);
 
-        FilterManagement(BankTransferFromAccountsFilters, customPopupFilterBankTransferAccount, eFilter, svgPath);
+        FilterManagement(BankTransferFromAccountsFilters, customPopupFilterAccount, eFilter, svgPath);
     }
 
     private void FilterManagement<T>(List<T> collection, ICustomPopupFilter<T> customPopupFilter, EFilter eFilter,

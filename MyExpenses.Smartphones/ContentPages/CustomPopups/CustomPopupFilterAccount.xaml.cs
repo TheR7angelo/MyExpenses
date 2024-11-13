@@ -2,18 +2,17 @@ using System.Collections.ObjectModel;
 using MyExpenses.Models.Config;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Maui.CustomPopupFilter;
-using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Models.Sql.Derivatives.Tables;
 using MyExpenses.Smartphones.PackIcons;
-using MyExpenses.Smartphones.Resources.Resx.ContentPages.CustomPopups.CustomPopupFilterHistoryDescriptions;
+using MyExpenses.Smartphones.Resources.Resx.ContentPages.CustomPopups.CustomPopupFilterAccount;
 using MyExpenses.Utils.Collection;
 
 namespace MyExpenses.Smartphones.ContentPages.CustomPopups;
 
-public partial class CustomPopupFilterBankTransferAccount : ICustomPopupFilter<TAccountDerive>
+public partial class CustomPopupFilterAccount : ICustomPopupFilter<TAccountDerive>
 {
     public static readonly BindableProperty ButtonCloseTextProperty = BindableProperty.Create(nameof(ButtonCloseText),
-        typeof(string), typeof(CustomPopupFilterBankTransferAccount), default(string));
+        typeof(string), typeof(CustomPopupFilterAccount), default(string));
 
     public string ButtonCloseText
     {
@@ -22,7 +21,7 @@ public partial class CustomPopupFilterBankTransferAccount : ICustomPopupFilter<T
     }
 
     public static readonly BindableProperty SearchBarPlaceHolderTextProperty =
-        BindableProperty.Create(nameof(SearchBarPlaceHolderText), typeof(string), typeof(CustomPopupFilterBankTransferAccount),
+        BindableProperty.Create(nameof(SearchBarPlaceHolderText), typeof(string), typeof(CustomPopupFilterAccount),
             default(string));
 
     public string SearchBarPlaceHolderText
@@ -32,7 +31,7 @@ public partial class CustomPopupFilterBankTransferAccount : ICustomPopupFilter<T
     }
 
     public static readonly BindableProperty GeometrySourceProperty = BindableProperty.Create(nameof(GeometrySource),
-        typeof(EPackIcons), typeof(CustomPopupFilterBankTransferAccount), EPackIcons.CheckboxBlankOutline);
+        typeof(EPackIcons), typeof(CustomPopupFilterAccount), EPackIcons.CheckboxBlankOutline);
 
     public EPackIcons GeometrySource
     {
@@ -45,7 +44,7 @@ public partial class CustomPopupFilterBankTransferAccount : ICustomPopupFilter<T
 
     private string? SearchText { get; set; }
 
-    public CustomPopupFilterBankTransferAccount(IEnumerable<TAccountDerive> currentAccountDerives,
+    public CustomPopupFilterAccount(IEnumerable<TAccountDerive> currentAccountDerives,
         IReadOnlyCollection<TAccountDerive>? accountDerivesAlreadyChecked = null)
     {
         OriginalAccountDerives = [..currentAccountDerives];
@@ -135,8 +134,8 @@ public partial class CustomPopupFilterBankTransferAccount : ICustomPopupFilter<T
 
     private void UpdateLanguage()
     {
-        SearchBarPlaceHolderText = CustomPopupFilterHistoryDescriptionsResources.SearchBarPlaceHolderText;
-        ButtonCloseText = CustomPopupFilterHistoryDescriptionsResources.ButtonCloseText;
+        SearchBarPlaceHolderText = CustomPopupFilterAccountResources.SearchBarPlaceHolderText;
+        ButtonCloseText = CustomPopupFilterAccountResources.ButtonCloseText;
     }
 
     #endregion
