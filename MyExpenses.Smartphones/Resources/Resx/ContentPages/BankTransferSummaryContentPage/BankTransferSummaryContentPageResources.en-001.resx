@@ -75,6 +75,6 @@
         <value>To the account</value>
     </data>
     <data name="LabelTextValueFilter" xml:space="preserve">
-        <value>Value</value>
+        <value>Amount</value>
     </data>
 </root>

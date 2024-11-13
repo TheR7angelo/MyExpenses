@@ -187,7 +187,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.BankTransferSummary
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Value.
+        ///   Looks up a localized string similar to Amount.
         /// </summary>
         internal static string LabelTextValueFilter {
             get {

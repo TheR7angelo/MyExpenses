@@ -75,6 +75,6 @@
         <value>Vers le compte</value>
     </data>
     <data name="LabelTextValueFilter" xml:space="preserve">
-        <value>Valeur</value>
+        <value>Montant</value>
     </data>
 </root>
