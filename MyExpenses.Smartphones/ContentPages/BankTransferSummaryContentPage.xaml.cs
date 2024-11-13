@@ -234,6 +234,8 @@ public partial class BankTransferSummaryContentPage
     private List<TAccountDerive> BankTransferFromAccountsFilters { get; } = [];
     private List<TAccountDerive> BankTransferToAccountsFilters { get; } = [];
     private List<DoubleIsChecked> BankTransferValuesFilters { get; } = [];
+    private List<StringIsChecked> BankTransferMainReasonFilters { get; } = [];
+    private List<StringIsChecked> BankTransferAdditionalReasonFilters { get; } = [];
 
     public BankTransferSummaryContentPage()
     {
@@ -267,6 +269,12 @@ public partial class BankTransferSummaryContentPage
     }
 
     #region Action
+
+    private async void AdditionalReasonSvgPath_OnClicked(object? sender, EventArgs e)
+        => await RunFilter(sender, FilterAdditionalReason);
+
+    private async void AdditionalReasonTapGestureRecognizer_Tapped(object? sender, TappedEventArgs e)
+        => await RunFilter(sender, FilterAdditionalReason);
 
     private async void ButtonAddMonth_OnClick(object? sender, EventArgs e)
     {
@@ -306,20 +314,16 @@ public partial class BankTransferSummaryContentPage
         => RefreshDataGrid();
 
     private async void FromAccountSvgPath_OnClicked(object? sender, EventArgs e)
-    {
-        var svgPath = FindSvgPath(sender);
-        if (svgPath is null) return;
-
-        await FilterFromAccount(svgPath);
-    }
+        => await RunFilter(sender, FilterFromAccount);
 
     private async void FromAccountTapGestureRecognizer_Tapped(object? sender, TappedEventArgs e)
-    {
-        var svgPath = FindSvgPath(sender);
-        if (svgPath is null) return;
+        => await RunFilter(sender, FilterFromAccount);
 
-        await FilterFromAccount(svgPath);
-    }
+    private async void MainReasonSvgPath_OnClicked(object? sender, EventArgs e)
+        => await RunFilter(sender, FilterMainReason);
+
+    private async void MainReasonTapGestureRecognizer_Tapped(object? sender, TappedEventArgs e)
+        => await RunFilter(sender, FilterMainReason);
 
     private void Interface_OnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
     {
@@ -344,45 +348,51 @@ public partial class BankTransferSummaryContentPage
         BankTransferFromAccountsFilters.Clear();
         BankTransferToAccountsFilters.Clear();
         BankTransferValuesFilters.Clear();
+        BankTransferMainReasonFilters.Clear();
+        BankTransferAdditionalReasonFilters.Clear();
 
         RefreshDataGrid();
     }
 
     private async void ToAccountSvgPath_OnClicked(object? sender, EventArgs e)
-    {
-        var svgPath = FindSvgPath(sender);
-        if (svgPath is null) return;
-
-        await FilterToAccount(svgPath);
-    }
+        => await RunFilter(sender, FilterToAccount);
 
     private async void ToAccountTapGestureRecognizer_Tapped(object? sender, TappedEventArgs e)
-    {
-        var svgPath = FindSvgPath(sender);
-        if (svgPath is null) return;
-
-        await FilterToAccount(svgPath);
-    }
+        => await RunFilter(sender, FilterToAccount);
 
     private async void ValueSvgPath_OnClicked(object? sender, EventArgs e)
-    {
-        var svgPath = FindSvgPath(sender);
-        if (svgPath is null) return;
-
-        await FilterValue(svgPath);
-    }
+        => await RunFilter(sender, FilterValue);
 
     private async void ValueTapGestureRecognizer_OnTapped(object? sender, TappedEventArgs e)
-    {
-        var svgPath = FindSvgPath(sender);
-        if (svgPath is null) return;
-
-        await FilterValue(svgPath);
-    }
+        => await RunFilter(sender, FilterValue);
 
     #endregion
 
     #region Function
+
+    private async Task FilterAdditionalReason(SvgPath svgPath)
+    {
+        const EFilter eFilter = EFilter.AdditionalReason;
+
+        IEnumerable<StringIsChecked> bankTransferAdditionalReason;
+        if (Filters.Count is 0) bankTransferAdditionalReason = BankTransferSummaries.Select(s => new StringIsChecked { StringValue = s.AdditionalReason });
+        else
+        {
+            var items = Filters.Last() == eFilter
+                ? OriginalVBankTransferSummary.Last().AsEnumerable()
+                : BankTransferSummaries.AsEnumerable();
+
+            bankTransferAdditionalReason = items.Select(s => new StringIsChecked { StringValue = s.AdditionalReason });
+        }
+
+        bankTransferAdditionalReason = bankTransferAdditionalReason.Distinct();
+        bankTransferAdditionalReason = bankTransferAdditionalReason.OrderBy(s => s.StringValue);
+
+        var customPopupFilterDescription = new CustomPopupFilterDescriptions(bankTransferAdditionalReason, BankTransferAdditionalReasonFilters);
+        await this.ShowPopupAsync(customPopupFilterDescription);
+
+        FilterManagement(BankTransferAdditionalReasonFilters, customPopupFilterDescription, eFilter, svgPath);
+    }
 
     private async Task FilterFromAccount(SvgPath svgPath)
     {
@@ -417,6 +427,51 @@ public partial class BankTransferSummaryContentPage
         await this.ShowPopupAsync(customPopupFilterAccount);
 
         FilterManagement(BankTransferFromAccountsFilters, customPopupFilterAccount, eFilter, svgPath);
+    }
+
+    private async Task FilterMainReason(SvgPath svgPath)
+    {
+        const EFilter eFilter = EFilter.MainReason;
+
+        IEnumerable<StringIsChecked> bankTransferMainReason;
+        if (Filters.Count is 0) bankTransferMainReason = BankTransferSummaries.Select(s => new StringIsChecked { StringValue = s.MainReason });
+        else
+        {
+            var items = Filters.Last() == eFilter
+                ? OriginalVBankTransferSummary.Last().AsEnumerable()
+                : BankTransferSummaries.AsEnumerable();
+
+            bankTransferMainReason = items.Select(s => new StringIsChecked { StringValue = s.MainReason });
+        }
+
+        bankTransferMainReason = bankTransferMainReason.Distinct();
+        bankTransferMainReason = bankTransferMainReason.OrderBy(s => s.StringValue);
+
+        var customPopupFilterDescription = new CustomPopupFilterDescriptions(bankTransferMainReason, BankTransferMainReasonFilters);
+        await this.ShowPopupAsync(customPopupFilterDescription);
+
+        FilterManagement(BankTransferMainReasonFilters, customPopupFilterDescription, eFilter, svgPath);
+    }
+
+    private void FilterManagement<T>(List<T> collection, ICustomPopupFilter<T> customPopupFilter, EFilter eFilter,
+        SvgPath svgPath)
+    {
+        if (Filters.Count is 0 || Filters.Last() != eFilter)
+        {
+            Filters.Add(eFilter);
+            OriginalVBankTransferSummary.Add(BankTransferSummaries.ToList());
+        }
+
+        var isActive = RefreshFilter(collection, customPopupFilter, svgPath);
+
+        if (!isActive && Filters.Last() == eFilter)
+        {
+            var lastIndex = Filters.Count - 1;
+            Filters.RemoveAt(lastIndex);
+
+            lastIndex = OriginalVBankTransferSummary.Count - 1;
+            OriginalVBankTransferSummary.RemoveAt(lastIndex);
+        }
     }
 
     private async Task FilterToAccount(SvgPath svgPath)
@@ -454,27 +509,6 @@ public partial class BankTransferSummaryContentPage
         FilterManagement(BankTransferToAccountsFilters, customPopupFilterAccount, eFilter, svgPath);
     }
 
-    private void FilterManagement<T>(List<T> collection, ICustomPopupFilter<T> customPopupFilter, EFilter eFilter,
-        SvgPath svgPath)
-    {
-        if (Filters.Count is 0 || Filters.Last() != eFilter)
-        {
-            Filters.Add(eFilter);
-            OriginalVBankTransferSummary.Add(BankTransferSummaries.ToList());
-        }
-
-        var isActive = RefreshFilter(collection, customPopupFilter, svgPath);
-
-        if (!isActive && Filters.Last() == eFilter)
-        {
-            var lastIndex = Filters.Count - 1;
-            Filters.RemoveAt(lastIndex);
-
-            lastIndex = OriginalVBankTransferSummary.Count - 1;
-            OriginalVBankTransferSummary.RemoveAt(lastIndex);
-        }
-    }
-
     private async Task FilterValue(SvgPath svgPath)
     {
         const EFilter eFilter = EFilter.Values;
@@ -498,18 +532,6 @@ public partial class BankTransferSummaryContentPage
         await this.ShowPopupAsync(customPopupFilterHistoryValues);
 
         FilterManagement(BankTransferValuesFilters, customPopupFilterHistoryValues, eFilter, svgPath);
-    }
-
-    private static SvgPath? FindSvgPath(object? sender)
-    {
-        return sender switch
-        {
-            null => null,
-            SvgPath svgPath => svgPath,
-            _ => sender is HorizontalStackLayout horizontalStackLayout
-                ? horizontalStackLayout.FindVisualChildren<SvgPath>().FirstOrDefault()
-                : null
-        };
     }
 
     private DateOnly GetDateOnlyFilter()
@@ -606,6 +628,18 @@ public partial class BankTransferSummaryContentPage
             query = query.Where(s => values.Contains(s.Value));
         }
 
+        if (BankTransferMainReasonFilters.Count > 0)
+        {
+            var values = BankTransferMainReasonFilters.Select(s => s.StringValue);
+            query = query.Where(s => values.Contains(s.MainReason));
+        }
+
+        if (BankTransferAdditionalReasonFilters.Count > 0)
+        {
+            var values = BankTransferAdditionalReasonFilters.Select(s => s.StringValue);
+            query = query.Where(s => values.Contains(s.AdditionalReason));
+        }
+
         RowTotalFilteredCount = query.Count();
 
         var records = query
@@ -667,6 +701,28 @@ public partial class BankTransferSummaryContentPage
     {
         FromAccounts,
         ToAccounts,
-        Values
+        Values,
+        MainReason,
+        AdditionalReason
+    }
+
+    private static async Task RunFilter(object? sender, Func<SvgPath, Task> func)
+    {
+        var svgPath = FindSvgPath(sender);
+        if (svgPath is null) return;
+
+        await func.Invoke(svgPath);
+    }
+
+    private static SvgPath? FindSvgPath(object? sender)
+    {
+        return sender switch
+        {
+            null => null,
+            SvgPath svgPath => svgPath,
+            _ => sender is HorizontalStackLayout horizontalStackLayout
+                ? horizontalStackLayout.FindVisualChildren<SvgPath>().FirstOrDefault()
+                : null
+        };
     }
 }
