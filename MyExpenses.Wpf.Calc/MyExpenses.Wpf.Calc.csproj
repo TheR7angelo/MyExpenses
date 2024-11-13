@@ -12,7 +12,7 @@
     <ItemGroup>
       <PackageReference Include="MaterialDesignThemes" Version="5.1.0" />
       <PackageReference Include="MaterialDesignThemes.MahApps" Version="3.1.0" />
-      <PackageReference Include="System.Text.Json" Version="8.0.5" />
+      <PackageReference Include="System.Text.Json" Version="9.0.0" />
     </ItemGroup>
 
 </Project>
