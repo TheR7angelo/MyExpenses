@@ -305,15 +305,212 @@ public partial class BankTransferSummaryContentPage
     private void CustomPicker_OnSelectedIndexChanged(object? sender, EventArgs e)
         => RefreshDataGrid();
 
+    private async void FromAccountSvgPath_OnClicked(object? sender, EventArgs e)
+    {
+        var svgPath = FindSvgPath(sender);
+        if (svgPath is null) return;
+
+        await FilterFromAccount(svgPath);
+    }
+
+    private async void FromAccountTapGestureRecognizer_Tapped(object? sender, TappedEventArgs e)
+    {
+        var svgPath = FindSvgPath(sender);
+        if (svgPath is null) return;
+
+        await FilterFromAccount(svgPath);
+    }
+
     private void Interface_OnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
     {
         UpdateLanguage();
         UpdateMonthLanguage();
     }
 
+    private void SvgPathRefresh_OnClicked(object? sender, EventArgs e)
+    {
+        if (sender is not SvgPath svgPath) return;
+        if (svgPath.Parent is not HorizontalStackLayout horizontalStackLayout) return;
+
+        var horizontalStackLayoutChildren = horizontalStackLayout.FindVisualChildren<HorizontalStackLayout>();
+        foreach (var horizontalStackLayoutChild in horizontalStackLayoutChildren)
+        {
+            var svgPathChild = horizontalStackLayoutChild.FindVisualChildren<SvgPath>().FirstOrDefault();
+            if (svgPathChild is null) continue;
+
+            svgPathChild.GeometrySource = EPackIcons.Filter;
+        }
+
+        BankTransferFromAccountsFilters.Clear();
+        BankTransferToAccountsFilters.Clear();
+        BankTransferValuesFilters.Clear();
+
+        RefreshDataGrid();
+    }
+
+    private async void ToAccountSvgPath_OnClicked(object? sender, EventArgs e)
+    {
+        var svgPath = FindSvgPath(sender);
+        if (svgPath is null) return;
+
+        await FilterToAccount(svgPath);
+    }
+
+    private async void ToAccountTapGestureRecognizer_Tapped(object? sender, TappedEventArgs e)
+    {
+        var svgPath = FindSvgPath(sender);
+        if (svgPath is null) return;
+
+        await FilterToAccount(svgPath);
+    }
+
+    private async void ValueSvgPath_OnClicked(object? sender, EventArgs e)
+    {
+        var svgPath = FindSvgPath(sender);
+        if (svgPath is null) return;
+
+        await FilterValue(svgPath);
+    }
+
+    private async void ValueTapGestureRecognizer_OnTapped(object? sender, TappedEventArgs e)
+    {
+        var svgPath = FindSvgPath(sender);
+        if (svgPath is null) return;
+
+        await FilterValue(svgPath);
+    }
+
     #endregion
 
     #region Function
+
+    private async Task FilterFromAccount(SvgPath svgPath)
+    {
+        const EFilter eFilter = EFilter.FromAccounts;
+
+        IEnumerable<int> transferIds;
+        if (Filters.Count is 0) transferIds = BankTransferSummaries.Select(s => s.Id);
+        else
+        {
+            var items = Filters.Last() == eFilter
+                ? OriginalVBankTransferSummary.Last().AsEnumerable()
+                : BankTransferSummaries.AsEnumerable();
+
+            transferIds = items.Select(s => s.Id);
+        }
+
+        var mapper = Mapping.Mapper;
+        await using var context = new DataBaseContext();
+        var fromAccountFk = context.TBankTransfers
+            .Where(s => transferIds.Contains(s.Id))
+            .Select(s => s.FromAccountFk!)
+            .Distinct()
+            .ToList();
+
+        var accountDerives = context.TAccounts
+            .Where(s => fromAccountFk.Contains(s.Id))
+            .OrderBy(s => s.Name)
+            .Select(s => mapper.Map<TAccountDerive>(s))
+            .ToList();
+
+        var customPopupFilterAccount = new CustomPopupFilterAccount(accountDerives, BankTransferFromAccountsFilters);
+        await this.ShowPopupAsync(customPopupFilterAccount);
+
+        FilterManagement(BankTransferFromAccountsFilters, customPopupFilterAccount, eFilter, svgPath);
+    }
+
+    private async Task FilterToAccount(SvgPath svgPath)
+    {
+        const EFilter eFilter = EFilter.ToAccounts;
+
+        IEnumerable<int> transferIds;
+        if (Filters.Count is 0) transferIds = BankTransferSummaries.Select(s => s.Id);
+        else
+        {
+            var items = Filters.Last() == eFilter
+                ? OriginalVBankTransferSummary.Last().AsEnumerable()
+                : BankTransferSummaries.AsEnumerable();
+
+            transferIds = items.Select(s => s.Id);
+        }
+
+        var mapper = Mapping.Mapper;
+        await using var context = new DataBaseContext();
+        var toAccountFk = context.TBankTransfers
+            .Where(s => transferIds.Contains(s.Id))
+            .Select(s => s.ToAccountFk!)
+            .Distinct()
+            .ToList();
+
+        var accountDerives = context.TAccounts
+            .Where(s => toAccountFk.Contains(s.Id))
+            .OrderBy(s => s.Name)
+            .Select(s => mapper.Map<TAccountDerive>(s))
+            .ToList();
+
+        var customPopupFilterAccount = new CustomPopupFilterAccount(accountDerives, BankTransferToAccountsFilters);
+        await this.ShowPopupAsync(customPopupFilterAccount);
+
+        FilterManagement(BankTransferToAccountsFilters, customPopupFilterAccount, eFilter, svgPath);
+    }
+
+    private void FilterManagement<T>(List<T> collection, ICustomPopupFilter<T> customPopupFilter, EFilter eFilter,
+        SvgPath svgPath)
+    {
+        if (Filters.Count is 0 || Filters.Last() != eFilter)
+        {
+            Filters.Add(eFilter);
+            OriginalVBankTransferSummary.Add(BankTransferSummaries.ToList());
+        }
+
+        var isActive = RefreshFilter(collection, customPopupFilter, svgPath);
+
+        if (!isActive && Filters.Last() == eFilter)
+        {
+            var lastIndex = Filters.Count - 1;
+            Filters.RemoveAt(lastIndex);
+
+            lastIndex = OriginalVBankTransferSummary.Count - 1;
+            OriginalVBankTransferSummary.RemoveAt(lastIndex);
+        }
+    }
+
+    private async Task FilterValue(SvgPath svgPath)
+    {
+        const EFilter eFilter = EFilter.Values;
+
+        IEnumerable<DoubleIsChecked> values;
+        if (Filters.Count is 0)
+            values = BankTransferSummaries.Select(s => new DoubleIsChecked { DoubleValue = s.Value });
+        else
+        {
+            var items = Filters.Last() == eFilter
+                ? OriginalVBankTransferSummary.Last().AsEnumerable()
+                : BankTransferSummaries.AsEnumerable();
+
+            values = items.Select(s => new DoubleIsChecked { DoubleValue = s.Value });
+        }
+
+        values = values.Distinct();
+        values = values.OrderBy(s => s.DoubleValue);
+
+        var customPopupFilterHistoryValues = new CustomPopupFilterDoubleValues(values, BankTransferValuesFilters);
+        await this.ShowPopupAsync(customPopupFilterHistoryValues);
+
+        FilterManagement(BankTransferValuesFilters, customPopupFilterHistoryValues, eFilter, svgPath);
+    }
+
+    private static SvgPath? FindSvgPath(object? sender)
+    {
+        return sender switch
+        {
+            null => null,
+            SvgPath svgPath => svgPath,
+            _ => sender is HorizontalStackLayout horizontalStackLayout
+                ? horizontalStackLayout.FindVisualChildren<SvgPath>().FirstOrDefault()
+                : null
+        };
+    }
 
     private DateOnly GetDateOnlyFilter()
     {
@@ -421,6 +618,25 @@ public partial class BankTransferSummaryContentPage
         BankTransferSummaries.AddRange(records);
     }
 
+    private bool RefreshFilter<T>(List<T> collection, ICustomPopupFilter<T> customPopupFilter, SvgPath svgPath)
+    {
+        collection.Clear();
+        collection.AddRange(customPopupFilter.GetFilteredItemChecked());
+
+        var itemCheckedCount = customPopupFilter.GetFilteredItemCheckedCount();
+        var itemCount = customPopupFilter.GetFilteredItemCount();
+
+        var icon = itemCheckedCount is 0 || itemCheckedCount.Equals(itemCount)
+            ? EPackIcons.Filter
+            : EPackIcons.FilterCheck;
+
+        svgPath.GeometrySource = icon;
+
+        RefreshDataGrid();
+
+        return icon is EPackIcons.FilterCheck;
+    }
+
     private void UpdateMonthLanguage()
     {
         var currentCulture = CultureInfo.CurrentCulture;
@@ -447,226 +663,10 @@ public partial class BankTransferSummaryContentPage
 
     #endregion
 
-    private void SvgPathRefresh_OnClicked(object? sender, EventArgs e)
-    {
-        if (sender is not SvgPath svgPath) return;
-        if (svgPath.Parent is not HorizontalStackLayout horizontalStackLayout) return;
-
-        var horizontalStackLayoutChildren = horizontalStackLayout.FindVisualChildren<HorizontalStackLayout>();
-        foreach (var horizontalStackLayoutChild in horizontalStackLayoutChildren)
-        {
-            var svgPathChild = horizontalStackLayoutChild.FindVisualChildren<SvgPath>().FirstOrDefault();
-            if (svgPathChild is null) continue;
-
-            svgPathChild.GeometrySource = EPackIcons.Filter;
-        }
-
-        BankTransferFromAccountsFilters.Clear();
-        BankTransferToAccountsFilters.Clear();
-        BankTransferValuesFilters.Clear();
-
-        RefreshDataGrid();
-    }
-
-    private async void FromAccountSvgPath_OnClicked(object? sender, EventArgs e)
-    {
-        var svgPath = FindSvgPath(sender);
-        if (svgPath is null) return;
-
-        await FilterFromAccount(svgPath);
-    }
-
-    private async void FromAccountTapGestureRecognizer_Tapped(object? sender, TappedEventArgs e)
-    {
-        var svgPath = FindSvgPath(sender);
-        if (svgPath is null) return;
-
-        await FilterFromAccount(svgPath);
-    }
-
-    private async void ToAccountSvgPath_OnClicked(object? sender, EventArgs e)
-    {
-        var svgPath = FindSvgPath(sender);
-        if (svgPath is null) return;
-
-        await FilterToAccount(svgPath);
-    }
-
-    private async void ToAccountTapGestureRecognizer_Tapped(object? sender, TappedEventArgs e)
-    {
-        var svgPath = FindSvgPath(sender);
-        if (svgPath is null) return;
-
-        await FilterToAccount(svgPath);
-    }
-
-    private async Task FilterToAccount(SvgPath svgPath)
-    {
-        const EFilter eFilter = EFilter.ToAccounts;
-
-        IEnumerable<int> transferIds;
-        if (Filters.Count is 0) transferIds = BankTransferSummaries.Select(s => s.Id);
-        else
-        {
-            var items = Filters.Last() == eFilter
-                ? OriginalVBankTransferSummary.Last().AsEnumerable()
-                : BankTransferSummaries.AsEnumerable();
-
-            transferIds = items.Select(s => s.Id);
-        }
-
-        var mapper = Mapping.Mapper;
-        await using var context = new DataBaseContext();
-        var toAccountFk = context.TBankTransfers
-            .Where(s => transferIds.Contains(s.Id))
-            .Select(s => s.ToAccountFk!)
-            .Distinct()
-            .ToList();
-
-        var accountDerives = context.TAccounts
-            .Where(s => toAccountFk.Contains(s.Id))
-            .OrderBy(s => s.Name)
-            .Select(s => mapper.Map<TAccountDerive>(s))
-            .ToList();
-
-        var customPopupFilterAccount = new CustomPopupFilterAccount(accountDerives, BankTransferToAccountsFilters);
-        await this.ShowPopupAsync(customPopupFilterAccount);
-
-        FilterManagement(BankTransferToAccountsFilters, customPopupFilterAccount, eFilter, svgPath);
-    }
-
-    private async Task FilterFromAccount(SvgPath svgPath)
-    {
-        const EFilter eFilter = EFilter.FromAccounts;
-
-        IEnumerable<int> transferIds;
-        if (Filters.Count is 0) transferIds = BankTransferSummaries.Select(s => s.Id);
-        else
-        {
-            var items = Filters.Last() == eFilter
-                ? OriginalVBankTransferSummary.Last().AsEnumerable()
-                : BankTransferSummaries.AsEnumerable();
-
-            transferIds = items.Select(s => s.Id);
-        }
-
-        var mapper = Mapping.Mapper;
-        await using var context = new DataBaseContext();
-        var fromAccountFk = context.TBankTransfers
-            .Where(s => transferIds.Contains(s.Id))
-            .Select(s => s.FromAccountFk!)
-            .Distinct()
-            .ToList();
-
-        var accountDerives = context.TAccounts
-            .Where(s => fromAccountFk.Contains(s.Id))
-            .OrderBy(s => s.Name)
-            .Select(s => mapper.Map<TAccountDerive>(s))
-            .ToList();
-
-        var customPopupFilterAccount = new CustomPopupFilterAccount(accountDerives, BankTransferFromAccountsFilters);
-        await this.ShowPopupAsync(customPopupFilterAccount);
-
-        FilterManagement(BankTransferFromAccountsFilters, customPopupFilterAccount, eFilter, svgPath);
-    }
-
-    private void FilterManagement<T>(List<T> collection, ICustomPopupFilter<T> customPopupFilter, EFilter eFilter,
-        SvgPath svgPath)
-    {
-        if (Filters.Count is 0 || Filters.Last() != eFilter)
-        {
-            Filters.Add(eFilter);
-            OriginalVBankTransferSummary.Add(BankTransferSummaries.ToList());
-        }
-
-        var isActive = RefreshFilter(collection, customPopupFilter, svgPath);
-
-        if (!isActive && Filters.Last() == eFilter)
-        {
-            var lastIndex = Filters.Count - 1;
-            Filters.RemoveAt(lastIndex);
-
-            lastIndex = OriginalVBankTransferSummary.Count - 1;
-            OriginalVBankTransferSummary.RemoveAt(lastIndex);
-        }
-    }
-
-    private bool RefreshFilter<T>(List<T> collection, ICustomPopupFilter<T> customPopupFilter, SvgPath svgPath)
-    {
-        collection.Clear();
-        collection.AddRange(customPopupFilter.GetFilteredItemChecked());
-
-        var itemCheckedCount = customPopupFilter.GetFilteredItemCheckedCount();
-        var itemCount = customPopupFilter.GetFilteredItemCount();
-
-        var icon = itemCheckedCount is 0 || itemCheckedCount.Equals(itemCount)
-            ? EPackIcons.Filter
-            : EPackIcons.FilterCheck;
-
-        svgPath.GeometrySource = icon;
-
-        RefreshDataGrid();
-
-        return icon is EPackIcons.FilterCheck;
-    }
-
-    private static SvgPath? FindSvgPath(object? sender)
-    {
-        return sender switch
-        {
-            null => null,
-            SvgPath svgPath => svgPath,
-            _ => sender is HorizontalStackLayout horizontalStackLayout
-                ? horizontalStackLayout.FindVisualChildren<SvgPath>().FirstOrDefault()
-                : null
-        };
-    }
-
     private enum EFilter
     {
         FromAccounts,
         ToAccounts,
         Values
-    }
-
-    private async void ValueSvgPath_OnClicked(object? sender, EventArgs e)
-    {
-        var svgPath = FindSvgPath(sender);
-        if (svgPath is null) return;
-
-        await FilterValue(svgPath);
-    }
-
-    private async void ValueTapGestureRecognizer_OnTapped(object? sender, TappedEventArgs e)
-    {
-        var svgPath = FindSvgPath(sender);
-        if (svgPath is null) return;
-
-        await FilterValue(svgPath);
-    }
-
-    private async Task FilterValue(SvgPath svgPath)
-    {
-        const EFilter eFilter = EFilter.Values;
-
-        IEnumerable<DoubleIsChecked> values;
-        if (Filters.Count is 0)
-            values = BankTransferSummaries.Select(s => new DoubleIsChecked { DoubleValue = s.Value });
-        else
-        {
-            var items = Filters.Last() == eFilter
-                ? OriginalVBankTransferSummary.Last().AsEnumerable()
-                : BankTransferSummaries.AsEnumerable();
-
-            values = items.Select(s => new DoubleIsChecked { DoubleValue = s.Value });
-        }
-
-        values = values.Distinct();
-        values = values.OrderBy(s => s.DoubleValue);
-
-        var customPopupFilterHistoryValues = new CustomPopupFilterDoubleValues(values, BankTransferValuesFilters);
-        await this.ShowPopupAsync(customPopupFilterHistoryValues);
-
-        FilterManagement(BankTransferValuesFilters, customPopupFilterHistoryValues, eFilter, svgPath);
     }
 }
