@@ -290,21 +290,11 @@ public partial class DashBoardContentPage
             DashBoardContentPageResources.MessageBoxRemoveMonthErrorOkButton);
     }
 
-    private async void CategoryTapGestureRecognizer_Tapped(object? sender, TappedEventArgs e)
-    {
-        var svgPath = FindSvgPath(sender);
-        if (svgPath is null) return;
-
-        await FilterCategory(svgPath);
-    }
+    private async void CategoryTapGestureRecognizer_OnTapped(object? sender, TappedEventArgs e)
+        => await RunFilter(sender, FilterCategory);
 
     private async void CategorySvgPath_OnClicked(object? sender, EventArgs e)
-    {
-        var svgPath = FindSvgPath(sender);
-        if (svgPath is null) return;
-
-        await FilterCategory(svgPath);
-    }
+        => await RunFilter(sender, FilterCategory);
 
     private async void CollectionViewVHistory_OnLongPress(object obj)
     {
@@ -371,20 +361,10 @@ public partial class DashBoardContentPage
         => RefreshDataGrid();
 
     private async void DescriptionTapGestureRecognizer_OnTapped(object? sender, TappedEventArgs e)
-    {
-        var svgPath = FindSvgPath(sender);
-        if (svgPath is null) return;
-
-        await FilterDescription(svgPath);
-    }
+        => await RunFilter(sender, FilterDescription);
 
     private async void DescriptionSvgPath_OnClicked(object? sender, EventArgs e)
-    {
-        var svgPath = FindSvgPath(sender);
-        if (svgPath is null) return;
-
-        await FilterDescription(svgPath);
-    }
+        => await RunFilter(sender, FilterDescription);
 
     private void Interface_OnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
     {
@@ -393,52 +373,22 @@ public partial class DashBoardContentPage
     }
 
     private async void PaymentModeTapGestureRecognizer_OnTapped(object? sender, TappedEventArgs e)
-    {
-        var svgPath = FindSvgPath(sender);
-        if (svgPath is null) return;
-
-        await FilterPaymentMode(svgPath);
-    }
+        => await RunFilter(sender, FilterPaymentMode);
 
     private async void PaymentModeSvgPath_OnClicked(object? sender, EventArgs e)
-    {
-        var svgPath = FindSvgPath(sender);
-        if (svgPath is null) return;
-
-        await FilterPaymentMode(svgPath);
-    }
+        => await RunFilter(sender, FilterPaymentMode);
 
     private async void PlaceTapGestureRecognizer_OnTapped(object? sender, TappedEventArgs e)
-    {
-        var svgPath = FindSvgPath(sender);
-        if (svgPath is null) return;
-
-        await FilterPlace(svgPath);
-    }
+        => await RunFilter(sender, FilterPlace);
 
     private async void PlaceSvgPath_OnClicked(object? sender, EventArgs e)
-    {
-        var svgPath = FindSvgPath(sender);
-        if (svgPath is null) return;
-
-        await FilterPlace(svgPath);
-    }
+        => await RunFilter(sender, FilterPlace);
 
     private async void PointedTapGestureRecognizer_OnTapped(object? sender, TappedEventArgs e)
-    {
-        var svgPath = FindSvgPath(sender);
-        if (svgPath is null) return;
-
-        await FilterChecked(svgPath);
-    }
+        => await RunFilter(sender, FilterChecked);
 
     private async void PointedSvgPath_OnClicked(object? sender, EventArgs e)
-    {
-        var svgPath = FindSvgPath(sender);
-        if (svgPath is null) return;
-
-        await FilterChecked(svgPath);
-    }
+        => await RunFilter(sender, FilterChecked);
 
     private void SvgPathRefresh_OnClicked(object? sender, EventArgs e)
     {
@@ -465,20 +415,11 @@ public partial class DashBoardContentPage
     }
 
     private async void ValueTapGestureRecognizer_OnTapped(object? sender, TappedEventArgs e)
-    {
-        var svgPath = FindSvgPath(sender);
-        if (svgPath is null) return;
+        => await RunFilter(sender, FilterValue);
 
-        await FilterValue(svgPath);
-    }
 
     private async void ValueSvgPath_OnClicked(object? sender, EventArgs e)
-    {
-        var svgPath = FindSvgPath(sender);
-        if (svgPath is null) return;
-
-        await FilterValue(svgPath);
-    }
+        => await RunFilter(sender, FilterValue);
 
     private void RadioButton_OnCheckedChanged(object? sender, CheckedChangedEventArgs e)
     {
@@ -925,6 +866,14 @@ public partial class DashBoardContentPage
     }
 
     #endregion
+
+    private static async Task RunFilter(object? sender, Func<SvgPath, Task> func)
+    {
+        var svgPath = FindSvgPath(sender);
+        if (svgPath is null) return;
+
+        await func.Invoke(svgPath);
+    }
 
     private static SvgPath? FindSvgPath(object? sender)
     {

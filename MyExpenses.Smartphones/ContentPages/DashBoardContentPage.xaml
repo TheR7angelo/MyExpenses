@@ -193,7 +193,7 @@
                         </images:SvgPath>
 
                         <HorizontalStackLayout.GestureRecognizers>
-                            <TapGestureRecognizer Tapped="CategoryTapGestureRecognizer_Tapped" NumberOfTapsRequired="1"/>
+                            <TapGestureRecognizer Tapped="CategoryTapGestureRecognizer_OnTapped" NumberOfTapsRequired="1"/>
                         </HorizontalStackLayout.GestureRecognizers>
 
                     </HorizontalStackLayout>
