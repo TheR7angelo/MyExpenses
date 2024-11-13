@@ -160,6 +160,15 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.BankTransferSummary
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Main reason.
+        /// </summary>
+        internal static string LabelTextMainReasonFilter {
+            get {
+                return ResourceManager.GetString("LabelTextMainReasonFilter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to To.
         /// </summary>
         internal static string LabelTextToAccount {
@@ -174,6 +183,15 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.BankTransferSummary
         internal static string LabelTextToAccountFilter {
             get {
                 return ResourceManager.GetString("LabelTextToAccountFilter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Additional reason.
+        /// </summary>
+        internal static string LabelTextToAdditionalReasonFilter {
+            get {
+                return ResourceManager.GetString("LabelTextToAdditionalReasonFilter", resourceCulture);
             }
         }
         

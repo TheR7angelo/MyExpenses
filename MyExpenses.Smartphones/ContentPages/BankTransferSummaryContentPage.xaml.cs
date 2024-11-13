@@ -22,6 +22,26 @@ namespace MyExpenses.Smartphones.ContentPages;
 
 public partial class BankTransferSummaryContentPage
 {
+    public static readonly BindableProperty LabelTextToAdditionalReasonFilterProperty =
+        BindableProperty.Create(nameof(LabelTextToAdditionalReasonFilter), typeof(string),
+            typeof(BankTransferSummaryContentPage), default(string));
+
+    public string LabelTextToAdditionalReasonFilter
+    {
+        get => (string)GetValue(LabelTextToAdditionalReasonFilterProperty);
+        set => SetValue(LabelTextToAdditionalReasonFilterProperty, value);
+    }
+
+    public static readonly BindableProperty LabelTextMainReasonFilterProperty =
+        BindableProperty.Create(nameof(LabelTextMainReasonFilter), typeof(string),
+            typeof(BankTransferSummaryContentPage), default(string));
+
+    public string LabelTextMainReasonFilter
+    {
+        get => (string)GetValue(LabelTextMainReasonFilterProperty);
+        set => SetValue(LabelTextMainReasonFilterProperty, value);
+    }
+
     public static readonly BindableProperty LabelTextValueFilterProperty =
         BindableProperty.Create(nameof(LabelTextValueFilter), typeof(string), typeof(BankTransferSummaryContentPage),
             default(string));
@@ -375,7 +395,9 @@ public partial class BankTransferSummaryContentPage
         const EFilter eFilter = EFilter.AdditionalReason;
 
         IEnumerable<StringIsChecked> bankTransferAdditionalReason;
-        if (Filters.Count is 0) bankTransferAdditionalReason = BankTransferSummaries.Select(s => new StringIsChecked { StringValue = s.AdditionalReason });
+        if (Filters.Count is 0)
+            bankTransferAdditionalReason =
+                BankTransferSummaries.Select(s => new StringIsChecked { StringValue = s.AdditionalReason });
         else
         {
             var items = Filters.Last() == eFilter
@@ -388,7 +410,8 @@ public partial class BankTransferSummaryContentPage
         bankTransferAdditionalReason = bankTransferAdditionalReason.Distinct();
         bankTransferAdditionalReason = bankTransferAdditionalReason.OrderBy(s => s.StringValue);
 
-        var customPopupFilterDescription = new CustomPopupFilterDescriptions(bankTransferAdditionalReason, BankTransferAdditionalReasonFilters);
+        var customPopupFilterDescription =
+            new CustomPopupFilterDescriptions(bankTransferAdditionalReason, BankTransferAdditionalReasonFilters);
         await this.ShowPopupAsync(customPopupFilterDescription);
 
         FilterManagement(BankTransferAdditionalReasonFilters, customPopupFilterDescription, eFilter, svgPath);
@@ -434,7 +457,9 @@ public partial class BankTransferSummaryContentPage
         const EFilter eFilter = EFilter.MainReason;
 
         IEnumerable<StringIsChecked> bankTransferMainReason;
-        if (Filters.Count is 0) bankTransferMainReason = BankTransferSummaries.Select(s => new StringIsChecked { StringValue = s.MainReason });
+        if (Filters.Count is 0)
+            bankTransferMainReason =
+                BankTransferSummaries.Select(s => new StringIsChecked { StringValue = s.MainReason });
         else
         {
             var items = Filters.Last() == eFilter
@@ -447,7 +472,8 @@ public partial class BankTransferSummaryContentPage
         bankTransferMainReason = bankTransferMainReason.Distinct();
         bankTransferMainReason = bankTransferMainReason.OrderBy(s => s.StringValue);
 
-        var customPopupFilterDescription = new CustomPopupFilterDescriptions(bankTransferMainReason, BankTransferMainReasonFilters);
+        var customPopupFilterDescription =
+            new CustomPopupFilterDescriptions(bankTransferMainReason, BankTransferMainReasonFilters);
         await this.ShowPopupAsync(customPopupFilterDescription);
 
         FilterManagement(BankTransferMainReasonFilters, customPopupFilterDescription, eFilter, svgPath);
@@ -569,6 +595,8 @@ public partial class BankTransferSummaryContentPage
         LabelTextFromAccountFilter = BankTransferSummaryContentPageResources.LabelTextFromAccountFilter;
         LabelTextToAccountFilter = BankTransferSummaryContentPageResources.LabelTextToAccountFilter;
         LabelTextValueFilter = BankTransferSummaryContentPageResources.LabelTextValueFilter;
+        LabelTextMainReasonFilter = BankTransferSummaryContentPageResources.LabelTextMainReasonFilter;
+        LabelTextToAdditionalReasonFilter = BankTransferSummaryContentPageResources.LabelTextToAdditionalReasonFilter;
 
         LabelTextFromAccount = BankTransferSummaryContentPageResources.LabelTextFromAccount;
         LabelTextToAccount = BankTransferSummaryContentPageResources.LabelTextToAccount;

@@ -163,6 +163,44 @@
 
                     </HorizontalStackLayout>
 
+                    <HorizontalStackLayout VerticalOptions="Center">
+
+                        <Label Text="{Binding LabelTextMainReasonFilter, Mode=OneWay}" />
+
+                        <images:SvgPath
+                            GeometryColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
+                            GeometrySource="Filter"
+                            WidthRequest="24"
+                            HeightRequest="24"
+                            Clicked="MainReasonSvgPath_OnClicked">
+                        </images:SvgPath>
+
+                        <HorizontalStackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="MainReasonTapGestureRecognizer_Tapped"
+                                                  NumberOfTapsRequired="1" />
+                        </HorizontalStackLayout.GestureRecognizers>
+
+                    </HorizontalStackLayout>
+
+                    <HorizontalStackLayout VerticalOptions="Center">
+
+                        <Label Text="{Binding LabelTextToAdditionalReasonFilter, Mode=OneWay}" />
+
+                        <images:SvgPath
+                            GeometryColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
+                            GeometrySource="Filter"
+                            WidthRequest="24"
+                            HeightRequest="24"
+                            Clicked="AdditionalReasonSvgPath_OnClicked">
+                        </images:SvgPath>
+
+                        <HorizontalStackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="AdditionalReasonTapGestureRecognizer_Tapped"
+                                                  NumberOfTapsRequired="1" />
+                        </HorizontalStackLayout.GestureRecognizers>
+
+                    </HorizontalStackLayout>
+
                     <images:SvgPath
                         GeometryColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
                         GeometrySource="Refresh"

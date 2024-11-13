@@ -77,4 +77,10 @@
     <data name="LabelTextValueFilter" xml:space="preserve">
         <value>Montant</value>
     </data>
+    <data name="LabelTextMainReasonFilter" xml:space="preserve">
+        <value>Raison principale</value>
+    </data>
+    <data name="LabelTextToAdditionalReasonFilter" xml:space="preserve">
+        <value>Raison supplémentaire</value>
+    </data>
 </root>

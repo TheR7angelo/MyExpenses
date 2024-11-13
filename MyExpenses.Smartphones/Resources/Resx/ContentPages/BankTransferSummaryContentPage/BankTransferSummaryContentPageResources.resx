@@ -84,4 +84,10 @@
     <data name="LabelTextValueFilter" xml:space="preserve">
         <value>Amount</value>
     </data>
+    <data name="LabelTextMainReasonFilter" xml:space="preserve">
+        <value>Main reason</value>
+    </data>
+    <data name="LabelTextToAdditionalReasonFilter" xml:space="preserve">
+        <value>Additional reason</value>
+    </data>
 </root>
