@@ -258,6 +258,39 @@ public partial class DetailedRecordContentPage
         UpdateIsDirty();
     }
 
+    private async void ButtonDeleteHistory_OnClicked(object? sender, EventArgs e)
+    {
+        var response = await DisplayAlert(
+            DetailedRecordContentPageResources.MessageBoxDeleteHistoryQuestionTitle,
+            DetailedRecordContentPageResources.MessageBoxDeleteHistoryQuestionMessage,
+            DetailedRecordContentPageResources.MessageBoxDeleteHistoryQuestionYesButton,
+            DetailedRecordContentPageResources.MessageBoxDeleteHistoryQuestionNoButton);
+        if (!response) return;
+
+        var json = THistory.ToJson();
+        Log.Information("Attempting to delete history : {Json}", json);
+        var (success, exception) = THistory.Delete();
+        if (!success)
+        {
+            Log.Error(exception, "An error occur while deleting the record");
+
+            await DisplayAlert(
+                DetailedRecordContentPageResources.MessageBoxDeleteHistoryErrorTitle,
+                DetailedRecordContentPageResources.MessageBoxDeleteHistoryErrorMessage,
+                DetailedRecordContentPageResources.MessageBoxDeleteHistoryErrorOkButton);
+            return;
+        }
+
+        Log.Information("Record was successfully deleted");
+        await DisplayAlert(
+            DetailedRecordContentPageResources.MessageBoxDeleteHistorySuccessTitle,
+            DetailedRecordContentPageResources.MessageBoxDeleteHistorySuccessMessage,
+            DetailedRecordContentPageResources.MessageBoxDeleteHistorySuccessOkButton);
+
+        _taskCompletionSource.SetResult(true);
+        await Navigation.PopAsync();
+    }
+
     private void ButtonRefocus_OnClicked(object? sender, EventArgs e)
         => Refocus();
 
@@ -604,37 +637,4 @@ public partial class DetailedRecordContentPage
     }
 
     #endregion
-
-    private async void ButtonDeleteHistory_OnClicked(object? sender, EventArgs e)
-    {
-        var response = await DisplayAlert(
-            DetailedRecordContentPageResources.MessageBoxDeleteHistoryQuestionTitle,
-            DetailedRecordContentPageResources.MessageBoxDeleteHistoryQuestionMessage,
-            DetailedRecordContentPageResources.MessageBoxDeleteHistoryQuestionYesButton,
-            DetailedRecordContentPageResources.MessageBoxDeleteHistoryQuestionNoButton);
-        if (!response) return;
-
-        var json = THistory.ToJson();
-        Log.Information("Attempting to delete history : {Json}", json);
-        var (success, exception) = THistory.Delete();
-        if (!success)
-        {
-            Log.Error(exception, "An error occur while deleting the record");
-
-            await DisplayAlert(
-                DetailedRecordContentPageResources.MessageBoxDeleteHistoryErrorTitle,
-                DetailedRecordContentPageResources.MessageBoxDeleteHistoryErrorMessage,
-                DetailedRecordContentPageResources.MessageBoxDeleteHistoryErrorOkButton);
-            return;
-        }
-
-        Log.Information("Record was successfully deleted");
-        await DisplayAlert(
-            DetailedRecordContentPageResources.MessageBoxDeleteHistorySuccessTitle,
-            DetailedRecordContentPageResources.MessageBoxDeleteHistorySuccessMessage,
-            DetailedRecordContentPageResources.MessageBoxDeleteHistorySuccessOkButton);
-
-        _taskCompletionSource.SetResult(true);
-        await Navigation.PopAsync();
-    }
 }
