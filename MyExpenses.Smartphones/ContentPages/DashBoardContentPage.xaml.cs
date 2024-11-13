@@ -692,10 +692,10 @@ public partial class DashBoardContentPage
         historyValues = historyValues.Distinct();
         historyValues = historyValues.OrderBy(s => s.DoubleValue);
 
-        var customPopupFilterHistoryValues = new CustomPopupFilterHistoryValues(historyValues, HistoryValues);
-        await this.ShowPopupAsync(customPopupFilterHistoryValues);
+        var customPopupFilterDoubleValues = new CustomPopupFilterDoubleValues(historyValues, HistoryValues);
+        await this.ShowPopupAsync(customPopupFilterDoubleValues);
 
-        FilterManagement(HistoryValues, customPopupFilterHistoryValues, eFilter, svgPath);
+        FilterManagement(HistoryValues, customPopupFilterDoubleValues, eFilter, svgPath);
     }
 
     private DateOnly GetDateOnlyFilter()
