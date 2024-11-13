@@ -9,10 +9,10 @@ using MyExpenses.Utils.Collection;
 
 namespace MyExpenses.Smartphones.ContentPages.CustomPopups;
 
-public partial class CustomPopupFilterHistoryValues : ICustomPopupFilter<DoubleIsChecked>
+public partial class CustomPopupFilterDoubleValues : ICustomPopupFilter<DoubleIsChecked>
 {
     public static readonly BindableProperty ButtonCloseTextProperty = BindableProperty.Create(nameof(ButtonCloseText),
-        typeof(string), typeof(CustomPopupFilterHistoryValues), default(string));
+        typeof(string), typeof(CustomPopupFilterDoubleValues), default(string));
 
     public string ButtonCloseText
     {
@@ -21,7 +21,7 @@ public partial class CustomPopupFilterHistoryValues : ICustomPopupFilter<DoubleI
     }
 
     public static readonly BindableProperty SearchBarPlaceHolderTextProperty =
-        BindableProperty.Create(nameof(SearchBarPlaceHolderText), typeof(string), typeof(CustomPopupFilterHistoryValues),
+        BindableProperty.Create(nameof(SearchBarPlaceHolderText), typeof(string), typeof(CustomPopupFilterDoubleValues),
             default(string));
 
     public string SearchBarPlaceHolderText
@@ -44,7 +44,7 @@ public partial class CustomPopupFilterHistoryValues : ICustomPopupFilter<DoubleI
 
     private string? SearchText { get; set; }
 
-    public CustomPopupFilterHistoryValues(IEnumerable<DoubleIsChecked> currentHistoryValues,
+    public CustomPopupFilterDoubleValues(IEnumerable<DoubleIsChecked> currentHistoryValues,
         IReadOnlyCollection<DoubleIsChecked>? historyValuesAlreadyChecked = null)
     {
         OriginalHistoryValues = [..currentHistoryValues];
@@ -136,8 +136,8 @@ public partial class CustomPopupFilterHistoryValues : ICustomPopupFilter<DoubleI
 
     private void UpdateLanguage()
     {
-        SearchBarPlaceHolderText = CustomPopupFilterHistoryValuesResources.SearchBarPlaceHolderText;
-        ButtonCloseText = CustomPopupFilterHistoryValuesResources.ButtonCloseText;
+        SearchBarPlaceHolderText = CustomPopupFilterDoubleValuesResources.SearchBarPlaceHolderText;
+        ButtonCloseText = CustomPopupFilterDoubleValuesResources.ButtonCloseText;
     }
 
     #endregion

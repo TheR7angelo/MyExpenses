@@ -21,14 +21,14 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.CustomPopups.Custom
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class CustomPopupFilterHistoryValuesResources {
+    internal class CustomPopupFilterDoubleValuesResources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal CustomPopupFilterHistoryValuesResources() {
+        internal CustomPopupFilterDoubleValuesResources() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.CustomPopups.Custom
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MyExpenses.Smartphones.Resources.Resx.ContentPages.CustomPopups.CustomPopupFilter" +
-                            "HistoryValues.CustomPopupFilterHistoryValuesResources", typeof(CustomPopupFilterHistoryValuesResources).Assembly);
+                            "DoubleValues.CustomPopupFilterDoubleValuesResources", typeof(CustomPopupFilterDoubleValuesResources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

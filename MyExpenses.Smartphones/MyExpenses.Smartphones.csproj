@@ -108,7 +108,7 @@
       <MauiXaml Update="ContentPages\CustomPopups\CustomPopupFilterModePayments.xaml">
         <SubType>Designer</SubType>
       </MauiXaml>
-      <MauiXaml Update="ContentPages\CustomPopups\CustomPopupFilterHistoryValues.xaml">
+      <MauiXaml Update="ContentPages\CustomPopups\CustomPopupFilterDoubleValues.xaml">
         <SubType>Designer</SubType>
       </MauiXaml>
       <MauiXaml Update="ContentPages\CustomPopups\CustomPopupFilterBankTransferAccount.xaml">
@@ -196,7 +196,7 @@
         <AutoGen>True</AutoGen>
         <DependentUpon>CustomPopupFilterModePaymentsResources.resx</DependentUpon>
       </Compile>
-      <Compile Update="ContentPages\CustomPopups\CustomPopupFilterHistoryValues.xaml.cs">
+      <Compile Update="ContentPages\CustomPopups\CustomPopupFilterDoubleValues.xaml.cs">
         <DependentUpon>CustomPopupFilterHistoryValues.xaml</DependentUpon>
         <SubType>Code</SubType>
       </Compile>
