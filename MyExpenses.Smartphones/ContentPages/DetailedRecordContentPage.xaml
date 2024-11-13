@@ -47,6 +47,12 @@
                         Clicked="ButtonUpdateHistory_OnClicked">
                 </Button>
 
+                <Button Text="{Binding ButtonCanBeDeletedText, Mode=OneWay}"
+                        Style="{StaticResource PaperSecondaryMidButton}"
+                        IsVisible="{Binding CanBeDeleted, Mode=OneWay}"
+                        Clicked="ButtonDeleteHistory_OnClicked">
+                </Button>
+
                 <Button Text="{Binding ButtonCancelUpdateText, Mode=OneWay}"
                         Style="{StaticResource PaperSecondaryMidButton}"
                         IsVisible="{Binding IsDirty, Mode=OneWay}"

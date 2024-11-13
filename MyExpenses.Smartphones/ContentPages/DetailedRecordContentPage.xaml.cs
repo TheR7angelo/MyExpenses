@@ -25,6 +25,16 @@ namespace MyExpenses.Smartphones.ContentPages;
 
 public partial class DetailedRecordContentPage
 {
+    public static readonly BindableProperty ButtonCanBeDeletedTextProperty =
+        BindableProperty.Create(nameof(ButtonCanBeDeletedText), typeof(string), typeof(DetailedRecordContentPage),
+            default(string));
+
+    public string ButtonCanBeDeletedText
+    {
+        get => (string)GetValue(ButtonCanBeDeletedTextProperty);
+        set => SetValue(ButtonCanBeDeletedTextProperty, value);
+    }
+
     public static readonly BindableProperty LabelTextOnTheAccountProperty =
         BindableProperty.Create(nameof(LabelTextOnTheAccount), typeof(string), typeof(DetailedRecordContentPage),
             default(string));
@@ -157,6 +167,15 @@ public partial class DetailedRecordContentPage
     {
         get => (bool)GetValue(IsDirtyProperty);
         set => SetValue(IsDirtyProperty, value);
+    }
+
+    public static readonly BindableProperty CanBeDeletedProperty = BindableProperty.Create(nameof(CanBeDeleted),
+        typeof(bool), typeof(DetailedRecordContentPage), default(bool));
+
+    public bool CanBeDeleted
+    {
+        get => (bool)GetValue(CanBeDeletedProperty);
+        set => SetValue(CanBeDeletedProperty, value);
     }
 
     public static readonly BindableProperty THistoryProperty = BindableProperty.Create(nameof(THistory),
@@ -515,7 +534,7 @@ public partial class DetailedRecordContentPage
                 navigator.ZoomTo(1);
             };
         }
-        catch (NullReferenceException e)
+        catch (NullReferenceException)
         {
             // Pass
         }
@@ -534,6 +553,7 @@ public partial class DetailedRecordContentPage
     {
         ButtonUpdateText = DetailedRecordContentPageResources.ButtonUpdateText;
         ButtonCancelUpdateText = DetailedRecordContentPageResources.ButtonCancelUpdateText;
+        ButtonCanBeDeletedText = DetailedRecordContentPageResources.ButtonCanBeDeletedText;
 
         LabelTextAddedOn = DetailedRecordContentPageResources.LabelTextAddedOn;
         PointedOperation = DetailedRecordContentPageResources.PointedOperation;
@@ -584,4 +604,37 @@ public partial class DetailedRecordContentPage
     }
 
     #endregion
+
+    private async void ButtonDeleteHistory_OnClicked(object? sender, EventArgs e)
+    {
+        var response = await DisplayAlert(
+            DetailedRecordContentPageResources.MessageBoxDeleteHistoryQuestionTitle,
+            DetailedRecordContentPageResources.MessageBoxDeleteHistoryQuestionMessage,
+            DetailedRecordContentPageResources.MessageBoxDeleteHistoryQuestionYesButton,
+            DetailedRecordContentPageResources.MessageBoxDeleteHistoryQuestionNoButton);
+        if (!response) return;
+
+        var json = THistory.ToJson();
+        Log.Information("Attempting to delete history : {Json}", json);
+        var (success, exception) = THistory.Delete();
+        if (!success)
+        {
+            Log.Error(exception, "An error occur while deleting the record");
+
+            await DisplayAlert(
+                DetailedRecordContentPageResources.MessageBoxDeleteHistoryErrorTitle,
+                DetailedRecordContentPageResources.MessageBoxDeleteHistoryErrorMessage,
+                DetailedRecordContentPageResources.MessageBoxDeleteHistoryErrorOkButton);
+            return;
+        }
+
+        Log.Information("Record was successfully deleted");
+        await DisplayAlert(
+            DetailedRecordContentPageResources.MessageBoxDeleteHistorySuccessTitle,
+            DetailedRecordContentPageResources.MessageBoxDeleteHistorySuccessMessage,
+            DetailedRecordContentPageResources.MessageBoxDeleteHistorySuccessOkButton);
+
+        _taskCompletionSource.SetResult(true);
+        await Navigation.PopAsync();
+    }
 }
