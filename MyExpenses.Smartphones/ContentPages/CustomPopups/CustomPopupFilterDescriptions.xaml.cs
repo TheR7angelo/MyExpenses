@@ -8,10 +8,10 @@ using MyExpenses.Utils.Collection;
 
 namespace MyExpenses.Smartphones.ContentPages.CustomPopups;
 
-public partial class CustomPopupFilterHistoryDescriptions : ICustomPopupFilter<StringIsChecked>
+public partial class CustomPopupFilterDescriptions : ICustomPopupFilter<StringIsChecked>
 {
     public static readonly BindableProperty ButtonCloseTextProperty = BindableProperty.Create(nameof(ButtonCloseText),
-        typeof(string), typeof(CustomPopupFilterHistoryDescriptions), default(string));
+        typeof(string), typeof(CustomPopupFilterDescriptions), default(string));
 
     public string ButtonCloseText
     {
@@ -20,7 +20,7 @@ public partial class CustomPopupFilterHistoryDescriptions : ICustomPopupFilter<S
     }
 
     public static readonly BindableProperty SearchBarPlaceHolderTextProperty =
-        BindableProperty.Create(nameof(SearchBarPlaceHolderText), typeof(string), typeof(CustomPopupFilterHistoryDescriptions),
+        BindableProperty.Create(nameof(SearchBarPlaceHolderText), typeof(string), typeof(CustomPopupFilterDescriptions),
             default(string));
 
     public string SearchBarPlaceHolderText
@@ -30,7 +30,7 @@ public partial class CustomPopupFilterHistoryDescriptions : ICustomPopupFilter<S
     }
 
     public static readonly BindableProperty GeometrySourceProperty = BindableProperty.Create(nameof(GeometrySource),
-        typeof(EPackIcons), typeof(CustomPopupFilterHistoryDescriptions), EPackIcons.CheckboxBlankOutline);
+        typeof(EPackIcons), typeof(CustomPopupFilterDescriptions), EPackIcons.CheckboxBlankOutline);
 
     public EPackIcons GeometrySource
     {
@@ -43,7 +43,7 @@ public partial class CustomPopupFilterHistoryDescriptions : ICustomPopupFilter<S
 
     private string? SearchText { get; set; }
 
-    public CustomPopupFilterHistoryDescriptions(IEnumerable<StringIsChecked> currentHistoryDescriptions,
+    public CustomPopupFilterDescriptions(IEnumerable<StringIsChecked> currentHistoryDescriptions,
         IReadOnlyCollection<StringIsChecked>? historyDescriptionsAlreadyChecked = null)
     {
         OriginalHistoryDescriptions = [..currentHistoryDescriptions];
@@ -133,8 +133,8 @@ public partial class CustomPopupFilterHistoryDescriptions : ICustomPopupFilter<S
 
     private void UpdateLanguage()
     {
-        SearchBarPlaceHolderText = CustomPopupFilterHistoryDescriptionsResources.SearchBarPlaceHolderText;
-        ButtonCloseText = CustomPopupFilterHistoryDescriptionsResources.ButtonCloseText;
+        SearchBarPlaceHolderText = CustomPopupFilterDescriptionsResources.SearchBarPlaceHolderText;
+        ButtonCloseText = CustomPopupFilterDescriptionsResources.ButtonCloseText;
     }
 
     #endregion

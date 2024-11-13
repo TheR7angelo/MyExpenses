@@ -561,8 +561,7 @@ public partial class DashBoardContentPage
         const EFilter eFilter = EFilter.Description;
 
         IEnumerable<StringIsChecked> historyDescription;
-        if (Filters.Count is 0)
-            historyDescription = VHistories.Select(s => new StringIsChecked { StringValue = s.Description });
+        if (Filters.Count is 0) historyDescription = VHistories.Select(s => new StringIsChecked { StringValue = s.Description });
         else
         {
             var items = Filters.Last() == eFilter
@@ -575,8 +574,7 @@ public partial class DashBoardContentPage
         historyDescription = historyDescription.Distinct();
         historyDescription = historyDescription.OrderBy(s => s.StringValue);
 
-        var customPopupFilterDescription =
-            new CustomPopupFilterHistoryDescriptions(historyDescription, HistoryDescriptions);
+        var customPopupFilterDescription = new CustomPopupFilterDescriptions(historyDescription, HistoryDescriptions);
         await this.ShowPopupAsync(customPopupFilterDescription);
 
         FilterManagement(HistoryDescriptions, customPopupFilterDescription, eFilter, svgPath);

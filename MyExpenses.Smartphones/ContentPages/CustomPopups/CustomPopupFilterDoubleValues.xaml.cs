@@ -31,7 +31,7 @@ public partial class CustomPopupFilterDoubleValues : ICustomPopupFilter<DoubleIs
     }
 
     public static readonly BindableProperty GeometrySourceProperty = BindableProperty.Create(nameof(GeometrySource),
-        typeof(EPackIcons), typeof(CustomPopupFilterHistoryDescriptions), EPackIcons.CheckboxBlankOutline);
+        typeof(EPackIcons), typeof(CustomPopupFilterDescriptions), EPackIcons.CheckboxBlankOutline);
 
     public EPackIcons GeometrySource
     {
