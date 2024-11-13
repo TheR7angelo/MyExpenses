@@ -111,6 +111,9 @@
       <MauiXaml Update="ContentPages\CustomPopups\CustomPopupFilterHistoryValues.xaml">
         <SubType>Designer</SubType>
       </MauiXaml>
+      <MauiXaml Update="ContentPages\CustomPopups\CustomPopupFilterBankTransferAccount.xaml">
+        <SubType>Designer</SubType>
+      </MauiXaml>
     </ItemGroup>
 
     <ItemGroup>
@@ -231,6 +234,10 @@
         <DesignTime>True</DesignTime>
         <AutoGen>True</AutoGen>
         <DependentUpon>BankTransferSummaryContentPageResources.resx</DependentUpon>
+      </Compile>
+      <Compile Update="ContentPages\CustomPopups\CustomPopupFilterBankTransferAccount.xaml.cs">
+        <DependentUpon>CustomPopupFilterBankTransferAccount.xaml</DependentUpon>
+        <SubType>Code</SubType>
       </Compile>
     </ItemGroup>
 

@@ -92,6 +92,91 @@
 
             </Grid>
 
+            <ScrollView Grid.Row="2"
+                        Orientation="Horizontal">
+
+                <HorizontalStackLayout HorizontalOptions="Center"
+                                       margin:LayoutExtensions.MarginForAllChildren="3">
+
+                    <images:SvgPath
+                        GeometryColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
+                        GeometrySource="Refresh"
+                        WidthRequest="24"
+                        HeightRequest="24"
+                        Clicked="SvgPathRefresh_OnClicked">
+                    </images:SvgPath>
+
+                    <HorizontalStackLayout VerticalOptions="Center">
+
+                        <!-- <Label Text="{Binding LabelTextCategory, Mode=OneWay}" /> -->
+                        <Label Text="From account" />
+
+                        <images:SvgPath
+                            GeometryColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
+                            GeometrySource="Filter"
+                            WidthRequest="24"
+                            HeightRequest="24"
+                            Clicked="FromAccountSvgPath_OnClicked">
+                        </images:SvgPath>
+
+                        <HorizontalStackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="FromAccountTapGestureRecognizer_Tapped" NumberOfTapsRequired="1" />
+                        </HorizontalStackLayout.GestureRecognizers>
+
+                    </HorizontalStackLayout>
+
+                    <HorizontalStackLayout VerticalOptions="Center">
+
+                        <!-- <Label Text="{Binding LabelTextDescription, Mode=OneWay}" /> -->
+                        <Label Text="To account" />
+
+                        <images:SvgPath
+                            GeometryColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
+                            GeometrySource="Filter"
+                            WidthRequest="24"
+                            HeightRequest="24"
+                            Clicked="ToAccountSvgPath_OnClicked">
+                        </images:SvgPath>
+
+                        <HorizontalStackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="ToAccountTapGestureRecognizer_Tapped"
+                                                  NumberOfTapsRequired="1" />
+                        </HorizontalStackLayout.GestureRecognizers>
+
+                    </HorizontalStackLayout>
+                    <!-- -->
+                    <!-- <HorizontalStackLayout VerticalOptions="Center"> -->
+                    <!-- -->
+                    <!--     ~1~ <Label Text="{Binding LabelTextPaymentMode, Mode=OneWay}" /> @1@ -->
+                    <!--     <Label Text="{Binding LabelTextPaymentMode, Mode=OneWay}" /> -->
+                    <!-- -->
+                    <!--     <images:SvgPath -->
+                    <!--         GeometryColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}" -->
+                    <!--         GeometrySource="Filter" -->
+                    <!--         WidthRequest="24" -->
+                    <!--         HeightRequest="24" -->
+                    <!--         Clicked="PaymentModeSvgPath_OnClicked"> -->
+                    <!--     </images:SvgPath> -->
+                    <!-- -->
+                    <!--     <HorizontalStackLayout.GestureRecognizers> -->
+                    <!--         <TapGestureRecognizer Tapped="PaymentModeTapGestureRecognizer_OnTapped" -->
+                    <!--                               NumberOfTapsRequired="1" /> -->
+                    <!--     </HorizontalStackLayout.GestureRecognizers> -->
+                    <!-- -->
+                    <!-- </HorizontalStackLayout> -->
+
+                    <images:SvgPath
+                        GeometryColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
+                        GeometrySource="Refresh"
+                        WidthRequest="24"
+                        HeightRequest="24"
+                        Clicked="SvgPathRefresh_OnClicked">
+                    </images:SvgPath>
+
+                </HorizontalStackLayout>
+
+            </ScrollView>
+
             <CollectionView Grid.Row="3"
                             ItemsSource="{Binding BankTransferSummaries, Mode=OneWay}">
 
@@ -130,8 +215,9 @@
 
                                     <VerticalStackLayout Grid.Row="0" Grid.Column="0">
 
-                                        <Label Text="{Binding LabelTextFromAccount, Mode=OneWay, Source={RelativeSource AncestorType={x:Type local:BankTransferSummaryContentPage}}}"
-                                               HorizontalTextAlignment="Center">
+                                        <Label
+                                            Text="{Binding LabelTextFromAccount, Mode=OneWay, Source={RelativeSource AncestorType={x:Type local:BankTransferSummaryContentPage}}}"
+                                            HorizontalTextAlignment="Center">
                                         </Label>
 
                                         <Label Text="{Binding FromAccountName, Mode=OneWay}"
@@ -142,8 +228,9 @@
 
                                     <VerticalStackLayout Grid.Row="0" Grid.Column="1" Grid.RowSpan="2">
 
-                                        <Label Text="{Binding LabelTextValue, Mode=OneWay, Source={RelativeSource AncestorType={x:Type local:BankTransferSummaryContentPage}}}"
-                                               HorizontalTextAlignment="Center">
+                                        <Label
+                                            Text="{Binding LabelTextValue, Mode=OneWay, Source={RelativeSource AncestorType={x:Type local:BankTransferSummaryContentPage}}}"
+                                            HorizontalTextAlignment="Center">
                                         </Label>
 
                                         <Label HorizontalTextAlignment="Center">
@@ -155,26 +242,30 @@
                                             </Label.Text>
                                         </Label>
 
-                                        <images:SvgPath GeometryColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
-                                                        GeometrySource="ArrowRightThin"
-                                                        WidthRequest="64"
-                                                        HeightRequest="64">
+                                        <images:SvgPath
+                                            GeometryColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
+                                            GeometrySource="ArrowRightThin"
+                                            WidthRequest="64"
+                                            HeightRequest="64">
                                         </images:SvgPath>
 
-                                        <Label Text="{Binding LabelTextDate, Mode=OneWay, Source={RelativeSource AncestorType={x:Type local:BankTransferSummaryContentPage}}}"
-                                               HorizontalTextAlignment="Center">
+                                        <Label
+                                            Text="{Binding LabelTextDate, Mode=OneWay, Source={RelativeSource AncestorType={x:Type local:BankTransferSummaryContentPage}}}"
+                                            HorizontalTextAlignment="Center">
                                         </Label>
 
-                                        <Label Text="{Binding Date, Mode=OneWay, Converter={StaticResource DateTimeToDateOnlyConverter}}"
-                                               HorizontalTextAlignment="Center">
+                                        <Label
+                                            Text="{Binding Date, Mode=OneWay, Converter={StaticResource DateTimeToDateOnlyConverter}}"
+                                            HorizontalTextAlignment="Center">
                                         </Label>
 
                                     </VerticalStackLayout>
 
                                     <VerticalStackLayout Grid.Row="0" Grid.Column="2">
 
-                                        <Label Text="{Binding LabelTextToAccount, Mode=OneWay, Source={RelativeSource AncestorType={x:Type local:BankTransferSummaryContentPage}}}"
-                                               HorizontalTextAlignment="Center">
+                                        <Label
+                                            Text="{Binding LabelTextToAccount, Mode=OneWay, Source={RelativeSource AncestorType={x:Type local:BankTransferSummaryContentPage}}}"
+                                            HorizontalTextAlignment="Center">
                                         </Label>
 
                                         <Label Text="{Binding ToAccountName, Mode=OneWay}"
@@ -295,8 +386,9 @@
 
                                     <HorizontalStackLayout>
 
-                                        <Label Text="{Binding LabelTextMainReason, Mode=OneWay, Source={RelativeSource AncestorType={x:Type local:BankTransferSummaryContentPage}}}"
-                                               HorizontalTextAlignment="Start">
+                                        <Label
+                                            Text="{Binding LabelTextMainReason, Mode=OneWay, Source={RelativeSource AncestorType={x:Type local:BankTransferSummaryContentPage}}}"
+                                            HorizontalTextAlignment="Start">
                                         </Label>
 
                                         <Label Text="{Binding MainReason, Mode=OneWay}"
@@ -309,8 +401,9 @@
 
                                     <HorizontalStackLayout>
 
-                                        <Label Text="{Binding LabelTextAdditionalReason, Mode=OneWay, Source={RelativeSource AncestorType={x:Type local:BankTransferSummaryContentPage}}}"
-                                               HorizontalTextAlignment="Start">
+                                        <Label
+                                            Text="{Binding LabelTextAdditionalReason, Mode=OneWay, Source={RelativeSource AncestorType={x:Type local:BankTransferSummaryContentPage}}}"
+                                            HorizontalTextAlignment="Start">
                                         </Label>
 
                                         <Label Text="{Binding AdditionalReason, Mode=OneWay}"

@@ -2,10 +2,18 @@ using System.Collections.Immutable;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Globalization;
+using CommunityToolkit.Maui.Views;
+using MyExpenses.Maui.Utils;
+using MyExpenses.Models.AutoMapper;
 using MyExpenses.Models.Config;
 using MyExpenses.Models.Config.Interfaces;
+using MyExpenses.Models.Maui.CustomPopupFilter;
 using MyExpenses.Models.Sql.Bases.Views;
+using MyExpenses.Models.Sql.Derivatives.Tables;
+using MyExpenses.Smartphones.ContentPages.CustomPopups;
+using MyExpenses.Smartphones.PackIcons;
 using MyExpenses.Smartphones.Resources.Resx.ContentPages.BankTransferSummaryContentPage;
+using MyExpenses.Smartphones.UserControls.Images;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils.Collection;
 using MyExpenses.Utils.Strings;
@@ -190,6 +198,13 @@ public partial class BankTransferSummaryContentPage
 
     public ObservableCollection<VBankTransferSummary> BankTransferSummaries { get; } = [];
 
+    private List<EFilter> Filters { get; } = [];
+    private List<List<VBankTransferSummary>> OriginalVBankTransferSummary { get; } = [];
+
+    private List<TAccountDerive> BankTransferFromAccountsFilters { get; } = [];
+    private List<TAccountDerive> BankTransferToAccountsFilters { get; } = [];
+    private List<DoubleIsChecked> BankTransferValuesFilters { get; } = [];
+
     public BankTransferSummaryContentPage()
     {
         UpdateMonthLanguage();
@@ -342,42 +357,23 @@ public partial class BankTransferSummaryContentPage
 
         RowTotalCount = query.Count();
 
-        // TODO filter
-        // if (VCategoryDerivesFilter.Count > 0)
-        // {
-        //     var categoryName = VCategoryDerivesFilter.Select(s => s.CategoryName!);
-        //     query = query.Where(s => categoryName.Contains(s.Category));
-        // }
-        //
-        // if (HistoryDescriptions.Count > 0)
-        // {
-        //     var historyDescriptions = HistoryDescriptions.Select(s => s.StringValue);
-        //     query = query.Where(s => historyDescriptions.Contains(s.Description));
-        // }
-        //
-        // if (ModePaymentDeriveFilter.Count > 0)
-        // {
-        //     var modePayments = ModePaymentDeriveFilter.Select(s => s.Name);
-        //     query = query.Where(s => modePayments.Contains(s.ModePayment));
-        // }
-        //
-        // if (HistoryValues.Count > 0)
-        // {
-        //     var historyValues = HistoryValues.Select(s => s.DoubleValue);
-        //     query = query.Where(s => historyValues.Contains(s.Value));
-        // }
-        //
-        // if (HistoryChecked.Count > 0)
-        // {
-        //     var historyChecked = HistoryChecked.Select(s => s.BoolValue);
-        //     query = query.Where(s => historyChecked.Contains((bool)s.IsPointed!));
-        // }
-        //
-        // if (PlaceDeriveFilter.Count > 0)
-        // {
-        //     var historyPlaces = PlaceDeriveFilter.Select(s => s.Name);
-        //     query = query.Where(s => historyPlaces.Contains(s.Place));
-        // }
+        if (BankTransferFromAccountsFilters.Count > 0)
+        {
+            var accountNames = BankTransferFromAccountsFilters.Select(s => s.Name!);
+            query = query.Where(s => accountNames.Contains(s.FromAccountName));
+        }
+
+        if (BankTransferToAccountsFilters.Count > 0)
+        {
+            var accountNames = BankTransferToAccountsFilters.Select(s => s.Name);
+            query = query.Where(s => accountNames.Contains(s.ToAccountName));
+        }
+
+        if (BankTransferValuesFilters.Count > 0)
+        {
+            var values = BankTransferValuesFilters.Select(s => s.DoubleValue);
+            query = query.Where(s => values.Contains(s.Value));
+        }
 
         RowTotalFilteredCount = query.Count();
 
@@ -416,4 +412,186 @@ public partial class BankTransferSummaryContentPage
     }
 
     #endregion
+
+    private void SvgPathRefresh_OnClicked(object? sender, EventArgs e)
+    {
+        if (sender is not SvgPath svgPath) return;
+        if (svgPath.Parent is not HorizontalStackLayout horizontalStackLayout) return;
+
+        var horizontalStackLayoutChildren = horizontalStackLayout.FindVisualChildren<HorizontalStackLayout>();
+        foreach (var horizontalStackLayoutChild in horizontalStackLayoutChildren)
+        {
+            var svgPathChild = horizontalStackLayoutChild.FindVisualChildren<SvgPath>().FirstOrDefault();
+            if (svgPathChild is null) continue;
+
+            svgPathChild.GeometrySource = EPackIcons.Filter;
+        }
+
+        BankTransferFromAccountsFilters.Clear();
+        BankTransferToAccountsFilters.Clear();
+        BankTransferValuesFilters.Clear();
+
+        RefreshDataGrid();
+    }
+
+    private async void FromAccountSvgPath_OnClicked(object? sender, EventArgs e)
+    {
+        var svgPath = FindSvgPath(sender);
+        if (svgPath is null) return;
+
+        await FilterFromAccount(svgPath);
+    }
+
+    private async void FromAccountTapGestureRecognizer_Tapped(object? sender, TappedEventArgs e)
+    {
+        var svgPath = FindSvgPath(sender);
+        if (svgPath is null) return;
+
+        await FilterFromAccount(svgPath);
+    }
+
+    private async void ToAccountSvgPath_OnClicked(object? sender, EventArgs e)
+    {
+        var svgPath = FindSvgPath(sender);
+        if (svgPath is null) return;
+
+        await FilterToAccount(svgPath);
+    }
+
+    private async void ToAccountTapGestureRecognizer_Tapped(object? sender, TappedEventArgs e)
+    {
+        var svgPath = FindSvgPath(sender);
+        if (svgPath is null) return;
+
+        await FilterToAccount(svgPath);
+    }
+
+    private async Task FilterToAccount(SvgPath svgPath)
+    {
+        const EFilter eFilter = EFilter.ToAccounts;
+
+        IEnumerable<int> transferIds;
+        if (Filters.Count is 0) transferIds = BankTransferSummaries.Select(s => s.Id);
+        else
+        {
+            var items = Filters.Last() == eFilter
+                ? OriginalVBankTransferSummary.Last().AsEnumerable()
+                : BankTransferSummaries.AsEnumerable();
+
+            transferIds = items.Select(s => s.Id);
+        }
+
+        var mapper = Mapping.Mapper;
+        await using var context = new DataBaseContext();
+        var toAccountFk = context.TBankTransfers
+            .Where(s => transferIds.Contains(s.Id))
+            .Select(s => s.ToAccountFk!)
+            .Distinct()
+            .ToList();
+
+        var accountDerives = context.TAccounts
+            .Where(s => toAccountFk.Contains(s.Id))
+            .OrderBy(s => s.Name)
+            .Select(s => mapper.Map<TAccountDerive>(s))
+            .ToList();
+
+        var customPopupFilterBankTransferAccount = new CustomPopupFilterBankTransferAccount(accountDerives, BankTransferToAccountsFilters);
+        await this.ShowPopupAsync(customPopupFilterBankTransferAccount);
+
+        FilterManagement(BankTransferToAccountsFilters, customPopupFilterBankTransferAccount, eFilter, svgPath);
+    }
+
+    private async Task FilterFromAccount(SvgPath svgPath)
+    {
+        const EFilter eFilter = EFilter.FromAccounts;
+
+        IEnumerable<int> transferIds;
+        if (Filters.Count is 0) transferIds = BankTransferSummaries.Select(s => s.Id);
+        else
+        {
+            var items = Filters.Last() == eFilter
+                ? OriginalVBankTransferSummary.Last().AsEnumerable()
+                : BankTransferSummaries.AsEnumerable();
+
+            transferIds = items.Select(s => s.Id);
+        }
+
+        var mapper = Mapping.Mapper;
+        await using var context = new DataBaseContext();
+        var fromAccountFk = context.TBankTransfers
+            .Where(s => transferIds.Contains(s.Id))
+            .Select(s => s.FromAccountFk!)
+            .Distinct()
+            .ToList();
+
+        var accountDerives = context.TAccounts
+            .Where(s => fromAccountFk.Contains(s.Id))
+            .OrderBy(s => s.Name)
+            .Select(s => mapper.Map<TAccountDerive>(s))
+            .ToList();
+
+        var customPopupFilterBankTransferAccount = new CustomPopupFilterBankTransferAccount(accountDerives, BankTransferFromAccountsFilters);
+        await this.ShowPopupAsync(customPopupFilterBankTransferAccount);
+
+        FilterManagement(BankTransferFromAccountsFilters, customPopupFilterBankTransferAccount, eFilter, svgPath);
+    }
+
+    private void FilterManagement<T>(List<T> collection, ICustomPopupFilter<T> customPopupFilter, EFilter eFilter,
+        SvgPath svgPath)
+    {
+        if (Filters.Count is 0 || Filters.Last() != eFilter)
+        {
+            Filters.Add(eFilter);
+            OriginalVBankTransferSummary.Add(BankTransferSummaries.ToList());
+        }
+
+        var isActive = RefreshFilter(collection, customPopupFilter, svgPath);
+
+        if (!isActive && Filters.Last() == eFilter)
+        {
+            var lastIndex = Filters.Count - 1;
+            Filters.RemoveAt(lastIndex);
+
+            lastIndex = OriginalVBankTransferSummary.Count - 1;
+            OriginalVBankTransferSummary.RemoveAt(lastIndex);
+        }
+    }
+
+    private bool RefreshFilter<T>(List<T> collection, ICustomPopupFilter<T> customPopupFilter, SvgPath svgPath)
+    {
+        collection.Clear();
+        collection.AddRange(customPopupFilter.GetFilteredItemChecked());
+
+        var itemCheckedCount = customPopupFilter.GetFilteredItemCheckedCount();
+        var itemCount = customPopupFilter.GetFilteredItemCount();
+
+        var icon = itemCheckedCount is 0 || itemCheckedCount.Equals(itemCount)
+            ? EPackIcons.Filter
+            : EPackIcons.FilterCheck;
+
+        svgPath.GeometrySource = icon;
+
+        RefreshDataGrid();
+
+        return icon is EPackIcons.FilterCheck;
+    }
+
+    private static SvgPath? FindSvgPath(object? sender)
+    {
+        return sender switch
+        {
+            null => null,
+            SvgPath svgPath => svgPath,
+            _ => sender is HorizontalStackLayout horizontalStackLayout
+                ? horizontalStackLayout.FindVisualChildren<SvgPath>().FirstOrDefault()
+                : null
+        };
+    }
+
+    private enum EFilter
+    {
+        FromAccounts,
+        ToAccounts,
+        Values
+    }
 }
