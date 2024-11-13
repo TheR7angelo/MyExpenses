@@ -68,4 +68,13 @@
     <data name="LabelTextAdditionalReason" xml:space="preserve">
         <value>Raison supplémentaire :</value>
     </data>
+    <data name="LabelTextFromAccountFilter" xml:space="preserve">
+        <value>Depuis le compte</value>
+    </data>
+    <data name="LabelTextToAccountFilter" xml:space="preserve">
+        <value>Vers le compte</value>
+    </data>
+    <data name="LabelTextValueFilter" xml:space="preserve">
+        <value>Valeur</value>
+    </data>
 </root>

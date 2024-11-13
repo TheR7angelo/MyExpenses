@@ -22,6 +22,36 @@ namespace MyExpenses.Smartphones.ContentPages;
 
 public partial class BankTransferSummaryContentPage
 {
+    public static readonly BindableProperty LabelTextValueFilterProperty =
+        BindableProperty.Create(nameof(LabelTextValueFilter), typeof(string), typeof(BankTransferSummaryContentPage),
+            default(string));
+
+    public string LabelTextValueFilter
+    {
+        get => (string)GetValue(LabelTextValueFilterProperty);
+        set => SetValue(LabelTextValueFilterProperty, value);
+    }
+
+    public static readonly BindableProperty LabelTextToAccountFilterProperty =
+        BindableProperty.Create(nameof(LabelTextToAccountFilter), typeof(string),
+            typeof(BankTransferSummaryContentPage), default(string));
+
+    public string LabelTextToAccountFilter
+    {
+        get => (string)GetValue(LabelTextToAccountFilterProperty);
+        set => SetValue(LabelTextToAccountFilterProperty, value);
+    }
+
+    public static readonly BindableProperty LabelTextFromAccountFilterProperty =
+        BindableProperty.Create(nameof(LabelTextFromAccountFilter), typeof(string),
+            typeof(BankTransferSummaryContentPage), default(string));
+
+    public string LabelTextFromAccountFilter
+    {
+        get => (string)GetValue(LabelTextFromAccountFilterProperty);
+        set => SetValue(LabelTextFromAccountFilterProperty, value);
+    }
+
     public static readonly BindableProperty LabelTextAdditionalReasonProperty =
         BindableProperty.Create(nameof(LabelTextAdditionalReason), typeof(string),
             typeof(BankTransferSummaryContentPage), default(string));
@@ -317,6 +347,10 @@ public partial class BankTransferSummaryContentPage
         ComboBoxYearsHintAssist = BankTransferSummaryContentPageResources.ComboBoxYearsHintAssist;
         ComboBoxMonthHintAssist = BankTransferSummaryContentPageResources.ComboBoxMonthHintAssist;
 
+        LabelTextFromAccountFilter = BankTransferSummaryContentPageResources.LabelTextFromAccountFilter;
+        LabelTextToAccountFilter = BankTransferSummaryContentPageResources.LabelTextToAccountFilter;
+        LabelTextValueFilter = BankTransferSummaryContentPageResources.LabelTextValueFilter;
+
         LabelTextFromAccount = BankTransferSummaryContentPageResources.LabelTextFromAccount;
         LabelTextToAccount = BankTransferSummaryContentPageResources.LabelTextToAccount;
         LabelTextBalance = BankTransferSummaryContentPageResources.LabelTextBalance;
@@ -495,7 +529,8 @@ public partial class BankTransferSummaryContentPage
             .Select(s => mapper.Map<TAccountDerive>(s))
             .ToList();
 
-        var customPopupFilterBankTransferAccount = new CustomPopupFilterBankTransferAccount(accountDerives, BankTransferToAccountsFilters);
+        var customPopupFilterBankTransferAccount =
+            new CustomPopupFilterBankTransferAccount(accountDerives, BankTransferToAccountsFilters);
         await this.ShowPopupAsync(customPopupFilterBankTransferAccount);
 
         FilterManagement(BankTransferToAccountsFilters, customPopupFilterBankTransferAccount, eFilter, svgPath);
@@ -530,7 +565,8 @@ public partial class BankTransferSummaryContentPage
             .Select(s => mapper.Map<TAccountDerive>(s))
             .ToList();
 
-        var customPopupFilterBankTransferAccount = new CustomPopupFilterBankTransferAccount(accountDerives, BankTransferFromAccountsFilters);
+        var customPopupFilterBankTransferAccount =
+            new CustomPopupFilterBankTransferAccount(accountDerives, BankTransferFromAccountsFilters);
         await this.ShowPopupAsync(customPopupFilterBankTransferAccount);
 
         FilterManagement(BankTransferFromAccountsFilters, customPopupFilterBankTransferAccount, eFilter, svgPath);
@@ -616,7 +652,8 @@ public partial class BankTransferSummaryContentPage
         const EFilter eFilter = EFilter.Values;
 
         IEnumerable<DoubleIsChecked> values;
-        if (Filters.Count is 0) values = BankTransferSummaries.Select(s => new DoubleIsChecked { DoubleValue = s.Value });
+        if (Filters.Count is 0)
+            values = BankTransferSummaries.Select(s => new DoubleIsChecked { DoubleValue = s.Value });
         else
         {
             var items = Filters.Last() == eFilter

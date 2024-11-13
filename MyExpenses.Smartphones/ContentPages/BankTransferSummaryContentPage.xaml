@@ -109,8 +109,7 @@
 
                     <HorizontalStackLayout VerticalOptions="Center">
 
-                        <!-- <Label Text="{Binding LabelTextCategory, Mode=OneWay}" /> -->
-                        <Label Text="From account" />
+                        <Label Text="{Binding LabelTextFromAccountFilter, Mode=OneWay}" />
 
                         <images:SvgPath
                             GeometryColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
@@ -128,28 +127,7 @@
 
                     <HorizontalStackLayout VerticalOptions="Center">
 
-                        <!-- <Label Text="{Binding LabelTextDescription, Mode=OneWay}" /> -->
-                        <Label Text="To account" />
-
-                        <images:SvgPath
-                            GeometryColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
-                            GeometrySource="Filter"
-                            WidthRequest="24"
-                            HeightRequest="24"
-                            Clicked="ToAccountSvgPath_OnClicked">
-                        </images:SvgPath>
-
-                        <HorizontalStackLayout.GestureRecognizers>
-                            <TapGestureRecognizer Tapped="ToAccountTapGestureRecognizer_Tapped"
-                                                  NumberOfTapsRequired="1" />
-                        </HorizontalStackLayout.GestureRecognizers>
-
-                    </HorizontalStackLayout>
-
-                    <HorizontalStackLayout VerticalOptions="Center">
-
-                        <!-- <Label Text="{Binding LabelTextPaymentMode, Mode=OneWay}" /> -->
-                        <Label Text="Value" />
+                        <Label Text="{Binding LabelTextValueFilter, Mode=OneWay}" />
 
                         <images:SvgPath
                             GeometryColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
@@ -161,6 +139,25 @@
 
                         <HorizontalStackLayout.GestureRecognizers>
                             <TapGestureRecognizer Tapped="ValueTapGestureRecognizer_OnTapped"
+                                                  NumberOfTapsRequired="1" />
+                        </HorizontalStackLayout.GestureRecognizers>
+
+                    </HorizontalStackLayout>
+
+                    <HorizontalStackLayout VerticalOptions="Center">
+
+                        <Label Text="{Binding LabelTextToAccountFilter, Mode=OneWay}" />
+
+                        <images:SvgPath
+                            GeometryColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
+                            GeometrySource="Filter"
+                            WidthRequest="24"
+                            HeightRequest="24"
+                            Clicked="ToAccountSvgPath_OnClicked">
+                        </images:SvgPath>
+
+                        <HorizontalStackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="ToAccountTapGestureRecognizer_Tapped"
                                                   NumberOfTapsRequired="1" />
                         </HorizontalStackLayout.GestureRecognizers>
 
