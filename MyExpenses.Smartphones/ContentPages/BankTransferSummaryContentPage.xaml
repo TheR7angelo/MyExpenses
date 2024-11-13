@@ -93,7 +93,8 @@
             </Grid>
 
             <ScrollView Grid.Row="2"
-                        Orientation="Horizontal">
+                        Orientation="Horizontal"
+                        HorizontalOptions="Center">
 
                 <HorizontalStackLayout HorizontalOptions="Center"
                                        margin:LayoutExtensions.MarginForAllChildren="3">
