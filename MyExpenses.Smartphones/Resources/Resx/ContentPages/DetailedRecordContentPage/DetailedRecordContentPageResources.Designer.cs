@@ -124,6 +124,96 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.DetailedRecordConte
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to An error has occurred, please try again.
+        /// </summary>
+        internal static string MessageBoxDeleteHistoryErrorMessage {
+            get {
+                return ResourceManager.GetString("MessageBoxDeleteHistoryErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ok.
+        /// </summary>
+        internal static string MessageBoxDeleteHistoryErrorOkButton {
+            get {
+                return ResourceManager.GetString("MessageBoxDeleteHistoryErrorOkButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        internal static string MessageBoxDeleteHistoryErrorTitle {
+            get {
+                return ResourceManager.GetString("MessageBoxDeleteHistoryErrorTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you really want to delete this record ?.
+        /// </summary>
+        internal static string MessageBoxDeleteHistoryQuestionMessage {
+            get {
+                return ResourceManager.GetString("MessageBoxDeleteHistoryQuestionMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No.
+        /// </summary>
+        internal static string MessageBoxDeleteHistoryQuestionNoButton {
+            get {
+                return ResourceManager.GetString("MessageBoxDeleteHistoryQuestionNoButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete this record ?.
+        /// </summary>
+        internal static string MessageBoxDeleteHistoryQuestionTitle {
+            get {
+                return ResourceManager.GetString("MessageBoxDeleteHistoryQuestionTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yes.
+        /// </summary>
+        internal static string MessageBoxDeleteHistoryQuestionYesButton {
+            get {
+                return ResourceManager.GetString("MessageBoxDeleteHistoryQuestionYesButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Record was successfully deleted.
+        /// </summary>
+        internal static string MessageBoxDeleteHistorySuccessMessage {
+            get {
+                return ResourceManager.GetString("MessageBoxDeleteHistorySuccessMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ok.
+        /// </summary>
+        internal static string MessageBoxDeleteHistorySuccessOkButton {
+            get {
+                return ResourceManager.GetString("MessageBoxDeleteHistorySuccessOkButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Success.
+        /// </summary>
+        internal static string MessageBoxDeleteHistorySuccessTitle {
+            get {
+                return ResourceManager.GetString("MessageBoxDeleteHistorySuccessTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to There was an error updating the history. Please try again.
         /// </summary>
         internal static string MessageBoxOnBackCommandPressedErrorMessage {

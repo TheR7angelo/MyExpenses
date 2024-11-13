@@ -68,4 +68,34 @@
     <data name="ButtonCanBeDeletedText" xml:space="preserve">
         <value>Supprimer</value>
     </data>
+    <data name="MessageBoxDeleteHistoryQuestionTitle" xml:space="preserve">
+        <value>Supprimer cet enregistrement ?</value>
+    </data>
+    <data name="MessageBoxDeleteHistoryQuestionMessage" xml:space="preserve">
+        <value>Voulez-vous vraiment supprimer cet enregistrement ?</value>
+    </data>
+    <data name="MessageBoxDeleteHistoryQuestionYesButton" xml:space="preserve">
+        <value>Oui</value>
+    </data>
+    <data name="MessageBoxDeleteHistoryQuestionNoButton" xml:space="preserve">
+        <value>Non</value>
+    </data>
+    <data name="MessageBoxDeleteHistoryErrorOkButton" xml:space="preserve">
+        <value>Ok</value>
+    </data>
+    <data name="MessageBoxDeleteHistoryErrorTitle" xml:space="preserve">
+        <value>Erreur</value>
+    </data>
+    <data name="MessageBoxDeleteHistoryErrorMessage" xml:space="preserve">
+        <value>Une erreur s’est produite, veuillez réessayer</value>
+    </data>
+    <data name="MessageBoxDeleteHistorySuccessOkButton" xml:space="preserve">
+        <value>Ok</value>
+    </data>
+    <data name="MessageBoxDeleteHistorySuccessTitle" xml:space="preserve">
+        <value>Succès</value>
+    </data>
+    <data name="MessageBoxDeleteHistorySuccessMessage" xml:space="preserve">
+        <value>L’enregistrement a été supprimé avec succès</value>
+    </data>
 </root>
