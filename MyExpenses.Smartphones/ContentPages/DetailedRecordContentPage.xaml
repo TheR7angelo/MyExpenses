@@ -39,16 +39,17 @@
             <HorizontalStackLayout Grid.Row="0"
                                    HorizontalOptions="Center"
                                    VerticalOptions="Center"
-                                   IsVisible="{Binding IsDirty, Mode=OneWay}"
                                    margin:LayoutExtensions.MarginForAllChildren="3, 0">
 
                 <Button Text="{Binding ButtonUpdateText, Mode=OneWay}"
                         Style="{StaticResource PaperMidButton}"
+                        IsVisible="{Binding IsDirty, Mode=OneWay}"
                         Clicked="ButtonUpdateHistory_OnClicked">
                 </Button>
 
                 <Button Text="{Binding ButtonCancelUpdateText, Mode=OneWay}"
                         Style="{StaticResource PaperSecondaryMidButton}"
+                        IsVisible="{Binding IsDirty, Mode=OneWay}"
                         Clicked="ButtonCancelUpdateHistory_OnClicked">
                 </Button>
 
