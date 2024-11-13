@@ -65,4 +65,7 @@
     <data name="LabelTextOnTheAccount" xml:space="preserve">
         <value>Sur le compte :</value>
     </data>
+    <data name="ButtonCanBeDeletedText" xml:space="preserve">
+        <value>Supprimer</value>
+    </data>
 </root>
