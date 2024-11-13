@@ -111,7 +111,7 @@
       <MauiXaml Update="ContentPages\CustomPopups\CustomPopupFilterDoubleValues.xaml">
         <SubType>Designer</SubType>
       </MauiXaml>
-      <MauiXaml Update="ContentPages\CustomPopups\CustomPopupFilterBankTransferAccount.xaml">
+      <MauiXaml Update="ContentPages\CustomPopups\CustomPopupFilterAccount.xaml">
         <SubType>Designer</SubType>
       </MauiXaml>
     </ItemGroup>
@@ -235,9 +235,14 @@
         <AutoGen>True</AutoGen>
         <DependentUpon>BankTransferSummaryContentPageResources.resx</DependentUpon>
       </Compile>
-      <Compile Update="ContentPages\CustomPopups\CustomPopupFilterBankTransferAccount.xaml.cs">
+      <Compile Update="ContentPages\CustomPopups\CustomPopupFilterAccount.xaml.cs">
         <DependentUpon>CustomPopupFilterBankTransferAccount.xaml</DependentUpon>
         <SubType>Code</SubType>
+      </Compile>
+      <Compile Update="Resources\Resx\ContentPages\CustomPopups\CustomPopupFilterAccount\CustomPopupFilterAccountResources.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>CustomPopupFilterAccountResources.resx</DependentUpon>
       </Compile>
     </ItemGroup>
 
@@ -313,6 +318,10 @@
       <EmbeddedResource Update="Resources\Resx\ContentPages\BankTransferSummaryContentPage\BankTransferSummaryContentPageResources.resx">
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>BankTransferSummaryContentPageResources.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+      <EmbeddedResource Update="Resources\Resx\ContentPages\CustomPopups\CustomPopupFilterAccount\CustomPopupFilterAccountResources.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>CustomPopupFilterAccountResources.Designer.cs</LastGenOutput>
       </EmbeddedResource>
     </ItemGroup>
 
