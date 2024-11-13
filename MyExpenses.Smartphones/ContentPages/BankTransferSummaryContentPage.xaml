@@ -144,26 +144,26 @@
                         </HorizontalStackLayout.GestureRecognizers>
 
                     </HorizontalStackLayout>
-                    <!-- -->
-                    <!-- <HorizontalStackLayout VerticalOptions="Center"> -->
-                    <!-- -->
-                    <!--     ~1~ <Label Text="{Binding LabelTextPaymentMode, Mode=OneWay}" /> @1@ -->
-                    <!--     <Label Text="{Binding LabelTextPaymentMode, Mode=OneWay}" /> -->
-                    <!-- -->
-                    <!--     <images:SvgPath -->
-                    <!--         GeometryColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}" -->
-                    <!--         GeometrySource="Filter" -->
-                    <!--         WidthRequest="24" -->
-                    <!--         HeightRequest="24" -->
-                    <!--         Clicked="PaymentModeSvgPath_OnClicked"> -->
-                    <!--     </images:SvgPath> -->
-                    <!-- -->
-                    <!--     <HorizontalStackLayout.GestureRecognizers> -->
-                    <!--         <TapGestureRecognizer Tapped="PaymentModeTapGestureRecognizer_OnTapped" -->
-                    <!--                               NumberOfTapsRequired="1" /> -->
-                    <!--     </HorizontalStackLayout.GestureRecognizers> -->
-                    <!-- -->
-                    <!-- </HorizontalStackLayout> -->
+
+                    <HorizontalStackLayout VerticalOptions="Center">
+
+                        <!-- <Label Text="{Binding LabelTextPaymentMode, Mode=OneWay}" /> -->
+                        <Label Text="Value" />
+
+                        <images:SvgPath
+                            GeometryColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
+                            GeometrySource="Filter"
+                            WidthRequest="24"
+                            HeightRequest="24"
+                            Clicked="ValueSvgPath_OnClicked">
+                        </images:SvgPath>
+
+                        <HorizontalStackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="ValueTapGestureRecognizer_OnTapped"
+                                                  NumberOfTapsRequired="1" />
+                        </HorizontalStackLayout.GestureRecognizers>
+
+                    </HorizontalStackLayout>
 
                     <images:SvgPath
                         GeometryColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"

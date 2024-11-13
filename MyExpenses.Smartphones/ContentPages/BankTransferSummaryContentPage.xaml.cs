@@ -594,4 +594,44 @@ public partial class BankTransferSummaryContentPage
         ToAccounts,
         Values
     }
+
+    private async void ValueSvgPath_OnClicked(object? sender, EventArgs e)
+    {
+        var svgPath = FindSvgPath(sender);
+        if (svgPath is null) return;
+
+        await FilterValue(svgPath);
+    }
+
+    private async void ValueTapGestureRecognizer_OnTapped(object? sender, TappedEventArgs e)
+    {
+        var svgPath = FindSvgPath(sender);
+        if (svgPath is null) return;
+
+        await FilterValue(svgPath);
+    }
+
+    private async Task FilterValue(SvgPath svgPath)
+    {
+        const EFilter eFilter = EFilter.Values;
+
+        IEnumerable<DoubleIsChecked> values;
+        if (Filters.Count is 0) values = BankTransferSummaries.Select(s => new DoubleIsChecked { DoubleValue = s.Value });
+        else
+        {
+            var items = Filters.Last() == eFilter
+                ? OriginalVBankTransferSummary.Last().AsEnumerable()
+                : BankTransferSummaries.AsEnumerable();
+
+            values = items.Select(s => new DoubleIsChecked { DoubleValue = s.Value });
+        }
+
+        values = values.Distinct();
+        values = values.OrderBy(s => s.DoubleValue);
+
+        var customPopupFilterHistoryValues = new CustomPopupFilterDoubleValues(values, BankTransferValuesFilters);
+        await this.ShowPopupAsync(customPopupFilterHistoryValues);
+
+        FilterManagement(BankTransferValuesFilters, customPopupFilterHistoryValues, eFilter, svgPath);
+    }
 }
