@@ -338,7 +338,7 @@ public partial class DashBoardContentPage
 
         if (obj is not VHistory vHistory) return;
 
-        var detailedRecordContentPage = new DetailedRecordContentPage(vHistory.Id);
+        var detailedRecordContentPage = new DetailedRecordContentPage(vHistory.Id) { CanBeDeleted = true };
         await Navigation.PushAsync(detailedRecordContentPage);
 
         var result = await detailedRecordContentPage.ResultDialog;
