@@ -32,7 +32,7 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <HorizontalStackLayout Grid.Row="0"
+            <HorizontalStackLayout Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"
                                    HorizontalOptions="Center"
                                    VerticalOptions="Center"
                                    margin:LayoutExtensions.MarginForAllChildren="3, 0">
