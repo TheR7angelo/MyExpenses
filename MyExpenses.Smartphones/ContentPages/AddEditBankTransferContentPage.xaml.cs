@@ -166,11 +166,38 @@ public partial class AddEditBankTransferContentPage
 
     private void PickerFromAccount_OnSelectedIndexChanged(object? sender, EventArgs e)
     {
-        // TODO work
-        // Remove from account list from to account list
-        var accountId = BankTransfer.FromAccountFk!;
+        var accountIdToRemove = BankTransfer.FromAccountFk;
+        var currentAccountId = BankTransfer.ToAccountFk;
+
+        PickerToAccountFk.SelectedIndexChanged -= PickerToAccount_OnSelectedIndexChanged;
+
+        UpdateAccountsCollection(accountIdToRemove, ToAccounts);
+        BankTransfer.ToAccountFk = currentAccountId;
+
+        PickerToAccountFk.SelectedIndexChanged += PickerToAccount_OnSelectedIndexChanged;
 
         UpdateFromAccountSymbol();
+    }
+
+    private void PickerToAccount_OnSelectedIndexChanged(object? sender, EventArgs e)
+    {
+        var accountIdToRemove = BankTransfer.ToAccountFk;
+        var currentAccountId = BankTransfer.FromAccountFk;
+
+        PickerFromAccountFk.SelectedIndexChanged -= PickerFromAccount_OnSelectedIndexChanged;
+
+        UpdateAccountsCollection(accountIdToRemove, FromAccounts);
+        BankTransfer.FromAccountFk = currentAccountId;
+
+        PickerFromAccountFk.SelectedIndexChanged += PickerFromAccount_OnSelectedIndexChanged;
+    }
+
+    private void UpdateAccountsCollection(int? accountIdToRemove, ObservableCollection<TAccount> collection)
+    {
+        var newCollection = Accounts.Where(s => s.Id != accountIdToRemove);
+
+        collection.Clear();
+        collection.AddRange(newCollection);
     }
 
     private void ButtonUpdateBankTransfer_OnClicked(object? sender, EventArgs e)
@@ -201,12 +228,5 @@ public partial class AddEditBankTransferContentPage
         Title = IsDirty
             ? "Changes in progress"
             : string.Empty;
-    }
-
-    private void PickerToAccount_OnSelectedIndexChanged(object? sender, EventArgs e)
-    {
-        // TODO work
-        // Remove from account list from to account list
-        var accountId = BankTransfer.ToAccountFk!;
     }
 }
