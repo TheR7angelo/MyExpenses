@@ -13,6 +13,53 @@ namespace MyExpenses.Smartphones.ContentPages;
 
 public partial class AddEditBankTransferContentPage
 {
+    public static readonly BindableProperty ButtonCancelUpdateTextProperty =
+        BindableProperty.Create(nameof(ButtonCancelUpdateText), typeof(string), typeof(AddEditBankTransferContentPage),
+            default(string));
+
+    public string ButtonCancelUpdateText
+    {
+        get => (string)GetValue(ButtonCancelUpdateTextProperty);
+        set => SetValue(ButtonCancelUpdateTextProperty, value);
+    }
+
+    public static readonly BindableProperty ButtonCanBeDeletedTextProperty =
+        BindableProperty.Create(nameof(ButtonCanBeDeletedText), typeof(string), typeof(AddEditBankTransferContentPage),
+            default(string));
+
+    public string ButtonCanBeDeletedText
+    {
+        get => (string)GetValue(ButtonCanBeDeletedTextProperty);
+        set => SetValue(ButtonCanBeDeletedTextProperty, value);
+    }
+
+    public static readonly BindableProperty ButtonUpdateTextProperty = BindableProperty.Create(nameof(ButtonUpdateText),
+        typeof(string), typeof(AddEditBankTransferContentPage), default(string));
+
+    public string ButtonUpdateText
+    {
+        get => (string)GetValue(ButtonUpdateTextProperty);
+        set => SetValue(ButtonUpdateTextProperty, value);
+    }
+
+    public static readonly BindableProperty CanBeDeletedProperty = BindableProperty.Create(nameof(CanBeDeleted),
+        typeof(bool), typeof(AddEditBankTransferContentPage), default(bool));
+
+    public bool CanBeDeleted
+    {
+        get => (bool)GetValue(CanBeDeletedProperty);
+        set => SetValue(CanBeDeletedProperty, value);
+    }
+
+    public static readonly BindableProperty IsDirtyProperty = BindableProperty.Create(nameof(IsDirty), typeof(bool),
+        typeof(AddEditBankTransferContentPage), default(bool));
+
+    public bool IsDirty
+    {
+        get => (bool)GetValue(IsDirtyProperty);
+        set => SetValue(IsDirtyProperty, value);
+    }
+
     public static readonly BindableProperty LabelTextTransferDateProperty =
         BindableProperty.Create(nameof(LabelTextTransferDate), typeof(string), typeof(AddEditBankTransferContentPage),
             default(string));
@@ -58,6 +105,10 @@ public partial class AddEditBankTransferContentPage
 
     private void UpdateLanguage()
     {
+        ButtonUpdateText = AddEditBankTransferContentPageResources.ButtonUpdateText;
+        ButtonCanBeDeletedText = AddEditBankTransferContentPageResources.ButtonCanBeDeletedText;
+        ButtonCancelUpdateText = AddEditBankTransferContentPageResources.ButtonCancelUpdateText;
+
         LabelTextFromAccountFrom = AddEditBankTransferContentPageResources.LabelTextFromAccountFrom;
         LabelTextTransferDate = AddEditBankTransferContentPageResources.LabelTextTransferDate;
     }
@@ -75,5 +126,23 @@ public partial class AddEditBankTransferContentPage
     {
         // TODO work
         var accountId = BankTransfer.FromAccountFk!;
+    }
+
+    private void ButtonUpdateBankTransfer_OnClicked(object? sender, EventArgs e)
+    {
+        // TODO work
+        throw new NotImplementedException();
+    }
+
+    private void ButtonDeleteBankTransfer_OnClicked(object? sender, EventArgs e)
+    {
+        // TODO work
+        throw new NotImplementedException();
+    }
+
+    private void ButtonCancelUpdateBankTransfer_OnClicked(object? sender, EventArgs e)
+    {
+        // TODO work
+        throw new NotImplementedException();
     }
 }

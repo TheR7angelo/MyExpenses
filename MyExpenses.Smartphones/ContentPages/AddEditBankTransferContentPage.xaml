@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:MyExpenses.Smartphones.ContentPages"
              xmlns:tables="clr-namespace:MyExpenses.Models.Sql.Bases.Tables;assembly=MyExpenses.Models"
              xmlns:converters="clr-namespace:MyExpenses.Smartphones.Converters"
+             xmlns:margin="clr-namespace:MyExpenses.Maui.Utils.Margin;assembly=MyExpenses.Maui.Utils"
              x:Name="This"
 
              BindingContext="{Binding Source={RelativeSource Self}}">
@@ -22,6 +23,7 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
             <Grid.ColumnDefinitions>
@@ -30,7 +32,32 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <VerticalStackLayout Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"
+            <HorizontalStackLayout Grid.Row="0"
+                                   HorizontalOptions="Center"
+                                   VerticalOptions="Center"
+                                   margin:LayoutExtensions.MarginForAllChildren="3, 0">
+
+                <Button Text="{Binding ButtonUpdateText, Mode=OneWay}"
+                        Style="{StaticResource PaperMidButton}"
+                        IsVisible="{Binding IsDirty, Mode=OneWay}"
+                        Clicked="ButtonUpdateBankTransfer_OnClicked">
+                </Button>
+
+                <Button Text="{Binding ButtonCanBeDeletedText, Mode=OneWay}"
+                        Style="{StaticResource PaperSecondaryMidButton}"
+                        IsVisible="{Binding CanBeDeleted, Mode=OneWay}"
+                        Clicked="ButtonDeleteBankTransfer_OnClicked">
+                </Button>
+
+                <Button Text="{Binding ButtonCancelUpdateText, Mode=OneWay}"
+                        Style="{StaticResource PaperSecondaryMidButton}"
+                        IsVisible="{Binding IsDirty, Mode=OneWay}"
+                        Clicked="ButtonCancelUpdateBankTransfer_OnClicked">
+                </Button>
+
+            </HorizontalStackLayout>
+
+            <VerticalStackLayout Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3"
                                  HorizontalOptions="Center">
 
                 <Label Text="{Binding LabelTextFromAccountFrom, Mode=OneWay}"
@@ -47,7 +74,7 @@
 
             </VerticalStackLayout>
 
-            <HorizontalStackLayout Grid.Row="1" Grid.Column="0"
+            <HorizontalStackLayout Grid.Row="2" Grid.Column="0"
                                  HorizontalOptions="Center">
 
                 <Label Text="{Binding LabelTextTransferDate, Mode=OneWay}"

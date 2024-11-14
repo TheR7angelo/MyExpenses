@@ -760,7 +760,7 @@ public partial class BankTransferSummaryContentPage
         if (sender is not Border border) return;
         if (border.BindingContext is not VBankTransferSummary vBankTransferSummary) return;
 
-        var addEditBankTransferContentPage = new AddEditBankTransferContentPage();
+        var addEditBankTransferContentPage = new AddEditBankTransferContentPage { CanBeDeleted = true };
         addEditBankTransferContentPage.SetVBankTransferSummary(vBankTransferSummary);
 
         await Navigation.PushAsync(addEditBankTransferContentPage);

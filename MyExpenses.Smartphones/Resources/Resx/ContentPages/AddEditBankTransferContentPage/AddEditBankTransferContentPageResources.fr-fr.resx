@@ -17,4 +17,13 @@
     <data name="LabelTextTransferDate" xml:space="preserve">
         <value>Date :</value>
     </data>
+    <data name="ButtonUpdateText" xml:space="preserve">
+        <value>Mettre à jour</value>
+    </data>
+    <data name="ButtonCanBeDeletedText" xml:space="preserve">
+        <value>Supprimer</value>
+    </data>
+    <data name="ButtonCancelUpdateText" xml:space="preserve">
+        <value>Annuler</value>
+    </data>
 </root>
