@@ -68,5 +68,14 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.AddEditBankTransfer
                 return ResourceManager.GetString("LabelTextFromAccountFrom", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Date :.
+        /// </summary>
+        internal static string LabelTextTransferDate {
+            get {
+                return ResourceManager.GetString("LabelTextTransferDate", resourceCulture);
+            }
+        }
     }
 }

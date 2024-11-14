@@ -21,4 +21,7 @@
     <data name="LabelTextFromAccountFrom" xml:space="preserve">
         <value>From</value>
     </data>
+    <data name="LabelTextTransferDate" xml:space="preserve">
+        <value>Date :</value>
+    </data>
 </root>

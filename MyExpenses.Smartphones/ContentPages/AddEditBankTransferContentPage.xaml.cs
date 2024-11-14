@@ -13,10 +13,20 @@ namespace MyExpenses.Smartphones.ContentPages;
 
 public partial class AddEditBankTransferContentPage
 {
+    public static readonly BindableProperty LabelTextTransferDateProperty =
+        BindableProperty.Create(nameof(LabelTextTransferDate), typeof(string), typeof(AddEditBankTransferContentPage),
+            default(string));
+
+    public string LabelTextTransferDate
+    {
+        get => (string)GetValue(LabelTextTransferDateProperty);
+        set => SetValue(LabelTextTransferDateProperty, value);
+    }
+
     public static readonly BindableProperty LabelTextFromAccountFromProperty =
         BindableProperty.Create(nameof(LabelTextFromAccountFrom), typeof(string),
             typeof(AddEditBankTransferContentPage), default(string));
-    
+
     public string LabelTextFromAccountFrom
     {
         get => (string)GetValue(LabelTextFromAccountFromProperty);
@@ -39,7 +49,7 @@ public partial class AddEditBankTransferContentPage
 
         UpdateLanguage();
         InitializeComponent();
-        
+
         Interface.LanguageChanged += Interface_OnLanguageChanged;
     }
 
@@ -49,6 +59,7 @@ public partial class AddEditBankTransferContentPage
     private void UpdateLanguage()
     {
         LabelTextFromAccountFrom = AddEditBankTransferContentPageResources.LabelTextFromAccountFrom;
+        LabelTextTransferDate = AddEditBankTransferContentPageResources.LabelTextTransferDate;
     }
 
     public void SetVBankTransferSummary(VBankTransferSummary? vBankTransferSummary)

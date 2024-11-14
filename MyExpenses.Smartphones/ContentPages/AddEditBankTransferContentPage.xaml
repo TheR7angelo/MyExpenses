@@ -30,7 +30,8 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <VerticalStackLayout Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3">
+            <VerticalStackLayout Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"
+                                 HorizontalOptions="Center">
 
                 <Label Text="{Binding LabelTextFromAccountFrom, Mode=OneWay}"
                        HorizontalTextAlignment="Center">
@@ -45,6 +46,19 @@
                 </Picker>
 
             </VerticalStackLayout>
+
+            <HorizontalStackLayout Grid.Row="1" Grid.Column="0"
+                                 HorizontalOptions="Center">
+
+                <Label Text="{Binding LabelTextTransferDate, Mode=OneWay}"
+                       VerticalOptions="Center">
+                </Label>
+
+                <DatePicker Date="{Binding BankTransfer.Date, Mode=OneWay}"
+                            VerticalOptions="Center">
+                </DatePicker>
+
+            </HorizontalStackLayout>
 
         </Grid>
 
