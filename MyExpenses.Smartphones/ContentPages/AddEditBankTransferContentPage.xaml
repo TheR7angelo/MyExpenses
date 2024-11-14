@@ -124,7 +124,7 @@
                 </Label>
 
                 <Picker x:Name="PickerToAccountFk"
-                    ItemsSource="{Binding ToAccounts, Mode=OneWay, Source={RelativeSource AncestorType={x:Type local:AddEditBankTransferContentPage}}}"
+                        ItemsSource="{Binding ToAccounts, Mode=OneWay, Source={RelativeSource AncestorType={x:Type local:AddEditBankTransferContentPage}}}"
                         SelectedItem="{Binding BankTransfer.ToAccountFk, Mode=TwoWay, Converter={StaticResource ISqlConverter}, ConverterParameter={Binding FromAccounts, Source={Reference This}}, Source={Reference This}, Source={RelativeSource AncestorType={x:Type local:AddEditBankTransferContentPage}}}"
                         ItemDisplayBinding="{Binding Name}" x:DataType="tables:TAccount"
                         HorizontalTextAlignment="Center"
