@@ -176,6 +176,7 @@ public partial class AddEditBankTransferContentPage
 
         PickerToAccountFk.SelectedIndexChanged += PickerToAccount_OnSelectedIndexChanged;
 
+        UpdateIsDirty();
         UpdateFromAccountSymbol();
     }
 
@@ -190,6 +191,8 @@ public partial class AddEditBankTransferContentPage
         BankTransfer.FromAccountFk = currentAccountId;
 
         PickerFromAccountFk.SelectedIndexChanged += PickerFromAccount_OnSelectedIndexChanged;
+
+        UpdateIsDirty();
     }
 
     private void UpdateAccountsCollection(int? accountIdToRemove, ObservableCollection<TAccount> collection)
