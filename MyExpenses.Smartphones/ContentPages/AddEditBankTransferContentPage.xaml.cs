@@ -153,7 +153,7 @@ public partial class AddEditBankTransferContentPage
         bankTransfer.CopyPropertiesTo(BankTransfer);
         OriginalBankTransfer = bankTransfer.DeepCopy();
 
-        IsDirty = false;
+        UpdateIsDirty();
         UpdateFromAccountSymbol();
     }
 
