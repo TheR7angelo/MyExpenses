@@ -45,6 +45,28 @@ public static class ObjectComparer
         if (value1 is null && value2 is null) return true;
         if (value1 is null || value2 is null) return false;
 
+        if (value1 is IEnumerable<object> collection1 && value2 is IEnumerable<object> collection2)
+        {
+            return CollectionsAreEqual(collection1, collection2);
+        }
+
         return value1.Equals(value2);
+    }
+
+
+    private static bool CollectionsAreEqual(IEnumerable<object> collection1, IEnumerable<object> collection2)
+    {
+        using var enumerator1 = collection1.GetEnumerator();
+        using var enumerator2 = collection2.GetEnumerator();
+
+        while (enumerator1.MoveNext())
+        {
+            if (!enumerator2.MoveNext() || !ValuesAreEqual(enumerator1.Current, enumerator2.Current))
+            {
+                return false;
+            }
+        }
+
+        return !enumerator2.MoveNext();
     }
 }
