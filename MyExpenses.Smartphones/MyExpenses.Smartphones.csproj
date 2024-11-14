@@ -244,6 +244,11 @@
         <AutoGen>True</AutoGen>
         <DependentUpon>CustomPopupFilterAccountResources.resx</DependentUpon>
       </Compile>
+      <Compile Update="Resources\Resx\ContentPages\AddEditBankTransferContentPage\AddEditBankTransferContentPageResources.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>AddEditBankTransferContentPageResources.resx</DependentUpon>
+      </Compile>
     </ItemGroup>
 
     <ItemGroup>
@@ -322,6 +327,10 @@
       <EmbeddedResource Update="Resources\Resx\ContentPages\CustomPopups\CustomPopupFilterAccount\CustomPopupFilterAccountResources.resx">
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>CustomPopupFilterAccountResources.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+      <EmbeddedResource Update="Resources\Resx\ContentPages\AddEditBankTransferContentPage\AddEditBankTransferContentPageResources.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>AddEditBankTransferContentPageResources.Designer.cs</LastGenOutput>
       </EmbeddedResource>
     </ItemGroup>
 
