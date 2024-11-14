@@ -95,6 +95,26 @@
                             HeightRequest="64">
             </images:SvgPath>
 
+            <HorizontalStackLayout Grid.Row="2" Grid.Column="2"
+                                   HorizontalOptions="Center">
+
+                <Label Text="{Binding LabelTextTransferValue, Mode=OneWay}"
+                       VerticalOptions="Center">
+                </Label>
+
+                <Entry VerticalOptions="Center"
+                       Keyboard="Numeric"
+                       Text="{Binding BankTransfer.Value, Mode=TwoWay}"
+                       TextChanged="EntryValue_OnTextChanged">
+                </Entry>
+
+                <Label VerticalOptions="Center"
+                       VerticalTextAlignment="Center"
+                       Text="{Binding FromAccountSymbol, Mode=OneWay}">
+                </Label>
+
+            </HorizontalStackLayout>
+
         </Grid>
 
     </ContentPage.Content>

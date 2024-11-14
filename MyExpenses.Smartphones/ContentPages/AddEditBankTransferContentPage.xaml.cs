@@ -13,6 +13,16 @@ namespace MyExpenses.Smartphones.ContentPages;
 
 public partial class AddEditBankTransferContentPage
 {
+    public static readonly BindableProperty LabelTextTransferValueProperty =
+        BindableProperty.Create(nameof(LabelTextTransferValue), typeof(string), typeof(AddEditBankTransferContentPage),
+            default(string));
+
+    public string LabelTextTransferValue
+    {
+        get => (string)GetValue(LabelTextTransferValueProperty);
+        set => SetValue(LabelTextTransferValueProperty, value);
+    }
+
     public static readonly BindableProperty ButtonCancelUpdateTextProperty =
         BindableProperty.Create(nameof(ButtonCancelUpdateText), typeof(string), typeof(AddEditBankTransferContentPage),
             default(string));
@@ -40,6 +50,16 @@ public partial class AddEditBankTransferContentPage
     {
         get => (string)GetValue(ButtonUpdateTextProperty);
         set => SetValue(ButtonUpdateTextProperty, value);
+    }
+
+    public static readonly BindableProperty FromAccountSymbolProperty =
+        BindableProperty.Create(nameof(FromAccountSymbol), typeof(string), typeof(AddEditBankTransferContentPage),
+            default(string));
+
+    public string FromAccountSymbol
+    {
+        get => (string)GetValue(FromAccountSymbolProperty);
+        set => SetValue(FromAccountSymbolProperty, value);
     }
 
     public static readonly BindableProperty CanBeDeletedProperty = BindableProperty.Create(nameof(CanBeDeleted),
@@ -111,6 +131,7 @@ public partial class AddEditBankTransferContentPage
 
         LabelTextFromAccountFrom = AddEditBankTransferContentPageResources.LabelTextFromAccountFrom;
         LabelTextTransferDate = AddEditBankTransferContentPageResources.LabelTextTransferDate;
+        LabelTextTransferValue = AddEditBankTransferContentPageResources.LabelTextTransferValue;
     }
 
     public void SetVBankTransferSummary(VBankTransferSummary? vBankTransferSummary)
@@ -120,12 +141,24 @@ public partial class AddEditBankTransferContentPage
         var bankTransfer = vBankTransferSummary.Id.ToISql<TBankTransfer>()!;
         bankTransfer.CopyPropertiesTo(BankTransfer);
         OriginalBankTransfer = bankTransfer.DeepCopy();
+
+        IsDirty = false;
+        UpdateFromAccountSymbol();
+    }
+
+    private void UpdateFromAccountSymbol()
+    {
+        using var context = new DataBaseContext();
+        var account = Accounts.First(a => a.Id.Equals(BankTransfer.FromAccountFk));
+        FromAccountSymbol = context.TCurrencies.First(s => s.Id.Equals(account.CurrencyFk)).Symbol!;
     }
 
     private void PickerFromAccount_OnSelectedIndexChanged(object? sender, EventArgs e)
     {
         // TODO work
         var accountId = BankTransfer.FromAccountFk!;
+
+        UpdateFromAccountSymbol();
     }
 
     private void ButtonUpdateBankTransfer_OnClicked(object? sender, EventArgs e)
@@ -144,5 +177,17 @@ public partial class AddEditBankTransferContentPage
     {
         // TODO work
         throw new NotImplementedException();
+    }
+
+    private void EntryValue_OnTextChanged(object? sender, TextChangedEventArgs e)
+        => UpdateIsDirty();
+
+    private void UpdateIsDirty()
+    {
+        IsDirty = !BankTransfer.AreEqual(OriginalBankTransfer);
+
+        Title = IsDirty
+            ? "Changes in progress"
+            : string.Empty;
     }
 }

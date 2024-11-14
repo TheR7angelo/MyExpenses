@@ -26,4 +26,7 @@
     <data name="ButtonCancelUpdateText" xml:space="preserve">
         <value>Cancel</value>
     </data>
+    <data name="LabelTextTransferValue" xml:space="preserve">
+        <value>Amount :</value>
+    </data>
 </root>
