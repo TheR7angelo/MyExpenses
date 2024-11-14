@@ -7,6 +7,7 @@
              xmlns:tables="clr-namespace:MyExpenses.Models.Sql.Bases.Tables;assembly=MyExpenses.Models"
              xmlns:converters="clr-namespace:MyExpenses.Smartphones.Converters"
              xmlns:margin="clr-namespace:MyExpenses.Maui.Utils.Margin;assembly=MyExpenses.Maui.Utils"
+             xmlns:images="clr-namespace:MyExpenses.Smartphones.UserControls.Images"
              x:Name="This"
 
              BindingContext="{Binding Source={RelativeSource Self}}">
@@ -86,6 +87,13 @@
                 </DatePicker>
 
             </HorizontalStackLayout>
+
+            <images:SvgPath Grid.Row="2" Grid.Column="1"
+                            GeometryColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
+                            GeometrySource="ArrowDownThin"
+                            WidthRequest="64"
+                            HeightRequest="64">
+            </images:SvgPath>
 
         </Grid>
 
