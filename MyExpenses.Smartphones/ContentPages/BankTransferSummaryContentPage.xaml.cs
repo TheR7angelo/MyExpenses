@@ -753,4 +753,16 @@ public partial class BankTransferSummaryContentPage
                 : null
         };
     }
+
+    // TODO work
+    private async void TapGestureRecognizer_OnTapped(object? sender, TappedEventArgs e)
+    {
+        if (sender is not Border border) return;
+        if (border.BindingContext is not VBankTransferSummary vBankTransferSummary) return;
+
+        var addEditBankTransferContentPage = new AddEditBankTransferContentPage();
+        addEditBankTransferContentPage.SetVBankTransferSummary(vBankTransferSummary);
+
+        await Navigation.PushAsync(addEditBankTransferContentPage);
+    }
 }

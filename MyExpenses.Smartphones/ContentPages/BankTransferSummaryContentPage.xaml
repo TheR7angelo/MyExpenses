@@ -229,6 +229,10 @@
                                 <RoundRectangle CornerRadius="5" />
                             </Border.StrokeShape>
 
+                            <Border.GestureRecognizers>
+                                <TapGestureRecognizer Tapped="TapGestureRecognizer_OnTapped" NumberOfTapsRequired="1" />
+                            </Border.GestureRecognizers>
+
                             <Grid>
 
                                 <Grid.RowDefinitions>
