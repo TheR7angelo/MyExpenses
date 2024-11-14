@@ -3,6 +3,7 @@ namespace MyExpenses.Smartphones.PackIcons;
 public enum EPackIcons
 {
     Abacus,
+    ArrowDownThin,
     ArrowRightThin,
     Cellphone,
     CheckboxBlankOutline,
