@@ -156,6 +156,7 @@ public partial class AddEditBankTransferContentPage
     private void PickerFromAccount_OnSelectedIndexChanged(object? sender, EventArgs e)
     {
         // TODO work
+        // Remove from account list from to account list
         var accountId = BankTransfer.FromAccountFk!;
 
         UpdateFromAccountSymbol();
