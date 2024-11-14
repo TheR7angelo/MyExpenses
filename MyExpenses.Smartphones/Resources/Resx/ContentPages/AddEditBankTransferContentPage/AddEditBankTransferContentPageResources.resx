@@ -36,4 +36,7 @@
     <data name="LabelTextTransferValue" xml:space="preserve">
         <value>Amount :</value>
     </data>
+    <data name="LabelTextToAccountTo" xml:space="preserve">
+        <value>To</value>
+    </data>
 </root>

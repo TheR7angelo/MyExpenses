@@ -13,6 +13,16 @@ namespace MyExpenses.Smartphones.ContentPages;
 
 public partial class AddEditBankTransferContentPage
 {
+    public static readonly BindableProperty LabelTextToAccountToProperty =
+        BindableProperty.Create(nameof(LabelTextToAccountTo), typeof(string), typeof(AddEditBankTransferContentPage),
+            default(string));
+
+    public string LabelTextToAccountTo
+    {
+        get => (string)GetValue(LabelTextToAccountToProperty);
+        set => SetValue(LabelTextToAccountToProperty, value);
+    }
+
     public static readonly BindableProperty LabelTextTransferValueProperty =
         BindableProperty.Create(nameof(LabelTextTransferValue), typeof(string), typeof(AddEditBankTransferContentPage),
             default(string));
@@ -132,6 +142,7 @@ public partial class AddEditBankTransferContentPage
         LabelTextFromAccountFrom = AddEditBankTransferContentPageResources.LabelTextFromAccountFrom;
         LabelTextTransferDate = AddEditBankTransferContentPageResources.LabelTextTransferDate;
         LabelTextTransferValue = AddEditBankTransferContentPageResources.LabelTextTransferValue;
+        LabelTextToAccountTo = AddEditBankTransferContentPageResources.LabelTextToAccountTo;
     }
 
     public void SetVBankTransferSummary(VBankTransferSummary? vBankTransferSummary)
@@ -190,5 +201,12 @@ public partial class AddEditBankTransferContentPage
         Title = IsDirty
             ? "Changes in progress"
             : string.Empty;
+    }
+
+    private void PickerToAccount_OnSelectedIndexChanged(object? sender, EventArgs e)
+    {
+        // TODO work
+        // Remove from account list from to account list
+        var accountId = BankTransfer.ToAccountFk!;
     }
 }

@@ -29,4 +29,7 @@
     <data name="LabelTextTransferValue" xml:space="preserve">
         <value>Montant :</value>
     </data>
+    <data name="LabelTextToAccountTo" xml:space="preserve">
+        <value>Vers</value>
+    </data>
 </root>

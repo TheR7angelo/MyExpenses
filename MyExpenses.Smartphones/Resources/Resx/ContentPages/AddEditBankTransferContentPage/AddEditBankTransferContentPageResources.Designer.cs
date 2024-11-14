@@ -97,6 +97,15 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.AddEditBankTransfer
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to To.
+        /// </summary>
+        internal static string LabelTextToAccountTo {
+            get {
+                return ResourceManager.GetString("LabelTextToAccountTo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Date :.
         /// </summary>
         internal static string LabelTextTransferDate {
