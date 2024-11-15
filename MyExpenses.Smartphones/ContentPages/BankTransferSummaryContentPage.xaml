@@ -14,6 +14,7 @@
     <ContentPage.Resources>
         <converters:ValueSymbolConverter x:Key="ValueSymbolConverter" />
         <converters:DateTimeToDateOnlyConverter x:Key="DateTimeToDateOnlyConverter" />
+        <converters:StringToBrushConverter x:Key="StringToBrushConverter" />
     </ContentPage.Resources>
 
     <ContentPage.Content>
@@ -267,6 +268,23 @@
                                     </VerticalStackLayout>
 
                                     <VerticalStackLayout Grid.Row="0" Grid.Column="1" Grid.RowSpan="2">
+
+                                        <HorizontalStackLayout HorizontalOptions="Center"
+                                                               Margin="0, 5, 0, 0">
+
+                                            <Ellipse HeightRequest="24"
+                                                     WidthRequest="{Binding HeightRequest, Source={RelativeSource Self}}"
+                                                     Stroke="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
+                                                     StrokeThickness="1.5"
+                                                     Fill="{Binding CategoryColor, Mode=OneWay, Converter={StaticResource StringToBrushConverter}}"
+                                                     Margin="10, 0">
+                                            </Ellipse>
+
+                                            <Label Text="{Binding CategoryName, Mode=OneWay}"
+                                                   HorizontalTextAlignment="Start">
+                                            </Label>
+
+                                        </HorizontalStackLayout>
 
                                         <Label
                                             Text="{Binding LabelTextValue, Mode=OneWay, Source={RelativeSource AncestorType={x:Type local:BankTransferSummaryContentPage}}}"
