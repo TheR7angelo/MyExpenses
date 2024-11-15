@@ -67,7 +67,6 @@
                                      HorizontalOptions="Center"
                                      VerticalOptions="Center">
 
-                    <!-- TODO click -->
                     <customFrame:ButtonImageView Style="{StaticResource FloatingActionMiniLightButtonImageView}"
                                                  GeometryColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
                                                  GeometrySource="History"
