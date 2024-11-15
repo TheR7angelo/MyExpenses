@@ -16,6 +16,16 @@ namespace MyExpenses.Smartphones.ContentPages;
 
 public partial class AddEditBankTransferContentPage
 {
+    public static readonly BindableProperty LabelTextTransferPaymentModeProperty =
+        BindableProperty.Create(nameof(LabelTextTransferPaymentMode), typeof(string),
+            typeof(AddEditBankTransferContentPage), default(string));
+
+    public string LabelTextTransferPaymentMode
+    {
+        get => (string)GetValue(LabelTextTransferPaymentModeProperty);
+        set => SetValue(LabelTextTransferPaymentModeProperty, value);
+    }
+
     public static readonly BindableProperty LabelTextTransferCategoryProperty =
         BindableProperty.Create(nameof(LabelTextTransferCategory), typeof(string),
             typeof(AddEditBankTransferContentPage), default(string));
@@ -155,11 +165,24 @@ public partial class AddEditBankTransferContentPage
 
     private TCategoryType? OriginalSelectedCategoryType { get; set; }
 
+    public static readonly BindableProperty SelectedModePaymentProperty =
+        BindableProperty.Create(nameof(SelectedModePayment), typeof(TModePayment),
+            typeof(AddEditBankTransferContentPage), default(TModePayment));
+
+    public TModePayment? SelectedModePayment
+    {
+        get => (TModePayment?)GetValue(SelectedModePaymentProperty);
+        set => SetValue(SelectedModePaymentProperty, value);
+    }
+
+    private TModePayment? OriginalSelectedModePayment { get; set; }
+
     public TBankTransfer BankTransfer { get; } = new();
     public TBankTransfer? OriginalBankTransfer { get; private set; }
 
     private List<TAccount> Accounts { get; }
     public List<TCategoryType> CategoryTypes { get; }
+    public List<TModePayment> ModePayments { get; }
     public ObservableCollection<TAccount> FromAccounts { get; } = [];
     public ObservableCollection<TAccount> ToAccounts { get; } = [];
 
@@ -177,6 +200,7 @@ public partial class AddEditBankTransferContentPage
         using var context = new DataBaseContext();
         Accounts = [..context.TAccounts.OrderBy(s => s.Name)];
         CategoryTypes = [..context.TCategoryTypes.OrderBy(s => s.Name)];
+        ModePayments = [..context.TModePayments.OrderBy(s => s.Name)];
 
         FromAccounts.AddRange(Accounts);
         ToAccounts.AddRange(Accounts);
@@ -323,6 +347,7 @@ public partial class AddEditBankTransferContentPage
         CustomEntryControlPlaceholderTextAdditionalReason = AddEditBankTransferContentPageResources.CustomEntryControlPlaceholderTextAdditionalReason;
 
         LabelTextTransferCategory = AddEditBankTransferContentPageResources.LabelTextTransferCategoryProperty;
+        LabelTextTransferPaymentMode = AddEditBankTransferContentPageResources.LabelTextTransferPaymentMode;
     }
 
     public void SetVBankTransferSummary(VBankTransferSummary? vBankTransferSummary)
@@ -336,9 +361,13 @@ public partial class AddEditBankTransferContentPage
         using var context = new DataBaseContext();
         var history = context.THistories.First(s => s.BankTransferFk.Equals(bankTransfer.Id));
         var categoryTypeId = context.TCategoryTypes.First(s => s.Id.Equals(history.CategoryTypeFk)).Id;
+        var modePaymentId = context.TModePayments.First(s => s.Id.Equals(history.ModePaymentFk)).Id;
 
         SelectedCategoryType = CategoryTypes.FirstOrDefault(s => s.Id.Equals(categoryTypeId));
         OriginalSelectedCategoryType = SelectedCategoryType.DeepCopy();
+
+        SelectedModePayment = ModePayments.FirstOrDefault(s => s.Id.Equals(modePaymentId));
+        OriginalSelectedModePayment = SelectedModePayment.DeepCopy();
 
         UpdateIsDirty();
         UpdateFromAccountSymbol();
@@ -415,14 +444,18 @@ public partial class AddEditBankTransferContentPage
     {
         var bankTransferIsDirty = !BankTransfer.AreEqual(OriginalBankTransfer);
         var categoryIsDirty = !SelectedCategoryType.AreEqual(OriginalSelectedCategoryType);
+        var modePaymentIsDirty = !SelectedModePayment.AreEqual(OriginalSelectedModePayment);
 
-        IsDirty = bankTransferIsDirty || categoryIsDirty;
+        IsDirty = bankTransferIsDirty || categoryIsDirty || modePaymentIsDirty;
 
         Title = IsDirty
-            ? "Changes in progress"
+            ? AddEditBankTransferContentPageResources.TitleIsDirty
             : string.Empty;
     }
 
     private void PickerCategory_OnSelectedIndexChanged(object? sender, EventArgs e)
+        => UpdateIsDirty();
+
+    private void PickerModePayment_OnSelectedIndexChanged(object? sender, EventArgs e)
         => UpdateIsDirty();
 }

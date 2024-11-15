@@ -159,6 +159,24 @@
 
             </VerticalStackLayout>
 
+            <VerticalStackLayout Grid.Row="3" Grid.Column="2"
+                                 HorizontalOptions="Center">
+
+                <Label Text="{Binding LabelTextTransferPaymentMode, Mode=OneWay}"
+                       HorizontalOptions="Center"
+                       HorizontalTextAlignment="Center">
+                </Label>
+
+                <Picker ItemsSource="{Binding ModePayments, Mode=OneWay, Source={RelativeSource AncestorType={x:Type local:AddEditBankTransferContentPage}}}"
+                        SelectedItem="{Binding SelectedModePayment, Mode=TwoWay, Source={RelativeSource AncestorType={x:Type local:AddEditBankTransferContentPage}}}"
+                        ItemDisplayBinding="{Binding Name}" x:DataType="tables:TModePayment"
+                        HorizontalOptions="Center"
+                        HorizontalTextAlignment="Center"
+                        SelectedIndexChanged="PickerModePayment_OnSelectedIndexChanged">
+                </Picker>
+
+            </VerticalStackLayout>
+
             <customEntryControl:CustomEntryControl Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3"
                                                    PlaceholderText="{Binding CustomEntryControlPlaceholderTextMainReason}"
                                                    Text="{Binding BankTransfer.MainReason, Mode=TwoWay}"

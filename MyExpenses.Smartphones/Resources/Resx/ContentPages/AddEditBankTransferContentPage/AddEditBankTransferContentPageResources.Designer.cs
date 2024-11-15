@@ -142,6 +142,15 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.AddEditBankTransfer
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Payment method :.
+        /// </summary>
+        internal static string LabelTextTransferPaymentMode {
+            get {
+                return ResourceManager.GetString("LabelTextTransferPaymentMode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Amount :.
         /// </summary>
         internal static string LabelTextTransferValue {
@@ -273,6 +282,15 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.AddEditBankTransfer
         internal static string MessageBoxValidBankTransferErrorTitle {
             get {
                 return ResourceManager.GetString("MessageBoxValidBankTransferErrorTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Changes in progress.
+        /// </summary>
+        internal static string TitleIsDirty {
+            get {
+                return ResourceManager.GetString("TitleIsDirty", resourceCulture);
             }
         }
     }

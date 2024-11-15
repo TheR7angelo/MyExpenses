@@ -90,4 +90,10 @@
     <data name="LabelTextTransferCategoryProperty" xml:space="preserve">
         <value>Category :</value>
     </data>
+    <data name="LabelTextTransferPaymentMode" xml:space="preserve">
+        <value>Payment method :</value>
+    </data>
+    <data name="TitleIsDirty" xml:space="preserve">
+        <value>Changes in progress</value>
+    </data>
 </root>
