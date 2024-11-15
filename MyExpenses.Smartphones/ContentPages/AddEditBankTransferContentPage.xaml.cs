@@ -246,6 +246,72 @@ public partial class AddEditBankTransferContentPage
 
     private bool AddOrEditBankTransfer()
     {
+        if (BankTransfer.Id is 0)
+        {
+            var now = DateTime.Now;
+            var valueAbs = Math.Abs(BankTransfer.Value ?? 0);
+            var fromHistory = new THistory
+            {
+                AccountFk = BankTransfer.FromAccountFk,
+                Description = BankTransfer.MainReason,
+                CategoryTypeFk = SelectedCategoryType?.Id,
+                ModePaymentFk = SelectedModePayment?.Id,
+                Value = -valueAbs,
+                Date = BankTransfer.Date,
+                IsPointed = true,
+                PlaceFk = 1,
+                DateAdded = now,
+                DatePointed = now,
+            };
+
+            var toHistory = new THistory
+            {
+                AccountFk = BankTransfer.ToAccountFk,
+                Description = BankTransfer.MainReason,
+                CategoryTypeFk = SelectedCategoryType?.Id,
+                ModePaymentFk = SelectedModePayment?.Id,
+                Value = valueAbs,
+                Date = BankTransfer.Date,
+                IsPointed = true,
+                PlaceFk = 1,
+                DateAdded = now,
+                DatePointed = now,
+            };
+
+            BankTransfer.THistories.Add(fromHistory);
+            BankTransfer.THistories.Add(toHistory);
+        }
+        else
+        {
+            using var context = new DataBaseContext();
+            var fromHistory = context.THistories.First(s => s.BankTransferFk.Equals(BankTransfer.Id) && s.AccountFk.Equals(OriginalBankTransfer!.FromAccountFk));
+            var toHistory = context.THistories.First(s => s.BankTransferFk.Equals(BankTransfer.Id) && s.AccountFk.Equals(OriginalBankTransfer!.ToAccountFk));
+
+            fromHistory.AccountFk = BankTransfer.FromAccountFk;
+            fromHistory.Description = BankTransfer.MainReason;
+            fromHistory.CategoryTypeFk = SelectedCategoryType?.Id;
+            fromHistory.ModePaymentFk = SelectedModePayment?.Id;
+            fromHistory.Value = -Math.Abs(BankTransfer.Value ?? 0);
+            fromHistory.Date = BankTransfer.Date;
+            fromHistory.IsPointed = true;
+            fromHistory.PlaceFk = 1;
+            fromHistory.DatePointed = DateTime.Now;
+
+            toHistory.AccountFk = BankTransfer.ToAccountFk;
+            toHistory.Description = BankTransfer.MainReason;
+            toHistory.CategoryTypeFk = SelectedCategoryType?.Id;
+            toHistory.ModePaymentFk = SelectedModePayment?.Id;
+            toHistory.Value = Math.Abs(BankTransfer.Value ?? 0);
+            toHistory.Date = BankTransfer.Date;
+            toHistory.IsPointed = true;
+            toHistory.PlaceFk = 1;
+            toHistory.DatePointed = DateTime.Now;
+
+            BankTransfer.THistories.Clear();
+            BankTransfer.THistories.Add(fromHistory);
+            BankTransfer.THistories.Add(toHistory);
+        }
+
         var json = BankTransfer.ToJson();
 
         Log.Information("Attempting to add edit bank transfer : {Json}", json);
@@ -253,42 +319,6 @@ public partial class AddEditBankTransferContentPage
 
         if (success) Log.Information("Successful bank transfer editing");
         else Log.Error(exception, "Failed bank transfer editing");
-
-        // if (BankTransfer.Id is 0)
-        // {
-        //     var now = DateTime.Now;
-        //     var valueAbs = Math.Abs(BankTransfer.Value ?? 0);
-        //     var fromHistory = new THistory
-        //     {
-        //         AccountFk = BankTransfer.FromAccountFk,
-        //         Description = BankTransfer.MainReason,
-        //         CategoryTypeFk = BankTransfer.CategoryFk,
-        //         ModePaymentFk = ModePayment?.Id,
-        //         Value = -valueAbs,
-        //         Date = BankTransfer.Date,
-        //         IsPointed = true,
-        //         PlaceFk = 1,
-        //         DateAdded = now,
-        //         DatePointed = now,
-        //     };
-        //
-        //     var toHistory = new THistory
-        //     {
-        //         AccountFk = BankTransfer.ToAccountFk,
-        //         Description = BankTransfer.MainReason,
-        //         CategoryTypeFk = Category?.Id,
-        //         ModePaymentFk = ModePayment?.Id,
-        //         Value = valueAbs,
-        //         Date = BankTransfer.Date,
-        //         IsPointed = true,
-        //         PlaceFk = 1,
-        //         DateAdded = now,
-        //         DatePointed = now,
-        //     };
-        //
-        //     BankTransfer.THistories.Add(fromHistory);
-        //     BankTransfer.THistories.Add(toHistory);
-        // }
 
         return success;
     }
