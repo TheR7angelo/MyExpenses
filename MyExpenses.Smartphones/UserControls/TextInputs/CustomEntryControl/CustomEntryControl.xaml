@@ -4,11 +4,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MyExpenses.Smartphones.UserControls.TextInputs.CustomEntryControl.CustomEntryControl"
              xmlns:local="clr-namespace:MyExpenses.Smartphones.UserControls.TextInputs.CustomEntryControl"
-             xmlns:converters="clr-namespace:MyExpenses.Smartphones.Resources.Styles.Converters"
-             xmlns:converters1="clr-namespace:MyExpenses.Smartphones.Converters">
+             xmlns:converters="clr-namespace:MyExpenses.Smartphones.Converters">
 
     <ContentView.Resources>
-        <converters1:BooleanToInverseConverter x:Key="BooleanToInverseConverter" />
+        <converters:BooleanToInverseConverter x:Key="BooleanToInverseConverter" />
+        <converters:EPackIconsToGeometryConverter x:Key="StringToGeometryConverter" />
+        <converters:PercentageConverter x:Key="PercentageConverter" />
     </ContentView.Resources>
 
     <Frame BorderColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
@@ -20,10 +21,15 @@
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
-            <Label Grid.Row="0"
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <Label Grid.Row="0" Grid.Column="0"
                    Text="{Binding PlaceholderText, Source={RelativeSource AncestorType={x:Type local:CustomEntryControl}}}"
                    FontAttributes="Italic"
                    Margin="10,3,0,0"
@@ -32,14 +38,42 @@
                    IsVisible="{Binding IsPlaceholderVisible, Converter={StaticResource BooleanToInverseConverter}, Source={RelativeSource AncestorType={x:Type local:CustomEntryControl}}}">
             </Label>
 
-            <Entry Grid.Row="1"
+            <Path Grid.Row="0" Grid.Column="1"
+                  Aspect="Uniform"
+                  Fill="{AppThemeBinding Light={StaticResource PlaceholderTextColorLight}, Dark={StaticResource PlaceholderTextColorDark}}"
+                  Data="{Binding CloseCircle, Mode=OneWay, Converter={StaticResource StringToGeometryConverter}, UpdateSourceEventName=PropertyChanged, Source={RelativeSource AncestorType={x:Type local:CustomEntryControl}}}"
+                  HorizontalOptions="End"
+                  VerticalOptions="Center"
+                  Margin="5"
+                  WidthRequest="24"
+                  HeightRequest="24"
+                  IsVisible="{Binding HasClearButton, Source={RelativeSource AncestorType={x:Type local:CustomEntryControl}}}">
+
+                <Path.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="TapGestureRecognizer_OnTapped" NumberOfTapsRequired="1"/>
+                </Path.GestureRecognizers>
+
+            </Path>
+
+            <Entry Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
                 Text="{Binding Text, Mode=TwoWay, Source={RelativeSource AncestorType={x:Type local:CustomEntryControl}}}"
                 TextColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
                 TextChanged="InputView_OnTextChanged"
                 Placeholder="{Binding PlaceholderText, Source={RelativeSource AncestorType={x:Type local:CustomEntryControl}}}"
                 VerticalOptions="CenterAndExpand"
-                Margin="5">
+                Margin="5"
+                IsVisible="{Binding HasMultiline, Converter={StaticResource BooleanToInverseConverter}, Source={RelativeSource AncestorType={x:Type local:CustomEntryControl}}}">
             </Entry>
+
+            <Editor Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
+                   Text="{Binding Text, Mode=TwoWay, Source={RelativeSource AncestorType={x:Type local:CustomEntryControl}}}"
+                   TextColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
+                   TextChanged="InputView_OnTextChanged"
+                   Placeholder="{Binding PlaceholderText, Source={RelativeSource AncestorType={x:Type local:CustomEntryControl}}}"
+                   Margin="5"
+                   IsVisible="{Binding HasMultiline, Source={RelativeSource AncestorType={x:Type local:CustomEntryControl}}}"
+                   AutoSize="TextChanges">
+            </Editor>
         </Grid>
 
     </Frame>
