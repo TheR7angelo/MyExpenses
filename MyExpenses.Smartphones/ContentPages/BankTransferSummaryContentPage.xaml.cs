@@ -2,6 +2,7 @@ using System.Collections.Immutable;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Globalization;
+using System.Windows.Input;
 using CommunityToolkit.Maui.Views;
 using MyExpenses.Maui.Utils;
 using MyExpenses.Models.AutoMapper;
@@ -256,6 +257,11 @@ public partial class BankTransferSummaryContentPage
     private List<DoubleIsChecked> BankTransferValuesFilters { get; } = [];
     private List<StringIsChecked> BankTransferMainReasonFilters { get; } = [];
     private List<StringIsChecked> BankTransferAdditionalReasonFilters { get; } = [];
+
+    private readonly TaskCompletionSource<bool> _taskCompletionSource = new();
+
+    public Task<bool> ResultDialog
+        => _taskCompletionSource.Task;
 
     public BankTransferSummaryContentPage()
     {
@@ -754,7 +760,6 @@ public partial class BankTransferSummaryContentPage
         };
     }
 
-    // TODO work
     private async void TapGestureRecognizer_OnTapped(object? sender, TappedEventArgs e)
     {
         if (sender is not Border border) return;
@@ -764,5 +769,11 @@ public partial class BankTransferSummaryContentPage
         addEditBankTransferContentPage.SetVBankTransferSummary(vBankTransferSummary);
 
         await Navigation.PushAsync(addEditBankTransferContentPage);
+
+        var success  = await addEditBankTransferContentPage.ResultDialog;
+        if (!success) return;
+
+        _taskCompletionSource.SetResult(true);
+        RefreshDataGrid();
     }
 }

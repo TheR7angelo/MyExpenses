@@ -4,6 +4,7 @@ using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Sql.Bases.Views;
 using MyExpenses.Smartphones.Resources.Resx.ContentPages.AccountManagementContentPage;
 using MyExpenses.Sql.Context;
+using MyExpenses.Utils.Collection;
 
 namespace MyExpenses.Smartphones.ContentPages;
 
@@ -38,13 +39,11 @@ public partial class AccountManagementContentPage
         set => SetValue(TotalAllAccountProperty, value);
     }
 
-    public ObservableCollection<VTotalByAccount> VTotalByAccounts { get; }
+    public ObservableCollection<VTotalByAccount> VTotalByAccounts { get; } = [];
 
     public AccountManagementContentPage()
     {
-        using var context = new DataBaseContext();
-        VTotalByAccounts = [..context.VTotalByAccounts.OrderBy(s => s.Name)];
-        TotalAllAccount = VTotalByAccounts.Sum(s => s.Total) ?? 0d;
+        RefreshAccountTotals();
 
         UpdateLanguage();
         InitializeComponent();
@@ -54,8 +53,14 @@ public partial class AccountManagementContentPage
 
     #region Action
 
-    private void ButtonImageViewHistory_OnClicked(object? sender, EventArgs e)
-        => NavigateTo(typeof(BankTransferSummaryContentPage));
+    private async void ButtonImageViewHistory_OnClicked(object? sender, EventArgs e)
+    {
+        var bankTransferSummaryContentPage = new BankTransferSummaryContentPage();
+        await Navigation.PushAsync(bankTransferSummaryContentPage);
+
+        var needToRefresh = await bankTransferSummaryContentPage.ResultDialog;
+        if (needToRefresh) RefreshAccountTotals();
+    }
 
     private void Interface_OnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
         => UpdateLanguage();
@@ -64,17 +69,26 @@ public partial class AccountManagementContentPage
 
     #region Function
 
+    private void RefreshAccountTotals()
+    {
+        VTotalByAccounts.Clear();
+
+        using var context = new DataBaseContext();
+        VTotalByAccounts.AddRange(context.VTotalByAccounts.OrderBy(s => s.Name));
+        TotalAllAccount = VTotalByAccounts.Sum(s => s.Total) ?? 0d;
+    }
+
     private void UpdateLanguage()
     {
         LabelTextTransactionHistory = AccountManagementContentPageResources.LabelTextTransactionHistory;
         LabelTextTransactionTransfer = AccountManagementContentPageResources.LabelTextTransactionTransfer;
     }
 
+    #endregion
+
     private async void NavigateTo(Type type)
     {
         var contentPage = (ContentPage)Activator.CreateInstance(type)!;
         await Navigation.PushAsync(contentPage);
     }
-
-    #endregion
 }
