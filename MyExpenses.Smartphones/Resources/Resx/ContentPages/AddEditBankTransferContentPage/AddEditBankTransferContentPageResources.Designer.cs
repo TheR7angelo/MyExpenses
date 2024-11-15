@@ -223,7 +223,97 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.AddEditBankTransfer
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to There was an error updating the history. Please try again.
+        ///   Looks up a localized string similar to There was an error updating. Please try again.
+        /// </summary>
+        internal static string MessageBoxDeleteBankTransferErrorMessage {
+            get {
+                return ResourceManager.GetString("MessageBoxDeleteBankTransferErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ok.
+        /// </summary>
+        internal static string MessageBoxDeleteBankTransferErrorOkButton {
+            get {
+                return ResourceManager.GetString("MessageBoxDeleteBankTransferErrorOkButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        internal static string MessageBoxDeleteBankTransferErrorTitle {
+            get {
+                return ResourceManager.GetString("MessageBoxDeleteBankTransferErrorTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you really want to delete this bank transfer ?.
+        /// </summary>
+        internal static string MessageBoxDeleteBankTransferMessage {
+            get {
+                return ResourceManager.GetString("MessageBoxDeleteBankTransferMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No.
+        /// </summary>
+        internal static string MessageBoxDeleteBankTransferNoButton {
+            get {
+                return ResourceManager.GetString("MessageBoxDeleteBankTransferNoButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bank transfer was successfully deleted.
+        /// </summary>
+        internal static string MessageBoxDeleteBankTransferSuccessMessage {
+            get {
+                return ResourceManager.GetString("MessageBoxDeleteBankTransferSuccessMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ok.
+        /// </summary>
+        internal static string MessageBoxDeleteBankTransferSuccessOkButton {
+            get {
+                return ResourceManager.GetString("MessageBoxDeleteBankTransferSuccessOkButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Success.
+        /// </summary>
+        internal static string MessageBoxDeleteBankTransferSuccessTitle {
+            get {
+                return ResourceManager.GetString("MessageBoxDeleteBankTransferSuccessTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Question.
+        /// </summary>
+        internal static string MessageBoxDeleteBankTransferTitle {
+            get {
+                return ResourceManager.GetString("MessageBoxDeleteBankTransferTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yes.
+        /// </summary>
+        internal static string MessageBoxDeleteBankTransferYesButton {
+            get {
+                return ResourceManager.GetString("MessageBoxDeleteBankTransferYesButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There was an error updating. Please try again.
         /// </summary>
         internal static string MessageBoxOnBackCommandPressedErrorMessage {
             get {

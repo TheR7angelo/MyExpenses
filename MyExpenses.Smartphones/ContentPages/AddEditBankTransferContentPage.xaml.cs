@@ -479,10 +479,39 @@ public partial class AddEditBankTransferContentPage
         await Navigation.PopAsync();
     }
 
-    private void ButtonDeleteBankTransfer_OnClicked(object? sender, EventArgs e)
+    private async void ButtonDeleteBankTransfer_OnClicked(object? sender, EventArgs e)
     {
-        // TODO work
-        throw new NotImplementedException();
+        var response = await DisplayAlert(
+            AddEditBankTransferContentPageResources.MessageBoxDeleteBankTransferTitle,
+            AddEditBankTransferContentPageResources.MessageBoxDeleteBankTransferMessage,
+            AddEditBankTransferContentPageResources.MessageBoxDeleteBankTransferYesButton,
+            AddEditBankTransferContentPageResources.MessageBoxDeleteBankTransferNoButton);
+        if (!response) return;
+
+        var json = BankTransfer.ToJson();
+        Log.Information("Attempting to delete bank transfer, {Json}", json);
+
+        var (success, exception) = BankTransfer.Delete(true);
+
+        if (success)
+        {
+            Log.Information("Bank transfer successfully deleted");
+            await DisplayAlert(
+                AddEditBankTransferContentPageResources.MessageBoxDeleteBankTransferSuccessTitle,
+                AddEditBankTransferContentPageResources.MessageBoxDeleteBankTransferSuccessMessage,
+                AddEditBankTransferContentPageResources.MessageBoxDeleteBankTransferSuccessOkButton);
+
+            _taskCompletionSource.SetResult(true);
+            await Navigation.PopAsync();
+        }
+        else
+        {
+            Log.Error(exception, "Failed to delete bank transfer");
+            await DisplayAlert(
+                AddEditBankTransferContentPageResources.MessageBoxDeleteBankTransferErrorTitle,
+                AddEditBankTransferContentPageResources.MessageBoxDeleteBankTransferErrorMessage,
+                AddEditBankTransferContentPageResources.MessageBoxDeleteBankTransferErrorOkButton);;
+        }
     }
 
     private void ButtonCancelUpdateBankTransfer_OnClicked(object? sender, EventArgs e)
