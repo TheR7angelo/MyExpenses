@@ -35,4 +35,7 @@
     <data name="CustomEntryControlPlaceholderTextMainReason" xml:space="preserve">
         <value>Raison principale :</value>
     </data>
+    <data name="CustomEntryControlPlaceholderTextAdditionalReason" xml:space="preserve">
+        <value>Raison supplémentaire :</value>
+    </data>
 </root>

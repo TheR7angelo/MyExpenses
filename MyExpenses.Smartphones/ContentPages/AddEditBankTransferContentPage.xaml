@@ -27,7 +27,7 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
-                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
             <Grid.ColumnDefinitions>
@@ -144,18 +144,12 @@
                                                    HasMultiline="True">
             </customEntryControl:CustomEntryControl>
 
-            <!-- <Border Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3" -->
-            <!--         Stroke="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}" -->
-            <!--         StrokeThickness="2" -->
-            <!--         HorizontalOptions="Center"> -->
-            <!-- -->
-            <!--     <Border.StrokeShape> -->
-            <!--         <RoundRectangle CornerRadius="5" /> -->
-            <!--     </Border.StrokeShape> -->
-            <!-- -->
-            <!--      -->
-            <!-- -->
-            <!-- </Border> -->
+            <customEntryControl:CustomEntryControl Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="3"
+                                                   PlaceholderText="{Binding CustomEntryControlPlaceholderTextAdditionalReason}"
+                                                   Text="{Binding BankTransfer.AdditionalReason, Mode=TwoWay}"
+                                                   HasClearButton="True"
+                                                   HasMultiline="True">
+            </customEntryControl:CustomEntryControl>
 
         </Grid>
 
