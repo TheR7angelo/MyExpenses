@@ -211,6 +211,88 @@ public partial class AddEditBankTransferContentPage
         Interface.LanguageChanged += Interface_OnLanguageChanged;
     }
 
+    #region Acrion
+
+    private void ButtonCancelUpdateBankTransfer_OnClicked(object? sender, EventArgs e)
+    {
+        if (OriginalBankTransfer is null)
+        {
+            var clearBankTransfer = new TBankTransfer();
+            clearBankTransfer.CopyPropertiesTo(BankTransfer);
+
+            SelectedCategoryType = null;
+            SelectedModePayment = null;
+        }
+        else
+        {
+            OriginalBankTransfer!.CopyPropertiesTo(BankTransfer);
+            SelectedCategoryType = CategoryTypes.FirstOrDefault(s => s.Id.Equals(OriginalSelectedCategoryType?.Id));
+            SelectedModePayment = ModePayments.FirstOrDefault(s => s.Id.Equals(OriginalSelectedModePayment?.Id));
+        }
+
+        UpdateIsDirty();
+    }
+
+    private async void ButtonDeleteBankTransfer_OnClicked(object? sender, EventArgs e)
+    {
+        var response = await DisplayAlert(
+            AddEditBankTransferContentPageResources.MessageBoxDeleteBankTransferTitle,
+            AddEditBankTransferContentPageResources.MessageBoxDeleteBankTransferMessage,
+            AddEditBankTransferContentPageResources.MessageBoxDeleteBankTransferYesButton,
+            AddEditBankTransferContentPageResources.MessageBoxDeleteBankTransferNoButton);
+        if (!response) return;
+
+        var json = BankTransfer.ToJson();
+        Log.Information("Attempting to delete bank transfer, {Json}", json);
+
+        var (success, exception) = BankTransfer.Delete(true);
+
+        if (success)
+        {
+            Log.Information("Bank transfer successfully deleted");
+            await DisplayAlert(
+                AddEditBankTransferContentPageResources.MessageBoxDeleteBankTransferSuccessTitle,
+                AddEditBankTransferContentPageResources.MessageBoxDeleteBankTransferSuccessMessage,
+                AddEditBankTransferContentPageResources.MessageBoxDeleteBankTransferSuccessOkButton);
+
+            _taskCompletionSource.SetResult(true);
+            await Navigation.PopAsync();
+        }
+        else
+        {
+            Log.Error(exception, "Failed to delete bank transfer");
+            await DisplayAlert(
+                AddEditBankTransferContentPageResources.MessageBoxDeleteBankTransferErrorTitle,
+                AddEditBankTransferContentPageResources.MessageBoxDeleteBankTransferErrorMessage,
+                AddEditBankTransferContentPageResources.MessageBoxDeleteBankTransferErrorOkButton);;
+        }
+    }
+
+    private async void ButtonUpdateBankTransfer_OnClicked(object? sender, EventArgs e)
+    {
+        var isValidBankTransfer = await ValidValidBankTransfer();
+        if (!isValidBankTransfer) return;
+
+        var success = AddOrEditBankTransfer();
+        if (!success)
+        {
+            await DisplayAlert(
+                AddEditBankTransferContentPageResources.MessageBoxOnBackCommandPressedErrorTitle,
+                AddEditBankTransferContentPageResources.MessageBoxOnBackCommandPressedErrorMessage,
+                AddEditBankTransferContentPageResources.MessageBoxOnBackCommandPressedErrorOkButton);
+            return;
+        }
+
+        _taskCompletionSource.SetResult(true);
+        await Navigation.PopAsync();
+    }
+
+    private void EntryValue_OnTextChanged(object? sender, TextChangedEventArgs e)
+        => UpdateIsDirty();
+
+    private void Interface_OnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
+        => UpdateLanguage();
+
     private async void OnBackCommandPressed()
     {
         if (IsDirty)
@@ -244,6 +326,47 @@ public partial class AddEditBankTransferContentPage
         await Navigation.PopAsync();
     }
 
+    private void PickerCategory_OnSelectedIndexChanged(object? sender, EventArgs e)
+        => UpdateIsDirty();
+
+    private void PickerFromAccount_OnSelectedIndexChanged(object? sender, EventArgs e)
+    {
+        var accountIdToRemove = BankTransfer.FromAccountFk;
+        var currentAccountId = BankTransfer.ToAccountFk;
+
+        PickerToAccountFk.SelectedIndexChanged -= PickerToAccount_OnSelectedIndexChanged;
+
+        UpdateAccountsCollection(accountIdToRemove, ToAccounts);
+        BankTransfer.ToAccountFk = currentAccountId;
+
+        PickerToAccountFk.SelectedIndexChanged += PickerToAccount_OnSelectedIndexChanged;
+
+        UpdateIsDirty();
+        UpdateFromAccountSymbol();
+    }
+
+    private void PickerModePayment_OnSelectedIndexChanged(object? sender, EventArgs e)
+        => UpdateIsDirty();
+
+    private void PickerToAccount_OnSelectedIndexChanged(object? sender, EventArgs e)
+    {
+        var accountIdToRemove = BankTransfer.ToAccountFk;
+        var currentAccountId = BankTransfer.FromAccountFk;
+
+        PickerFromAccountFk.SelectedIndexChanged -= PickerFromAccount_OnSelectedIndexChanged;
+
+        UpdateAccountsCollection(accountIdToRemove, FromAccounts);
+        BankTransfer.FromAccountFk = currentAccountId;
+
+        PickerFromAccountFk.SelectedIndexChanged += PickerFromAccount_OnSelectedIndexChanged;
+
+        UpdateIsDirty();
+    }
+
+    #endregion
+
+    #region Function
+
     private bool AddOrEditBankTransfer()
     {
         var now = DateTime.Now;
@@ -271,20 +394,6 @@ public partial class AddEditBankTransferContentPage
         BankTransfer.THistories.Add(toHistory);
     }
 
-    private void UpdateTransactionHistories(DateTime now)
-    {
-        using var context = new DataBaseContext();
-        var fromHistory = context.THistories.First(s => s.BankTransferFk.Equals(BankTransfer.Id) && s.AccountFk.Equals(OriginalBankTransfer!.FromAccountFk));
-        var toHistory = context.THistories.First(s => s.BankTransferFk.Equals(BankTransfer.Id) && s.AccountFk.Equals(OriginalBankTransfer!.ToAccountFk));
-
-        UpdateHistory(fromHistory, BankTransfer.FromAccountFk, -Math.Abs(BankTransfer.Value ?? 0), now);
-        UpdateHistory(toHistory, BankTransfer.ToAccountFk, Math.Abs(BankTransfer.Value ?? 0), now);
-
-        BankTransfer.THistories.Clear();
-        BankTransfer.THistories.Add(fromHistory);
-        BankTransfer.THistories.Add(toHistory);
-    }
-
     private THistory CreateHistory(int? accountFk, double value, DateTime now)
     {
         return new THistory
@@ -302,6 +411,21 @@ public partial class AddEditBankTransferContentPage
         };
     }
 
+    private void UpdateAccountsCollection(int? accountIdToRemove, ObservableCollection<TAccount> collection)
+    {
+        var newCollection = Accounts.Where(s => s.Id != accountIdToRemove);
+
+        collection.Clear();
+        collection.AddRange(newCollection);
+    }
+
+    private void UpdateFromAccountSymbol()
+    {
+        using var context = new DataBaseContext();
+        var account = Accounts.First(a => a.Id.Equals(BankTransfer.FromAccountFk));
+        FromAccountSymbol = context.TCurrencies.First(s => s.Id.Equals(account.CurrencyFk)).Symbol!;
+    }
+
     private void UpdateHistory(THistory history, int? accountFk, double value, DateTime now)
     {
         history.AccountFk = accountFk;
@@ -313,6 +437,74 @@ public partial class AddEditBankTransferContentPage
         history.IsPointed = true;
         history.PlaceFk = 1;
         history.DatePointed = now;
+    }
+
+    private void UpdateIsDirty()
+    {
+        var bankTransferIsDirty = !BankTransfer.AreEqual(OriginalBankTransfer);
+        var categoryIsDirty = !SelectedCategoryType.AreEqual(OriginalSelectedCategoryType);
+        var modePaymentIsDirty = !SelectedModePayment.AreEqual(OriginalSelectedModePayment);
+
+        IsDirty = bankTransferIsDirty || categoryIsDirty || modePaymentIsDirty;
+
+        Title = IsDirty
+            ? AddEditBankTransferContentPageResources.TitleIsDirty
+            : string.Empty;
+    }
+
+    private void UpdateLanguage()
+    {
+        ButtonUpdateText = AddEditBankTransferContentPageResources.ButtonUpdateText;
+        ButtonCanBeDeletedText = AddEditBankTransferContentPageResources.ButtonCanBeDeletedText;
+        ButtonCancelUpdateText = AddEditBankTransferContentPageResources.ButtonCancelUpdateText;
+
+        LabelTextFromAccountFrom = AddEditBankTransferContentPageResources.LabelTextFromAccountFrom;
+        LabelTextTransferDate = AddEditBankTransferContentPageResources.LabelTextTransferDate;
+        LabelTextTransferValue = AddEditBankTransferContentPageResources.LabelTextTransferValue;
+        LabelTextToAccountTo = AddEditBankTransferContentPageResources.LabelTextToAccountTo;
+
+        CustomEntryControlPlaceholderTextMainReason = AddEditBankTransferContentPageResources.CustomEntryControlPlaceholderTextMainReason;
+        CustomEntryControlPlaceholderTextAdditionalReason = AddEditBankTransferContentPageResources.CustomEntryControlPlaceholderTextAdditionalReason;
+
+        LabelTextTransferCategory = AddEditBankTransferContentPageResources.LabelTextTransferCategoryProperty;
+        LabelTextTransferPaymentMode = AddEditBankTransferContentPageResources.LabelTextTransferPaymentMode;
+    }
+
+    private void UpdateTransactionHistories(DateTime now)
+    {
+        using var context = new DataBaseContext();
+        var fromHistory = context.THistories.First(s => s.BankTransferFk.Equals(BankTransfer.Id) && s.AccountFk.Equals(OriginalBankTransfer!.FromAccountFk));
+        var toHistory = context.THistories.First(s => s.BankTransferFk.Equals(BankTransfer.Id) && s.AccountFk.Equals(OriginalBankTransfer!.ToAccountFk));
+
+        UpdateHistory(fromHistory, BankTransfer.FromAccountFk, -Math.Abs(BankTransfer.Value ?? 0), now);
+        UpdateHistory(toHistory, BankTransfer.ToAccountFk, Math.Abs(BankTransfer.Value ?? 0), now);
+
+        BankTransfer.THistories.Clear();
+        BankTransfer.THistories.Add(fromHistory);
+        BankTransfer.THistories.Add(toHistory);
+    }
+
+    public void SetVBankTransferSummary(VBankTransferSummary? vBankTransferSummary)
+    {
+        if (vBankTransferSummary is null) return;
+
+        var bankTransfer = vBankTransferSummary.Id.ToISql<TBankTransfer>()!;
+        bankTransfer.CopyPropertiesTo(BankTransfer);
+        OriginalBankTransfer = bankTransfer.DeepCopy();
+
+        using var context = new DataBaseContext();
+        var history = context.THistories.First(s => s.BankTransferFk.Equals(bankTransfer.Id));
+        var categoryTypeId = context.TCategoryTypes.First(s => s.Id.Equals(history.CategoryTypeFk)).Id;
+        var modePaymentId = context.TModePayments.First(s => s.Id.Equals(history.ModePaymentFk)).Id;
+
+        SelectedCategoryType = CategoryTypes.FirstOrDefault(s => s.Id.Equals(categoryTypeId));
+        OriginalSelectedCategoryType = SelectedCategoryType.DeepCopy();
+
+        SelectedModePayment = ModePayments.FirstOrDefault(s => s.Id.Equals(modePaymentId));
+        OriginalSelectedModePayment = SelectedModePayment.DeepCopy();
+
+        UpdateIsDirty();
+        UpdateFromAccountSymbol();
     }
 
     private async Task<bool> ValidValidBankTransfer()
@@ -370,189 +562,5 @@ public partial class AddEditBankTransferContentPage
         return isValid;
     }
 
-    private void Interface_OnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
-        => UpdateLanguage();
-
-    private void UpdateLanguage()
-    {
-        ButtonUpdateText = AddEditBankTransferContentPageResources.ButtonUpdateText;
-        ButtonCanBeDeletedText = AddEditBankTransferContentPageResources.ButtonCanBeDeletedText;
-        ButtonCancelUpdateText = AddEditBankTransferContentPageResources.ButtonCancelUpdateText;
-
-        LabelTextFromAccountFrom = AddEditBankTransferContentPageResources.LabelTextFromAccountFrom;
-        LabelTextTransferDate = AddEditBankTransferContentPageResources.LabelTextTransferDate;
-        LabelTextTransferValue = AddEditBankTransferContentPageResources.LabelTextTransferValue;
-        LabelTextToAccountTo = AddEditBankTransferContentPageResources.LabelTextToAccountTo;
-
-        CustomEntryControlPlaceholderTextMainReason = AddEditBankTransferContentPageResources.CustomEntryControlPlaceholderTextMainReason;
-        CustomEntryControlPlaceholderTextAdditionalReason = AddEditBankTransferContentPageResources.CustomEntryControlPlaceholderTextAdditionalReason;
-
-        LabelTextTransferCategory = AddEditBankTransferContentPageResources.LabelTextTransferCategoryProperty;
-        LabelTextTransferPaymentMode = AddEditBankTransferContentPageResources.LabelTextTransferPaymentMode;
-    }
-
-    public void SetVBankTransferSummary(VBankTransferSummary? vBankTransferSummary)
-    {
-        if (vBankTransferSummary is null) return;
-
-        var bankTransfer = vBankTransferSummary.Id.ToISql<TBankTransfer>()!;
-        bankTransfer.CopyPropertiesTo(BankTransfer);
-        OriginalBankTransfer = bankTransfer.DeepCopy();
-
-        using var context = new DataBaseContext();
-        var history = context.THistories.First(s => s.BankTransferFk.Equals(bankTransfer.Id));
-        var categoryTypeId = context.TCategoryTypes.First(s => s.Id.Equals(history.CategoryTypeFk)).Id;
-        var modePaymentId = context.TModePayments.First(s => s.Id.Equals(history.ModePaymentFk)).Id;
-
-        SelectedCategoryType = CategoryTypes.FirstOrDefault(s => s.Id.Equals(categoryTypeId));
-        OriginalSelectedCategoryType = SelectedCategoryType.DeepCopy();
-
-        SelectedModePayment = ModePayments.FirstOrDefault(s => s.Id.Equals(modePaymentId));
-        OriginalSelectedModePayment = SelectedModePayment.DeepCopy();
-
-        UpdateIsDirty();
-        UpdateFromAccountSymbol();
-    }
-
-    private void UpdateFromAccountSymbol()
-    {
-        using var context = new DataBaseContext();
-        var account = Accounts.First(a => a.Id.Equals(BankTransfer.FromAccountFk));
-        FromAccountSymbol = context.TCurrencies.First(s => s.Id.Equals(account.CurrencyFk)).Symbol!;
-    }
-
-    private void PickerFromAccount_OnSelectedIndexChanged(object? sender, EventArgs e)
-    {
-        var accountIdToRemove = BankTransfer.FromAccountFk;
-        var currentAccountId = BankTransfer.ToAccountFk;
-
-        PickerToAccountFk.SelectedIndexChanged -= PickerToAccount_OnSelectedIndexChanged;
-
-        UpdateAccountsCollection(accountIdToRemove, ToAccounts);
-        BankTransfer.ToAccountFk = currentAccountId;
-
-        PickerToAccountFk.SelectedIndexChanged += PickerToAccount_OnSelectedIndexChanged;
-
-        UpdateIsDirty();
-        UpdateFromAccountSymbol();
-    }
-
-    private void PickerToAccount_OnSelectedIndexChanged(object? sender, EventArgs e)
-    {
-        var accountIdToRemove = BankTransfer.ToAccountFk;
-        var currentAccountId = BankTransfer.FromAccountFk;
-
-        PickerFromAccountFk.SelectedIndexChanged -= PickerFromAccount_OnSelectedIndexChanged;
-
-        UpdateAccountsCollection(accountIdToRemove, FromAccounts);
-        BankTransfer.FromAccountFk = currentAccountId;
-
-        PickerFromAccountFk.SelectedIndexChanged += PickerFromAccount_OnSelectedIndexChanged;
-
-        UpdateIsDirty();
-    }
-
-    private void UpdateAccountsCollection(int? accountIdToRemove, ObservableCollection<TAccount> collection)
-    {
-        var newCollection = Accounts.Where(s => s.Id != accountIdToRemove);
-
-        collection.Clear();
-        collection.AddRange(newCollection);
-    }
-
-    private async void ButtonUpdateBankTransfer_OnClicked(object? sender, EventArgs e)
-    {
-        var isValidBankTransfer = await ValidValidBankTransfer();
-        if (!isValidBankTransfer) return;
-
-        var success = AddOrEditBankTransfer();
-        if (!success)
-        {
-            await DisplayAlert(
-                AddEditBankTransferContentPageResources.MessageBoxOnBackCommandPressedErrorTitle,
-                AddEditBankTransferContentPageResources.MessageBoxOnBackCommandPressedErrorMessage,
-                AddEditBankTransferContentPageResources.MessageBoxOnBackCommandPressedErrorOkButton);
-            return;
-        }
-
-        _taskCompletionSource.SetResult(true);
-        await Navigation.PopAsync();
-    }
-
-    private async void ButtonDeleteBankTransfer_OnClicked(object? sender, EventArgs e)
-    {
-        var response = await DisplayAlert(
-            AddEditBankTransferContentPageResources.MessageBoxDeleteBankTransferTitle,
-            AddEditBankTransferContentPageResources.MessageBoxDeleteBankTransferMessage,
-            AddEditBankTransferContentPageResources.MessageBoxDeleteBankTransferYesButton,
-            AddEditBankTransferContentPageResources.MessageBoxDeleteBankTransferNoButton);
-        if (!response) return;
-
-        var json = BankTransfer.ToJson();
-        Log.Information("Attempting to delete bank transfer, {Json}", json);
-
-        var (success, exception) = BankTransfer.Delete(true);
-
-        if (success)
-        {
-            Log.Information("Bank transfer successfully deleted");
-            await DisplayAlert(
-                AddEditBankTransferContentPageResources.MessageBoxDeleteBankTransferSuccessTitle,
-                AddEditBankTransferContentPageResources.MessageBoxDeleteBankTransferSuccessMessage,
-                AddEditBankTransferContentPageResources.MessageBoxDeleteBankTransferSuccessOkButton);
-
-            _taskCompletionSource.SetResult(true);
-            await Navigation.PopAsync();
-        }
-        else
-        {
-            Log.Error(exception, "Failed to delete bank transfer");
-            await DisplayAlert(
-                AddEditBankTransferContentPageResources.MessageBoxDeleteBankTransferErrorTitle,
-                AddEditBankTransferContentPageResources.MessageBoxDeleteBankTransferErrorMessage,
-                AddEditBankTransferContentPageResources.MessageBoxDeleteBankTransferErrorOkButton);;
-        }
-    }
-
-    private void ButtonCancelUpdateBankTransfer_OnClicked(object? sender, EventArgs e)
-    {
-        if (OriginalBankTransfer is null)
-        {
-            var clearBankTransfer = new TBankTransfer();
-            clearBankTransfer.CopyPropertiesTo(BankTransfer);
-
-            SelectedCategoryType = null;
-            SelectedModePayment = null;
-        }
-        else
-        {
-            OriginalBankTransfer!.CopyPropertiesTo(BankTransfer);
-            SelectedCategoryType = CategoryTypes.FirstOrDefault(s => s.Id.Equals(OriginalSelectedCategoryType?.Id));
-            SelectedModePayment = ModePayments.FirstOrDefault(s => s.Id.Equals(OriginalSelectedModePayment?.Id));
-        }
-
-        UpdateIsDirty();
-    }
-
-    private void EntryValue_OnTextChanged(object? sender, TextChangedEventArgs e)
-        => UpdateIsDirty();
-
-    private void UpdateIsDirty()
-    {
-        var bankTransferIsDirty = !BankTransfer.AreEqual(OriginalBankTransfer);
-        var categoryIsDirty = !SelectedCategoryType.AreEqual(OriginalSelectedCategoryType);
-        var modePaymentIsDirty = !SelectedModePayment.AreEqual(OriginalSelectedModePayment);
-
-        IsDirty = bankTransferIsDirty || categoryIsDirty || modePaymentIsDirty;
-
-        Title = IsDirty
-            ? AddEditBankTransferContentPageResources.TitleIsDirty
-            : string.Empty;
-    }
-
-    private void PickerCategory_OnSelectedIndexChanged(object? sender, EventArgs e)
-        => UpdateIsDirty();
-
-    private void PickerModePayment_OnSelectedIndexChanged(object? sender, EventArgs e)
-        => UpdateIsDirty();
+    #endregion
 }
