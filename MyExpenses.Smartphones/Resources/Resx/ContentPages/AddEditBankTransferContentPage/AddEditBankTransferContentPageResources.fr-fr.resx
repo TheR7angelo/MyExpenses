@@ -38,4 +38,46 @@
     <data name="CustomEntryControlPlaceholderTextAdditionalReason" xml:space="preserve">
         <value>Raison supplémentaire :</value>
     </data>
+    <data name="MessageBoxOnBackCommandPressedTitle" xml:space="preserve">
+        <value>Confirmation</value>
+    </data>
+    <data name="MessageBoxOnBackCommandPressedMessage" xml:space="preserve">
+        <value>Souhaitez-vous sauvegarder les modifications apportées à cet enregistrement ?</value>
+    </data>
+    <data name="MessageBoxOnBackCommandPressedNoButton" xml:space="preserve">
+        <value>Non</value>
+    </data>
+    <data name="MessageBoxOnBackCommandPressedYesButton" xml:space="preserve">
+        <value>Oui</value>
+    </data>
+    <data name="MessageBoxOnBackCommandPressedErrorTitle" xml:space="preserve">
+        <value>Erreur</value>
+    </data>
+    <data name="MessageBoxOnBackCommandPressedErrorOkButton" xml:space="preserve">
+        <value>Ok</value>
+    </data>
+    <data name="MessageBoxOnBackCommandPressedErrorMessage" xml:space="preserve">
+        <value>Une erreur s’est produite lors de la mise à jour de l’historique. Veuillez réessayer</value>
+    </data>
+    <data name="MessageBoxButtonValidationFromAccountFkError" xml:space="preserve">
+        <value>Le compte de départ ne peut pas être vide</value>
+    </data>
+    <data name="MessageBoxButtonValidationToAccountFkError" xml:space="preserve">
+        <value>Le compte d'arrivée ne peut pas être vide</value>
+    </data>
+    <data name="MessageBoxButtonValidationValueError" xml:space="preserve">
+        <value>La valeur ne peut pas être vide</value>
+    </data>
+    <data name="MessageBoxButtonValidationDateError" xml:space="preserve">
+        <value>La date ne peut pas être vide</value>
+    </data>
+    <data name="MessageBoxButtonValidationMainReasonError" xml:space="preserve">
+        <value>La raison principale ne peut pas être vide</value>
+    </data>
+    <data name="MessageBoxValidBankTransferErrorTitle" xml:space="preserve">
+        <value>Erreur</value>
+    </data>
+    <data name="MessageBoxValidBankTransferErrorOkButton" xml:space="preserve">
+        <value>Ok</value>
+    </data>
 </root>

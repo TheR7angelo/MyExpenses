@@ -140,5 +140,131 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.AddEditBankTransfer
                 return ResourceManager.GetString("LabelTextTransferValue", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Date cannot be empty.
+        /// </summary>
+        internal static string MessageBoxButtonValidationDateError {
+            get {
+                return ResourceManager.GetString("MessageBoxButtonValidationDateError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The starting account cannot be empty.
+        /// </summary>
+        internal static string MessageBoxButtonValidationFromAccountFkError {
+            get {
+                return ResourceManager.GetString("MessageBoxButtonValidationFromAccountFkError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Main reason cannot be empty.
+        /// </summary>
+        internal static string MessageBoxButtonValidationMainReasonError {
+            get {
+                return ResourceManager.GetString("MessageBoxButtonValidationMainReasonError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Arrival account cannot be empty.
+        /// </summary>
+        internal static string MessageBoxButtonValidationToAccountFkError {
+            get {
+                return ResourceManager.GetString("MessageBoxButtonValidationToAccountFkError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Value cannot be empty.
+        /// </summary>
+        internal static string MessageBoxButtonValidationValueError {
+            get {
+                return ResourceManager.GetString("MessageBoxButtonValidationValueError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There was an error updating the history. Please try again.
+        /// </summary>
+        internal static string MessageBoxOnBackCommandPressedErrorMessage {
+            get {
+                return ResourceManager.GetString("MessageBoxOnBackCommandPressedErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ok.
+        /// </summary>
+        internal static string MessageBoxOnBackCommandPressedErrorOkButton {
+            get {
+                return ResourceManager.GetString("MessageBoxOnBackCommandPressedErrorOkButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        internal static string MessageBoxOnBackCommandPressedErrorTitle {
+            get {
+                return ResourceManager.GetString("MessageBoxOnBackCommandPressedErrorTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you want to save the changes made to this record ?.
+        /// </summary>
+        internal static string MessageBoxOnBackCommandPressedMessage {
+            get {
+                return ResourceManager.GetString("MessageBoxOnBackCommandPressedMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No.
+        /// </summary>
+        internal static string MessageBoxOnBackCommandPressedNoButton {
+            get {
+                return ResourceManager.GetString("MessageBoxOnBackCommandPressedNoButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Confirmation.
+        /// </summary>
+        internal static string MessageBoxOnBackCommandPressedTitle {
+            get {
+                return ResourceManager.GetString("MessageBoxOnBackCommandPressedTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yes.
+        /// </summary>
+        internal static string MessageBoxOnBackCommandPressedYesButton {
+            get {
+                return ResourceManager.GetString("MessageBoxOnBackCommandPressedYesButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ok.
+        /// </summary>
+        internal static string MessageBoxValidBankTransferErrorOkButton {
+            get {
+                return ResourceManager.GetString("MessageBoxValidBankTransferErrorOkButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        internal static string MessageBoxValidBankTransferErrorTitle {
+            get {
+                return ResourceManager.GetString("MessageBoxValidBankTransferErrorTitle", resourceCulture);
+            }
+        }
     }
 }

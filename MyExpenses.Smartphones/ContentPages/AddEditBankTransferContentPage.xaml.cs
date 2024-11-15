@@ -1,4 +1,6 @@
 using System.Collections.ObjectModel;
+using System.ComponentModel.DataAnnotations;
+using System.Windows.Input;
 using MyExpenses.Models.Config;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Sql.Bases.Tables;
@@ -8,6 +10,7 @@ using MyExpenses.Sql.Context;
 using MyExpenses.Utils;
 using MyExpenses.Utils.Collection;
 using MyExpenses.Utils.Objects;
+using Serilog;
 
 namespace MyExpenses.Smartphones.ContentPages;
 
@@ -137,8 +140,17 @@ public partial class AddEditBankTransferContentPage
     public ObservableCollection<TAccount> FromAccounts { get; } = [];
     public ObservableCollection<TAccount> ToAccounts { get; } = [];
 
+    public ICommand BackCommand { get; set; }
+
+    private readonly TaskCompletionSource<bool> _taskCompletionSource = new();
+
+    public Task<bool> ResultDialog
+        => _taskCompletionSource.Task;
+
     public AddEditBankTransferContentPage()
     {
+        BackCommand = new Command(OnBackCommandPressed);
+
         using var context = new DataBaseContext();
         Accounts = [..context.TAccounts.OrderBy(s => s.Name)];
         FromAccounts.AddRange(Accounts);
@@ -148,6 +160,82 @@ public partial class AddEditBankTransferContentPage
         InitializeComponent();
 
         Interface.LanguageChanged += Interface_OnLanguageChanged;
+    }
+
+    private async void OnBackCommandPressed()
+    {
+        if (IsDirty)
+        {
+            var response = await DisplayAlert(
+                AddEditBankTransferContentPageResources.MessageBoxOnBackCommandPressedTitle,
+                AddEditBankTransferContentPageResources.MessageBoxOnBackCommandPressedMessage,
+                AddEditBankTransferContentPageResources.MessageBoxOnBackCommandPressedYesButton,
+                AddEditBankTransferContentPageResources.MessageBoxOnBackCommandPressedNoButton);
+
+            if (response)
+            {
+                var isValidBankTransfer = await ValidValidBankTransfer();
+                if (!isValidBankTransfer) return;
+
+                var success = AddOrEditBankTransfer();
+                if (!success)
+                {
+                    await DisplayAlert(
+                        AddEditBankTransferContentPageResources.MessageBoxOnBackCommandPressedErrorTitle,
+                        AddEditBankTransferContentPageResources.MessageBoxOnBackCommandPressedErrorMessage,
+                        AddEditBankTransferContentPageResources.MessageBoxOnBackCommandPressedErrorOkButton);
+                    return;
+                }
+
+                _taskCompletionSource.SetResult(true);
+            }
+            else _taskCompletionSource.SetResult(false);
+        }
+
+        await Navigation.PopAsync();
+    }
+
+    private bool AddOrEditBankTransfer()
+    {
+        var json = BankTransfer.ToJson();
+
+        Log.Information("Attempting to add edit bank transfer : {Json}", json);
+        var (success, exception) = BankTransfer.AddOrEdit();
+
+        if (success) Log.Information("Successful bank transfer editing");
+        else Log.Error(exception, "Failed bank transfer editing");
+
+        return success;
+    }
+
+    private async Task<bool> ValidValidBankTransfer()
+    {
+        var validationContext = new ValidationContext(BankTransfer, serviceProvider: null, items: null);
+        var validationResults = new List<ValidationResult>();
+        var isValid = Validator.TryValidateObject(BankTransfer, validationContext, validationResults, true);
+
+        if (isValid) return isValid;
+
+        var propertyError = validationResults.First();
+        var propertyMemberName = propertyError.MemberNames.First();
+
+        var messageErrorKey = propertyMemberName switch
+        {
+            nameof(TBankTransfer.FromAccountFk) => nameof(AddEditBankTransferContentPageResources.MessageBoxButtonValidationFromAccountFkError),
+            nameof(TBankTransfer.ToAccountFk) => nameof(AddEditBankTransferContentPageResources.MessageBoxButtonValidationToAccountFkError),
+            nameof(TBankTransfer.Value) => nameof(AddEditBankTransferContentPageResources.MessageBoxButtonValidationValueError),
+            nameof(TBankTransfer.Date) => nameof(AddEditBankTransferContentPageResources.MessageBoxButtonValidationDateError),
+            nameof(TBankTransfer.MainReason) => nameof(AddEditBankTransferContentPageResources.MessageBoxButtonValidationMainReasonError),
+            _ => null
+        };
+
+        var localizedErrorMessage = string.IsNullOrEmpty(messageErrorKey)
+            ? propertyError.ErrorMessage!
+            : AddEditBankTransferContentPageResources.ResourceManager.GetString(messageErrorKey)!;
+
+        await DisplayAlert(AddEditBankTransferContentPageResources.MessageBoxValidBankTransferErrorTitle, localizedErrorMessage, AddEditBankTransferContentPageResources.MessageBoxValidBankTransferErrorOkButton);
+
+        return isValid;
     }
 
     private void Interface_OnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
