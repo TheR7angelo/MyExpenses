@@ -460,10 +460,23 @@ public partial class AddEditBankTransferContentPage
         collection.AddRange(newCollection);
     }
 
-    private void ButtonUpdateBankTransfer_OnClicked(object? sender, EventArgs e)
+    private async void ButtonUpdateBankTransfer_OnClicked(object? sender, EventArgs e)
     {
-        // TODO work
-        throw new NotImplementedException();
+        var isValidBankTransfer = await ValidValidBankTransfer();
+        if (!isValidBankTransfer) return;
+
+        var success = AddOrEditBankTransfer();
+        if (!success)
+        {
+            await DisplayAlert(
+                AddEditBankTransferContentPageResources.MessageBoxOnBackCommandPressedErrorTitle,
+                AddEditBankTransferContentPageResources.MessageBoxOnBackCommandPressedErrorMessage,
+                AddEditBankTransferContentPageResources.MessageBoxOnBackCommandPressedErrorOkButton);
+            return;
+        }
+
+        _taskCompletionSource.SetResult(true);
+        await Navigation.PopAsync();
     }
 
     private void ButtonDeleteBankTransfer_OnClicked(object? sender, EventArgs e)
