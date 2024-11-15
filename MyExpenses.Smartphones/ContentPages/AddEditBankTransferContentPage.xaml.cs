@@ -13,6 +13,16 @@ namespace MyExpenses.Smartphones.ContentPages;
 
 public partial class AddEditBankTransferContentPage
 {
+    public static readonly BindableProperty CustomEntryControlPlaceholderTextMainReasonProperty =
+        BindableProperty.Create(nameof(CustomEntryControlPlaceholderTextMainReason), typeof(string),
+            typeof(AddEditBankTransferContentPage), default(string));
+
+    public string CustomEntryControlPlaceholderTextMainReason
+    {
+        get => (string)GetValue(CustomEntryControlPlaceholderTextMainReasonProperty);
+        set => SetValue(CustomEntryControlPlaceholderTextMainReasonProperty, value);
+    }
+
     public static readonly BindableProperty LabelTextToAccountToProperty =
         BindableProperty.Create(nameof(LabelTextToAccountTo), typeof(string), typeof(AddEditBankTransferContentPage),
             default(string));
@@ -143,6 +153,8 @@ public partial class AddEditBankTransferContentPage
         LabelTextTransferDate = AddEditBankTransferContentPageResources.LabelTextTransferDate;
         LabelTextTransferValue = AddEditBankTransferContentPageResources.LabelTextTransferValue;
         LabelTextToAccountTo = AddEditBankTransferContentPageResources.LabelTextToAccountTo;
+
+        CustomEntryControlPlaceholderTextMainReason = AddEditBankTransferContentPageResources.CustomEntryControlPlaceholderTextMainReason;
     }
 
     public void SetVBankTransferSummary(VBankTransferSummary? vBankTransferSummary)

@@ -32,4 +32,7 @@
     <data name="LabelTextToAccountTo" xml:space="preserve">
         <value>To</value>
     </data>
+    <data name="CustomEntryControlPlaceholderTextMainReason" xml:space="preserve">
+        <value>Main reason :</value>
+    </data>
 </root>

@@ -88,6 +88,15 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.AddEditBankTransfer
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Main reason :.
+        /// </summary>
+        internal static string CustomEntryControlPlaceholderTextMainReason {
+            get {
+                return ResourceManager.GetString("CustomEntryControlPlaceholderTextMainReason", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to From.
         /// </summary>
         internal static string LabelTextFromAccountFrom {

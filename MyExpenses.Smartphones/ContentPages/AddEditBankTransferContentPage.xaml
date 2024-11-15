@@ -8,6 +8,7 @@
              xmlns:converters="clr-namespace:MyExpenses.Smartphones.Converters"
              xmlns:margin="clr-namespace:MyExpenses.Maui.Utils.Margin;assembly=MyExpenses.Maui.Utils"
              xmlns:images="clr-namespace:MyExpenses.Smartphones.UserControls.Images"
+             xmlns:customEntryControl="clr-namespace:MyExpenses.Smartphones.UserControls.TextInputs.CustomEntryControl"
              x:Name="This"
 
              BindingContext="{Binding Source={RelativeSource Self}}">
@@ -25,6 +26,8 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
             <Grid.ColumnDefinitions>
@@ -133,6 +136,26 @@
                 </Picker>
 
             </VerticalStackLayout>
+
+            <customEntryControl:CustomEntryControl Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3"
+                                                   PlaceholderText="{Binding CustomEntryControlPlaceholderTextMainReason}"
+                                                   Text="{Binding BankTransfer.MainReason, Mode=TwoWay}"
+                                                   HasClearButton="True"
+                                                   HasMultiline="True">
+            </customEntryControl:CustomEntryControl>
+
+            <!-- <Border Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3" -->
+            <!--         Stroke="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}" -->
+            <!--         StrokeThickness="2" -->
+            <!--         HorizontalOptions="Center"> -->
+            <!-- -->
+            <!--     <Border.StrokeShape> -->
+            <!--         <RoundRectangle CornerRadius="5" /> -->
+            <!--     </Border.StrokeShape> -->
+            <!-- -->
+            <!--      -->
+            <!-- -->
+            <!-- </Border> -->
 
         </Grid>
 
