@@ -32,6 +32,7 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
             <Grid.ColumnDefinitions>
@@ -123,24 +124,6 @@
 
             </HorizontalStackLayout>
 
-            <VerticalStackLayout Grid.Row="3" Grid.Column="0"
-                                 HorizontalOptions="Center">
-
-                <Label Text="{Binding LabelTextTransferCategory, Mode=OneWay}"
-                       HorizontalOptions="Center"
-                       HorizontalTextAlignment="Center">
-                </Label>
-
-                <Picker ItemsSource="{Binding CategoryTypes, Mode=OneWay, Source={RelativeSource AncestorType={x:Type local:AddEditBankTransferContentPage}}}"
-                        SelectedItem="{Binding SelectedCategoryType, Mode=TwoWay, Source={RelativeSource AncestorType={x:Type local:AddEditBankTransferContentPage}}}"
-                        ItemDisplayBinding="{Binding Name}" x:DataType="tables:TCategoryType"
-                        HorizontalOptions="Center"
-                        HorizontalTextAlignment="Center"
-                        SelectedIndexChanged="PickerCategory_OnSelectedIndexChanged">
-                </Picker>
-
-            </VerticalStackLayout>
-
             <VerticalStackLayout Grid.Row="3" Grid.Column="1"
                                  HorizontalOptions="Center">
 
@@ -159,32 +142,52 @@
 
             </VerticalStackLayout>
 
-            <VerticalStackLayout Grid.Row="3" Grid.Column="2"
-                                 HorizontalOptions="Center">
+            <VerticalStackLayout Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3">
 
-                <Label Text="{Binding LabelTextTransferPaymentMode, Mode=OneWay}"
-                       HorizontalOptions="Center"
-                       HorizontalTextAlignment="Center">
-                </Label>
+                <HorizontalStackLayout HorizontalOptions="Center">
 
-                <Picker ItemsSource="{Binding ModePayments, Mode=OneWay, Source={RelativeSource AncestorType={x:Type local:AddEditBankTransferContentPage}}}"
-                        SelectedItem="{Binding SelectedModePayment, Mode=TwoWay, Source={RelativeSource AncestorType={x:Type local:AddEditBankTransferContentPage}}}"
-                        ItemDisplayBinding="{Binding Name}" x:DataType="tables:TModePayment"
-                        HorizontalOptions="Center"
-                        HorizontalTextAlignment="Center"
-                        SelectedIndexChanged="PickerModePayment_OnSelectedIndexChanged">
-                </Picker>
+                    <Label Text="{Binding LabelTextTransferCategory, Mode=OneWay}"
+                           HorizontalTextAlignment="Center"
+                           VerticalTextAlignment="Center">
+                    </Label>
+
+                    <Picker ItemsSource="{Binding CategoryTypes, Mode=OneWay, Source={RelativeSource AncestorType={x:Type local:AddEditBankTransferContentPage}}}"
+                            SelectedItem="{Binding SelectedCategoryType, Mode=TwoWay, Source={RelativeSource AncestorType={x:Type local:AddEditBankTransferContentPage}}}"
+                            ItemDisplayBinding="{Binding Name}" x:DataType="tables:TCategoryType"
+                            HorizontalTextAlignment="Center"
+                            VerticalTextAlignment="Center"
+                            SelectedIndexChanged="PickerCategory_OnSelectedIndexChanged">
+                    </Picker>
+
+                </HorizontalStackLayout>
+
+                <HorizontalStackLayout HorizontalOptions="Center">
+
+                    <Label Text="{Binding LabelTextTransferPaymentMode, Mode=OneWay}"
+                           HorizontalTextAlignment="Center"
+                           VerticalTextAlignment="Center">
+                    </Label>
+
+                    <Picker ItemsSource="{Binding ModePayments, Mode=OneWay, Source={RelativeSource AncestorType={x:Type local:AddEditBankTransferContentPage}}}"
+                            SelectedItem="{Binding SelectedModePayment, Mode=TwoWay, Source={RelativeSource AncestorType={x:Type local:AddEditBankTransferContentPage}}}"
+                            ItemDisplayBinding="{Binding Name}" x:DataType="tables:TModePayment"
+                            HorizontalTextAlignment="Center"
+                            VerticalTextAlignment="Center"
+                            SelectedIndexChanged="PickerModePayment_OnSelectedIndexChanged">
+                    </Picker>
+
+                </HorizontalStackLayout>
 
             </VerticalStackLayout>
 
-            <customEntryControl:CustomEntryControl Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3"
+            <customEntryControl:CustomEntryControl Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="3"
                                                    PlaceholderText="{Binding CustomEntryControlPlaceholderTextMainReason}"
                                                    Text="{Binding BankTransfer.MainReason, Mode=TwoWay}"
                                                    HasClearButton="True"
                                                    HasMultiline="True">
             </customEntryControl:CustomEntryControl>
 
-            <customEntryControl:CustomEntryControl Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="3"
+            <customEntryControl:CustomEntryControl Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="3"
                                                    PlaceholderText="{Binding CustomEntryControlPlaceholderTextAdditionalReason}"
                                                    Text="{Binding BankTransfer.AdditionalReason, Mode=TwoWay}"
                                                    HasClearButton="True"
