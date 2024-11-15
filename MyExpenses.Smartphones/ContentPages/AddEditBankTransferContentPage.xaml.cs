@@ -16,6 +16,16 @@ namespace MyExpenses.Smartphones.ContentPages;
 
 public partial class AddEditBankTransferContentPage
 {
+    public static readonly BindableProperty LabelTextTransferCategoryProperty =
+        BindableProperty.Create(nameof(LabelTextTransferCategory), typeof(string),
+            typeof(AddEditBankTransferContentPage), default(string));
+
+    public string LabelTextTransferCategory
+    {
+        get => (string)GetValue(LabelTextTransferCategoryProperty);
+        set => SetValue(LabelTextTransferCategoryProperty, value);
+    }
+
     public static readonly BindableProperty CustomEntryControlPlaceholderTextAdditionalReasonProperty =
         BindableProperty.Create(nameof(CustomEntryControlPlaceholderTextAdditionalReason), typeof(string),
             typeof(AddEditBankTransferContentPage), default(string));
@@ -133,10 +143,23 @@ public partial class AddEditBankTransferContentPage
         set => SetValue(LabelTextFromAccountFromProperty, value);
     }
 
+    public static readonly BindableProperty SelectedCategoryTypeProperty = BindableProperty.Create(
+        nameof(SelectedCategoryType), typeof(TCategoryType),
+        typeof(AddEditBankTransferContentPage), default(TCategoryType));
+
+    public TCategoryType? SelectedCategoryType
+    {
+        get => (TCategoryType?)GetValue(SelectedCategoryTypeProperty);
+        set => SetValue(SelectedCategoryTypeProperty, value);
+    }
+
+    private TCategoryType? OriginalSelectedCategoryType { get; set; }
+
     public TBankTransfer BankTransfer { get; } = new();
     public TBankTransfer? OriginalBankTransfer { get; private set; }
 
     private List<TAccount> Accounts { get; }
+    public List<TCategoryType> CategoryTypes { get; }
     public ObservableCollection<TAccount> FromAccounts { get; } = [];
     public ObservableCollection<TAccount> ToAccounts { get; } = [];
 
@@ -153,6 +176,8 @@ public partial class AddEditBankTransferContentPage
 
         using var context = new DataBaseContext();
         Accounts = [..context.TAccounts.OrderBy(s => s.Name)];
+        CategoryTypes = [..context.TCategoryTypes.OrderBy(s => s.Name)];
+
         FromAccounts.AddRange(Accounts);
         ToAccounts.AddRange(Accounts);
 
@@ -205,6 +230,42 @@ public partial class AddEditBankTransferContentPage
         if (success) Log.Information("Successful bank transfer editing");
         else Log.Error(exception, "Failed bank transfer editing");
 
+        // if (BankTransfer.Id is 0)
+        // {
+        //     var now = DateTime.Now;
+        //     var valueAbs = Math.Abs(BankTransfer.Value ?? 0);
+        //     var fromHistory = new THistory
+        //     {
+        //         AccountFk = BankTransfer.FromAccountFk,
+        //         Description = BankTransfer.MainReason,
+        //         CategoryTypeFk = BankTransfer.CategoryFk,
+        //         ModePaymentFk = ModePayment?.Id,
+        //         Value = -valueAbs,
+        //         Date = BankTransfer.Date,
+        //         IsPointed = true,
+        //         PlaceFk = 1,
+        //         DateAdded = now,
+        //         DatePointed = now,
+        //     };
+        //
+        //     var toHistory = new THistory
+        //     {
+        //         AccountFk = BankTransfer.ToAccountFk,
+        //         Description = BankTransfer.MainReason,
+        //         CategoryTypeFk = Category?.Id,
+        //         ModePaymentFk = ModePayment?.Id,
+        //         Value = valueAbs,
+        //         Date = BankTransfer.Date,
+        //         IsPointed = true,
+        //         PlaceFk = 1,
+        //         DateAdded = now,
+        //         DatePointed = now,
+        //     };
+        //
+        //     BankTransfer.THistories.Add(fromHistory);
+        //     BankTransfer.THistories.Add(toHistory);
+        // }
+
         return success;
     }
 
@@ -221,11 +282,16 @@ public partial class AddEditBankTransferContentPage
 
         var messageErrorKey = propertyMemberName switch
         {
-            nameof(TBankTransfer.FromAccountFk) => nameof(AddEditBankTransferContentPageResources.MessageBoxButtonValidationFromAccountFkError),
-            nameof(TBankTransfer.ToAccountFk) => nameof(AddEditBankTransferContentPageResources.MessageBoxButtonValidationToAccountFkError),
-            nameof(TBankTransfer.Value) => nameof(AddEditBankTransferContentPageResources.MessageBoxButtonValidationValueError),
-            nameof(TBankTransfer.Date) => nameof(AddEditBankTransferContentPageResources.MessageBoxButtonValidationDateError),
-            nameof(TBankTransfer.MainReason) => nameof(AddEditBankTransferContentPageResources.MessageBoxButtonValidationMainReasonError),
+            nameof(TBankTransfer.FromAccountFk) => nameof(AddEditBankTransferContentPageResources
+                .MessageBoxButtonValidationFromAccountFkError),
+            nameof(TBankTransfer.ToAccountFk) => nameof(AddEditBankTransferContentPageResources
+                .MessageBoxButtonValidationToAccountFkError),
+            nameof(TBankTransfer.Value) => nameof(AddEditBankTransferContentPageResources
+                .MessageBoxButtonValidationValueError),
+            nameof(TBankTransfer.Date) => nameof(AddEditBankTransferContentPageResources
+                .MessageBoxButtonValidationDateError),
+            nameof(TBankTransfer.MainReason) => nameof(AddEditBankTransferContentPageResources
+                .MessageBoxButtonValidationMainReasonError),
             _ => null
         };
 
@@ -233,7 +299,8 @@ public partial class AddEditBankTransferContentPage
             ? propertyError.ErrorMessage!
             : AddEditBankTransferContentPageResources.ResourceManager.GetString(messageErrorKey)!;
 
-        await DisplayAlert(AddEditBankTransferContentPageResources.MessageBoxValidBankTransferErrorTitle, localizedErrorMessage, AddEditBankTransferContentPageResources.MessageBoxValidBankTransferErrorOkButton);
+        await DisplayAlert(AddEditBankTransferContentPageResources.MessageBoxValidBankTransferErrorTitle,
+            localizedErrorMessage, AddEditBankTransferContentPageResources.MessageBoxValidBankTransferErrorOkButton);
 
         return isValid;
     }
@@ -254,6 +321,8 @@ public partial class AddEditBankTransferContentPage
 
         CustomEntryControlPlaceholderTextMainReason = AddEditBankTransferContentPageResources.CustomEntryControlPlaceholderTextMainReason;
         CustomEntryControlPlaceholderTextAdditionalReason = AddEditBankTransferContentPageResources.CustomEntryControlPlaceholderTextAdditionalReason;
+
+        LabelTextTransferCategory = AddEditBankTransferContentPageResources.LabelTextTransferCategoryProperty;
     }
 
     public void SetVBankTransferSummary(VBankTransferSummary? vBankTransferSummary)
@@ -263,6 +332,13 @@ public partial class AddEditBankTransferContentPage
         var bankTransfer = vBankTransferSummary.Id.ToISql<TBankTransfer>()!;
         bankTransfer.CopyPropertiesTo(BankTransfer);
         OriginalBankTransfer = bankTransfer.DeepCopy();
+
+        using var context = new DataBaseContext();
+        var history = context.THistories.First(s => s.BankTransferFk.Equals(bankTransfer.Id));
+        var categoryTypeId = context.TCategoryTypes.First(s => s.Id.Equals(history.CategoryTypeFk)).Id;
+
+        SelectedCategoryType = CategoryTypes.FirstOrDefault(s => s.Id.Equals(categoryTypeId));
+        OriginalSelectedCategoryType = SelectedCategoryType.DeepCopy();
 
         UpdateIsDirty();
         UpdateFromAccountSymbol();
@@ -337,10 +413,16 @@ public partial class AddEditBankTransferContentPage
 
     private void UpdateIsDirty()
     {
-        IsDirty = !BankTransfer.AreEqual(OriginalBankTransfer);
+        var bankTransferIsDirty = !BankTransfer.AreEqual(OriginalBankTransfer);
+        var categoryIsDirty = !SelectedCategoryType.AreEqual(OriginalSelectedCategoryType);
+
+        IsDirty = bankTransferIsDirty || categoryIsDirty;
 
         Title = IsDirty
             ? "Changes in progress"
             : string.Empty;
     }
+
+    private void PickerCategory_OnSelectedIndexChanged(object? sender, EventArgs e)
+        => UpdateIsDirty();
 }

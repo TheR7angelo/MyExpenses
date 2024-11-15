@@ -124,6 +124,15 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.AddEditBankTransfer
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Category :.
+        /// </summary>
+        internal static string LabelTextTransferCategoryProperty {
+            get {
+                return ResourceManager.GetString("LabelTextTransferCategoryProperty", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Date :.
         /// </summary>
         internal static string LabelTextTransferDate {

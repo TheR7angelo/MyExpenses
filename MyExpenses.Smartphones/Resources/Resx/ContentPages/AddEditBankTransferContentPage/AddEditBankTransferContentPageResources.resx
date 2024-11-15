@@ -87,4 +87,7 @@
     <data name="MessageBoxValidBankTransferErrorOkButton" xml:space="preserve">
         <value>Ok</value>
     </data>
+    <data name="LabelTextTransferCategoryProperty" xml:space="preserve">
+        <value>Category :</value>
+    </data>
 </root>

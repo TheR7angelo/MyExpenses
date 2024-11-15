@@ -74,7 +74,7 @@
 
                 <Picker x:Name="PickerFromAccountFk"
                         ItemsSource="{Binding FromAccounts, Mode=OneWay, Source={RelativeSource AncestorType={x:Type local:AddEditBankTransferContentPage}}}"
-                        SelectedItem="{Binding BankTransfer.FromAccountFk, Mode=TwoWay, Converter={StaticResource ISqlConverter}, ConverterParameter={Binding FromAccounts, Source={Reference This}}, Source={Reference This}, Source={RelativeSource AncestorType={x:Type local:AddEditBankTransferContentPage}}}"
+                        SelectedItem="{Binding BankTransfer.FromAccountFk, Mode=TwoWay, Converter={StaticResource ISqlConverter}, ConverterParameter={Binding FromAccounts, Source={Reference This}}, Source={RelativeSource AncestorType={x:Type local:AddEditBankTransferContentPage}}}"
                         ItemDisplayBinding="{Binding Name}" x:DataType="tables:TAccount"
                         HorizontalTextAlignment="Center"
                         HorizontalOptions="Center"
@@ -123,7 +123,25 @@
 
             </HorizontalStackLayout>
 
-            <VerticalStackLayout Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3"
+            <VerticalStackLayout Grid.Row="3" Grid.Column="0"
+                                 HorizontalOptions="Center">
+
+                <Label Text="{Binding LabelTextTransferCategory, Mode=OneWay}"
+                       HorizontalOptions="Center"
+                       HorizontalTextAlignment="Center">
+                </Label>
+
+                <Picker ItemsSource="{Binding CategoryTypes, Mode=OneWay, Source={RelativeSource AncestorType={x:Type local:AddEditBankTransferContentPage}}}"
+                        SelectedItem="{Binding SelectedCategoryType, Mode=TwoWay, Source={RelativeSource AncestorType={x:Type local:AddEditBankTransferContentPage}}}"
+                        ItemDisplayBinding="{Binding Name}" x:DataType="tables:TCategoryType"
+                        HorizontalOptions="Center"
+                        HorizontalTextAlignment="Center"
+                        SelectedIndexChanged="PickerCategory_OnSelectedIndexChanged">
+                </Picker>
+
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Grid.Row="3" Grid.Column="1"
                                  HorizontalOptions="Center">
 
                 <Label Text="{Binding LabelTextToAccountTo, Mode=OneWay}"
