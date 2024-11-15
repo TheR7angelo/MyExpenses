@@ -246,71 +246,9 @@ public partial class AddEditBankTransferContentPage
 
     private bool AddOrEditBankTransfer()
     {
-        if (BankTransfer.Id is 0)
-        {
-            var now = DateTime.Now;
-            var valueAbs = Math.Abs(BankTransfer.Value ?? 0);
-            var fromHistory = new THistory
-            {
-                AccountFk = BankTransfer.FromAccountFk,
-                Description = BankTransfer.MainReason,
-                CategoryTypeFk = SelectedCategoryType?.Id,
-                ModePaymentFk = SelectedModePayment?.Id,
-                Value = -valueAbs,
-                Date = BankTransfer.Date,
-                IsPointed = true,
-                PlaceFk = 1,
-                DateAdded = now,
-                DatePointed = now,
-            };
-
-            var toHistory = new THistory
-            {
-                AccountFk = BankTransfer.ToAccountFk,
-                Description = BankTransfer.MainReason,
-                CategoryTypeFk = SelectedCategoryType?.Id,
-                ModePaymentFk = SelectedModePayment?.Id,
-                Value = valueAbs,
-                Date = BankTransfer.Date,
-                IsPointed = true,
-                PlaceFk = 1,
-                DateAdded = now,
-                DatePointed = now,
-            };
-
-            BankTransfer.THistories.Add(fromHistory);
-            BankTransfer.THistories.Add(toHistory);
-        }
-        else
-        {
-            using var context = new DataBaseContext();
-            var fromHistory = context.THistories.First(s => s.BankTransferFk.Equals(BankTransfer.Id) && s.AccountFk.Equals(OriginalBankTransfer!.FromAccountFk));
-            var toHistory = context.THistories.First(s => s.BankTransferFk.Equals(BankTransfer.Id) && s.AccountFk.Equals(OriginalBankTransfer!.ToAccountFk));
-
-            fromHistory.AccountFk = BankTransfer.FromAccountFk;
-            fromHistory.Description = BankTransfer.MainReason;
-            fromHistory.CategoryTypeFk = SelectedCategoryType?.Id;
-            fromHistory.ModePaymentFk = SelectedModePayment?.Id;
-            fromHistory.Value = -Math.Abs(BankTransfer.Value ?? 0);
-            fromHistory.Date = BankTransfer.Date;
-            fromHistory.IsPointed = true;
-            fromHistory.PlaceFk = 1;
-            fromHistory.DatePointed = DateTime.Now;
-
-            toHistory.AccountFk = BankTransfer.ToAccountFk;
-            toHistory.Description = BankTransfer.MainReason;
-            toHistory.CategoryTypeFk = SelectedCategoryType?.Id;
-            toHistory.ModePaymentFk = SelectedModePayment?.Id;
-            toHistory.Value = Math.Abs(BankTransfer.Value ?? 0);
-            toHistory.Date = BankTransfer.Date;
-            toHistory.IsPointed = true;
-            toHistory.PlaceFk = 1;
-            toHistory.DatePointed = DateTime.Now;
-
-            BankTransfer.THistories.Clear();
-            BankTransfer.THistories.Add(fromHistory);
-            BankTransfer.THistories.Add(toHistory);
-        }
+        var now = DateTime.Now;
+        if (BankTransfer.Id is 0) AddTransactionHistories(now);
+        else UpdateTransactionHistories(now);
 
         var json = BankTransfer.ToJson();
 
@@ -321,6 +259,60 @@ public partial class AddEditBankTransferContentPage
         else Log.Error(exception, "Failed bank transfer editing");
 
         return success;
+    }
+
+    private void AddTransactionHistories(DateTime now)
+    {
+        var valueAbs = Math.Abs(BankTransfer.Value ?? 0);
+        var fromHistory = CreateHistory(BankTransfer.FromAccountFk, -valueAbs, now);
+        var toHistory = CreateHistory(BankTransfer.ToAccountFk, valueAbs, now);
+
+        BankTransfer.THistories.Add(fromHistory);
+        BankTransfer.THistories.Add(toHistory);
+    }
+
+    private void UpdateTransactionHistories(DateTime now)
+    {
+        using var context = new DataBaseContext();
+        var fromHistory = context.THistories.First(s => s.BankTransferFk.Equals(BankTransfer.Id) && s.AccountFk.Equals(OriginalBankTransfer!.FromAccountFk));
+        var toHistory = context.THistories.First(s => s.BankTransferFk.Equals(BankTransfer.Id) && s.AccountFk.Equals(OriginalBankTransfer!.ToAccountFk));
+
+        UpdateHistory(fromHistory, BankTransfer.FromAccountFk, -Math.Abs(BankTransfer.Value ?? 0), now);
+        UpdateHistory(toHistory, BankTransfer.ToAccountFk, Math.Abs(BankTransfer.Value ?? 0), now);
+
+        BankTransfer.THistories.Clear();
+        BankTransfer.THistories.Add(fromHistory);
+        BankTransfer.THistories.Add(toHistory);
+    }
+
+    private THistory CreateHistory(int? accountFk, double value, DateTime now)
+    {
+        return new THistory
+        {
+            AccountFk = accountFk,
+            Description = BankTransfer.MainReason,
+            CategoryTypeFk = SelectedCategoryType?.Id,
+            ModePaymentFk = SelectedModePayment?.Id,
+            Value = value,
+            Date = BankTransfer.Date,
+            IsPointed = true,
+            PlaceFk = 1,
+            DateAdded = now,
+            DatePointed = now,
+        };
+    }
+
+    private void UpdateHistory(THistory history, int? accountFk, double value, DateTime now)
+    {
+        history.AccountFk = accountFk;
+        history.Description = BankTransfer.MainReason;
+        history.CategoryTypeFk = SelectedCategoryType?.Id;
+        history.ModePaymentFk = SelectedModePayment?.Id;
+        history.Value = value;
+        history.Date = BankTransfer.Date;
+        history.IsPointed = true;
+        history.PlaceFk = 1;
+        history.DatePointed = now;
     }
 
     private async Task<bool> ValidValidBankTransfer()
