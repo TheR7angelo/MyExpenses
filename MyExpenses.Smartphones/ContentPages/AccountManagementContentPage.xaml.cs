@@ -91,4 +91,13 @@ public partial class AccountManagementContentPage
         var contentPage = (ContentPage)Activator.CreateInstance(type)!;
         await Navigation.PushAsync(contentPage);
     }
+
+    private async void ButtonImageViewCreatBankTransfer_OnClicked(object? sender, EventArgs e)
+    {
+        var addEditBankTransferContentPage = new AddEditBankTransferContentPage { IsNewBankTransfer = true };
+        await Navigation.PushAsync(addEditBankTransferContentPage);
+
+        var needToRefresh = await addEditBankTransferContentPage.ResultDialog;
+        if (needToRefresh) RefreshAccountTotals();
+    }
 }

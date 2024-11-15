@@ -193,6 +193,8 @@ public partial class AddEditBankTransferContentPage
     public Task<bool> ResultDialog
         => _taskCompletionSource.Task;
 
+    public bool IsNewBankTransfer { get; set; }
+
     public AddEditBankTransferContentPage()
     {
         BackCommand = new Command(OnBackCommandPressed);
@@ -447,6 +449,8 @@ public partial class AddEditBankTransferContentPage
 
         IsDirty = bankTransferIsDirty || categoryIsDirty || modePaymentIsDirty;
 
+        if (IsNewBankTransfer) return;
+
         Title = IsDirty
             ? AddEditBankTransferContentPageResources.TitleIsDirty
             : string.Empty;
@@ -454,7 +458,10 @@ public partial class AddEditBankTransferContentPage
 
     private void UpdateLanguage()
     {
-        ButtonUpdateText = AddEditBankTransferContentPageResources.ButtonUpdateText;
+        ButtonUpdateText = IsNewBankTransfer
+            ? AddEditBankTransferContentPageResources.ButtonUpdateText
+            : AddEditBankTransferContentPageResources.ButtonAddNewBankTransferText;
+
         ButtonCanBeDeletedText = AddEditBankTransferContentPageResources.ButtonCanBeDeletedText;
         ButtonCancelUpdateText = AddEditBankTransferContentPageResources.ButtonCancelUpdateText;
 

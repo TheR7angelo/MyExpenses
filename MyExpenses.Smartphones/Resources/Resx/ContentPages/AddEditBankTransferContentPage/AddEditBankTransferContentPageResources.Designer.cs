@@ -61,6 +61,15 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.AddEditBankTransfer
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add a new bank transfer.
+        /// </summary>
+        internal static string ButtonAddNewBankTransferText {
+            get {
+                return ResourceManager.GetString("ButtonAddNewBankTransferText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Delete.
         /// </summary>
         internal static string ButtonCanBeDeletedText {

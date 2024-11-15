@@ -95,7 +95,8 @@
                                                  HeightRequest="64"
                                                  WidthRequest="{Binding HeightRequest, Source={RelativeSource Self}}"
                                                  ImageHeightRequest="40"
-                                                 ImageWidthRequest="{Binding ImageHeightRequest, Source={RelativeSource Self}}">
+                                                 ImageWidthRequest="{Binding ImageHeightRequest, Source={RelativeSource Self}}"
+                                                 Clicked="ButtonImageViewCreatBankTransfer_OnClicked">
                     </customFrame:ButtonImageView>
 
                     <Label Text="{Binding LabelTextTransactionTransfer, Mode=OneWay}"

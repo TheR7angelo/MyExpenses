@@ -125,4 +125,7 @@
     <data name="MessageBoxDeleteBankTransferErrorMessage" xml:space="preserve">
         <value>There was an error updating. Please try again</value>
     </data>
+    <data name="ButtonAddNewBankTransferText" xml:space="preserve">
+        <value>Add a new bank transfer</value>
+    </data>
 </root>
