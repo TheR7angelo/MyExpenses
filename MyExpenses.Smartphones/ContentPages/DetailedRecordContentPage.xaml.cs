@@ -1,5 +1,6 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Windows.Input;
 using BruTile.Predefined;
 using Mapsui.Layers;
@@ -20,6 +21,7 @@ using MyExpenses.Utils.Maps;
 using MyExpenses.Utils.Objects;
 using Serilog;
 using Path = Microsoft.Maui.Controls.Shapes.Path;
+using ValidationResult = System.ComponentModel.DataAnnotations.ValidationResult;
 
 namespace MyExpenses.Smartphones.ContentPages;
 
@@ -296,6 +298,9 @@ public partial class DetailedRecordContentPage
 
     private async void ButtonUpdateHistory_OnClicked(object? sender, EventArgs e)
     {
+        var isValidHistory = await ValidHistory();
+        if (!isValidHistory) return;
+
         var success = AddOrEditHistory();
         if (!success)
         {
@@ -337,6 +342,9 @@ public partial class DetailedRecordContentPage
 
             if (response)
             {
+                var isValidHistory = await ValidHistory();
+                if (!isValidHistory) return;
+
                 var success = AddOrEditHistory();
                 if (!success)
                 {
@@ -634,6 +642,38 @@ public partial class DetailedRecordContentPage
         if (layers is not null) MapControl?.Map.Layers.Remove(layers.ToArray());
 
         MapControl?.Map.Layers.Insert(0, tileLayer);
+    }
+
+    private async Task<bool> ValidHistory()
+    {
+        var validationContext = new ValidationContext(THistory, serviceProvider: null, items: null);
+        var validationResults = new List<ValidationResult>();
+        var isValid = Validator.TryValidateObject(THistory, validationContext, validationResults, true);
+
+        if (isValid) return isValid;
+
+        var propertyError = validationResults.First();
+        var propertyMemberName = propertyError.MemberNames.First();
+
+        var messageErrorKey = propertyMemberName switch
+        {
+            nameof(THistory.AccountFk) => nameof(DetailedRecordContentPageResources.MessageBoxValidationAccountFkError),
+            nameof(THistory.Description) => nameof(DetailedRecordContentPageResources.MessageBoxValidationDescriptionError),
+            nameof(THistory.CategoryTypeFk) => nameof(DetailedRecordContentPageResources.MessageBoxValidationCategoryTypeFkError),
+            nameof(THistory.ModePaymentFk) => nameof(DetailedRecordContentPageResources.MessageBoxValidationModePaymentFkError),
+            nameof(THistory.Value) => nameof(DetailedRecordContentPageResources.MessageBoxValidationValueError),
+            nameof(THistory.Date) => nameof(DetailedRecordContentPageResources.MessageBoxValidationDateError),
+            nameof(THistory.PlaceFk) => nameof(DetailedRecordContentPageResources.MessageBoxValidationPlaceFkError),
+            _ => null
+        };
+
+        var localizedErrorMessage = string.IsNullOrEmpty(messageErrorKey)
+            ? propertyError.ErrorMessage!
+            : DetailedRecordContentPageResources.ResourceManager.GetString(messageErrorKey)!;
+
+        await DisplayAlert(DetailedRecordContentPageResources.MessageBoxValidHistoryErrorTitle, localizedErrorMessage, DetailedRecordContentPageResources.MessageBoxValidHistoryErrorOkButton);
+
+        return isValid;
     }
 
     #endregion

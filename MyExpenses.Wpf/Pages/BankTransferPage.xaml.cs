@@ -14,7 +14,6 @@ using MyExpenses.Utils.Collection;
 using MyExpenses.Utils.Sql;
 using MyExpenses.Wpf.Resources.Regex;
 using MyExpenses.Wpf.Resources.Resx.Pages.BankTransferPage;
-using MyExpenses.Wpf.Utils;
 using MyExpenses.Wpf.Windows;
 using MyExpenses.Wpf.Windows.MsgBox;
 using Serilog;
