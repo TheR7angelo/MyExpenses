@@ -474,8 +474,22 @@ public partial class AddEditBankTransferContentPage
 
     private void ButtonCancelUpdateBankTransfer_OnClicked(object? sender, EventArgs e)
     {
-        // TODO work
-        throw new NotImplementedException();
+        if (OriginalBankTransfer is null)
+        {
+            var clearBankTransfer = new TBankTransfer();
+            clearBankTransfer.CopyPropertiesTo(BankTransfer);
+
+            SelectedCategoryType = null;
+            SelectedModePayment = null;
+        }
+        else
+        {
+            OriginalBankTransfer!.CopyPropertiesTo(BankTransfer);
+            SelectedCategoryType = CategoryTypes.FirstOrDefault(s => s.Id.Equals(OriginalSelectedCategoryType?.Id));
+            SelectedModePayment = ModePayments.FirstOrDefault(s => s.Id.Equals(OriginalSelectedModePayment?.Id));
+        }
+
+        UpdateIsDirty();
     }
 
     private void EntryValue_OnTextChanged(object? sender, TextChangedEventArgs e)
