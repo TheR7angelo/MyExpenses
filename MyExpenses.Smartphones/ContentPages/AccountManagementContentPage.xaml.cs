@@ -100,4 +100,13 @@ public partial class AccountManagementContentPage
         var contentPage = (ContentPage)Activator.CreateInstance(type)!;
         await Navigation.PushAsync(contentPage);
     }
+
+    // TODO work
+    private async void TapGestureRecognizer_OnTapped(object? sender, TappedEventArgs e)
+    {
+        if (sender is not Grid grid) return;
+        if (grid.BindingContext is not VTotalByAccount vTotalByAccount) return;
+
+        await DisplayAlert("Account", $"Account: {vTotalByAccount.Name}", "OK");
+    }
 }

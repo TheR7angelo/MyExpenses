@@ -131,13 +131,9 @@
                                 <Grid>
 
                                     <!-- TODO work -->
-                                    <!-- <Grid.GestureRecognizers> -->
-                                    <!--     <TapGestureRecognizer -->
-                                    <!--         Command="{Binding CollectionViewVVTotalByAccountsShortPressCommand, Source={x:Reference This}}" -->
-                                    <!--         CommandParameter="{Binding .}" -->
-                                    <!--         NumberOfTapsRequired="1"> -->
-                                    <!--     </TapGestureRecognizer> -->
-                                    <!-- </Grid.GestureRecognizers> -->
+                                    <Grid.GestureRecognizers>
+                                        <TapGestureRecognizer Tapped="TapGestureRecognizer_OnTapped" NumberOfTapsRequired="1" />
+                                    </Grid.GestureRecognizers>
 
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="Auto" />
