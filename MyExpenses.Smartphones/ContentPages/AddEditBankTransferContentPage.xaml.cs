@@ -424,8 +424,11 @@ public partial class AddEditBankTransferContentPage
     private void UpdateFromAccountSymbol()
     {
         using var context = new DataBaseContext();
-        var account = Accounts.First(a => a.Id.Equals(BankTransfer.FromAccountFk));
-        FromAccountSymbol = context.TCurrencies.First(s => s.Id.Equals(account.CurrencyFk)).Symbol!;
+        var account = Accounts.FirstOrDefault(a => a.Id.Equals(BankTransfer.FromAccountFk));
+
+        FromAccountSymbol = account is null
+            ? string.Empty
+            : context.TCurrencies.First(s => s.Id.Equals(account.CurrencyFk)).Symbol!;
     }
 
     private void UpdateHistory(THistory history, int? accountFk, double value, DateTime now)
