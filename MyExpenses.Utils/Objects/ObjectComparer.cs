@@ -92,15 +92,13 @@ public static class ObjectComparer
     {
         using var enumerator1 = collection1.GetEnumerator();
         using var enumerator2 = collection2.GetEnumerator();
-
         while (enumerator1.MoveNext())
         {
-            if (!enumerator2.MoveNext() || !ValuesAreEqual(enumerator1.Current, enumerator2.Current))
+            if (!enumerator2.MoveNext() || !enumerator1.Current.AreEqual(enumerator2.Current))
             {
                 return false;
             }
         }
-
         return !enumerator2.MoveNext();
     }
 }
