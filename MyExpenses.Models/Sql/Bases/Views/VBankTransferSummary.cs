@@ -27,6 +27,15 @@ public partial class VBankTransferSummary : ISql
     [Column("additional_reason")]
     public string? AdditionalReason { get; set; }
 
+    [Column("category_name")]
+    public string? CategoryName { get; set; }
+
+    [Column("category_color")]
+    public string? CategoryColor { get; set; }
+
+    [Column("mode_payment")]
+    public string? ModePayment { get; set; }
+
     [Column("date", TypeName = "DATETIME")]
     public DateTime? Date { get; set; }
 

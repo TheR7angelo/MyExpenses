@@ -1441,6 +1441,9 @@ SELECT bt.id,
        c2.symbol                        AS to_account_symbol,
        bt.main_reason,
        bt.additional_reason,
+       tct.name                         AS category_name,
+       c.hexadecimal_color_code         AS category_color,
+       tmp.name                         AS mode_payment,
        bt.date,
        ROUND(fab.balance, 2)            AS from_account_balance_before,
        ROUND(fab.balance - bt.value, 2) AS from_account_balance_after,
@@ -1460,7 +1463,15 @@ FROM t_bank_transfer bt
          INNER JOIN from_account_balance_before fab
                     ON fab.id = bt.id
          INNER JOIN to_account_balance_before tab
-                    ON tab.id = bt.id;
+                    ON tab.id = bt.id
+         INNER JOIN t_history h1
+                    ON a1.id = h1.account_fk AND bt.id = h1.bank_transfer_fk
+         INNER JOIN t_category_type tct
+                    ON h1.category_type_fk = tct.id
+         INNER JOIN t_color c
+                    ON tct.color_fk = c.id
+         INNER JOIN t_mode_payment tmp
+                    ON h1.mode_payment_fk = tmp.id;
 
 -- endregion
 
