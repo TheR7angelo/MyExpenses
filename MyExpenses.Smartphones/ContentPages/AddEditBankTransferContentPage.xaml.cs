@@ -299,7 +299,26 @@ public partial class AddEditBankTransferContentPage
         var validationResults = new List<ValidationResult>();
         var isValid = Validator.TryValidateObject(BankTransfer, validationContext, validationResults, true);
 
-        if (isValid) return isValid;
+        if (isValid)
+        {
+            if (SelectedCategoryType is null)
+            {
+                await DisplayAlert(AddEditBankTransferContentPageResources.MessageBoxValidBankTransferErrorTitle,
+                    AddEditBankTransferContentPageResources.MessageBoxButtonValidBankTransferPrepareCategoryIsNullError,
+                    AddEditBankTransferContentPageResources.MessageBoxValidBankTransferErrorOkButton);
+                return false;
+            }
+
+            if (SelectedModePayment is null)
+            {
+                await DisplayAlert(AddEditBankTransferContentPageResources.MessageBoxValidBankTransferErrorTitle,
+                    AddEditBankTransferContentPageResources.MessageBoxButtonValidBankTransferPrepareModePaymentIsNullError,
+                    AddEditBankTransferContentPageResources.MessageBoxValidBankTransferErrorOkButton);
+                return false;
+            }
+
+            return isValid;
+        }
 
         var propertyError = validationResults.First();
         var propertyMemberName = propertyError.MemberNames.First();

@@ -96,4 +96,10 @@
     <data name="TitleIsDirty" xml:space="preserve">
         <value>Changes in progress</value>
     </data>
+    <data name="MessageBoxButtonValidBankTransferPrepareCategoryIsNullError" xml:space="preserve">
+        <value>Category cannot be empty</value>
+    </data>
+    <data name="MessageBoxButtonValidBankTransferPrepareModePaymentIsNullError" xml:space="preserve">
+        <value>Mode payment cannot be empty</value>
+    </data>
 </root>

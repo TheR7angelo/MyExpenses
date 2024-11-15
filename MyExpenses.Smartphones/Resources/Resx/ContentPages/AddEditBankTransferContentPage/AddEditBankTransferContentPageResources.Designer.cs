@@ -205,6 +205,24 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.AddEditBankTransfer
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Category cannot be empty.
+        /// </summary>
+        internal static string MessageBoxButtonValidBankTransferPrepareCategoryIsNullError {
+            get {
+                return ResourceManager.GetString("MessageBoxButtonValidBankTransferPrepareCategoryIsNullError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mode payment cannot be empty.
+        /// </summary>
+        internal static string MessageBoxButtonValidBankTransferPrepareModePaymentIsNullError {
+            get {
+                return ResourceManager.GetString("MessageBoxButtonValidBankTransferPrepareModePaymentIsNullError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to There was an error updating the history. Please try again.
         /// </summary>
         internal static string MessageBoxOnBackCommandPressedErrorMessage {
