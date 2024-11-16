@@ -124,6 +124,15 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.BankTransferSummary
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Category.
+        /// </summary>
+        internal static string LabelTextCategoryFilter {
+            get {
+                return ResourceManager.GetString("LabelTextCategoryFilter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Date.
         /// </summary>
         internal static string LabelTextDate {

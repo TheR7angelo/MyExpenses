@@ -24,6 +24,16 @@ namespace MyExpenses.Smartphones.ContentPages;
 
 public partial class BankTransferSummaryContentPage
 {
+    public static readonly BindableProperty LabelTextCategoryFilterProperty =
+        BindableProperty.Create(nameof(LabelTextCategoryFilter), typeof(string), typeof(BankTransferSummaryContentPage),
+            default(string));
+
+    public string LabelTextCategoryFilter
+    {
+        get => (string)GetValue(LabelTextCategoryFilterProperty);
+        set => SetValue(LabelTextCategoryFilterProperty, value);
+    }
+
     public static readonly BindableProperty LabelTextToAdditionalReasonFilterProperty =
         BindableProperty.Create(nameof(LabelTextToAdditionalReasonFilter), typeof(string),
             typeof(BankTransferSummaryContentPage), default(string));
@@ -399,7 +409,7 @@ public partial class BankTransferSummaryContentPage
 
         await Navigation.PushAsync(addEditBankTransferContentPage);
 
-        var success  = await addEditBankTransferContentPage.ResultDialog;
+        var success = await addEditBankTransferContentPage.ResultDialog;
         if (!success) return;
 
         _taskCompletionSource.SetResult(true);
@@ -665,6 +675,7 @@ public partial class BankTransferSummaryContentPage
         LabelTextValueFilter = BankTransferSummaryContentPageResources.LabelTextValueFilter;
         LabelTextMainReasonFilter = BankTransferSummaryContentPageResources.LabelTextMainReasonFilter;
         LabelTextToAdditionalReasonFilter = BankTransferSummaryContentPageResources.LabelTextToAdditionalReasonFilter;
+        LabelTextCategoryFilter = BankTransferSummaryContentPageResources.LabelTextCategoryFilter;
 
         LabelTextFromAccount = BankTransferSummaryContentPageResources.LabelTextFromAccount;
         LabelTextToAccount = BankTransferSummaryContentPageResources.LabelTextToAccount;
