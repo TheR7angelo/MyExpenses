@@ -17,6 +17,7 @@ using MyExpenses.Smartphones.Resources.Resx.Converters.EmptyStringTreeViewConver
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils;
 using MyExpenses.Utils.Collection;
+using MyExpenses.Utils.DateTimes;
 using MyExpenses.Utils.Maps;
 using MyExpenses.Utils.Objects;
 using Serilog;
@@ -515,7 +516,16 @@ public partial class DetailedRecordContentPage
     }
 
     private void TimePicker_OnTimeChanged(object? sender, PropertyChangedEventArgs e)
-        => UpdateIsDirty();
+    {
+        if (sender is not TimePicker timePicker) return;
+        var time = timePicker.Time;
+        var dateTime = (DateTime)THistory.Date!;
+
+        dateTime = new DateTime(dateTime.Year, dateTime.Month, dateTime.Day, time.Hours, time.Minutes, time.Seconds);
+        THistory.Date = dateTime;
+
+        UpdateIsDirty();
+    }
 
     #endregion
 
@@ -680,6 +690,8 @@ public partial class DetailedRecordContentPage
             var history = context.THistories.First(s => s.Id.Equals(historyPk));
             history.CopyPropertiesTo(THistory);
         }
+
+        TimePicker.Time = THistory.Date.ToTimeSpan();
 
         UpdateHistorySymbol();
         UpdateHexadecimalColorCode();

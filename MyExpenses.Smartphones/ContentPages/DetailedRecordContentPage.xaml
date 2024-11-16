@@ -112,7 +112,8 @@
                                         DateSelected="DatePicker_OnDateSelected">
                             </DatePicker>
 
-                            <TimePicker HorizontalOptions="Start"
+                            <TimePicker x:Name="TimePicker"
+                                        HorizontalOptions="Start"
                                         VerticalOptions="Center"
                                         Margin="5, 0, 0, 0"
                                         Time="{Binding THistory.Date, Mode=TwoWay}"
