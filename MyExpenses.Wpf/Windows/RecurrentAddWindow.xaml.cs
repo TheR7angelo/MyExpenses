@@ -12,7 +12,7 @@ using MyExpenses.Models.Sql.Bases.Views;
 using MyExpenses.Models.Sql.Derivatives.Views;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils.Collection;
-using MyExpenses.Utils.Dates;
+using MyExpenses.Utils.DateTimes;
 using MyExpenses.Wpf.Resources.Resx.Windows.RecurrentAddWindow;
 using MyExpenses.Wpf.Utils;
 using MyExpenses.Wpf.Utils.FilterDataGrid;
@@ -138,7 +138,7 @@ public partial class RecurrentAddWindow
                 CategoryTypeFk = vRecursiveExpenseDerive.CategoryTypeFk,
                 ModePaymentFk = vRecursiveExpenseDerive.ModePaymentFk,
                 Value = vRecursiveExpenseDerive.Value,
-                Date = DateExtensions.ToDateTime(vRecursiveExpenseDerive.NextDueDate),
+                Date = DateTimeExtensions.ToDateTime(vRecursiveExpenseDerive.NextDueDate),
                 PlaceFk = vRecursiveExpenseDerive.PlaceFk,
                 RecursiveExpenseFk = vRecursiveExpenseDerive.Id
             };

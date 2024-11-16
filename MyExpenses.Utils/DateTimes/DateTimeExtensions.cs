@@ -1,8 +1,8 @@
 using MyExpenses.Models.Sql.Bases.Enums;
 
-namespace MyExpenses.Utils.Dates;
+namespace MyExpenses.Utils.DateTimes;
 
-public static class DateExtensions
+public static class DateTimeExtensions
 {
     /// <summary>
     /// Converts a DateOnly object to a DateTime object.
