@@ -389,6 +389,23 @@ public partial class BankTransferSummaryContentPage
         RefreshDataGrid();
     }
 
+    private async void TapGestureRecognizer_OnTapped(object? sender, TappedEventArgs e)
+    {
+        if (sender is not Border border) return;
+        if (border.BindingContext is not VBankTransferSummary vBankTransferSummary) return;
+
+        var addEditBankTransferContentPage = new AddEditBankTransferContentPage { CanBeDeleted = true };
+        addEditBankTransferContentPage.SetVBankTransferSummary(vBankTransferSummary);
+
+        await Navigation.PushAsync(addEditBankTransferContentPage);
+
+        var success  = await addEditBankTransferContentPage.ResultDialog;
+        if (!success) return;
+
+        _taskCompletionSource.SetResult(true);
+        RefreshDataGrid();
+    }
+
     private async void ToAccountSvgPath_OnClicked(object? sender, EventArgs e)
         => await RunFilter(sender, FilterToAccount);
 
@@ -810,22 +827,5 @@ public partial class BankTransferSummaryContentPage
                 ? horizontalStackLayout.FindVisualChildren<SvgPath>().FirstOrDefault()
                 : null
         };
-    }
-
-    private async void TapGestureRecognizer_OnTapped(object? sender, TappedEventArgs e)
-    {
-        if (sender is not Border border) return;
-        if (border.BindingContext is not VBankTransferSummary vBankTransferSummary) return;
-
-        var addEditBankTransferContentPage = new AddEditBankTransferContentPage { CanBeDeleted = true };
-        addEditBankTransferContentPage.SetVBankTransferSummary(vBankTransferSummary);
-
-        await Navigation.PushAsync(addEditBankTransferContentPage);
-
-        var success  = await addEditBankTransferContentPage.ResultDialog;
-        if (!success) return;
-
-        _taskCompletionSource.SetResult(true);
-        RefreshDataGrid();
     }
 }
