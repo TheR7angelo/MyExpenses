@@ -18,6 +18,7 @@ public enum EPackIcons
     FilterCheck,
     Folder,
     History,
+    InvoicePlus,
     Minus,
     MinusCheckboxOutline,
     Plus,
