@@ -5,6 +5,17 @@ namespace MyExpenses.Utils.DateTimes;
 public static class DateTimeExtensions
 {
     /// <summary>
+    /// Converts a nullable DateTime object to a TimeSpan representing the time of day.
+    /// </summary>
+    /// <param name="dateTime">The nullable DateTime object to be converted.</param>
+    /// <returns>A TimeSpan representing the time of day, or a default TimeSpan if the DateTime object is null.</returns>
+    public static TimeSpan ToTimeSpan(this DateTime? dateTime)
+    {
+        var timeSpan = dateTime?.TimeOfDay ?? new TimeSpan();
+        return timeSpan;
+    }
+
+    /// <summary>
     /// Converts a DateOnly object to a DateTime object.
     /// </summary>
     /// <param name="dateOnly">The DateOnly object to be converted.</param>
