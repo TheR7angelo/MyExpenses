@@ -262,12 +262,20 @@ public partial class DetailedRecordContentPage
 
     private void ButtonCancelUpdateHistory_OnClicked(object? sender, EventArgs e)
     {
-        var place = OriginalHistory.PlaceFk?.ToISql<TPlace>();
-        SelectedCountry = EmptyStringTreeViewConverter.ToUnknown(place?.Country);
-        SelectedCity = EmptyStringTreeViewConverter.ToUnknown(place?.City);
+        if (OriginalHistory is null)
+        {
+            var cleanHistory = new THistory();
+            cleanHistory.CopyPropertiesTo(THistory);
+        }
+        else
+        {
+            var place = OriginalHistory.PlaceFk?.ToISql<TPlace>();
+            SelectedCountry = EmptyStringTreeViewConverter.ToUnknown(place?.Country);
+            SelectedCity = EmptyStringTreeViewConverter.ToUnknown(place?.City);
 
-        OriginalHistory.CopyPropertiesTo(THistory);
-        Refocus();
+            OriginalHistory.CopyPropertiesTo(THistory);
+            Refocus();
+        }
 
         UpdateIsDirty();
     }
@@ -575,6 +583,8 @@ public partial class DetailedRecordContentPage
     private void UpdateIsDirty()
     {
         IsDirty = !THistory.AreEqual(OriginalHistory);
+
+        if (IsNewHistory) return;
 
         Title = IsDirty
             ? DetailedRecordContentPageResources.TitleIsDirty
