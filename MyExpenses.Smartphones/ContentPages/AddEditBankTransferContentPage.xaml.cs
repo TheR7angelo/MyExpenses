@@ -392,6 +392,7 @@ public partial class AddEditBankTransferContentPage
         var fromHistory = CreateHistory(BankTransfer.FromAccountFk, -valueAbs, now);
         var toHistory = CreateHistory(BankTransfer.ToAccountFk, valueAbs, now);
 
+        BankTransfer.DateAdded = now;
         BankTransfer.THistories.Add(fromHistory);
         BankTransfer.THistories.Add(toHistory);
     }
