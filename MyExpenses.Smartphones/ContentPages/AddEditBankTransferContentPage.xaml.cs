@@ -178,7 +178,7 @@ public partial class AddEditBankTransferContentPage
     private TModePayment? OriginalSelectedModePayment { get; set; }
 
     public TBankTransfer BankTransfer { get; } = new();
-    public TBankTransfer? OriginalBankTransfer { get; private set; }
+    private TBankTransfer? OriginalBankTransfer { get; set; }
 
     private List<TAccount> Accounts { get; }
     public List<TCategoryType> CategoryTypes { get; }
