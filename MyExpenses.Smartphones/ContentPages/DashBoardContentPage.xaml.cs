@@ -898,8 +898,15 @@ public partial class DashBoardContentPage
         Place
     }
 
-    private void ButtonImageViewAddRecordHistory_OnClicked(object? sender, EventArgs e)
+    private async void ButtonImageViewAddRecordHistory_OnClicked(object? sender, EventArgs e)
     {
-        throw new NotImplementedException();
+        var detailedRecordContentPage = new DetailedRecordContentPage { IsNewHistory = true };
+        await Navigation.PushAsync(detailedRecordContentPage);
+
+        var result = await detailedRecordContentPage.ResultDialog;
+        if (result is not true) return;
+
+        RefreshDataGrid();
+        RefreshAccountTotal();
     }
 }
