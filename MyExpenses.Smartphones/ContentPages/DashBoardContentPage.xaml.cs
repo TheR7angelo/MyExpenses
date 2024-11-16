@@ -276,6 +276,18 @@ public partial class DashBoardContentPage
         UpdateFilterDate(now);
     }
 
+    private async void ButtonImageViewAddRecordHistory_OnClicked(object? sender, EventArgs e)
+    {
+        var detailedRecordContentPage = new DetailedRecordContentPage { IsNewHistory = true };
+        await Navigation.PushAsync(detailedRecordContentPage);
+
+        var result = await detailedRecordContentPage.ResultDialog;
+        if (result is not true) return;
+
+        RefreshDataGrid();
+        RefreshAccountTotal();
+    }
+
     private async void ButtonRemoveMonth_OnClick(object? sender, EventArgs e)
     {
         var date = GetDateOnlyFilter();
@@ -896,17 +908,5 @@ public partial class DashBoardContentPage
         Value,
         Checked,
         Place
-    }
-
-    private async void ButtonImageViewAddRecordHistory_OnClicked(object? sender, EventArgs e)
-    {
-        var detailedRecordContentPage = new DetailedRecordContentPage { IsNewHistory = true };
-        await Navigation.PushAsync(detailedRecordContentPage);
-
-        var result = await detailedRecordContentPage.ResultDialog;
-        if (result is not true) return;
-
-        RefreshDataGrid();
-        RefreshAccountTotal();
     }
 }
