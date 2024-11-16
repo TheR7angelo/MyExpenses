@@ -11,6 +11,7 @@ using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Maui.CustomPopupFilter;
 using MyExpenses.Models.Sql.Bases.Views;
 using MyExpenses.Models.Sql.Derivatives.Tables;
+using MyExpenses.Models.Sql.Derivatives.Views;
 using MyExpenses.Smartphones.ContentPages.CustomPopups;
 using MyExpenses.Smartphones.PackIcons;
 using MyExpenses.Smartphones.Resources.Resx.ContentPages.BankTransferSummaryContentPage;
@@ -257,6 +258,7 @@ public partial class BankTransferSummaryContentPage
     private List<DoubleIsChecked> BankTransferValuesFilters { get; } = [];
     private List<StringIsChecked> BankTransferMainReasonFilters { get; } = [];
     private List<StringIsChecked> BankTransferAdditionalReasonFilters { get; } = [];
+    private List<VCategoryDerive> VCategoryDerivesFilter { get; } = [];
 
     private readonly TaskCompletionSource<bool> _taskCompletionSource = new();
 
@@ -336,6 +338,12 @@ public partial class BankTransferSummaryContentPage
             BankTransferSummaryContentPageResources.MessageBoxRemoveMonthErrorOkButton);
     }
 
+    private async void CategorySvgPath_OnClicked(object? sender, EventArgs e)
+        => await RunFilter(sender, FilterCategory);
+
+    private async void CategoryTapGestureRecognizer_Tapped(object? sender, TappedEventArgs e)
+        => await RunFilter(sender, FilterCategory);
+
     private void CustomPicker_OnSelectedIndexChanged(object? sender, EventArgs e)
         => RefreshDataGrid();
 
@@ -376,6 +384,7 @@ public partial class BankTransferSummaryContentPage
         BankTransferValuesFilters.Clear();
         BankTransferMainReasonFilters.Clear();
         BankTransferAdditionalReasonFilters.Clear();
+        VCategoryDerivesFilter.Clear();
 
         RefreshDataGrid();
     }
@@ -421,6 +430,42 @@ public partial class BankTransferSummaryContentPage
         await this.ShowPopupAsync(customPopupFilterDescription);
 
         FilterManagement(BankTransferAdditionalReasonFilters, customPopupFilterDescription, eFilter, svgPath);
+    }
+
+    private async Task FilterCategory(SvgPath svgPath)
+    {
+        const EFilter eFilter = EFilter.Category;
+
+        IEnumerable<int> transferIds;
+        if (Filters.Count is 0) transferIds = BankTransferSummaries.Select(s => s.Id);
+        else
+        {
+            var items = Filters.Last() == eFilter
+                ? OriginalVBankTransferSummary.Last().AsEnumerable()
+                : BankTransferSummaries.AsEnumerable();
+
+            transferIds = items.Select(s => s.Id);
+        }
+
+        var mapper = Mapping.Mapper;
+        await using var context = new DataBaseContext();
+        var categoryTypeFk = context.THistories
+            .Where(s => s.BankTransferFk != null)
+            .Where(s => transferIds.Contains(s.BankTransferFk!.Value))
+            .Select(s => s.CategoryTypeFk)
+            .Distinct()
+            .ToList();
+
+        var vCategoryDerives = context.VCategories
+            .Where(s => categoryTypeFk.Contains(s.Id))
+            .OrderBy(s => s.CategoryName)
+            .Select(s => mapper.Map<VCategoryDerive>(s))
+            .ToList();
+
+        var customPopupFilterCategories = new CustomPopupFilterCategories(vCategoryDerives, VCategoryDerivesFilter);
+        await this.ShowPopupAsync(customPopupFilterCategories);
+
+        FilterManagement(VCategoryDerivesFilter, customPopupFilterCategories, eFilter, svgPath);
     }
 
     private async Task FilterFromAccount(SvgPath svgPath)
@@ -674,6 +719,12 @@ public partial class BankTransferSummaryContentPage
             query = query.Where(s => values.Contains(s.AdditionalReason));
         }
 
+        if (VCategoryDerivesFilter.Count > 0)
+        {
+            var categoryName = VCategoryDerivesFilter.Select(s => s.CategoryName!);
+            query = query.Where(s => categoryName.Contains(s.CategoryName));
+        }
+
         RowTotalFilteredCount = query.Count();
 
         var records = query
@@ -737,7 +788,8 @@ public partial class BankTransferSummaryContentPage
         ToAccounts,
         Values,
         MainReason,
-        AdditionalReason
+        AdditionalReason,
+        Category
     }
 
     private static async Task RunFilter(object? sender, Func<SvgPath, Task> func)
