@@ -584,9 +584,7 @@ public partial class DetailedRecordContentPage
     {
         IsDirty = !THistory.AreEqual(OriginalHistory);
 
-        if (IsNewHistory) return;
-
-        Title = IsDirty
+        Title = IsDirty && !IsNewHistory
             ? DetailedRecordContentPageResources.TitleIsDirty
             : string.Empty;
     }
