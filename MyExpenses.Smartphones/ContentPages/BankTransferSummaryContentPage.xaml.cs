@@ -353,17 +353,17 @@ public partial class BankTransferSummaryContentPage
     private async void FromAccountTapGestureRecognizer_Tapped(object? sender, TappedEventArgs e)
         => await RunFilter(sender, FilterFromAccount);
 
-    private async void MainReasonSvgPath_OnClicked(object? sender, EventArgs e)
-        => await RunFilter(sender, FilterMainReason);
-
-    private async void MainReasonTapGestureRecognizer_Tapped(object? sender, TappedEventArgs e)
-        => await RunFilter(sender, FilterMainReason);
-
     private void Interface_OnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
     {
         UpdateLanguage();
         UpdateMonthLanguage();
     }
+
+    private async void MainReasonSvgPath_OnClicked(object? sender, EventArgs e)
+        => await RunFilter(sender, FilterMainReason);
+
+    private async void MainReasonTapGestureRecognizer_Tapped(object? sender, TappedEventArgs e)
+        => await RunFilter(sender, FilterMainReason);
 
     private void SvgPathRefresh_OnClicked(object? sender, EventArgs e)
     {
