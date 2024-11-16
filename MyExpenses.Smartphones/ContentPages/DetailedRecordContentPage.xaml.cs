@@ -224,7 +224,25 @@ public partial class DetailedRecordContentPage
     public Task<bool> ResultDialog
         => _taskCompletionSource.Task;
 
-    public bool IsNewHistory { get; set; }
+    private static readonly BindableProperty IsNewHistoryProperty =
+        BindableProperty.Create(nameof(IsNewHistory), typeof(bool), typeof(DetailedRecordContentPage),
+            default(bool), propertyChanged: IsNewHistory_PropertyChanged);
+
+    private static void IsNewHistory_PropertyChanged(BindableObject bindable, object oldValue, object newValue)
+    {
+        if (newValue is not bool isNewHistory) return;
+        if (bindable is not DetailedRecordContentPage sender) return;
+
+        sender.ButtonUpdateText = isNewHistory
+            ? DetailedRecordContentPageResources.ButtonAddNewHistoryText
+            : DetailedRecordContentPageResources.ButtonUpdateText;
+    }
+
+    public bool IsNewHistory
+    {
+        get => (bool)GetValue(IsNewHistoryProperty);
+        set => SetValue(IsNewHistoryProperty, value);
+    }
 
     public DetailedRecordContentPage()
     {
