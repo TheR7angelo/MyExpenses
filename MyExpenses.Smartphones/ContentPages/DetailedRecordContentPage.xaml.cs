@@ -532,8 +532,11 @@ public partial class DetailedRecordContentPage
 
     private bool AddOrEditHistory()
     {
+        var now = DateTime.Now;
         if (OriginalHistory?.IsPointed is true) { if (!THistory.IsPointed) THistory.DatePointed = null; }
-        else if (THistory.IsPointed) THistory.DatePointed = DateTime.Now;
+        else if (THistory.IsPointed) THistory.DatePointed = now;
+
+        if (IsNewHistory) THistory.DateAdded = now;
 
         var json = THistory.ToJson();
 
