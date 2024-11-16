@@ -338,7 +338,8 @@ public partial class DashBoardContentPage
 
         if (obj is not VHistory vHistory) return;
 
-        var detailedRecordContentPage = new DetailedRecordContentPage(vHistory.Id) { CanBeDeleted = true };
+        var detailedRecordContentPage = new DetailedRecordContentPage { CanBeDeleted = true };
+        detailedRecordContentPage.SetHistory(vHistory.Id);
         await Navigation.PushAsync(detailedRecordContentPage);
 
         var result = await detailedRecordContentPage.ResultDialog;
@@ -895,5 +896,10 @@ public partial class DashBoardContentPage
         Value,
         Checked,
         Place
+    }
+
+    private void ButtonImageViewAddRecordHistory_OnClicked(object? sender, EventArgs e)
+    {
+        throw new NotImplementedException();
     }
 }

@@ -104,6 +104,16 @@
                                              Clicked="ButtonRemoveMonth_OnClick">
                 </customFrame:ButtonImageView>
 
+                <customFrame:ButtonImageView Style="{StaticResource FloatingActionMiniSecondaryDarkButtonImageView}"
+                                             Margin="5"
+                                             GeometrySource="InvoicePlus"
+                                             ImageHeightRequest="24"
+                                             ImageWidthRequest="{Binding ImageHeightRequest, Source={RelativeSource Self}}"
+                                             HeightRequest="40"
+                                             WidthRequest="{Binding HeightRequest, Source={RelativeSource Self}}"
+                                             Clicked="ButtonImageViewAddRecordHistory_OnClicked">
+                </customFrame:ButtonImageView>
+
             </HorizontalStackLayout>
 
             <Grid Grid.Row="2" margin:LayoutExtensions.MarginForAllChildren="5">

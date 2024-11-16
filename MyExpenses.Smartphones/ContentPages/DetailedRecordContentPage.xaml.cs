@@ -180,23 +180,26 @@ public partial class DetailedRecordContentPage
         set => SetValue(CanBeDeletedProperty, value);
     }
 
-    public static readonly BindableProperty THistoryProperty = BindableProperty.Create(nameof(THistory),
-        typeof(THistory), typeof(DetailedRecordContentPage), default(THistory));
+    public static readonly BindableProperty HistorySymbolProperty = BindableProperty.Create(nameof(HistorySymbol),
+        typeof(string), typeof(DetailedRecordContentPage), default(string));
 
-    public THistory THistory
+    public string HistorySymbol
     {
-        get => (THistory)GetValue(THistoryProperty);
-        set => SetValue(THistoryProperty, value);
+        get => (string)GetValue(HistorySymbolProperty);
+        set => SetValue(HistorySymbolProperty, value);
     }
 
-    public static readonly BindableProperty VHistoryProperty = BindableProperty.Create(nameof(VHistory),
-        typeof(VHistory), typeof(DetailedRecordContentPage), default(VHistory));
+    public static readonly BindableProperty HexadecimalColorCodeProperty =
+        BindableProperty.Create(nameof(HexadecimalColorCode), typeof(string), typeof(DetailedRecordContentPage),
+            "#00000000");
 
-    public VHistory VHistory
+    public string HexadecimalColorCode
     {
-        get => (VHistory)GetValue(VHistoryProperty);
-        set => SetValue(VHistoryProperty, value);
+        get => (string)GetValue(HexadecimalColorCodeProperty);
+        set => SetValue(HexadecimalColorCodeProperty, value);
     }
+
+    public THistory THistory { get; } = new();
 
     public EPackIcons CloseCircle { get; } = EPackIcons.CloseCircle;
 
@@ -210,9 +213,9 @@ public partial class DetailedRecordContentPage
     public ObservableCollection<string> CountriesCollection { get; private init; } = [];
 
     public ObservableCollection<string> CitiesCollection { get; private init; } = [];
-    public ObservableCollection<TPlace> PlacesCollection { get; private init; } = [];
+    public List<TPlace> PlacesCollection { get; private init; } = [];
 
-    private THistory OriginalHistory { get; set; } = null!;
+    private THistory? OriginalHistory { get; set; }
 
     public ICommand BackCommand { get; set; } = null!;
 
@@ -221,29 +224,36 @@ public partial class DetailedRecordContentPage
     public Task<bool> ResultDialog
         => _taskCompletionSource.Task;
 
-    public DetailedRecordContentPage(int historyPk)
+    public DetailedRecordContentPage()
     {
+        BackCommand = new Command(OnBackCommandPressed);
+
         using var context = new DataBaseContext();
-        THistory = context.THistories.First(s => s.Id.Equals(historyPk));
-        VHistory = context.VHistories.First(s => s.Id.Equals(historyPk));
+        ModePayments.AddRange(context.TModePayments.OrderBy(s => s.Name));
+        CategoryTypes.AddRange(context.TCategoryTypes.OrderBy(s => s.Name));
+        Accounts.AddRange(context.TAccounts.OrderBy(s => s.Name));
 
-        InitializeContentPage();
-    }
+        PlacesCollection.AddRange(context.TPlaces.OrderBy(s => s.Name));
 
-    public DetailedRecordContentPage(THistory tHistory)
-    {
-        THistory = tHistory;
-        VHistory = tHistory.Id.ToISql<VHistory>()!;
+        var records = PlacesCollection.Select(s => EmptyStringTreeViewConverter.ToUnknown(s.Country)).Order()
+            .Distinct();
+        CountriesCollection.AddRange(records);
 
-        InitializeContentPage();
-    }
+        records = PlacesCollection.Select(s => EmptyStringTreeViewConverter.ToUnknown(s.City)).Order().Distinct();
+        CitiesCollection.AddRange(records);
 
-    public DetailedRecordContentPage(VHistory vHistory)
-    {
-        THistory = vHistory.Id.ToISql<THistory>()!;
-        VHistory = vHistory;
+        var knowTileSource = MapsuiMapExtensions.GetAllKnowTileSource();
+        KnownTileSources.AddRange(knowTileSource);
 
-        InitializeContentPage();
+        var map = MapsuiMapExtensions.GetMap(false);
+        map.Layers.Add(PlaceLayer);
+
+        UpdateLanguage();
+        InitializeComponent();
+
+        MapControl.Map = map;
+
+        Interface.LanguageChanged += Interface_OnLanguageChanged;
     }
 
     #region Action
@@ -364,10 +374,16 @@ public partial class DetailedRecordContentPage
     }
 
     private void PickerAccount_OnSelectedIndexChanged(object? sender, EventArgs e)
-        => UpdateIsDirty();
+    {
+        UpdateHistorySymbol();
+        UpdateIsDirty();
+    }
 
     private void PickerCategoryTypeFk_OnSelectedIndexChanged(object? sender, EventArgs e)
-        => UpdateIsDirty();
+    {
+        UpdateHexadecimalColorCode();
+        UpdateIsDirty();
+    }
 
     private void PickerKnownTileSources_OnSelectedIndexChanged(object? sender, EventArgs e)
         => UpdateTileLayer();
@@ -405,7 +421,7 @@ public partial class DetailedRecordContentPage
         CitiesCollection.AddRangeAndSort(citiesResults, s => s);
 
         PlacesCollection.Clear();
-        PlacesCollection.AddRangeAndSort(records, s => s.Name!);
+        PlacesCollection.AddRange(records.OrderBy(s => s.Name));
 
         ComboBoxSelectorCity.SelectedIndexChanged += SelectorCity_OnSelectionChanged;
         ComboBoxSelectorPlace.SelectedIndexChanged += SelectorPlace_OnSelectionChanged;
@@ -440,7 +456,7 @@ public partial class DetailedRecordContentPage
         }
 
         PlacesCollection.Clear();
-        PlacesCollection.AddRangeAndSort(records, s => s.Name!);
+        PlacesCollection.AddRange(records.OrderBy(s => s.Name));
     }
 
     private void SelectorPlace_OnSelectionChanged(object? sender, EventArgs e)
@@ -515,47 +531,6 @@ public partial class DetailedRecordContentPage
         else Log.Error(exception, "Failed history editing");
 
         return success;
-    }
-
-    private void InitializeContentPage()
-    {
-        BackCommand = new Command(OnBackCommandPressed);
-
-        OriginalHistory = THistory.DeepCopy()!;
-
-        using var context = new DataBaseContext();
-        ModePayments.AddRange(context.TModePayments.OrderBy(s => s.Name));
-        CategoryTypes.AddRange(context.TCategoryTypes.OrderBy(s => s.Name));
-        Accounts.AddRange(context.TAccounts.OrderBy(s => s.Name));
-
-        PlacesCollection.AddRange(context.TPlaces.OrderBy(s => s.Name));
-
-        var records = PlacesCollection.Select(s => EmptyStringTreeViewConverter.ToUnknown(s.Country)).Order()
-            .Distinct();
-        CountriesCollection.AddRange(records);
-
-        records = PlacesCollection.Select(s => EmptyStringTreeViewConverter.ToUnknown(s.City)).Order().Distinct();
-        CitiesCollection.AddRange(records);
-
-        var knowTileSource = MapsuiMapExtensions.GetAllKnowTileSource();
-        KnownTileSources.AddRange(knowTileSource);
-
-        var map = MapsuiMapExtensions.GetMap(false);
-        map.Layers.Add(PlaceLayer);
-
-        UpdateLanguage();
-        InitializeComponent();
-
-        MapControl.Map = map;
-
-        var place = context.TPlaces.FirstOrDefault(s => s.Id.Equals(THistory.PlaceFk));
-        UpdateMapPoint(place);
-
-        SelectedCountry = EmptyStringTreeViewConverter.ToUnknown(place?.Country);
-        SelectedCity = EmptyStringTreeViewConverter.ToUnknown(place?.City);
-        ComboBoxSelectorPlace.SelectedItem = place;
-
-        Interface.LanguageChanged += Interface_OnLanguageChanged;
     }
 
     private void Refocus()
@@ -658,9 +633,12 @@ public partial class DetailedRecordContentPage
         var messageErrorKey = propertyMemberName switch
         {
             nameof(THistory.AccountFk) => nameof(DetailedRecordContentPageResources.MessageBoxValidationAccountFkError),
-            nameof(THistory.Description) => nameof(DetailedRecordContentPageResources.MessageBoxValidationDescriptionError),
-            nameof(THistory.CategoryTypeFk) => nameof(DetailedRecordContentPageResources.MessageBoxValidationCategoryTypeFkError),
-            nameof(THistory.ModePaymentFk) => nameof(DetailedRecordContentPageResources.MessageBoxValidationModePaymentFkError),
+            nameof(THistory.Description) => nameof(DetailedRecordContentPageResources
+                .MessageBoxValidationDescriptionError),
+            nameof(THistory.CategoryTypeFk) => nameof(DetailedRecordContentPageResources
+                .MessageBoxValidationCategoryTypeFkError),
+            nameof(THistory.ModePaymentFk) => nameof(DetailedRecordContentPageResources
+                .MessageBoxValidationModePaymentFkError),
             nameof(THistory.Value) => nameof(DetailedRecordContentPageResources.MessageBoxValidationValueError),
             nameof(THistory.Date) => nameof(DetailedRecordContentPageResources.MessageBoxValidationDateError),
             nameof(THistory.PlaceFk) => nameof(DetailedRecordContentPageResources.MessageBoxValidationPlaceFkError),
@@ -671,10 +649,69 @@ public partial class DetailedRecordContentPage
             ? propertyError.ErrorMessage!
             : DetailedRecordContentPageResources.ResourceManager.GetString(messageErrorKey)!;
 
-        await DisplayAlert(DetailedRecordContentPageResources.MessageBoxValidHistoryErrorTitle, localizedErrorMessage, DetailedRecordContentPageResources.MessageBoxValidHistoryErrorOkButton);
+        await DisplayAlert(DetailedRecordContentPageResources.MessageBoxValidHistoryErrorTitle, localizedErrorMessage,
+            DetailedRecordContentPageResources.MessageBoxValidHistoryErrorOkButton);
 
         return isValid;
     }
 
     #endregion
+
+    public void SetHistory(int? historyPk = null, THistory? tHistory = null)
+    {
+        if (historyPk is null && tHistory is null)
+        {
+            throw new ArgumentNullException(nameof(historyPk), @"historyPk is null");
+        }
+
+        using var context = new DataBaseContext();
+        if (tHistory is not null)
+        {
+            tHistory.CopyPropertiesTo(THistory);
+        }
+        else
+        {
+            var history = context.THistories.First(s => s.Id.Equals(historyPk));
+            history.CopyPropertiesTo(THistory);
+        }
+
+        UpdateHistorySymbol();
+        UpdateHexadecimalColorCode();
+
+        OriginalHistory = THistory.DeepCopy();
+
+        var place = PlacesCollection.FirstOrDefault(s => s.Id.Equals(THistory.PlaceFk));
+        SelectedCountry = EmptyStringTreeViewConverter.ToUnknown(place?.Country);
+        SelectedCity = EmptyStringTreeViewConverter.ToUnknown(place?.City);
+        ComboBoxSelectorPlace.SelectedItem = place;
+    }
+
+    private void UpdateHistorySymbol()
+    {
+        string symbol;
+        if (THistory.AccountFk is null) symbol = string.Empty;
+        else
+        {
+            using var context = new DataBaseContext();
+            var currency = context.TCurrencies.First(s => s.Id.Equals(THistory.AccountFk));
+            symbol = currency.Symbol!;
+        }
+
+        HistorySymbol = symbol;
+    }
+
+    private void UpdateHexadecimalColorCode()
+    {
+        string hexadecimalColorCode;
+        if (THistory.CategoryTypeFk is null) hexadecimalColorCode = "#00000000";
+        else
+        {
+            using var context = new DataBaseContext();
+            var category = CategoryTypes.First(s => s.Id.Equals(THistory.CategoryTypeFk));
+            var color = context.TColors.First(s => s.Id.Equals(category.ColorFk));
+            hexadecimalColorCode = color.HexadecimalColorCode!;
+        }
+
+        HexadecimalColorCode = hexadecimalColorCode;
+    }
 }

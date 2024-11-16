@@ -167,7 +167,7 @@
                                    VerticalTextAlignment="Center"
                                    FontAttributes="Bold"
                                    FontSize="24"
-                                   Text="{Binding VHistory.Symbol, Mode=OneWay}">
+                                   Text="{Binding HistorySymbol, Mode=OneWay}">
                             </Label>
 
                         </HorizontalStackLayout>
@@ -200,7 +200,7 @@
                                      WidthRequest="{Binding HeightRequest, Source={RelativeSource Self}}"
                                      Stroke="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
                                      StrokeThickness="1.5"
-                                     Fill="{Binding VHistory.HexadecimalColorCode, Mode=OneWay, Converter={StaticResource StringToBrushConverter}}"
+                                     Fill="{Binding HexadecimalColorCode, Mode=OneWay, Converter={StaticResource StringToBrushConverter}}"
                                      Margin="10, 0">
                             </Ellipse>
 
