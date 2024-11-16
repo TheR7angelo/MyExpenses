@@ -125,4 +125,7 @@
     <data name="MessageBoxValidHistoryErrorTitle" xml:space="preserve">
         <value>Error</value>
     </data>
+    <data name="ButtonAddNewHistoryText" xml:space="preserve">
+        <value>Add a new history</value>
+    </data>
 </root>

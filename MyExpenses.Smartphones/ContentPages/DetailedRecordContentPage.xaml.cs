@@ -224,6 +224,8 @@ public partial class DetailedRecordContentPage
     public Task<bool> ResultDialog
         => _taskCompletionSource.Task;
 
+    public bool IsNewHistory { get; set; }
+
     public DetailedRecordContentPage()
     {
         BackCommand = new Command(OnBackCommandPressed);
@@ -478,7 +480,6 @@ public partial class DetailedRecordContentPage
             return;
         }
 
-        // ComboBoxSelectorCountry.SelectedIndexChanged -= SelectorCountry_OnSelectionChanged;
         ComboBoxSelectorCity.SelectedIndexChanged -= SelectorCity_OnSelectionChanged;
 
         var country = string.IsNullOrEmpty(place?.Country)
@@ -567,7 +568,9 @@ public partial class DetailedRecordContentPage
 
     private void UpdateLanguage()
     {
-        ButtonUpdateText = DetailedRecordContentPageResources.ButtonUpdateText;
+        ButtonUpdateText = IsNewHistory
+            ? DetailedRecordContentPageResources.ButtonAddNewHistoryText
+            : DetailedRecordContentPageResources.ButtonUpdateText;
         ButtonCancelUpdateText = DetailedRecordContentPageResources.ButtonCancelUpdateText;
         ButtonCanBeDeletedText = DetailedRecordContentPageResources.ButtonCanBeDeletedText;
 

@@ -61,6 +61,15 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.DetailedRecordConte
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add a new history.
+        /// </summary>
+        internal static string ButtonAddNewHistoryText {
+            get {
+                return ResourceManager.GetString("ButtonAddNewHistoryText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Delete.
         /// </summary>
         internal static string ButtonCanBeDeletedText {
