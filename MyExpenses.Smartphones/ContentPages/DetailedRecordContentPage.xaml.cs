@@ -217,7 +217,7 @@ public partial class DetailedRecordContentPage
 
     private THistory? OriginalHistory { get; set; }
 
-    public ICommand BackCommand { get; set; } = null!;
+    public ICommand BackCommand { get; set; }
 
     private readonly TaskCompletionSource<bool> _taskCompletionSource = new();
 
