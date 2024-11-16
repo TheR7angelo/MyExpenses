@@ -9,7 +9,6 @@ using MyExpenses.Maui.Utils;
 using MyExpenses.Models.Config;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Sql.Bases.Tables;
-using MyExpenses.Models.Sql.Bases.Views;
 using MyExpenses.Smartphones.Converters;
 using MyExpenses.Smartphones.PackIcons;
 using MyExpenses.Smartphones.Resources.Resx.ContentPages.DetailedRecordContentPage;
