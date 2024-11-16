@@ -104,7 +104,7 @@
                                              Clicked="ButtonRemoveMonth_OnClick">
                 </customFrame:ButtonImageView>
 
-                <customFrame:ButtonImageView Style="{StaticResource FloatingActionMiniSecondaryDarkButtonImageView}"
+                <customFrame:ButtonImageView Style="{StaticResource FloatingActionMiniLightButtonImageView}"
                                              Margin="5"
                                              GeometrySource="InvoicePlus"
                                              ImageHeightRequest="24"
