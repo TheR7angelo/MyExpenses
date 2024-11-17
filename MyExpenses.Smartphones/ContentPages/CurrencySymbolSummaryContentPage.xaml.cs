@@ -67,18 +67,8 @@ public partial class CurrencySymbolSummaryContentPage
 
     private async void ButtonValid_OnClicked(object? sender, EventArgs e)
     {
-        if (SymbolText.Equals(string.Empty))
-        {
-            await DisplayAlert("Error", "Symbol can't be empty", "Ok");
-            return;
-        }
-
-        var alreadyExist = Currencies.Any(s => s.Symbol!.Equals(SymbolText));
-        if (alreadyExist)
-        {
-            await DisplayAlert("Error", "Symbol already exist", "Ok");
-            return;
-        }
+        var validate = await ValidateCurrencySymbol();
+        if (!validate) return;
 
         var response = await DisplayAlert("Question", $"Do you really want to add {SymbolText} as a currency symbol ?",
             "Yes", "No");
@@ -102,5 +92,23 @@ public partial class CurrencySymbolSummaryContentPage
         {
             await DisplayAlert("Error", "An error occurred while adding currency symbol, please retry", "Ok");
         }
+    }
+
+    private async Task<bool> ValidateCurrencySymbol()
+    {
+        if (SymbolText.Equals(string.Empty))
+        {
+            await DisplayAlert("Error", "Symbol can't be empty", "Ok");
+            return false;
+        }
+
+        var alreadyExist = Currencies.Any(s => s.Symbol!.Equals(SymbolText));
+        if (alreadyExist)
+        {
+            await DisplayAlert("Error", "Symbol already exist", "Ok");
+            return false;
+        }
+
+        return true;
     }
 }
