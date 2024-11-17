@@ -254,6 +254,11 @@
         <AutoGen>True</AutoGen>
         <DependentUpon>CurrencySymbolSummaryContentPageResources.resx</DependentUpon>
       </Compile>
+      <Compile Update="Resources\Resx\ContentPages\CustomPopups\CustomPopupEntry\CustomPopupEntryResources.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>CustomPopupEntryResources.resx</DependentUpon>
+      </Compile>
     </ItemGroup>
 
     <ItemGroup>
@@ -340,6 +345,10 @@
       <EmbeddedResource Update="Resources\Resx\ContentPages\CurrencySymbolSummaryContentPage\CurrencySymbolSummaryContentPageResources.resx">
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>CurrencySymbolSummaryContentPageResources.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+      <EmbeddedResource Update="Resources\Resx\ContentPages\CustomPopups\CustomPopupEntry\CustomPopupEntryResources.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>CustomPopupEntryResources.Designer.cs</LastGenOutput>
       </EmbeddedResource>
     </ItemGroup>
 
