@@ -8,7 +8,7 @@ using MyExpenses.Maui.Utils;
 using MyExpenses.Models.AutoMapper;
 using MyExpenses.Models.Config;
 using MyExpenses.Models.Config.Interfaces;
-using MyExpenses.Models.Maui.CustomPopupFilter;
+using MyExpenses.Models.Maui.CustomPopup;
 using MyExpenses.Models.Sql.Bases.Views;
 using MyExpenses.Models.Sql.Derivatives.Tables;
 using MyExpenses.Models.Sql.Derivatives.Views;

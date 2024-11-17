@@ -1,4 +1,4 @@
-namespace MyExpenses.Models.Maui.CustomPopupFilter;
+namespace MyExpenses.Models.Maui.CustomPopup;
 
 public interface ICustomPopupFilter<out T>
 {

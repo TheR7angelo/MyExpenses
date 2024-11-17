@@ -1,7 +1,7 @@
 using System.Collections.ObjectModel;
 using MyExpenses.Models.Config;
 using MyExpenses.Models.Config.Interfaces;
-using MyExpenses.Models.Maui.CustomPopupFilter;
+using MyExpenses.Models.Maui.CustomPopup;
 using MyExpenses.Models.Sql.Derivatives.Tables;
 using MyExpenses.Smartphones.PackIcons;
 using MyExpenses.Smartphones.Resources.Resx.ContentPages.CustomPopups.CustomPopupFilterModePayments;

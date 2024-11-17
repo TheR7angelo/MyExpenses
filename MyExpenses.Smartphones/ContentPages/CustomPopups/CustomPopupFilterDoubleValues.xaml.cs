@@ -2,7 +2,7 @@ using System.Collections.ObjectModel;
 using System.Globalization;
 using MyExpenses.Models.Config;
 using MyExpenses.Models.Config.Interfaces;
-using MyExpenses.Models.Maui.CustomPopupFilter;
+using MyExpenses.Models.Maui.CustomPopup;
 using MyExpenses.Smartphones.PackIcons;
 using MyExpenses.Smartphones.Resources.Resx.ContentPages.CustomPopups.CustomPopupFilterHistoryValues;
 using MyExpenses.Utils.Collection;
