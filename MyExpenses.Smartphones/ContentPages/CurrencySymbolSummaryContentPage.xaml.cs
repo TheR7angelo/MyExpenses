@@ -40,6 +40,7 @@ public partial class CurrencySymbolSummaryContentPage
         PlaceholderText = CurrencySymbolSummaryContentPageResources.PlaceholderText;
     }
 
+    // TODO work
     private async void ButtonSymbol_OnClicked(object? sender, EventArgs e)
     {
         await DisplayAlert("Symbol", $"Symbol: {((Button)sender!).Text}", "Ok");
