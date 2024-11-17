@@ -61,7 +61,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.CurrencySymbolSumma
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Add a new currency symbol.
+        ///   Looks up a localized string similar to Add a new currency symbol :.
         /// </summary>
         internal static string PlaceholderText {
             get {
