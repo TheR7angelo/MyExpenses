@@ -4,6 +4,9 @@ using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Smartphones.Resources.Resx.ContentPages.CurrencySymbolSummaryContentPage;
 using MyExpenses.Sql.Context;
+using MyExpenses.Utils;
+using MyExpenses.Utils.Collection;
+using Serilog;
 
 namespace MyExpenses.Smartphones.ContentPages;
 
@@ -70,8 +73,11 @@ public partial class CurrencySymbolSummaryContentPage
         var validate = await ValidateCurrencySymbol();
         if (!validate) return;
 
-        var response = await DisplayAlert("Question", $"Do you really want to add {SymbolText} as a currency symbol ?",
-            "Yes", "No");
+        var response = await DisplayAlert(
+            CurrencySymbolSummaryContentPageResources.MesageBoxAddNewCurrencyQuestionTitle,
+            string.Format(CurrencySymbolSummaryContentPageResources.MesageBoxAddNewCurrencyQuestionMessage, SymbolText),
+            CurrencySymbolSummaryContentPageResources.MesageBoxAddNewCurrencyQuestionYesButton,
+            CurrencySymbolSummaryContentPageResources.MesageBoxAddNewCurrencyQuestionNoButton);
         if (!response) return;
 
         var newCurrency = new TCurrency
@@ -80,17 +86,27 @@ public partial class CurrencySymbolSummaryContentPage
             DateAdded = DateTime.Now
         };
 
+        var json = newCurrency.ToJson();
+        Log.Information("Attempt to add new currency symbol : {Symbol}", json);
         var (success, exception) = newCurrency.AddOrEdit();
         if (success)
         {
-            await DisplayAlert("Success", "Currency symbol was successfully added", "Ok");
-            Currencies.Add(newCurrency);
-
+            Log.Information("New currency symbol was successfully added");
+            Currencies.AddAndSort(newCurrency, s => s.Symbol!);
             SymbolText = string.Empty;
+
+            await DisplayAlert(
+                CurrencySymbolSummaryContentPageResources.MesageBoxAddNewCurrencySuccessTitle,
+                CurrencySymbolSummaryContentPageResources.MesageBoxAddNewCurrencySuccessMessage,
+                CurrencySymbolSummaryContentPageResources.MesageBoxAddNewCurrencySuccessOkButton);
         }
         else
         {
-            await DisplayAlert("Error", "An error occurred while adding currency symbol, please retry", "Ok");
+            Log.Error(exception, "An error occurred while adding new currency symbol");
+            await DisplayAlert(
+                CurrencySymbolSummaryContentPageResources.MesageBoxAddNewCurrencyErrorTitle,
+                CurrencySymbolSummaryContentPageResources.MesageBoxAddNewCurrencyErrorMessage,
+                CurrencySymbolSummaryContentPageResources.MesageBoxAddNewCurrencyErrorOkButton);
         }
     }
 

@@ -42,4 +42,34 @@
     <data name="MessageBoxValidateCurrencySymbolErrorAlreadyExistOkButton" xml:space="preserve">
         <value>Ok</value>
     </data>
+    <data name="MesageBoxAddNewCurrencyQuestionTitle" xml:space="preserve">
+        <value>Add new currency ?</value>
+    </data>
+    <data name="MesageBoxAddNewCurrencyQuestionMessage" xml:space="preserve">
+        <value>Do you really want to add "{0}" as a currency ?</value>
+    </data>
+    <data name="MesageBoxAddNewCurrencyQuestionYesButton" xml:space="preserve">
+        <value>Yes</value>
+    </data>
+    <data name="MesageBoxAddNewCurrencyQuestionNoButton" xml:space="preserve">
+        <value>No</value>
+    </data>
+    <data name="MesageBoxAddNewCurrencySuccessTitle" xml:space="preserve">
+        <value>Success</value>
+    </data>
+    <data name="MesageBoxAddNewCurrencySuccessMessage" xml:space="preserve">
+        <value>Currency symbol was successfully added</value>
+    </data>
+    <data name="MesageBoxAddNewCurrencySuccessOkButton" xml:space="preserve">
+        <value>Ok</value>
+    </data>
+    <data name="MesageBoxAddNewCurrencyErrorTitle" xml:space="preserve">
+        <value>Error</value>
+    </data>
+    <data name="MesageBoxAddNewCurrencyErrorMessage" xml:space="preserve">
+        <value>An error occurred while adding currency symbol, please retry</value>
+    </data>
+    <data name="MesageBoxAddNewCurrencyErrorOkButton" xml:space="preserve">
+        <value>Ok</value>
+    </data>
 </root>

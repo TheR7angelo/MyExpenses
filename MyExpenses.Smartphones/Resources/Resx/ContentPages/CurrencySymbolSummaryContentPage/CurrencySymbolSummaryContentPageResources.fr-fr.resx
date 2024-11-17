@@ -35,4 +35,34 @@
     <data name="MessageBoxValidateCurrencySymbolErrorAlreadyExistMessage" xml:space="preserve">
         <value>Le symbole existe déjà</value>
     </data>
+    <data name="MesageBoxAddNewCurrencyQuestionYesButton" xml:space="preserve">
+        <value>Oui</value>
+    </data>
+    <data name="MesageBoxAddNewCurrencyQuestionNoButton" xml:space="preserve">
+        <value>Non</value>
+    </data>
+    <data name="MesageBoxAddNewCurrencyQuestionTitle" xml:space="preserve">
+        <value>Ajouter une nouvelle devise ?</value>
+    </data>
+    <data name="MesageBoxAddNewCurrencyQuestionMessage" xml:space="preserve">
+        <value>Voulez-vous vraiment ajouter "{0}" comme nouvelle device ?</value>
+    </data>
+    <data name="MesageBoxAddNewCurrencySuccessOkButton" xml:space="preserve">
+        <value>Ok</value>
+    </data>
+    <data name="MesageBoxAddNewCurrencySuccessTitle" xml:space="preserve">
+        <value>Succès</value>
+    </data>
+    <data name="MesageBoxAddNewCurrencySuccessMessage" xml:space="preserve">
+        <value>Le symbole de la devise a été ajouté avec succès</value>
+    </data>
+    <data name="MesageBoxAddNewCurrencyErrorTitle" xml:space="preserve">
+        <value>Erreur</value>
+    </data>
+    <data name="MesageBoxAddNewCurrencyErrorOkButton" xml:space="preserve">
+        <value>Ok</value>
+    </data>
+    <data name="MesageBoxAddNewCurrencyErrorMessage" xml:space="preserve">
+        <value>Une erreur s’est produite lors de l’ajout du symbole monétaire, veuillez réessayer</value>
+    </data>
 </root>

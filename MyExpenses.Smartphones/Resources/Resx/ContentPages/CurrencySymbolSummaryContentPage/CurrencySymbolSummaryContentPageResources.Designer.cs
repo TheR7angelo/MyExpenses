@@ -70,6 +70,96 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.CurrencySymbolSumma
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to An error occurred while adding currency symbol, please retry.
+        /// </summary>
+        internal static string MesageBoxAddNewCurrencyErrorMessage {
+            get {
+                return ResourceManager.GetString("MesageBoxAddNewCurrencyErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ok.
+        /// </summary>
+        internal static string MesageBoxAddNewCurrencyErrorOkButton {
+            get {
+                return ResourceManager.GetString("MesageBoxAddNewCurrencyErrorOkButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        internal static string MesageBoxAddNewCurrencyErrorTitle {
+            get {
+                return ResourceManager.GetString("MesageBoxAddNewCurrencyErrorTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you really want to add &quot;{0}&quot; as a currency ?.
+        /// </summary>
+        internal static string MesageBoxAddNewCurrencyQuestionMessage {
+            get {
+                return ResourceManager.GetString("MesageBoxAddNewCurrencyQuestionMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No.
+        /// </summary>
+        internal static string MesageBoxAddNewCurrencyQuestionNoButton {
+            get {
+                return ResourceManager.GetString("MesageBoxAddNewCurrencyQuestionNoButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add new currency ?.
+        /// </summary>
+        internal static string MesageBoxAddNewCurrencyQuestionTitle {
+            get {
+                return ResourceManager.GetString("MesageBoxAddNewCurrencyQuestionTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yes.
+        /// </summary>
+        internal static string MesageBoxAddNewCurrencyQuestionYesButton {
+            get {
+                return ResourceManager.GetString("MesageBoxAddNewCurrencyQuestionYesButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Currency symbol was successfully added.
+        /// </summary>
+        internal static string MesageBoxAddNewCurrencySuccessMessage {
+            get {
+                return ResourceManager.GetString("MesageBoxAddNewCurrencySuccessMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ok.
+        /// </summary>
+        internal static string MesageBoxAddNewCurrencySuccessOkButton {
+            get {
+                return ResourceManager.GetString("MesageBoxAddNewCurrencySuccessOkButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Success.
+        /// </summary>
+        internal static string MesageBoxAddNewCurrencySuccessTitle {
+            get {
+                return ResourceManager.GetString("MesageBoxAddNewCurrencySuccessTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Symbol already exist.
         /// </summary>
         internal static string MessageBoxValidateCurrencySymbolErrorAlreadyExistMessage {
