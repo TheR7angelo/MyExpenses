@@ -107,6 +107,9 @@ public partial class AccountManagementContentPage
         if (sender is not Grid grid) return;
         if (grid.BindingContext is not VTotalByAccount vTotalByAccount) return;
 
-        await DisplayAlert("Account", $"Account: {vTotalByAccount.Name}", "OK");
+        // await DisplayAlert("Account", $"Account: {vTotalByAccount.Name}", "OK");
+
+        var currencySymbolSummaryContentPage = new CurrencySymbolSummaryContentPage();
+        await Navigation.PushAsync(currencySymbolSummaryContentPage);
     }
 }

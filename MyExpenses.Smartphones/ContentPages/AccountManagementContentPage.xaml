@@ -130,7 +130,6 @@
 
                                 <Grid>
 
-                                    <!-- TODO work -->
                                     <Grid.GestureRecognizers>
                                         <TapGestureRecognizer Tapped="TapGestureRecognizer_OnTapped" NumberOfTapsRequired="1" />
                                     </Grid.GestureRecognizers>
