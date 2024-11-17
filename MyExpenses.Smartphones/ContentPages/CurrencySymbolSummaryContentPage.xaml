@@ -3,6 +3,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:tables="clr-namespace:MyExpenses.Models.Sql.Bases.Tables;assembly=MyExpenses.Models"
+             xmlns:customEntryControl="clr-namespace:MyExpenses.Smartphones.UserControls.TextInputs.CustomEntryControl"
              x:Class="MyExpenses.Smartphones.ContentPages.CurrencySymbolSummaryContentPage"
 
              BindingContext="{Binding Source={RelativeSource Self}}">
@@ -21,7 +22,10 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-
+            <customEntryControl:CustomEntryControl Grid.Row="0" Grid.Column="0"
+                                                   PlaceholderText="{Binding PlaceholderText, Mode=OneWay}"
+                                                   HasClearButton="True">
+            </customEntryControl:CustomEntryControl>
 
             <Border Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
                     Stroke="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
