@@ -25,6 +25,7 @@
 
             <customEntryControl:CustomEntryControl Grid.Row="0" Grid.Column="0"
                                                    PlaceholderText="{Binding PlaceholderText, Mode=OneWay}"
+                                                   Text="{Binding SymbolText, Mode=TwoWay}"
                                                    HasClearButton="True"
                                                    MaxLength="24">
             </customEntryControl:CustomEntryControl>

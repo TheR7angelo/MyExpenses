@@ -9,6 +9,15 @@ namespace MyExpenses.Smartphones.ContentPages;
 
 public partial class CurrencySymbolSummaryContentPage
 {
+    public static readonly BindableProperty SymbolTextProperty = BindableProperty.Create(nameof(SymbolText),
+        typeof(string), typeof(CurrencySymbolSummaryContentPage), default(string));
+
+    public string SymbolText
+    {
+        get => (string)GetValue(SymbolTextProperty);
+        set => SetValue(SymbolTextProperty, value);
+    }
+
     public static readonly BindableProperty PlaceholderTextProperty = BindableProperty.Create(nameof(PlaceholderText),
         typeof(string), typeof(CurrencySymbolSummaryContentPage), default(string));
 
@@ -44,5 +53,43 @@ public partial class CurrencySymbolSummaryContentPage
     private async void ButtonSymbol_OnClicked(object? sender, EventArgs e)
     {
         await DisplayAlert("Symbol", $"Symbol: {((Button)sender!).Text}", "Ok");
+    }
+
+    private async void ButtonValid_OnClicked(object? sender, EventArgs e)
+    {
+        if (SymbolText.Equals(string.Empty))
+        {
+            await DisplayAlert("Error", "Symbol can't be empty", "Ok");
+            return;
+        }
+
+        var alreadyExist = Currencies.Any(s => s.Symbol!.Equals(SymbolText));
+        if (alreadyExist)
+        {
+            await DisplayAlert("Error", "Symbol already exist", "Ok");
+            return;
+        }
+
+        var response = await DisplayAlert("Question", $"Do you really want to add {SymbolText} as a currency symbol ?", "Yes", "No");
+        if (!response) return;
+
+        var newCurrency = new TCurrency
+        {
+            Symbol = SymbolText,
+            DateAdded = DateTime.Now
+        };
+
+        var (success, exception) = newCurrency.AddOrEdit();
+        if (success)
+        {
+            await DisplayAlert("Success", "Currency symbol was successfully added", "Ok");
+            Currencies.Add(newCurrency);
+
+            SymbolText = string.Empty;
+        }
+        else
+        {
+            await DisplayAlert("Error", "An error occurred while adding currency symbol, please retry", "Ok");
+        }
     }
 }
