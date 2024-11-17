@@ -13,7 +13,6 @@
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
@@ -22,7 +21,9 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <Border Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
+
+
+            <Border Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
                     Stroke="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
                     StrokeThickness="2"
                     Padding="0"
