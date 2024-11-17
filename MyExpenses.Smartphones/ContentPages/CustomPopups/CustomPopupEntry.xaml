@@ -5,13 +5,8 @@
                xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
                xmlns:margin="clr-namespace:MyExpenses.Maui.Utils.Margin;assembly=MyExpenses.Maui.Utils"
                xmlns:customEntryControl="clr-namespace:MyExpenses.Smartphones.UserControls.TextInputs.CustomEntryControl"
-               xmlns:converters="clr-namespace:MyExpenses.Smartphones.Converters"
                x:Class="MyExpenses.Smartphones.ContentPages.CustomPopups.CustomPopupEntry"
                BindingContext="{Binding Source={RelativeSource Self}}">
-
-    <toolkit:Popup.Resources>
-        <converters:BooleanToInverseConverter x:Key="BooleanToInverseConverter" />
-    </toolkit:Popup.Resources>
 
     <Border BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Black}}"
             Padding="20"
@@ -45,7 +40,7 @@
 
                 <Button Style="{StaticResource RaisedSecondaryMidButton}"
                         Text="{Binding ButtonDeleteText, Mode=OneWay}"
-                        IsVisible="{Binding CanDelete, Mode=OneWay, Converter={StaticResource BooleanToInverseConverter}}"
+                        IsVisible="{Binding CanDelete, Mode=OneWay}"
                         Clicked="ButtonDelete_OnClicked">
                 </Button>
 
