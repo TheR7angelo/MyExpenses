@@ -23,7 +23,7 @@
 
     <ContentPage.Content>
 
-        <Grid>
+        <Grid margin:LayoutExtensions.MarginForAllChildren="5">
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
