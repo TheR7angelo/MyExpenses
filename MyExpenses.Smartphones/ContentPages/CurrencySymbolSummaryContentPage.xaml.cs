@@ -40,6 +40,7 @@ public partial class CurrencySymbolSummaryContentPage
     }
 
     public ObservableCollection<TCurrency> Currencies { get; }
+    public int MaxLength { get; } = 24;
 
     public CurrencySymbolSummaryContentPage()
     {

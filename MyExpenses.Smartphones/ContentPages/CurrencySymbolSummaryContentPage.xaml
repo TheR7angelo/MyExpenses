@@ -27,7 +27,7 @@
                                                    PlaceholderText="{Binding PlaceholderText, Mode=OneWay}"
                                                    Text="{Binding SymbolText, Mode=TwoWay}"
                                                    HasClearButton="True"
-                                                   MaxLength="24">
+                                                   MaxLength="{Binding MaxLength, Mode=OneWay}">
             </customEntryControl:CustomEntryControl>
 
             <Button Grid.Row="0" Grid.Column="1"
