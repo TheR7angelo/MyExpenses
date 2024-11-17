@@ -65,4 +65,67 @@
     <data name="MesageBoxAddNewCurrencyErrorMessage" xml:space="preserve">
         <value>Une erreur s’est produite lors de l’ajout du symbole monétaire, veuillez réessayer</value>
     </data>
+    <data name="CustomPopupEntryPlaceHolderText" xml:space="preserve">
+        <value>Valeur dela devise :</value>
+    </data>
+    <data name="MessageBoxHandleCurrencyDeleteQuestionTitle" xml:space="preserve">
+        <value>Question</value>
+    </data>
+    <data name="MessageBoxHandleCurrencyDeleteQuestionMessage" xml:space="preserve">
+        <value>Êtes-vous sûr de vouloir supprimer cette monnaie ?{0}Tous les comptes qui utilisent cette devise seront également supprimés, attention l’opération peut prendre plus ou moins de temps en fonction du nombre de données à supprimer</value>
+    </data>
+    <data name="MessageBoxHandleCurrencyDeleteQuestionYesButton" xml:space="preserve">
+        <value>Oui</value>
+    </data>
+    <data name="MessageBoxHandleCurrencyDeleteQuestionNoButton" xml:space="preserve">
+        <value>Non</value>
+    </data>
+    <data name="MessageBoxHandleCurrencyEditSuccessOkButton" xml:space="preserve">
+        <value>Ok</value>
+    </data>
+    <data name="MessageBoxHandleCurrencyEditSuccessTitle" xml:space="preserve">
+        <value>Succès</value>
+    </data>
+    <data name="MessageBoxHandleCurrencyEditSuccessMessage" xml:space="preserve">
+        <value>Le symbole de la devise a été modifié avec succès</value>
+    </data>
+    <data name="MessageBoxHandleCurrencyEditErrorOkButton" xml:space="preserve">
+        <value>Ok</value>
+    </data>
+    <data name="MessageBoxHandleCurrencyEditErrorTitle" xml:space="preserve">
+        <value>Erreur</value>
+    </data>
+    <data name="MessageBoxHandleCurrencyEditErrorMessage" xml:space="preserve">
+        <value>Une erreur s’est produite lors de l’édition du symbole de la devise, veuillez réessayer</value>
+    </data>
+    <data name="MessageBoxHandleCurrencyDeleteSuccessOkButton" xml:space="preserve">
+        <value>Ok</value>
+    </data>
+    <data name="MessageBoxHandleCurrencyDeleteSuccessTitle" xml:space="preserve">
+        <value>Succès</value>
+    </data>
+    <data name="MessageBoxHandleCurrencyDeleteSuccessMessage" xml:space="preserve">
+        <value>Le symbole monétaire et tous les comptes associés ont été supprimés avec succès</value>
+    </data>
+    <data name="MessageBoxHandleCurrencyDeleteErrorOkButton" xml:space="preserve">
+        <value>Ok</value>
+    </data>
+    <data name="MessageBoxHandleCurrencyDeleteErrorTitle" xml:space="preserve">
+        <value>Erreur</value>
+    </data>
+    <data name="MessageBoxHandleCurrencyDeleteErrorMessage" xml:space="preserve">
+        <value>Une erreur s’est produite lors de la suppression du symbole de la devise, veuillez réessayer</value>
+    </data>
+    <data name="MessageBoxHandleCurrencyEditQuestionTitle" xml:space="preserve">
+        <value>Question</value>
+    </data>
+    <data name="MessageBoxHandleCurrencyEditQuestionYesButton" xml:space="preserve">
+        <value>Oui</value>
+    </data>
+    <data name="MessageBoxHandleCurrencyEditQuestionNoButton" xml:space="preserve">
+        <value>Non</value>
+    </data>
+    <data name="MessageBoxHandleCurrencyEditQuestionMessage" xml:space="preserve">
+        <value>Voulez-vous vraiment modifier cette devise ?</value>
+    </data>
 </root>

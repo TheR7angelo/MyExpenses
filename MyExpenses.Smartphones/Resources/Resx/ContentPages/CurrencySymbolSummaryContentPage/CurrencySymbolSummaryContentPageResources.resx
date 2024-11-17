@@ -3,7 +3,7 @@
 <root>
     <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
         <xsd:element name="root" msdata:IsDataSet="true">
-            
+
         </xsd:element>
     </xsd:schema>
     <resheader name="resmimetype">
@@ -71,5 +71,68 @@
     </data>
     <data name="MesageBoxAddNewCurrencyErrorOkButton" xml:space="preserve">
         <value>Ok</value>
+    </data>
+    <data name="CustomPopupEntryPlaceHolderText" xml:space="preserve">
+        <value>Currency value :</value>
+    </data>
+    <data name="MessageBoxHandleCurrencyDeleteQuestionTitle" xml:space="preserve">
+        <value>Question</value>
+    </data>
+    <data name="MessageBoxHandleCurrencyDeleteQuestionMessage" xml:space="preserve">
+        <value>Are you sure you want to remove this currency? {0}All accounts that use this currency will also be deleted, be careful the operation may take more or less time depending on the number of data to be deleted</value>
+    </data>
+    <data name="MessageBoxHandleCurrencyDeleteQuestionYesButton" xml:space="preserve">
+        <value>Yes</value>
+    </data>
+    <data name="MessageBoxHandleCurrencyDeleteQuestionNoButton" xml:space="preserve">
+        <value>No</value>
+    </data>
+    <data name="MessageBoxHandleCurrencyEditSuccessTitle" xml:space="preserve">
+        <value>Success</value>
+    </data>
+    <data name="MessageBoxHandleCurrencyEditSuccessMessage" xml:space="preserve">
+        <value>Currency symbol was successfully edited</value>
+    </data>
+    <data name="MessageBoxHandleCurrencyEditSuccessOkButton" xml:space="preserve">
+        <value>Ok</value>
+    </data>
+    <data name="MessageBoxHandleCurrencyEditErrorTitle" xml:space="preserve">
+        <value>Error</value>
+    </data>
+    <data name="MessageBoxHandleCurrencyEditErrorMessage" xml:space="preserve">
+        <value>An error occurred while editing currency symbol, please retry</value>
+    </data>
+    <data name="MessageBoxHandleCurrencyEditErrorOkButton" xml:space="preserve">
+        <value>Ok</value>
+    </data>
+    <data name="MessageBoxHandleCurrencyDeleteSuccessTitle" xml:space="preserve">
+        <value>Success</value>
+    </data>
+    <data name="MessageBoxHandleCurrencyDeleteSuccessMessage" xml:space="preserve">
+        <value>Currency symbol and all related accounts were successfully deleted</value>
+    </data>
+    <data name="MessageBoxHandleCurrencyDeleteSuccessOkButton" xml:space="preserve">
+        <value>Ok</value>
+    </data>
+    <data name="MessageBoxHandleCurrencyDeleteErrorTitle" xml:space="preserve">
+        <value>Error</value>
+    </data>
+    <data name="MessageBoxHandleCurrencyDeleteErrorMessage" xml:space="preserve">
+        <value>An error occurred while deleting currency symbol, please retry</value>
+    </data>
+    <data name="MessageBoxHandleCurrencyDeleteErrorOkButton" xml:space="preserve">
+        <value>Ok</value>
+    </data>
+    <data name="MessageBoxHandleCurrencyEditQuestionTitle" xml:space="preserve">
+        <value>Question</value>
+    </data>
+    <data name="MessageBoxHandleCurrencyEditQuestionMessage" xml:space="preserve">
+        <value>Do you really want to edit this currency ?</value>
+    </data>
+    <data name="MessageBoxHandleCurrencyEditQuestionYesButton" xml:space="preserve">
+        <value>Yes</value>
+    </data>
+    <data name="MessageBoxHandleCurrencyEditQuestionNoButton" xml:space="preserve">
+        <value>No</value>
     </data>
 </root>
