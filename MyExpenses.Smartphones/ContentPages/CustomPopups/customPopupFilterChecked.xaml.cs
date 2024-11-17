@@ -1,8 +1,7 @@
 using System.Collections.ObjectModel;
 using MyExpenses.Models.Config;
 using MyExpenses.Models.Config.Interfaces;
-using MyExpenses.Models.Maui.CustomPopupFilter;
-using MyExpenses.Smartphones.PackIcons;
+using MyExpenses.Models.Maui.CustomPopup;
 using MyExpenses.Smartphones.Resources.Resx.ContentPages.CustomPopups.CustomPopupFilterChecked;
 
 namespace MyExpenses.Smartphones.ContentPages.CustomPopups;
