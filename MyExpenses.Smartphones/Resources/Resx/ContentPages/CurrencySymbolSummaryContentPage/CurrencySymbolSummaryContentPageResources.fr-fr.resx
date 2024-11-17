@@ -14,4 +14,7 @@
     <data name="PlaceholderText" xml:space="preserve">
         <value>Ajouter un nouveau symbole monétaire :</value>
     </data>
+    <data name="ButtonValidText" xml:space="preserve">
+        <value>Valider</value>
+    </data>
 </root>

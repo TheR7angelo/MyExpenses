@@ -9,6 +9,15 @@ namespace MyExpenses.Smartphones.ContentPages;
 
 public partial class CurrencySymbolSummaryContentPage
 {
+    public static readonly BindableProperty ButtonValidTextProperty = BindableProperty.Create(nameof(ButtonValidText),
+        typeof(string), typeof(CurrencySymbolSummaryContentPage), default(string));
+
+    public string ButtonValidText
+    {
+        get => (string)GetValue(ButtonValidTextProperty);
+        set => SetValue(ButtonValidTextProperty, value);
+    }
+
     public static readonly BindableProperty SymbolTextProperty = BindableProperty.Create(nameof(SymbolText),
         typeof(string), typeof(CurrencySymbolSummaryContentPage), default(string));
 
@@ -47,6 +56,7 @@ public partial class CurrencySymbolSummaryContentPage
     private void UpdateLanguage()
     {
         PlaceholderText = CurrencySymbolSummaryContentPageResources.PlaceholderText;
+        ButtonValidText = CurrencySymbolSummaryContentPageResources.ButtonValidText;
     }
 
     // TODO work
@@ -70,7 +80,8 @@ public partial class CurrencySymbolSummaryContentPage
             return;
         }
 
-        var response = await DisplayAlert("Question", $"Do you really want to add {SymbolText} as a currency symbol ?", "Yes", "No");
+        var response = await DisplayAlert("Question", $"Do you really want to add {SymbolText} as a currency symbol ?",
+            "Yes", "No");
         if (!response) return;
 
         var newCurrency = new TCurrency

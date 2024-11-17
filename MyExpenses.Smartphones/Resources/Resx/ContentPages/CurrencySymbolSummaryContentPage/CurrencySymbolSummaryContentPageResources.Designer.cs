@@ -61,6 +61,15 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.CurrencySymbolSumma
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Valid.
+        /// </summary>
+        internal static string ButtonValidText {
+            get {
+                return ResourceManager.GetString("ButtonValidText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add a new currency symbol :.
         /// </summary>
         internal static string PlaceholderText {
