@@ -5,12 +5,13 @@
              xmlns:tables="clr-namespace:MyExpenses.Models.Sql.Bases.Tables;assembly=MyExpenses.Models"
              xmlns:customEntryControl="clr-namespace:MyExpenses.Smartphones.UserControls.TextInputs.CustomEntryControl"
              x:Class="MyExpenses.Smartphones.ContentPages.CurrencySymbolSummaryContentPage"
+             xmlns:margin="clr-namespace:MyExpenses.Maui.Utils.Margin;assembly=MyExpenses.Maui.Utils"
 
              BindingContext="{Binding Source={RelativeSource Self}}">
 
     <ContentPage.Content>
 
-        <Grid>
+        <Grid margin:LayoutExtensions.MarginForAllChildren="5">
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
@@ -27,6 +28,12 @@
                                                    HasClearButton="True"
                                                    MaxLength="24">
             </customEntryControl:CustomEntryControl>
+
+            <Button Grid.Row="0" Grid.Column="1"
+                    Style="{StaticResource RaisedMidButton}"
+                    Text="Valid"
+                    Clicked="ButtonValid_OnClicked">
+            </Button>
 
             <Border Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
                     Stroke="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
@@ -51,8 +58,10 @@
                         <BindableLayout.ItemTemplate>
                             <DataTemplate x:DataType="tables:TCurrency">
 
-                                <Button Text="{Binding Symbol, Mode=OneWay}"
+                                <Button Margin="3"
+                                        Padding="7, 0"
                                         Style="{StaticResource FloatingActionMidButton}"
+                                        Text="{Binding Symbol, Mode=OneWay}"
                                         Clicked="ButtonSymbol_OnClicked">
                                 </Button>
 
