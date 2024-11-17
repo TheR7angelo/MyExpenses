@@ -98,7 +98,10 @@ public partial class CurrencySymbolSummaryContentPage
     {
         if (SymbolText.Equals(string.Empty))
         {
-            await DisplayAlert("Error", "Symbol can't be empty", "Ok");
+            await DisplayAlert(
+                CurrencySymbolSummaryContentPageResources.MessageBoxValidateCurrencySymbolErrorEmptyTitle,
+                CurrencySymbolSummaryContentPageResources.MessageBoxValidateCurrencySymbolErrorEmptyMessage,
+                CurrencySymbolSummaryContentPageResources.MessageBoxValidateCurrencySymbolErrorEmptyOkButton);
             return false;
         }
 

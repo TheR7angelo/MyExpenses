@@ -17,4 +17,13 @@
     <data name="ButtonValidText" xml:space="preserve">
         <value>Valider</value>
     </data>
+    <data name="MessageBoxValidateCurrencySymbolErrorEmptyTitle" xml:space="preserve">
+        <value>Erreur</value>
+    </data>
+    <data name="MessageBoxValidateCurrencySymbolErrorEmptyMessage" xml:space="preserve">
+        <value>Le symbole ne peut pas être vide</value>
+    </data>
+    <data name="MessageBoxValidateCurrencySymbolErrorEmptyOkButton" xml:space="preserve">
+        <value>Ok</value>
+    </data>
 </root>

@@ -70,6 +70,33 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.CurrencySymbolSumma
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Symbol can&apos;t be empty.
+        /// </summary>
+        internal static string MessageBoxValidateCurrencySymbolErrorEmptyMessage {
+            get {
+                return ResourceManager.GetString("MessageBoxValidateCurrencySymbolErrorEmptyMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ok.
+        /// </summary>
+        internal static string MessageBoxValidateCurrencySymbolErrorEmptyOkButton {
+            get {
+                return ResourceManager.GetString("MessageBoxValidateCurrencySymbolErrorEmptyOkButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        internal static string MessageBoxValidateCurrencySymbolErrorEmptyTitle {
+            get {
+                return ResourceManager.GetString("MessageBoxValidateCurrencySymbolErrorEmptyTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add a new currency symbol :.
         /// </summary>
         internal static string PlaceholderText {
