@@ -2,6 +2,7 @@ using System.Collections.ObjectModel;
 using MyExpenses.Models.Config;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Sql.Bases.Tables;
+using MyExpenses.Smartphones.Resources.Resx.ContentPages.CurrencySymbolSummaryContentPage;
 using MyExpenses.Sql.Context;
 
 namespace MyExpenses.Smartphones.ContentPages;
@@ -36,7 +37,7 @@ public partial class CurrencySymbolSummaryContentPage
 
     private void UpdateLanguage()
     {
-        PlaceholderText = "PlaceholderText";
+        PlaceholderText = CurrencySymbolSummaryContentPageResources.PlaceholderText;
     }
 
     private async void ButtonSymbol_OnClicked(object? sender, EventArgs e)
