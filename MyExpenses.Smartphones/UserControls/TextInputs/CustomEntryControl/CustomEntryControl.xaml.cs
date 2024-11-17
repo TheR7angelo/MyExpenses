@@ -4,6 +4,15 @@ namespace MyExpenses.Smartphones.UserControls.TextInputs.CustomEntryControl;
 
 public partial class CustomEntryControl
 {
+    public static readonly BindableProperty MaxLengthProperty =
+        BindableProperty.Create(nameof(MaxLength), typeof(int), typeof(CustomEntryControl), 255);
+
+    public int MaxLength
+    {
+        get => (int)GetValue(MaxLengthProperty);
+        set => SetValue(MaxLengthProperty, value);
+    }
+
     public static readonly BindableProperty HasMultilineProperty =
         BindableProperty.Create(nameof(HasMultiline), typeof(bool), typeof(CustomEntryControl), default(bool));
 

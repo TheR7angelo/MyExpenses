@@ -62,7 +62,8 @@
                 Placeholder="{Binding PlaceholderText, Source={RelativeSource AncestorType={x:Type local:CustomEntryControl}}}"
                 VerticalOptions="CenterAndExpand"
                 Margin="5"
-                IsVisible="{Binding HasMultiline, Converter={StaticResource BooleanToInverseConverter}, Source={RelativeSource AncestorType={x:Type local:CustomEntryControl}}}">
+                IsVisible="{Binding HasMultiline, Converter={StaticResource BooleanToInverseConverter}, Source={RelativeSource AncestorType={x:Type local:CustomEntryControl}}}"
+                MaxLength="{Binding MaxLength, Source={RelativeSource AncestorType={x:Type local:CustomEntryControl}}}">
             </Entry>
 
             <Editor Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
