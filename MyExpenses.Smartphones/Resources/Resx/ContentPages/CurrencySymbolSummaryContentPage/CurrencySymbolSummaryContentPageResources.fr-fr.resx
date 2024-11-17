@@ -45,7 +45,7 @@
         <value>Ajouter une nouvelle devise ?</value>
     </data>
     <data name="MesageBoxAddNewCurrencyQuestionMessage" xml:space="preserve">
-        <value>Voulez-vous vraiment ajouter "{0}" comme nouvelle device ?</value>
+        <value>Voulez-vous vraiment ajouter "{0}" comme nouvelle devise ?</value>
     </data>
     <data name="MesageBoxAddNewCurrencySuccessOkButton" xml:space="preserve">
         <value>Ok</value>
