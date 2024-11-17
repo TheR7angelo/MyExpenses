@@ -2,11 +2,48 @@
 
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:tables="clr-namespace:MyExpenses.Models.Sql.Bases.Tables;assembly=MyExpenses.Models"
              x:Class="MyExpenses.Smartphones.ContentPages.CurrencySymbolSummaryContentPage"
 
              BindingContext="{Binding Source={RelativeSource Self}}">
 
     <ContentPage.Content>
+
+        <Border Stroke="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
+                StrokeThickness="2"
+                Padding="0"
+                Margin="5, 0">
+
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="5" />
+            </Border.StrokeShape>
+
+            <ScrollView>
+
+                <FlexLayout BindableLayout.ItemsSource="{Binding Currencies}"
+                            HorizontalOptions="Center"
+                            VerticalOptions="Start"
+                            Wrap="Wrap"
+                            AlignItems="Start"
+                            JustifyContent="Center"
+                            Margin="3">
+
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate x:DataType="tables:TCurrency">
+
+                            <Button Text="{Binding Symbol, Mode=OneWay}"
+                                    Style="{StaticResource FloatingActionMidButton}"
+                                    Clicked="ButtonSymbol_OnClicked">
+                            </Button>
+
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+
+                </FlexLayout>
+
+            </ScrollView>
+
+        </Border>
 
     </ContentPage.Content>
 
