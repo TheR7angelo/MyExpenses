@@ -108,7 +108,10 @@ public partial class CurrencySymbolSummaryContentPage
         var alreadyExist = Currencies.Any(s => s.Symbol!.Equals(SymbolText));
         if (alreadyExist)
         {
-            await DisplayAlert("Error", "Symbol already exist", "Ok");
+            await DisplayAlert(
+                CurrencySymbolSummaryContentPageResources.MessageBoxValidateCurrencySymbolErrorAlreadyExistTitle,
+                CurrencySymbolSummaryContentPageResources.MessageBoxValidateCurrencySymbolErrorAlreadyExistMessage,
+                CurrencySymbolSummaryContentPageResources.MessageBoxValidateCurrencySymbolErrorAlreadyExistOkButton);
             return false;
         }
 

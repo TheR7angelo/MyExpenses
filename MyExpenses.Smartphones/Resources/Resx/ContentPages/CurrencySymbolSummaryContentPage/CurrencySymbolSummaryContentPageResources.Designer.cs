@@ -70,6 +70,33 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.CurrencySymbolSumma
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Symbol already exist.
+        /// </summary>
+        internal static string MessageBoxValidateCurrencySymbolErrorAlreadyExistMessage {
+            get {
+                return ResourceManager.GetString("MessageBoxValidateCurrencySymbolErrorAlreadyExistMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ok.
+        /// </summary>
+        internal static string MessageBoxValidateCurrencySymbolErrorAlreadyExistOkButton {
+            get {
+                return ResourceManager.GetString("MessageBoxValidateCurrencySymbolErrorAlreadyExistOkButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        internal static string MessageBoxValidateCurrencySymbolErrorAlreadyExistTitle {
+            get {
+                return ResourceManager.GetString("MessageBoxValidateCurrencySymbolErrorAlreadyExistTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Symbol can&apos;t be empty.
         /// </summary>
         internal static string MessageBoxValidateCurrencySymbolErrorEmptyMessage {

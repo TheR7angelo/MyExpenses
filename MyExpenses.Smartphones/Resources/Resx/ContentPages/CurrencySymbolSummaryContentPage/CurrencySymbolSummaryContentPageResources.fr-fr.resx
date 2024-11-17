@@ -26,4 +26,13 @@
     <data name="MessageBoxValidateCurrencySymbolErrorEmptyOkButton" xml:space="preserve">
         <value>Ok</value>
     </data>
+    <data name="MessageBoxValidateCurrencySymbolErrorAlreadyExistOkButton" xml:space="preserve">
+        <value>Ok</value>
+    </data>
+    <data name="MessageBoxValidateCurrencySymbolErrorAlreadyExistTitle" xml:space="preserve">
+        <value>Erreur</value>
+    </data>
+    <data name="MessageBoxValidateCurrencySymbolErrorAlreadyExistMessage" xml:space="preserve">
+        <value>Le symbole existe déjà</value>
+    </data>
 </root>
