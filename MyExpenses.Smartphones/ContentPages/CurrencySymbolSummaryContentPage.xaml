@@ -9,41 +9,57 @@
 
     <ContentPage.Content>
 
-        <Border Stroke="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
-                StrokeThickness="2"
-                Padding="0"
-                Margin="5, 0">
+        <Grid>
 
-            <Border.StrokeShape>
-                <RoundRectangle CornerRadius="5" />
-            </Border.StrokeShape>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
 
-            <ScrollView>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
 
-                <FlexLayout BindableLayout.ItemsSource="{Binding Currencies}"
-                            HorizontalOptions="Center"
-                            VerticalOptions="Start"
-                            Wrap="Wrap"
-                            AlignItems="Start"
-                            JustifyContent="Center"
-                            Margin="3">
+            <Border Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2"
+                    Stroke="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
+                    StrokeThickness="2"
+                    Padding="0"
+                    Margin="5, 0">
 
-                    <BindableLayout.ItemTemplate>
-                        <DataTemplate x:DataType="tables:TCurrency">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="5" />
+                </Border.StrokeShape>
 
-                            <Button Text="{Binding Symbol, Mode=OneWay}"
-                                    Style="{StaticResource FloatingActionMidButton}"
-                                    Clicked="ButtonSymbol_OnClicked">
-                            </Button>
+                <ScrollView>
 
-                        </DataTemplate>
-                    </BindableLayout.ItemTemplate>
+                    <FlexLayout BindableLayout.ItemsSource="{Binding Currencies}"
+                                HorizontalOptions="Center"
+                                VerticalOptions="Start"
+                                Wrap="Wrap"
+                                AlignItems="Start"
+                                JustifyContent="Center"
+                                Margin="3">
 
-                </FlexLayout>
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate x:DataType="tables:TCurrency">
 
-            </ScrollView>
+                                <Button Text="{Binding Symbol, Mode=OneWay}"
+                                        Style="{StaticResource FloatingActionMidButton}"
+                                        Clicked="ButtonSymbol_OnClicked">
+                                </Button>
 
-        </Border>
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
+
+                    </FlexLayout>
+
+                </ScrollView>
+
+            </Border>
+
+        </Grid>
 
     </ContentPage.Content>
 
