@@ -99,6 +99,20 @@ public partial class AddEditAccountContentPage
             account = Accounts.First(s => s.Id.Equals(id));
             account.CopyPropertiesTo(Account);
         }
-        else throw new ArgumentNullException(nameof(account), @"account is null");
+        else throw new ArgumentNullException(nameof(id), @"account id is null");
+    }
+
+    private async void ButtonAddEditCurrency_OnClick(object? sender, EventArgs e)
+    {
+        var currencyFk = Account.CurrencyFk;
+
+        var currencySymbolSummaryContentPage = new CurrencySymbolSummaryContentPage();
+        await Navigation.PushAsync(currencySymbolSummaryContentPage);
+
+        var result = await currencySymbolSummaryContentPage.ResultDialog;
+        if (!result) return;
+
+        RefreshCurrencies();
+        Account.CurrencyFk = currencyFk;
     }
 }

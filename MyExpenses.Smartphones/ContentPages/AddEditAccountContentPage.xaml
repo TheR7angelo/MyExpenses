@@ -7,6 +7,7 @@
              xmlns:converters="clr-namespace:MyExpenses.Smartphones.Converters"
              xmlns:tables="clr-namespace:MyExpenses.Models.Sql.Bases.Tables;assembly=MyExpenses.Models"
              xmlns:margin="clr-namespace:MyExpenses.Maui.Utils.Margin;assembly=MyExpenses.Maui.Utils"
+             xmlns:customFrame="clr-namespace:MyExpenses.Smartphones.UserControls.Buttons.CustomFrame"
              x:Class="MyExpenses.Smartphones.ContentPages.AddEditAccountContentPage"
              x:Name="This"
              BindingContext="{Binding Source={RelativeSource Self}}">
@@ -52,6 +53,16 @@
                 </Picker>
 
             </VerticalStackLayout>
+
+            <customFrame:ButtonImageView Grid.Row="0" Grid.Column="2"
+                                         Style="{StaticResource FloatingActionMidButtonImageView}"
+                                         GeometrySource="Pencil"
+                                         ImageHeightRequest="24"
+                                         ImageWidthRequest="{Binding ImageHeightRequest, Source={RelativeSource Self}}"
+                                         HeightRequest="40"
+                                         WidthRequest="{Binding HeightRequest, Source={RelativeSource Self}}"
+                                         Clicked="ButtonAddEditCurrency_OnClick">
+            </customFrame:ButtonImageView>
 
         </Grid>
 
