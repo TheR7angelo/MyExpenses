@@ -1,12 +1,16 @@
 using System.Collections.ObjectModel;
 using System.Windows.Input;
+using CommunityToolkit.Maui.Views;
 using MyExpenses.Models.Config;
 using MyExpenses.Models.Config.Interfaces;
+using MyExpenses.Models.Maui.CustomPopup;
 using MyExpenses.Models.Sql.Bases.Tables;
+using MyExpenses.Smartphones.ContentPages.CustomPopups;
 using MyExpenses.Smartphones.Resources.Resx.ContentPages.CurrencySymbolSummaryContentPage;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils;
 using MyExpenses.Utils.Collection;
+using MyExpenses.Utils.Objects;
 using Serilog;
 
 namespace MyExpenses.Smartphones.ContentPages;
@@ -86,7 +90,6 @@ public partial class AccountTypeSummaryContentPage
         await Navigation.PopAsync();
     }
 
-
     private async void ButtonValid_OnClicked(object? sender, EventArgs e)
     {
         var validate = await ValidateAccountType();
@@ -162,8 +165,109 @@ public partial class AccountTypeSummaryContentPage
         return true;
     }
 
-    private void ButtonAccountType_OnClicked(object? sender, EventArgs e)
+    private async void ButtonAccountType_OnClicked(object? sender, EventArgs e)
     {
-        throw new NotImplementedException();
+        if (sender is not Button button) return;
+        if (button.BindingContext is not TAccountType accountType) return;
+
+        var tempAccountType = accountType.DeepCopy()!;
+        await ShowCustomPopupEntryForCurrency(tempAccountType);
+    }
+
+    private async Task ShowCustomPopupEntryForCurrency(TAccountType accountType)
+    {
+        // TODO trad
+        var placeHolder = CurrencySymbolSummaryContentPageResources.PlaceholderText;
+
+        var customPopupEntry = new CustomPopupEntry { MaxLenght = MaxLength, PlaceholderText = placeHolder, EntryText = accountType.Name!, CanDelete = true };
+        await this.ShowPopupAsync(customPopupEntry);
+
+        var result = await customPopupEntry.ResultDialog;
+        if (result is ECustomPopupEntryResult.Cancel) return;
+
+        accountType.Name = customPopupEntry.EntryText;
+        await HandleAccountTypeResult(accountType, result);
+        RefreshAccountTypes();
+    }
+
+    private async Task HandleAccountTypeResult(TAccountType accountType, ECustomPopupEntryResult result)
+    {
+        var json = accountType.ToJson();
+        if (result is ECustomPopupEntryResult.Valid)
+        {
+            var validate = await ValidateAccountType(accountType.Name!);
+            if (!validate) return;
+
+            // TODO trad
+            var response = await DisplayAlert(
+                CurrencySymbolSummaryContentPageResources.MessageBoxHandleCurrencyEditQuestionTitle,
+                string.Format(CurrencySymbolSummaryContentPageResources.MessageBoxHandleCurrencyEditQuestionMessage, Environment.NewLine),
+                CurrencySymbolSummaryContentPageResources.MessageBoxHandleCurrencyEditQuestionYesButton,
+                CurrencySymbolSummaryContentPageResources.MessageBoxHandleCurrencyEditQuestionNoButton);;
+            if (!response) return;
+
+            Log.Information("Attempt to edit account type : {AccountType}", json);
+            await HandleAccountTypeEdit(accountType);
+
+            return;
+        }
+
+        // TODO trad
+        var deleteResponse = await DisplayAlert(
+            CurrencySymbolSummaryContentPageResources.MessageBoxHandleCurrencyDeleteQuestionTitle,
+            string.Format(CurrencySymbolSummaryContentPageResources.MessageBoxHandleCurrencyDeleteQuestionMessage, Environment.NewLine),
+            CurrencySymbolSummaryContentPageResources.MessageBoxHandleCurrencyDeleteQuestionYesButton,
+            CurrencySymbolSummaryContentPageResources.MessageBoxHandleCurrencyDeleteQuestionNoButton);
+        if (!deleteResponse) return;
+
+        // TODO trad
+        Log.Information("Attempt to delete currency symbol : {Symbol}", json);
+        await HandleAccountTypeDelete(accountType);
+    }
+
+    private async Task HandleAccountTypeDelete(TAccountType accountType)
+    {
+        var (success, exception) = accountType.Delete(true);
+        if (success)
+        {
+            // TODO trad
+            Log.Information("Account type and all related accounts were successfully deleted");
+            await DisplayAlert(
+                CurrencySymbolSummaryContentPageResources.MessageBoxHandleCurrencyDeleteSuccessTitle,
+                CurrencySymbolSummaryContentPageResources.MessageBoxHandleCurrencyDeleteSuccessMessage,
+                CurrencySymbolSummaryContentPageResources.MessageBoxHandleCurrencyDeleteSuccessOkButton);
+        }
+        else
+        {
+            // TODO trad
+            Log.Error(exception, "An error occurred while deleting currency symbol");
+            await DisplayAlert(
+                CurrencySymbolSummaryContentPageResources.MessageBoxHandleCurrencyDeleteErrorTitle,
+                CurrencySymbolSummaryContentPageResources.MessageBoxHandleCurrencyDeleteErrorMessage,
+                CurrencySymbolSummaryContentPageResources.MessageBoxHandleCurrencyDeleteErrorOkButton);
+        }
+    }
+
+    private async Task HandleAccountTypeEdit(TAccountType accountType)
+    {
+        var (success, exception) = accountType.AddOrEdit();
+        if (success)
+        {
+            // TODO trad
+            Log.Information("Account type was successfully edited");
+            await DisplayAlert(
+                CurrencySymbolSummaryContentPageResources.MessageBoxHandleCurrencyEditSuccessTitle,
+                CurrencySymbolSummaryContentPageResources.MessageBoxHandleCurrencyEditSuccessMessage,
+                CurrencySymbolSummaryContentPageResources.MessageBoxHandleCurrencyEditSuccessOkButton);
+        }
+        else
+        {
+            // TODO trad
+            Log.Error(exception, "An error occurred while editing currency symbol");
+            await DisplayAlert(
+                CurrencySymbolSummaryContentPageResources.MessageBoxHandleCurrencyEditErrorTitle,
+                CurrencySymbolSummaryContentPageResources.MessageBoxHandleCurrencyEditErrorMessage,
+                CurrencySymbolSummaryContentPageResources.MessageBoxHandleCurrencyEditErrorOkButton);
+        }
     }
 }
