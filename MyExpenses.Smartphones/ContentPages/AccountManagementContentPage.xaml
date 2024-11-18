@@ -131,7 +131,7 @@
                                 <Grid>
 
                                     <Grid.GestureRecognizers>
-                                        <TapGestureRecognizer Tapped="TapGestureRecognizer_OnTapped" NumberOfTapsRequired="1" />
+                                        <TapGestureRecognizer Tapped="TapGestureRecognizerAccount_OnTapped" NumberOfTapsRequired="1" />
                                     </Grid.GestureRecognizers>
 
                                     <Grid.ColumnDefinitions>
@@ -172,13 +172,13 @@
                                    HorizontalOptions="Center"
                                    margin:LayoutExtensions.MarginForAllChildren="5">
 
-                <!-- TODO click -->
                 <customFrame:ButtonImageView Style="{StaticResource FloatingActionMiniMidButtonImageView}"
                                              GeometrySource="Plus"
                                              ImageHeightRequest="24"
                                              ImageWidthRequest="{Binding ImageHeightRequest, Source={RelativeSource Self}}"
                                              HeightRequest="40"
-                                             WidthRequest="{Binding HeightRequest, Source={RelativeSource Self}}">
+                                             WidthRequest="{Binding HeightRequest, Source={RelativeSource Self}}"
+                                             Clicked="ButtonImageViewAddAccount_OnClicked">
                 </customFrame:ButtonImageView>
 
                 <!-- TODO click -->

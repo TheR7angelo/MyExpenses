@@ -53,6 +53,18 @@ public partial class AccountManagementContentPage
 
     #region Action
 
+    private async void ButtonImageViewAddAccount_OnClicked(object? sender, EventArgs e)
+    {
+        var addEditAccountContentPage = new AddEditAccountContentPage();
+        await Navigation.PushAsync(addEditAccountContentPage);
+
+        var result = await addEditAccountContentPage.ResultDialog;
+        if (result is not true) return;
+
+        RefreshAccountTotals();
+        DashBoardContentPage.Instance.RefreshAccountTotal();
+    }
+
     private async void ButtonImageViewCreatBankTransfer_OnClicked(object? sender, EventArgs e)
     {
         var addEditBankTransferContentPage = new AddEditBankTransferContentPage { IsNewBankTransfer = true };
@@ -73,6 +85,22 @@ public partial class AccountManagementContentPage
 
     private void Interface_OnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
         => UpdateLanguage();
+
+    private async void TapGestureRecognizerAccount_OnTapped(object? sender, TappedEventArgs e)
+    {
+        if (sender is not Grid grid) return;
+        if (grid.BindingContext is not VTotalByAccount vTotalByAccount) return;
+
+        var addEditAccountContentPage = new AddEditAccountContentPage { CanDelete = true };
+        addEditAccountContentPage.SetAccount(id: vTotalByAccount.Id);
+        await Navigation.PushAsync(addEditAccountContentPage);
+
+        var result = await addEditAccountContentPage.ResultDialog;
+        if (result is not true) return;
+
+        RefreshAccountTotals();
+        DashBoardContentPage.Instance.RefreshAccountTotal();
+    }
 
     #endregion
 
@@ -99,21 +127,5 @@ public partial class AccountManagementContentPage
     {
         var contentPage = (ContentPage)Activator.CreateInstance(type)!;
         await Navigation.PushAsync(contentPage);
-    }
-
-    private async void TapGestureRecognizer_OnTapped(object? sender, TappedEventArgs e)
-    {
-        if (sender is not Grid grid) return;
-        if (grid.BindingContext is not VTotalByAccount vTotalByAccount) return;
-
-        var addEditAccountContentPage = new AddEditAccountContentPage { CanDelete = true };
-        addEditAccountContentPage.SetAccount(id: vTotalByAccount.Id);
-        await Navigation.PushAsync(addEditAccountContentPage);
-
-        var result = await addEditAccountContentPage.ResultDialog;
-        if (result is not true) return;
-
-        RefreshAccountTotals();
-        DashBoardContentPage.Instance.RefreshAccountTotal();
     }
 }
