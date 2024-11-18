@@ -160,6 +160,60 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.AccountTypeSummaryC
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Account type already exist.
+        /// </summary>
+        internal static string MessageBoxValidateAccountTypeErrorAlreadyExistMessage {
+            get {
+                return ResourceManager.GetString("MessageBoxValidateAccountTypeErrorAlreadyExistMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ok.
+        /// </summary>
+        internal static string MessageBoxValidateAccountTypeErrorAlreadyExistOkButton {
+            get {
+                return ResourceManager.GetString("MessageBoxValidateAccountTypeErrorAlreadyExistOkButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        internal static string MessageBoxValidateAccountTypeErrorAlreadyExistTitle {
+            get {
+                return ResourceManager.GetString("MessageBoxValidateAccountTypeErrorAlreadyExistTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Account type can&apos;t be empty.
+        /// </summary>
+        internal static string MessageBoxValidateAccountTypeErrorEmptyMessage {
+            get {
+                return ResourceManager.GetString("MessageBoxValidateAccountTypeErrorEmptyMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ok.
+        /// </summary>
+        internal static string MessageBoxValidateAccountTypeErrorEmptyOkButton {
+            get {
+                return ResourceManager.GetString("MessageBoxValidateAccountTypeErrorEmptyOkButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        internal static string MessageBoxValidateAccountTypeErrorEmptyTitle {
+            get {
+                return ResourceManager.GetString("MessageBoxValidateAccountTypeErrorEmptyTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add a new account type :.
         /// </summary>
         internal static string PlaceholderText {

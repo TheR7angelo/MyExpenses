@@ -147,8 +147,6 @@ public partial class AccountTypeSummaryContentPage
         ButtonValidText = AccountTypeSummaryContentPageResources.ButtonValidText;
     }
 
-    #endregion
-
     private async Task<bool> ValidateAccountType(string? accountTypeName = null)
     {
         var accountTypeNameToTest = string.IsNullOrWhiteSpace(accountTypeName)
@@ -157,27 +155,27 @@ public partial class AccountTypeSummaryContentPage
 
         if (string.IsNullOrWhiteSpace(accountTypeNameToTest))
         {
-            // TODO trad
             await DisplayAlert(
-                CurrencySymbolSummaryContentPageResources.MessageBoxValidateCurrencySymbolErrorEmptyTitle,
-                CurrencySymbolSummaryContentPageResources.MessageBoxValidateCurrencySymbolErrorEmptyMessage,
-                CurrencySymbolSummaryContentPageResources.MessageBoxValidateCurrencySymbolErrorEmptyOkButton);
+                AccountTypeSummaryContentPageResources.MessageBoxValidateAccountTypeErrorEmptyTitle,
+                AccountTypeSummaryContentPageResources.MessageBoxValidateAccountTypeErrorEmptyMessage,
+                AccountTypeSummaryContentPageResources.MessageBoxValidateAccountTypeErrorEmptyOkButton);
             return false;
         }
 
         var alreadyExist = AccountTypes.Any(s => s.Name!.Equals(accountTypeNameToTest));
         if (alreadyExist)
         {
-            // TODO trad
             await DisplayAlert(
-                CurrencySymbolSummaryContentPageResources.MessageBoxValidateCurrencySymbolErrorAlreadyExistTitle,
-                CurrencySymbolSummaryContentPageResources.MessageBoxValidateCurrencySymbolErrorAlreadyExistMessage,
-                CurrencySymbolSummaryContentPageResources.MessageBoxValidateCurrencySymbolErrorAlreadyExistOkButton);
+                AccountTypeSummaryContentPageResources.MessageBoxValidateAccountTypeErrorAlreadyExistTitle,
+                AccountTypeSummaryContentPageResources.MessageBoxValidateAccountTypeErrorAlreadyExistMessage,
+                AccountTypeSummaryContentPageResources.MessageBoxValidateAccountTypeErrorAlreadyExistOkButton);
             return false;
         }
 
         return true;
     }
+
+    #endregion
 
     private async Task ShowCustomPopupEntryForCurrency(TAccountType accountType)
     {

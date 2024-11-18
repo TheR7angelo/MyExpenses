@@ -47,4 +47,22 @@
     <data name="MesageBoxAddNewAccountTypeErrorMessage" xml:space="preserve">
         <value>Une erreur s'est produite lors de l'ajout du type de compte, veuillez réessayer</value>
     </data>
+    <data name="MessageBoxValidateAccountTypeErrorEmptyOkButton" xml:space="preserve">
+        <value>Ok</value>
+    </data>
+    <data name="MessageBoxValidateAccountTypeErrorEmptyTitle" xml:space="preserve">
+        <value>Erreur</value>
+    </data>
+    <data name="MessageBoxValidateAccountTypeErrorEmptyMessage" xml:space="preserve">
+        <value>Le type de compte ne peut pas être vide</value>
+    </data>
+    <data name="MessageBoxValidateAccountTypeErrorAlreadyExistOkButton" xml:space="preserve">
+        <value>Ok</value>
+    </data>
+    <data name="MessageBoxValidateAccountTypeErrorAlreadyExistTitle" xml:space="preserve">
+        <value>Erreur</value>
+    </data>
+    <data name="MessageBoxValidateAccountTypeErrorAlreadyExistMessage" xml:space="preserve">
+        <value>Le type de compte existe déjà</value>
+    </data>
 </root>

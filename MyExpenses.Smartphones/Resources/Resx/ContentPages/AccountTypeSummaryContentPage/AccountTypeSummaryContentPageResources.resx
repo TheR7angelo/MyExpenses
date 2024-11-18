@@ -54,4 +54,22 @@
     <data name="MesageBoxAddNewAccountTypeErrorOkButton" xml:space="preserve">
         <value>Ok</value>
     </data>
+    <data name="MessageBoxValidateAccountTypeErrorEmptyTitle" xml:space="preserve">
+        <value>Error</value>
+    </data>
+    <data name="MessageBoxValidateAccountTypeErrorEmptyMessage" xml:space="preserve">
+        <value>Account type can't be empty</value>
+    </data>
+    <data name="MessageBoxValidateAccountTypeErrorEmptyOkButton" xml:space="preserve">
+        <value>Ok</value>
+    </data>
+    <data name="MessageBoxValidateAccountTypeErrorAlreadyExistTitle" xml:space="preserve">
+        <value>Error</value>
+    </data>
+    <data name="MessageBoxValidateAccountTypeErrorAlreadyExistMessage" xml:space="preserve">
+        <value>Account type already exist</value>
+    </data>
+    <data name="MessageBoxValidateAccountTypeErrorAlreadyExistOkButton" xml:space="preserve">
+        <value>Ok</value>
+    </data>
 </root>
