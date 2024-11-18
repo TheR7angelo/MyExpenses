@@ -18,7 +18,8 @@
 
     <ContentPage.Content>
 
-        <Grid margin:LayoutExtensions.MarginForAllChildren="5">
+        <Grid VerticalOptions="Center"
+              margin:LayoutExtensions.MarginForAllChildren="5">
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
