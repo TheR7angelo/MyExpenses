@@ -65,6 +65,22 @@
                                          Clicked="ButtonAddEditCurrency_OnClick">
             </customFrame:ButtonImageView>
 
+            <HorizontalStackLayout Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
+                                 VerticalOptions="Center">
+
+                <Label Text="{Binding LabelTextTitleAccountType, Mode=OneWay}"
+                       VerticalTextAlignment="Center">
+                </Label>
+
+                <Picker ItemsSource="{Binding AccountTypes, Mode=OneWay, Source={RelativeSource AncestorType={x:Type local:AddEditAccountContentPage}}}"
+                        SelectedItem="{Binding Account.AccountTypeFk, Mode=TwoWay, Converter={StaticResource ISqlConverter}, ConverterParameter={Binding AccountTypes, Source={Reference This}}, Source={RelativeSource AncestorType={x:Type local:AddEditAccountContentPage}}}"
+                        ItemDisplayBinding="{Binding Name}" x:DataType="tables:TAccountType"
+                        HorizontalTextAlignment="Center"
+                        HorizontalOptions="Center">
+                </Picker>
+
+            </HorizontalStackLayout>
+
         </Grid>
 
     </ContentPage.Content>

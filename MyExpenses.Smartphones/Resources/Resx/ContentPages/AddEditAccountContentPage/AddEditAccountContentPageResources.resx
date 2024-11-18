@@ -24,4 +24,7 @@
     <data name="LabelTextTitleCurrency" xml:space="preserve">
         <value>Currency :</value>
     </data>
+    <data name="LabelTextTitleAccountType" xml:space="preserve">
+        <value>Account type :</value>
+    </data>
 </root>

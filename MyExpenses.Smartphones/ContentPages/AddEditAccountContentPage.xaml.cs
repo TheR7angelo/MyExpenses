@@ -11,6 +11,16 @@ namespace MyExpenses.Smartphones.ContentPages;
 
 public partial class AddEditAccountContentPage
 {
+    public static readonly BindableProperty LabelTextTitleAccountTypeProperty =
+        BindableProperty.Create(nameof(LabelTextTitleAccountType), typeof(string), typeof(AddEditAccountContentPage),
+            default(string));
+
+    public string LabelTextTitleAccountType
+    {
+        get => (string)GetValue(LabelTextTitleAccountTypeProperty);
+        set => SetValue(LabelTextTitleAccountTypeProperty, value);
+    }
+
     public static readonly BindableProperty LabelTextTitleCurrencyProperty =
         BindableProperty.Create(nameof(LabelTextTitleCurrency), typeof(string), typeof(AddEditAccountContentPage),
             default(string));
@@ -39,7 +49,7 @@ public partial class AddEditAccountContentPage
         set => SetValue(CanDeleteProperty, value);
     }
 
-    public ObservableCollection<TModePayment> ModePayments { get; } = [];
+    public ObservableCollection<TAccountType> AccountTypes { get; } = [];
     public ObservableCollection<TCurrency> Currencies { get; } = [];
     private List<TAccount> Accounts { get; }
     public TAccount Account { get; } = new();
@@ -65,7 +75,7 @@ public partial class AddEditAccountContentPage
     private void RefreshObservableCollectionDatabase()
     {
         RefreshCurrencies();
-        RefreshModePayments();
+        RefreshAccountTypes();
     }
 
     private void RefreshCurrencies()
@@ -75,11 +85,11 @@ public partial class AddEditAccountContentPage
         Currencies.AddRange(context.TCurrencies.OrderBy(s => s.Symbol));
     }
 
-    private void RefreshModePayments()
+    private void RefreshAccountTypes()
     {
         using var context = new DataBaseContext();
-        ModePayments.Clear();
-        ModePayments.AddRange(context.TModePayments.OrderBy(s => s.Name));
+        AccountTypes.Clear();
+        AccountTypes.AddRange(context.TAccountTypes.OrderBy(s => s.Name));
     }
 
     private void Interface_OnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
@@ -89,6 +99,7 @@ public partial class AddEditAccountContentPage
     {
         PlaceholderText = AddEditAccountContentPageResources.PlaceholderText;
         LabelTextTitleCurrency = AddEditAccountContentPageResources.LabelTextTitleCurrency;
+        LabelTextTitleAccountType = AddEditAccountContentPageResources.LabelTextTitleAccountType;
     }
 
     public void SetAccount(TAccount? account = null, int? id = null)
