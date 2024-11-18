@@ -160,6 +160,33 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.AccountTypeSummaryC
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to An error occurred while deleting account type, please retry.
+        /// </summary>
+        internal static string MessageBoxHandleAccountTypeDeleteErrorMessage {
+            get {
+                return ResourceManager.GetString("MessageBoxHandleAccountTypeDeleteErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ok.
+        /// </summary>
+        internal static string MessageBoxHandleAccountTypeDeleteErrorOkButton {
+            get {
+                return ResourceManager.GetString("MessageBoxHandleAccountTypeDeleteErrorOkButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        internal static string MessageBoxHandleAccountTypeDeleteErrorTitle {
+            get {
+                return ResourceManager.GetString("MessageBoxHandleAccountTypeDeleteErrorTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Are you sure you want to remove this account type?{0}All accounts that use this account type will also be deleted, be careful the operation may take more or less time depending on the number of data to be deleted.
         /// </summary>
         internal static string MessageBoxHandleAccountTypeDeleteQuestionMessage {
@@ -192,6 +219,33 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.AccountTypeSummaryC
         internal static string MessageBoxHandleAccountTypeDeleteQuestionYesButton {
             get {
                 return ResourceManager.GetString("MessageBoxHandleAccountTypeDeleteQuestionYesButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Account type and all related accounts were successfully deleted.
+        /// </summary>
+        internal static string MessageBoxHandleAccountTypeDeleteSuccessMessage {
+            get {
+                return ResourceManager.GetString("MessageBoxHandleAccountTypeDeleteSuccessMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ok.
+        /// </summary>
+        internal static string MessageBoxHandleAccountTypeDeleteSuccessOkButton {
+            get {
+                return ResourceManager.GetString("MessageBoxHandleAccountTypeDeleteSuccessOkButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Success.
+        /// </summary>
+        internal static string MessageBoxHandleAccountTypeDeleteSuccessTitle {
+            get {
+                return ResourceManager.GetString("MessageBoxHandleAccountTypeDeleteSuccessTitle", resourceCulture);
             }
         }
         

@@ -133,6 +133,27 @@ public partial class AccountTypeSummaryContentPage
 
     #region Function
 
+    private async Task HandleAccountTypeDelete(TAccountType accountType)
+    {
+        var (success, exception) = accountType.Delete(true);
+        if (success)
+        {
+            Log.Information("Account type and all related accounts were successfully deleted");
+            await DisplayAlert(
+                AccountTypeSummaryContentPageResources.MessageBoxHandleAccountTypeDeleteSuccessTitle,
+                AccountTypeSummaryContentPageResources.MessageBoxHandleAccountTypeDeleteSuccessMessage,
+                AccountTypeSummaryContentPageResources.MessageBoxHandleAccountTypeDeleteSuccessOkButton);
+        }
+        else
+        {
+            Log.Error(exception, "An error occurred while deleting currency symbol");
+            await DisplayAlert(
+                AccountTypeSummaryContentPageResources.MessageBoxHandleAccountTypeDeleteErrorTitle,
+                AccountTypeSummaryContentPageResources.MessageBoxHandleAccountTypeDeleteErrorMessage,
+                AccountTypeSummaryContentPageResources.MessageBoxHandleAccountTypeDeleteErrorOkButton);
+        }
+    }
+
     private async Task HandleAccountTypeResult(TAccountType accountType, ECustomPopupEntryResult result)
     {
         var json = accountType.ToJson();
@@ -223,29 +244,6 @@ public partial class AccountTypeSummaryContentPage
     }
 
     #endregion
-
-    private async Task HandleAccountTypeDelete(TAccountType accountType)
-    {
-        var (success, exception) = accountType.Delete(true);
-        if (success)
-        {
-            // TODO trad
-            Log.Information("Account type and all related accounts were successfully deleted");
-            await DisplayAlert(
-                CurrencySymbolSummaryContentPageResources.MessageBoxHandleCurrencyDeleteSuccessTitle,
-                CurrencySymbolSummaryContentPageResources.MessageBoxHandleCurrencyDeleteSuccessMessage,
-                CurrencySymbolSummaryContentPageResources.MessageBoxHandleCurrencyDeleteSuccessOkButton);
-        }
-        else
-        {
-            // TODO trad
-            Log.Error(exception, "An error occurred while deleting currency symbol");
-            await DisplayAlert(
-                CurrencySymbolSummaryContentPageResources.MessageBoxHandleCurrencyDeleteErrorTitle,
-                CurrencySymbolSummaryContentPageResources.MessageBoxHandleCurrencyDeleteErrorMessage,
-                CurrencySymbolSummaryContentPageResources.MessageBoxHandleCurrencyDeleteErrorOkButton);
-        }
-    }
 
     private async Task HandleAccountTypeEdit(TAccountType accountType)
     {

@@ -96,4 +96,22 @@
     <data name="MessageBoxHandleAccountTypeDeleteQuestionNoButton" xml:space="preserve">
         <value>No</value>
     </data>
+    <data name="MessageBoxHandleAccountTypeDeleteSuccessTitle" xml:space="preserve">
+        <value>Success</value>
+    </data>
+    <data name="MessageBoxHandleAccountTypeDeleteSuccessMessage" xml:space="preserve">
+        <value>Account type and all related accounts were successfully deleted</value>
+    </data>
+    <data name="MessageBoxHandleAccountTypeDeleteSuccessOkButton" xml:space="preserve">
+        <value>Ok</value>
+    </data>
+    <data name="MessageBoxHandleAccountTypeDeleteErrorTitle" xml:space="preserve">
+        <value>Error</value>
+    </data>
+    <data name="MessageBoxHandleAccountTypeDeleteErrorMessage" xml:space="preserve">
+        <value>An error occurred while deleting account type, please retry</value>
+    </data>
+    <data name="MessageBoxHandleAccountTypeDeleteErrorOkButton" xml:space="preserve">
+        <value>Ok</value>
+    </data>
 </root>

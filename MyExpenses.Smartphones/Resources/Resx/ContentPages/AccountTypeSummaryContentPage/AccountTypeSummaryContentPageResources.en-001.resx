@@ -89,4 +89,22 @@
     <data name="MessageBoxHandleAccountTypeDeleteQuestionMessage" xml:space="preserve">
         <value>Are you sure you want to remove this account type?{0}All accounts that use this account type will also be deleted, be careful the operation may take more or less time depending on the number of data to be deleted</value>
     </data>
+    <data name="MessageBoxHandleAccountTypeDeleteSuccessOkButton" xml:space="preserve">
+        <value>Ok</value>
+    </data>
+    <data name="MessageBoxHandleAccountTypeDeleteSuccessTitle" xml:space="preserve">
+        <value>Success</value>
+    </data>
+    <data name="MessageBoxHandleAccountTypeDeleteSuccessMessage" xml:space="preserve">
+        <value>Account type and all related accounts were successfully deleted</value>
+    </data>
+    <data name="MessageBoxHandleAccountTypeDeleteErrorTitle" xml:space="preserve">
+        <value>Error</value>
+    </data>
+    <data name="MessageBoxHandleAccountTypeDeleteErrorOkButton" xml:space="preserve">
+        <value>Ok</value>
+    </data>
+    <data name="MessageBoxHandleAccountTypeDeleteErrorMessage" xml:space="preserve">
+        <value>An error occurred while deleting account type, please retry</value>
+    </data>
 </root>
