@@ -101,15 +101,17 @@ public partial class AccountManagementContentPage
         await Navigation.PushAsync(contentPage);
     }
 
-    // TODO work
     private async void TapGestureRecognizer_OnTapped(object? sender, TappedEventArgs e)
     {
         if (sender is not Grid grid) return;
         if (grid.BindingContext is not VTotalByAccount vTotalByAccount) return;
 
-        // await DisplayAlert("Account", $"Account: {vTotalByAccount.Name}", "OK");
+        var addEditAccountContentPage = new AddEditAccountContentPage { CanDelete = true };
+        addEditAccountContentPage.SetAccount(id: vTotalByAccount.Id);
+        await Navigation.PushAsync(addEditAccountContentPage);
 
-        var currencySymbolSummaryContentPage = new CurrencySymbolSummaryContentPage();
-        await Navigation.PushAsync(currencySymbolSummaryContentPage);
+        var result = await addEditAccountContentPage.ResultDialog;
+        if (result is not true) return;
+        RefreshAccountTotals();
     }
 }
