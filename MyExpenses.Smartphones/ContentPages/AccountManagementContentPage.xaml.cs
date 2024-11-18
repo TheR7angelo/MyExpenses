@@ -122,10 +122,4 @@ public partial class AccountManagementContentPage
     }
 
     #endregion
-
-    private async void NavigateTo(Type type)
-    {
-        var contentPage = (ContentPage)Activator.CreateInstance(type)!;
-        await Navigation.PushAsync(contentPage);
-    }
 }
