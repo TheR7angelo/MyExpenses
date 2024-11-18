@@ -70,6 +70,96 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.AccountTypeSummaryC
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to An error occurred while adding account type, please retry.
+        /// </summary>
+        internal static string MesageBoxAddNewAccountTypeErrorMessage {
+            get {
+                return ResourceManager.GetString("MesageBoxAddNewAccountTypeErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ok.
+        /// </summary>
+        internal static string MesageBoxAddNewAccountTypeErrorOkButton {
+            get {
+                return ResourceManager.GetString("MesageBoxAddNewAccountTypeErrorOkButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        internal static string MesageBoxAddNewAccountTypeErrorTitle {
+            get {
+                return ResourceManager.GetString("MesageBoxAddNewAccountTypeErrorTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you really want to add &quot;{0}&quot; as a new account type ?.
+        /// </summary>
+        internal static string MesageBoxAddNewAccountTypeQuestionMessage {
+            get {
+                return ResourceManager.GetString("MesageBoxAddNewAccountTypeQuestionMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No.
+        /// </summary>
+        internal static string MesageBoxAddNewAccountTypeQuestionNoButton {
+            get {
+                return ResourceManager.GetString("MesageBoxAddNewAccountTypeQuestionNoButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add new account type ?.
+        /// </summary>
+        internal static string MesageBoxAddNewAccountTypeQuestionTitle {
+            get {
+                return ResourceManager.GetString("MesageBoxAddNewAccountTypeQuestionTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yes.
+        /// </summary>
+        internal static string MesageBoxAddNewAccountTypeQuestionYesButton {
+            get {
+                return ResourceManager.GetString("MesageBoxAddNewAccountTypeQuestionYesButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Account type was successfully added.
+        /// </summary>
+        internal static string MesageBoxAddNewAccountTypeSuccessMessage {
+            get {
+                return ResourceManager.GetString("MesageBoxAddNewAccountTypeSuccessMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ok.
+        /// </summary>
+        internal static string MesageBoxAddNewAccountTypeSuccessOkButton {
+            get {
+                return ResourceManager.GetString("MesageBoxAddNewAccountTypeSuccessOkButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Success.
+        /// </summary>
+        internal static string MesageBoxAddNewAccountTypeSuccessTitle {
+            get {
+                return ResourceManager.GetString("MesageBoxAddNewAccountTypeSuccessTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Add a new account type :.
         /// </summary>
         internal static string PlaceholderText {

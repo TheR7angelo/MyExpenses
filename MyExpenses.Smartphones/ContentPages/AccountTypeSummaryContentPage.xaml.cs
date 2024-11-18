@@ -69,6 +69,48 @@ public partial class AccountTypeSummaryContentPage
 
     #region Action
 
+    private async void ButtonValid_OnClicked(object? sender, EventArgs e)
+    {
+        var validate = await ValidateAccountType();
+        if (!validate) return;
+
+        var response = await DisplayAlert(
+            AccountTypeSummaryContentPageResources.MesageBoxAddNewAccountTypeQuestionTitle,
+            string.Format(AccountTypeSummaryContentPageResources.MesageBoxAddNewAccountTypeQuestionMessage, AccountTypeName),
+            AccountTypeSummaryContentPageResources.MesageBoxAddNewAccountTypeQuestionYesButton,
+            AccountTypeSummaryContentPageResources.MesageBoxAddNewAccountTypeQuestionNoButton);
+        if (!response) return;
+
+        var newAccountType = new TAccountType
+        {
+            Name = AccountTypeName,
+            DateAdded = DateTime.Now
+        };
+
+        var json = newAccountType.ToJson();
+        Log.Information("Attempt to add new account type : {AccountType}", json);
+        var (success, exception) = newAccountType.AddOrEdit();
+        if (success)
+        {
+            Log.Information("New account type was successfully added");
+            AccountTypes.AddAndSort(newAccountType, s => s.Name!);
+            AccountTypeName = string.Empty;
+
+            await DisplayAlert(
+                AccountTypeSummaryContentPageResources.MesageBoxAddNewAccountTypeSuccessTitle,
+                AccountTypeSummaryContentPageResources.MesageBoxAddNewAccountTypeSuccessMessage,
+                AccountTypeSummaryContentPageResources.MesageBoxAddNewAccountTypeSuccessOkButton);
+        }
+        else
+        {
+            Log.Error(exception, "An error occurred while adding new account type");
+            await DisplayAlert(
+                AccountTypeSummaryContentPageResources.MesageBoxAddNewAccountTypeErrorTitle,
+                AccountTypeSummaryContentPageResources.MesageBoxAddNewAccountTypeErrorMessage,
+                AccountTypeSummaryContentPageResources.MesageBoxAddNewAccountTypeErrorOkButton);
+        }
+    }
+
     private void Interface_OnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
         => UpdateLanguage();
 
@@ -97,51 +139,6 @@ public partial class AccountTypeSummaryContentPage
     }
 
     #endregion
-
-    private async void ButtonValid_OnClicked(object? sender, EventArgs e)
-    {
-        var validate = await ValidateAccountType();
-        if (!validate) return;
-
-        // TODO trad
-        var response = await DisplayAlert(
-            CurrencySymbolSummaryContentPageResources.MesageBoxAddNewCurrencyQuestionTitle,
-            string.Format(CurrencySymbolSummaryContentPageResources.MesageBoxAddNewCurrencyQuestionMessage, AccountTypeName),
-            CurrencySymbolSummaryContentPageResources.MesageBoxAddNewCurrencyQuestionYesButton,
-            CurrencySymbolSummaryContentPageResources.MesageBoxAddNewCurrencyQuestionNoButton);
-        if (!response) return;
-
-        var newAccountType = new TAccountType
-        {
-            Name = AccountTypeName,
-            DateAdded = DateTime.Now
-        };
-
-        var json = newAccountType.ToJson();
-        Log.Information("Attempt to add new account type : {AccountType}", json);
-        var (success, exception) = newAccountType.AddOrEdit();
-        if (success)
-        {
-            Log.Information("New account type was successfully added");
-            AccountTypes.AddAndSort(newAccountType, s => s.Name!);
-            AccountTypeName = string.Empty;
-
-            // TODO trad
-            await DisplayAlert(
-                CurrencySymbolSummaryContentPageResources.MesageBoxAddNewCurrencySuccessTitle,
-                CurrencySymbolSummaryContentPageResources.MesageBoxAddNewCurrencySuccessMessage,
-                CurrencySymbolSummaryContentPageResources.MesageBoxAddNewCurrencySuccessOkButton);
-        }
-        else
-        {
-            // TODO trad
-            Log.Error(exception, "An error occurred while adding new account type");
-            await DisplayAlert(
-                CurrencySymbolSummaryContentPageResources.MesageBoxAddNewCurrencyErrorTitle,
-                CurrencySymbolSummaryContentPageResources.MesageBoxAddNewCurrencyErrorMessage,
-                CurrencySymbolSummaryContentPageResources.MesageBoxAddNewCurrencyErrorOkButton);
-        }
-    }
 
     private async Task<bool> ValidateAccountType(string? accountTypeName = null)
     {

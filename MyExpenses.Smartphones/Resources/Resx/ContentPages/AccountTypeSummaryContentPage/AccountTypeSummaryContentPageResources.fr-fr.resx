@@ -17,4 +17,34 @@
     <data name="ButtonValidText" xml:space="preserve">
         <value>Valider</value>
     </data>
+    <data name="MesageBoxAddNewAccountTypeQuestionTitle" xml:space="preserve">
+        <value>Ajouter un nouveau type de compte ?</value>
+    </data>
+    <data name="MesageBoxAddNewAccountTypeQuestionYesButton" xml:space="preserve">
+        <value>Oui</value>
+    </data>
+    <data name="MesageBoxAddNewAccountTypeQuestionNoButton" xml:space="preserve">
+        <value>Non</value>
+    </data>
+    <data name="MesageBoxAddNewAccountTypeQuestionMessage" xml:space="preserve">
+        <value>Voulez-vous vraiment ajouter "{0}" comme nouveau type de compte ?</value>
+    </data>
+    <data name="MesageBoxAddNewAccountTypeSuccessOkButton" xml:space="preserve">
+        <value>Ok</value>
+    </data>
+    <data name="MesageBoxAddNewAccountTypeSuccessTitle" xml:space="preserve">
+        <value>Succès</value>
+    </data>
+    <data name="MesageBoxAddNewAccountTypeSuccessMessage" xml:space="preserve">
+        <value>Le type de compte a été ajouté avec succès</value>
+    </data>
+    <data name="MesageBoxAddNewAccountTypeErrorTitle" xml:space="preserve">
+        <value>Erreur</value>
+    </data>
+    <data name="MesageBoxAddNewAccountTypeErrorOkButton" xml:space="preserve">
+        <value>Ok</value>
+    </data>
+    <data name="MesageBoxAddNewAccountTypeErrorMessage" xml:space="preserve">
+        <value>Une erreur s'est produite lors de l'ajout du type de compte, veuillez réessayer</value>
+    </data>
 </root>

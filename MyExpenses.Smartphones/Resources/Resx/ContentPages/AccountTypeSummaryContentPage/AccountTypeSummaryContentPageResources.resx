@@ -24,4 +24,34 @@
     <data name="ButtonValidText" xml:space="preserve">
         <value>Valid</value>
     </data>
+    <data name="MesageBoxAddNewAccountTypeQuestionTitle" xml:space="preserve">
+        <value>Add new account type ?</value>
+    </data>
+    <data name="MesageBoxAddNewAccountTypeQuestionMessage" xml:space="preserve">
+        <value>Do you really want to add "{0}" as a new account type ?</value>
+    </data>
+    <data name="MesageBoxAddNewAccountTypeQuestionYesButton" xml:space="preserve">
+        <value>Yes</value>
+    </data>
+    <data name="MesageBoxAddNewAccountTypeQuestionNoButton" xml:space="preserve">
+        <value>No</value>
+    </data>
+    <data name="MesageBoxAddNewAccountTypeSuccessTitle" xml:space="preserve">
+        <value>Success</value>
+    </data>
+    <data name="MesageBoxAddNewAccountTypeSuccessMessage" xml:space="preserve">
+        <value>Account type was successfully added</value>
+    </data>
+    <data name="MesageBoxAddNewAccountTypeSuccessOkButton" xml:space="preserve">
+        <value>Ok</value>
+    </data>
+    <data name="MesageBoxAddNewAccountTypeErrorTitle" xml:space="preserve">
+        <value>Error</value>
+    </data>
+    <data name="MesageBoxAddNewAccountTypeErrorMessage" xml:space="preserve">
+        <value>An error occurred while adding account type, please retry</value>
+    </data>
+    <data name="MesageBoxAddNewAccountTypeErrorOkButton" xml:space="preserve">
+        <value>Ok</value>
+    </data>
 </root>
