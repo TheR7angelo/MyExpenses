@@ -2,7 +2,16 @@
 
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="MyExpenses.Smartphones.ContentPages.AccountTypeSummaryContentPage">
+             xmlns:tables="clr-namespace:MyExpenses.Models.Sql.Bases.Tables;assembly=MyExpenses.Models"
+             xmlns:customEntryControl="clr-namespace:MyExpenses.Smartphones.UserControls.TextInputs.CustomEntryControl"
+             x:Class="MyExpenses.Smartphones.ContentPages.AccountTypeSummaryContentPage"
+             xmlns:margin="clr-namespace:MyExpenses.Maui.Utils.Margin;assembly=MyExpenses.Maui.Utils"
+
+             BindingContext="{Binding Source={RelativeSource Self}}">
+
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior Command="{Binding BackCommand}" />
+    </Shell.BackButtonBehavior>
 
     <ContentPage.Content>
 
