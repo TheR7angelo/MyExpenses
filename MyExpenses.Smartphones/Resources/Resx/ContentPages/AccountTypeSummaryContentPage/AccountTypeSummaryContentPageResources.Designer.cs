@@ -250,6 +250,33 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.AccountTypeSummaryC
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to An error occurred while editing currency symbol, please retry.
+        /// </summary>
+        internal static string MessageBoxHandleAccountTypeEditErrorMessage {
+            get {
+                return ResourceManager.GetString("MessageBoxHandleAccountTypeEditErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ok.
+        /// </summary>
+        internal static string MessageBoxHandleAccountTypeEditErrorOkButton {
+            get {
+                return ResourceManager.GetString("MessageBoxHandleAccountTypeEditErrorOkButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        internal static string MessageBoxHandleAccountTypeEditErrorTitle {
+            get {
+                return ResourceManager.GetString("MessageBoxHandleAccountTypeEditErrorTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Do you really want to edit this account type ?.
         /// </summary>
         internal static string MessageBoxHandleAccountTypeEditQuestionMessage {
@@ -282,6 +309,33 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.AccountTypeSummaryC
         internal static string MessageBoxHandleAccountTypeEditQuestionYesButton {
             get {
                 return ResourceManager.GetString("MessageBoxHandleAccountTypeEditQuestionYesButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Account type was successfully edited.
+        /// </summary>
+        internal static string MessageBoxHandleAccountTypeEditSuccessMessage {
+            get {
+                return ResourceManager.GetString("MessageBoxHandleAccountTypeEditSuccessMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ok.
+        /// </summary>
+        internal static string MessageBoxHandleAccountTypeEditSuccessOkButton {
+            get {
+                return ResourceManager.GetString("MessageBoxHandleAccountTypeEditSuccessOkButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Success.
+        /// </summary>
+        internal static string MessageBoxHandleAccountTypeEditSuccessTitle {
+            get {
+                return ResourceManager.GetString("MessageBoxHandleAccountTypeEditSuccessTitle", resourceCulture);
             }
         }
         

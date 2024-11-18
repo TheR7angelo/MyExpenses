@@ -107,4 +107,22 @@
     <data name="MessageBoxHandleAccountTypeDeleteErrorMessage" xml:space="preserve">
         <value>Une erreur s'est produite lors de la suppression du type de compte, veuillez réessayer</value>
     </data>
+    <data name="MessageBoxHandleAccountTypeEditSuccessOkButton" xml:space="preserve">
+        <value>Ok</value>
+    </data>
+    <data name="MessageBoxHandleAccountTypeEditSuccessTitle" xml:space="preserve">
+        <value>Succès</value>
+    </data>
+    <data name="MessageBoxHandleAccountTypeEditSuccessMessage" xml:space="preserve">
+        <value>Le type de compte a été modifié avec succès</value>
+    </data>
+    <data name="MessageBoxHandleAccountTypeEditErrorOkButton" xml:space="preserve">
+        <value>Ok</value>
+    </data>
+    <data name="MessageBoxHandleAccountTypeEditErrorTitle" xml:space="preserve">
+        <value>Erreur</value>
+    </data>
+    <data name="MessageBoxHandleAccountTypeEditErrorMessage" xml:space="preserve">
+        <value>Une erreur s'est produite lors de la modification du symbole monétaire, veuillez réessayer</value>
+    </data>
 </root>

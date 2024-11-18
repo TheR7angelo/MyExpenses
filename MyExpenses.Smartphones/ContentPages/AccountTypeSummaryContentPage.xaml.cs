@@ -154,6 +154,27 @@ public partial class AccountTypeSummaryContentPage
         }
     }
 
+    private async Task HandleAccountTypeEdit(TAccountType accountType)
+    {
+        var (success, exception) = accountType.AddOrEdit();
+        if (success)
+        {
+            Log.Information("Account type was successfully edited");
+            await DisplayAlert(
+                AccountTypeSummaryContentPageResources.MessageBoxHandleAccountTypeEditSuccessTitle,
+                AccountTypeSummaryContentPageResources.MessageBoxHandleAccountTypeEditSuccessMessage,
+                AccountTypeSummaryContentPageResources.MessageBoxHandleAccountTypeEditSuccessOkButton);
+        }
+        else
+        {
+            Log.Error(exception, "An error occurred while editing currency symbol");
+            await DisplayAlert(
+                AccountTypeSummaryContentPageResources.MessageBoxHandleAccountTypeEditErrorTitle,
+                AccountTypeSummaryContentPageResources.MessageBoxHandleAccountTypeEditErrorMessage,
+                AccountTypeSummaryContentPageResources.MessageBoxHandleAccountTypeEditErrorOkButton);
+        }
+    }
+
     private async Task HandleAccountTypeResult(TAccountType accountType, ECustomPopupEntryResult result)
     {
         var json = accountType.ToJson();
@@ -244,27 +265,4 @@ public partial class AccountTypeSummaryContentPage
     }
 
     #endregion
-
-    private async Task HandleAccountTypeEdit(TAccountType accountType)
-    {
-        var (success, exception) = accountType.AddOrEdit();
-        if (success)
-        {
-            // TODO trad
-            Log.Information("Account type was successfully edited");
-            await DisplayAlert(
-                CurrencySymbolSummaryContentPageResources.MessageBoxHandleCurrencyEditSuccessTitle,
-                CurrencySymbolSummaryContentPageResources.MessageBoxHandleCurrencyEditSuccessMessage,
-                CurrencySymbolSummaryContentPageResources.MessageBoxHandleCurrencyEditSuccessOkButton);
-        }
-        else
-        {
-            // TODO trad
-            Log.Error(exception, "An error occurred while editing currency symbol");
-            await DisplayAlert(
-                CurrencySymbolSummaryContentPageResources.MessageBoxHandleCurrencyEditErrorTitle,
-                CurrencySymbolSummaryContentPageResources.MessageBoxHandleCurrencyEditErrorMessage,
-                CurrencySymbolSummaryContentPageResources.MessageBoxHandleCurrencyEditErrorOkButton);
-        }
-    }
 }
