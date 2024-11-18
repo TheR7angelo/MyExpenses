@@ -197,7 +197,7 @@ public partial class DashBoardContentPage
         }
     }
 
-    private static DashBoardContentPage Instance { get; set; } = null!;
+    public static DashBoardContentPage Instance { get; set; } = null!;
 
     private List<VCategoryDerive> VCategoryDerivesFilter { get; } = [];
     private List<StringIsChecked> HistoryDescriptions { get; } = [];

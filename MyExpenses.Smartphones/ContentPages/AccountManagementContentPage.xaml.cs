@@ -112,6 +112,8 @@ public partial class AccountManagementContentPage
 
         var result = await addEditAccountContentPage.ResultDialog;
         if (result is not true) return;
+
         RefreshAccountTotals();
+        DashBoardContentPage.Instance.RefreshAccountTotal();
     }
 }
