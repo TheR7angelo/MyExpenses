@@ -6,6 +6,7 @@
              xmlns:local="clr-namespace:MyExpenses.Smartphones.ContentPages"
              xmlns:converters="clr-namespace:MyExpenses.Smartphones.Converters"
              xmlns:tables="clr-namespace:MyExpenses.Models.Sql.Bases.Tables;assembly=MyExpenses.Models"
+             xmlns:margin="clr-namespace:MyExpenses.Maui.Utils.Margin;assembly=MyExpenses.Maui.Utils"
              x:Class="MyExpenses.Smartphones.ContentPages.AddEditAccountContentPage"
              x:Name="This"
              BindingContext="{Binding Source={RelativeSource Self}}">
@@ -16,7 +17,7 @@
 
     <ContentPage.Content>
 
-        <Grid>
+        <Grid margin:LayoutExtensions.MarginForAllChildren="5">
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
