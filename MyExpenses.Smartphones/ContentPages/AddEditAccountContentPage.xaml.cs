@@ -20,7 +20,7 @@ public partial class AddEditAccountContentPage
         get => (string)GetValue(ButtonCancelTextProperty);
         set => SetValue(ButtonCancelTextProperty, value);
     }
-    
+
     public static readonly BindableProperty ButtonDeleteTextProperty = BindableProperty.Create(nameof(ButtonDeleteText),
         typeof(string), typeof(AddEditAccountContentPage), default(string));
 
@@ -84,7 +84,7 @@ public partial class AddEditAccountContentPage
     private TAccount? OriginalAccount { get; set; }
 
     private readonly TaskCompletionSource<bool> _taskCompletionSource = new();
-    
+
     public Task<bool> ResultDialog
         => _taskCompletionSource.Task;
 
@@ -188,6 +188,7 @@ public partial class AddEditAccountContentPage
 
     private void ButtonCancel_OnClicked(object? sender, EventArgs e)
     {
-        throw new NotImplementedException();
+        var account = OriginalAccount ?? new TAccount();
+        account.CopyPropertiesTo(Account);
     }
 }

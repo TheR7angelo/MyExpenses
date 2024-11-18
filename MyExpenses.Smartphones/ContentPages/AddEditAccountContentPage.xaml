@@ -36,7 +36,7 @@
             <customEntryControl:CustomEntryControl Grid.Row="0" Grid.Column="0"
                                                    HasClearButton="True"
                                                    PlaceholderText="{Binding PlaceholderText, Mode=OneWay}"
-                                                   Text="{Binding Account.Name}">
+                                                   Text="{Binding Account.Name, Mode=TwoWay}">
             </customEntryControl:CustomEntryControl>
 
             <VerticalStackLayout Grid.Row="0" Grid.Column="1"
