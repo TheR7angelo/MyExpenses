@@ -69,6 +69,15 @@ public partial class AccountTypeSummaryContentPage
 
     #region Action
 
+    private async void ButtonAccountType_OnClicked(object? sender, EventArgs e)
+    {
+        if (sender is not Button button) return;
+        if (button.BindingContext is not TAccountType accountType) return;
+
+        var tempAccountType = accountType.DeepCopy()!;
+        await ShowCustomPopupEntryForCurrency(tempAccountType);
+    }
+
     private async void ButtonValid_OnClicked(object? sender, EventArgs e)
     {
         var validate = await ValidateAccountType();
@@ -168,15 +177,6 @@ public partial class AccountTypeSummaryContentPage
         }
 
         return true;
-    }
-
-    private async void ButtonAccountType_OnClicked(object? sender, EventArgs e)
-    {
-        if (sender is not Button button) return;
-        if (button.BindingContext is not TAccountType accountType) return;
-
-        var tempAccountType = accountType.DeepCopy()!;
-        await ShowCustomPopupEntryForCurrency(tempAccountType);
     }
 
     private async Task ShowCustomPopupEntryForCurrency(TAccountType accountType)
