@@ -133,6 +133,96 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.AddEditAccountConte
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Failed to delete account, please retry.
+        /// </summary>
+        internal static string MessageBoxDeleteAccountErrorMessage {
+            get {
+                return ResourceManager.GetString("MessageBoxDeleteAccountErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ok.
+        /// </summary>
+        internal static string MessageBoxDeleteAccountErrorOkButton {
+            get {
+                return ResourceManager.GetString("MessageBoxDeleteAccountErrorOkButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        internal static string MessageBoxDeleteAccountErrorTitle {
+            get {
+                return ResourceManager.GetString("MessageBoxDeleteAccountErrorTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to delete this account?{0}All associated items will also be deleted. Please note, this may take more or less time depending on the amount of data to be deleted.
+        /// </summary>
+        internal static string MessageBoxDeleteAccountQuestionMessage {
+            get {
+                return ResourceManager.GetString("MessageBoxDeleteAccountQuestionMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No.
+        /// </summary>
+        internal static string MessageBoxDeleteAccountQuestionNoButton {
+            get {
+                return ResourceManager.GetString("MessageBoxDeleteAccountQuestionNoButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Question.
+        /// </summary>
+        internal static string MessageBoxDeleteAccountQuestionTitle {
+            get {
+                return ResourceManager.GetString("MessageBoxDeleteAccountQuestionTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yes.
+        /// </summary>
+        internal static string MessageBoxDeleteAccountQuestionYesButton {
+            get {
+                return ResourceManager.GetString("MessageBoxDeleteAccountQuestionYesButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Account successfully deleted.
+        /// </summary>
+        internal static string MessageBoxDeleteAccountSuccessMessage {
+            get {
+                return ResourceManager.GetString("MessageBoxDeleteAccountSuccessMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ok.
+        /// </summary>
+        internal static string MessageBoxDeleteAccountSuccessOkButton {
+            get {
+                return ResourceManager.GetString("MessageBoxDeleteAccountSuccessOkButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Success.
+        /// </summary>
+        internal static string MessageBoxDeleteAccountSuccessTitle {
+            get {
+                return ResourceManager.GetString("MessageBoxDeleteAccountSuccessTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to There was an error updating. Please try again.
         /// </summary>
         internal static string MessageBoxOnBackCommandPressedErrorMessage {

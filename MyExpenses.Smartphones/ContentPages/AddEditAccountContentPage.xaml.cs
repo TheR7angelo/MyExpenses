@@ -140,6 +140,41 @@ public partial class AddEditAccountContentPage
         account.CopyPropertiesTo(Account);
     }
 
+    private async void ButtonDelete_OnClicked(object? sender, EventArgs e)
+    {
+        var response = await DisplayAlert(
+            AddEditAccountContentPageResources.MessageBoxDeleteAccountQuestionTitle,
+            string.Format(AddEditAccountContentPageResources.MessageBoxDeleteAccountQuestionMessage, Environment.NewLine),
+            AddEditAccountContentPageResources.MessageBoxDeleteAccountQuestionYesButton,
+            AddEditAccountContentPageResources.MessageBoxDeleteAccountQuestionNoButton);
+
+        if (!response) return;
+
+        var json = Account.ToJson();
+        Log.Information("Attempting to delete account : {Json}", json);
+
+        var (success, exception) = Account.Delete(true);
+        if (success)
+        {
+            Log.Information("Successful account deletion");
+            await DisplayAlert(
+                AddEditAccountContentPageResources.MessageBoxDeleteAccountSuccessTitle,
+                AddEditAccountContentPageResources.MessageBoxDeleteAccountSuccessMessage,
+                AddEditAccountContentPageResources.MessageBoxDeleteAccountSuccessOkButton);
+
+            _taskCompletionSource.SetResult(true);
+            await Navigation.PopAsync();
+        }
+        else
+        {
+            Log.Error(exception, "Failed account deletion");
+            await DisplayAlert(
+                AddEditAccountContentPageResources.MessageBoxDeleteAccountErrorTitle,
+                AddEditAccountContentPageResources.MessageBoxDeleteAccountErrorMessage,
+                AddEditAccountContentPageResources.MessageBoxDeleteAccountErrorOkButton);
+        }
+    }
+
     private async void ButtonValid_OnClicked(object? sender, EventArgs e)
     {
         var isValid = await ValidAccount();
@@ -259,9 +294,4 @@ public partial class AddEditAccountContentPage
     }
 
     #endregion
-
-    private void ButtonDelete_OnClicked(object? sender, EventArgs e)
-    {
-        throw new NotImplementedException();
-    }
 }

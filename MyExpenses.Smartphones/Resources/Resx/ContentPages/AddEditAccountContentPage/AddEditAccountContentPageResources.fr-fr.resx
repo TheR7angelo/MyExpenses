@@ -62,4 +62,34 @@
     <data name="MessageBoxOnBackCommandPressedErrorMessage" xml:space="preserve">
         <value>Une erreur s'est produite lors de la mise à jour. Veuillez réessayer</value>
     </data>
+    <data name="MessageBoxDeleteAccountSuccessOkButton" xml:space="preserve">
+        <value>Ok</value>
+    </data>
+    <data name="MessageBoxDeleteAccountErrorOkButton" xml:space="preserve">
+        <value>Ok</value>
+    </data>
+    <data name="MessageBoxDeleteAccountQuestionNoButton" xml:space="preserve">
+        <value>Non</value>
+    </data>
+    <data name="MessageBoxDeleteAccountQuestionYesButton" xml:space="preserve">
+        <value>Oui</value>
+    </data>
+    <data name="MessageBoxDeleteAccountQuestionTitle" xml:space="preserve">
+        <value>Question</value>
+    </data>
+    <data name="MessageBoxDeleteAccountQuestionMessage" xml:space="preserve">
+        <value>Voulez-vous vraiment supprimer ce compte ?{0}Tous les éléments associés seront également supprimés. Attention, cela peut prendre plus ou moins de temps selon la quantité de données à supprimer</value>
+    </data>
+    <data name="MessageBoxDeleteAccountSuccessTitle" xml:space="preserve">
+        <value>Succès</value>
+    </data>
+    <data name="MessageBoxDeleteAccountSuccessMessage" xml:space="preserve">
+        <value>Compte supprimé avec succès</value>
+    </data>
+    <data name="MessageBoxDeleteAccountErrorMessage" xml:space="preserve">
+        <value>Échec de la suppression du compte, veuillez réessayer</value>
+    </data>
+    <data name="MessageBoxDeleteAccountErrorTitle" xml:space="preserve">
+        <value>Erreur</value>
+    </data>
 </root>
