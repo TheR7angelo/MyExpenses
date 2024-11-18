@@ -72,17 +72,15 @@ public partial class AccountTypeSummaryContentPage
     private void Interface_OnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
         => UpdateLanguage();
 
-    #endregion
-
-    #region Function
-
-    private void UpdateLanguage()
+    private async void OnBackCommandPressed()
     {
-        PlaceholderText = AccountTypeSummaryContentPageResources.PlaceholderText;
-        ButtonValidText = AccountTypeSummaryContentPageResources.ButtonValidText;
+        _taskCompletionSource.SetResult(true);
+        await Navigation.PopAsync();
     }
 
     #endregion
+
+    #region Function
 
     private void RefreshAccountTypes()
     {
@@ -92,11 +90,13 @@ public partial class AccountTypeSummaryContentPage
         AccountTypes.AddRange(context.TAccountTypes.OrderBy(s => s.Name));
     }
 
-    private async void OnBackCommandPressed()
+    private void UpdateLanguage()
     {
-        _taskCompletionSource.SetResult(true);
-        await Navigation.PopAsync();
+        PlaceholderText = AccountTypeSummaryContentPageResources.PlaceholderText;
+        ButtonValidText = AccountTypeSummaryContentPageResources.ButtonValidText;
     }
+
+    #endregion
 
     private async void ButtonValid_OnClicked(object? sender, EventArgs e)
     {
