@@ -1,12 +1,15 @@
 using System.Collections.ObjectModel;
+using System.ComponentModel.DataAnnotations;
 using MyExpenses.Models.Config;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Smartphones.Resources.Resx.ContentPages.AddEditAccountContentPage;
+using MyExpenses.Smartphones.Resources.Resx.ContentPages.AddEditBankTransferContentPage;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils;
 using MyExpenses.Utils.Collection;
 using MyExpenses.Utils.Objects;
+using Serilog;
 
 namespace MyExpenses.Smartphones.ContentPages;
 
@@ -137,12 +140,51 @@ public partial class AddEditAccountContentPage
         account.CopyPropertiesTo(Account);
     }
 
+    private async void ButtonValid_OnClicked(object? sender, EventArgs e)
+    {
+        var isValid = await ValidAccount();
+        if (!isValid) return;
+
+        var success = AddOrEditAccount();
+        if (!success)
+        {
+            await DisplayAlert(
+                AddEditAccountContentPageResources.MessageBoxOnBackCommandPressedErrorTitle,
+                AddEditAccountContentPageResources.MessageBoxOnBackCommandPressedErrorMessage,
+                AddEditAccountContentPageResources.MessageBoxOnBackCommandPressedErrorOkButton);
+            return;
+        }
+
+        await DisplayAlert(
+            AddEditAccountContentPageResources.MessageBoxOnBackCommandPressedSuccessTitle,
+            AddEditAccountContentPageResources.MessageBoxOnBackCommandPressedSuccessMessage,
+            AddEditAccountContentPageResources.MessageBoxOnBackCommandPressedSuccessOkButton);
+
+        _taskCompletionSource.SetResult(true);
+        await Navigation.PopAsync();
+    }
+
     private void Interface_OnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
         => UpdateLanguage();
 
     #endregion
 
     #region Function
+
+    private bool AddOrEditAccount()
+    {
+        Account.DateAdded ??= DateTime.Now;
+
+        var json = Account.ToJson();
+
+        Log.Information("Attempting to add edit account : {Json}", json);
+        var (success, exception) = Account.AddOrEdit();
+
+        if (success) Log.Information("Successful account editing");
+        else Log.Error(exception, "Failed account editing");
+
+        return success;
+    }
 
     private void RefreshAccountTypes()
     {
@@ -188,12 +230,35 @@ public partial class AddEditAccountContentPage
         ButtonCancelText = AddEditAccountContentPageResources.ButtonCancelText;
     }
 
-    #endregion
-
-    private void ButtonValid_OnClicked(object? sender, EventArgs e)
+    private async Task<bool> ValidAccount()
     {
-        throw new NotImplementedException();
+        var validationContext = new ValidationContext(Account, serviceProvider: null, items: null);
+        var validationResults = new List<ValidationResult>();
+        var isValid = Validator.TryValidateObject(Account, validationContext, validationResults, true);
+        if (isValid) return isValid;
+
+        var propertyError = validationResults.First();
+        var propertyMemberName = propertyError.MemberNames.First();
+
+        var messageErrorKey = propertyMemberName switch
+        {
+            nameof(TAccount.Name) => nameof(AddEditAccountContentPageResources.MessageBoxButtonValidationNameError),
+            nameof(TAccount.AccountTypeFk) => nameof(AddEditAccountContentPageResources.MessageBoxButtonValidationAccountTypeFkError),
+            nameof(TAccount.CurrencyFk) => nameof(AddEditAccountContentPageResources.MessageBoxButtonValidationCurrencyFkError),
+            _ => null
+        };
+
+        var localizedErrorMessage = string.IsNullOrEmpty(messageErrorKey)
+            ? propertyError.ErrorMessage!
+            : AddEditAccountContentPageResources.ResourceManager.GetString(messageErrorKey)!;
+
+        await DisplayAlert(AddEditAccountContentPageResources.MessageBoxValidAccountErrorTitle,
+            localizedErrorMessage, AddEditAccountContentPageResources.MessageBoxValidAccountErrorOkButton);
+
+        return isValid;
     }
+
+    #endregion
 
     private void ButtonDelete_OnClicked(object? sender, EventArgs e)
     {

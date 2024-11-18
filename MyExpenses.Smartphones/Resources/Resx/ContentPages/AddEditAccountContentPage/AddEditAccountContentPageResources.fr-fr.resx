@@ -29,4 +29,37 @@
     <data name="ButtonCancelText" xml:space="preserve">
         <value>Annuler</value>
     </data>
+    <data name="MessageBoxButtonValidationNameError" xml:space="preserve">
+        <value>Le nom du compte ne peut pas être vide</value>
+    </data>
+    <data name="MessageBoxButtonValidationCurrencyFkError" xml:space="preserve">
+        <value>Le type de devise du compte ne peut pas être vide</value>
+    </data>
+    <data name="MessageBoxButtonValidationAccountTypeFkError" xml:space="preserve">
+        <value>Le type de compte ne peut pas être nul</value>
+    </data>
+    <data name="MessageBoxValidAccountErrorTitle" xml:space="preserve">
+        <value>Erreur</value>
+    </data>
+    <data name="MessageBoxValidAccountErrorOkButton" xml:space="preserve">
+        <value>Ok</value>
+    </data>
+    <data name="MessageBoxOnBackCommandPressedSuccessOkButton" xml:space="preserve">
+        <value>Ok</value>
+    </data>
+    <data name="MessageBoxOnBackCommandPressedSuccessTitle" xml:space="preserve">
+        <value>Succès</value>
+    </data>
+    <data name="MessageBoxOnBackCommandPressedSuccessMessage" xml:space="preserve">
+        <value>Le compte a été ajouté ou modifié avec succès</value>
+    </data>
+    <data name="MessageBoxOnBackCommandPressedErrorOkButton" xml:space="preserve">
+        <value>Ok</value>
+    </data>
+    <data name="MessageBoxOnBackCommandPressedErrorTitle" xml:space="preserve">
+        <value>Erreur</value>
+    </data>
+    <data name="MessageBoxOnBackCommandPressedErrorMessage" xml:space="preserve">
+        <value>Une erreur s'est produite lors de la mise à jour. Veuillez réessayer</value>
+    </data>
 </root>

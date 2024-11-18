@@ -106,6 +106,105 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.AddEditAccountConte
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Account type cannot be null.
+        /// </summary>
+        internal static string MessageBoxButtonValidationAccountTypeFkError {
+            get {
+                return ResourceManager.GetString("MessageBoxButtonValidationAccountTypeFkError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Account currency type cannot be blank.
+        /// </summary>
+        internal static string MessageBoxButtonValidationCurrencyFkError {
+            get {
+                return ResourceManager.GetString("MessageBoxButtonValidationCurrencyFkError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The account name cannot be empty.
+        /// </summary>
+        internal static string MessageBoxButtonValidationNameError {
+            get {
+                return ResourceManager.GetString("MessageBoxButtonValidationNameError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to There was an error updating. Please try again.
+        /// </summary>
+        internal static string MessageBoxOnBackCommandPressedErrorMessage {
+            get {
+                return ResourceManager.GetString("MessageBoxOnBackCommandPressedErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ok.
+        /// </summary>
+        internal static string MessageBoxOnBackCommandPressedErrorOkButton {
+            get {
+                return ResourceManager.GetString("MessageBoxOnBackCommandPressedErrorOkButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        internal static string MessageBoxOnBackCommandPressedErrorTitle {
+            get {
+                return ResourceManager.GetString("MessageBoxOnBackCommandPressedErrorTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Account was added or edited successfully.
+        /// </summary>
+        internal static string MessageBoxOnBackCommandPressedSuccessMessage {
+            get {
+                return ResourceManager.GetString("MessageBoxOnBackCommandPressedSuccessMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ok.
+        /// </summary>
+        internal static string MessageBoxOnBackCommandPressedSuccessOkButton {
+            get {
+                return ResourceManager.GetString("MessageBoxOnBackCommandPressedSuccessOkButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Success.
+        /// </summary>
+        internal static string MessageBoxOnBackCommandPressedSuccessTitle {
+            get {
+                return ResourceManager.GetString("MessageBoxOnBackCommandPressedSuccessTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ok.
+        /// </summary>
+        internal static string MessageBoxValidAccountErrorOkButton {
+            get {
+                return ResourceManager.GetString("MessageBoxValidAccountErrorOkButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        internal static string MessageBoxValidAccountErrorTitle {
+            get {
+                return ResourceManager.GetString("MessageBoxValidAccountErrorTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Account name :.
         /// </summary>
         internal static string PlaceholderText {
