@@ -47,6 +47,11 @@ public partial class CurrencySymbolSummaryContentPage
 
     public ObservableCollection<TCurrency> Currencies { get; } = [];
 
+    private readonly TaskCompletionSource<bool> _taskCompletionSource = new();
+
+    public Task<bool> ResultDialog
+        => _taskCompletionSource.Task;
+
     public CurrencySymbolSummaryContentPage()
     {
         RefreshCurrencies();
