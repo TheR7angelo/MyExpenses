@@ -6,6 +6,7 @@ using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Maui.CustomPopup;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Smartphones.ContentPages.CustomPopups;
+using MyExpenses.Smartphones.Resources.Resx.ContentPages.AccountTypeSummaryContentPage;
 using MyExpenses.Smartphones.Resources.Resx.ContentPages.CurrencySymbolSummaryContentPage;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils;
@@ -71,9 +72,8 @@ public partial class AccountTypeSummaryContentPage
 
     private void UpdateLanguage()
     {
-        // TODO work
-        PlaceholderText = CurrencySymbolSummaryContentPageResources.PlaceholderText;
-        ButtonValidText = CurrencySymbolSummaryContentPageResources.ButtonValidText;
+        PlaceholderText = AccountTypeSummaryContentPageResources.PlaceholderText;
+        ButtonValidText = AccountTypeSummaryContentPageResources.ButtonValidText;
     }
 
     private void RefreshAccountTypes()

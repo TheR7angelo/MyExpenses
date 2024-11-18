@@ -264,6 +264,11 @@
         <AutoGen>True</AutoGen>
         <DependentUpon>AddEditAccountContentPageResources.resx</DependentUpon>
       </Compile>
+      <Compile Update="Resources\Resx\ContentPages\AccountTypeSummaryContentPage\AccountTypeSummaryContentPageResources.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>AccountTypeSummaryContentPageResources.resx</DependentUpon>
+      </Compile>
     </ItemGroup>
 
     <ItemGroup>
@@ -358,6 +363,10 @@
       <EmbeddedResource Update="Resources\Resx\ContentPages\AddEditAccountContentPage\AddEditAccountContentPageResources.resx">
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>AddEditAccountContentPageResources.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+      <EmbeddedResource Update="Resources\Resx\ContentPages\AccountTypeSummaryContentPage\AccountTypeSummaryContentPageResources.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>AccountTypeSummaryContentPageResources.Designer.cs</LastGenOutput>
       </EmbeddedResource>
     </ItemGroup>
 
