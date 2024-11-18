@@ -6,6 +6,7 @@ using MyExpenses.Smartphones.Resources.Resx.ContentPages.AddEditAccountContentPa
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils;
 using MyExpenses.Utils.Collection;
+using MyExpenses.Utils.Objects;
 
 namespace MyExpenses.Smartphones.ContentPages;
 
@@ -80,6 +81,7 @@ public partial class AddEditAccountContentPage
     public ObservableCollection<TCurrency> Currencies { get; } = [];
     private List<TAccount> Accounts { get; }
     public TAccount Account { get; } = new();
+    private TAccount? OriginalAccount { get; set; }
 
     private readonly TaskCompletionSource<bool> _taskCompletionSource = new();
     
@@ -142,6 +144,8 @@ public partial class AddEditAccountContentPage
             account.CopyPropertiesTo(Account);
         }
         else throw new ArgumentNullException(nameof(id), @"account id is null");
+
+        OriginalAccount = account.DeepCopy();
     }
 
     private async void ButtonAddEditCurrency_OnClick(object? sender, EventArgs e)
