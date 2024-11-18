@@ -72,4 +72,28 @@
     <data name="MessageBoxValidateAccountTypeErrorAlreadyExistOkButton" xml:space="preserve">
         <value>Ok</value>
     </data>
+    <data name="MessageBoxHandleAccountTypeEditQuestionTitle" xml:space="preserve">
+        <value>Question</value>
+    </data>
+    <data name="MessageBoxHandleAccountTypeEditQuestionMessage" xml:space="preserve">
+        <value>Do you really want to edit this account type ?</value>
+    </data>
+    <data name="MessageBoxHandleAccountTypeEditQuestionYesButton" xml:space="preserve">
+        <value>Yes</value>
+    </data>
+    <data name="MessageBoxHandleAccountTypeEditQuestionNoButton" xml:space="preserve">
+        <value>No</value>
+    </data>
+    <data name="MessageBoxHandleAccountTypeDeleteQuestionTitle" xml:space="preserve">
+        <value>Question</value>
+    </data>
+    <data name="MessageBoxHandleAccountTypeDeleteQuestionMessage" xml:space="preserve">
+        <value>Are you sure you want to remove this account type?{0}All accounts that use this account type will also be deleted, be careful the operation may take more or less time depending on the number of data to be deleted</value>
+    </data>
+    <data name="MessageBoxHandleAccountTypeDeleteQuestionYesButton" xml:space="preserve">
+        <value>Yes</value>
+    </data>
+    <data name="MessageBoxHandleAccountTypeDeleteQuestionNoButton" xml:space="preserve">
+        <value>No</value>
+    </data>
 </root>

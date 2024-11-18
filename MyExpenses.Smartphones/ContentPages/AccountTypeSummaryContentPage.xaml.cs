@@ -133,12 +133,59 @@ public partial class AccountTypeSummaryContentPage
 
     #region Function
 
+    private async Task HandleAccountTypeResult(TAccountType accountType, ECustomPopupEntryResult result)
+    {
+        var json = accountType.ToJson();
+        if (result is ECustomPopupEntryResult.Valid)
+        {
+            var validate = await ValidateAccountType(accountType.Name!);
+            if (!validate) return;
+
+            var response = await DisplayAlert(
+                AccountTypeSummaryContentPageResources.MessageBoxHandleAccountTypeEditQuestionTitle,
+                AccountTypeSummaryContentPageResources.MessageBoxHandleAccountTypeEditQuestionMessage,
+                AccountTypeSummaryContentPageResources.MessageBoxHandleAccountTypeEditQuestionYesButton,
+                AccountTypeSummaryContentPageResources.MessageBoxHandleAccountTypeEditQuestionNoButton);;
+            if (!response) return;
+
+            Log.Information("Attempt to edit account type : {AccountType}", json);
+            await HandleAccountTypeEdit(accountType);
+
+            return;
+        }
+
+        var deleteResponse = await DisplayAlert(
+            AccountTypeSummaryContentPageResources.MessageBoxHandleAccountTypeDeleteQuestionTitle,
+            string.Format(AccountTypeSummaryContentPageResources.MessageBoxHandleAccountTypeDeleteQuestionMessage, Environment.NewLine),
+            AccountTypeSummaryContentPageResources.MessageBoxHandleAccountTypeDeleteQuestionYesButton,
+            AccountTypeSummaryContentPageResources.MessageBoxHandleAccountTypeDeleteQuestionNoButton);
+        if (!deleteResponse) return;
+
+        Log.Information("Attempt to delete currency symbol : {Symbol}", json);
+        await HandleAccountTypeDelete(accountType);
+    }
+
     private void RefreshAccountTypes()
     {
         AccountTypes.Clear();
 
         using var context = new DataBaseContext();
         AccountTypes.AddRange(context.TAccountTypes.OrderBy(s => s.Name));
+    }
+
+    private async Task ShowCustomPopupEntryForCurrency(TAccountType accountType)
+    {
+        var placeHolder = AccountTypeSummaryContentPageResources.PlaceholderText;
+
+        var customPopupEntry = new CustomPopupEntry { MaxLenght = MaxLength, PlaceholderText = placeHolder, EntryText = accountType.Name!, CanDelete = true };
+        await this.ShowPopupAsync(customPopupEntry);
+
+        var result = await customPopupEntry.ResultDialog;
+        if (result is ECustomPopupEntryResult.Cancel) return;
+
+        accountType.Name = customPopupEntry.EntryText;
+        await HandleAccountTypeResult(accountType, result);
+        RefreshAccountTypes();
     }
 
     private void UpdateLanguage()
@@ -176,57 +223,6 @@ public partial class AccountTypeSummaryContentPage
     }
 
     #endregion
-
-    private async Task ShowCustomPopupEntryForCurrency(TAccountType accountType)
-    {
-        // TODO trad
-        var placeHolder = CurrencySymbolSummaryContentPageResources.PlaceholderText;
-
-        var customPopupEntry = new CustomPopupEntry { MaxLenght = MaxLength, PlaceholderText = placeHolder, EntryText = accountType.Name!, CanDelete = true };
-        await this.ShowPopupAsync(customPopupEntry);
-
-        var result = await customPopupEntry.ResultDialog;
-        if (result is ECustomPopupEntryResult.Cancel) return;
-
-        accountType.Name = customPopupEntry.EntryText;
-        await HandleAccountTypeResult(accountType, result);
-        RefreshAccountTypes();
-    }
-
-    private async Task HandleAccountTypeResult(TAccountType accountType, ECustomPopupEntryResult result)
-    {
-        var json = accountType.ToJson();
-        if (result is ECustomPopupEntryResult.Valid)
-        {
-            var validate = await ValidateAccountType(accountType.Name!);
-            if (!validate) return;
-
-            // TODO trad
-            var response = await DisplayAlert(
-                CurrencySymbolSummaryContentPageResources.MessageBoxHandleCurrencyEditQuestionTitle,
-                string.Format(CurrencySymbolSummaryContentPageResources.MessageBoxHandleCurrencyEditQuestionMessage, Environment.NewLine),
-                CurrencySymbolSummaryContentPageResources.MessageBoxHandleCurrencyEditQuestionYesButton,
-                CurrencySymbolSummaryContentPageResources.MessageBoxHandleCurrencyEditQuestionNoButton);;
-            if (!response) return;
-
-            Log.Information("Attempt to edit account type : {AccountType}", json);
-            await HandleAccountTypeEdit(accountType);
-
-            return;
-        }
-
-        // TODO trad
-        var deleteResponse = await DisplayAlert(
-            CurrencySymbolSummaryContentPageResources.MessageBoxHandleCurrencyDeleteQuestionTitle,
-            string.Format(CurrencySymbolSummaryContentPageResources.MessageBoxHandleCurrencyDeleteQuestionMessage, Environment.NewLine),
-            CurrencySymbolSummaryContentPageResources.MessageBoxHandleCurrencyDeleteQuestionYesButton,
-            CurrencySymbolSummaryContentPageResources.MessageBoxHandleCurrencyDeleteQuestionNoButton);
-        if (!deleteResponse) return;
-
-        // TODO trad
-        Log.Information("Attempt to delete currency symbol : {Symbol}", json);
-        await HandleAccountTypeDelete(accountType);
-    }
 
     private async Task HandleAccountTypeDelete(TAccountType accountType)
     {

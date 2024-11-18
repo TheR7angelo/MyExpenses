@@ -160,6 +160,78 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.AccountTypeSummaryC
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to remove this account type?{0}All accounts that use this account type will also be deleted, be careful the operation may take more or less time depending on the number of data to be deleted.
+        /// </summary>
+        internal static string MessageBoxHandleAccountTypeDeleteQuestionMessage {
+            get {
+                return ResourceManager.GetString("MessageBoxHandleAccountTypeDeleteQuestionMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No.
+        /// </summary>
+        internal static string MessageBoxHandleAccountTypeDeleteQuestionNoButton {
+            get {
+                return ResourceManager.GetString("MessageBoxHandleAccountTypeDeleteQuestionNoButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Question.
+        /// </summary>
+        internal static string MessageBoxHandleAccountTypeDeleteQuestionTitle {
+            get {
+                return ResourceManager.GetString("MessageBoxHandleAccountTypeDeleteQuestionTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yes.
+        /// </summary>
+        internal static string MessageBoxHandleAccountTypeDeleteQuestionYesButton {
+            get {
+                return ResourceManager.GetString("MessageBoxHandleAccountTypeDeleteQuestionYesButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you really want to edit this account type ?.
+        /// </summary>
+        internal static string MessageBoxHandleAccountTypeEditQuestionMessage {
+            get {
+                return ResourceManager.GetString("MessageBoxHandleAccountTypeEditQuestionMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No.
+        /// </summary>
+        internal static string MessageBoxHandleAccountTypeEditQuestionNoButton {
+            get {
+                return ResourceManager.GetString("MessageBoxHandleAccountTypeEditQuestionNoButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Question.
+        /// </summary>
+        internal static string MessageBoxHandleAccountTypeEditQuestionTitle {
+            get {
+                return ResourceManager.GetString("MessageBoxHandleAccountTypeEditQuestionTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yes.
+        /// </summary>
+        internal static string MessageBoxHandleAccountTypeEditQuestionYesButton {
+            get {
+                return ResourceManager.GetString("MessageBoxHandleAccountTypeEditQuestionYesButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Account type already exist.
         /// </summary>
         internal static string MessageBoxValidateAccountTypeErrorAlreadyExistMessage {
