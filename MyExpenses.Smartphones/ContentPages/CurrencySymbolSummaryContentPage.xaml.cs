@@ -1,4 +1,5 @@
 using System.Collections.ObjectModel;
+using System.Windows.Input;
 using CommunityToolkit.Maui.Views;
 using MyExpenses.Models.Config;
 using MyExpenses.Models.Config.Interfaces;
@@ -47,8 +48,17 @@ public partial class CurrencySymbolSummaryContentPage
 
     public ObservableCollection<TCurrency> Currencies { get; } = [];
 
+    public ICommand BackCommand { get; set; }
+
+    private readonly TaskCompletionSource<bool> _taskCompletionSource = new();
+
+    public Task<bool> ResultDialog
+        => _taskCompletionSource.Task;
+
     public CurrencySymbolSummaryContentPage()
     {
+        BackCommand = new Command(OnBackCommandPressed);
+
         RefreshCurrencies();
 
         UpdateLanguage();
@@ -112,6 +122,12 @@ public partial class CurrencySymbolSummaryContentPage
 
     private void Interface_OnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
         => UpdateLanguage();
+
+    private async void OnBackCommandPressed()
+    {
+        _taskCompletionSource.SetResult(true);
+        await Navigation.PopAsync();
+    }
 
     #endregion
 
