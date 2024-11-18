@@ -15,6 +15,72 @@
 
     <ContentPage.Content>
 
+                <Grid margin:LayoutExtensions.MarginForAllChildren="5">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <customEntryControl:CustomEntryControl Grid.Row="0" Grid.Column="0"
+                                                   PlaceholderText="{Binding PlaceholderText, Mode=OneWay}"
+                                                   Text="{Binding AccountTypeName, Mode=TwoWay}"
+                                                   HasClearButton="True"
+                                                   MaxLength="{Binding MaxLength, Mode=OneWay}">
+            </customEntryControl:CustomEntryControl>
+
+            <Button Grid.Row="0" Grid.Column="1"
+                    Style="{StaticResource RaisedMidButton}"
+                    Text="{Binding ButtonValidText, Mode=OneWay}"
+                    Clicked="ButtonValid_OnClicked">
+            </Button>
+
+            <Border Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
+                    Stroke="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
+                    StrokeThickness="2"
+                    Padding="0"
+                    Margin="5, 0">
+
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="5" />
+                </Border.StrokeShape>
+
+                <ScrollView>
+
+                    <FlexLayout BindableLayout.ItemsSource="{Binding AccountTypes}"
+                                HorizontalOptions="Center"
+                                VerticalOptions="Start"
+                                Wrap="Wrap"
+                                AlignItems="Start"
+                                JustifyContent="Center"
+                                Margin="3">
+
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate x:DataType="tables:TAccountType">
+
+                                <Button Margin="3"
+                                        Padding="7, 0"
+                                        Style="{StaticResource FloatingActionMidButton}"
+                                        Text="{Binding Name, Mode=OneWay}"
+                                        Clicked="ButtonAccountType_OnClicked">
+                                </Button>
+
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
+
+                    </FlexLayout>
+
+                </ScrollView>
+
+            </Border>
+
+        </Grid>
+
     </ContentPage.Content>
 
 </ContentPage>
