@@ -101,51 +101,20 @@ public partial class AddEditAccountContentPage
         Interface.LanguageChanged += Interface_OnLanguageChanged;
     }
 
-    private void RefreshObservableCollectionDatabase()
+    #region Action
+
+    private async void ButtonAddEditAccountType_OnClick(object? sender, EventArgs e)
     {
-        RefreshCurrencies();
+        var accountTypeFk = Account.AccountTypeFk;
+
+        var accountTypeSummaryContentPage = new AccountTypeSummaryContentPage();
+        await Navigation.PushAsync(accountTypeSummaryContentPage);
+
+        var result = await accountTypeSummaryContentPage.ResultDialog;
+        if (!result) return;
+
         RefreshAccountTypes();
-    }
-
-    private void RefreshCurrencies()
-    {
-        using var context = new DataBaseContext();
-        Currencies.Clear();
-        Currencies.AddRange(context.TCurrencies.OrderBy(s => s.Symbol));
-    }
-
-    private void RefreshAccountTypes()
-    {
-        using var context = new DataBaseContext();
-        AccountTypes.Clear();
-        AccountTypes.AddRange(context.TAccountTypes.OrderBy(s => s.Name));
-    }
-
-    private void Interface_OnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
-        => UpdateLanguage();
-
-    private void UpdateLanguage()
-    {
-        PlaceholderText = AddEditAccountContentPageResources.PlaceholderText;
-        LabelTextTitleCurrency = AddEditAccountContentPageResources.LabelTextTitleCurrency;
-        LabelTextTitleAccountType = AddEditAccountContentPageResources.LabelTextTitleAccountType;
-
-        ButtonValidText = AddEditAccountContentPageResources.ButtonValidText;
-        ButtonDeleteText = AddEditAccountContentPageResources.ButtonDeleteText;
-        ButtonCancelText = AddEditAccountContentPageResources.ButtonCancelText;
-    }
-
-    public void SetAccount(TAccount? account = null, int? id = null)
-    {
-        if (account is not null) account.CopyPropertiesTo(Account);
-        else if (id is not null)
-        {
-            account = Accounts.First(s => s.Id.Equals(id));
-            account.CopyPropertiesTo(Account);
-        }
-        else throw new ArgumentNullException(nameof(id), @"account id is null");
-
-        OriginalAccount = account.DeepCopy();
+        Account.AccountTypeFk = accountTypeFk;
     }
 
     private async void ButtonAddEditCurrency_OnClick(object? sender, EventArgs e)
@@ -162,19 +131,64 @@ public partial class AddEditAccountContentPage
         Account.CurrencyFk = currencyFk;
     }
 
-    private async void ButtonAddEditAccountType_OnClick(object? sender, EventArgs e)
+    private void ButtonCancel_OnClicked(object? sender, EventArgs e)
     {
-        var accountTypeFk = Account.AccountTypeFk;
-
-        var accountTypeSummaryContentPage = new AccountTypeSummaryContentPage();
-        await Navigation.PushAsync(accountTypeSummaryContentPage);
-
-        var result = await accountTypeSummaryContentPage.ResultDialog;
-        if (!result) return;
-
-        RefreshAccountTypes();
-        Account.AccountTypeFk = accountTypeFk;
+        var account = OriginalAccount ?? new TAccount();
+        account.CopyPropertiesTo(Account);
     }
+
+    private void Interface_OnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
+        => UpdateLanguage();
+
+    #endregion
+
+    #region Function
+
+    private void RefreshAccountTypes()
+    {
+        using var context = new DataBaseContext();
+        AccountTypes.Clear();
+        AccountTypes.AddRange(context.TAccountTypes.OrderBy(s => s.Name));
+    }
+
+    private void RefreshCurrencies()
+    {
+        using var context = new DataBaseContext();
+        Currencies.Clear();
+        Currencies.AddRange(context.TCurrencies.OrderBy(s => s.Symbol));
+    }
+
+    private void RefreshObservableCollectionDatabase()
+    {
+        RefreshCurrencies();
+        RefreshAccountTypes();
+    }
+
+    public void SetAccount(TAccount? account = null, int? id = null)
+    {
+        if (account is not null) account.CopyPropertiesTo(Account);
+        else if (id is not null)
+        {
+            account = Accounts.First(s => s.Id.Equals(id));
+            account.CopyPropertiesTo(Account);
+        }
+        else throw new ArgumentNullException(nameof(id), @"account id is null");
+
+        OriginalAccount = account.DeepCopy();
+    }
+
+    private void UpdateLanguage()
+    {
+        PlaceholderText = AddEditAccountContentPageResources.PlaceholderText;
+        LabelTextTitleCurrency = AddEditAccountContentPageResources.LabelTextTitleCurrency;
+        LabelTextTitleAccountType = AddEditAccountContentPageResources.LabelTextTitleAccountType;
+
+        ButtonValidText = AddEditAccountContentPageResources.ButtonValidText;
+        ButtonDeleteText = AddEditAccountContentPageResources.ButtonDeleteText;
+        ButtonCancelText = AddEditAccountContentPageResources.ButtonCancelText;
+    }
+
+    #endregion
 
     private void ButtonValid_OnClicked(object? sender, EventArgs e)
     {
@@ -184,11 +198,5 @@ public partial class AddEditAccountContentPage
     private void ButtonDelete_OnClicked(object? sender, EventArgs e)
     {
         throw new NotImplementedException();
-    }
-
-    private void ButtonCancel_OnClicked(object? sender, EventArgs e)
-    {
-        var account = OriginalAccount ?? new TAccount();
-        account.CopyPropertiesTo(Account);
     }
 }
