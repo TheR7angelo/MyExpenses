@@ -12,15 +12,19 @@ public partial class TAccount : ISql
     [Column("id")]
     public int Id { get; set; }
 
+    [Required]
     [Column("name")]
     public string? Name { get; set; }
 
+    [Required]
     [Column("account_type_fk")]
     public int? AccountTypeFk { get; set; }
 
+    [Required]
     [Column("currency_fk")]
     public int? CurrencyFk { get; set; }
 
+    [Required]
     [Column("active", TypeName = "BOOLEAN")]
     public bool? Active { get; set; } = true;
 
