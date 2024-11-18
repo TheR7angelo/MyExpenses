@@ -187,7 +187,8 @@
                                              ImageHeightRequest="24"
                                              ImageWidthRequest="{Binding ImageHeightRequest, Source={RelativeSource Self}}"
                                              HeightRequest="40"
-                                             WidthRequest="{Binding HeightRequest, Source={RelativeSource Self}}">
+                                             WidthRequest="{Binding HeightRequest, Source={RelativeSource Self}}"
+                                             Clicked="ButtonImageViewRemoveAccount_OnClicked">
                 </customFrame:ButtonImageView>
 
             </HorizontalStackLayout>

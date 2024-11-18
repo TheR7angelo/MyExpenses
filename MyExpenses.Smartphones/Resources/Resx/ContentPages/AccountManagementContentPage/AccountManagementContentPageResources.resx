@@ -24,4 +24,34 @@
     <data name="LabelTextTransactionTransfer" xml:space="preserve">
         <value>New bank transfer</value>
     </data>
+    <data name="MessageBoxRemoveAccountQuestionTitle" xml:space="preserve">
+        <value>Question</value>
+    </data>
+    <data name="MessageBoxRemoveAccountQuestionMessage" xml:space="preserve">
+        <value>Do you really want to delete the selected accounts ?{0}Be careful it may take more or less time depending on the number of linked data to be deleted</value>
+    </data>
+    <data name="MessageBoxRemoveAccountQuestionYesButton" xml:space="preserve">
+        <value>Yes</value>
+    </data>
+    <data name="MessageBoxRemoveAccountQuestionNoButton" xml:space="preserve">
+        <value>No</value>
+    </data>
+    <data name="MessageBoxRemoveAccountErrorTitle" xml:space="preserve">
+        <value>Error</value>
+    </data>
+    <data name="MessageBoxRemoveAccountErrorMessage" xml:space="preserve">
+        <value>Error while deleting {0} accounts</value>
+    </data>
+    <data name="MessageBoxRemoveAccountErrorOkButton" xml:space="preserve">
+        <value>Ok</value>
+    </data>
+    <data name="MessageBoxRemoveAccountSuccessTitle" xml:space="preserve">
+        <value>Success</value>
+    </data>
+    <data name="MessageBoxRemoveAccountSuccessMessage" xml:space="preserve">
+        <value>Successfully deleted of {0} accounts</value>
+    </data>
+    <data name="MessageBoxRemoveAccountSuccessOkButton" xml:space="preserve">
+        <value>Ok</value>
+    </data>
 </root>

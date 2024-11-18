@@ -1,10 +1,18 @@
+using System.Collections.Immutable;
 using System.Collections.ObjectModel;
+using CommunityToolkit.Maui.Views;
+using MyExpenses.Models.AutoMapper;
 using MyExpenses.Models.Config;
 using MyExpenses.Models.Config.Interfaces;
+using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Models.Sql.Bases.Views;
+using MyExpenses.Models.Sql.Derivatives.Tables;
+using MyExpenses.Smartphones.ContentPages.CustomPopups;
 using MyExpenses.Smartphones.Resources.Resx.ContentPages.AccountManagementContentPage;
 using MyExpenses.Sql.Context;
+using MyExpenses.Utils;
 using MyExpenses.Utils.Collection;
+using Serilog;
 
 namespace MyExpenses.Smartphones.ContentPages;
 
@@ -81,6 +89,61 @@ public partial class AccountManagementContentPage
 
         var needToRefresh = await bankTransferSummaryContentPage.ResultDialog;
         if (needToRefresh) RefreshAccountTotals();
+    }
+
+    private async void ButtonImageViewRemoveAccount_OnClicked(object? sender, EventArgs e)
+    {
+        var mapper = Mapping.Mapper;
+        await using var context = new DataBaseContext();
+        var accountsDerives = context.TAccounts.Select(s => mapper.Map<TAccountDerive>(s)).AsEnumerable();
+
+        var customPopupFilterAccount = new CustomPopupFilterAccount(accountsDerives);
+        await this.ShowPopupAsync(customPopupFilterAccount);
+
+        var filteredItem = customPopupFilterAccount.GetFilteredItemChecked().ToImmutableList();
+        if (filteredItem.IsEmpty) return;
+
+        var response = await DisplayAlert(
+            AccountManagementContentPageResources.MessageBoxRemoveAccountQuestionTitle,
+            string.Format(AccountManagementContentPageResources.MessageBoxRemoveAccountQuestionMessage, Environment.NewLine),
+            AccountManagementContentPageResources.MessageBoxRemoveAccountQuestionYesButton,
+            AccountManagementContentPageResources.MessageBoxRemoveAccountQuestionNoButton);
+        if (!response) return;
+
+        var deleteErrors = new List<TAccount>();
+        foreach (var accountDerive in filteredItem)
+        {
+            TAccount account = accountDerive;
+
+            var json = account.ToJson();
+            Log.Information("Attempt to delete account {Json}", json);
+
+            var (success, exception) = account.Delete(true);
+            if (success) Log.Information("Account was successfully deleted");
+            else
+            {
+                Log.Error(exception, "Error while deleting account");
+                deleteErrors.Add(account);
+            }
+        }
+
+        RefreshAccountTotals();
+        DashBoardContentPage.Instance.RefreshAccountTotal();
+
+        if (deleteErrors.Count > 0)
+        {
+            await DisplayAlert(
+                AccountManagementContentPageResources.MessageBoxRemoveAccountErrorTitle,
+                string.Format(AccountManagementContentPageResources.MessageBoxRemoveAccountErrorMessage, deleteErrors.Count),
+                AccountManagementContentPageResources.MessageBoxRemoveAccountErrorOkButton);
+        }
+        else
+        {
+            await DisplayAlert(
+                AccountManagementContentPageResources.MessageBoxRemoveAccountSuccessTitle,
+                string.Format(AccountManagementContentPageResources.MessageBoxRemoveAccountSuccessMessage, filteredItem.Count),
+                AccountManagementContentPageResources.MessageBoxRemoveAccountSuccessOkButton);
+        }
     }
 
     private void Interface_OnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
