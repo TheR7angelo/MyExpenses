@@ -137,7 +137,7 @@ public partial class AddEditAccountContentPage
         var result = await accountTypeSummaryContentPage.ResultDialog;
         if (!result) return;
 
-        RefreshCurrencies();
+        RefreshAccountTypes();
         Account.AccountTypeFk = accountTypeFk;
     }
 }
