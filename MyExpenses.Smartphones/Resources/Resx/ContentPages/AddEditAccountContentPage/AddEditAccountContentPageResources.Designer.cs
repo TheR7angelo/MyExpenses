@@ -61,6 +61,15 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.AddEditAccountConte
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Currency :.
+        /// </summary>
+        internal static string LabelTextTitleCurrency {
+            get {
+                return ResourceManager.GetString("LabelTextTitleCurrency", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Account name :.
         /// </summary>
         internal static string PlaceholderText {

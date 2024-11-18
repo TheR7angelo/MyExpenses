@@ -21,4 +21,7 @@
     <data name="PlaceholderText" xml:space="preserve">
         <value>Account name :</value>
     </data>
+    <data name="LabelTextTitleCurrency" xml:space="preserve">
+        <value>Currency :</value>
+    </data>
 </root>
