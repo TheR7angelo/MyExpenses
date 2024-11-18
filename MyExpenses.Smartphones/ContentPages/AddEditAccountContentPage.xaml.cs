@@ -126,4 +126,18 @@ public partial class AddEditAccountContentPage
         RefreshCurrencies();
         Account.CurrencyFk = currencyFk;
     }
+
+    private async void ButtonAddEditAccountType_OnClick(object? sender, EventArgs e)
+    {
+        var accountTypeFk = Account.AccountTypeFk;
+
+        var accountTypeSummaryContentPage = new AccountTypeSummaryContentPage();
+        await Navigation.PushAsync(accountTypeSummaryContentPage);
+
+        var result = await accountTypeSummaryContentPage.ResultDialog;
+        if (!result) return;
+
+        RefreshCurrencies();
+        Account.AccountTypeFk = accountTypeFk;
+    }
 }

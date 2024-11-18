@@ -81,6 +81,16 @@
 
             </HorizontalStackLayout>
 
+            <customFrame:ButtonImageView Grid.Row="1" Grid.Column="2"
+                                         Style="{StaticResource FloatingActionMidButtonImageView}"
+                                         GeometrySource="Pencil"
+                                         ImageHeightRequest="24"
+                                         ImageWidthRequest="{Binding ImageHeightRequest, Source={RelativeSource Self}}"
+                                         HeightRequest="40"
+                                         WidthRequest="{Binding HeightRequest, Source={RelativeSource Self}}"
+                                         Clicked="ButtonAddEditAccountType_OnClick">
+            </customFrame:ButtonImageView>
+
         </Grid>
 
     </ContentPage.Content>
