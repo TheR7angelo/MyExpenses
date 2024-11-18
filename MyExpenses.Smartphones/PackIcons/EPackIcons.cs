@@ -21,6 +21,7 @@ public enum EPackIcons
     InvoicePlus,
     Minus,
     MinusCheckboxOutline,
+    Pencil,
     Plus,
     Refresh,
     SwapHorizontal,
