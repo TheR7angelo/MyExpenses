@@ -67,14 +67,22 @@ public partial class AccountTypeSummaryContentPage
         Interface.LanguageChanged += Interface_OnLanguageChanged;
     }
 
+    #region Action
+
     private void Interface_OnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
         => UpdateLanguage();
+
+    #endregion
+
+    #region Function
 
     private void UpdateLanguage()
     {
         PlaceholderText = AccountTypeSummaryContentPageResources.PlaceholderText;
         ButtonValidText = AccountTypeSummaryContentPageResources.ButtonValidText;
     }
+
+    #endregion
 
     private void RefreshAccountTypes()
     {
