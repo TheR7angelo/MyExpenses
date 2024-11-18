@@ -11,6 +11,33 @@ namespace MyExpenses.Smartphones.ContentPages;
 
 public partial class AddEditAccountContentPage
 {
+    public static readonly BindableProperty ButtonCancelTextProperty = BindableProperty.Create(nameof(ButtonCancelText),
+        typeof(string), typeof(AddEditAccountContentPage), default(string));
+
+    public string ButtonCancelText
+    {
+        get => (string)GetValue(ButtonCancelTextProperty);
+        set => SetValue(ButtonCancelTextProperty, value);
+    }
+    
+    public static readonly BindableProperty ButtonDeleteTextProperty = BindableProperty.Create(nameof(ButtonDeleteText),
+        typeof(string), typeof(AddEditAccountContentPage), default(string));
+
+    public string ButtonDeleteText
+    {
+        get => (string)GetValue(ButtonDeleteTextProperty);
+        set => SetValue(ButtonDeleteTextProperty, value);
+    }
+
+    public static readonly BindableProperty ButtonValidTextProperty = BindableProperty.Create(nameof(ButtonValidText),
+        typeof(string), typeof(AddEditAccountContentPage), default(string));
+
+    public string ButtonValidText
+    {
+        get => (string)GetValue(ButtonValidTextProperty);
+        set => SetValue(ButtonValidTextProperty, value);
+    }
+
     public static readonly BindableProperty LabelTextTitleAccountTypeProperty =
         BindableProperty.Create(nameof(LabelTextTitleAccountType), typeof(string), typeof(AddEditAccountContentPage),
             default(string));
@@ -55,7 +82,7 @@ public partial class AddEditAccountContentPage
     public TAccount Account { get; } = new();
 
     private readonly TaskCompletionSource<bool> _taskCompletionSource = new();
-
+    
     public Task<bool> ResultDialog
         => _taskCompletionSource.Task;
 
@@ -100,6 +127,10 @@ public partial class AddEditAccountContentPage
         PlaceholderText = AddEditAccountContentPageResources.PlaceholderText;
         LabelTextTitleCurrency = AddEditAccountContentPageResources.LabelTextTitleCurrency;
         LabelTextTitleAccountType = AddEditAccountContentPageResources.LabelTextTitleAccountType;
+
+        ButtonValidText = AddEditAccountContentPageResources.ButtonValidText;
+        ButtonDeleteText = AddEditAccountContentPageResources.ButtonDeleteText;
+        ButtonCancelText = AddEditAccountContentPageResources.ButtonCancelText;
     }
 
     public void SetAccount(TAccount? account = null, int? id = null)
@@ -139,5 +170,20 @@ public partial class AddEditAccountContentPage
 
         RefreshAccountTypes();
         Account.AccountTypeFk = accountTypeFk;
+    }
+
+    private void ButtonValid_OnClicked(object? sender, EventArgs e)
+    {
+        throw new NotImplementedException();
+    }
+
+    private void ButtonDelete_OnClicked(object? sender, EventArgs e)
+    {
+        throw new NotImplementedException();
+    }
+
+    private void ButtonCancel_OnClicked(object? sender, EventArgs e)
+    {
+        throw new NotImplementedException();
     }
 }

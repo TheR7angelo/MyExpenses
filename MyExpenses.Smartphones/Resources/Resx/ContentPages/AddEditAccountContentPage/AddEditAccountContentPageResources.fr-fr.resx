@@ -20,4 +20,13 @@
     <data name="LabelTextTitleAccountType" xml:space="preserve">
         <value>Type de compte :</value>
     </data>
+    <data name="ButtonValidText" xml:space="preserve">
+        <value>Valider</value>
+    </data>
+    <data name="ButtonDeleteText" xml:space="preserve">
+        <value>Supprimer</value>
+    </data>
+    <data name="ButtonCancelText" xml:space="preserve">
+        <value>Annuler</value>
+    </data>
 </root>

@@ -61,6 +61,33 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.AddEditAccountConte
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        internal static string ButtonCancelText {
+            get {
+                return ResourceManager.GetString("ButtonCancelText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete.
+        /// </summary>
+        internal static string ButtonDeleteText {
+            get {
+                return ResourceManager.GetString("ButtonDeleteText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Valid.
+        /// </summary>
+        internal static string ButtonValidText {
+            get {
+                return ResourceManager.GetString("ButtonValidText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Account type :.
         /// </summary>
         internal static string LabelTextTitleAccountType {
