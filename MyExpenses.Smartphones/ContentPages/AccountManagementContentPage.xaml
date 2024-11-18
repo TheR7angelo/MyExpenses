@@ -181,7 +181,6 @@
                                              Clicked="ButtonImageViewAddAccount_OnClicked">
                 </customFrame:ButtonImageView>
 
-                <!-- TODO click -->
                 <customFrame:ButtonImageView Style="{StaticResource FloatingActionMiniSecondaryDarkButtonImageView}"
                                              GeometrySource="Minus"
                                              ImageHeightRequest="24"
