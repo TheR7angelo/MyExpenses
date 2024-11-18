@@ -1,4 +1,7 @@
+using MyExpenses.Models.Config;
+using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Sql.Bases.Tables;
+using MyExpenses.Smartphones.Resources.Resx.ContentPages.AddEditAccountContentPage;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils;
 
@@ -6,6 +9,15 @@ namespace MyExpenses.Smartphones.ContentPages;
 
 public partial class AddEditAccountContentPage
 {
+    public static readonly BindableProperty PlaceholderTextProperty = BindableProperty.Create(nameof(PlaceholderText),
+        typeof(string), typeof(AddEditAccountContentPage), default(string));
+
+    public string PlaceholderText
+    {
+        get => (string)GetValue(PlaceholderTextProperty);
+        set => SetValue(PlaceholderTextProperty, value);
+    }
+
     public static readonly BindableProperty CanDeleteProperty = BindableProperty.Create(nameof(CanDelete), typeof(bool),
         typeof(AddEditAccountContentPage), default(bool));
 
@@ -28,7 +40,18 @@ public partial class AddEditAccountContentPage
         using var context = new DataBaseContext();
         Accounts = [..context.TAccounts];
 
+        UpdateLanguage();
         InitializeComponent();
+
+        Interface.LanguageChanged += Interface_OnLanguageChanged;
+    }
+
+    private void Interface_OnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
+        => UpdateLanguage();
+
+    private void UpdateLanguage()
+    {
+        PlaceholderText = AddEditAccountContentPageResources.PlaceholderText;
     }
 
     public void SetAccount(TAccount? account = null, int? id = null)

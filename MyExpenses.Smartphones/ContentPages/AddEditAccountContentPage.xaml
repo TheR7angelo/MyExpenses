@@ -2,13 +2,34 @@
 
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:customEntryControl="clr-namespace:MyExpenses.Smartphones.UserControls.TextInputs.CustomEntryControl"
              x:Class="MyExpenses.Smartphones.ContentPages.AddEditAccountContentPage"
 
              BindingContext="{Binding Source={RelativeSource Self}}">
 
     <ContentPage.Content>
 
+        <Grid>
 
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <customEntryControl:CustomEntryControl Grid.Row="0" Grid.Column="0"
+                                                   HasClearButton="True"
+                                                   PlaceholderText="{Binding PlaceholderText, Mode=OneWay}"
+                                                   Text="{Binding Account.Name}">
+            </customEntryControl:CustomEntryControl>
+
+        </Grid>
 
     </ContentPage.Content>
 

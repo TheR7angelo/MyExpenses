@@ -259,6 +259,11 @@
         <AutoGen>True</AutoGen>
         <DependentUpon>CustomPopupEntryResources.resx</DependentUpon>
       </Compile>
+      <Compile Update="Resources\Resx\ContentPages\AddEditAccountContentPage\AddEditAccountContentPageResources.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>AddEditAccountContentPageResources.resx</DependentUpon>
+      </Compile>
     </ItemGroup>
 
     <ItemGroup>
@@ -349,6 +354,10 @@
       <EmbeddedResource Update="Resources\Resx\ContentPages\CustomPopups\CustomPopupEntry\CustomPopupEntryResources.resx">
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>CustomPopupEntryResources.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+      <EmbeddedResource Update="Resources\Resx\ContentPages\AddEditAccountContentPage\AddEditAccountContentPageResources.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>AddEditAccountContentPageResources.Designer.cs</LastGenOutput>
       </EmbeddedResource>
     </ItemGroup>
 
