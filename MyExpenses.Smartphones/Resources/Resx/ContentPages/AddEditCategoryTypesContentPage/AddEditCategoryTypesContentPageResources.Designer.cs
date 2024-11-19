@@ -79,6 +79,177 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.AddEditCategoryType
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to An error occurred while adding the new category, please try again.
+        /// </summary>
+        internal static string MesageBoxAddNewCategoryTypeErrorMessage {
+            get {
+                return ResourceManager.GetString("MesageBoxAddNewCategoryTypeErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ok.
+        /// </summary>
+        internal static string MesageBoxAddNewCategoryTypeErrorOkButton {
+            get {
+                return ResourceManager.GetString("MesageBoxAddNewCategoryTypeErrorOkButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        internal static string MesageBoxAddNewCategoryTypeErrorTitle {
+            get {
+                return ResourceManager.GetString("MesageBoxAddNewCategoryTypeErrorTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you really want to add &quot;{0}&quot; as a new category ?.
+        /// </summary>
+        internal static string MesageBoxAddNewCategoryTypeQuestionMessage {
+            get {
+                return ResourceManager.GetString("MesageBoxAddNewCategoryTypeQuestionMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No.
+        /// </summary>
+        internal static string MesageBoxAddNewCategoryTypeQuestionNoButton {
+            get {
+                return ResourceManager.GetString("MesageBoxAddNewCategoryTypeQuestionNoButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add new category ?.
+        /// </summary>
+        internal static string MesageBoxAddNewCategoryTypeQuestionTitle {
+            get {
+                return ResourceManager.GetString("MesageBoxAddNewCategoryTypeQuestionTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yes.
+        /// </summary>
+        internal static string MesageBoxAddNewCategoryTypeQuestionYesButton {
+            get {
+                return ResourceManager.GetString("MesageBoxAddNewCategoryTypeQuestionYesButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The new category has been successfully added.
+        /// </summary>
+        internal static string MesageBoxAddNewCategoryTypeSuccessMessage {
+            get {
+                return ResourceManager.GetString("MesageBoxAddNewCategoryTypeSuccessMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ok.
+        /// </summary>
+        internal static string MesageBoxAddNewCategoryTypeSuccessOkButton {
+            get {
+                return ResourceManager.GetString("MesageBoxAddNewCategoryTypeSuccessOkButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Success.
+        /// </summary>
+        internal static string MesageBoxAddNewCategoryTypeSuccessTitle {
+            get {
+                return ResourceManager.GetString("MesageBoxAddNewCategoryTypeSuccessTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The category name already exists.
+        /// </summary>
+        internal static string MessageBoxValidateCategoryTypeErrorAlreadyExistMessage {
+            get {
+                return ResourceManager.GetString("MessageBoxValidateCategoryTypeErrorAlreadyExistMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ok.
+        /// </summary>
+        internal static string MessageBoxValidateCategoryTypeErrorAlreadyExistOkButton {
+            get {
+                return ResourceManager.GetString("MessageBoxValidateCategoryTypeErrorAlreadyExistOkButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        internal static string MessageBoxValidateCategoryTypeErrorAlreadyExistTitle {
+            get {
+                return ResourceManager.GetString("MessageBoxValidateCategoryTypeErrorAlreadyExistTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The category name cannot be empty.
+        /// </summary>
+        internal static string MessageBoxValidateCategoryTypeErrorEmptyMessage {
+            get {
+                return ResourceManager.GetString("MessageBoxValidateCategoryTypeErrorEmptyMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ok.
+        /// </summary>
+        internal static string MessageBoxValidateCategoryTypeErrorEmptyOkButton {
+            get {
+                return ResourceManager.GetString("MessageBoxValidateCategoryTypeErrorEmptyOkButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        internal static string MessageBoxValidateCategoryTypeErrorEmptyTitle {
+            get {
+                return ResourceManager.GetString("MessageBoxValidateCategoryTypeErrorEmptyTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Color cannot be null.
+        /// </summary>
+        internal static string MessageBoxValidateColorErrorEmptyMessage {
+            get {
+                return ResourceManager.GetString("MessageBoxValidateColorErrorEmptyMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ok.
+        /// </summary>
+        internal static string MessageBoxValidateColorErrorEmptyOkButton {
+            get {
+                return ResourceManager.GetString("MessageBoxValidateColorErrorEmptyOkButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        internal static string MessageBoxValidateColorErrorEmptyTitle {
+            get {
+                return ResourceManager.GetString("MessageBoxValidateColorErrorEmptyTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Category Name :.
         /// </summary>
         internal static string PlaceholderText {

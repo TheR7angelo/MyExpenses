@@ -134,13 +134,12 @@ public partial class AddEditCategoryTypesContentPage
         var validate = await ValidateCategoryType();
         if (!validate) return;
 
-        // TODO trad
         var response = await DisplayAlert(
-            AccountTypeSummaryContentPageResources.MesageBoxAddNewAccountTypeQuestionTitle,
-            string.Format(AccountTypeSummaryContentPageResources.MesageBoxAddNewAccountTypeQuestionMessage,
+            AddEditCategoryTypesContentPageResources.MesageBoxAddNewCategoryTypeQuestionTitle,
+            string.Format(AddEditCategoryTypesContentPageResources.MesageBoxAddNewCategoryTypeQuestionMessage,
                 CategoryTypeName),
-            AccountTypeSummaryContentPageResources.MesageBoxAddNewAccountTypeQuestionYesButton,
-            AccountTypeSummaryContentPageResources.MesageBoxAddNewAccountTypeQuestionNoButton);
+            AddEditCategoryTypesContentPageResources.MesageBoxAddNewCategoryTypeQuestionYesButton,
+            AddEditCategoryTypesContentPageResources.MesageBoxAddNewCategoryTypeQuestionNoButton);
         if (!response) return;
 
         var newCategoryTypeType = new TCategoryType
@@ -164,20 +163,18 @@ public partial class AddEditCategoryTypesContentPage
             CategoryTypeName = string.Empty;
             SelectedColor = null;
 
-            // TODO trad
             await DisplayAlert(
-                AccountTypeSummaryContentPageResources.MesageBoxAddNewAccountTypeSuccessTitle,
-                AccountTypeSummaryContentPageResources.MesageBoxAddNewAccountTypeSuccessMessage,
-                AccountTypeSummaryContentPageResources.MesageBoxAddNewAccountTypeSuccessOkButton);
+                AddEditCategoryTypesContentPageResources.MesageBoxAddNewCategoryTypeSuccessTitle,
+                AddEditCategoryTypesContentPageResources.MesageBoxAddNewCategoryTypeSuccessMessage,
+                AddEditCategoryTypesContentPageResources.MesageBoxAddNewCategoryTypeSuccessOkButton);
         }
         else
         {
             Log.Error(exception, "An error occurred while adding new category type");
-            // TODO trad
             await DisplayAlert(
-                AccountTypeSummaryContentPageResources.MesageBoxAddNewAccountTypeErrorTitle,
-                AccountTypeSummaryContentPageResources.MesageBoxAddNewAccountTypeErrorMessage,
-                AccountTypeSummaryContentPageResources.MesageBoxAddNewAccountTypeErrorOkButton);
+                AddEditCategoryTypesContentPageResources.MesageBoxAddNewCategoryTypeErrorTitle,
+                AddEditCategoryTypesContentPageResources.MesageBoxAddNewCategoryTypeErrorMessage,
+                AddEditCategoryTypesContentPageResources.MesageBoxAddNewCategoryTypeErrorOkButton);
         }
     }
 
@@ -189,28 +186,29 @@ public partial class AddEditCategoryTypesContentPage
 
         if (string.IsNullOrWhiteSpace(categoryTypeNameToTest))
         {
-            // TODO trad
             await DisplayAlert(
-                AccountTypeSummaryContentPageResources.MessageBoxValidateAccountTypeErrorEmptyTitle,
-                AccountTypeSummaryContentPageResources.MessageBoxValidateAccountTypeErrorEmptyMessage,
-                AccountTypeSummaryContentPageResources.MessageBoxValidateAccountTypeErrorEmptyOkButton);
+                AddEditCategoryTypesContentPageResources.MessageBoxValidateCategoryTypeErrorEmptyTitle,
+                AddEditCategoryTypesContentPageResources.MessageBoxValidateCategoryTypeErrorEmptyMessage,
+                AddEditCategoryTypesContentPageResources.MessageBoxValidateCategoryTypeErrorEmptyOkButton);
             return false;
         }
 
         if (SelectedColor is null)
         {
-            await DisplayAlert("Error", "Please select a color", "Ok");
+            await DisplayAlert(
+                AddEditCategoryTypesContentPageResources.MessageBoxValidateColorErrorEmptyTitle,
+                AddEditCategoryTypesContentPageResources.MessageBoxValidateColorErrorEmptyMessage,
+                AddEditCategoryTypesContentPageResources.MessageBoxValidateColorErrorEmptyOkButton);
             return false;
         }
 
         var alreadyExist = Categories.Any(s => s.CategoryName!.Equals(categoryTypeNameToTest));
         if (alreadyExist)
         {
-            // TODO trad
             await DisplayAlert(
-                AccountTypeSummaryContentPageResources.MessageBoxValidateAccountTypeErrorAlreadyExistTitle,
-                AccountTypeSummaryContentPageResources.MessageBoxValidateAccountTypeErrorAlreadyExistMessage,
-                AccountTypeSummaryContentPageResources.MessageBoxValidateAccountTypeErrorAlreadyExistOkButton);
+                AddEditCategoryTypesContentPageResources.MessageBoxValidateCategoryTypeErrorAlreadyExistTitle,
+                AddEditCategoryTypesContentPageResources.MessageBoxValidateCategoryTypeErrorAlreadyExistMessage,
+                AddEditCategoryTypesContentPageResources.MessageBoxValidateCategoryTypeErrorAlreadyExistOkButton);
             return false;
         }
 

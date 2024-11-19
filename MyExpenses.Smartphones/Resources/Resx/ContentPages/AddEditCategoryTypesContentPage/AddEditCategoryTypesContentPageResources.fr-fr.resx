@@ -20,4 +20,61 @@
     <data name="LabelTextColor" xml:space="preserve">
         <value>Couleur de la catégorie :</value>
     </data>
+    <data name="MesageBoxAddNewCategoryTypeQuestionTitle" xml:space="preserve">
+        <value>Ajouter une nouvelle catégorie ?</value>
+    </data>
+    <data name="MesageBoxAddNewCategoryTypeQuestionYesButton" xml:space="preserve">
+        <value>Oui</value>
+    </data>
+    <data name="MesageBoxAddNewCategoryTypeQuestionNoButton" xml:space="preserve">
+        <value>Non</value>
+    </data>
+    <data name="MesageBoxAddNewCategoryTypeQuestionMessage" xml:space="preserve">
+        <value>Voulez-vous vraiment ajouter "{0}" comme nouvelle catégorie ?</value>
+    </data>
+    <data name="MesageBoxAddNewCategoryTypeSuccessOkButton" xml:space="preserve">
+        <value>Ok</value>
+    </data>
+    <data name="MesageBoxAddNewCategoryTypeSuccessTitle" xml:space="preserve">
+        <value>Succès</value>
+    </data>
+    <data name="MesageBoxAddNewCategoryTypeSuccessMessage" xml:space="preserve">
+        <value>La nouvelle catégorie a été ajoutée avec succès</value>
+    </data>
+    <data name="MesageBoxAddNewCategoryTypeErrorOkButton" xml:space="preserve">
+        <value>Ok</value>
+    </data>
+    <data name="MesageBoxAddNewCategoryTypeErrorTitle" xml:space="preserve">
+        <value>Erreur</value>
+    </data>
+    <data name="MesageBoxAddNewCategoryTypeErrorMessage" xml:space="preserve">
+        <value>Une erreur s’est produite lors de l’ajout de la nouvelle catégorie, veuillez réessayer</value>
+    </data>
+    <data name="MessageBoxValidateCategoryTypeErrorEmptyTitle" xml:space="preserve">
+        <value>Erreur</value>
+    </data>
+    <data name="MessageBoxValidateCategoryTypeErrorEmptyOkButton" xml:space="preserve">
+        <value>Ok</value>
+    </data>
+    <data name="MessageBoxValidateCategoryTypeErrorEmptyMessage" xml:space="preserve">
+        <value>Le nom de la catégorie ne peut pas être vide</value>
+    </data>
+    <data name="MessageBoxValidateCategoryTypeErrorAlreadyExistTitle" xml:space="preserve">
+        <value>Erreur</value>
+    </data>
+    <data name="MessageBoxValidateCategoryTypeErrorAlreadyExistOkButton" xml:space="preserve">
+        <value>Ok</value>
+    </data>
+    <data name="MessageBoxValidateCategoryTypeErrorAlreadyExistMessage" xml:space="preserve">
+        <value>Le nom de la catégorie existe déjà</value>
+    </data>
+    <data name="MessageBoxValidateColorErrorEmptyOkButton" xml:space="preserve">
+        <value>Ok</value>
+    </data>
+    <data name="MessageBoxValidateColorErrorEmptyTitle" xml:space="preserve">
+        <value>Erreur</value>
+    </data>
+    <data name="MessageBoxValidateColorErrorEmptyMessage" xml:space="preserve">
+        <value>La couleur ne peut pas être nulle</value>
+    </data>
 </root>
