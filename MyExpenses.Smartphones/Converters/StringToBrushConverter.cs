@@ -1,4 +1,3 @@
-using System.Drawing;
 using System.Globalization;
 using Brush = Microsoft.Maui.Controls.Brush;
 using Color = Microsoft.Maui.Graphics.Color;
