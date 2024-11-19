@@ -8,7 +8,9 @@ using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Models.Sql.Bases.Views;
 using MyExpenses.Models.Sql.Derivatives.Tables;
 using MyExpenses.Smartphones.ContentPages.CustomPopups;
+using MyExpenses.Smartphones.ContentPages.CustomPopups.CustomPopupActivityIndicator;
 using MyExpenses.Smartphones.Resources.Resx.ContentPages.AccountManagementContentPage;
+using MyExpenses.Smartphones.Resources.Resx.ContentPages.AccountTypeSummaryContentPage;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils;
 using MyExpenses.Utils.Collection;
@@ -110,6 +112,10 @@ public partial class AccountManagementContentPage
             AccountManagementContentPageResources.MessageBoxRemoveAccountQuestionNoButton);
         if (!response) return;
 
+        await Task.Delay(TimeSpan.FromMilliseconds(100));
+        this.ShowCustomPopupActivityIndicator(AccountTypeSummaryContentPageResources.CustomPopupActivityIndicatorDeleteAccountType);
+        await Task.Delay(TimeSpan.FromMilliseconds(100));
+
         var deleteErrors = new List<TAccount>();
         foreach (var accountDerive in filteredItem)
         {
@@ -129,6 +135,8 @@ public partial class AccountManagementContentPage
 
         RefreshAccountTotals();
         DashBoardContentPage.Instance.RefreshAccountTotal();
+
+        CustomPopupActivityIndicatorHelper.CloseCustomPopupActivityIndicator();
 
         if (deleteErrors.Count > 0)
         {

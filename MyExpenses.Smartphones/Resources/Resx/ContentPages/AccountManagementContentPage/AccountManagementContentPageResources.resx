@@ -54,4 +54,7 @@
     <data name="MessageBoxRemoveAccountSuccessOkButton" xml:space="preserve">
         <value>Ok</value>
     </data>
+    <data name="CustomPopupActivityIndicatorDeleteAccounts" xml:space="preserve">
+        <value>Deleting accounts...</value>
+    </data>
 </root>

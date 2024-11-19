@@ -47,4 +47,7 @@
     <data name="MessageBoxRemoveAccountSuccessMessage" xml:space="preserve">
         <value>Successfully deleted of {0} accounts</value>
     </data>
+    <data name="CustomPopupActivityIndicatorDeleteAccounts" xml:space="preserve">
+        <value>Deleting accounts...</value>
+    </data>
 </root>

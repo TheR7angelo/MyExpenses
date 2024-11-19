@@ -61,6 +61,15 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.AccountManagementCo
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Deleting accounts....
+        /// </summary>
+        internal static string CustomPopupActivityIndicatorDeleteAccounts {
+            get {
+                return ResourceManager.GetString("CustomPopupActivityIndicatorDeleteAccounts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Transaction history.
         /// </summary>
         internal static string LabelTextTransactionHistory {
