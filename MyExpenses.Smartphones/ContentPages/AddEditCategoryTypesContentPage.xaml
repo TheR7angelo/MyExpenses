@@ -2,9 +2,125 @@
 
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="MyExpenses.Smartphones.ContentPages.AddEditCategoryTypesContentPage">
+             xmlns:views="clr-namespace:MyExpenses.Models.Sql.Bases.Views;assembly=MyExpenses.Models"
+             xmlns:customEntryControl="clr-namespace:MyExpenses.Smartphones.UserControls.TextInputs.CustomEntryControl"
+             xmlns:local="clr-namespace:MyExpenses.Smartphones.ContentPages"
+             x:Class="MyExpenses.Smartphones.ContentPages.AddEditCategoryTypesContentPage"
+             x:Name="This"
+             xmlns:margin="clr-namespace:MyExpenses.Maui.Utils.Margin;assembly=MyExpenses.Maui.Utils"
+             xmlns:converters="clr-namespace:MyExpenses.Smartphones.Converters"
+             xmlns:tables="clr-namespace:MyExpenses.Models.Sql.Bases.Tables;assembly=MyExpenses.Models"
+
+             BindingContext="{Binding Source={RelativeSource Self}}">
+
+    <ContentPage.Resources>
+        <converters:StringToBrushConverter x:Key="StringToBrushConverter" />
+    </ContentPage.Resources>
 
     <ContentPage.Content>
+
+        <Grid margin:LayoutExtensions.MarginForAllChildren="5">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <customEntryControl:CustomEntryControl Grid.Row="0" Grid.Column="0"
+                                                   PlaceholderText="{Binding PlaceholderText, Mode=OneWay}"
+                                                   Text="{Binding CategoryTypeName, Mode=TwoWay}"
+                                                   HasClearButton="True"
+                                                   MaxLength="{Binding MaxLength, Mode=OneWay}">
+            </customEntryControl:CustomEntryControl>
+
+            <HorizontalStackLayout Grid.Row="0" Grid.Column="1">
+
+                <Picker ItemsSource="{Binding Colors, Mode=OneWay, Source={RelativeSource AncestorType={x:Type local:AddEditCategoryTypesContentPage}}}"
+                        SelectedItem="{Binding SelectedColor, Mode=TwoWay, Source={Reference This}}"
+                        ItemDisplayBinding="{Binding Name}" x:DataType="tables:TColor"
+                        VerticalTextAlignment="Center"
+                        VerticalOptions="Center">
+                </Picker>
+
+                <Ellipse HeightRequest="24"
+                         WidthRequest="{Binding HeightRequest, Source={RelativeSource Self}}"
+                         Stroke="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
+                         StrokeThickness="1.5"
+                         Fill="{Binding SelectedColor.HexadecimalColorCode, Mode=OneWay, Converter={StaticResource StringToBrushConverter}}"
+                         Margin="10, 0">
+                </Ellipse>
+
+            </HorizontalStackLayout>
+
+            <Button Grid.Row="0" Grid.Column="2"
+                    Style="{StaticResource RaisedMidButton}"
+                    Text="{Binding ButtonValidText, Mode=OneWay}">
+                    <!-- Clicked="ButtonValid_OnClicked"> -->
+            </Button>
+
+            <Border Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3"
+                    Stroke="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
+                    StrokeThickness="2"
+                    Padding="0"
+                    Margin="5, 0">
+
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="5" />
+                </Border.StrokeShape>
+
+                <ScrollView>
+
+                    <FlexLayout BindableLayout.ItemsSource="{Binding Categories}"
+                                HorizontalOptions="Center"
+                                VerticalOptions="Start"
+                                Wrap="Wrap"
+                                AlignItems="Start"
+                                JustifyContent="Center"
+                                Margin="3">
+
+                        <BindableLayout.ItemTemplate>
+                            <DataTemplate x:DataType="views:VCategory">
+
+                                <Border StrokeThickness="2"
+                                        Stroke="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
+                                        Margin="1.5">
+
+                                    <Border.StrokeShape>
+                                        <RoundRectangle CornerRadius="5" />
+                                    </Border.StrokeShape>
+
+                                    <HorizontalStackLayout Margin="4">
+
+                                        <Label Text="{Binding CategoryName}" />
+
+                                        <Ellipse HeightRequest="24"
+                                                 WidthRequest="{Binding HeightRequest, Source={RelativeSource Self}}"
+                                                 Stroke="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
+                                                 StrokeThickness="1.5"
+                                                 Fill="{Binding HexadecimalColorCode, Mode=OneWay, Converter={StaticResource StringToBrushConverter}}"
+                                                 Margin="10, 0">
+                                        </Ellipse>
+
+                                    </HorizontalStackLayout>
+
+                                </Border>
+
+                            </DataTemplate>
+                        </BindableLayout.ItemTemplate>
+
+                    </FlexLayout>
+
+                </ScrollView>
+
+            </Border>
+
+        </Grid>
 
     </ContentPage.Content>
 
