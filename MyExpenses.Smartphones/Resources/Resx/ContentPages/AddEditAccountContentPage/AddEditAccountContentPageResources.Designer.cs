@@ -88,6 +88,15 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.AddEditAccountConte
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Deleting account and all related transactions.
+        /// </summary>
+        internal static string CustomPopupActivityIndicatorDeleteAccount {
+            get {
+                return ResourceManager.GetString("CustomPopupActivityIndicatorDeleteAccount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Account type :.
         /// </summary>
         internal static string LabelTextTitleAccountType {

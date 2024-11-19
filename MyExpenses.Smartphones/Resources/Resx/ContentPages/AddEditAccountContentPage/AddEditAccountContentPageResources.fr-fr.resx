@@ -92,4 +92,7 @@
     <data name="MessageBoxDeleteAccountErrorTitle" xml:space="preserve">
         <value>Erreur</value>
     </data>
+    <data name="CustomPopupActivityIndicatorDeleteAccount" xml:space="preserve">
+        <value>Suppression du compte et de toutes les transactions associées</value>
+    </data>
 </root>

@@ -99,4 +99,7 @@
     <data name="MessageBoxDeleteAccountErrorOkButton" xml:space="preserve">
         <value>Ok</value>
     </data>
+    <data name="CustomPopupActivityIndicatorDeleteAccount" xml:space="preserve">
+        <value>Deleting account and all related transactions</value>
+    </data>
 </root>

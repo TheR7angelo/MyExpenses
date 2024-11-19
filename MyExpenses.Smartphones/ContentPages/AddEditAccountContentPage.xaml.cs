@@ -3,8 +3,8 @@ using System.ComponentModel.DataAnnotations;
 using MyExpenses.Models.Config;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Sql.Bases.Tables;
+using MyExpenses.Smartphones.ContentPages.CustomPopups.CustomPopupActivityIndicator;
 using MyExpenses.Smartphones.Resources.Resx.ContentPages.AddEditAccountContentPage;
-using MyExpenses.Smartphones.Resources.Resx.ContentPages.AddEditBankTransferContentPage;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils;
 using MyExpenses.Utils.Collection;
@@ -150,10 +150,16 @@ public partial class AddEditAccountContentPage
 
         if (!response) return;
 
+        await Task.Delay(TimeSpan.FromMilliseconds(100));
+        this.ShowCustomPopupActivityIndicator(AddEditAccountContentPageResources.CustomPopupActivityIndicatorDeleteAccount);
+        await Task.Delay(TimeSpan.FromMilliseconds(100));
+
         var json = Account.ToJson();
         Log.Information("Attempting to delete account : {Json}", json);
 
         var (success, exception) = Account.Delete(true);
+        CustomPopupActivityIndicatorHelper.CloseCustomPopupActivityIndicator();
+
         if (success)
         {
             Log.Information("Successful account deletion");
