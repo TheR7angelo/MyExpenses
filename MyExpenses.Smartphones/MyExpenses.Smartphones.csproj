@@ -114,6 +114,9 @@
       <MauiXaml Update="ContentPages\CustomPopups\CustomPopupFilterAccount.xaml">
         <SubType>Designer</SubType>
       </MauiXaml>
+      <MauiXaml Update="ContentPages\CustomPopups\CustomPopupActivityIndicator\CustomPopupActivityIndicator.xaml">
+        <SubType>Designer</SubType>
+      </MauiXaml>
     </ItemGroup>
 
     <ItemGroup>
@@ -268,6 +271,10 @@
         <DesignTime>True</DesignTime>
         <AutoGen>True</AutoGen>
         <DependentUpon>AccountTypeSummaryContentPageResources.resx</DependentUpon>
+      </Compile>
+      <Compile Update="ContentPages\CustomPopups\CustomPopupActivityIndicator\CustomPopupActivityIndicator.xaml.cs">
+        <DependentUpon>CustomPopupActivityIndicator.xaml</DependentUpon>
+        <SubType>Code</SubType>
       </Compile>
     </ItemGroup>
 
