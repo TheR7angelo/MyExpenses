@@ -113,7 +113,7 @@ public partial class AccountManagementContentPage
         if (!response) return;
 
         await Task.Delay(TimeSpan.FromMilliseconds(100));
-        this.ShowCustomPopupActivityIndicator(AccountTypeSummaryContentPageResources.CustomPopupActivityIndicatorDeleteAccountType);
+        this.ShowCustomPopupActivityIndicator(AccountManagementContentPageResources.CustomPopupActivityIndicatorDeleteAccount);
         await Task.Delay(TimeSpan.FromMilliseconds(100));
 
         var deleteErrors = new List<TAccount>();

@@ -50,4 +50,7 @@
     <data name="CustomPopupActivityIndicatorDeleteAccounts" xml:space="preserve">
         <value>Suppression de comptes...</value>
     </data>
+    <data name="CustomPopupActivityIndicatorDeleteAccount" xml:space="preserve">
+        <value>Suppression des comptes sélectionnés et de toutes les transactions associées...</value>
+    </data>
 </root>

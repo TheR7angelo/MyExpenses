@@ -132,7 +132,4 @@
     <data name="MessageBoxHandleAccountTypeEditErrorOkButton" xml:space="preserve">
         <value>Ok</value>
     </data>
-    <data name="CustomPopupActivityIndicatorDeleteAccountType" xml:space="preserve">
-        <value>Deleting account type and all related accounts...</value>
-    </data>
 </root>
