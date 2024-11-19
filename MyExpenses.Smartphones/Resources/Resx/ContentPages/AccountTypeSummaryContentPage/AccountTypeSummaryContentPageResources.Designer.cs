@@ -70,6 +70,15 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.AccountTypeSummaryC
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Deleting account type and all related accounts....
+        /// </summary>
+        internal static string CustomPopupActivityIndicatorDeleteAccountType {
+            get {
+                return ResourceManager.GetString("CustomPopupActivityIndicatorDeleteAccountType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to An error occurred while adding account type, please retry.
         /// </summary>
         internal static string MesageBoxAddNewAccountTypeErrorMessage {

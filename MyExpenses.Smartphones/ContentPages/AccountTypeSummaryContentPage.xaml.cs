@@ -6,6 +6,7 @@ using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Maui.CustomPopup;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Smartphones.ContentPages.CustomPopups;
+using MyExpenses.Smartphones.ContentPages.CustomPopups.CustomPopupActivityIndicator;
 using MyExpenses.Smartphones.Resources.Resx.ContentPages.AccountTypeSummaryContentPage;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils;
@@ -135,6 +136,10 @@ public partial class AccountTypeSummaryContentPage
     private async Task HandleAccountTypeDelete(TAccountType accountType)
     {
         var (success, exception) = accountType.Delete(true);
+        DashBoardContentPage.Instance.RefreshAccountTotal();
+
+        CustomPopupActivityIndicatorHelper.CloseCustomPopupActivityIndicator();
+
         if (success)
         {
             Log.Information("Account type and all related accounts were successfully deleted");
@@ -201,6 +206,10 @@ public partial class AccountTypeSummaryContentPage
             AccountTypeSummaryContentPageResources.MessageBoxHandleAccountTypeDeleteQuestionYesButton,
             AccountTypeSummaryContentPageResources.MessageBoxHandleAccountTypeDeleteQuestionNoButton);
         if (!deleteResponse) return;
+
+        await Task.Delay(TimeSpan.FromMilliseconds(100));
+        this.ShowCustomPopupActivityIndicator(AccountTypeSummaryContentPageResources.CustomPopupActivityIndicatorDeleteAccountType);
+        await Task.Delay(TimeSpan.FromMilliseconds(100));
 
         Log.Information("Attempt to delete currency symbol : {Symbol}", json);
         await HandleAccountTypeDelete(accountType);
