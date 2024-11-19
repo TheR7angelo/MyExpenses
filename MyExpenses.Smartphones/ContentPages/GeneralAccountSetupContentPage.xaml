@@ -17,9 +17,9 @@
                             Clicked="ButtonAccountManagement_OnClicked">
                     </Button>
 
-                    <!-- TODO work -->
                     <Button Text="{Binding ButtonTextManagingAccountTypes, Mode=OneWay}"
-                            Style="{StaticResource RaisedMidButton}">
+                            Style="{StaticResource RaisedMidButton}"
+                            Clicked="ButtonManagingAccountTypes_OnClicked">
                     </Button>
 
                     <!-- TODO work -->

@@ -88,7 +88,10 @@ public partial class GeneralAccountSetupContentPage
 
     private void ButtonAccountManagement_OnClicked(object? sender, EventArgs e)
         => NavigateTo(typeof(AccountManagementContentPage));
-    
+
+    private void ButtonManagingAccountTypes_OnClicked(object? sender, EventArgs e)
+        => NavigateTo(typeof(AccountTypeSummaryContentPage));
+
     private void Interface_OnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
         => UpdateLanguage();
 

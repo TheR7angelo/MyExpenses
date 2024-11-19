@@ -54,9 +54,9 @@ ___
 > # Interface
 > - [ ] Create Flyout menu item ![33%](https://geps.dev/progress/33)<!-- [2/6] -->
 >   - [X] Dashboard main page
->   - [ ] General configuration ![14%](https://geps.dev/progress/14)<!-- [1/7] -->
+>   - [ ] General configuration ![29%](https://geps.dev/progress/29)<!-- [1/7] -->
 >     - [X] Account Management
->     - [ ] Managing Account Types
+>     - [X] Managing Account Types
 >     - [ ] Managing category types
 >     - [ ] Location Management
 >     - [ ] Color management
