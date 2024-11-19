@@ -6,6 +6,7 @@ using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Maui.CustomPopup;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Smartphones.ContentPages.CustomPopups;
+using MyExpenses.Smartphones.ContentPages.CustomPopups.CustomPopupActivityIndicator;
 using MyExpenses.Smartphones.Resources.Resx.ContentPages.CurrencySymbolSummaryContentPage;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils;
@@ -136,6 +137,8 @@ public partial class CurrencySymbolSummaryContentPage
     private async Task HandleCurrencyDelete(TCurrency currency)
     {
         var (success, exception) = currency.Delete(true);
+
+        CustomPopupActivityIndicatorHelper.CloseCustomPopupActivityIndicator();
         if (success)
         {
             Log.Information("Currency symbol and all related accounts were successfully deleted");
@@ -201,7 +204,12 @@ public partial class CurrencySymbolSummaryContentPage
             string.Format(CurrencySymbolSummaryContentPageResources.MessageBoxHandleCurrencyDeleteQuestionMessage, Environment.NewLine),
             CurrencySymbolSummaryContentPageResources.MessageBoxHandleCurrencyDeleteQuestionYesButton,
             CurrencySymbolSummaryContentPageResources.MessageBoxHandleCurrencyDeleteQuestionNoButton);
+
         if (!deleteResponse) return;
+
+        await Task.Delay(TimeSpan.FromMilliseconds(100));
+        this.ShowCustomPopupActivityIndicator();
+        await Task.Delay(TimeSpan.FromMilliseconds(100));
 
         Log.Information("Attempt to delete currency symbol : {Symbol}", json);
         await HandleCurrencyDelete(currency);
