@@ -128,4 +128,7 @@
     <data name="MessageBoxHandleCurrencyEditQuestionMessage" xml:space="preserve">
         <value>Voulez-vous vraiment modifier cette devise ?</value>
     </data>
+    <data name="CustomPopupActivityIndicatorDeleteCurrency" xml:space="preserve">
+        <value>Suppression du symbole monétaire et des comptes associés...</value>
+    </data>
 </root>

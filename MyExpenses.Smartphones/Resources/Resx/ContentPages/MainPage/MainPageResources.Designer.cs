@@ -60,6 +60,42 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.MainPage {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Creating new database....
+        /// </summary>
+        internal static string CustomPopupActivityIndicatorCreateNewDatabase {
+            get {
+                return ResourceManager.GetString("CustomPopupActivityIndicatorCreateNewDatabase", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Importing the database....
+        /// </summary>
+        internal static string CustomPopupActivityIndicatorImportDatabaseFromCloud {
+            get {
+                return ResourceManager.GetString("CustomPopupActivityIndicatorImportDatabaseFromCloud", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Importing the database....
+        /// </summary>
+        internal static string CustomPopupActivityIndicatorImportDatabaseFromLocal {
+            get {
+                return ResourceManager.GetString("CustomPopupActivityIndicatorImportDatabaseFromLocal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Opening database &quot;{0}&quot;....
+        /// </summary>
+        internal static string CustomPopupActivityIndicatorOpenDatabase {
+            get {
+                return ResourceManager.GetString("CustomPopupActivityIndicatorOpenDatabase", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to An error occurred while adding the new database.
         /// </summary>
         internal static string MessageBoxAddDataBaseErrorMessage {

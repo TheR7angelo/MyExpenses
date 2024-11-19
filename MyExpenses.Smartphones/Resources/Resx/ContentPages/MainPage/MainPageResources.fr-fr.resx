@@ -95,4 +95,16 @@
     <data name="MessageBoxExportDataBaseErrorMessage" xml:space="preserve">
         <value>Une erreur s'est produite. Veuillez réessayer</value>
     </data>
+    <data name="CustomPopupActivityIndicatorCreateNewDatabase" xml:space="preserve">
+        <value>Création d’une nouvelle base de données...</value>
+    </data>
+    <data name="CustomPopupActivityIndicatorOpenDatabase" xml:space="preserve">
+        <value>Ouverture de la base de données "{0}"...</value>
+    </data>
+    <data name="CustomPopupActivityIndicatorImportDatabaseFromCloud" xml:space="preserve">
+        <value>Importation de la base de données...</value>
+    </data>
+    <data name="CustomPopupActivityIndicatorImportDatabaseFromLocal" xml:space="preserve">
+        <value>Importation de la base de données...</value>
+    </data>
 </root>

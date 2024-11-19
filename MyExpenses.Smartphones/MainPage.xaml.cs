@@ -43,6 +43,8 @@ public partial class MainPage
 
         if (result is not true) return;
 
+        this.ShowCustomPopupActivityIndicator(MainPageResources.CustomPopupActivityIndicatorCreateNewDatabase);
+
         var fileName = addDatabaseFileContentPage.DatabaseFilename;
         fileName = Path.ChangeExtension(fileName, ".sqlite");
         var filePath = Path.Combine(DbContextBackup.LocalDirectoryDatabase, fileName);
@@ -60,11 +62,13 @@ public partial class MainPage
             ExistingDatabases.AddAndSort(new ExistingDatabase(filePath),
                 s => s.FileNameWithoutExtension);
 
+            CustomPopupActivityIndicatorHelper.CloseCustomPopupActivityIndicator();
             Log.Information("New database was successfully added");
             await DisplayAlert(MainPageResources.MessageBoxAddDataBaseSuccessTitle, MainPageResources.MessageBoxAddDataBaseSuccessMessage, MainPageResources.MessageBoxAddDataBaseOkButton);
         }
         catch (Exception exception)
         {
+            CustomPopupActivityIndicatorHelper.CloseCustomPopupActivityIndicator();
             Log.Error(exception, "An error occur");
 
             await DisplayAlert(MainPageResources.MessageBoxAddDataBaseErrorTitle, MainPageResources.MessageBoxAddDataBaseErrorMessage, MainPageResources.MessageBoxAddDataBaseOkButton);
@@ -76,7 +80,8 @@ public partial class MainPage
         var buttonImageView = (ButtonImageTextView)sender!;
         if (buttonImageView.BindingContext is not ExistingDatabase existingDatabase) return;
 
-        this.ShowCustomPopupActivityIndicator();
+        var message = string.Format(MainPageResources.CustomPopupActivityIndicatorOpenDatabase, existingDatabase.FileNameWithoutExtension);
+        this.ShowCustomPopupActivityIndicator(message);
 
         DataBaseContext.FilePath = existingDatabase.FilePath;
 
@@ -141,7 +146,7 @@ public partial class MainPage
             switch (saveLocation)
             {
                 case SaveLocation.Local:
-                    await ImportFromLocalAsync();
+                    await ImportFromLocalAsync(this);
                     break;
                 case SaveLocation.Dropbox:
                     await ImportFromCloudAsync();
@@ -156,6 +161,7 @@ public partial class MainPage
 
             RefreshExistingDatabases();
 
+            CustomPopupActivityIndicatorHelper.CloseCustomPopupActivityIndicator();
             await DisplayAlert(MainPageResources.MessageBoxImportDatabaseSuccessTitle, MainPageResources.MessageBoxImportDatabaseSuccessMessage, MainPageResources.MessageBoxImportDatabaseSuccessOkButton);
         }
         catch (Exception exception)
@@ -293,6 +299,7 @@ public partial class MainPage
             return;
         }
 
+        this.ShowCustomPopupActivityIndicator(MainPageResources.CustomPopupActivityIndicatorImportDatabaseFromCloud);
         var mauiClient = HttpClientHandlerCustom.CreateHttpClientHandler();
         var files = selectDatabaseFileContentPage.ExistingDatabasesSelected.Select(s => s.FilePath);
         foreach (var file in files)
@@ -309,7 +316,7 @@ public partial class MainPage
         }
     }
 
-    private static async Task ImportFromLocalAsync()
+    private static async Task ImportFromLocalAsync(MainPage mainPage)
         {
             Log.Information("Starting to import the database from local storage");
             var dictionary = new Dictionary<DevicePlatform, IEnumerable<string>>
@@ -324,6 +331,7 @@ public partial class MainPage
             var result = await FilePicker.PickAsync(filePickerOption);
             if (result is null) return;
 
+            mainPage.ShowCustomPopupActivityIndicator(MainPageResources.CustomPopupActivityIndicatorImportDatabaseFromLocal);
             var filePath = result.FullPath;
 
             var fileName = Path.GetFileName(filePath);

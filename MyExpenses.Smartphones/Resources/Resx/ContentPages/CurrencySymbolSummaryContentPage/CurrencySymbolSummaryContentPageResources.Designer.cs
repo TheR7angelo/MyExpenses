@@ -70,6 +70,15 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.CurrencySymbolSumma
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Deleting currency symbol and related accounts....
+        /// </summary>
+        internal static string CustomPopupActivityIndicatorDeleteCurrency {
+            get {
+                return ResourceManager.GetString("CustomPopupActivityIndicatorDeleteCurrency", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Currency value :.
         /// </summary>
         internal static string CustomPopupEntryPlaceHolderText {

@@ -208,7 +208,7 @@ public partial class CurrencySymbolSummaryContentPage
         if (!deleteResponse) return;
 
         await Task.Delay(TimeSpan.FromMilliseconds(100));
-        this.ShowCustomPopupActivityIndicator();
+        this.ShowCustomPopupActivityIndicator(CurrencySymbolSummaryContentPageResources.CustomPopupActivityIndicatorDeleteCurrency);
         await Task.Delay(TimeSpan.FromMilliseconds(100));
 
         Log.Information("Attempt to delete currency symbol : {Symbol}", json);

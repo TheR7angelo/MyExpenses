@@ -135,4 +135,7 @@
     <data name="MessageBoxHandleCurrencyEditQuestionNoButton" xml:space="preserve">
         <value>No</value>
     </data>
+    <data name="CustomPopupActivityIndicatorDeleteCurrency" xml:space="preserve">
+        <value>Deleting currency symbol and related accounts...</value>
+    </data>
 </root>

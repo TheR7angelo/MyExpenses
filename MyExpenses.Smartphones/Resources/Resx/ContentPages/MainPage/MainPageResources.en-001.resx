@@ -95,4 +95,16 @@
     <data name="MessageBoxExportDataBaseErrorMessage" xml:space="preserve">
         <value>An error occurred. Please try again</value>
     </data>
+    <data name="CustomPopupActivityIndicatorCreateNewDatabase" xml:space="preserve">
+        <value>Creating new database...</value>
+    </data>
+    <data name="CustomPopupActivityIndicatorOpenDatabase" xml:space="preserve">
+        <value>Opening database "{0}"...</value>
+    </data>
+    <data name="CustomPopupActivityIndicatorImportDatabaseFromCloud" xml:space="preserve">
+        <value>Importing the database...</value>
+    </data>
+    <data name="CustomPopupActivityIndicatorImportDatabaseFromLocal" xml:space="preserve">
+        <value>Importing the database...</value>
+    </data>
 </root>
