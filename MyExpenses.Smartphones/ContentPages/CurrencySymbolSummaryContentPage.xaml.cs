@@ -137,6 +137,7 @@ public partial class CurrencySymbolSummaryContentPage
     private async Task HandleCurrencyDelete(TCurrency currency)
     {
         var (success, exception) = currency.Delete(true);
+        DashBoardContentPage.Instance.RefreshAccountTotal();
 
         CustomPopupActivityIndicatorHelper.CloseCustomPopupActivityIndicator();
         if (success)
