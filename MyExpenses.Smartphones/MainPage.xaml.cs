@@ -7,6 +7,7 @@ using MyExpenses.Models.WebApi.Authenticator;
 using MyExpenses.Models.Wpf.Save;
 using MyExpenses.Smartphones.AppShells;
 using MyExpenses.Smartphones.ContentPages;
+using MyExpenses.Smartphones.ContentPages.CustomPopups.CustomPopupActivityIndicator;
 using MyExpenses.Smartphones.ContentPages.SaveLocation;
 using MyExpenses.Smartphones.Resources.Resx.ContentPages.MainPage;
 using MyExpenses.Smartphones.UserControls.Buttons.CustomFrame;
@@ -74,6 +75,8 @@ public partial class MainPage
     {
         var buttonImageView = (ButtonImageTextView)sender!;
         if (buttonImageView.BindingContext is not ExistingDatabase existingDatabase) return;
+
+        this.ShowCustomPopupActivityIndicator();
 
         DataBaseContext.FilePath = existingDatabase.FilePath;
 

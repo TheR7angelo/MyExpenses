@@ -14,6 +14,7 @@ using MyExpenses.Models.Sql.Bases.Views;
 using MyExpenses.Models.Sql.Derivatives.Tables;
 using MyExpenses.Models.Sql.Derivatives.Views;
 using MyExpenses.Smartphones.ContentPages.CustomPopups;
+using MyExpenses.Smartphones.ContentPages.CustomPopups.CustomPopupActivityIndicator;
 using MyExpenses.Smartphones.PackIcons;
 using MyExpenses.Smartphones.Resources.Resx.ContentPages.DashBoardContentPage;
 using MyExpenses.Smartphones.UserControls.Images;
@@ -367,6 +368,8 @@ public partial class DashBoardContentPage
         {
             await Task.Delay(TimeSpan.FromMilliseconds(100));
             RefreshRadioButtonSelected();
+
+            CustomPopupActivityIndicatorHelper.CloseCustomPopupActivityIndicator();
         });
     }
 
