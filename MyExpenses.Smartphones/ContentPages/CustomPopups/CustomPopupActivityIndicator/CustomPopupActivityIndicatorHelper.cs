@@ -6,9 +6,9 @@ public static class CustomPopupActivityIndicatorHelper
 {
     private static CustomPopupActivityIndicator? _customPopupActivityIndicator;
 
-    public static void ShowCustomPopupActivityIndicator(this ContentPage contentPage)
+    public static void ShowCustomPopupActivityIndicator(this ContentPage contentPage, string messageToDisplay)
     {
-        _customPopupActivityIndicator = new CustomPopupActivityIndicator();
+        _customPopupActivityIndicator = new CustomPopupActivityIndicator { LabelTextToDisplay = messageToDisplay };
         contentPage.ShowPopupAsync(_customPopupActivityIndicator);
     }
 
