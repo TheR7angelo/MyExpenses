@@ -39,25 +39,31 @@
                                                    MaxLength="{Binding MaxLength, Mode=OneWay}">
             </customEntryControl:CustomEntryControl>
 
-            <HorizontalStackLayout Grid.Row="0" Grid.Column="1">
+            <VerticalStackLayout Grid.Row="0" Grid.Column="1">
 
-                <Picker ItemsSource="{Binding Colors, Mode=OneWay, Source={RelativeSource AncestorType={x:Type local:AddEditCategoryTypesContentPage}}}"
-                        SelectedItem="{Binding SelectedColor, Mode=TwoWay, Source={Reference This}}"
-                        ItemDisplayBinding="{Binding Name}" x:DataType="tables:TColor"
-                        VerticalTextAlignment="Center"
-                        VerticalOptions="Center"
-                        SelectedIndexChanged="PickerColor_OnSelectedIndexChanged">
-                </Picker>
+                <Label Text="{Binding LabelTextColor, Mode=OneWay}" />
 
-                <Ellipse HeightRequest="24"
-                         WidthRequest="{Binding HeightRequest, Source={RelativeSource Self}}"
-                         Stroke="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
-                         StrokeThickness="1.5"
-                         Fill="{Binding SelectedHexadecimalColorCode, Mode=TwoWay, Converter={StaticResource StringToBrushConverter}}"
-                         Margin="10, 0">
-                </Ellipse>
+                <HorizontalStackLayout>
 
-            </HorizontalStackLayout>
+                    <Picker ItemsSource="{Binding Colors, Mode=OneWay, Source={RelativeSource AncestorType={x:Type local:AddEditCategoryTypesContentPage}}}"
+                            SelectedItem="{Binding SelectedColor, Mode=TwoWay, Source={Reference This}}"
+                            ItemDisplayBinding="{Binding Name}" x:DataType="tables:TColor"
+                            VerticalTextAlignment="Center"
+                            VerticalOptions="Center"
+                            SelectedIndexChanged="PickerColor_OnSelectedIndexChanged">
+                    </Picker>
+
+                    <Ellipse HeightRequest="24"
+                             WidthRequest="{Binding HeightRequest, Source={RelativeSource Self}}"
+                             Stroke="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
+                             StrokeThickness="1.5"
+                             Fill="{Binding SelectedHexadecimalColorCode, Mode=TwoWay, Converter={StaticResource StringToBrushConverter}}"
+                             Margin="10, 0">
+                    </Ellipse>
+
+                </HorizontalStackLayout>
+
+            </VerticalStackLayout>
 
             <Button Grid.Row="0" Grid.Column="2"
                     Style="{StaticResource RaisedMidButton}"

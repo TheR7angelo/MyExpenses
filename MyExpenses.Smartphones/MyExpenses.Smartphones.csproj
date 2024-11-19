@@ -276,6 +276,11 @@
         <DependentUpon>CustomPopupActivityIndicator.xaml</DependentUpon>
         <SubType>Code</SubType>
       </Compile>
+      <Compile Update="Resources\Resx\ContentPages\AddEditCategoryTypesContentPage\AddEditCategoryTypesContentPageResources.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>AddEditCategoryTypesContentPageResources.resx</DependentUpon>
+      </Compile>
     </ItemGroup>
 
     <ItemGroup>
@@ -374,6 +379,10 @@
       <EmbeddedResource Update="Resources\Resx\ContentPages\AccountTypeSummaryContentPage\AccountTypeSummaryContentPageResources.resx">
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>AccountTypeSummaryContentPageResources.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+      <EmbeddedResource Update="Resources\Resx\ContentPages\AddEditCategoryTypesContentPage\AddEditCategoryTypesContentPageResources.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>AddEditCategoryTypesContentPageResources.Designer.cs</LastGenOutput>
       </EmbeddedResource>
     </ItemGroup>
 

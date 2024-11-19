@@ -5,6 +5,7 @@ using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Models.Sql.Bases.Views;
 using MyExpenses.Smartphones.Resources.Resx.ContentPages.AccountTypeSummaryContentPage;
+using MyExpenses.Smartphones.Resources.Resx.ContentPages.AddEditCategoryTypesContentPage;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils;
 using MyExpenses.Utils.Collection;
@@ -51,6 +52,15 @@ public partial class AddEditCategoryTypesContentPage
         set => SetValue(SelectedColorProperty, value);
     }
 
+    public static readonly BindableProperty LabelTextColorProperty = BindableProperty.Create(nameof(LabelTextColor),
+        typeof(string), typeof(AddEditCategoryTypesContentPage), default(string));
+
+    public string LabelTextColor
+    {
+        get => (string)GetValue(LabelTextColorProperty);
+        set => SetValue(LabelTextColorProperty, value);
+    }
+
     public static readonly BindableProperty CategoryTypeNameProperty = BindableProperty.Create(nameof(CategoryTypeName),
         typeof(string), typeof(AddEditCategoryTypesContentPage), default(string));
 
@@ -88,8 +98,9 @@ public partial class AddEditCategoryTypesContentPage
 
     private void UpdateLanguage()
     {
-        PlaceholderText = "PlaceholderText";
-        ButtonValidText = "Valid";
+        PlaceholderText = AddEditCategoryTypesContentPageResources.PlaceholderText;
+        LabelTextColor = AddEditCategoryTypesContentPageResources.LabelTextColor;
+        ButtonValidText = AddEditCategoryTypesContentPageResources.ButtonValidText;
     }
 
     private void RefreshCollection()
