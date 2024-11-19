@@ -24,7 +24,8 @@
 
                     <!-- TODO work -->
                     <Button Text="{Binding ButtonTextManagingCategoryTypes, Mode=OneWay}"
-                            Style="{StaticResource RaisedMidButton}">
+                            Style="{StaticResource RaisedMidButton}"
+                            Clicked="ButtonManagingCategoryTypes_OnClicked">
                     </Button>
 
                     <!-- TODO work -->
