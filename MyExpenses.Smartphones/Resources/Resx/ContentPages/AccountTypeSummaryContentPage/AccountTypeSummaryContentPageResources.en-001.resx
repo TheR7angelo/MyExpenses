@@ -125,4 +125,7 @@
     <data name="MessageBoxHandleAccountTypeEditErrorMessage" xml:space="preserve">
         <value>An error occurred while editing currency symbol, please retry</value>
     </data>
+    <data name="CustomPopupActivityIndicatorDeleteAccountType" xml:space="preserve">
+        <value>Deleting the account type and all linked accounts</value>
+    </data>
 </root>
