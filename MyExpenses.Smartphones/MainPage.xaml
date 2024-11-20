@@ -36,9 +36,9 @@
                                          Style="{StaticResource FloatingActionDarkButtonImageView}"
                                          Margin="5"
                                          GeometrySource="Plus"
-                                         ImageHeightRequest="24"
+                                         ImageHeightRequest="40"
                                          ImageWidthRequest="{Binding ImageHeightRequest, Source={RelativeSource Self}}"
-                                         HeightRequest="40"
+                                         HeightRequest="56"
                                          WidthRequest="{Binding HeightRequest, Source={RelativeSource Self}}"
                                          Clicked="ButtonAddDataBase_OnClick">
             </customFrame:ButtonImageView>
@@ -47,9 +47,9 @@
                                          Style="{StaticResource FloatingActionSecondaryMidButtonImageView}"
                                          Margin="5"
                                          GeometrySource="Minus"
-                                         ImageHeightRequest="24"
+                                         ImageHeightRequest="40"
                                          ImageWidthRequest="{Binding ImageHeightRequest, Source={RelativeSource Self}}"
-                                         HeightRequest="40"
+                                         HeightRequest="56"
                                          WidthRequest="{Binding HeightRequest, Source={RelativeSource Self}}"
                                          Clicked="ButtonRemoveDataBase_OnClick">
             </customFrame:ButtonImageView>
@@ -58,9 +58,9 @@
                                          Style="{StaticResource FloatingActionMidButtonImageView}"
                                          Margin="5"
                                          GeometrySource="DatabaseImport"
-                                         ImageHeightRequest="24"
+                                         ImageHeightRequest="40"
                                          ImageWidthRequest="{Binding ImageHeightRequest, Source={RelativeSource Self}}"
-                                         HeightRequest="40"
+                                         HeightRequest="56"
                                          WidthRequest="{Binding HeightRequest, Source={RelativeSource Self}}"
                                          Clicked="ButtonImportDataBase_OnClick">
             </customFrame:ButtonImageView>
@@ -69,9 +69,9 @@
                                          Style="{StaticResource FloatingActionMidButtonImageView}"
                                          Margin="5"
                                          GeometrySource="DatabaseExport"
-                                         ImageHeightRequest="24"
+                                         ImageHeightRequest="40"
                                          ImageWidthRequest="{Binding ImageHeightRequest, Source={RelativeSource Self}}"
-                                         HeightRequest="40"
+                                         HeightRequest="56"
                                          WidthRequest="{Binding HeightRequest, Source={RelativeSource Self}}"
                                          Clicked="ButtonExportDataBase_OnClick">
             </customFrame:ButtonImageView>
