@@ -39,11 +39,12 @@
                                                    MaxLength="{Binding MaxLength, Mode=OneWay}">
             </customEntryControl:CustomEntryControl>
 
-            <VerticalStackLayout Grid.Row="0" Grid.Column="1">
+            <VerticalStackLayout Grid.Row="0" Grid.Column="1"
+                                 VerticalOptions="Center">
 
                 <Label Text="{Binding LabelTextColor, Mode=OneWay}" />
 
-                <HorizontalStackLayout>
+                <HorizontalStackLayout HorizontalOptions="Center">
 
                     <Picker ItemsSource="{Binding Colors, Mode=OneWay, Source={RelativeSource AncestorType={x:Type local:AddEditCategoryTypesContentPage}}}"
                             SelectedItem="{Binding SelectedColor, Mode=TwoWay, Source={Reference This}}"
