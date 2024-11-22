@@ -1,4 +1,8 @@
-# [](https://github.com/TheR7angelo/MyExpenses/compare/v1.0.0...v) (2024-10-15)
+#  (2024-11-22)
+
+
+
+## [1.0.5](https://github.com/TheR7angelo/MyExpenses/compare/v1.0.0...1.0.5) (2024-11-20)
 
 
 ### Bug Fixes
@@ -6,12 +10,18 @@
 * **Update:** Fix clearing of ExistingDatabasesSelected before adding new items ([92faaaf](https://github.com/TheR7angelo/MyExpenses/commit/92faaaf2b6021e524f1966d8100887cfd971ebbc))
 * **Update:** Fix conditional for cloud file deletion ([7bb6461](https://github.com/TheR7angelo/MyExpenses/commit/7bb646120b1d62a778736f90dcb0e0bf7b4dff72))
 * **Update:** Fix coordinate assignment bug in AddEditLocationWindow ([33b9c51](https://github.com/TheR7angelo/MyExpenses/commit/33b9c5196673519f37da55e239f1e2817ae3cf43))
+* **Update:** Fix latitude and longitude parameters order in Nominatim API call ([5ee3fa0](https://github.com/TheR7angelo/MyExpenses/commit/5ee3fa04961228a5840c60741e02bec630252dc2))
 * **Update:** Fix positive series tooltip formatting in account category control ([b8db1bf](https://github.com/TheR7angelo/MyExpenses/commit/b8db1bfce6874f3f6c9bcb99e9631abe85abbb59))
+* **Update:** Fix property access and refactor KML writer ([8f4956e](https://github.com/TheR7angelo/MyExpenses/commit/8f4956ed537c567e24f6a8b736c6b0baae4c3867))
+* **Update:** Fix property access and refactor KML writer ([f2aca06](https://github.com/TheR7angelo/MyExpenses/commit/f2aca061cabd161f425bce62c37fb09e70752e05))
+* **Update:** Use File.Move instead of File.Copy for downloads ([76bcd77](https://github.com/TheR7angelo/MyExpenses/commit/76bcd7767a9c9bf57ce1e9964ecefb236e21c50d))
 
 
 ### Features
 
 * Update CHANGELOG date to 2024-09-27 ([b1389f0](https://github.com/TheR7angelo/MyExpenses/commit/b1389f0d37f6e94c3bac012b2dc5ad665956a8ca))
+* **Update:** Add PKCE support for OAuth authentication ([2f704f9](https://github.com/TheR7angelo/MyExpenses/commit/2f704f99b37202b9c1e694e6e2183a3e46db3d52))
+* **Update:** Add XML documentation comments to ObjectComparer methods ([2c3b2e3](https://github.com/TheR7angelo/MyExpenses/commit/2c3b2e3384e9143104f5fc575a804e571a6394b4))
 
 
 

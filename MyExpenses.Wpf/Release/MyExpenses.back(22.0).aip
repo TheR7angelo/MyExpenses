@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<DOCUMENT Type="Advanced Installer" CreateVersion="22.0" version="22.2" Modules="professional" RootPath="." Language="en" Id="{8CDCC87C-04C7-466B-AD40-6720D0E36EE0}">
+<DOCUMENT Type="Advanced Installer" CreateVersion="22.0" version="22.0" Modules="professional" RootPath="." Language="en" Id="{8CDCC87C-04C7-466B-AD40-6720D0E36EE0}">
   <COMPONENT cid="caphyon.advinst.msicomp.MsiPropsComponent">
     <ROW Property="AI_APP_FILE" Value="[#MyExpenses.exe]"/>
     <ROW Property="AI_BITMAP_DISPLAY_MODE" Value="0"/>
@@ -17,10 +17,10 @@
     <ROW Property="ARPURLINFOABOUT" Value="https://github.com/TheR7angelo/MyExpenses"/>
     <ROW Property="CTRLS" Value="2"/>
     <ROW Property="Manufacturer" Value="TheR7angelo"/>
-    <ROW Property="ProductCode" Value="1033:{812CB5C2-2902-4C76-BD07-0C135B0DC397} 1036:{812CB5C2-2902-4C76-BD07-0C135B0DC397} 2057:{812CB5C2-2902-4C76-BD07-0C135B0DC397} " Type="16"/>
+    <ROW Property="ProductCode" Value="1033:{10281219-0DDC-4A01-B51B-DC117D26FF2B} 1036:{10281219-0DDC-4A01-B51B-DC117D26FF2B} 2057:{10281219-0DDC-4A01-B51B-DC117D26FF2B} " Type="16"/>
     <ROW Property="ProductLanguage" Value="1033"/>
     <ROW Property="ProductName" Value="MyExpenses"/>
-    <ROW Property="ProductVersion" Value="1.0.5.0" Options="32"/>
+    <ROW Property="ProductVersion" Value="1.0.0.0" Options="32"/>
     <ROW Property="RUNAPPLICATION" Value="1" Type="4"/>
     <ROW Property="SecureCustomProperties" Value="OLDPRODUCTS;AI_NEWERPRODUCTFOUND;AI_SETUPEXEPATH;SETUPEXEDIR"/>
     <ROW Property="UpgradeCode" Value="{453EF60B-7093-49CF-969A-AC4748CA88F9}"/>
@@ -125,8 +125,6 @@
     <ROW Component="Microsoft.Extensions.Options.dll" ComponentId="{F9675010-8DCA-4D18-B458-5039ED3EF2BA}" Directory_="APPDIR" Attributes="0" KeyPath="Microsoft.Extensions.Options.dll"/>
     <ROW Component="Microsoft.Extensions.Primitives.dll" ComponentId="{79D59516-140E-44F8-80DF-9BFEC1017BF5}" Directory_="APPDIR" Attributes="0" KeyPath="Microsoft.Extensions.Primitives.dll"/>
     <ROW Component="Microsoft.IO.RecyclableMemoryStream.dll" ComponentId="{9B42857E-85B8-4C0B-A1D0-EF3BD062CDF1}" Directory_="APPDIR" Attributes="0" KeyPath="Microsoft.IO.RecyclableMemoryStream.dll"/>
-    <ROW Component="Microsoft.Maui.Essentials.dll" ComponentId="{6A5A562E-793F-4331-BB7F-02BF377034A2}" Directory_="APPDIR" Attributes="0" KeyPath="Microsoft.Maui.Essentials.dll"/>
-    <ROW Component="Microsoft.Maui.Graphics.dll" ComponentId="{1EE6FECF-736D-4B40-B7B5-E31B2D6ACE6D}" Directory_="APPDIR" Attributes="0" KeyPath="Microsoft.Maui.Graphics.dll"/>
     <ROW Component="Microsoft.VisualBasic.Core.dll" ComponentId="{FF7DD142-0A70-4D7C-B78A-37E5965929D8}" Directory_="APPDIR" Attributes="256" KeyPath="Microsoft.VisualBasic.Core.dll"/>
     <ROW Component="Microsoft.VisualBasic.Forms.dll" ComponentId="{A673810D-9211-4020-BB66-AF8246EED797}" Directory_="APPDIR" Attributes="256" KeyPath="Microsoft.VisualBasic.Forms.dll"/>
     <ROW Component="Microsoft.VisualBasic.Forms.resour_10_ces.dll" ComponentId="{33A1905B-3FA6-4543-9812-FA200338B96F}" Directory_="tr_Dir" Attributes="0" KeyPath="Microsoft.VisualBasic.Forms.resour_10_ces.dll"/>
@@ -157,7 +155,6 @@
     <ROW Component="MyExpenses.Models.dll" ComponentId="{0E254D85-433F-40D9-B5C7-C9B26844280A}" Directory_="APPDIR" Attributes="0" KeyPath="MyExpenses.Models.dll"/>
     <ROW Component="MyExpenses.Models.resources.dll" ComponentId="{102C8445-7662-4BAB-8856-6344461A3A08}" Directory_="en001_Dir" Attributes="0" KeyPath="MyExpenses.Models.resources.dll"/>
     <ROW Component="MyExpenses.Models.resources.dll_1" ComponentId="{566D1324-5EF0-4522-A976-EF1108DA0DA2}" Directory_="frfr_Dir" Attributes="0" KeyPath="MyExpenses.Models.resources.dll_1"/>
-    <ROW Component="MyExpenses.Share.Core.dll" ComponentId="{C11B001F-E715-4649-A43F-458D4844158A}" Directory_="APPDIR" Attributes="0" KeyPath="MyExpenses.Share.Core.dll"/>
     <ROW Component="MyExpenses.Sql.dll" ComponentId="{7003DF7C-6069-4F2E-A1BC-3F94398F6111}" Directory_="APPDIR" Attributes="0" KeyPath="MyExpenses.Sql.dll"/>
     <ROW Component="MyExpenses.Sql.resources.dll" ComponentId="{13C38BA0-F721-495F-993C-78BB699F9399}" Directory_="en001_Dir" Attributes="0" KeyPath="MyExpenses.Sql.resources.dll"/>
     <ROW Component="MyExpenses.Sql.resources.dll_1" ComponentId="{1C602460-4993-4003-9697-A685EC0E8DF4}" Directory_="frfr_Dir" Attributes="0" KeyPath="MyExpenses.Sql.resources.dll_1"/>
@@ -320,7 +317,6 @@
     <ROW Component="System.IO.IsolatedStorage.dll" ComponentId="{94605C8B-53D8-41A6-BB49-600A00E67100}" Directory_="APPDIR" Attributes="256" KeyPath="System.IO.IsolatedStorage.dll"/>
     <ROW Component="System.IO.MemoryMappedFiles.dll" ComponentId="{B10FBB42-ADAE-43A9-94D4-F6A9787BA375}" Directory_="APPDIR" Attributes="256" KeyPath="System.IO.MemoryMappedFiles.dll"/>
     <ROW Component="System.IO.Packaging.dll" ComponentId="{B18E52A1-9813-4798-BCC3-0360A89AE1A0}" Directory_="APPDIR" Attributes="256" KeyPath="System.IO.Packaging.dll"/>
-    <ROW Component="System.IO.Pipelines.dll" ComponentId="{981A01A3-B9F7-4617-B93D-B0BA45BB6E48}" Directory_="APPDIR" Attributes="0" KeyPath="System.IO.Pipelines.dll"/>
     <ROW Component="System.IO.Pipes.AccessControl.dll" ComponentId="{B3D748DA-89EA-4F6B-93F7-43C8F7DDC132}" Directory_="APPDIR" Attributes="0" KeyPath="System.IO.Pipes.AccessControl.dll"/>
     <ROW Component="System.IO.Pipes.dll" ComponentId="{588D081C-D81F-4A74-B898-C95E160B71F8}" Directory_="APPDIR" Attributes="256" KeyPath="System.IO.Pipes.dll"/>
     <ROW Component="System.IO.UnmanagedMemoryStream.dll" ComponentId="{08DC6E27-18D7-4A5E-895E-3304E9D47471}" Directory_="APPDIR" Attributes="0" KeyPath="System.IO.UnmanagedMemoryStream.dll"/>
@@ -626,7 +622,7 @@
     <ROW Component="libHarfBuzzSharp.dll" ComponentId="{BAC35E8C-3BB0-431A-9C09-3D02E05D150A}" Directory_="APPDIR" Attributes="256" KeyPath="libHarfBuzzSharp.dll"/>
     <ROW Component="libSkiaSharp.dll" ComponentId="{4B8372B1-5171-4D24-8616-66723E911CB2}" Directory_="APPDIR" Attributes="256" KeyPath="libSkiaSharp.dll"/>
     <ROW Component="mscordaccore.dll" ComponentId="{4C90EC97-685F-4305-9354-FA5E334BA784}" Directory_="APPDIR" Attributes="256" KeyPath="mscordaccore.dll"/>
-    <ROW Component="mscordaccore_amd64_amd64_8.0.1124.51707.dll" ComponentId="{1921F3F2-6A9C-4C26-BB7C-F8FBB4C40C3C}" Directory_="APPDIR" Attributes="256" KeyPath="mscordaccore_amd64_amd64_8.0.1124.51707.dll"/>
+    <ROW Component="mscordaccore_amd64_amd64_8.0.824.36612.dll" ComponentId="{369999D3-B6BB-439A-A8BB-5CA345E6A589}" Directory_="APPDIR" Attributes="256" KeyPath="mscordaccore_amd64_amd64_8.0.824.36612.dll"/>
     <ROW Component="mscordbi.dll" ComponentId="{A81E4FD7-E97D-4F1E-B118-4FEBF7790BF4}" Directory_="APPDIR" Attributes="256" KeyPath="mscordbi.dll"/>
     <ROW Component="mscorlib.dll" ComponentId="{6C6150C3-C92F-465D-B6BC-726D38A6DFF0}" Directory_="APPDIR" Attributes="0" KeyPath="mscorlib.dll"/>
     <ROW Component="mscorrc.dll" ComponentId="{3BDFF883-465E-4889-9CDC-45A18A58C1E9}" Directory_="APPDIR" Attributes="256" KeyPath="mscorrc.dll"/>
@@ -1201,11 +1197,7 @@
     <ROW File="Microsoft.Win32.Registry.AccessControl.dll" Component_="Microsoft.Win32.Registry.AccessControl.dll" FileName="MICRO~34.DLL|Microsoft.Win32.Registry.AccessControl.dll" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\Microsoft.Win32.Registry.AccessControl.dll" SelfReg="false"/>
     <ROW File="Microsoft.Win32.Registry.dll" Component_="Microsoft.Win32.Registry.dll" FileName="MICRO~35.DLL|Microsoft.Win32.Registry.dll" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\Microsoft.Win32.Registry.dll" SelfReg="false"/>
     <ROW File="Microsoft.Win32.SystemEvents.dll" Component_="Microsoft.Win32.SystemEvents.dll" FileName="MICRO~36.DLL|Microsoft.Win32.SystemEvents.dll" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\Microsoft.Win32.SystemEvents.dll" SelfReg="false"/>
-    <ROW File="Microsoft.Maui.Essentials.dll" Component_="Microsoft.Maui.Essentials.dll" FileName="MICROS~9.DLL|Microsoft.Maui.Essentials.dll" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\Microsoft.Maui.Essentials.dll" SelfReg="false"/>
-    <ROW File="Microsoft.Maui.Graphics.dll" Component_="Microsoft.Maui.Graphics.dll" FileName="MICRO~37.DLL|Microsoft.Maui.Graphics.dll" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\Microsoft.Maui.Graphics.dll" SelfReg="false"/>
-    <ROW File="mscordaccore_amd64_amd64_8.0.1124.51707.dll" Component_="mscordaccore_amd64_amd64_8.0.1124.51707.dll" FileName="MSCORD~2.DLL|mscordaccore_amd64_amd64_8.0.1124.51707.dll" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\mscordaccore_amd64_amd64_8.0.1124.51707.dll" SelfReg="false"/>
-    <ROW File="MyExpenses.Share.Core.dll" Component_="MyExpenses.Share.Core.dll" FileName="MYEXPE~9.DLL|MyExpenses.Share.Core.dll" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.Share.Core.dll" SelfReg="false"/>
-    <ROW File="System.IO.Pipelines.dll" Component_="System.IO.Pipelines.dll" FileName="SYST~187.DLL|System.IO.Pipelines.dll" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\System.IO.Pipelines.dll" SelfReg="false"/>
+    <ROW File="mscordaccore_amd64_amd64_8.0.824.36612.dll" Component_="mscordaccore_amd64_amd64_8.0.824.36612.dll" FileName="MSCORD~3.DLL|mscordaccore_amd64_amd64_8.0.824.36612.dll" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\mscordaccore_amd64_amd64_8.0.824.36612.dll" SelfReg="false"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.AiPersistentPropComponent">
     <ROW Property="AI_SHORTCUTSREG" Registry="AI_SHORTCUTSREG" HklmSearch="AI_SHORTCUTSREG" HkcuSearch="AI_SHORTCUTSREG_1" Hklm64Search="AI_SHORTCUTSREG_2" Hkcu64Search="AI_SHORTCUTSREG_3"/>
@@ -1227,7 +1219,7 @@
     <ROW Path="&lt;AI_DICTS&gt;ui_en_GB.ail"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.DigCertStoreComponent">
-    <ROW TimeStampUrl="http://timestamp.digicert.com" SignerDescription="[|ProductName]" SignOptions="7" SignTool="0" UseSha256="1" Subject="CN=TestCert_2024-10-14_9-54-33" Store="User\MY"/>
+    <ROW TimeStampUrl="http://timestamp.digicert.com" SignerDescription="[|ProductName]" SignOptions="7" SignTool="0" UseSha256="1" Store="User\MY"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.DynamicPropertyComponent">
     <ROW Property="ProductVersion" Type="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe"/>
@@ -1896,11 +1888,7 @@
     <ROW Feature_="MainFeature" Component_="SHORTCUTDIR"/>
     <ROW Feature_="MainFeature" Component_="AI_ExePath"/>
     <ROW Feature_="MainFeature" Component_="AI_SHORTCUTSREG"/>
-    <ROW Feature_="MainFeature" Component_="Microsoft.Maui.Essentials.dll"/>
-    <ROW Feature_="MainFeature" Component_="Microsoft.Maui.Graphics.dll"/>
-    <ROW Feature_="MainFeature" Component_="mscordaccore_amd64_amd64_8.0.1124.51707.dll"/>
-    <ROW Feature_="MainFeature" Component_="MyExpenses.Share.Core.dll"/>
-    <ROW Feature_="MainFeature" Component_="System.IO.Pipelines.dll"/>
+    <ROW Feature_="MainFeature" Component_="mscordaccore_amd64_amd64_8.0.824.36612.dll"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiIconsComponent">
     <ROW Name="MyExpenses.exe" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe" Index="0"/>
