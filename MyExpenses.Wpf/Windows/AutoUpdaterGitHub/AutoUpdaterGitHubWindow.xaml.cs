@@ -218,13 +218,19 @@ public partial class AutoUpdaterGitHubWindow
     {
         var lastRelease = AutoUpdaterGitHub.LastRelease!;
         var asset = lastRelease.Assets!.GetAssetForThisSystem();
-
-        var assetTest = new Asset
+        if (asset is null)
         {
-            Name = "10GB.bin",
-            BrowserDownloadUrl = "https://ash-speed.hetzner.com/10GB.bin"
-        };
+            Log.Error("No asset found for this system");
+            return;
+        }
 
-        await assetTest.UpdateApplication();
+        // var assetTest = new Asset
+        // {
+        //     Name = "10GB.bin",
+        //     BrowserDownloadUrl = "https://ash-speed.hetzner.com/10GB.bin"
+        // };
+        //
+        // await assetTest.UpdateApplication();
+        await asset.UpdateApplication();
     }
 }
