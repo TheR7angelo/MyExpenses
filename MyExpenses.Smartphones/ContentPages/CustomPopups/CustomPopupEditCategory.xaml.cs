@@ -120,8 +120,30 @@ public partial class CustomPopupEditCategory
         Interface.LanguageChanged += Interface_OnLanguageChanged;
     }
 
+    #region Action
+
+    private void ButtonCancel_OnClicked(object? sender, EventArgs e)
+        => SetDialogueResult(ECustomPopupEntryResult.Cancel);
+
+    private void ButtonDelete_OnClicked(object? sender, EventArgs e)
+        => SetDialogueResult(ECustomPopupEntryResult.Delete);
+
+    private void ButtonValid_OnClicked(object? sender, EventArgs e)
+        => SetDialogueResult(ECustomPopupEntryResult.Valid);
+
     private void Interface_OnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
         => UpdateLanguage();
+
+    private void PickerColor_OnSelectedIndexChanged(object? sender, EventArgs e)
+    {
+        SelectedHexadecimalColorCode = SelectedColor is null
+            ? "#00000000"
+            : SelectedColor.HexadecimalColorCode!;
+    }
+
+    #endregion
+
+    #region Function
 
     private void UpdateLanguage()
     {
@@ -133,13 +155,11 @@ public partial class CustomPopupEditCategory
         ButtonCancelText = CustomPopupEditCategoryResources.ButtonCancelText;
     }
 
-    private void PickerColor_OnSelectedIndexChanged(object? sender, EventArgs e)
+    private void SetDialogueResult(ECustomPopupEntryResult customPopupEntryResult)
     {
-        SelectedHexadecimalColorCode = SelectedColor is null
-            ? "#00000000"
-            : SelectedColor.HexadecimalColorCode!;
+        _taskCompletionSource.SetResult(customPopupEntryResult);
+        Close();
     }
-
 
     public void SetVCategory(VCategory category)
     {
@@ -149,18 +169,5 @@ public partial class CustomPopupEditCategory
         EntryText = category.CategoryName!;
     }
 
-    private void ButtonValid_OnClicked(object? sender, EventArgs e)
-        => SetDialogueResult(ECustomPopupEntryResult.Valid);
-
-    private void ButtonDelete_OnClicked(object? sender, EventArgs e)
-        => SetDialogueResult(ECustomPopupEntryResult.Delete);
-
-    private void ButtonCancel_OnClicked(object? sender, EventArgs e)
-        => SetDialogueResult(ECustomPopupEntryResult.Cancel);
-
-    private void SetDialogueResult(ECustomPopupEntryResult customPopupEntryResult)
-    {
-        _taskCompletionSource.SetResult(customPopupEntryResult);
-        Close();
-    }
+    #endregion
 }
