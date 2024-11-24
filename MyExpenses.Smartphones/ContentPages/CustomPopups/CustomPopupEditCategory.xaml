@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<toolkit:Popup xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+               xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+               xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+               xmlns:margin="clr-namespace:MyExpenses.Maui.Utils.Margin;assembly=MyExpenses.Maui.Utils"
+               xmlns:customEntryControl="clr-namespace:MyExpenses.Smartphones.UserControls.TextInputs.CustomEntryControl"
+               xmlns:tables="clr-namespace:MyExpenses.Models.Sql.Bases.Tables;assembly=MyExpenses.Models"
+               xmlns:local="clr-namespace:MyExpenses.Smartphones.ContentPages.CustomPopups"
+               xmlns:converters="clr-namespace:MyExpenses.Smartphones.Converters"
+               x:Class="MyExpenses.Smartphones.ContentPages.CustomPopups.CustomPopupEditCategory"
+               x:Name="This"
+               BindingContext="{Binding Source={RelativeSource Self}}">
+
+    <toolkit:Popup.Resources>
+        <converters:StringToBrushConverter x:Key="StringToBrushConverter" />
+    </toolkit:Popup.Resources>
+
+    <Border BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Black}}"
+            Padding="20"
+            StrokeThickness="1.5"
+            Stroke="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
+            Margin="5">
+
+        <Grid margin:LayoutExtensions.MarginForAllChildren="5">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <customEntryControl:CustomEntryControl Grid.Row="0" Grid.Column="0"
+                                                   PlaceholderText="{Binding PlaceholderText, Mode=OneWay}"
+                                                   Text="{Binding EntryText, Mode=TwoWay}"
+                                                   HasClearButton="True"
+                                                   HasMultiline="False"
+                                                   MaxLength="{Binding MaxLenght, Mode=OneWay}">
+            </customEntryControl:CustomEntryControl>
+
+            <VerticalStackLayout Grid.Row="0" Grid.Column="1"
+                                 VerticalOptions="Center">
+
+                <Label Text="{Binding LabelTextColor, Mode=OneWay}" />
+
+                <HorizontalStackLayout HorizontalOptions="Center">
+
+                    <Picker ItemsSource="{Binding Colors, Mode=OneWay, Source={RelativeSource AncestorType={x:Type local:CustomPopupEditCategory}}}"
+                            SelectedItem="{Binding SelectedColor, Mode=TwoWay, Source={Reference This}}"
+                            ItemDisplayBinding="{Binding Name}" x:DataType="tables:TColor"
+                            VerticalTextAlignment="Center"
+                            VerticalOptions="Center"
+                            SelectedIndexChanged="Picker_OnSelectedIndexChanged">
+                    </Picker>
+
+                    <Ellipse HeightRequest="24"
+                             WidthRequest="{Binding HeightRequest, Source={RelativeSource Self}}"
+                             Stroke="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
+                             StrokeThickness="1.5"
+                             Fill="{Binding SelectedHexadecimalColorCode, Mode=TwoWay, Converter={StaticResource StringToBrushConverter}}"
+                             Margin="10, 0">
+                    </Ellipse>
+
+                </HorizontalStackLayout>
+
+            </VerticalStackLayout>
+
+            <HorizontalStackLayout Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
+                                   HorizontalOptions="End"
+                                   margin:LayoutExtensions.MarginForAllChildren="3">
+
+                <!-- <Button Style="{StaticResource RaisedMidButton}" -->
+                <!--         Text="{Binding ButtonValidText, Mode=OneWay}" -->
+                <!--         Clicked="ButtonValid_OnClicked"> -->
+                <!-- </Button> -->
+                <!-- -->
+                <!-- <Button Style="{StaticResource RaisedSecondaryMidButton}" -->
+                <!--         Text="{Binding ButtonDeleteText, Mode=OneWay}" -->
+                <!--         IsVisible="{Binding CanDelete, Mode=OneWay}" -->
+                <!--         Clicked="ButtonDelete_OnClicked"> -->
+                <!-- </Button> -->
+                <!-- -->
+                <!-- <Button Style="{StaticResource RaisedSecondaryMidButton}" -->
+                <!--         Text="{Binding ButtonCancelText, Mode=OneWay}" -->
+                <!--         Clicked="ButtonCancel_OnClicked"> -->
+                <!-- </Button> -->
+
+            </HorizontalStackLayout>
+
+        </Grid>
+
+    </Border>
+
+</toolkit:Popup>
