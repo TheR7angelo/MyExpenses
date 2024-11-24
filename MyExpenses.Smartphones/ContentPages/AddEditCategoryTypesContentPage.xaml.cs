@@ -3,10 +3,10 @@ using System.Windows.Input;
 using CommunityToolkit.Maui.Views;
 using MyExpenses.Models.Config;
 using MyExpenses.Models.Config.Interfaces;
+using MyExpenses.Models.Maui.CustomPopup;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Models.Sql.Bases.Views;
 using MyExpenses.Smartphones.ContentPages.CustomPopups;
-using MyExpenses.Smartphones.Resources.Resx.ContentPages.AccountTypeSummaryContentPage;
 using MyExpenses.Smartphones.Resources.Resx.ContentPages.AddEditCategoryTypesContentPage;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils;
@@ -232,5 +232,20 @@ public partial class AddEditCategoryTypesContentPage
         var customPopupEditCategory = new CustomPopupEditCategory { MaxLenght = MaxLength, CanDelete = true };
         customPopupEditCategory.SetVCategory(category);
         await this.ShowPopupAsync(customPopupEditCategory);
+
+        var result = await customPopupEditCategory.ResultDialog;
+        if (result is ECustomPopupEntryResult.Cancel) return;
+
+        category.CategoryName = customPopupEditCategory.EntryText;
+        category.ColorFk = customPopupEditCategory.SelectedColor?.Id;
+
+        await HandleVCategoryResult(category, result);
+        RefreshCategories();
+    }
+
+    //TODO work
+    private async Task HandleVCategoryResult(VCategory vCategory, ECustomPopupEntryResult result)
+    {
+        throw new NotImplementedException();
     }
 }
