@@ -281,6 +281,11 @@
         <AutoGen>True</AutoGen>
         <DependentUpon>AddEditCategoryTypesContentPageResources.resx</DependentUpon>
       </Compile>
+      <Compile Update="Resources\Resx\ContentPages\CustomPopups\CustomPopupEditCategory\CustomPopupEditCategoryResources.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>CustomPopupEditCategoryResources.resx</DependentUpon>
+      </Compile>
     </ItemGroup>
 
     <ItemGroup>
@@ -383,6 +388,10 @@
       <EmbeddedResource Update="Resources\Resx\ContentPages\AddEditCategoryTypesContentPage\AddEditCategoryTypesContentPageResources.resx">
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>AddEditCategoryTypesContentPageResources.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+      <EmbeddedResource Update="Resources\Resx\ContentPages\CustomPopups\CustomPopupEditCategory\CustomPopupEditCategoryResources.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>CustomPopupEditCategoryResources.Designer.cs</LastGenOutput>
       </EmbeddedResource>
     </ItemGroup>
 

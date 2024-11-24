@@ -3,6 +3,7 @@ using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Maui.CustomPopup;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Models.Sql.Bases.Views;
+using MyExpenses.Smartphones.Resources.Resx.ContentPages.CustomPopups.CustomPopupEditCategory;
 using MyExpenses.Sql.Context;
 
 namespace MyExpenses.Smartphones.ContentPages.CustomPopups;
@@ -124,12 +125,12 @@ public partial class CustomPopupEditCategory
 
     private void UpdateLanguage()
     {
-        PlaceholderText = "PlaceholderText";
-        LabelTextColor = "LabelTextColor";
+        PlaceholderText = CustomPopupEditCategoryResources.PlaceholderText;
+        LabelTextColor = CustomPopupEditCategoryResources.LabelTextColor;
 
-        ButtonValidText = "ButtonValidText";
-        ButtonDeleteText = "ButtonDeleteText";
-        ButtonCancelText = "ButtonCancelText";
+        ButtonValidText = CustomPopupEditCategoryResources.ButtonValidText;
+        ButtonDeleteText = CustomPopupEditCategoryResources.ButtonDeleteText;
+        ButtonCancelText = CustomPopupEditCategoryResources.ButtonCancelText;
     }
 
     private void PickerColor_OnSelectedIndexChanged(object? sender, EventArgs e)
