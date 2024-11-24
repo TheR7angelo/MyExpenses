@@ -1,5 +1,6 @@
 using MyExpenses.Models.Config;
 using MyExpenses.Models.Config.Interfaces;
+using MyExpenses.Models.Maui.CustomPopup;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Models.Sql.Bases.Views;
 using MyExpenses.Sql.Context;
@@ -8,6 +9,33 @@ namespace MyExpenses.Smartphones.ContentPages.CustomPopups;
 
 public partial class CustomPopupEditCategory
 {
+    public static readonly BindableProperty ButtonCancelTextProperty = BindableProperty.Create(nameof(ButtonCancelText),
+        typeof(string), typeof(CustomPopupEditCategory), default(string));
+
+    public string ButtonCancelText
+    {
+        get => (string)GetValue(ButtonCancelTextProperty);
+        set => SetValue(ButtonCancelTextProperty, value);
+    }
+
+    public static readonly BindableProperty ButtonDeleteTextProperty = BindableProperty.Create(nameof(ButtonDeleteText),
+        typeof(string), typeof(CustomPopupEditCategory), default(string));
+
+    public string ButtonDeleteText
+    {
+        get => (string)GetValue(ButtonDeleteTextProperty);
+        set => SetValue(ButtonDeleteTextProperty, value);
+    }
+
+    public static readonly BindableProperty ButtonValidTextProperty = BindableProperty.Create(nameof(ButtonValidText),
+        typeof(string), typeof(CustomPopupEditCategory), default(string));
+
+    public string ButtonValidText
+    {
+        get => (string)GetValue(ButtonValidTextProperty);
+        set => SetValue(ButtonValidTextProperty, value);
+    }
+
     public static readonly BindableProperty CanDeleteProperty = BindableProperty.Create(nameof(CanDelete), typeof(bool),
         typeof(CustomPopupEditCategory), default(bool));
 
@@ -75,6 +103,11 @@ public partial class CustomPopupEditCategory
 
     public List<TColor> Colors { get; }
 
+    private readonly TaskCompletionSource<ECustomPopupEntryResult> _taskCompletionSource = new();
+
+    public Task<ECustomPopupEntryResult> ResultDialog
+        => _taskCompletionSource.Task;
+
     public CustomPopupEditCategory()
     {
         using var context = new DataBaseContext();
@@ -91,7 +124,12 @@ public partial class CustomPopupEditCategory
 
     private void UpdateLanguage()
     {
+        PlaceholderText = "PlaceholderText";
         LabelTextColor = "LabelTextColor";
+
+        ButtonValidText = "ButtonValidText";
+        ButtonDeleteText = "ButtonDeleteText";
+        ButtonCancelText = "ButtonCancelText";
     }
 
     private void PickerColor_OnSelectedIndexChanged(object? sender, EventArgs e)
@@ -108,5 +146,20 @@ public partial class CustomPopupEditCategory
         SelectedColor = color;
         SelectedHexadecimalColorCode = color.HexadecimalColorCode!;
         EntryText = category.CategoryName!;
+    }
+
+    private void ButtonValid_OnClicked(object? sender, EventArgs e)
+        => SetDialogueResult(ECustomPopupEntryResult.Valid);
+
+    private void ButtonDelete_OnClicked(object? sender, EventArgs e)
+        => SetDialogueResult(ECustomPopupEntryResult.Delete);
+
+    private void ButtonCancel_OnClicked(object? sender, EventArgs e)
+        => SetDialogueResult(ECustomPopupEntryResult.Cancel);
+
+    private void SetDialogueResult(ECustomPopupEntryResult customPopupEntryResult)
+    {
+        _taskCompletionSource.SetResult(customPopupEntryResult);
+        Close();
     }
 }

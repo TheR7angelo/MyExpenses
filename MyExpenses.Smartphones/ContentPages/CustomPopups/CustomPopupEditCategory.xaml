@@ -73,21 +73,21 @@
                                    HorizontalOptions="End"
                                    margin:LayoutExtensions.MarginForAllChildren="3">
 
-                <!-- <Button Style="{StaticResource RaisedMidButton}" -->
-                <!--         Text="{Binding ButtonValidText, Mode=OneWay}" -->
-                <!--         Clicked="ButtonValid_OnClicked"> -->
-                <!-- </Button> -->
-                <!-- -->
-                <!-- <Button Style="{StaticResource RaisedSecondaryMidButton}" -->
-                <!--         Text="{Binding ButtonDeleteText, Mode=OneWay}" -->
-                <!--         IsVisible="{Binding CanDelete, Mode=OneWay}" -->
-                <!--         Clicked="ButtonDelete_OnClicked"> -->
-                <!-- </Button> -->
-                <!-- -->
-                <!-- <Button Style="{StaticResource RaisedSecondaryMidButton}" -->
-                <!--         Text="{Binding ButtonCancelText, Mode=OneWay}" -->
-                <!--         Clicked="ButtonCancel_OnClicked"> -->
-                <!-- </Button> -->
+                <Button Style="{StaticResource RaisedMidButton}"
+                        Text="{Binding ButtonValidText, Mode=OneWay}"
+                        Clicked="ButtonValid_OnClicked">
+                </Button>
+
+                <Button Style="{StaticResource RaisedSecondaryMidButton}"
+                        Text="{Binding ButtonDeleteText, Mode=OneWay}"
+                        IsVisible="{Binding CanDelete, Mode=OneWay}"
+                        Clicked="ButtonDelete_OnClicked">
+                </Button>
+
+                <Button Style="{StaticResource RaisedSecondaryMidButton}"
+                        Text="{Binding ButtonCancelText, Mode=OneWay}"
+                        Clicked="ButtonCancel_OnClicked">
+                </Button>
 
             </HorizontalStackLayout>
 
