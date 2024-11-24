@@ -67,9 +67,9 @@ public partial class CustomPopupEditCategory
     public static readonly BindableProperty SelectedColorProperty = BindableProperty.Create(nameof(SelectedColor),
         typeof(TColor), typeof(CustomPopupEditCategory), default(TColor));
 
-    public TColor SelectedColor
+    public TColor? SelectedColor
     {
-        get => (TColor)GetValue(SelectedColorProperty);
+        get => (TColor?)GetValue(SelectedColorProperty);
         set => SetValue(SelectedColorProperty, value);
     }
 
@@ -94,9 +94,11 @@ public partial class CustomPopupEditCategory
         LabelTextColor = "LabelTextColor";
     }
 
-    private void Picker_OnSelectedIndexChanged(object? sender, EventArgs e)
+    private void PickerColor_OnSelectedIndexChanged(object? sender, EventArgs e)
     {
-        var z = sender;
+        SelectedHexadecimalColorCode = SelectedColor is null
+            ? "#00000000"
+            : SelectedColor.HexadecimalColorCode!;
     }
 
 

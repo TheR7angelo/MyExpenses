@@ -54,7 +54,7 @@
                             ItemDisplayBinding="{Binding Name}" x:DataType="tables:TColor"
                             VerticalTextAlignment="Center"
                             VerticalOptions="Center"
-                            SelectedIndexChanged="Picker_OnSelectedIndexChanged">
+                            SelectedIndexChanged="PickerColor_OnSelectedIndexChanged">
                     </Picker>
 
                     <Ellipse HeightRequest="24"
