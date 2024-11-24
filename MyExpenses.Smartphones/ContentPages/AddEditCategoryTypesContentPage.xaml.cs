@@ -1,9 +1,11 @@
 using System.Collections.ObjectModel;
 using System.Windows.Input;
+using CommunityToolkit.Maui.Views;
 using MyExpenses.Models.Config;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Models.Sql.Bases.Views;
+using MyExpenses.Smartphones.ContentPages.CustomPopups;
 using MyExpenses.Smartphones.Resources.Resx.ContentPages.AccountTypeSummaryContentPage;
 using MyExpenses.Smartphones.Resources.Resx.ContentPages.AddEditCategoryTypesContentPage;
 using MyExpenses.Sql.Context;
@@ -220,5 +222,15 @@ public partial class AddEditCategoryTypesContentPage
         SelectedHexadecimalColorCode = SelectedColor is null
             ? "#00000000"
             : SelectedColor.HexadecimalColorCode!;
+    }
+
+    private async void TapGestureRecognizer_OnTapped(object? sender, TappedEventArgs e)
+    {
+        if (sender is not Border border) return;
+        if (border.BindingContext is not VCategory category) return;
+
+        var customPopupEditCategory = new CustomPopupEditCategory { MaxLenght = MaxLength, CanDelete = true };
+        customPopupEditCategory.SetVCategory(category);
+        await this.ShowPopupAsync(customPopupEditCategory);
     }
 }
