@@ -236,7 +236,7 @@
                   HorizontalContentAlignment="Center"
                   Content="{Binding CheckBoxPointedContent, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                   materialDesign:CheckBoxAssist.CheckBoxSize="30"
-                  IsChecked="{Binding History.Pointed, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                  IsChecked="{Binding History.IsPointed, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                   HorizontalAlignment="Right"
                   VerticalAlignment="Top"
                   VerticalContentAlignment="Top"
