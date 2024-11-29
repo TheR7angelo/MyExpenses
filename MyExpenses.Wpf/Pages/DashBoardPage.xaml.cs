@@ -344,7 +344,7 @@ public partial class DashBoardPage
         InitializeComponent();
         UpdateLanguage();
 
-        VHistories = new ObservableCollection<VHistory>();
+        VHistories = [];
         FilterDataGrid.ItemsSource = VHistories;
 
         UpdatePieChartLegendTextPaint();
