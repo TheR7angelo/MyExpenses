@@ -69,7 +69,7 @@
         <PackageReference Include="akgul.Maui.DataGrid" Version="4.0.5" />
         <PackageReference Include="CommunityToolkit.Maui" Version="9.1.0" />
         <PackageReference Include="IconPacks.Material" Version="1.0.8940.2-build" />
-        <PackageReference Include="Mapsui.Maui" Version="4.1.8" />
+        <PackageReference Include="Mapsui.Maui" Version="5.0.0-beta.1" />
         <PackageReference Include="Material.Components.Maui" Version="0.2.2-preview" />
         <PackageReference Include="Microsoft.Maui.Controls" Version="9.0.0" />
         <PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="9.0.0" />

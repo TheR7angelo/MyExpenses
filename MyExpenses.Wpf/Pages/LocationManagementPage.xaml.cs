@@ -7,6 +7,7 @@ using BruTile.Predefined;
 using Mapsui;
 using Mapsui.Extensions;
 using Mapsui.Layers;
+using Mapsui.Manipulations;
 using Mapsui.Projections;
 using Mapsui.Tiling.Layers;
 using Microsoft.Data.Sqlite;
@@ -177,20 +178,20 @@ public partial class LocationManagementPage
 
     private void MapControl_OnContextMenuOpening(object sender, ContextMenuEventArgs e)
     {
-        var screenPosition = Mouse.GetPosition(MapControl);
-        var worldPosition = MapControl.Map.Navigator.Viewport.ScreenToWorld(screenPosition.X, screenPosition.Y);
+        var position = Mouse.GetPosition(MapControl);
+        var worldPosition = MapControl.Map.Navigator.Viewport.ScreenToWorld(position.X, position.Y);
 
         var lonLat = SphericalMercator.ToLonLat(worldPosition.X, worldPosition.Y);
         ClickPoint = new Point(lonLat.lon, lonLat.lat);
 
-        var mPoint = new MPoint(screenPosition.X, screenPosition.Y);
-        var mapInfo = MapControl.GetMapInfo(mPoint);
-        SetClickTPlace(mapInfo!);
+        var screenPosition = new ScreenPosition(position.X, position.Y);
+        var mapInfo = MapControl.GetMapInfo(screenPosition);
+        SetClickTPlace(mapInfo);
     }
 
     private void MapControl_OnInfo(object? sender, MapInfoEventArgs e)
     {
-        var mapInfo = e.MapInfo!;
+        var mapInfo = e.MapInfo;
         SetClickTPlace(mapInfo);
     }
 
@@ -502,11 +503,7 @@ public partial class LocationManagementPage
             case 0:
                 break;
             case 1:
-                MapControl.Map.Home = navigator =>
-                {
-                    navigator.CenterOn(points[0]);
-                    navigator.ZoomTo(1);
-                };
+                MapControl.Map.Navigator.CenterOnAndZoomTo(points[0], 1);
                 break;
             case > 1:
                 double minX = points.Min(p => p.X), maxX = points.Max(p => p.X);
@@ -521,7 +518,7 @@ public partial class LocationManagementPage
 
                 var mRect = new MRect(minX - marginX, minY - marginY, maxX + marginX, maxY + marginY);
 
-                MapControl.Map.Home = navigator => { navigator.ZoomToBox(mRect); };
+                MapControl.Map.Navigator.ZoomToBox(mRect);
                 break;
         }
     }

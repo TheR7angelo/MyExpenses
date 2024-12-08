@@ -15,7 +15,8 @@ public static class MapsuiStyleExtensions
         BlueMarkerStyle = SetBlueMarkerStyle();
     }
 
-    private static Offset Offset => new() { IsRelative = false, X = 0, Y = 1000 };
+    // private static Offset Offset => new() { IsRelative = false, X = 0, Y = 1000 };
+    private static Offset Offset => new() { X = 0, Y = 1000 };
     private static double Scale => 0.02;
 
     private static readonly string IcoPath = Path.Join(AppContext.BaseDirectory, "Resources", "Maps");

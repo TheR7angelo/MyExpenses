@@ -168,9 +168,7 @@ public partial class NominatimSearchWindow
         feature.Styles = new List<IStyle> { MapsuiStyleExtensions.RedMarkerStyle };
         WritableLayer.Clear();
         WritableLayer.Add(feature);
-        MapControl.Map.Home = n => { n.CenterOnAndZoomTo(feature.Point, 1); };
-        MapControl.Map.Navigator.CenterOn(feature.Point);
-        MapControl.Map.Navigator.ZoomTo(1);
+        MapControl.Map.Navigator.CenterOnAndZoomTo(feature.Point, 1);
         MapControl.Refresh();
     }
 

@@ -4,8 +4,9 @@ using Mapsui.Extensions;
 using Mapsui.Layers;
 using Mapsui.Styles;
 using Mapsui.Widgets;
+using Mapsui.Widgets.ButtonWidgets;
+using Mapsui.Widgets.InfoWidgets;
 using Mapsui.Widgets.ScaleBar;
-using Mapsui.Widgets.Zoom;
 using MyExpenses.Models.AutoMapper;
 using MyExpenses.Models.Sql.Bases.Tables;
 

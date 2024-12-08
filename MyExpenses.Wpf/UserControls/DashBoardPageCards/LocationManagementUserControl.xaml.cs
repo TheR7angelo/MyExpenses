@@ -49,11 +49,7 @@ public partial class LocationManagementUserControl
             case 0:
                 break;
             case 1:
-                MapControl.Map.Home = navigator =>
-                {
-                    navigator.CenterOn(points[0]);
-                    navigator.ZoomTo(1);
-                };
+                MapControl.Map.Navigator.CenterOnAndZoomTo(points[0], 1);
                 break;
             case > 1:
                 double minX = points.Min(p => p.X), maxX = points.Max(p => p.X);
@@ -68,7 +64,7 @@ public partial class LocationManagementUserControl
 
                 var mRect = new MRect(minX - marginX, minY - marginY, maxX + marginX, maxY + marginY);
 
-                MapControl.Map.Home = navigator => { navigator.ZoomToBox(mRect); };
+                MapControl.Map.Navigator.ZoomToBox(mRect);
                 break;
         }
     }

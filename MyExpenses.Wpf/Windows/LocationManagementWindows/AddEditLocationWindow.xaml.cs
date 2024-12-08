@@ -522,9 +522,7 @@ public partial class AddEditLocationWindow
 
         WritableLayer.Add(feature);
 
-        MapControl.Map.Home = n => { n.CenterOnAndZoomTo(feature.Point, 1); };
-        MapControl.Map.Navigator.CenterOn(feature.Point);
-        MapControl.Map.Navigator.ZoomTo(1);
+        MapControl.Map.Navigator.CenterOnAndZoomTo(feature.Point, 1);
         MapControl.Refresh();
     }
 
