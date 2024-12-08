@@ -261,7 +261,7 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="*" />
                         <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
+                        <!-- <RowDefinition Height="Auto" /> -->
                     </Grid.RowDefinitions>
 
                     <Grid.ColumnDefinitions>
@@ -353,19 +353,22 @@
                                      Loaded="MapControl_OnLoaded">
                     </maui:MapControl>
 
-                    <Button Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3"
-                            Style="{StaticResource PaperMidButton}"
-                            Text="{Binding ButtonRefocusText, Mode=OneWay}"
-                            Clicked="ButtonRefocus_OnClicked">
-                    </Button>
+                    <HorizontalStackLayout Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3"
+                                           HorizontalOptions="Center">
 
-                    <Picker Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3"
-                            HorizontalTextAlignment="Center"
-                            ItemsSource="{Binding KnownTileSources, Mode=OneWay}"
-                            SelectedItem="{Binding KnownTileSourceSelected}"
-                            ItemDisplayBinding="{Binding ., Converter={StaticResource SplitUpperCaseWordsConverter}}"
-                            SelectedIndexChanged="PickerKnownTileSources_OnSelectedIndexChanged">
-                    </Picker>
+                        <Button Style="{StaticResource PaperMidButton}"
+                                Text="{Binding ButtonRefocusText, Mode=OneWay}"
+                                Clicked="ButtonRefocus_OnClicked">
+                        </Button>
+
+                        <Picker HorizontalTextAlignment="Center"
+                                ItemsSource="{Binding KnownTileSources, Mode=OneWay}"
+                                SelectedItem="{Binding KnownTileSourceSelected}"
+                                ItemDisplayBinding="{Binding ., Converter={StaticResource SplitUpperCaseWordsConverter}}"
+                                SelectedIndexChanged="PickerKnownTileSources_OnSelectedIndexChanged">
+                        </Picker>
+
+                    </HorizontalStackLayout>
 
                 </Grid>
 
