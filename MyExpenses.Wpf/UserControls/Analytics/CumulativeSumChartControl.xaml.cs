@@ -5,7 +5,6 @@ using LiveChartsCore.SkiaSharpView;
 using LiveChartsCore.SkiaSharpView.Painting;
 using MyExpenses.Models.Config;
 using MyExpenses.Models.Config.Interfaces;
-using MyExpenses.Models.Sql.Bases.Views;
 using MyExpenses.Models.Sql.Bases.Views.Analysis;
 using MyExpenses.Sql.Context;
 using MyExpenses.Wpf.Converters.Analytics;
@@ -86,7 +85,8 @@ public partial class CumulativeSumChartControl
 
         foreach (var groupsByAccount in groupsByAccounts)
         {
-            var values = groupsByAccount.Select(s => Math.Round(s.CumulativeSum ?? 0, 2));
+            var values = groupsByAccount.Select(s => Math.Round(s.CumulativeSum ?? 0, 2))
+                .ToList();
 
             var stakedColumnSeries = new StackedColumnSeries<double>
             {

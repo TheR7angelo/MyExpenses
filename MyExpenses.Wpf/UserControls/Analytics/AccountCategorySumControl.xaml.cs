@@ -106,7 +106,8 @@ public partial class AccountCategorySumControl
             var name = groupsByCategory.Key;
             var colorCode = groupsByCategory.First().ColorCode;
             var skColor = (SKColor)colorCode!.ToSkColor()!;
-            var values = groupsByCategory.Select(s => Math.Round(s.SumMonthlySum ?? 0, 2));
+            var values = groupsByCategory.Select(s => Math.Round(s.SumMonthlySum ?? 0, 2))
+                .ToList();
 
             var columnSeries = new ColumnSeries<double>
             {

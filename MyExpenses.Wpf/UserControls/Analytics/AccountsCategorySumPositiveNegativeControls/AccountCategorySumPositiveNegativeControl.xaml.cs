@@ -169,7 +169,7 @@ public partial class AccountCategorySumPositiveNegativeControl
         var positiveSeries = new ColumnSeries<double>
         {
             Name = AccountsCategorySumPositiveNegativeControlsResources.ColumnSeriesPositiveName,
-            Values = positiveValues,
+            Values = positiveValues.ToList(),
             Fill = new SolidColorPaint(primaryColor.ToSkColor()),
             YToolTipLabelFormatter = y =>
             {
@@ -181,7 +181,7 @@ public partial class AccountCategorySumPositiveNegativeControl
         var negativeSeries = new ColumnSeries<double>
         {
             Name = AccountsCategorySumPositiveNegativeControlsResources.ColumnSeriesNegativeName,
-            Values = negativeValues,
+            Values = negativeValues.ToList(),
             Fill = new SolidColorPaint(secondaryColor.ToSkColor()),
             YToolTipLabelFormatter = y =>
             {

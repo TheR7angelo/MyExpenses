@@ -166,7 +166,7 @@ public partial class AccountModePaymentMonthlySumControl
             var columnSeries = new ColumnSeries<double>
             {
                 Name = name,
-                Values = monthlyPaymentDataPoints.Select(s => s.MonthlySum),
+                Values = monthlyPaymentDataPoints.Select(s => s.MonthlySum).ToList(),
                 YToolTipLabelFormatter = point => $"{point.Model} {currency}",
                 DataLabelsFormatter = point =>
                 {

@@ -14,7 +14,7 @@
 
     <ItemGroup>
       <PackageReference Include="FilterDataGrid" Version="1.2.8" />
-      <PackageReference Include="LiveChartsCore.SkiaSharpView.WPF" Version="2.0.0-rc2" />
+      <PackageReference Include="LiveChartsCore.SkiaSharpView.WPF" Version="2.0.0-rc4.5" />
       <PackageReference Include="Mapsui.Wpf" Version="4.1.8" />
       <PackageReference Include="MaterialDesignThemes" Version="5.1.0" />
       <PackageReference Include="MaterialDesignThemes.MahApps" Version="3.1.0" />
