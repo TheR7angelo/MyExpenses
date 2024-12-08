@@ -44,6 +44,10 @@ public static class DateTimeExtensions
             ERecursiveFrequency.Daily => baseDate.AddDays(1),
             ERecursiveFrequency.Weekly => baseDate.AddDays(7),
             ERecursiveFrequency.Monthly => baseDate.AddMonths(1),
+            ERecursiveFrequency.Bimonthly => baseDate.AddMonths(2),
+            ERecursiveFrequency.Trimonthly => baseDate.AddMonths(3),
+            ERecursiveFrequency.Quarterly => baseDate.AddMonths(4),
+            ERecursiveFrequency.SixMonthly => baseDate.AddMonths(6),
             ERecursiveFrequency.Yearly => baseDate.AddYears(1),
             _ => throw new ArgumentOutOfRangeException()
         };
