@@ -37,6 +37,13 @@ public static class DateTimeExtensions
         return new DateOnly(dateTime.Value.Year, dateTime.Value.Month, dateTime.Value.Day);
     }
 
+    /// <summary>
+    /// Calculates the next due date based on the specified recursive frequency and base date.
+    /// </summary>
+    /// <param name="recursiveFrequency">The frequency at which the event recurs (e.g., daily, weekly, monthly).</param>
+    /// <param name="baseDate">The starting date from which to calculate the next due date.</param>
+    /// <returns>The calculated next due date as a DateOnly object.</returns>
+    /// <exception cref="ArgumentOutOfRangeException">Thrown when an unsupported recursive frequency is provided.</exception>
     public static DateOnly CalculateNextDueDate(this ERecursiveFrequency recursiveFrequency, DateOnly baseDate)
     {
         var dateOnly = recursiveFrequency switch
