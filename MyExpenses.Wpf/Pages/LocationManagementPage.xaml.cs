@@ -20,7 +20,6 @@ using MyExpenses.Utils.Collection;
 using MyExpenses.Utils.Maps;
 using MyExpenses.WebApi.Maps;
 using MyExpenses.Wpf.Resources.Resx.Pages.LocationManagementPage;
-using MyExpenses.Wpf.Utils.Maps;
 using MyExpenses.Wpf.Windows.LocationManagementWindows;
 using MyExpenses.Wpf.Windows.MsgBox;
 using Serilog;
