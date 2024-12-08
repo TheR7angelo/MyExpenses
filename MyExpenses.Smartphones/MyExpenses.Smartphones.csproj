@@ -2,7 +2,7 @@
 
     <PropertyGroup>
         <RuntimeIdentifiers Condition="$(TargetFramework.Contains('-android'))">android-arm;android-arm64;android-x86;android-x64</RuntimeIdentifiers>
-        <TargetFrameworks>net8.0-android;net8.0-ios</TargetFrameworks>
+        <TargetFrameworks>net9.0-android;net9.0-ios</TargetFrameworks>
 <!--        <TargetFrameworks>net8.0-android;net8.0-ios;net8.0-maccatalyst</TargetFrameworks>-->
 <!--        <TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net8.0-windows10.0.19041.0</TargetFrameworks>-->
         <!-- Uncomment to also build the tizen app. You will need to install tizen by following this: https://github.com/Samsung/Tizen.NET -->
@@ -71,8 +71,8 @@
         <PackageReference Include="IconPacks.Material" Version="1.0.8940.2-build" />
         <PackageReference Include="Mapsui.Maui" Version="4.1.8" />
         <PackageReference Include="Material.Components.Maui" Version="0.2.2-preview" />
-        <PackageReference Include="Microsoft.Maui.Controls" Version="8.0.92" />
-        <PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="8.0.92" />
+        <PackageReference Include="Microsoft.Maui.Controls" Version="9.0.0" />
+        <PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="9.0.0" />
         <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="9.0.0" />
     </ItemGroup>
 
