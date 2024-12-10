@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<Frame x:Class="MyExpenses.Smartphones.UserControls.Buttons.CustomFrame.ButtonImageTextView"
+<Border x:Class="MyExpenses.Smartphones.UserControls.Buttons.CustomFrame.ButtonImageTextView"
        xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
        xmlns:local="clr-namespace:MyExpenses.Smartphones.UserControls.Buttons.CustomFrame"
        xmlns:converters="clr-namespace:MyExpenses.Smartphones.Converters">
 
-    <Frame.Resources>
+    <Border.Resources>
         <converters:EPackIconsToGeometryConverter x:Key="StringToGeometryConverter" />
-    </Frame.Resources>
+    </Border.Resources>
     
     <VerticalStackLayout Margin="3">
 
@@ -30,8 +30,8 @@
 
     </VerticalStackLayout>
 
-    <Frame.GestureRecognizers>
+    <Border.GestureRecognizers>
         <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
-    </Frame.GestureRecognizers>
+    </Border.GestureRecognizers>
 
-</Frame>
+</Border>

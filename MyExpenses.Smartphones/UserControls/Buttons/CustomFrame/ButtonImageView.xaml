@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<Frame x:Class="MyExpenses.Smartphones.UserControls.Buttons.CustomFrame.ButtonImageView"
+<Border x:Class="MyExpenses.Smartphones.UserControls.Buttons.CustomFrame.ButtonImageView"
        xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
        xmlns:local="clr-namespace:MyExpenses.Smartphones.UserControls.Buttons.CustomFrame"
        xmlns:converters="clr-namespace:MyExpenses.Smartphones.Converters">
 
-    <Frame.Resources>
+    <Border.Resources>
         <converters:EPackIconsToGeometryConverter x:Key="StringToGeometryConverter" />
-    </Frame.Resources>
+    </Border.Resources>
 
     <Path Aspect="Uniform"
           Fill="{Binding GeometryColor, Mode=OneWay, UpdateSourceEventName=PropertyChanged, Source={RelativeSource AncestorType={x:Type local:ButtonImageView}}}"
@@ -19,8 +19,8 @@
           HeightRequest="{Binding ImageHeightRequest, Mode=OneWay, UpdateSourceEventName=PropertyChanged, Source={RelativeSource AncestorType={x:Type local:ButtonImageView}}}">
     </Path>
 
-    <Frame.GestureRecognizers>
+    <Border.GestureRecognizers>
         <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"/>
-    </Frame.GestureRecognizers>
+    </Border.GestureRecognizers>
 
-</Frame>
+</Border>

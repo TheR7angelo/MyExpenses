@@ -69,9 +69,12 @@
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
 
-                <Frame Grid.Row="0"
-                       BackgroundColor="{AppThemeBinding Light={StaticResource Wheat}, Dark={StaticResource Black}}"
-                       CornerRadius="5">
+                <Border Grid.Row="0"
+                        BackgroundColor="{AppThemeBinding Light={StaticResource Wheat}, Dark={StaticResource Black}}">
+
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="5" />
+                    </Border.StrokeShape>
 
                     <Grid>
 
@@ -175,11 +178,14 @@
 
                     </Grid>
 
-                </Frame>
+                </Border>
 
-                <Frame Grid.Row="1"
-                       BackgroundColor="{AppThemeBinding Light={StaticResource Wheat}, Dark={StaticResource Black}}"
-                       CornerRadius="5">
+                <Border Grid.Row="1"
+                       BackgroundColor="{AppThemeBinding Light={StaticResource Wheat}, Dark={StaticResource Black}}">
+
+                    <Border.StrokeShape>
+                        <RoundRectangle CornerRadius="5" />
+                    </Border.StrokeShape>
 
                     <Grid>
 
@@ -252,7 +258,7 @@
 
                     </Grid>
 
-                </Frame>
+                </Border>
 
                 <Grid Grid.Row="2"
                       margin:LayoutExtensions.MarginForAllChildren="3">
@@ -290,11 +296,13 @@
                                           SelectedIndexChanged="SelectorCity_OnSelectionChanged">
                     </pickers:CustomPicker>
 
-                    <Frame Grid.Row="0" Grid.Column="2"
-                           BorderColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
-                           Padding="0"
-                           HasShadow="False"
-                           CornerRadius="5">
+                    <Border Grid.Row="0" Grid.Column="2"
+                           Stroke="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
+                           Padding="0">
+
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="5" />
+                        </Border.StrokeShape>
 
                         <Grid>
 
@@ -346,7 +354,7 @@
 
                         </Grid>
 
-                    </Frame>
+                    </Border>
 
                     <maui:MapControl x:Name="MapControl"
                                      Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3"

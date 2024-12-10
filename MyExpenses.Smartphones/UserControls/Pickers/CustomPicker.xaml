@@ -14,10 +14,12 @@
         <converters1:PercentageConverter x:Key="PercentageConverter" />
     </ContentView.Resources>
 
-    <Frame BorderColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
-           Padding="0"
-           HasShadow="False"
-           CornerRadius="5">
+    <Border Stroke="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
+            Padding="0">
+
+        <Border.StrokeShape>
+            <RoundRectangle CornerRadius="5" />
+        </Border.StrokeShape>
 
         <Grid>
 
@@ -68,6 +70,6 @@
 
         </Grid>
 
-    </Frame>
+    </Border>
 
 </ContentView>
