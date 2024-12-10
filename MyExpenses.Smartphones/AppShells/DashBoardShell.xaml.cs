@@ -89,7 +89,7 @@ public partial class DashBoardShell
         DataBaseContext.FilePath = null;
 
         var appShell = new AppShell();
-        Application.Current!.MainPage = appShell;
+        Application.Current!.Windows[0].Page = appShell;
     }
 
     #endregion
