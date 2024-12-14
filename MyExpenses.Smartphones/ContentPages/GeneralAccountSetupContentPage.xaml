@@ -30,7 +30,8 @@
 
                     <!-- TODO work -->
                     <Button Text="{Binding ButtonTextLocationManagement, Mode=OneWay}"
-                            Style="{StaticResource RaisedMidButton}">
+                            Style="{StaticResource RaisedMidButton}"
+                            Clicked="ButtonLocationManagement_OnClicked">
                     </Button>
 
                     <!-- TODO work -->

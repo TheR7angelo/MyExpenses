@@ -89,6 +89,9 @@ public partial class GeneralAccountSetupContentPage
     private void ButtonAccountManagement_OnClicked(object? sender, EventArgs e)
         => NavigateTo(typeof(AccountManagementContentPage));
 
+    private void ButtonLocationManagement_OnClicked(object? sender, EventArgs e)
+        => NavigateTo(typeof(LocationManagementContentPage));
+
     private void ButtonManagingAccountTypes_OnClicked(object? sender, EventArgs e)
         => NavigateTo(typeof(AccountTypeSummaryContentPage));
 
