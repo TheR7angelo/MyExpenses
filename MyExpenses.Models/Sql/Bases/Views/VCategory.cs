@@ -4,10 +4,10 @@ using Microsoft.EntityFrameworkCore;
 namespace MyExpenses.Models.Sql.Bases.Views;
 
 [Keyless]
-public partial class VCategory
+public partial class VCategory : ISql
 {
     [Column("id")]
-    public int? Id { get; set; }
+    public int Id { get; set; }
 
     [Column("category_name")]
     public string? CategoryName { get; set; }

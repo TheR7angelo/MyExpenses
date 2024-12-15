@@ -7,7 +7,9 @@ using MyExpenses.Models.Maui.CustomPopup;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Models.Sql.Bases.Views;
 using MyExpenses.Smartphones.ContentPages.CustomPopups;
+using MyExpenses.Smartphones.ContentPages.CustomPopups.CustomPopupActivityIndicator;
 using MyExpenses.Smartphones.Resources.Resx.ContentPages.AddEditCategoryTypesContentPage;
+using MyExpenses.Smartphones.Resources.Resx.ContentPages.CurrencySymbolSummaryContentPage;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils;
 using MyExpenses.Utils.Collection;
@@ -246,6 +248,87 @@ public partial class AddEditCategoryTypesContentPage
     //TODO work
     private async Task HandleVCategoryResult(VCategory vCategory, ECustomPopupEntryResult result)
     {
-        throw new NotImplementedException();
+        var json = vCategory.ToJson();
+        var tCategory = vCategory.Id.ToISql<TCategoryType>()!;
+        tCategory.Name = vCategory.CategoryName;
+        tCategory.ColorFk = vCategory.ColorFk;
+
+        if (result is ECustomPopupEntryResult.Valid)
+        {
+            var validate = await ValidateCategoryType(vCategory.CategoryName);
+            if (!validate) return;
+
+            var response = await DisplayAlert(
+                AddEditCategoryTypesContentPageResources.MessageBoxHandleCategoryTypeEditQuestionTitle,
+                string.Format(AddEditCategoryTypesContentPageResources.MessageBoxHandleCategoryTypeEditQuestionMessage, Environment.NewLine),
+                AddEditCategoryTypesContentPageResources.MessageBoxHandleCategoryTypeEditQuestionYesButton,
+                AddEditCategoryTypesContentPageResources.MessageBoxHandleCategoryTypeEditQuestionNoButton);;
+            if (!response) return;
+
+            Log.Information("Attempt to edit category type : {Category}", json);
+            await HandleCategoryTypeEdit(tCategory);
+
+            return;
+        }
+
+        var deleteResponse = await DisplayAlert(
+            AddEditCategoryTypesContentPageResources.MessageBoxHandleCategoryTypeEditDeleteQuestionTitle,
+            string.Format(AddEditCategoryTypesContentPageResources.MessageBoxHandleCategoryTypeEditDeleteQuestionMessage, Environment.NewLine),
+            AddEditCategoryTypesContentPageResources.MessageBoxHandleCategoryTypeEditDeleteQuestionYesButton,
+            AddEditCategoryTypesContentPageResources.MessageBoxHandleCategoryTypeEditDeleteQuestionNoButton);
+
+        if (!deleteResponse) return;
+
+        await Task.Delay(TimeSpan.FromMilliseconds(100));
+        this.ShowCustomPopupActivityIndicator(AddEditCategoryTypesContentPageResources.CustomPopupActivityIndicatorDeleteCategoryType);
+        await Task.Delay(TimeSpan.FromMilliseconds(100));
+
+        Log.Information("Attempt to delete category type : {Category}", json);
+        await HandleCategoryTypeDelete(tCategory);
+    }
+
+    private async Task HandleCategoryTypeEdit(TCategoryType categoryType)
+    {
+        var (success, exception) = categoryType.AddOrEdit();
+        if (success)
+        {
+            Log.Information("Category type was successfully edited");
+            await DisplayAlert(
+                AddEditCategoryTypesContentPageResources.MessageBoxHandleCategoryTypeEditSuccessTitle,
+                AddEditCategoryTypesContentPageResources.MessageBoxHandleCategoryTypeEditSuccessMessage,
+                AddEditCategoryTypesContentPageResources.MessageBoxHandleCategoryTypeEditSuccessOkButton);
+        }
+        else
+        {
+            Log.Error(exception, "An error occurred while editing Category type");
+            await DisplayAlert(
+                AddEditCategoryTypesContentPageResources.MessageBoxHandleCategoryTypeEditErrorTitle,
+                AddEditCategoryTypesContentPageResources.MessageBoxHandleCategoryTypeEditErrorMessage,
+                AddEditCategoryTypesContentPageResources.MessageBoxHandleCategoryTypeEditErrorOkButton);
+        }
+    }
+
+    private async Task HandleCategoryTypeDelete(TCategoryType categoryType)
+    {
+        var (success, exception) = categoryType.Delete(true);
+        DashBoardContentPage.Instance.RefreshAccountTotal();
+
+        CustomPopupActivityIndicatorHelper.CloseCustomPopupActivityIndicator();
+        if (success)
+        {
+            Log.Information("Category type and all related records were successfully deleted");
+            await DisplayAlert(
+                AddEditCategoryTypesContentPageResources.MessageBoxHandleCategoryTypeDeleteSuccessTitle,
+                AddEditCategoryTypesContentPageResources.MessageBoxHandleCategoryTypeDeleteSuccessMessage,
+                AddEditCategoryTypesContentPageResources.MessageBoxHandleCategoryTypeDeleteSuccessOkButton);
+        }
+        else
+        {
+            Log.Error(exception, "An error occurred while deleting category type");
+            await DisplayAlert(
+                AddEditCategoryTypesContentPageResources.MessageBoxHandleCategoryTypeDeleteErrorTitle,
+                AddEditCategoryTypesContentPageResources.MessageBoxHandleCategoryTypeDeleteErrorMessage,
+                AddEditCategoryTypesContentPageResources.MessageBoxHandleCategoryTypeDeleteErrorOkButton);
+        }
     }
 }

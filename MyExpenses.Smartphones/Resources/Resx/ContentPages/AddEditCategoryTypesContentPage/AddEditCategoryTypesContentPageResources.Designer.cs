@@ -70,6 +70,15 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.AddEditCategoryType
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Deleting category and related records....
+        /// </summary>
+        internal static string CustomPopupActivityIndicatorDeleteCategoryType {
+            get {
+                return ResourceManager.GetString("CustomPopupActivityIndicatorDeleteCategoryType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Category color :.
         /// </summary>
         internal static string LabelTextColor {
@@ -165,6 +174,186 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.AddEditCategoryType
         internal static string MesageBoxAddNewCategoryTypeSuccessTitle {
             get {
                 return ResourceManager.GetString("MesageBoxAddNewCategoryTypeSuccessTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error occurred while deleting category, please retry.
+        /// </summary>
+        internal static string MessageBoxHandleCategoryTypeDeleteErrorMessage {
+            get {
+                return ResourceManager.GetString("MessageBoxHandleCategoryTypeDeleteErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ok.
+        /// </summary>
+        internal static string MessageBoxHandleCategoryTypeDeleteErrorOkButton {
+            get {
+                return ResourceManager.GetString("MessageBoxHandleCategoryTypeDeleteErrorOkButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        internal static string MessageBoxHandleCategoryTypeDeleteErrorTitle {
+            get {
+                return ResourceManager.GetString("MessageBoxHandleCategoryTypeDeleteErrorTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Category and all related records were successfully deleted.
+        /// </summary>
+        internal static string MessageBoxHandleCategoryTypeDeleteSuccessMessage {
+            get {
+                return ResourceManager.GetString("MessageBoxHandleCategoryTypeDeleteSuccessMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ok.
+        /// </summary>
+        internal static string MessageBoxHandleCategoryTypeDeleteSuccessOkButton {
+            get {
+                return ResourceManager.GetString("MessageBoxHandleCategoryTypeDeleteSuccessOkButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Success.
+        /// </summary>
+        internal static string MessageBoxHandleCategoryTypeDeleteSuccessTitle {
+            get {
+                return ResourceManager.GetString("MessageBoxHandleCategoryTypeDeleteSuccessTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Question.
+        /// </summary>
+        internal static string MessageBoxHandleCategoryTypeEditDeleteQuestionMessage {
+            get {
+                return ResourceManager.GetString("MessageBoxHandleCategoryTypeEditDeleteQuestionMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No.
+        /// </summary>
+        internal static string MessageBoxHandleCategoryTypeEditDeleteQuestionNoButton {
+            get {
+                return ResourceManager.GetString("MessageBoxHandleCategoryTypeEditDeleteQuestionNoButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to remove this category ? {0}All records that use this category will also be deleted, be careful the operation may take more or less time depending on the number of data to be deleted.
+        /// </summary>
+        internal static string MessageBoxHandleCategoryTypeEditDeleteQuestionTitle {
+            get {
+                return ResourceManager.GetString("MessageBoxHandleCategoryTypeEditDeleteQuestionTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yes.
+        /// </summary>
+        internal static string MessageBoxHandleCategoryTypeEditDeleteQuestionYesButton {
+            get {
+                return ResourceManager.GetString("MessageBoxHandleCategoryTypeEditDeleteQuestionYesButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error occurred while editing category, please retry.
+        /// </summary>
+        internal static string MessageBoxHandleCategoryTypeEditErrorMessage {
+            get {
+                return ResourceManager.GetString("MessageBoxHandleCategoryTypeEditErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ok.
+        /// </summary>
+        internal static string MessageBoxHandleCategoryTypeEditErrorOkButton {
+            get {
+                return ResourceManager.GetString("MessageBoxHandleCategoryTypeEditErrorOkButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        internal static string MessageBoxHandleCategoryTypeEditErrorTitle {
+            get {
+                return ResourceManager.GetString("MessageBoxHandleCategoryTypeEditErrorTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you really want to edit this category ?.
+        /// </summary>
+        internal static string MessageBoxHandleCategoryTypeEditQuestionMessage {
+            get {
+                return ResourceManager.GetString("MessageBoxHandleCategoryTypeEditQuestionMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No.
+        /// </summary>
+        internal static string MessageBoxHandleCategoryTypeEditQuestionNoButton {
+            get {
+                return ResourceManager.GetString("MessageBoxHandleCategoryTypeEditQuestionNoButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Question.
+        /// </summary>
+        internal static string MessageBoxHandleCategoryTypeEditQuestionTitle {
+            get {
+                return ResourceManager.GetString("MessageBoxHandleCategoryTypeEditQuestionTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yes.
+        /// </summary>
+        internal static string MessageBoxHandleCategoryTypeEditQuestionYesButton {
+            get {
+                return ResourceManager.GetString("MessageBoxHandleCategoryTypeEditQuestionYesButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Category was successfully edited.
+        /// </summary>
+        internal static string MessageBoxHandleCategoryTypeEditSuccessMessage {
+            get {
+                return ResourceManager.GetString("MessageBoxHandleCategoryTypeEditSuccessMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ok.
+        /// </summary>
+        internal static string MessageBoxHandleCategoryTypeEditSuccessOkButton {
+            get {
+                return ResourceManager.GetString("MessageBoxHandleCategoryTypeEditSuccessOkButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Success.
+        /// </summary>
+        internal static string MessageBoxHandleCategoryTypeEditSuccessTitle {
+            get {
+                return ResourceManager.GetString("MessageBoxHandleCategoryTypeEditSuccessTitle", resourceCulture);
             }
         }
         

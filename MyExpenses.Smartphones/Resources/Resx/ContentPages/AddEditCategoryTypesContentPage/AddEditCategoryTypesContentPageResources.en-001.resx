@@ -77,4 +77,67 @@
     <data name="MessageBoxValidateColorErrorEmptyMessage" xml:space="preserve">
         <value>Color cannot be null</value>
     </data>
+    <data name="MessageBoxHandleCategoryTypeEditQuestionNoButton" xml:space="preserve">
+        <value>No</value>
+    </data>
+    <data name="MessageBoxHandleCategoryTypeEditQuestionYesButton" xml:space="preserve">
+        <value>Yes</value>
+    </data>
+    <data name="MessageBoxHandleCategoryTypeEditQuestionTitle" xml:space="preserve">
+        <value>Question</value>
+    </data>
+    <data name="MessageBoxHandleCategoryTypeEditQuestionMessage" xml:space="preserve">
+        <value>Do you really want to edit this category ?</value>
+    </data>
+    <data name="MessageBoxHandleCategoryTypeEditDeleteQuestionYesButton" xml:space="preserve">
+        <value>Yes</value>
+    </data>
+    <data name="MessageBoxHandleCategoryTypeEditDeleteQuestionNoButton" xml:space="preserve">
+        <value>No</value>
+    </data>
+    <data name="MessageBoxHandleCategoryTypeEditDeleteQuestionMessage" xml:space="preserve">
+        <value>Question</value>
+    </data>
+    <data name="MessageBoxHandleCategoryTypeEditDeleteQuestionTitle" xml:space="preserve">
+        <value>Are you sure you want to remove this category ? {0}All records that use this category will also be deleted, be careful the operation may take more or less time depending on the number of data to be deleted</value>
+    </data>
+    <data name="CustomPopupActivityIndicatorDeleteCategoryType" xml:space="preserve">
+        <value>Deleting category and related records...</value>
+    </data>
+    <data name="MessageBoxHandleCategoryTypeEditSuccessTitle" xml:space="preserve">
+        <value>Success</value>
+    </data>
+    <data name="MessageBoxHandleCategoryTypeEditSuccessOkButton" xml:space="preserve">
+        <value>Ok</value>
+    </data>
+    <data name="MessageBoxHandleCategoryTypeEditSuccessMessage" xml:space="preserve">
+        <value>Category was successfully edited</value>
+    </data>
+    <data name="MessageBoxHandleCategoryTypeEditErrorTitle" xml:space="preserve">
+        <value>Error</value>
+    </data>
+    <data name="MessageBoxHandleCategoryTypeEditErrorOkButton" xml:space="preserve">
+        <value>Ok</value>
+    </data>
+    <data name="MessageBoxHandleCategoryTypeEditErrorMessage" xml:space="preserve">
+        <value>An error occurred while editing category, please retry</value>
+    </data>
+    <data name="MessageBoxHandleCategoryTypeDeleteSuccessTitle" xml:space="preserve">
+        <value>Success</value>
+    </data>
+    <data name="MessageBoxHandleCategoryTypeDeleteSuccessOkButton" xml:space="preserve">
+        <value>Ok</value>
+    </data>
+    <data name="MessageBoxHandleCategoryTypeDeleteSuccessMessage" xml:space="preserve">
+        <value>Category and all related records were successfully deleted</value>
+    </data>
+    <data name="MessageBoxHandleCategoryTypeDeleteErrorOkButton" xml:space="preserve">
+        <value>Ok</value>
+    </data>
+    <data name="MessageBoxHandleCategoryTypeDeleteErrorTitle" xml:space="preserve">
+        <value>Error</value>
+    </data>
+    <data name="MessageBoxHandleCategoryTypeDeleteErrorMessage" xml:space="preserve">
+        <value>An error occurred while deleting category, please retry</value>
+    </data>
 </root>
