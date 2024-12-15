@@ -97,41 +97,7 @@ public partial class AddEditCategoryTypesContentPage
         Interface.LanguageChanged += Interface_OnLanguageChanged;
     }
 
-    private void Interface_OnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
-        => UpdateLanguage();
-
-    private void UpdateLanguage()
-    {
-        PlaceholderText = AddEditCategoryTypesContentPageResources.PlaceholderText;
-        LabelTextColor = AddEditCategoryTypesContentPageResources.LabelTextColor;
-        ButtonValidText = AddEditCategoryTypesContentPageResources.ButtonValidText;
-    }
-
-    private void RefreshCollection()
-    {
-        RefreshCategories();
-        RefreshColors();
-    }
-
-    private void RefreshColors()
-    {
-        using var context = new DataBaseContext();
-        Colors.Clear();
-        Colors.AddRange(context.TColors.OrderBy(s => s.Name));
-    }
-
-    private void RefreshCategories()
-    {
-        using var context = new DataBaseContext();
-        Categories.Clear();
-        Categories.AddRange(context.VCategories.OrderBy(s => s.CategoryName));
-    }
-
-    private async void OnBackCommandPressed()
-    {
-        _taskCompletionSource.SetResult(true);
-        await Navigation.PopAsync();
-    }
+    #region Action
 
     private async void ButtonValid_OnClicked(object? sender, EventArgs e)
     {
@@ -182,41 +148,13 @@ public partial class AddEditCategoryTypesContentPage
         }
     }
 
-    private async Task<bool> ValidateCategoryType(string? categoryTypeName = null)
+    private void Interface_OnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
+        => UpdateLanguage();
+
+    private async void OnBackCommandPressed()
     {
-        var categoryTypeNameToTest = string.IsNullOrWhiteSpace(categoryTypeName)
-            ? CategoryTypeName
-            : categoryTypeName;
-
-        if (string.IsNullOrWhiteSpace(categoryTypeNameToTest))
-        {
-            await DisplayAlert(
-                AddEditCategoryTypesContentPageResources.MessageBoxValidateCategoryTypeErrorEmptyTitle,
-                AddEditCategoryTypesContentPageResources.MessageBoxValidateCategoryTypeErrorEmptyMessage,
-                AddEditCategoryTypesContentPageResources.MessageBoxValidateCategoryTypeErrorEmptyOkButton);
-            return false;
-        }
-
-        if (SelectedColor is null)
-        {
-            await DisplayAlert(
-                AddEditCategoryTypesContentPageResources.MessageBoxValidateColorErrorEmptyTitle,
-                AddEditCategoryTypesContentPageResources.MessageBoxValidateColorErrorEmptyMessage,
-                AddEditCategoryTypesContentPageResources.MessageBoxValidateColorErrorEmptyOkButton);
-            return false;
-        }
-
-        var alreadyExist = Categories.Any(s => s.CategoryName!.Equals(categoryTypeNameToTest));
-        if (alreadyExist)
-        {
-            await DisplayAlert(
-                AddEditCategoryTypesContentPageResources.MessageBoxValidateCategoryTypeErrorAlreadyExistTitle,
-                AddEditCategoryTypesContentPageResources.MessageBoxValidateCategoryTypeErrorAlreadyExistMessage,
-                AddEditCategoryTypesContentPageResources.MessageBoxValidateCategoryTypeErrorAlreadyExistOkButton);
-            return false;
-        }
-
-        return true;
+        _taskCompletionSource.SetResult(true);
+        await Navigation.PopAsync();
     }
 
     private void PickerColor_OnSelectedIndexChanged(object? sender, EventArgs e)
@@ -245,7 +183,55 @@ public partial class AddEditCategoryTypesContentPage
         RefreshCategories();
     }
 
-    //TODO work
+    #endregion
+
+    #region Function
+
+    private async Task HandleCategoryTypeDelete(TCategoryType categoryType)
+    {
+        var (success, exception) = categoryType.Delete(true);
+        DashBoardContentPage.Instance.RefreshAccountTotal();
+
+        CustomPopupActivityIndicatorHelper.CloseCustomPopupActivityIndicator();
+        if (success)
+        {
+            Log.Information("Category type and all related records were successfully deleted");
+            await DisplayAlert(
+                AddEditCategoryTypesContentPageResources.MessageBoxHandleCategoryTypeDeleteSuccessTitle,
+                AddEditCategoryTypesContentPageResources.MessageBoxHandleCategoryTypeDeleteSuccessMessage,
+                AddEditCategoryTypesContentPageResources.MessageBoxHandleCategoryTypeDeleteSuccessOkButton);
+        }
+        else
+        {
+            Log.Error(exception, "An error occurred while deleting category type");
+            await DisplayAlert(
+                AddEditCategoryTypesContentPageResources.MessageBoxHandleCategoryTypeDeleteErrorTitle,
+                AddEditCategoryTypesContentPageResources.MessageBoxHandleCategoryTypeDeleteErrorMessage,
+                AddEditCategoryTypesContentPageResources.MessageBoxHandleCategoryTypeDeleteErrorOkButton);
+        }
+    }
+
+    private async Task HandleCategoryTypeEdit(TCategoryType categoryType)
+    {
+        var (success, exception) = categoryType.AddOrEdit();
+        if (success)
+        {
+            Log.Information("Category type was successfully edited");
+            await DisplayAlert(
+                AddEditCategoryTypesContentPageResources.MessageBoxHandleCategoryTypeEditSuccessTitle,
+                AddEditCategoryTypesContentPageResources.MessageBoxHandleCategoryTypeEditSuccessMessage,
+                AddEditCategoryTypesContentPageResources.MessageBoxHandleCategoryTypeEditSuccessOkButton);
+        }
+        else
+        {
+            Log.Error(exception, "An error occurred while editing Category type");
+            await DisplayAlert(
+                AddEditCategoryTypesContentPageResources.MessageBoxHandleCategoryTypeEditErrorTitle,
+                AddEditCategoryTypesContentPageResources.MessageBoxHandleCategoryTypeEditErrorMessage,
+                AddEditCategoryTypesContentPageResources.MessageBoxHandleCategoryTypeEditErrorOkButton);
+        }
+    }
+
     private async Task HandleVCategoryResult(VCategory vCategory, ECustomPopupEntryResult result)
     {
         var json = vCategory.ToJson();
@@ -287,48 +273,69 @@ public partial class AddEditCategoryTypesContentPage
         await HandleCategoryTypeDelete(tCategory);
     }
 
-    private async Task HandleCategoryTypeEdit(TCategoryType categoryType)
+    private void RefreshCategories()
     {
-        var (success, exception) = categoryType.AddOrEdit();
-        if (success)
-        {
-            Log.Information("Category type was successfully edited");
-            await DisplayAlert(
-                AddEditCategoryTypesContentPageResources.MessageBoxHandleCategoryTypeEditSuccessTitle,
-                AddEditCategoryTypesContentPageResources.MessageBoxHandleCategoryTypeEditSuccessMessage,
-                AddEditCategoryTypesContentPageResources.MessageBoxHandleCategoryTypeEditSuccessOkButton);
-        }
-        else
-        {
-            Log.Error(exception, "An error occurred while editing Category type");
-            await DisplayAlert(
-                AddEditCategoryTypesContentPageResources.MessageBoxHandleCategoryTypeEditErrorTitle,
-                AddEditCategoryTypesContentPageResources.MessageBoxHandleCategoryTypeEditErrorMessage,
-                AddEditCategoryTypesContentPageResources.MessageBoxHandleCategoryTypeEditErrorOkButton);
-        }
+        using var context = new DataBaseContext();
+        Categories.Clear();
+        Categories.AddRange(context.VCategories.OrderBy(s => s.CategoryName));
     }
 
-    private async Task HandleCategoryTypeDelete(TCategoryType categoryType)
+    private void RefreshCollection()
     {
-        var (success, exception) = categoryType.Delete(true);
-        DashBoardContentPage.Instance.RefreshAccountTotal();
-
-        CustomPopupActivityIndicatorHelper.CloseCustomPopupActivityIndicator();
-        if (success)
-        {
-            Log.Information("Category type and all related records were successfully deleted");
-            await DisplayAlert(
-                AddEditCategoryTypesContentPageResources.MessageBoxHandleCategoryTypeDeleteSuccessTitle,
-                AddEditCategoryTypesContentPageResources.MessageBoxHandleCategoryTypeDeleteSuccessMessage,
-                AddEditCategoryTypesContentPageResources.MessageBoxHandleCategoryTypeDeleteSuccessOkButton);
-        }
-        else
-        {
-            Log.Error(exception, "An error occurred while deleting category type");
-            await DisplayAlert(
-                AddEditCategoryTypesContentPageResources.MessageBoxHandleCategoryTypeDeleteErrorTitle,
-                AddEditCategoryTypesContentPageResources.MessageBoxHandleCategoryTypeDeleteErrorMessage,
-                AddEditCategoryTypesContentPageResources.MessageBoxHandleCategoryTypeDeleteErrorOkButton);
-        }
+        RefreshCategories();
+        RefreshColors();
     }
+
+    private void RefreshColors()
+    {
+        using var context = new DataBaseContext();
+        Colors.Clear();
+        Colors.AddRange(context.TColors.OrderBy(s => s.Name));
+    }
+
+    private void UpdateLanguage()
+    {
+        PlaceholderText = AddEditCategoryTypesContentPageResources.PlaceholderText;
+        LabelTextColor = AddEditCategoryTypesContentPageResources.LabelTextColor;
+        ButtonValidText = AddEditCategoryTypesContentPageResources.ButtonValidText;
+    }
+
+    private async Task<bool> ValidateCategoryType(string? categoryTypeName = null)
+    {
+        var categoryTypeNameToTest = string.IsNullOrWhiteSpace(categoryTypeName)
+            ? CategoryTypeName
+            : categoryTypeName;
+
+        if (string.IsNullOrWhiteSpace(categoryTypeNameToTest))
+        {
+            await DisplayAlert(
+                AddEditCategoryTypesContentPageResources.MessageBoxValidateCategoryTypeErrorEmptyTitle,
+                AddEditCategoryTypesContentPageResources.MessageBoxValidateCategoryTypeErrorEmptyMessage,
+                AddEditCategoryTypesContentPageResources.MessageBoxValidateCategoryTypeErrorEmptyOkButton);
+            return false;
+        }
+
+        if (SelectedColor is null)
+        {
+            await DisplayAlert(
+                AddEditCategoryTypesContentPageResources.MessageBoxValidateColorErrorEmptyTitle,
+                AddEditCategoryTypesContentPageResources.MessageBoxValidateColorErrorEmptyMessage,
+                AddEditCategoryTypesContentPageResources.MessageBoxValidateColorErrorEmptyOkButton);
+            return false;
+        }
+
+        var alreadyExist = Categories.Any(s => s.CategoryName!.Equals(categoryTypeNameToTest));
+        if (alreadyExist)
+        {
+            await DisplayAlert(
+                AddEditCategoryTypesContentPageResources.MessageBoxValidateCategoryTypeErrorAlreadyExistTitle,
+                AddEditCategoryTypesContentPageResources.MessageBoxValidateCategoryTypeErrorAlreadyExistMessage,
+                AddEditCategoryTypesContentPageResources.MessageBoxValidateCategoryTypeErrorAlreadyExistOkButton);
+            return false;
+        }
+
+        return true;
+    }
+
+    #endregion
 }
