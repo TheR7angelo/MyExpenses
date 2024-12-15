@@ -1,5 +1,6 @@
 using System.Collections.ObjectModel;
 using MyExpenses.Models.Sql.Bases.Groups;
+using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Smartphones.Converters;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils;
@@ -11,6 +12,15 @@ public partial class LocationManagementContentPage
     public ObservableCollection<TreeViewNode> TreeViewNodes { get; }
 
     public LocationManagementContentPage()
+    {
+        var (treeViewNodes, places) = GenerateTreeViewNodes();
+
+        TreeViewNodes = [..treeViewNodes];
+
+        InitializeComponent();
+    }
+
+    private static (IEnumerable<TreeViewNode> TreeViewNodes, IEnumerable<TPlace> Places) GenerateTreeViewNodes()
     {
         using var context = new DataBaseContext();
         var places = context.TPlaces.OrderBy(s => s.Country).ThenBy(s => s.City).ThenBy(s => s.Name).ToList();
@@ -44,8 +54,6 @@ public partial class LocationManagementContentPage
             treeViewNodes.Add(groupNode);
         }
 
-        TreeViewNodes = [..treeViewNodes];
-
-        InitializeComponent();
+        return (treeViewNodes, places);
     }
 }
