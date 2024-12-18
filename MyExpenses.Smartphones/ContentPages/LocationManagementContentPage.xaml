@@ -4,6 +4,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
              xmlns:maui="clr-namespace:Mapsui.UI.Maui;assembly=Mapsui.UI.Maui"
+             xmlns:pickers="clr-namespace:MyExpenses.Smartphones.UserControls.Pickers"
              x:Class="MyExpenses.Smartphones.ContentPages.LocationManagementContentPage"
 
              BindingContext="{Binding Source={RelativeSource Self}}">
@@ -21,6 +22,27 @@
                     </material:TreeView>
 
                 </ScrollView>
+
+                <pickers:CustomPicker x:Name="CustomPickerKnownTileSource"
+                                      ItemsSource="{Binding KnownTileSources, Mode=OneWay}"
+                                      SelectedItem="{Binding KnownTileSourceSelected, Mode=TwoWay}"
+                                      GeometryColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
+                                      PlaceholderText="Test">
+                                      <!-- SelectedIndexChanged="CustomPicker_OnSelectedIndexChanged"> -->
+                </pickers:CustomPicker>
+
+                <!-- <ComboBox Grid.Row="0" Grid.Column="0" -->
+                <!--           Style="{StaticResource MaterialDesignFilledComboBox}" -->
+                <!--           materialDesign:HintAssist.Hint="{Binding ComboBoxBasemapHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" -->
+                <!--           ItemsSource="{Binding KnownTileSources}" -->
+                <!--           SelectedItem="{Binding KnownTileSourceSelected}" -->
+                <!--           SelectionChanged="Selector_OnSelectionChanged"> -->
+                <!--     <ComboBox.ItemTemplate> -->
+                <!--         <DataTemplate> -->
+                <!--             <TextBlock Text="{Binding Converter={StaticResource SplitCamelCaseConverter}}" /> -->
+                <!--         </DataTemplate> -->
+                <!--     </ComboBox.ItemTemplate> -->
+                <!-- </ComboBox> -->
 
                 <maui:MapControl x:Name="MapControl"
                                 Background="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}">
@@ -74,11 +96,17 @@
                     <ColumnDefinition Width="3*" />
                 </Grid.ColumnDefinitions>
 
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
             </Grid>
 
             <Grid x:Name="GridPortrait">
 
                 <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
                     <RowDefinition Height="3*" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
