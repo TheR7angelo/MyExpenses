@@ -27,8 +27,8 @@
                                       ItemsSource="{Binding KnownTileSources, Mode=OneWay}"
                                       SelectedItem="{Binding KnownTileSourceSelected, Mode=TwoWay}"
                                       GeometryColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
-                                      PlaceholderText="Test">
-                                      <!-- SelectedIndexChanged="CustomPicker_OnSelectedIndexChanged"> -->
+                                      PlaceholderText="Test"
+                                      SelectedIndexChanged="CustomPickerKnownTileSource_OnSelectedIndexChanged">
                 </pickers:CustomPicker>
 
                 <!-- <ComboBox Grid.Row="0" Grid.Column="0" -->
@@ -45,8 +45,9 @@
                 <!-- </ComboBox> -->
 
                 <maui:MapControl x:Name="MapControl"
-                                Background="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}">
-                                <!-- Info="MapControl_OnInfo" -->
+                                Background="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
+                                Loaded="MapControl_OnLoaded">
+                    <!-- Info="MapControl_OnInfo" -->
                                 <!-- ContextMenuOpening="MapControl_OnContextMenuOpening" -->
                                 <!-- Loaded="MapControl_OnLoaded"> -->
             <!-- <maui:MapControl.ContextMenu> -->

@@ -1,6 +1,7 @@
 using System.Collections.ObjectModel;
 using BruTile.Predefined;
 using Mapsui.Layers;
+using Mapsui.Tiling.Layers;
 using MyExpenses.Models.Sql.Bases.Groups;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Smartphones.Converters;
@@ -125,4 +126,24 @@ public partial class LocationManagementContentPage
 
         return (treeViewNodes, places);
     }
+
+    private void CustomPickerKnownTileSource_OnSelectedIndexChanged(object? sender, EventArgs e)
+        => UpdateTileLayer();
+
+    private void UpdateTileLayer()
+    {
+        const string layerName = "Background";
+
+        var httpTileSource = BruTile.Predefined.KnownTileSources.Create(KnownTileSourceSelected);
+        var tileLayer = new TileLayer(httpTileSource);
+        tileLayer.Name = layerName;
+
+        var layers = MapControl?.Map.Layers.FindLayer(layerName);
+        if (layers is not null) MapControl?.Map.Layers.Remove(layers.ToArray());
+
+        MapControl?.Map.Layers.Insert(0, tileLayer);
+    }
+
+    private void MapControl_OnLoaded(object? sender, EventArgs e)
+        => UpdateTileLayer();
 }
