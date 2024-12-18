@@ -4,7 +4,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
              xmlns:maui="clr-namespace:Mapsui.UI.Maui;assembly=Mapsui.UI.Maui"
-             xmlns:pickers="clr-namespace:MyExpenses.Smartphones.UserControls.Pickers"
              xmlns:converters="clr-namespace:MyExpenses.Smartphones.Converters"
              x:Class="MyExpenses.Smartphones.ContentPages.LocationManagementContentPage"
 
