@@ -4,6 +4,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MyExpenses.Smartphones.ContentPages.SelectDatabaseFileContentPage"
              xmlns:margin="clr-namespace:MyExpenses.Maui.Utils.Margin;assembly=MyExpenses.Maui.Utils"
+             xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
              BindingContext="{Binding Source={RelativeSource Self}}">
 
     <Shell.BackButtonBehavior>
@@ -27,12 +28,11 @@
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
-                            <HorizontalStackLayout Padding="10">
-                                <CheckBox IsChecked="False" />
-                                <Label Text="{Binding FileNameWithoutExtension}"
-                                       VerticalOptions="Center"
-                                       Margin="10,0,0,0" />
-                            </HorizontalStackLayout>
+                            <material:CheckBox IsChecked="False"
+                                               Text="{Binding FileNameWithoutExtension}"
+                                               VerticalOptions="Center"
+                                               Margin="10,0,0,0">
+                            </material:CheckBox>
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>

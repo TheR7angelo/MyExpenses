@@ -7,6 +7,7 @@
              xmlns:margin="clr-namespace:MyExpenses.Maui.Utils.Margin;assembly=MyExpenses.Maui.Utils"
              xmlns:images="clr-namespace:MyExpenses.Smartphones.UserControls.Images"
              xmlns:converters="clr-namespace:MyExpenses.Smartphones.Converters"
+             xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
              x:Class="MyExpenses.Smartphones.ContentPages.CustomPopups.CustomPopupFilterChecked"
              BindingContext="{Binding Source={RelativeSource Self}}">
 
@@ -31,17 +32,10 @@
                 <CollectionView.ItemTemplate>
                     <DataTemplate>
 
-                        <HorizontalStackLayout VerticalOptions="Center">
-
-                            <CheckBox VerticalOptions="Center"
-                                      IsChecked="{Binding IsChecked, Mode=TwoWay}">
-                            </CheckBox>
-
-                            <Label VerticalTextAlignment="Center"
-                                   Text="{Binding BoolValue, Mode=OneWay, Converter={StaticResource BoolToStringConverter}}">
-                            </Label>
-
-                        </HorizontalStackLayout>
+                        <material:CheckBox IsChecked="{Binding IsChecked, Mode=TwoWay}"
+                                           Text="{Binding BoolValue, Mode=OneWay, Converter={StaticResource BoolToStringConverter}}"
+                                           VerticalOptions="Center">
+                        </material:CheckBox>
 
                     </DataTemplate>
                 </CollectionView.ItemTemplate>

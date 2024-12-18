@@ -72,7 +72,7 @@ public partial class CustomPopupFilterAccount : ICustomPopupFilter<TAccountDeriv
     private void ButtonClose_OnClicked(object? sender, EventArgs e)
         => Close();
 
-    private void CheckBox_OnCheckedChanged(object? sender, CheckedChangedEventArgs e)
+    private void CheckBox_OnCheckedChanged(object? sender, EventArgs eventArgs)
         => CalculateCheckboxIconGeometrySource();
 
     public IEnumerable<TAccountDerive> GetFilteredItemChecked()

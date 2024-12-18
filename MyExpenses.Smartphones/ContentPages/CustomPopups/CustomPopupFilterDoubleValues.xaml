@@ -5,6 +5,7 @@
                xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
                xmlns:margin="clr-namespace:MyExpenses.Maui.Utils.Margin;assembly=MyExpenses.Maui.Utils"
                xmlns:images="clr-namespace:MyExpenses.Smartphones.UserControls.Images"
+               xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
                x:Class="MyExpenses.Smartphones.ContentPages.CustomPopups.CustomPopupFilterDoubleValues"
                BindingContext="{Binding Source={RelativeSource Self}}">
 
@@ -48,18 +49,11 @@
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
 
-                            <HorizontalStackLayout VerticalOptions="Center">
-
-                                <CheckBox VerticalOptions="Center"
-                                          IsChecked="{Binding IsChecked, Mode=TwoWay}"
-                                          CheckedChanged="CheckBox_OnCheckedChanged">
-                                </CheckBox>
-
-                                <Label VerticalTextAlignment="Center"
-                                       Text="{Binding DoubleValue, Mode=OneWay}">
-                                </Label>
-
-                            </HorizontalStackLayout>
+                            <material:CheckBox IsChecked="{Binding IsChecked, Mode=TwoWay}"
+                                               Text="{Binding DoubleValue, Mode=OneWay}"
+                                               VerticalOptions="Center"
+                                               CheckChanged="CheckBox_OnCheckedChanged">
+                            </material:CheckBox>
 
                         </DataTemplate>
                     </CollectionView.ItemTemplate>

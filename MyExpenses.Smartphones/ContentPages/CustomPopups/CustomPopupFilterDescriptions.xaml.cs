@@ -71,7 +71,7 @@ public partial class CustomPopupFilterDescriptions : ICustomPopupFilter<StringIs
     private void ButtonClose_OnClicked(object? sender, EventArgs e)
         => Close();
 
-    private void CheckBox_OnCheckedChanged(object? sender, CheckedChangedEventArgs e)
+    private void CheckBox_OnCheckedChanged(object? sender, EventArgs eventArgs)
         => CalculateCheckboxIconGeometrySource();
 
     public IEnumerable<StringIsChecked> GetFilteredItemChecked()
