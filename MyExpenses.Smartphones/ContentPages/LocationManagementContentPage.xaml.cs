@@ -1,23 +1,54 @@
 using System.Collections.ObjectModel;
+using BruTile.Predefined;
+using Mapsui.Layers;
 using MyExpenses.Models.Sql.Bases.Groups;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Smartphones.Converters;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils;
+using MyExpenses.Utils.Maps;
+using Point = NetTopologySuite.Geometries.Point;
 
 namespace MyExpenses.Smartphones.ContentPages;
 
 public partial class LocationManagementContentPage
 {
+    public List<KnownTileSource> KnownTileSources { get; }
+    public KnownTileSource KnownTileSourceSelected { get; set; }
+
+    private WritableLayer PlaceLayer { get; } = new() { Style = null, IsMapInfoLayer = true, Tag = typeof(TPlace) };
+
+    private TPlace? ClickTPlace { get; set; }
+    private Point ClickPoint { get; set; } = Point.Empty;
+    private PointFeature? PointFeature { get; set; }
+
     public ObservableCollection<TreeViewNode> TreeViewNodes { get; }
 
     public LocationManagementContentPage()
     {
-        var (treeViewNodes, places) = GenerateTreeViewNodes();
+        KnownTileSources = [..MapsuiMapExtensions.GetAllKnowTileSource()];
 
+        var (treeViewNodes, places) = GenerateTreeViewNodes();
         TreeViewNodes = [..treeViewNodes];
 
+        var features = places
+            .Where(s => s.Latitude is not null && s.Latitude is not 0 && s.Longitude is not null &&
+                        s.Longitude is not 0)
+            .Select(feature => feature.IsOpen
+                ? feature.ToFeature(MapsuiStyleExtensions.RedMarkerStyle)
+                : feature.ToFeature(MapsuiStyleExtensions.BlueMarkerStyle));
+
+        PlaceLayer.AddRange(features);
+        var backColor = AppInfo.RequestedTheme is AppTheme.Dark
+            ? Mapsui.Styles.Color.Black
+            : Mapsui.Styles.Color.White;
+
+        var map = MapsuiMapExtensions.GetMap(true, backColor);
+        map.Layers.Add(PlaceLayer);
+
         InitializeComponent();
+
+        MapControl.Map = map;
         UpdateDisplay();
 
         DeviceDisplay.MainDisplayInfoChanged += DeviceDisplay_OnMainDisplayInfoChanged;
@@ -28,7 +59,7 @@ public partial class LocationManagementContentPage
 
     private void UpdateDisplay()
     {
-        foreach (var view in new List<View> { ScrollViewTreeView, Image })
+        foreach (var view in new List<View> { ScrollViewTreeView, MapControl })
         {
             if (view.Parent is Grid grid) grid.Children.Remove(view);
         }
@@ -37,11 +68,11 @@ public partial class LocationManagementContentPage
         if (orientation is DisplayOrientation.Landscape)
         {
             AddToGrid(GridLandscape, ScrollViewTreeView, 0, 0);
-            AddToGrid(GridLandscape, Image, 0, 1);
+            AddToGrid(GridLandscape, MapControl, 0, 1);
         }
         else
         {
-            AddToGrid(GridPortrait, Image, 0, 0);
+            AddToGrid(GridPortrait, MapControl, 0, 0);
             AddToGrid(GridPortrait, ScrollViewTreeView, 1, 0);
         }
     }

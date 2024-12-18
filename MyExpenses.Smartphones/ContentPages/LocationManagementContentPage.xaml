@@ -3,6 +3,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
+             xmlns:maui="clr-namespace:Mapsui.UI.Maui;assembly=Mapsui.UI.Maui"
              x:Class="MyExpenses.Smartphones.ContentPages.LocationManagementContentPage"
 
              BindingContext="{Binding Source={RelativeSource Self}}">
@@ -21,10 +22,48 @@
 
                 </ScrollView>
 
-                <Image x:Name="Image"
-                       Aspect="AspectFit"
-                       Source="appiconfg.svg">
-                </Image>
+                <maui:MapControl x:Name="MapControl"
+                                Background="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}">
+                                <!-- Info="MapControl_OnInfo" -->
+                                <!-- ContextMenuOpening="MapControl_OnContextMenuOpening" -->
+                                <!-- Loaded="MapControl_OnLoaded"> -->
+            <!-- <maui:MapControl.ContextMenu> -->
+            <!--     <ContextMenu> -->
+            <!--          -->
+            <!--         <MenuItem x:Name="MenuItemAddFeature" -->
+            <!--                   Header="{Binding MenuItemHeaderAddPoint, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" -->
+            <!--                   Click="MenuItemAddFeature_OnClick"> -->
+            <!--         </MenuItem> -->
+            <!-- -->
+            <!--         <MenuItem x:Name="MenuItemEditFeature" -->
+            <!--                   Header="{Binding MenuItemHeaderEditFeature, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" -->
+            <!--                   Click="MenuItemEditFeature_OnClick"> -->
+            <!--         </MenuItem> -->
+            <!-- -->
+            <!--         <MenuItem x:Name="MenuItemDeleteFeature" -->
+            <!--                   Header="{Binding MenuItemHeaderDeleteFeature, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" -->
+            <!--                   Click="MenuItemDeleteFeature_OnClick"> -->
+            <!--         </MenuItem> -->
+            <!-- -->
+            <!--         <MenuItem Header="{Binding MenuItemHeaderMaps, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"> -->
+            <!-- -->
+            <!--             <MenuItem Header="{Binding MenuItemHeaderGoogleEarthWeb, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" -->
+            <!--                       Click="MenuItemToGoogleEarthWeb_OnClick"> -->
+            <!--             </MenuItem> -->
+            <!-- -->
+            <!--             <MenuItem Header="{Binding MenuItemHeaderGoogleMaps, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" -->
+            <!--                       Click="MenuItemToGoogleMaps_OnClick"> -->
+            <!--             </MenuItem> -->
+            <!-- -->
+            <!--             <MenuItem Header="{Binding MenuItemHeaderGoogleStreetView, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" -->
+            <!--                       Click="MenuItemToGoogleStreetView_OnClick"> -->
+            <!--             </MenuItem> -->
+            <!-- -->
+            <!--         </MenuItem> -->
+            <!-- -->
+            <!--     </ContextMenu> -->
+            <!-- </maui:MapControl.ContextMenu> -->
+        </maui:MapControl>
 
             </Grid>
 
