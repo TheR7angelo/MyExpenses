@@ -9,9 +9,46 @@
 
     <ContentPage.Content>
 
-        <material:TreeView ItemsSource="{Binding TreeViewNodes}"
-                           SelectionMode="Single">
-        </material:TreeView>
+        <Grid>
+
+            <Grid IsVisible="False">
+
+                <ScrollView x:Name="ScrollViewTreeView">
+
+                    <material:TreeView ItemsSource="{Binding TreeViewNodes}"
+                                       SelectionMode="Single">
+                    </material:TreeView>
+
+                </ScrollView>
+
+                <Image x:Name="Image"
+                       Aspect="AspectFit"
+                       Source="appiconfg.svg">
+                </Image>
+
+            </Grid>
+
+            <Grid x:Name="GridLandscape">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="3*" />
+                </Grid.ColumnDefinitions>
+
+            </Grid>
+
+            <Grid x:Name="GridPortrait">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="3*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+            </Grid>
+
+        </Grid>
+
+
 
     </ContentPage.Content>
 

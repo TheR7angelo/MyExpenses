@@ -18,6 +18,39 @@ public partial class LocationManagementContentPage
         TreeViewNodes = [..treeViewNodes];
 
         InitializeComponent();
+        UpdateDisplay();
+
+        DeviceDisplay.MainDisplayInfoChanged += DeviceDisplay_OnMainDisplayInfoChanged;
+    }
+
+    private void DeviceDisplay_OnMainDisplayInfoChanged(object? sender, DisplayInfoChangedEventArgs e)
+        => UpdateDisplay();
+
+    private void UpdateDisplay()
+    {
+        foreach (var view in new List<View> { ScrollViewTreeView, Image })
+        {
+            if (view.Parent is Grid grid) grid.Children.Remove(view);
+        }
+
+        var orientation = DeviceDisplay.MainDisplayInfo.Orientation;
+        if (orientation is DisplayOrientation.Landscape)
+        {
+            AddToGrid(GridLandscape, ScrollViewTreeView, 0, 0);
+            AddToGrid(GridLandscape, Image, 0, 1);
+        }
+        else
+        {
+            AddToGrid(GridPortrait, Image, 0, 0);
+            AddToGrid(GridPortrait, ScrollViewTreeView, 1, 0);
+        }
+    }
+
+    private static void AddToGrid(Grid grid, View control, int row, int column)
+    {
+        grid.Children.Add(control);
+        Grid.SetRow(control, row);
+        Grid.SetColumn(control, column);
     }
 
     private static (IEnumerable<TreeViewNode> TreeViewNodes, IEnumerable<TPlace> Places) GenerateTreeViewNodes()
