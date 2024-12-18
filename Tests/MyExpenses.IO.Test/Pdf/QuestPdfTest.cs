@@ -1,4 +1,5 @@
-using System.Drawing;
+using System.Reflection;
+using MyExpenses.Utils;
 using QuestPDF.Fluent;
 using QuestPDF.Helpers;
 using QuestPDF.Infrastructure;
@@ -10,8 +11,10 @@ public class QuestPdfTest
     [Fact]
     public void QuestPdfGenerateTest()
     {
-        var iconDirectory = Path.GetFullPath("Pdf");
-        var iconFilePath = Path.Join(iconDirectory, "Icon.png");
+        var executablePath = Assembly.GetExecutingAssembly().Location;
+        var path = executablePath.GetParentDirectory(6);
+        var iconFilePath = Path.Combine(path, "MyExpenses.Commons", "Resources", "Assets", "Applications", "Icon.png");
+
         var iconBytes = File.ReadAllBytes(iconFilePath);
         var  iconFileStream = new FileStream(iconFilePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
 
