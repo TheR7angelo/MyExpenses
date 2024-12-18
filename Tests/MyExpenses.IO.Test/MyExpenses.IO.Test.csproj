@@ -34,11 +34,4 @@
       <ProjectReference Include="..\..\MyExpenses.Sql\MyExpenses.Sql.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <None Remove="Pdf\Icon.png" />
-      <AdditionalFiles Include="Pdf\Icon.png">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </AdditionalFiles>
-    </ItemGroup>
-
 </Project>
