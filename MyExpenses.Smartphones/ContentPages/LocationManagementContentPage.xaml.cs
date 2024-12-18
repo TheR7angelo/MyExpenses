@@ -57,13 +57,13 @@ public partial class LocationManagementContentPage
 
     #region Action
 
-    private void CustomPickerKnownTileSource_OnSelectedIndexChanged(object? sender, EventArgs e)
-        => UpdateTileLayer();
-
     private void DeviceDisplay_OnMainDisplayInfoChanged(object? sender, DisplayInfoChangedEventArgs e)
         => UpdateDisplay();
 
     private void MapControl_OnLoaded(object? sender, EventArgs e)
+        => UpdateTileLayer();
+
+    private void PickerFieldKnownTileSource_OnSelectedItemChanged(object? sender, object o)
         => UpdateTileLayer();
 
     #endregion
@@ -119,7 +119,7 @@ public partial class LocationManagementContentPage
 
     private void UpdateDisplay()
     {
-        foreach (var view in new List<View> { ScrollViewTreeView, MapControl, CustomPickerKnownTileSource })
+        foreach (var view in new List<View> { ScrollViewTreeView, MapControl, PickerFieldKnownTileSource })
         {
             if (view.Parent is Grid grid) grid.Children.Remove(view);
         }
@@ -129,11 +129,11 @@ public partial class LocationManagementContentPage
         {
             AddToGrid(GridLandscape, ScrollViewTreeView, 0, 0, 2);
             AddToGrid(GridLandscape, MapControl, 0, 1);
-            AddToGrid(GridLandscape, CustomPickerKnownTileSource, 1, 1);
+            AddToGrid(GridLandscape, PickerFieldKnownTileSource, 1, 1);
         }
         else
         {
-            AddToGrid(GridPortrait, CustomPickerKnownTileSource, 0, 0);
+            AddToGrid(GridPortrait, PickerFieldKnownTileSource, 0, 0);
             AddToGrid(GridPortrait, MapControl, 1, 0);
             AddToGrid(GridPortrait, ScrollViewTreeView, 2, 0);
         }

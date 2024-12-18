@@ -5,9 +5,14 @@
              xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
              xmlns:maui="clr-namespace:Mapsui.UI.Maui;assembly=Mapsui.UI.Maui"
              xmlns:pickers="clr-namespace:MyExpenses.Smartphones.UserControls.Pickers"
+             xmlns:converters="clr-namespace:MyExpenses.Smartphones.Converters"
              x:Class="MyExpenses.Smartphones.ContentPages.LocationManagementContentPage"
 
              BindingContext="{Binding Source={RelativeSource Self}}">
+
+    <ContentPage.Resources>
+        <converters:SplitUpperCaseWordsConverter x:Key="SplitCamelCaseConverter" />
+    </ContentPage.Resources>
 
     <ContentPage.Content>
 
@@ -23,26 +28,18 @@
 
                 </ScrollView>
 
-                <pickers:CustomPicker x:Name="CustomPickerKnownTileSource"
-                                      ItemsSource="{Binding KnownTileSources, Mode=OneWay}"
-                                      SelectedItem="{Binding KnownTileSourceSelected, Mode=TwoWay}"
-                                      GeometryColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
-                                      PlaceholderText="Test"
-                                      SelectedIndexChanged="CustomPickerKnownTileSource_OnSelectedIndexChanged">
-                </pickers:CustomPicker>
+                <material:PickerField  x:Name="PickerFieldKnownTileSource"
+                                       ItemsSource="{Binding KnownTileSources, Mode=OneWay}"
+                                       SelectedItem="{Binding KnownTileSourceSelected, Mode=TwoWay}"
+                                       AllowClear="False"
+                                       Title="Test"
+                                       SelectedValueChanged="PickerFieldKnownTileSource_OnSelectedItemChanged">
 
-                <!-- <ComboBox Grid.Row="0" Grid.Column="0" -->
-                <!--           Style="{StaticResource MaterialDesignFilledComboBox}" -->
-                <!--           materialDesign:HintAssist.Hint="{Binding ComboBoxBasemapHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" -->
-                <!--           ItemsSource="{Binding KnownTileSources}" -->
-                <!--           SelectedItem="{Binding KnownTileSourceSelected}" -->
-                <!--           SelectionChanged="Selector_OnSelectionChanged"> -->
-                <!--     <ComboBox.ItemTemplate> -->
-                <!--         <DataTemplate> -->
-                <!--             <TextBlock Text="{Binding Converter={StaticResource SplitCamelCaseConverter}}" /> -->
-                <!--         </DataTemplate> -->
-                <!--     </ComboBox.ItemTemplate> -->
-                <!-- </ComboBox> -->
+                    <material:PickerField.ItemDisplayBinding>
+                        <Binding Converter="{StaticResource SplitCamelCaseConverter}" />
+                    </material:PickerField.ItemDisplayBinding>
+
+                </material:PickerField>
 
                 <maui:MapControl x:Name="MapControl"
                                 Background="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
