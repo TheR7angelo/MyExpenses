@@ -55,30 +55,20 @@ public partial class LocationManagementContentPage
         DeviceDisplay.MainDisplayInfoChanged += DeviceDisplay_OnMainDisplayInfoChanged;
     }
 
+    #region Action
+
+    private void CustomPickerKnownTileSource_OnSelectedIndexChanged(object? sender, EventArgs e)
+        => UpdateTileLayer();
+
     private void DeviceDisplay_OnMainDisplayInfoChanged(object? sender, DisplayInfoChangedEventArgs e)
         => UpdateDisplay();
 
-    private void UpdateDisplay()
-    {
-        foreach (var view in new List<View> { ScrollViewTreeView, MapControl, CustomPickerKnownTileSource })
-        {
-            if (view.Parent is Grid grid) grid.Children.Remove(view);
-        }
+    private void MapControl_OnLoaded(object? sender, EventArgs e)
+        => UpdateTileLayer();
 
-        var orientation = DeviceDisplay.MainDisplayInfo.Orientation;
-        if (orientation is DisplayOrientation.Landscape)
-        {
-            AddToGrid(GridLandscape, ScrollViewTreeView, 0, 0, 2);
-            AddToGrid(GridLandscape, MapControl, 0, 1);
-            AddToGrid(GridLandscape, CustomPickerKnownTileSource, 1, 1);
-        }
-        else
-        {
-            AddToGrid(GridPortrait, CustomPickerKnownTileSource, 0, 0);
-            AddToGrid(GridPortrait, MapControl, 1, 0);
-            AddToGrid(GridPortrait, ScrollViewTreeView, 2, 0);
-        }
-    }
+    #endregion
+
+    #region Function
 
     private static void AddToGrid(Grid grid, View control, int row, int column, int rowSpan = 1, int columnSpan = 1)
     {
@@ -127,8 +117,27 @@ public partial class LocationManagementContentPage
         return (treeViewNodes, places);
     }
 
-    private void CustomPickerKnownTileSource_OnSelectedIndexChanged(object? sender, EventArgs e)
-        => UpdateTileLayer();
+    private void UpdateDisplay()
+    {
+        foreach (var view in new List<View> { ScrollViewTreeView, MapControl, CustomPickerKnownTileSource })
+        {
+            if (view.Parent is Grid grid) grid.Children.Remove(view);
+        }
+
+        var orientation = DeviceDisplay.MainDisplayInfo.Orientation;
+        if (orientation is DisplayOrientation.Landscape)
+        {
+            AddToGrid(GridLandscape, ScrollViewTreeView, 0, 0, 2);
+            AddToGrid(GridLandscape, MapControl, 0, 1);
+            AddToGrid(GridLandscape, CustomPickerKnownTileSource, 1, 1);
+        }
+        else
+        {
+            AddToGrid(GridPortrait, CustomPickerKnownTileSource, 0, 0);
+            AddToGrid(GridPortrait, MapControl, 1, 0);
+            AddToGrid(GridPortrait, ScrollViewTreeView, 2, 0);
+        }
+    }
 
     private void UpdateTileLayer()
     {
@@ -144,6 +153,5 @@ public partial class LocationManagementContentPage
         MapControl?.Map.Layers.Insert(0, tileLayer);
     }
 
-    private void MapControl_OnLoaded(object? sender, EventArgs e)
-        => UpdateTileLayer();
+    #endregion
 }
