@@ -1,5 +1,6 @@
 using System.Collections.ObjectModel;
 using BruTile.Predefined;
+using Mapsui;
 using Mapsui.Layers;
 using Mapsui.Tiling.Layers;
 using MyExpenses.Models.Sql.Bases.Groups;
@@ -154,4 +155,36 @@ public partial class LocationManagementContentPage
     }
 
     #endregion
+
+    private void MapControl_OnInfo(object? sender, MapInfoEventArgs e)
+    {
+        var mapInfo = e.MapInfo;
+        SetClickTPlace(mapInfo);
+    }
+
+    private void SetClickTPlace(MapInfo mapInfo)
+    {
+        var feature = mapInfo.Feature as PointFeature;
+        var layer = mapInfo.Layer;
+
+        if (feature is null || layer is null)
+        {
+            // MenuItemAddFeature.Visibility = Visibility.Visible;
+            // MenuItemEditFeature.Visibility = Visibility.Collapsed;
+            // MenuItemDeleteFeature.Visibility = Visibility.Collapsed;
+            ClickTPlace = null;
+            return;
+        }
+
+        // MenuItemAddFeature.Visibility = Visibility.Collapsed;
+        // MenuItemEditFeature.Visibility = Visibility.Visible;
+        // MenuItemDeleteFeature.Visibility = Visibility.Visible;
+
+        var type = (Type)layer.Tag!;
+        if (type != typeof(TPlace)) return;
+
+        PointFeature = feature;
+        var place = feature.ToTPlace();
+        ClickTPlace = place;
+    }
 }

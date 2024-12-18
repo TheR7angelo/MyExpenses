@@ -42,8 +42,8 @@
 
                 <maui:MapControl x:Name="MapControl"
                                 Background="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
+                                Info="MapControl_OnInfo"
                                 Loaded="MapControl_OnLoaded">
-                    <!-- Info="MapControl_OnInfo" -->
                                 <!-- ContextMenuOpening="MapControl_OnContextMenuOpening" -->
                                 <!-- Loaded="MapControl_OnLoaded"> -->
             <!-- <maui:MapControl.ContextMenu> -->
