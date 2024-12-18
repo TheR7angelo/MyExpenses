@@ -34,4 +34,11 @@
       <ProjectReference Include="..\..\MyExpenses.Sql\MyExpenses.Sql.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <None Remove="Example - en.sqlite" />
+      <AdditionalFiles Include="Example - en.sqlite">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </AdditionalFiles>
+    </ItemGroup>
+
 </Project>
