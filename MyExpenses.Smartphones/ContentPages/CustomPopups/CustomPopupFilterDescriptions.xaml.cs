@@ -54,7 +54,7 @@ public partial class CustomPopupFilterDescriptions : ICustomPopupFilter<StringIs
             foreach (var historyDescriptionAlreadyChecked in historyDescriptionsAlreadyChecked.Where(s => s.IsChecked))
             {
                 var histories = HistoryDescriptions.Where(s =>
-                    s.StringValue!.Equals(historyDescriptionAlreadyChecked.StringValue)).ToList();
+                    s.StringValue == historyDescriptionAlreadyChecked.StringValue).ToList();
                 if (histories.Count is 0) continue;
                 histories.ForEach(s => s.IsChecked = historyDescriptionAlreadyChecked.IsChecked);
             }
