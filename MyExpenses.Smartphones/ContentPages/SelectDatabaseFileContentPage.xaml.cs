@@ -68,10 +68,8 @@ public partial class SelectDatabaseFileContentPage
 
         foreach (var viewCell in viewCells)
         {
-            if (viewCell.View is not HorizontalStackLayout horizontalStackLayout) continue;
+            if (viewCell.View is not UraniumUI.Material.Controls.CheckBox checkBox) continue;
 
-            if (horizontalStackLayout.Children.FirstOrDefault(s => s.GetType() == typeof(CheckBox)) is not CheckBox
-                checkBox) continue;
             if (!checkBox.IsChecked) continue;
             if (viewCell.BindingContext is not ExistingDatabase existingDatabase) continue;
 
@@ -88,10 +86,8 @@ public partial class SelectDatabaseFileContentPage
         if (ListView.TemplatedItems.FirstOrDefault(item => item.BindingContext == selectedDatabase) is not ViewCell
             viewCell) return;
 
-        if (viewCell.View is not HorizontalStackLayout horizontalStackLayout) return;
+        if (viewCell.View is not UraniumUI.Material.Controls.CheckBox checkBox) return;
 
-        if (horizontalStackLayout.Children.FirstOrDefault(s =>
-                s.GetType() == typeof(CheckBox)) is not CheckBox checkBox) return;
         checkBox.IsChecked = !checkBox.IsChecked;
     }
 
