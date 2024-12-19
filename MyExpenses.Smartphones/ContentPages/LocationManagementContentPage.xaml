@@ -5,7 +5,9 @@
              xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
              xmlns:maui="clr-namespace:Mapsui.UI.Maui;assembly=Mapsui.UI.Maui"
              xmlns:converters="clr-namespace:MyExpenses.Smartphones.Converters"
+             xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              x:Class="MyExpenses.Smartphones.ContentPages.LocationManagementContentPage"
+             x:Name="This"
 
              BindingContext="{Binding Source={RelativeSource Self}}">
 
@@ -40,12 +42,30 @@
 
                 </material:PickerField>
 
-                <maui:MapControl x:Name="MapControl"
-                                Background="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
-                                Info="MapControl_OnInfo"
-                                Loaded="MapControl_OnLoaded">
-                                <!-- ContextMenuOpening="MapControl_OnContextMenuOpening" -->
+                <Grid x:Name="GridMapControl">
+
+                    <Grid.Behaviors>
+                        <toolkit:TouchBehavior
+                            LongPressCommand="{Binding MapControlLongPressCommand, Source={x:Reference This}}"
+                            LongPressDuration="1500">
+                        </toolkit:TouchBehavior>
+                    </Grid.Behaviors>
+
+                    <Grid.GestureRecognizers>
+
+                    </Grid.GestureRecognizers>
+
+                    <maui:MapControl x:Name="MapControl"
+                                     Background="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
+                                     Info="MapControl_OnInfo"
+                                     Loaded="MapControl_OnLoaded">
+                    </maui:MapControl>
+
+                </Grid>
+
+                                    <!-- ContextMenuOpening="MapControl_OnContextMenuOpening" -->
                                 <!-- Loaded="MapControl_OnLoaded"> -->
+
             <!-- <maui:MapControl.ContextMenu> -->
             <!--     <ContextMenu> -->
             <!--          -->
@@ -82,7 +102,6 @@
             <!-- -->
             <!--     </ContextMenu> -->
             <!-- </maui:MapControl.ContextMenu> -->
-        </maui:MapControl>
 
             </Grid>
 

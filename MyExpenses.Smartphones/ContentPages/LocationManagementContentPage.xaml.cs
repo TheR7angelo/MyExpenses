@@ -1,4 +1,5 @@
 using System.Collections.ObjectModel;
+using System.Windows.Input;
 using BruTile.Predefined;
 using Mapsui;
 using Mapsui.Layers;
@@ -26,8 +27,12 @@ public partial class LocationManagementContentPage
 
     public ObservableCollection<TreeViewNode> TreeViewNodes { get; }
 
+    public ICommand MapControlLongPressCommand { get; }
+
     public LocationManagementContentPage()
     {
+        MapControlLongPressCommand = new Command<object>(MapControlLong_OnLongPress);
+
         KnownTileSources = [..MapsuiMapExtensions.GetAllKnowTileSource()];
 
         var (treeViewNodes, places) = GenerateTreeViewNodes();
@@ -120,7 +125,7 @@ public partial class LocationManagementContentPage
 
     private void UpdateDisplay()
     {
-        foreach (var view in new List<View> { ScrollViewTreeView, MapControl, PickerFieldKnownTileSource })
+        foreach (var view in new List<View> { ScrollViewTreeView, GridMapControl, PickerFieldKnownTileSource })
         {
             if (view.Parent is Grid grid) grid.Children.Remove(view);
         }
@@ -129,13 +134,13 @@ public partial class LocationManagementContentPage
         if (orientation is DisplayOrientation.Landscape)
         {
             AddToGrid(GridLandscape, ScrollViewTreeView, 0, 0, 2);
-            AddToGrid(GridLandscape, MapControl, 0, 1);
+            AddToGrid(GridLandscape, GridMapControl, 0, 1);
             AddToGrid(GridLandscape, PickerFieldKnownTileSource, 1, 1);
         }
         else
         {
             AddToGrid(GridPortrait, PickerFieldKnownTileSource, 0, 0);
-            AddToGrid(GridPortrait, MapControl, 1, 0);
+            AddToGrid(GridPortrait, GridMapControl, 1, 0);
             AddToGrid(GridPortrait, ScrollViewTreeView, 2, 0);
         }
     }
@@ -186,5 +191,22 @@ public partial class LocationManagementContentPage
         PointFeature = feature;
         var place = feature.ToTPlace();
         ClickTPlace = place;
+    }
+
+    private async void MapControlLong_OnLongPress(object e)
+    {
+        // if (e.Type == TouchActionType.Pressed || e.Type == TouchActionType.Moved)
+        // {
+        //     // Si le mouvement ou le clic se produit sur le MapControl, laissez-le gérer l'interaction
+        //     var mapControlBounds = MapControl.GetBoundingBox(); // Extension pour obtenir les limites
+        //     if (mapControlBounds.Contains(e.Location))
+        //     {
+        //         // Transférer les événements au MapControl
+        //         MapControl.OnTouch(e); // Appel natif à la carte pour déplacer/zoomer
+        //         return;
+        //     }
+        // }
+
+        await DisplayAlert("Long press", "Long press", "OK");
     }
 }
