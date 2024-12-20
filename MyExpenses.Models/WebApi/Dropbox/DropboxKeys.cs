@@ -13,4 +13,7 @@ public class DropboxKeys
     [JsonProperty("redirect_uri")]
     public string? RedirectUri { get; set; }
 
+    [JsonProperty("redirect_uri_wpf")]
+    public string? RedirectUriWpf { get; set; }
+
 }

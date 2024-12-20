@@ -10,10 +10,10 @@ public class WpfAuthenticator : IAuthenticator
     public async Task<string?> AuthenticateAsync(DropboxKeys dropboxKeys, Pkce pkceData)
     {
         var httpListener = new HttpListener();
-        httpListener.Prefixes.Add(dropboxKeys.RedirectUri!);
+        httpListener.Prefixes.Add(dropboxKeys.RedirectUriWpf!);
         httpListener.Start();
 
-        var uri = $"https://www.dropbox.com/oauth2/authorize?client_id={dropboxKeys.AppKey}&redirect_uri={dropboxKeys.RedirectUri}&response_type=code&code_challenge={pkceData.CodeChallenge}&code_challenge_method=S256&token_access_type=offline";
+        var uri = $"https://www.dropbox.com/oauth2/authorize?client_id={dropboxKeys.AppKey}&redirect_uri={dropboxKeys.RedirectUriWpf}&response_type=code&code_challenge={pkceData.CodeChallenge}&code_challenge_method=S256&token_access_type=offline";
         var process = new Process();
         process.StartInfo.UseShellExecute = true;
         process.StartInfo.CreateNoWindow = false;

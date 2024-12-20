@@ -224,7 +224,7 @@ public class DropboxService
         var tempToken = await authenticator.AuthenticateAsync(DropboxKeys, pkceData);
         if (string.IsNullOrEmpty(tempToken)) return null;
 
-        var accessTokenAuthentication = await GetAccessTokenAuthentication(tempToken, pkceData);
+        var accessTokenAuthentication = await GetAccessTokenAuthentication(tempToken, pkceData, projectSystem);
 
         if (accessTokenAuthentication is not null)
         {
@@ -250,8 +250,13 @@ public class DropboxService
         return jsonStr.ToObject<DropboxKeys>()!;
     }
 
-    private async Task<AccessTokenAuthentication?> GetAccessTokenAuthentication(string tempToken, Pkce pkceData)
+    private async Task<AccessTokenAuthentication?> GetAccessTokenAuthentication(string tempToken, Pkce pkceData,
+        ProjectSystem projectSystem)
     {
+        var redirectUri = projectSystem is ProjectSystem.Wpf
+            ? DropboxKeys.RedirectUriWpf!
+            : DropboxKeys.RedirectUri!;
+
         using var httpClient = Http.GetHttpClient();
         var requestData = new Dictionary<string, string>
         {
@@ -259,7 +264,7 @@ public class DropboxService
             { "grant_type", "authorization_code" },
             { "client_id", DropboxKeys.AppKey! },
             { "client_secret", DropboxKeys.AppSecret! },
-            { "redirect_uri", DropboxKeys.RedirectUri! },
+            { "redirect_uri", redirectUri },
             { "code_verifier", pkceData.CodeVerifier }
         };
 
