@@ -1,6 +1,5 @@
 ﻿using System.Diagnostics;
 using System.Runtime.InteropServices;
-using System.Runtime.Versioning;
 
 namespace MyExpenses.Utils;
 
@@ -50,20 +49,38 @@ public static class Utils
     }
 
     /// <summary>
-    /// Opens the specified file in the default file explorer on the Windows platform.
+    /// Opens the specified file or folder in the default system file explorer or viewer.
     /// </summary>
-    /// <param name="file">The path to the file to be opened.</param>
-    /// <exception cref="PlatformNotSupportedException">Thrown if the method is called on a platform other than Windows.</exception>
-    [SupportedOSPlatform("windows")]
+    /// <param name="file">The path of the file or folder to open.</param>
+    /// <exception cref="FileNotFoundException">Thrown when the specified file or folder does not exist.</exception>
+    /// <exception cref="PlatformNotSupportedException">Thrown when the operation is not supported on the current platform.</exception>
+    /// <exception cref="InvalidOperationException">Thrown when the file or folder cannot be opened due to an unexpected error.</exception>
     public static void StartFile(this string file)
     {
-        if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+        if (!File.Exists(file)) throw new FileNotFoundException($"The file '{file}' does not exist.");
+
+        try
         {
-            Process.Start(new ProcessStartInfo("explorer", file) { UseShellExecute = true });
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                Process.Start(new ProcessStartInfo("explorer", file) { UseShellExecute = true });
+            }
+            else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+            {
+                Process.Start("xdg-open", file);
+            }
+            else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+            {
+                Process.Start("open", file);
+            }
+            else
+            {
+                throw new PlatformNotSupportedException($"This platform ({RuntimeInformation.OSDescription}) is not supported.");
+            }
         }
-        else
+        catch (Exception ex)
         {
-            throw new PlatformNotSupportedException("This method is not supported on this platform.");
+            throw new InvalidOperationException("Failed to open the file.", ex);
         }
     }
 }
