@@ -16,10 +16,13 @@ profile:
 #  - name: <SomeEnabledInspectionId>
 
 #Disable inspections
-#exclude:
-#  - name: <SomeDisabledInspectionId>
-#    paths:
-#      - <path/where/not/run/inspection>
+exclude:
+  - name: DuplicateResource
+    paths:
+      - "MyExpenses.Wpf/Resources/Resx"
+      - "MyExpenses.Smartphones/Resources/Resx"
+      - "MyExpenses.Models/Resources/Resx"
+      - "MyExpenses.Sql/Resources/Resx"
 
 #Execute shell command before Qodana execution (Applied in CI/CD pipeline)
 #bootstrap: sh ./prepare-qodana.sh
