@@ -113,11 +113,4 @@ public partial class SaveLocationWindow
         DialogResult = true;
         Close();
     }
-
-    private void ButtonCompress_OnClick(object sender, RoutedEventArgs e)
-    {
-        SaveLocationResult = SaveLocation.Compress;
-        DialogResult = true;
-        Close();
-    }
 }
