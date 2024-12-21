@@ -266,7 +266,7 @@ public partial class AddEditBankTransferContentPage
             await DisplayAlert(
                 AddEditBankTransferContentPageResources.MessageBoxDeleteBankTransferErrorTitle,
                 AddEditBankTransferContentPageResources.MessageBoxDeleteBankTransferErrorMessage,
-                AddEditBankTransferContentPageResources.MessageBoxDeleteBankTransferErrorOkButton);;
+                AddEditBankTransferContentPageResources.MessageBoxDeleteBankTransferErrorOkButton);
         }
     }
 

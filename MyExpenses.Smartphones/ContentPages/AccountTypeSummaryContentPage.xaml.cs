@@ -191,7 +191,7 @@ public partial class AccountTypeSummaryContentPage
                 AccountTypeSummaryContentPageResources.MessageBoxHandleAccountTypeEditQuestionTitle,
                 AccountTypeSummaryContentPageResources.MessageBoxHandleAccountTypeEditQuestionMessage,
                 AccountTypeSummaryContentPageResources.MessageBoxHandleAccountTypeEditQuestionYesButton,
-                AccountTypeSummaryContentPageResources.MessageBoxHandleAccountTypeEditQuestionNoButton);;
+                AccountTypeSummaryContentPageResources.MessageBoxHandleAccountTypeEditQuestionNoButton);
             if (!response) return;
 
             Log.Information("Attempt to edit account type : {AccountType}", json);

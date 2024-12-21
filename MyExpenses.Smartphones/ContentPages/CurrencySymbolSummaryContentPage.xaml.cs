@@ -191,7 +191,7 @@ public partial class CurrencySymbolSummaryContentPage
                 CurrencySymbolSummaryContentPageResources.MessageBoxHandleCurrencyEditQuestionTitle,
                 string.Format(CurrencySymbolSummaryContentPageResources.MessageBoxHandleCurrencyEditQuestionMessage, Environment.NewLine),
                 CurrencySymbolSummaryContentPageResources.MessageBoxHandleCurrencyEditQuestionYesButton,
-                CurrencySymbolSummaryContentPageResources.MessageBoxHandleCurrencyEditQuestionNoButton);;
+                CurrencySymbolSummaryContentPageResources.MessageBoxHandleCurrencyEditQuestionNoButton);
             if (!response) return;
 
             Log.Information("Attempt to edit currency symbol : {Symbol}", json);

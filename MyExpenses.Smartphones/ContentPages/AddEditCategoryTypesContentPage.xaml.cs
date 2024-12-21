@@ -247,7 +247,7 @@ public partial class AddEditCategoryTypesContentPage
                 AddEditCategoryTypesContentPageResources.MessageBoxHandleCategoryTypeEditQuestionTitle,
                 string.Format(AddEditCategoryTypesContentPageResources.MessageBoxHandleCategoryTypeEditQuestionMessage, Environment.NewLine),
                 AddEditCategoryTypesContentPageResources.MessageBoxHandleCategoryTypeEditQuestionYesButton,
-                AddEditCategoryTypesContentPageResources.MessageBoxHandleCategoryTypeEditQuestionNoButton);;
+                AddEditCategoryTypesContentPageResources.MessageBoxHandleCategoryTypeEditQuestionNoButton);
             if (!response) return;
 
             Log.Information("Attempt to edit category type : {Category}", json);
