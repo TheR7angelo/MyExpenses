@@ -10,6 +10,7 @@ namespace MyExpenses.Sql.Context;
 
 public partial class DataBaseContext : DbContext
 {
+    // ReSharper disable once UnusedMember.Local
     private static readonly ILoggerFactory LoggerFactory = new SerilogLoggerFactory();
 
     public static string? FilePath { get; set; }
