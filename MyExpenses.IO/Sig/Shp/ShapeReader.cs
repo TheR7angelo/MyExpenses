@@ -1,5 +1,4 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
-using GeoReso.Models.IO.Shape.Converters;
 using MyExpenses.Models.IO.Sig.Interfaces;
 using MyExpenses.Models.IO.Sig.Shp.Converters;
 using MyExpenses.Models.Sql.Bases.Tables;
