@@ -391,7 +391,7 @@
         <!--         </ControlTemplate> -->
         <!--     </Setter.Value> -->
         <!-- </Setter> -->
-        <Setter Property="CornerRadius" Value="2" />
+        <!-- <Setter Property="CornerRadius" Value="2" /> -->
     </Style>
 
     <Style x:Key="OutlinedLightButton"
@@ -633,7 +633,7 @@
         <Setter Property="Background" Value="{DynamicResource SecondaryMid}" />
         <Setter Property="BorderColor" Value="{DynamicResource SecondaryMid}" />
         <Setter Property="TextColor" Value="{DynamicResource SecondaryMidForeground}" />
-        <Setter Property="assists:ButtonProgressAssist.IndicatorForeground" Value="{DynamicResource SecondaryMid}" />
+        <!-- <Setter Property="assists:ButtonProgressAssist.IndicatorForeground" Value="{DynamicResource SecondaryMid}" /> -->
     </Style>
 
     <Style x:Key="FloatingActionMiniSecondaryLightButton"

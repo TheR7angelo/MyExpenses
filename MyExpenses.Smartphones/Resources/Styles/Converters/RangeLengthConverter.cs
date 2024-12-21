@@ -6,7 +6,7 @@ public class RangeLengthConverter : IMultiValueConverter
 {
     public object Convert(object[]? values, Type targetType, object parameter, CultureInfo culture)
     {
-        if (values == null || values.Length != 4 || values.Any(v => v == null))
+        if (values is not { Length: 4 } || values.Any(_ => false))
             return Binding.DoNothing;
 
         if (!double.TryParse(values[0].ToString(), out var min)
