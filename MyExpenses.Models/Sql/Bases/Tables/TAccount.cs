@@ -14,6 +14,7 @@ public partial class TAccount : ISql
 
     [Required]
     [Column("name")]
+    [MaxLength(55)]
     public string? Name { get; set; }
 
     [Required]

@@ -37,6 +37,7 @@
 
     <mah:MetroWindow.Resources>
         <converters:InverseBooleanToVisibilityConverter x:Key="InverseBooleanToVisibilityConverter" />
+        <converters:MaxLengthConverter x:Key="MaxLengthConverter" />
     </mah:MetroWindow.Resources>
 
     <Grid margin:PanelExtensions.MarginForAllChildren="5"
@@ -61,6 +62,7 @@
                  materialDesign:HintAssist.Hint="{Binding HintAssistTextBoxAccountName, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                  Style="{StaticResource MaterialDesignFilledTextBox}"
                  Text="{Binding Account.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                 MaxLength="{Binding Account, Converter={StaticResource MaxLengthConverter}, ConverterParameter=Name}"
                  LostFocus="TextBoxAccountName_OnLostFocus">
         </TextBox>
 

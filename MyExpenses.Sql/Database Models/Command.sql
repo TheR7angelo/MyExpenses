@@ -32,35 +32,33 @@ SELECT *
 FROM v_history h
 WHERE h.date BETWEEN '2024-08-01' AND '2024-09-01';
 
-CREATE TABLE t_place_2 AS
-SELECT * FROM t_place;
+CREATE TABLE t_account_2 AS
+SELECT * FROM t_account;
 
-DROP TABLE IF EXISTS t_place;
-CREATE TABLE t_place
+DROP TABLE IF EXISTS t_account;
+create table t_account
 (
-    id             INTEGER
-        CONSTRAINT t_place_pk
-            PRIMARY KEY AUTOINCREMENT,
-    name           TEXT,
-    number         TEXT,
-    street         TEXT,
-    postal         TEXT,
-    city           TEXT,
-    country        TEXT,
-    latitude       REAL,
-    longitude      REAL,
-    is_open        BOOLEAN NOT NULL DEFAULT TRUE,
-    can_be_deleted BOOLEAN DEFAULT TRUE,
-    date_added     DATETIME DEFAULT CURRENT_TIMESTAMP
+    id              INTEGER
+        constraint t_account_pk
+            primary key autoincrement,
+    name            TEXT(55),
+    account_type_fk INTEGER
+        constraint t_account_t_account_type_id_fk
+            references t_account_type,
+    currency_fk     INTEGER
+        constraint t_account_t_currency_id_fk
+            references t_currency,
+    active          BOOLEAN  default TRUE,
+    date_added      DATETIME default CURRENT_TIMESTAMP
 );
 
-DROP TRIGGER IF EXISTS after_insert_on_t_place;
-CREATE TRIGGER after_insert_on_t_place
+DROP TRIGGER IF EXISTS after_insert_on_t_account;
+CREATE TRIGGER after_insert_on_t_account
     AFTER INSERT
-    ON t_place
+    ON t_account
     FOR EACH ROW
 BEGIN
-    UPDATE t_place
+    UPDATE t_account
     SET date_added = CASE
                          WHEN typeof(NEW.date_added) = 'integer' THEN datetime(NEW.date_added / 1000, 'unixepoch')
                          ELSE NEW.date_added
@@ -68,13 +66,13 @@ BEGIN
     WHERE id = NEW.id;
 END;
 
-DROP TRIGGER IF EXISTS after_update_on_t_place;
-CREATE TRIGGER after_update_on_t_place
+DROP TRIGGER IF EXISTS after_update_on_t_account;
+CREATE TRIGGER after_update_on_t_account
     AFTER UPDATE
-    ON t_place
+    ON t_account
     FOR EACH ROW
 BEGIN
-    UPDATE t_place
+    UPDATE t_account
     SET date_added = CASE
                          WHEN typeof(NEW.date_added) = 'integer' THEN datetime(NEW.date_added / 1000, 'unixepoch')
                          ELSE NEW.date_added
@@ -82,7 +80,8 @@ BEGIN
     WHERE id = NEW.id;
 END;
 
-INSERT INTO t_place
-SELECT * FROM t_place_2;
 
-DROP TABLE t_place_2;
+INSERT INTO t_account
+SELECT * FROM t_account_2;
+
+DROP TABLE t_account_2;

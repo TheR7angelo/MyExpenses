@@ -14,6 +14,7 @@
 
     <ContentPage.Resources>
         <converters:ISqlConverter x:Key="ISqlConverter" />
+        <converters:MaxLengthConverter x:Key="MaxLengthConverter" />
     </ContentPage.Resources>
 
     <ContentPage.Content>
@@ -36,6 +37,7 @@
             <customEntryControl:CustomEntryControl Grid.Row="0" Grid.Column="0"
                                                    HasClearButton="True"
                                                    PlaceholderText="{Binding PlaceholderText, Mode=OneWay}"
+                                                   MaxLength="{Binding Account, Converter={StaticResource MaxLengthConverter}, ConverterParameter=Name}"
                                                    Text="{Binding Account.Name, Mode=TwoWay}">
             </customEntryControl:CustomEntryControl>
 
