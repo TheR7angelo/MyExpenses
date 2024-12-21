@@ -13,11 +13,15 @@ public class MaxLengthConverter : IValueConverter
         var objectType = value.GetType();
         var propertyName = parameter.ToString()!;
 
-        var property = objectType.GetProperty(propertyName);
+        return Convert(objectType, propertyName);
+    }
+
+    public static int Convert(Type type, string propertyName)
+    {
+        var property = type.GetProperty(propertyName);
 
         var maxLengthAttribute = property?.GetCustomAttribute<MaxLengthAttribute>();
         return maxLengthAttribute?.Length ?? int.MaxValue;
-
     }
 
     public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
