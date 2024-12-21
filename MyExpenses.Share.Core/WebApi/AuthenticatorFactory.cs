@@ -1,6 +1,4 @@
-using MyExpenses.Models.WebApi;
 using MyExpenses.Models.WebApi.Authenticator;
-using MyExpenses.Models.WebApi.DropBox;
 
 namespace MyExpenses.Share.Core.WebApi;
 

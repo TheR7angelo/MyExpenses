@@ -1,4 +1,3 @@
-using MyExpenses.Models.Wpf.AutoUpdaterGitHub;
 using Newtonsoft.Json;
 
 namespace MyExpenses.Models.Config;

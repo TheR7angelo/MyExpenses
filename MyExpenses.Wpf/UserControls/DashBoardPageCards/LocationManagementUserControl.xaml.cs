@@ -4,7 +4,6 @@ using Mapsui.Styles;
 using MyExpenses.Models.AutoMapper;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils.Maps;
-using MyExpenses.Wpf.Utils.Maps;
 
 namespace MyExpenses.Wpf.UserControls.DashBoardPageCards;
 

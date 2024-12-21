@@ -4,7 +4,6 @@ using Microsoft.EntityFrameworkCore;
 using MyExpenses.Models.Config;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Sql.Context;
-using MyExpenses.Wpf.Resources.Resx.UserControls.Helps;
 using MyExpenses.Wpf.Resources.Resx.UserControls.Helps.VersionControl;
 
 namespace MyExpenses.Wpf.UserControls.Helps;

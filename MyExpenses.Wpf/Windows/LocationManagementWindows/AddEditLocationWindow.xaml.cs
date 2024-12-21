@@ -18,7 +18,6 @@ using MyExpenses.Utils.Maps;
 using MyExpenses.WebApi.Nominatim;
 using MyExpenses.Wpf.Resources.Resx.Windows.AddEditLocationWindow;
 using MyExpenses.Wpf.Utils;
-using MyExpenses.Wpf.Utils.Maps;
 using MyExpenses.Wpf.Windows.MsgBox;
 using Serilog;
 using Point = NetTopologySuite.Geometries.Point;

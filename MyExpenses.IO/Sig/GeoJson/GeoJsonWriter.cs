@@ -1,7 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.Reflection;
 using MyExpenses.Models.IO.Sig.Interfaces;
-using MyExpenses.Utils.Properties;
 using NetTopologySuite.Features;
 using Newtonsoft.Json;
 
