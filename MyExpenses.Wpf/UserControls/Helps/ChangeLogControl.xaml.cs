@@ -2,10 +2,10 @@ using System.Windows;
 using Microsoft.Web.WebView2.Core;
 using MyExpenses.Models.Config;
 using MyExpenses.Models.Config.Interfaces;
-using MyExpenses.Models.WebApi.Github.Soft;
 using MyExpenses.Utils;
 using MyExpenses.Wpf.Resources.Resx.UserControls.Helps.ChangeLogControl;
 using MyExpenses.Wpf.Windows.AutoUpdaterGitHub;
+using Serilog;
 
 namespace MyExpenses.Wpf.UserControls.Helps;
 
@@ -63,19 +63,17 @@ public partial class ChangeLogControl
 
     #region Action
 
-    //TODO test with 10GB file download
     private async void ButtonUpdate_OnClick(object sender, RoutedEventArgs e)
     {
         var lastRelease = AutoUpdaterGitHub.LastRelease!;
         var asset = lastRelease.Assets!.GetAssetForThisSystem();
-
-        var assetTest = new Asset
+        if (asset is null)
         {
-            Name = "10GB.bin",
-            BrowserDownloadUrl = "https://ash-speed.hetzner.com/10GB.bin"
-        };
+            Log.Error("No asset found for this system");
+            return;
+        }
 
-        await assetTest.UpdateApplication();
+        await asset.UpdateApplication();
     }
 
     private void Interface_OnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)

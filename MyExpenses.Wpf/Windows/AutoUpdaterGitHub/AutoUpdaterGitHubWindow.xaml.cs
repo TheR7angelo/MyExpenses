@@ -213,7 +213,6 @@ public partial class AutoUpdaterGitHubWindow
         }
     }
 
-    //TODO test with 10GB file download
     private async Task UpdateApplication()
     {
         var lastRelease = AutoUpdaterGitHub.LastRelease!;
@@ -229,7 +228,7 @@ public partial class AutoUpdaterGitHubWindow
         //     Name = "10GB.bin",
         //     BrowserDownloadUrl = "https://ash-speed.hetzner.com/10GB.bin"
         // };
-        //
+
         // await assetTest.UpdateApplication();
         await asset.UpdateApplication();
     }
