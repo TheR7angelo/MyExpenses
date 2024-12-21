@@ -28,6 +28,8 @@ exclude:
   - name: All
     paths:
       - "Tests"
+      - "MyExpenses.Wpf.Helper"
+      - "MyExpenses.Wpf.Calc"
 
 
 
