@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Runtime.Versioning;
 using CommunityToolkit.Maui.Storage;
 using MyExpenses.Core.Export;
 using MyExpenses.Maui.Utils.WebApi;
@@ -89,6 +90,10 @@ public partial class MainPage
         Application.Current!.MainPage = dashBoardShell;
     }
 
+    [SupportedOSPlatform("Android")]
+    [SupportedOSPlatform("iOS14.0")]
+    [SupportedOSPlatform("MacCatalyst14.0")]
+    [SupportedOSPlatform("Windows")]
     private async void ButtonExportDataBase_OnClick(object? sender, EventArgs e)
     {
         var saveLocation = await SaveLocationContentPageUtils.GetExportSaveLocation();
@@ -240,6 +245,10 @@ public partial class MainPage
         }
     }
 
+    [SupportedOSPlatform("Android")]
+    [SupportedOSPlatform("iOS14.0")]
+    [SupportedOSPlatform("MacCatalyst14.0")]
+    [SupportedOSPlatform("Windows")]
     private static async Task ExportToLocalDatabase(List<ExistingDatabase> existingDatabasesSelected)
     {
         var folderPickerResult = await FolderPicker.Default.PickAsync();
@@ -256,6 +265,10 @@ public partial class MainPage
         }
     }
 
+    [SupportedOSPlatform("Android")]
+    [SupportedOSPlatform("iOS14.0")]
+    [SupportedOSPlatform("MacCatalyst14.0")]
+    [SupportedOSPlatform("Windows")]
     private static async Task ExportToLocalFolderAsync(List<ExistingDatabase> existingDatabasesSelected, bool isCompress)
     {
         var folderPickerResult = await FolderPicker.Default.PickAsync();
