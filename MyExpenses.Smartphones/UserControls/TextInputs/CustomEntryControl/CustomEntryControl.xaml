@@ -9,7 +9,6 @@
     <ContentView.Resources>
         <converters:BooleanToInverseConverter x:Key="BooleanToInverseConverter" />
         <converters:EPackIconsToGeometryConverter x:Key="StringToGeometryConverter" />
-        <converters:PercentageConverter x:Key="PercentageConverter" />
     </ContentView.Resources>
 
     <Border Stroke="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"

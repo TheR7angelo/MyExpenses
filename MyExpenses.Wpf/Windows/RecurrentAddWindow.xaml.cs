@@ -190,7 +190,7 @@ public partial class RecurrentAddWindow
             .Where(s => s.IsActive)
             .Where(s => s.NextDueDate.Year.Equals(now.Year) && s.NextDueDate.Month.Equals(now.Month))
             .OrderBy(s => s.NextDueDate)
-            .Select(s => s.Id.ToISql<VRecursiveExpense>())!
+            .Select(s => s.Id.ToISql<VRecursiveExpense>())
             .Select(s => mapper.Map<VRecursiveExpenseDerive>(s));
 
         VRecursiveExpensesDerives.Clear();

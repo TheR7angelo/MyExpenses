@@ -3,7 +3,6 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:local="clr-namespace:MyExpenses.Wpf.Windows"
         xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
         xmlns:margin="clr-namespace:MyExpenses.Wpf.Utils.Margin;assembly=MyExpenses.Wpf.Utils"
         mc:Ignorable="d"
@@ -33,7 +32,7 @@
         Closed="ProgressBarWindow_OnClosed">
 
     <Grid VerticalAlignment="Center"
-        margin:PanelExtensions.MarginForAllChildren="5">
+          margin:PanelExtensions.MarginForAllChildren="5">
 
         <Grid.RowDefinitions>
             <RowDefinition Height="*" />

@@ -2,9 +2,7 @@
 
 <ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:converters="clr-namespace:MyExpenses.Smartphones.Resources.Styles.Converters"
              xmlns:local="clr-namespace:MyExpenses.Smartphones.UserControls.Pickers"
-             xmlns:customFrame="clr-namespace:MyExpenses.Smartphones.UserControls.Buttons.CustomFrame"
              xmlns:converters1="clr-namespace:MyExpenses.Smartphones.Converters"
              x:Class="MyExpenses.Smartphones.UserControls.Pickers.CustomPicker">
 

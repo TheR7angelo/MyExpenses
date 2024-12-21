@@ -429,7 +429,7 @@ public partial class AddEditLocationWindow
 
     private void MapControl_OnInfo(object? sender, MapInfoEventArgs e)
     {
-        var worldPosition = e.MapInfo!.WorldPosition!;
+        var worldPosition = e.MapInfo.WorldPosition;
         var feature = new PointFeature(worldPosition)
             { Styles = new List<IStyle> { MapsuiStyleExtensions.GreenMarkerStyle } };
         feature[ColumnTemp] = true;

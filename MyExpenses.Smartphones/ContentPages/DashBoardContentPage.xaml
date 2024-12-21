@@ -4,7 +4,6 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MyExpenses.Smartphones.ContentPages.DashBoardContentPage"
              x:Name="This"
-             xmlns:local="clr-namespace:MyExpenses.Smartphones.ContentPages"
              xmlns:converters="clr-namespace:MyExpenses.Smartphones.Converters"
              xmlns:pickers="clr-namespace:MyExpenses.Smartphones.UserControls.Pickers"
              xmlns:margin="clr-namespace:MyExpenses.Maui.Utils.Margin;assembly=MyExpenses.Maui.Utils"
