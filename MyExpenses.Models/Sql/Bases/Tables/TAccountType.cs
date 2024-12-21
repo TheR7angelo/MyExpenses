@@ -13,6 +13,7 @@ public partial class TAccountType : ISql
     public int Id { get; set; }
 
     [Column("name")]
+    [MaxLength(100)]
     public string? Name { get; set; }
 
     [Column("date_added", TypeName = "DATETIME")]

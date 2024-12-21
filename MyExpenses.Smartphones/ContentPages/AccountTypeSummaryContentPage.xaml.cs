@@ -7,6 +7,7 @@ using MyExpenses.Models.Maui.CustomPopup;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Smartphones.ContentPages.CustomPopups;
 using MyExpenses.Smartphones.ContentPages.CustomPopups.CustomPopupActivityIndicator;
+using MyExpenses.Smartphones.Converters;
 using MyExpenses.Smartphones.Resources.Resx.ContentPages.AccountTypeSummaryContentPage;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils;
@@ -45,7 +46,8 @@ public partial class AccountTypeSummaryContentPage
         set => SetValue(PlaceholderTextProperty, value);
     }
 
-    public int MaxLength { get; } = 64;
+    public int MaxLength { get; }
+
     public ObservableCollection<TAccountType> AccountTypes { get; } = [];
 
     public ICommand BackCommand { get; set; }
@@ -54,9 +56,11 @@ public partial class AccountTypeSummaryContentPage
 
     public Task<bool> ResultDialog
         => _taskCompletionSource.Task;
-    
+
     public AccountTypeSummaryContentPage()
     {
+        MaxLength = MaxLengthConverter.Convert(typeof(TAccountType), nameof(TAccountType.Name));
+
         BackCommand = new Command(OnBackCommandPressed);
 
         RefreshAccountTypes();
