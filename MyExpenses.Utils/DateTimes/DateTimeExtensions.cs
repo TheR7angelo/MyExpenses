@@ -11,7 +11,7 @@ public static class DateTimeExtensions
     /// <returns>A TimeSpan representing the time of day, or a default TimeSpan if the DateTime object is null.</returns>
     public static TimeSpan ToTimeSpan(this DateTime? dateTime)
     {
-        var timeSpan = dateTime?.TimeOfDay ?? new TimeSpan();
+        var timeSpan = dateTime?.TimeOfDay ?? TimeSpan.Zero;
         return timeSpan;
     }
 

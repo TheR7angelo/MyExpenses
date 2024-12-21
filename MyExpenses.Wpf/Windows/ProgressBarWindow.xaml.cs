@@ -25,7 +25,7 @@ public partial class ProgressBarWindow
 
     public static readonly DependencyProperty TimeLeftProgressProperty =
         DependencyProperty.Register(nameof(TimeLeftProgress), typeof(TimeSpan), typeof(ProgressBarWindow),
-            new PropertyMetadata(default(TimeSpan)));
+            new PropertyMetadata(TimeSpan.Zero));
 
     public TimeSpan TimeLeftProgress
     {
@@ -34,7 +34,7 @@ public partial class ProgressBarWindow
     }
 
     public static readonly DependencyProperty TimeElapsedProperty = DependencyProperty.Register(nameof(TimeElapsed),
-        typeof(TimeSpan), typeof(ProgressBarWindow), new PropertyMetadata(default(TimeSpan)));
+        typeof(TimeSpan), typeof(ProgressBarWindow), new PropertyMetadata(TimeSpan.Zero));
 
     public TimeSpan TimeElapsed
     {
@@ -129,7 +129,7 @@ public partial class ProgressBarWindow
     /// <returns>A Timer object that updates the remaining time.</returns>
     private Timer GetTimeLeftProgress(out IProgress<TimeSpan> timeLeftProgress)
     {
-        var timeLeft = new TimeSpan();
+        var timeLeft = TimeSpan.Zero;
         var timeLeftTimer = new Timer(TimeSpan.FromSeconds(1));
         timeLeftTimer.Elapsed += (_, _) => { Dispatcher.Invoke(() => { TimeLeftProgress = timeLeft; }); };
         timeLeftTimer.Start();

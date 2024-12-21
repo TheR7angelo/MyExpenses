@@ -17,7 +17,7 @@ public class DropboxService
 
     private string FilePathSecretKeys { get; set; }
 
-    private ProjectSystem ProjectSystem { get; set; }
+    private ProjectSystem ProjectSystem { get; init; }
 
     public DropboxService()
     {
@@ -25,16 +25,6 @@ public class DropboxService
 
         var directorySecretKeys = GenerateDirectorySecretKeys();
         FilePathSecretKeys = Path.Join(directorySecretKeys, "AccessTokenAuthentication.json");
-
-        // if (!File.Exists(FilePathSecretKeys))
-        // {
-        //     AccessTokenAuthentication = AuthorizeApplication(projectSystem);
-        // }
-        // else
-        // {
-        //     var jsonStr = File.ReadAllText(FilePathSecretKeys);
-        //     AccessTokenAuthentication = jsonStr.ToObject<AccessTokenAuthentication>();
-        // }
     }
 
     public async Task<List<DeleteResult?>> DeleteFilesAsync(string[] filePaths, string? folder = null)

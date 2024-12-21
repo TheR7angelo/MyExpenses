@@ -3,8 +3,10 @@
 public class DateTimeConverter
 {
     private readonly string[] _formats =
-        { "dd/MM/yyyy HH:mm", "MM/dd/yyyy HH:mm", "yyyy/MM/dd HH:mm:ss.fff", "yyyy/MM/dd HH:mm:ss",
-            "yyyy-MM-dd HH:mm", "MM-dd-yyyy HH:mm", "yyyy-MM-dd HH:mm:ss.fff", "yyyy-MM-dd HH:mm:ss" };
+    [
+        "dd/MM/yyyy HH:mm", "MM/dd/yyyy HH:mm", "yyyy/MM/dd HH:mm:ss.fff", "yyyy/MM/dd HH:mm:ss",
+            "yyyy-MM-dd HH:mm", "MM-dd-yyyy HH:mm", "yyyy-MM-dd HH:mm:ss.fff", "yyyy-MM-dd HH:mm:ss"
+    ];
 
     public DateTime? ConvertFromString(string? text)
     {

@@ -32,7 +32,7 @@ public partial class AddEditAccountTypeWindow
         set => SetValue(EditAccountTypeProperty, value);
     }
 
-    public bool AccountTypeDeleted { get; set; }
+    public bool AccountTypeDeleted { get; private set; }
 
     #endregion
 

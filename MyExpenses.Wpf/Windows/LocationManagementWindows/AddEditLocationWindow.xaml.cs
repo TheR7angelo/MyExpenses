@@ -219,7 +219,7 @@ public partial class AddEditLocationWindow
 
     private const string ColumnTemp = "temp";
     public TPlace Place { get; } = new();
-    public bool PlaceDeleted { get; set; }
+    public bool PlaceDeleted { get; private set; }
     private WritableLayer WritableLayer { get; } = new() { Style = null };
     public List<KnownTileSource> KnownTileSources { get; }
 

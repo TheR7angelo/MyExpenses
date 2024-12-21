@@ -35,7 +35,7 @@ public partial class AddEditCategoryTypeWindow
     public ObservableCollection<TColor> Colors { get; }
     private List<TCategoryType> CategoryTypes { get; }
 
-    public bool CategoryTypeDeleted { get; set; }
+    public bool CategoryTypeDeleted { get; private set; }
 
     #endregion
 
