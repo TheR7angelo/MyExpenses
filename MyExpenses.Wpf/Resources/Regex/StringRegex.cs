@@ -1,6 +1,6 @@
 ﻿namespace MyExpenses.Wpf.Resources.Regex;
 
-public static partial class StringRegex
+public static class StringRegex
 {
     /// <summary>
     /// Splits a string into separate words based on uppercase letters.
