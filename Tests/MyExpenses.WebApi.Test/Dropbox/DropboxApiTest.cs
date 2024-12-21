@@ -1,5 +1,3 @@
-using MyExpenses.Models.WebApi.Authenticator;
-using MyExpenses.WebApi.Dropbox;
 using Xunit.Abstractions;
 
 namespace MyExpenses.WebApi.Test.Dropbox;
@@ -7,7 +5,7 @@ namespace MyExpenses.WebApi.Test.Dropbox;
 public class DropboxApiTest(ITestOutputHelper testOutputHelper)
 {
     [Fact]
-    private async Task Test()
+    private void Test()
     {
         // var dropboxService = new DropboxService();
         // if (dropboxService.AccessTokenAuthentication is null) dropboxService.AuthorizeApplication(ProjectSystem.Wpf);
