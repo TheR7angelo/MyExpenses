@@ -1,6 +1,8 @@
+using Xunit.Abstractions;
+
 namespace MyExpenses.WebApi.Test;
 
-public class Test
+public class WebApiTest(ITestOutputHelper testOutputHelper)
 {
     [Fact]
     private async Task GithubTest()
@@ -14,6 +16,6 @@ public class Test
         response.EnsureSuccessStatusCode();
         var responseBody = await response.Content.ReadAsStringAsync();
 
-        Console.WriteLine(responseBody);
+        testOutputHelper.WriteLine(responseBody);
     }
 }
