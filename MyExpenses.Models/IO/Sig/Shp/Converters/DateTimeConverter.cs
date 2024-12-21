@@ -1,4 +1,4 @@
-﻿namespace GeoReso.Models.IO.Shape.Converters;
+﻿namespace MyExpenses.Models.IO.Sig.Shp.Converters;
 
 public class DateTimeConverter
 {
