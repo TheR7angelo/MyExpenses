@@ -139,8 +139,8 @@ CREATE TABLE t_recursive_frequency
     id          INTEGER
         CONSTRAINT t_recursive_frequency_pk
             PRIMARY KEY AUTOINCREMENT,
-    frequency   TEXT(255),
-    description TEXT(255)
+    frequency   TEXT(55),
+    description TEXT(100)
 );
 
 DROP TABLE IF EXISTS t_mode_payment;
