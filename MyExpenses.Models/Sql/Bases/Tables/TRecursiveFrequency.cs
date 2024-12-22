@@ -16,9 +16,11 @@ public partial class TRecursiveFrequency
         => (ERecursiveFrequency)Id;
 
     [Column("frequency")]
+    [MaxLength(55)]
     public string? Frequency { get; set; }
 
     [Column("description")]
+    [MaxLength(100)]
     public string? Description { get; set; }
 
     [InverseProperty("FrequencyFkNavigation")]
