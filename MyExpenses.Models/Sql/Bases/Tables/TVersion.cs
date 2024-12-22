@@ -11,6 +11,7 @@ public class TVersion : ISql
     public int Id { get; set; }
 
     [Column("version")]
+    [MaxLength(25)]
     public string? VersionStr { get; set; }
 
     [NotMapped]
