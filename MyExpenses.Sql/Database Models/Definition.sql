@@ -59,7 +59,7 @@ CREATE TABLE t_account_type
     id         INTEGER
         constraint t_account_type_pk
             PRIMARY KEY AUTOINCREMENT,
-    name       TEXT,
+    name       TEXT(100),
     date_added DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -69,7 +69,7 @@ CREATE TABLE t_currency
     id         INTEGER
         CONSTRAINT t_account_pk
             PRIMARY KEY AUTOINCREMENT,
-    symbol     TEXT,
+    symbol     TEXT(55),
     date_added DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -79,7 +79,7 @@ CREATE TABLE t_account
     id              INTEGER
         CONSTRAINT t_account_pk
             PRIMARY KEY AUTOINCREMENT,
-    name            TEXT,
+    name            TEXT(55),
     account_type_fk INTEGER
         CONSTRAINT t_account_t_account_type_id_fk
             REFERENCES t_account_type,
@@ -96,7 +96,7 @@ CREATE TABLE t_color
     id                     INTEGER
         constraint t_account_type_pk
             PRIMARY KEY AUTOINCREMENT,
-    name                   TEXT,
+    name                   TEXT(55),
     hexadecimal_color_code TEXT(9),
     date_added             DATETIME DEFAULT CURRENT_TIMESTAMP
 );
@@ -107,7 +107,7 @@ CREATE TABLE t_category_type
     id         INTEGER
         CONSTRAINT t_category_type_pk
             PRIMARY KEY AUTOINCREMENT,
-    name       TEXT,
+    name       TEXT(55),
     color_fk   integer
         constraint t_account_type_t_color_id_fk
             references t_color,
@@ -127,8 +127,8 @@ CREATE TABLE t_bank_transfer
     to_account_fk     INTEGER
         CONSTRAINT t_bank_transfer_t_account_id_fk_2
             REFERENCES t_account,
-    main_reason       TEXT,
-    additional_reason TEXT,
+    main_reason       TEXT(100),
+    additional_reason TEXT(255),
     date              DATETIME,
     date_added        DATETIME default CURRENT_TIMESTAMP
 );
@@ -139,8 +139,8 @@ CREATE TABLE t_recursive_frequency
     id          INTEGER
         CONSTRAINT t_recursive_frequency_pk
             PRIMARY KEY AUTOINCREMENT,
-    frequency   TEXT,
-    description TEXT
+    frequency   TEXT(255),
+    description TEXT(255)
 );
 
 DROP TABLE IF EXISTS t_mode_payment;
@@ -149,7 +149,7 @@ CREATE TABLE t_mode_payment
     id         INTEGER
         CONSTRAINT t_mode_payment_pk
             PRIMARY KEY AUTOINCREMENT,
-    name       TEXT,
+    name       TEXT(55),
     date_added DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -159,12 +159,12 @@ CREATE TABLE t_place
     id             INTEGER
         CONSTRAINT t_place_pk
             PRIMARY KEY AUTOINCREMENT,
-    name           TEXT,
-    number         TEXT,
-    street         TEXT,
-    postal         TEXT,
-    city           TEXT,
-    country        TEXT,
+    name           TEXT(155),
+    number         TEXT(20),
+    street         TEXT(155),
+    postal         TEXT(10),
+    city           TEXT(100),
+    country        TEXT(55),
     latitude       REAL,
     longitude      REAL,
     is_open        BOOLEAN NOT NULL DEFAULT TRUE,
@@ -215,7 +215,7 @@ CREATE TABLE t_history
     account_fk           INTEGER
         CONSTRAINT t_history_t_account_id_fk
             REFERENCES t_account,
-    description          TEXT,
+    description          TEXT(255),
     category_type_fk     INTEGER
         CONSTRAINT t_history_t_category_type_id_fk
             REFERENCES t_category_type,
