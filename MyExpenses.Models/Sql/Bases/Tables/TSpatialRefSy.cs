@@ -21,7 +21,4 @@ public partial class TSpatialRefSy
 
     [Column("proj4text")]
     public string Proj4text { get; set; } = null!;
-
-    [InverseProperty("Sr")]
-    public virtual ICollection<TGeometryColumn> TGeometryColumns { get; set; } = new List<TGeometryColumn>();
 }
