@@ -13,6 +13,7 @@ public partial class TColor : ISql
     public int Id { get; set; }
 
     [Column("name")]
+    [MaxLength(55)]
     public string? Name { get; set; }
 
     [Column("hexadecimal_color_code", TypeName = "TEXT(9)")]

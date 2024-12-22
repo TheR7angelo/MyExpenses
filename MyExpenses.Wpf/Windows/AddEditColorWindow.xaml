@@ -8,6 +8,7 @@
                  xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
                  xmlns:colors="clr-namespace:MyExpenses.Wpf.Converters.Colors"
                  xmlns:margin="clr-namespace:MyExpenses.Wpf.Utils.Margin;assembly=MyExpenses.Wpf.Utils"
+                 xmlns:converters="clr-namespace:MyExpenses.Wpf.Converters"
                  mc:Ignorable="d"
 
                  Title="{Binding TitleWindow, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
@@ -39,6 +40,7 @@
 
     <mah:MetroWindow.Resources>
         <colors:HexToColorConverter x:Key="HexToColorConverter" />
+        <converters:MaxLengthConverter x:Key="MaxLengthConverter" />
     </mah:MetroWindow.Resources>
 
     <Grid margin:PanelExtensions.MarginForAllChildren="5">
@@ -54,6 +56,7 @@
                  materialDesign:HintAssist.Hint="{Binding TextBoxColorName, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                  Style="{StaticResource MaterialDesignFilledTextBox}"
                  Text="{Binding Color.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                 MaxLength="{Binding Color, Converter={StaticResource MaxLengthConverter}, ConverterParameter=Name}"
                  PreviewLostKeyboardFocus="UIElement_OnPreviewLostKeyboardFocus">
         </TextBox>
 
