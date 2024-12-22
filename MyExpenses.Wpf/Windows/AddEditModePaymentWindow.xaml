@@ -6,6 +6,7 @@
         xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
         xmlns:margin="clr-namespace:MyExpenses.Wpf.Utils.Margin;assembly=MyExpenses.Wpf.Utils"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:converters="clr-namespace:MyExpenses.Wpf.Converters"
         mc:Ignorable="d"
 
         Title="{Binding WindowTitle, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
@@ -34,6 +35,10 @@
 
         DataContext="{Binding RelativeSource={RelativeSource Self}}">
 
+    <mah:MetroWindow.Resources>
+        <converters:MaxLengthConverter x:Key="MaxLengthConverter" />
+    </mah:MetroWindow.Resources>
+
     <Grid margin:PanelExtensions.MarginForAllChildren="5">
 
         <Grid.RowDefinitions>
@@ -43,6 +48,7 @@
 
         <TextBox x:Name="TextBoxModePayment" Grid.Row="0"
                  Text="{Binding ModePayment.Name}"
+                 MaxLength="{Binding ModePayment, Converter={StaticResource MaxLengthConverter}, ConverterParameter=Name}"
                  materialDesign:HintAssist.Hint="{Binding TextBoxModePaymentName, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                  Style="{StaticResource MaterialDesignFilledTextBox}"
                  PreviewLostKeyboardFocus="TextBoxModePayment_OnPreviewLostKeyboardFocus">

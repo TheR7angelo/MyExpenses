@@ -13,6 +13,7 @@ public partial class TModePayment : ISql
     public int Id { get; set; }
 
     [Column("name")]
+    [MaxLength(55)]
     public string? Name { get; set; }
 
     [Column("can_be_deleted", TypeName = "BOOLEAN")]
