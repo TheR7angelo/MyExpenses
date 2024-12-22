@@ -40,6 +40,7 @@
         <converters:DateOnlyToDateTimeConverter x:Key="DateOnlyToDateTimeConverter" />
         <converters:SplitUpperCaseWordsConverter x:Key="SplitCamelCaseConverter" />
         <converters:DateOnlyToStringConverter x:Key="DateOnlyToStringConverter" />
+        <converters:MaxLengthConverter x:Key="MaxLengthConverter" />
     </mah:MetroWindow.Resources>
 
     <Grid margin:PanelExtensions.MarginForAllChildren="5"
@@ -109,6 +110,7 @@
                  materialDesign:HintAssist.Hint="{Binding TextBoxDescriptionHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                  Style="{StaticResource MaterialDesignFilledTextBox}"
                  Text="{Binding RecursiveExpense.Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                 MaxLength="{Binding RecursiveExpense, Converter={StaticResource MaxLengthConverter}, ConverterParameter=Description}"
                  TextWrapping="Wrap" AcceptsReturn="True" AcceptsTab="True">
         </TextBox>
 
@@ -116,6 +118,7 @@
                  materialDesign:HintAssist.Hint="{Binding TextBoxNoteHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                  Style="{StaticResource MaterialDesignFilledTextBox}"
                  Text="{Binding RecursiveExpense.Note, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                 MaxLength="{Binding RecursiveExpense, Converter={StaticResource MaxLengthConverter}, ConverterParameter=Note}"
                  TextWrapping="Wrap" AcceptsReturn="True" AcceptsTab="True">
         </TextBox>
 

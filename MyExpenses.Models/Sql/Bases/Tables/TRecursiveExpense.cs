@@ -19,9 +19,11 @@ public partial class TRecursiveExpense : ISql
 
     [Required]
     [Column("description")]
+    [MaxLength(255)]
     public string? Description { get; set; }
 
     [Column("note")]
+    [MaxLength(255)]
     public string? Note { get; set; }
 
     [Required]
