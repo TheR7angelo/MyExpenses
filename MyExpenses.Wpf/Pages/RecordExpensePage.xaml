@@ -22,6 +22,7 @@
     <Page.Resources>
         <converters:SplitUpperCaseWordsConverter x:Key="SplitCamelCaseConverter" />
         <converters:InverseBooleanToVisibilityConverter x:Key="InverseBooleanToVisibilityConverter" />
+        <converters:MaxLengthConverter x:Key="MaxLengthConverter" />
     </Page.Resources>
 
     <Grid margin:PanelExtensions.MarginForAllChildren="5"
@@ -70,6 +71,7 @@
                  materialDesign:HintAssist.Hint="{Binding TextBoxDescriptionHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                  Style="{StaticResource MaterialDesignFilledTextBox}"
                  Text="{Binding History.Description, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                 MaxLength="{Binding History, Converter={StaticResource MaxLengthConverter}, ConverterParameter=Description}"
                  TextWrapping="Wrap" AcceptsReturn="True" AcceptsTab="True">
         </TextBox>
 

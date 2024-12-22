@@ -141,7 +141,8 @@
                 <TextBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"
                          materialDesign:HintAssist.Hint="{Binding HintAssistTextBoxAccountStartingBalanceDescription, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                          Style="{StaticResource MaterialDesignFilledTextBox}"
-                         Text="{Binding History.Description, Mode=TwoWay}">
+                         Text="{Binding History.Description, Mode=TwoWay}"
+                         MaxLength="{Binding History, Converter={StaticResource MaxLengthConverter}, ConverterParameter=Description}">
                 </TextBox>
 
                 <TextBox Grid.Row="1" Grid.Column="0"

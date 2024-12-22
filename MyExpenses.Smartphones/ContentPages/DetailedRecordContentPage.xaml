@@ -25,6 +25,7 @@
         <converters:BooleanToInverseConverter x:Key="BooleanToInverseConverter" />
         <converters:EPackIconsToGeometryConverter x:Key="StringToGeometryConverter" />
         <converters:PercentageConverter x:Key="PercentageConverter" />
+        <converters:MaxLengthConverter x:Key="MaxLengthConverter" />
     </ContentPage.Resources>
 
     <ContentPage.Content>
@@ -90,6 +91,7 @@
                         <Entry Grid.Row="0"
                                HorizontalTextAlignment="Start"
                                Text="{Binding THistory.Description, Mode=TwoWay}"
+                               MaxLength="{Binding THistory, Converter={StaticResource MaxLengthConverter}, ConverterParameter=Description}"
                                FontSize="24"
                                TextChanged="EntryDescription_OnTextChanged">
                         </Entry>
