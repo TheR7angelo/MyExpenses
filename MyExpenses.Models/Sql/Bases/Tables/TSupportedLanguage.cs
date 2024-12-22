@@ -13,12 +13,15 @@ public partial class TSupportedLanguage
     public int Id { get; set; }
 
     [Column("code")]
+    [MaxLength(10)]
     public string Code { get; set; } = null!;
 
     [Column("native_name")]
+    [MaxLength(55)]
     public string NativeName { get; set; } = null!;
 
     [Column("english_name")]
+    [MaxLength(55)]
     public string EnglishName { get; set; } = null!;
 
     [Column("default_language", TypeName = "BOOLEAN")]
