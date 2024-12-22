@@ -15,21 +15,27 @@ public partial class TPlace : ISql, ISig
     public int Id { get; set; }
 
     [Column("name")]
+    [MaxLength(155)]
     public string? Name { get; set; }
 
     [Column("number")]
+    [MaxLength(20)]
     public string? Number { get; set; }
 
     [Column("street")]
+    [MaxLength(155)]
     public string? Street { get; set; }
 
     [Column("postal")]
+    [MaxLength(10)]
     public string? Postal { get; set; }
 
     [Column("city")]
+    [MaxLength(100)]
     public string? City { get; set; }
 
     [Column("country")]
+    [MaxLength(55)]
     public string? Country { get; set; }
 
     [NotMapped]

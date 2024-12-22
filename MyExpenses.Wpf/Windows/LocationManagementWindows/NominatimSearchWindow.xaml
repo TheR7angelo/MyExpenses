@@ -7,6 +7,7 @@
                  xmlns:wpf="clr-namespace:Mapsui.UI.Wpf;assembly=Mapsui.UI.Wpf"
                  xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
                  xmlns:margin="clr-namespace:MyExpenses.Wpf.Utils.Margin;assembly=MyExpenses.Wpf.Utils"
+                 xmlns:converters="clr-namespace:MyExpenses.Wpf.Converters"
                  mc:Ignorable="d"
 
                  d:DesignHeight="655"
@@ -33,6 +34,10 @@
                  TextElement.Foreground="{DynamicResource MaterialDesignBody}"
                  DataContext="{Binding RelativeSource={RelativeSource Self}}">
 
+    <mah:MetroWindow.Resources>
+        <converters:MaxLengthConverter x:Key="MaxLengthConverter" />
+    </mah:MetroWindow.Resources>
+
     <Grid margin:PanelExtensions.MarginForAllChildren="5">
 
         <Grid.RowDefinitions>
@@ -55,37 +60,43 @@
         <TextBox Grid.Row="0" Grid.Column="1"
                  materialDesign:HintAssist.Hint="{Binding PlaceNameHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                  Style="{StaticResource MaterialDesignFilledTextBox}"
-                 Text="{Binding CurrentPlace.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                 Text="{Binding CurrentPlace.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                 MaxLength="{Binding CurrentPlace, Converter={StaticResource MaxLengthConverter}, ConverterParameter=Name}">
         </TextBox>
 
         <TextBox Grid.Row="1" Grid.Column="1"
                  materialDesign:HintAssist.Hint="{Binding PlaceNumberHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                  Style="{StaticResource MaterialDesignFilledTextBox}"
-                 Text="{Binding CurrentPlace.Number, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                 Text="{Binding CurrentPlace.Number, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                 MaxLength="{Binding CurrentPlace, Converter={StaticResource MaxLengthConverter}, ConverterParameter=Number}">
         </TextBox>
 
         <TextBox Grid.Row="2" Grid.Column="1"
                  materialDesign:HintAssist.Hint="{Binding PlaceStreetHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                  Style="{StaticResource MaterialDesignFilledTextBox}"
-                 Text="{Binding CurrentPlace.Street, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                 Text="{Binding CurrentPlace.Street, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                 MaxLength="{Binding CurrentPlace, Converter={StaticResource MaxLengthConverter}, ConverterParameter=Street}">
         </TextBox>
 
         <TextBox Grid.Row="3" Grid.Column="1"
                  materialDesign:HintAssist.Hint="{Binding PlacePostalHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                  Style="{StaticResource MaterialDesignFilledTextBox}"
-                 Text="{Binding CurrentPlace.Postal, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                 Text="{Binding CurrentPlace.Postal, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                 MaxLength="{Binding CurrentPlace, Converter={StaticResource MaxLengthConverter}, ConverterParameter=Postal}">
         </TextBox>
 
         <TextBox Grid.Row="4" Grid.Column="1"
                  materialDesign:HintAssist.Hint="{Binding PlaceCityHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                  Style="{StaticResource MaterialDesignFilledTextBox}"
-                 Text="{Binding CurrentPlace.City, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                 Text="{Binding CurrentPlace.City, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                 MaxLength="{Binding CurrentPlace, Converter={StaticResource MaxLengthConverter}, ConverterParameter=City}">
         </TextBox>
 
         <TextBox Grid.Row="5" Grid.Column="1"
                  materialDesign:HintAssist.Hint="{Binding PlaceCountryHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                  Style="{StaticResource MaterialDesignFilledTextBox}"
-                 Text="{Binding CurrentPlace.Country, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                 Text="{Binding CurrentPlace.Country, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                 MaxLength="{Binding CurrentPlace, Converter={StaticResource MaxLengthConverter}, ConverterParameter=Country}">
         </TextBox>
 
         <StackPanel Grid.Row="6" Grid.Column="0" Grid.RowSpan="2"
