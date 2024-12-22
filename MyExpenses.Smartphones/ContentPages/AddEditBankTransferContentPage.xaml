@@ -19,6 +19,7 @@
 
     <ContentPage.Resources>
         <converters:ISqlConverter x:Key="ISqlConverter" />
+        <converters:MaxLengthConverter x:Key="MaxLengthConverter" />
     </ContentPage.Resources>
 
     <ContentPage.Content>
@@ -183,6 +184,7 @@
             <customEntryControl:CustomEntryControl Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="3"
                                                    PlaceholderText="{Binding CustomEntryControlPlaceholderTextMainReason}"
                                                    Text="{Binding BankTransfer.MainReason, Mode=TwoWay}"
+                                                   MaxLength="{Binding BankTransfer, Converter={StaticResource MaxLengthConverter}, ConverterParameter=MainReason}"
                                                    HasClearButton="True"
                                                    HasMultiline="True">
             </customEntryControl:CustomEntryControl>
@@ -190,6 +192,7 @@
             <customEntryControl:CustomEntryControl Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="3"
                                                    PlaceholderText="{Binding CustomEntryControlPlaceholderTextAdditionalReason}"
                                                    Text="{Binding BankTransfer.AdditionalReason, Mode=TwoWay}"
+                                                   MaxLength="{Binding BankTransfer, Converter={StaticResource MaxLengthConverter}, ConverterParameter=AdditionalReason}"
                                                    HasClearButton="True"
                                                    HasMultiline="True">
             </customEntryControl:CustomEntryControl>

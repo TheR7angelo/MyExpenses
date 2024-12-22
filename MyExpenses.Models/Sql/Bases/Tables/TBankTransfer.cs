@@ -26,9 +26,11 @@ public partial class TBankTransfer : ISql
 
     [Required]
     [Column("main_reason")]
+    [MaxLength(100)]
     public string? MainReason { get; set; }
 
     [Column("additional_reason")]
+    [MaxLength(255)]
     public string? AdditionalReason { get; set; }
 
     [Required]

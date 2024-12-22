@@ -20,6 +20,7 @@
     <Page.Resources>
         <converters:TotalToIconConverter x:Key="TotalToIconConverter" />
         <converters:InverseBooleanToVisibilityConverter x:Key="InverseBooleanToVisibilityConverter" />
+        <converters:MaxLengthConverter x:Key="MaxLengthConverter" />
     </Page.Resources>
 
     <Grid>
@@ -150,6 +151,7 @@
                      materialDesign:HintAssist.Hint="{Binding TextBoxMainReasonHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                      Style="{StaticResource MaterialDesignFilledTextBox}"
                      Text="{Binding BankTransfer.MainReason, Mode=TwoWay}"
+                     MaxLength="{Binding BankTransfer, Converter={StaticResource MaxLengthConverter}, ConverterParameter=MainReason}"
                      AcceptsReturn="False" AcceptsTab="False">
             </TextBox>
 
@@ -158,6 +160,7 @@
                      materialDesign:HintAssist.Hint="{Binding TextBoxAdditionalReasonHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                      Style="{StaticResource MaterialDesignFilledTextBox}"
                      Text="{Binding BankTransfer.AdditionalReason, Mode=TwoWay}"
+                     MaxLength="{Binding BankTransfer, Converter={StaticResource MaxLengthConverter}, ConverterParameter=AdditionalReason}"
                      AcceptsReturn="True" AcceptsTab="True">
             </TextBox>
 
