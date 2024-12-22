@@ -30,10 +30,10 @@ CREATE TABLE t_spatial_ref_sys
     srid      INTEGER not null
         constraint t_spatial_ref_sys_pk
             primary key,
-    auth_name TEXT    not null,
-    auth_srid TEXT    not null,
-    srtext    TEXT    not null,
-    proj4text TEXT    not null,
+    auth_name TEXT(50)    not null,
+    auth_srid TEXT(10)    not null,
+    srtext    TEXT(2000)    not null,
+    proj4text TEXT(255)    not null,
     constraint t_spatial_ref_sys_srid_check
         check (srid > 0 AND srid <= 998999)
 );
