@@ -13,6 +13,7 @@ public partial class TCurrency : ISql
     public int Id { get; set; }
 
     [Column("symbol")]
+    [MaxLength(55)]
     public string? Symbol { get; set; }
 
     [Column("date_added", TypeName = "DATETIME")]

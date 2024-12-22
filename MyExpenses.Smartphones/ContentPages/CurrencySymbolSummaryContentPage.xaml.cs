@@ -7,6 +7,7 @@ using MyExpenses.Models.Maui.CustomPopup;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Smartphones.ContentPages.CustomPopups;
 using MyExpenses.Smartphones.ContentPages.CustomPopups.CustomPopupActivityIndicator;
+using MyExpenses.Smartphones.Converters;
 using MyExpenses.Smartphones.Resources.Resx.ContentPages.CurrencySymbolSummaryContentPage;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils;
@@ -45,7 +46,7 @@ public partial class CurrencySymbolSummaryContentPage
         set => SetValue(PlaceholderTextProperty, value);
     }
 
-    public int MaxLength { get; } = 24;
+    public int MaxLength { get; }
 
     public ObservableCollection<TCurrency> Currencies { get; } = [];
 
@@ -58,6 +59,7 @@ public partial class CurrencySymbolSummaryContentPage
 
     public CurrencySymbolSummaryContentPage()
     {
+        MaxLength = MaxLengthConverter.Convert(typeof(TCurrency), nameof(TCurrency.Symbol));
         BackCommand = new Command(OnBackCommandPressed);
 
         RefreshCurrencies();
