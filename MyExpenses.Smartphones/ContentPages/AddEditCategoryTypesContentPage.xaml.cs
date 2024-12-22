@@ -8,6 +8,7 @@ using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Models.Sql.Bases.Views;
 using MyExpenses.Smartphones.ContentPages.CustomPopups;
 using MyExpenses.Smartphones.ContentPages.CustomPopups.CustomPopupActivityIndicator;
+using MyExpenses.Smartphones.Converters;
 using MyExpenses.Smartphones.Resources.Resx.ContentPages.AddEditCategoryTypesContentPage;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils;
@@ -73,7 +74,7 @@ public partial class AddEditCategoryTypesContentPage
         set => SetValue(CategoryTypeNameProperty, value);
     }
 
-    public int MaxLength { get; } = 64;
+    public int MaxLength { get; }
     public ObservableCollection<TColor> Colors { get; } = [];
     public ObservableCollection<VCategory> Categories { get; } = [];
 
@@ -86,6 +87,7 @@ public partial class AddEditCategoryTypesContentPage
 
     public AddEditCategoryTypesContentPage()
     {
+        MaxLength = MaxLengthConverter.Convert(typeof(TCategoryType), nameof(TCategoryType.Name));
         BackCommand = new Command(OnBackCommandPressed);
 
         RefreshCollection();

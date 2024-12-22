@@ -13,6 +13,7 @@ public partial class TCategoryType : ISql
     public int Id { get; set; }
 
     [Column("name")]
+    [MaxLength(55)]
     public string? Name { get; set; }
 
     [Column("color_fk")]

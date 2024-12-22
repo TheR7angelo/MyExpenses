@@ -6,6 +6,7 @@
         xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:margin="clr-namespace:MyExpenses.Wpf.Utils.Margin;assembly=MyExpenses.Wpf.Utils"
+        xmlns:converters="clr-namespace:MyExpenses.Wpf.Converters"
         mc:Ignorable="d"
 
         Title="{Binding TitleWindow, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
@@ -34,6 +35,10 @@
 
         DataContext="{Binding RelativeSource={RelativeSource Self}}">
 
+    <mah:MetroWindow.Resources>
+        <converters:MaxLengthConverter x:Key="MaxLengthConverter" />
+    </mah:MetroWindow.Resources>
+
     <Grid margin:PanelExtensions.MarginForAllChildren="5">
 
         <Grid.RowDefinitions>
@@ -44,6 +49,7 @@
 
         <TextBox Grid.Row="0"
                  Text="{Binding CategoryType.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                 MaxLength="{Binding CategoryType, Converter={StaticResource MaxLengthConverter}, ConverterParameter=Name}"
                  materialDesign:TextFieldAssist.HasClearButton="True"
                  materialDesign:HintAssist.Hint="{Binding TextBoxCategoryTypeName, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                  Style="{StaticResource MaterialDesignFilledTextBox}"
