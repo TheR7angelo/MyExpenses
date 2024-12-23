@@ -39,7 +39,7 @@ public static class ShapeWriter
                 WriteGeometry(shpWriter, feature);
                 WriteFields(shpWriter, feature, fieldsDictionary);
 
-                shpWriter = CheckFileSizeAndSplit(shpWriter, ref partSavePath, ref part, savePath);
+                shpWriter = CheckFileSizeAndSplit(shpWriter, ref partSavePath, ref part, savePath, projection, encoding);
             }
 
             shpWriter?.Dispose();
@@ -63,13 +63,16 @@ public static class ShapeWriter
         File.WriteAllText(prjFilePath, projection, encoding ?? Encoding.UTF8);
     }
 
-    private static ShapefileWriter? CheckFileSizeAndSplit(ShapefileWriter? shpWriter, ref string partSavePath, ref int part, string savePath)
+    private static ShapefileWriter? CheckFileSizeAndSplit(ShapefileWriter? shpWriter, ref string partSavePath, ref int part, string savePath, string? projection, Encoding? encoding)
     {
         var totalSize = GetCurrentTotalFileSize(partSavePath);
         if (totalSize <= MaxFileSize) return shpWriter;
 
         shpWriter?.Dispose();
         shpWriter = null;
+
+        WriteProjectionFile(partSavePath, projection, encoding);
+
         part++;
         partSavePath = GetPartSavePath(savePath, part);
         return shpWriter;
