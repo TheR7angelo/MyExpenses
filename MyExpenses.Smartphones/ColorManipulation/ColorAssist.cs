@@ -64,82 +64,70 @@ public static class ColorAssist
     public static Color EnsureContrastRatio(this Color foreground, Color background, float targetRatio, out double offset, float tolerance = 0.1f)
     {
         offset = 0.0f;
+
         var ratio = foreground.ContrastRatio(background);
         if (ratio > targetRatio) return foreground;
 
+        var shouldDarken = ShouldDarken(background);
+
+        return AdjustColorToTargetRatio(foreground, background, targetRatio, ref offset, shouldDarken, tolerance);
+    }
+
+    private static bool ShouldDarken(Color background)
+    {
         var contrastWithWhite = background.ContrastRatio(Colors.White);
         var contrastWithBlack = background.ContrastRatio(Colors.Black);
+        return contrastWithBlack > contrastWithWhite;
+    }
 
-        var shouldDarken = contrastWithBlack > contrastWithWhite;
-
-        //Lighten is negative
+    private static Color AdjustColorToTargetRatio(Color foreground, Color background, float targetRatio, ref double offset, bool shouldDarken, float tolerance)
+    {
+        var ratio = foreground.ContrastRatio(background);
         var finalColor = foreground;
         double? adjust = null;
 
-        while ((ratio < targetRatio - tolerance || ratio > targetRatio + tolerance) &&
+        while (!IsRatioWithinTolerance(ratio, targetRatio, tolerance) &&
                finalColor != Colors.White &&
                finalColor != Colors.Black)
         {
-            if (ratio - targetRatio < 0.0)
-            {
-                //Move offset of foreground further away from background
-                if (shouldDarken)
-                {
-                    if (adjust < 0)
-                    {
-                        adjust /= -2;
-                    }
-                    else
-                    {
-                        adjust ??= 1.0f;
-                    }
-                }
-                else
-                {
-                    if (adjust > 0)
-                    {
-                        adjust /= -2;
-                    }
-                    else
-                    {
-                        adjust ??= -1.0f;
-                    }
-                }
-            }
-            else
-            {
-                //Move offset of foreground closer to background
-                if (shouldDarken)
-                {
-                    if (adjust > 0)
-                    {
-                        adjust /= -2;
-                    }
-                    else
-                    {
-                        adjust ??= -1.0f;
-                    }
-                }
-                else
-                {
-                    if (adjust < 0)
-                    {
-                        adjust /= -2;
-                    }
-                    else
-                    {
-                        adjust ??= 1.0f;
-                    }
-                }
-            }
-
+            adjust = CalculateAdjustment(adjust, shouldDarken, ratio < targetRatio);
             offset += adjust.Value;
 
             finalColor = foreground.ShiftLightness(offset);
-
             ratio = finalColor.ContrastRatio(background);
         }
+
         return finalColor;
+    }
+
+    private static bool IsRatioWithinTolerance(float ratio, float targetRatio, float tolerance)
+    {
+        return Math.Abs(ratio - targetRatio) <= tolerance;
+    }
+
+    private static double? CalculateAdjustment(double? adjust, bool shouldDarken, bool isRatioBelowTarget)
+    {
+        if (isRatioBelowTarget)
+        {
+            return shouldDarken
+                ? AdjustValue(adjust, positive: false)
+                : AdjustValue(adjust, positive: true);
+        }
+
+        return shouldDarken
+            ? AdjustValue(adjust, positive: true)
+            : AdjustValue(adjust, positive: false);
+    }
+
+    private static double AdjustValue(double? adjust, bool positive)
+    {
+        if (adjust.HasValue)
+        {
+            return positive
+                ? Math.Abs(adjust.Value / 2)
+                : -Math.Abs(adjust.Value / 2);
+        }
+        return positive ? 1.0 : -1.0;
     }
 
     public static Color ContrastingForegroundColor(this Color color)
