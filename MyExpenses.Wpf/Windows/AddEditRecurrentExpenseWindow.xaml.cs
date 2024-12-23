@@ -301,7 +301,7 @@ public partial class AddEditRecurrentExpenseWindow
     public string SelectedValuePathPlace { get; } = nameof(TPlace.Id);
     public string DisplayMemberPathPlaceName { get; } = nameof(TPlace.Name);
 
-    public bool RecursiveExpenseDeleted { get; set; }
+    // public bool RecursiveExpenseDeleted { get; set; }
     private WritableLayer PlaceLayer { get; } = new() { Style = null, IsMapInfoLayer = true, Tag = typeof(TPlace) };
     public List<KnownTileSource> KnownTileSources { get; }
     public KnownTileSource KnownTileSourceSelected { get; set; }
@@ -451,7 +451,7 @@ public partial class AddEditRecurrentExpenseWindow
             MsgBox.MsgBox.Show(AddEditRecurrentExpenseWindowResources.MessageBoxDeleteRecursiveExpenseNoUseSuccess,
                 MsgBoxImage.Check);
 
-            RecursiveExpenseDeleted = true;
+            // RecursiveExpenseDeleted = true;
             DialogResult = true;
             Close();
             return;
@@ -476,7 +476,7 @@ public partial class AddEditRecurrentExpenseWindow
             MsgBox.MsgBox.Show(AddEditRecurrentExpenseWindowResources.MessageBoxDeleteRecursiveExpenseUseSuccess,
                 MsgBoxImage.Check);
 
-            RecursiveExpenseDeleted = true;
+            // RecursiveExpenseDeleted = true;
             DialogResult = true;
             Close();
 
