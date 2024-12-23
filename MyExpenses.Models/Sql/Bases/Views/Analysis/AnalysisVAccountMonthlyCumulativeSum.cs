@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 
 namespace MyExpenses.Models.Sql.Bases.Views.Analysis;
@@ -10,9 +11,11 @@ public partial class AnalysisVAccountMonthlyCumulativeSum
     public int? AccountFk { get; init; }
 
     [Column("account")]
+    [MaxLength(55)]
     public string? Account { get; init; }
 
     [Column("period")]
+    [MaxLength(7)]
     public string? Period { get; init; }
 
     [Column("cumulative_sum")]
@@ -22,5 +25,6 @@ public partial class AnalysisVAccountMonthlyCumulativeSum
     public int? CurrencyFk { get; init; }
 
     [Column("currency")]
+    [MaxLength(55)]
     public string? Currency { get; init; }
 }

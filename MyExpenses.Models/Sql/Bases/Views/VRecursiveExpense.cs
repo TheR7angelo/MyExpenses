@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 using MyExpenses.Models.Sql.Bases.Enums;
 
@@ -14,39 +15,47 @@ public partial class VRecursiveExpense : ISql
     public int? AccountFk { get; set; }
 
     [Column("account")]
+    [MaxLength(55)]
     public string? Account { get; set; }
 
     [Column("description")]
+    [MaxLength(255)]
     public string? Description { get; set; }
 
     [Column("note")]
+    [MaxLength(255)]
     public string? Note { get; set; }
 
     [Column("category_type_fk")]
     public int? CategoryTypeFk { get; set; }
 
     [Column("category")]
+    [MaxLength(55)]
     public string? Category { get; set; }
 
     [Column("mode_payment_fk")]
     public int? ModePaymentFk { get; set; }
 
     [Column("mode_payment")]
+    [MaxLength(55)]
     public string? ModePayment { get; set; }
 
     [Column("value")]
     public double? Value { get; set; }
 
     [Column("symbol")]
+    [MaxLength(55)]
     public string? Symbol { get; set; }
 
     [Column("hexadecimal_color_code")]
+    [MaxLength(9)]
     public string? HexadecimalColorCode { get; set; }
 
     [Column("place_fk")]
     public int? PlaceFk { get; set; }
 
     [Column("place")]
+    [MaxLength(155)]
     public string? Place { get; set; }
 
     [Column("start_date", TypeName = "DATE")]
@@ -69,6 +78,7 @@ public partial class VRecursiveExpense : ISql
     }
 
     [Column("frequency")]
+    [MaxLength(55)]
     public string? Frequency { get; set; }
 
     [Column("next_due_date", TypeName = "DATE")]

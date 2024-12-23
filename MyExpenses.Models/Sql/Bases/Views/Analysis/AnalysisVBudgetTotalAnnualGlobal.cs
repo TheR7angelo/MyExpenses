@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 using MyExpenses.Models.Sql.Bases.Enums;
 
@@ -20,6 +21,7 @@ public partial class AnalysisVBudgetTotalAnnualGlobal
     public double? PreviousPeriodValue { get; init; }
 
     [Column("status")]
+    [MaxLength(10)]
     public string? Status { get; init; }
 
     [NotMapped]

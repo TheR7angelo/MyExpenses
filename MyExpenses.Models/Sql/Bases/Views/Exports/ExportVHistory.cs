@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 
 namespace MyExpenses.Models.Sql.Bases.Views.Exports;
@@ -10,15 +11,19 @@ public partial class ExportVHistory
     public int? Id { get; set; }
 
     [Column("account_name")]
+    [MaxLength(55)]
     public string? AccountName { get; set; }
 
     [Column("description")]
+    [MaxLength(255)]
     public string? Description { get; set; }
 
     [Column("category_type")]
+    [MaxLength(55)]
     public string? CategoryType { get; set; }
 
     [Column("mode_payment")]
+    [MaxLength(55)]
     public string? ModePayment { get; set; }
 
     [Column("value")]
@@ -28,6 +33,7 @@ public partial class ExportVHistory
     public DateTime? Date { get; set; }
 
     [Column("place")]
+    [MaxLength(155)]
     public string? Place { get; set; }
 
     [Column("is_pointed", TypeName = "BOOLEAN")]

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 
 namespace MyExpenses.Models.Sql.Bases.Views.Exports;
@@ -10,6 +11,7 @@ public partial class ExportVAccountType
     public int? Id { get; set; }
 
     [Column("name")]
+    [MaxLength(100)]
     public string? Name { get; set; }
 
     [Column("date_added", TypeName = "DATETIME")]

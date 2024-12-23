@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 using MyExpenses.Models.Sql.Bases.Enums;
 
@@ -8,18 +9,21 @@ namespace MyExpenses.Models.Sql.Bases.Views.Analysis;
 public partial class AnalysisVBudgetMonthlyGlobal
 {
     [Column("period")]
+    [MaxLength(7)]
     public string? Period { get; init; }
 
     [Column("period_value")]
     public double? PeriodValue { get; init; }
 
     [Column("previous_period")]
+    [MaxLength(7)]
     public string? PreviousPeriod { get; init; }
 
     [Column("previous_period_value")]
     public double? PreviousPeriodValue { get; init; }
 
     [Column("status")]
+    [MaxLength(10)]
     public string? Status { get; init; }
 
     [NotMapped]

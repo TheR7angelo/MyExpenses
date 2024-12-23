@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 
 namespace MyExpenses.Models.Sql.Bases.Views;
@@ -10,6 +11,7 @@ public partial class VCategory : ISql
     public int Id { get; set; }
 
     [Column("category_name")]
+    [MaxLength(55)]
     public string? CategoryName { get; set; }
 
     [Column("color_fk")]
@@ -19,9 +21,11 @@ public partial class VCategory : ISql
     public DateTime? DateCategoryAdded { get; set; }
 
     [Column("color_name")]
+    [MaxLength(55)]
     public string? ColorName { get; set; }
 
     [Column("hexadecimal_color_code", TypeName = "TEXT(9)")]
+    [MaxLength(9)]
     public string? HexadecimalColorCode { get; set; }
 
     [Column("date_color_added", TypeName = "DATETIME")]

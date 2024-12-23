@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 using MyExpenses.Models.Sql.Bases.Enums;
 
@@ -11,12 +12,14 @@ public partial class AnalysisVBudgetTotalAnnual
     public int? AccountFk { get; init; }
 
     [Column("account_name")]
+    [MaxLength(55)]
     public string? AccountName { get; init; }
 
     [Column("symbol_fk")]
     public int? SymbolFk { get; init; }
 
     [Column("symbol")]
+    [MaxLength(55)]
     public string? Symbol { get; init; }
 
     [Column("period")]
@@ -32,6 +35,7 @@ public partial class AnalysisVBudgetTotalAnnual
     public double? PreviousPeriodValue { get; init; }
 
     [Column("status")]
+    [MaxLength(10)]
     public string? Status { get; init; }
 
     [NotMapped]

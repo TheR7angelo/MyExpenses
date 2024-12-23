@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 
 namespace MyExpenses.Models.Sql.Bases.Views.Exports;
@@ -10,24 +11,30 @@ public partial class ExportVRecursiveExpense
     public int? Id { get; set; }
 
     [Column("account_name")]
+    [MaxLength(55)]
     public string? AccountName { get; set; }
 
     [Column("description")]
+    [MaxLength(255)]
     public string? Description { get; set; }
 
     [Column("note")]
+    [MaxLength(255)]
     public string? Note { get; set; }
 
     [Column("category_type")]
+    [MaxLength(55)]
     public string? CategoryType { get; set; }
 
     [Column("mode_payment")]
+    [MaxLength(55)]
     public string? ModePayment { get; set; }
 
     [Column("value")]
     public double? Value { get; set; }
 
     [Column("place_name")]
+    [MaxLength(155)]
     public string? PlaceName { get; set; }
 
     [Column("start_date", TypeName = "DATE")]
@@ -40,6 +47,7 @@ public partial class ExportVRecursiveExpense
     public int? RecursiveCount { get; set; }
 
     [Column("frequency")]
+    [MaxLength(55)]
     public string? Frequency { get; set; }
 
     [Column("next_due_date", TypeName = "DATE")]

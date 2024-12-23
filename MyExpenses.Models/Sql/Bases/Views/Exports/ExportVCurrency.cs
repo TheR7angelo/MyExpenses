@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 
 namespace MyExpenses.Models.Sql.Bases.Views.Exports;
@@ -10,6 +11,7 @@ public partial class ExportVCurrency
     public int? Id { get; set; }
 
     [Column("symbol")]
+    [MaxLength(55)]
     public string? Symbol { get; set; }
 
     [Column("date_added", TypeName = "DATETIME")]

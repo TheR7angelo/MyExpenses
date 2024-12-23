@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 using PropertyChanged;
 
@@ -12,6 +13,7 @@ public partial class VTotalByAccount : ISql
     public int Id { get; set; }
 
     [Column("name")]
+    [MaxLength(55)]
     public string? Name { get; set; }
 
     [Column("total")]
@@ -24,5 +26,6 @@ public partial class VTotalByAccount : ISql
     public double? TotalNotPointed { get; set; }
 
     [Column("symbol")]
+    [MaxLength(55)]
     public string? Symbol { get; set; }
 }
