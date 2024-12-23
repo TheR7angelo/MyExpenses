@@ -17,6 +17,11 @@ profile:
 
 #Disable inspections
 exclude:
+  - name: UnusedAutoPropertyAccessor.Global
+    paths:
+      - "MyExpenses.Models/Sql"
+      - "MyExpenses.Sql/Context/DataBaseContext.cs"
+
   - name: DuplicateResource
     paths:
       - "MyExpenses.Wpf/Resources/Resx"
