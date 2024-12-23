@@ -81,13 +81,13 @@
                 <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignPaperButton}" />
             </filterDataGrid:FilterDataGrid.Resources>
 
-            <filterDataGrid:FilterDataGrid.ItemContainerStyle>
-                <Style TargetType="DataGridRow" BasedOn="{StaticResource {x:Type DataGridRow}}">
-                    <EventSetter Event="PreviewMouseRightButtonDown"
-                                 Handler="DataGridRow_PreviewMouseRightButtonDown">
-                    </EventSetter>
-                </Style>
-            </filterDataGrid:FilterDataGrid.ItemContainerStyle>
+            <!-- <filterDataGrid:FilterDataGrid.ItemContainerStyle> -->
+            <!--     <Style TargetType="DataGridRow" BasedOn="{StaticResource {x:Type DataGridRow}}"> -->
+            <!--         <EventSetter Event="PreviewMouseRightButtonDown" -->
+            <!--                      Handler="DataGridRow_PreviewMouseRightButtonDown"> -->
+            <!--         </EventSetter> -->
+            <!--     </Style> -->
+            <!-- </filterDataGrid:FilterDataGrid.ItemContainerStyle> -->
 
             <!-- <filterDataGrid:FilterDataGrid.ContextMenu> -->
             <!--     <ContextMenu> -->

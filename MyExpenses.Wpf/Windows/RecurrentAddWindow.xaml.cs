@@ -95,7 +95,7 @@ public partial class RecurrentAddWindow
 
     #endregion
 
-    private DataGridRow? DataGridRow { get; set; }
+    // private DataGridRow? DataGridRow { get; set; }
 
     public ObservableCollection<VRecursiveExpenseDerive> VRecursiveExpensesDerives { get; }
 
@@ -152,8 +152,8 @@ public partial class RecurrentAddWindow
         Close();
     }
 
-    private void DataGridRow_PreviewMouseRightButtonDown(object sender, MouseButtonEventArgs e)
-        => DataGridRow = sender as DataGridRow;
+    // private void DataGridRow_PreviewMouseRightButtonDown(object sender, MouseButtonEventArgs e)
+    //     => DataGridRow = sender as DataGridRow;
 
     private TRecursiveExpense UpdateTRecursiveExpense(TRecursiveExpense recursiveExpense)
     {
