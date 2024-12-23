@@ -306,7 +306,7 @@ public partial class AddEditRecurrentExpenseWindow
     public List<KnownTileSource> KnownTileSources { get; }
     public KnownTileSource KnownTileSourceSelected { get; set; }
 
-    public TRecursiveExpense RecursiveExpense { get; set; } = new();
+    public TRecursiveExpense RecursiveExpense { get; } = new();
 
     #endregion
 
