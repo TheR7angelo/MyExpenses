@@ -19,12 +19,11 @@ public static class ShapeWriter
     {
         try
         {
-            var collection = features.Where(s => s.Geometry is not null).ToList();
+            var collection = features.Where(s => s.Geometry != null).ToList();
 
-            var geomType = shapeType ?? collection.First(s => s.Geometry is not null).Geometry!.GetShapeType();
-
+            var geomType = shapeType ?? collection.First().Geometry!.GetShapeType();
             var fieldsDictionary = collection.First().GetFields();
-            var fieldsArray = fieldsDictionary.Select(s => s.Value).ToArray();
+            var fieldsArray = fieldsDictionary.Values.ToArray();
 
             var options = new ShapefileWriterOptions((ShapeType)geomType!, fieldsArray);
 
@@ -32,49 +31,47 @@ public static class ShapeWriter
 
             foreach (var feature in collection)
             {
-                switch (feature.Geometry)
-                {
-                    case LineString lineString:
-                    {
-                        var multiLineString = new MultiLineString([lineString]);
-                        shpWriter.Geometry = multiLineString;
-                        break;
-                    }
-                    case Polygon polygon:
-                    {
-                        var multiPolygon = new MultiPolygon([polygon]);
-                        shpWriter.Geometry = multiPolygon;
-                        break;
-                    }
-                    default:
-                        shpWriter.Geometry = feature.Geometry;
-                        break;
-                }
-
-                foreach (var key in fieldsDictionary.Keys)
-                {
-                    var value = key.GetPropertiesInfoByName<ColumnAttribute>(feature);
-
-                    var field = fieldsDictionary[key];
-                    field.Value = value;
-                }
-
+                WriteGeometry(shpWriter, feature);
+                WriteFields(shpWriter, feature, fieldsDictionary);
                 shpWriter.Write();
             }
 
-            if (string.IsNullOrWhiteSpace(projection)) return true;
-
-            var prjFilePath = Path.ChangeExtension(savePath, "prj");
-            File.WriteAllText(prjFilePath, projection, encoding ?? Encoding.UTF8);
+            WriteProjectionFile(savePath, projection, encoding);
 
             return true;
         }
         catch (Exception e)
         {
             Console.WriteLine(e);
-
             return false;
         }
+    }
+
+    private static void WriteGeometry(ShapefileWriter shpWriter, ISig feature)
+    {
+        shpWriter.Geometry = feature.Geometry switch
+        {
+            LineString lineString => new MultiLineString([lineString]),
+            Polygon polygon => new MultiPolygon([polygon]),
+            _ => feature.Geometry
+        };
+    }
+
+    private static void WriteFields(ShapefileWriter shpWriter, ISig feature,
+        Dictionary<string, DbfField> fieldsDictionary)
+    {
+        foreach (var (key, field) in fieldsDictionary)
+        {
+            field.Value = key.GetPropertiesInfoByName<ColumnAttribute>(feature);
+        }
+    }
+
+    private static void WriteProjectionFile(string savePath, string? projection, Encoding? encoding)
+    {
+        if (string.IsNullOrWhiteSpace(projection)) return;
+
+        var prjFilePath = Path.ChangeExtension(savePath, "prj");
+        File.WriteAllText(prjFilePath, projection, encoding ?? Encoding.UTF8);
     }
 
     private static Dictionary<string, DbfField> GetFields(this ISig feature)
