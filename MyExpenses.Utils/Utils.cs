@@ -51,36 +51,53 @@ public static class Utils
     /// <summary>
     /// Opens the specified file or folder in the default system file explorer or viewer.
     /// </summary>
-    /// <param name="file">The path of the file or folder to open.</param>
-    /// <exception cref="FileNotFoundException">Thrown when the specified file or folder does not exist.</exception>
+    /// <param name="path">The path of the file or folder to open.</param>
+    /// <exception cref="FileNotFoundException">Thrown when the specified file does not exist.</exception>
+    /// <exception cref="DirectoryNotFoundException">Thrown when the specified folder does not exist.</exception>
     /// <exception cref="PlatformNotSupportedException">Thrown when the operation is not supported on the current platform.</exception>
     /// <exception cref="InvalidOperationException">Thrown when the file or folder cannot be opened due to an unexpected error.</exception>
-    public static void StartFile(this string file)
+    public static void StartFile(this string path)
     {
-        if (!File.Exists(file)) throw new FileNotFoundException($"The file '{file}' does not exist.");
+        var isFile = File.Exists(path);
+        var isDirectory = Directory.Exists(path);
+
+        if (!isFile && !isDirectory)
+        {
+            throw new FileNotFoundException($"The path '{path}' does not exist as a file or directory.");
+        }
+
+        string command;
+        string arguments;
+
+        if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+        {
+            command = "explorer";
+            arguments = isFile ? $"\"{path}\"" : path;
+        }
+        else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+        {
+            command = "xdg-open";
+            arguments = path;
+        }
+        else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+        {
+            command = "open";
+            arguments = path;
+        }
+        else
+        {
+            throw new PlatformNotSupportedException(
+                $"This platform ({RuntimeInformation.OSDescription}) is not supported.");
+        }
 
         try
         {
-            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
-            {
-                Process.Start(new ProcessStartInfo("explorer", file) { UseShellExecute = true });
-            }
-            else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
-            {
-                Process.Start("xdg-open", file);
-            }
-            else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
-            {
-                Process.Start("open", file);
-            }
-            else
-            {
-                throw new PlatformNotSupportedException($"This platform ({RuntimeInformation.OSDescription}) is not supported.");
-            }
+            Process.Start(new ProcessStartInfo(command, arguments) { UseShellExecute = true });
         }
         catch (Exception ex)
         {
-            throw new InvalidOperationException("Failed to open the file.", ex);
+            var type = isFile ? "file" : "directory";
+            throw new InvalidOperationException($"Failed to open the {type}.", ex);
         }
     }
 }
