@@ -13,7 +13,6 @@
     </ResourceDictionary.MergedDictionaries>
 
     <converters:RangeLengthConverter x:Key="RangeLengthConverter" />
-    <converters:MathConverter x:Key="MathAddConverter" Operation="Add" />
     <system:Int32 x:Key="ProgressRingStrokeWidth">8</system:Int32>
     <converters:SolidColorBrushToSolidColorBrushContrastingForegroundColorConverter
         x:Key="SolidColorBrushToSolidColorBrushContrastingForegroundColorConverter" />
