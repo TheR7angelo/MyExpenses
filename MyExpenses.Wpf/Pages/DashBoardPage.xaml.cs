@@ -305,9 +305,9 @@ public partial class DashBoardPage
             .Where(s => !s.ForceDeactivate)
             .Where(s => s.IsActive)
             .Where(s => s.NextDueDate.Year.Equals(now.Year) && s.NextDueDate.Month.Equals(now.Month))
-            .ToList();
+            .AsEnumerable();
 
-        if (recurrences.Count > 0)
+        if (recurrences.Any())
         {
             var mainWindow = Application.Current.MainWindow!;
             var actualWidth = mainWindow.ActualWidth;
