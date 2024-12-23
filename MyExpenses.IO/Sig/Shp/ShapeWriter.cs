@@ -107,7 +107,7 @@ public static class ShapeWriter
         var collection = features.ToList();
         var geomType = shapeType ?? collection.First(s => s.Geometry is not null).Geometry!.GetShapeType();
         var fieldsArray = collection.First().GetFields().Select(s => s.Value).ToArray();
-        return new ShapefileWriterOptions((ShapeType)geomType, fieldsArray);
+        return new ShapefileWriterOptions((ShapeType)geomType!, fieldsArray);
     }
 
     private static string GetPartSavePath(string originalPath, int partNumber)
