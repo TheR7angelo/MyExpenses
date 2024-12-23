@@ -14,6 +14,8 @@ namespace MyExpenses.IO.Sig.Shp;
 
 public static class ShapeWriter
 {
+    private const long MaxFileSize = 1_800_000_000; // Size Limit 1.8 GB
+
     public static bool ToShapeFile(this IEnumerable<ISig> features, string savePath, string? projection = null,
         Encoding? encoding = null, ShapeType? shapeType = null)
     {
@@ -28,21 +30,27 @@ public static class ShapeWriter
 
             var options = new ShapefileWriterOptions((ShapeType)geomType!, fieldsArray);
 
-            using var shpWriter = Shapefile.OpenWrite(savePath, options);
+            var part = 1;
+            var partSavePath = GetPartSavePath(savePath, part);
+            ShapefileWriter? shpWriter = null;
+
+            const long maxFileSize = 1_800_000_000; // Limite de taille 1.8 Go
 
             foreach (var feature in collection)
             {
+                shpWriter ??= Shapefile.OpenWrite(partSavePath, options);
+
                 switch (feature.Geometry)
                 {
                     case LineString lineString:
                     {
-                        var multiLineString = new MultiLineString(new[] { lineString });
+                        var multiLineString = new MultiLineString([lineString]);
                         shpWriter.Geometry = multiLineString;
                         break;
                     }
                     case Polygon polygon:
                     {
-                        var multiPolygon = new MultiPolygon(new[] { polygon });
+                        var multiPolygon = new MultiPolygon([polygon]);
                         shpWriter.Geometry = multiPolygon;
                         break;
                     }
@@ -60,11 +68,23 @@ public static class ShapeWriter
                 }
 
                 shpWriter.Write();
+
+                var totalSize = GetCurrentTotalFileSize(partSavePath);
+
+                if (totalSize <= maxFileSize) continue;
+
+                shpWriter.Dispose();
+                shpWriter = null;
+
+                part++;
+                partSavePath = GetPartSavePath(savePath, part);
             }
+
+            shpWriter?.Dispose();
 
             if (string.IsNullOrWhiteSpace(projection)) return true;
 
-            var prjFilePath = Path.ChangeExtension(savePath, "prj");
+            var prjFilePath = Path.ChangeExtension(partSavePath, "prj");
             File.WriteAllText(prjFilePath, projection, encoding ?? Encoding.UTF8);
 
             return true;
@@ -75,6 +95,28 @@ public static class ShapeWriter
 
             return false;
         }
+    }
+
+    private static string GetPartSavePath(string originalPath, int partNumber)
+    {
+        return Path.ChangeExtension(originalPath, null) + $"_part{partNumber}.shp";
+    }
+
+    /// <summary>
+    /// Calculates the current total file size for a shapefile dataset by summing up
+    /// the sizes of the associated .shp, .dbf, and .shx files.
+    /// </summary>
+    /// <param name="basePath">The base file path of the shapefile, without file extension.</param>
+    /// <returns>The total file size in bytes as a long.</returns>
+    private static long GetCurrentTotalFileSize(string basePath)
+    {
+        return GetFileSize(basePath, "shp") + GetFileSize(basePath, "dbf") + GetFileSize(basePath, "shx");
+    }
+
+    private static long GetFileSize(string basePath, string extension)
+    {
+        var filePath = Path.ChangeExtension(basePath, extension);
+        return File.Exists(filePath) ? new FileInfo(filePath).Length : 0;
     }
 
     private static Dictionary<string, DbfField> GetFields(this ISig feature)
