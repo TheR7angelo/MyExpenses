@@ -15,7 +15,7 @@ namespace MyExpenses.IO.Sig.Shp;
 public static class ShapeWriter
 {
     private const long MaxFileSize = 1_800_000_000; // Size Limit 1.8 GB
-    private static readonly List<string> Extensions = ["shp", "shx", "dbf"];
+    private static readonly List<string> Extensions = ["shp", "shx", "dbf", "prj", "cpg"];
 
     public static bool ToShapeFile(this IEnumerable<ISig> features, string savePath, string? projection = null,
         Encoding? encoding = null, ShapeType? shapeType = null)
@@ -54,12 +54,30 @@ public static class ShapeWriter
             WriteProjectionFile(currentBasePath, projection, encoding);
             shpWriter.Dispose();
 
+            if (currentPartNumber.Equals(1)) CleanNames(currentBasePath);
+
             return true;
         }
         catch (Exception e)
         {
             Console.WriteLine(e);
             return false;
+        }
+    }
+
+    private static void CleanNames(string currentBasePath)
+    {
+        var baseDirectory = Path.GetDirectoryName(currentBasePath)!;
+        var filenameWithoutExtension = Path.GetFileNameWithoutExtension(currentBasePath);
+
+        foreach (var extension in Extensions)
+        {
+            var file = Path.Join(baseDirectory, $"{filenameWithoutExtension}.{extension}");
+            if (!File.Exists(file)) continue;
+
+            var newFileName = filenameWithoutExtension.Replace("_part1", string.Empty);
+            var newFilePath = Path.Join(baseDirectory, $"{newFileName}.{extension}");
+            File.Move(file, newFilePath, true);
         }
     }
 
@@ -80,7 +98,8 @@ public static class ShapeWriter
     private static long GetFileSize(string basePath, string extension)
     {
         var filePath = Path.ChangeExtension(basePath, extension);
-        return File.Exists(filePath) ? new FileInfo(filePath).Length : 0;
+        var fileSize = File.Exists(filePath) ? new FileInfo(filePath).Length : 0;
+        return fileSize;
     }
 
     private static void WriteGeometry(ShapefileWriter shpWriter, ISig feature)
