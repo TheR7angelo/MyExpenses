@@ -79,58 +79,44 @@ public static class ShapeWriter
 
     private static Dictionary<string, DbfField> GetFields(this ISig feature)
     {
+        if (feature == null)
+            throw new ArgumentNullException(nameof(feature), "Feature cannot be null");
+
         var fieldCreators = new Dictionary<Type, Func<string, int?, int?, DbfField>>
         {
-            [typeof(int)] = (name, maxLength, _)
-                => maxLength == null ? new DbfNumericInt32Field(name) : new DbfNumericInt32Field(name, maxLength.Value),
-            [typeof(long)] = (name, maxLength, _)
-                => maxLength == null ? new DbfNumericInt64Field(name) : new DbfNumericInt64Field(name, maxLength.Value),
-            [typeof(double)] = (name, maxLength, precision)
-                =>
-            {
-                if (maxLength is null && precision is null)
-                {
-                    return new DbfFloatField(name);
-                }
-
-                if (maxLength is null && precision is not null)
-                {
-                    return new DbfFloatField(name, 19, (int)precision);
-                }
-
-                if (maxLength is not null && precision is null)
-                {
-                    return new DbfFloatField(name, (int)maxLength, 0);
-                }
-
-                return new DbfFloatField(name, (int)maxLength!, (int)precision!);
-            },
-            [typeof(string)] = (name, maxLength, _)
-                => maxLength == null ? new DbfCharacterField(name) : new DbfCharacterField(name, maxLength.Value),
-            [typeof(DateTime)] = (name, _, _)
-                => new DbfDateField(name),
-            [typeof(bool)] = (name, _, _)
-                => new DbfLogicalField(name)
+            [typeof(int)] = (name, maxLength, _) =>
+                maxLength == null ? new DbfNumericInt32Field(name) : new DbfNumericInt32Field(name, maxLength.Value),
+            [typeof(long)] = (name, maxLength, _) =>
+                maxLength == null ? new DbfNumericInt64Field(name) : new DbfNumericInt64Field(name, maxLength.Value),
+            [typeof(double)] = (name, maxLength, precision) =>
+                new DbfFloatField(name, maxLength ?? 19, precision ?? 0),
+            [typeof(string)] = (name, maxLength, _) =>
+                new DbfCharacterField(name, maxLength ?? 255), // Par défaut 255 caractères max.
+            [typeof(DateTime)] = (name, _, _) => new DbfDateField(name),
+            [typeof(bool)] = (name, _, _) => new DbfLogicalField(name)
         };
 
-        var properties = feature.GetType().GetProperties();
         var fields = new Dictionary<string, DbfField>();
 
-        foreach (var property in properties)
+        foreach (var property in feature.GetType().GetProperties())
         {
-            var name = property.GetCustomAttribute<ColumnAttribute>()?.Name;
-            if (string.IsNullOrEmpty(name)) continue;
+            var columnAttribute = property.GetCustomAttribute<ColumnAttribute>();
+            if (columnAttribute == null || string.IsNullOrWhiteSpace(columnAttribute.Name)) continue;
 
+            var name = columnAttribute.Name;
             if (name.Length > 10) name = name[..10];
 
             var maxLength = property.GetCustomAttribute<MaxLengthAttribute>()?.Length;
             var precision = property.GetCustomAttribute<PrecisionAttribute>()?.Precision;
-            var type = Nullable.GetUnderlyingType(property.PropertyType) ?? property.PropertyType;
 
-            if (!fieldCreators.TryGetValue(type, out var fieldCreator))
+            var propertyType = Nullable.GetUnderlyingType(property.PropertyType) ?? property.PropertyType;
+
+            if (!fieldCreators.TryGetValue(propertyType, out var fieldCreator))
             {
-                //TODO work
-                throw new ArgumentOutOfRangeException(nameof(property), "No field planned");
+                throw new ArgumentOutOfRangeException(
+                    nameof(propertyType),
+                    $"Type not supported for the property '{property.Name}' : {propertyType.Name}"
+                );
             }
 
             fields[name] = fieldCreator(name, maxLength, precision);
