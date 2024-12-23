@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.Reflection;
 using MyExpenses.Models.IO.Sig.Interfaces;
 using MyExpenses.Models.IO.Sig.Shp.Converters;
 using MyExpenses.Models.Sql.Bases.Tables;
@@ -23,7 +24,7 @@ public static class ShapeReader
         // GeographicCoordinateSystems = csvFile.ReadCsv<GeographicCoordinateSystem>().ToList();
     }
 
-    public static (List<T> Features, string? Projection) ReadShapeFile<T>(this string filePath) where T : class
+    public static (List<T> Features, string? Projection) ReadShapeFile<T>(this string filePath) where T : class, ISig
     {
         //TODO work
         Log.Information("Lecture du shape \"{FilePath}\"", filePath);
@@ -96,63 +97,118 @@ public static class ShapeReader
         return context.TSpatialRefSys.FirstOrDefault(s => s.Proj4text.Equals(projectionString));
     }
 
-
-    private static List<T> ToList<T>(this IEnumerable<Feature> features) where T : class
+    private static List<T> ToList<T>(this IEnumerable<Feature> features) where T : class, ISig
     {
         var results = new List<T>();
 
         foreach (var feature in features)
         {
-            var tmp = (ISig)Activator.CreateInstance<T>();
-            tmp.Geometry = feature.Geometry;
+            var instance = Activator.CreateInstance<T>();
+            instance.Geometry = feature.Geometry;
 
-            foreach (var name in feature.Attributes.GetNames())
-            {
-                var tmpName = name;
-                if (tmpName.Length > 10) tmpName = tmpName[..10];
-
-                var property = tmpName.GetPropertiesInfoByName<T, ColumnAttribute>();
-                if (property is null) continue;
-                if (!property.CanWrite) continue;
-
-                var value = feature.Attributes[tmpName];
-
-                try
-                {
-                    property.SetValue(tmp, value);
-                }
-                catch (Exception)
-                {
-                    var targetType = property.PropertyType;
-                    try
-                    {
-                        value = value.ConvertTo(targetType);
-                    }
-                    catch (Exception e)
-                    {
-                        Console.WriteLine($"{name}");
-                        Console.WriteLine(e);
-                        throw;
-                    }
-
-                    try
-                    {
-                        property.SetValue(tmp, value);
-                    }
-                    catch (Exception exception)
-                    {
-                        Console.WriteLine($"{name}");
-                        Console.WriteLine(exception);
-                        throw;
-                    }
-                }
-            }
-
-            results.Add((tmp as T)!);
+            ProcessAttributes(feature, instance);
+            results.Add(instance);
         }
 
         return results;
     }
+
+    private static void ProcessAttributes<T>(Feature feature, T instance) where T : class
+    {
+        foreach (var attributeName in feature.Attributes.GetNames())
+        {
+            var truncatedName = TruncateName(attributeName);
+            var property = truncatedName.GetPropertiesInfoByName<T, ColumnAttribute>();
+
+            if (property == null || !property.CanWrite) continue;
+
+            var value = feature.Attributes[truncatedName];
+            SetPropertyValue(property, instance, value);
+        }
+    }
+
+    private static string TruncateName(string name)
+    {
+        return name.Length > 10 ? name[..10] : name;
+    }
+
+    private static void SetPropertyValue<T>(PropertyInfo property, T instance, object? value)
+    {
+        try
+        {
+            property.SetValue(instance, value);
+        }
+        catch (Exception)
+        {
+            try
+            {
+                var convertedValue = value?.ConvertTo(property.PropertyType);
+                property.SetValue(instance, convertedValue);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error assigning {property.Name} : {ex.Message}");
+                throw;
+            }
+        }
+    }
+
+    // private static List<T> ToList<T>(this IEnumerable<Feature> features) where T : class
+    // {
+    //     var results = new List<T>();
+    //
+    //     foreach (var feature in features)
+    //     {
+    //         var tmp = (ISig)Activator.CreateInstance<T>();
+    //         tmp.Geometry = feature.Geometry;
+    //
+    //         foreach (var name in feature.Attributes.GetNames())
+    //         {
+    //             var tmpName = name;
+    //             if (tmpName.Length > 10) tmpName = tmpName[..10];
+    //
+    //             var property = tmpName.GetPropertiesInfoByName<T, ColumnAttribute>();
+    //             if (property is null) continue;
+    //             if (!property.CanWrite) continue;
+    //
+    //             var value = feature.Attributes[tmpName];
+    //
+    //             try
+    //             {
+    //                 property.SetValue(tmp, value);
+    //             }
+    //             catch (Exception)
+    //             {
+    //                 var targetType = property.PropertyType;
+    //                 try
+    //                 {
+    //                     value = value.ConvertTo(targetType);
+    //                 }
+    //                 catch (Exception e)
+    //                 {
+    //                     Console.WriteLine($"{name}");
+    //                     Console.WriteLine(e);
+    //                     throw;
+    //                 }
+    //
+    //                 try
+    //                 {
+    //                     property.SetValue(tmp, value);
+    //                 }
+    //                 catch (Exception exception)
+    //                 {
+    //                     Console.WriteLine($"{name}");
+    //                     Console.WriteLine(exception);
+    //                     throw;
+    //                 }
+    //             }
+    //         }
+    //
+    //         results.Add((tmp as T)!);
+    //     }
+    //
+    //     return results;
+    // }
 
     private static List<Feature> ReadFeatures(this string filePath) //, GeographicCoordinateSystem? geographicCoordinateSystem = null)
     {
