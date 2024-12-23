@@ -14,6 +14,9 @@ namespace MyExpenses.IO.Sig.Shp;
 
 public static class ShapeWriter
 {
+    private const long MaxFileSize = 1_800_000_000; // Size Limit 1.8 GB
+    private static readonly List<string> Extensions = ["shp", "shx", "dbf"];
+
     public static bool ToShapeFile(this IEnumerable<ISig> features, string savePath, string? projection = null,
         Encoding? encoding = null, ShapeType? shapeType = null)
     {
@@ -27,16 +30,29 @@ public static class ShapeWriter
 
             var options = new ShapefileWriterOptions((ShapeType)geomType!, fieldsArray);
 
-            using var shpWriter = Shapefile.OpenWrite(savePath, options);
-
+            var currentPartNumber = 1;
+            var currentBasePath = AddPartSuffix(savePath, currentPartNumber);
+            var shpWriter = Shapefile.OpenWrite(currentBasePath, options);
             foreach (var feature in collection)
             {
+                var totalFileSize = GetCurrentTotalFileSize(currentBasePath);
+                if (totalFileSize >= MaxFileSize)
+                {
+                    shpWriter?.Dispose();
+                    WriteProjectionFile(currentBasePath, projection, encoding);
+
+                    currentPartNumber++;
+                    currentBasePath = AddPartSuffix(savePath, currentPartNumber);
+                    shpWriter = Shapefile.OpenWrite(currentBasePath, options);
+                }
+
                 WriteGeometry(shpWriter, feature);
                 WriteFields(shpWriter, feature, fieldsDictionary);
                 shpWriter.Write();
             }
 
-            WriteProjectionFile(savePath, projection, encoding);
+            WriteProjectionFile(currentBasePath, projection, encoding);
+            shpWriter.Dispose();
 
             return true;
         }
@@ -45,6 +61,26 @@ public static class ShapeWriter
             Console.WriteLine(e);
             return false;
         }
+    }
+
+    private static string AddPartSuffix(string basePath, int currentPartNumber)
+    {
+        var directory = Path.GetDirectoryName(basePath);
+        var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(basePath);
+        var extension = Path.GetExtension(basePath);
+        return Path.Combine(directory ?? string.Empty, $"{fileNameWithoutExtension}_part{currentPartNumber}{extension}");
+    }
+
+    private static long GetCurrentTotalFileSize(string basePath)
+    {
+        var finalSize = Extensions.Sum(extension => GetFileSize(basePath, extension));
+        return finalSize;
+    }
+
+    private static long GetFileSize(string basePath, string extension)
+    {
+        var filePath = Path.ChangeExtension(basePath, extension);
+        return File.Exists(filePath) ? new FileInfo(filePath).Length : 0;
     }
 
     private static void WriteGeometry(ShapefileWriter shpWriter, ISig feature)
