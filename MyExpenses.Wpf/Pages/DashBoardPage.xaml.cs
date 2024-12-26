@@ -689,16 +689,30 @@ public partial class DashBoardPage
 
     private void UpdateGraph(string? accountName = null)
     {
-        if (string.IsNullOrEmpty(accountName))
-        {
-            var radioButtons = ItemsControlVTotalAccount?.FindVisualChildren<RadioButton>().ToList() ?? [];
-            if (radioButtons.Count.Equals(0)) return;
+        accountName = GetAccountName(accountName);
+        if (string.IsNullOrEmpty(accountName)) return;
 
-            accountName = radioButtons.FirstOrDefault(s => (bool)s.IsChecked!)?.Content as string;
-        }
+        var filteredData = GetFilteredData(accountName);
 
+        var categoriesTotals = CalculateCategoryTotals(filteredData, out var grandTotal);
+        if (grandTotal is 0) return;
+
+        UpdateChartUi(categoriesTotals, grandTotal);
+    }
+
+    private string? GetAccountName(string? accountName)
+    {
+        if (!string.IsNullOrEmpty(accountName)) return accountName;
+
+        var radioButtons = ItemsControlVTotalAccount?.FindVisualChildren<RadioButton>().ToList() ?? [];
+        if (radioButtons.Count == 0) return null;
+
+        return radioButtons.FirstOrDefault(s => s.IsChecked == true)?.Content as string;
+    }
+
+    private List<VDetailTotalCategory> GetFilteredData(string accountName)
+    {
         using var context = new DataBaseContext();
-        var categories = context.TCategoryTypes.ToList();
 
         var query = context.VDetailTotalCategories
             .Where(s => s.Account == accountName);
@@ -706,62 +720,76 @@ public partial class DashBoardPage
         if (!string.IsNullOrEmpty(SelectedMonth))
         {
             var monthInt = Months.IndexOf(SelectedMonth) + 1;
-            query = query.Where(s => s.Month.Equals(monthInt));
+            query = query.Where(s => s.Month == monthInt);
         }
 
-        if (!string.IsNullOrEmpty(SelectedYear))
+        if (string.IsNullOrEmpty(SelectedYear)) return query.ToList();
         {
-            _ = SelectedYear.ToInt(out var yearInt);
-            query = query.Where(s => s.Year.Equals(yearInt));
+            if (SelectedYear.ToInt(out var yearInt))
+            {
+                query = query.Where(s => s.Year == yearInt);
+            }
         }
 
-        var categoriesTotals = query
+        return query.ToList();
+    }
+
+    private static List<CategoryTotalData> CalculateCategoryTotals(IEnumerable<VDetailTotalCategory> data, out double grandTotal)
+    {
+        var categoriesTotals = data
             .GroupBy(s => s.Category)
-            .Select(g => new
+            .Select(g => new CategoryTotalData
             {
-                Category = g.Key, Total = g.Sum(s => s.Value) ?? 0d,
-                g.First().Symbol, g.First().HexadecimalColorCode
+                Category = g.Key,
+                Total = Math.Round(g.Sum(s => s.Value) ?? 0d, 2),
+                Symbol = g.First().Symbol,
+                HexadecimalColorCode = g.First().HexadecimalColorCode
             })
             .OrderByDescending(s => Math.Abs(s.Total))
             .ToList();
 
-        var grandTotal = Math.Round(categoriesTotals.Sum(ct => Math.Abs(ct.Total)), 2);
+        grandTotal = Math.Round(categoriesTotals.Sum(ct => Math.Abs(ct.Total)), 2);
 
+        return categoriesTotals;
+    }
+
+    private void UpdateChartUi(IEnumerable<CategoryTotalData> categoriesTotals, double grandTotal)
+    {
         CategoryTotals.Clear();
 
         var series = new List<PieSeries<double>>();
-        foreach (var categoryTotalTemp in categoriesTotals)
+        foreach (var categoryTotal in categoriesTotals)
         {
-            var total = Math.Round(categoryTotalTemp.Total, 2);
-            var absTotal = Math.Abs(total);
+            var absTotal = Math.Abs(categoryTotal.Total);
             var percentage = Math.Round(absTotal / grandTotal * 100, 2);
 
             var pieSeries = new PieSeries<double>
             {
                 Values = new ObservableCollection<double> { absTotal },
-                Name = $"{categoryTotalTemp.Category} ({percentage}%)",
-                ToolTipLabelFormatter = _ => $"{total:F2} {categoryTotalTemp.Symbol}",
-                Tag = categories.First(s => s.Name == categoryTotalTemp.Category)
+                Name = $"{categoryTotal.Category} ({percentage}%)",
+                ToolTipLabelFormatter = _ => $"{categoryTotal.Total:F2} {categoryTotal.Symbol}",
+                Tag = categoryTotal.Category
             };
 
-            var hexadecimalCode = categoryTotalTemp.HexadecimalColorCode;
-            if (!string.IsNullOrEmpty(hexadecimalCode))
+            if (!string.IsNullOrEmpty(categoryTotal.HexadecimalColorCode))
             {
-                var skColor = hexadecimalCode.ToSkColor()!;
-                if (skColor is not null) pieSeries.Fill = new SolidColorPaint((SKColor)skColor);
+                var skColor = categoryTotal.HexadecimalColorCode.ToSkColor();
+                if (skColor is not null)
+                {
+                    pieSeries.Fill = new SolidColorPaint((SKColor)skColor);
+                }
             }
 
             series.Add(pieSeries);
 
-            var categoryTotal = new CategoryTotal
+            CategoryTotals.Add(new CategoryTotal
             {
-                Name = categoryTotalTemp.Category,
-                HexadecimalColor = hexadecimalCode,
+                Name = categoryTotal.Category,
+                HexadecimalColor = categoryTotal.HexadecimalColorCode,
                 Percentage = percentage,
-                Value = total,
-                Symbol = categoryTotalTemp.Symbol
-            };
-            CategoryTotals.Add(categoryTotal);
+                Value = categoryTotal.Total,
+                Symbol = categoryTotal.Symbol
+            });
         }
 
         PieChart.Series = series;
