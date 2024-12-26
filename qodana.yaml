@@ -1,6 +1,41 @@
+#-------------------------------------------------------------------------------#
+#               Qodana analysis is configured by qodana.yaml file               #
+#             https://www.jetbrains.com/help/qodana/qodana-yaml.html            #
+#-------------------------------------------------------------------------------#
 version: "1.0"
+
+#Specify IDE code to run analysis without container (Applied in CI/CD pipeline)
+ide: QDNET
+
 linter: jetbrains/qodana-cdnet:2024.2
 profile:
   name: qodana.recommended
-include:
-  - name: CheckDependencyLicenses
+#    name: qodana.starter
+
+#Enable inspections
+#include:
+#  - name: <SomeEnabledInspectionId>
+
+#Disable inspections
+exclude:
+  - name: UnusedAutoPropertyAccessor.Global
+    paths:
+      - "MyExpenses.Models/Sql"
+      - "MyExpenses.Sql/Context/DataBaseContext.cs"
+
+  - name: DuplicateResource
+    paths:
+      - "MyExpenses.Wpf/Resources/Resx"
+      - "MyExpenses.Smartphones/Resources/Resx"
+      - "MyExpenses.Models/Resources/Resx"
+      - "MyExpenses.Sql/Resources/Resx"
+
+  # Disable all inspections
+  - name: All
+    paths:
+      - "Tests"
+      - "MyExpenses.Wpf.Helper"
+      - "MyExpenses.Wpf.Calc"
+
+#include:
+#  - name: CheckDependencyLicenses
