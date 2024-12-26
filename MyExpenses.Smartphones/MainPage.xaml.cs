@@ -209,7 +209,6 @@ public partial class MainPage
 
         RefreshExistingDatabases();
 
-
         response = await DisplayAlert(MainPageResources.MessageBoxRemoveDataBaseDropboxQuestionTitle,
             MainPageResources.MessageBoxRemoveDataBaseDropboxQuestionMessage,
             MainPageResources.MessageBoxRemoveDataBaseDropboxQuestionYesButton,
