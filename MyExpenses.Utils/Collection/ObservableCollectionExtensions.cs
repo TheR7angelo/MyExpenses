@@ -10,7 +10,7 @@ public static class ObservableCollectionExtensions
     /// <summary>
     /// Removes a collection of items from the ObservableCollection.
     /// </summary>
-    /// <param name="collection">The ObservableCollection<T> to remove the items from.</param>
+    /// <param name="collection">The ObservableCollection<T/> to remove the items from.</param>
     /// <param name="items">The collection of items to remove.</param>
     /// <typeparam name="T">The type of the elements in the ObservableCollection.</typeparam>
     public static void RemoveRange<T>(this ObservableCollection<T> collection, IEnumerable<T> items)
@@ -26,7 +26,7 @@ public static class ObservableCollectionExtensions
     /// <summary>
     /// Adds a collection of items to the ObservableCollection and sorts it using the specified key selector.
     /// </summary>
-    /// <param name="collection">The ObservableCollection<T> to add the items to.</param>
+    /// <param name="collection">The ObservableCollection<T/> to add the items to.</param>
     /// <param name="items">The collection of items to add.</param>
     /// <param name="keySelector">The key selector function used to determine the sorting order.</param>
     /// <typeparam name="T">The type of the elements in the ObservableCollection.</typeparam>
@@ -42,7 +42,7 @@ public static class ObservableCollectionExtensions
     /// <summary>
     /// Adds a collection of items to the end of the ObservableCollection.
     /// </summary>
-    /// <param name="collection">The ObservableCollection<T> to add the items to.</param>
+    /// <param name="collection">The ObservableCollection<T/> to add the items to.</param>
     /// <param name="items">The collection of items to add.</param>
     /// <typeparam name="T">The type of the elements in the ObservableCollection.</typeparam>
     public static void AddRange<T>(this ObservableCollection<T> collection, IEnumerable<T> items)
