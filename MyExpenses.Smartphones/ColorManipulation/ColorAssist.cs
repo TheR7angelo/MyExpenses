@@ -87,11 +87,11 @@ public static class ColorAssist
         double? adjust = null;
 
         while (!IsRatioWithinTolerance(ratio, targetRatio, tolerance) &&
-               finalColor != Colors.White &&
-               finalColor != Colors.Black)
+               !Equals(finalColor, Colors.White) &&
+               !Equals(finalColor, Colors.Black))
         {
             adjust = CalculateAdjustment(adjust, shouldDarken, ratio < targetRatio);
-            offset += adjust.Value;
+            offset += adjust ?? 0;
 
             finalColor = foreground.ShiftLightness(offset);
             ratio = finalColor.ContrastRatio(background);
