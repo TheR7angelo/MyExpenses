@@ -212,12 +212,6 @@ public partial class WelcomePage
 
     #region Function
 
-    private static async Task SaveToCloudAsync(List<ExistingDatabase> existingDatabasesSelected)
-    {
-        if (existingDatabasesSelected.Count is 1) await ExportToCloudFileAsync(existingDatabasesSelected.First());
-        else await ExportToCloudDirectoryAsync(existingDatabasesSelected);
-    }
-
     private static bool ConfirmDeletion(string message)
     {
         var response = MsgBox.Show(message, MsgBoxImage.Question, MessageBoxButton.YesNoCancel);
@@ -443,6 +437,12 @@ public partial class WelcomePage
                 ExistingDatabases.AddAndSort(existingDatabase, s => s.FileNameWithoutExtension);
             }
         }
+    }
+
+    private static async Task SaveToCloudAsync(List<ExistingDatabase> existingDatabasesSelected)
+    {
+        if (existingDatabasesSelected.Count is 1) await ExportToCloudFileAsync(existingDatabasesSelected.First());
+        else await ExportToCloudDirectoryAsync(existingDatabasesSelected);
     }
 
     private static void ShowSuccessMessage(string message)
