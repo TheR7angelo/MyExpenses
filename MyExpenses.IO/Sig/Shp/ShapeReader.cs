@@ -14,7 +14,6 @@ namespace MyExpenses.IO.Sig.Shp;
 
 public static class ShapeReader
 {
-    private const string GeometryColumn = "Geometry";
     private static readonly DateTimeConverter DateTimeConverterObject = new();
 
     static ShapeReader()
@@ -230,12 +229,14 @@ public static class ShapeReader
 
     private static Feature CleanFeature(this Feature feature)
     {
-        var newFeature = new Feature { Geometry = feature.Geometry };
+        var newFeature = new Feature
+        {
+            Geometry = feature.Geometry,
+            Attributes = new AttributesTable()
+        };
 
         foreach (var name in feature.Attributes.GetNames())
         {
-            if (name == GeometryColumn) continue;
-
             var value = feature.Attributes[name];
             if (value is string str)
             {
