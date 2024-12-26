@@ -191,45 +191,21 @@ public partial class WelcomePage
 
     private async void ButtonRemoveDataBase_OnClick(object sender, RoutedEventArgs e)
     {
-        var selectDatabaseFileWindow = new SelectDatabaseFileWindow();
-        selectDatabaseFileWindow.ExistingDatabases.AddRange(ExistingDatabases);
+        var selectedDatabases = GetSelectedDatabases();
+        if (selectedDatabases is null || selectedDatabases.Count is 0) return;
 
-        selectDatabaseFileWindow.ShowDialog();
+        var confirmLocalDeletion = ConfirmDeletion(WelcomePageResources.DeleteDatabaseQuestion);
+        if (!confirmLocalDeletion) return;
 
-        if (selectDatabaseFileWindow.DialogResult is not true) return;
-        if (selectDatabaseFileWindow.ExistingDatabasesSelected.Count.Equals(0)) return;
-
-        var response = MsgBox.Show(WelcomePageResources.DeleteDatabaseQuestion, MsgBoxImage.Question, MessageBoxButton.YesNoCancel);
-
-        if (response is not MessageBoxResult.Yes) return;
-
-        foreach (var existingDatabase in selectDatabaseFileWindow.ExistingDatabasesSelected)
-        {
-            if (string.IsNullOrEmpty(existingDatabase.FilePath)) continue;
-            if (!File.Exists(existingDatabase.FilePath)) continue;
-
-            File.Delete(existingDatabase.FilePath);
-
-            var backupDirectory = Path.Join(DbContextBackup.LocalDirectoryBackupDatabase, existingDatabase.FileNameWithoutExtension);
-            if (Directory.Exists(backupDirectory)) Directory.Delete(backupDirectory, true);
-        }
-
+        DeleteLocalDatabases(selectedDatabases);
         RefreshExistingDatabases();
 
-        response = MsgBox.Show(WelcomePageResources.MessageBoxDeleteCloudQuestion, MsgBoxImage.Question,
-            MessageBoxButton.YesNoCancel);
+        var confirmCloudDeletion = ConfirmDeletion(WelcomePageResources.MessageBoxDeleteCloudQuestion);
+        if (!confirmCloudDeletion) return;
 
-        if (response is MessageBoxResult.Yes)
-        {
-            var files = selectDatabaseFileWindow.ExistingDatabasesSelected.Select(s => s.FileName).ToArray();
-            Log.Information("Preparing to delete the following files: {Files}", files);
+        await DeleteCloudFilesAsync(selectedDatabases);
 
-            var dropboxService = await DropboxService.CreateAsync(ProjectSystem.Wpf);
-            await dropboxService.DeleteFilesAsync(files, DbContextBackup.CloudDirectoryBackupDatabase);
-        }
-
-        Log.Information("Files successfully deleted");
-        MsgBox.Show(WelcomePageResources.MessageBoxDeleteCloudQuestionSuccess, MsgBoxImage.Check, MessageBoxButton.OK);
+        ShowSuccessMessage(WelcomePageResources.MessageBoxDeleteCloudQuestionSuccess);
     }
 
     #endregion
@@ -240,6 +216,37 @@ public partial class WelcomePage
     {
         if (existingDatabasesSelected.Count is 1) await ExportToCloudFileAsync(existingDatabasesSelected.First());
         else await ExportToCloudDirectoryAsync(existingDatabasesSelected);
+    }
+
+    private static bool ConfirmDeletion(string message)
+    {
+        var response = MsgBox.Show(message, MsgBoxImage.Question, MessageBoxButton.YesNoCancel);
+        return response == MessageBoxResult.Yes;
+    }
+
+    private static async Task DeleteCloudFilesAsync(List<ExistingDatabase> databases)
+    {
+        var files = databases.Select(db => db.FileName).ToArray();
+        Log.Information("Preparing to delete the following files: {Files}", files);
+
+        var dropboxService = await DropboxService.CreateAsync(ProjectSystem.Wpf);
+        await dropboxService.DeleteFilesAsync(files, DbContextBackup.CloudDirectoryBackupDatabase);
+
+        Log.Information("Files successfully deleted from cloud.");
+    }
+
+    private static void DeleteLocalDatabases(List<ExistingDatabase> databases)
+    {
+        foreach (var database in databases.Where(database => !string.IsNullOrEmpty(database.FilePath) && File.Exists(database.FilePath)))
+        {
+            File.Delete(database.FilePath);
+
+            var backupDirectory = Path.Join(DbContextBackup.LocalDirectoryBackupDatabase, database.FileNameWithoutExtension);
+            if (Directory.Exists(backupDirectory))
+            {
+                Directory.Delete(backupDirectory, true);
+            }
+        }
     }
 
     private static async Task ExportToCloudDirectoryAsync(List<ExistingDatabase> existingDatabasesSelected)
@@ -288,6 +295,17 @@ public partial class WelcomePage
         var response = MsgBox.Show(WelcomePageResources.MessageBoxOpenExportFolderQuestion, MsgBoxImage.Question,
             MessageBoxButton.YesNo);
         if (response is MessageBoxResult.Yes) selectedDialog.StartFile();
+    }
+
+    private List<ExistingDatabase>? GetSelectedDatabases()
+    {
+        var selectDatabaseFileWindow = new SelectDatabaseFileWindow();
+        selectDatabaseFileWindow.ExistingDatabases.AddRange(ExistingDatabases);
+        selectDatabaseFileWindow.ShowDialog();
+
+        return selectDatabaseFileWindow.DialogResult == true
+            ? selectDatabaseFileWindow.ExistingDatabasesSelected
+            : null;
     }
 
     private static async Task SaveToLocalDatabase(List<ExistingDatabase> existingDatabasesSelected)
@@ -426,6 +444,9 @@ public partial class WelcomePage
             }
         }
     }
+
+    private static void ShowSuccessMessage(string message)
+        => MsgBox.Show(message, MsgBoxImage.Check, MessageBoxButton.OK);
 
     #endregion
 }
