@@ -178,60 +178,76 @@ public partial class MainPage
 
     private async void ButtonRemoveDataBase_OnClick(object? sender, EventArgs e)
     {
-        var selectDatabaseFileContentPage = new SelectDatabaseFileContentPage();
-        selectDatabaseFileContentPage.ExistingDatabases.AddRange(ExistingDatabases);
+        var databasesToDelete = await SelectDatabases();
+        if (databasesToDelete is null || databasesToDelete.Count is 0) return;
 
-        await Navigation.PushAsync(selectDatabaseFileContentPage);
+        var confirmLocalDeletion = await ConfirmLocalDeletion();
+        if (!confirmLocalDeletion) return;
 
-        var result = await selectDatabaseFileContentPage.ResultDialog;
+        DeleteLocalDatabases(databasesToDelete);
 
-        if (result is not true) return;
-
-        if (selectDatabaseFileContentPage.ExistingDatabasesSelected.Count.Equals(0)) return;
-
-        var response = await DisplayAlert(MainPageResources.MessageBoxRemoveDataBaseQuestionTitle,
-            MainPageResources.MessageBoxRemoveDataBaseQuestionMessage,
-            MainPageResources.MessageBoxRemoveDataBaseQuestionYesButton,
-            MainPageResources.MessageBoxRemoveDataBaseQuestionCancelButton);
-
-        if (!response) return;
-
-        foreach (var existingDatabase in selectDatabaseFileContentPage.ExistingDatabasesSelected)
+        var confirmCloudDeletion = await ConfirmCloudDeletion();
+        if (confirmCloudDeletion)
         {
-            if (string.IsNullOrEmpty(existingDatabase.FilePath)) continue;
-            if (!File.Exists(existingDatabase.FilePath)) continue;
-
-            File.Delete(existingDatabase.FilePath);
-
-            var backupDirectory = Path.Join(DbContextBackup.LocalDirectoryBackupDatabase, existingDatabase.FileNameWithoutExtension);
-            if (Directory.Exists(backupDirectory)) Directory.Delete(backupDirectory, true);
+            await DeleteCloudFilesAsync(databasesToDelete);
         }
 
-        RefreshExistingDatabases();
-
-        response = await DisplayAlert(MainPageResources.MessageBoxRemoveDataBaseDropboxQuestionTitle,
-            MainPageResources.MessageBoxRemoveDataBaseDropboxQuestionMessage,
-            MainPageResources.MessageBoxRemoveDataBaseDropboxQuestionYesButton,
-            MainPageResources.MessageBoxRemoveDataBaseDropboxQuestionNoButton);
-
-        if (response)
-        {
-            var files = selectDatabaseFileContentPage.ExistingDatabasesSelected.Select(s => s.FileName).ToArray();
-            Log.Information("Preparing to delete the following files: {Files}", files);
-
-            var dropboxService = await DropboxService.CreateAsync(ProjectSystem.Maui);
-            await dropboxService.DeleteFilesAsync(files, DbContextBackup.CloudDirectoryBackupDatabase);
-        }
-
-        Log.Information("Files successfully deleted");
-        await DisplayAlert(MainPageResources.MessageBoxRemoveDataBaseSuccessTitle,
-            MainPageResources.MessageBoxRemoveDataBaseSuccessMessage,
-            MainPageResources.MessageBoxRemoveDataBaseSuccessOkButton);
+        await DisplaySuccessMessage();
     }
 
     #endregion
 
     #region Function
+
+    private async Task<bool> ConfirmCloudDeletion()
+    {
+        return await DisplayAlert(MainPageResources.MessageBoxRemoveDataBaseDropboxQuestionTitle,
+            MainPageResources.MessageBoxRemoveDataBaseDropboxQuestionMessage,
+            MainPageResources.MessageBoxRemoveDataBaseDropboxQuestionYesButton,
+            MainPageResources.MessageBoxRemoveDataBaseDropboxQuestionNoButton);
+    }
+
+    private async Task<bool> ConfirmLocalDeletion()
+    {
+        return await DisplayAlert(MainPageResources.MessageBoxRemoveDataBaseQuestionTitle,
+            MainPageResources.MessageBoxRemoveDataBaseQuestionMessage,
+            MainPageResources.MessageBoxRemoveDataBaseQuestionYesButton,
+            MainPageResources.MessageBoxRemoveDataBaseQuestionCancelButton);
+    }
+
+    private static async Task DeleteCloudFilesAsync(List<ExistingDatabase> databasesToDelete)
+    {
+        var files = databasesToDelete.Select(db => db.FileName).ToArray();
+        Log.Information("Preparing to delete the following files: {Files}", files);
+
+        var dropboxService = await DropboxService.CreateAsync(ProjectSystem.Maui);
+        await dropboxService.DeleteFilesAsync(files, DbContextBackup.CloudDirectoryBackupDatabase);
+
+        Log.Information("Files successfully deleted from Dropbox");
+    }
+
+    private void DeleteLocalDatabases(List<ExistingDatabase> databasesToDelete)
+    {
+        foreach (var database in databasesToDelete.Where(database => !string.IsNullOrEmpty(database.FilePath) && File.Exists(database.FilePath)))
+        {
+            File.Delete(database.FilePath);
+
+            var backupDirectory = Path.Join(DbContextBackup.LocalDirectoryBackupDatabase, database.FileNameWithoutExtension);
+            if (Directory.Exists(backupDirectory))
+            {
+                Directory.Delete(backupDirectory, true);
+            }
+        }
+
+        RefreshExistingDatabases();
+    }
+
+    private async Task DisplaySuccessMessage()
+    {
+        await DisplayAlert(MainPageResources.MessageBoxRemoveDataBaseSuccessTitle,
+            MainPageResources.MessageBoxRemoveDataBaseSuccessMessage,
+            MainPageResources.MessageBoxRemoveDataBaseSuccessOkButton);
+    }
 
     private static async Task ExportToCloudAsync(List<ExistingDatabase> existingDatabasesSelected)
     {
@@ -377,6 +393,16 @@ public partial class MainPage
                 ExistingDatabases.AddAndSort(existingDatabase, s => s.FileNameWithoutExtension);
             }
         }
+    }
+
+    private async Task<List<ExistingDatabase>?> SelectDatabases()
+    {
+        var selectDatabaseFileContentPage = new SelectDatabaseFileContentPage();
+        selectDatabaseFileContentPage.ExistingDatabases.AddRange(ExistingDatabases);
+        await Navigation.PushAsync(selectDatabaseFileContentPage);
+
+        var result = await selectDatabaseFileContentPage.ResultDialog;
+        return result ? selectDatabaseFileContentPage.ExistingDatabasesSelected : null;
     }
 
     #endregion
