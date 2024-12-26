@@ -718,6 +718,19 @@ public partial class DashBoardContentPage
 
         if (string.IsNullOrEmpty(accountName)) return;
 
+        var rowTotalCount = FilterAndSortHistoryRecords(accountName, out var records, out var elapsedTimeLoadingData);
+
+        RowTotalCount = rowTotalCount;
+        RowTotalFilteredCount = records.Count;
+        ElapsedTimeLoadingData = elapsedTimeLoadingData.ToString("hh\\:mm\\:ss");
+
+        VHistories.Clear();
+        VHistories.AddRange(records);
+    }
+
+    private int FilterAndSortHistoryRecords(string accountName, out List<VHistory> records,
+        out TimeSpan elapsedTimeLoadingData)
+    {
         var stopwatch = new Stopwatch();
         stopwatch.Start();
 
@@ -738,7 +751,7 @@ public partial class DashBoardContentPage
             query = query.Where(s => s.Date!.Value.Year.Equals(yearInt));
         }
 
-        RowTotalCount = query.Count();
+        var rowTotalCount = query.Count();
 
         if (VCategoryDerivesFilter.Count > 0)
         {
@@ -776,18 +789,15 @@ public partial class DashBoardContentPage
             query = query.Where(s => historyPlaces.Contains(s.Place));
         }
 
-        RowTotalFilteredCount = query.Count();
-
-        var records = query
+        records = query
             .OrderBy(s => s.IsPointed)
             .ThenByDescending(s => s.Date)
-            .ThenBy(s => s.Category);
+            .ThenBy(s => s.Category)
+            .ToList();
 
         stopwatch.Stop();
-        ElapsedTimeLoadingData = stopwatch.Elapsed.ToString("hh\\:mm\\:ss");
-
-        VHistories.Clear();
-        VHistories.AddRange(records);
+        elapsedTimeLoadingData = stopwatch.Elapsed;
+        return rowTotalCount;
     }
 
     private bool RefreshFilter<T>(List<T> collection, ICustomPopupFilter<T> customPopupFilter, SvgPath svgPath)
