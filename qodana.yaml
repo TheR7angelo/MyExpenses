@@ -30,6 +30,10 @@ exclude:
       - "MyExpenses.Models/Resources/Resx"
       - "MyExpenses.Sql/Resources/Resx"
 
+  - name: AndroidDomInspection
+    paths:
+      - "MyExpenses.Smartphones/Platforms/Android/AndroidManifest.xml"
+
   # Disable all inspections
   - name: All
     paths:
