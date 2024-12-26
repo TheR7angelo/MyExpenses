@@ -65,62 +65,48 @@ public static class ColorExtensions
     /// <returns>The System.Drawing.Color object representing the converted color.</returns>
     public static Color ToColor(double hue, double saturation, double value, byte alpha = 255)
     {
-        double r, g, b;
-        if (saturation == 0)
+        if (saturation is 0)
         {
-            r = value;
-            g = value;
-            b = value;
+            var gray = (byte)(value * 255);
+            return Color.FromArgb(alpha, gray, gray, gray);
         }
-        else
-        {
-            const double tolerance = 0.00001;
-            if (Math.Abs(hue - 360.0) < tolerance) hue = 0;
-            else hue = hue / 60;
 
-            var i = (int)Math.Truncate(hue);
-            var f = hue - i;
-
-            var p = value * (1.0 - saturation);
-            var q = value * (1.0 - saturation * f);
-            var t = value * (1.0 - saturation * (1.0 - f));
-
-            switch (i)
-            {
-                case 0:
-                    r = value;
-                    g = t;
-                    b = p;
-                    break;
-                case 1:
-                    r = q;
-                    g = value;
-                    b = p;
-                    break;
-                case 2:
-                    r = p;
-                    g = value;
-                    b = t;
-                    break;
-                case 3:
-                    r = p;
-                    g = q;
-                    b = value;
-                    break;
-                case 4:
-                    r = t;
-                    g = p;
-                    b = value;
-                    break;
-                default:
-                    r = value;
-                    g = p;
-                    b = q;
-                    break;
-            }
-        }
+        var (r, g, b) = ConvertHsvToRgb(hue, saturation, value);
 
         return Color.FromArgb(alpha, (byte)(r * 255), (byte)(g * 255), (byte)(b * 255));
+    }
+
+    /// <summary>
+    /// Converts HSV components to RGB components.
+    /// </summary>
+    /// <param name="hue">The hue value (0-360).</param>
+    /// <param name="saturation">The saturation value (0-1).</param>
+    /// <param name="value">The brightness value (0-1).</param>
+    /// <returns>A tuple representing the RGB components as doubles (range 0-1).</returns>
+    private static (double r, double g, double b) ConvertHsvToRgb(double hue, double saturation, double value)
+    {
+        const double tolerance = 0.00001;
+
+        if (Math.Abs(hue - 360.0) < tolerance) hue = 0;
+
+        hue /= 60;
+
+        var i = (int)Math.Floor(hue);
+        var f = hue - i;
+
+        var p = value * (1.0 - saturation);
+        var q = value * (1.0 - saturation * f);
+        var t = value * (1.0 - saturation * (1.0 - f));
+
+        return i switch
+        {
+            0 => (value, t, p),
+            1 => (q, value, p),
+            2 => (p, value, t),
+            3 => (p, q, value),
+            4 => (t, p, value),
+            _ => (value, p, q)
+        };
     }
 
     /// <summary>
