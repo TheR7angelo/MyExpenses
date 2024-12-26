@@ -34,12 +34,19 @@ exclude:
     paths:
       - "MyExpenses.Smartphones/Platforms/Android/AndroidManifest.xml"
 
+  - name: LocalizableElement
+    paths:
+      - "MyExpenses.IO/Sig/Shp"
+
   # Disable all inspections
   - name: All
     paths:
       - "Tests"
       - "MyExpenses.Wpf.Helper"
       - "MyExpenses.Wpf.Calc"
+  - name: LocalizableElement
+    paths:
+      - MyExpenses.IO\Sig\Shp\ShapeReader.cs
 
 #include:
 #  - name: CheckDependencyLicenses
