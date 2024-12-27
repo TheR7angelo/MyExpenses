@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace MyExpenses.Models.Sql.Bases.Tables;
 
 [Table("t_spatial_ref_sys")]
-public partial class TSpatialRefSy
+public class TSpatialRefSy
 {
     [Key]
     [Column("srid")]

@@ -6,7 +6,7 @@ using MyExpenses.Models.Sql.Bases.Enums;
 namespace MyExpenses.Models.Sql.Bases.Views.Analysis;
 
 [Keyless]
-public partial class AnalysisVBudgetPeriodAnnual
+public class AnalysisVBudgetPeriodAnnual
 {
     [Column("account_fk")]
     public int? AccountFk { get; init; }

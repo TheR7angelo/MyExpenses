@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 namespace MyExpenses.Models.Sql.Bases.Views.Analysis;
 
 [Keyless]
-public partial class AnalysisVAccountCategoryMonthlySum
+public class AnalysisVAccountCategoryMonthlySum
 {
     [Column("account_fk")]
     public int? AccountFk { get; init; }

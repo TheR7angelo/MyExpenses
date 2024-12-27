@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 namespace MyExpenses.Models.Sql.Bases.Views;
 
 [Keyless]
-public partial class VCategory : ISql
+public class VCategory : ISql
 {
     [Column("id")]
     public int Id { get; set; }

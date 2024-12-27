@@ -6,7 +6,7 @@ using MyExpenses.Models.Sql.Bases.Enums;
 namespace MyExpenses.Models.Sql.Bases.Views;
 
 [Keyless]
-public partial class VRecursiveExpense : ISql
+public class VRecursiveExpense : ISql
 {
     [Column("id")]
     public int Id { get; set; }

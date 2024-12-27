@@ -6,7 +6,7 @@ namespace MyExpenses.Models.Sql.Bases.Tables;
 
 [Table("t_supported_languages")]
 [Index("Code", IsUnique = true)]
-public partial class TSupportedLanguage
+public class TSupportedLanguage
 {
     [Key]
     [Column("id")]

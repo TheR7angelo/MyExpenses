@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 namespace MyExpenses.Models.Sql.Bases.Views;
 
 [Keyless]
-public partial class VDetailTotalCategory
+public class VDetailTotalCategory
 {
     [Column("year", TypeName = "INT")]
     public int? Year { get; set; }

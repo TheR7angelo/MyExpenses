@@ -5,7 +5,7 @@ using MyExpenses.Models.Sql.Bases.Enums;
 namespace MyExpenses.Models.Sql.Bases.Tables;
 
 [Table("t_recursive_frequency")]
-public partial class TRecursiveFrequency
+public class TRecursiveFrequency
 {
     [Key]
     [Column("id")]

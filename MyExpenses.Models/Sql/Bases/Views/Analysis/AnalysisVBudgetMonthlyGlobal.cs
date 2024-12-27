@@ -6,7 +6,7 @@ using MyExpenses.Models.Sql.Bases.Enums;
 namespace MyExpenses.Models.Sql.Bases.Views.Analysis;
 
 [Keyless]
-public partial class AnalysisVBudgetMonthlyGlobal
+public class AnalysisVBudgetMonthlyGlobal
 {
     [Column("period")]
     [MaxLength(7)]

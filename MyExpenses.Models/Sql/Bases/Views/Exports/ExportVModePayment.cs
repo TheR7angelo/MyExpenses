@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 namespace MyExpenses.Models.Sql.Bases.Views.Exports;
 
 [Keyless]
-public partial class ExportVModePayment
+public class ExportVModePayment
 {
     [Column("id")]
     public int? Id { get; set; }
