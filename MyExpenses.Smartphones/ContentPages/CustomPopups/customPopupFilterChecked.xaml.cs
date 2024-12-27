@@ -9,7 +9,7 @@ namespace MyExpenses.Smartphones.ContentPages.CustomPopups;
 public partial class CustomPopupFilterChecked : ICustomPopupFilter<BoolIsChecked>
 {
     public static readonly BindableProperty ButtonCloseTextProperty = BindableProperty.Create(nameof(ButtonCloseText),
-        typeof(string), typeof(CustomPopupFilterChecked), default(string));
+        typeof(string), typeof(CustomPopupFilterChecked));
 
     public string ButtonCloseText
     {
