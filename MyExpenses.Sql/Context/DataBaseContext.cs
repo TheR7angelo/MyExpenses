@@ -335,9 +335,5 @@ public partial class DataBaseContext : DbContext
         {
             entity.ToView("v_total_by_account");
         });
-
-        OnModelCreatingPartial(modelBuilder);
     }
-
-    partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
 }
