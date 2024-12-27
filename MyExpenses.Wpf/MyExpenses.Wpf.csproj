@@ -576,24 +576,20 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Resource Include="..\MyExpenses.Commons\Resources\Assets\Applications\Icon.ico">
-        <Link>Resources\Assets\Applications\Icon.ico</Link>
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </Resource>
-      <Resource Include="..\MyExpenses.Commons\Resources\Assets\Applications\Icon Resize.png">
+      <Content Include="..\MyExpenses.Commons\Resources\Assets\Applications\Icon Resize.png">
         <Link>Resources\Assets\Applications\Icon Resize.png</Link>
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </Resource>
-      <Resource Include="..\MyExpenses.Commons\Resources\Assets\Applications\Icon.png">
+      </Content>
+      <Content Include="..\MyExpenses.Commons\Resources\Assets\Applications\Icon.ai">
+        <Link>Resources\Assets\Applications\Icon.ai</Link>
+      </Content>
+      <Content Include="..\MyExpenses.Commons\Resources\Assets\Applications\Icon.ico">
+        <Link>Resources\Assets\Applications\Icon.ico</Link>
+      </Content>
+      <Content Include="..\MyExpenses.Commons\Resources\Assets\Applications\Icon.png">
         <Link>Resources\Assets\Applications\Icon.png</Link>
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </Resource>
-      <Resource Include="..\MyExpenses.Commons\Resources\Assets\Applications\Icon.svg">
+      </Content>
+      <Content Include="..\MyExpenses.Commons\Resources\Assets\Applications\Icon.svg">
         <Link>Resources\Assets\Applications\Icon.svg</Link>
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </Resource>
-      <Content Include="..\CHANGELOG.md">
-        <Link>CHANGELOG.md</Link>
       </Content>
       <Content Include="..\MyExpenses.Commons\Resources\Assets\Extensions\Csv.svg">
         <Link>Resources\Assets\Extensions\Csv.svg</Link>
@@ -612,6 +608,9 @@
       </Content>
       <Content Include="..\TODO LIST.md">
         <Link>TODO LIST.md</Link>
+      </Content>
+      <Content Include="..\CHANGELOG.md">
+        <Link>CHANGELOG.md</Link>
       </Content>
     </ItemGroup>
 
