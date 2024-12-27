@@ -2,6 +2,7 @@ using System.Collections.Immutable;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Globalization;
+using System.Runtime.Versioning;
 using System.Windows.Input;
 using CommunityToolkit.Maui.Views;
 using MyExpenses.Maui.Utils;
@@ -208,6 +209,10 @@ public partial class DashBoardContentPage
 
     public ICommand CollectionViewVHistoryLongPressCommand { get; }
 
+    [SupportedOSPlatform("Android21.0")]
+    [SupportedOSPlatform("iOS13.0")]
+    [SupportedOSPlatform("MacCatalyst13.0")]
+    [SupportedOSPlatform("Windows")]
     public DashBoardContentPage()
     {
         CollectionViewVHistoryShortPressCommand = new Command(CollectionViewVHistory_OnShortPress);
@@ -270,6 +275,10 @@ public partial class DashBoardContentPage
         UpdateFilterDate(now);
     }
 
+    [SupportedOSPlatform("Android21.0")]
+    [SupportedOSPlatform("iOS13.0")]
+    [SupportedOSPlatform("MacCatalyst13.0")]
+    [SupportedOSPlatform("Windows")]
     private async void ButtonImageViewAddRecordHistory_OnClicked(object? sender, EventArgs e)
     {
         var detailedRecordContentPage = new DetailedRecordContentPage { IsNewHistory = true };
@@ -296,12 +305,24 @@ public partial class DashBoardContentPage
             DashBoardContentPageResources.MessageBoxRemoveMonthErrorOkButton);
     }
 
+    [SupportedOSPlatform("Android21.0")]
+    [SupportedOSPlatform("iOS13.0")]
+    [SupportedOSPlatform("MacCatalyst13.0")]
+    [SupportedOSPlatform("Windows")]
     private async void CategoryTapGestureRecognizer_OnTapped(object? sender, TappedEventArgs e)
         => await RunFilter(sender, FilterCategory);
 
+    [SupportedOSPlatform("Android21.0")]
+    [SupportedOSPlatform("iOS13.0")]
+    [SupportedOSPlatform("MacCatalyst13.0")]
+    [SupportedOSPlatform("Windows")]
     private async void CategorySvgPath_OnClicked(object? sender, EventArgs e)
         => await RunFilter(sender, FilterCategory);
 
+    [SupportedOSPlatform("Android21.0")]
+    [SupportedOSPlatform("iOS13.0")]
+    [SupportedOSPlatform("MacCatalyst13.0")]
+    [SupportedOSPlatform("Windows")]
     private async void CollectionViewVHistory_OnLongPress(object obj)
     {
         if (obj is not VHistory vHistory) return;
@@ -338,6 +359,10 @@ public partial class DashBoardContentPage
         _isCollectionViewVHistoryLongPressInvoked = false;
     }
 
+    [SupportedOSPlatform("Android21.0")]
+    [SupportedOSPlatform("iOS13.0")]
+    [SupportedOSPlatform("MacCatalyst13.0")]
+    [SupportedOSPlatform("Windows")]
     private async void CollectionViewVHistory_OnShortPress(object obj)
     {
         if (_isCollectionViewVHistoryLongPressInvoked) return;
@@ -355,6 +380,10 @@ public partial class DashBoardContentPage
         RefreshAccountTotal();
     }
 
+    [SupportedOSPlatform("Android21.0")]
+    [SupportedOSPlatform("iOS13.0")]
+    [SupportedOSPlatform("MacCatalyst13.0")]
+    [SupportedOSPlatform("Windows")]
     private async void CollectionViewVTotalAccount_OnLoaded(object? sender, EventArgs e)
     {
         await Dispatcher.DispatchAsync(async () =>
@@ -366,12 +395,24 @@ public partial class DashBoardContentPage
         });
     }
 
+    [SupportedOSPlatform("Android21.0")]
+    [SupportedOSPlatform("iOS13.0")]
+    [SupportedOSPlatform("MacCatalyst13.0")]
+    [SupportedOSPlatform("Windows")]
     private void CustomPicker_OnSelectedIndexChanged(object? sender, EventArgs e)
         => RefreshDataGrid();
 
+    [SupportedOSPlatform("Android21.0")]
+    [SupportedOSPlatform("iOS13.0")]
+    [SupportedOSPlatform("MacCatalyst13.0")]
+    [SupportedOSPlatform("Windows")]
     private async void DescriptionTapGestureRecognizer_OnTapped(object? sender, TappedEventArgs e)
         => await RunFilter(sender, FilterDescription);
 
+    [SupportedOSPlatform("Android21.0")]
+    [SupportedOSPlatform("iOS13.0")]
+    [SupportedOSPlatform("MacCatalyst13.0")]
+    [SupportedOSPlatform("Windows")]
     private async void DescriptionSvgPath_OnClicked(object? sender, EventArgs e)
         => await RunFilter(sender, FilterDescription);
 
@@ -381,24 +422,52 @@ public partial class DashBoardContentPage
         UpdateMonthLanguage();
     }
 
+    [SupportedOSPlatform("Android21.0")]
+    [SupportedOSPlatform("iOS13.0")]
+    [SupportedOSPlatform("MacCatalyst13.0")]
+    [SupportedOSPlatform("Windows")]
     private async void PaymentModeTapGestureRecognizer_OnTapped(object? sender, TappedEventArgs e)
         => await RunFilter(sender, FilterPaymentMode);
 
+    [SupportedOSPlatform("Android21.0")]
+    [SupportedOSPlatform("iOS13.0")]
+    [SupportedOSPlatform("MacCatalyst13.0")]
+    [SupportedOSPlatform("Windows")]
     private async void PaymentModeSvgPath_OnClicked(object? sender, EventArgs e)
         => await RunFilter(sender, FilterPaymentMode);
 
+    [SupportedOSPlatform("Android21.0")]
+    [SupportedOSPlatform("iOS13.0")]
+    [SupportedOSPlatform("MacCatalyst13.0")]
+    [SupportedOSPlatform("Windows")]
     private async void PlaceTapGestureRecognizer_OnTapped(object? sender, TappedEventArgs e)
         => await RunFilter(sender, FilterPlace);
 
+    [SupportedOSPlatform("Android21.0")]
+    [SupportedOSPlatform("iOS13.0")]
+    [SupportedOSPlatform("MacCatalyst13.0")]
+    [SupportedOSPlatform("Windows")]
     private async void PlaceSvgPath_OnClicked(object? sender, EventArgs e)
         => await RunFilter(sender, FilterPlace);
 
+    [SupportedOSPlatform("Android21.0")]
+    [SupportedOSPlatform("iOS13.0")]
+    [SupportedOSPlatform("MacCatalyst13.0")]
+    [SupportedOSPlatform("Windows")]
     private async void PointedTapGestureRecognizer_OnTapped(object? sender, TappedEventArgs e)
         => await RunFilter(sender, FilterChecked);
 
+    [SupportedOSPlatform("Android21.0")]
+    [SupportedOSPlatform("iOS13.0")]
+    [SupportedOSPlatform("MacCatalyst13.0")]
+    [SupportedOSPlatform("Windows")]
     private async void PointedSvgPath_OnClicked(object? sender, EventArgs e)
         => await RunFilter(sender, FilterChecked);
 
+    [SupportedOSPlatform("Android21.0")]
+    [SupportedOSPlatform("iOS13.0")]
+    [SupportedOSPlatform("MacCatalyst13.0")]
+    [SupportedOSPlatform("Windows")]
     private void SvgPathRefresh_OnClicked(object? sender, EventArgs e)
     {
         if (sender is not SvgPath svgPath) return;
@@ -423,13 +492,24 @@ public partial class DashBoardContentPage
         RefreshDataGrid();
     }
 
+    [SupportedOSPlatform("Android21.0")]
+    [SupportedOSPlatform("iOS13.0")]
+    [SupportedOSPlatform("MacCatalyst13.0")]
+    [SupportedOSPlatform("Windows")]
     private async void ValueTapGestureRecognizer_OnTapped(object? sender, TappedEventArgs e)
         => await RunFilter(sender, FilterValue);
 
-
+    [SupportedOSPlatform("Android21.0")]
+    [SupportedOSPlatform("iOS13.0")]
+    [SupportedOSPlatform("MacCatalyst13.0")]
+    [SupportedOSPlatform("Windows")]
     private async void ValueSvgPath_OnClicked(object? sender, EventArgs e)
         => await RunFilter(sender, FilterValue);
 
+    [SupportedOSPlatform("Android21.0")]
+    [SupportedOSPlatform("iOS13.0")]
+    [SupportedOSPlatform("MacCatalyst13.0")]
+    [SupportedOSPlatform("Windows")]
     private void RadioButton_OnCheckedChanged(object? sender, CheckedChangedEventArgs e)
     {
         var button = sender as RadioButton;
@@ -447,6 +527,10 @@ public partial class DashBoardContentPage
 
     #region Function
 
+    [SupportedOSPlatform("Android21.0")]
+    [SupportedOSPlatform("iOS13.0")]
+    [SupportedOSPlatform("MacCatalyst13.0")]
+    [SupportedOSPlatform("Windows")]
     private async Task FilterCategory(SvgPath svgPath)
     {
         const EFilter eFilter = EFilter.Category;
@@ -482,6 +566,10 @@ public partial class DashBoardContentPage
         FilterManagement(VCategoryDerivesFilter, customPopupFilterCategories, eFilter, svgPath);
     }
 
+    [SupportedOSPlatform("Android21.0")]
+    [SupportedOSPlatform("iOS13.0")]
+    [SupportedOSPlatform("MacCatalyst13.0")]
+    [SupportedOSPlatform("Windows")]
     private async Task FilterChecked(SvgPath svgPath)
     {
         const EFilter eFilter = EFilter.Checked;
@@ -506,6 +594,10 @@ public partial class DashBoardContentPage
         FilterManagement(HistoryChecked, customPopupFilterChecked, eFilter, svgPath);
     }
 
+    [SupportedOSPlatform("Android21.0")]
+    [SupportedOSPlatform("iOS13.0")]
+    [SupportedOSPlatform("MacCatalyst13.0")]
+    [SupportedOSPlatform("Windows")]
     private async Task FilterDescription(SvgPath svgPath)
     {
         const EFilter eFilter = EFilter.Description;
@@ -530,6 +622,10 @@ public partial class DashBoardContentPage
         FilterManagement(HistoryDescriptions, customPopupFilterDescription, eFilter, svgPath);
     }
 
+    [SupportedOSPlatform("Android21.0")]
+    [SupportedOSPlatform("iOS13.0")]
+    [SupportedOSPlatform("MacCatalyst13.0")]
+    [SupportedOSPlatform("Windows")]
     private void FilterManagement<T>(List<T> collection, ICustomPopupFilter<T> customPopupFilter, EFilter eFilter,
         SvgPath svgPath)
     {
@@ -551,6 +647,10 @@ public partial class DashBoardContentPage
         }
     }
 
+    [SupportedOSPlatform("Android21.0")]
+    [SupportedOSPlatform("iOS13.0")]
+    [SupportedOSPlatform("MacCatalyst13.0")]
+    [SupportedOSPlatform("Windows")]
     private async Task FilterPaymentMode(SvgPath svgPath)
     {
         const EFilter eFilter = EFilter.PaymentMode;
@@ -587,6 +687,10 @@ public partial class DashBoardContentPage
         FilterManagement(ModePaymentDeriveFilter, customPopupFilterModePayment, eFilter, svgPath);
     }
 
+    [SupportedOSPlatform("Android21.0")]
+    [SupportedOSPlatform("iOS13.0")]
+    [SupportedOSPlatform("MacCatalyst13.0")]
+    [SupportedOSPlatform("Windows")]
     private async Task FilterPlace(SvgPath svgPath)
     {
         const EFilter eFilter = EFilter.Place;
@@ -622,6 +726,10 @@ public partial class DashBoardContentPage
         FilterManagement(PlaceDeriveFilter, customPopupFilterPlaces, eFilter, svgPath);
     }
 
+    [SupportedOSPlatform("Android21.0")]
+    [SupportedOSPlatform("iOS13.0")]
+    [SupportedOSPlatform("MacCatalyst13.0")]
+    [SupportedOSPlatform("Windows")]
     private async Task FilterValue(SvgPath svgPath)
     {
         const EFilter eFilter = EFilter.Value;
@@ -699,6 +807,10 @@ public partial class DashBoardContentPage
         newVTotalByAccount.CopyPropertiesTo(vTotalByAccount);
     }
 
+    [SupportedOSPlatform("Android21.0")]
+    [SupportedOSPlatform("iOS13.0")]
+    [SupportedOSPlatform("MacCatalyst13.0")]
+    [SupportedOSPlatform("Windows")]
     private void RefreshDataGrid(string? accountName = null)
     {
         if (string.IsNullOrEmpty(accountName))
@@ -793,6 +905,10 @@ public partial class DashBoardContentPage
         return rowTotalCount;
     }
 
+    [SupportedOSPlatform("Android21.0")]
+    [SupportedOSPlatform("iOS13.0")]
+    [SupportedOSPlatform("MacCatalyst13.0")]
+    [SupportedOSPlatform("Windows")]
     private bool RefreshFilter<T>(List<T> collection, ICustomPopupFilter<T> customPopupFilter, SvgPath svgPath)
     {
         collection.Clear();
@@ -812,6 +928,10 @@ public partial class DashBoardContentPage
         return icon is EPackIcons.FilterCheck;
     }
 
+    [SupportedOSPlatform("Android21.0")]
+    [SupportedOSPlatform("iOS13.0")]
+    [SupportedOSPlatform("MacCatalyst13.0")]
+    [SupportedOSPlatform("Windows")]
     private void RefreshRadioButtonSelected()
     {
         var radioButtons = CollectionViewVTotalAccount.FindVisualChildren<RadioButton>().ToList();
@@ -886,6 +1006,10 @@ public partial class DashBoardContentPage
 
     #endregion
 
+    [SupportedOSPlatform("Android21.0")]
+    [SupportedOSPlatform("iOS13.0")]
+    [SupportedOSPlatform("MacCatalyst13.0")]
+    [SupportedOSPlatform("Windows")]
     private static async Task RunFilter(object? sender, Func<SvgPath, Task> func)
     {
         var svgPath = FindSvgPath(sender);
@@ -894,6 +1018,10 @@ public partial class DashBoardContentPage
         await func.Invoke(svgPath);
     }
 
+    [SupportedOSPlatform("Android21.0")]
+    [SupportedOSPlatform("iOS13.0")]
+    [SupportedOSPlatform("MacCatalyst13.0")]
+    [SupportedOSPlatform("Windows")]
     private static SvgPath? FindSvgPath(object? sender)
     {
         return sender switch

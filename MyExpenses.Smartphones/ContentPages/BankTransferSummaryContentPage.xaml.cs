@@ -2,6 +2,7 @@ using System.Collections.Immutable;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Globalization;
+using System.Runtime.Versioning;
 using CommunityToolkit.Maui.Views;
 using MyExpenses.Maui.Utils;
 using MyExpenses.Models.AutoMapper;
@@ -299,9 +300,17 @@ public partial class BankTransferSummaryContentPage
 
     #region Action
 
+    [SupportedOSPlatform("Android21.0")]
+    [SupportedOSPlatform("iOS13.0")]
+    [SupportedOSPlatform("MacCatalyst13.0")]
+    [SupportedOSPlatform("Windows")]
     private async void AdditionalReasonSvgPath_OnClicked(object? sender, EventArgs e)
         => await RunFilter(sender, FilterAdditionalReason);
 
+    [SupportedOSPlatform("Android21.0")]
+    [SupportedOSPlatform("iOS13.0")]
+    [SupportedOSPlatform("MacCatalyst13.0")]
+    [SupportedOSPlatform("Windows")]
     private async void AdditionalReasonTapGestureRecognizer_Tapped(object? sender, TappedEventArgs e)
         => await RunFilter(sender, FilterAdditionalReason);
 
@@ -339,18 +348,34 @@ public partial class BankTransferSummaryContentPage
             BankTransferSummaryContentPageResources.MessageBoxRemoveMonthErrorOkButton);
     }
 
+    [SupportedOSPlatform("Android21.0")]
+    [SupportedOSPlatform("iOS13.0")]
+    [SupportedOSPlatform("MacCatalyst13.0")]
+    [SupportedOSPlatform("Windows")]
     private async void CategorySvgPath_OnClicked(object? sender, EventArgs e)
         => await RunFilter(sender, FilterCategory);
 
+    [SupportedOSPlatform("Android21.0")]
+    [SupportedOSPlatform("iOS13.0")]
+    [SupportedOSPlatform("MacCatalyst13.0")]
+    [SupportedOSPlatform("Windows")]
     private async void CategoryTapGestureRecognizer_Tapped(object? sender, TappedEventArgs e)
         => await RunFilter(sender, FilterCategory);
 
     private void CustomPicker_OnSelectedIndexChanged(object? sender, EventArgs e)
         => RefreshDataGrid();
 
+    [SupportedOSPlatform("Android21.0")]
+    [SupportedOSPlatform("iOS13.0")]
+    [SupportedOSPlatform("MacCatalyst13.0")]
+    [SupportedOSPlatform("Windows")]
     private async void FromAccountSvgPath_OnClicked(object? sender, EventArgs e)
         => await RunFilter(sender, FilterFromAccount);
 
+    [SupportedOSPlatform("Android21.0")]
+    [SupportedOSPlatform("iOS13.0")]
+    [SupportedOSPlatform("MacCatalyst13.0")]
+    [SupportedOSPlatform("Windows")]
     private async void FromAccountTapGestureRecognizer_Tapped(object? sender, TappedEventArgs e)
         => await RunFilter(sender, FilterFromAccount);
 
@@ -360,12 +385,24 @@ public partial class BankTransferSummaryContentPage
         UpdateMonthLanguage();
     }
 
+    [SupportedOSPlatform("Android21.0")]
+    [SupportedOSPlatform("iOS13.0")]
+    [SupportedOSPlatform("MacCatalyst13.0")]
+    [SupportedOSPlatform("Windows")]
     private async void MainReasonSvgPath_OnClicked(object? sender, EventArgs e)
         => await RunFilter(sender, FilterMainReason);
 
+    [SupportedOSPlatform("Android21.0")]
+    [SupportedOSPlatform("iOS13.0")]
+    [SupportedOSPlatform("MacCatalyst13.0")]
+    [SupportedOSPlatform("Windows")]
     private async void MainReasonTapGestureRecognizer_Tapped(object? sender, TappedEventArgs e)
         => await RunFilter(sender, FilterMainReason);
 
+    [SupportedOSPlatform("Android21.0")]
+    [SupportedOSPlatform("iOS13.0")]
+    [SupportedOSPlatform("MacCatalyst13.0")]
+    [SupportedOSPlatform("Windows")]
     private void SvgPathRefresh_OnClicked(object? sender, EventArgs e)
     {
         if (sender is not SvgPath svgPath) return;
@@ -407,15 +444,31 @@ public partial class BankTransferSummaryContentPage
         RefreshDataGrid();
     }
 
+    [SupportedOSPlatform("Android21.0")]
+    [SupportedOSPlatform("iOS13.0")]
+    [SupportedOSPlatform("MacCatalyst13.0")]
+    [SupportedOSPlatform("Windows")]
     private async void ToAccountSvgPath_OnClicked(object? sender, EventArgs e)
         => await RunFilter(sender, FilterToAccount);
 
+    [SupportedOSPlatform("Android21.0")]
+    [SupportedOSPlatform("iOS13.0")]
+    [SupportedOSPlatform("MacCatalyst13.0")]
+    [SupportedOSPlatform("Windows")]
     private async void ToAccountTapGestureRecognizer_Tapped(object? sender, TappedEventArgs e)
         => await RunFilter(sender, FilterToAccount);
 
+    [SupportedOSPlatform("Android21.0")]
+    [SupportedOSPlatform("iOS13.0")]
+    [SupportedOSPlatform("MacCatalyst13.0")]
+    [SupportedOSPlatform("Windows")]
     private async void ValueSvgPath_OnClicked(object? sender, EventArgs e)
         => await RunFilter(sender, FilterValue);
 
+    [SupportedOSPlatform("Android21.0")]
+    [SupportedOSPlatform("iOS13.0")]
+    [SupportedOSPlatform("MacCatalyst13.0")]
+    [SupportedOSPlatform("Windows")]
     private async void ValueTapGestureRecognizer_OnTapped(object? sender, TappedEventArgs e)
         => await RunFilter(sender, FilterValue);
 
@@ -811,6 +864,10 @@ public partial class BankTransferSummaryContentPage
         Category
     }
 
+    [SupportedOSPlatform("Android21.0")]
+    [SupportedOSPlatform("iOS13.0")]
+    [SupportedOSPlatform("MacCatalyst13.0")]
+    [SupportedOSPlatform("Windows")]
     private static async Task RunFilter(object? sender, Func<SvgPath, Task> func)
     {
         var svgPath = FindSvgPath(sender);
@@ -819,6 +876,10 @@ public partial class BankTransferSummaryContentPage
         await func.Invoke(svgPath);
     }
 
+    [SupportedOSPlatform("Android21.0")]
+    [SupportedOSPlatform("iOS13.0")]
+    [SupportedOSPlatform("MacCatalyst13.0")]
+    [SupportedOSPlatform("Windows")]
     private static SvgPath? FindSvgPath(object? sender)
     {
         return sender switch
