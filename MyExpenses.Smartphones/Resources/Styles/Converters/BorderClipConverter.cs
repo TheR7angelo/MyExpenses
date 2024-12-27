@@ -45,7 +45,7 @@ namespace MyExpenses.Smartphones.Resources.Styles.Converters
             return new CornerRadius(topLeft, topRight, bottomLeft, bottomRight);
         }
 
-        private static PathF? GetRoundRectangle(Rect baseRect, Thickness borderThickness, CornerRadius cornerRadius)
+        private static PathF GetRoundRectangle(Rect baseRect, Thickness borderThickness, CornerRadius cornerRadius)
         {
             var path = new PathF();
 

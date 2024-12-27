@@ -68,7 +68,7 @@ public static class ObjectsExtensions
         }
     }
 
-    public static T? DeepCopy<T>(this T original)
+    public static T DeepCopy<T>(this T original)
     {
         if (original is null) return original;
 

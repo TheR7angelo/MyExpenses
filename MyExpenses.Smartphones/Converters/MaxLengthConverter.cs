@@ -6,7 +6,7 @@ namespace MyExpenses.Smartphones.Converters;
 
 public class MaxLengthConverter : IValueConverter
 {
-    public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
+    public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
         if (value is null || parameter is null) return 0;
 
@@ -24,7 +24,7 @@ public class MaxLengthConverter : IValueConverter
         return maxLengthAttribute?.Length ?? int.MaxValue;
     }
 
-    public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
+    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
         throw new NotImplementedException();
     }

@@ -34,7 +34,7 @@ public class PercentageConverter : IValueConverter
     /// <param name="culture">The culture to use in the conversion back.</param>
     /// <returns>The original value before conversion, or throws a NotImplementedException if the conversion back is not implemented.</returns>
     /// <exception cref="NotImplementedException">Throws when the conversion back is not implemented.</exception>
-    public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
+    public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
         throw new NotImplementedException();
     }
