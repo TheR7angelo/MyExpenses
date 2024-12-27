@@ -8,7 +8,7 @@ using Serilog.Extensions.Logging;
 
 namespace MyExpenses.Sql.Context;
 
-public partial class DataBaseContext : DbContext
+public class DataBaseContext : DbContext
 {
     // ReSharper disable once UnusedMember.Local
     private static readonly ILoggerFactory LoggerFactory = new SerilogLoggerFactory();
