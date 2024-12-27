@@ -1,5 +1,6 @@
 ﻿VACUUM;
 
+-- noinspection SqlWithoutWhere
 DELETE
 FROM t_supported_languages;
 INSERT INTO t_supported_languages(id, code, native_name, english_name, default_language, date_added)
