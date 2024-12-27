@@ -23,6 +23,6 @@ public class StringIsChecked
 
     public override int GetHashCode()
     {
-        return HashCode.Combine(StringValue, IsChecked);
+        return StringValue is null ? 0 : StringValue.GetHashCode();
     }
 }

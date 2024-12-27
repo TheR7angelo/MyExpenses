@@ -23,6 +23,6 @@ public class DoubleIsChecked
 
     public override int GetHashCode()
     {
-        return HashCode.Combine(DoubleValue, IsChecked);
+        return  DoubleValue is null ? 0 : DoubleValue.GetHashCode();
     }
 }

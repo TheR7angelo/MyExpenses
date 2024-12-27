@@ -23,6 +23,6 @@ public class BoolIsChecked : IEquatable<BoolIsChecked>
 
     public override int GetHashCode()
     {
-        return HashCode.Combine(BoolValue, IsChecked);
+        return BoolValue.GetHashCode();
     }
 }
