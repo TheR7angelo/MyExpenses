@@ -6,7 +6,7 @@ namespace MyExpenses.Smartphones.UserControls.Pickers;
 public partial class CustomPicker
 {
     public static readonly BindableProperty GeometryColorProperty =
-        BindableProperty.Create(nameof(GeometryColor), typeof(Color), typeof(CustomPicker), default(Color));
+        BindableProperty.Create(nameof(GeometryColor), typeof(Color), typeof(CustomPicker));
 
     public Color GeometryColor
     {
@@ -24,7 +24,7 @@ public partial class CustomPicker
     }
 
     public static readonly BindableProperty SelectedItemProperty = BindableProperty.Create(nameof(SelectedItem), typeof(
-        object), typeof(CustomPicker), default(object));
+        object), typeof(CustomPicker));
 
     public object? SelectedItem
     {
@@ -33,7 +33,7 @@ public partial class CustomPicker
     }
 
     public static readonly BindableProperty ItemsSourceProperty =
-        BindableProperty.Create(nameof(ItemsSource), typeof(IList), typeof(CustomPicker), default(IList));
+        BindableProperty.Create(nameof(ItemsSource), typeof(IList), typeof(CustomPicker));
 
     public IList ItemsSource
     {
@@ -51,7 +51,7 @@ public partial class CustomPicker
     }
 
     public static readonly BindableProperty PlaceholderTextProperty =
-        BindableProperty.Create(nameof(PlaceholderText), typeof(string), typeof(CustomPicker), default(string));
+        BindableProperty.Create(nameof(PlaceholderText), typeof(string), typeof(CustomPicker));
 
     public string PlaceholderText
     {

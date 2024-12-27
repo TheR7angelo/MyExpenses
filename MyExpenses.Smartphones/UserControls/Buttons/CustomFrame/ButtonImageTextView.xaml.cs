@@ -5,7 +5,7 @@ namespace MyExpenses.Smartphones.UserControls.Buttons.CustomFrame;
 public sealed partial class ButtonImageTextView
 {
     public static readonly BindableProperty TextColorProperty =
-        BindableProperty.Create(nameof(TextColor), typeof(Color), typeof(ButtonImageTextView), default(Color));
+        BindableProperty.Create(nameof(TextColor), typeof(Color), typeof(ButtonImageTextView));
 
     public Color TextColor
     {
@@ -43,7 +43,7 @@ public sealed partial class ButtonImageTextView
     }
 
     public static readonly BindableProperty LabelTextProperty =
-        BindableProperty.Create(nameof(LabelText), typeof(string), typeof(ButtonImageTextView), default(string));
+        BindableProperty.Create(nameof(LabelText), typeof(string), typeof(ButtonImageTextView));
 
     public string LabelText
     {

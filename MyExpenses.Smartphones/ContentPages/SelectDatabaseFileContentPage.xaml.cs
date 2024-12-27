@@ -15,8 +15,7 @@ public partial class SelectDatabaseFileContentPage
     private readonly TaskCompletionSource<bool> _taskCompletionSource;
 
     public static readonly BindableProperty ButtonCancelContentProperty =
-        BindableProperty.Create(nameof(ButtonCancelContent), typeof(string), typeof(SelectDatabaseFileContentPage),
-            default(string));
+        BindableProperty.Create(nameof(ButtonCancelContent), typeof(string), typeof(SelectDatabaseFileContentPage));
 
     public string ButtonCancelContent
     {
@@ -25,8 +24,7 @@ public partial class SelectDatabaseFileContentPage
     }
 
     public static readonly BindableProperty ButtonValidMidContentProperty =
-        BindableProperty.Create(nameof(ButtonValidMidContent), typeof(string), typeof(SelectDatabaseFileContentPage),
-            default(string));
+        BindableProperty.Create(nameof(ButtonValidMidContent), typeof(string), typeof(SelectDatabaseFileContentPage));
 
     public string ButtonValidMidContent
     {

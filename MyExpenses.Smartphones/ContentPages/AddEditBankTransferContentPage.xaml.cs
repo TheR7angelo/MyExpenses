@@ -18,7 +18,7 @@ public partial class AddEditBankTransferContentPage
 {
     public static readonly BindableProperty LabelTextTransferPaymentModeProperty =
         BindableProperty.Create(nameof(LabelTextTransferPaymentMode), typeof(string),
-            typeof(AddEditBankTransferContentPage), default(string));
+            typeof(AddEditBankTransferContentPage), defaultValue: null);
 
     public string LabelTextTransferPaymentMode
     {
@@ -28,7 +28,7 @@ public partial class AddEditBankTransferContentPage
 
     public static readonly BindableProperty LabelTextTransferCategoryProperty =
         BindableProperty.Create(nameof(LabelTextTransferCategory), typeof(string),
-            typeof(AddEditBankTransferContentPage), default(string));
+            typeof(AddEditBankTransferContentPage));
 
     public string LabelTextTransferCategory
     {
@@ -38,7 +38,7 @@ public partial class AddEditBankTransferContentPage
 
     public static readonly BindableProperty CustomEntryControlPlaceholderTextAdditionalReasonProperty =
         BindableProperty.Create(nameof(CustomEntryControlPlaceholderTextAdditionalReason), typeof(string),
-            typeof(AddEditBankTransferContentPage), default(string));
+            typeof(AddEditBankTransferContentPage));
 
     public string CustomEntryControlPlaceholderTextAdditionalReason
     {
@@ -48,7 +48,7 @@ public partial class AddEditBankTransferContentPage
 
     public static readonly BindableProperty CustomEntryControlPlaceholderTextMainReasonProperty =
         BindableProperty.Create(nameof(CustomEntryControlPlaceholderTextMainReason), typeof(string),
-            typeof(AddEditBankTransferContentPage), default(string));
+            typeof(AddEditBankTransferContentPage));
 
     public string CustomEntryControlPlaceholderTextMainReason
     {
@@ -57,8 +57,7 @@ public partial class AddEditBankTransferContentPage
     }
 
     public static readonly BindableProperty LabelTextToAccountToProperty =
-        BindableProperty.Create(nameof(LabelTextToAccountTo), typeof(string), typeof(AddEditBankTransferContentPage),
-            default(string));
+        BindableProperty.Create(nameof(LabelTextToAccountTo), typeof(string), typeof(AddEditBankTransferContentPage));
 
     public string LabelTextToAccountTo
     {
@@ -67,8 +66,7 @@ public partial class AddEditBankTransferContentPage
     }
 
     public static readonly BindableProperty LabelTextTransferValueProperty =
-        BindableProperty.Create(nameof(LabelTextTransferValue), typeof(string), typeof(AddEditBankTransferContentPage),
-            default(string));
+        BindableProperty.Create(nameof(LabelTextTransferValue), typeof(string), typeof(AddEditBankTransferContentPage));
 
     public string LabelTextTransferValue
     {
@@ -77,8 +75,7 @@ public partial class AddEditBankTransferContentPage
     }
 
     public static readonly BindableProperty ButtonCancelUpdateTextProperty =
-        BindableProperty.Create(nameof(ButtonCancelUpdateText), typeof(string), typeof(AddEditBankTransferContentPage),
-            default(string));
+        BindableProperty.Create(nameof(ButtonCancelUpdateText), typeof(string), typeof(AddEditBankTransferContentPage));
 
     public string ButtonCancelUpdateText
     {
@@ -87,8 +84,7 @@ public partial class AddEditBankTransferContentPage
     }
 
     public static readonly BindableProperty ButtonCanBeDeletedTextProperty =
-        BindableProperty.Create(nameof(ButtonCanBeDeletedText), typeof(string), typeof(AddEditBankTransferContentPage),
-            default(string));
+        BindableProperty.Create(nameof(ButtonCanBeDeletedText), typeof(string), typeof(AddEditBankTransferContentPage));
 
     public string ButtonCanBeDeletedText
     {
@@ -97,7 +93,7 @@ public partial class AddEditBankTransferContentPage
     }
 
     public static readonly BindableProperty ButtonUpdateTextProperty = BindableProperty.Create(nameof(ButtonUpdateText),
-        typeof(string), typeof(AddEditBankTransferContentPage), default(string));
+        typeof(string), typeof(AddEditBankTransferContentPage));
 
     public string ButtonUpdateText
     {
@@ -106,8 +102,7 @@ public partial class AddEditBankTransferContentPage
     }
 
     public static readonly BindableProperty FromAccountSymbolProperty =
-        BindableProperty.Create(nameof(FromAccountSymbol), typeof(string), typeof(AddEditBankTransferContentPage),
-            default(string));
+        BindableProperty.Create(nameof(FromAccountSymbol), typeof(string), typeof(AddEditBankTransferContentPage));
 
     public string FromAccountSymbol
     {
@@ -134,8 +129,7 @@ public partial class AddEditBankTransferContentPage
     }
 
     public static readonly BindableProperty LabelTextTransferDateProperty =
-        BindableProperty.Create(nameof(LabelTextTransferDate), typeof(string), typeof(AddEditBankTransferContentPage),
-            default(string));
+        BindableProperty.Create(nameof(LabelTextTransferDate), typeof(string), typeof(AddEditBankTransferContentPage));
 
     public string LabelTextTransferDate
     {
@@ -145,7 +139,7 @@ public partial class AddEditBankTransferContentPage
 
     public static readonly BindableProperty LabelTextFromAccountFromProperty =
         BindableProperty.Create(nameof(LabelTextFromAccountFrom), typeof(string),
-            typeof(AddEditBankTransferContentPage), default(string));
+            typeof(AddEditBankTransferContentPage));
 
     public string LabelTextFromAccountFrom
     {
@@ -155,7 +149,7 @@ public partial class AddEditBankTransferContentPage
 
     public static readonly BindableProperty SelectedCategoryTypeProperty = BindableProperty.Create(
         nameof(SelectedCategoryType), typeof(TCategoryType),
-        typeof(AddEditBankTransferContentPage), default(TCategoryType));
+        typeof(AddEditBankTransferContentPage));
 
     public TCategoryType? SelectedCategoryType
     {
@@ -167,7 +161,7 @@ public partial class AddEditBankTransferContentPage
 
     public static readonly BindableProperty SelectedModePaymentProperty =
         BindableProperty.Create(nameof(SelectedModePayment), typeof(TModePayment),
-            typeof(AddEditBankTransferContentPage), default(TModePayment));
+            typeof(AddEditBankTransferContentPage));
 
     public TModePayment? SelectedModePayment
     {

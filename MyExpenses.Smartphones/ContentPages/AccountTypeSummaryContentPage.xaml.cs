@@ -20,7 +20,7 @@ namespace MyExpenses.Smartphones.ContentPages;
 public partial class AccountTypeSummaryContentPage
 {
     public static readonly BindableProperty ButtonValidTextProperty = BindableProperty.Create(nameof(ButtonValidText),
-        typeof(string), typeof(AccountTypeSummaryContentPage), default(string));
+        typeof(string), typeof(AccountTypeSummaryContentPage));
 
     public string ButtonValidText
     {
@@ -29,7 +29,7 @@ public partial class AccountTypeSummaryContentPage
     }
 
     public static readonly BindableProperty AccountTypeNameProperty = BindableProperty.Create(nameof(AccountTypeName),
-        typeof(string), typeof(AccountTypeSummaryContentPage), default(string));
+        typeof(string), typeof(AccountTypeSummaryContentPage));
 
     public string AccountTypeName
     {
@@ -38,7 +38,7 @@ public partial class AccountTypeSummaryContentPage
     }
 
     public static readonly BindableProperty PlaceholderTextProperty = BindableProperty.Create(nameof(PlaceholderText),
-        typeof(string), typeof(AccountTypeSummaryContentPage), default(string));
+        typeof(string), typeof(AccountTypeSummaryContentPage));
 
     public string PlaceholderText
     {

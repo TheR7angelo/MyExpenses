@@ -12,7 +12,7 @@ namespace MyExpenses.Smartphones.ContentPages.CustomPopups;
 public partial class CustomPopupFilterPlaces : ICustomPopupFilter<TPlaceDerive>
 {
     public static readonly BindableProperty ButtonCloseTextProperty = BindableProperty.Create(nameof(ButtonCloseText),
-        typeof(string), typeof(CustomPopupFilterPlaces), default(string));
+        typeof(string), typeof(CustomPopupFilterPlaces));
 
     public string ButtonCloseText
     {
@@ -21,8 +21,7 @@ public partial class CustomPopupFilterPlaces : ICustomPopupFilter<TPlaceDerive>
     }
 
     public static readonly BindableProperty SearchBarPlaceHolderTextProperty =
-        BindableProperty.Create(nameof(SearchBarPlaceHolderText), typeof(string), typeof(CustomPopupFilterPlaces),
-            default(string));
+        BindableProperty.Create(nameof(SearchBarPlaceHolderText), typeof(string), typeof(CustomPopupFilterPlaces));
 
     public string SearchBarPlaceHolderText
     {

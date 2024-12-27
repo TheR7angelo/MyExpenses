@@ -16,7 +16,7 @@ namespace MyExpenses.Smartphones.ContentPages;
 public partial class AddEditAccountContentPage
 {
     public static readonly BindableProperty ButtonCancelTextProperty = BindableProperty.Create(nameof(ButtonCancelText),
-        typeof(string), typeof(AddEditAccountContentPage), default(string));
+        typeof(string), typeof(AddEditAccountContentPage));
 
     public string ButtonCancelText
     {
@@ -25,7 +25,7 @@ public partial class AddEditAccountContentPage
     }
 
     public static readonly BindableProperty ButtonDeleteTextProperty = BindableProperty.Create(nameof(ButtonDeleteText),
-        typeof(string), typeof(AddEditAccountContentPage), default(string));
+        typeof(string), typeof(AddEditAccountContentPage));
 
     public string ButtonDeleteText
     {
@@ -34,7 +34,7 @@ public partial class AddEditAccountContentPage
     }
 
     public static readonly BindableProperty ButtonValidTextProperty = BindableProperty.Create(nameof(ButtonValidText),
-        typeof(string), typeof(AddEditAccountContentPage), default(string));
+        typeof(string), typeof(AddEditAccountContentPage));
 
     public string ButtonValidText
     {
@@ -43,8 +43,7 @@ public partial class AddEditAccountContentPage
     }
 
     public static readonly BindableProperty LabelTextTitleAccountTypeProperty =
-        BindableProperty.Create(nameof(LabelTextTitleAccountType), typeof(string), typeof(AddEditAccountContentPage),
-            default(string));
+        BindableProperty.Create(nameof(LabelTextTitleAccountType), typeof(string), typeof(AddEditAccountContentPage));
 
     public string LabelTextTitleAccountType
     {
@@ -53,8 +52,7 @@ public partial class AddEditAccountContentPage
     }
 
     public static readonly BindableProperty LabelTextTitleCurrencyProperty =
-        BindableProperty.Create(nameof(LabelTextTitleCurrency), typeof(string), typeof(AddEditAccountContentPage),
-            default(string));
+        BindableProperty.Create(nameof(LabelTextTitleCurrency), typeof(string), typeof(AddEditAccountContentPage));
 
     public string LabelTextTitleCurrency
     {
@@ -63,7 +61,7 @@ public partial class AddEditAccountContentPage
     }
 
     public static readonly BindableProperty PlaceholderTextProperty = BindableProperty.Create(nameof(PlaceholderText),
-        typeof(string), typeof(AddEditAccountContentPage), default(string));
+        typeof(string), typeof(AddEditAccountContentPage));
 
     public string PlaceholderText
     {

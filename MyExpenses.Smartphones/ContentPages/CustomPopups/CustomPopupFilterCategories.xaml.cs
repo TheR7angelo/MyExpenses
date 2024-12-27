@@ -21,8 +21,7 @@ public partial class CustomPopupFilterCategories : ICustomPopupFilter<VCategoryD
     }
 
     public static readonly BindableProperty SearchBarPlaceHolderTextProperty =
-        BindableProperty.Create(nameof(SearchBarPlaceHolderText), typeof(string), typeof(CustomPopupFilterCategories),
-            default(string));
+        BindableProperty.Create(nameof(SearchBarPlaceHolderText), typeof(string), typeof(CustomPopupFilterCategories));
 
     public string SearchBarPlaceHolderText
     {
@@ -31,7 +30,7 @@ public partial class CustomPopupFilterCategories : ICustomPopupFilter<VCategoryD
     }
 
     public static readonly BindableProperty ButtonCloseTextProperty = BindableProperty.Create(nameof(ButtonCloseText),
-        typeof(string), typeof(CustomPopupFilterCategories), default(string));
+        typeof(string), typeof(CustomPopupFilterCategories));
 
     public string ButtonCloseText
     {

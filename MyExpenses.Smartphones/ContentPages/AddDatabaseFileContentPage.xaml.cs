@@ -10,7 +10,7 @@ namespace MyExpenses.Smartphones.ContentPages;
 public partial class AddDatabaseFileContentPage
 {
     public static readonly BindableProperty DatabaseFilenameProperty = BindableProperty.Create(nameof(DatabaseFilename),
-        typeof(string), typeof(AddDatabaseFileContentPage), default(string));
+        typeof(string), typeof(AddDatabaseFileContentPage));
 
     public string DatabaseFilename
     {
@@ -21,8 +21,7 @@ public partial class AddDatabaseFileContentPage
     private List<ExistingDatabase> ExistingDatabases { get; } = [];
 
     public static readonly BindableProperty ButtonCancelContentProperty =
-        BindableProperty.Create(nameof(ButtonCancelContent), typeof(string), typeof(AddDatabaseFileContentPage),
-            default(string));
+        BindableProperty.Create(nameof(ButtonCancelContent), typeof(string), typeof(AddDatabaseFileContentPage));
 
     public string ButtonCancelContent
     {
@@ -31,8 +30,7 @@ public partial class AddDatabaseFileContentPage
     }
 
     public static readonly BindableProperty ButtonValidContentProperty =
-        BindableProperty.Create(nameof(ButtonValidContent), typeof(string), typeof(AddDatabaseFileContentPage),
-            default(string));
+        BindableProperty.Create(nameof(ButtonValidContent), typeof(string), typeof(AddDatabaseFileContentPage));
 
     public string ButtonValidContent
     {
@@ -42,7 +40,7 @@ public partial class AddDatabaseFileContentPage
 
     public static readonly BindableProperty CustomEntryControlPlaceholderTextProperty =
         BindableProperty.Create(nameof(CustomEntryControlPlaceholderText), typeof(string),
-            typeof(AddDatabaseFileContentPage), default(string));
+            typeof(AddDatabaseFileContentPage));
 
     public string CustomEntryControlPlaceholderText
     {

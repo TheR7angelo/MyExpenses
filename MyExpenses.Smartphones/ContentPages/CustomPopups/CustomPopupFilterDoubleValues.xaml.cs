@@ -12,7 +12,7 @@ namespace MyExpenses.Smartphones.ContentPages.CustomPopups;
 public partial class CustomPopupFilterDoubleValues : ICustomPopupFilter<DoubleIsChecked>
 {
     public static readonly BindableProperty ButtonCloseTextProperty = BindableProperty.Create(nameof(ButtonCloseText),
-        typeof(string), typeof(CustomPopupFilterDoubleValues), default(string));
+        typeof(string), typeof(CustomPopupFilterDoubleValues));
 
     public string ButtonCloseText
     {
@@ -21,8 +21,7 @@ public partial class CustomPopupFilterDoubleValues : ICustomPopupFilter<DoubleIs
     }
 
     public static readonly BindableProperty SearchBarPlaceHolderTextProperty =
-        BindableProperty.Create(nameof(SearchBarPlaceHolderText), typeof(string), typeof(CustomPopupFilterDoubleValues),
-            default(string));
+        BindableProperty.Create(nameof(SearchBarPlaceHolderText), typeof(string), typeof(CustomPopupFilterDoubleValues));
 
     public string SearchBarPlaceHolderText
     {

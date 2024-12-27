@@ -8,7 +8,7 @@ namespace MyExpenses.Smartphones.ContentPages.CustomPopups;
 public partial class CustomPopupEntry
 {
     public static readonly BindableProperty ButtonCancelTextProperty = BindableProperty.Create(nameof(ButtonCancelText),
-        typeof(string), typeof(CustomPopupEntry), default(string));
+        typeof(string), typeof(CustomPopupEntry));
 
     public string ButtonCancelText
     {
@@ -17,7 +17,7 @@ public partial class CustomPopupEntry
     }
 
     public static readonly BindableProperty ButtonDeleteTextProperty = BindableProperty.Create(nameof(ButtonDeleteText),
-        typeof(string), typeof(CustomPopupEntry), default(string));
+        typeof(string), typeof(CustomPopupEntry));
 
     public string ButtonDeleteText
     {
@@ -26,7 +26,7 @@ public partial class CustomPopupEntry
     }
 
     public static readonly BindableProperty ButtonValidTextProperty = BindableProperty.Create(nameof(ButtonValidText),
-        typeof(string), typeof(CustomPopupEntry), default(string));
+        typeof(string), typeof(CustomPopupEntry));
 
     public string ButtonValidText
     {
@@ -44,7 +44,7 @@ public partial class CustomPopupEntry
     }
 
     public static readonly BindableProperty HasMultilineProperty =
-        BindableProperty.Create(nameof(HasMultiline), typeof(string), typeof(CustomPopupEntry), default(string));
+        BindableProperty.Create(nameof(HasMultiline), typeof(string), typeof(CustomPopupEntry));
 
     public string HasMultiline
     {
@@ -62,7 +62,7 @@ public partial class CustomPopupEntry
     }
 
     public static readonly BindableProperty TextProperty =
-        BindableProperty.Create(nameof(EntryText), typeof(string), typeof(CustomPopupEntry), default(string));
+        BindableProperty.Create(nameof(EntryText), typeof(string), typeof(CustomPopupEntry));
 
     public string EntryText
     {
@@ -71,7 +71,7 @@ public partial class CustomPopupEntry
     }
 
     public static readonly BindableProperty PlaceholderTextProperty = BindableProperty.Create(nameof(PlaceholderText),
-        typeof(string), typeof(CustomPopupEntry), default(string));
+        typeof(string), typeof(CustomPopupEntry));
 
     public string PlaceholderText
     {

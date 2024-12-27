@@ -11,7 +11,7 @@ namespace MyExpenses.Smartphones.ContentPages.CustomPopups;
 public partial class CustomPopupEditCategory
 {
     public static readonly BindableProperty ButtonCancelTextProperty = BindableProperty.Create(nameof(ButtonCancelText),
-        typeof(string), typeof(CustomPopupEditCategory), default(string));
+        typeof(string), typeof(CustomPopupEditCategory));
 
     public string ButtonCancelText
     {
@@ -20,7 +20,7 @@ public partial class CustomPopupEditCategory
     }
 
     public static readonly BindableProperty ButtonDeleteTextProperty = BindableProperty.Create(nameof(ButtonDeleteText),
-        typeof(string), typeof(CustomPopupEditCategory), default(string));
+        typeof(string), typeof(CustomPopupEditCategory));
 
     public string ButtonDeleteText
     {
@@ -29,7 +29,7 @@ public partial class CustomPopupEditCategory
     }
 
     public static readonly BindableProperty ButtonValidTextProperty = BindableProperty.Create(nameof(ButtonValidText),
-        typeof(string), typeof(CustomPopupEditCategory), default(string));
+        typeof(string), typeof(CustomPopupEditCategory));
 
     public string ButtonValidText
     {
@@ -47,7 +47,7 @@ public partial class CustomPopupEditCategory
     }
 
     public static readonly BindableProperty LabelTextColorProperty = BindableProperty.Create(nameof(LabelTextColor),
-        typeof(string), typeof(CustomPopupEditCategory), default(string));
+        typeof(string), typeof(CustomPopupEditCategory));
 
     public string LabelTextColor
     {
@@ -65,7 +65,7 @@ public partial class CustomPopupEditCategory
     }
 
     public static readonly BindableProperty EntryTextProperty = BindableProperty.Create(nameof(EntryText),
-        typeof(string), typeof(CustomPopupEditCategory), default(string));
+        typeof(string), typeof(CustomPopupEditCategory));
 
     public string EntryText
     {
@@ -75,7 +75,7 @@ public partial class CustomPopupEditCategory
 
 
     public static readonly BindableProperty PlaceholderTextProperty = BindableProperty.Create(nameof(PlaceholderText),
-        typeof(string), typeof(CustomPopupEditCategory), default(string));
+        typeof(string), typeof(CustomPopupEditCategory));
 
     public string PlaceholderText
     {
@@ -94,7 +94,7 @@ public partial class CustomPopupEditCategory
     }
 
     public static readonly BindableProperty SelectedColorProperty = BindableProperty.Create(nameof(SelectedColor),
-        typeof(TColor), typeof(CustomPopupEditCategory), default(TColor));
+        typeof(TColor), typeof(CustomPopupEditCategory));
 
     public TColor? SelectedColor
     {

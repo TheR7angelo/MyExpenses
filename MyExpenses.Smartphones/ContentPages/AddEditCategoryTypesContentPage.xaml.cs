@@ -20,7 +20,7 @@ namespace MyExpenses.Smartphones.ContentPages;
 public partial class AddEditCategoryTypesContentPage
 {
     public static readonly BindableProperty ButtonValidTextProperty = BindableProperty.Create(nameof(ButtonValidText),
-        typeof(string), typeof(AddEditCategoryTypesContentPage), default(string));
+        typeof(string), typeof(AddEditCategoryTypesContentPage));
 
     public string ButtonValidText
     {
@@ -29,7 +29,7 @@ public partial class AddEditCategoryTypesContentPage
     }
 
     public static readonly BindableProperty PlaceholderTextProperty = BindableProperty.Create(nameof(PlaceholderText),
-        typeof(string), typeof(AddEditCategoryTypesContentPage), default(string));
+        typeof(string), typeof(AddEditCategoryTypesContentPage));
 
     public string PlaceholderText
     {
@@ -48,7 +48,7 @@ public partial class AddEditCategoryTypesContentPage
     }
 
     public static readonly BindableProperty SelectedColorProperty = BindableProperty.Create(nameof(SelectedColor),
-        typeof(TColor), typeof(AddEditCategoryTypesContentPage), default(TColor));
+        typeof(TColor), typeof(AddEditCategoryTypesContentPage));
 
     public TColor? SelectedColor
     {
@@ -57,7 +57,7 @@ public partial class AddEditCategoryTypesContentPage
     }
 
     public static readonly BindableProperty LabelTextColorProperty = BindableProperty.Create(nameof(LabelTextColor),
-        typeof(string), typeof(AddEditCategoryTypesContentPage), default(string));
+        typeof(string), typeof(AddEditCategoryTypesContentPage));
 
     public string LabelTextColor
     {
@@ -66,7 +66,7 @@ public partial class AddEditCategoryTypesContentPage
     }
 
     public static readonly BindableProperty CategoryTypeNameProperty = BindableProperty.Create(nameof(CategoryTypeName),
-        typeof(string), typeof(AddEditCategoryTypesContentPage), default(string));
+        typeof(string), typeof(AddEditCategoryTypesContentPage));
 
     public string CategoryTypeName
     {

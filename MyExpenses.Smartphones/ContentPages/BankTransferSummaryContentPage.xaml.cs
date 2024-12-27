@@ -24,8 +24,7 @@ namespace MyExpenses.Smartphones.ContentPages;
 public partial class BankTransferSummaryContentPage
 {
     public static readonly BindableProperty LabelTextCategoryFilterProperty =
-        BindableProperty.Create(nameof(LabelTextCategoryFilter), typeof(string), typeof(BankTransferSummaryContentPage),
-            default(string));
+        BindableProperty.Create(nameof(LabelTextCategoryFilter), typeof(string), typeof(BankTransferSummaryContentPage));
 
     public string LabelTextCategoryFilter
     {
@@ -35,7 +34,7 @@ public partial class BankTransferSummaryContentPage
 
     public static readonly BindableProperty LabelTextToAdditionalReasonFilterProperty =
         BindableProperty.Create(nameof(LabelTextToAdditionalReasonFilter), typeof(string),
-            typeof(BankTransferSummaryContentPage), default(string));
+            typeof(BankTransferSummaryContentPage));
 
     public string LabelTextToAdditionalReasonFilter
     {
@@ -45,7 +44,7 @@ public partial class BankTransferSummaryContentPage
 
     public static readonly BindableProperty LabelTextMainReasonFilterProperty =
         BindableProperty.Create(nameof(LabelTextMainReasonFilter), typeof(string),
-            typeof(BankTransferSummaryContentPage), default(string));
+            typeof(BankTransferSummaryContentPage));
 
     public string LabelTextMainReasonFilter
     {
@@ -54,8 +53,7 @@ public partial class BankTransferSummaryContentPage
     }
 
     public static readonly BindableProperty LabelTextValueFilterProperty =
-        BindableProperty.Create(nameof(LabelTextValueFilter), typeof(string), typeof(BankTransferSummaryContentPage),
-            default(string));
+        BindableProperty.Create(nameof(LabelTextValueFilter), typeof(string), typeof(BankTransferSummaryContentPage));
 
     public string LabelTextValueFilter
     {
@@ -65,7 +63,7 @@ public partial class BankTransferSummaryContentPage
 
     public static readonly BindableProperty LabelTextToAccountFilterProperty =
         BindableProperty.Create(nameof(LabelTextToAccountFilter), typeof(string),
-            typeof(BankTransferSummaryContentPage), default(string));
+            typeof(BankTransferSummaryContentPage));
 
     public string LabelTextToAccountFilter
     {
@@ -75,7 +73,7 @@ public partial class BankTransferSummaryContentPage
 
     public static readonly BindableProperty LabelTextFromAccountFilterProperty =
         BindableProperty.Create(nameof(LabelTextFromAccountFilter), typeof(string),
-            typeof(BankTransferSummaryContentPage), default(string));
+            typeof(BankTransferSummaryContentPage));
 
     public string LabelTextFromAccountFilter
     {
@@ -85,7 +83,7 @@ public partial class BankTransferSummaryContentPage
 
     public static readonly BindableProperty LabelTextAdditionalReasonProperty =
         BindableProperty.Create(nameof(LabelTextAdditionalReason), typeof(string),
-            typeof(BankTransferSummaryContentPage), default(string));
+            typeof(BankTransferSummaryContentPage));
 
     public string LabelTextAdditionalReason
     {
@@ -94,8 +92,7 @@ public partial class BankTransferSummaryContentPage
     }
 
     public static readonly BindableProperty LabelTextMainReasonProperty =
-        BindableProperty.Create(nameof(LabelTextMainReason), typeof(string), typeof(BankTransferSummaryContentPage),
-            default(string));
+        BindableProperty.Create(nameof(LabelTextMainReason), typeof(string), typeof(BankTransferSummaryContentPage));
 
     public string LabelTextMainReason
     {
@@ -104,7 +101,7 @@ public partial class BankTransferSummaryContentPage
     }
 
     public static readonly BindableProperty LabelTextDateProperty = BindableProperty.Create(nameof(LabelTextDate),
-        typeof(string), typeof(BankTransferSummaryContentPage), default(string));
+        typeof(string), typeof(BankTransferSummaryContentPage));
 
     public string LabelTextDate
     {
@@ -113,7 +110,7 @@ public partial class BankTransferSummaryContentPage
     }
 
     public static readonly BindableProperty LabelTextValueProperty = BindableProperty.Create(nameof(LabelTextValue),
-        typeof(string), typeof(BankTransferSummaryContentPage), default(string));
+        typeof(string), typeof(BankTransferSummaryContentPage));
 
     public string LabelTextValue
     {
@@ -122,8 +119,7 @@ public partial class BankTransferSummaryContentPage
     }
 
     public static readonly BindableProperty ElapsedTimeLoadingDataProperty =
-        BindableProperty.Create(nameof(ElapsedTimeLoadingData), typeof(string), typeof(BankTransferSummaryContentPage),
-            default(string));
+        BindableProperty.Create(nameof(ElapsedTimeLoadingData), typeof(string), typeof(BankTransferSummaryContentPage));
 
     public string ElapsedTimeLoadingData
     {
@@ -133,7 +129,7 @@ public partial class BankTransferSummaryContentPage
 
     public static readonly BindableProperty ElapsedTimeLoadingDataTextProperty =
         BindableProperty.Create(nameof(ElapsedTimeLoadingDataText), typeof(string),
-            typeof(BankTransferSummaryContentPage), default(string));
+            typeof(BankTransferSummaryContentPage));
 
     public string ElapsedTimeLoadingDataText
     {
@@ -151,7 +147,7 @@ public partial class BankTransferSummaryContentPage
     }
 
     public static readonly BindableProperty RecordFoundOnProperty = BindableProperty.Create(nameof(RecordFoundOn),
-        typeof(string), typeof(BankTransferSummaryContentPage), default(string));
+        typeof(string), typeof(BankTransferSummaryContentPage));
 
     public string RecordFoundOn
     {
@@ -170,8 +166,7 @@ public partial class BankTransferSummaryContentPage
     }
 
     public static readonly BindableProperty LabelTextToAccountProperty =
-        BindableProperty.Create(nameof(LabelTextToAccount), typeof(string), typeof(BankTransferSummaryContentPage),
-            default(string));
+        BindableProperty.Create(nameof(LabelTextToAccount), typeof(string), typeof(BankTransferSummaryContentPage));
 
     public string LabelTextToAccount
     {
@@ -180,7 +175,7 @@ public partial class BankTransferSummaryContentPage
     }
 
     public static readonly BindableProperty LabelTextAfterProperty = BindableProperty.Create(nameof(LabelTextAfter),
-        typeof(string), typeof(BankTransferSummaryContentPage), default(string));
+        typeof(string), typeof(BankTransferSummaryContentPage));
 
     public string LabelTextAfter
     {
@@ -189,7 +184,7 @@ public partial class BankTransferSummaryContentPage
     }
 
     public static readonly BindableProperty LabelTextBeforeProperty = BindableProperty.Create(nameof(LabelTextBefore),
-        typeof(string), typeof(BankTransferSummaryContentPage), default(string));
+        typeof(string), typeof(BankTransferSummaryContentPage));
 
     public string LabelTextBefore
     {
@@ -198,7 +193,7 @@ public partial class BankTransferSummaryContentPage
     }
 
     public static readonly BindableProperty LabelTextBalanceProperty = BindableProperty.Create(nameof(LabelTextBalance),
-        typeof(string), typeof(BankTransferSummaryContentPage), default(string));
+        typeof(string), typeof(BankTransferSummaryContentPage));
 
     public string LabelTextBalance
     {
@@ -207,8 +202,7 @@ public partial class BankTransferSummaryContentPage
     }
 
     public static readonly BindableProperty LabelTextFromAccountProperty =
-        BindableProperty.Create(nameof(LabelTextFromAccount), typeof(string), typeof(BankTransferSummaryContentPage),
-            default(string));
+        BindableProperty.Create(nameof(LabelTextFromAccount), typeof(string), typeof(BankTransferSummaryContentPage));
 
     public string LabelTextFromAccount
     {
@@ -217,8 +211,7 @@ public partial class BankTransferSummaryContentPage
     }
 
     public static readonly BindableProperty ComboBoxMonthHintAssistProperty =
-        BindableProperty.Create(nameof(ComboBoxMonthHintAssist), typeof(string), typeof(BankTransferSummaryContentPage),
-            default(string));
+        BindableProperty.Create(nameof(ComboBoxMonthHintAssist), typeof(string), typeof(BankTransferSummaryContentPage));
 
     public string ComboBoxMonthHintAssist
     {
@@ -227,8 +220,7 @@ public partial class BankTransferSummaryContentPage
     }
 
     public static readonly BindableProperty ComboBoxYearsHintAssistProperty =
-        BindableProperty.Create(nameof(ComboBoxYearsHintAssist), typeof(string), typeof(BankTransferSummaryContentPage),
-            default(string));
+        BindableProperty.Create(nameof(ComboBoxYearsHintAssist), typeof(string), typeof(BankTransferSummaryContentPage));
 
     public string ComboBoxYearsHintAssist
     {
@@ -237,7 +229,7 @@ public partial class BankTransferSummaryContentPage
     }
 
     public static readonly BindableProperty SelectedYearProperty = BindableProperty.Create(nameof(SelectedYear),
-        typeof(string), typeof(BankTransferSummaryContentPage), default(string));
+        typeof(string), typeof(BankTransferSummaryContentPage));
 
     public string SelectedYear
     {
@@ -246,7 +238,7 @@ public partial class BankTransferSummaryContentPage
     }
 
     public static readonly BindableProperty SelectedMonthProperty = BindableProperty.Create(nameof(SelectedMonth),
-        typeof(string), typeof(BankTransferSummaryContentPage), default(string));
+        typeof(string), typeof(BankTransferSummaryContentPage));
 
     public string SelectedMonth
     {

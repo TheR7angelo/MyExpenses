@@ -20,7 +20,7 @@ namespace MyExpenses.Smartphones.ContentPages;
 public partial class CurrencySymbolSummaryContentPage
 {
     public static readonly BindableProperty ButtonValidTextProperty = BindableProperty.Create(nameof(ButtonValidText),
-        typeof(string), typeof(CurrencySymbolSummaryContentPage), default(string));
+        typeof(string), typeof(CurrencySymbolSummaryContentPage));
 
     public string ButtonValidText
     {
@@ -29,7 +29,7 @@ public partial class CurrencySymbolSummaryContentPage
     }
 
     public static readonly BindableProperty SymbolTextProperty = BindableProperty.Create(nameof(SymbolText),
-        typeof(string), typeof(CurrencySymbolSummaryContentPage), default(string));
+        typeof(string), typeof(CurrencySymbolSummaryContentPage));
 
     public string SymbolText
     {
@@ -38,7 +38,7 @@ public partial class CurrencySymbolSummaryContentPage
     }
 
     public static readonly BindableProperty PlaceholderTextProperty = BindableProperty.Create(nameof(PlaceholderText),
-        typeof(string), typeof(CurrencySymbolSummaryContentPage), default(string));
+        typeof(string), typeof(CurrencySymbolSummaryContentPage));
 
     public string PlaceholderText
     {

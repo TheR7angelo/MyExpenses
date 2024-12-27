@@ -28,8 +28,7 @@ namespace MyExpenses.Smartphones.ContentPages;
 public partial class DetailedRecordContentPage
 {
     public static readonly BindableProperty ButtonCanBeDeletedTextProperty =
-        BindableProperty.Create(nameof(ButtonCanBeDeletedText), typeof(string), typeof(DetailedRecordContentPage),
-            default(string));
+        BindableProperty.Create(nameof(ButtonCanBeDeletedText), typeof(string), typeof(DetailedRecordContentPage));
 
     public string ButtonCanBeDeletedText
     {
@@ -38,8 +37,7 @@ public partial class DetailedRecordContentPage
     }
 
     public static readonly BindableProperty LabelTextOnTheAccountProperty =
-        BindableProperty.Create(nameof(LabelTextOnTheAccount), typeof(string), typeof(DetailedRecordContentPage),
-            default(string));
+        BindableProperty.Create(nameof(LabelTextOnTheAccount), typeof(string), typeof(DetailedRecordContentPage));
 
     public string LabelTextOnTheAccount
     {
@@ -48,8 +46,7 @@ public partial class DetailedRecordContentPage
     }
 
     public static readonly BindableProperty ButtonCancelUpdateTextProperty =
-        BindableProperty.Create(nameof(ButtonCancelUpdateText), typeof(string), typeof(DetailedRecordContentPage),
-            default(string));
+        BindableProperty.Create(nameof(ButtonCancelUpdateText), typeof(string), typeof(DetailedRecordContentPage));
 
     public string ButtonCancelUpdateText
     {
@@ -58,7 +55,7 @@ public partial class DetailedRecordContentPage
     }
 
     public static readonly BindableProperty ButtonUpdateTextProperty = BindableProperty.Create(nameof(ButtonUpdateText),
-        typeof(string), typeof(DetailedRecordContentPage), default(string));
+        typeof(string), typeof(DetailedRecordContentPage));
 
     public string ButtonUpdateText
     {
@@ -67,7 +64,7 @@ public partial class DetailedRecordContentPage
     }
 
     public static readonly BindableProperty SelectedCountryProperty = BindableProperty.Create(nameof(SelectedCountry),
-        typeof(string), typeof(DetailedRecordContentPage), default(string));
+        typeof(string), typeof(DetailedRecordContentPage));
 
     public string? SelectedCountry
     {
@@ -76,7 +73,7 @@ public partial class DetailedRecordContentPage
     }
 
     public static readonly BindableProperty SelectedCityProperty = BindableProperty.Create(nameof(SelectedCity),
-        typeof(string), typeof(DetailedRecordContentPage), default(string));
+        typeof(string), typeof(DetailedRecordContentPage));
 
     public string SelectedCity
     {
@@ -96,7 +93,7 @@ public partial class DetailedRecordContentPage
 
     public static readonly BindableProperty PlaceholderTextPlaceProperty = BindableProperty.Create(
         nameof(PlaceholderTextPlace),
-        typeof(string), typeof(DetailedRecordContentPage), default(string));
+        typeof(string), typeof(DetailedRecordContentPage));
 
     public string PlaceholderTextPlace
     {
@@ -105,8 +102,7 @@ public partial class DetailedRecordContentPage
     }
 
     public static readonly BindableProperty PlaceholderTextCityProperty =
-        BindableProperty.Create(nameof(PlaceholderTextCity), typeof(string), typeof(DetailedRecordContentPage),
-            default(string));
+        BindableProperty.Create(nameof(PlaceholderTextCity), typeof(string), typeof(DetailedRecordContentPage));
 
     public string PlaceholderTextCity
     {
@@ -115,8 +111,7 @@ public partial class DetailedRecordContentPage
     }
 
     public static readonly BindableProperty PlaceholderTextCountryProperty =
-        BindableProperty.Create(nameof(PlaceholderTextCountry), typeof(string), typeof(DetailedRecordContentPage),
-            default(object));
+        BindableProperty.Create(nameof(PlaceholderTextCountry), typeof(string), typeof(DetailedRecordContentPage));
 
     public string PlaceholderTextCountry
     {
@@ -126,7 +121,7 @@ public partial class DetailedRecordContentPage
 
     public static readonly BindableProperty ButtonRefocusTextProperty = BindableProperty.Create(
         nameof(ButtonRefocusText),
-        typeof(string), typeof(DetailedRecordContentPage), default(string));
+        typeof(string), typeof(DetailedRecordContentPage));
 
     public string ButtonRefocusText
     {
@@ -135,8 +130,7 @@ public partial class DetailedRecordContentPage
     }
 
     public static readonly BindableProperty LabelTextPointedOnProperty =
-        BindableProperty.Create(nameof(LabelTextPointedOn), typeof(string), typeof(DetailedRecordContentPage),
-            default(string));
+        BindableProperty.Create(nameof(LabelTextPointedOn), typeof(string), typeof(DetailedRecordContentPage));
 
     public string LabelTextPointedOn
     {
@@ -145,7 +139,7 @@ public partial class DetailedRecordContentPage
     }
 
     public static readonly BindableProperty PointedOperationProperty = BindableProperty.Create(nameof(PointedOperation),
-        typeof(string), typeof(DetailedRecordContentPage), default(string));
+        typeof(string), typeof(DetailedRecordContentPage));
 
     public string PointedOperation
     {
@@ -154,7 +148,7 @@ public partial class DetailedRecordContentPage
     }
 
     public static readonly BindableProperty LabelTextAddedOnProperty = BindableProperty.Create(nameof(LabelTextAddedOn),
-        typeof(string), typeof(DetailedRecordContentPage), default(string));
+        typeof(string), typeof(DetailedRecordContentPage));
 
     public string LabelTextAddedOn
     {
@@ -181,7 +175,7 @@ public partial class DetailedRecordContentPage
     }
 
     public static readonly BindableProperty HistorySymbolProperty = BindableProperty.Create(nameof(HistorySymbol),
-        typeof(string), typeof(DetailedRecordContentPage), default(string));
+        typeof(string), typeof(DetailedRecordContentPage));
 
     public string HistorySymbol
     {

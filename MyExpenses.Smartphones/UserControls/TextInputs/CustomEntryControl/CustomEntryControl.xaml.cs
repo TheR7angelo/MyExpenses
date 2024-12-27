@@ -32,7 +32,7 @@ public partial class CustomEntryControl
     }
 
     public static readonly BindableProperty TextProperty =
-        BindableProperty.Create(nameof(Text), typeof(string), typeof(CustomEntryControl), null);
+        BindableProperty.Create(nameof(Text), typeof(string), typeof(CustomEntryControl));
 
     public string Text
     {

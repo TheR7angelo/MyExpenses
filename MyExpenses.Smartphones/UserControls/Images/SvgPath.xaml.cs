@@ -14,7 +14,7 @@ public partial class SvgPath
     }
 
     public static readonly BindableProperty GeometryColorProperty =
-        BindableProperty.Create(nameof(GeometryColor), typeof(Color), typeof(SvgPath), default(Color));
+        BindableProperty.Create(nameof(GeometryColor), typeof(Color), typeof(SvgPath));
 
     public Color GeometryColor
     {

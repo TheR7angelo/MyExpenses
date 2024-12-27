@@ -21,7 +21,7 @@ public partial class AccountManagementContentPage
 {
     public static readonly BindableProperty LabelTextTransactionTransferProperty =
         BindableProperty.Create(nameof(LabelTextTransactionTransfer), typeof(string),
-            typeof(AccountManagementContentPage), default(string));
+            typeof(AccountManagementContentPage));
 
     public string LabelTextTransactionTransfer
     {
@@ -31,7 +31,7 @@ public partial class AccountManagementContentPage
 
     public static readonly BindableProperty LabelTextTransactionHistoryProperty =
         BindableProperty.Create(nameof(LabelTextTransactionHistory), typeof(string),
-            typeof(AccountManagementContentPage), default(string));
+            typeof(AccountManagementContentPage));
 
     public string LabelTextTransactionHistory
     {

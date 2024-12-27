@@ -29,7 +29,7 @@ namespace MyExpenses.Smartphones.ContentPages;
 public partial class DashBoardContentPage
 {
     public static readonly BindableProperty RecordFoundOnProperty = BindableProperty.Create(nameof(RecordFoundOn),
-        typeof(string), typeof(DashBoardContentPage), default(string));
+        typeof(string), typeof(DashBoardContentPage));
 
     public string RecordFoundOn
     {
@@ -57,7 +57,7 @@ public partial class DashBoardContentPage
 
     public static readonly BindableProperty ElapsedTimeProperty = BindableProperty.Create(
         nameof(ElapsedTimeLoadingData),
-        typeof(string), typeof(DashBoardContentPage), default(string));
+        typeof(string), typeof(DashBoardContentPage));
 
     public string ElapsedTimeLoadingData
     {
@@ -66,8 +66,7 @@ public partial class DashBoardContentPage
     }
 
     public static readonly BindableProperty ElapsedTimeLoadingDataTextProperty =
-        BindableProperty.Create(nameof(ElapsedTimeLoadingDataText), typeof(string), typeof(DashBoardContentPage),
-            default(string));
+        BindableProperty.Create(nameof(ElapsedTimeLoadingDataText), typeof(string), typeof(DashBoardContentPage));
 
     public string ElapsedTimeLoadingDataText
     {
@@ -76,7 +75,7 @@ public partial class DashBoardContentPage
     }
 
     public static readonly BindableProperty LabelTextPlaceProperty = BindableProperty.Create(nameof(LabelTextPlace),
-        typeof(string), typeof(DashBoardContentPage), default(string));
+        typeof(string), typeof(DashBoardContentPage));
 
     public string LabelTextPlace
     {
@@ -85,7 +84,7 @@ public partial class DashBoardContentPage
     }
 
     public static readonly BindableProperty LabelTextCheckedProperty = BindableProperty.Create(nameof(LabelTextChecked),
-        typeof(string), typeof(DashBoardContentPage), default(string));
+        typeof(string), typeof(DashBoardContentPage));
 
     public string LabelTextChecked
     {
@@ -94,7 +93,7 @@ public partial class DashBoardContentPage
     }
 
     public static readonly BindableProperty LabelTextValueProperty = BindableProperty.Create(nameof(LabelTextValue),
-        typeof(string), typeof(DashBoardContentPage), default(string));
+        typeof(string), typeof(DashBoardContentPage));
 
     public string LabelTextValue
     {
@@ -103,8 +102,7 @@ public partial class DashBoardContentPage
     }
 
     public static readonly BindableProperty LabelTextPaymentModeProperty =
-        BindableProperty.Create(nameof(LabelTextPaymentMode), typeof(string), typeof(DashBoardContentPage),
-            default(string));
+        BindableProperty.Create(nameof(LabelTextPaymentMode), typeof(string), typeof(DashBoardContentPage));
 
     public string LabelTextPaymentMode
     {
@@ -113,8 +111,7 @@ public partial class DashBoardContentPage
     }
 
     public static readonly BindableProperty LabelTextDescriptionProperty =
-        BindableProperty.Create(nameof(LabelTextDescription), typeof(string), typeof(DashBoardContentPage),
-            default(string));
+        BindableProperty.Create(nameof(LabelTextDescription), typeof(string), typeof(DashBoardContentPage));
 
     public string LabelTextDescription
     {
@@ -123,8 +120,7 @@ public partial class DashBoardContentPage
     }
 
     public static readonly BindableProperty LabelTextCategoryProperty =
-        BindableProperty.Create(nameof(LabelTextCategory), typeof(string), typeof(DashBoardContentPage),
-            default(string));
+        BindableProperty.Create(nameof(LabelTextCategory), typeof(string), typeof(DashBoardContentPage));
 
     public string LabelTextCategory
     {
@@ -133,8 +129,7 @@ public partial class DashBoardContentPage
     }
 
     public static readonly BindableProperty ComboBoxMonthHintAssistProperty =
-        BindableProperty.Create(nameof(ComboBoxMonthHintAssist), typeof(string), typeof(DashBoardContentPage),
-            default(string));
+        BindableProperty.Create(nameof(ComboBoxMonthHintAssist), typeof(string), typeof(DashBoardContentPage));
 
     public string ComboBoxMonthHintAssist
     {
@@ -143,8 +138,7 @@ public partial class DashBoardContentPage
     }
 
     public static readonly BindableProperty ComboBoxYearsHintAssistProperty =
-        BindableProperty.Create(nameof(ComboBoxYearsHintAssist), typeof(string), typeof(DashBoardContentPage),
-            default(string));
+        BindableProperty.Create(nameof(ComboBoxYearsHintAssist), typeof(string), typeof(DashBoardContentPage));
 
     public string ComboBoxYearsHintAssist
     {
@@ -153,8 +147,7 @@ public partial class DashBoardContentPage
     }
 
     public static readonly BindableProperty CurrentVTotalByAccountProperty =
-        BindableProperty.Create(nameof(CurrentVTotalByAccount), typeof(VTotalByAccount), typeof(DashBoardContentPage),
-            default(VTotalByAccount));
+        BindableProperty.Create(nameof(CurrentVTotalByAccount), typeof(VTotalByAccount), typeof(DashBoardContentPage));
 
     public VTotalByAccount? CurrentVTotalByAccount
     {
@@ -163,7 +156,7 @@ public partial class DashBoardContentPage
     }
 
     public static readonly BindableProperty SelectedYearProperty = BindableProperty.Create(nameof(SelectedYear),
-        typeof(string), typeof(DashBoardContentPage), default(string));
+        typeof(string), typeof(DashBoardContentPage));
 
     public string SelectedYear
     {
@@ -172,7 +165,7 @@ public partial class DashBoardContentPage
     }
 
     public static readonly BindableProperty SelectedMonthProperty = BindableProperty.Create(nameof(SelectedMonth),
-        typeof(string), typeof(DashBoardContentPage), default(string));
+        typeof(string), typeof(DashBoardContentPage));
 
     public string SelectedMonth
     {

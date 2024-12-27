@@ -3,8 +3,7 @@ namespace MyExpenses.Smartphones.ContentPages.CustomPopups.CustomPopupActivityIn
 public partial class CustomPopupActivityIndicator
 {
     public static readonly BindableProperty LabelTextToDisplayProperty =
-        BindableProperty.Create(nameof(LabelTextToDisplay), typeof(string), typeof(CustomPopupActivityIndicator),
-            default(string));
+        BindableProperty.Create(nameof(LabelTextToDisplay), typeof(string), typeof(CustomPopupActivityIndicator));
 
     public string LabelTextToDisplay
     {

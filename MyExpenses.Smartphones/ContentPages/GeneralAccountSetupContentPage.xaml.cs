@@ -8,7 +8,7 @@ public partial class GeneralAccountSetupContentPage
 {
     public static readonly BindableProperty ButtonTextPaymentMethodManagementProperty =
         BindableProperty.Create(nameof(ButtonTextPaymentMethodManagement), typeof(string),
-            typeof(GeneralAccountSetupContentPage), default(string));
+            typeof(GeneralAccountSetupContentPage));
 
     public string ButtonTextPaymentMethodManagement
     {
@@ -18,7 +18,7 @@ public partial class GeneralAccountSetupContentPage
     
     public static readonly BindableProperty ButtonTextCurrencySymbolManagementProperty =
         BindableProperty.Create(nameof(ButtonTextCurrencySymbolManagement), typeof(string),
-            typeof(GeneralAccountSetupContentPage), default(string));
+            typeof(GeneralAccountSetupContentPage));
 
     public string ButtonTextCurrencySymbolManagement
     {
@@ -28,7 +28,7 @@ public partial class GeneralAccountSetupContentPage
 
     public static readonly BindableProperty ButtonTextColorManagementProperty =
         BindableProperty.Create(nameof(ButtonTextColorManagement), typeof(string),
-            typeof(GeneralAccountSetupContentPage), default(string));
+            typeof(GeneralAccountSetupContentPage));
 
     public string ButtonTextColorManagement
     {
@@ -38,7 +38,7 @@ public partial class GeneralAccountSetupContentPage
 
     public static readonly BindableProperty ButtonTextLocationManagementProperty =
         BindableProperty.Create(nameof(ButtonTextLocationManagement), typeof(string),
-            typeof(GeneralAccountSetupContentPage), default(string));
+            typeof(GeneralAccountSetupContentPage));
 
     public string ButtonTextLocationManagement
     {
@@ -48,7 +48,7 @@ public partial class GeneralAccountSetupContentPage
 
     public static readonly BindableProperty ButtonTextManagingCategoryTypesProperty =
         BindableProperty.Create(nameof(ButtonTextManagingCategoryTypes), typeof(string),
-            typeof(GeneralAccountSetupContentPage), default(string));
+            typeof(GeneralAccountSetupContentPage));
 
     public string ButtonTextManagingCategoryTypes
     {
@@ -58,7 +58,7 @@ public partial class GeneralAccountSetupContentPage
 
     public static readonly BindableProperty ButtonTextManagingAccountTypesProperty =
         BindableProperty.Create(nameof(ButtonTextManagingAccountTypes), typeof(string),
-            typeof(GeneralAccountSetupContentPage), default(string));
+            typeof(GeneralAccountSetupContentPage));
 
     public string ButtonTextManagingAccountTypes
     {
@@ -68,7 +68,7 @@ public partial class GeneralAccountSetupContentPage
 
     public static readonly BindableProperty ButtonTextAccountManagementProperty =
         BindableProperty.Create(nameof(ButtonTextAccountManagement), typeof(string),
-            typeof(GeneralAccountSetupContentPage), default(string));
+            typeof(GeneralAccountSetupContentPage));
 
     public string ButtonTextAccountManagement
     {

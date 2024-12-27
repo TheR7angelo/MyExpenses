@@ -5,7 +5,7 @@ namespace MyExpenses.Smartphones.UserControls.Buttons.CustomFrame;
 public sealed partial class ButtonImageView
 {
     public static readonly BindableProperty GeometryColorProperty =
-        BindableProperty.Create(nameof(GeometryColor), typeof(Color), typeof(ButtonImageTextView), default(Color));
+        BindableProperty.Create(nameof(GeometryColor), typeof(Color), typeof(ButtonImageTextView));
 
     public Color GeometryColor
     {
