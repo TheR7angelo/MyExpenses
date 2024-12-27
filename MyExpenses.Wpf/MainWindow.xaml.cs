@@ -3,7 +3,6 @@ using System.IO;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Input;
-using Dropbox.Api.Files;
 using MyExpenses.Core.Export;
 using MyExpenses.Models.Config;
 using MyExpenses.Models.Config.Interfaces;
