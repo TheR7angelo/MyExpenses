@@ -332,14 +332,16 @@ public partial class MainWindow
         MenuItemHeaderPrevious = MainWindowResources.MenuItemHeaderPrevious;
     }
 
-    private static async Task<FileMetadata> SaveToCloudAsync(string database)
+    // private static async Task<FileMetadata> SaveToCloudAsync(string database)
+    private static async Task SaveToCloudAsync(string database)
     {
         var dropboxService = await DropboxService.CreateAsync(ProjectSystem.Wpf);
         Log.Information("Starting to upload {FileName} to cloud storage", Path.GetFileName(database));
         var fileMetadata = await dropboxService.UploadFileAsync(database, DbContextBackup.CloudDirectoryBackupDatabase);
         Log.Information("Successfully uploaded {FileName} to cloud storage", Path.GetFileName(database));
+        Log.Information("Last modification: {FileMetadataLastModification}", fileMetadata.ClientModified.ToString("yyyy-MM-dd HH:mm:ss"));
 
-        return fileMetadata;
+        // return fileMetadata;
     }
 
     private static async Task ExportToLocalFolderAsync(string databaseFilePath, bool isCompress)
