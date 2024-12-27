@@ -11,7 +11,7 @@ public partial class DashBoardShell
 {
     public static readonly BindableProperty FlyoutItemGeneralAccountSetupContentPageTitleProperty =
         BindableProperty.Create(nameof(FlyoutItemGeneralAccountSetupContentPageTitle), typeof(string),
-            typeof(DashBoardShell), default(string));
+            typeof(DashBoardShell));
 
     public string FlyoutItemGeneralAccountSetupContentPageTitle
     {
@@ -20,8 +20,7 @@ public partial class DashBoardShell
     }
 
     public static readonly BindableProperty FlyoutItemDashBoardContentPageTitleProperty =
-        BindableProperty.Create(nameof(FlyoutItemDashBoardContentPageTitle), typeof(string), typeof(DashBoardShell),
-            default(string));
+        BindableProperty.Create(nameof(FlyoutItemDashBoardContentPageTitle), typeof(string), typeof(DashBoardShell));
 
     public string FlyoutItemDashBoardContentPageTitle
     {
@@ -30,7 +29,7 @@ public partial class DashBoardShell
     }
 
     public static readonly BindableProperty ApplicationVersionProperty =
-        BindableProperty.Create(nameof(ApplicationVersion), typeof(Version), typeof(DashBoardShell), default(Version));
+        BindableProperty.Create(nameof(ApplicationVersion), typeof(Version), typeof(DashBoardShell));
 
     public Version ApplicationVersion
     {
@@ -39,7 +38,7 @@ public partial class DashBoardShell
     }
 
     public static readonly BindableProperty ApplicationNameProperty =
-        BindableProperty.Create(nameof(ApplicationName), typeof(string), typeof(DashBoardShell), default(string));
+        BindableProperty.Create(nameof(ApplicationName), typeof(string), typeof(DashBoardShell));
 
     public string ApplicationName
     {
@@ -48,7 +47,7 @@ public partial class DashBoardShell
     }
 
     public static readonly BindableProperty MenuItemLogoutTextProperty =
-        BindableProperty.Create(nameof(MenuItemLogoutText), typeof(string), typeof(DashBoardShell), default(string));
+        BindableProperty.Create(nameof(MenuItemLogoutText), typeof(string), typeof(DashBoardShell));
 
     public string MenuItemLogoutText
     {
@@ -57,7 +56,7 @@ public partial class DashBoardShell
     }
 
     public static readonly BindableProperty SelectedDatabaseProperty = BindableProperty.Create(nameof(SelectedDatabase),
-        typeof(ExistingDatabase), typeof(DashBoardShell), default(ExistingDatabase));
+        typeof(ExistingDatabase), typeof(DashBoardShell));
 
     public ExistingDatabase SelectedDatabase
     {
