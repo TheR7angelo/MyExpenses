@@ -3,7 +3,7 @@ namespace MyExpenses.Models.Maui.CustomPopup;
 public class DoubleIsChecked
 {
     public double? DoubleValue { get; init; }
-    public bool IsChecked { get; }
+    public bool IsChecked { get; set; }
 
     private bool Equals(DoubleIsChecked? other)
     {

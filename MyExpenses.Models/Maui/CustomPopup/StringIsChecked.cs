@@ -2,8 +2,8 @@ namespace MyExpenses.Models.Maui.CustomPopup;
 
 public class StringIsChecked
 {
-    public string? StringValue { get; }
-    public bool IsChecked { get; }
+    public string? StringValue { get; init; }
+    public bool IsChecked { get; set; }
 
     public bool Equals(StringIsChecked? other)
     {

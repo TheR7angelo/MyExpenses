@@ -2,8 +2,8 @@ namespace MyExpenses.Models.Maui.CustomPopup;
 
 public class BoolIsChecked : IEquatable<BoolIsChecked>
 {
-    public bool BoolValue { get; }
-    public bool IsChecked { get; }
+    public bool BoolValue { get; init; }
+    public bool IsChecked { get; set; }
 
     public bool Equals(BoolIsChecked? other)
     {
