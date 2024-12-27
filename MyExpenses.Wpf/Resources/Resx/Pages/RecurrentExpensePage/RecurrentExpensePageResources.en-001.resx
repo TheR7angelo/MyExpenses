@@ -83,4 +83,7 @@
     <data name="DataGridTemplateColumnActionsHeader" xml:space="preserve">
         <value>Actions</value>
     </data>
+    <data name="DataGridTextColumnStartDateHeader" xml:space="preserve">
+        <value>Start date</value>
+    </data>
 </root>
