@@ -226,7 +226,7 @@ public partial class WelcomePage
         var dropboxService = await DropboxService.CreateAsync(ProjectSystem.Wpf);
         await dropboxService.DeleteFilesAsync(files, DbContextBackup.CloudDirectoryBackupDatabase);
 
-        Log.Information("Files successfully deleted from cloud.");
+        Log.Information("Files successfully deleted from cloud");
     }
 
     private static void DeleteLocalDatabases(List<ExistingDatabase> databases)
