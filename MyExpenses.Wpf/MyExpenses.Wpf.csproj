@@ -576,18 +576,18 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Content Include="..\MyExpenses.Commons\Resources\Assets\Applications\Icon Resize.png">
+      <Resource Include="..\MyExpenses.Commons\Resources\Assets\Applications\Icon Resize.png">
         <Link>Resources\Assets\Applications\Icon Resize.png</Link>
-      </Content>
+      </Resource>
       <Content Include="..\MyExpenses.Commons\Resources\Assets\Applications\Icon.ai">
         <Link>Resources\Assets\Applications\Icon.ai</Link>
       </Content>
       <Content Include="..\MyExpenses.Commons\Resources\Assets\Applications\Icon.ico">
         <Link>Resources\Assets\Applications\Icon.ico</Link>
       </Content>
-      <Content Include="..\MyExpenses.Commons\Resources\Assets\Applications\Icon.png">
+      <Resource Include="..\MyExpenses.Commons\Resources\Assets\Applications\Icon.png">
         <Link>Resources\Assets\Applications\Icon.png</Link>
-      </Content>
+      </Resource>
       <Content Include="..\MyExpenses.Commons\Resources\Assets\Applications\Icon.svg">
         <Link>Resources\Assets\Applications\Icon.svg</Link>
       </Content>
