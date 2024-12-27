@@ -1,8 +1,6 @@
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Input;
 using FilterDataGrid;
 using MyExpenses.Models.AutoMapper;
 using MyExpenses.Models.Config;

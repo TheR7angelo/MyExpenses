@@ -78,7 +78,7 @@ public partial class AccountTypeSummaryContentPage
         if (sender is not Button button) return;
         if (button.BindingContext is not TAccountType accountType) return;
 
-        var tempAccountType = accountType.DeepCopy()!;
+        var tempAccountType = accountType.DeepCopy();
         await ShowCustomPopupEntryForCurrency(tempAccountType);
     }
 

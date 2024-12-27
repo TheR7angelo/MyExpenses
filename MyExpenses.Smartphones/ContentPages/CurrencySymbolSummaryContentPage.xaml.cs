@@ -119,7 +119,7 @@ public partial class CurrencySymbolSummaryContentPage
         if (sender is not Button button) return;
         if (button.BindingContext is not TCurrency currency) return;
 
-        var tempCurrency = currency.DeepCopy()!;
+        var tempCurrency = currency.DeepCopy();
         await ShowCustomPopupEntryForCurrency(tempCurrency);
     }
 

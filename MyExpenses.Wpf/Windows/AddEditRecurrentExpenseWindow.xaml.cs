@@ -411,7 +411,7 @@ public partial class AddEditRecurrentExpenseWindow
             var editedCategoryType = addEditCategoryTypeWindow.CategoryType;
             Log.Information("Attempting to edit the category type id: {Id}", editedCategoryType.Id);
 
-            var editedCategoryTypeDeepCopy = editedCategoryType.DeepCopy()!;
+            var editedCategoryTypeDeepCopy = editedCategoryType.DeepCopy();
 
             var (success, exception) = editedCategoryType.AddOrEdit();
             if (success)
