@@ -51,7 +51,7 @@ public partial class App
         LoadInterfaceLanguage(configurationInterface.Language);
     }
 
-    public static void LoadInterfaceLanguage(string? cultureInfoCode)
+    private static void LoadInterfaceLanguage(string? cultureInfoCode)
     {
         var currentCultureIsSupported = false;
 

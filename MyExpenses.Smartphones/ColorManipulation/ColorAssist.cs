@@ -4,7 +4,7 @@ namespace MyExpenses.Smartphones.ColorManipulation;
 
 public static class ColorAssist
 {
-    public static float RelativeLuminance(this Color color)
+    private static float RelativeLuminance(this Color color)
     {
         // Disable for Maui
         // return
@@ -30,7 +30,7 @@ public static class ColorAssist
     /// <param name="color"></param>
     /// <param name="color2"></param>
     /// <returns></returns>
-    public static float ContrastRatio(this Color color, Color color2)
+    private static float ContrastRatio(this Color color, Color color2)
     {
         var l1 = color.RelativeLuminance();
         var l2 = color2.RelativeLuminance();
@@ -61,7 +61,7 @@ public static class ColorAssist
     /// <param name="offset">The offset that was applied</param>
     /// <param name="tolerance">The tolerance to the contrast ratio needs to be within</param>
     /// <returns>The updated foreground color with the target contrast ratio with the background</returns>
-    public static Color EnsureContrastRatio(this Color foreground, Color background, float targetRatio, out double offset, float tolerance = 0.1f)
+    private static Color EnsureContrastRatio(this Color foreground, Color background, float targetRatio, out double offset, float tolerance = 0.1f)
     {
         offset = 0.0f;
 
@@ -133,7 +133,7 @@ public static class ColorAssist
     public static Color ContrastingForegroundColor(this Color color)
         => color.IsLightColor() ? Colors.Black : Colors.White;
 
-    public static bool IsLightColor(this Color color)
+    private static bool IsLightColor(this Color color)
     {
         var r = RgbSrgb(color.Red);
         var g = RgbSrgb(color.Green);
@@ -154,14 +154,14 @@ public static class ColorAssist
     public static bool IsDarkColor(this Color color)
         => !IsLightColor(color);
 
-    public static Color ShiftLightness(this Color color, double amount = 1.0f)
+    private static Color ShiftLightness(this Color color, double amount = 1.0f)
     {
         var lab = color.ToLab();
         var shifted = lab with { L = lab.L - LabConstants.Kn * amount };
         return shifted.ToColor();
     }
 
-    public static Color ShiftLightness(this Color color, int amount = 1)
+    private static Color ShiftLightness(this Color color, int amount = 1)
     {
         var lab = color.ToLab();
         var shifted = lab with { L = lab.L - LabConstants.Kn * amount };

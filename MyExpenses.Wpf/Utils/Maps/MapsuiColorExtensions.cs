@@ -11,7 +11,7 @@ public static class MapsuiColorExtensions
         return baseColor.ToMapsuiColor();
     }
 
-    public static Mapsui.Styles.Color ToMapsuiColor(this Color baseColor)
+    private static Mapsui.Styles.Color ToMapsuiColor(this Color baseColor)
     {
         var color = new Mapsui.Styles.Color(baseColor.R, baseColor.G, baseColor.B, baseColor.A);
         return color;

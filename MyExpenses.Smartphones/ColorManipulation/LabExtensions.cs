@@ -7,7 +7,7 @@ public static class LabExtensions
     public static Lab ToLab(this Color c)
         => c.ToXyz().ToLab();
 
-    public static Lab ToLab(this Xyz xyz)
+    private static Lab ToLab(this Xyz xyz)
     {
         var fx = XyzLab(xyz.X / LabConstants.WhitePointX);
         var fy = XyzLab(xyz.Y / LabConstants.WhitePointY);

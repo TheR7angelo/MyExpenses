@@ -61,7 +61,7 @@ public partial class CustomPopupEntry
         set => SetValue(HasClearButtonProperty, value);
     }
 
-    public static readonly BindableProperty TextProperty =
+    private static readonly BindableProperty TextProperty =
         BindableProperty.Create(nameof(EntryText), typeof(string), typeof(CustomPopupEntry));
 
     public string EntryText

@@ -5,7 +5,7 @@ public class StringIsChecked
     public string? StringValue { get; init; }
     public bool IsChecked { get; set; }
 
-    public bool Equals(StringIsChecked? other)
+    private bool Equals(StringIsChecked? other)
     {
         if (other is null) return false;
         if (ReferenceEquals(this, other)) return true;

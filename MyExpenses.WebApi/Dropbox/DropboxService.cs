@@ -11,7 +11,7 @@ namespace MyExpenses.WebApi.Dropbox;
 
 public class DropboxService
 {
-    public AccessTokenAuthentication? AccessTokenAuthentication { get; private set; }
+    private AccessTokenAuthentication? AccessTokenAuthentication { get; set; }
 
     private DropboxKeys DropboxKeys { get; set; }
 
@@ -19,7 +19,7 @@ public class DropboxService
 
     private ProjectSystem ProjectSystem { get; init; }
 
-    public DropboxService()
+    private DropboxService()
     {
         DropboxKeys = GetDropboxKeys();
 
@@ -40,7 +40,7 @@ public class DropboxService
         return results;
     }
 
-    public async Task<DeleteResult?> DeleteFileAsync(string filePath, string? folder = null)
+    private async Task<DeleteResult?> DeleteFileAsync(string filePath, string? folder = null)
     {
         folder ??= string.Empty;
 
@@ -153,7 +153,7 @@ public class DropboxService
         }
     }
 
-    public async Task RefreshAccessTokenAuthentication()
+    private async Task RefreshAccessTokenAuthentication()
     {
         using var httpClient = Http.GetHttpClient();
         var requestData = new Dictionary<string, string>

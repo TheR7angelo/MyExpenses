@@ -4,7 +4,7 @@ namespace MyExpenses.Smartphones.PackIcons;
 
 public static class EPackIconsUtils
 {
-    public static string ToGeometryString(this EPackIcons icon)
+    private static string ToGeometryString(this EPackIcons icon)
     {
         var geometryString = icon switch
         {

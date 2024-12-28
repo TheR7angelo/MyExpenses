@@ -56,7 +56,7 @@ public static class RippleAssist
     /// <summary>
     /// Set to <c>True</c> to disable ripple effect
     /// </summary>
-    public static readonly BindableProperty IsDisabledProperty = BindableProperty.CreateAttached(
+    private static readonly BindableProperty IsDisabledProperty = BindableProperty.CreateAttached(
         "IsDisabled", typeof(bool), typeof(RippleAssist), false);
 
     /// <summary>
@@ -82,7 +82,7 @@ public static class RippleAssist
 
     #region RippleSizeMultiplier
 
-    public static readonly BindableProperty RippleSizeMultiplierProperty = BindableProperty.CreateAttached(
+    private static readonly BindableProperty RippleSizeMultiplierProperty = BindableProperty.CreateAttached(
         "RippleSizeMultiplier", typeof(double), typeof(RippleAssist), 1.0);
 
     public static void SetRippleSizeMultiplier(BindableObject element, double value)
@@ -116,7 +116,7 @@ public static class RippleAssist
 
     #region RippleOnTop
 
-    public static readonly BindableProperty RippleOnTopProperty = BindableProperty.CreateAttached(
+    private static readonly BindableProperty RippleOnTopProperty = BindableProperty.CreateAttached(
         "RippleOnTop", typeof(bool), typeof(RippleAssist), false);
 
     public static void SetRippleOnTop(BindableObject element, bool value)

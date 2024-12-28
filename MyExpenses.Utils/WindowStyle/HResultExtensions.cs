@@ -14,7 +14,7 @@ public static class HResultExtensions
     /// <param name="hResult">The HResult value</param>
     /// <returns>True if the HResult represents a failure, otherwise false</returns>
     [Pure]
-    public static bool Failed(this HResult hResult)
+    private static bool Failed(this HResult hResult)
     {
         return hResult < 0;
     }

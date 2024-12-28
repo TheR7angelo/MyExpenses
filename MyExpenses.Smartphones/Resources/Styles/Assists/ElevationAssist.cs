@@ -84,7 +84,7 @@ public class ElevationMarginConverter : IValueConverter
 
 public class ElevationRadiusConverter : IValueConverter
 {
-    public double Multiplier { get; } = 1.0;
+    private double Multiplier { get; } = 1.0;
 
     public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {

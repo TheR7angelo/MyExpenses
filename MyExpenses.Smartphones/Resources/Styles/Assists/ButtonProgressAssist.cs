@@ -5,7 +5,8 @@ namespace MyExpenses.Smartphones.Resources.Styles.Assists;
         private const double DefaultMaximum = 100.0;
 
         #region AttachedProperty : MinimumProperty
-        public static readonly BindableProperty MinimumProperty =
+
+        private static readonly BindableProperty MinimumProperty =
             BindableProperty.CreateAttached("Minimum", typeof(double), typeof(ButtonProgressAssist), default(double));
 
         public static double GetMinimum(BindableObject element) => (double)element.GetValue(MinimumProperty);
@@ -13,7 +14,8 @@ namespace MyExpenses.Smartphones.Resources.Styles.Assists;
         #endregion
 
         #region AttachedProperty : MaximumProperty
-        public static readonly BindableProperty MaximumProperty =
+
+        private static readonly BindableProperty MaximumProperty =
             BindableProperty.CreateAttached("Maximum", typeof(double), typeof(ButtonProgressAssist), DefaultMaximum);
 
         public static double GetMaximum(BindableObject element) => (double)element.GetValue(MaximumProperty);
@@ -21,7 +23,8 @@ namespace MyExpenses.Smartphones.Resources.Styles.Assists;
         #endregion
 
         #region AttachedProperty : ValueProperty
-        public static readonly BindableProperty ValueProperty =
+
+        private static readonly BindableProperty ValueProperty =
             BindableProperty.CreateAttached("Value", typeof(double), typeof(ButtonProgressAssist), default(double));
 
         public static double GetValue(BindableObject element) => (double)element.GetValue(ValueProperty);
@@ -29,7 +32,8 @@ namespace MyExpenses.Smartphones.Resources.Styles.Assists;
         #endregion
 
         #region AttachedProperty : IsIndeterminate
-        public static readonly BindableProperty IsIndeterminateProperty =
+
+        private static readonly BindableProperty IsIndeterminateProperty =
             BindableProperty.CreateAttached("IsIndeterminate", typeof(bool), typeof(ButtonProgressAssist), default(bool));
 
         public static bool GetIsIndeterminate(BindableObject element) => (bool)element.GetValue(IsIndeterminateProperty);

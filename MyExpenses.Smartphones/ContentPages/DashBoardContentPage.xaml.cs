@@ -56,7 +56,7 @@ public partial class DashBoardContentPage
         set => SetValue(RowTotalFilteredCountProperty, value);
     }
 
-    public static readonly BindableProperty ElapsedTimeProperty = BindableProperty.Create(
+    private static readonly BindableProperty ElapsedTimeProperty = BindableProperty.Create(
         nameof(ElapsedTimeLoadingData),
         typeof(string), typeof(DashBoardContentPage));
 

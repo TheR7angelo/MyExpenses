@@ -5,13 +5,13 @@ public static class WindowsVersion
     /// <summary>
     /// Get the current Windows version
     /// </summary>
-    public static Version WinVersion { get; } = Environment.OSVersion.Version;
+    private static Version WinVersion { get; } = Environment.OSVersion.Version;
 
     /// <summary>
     ///     Test if the current OS is Windows 10
     /// </summary>
     /// <returns>true if we're running on Windows 10</returns>
-    public static bool IsWindows10 { get; } = WinVersion.Major == 10;
+    private static bool IsWindows10 { get; } = WinVersion.Major == 10;
 
     /// <summary>
     ///     Test if the current OS is Windows 11 or later
@@ -36,13 +36,13 @@ public static class WindowsVersion
     ///     Test if the current OS is Windows 8.0
     /// </summary>
     /// <returns>true if we're running on Windows 8.0</returns>
-    public static bool IsWindows8 { get; } = WinVersion.Major == 6 && WinVersion.Minor == 2;
+    private static bool IsWindows8 { get; } = WinVersion.Major == 6 && WinVersion.Minor == 2;
 
     /// <summary>
     ///     Test if the current OS is Windows 8(.1)
     /// </summary>
     /// <returns>true if we're running on Windows 8(.1)</returns>
-    public static bool IsWindows81 { get; } = WinVersion.Major == 6 && WinVersion.Minor == 3;
+    private static bool IsWindows81 { get; } = WinVersion.Major == 6 && WinVersion.Minor == 3;
 
     /// <summary>
     ///     Test if the current OS is Windows 8.0 or 8.1

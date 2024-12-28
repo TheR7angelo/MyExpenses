@@ -86,7 +86,7 @@ public static class Navigator
     /// Registers a frame for navigation within a Windows Presentation Foundation (WPF) application.
     /// </summary>
     /// <param name="frame">The frame to register.</param>
-    public static void RegisterFrame(this Frame frame)
+    private static void RegisterFrame(this Frame frame)
     {
         // var duplicateKey = NavigationServices.ContainsKey(frame.Name);
         // if (duplicateKey)

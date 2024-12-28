@@ -17,7 +17,7 @@ public class MaxLengthConverter : IValueConverter
         return Convert(objectType, propertyName);
     }
 
-    public static int Convert(Type type, string propertyName)
+    private static int Convert(Type type, string propertyName)
     {
         var property = type.GetProperty(propertyName);
 
