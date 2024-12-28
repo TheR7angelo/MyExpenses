@@ -15,7 +15,7 @@ public class DataBaseContext : DbContext
 
     public static string? FilePath { get; set; }
 
-    private string? TempFilePath { get; set; }
+    private string? TempFilePath { get; }
 
     private string? DataSource { get; set; }
 
