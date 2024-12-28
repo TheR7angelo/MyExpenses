@@ -38,7 +38,7 @@ public partial class CustomPopupEditCategory
     }
 
     public static readonly BindableProperty CanDeleteProperty = BindableProperty.Create(nameof(CanDelete), typeof(bool),
-        typeof(CustomPopupEditCategory), default(bool));
+        typeof(CustomPopupEditCategory), false);
 
     public bool CanDelete
     {
@@ -56,7 +56,7 @@ public partial class CustomPopupEditCategory
     }
 
     public static readonly BindableProperty MaxLenghtProperty =
-        BindableProperty.Create(nameof(MaxLenght), typeof(int), typeof(CustomPopupEditCategory), default(int));
+        BindableProperty.Create(nameof(MaxLenght), typeof(int), typeof(CustomPopupEditCategory), 0);
 
     public int MaxLenght
     {

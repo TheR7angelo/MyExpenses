@@ -100,7 +100,7 @@ public static class RippleAssist
     #region Feedback
 
     public static readonly BindableProperty FeedbackProperty = BindableProperty.CreateAttached(
-        "Feedback", typeof(Brush), typeof(RippleAssist), default(Brush));
+        "Feedback", typeof(Brush), typeof(RippleAssist), null);
 
     public static void SetFeedback(BindableObject element, Brush value)
     {

@@ -19,7 +19,7 @@ public partial class AddEditModePaymentWindow
 {
     public static readonly DependencyProperty EditModePaymentProperty =
         DependencyProperty.Register(nameof(EditModePayment), typeof(bool), typeof(AddEditModePaymentWindow),
-            new PropertyMetadata(default(bool)));
+            new PropertyMetadata(false));
 
     public TModePayment ModePayment { get; } = new();
 

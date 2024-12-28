@@ -80,7 +80,7 @@ public partial class CustomPopupEntry
     }
 
     public static readonly BindableProperty CanDeleteProperty =
-        BindableProperty.Create(nameof(CanDelete), typeof(bool), typeof(CustomPopupEntry), default(bool));
+        BindableProperty.Create(nameof(CanDelete), typeof(bool), typeof(CustomPopupEntry), false);
 
     public bool CanDelete
     {

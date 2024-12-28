@@ -7,7 +7,7 @@ public partial class SaveLocationContentPage
 {
     public static readonly BindableProperty ButtonLocalVisibilityProperty =
         BindableProperty.Create(nameof(ButtonLocalVisibility), typeof(bool), typeof(SaveLocationContentPage),
-            default(bool));
+            false);
 
     public bool ButtonLocalVisibility
     {
@@ -17,7 +17,7 @@ public partial class SaveLocationContentPage
 
     public static readonly BindableProperty ButtonDropboxVisibilityProperty =
         BindableProperty.Create(nameof(ButtonDropboxVisibility), typeof(bool), typeof(SaveLocationContentPage),
-            default(bool));
+            false);
 
     public bool ButtonDropboxVisibility
     {
@@ -27,7 +27,7 @@ public partial class SaveLocationContentPage
 
     public static readonly BindableProperty ButtonFolderVisibilityProperty =
         BindableProperty.Create(nameof(ButtonFolderVisibility), typeof(bool), typeof(SaveLocationContentPage),
-            default(bool));
+            false);
 
     public bool ButtonFolderVisibility
     {
@@ -39,7 +39,7 @@ public partial class SaveLocationContentPage
 
     public static readonly BindableProperty ButtonDatabaseVisibilityProperty =
         BindableProperty.Create(nameof(ButtonDatabaseVisibility), typeof(bool), typeof(SaveLocationContentPage),
-            default(bool));
+            false);
 
     public bool ButtonDatabaseVisibility
     {

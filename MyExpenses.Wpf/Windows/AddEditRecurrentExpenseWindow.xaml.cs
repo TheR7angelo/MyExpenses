@@ -249,7 +249,7 @@ public partial class AddEditRecurrentExpenseWindow
 
     public static readonly DependencyProperty EditRecurrentExpenseProperty =
         DependencyProperty.Register(nameof(EditRecurrentExpense), typeof(bool), typeof(AddEditRecurrentExpenseWindow),
-            new PropertyMetadata(default(bool)));
+            new PropertyMetadata(false));
 
     public bool EditRecurrentExpense
     {

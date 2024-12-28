@@ -70,7 +70,7 @@ public partial class AddEditAccountContentPage
     }
 
     public static readonly BindableProperty CanDeleteProperty = BindableProperty.Create(nameof(CanDelete), typeof(bool),
-        typeof(AddEditAccountContentPage), default(bool));
+        typeof(AddEditAccountContentPage), false);
 
     public bool CanDelete
     {

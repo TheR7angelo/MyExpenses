@@ -5,7 +5,7 @@ namespace MyExpenses.Wpf.UserControls.Analytics.AccountTotalEllipseControl;
 public partial class TotalEllipseControl
 {
     public static readonly DependencyProperty TotalProperty = DependencyProperty.Register(nameof(Total), typeof(double),
-        typeof(TotalEllipseControl), new PropertyMetadata(default(double)));
+        typeof(TotalEllipseControl), new PropertyMetadata(0d));
 
     public double? Total
     {

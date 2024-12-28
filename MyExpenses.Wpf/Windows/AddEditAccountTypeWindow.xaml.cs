@@ -18,7 +18,7 @@ public partial class AddEditAccountTypeWindow
 {
     public static readonly DependencyProperty EditAccountTypeProperty =
         DependencyProperty.Register(nameof(EditAccountType), typeof(bool), typeof(AddEditAccountTypeWindow),
-            new PropertyMetadata(default(bool)));
+            new PropertyMetadata(false));
 
     #region Property
 

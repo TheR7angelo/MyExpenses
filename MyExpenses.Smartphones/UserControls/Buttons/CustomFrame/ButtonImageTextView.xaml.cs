@@ -52,7 +52,7 @@ public sealed partial class ButtonImageTextView
     }
 
     public static readonly BindableProperty ImageHeightRequestProperty =
-        BindableProperty.Create(nameof(ImageHeightRequest), typeof(double), typeof(ButtonImageTextView), default(double));
+        BindableProperty.Create(nameof(ImageHeightRequest), typeof(double), typeof(ButtonImageTextView), 0d);
 
     public double ImageHeightRequest
     {
@@ -61,7 +61,7 @@ public sealed partial class ButtonImageTextView
     }
 
     public static readonly BindableProperty ImageWidthRequestProperty =
-        BindableProperty.Create(nameof(ImageWidthRequest), typeof(double), typeof(ButtonImageTextView), default(double));
+        BindableProperty.Create(nameof(ImageWidthRequest), typeof(double), typeof(ButtonImageTextView), 0d);
 
     public double ImageWidthRequest
     {

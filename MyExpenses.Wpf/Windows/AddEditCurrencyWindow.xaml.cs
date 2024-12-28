@@ -19,7 +19,7 @@ public partial class AddEditCurrencyWindow
     #region DepencyProperty
 
     public static readonly DependencyProperty EditCurrencyProperty = DependencyProperty.Register(nameof(EditCurrency),
-        typeof(bool), typeof(AddEditCurrencyWindow), new PropertyMetadata(default(bool)));
+        typeof(bool), typeof(AddEditCurrencyWindow), new PropertyMetadata(false));
 
     public bool EditCurrency
     {

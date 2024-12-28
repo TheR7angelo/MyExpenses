@@ -21,7 +21,7 @@ public partial class AddEditCategoryTypeWindow
 {
     public static readonly DependencyProperty EditCategoryTypeProperty =
         DependencyProperty.Register(nameof(EditCategoryType), typeof(bool), typeof(AddEditCategoryTypeWindow),
-            new PropertyMetadata(default(bool)));
+            new PropertyMetadata(false));
 
     public bool EditCategoryType
     {

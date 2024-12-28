@@ -47,7 +47,7 @@ public partial class LanguageControl
     }
 
     public static readonly DependencyProperty Is24HoursProperty = DependencyProperty.Register(nameof(Is24Hours),
-        typeof(bool), typeof(LanguageControl), new PropertyMetadata(default(bool)));
+        typeof(bool), typeof(LanguageControl), new PropertyMetadata(false));
 
     public bool Is24Hours
     {

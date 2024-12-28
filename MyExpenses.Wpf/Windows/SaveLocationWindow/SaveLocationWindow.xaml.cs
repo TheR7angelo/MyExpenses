@@ -10,7 +10,7 @@ public partial class SaveLocationWindow
 
     public static readonly DependencyProperty ButtonFolderCompressVisibilityProperty =
         DependencyProperty.Register(nameof(ButtonFolderCompressVisibility), typeof(bool), typeof(SaveLocationWindow),
-            new PropertyMetadata(default(bool)));
+            new PropertyMetadata(false));
 
     public bool ButtonFolderCompressVisibility
     {
@@ -20,7 +20,7 @@ public partial class SaveLocationWindow
 
     public static readonly DependencyProperty ButtonDatabaseVisibilityProperty =
         DependencyProperty.Register(nameof(ButtonDatabaseVisibility), typeof(bool), typeof(SaveLocationWindow),
-            new PropertyMetadata(default(bool)));
+            new PropertyMetadata(false));
 
     public bool ButtonDatabaseVisibility
     {
@@ -30,7 +30,7 @@ public partial class SaveLocationWindow
 
     public static readonly DependencyProperty ButtonFolderVisibilityProperty =
         DependencyProperty.Register(nameof(ButtonFolderVisibility), typeof(bool), typeof(SaveLocationWindow),
-            new PropertyMetadata(default(bool)));
+            new PropertyMetadata(false));
 
     public bool ButtonFolderVisibility
     {
@@ -40,7 +40,7 @@ public partial class SaveLocationWindow
 
     public static readonly DependencyProperty ButtonDropboxVisibilityProperty =
         DependencyProperty.Register(nameof(ButtonDropboxVisibility), typeof(bool), typeof(SaveLocationWindow),
-            new PropertyMetadata(default(bool)));
+            new PropertyMetadata(false));
 
     public bool ButtonDropboxVisibility
     {
@@ -50,7 +50,7 @@ public partial class SaveLocationWindow
 
     public static readonly DependencyProperty ButtonLocalVisibilityProperty =
         DependencyProperty.Register(nameof(ButtonLocalVisibility), typeof(bool), typeof(SaveLocationWindow),
-            new PropertyMetadata(default(bool)));
+            new PropertyMetadata(false));
 
     public bool ButtonLocalVisibility
     {

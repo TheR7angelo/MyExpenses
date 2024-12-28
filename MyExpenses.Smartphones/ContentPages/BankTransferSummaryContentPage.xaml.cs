@@ -139,7 +139,7 @@ public partial class BankTransferSummaryContentPage
     }
 
     public static readonly BindableProperty RowTotalCountProperty = BindableProperty.Create(nameof(RowTotalCount),
-        typeof(int), typeof(BankTransferSummaryContentPage), default(int));
+        typeof(int), typeof(BankTransferSummaryContentPage), 0);
 
     public int RowTotalCount
     {
@@ -158,7 +158,7 @@ public partial class BankTransferSummaryContentPage
 
     public static readonly BindableProperty RowTotalFilteredCountProperty =
         BindableProperty.Create(nameof(RowTotalFilteredCount), typeof(int), typeof(BankTransferSummaryContentPage),
-            default(int));
+            0);
 
     public int RowTotalFilteredCount
     {

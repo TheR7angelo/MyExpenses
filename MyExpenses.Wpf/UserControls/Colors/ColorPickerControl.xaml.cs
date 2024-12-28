@@ -34,7 +34,7 @@ public sealed partial class ColorPickerControl
 
     public static readonly DependencyProperty RedValueProperty = DependencyProperty.Register(nameof(RedValue),
         typeof(byte), typeof(ColorPickerControl),
-        new PropertyMetadata(default(byte), PropertyRedValue_OnChangedCallback));
+        new PropertyMetadata(0, PropertyRedValue_OnChangedCallback));
 
     private static void PropertyRedValue_OnChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
@@ -53,7 +53,7 @@ public sealed partial class ColorPickerControl
 
     public static readonly DependencyProperty GreenValueProperty = DependencyProperty.Register(nameof(GreenValue),
         typeof(byte), typeof(ColorPickerControl),
-        new PropertyMetadata(default(byte), PropertyGreenValue_OnChangedCallback));
+        new PropertyMetadata(0, PropertyGreenValue_OnChangedCallback));
 
     private static void PropertyGreenValue_OnChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
@@ -72,7 +72,7 @@ public sealed partial class ColorPickerControl
 
     public static readonly DependencyProperty BlueValueProperty = DependencyProperty.Register(nameof(BlueValue),
         typeof(byte), typeof(ColorPickerControl),
-        new PropertyMetadata(default(byte), PropertyBlueValue_OnChangedCallback));
+        new PropertyMetadata(0, PropertyBlueValue_OnChangedCallback));
 
     private static void PropertyBlueValue_OnChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
@@ -91,7 +91,7 @@ public sealed partial class ColorPickerControl
 
     public static readonly DependencyProperty HueValueProperty = DependencyProperty.Register(nameof(HueValue),
         typeof(double), typeof(ColorPickerControl),
-        new PropertyMetadata(default(double), PropertyHueValue_OnChangedCallback));
+        new PropertyMetadata(0, PropertyHueValue_OnChangedCallback));
 
     private static void PropertyHueValue_OnChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
@@ -109,7 +109,7 @@ public sealed partial class ColorPickerControl
 
     public static readonly DependencyProperty SaturationValueProperty =
         DependencyProperty.Register(nameof(SaturationValue), typeof(double), typeof(ColorPickerControl),
-            new PropertyMetadata(default(double), PropertySaturation_OnChangedCallback));
+            new PropertyMetadata(0d, PropertySaturation_OnChangedCallback));
 
     private static void PropertySaturation_OnChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
@@ -127,7 +127,7 @@ public sealed partial class ColorPickerControl
 
     public static readonly DependencyProperty ValueValueProperty = DependencyProperty.Register(nameof(ValueValue),
         typeof(double), typeof(ColorPickerControl),
-        new PropertyMetadata(default(double), PropertyValueValue_OnChangedCallback));
+        new PropertyMetadata(0, PropertyValueValue_OnChangedCallback));
 
     private static void PropertyValueValue_OnChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
@@ -145,7 +145,7 @@ public sealed partial class ColorPickerControl
 
     public static readonly DependencyProperty AlphaValueProperty = DependencyProperty.Register(nameof(AlphaValue),
         typeof(byte), typeof(ColorPickerControl),
-        new PropertyMetadata(default(byte), PropertyAlphaValue_OnChangedCallback));
+        new PropertyMetadata(0, PropertyAlphaValue_OnChangedCallback));
 
     public static readonly DependencyProperty LabelRedChannelProperty =
         DependencyProperty.Register(nameof(LabelRedChannel), typeof(string), typeof(ColorPickerControl),

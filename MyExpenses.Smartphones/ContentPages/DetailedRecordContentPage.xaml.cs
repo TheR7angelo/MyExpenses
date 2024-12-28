@@ -84,7 +84,7 @@ public partial class DetailedRecordContentPage
 
     public static readonly BindableProperty IsPlaceholderVisibleProperty =
         BindableProperty.Create(nameof(IsPlaceholderVisible), typeof(bool), typeof(DetailedRecordContentPage),
-            default(bool));
+            false);
 
     public bool IsPlaceholderVisible
     {
@@ -158,7 +158,7 @@ public partial class DetailedRecordContentPage
     }
 
     public static readonly BindableProperty IsDirtyProperty = BindableProperty.Create(nameof(IsDirty), typeof(bool),
-        typeof(DetailedRecordContentPage), default(bool));
+        typeof(DetailedRecordContentPage), false);
 
     public bool IsDirty
     {
@@ -167,7 +167,7 @@ public partial class DetailedRecordContentPage
     }
 
     public static readonly BindableProperty CanBeDeletedProperty = BindableProperty.Create(nameof(CanBeDeleted),
-        typeof(bool), typeof(DetailedRecordContentPage), default(bool));
+        typeof(bool), typeof(DetailedRecordContentPage), false);
 
     public bool CanBeDeleted
     {
@@ -221,7 +221,7 @@ public partial class DetailedRecordContentPage
 
     private static readonly BindableProperty IsNewHistoryProperty =
         BindableProperty.Create(nameof(IsNewHistory), typeof(bool), typeof(DetailedRecordContentPage),
-            default(bool), propertyChanged: IsNewHistory_PropertyChanged);
+            false, propertyChanged: IsNewHistory_PropertyChanged);
 
     private static void IsNewHistory_PropertyChanged(BindableObject bindable, object oldValue, object newValue)
     {

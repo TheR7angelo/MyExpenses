@@ -34,7 +34,7 @@ public partial class RecordExpensePage
 {
 
     public static readonly DependencyProperty EditHistoryProperty = DependencyProperty.Register(nameof(EditHistory),
-        typeof(bool), typeof(RecordExpensePage), new PropertyMetadata(default(bool)));
+        typeof(bool), typeof(RecordExpensePage), new PropertyMetadata(false));
 
     public bool EditHistory
     {

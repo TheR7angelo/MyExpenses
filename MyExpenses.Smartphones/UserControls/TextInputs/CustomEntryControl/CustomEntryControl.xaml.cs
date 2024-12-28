@@ -14,7 +14,7 @@ public partial class CustomEntryControl
     }
 
     public static readonly BindableProperty HasMultilineProperty =
-        BindableProperty.Create(nameof(HasMultiline), typeof(bool), typeof(CustomEntryControl), default(bool));
+        BindableProperty.Create(nameof(HasMultiline), typeof(bool), typeof(CustomEntryControl), false);
 
     public bool HasMultiline
     {
@@ -23,7 +23,7 @@ public partial class CustomEntryControl
     }
 
     public static readonly BindableProperty HasClearButtonProperty =
-        BindableProperty.Create(nameof(HasClearButton), typeof(bool), typeof(CustomEntryControl), default(bool));
+        BindableProperty.Create(nameof(HasClearButton), typeof(bool), typeof(CustomEntryControl), false);
 
     public bool HasClearButton
     {

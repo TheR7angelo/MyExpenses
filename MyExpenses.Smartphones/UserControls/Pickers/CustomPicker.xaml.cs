@@ -15,7 +15,7 @@ public partial class CustomPicker
     }
 
     public static readonly BindableProperty HasClearButtonProperty =
-        BindableProperty.Create(nameof(HasClearButton), typeof(bool), typeof(CustomPicker), default(bool));
+        BindableProperty.Create(nameof(HasClearButton), typeof(bool), typeof(CustomPicker), false);
 
     public bool HasClearButton
     {
@@ -42,7 +42,7 @@ public partial class CustomPicker
     }
 
     public static readonly BindableProperty IsPlaceholderVisibleProperty =
-        BindableProperty.Create(nameof(IsPlaceholderVisible), typeof(bool), typeof(CustomPicker), default(bool));
+        BindableProperty.Create(nameof(IsPlaceholderVisible), typeof(bool), typeof(CustomPicker), false);
 
     public bool IsPlaceholderVisible
     {

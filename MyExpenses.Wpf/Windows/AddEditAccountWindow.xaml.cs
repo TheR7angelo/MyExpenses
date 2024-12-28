@@ -25,11 +25,11 @@ public partial class AddEditAccountWindow
 
     public static readonly DependencyProperty EnableStartingBalanceProperty =
         DependencyProperty.Register(nameof(EnableStartingBalance), typeof(bool), typeof(AddEditAccountWindow),
-            new PropertyMetadata(default(bool)));
+            new PropertyMetadata(false));
 
     public static readonly DependencyProperty EditAccountProperty =
         DependencyProperty.Register(nameof(EditAccount), typeof(bool), typeof(AddEditAccountWindow),
-            new PropertyMetadata(default(bool)));
+            new PropertyMetadata(false));
 
     #endregion
 

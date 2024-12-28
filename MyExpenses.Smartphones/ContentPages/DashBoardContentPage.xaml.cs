@@ -39,7 +39,7 @@ public partial class DashBoardContentPage
     }
 
     public static readonly BindableProperty RowTotalCountProperty =
-        BindableProperty.Create(nameof(RowTotalCount), typeof(int), typeof(DashBoardContentPage), default(int));
+        BindableProperty.Create(nameof(RowTotalCount), typeof(int), typeof(DashBoardContentPage), 0);
 
     public int RowTotalCount
     {
@@ -48,7 +48,7 @@ public partial class DashBoardContentPage
     }
 
     public static readonly BindableProperty RowTotalFilteredCountProperty =
-        BindableProperty.Create(nameof(RowTotalFilteredCount), typeof(int), typeof(DashBoardContentPage), default(int));
+        BindableProperty.Create(nameof(RowTotalFilteredCount), typeof(int), typeof(DashBoardContentPage), 0);
 
     public int RowTotalFilteredCount
     {

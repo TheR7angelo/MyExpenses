@@ -40,7 +40,7 @@ public partial class AccountManagementContentPage
     }
 
     public static readonly BindableProperty TotalAllAccountProperty = BindableProperty.Create(nameof(TotalAllAccount),
-        typeof(double), typeof(AccountManagementContentPage), default(double));
+        typeof(double), typeof(AccountManagementContentPage), 0d);
 
     public double TotalAllAccount
     {

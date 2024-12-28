@@ -171,7 +171,7 @@ public partial class AppearanceControl
             new PropertyMetadata(default(Brush)));
 
     public static readonly DependencyProperty SyncWithOsProperty = DependencyProperty.Register(nameof(SyncWithOs),
-        typeof(bool), typeof(AppearanceControl), new PropertyMetadata(default(bool)));
+        typeof(bool), typeof(AppearanceControl), new PropertyMetadata(false));
 
     public bool SyncWithOs
     {
@@ -180,7 +180,7 @@ public partial class AppearanceControl
     }
 
     public static readonly DependencyProperty LightDarkProperty = DependencyProperty.Register(nameof(LightDark),
-        typeof(bool), typeof(AppearanceControl), new PropertyMetadata(default(bool)));
+        typeof(bool), typeof(AppearanceControl), new PropertyMetadata(false));
 
     public bool LightDark
     {

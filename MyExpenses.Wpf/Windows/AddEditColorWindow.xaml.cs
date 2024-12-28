@@ -18,7 +18,7 @@ public partial class AddEditColorWindow
 {
     public static readonly DependencyProperty EditColorProperty =
         DependencyProperty.Register(nameof(EditColor), typeof(bool), typeof(AddEditColorWindow),
-            new PropertyMetadata(default(bool)));
+            new PropertyMetadata(false));
 
     public bool EditColor
     {

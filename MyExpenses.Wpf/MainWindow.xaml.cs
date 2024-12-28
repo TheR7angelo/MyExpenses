@@ -25,7 +25,7 @@ namespace MyExpenses.Wpf;
 public partial class MainWindow
 {
     public static readonly DependencyProperty CanGoBackProperty = DependencyProperty.Register(nameof(CanGoBack),
-        typeof(bool), typeof(MainWindow), new PropertyMetadata(default(bool)));
+        typeof(bool), typeof(MainWindow), new PropertyMetadata(false));
 
     #region MenuItemFile
 

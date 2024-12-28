@@ -27,7 +27,7 @@ public partial class BankTransferPage
 
     public static readonly DependencyProperty BankTransferPrepareProperty =
         DependencyProperty.Register(nameof(BankTransferPrepare), typeof(bool), typeof(BankTransferPage),
-            new PropertyMetadata(default(bool)));
+            new PropertyMetadata(false));
 
     public bool BankTransferPrepare
     {
@@ -46,7 +46,7 @@ public partial class BankTransferPage
 
     public static readonly DependencyProperty VFromAccountReduceProperty =
         DependencyProperty.Register(nameof(VFromAccountReduce), typeof(double), typeof(BankTransferPage),
-            new PropertyMetadata(default(double)));
+            new PropertyMetadata(0d));
 
     public double? VFromAccountReduce
     {
@@ -65,7 +65,7 @@ public partial class BankTransferPage
 
     public static readonly DependencyProperty VToAccountIncreaseProperty =
         DependencyProperty.Register(nameof(VToAccountIncrease), typeof(double), typeof(BankTransferPage),
-            new PropertyMetadata(default(double)));
+            new PropertyMetadata(0d));
 
     public double? VToAccountIncrease
     {
@@ -92,7 +92,7 @@ public partial class BankTransferPage
     }
 
     public static readonly DependencyProperty IsPointedProperty = DependencyProperty.Register(nameof(IsPointed),
-        typeof(bool), typeof(BankTransferPage), new PropertyMetadata(default(bool)));
+        typeof(bool), typeof(BankTransferPage), new PropertyMetadata(false));
 
     public bool IsPointed
     {

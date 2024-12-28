@@ -111,7 +111,7 @@ public partial class AddEditBankTransferContentPage
     }
 
     public static readonly BindableProperty CanBeDeletedProperty = BindableProperty.Create(nameof(CanBeDeleted),
-        typeof(bool), typeof(AddEditBankTransferContentPage), default(bool));
+        typeof(bool), typeof(AddEditBankTransferContentPage), false);
 
     public bool CanBeDeleted
     {
@@ -120,7 +120,7 @@ public partial class AddEditBankTransferContentPage
     }
 
     public static readonly BindableProperty IsDirtyProperty = BindableProperty.Create(nameof(IsDirty), typeof(bool),
-        typeof(AddEditBankTransferContentPage), default(bool));
+        typeof(AddEditBankTransferContentPage), false);
 
     public bool IsDirty
     {

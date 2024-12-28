@@ -29,7 +29,7 @@ public partial class AddEditLocationWindow
     #region Properties
 
     public static readonly DependencyProperty EditPlaceProperty = DependencyProperty.Register(nameof(EditPlace),
-        typeof(bool), typeof(AddEditLocationWindow), new PropertyMetadata(default(bool)));
+        typeof(bool), typeof(AddEditLocationWindow), new PropertyMetadata(false));
 
     public bool EditPlace
     {
