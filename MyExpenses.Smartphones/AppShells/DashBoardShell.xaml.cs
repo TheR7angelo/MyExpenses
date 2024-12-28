@@ -34,7 +34,7 @@ public partial class DashBoardShell
     public Version ApplicationVersion
     {
         get => (Version)GetValue(ApplicationVersionProperty);
-        set => SetValue(ApplicationVersionProperty, value);
+        init => SetValue(ApplicationVersionProperty, value);
     }
 
     public static readonly BindableProperty ApplicationNameProperty =
@@ -43,7 +43,7 @@ public partial class DashBoardShell
     public string ApplicationName
     {
         get => (string)GetValue(ApplicationNameProperty);
-        set => SetValue(ApplicationNameProperty, value);
+        init => SetValue(ApplicationNameProperty, value);
     }
 
     public static readonly BindableProperty MenuItemLogoutTextProperty =
@@ -61,7 +61,7 @@ public partial class DashBoardShell
     public ExistingDatabase SelectedDatabase
     {
         get => (ExistingDatabase)GetValue(SelectedDatabaseProperty);
-        set => SetValue(SelectedDatabaseProperty, value);
+        init => SetValue(SelectedDatabaseProperty, value);
     }
 
     // TODO continue

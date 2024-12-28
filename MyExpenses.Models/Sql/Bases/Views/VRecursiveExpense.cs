@@ -12,87 +12,87 @@ public class VRecursiveExpense : ISql
     public int Id { get; set; }
 
     [Column("account_fk")]
-    public int? AccountFk { get; set; }
+    public int? AccountFk { get; init; }
 
     [Column("account")]
     [MaxLength(55)]
-    public string? Account { get; set; }
+    public string? Account { get; init; }
 
     [Column("description")]
     [MaxLength(255)]
-    public string? Description { get; set; }
+    public string? Description { get; init; }
 
     [Column("note")]
     [MaxLength(255)]
-    public string? Note { get; set; }
+    public string? Note { get; init; }
 
     [Column("category_type_fk")]
-    public int? CategoryTypeFk { get; set; }
+    public int? CategoryTypeFk { get; init; }
 
     [Column("category")]
     [MaxLength(55)]
-    public string? Category { get; set; }
+    public string? Category { get; init; }
 
     [Column("mode_payment_fk")]
-    public int? ModePaymentFk { get; set; }
+    public int? ModePaymentFk { get; init; }
 
     [Column("mode_payment")]
     [MaxLength(55)]
-    public string? ModePayment { get; set; }
+    public string? ModePayment { get; init; }
 
     [Column("value")]
-    public double? Value { get; set; }
+    public double? Value { get; init; }
 
     [Column("symbol")]
     [MaxLength(55)]
-    public string? Symbol { get; set; }
+    public string? Symbol { get; init; }
 
     [Column("hexadecimal_color_code")]
     [MaxLength(9)]
-    public string? HexadecimalColorCode { get; set; }
+    public string? HexadecimalColorCode { get; init; }
 
     [Column("place_fk")]
-    public int? PlaceFk { get; set; }
+    public int? PlaceFk { get; init; }
 
     [Column("place")]
     [MaxLength(155)]
-    public string? Place { get; set; }
+    public string? Place { get; init; }
 
     [Column("start_date", TypeName = "DATE")]
-    public DateOnly StartDate { get; set; }
+    public DateOnly StartDate { get; init; }
 
     [Column("recursive_total")]
-    public int? RecursiveTotal { get; set; }
+    public int? RecursiveTotal { get; init; }
 
     [Column("recursive_count")]
-    public int? RecursiveCount { get; set; }
+    public int? RecursiveCount { get; init; }
 
     [Column("frequency_fk")]
-    public int FrequencyFk { get; set; }
+    public int FrequencyFk { get; init; }
 
     [NotMapped]
     public ERecursiveFrequency ERecursiveFrequency
     {
         get => (ERecursiveFrequency)FrequencyFk;
-        set => FrequencyFk = (int)value;
+        init => FrequencyFk = (int)value;
     }
 
     [Column("frequency")]
     [MaxLength(55)]
-    public string? Frequency { get; set; }
+    public string? Frequency { get; init; }
 
     [Column("next_due_date", TypeName = "DATE")]
-    public DateOnly NextDueDate { get; set; }
+    public DateOnly NextDueDate { get; init; }
 
     [Column("is_active", TypeName = "BOOLEAN")]
-    public bool IsActive { get; set; }
+    public bool IsActive { get; init; }
 
     [Column("force_deactivate", TypeName = "BOOLEAN")]
-    public bool ForceDeactivate { get; set; }
+    public bool ForceDeactivate { get; init; }
 
     [Column("date_added", TypeName = "DATETIME")]
-    public DateTime? DateAdded { get; set; }
+    public DateTime? DateAdded { get; init; }
 
     [Column("last_updated", TypeName = "DATE")]
-    public DateTime? LastUpdated { get; set; }
+    public DateTime? LastUpdated { get; init; }
 }

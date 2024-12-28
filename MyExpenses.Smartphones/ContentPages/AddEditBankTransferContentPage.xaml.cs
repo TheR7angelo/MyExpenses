@@ -116,7 +116,7 @@ public partial class AddEditBankTransferContentPage
     public bool CanBeDeleted
     {
         get => (bool)GetValue(CanBeDeletedProperty);
-        set => SetValue(CanBeDeletedProperty, value);
+        init => SetValue(CanBeDeletedProperty, value);
     }
 
     public static readonly BindableProperty IsDirtyProperty = BindableProperty.Create(nameof(IsDirty), typeof(bool),
@@ -187,7 +187,7 @@ public partial class AddEditBankTransferContentPage
     public Task<bool> ResultDialog
         => _taskCompletionSource.Task;
 
-    public bool IsNewBankTransfer { get; set; }
+    public bool IsNewBankTransfer { get; init; }
 
     public AddEditBankTransferContentPage()
     {

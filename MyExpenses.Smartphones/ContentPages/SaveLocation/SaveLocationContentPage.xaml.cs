@@ -12,7 +12,7 @@ public partial class SaveLocationContentPage
     public bool ButtonLocalVisibility
     {
         get => (bool)GetValue(ButtonLocalVisibilityProperty);
-        set => SetValue(ButtonLocalVisibilityProperty, value);
+        init => SetValue(ButtonLocalVisibilityProperty, value);
     }
 
     public static readonly BindableProperty ButtonDropboxVisibilityProperty =
@@ -22,7 +22,7 @@ public partial class SaveLocationContentPage
     public bool ButtonDropboxVisibility
     {
         get => (bool)GetValue(ButtonDropboxVisibilityProperty);
-        set => SetValue(ButtonDropboxVisibilityProperty, value);
+        init => SetValue(ButtonDropboxVisibilityProperty, value);
     }
 
     public static readonly BindableProperty ButtonFolderVisibilityProperty =
@@ -32,7 +32,7 @@ public partial class SaveLocationContentPage
     public bool ButtonFolderVisibility
     {
         get => (bool)GetValue(ButtonFolderVisibilityProperty);
-        set => SetValue(ButtonFolderVisibilityProperty, value);
+        init => SetValue(ButtonFolderVisibilityProperty, value);
     }
 
     private readonly TaskCompletionSource<bool> _taskCompletionSource;
@@ -44,7 +44,7 @@ public partial class SaveLocationContentPage
     public bool ButtonDatabaseVisibility
     {
         get => (bool)GetValue(ButtonDatabaseVisibilityProperty);
-        set => SetValue(ButtonDatabaseVisibilityProperty, value);
+        init => SetValue(ButtonDatabaseVisibilityProperty, value);
     }
 
     public Task<bool> ResultDialog

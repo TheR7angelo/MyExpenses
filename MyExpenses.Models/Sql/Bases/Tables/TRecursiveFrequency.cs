@@ -9,7 +9,7 @@ public class TRecursiveFrequency
 {
     [Key]
     [Column("id")]
-    public int Id { get; set; }
+    public int Id { get; init; }
 
     [NotMapped]
     public ERecursiveFrequency ERecursiveFrequency

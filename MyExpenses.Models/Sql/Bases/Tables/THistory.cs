@@ -45,10 +45,10 @@ public partial class THistory : ISql
     public bool IsPointed { get; set; }
 
     [Column("bank_transfer_fk")]
-    public int? BankTransferFk { get; set; }
+    public int? BankTransferFk { get; init; }
 
     [Column("recursive_expense_fk")]
-    public int? RecursiveExpenseFk { get; set; }
+    public int? RecursiveExpenseFk { get; init; }
 
     [Column("date_added", TypeName = "DATETIME")]
     public DateTime? DateAdded { get; set; } = DateTime.Now;

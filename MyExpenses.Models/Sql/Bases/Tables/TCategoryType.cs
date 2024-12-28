@@ -20,7 +20,7 @@ public partial class TCategoryType : ISql
     public int? ColorFk { get; set; }
 
     [Column("date_added", TypeName = "DATETIME")]
-    public DateTime? DateAdded { get; set; } = DateTime.Now;
+    public DateTime? DateAdded { get; init; } = DateTime.Now;
 
     // ReSharper disable PropertyCanBeMadeInitOnly.Global
     [ForeignKey("ColorFk")]

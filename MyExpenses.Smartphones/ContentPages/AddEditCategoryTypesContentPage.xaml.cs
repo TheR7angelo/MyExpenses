@@ -78,7 +78,7 @@ public partial class AddEditCategoryTypesContentPage
     public ObservableCollection<TColor> Colors { get; } = [];
     public ObservableCollection<VCategory> Categories { get; } = [];
 
-    public ICommand BackCommand { get; set; }
+    public ICommand BackCommand { get; init; }
 
     private readonly TaskCompletionSource<bool> _taskCompletionSource = new();
 

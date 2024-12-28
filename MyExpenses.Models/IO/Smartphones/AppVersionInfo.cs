@@ -14,7 +14,7 @@ public class AppVersionInfo
             string.IsNullOrEmpty(VersionStr) ?
                 null
                 : new Version(VersionStr);
-        set => VersionStr = value?.ToString();
+        init => VersionStr = value?.ToString();
     }
 
     [JsonProperty("last_updated")]

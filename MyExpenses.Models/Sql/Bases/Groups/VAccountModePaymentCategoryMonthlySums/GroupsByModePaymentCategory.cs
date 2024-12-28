@@ -7,7 +7,7 @@ public class GroupsByModePaymentCategory
     public string? ModePayment { get; init; }
     public string? Period { get; init; }
     public double? TotalMonthlySum { get; init; }
-    public int? CurrencyFk { get; set; }
-    public string? Currency { get; set; }
+    public int? CurrencyFk { get; init; }
+    public string? Currency { get; init; }
     public int? TotalMonthlyModePayment { get; init; }
 }

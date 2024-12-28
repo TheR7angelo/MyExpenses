@@ -8,23 +8,23 @@ namespace MyExpenses.Models.Sql.Bases.Views.Exports;
 public class ExportVAccount
 {
     [Column("id")]
-    public int? Id { get; set; }
+    public int? Id { get; init; }
 
     [Column("name")]
     [MaxLength(55)]
-    public string? Name { get; set; }
+    public string? Name { get; init; }
 
     [Column("account_type")]
     [MaxLength(100)]
-    public string? AccountType { get; set; }
+    public string? AccountType { get; init; }
 
     [Column("currency")]
     [MaxLength(55)]
-    public string? Currency { get; set; }
+    public string? Currency { get; init; }
 
     [Column("active", TypeName = "BOOLEAN")]
-    public bool? Active { get; set; }
+    public bool? Active { get; init; }
 
     [Column("date_added", TypeName = "DATETIME")]
-    public DateTime? DateAdded { get; set; }
+    public DateTime? DateAdded { get; init; }
 }

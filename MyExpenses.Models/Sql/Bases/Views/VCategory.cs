@@ -18,16 +18,16 @@ public class VCategory : ISql
     public int? ColorFk { get; set; }
 
     [Column("date_category_added", TypeName = "DATETIME")]
-    public DateTime? DateCategoryAdded { get; set; }
+    public DateTime? DateCategoryAdded { get; init; }
 
     [Column("color_name")]
     [MaxLength(55)]
-    public string? ColorName { get; set; }
+    public string? ColorName { get; init; }
 
     [Column("hexadecimal_color_code", TypeName = "TEXT(9)")]
     [MaxLength(9)]
-    public string? HexadecimalColorCode { get; set; }
+    public string? HexadecimalColorCode { get; init; }
 
     [Column("date_color_added", TypeName = "DATETIME")]
-    public DateTime? DateColorAdded { get; set; }
+    public DateTime? DateColorAdded { get; init; }
 }

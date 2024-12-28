@@ -40,7 +40,7 @@ public partial class CustomPopupEntry
     public int MaxLenght
     {
         get => (int)GetValue(MaxLenghtProperty);
-        set => SetValue(MaxLenghtProperty, value);
+        init => SetValue(MaxLenghtProperty, value);
     }
 
     public static readonly BindableProperty HasMultilineProperty =
@@ -49,7 +49,7 @@ public partial class CustomPopupEntry
     public string HasMultiline
     {
         get => (string)GetValue(HasMultilineProperty);
-        set => SetValue(HasMultilineProperty, value);
+        init => SetValue(HasMultilineProperty, value);
     }
 
     public static readonly BindableProperty HasClearButtonProperty =
@@ -58,7 +58,7 @@ public partial class CustomPopupEntry
     public bool HasClearButton
     {
         get => (bool)GetValue(HasClearButtonProperty);
-        set => SetValue(HasClearButtonProperty, value);
+        init => SetValue(HasClearButtonProperty, value);
     }
 
     private static readonly BindableProperty TextProperty =
@@ -76,7 +76,7 @@ public partial class CustomPopupEntry
     public string PlaceholderText
     {
         get => (string)GetValue(PlaceholderTextProperty);
-        set => SetValue(PlaceholderTextProperty, value);
+        init => SetValue(PlaceholderTextProperty, value);
     }
 
     public static readonly BindableProperty CanDeleteProperty =
@@ -85,7 +85,7 @@ public partial class CustomPopupEntry
     public bool CanDelete
     {
         get => (bool)GetValue(CanDeleteProperty);
-        set => SetValue(CanDeleteProperty, value);
+        init => SetValue(CanDeleteProperty, value);
     }
 
     private readonly TaskCompletionSource<ECustomPopupEntryResult> _taskCompletionSource = new();

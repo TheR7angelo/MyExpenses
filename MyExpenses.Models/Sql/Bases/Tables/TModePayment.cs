@@ -17,10 +17,10 @@ public partial class TModePayment : ISql
     public string? Name { get; set; }
 
     [Column("can_be_deleted", TypeName = "BOOLEAN")]
-    public bool? CanBeDeleted { get; set; } = true;
+    public bool? CanBeDeleted { get; init; } = true;
 
     [Column("date_added", TypeName = "DATETIME")]
-    public DateTime? DateAdded { get; set; } = DateTime.Now;
+    public DateTime? DateAdded { get; init; } = DateTime.Now;
 
     // ReSharper disable PropertyCanBeMadeInitOnly.Global
     [InverseProperty("ModePaymentFkNavigation")]

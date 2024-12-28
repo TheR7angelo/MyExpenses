@@ -22,7 +22,7 @@ public partial class MsgBoxMessageWindow
     public string MessageBoxText
     {
         get => (string)GetValue(MessageBoxTextProperty);
-        set => SetValue(MessageBoxTextProperty, value);
+        init => SetValue(MessageBoxTextProperty, value);
     }
 
     public MsgBoxImage MsgBoxImage

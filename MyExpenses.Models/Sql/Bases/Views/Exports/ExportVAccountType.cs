@@ -8,12 +8,12 @@ namespace MyExpenses.Models.Sql.Bases.Views.Exports;
 public class ExportVAccountType
 {
     [Column("id")]
-    public int? Id { get; set; }
+    public int? Id { get; init; }
 
     [Column("name")]
     [MaxLength(100)]
-    public string? Name { get; set; }
+    public string? Name { get; init; }
 
     [Column("date_added", TypeName = "DATETIME")]
-    public DateTime? DateAdded { get; set; }
+    public DateTime? DateAdded { get; init; }
 }

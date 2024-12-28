@@ -75,7 +75,7 @@ public partial class AddEditAccountContentPage
     public bool CanDelete
     {
         get => (bool)GetValue(CanDeleteProperty);
-        set => SetValue(CanDeleteProperty, value);
+        init => SetValue(CanDeleteProperty, value);
     }
 
     public ObservableCollection<TAccountType> AccountTypes { get; } = [];

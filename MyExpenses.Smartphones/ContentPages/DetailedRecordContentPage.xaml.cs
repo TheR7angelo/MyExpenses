@@ -172,7 +172,7 @@ public partial class DetailedRecordContentPage
     public bool CanBeDeleted
     {
         get => (bool)GetValue(CanBeDeletedProperty);
-        set => SetValue(CanBeDeletedProperty, value);
+        init => SetValue(CanBeDeletedProperty, value);
     }
 
     public static readonly BindableProperty HistorySymbolProperty = BindableProperty.Create(nameof(HistorySymbol),
@@ -236,7 +236,7 @@ public partial class DetailedRecordContentPage
     public bool IsNewHistory
     {
         get => (bool)GetValue(IsNewHistoryProperty);
-        set => SetValue(IsNewHistoryProperty, value);
+        init => SetValue(IsNewHistoryProperty, value);
     }
 
     public DetailedRecordContentPage()

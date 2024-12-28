@@ -8,21 +8,21 @@ public class TSpatialRefSy
 {
     [Key]
     [Column("srid")]
-    public int Srid { get; set; }
+    public int Srid { get; init; }
 
     [Column("auth_name")]
     [MaxLength(50)]
-    public string AuthName { get; set; } = null!;
+    public string AuthName { get; init; } = null!;
 
     [Column("auth_srid")]
     [MaxLength(10)]
-    public string AuthSrid { get; set; } = null!;
+    public string AuthSrid { get; init; } = null!;
 
     [Column("srtext")]
     [MaxLength(2000)]
-    public string Srtext { get; set; } = null!;
+    public string Srtext { get; init; } = null!;
 
     [Column("proj4text")]
     [MaxLength(255)]
-    public string Proj4text { get; set; } = null!;
+    public string Proj4text { get; init; } = null!;
 }

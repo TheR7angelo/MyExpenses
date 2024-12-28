@@ -8,7 +8,7 @@ public partial class CustomPopupActivityIndicator
     public string LabelTextToDisplay
     {
         get => (string)GetValue(LabelTextToDisplayProperty);
-        set => SetValue(LabelTextToDisplayProperty, value);
+        init => SetValue(LabelTextToDisplayProperty, value);
     }
 
     public CustomPopupActivityIndicator()

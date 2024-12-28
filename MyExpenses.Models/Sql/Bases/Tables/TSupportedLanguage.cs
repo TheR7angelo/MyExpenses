@@ -10,23 +10,23 @@ public class TSupportedLanguage
 {
     [Key]
     [Column("id")]
-    public int Id { get; set; }
+    public int Id { get; init; }
 
     [Column("code")]
     [MaxLength(10)]
-    public string Code { get; set; } = null!;
+    public string Code { get; init; } = null!;
 
     [Column("native_name")]
     [MaxLength(55)]
-    public string NativeName { get; set; } = null!;
+    public string NativeName { get; init; } = null!;
 
     [Column("english_name")]
     [MaxLength(55)]
-    public string EnglishName { get; set; } = null!;
+    public string EnglishName { get; init; } = null!;
 
     [Column("default_language", TypeName = "BOOLEAN")]
-    public bool? DefaultLanguage { get; set; } = false;
+    public bool? DefaultLanguage { get; init; } = false;
 
     [Column("date_added", TypeName = "DATETIME")]
-    public DateTime? DateAdded { get; set; } = DateTime.Now;
+    public DateTime? DateAdded { get; init; }
 }

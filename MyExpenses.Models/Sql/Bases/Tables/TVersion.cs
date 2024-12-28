@@ -12,7 +12,7 @@ public class TVersion : ISql
 
     [Column("version")]
     [MaxLength(25)]
-    public string? VersionStr { get; set; }
+    public string? VersionStr { get; init; }
 
     [NotMapped]
     public Version? Version

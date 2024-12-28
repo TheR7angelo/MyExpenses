@@ -60,7 +60,7 @@ public partial class TRecursiveExpense : ISql
     public ERecursiveFrequency ERecursiveFrequency
     {
         get => (ERecursiveFrequency)FrequencyFk;
-        set => FrequencyFk = (int)value;
+        init => FrequencyFk = (int)value;
     }
 
     [Column("next_due_date", TypeName = "DATE")]
@@ -73,7 +73,7 @@ public partial class TRecursiveExpense : ISql
     public bool ForceDeactivate { get; set; }
 
     [Column("date_added", TypeName = "DATE")]
-    public DateTime? DateAdded { get; set; } = DateTime.Now;
+    public DateTime? DateAdded { get; init; } = DateTime.Now;
 
     [Column("last_updated", TypeName = "DATE")]
     public DateTime? LastUpdated { get; set; }

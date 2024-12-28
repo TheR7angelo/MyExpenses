@@ -20,10 +20,10 @@ public partial class VTotalByAccount : ISql
     public double? Total { get; set; }
 
     [Column("total_pointed")]
-    public double? TotalPointed { get; set; }
+    public double? TotalPointed { get; init; }
 
     [Column("total_not_pointed")]
-    public double? TotalNotPointed { get; set; }
+    public double? TotalNotPointed { get; init; }
 
     [Column("symbol")]
     [MaxLength(55)]

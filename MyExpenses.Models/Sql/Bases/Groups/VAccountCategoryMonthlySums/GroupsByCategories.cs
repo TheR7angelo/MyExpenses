@@ -8,6 +8,6 @@ public class GroupsByCategories
     public string? CategoryType { get; init; }
     public string? ColorCode { get; init; }
     public double? SumMonthlySum { get; init; }
-    public int? CurrencyFk { get; set; }
-    public string? Currency { get; set; }
+    public int? CurrencyFk { get; init; }
+    public string? Currency { get; init; }
 }

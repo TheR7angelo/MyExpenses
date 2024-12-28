@@ -43,7 +43,7 @@ public partial class CustomPopupEditCategory
     public bool CanDelete
     {
         get => (bool)GetValue(CanDeleteProperty);
-        set => SetValue(CanDeleteProperty, value);
+        init => SetValue(CanDeleteProperty, value);
     }
 
     public static readonly BindableProperty LabelTextColorProperty = BindableProperty.Create(nameof(LabelTextColor),
@@ -61,7 +61,7 @@ public partial class CustomPopupEditCategory
     public int MaxLenght
     {
         get => (int)GetValue(MaxLenghtProperty);
-        set => SetValue(MaxLenghtProperty, value);
+        init => SetValue(MaxLenghtProperty, value);
     }
 
     public static readonly BindableProperty EntryTextProperty = BindableProperty.Create(nameof(EntryText),

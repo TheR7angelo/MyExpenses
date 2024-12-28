@@ -8,16 +8,16 @@ namespace MyExpenses.Models.Sql.Bases.Views.Exports;
 public class ExportVCategoryType
 {
     [Column("id")]
-    public int? Id { get; set; }
+    public int? Id { get; init; }
 
     [Column("name")]
     [MaxLength(55)]
-    public string? Name { get; set; }
+    public string? Name { get; init; }
 
     [Column("color_name")]
     [MaxLength(55)]
-    public string? ColorName { get; set; }
+    public string? ColorName { get; init; }
 
     [Column("date_added", TypeName = "DATETIME")]
-    public DateTime? DateAdded { get; set; }
+    public DateTime? DateAdded { get; init; }
 }
