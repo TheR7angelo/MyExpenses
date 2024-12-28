@@ -207,7 +207,7 @@ public partial class AddEditBankTransferContentPage
         Interface.LanguageChanged += Interface_OnLanguageChanged;
     }
 
-    #region Acrion
+    #region Action
 
     private void ButtonCancelUpdateBankTransfer_OnClicked(object? sender, EventArgs e)
     {
@@ -229,59 +229,11 @@ public partial class AddEditBankTransferContentPage
         UpdateIsDirty();
     }
 
-    private async void ButtonDeleteBankTransfer_OnClicked(object? sender, EventArgs e)
-    {
-        var response = await DisplayAlert(
-            AddEditBankTransferContentPageResources.MessageBoxDeleteBankTransferTitle,
-            AddEditBankTransferContentPageResources.MessageBoxDeleteBankTransferMessage,
-            AddEditBankTransferContentPageResources.MessageBoxDeleteBankTransferYesButton,
-            AddEditBankTransferContentPageResources.MessageBoxDeleteBankTransferNoButton);
-        if (!response) return;
+    private void ButtonDeleteBankTransfer_OnClicked(object? sender, EventArgs e)
+        => _ = HandleButtonDeleteBankTransfer();
 
-        var json = BankTransfer.ToJson();
-        Log.Information("Attempting to delete bank transfer, {Json}", json);
-
-        var (success, exception) = BankTransfer.Delete(true);
-
-        if (success)
-        {
-            Log.Information("Bank transfer successfully deleted");
-            await DisplayAlert(
-                AddEditBankTransferContentPageResources.MessageBoxDeleteBankTransferSuccessTitle,
-                AddEditBankTransferContentPageResources.MessageBoxDeleteBankTransferSuccessMessage,
-                AddEditBankTransferContentPageResources.MessageBoxDeleteBankTransferSuccessOkButton);
-
-            _taskCompletionSource.SetResult(true);
-            await Navigation.PopAsync();
-        }
-        else
-        {
-            Log.Error(exception, "Failed to delete bank transfer");
-            await DisplayAlert(
-                AddEditBankTransferContentPageResources.MessageBoxDeleteBankTransferErrorTitle,
-                AddEditBankTransferContentPageResources.MessageBoxDeleteBankTransferErrorMessage,
-                AddEditBankTransferContentPageResources.MessageBoxDeleteBankTransferErrorOkButton);
-        }
-    }
-
-    private async void ButtonUpdateBankTransfer_OnClicked(object? sender, EventArgs e)
-    {
-        var isValidBankTransfer = await ValidValidBankTransfer();
-        if (!isValidBankTransfer) return;
-
-        var success = AddOrEditBankTransfer();
-        if (!success)
-        {
-            await DisplayAlert(
-                AddEditBankTransferContentPageResources.MessageBoxOnBackCommandPressedErrorTitle,
-                AddEditBankTransferContentPageResources.MessageBoxOnBackCommandPressedErrorMessage,
-                AddEditBankTransferContentPageResources.MessageBoxOnBackCommandPressedErrorOkButton);
-            return;
-        }
-
-        _taskCompletionSource.SetResult(true);
-        await Navigation.PopAsync();
-    }
+    private void ButtonUpdateBankTransfer_OnClicked(object? sender, EventArgs e)
+        => _ = HandleButtonUpdateBankTransfer();
 
     private void EntryValue_OnTextChanged(object? sender, TextChangedEventArgs e)
         => UpdateIsDirty();
@@ -289,38 +241,8 @@ public partial class AddEditBankTransferContentPage
     private void Interface_OnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
         => UpdateLanguage();
 
-    private async void OnBackCommandPressed()
-    {
-        if (IsDirty)
-        {
-            var response = await DisplayAlert(
-                AddEditBankTransferContentPageResources.MessageBoxOnBackCommandPressedTitle,
-                AddEditBankTransferContentPageResources.MessageBoxOnBackCommandPressedMessage,
-                AddEditBankTransferContentPageResources.MessageBoxOnBackCommandPressedYesButton,
-                AddEditBankTransferContentPageResources.MessageBoxOnBackCommandPressedNoButton);
-
-            if (response)
-            {
-                var isValidBankTransfer = await ValidValidBankTransfer();
-                if (!isValidBankTransfer) return;
-
-                var success = AddOrEditBankTransfer();
-                if (!success)
-                {
-                    await DisplayAlert(
-                        AddEditBankTransferContentPageResources.MessageBoxOnBackCommandPressedErrorTitle,
-                        AddEditBankTransferContentPageResources.MessageBoxOnBackCommandPressedErrorMessage,
-                        AddEditBankTransferContentPageResources.MessageBoxOnBackCommandPressedErrorOkButton);
-                    return;
-                }
-
-                _taskCompletionSource.SetResult(true);
-            }
-            else _taskCompletionSource.SetResult(false);
-        }
-
-        await Navigation.PopAsync();
-    }
+    private void OnBackCommandPressed()
+        => _ = HandleBackCommand();
 
     private void PickerCategory_OnSelectedIndexChanged(object? sender, EventArgs e)
         => UpdateIsDirty();
@@ -406,6 +328,93 @@ public partial class AddEditBankTransferContentPage
             DateAdded = now,
             DatePointed = now,
         };
+    }
+
+    private async Task HandleButtonDeleteBankTransfer()
+    {
+        var response = await DisplayAlert(
+            AddEditBankTransferContentPageResources.MessageBoxDeleteBankTransferTitle,
+            AddEditBankTransferContentPageResources.MessageBoxDeleteBankTransferMessage,
+            AddEditBankTransferContentPageResources.MessageBoxDeleteBankTransferYesButton,
+            AddEditBankTransferContentPageResources.MessageBoxDeleteBankTransferNoButton);
+        if (!response) return;
+
+        var json = BankTransfer.ToJson();
+        Log.Information("Attempting to delete bank transfer, {Json}", json);
+
+        var (success, exception) = BankTransfer.Delete(true);
+
+        if (success)
+        {
+            Log.Information("Bank transfer successfully deleted");
+            await DisplayAlert(
+                AddEditBankTransferContentPageResources.MessageBoxDeleteBankTransferSuccessTitle,
+                AddEditBankTransferContentPageResources.MessageBoxDeleteBankTransferSuccessMessage,
+                AddEditBankTransferContentPageResources.MessageBoxDeleteBankTransferSuccessOkButton);
+
+            _taskCompletionSource.SetResult(true);
+            await Navigation.PopAsync();
+        }
+        else
+        {
+            Log.Error(exception, "Failed to delete bank transfer");
+            await DisplayAlert(
+                AddEditBankTransferContentPageResources.MessageBoxDeleteBankTransferErrorTitle,
+                AddEditBankTransferContentPageResources.MessageBoxDeleteBankTransferErrorMessage,
+                AddEditBankTransferContentPageResources.MessageBoxDeleteBankTransferErrorOkButton);
+        }
+    }
+
+    private async Task HandleButtonUpdateBankTransfer()
+    {
+        var isValidBankTransfer = await ValidValidBankTransfer();
+        if (!isValidBankTransfer) return;
+
+        var success = AddOrEditBankTransfer();
+        if (!success)
+        {
+            await DisplayAlert(
+                AddEditBankTransferContentPageResources.MessageBoxOnBackCommandPressedErrorTitle,
+                AddEditBankTransferContentPageResources.MessageBoxOnBackCommandPressedErrorMessage,
+                AddEditBankTransferContentPageResources.MessageBoxOnBackCommandPressedErrorOkButton);
+            return;
+        }
+
+        _taskCompletionSource.SetResult(true);
+        await Navigation.PopAsync();
+    }
+
+    private async Task HandleBackCommand()
+    {
+        if (IsDirty)
+        {
+            var response = await DisplayAlert(
+                AddEditBankTransferContentPageResources.MessageBoxOnBackCommandPressedTitle,
+                AddEditBankTransferContentPageResources.MessageBoxOnBackCommandPressedMessage,
+                AddEditBankTransferContentPageResources.MessageBoxOnBackCommandPressedYesButton,
+                AddEditBankTransferContentPageResources.MessageBoxOnBackCommandPressedNoButton);
+
+            if (response)
+            {
+                var isValidBankTransfer = await ValidValidBankTransfer();
+                if (!isValidBankTransfer) return;
+
+                var success = AddOrEditBankTransfer();
+                if (!success)
+                {
+                    await DisplayAlert(
+                        AddEditBankTransferContentPageResources.MessageBoxOnBackCommandPressedErrorTitle,
+                        AddEditBankTransferContentPageResources.MessageBoxOnBackCommandPressedErrorMessage,
+                        AddEditBankTransferContentPageResources.MessageBoxOnBackCommandPressedErrorOkButton);
+                    return;
+                }
+
+                _taskCompletionSource.SetResult(true);
+            }
+            else _taskCompletionSource.SetResult(false);
+        }
+
+        await Navigation.PopAsync();
     }
 
     private void UpdateAccountsCollection(int? accountIdToRemove, ObservableCollection<TAccount> collection)

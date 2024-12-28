@@ -100,7 +100,36 @@ public partial class AddEditCategoryTypesContentPage
 
     #region Action
 
-    private async void ButtonValid_OnClicked(object? sender, EventArgs e)
+    private void ButtonValid_OnClicked(object? sender, EventArgs e)
+        => _ = HandleButtonValid();
+
+    private void Interface_OnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
+        => UpdateLanguage();
+
+    private void OnBackCommandPressed()
+        => _ = HandleBackCommand();
+
+    private void PickerColor_OnSelectedIndexChanged(object? sender, EventArgs e)
+    {
+        SelectedHexadecimalColorCode = SelectedColor is null
+            ? "#00000000"
+            : SelectedColor.HexadecimalColorCode!;
+    }
+
+    private void TapGestureRecognizer_OnTapped(object? sender, TappedEventArgs e)
+        => _ = HandleTapGestureRecognizer(sender);
+
+    #endregion
+
+    #region Function
+
+    private async Task HandleBackCommand()
+    {
+        _taskCompletionSource.SetResult(true);
+        await Navigation.PopAsync();
+    }
+
+    private async Task HandleButtonValid()
     {
         var validate = await ValidateCategoryType();
         if (!validate) return;
@@ -149,45 +178,6 @@ public partial class AddEditCategoryTypesContentPage
         }
     }
 
-    private void Interface_OnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
-        => UpdateLanguage();
-
-    private async void OnBackCommandPressed()
-    {
-        _taskCompletionSource.SetResult(true);
-        await Navigation.PopAsync();
-    }
-
-    private void PickerColor_OnSelectedIndexChanged(object? sender, EventArgs e)
-    {
-        SelectedHexadecimalColorCode = SelectedColor is null
-            ? "#00000000"
-            : SelectedColor.HexadecimalColorCode!;
-    }
-
-    private async void TapGestureRecognizer_OnTapped(object? sender, TappedEventArgs e)
-    {
-        if (sender is not Border border) return;
-        if (border.BindingContext is not VCategory category) return;
-
-        var customPopupEditCategory = new CustomPopupEditCategory { MaxLenght = MaxLength, CanDelete = true };
-        customPopupEditCategory.SetVCategory(category);
-        await this.ShowPopupAsync(customPopupEditCategory);
-
-        var result = await customPopupEditCategory.ResultDialog;
-        if (result is ECustomPopupEntryResult.Cancel) return;
-
-        category.CategoryName = customPopupEditCategory.EntryText;
-        category.ColorFk = customPopupEditCategory.SelectedColor?.Id;
-
-        await HandleVCategoryResult(category, result);
-        RefreshCategories();
-    }
-
-    #endregion
-
-    #region Function
-
     private async Task HandleCategoryTypeDelete(TCategoryType categoryType)
     {
         var (success, exception) = categoryType.Delete(true);
@@ -231,6 +221,25 @@ public partial class AddEditCategoryTypesContentPage
                 AddEditCategoryTypesContentPageResources.MessageBoxHandleCategoryTypeEditErrorMessage,
                 AddEditCategoryTypesContentPageResources.MessageBoxHandleCategoryTypeEditErrorOkButton);
         }
+    }
+
+    private async Task HandleTapGestureRecognizer(object? sender)
+    {
+        if (sender is not Border border) return;
+        if (border.BindingContext is not VCategory category) return;
+
+        var customPopupEditCategory = new CustomPopupEditCategory { MaxLenght = MaxLength, CanDelete = true };
+        customPopupEditCategory.SetVCategory(category);
+        await this.ShowPopupAsync(customPopupEditCategory);
+
+        var result = await customPopupEditCategory.ResultDialog;
+        if (result is ECustomPopupEntryResult.Cancel) return;
+
+        category.CategoryName = customPopupEditCategory.EntryText;
+        category.ColorFk = customPopupEditCategory.SelectedColor?.Id;
+
+        await HandleVCategoryResult(category, result);
+        RefreshCategories();
     }
 
     private async Task HandleVCategoryResult(VCategory vCategory, ECustomPopupEntryResult result)

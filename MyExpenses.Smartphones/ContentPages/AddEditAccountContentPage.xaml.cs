@@ -104,7 +104,47 @@ public partial class AddEditAccountContentPage
 
     #region Action
 
-    private async void ButtonAddEditAccountType_OnClick(object? sender, EventArgs e)
+    private void ButtonAddEditAccountType_OnClick(object? sender, EventArgs e)
+        => _ = HandleButtonAddEditAccountType();
+
+    private void ButtonAddEditCurrency_OnClick(object? sender, EventArgs e)
+        => _ = HandleButtonAddEditCurrency();
+
+    private void ButtonCancel_OnClicked(object? sender, EventArgs e)
+    {
+        var account = OriginalAccount ?? new TAccount();
+        account.CopyPropertiesTo(Account);
+    }
+
+    private void ButtonDelete_OnClicked(object? sender, EventArgs e)
+        => _ = HandleButtonDelete();
+
+    private void ButtonValid_OnClicked(object? sender, EventArgs e)
+        => _ = HandleButtonValid();
+
+    private void Interface_OnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
+        => UpdateLanguage();
+
+    #endregion
+
+    #region Function
+
+    private bool AddOrEditAccount()
+    {
+        Account.DateAdded ??= DateTime.Now;
+
+        var json = Account.ToJson();
+
+        Log.Information("Attempting to add edit account : {Json}", json);
+        var (success, exception) = Account.AddOrEdit();
+
+        if (success) Log.Information("Successful account editing");
+        else Log.Error(exception, "Failed account editing");
+
+        return success;
+    }
+
+    private async Task HandleButtonAddEditAccountType()
     {
         var accountTypeFk = Account.AccountTypeFk;
 
@@ -118,7 +158,7 @@ public partial class AddEditAccountContentPage
         Account.AccountTypeFk = accountTypeFk;
     }
 
-    private async void ButtonAddEditCurrency_OnClick(object? sender, EventArgs e)
+    private async Task HandleButtonAddEditCurrency()
     {
         var currencyFk = Account.CurrencyFk;
 
@@ -132,13 +172,7 @@ public partial class AddEditAccountContentPage
         Account.CurrencyFk = currencyFk;
     }
 
-    private void ButtonCancel_OnClicked(object? sender, EventArgs e)
-    {
-        var account = OriginalAccount ?? new TAccount();
-        account.CopyPropertiesTo(Account);
-    }
-
-    private async void ButtonDelete_OnClicked(object? sender, EventArgs e)
+    private async Task HandleButtonDelete()
     {
         var response = await DisplayAlert(
             AddEditAccountContentPageResources.MessageBoxDeleteAccountQuestionTitle,
@@ -179,7 +213,7 @@ public partial class AddEditAccountContentPage
         }
     }
 
-    private async void ButtonValid_OnClicked(object? sender, EventArgs e)
+    private async Task HandleButtonValid()
     {
         var isValid = await ValidAccount();
         if (!isValid) return;
@@ -201,28 +235,6 @@ public partial class AddEditAccountContentPage
 
         _taskCompletionSource.SetResult(true);
         await Navigation.PopAsync();
-    }
-
-    private void Interface_OnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
-        => UpdateLanguage();
-
-    #endregion
-
-    #region Function
-
-    private bool AddOrEditAccount()
-    {
-        Account.DateAdded ??= DateTime.Now;
-
-        var json = Account.ToJson();
-
-        Log.Information("Attempting to add edit account : {Json}", json);
-        var (success, exception) = Account.AddOrEdit();
-
-        if (success) Log.Information("Successful account editing");
-        else Log.Error(exception, "Failed account editing");
-
-        return success;
     }
 
     private void RefreshAccountTypes()

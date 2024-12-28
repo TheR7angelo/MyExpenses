@@ -26,7 +26,7 @@ public partial class HowToUseControl
 
         InitializeComponent();
 
-        InitializeAsync();
+        _ = InitializeAsync();
     }
 
     #region Function
@@ -64,7 +64,7 @@ public partial class HowToUseControl
         return results;
     }
 
-    private async void InitializeAsync()
+    private async Task InitializeAsync()
     {
         await WebView2.EnsureCoreWebView2Async();
 

@@ -255,19 +255,8 @@ public partial class DashBoardContentPage
 
     #region Action
 
-    private async void ButtonAddMonth_OnClick(object? sender, EventArgs e)
-    {
-        var date = GetDateOnlyFilter();
-        date = date.AddMonths(1);
-
-        var result = UpdateFilterDate(date);
-
-        if (result) return;
-
-        await DisplayAlert(DashBoardContentPageResources.MessageBoxAddMonthErrorTitle,
-            DashBoardContentPageResources.MessageBoxAddMonthErrorMessage,
-            DashBoardContentPageResources.MessageBoxAddMonthErrorOkButton);
-    }
+    private void ButtonAddMonth_OnClick(object? sender, EventArgs e)
+        => _ = HandleButtonAddMonth();
 
     private void ButtonDateNow_OnClick(object? sender, EventArgs e)
     {
@@ -279,7 +268,14 @@ public partial class DashBoardContentPage
     [SupportedOSPlatform("iOS13.0")]
     [SupportedOSPlatform("MacCatalyst13.0")]
     [SupportedOSPlatform("Windows")]
-    private async void ButtonImageViewAddRecordHistory_OnClicked(object? sender, EventArgs e)
+    private void ButtonImageViewAddRecordHistory_OnClicked(object? sender, EventArgs e)
+        => _ = HandleButtonImageViewAddRecordHistory();
+
+    [SupportedOSPlatform("Android21.0")]
+    [SupportedOSPlatform("iOS13.0")]
+    [SupportedOSPlatform("MacCatalyst13.0")]
+    [SupportedOSPlatform("Windows")]
+    private async Task HandleButtonImageViewAddRecordHistory()
     {
         var detailedRecordContentPage = new DetailedRecordContentPage { IsNewHistory = true };
         await Navigation.PushAsync(detailedRecordContentPage);
@@ -291,102 +287,44 @@ public partial class DashBoardContentPage
         RefreshAccountTotal();
     }
 
-    private async void ButtonRemoveMonth_OnClick(object? sender, EventArgs e)
+    private void ButtonRemoveMonth_OnClick(object? sender, EventArgs e)
+        => _ = HandleButtonRemoveMonth();
+
+    [SupportedOSPlatform("Android21.0")]
+    [SupportedOSPlatform("iOS13.0")]
+    [SupportedOSPlatform("MacCatalyst13.0")]
+    [SupportedOSPlatform("Windows")]
+    private void CategoryTapGestureRecognizer_OnTapped(object? sender, TappedEventArgs e)
+        => _ = RunFilter(sender, FilterCategory);
+
+    [SupportedOSPlatform("Android21.0")]
+    [SupportedOSPlatform("iOS13.0")]
+    [SupportedOSPlatform("MacCatalyst13.0")]
+    [SupportedOSPlatform("Windows")]
+    private void CategorySvgPath_OnClicked(object? sender, EventArgs e)
+        => _ = RunFilter(sender, FilterCategory);
+
+    [SupportedOSPlatform("Android21.0")]
+    [SupportedOSPlatform("iOS13.0")]
+    [SupportedOSPlatform("MacCatalyst13.0")]
+    [SupportedOSPlatform("Windows")]
+    private void CollectionViewVHistory_OnLongPress(object obj)
+        => _ = HandleCollectionViewVHistoryLongPress(obj);
+
+    [SupportedOSPlatform("Android21.0")]
+    [SupportedOSPlatform("iOS13.0")]
+    [SupportedOSPlatform("MacCatalyst13.0")]
+    [SupportedOSPlatform("Windows")]
+    private void CollectionViewVHistory_OnShortPress(object obj)
+        => _ = HandleCollectionViewVHistoryShortPress(obj);
+
+    [SupportedOSPlatform("Android21.0")]
+    [SupportedOSPlatform("iOS13.0")]
+    [SupportedOSPlatform("MacCatalyst13.0")]
+    [SupportedOSPlatform("Windows")]
+    private void CollectionViewVTotalAccount_OnLoaded(object? sender, EventArgs e)
     {
-        var date = GetDateOnlyFilter();
-        date = date.AddMonths(-1);
-
-        var result = UpdateFilterDate(date);
-
-        if (result) return;
-
-        await DisplayAlert(DashBoardContentPageResources.MessageBoxRemoveMonthErrorTitle,
-            DashBoardContentPageResources.MessageBoxRemoveMonthErrorMessage,
-            DashBoardContentPageResources.MessageBoxRemoveMonthErrorOkButton);
-    }
-
-    [SupportedOSPlatform("Android21.0")]
-    [SupportedOSPlatform("iOS13.0")]
-    [SupportedOSPlatform("MacCatalyst13.0")]
-    [SupportedOSPlatform("Windows")]
-    private async void CategoryTapGestureRecognizer_OnTapped(object? sender, TappedEventArgs e)
-        => await RunFilter(sender, FilterCategory);
-
-    [SupportedOSPlatform("Android21.0")]
-    [SupportedOSPlatform("iOS13.0")]
-    [SupportedOSPlatform("MacCatalyst13.0")]
-    [SupportedOSPlatform("Windows")]
-    private async void CategorySvgPath_OnClicked(object? sender, EventArgs e)
-        => await RunFilter(sender, FilterCategory);
-
-    [SupportedOSPlatform("Android21.0")]
-    [SupportedOSPlatform("iOS13.0")]
-    [SupportedOSPlatform("MacCatalyst13.0")]
-    [SupportedOSPlatform("Windows")]
-    private async void CollectionViewVHistory_OnLongPress(object obj)
-    {
-        if (obj is not VHistory vHistory) return;
-
-        _isCollectionViewVHistoryLongPressInvoked = true;
-
-        var history = vHistory.Id.ToISql<THistory>()!;
-
-        var word = history.IsPointed
-            ? DashBoardContentPageResources.MessageBoxCollectionViewVHistoryOnLongPressUnCheck
-            : DashBoardContentPageResources.MessageBoxCollectionViewVHistoryOnLongPressCheck;
-
-        var message = string.Format(DashBoardContentPageResources.MessageBoxCollectionViewVHistoryOnLongPressMessage,
-            word, $"\n{history.Description}");
-        var response = await DisplayAlert(
-            DashBoardContentPageResources.MessageBoxCollectionViewVHistoryOnLongPressTitle, message,
-            DashBoardContentPageResources.MessageBoxCollectionViewVHistoryOnLongPressYesButton,
-            DashBoardContentPageResources.MessageBoxCollectionViewVHistoryOnLongPressNoButton);
-        if (response)
-        {
-            history.IsPointed = !history.IsPointed;
-
-            if (history.IsPointed) history.DatePointed = DateTime.Now;
-            else history.DatePointed = null;
-
-            Log.Information("Attention to pointed record, id: \"{HistoryId}\"", history.Id);
-            history.AddOrEdit();
-            Log.Information("The recording was successfully pointed");
-
-            RefreshDataGrid();
-        }
-
-        await Task.Delay(TimeSpan.FromSeconds(1));
-        _isCollectionViewVHistoryLongPressInvoked = false;
-    }
-
-    [SupportedOSPlatform("Android21.0")]
-    [SupportedOSPlatform("iOS13.0")]
-    [SupportedOSPlatform("MacCatalyst13.0")]
-    [SupportedOSPlatform("Windows")]
-    private async void CollectionViewVHistory_OnShortPress(object obj)
-    {
-        if (_isCollectionViewVHistoryLongPressInvoked) return;
-
-        if (obj is not VHistory vHistory) return;
-
-        var detailedRecordContentPage = new DetailedRecordContentPage { CanBeDeleted = true };
-        detailedRecordContentPage.SetHistory(vHistory.Id);
-        await Navigation.PushAsync(detailedRecordContentPage);
-
-        var result = await detailedRecordContentPage.ResultDialog;
-        if (result is not true) return;
-
-        RefreshDataGrid();
-        RefreshAccountTotal();
-    }
-
-    [SupportedOSPlatform("Android21.0")]
-    [SupportedOSPlatform("iOS13.0")]
-    [SupportedOSPlatform("MacCatalyst13.0")]
-    [SupportedOSPlatform("Windows")]
-    private async void CollectionViewVTotalAccount_OnLoaded(object? sender, EventArgs e)
-    {
-        await Dispatcher.DispatchAsync(async () =>
+        _ = Dispatcher.DispatchAsync(async () =>
         {
             await Task.Delay(TimeSpan.FromMilliseconds(100));
             RefreshRadioButtonSelected();
@@ -406,15 +344,15 @@ public partial class DashBoardContentPage
     [SupportedOSPlatform("iOS13.0")]
     [SupportedOSPlatform("MacCatalyst13.0")]
     [SupportedOSPlatform("Windows")]
-    private async void DescriptionTapGestureRecognizer_OnTapped(object? sender, TappedEventArgs e)
-        => await RunFilter(sender, FilterDescription);
+    private void DescriptionTapGestureRecognizer_OnTapped(object? sender, TappedEventArgs e)
+        => _ = RunFilter(sender, FilterDescription);
 
     [SupportedOSPlatform("Android21.0")]
     [SupportedOSPlatform("iOS13.0")]
     [SupportedOSPlatform("MacCatalyst13.0")]
     [SupportedOSPlatform("Windows")]
-    private async void DescriptionSvgPath_OnClicked(object? sender, EventArgs e)
-        => await RunFilter(sender, FilterDescription);
+    private void DescriptionSvgPath_OnClicked(object? sender, EventArgs e)
+        => _ = RunFilter(sender, FilterDescription);
 
     private void Interface_OnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
     {
@@ -426,43 +364,43 @@ public partial class DashBoardContentPage
     [SupportedOSPlatform("iOS13.0")]
     [SupportedOSPlatform("MacCatalyst13.0")]
     [SupportedOSPlatform("Windows")]
-    private async void PaymentModeTapGestureRecognizer_OnTapped(object? sender, TappedEventArgs e)
-        => await RunFilter(sender, FilterPaymentMode);
+    private void PaymentModeTapGestureRecognizer_OnTapped(object? sender, TappedEventArgs e)
+        => _ = RunFilter(sender, FilterPaymentMode);
 
     [SupportedOSPlatform("Android21.0")]
     [SupportedOSPlatform("iOS13.0")]
     [SupportedOSPlatform("MacCatalyst13.0")]
     [SupportedOSPlatform("Windows")]
-    private async void PaymentModeSvgPath_OnClicked(object? sender, EventArgs e)
-        => await RunFilter(sender, FilterPaymentMode);
+    private void PaymentModeSvgPath_OnClicked(object? sender, EventArgs e)
+        => _ = RunFilter(sender, FilterPaymentMode);
 
     [SupportedOSPlatform("Android21.0")]
     [SupportedOSPlatform("iOS13.0")]
     [SupportedOSPlatform("MacCatalyst13.0")]
     [SupportedOSPlatform("Windows")]
-    private async void PlaceTapGestureRecognizer_OnTapped(object? sender, TappedEventArgs e)
-        => await RunFilter(sender, FilterPlace);
+    private void PlaceTapGestureRecognizer_OnTapped(object? sender, TappedEventArgs e)
+        => _ = RunFilter(sender, FilterPlace);
 
     [SupportedOSPlatform("Android21.0")]
     [SupportedOSPlatform("iOS13.0")]
     [SupportedOSPlatform("MacCatalyst13.0")]
     [SupportedOSPlatform("Windows")]
-    private async void PlaceSvgPath_OnClicked(object? sender, EventArgs e)
-        => await RunFilter(sender, FilterPlace);
+    private void PlaceSvgPath_OnClicked(object? sender, EventArgs e)
+        => _ = RunFilter(sender, FilterPlace);
 
     [SupportedOSPlatform("Android21.0")]
     [SupportedOSPlatform("iOS13.0")]
     [SupportedOSPlatform("MacCatalyst13.0")]
     [SupportedOSPlatform("Windows")]
-    private async void PointedTapGestureRecognizer_OnTapped(object? sender, TappedEventArgs e)
-        => await RunFilter(sender, FilterChecked);
+    private void PointedTapGestureRecognizer_OnTapped(object? sender, TappedEventArgs e)
+        => _ = RunFilter(sender, FilterChecked);
 
     [SupportedOSPlatform("Android21.0")]
     [SupportedOSPlatform("iOS13.0")]
     [SupportedOSPlatform("MacCatalyst13.0")]
     [SupportedOSPlatform("Windows")]
-    private async void PointedSvgPath_OnClicked(object? sender, EventArgs e)
-        => await RunFilter(sender, FilterChecked);
+    private void PointedSvgPath_OnClicked(object? sender, EventArgs e)
+        => _ = RunFilter(sender, FilterChecked);
 
     [SupportedOSPlatform("Android21.0")]
     [SupportedOSPlatform("iOS13.0")]
@@ -496,15 +434,15 @@ public partial class DashBoardContentPage
     [SupportedOSPlatform("iOS13.0")]
     [SupportedOSPlatform("MacCatalyst13.0")]
     [SupportedOSPlatform("Windows")]
-    private async void ValueTapGestureRecognizer_OnTapped(object? sender, TappedEventArgs e)
-        => await RunFilter(sender, FilterValue);
+    private void ValueTapGestureRecognizer_OnTapped(object? sender, TappedEventArgs e)
+        => _ = RunFilter(sender, FilterValue);
 
     [SupportedOSPlatform("Android21.0")]
     [SupportedOSPlatform("iOS13.0")]
     [SupportedOSPlatform("MacCatalyst13.0")]
     [SupportedOSPlatform("Windows")]
-    private async void ValueSvgPath_OnClicked(object? sender, EventArgs e)
-        => await RunFilter(sender, FilterValue);
+    private void ValueSvgPath_OnClicked(object? sender, EventArgs e)
+        => _ = RunFilter(sender, FilterValue);
 
     [SupportedOSPlatform("Android21.0")]
     [SupportedOSPlatform("iOS13.0")]
@@ -766,6 +704,95 @@ public partial class DashBoardContentPage
 
         var date = DateOnly.Parse($"{year}/{monthIndex}/01");
         return date;
+    }
+
+    private async Task HandleButtonAddMonth()
+    {
+        var date = GetDateOnlyFilter();
+        date = date.AddMonths(1);
+
+        var result = UpdateFilterDate(date);
+
+        if (result) return;
+
+        await DisplayAlert(DashBoardContentPageResources.MessageBoxAddMonthErrorTitle,
+            DashBoardContentPageResources.MessageBoxAddMonthErrorMessage,
+            DashBoardContentPageResources.MessageBoxAddMonthErrorOkButton);
+    }
+
+    private async Task HandleButtonRemoveMonth()
+    {
+        var date = GetDateOnlyFilter();
+        date = date.AddMonths(-1);
+
+        var result = UpdateFilterDate(date);
+
+        if (result) return;
+
+        await DisplayAlert(DashBoardContentPageResources.MessageBoxRemoveMonthErrorTitle,
+            DashBoardContentPageResources.MessageBoxRemoveMonthErrorMessage,
+            DashBoardContentPageResources.MessageBoxRemoveMonthErrorOkButton);
+    }
+
+    [SupportedOSPlatform("Android21.0")]
+    [SupportedOSPlatform("iOS13.0")]
+    [SupportedOSPlatform("MacCatalyst13.0")]
+    [SupportedOSPlatform("Windows")]
+    private async Task HandleCollectionViewVHistoryLongPress(object obj)
+    {
+        if (obj is not VHistory vHistory) return;
+
+        _isCollectionViewVHistoryLongPressInvoked = true;
+
+        var history = vHistory.Id.ToISql<THistory>()!;
+
+        var word = history.IsPointed
+            ? DashBoardContentPageResources.MessageBoxCollectionViewVHistoryOnLongPressUnCheck
+            : DashBoardContentPageResources.MessageBoxCollectionViewVHistoryOnLongPressCheck;
+
+        var message = string.Format(DashBoardContentPageResources.MessageBoxCollectionViewVHistoryOnLongPressMessage,
+            word, $"\n{history.Description}");
+        var response = await DisplayAlert(
+            DashBoardContentPageResources.MessageBoxCollectionViewVHistoryOnLongPressTitle, message,
+            DashBoardContentPageResources.MessageBoxCollectionViewVHistoryOnLongPressYesButton,
+            DashBoardContentPageResources.MessageBoxCollectionViewVHistoryOnLongPressNoButton);
+        if (response)
+        {
+            history.IsPointed = !history.IsPointed;
+
+            if (history.IsPointed) history.DatePointed = DateTime.Now;
+            else history.DatePointed = null;
+
+            Log.Information("Attention to pointed record, id: \"{HistoryId}\"", history.Id);
+            history.AddOrEdit();
+            Log.Information("The recording was successfully pointed");
+
+            RefreshDataGrid();
+        }
+
+        await Task.Delay(TimeSpan.FromSeconds(1));
+        _isCollectionViewVHistoryLongPressInvoked = false;
+    }
+
+    [SupportedOSPlatform("Android21.0")]
+    [SupportedOSPlatform("iOS13.0")]
+    [SupportedOSPlatform("MacCatalyst13.0")]
+    [SupportedOSPlatform("Windows")]
+    private async Task HandleCollectionViewVHistoryShortPress(object obj)
+    {
+        if (_isCollectionViewVHistoryLongPressInvoked) return;
+
+        if (obj is not VHistory vHistory) return;
+
+        var detailedRecordContentPage = new DetailedRecordContentPage { CanBeDeleted = true };
+        detailedRecordContentPage.SetHistory(vHistory.Id);
+        await Navigation.PushAsync(detailedRecordContentPage);
+
+        var result = await detailedRecordContentPage.ResultDialog;
+        if (result is not true) return;
+
+        RefreshDataGrid();
+        RefreshAccountTotal();
     }
 
     internal void RefreshAccountTotal()

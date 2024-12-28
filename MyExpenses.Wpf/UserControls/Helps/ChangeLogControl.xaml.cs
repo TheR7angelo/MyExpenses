@@ -56,25 +56,15 @@ public partial class ChangeLogControl
 
         InitializeComponent();
 
-        InitializeAsync();
+        _ = InitializeAsync();
 
         Interface.LanguageChanged += Interface_OnLanguageChanged;
     }
 
     #region Action
 
-    private async void ButtonUpdate_OnClick(object sender, RoutedEventArgs e)
-    {
-        var lastRelease = AutoUpdaterGitHub.LastRelease!;
-        var asset = lastRelease.Assets!.GetAssetForThisSystem();
-        if (asset is null)
-        {
-            Log.Error("No asset found for this system");
-            return;
-        }
-
-        await asset.UpdateApplication();
-    }
+    private void ButtonUpdate_OnClick(object sender, RoutedEventArgs e)
+        => _ = HandleButtonUpdate();
 
     private void Interface_OnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
         => UpdateLanguage();
@@ -95,7 +85,20 @@ public partial class ChangeLogControl
 
     #region Function
 
-    private async void InitializeAsync()
+    private static async Task HandleButtonUpdate()
+    {
+        var lastRelease = AutoUpdaterGitHub.LastRelease!;
+        var asset = lastRelease.Assets!.GetAssetForThisSystem();
+        if (asset is null)
+        {
+            Log.Error("No asset found for this system");
+            return;
+        }
+
+        await asset.UpdateApplication();
+    }
+
+    private async Task InitializeAsync()
     {
         await WebView2.EnsureCoreWebView2Async();
 

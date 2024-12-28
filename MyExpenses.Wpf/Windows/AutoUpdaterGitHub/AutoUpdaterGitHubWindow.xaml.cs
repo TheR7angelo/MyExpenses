@@ -89,7 +89,7 @@ public partial class AutoUpdaterGitHubWindow
 
         InitializeComponent();
 
-        InitializeAsync(releasesUrl);
+        _ = InitializeAsync(releasesUrl);
 
         this.SetWindowCornerPreference();
 
@@ -97,6 +97,12 @@ public partial class AutoUpdaterGitHubWindow
     }
 
     #region Action
+
+    private void ButtonCallBackLater_OnClick(object sender, RoutedEventArgs e)
+        => _ = HandleButtonCallBackLater();
+
+    private void ButtonUpdateNow_OnClick(object sender, RoutedEventArgs e)
+        => _ = UpdateApplication();
 
     private void Interface_OnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
         => UpdateLanguage();
@@ -117,45 +123,9 @@ public partial class AutoUpdaterGitHubWindow
 
     #region Function
 
-    private async void InitializeAsync(string releasesUrl)
+    private async Task HandleButtonCallBackLater()
     {
-        await WebView2.EnsureCoreWebView2Async();
-
-        WebView2.CoreWebView2.Navigate(releasesUrl);
-    }
-
-    private void UpdateLanguage()
-    {
-        var assembly = Assembly.GetExecutingAssembly().GetName();
-
-        TitleWindow = string.Format(AutoUpdaterGitHubWindowResources.TitleWindow, assembly.Name, LastRelease.Version);
-        TextBlockNewVersionIsAvailable = string.Format(AutoUpdaterGitHubWindowResources.TextBlockNewVersionIsAvailable, assembly.Name);
-        TextBlockNewVersionIsAvailableParagraph = string.Format(AutoUpdaterGitHubWindowResources.TextBlockNewVersionIsAvailableParagraph, assembly.Name, LastRelease.Version, assembly.Version, Environment.NewLine);
-        TextBlockVersionNote = AutoUpdaterGitHubWindowResources.TextBlockVersionNote;
-
-        ButtonCallBackLaterContent = AutoUpdaterGitHubWindowResources.ButtonCallBackLaterContent;
-        ButtonUpdateNowContent = AutoUpdaterGitHubWindowResources.ButtonUpdateNowContent;
-    }
-
-    #endregion
-
-    private async void ButtonUpdateNow_OnClick(object sender, RoutedEventArgs e)
-        => await UpdateApplication();
-
-    /// <summary>
-    /// Handles the click event for the "Call Back Later" button. Displays a window
-    /// to determine a new callback time and updates the configuration accordingly.
-    /// The method delays the operation until the selected time has passed.
-    /// If "Download Later Now" is chosen, the application is updated immediately.
-    /// </summary>
-    /// <param name="sender">The source of the event.</param>
-    /// <param name="e">The event data.</param>
-    /// <exception cref="ArgumentOutOfRangeException">
-    /// Thrown when the selected callback time is out of the predefined range.
-    /// </exception>
-    private async void ButtonCallBackLater_OnClick(object sender, RoutedEventArgs e)
-    {
-        var callBackLaterWindow = new CallBackLaterWindow();
+                var callBackLaterWindow = new CallBackLaterWindow();
         var result = callBackLaterWindow.ShowDialog();
 
         if (result is false or null) Close();
@@ -213,7 +183,14 @@ public partial class AutoUpdaterGitHubWindow
         }
     }
 
-    private async Task UpdateApplication()
+    private async Task InitializeAsync(string releasesUrl)
+    {
+        await WebView2.EnsureCoreWebView2Async();
+
+        WebView2.CoreWebView2.Navigate(releasesUrl);
+    }
+
+    private static async Task UpdateApplication()
     {
         var lastRelease = AutoUpdaterGitHub.LastRelease!;
         var asset = lastRelease.Assets!.GetAssetForThisSystem();
@@ -232,4 +209,19 @@ public partial class AutoUpdaterGitHubWindow
         // await assetTest.UpdateApplication();
         await asset.UpdateApplication();
     }
+
+    private void UpdateLanguage()
+    {
+        var assembly = Assembly.GetExecutingAssembly().GetName();
+
+        TitleWindow = string.Format(AutoUpdaterGitHubWindowResources.TitleWindow, assembly.Name, LastRelease.Version);
+        TextBlockNewVersionIsAvailable = string.Format(AutoUpdaterGitHubWindowResources.TextBlockNewVersionIsAvailable, assembly.Name);
+        TextBlockNewVersionIsAvailableParagraph = string.Format(AutoUpdaterGitHubWindowResources.TextBlockNewVersionIsAvailableParagraph, assembly.Name, LastRelease.Version, assembly.Version, Environment.NewLine);
+        TextBlockVersionNote = AutoUpdaterGitHubWindowResources.TextBlockVersionNote;
+
+        ButtonCallBackLaterContent = AutoUpdaterGitHubWindowResources.ButtonCallBackLaterContent;
+        ButtonUpdateNowContent = AutoUpdaterGitHubWindowResources.ButtonUpdateNowContent;
+    }
+
+    #endregion
 }

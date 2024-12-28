@@ -33,48 +33,8 @@ public partial class MainPage
 
     #region Action
 
-    private async void ButtonAddDataBase_OnClick(object? sender, EventArgs e)
-    {
-        var addDatabaseFileContentPage = new AddDatabaseFileContentPage();
-        addDatabaseFileContentPage.SetExistingDatabase(ExistingDatabases);
-
-        await Navigation.PushAsync(addDatabaseFileContentPage);
-
-        var result = await addDatabaseFileContentPage.ResultDialog;
-
-        if (result is not true) return;
-
-        this.ShowCustomPopupActivityIndicator(MainPageResources.CustomPopupActivityIndicatorCreateNewDatabase);
-
-        var fileName = addDatabaseFileContentPage.DatabaseFilename;
-        fileName = Path.ChangeExtension(fileName, ".sqlite");
-        var filePath = Path.Combine(DbContextBackup.LocalDirectoryDatabase, fileName);
-
-        Log.Information("Create new database with name \"{FileName}\"", fileName);
-
-        try
-        {
-            File.Copy(DbContextBackup.LocalFilePathDataBaseModel, filePath, true);
-
-            await using var context = new DataBaseContext(filePath);
-            context.SetAllDefaultValues();
-            await context.SaveChangesAsync();
-
-            ExistingDatabases.AddAndSort(new ExistingDatabase(filePath),
-                s => s.FileNameWithoutExtension);
-
-            CustomPopupActivityIndicatorHelper.CloseCustomPopupActivityIndicator();
-            Log.Information("New database was successfully added");
-            await DisplayAlert(MainPageResources.MessageBoxAddDataBaseSuccessTitle, MainPageResources.MessageBoxAddDataBaseSuccessMessage, MainPageResources.MessageBoxAddDataBaseOkButton);
-        }
-        catch (Exception exception)
-        {
-            CustomPopupActivityIndicatorHelper.CloseCustomPopupActivityIndicator();
-            Log.Error(exception, "An error occur");
-
-            await DisplayAlert(MainPageResources.MessageBoxAddDataBaseErrorTitle, MainPageResources.MessageBoxAddDataBaseErrorMessage, MainPageResources.MessageBoxAddDataBaseOkButton);
-        }
-    }
+    private void ButtonAddDataBase_OnClick(object? sender, EventArgs e)
+        => _ = HandleButtonAddDataBase();
 
     private void ButtonDatabase_OnClick(object? sender, EventArgs e)
     {
@@ -94,106 +54,14 @@ public partial class MainPage
     [SupportedOSPlatform("iOS14.0")]
     [SupportedOSPlatform("MacCatalyst14.0")]
     [SupportedOSPlatform("Windows")]
-    private async void ButtonExportDataBase_OnClick(object? sender, EventArgs e)
-    {
-        var saveLocation = await SaveLocationContentPageUtils.GetExportSaveLocation();
-        if (saveLocation is null) return;
+    private void ButtonExportDataBase_OnClick(object? sender, EventArgs e)
+        => _ = HandleButtonExportDataBase();
 
-        await Task.Delay(TimeSpan.FromMilliseconds(100));
+    private void ButtonImportDataBase_OnClick(object? sender, EventArgs e)
+        => _ = HandleButtonImportDataBase();
 
-        var selectDatabaseFileContentPage = new SelectDatabaseFileContentPage();
-        selectDatabaseFileContentPage.ExistingDatabases.AddRange(ExistingDatabases);
-        await Navigation.PushAsync(selectDatabaseFileContentPage);
-        var result = await selectDatabaseFileContentPage.ResultDialog;
-        if (result is not true) return;
-        if (selectDatabaseFileContentPage.ExistingDatabasesSelected.Count.Equals(0)) return;
-
-        try
-        {
-            switch (saveLocation)
-            {
-                case SaveLocation.Database:
-                    await ExportToLocalDatabase(selectDatabaseFileContentPage.ExistingDatabasesSelected);
-                    break;
-
-                case SaveLocation.Folder:
-                    await ExportToLocalFolderAsync(selectDatabaseFileContentPage.ExistingDatabasesSelected, false);
-                    break;
-
-
-                case SaveLocation.Dropbox:
-                    await ExportToCloudAsync(selectDatabaseFileContentPage.ExistingDatabasesSelected);
-                    break;
-
-                case SaveLocation.Local:
-                case SaveLocation.Compress:
-                case null:
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
-
-            await DisplayAlert(MainPageResources.MessageBoxExportDataBaseSuccessTitle, MainPageResources.MessageBoxExportDataBaseSuccessMessage, MainPageResources.MessageBoxExportDataBaseSuccessOkButton);
-        }
-        catch (Exception exception)
-        {
-            Log.Error(exception, "An error occurred. Please try again");
-            await DisplayAlert(MainPageResources.MessageBoxExportDataBaseErrorTitle, MainPageResources.MessageBoxExportDataBaseErrorMessage, MainPageResources.MessageBoxExportDataBaseErrorOkButton);
-        }
-    }
-
-    private async void ButtonImportDataBase_OnClick(object? sender, EventArgs e)
-    {
-        var saveLocation = await SaveLocationMode.LocalDropbox.GetImportSaveLocation();
-        if (saveLocation is null) return;
-
-        try
-        {
-            switch (saveLocation)
-            {
-                case SaveLocation.Local:
-                    await ImportFromLocalAsync(this);
-                    break;
-                case SaveLocation.Dropbox:
-                    await ImportFromCloudAsync();
-                    break;
-                case SaveLocation.Folder:
-                case SaveLocation.Database:
-                case SaveLocation.Compress:
-                case null:
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
-
-            RefreshExistingDatabases();
-
-            CustomPopupActivityIndicatorHelper.CloseCustomPopupActivityIndicator();
-            await DisplayAlert(MainPageResources.MessageBoxImportDatabaseSuccessTitle, MainPageResources.MessageBoxImportDatabaseSuccessMessage, MainPageResources.MessageBoxImportDatabaseSuccessOkButton);
-        }
-        catch (Exception exception)
-        {
-            Log.Error(exception, "An error occurred. Please try again");
-            await DisplayAlert(MainPageResources.MessageBoxImportDatabaseErrorTitle, MainPageResources.MessageBoxImportDatabaseErrorMessage, MainPageResources.MessageBoxImportDatabaseErrorOkButton);
-        }
-    }
-
-    private async void ButtonRemoveDataBase_OnClick(object? sender, EventArgs e)
-    {
-        var databasesToDelete = await SelectDatabases();
-        if (databasesToDelete is null || databasesToDelete.Count is 0) return;
-
-        var confirmLocalDeletion = await ConfirmLocalDeletion();
-        if (!confirmLocalDeletion) return;
-
-        DeleteLocalDatabases(databasesToDelete);
-
-        var confirmCloudDeletion = await ConfirmCloudDeletion();
-        if (confirmCloudDeletion)
-        {
-            await DeleteCloudFilesAsync(databasesToDelete);
-        }
-
-        await DisplaySuccessMessage();
-    }
+    private void ButtonRemoveDataBase_OnClick(object? sender, EventArgs e)
+        => _ = HandleButtonRemoveDataBase();
 
     #endregion
 
@@ -311,6 +179,154 @@ public partial class MainPage
         CustomPopupActivityIndicatorHelper.CloseCustomPopupActivityIndicator();
 
         Log.Information("Database successfully copied to local storage");
+    }
+
+    private async Task HandleButtonAddDataBase()
+    {
+        var addDatabaseFileContentPage = new AddDatabaseFileContentPage();
+        addDatabaseFileContentPage.SetExistingDatabase(ExistingDatabases);
+
+        await Navigation.PushAsync(addDatabaseFileContentPage);
+
+        var result = await addDatabaseFileContentPage.ResultDialog;
+
+        if (result is not true) return;
+
+        this.ShowCustomPopupActivityIndicator(MainPageResources.CustomPopupActivityIndicatorCreateNewDatabase);
+
+        var fileName = addDatabaseFileContentPage.DatabaseFilename;
+        fileName = Path.ChangeExtension(fileName, ".sqlite");
+        var filePath = Path.Combine(DbContextBackup.LocalDirectoryDatabase, fileName);
+
+        Log.Information("Create new database with name \"{FileName}\"", fileName);
+
+        try
+        {
+            File.Copy(DbContextBackup.LocalFilePathDataBaseModel, filePath, true);
+
+            await using var context = new DataBaseContext(filePath);
+            context.SetAllDefaultValues();
+            await context.SaveChangesAsync();
+
+            ExistingDatabases.AddAndSort(new ExistingDatabase(filePath),
+                s => s.FileNameWithoutExtension);
+
+            CustomPopupActivityIndicatorHelper.CloseCustomPopupActivityIndicator();
+            Log.Information("New database was successfully added");
+            await DisplayAlert(MainPageResources.MessageBoxAddDataBaseSuccessTitle, MainPageResources.MessageBoxAddDataBaseSuccessMessage, MainPageResources.MessageBoxAddDataBaseOkButton);
+        }
+        catch (Exception exception)
+        {
+            CustomPopupActivityIndicatorHelper.CloseCustomPopupActivityIndicator();
+            Log.Error(exception, "An error occur");
+
+            await DisplayAlert(MainPageResources.MessageBoxAddDataBaseErrorTitle, MainPageResources.MessageBoxAddDataBaseErrorMessage, MainPageResources.MessageBoxAddDataBaseOkButton);
+        }
+    }
+
+    [SupportedOSPlatform("Android")]
+    [SupportedOSPlatform("iOS14.0")]
+    [SupportedOSPlatform("MacCatalyst14.0")]
+    [SupportedOSPlatform("Windows")]
+    private async Task HandleButtonExportDataBase()
+    {
+        var saveLocation = await SaveLocationContentPageUtils.GetExportSaveLocation();
+        if (saveLocation is null) return;
+
+        await Task.Delay(TimeSpan.FromMilliseconds(100));
+
+        var selectDatabaseFileContentPage = new SelectDatabaseFileContentPage();
+        selectDatabaseFileContentPage.ExistingDatabases.AddRange(ExistingDatabases);
+        await Navigation.PushAsync(selectDatabaseFileContentPage);
+        var result = await selectDatabaseFileContentPage.ResultDialog;
+        if (result is not true) return;
+        if (selectDatabaseFileContentPage.ExistingDatabasesSelected.Count.Equals(0)) return;
+
+        try
+        {
+            switch (saveLocation)
+            {
+                case SaveLocation.Database:
+                    await ExportToLocalDatabase(selectDatabaseFileContentPage.ExistingDatabasesSelected);
+                    break;
+
+                case SaveLocation.Folder:
+                    await ExportToLocalFolderAsync(selectDatabaseFileContentPage.ExistingDatabasesSelected, false);
+                    break;
+
+
+                case SaveLocation.Dropbox:
+                    await ExportToCloudAsync(selectDatabaseFileContentPage.ExistingDatabasesSelected);
+                    break;
+
+                case SaveLocation.Local:
+                case SaveLocation.Compress:
+                case null:
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+
+            await DisplayAlert(MainPageResources.MessageBoxExportDataBaseSuccessTitle, MainPageResources.MessageBoxExportDataBaseSuccessMessage, MainPageResources.MessageBoxExportDataBaseSuccessOkButton);
+        }
+        catch (Exception exception)
+        {
+            Log.Error(exception, "An error occurred. Please try again");
+            await DisplayAlert(MainPageResources.MessageBoxExportDataBaseErrorTitle, MainPageResources.MessageBoxExportDataBaseErrorMessage, MainPageResources.MessageBoxExportDataBaseErrorOkButton);
+        }
+    }
+
+    private async Task HandleButtonImportDataBase()
+    {
+        var saveLocation = await SaveLocationMode.LocalDropbox.GetImportSaveLocation();
+        if (saveLocation is null) return;
+
+        try
+        {
+            switch (saveLocation)
+            {
+                case SaveLocation.Local:
+                    await ImportFromLocalAsync(this);
+                    break;
+                case SaveLocation.Dropbox:
+                    await ImportFromCloudAsync();
+                    break;
+                case SaveLocation.Folder:
+                case SaveLocation.Database:
+                case SaveLocation.Compress:
+                case null:
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+
+            RefreshExistingDatabases();
+
+            CustomPopupActivityIndicatorHelper.CloseCustomPopupActivityIndicator();
+            await DisplayAlert(MainPageResources.MessageBoxImportDatabaseSuccessTitle, MainPageResources.MessageBoxImportDatabaseSuccessMessage, MainPageResources.MessageBoxImportDatabaseSuccessOkButton);
+        }
+        catch (Exception exception)
+        {
+            Log.Error(exception, "An error occurred. Please try again");
+            await DisplayAlert(MainPageResources.MessageBoxImportDatabaseErrorTitle, MainPageResources.MessageBoxImportDatabaseErrorMessage, MainPageResources.MessageBoxImportDatabaseErrorOkButton);
+        }
+    }
+
+    private async Task HandleButtonRemoveDataBase()
+    {
+        var databasesToDelete = await SelectDatabases();
+        if (databasesToDelete is null || databasesToDelete.Count is 0) return;
+
+        var confirmLocalDeletion = await ConfirmLocalDeletion();
+        if (!confirmLocalDeletion) return;
+
+        DeleteLocalDatabases(databasesToDelete);
+
+        var confirmCloudDeletion = await ConfirmCloudDeletion();
+        if (confirmCloudDeletion)
+        {
+            await DeleteCloudFilesAsync(databasesToDelete);
+        }
+
+        await DisplaySuccessMessage();
     }
 
     private async Task ImportFromCloudAsync()

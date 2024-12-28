@@ -72,7 +72,29 @@ public partial class CurrencySymbolSummaryContentPage
 
     #region Action
 
-    private async void ButtonValid_OnClicked(object? sender, EventArgs e)
+    private void ButtonValid_OnClicked(object? sender, EventArgs e)
+        => _ = HandleButtonValid();
+
+    private void ButtonSymbol_OnClicked(object? sender, EventArgs e)
+        => _ = HandleButtonSymbol(sender);
+
+    private void Interface_OnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
+        => UpdateLanguage();
+
+    private void OnBackCommandPressed()
+        => _ = HandleBackCommand();
+
+    #endregion
+
+    #region Function
+
+    private async Task HandleBackCommand()
+    {
+        _taskCompletionSource.SetResult(true);
+        await Navigation.PopAsync();
+    }
+
+    private async Task HandleButtonValid()
     {
         var validate = await ValidateCurrencySymbol();
         if (!validate) return;
@@ -114,7 +136,7 @@ public partial class CurrencySymbolSummaryContentPage
         }
     }
 
-    private async void ButtonSymbol_OnClicked(object? sender, EventArgs e)
+    private async Task HandleButtonSymbol(object? sender)
     {
         if (sender is not Button button) return;
         if (button.BindingContext is not TCurrency currency) return;
@@ -122,19 +144,6 @@ public partial class CurrencySymbolSummaryContentPage
         var tempCurrency = currency.DeepCopy();
         await ShowCustomPopupEntryForCurrency(tempCurrency);
     }
-
-    private void Interface_OnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
-        => UpdateLanguage();
-
-    private async void OnBackCommandPressed()
-    {
-        _taskCompletionSource.SetResult(true);
-        await Navigation.PopAsync();
-    }
-
-    #endregion
-
-    #region Function
 
     private async Task HandleCurrencyDelete(TCurrency currency)
     {

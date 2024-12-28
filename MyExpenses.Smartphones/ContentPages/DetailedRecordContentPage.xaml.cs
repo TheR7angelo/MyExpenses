@@ -293,60 +293,14 @@ public partial class DetailedRecordContentPage
         UpdateIsDirty();
     }
 
-    private async void ButtonDeleteHistory_OnClicked(object? sender, EventArgs e)
-    {
-        var response = await DisplayAlert(
-            DetailedRecordContentPageResources.MessageBoxDeleteHistoryQuestionTitle,
-            DetailedRecordContentPageResources.MessageBoxDeleteHistoryQuestionMessage,
-            DetailedRecordContentPageResources.MessageBoxDeleteHistoryQuestionYesButton,
-            DetailedRecordContentPageResources.MessageBoxDeleteHistoryQuestionNoButton);
-        if (!response) return;
-
-        var json = THistory.ToJson();
-        Log.Information("Attempting to delete history : {Json}", json);
-        var (success, exception) = THistory.Delete();
-        if (!success)
-        {
-            Log.Error(exception, "An error occur while deleting the record");
-
-            await DisplayAlert(
-                DetailedRecordContentPageResources.MessageBoxDeleteHistoryErrorTitle,
-                DetailedRecordContentPageResources.MessageBoxDeleteHistoryErrorMessage,
-                DetailedRecordContentPageResources.MessageBoxDeleteHistoryErrorOkButton);
-            return;
-        }
-
-        Log.Information("Record was successfully deleted");
-        await DisplayAlert(
-            DetailedRecordContentPageResources.MessageBoxDeleteHistorySuccessTitle,
-            DetailedRecordContentPageResources.MessageBoxDeleteHistorySuccessMessage,
-            DetailedRecordContentPageResources.MessageBoxDeleteHistorySuccessOkButton);
-
-        _taskCompletionSource.SetResult(true);
-        await Navigation.PopAsync();
-    }
+    private void ButtonDeleteHistory_OnClicked(object? sender, EventArgs e)
+        => _ = HandleButtonDeleteHistory();
 
     private void ButtonRefocus_OnClicked(object? sender, EventArgs e)
         => Refocus();
 
-    private async void ButtonUpdateHistory_OnClicked(object? sender, EventArgs e)
-    {
-        var isValidHistory = await ValidHistory();
-        if (!isValidHistory) return;
-
-        var success = AddOrEditHistory();
-        if (!success)
-        {
-            await DisplayAlert(
-                DetailedRecordContentPageResources.MessageBoxOnBackCommandPressedErrorTitle,
-                DetailedRecordContentPageResources.MessageBoxOnBackCommandPressedErrorMessage,
-                DetailedRecordContentPageResources.MessageBoxOnBackCommandPressedErrorOkButton);
-            return;
-        }
-
-        _taskCompletionSource.SetResult(true);
-        await Navigation.PopAsync();
-    }
+    private void ButtonUpdateHistory_OnClicked(object? sender, EventArgs e)
+        => _ = HandleButtonUpdateHistory();
 
     private void DatePicker_OnDateSelected(object? sender, DateChangedEventArgs e)
         => UpdateIsDirty();
@@ -363,38 +317,8 @@ public partial class DetailedRecordContentPage
     private void MapControl_OnLoaded(object? sender, EventArgs e)
         => UpdateTileLayer();
 
-    private async void OnBackCommandPressed()
-    {
-        if (IsDirty)
-        {
-            var response = await DisplayAlert(
-                DetailedRecordContentPageResources.MessageBoxOnBackCommandPressedTitle,
-                DetailedRecordContentPageResources.MessageBoxOnBackCommandPressedMessage,
-                DetailedRecordContentPageResources.MessageBoxOnBackCommandPressedYesButton,
-                DetailedRecordContentPageResources.MessageBoxOnBackCommandPressedNoButton);
-
-            if (response)
-            {
-                var isValidHistory = await ValidHistory();
-                if (!isValidHistory) return;
-
-                var success = AddOrEditHistory();
-                if (!success)
-                {
-                    await DisplayAlert(
-                        DetailedRecordContentPageResources.MessageBoxOnBackCommandPressedErrorTitle,
-                        DetailedRecordContentPageResources.MessageBoxOnBackCommandPressedErrorMessage,
-                        DetailedRecordContentPageResources.MessageBoxOnBackCommandPressedErrorOkButton);
-                    return;
-                }
-
-                _taskCompletionSource.SetResult(true);
-            }
-            else _taskCompletionSource.SetResult(false);
-        }
-
-        await Navigation.PopAsync();
-    }
+    private void OnBackCommandPressed()
+        => _ = HandleBackCommand();
 
     private void PickerAccount_OnSelectedIndexChanged(object? sender, EventArgs e)
     {
@@ -574,6 +498,91 @@ public partial class DetailedRecordContentPage
         return success;
     }
 
+    private async Task HandleBackCommand()
+    {
+        if (IsDirty)
+        {
+            var response = await DisplayAlert(
+                DetailedRecordContentPageResources.MessageBoxOnBackCommandPressedTitle,
+                DetailedRecordContentPageResources.MessageBoxOnBackCommandPressedMessage,
+                DetailedRecordContentPageResources.MessageBoxOnBackCommandPressedYesButton,
+                DetailedRecordContentPageResources.MessageBoxOnBackCommandPressedNoButton);
+
+            if (response)
+            {
+                var isValidHistory = await ValidHistory();
+                if (!isValidHistory) return;
+
+                var success = AddOrEditHistory();
+                if (!success)
+                {
+                    await DisplayAlert(
+                        DetailedRecordContentPageResources.MessageBoxOnBackCommandPressedErrorTitle,
+                        DetailedRecordContentPageResources.MessageBoxOnBackCommandPressedErrorMessage,
+                        DetailedRecordContentPageResources.MessageBoxOnBackCommandPressedErrorOkButton);
+                    return;
+                }
+
+                _taskCompletionSource.SetResult(true);
+            }
+            else _taskCompletionSource.SetResult(false);
+        }
+
+        await Navigation.PopAsync();
+    }
+
+    private async Task HandleButtonDeleteHistory()
+    {
+        var response = await DisplayAlert(
+            DetailedRecordContentPageResources.MessageBoxDeleteHistoryQuestionTitle,
+            DetailedRecordContentPageResources.MessageBoxDeleteHistoryQuestionMessage,
+            DetailedRecordContentPageResources.MessageBoxDeleteHistoryQuestionYesButton,
+            DetailedRecordContentPageResources.MessageBoxDeleteHistoryQuestionNoButton);
+        if (!response) return;
+
+        var json = THistory.ToJson();
+        Log.Information("Attempting to delete history : {Json}", json);
+        var (success, exception) = THistory.Delete();
+        if (!success)
+        {
+            Log.Error(exception, "An error occur while deleting the record");
+
+            await DisplayAlert(
+                DetailedRecordContentPageResources.MessageBoxDeleteHistoryErrorTitle,
+                DetailedRecordContentPageResources.MessageBoxDeleteHistoryErrorMessage,
+                DetailedRecordContentPageResources.MessageBoxDeleteHistoryErrorOkButton);
+            return;
+        }
+
+        Log.Information("Record was successfully deleted");
+        await DisplayAlert(
+            DetailedRecordContentPageResources.MessageBoxDeleteHistorySuccessTitle,
+            DetailedRecordContentPageResources.MessageBoxDeleteHistorySuccessMessage,
+            DetailedRecordContentPageResources.MessageBoxDeleteHistorySuccessOkButton);
+
+        _taskCompletionSource.SetResult(true);
+        await Navigation.PopAsync();
+    }
+
+    private async Task HandleButtonUpdateHistory()
+    {
+        var isValidHistory = await ValidHistory();
+        if (!isValidHistory) return;
+
+        var success = AddOrEditHistory();
+        if (!success)
+        {
+            await DisplayAlert(
+                DetailedRecordContentPageResources.MessageBoxOnBackCommandPressedErrorTitle,
+                DetailedRecordContentPageResources.MessageBoxOnBackCommandPressedErrorMessage,
+                DetailedRecordContentPageResources.MessageBoxOnBackCommandPressedErrorOkButton);
+            return;
+        }
+
+        _taskCompletionSource.SetResult(true);
+        await Navigation.PopAsync();
+    }
+
     private void Refocus()
     {
         try
@@ -588,6 +597,66 @@ public partial class DetailedRecordContentPage
         {
             // Pass
         }
+    }
+
+    public void SetHistory(int? historyPk = null, THistory? tHistory = null)
+    {
+        if (historyPk is null && tHistory is null)
+        {
+            throw new ArgumentNullException(nameof(historyPk), @"historyPk is null");
+        }
+
+        using var context = new DataBaseContext();
+        if (tHistory is not null)
+        {
+            tHistory.CopyPropertiesTo(THistory);
+        }
+        else
+        {
+            var history = context.THistories.First(s => s.Id.Equals(historyPk));
+            history.CopyPropertiesTo(THistory);
+        }
+
+        TimePicker.Time = THistory.Date.ToTimeSpan();
+
+        UpdateHistorySymbol();
+        UpdateHexadecimalColorCode();
+
+        OriginalHistory = THistory.DeepCopy();
+
+        var place = PlacesCollection.FirstOrDefault(s => s.Id.Equals(THistory.PlaceFk));
+        SelectedCountry = EmptyStringTreeViewConverter.ToUnknown(place?.Country);
+        SelectedCity = EmptyStringTreeViewConverter.ToUnknown(place?.City);
+        ComboBoxSelectorPlace.SelectedItem = place;
+    }
+
+    private void UpdateHexadecimalColorCode()
+    {
+        string hexadecimalColorCode;
+        if (THistory.CategoryTypeFk is null) hexadecimalColorCode = "#00000000";
+        else
+        {
+            using var context = new DataBaseContext();
+            var category = CategoryTypes.First(s => s.Id.Equals(THistory.CategoryTypeFk));
+            var color = context.TColors.First(s => s.Id.Equals(category.ColorFk));
+            hexadecimalColorCode = color.HexadecimalColorCode!;
+        }
+
+        HexadecimalColorCode = hexadecimalColorCode;
+    }
+
+    private void UpdateHistorySymbol()
+    {
+        string symbol;
+        if (THistory.AccountFk is null) symbol = string.Empty;
+        else
+        {
+            using var context = new DataBaseContext();
+            var currency = context.TCurrencies.First(s => s.Id.Equals(THistory.AccountFk));
+            symbol = currency.Symbol!;
+        }
+
+        HistorySymbol = symbol;
     }
 
     private void UpdateIsDirty()
@@ -692,64 +761,4 @@ public partial class DetailedRecordContentPage
     }
 
     #endregion
-
-    public void SetHistory(int? historyPk = null, THistory? tHistory = null)
-    {
-        if (historyPk is null && tHistory is null)
-        {
-            throw new ArgumentNullException(nameof(historyPk), @"historyPk is null");
-        }
-
-        using var context = new DataBaseContext();
-        if (tHistory is not null)
-        {
-            tHistory.CopyPropertiesTo(THistory);
-        }
-        else
-        {
-            var history = context.THistories.First(s => s.Id.Equals(historyPk));
-            history.CopyPropertiesTo(THistory);
-        }
-
-        TimePicker.Time = THistory.Date.ToTimeSpan();
-
-        UpdateHistorySymbol();
-        UpdateHexadecimalColorCode();
-
-        OriginalHistory = THistory.DeepCopy();
-
-        var place = PlacesCollection.FirstOrDefault(s => s.Id.Equals(THistory.PlaceFk));
-        SelectedCountry = EmptyStringTreeViewConverter.ToUnknown(place?.Country);
-        SelectedCity = EmptyStringTreeViewConverter.ToUnknown(place?.City);
-        ComboBoxSelectorPlace.SelectedItem = place;
-    }
-
-    private void UpdateHistorySymbol()
-    {
-        string symbol;
-        if (THistory.AccountFk is null) symbol = string.Empty;
-        else
-        {
-            using var context = new DataBaseContext();
-            var currency = context.TCurrencies.First(s => s.Id.Equals(THistory.AccountFk));
-            symbol = currency.Symbol!;
-        }
-
-        HistorySymbol = symbol;
-    }
-
-    private void UpdateHexadecimalColorCode()
-    {
-        string hexadecimalColorCode;
-        if (THistory.CategoryTypeFk is null) hexadecimalColorCode = "#00000000";
-        else
-        {
-            using var context = new DataBaseContext();
-            var category = CategoryTypes.First(s => s.Id.Equals(THistory.CategoryTypeFk));
-            var color = context.TColors.First(s => s.Id.Equals(category.ColorFk));
-            hexadecimalColorCode = color.HexadecimalColorCode!;
-        }
-
-        HexadecimalColorCode = hexadecimalColorCode;
-    }
 }

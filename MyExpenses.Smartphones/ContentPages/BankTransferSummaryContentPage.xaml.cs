@@ -304,29 +304,18 @@ public partial class BankTransferSummaryContentPage
     [SupportedOSPlatform("iOS13.0")]
     [SupportedOSPlatform("MacCatalyst13.0")]
     [SupportedOSPlatform("Windows")]
-    private async void AdditionalReasonSvgPath_OnClicked(object? sender, EventArgs e)
-        => await RunFilter(sender, FilterAdditionalReason);
+    private void AdditionalReasonSvgPath_OnClicked(object? sender, EventArgs e)
+        => _ = RunFilter(sender, FilterAdditionalReason);
 
     [SupportedOSPlatform("Android21.0")]
     [SupportedOSPlatform("iOS13.0")]
     [SupportedOSPlatform("MacCatalyst13.0")]
     [SupportedOSPlatform("Windows")]
-    private async void AdditionalReasonTapGestureRecognizer_Tapped(object? sender, TappedEventArgs e)
-        => await RunFilter(sender, FilterAdditionalReason);
+    private void AdditionalReasonTapGestureRecognizer_Tapped(object? sender, TappedEventArgs e)
+        => _ = RunFilter(sender, FilterAdditionalReason);
 
-    private async void ButtonAddMonth_OnClick(object? sender, EventArgs e)
-    {
-        var date = GetDateOnlyFilter();
-        date = date.AddMonths(1);
-
-        var result = UpdateFilterDate(date);
-
-        if (result) return;
-
-        await DisplayAlert(BankTransferSummaryContentPageResources.MessageBoxAddMonthErrorTitle,
-            BankTransferSummaryContentPageResources.MessageBoxAddMonthErrorMessage,
-            BankTransferSummaryContentPageResources.MessageBoxAddMonthErrorOkButton);
-    }
+    private void ButtonAddMonth_OnClick(object? sender, EventArgs e)
+        => _ = HandleButtonAddMonth();
 
     private void ButtonDateNow_OnClick(object? sender, EventArgs e)
     {
@@ -334,33 +323,22 @@ public partial class BankTransferSummaryContentPage
         UpdateFilterDate(now);
     }
 
-    private async void ButtonRemoveMonth_OnClick(object? sender, EventArgs e)
-    {
-        var date = GetDateOnlyFilter();
-        date = date.AddMonths(-1);
-
-        var result = UpdateFilterDate(date);
-
-        if (result) return;
-
-        await DisplayAlert(BankTransferSummaryContentPageResources.MessageBoxRemoveMonthErrorTitle,
-            BankTransferSummaryContentPageResources.MessageBoxRemoveMonthErrorMessage,
-            BankTransferSummaryContentPageResources.MessageBoxRemoveMonthErrorOkButton);
-    }
+    private void ButtonRemoveMonth_OnClick(object? sender, EventArgs e)
+        => _ = HandleButtonRemoveMonth();
 
     [SupportedOSPlatform("Android21.0")]
     [SupportedOSPlatform("iOS13.0")]
     [SupportedOSPlatform("MacCatalyst13.0")]
     [SupportedOSPlatform("Windows")]
-    private async void CategorySvgPath_OnClicked(object? sender, EventArgs e)
-        => await RunFilter(sender, FilterCategory);
+    private void CategorySvgPath_OnClicked(object? sender, EventArgs e)
+        => _ = RunFilter(sender, FilterCategory);
 
     [SupportedOSPlatform("Android21.0")]
     [SupportedOSPlatform("iOS13.0")]
     [SupportedOSPlatform("MacCatalyst13.0")]
     [SupportedOSPlatform("Windows")]
-    private async void CategoryTapGestureRecognizer_Tapped(object? sender, TappedEventArgs e)
-        => await RunFilter(sender, FilterCategory);
+    private void CategoryTapGestureRecognizer_Tapped(object? sender, TappedEventArgs e)
+        => _ = RunFilter(sender, FilterCategory);
 
     private void CustomPicker_OnSelectedIndexChanged(object? sender, EventArgs e)
         => RefreshDataGrid();
@@ -369,15 +347,15 @@ public partial class BankTransferSummaryContentPage
     [SupportedOSPlatform("iOS13.0")]
     [SupportedOSPlatform("MacCatalyst13.0")]
     [SupportedOSPlatform("Windows")]
-    private async void FromAccountSvgPath_OnClicked(object? sender, EventArgs e)
-        => await RunFilter(sender, FilterFromAccount);
+    private void FromAccountSvgPath_OnClicked(object? sender, EventArgs e)
+        => _ = RunFilter(sender, FilterFromAccount);
 
     [SupportedOSPlatform("Android21.0")]
     [SupportedOSPlatform("iOS13.0")]
     [SupportedOSPlatform("MacCatalyst13.0")]
     [SupportedOSPlatform("Windows")]
-    private async void FromAccountTapGestureRecognizer_Tapped(object? sender, TappedEventArgs e)
-        => await RunFilter(sender, FilterFromAccount);
+    private void FromAccountTapGestureRecognizer_Tapped(object? sender, TappedEventArgs e)
+        => _ = RunFilter(sender, FilterFromAccount);
 
     private void Interface_OnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
     {
@@ -389,15 +367,15 @@ public partial class BankTransferSummaryContentPage
     [SupportedOSPlatform("iOS13.0")]
     [SupportedOSPlatform("MacCatalyst13.0")]
     [SupportedOSPlatform("Windows")]
-    private async void MainReasonSvgPath_OnClicked(object? sender, EventArgs e)
-        => await RunFilter(sender, FilterMainReason);
+    private void MainReasonSvgPath_OnClicked(object? sender, EventArgs e)
+        => _ = RunFilter(sender, FilterMainReason);
 
     [SupportedOSPlatform("Android21.0")]
     [SupportedOSPlatform("iOS13.0")]
     [SupportedOSPlatform("MacCatalyst13.0")]
     [SupportedOSPlatform("Windows")]
-    private async void MainReasonTapGestureRecognizer_Tapped(object? sender, TappedEventArgs e)
-        => await RunFilter(sender, FilterMainReason);
+    private void MainReasonTapGestureRecognizer_Tapped(object? sender, TappedEventArgs e)
+        => _ = RunFilter(sender, FilterMainReason);
 
     [SupportedOSPlatform("Android21.0")]
     [SupportedOSPlatform("iOS13.0")]
@@ -427,50 +405,36 @@ public partial class BankTransferSummaryContentPage
         RefreshDataGrid();
     }
 
-    private async void TapGestureRecognizer_OnTapped(object? sender, TappedEventArgs e)
-    {
-        if (sender is not Border border) return;
-        if (border.BindingContext is not VBankTransferSummary vBankTransferSummary) return;
-
-        var addEditBankTransferContentPage = new AddEditBankTransferContentPage { CanBeDeleted = true };
-        addEditBankTransferContentPage.SetVBankTransferSummary(vBankTransferSummary);
-
-        await Navigation.PushAsync(addEditBankTransferContentPage);
-
-        var success = await addEditBankTransferContentPage.ResultDialog;
-        if (!success) return;
-
-        _taskCompletionSource.SetResult(true);
-        RefreshDataGrid();
-    }
+    private void TapGestureRecognizer_OnTapped(object? sender, TappedEventArgs e)
+        => _ = HandleTapGestureRecognizer(sender);
 
     [SupportedOSPlatform("Android21.0")]
     [SupportedOSPlatform("iOS13.0")]
     [SupportedOSPlatform("MacCatalyst13.0")]
     [SupportedOSPlatform("Windows")]
-    private async void ToAccountSvgPath_OnClicked(object? sender, EventArgs e)
-        => await RunFilter(sender, FilterToAccount);
+    private void ToAccountSvgPath_OnClicked(object? sender, EventArgs e)
+        => _ = RunFilter(sender, FilterToAccount);
 
     [SupportedOSPlatform("Android21.0")]
     [SupportedOSPlatform("iOS13.0")]
     [SupportedOSPlatform("MacCatalyst13.0")]
     [SupportedOSPlatform("Windows")]
-    private async void ToAccountTapGestureRecognizer_Tapped(object? sender, TappedEventArgs e)
-        => await RunFilter(sender, FilterToAccount);
+    private void ToAccountTapGestureRecognizer_Tapped(object? sender, TappedEventArgs e)
+        => _ = RunFilter(sender, FilterToAccount);
 
     [SupportedOSPlatform("Android21.0")]
     [SupportedOSPlatform("iOS13.0")]
     [SupportedOSPlatform("MacCatalyst13.0")]
     [SupportedOSPlatform("Windows")]
-    private async void ValueSvgPath_OnClicked(object? sender, EventArgs e)
-        => await RunFilter(sender, FilterValue);
+    private void ValueSvgPath_OnClicked(object? sender, EventArgs e)
+        => _ = RunFilter(sender, FilterValue);
 
     [SupportedOSPlatform("Android21.0")]
     [SupportedOSPlatform("iOS13.0")]
     [SupportedOSPlatform("MacCatalyst13.0")]
     [SupportedOSPlatform("Windows")]
-    private async void ValueTapGestureRecognizer_OnTapped(object? sender, TappedEventArgs e)
-        => await RunFilter(sender, FilterValue);
+    private void ValueTapGestureRecognizer_OnTapped(object? sender, TappedEventArgs e)
+        => _ = RunFilter(sender, FilterValue);
 
     #endregion
 
@@ -694,6 +658,51 @@ public partial class BankTransferSummaryContentPage
 
         var date = DateOnly.Parse($"{year}/{monthIndex}/01");
         return date;
+    }
+
+    private async Task HandleButtonAddMonth()
+    {
+        var date = GetDateOnlyFilter();
+        date = date.AddMonths(1);
+
+        var result = UpdateFilterDate(date);
+
+        if (result) return;
+
+        await DisplayAlert(BankTransferSummaryContentPageResources.MessageBoxAddMonthErrorTitle,
+            BankTransferSummaryContentPageResources.MessageBoxAddMonthErrorMessage,
+            BankTransferSummaryContentPageResources.MessageBoxAddMonthErrorOkButton);
+    }
+
+    private async Task HandleButtonRemoveMonth()
+    {
+        var date = GetDateOnlyFilter();
+        date = date.AddMonths(-1);
+
+        var result = UpdateFilterDate(date);
+
+        if (result) return;
+
+        await DisplayAlert(BankTransferSummaryContentPageResources.MessageBoxRemoveMonthErrorTitle,
+            BankTransferSummaryContentPageResources.MessageBoxRemoveMonthErrorMessage,
+            BankTransferSummaryContentPageResources.MessageBoxRemoveMonthErrorOkButton);
+    }
+
+    private async Task HandleTapGestureRecognizer(object? sender)
+    {
+        if (sender is not Border border) return;
+        if (border.BindingContext is not VBankTransferSummary vBankTransferSummary) return;
+
+        var addEditBankTransferContentPage = new AddEditBankTransferContentPage { CanBeDeleted = true };
+        addEditBankTransferContentPage.SetVBankTransferSummary(vBankTransferSummary);
+
+        await Navigation.PushAsync(addEditBankTransferContentPage);
+
+        var success = await addEditBankTransferContentPage.ResultDialog;
+        if (!success) return;
+
+        _taskCompletionSource.SetResult(true);
+        RefreshDataGrid();
     }
 
     private bool UpdateFilterDate(DateOnly date)

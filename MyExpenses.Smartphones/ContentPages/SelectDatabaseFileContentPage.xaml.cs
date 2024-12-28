@@ -51,13 +51,40 @@ public partial class SelectDatabaseFileContentPage
 
     #region Action
 
-    private async void ButtonCancel_OnClick(object? sender, EventArgs e)
+    private void ButtonCancel_OnClick(object? sender, EventArgs e)
+        => _ = HandleButtonCancel();
+
+    private void ButtonValid_OnClick(object? sender, EventArgs e)
+        => _ = HandleButtonValid();
+
+    private void ListView_OnItemTapped(object? sender, ItemTappedEventArgs e)
+    {
+        var selectedDatabase = e.Item as ExistingDatabase;
+        if (ListView.TemplatedItems.FirstOrDefault(item => item.BindingContext == selectedDatabase) is not ViewCell
+            viewCell) return;
+
+        if (viewCell.View is not UraniumUI.Material.Controls.CheckBox checkBox) return;
+
+        checkBox.IsChecked = !checkBox.IsChecked;
+    }
+
+    private void OnBackCommandPressed()
+        => _ = HandleButtonCancel();
+
+    private void Interface_OnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
+        => UpdateLanguage();
+
+    #endregion
+
+    #region Function
+
+    private async Task HandleButtonCancel()
     {
         _taskCompletionSource.SetResult(false);
         await Navigation.PopAsync();
     }
 
-    private async void ButtonValid_OnClick(object? sender, EventArgs e)
+    private async Task HandleButtonValid()
     {
         ExistingDatabasesSelected.Clear();
 
@@ -77,30 +104,6 @@ public partial class SelectDatabaseFileContentPage
         _taskCompletionSource.SetResult(true);
         await Navigation.PopAsync();
     }
-
-    private void ListView_OnItemTapped(object? sender, ItemTappedEventArgs e)
-    {
-        var selectedDatabase = e.Item as ExistingDatabase;
-        if (ListView.TemplatedItems.FirstOrDefault(item => item.BindingContext == selectedDatabase) is not ViewCell
-            viewCell) return;
-
-        if (viewCell.View is not UraniumUI.Material.Controls.CheckBox checkBox) return;
-
-        checkBox.IsChecked = !checkBox.IsChecked;
-    }
-
-    private async void OnBackCommandPressed()
-    {
-        _taskCompletionSource.SetResult(false);
-        await Navigation.PopAsync();
-    }
-
-    private void Interface_OnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
-        => UpdateLanguage();
-
-    #endregion
-
-    #region Function
 
     private void UpdateLanguage()
     {

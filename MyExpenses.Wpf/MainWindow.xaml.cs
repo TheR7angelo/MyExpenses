@@ -173,57 +173,8 @@ public partial class MainWindow
     private void MainWindow_OnClosing(object? sender, CancelEventArgs e)
         => App.CancellationTokenSource.Cancel();
 
-    private async void MenuItemDatabaseExport_OnClick(object sender, RoutedEventArgs e)
-    {
-        var saveLocation = SaveLocationUtils.GetExportSaveLocation();
-        if (saveLocation is null) return;
-
-        var database = DataBaseContext.FilePath!;
-
-        var waitScreenWindow = new WaitScreenWindow();
-        try
-        {
-            switch (saveLocation)
-            {
-                case SaveLocation.Database:
-                    waitScreenWindow.WaitMessage = MainWindowResources.MenuItemDatabaseExportWaitMessageExportToLocal;
-                    waitScreenWindow.Show();
-                    await SaveToLocal(database);
-                    break;
-
-                case SaveLocation.Folder:
-                    waitScreenWindow.WaitMessage = MainWindowResources.MenuItemDatabaseExportWaitMessageExportToLocal;
-                    waitScreenWindow.Show();
-                    await ExportToLocalFolderAsync(database, false);
-                    break;
-
-                case SaveLocation.Compress:
-                    waitScreenWindow.WaitMessage = MainWindowResources.MenuItemDatabaseExportWaitMessageExportToLocal;
-                    waitScreenWindow.Show();
-                    await ExportToLocalFolderAsync(database, true);
-                    break;
-
-                case SaveLocation.Dropbox:
-                    waitScreenWindow.WaitMessage = MainWindowResources.MenuItemDatabaseExportWaitMessageExportToCloud;
-                    waitScreenWindow.Show();
-                    await SaveToCloudAsync(database);
-                    break;
-
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
-
-            waitScreenWindow.Close();
-            MsgBox.Show(MainWindowResources.MenuItemDatabaseExportSucess, MsgBoxImage.Check);
-        }
-        catch (Exception exception)
-        {
-            Log.Error(exception, "An error occurred. Please try again");
-            waitScreenWindow.Close();
-
-            MsgBox.Show(MainWindowResources.MenuItemDatabaseExportError, MsgBoxImage.Warning);
-        }
-    }
+    private void MenuItemDatabaseExport_OnClick(object sender, RoutedEventArgs e)
+        => _ = HandleMenuItemDatabaseExport();
 
     private void MenuItemHelp_OnClick(object sender, RoutedEventArgs e)
     {
@@ -314,6 +265,58 @@ public partial class MainWindow
     #endregion
 
     #region Function
+
+    private static async Task HandleMenuItemDatabaseExport()
+    {
+        var saveLocation = SaveLocationUtils.GetExportSaveLocation();
+        if (saveLocation is null) return;
+
+        var database = DataBaseContext.FilePath!;
+
+        var waitScreenWindow = new WaitScreenWindow();
+        try
+        {
+            switch (saveLocation)
+            {
+                case SaveLocation.Database:
+                    waitScreenWindow.WaitMessage = MainWindowResources.MenuItemDatabaseExportWaitMessageExportToLocal;
+                    waitScreenWindow.Show();
+                    await SaveToLocal(database);
+                    break;
+
+                case SaveLocation.Folder:
+                    waitScreenWindow.WaitMessage = MainWindowResources.MenuItemDatabaseExportWaitMessageExportToLocal;
+                    waitScreenWindow.Show();
+                    await ExportToLocalFolderAsync(database, false);
+                    break;
+
+                case SaveLocation.Compress:
+                    waitScreenWindow.WaitMessage = MainWindowResources.MenuItemDatabaseExportWaitMessageExportToLocal;
+                    waitScreenWindow.Show();
+                    await ExportToLocalFolderAsync(database, true);
+                    break;
+
+                case SaveLocation.Dropbox:
+                    waitScreenWindow.WaitMessage = MainWindowResources.MenuItemDatabaseExportWaitMessageExportToCloud;
+                    waitScreenWindow.Show();
+                    await SaveToCloudAsync(database);
+                    break;
+
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+
+            waitScreenWindow.Close();
+            MsgBox.Show(MainWindowResources.MenuItemDatabaseExportSucess, MsgBoxImage.Check);
+        }
+        catch (Exception exception)
+        {
+            Log.Error(exception, "An error occurred. Please try again");
+            waitScreenWindow.Close();
+
+            MsgBox.Show(MainWindowResources.MenuItemDatabaseExportError, MsgBoxImage.Warning);
+        }
+    }
 
     private void UpdateLanguage()
     {
