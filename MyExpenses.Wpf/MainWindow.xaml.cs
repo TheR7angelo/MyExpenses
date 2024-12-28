@@ -336,9 +336,8 @@ public partial class MainWindow
     {
         var dropboxService = await DropboxService.CreateAsync(ProjectSystem.Wpf);
         Log.Information("Starting to upload {FileName} to cloud storage", Path.GetFileName(database));
-        var fileMetadata = await dropboxService.UploadFileAsync(database, DbContextBackup.CloudDirectoryBackupDatabase);
+        await dropboxService.UploadFileAsync(database, DbContextBackup.CloudDirectoryBackupDatabase);
         Log.Information("Successfully uploaded {FileName} to cloud storage", Path.GetFileName(database));
-        Log.Information("Last modification: {FileMetadataLastModification}", fileMetadata.ClientModified.ToString("yyyy-MM-dd HH:mm:ss"));
 
         // return fileMetadata;
     }
