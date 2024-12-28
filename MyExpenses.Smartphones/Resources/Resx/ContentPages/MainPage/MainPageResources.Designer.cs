@@ -69,6 +69,33 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.MainPage {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Export selected databases to cloud storage.
+        /// </summary>
+        internal static string CustomPopupActivityIndicatorExportDatabaseToCloud {
+            get {
+                return ResourceManager.GetString("CustomPopupActivityIndicatorExportDatabaseToCloud", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Exporting selected databases to local storage.
+        /// </summary>
+        internal static string CustomPopupActivityIndicatorExportDatabaseToLocal {
+            get {
+                return ResourceManager.GetString("CustomPopupActivityIndicatorExportDatabaseToLocal", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Export selected databases to local database storage.
+        /// </summary>
+        internal static string CustomPopupActivityIndicatorExportDatabaseToLocalDatabase {
+            get {
+                return ResourceManager.GetString("CustomPopupActivityIndicatorExportDatabaseToLocalDatabase", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Importing the database....
         /// </summary>
         internal static string CustomPopupActivityIndicatorImportDatabaseFromCloud {

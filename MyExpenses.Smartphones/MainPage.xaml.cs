@@ -249,8 +249,11 @@ public partial class MainPage
             MainPageResources.MessageBoxRemoveDataBaseSuccessOkButton);
     }
 
-    private static async Task ExportToCloudAsync(List<ExistingDatabase> existingDatabasesSelected)
+    private async Task ExportToCloudAsync(List<ExistingDatabase> existingDatabasesSelected)
     {
+        this.ShowCustomPopupActivityIndicator(MainPageResources.CustomPopupActivityIndicatorExportDatabaseToCloud);
+        Log.Information("Starting to export database to cloud storage");
+
         var dropboxService = await DropboxService.CreateAsync(ProjectSystem.Maui);
         foreach (var existingDatabase in existingDatabasesSelected)
         {
@@ -258,19 +261,21 @@ public partial class MainPage
             await dropboxService.UploadFileAsync(existingDatabase.FilePath, DbContextBackup.CloudDirectoryBackupDatabase);
             Log.Information("Successfully uploaded {ExistingDatabaseFileName} to cloud storage", existingDatabase.FileName);
         }
+        CustomPopupActivityIndicatorHelper.CloseCustomPopupActivityIndicator();
     }
 
     [SupportedOSPlatform("Android")]
     [SupportedOSPlatform("iOS14.0")]
     [SupportedOSPlatform("MacCatalyst14.0")]
     [SupportedOSPlatform("Windows")]
-    private static async Task ExportToLocalDatabase(List<ExistingDatabase> existingDatabasesSelected)
+    private async Task ExportToLocalDatabase(List<ExistingDatabase> existingDatabasesSelected)
     {
         var folderPickerResult = await FolderPicker.Default.PickAsync();
         if (!folderPickerResult.IsSuccessful) return;
 
         var selectedFolder = folderPickerResult.Folder.Path;
 
+        this.ShowCustomPopupActivityIndicator(MainPageResources.CustomPopupActivityIndicatorExportDatabaseToLocalDatabase);
         foreach (var existingDatabase in existingDatabasesSelected)
         {
             var newFilePath = Path.Join(selectedFolder, existingDatabase.FileName);
@@ -278,13 +283,14 @@ public partial class MainPage
             await Task.Run(() => File.Copy(existingDatabase.FilePath, newFilePath, true));
             Log.Information("Successfully copied {ExistingDatabaseFileName} to {NewFilePath}", existingDatabase.FileName, newFilePath);
         }
+        CustomPopupActivityIndicatorHelper.CloseCustomPopupActivityIndicator();
     }
 
     [SupportedOSPlatform("Android")]
     [SupportedOSPlatform("iOS14.0")]
     [SupportedOSPlatform("MacCatalyst14.0")]
     [SupportedOSPlatform("Windows")]
-    private static async Task ExportToLocalFolderAsync(List<ExistingDatabase> existingDatabasesSelected, bool isCompress)
+    private async Task ExportToLocalFolderAsync(List<ExistingDatabase> existingDatabasesSelected, bool isCompress)
     {
         var folderPickerResult = await FolderPicker.Default.PickAsync();
         if (!folderPickerResult.IsSuccessful) return;
@@ -293,6 +299,7 @@ public partial class MainPage
 
         Log.Information("Starting to export database to {SelectedDialog}", selectedFolder);
 
+        this.ShowCustomPopupActivityIndicator(MainPageResources.CustomPopupActivityIndicatorExportDatabaseToLocal);
         await Task.Run(async () =>
         {
             foreach (var existingDatabase in existingDatabasesSelected)
@@ -301,6 +308,7 @@ public partial class MainPage
                 await existingDatabase.ToFolderAsync(selectedFolder, isCompress);
             }
         });
+        CustomPopupActivityIndicatorHelper.CloseCustomPopupActivityIndicator();
 
         Log.Information("Database successfully copied to local storage");
     }

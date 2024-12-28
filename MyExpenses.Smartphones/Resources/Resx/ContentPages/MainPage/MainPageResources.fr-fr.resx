@@ -107,4 +107,13 @@
     <data name="CustomPopupActivityIndicatorImportDatabaseFromLocal" xml:space="preserve">
         <value>Importation de la base de données...</value>
     </data>
+    <data name="CustomPopupActivityIndicatorExportDatabaseToLocalDatabase" xml:space="preserve">
+        <value>Export des bases de données sélectionnées vers le stockage de base de données local</value>
+    </data>
+    <data name="CustomPopupActivityIndicatorExportDatabaseToLocal" xml:space="preserve">
+        <value>Exportation des bases de données sélectionnées vers le stockage local</value>
+    </data>
+    <data name="CustomPopupActivityIndicatorExportDatabaseToCloud" xml:space="preserve">
+        <value>Exportation des bases de données sélectionnées vers le cloud</value>
+    </data>
 </root>
