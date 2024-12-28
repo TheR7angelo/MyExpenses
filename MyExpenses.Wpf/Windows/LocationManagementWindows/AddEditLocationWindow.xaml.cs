@@ -431,8 +431,9 @@ public partial class AddEditLocationWindow
     {
         var worldPosition = e.MapInfo.WorldPosition;
         var feature = new PointFeature(worldPosition)
-            { Styles = new List<IStyle> { MapsuiStyleExtensions.GreenMarkerStyle } };
-        feature[ColumnTemp] = true;
+            { Styles = new List<IStyle> { MapsuiStyleExtensions.GreenMarkerStyle },
+                [ColumnTemp] = true
+            };
 
         var oldFeature = WritableLayer.GetFeatures().FirstOrDefault(f => f[ColumnTemp]!.Equals(true));
         if (oldFeature is not null) WritableLayer.TryRemove(oldFeature);
