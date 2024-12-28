@@ -50,20 +50,8 @@ public static class ColorAssist
     /// <param name="tolerance">The tolerance to the contrast ratio needs to be within</param>
     /// <returns>The updated foreground color with the target contrast ratio with the background</returns>
     public static Color EnsureContrastRatio(this Color foreground, Color background, float targetRatio, float tolerance = 0.1f)
-        => EnsureContrastRatio(foreground, background, targetRatio, out _, tolerance);
-
-    /// <summary>
-    /// Adjust the foreground color to have an acceptable contrast ratio.
-    /// </summary>
-    /// <param name="foreground">The foreground color</param>
-    /// <param name="background">The background color</param>
-    /// <param name="targetRatio">The target contrast ratio</param>
-    /// <param name="offset">The offset that was applied</param>
-    /// <param name="tolerance">The tolerance to the contrast ratio needs to be within</param>
-    /// <returns>The updated foreground color with the target contrast ratio with the background</returns>
-    private static Color EnsureContrastRatio(this Color foreground, Color background, float targetRatio, out double offset, float tolerance = 0.1f)
     {
-        offset = 0.0f;
+        double offset = 0.0f;
 
         var ratio = foreground.ContrastRatio(background);
         if (ratio > targetRatio) return foreground;
