@@ -17,7 +17,7 @@ public static class WindowsVersion
     ///     Test if the current OS is Windows 11 or later
     /// </summary>
     /// <returns>true if we're running on Windows 11 or later</returns>
-    public static bool IsWindows11OrLater { get; } = WinVersion.Major >= 10 && WinVersion.Build >= 22000;
+    public static bool IsWindows11OrLater { get; } = WinVersion is { Major: >= 10, Build: >= 22000 };
 
     /// <summary>
     ///     Test if the current OS is Windows 10 or later
@@ -30,19 +30,19 @@ public static class WindowsVersion
     /// </summary>
     /// <returns>true if we're running on Windows 7 or later</returns>
     public static bool IsWindows7OrLater { get; } =
-        WinVersion.Major == 6 && WinVersion.Minor >= 1 || WinVersion.Major > 6;
+        WinVersion is { Major: 6, Minor: >= 1 } || WinVersion.Major > 6;
 
     /// <summary>
     ///     Test if the current OS is Windows 8.0
     /// </summary>
     /// <returns>true if we're running on Windows 8.0</returns>
-    private static bool IsWindows8 { get; } = WinVersion.Major == 6 && WinVersion.Minor == 2;
+    private static bool IsWindows8 { get; } = WinVersion is { Major: 6, Minor: 2 };
 
     /// <summary>
     ///     Test if the current OS is Windows 8(.1)
     /// </summary>
     /// <returns>true if we're running on Windows 8(.1)</returns>
-    private static bool IsWindows81 { get; } = WinVersion.Major == 6 && WinVersion.Minor == 3;
+    private static bool IsWindows81 { get; } = WinVersion is { Major: 6, Minor: 3 };
 
     /// <summary>
     ///     Test if the current OS is Windows 8.0 or 8.1
@@ -55,20 +55,20 @@ public static class WindowsVersion
     /// </summary>
     /// <returns>true if we're running on Windows 8.1 or later</returns>
     public static bool IsWindows81OrLater { get; } =
-        WinVersion.Major == 6 && WinVersion.Minor >= 3 || WinVersion.Major > 6;
+        WinVersion is { Major: 6, Minor: >= 3 } || WinVersion.Major > 6;
 
     /// <summary>
     ///     Test if the current OS is Windows 8 or later
     /// </summary>
     /// <returns>true if we're running on Windows 8 or later</returns>
     public static bool IsWindows8OrLater { get; } =
-        WinVersion.Major == 6 && WinVersion.Minor >= 2 || WinVersion.Major > 6;
+        WinVersion is { Major: 6, Minor: >= 2 } || WinVersion.Major > 6;
 
     /// <summary>
     ///     Test if the current OS is Windows Vista
     /// </summary>
     /// <returns>true if we're running on Windows Vista or later</returns>
-    public static bool IsWindowsVista { get; } = WinVersion.Major >= 6 && WinVersion.Minor == 0;
+    public static bool IsWindowsVista { get; } = WinVersion is { Major: >= 6, Minor: 0 };
 
     /// <summary>
     ///     Test if the current OS is Windows Vista or later
@@ -86,14 +86,14 @@ public static class WindowsVersion
     ///     Test if the current OS is Windows XP
     /// </summary>
     /// <returns>true if we're running on Windows XP or later</returns>
-    public static bool IsWindowsXp { get; } = WinVersion.Major == 5 && WinVersion.Minor >= 1;
+    public static bool IsWindowsXp { get; } = WinVersion is { Major: 5, Minor: >= 1 };
 
     /// <summary>
     ///     Test if the current OS is Windows XP or later
     /// </summary>
     /// <returns>true if we're running on Windows XP or later</returns>
     public static bool IsWindowsXpOrLater { get; } =
-        WinVersion.Major >= 5 || WinVersion.Major == 5 && WinVersion.Minor >= 1;
+        WinVersion.Major >= 5 || WinVersion is { Major: 5, Minor: >= 1 };
 
     /// <summary>
     ///     Test if the current Windows version is 10 and the build number or later
