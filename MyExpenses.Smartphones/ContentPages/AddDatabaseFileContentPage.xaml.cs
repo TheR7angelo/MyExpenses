@@ -64,34 +64,40 @@ public partial class AddDatabaseFileContentPage
         UpdateLanguage();
         InitializeComponent();
 
-        Interface.LanguageChanged += InterfaceOnLanguageChanged;
+        Interface.LanguageChanged += Interface_OnLanguageChanged;
     }
 
-    private void InterfaceOnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
+    #region Action
+
+    private void ButtonCancel_OnClicked(object? sender, EventArgs e)
+        => _ = HandleButtonCancel();
+
+    private void ButtonValid_OnClicked(object? sender, EventArgs e)
+        => _ = HandleButtonValid();
+
+    private void Interface_OnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
         => UpdateLanguage();
 
-    private void UpdateLanguage()
-    {
-        CustomEntryControlPlaceholderText = AddDatabaseFileContentPageResources.CustomEntryControlPlaceholderText;
+    private void OnBackCommandPressed()
+        => _ = HandleBackCommand();
 
-        ButtonValidContent = AddDatabaseFileContentPageResources.ButtonValidContent;
-        ButtonCancelContent = AddDatabaseFileContentPageResources.ButtonCancelContent;
-    }
+    #endregion
 
-    private async void OnBackCommandPressed()
+    #region Function
+
+    private async Task HandleBackCommand()
     {
         _taskCompletionSource.SetResult(false);
         await Navigation.PopAsync();
     }
 
-    #region Function
+    private async Task HandleButtonCancel()
+    {
+        _taskCompletionSource.SetResult(false);
+        await Navigation.PopAsync();
+    }
 
-    public void SetExistingDatabase(IEnumerable<ExistingDatabase> existingDatabases)
-        => ExistingDatabases.AddRange(existingDatabases);
-
-    #endregion
-
-    private async void ButtonValid_OnClicked(object? sender, EventArgs e)
+    private async Task HandleButtonValid()
     {
         if (string.IsNullOrEmpty(DatabaseFilename))
         {
@@ -126,9 +132,16 @@ public partial class AddDatabaseFileContentPage
         }
     }
 
-    private async void ButtonCancel_OnClicked(object? sender, EventArgs e)
+    public void SetExistingDatabase(IEnumerable<ExistingDatabase> existingDatabases)
+        => ExistingDatabases.AddRange(existingDatabases);
+
+    private void UpdateLanguage()
     {
-        _taskCompletionSource.SetResult(false);
-        await Navigation.PopAsync();
+        CustomEntryControlPlaceholderText = AddDatabaseFileContentPageResources.CustomEntryControlPlaceholderText;
+
+        ButtonValidContent = AddDatabaseFileContentPageResources.ButtonValidContent;
+        ButtonCancelContent = AddDatabaseFileContentPageResources.ButtonCancelContent;
     }
+
+    #endregion
 }

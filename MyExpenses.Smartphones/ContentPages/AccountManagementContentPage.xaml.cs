@@ -62,7 +62,29 @@ public partial class AccountManagementContentPage
 
     #region Action
 
-    private async void ButtonImageViewAddAccount_OnClicked(object? sender, EventArgs e)
+    private void ButtonImageViewAddAccount_OnClicked(object? sender, EventArgs e)
+        => _ = HandleButtonImageViewAddAccountAsync();
+
+    private void ButtonImageViewCreatBankTransfer_OnClicked(object? sender, EventArgs e)
+        => _ = HandleButtonImageViewCreatBankTransferAsync();
+
+    private void ButtonImageViewHistory_OnClicked(object? sender, EventArgs e)
+        => _ = HandleButtonImageViewHistory();
+
+    private void ButtonImageViewRemoveAccount_OnClicked(object? sender, EventArgs e)
+        => _ = HandleButtonImageViewRemoveAccount();
+
+    private void Interface_OnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
+        => UpdateLanguage();
+
+    private void TapGestureRecognizerAccount_OnTapped(object? sender, TappedEventArgs e)
+        => _ = HandleTapGestureRecognizerAccount(sender);
+
+    #endregion
+
+    #region Function
+
+        private async Task HandleButtonImageViewAddAccountAsync()
     {
         var addEditAccountContentPage = new AddEditAccountContentPage();
         await Navigation.PushAsync(addEditAccountContentPage);
@@ -74,7 +96,7 @@ public partial class AccountManagementContentPage
         DashBoardContentPage.Instance.RefreshAccountTotal();
     }
 
-    private async void ButtonImageViewCreatBankTransfer_OnClicked(object? sender, EventArgs e)
+    private async Task HandleButtonImageViewCreatBankTransferAsync()
     {
         var addEditBankTransferContentPage = new AddEditBankTransferContentPage { IsNewBankTransfer = true };
         await Navigation.PushAsync(addEditBankTransferContentPage);
@@ -83,7 +105,7 @@ public partial class AccountManagementContentPage
         if (needToRefresh) RefreshAccountTotals();
     }
 
-    private async void ButtonImageViewHistory_OnClicked(object? sender, EventArgs e)
+    private async Task HandleButtonImageViewHistory()
     {
         var bankTransferSummaryContentPage = new BankTransferSummaryContentPage();
         await Navigation.PushAsync(bankTransferSummaryContentPage);
@@ -92,9 +114,9 @@ public partial class AccountManagementContentPage
         if (needToRefresh) RefreshAccountTotals();
     }
 
-    private async void ButtonImageViewRemoveAccount_OnClicked(object? sender, EventArgs e)
+    private async Task HandleButtonImageViewRemoveAccount()
     {
-        var mapper = Mapping.Mapper;
+                var mapper = Mapping.Mapper;
         await using var context = new DataBaseContext();
         var accountsDerives = context.TAccounts.Select(s => mapper.Map<TAccountDerive>(s)).AsEnumerable();
 
@@ -153,10 +175,7 @@ public partial class AccountManagementContentPage
         }
     }
 
-    private void Interface_OnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
-        => UpdateLanguage();
-
-    private async void TapGestureRecognizerAccount_OnTapped(object? sender, TappedEventArgs e)
+    private async Task HandleTapGestureRecognizerAccount(object? sender)
     {
         if (sender is not Grid grid) return;
         if (grid.BindingContext is not VTotalByAccount vTotalByAccount) return;
@@ -171,10 +190,6 @@ public partial class AccountManagementContentPage
         RefreshAccountTotals();
         DashBoardContentPage.Instance.RefreshAccountTotal();
     }
-
-    #endregion
-
-    #region Function
 
     private void RefreshAccountTotals()
     {

@@ -80,37 +80,52 @@ public partial class SaveLocationContentPage
         InitializeComponent();
     }
 
-    private async void OnBackCommandPressed()
+    private void OnBackCommandPressed()
     {
-        _taskCompletionSource.SetResult(false);
-        await Navigation.PopAsync();
+        Task.Run(async () =>
+        {
+            _taskCompletionSource.SetResult(false);
+            await Navigation.PopAsync();
+        });
     }
 
-    private async void ButtonImageViewCellphone_OnClicked(object? sender, EventArgs e)
+    private void ButtonImageViewCellphone_OnClicked(object? sender, EventArgs e)
     {
-        SaveLocationResult = Models.Wpf.Save.SaveLocation.Local;
-        _taskCompletionSource.SetResult(true);
-        await Navigation.PopAsync();
+        Task.Run(async () =>
+        {
+            SaveLocationResult = Models.Wpf.Save.SaveLocation.Local;
+            _taskCompletionSource.SetResult(true);
+            await Navigation.PopAsync();
+        });
     }
 
-    private async void ButtonImageViewDropbox_OnClicked(object? sender, EventArgs e)
+    private void ButtonImageViewDropbox_OnClicked(object? sender, EventArgs e)
     {
-        SaveLocationResult = Models.Wpf.Save.SaveLocation.Dropbox;
-        _taskCompletionSource.SetResult(true);
-        await Navigation.PopAsync();
+        Task.Run(async () =>
+        {
+            SaveLocationResult = Models.Wpf.Save.SaveLocation.Dropbox;
+            _taskCompletionSource.SetResult(true);
+            await Navigation.PopAsync();
+        });
     }
 
-    private async void ButtonImageViewFolder_OnClicked(object? sender, EventArgs e)
+    private void ButtonImageViewFolder_OnClicked(object? sender, EventArgs e)
     {
-        SaveLocationResult = Models.Wpf.Save.SaveLocation.Folder;
-        _taskCompletionSource.SetResult(true);
-        await Navigation.PopAsync();
+        Task.Run(async () =>
+        {
+            SaveLocationResult = Models.Wpf.Save.SaveLocation.Folder;
+            _taskCompletionSource.SetResult(true);
+            await Navigation.PopAsync();
+        });
     }
 
-    private async void ButtonImageViewDatabase_OnClicked(object? sender, EventArgs e)
+    private void ButtonImageViewDatabase_OnClicked(object? sender, EventArgs e)
     {
-        SaveLocationResult = Models.Wpf.Save.SaveLocation.Database;
-        _taskCompletionSource.SetResult(true);
-        await Navigation.PopAsync();
+        Task.Run(async () =>
+        {
+            SaveLocationResult = Models.Wpf.Save.SaveLocation.Database;
+            _taskCompletionSource.SetResult(true);
+            await Navigation.PopAsync();
+        });
     }
 }

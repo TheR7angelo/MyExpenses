@@ -73,65 +73,17 @@ public partial class AccountTypeSummaryContentPage
 
     #region Action
 
-    private async void ButtonAccountType_OnClicked(object? sender, EventArgs e)
-    {
-        if (sender is not Button button) return;
-        if (button.BindingContext is not TAccountType accountType) return;
+    private void ButtonAccountType_OnClicked(object? sender, EventArgs e)
+        => _ = HandleButtonAccountType(sender);
 
-        var tempAccountType = accountType.DeepCopy();
-        await ShowCustomPopupEntryForCurrency(tempAccountType);
-    }
-
-    private async void ButtonValid_OnClicked(object? sender, EventArgs e)
-    {
-        var validate = await ValidateAccountType();
-        if (!validate) return;
-
-        var response = await DisplayAlert(
-            AccountTypeSummaryContentPageResources.MesageBoxAddNewAccountTypeQuestionTitle,
-            string.Format(AccountTypeSummaryContentPageResources.MesageBoxAddNewAccountTypeQuestionMessage, AccountTypeName),
-            AccountTypeSummaryContentPageResources.MesageBoxAddNewAccountTypeQuestionYesButton,
-            AccountTypeSummaryContentPageResources.MesageBoxAddNewAccountTypeQuestionNoButton);
-        if (!response) return;
-
-        var newAccountType = new TAccountType
-        {
-            Name = AccountTypeName,
-            DateAdded = DateTime.Now
-        };
-
-        var json = newAccountType.ToJson();
-        Log.Information("Attempt to add new account type : {AccountType}", json);
-        var (success, exception) = newAccountType.AddOrEdit();
-        if (success)
-        {
-            Log.Information("New account type was successfully added");
-            AccountTypes.AddAndSort(newAccountType, s => s.Name!);
-            AccountTypeName = string.Empty;
-
-            await DisplayAlert(
-                AccountTypeSummaryContentPageResources.MesageBoxAddNewAccountTypeSuccessTitle,
-                AccountTypeSummaryContentPageResources.MesageBoxAddNewAccountTypeSuccessMessage,
-                AccountTypeSummaryContentPageResources.MesageBoxAddNewAccountTypeSuccessOkButton);
-        }
-        else
-        {
-            Log.Error(exception, "An error occurred while adding new account type");
-            await DisplayAlert(
-                AccountTypeSummaryContentPageResources.MesageBoxAddNewAccountTypeErrorTitle,
-                AccountTypeSummaryContentPageResources.MesageBoxAddNewAccountTypeErrorMessage,
-                AccountTypeSummaryContentPageResources.MesageBoxAddNewAccountTypeErrorOkButton);
-        }
-    }
+    private void ButtonValid_OnClicked(object? sender, EventArgs e)
+        => _ = HandleButtonValid();
 
     private void Interface_OnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
         => UpdateLanguage();
 
-    private async void OnBackCommandPressed()
-    {
-        _taskCompletionSource.SetResult(true);
-        await Navigation.PopAsync();
-    }
+    private void OnBackCommandPressed()
+        => _ = HandleBackCommand();
 
     #endregion
 
@@ -217,6 +169,63 @@ public partial class AccountTypeSummaryContentPage
 
         Log.Information("Attempt to delete currency symbol : {Symbol}", json);
         await HandleAccountTypeDelete(accountType);
+    }
+
+    private async Task HandleBackCommand()
+    {
+        _taskCompletionSource.SetResult(true);
+        await Navigation.PopAsync();
+    }
+
+        private async Task HandleButtonAccountType(object? sender)
+    {
+        if (sender is not Button button) return;
+        if (button.BindingContext is not TAccountType accountType) return;
+
+        var tempAccountType = accountType.DeepCopy();
+        await ShowCustomPopupEntryForCurrency(tempAccountType);
+    }
+
+    private async Task HandleButtonValid()
+    {
+        var validate = await ValidateAccountType();
+        if (!validate) return;
+
+        var response = await DisplayAlert(
+            AccountTypeSummaryContentPageResources.MesageBoxAddNewAccountTypeQuestionTitle,
+            string.Format(AccountTypeSummaryContentPageResources.MesageBoxAddNewAccountTypeQuestionMessage, AccountTypeName),
+            AccountTypeSummaryContentPageResources.MesageBoxAddNewAccountTypeQuestionYesButton,
+            AccountTypeSummaryContentPageResources.MesageBoxAddNewAccountTypeQuestionNoButton);
+        if (!response) return;
+
+        var newAccountType = new TAccountType
+        {
+            Name = AccountTypeName,
+            DateAdded = DateTime.Now
+        };
+
+        var json = newAccountType.ToJson();
+        Log.Information("Attempt to add new account type : {AccountType}", json);
+        var (success, exception) = newAccountType.AddOrEdit();
+        if (success)
+        {
+            Log.Information("New account type was successfully added");
+            AccountTypes.AddAndSort(newAccountType, s => s.Name!);
+            AccountTypeName = string.Empty;
+
+            await DisplayAlert(
+                AccountTypeSummaryContentPageResources.MesageBoxAddNewAccountTypeSuccessTitle,
+                AccountTypeSummaryContentPageResources.MesageBoxAddNewAccountTypeSuccessMessage,
+                AccountTypeSummaryContentPageResources.MesageBoxAddNewAccountTypeSuccessOkButton);
+        }
+        else
+        {
+            Log.Error(exception, "An error occurred while adding new account type");
+            await DisplayAlert(
+                AccountTypeSummaryContentPageResources.MesageBoxAddNewAccountTypeErrorTitle,
+                AccountTypeSummaryContentPageResources.MesageBoxAddNewAccountTypeErrorMessage,
+                AccountTypeSummaryContentPageResources.MesageBoxAddNewAccountTypeErrorOkButton);
+        }
     }
 
     private void RefreshAccountTypes()
