@@ -40,6 +40,7 @@ public partial class TBankTransfer : ISql
     [Column("date_added", TypeName = "DATETIME")]
     public DateTime? DateAdded { get; set; } = DateTime.Now;
 
+    // ReSharper disable PropertyCanBeMadeInitOnly.Global
     [ForeignKey("FromAccountFk")]
     [InverseProperty("TBankTransferFromAccountFkNavigations")]
     public virtual TAccount? FromAccountFkNavigation { get; set; }
@@ -50,4 +51,5 @@ public partial class TBankTransfer : ISql
     [ForeignKey("ToAccountFk")]
     [InverseProperty("TBankTransferToAccountFkNavigations")]
     public virtual TAccount? ToAccountFkNavigation { get; set; }
+    // ReSharper restore PropertyCanBeMadeInitOnly.Global
 }

@@ -78,6 +78,7 @@ public partial class TRecursiveExpense : ISql
     [Column("last_updated", TypeName = "DATE")]
     public DateTime? LastUpdated { get; set; }
 
+    // ReSharper disable PropertyCanBeMadeInitOnly.Global
     [ForeignKey("AccountFk")]
     [InverseProperty("TRecursiveExpenses")]
     public virtual TAccount? AccountFkNavigation { get; set; }
@@ -100,4 +101,5 @@ public partial class TRecursiveExpense : ISql
 
     [InverseProperty("RecursiveExpenseFkNavigation")]
     public virtual ICollection<THistory> THistories { get; set; } = new List<THistory>();
+    // ReSharper restore PropertyCanBeMadeInitOnly.Global
 }

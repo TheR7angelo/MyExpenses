@@ -23,6 +23,8 @@ public partial class TColor : ISql
     [Column("date_added", TypeName = "DATETIME")]
     public DateTime? DateAdded { get; set; } = DateTime.Now;
 
+    // ReSharper disable PropertyCanBeMadeInitOnly.Global
     [InverseProperty("ColorFkNavigation")]
     public virtual ICollection<TCategoryType> TCategoryTypes { get; set; } = new List<TCategoryType>();
+    // ReSharper restore PropertyCanBeMadeInitOnly.Global
 }

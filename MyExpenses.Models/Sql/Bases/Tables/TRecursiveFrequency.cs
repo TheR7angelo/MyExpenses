@@ -23,6 +23,8 @@ public class TRecursiveFrequency
     [MaxLength(100)]
     public string? Description { get; set; }
 
+    // ReSharper disable PropertyCanBeMadeInitOnly.Global
     [InverseProperty("FrequencyFkNavigation")]
     public virtual ICollection<TRecursiveExpense> TRecursiveExpenses { get; set; } = new List<TRecursiveExpense>();
+    // ReSharper restore PropertyCanBeMadeInitOnly.Global
 }

@@ -56,6 +56,7 @@ public partial class THistory : ISql
     [Column("date_pointed", TypeName = "DATETIME")]
     public DateTime? DatePointed { get; set; }
 
+    // ReSharper disable PropertyCanBeMadeInitOnly.Global
     [ForeignKey("AccountFk")]
     [InverseProperty("THistories")]
     public virtual TAccount? AccountFkNavigation { get; set; }
@@ -79,4 +80,5 @@ public partial class THistory : ISql
     [ForeignKey("RecursiveExpenseFk")]
     [InverseProperty("THistories")]
     public virtual TRecursiveExpense? RecursiveExpenseFkNavigation { get; set; }
+    // ReSharper restore PropertyCanBeMadeInitOnly.Global
 }

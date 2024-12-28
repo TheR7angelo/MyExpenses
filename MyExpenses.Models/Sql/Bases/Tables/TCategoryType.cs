@@ -22,6 +22,7 @@ public partial class TCategoryType : ISql
     [Column("date_added", TypeName = "DATETIME")]
     public DateTime? DateAdded { get; set; } = DateTime.Now;
 
+    // ReSharper disable PropertyCanBeMadeInitOnly.Global
     [ForeignKey("ColorFk")]
     [InverseProperty("TCategoryTypes")]
     public virtual TColor? ColorFkNavigation { get; set; }
@@ -31,4 +32,5 @@ public partial class TCategoryType : ISql
 
     [InverseProperty("CategoryTypeFkNavigation")]
     public virtual ICollection<TRecursiveExpense> TRecursiveExpenses { get; set; } = new List<TRecursiveExpense>();
+    // ReSharper restore PropertyCanBeMadeInitOnly.Global
 }

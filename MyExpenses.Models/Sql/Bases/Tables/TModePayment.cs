@@ -22,9 +22,11 @@ public partial class TModePayment : ISql
     [Column("date_added", TypeName = "DATETIME")]
     public DateTime? DateAdded { get; set; } = DateTime.Now;
 
+    // ReSharper disable PropertyCanBeMadeInitOnly.Global
     [InverseProperty("ModePaymentFkNavigation")]
     public virtual ICollection<THistory> THistories { get; set; } = new List<THistory>();
 
     [InverseProperty("ModePaymentFkNavigation")]
     public virtual ICollection<TRecursiveExpense> TRecursiveExpenses { get; set; } = new List<TRecursiveExpense>();
+    // ReSharper restore PropertyCanBeMadeInitOnly.Global
 }

@@ -32,6 +32,7 @@ public partial class TAccount : ISql
     [Column("date_added", TypeName = "DATETIME")]
     public DateTime? DateAdded { get; set; } = DateTime.Now;
 
+    // ReSharper disable PropertyCanBeMadeInitOnly.Global
     [ForeignKey("AccountTypeFk")]
     [InverseProperty("TAccounts")]
     public virtual TAccountType? AccountTypeFkNavigation { get; set; }
@@ -51,4 +52,5 @@ public partial class TAccount : ISql
 
     [InverseProperty("AccountFkNavigation")]
     public virtual ICollection<TRecursiveExpense> TRecursiveExpenses { get; set; } = new List<TRecursiveExpense>();
+    // ReSharper restore PropertyCanBeMadeInitOnly.Global
 }

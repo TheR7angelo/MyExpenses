@@ -19,6 +19,8 @@ public partial class TCurrency : ISql
     [Column("date_added", TypeName = "DATETIME")]
     public DateTime? DateAdded { get; set; } = DateTime.Now;
 
+    // ReSharper disable PropertyCanBeMadeInitOnly.Global
     [InverseProperty("CurrencyFkNavigation")]
     public virtual ICollection<TAccount> TAccounts { get; set; } = new List<TAccount>();
+    // ReSharper restore PropertyCanBeMadeInitOnly.Global
 }

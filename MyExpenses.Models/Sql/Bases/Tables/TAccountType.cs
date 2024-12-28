@@ -19,6 +19,8 @@ public partial class TAccountType : ISql
     [Column("date_added", TypeName = "DATETIME")]
     public DateTime? DateAdded { get; set; } = DateTime.Now;
 
+    // ReSharper disable PropertyCanBeMadeInitOnly.Global
     [InverseProperty("AccountTypeFkNavigation")]
     public virtual ICollection<TAccount> TAccounts { get; set; } = new List<TAccount>();
+    // ReSharper restore PropertyCanBeMadeInitOnly.Global
 }
