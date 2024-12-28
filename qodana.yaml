@@ -30,6 +30,13 @@ exclude:
       - "MyExpenses.Models/Resources/Resx"
       - "MyExpenses.Sql/Resources/Resx"
 
+  - name: OverriddenWithSameValue
+    paths:
+      - "MyExpenses.Wpf/Resources/Resx"
+      - "MyExpenses.Smartphones/Resources/Resx"
+      - "MyExpenses.Models/Resources/Resx"
+      - "MyExpenses.Sql/Resources/Resx"
+
   - name: AndroidDomInspection
     paths:
       - "MyExpenses.Smartphones/Platforms/Android/AndroidManifest.xml"
