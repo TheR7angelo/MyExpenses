@@ -117,7 +117,7 @@ public static class DbContextHelper
         foreach (var newExistingDatabase in newExistingDatabases)
         {
             using var context = new DataBaseContext(newExistingDatabase.FilePath);
-            context.UpdateAllDefaultValues();
+            _ = context.UpdateAllDefaultValues();
             context.SaveChanges();
         }
     }

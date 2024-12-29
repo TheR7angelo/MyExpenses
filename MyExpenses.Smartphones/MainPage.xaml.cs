@@ -209,7 +209,7 @@ public partial class MainPage
             File.Copy(DbContextBackup.LocalFilePathDataBaseModel, filePath, true);
 
             await using var context = new DataBaseContext(filePath);
-            context.SetAllDefaultValues();
+            _ = context.SetAllDefaultValues();
             await context.SaveChangesAsync();
 
             ExistingDatabases.AddAndSort(new ExistingDatabase(filePath),

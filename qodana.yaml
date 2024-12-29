@@ -49,6 +49,10 @@ exclude:
     paths:
       - "MyExpenses.Models/Sql/Bases/Tables"
 
+  - name : UnusedType.Global
+    paths:
+      - "MyExpenses.Models/AutoMapper/Profiles"
+
   # Disable all inspections
   - name: All
     paths:
