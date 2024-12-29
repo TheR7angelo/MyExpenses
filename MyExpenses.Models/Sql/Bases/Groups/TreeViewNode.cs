@@ -4,10 +4,10 @@ using PropertyChanged;
 namespace MyExpenses.Models.Sql.Bases.Groups;
 
 [AddINotifyPropertyChangedInterface]
-public class TreeViewNode
+public sealed class TreeViewNode
 {
-    public virtual string? Name { get; init; }
-    public virtual IList<TreeViewNode> Children { get; init; } = new ObservableCollection<TreeViewNode>();
+    public string? Name { get; init; }
+    public IList<TreeViewNode> Children { get; init; } = new ObservableCollection<TreeViewNode>();
 
     public object? AdditionalData { get; set; }
 }
