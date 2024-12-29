@@ -61,16 +61,24 @@ public static class ExistingDatabaseToFolder
             Log.Information("Exporting records to Excel file at \"{SaveExcel}\"", saveExcel);
 
             await using var context = new DataBaseContext(existingDatabase.FilePath);
-            context.ToExcelWorksheet(saveExcel);
+            var resultExportToExcel = context.ToExcelWorksheet(saveExcel);
+
+            if (resultExportToExcel) Log.Information("Records have been successfully exported to Excel file");
+            else Log.Error("Error while exporting records to Excel file");
+
             var places = context.TPlaces.AsEnumerable();
             var saveKmz = Path.Join(saveFolder, $"{existingDatabase.FileNameWithoutExtension}.kmz");
-            places.ToKmlFile(saveKmz);
+            Log.Information("Exporting records to Kml file at \"{SaveKmz}\"", saveKmz);
+            var resultExportToKmlFile = places.ToKmlFile(saveKmz);
+
+            if (resultExportToKmlFile) Log.Information("Records have been successfully exported to Kml file");
+            else Log.Error("Error while exporting records to Kml file");
 
             // TODO work
             // AddQgisProject(isCompress, saveFolder);
 
-            Log.Information("Records have been successfully exported");
-            return true;
+            var finalResult = resultExportToExcel && resultExportToKmlFile;
+            return finalResult;
         }
         catch (Exception e)
         {
