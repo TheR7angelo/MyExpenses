@@ -45,6 +45,10 @@ exclude:
     paths:
       - "MyExpenses.IO/Sig/Shp"
 
+  - name : ClassWithVirtualMembersNeverInherited.Global
+    paths:
+      - "MyExpenses.Models/Sql/Bases/Tables"
+
   # Disable all inspections
   - name: All
     paths:
