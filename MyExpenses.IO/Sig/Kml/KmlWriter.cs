@@ -6,12 +6,13 @@ using MyExpenses.Models.IO.Sig.Interfaces;
 using MyExpenses.Models.Sig;
 using MyExpenses.Utils.Maps;
 using NetTopologySuite.Geometries;
+using Serilog;
 
 namespace MyExpenses.IO.Sig.Kml;
 
 public static class KmlWriter
 {
-    public static void ToKmlFile(this IEnumerable<ISig> sigs, string fileSavePath, string geomType = "Point")
+    public static bool ToKmlFile(this IEnumerable<ISig> sigs, string fileSavePath, string geomType = "Point")
     {
         var extension = Path.GetExtension(fileSavePath);
         extension.TestExtensionError();
@@ -57,7 +58,7 @@ public static class KmlWriter
             );
         }
 
-        SaveToKmlKmzFile(fileSavePath, kml, extension);
+        return SaveToKmlKmzFile(fileSavePath, kml, extension);
     }
 
     private static PropertyInfo? GetDisplayNameProperty(Dictionary<string, DbField> fields, Type type)
@@ -171,25 +172,35 @@ public static class KmlWriter
         }
     }
 
-    private static void SaveToKmlKmzFile(string fileSavePath, XDocument kml, string extension)
+    private static bool SaveToKmlKmzFile(string fileSavePath, XDocument kml, string extension)
     {
-        var tempFilePath = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
-
-        tempFilePath = Path.ChangeExtension(tempFilePath, ".kml");
-        kml.Save(tempFilePath);
-
-        if (extension is ".kmz")
+        try
         {
-            if (File.Exists(fileSavePath)) File.Delete(fileSavePath);
+            var tempFilePath = Path.Combine(Path.GetTempPath(), Path.GetRandomFileName());
 
-            using var zip = ZipFile.Open(fileSavePath, ZipArchiveMode.Create);
-            zip.CreateEntryFromFile(tempFilePath, Path.GetFileName(tempFilePath));
+            tempFilePath = Path.ChangeExtension(tempFilePath, ".kml");
+            kml.Save(tempFilePath);
 
-            File.Delete(tempFilePath);
+            if (extension is ".kmz")
+            {
+                if (File.Exists(fileSavePath)) File.Delete(fileSavePath);
+
+                using var zip = ZipFile.Open(fileSavePath, ZipArchiveMode.Create);
+                zip.CreateEntryFromFile(tempFilePath, Path.GetFileName(tempFilePath));
+
+                File.Delete(tempFilePath);
+            }
+            else
+            {
+                File.Move(tempFilePath, fileSavePath, true);
+            }
+
+            return true;
         }
-        else
+        catch (Exception e)
         {
-            File.Move(tempFilePath, fileSavePath, true);
+            Log.Error(e, "Error while saving KML file");
+            return false;
         }
     }
 }
