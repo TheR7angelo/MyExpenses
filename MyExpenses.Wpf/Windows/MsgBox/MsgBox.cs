@@ -22,10 +22,8 @@ public static class MsgBox
     public static MessageBoxResult Show(string messageBoxText, string caption)
         => ShowCore(messageBoxText, caption);
 
-    public static MessageBoxResult Show(string messageBoxText, MsgBoxImage icon)
-    {
-        return ShowCore(messageBoxText, string.Empty, icon:icon);
-    }
+    public static void Show(string messageBoxText, MsgBoxImage icon)
+        => ShowCore(messageBoxText, string.Empty, icon:icon);
 
     public static MessageBoxResult Show(string messageBoxText, MsgBoxImage icon, MessageBoxButton button)
     {

@@ -109,7 +109,7 @@ public partial class WelcomePage
         Log.Information("Preparing to delete the following files: {Files}", files);
 
         var dropboxService = await DropboxService.CreateAsync(ProjectSystem.Wpf);
-        await dropboxService.DeleteFilesAsync(files, DbContextBackup.CloudDirectoryBackupDatabase);
+        _ = await dropboxService.DeleteFilesAsync(files, DbContextBackup.CloudDirectoryBackupDatabase);
 
         Log.Information("Files successfully deleted from cloud");
     }
@@ -134,7 +134,7 @@ public partial class WelcomePage
         foreach (var existingDatabase in existingDatabasesSelected)
         {
             Log.Information("Starting to upload {ExistingDatabaseFileName} to cloud storage", existingDatabase.FileName);
-            await dropboxService.UploadFileAsync(existingDatabase.FilePath, DbContextBackup.CloudDirectoryBackupDatabase);
+            _ = await dropboxService.UploadFileAsync(existingDatabase.FilePath, DbContextBackup.CloudDirectoryBackupDatabase);
             Log.Information("Successfully uploaded {ExistingDatabaseFileName} to cloud storage", existingDatabase.FileName);
         }
     }
@@ -143,7 +143,7 @@ public partial class WelcomePage
     {
         var dropboxService = await DropboxService.CreateAsync(ProjectSystem.Wpf);
         Log.Information("Starting to upload {FileName} to cloud storage", existingDatabasesSelected.FileName);
-        await dropboxService.UploadFileAsync(existingDatabasesSelected.FilePath, DbContextBackup.CloudDirectoryBackupDatabase);
+        _ = await dropboxService.UploadFileAsync(existingDatabasesSelected.FilePath, DbContextBackup.CloudDirectoryBackupDatabase);
         Log.Information("Successfully uploaded {FileName} to cloud storage", existingDatabasesSelected.FileName);
     }
 

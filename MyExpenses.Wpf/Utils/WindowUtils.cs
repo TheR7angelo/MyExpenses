@@ -6,11 +6,10 @@ namespace MyExpenses.Wpf.Utils;
 
 public static class WindowUtils
 {
-    public static bool SetWindowCornerPreference(this Window window, DwmWindowCornerPreference dwmWindowCornerPreference = DwmWindowCornerPreference.Round)
+    public static void SetWindowCornerPreference(this Window window, DwmWindowCornerPreference dwmWindowCornerPreference = DwmWindowCornerPreference.Round)
     {
         var w = Window.GetWindow(window)!;
         var hWnd = new WindowInteropHelper(w).EnsureHandle();
-
-        return hWnd.SetWindowCornerPreference(dwmWindowCornerPreference);
+        _ = hWnd.SetWindowCornerPreference(dwmWindowCornerPreference);
     }
 }

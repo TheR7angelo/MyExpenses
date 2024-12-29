@@ -339,7 +339,7 @@ public partial class MainWindow
     {
         var dropboxService = await DropboxService.CreateAsync(ProjectSystem.Wpf);
         Log.Information("Starting to upload {FileName} to cloud storage", Path.GetFileName(database));
-        await dropboxService.UploadFileAsync(database, DbContextBackup.CloudDirectoryBackupDatabase);
+        _ = await dropboxService.UploadFileAsync(database, DbContextBackup.CloudDirectoryBackupDatabase);
         Log.Information("Successfully uploaded {FileName} to cloud storage", Path.GetFileName(database));
 
         // return fileMetadata;

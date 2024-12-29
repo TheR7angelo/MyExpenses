@@ -89,7 +89,7 @@ public partial class MainPage
         Log.Information("Preparing to delete the following files: {Files}", files);
 
         var dropboxService = await DropboxService.CreateAsync(ProjectSystem.Maui);
-        await dropboxService.DeleteFilesAsync(files, DbContextBackup.CloudDirectoryBackupDatabase);
+        _ = await dropboxService.DeleteFilesAsync(files, DbContextBackup.CloudDirectoryBackupDatabase);
 
         Log.Information("Files successfully deleted from Dropbox");
     }
@@ -126,7 +126,7 @@ public partial class MainPage
         foreach (var existingDatabase in existingDatabasesSelected)
         {
             Log.Information("Starting to upload {ExistingDatabaseFileName} to cloud storage", existingDatabase.FileName);
-            await dropboxService.UploadFileAsync(existingDatabase.FilePath, DbContextBackup.CloudDirectoryBackupDatabase);
+            _ = await dropboxService.UploadFileAsync(existingDatabase.FilePath, DbContextBackup.CloudDirectoryBackupDatabase);
             Log.Information("Successfully uploaded {ExistingDatabaseFileName} to cloud storage", existingDatabase.FileName);
         }
         CustomPopupActivityIndicatorHelper.CloseCustomPopupActivityIndicator();
