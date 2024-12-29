@@ -217,5 +217,14 @@ namespace MyExpenses.Wpf.Resources.Resx.Windows.MainWindow {
                 return ResourceManager.GetString("MenuItemHeaderHelp", resourceCulture);
             }
         }
+
+        /// <summary>
+        /// Looks up a localized string similar to An error occured while exporting the database, please retry.
+        /// </summary>
+        public static string MessageBoxErrorExportToLocalFolder {
+            get {
+                return ResourceManager.GetString("MessageBoxErrorExportToLocalFolder", resourceCulture);
+            }
+        }
     }
 }

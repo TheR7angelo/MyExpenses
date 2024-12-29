@@ -177,6 +177,15 @@ namespace MyExpenses.Wpf.Resources.Resx.Pages.WelcomePage {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Failed to export some database to local folder, please retry.
+        /// </summary>
+        internal static string MessageBoxErrorExportToLocalFolder {
+            get {
+                return ResourceManager.GetString("MessageBoxErrorExportToLocalFolder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Do you want to open the export folder ?.
         /// </summary>
         internal static string MessageBoxOpenExportFolderQuestion {

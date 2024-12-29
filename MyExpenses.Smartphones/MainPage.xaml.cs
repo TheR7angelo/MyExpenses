@@ -168,16 +168,20 @@ public partial class MainPage
         Log.Information("Starting to export database to {SelectedDialog}", selectedFolder);
 
         this.ShowCustomPopupActivityIndicator(MainPageResources.CustomPopupActivityIndicatorExportDatabaseToLocal);
+        var failedExistingDatabases = new List<ExistingDatabase>();
         await Task.Run(async () =>
         {
             foreach (var existingDatabase in existingDatabasesSelected)
             {
                 Log.Information("Starting to export {ExistingDatabaseFileName}", existingDatabase.FileNameWithoutExtension);
-                await existingDatabase.ToFolderAsync(selectedFolder, isCompress);
+                var success = await existingDatabase.ToFolderAsync(selectedFolder, isCompress);
+                if (!success) failedExistingDatabases.Add(existingDatabase);
+                else Log.Information("Successfully exported {ExistingDatabaseFileName}", existingDatabase.FileNameWithoutExtension);
             }
         });
         CustomPopupActivityIndicatorHelper.CloseCustomPopupActivityIndicator();
 
+        if (failedExistingDatabases.Count > 0) throw new Exception("Failed to export some databases");
         Log.Information("Database successfully copied to local storage");
     }
 

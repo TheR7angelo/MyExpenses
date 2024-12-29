@@ -53,4 +53,7 @@
     <data name="MessageBoxOpenExportFolderQuestion" xml:space="preserve">
         <value>Voulez-vous ouvrir le dossier d'exportation ?</value>
     </data>
+    <data name="MessageBoxErrorExportToLocalFolder" xml:space="preserve">
+        <value>Échec de l’exportation d’une base de données vers le dossier local, veuillez réessayer</value>
+    </data>
 </root>

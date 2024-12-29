@@ -160,15 +160,24 @@ public partial class WelcomePage
 
         Log.Information("Starting to export database to {SelectedDialog}", selectedDialog);
 
+        var failedExistingDatabases = new List<ExistingDatabase>();
         await Task.Run(async () =>
         {
             foreach (var existingDatabase in existingDatabasesSelected)
             {
                 Log.Information("Starting to export {ExistingDatabaseFileName}", existingDatabase.FileNameWithoutExtension);
-                await existingDatabase.ToFolderAsync(selectedDialog, isCompress);
+                var success = await existingDatabase.ToFolderAsync(selectedDialog, isCompress);
+                if (!success) failedExistingDatabases.Add(existingDatabase);
+                else Log.Information("Successfully exported {ExistingDatabaseFileName}", existingDatabase.FileNameWithoutExtension);
             }
         });
 
+        if (failedExistingDatabases.Count > 0)
+        {
+            Log.Information("Failed to export some database to local folder");
+            MsgBox.Show(WelcomePageResources.MessageBoxErrorExportToLocalFolder, MsgBoxImage.Error, MessageBoxButton.OK);
+            return;
+        }
         Log.Information("Database successfully copied to local storage");
 
         var response = MsgBox.Show(WelcomePageResources.MessageBoxOpenExportFolderQuestion, MsgBoxImage.Question,

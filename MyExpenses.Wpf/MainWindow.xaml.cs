@@ -358,12 +358,19 @@ public partial class MainWindow
 
         Log.Information("Starting to export database to {SelectedDialog}", selectedDialog);
 
+        var success = false;
         await Task.Run(async () =>
         {
             var existingDatabase = new ExistingDatabase(databaseFilePath);
-            await existingDatabase.ToFolderAsync(selectedDialog, isCompress);
+            success = await existingDatabase.ToFolderAsync(selectedDialog, isCompress);
         });
 
+        if (!success)
+        {
+            Log.Error("An error occured while exporting the database");
+            MsgBox.Show(MainWindowResources.MessageBoxErrorExportToLocalFolder, MsgBoxImage.Error, MessageBoxButton.OK);
+            return;
+        }
         Log.Information("Database successfully copied to local storage");
 
         var response = MsgBox.Show(MainWindowResources.MessageBoxOpenExportFolderQuestion, MsgBoxImage.Question,

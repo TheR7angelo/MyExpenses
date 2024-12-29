@@ -65,4 +65,7 @@
     <data name="MenuItemHeaderHelp" xml:space="preserve">
         <value>Help</value>
     </data>
+    <data name="MessageBoxErrorExportToLocalFolder" xml:space="preserve">
+        <value>An error occured while exporting the database, please retry</value>
+    </data>
 </root>
