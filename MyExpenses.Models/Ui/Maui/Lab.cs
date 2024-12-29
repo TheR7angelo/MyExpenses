@@ -2,7 +2,7 @@ namespace MyExpenses.Models.Ui.Maui;
 
 public record struct Lab(double L, double A, double B);
 
-public class LabConstants
+public static class LabConstants
 {
     public const double Kn = 18;
 
