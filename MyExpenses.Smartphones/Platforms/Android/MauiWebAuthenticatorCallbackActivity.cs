@@ -10,6 +10,4 @@ namespace MyExpenses.Smartphones;
     DataSchemes = ["myexpenses"],
     DataHost = "redirect"
 )]
-public class WebAuthenticationCallbackActivity : WebAuthenticatorCallbackActivity
-{
-}
+public class WebAuthenticationCallbackActivity : WebAuthenticatorCallbackActivity;
