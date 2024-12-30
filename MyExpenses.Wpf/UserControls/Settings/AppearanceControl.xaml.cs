@@ -1,7 +1,6 @@
 using System.Windows;
 using System.Windows.Media;
 using MaterialDesignThemes.Wpf;
-using MyExpenses.Models.Config;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Wpf.Resources.Resx.UserControls.Settings.AppearanceControl;
 using MyExpenses.Wpf.Utils;
@@ -254,7 +253,7 @@ public partial class AppearanceControl
     private void CheckBoxSyncWithOs_OnUnchecked(object sender, RoutedEventArgs e)
         => UpdateBaseTheme();
 
-    private void Interface_OnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
+    private void Interface_OnLanguageChanged()
         => UpdateLanguage();
 
     private void ToggleButtonLightDark_OnChecked(object sender, RoutedEventArgs e)
@@ -284,8 +283,8 @@ public partial class AppearanceControl
         var configuration = MyExpenses.Utils.Config.Configuration;
         var paletteHelper = new PaletteHelper();
 
-        configuration.Interface.Theme.BaseTheme = SyncWithOs ? (EBaseTheme)BaseTheme.Inherit :
-            LightDark is false ? (EBaseTheme)BaseTheme.Light : (EBaseTheme)BaseTheme.Dark;
+        configuration.Interface.Theme.BaseTheme = SyncWithOs ? EBaseTheme.Inherit :
+            LightDark is false ? EBaseTheme.Light : EBaseTheme.Dark;
 
         var theme = paletteHelper.GetTheme();
         theme.SetBaseTheme((BaseTheme)configuration.Interface.Theme.BaseTheme);

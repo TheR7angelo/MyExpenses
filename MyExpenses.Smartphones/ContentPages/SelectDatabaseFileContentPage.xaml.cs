@@ -1,6 +1,5 @@
 using System.Collections.ObjectModel;
 using System.Windows.Input;
-using MyExpenses.Models.Config;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.IO;
 using MyExpenses.Smartphones.Resources.Resx.ContentPages.SelectDatabaseFileContentPage;
@@ -71,7 +70,7 @@ public partial class SelectDatabaseFileContentPage
     private void OnBackCommandPressed()
         => _ = HandleButtonCancel();
 
-    private void Interface_OnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
+    private void Interface_OnLanguageChanged()
         => UpdateLanguage();
 
     #endregion

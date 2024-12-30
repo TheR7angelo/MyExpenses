@@ -4,22 +4,22 @@ namespace MyExpenses.Models.Config.Interfaces;
 
 public class Interface
 {
-    public delegate void ThemeChangedEventHandler(object sender, ConfigurationThemeChangedEventArgs e);
+    public delegate void ThemeChangedEventHandler();
 
     public static event ThemeChangedEventHandler? ThemeChanged;
 
-    public static void OnThemeChanged(object sender, ConfigurationThemeChangedEventArgs e)
+    public static void OnThemeChanged()
     {
-        ThemeChanged?.Invoke(sender, e);
+        ThemeChanged?.Invoke();
     }
 
-    public delegate void LanguageChangedEventHandler(object sender, ConfigurationLanguageChangedEventArgs e);
+    public delegate void LanguageChangedEventHandler();
 
     public static event LanguageChangedEventHandler? LanguageChanged;
 
-    public static void OnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
+    public static void OnLanguageChanged()
     {
-        LanguageChanged?.Invoke(sender, e);
+        LanguageChanged?.Invoke();
     }
 
     [JsonProperty("theme")]

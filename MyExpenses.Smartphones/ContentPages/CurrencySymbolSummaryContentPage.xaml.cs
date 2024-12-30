@@ -1,7 +1,6 @@
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using CommunityToolkit.Maui.Views;
-using MyExpenses.Models.Config;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Maui.CustomPopup;
 using MyExpenses.Models.Sql.Bases.Tables;
@@ -78,7 +77,7 @@ public partial class CurrencySymbolSummaryContentPage
     private void ButtonSymbol_OnClicked(object? sender, EventArgs e)
         => _ = HandleButtonSymbol(sender);
 
-    private void Interface_OnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
+    private void Interface_OnLanguageChanged()
         => UpdateLanguage();
 
     private void OnBackCommandPressed()

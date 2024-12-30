@@ -1,5 +1,4 @@
 using System.Windows;
-using MyExpenses.Models.Config;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Wpf.Resources.Resx.UserControls.Analytics.BudgetsControl;
 
@@ -46,7 +45,7 @@ public partial class BudgetsControl
         Interface.LanguageChanged += Interface_OnLanguageChanged;
     }
 
-    private void Interface_OnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
+    private void Interface_OnLanguageChanged()
         => UpdateLanguage();
 
     private void UpdateLanguage()

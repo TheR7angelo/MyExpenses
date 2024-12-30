@@ -1,5 +1,4 @@
 using System.Collections.ObjectModel;
-using MyExpenses.Models.Config;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Maui.CustomPopup;
 using MyExpenses.Smartphones.Resources.Resx.ContentPages.CustomPopups.CustomPopupFilterChecked;
@@ -47,7 +46,7 @@ public partial class CustomPopupFilterChecked : ICustomPopupFilter<BoolIsChecked
     private void ButtonClose_OnClicked(object? sender, EventArgs e)
         => Close();
 
-    private void Interface_OnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
+    private void Interface_OnLanguageChanged()
         => UpdateLanguage();
 
     #endregion

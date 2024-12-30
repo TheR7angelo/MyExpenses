@@ -9,7 +9,6 @@ using BruTile.Predefined;
 using Mapsui.Layers;
 using Mapsui.Tiling.Layers;
 using Microsoft.Data.Sqlite;
-using MyExpenses.Models.Config;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Models.Sql.Bases.Views;
@@ -658,8 +657,8 @@ public partial class AddEditRecurrentExpenseWindow
     private void DatePicker_OnSelectedDateChanged(object? sender, SelectionChangedEventArgs e)
         => UpdateNextDueDate();
 
-    private void Interface_OnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
-        => UpdaterLanguage(e.CultureInfoCode);
+    private void Interface_OnLanguageChanged()
+        => UpdaterLanguage();
 
     private void MapControl_OnLoaded(object sender, RoutedEventArgs e)
         => UpdateTileLayer();
@@ -875,10 +874,9 @@ public partial class AddEditRecurrentExpenseWindow
         RecursiveExpense.IsActive = RecursiveExpense.RecursiveTotal > RecursiveExpense.RecursiveCount;
     }
 
-    private void UpdaterLanguage(string? cultureInfoCode = null)
+    private void UpdaterLanguage()
     {
-        cultureInfoCode ??= CultureInfo.CurrentCulture.Name;
-
+        var cultureInfoCode = CultureInfo.CurrentCulture.Name;
         var xmlLanguage = XmlLanguage.GetLanguage(cultureInfoCode);
         DatePicker.Language = xmlLanguage;
 

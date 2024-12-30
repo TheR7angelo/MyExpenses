@@ -2,7 +2,6 @@
 using Mapsui.Layers;
 using Mapsui.Styles;
 using MyExpenses.Models.AutoMapper;
-using MyExpenses.Models.Config;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Utils.Maps;
@@ -125,7 +124,7 @@ public partial class NominatimSearchWindow
         MapControl.Map = map;
     }
 
-    private void Interface_OnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
+    private void Interface_OnLanguageChanged()
         => UpdateLanguage();
 
     private void UpdateLanguage()

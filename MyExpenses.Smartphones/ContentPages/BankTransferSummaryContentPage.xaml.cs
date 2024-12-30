@@ -6,7 +6,6 @@ using System.Runtime.Versioning;
 using CommunityToolkit.Maui.Views;
 using MyExpenses.Maui.Utils;
 using MyExpenses.Models.AutoMapper;
-using MyExpenses.Models.Config;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Maui.CustomPopup;
 using MyExpenses.Models.Sql.Bases.Views;
@@ -357,7 +356,7 @@ public partial class BankTransferSummaryContentPage
     private void FromAccountTapGestureRecognizer_Tapped(object? sender, TappedEventArgs e)
         => _ = RunFilter(sender, FilterFromAccount);
 
-    private void Interface_OnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
+    private void Interface_OnLanguageChanged()
     {
         UpdateLanguage();
         UpdateMonthLanguage();

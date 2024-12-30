@@ -5,7 +5,6 @@ using LiveChartsCore;
 using LiveChartsCore.Kernel.Sketches;
 using LiveChartsCore.SkiaSharpView;
 using LiveChartsCore.SkiaSharpView.Painting;
-using MyExpenses.Models.Config;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Sql.Bases.Views.Analysis;
 using MyExpenses.Models.Wpf.Charts;
@@ -52,10 +51,10 @@ public partial class BudgetAnnualControl
 
     #region Action
 
-    private void Interface_OnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
+    private void Interface_OnLanguageChanged()
         => UpdateLanguage();
 
-    private void Interface_OnThemeChanged(object sender, ConfigurationThemeChangedEventArgs e)
+    private void Interface_OnThemeChanged()
     {
         var skColor = Utils.Resources.GetMaterialDesignBodySkColor();
         TextPaint = new SolidColorPaint(skColor);

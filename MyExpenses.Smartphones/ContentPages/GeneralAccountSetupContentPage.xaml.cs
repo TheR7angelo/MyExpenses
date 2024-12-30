@@ -1,4 +1,3 @@
-using MyExpenses.Models.Config;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Smartphones.Resources.Resx.ContentPages.GeneralAccountSetupContentPage;
 
@@ -98,7 +97,7 @@ public partial class GeneralAccountSetupContentPage
     private void ButtonManagingCategoryTypes_OnClicked(object? sender, EventArgs e)
         => _ = NavigateTo(typeof(AddEditCategoryTypesContentPage));
 
-    private void Interface_OnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
+    private void Interface_OnLanguageChanged()
         => UpdateLanguage();
 
     #endregion

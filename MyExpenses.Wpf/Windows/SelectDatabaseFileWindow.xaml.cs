@@ -1,7 +1,6 @@
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
-using MyExpenses.Models.Config;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.IO;
 using MyExpenses.Wpf.Resources.Resx.Windows.SelectDatabaseFileWindow;
@@ -55,7 +54,7 @@ public partial class SelectDatabaseFileWindow
         this.SetWindowCornerPreference();
     }
 
-    private void Interface_OnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
+    private void Interface_OnLanguageChanged()
         => UpdateStringLanguage();
 
     private void UpdateStringLanguage()

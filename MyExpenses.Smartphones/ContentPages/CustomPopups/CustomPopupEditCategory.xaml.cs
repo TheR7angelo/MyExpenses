@@ -1,4 +1,3 @@
-using MyExpenses.Models.Config;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Maui.CustomPopup;
 using MyExpenses.Models.Sql.Bases.Tables;
@@ -131,7 +130,7 @@ public partial class CustomPopupEditCategory
     private void ButtonValid_OnClicked(object? sender, EventArgs e)
         => SetDialogueResult(ECustomPopupEntryResult.Valid);
 
-    private void Interface_OnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
+    private void Interface_OnLanguageChanged()
         => UpdateLanguage();
 
     private void PickerColor_OnSelectedIndexChanged(object? sender, EventArgs e)

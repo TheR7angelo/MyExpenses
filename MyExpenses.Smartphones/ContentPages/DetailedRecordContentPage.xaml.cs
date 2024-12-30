@@ -7,7 +7,6 @@ using BruTile.Predefined;
 using Mapsui.Layers;
 using Mapsui.Tiling.Layers;
 using MyExpenses.Maui.Utils;
-using MyExpenses.Models.Config;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Smartphones.Converters;
@@ -311,7 +310,7 @@ public partial class DetailedRecordContentPage
     private void EntryValue_OnTextChanged(object? sender, TextChangedEventArgs e)
         => UpdateIsDirty();
 
-    private void Interface_OnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
+    private void Interface_OnLanguageChanged()
         => UpdateLanguage();
 
     private void MapControl_OnLoaded(object? sender, EventArgs e)

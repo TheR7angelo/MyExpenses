@@ -1,7 +1,6 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using MyExpenses.Models.Config;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Wpf.Resources.Resx.Windows.HelpsWindow;
 using MyExpenses.Wpf.Utils;
@@ -65,7 +64,7 @@ public partial class HelpsWindow
 
     #region Action
 
-    private void Interface_OnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
+    private void Interface_OnLanguageChanged()
         => UpdateLanguage();
 
     private void UIElement_OnMouseLeftButtonUp(object sender, MouseButtonEventArgs e)

@@ -1,5 +1,4 @@
 using System.Collections.ObjectModel;
-using MyExpenses.Models.Config;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Maui.CustomPopup;
 using MyExpenses.Models.Sql.Derivatives.Views;
@@ -72,7 +71,7 @@ public partial class CustomPopupFilterCategories : ICustomPopupFilter<VCategoryD
     private void CheckBox_OnCheckedChanged(object? sender, CheckedChangedEventArgs e)
         => CalculateCheckboxIconGeometrySource();
 
-    private void Interface_OnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
+    private void Interface_OnLanguageChanged()
         => UpdateLanguage();
 
     private void SearchBar_OnTextChanged(object? sender, TextChangedEventArgs e)

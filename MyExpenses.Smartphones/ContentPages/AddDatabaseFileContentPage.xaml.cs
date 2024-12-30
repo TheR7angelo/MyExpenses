@@ -1,5 +1,4 @@
 using System.Windows.Input;
-using MyExpenses.Models.Config;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.IO;
 using MyExpenses.Smartphones.Resources.Resx.ContentPages.AddDatabaseFileContentPage;
@@ -75,7 +74,7 @@ public partial class AddDatabaseFileContentPage
     private void ButtonValid_OnClicked(object? sender, EventArgs e)
         => _ = HandleButtonValid();
 
-    private void Interface_OnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
+    private void Interface_OnLanguageChanged()
         => UpdateLanguage();
 
     private void OnBackCommandPressed()

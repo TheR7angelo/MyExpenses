@@ -1,5 +1,4 @@
 using System.Collections.ObjectModel;
-using MyExpenses.Models.Config;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Maui.CustomPopup;
 using MyExpenses.Models.Sql.Derivatives.Tables;
@@ -100,7 +99,7 @@ public partial class CustomPopupFilterAccount : ICustomPopupFilter<TAccountDeriv
         CalculateCheckboxIconGeometrySource();
     }
 
-    private void Interface_OnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
+    private void Interface_OnLanguageChanged()
         => UpdateLanguage();
 
     #endregion

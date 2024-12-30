@@ -1,5 +1,4 @@
 using System.Collections.ObjectModel;
-using MyExpenses.Models.Config;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Maui.CustomPopup;
 using MyExpenses.Smartphones.PackIcons;
@@ -99,7 +98,7 @@ public partial class CustomPopupFilterDescriptions : ICustomPopupFilter<StringIs
         CalculateCheckboxIconGeometrySource();
     }
 
-    private void Interface_OnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
+    private void Interface_OnLanguageChanged()
         => UpdateLanguage();
 
     #endregion

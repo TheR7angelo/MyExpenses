@@ -86,7 +86,7 @@ public partial class SettingsWindow
         ButtonCancelContent = SettingsWindowResources.ButtonCancelContent;
     }
 
-    private void Interface_OnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
+    private void Interface_OnLanguageChanged()
         => UpdateLanguage();
 
     #region Action
@@ -111,7 +111,7 @@ public partial class SettingsWindow
 
             App.LoadInterfaceTheme(configuration.Interface.Theme);
 
-            Interface.OnThemeChanged(this, new ConfigurationThemeChangedEventArgs(configuration.Interface.Theme));
+            Interface.OnThemeChanged();
         }
 
         if (tabItem.Header.Equals(ItemLanguage.Header))
@@ -126,10 +126,10 @@ public partial class SettingsWindow
             App.LoadInterfaceLanguage(cultureInfoCode);
             DbContextHelper.UpdateDbLanguage();
 
-            Interface.OnLanguageChanged(this, new ConfigurationLanguageChangedEventArgs(cultureInfoCode));
+            Interface.OnLanguageChanged();
         }
 
-        Configuration.OnConfigurationChanged(this, new ConfigurationChangedEventArgs(configuration));
+        Configuration.OnConfigurationChanged();
     }
 
     private void UIElement_OnMouseLeftButtonUp(object sender, MouseButtonEventArgs e)

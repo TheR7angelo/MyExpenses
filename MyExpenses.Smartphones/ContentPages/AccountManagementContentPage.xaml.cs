@@ -2,7 +2,6 @@ using System.Collections.Immutable;
 using System.Collections.ObjectModel;
 using CommunityToolkit.Maui.Views;
 using MyExpenses.Models.AutoMapper;
-using MyExpenses.Models.Config;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Models.Sql.Bases.Views;
@@ -74,7 +73,7 @@ public partial class AccountManagementContentPage
     private void ButtonImageViewRemoveAccount_OnClicked(object? sender, EventArgs e)
         => _ = HandleButtonImageViewRemoveAccount();
 
-    private void Interface_OnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
+    private void Interface_OnLanguageChanged()
         => UpdateLanguage();
 
     private void TapGestureRecognizerAccount_OnTapped(object? sender, TappedEventArgs e)

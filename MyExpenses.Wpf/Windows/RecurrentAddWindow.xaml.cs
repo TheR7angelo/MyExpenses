@@ -3,7 +3,6 @@ using System.Globalization;
 using System.Windows;
 using FilterDataGrid;
 using MyExpenses.Models.AutoMapper;
-using MyExpenses.Models.Config;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Models.Sql.Bases.Views;
@@ -170,7 +169,7 @@ public partial class RecurrentAddWindow
         return recursiveExpense;
     }
 
-    private void Interface_OnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
+    private void Interface_OnLanguageChanged()
         => UpdateLanguage();
 
     #endregion

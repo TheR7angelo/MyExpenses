@@ -1,7 +1,6 @@
 using System.Reflection;
 using System.Windows;
 using Microsoft.EntityFrameworkCore;
-using MyExpenses.Models.Config;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Sql.Context;
 using MyExpenses.Wpf.Resources.Resx.UserControls.Helps.VersionControl;
@@ -85,7 +84,7 @@ public partial class VersionControl
 
     #region Action
 
-    private void Interface_OnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
+    private void Interface_OnLanguageChanged()
         => UpdateLanguage();
 
     #endregion

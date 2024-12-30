@@ -8,7 +8,6 @@ using Mapsui.Styles;
 using Mapsui.Tiling.Layers;
 using Microsoft.Data.Sqlite;
 using MyExpenses.Models.AutoMapper;
-using MyExpenses.Models.Config;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Models.WebApi.Nominatim;
@@ -245,7 +244,7 @@ public partial class AddEditLocationWindow
         MapControl.Map = map;
     }
 
-    private void Interface_OnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
+    private void Interface_OnLanguageChanged()
         => UpdateLanguage();
 
     private void UpdateLanguage()
@@ -421,7 +420,7 @@ public partial class AddEditLocationWindow
 
     #endregion
 
-    private void Interface_OnThemeChanged(object sender, ConfigurationThemeChangedEventArgs e)
+    private void Interface_OnThemeChanged()
     {
         var backColor = Utils.Resources.GetMaterialDesignPaperMapsUiStylesColor();
         MapControl.Map.BackColor = backColor;

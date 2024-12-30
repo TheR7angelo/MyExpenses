@@ -7,7 +7,6 @@ using System.Windows.Input;
 using CommunityToolkit.Maui.Views;
 using MyExpenses.Maui.Utils;
 using MyExpenses.Models.AutoMapper;
-using MyExpenses.Models.Config;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Maui.CustomPopup;
 using MyExpenses.Models.Sql.Bases.Tables;
@@ -354,7 +353,7 @@ public partial class DashBoardContentPage
     private void DescriptionSvgPath_OnClicked(object? sender, EventArgs e)
         => _ = RunFilter(sender, FilterDescription);
 
-    private void Interface_OnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
+    private void Interface_OnLanguageChanged()
     {
         UpdateLanguage();
         UpdateMonthLanguage();

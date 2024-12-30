@@ -1,5 +1,4 @@
 using System.Windows;
-using MyExpenses.Models.Config;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Sql.Bases.Views;
 using MyExpenses.Wpf.Resources.Resx.UserControls.Analytics.StackedTotalEllipseControl;
@@ -57,7 +56,7 @@ public partial class StackedTotalEllipseControl
         Interface.LanguageChanged += InterfaceOnLanguageChanged;
     }
 
-    private void InterfaceOnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
+    private void InterfaceOnLanguageChanged()
         => UpdateLanguage();
 
     private void UpdateLanguage()

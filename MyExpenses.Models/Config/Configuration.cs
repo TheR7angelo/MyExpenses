@@ -5,13 +5,13 @@ namespace MyExpenses.Models.Config;
 
 public class Configuration
 {
-    public delegate void ConfigurationChangedEventHandler(object sender, ConfigurationChangedEventArgs e);
+    public delegate void ConfigurationChangedEventHandler();
 
     public static event ConfigurationChangedEventHandler? ConfigurationChanged;
 
-    public static void OnConfigurationChanged(object sender, ConfigurationChangedEventArgs e)
+    public static void OnConfigurationChanged()
     {
-        ConfigurationChanged?.Invoke(sender, e);
+        ConfigurationChanged?.Invoke();
     }
 
     [JsonProperty("system")]

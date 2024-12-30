@@ -1,7 +1,6 @@
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Threading;
-using MyExpenses.Models.Config;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.WebApi;
 using MyExpenses.Wpf.Resources.Resx.Windows.ProgressBarWindow;
@@ -101,7 +100,7 @@ public partial class ProgressBarWindow
     private void DispatcherTimer_OnTick(object? sender, EventArgs e)
         => Dispatcher.Invoke(() => { TimeElapsed = Stopwatch.Elapsed; });
 
-    private void Interface_OnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
+    private void Interface_OnLanguageChanged()
         => UpdateLanguage();
 
     /// <summary>

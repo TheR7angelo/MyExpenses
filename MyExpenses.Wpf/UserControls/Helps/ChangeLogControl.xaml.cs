@@ -1,6 +1,5 @@
 using System.Windows;
 using Microsoft.Web.WebView2.Core;
-using MyExpenses.Models.Config;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Utils;
 using MyExpenses.Wpf.Resources.Resx.UserControls.Helps.ChangeLogControl;
@@ -66,7 +65,7 @@ public partial class ChangeLogControl
     private void ButtonUpdate_OnClick(object sender, RoutedEventArgs e)
         => _ = HandleButtonUpdate();
 
-    private void Interface_OnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
+    private void Interface_OnLanguageChanged()
         => UpdateLanguage();
 
     private void WebView2_NavigationStarting(object? sender, CoreWebView2NavigationStartingEventArgs e)

@@ -570,8 +570,8 @@ public partial class RecordExpensePage
         MsgBox.Show(RecordExpensePageResources.MessageBoxDeleteHistoryError, MsgBoxImage.Error);
     }
 
-    private void Configuration_OnConfigurationChanged(object sender, ConfigurationChangedEventArgs e)
-        => UpdateConfiguration(e.Configuration);
+    private void Configuration_OnConfigurationChanged()
+        => UpdateConfiguration();
 
     private void TextBoxValue_OnTextChanged(object sender, TextChangedEventArgs e)
     {
@@ -740,9 +740,9 @@ public partial class RecordExpensePage
         EditHistory = true;
     }
 
-    private void UpdateConfiguration(Configuration? configuration = null)
+    private void UpdateConfiguration()
     {
-        configuration ??= Config.Configuration;
+        var configuration = Config.Configuration;
 
         UpdateLanguage(configuration.Interface.Language!);
 

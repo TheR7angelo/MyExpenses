@@ -1,5 +1,4 @@
 using System.Windows;
-using MyExpenses.Models.Config;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Wpf.AutoUpdaterGitHub;
 using MyExpenses.Wpf.Resources.Resx.Windows.CallBackLaterWindow;
@@ -107,7 +106,7 @@ public partial class CallBackLaterWindow
         Close();
     }
 
-    private void Interface_OnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
+    private void Interface_OnLanguageChanged()
         => UpdateLanguage();
 
     #endregion

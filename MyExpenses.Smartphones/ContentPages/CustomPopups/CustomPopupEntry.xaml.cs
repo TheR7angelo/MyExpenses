@@ -1,4 +1,3 @@
-using MyExpenses.Models.Config;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Maui.CustomPopup;
 using MyExpenses.Smartphones.Resources.Resx.ContentPages.CustomPopups.CustomPopupEntry;
@@ -112,7 +111,7 @@ public partial class CustomPopupEntry
     private void ButtonCancel_OnClicked(object? sender, EventArgs e)
         => SetDialogueResult(ECustomPopupEntryResult.Cancel);
 
-    private void Interface_OnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
+    private void Interface_OnLanguageChanged()
         => UpdateLanguage();
 
     #endregion

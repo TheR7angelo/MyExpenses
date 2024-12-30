@@ -11,7 +11,6 @@ using Mapsui.Manipulations;
 using Mapsui.Projections;
 using Mapsui.Tiling.Layers;
 using Microsoft.Data.Sqlite;
-using MyExpenses.Models.Config;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Sql.Bases.Groups;
 using MyExpenses.Models.Sql.Bases.Tables;
@@ -167,10 +166,10 @@ public partial class LocationManagementPage
         SetZoom(pointFeature);
     }
 
-    private void Interface_OnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
+    private void Interface_OnLanguageChanged()
         => UpdateLanguage();
 
-    private void Interface_OnThemeChanged(object sender, ConfigurationThemeChangedEventArgs e)
+    private void Interface_OnThemeChanged()
         => UpdateMapBackColor();
 
     private void MapControl_OnLoaded(object sender, RoutedEventArgs e)

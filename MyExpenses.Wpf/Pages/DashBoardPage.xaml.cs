@@ -7,7 +7,6 @@ using System.Windows.Input;
 using FilterDataGrid;
 using LiveChartsCore.SkiaSharpView;
 using LiveChartsCore.SkiaSharpView.Painting;
-using MyExpenses.Models.Config;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Models.Sql.Bases.Views;
@@ -457,10 +456,10 @@ public partial class DashBoardPage
     private void DataGridRow_PreviewMouseRightButtonDown(object sender, MouseButtonEventArgs e)
         => DataGridRow = sender as DataGridRow;
 
-    private void Interface_OnThemeChanged(object sender, ConfigurationThemeChangedEventArgs e)
+    private void Interface_OnThemeChanged()
         => UpdatePieChartLegendTextPaint();
 
-    private void Interface_OnLanguageChanged(object sender, ConfigurationLanguageChangedEventArgs e)
+    private void Interface_OnLanguageChanged()
     {
         UpdateLanguage();
         UpdateMonthLanguage();
