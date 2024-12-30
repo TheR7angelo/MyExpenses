@@ -1,9 +1,8 @@
-using MyExpenses.Models.Ui.FilePicker;
 using Ookii.Dialogs.Wpf;
 
 namespace MyExpenses.Wpf.Utils.FilePicker;
 
-public class FolderDialog(string? titleOpenFile = null, bool multiSelect = false) : IDialog
+public class FolderDialog(string? titleOpenFile = null, bool multiSelect = false)
 {
     private readonly VistaFolderBrowserDialog _vistaFolderBrowserDialog = new()
     {
@@ -12,7 +11,7 @@ public class FolderDialog(string? titleOpenFile = null, bool multiSelect = false
         Multiselect = multiSelect
     };
 
-    public IEnumerable<string> Extensions => Array.Empty<string>();
+    public IEnumerable<string> Extensions { get; } = Array.Empty<string>();
 
     public string[]? GetFiles()
     {

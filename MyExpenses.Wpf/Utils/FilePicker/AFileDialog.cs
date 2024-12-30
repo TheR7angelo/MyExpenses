@@ -1,12 +1,11 @@
-using MyExpenses.Models.Ui.FilePicker;
 using Ookii.Dialogs.Wpf;
 
 namespace MyExpenses.Wpf.Utils.FilePicker;
 
-public abstract class AFileDialog : IDialog
+public abstract class AFileDialog
 {
     private string FilterText { get; }
-    public IEnumerable<string> Extensions { get; }
+    public virtual IEnumerable<string> Extensions { get; }
 
     private readonly VistaOpenFileDialog _vistaOpenFileDialog;
     private readonly VistaSaveFileDialog _vistaSaveFileDialog;
@@ -58,7 +57,9 @@ public abstract class AFileDialog : IDialog
 
         if (result is true)
         {
-            return _vistaOpenFileDialog.Multiselect ? _vistaOpenFileDialog.FileNames.First() : _vistaOpenFileDialog.FileName;
+            return _vistaOpenFileDialog.Multiselect
+                ? _vistaOpenFileDialog.FileNames.First()
+                : _vistaOpenFileDialog.FileName;
         }
 
         return null;
