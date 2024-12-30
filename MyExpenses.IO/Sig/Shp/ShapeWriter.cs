@@ -47,7 +47,7 @@ public static class ShapeWriter
                 }
 
                 WriteGeometry(shpWriter, feature);
-                WriteFields(shpWriter, feature, fieldsDictionary);
+                WriteFields(feature, fieldsDictionary);
                 shpWriter.Write();
             }
 
@@ -112,8 +112,7 @@ public static class ShapeWriter
         };
     }
 
-    private static void WriteFields(ShapefileWriter shpWriter, ISig feature,
-        Dictionary<string, DbfField> fieldsDictionary)
+    private static void WriteFields(ISig feature, Dictionary<string, DbfField> fieldsDictionary)
     {
         foreach (var (key, field) in fieldsDictionary)
         {
@@ -132,7 +131,7 @@ public static class ShapeWriter
     private static Dictionary<string, DbfField> GetFields(this ISig feature)
     {
         if (feature == null)
-            throw new ArgumentNullException(nameof(feature), "Feature cannot be null");
+            throw new ArgumentNullException(nameof(feature), @"Feature cannot be null");
 
         var fieldCreators = new Dictionary<Type, Func<string, int?, int?, DbfField>>
         {
@@ -143,7 +142,7 @@ public static class ShapeWriter
             [typeof(double)] = (name, maxLength, precision) =>
                 new DbfFloatField(name, maxLength ?? 19, precision ?? 0),
             [typeof(string)] = (name, maxLength, _) =>
-                new DbfCharacterField(name, maxLength ?? 255), // Par défaut 255 caractères max.
+                new DbfCharacterField(name, maxLength ?? 255), // Default 255 characters max
             [typeof(DateTime)] = (name, _, _) => new DbfDateField(name),
             [typeof(bool)] = (name, _, _) => new DbfLogicalField(name)
         };
@@ -167,7 +166,7 @@ public static class ShapeWriter
             {
                 throw new ArgumentOutOfRangeException(
                     nameof(propertyType),
-                    $"Type not supported for the property '{property.Name}' : {propertyType.Name}"
+                    @$"Type not supported for the property '{property.Name}' : {propertyType.Name}"
                 );
             }
 
@@ -188,7 +187,7 @@ public static class ShapeWriter
             Polygon => ShapeType.Polygon,
             MultiPolygon => ShapeType.Polygon,
 
-            _ => throw new ArgumentOutOfRangeException(nameof(geometry), "Unsupported geometry type")
+            _ => throw new ArgumentOutOfRangeException(nameof(geometry), @"Unsupported geometry type")
         };
     }
 }
