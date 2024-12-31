@@ -5,6 +5,26 @@ namespace MyExpenses.Utils.Properties;
 
 public static class PropertiesUtils
 {
+    public static PropertyInfo? GetPropertiesInfoByName<TAttribute>(this string name, Type type) where TAttribute : Attribute
+    {
+        var properties = type.GetProperties();
+
+        foreach (var property in properties)
+        {
+            var attribute = property.GetCustomAttribute<TAttribute>();
+
+            switch (attribute)
+            {
+                case null:
+                    continue;
+                case ColumnAttribute columnAttribute when columnAttribute.Name == name:
+                    return property;
+            }
+        }
+
+        return null;
+    }
+
     public static PropertyInfo? GetPropertiesInfoByName<T, TAttribute>(this string name) where TAttribute : Attribute
     {
         var type = typeof(T);

@@ -3,8 +3,8 @@ using System.IO.Compression;
 using System.Reflection;
 using System.Xml.Linq;
 using MyExpenses.Models.IO.Sig.Interfaces;
-using MyExpenses.Models.Sig;
 using MyExpenses.Utils.Maps;
+using MyExpenses.Utils.Properties;
 using NetTopologySuite.Geometries;
 using Serilog;
 
@@ -17,10 +17,12 @@ public static class KmlWriter
         var extension = Path.GetExtension(fileSavePath);
         extension.TestExtensionError();
 
-        var typeSig = sigs.GetType().GetGenericArguments()[0];
-
         var filenameWithoutExtension = Path.GetFileNameWithoutExtension(fileSavePath);
-        var fields = typeSig.GetISigFields();
+
+        var enumerable = sigs as ISig[] ?? sigs.ToArray();
+        enumerable = enumerable.Where(s => s.Geometry is not null).ToArray();
+        var fields = enumerable.First().GetFields();
+
         var schemaElement = fields.CreateKmlSchema(filenameWithoutExtension);
 
         var kml = new XDocument(
@@ -31,10 +33,8 @@ public static class KmlWriter
                     new XAttribute("id", "root_doc"),
                     schemaElement)));
 
-        var displayNameProperty = GetDisplayNameProperty(fields, typeSig);
-
-        var enumerable = sigs as ISig[] ?? sigs.ToArray();
-        enumerable = enumerable.Where(s => s.Geometry is not null).ToArray();
+        var typeSig = sigs.GetType().GetGenericArguments()[0];
+        var displayNameProperty = GetDisplayNameProperty(typeSig);
 
         foreach (var obj in enumerable.Select((point, i) => new { i, point }))
         {
@@ -61,23 +61,10 @@ public static class KmlWriter
         return SaveToKmlKmzFile(fileSavePath, kml, extension);
     }
 
-    private static PropertyInfo? GetDisplayNameProperty(Dictionary<string, DbField> fields, Type type)
+    private static PropertyInfo? GetDisplayNameProperty(Type typeSig)
     {
         const string displayName = "name";
-
-        PropertyInfo? displayNameProperty = null;
-        if (!fields.ContainsKey(displayName)) return displayNameProperty;
-
-        var properties = type.GetProperties();
-        foreach (var propertyInfo in properties)
-        {
-            if (propertyInfo.GetValueByProperty<ColumnAttribute>() is not string columnName) continue;
-            if (columnName is not displayName) continue;
-
-            displayNameProperty = propertyInfo;
-            break;
-        }
-
+        var displayNameProperty = displayName.GetPropertiesInfoByName<ColumnAttribute>(typeSig);
         return displayNameProperty;
     }
 
@@ -89,7 +76,7 @@ public static class KmlWriter
         var filenameWithoutExtension = Path.GetFileNameWithoutExtension(fileSavePath);
         var kmlAttribute = sig.CreateKmlAttribute(filenameWithoutExtension);
 
-        var fields = sig.GetType().GetISigFields();
+        var fields = sig.GetFields();
         var schemaElement = fields.CreateKmlSchema(filenameWithoutExtension);
 
         var (xInvariant, yInvariant) = ((Point)sig.Geometry!).ToInvariantCoordinate();

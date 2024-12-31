@@ -1,9 +1,7 @@
-using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Reflection;
 using System.Xml.Linq;
-using Microsoft.EntityFrameworkCore;
-using MyExpenses.Models.Sig;
+using NetTopologySuite.IO.Esri.Dbf.Fields;
 
 namespace MyExpenses.IO.Sig.Kml;
 
@@ -23,7 +21,9 @@ public static class KmlUtils
         var propertiesInfo = obj.GetType().GetProperties();
         foreach (var propertyInfo in propertiesInfo)
         {
-            if (propertyInfo.GetValueByProperty<ColumnAttribute>() is not string columnName) continue;
+            var columnName = propertyInfo.GetCustomAttribute<ColumnAttribute>()?.Name;
+            if (string.IsNullOrEmpty(columnName)) continue;
+
             var value = propertyInfo.GetValue(obj);
 
             var xElement = new XElement(KmlNamespace + "SimpleData",
@@ -34,7 +34,7 @@ public static class KmlUtils
         return extendedDataElement;
     }
 
-    public static XElement CreateKmlSchema(this Dictionary<string, DbField> fields, string schemaId)
+    public static XElement CreateKmlSchema(this Dictionary<string, DbfField> fields, string schemaId)
     {
         var schemaElement = new XElement(KmlNamespace + "Schema",
             new XAttribute("name", schemaId),
@@ -43,58 +43,15 @@ public static class KmlUtils
 
         foreach(var field in fields)
         {
+            var type = Utils.GetDbFieldTypeMap[field.Value.FieldType];
+
             var fieldElement = new XElement(KmlNamespace + "SimpleField",
                 new XAttribute("name", field.Value.Name),
-                new XAttribute("type", GetKmlType(field.Value.Type))
+                new XAttribute("type", type)
             );
             schemaElement.Add(fieldElement);
         }
 
         return schemaElement;
-    }
-
-    private static string GetKmlType(Type type)
-    {
-        return Type.GetTypeCode(type) switch
-        {
-            TypeCode.Int32 => "int",
-            TypeCode.Int64 => "long",
-            _ => type.Name.ToLower()
-        };
-    }
-
-    public static Dictionary<string, DbField> GetISigFields(this Type type)
-    {
-        var propertiesInfo = type.GetProperties();
-        var fields = new Dictionary<string, DbField>();
-
-        foreach (var propertyInfo in propertiesInfo)
-        {
-            if (propertyInfo.GetValueByProperty<ColumnAttribute>() is not string columnName) continue;
-            var underlyingType = Nullable.GetUnderlyingType(propertyInfo.PropertyType) ?? propertyInfo.PropertyType;
-
-            var dbField = new DbField
-            {
-                Name = columnName,
-                Type = underlyingType
-            };
-
-            fields[columnName] = dbField;
-        }
-
-        return fields;
-    }
-
-    public static object? GetValueByProperty<TAttribute>(this PropertyInfo property) where TAttribute : Attribute
-    {
-        var attribute = property.GetCustomAttribute<TAttribute>();
-
-        return attribute switch
-        {
-            ColumnAttribute columnAttribute => columnAttribute.Name,
-            MaxLengthAttribute maxLengthAttribute => maxLengthAttribute.Length,
-            PrecisionAttribute precisionAttribute => precisionAttribute.Precision,
-            _ => null
-        };
     }
 }
