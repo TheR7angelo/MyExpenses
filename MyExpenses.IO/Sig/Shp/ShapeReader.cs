@@ -146,7 +146,7 @@ public static class ShapeReader
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error assigning {property.Name} : {ex.Message}");
+                Console.WriteLine(@$"Error assigning {property.Name} : {ex.Message}");
                 throw;
             }
         }
