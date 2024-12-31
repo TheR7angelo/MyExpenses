@@ -56,6 +56,11 @@ exclude:
   - name : UnusedMember.Global
     paths:
       - "MyExpenses.Models/Sql/Bases/Enums/EAnalysisVBudgetStatut.cs"
+      - "MyExpenses.Utils/WindowStyle/DwmWindowAttributes.cs"
+      - "MyExpenses.Utils/WindowStyle/DwmWindowCornerPreference.cs"
+      - "MyExpenses.Utils/WindowStyle/HResult.cs"
+      - "MyExpenses.Utils/WindowStyle/HResultExtensions.cs"
+      - "MyExpenses.Utils/WindowStyle/WindowsVersion.cs"
 
   # Disable all inspections
   - name: All
