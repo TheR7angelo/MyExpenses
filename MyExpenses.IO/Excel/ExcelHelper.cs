@@ -100,6 +100,16 @@ public static class ExcelHelper
         return excelTable;
     }
 
+    /// <summary>
+    /// Adds a collection of data to a new worksheet in the Excel workbook, applies table styling,
+    /// and optionally assigns a tab color for the worksheet.
+    /// </summary>
+    /// <typeparam name="T">The type of the objects in the collection to be added as a table.</typeparam>
+    /// <param name="workbook">The Excel workbook where the new worksheet will be created.</param>
+    /// <param name="collection">The collection of data to create the table from.</param>
+    /// <param name="context">The database context used to retrieve the table name associated with the collection type.</param>
+    /// <param name="tabColor">Optional parameter to specify the tab color for the newly added worksheet.</param>
+    /// <returns>An ExcelTable object that represents the table created from the collection in the Excel worksheet.</returns>
     public static ExcelTable AddTableCollection<T>(this ExcelWorkbook workbook, IEnumerable<T> collection,
         DataBaseContext context, Color? tabColor = null)
     {
