@@ -14,7 +14,9 @@ public static class GeoJsonWriter
         var iEnumerable = features.ToList();
 
         var featureCollection = new FeatureCollection();
-        var properties = iEnumerable.First().GetType().GetProperties();
+        var typeSig = iEnumerable.GetType().GetGenericArguments()[0];
+        var properties = typeSig.GetProperties();
+
         foreach (var feature in iEnumerable)
         {
             if (feature.Geometry is null) continue;
