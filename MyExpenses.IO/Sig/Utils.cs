@@ -33,19 +33,18 @@ public static class Utils
         [typeof(bool)] = (name, _, _) => new DbfLogicalField(name)
     };
 
-    public static Dictionary<string, DbfField> GetFields(this ISig feature, bool limitColumnNameSize = true)
+    public static Dictionary<string, DbfField> GetFields(this Type type)
     {
-        if (feature is null) throw new ArgumentNullException(nameof(feature), @"Feature cannot be null");
-
+        if (!typeof(ISig).IsAssignableFrom(type)) throw new ArgumentException(@"Type must implement ISig", nameof(type));
         var fields = new Dictionary<string, DbfField>();
 
-        foreach (var property in feature.GetType().GetProperties())
+        foreach (var property in type.GetProperties())
         {
             var columnAttribute = property.GetCustomAttribute<ColumnAttribute>();
             if (columnAttribute == null || string.IsNullOrWhiteSpace(columnAttribute.Name)) continue;
 
             var name = columnAttribute.Name;
-            if (limitColumnNameSize && name.Length > 10) name = name[..10];
+            if (name.Length > 10) name = name[..10];
 
             var maxLength = property.GetCustomAttribute<MaxLengthAttribute>()?.Length;
             var precision = property.GetCustomAttribute<PrecisionAttribute>()?.Precision;

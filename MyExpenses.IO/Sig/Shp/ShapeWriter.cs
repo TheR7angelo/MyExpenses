@@ -21,8 +21,10 @@ public static class ShapeWriter
         {
             var collection = features.Where(s => s.Geometry != null).ToList();
 
+            var typeSig = collection.GetType().GetGenericArguments()[0];
+
             var geomType = shapeType ?? collection.First().Geometry!.GetShapeType();
-            var fieldsDictionary = collection.First().GetFields();
+            var fieldsDictionary = Utils.GetFields(typeSig);
             var fieldsArray = fieldsDictionary.Values.ToArray();
 
             var options = new ShapefileWriterOptions((ShapeType)geomType!, fieldsArray);

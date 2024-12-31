@@ -21,7 +21,8 @@ public static class KmlWriter
 
         var enumerable = sigs as ISig[] ?? sigs.ToArray();
         enumerable = enumerable.Where(s => s.Geometry is not null).ToArray();
-        var fields = enumerable.First().GetFields();
+        var typeSig = sigs.GetType().GetGenericArguments()[0];
+        var fields = Utils.GetFields(typeSig);
 
         var schemaElement = fields.CreateKmlSchema(filenameWithoutExtension);
 
@@ -33,7 +34,6 @@ public static class KmlWriter
                     new XAttribute("id", "root_doc"),
                     schemaElement)));
 
-        var typeSig = sigs.GetType().GetGenericArguments()[0];
         var displayNameProperty = GetDisplayNameProperty(typeSig);
 
         foreach (var obj in enumerable.Select((point, i) => new { i, point }))
@@ -76,7 +76,7 @@ public static class KmlWriter
         var filenameWithoutExtension = Path.GetFileNameWithoutExtension(fileSavePath);
         var kmlAttribute = sig.CreateKmlAttribute(filenameWithoutExtension);
 
-        var fields = sig.GetFields();
+        var fields = Utils.GetFields(sig.GetType());
         var schemaElement = fields.CreateKmlSchema(filenameWithoutExtension);
 
         var (xInvariant, yInvariant) = ((Point)sig.Geometry!).ToInvariantCoordinate();
