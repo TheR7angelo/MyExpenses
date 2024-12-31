@@ -47,8 +47,8 @@ public static class MapsuiMapExtensions
     public static PointFeature ToFeature(this TPlace place, SymbolStyle? symbolStyle = null)
         => place.ToSingleFeature(symbolStyle);
 
-    public static IEnumerable<PointFeature> ToFeature(this IEnumerable<TPlace> places, SymbolStyle? symbolStyle = null)
-        => places.Select(place => place.ToSingleFeature(symbolStyle));
+    // public static IEnumerable<PointFeature> ToFeature(this IEnumerable<TPlace> places, SymbolStyle? symbolStyle = null)
+    //     => places.Select(place => place.ToSingleFeature(symbolStyle));
 
     private static PointFeature ToSingleFeature(this TPlace place, SymbolStyle? symbolStyle = null)
     {
