@@ -53,6 +53,10 @@ exclude:
     paths:
       - "MyExpenses.Models/AutoMapper/Profiles"
 
+  - name : UnusedMember.Global
+    paths:
+      - "MyExpenses.Models/Sql/Bases/Enums/EAnalysisVBudgetStatut.cs"
+
   # Disable all inspections
   - name: All
     paths:
