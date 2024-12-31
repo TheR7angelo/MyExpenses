@@ -8,29 +8,21 @@ public class SizeDatabase
     private long _oldSize;
     private long _newSize;
 
-    public long OldSize
+    public void SetOldSize(long oldSize)
     {
-        get => _oldSize;
-        set
-        {
-            _oldSize = value;
-            OldNormalizeByteSize = $"{GetNormalizeByteSize(_oldSize, out var unit):F2} {unit}";
-            UpdateGain();
-        }
-    } // in bytes
+        _oldSize = oldSize;
+        OldNormalizeByteSize = $"{GetNormalizeByteSize(oldSize, out var unit):F2} {unit}";
+        UpdateGain();
+    }
 
     public string OldNormalizeByteSize { get; private set; } = $"{0d:F2} {SizeDatabaseResources.ByteUnit}";
 
-    public long NewSize
+    public void SetNewSize(long newSize)
     {
-        get => _newSize;
-        set
-        {
-            _newSize = value;
-            NewNormalizeByteSize = $"{GetNormalizeByteSize(_newSize, out var unit):F2} {unit}";
-            UpdateGain();
-        }
-    } // in bytes
+        _newSize = newSize;
+        NewNormalizeByteSize = $"{GetNormalizeByteSize(newSize, out var unit):F2} {unit}";
+        UpdateGain();
+    }
 
     public string NewNormalizeByteSize { get; private set; } = $"{0d:F2} {SizeDatabaseResources.ByteUnit}";
 

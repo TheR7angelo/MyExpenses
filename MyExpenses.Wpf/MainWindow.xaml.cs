@@ -194,12 +194,10 @@ public partial class MainWindow
             if (result is not true) continue;
 
             var newSize = new ExistingDatabase(existingDatabase.FilePath).FileInfo.Length;
-            var sizeDatabase = new SizeDatabase
-            {
-                FileNameWithoutExtension = existingDatabase.FileNameWithoutExtension,
-                OldSize = oldSize,
-                NewSize = newSize
-            };
+            var sizeDatabase = new SizeDatabase { FileNameWithoutExtension = existingDatabase.FileNameWithoutExtension };
+            sizeDatabase.SetOldSize(oldSize);
+            sizeDatabase.SetNewSize(newSize);
+
             sizeDatabases.Add(sizeDatabase);
         }
 
@@ -232,12 +230,9 @@ public partial class MainWindow
                 MessageBoxButton.OK);
 
             var newSize = new ExistingDatabase(DataBaseContext.FilePath!).FileInfo.Length;
-            var sizeDatabase = new SizeDatabase
-            {
-                FileNameWithoutExtension = existingDatabase.FileNameWithoutExtension,
-                OldSize = oldSize,
-                NewSize = newSize
-            };
+            var sizeDatabase = new SizeDatabase { FileNameWithoutExtension = existingDatabase.FileNameWithoutExtension };
+            sizeDatabase.SetOldSize(oldSize);
+            sizeDatabase.SetNewSize(newSize);
 
             var vacuumDatabaseUpdateWindow = new VacuumDatabaseUpdateWindow(sizeDatabase);
             vacuumDatabaseUpdateWindow.ShowDialog();
