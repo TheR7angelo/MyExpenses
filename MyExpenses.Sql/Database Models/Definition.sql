@@ -1344,15 +1344,15 @@ ORDER BY cv.period;
 
 DROP VIEW IF EXISTS analysis_v_budget_total_annual;
 CREATE VIEW analysis_v_budget_total_annual AS
-WITH date_bounds AS (SELECT STRFTIME('%Y', MIN(h.date)) AS min_year,
-                            STRFTIME('%Y', 'now')       AS max_year
+WITH date_bounds AS (SELECT CAST(STRFTIME('%Y', MIN(h.date)) AS INTEGER) AS min_year,
+                            CAST(STRFTIME('%Y', 'now') AS INTEGER)       AS max_year
                      FROM t_history h),
      years AS (SELECT (SELECT min_year FROM date_bounds) AS year
                UNION ALL
                SELECT CAST(year AS INTEGER) + 1
                FROM years,
                     date_bounds
-               WHERE CAST(year AS INTEGER) + 1 <= CAST((SELECT max_year FROM date_bounds) AS INTEGER)),
+               WHERE CAST(year AS INTEGER) + 1 <= (SELECT max_year FROM date_bounds)),
      account_years AS (SELECT a.id   as account_fk,
                               a.name as account_name,
                               yc.year
@@ -1372,7 +1372,7 @@ WITH date_bounds AS (SELECT STRFTIME('%Y', MIN(h.date)) AS min_year,
                                 INNER JOIN t_currency tc
                                            ON tc.id = a.currency_fk
                        GROUP BY ay.account_fk, ay.year
-                       ORDER BY ay.account_fk, CAST(ay.year AS INTEGER)),
+                       ORDER BY ay.account_fk, ay.year),
      cumulative_values AS (SELECT av.account_fk,
                                   av.account_name,
                                   av.symbol_fk,
