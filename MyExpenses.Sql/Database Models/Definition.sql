@@ -1022,17 +1022,14 @@ ORDER BY account_fk, period, mode_payment, category;
 
 DROP VIEW IF EXISTS analysis_v_budget_monthly;
 CREATE VIEW analysis_v_budget_monthly AS
-WITH date_bounds AS (SELECT STRFTIME('%Y-%m', MIN(h.date)) AS min_date,
-                            STRFTIME('%Y-%m', MAX(h.date)) AS max_date
+WITH date_bounds AS (SELECT STRFTIME('%Y-%m', MIN(h.date)) AS min_date
                      FROM t_history h),
 
-     months AS (SELECT min_date AS period
-                FROM date_bounds
+     months AS (SELECT STRFTIME('%Y-%m', DATE('now', 'start of month')) AS period
                 UNION ALL
-                SELECT STRFTIME('%Y-%m', DATE(period || '-01', '+1 month'))
-                FROM months,
-                     date_bounds
-                WHERE period < max_date),
+                SELECT STRFTIME('%Y-%m', DATE(period || '-01', '-1 month'))
+                FROM months
+                WHERE DATE(period || '-01') > (SELECT DATE(min_date || '-01') FROM date_bounds)),
 
      filtered_accounts AS (SELECT DISTINCT a.id AS account_fk, a.name AS account_name, tc.id AS symbol_fk, tc.symbol
                            FROM t_account a
@@ -1107,15 +1104,25 @@ ORDER BY cv.account_fk, cv.period;
 
 DROP VIEW IF EXISTS analysis_v_budget_monthly_global;
 CREATE VIEW analysis_v_budget_monthly_global AS
-WITH monthly_values AS (SELECT STRFTIME('%Y-%m', h.date) as period,
-                               SUM(h.value)              as total_value
+WITH date_bounds AS (SELECT STRFTIME('%Y-%m', MIN(h.date)) AS min_date
+                     FROM t_history h),
+     months AS (SELECT STRFTIME('%Y-%m', DATE('now', 'start of month')) AS period
+                UNION ALL
+                SELECT STRFTIME('%Y-%m', DATE(period || '-01', '-1 month'))
+                FROM months
+                WHERE DATE(period || '-01') > (SELECT DATE(min_date || '-01') FROM date_bounds)),
+     monthly_values AS (SELECT STRFTIME('%Y-%m', h.date) AS period,
+                               SUM(h.value)              AS total_value
                         FROM t_history h
                         GROUP BY period),
-     cumulative_values AS (SELECT mv.period,
-                                  (SELECT SUM(mv2.total_value)
-                                   FROM monthly_values mv2
-                                   WHERE mv2.period <= mv.period) as cumulative_total_value
-                           FROM monthly_values mv)
+     cumulative_values AS (SELECT m.period,
+                                  COALESCE(
+                                          (SELECT SUM(mv2.total_value)
+                                           FROM monthly_values mv2
+                                           WHERE mv2.period <= m.period),
+                                          0
+                                  ) AS cumulative_total_value
+                           FROM months m)
 SELECT cv.period,
        ROUND(cv.cumulative_total_value, 2)                                                AS period_value,
        STRFTIME('%Y-%m', DATE(cv.period || '-01', '-1 month'))                            AS previous_period,
@@ -1143,21 +1150,19 @@ SELECT cv.period,
        ROUND((cv.cumulative_total_value - COALESCE(pre_cv.cumulative_total_value, 0)), 2) AS difference_value
 FROM cumulative_values cv
          LEFT JOIN cumulative_values pre_cv
-                   ON STRFTIME('%Y-%m', DATE(cv.period || '-01', '-1 month')) = pre_cv.period;
+                   ON STRFTIME('%Y-%m', DATE(cv.period || '-01', '-1 month')) = pre_cv.period
+ORDER BY cv.period;
 
 DROP VIEW IF EXISTS analysis_v_budget_period_annual;
 CREATE VIEW analysis_v_budget_period_annual AS
-WITH date_bounds AS (SELECT STRFTIME('%Y-%m', MIN(h.date)) AS min_date,
-                            STRFTIME('%Y-%m', MAX(h.date)) AS max_date
+WITH date_bounds AS (SELECT STRFTIME('%Y-%m', MIN(h.date)) AS min_date
                      FROM t_history h),
 
-     months AS (SELECT min_date AS period
-                FROM date_bounds
+     months AS (SELECT STRFTIME('%Y-%m', DATE('now', 'start of month')) AS period
                 UNION ALL
-                SELECT STRFTIME('%Y-%m', DATE(period || '-01', '+1 month'))
-                FROM months,
-                     date_bounds
-                WHERE period < max_date),
+                SELECT STRFTIME('%Y-%m', DATE(period || '-01', '-1 month'))
+                FROM months
+                WHERE DATE(period || '-01') > (SELECT DATE(min_date || '-01') FROM date_bounds)),
 
      filtered_accounts AS (SELECT DISTINCT a.id   AS account_fk,
                                            a.name AS account_name,
@@ -1286,20 +1291,31 @@ ORDER BY account_fk, period;
 
 DROP VIEW IF EXISTS analysis_v_budget_period_annual_global;
 CREATE VIEW analysis_v_budget_period_annual_global AS
-WITH monthly_values AS (SELECT STRFTIME('%Y-%m', h.date) as month,
-                               SUM(h.value)              as total_value
+WITH date_bounds AS (SELECT STRFTIME('%Y-%m', MIN(h.date)) AS min_date
+                     FROM t_history h),
+     months AS (SELECT STRFTIME('%Y-%m', DATE('now', 'start of month')) AS period
+                UNION ALL
+                SELECT STRFTIME('%Y-%m', DATE(period || '-01', '-1 month'))
+                FROM months
+                WHERE DATE(period || '-01') > (SELECT DATE(min_date || '-01') FROM date_bounds)),
+     monthly_values AS (SELECT STRFTIME('%Y-%m', h.date) AS period,
+                               SUM(h.value)              AS total_value
                         FROM t_history h
-                        GROUP BY month),
-     cumulative_values AS (SELECT mv.month,
-                                  STRFTIME('%m', mv.month)      as month_of_year,
-                                  STRFTIME('%Y', mv.month)      as year,
-                                  (SELECT SUM(mv2.total_value)
-                                   FROM monthly_values mv2
-                                   WHERE mv2.month <= mv.month) as cumulative_total_value
-                           FROM monthly_values mv)
-SELECT cv.month                                                                           as period,
+                        GROUP BY period),
+     complete_monthly_values AS (SELECT m.period,
+                                        COALESCE(mv.total_value, 0) AS total_value
+                                 FROM months m
+                                          LEFT JOIN monthly_values mv ON m.period = mv.period),
+     cumulative_values AS (SELECT cmv.period,
+                                  STRFTIME('%m', cmv.period)        AS month_of_year,
+                                  STRFTIME('%Y', cmv.period)        AS year,
+                                  (SELECT SUM(cmv2.total_value)
+                                   FROM complete_monthly_values cmv2
+                                   WHERE cmv2.period <= cmv.period) AS cumulative_total_value
+                           FROM complete_monthly_values cmv)
+SELECT cv.period,
        ROUND(cv.cumulative_total_value, 2)                                                as period_value,
-       STRFTIME('%Y-%m', DATE(cv.month || '-01', '-1 year'))                              as previous_period,
+       STRFTIME('%Y-%m', DATE(cv.period || '-01', '-1 year'))                             as previous_period,
        COALESCE(ROUND(pre_cv.cumulative_total_value, 2), 0)                               as previous_period_value,
        CASE
            WHEN cv.cumulative_total_value >= COALESCE(pre_cv.cumulative_total_value, 0) THEN 'Gain'
@@ -1323,14 +1339,20 @@ SELECT cv.month                                                                 
        ROUND((cv.cumulative_total_value - COALESCE(pre_cv.cumulative_total_value, 0)), 2) as difference_value
 FROM cumulative_values cv
          LEFT JOIN cumulative_values pre_cv
-                   ON STRFTIME('%Y-%m', DATE(cv.month || '-01', '-1 year')) = pre_cv.month;
+                   ON STRFTIME('%Y-%m', DATE(cv.period || '-01', '-1 year')) = pre_cv.period
+ORDER BY cv.period;
 
 DROP VIEW IF EXISTS analysis_v_budget_total_annual;
 CREATE VIEW analysis_v_budget_total_annual AS
-WITH years AS (SELECT DISTINCT STRFTIME('%Y', h.date) as year
-               FROM t_history h
-               UNION
-               SELECT DISTINCT STRFTIME('%Y', 'now') AS year),
+WITH date_bounds AS (SELECT STRFTIME('%Y', MIN(h.date)) AS min_year,
+                            STRFTIME('%Y', 'now')       AS max_year
+                     FROM t_history h),
+     years AS (SELECT (SELECT min_year FROM date_bounds) AS year
+               UNION ALL
+               SELECT CAST(year AS INTEGER) + 1
+               FROM years,
+                    date_bounds
+               WHERE CAST(year AS INTEGER) + 1 <= CAST((SELECT max_year FROM date_bounds) AS INTEGER)),
      account_years AS (SELECT a.id   as account_fk,
                               a.name as account_name,
                               yc.year
@@ -1344,12 +1366,13 @@ WITH years AS (SELECT DISTINCT STRFTIME('%Y', h.date) as year
                               COALESCE(SUM(h.value), 0) AS total_value
                        FROM account_years ay
                                 LEFT JOIN t_history h
-                                          ON ay.account_fk = h.account_fk AND STRFTIME('%Y', h.date) = ay.year
+                                          ON ay.account_fk = h.account_fk AND STRFTIME('%Y', h.date) = CAST(ay.year AS TEXT)
                                 INNER JOIN t_account a
                                            ON ay.account_fk = a.id
                                 INNER JOIN t_currency tc
                                            ON tc.id = a.currency_fk
-                       GROUP BY ay.account_fk, ay.year),
+                       GROUP BY ay.account_fk, ay.year
+                       ORDER BY ay.account_fk, CAST(ay.year AS INTEGER)),
      cumulative_values AS (SELECT av.account_fk,
                                   av.account_name,
                                   av.symbol_fk,
@@ -1392,18 +1415,29 @@ FROM cumulative_values cv
 
 DROP VIEW IF EXISTS analysis_v_budget_total_annual_global;
 CREATE VIEW analysis_v_budget_total_annual_global AS
-WITH annual_values AS (SELECT STRFTIME('%Y', h.date) as year,
-                              SUM(h.value)           as total_value
-                       FROM t_history h
-                       GROUP BY year),
+WITH date_bounds AS (SELECT CAST(STRFTIME('%Y', MIN(h.date)) AS INTEGER) AS min_year,
+                            CAST(STRFTIME('%Y', 'now') AS INTEGER)       AS max_year
+                     FROM t_history h),
+     years AS (SELECT (SELECT min_year FROM date_bounds) AS year
+               UNION ALL
+               SELECT year + 1
+               FROM years,
+                    date_bounds
+               WHERE year + 1 <= (SELECT max_year FROM date_bounds)),
+     annual_values AS (SELECT yc.year,
+                              COALESCE(SUM(h.value), 0) AS total_value
+                       FROM years yc
+                                LEFT JOIN t_history h
+                                          ON STRFTIME('%Y', h.date) = CAST(yc.year AS TEXT)
+                       GROUP BY yc.year),
      cumulative_values AS (SELECT av.year,
                                   (SELECT SUM(av2.total_value)
                                    FROM annual_values av2
                                    WHERE av2.year <= av.year) as cumulative_total_value
                            FROM annual_values av)
-SELECT CAST(cv.year AS INTEGER)                                                           AS period,
+SELECT cv.year                                                                            AS period,
        ROUND(cv.cumulative_total_value, 2)                                                as period_value,
-       CAST(cv.year AS INTEGER) - 1                                                       as previous_period,
+       cv.year - 1                                                                        as previous_period,
        COALESCE(ROUND(pre_cv.cumulative_total_value, 2), 0)                               as previous_period_value,
        CASE
            WHEN cv.cumulative_total_value > COALESCE(pre_cv.cumulative_total_value, 0) THEN 'Gain'
@@ -1427,10 +1461,8 @@ SELECT CAST(cv.year AS INTEGER)                                                 
        )                                                                                  AS percentage,
        ROUND((cv.cumulative_total_value - COALESCE(pre_cv.cumulative_total_value, 0)), 2) as difference_value
 FROM cumulative_values cv
-         LEFT JOIN
-     cumulative_values pre_cv
-     ON
-         CAST(cv.year AS INTEGER) - 1 = CAST(pre_cv.year AS INTEGER);
+         LEFT JOIN cumulative_values pre_cv
+                   ON cv.year - 1 = pre_cv.year;
 
 DROP VIEW IF EXISTS v_bank_transfer_summary;
 CREATE VIEW v_bank_transfer_summary AS
