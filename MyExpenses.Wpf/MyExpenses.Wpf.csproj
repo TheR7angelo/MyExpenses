@@ -588,6 +588,10 @@
       <Resource Include="..\MyExpenses.Commons\Resources\Assets\Applications\Icon Resize.png">
         <Link>Resources\Assets\Applications\Icon Resize.png</Link>
       </Resource>
+      <AdditionalFiles Include="..\LICENSE.txt">
+        <Link>LICENSE.txt</Link>
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </AdditionalFiles>
       <Content Include="..\MyExpenses.Commons\Resources\Assets\Applications\Icon.ai">
         <Link>Resources\Assets\Applications\Icon.ai</Link>
       </Content>
