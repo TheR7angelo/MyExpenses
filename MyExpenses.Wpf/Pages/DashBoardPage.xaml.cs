@@ -335,7 +335,7 @@ public partial class DashBoardPage
         var currentYear = now.Year;
         for (var year = lastYear + 1; year <= currentYear; year++)
         {
-            Years.Add(year.ToString());
+            Years.Insert(0, year.ToString());
         }
 
         SelectedYear = now.Year.ToString();
