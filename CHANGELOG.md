@@ -1,8 +1,25 @@
-#  (2024-11-22)
+# [](https://github.com/TheR7angelo/MyExpenses/compare/v1.0.7...v) (2025-01-01)
 
 
 
-## [1.0.5](https://github.com/TheR7angelo/MyExpenses/compare/v1.0.0...1.0.5) (2024-11-20)
+## [1.0.7](https://github.com/TheR7angelo/MyExpenses/compare/v1.0.5...v1.0.7) (2025-01-01)
+
+
+### Bug Fixes
+
+* **Update:** Add logic to populate missing years in dashboard ([f62fa28](https://github.com/TheR7angelo/MyExpenses/commit/f62fa2890d16587344c63b148630cc15d9512ef8))
+* **Update:** Add logic to populate missing years in dashboard ([07d9720](https://github.com/TheR7angelo/MyExpenses/commit/07d97203fd4871cf6722de5e44f817e597088d82))
+* **Update:** Handle missing asset scenario in update button logic ([6f83d50](https://github.com/TheR7angelo/MyExpenses/commit/6f83d50d3fab85db728d3a50e75cbede8a9645e8))
+* **Update:** Remove redundant zero check for grandTotal in dashboard ([cea9cf3](https://github.com/TheR7angelo/MyExpenses/commit/cea9cf33fbce7592cf338fa091508835746fc236))
+
+
+### Performance Improvements
+
+* **Update:** Make TreeViewNode a sealed class and remove virtual modifiers ([272e5cc](https://github.com/TheR7angelo/MyExpenses/commit/272e5cc3235b6b450787cb2e63c038513472b727))
+
+
+
+## [1.0.5](https://github.com/TheR7angelo/MyExpenses/compare/v1.0.0...v1.0.5) (2024-11-20)
 
 
 ### Bug Fixes

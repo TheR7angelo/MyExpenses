@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<DOCUMENT Type="Advanced Installer" CreateVersion="22.0" version="22.2" Modules="professional" RootPath="." Language="en" Id="{8CDCC87C-04C7-466B-AD40-6720D0E36EE0}">
+<DOCUMENT Type="Advanced Installer" CreateVersion="22.0" version="22.3" Modules="professional" RootPath="." Language="en" Id="{8CDCC87C-04C7-466B-AD40-6720D0E36EE0}">
   <COMPONENT cid="caphyon.advinst.msicomp.MsiPropsComponent">
     <ROW Property="AI_APP_FILE" Value="[#MyExpenses.exe]"/>
     <ROW Property="AI_BITMAP_DISPLAY_MODE" Value="0"/>
@@ -17,10 +17,10 @@
     <ROW Property="ARPURLINFOABOUT" Value="https://github.com/TheR7angelo/MyExpenses"/>
     <ROW Property="CTRLS" Value="2"/>
     <ROW Property="Manufacturer" Value="TheR7angelo"/>
-    <ROW Property="ProductCode" Value="1033:{812CB5C2-2902-4C76-BD07-0C135B0DC397} 1036:{812CB5C2-2902-4C76-BD07-0C135B0DC397} 2057:{812CB5C2-2902-4C76-BD07-0C135B0DC397} " Type="16"/>
+    <ROW Property="ProductCode" Value="1033:{EA818F98-F0B4-43D8-8525-8A6A13DFE684} 1036:{EA818F98-F0B4-43D8-8525-8A6A13DFE684} 2057:{EA818F98-F0B4-43D8-8525-8A6A13DFE684} " Type="16"/>
     <ROW Property="ProductLanguage" Value="1033"/>
     <ROW Property="ProductName" Value="MyExpenses"/>
-    <ROW Property="ProductVersion" Value="1.0.5.0" Options="32"/>
+    <ROW Property="ProductVersion" Value="1.0.7.0" Options="32"/>
     <ROW Property="RUNAPPLICATION" Value="1" Type="4"/>
     <ROW Property="SecureCustomProperties" Value="OLDPRODUCTS;AI_NEWERPRODUCTFOUND;AI_SETUPEXEPATH;SETUPEXEDIR"/>
     <ROW Property="UpgradeCode" Value="{453EF60B-7093-49CF-969A-AC4748CA88F9}"/>
@@ -86,6 +86,7 @@
     <ROW Component="EPPlus.dll" ComponentId="{1D67664F-D5E0-4EEB-BA95-DA87FE5383A3}" Directory_="APPDIR" Attributes="0" KeyPath="EPPlus.dll"/>
     <ROW Component="ExCSS.dll" ComponentId="{A8ADD0A4-0433-4997-BF39-C72D7892CA25}" Directory_="APPDIR" Attributes="0" KeyPath="ExCSS.dll"/>
     <ROW Component="FilterDataGrid.dll" ComponentId="{C511247D-BF5F-42F1-B2BE-BAE1BF3488DE}" Directory_="APPDIR" Attributes="0" KeyPath="FilterDataGrid.dll"/>
+    <ROW Component="GLWpfControl.dll" ComponentId="{8E5206B7-D85E-4967-8BD5-80910740775A}" Directory_="APPDIR" Attributes="0" KeyPath="GLWpfControl.dll"/>
     <ROW Component="HarfBuzzSharp.dll" ComponentId="{7B418615-5C6C-4D86-90CE-78925E943B7A}" Directory_="APPDIR" Attributes="0" KeyPath="HarfBuzzSharp.dll"/>
     <ROW Component="Howtouse_english.pdf" ComponentId="{C0684371-838A-400A-9DED-75EAB97E5FF0}" Directory_="Howtouse_Dir" Attributes="0" KeyPath="Howtouse_english.pdf" Type="0"/>
     <ROW Component="LiveChartsCore.SkiaSharpView.WPF.dll" ComponentId="{EE1831D6-6090-43D2-B612-DAEC2FF55286}" Directory_="APPDIR" Attributes="0" KeyPath="LiveChartsCore.SkiaSharpView.WPF.dll"/>
@@ -175,6 +176,7 @@
     <ROW Component="NetTopologySuite.dll" ComponentId="{ABBAA7E8-D755-468B-BAAF-54BBDBB992C1}" Directory_="APPDIR" Attributes="0" KeyPath="NetTopologySuite.dll"/>
     <ROW Component="Newtonsoft.Json.dll" ComponentId="{53EDFBCD-1EDE-433C-A7B8-FF6AC97749CE}" Directory_="APPDIR" Attributes="0" KeyPath="Newtonsoft.Json.dll"/>
     <ROW Component="Ookii.Dialogs.Wpf.dll" ComponentId="{91060A67-31D6-4B2E-A423-B3953889876A}" Directory_="APPDIR" Attributes="0" KeyPath="Ookii.Dialogs.Wpf.dll"/>
+    <ROW Component="OpenTK.dll" ComponentId="{76C69E3F-0E2B-49BF-9B54-85B37B673DBE}" Directory_="APPDIR" Attributes="0" KeyPath="OpenTK.dll"/>
     <ROW Component="PenImc_cor3.dll" ComponentId="{5B41464F-64F1-4200-977B-71088B870264}" Directory_="APPDIR" Attributes="256" KeyPath="PenImc_cor3.dll"/>
     <ROW Component="PresentationCore.dll" ComponentId="{3C55DD56-CA9A-4F8B-B71F-932158738ABF}" Directory_="APPDIR" Attributes="256" KeyPath="PresentationCore.dll"/>
     <ROW Component="PresentationCore.resources.dll" ComponentId="{69E60907-A9D1-4EA4-95D1-2EC5A1B2F45D}" Directory_="cs_Dir" Attributes="0" KeyPath="PresentationCore.resources.dll"/>
@@ -1206,6 +1208,8 @@
     <ROW File="mscordaccore_amd64_amd64_8.0.1124.51707.dll" Component_="mscordaccore_amd64_amd64_8.0.1124.51707.dll" FileName="MSCORD~2.DLL|mscordaccore_amd64_amd64_8.0.1124.51707.dll" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\mscordaccore_amd64_amd64_8.0.1124.51707.dll" SelfReg="false"/>
     <ROW File="MyExpenses.Share.Core.dll" Component_="MyExpenses.Share.Core.dll" FileName="MYEXPE~9.DLL|MyExpenses.Share.Core.dll" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.Share.Core.dll" SelfReg="false"/>
     <ROW File="System.IO.Pipelines.dll" Component_="System.IO.Pipelines.dll" FileName="SYST~187.DLL|System.IO.Pipelines.dll" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\System.IO.Pipelines.dll" SelfReg="false"/>
+    <ROW File="OpenTK.dll" Component_="OpenTK.dll" FileName="OpenTK.dll" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\OpenTK.dll" SelfReg="false"/>
+    <ROW File="GLWpfControl.dll" Component_="GLWpfControl.dll" FileName="GLWPFC~1.DLL|GLWpfControl.dll" Attributes="0" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\GLWpfControl.dll" SelfReg="false"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.AiPersistentPropComponent">
     <ROW Property="AI_SHORTCUTSREG" Registry="AI_SHORTCUTSREG" HklmSearch="AI_SHORTCUTSREG" HkcuSearch="AI_SHORTCUTSREG_1" Hklm64Search="AI_SHORTCUTSREG_2" Hkcu64Search="AI_SHORTCUTSREG_3"/>
@@ -1901,6 +1905,8 @@
     <ROW Feature_="MainFeature" Component_="mscordaccore_amd64_amd64_8.0.1124.51707.dll"/>
     <ROW Feature_="MainFeature" Component_="MyExpenses.Share.Core.dll"/>
     <ROW Feature_="MainFeature" Component_="System.IO.Pipelines.dll"/>
+    <ROW Feature_="MainFeature" Component_="OpenTK.dll"/>
+    <ROW Feature_="MainFeature" Component_="GLWpfControl.dll"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiIconsComponent">
     <ROW Name="MyExpenses.exe" SourcePath="..\bin\Release\net8.0-windows\win-x64\publish\MyExpenses.exe" Index="0"/>
