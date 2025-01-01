@@ -330,9 +330,12 @@ public partial class DashBoardPage
                 .Select(y => y.ToString())
         ];
 
-        if (Years.Count.Equals(0))
+        if (Years.Count.Equals(0)) Years.Add(now.Year.ToString());
+        var lastYear = int.Parse(Years.Max()!);
+        var currentYear = now.Year;
+        for (var year = lastYear + 1; year <= currentYear; year++)
         {
-            Years.Add(DateTime.Now.Year.ToString());
+            Years.Add(year.ToString());
         }
 
         SelectedYear = now.Year.ToString();
