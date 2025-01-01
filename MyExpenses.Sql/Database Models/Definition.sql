@@ -784,8 +784,14 @@ WITH all_periods AS (SELECT a.id                     AS account_fk,
                             y.year || '-' || m.month AS period
                      FROM t_account a
                               LEFT JOIN t_currency tc on a.currency_fk = tc.id
-                              CROSS JOIN (SELECT DISTINCT STRFTIME('%Y', h.date) AS year
-                                          FROM t_history h) y
+                              CROSS JOIN (
+                                SELECT DISTINCT year
+                                          FROM (
+                                              SELECT strftime('%Y', h.date) AS year
+                                              FROM t_history h
+                                              UNION
+                                              SELECT STRftime('%Y', CURRENT_DATE)
+                                               )) AS y
                               CROSS JOIN (SELECT strftime('%m', date('2000-' || x || '-01')) AS month
                                           FROM (SELECT '01' AS x
                                                 UNION
@@ -810,9 +816,7 @@ WITH all_periods AS (SELECT a.id                     AS account_fk,
                                                 SELECT '11'
                                                 UNION
                                                 SELECT '12')) m
-                     WHERE y.year < (SELECT strftime('%Y', MAX(date)) FROM t_history)
-                        OR (y.year == (SELECT strftime('%Y', MAX(date)) FROM t_history)
-                         AND m.month <= (SELECT strftime('%m', MAX(date)) FROM t_history))),
+                     WHERE (y.year || '-' || m.month) <= strftime('%Y-%m', CURRENT_DATE)),
      monthly AS (SELECT ap.account_fk,
                         ap.account,
                         ap.currency_fk,
@@ -860,8 +864,14 @@ WITH all_periods AS (SELECT a.id                      AS account_fk,
                               LEFT JOIN t_currency tca ON a.currency_fk = tca.id
                               CROSS JOIN t_category_type tct
                               LEFT JOIN t_color tc ON tct.color_fk = tc.id
-                              CROSS JOIN (SELECT DISTINCT strftime('%Y', h.date) AS year
-                                          FROM t_history h) y
+                              CROSS JOIN (
+                                SELECT DISTINCT year
+                                          FROM (
+                                              SELECT strftime('%Y', h.date) AS year
+                                              FROM t_history h
+                                              UNION
+                                              SELECT STRftime('%Y', CURRENT_DATE)
+                                               )) AS y
                               CROSS JOIN (SELECT strftime('%m', date('2000-' || x || '-01')) AS month
                                           FROM (SELECT '01' AS x
                                                 UNION
@@ -886,9 +896,7 @@ WITH all_periods AS (SELECT a.id                      AS account_fk,
                                                 SELECT '11'
                                                 UNION
                                                 SELECT '12')) m
-                     WHERE y.year < (SELECT strftime('%Y', MAX(date)) FROM t_history)
-                        OR (y.year == (SELECT strftime('%Y', MAX(date)) FROM t_history)
-                         AND m.month <= (SELECT strftime('%m', MAX(date)) FROM t_history))),
+                     WHERE (y.year || '-' || m.month) <= strftime('%Y-%m', CURRENT_DATE)),
      monthly AS (SELECT ap.account_fk,
                         ap.account,
                         ap.currency_fk,
@@ -947,8 +955,14 @@ WITH all_periods AS (SELECT a.id                     AS account_fk,
                               CROSS JOIN t_category_type ct
                               LEFT JOIN t_color tc ON ct.color_fk = tc.id
                               LEFT JOIN t_currency tcu on a.currency_fk = tcu.id
-                              CROSS JOIN (SELECT DISTINCT strftime('%Y', h.date) AS year
-                                          FROM t_history h) y
+                              CROSS JOIN (
+                                SELECT DISTINCT year
+                                          FROM (
+                                              SELECT strftime('%Y', h.date) AS year
+                                              FROM t_history h
+                                              UNION
+                                              SELECT STRftime('%Y', CURRENT_DATE)
+                                               )) AS y
                               CROSS JOIN (SELECT strftime('%m', date('2000-' || x || '-01')) AS month
                                           FROM (SELECT '01' AS x
                                                 UNION
@@ -973,9 +987,7 @@ WITH all_periods AS (SELECT a.id                     AS account_fk,
                                                 SELECT '11'
                                                 UNION
                                                 SELECT '12')) m
-                     WHERE y.year < (SELECT strftime('%Y', MAX(date)) FROM t_history)
-                        OR (y.year = (SELECT strftime('%Y', MAX(date)) FROM t_history)
-                         AND m.month <= (SELECT strftime('%m', MAX(date)) FROM t_history))),
+                     WHERE (y.year || '-' || m.month) <= strftime('%Y-%m', CURRENT_DATE)),
      monthly AS (SELECT ap.account_fk,
                         ap.account,
                         ap.currency_fk,
