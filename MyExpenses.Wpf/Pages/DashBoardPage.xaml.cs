@@ -697,7 +697,6 @@ public partial class DashBoardPage
         var filteredData = GetFilteredData(accountName);
 
         var categoriesTotals = CalculateCategoryTotals(filteredData, out var grandTotal);
-        if (grandTotal is 0) return;
 
         UpdateChartUi(categoriesTotals, grandTotal);
     }
