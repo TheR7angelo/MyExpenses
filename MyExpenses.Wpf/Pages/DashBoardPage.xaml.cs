@@ -497,10 +497,7 @@ public partial class DashBoardPage
     }
 
     private void Selector_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
-    {
-        RefreshDataGrid();
-        UpdateGraph();
-    }
+        => RefreshDataGrid();
 
     private void ToggleButtonVTotalAccount_OnChecked(object sender, RoutedEventArgs e)
     {
@@ -516,7 +513,6 @@ public partial class DashBoardPage
         if (string.IsNullOrEmpty(name)) return;
 
         RefreshDataGrid(name);
-        UpdateGraph(name);
     }
 
     #endregion
@@ -534,8 +530,6 @@ public partial class DashBoardPage
         var accountName = vHistory.Account!;
 
         RefreshDataGrid(accountName);
-        UpdateGraph(accountName);
-
         RefreshAccountTotal(CurrentVTotalByAccount!.Id);
     }
 
@@ -621,13 +615,7 @@ public partial class DashBoardPage
 
     private void RefreshDataGrid(string? accountName = null)
     {
-        if (string.IsNullOrEmpty(accountName))
-        {
-            var radioButtons = ItemsControlVTotalAccount?.FindVisualChildren<RadioButton>().ToList() ?? [];
-            if (radioButtons.Count.Equals(0)) return;
-
-            accountName = radioButtons.FirstOrDefault(s => (bool)s.IsChecked!)?.Content as string;
-        }
+        if (string.IsNullOrEmpty(accountName)) accountName = GetAccountName();
 
         if (string.IsNullOrEmpty(accountName)) return;
 
@@ -655,6 +643,10 @@ public partial class DashBoardPage
             .ThenBy(s => s.Category);
 
         VHistories.AddRange(records);
+
+        var filteredData = GetFilteredData(accountName);
+        var categoriesTotals = CalculateCategoryTotals(filteredData, out var grandTotal);
+        UpdateChartUi(categoriesTotals, grandTotal);
     }
 
     private void RefreshRadioButtonSelected()
@@ -689,19 +681,7 @@ public partial class DashBoardPage
         return true;
     }
 
-    private void UpdateGraph(string? accountName = null)
-    {
-        accountName = GetAccountName(accountName);
-        if (string.IsNullOrEmpty(accountName)) return;
-
-        var filteredData = GetFilteredData(accountName);
-
-        var categoriesTotals = CalculateCategoryTotals(filteredData, out var grandTotal);
-
-        UpdateChartUi(categoriesTotals, grandTotal);
-    }
-
-    private string? GetAccountName(string? accountName)
+    private string? GetAccountName(string? accountName = null)
     {
         if (!string.IsNullOrEmpty(accountName)) return accountName;
 
