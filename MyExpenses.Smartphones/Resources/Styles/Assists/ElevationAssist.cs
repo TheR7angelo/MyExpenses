@@ -1,5 +1,3 @@
-using System.Globalization;
-
 namespace MyExpenses.Smartphones.Resources.Styles.Assists;
 
 public enum Elevation
