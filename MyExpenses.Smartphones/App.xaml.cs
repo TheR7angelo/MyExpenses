@@ -18,7 +18,7 @@ public partial class App
 
         CancellationTokenSource = new CancellationTokenSource();
 
-        Log.Logger = LoggerConfig.CreateConfig();
+        Log.Logger = LoggerConfig.CreateConfig(null);
         Log.Information("Starting the application");
 
         Log.Information("Reading configuration file");

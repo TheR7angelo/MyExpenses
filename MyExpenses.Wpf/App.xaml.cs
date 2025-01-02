@@ -5,6 +5,7 @@ using MaterialDesignThemes.Wpf;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils;
+using MyExpenses.Utils.Systems;
 using MyExpenses.Wpf.Utils;
 using Log = Serilog.Log;
 using Theme = MyExpenses.Models.Config.Interfaces.Theme;
@@ -20,12 +21,17 @@ public partial class App
     {
         base.OnStartup(e);
 
+        var systemArgs = e.Args.GetArguments();
+        DataBaseContext.EnvironmentType = systemArgs.EnvironmentType;
+        DataBaseContext.DebugLevel = systemArgs.LogEventLevel;
+
         CancellationTokenSource = new CancellationTokenSource();
 
         var splashScreenWindow = new SplashScreen("Resources\\Assets\\Applications\\Icon Resize.png");
         splashScreenWindow.Show(true, true);
 
-        Log.Logger = LoggerConfig.CreateConfig();
+        Log.Logger = LoggerConfig.CreateConfig(systemArgs.LogEventLevel);
+        Log.Information("Logger created with log event level: {SystemArgsLogEventLevel}", systemArgs.LogEventLevel);
         Log.Information("Starting the application");
 
         Log.Information("Reading configuration file");

@@ -15,7 +15,7 @@ public static class CommandLineUtility
             .WithParsed(o =>
                 {
                     result.EnvironmentType = o.Environment;
-                    result.DebugLevel = o.DebugLevel;
+                    result.LogEventLevel = o.DebugLevel;
                 }
             );
 

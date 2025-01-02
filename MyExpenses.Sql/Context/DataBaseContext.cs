@@ -1,17 +1,20 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Data.Sqlite;
+using Microsoft.EntityFrameworkCore;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Models.Sql.Bases.Views;
 using MyExpenses.Models.Sql.Bases.Views.Analysis;
 using MyExpenses.Models.Sql.Bases.Views.Exports;
+using MyExpenses.Models.Systems;
+using Serilog;
+using Serilog.Events;
 using Serilog.Extensions.Logging;
 
 namespace MyExpenses.Sql.Context;
 
 public class DataBaseContext : DbContext
 {
-    // ReSharper disable once UnusedMember.Local
-    private static readonly ILoggerFactory LoggerFactory = new SerilogLoggerFactory();
+    public static EEnvironmentType? EnvironmentType { get; set; }
+    public static LogEventLevel? DebugLevel { get; set; }
 
     public static string? FilePath { get; set; }
 
@@ -19,9 +22,13 @@ public class DataBaseContext : DbContext
 
     private string? DataSource { get; set; }
 
-    public DataBaseContext(string? filePath=null)
+    private bool IsReadOnly { get; }
+
+    public DataBaseContext(string? filePath=null, bool isReadOnly=false)
     {
         if (!string.IsNullOrEmpty(filePath)) TempFilePath = filePath;
+
+        IsReadOnly = isReadOnly;
     }
 
     public DataBaseContext(DbContextOptions<DataBaseContext> options)
@@ -114,15 +121,62 @@ public class DataBaseContext : DbContext
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
         DataSource = !string.IsNullOrEmpty(TempFilePath)
-            ? $"Data Source={TempFilePath}"
-            : $"Data Source={FilePath}";
-        DataSource = $"{DataSource};Pooling=False";
+            ? TempFilePath
+            : FilePath;
 
-        var dataSource = DataSource;
+        var connectionStringBuilder = new SqliteConnectionStringBuilder
+        {
+            DataSource = DataSource,
+            Pooling = false,
+            Mode = IsReadOnly ? SqliteOpenMode.ReadOnly : SqliteOpenMode.ReadWrite
+        };
 
-        optionsBuilder.UseSqlite(dataSource)
-            // .UseLoggerFactory(LoggerFactory)
-            .EnableSensitiveDataLogging();
+        optionsBuilder.UseSqlite(connectionStringBuilder.ConnectionString);
+
+        if (EnvironmentType is not EEnvironmentType.Development) return;
+        var serilogLoggerFactory = ConfigureLogging();
+
+        optionsBuilder.UseLoggerFactory(serilogLoggerFactory)
+            .EnableSensitiveDataLogging()
+            .EnableDetailedErrors();
+    }
+
+    private static SerilogLoggerFactory ConfigureLogging()
+    {
+        var loggerConfiguration = new LoggerConfiguration();
+        loggerConfiguration = SetLoggerConfigurationLevel(loggerConfiguration);
+
+        var logger = loggerConfiguration.CreateLogger();
+        var serilogLoggerFactory = new SerilogLoggerFactory(logger);
+        return serilogLoggerFactory;
+    }
+
+    private static LoggerConfiguration SetLoggerConfigurationLevel(LoggerConfiguration loggerConfiguration)
+    {
+        switch (DebugLevel)
+        {
+            case LogEventLevel.Information:
+                loggerConfiguration.MinimumLevel.Information();
+                break;
+            case LogEventLevel.Debug:
+                loggerConfiguration.MinimumLevel.Debug();
+                break;
+            case LogEventLevel.Warning:
+                loggerConfiguration.MinimumLevel.Warning();
+                break;
+            case LogEventLevel.Error:
+                loggerConfiguration.MinimumLevel.Error();
+                break;
+            case LogEventLevel.Fatal:
+                loggerConfiguration.MinimumLevel.Fatal();
+                break;
+            case LogEventLevel.Verbose:
+            default:
+                loggerConfiguration.MinimumLevel.Verbose();
+                break;
+        }
+
+        return loggerConfiguration;
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
