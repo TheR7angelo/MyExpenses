@@ -13,8 +13,9 @@ namespace MyExpenses.Sql.Context;
 
 public class DataBaseContext : DbContext
 {
-    public static EEnvironmentType? EnvironmentType { get; set; }
     public static LogEventLevel? LogEventLevel { get; set; }
+    public static bool LogEfCore { get; set; }
+    public static bool WriteToFileEfCore { get; set; }
 
     public static string? FilePath { get; set; }
 
@@ -133,7 +134,7 @@ public class DataBaseContext : DbContext
 
         optionsBuilder.UseSqlite(connectionStringBuilder.ConnectionString);
 
-        if (EnvironmentType is not EEnvironmentType.Development) return;
+        if (LogEfCore is not true) return;
         var serilogLoggerFactory = ConfigureLogging();
 
         optionsBuilder.UseLoggerFactory(serilogLoggerFactory)
@@ -143,9 +144,11 @@ public class DataBaseContext : DbContext
 
     private static SerilogLoggerFactory ConfigureLogging()
     {
+        var logDirectoryPath = Directory.CreateDirectory(Path.Join(DbContextBackup.OsBasePath, "log")).FullName;
+
         var loggerConfiguration = new LoggerConfiguration();
         loggerConfiguration.SetLoggerConfigurationLevel(LogEventLevel);
-        loggerConfiguration.SetWriteToOption(true);
+        loggerConfiguration.SetWriteToOption(true, WriteToFileEfCore, logDirectoryPath);
 
         var logger = loggerConfiguration.CreateLogger();
         var serilogLoggerFactory = new SerilogLoggerFactory(logger);

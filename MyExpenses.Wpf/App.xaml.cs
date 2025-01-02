@@ -22,8 +22,9 @@ public partial class App
         base.OnStartup(e);
 
         var systemArgs = e.Args.GetArguments();
-        DataBaseContext.EnvironmentType = systemArgs.EnvironmentType;
         DataBaseContext.LogEventLevel = systemArgs.LogEventLevel;
+        DataBaseContext.LogEfCore = systemArgs.LogEfCore;
+        DataBaseContext.WriteToFileEfCore = systemArgs.WriteToFileEfCore;
 
         CancellationTokenSource = new CancellationTokenSource();
 

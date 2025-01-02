@@ -14,8 +14,9 @@ public static class CommandLineUtility
         parser.ParseArguments<Options>(args)
             .WithParsed(o =>
                 {
-                    result.EnvironmentType = o.Environment;
                     result.LogEventLevel = o.DebugLevel;
+                    result.LogEfCore = o.LogEfCore;
+                    result.WriteToFileEfCore = o.WriteToFileEfCore;
                 }
             );
 

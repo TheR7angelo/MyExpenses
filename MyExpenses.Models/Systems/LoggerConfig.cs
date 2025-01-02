@@ -7,6 +7,7 @@ namespace MyExpenses.Models.Systems;
 public static class LoggerConfig
 {
     private const string Template = "[{Timestamp:HH:mm:ss} {Level}] {Message:lj}{NewLine}{Exception}";
+    private static readonly string DefaultFilename = $"{DateTime.Now:yyyy-MM-dd_HH-mm-ss}.log";
 
     /// <summary>
     /// Configures the logger to write log events to the specified destinations.
@@ -18,8 +19,6 @@ public static class LoggerConfig
     public static void SetWriteToOption(this LoggerConfiguration loggerConfiguration,
         bool toConsole = false, bool toFile = false, string? basePath = null)
     {
-        var logName = $"{DateTime.Now:yyyy-MM-dd_HH-mm-ss}.log";
-
         if (toConsole)
         {
             loggerConfiguration.WriteTo.Console(outputTemplate: Template, theme: AnsiConsoleTheme.Code,
@@ -28,8 +27,8 @@ public static class LoggerConfig
 
         if (toFile)
         {
-            var logPath = Path.Join(basePath, logName);
-            loggerConfiguration.WriteTo.File(logPath, outputTemplate: Template, flushToDiskInterval: TimeSpan.FromSeconds(1));
+            var logPath = Path.Join(basePath, DefaultFilename);
+            loggerConfiguration.WriteTo.File(logPath, outputTemplate: Template, flushToDiskInterval: TimeSpan.FromSeconds(1), shared:true);
         }
     }
 
