@@ -14,7 +14,7 @@ namespace MyExpenses.Sql.Context;
 public class DataBaseContext : DbContext
 {
     public static EEnvironmentType? EnvironmentType { get; set; }
-    public static LogEventLevel? DebugLevel { get; set; }
+    public static LogEventLevel? LogEventLevel { get; set; }
 
     public static string? FilePath { get; set; }
 

@@ -23,7 +23,7 @@ public partial class App
 
         var systemArgs = e.Args.GetArguments();
         DataBaseContext.EnvironmentType = systemArgs.EnvironmentType;
-        DataBaseContext.DebugLevel = systemArgs.LogEventLevel;
+        DataBaseContext.LogEventLevel = systemArgs.LogEventLevel;
 
         CancellationTokenSource = new CancellationTokenSource();
 
