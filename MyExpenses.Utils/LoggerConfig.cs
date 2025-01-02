@@ -1,8 +1,8 @@
-﻿using MyExpenses.Sql.Context;
+﻿using MyExpenses.Models.Systems;
+using MyExpenses.Sql.Context;
 using Serilog;
 using Serilog.Core;
 using Serilog.Events;
-using Serilog.Sinks.SystemConsole.Themes;
 
 namespace MyExpenses.Utils;
 
@@ -20,49 +20,12 @@ public static class LoggerConfig
     /// <returns>A Logger object representing the configured logger.</returns>
     public static Logger CreateConfig(LogEventLevel? logEventLevel)
     {
-        const string template = "[{Timestamp:HH:mm:ss} {Level}] {Message:lj}{NewLine}{Exception}";
-        var logName = $"{DateTime.Now:yyyy-MM-dd_HH-mm-ss}.log";
-
-        var logPath = Path.Join(LogDirectoryPath, logName);
-        var loggerConfiguration = new LoggerConfiguration()
-            .WriteTo.Console(outputTemplate: template, theme: AnsiConsoleTheme.Code, applyThemeToRedirectedOutput: true)
-            .WriteTo.File(logPath, outputTemplate: template, flushToDiskInterval: TimeSpan.FromSeconds(1));
-
+        var loggerConfiguration = new LoggerConfiguration();
+        loggerConfiguration.SetWriteToOption(true, true, LogDirectoryPath);
         loggerConfiguration.SetLoggerConfigurationLevel(logEventLevel);
         var logger = loggerConfiguration.CreateLogger();
 
         return logger;
-    }
-
-    /// <summary>
-    /// Sets the minimum logging level for the specified logger configuration.
-    /// </summary>
-    /// <param name="loggerConfiguration">The logger configuration to modify.</param>
-    /// <param name="level">The desired minimum logging level, or null for the default level.</param>
-    private static void SetLoggerConfigurationLevel(this LoggerConfiguration loggerConfiguration, LogEventLevel? level)
-    {
-        switch (level)
-        {
-            case LogEventLevel.Information:
-                loggerConfiguration.MinimumLevel.Information();
-                break;
-            case LogEventLevel.Debug:
-                loggerConfiguration.MinimumLevel.Debug();
-                break;
-            case LogEventLevel.Warning:
-                loggerConfiguration.MinimumLevel.Warning();
-                break;
-            case LogEventLevel.Error:
-                loggerConfiguration.MinimumLevel.Error();
-                break;
-            case LogEventLevel.Fatal:
-                loggerConfiguration.MinimumLevel.Fatal();
-                break;
-            case LogEventLevel.Verbose:
-            default:
-                loggerConfiguration.MinimumLevel.Verbose();
-                break;
-        }
     }
 
     /// <summary>
@@ -90,6 +53,7 @@ public static class LoggerConfig
             }
             catch (Exception)
             {
+                // TODO work
                 // log the exception or handle it
             }
         }

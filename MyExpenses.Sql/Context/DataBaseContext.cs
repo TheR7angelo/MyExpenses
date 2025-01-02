@@ -144,39 +144,12 @@ public class DataBaseContext : DbContext
     private static SerilogLoggerFactory ConfigureLogging()
     {
         var loggerConfiguration = new LoggerConfiguration();
-        loggerConfiguration = SetLoggerConfigurationLevel(loggerConfiguration);
+        loggerConfiguration.SetLoggerConfigurationLevel(LogEventLevel);
+        loggerConfiguration.SetWriteToOption(true);
 
         var logger = loggerConfiguration.CreateLogger();
         var serilogLoggerFactory = new SerilogLoggerFactory(logger);
         return serilogLoggerFactory;
-    }
-
-    private static LoggerConfiguration SetLoggerConfigurationLevel(LoggerConfiguration loggerConfiguration)
-    {
-        switch (DebugLevel)
-        {
-            case LogEventLevel.Information:
-                loggerConfiguration.MinimumLevel.Information();
-                break;
-            case LogEventLevel.Debug:
-                loggerConfiguration.MinimumLevel.Debug();
-                break;
-            case LogEventLevel.Warning:
-                loggerConfiguration.MinimumLevel.Warning();
-                break;
-            case LogEventLevel.Error:
-                loggerConfiguration.MinimumLevel.Error();
-                break;
-            case LogEventLevel.Fatal:
-                loggerConfiguration.MinimumLevel.Fatal();
-                break;
-            case LogEventLevel.Verbose:
-            default:
-                loggerConfiguration.MinimumLevel.Verbose();
-                break;
-        }
-
-        return loggerConfiguration;
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
