@@ -11,13 +11,13 @@ public static class GeoJsonWriter
     public static void ToGeoJson(this IEnumerable<ISig> features, string savePath)
     {
         savePath = Path.ChangeExtension(savePath, ".geojson");
-        var iEnumerable = features.ToList();
 
-        var featureCollection = new FeatureCollection();
-        var typeSig = iEnumerable.GetType().GetGenericArguments()[0];
+        var enumerable = features as ISig[] ?? features.ToArray();
+        var typeSig = features.GetType().GetGenericArguments()[0];
         var properties = typeSig.GetProperties();
 
-        foreach (var feature in iEnumerable)
+        var featureCollection = new FeatureCollection();
+        foreach (var feature in enumerable)
         {
             if (feature.Geometry is null) continue;
 
