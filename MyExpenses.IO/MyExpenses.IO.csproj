@@ -33,4 +33,11 @@
       <Folder Include="Resources\Qgis\" />
     </ItemGroup>
 
+    <ItemGroup>
+      <None Remove="Resources\Qgis\GeoVisionary.qgz" />
+      <AdditionalFiles Include="Resources\Qgis\GeoVisionary.qgz">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </AdditionalFiles>
+    </ItemGroup>
+
 </Project>

@@ -83,7 +83,7 @@ public static class ExistingDatabaseToFolder
             Log.Information("Records have been successfully exported to geojson file");
 
             // TODO work
-            // AddQgisProject(isCompress, saveFolder);
+            AddQgisProject(saveFolder);
 
             var finalResult = resultExportToExcel && resultExportToKmlFile;
             return finalResult;
@@ -95,25 +95,15 @@ public static class ExistingDatabaseToFolder
         }
     }
 
-    private static void AddQgisProject(bool isCompress, string saveFolder)
+    private static void AddQgisProject(string saveFolder)
     {
+        const string qgisProjectFilename = "GeoVisionary.qgz";
+
         var resoucesDirectory = Path.GetFullPath("Resources");
 
         var qgisDirectory = Path.Join(resoucesDirectory, "Qgis");
-        const string qgisProjectFilename = "GeoVisionary";
-        var qgisProjectFilePath = Path.Join(qgisDirectory, $"{qgisProjectFilename}.qgs");
-        const string qgisProjectAttachmentsFilename = "GeoVisionary_attachments.zip";
-        var qgisProjectAttachmentsFilePath = Path.Join(qgisDirectory, qgisProjectAttachmentsFilename);
-
-        // TODO add .qgz
-        if (!isCompress)
-        {
-            var newQgisProjectFilePath = Path.Join(saveFolder, $"{qgisProjectFilename}.qgs");
-            File.Copy(qgisProjectFilePath, newQgisProjectFilePath, true);
-
-            var newQgisProjectAttachmentsFilePath = Path.Join(saveFolder, qgisProjectAttachmentsFilename);
-            File.Copy(qgisProjectAttachmentsFilePath, newQgisProjectAttachmentsFilePath, true);
-        }
+        var qgisProjectFilePath = Path.Join(qgisDirectory, qgisProjectFilename);
+        File.Copy(qgisProjectFilePath, Path.Join(saveFolder, qgisProjectFilename), true);
 
         var assetsDirectory = Path.Join(saveFolder, "Assets");
         Directory.CreateDirectory(assetsDirectory);
