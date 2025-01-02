@@ -16,7 +16,7 @@ public static class Utils
         { DbfType.Float, "double" },
         { DbfType.Character, "string" },
         { DbfType.Date, "DateTime" },
-        { DbfType.Logical, "bool" }
+        { DbfType.Logical, "int" }
     };
 
     private static Dictionary<Type, Func<string, int?, int?, DbfField>> FieldCreators { get; } = new()
