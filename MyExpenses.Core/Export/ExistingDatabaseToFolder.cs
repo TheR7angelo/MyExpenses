@@ -1,4 +1,5 @@
 ﻿using MyExpenses.IO.Excel;
+using MyExpenses.IO.Sig.GeoJson;
 using MyExpenses.IO.Sig.Kml;
 using MyExpenses.Models.IO;
 using MyExpenses.Sql.Context;
@@ -66,13 +67,20 @@ public static class ExistingDatabaseToFolder
             if (resultExportToExcel) Log.Information("Records have been successfully exported to Excel file");
             else Log.Error("Error while exporting records to Excel file");
 
-            var places = context.TPlaces.AsEnumerable();
+            var places = context.TPlaces.ToList();
+
             var saveKmz = Path.Join(saveFolder, $"{existingDatabase.FileNameWithoutExtension}.kmz");
             Log.Information("Exporting records to Kml file at \"{SaveKmz}\"", saveKmz);
             var resultExportToKmlFile = places.ToKmlFile(saveKmz);
 
             if (resultExportToKmlFile) Log.Information("Records have been successfully exported to Kml file");
             else Log.Error("Error while exporting records to Kml file");
+
+            var saveGeoJson = Path.Join(saveFolder, $"{existingDatabase.FileNameWithoutExtension}.geojson");
+            Log.Information("Exporting records to GeoJson file at \"{SaveGeoJson}\"", saveGeoJson);
+            // TODO add validation
+            places.ToGeoJson(saveGeoJson);
+            Log.Information("Records have been successfully exported to geojson file");
 
             // TODO work
             // AddQgisProject(isCompress, saveFolder);
