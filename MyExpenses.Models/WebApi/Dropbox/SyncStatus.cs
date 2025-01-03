@@ -5,6 +5,8 @@ namespace MyExpenses.Models.WebApi.DropBox;
 /// </summary>
 public enum SyncStatus
 {
+    Unknown,
+    UnSynchronized,
     LocalIsOutdated,
     RemoteIsOutdated,
     Synchronized

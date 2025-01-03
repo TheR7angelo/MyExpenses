@@ -45,20 +45,21 @@ public static class DropboxServiceUtils
         => File.Exists(FilePathSecretKeys);
 
     /// <summary>
-    /// Checks if the local database is outdated by comparing its last modification time with the corresponding file in Dropbox.
+    /// Checks if the local database is outdated by comparing its content hash and last modified time
+    /// with the corresponding database file stored in Dropbox.
     /// </summary>
-    /// <param name="existingDatabase">The local database instance whose state is being checked.</param>
-    /// <param name="projectSystem">The project system instance to initialize Dropbox integration.</param>
-    /// <returns>A task that represents the asynchronous operation.The task result contains a boolean value indicating whether the local database is outdated compared to the file in Dropbox.</returns>
+    /// <param name="existingDatabase">The existing local database to be checked.</param>
+    /// <param name="projectSystem">The project system defining the application context (for example, WPF or MAUI).</param>
+    /// <returns>A <see cref="SyncStatus"/> value representing the synchronization status of the local and cloud database files.</returns>
     public static async Task<SyncStatus> CheckIsLocalDatabaseIsOutdated(this ExistingDatabase existingDatabase,
         ProjectSystem projectSystem)
     {
-        if (!IsDropboxEnabled()) return SyncStatus.Synchronized;
+        if (!IsDropboxEnabled()) return SyncStatus.UnSynchronized;
 
         var dropboxService = await DropboxService.CreateAsync(projectSystem);
         var cloudDatabaseFiles = await dropboxService.ListFileAsync(DbContextBackup.CloudDirectoryBackupDatabase);
         var cloudDatabase = cloudDatabaseFiles.FirstOrDefault(s => s.Name.Equals(existingDatabase.FileInfo.Name));
-        if (cloudDatabase is null) return SyncStatus.Synchronized;
+        if (cloudDatabase is null) return SyncStatus.UnSynchronized;
 
         var cloudDatabaseFile = cloudDatabase.AsFile;
         var cloudDatabaseHashContent = cloudDatabaseFile.ContentHash;
