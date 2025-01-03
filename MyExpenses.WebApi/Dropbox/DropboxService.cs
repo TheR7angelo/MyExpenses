@@ -15,16 +15,11 @@ public class DropboxService
 
     private DropboxKeys DropboxKeys { get; set; }
 
-    private string FilePathSecretKeys { get; set; }
-
     private ProjectSystem ProjectSystem { get; init; }
 
     private DropboxService()
     {
         DropboxKeys = GetDropboxKeys();
-
-        var directorySecretKeys = GenerateDirectorySecretKeys();
-        FilePathSecretKeys = Path.Join(directorySecretKeys, "AccessTokenAuthentication.json");
     }
 
     public async Task<List<DeleteResult?>> DeleteFilesAsync(string[] filePaths, string? folder = null)
@@ -177,7 +172,7 @@ public class DropboxService
         AccessTokenAuthentication.DateCreated = now;
         AccessTokenAuthentication.DateExpiration = now.AddSeconds(accessTokenResponse.ExpiresIn ?? 0);
 
-        await File.WriteAllTextAsync(FilePathSecretKeys, AccessTokenAuthentication.ToJson());
+        await File.WriteAllTextAsync(DropboxServiceUtils.FilePathSecretKeys, AccessTokenAuthentication.ToJson());
     }
 
     public static async Task<DropboxService> CreateAsync(ProjectSystem projectSystem)
@@ -191,16 +186,13 @@ public class DropboxService
     {
         DropboxKeys = GetDropboxKeys();
 
-        var directorySecretKeys = GenerateDirectorySecretKeys();
-        FilePathSecretKeys = Path.Combine(directorySecretKeys, "AccessTokenAuthentication.json");
-
-        if (!File.Exists(FilePathSecretKeys))
+        if (!File.Exists(DropboxServiceUtils.FilePathSecretKeys))
         {
             AccessTokenAuthentication = await AuthorizeApplicationAsync(projectSystem);
         }
         else
         {
-            var jsonStr = await File.ReadAllTextAsync(FilePathSecretKeys);
+            var jsonStr = await File.ReadAllTextAsync(DropboxServiceUtils.FilePathSecretKeys);
             AccessTokenAuthentication = jsonStr.ToObject<AccessTokenAuthentication>();
             if (AccessTokenAuthentication!.AccessToken is null) AccessTokenAuthentication = await AuthorizeApplicationAsync(projectSystem);
         }
@@ -223,7 +215,7 @@ public class DropboxService
                 DateTime.Now.AddSeconds(accessTokenAuthentication.ExpiresIn ?? 0);
         }
 
-        await File.WriteAllTextAsync(FilePathSecretKeys, accessTokenAuthentication?.ToJson());
+        await File.WriteAllTextAsync(DropboxServiceUtils.FilePathSecretKeys, accessTokenAuthentication?.ToJson());
         return accessTokenAuthentication;
     }
 
@@ -265,15 +257,5 @@ public class DropboxService
 
         var accessTokenResponse = responseContent.ToObject<AccessTokenAuthentication>();
         return accessTokenResponse;
-    }
-
-    private static string GenerateDirectorySecretKeys()
-    {
-        var directorySecretKeys = Path.Join(AppContext.BaseDirectory, "Api", "Dropbox");
-
-        var directoryInfo = Directory.CreateDirectory(directorySecretKeys);
-        directoryInfo = directoryInfo.Parent;
-        if (directoryInfo is not null) directoryInfo.Attributes = FileAttributes.Directory | FileAttributes.Hidden;
-        return directorySecretKeys;
     }
 }
