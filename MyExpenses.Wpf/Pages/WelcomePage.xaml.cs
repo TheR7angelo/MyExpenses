@@ -6,7 +6,6 @@ using System.Windows.Controls;
 using MyExpenses.Core.Export;
 using MyExpenses.Models.IO;
 using MyExpenses.Models.WebApi.Authenticator;
-using MyExpenses.Models.WebApi.DropBox;
 using MyExpenses.Models.Wpf.Save;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils;
@@ -34,41 +33,6 @@ public partial class WelcomePage
         InitializeComponent();
 
         AutoUpdaterGitHub.CheckUpdateGitHub();
-        
-        if (!_isFirstTime) return;
-
-        _ = CheckExistingDatabaseIsSyncAsync();
-        _isFirstTime = false;
-    }
-
-    private async Task<(IEnumerable<ExistingDatabase> ExistingDatabaseLocalIsOutdated,
-        IEnumerable<ExistingDatabase> ExistingDatabaseRemoteIsOutdated,
-        IEnumerable<ExistingDatabase> ExistingDatabaseSynchronized)> CheckExistingDatabaseIsSyncAsync()
-    {
-        var localOutdated = new List<ExistingDatabase>();
-        var remoteOutdated = new List<ExistingDatabase>();
-        var synchronized = new List<ExistingDatabase>();
-        
-        foreach (var existingDatabase in ExistingDatabases)
-        {
-            var syncStatus = await existingDatabase.CheckIsLocalDatabaseIsOutdated(ProjectSystem.Wpf);
-            switch (syncStatus)
-            {
-                case SyncStatus.LocalIsOutdated:
-                    localOutdated.Add(existingDatabase);
-                    break;
-                case SyncStatus.RemoteIsOutdated:
-                    remoteOutdated.Add(existingDatabase);
-                    break;
-                case SyncStatus.Synchronized:
-                    synchronized.Add(existingDatabase);
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
-        }
-        
-        return (localOutdated, remoteOutdated, synchronized);
     }
 
     #region Action
@@ -134,6 +98,15 @@ public partial class WelcomePage
 
     #region Function
 
+    private async Task CheckExistingDatabaseIsSyncAsync()
+    {
+        await Parallel.ForEachAsync(ExistingDatabases, async (existingDatabase, _) =>
+        {
+            var syncStatus = await existingDatabase.CheckIsLocalDatabaseIsOutdated(ProjectSystem.Wpf);
+            existingDatabase.SyncStatus = syncStatus;
+        });
+    }
+
     private static bool ConfirmDeletion(string message)
     {
         var response = MsgBox.Show(message, MsgBoxImage.Question, MessageBoxButton.YesNoCancel);
@@ -153,11 +126,13 @@ public partial class WelcomePage
 
     private static void DeleteLocalDatabases(List<ExistingDatabase> databases)
     {
-        foreach (var database in databases.Where(database => !string.IsNullOrEmpty(database.FilePath) && File.Exists(database.FilePath)))
+        foreach (var database in databases.Where(database =>
+                     !string.IsNullOrEmpty(database.FilePath) && File.Exists(database.FilePath)))
         {
             File.Delete(database.FilePath);
 
-            var backupDirectory = Path.Join(DbContextBackup.LocalDirectoryBackupDatabase, database.FileNameWithoutExtension);
+            var backupDirectory = Path.Join(DbContextBackup.LocalDirectoryBackupDatabase,
+                database.FileNameWithoutExtension);
             if (Directory.Exists(backupDirectory))
             {
                 Directory.Delete(backupDirectory, true);
@@ -170,9 +145,12 @@ public partial class WelcomePage
         var dropboxService = await DropboxService.CreateAsync(ProjectSystem.Wpf);
         foreach (var existingDatabase in existingDatabasesSelected)
         {
-            Log.Information("Starting to upload {ExistingDatabaseFileName} to cloud storage", existingDatabase.FileName);
-            _ = await dropboxService.UploadFileAsync(existingDatabase.FilePath, DbContextBackup.CloudDirectoryBackupDatabase);
-            Log.Information("Successfully uploaded {ExistingDatabaseFileName} to cloud storage", existingDatabase.FileName);
+            Log.Information("Starting to upload {ExistingDatabaseFileName} to cloud storage",
+                existingDatabase.FileName);
+            _ = await dropboxService.UploadFileAsync(existingDatabase.FilePath,
+                DbContextBackup.CloudDirectoryBackupDatabase);
+            Log.Information("Successfully uploaded {ExistingDatabaseFileName} to cloud storage",
+                existingDatabase.FileName);
         }
     }
 
@@ -180,11 +158,13 @@ public partial class WelcomePage
     {
         var dropboxService = await DropboxService.CreateAsync(ProjectSystem.Wpf);
         Log.Information("Starting to upload {FileName} to cloud storage", existingDatabasesSelected.FileName);
-        _ = await dropboxService.UploadFileAsync(existingDatabasesSelected.FilePath, DbContextBackup.CloudDirectoryBackupDatabase);
+        _ = await dropboxService.UploadFileAsync(existingDatabasesSelected.FilePath,
+            DbContextBackup.CloudDirectoryBackupDatabase);
         Log.Information("Successfully uploaded {FileName} to cloud storage", existingDatabasesSelected.FileName);
     }
 
-    private static async Task ExportToLocalFolderAsync(List<ExistingDatabase> existingDatabasesSelected, bool isCompress)
+    private static async Task ExportToLocalFolderAsync(List<ExistingDatabase> existingDatabasesSelected,
+        bool isCompress)
     {
         var folderDialog = new FolderDialog();
         var selectedDialog = folderDialog.GetFile();
@@ -202,19 +182,24 @@ public partial class WelcomePage
         {
             foreach (var existingDatabase in existingDatabasesSelected)
             {
-                Log.Information("Starting to export {ExistingDatabaseFileName}", existingDatabase.FileNameWithoutExtension);
+                Log.Information("Starting to export {ExistingDatabaseFileName}",
+                    existingDatabase.FileNameWithoutExtension);
                 var success = await existingDatabase.ToFolderAsync(selectedDialog, isCompress);
                 if (!success) failedExistingDatabases.Add(existingDatabase);
-                else Log.Information("Successfully exported {ExistingDatabaseFileName}", existingDatabase.FileNameWithoutExtension);
+                else
+                    Log.Information("Successfully exported {ExistingDatabaseFileName}",
+                        existingDatabase.FileNameWithoutExtension);
             }
         });
 
         if (failedExistingDatabases.Count > 0)
         {
             Log.Information("Failed to export some database to local folder");
-            MsgBox.Show(WelcomePageResources.MessageBoxErrorExportToLocalFolder, MsgBoxImage.Error, MessageBoxButton.OK);
+            MsgBox.Show(WelcomePageResources.MessageBoxErrorExportToLocalFolder, MsgBoxImage.Error,
+                MessageBoxButton.OK);
             return;
         }
+
         Log.Information("Database successfully copied to local storage");
 
         var response = MsgBox.Show(WelcomePageResources.MessageBoxOpenExportFolderQuestion, MsgBoxImage.Question,
@@ -359,7 +344,8 @@ public partial class WelcomePage
 
     private static async Task SaveToLocalDatabase(List<ExistingDatabase> existingDatabasesSelected)
     {
-        if (existingDatabasesSelected.Count is 1) await ExportToLocalDatabaseFileAsync(existingDatabasesSelected.First());
+        if (existingDatabasesSelected.Count is 1)
+            await ExportToLocalDatabaseFileAsync(existingDatabasesSelected.First());
         else await ExportToLocalDirectoryDatabaseAsync(existingDatabasesSelected);
     }
 
@@ -377,9 +363,11 @@ public partial class WelcomePage
         foreach (var existingDatabase in existingDatabasesSelected)
         {
             var newFilePath = Path.Join(selectedFolder, existingDatabase.FileName);
-            Log.Information("Starting to copy {ExistingDatabaseFileName} to {NewFilePath}", existingDatabase.FileName, newFilePath);
+            Log.Information("Starting to copy {ExistingDatabaseFileName} to {NewFilePath}", existingDatabase.FileName,
+                newFilePath);
             await Task.Run(() => File.Copy(existingDatabase.FilePath, newFilePath, true));
-            Log.Information("Successfully copied {ExistingDatabaseFileName} to {NewFilePath}", existingDatabase.FileName, newFilePath);
+            Log.Information("Successfully copied {ExistingDatabaseFileName} to {NewFilePath}",
+                existingDatabase.FileName, newFilePath);
         }
 
         var response = MsgBox.Show(WelcomePageResources.MessageBoxOpenExportFolderQuestion, MsgBoxImage.Question,
@@ -401,10 +389,7 @@ public partial class WelcomePage
         selectedDialog = Path.ChangeExtension(selectedDialog, DbContextBackup.Extension);
         var selectedFilePath = existingDatabasesSelected.FilePath;
         Log.Information("Starting to copy database to {SelectedDialog}", selectedDialog);
-        await Task.Run(() =>
-        {
-            File.Copy(selectedFilePath, selectedDialog, true);
-        });
+        await Task.Run(() => { File.Copy(selectedFilePath, selectedDialog, true); });
         Log.Information("Database successfully copied to local storage");
 
         var parentDirectory = Path.GetDirectoryName(selectedDialog)!;
@@ -492,6 +477,11 @@ public partial class WelcomePage
                 ExistingDatabases.AddAndSort(existingDatabase, s => s.FileNameWithoutExtension);
             }
         }
+
+        if (!_isFirstTime) return;
+
+        _ = CheckExistingDatabaseIsSyncAsync();
+        _isFirstTime = false;
     }
 
     private static async Task SaveToCloudAsync(List<ExistingDatabase> existingDatabasesSelected)
