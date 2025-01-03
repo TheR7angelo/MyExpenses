@@ -1,4 +1,5 @@
 using System.Security.Cryptography;
+using MyExpenses.Models.WebApi.DropBox;
 
 namespace MyExpenses.Models.IO;
 
@@ -53,6 +54,13 @@ public class ExistingDatabase
 
     public string HashContentDropbox
         => _hashContentHashContentDropbox ??= ComputeDropboxContentHash();
+
+    /// <summary>
+    /// Gets or sets the synchronization status of the database with the Dropbox storage.
+    /// This property indicates whether the local database is synchronized, outdated, or in an unknown state,
+    /// based on comparison with the remote Dropbox version.
+    /// </summary>
+    public SyncStatus SyncStatus { get; set; } = SyncStatus.Unknown;
 
     public ExistingDatabase(string filePath)
     {
