@@ -45,16 +45,17 @@ public static class DropboxServiceUtils
         => File.Exists(FilePathSecretKeys);
 
     /// <summary>
-    /// Checks if the local database is outdated by comparing its content hash and last modified time
-    /// with the corresponding database file stored in Dropbox.
+    /// Checks the synchronization status of the given existing database against a connected Dropbox service.
+    /// Determines whether the database is unmatched, synchronized, or if one copy (local or remote) is outdated.
     /// </summary>
-    /// <param name="existingDatabase">The existing local database to be checked.</param>
-    /// <param name="projectSystem">The project system defining the application context (for example, WPF or MAUI).</param>
-    /// <returns>A <see cref="SyncStatus"/> value representing the synchronization status of the local and cloud database files.</returns>
-    public static async Task<SyncStatus> CheckIsLocalDatabaseIsOutdated(this ExistingDatabase existingDatabase,
+    /// <param name="existingDatabase">The existing database to evaluate for synchronization status.</param>
+    /// <param name="projectSystem">The project system context (for example, Wpf or Maui) used to create and initialize a Dropbox service instance.</param>
+    /// <returns>A task representing the asynchronous operation, containing the synchronization status of the database as a <see cref="SyncStatus"/> value.</returns>
+    public static async Task<SyncStatus> CheckStatus(this ExistingDatabase existingDatabase,
         ProjectSystem projectSystem)
     {
         if (!IsDropboxEnabled()) return SyncStatus.UnSynchronized;
+        if (!File.Exists(existingDatabase.FilePath)) return SyncStatus.UnSynchronized;
 
         var dropboxService = await DropboxService.CreateAsync(projectSystem);
         var cloudDatabaseFiles = await dropboxService.ListFileAsync(DbContextBackup.CloudDirectoryBackupDatabase);
@@ -63,7 +64,7 @@ public static class DropboxServiceUtils
 
         var cloudDatabaseFile = cloudDatabase.AsFile;
         var cloudDatabaseHashContent = cloudDatabaseFile.ContentHash;
-        var localDatabaseHashContent = existingDatabase.HashContentDropbox;
+        var localDatabaseHashContent = existingDatabase.GetDropboxContentHash();
 
         if (cloudDatabaseHashContent.Equals(localDatabaseHashContent, StringComparison.Ordinal)) return SyncStatus.Synchronized;
 
