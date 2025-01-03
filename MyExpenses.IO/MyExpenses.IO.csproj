@@ -21,10 +21,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <None Remove="Sig\Shp\cordinate system.csv" />
-    </ItemGroup>
-
-    <ItemGroup>
       <None Remove="Resources\Html\material-components-web.min.css" />
       <None Remove="Resources\Html\material-components-web.min.js" />
     </ItemGroup>
