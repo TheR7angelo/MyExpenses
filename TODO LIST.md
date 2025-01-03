@@ -83,3 +83,6 @@ ___
 >   - [X] Add new table Sql for recursive expense with all details / definition of time
 >   - [X] Add Method to add / edit Sql table with application
 >   - [X] At each start of database with application, prompt message to the user to ask if he wants to add all recurse expenses for the current month
+> - [ ] Check updated database sync ![0%](https://geps.dev/progress/0)<!-- [0/2] -->
+>   - [ ] If database sync is activated, then check if a local database is outdated and ask to sync before use
+>   - [ ] If database sync is activated and cloud database is outdated, then before the quit of application ask to sync
