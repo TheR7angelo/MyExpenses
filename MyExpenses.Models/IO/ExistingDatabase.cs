@@ -49,6 +49,11 @@ public class ExistingDatabase
     public string HashContent
         => _hashContent ??= ComputeHashContent();
 
+    private string? _hashContentHashContentDropbox;
+
+    public string HashContentDropbox
+        => _hashContentHashContentDropbox ??= ComputeDropboxContentHash();
+
     public ExistingDatabase(string filePath)
     {
         FilePath = filePath;
@@ -84,6 +89,40 @@ public class ExistingDatabase
 
         sha256.TransformFinalBlock([], 0, 0);
         return BitConverter.ToString(sha256.Hash!).Replace("-", "").ToLowerInvariant();
+    }
+
+    /// <summary>
+    /// Computes the Dropbox content hash of the file specified by the FilePath property.
+    /// The method divides the file into 4 MB chunks, computes the SHA256 hash for each chunk,
+    /// concatenates these hashes, and then computes a final SHA256 hash of the concatenated result.
+    /// Returns the computed hash as a hexadecimal string.
+    /// </summary>
+    /// <returns>
+    /// A string representing the Dropbox content hash of the file.
+    /// Returns an empty string if the file doesn't exist or can't be read.
+    /// </returns>
+    private string ComputeDropboxContentHash()
+    {
+        const int blockSize = 4 * 1024 * 1024; // 4 Mo (4 194 304 octets)
+
+        using var sha256 = SHA256.Create();
+        using var fileStream = new FileStream(FilePath, FileMode.Open, FileAccess.Read, FileShare.Read);
+
+        var buffer = new byte[blockSize];
+        int bytesRead;
+        using var concatenatedHashStream = new MemoryStream();
+
+        while ((bytesRead = fileStream.Read(buffer, 0, blockSize)) > 0)
+        {
+            var blockHash = sha256.ComputeHash(buffer, 0, bytesRead);
+
+            concatenatedHashStream.Write(blockHash, 0, blockHash.Length);
+        }
+
+        concatenatedHashStream.Position = 0;
+        var finalHash = sha256.ComputeHash(concatenatedHashStream);
+
+        return BitConverter.ToString(finalHash).Replace("-", "").ToLowerInvariant();
     }
 
 }

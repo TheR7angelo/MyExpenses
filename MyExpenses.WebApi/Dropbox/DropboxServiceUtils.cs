@@ -1,3 +1,8 @@
+using MyExpenses.Models.IO;
+using MyExpenses.Models.WebApi.Authenticator;
+using MyExpenses.Models.WebApi.DropBox;
+using MyExpenses.Sql.Context;
+
 namespace MyExpenses.WebApi.Dropbox;
 
 public static class DropboxServiceUtils
@@ -38,4 +43,31 @@ public static class DropboxServiceUtils
     /// <returns>A boolean value indicating whether the Dropbox integration is enabled.</returns>
     public static bool IsDropboxEnabled()
         => File.Exists(FilePathSecretKeys);
+
+    /// <summary>
+    /// Checks if the local database is outdated by comparing its last modification time with the corresponding file in Dropbox.
+    /// </summary>
+    /// <param name="existingDatabase">The local database instance whose state is being checked.</param>
+    /// <param name="projectSystem">The project system instance to initialize Dropbox integration.</param>
+    /// <returns>A task that represents the asynchronous operation.The task result contains a boolean value indicating whether the local database is outdated compared to the file in Dropbox.</returns>
+    public static async Task<SyncStatus> CheckIsLocalDatabaseIsOutdated(this ExistingDatabase existingDatabase,
+        ProjectSystem projectSystem)
+    {
+        if (!IsDropboxEnabled()) return SyncStatus.Synchronized;
+
+        var dropboxService = await DropboxService.CreateAsync(projectSystem);
+        var cloudDatabaseFiles = await dropboxService.ListFileAsync(DbContextBackup.CloudDirectoryBackupDatabase);
+        var cloudDatabase = cloudDatabaseFiles.FirstOrDefault(s => s.Name.Equals(existingDatabase.FileInfo.Name));
+        if (cloudDatabase is null) return SyncStatus.Synchronized;
+
+        var cloudDatabaseFile = cloudDatabase.AsFile;
+        var cloudDatabaseHashContent = cloudDatabaseFile.ContentHash;
+        var localDatabaseHashContent = existingDatabase.HashContentDropbox;
+
+        if (cloudDatabaseHashContent.Equals(localDatabaseHashContent, StringComparison.Ordinal)) return SyncStatus.Synchronized;
+
+        return cloudDatabase.AsFile.ClientModified.ToUniversalTime() > existingDatabase.FileInfo.LastWriteTimeUtc
+            ? SyncStatus.LocalIsOutdated
+            : SyncStatus.RemoteIsOutdated;
+    }
 }
