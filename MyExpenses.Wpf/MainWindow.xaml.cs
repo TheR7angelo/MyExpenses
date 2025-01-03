@@ -132,6 +132,10 @@ public partial class MainWindow
 
     #endregion
 
+    public delegate void VaccumDatabaseEventHandler();
+
+    public static event VaccumDatabaseEventHandler? VaccumDatabase;
+
     public MainWindow()
     {
         var assembly = Assembly.GetEntryAssembly()!;
@@ -212,6 +216,8 @@ public partial class MainWindow
                 MessageBoxButton.OK);
         }
 
+        VaccumDatabase?.Invoke();
+
         if (!listSuccess.Any(s => s)) return;
 
         var vacuumDatabaseUpdateWindow = new VacuumDatabaseUpdateWindow(sizeDatabases);
@@ -242,6 +248,8 @@ public partial class MainWindow
             MsgBox.Show(MainWindowResources.MessageBoxMenuItemVacuumDatabaseError, MsgBoxImage.Error,
                 MessageBoxButton.OK);
         }
+
+        VaccumDatabase?.Invoke();
     }
 
     private void MenuItemSetting_OnClick(object sender, RoutedEventArgs e)
