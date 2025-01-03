@@ -17,7 +17,7 @@ public static class DropboxServiceUtils
     /// <summary>
     /// Gets the file path for storing the secret keys used in Dropbox integration.
     /// The file typically contains authentication and token information for secure access.
-    /// This property combines the directory path for secret keys with a predefined file name,
+    /// This property combines the directory path for secret keys with a predefined filename,
     /// such as "AccessTokenAuthentication.json".
     /// </summary>
     public static string FilePathSecretKeys { get; } = Path.Join(DirectorySecretKeys, "AccessTokenAuthentication.json");
