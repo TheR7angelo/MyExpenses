@@ -17,14 +17,14 @@ public class ExistingDatabase
     /// and is primarily used for operations requiring the file's descriptive identifier.
     /// </summary>
 
-    public string FileName { get; private set; }
+    public string FileName { get; }
 
     /// <summary>
     /// Gets the name of the file without its extension.
     /// This property is derived from the <see cref="FileName"/> property and excludes the file extension to simplify file identification.
     /// It can be useful when working with files in contexts where the file extension is not needed.
     /// </summary>
-    public string FileNameWithoutExtension { get; private set; }
+    public string FileNameWithoutExtension { get; }
 
     private FileInfo? _fileInfo;
 
