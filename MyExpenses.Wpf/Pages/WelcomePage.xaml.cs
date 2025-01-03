@@ -37,7 +37,7 @@ public partial class WelcomePage
     }
 
     private void MainWindow_OnVaccumDatabase()
-        => _ = CheckExistingDatabaseIsSyncAsync(ExistingDatabases);
+        => _ = ExistingDatabases.CheckExistingDatabaseIsSyncAsync();
 
     #region Action
 
@@ -480,7 +480,7 @@ public partial class WelcomePage
             }
         }
 
-        _ = CheckExistingDatabaseIsSyncAsync(ExistingDatabases);
+        _ = ExistingDatabases.CheckExistingDatabaseIsSyncAsync();
     }
 
     private static async Task SaveToCloudAsync(List<ExistingDatabase> existingDatabasesSelected)
@@ -488,20 +488,11 @@ public partial class WelcomePage
         if (existingDatabasesSelected.Count is 1) await ExportToCloudFileAsync(existingDatabasesSelected.First());
         else await ExportToCloudDirectoryAsync(existingDatabasesSelected);
 
-        await CheckExistingDatabaseIsSyncAsync(existingDatabasesSelected);
+        await existingDatabasesSelected.CheckExistingDatabaseIsSyncAsync();
     }
 
     private static void ShowSuccessMessage(string message)
         => MsgBox.Show(message, MsgBoxImage.Check, MessageBoxButton.OK);
 
     #endregion
-
-    private static async Task CheckExistingDatabaseIsSyncAsync(IEnumerable<ExistingDatabase> existingDatabases)
-    {
-        foreach (var existingDatabase in existingDatabases)
-        {
-            var syncStatus = await existingDatabase.CheckStatus(ProjectSystem.Wpf);
-            existingDatabase.SyncStatus = syncStatus;
-        }
-    }
 }

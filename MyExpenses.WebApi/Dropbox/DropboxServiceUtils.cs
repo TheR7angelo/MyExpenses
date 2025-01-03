@@ -72,4 +72,19 @@ public static class DropboxServiceUtils
             ? SyncStatus.LocalIsOutdated
             : SyncStatus.RemoteIsOutdated;
     }
+
+    /// <summary>
+    /// Updates the synchronization status for a collection of existing databases by analyzing their state
+    /// against the Dropbox cloud storage.
+    /// </summary>
+    /// <param name="existingDatabases">A collection of <see cref="ExistingDatabase"/> objects to be checked for synchronization status.</param>
+    /// <returns>An asynchronous task that represents the operation of updating the synchronization statuses for the provided databases.</returns>
+    public static async Task CheckExistingDatabaseIsSyncAsync(this IEnumerable<ExistingDatabase> existingDatabases)
+    {
+        foreach (var existingDatabase in existingDatabases)
+        {
+            var syncStatus = await existingDatabase.CheckStatus(ProjectSystem.Wpf);
+            existingDatabase.SyncStatus = syncStatus;
+        }
+    }
 }
