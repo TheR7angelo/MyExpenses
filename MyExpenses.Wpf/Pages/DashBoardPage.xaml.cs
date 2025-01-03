@@ -298,12 +298,12 @@ public partial class DashBoardPage
     {
         Instance = this;
 
-        var now = DateTime.Now;
+        var (currentYear, currentMonth, _) = DateTime.Now;
         using var context = new DataBaseContext();
         var recurrences = context.TRecursiveExpenses
             .Where(s => !s.ForceDeactivate)
             .Where(s => s.IsActive)
-            .Where(s => s.NextDueDate.Year.Equals(now.Year) && s.NextDueDate.Month.Equals(now.Month))
+            .Where(s => s.NextDueDate.Year <= currentYear && s.NextDueDate.Month <= currentMonth)
             .AsEnumerable();
 
         if (recurrences.Any())
@@ -330,16 +330,15 @@ public partial class DashBoardPage
                 .Select(y => y.ToString())
         ];
 
-        if (Years.Count.Equals(0)) Years.Add(now.Year.ToString());
+        if (Years.Count.Equals(0)) Years.Add(currentYear.ToString());
         var lastYear = int.Parse(Years.Max()!);
-        var currentYear = now.Year;
         for (var year = lastYear + 1; year <= currentYear; year++)
         {
             Years.Insert(0, year.ToString());
         }
 
-        SelectedYear = now.Year.ToString();
-        SelectedMonth = Months[now.Month - 1];
+        SelectedYear = currentYear.ToString();
+        SelectedMonth = Months[currentMonth - 1];
 
         RefreshAccountTotal();
 
