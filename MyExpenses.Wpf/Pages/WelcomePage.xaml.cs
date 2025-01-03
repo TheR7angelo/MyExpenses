@@ -6,6 +6,7 @@ using System.Windows.Controls;
 using MyExpenses.Core.Export;
 using MyExpenses.Models.IO;
 using MyExpenses.Models.WebApi.Authenticator;
+using MyExpenses.Models.WebApi.DropBox;
 using MyExpenses.Models.Wpf.Save;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils;
@@ -23,6 +24,7 @@ namespace MyExpenses.Wpf.Pages;
 
 public partial class WelcomePage
 {
+    private static bool _isFirstTime = true;
     public ObservableCollection<ExistingDatabase> ExistingDatabases { get; } = [];
 
     public WelcomePage()
@@ -32,6 +34,41 @@ public partial class WelcomePage
         InitializeComponent();
 
         AutoUpdaterGitHub.CheckUpdateGitHub();
+        
+        if (!_isFirstTime) return;
+
+        _ = CheckExistingDatabaseIsSyncAsync();
+        _isFirstTime = false;
+    }
+
+    private async Task<(IEnumerable<ExistingDatabase> ExistingDatabaseLocalIsOutdated,
+        IEnumerable<ExistingDatabase> ExistingDatabaseRemoteIsOutdated,
+        IEnumerable<ExistingDatabase> ExistingDatabaseSynchronized)> CheckExistingDatabaseIsSyncAsync()
+    {
+        var localOutdated = new List<ExistingDatabase>();
+        var remoteOutdated = new List<ExistingDatabase>();
+        var synchronized = new List<ExistingDatabase>();
+        
+        foreach (var existingDatabase in ExistingDatabases)
+        {
+            var syncStatus = await existingDatabase.CheckIsLocalDatabaseIsOutdated(ProjectSystem.Wpf);
+            switch (syncStatus)
+            {
+                case SyncStatus.LocalIsOutdated:
+                    localOutdated.Add(existingDatabase);
+                    break;
+                case SyncStatus.RemoteIsOutdated:
+                    remoteOutdated.Add(existingDatabase);
+                    break;
+                case SyncStatus.Synchronized:
+                    synchronized.Add(existingDatabase);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+        }
+        
+        return (localOutdated, remoteOutdated, synchronized);
     }
 
     #region Action
