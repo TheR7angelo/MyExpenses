@@ -23,7 +23,6 @@ namespace MyExpenses.Wpf.Pages;
 
 public partial class WelcomePage
 {
-    private static bool _isFirstTime = true;
     public ObservableCollection<ExistingDatabase> ExistingDatabases { get; } = [];
 
     public WelcomePage()
@@ -33,7 +32,12 @@ public partial class WelcomePage
         InitializeComponent();
 
         AutoUpdaterGitHub.CheckUpdateGitHub();
+
+        MainWindow.VaccumDatabase += MainWindow_OnVaccumDatabase;
     }
+
+    private void MainWindow_OnVaccumDatabase()
+        => _ = CheckExistingDatabaseIsSyncAsync(ExistingDatabases);
 
     #region Action
 
@@ -97,15 +101,6 @@ public partial class WelcomePage
     #endregion
 
     #region Function
-
-    private async Task CheckExistingDatabaseIsSyncAsync()
-    {
-        await Parallel.ForEachAsync(ExistingDatabases, async (existingDatabase, _) =>
-        {
-            var syncStatus = await existingDatabase.CheckIsLocalDatabaseIsOutdated(ProjectSystem.Wpf);
-            existingDatabase.SyncStatus = syncStatus;
-        });
-    }
 
     private static bool ConfirmDeletion(string message)
     {
@@ -405,9 +400,16 @@ public partial class WelcomePage
         var metadatas = await dropboxService.ListFileAsync(DbContextBackup.CloudDirectoryBackupDatabase);
         metadatas = metadatas.Where(s => Path.GetExtension(s.PathDisplay).Equals(DbContextBackup.Extension));
 
-        var existingDatabase = metadatas.Select(s => new ExistingDatabase(s.PathDisplay));
+        var existingDatabases = metadatas.Select(s => new ExistingDatabase(s.PathDisplay)).ToList();
+        foreach (var existingDatabase in existingDatabases)
+        {
+            var filePath = Path.Join(DbContextBackup.LocalDirectoryDatabase, existingDatabase.FileName);
+            var localDatabase = new ExistingDatabase(filePath);
+            existingDatabase.SyncStatus = await localDatabase.CheckStatus(ProjectSystem.Wpf);
+        }
+
         var selectDatabaseFileWindow = new SelectDatabaseFileWindow();
-        selectDatabaseFileWindow.ExistingDatabases.AddRange(existingDatabase);
+        selectDatabaseFileWindow.ExistingDatabases.AddRange(existingDatabases);
         selectDatabaseFileWindow.ShowDialog();
 
         if (selectDatabaseFileWindow.DialogResult is not true)
@@ -478,20 +480,28 @@ public partial class WelcomePage
             }
         }
 
-        if (!_isFirstTime) return;
-
-        _ = CheckExistingDatabaseIsSyncAsync();
-        _isFirstTime = false;
+        _ = CheckExistingDatabaseIsSyncAsync(ExistingDatabases);
     }
 
     private static async Task SaveToCloudAsync(List<ExistingDatabase> existingDatabasesSelected)
     {
         if (existingDatabasesSelected.Count is 1) await ExportToCloudFileAsync(existingDatabasesSelected.First());
         else await ExportToCloudDirectoryAsync(existingDatabasesSelected);
+
+        await CheckExistingDatabaseIsSyncAsync(existingDatabasesSelected);
     }
 
     private static void ShowSuccessMessage(string message)
         => MsgBox.Show(message, MsgBoxImage.Check, MessageBoxButton.OK);
 
     #endregion
+
+    private static async Task CheckExistingDatabaseIsSyncAsync(IEnumerable<ExistingDatabase> existingDatabases)
+    {
+        foreach (var existingDatabase in existingDatabases)
+        {
+            var syncStatus = await existingDatabase.CheckStatus(ProjectSystem.Wpf);
+            existingDatabase.SyncStatus = syncStatus;
+        }
+    }
 }
