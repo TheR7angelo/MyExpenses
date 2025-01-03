@@ -67,7 +67,7 @@ public class ExistingDatabase
     /// </returns>
     private string ComputeHashContent()
     {
-        const int bufferSize = 4 * 1024 * 1024;
+        const int bufferSize = 4 * 1024 * 1024; // 4 Mo (4 194 304 octets)
 
         if (!File.Exists(FilePath)) return string.Empty;
 
