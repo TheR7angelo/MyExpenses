@@ -30,7 +30,7 @@ public static class MapsuiMapExtensions
     public static Map GetMap(bool widget, Color? backColor = null)
     {
         backColor ??= Color.Black;
-        var map = new Map { CRS = "EPSG:3857", BackColor = backColor };
+        var map = new Map { CRS = "EPSG:3857", BackColor = (Color)backColor };
         if (widget)
         {
             map.Widgets.AddRange(new List<IWidget>
