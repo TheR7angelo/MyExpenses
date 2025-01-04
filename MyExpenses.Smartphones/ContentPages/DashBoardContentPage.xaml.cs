@@ -221,7 +221,7 @@ public partial class DashBoardContentPage
 
         UpdateMonthLanguage();
 
-        var now = DateTime.Now;
+        var (currentYear, currentMonth, _) = DateTime.Now;
         using var context = new DataBaseContext();
         Years =
         [
@@ -234,13 +234,15 @@ public partial class DashBoardContentPage
                 .Select(y => y.ToString())
         ];
 
-        if (Years.Count.Equals(0))
+        if (Years.Count.Equals(0)) Years.Add(currentYear.ToString());
+        var lastYear = int.Parse(Years.Max()!);
+        for (var year = lastYear + 1; year <= currentYear; year++)
         {
-            Years.Add(DateTime.Now.Year.ToString());
+            Years.Insert(0, year.ToString());
         }
 
-        SelectedYear = now.Year.ToString();
-        SelectedMonth = Months[now.Month - 1];
+        SelectedYear = currentYear.ToString();
+        SelectedMonth = Months[currentMonth - 1];
 
         CurrentVTotalByAccount = context.VTotalByAccounts.FirstOrDefault();
 
