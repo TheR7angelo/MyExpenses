@@ -12,8 +12,8 @@ if (-Not (Test-Path -Path $destinationPath)) {
     New-Item -ItemType Directory -Path $destinationPath
 }
 
-# Copy all .png files
-Get-ChildItem -Path $sourcePath -Filter "*.png" | ForEach-Object {
+# Copy all .svg files
+Get-ChildItem -Path $sourcePath -Filter "*.svg" | ForEach-Object {
     Copy-Item -Path $_.FullName -Destination $destinationPath -Force
 }
 

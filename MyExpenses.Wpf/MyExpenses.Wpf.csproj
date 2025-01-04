@@ -15,7 +15,7 @@
     <ItemGroup>
       <PackageReference Include="FilterDataGrid" Version="1.2.8" />
       <PackageReference Include="LiveChartsCore.SkiaSharpView.WPF" Version="2.0.0-rc4.5" />
-      <PackageReference Include="Mapsui.Wpf" Version="5.0.0-beta.1" />
+      <PackageReference Include="Mapsui.Wpf" Version="5.0.0-beta.6" />
       <PackageReference Include="MaterialDesignThemes" Version="5.1.0" />
       <PackageReference Include="MaterialDesignThemes.MahApps" Version="3.1.0" />
       <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.2903.40" />
@@ -553,13 +553,7 @@
     </ItemGroup>
 
     <ItemGroup>
-      <AdditionalFiles Include="Resources\Maps\GreenMarker.png">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </AdditionalFiles>
       <AdditionalFiles Include="Resources\Maps\GreenMarker.svg">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </AdditionalFiles>
-      <AdditionalFiles Include="Resources\Maps\RedMarker.png">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </AdditionalFiles>
       <AdditionalFiles Include="Resources\Maps\RedMarker.svg">
@@ -567,9 +561,6 @@
       </AdditionalFiles>
       <None Remove="Resources\Assets\Icon Resize.png" />
       <None Remove="Resources\Maps\BlueMarker.png" />
-      <AdditionalFiles Include="Resources\Maps\BlueMarker.png">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </AdditionalFiles>
       <None Remove="Resources\Maps\BlueMarker.svg" />
       <AdditionalFiles Include="Resources\Maps\BlueMarker.svg">
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>

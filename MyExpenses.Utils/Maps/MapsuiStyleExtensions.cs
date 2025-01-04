@@ -15,20 +15,18 @@ public static class MapsuiStyleExtensions
         BlueMarkerStyle = SetBlueMarkerStyle();
     }
 
-    // private static Offset Offset => new() { IsRelative = false, X = 0, Y = 1000 };
-    private static Offset Offset => new() { X = 0, Y = 1000 };
-    private static double Scale => 0.02;
+    private static Offset Offset => new() { X = 0, Y = 222 };
+    private static double Scale => 0.1;
 
     private static readonly string IcoPath = Path.Join(AppContext.BaseDirectory, "Resources", "Maps");
 
     private static SymbolStyle SetGreenMarkerStyle()
     {
-        var icon = Path.Join(IcoPath, "GreenMarker.png");
-        var bitmapId = RegisterBitmap(icon);
+        var icon = Path.Join(IcoPath, "GreenMarker.svg");
 
         return new SymbolStyle
         {
-            BitmapId = bitmapId,
+            ImageSource = icon,
             SymbolOffset = Offset,
             SymbolScale = Scale
         };
@@ -36,12 +34,11 @@ public static class MapsuiStyleExtensions
 
     private static SymbolStyle SetRedMarkerStyle()
     {
-        var icon = Path.Join(IcoPath, "RedMarker.png");
-        var bitmapId = RegisterBitmap(icon);
+        var icon = Path.Join(IcoPath, "RedMarker.svg");
 
         return new SymbolStyle
         {
-            BitmapId = bitmapId,
+            ImageSource = icon,
             SymbolOffset = Offset,
             SymbolScale = Scale
         };
@@ -49,22 +46,13 @@ public static class MapsuiStyleExtensions
 
     private static SymbolStyle SetBlueMarkerStyle()
     {
-        var icon = Path.Join(IcoPath, "BlueMarker.png");
-        var bitmapId = RegisterBitmap(icon);
+        var icon = Path.Join(IcoPath, "BlueMarker.svg");
 
         return new SymbolStyle
         {
-            BitmapId = bitmapId,
+            ImageSource = icon,
             SymbolOffset = Offset,
             SymbolScale = Scale
         };
-    }
-
-    private static int RegisterBitmap(string filePath)
-    {
-        var fileStream = new FileStream(filePath, FileMode.Open);
-        var bitmapId = BitmapRegistry.Instance.Register(fileStream);
-
-        return bitmapId;
     }
 }
