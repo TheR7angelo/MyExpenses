@@ -4,33 +4,30 @@ public static class FileManager
 {
     public static void AddAllFiles()
     {
-        AddDatabaseFileModels();
-        AddMapsMaker();
+        Task.WhenAll(AddDatabaseFileModels(), AddMapsMaker());
     }
 
-    private static void AddMapsMaker()
+    private static async Task AddMapsMaker()
     {
         var packageDirectory = Path.Join("Resources", "Maps");
         var storageDirectoryPath = Path.Join(FileSystem.AppDataDirectory, packageDirectory);
 
-        var files = new List<string> { "BlueMarker.png", "GreenMarker.png", "RedMarker.png" };
+        var files = new List<string> { "BlueMarker.svg", "GreenMarker.svg", "RedMarker.svg" };
         foreach (var file in files)
         {
             var packageFile = Path.Join(packageDirectory, file);
             var storageFile = Path.Join(storageDirectoryPath, file);
 
-            WritePackageFile(packageFile, storageFile)
-                .ConfigureAwait(false).GetAwaiter().GetResult();
+            await WritePackageFile(packageFile, storageFile);
         }
     }
 
-    private static void AddDatabaseFileModels()
+    private static async Task AddDatabaseFileModels()
     {
         var packageFile = Path.Join("Database Models", "Model.sqlite");
         var storagePath = Path.Join(FileSystem.AppDataDirectory, packageFile);
 
-        WritePackageFile(packageFile, storagePath)
-            .ConfigureAwait(false).GetAwaiter().GetResult();
+        await WritePackageFile(packageFile, storagePath);
     }
 
     private static async Task WritePackageFile(string packageFile, string storagePath)
