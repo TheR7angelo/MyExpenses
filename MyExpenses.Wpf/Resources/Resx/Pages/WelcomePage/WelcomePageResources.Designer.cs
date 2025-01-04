@@ -193,5 +193,14 @@ namespace MyExpenses.Wpf.Resources.Resx.Pages.WelcomePage {
                 return ResourceManager.GetString("MessageBoxOpenExportFolderQuestion", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to use this database?{0}Your local version is outdated, we recommend that you sync it before using it.
+        /// </summary>
+        internal static string MessageBoxUseOutdatedWarningQuestion {
+            get {
+                return ResourceManager.GetString("MessageBoxUseOutdatedWarningQuestion", resourceCulture);
+            }
+        }
     }
 }

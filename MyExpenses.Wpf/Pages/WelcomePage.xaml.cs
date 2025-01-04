@@ -6,6 +6,7 @@ using System.Windows.Controls;
 using MyExpenses.Core.Export;
 using MyExpenses.Models.IO;
 using MyExpenses.Models.WebApi.Authenticator;
+using MyExpenses.Models.WebApi.DropBox;
 using MyExpenses.Models.Wpf.Save;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils;
@@ -81,6 +82,13 @@ public partial class WelcomePage
     {
         var button = (Button)sender;
         if (button.DataContext is not ExistingDatabase existingDatabase) return;
+
+        if (existingDatabase.SyncStatus is SyncStatus.LocalIsOutdated)
+        {
+            var response = MsgBox.Show(WelcomePageResources.MessageBoxUseOutdatedWarningQuestion,
+                MsgBoxImage.Question, MessageBoxButton.YesNo);
+            if (response is not MessageBoxResult.Yes) return;
+        }
 
         Log.Information("Connection to the database : \"{FileName}\"", existingDatabase.FileNameWithoutExtension);
 

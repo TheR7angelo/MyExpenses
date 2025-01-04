@@ -63,4 +63,7 @@
     <data name="MessageBoxErrorExportToLocalFolder" xml:space="preserve">
         <value>Failed to export some database to local folder, please retry</value>
     </data>
+    <data name="MessageBoxUseOutdatedWarningQuestion" xml:space="preserve">
+        <value>Are you sure you want to use this database?{0}Your local version is outdated, we recommend that you sync it before using it</value>
+    </data>
 </root>

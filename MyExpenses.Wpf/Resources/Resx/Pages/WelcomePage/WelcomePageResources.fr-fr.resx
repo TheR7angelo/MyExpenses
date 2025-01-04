@@ -56,4 +56,7 @@
     <data name="MessageBoxErrorExportToLocalFolder" xml:space="preserve">
         <value>Échec de l’exportation d’une base de données vers le dossier local, veuillez réessayer</value>
     </data>
+    <data name="MessageBoxUseOutdatedWarningQuestion" xml:space="preserve">
+        <value>Êtes-vous sûr de vouloir utiliser cette base de données ?{0}Votre version locale est obsolète, nous vous recommandons de la synchroniser avant de l’utiliser</value>
+    </data>
 </root>
