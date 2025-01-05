@@ -426,6 +426,17 @@ public partial class WelcomePage
             return;
         }
 
+        if (selectDatabaseFileWindow.ExistingDatabasesSelected.Any(s => s.SyncStatus is SyncStatus.RemoteIsOutdated))
+        {
+            var question = string.Format(WelcomePageResources.CloudDatabaseOutdatedWarningQuestion, '\n');
+            var response = MsgBox.Show(question, MsgBoxImage.Warning, MessageBoxButton.YesNo);
+            if (response is not MessageBoxResult.Yes)
+            {
+                Log.Information("Import cancelled. User chose to not import the cloud databases");
+                return;
+            }
+        }
+
         var files = selectDatabaseFileWindow.ExistingDatabasesSelected.Select(s => s.FilePath);
         foreach (var file in files)
         {

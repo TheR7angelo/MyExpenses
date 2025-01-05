@@ -132,6 +132,15 @@ namespace MyExpenses.Wpf.Resources.Resx.Pages.WelcomePage {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Some of the databases selected in the cloud appear to be less recent than those currently available in local storage.{0}Are you sure you want to import these cloud databases into local storage?.
+        /// </summary>
+        internal static string CloudDatabaseOutdatedWarningQuestion {
+            get {
+                return ResourceManager.GetString("CloudDatabaseOutdatedWarningQuestion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Do you really want to delete all database selected ?.
         /// </summary>
         internal static string DeleteDatabaseQuestion {

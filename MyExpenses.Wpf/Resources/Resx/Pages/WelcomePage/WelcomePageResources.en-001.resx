@@ -59,4 +59,7 @@
     <data name="MessageBoxUseOutdatedWarningQuestion" xml:space="preserve">
         <value>Are you sure you want to use this database?{0}Your local version is outdated, we recommend that you sync it before using it</value>
     </data>
+    <data name="CloudDatabaseOutdatedWarningQuestion" xml:space="preserve">
+        <value>Some of the databases selected in the cloud appear to be less recent than those currently available in local storage.{0}Are you sure you want to import these cloud databases into local storage?</value>
+    </data>
 </root>
