@@ -7,15 +7,15 @@
              xmlns:margin="clr-namespace:MyExpenses.Wpf.Utils.Margin;assembly=MyExpenses.Wpf.Utils"
              xmlns:colors="clr-namespace:MyExpenses.Wpf.Converters.Colors"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:converters="clr-namespace:MyExpenses.Wpf.Converters"
              mc:Ignorable="d"
 
              d:DesignHeight="300" d:DesignWidth="350"
              TextElement.Foreground="{DynamicResource MaterialDesignBody}">
 
     <UserControl.Resources>
-        <colors:SolidColorBrushToSolidColorBrushContrastingForegroundColorConverter
-            x:Key="SolidColorBrushToSolidColorBrushContrastingForegroundColorConverter">
-        </colors:SolidColorBrushToSolidColorBrushContrastingForegroundColorConverter>
+        <colors:SolidColorBrushToSolidColorBrushContrastingForegroundColorConverter x:Key="SolidColorBrushToSolidColorBrushContrastingForegroundColorConverter" />
+        <converters:InvertBooleanConverter x:Key="InvertBooleanConverter" />
     </UserControl.Resources>
 
     <Grid margin:PanelExtensions.MarginForAllChildren="1.75">
