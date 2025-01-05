@@ -44,25 +44,36 @@ public partial class SelectDatabaseFileWindow
         set => SetValue(ButtonCancelContentProperty, value);
     }
 
+    public static readonly DependencyProperty LabelStatusProperty = DependencyProperty.Register(nameof(LabelStatus),
+        typeof(string), typeof(SelectDatabaseFileWindow), new PropertyMetadata(default(string)));
+
+    public string LabelStatus
+    {
+        get => (string)GetValue(LabelStatusProperty);
+        set => SetValue(LabelStatusProperty, value);
+    }
+
     public SelectDatabaseFileWindow()
     {
-        Interface.LanguageChanged += Interface_OnLanguageChanged;
-        UpdateStringLanguage();
+        UpdateLanguage();
 
         InitializeComponent();
 
         this.SetWindowCornerPreference();
+
+        Interface.LanguageChanged += Interface_OnLanguageChanged;
     }
 
     private void Interface_OnLanguageChanged()
-        => UpdateStringLanguage();
+        => UpdateLanguage();
 
-    private void UpdateStringLanguage()
+    private void UpdateLanguage()
     {
         SelectDatabaseFileWindowTitle = SelectDatabaseFileWindowResources.SelectDatabaseFileWindowTitle;
 
         ButtonCancelContent = SelectDatabaseFileWindowResources.ButtonCancelCotent;
         ButtonValidContent = SelectDatabaseFileWindowResources.ButtonValidContent;
+        LabelStatus = SelectDatabaseFileWindowResources.LabelStatus;
     }
 
     private void ButtonValid_OnClick(object sender, RoutedEventArgs e)

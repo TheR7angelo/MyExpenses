@@ -86,5 +86,14 @@ namespace MyExpenses.Wpf.Resources.Resx.Windows.SelectDatabaseFileWindow {
                 return ResourceManager.GetString("SelectDatabaseFileWindowTitle", resourceCulture);
             }
         }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Status :
+        /// </summary>
+        internal static string LabelStatus {
+            get {
+                return ResourceManager.GetString("LabelStatus", resourceCulture);
+            }
+        }
     }
 }

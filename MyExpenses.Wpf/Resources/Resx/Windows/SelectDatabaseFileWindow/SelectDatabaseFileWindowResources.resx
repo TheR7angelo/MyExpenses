@@ -27,4 +27,7 @@
     <data name="SelectDatabaseFileWindowTitle" xml:space="preserve">
         <value>Select one or more database(s)</value>
     </data>
+    <data name="LabelStatus" xml:space="preserve">
+        <value>Status :</value>
+    </data>
 </root>
