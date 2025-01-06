@@ -41,7 +41,7 @@ public static class DropboxServiceUtils
     /// Determines whether the Dropbox integration is enabled by checking the existence of the secret keys file.
     /// </summary>
     /// <returns>A boolean value indicating whether the Dropbox integration is enabled.</returns>
-    public static bool IsDropboxEnabled()
+    private static bool IsDropboxEnabled()
         => File.Exists(FilePathSecretKeys);
 
     /// <summary>
