@@ -85,8 +85,8 @@ public partial class WelcomePage
 
         if (existingDatabase.SyncStatus is SyncStatus.LocalIsOutdated)
         {
-            var response = MsgBox.Show(WelcomePageResources.MessageBoxUseOutdatedWarningQuestion,
-                MsgBoxImage.Question, MessageBoxButton.YesNo);
+            var question = string.Format(WelcomePageResources.MessageBoxUseOutdatedWarningQuestion, Environment.NewLine);
+            var response = MsgBox.Show(question, MsgBoxImage.Question, MessageBoxButton.YesNo);
             if (response is not MessageBoxResult.Yes) return;
         }
 
@@ -428,7 +428,7 @@ public partial class WelcomePage
 
         if (selectDatabaseFileWindow.ExistingDatabasesSelected.Any(s => s.SyncStatus is SyncStatus.RemoteIsOutdated))
         {
-            var question = string.Format(WelcomePageResources.CloudDatabaseOutdatedWarningQuestion, '\n');
+            var question = string.Format(WelcomePageResources.CloudDatabaseOutdatedWarningQuestion, Environment.NewLine);
             var response = MsgBox.Show(question, MsgBoxImage.Warning, MessageBoxButton.YesNo);
             if (response is not MessageBoxResult.Yes)
             {
