@@ -82,7 +82,6 @@ public partial class CallBackLaterWindow
         CallBackLaterTime.After10Days
     ];
 
-    // TODO update value
     public CallBackLaterTime SelectedCallBackLaterTime { get; set; } = CallBackLaterTime.After30Minutes;
     public bool RadioButtonDownloadLaterYesIsChecked { get; set; } = true;
     public bool RadioButtonDownloadLaterNoIsChecked { get; set; }
