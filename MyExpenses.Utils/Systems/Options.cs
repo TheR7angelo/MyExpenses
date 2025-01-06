@@ -4,6 +4,7 @@ using Serilog.Events;
 
 namespace MyExpenses.Utils.Systems;
 
+// ReSharper disable once ClassNeverInstantiated.Global
 public sealed class Options
 {
     [Option( 'd', "debugLevel", Required = false, HelpText = "Debug level")]
