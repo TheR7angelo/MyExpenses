@@ -1,5 +1,6 @@
 using CommandLine;
 using Serilog.Events;
+// ReSharper disable UnusedAutoPropertyAccessor.Global
 
 namespace MyExpenses.Utils.Systems;
 
