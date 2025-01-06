@@ -188,16 +188,6 @@ public sealed partial class ColorPickerControl
         sender.Color = color;
     }
 
-    public event EventHandler<ColorChangedEventArgs>? ColorChanged;
-
-    private void ChangeColor()
-        => OnColorChanged();
-
-    private void OnColorChanged()
-    {
-        ColorChanged?.Invoke(this, new ColorChangedEventArgs(Color));
-    }
-
     public ColorPickerControl()
     {
         UpdateLanguage();
@@ -250,7 +240,6 @@ public sealed partial class ColorPickerControl
         ValueValue = value;
 
         UpdateGradiantSlider();
-        ChangeColor();
     }
 
     public Color Color
