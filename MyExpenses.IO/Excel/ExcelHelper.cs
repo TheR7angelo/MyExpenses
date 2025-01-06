@@ -140,8 +140,8 @@ public static class ExcelHelper
     {
         var worksheet = workbook.Worksheets.Add(worksheetName);
         worksheet.Cells["A1"].Value = columnHeader;
-        worksheet.Cells["A2"].Value = false;
-        worksheet.Cells["A3"].Value = true;
+        worksheet.Cells["A2"].Formula = "=FALSE()";
+        worksheet.Cells["A3"].Formula = "=TRUE()";
         var range = worksheet.Cells["A1:A3"];
 
         var tableName = worksheetName.Replace(" ", "_");
