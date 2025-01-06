@@ -90,7 +90,7 @@ public partial class WelcomePage
             if (response is not MessageBoxResult.Yes) return;
         }
 
-        Log.Information("Connection to the database : \"{FileName}\"", existingDatabase.FileNameWithoutExtension);
+        Log.Information("Connection to the database : \"{FileName}\" with statut : {Status}", existingDatabase.FileNameWithoutExtension, existingDatabase.SyncStatus);
 
         DataBaseContext.FilePath = existingDatabase.FilePath;
         // nameof(MainWindow.FrameBody).NavigateTo(typeof(DashBoard2Page));

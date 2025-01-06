@@ -141,13 +141,13 @@ public partial class MainWindow
         var assembly = Assembly.GetEntryAssembly()!;
         ApplicationName = assembly.GetName().Name!;
 
-        Interface.LanguageChanged += Interface_OnLanguageChanged;
         UpdateLanguage();
 
         InitializeComponent();
 
         this.SetWindowCornerPreference();
 
+        Interface.LanguageChanged += Interface_OnLanguageChanged;
         Navigator.CanGoBackChanged += Navigator_OnCanGoBackChanged;
     }
 
