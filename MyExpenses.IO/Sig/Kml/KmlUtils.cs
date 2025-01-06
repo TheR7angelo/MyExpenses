@@ -25,7 +25,7 @@ public static class KmlUtils
             if (string.IsNullOrEmpty(columnName)) continue;
 
             var value = propertyInfo.GetValue(obj);
-            if (value is bool b) value = b ? 1 : 0;
+            if (value is bool b) value = b ? "1" : "0";
 
             var xElement = new XElement(KmlNamespace + "SimpleData",
                 new XAttribute("name", columnName), value);
