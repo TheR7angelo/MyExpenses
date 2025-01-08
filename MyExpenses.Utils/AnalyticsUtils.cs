@@ -16,7 +16,7 @@ public static class AnalyticsUtils
         }
 
         var a = (n * sumXy - sumX * sumY) / (n * sumXx - sumX * sumX); // slope
-        var b = (sumY / n) - (a * sumX / n); // intercept
+        var b = sumY / n - a * sumX / n; // intercept
 
         return (a, b);
     }
