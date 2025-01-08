@@ -91,7 +91,7 @@ public partial class CumulativeSumChartControl
             {
                 Values = values,
                 Name = groupsByAccount.First().Account,
-                YToolTipLabelFormatter = point => $"{point.Model} {currency}",
+                YToolTipLabelFormatter = point => $"{point.Model} {currency}"
             };
 
             series.Add(stakedColumnSeries);

@@ -11,5 +11,5 @@ public enum MsgBoxImage
     Warning,
     Asterisk,
     Information,
-    Check,
+    Check
 }

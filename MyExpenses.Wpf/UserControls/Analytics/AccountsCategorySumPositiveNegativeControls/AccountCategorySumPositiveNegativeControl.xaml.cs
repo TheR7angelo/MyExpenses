@@ -174,7 +174,7 @@ public partial class AccountCategorySumPositiveNegativeControl
             {
                 var value = y.Model;
                 return $"{value:F2} {symbol}";
-            },
+            }
         };
 
         var negativeSeries = new ColumnSeries<double>
@@ -186,7 +186,7 @@ public partial class AccountCategorySumPositiveNegativeControl
             {
                 var value = -1 * y.Model;
                 return $"{value:F2} {symbol}";
-            },
+            }
         };
 
         Series = [negativeSeries, positiveSeries];

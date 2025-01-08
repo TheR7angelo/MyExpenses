@@ -37,7 +37,7 @@ public static class MapsuiMapExtensions
             {
                 new MapInfoWidget(map),
                 new ZoomInOutWidget(),
-                new ScaleBarWidget(map),
+                new ScaleBarWidget(map)
             });
         }
 

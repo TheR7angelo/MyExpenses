@@ -332,7 +332,7 @@ public partial class BankTransferPage
             IsPointed = true,
             PlaceFk = 1,
             DateAdded = now,
-            DatePointed = now,
+            DatePointed = now
         };
 
         var toHistory = new THistory
@@ -346,7 +346,7 @@ public partial class BankTransferPage
             IsPointed = true,
             PlaceFk = 1,
             DateAdded = now,
-            DatePointed = now,
+            DatePointed = now
         };
 
         BankTransfer.THistories.Add(fromHistory);
