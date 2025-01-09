@@ -33,22 +33,13 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <!-- <material:ButtonView Grid.Row="0" Grid.Column="0"> -->
-            <!-- -->
-            <!--     <Image> -->
-            <!--         <Image.Source> -->
-            <!--             <FontImageSource FontFamily="MaterialSharpFilled" Glyph="{x:Static m:MaterialSharp.Warning}" /> -->
-            <!--         </Image.Source> -->
-            <!--     </Image> -->
-            <!-- -->
-            <!-- </material:ButtonView> -->
-
             <Button Grid.Row="0" Grid.Column="0"
-                    StyleClass="ElevatedButton"
+                    StyleClass="FilledButton"
                     Margin="5"
                     HeightRequest="56"
                     WidthRequest="{Binding HeightRequest, Source={RelativeSource Self}}"
-                    Padding="0">
+                    Padding="0"
+                    Clicked="ButtonDatabase_OnClick">
 
                 <Button.ImageSource>
                     <FontImageSource FontFamily="MaterialSharpFilled"
@@ -58,17 +49,6 @@
                 </Button.ImageSource>
 
             </Button>
-
-            <!-- <customFrame:ButtonImageView Grid.Row="0" Grid.Column="0" -->
-            <!--                              Style="{StaticResource FloatingActionDarkButtonImageView}" -->
-            <!--                              Margin="5" -->
-            <!--                              GeometrySource="Plus" -->
-            <!--                              ImageHeightRequest="40" -->
-            <!--                              ImageWidthRequest="{Binding ImageHeightRequest, Source={RelativeSource Self}}" -->
-            <!--                              HeightRequest="56" -->
-            <!--                              WidthRequest="{Binding HeightRequest, Source={RelativeSource Self}}" -->
-            <!--                              Clicked="ButtonAddDataBase_OnClick"> -->
-            <!-- </customFrame:ButtonImageView> -->
 
             <customFrame:ButtonImageView Grid.Row="0" Grid.Column="1"
                                          Style="{StaticResource FloatingActionSecondaryMidButtonImageView}"
