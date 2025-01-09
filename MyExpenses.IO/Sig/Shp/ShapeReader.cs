@@ -243,6 +243,7 @@ public static class ShapeReader
                 str = str.Trim('*', ' ');
                 value = string.IsNullOrEmpty(str) ? null : str;
                 // value = value is not null ? DateTimeConverterObject.ConvertFromString((string?)value) : value;
+                // ReSharper disable once HeapView.BoxingAllocation
                 var dateConvert = value is not null ? DateTimeConverterObject.ConvertFromString((string?)value) : value;
 
                 value = dateConvert ?? value;
