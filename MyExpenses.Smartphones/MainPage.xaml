@@ -5,6 +5,8 @@
              xmlns:margin="clr-namespace:MyExpenses.Maui.Utils.Margin;assembly=MyExpenses.Maui.Utils"
              xmlns:customFrame="clr-namespace:MyExpenses.Smartphones.UserControls.Buttons.CustomFrame"
              xmlns:io="clr-namespace:MyExpenses.Models.IO;assembly=MyExpenses.Models"
+             xmlns:m="clr-namespace:UraniumUI.Icons.MaterialSymbols;assembly=UraniumUI.Icons.MaterialSymbols"
+
              x:Class="MyExpenses.Smartphones.MainPage"
              BindingContext="{Binding Source={RelativeSource Self}}">
 
@@ -31,16 +33,42 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <customFrame:ButtonImageView Grid.Row="0" Grid.Column="0"
-                                         Style="{StaticResource FloatingActionDarkButtonImageView}"
-                                         Margin="5"
-                                         GeometrySource="Plus"
-                                         ImageHeightRequest="40"
-                                         ImageWidthRequest="{Binding ImageHeightRequest, Source={RelativeSource Self}}"
-                                         HeightRequest="56"
-                                         WidthRequest="{Binding HeightRequest, Source={RelativeSource Self}}"
-                                         Clicked="ButtonAddDataBase_OnClick">
-            </customFrame:ButtonImageView>
+            <!-- <material:ButtonView Grid.Row="0" Grid.Column="0"> -->
+            <!-- -->
+            <!--     <Image> -->
+            <!--         <Image.Source> -->
+            <!--             <FontImageSource FontFamily="MaterialSharpFilled" Glyph="{x:Static m:MaterialSharp.Warning}" /> -->
+            <!--         </Image.Source> -->
+            <!--     </Image> -->
+            <!-- -->
+            <!-- </material:ButtonView> -->
+
+            <Button Grid.Row="0" Grid.Column="0"
+                    StyleClass="ElevatedButton"
+                    Margin="5"
+                    HeightRequest="56"
+                    WidthRequest="{Binding HeightRequest, Source={RelativeSource Self}}"
+                    Padding="0">
+
+                <Button.ImageSource>
+                    <FontImageSource FontFamily="MaterialSharpFilled"
+                                     Glyph="{x:Static m:MaterialSharp.Add}"
+                                     Size="40">
+                    </FontImageSource>
+                </Button.ImageSource>
+
+            </Button>
+
+            <!-- <customFrame:ButtonImageView Grid.Row="0" Grid.Column="0" -->
+            <!--                              Style="{StaticResource FloatingActionDarkButtonImageView}" -->
+            <!--                              Margin="5" -->
+            <!--                              GeometrySource="Plus" -->
+            <!--                              ImageHeightRequest="40" -->
+            <!--                              ImageWidthRequest="{Binding ImageHeightRequest, Source={RelativeSource Self}}" -->
+            <!--                              HeightRequest="56" -->
+            <!--                              WidthRequest="{Binding HeightRequest, Source={RelativeSource Self}}" -->
+            <!--                              Clicked="ButtonAddDataBase_OnClick"> -->
+            <!-- </customFrame:ButtonImageView> -->
 
             <customFrame:ButtonImageView Grid.Row="0" Grid.Column="1"
                                          Style="{StaticResource FloatingActionSecondaryMidButtonImageView}"
