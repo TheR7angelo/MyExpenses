@@ -2,6 +2,7 @@ namespace MyExpenses.Models.Maui.CustomPopup;
 
 public class DoubleIsChecked
 {
+    private readonly Guid _objectId = Guid.NewGuid();
     public double? DoubleValue { get; init; }
     public bool IsChecked { get; set; }
 
@@ -9,7 +10,9 @@ public class DoubleIsChecked
     {
         if (other is null) return false;
         if (ReferenceEquals(this, other)) return true;
-        return DoubleValue.Equals(other.DoubleValue) && IsChecked == other.IsChecked;
+
+        return EqualityComparer<double?>.Default.Equals(DoubleValue, other.DoubleValue)
+               && IsChecked == other.IsChecked;
     }
 
     public override bool Equals(object? obj)
@@ -22,7 +25,5 @@ public class DoubleIsChecked
     }
 
     public override int GetHashCode()
-    {
-        return  DoubleValue is null ? 0 : DoubleValue.GetHashCode();
-    }
+       => _objectId.GetHashCode();
 }
