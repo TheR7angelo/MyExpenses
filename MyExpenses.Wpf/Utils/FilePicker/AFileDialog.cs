@@ -5,7 +5,7 @@ namespace MyExpenses.Wpf.Utils.FilePicker;
 public abstract class AFileDialog
 {
     private string FilterText { get; }
-    protected virtual IEnumerable<string> Extensions { get; }
+    private IEnumerable<string> Extensions { get; }
 
     private readonly VistaOpenFileDialog _vistaOpenFileDialog;
     private readonly VistaSaveFileDialog _vistaSaveFileDialog;
