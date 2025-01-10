@@ -41,9 +41,11 @@ public partial class App
         LoadInterfaceConfiguration(configuration.Interface);
 
         InitializeComponent();
-
-        MainPage = new AppShell();
     }
+
+    protected override Window CreateWindow(IActivationState? activationState)
+        => new(new AppShell());
+
 
     private static void LoadInterfaceConfiguration(Interface configurationInterface)
     {
