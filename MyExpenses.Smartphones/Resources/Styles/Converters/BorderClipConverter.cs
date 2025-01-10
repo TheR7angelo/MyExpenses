@@ -35,7 +35,7 @@ namespace MyExpenses.Smartphones.Resources.Styles.Converters
             throw new NotImplementedException();
         }
 
-        private CornerRadius NormalizeCornerRadius(CornerRadius cornerRadius)
+        private static CornerRadius NormalizeCornerRadius(CornerRadius cornerRadius)
         {
             var topLeft = cornerRadius.TopLeft < double.Epsilon ? 0.0 : cornerRadius.TopLeft;
             var topRight = cornerRadius.TopRight < double.Epsilon ? 0.0 : cornerRadius.TopRight;
