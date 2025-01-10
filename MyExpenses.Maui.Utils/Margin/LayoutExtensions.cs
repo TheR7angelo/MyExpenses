@@ -16,7 +16,7 @@ namespace MyExpenses.Maui.Utils.Margin
         [SupportedOSPlatform("Windows")]
         public static readonly BindableProperty MarginForAllChildrenProperty =
             BindableProperty.CreateAttached("MarginForAllChildren", typeof(Thickness),
-                typeof(LayoutExtensions), new Thickness(0), propertyChanged: OnMarginForAllChildrenChanged);
+                typeof(LayoutExtensions), null, propertyChanged: OnMarginForAllChildrenChanged);
 
         /// <summary>
         /// Provides an attached property for setting the margin for all children of a <see cref="Microsoft.Maui.Controls.Layout"/>.
