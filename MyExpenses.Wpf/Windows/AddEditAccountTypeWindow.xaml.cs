@@ -213,7 +213,7 @@ public partial class AddEditAccountTypeWindow
     private bool CheckAccountTypeName(string accountName)
         => AccountTypes.Select(s => s.Name).Contains(accountName);
 
-    private void ShowErrorMessage()
+    private static void ShowErrorMessage()
         => MsgBox.MsgBox.Show(AddEditAccountTypeWindowResources.MessageBoxAccountTypeNameAlreadyExists,
             MsgBoxImage.Warning);
 

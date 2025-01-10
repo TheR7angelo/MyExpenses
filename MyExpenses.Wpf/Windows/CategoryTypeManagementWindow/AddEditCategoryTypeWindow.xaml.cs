@@ -243,7 +243,7 @@ public partial class AddEditCategoryTypeWindow
         CategoryTypes.Remove(CategoryTypes.Find(s => s.Id == categoryType.Id)!);
     }
 
-    private void ShowErrorMessage()
+    private static void ShowErrorMessage()
         => MsgBox.MsgBox.Show(AddEditCategoryTypeWindowResources.MessageBoxCategoryAlreadyExists, MsgBoxImage.Warning);
 
     #endregion

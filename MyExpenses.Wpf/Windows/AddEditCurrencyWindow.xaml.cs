@@ -223,7 +223,7 @@ public partial class AddEditCurrencyWindow
         Currencies.Remove(oldItem);
     }
 
-    private void ShowErrorMessage()
+    private static void ShowErrorMessage()
         => MsgBox.MsgBox.Show(AddEditCurrencyWindowResources.MessageBoxCurrencySymbolAlreadyExists,
             MsgBoxImage.Warning);
 

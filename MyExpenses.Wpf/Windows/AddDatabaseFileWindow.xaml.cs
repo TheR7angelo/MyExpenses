@@ -135,10 +135,10 @@ public partial class AddDatabaseFileWindow
         => ExistingDatabases.AddRange(existingDatabases);
 
 
-    private void ShowErrorMessageAlreadyExist()
+    private static void ShowErrorMessageAlreadyExist()
         => MsgBox.MsgBox.Show(AddDatabaseFileWindowResources.MessageBoxDatabaseAlreadyExistError, MsgBoxImage.Warning);
 
-    private void ShowErrorMessageContainsIncorrectChar()
+    private static void ShowErrorMessageContainsIncorrectChar()
         => MsgBox.MsgBox.Show(AddDatabaseFileWindowResources.MessageBoxDatabaseFilenameContainsIncorrectCharError,
             MsgBoxImage.Error);
 

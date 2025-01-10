@@ -214,7 +214,7 @@ public partial class AddEditModePaymentWindow
         if (modePaymentToRemove is not null) ModePayments.Remove(modePaymentToRemove);
     }
 
-    private void ShowErrorMessage()
+    private static void ShowErrorMessage()
         => MsgBox.MsgBox.Show(AddEditCurrencyWindowResources.MessageBoxCurrencySymbolAlreadyExists,
             MsgBoxImage.Warning);
 

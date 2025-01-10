@@ -238,7 +238,7 @@ public partial class AddEditColorWindow
         if (removeItem is not null) Colors.Remove(removeItem);
     }
 
-    private void ShowErrorMessage()
+    private static void ShowErrorMessage()
         => MsgBox.MsgBox.Show(AddEditColorWindowResources.MessageBoxCannotAddDuplicateColorNameError,
             MsgBoxImage.Warning);
 

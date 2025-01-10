@@ -152,7 +152,7 @@ public partial class RecurrentAddWindow
     // private void DataGridRow_PreviewMouseRightButtonDown(object sender, MouseButtonEventArgs e)
     //     => DataGridRow = sender as DataGridRow;
 
-    private TRecursiveExpense UpdateTRecursiveExpense(TRecursiveExpense recursiveExpense)
+    private static TRecursiveExpense UpdateTRecursiveExpense(TRecursiveExpense recursiveExpense)
     {
         recursiveExpense.RecursiveCount += 1;
         recursiveExpense.LastUpdated = DateTime.Now;
