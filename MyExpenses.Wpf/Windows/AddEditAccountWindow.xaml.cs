@@ -155,12 +155,12 @@ public partial class AddEditAccountWindow
     public TAccount Account { get; } = new();
     public THistory History { get; } = new() { IsPointed = true };
 
-    public string DisplayMemberPathAccountType => nameof(TAccountType.Name);
-    public string SelectedValuePathAccountType => nameof(TAccountType.Id);
-    public string DisplayMemberPathCurrency => nameof(TCurrency.Symbol);
-    public string SelectedValuePathCurrency => nameof(TCurrency.Id);
-    public string DisplayMemberPathCategoryType => nameof(TCategoryType.Name);
-    public string SelectedValuePathCategoryType => nameof(TCategoryType.Id);
+    public static string DisplayMemberPathAccountType => nameof(TAccountType.Name);
+    public static string SelectedValuePathAccountType => nameof(TAccountType.Id);
+    public static string DisplayMemberPathCurrency => nameof(TCurrency.Symbol);
+    public static string SelectedValuePathCurrency => nameof(TCurrency.Id);
+    public static string DisplayMemberPathCategoryType => nameof(TCategoryType.Name);
+    public static string SelectedValuePathCategoryType => nameof(TCategoryType.Id);
     public ObservableCollection<TAccountType> AccountTypes { get; }
     public ObservableCollection<TCurrency> Currencies { get; }
     public ObservableCollection<TCategoryType> CategoryTypes { get; }

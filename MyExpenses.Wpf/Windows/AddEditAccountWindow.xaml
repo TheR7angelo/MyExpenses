@@ -7,6 +7,7 @@
                  xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
                  xmlns:converters="clr-namespace:MyExpenses.Wpf.Converters"
                  xmlns:margin="clr-namespace:MyExpenses.Wpf.Utils.Margin;assembly=MyExpenses.Wpf.Utils"
+                 xmlns:local="clr-namespace:MyExpenses.Wpf.Windows"
                  mc:Ignorable="d"
 
                  Title="{Binding TitleWindow, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
@@ -71,9 +72,9 @@
                   materialDesign:TextFieldAssist.HasClearButton="True"
                   ItemsSource="{Binding AccountTypes}"
                   Style="{StaticResource MaterialDesignFilledComboBox}"
-                  DisplayMemberPath="{Binding DisplayMemberPathAccountType}"
+                  DisplayMemberPath="{x:Static local:AddEditAccountWindow.DisplayMemberPathAccountType}"
                   SelectedValue="{Binding Account.AccountTypeFk, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                  SelectedValuePath="{Binding SelectedValuePathAccountType}">
+                  SelectedValuePath="{x:Static local:AddEditAccountWindow.SelectedValuePathAccountType}">
         </ComboBox>
 
         <Button Grid.Row="1" Grid.Column="1"
@@ -90,9 +91,9 @@
                   materialDesign:TextFieldAssist.HasClearButton="True"
                   ItemsSource="{Binding Currencies}"
                   Style="{StaticResource MaterialDesignFilledComboBox}"
-                  DisplayMemberPath="{Binding DisplayMemberPathCurrency}"
+                  DisplayMemberPath="{x:Static local:AddEditAccountWindow.DisplayMemberPathCurrency}"
                   SelectedValue="{Binding Account.CurrencyFk, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                  SelectedValuePath="{Binding SelectedValuePathCurrency}">
+                  SelectedValuePath="{x:Static local:AddEditAccountWindow.SelectedValuePathCurrency}">
         </ComboBox>
 
         <Button Grid.Row="2" Grid.Column="1"
@@ -157,9 +158,9 @@
                           materialDesign:TextFieldAssist.HasClearButton="True"
                           ItemsSource="{Binding  CategoryTypes}"
                           Style="{StaticResource MaterialDesignFilledComboBox}"
-                          DisplayMemberPath="{Binding DisplayMemberPathCategoryType}"
+                          DisplayMemberPath="{x:Static local:AddEditAccountWindow.DisplayMemberPathCategoryType}"
                           SelectedValue="{Binding History.CategoryTypeFk, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                          SelectedValuePath="{Binding SelectedValuePathCategoryType}">
+                          SelectedValuePath="{x:Static local:AddEditAccountWindow.SelectedValuePathCategoryType}">
                 </ComboBox>
 
                 <Button Grid.Row="1" Grid.Column="2"
