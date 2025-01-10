@@ -15,6 +15,7 @@ public static class ConversionExtensions
         if ((targetType == typeof(bool) || targetType == typeof(bool?) ) &&
             value is string or int or double)
         {
+            // ReSharper disable once HeapView.BoxingAllocation
             return value.ToBool();
         }
 
