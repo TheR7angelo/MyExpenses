@@ -62,6 +62,11 @@ exclude:
       - "MyExpenses.Utils/WindowStyle/HResultExtensions.cs"
       - "MyExpenses.Utils/WindowStyle/WindowsVersion.cs"
 
+  - name : HeapView.BoxingAllocation
+    paths:
+      - "MyExpenses.Smartphones/Converters"
+      - "MyExpenses.Wpf/Converters"
+
   # Disable all inspections
   - name: All
     paths:
