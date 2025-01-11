@@ -39,11 +39,13 @@ public partial class AccountManagementContentPage
     }
 
     public static readonly BindableProperty TotalAllAccountProperty = BindableProperty.Create(nameof(TotalAllAccount),
+        // ReSharper disable once HeapView.BoxingAllocation
         typeof(double), typeof(AccountManagementContentPage), 0d);
 
     public double TotalAllAccount
     {
         get => (double)GetValue(TotalAllAccountProperty);
+        // ReSharper disable once HeapView.BoxingAllocation
         set => SetValue(TotalAllAccountProperty, value);
     }
 

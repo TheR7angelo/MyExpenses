@@ -69,11 +69,13 @@ public partial class AddEditAccountContentPage
     }
 
     public static readonly BindableProperty CanDeleteProperty = BindableProperty.Create(nameof(CanDelete), typeof(bool),
+        // ReSharper disable once HeapView.BoxingAllocation
         typeof(AddEditAccountContentPage), false);
 
     public bool CanDelete
     {
         get => (bool)GetValue(CanDeleteProperty);
+        // ReSharper disable once HeapView.BoxingAllocation
         init => SetValue(CanDeleteProperty, value);
     }
 

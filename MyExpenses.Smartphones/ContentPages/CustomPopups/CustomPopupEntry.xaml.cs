@@ -34,11 +34,13 @@ public partial class CustomPopupEntry
     }
 
     public static readonly BindableProperty MaxLenghtProperty =
+        // ReSharper disable once HeapView.BoxingAllocation
         BindableProperty.Create(nameof(MaxLenght), typeof(int), typeof(CustomPopupEntry), 255);
 
     public int MaxLenght
     {
         get => (int)GetValue(MaxLenghtProperty);
+        // ReSharper disable once HeapView.BoxingAllocation
         init => SetValue(MaxLenghtProperty, value);
     }
 
@@ -52,11 +54,13 @@ public partial class CustomPopupEntry
     }
 
     public static readonly BindableProperty HasClearButtonProperty =
+        // ReSharper disable once HeapView.BoxingAllocation
         BindableProperty.Create(nameof(HasClearButton), typeof(bool), typeof(CustomPopupEntry), true);
 
     public bool HasClearButton
     {
         get => (bool)GetValue(HasClearButtonProperty);
+        // ReSharper disable once HeapView.BoxingAllocation
         init => SetValue(HasClearButtonProperty, value);
     }
 
@@ -79,11 +83,13 @@ public partial class CustomPopupEntry
     }
 
     public static readonly BindableProperty CanDeleteProperty =
+        // ReSharper disable once HeapView.BoxingAllocation
         BindableProperty.Create(nameof(CanDelete), typeof(bool), typeof(CustomPopupEntry), false);
 
     public bool CanDelete
     {
         get => (bool)GetValue(CanDeleteProperty);
+        // ReSharper disable once HeapView.BoxingAllocation
         init => SetValue(CanDeleteProperty, value);
     }
 

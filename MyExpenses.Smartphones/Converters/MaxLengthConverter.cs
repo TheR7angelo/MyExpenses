@@ -8,11 +8,16 @@ public class MaxLengthConverter : IValueConverter
 {
     public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
-        if (value is null || parameter is null) return 0;
+        if (value is null || parameter is null)
+        {
+            // ReSharper disable once HeapView.BoxingAllocation
+            return 0;
+        }
 
         var objectType = value.GetType();
         var propertyName = parameter.ToString()!;
 
+        // ReSharper disable once HeapView.BoxingAllocation
         return Convert(objectType, propertyName);
     }
 

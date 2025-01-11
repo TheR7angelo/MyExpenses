@@ -17,11 +17,26 @@ public class PercentageConverter : IValueConverter
     /// <returns>The value multiplied by the percentage, or 0 if the conversion fails.</returns>
     public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
-        if (!double.TryParse(parameter?.ToString(), out var percentage)) return 0;
-        if (value is not double number) return 0;
-        if (number.Equals(-1)) return 0;
+        if (!double.TryParse(parameter?.ToString(), out var percentage))
+        {
+            // ReSharper disable once HeapView.BoxingAllocation
+            return 0;
+        }
+
+        if (value is not double number)
+        {
+            // ReSharper disable once HeapView.BoxingAllocation
+            return 0;
+        }
+
+        if (number.Equals(-1))
+        {
+            // ReSharper disable once HeapView.BoxingAllocation
+            return 0;
+        }
 
         percentage /= 100.0;
+        // ReSharper disable once HeapView.BoxingAllocation
         return number * percentage;
     }
 

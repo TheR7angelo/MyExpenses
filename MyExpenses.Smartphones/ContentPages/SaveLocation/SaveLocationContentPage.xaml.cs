@@ -6,44 +6,48 @@ namespace MyExpenses.Smartphones.ContentPages.SaveLocation;
 public partial class SaveLocationContentPage
 {
     public static readonly BindableProperty ButtonLocalVisibilityProperty =
-        BindableProperty.Create(nameof(ButtonLocalVisibility), typeof(bool), typeof(SaveLocationContentPage),
-            false);
+        // ReSharper disable once HeapView.BoxingAllocation
+        BindableProperty.Create(nameof(ButtonLocalVisibility), typeof(bool), typeof(SaveLocationContentPage), false);
 
     public bool ButtonLocalVisibility
     {
         get => (bool)GetValue(ButtonLocalVisibilityProperty);
+        // ReSharper disable once HeapView.BoxingAllocation
         init => SetValue(ButtonLocalVisibilityProperty, value);
     }
 
     public static readonly BindableProperty ButtonDropboxVisibilityProperty =
-        BindableProperty.Create(nameof(ButtonDropboxVisibility), typeof(bool), typeof(SaveLocationContentPage),
-            false);
+        // ReSharper disable once HeapView.BoxingAllocation
+        BindableProperty.Create(nameof(ButtonDropboxVisibility), typeof(bool), typeof(SaveLocationContentPage), false);
 
     public bool ButtonDropboxVisibility
     {
         get => (bool)GetValue(ButtonDropboxVisibilityProperty);
+        // ReSharper disable once HeapView.BoxingAllocation
         init => SetValue(ButtonDropboxVisibilityProperty, value);
     }
 
     public static readonly BindableProperty ButtonFolderVisibilityProperty =
-        BindableProperty.Create(nameof(ButtonFolderVisibility), typeof(bool), typeof(SaveLocationContentPage),
-            false);
+        // ReSharper disable once HeapView.BoxingAllocation
+        BindableProperty.Create(nameof(ButtonFolderVisibility), typeof(bool), typeof(SaveLocationContentPage), false);
 
     public bool ButtonFolderVisibility
     {
         get => (bool)GetValue(ButtonFolderVisibilityProperty);
+        // ReSharper disable once HeapView.BoxingAllocation
         init => SetValue(ButtonFolderVisibilityProperty, value);
     }
 
     private readonly TaskCompletionSource<bool> _taskCompletionSource;
 
     public static readonly BindableProperty ButtonDatabaseVisibilityProperty =
-        BindableProperty.Create(nameof(ButtonDatabaseVisibility), typeof(bool), typeof(SaveLocationContentPage),
-            false);
+        // ReSharper disable once HeapView.BoxingAllocation
+        BindableProperty.Create(nameof(ButtonDatabaseVisibility), typeof(bool), typeof(SaveLocationContentPage), false);
 
     public bool ButtonDatabaseVisibility
     {
         get => (bool)GetValue(ButtonDatabaseVisibilityProperty);
+        // ReSharper disable once HeapView.BoxingAllocation
         init => SetValue(ButtonDatabaseVisibilityProperty, value);
     }
 

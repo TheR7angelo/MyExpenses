@@ -110,20 +110,24 @@ public partial class AddEditBankTransferContentPage
     }
 
     public static readonly BindableProperty CanBeDeletedProperty = BindableProperty.Create(nameof(CanBeDeleted),
+        // ReSharper disable once HeapView.BoxingAllocation
         typeof(bool), typeof(AddEditBankTransferContentPage), false);
 
     public bool CanBeDeleted
     {
         get => (bool)GetValue(CanBeDeletedProperty);
+        // ReSharper disable once HeapView.BoxingAllocation
         init => SetValue(CanBeDeletedProperty, value);
     }
 
     public static readonly BindableProperty IsDirtyProperty = BindableProperty.Create(nameof(IsDirty), typeof(bool),
+        // ReSharper disable once HeapView.BoxingAllocation
         typeof(AddEditBankTransferContentPage), false);
 
     public bool IsDirty
     {
         get => (bool)GetValue(IsDirtyProperty);
+        // ReSharper disable once HeapView.BoxingAllocation
         set => SetValue(IsDirtyProperty, value);
     }
 

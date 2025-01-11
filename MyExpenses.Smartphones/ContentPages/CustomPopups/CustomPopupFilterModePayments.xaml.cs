@@ -11,11 +11,13 @@ namespace MyExpenses.Smartphones.ContentPages.CustomPopups;
 public partial class CustomPopupFilterModePayments : ICustomPopupFilter<TModePaymentDerive>
 {
     public static readonly BindableProperty GeometrySourceProperty = BindableProperty.Create(nameof(GeometrySource),
+        // ReSharper disable once HeapView.BoxingAllocation
         typeof(EPackIcons), typeof(CustomPopupFilterModePayments), EPackIcons.CheckboxBlankOutline);
 
     public EPackIcons GeometrySource
     {
         get => (EPackIcons)GetValue(GeometrySourceProperty);
+        // ReSharper disable once HeapView.BoxingAllocation
         set => SetValue(GeometrySourceProperty, value);
     }
 

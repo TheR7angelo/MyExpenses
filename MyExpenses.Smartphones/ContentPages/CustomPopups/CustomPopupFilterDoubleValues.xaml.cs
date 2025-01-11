@@ -29,11 +29,13 @@ public partial class CustomPopupFilterDoubleValues : ICustomPopupFilter<DoubleIs
     }
 
     public static readonly BindableProperty GeometrySourceProperty = BindableProperty.Create(nameof(GeometrySource),
+        // ReSharper disable once HeapView.BoxingAllocation
         typeof(EPackIcons), typeof(CustomPopupFilterDescriptions), EPackIcons.CheckboxBlankOutline);
 
     public EPackIcons GeometrySource
     {
         get => (EPackIcons)GetValue(GeometrySourceProperty);
+        // ReSharper disable once HeapView.BoxingAllocation
         set => SetValue(GeometrySourceProperty, value);
     }
 

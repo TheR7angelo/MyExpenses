@@ -38,20 +38,24 @@ public partial class DashBoardContentPage
     }
 
     public static readonly BindableProperty RowTotalCountProperty =
+        // ReSharper disable once HeapView.BoxingAllocation
         BindableProperty.Create(nameof(RowTotalCount), typeof(int), typeof(DashBoardContentPage), 0);
 
     public int RowTotalCount
     {
         get => (int)GetValue(RowTotalCountProperty);
+        // ReSharper disable once HeapView.BoxingAllocation
         set => SetValue(RowTotalCountProperty, value);
     }
 
     public static readonly BindableProperty RowTotalFilteredCountProperty =
+        // ReSharper disable once HeapView.BoxingAllocation
         BindableProperty.Create(nameof(RowTotalFilteredCount), typeof(int), typeof(DashBoardContentPage), 0);
 
     public int RowTotalFilteredCount
     {
         get => (int)GetValue(RowTotalFilteredCountProperty);
+        // ReSharper disable once HeapView.BoxingAllocation
         set => SetValue(RowTotalFilteredCountProperty, value);
     }
 

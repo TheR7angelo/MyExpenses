@@ -16,8 +16,17 @@ public class BoolToStringConverter : IValueConverter
     {
         if (value is not string s) return Binding.DoNothing;
 
-        if (s.Equals(BoolToStringConverterResources.Checked)) return true;
-        if (s.Equals(BoolToStringConverterResources.Unchecked)) return false;
+        if (s.Equals(BoolToStringConverterResources.Checked))
+        {
+            // ReSharper disable once HeapView.BoxingAllocation
+            return true;
+        }
+
+        if (s.Equals(BoolToStringConverterResources.Unchecked))
+        {
+            // ReSharper disable once HeapView.BoxingAllocation
+            return false;
+        }
         throw new ArgumentOutOfRangeException();
     }
 }

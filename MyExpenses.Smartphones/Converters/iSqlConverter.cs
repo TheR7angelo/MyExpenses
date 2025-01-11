@@ -20,6 +20,7 @@ public class ISqlConverter : IValueConverter
     public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
         if (value is not ISql iSql) return null;
+        // ReSharper disable once HeapView.BoxingAllocation
         return iSql.Id;
     }
 }

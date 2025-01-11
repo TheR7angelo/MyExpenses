@@ -138,11 +138,13 @@ public partial class BankTransferSummaryContentPage
     }
 
     public static readonly BindableProperty RowTotalCountProperty = BindableProperty.Create(nameof(RowTotalCount),
+        // ReSharper disable once HeapView.BoxingAllocation
         typeof(int), typeof(BankTransferSummaryContentPage), 0);
 
     public int RowTotalCount
     {
         get => (int)GetValue(RowTotalCountProperty);
+        // ReSharper disable once HeapView.BoxingAllocation
         set => SetValue(RowTotalCountProperty, value);
     }
 
@@ -156,12 +158,13 @@ public partial class BankTransferSummaryContentPage
     }
 
     public static readonly BindableProperty RowTotalFilteredCountProperty =
-        BindableProperty.Create(nameof(RowTotalFilteredCount), typeof(int), typeof(BankTransferSummaryContentPage),
-            0);
+        // ReSharper disable once HeapView.BoxingAllocation
+        BindableProperty.Create(nameof(RowTotalFilteredCount), typeof(int), typeof(BankTransferSummaryContentPage), 0);
 
     public int RowTotalFilteredCount
     {
         get => (int)GetValue(RowTotalFilteredCountProperty);
+        // ReSharper disable once HeapView.BoxingAllocation
         set => SetValue(RowTotalFilteredCountProperty, value);
     }
 

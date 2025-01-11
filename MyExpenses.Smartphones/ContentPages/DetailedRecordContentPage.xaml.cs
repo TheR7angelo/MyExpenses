@@ -82,12 +82,13 @@ public partial class DetailedRecordContentPage
     }
 
     public static readonly BindableProperty IsPlaceholderVisibleProperty =
-        BindableProperty.Create(nameof(IsPlaceholderVisible), typeof(bool), typeof(DetailedRecordContentPage),
-            false);
+        // ReSharper disable once HeapView.BoxingAllocation
+        BindableProperty.Create(nameof(IsPlaceholderVisible), typeof(bool), typeof(DetailedRecordContentPage), false);
 
     public bool IsPlaceholderVisible
     {
         get => (bool)GetValue(IsPlaceholderVisibleProperty);
+        // ReSharper disable once HeapView.BoxingAllocation
         set => SetValue(IsPlaceholderVisibleProperty, value);
     }
 
@@ -157,20 +158,24 @@ public partial class DetailedRecordContentPage
     }
 
     public static readonly BindableProperty IsDirtyProperty = BindableProperty.Create(nameof(IsDirty), typeof(bool),
+        // ReSharper disable once HeapView.BoxingAllocation
         typeof(DetailedRecordContentPage), false);
 
     public bool IsDirty
     {
         get => (bool)GetValue(IsDirtyProperty);
+        // ReSharper disable once HeapView.BoxingAllocation
         set => SetValue(IsDirtyProperty, value);
     }
 
     public static readonly BindableProperty CanBeDeletedProperty = BindableProperty.Create(nameof(CanBeDeleted),
+        // ReSharper disable once HeapView.BoxingAllocation
         typeof(bool), typeof(DetailedRecordContentPage), false);
 
     public bool CanBeDeleted
     {
         get => (bool)GetValue(CanBeDeletedProperty);
+        // ReSharper disable once HeapView.BoxingAllocation
         init => SetValue(CanBeDeletedProperty, value);
     }
 
@@ -220,6 +225,7 @@ public partial class DetailedRecordContentPage
 
     private static readonly BindableProperty IsNewHistoryProperty =
         BindableProperty.Create(nameof(IsNewHistory), typeof(bool), typeof(DetailedRecordContentPage),
+            // ReSharper disable once HeapView.BoxingAllocation
             false, propertyChanged: IsNewHistory_PropertyChanged);
 
     private static void IsNewHistory_PropertyChanged(BindableObject bindable, object oldValue, object newValue)
@@ -235,6 +241,7 @@ public partial class DetailedRecordContentPage
     public bool IsNewHistory
     {
         get => (bool)GetValue(IsNewHistoryProperty);
+        // ReSharper disable once HeapView.BoxingAllocation
         init => SetValue(IsNewHistoryProperty, value);
     }
 
