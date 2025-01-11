@@ -37,11 +37,13 @@ public partial class CustomPopupEditCategory
     }
 
     public static readonly BindableProperty CanDeleteProperty = BindableProperty.Create(nameof(CanDelete), typeof(bool),
+        // ReSharper disable once HeapView.BoxingAllocation
         typeof(CustomPopupEditCategory), false);
 
     public bool CanDelete
     {
         get => (bool)GetValue(CanDeleteProperty);
+        // ReSharper disable once HeapView.BoxingAllocation
         init => SetValue(CanDeleteProperty, value);
     }
 
@@ -55,11 +57,13 @@ public partial class CustomPopupEditCategory
     }
 
     public static readonly BindableProperty MaxLenghtProperty =
+        // ReSharper disable once HeapView.BoxingAllocation
         BindableProperty.Create(nameof(MaxLenght), typeof(int), typeof(CustomPopupEditCategory), 0);
 
     public int MaxLenght
     {
         get => (int)GetValue(MaxLenghtProperty);
+        // ReSharper disable once HeapView.BoxingAllocation
         init => SetValue(MaxLenghtProperty, value);
     }
 
@@ -162,7 +166,7 @@ public partial class CustomPopupEditCategory
 
     public void SetVCategory(VCategory category)
     {
-        var color = Colors.First(s => s.Id.Equals(category.ColorFk));
+        var color = Colors.First(s => s.Id.Equals((int)category.ColorFk!));
         SelectedColor = color;
         SelectedHexadecimalColorCode = color.HexadecimalColorCode!;
         EntryText = category.CategoryName!;
