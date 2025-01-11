@@ -4,11 +4,13 @@ public static class RippleAssist
 {
     #region ClipToBounds
 
-    public static readonly BindableProperty ClipToBoundsProperty = BindableProperty.CreateAttached(
-        "ClipToBounds", typeof(bool), typeof(RippleAssist), true);
+    public static readonly BindableProperty ClipToBoundsProperty =
+        // ReSharper disable once HeapView.BoxingAllocation
+        BindableProperty.CreateAttached("ClipToBounds", typeof(bool), typeof(RippleAssist), true);
 
     public static void SetClipToBounds(BindableObject element, bool value)
     {
+        // ReSharper disable once HeapView.BoxingAllocation
         element.SetValue(ClipToBoundsProperty, value);
     }
 
@@ -25,8 +27,9 @@ public static class RippleAssist
     /// Set to <c>true</c> to cause the ripple to originate from the centre of the
     /// content.  Otherwise the effect will originate from the mouse down position.
     /// </summary>
-    public static readonly BindableProperty IsCenteredProperty = BindableProperty.CreateAttached(
-        "IsCentered", typeof(bool), typeof(RippleAssist), false);
+    public static readonly BindableProperty IsCenteredProperty =
+        // ReSharper disable once HeapView.BoxingAllocation
+        BindableProperty.CreateAttached("IsCentered", typeof(bool), typeof(RippleAssist), false);
 
     /// <summary>
     /// Set to <c>true</c> to cause the ripple to originate from the centre of the
@@ -36,6 +39,7 @@ public static class RippleAssist
     /// <param name="value"></param>
     public static void SetIsCentered(BindableObject element, bool value)
     {
+        // ReSharper disable once HeapView.BoxingAllocation
         element.SetValue(IsCenteredProperty, value);
     }
 
@@ -56,8 +60,9 @@ public static class RippleAssist
     /// <summary>
     /// Set to <c>True</c> to disable ripple effect
     /// </summary>
-    private static readonly BindableProperty IsDisabledProperty = BindableProperty.CreateAttached(
-        "IsDisabled", typeof(bool), typeof(RippleAssist), false);
+    private static readonly BindableProperty IsDisabledProperty =
+        // ReSharper disable once HeapView.BoxingAllocation
+        BindableProperty.CreateAttached("IsDisabled", typeof(bool), typeof(RippleAssist), false);
 
     /// <summary>
     /// Set to <c>True</c> to disable ripple effect
@@ -66,6 +71,7 @@ public static class RippleAssist
     /// <param name="value"></param>
     public static void SetIsDisabled(BindableObject element, bool value)
     {
+        // ReSharper disable once HeapView.BoxingAllocation
         element.SetValue(IsDisabledProperty, value);
     }
 
@@ -82,11 +88,13 @@ public static class RippleAssist
 
     #region RippleSizeMultiplier
 
-    private static readonly BindableProperty RippleSizeMultiplierProperty = BindableProperty.CreateAttached(
-        "RippleSizeMultiplier", typeof(double), typeof(RippleAssist), 1.0);
+    private static readonly BindableProperty RippleSizeMultiplierProperty =
+        // ReSharper disable once HeapView.BoxingAllocation
+        BindableProperty.CreateAttached("RippleSizeMultiplier", typeof(double), typeof(RippleAssist), 1.0);
 
     public static void SetRippleSizeMultiplier(BindableObject element, double value)
     {
+        // ReSharper disable once HeapView.BoxingAllocation
         element.SetValue(RippleSizeMultiplierProperty, value);
     }
 
@@ -116,11 +124,13 @@ public static class RippleAssist
 
     #region RippleOnTop
 
-    private static readonly BindableProperty RippleOnTopProperty = BindableProperty.CreateAttached(
-        "RippleOnTop", typeof(bool), typeof(RippleAssist), false);
+    private static readonly BindableProperty RippleOnTopProperty =
+        // ReSharper disable once HeapView.BoxingAllocation
+        BindableProperty.CreateAttached("RippleOnTop", typeof(bool), typeof(RippleAssist), false);
 
     public static void SetRippleOnTop(BindableObject element, bool value)
     {
+        // ReSharper disable once HeapView.BoxingAllocation
         element.SetValue(RippleOnTopProperty, value);
     }
 

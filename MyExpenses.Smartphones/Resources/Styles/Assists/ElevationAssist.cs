@@ -49,13 +49,16 @@ public static class ElevationAssist
 {
 
     public static readonly BindableProperty ElevationProperty =
+        // ReSharper disable once HeapView.BoxingAllocation
         BindableProperty.CreateAttached(
             "Elevation",
             typeof(Elevation),
             typeof(ElevationAssist),
             default(Elevation));
 
-    public static void SetElevation(BindableObject element, Elevation value) => element.SetValue(ElevationProperty, value);
+    public static void SetElevation(BindableObject element, Elevation value)
+        // ReSharper disable once HeapView.BoxingAllocation
+        => element.SetValue(ElevationProperty, value);
     public static Elevation GetElevation(BindableObject element) => (Elevation)element.GetValue(ElevationProperty);
 
     public static Shadow? GetDropShadow(Elevation elevation) => ElevationInfo.GetDropShadow(elevation);
