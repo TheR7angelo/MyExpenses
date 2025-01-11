@@ -36,6 +36,7 @@ exclude:
       - MyExpenses.Smartphones/Resources/Resx
       - MyExpenses.Models/Resources/Resx
       - MyExpenses.Sql/Resources/Resx
+      - MyExpenses.Utils/Resources/Resx
 
   - name: AndroidDomInspection
     paths:
