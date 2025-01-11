@@ -630,10 +630,19 @@ public partial class DetailedRecordContentPage
 
         OriginalHistory = THistory.DeepCopy();
 
-        var place = PlacesCollection.FirstOrDefault(s => s.Id.Equals(THistory.PlaceFk));
-        SelectedCountry = EmptyStringTreeViewConverter.ToUnknown(place?.Country);
-        SelectedCity = EmptyStringTreeViewConverter.ToUnknown(place?.City);
-        ComboBoxSelectorPlace.SelectedItem = place;
+        if (THistory.PlaceFk is null)
+        {
+            SelectedCountry = EmptyStringTreeViewConverter.ToUnknown();
+            SelectedCity = EmptyStringTreeViewConverter.ToUnknown();
+            ComboBoxSelectorPlace.SelectedItem = null;
+        }
+        else
+        {
+            var place = PlacesCollection.First(s => s.Id.Equals(THistory.PlaceFk.Value));
+            SelectedCountry = EmptyStringTreeViewConverter.ToUnknown(place.Country);
+            SelectedCity = EmptyStringTreeViewConverter.ToUnknown(place.City);
+            ComboBoxSelectorPlace.SelectedItem = place;
+        }
     }
 
     private void UpdateHexadecimalColorCode()

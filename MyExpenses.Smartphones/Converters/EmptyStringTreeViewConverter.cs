@@ -15,8 +15,10 @@ public class EmptyStringTreeViewConverter : IValueConverter
         return Binding.DoNothing;
     }
 
-    public static string ToUnknown(object? value)
+    public static string ToUnknown(object? value = null)
     {
-        return value is string str && !string.IsNullOrWhiteSpace(str) ? str : EmptyStringTreeViewConverterResources.Unknown;
+        return value is string str && !string.IsNullOrWhiteSpace(str)
+            ? str
+            : EmptyStringTreeViewConverterResources.Unknown;
     }
 }
