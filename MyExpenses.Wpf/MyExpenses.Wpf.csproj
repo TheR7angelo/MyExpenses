@@ -616,6 +616,9 @@
       <Content Include="..\MyExpenses.Commons\Resources\Assets\Logos\Dropbox\DropboxLogo.svg">
         <Link>Resources\Assets\Logos\Dropbox\DropboxLogo.svg</Link>
       </Content>
+      <Content Include="..\qodana.yaml">
+        <Link>qodana.yaml</Link>
+      </Content>
       <Content Include="..\README.md">
         <Link>README.md</Link>
       </Content>
