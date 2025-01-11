@@ -10,8 +10,8 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="MaterialDesignThemes" Version="5.2.0" />
-      <PackageReference Include="MaterialDesignThemes.MahApps" Version="5.2.0" />
+      <PackageReference Include="MaterialDesignThemes" Version="5.2.1" />
+      <PackageReference Include="MaterialDesignThemes.MahApps" Version="5.2.1" />
       <PackageReference Include="System.Text.Json" Version="9.0.0" />
     </ItemGroup>
 
