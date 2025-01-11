@@ -263,7 +263,7 @@ public partial class AddEditAccountContentPage
         if (account is not null) account.CopyPropertiesTo(Account);
         else if (id is not null)
         {
-            account = Accounts.First(s => s.Id.Equals(id));
+            account = Accounts.First(s => s.Id.Equals(id.Value));
             account.CopyPropertiesTo(Account);
         }
         else throw new ArgumentNullException(nameof(id), @"account id is null");
