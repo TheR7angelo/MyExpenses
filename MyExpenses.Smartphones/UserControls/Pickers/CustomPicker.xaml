@@ -7,7 +7,7 @@
              x:Class="MyExpenses.Smartphones.UserControls.Pickers.CustomPicker">
 
     <ContentView.Resources>
-        <converters1:BooleanToInverseConverter x:Key="BooleanToInverseConverter" />
+        <converters1:InvertBooleanConverter x:Key="InvertBooleanConverter" />
         <converters1:EPackIconsToGeometryConverter x:Key="StringToGeometryConverter" />
         <converters1:PercentageConverter x:Key="PercentageConverter" />
     </ContentView.Resources>
@@ -37,7 +37,7 @@
                    Margin="10,3,0,0"
                    VerticalOptions="End"
                    TextColor="{AppThemeBinding Light={StaticResource PlaceholderTextColorLight}, Dark={StaticResource PlaceholderTextColorDark}}"
-                   IsVisible="{Binding IsPlaceholderVisible, Converter={StaticResource BooleanToInverseConverter}, Source={RelativeSource AncestorType={x:Type local:CustomPicker}}}">
+                   IsVisible="{Binding IsPlaceholderVisible, Converter={StaticResource InvertBooleanConverter}, Source={RelativeSource AncestorType={x:Type local:CustomPicker}}}">
             </Label>
 
             <Picker Grid.Row="1" Grid.Column="0"

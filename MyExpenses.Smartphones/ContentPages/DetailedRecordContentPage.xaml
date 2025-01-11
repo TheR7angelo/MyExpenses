@@ -22,7 +22,7 @@
         <converters:ValueToCreditDebitedConverter x:Key="ValueToCreditDebitedConverter" />
         <converters:StringToBrushConverter x:Key="StringToBrushConverter" />
         <converters:SplitUpperCaseWordsConverter x:Key="SplitUpperCaseWordsConverter" />
-        <converters:BooleanToInverseConverter x:Key="BooleanToInverseConverter" />
+        <converters:InvertBooleanConverter x:Key="InvertBooleanConverter" />
         <converters:EPackIconsToGeometryConverter x:Key="StringToGeometryConverter" />
         <converters:PercentageConverter x:Key="PercentageConverter" />
         <converters:MaxLengthConverter x:Key="MaxLengthConverter" />
@@ -324,7 +324,7 @@
                                    Margin="10,3,0,0"
                                    VerticalOptions="End"
                                    TextColor="{AppThemeBinding Light={StaticResource PlaceholderTextColorLight}, Dark={StaticResource PlaceholderTextColorDark}}"
-                                   IsVisible="{Binding IsPlaceholderVisible, Converter={StaticResource BooleanToInverseConverter}, Mode=OneWay}">
+                                   IsVisible="{Binding IsPlaceholderVisible, Converter={StaticResource InvertBooleanConverter}, Mode=OneWay}">
                             </Label>
 
                             <Picker Grid.Row="1" Grid.Column="0"
