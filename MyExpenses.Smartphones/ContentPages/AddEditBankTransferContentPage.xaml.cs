@@ -225,8 +225,12 @@ public partial class AddEditBankTransferContentPage
         else
         {
             OriginalBankTransfer!.CopyPropertiesTo(BankTransfer);
-            SelectedCategoryType = CategoryTypes.FirstOrDefault(s => s.Id.Equals(OriginalSelectedCategoryType?.Id));
-            SelectedModePayment = ModePayments.FirstOrDefault(s => s.Id.Equals(OriginalSelectedModePayment?.Id));
+            SelectedCategoryType = OriginalSelectedCategoryType is null
+                ? null
+                : CategoryTypes.FirstOrDefault(s => s.Id.Equals(OriginalSelectedCategoryType.Id));
+            SelectedModePayment = OriginalSelectedModePayment is null
+                ? null
+                : ModePayments.FirstOrDefault(s => s.Id.Equals(OriginalSelectedModePayment.Id));
         }
 
         UpdateIsDirty();
