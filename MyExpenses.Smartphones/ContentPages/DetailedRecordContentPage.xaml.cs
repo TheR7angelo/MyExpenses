@@ -652,8 +652,8 @@ public partial class DetailedRecordContentPage
         else
         {
             using var context = new DataBaseContext();
-            var category = CategoryTypes.First(s => s.Id.Equals(THistory.CategoryTypeFk));
-            var color = context.TColors.First(s => s.Id.Equals(category.ColorFk));
+            var category = CategoryTypes.First(s => s.Id.Equals(THistory.CategoryTypeFk.Value));
+            var color = context.TColors.First(s => s.Id.Equals(category.ColorFk!.Value));
             hexadecimalColorCode = color.HexadecimalColorCode!;
         }
 
