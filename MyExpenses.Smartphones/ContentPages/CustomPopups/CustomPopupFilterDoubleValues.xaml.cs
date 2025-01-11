@@ -5,6 +5,7 @@ using MyExpenses.Models.Maui.CustomPopup;
 using MyExpenses.Smartphones.PackIcons;
 using MyExpenses.Smartphones.Resources.Resx.ContentPages.CustomPopups.CustomPopupFilterHistoryValues;
 using MyExpenses.Utils.Collection;
+using MyExpenses.Utils.Doubles;
 
 namespace MyExpenses.Smartphones.ContentPages.CustomPopups;
 
@@ -44,8 +45,6 @@ public partial class CustomPopupFilterDoubleValues : ICustomPopupFilter<DoubleIs
 
     private string? SearchText { get; set; }
 
-    private const double Tolerance = 1e-9;
-
     public CustomPopupFilterDoubleValues(IEnumerable<DoubleIsChecked> currentHistoryValues,
         IReadOnlyCollection<DoubleIsChecked>? historyValuesAlreadyChecked = null)
     {
@@ -59,7 +58,7 @@ public partial class CustomPopupFilterDoubleValues : ICustomPopupFilter<DoubleIs
                 var histories = HistoryValues
                     .Where(history => history.DoubleValue.HasValue &&
                                       historyValueAlreadyChecked.DoubleValue.HasValue &&
-                                      Math.Abs(history.DoubleValue.Value - historyValueAlreadyChecked.DoubleValue.Value) < Tolerance)
+                                      history.DoubleValue.Value.AreEqual(historyValueAlreadyChecked.DoubleValue.Value))
                     .ToList();
                 if (histories.Count is 0) continue;
                 histories.ForEach(s => s.IsChecked = historyValueAlreadyChecked.IsChecked);
