@@ -164,14 +164,14 @@ public partial class AccountManagementContentPage
         {
             await DisplayAlert(
                 AccountManagementContentPageResources.MessageBoxRemoveAccountErrorTitle,
-                string.Format(AccountManagementContentPageResources.MessageBoxRemoveAccountErrorMessage, deleteErrors.Count),
+                string.Format(AccountManagementContentPageResources.MessageBoxRemoveAccountErrorMessage, deleteErrors.Count.ToString()),
                 AccountManagementContentPageResources.MessageBoxRemoveAccountErrorOkButton);
         }
         else
         {
             await DisplayAlert(
                 AccountManagementContentPageResources.MessageBoxRemoveAccountSuccessTitle,
-                string.Format(AccountManagementContentPageResources.MessageBoxRemoveAccountSuccessMessage, filteredItem.Count),
+                string.Format(AccountManagementContentPageResources.MessageBoxRemoveAccountSuccessMessage, filteredItem.Count.ToString()),
                 AccountManagementContentPageResources.MessageBoxRemoveAccountSuccessOkButton);
         }
     }
