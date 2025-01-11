@@ -2,7 +2,7 @@ namespace MyExpenses.Utils.Converters;
 
 public static class ValueSymbolConverter
 {
-    public static string Convert(this object?[] values)
+    public static string Convert(object?[] values)
     {
         var numericValue = 0d;
         var symbol = string.Empty;

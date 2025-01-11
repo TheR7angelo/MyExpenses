@@ -4,7 +4,7 @@ namespace MyExpenses.Utils.Converters;
 
 public static class DateOnlyToDateTimeConverter
 {
-    public static object? Convert(this object? value)
+    public static object? Convert(object? value)
     {
         if (value is DateTime dateTime)
         {
@@ -14,7 +14,7 @@ public static class DateOnlyToDateTimeConverter
         return value;
     }
 
-    public static object? ConvertBack(this object? value)
+    public static object? ConvertBack(object? value)
     {
         if (value is DateTime dateTime)
         {

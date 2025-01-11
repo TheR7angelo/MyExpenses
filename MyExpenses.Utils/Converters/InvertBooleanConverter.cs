@@ -2,7 +2,7 @@ namespace MyExpenses.Utils.Converters;
 
 public static class InvertBooleanConverter
 {
-    public static object? Convert(this object? value)
+    public static object? Convert(object? value)
     {
         // ReSharper disable once HeapView.BoxingAllocation
         return value is not bool b
@@ -10,7 +10,7 @@ public static class InvertBooleanConverter
             : Invert(b);
     }
 
-    public static object? ConvertBack(this object? value)
+    public static object? ConvertBack(object? value)
     {
         // ReSharper disable once HeapView.BoxingAllocation
         return value is not bool b
