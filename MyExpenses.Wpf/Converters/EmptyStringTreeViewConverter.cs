@@ -1,23 +1,18 @@
 ﻿using System.Globalization;
 using System.Windows.Data;
-using MyExpenses.Wpf.Resources.Resx.Converters.EmptyStringTreeViewConverter;
 
 namespace MyExpenses.Wpf.Converters;
 
 public class EmptyStringTreeViewConverter : IValueConverter
 {
     public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
-    {
-        return ToUnknown(value);
-    }
+        => MyExpenses.Utils.Converters.EmptyStringTreeViewConverter.Convert(value);
 
     public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
         return Binding.DoNothing;
     }
 
-    public static string ToUnknown(object? value)
-    {
-        return value is string str && !string.IsNullOrWhiteSpace(str) ? str : EmptyStringTreeViewConverterResources.Unknown;
-    }
+    public static string ToUnknown(object? value = null)
+        => MyExpenses.Utils.Converters.EmptyStringTreeViewConverter.ToUnknown(value);
 }

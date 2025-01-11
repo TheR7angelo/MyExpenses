@@ -177,10 +177,6 @@
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>DateOnlyToStringConverterResources.Designer.cs</LastGenOutput>
       </EmbeddedResource>
-      <EmbeddedResource Update="Resources\Resx\Converters\EmptyStringTreeViewConverter\EmptyStringTreeViewConverterResources.resx">
-        <Generator>ResXFileCodeGenerator</Generator>
-        <LastGenOutput>EmptyStringTreeViewConverterResources.Designer.cs</LastGenOutput>
-      </EmbeddedResource>
       <EmbeddedResource Update="Resources\Resx\Windows\AutoUpdaterGitHubWindow\AutoUpdaterGitHubWindowResources.resx">
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>AutoUpdaterGitHubWindowResources.Designer.cs</LastGenOutput>
@@ -405,11 +401,6 @@
         <DesignTime>True</DesignTime>
         <AutoGen>True</AutoGen>
         <DependentUpon>DateOnlyToStringConverterResources.resx</DependentUpon>
-      </Compile>
-      <Compile Update="Resources\Resx\Converters\EmptyStringTreeViewConverter\EmptyStringTreeViewConverterResources.Designer.cs">
-        <DesignTime>True</DesignTime>
-        <AutoGen>True</AutoGen>
-        <DependentUpon>EmptyStringTreeViewConverterResources.resx</DependentUpon>
       </Compile>
       <Compile Update="Resources\Resx\Windows\AutoUpdaterGitHubWindow\AutoUpdaterGitHubWindowResources.Designer.cs">
         <DesignTime>True</DesignTime>

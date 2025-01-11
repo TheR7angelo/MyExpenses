@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MyExpenses.Smartphones.Resources.Resx.Converters.EmptyStringTreeViewConverter {
+namespace MyExpenses.Utils.Resources.Resx.Converters {
     using System;
     
     
@@ -21,7 +21,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.Converters.EmptyStringTreeViewCo
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class EmptyStringTreeViewConverterResources {
+    public class EmptyStringTreeViewConverterResources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -38,8 +38,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.Converters.EmptyStringTreeViewCo
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MyExpenses.Smartphones.Resources.Resx.Converters.EmptyStringTreeViewConverter.Emp" +
-                            "tyStringTreeViewConverterResources", typeof(EmptyStringTreeViewConverterResources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MyExpenses.Utils.Resources.Resx.Converters.EmptyStringTreeViewConverterResources", typeof(EmptyStringTreeViewConverterResources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -63,7 +62,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.Converters.EmptyStringTreeViewCo
         /// <summary>
         ///   Looks up a localized string similar to Unknown.
         /// </summary>
-        internal static string Unknown {
+        public static string Unknown {
             get {
                 return ResourceManager.GetString("Unknown", resourceCulture);
             }

@@ -12,7 +12,6 @@ using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Smartphones.Converters;
 using MyExpenses.Smartphones.PackIcons;
 using MyExpenses.Smartphones.Resources.Resx.ContentPages.DetailedRecordContentPage;
-using MyExpenses.Smartphones.Resources.Resx.Converters.EmptyStringTreeViewConverter;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils;
 using MyExpenses.Utils.Collection;
@@ -356,7 +355,7 @@ public partial class DetailedRecordContentPage
 
         if (!string.IsNullOrEmpty(country))
         {
-            records = country.Equals(EmptyStringTreeViewConverterResources.Unknown)
+            records = country.Equals(Utils.Resources.Resx.Converters.EmptyStringTreeViewConverterResources.Unknown)
                 ? query.Where(s => s.Country == null)
                 : query.Where(s => s.Country == country);
         }
@@ -392,7 +391,7 @@ public partial class DetailedRecordContentPage
 
         if (!string.IsNullOrEmpty(city))
         {
-            records = city.Equals(EmptyStringTreeViewConverterResources.Unknown)
+            records = city.Equals(Utils.Resources.Resx.Converters.EmptyStringTreeViewConverterResources.Unknown)
                 ? query.Where(s => s.City == null)
                 : query.Where(s => s.City == city);
         }
@@ -434,11 +433,11 @@ public partial class DetailedRecordContentPage
         ComboBoxSelectorCity.SelectedIndexChanged -= SelectorCity_OnSelectionChanged;
 
         var country = string.IsNullOrEmpty(place?.Country)
-            ? EmptyStringTreeViewConverterResources.Unknown
+            ? Utils.Resources.Resx.Converters.EmptyStringTreeViewConverterResources.Unknown
             : place.Country;
 
         var city = string.IsNullOrEmpty(place?.City)
-            ? EmptyStringTreeViewConverterResources.Unknown
+            ? Utils.Resources.Resx.Converters.EmptyStringTreeViewConverterResources.Unknown
             : place.City;
 
         ComboBoxSelectorCountry.SelectedItem = country;
