@@ -7,7 +7,6 @@ public class TotalToIconConverter : IValueConverter
 {
     public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
-        value ??= 0d;
         if (value is not double total)
         {
             // ReSharper disable once HeapView.BoxingAllocation
