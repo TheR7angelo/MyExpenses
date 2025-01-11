@@ -44,6 +44,8 @@ public partial class CustomPopupFilterDoubleValues : ICustomPopupFilter<DoubleIs
 
     private string? SearchText { get; set; }
 
+    private const double Tolerance = 1e-9;
+
     public CustomPopupFilterDoubleValues(IEnumerable<DoubleIsChecked> currentHistoryValues,
         IReadOnlyCollection<DoubleIsChecked>? historyValuesAlreadyChecked = null)
     {
@@ -54,8 +56,11 @@ public partial class CustomPopupFilterDoubleValues : ICustomPopupFilter<DoubleIs
         {
             foreach (var historyValueAlreadyChecked in historyValuesAlreadyChecked.Where(s => s.IsChecked))
             {
-                var histories = HistoryValues.Where(s =>
-                    s.DoubleValue!.Equals(historyValueAlreadyChecked.DoubleValue)).ToList();
+                var histories = HistoryValues
+                    .Where(history => history.DoubleValue.HasValue &&
+                                      historyValueAlreadyChecked.DoubleValue.HasValue &&
+                                      Math.Abs(history.DoubleValue.Value - historyValueAlreadyChecked.DoubleValue.Value) < Tolerance)
+                    .ToList();
                 if (histories.Count is 0) continue;
                 histories.ForEach(s => s.IsChecked = historyValueAlreadyChecked.IsChecked);
             }
