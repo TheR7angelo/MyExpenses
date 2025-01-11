@@ -1018,7 +1018,7 @@ public partial class DashBoardContentPage
 
         var months = currentCulture.DateTimeFormat.MonthNames
             .Where(s => !string.IsNullOrEmpty(s))
-            .Select(s => s.ToFirstCharUpper()).ToImmutableArray();
+            .Select(s => s.ToFirstCharUpper()).ToList();
 
         if (Months.Count is 0)
         {
@@ -1027,7 +1027,7 @@ public partial class DashBoardContentPage
         else
         {
             var selectedMonth = Months.FirstOrDefault(month => month.Equals(SelectedMonth)) ?? string.Empty;
-            for (var i = 0; i < months.Length; i++)
+            for (var i = 0; i < months.Count; i++)
             {
                 Months[i] = months[i];
             }
