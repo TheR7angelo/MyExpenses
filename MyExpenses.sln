@@ -31,6 +31,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyExpenses.Maui.Utils", "My
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyExpenses.Share.Core", "MyExpenses.Share.Core\MyExpenses.Share.Core.csproj", "{087284ED-F5F8-49F3-825D-11435E54476B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyExpenses.Benchmark", "MyExpenses.Benchmark\MyExpenses.Benchmark.csproj", "{83D9CFDB-2BED-49C5-8FF1-0EA061E5242F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -101,5 +103,9 @@ Global
 		{087284ED-F5F8-49F3-825D-11435E54476B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{087284ED-F5F8-49F3-825D-11435E54476B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{087284ED-F5F8-49F3-825D-11435E54476B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{83D9CFDB-2BED-49C5-8FF1-0EA061E5242F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{83D9CFDB-2BED-49C5-8FF1-0EA061E5242F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{83D9CFDB-2BED-49C5-8FF1-0EA061E5242F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{83D9CFDB-2BED-49C5-8FF1-0EA061E5242F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
