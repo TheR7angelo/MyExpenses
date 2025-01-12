@@ -1,4 +1,5 @@
-﻿using Serilog;
+﻿using System.Globalization;
+using Serilog;
 
 namespace MyExpenses.WebApi;
 
@@ -43,7 +44,9 @@ public abstract class Http
         IProgress<(double Percentage, double NormalizeBytes, string NormalizeBytesUnit, TimeSpan TimeLeft)> progressLog =
             new Progress<(double Percentage, double NormalizeBytes, string NormalizeBytesUnit, TimeSpan TimeLeft)>(
                 value => Log.Information("Progress: {Percentage:F2}% | Speed: {Speed:F2} {NormalizeBytesUnit}/s | Time Left: {TimeLeft:g}",
-                    value.Percentage, value.NormalizeBytes, value.NormalizeBytesUnit, value.TimeLeft));
+                    value.Percentage.ToString(CultureInfo.InvariantCulture),
+                    value.NormalizeBytes.ToString(CultureInfo.InvariantCulture),
+                    value.NormalizeBytesUnit, value.TimeLeft.ToString()));
 
         try
         {
@@ -101,11 +104,13 @@ public abstract class Http
             var normalizeBytesFinal = GetNormalizeByteSize(totalBytes, out var normalizeBytesUnitFinal);
             Log.Information(
                 "Download completed successfully, start time: {StartTime:g} | end time: {EndTime:g} | total duration: {TotalDuration:g} | file size: {TotalSize:F2} {NormalizeBytesUnit}",
-                startTime, endTime, totalDuration, normalizeBytesFinal, normalizeBytesUnitFinal);
+                startTime.ToString(CultureInfo.InvariantCulture),
+                endTime.ToString(CultureInfo.InvariantCulture),
+                totalDuration.ToString(), normalizeBytesFinal.ToString(CultureInfo.InvariantCulture), normalizeBytesUnitFinal);
         }
         catch (OperationCanceledException)
         {
-            // Ensure the partially downloaded file is deleted if the operation is cancelled
+            // Ensure the partially downloaded file is deleted if the operation is canceled
             if (File.Exists(destinationFile))
             {
                 File.Delete(destinationFile);
