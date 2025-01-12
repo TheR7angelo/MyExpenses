@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MyExpenses.Smartphones.Resources.Resx.Converters.ValueToCreditDebitedConverter {
+namespace MyExpenses.Utils.Resources.Resx.Converters.ValueToCreditDebitedConverter {
     using System;
     
     
@@ -38,8 +38,8 @@ namespace MyExpenses.Smartphones.Resources.Resx.Converters.ValueToCreditDebitedC
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MyExpenses.Smartphones.Resources.Resx.Converters.ValueToCreditDebitedConverter.Va" +
-                            "lueToCreditDebitedConverterResources", typeof(ValueToCreditDebitedConverterResources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MyExpenses.Utils.Resources.Resx.Converters.ValueToCreditDebitedConverter.ValueToC" +
+                            "reditDebitedConverterResources", typeof(ValueToCreditDebitedConverterResources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
