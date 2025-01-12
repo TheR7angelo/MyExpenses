@@ -7,11 +7,8 @@ public static class MaxLengthConverter
 {
     public static object? Convert(object? value, object? parameter)
     {
-        if (value is null || parameter is null)
-        {
-            // ReSharper disable once HeapView.BoxingAllocation
-            return 0;
-        }
+        // ReSharper disable once HeapView.BoxingAllocation
+        if (value is null || parameter is null) return 0;
 
         var objectType = value.GetType();
         var propertyName = parameter.ToString()!;
