@@ -1,5 +1,6 @@
 using System.Drawing;
 using MyExpenses.Models.Sql.Bases.Tables;
+using MyExpenses.Models.Utils;
 using MyExpenses.Sql.Resources.Resx.DbContextHelperSetDefaultValues;
 using MyExpenses.Sql.Utils.Regex;
 
@@ -176,12 +177,12 @@ public static class DbContextHelperSetDefaultValues
         };
         var knownColors = Enum.GetValues<KnownColor>()
             .Where(s => !blackList.Contains(s))
-            .OrderBy(s => s.ToString());
+            .OrderBy(s => s).AsEnumerable();
 
         var colors = new List<TColor>();
         foreach (var knownColor in knownColors)
         {
-            var name = knownColor.ToString().SplitUpperCaseWord();
+            var name = EnumHelper<KnownColor>.ToEnumString(knownColor).SplitUpperCaseWord();
             var color = Color.FromKnownColor(knownColor);
             var hex = $"#{color.A:X2}{color.R:X2}{color.G:X2}{color.B:X2}";
 
