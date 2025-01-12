@@ -173,10 +173,6 @@
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>AccountsCategorySumPositiveNegativeControlsResources.Designer.cs</LastGenOutput>
       </EmbeddedResource>
-      <EmbeddedResource Update="Resources\Resx\Converters\DateOnlyToStringConverter\DateOnlyToStringConverterResources.resx">
-        <Generator>ResXFileCodeGenerator</Generator>
-        <LastGenOutput>DateOnlyToStringConverterResources.Designer.cs</LastGenOutput>
-      </EmbeddedResource>
       <EmbeddedResource Update="Resources\Resx\Windows\AutoUpdaterGitHubWindow\AutoUpdaterGitHubWindowResources.resx">
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>AutoUpdaterGitHubWindowResources.Designer.cs</LastGenOutput>
@@ -396,11 +392,6 @@
         <DesignTime>True</DesignTime>
         <AutoGen>True</AutoGen>
         <DependentUpon>AccountsCategorySumPositiveNegativeControlsResources.resx</DependentUpon>
-      </Compile>
-      <Compile Update="Resources\Resx\Converters\DateOnlyToStringConverter\DateOnlyToStringConverterResources.Designer.cs">
-        <DesignTime>True</DesignTime>
-        <AutoGen>True</AutoGen>
-        <DependentUpon>DateOnlyToStringConverterResources.resx</DependentUpon>
       </Compile>
       <Compile Update="Resources\Resx\Windows\AutoUpdaterGitHubWindow\AutoUpdaterGitHubWindowResources.Designer.cs">
         <DesignTime>True</DesignTime>

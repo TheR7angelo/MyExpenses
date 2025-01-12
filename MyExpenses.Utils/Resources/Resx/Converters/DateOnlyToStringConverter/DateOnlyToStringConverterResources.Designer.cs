@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MyExpenses.Wpf.Resources.Resx.Converters.DateOnlyToStringConverter {
+namespace MyExpenses.Utils.Resources.Resx.Converters.DateOnlyToStringConverter {
     using System;
     
     
@@ -38,8 +38,8 @@ namespace MyExpenses.Wpf.Resources.Resx.Converters.DateOnlyToStringConverter {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MyExpenses.Wpf.Resources.Resx.Converters.DateOnlyToStringConverter.DateOnlyToStri" +
-                            "ngConverterResources", typeof(DateOnlyToStringConverterResources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MyExpenses.Utils.Resources.Resx.Converters.DateOnlyToStringConverter.DateOnlyToSt" +
+                            "ringConverterResources", typeof(DateOnlyToStringConverterResources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
