@@ -1,5 +1,6 @@
 using System.Globalization;
 using System.Windows.Data;
+using MyExpenses.Models.Utils;
 using MyExpenses.Models.WebApi.DropBox;
 using MyExpenses.Wpf.Resources.Resx.Converters.SyncStatusToLocalizedStringConverter;
 
@@ -12,7 +13,8 @@ public class SyncStatusToLocalizedStringConverter : IValueConverter
         if (value is not SyncStatus syncStatus) return string.Empty;
 
         var resourceManager = SyncStatusToLocalizedStringConverterResources.ResourceManager!;
-        var translated = resourceManager.GetString(syncStatus.ToString()) ?? string.Empty;
+        var name = EnumHelper<SyncStatus>.ToEnumString(syncStatus);
+        var translated = resourceManager.GetString(name) ?? string.Empty;
 
         return translated;
     }
