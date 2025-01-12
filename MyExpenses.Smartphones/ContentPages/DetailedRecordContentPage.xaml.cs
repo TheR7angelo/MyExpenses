@@ -18,6 +18,7 @@ using MyExpenses.Utils.Collection;
 using MyExpenses.Utils.DateTimes;
 using MyExpenses.Utils.Maps;
 using MyExpenses.Utils.Objects;
+using MyExpenses.Utils.Resources.Resx.Converters.EmptyStringTreeViewConverter;
 using Serilog;
 using Path = Microsoft.Maui.Controls.Shapes.Path;
 using ValidationResult = System.ComponentModel.DataAnnotations.ValidationResult;
@@ -355,7 +356,7 @@ public partial class DetailedRecordContentPage
 
         if (!string.IsNullOrEmpty(country))
         {
-            records = country.Equals(Utils.Resources.Resx.Converters.EmptyStringTreeViewConverterResources.Unknown)
+            records = country.Equals(EmptyStringTreeViewConverterResources.Unknown)
                 ? query.Where(s => s.Country == null)
                 : query.Where(s => s.Country == country);
         }
@@ -391,7 +392,7 @@ public partial class DetailedRecordContentPage
 
         if (!string.IsNullOrEmpty(city))
         {
-            records = city.Equals(Utils.Resources.Resx.Converters.EmptyStringTreeViewConverterResources.Unknown)
+            records = city.Equals(EmptyStringTreeViewConverterResources.Unknown)
                 ? query.Where(s => s.City == null)
                 : query.Where(s => s.City == city);
         }
@@ -433,11 +434,11 @@ public partial class DetailedRecordContentPage
         ComboBoxSelectorCity.SelectedIndexChanged -= SelectorCity_OnSelectionChanged;
 
         var country = string.IsNullOrEmpty(place?.Country)
-            ? Utils.Resources.Resx.Converters.EmptyStringTreeViewConverterResources.Unknown
+            ? EmptyStringTreeViewConverterResources.Unknown
             : place.Country;
 
         var city = string.IsNullOrEmpty(place?.City)
-            ? Utils.Resources.Resx.Converters.EmptyStringTreeViewConverterResources.Unknown
+            ? EmptyStringTreeViewConverterResources.Unknown
             : place.City;
 
         ComboBoxSelectorCountry.SelectedItem = country;
