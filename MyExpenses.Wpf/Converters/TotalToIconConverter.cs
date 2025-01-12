@@ -19,8 +19,13 @@ public class TotalToIconConverter : IValueConverter
     /// <returns>The icon from the MaterialDesignThemes.Wpf library corresponding to the total value.</returns>
     public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
-        value ??= 0d;
-        if (value is not double total) return PackIconKind.None;
+        if (value is not double total)
+        {
+            // ReSharper disable once HeapView.BoxingAllocation
+            return PackIconKind.None;
+        }
+
+        // ReSharper disable once HeapView.BoxingAllocation
         return total switch
         {
             < 0 => PackIconKind.WeatherPouring,
