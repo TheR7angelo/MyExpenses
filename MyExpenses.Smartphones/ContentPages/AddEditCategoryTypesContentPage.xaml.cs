@@ -7,7 +7,6 @@ using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Models.Sql.Bases.Views;
 using MyExpenses.Smartphones.ContentPages.CustomPopups;
 using MyExpenses.Smartphones.ContentPages.CustomPopups.CustomPopupActivityIndicator;
-using MyExpenses.Smartphones.Converters;
 using MyExpenses.Smartphones.Resources.Resx.ContentPages.AddEditCategoryTypesContentPage;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils;
@@ -86,7 +85,7 @@ public partial class AddEditCategoryTypesContentPage
 
     public AddEditCategoryTypesContentPage()
     {
-        MaxLength = MaxLengthConverter.Convert(typeof(TCategoryType), nameof(TCategoryType.Name));
+        MaxLength = Utils.Converters.MaxLengthConverter.Convert(typeof(TCategoryType), nameof(TCategoryType.Name));
         BackCommand = new Command(OnBackCommandPressed);
 
         RefreshCollection();

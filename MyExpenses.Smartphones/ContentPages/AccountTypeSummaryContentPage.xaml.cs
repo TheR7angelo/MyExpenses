@@ -6,7 +6,6 @@ using MyExpenses.Models.Maui.CustomPopup;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Smartphones.ContentPages.CustomPopups;
 using MyExpenses.Smartphones.ContentPages.CustomPopups.CustomPopupActivityIndicator;
-using MyExpenses.Smartphones.Converters;
 using MyExpenses.Smartphones.Resources.Resx.ContentPages.AccountTypeSummaryContentPage;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils;
@@ -58,7 +57,7 @@ public partial class AccountTypeSummaryContentPage
 
     public AccountTypeSummaryContentPage()
     {
-        MaxLength = MaxLengthConverter.Convert(typeof(TAccountType), nameof(TAccountType.Name));
+        MaxLength = Utils.Converters.MaxLengthConverter.Convert(typeof(TAccountType), nameof(TAccountType.Name));
 
         BackCommand = new Command(OnBackCommandPressed);
 
