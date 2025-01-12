@@ -17,6 +17,7 @@ public static class DateOnlyToStringConverter
     public static object? ConvertBack(object? value, CultureInfo culture)
     {
         if (value is not string dateString) return value;
+        // ReSharper disable once HeapView.BoxingAllocation
         return DateTime.TryParse(dateString, culture, DateTimeStyles.None, out var result) ? result : value;
     }
 }

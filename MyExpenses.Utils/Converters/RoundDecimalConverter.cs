@@ -6,6 +6,7 @@ public static class RoundDecimalConverter
     {
         if (value is double doubleValue)
         {
+            // ReSharper disable once HeapView.BoxingAllocation
             return Math.Round(doubleValue, digit);
         }
 
