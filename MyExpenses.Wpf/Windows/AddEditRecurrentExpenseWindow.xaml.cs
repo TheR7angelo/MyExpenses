@@ -18,7 +18,7 @@ using MyExpenses.Utils.Collection;
 using MyExpenses.Utils.DateTimes;
 using MyExpenses.Utils.Maps;
 using MyExpenses.Utils.Objects;
-using MyExpenses.Utils.Resources.Resx.Converters;
+using MyExpenses.Utils.Resources.Resx.Converters.EmptyStringTreeViewConverter;
 using MyExpenses.Utils.Sql;
 using MyExpenses.Utils.Strings;
 using MyExpenses.Wpf.Converters;

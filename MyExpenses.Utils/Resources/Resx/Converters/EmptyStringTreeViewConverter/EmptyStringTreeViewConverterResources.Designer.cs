@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MyExpenses.Utils.Resources.Resx.Converters {
+namespace MyExpenses.Utils.Resources.Resx.Converters.EmptyStringTreeViewConverter {
     using System;
     
     
@@ -38,7 +38,7 @@ namespace MyExpenses.Utils.Resources.Resx.Converters {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MyExpenses.Utils.Resources.Resx.Converters.EmptyStringTreeViewConverterResources", typeof(EmptyStringTreeViewConverterResources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MyExpenses.Utils.Resources.Resx.Converters.EmptyStringTreeViewConverter.EmptyStringTreeViewConverterResources", typeof(EmptyStringTreeViewConverterResources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
