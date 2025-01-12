@@ -160,20 +160,10 @@
         <AutoGen>True</AutoGen>
         <DependentUpon>DashBoardContentPageResources.resx</DependentUpon>
       </Compile>
-      <Compile Update="Resources\Resx\Converters\ValueToCreditDebitedConverter\ValueToCreditDebitedConverterResources.Designer.cs">
-        <DesignTime>True</DesignTime>
-        <AutoGen>True</AutoGen>
-        <DependentUpon>ValueToCreditDebitedConverterResources.resx</DependentUpon>
-      </Compile>
       <Compile Update="Resources\Resx\ContentPages\DetailedRecordContentPage\DetailedRecordContentPageResources.Designer.cs">
         <DesignTime>True</DesignTime>
         <AutoGen>True</AutoGen>
         <DependentUpon>DetailedRecordContentPageResources.resx</DependentUpon>
-      </Compile>
-      <Compile Update="Resources\Resx\Converters\EmptyStringTreeViewConverter\EmptyStringTreeViewConverterResources.Designer.cs">
-        <DesignTime>True</DesignTime>
-        <AutoGen>True</AutoGen>
-        <DependentUpon>EmptyStringTreeViewConverterResources.resx</DependentUpon>
       </Compile>
       <Compile Update="ContentPages\CustomPopups\CustomPopup.xaml.cs">
         <DependentUpon>CustomPopup.xaml</DependentUpon>
@@ -206,11 +196,6 @@
         <DesignTime>True</DesignTime>
         <AutoGen>True</AutoGen>
         <DependentUpon>CustomPopupFilterHistoryValuesResources.resx</DependentUpon>
-      </Compile>
-      <Compile Update="Resources\Resx\Converters\BoolToStringConverter\BoolToStringConverterResources.Designer.cs">
-        <DesignTime>True</DesignTime>
-        <AutoGen>True</AutoGen>
-        <DependentUpon>BoolToStringConverterResources.resx</DependentUpon>
       </Compile>
       <Compile Update="Resources\Resx\ContentPages\CustomPopups\CustomPopupFilterChecked\CustomPopupFilterCheckedResources.Designer.cs">
         <DesignTime>True</DesignTime>
@@ -308,17 +293,9 @@
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>DashBoardContentPageResources.Designer.cs</LastGenOutput>
       </EmbeddedResource>
-      <EmbeddedResource Update="Resources\Resx\Converters\ValueToCreditDebitedConverter\ValueToCreditDebitedConverterResources.resx">
-        <Generator>ResXFileCodeGenerator</Generator>
-        <LastGenOutput>ValueToCreditDebitedConverterResources.Designer.cs</LastGenOutput>
-      </EmbeddedResource>
       <EmbeddedResource Update="Resources\Resx\ContentPages\DetailedRecordContentPage\DetailedRecordContentPageResources.resx">
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>DetailedRecordContentPageResources.Designer.cs</LastGenOutput>
-      </EmbeddedResource>
-      <EmbeddedResource Update="Resources\Resx\Converters\EmptyStringTreeViewConverter\EmptyStringTreeViewConverterResources.resx">
-        <Generator>ResXFileCodeGenerator</Generator>
-        <LastGenOutput>EmptyStringTreeViewConverterResources.Designer.cs</LastGenOutput>
       </EmbeddedResource>
       <EmbeddedResource Update="Resources\Resx\ContentPages\CustomPopups\CustomPopupFilterCategories\CustomPopupFilterCategoriesResources.resx">
         <Generator>ResXFileCodeGenerator</Generator>
@@ -335,10 +312,6 @@
       <EmbeddedResource Update="Resources\Resx\ContentPages\CustomPopups\CustomPopupFilterHistoryValues\CustomPopupFilterHistoryValuesResources.resx">
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>CustomPopupFilterHistoryValuesResources.Designer.cs</LastGenOutput>
-      </EmbeddedResource>
-      <EmbeddedResource Update="Resources\Resx\Converters\BoolToStringConverter\BoolToStringConverterResources.resx">
-        <Generator>ResXFileCodeGenerator</Generator>
-        <LastGenOutput>BoolToStringConverterResources.Designer.cs</LastGenOutput>
       </EmbeddedResource>
       <EmbeddedResource Update="Resources\Resx\ContentPages\CustomPopups\CustomPopupFilterChecked\CustomPopupFilterCheckedResources.resx">
         <Generator>ResXFileCodeGenerator</Generator>
