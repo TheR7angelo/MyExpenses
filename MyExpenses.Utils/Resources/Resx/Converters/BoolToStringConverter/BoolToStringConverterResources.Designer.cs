@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MyExpenses.Smartphones.Resources.Resx.Converters.BoolToStringConverter {
+namespace MyExpenses.Utils.Resources.Resx.Converters.BoolToStringConverter {
     using System;
     
     
@@ -38,8 +38,8 @@ namespace MyExpenses.Smartphones.Resources.Resx.Converters.BoolToStringConverter
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MyExpenses.Smartphones.Resources.Resx.Converters.BoolToStringConverter.BoolToStri" +
-                            "ngConverterResources", typeof(BoolToStringConverterResources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MyExpenses.Utils.Resources.Resx.Converters.BoolToStringConverter.BoolToStringConv" +
+                            "erterResources", typeof(BoolToStringConverterResources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

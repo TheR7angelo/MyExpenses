@@ -24,6 +24,10 @@
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>EmptyStringTreeViewConverterResources.Designer.cs</LastGenOutput>
       </EmbeddedResource>
+      <EmbeddedResource Update="Resources\Resx\Converters\BoolToStringConverter\BoolToStringConverterResources.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>BoolToStringConverterResources.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
     </ItemGroup>
 
     <ItemGroup>
@@ -31,6 +35,11 @@
         <DesignTime>True</DesignTime>
         <AutoGen>True</AutoGen>
         <DependentUpon>EmptyStringTreeViewConverterResources.resx</DependentUpon>
+      </Compile>
+      <Compile Update="Resources\Resx\Converters\BoolToStringConverter\BoolToStringConverterResources.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>BoolToStringConverterResources.resx</DependentUpon>
       </Compile>
     </ItemGroup>
 
