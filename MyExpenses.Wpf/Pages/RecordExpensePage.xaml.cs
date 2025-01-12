@@ -33,12 +33,14 @@ namespace MyExpenses.Wpf.Pages;
 public partial class RecordExpensePage
 {
 
+    // ReSharper disable once HeapView.BoxingAllocation
     public static readonly DependencyProperty EditHistoryProperty = DependencyProperty.Register(nameof(EditHistory),
         typeof(bool), typeof(RecordExpensePage), new PropertyMetadata(false));
 
     public bool EditHistory
     {
         get => (bool)GetValue(EditHistoryProperty);
+        // ReSharper disable once HeapView.BoxingAllocation
         set => SetValue(EditHistoryProperty, value);
     }
 

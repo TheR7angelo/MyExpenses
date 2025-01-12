@@ -24,6 +24,7 @@ public partial class BankTransferPage
 {
     #region DependencyProperty
 
+    // ReSharper disable once HeapView.BoxingAllocation
     public static readonly DependencyProperty BankTransferPrepareProperty =
         DependencyProperty.Register(nameof(BankTransferPrepare), typeof(bool), typeof(BankTransferPage),
             new PropertyMetadata(false));
@@ -31,6 +32,7 @@ public partial class BankTransferPage
     public bool BankTransferPrepare
     {
         get => (bool)GetValue(BankTransferPrepareProperty);
+        // ReSharper disable once HeapView.BoxingAllocation
         set => SetValue(BankTransferPrepareProperty, value);
     }
 
@@ -43,6 +45,7 @@ public partial class BankTransferPage
         set => SetValue(VFromAccountProperty, value);
     }
 
+    // ReSharper disable once HeapView.BoxingAllocation
     public static readonly DependencyProperty VFromAccountReduceProperty =
         DependencyProperty.Register(nameof(VFromAccountReduce), typeof(double), typeof(BankTransferPage),
             new PropertyMetadata(0d));
@@ -50,6 +53,7 @@ public partial class BankTransferPage
     public double? VFromAccountReduce
     {
         get => (double)GetValue(VFromAccountReduceProperty);
+        // ReSharper disable once HeapView.BoxingAllocation
         set => SetValue(VFromAccountReduceProperty, value);
     }
 
@@ -62,6 +66,7 @@ public partial class BankTransferPage
         set => SetValue(VToAccountProperty, value);
     }
 
+    // ReSharper disable once HeapView.BoxingAllocation
     public static readonly DependencyProperty VToAccountIncreaseProperty =
         DependencyProperty.Register(nameof(VToAccountIncrease), typeof(double), typeof(BankTransferPage),
             new PropertyMetadata(0d));
@@ -69,6 +74,7 @@ public partial class BankTransferPage
     public double? VToAccountIncrease
     {
         get => (double)GetValue(VToAccountIncreaseProperty);
+        // ReSharper disable once HeapView.BoxingAllocation
         set => SetValue(VToAccountIncreaseProperty, value);
     }
 
@@ -90,12 +96,14 @@ public partial class BankTransferPage
         set => SetValue(ModePaymentProperty, value);
     }
 
+    // ReSharper disable once HeapView.BoxingAllocation
     public static readonly DependencyProperty IsPointedProperty = DependencyProperty.Register(nameof(IsPointed),
         typeof(bool), typeof(BankTransferPage), new PropertyMetadata(false));
 
     public bool IsPointed
     {
         get => (bool)GetValue(IsPointedProperty);
+        // ReSharper disable once HeapView.BoxingAllocation
         set => SetValue(IsPointedProperty, value);
     }
 

@@ -23,6 +23,7 @@ namespace MyExpenses.Wpf;
 
 public partial class MainWindow
 {
+    // ReSharper disable once HeapView.BoxingAllocation
     public static readonly DependencyProperty CanGoBackProperty = DependencyProperty.Register(nameof(CanGoBack),
         typeof(bool), typeof(MainWindow), new PropertyMetadata(false));
 
@@ -127,6 +128,7 @@ public partial class MainWindow
     public bool CanGoBack
     {
         get => (bool)GetValue(CanGoBackProperty);
+        // ReSharper disable once HeapView.BoxingAllocation
         set => SetValue(CanGoBackProperty, value);
     }
 

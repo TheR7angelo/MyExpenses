@@ -22,12 +22,14 @@ public partial class RecurrentExpensePage
 {
     #region DependencyProperty
 
+    // ReSharper disable once HeapView.BoxingAllocation
     public static readonly DependencyProperty LocalLanguageProperty = DependencyProperty.Register(nameof(LocalLanguage),
         typeof(Local), typeof(RecurrentExpensePage), new PropertyMetadata(default(Local)));
 
     public Local LocalLanguage
     {
         get => (Local)GetValue(LocalLanguageProperty);
+        // ReSharper disable once HeapView.BoxingAllocation
         set => SetValue(LocalLanguageProperty, value);
     }
 
