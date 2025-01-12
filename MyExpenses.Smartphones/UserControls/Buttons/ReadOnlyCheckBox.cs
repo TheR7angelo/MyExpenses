@@ -3,16 +3,13 @@ namespace MyExpenses.Smartphones.UserControls.Buttons;
 public class ReadOnlyCheckBox : CheckBox
 {
     public static readonly BindableProperty IsReadOnlyProperty =
-        BindableProperty.Create(
-            nameof(IsReadOnly),
-            typeof(bool),
-            typeof(ReadOnlyCheckBox),
-            false,
-            propertyChanged: OnIsReadOnlyChanged);
+        // ReSharper disable once HeapView.BoxingAllocation
+        BindableProperty.Create(nameof(IsReadOnly), typeof(bool), typeof(ReadOnlyCheckBox), false, propertyChanged: OnIsReadOnlyChanged);
 
     public bool IsReadOnly
     {
         get => (bool)GetValue(IsReadOnlyProperty);
+        // ReSharper disable once HeapView.BoxingAllocation
         set => SetValue(IsReadOnlyProperty, value);
     }
 

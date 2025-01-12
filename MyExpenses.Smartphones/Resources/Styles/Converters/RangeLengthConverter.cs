@@ -19,6 +19,7 @@ public class RangeLengthConverter : IMultiValueConverter
         var percent = (value - min) / (max - min);
         var length = percent * containerLength;
 
+        // ReSharper disable once HeapView.BoxingAllocation
         return length > containerLength ? containerLength : length;
     }
 

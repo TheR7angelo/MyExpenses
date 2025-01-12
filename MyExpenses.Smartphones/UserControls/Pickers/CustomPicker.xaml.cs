@@ -15,11 +15,13 @@ public partial class CustomPicker
     }
 
     public static readonly BindableProperty HasClearButtonProperty =
+        // ReSharper disable once HeapView.BoxingAllocation
         BindableProperty.Create(nameof(HasClearButton), typeof(bool), typeof(CustomPicker), false);
 
     public bool HasClearButton
     {
         get => (bool)GetValue(HasClearButtonProperty);
+        // ReSharper disable once HeapView.BoxingAllocation
         set => SetValue(HasClearButtonProperty, value);
     }
 
@@ -42,11 +44,13 @@ public partial class CustomPicker
     }
 
     public static readonly BindableProperty IsPlaceholderVisibleProperty =
+        // ReSharper disable once HeapView.BoxingAllocation
         BindableProperty.Create(nameof(IsPlaceholderVisible), typeof(bool), typeof(CustomPicker), false);
 
     public bool IsPlaceholderVisible
     {
         get => (bool)GetValue(IsPlaceholderVisibleProperty);
+        // ReSharper disable once HeapView.BoxingAllocation
         set => SetValue(IsPlaceholderVisibleProperty, value);
     }
 

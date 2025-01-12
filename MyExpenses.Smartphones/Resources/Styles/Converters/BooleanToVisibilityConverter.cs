@@ -8,8 +8,10 @@ public class BooleanToVisibilityConverter : IValueConverter
     {
         if (value is bool boolValue)
         {
+            // ReSharper disable once HeapView.BoxingAllocation
             return boolValue ? Visibility.Visible : Visibility.Collapsed;
         }
+        // ReSharper disable once HeapView.BoxingAllocation
         return false;
     }
 
@@ -17,8 +19,10 @@ public class BooleanToVisibilityConverter : IValueConverter
     {
         if (value is bool boolValue)
         {
+            // ReSharper disable once HeapView.BoxingAllocation
             return boolValue;
         }
+        // ReSharper disable once HeapView.BoxingAllocation
         return false;
     }
 }

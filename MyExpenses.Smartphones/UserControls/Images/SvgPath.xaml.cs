@@ -5,11 +5,13 @@ namespace MyExpenses.Smartphones.UserControls.Images;
 public partial class SvgPath
 {
     public static readonly BindableProperty GeometrySourceProperty =
+        // ReSharper disable once HeapView.BoxingAllocation
         BindableProperty.Create(nameof(GeometrySource), typeof(EPackIcons), typeof(SvgPath), default(EPackIcons));
 
     public EPackIcons GeometrySource
     {
         get => (EPackIcons)GetValue(GeometrySourceProperty);
+        // ReSharper disable once HeapView.BoxingAllocation
         set => SetValue(GeometrySourceProperty, value);
     }
 
