@@ -16,6 +16,7 @@ public class HexToColorConverter : IValueConverter
         if(str.Length > 8) str = str[..8];
 
         var color = str.ToColor();
+        // ReSharper disable once HeapView.BoxingAllocation
         return color;
     }
 

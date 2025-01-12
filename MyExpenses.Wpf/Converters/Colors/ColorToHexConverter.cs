@@ -27,6 +27,7 @@ public class ColorToHexConverter : IValueConverter
         }
 
         var color = str.ToColor();
+        // ReSharper disable once HeapView.BoxingAllocation
         return color;
     }
 }
