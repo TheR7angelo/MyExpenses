@@ -301,6 +301,7 @@ public class DataBaseContext : DbContext
 
         modelBuilder.Entity<TModePayment>(entity =>
         {
+            // ReSharper disable once HeapView.BoxingAllocation
             entity.Property(e => e.CanBeDeleted).HasDefaultValue(true);
             entity.Property(e => e.DateAdded).HasDefaultValueSql("CURRENT_TIMESTAMP");
         });
@@ -320,6 +321,7 @@ public class DataBaseContext : DbContext
             entity.Property(e => e.DateAdded).HasDefaultValueSql("CURRENT_TIMESTAMP");
             entity.Property(e => e.ForceDeactivate).HasDefaultValueSql("FALSE");
             entity.Property(e => e.IsActive).HasDefaultValueSql("TRUE");
+            // ReSharper disable once HeapView.BoxingAllocation
             entity.Property(e => e.PlaceFk).HasDefaultValue(0);
 
             entity.HasOne(d => d.FrequencyFkNavigation).WithMany(p => p.TRecursiveExpenses).OnDelete(DeleteBehavior.ClientSetNull);
