@@ -9,7 +9,9 @@ public class MsgBoxImageConverter : IValueConverter
 {
     public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
+        // ReSharper disable once HeapView.BoxingAllocation
         if (value is not MsgBoxImage icon) return PackIconKind.None;
+        // ReSharper disable once HeapView.BoxingAllocation
         return icon switch
         {
             MsgBoxImage.Error => PackIconKind.Error,
