@@ -11,10 +11,12 @@ public partial class MsgBoxMessageWindow
         DependencyProperty.Register(nameof(MessageBoxText), typeof(string), typeof(MsgBoxMessageWindow),
             new PropertyMetadata(default(string)));
 
+    // ReSharper disable once HeapView.BoxingAllocation
     public static readonly DependencyProperty MessageBoxResultProperty =
         DependencyProperty.Register(nameof(MessageBoxResult), typeof(MessageBoxResult), typeof(MsgBoxMessageWindow),
             new PropertyMetadata(default(MessageBoxResult)));
 
+    // ReSharper disable once HeapView.BoxingAllocation
     public static readonly DependencyProperty MsgBoxImageProperty = DependencyProperty.Register(nameof(MsgBoxImage),
         typeof(MsgBoxImage), typeof(MsgBoxMessageWindow), new PropertyMetadata(default(MsgBoxImage)));
 
@@ -25,12 +27,14 @@ public partial class MsgBoxMessageWindow
         init => SetValue(MessageBoxTextProperty, value);
     }
 
+    // ReSharper disable once HeapView.BoxingAllocation
     public MsgBoxImage MsgBoxImage
     {
         get => (MsgBoxImage)GetValue(MsgBoxImageProperty);
         set => SetValue(MsgBoxImageProperty, value);
     }
 
+    // ReSharper disable once HeapView.BoxingAllocation
     public MessageBoxResult MessageBoxResult
     {
         get => (MessageBoxResult)GetValue(MessageBoxResultProperty);

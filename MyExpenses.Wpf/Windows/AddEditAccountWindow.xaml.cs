@@ -22,10 +22,12 @@ public partial class AddEditAccountWindow
 {
     #region DependecyProperty
 
+    // ReSharper disable once HeapView.BoxingAllocation
     public static readonly DependencyProperty EnableStartingBalanceProperty =
         DependencyProperty.Register(nameof(EnableStartingBalance), typeof(bool), typeof(AddEditAccountWindow),
             new PropertyMetadata(false));
 
+    // ReSharper disable once HeapView.BoxingAllocation
     public static readonly DependencyProperty EditAccountProperty =
         DependencyProperty.Register(nameof(EditAccount), typeof(bool), typeof(AddEditAccountWindow),
             new PropertyMetadata(false));
@@ -167,12 +169,14 @@ public partial class AddEditAccountWindow
 
     private List<TAccount> Accounts { get; }
 
+    // ReSharper disable once HeapView.BoxingAllocation
     public bool EnableStartingBalance
     {
         get => (bool)GetValue(EnableStartingBalanceProperty);
         set => SetValue(EnableStartingBalanceProperty, value);
     }
 
+    // ReSharper disable once HeapView.BoxingAllocation
     public bool EditAccount
     {
         get => (bool)GetValue(EditAccountProperty);

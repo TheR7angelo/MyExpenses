@@ -15,10 +15,12 @@ namespace MyExpenses.Wpf.Windows;
 
 public partial class AddEditColorWindow
 {
+    // ReSharper disable once HeapView.BoxingAllocation
     public static readonly DependencyProperty EditColorProperty =
         DependencyProperty.Register(nameof(EditColor), typeof(bool), typeof(AddEditColorWindow),
             new PropertyMetadata(false));
 
+    // ReSharper disable once HeapView.BoxingAllocation
     public bool EditColor
     {
         get => (bool)GetValue(EditColorProperty);

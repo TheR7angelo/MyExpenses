@@ -17,9 +17,11 @@ public partial class AddEditCurrencyWindow
 {
     #region DepencyProperty
 
+    // ReSharper disable once HeapView.BoxingAllocation
     public static readonly DependencyProperty EditCurrencyProperty = DependencyProperty.Register(nameof(EditCurrency),
         typeof(bool), typeof(AddEditCurrencyWindow), new PropertyMetadata(false));
 
+    // ReSharper disable once HeapView.BoxingAllocation
     public bool EditCurrency
     {
         get => (bool)GetValue(EditCurrencyProperty);

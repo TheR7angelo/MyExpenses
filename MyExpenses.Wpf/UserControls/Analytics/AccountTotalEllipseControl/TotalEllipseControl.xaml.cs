@@ -5,11 +5,13 @@ namespace MyExpenses.Wpf.UserControls.Analytics.AccountTotalEllipseControl;
 public partial class TotalEllipseControl
 {
     public static readonly DependencyProperty TotalProperty = DependencyProperty.Register(nameof(Total), typeof(double),
+        // ReSharper disable once HeapView.BoxingAllocation
         typeof(TotalEllipseControl), new PropertyMetadata(0d));
 
     public double? Total
     {
         get => (double)GetValue(TotalProperty);
+        // ReSharper disable once HeapView.BoxingAllocation
         set => SetValue(TotalProperty, value);
     }
 

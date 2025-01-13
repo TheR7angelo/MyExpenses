@@ -16,12 +16,14 @@ namespace MyExpenses.Wpf.Windows;
 
 public partial class AddEditModePaymentWindow
 {
+    // ReSharper disable once HeapView.BoxingAllocation
     public static readonly DependencyProperty EditModePaymentProperty =
         DependencyProperty.Register(nameof(EditModePayment), typeof(bool), typeof(AddEditModePaymentWindow),
             new PropertyMetadata(false));
 
     public TModePayment ModePayment { get; } = new();
 
+    // ReSharper disable once HeapView.BoxingAllocation
     public bool EditModePayment
     {
         get => (bool)GetValue(EditModePaymentProperty);

@@ -246,10 +246,12 @@ public partial class AddEditRecurrentExpenseWindow
         set => SetValue(ButtonCancelContentProperty, value);
     }
 
+    // ReSharper disable once HeapView.BoxingAllocation
     public static readonly DependencyProperty EditRecurrentExpenseProperty =
         DependencyProperty.Register(nameof(EditRecurrentExpense), typeof(bool), typeof(AddEditRecurrentExpenseWindow),
             new PropertyMetadata(false));
 
+    // ReSharper disable once HeapView.BoxingAllocation
     public bool EditRecurrentExpense
     {
         get => (bool)GetValue(EditRecurrentExpenseProperty);

@@ -15,6 +15,7 @@ namespace MyExpenses.Wpf.Windows;
 
 public partial class AddEditAccountTypeWindow
 {
+    // ReSharper disable once HeapView.BoxingAllocation
     public static readonly DependencyProperty EditAccountTypeProperty =
         DependencyProperty.Register(nameof(EditAccountType), typeof(bool), typeof(AddEditAccountTypeWindow),
             new PropertyMetadata(false));
@@ -25,6 +26,7 @@ public partial class AddEditAccountTypeWindow
 
     private List<TAccountType> AccountTypes { get; }
 
+    // ReSharper disable once HeapView.BoxingAllocation
     public bool EditAccountType
     {
         get => (bool)GetValue(EditAccountTypeProperty);

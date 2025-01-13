@@ -24,9 +24,11 @@ public partial class RecurrentAddWindow
 
     #region DataGrid
 
+    // ReSharper disable once HeapView.BoxingAllocation
     public static readonly DependencyProperty LocalLanguageProperty = DependencyProperty.Register(nameof(LocalLanguage),
         typeof(Local), typeof(RecurrentAddWindow), new PropertyMetadata(default(Local)));
 
+    // ReSharper disable once HeapView.BoxingAllocation
     public Local LocalLanguage
     {
         get => (Local)GetValue(LocalLanguageProperty);

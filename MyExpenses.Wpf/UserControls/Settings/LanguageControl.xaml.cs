@@ -45,9 +45,11 @@ public partial class LanguageControl
         set => SetValue(CultureInfoSelectedProperty, value);
     }
 
+    // ReSharper disable once HeapView.BoxingAllocation
     public static readonly DependencyProperty Is24HoursProperty = DependencyProperty.Register(nameof(Is24Hours),
         typeof(bool), typeof(LanguageControl), new PropertyMetadata(false));
 
+    // ReSharper disable once HeapView.BoxingAllocation
     public bool Is24Hours
     {
         get => (bool)GetValue(Is24HoursProperty);

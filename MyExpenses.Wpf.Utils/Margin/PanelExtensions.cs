@@ -8,6 +8,7 @@ namespace MyExpenses.Wpf.Utils.Margin;
 /// </summary>
 public static class PanelExtensions
 {
+    // ReSharper disable once HeapView.BoxingAllocation
     /// <summary>
     /// Provides an attached property for setting the margin for all children of a <see cref="Panel"/>.
     /// </summary>
@@ -15,6 +16,7 @@ public static class PanelExtensions
         DependencyProperty.RegisterAttached("MarginForAllChildren", typeof(Thickness),
             typeof(PanelExtensions), new PropertyMetadata(default(Thickness), OnMarginForAllChildrenChanged));
 
+    // ReSharper disable once HeapView.BoxingAllocation
     /// <summary>
     /// Provides an attached property for setting the margin for all children of a <see cref="Panel"/>.
     /// </summary>

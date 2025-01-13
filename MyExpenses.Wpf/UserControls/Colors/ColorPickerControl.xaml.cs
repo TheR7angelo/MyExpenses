@@ -12,6 +12,7 @@ namespace MyExpenses.Wpf.UserControls.Colors;
 
 public sealed partial class ColorPickerControl
 {
+    // ReSharper disable once HeapView.BoxingAllocation
     public static readonly DependencyProperty ColorProperty = DependencyProperty.Register(nameof(Color), typeof(Color),
         typeof(ColorPickerControl), new PropertyMetadata(System.Windows.Media.Colors.White, PropertyColor_OnChangedCallback));
 
@@ -23,6 +24,7 @@ public sealed partial class ColorPickerControl
         sender.InitializeValue(newColor);
     }
 
+    // ReSharper disable once HeapView.BoxingAllocation
     public static readonly DependencyProperty RedSliderBorderThicknessProperty =
         DependencyProperty.Register(nameof(RedSliderBorderThickness), typeof(Thickness), typeof(ColorPickerControl),
             new PropertyMetadata(default(Thickness)));
@@ -31,6 +33,7 @@ public sealed partial class ColorPickerControl
         DependencyProperty.Register(nameof(RedSliderBorderBrush), typeof(Brush), typeof(ColorPickerControl),
             new PropertyMetadata(default(Brush)));
 
+    // ReSharper disable once HeapView.BoxingAllocation
     public static readonly DependencyProperty RedValueProperty = DependencyProperty.Register(nameof(RedValue),
         typeof(byte), typeof(ColorPickerControl),
         new PropertyMetadata(0, PropertyRedValue_OnChangedCallback));
@@ -42,6 +45,7 @@ public sealed partial class ColorPickerControl
         sender.Color = color;
     }
 
+    // ReSharper disable once HeapView.BoxingAllocation
     public static readonly DependencyProperty GreenSliderBorderThicknessProperty =
         DependencyProperty.Register(nameof(GreenSliderBorderThickness), typeof(Thickness), typeof(ColorPickerControl),
             new PropertyMetadata(default(Thickness)));
@@ -50,6 +54,7 @@ public sealed partial class ColorPickerControl
         DependencyProperty.Register(nameof(GreenSliderBorderBrush), typeof(Brush), typeof(ColorPickerControl),
             new PropertyMetadata(default(Brush)));
 
+    // ReSharper disable once HeapView.BoxingAllocation
     public static readonly DependencyProperty GreenValueProperty = DependencyProperty.Register(nameof(GreenValue),
         typeof(byte), typeof(ColorPickerControl),
         new PropertyMetadata(0, PropertyGreenValue_OnChangedCallback));
@@ -61,6 +66,7 @@ public sealed partial class ColorPickerControl
         sender.Color = color;
     }
 
+    // ReSharper disable once HeapView.BoxingAllocation
     public static readonly DependencyProperty BlueSliderBorderThicknessProperty =
         DependencyProperty.Register(nameof(BlueSliderBorderThickness), typeof(Thickness), typeof(ColorPickerControl),
             new PropertyMetadata(default(Thickness)));
@@ -69,6 +75,7 @@ public sealed partial class ColorPickerControl
         DependencyProperty.Register(nameof(BlueSliderBorderBrush), typeof(Brush), typeof(ColorPickerControl),
             new PropertyMetadata(default(Brush)));
 
+    // ReSharper disable once HeapView.BoxingAllocation
     public static readonly DependencyProperty BlueValueProperty = DependencyProperty.Register(nameof(BlueValue),
         typeof(byte), typeof(ColorPickerControl),
         new PropertyMetadata(0, PropertyBlueValue_OnChangedCallback));
@@ -80,6 +87,7 @@ public sealed partial class ColorPickerControl
         sender.Color = color;
     }
 
+    // ReSharper disable once HeapView.BoxingAllocation
     public static readonly DependencyProperty HueSliderBorderThicknessProperty =
         DependencyProperty.Register(nameof(HueSliderBorderThickness), typeof(Thickness), typeof(ColorPickerControl),
             new PropertyMetadata(default(Thickness)));
@@ -88,6 +96,7 @@ public sealed partial class ColorPickerControl
         DependencyProperty.Register(nameof(HueSliderBorderBrush), typeof(Brush), typeof(ColorPickerControl),
             new PropertyMetadata(default(Brush)));
 
+    // ReSharper disable once HeapView.BoxingAllocation
     public static readonly DependencyProperty HueValueProperty = DependencyProperty.Register(nameof(HueValue),
         typeof(double), typeof(ColorPickerControl),
         new PropertyMetadata(0, PropertyHueValue_OnChangedCallback));
@@ -98,6 +107,7 @@ public sealed partial class ColorPickerControl
         sender.UpdateHsvValue();
     }
 
+    // ReSharper disable once HeapView.BoxingAllocation
     public static readonly DependencyProperty SaturationSliderBorderThicknessProperty =
         DependencyProperty.Register(nameof(SaturationSliderBorderThickness), typeof(Thickness),
             typeof(ColorPickerControl), new PropertyMetadata(default(Thickness)));
@@ -106,6 +116,7 @@ public sealed partial class ColorPickerControl
         DependencyProperty.Register(nameof(SaturationSliderBorderBrush), typeof(Brush), typeof(ColorPickerControl),
             new PropertyMetadata(default(Brush)));
 
+    // ReSharper disable once HeapView.BoxingAllocation
     public static readonly DependencyProperty SaturationValueProperty =
         DependencyProperty.Register(nameof(SaturationValue), typeof(double), typeof(ColorPickerControl),
             new PropertyMetadata(0d, PropertySaturation_OnChangedCallback));
@@ -116,6 +127,7 @@ public sealed partial class ColorPickerControl
         sender.UpdateHsvValue();
     }
 
+    // ReSharper disable once HeapView.BoxingAllocation
     public static readonly DependencyProperty ValueSliderBorderThicknessProperty =
         DependencyProperty.Register(nameof(ValueSliderBorderThickness), typeof(Thickness), typeof(ColorPickerControl),
             new PropertyMetadata(default(Thickness)));
@@ -124,6 +136,7 @@ public sealed partial class ColorPickerControl
         DependencyProperty.Register(nameof(ValueSliderBorderBrush), typeof(Brush), typeof(ColorPickerControl),
             new PropertyMetadata(default(Brush)));
 
+    // ReSharper disable once HeapView.BoxingAllocation
     public static readonly DependencyProperty ValueValueProperty = DependencyProperty.Register(nameof(ValueValue),
         typeof(double), typeof(ColorPickerControl),
         new PropertyMetadata(0, PropertyValueValue_OnChangedCallback));
@@ -134,6 +147,7 @@ public sealed partial class ColorPickerControl
         sender.UpdateHsvValue();
     }
 
+    // ReSharper disable once HeapView.BoxingAllocation
     public static readonly DependencyProperty AlphaSliderBorderThicknessProperty =
         DependencyProperty.Register(nameof(AlphaSliderBorderThickness), typeof(Thickness), typeof(ColorPickerControl),
             new PropertyMetadata(default(Thickness)));
@@ -142,6 +156,7 @@ public sealed partial class ColorPickerControl
         DependencyProperty.Register(nameof(AlphaSliderBorderBrush), typeof(Brush), typeof(ColorPickerControl),
             new PropertyMetadata(default(Brush)));
 
+    // ReSharper disable once HeapView.BoxingAllocation
     public static readonly DependencyProperty AlphaValueProperty = DependencyProperty.Register(nameof(AlphaValue),
         typeof(byte), typeof(ColorPickerControl),
         new PropertyMetadata(0, PropertyAlphaValue_OnChangedCallback));
@@ -242,12 +257,14 @@ public sealed partial class ColorPickerControl
         UpdateGradiantSlider();
     }
 
+    // ReSharper disable once HeapView.BoxingAllocation
     public Color Color
     {
         get => (Color)GetValue(ColorProperty);
         set => SetValue(ColorProperty, value);
     }
 
+    // ReSharper disable once HeapView.BoxingAllocation
     public Thickness RedSliderBorderThickness
     {
         get => (Thickness)GetValue(RedSliderBorderThicknessProperty);
@@ -260,12 +277,14 @@ public sealed partial class ColorPickerControl
         set => SetValue(RedSliderBorderBrushProperty, value);
     }
 
+    // ReSharper disable once HeapView.BoxingAllocation
     public byte RedValue
     {
         get => (byte)GetValue(RedValueProperty);
         set => SetValue(RedValueProperty, value);
     }
 
+    // ReSharper disable once HeapView.BoxingAllocation
     public Thickness GreenSliderBorderThickness
     {
         get => (Thickness)GetValue(GreenSliderBorderThicknessProperty);
@@ -278,12 +297,14 @@ public sealed partial class ColorPickerControl
         set => SetValue(GreenSliderBorderBrushProperty, value);
     }
 
+    // ReSharper disable once HeapView.BoxingAllocation
     public byte GreenValue
     {
         get => (byte)GetValue(GreenValueProperty);
         set => SetValue(GreenValueProperty, value);
     }
 
+    // ReSharper disable once HeapView.BoxingAllocation
     public Thickness BlueSliderBorderThickness
     {
         get => (Thickness)GetValue(BlueSliderBorderThicknessProperty);
@@ -296,12 +317,14 @@ public sealed partial class ColorPickerControl
         set => SetValue(BlueSliderBorderBrushProperty, value);
     }
 
+    // ReSharper disable once HeapView.BoxingAllocation
     public byte BlueValue
     {
         get => (byte)GetValue(BlueValueProperty);
         set => SetValue(BlueValueProperty, value);
     }
 
+    // ReSharper disable once HeapView.BoxingAllocation
     public Thickness AlphaSliderBorderThickness
     {
         get => (Thickness)GetValue(AlphaSliderBorderThicknessProperty);
@@ -314,6 +337,7 @@ public sealed partial class ColorPickerControl
         set => SetValue(AlphaSliderBorderBrushProperty, value);
     }
 
+    // ReSharper disable once HeapView.BoxingAllocation
     public byte AlphaValue
     {
         get => (byte)GetValue(AlphaValueProperty);
@@ -326,18 +350,21 @@ public sealed partial class ColorPickerControl
         set => SetValue(HueSliderBorderBrushProperty, value);
     }
 
+    // ReSharper disable once HeapView.BoxingAllocation
     public Thickness HueSliderBorderThickness
     {
         get => (Thickness)GetValue(HueSliderBorderThicknessProperty);
         set => SetValue(HueSliderBorderThicknessProperty, value);
     }
 
+    // ReSharper disable once HeapView.BoxingAllocation
     public double HueValue
     {
         get => (double)GetValue(HueValueProperty);
         set => SetValue(HueValueProperty, value);
     }
 
+    // ReSharper disable once HeapView.BoxingAllocation
     public double SaturationValue
     {
         get => (double)GetValue(SaturationValueProperty);
@@ -350,6 +377,7 @@ public sealed partial class ColorPickerControl
         set => SetValue(SaturationSliderBorderBrushProperty, value);
     }
 
+    // ReSharper disable once HeapView.BoxingAllocation
     public Thickness SaturationSliderBorderThickness
     {
         get => (Thickness)GetValue(SaturationSliderBorderThicknessProperty);
@@ -362,12 +390,14 @@ public sealed partial class ColorPickerControl
         set => SetValue(ValueSliderBorderBrushProperty, value);
     }
 
+    // ReSharper disable once HeapView.BoxingAllocation
     public Thickness ValueSliderBorderThickness
     {
         get => (Thickness)GetValue(ValueSliderBorderThicknessProperty);
         set => SetValue(ValueSliderBorderThicknessProperty, value);
     }
 
+    // ReSharper disable once HeapView.BoxingAllocation
     public double ValueValue
     {
         get => (double)GetValue(ValueValueProperty);

@@ -18,10 +18,12 @@ namespace MyExpenses.Wpf.Windows.CategoryTypeManagementWindow;
 
 public partial class AddEditCategoryTypeWindow
 {
+    // ReSharper disable once HeapView.BoxingAllocation
     public static readonly DependencyProperty EditCategoryTypeProperty =
         DependencyProperty.Register(nameof(EditCategoryType), typeof(bool), typeof(AddEditCategoryTypeWindow),
             new PropertyMetadata(false));
 
+    // ReSharper disable once HeapView.BoxingAllocation
     public bool EditCategoryType
     {
         get => (bool)GetValue(EditCategoryTypeProperty);

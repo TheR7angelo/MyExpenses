@@ -22,19 +22,23 @@ public partial class ProgressBarWindow
         set => SetValue(SpeedProgressProperty, value);
     }
 
+    // ReSharper disable once HeapView.BoxingAllocation
     public static readonly DependencyProperty TimeLeftProgressProperty =
         DependencyProperty.Register(nameof(TimeLeftProgress), typeof(TimeSpan), typeof(ProgressBarWindow),
             new PropertyMetadata(TimeSpan.Zero));
 
+    // ReSharper disable once HeapView.BoxingAllocation
     public TimeSpan TimeLeftProgress
     {
         get => (TimeSpan)GetValue(TimeLeftProgressProperty);
         set => SetValue(TimeLeftProgressProperty, value);
     }
 
+    // ReSharper disable once HeapView.BoxingAllocation
     public static readonly DependencyProperty TimeElapsedProperty = DependencyProperty.Register(nameof(TimeElapsed),
         typeof(TimeSpan), typeof(ProgressBarWindow), new PropertyMetadata(TimeSpan.Zero));
 
+    // ReSharper disable once HeapView.BoxingAllocation
     public TimeSpan TimeElapsed
     {
         get => (TimeSpan)GetValue(TimeElapsedProperty);

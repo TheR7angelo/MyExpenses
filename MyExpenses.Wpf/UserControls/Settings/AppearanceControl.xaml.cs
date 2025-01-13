@@ -169,18 +169,22 @@ public partial class AppearanceControl
         DependencyProperty.Register(nameof(BackgroundSecondaryDarkBrush), typeof(Brush), typeof(AppearanceControl),
             new PropertyMetadata(default(Brush)));
 
+    // ReSharper disable once HeapView.BoxingAllocation
     public static readonly DependencyProperty SyncWithOsProperty = DependencyProperty.Register(nameof(SyncWithOs),
         typeof(bool), typeof(AppearanceControl), new PropertyMetadata(false));
 
+    // ReSharper disable once HeapView.BoxingAllocation
     public bool SyncWithOs
     {
         get => (bool)GetValue(SyncWithOsProperty);
         set => SetValue(SyncWithOsProperty, value);
     }
 
+    // ReSharper disable once HeapView.BoxingAllocation
     public static readonly DependencyProperty LightDarkProperty = DependencyProperty.Register(nameof(LightDark),
         typeof(bool), typeof(AppearanceControl), new PropertyMetadata(false));
 
+    // ReSharper disable once HeapView.BoxingAllocation
     public bool LightDark
     {
         get => (bool)GetValue(LightDarkProperty);

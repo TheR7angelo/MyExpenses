@@ -27,9 +27,11 @@ public partial class AddEditLocationWindow
 {
     #region Properties
 
+    // ReSharper disable once HeapView.BoxingAllocation
     public static readonly DependencyProperty EditPlaceProperty = DependencyProperty.Register(nameof(EditPlace),
         typeof(bool), typeof(AddEditLocationWindow), new PropertyMetadata(false));
 
+    // ReSharper disable once HeapView.BoxingAllocation
     public bool EditPlace
     {
         get => (bool)GetValue(EditPlaceProperty);
