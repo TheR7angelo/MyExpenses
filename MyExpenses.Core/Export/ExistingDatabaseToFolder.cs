@@ -10,8 +10,7 @@ namespace MyExpenses.Core.Export;
 public static class ExistingDatabaseToFolder
 {
     // TODO rework export Qgis
-    public static async Task<bool> ToFolderAsync(this ExistingDatabase existingDatabase, string folderPath,
-        bool isCompress, DataBaseContext? dataBaseContext = null)
+    public static async Task<bool> ToFolderAsync(this ExistingDatabase existingDatabase, string folderPath, bool isCompress)
     {
         Directory.CreateDirectory(folderPath);
 
@@ -62,16 +61,13 @@ public static class ExistingDatabaseToFolder
             var saveExcel = Path.Join(saveFolder, $"{existingDatabase.FileNameWithoutExtension}.xlsx");
             Log.Information("Exporting records to Excel file at \"{SaveExcel}\"", saveExcel);
 
-            var context = dataBaseContext ?? new DataBaseContext(existingDatabase.FilePath);
-            // await using var context = new DataBaseContext(existingDatabase.FilePath);
+            await using var context = new DataBaseContext(existingDatabase.FilePath);
             var resultExportToExcel = context.ToExcelWorksheet(saveExcel);
 
             if (resultExportToExcel) Log.Information("Records have been successfully exported to Excel file");
             else Log.Error("Error while exporting records to Excel file");
 
             var places = context.TPlaces.ToList();
-
-            await context.DisposeAsync();
 
             var saveKmz = Path.Join(saveFolder, $"{existingDatabase.FileNameWithoutExtension}.kmz");
             Log.Information("Exporting records to Kml file at \"{SaveKmz}\"", saveKmz);

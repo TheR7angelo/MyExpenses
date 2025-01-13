@@ -1,4 +1,5 @@
 using JetBrains.Annotations;
+using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using MyExpenses.Core.Export;
 using MyExpenses.Models.IO;
@@ -37,18 +38,21 @@ namespace MyExpenses.Core.UnitTests.Export
         {
             // Arrange
             var options = new DbContextOptionsBuilder<DataBaseContext>()
-                .UseSqlite("DataSource=:memory:")
+                .UseSqlite("DataSource=:memory:;Mode=Memory;Cache=Shared;")
                 .LogTo(Console.WriteLine)
                 .EnableSensitiveDataLogging()
-                .UseSeeding((context, _) =>
+                .UseSeeding((dbContext, b) =>
                 {
-                    TestDatabaseSeeder.Seed(context);
+                    TestDatabaseSeeder.Seed(dbContext);
                 })
                 .Options;
 
-            await using var context = new DataBaseContext(options);
-            // await context.Database.EnsureCreatedAsync();
-            // TestDatabaseSeeder.Seed(context);
+            var context = new DataBaseContext(options);
+            if (context.Database.GetDbConnection().State != System.Data.ConnectionState.Open)
+            {
+                await context.Database.GetDbConnection().OpenAsync();
+            }
+            context.Database.EnsureCreated();
 
             var existingDatabase = new ExistingDatabase("MockDatabase.sqlite");
 
@@ -58,7 +62,7 @@ namespace MyExpenses.Core.UnitTests.Export
             var saveExcel = Path.Combine(folderPath, $"{existingDatabase.FileNameWithoutExtension}.xlsx");
 
             // Act
-            var result = await existingDatabase.ToFolderAsync(folderPath, isCompress, context);
+            var result = await existingDatabase.ToFolderAsync(folderPath, isCompress);
 
             // Assert
             Assert.True(File.Exists(saveExcel), "The Excel file should be created.");
