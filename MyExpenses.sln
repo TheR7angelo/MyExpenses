@@ -33,6 +33,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyExpenses.Share.Core", "My
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyExpenses.Benchmark", "MyExpenses.Benchmark\MyExpenses.Benchmark.csproj", "{83D9CFDB-2BED-49C5-8FF1-0EA061E5242F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyExpenses.Core.UnitTests", "MyExpenses.Core.UnitTests\MyExpenses.Core.UnitTests.csproj", "{F7C29391-FD0E-49C9-A9ED-764DA570C1DC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -107,5 +109,9 @@ Global
 		{83D9CFDB-2BED-49C5-8FF1-0EA061E5242F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{83D9CFDB-2BED-49C5-8FF1-0EA061E5242F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{83D9CFDB-2BED-49C5-8FF1-0EA061E5242F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F7C29391-FD0E-49C9-A9ED-764DA570C1DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F7C29391-FD0E-49C9-A9ED-764DA570C1DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F7C29391-FD0E-49C9-A9ED-764DA570C1DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F7C29391-FD0E-49C9-A9ED-764DA570C1DC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
