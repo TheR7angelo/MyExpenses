@@ -72,25 +72,24 @@ namespace MyExpenses.Core.UnitTests.Export
 
             DeleteExistingDatabase(existingDatabase);
         }
-        //
-        // // Test for handling exceptions
-        // [Fact]
-        // public async Task ToFolderAsync_ShouldReturnFalse_OnException()
-        // {
-        //     // Arrange
-        //     var existingDatabaseMock = new Mock<ExistingDatabase>();
-        //     existingDatabaseMock.Setup(e => e.FilePath).Throws(new Exception("Test exception"));
-        //
-        //     var folderPath = "OutputPath";
-        //     var isCompress = false;
-        //
-        //     // Act
-        //     var result = await existingDatabaseMock.Object.ToFolderAsync(folderPath, isCompress);
-        //
-        //     // Assert
-        //     Assert.False(result, "The method should return false when an exception is thrown.");
-        // }
-        //
+
+        // Test for handling exceptions
+        [Fact]
+        public async Task ToFolderAsync_ShouldReturnFalse_OnException()
+        {
+            // Arrange
+            var existingDatabase = new ExistingDatabase("DoNotExist.sqlite");
+
+            var folderPath = GetOutputPath();
+            const bool isCompress = false;
+
+            // Act
+            var result = await existingDatabase.ToFolderAsync(folderPath, isCompress);
+
+            // Assert
+            Assert.False(result, "The method should return false when an exception is thrown");
+        }
+
         // // Test to confirm correct log messages are written during the process
         // [Fact]
         // public async Task ToFolderAsync_ShouldLogInformationDuringProcess()
@@ -116,7 +115,7 @@ namespace MyExpenses.Core.UnitTests.Export
         //         x => x.Information(It.IsAny<string>(), It.IsAny<object[]>()),
         //         Times.AtLeastOnce);
         // }
-        //
+
         // // Test for handling KML and GeoJSON generation
         // [Fact]
         // public async Task ToFolderAsync_ShouldExportRecordsToKmlAndGeoJson()
