@@ -108,7 +108,7 @@ public static class ExistingDatabaseToFolder
         var assetsDirectory = Path.Join(saveFolder, "Assets");
         Directory.CreateDirectory(assetsDirectory);
 
-        var mapsDirectory = Path.Join(resoucesDirectory, "Maps");
+        var mapsDirectory = Path.Join(resoucesDirectory, "Assets", "Maps");
         var bleuMarkerFilePath = Path.Join(mapsDirectory, "BlueMarker.svg");
         var greenMarkerFilePath = Path.Join(mapsDirectory, "GreenMarker.svg");
         var redMarkerFilePath = Path.Join(mapsDirectory, "RedMarker.svg");

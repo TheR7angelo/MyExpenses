@@ -29,7 +29,14 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="DatabaseContextMock\" />
+      <AdditionalFiles Include="..\MyExpenses.Commons\UnitTestsFiles\UnitTestDb.sqlite">
+        <Link>UnitTestDb.sqlite</Link>
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </AdditionalFiles>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Resources\Assets\Maps\" />
     </ItemGroup>
 
 </Project>

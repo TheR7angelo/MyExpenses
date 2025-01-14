@@ -18,7 +18,7 @@ public static class MapsuiStyleExtensions
     private static Offset Offset => new() { X = 0, Y = 222 };
     private static double Scale => 0.1;
 
-    private static readonly string IcoPath = Path.Join(AppContext.BaseDirectory, "Resources", "Maps");
+    private static readonly string IcoPath = Path.Join(AppContext.BaseDirectory, "Resources", "Assets", "Maps");
 
     private static SymbolStyle SetGreenMarkerStyle()
     {

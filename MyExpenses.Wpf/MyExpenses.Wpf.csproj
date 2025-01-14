@@ -544,18 +544,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <AdditionalFiles Include="Resources\Maps\GreenMarker.svg">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </AdditionalFiles>
-      <AdditionalFiles Include="Resources\Maps\RedMarker.svg">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </AdditionalFiles>
-      <None Remove="Resources\Assets\Icon Resize.png" />
-      <None Remove="Resources\Maps\BlueMarker.png" />
-      <None Remove="Resources\Maps\BlueMarker.svg" />
-      <AdditionalFiles Include="Resources\Maps\BlueMarker.svg">
-        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      </AdditionalFiles>
       <None Remove="Resources\How to use\How to use_french.pdf" />
       <AdditionalFiles Include="Resources\How to use\How to use_french.pdf">
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -598,6 +586,22 @@
       <Content Include="..\MyExpenses.Commons\Resources\Assets\Logos\Dropbox\DropboxLogo.svg">
         <Link>Resources\Assets\Logos\Dropbox\DropboxLogo.svg</Link>
       </Content>
+      <AdditionalFiles Include="..\MyExpenses.Commons\Resources\Assets\Maps\BlueMarker.svg">
+        <Link>Resources\Assets\Maps\BlueMarker.svg</Link>
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </AdditionalFiles>
+      <AdditionalFiles Include="..\MyExpenses.Commons\Resources\Assets\Maps\GreenMarker.svg">
+        <Link>Resources\Assets\Maps\GreenMarker.svg</Link>
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </AdditionalFiles>
+      <AdditionalFiles Include="..\MyExpenses.Commons\Resources\Assets\Maps\RedMarker.svg">
+        <Link>Resources\Assets\Maps\RedMarker.svg</Link>
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </AdditionalFiles>
+      <AdditionalFiles Include="..\MyExpenses.Commons\Resources\Qgis\GeoVisionary.qgz">
+        <Link>Resources\Qgis\GeoVisionary.qgz</Link>
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </AdditionalFiles>
       <Content Include="..\qodana.yaml">
         <Link>qodana.yaml</Link>
       </Content>

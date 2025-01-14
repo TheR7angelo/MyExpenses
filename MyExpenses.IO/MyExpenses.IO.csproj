@@ -20,20 +20,4 @@
       <ProjectReference Include="..\MyExpenses.Utils\MyExpenses.Utils.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <None Remove="Resources\Html\material-components-web.min.css" />
-      <None Remove="Resources\Html\material-components-web.min.js" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="Resources\Qgis\" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <None Remove="Resources\Qgis\GeoVisionary.qgz" />
-      <AdditionalFiles Include="Resources\Qgis\GeoVisionary.qgz">
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      </AdditionalFiles>
-    </ItemGroup>
-
 </Project>
