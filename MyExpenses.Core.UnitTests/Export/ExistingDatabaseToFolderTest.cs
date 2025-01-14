@@ -1,8 +1,6 @@
 using JetBrains.Annotations;
-using Moq;
 using MyExpenses.Core.Export;
 using MyExpenses.Models.IO;
-using MyExpenses.Utils;
 using Serilog;
 using Serilog.Events;
 using Serilog.Sinks.InMemory;
@@ -58,6 +56,10 @@ namespace MyExpenses.Core.UnitTests.Export
             DeleteExistingDatabase(existingDatabase);
         }
 
+        /// <summary>
+        /// Validates that records from the existing database are exported to an Excel file in the specified folder path.
+        /// </summary>
+        /// <returns>Asynchronous task that completes successfully when the Excel file is created.</returns>
         [Fact]
         public async Task ToFolderAsync_ShouldExportRecordsToExcel()
         {
@@ -78,7 +80,10 @@ namespace MyExpenses.Core.UnitTests.Export
             DeleteExistingDatabase(existingDatabase);
         }
 
-        // Test for handling exceptions
+        /// <summary>
+        /// Validates that the method returns false when an exception is thrown while attempting to export the database to a specified folder.
+        /// </summary>
+        /// <returns>Asynchronous task that completes successfully, returning false when an exception occurs during the export process.</returns>
         [Fact]
         public async Task ToFolderAsync_ShouldReturnFalse_OnException()
         {
@@ -95,7 +100,10 @@ namespace MyExpenses.Core.UnitTests.Export
             Assert.False(result, "The method should return false when an exception is thrown");
         }
 
-        // Test to confirm correct log messages are written during the process
+        /// <summary>
+        /// Verifies that information-level log messages are recorded during the process of exporting an existing database to a folder.
+        /// </summary>
+        /// <returns>Asynchronous task that completes successfully when the log messages are validated.</returns>
         [Fact]
         public async Task ToFolderAsync_ShouldLogInformationDuringProcess()
         {
@@ -120,29 +128,47 @@ namespace MyExpenses.Core.UnitTests.Export
             DeleteExistingDatabase(existingDatabase);
         }
 
-        // // Test for handling KML and GeoJSON generation
-        // [Fact]
-        // public async Task ToFolderAsync_ShouldExportRecordsToKmlAndGeoJson()
-        // {
-        //     // Arrange
-        //     var existingDatabase = new ExistingDatabase
-        //     {
-        //         FileNameWithoutExtension = "TestDatabase",
-        //         FilePath = "TestPath"
-        //     };
-        //
-        //     var folderPath = "OutputPath";
-        //     var isCompress = false;
-        //
-        //     var saveKml = Path.Combine(folderPath, $"{existingDatabase.FileNameWithoutExtension}.kmz");
-        //     var saveGeoJson = Path.Combine(folderPath, $"{existingDatabase.FileNameWithoutExtension}.geojson");
-        //
-        //     // Act
-        //     var result = await existingDatabase.ToFolderAsync(folderPath, isCompress);
-        //
-        //     // Assert
-        //     Assert.True(File.Exists(saveKml), "The KML file should be created.");
-        //     Assert.True(File.Exists(saveGeoJson), "The GeoJSON file should be created.");
-        // }
+        /// <summary>
+        /// Validates that records are successfully exported to KML and GeoJSON file formats
+        /// when exporting the database to a folder.
+        /// </summary>
+        /// <returns>Asynchronous task that completes successfully when KML and GeoJSON files are created.</returns>
+        [Fact]
+        public async Task ToFolderAsync_ShouldExportRecordsToKmlAndGeoJson()
+        {
+            // Arrange
+            var existingDatabase = GetExistingDatabase();
+
+            var folderPath = GetOutputPath();
+            const bool isCompress = false;
+
+            var saveKml = Path.Join(folderPath, $"{existingDatabase.FileNameWithoutExtension}", $"{existingDatabase.FileNameWithoutExtension}.kml");
+            var saveGeoJson = Path.Join(folderPath, $"{existingDatabase.FileNameWithoutExtension}", $"{existingDatabase.FileNameWithoutExtension}.geojson");
+
+            // Act
+            _ = await existingDatabase.ToFolderAsync(folderPath, isCompress);
+
+            // Assert
+            Assert.True(File.Exists(saveKml), "The KML file should be created.");
+            Assert.True(File.Exists(saveGeoJson), "The GeoJSON file should be created.");
+        }
+
+        [Fact]
+        public async Task ToFolderAsync_ShouldExportRecordsToKmz()
+        {
+            // Arrange
+            var existingDatabase = GetExistingDatabase();
+
+            var folderPath = GetOutputPath();
+            const bool isCompress = true;
+
+            var saveKml = Path.Join(folderPath, $"{existingDatabase.FileNameWithoutExtension}", $"{existingDatabase.FileNameWithoutExtension}.kmz");
+
+            // Act
+            _ = await existingDatabase.ToFolderAsync(folderPath, isCompress);
+
+            // Assert
+            Assert.True(File.Exists(saveKml), "The KMZ file should be created.");
+        }
     }
 }

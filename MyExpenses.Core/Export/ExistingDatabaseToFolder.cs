@@ -69,7 +69,8 @@ public static class ExistingDatabaseToFolder
 
             var places = context.TPlaces.ToList();
 
-            var saveKmz = Path.Join(saveFolder, $"{existingDatabase.FileNameWithoutExtension}.kmz");
+            var xmlExtension = isCompress ? "kmz" : "kml";
+            var saveKmz = Path.Join(saveFolder, $"{existingDatabase.FileNameWithoutExtension}.{xmlExtension}");
             Log.Information("Exporting records to Kml file at \"{SaveKmz}\"", saveKmz);
             var resultExportToKmlFile = places.ToKmlFile(saveKmz);
 
