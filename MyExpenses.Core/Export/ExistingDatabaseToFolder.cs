@@ -9,8 +9,26 @@ namespace MyExpenses.Core.Export;
 
 public static class ExistingDatabaseToFolder
 {
-    // TODO rework export Qgis
-    public static async Task<bool> ToFolderAsync(this ExistingDatabase existingDatabase, string folderPath, bool isCompress)
+    /// <summary>
+    /// Exports the content of the specified ExistingDatabase object to a folder.
+    /// Creates a folder with the same name as the database file (excluding its extension) inside the specified folder path.
+    /// Can optionally compress the exported data.
+    /// </summary>
+    /// <param name="existingDatabase">
+    /// The ExistingDatabase object representing the database to be exported.
+    /// </param>
+    /// <param name="folderPath">
+    /// The directory where the database content should be exported to.
+    /// </param>
+    /// <param name="isCompress">
+    /// A boolean indicating whether the exported data should be compressed.
+    /// </param>
+    /// <returns>
+    /// Returns a Task containing a boolean value indicating the success of the operation:
+    /// True if the operation succeeds, False if the operation fails, such as when an exception occurs.
+    /// </returns>
+    public static async Task<bool> ToFolderAsync(this ExistingDatabase existingDatabase, string folderPath,
+        bool isCompress)
     {
         Directory.CreateDirectory(folderPath);
 
@@ -20,44 +38,6 @@ public static class ExistingDatabaseToFolder
 
         try
         {
-            // Log.Information("Getting all records from all tables");
-            // var exportRecords = existingDatabase.GetExportRecords();
-            // Log.Information("All records have been recovered");
-            //
-            // Log.Information("Use of {ProcessorCount} processor for export", Environment.ProcessorCount);
-            // var parallelOptions = new ParallelOptions { MaxDegreeOfParallelism = Environment.ProcessorCount };
-            //
-            // await Parallel.ForEachAsync(exportRecords, parallelOptions, (exportRecord, _) =>
-            // {
-            //     var name = exportRecord.Name;
-            //     var records = exportRecord.Records;
-            //
-            //     var filePath = Path.Combine(saveFolder, name);
-            //
-            //     var isGeom = exportRecord.Source.GetInterfaces().Contains(typeof(ISig));
-            //     if (isGeom)
-            //     {
-            //         var recordGeoms = records.Where(x => x is ISig)
-            //             .Cast<ISig>()
-            //             .Where(s => s.Geometry is not null)
-            //             .ToList();
-            //
-            //         var geomType = recordGeoms.First().Geometry!.GetType().Name;
-            //
-            //         filePath = isCompress ? $"{filePath}.kmz" : $"{filePath}.kml";
-            //         Log.Information("Exporting {Name} to kml file at \"{FilePath}\"", name, filePath);
-            //
-            //         recordGeoms.ToKmlFile(filePath, geomType);
-            //     }
-            //     // else
-            //     // {
-            //     //     filePath = Path.ChangeExtension(filePath, ".csv");
-            //     //     Log.Information("Exporting {Name} to csv file at \"{FilePath}\"", name, filePath);
-            //     //     records.WriteCsv(filePath);
-            //     // }
-            //     return default;
-            // });
-
             var saveExcel = Path.Join(saveFolder, $"{existingDatabase.FileNameWithoutExtension}.xlsx");
             Log.Information("Exporting records to Excel file at \"{SaveExcel}\"", saveExcel);
 
