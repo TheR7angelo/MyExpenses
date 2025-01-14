@@ -24,11 +24,10 @@ public static class CsvWriter
     {
         filePath = Path.ChangeExtension(filePath, ".csv");
 
-        using var writer = new StreamWriter(filePath);
-        using var csv = new CsvHelper.CsvWriter(writer, CsvConfiguration());
-
         try
         {
+            using var writer = new StreamWriter(filePath);
+            using var csv = new CsvHelper.CsvWriter(writer, CsvConfiguration());
             csv.WriteRecords(records);
             return true;
         }
