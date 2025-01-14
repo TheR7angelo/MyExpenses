@@ -30,7 +30,6 @@ public static class CsvReader
         var encodingName = GetEncodingName(filePath);
         var encoding = Encoding.GetEncoding(encodingName);
 
-
         using var streamReader = new StreamReader(filePath, encoding, true,
             new FileStreamOptions { Access = FileAccess.Read, Share = FileShare.ReadWrite });
 
