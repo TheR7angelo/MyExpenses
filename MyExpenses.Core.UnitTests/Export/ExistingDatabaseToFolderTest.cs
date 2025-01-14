@@ -9,11 +9,23 @@ namespace MyExpenses.Core.UnitTests.Export
     {
         private static ExistingDatabase GetExistingDatabase()
         {
+            var uuid = Guid.NewGuid().ToString();
+
             var unitTestDbFilePath = Path.GetFullPath("UnitTestDb.sqlite");
-            var existingDatabase = new ExistingDatabase(unitTestDbFilePath);
+
+            var directoryName = Path.GetDirectoryName(unitTestDbFilePath)!;
+            var newDbFilePath = Path.Combine(directoryName, $"{uuid}.sqlite");
+
+            File.Copy(unitTestDbFilePath, newDbFilePath, overwrite: true);
+
+            var existingDatabase = new ExistingDatabase(newDbFilePath);
 
             return existingDatabase;
         }
+
+        private static void DeleteExistingDatabase(ExistingDatabase existingDatabase)
+            => File.Delete(existingDatabase.FilePath);
+
 
         private static string GetOutputPath()
             => Path.GetFullPath("OutputPath");
@@ -37,6 +49,8 @@ namespace MyExpenses.Core.UnitTests.Export
             // Assert
             var expectedFolder = Path.Combine(folderPath, existingDatabase.FileNameWithoutExtension);
             Assert.True(Directory.Exists(expectedFolder), "The folder should be created");
+
+            DeleteExistingDatabase(existingDatabase);
         }
 
         [Fact]
@@ -55,6 +69,8 @@ namespace MyExpenses.Core.UnitTests.Export
 
             // Assert
             Assert.True(File.Exists(saveExcel), "The Excel file should be created");
+
+            DeleteExistingDatabase(existingDatabase);
         }
         //
         // // Test for handling exceptions
