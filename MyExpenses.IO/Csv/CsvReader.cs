@@ -12,6 +12,12 @@ public static class CsvReader
         Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
     }
 
+    /// <summary>
+    /// Reads the contents of a CSV file and maps them to a collection of objects of type <typeparamref name="T"/>.
+    /// </summary>
+    /// <typeparam name="T">The type to which the CSV rows will be mapped.</typeparam>
+    /// <param name="filePath">The file path of the CSV file to be read.</param>
+    /// <returns>An <see cref="IEnumerable{T}"/> containing the mapped objects from the CSV file.</returns>
     public static IEnumerable<T> ReadCsv<T>(this string filePath)
     {
         var csvConfiguration = new CsvConfiguration(CultureInfo.InvariantCulture)
