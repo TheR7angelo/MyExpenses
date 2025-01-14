@@ -1,6 +1,11 @@
 using JetBrains.Annotations;
+using Moq;
 using MyExpenses.Core.Export;
 using MyExpenses.Models.IO;
+using MyExpenses.Utils;
+using Serilog;
+using Serilog.Events;
+using Serilog.Sinks.InMemory;
 
 namespace MyExpenses.Core.UnitTests.Export
 {
@@ -90,31 +95,30 @@ namespace MyExpenses.Core.UnitTests.Export
             Assert.False(result, "The method should return false when an exception is thrown");
         }
 
-        // // Test to confirm correct log messages are written during the process
-        // [Fact]
-        // public async Task ToFolderAsync_ShouldLogInformationDuringProcess()
-        // {
-        //     // Arrange
-        //     var existingDatabase = new ExistingDatabase
-        //     {
-        //         FileNameWithoutExtension = "TestDatabase",
-        //         FilePath = "TestPath"
-        //     };
-        //
-        //     var folderPath = "OutputPath";
-        //     var isCompress = false;
-        //
-        //     // Use a mock logger (or verify via Serilog test sinks)
-        //     var loggerMock = new Mock<ILogger>();
-        //
-        //     // Act
-        //     var result = await existingDatabase.ToFolderAsync(folderPath, isCompress);
-        //
-        //     // Verify if specific log messages are written
-        //     loggerMock.Verify(
-        //         x => x.Information(It.IsAny<string>(), It.IsAny<object[]>()),
-        //         Times.AtLeastOnce);
-        // }
+        // Test to confirm correct log messages are written during the process
+        [Fact]
+        public async Task ToFolderAsync_ShouldLogInformationDuringProcess()
+        {
+            // Arrange
+            var existingDatabase = GetExistingDatabase();
+
+            var folderPath = GetOutputPath();
+            const bool isCompress = false;
+
+            var testSink = InMemorySink.Instance;
+            Log.Logger = new LoggerConfiguration()
+                .WriteTo.Sink(testSink)
+                .CreateLogger();
+
+            // Act
+            _ = await existingDatabase.ToFolderAsync(folderPath, isCompress);
+
+            // Verify if specific log messages are written
+            Assert.Contains(testSink.LogEvents, logEvent => logEvent.Level is LogEventLevel.Information);
+            Assert.Equal(6, testSink.LogEvents.Count(log => log.Level is LogEventLevel.Information));
+
+            DeleteExistingDatabase(existingDatabase);
+        }
 
         // // Test for handling KML and GeoJSON generation
         // [Fact]
