@@ -36,7 +36,25 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Resources\Assets\Maps\" />
+      <AdditionalFiles Include="..\MyExpenses.Commons\Resources\Assets\Maps\BlueMarker.svg">
+        <Link>Resources\Assets\Maps\BlueMarker.svg</Link>
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </AdditionalFiles>
+      <AdditionalFiles Include="..\MyExpenses.Commons\Resources\Assets\Maps\GreenMarker.svg">
+        <Link>Resources\Assets\Maps\GreenMarker.svg</Link>
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </AdditionalFiles>
+      <AdditionalFiles Include="..\MyExpenses.Commons\Resources\Assets\Maps\RedMarker.svg">
+        <Link>Resources\Assets\Maps\RedMarker.svg</Link>
+        <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      </AdditionalFiles>
+    </ItemGroup>
+
+    <ItemGroup>
+      <AdditionalFiles Include="..\MyExpenses.Commons\Resources\Qgis\GeoVisionary.qgz">
+        <Link>Resources\Qgis\GeoVisionary.qgz</Link>
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </AdditionalFiles>
     </ItemGroup>
 
 </Project>

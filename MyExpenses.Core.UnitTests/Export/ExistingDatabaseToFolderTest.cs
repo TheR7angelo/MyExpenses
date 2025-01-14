@@ -1,17 +1,23 @@
 using JetBrains.Annotations;
-using Microsoft.Data.Sqlite;
-using Microsoft.EntityFrameworkCore;
 using MyExpenses.Core.Export;
 using MyExpenses.Models.IO;
-using MyExpenses.Models.Sql.Bases.Tables;
-using MyExpenses.Sql.Context;
-using Serilog;
 
 namespace MyExpenses.Core.UnitTests.Export
 {
     [TestSubject(typeof(ExistingDatabaseToFolder))]
     public class ExistingDatabaseToFolderTest
     {
+        private static ExistingDatabase GetExistingDatabase()
+        {
+            var unitTestDbFilePath = Path.GetFullPath("UnitTestDb.sqlite");
+            var existingDatabase = new ExistingDatabase(unitTestDbFilePath);
+
+            return existingDatabase;
+        }
+
+        private static string GetOutputPath()
+            => Path.GetFullPath("OutputPath");
+
         /// <summary>
         /// Validates that the specified folder path is created when exporting the database to a folder.
         /// </summary>
@@ -20,9 +26,9 @@ namespace MyExpenses.Core.UnitTests.Export
         public async Task ToFolderAsync_ShouldCreateSpecifiedFolderPath()
         {
             // Arrange
-            var existingDatabase = new ExistingDatabase("TestDatabase.sqlite");
+            var existingDatabase = GetExistingDatabase();
 
-            const string folderPath = "OutputPath";
+            var folderPath = GetOutputPath();
             const bool isCompress = false;
 
             // Act
@@ -30,42 +36,25 @@ namespace MyExpenses.Core.UnitTests.Export
 
             // Assert
             var expectedFolder = Path.Combine(folderPath, existingDatabase.FileNameWithoutExtension);
-            Assert.True(Directory.Exists(expectedFolder), "The folder should be created.");
+            Assert.True(Directory.Exists(expectedFolder), "The folder should be created");
         }
 
         [Fact]
         public async Task ToFolderAsync_ShouldExportRecordsToExcel()
         {
             // Arrange
-            var options = new DbContextOptionsBuilder<DataBaseContext>()
-                .UseSqlite("DataSource=:memory:;Mode=Memory;Cache=Shared;")
-                .LogTo(Console.WriteLine)
-                .EnableSensitiveDataLogging()
-                .UseSeeding((dbContext, b) =>
-                {
-                    TestDatabaseSeeder.Seed(dbContext);
-                })
-                .Options;
+            var existingDatabase = GetExistingDatabase();
 
-            var context = new DataBaseContext(options);
-            if (context.Database.GetDbConnection().State != System.Data.ConnectionState.Open)
-            {
-                await context.Database.GetDbConnection().OpenAsync();
-            }
-            context.Database.EnsureCreated();
-
-            var existingDatabase = new ExistingDatabase("MockDatabase.sqlite");
-
-            const string folderPath = "OutputPath";
+            var folderPath = GetOutputPath();
             const bool isCompress = false;
 
-            var saveExcel = Path.Combine(folderPath, $"{existingDatabase.FileNameWithoutExtension}.xlsx");
+            var saveExcel = Path.Combine(folderPath, $"{existingDatabase.FileNameWithoutExtension}", $"{existingDatabase.FileNameWithoutExtension}.xlsx");
 
             // Act
-            var result = await existingDatabase.ToFolderAsync(folderPath, isCompress);
+            _ = await existingDatabase.ToFolderAsync(folderPath, isCompress);
 
             // Assert
-            Assert.True(File.Exists(saveExcel), "The Excel file should be created.");
+            Assert.True(File.Exists(saveExcel), "The Excel file should be created");
         }
         //
         // // Test for handling exceptions
