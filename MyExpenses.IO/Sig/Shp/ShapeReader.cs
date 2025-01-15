@@ -16,6 +16,12 @@ public static class ShapeReader
 {
     private static readonly DateTimeConverter DateTimeConverterObject = new();
 
+    /// <summary>
+    /// Reads a shapefile from the specified file path and extracts the features and projection information.
+    /// </summary>
+    /// <typeparam name="T">The type of the features to be read, which must implement the ISig interface.</typeparam>
+    /// <param name="filePath">The file path of the shapefile to be read.</param>
+    /// <returns>A tuple containing a list features of type T and an optional string representing the projection.</returns>
     public static (List<T> Features, string? Projection) ReadShapeFile<T>(this string filePath) where T : class, ISig
     {
         //TODO work
