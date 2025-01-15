@@ -480,7 +480,7 @@ public partial class AddEditLocationWindow
                 nominatimSearchWindows.AddRange(places);
                 nominatimSearchWindows.ShowDialog();
 
-                if (!nominatimSearchWindows.DialogResult.Equals(true)) return;
+                if (nominatimSearchWindows.DialogResult is not true) return;
 
                 place = mapper.Map<TPlace>(nominatimSearchWindows.CurrentPlace);
                 break;
