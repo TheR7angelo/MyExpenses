@@ -33,8 +33,10 @@ public static class ObjectComparer
     {
         foreach (var property in type.GetProperties())
         {
-            var value1 = property.GetValue(obj1);
-            var value2 = property.GetValue(obj2);
+            var compiledGetter = PropertyAccessorCache<T>.CreateGetter(property);
+
+            var value1 = compiledGetter(obj1);
+            var value2 = compiledGetter(obj2);
 
             if (!ValuesAreEqual(value1, value2)) return false;
         }

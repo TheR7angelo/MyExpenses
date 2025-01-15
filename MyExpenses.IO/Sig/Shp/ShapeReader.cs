@@ -93,7 +93,7 @@ public static class ShapeReader
 
     private static void SetPropertyValue<T>(PropertyInfo property, T instance, object? value)
     {
-        var compiledSetter = PropertySetterCache<T>.CreateSetter(property);
+        var compiledSetter = PropertyAccessorCache<T>.CreateSetter(property);
         try
         {
             compiledSetter(instance, value);
