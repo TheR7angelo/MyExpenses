@@ -4,6 +4,7 @@ using MyExpenses.Models.IO.Sig.Interfaces;
 using MyExpenses.Models.IO.Sig.Shp.Converters;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Sql.Context;
+using MyExpenses.Utils.Objects;
 using MyExpenses.Utils.Properties;
 using NetTopologySuite.Features;
 using NetTopologySuite.Geometries.Utilities;
@@ -24,32 +25,27 @@ public static class ShapeReader
     /// <returns>A tuple containing a list features of type T and an optional string representing the projection.</returns>
     public static (List<T> Features, string? Projection) ReadShapeFile<T>(this string filePath) where T : class, ISig
     {
-        //TODO work
-        Log.Information("Lecture du shape \"{FilePath}\"", filePath);
+        Log.Information("Reading file \"{FilePath}\"", filePath);
 
         string? projection = null;
         var prjFilePath = Path.ChangeExtension(filePath, "prj");
         if (File.Exists(prjFilePath))
         {
-            //TODO work
-            Log.Information("Tentative de lecture du fichier .prj");
+            Log.Information("Attempting to read the .prj file");
 
             projection = File.ReadAllText(prjFilePath);
             var geographicCoordinateSystem = GetGeographicCoordinateSystemFromPrj(projection);
 
-            //TODO work
-            Log.Information("Système trouvé => {Name}", geographicCoordinateSystem?.AuthName);
+            Log.Information("System found => {Name}", geographicCoordinateSystem?.AuthName);
         }
         else
         {
-            //TODO work
-            Log.Warning("Fichier .prj introuvable");
+            Log.Warning(".prj file not found");
         }
 
         var features = filePath.ReadFeatures();
 
-        //TODO work
-        Log.Information("Shape \"{FilePath}\" lu, Nombre entité: {NbCount}", filePath, features.Count);
+        Log.Information("Shape \"{FilePath}\" read, Number of entities: {NbCount}", filePath, features.Count.ToString());
 
         return (features.ToList<T>(), projection);
     }
@@ -97,16 +93,17 @@ public static class ShapeReader
 
     private static void SetPropertyValue<T>(PropertyInfo property, T instance, object? value)
     {
+        var compiledSetter = PropertySetterCache<T>.CreateSetter(property);
         try
         {
-            property.SetValue(instance, value);
+            compiledSetter(instance, value);
         }
         catch (Exception)
         {
             try
             {
                 var convertedValue = value?.ConvertTo(property.PropertyType);
-                property.SetValue(instance, convertedValue);
+                compiledSetter(instance, convertedValue);
             }
             catch (Exception ex)
             {
