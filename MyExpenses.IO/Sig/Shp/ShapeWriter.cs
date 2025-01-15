@@ -19,13 +19,13 @@ public static class ShapeWriter
     {
         try
         {
-            var collection = features.Where(s => s.Geometry != null).ToList();
-
-            var typeSig = collection.GetType().GetGenericArguments()[0];
-
-            var geomType = shapeType ?? collection.First().Geometry!.GetShapeType();
+            var collection = features as ISig[] ?? features.ToArray();
+            collection = collection.Where(s => s.Geometry is not null).ToArray();
+            var typeSig = features.GetType().GetGenericArguments()[0];
             var fieldsDictionary = Utils.GetFields(typeSig);
             var fieldsArray = fieldsDictionary.Values.ToArray();
+
+            var geomType = shapeType ?? collection.First().Geometry!.GetShapeType();
 
             var options = new ShapefileWriterOptions((ShapeType)geomType!, fieldsArray);
 
