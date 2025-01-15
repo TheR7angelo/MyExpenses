@@ -10,6 +10,10 @@ namespace MyExpenses.Core.UnitTests.Export
     [TestSubject(typeof(ExistingDatabaseToFolder))]
     public class ExistingDatabaseToFolderTest
     {
+        /// <summary>
+        /// Creates and returns a new instance of an ExistingDatabase object by copying a template database file to a unique path.
+        /// </summary>
+        /// <returns>An instance of ExistingDatabase representing the copied database.</returns>
         private static ExistingDatabase GetExistingDatabase()
         {
             var uuid = Guid.NewGuid().ToString();
@@ -26,10 +30,17 @@ namespace MyExpenses.Core.UnitTests.Export
             return existingDatabase;
         }
 
+        /// <summary>
+        /// Deletes an existing database file from the file system.
+        /// </summary>
+        /// <param name="existingDatabase">The instance of <see cref="ExistingDatabase"/> representing the database file to be deleted.</param>
         private static void DeleteExistingDatabase(ExistingDatabase existingDatabase)
             => File.Delete(existingDatabase.FilePath);
 
-
+        /// <summary>
+        /// Returns the full path of the output directory for exporting files.
+        /// </summary>
+        /// <returns>A string representing the full path of the output directory.</returns>
         private static string GetOutputPath()
             => Path.GetFullPath("OutputPath");
 
@@ -53,6 +64,7 @@ namespace MyExpenses.Core.UnitTests.Export
             var expectedFolder = Path.Combine(folderPath, existingDatabase.FileNameWithoutExtension);
             Assert.True(Directory.Exists(expectedFolder), "The folder should be created");
 
+            // Cleanup
             DeleteExistingDatabase(existingDatabase);
         }
 
@@ -77,6 +89,7 @@ namespace MyExpenses.Core.UnitTests.Export
             // Assert
             Assert.True(File.Exists(saveExcel), "The Excel file should be created");
 
+            // Cleanup
             DeleteExistingDatabase(existingDatabase);
         }
 
@@ -125,6 +138,7 @@ namespace MyExpenses.Core.UnitTests.Export
             Assert.Contains(testSink.LogEvents, logEvent => logEvent.Level is LogEventLevel.Information);
             Assert.Equal(6, testSink.LogEvents.Count(log => log.Level is LogEventLevel.Information));
 
+            // Cleanup
             DeleteExistingDatabase(existingDatabase);
         }
 
