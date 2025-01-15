@@ -26,33 +26,33 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\MyExpenses.Core\MyExpenses.Core.csproj" />
+      <ProjectReference Include="..\..\MyExpenses.Core\MyExpenses.Core.csproj" />
     </ItemGroup>
 
     <ItemGroup>
-      <AdditionalFiles Include="..\MyExpenses.Commons\UnitTestsFiles\UnitTestDb.sqlite">
+      <AdditionalFiles Include="..\..\MyExpenses.Commons\UnitTestsFiles\UnitTestDb.sqlite">
         <Link>UnitTestDb.sqlite</Link>
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </AdditionalFiles>
     </ItemGroup>
 
     <ItemGroup>
-      <AdditionalFiles Include="..\MyExpenses.Commons\Resources\Assets\Maps\BlueMarker.svg">
+      <AdditionalFiles Include="..\..\MyExpenses.Commons\Resources\Assets\Maps\BlueMarker.svg">
         <Link>Resources\Assets\Maps\BlueMarker.svg</Link>
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </AdditionalFiles>
-      <AdditionalFiles Include="..\MyExpenses.Commons\Resources\Assets\Maps\GreenMarker.svg">
+      <AdditionalFiles Include="..\..\MyExpenses.Commons\Resources\Assets\Maps\GreenMarker.svg">
         <Link>Resources\Assets\Maps\GreenMarker.svg</Link>
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </AdditionalFiles>
-      <AdditionalFiles Include="..\MyExpenses.Commons\Resources\Assets\Maps\RedMarker.svg">
+      <AdditionalFiles Include="..\..\MyExpenses.Commons\Resources\Assets\Maps\RedMarker.svg">
         <Link>Resources\Assets\Maps\RedMarker.svg</Link>
         <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       </AdditionalFiles>
     </ItemGroup>
 
     <ItemGroup>
-      <AdditionalFiles Include="..\MyExpenses.Commons\Resources\Qgis\GeoVisionary.qgz">
+      <AdditionalFiles Include="..\..\MyExpenses.Commons\Resources\Qgis\GeoVisionary.qgz">
         <Link>Resources\Qgis\GeoVisionary.qgz</Link>
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </AdditionalFiles>
