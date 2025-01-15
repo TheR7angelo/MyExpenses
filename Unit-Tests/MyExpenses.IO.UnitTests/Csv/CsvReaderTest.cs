@@ -1,11 +1,18 @@
 using System.Text;
+using JetBrains.Annotations;
 using MyExpenses.IO.Csv;
 using MyExpenses.Models.Sql.Bases.Tables;
 
 namespace MyExpenses.IO.UnitTests.Csv;
 
+[TestSubject(typeof(CsvReader))]
 public class CsvReaderTest
 {
+    /// <summary>
+    /// Generates a unique temporary file path in the system's temporary directory,
+    /// with a filename based on a new GUID and a ".csv" extension.
+    /// </summary>
+    /// <returns>A string representing the full path to the temporary file.</returns>
     private static string GetTempFilePath()
     {
         var tempPath = Path.GetTempPath();
@@ -14,6 +21,10 @@ public class CsvReaderTest
         return filePath;
     }
 
+    /// <summary>
+    /// Verifies that the CsvReader correctly maps records when provided with a valid CSV file.
+    /// Validates the proper parsing of fields and correct record mapping into TAccount instances.
+    /// </summary>
     [Fact]
     public void ReadCsv_ShouldMapRecordsCorrectly_WhenFileIsValid()
     {
@@ -50,6 +61,10 @@ public class CsvReaderTest
         }
     }
 
+    /// <summary>
+    /// Validates that the CsvReader returns an empty collection when provided with an empty CSV file.
+    /// Ensures the method handles the scenario where no data is present gracefully.
+    /// </summary>
     [Fact]
     public void ReadCsv_ShouldReturnEmptyCollection_WhenFileIsEmpty()
     {
@@ -73,6 +88,11 @@ public class CsvReaderTest
         }
     }
 
+    /// <summary>
+    /// Tests that the CsvReader can accurately read and parse a CSV file
+    /// written in a non-default encoding, such as ISO-8859-1. Verifies the correct
+    /// handling and decoding of data when reading the file.
+    /// </summary>
     [Fact]
     public void ReadCsv_ShouldHandleDifferentEncodings()
     {
@@ -103,6 +123,12 @@ public class CsvReaderTest
         }
     }
 
+
+    /// <summary>
+    /// Ensures the CsvReader can handle CSV files containing extra columns
+    /// that are not part of the expected mapping. Verifies correct parsing
+    /// and mapping of the required fields while ignoring the additional columns.
+    /// </summary>
     [Fact]
     public void ReadCsv_ShouldHandleOptionalColumns_WhenFileHasExtraColumns()
     {
@@ -137,6 +163,11 @@ public class CsvReaderTest
         }
     }
 
+    /// <summary>
+    /// Tests the behavior of the <see cref="CsvReader.ReadCsv{T}"/> method when attempting to read
+    /// from a file that does not exist. Verifies that a <see cref="FileNotFoundException"/> is thrown
+    /// and that the exception message contains relevant information about the missing file.
+    /// </summary>
     [Fact]
     public void ReadCsv_ShouldThrowException_WhenFileDoesNotExist()
     {
