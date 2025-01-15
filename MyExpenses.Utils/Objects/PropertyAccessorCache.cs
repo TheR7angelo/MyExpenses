@@ -8,9 +8,31 @@ namespace MyExpenses.Utils.Objects;
 /// for a specified type.
 /// </summary>
 /// <typeparam name="T">The type of object for which the property setters are created.</typeparam>
-public static class PropertySetterCache<T>
+public static class PropertyAccessorCache<T>
 {
+    private static readonly Dictionary<string, Func<T, object?>> GettersCache = new();
     private static readonly Dictionary<string, Action<T, object?>> SettersCache = new();
+
+    /// <summary>
+    /// Creates a property getter function for the given property of the type <typeparamref name="T"/>.
+    /// The getter can be used to dynamically retrieve the value of a specified property on an object of type <typeparamref name="T"/>.
+    /// </summary>
+    /// <param name="property">The <see cref="PropertyInfo"/> of the property for which the getter is to be created.</param>
+    /// <returns>A <see cref="Func{T, Object}"/> that gets the property value for a specific instance of type <typeparamref name="T"/>.</returns>
+    public static Func<T, object?> CreateGetter(PropertyInfo property)
+    {
+        if (GettersCache.TryGetValue(property.Name, out var cachedGetter))
+            return cachedGetter;
+
+        var instanceParam = Expression.Parameter(typeof(T), "instance");
+        var propertyExpr = Expression.Property(instanceParam, property);
+        var convertExpr = Expression.Convert(propertyExpr, typeof(object)); // Conversion vers object pour les types de valeur
+
+        var getter = Expression.Lambda<Func<T, object?>>(convertExpr, instanceParam).Compile();
+        GettersCache[property.Name] = getter;
+
+        return getter;
+    }
 
     /// <summary>
     /// Creates a property setter action for the given property of the type <typeparamref name="T"/>.
