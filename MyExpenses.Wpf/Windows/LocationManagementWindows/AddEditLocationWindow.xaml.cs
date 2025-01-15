@@ -9,6 +9,7 @@ using Mapsui.Tiling.Layers;
 using Microsoft.Data.Sqlite;
 using MyExpenses.Models.AutoMapper;
 using MyExpenses.Models.Config.Interfaces;
+using MyExpenses.Models.Mapsui.PointFeatures;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Models.WebApi.Nominatim;
 using MyExpenses.Sql.Context;
@@ -217,7 +218,6 @@ public partial class AddEditLocationWindow
         set => SetValue(TitleWindowProperty, value);
     }
 
-    private const string ColumnTemp = "temp";
     public TPlace Place { get; } = new();
     public bool PlaceDeleted { get; private set; }
     private WritableLayer WritableLayer { get; } = new() { Style = null };
@@ -316,10 +316,10 @@ public partial class AddEditLocationWindow
 
     private void ButtonValidNewPoint_OnClick(object sender, RoutedEventArgs e)
     {
-        var pointsFeatures = WritableLayer.GetFeatures().Select(s => (PointFeature)s).ToList();
+        var pointsFeatures = WritableLayer.GetFeatures().Select(s => (TemporaryPointFeature)s).ToList();
         if (pointsFeatures.Count < 2) return;
 
-        var newFeature = pointsFeatures.FirstOrDefault(f => f[ColumnTemp]!.Equals(true))!;
+        var newFeature = pointsFeatures.First(f => f.IsTemp.Equals(true));
         foreach (var pointFeature in pointsFeatures)
         {
             WritableLayer.TryRemove(pointFeature);
@@ -328,7 +328,7 @@ public partial class AddEditLocationWindow
         var coordinate = SphericalMercator.ToLonLat(newFeature.Point);
         Place.Geometry = new Point(coordinate.X, coordinate.Y);
 
-        newFeature[ColumnTemp] = false;
+        newFeature.IsTemp = false;
         newFeature.Styles = new List<IStyle> { MapsuiStyleExtensions.RedMarkerStyle };
         WritableLayer.Add(newFeature);
 
@@ -431,12 +431,13 @@ public partial class AddEditLocationWindow
     private void MapControl_OnInfo(object? sender, MapInfoEventArgs e)
     {
         var worldPosition = e.MapInfo.WorldPosition;
-        var feature = new PointFeature(worldPosition)
-            { Styles = new List<IStyle> { MapsuiStyleExtensions.GreenMarkerStyle },
-                [ColumnTemp] = true
-            };
+        var feature = new TemporaryPointFeature(worldPosition)
+        {
+            Styles = new List<IStyle> { MapsuiStyleExtensions.GreenMarkerStyle },
+            IsTemp = true
+        };
 
-        var oldFeature = WritableLayer.GetFeatures().FirstOrDefault(f => f[ColumnTemp]!.Equals(true));
+        var oldFeature = WritableLayer.GetFeatures().FirstOrDefault(f => (TemporaryPointFeature)f is { IsTemp: true });
         if (oldFeature is not null) WritableLayer.TryRemove(oldFeature);
 
         WritableLayer.Add(feature);
@@ -517,9 +518,11 @@ public partial class AddEditLocationWindow
 
     private void UpdateMiniMap()
     {
-        var feature = Place.ToFeature();
+        var feature = Place.ToTemporaryFeature();
         feature.Styles = new List<IStyle> { MapsuiStyleExtensions.RedMarkerStyle };
-        feature[ColumnTemp] = false;
+        feature.IsTemp = false;
+
+        // feature[ColumnTemp] = false;
 
         WritableLayer.Add(feature);
 

@@ -8,6 +8,7 @@ using Mapsui.Widgets.ButtonWidgets;
 using Mapsui.Widgets.InfoWidgets;
 using Mapsui.Widgets.ScaleBar;
 using MyExpenses.Models.AutoMapper;
+using MyExpenses.Models.Mapsui.PointFeatures;
 using MyExpenses.Models.Sql.Bases.Tables;
 
 namespace MyExpenses.Utils.Maps;
@@ -43,6 +44,13 @@ public static class MapsuiMapExtensions
 
         return map;
     }
+
+    public static TemporaryPointFeature ToTemporaryFeature(this TPlace place, SymbolStyle? symbolStyle = null)
+    {
+        var feature = place.ToSingleFeature(symbolStyle);
+        return new TemporaryPointFeature(feature);
+    }
+
 
     public static PointFeature ToFeature(this TPlace place, SymbolStyle? symbolStyle = null)
         => place.ToSingleFeature(symbolStyle);
