@@ -121,6 +121,7 @@ public static class ShapeReader
                 feature.Geometry = GeometryFixer.Fix(feature.Geometry);
             }
 
+            if (spatialRef is not null) feature.Geometry.SRID = spatialRef.Srid;
             var newFeature = feature.CleanFeature();
             features.Add(newFeature);
         }
