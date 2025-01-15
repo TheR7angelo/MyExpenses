@@ -56,8 +56,10 @@ public static class ObjectComparer
     {
         foreach (var field in type.GetFields())
         {
-            var value1 = field.GetValue(obj1);
-            var value2 = field.GetValue(obj2);
+            var compiledGetter = FieldAccessorCache<T>.CreateGetter(field);
+
+            var value1 = compiledGetter(obj1);
+            var value2 = compiledGetter(obj2);
 
             if (!ValuesAreEqual(value1, value2)) return false;
         }
