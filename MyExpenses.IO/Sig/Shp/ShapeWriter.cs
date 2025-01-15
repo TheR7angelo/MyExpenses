@@ -14,6 +14,15 @@ public static class ShapeWriter
     private const long MaxFileSize = 1_800_000_000; // Size Limit 1.8 GB
     private static readonly List<string> Extensions = ["shp", "shx", "dbf", "prj", "cpg"];
 
+    /// <summary>
+    /// Writes a collection of geometrical features to a Shapefile.
+    /// </summary>
+    /// <param name="features">A collection of ISig geometrical features to be written to the Shapefile.</param>
+    /// <param name="savePath">The file path where the Shapefile will be saved.</param>
+    /// <param name="projection">Optional. The projection data in WKT format to be included in the .prj file of the Shapefile.</param>
+    /// <param name="encoding">Optional. The character encoding to be used for attribute data in the Shapefile.</param>
+    /// <param name="shapeType">Optional. The specific ShapeType to use for writing geometries. If not specified, it defaults to the ShapeType of the first geometry.</param>
+    /// <returns>Returns true if the Shapefile was successfully created and written, otherwise false.</returns>
     public static bool ToShapeFile(this IEnumerable<ISig> features, string savePath, string? projection = null,
         Encoding? encoding = null, ShapeType? shapeType = null)
     {
