@@ -13,11 +13,6 @@ public static class ObjectsExtensions
         return type != null && type.IsValueType & type.IsPrimitive;
     }
 
-    private static object? DeepCopy(this object? originalObject)
-    {
-        return InternalCopy(originalObject, new Dictionary<object, object?>(new ReferenceEqualityComparer()));
-    }
-
     private static object? InternalCopy(object? originalObject, IDictionary<object, object?> visited)
     {
         if (originalObject is null) return null;
@@ -68,11 +63,11 @@ public static class ObjectsExtensions
         }
     }
 
-    public static T DeepCopy<T>(this T original)
+    public static T? DeepCopy<T>(this T? original) where T : class
     {
         if (original is null) return original;
 
-        return (T)DeepCopy((object)original)!;
+        return InternalCopy(original, new Dictionary<object, object?>(new ReferenceEqualityComparer())) as T;
     }
 }
 
