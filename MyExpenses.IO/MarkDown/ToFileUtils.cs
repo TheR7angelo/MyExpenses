@@ -5,24 +5,27 @@ namespace MyExpenses.IO.MarkDown;
 
 public static class ToFileUtils
 {
+    /// <summary>
+    /// Converts a list of GitHub release notes into a Markdown formatted string.
+    /// </summary>
+    /// <param name="releases">The list of release notes to be formatted in Markdown.</param>
+    /// <returns>A single string containing all the release notes formatted in Markdown, separated by section dividers.</returns>
     public static string ToMarkDown(this List<Release> releases)
     {
-        var xmls = new List<string>();
-        foreach (var release in releases)
-        {
-            var version = release.TagName;
-            var date = release.PublishedAt;
+        var markdownSections = releases.Select(FormatReleaseAsMarkdown);
 
-            var bodies = release.Body?.Split('\n').Select(t => $"> {t}").Select(s => s.Trim())!;
+        const string sectionSeparator = "\n\n___\n\n";
+        return string.Join(sectionSeparator, markdownSections);
+    }
 
-            var body = string.Join("\n", bodies);
-            var xml = $"# {version}\t\t{date.ToShortDateString()}{Environment.NewLine}{Environment.NewLine}{body}";
+    private static string FormatReleaseAsMarkdown(Release release)
+    {
+        var version = release.TagName ?? "Unknown Version";
+        var date = release.PublishedAt.ToShortDateString();
+        var body = string.Join("\n", release.Body?.Split('\n')
+            .Select(line => $"> {line.Trim()}") ?? []);
 
-            xmls.Add(xml);
-        }
-
-        var md = string.Join("\n\n___\n\n", xmls);
-        return md;
+        return $"# {version}\t\t{date}{Environment.NewLine}{Environment.NewLine}{body}";
     }
 
     public static string ToHtml(this string file, string backgroundColor, string foregroundColor)
