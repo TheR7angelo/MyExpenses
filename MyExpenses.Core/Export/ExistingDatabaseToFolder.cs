@@ -42,6 +42,8 @@ public static class ExistingDatabaseToFolder
             Log.Information("Exporting records to Excel file at \"{SaveExcel}\"", saveExcel);
 
             // ReSharper disable once HeapView.ObjectAllocation.Evident
+            // The allocation here is necessary as a new instance of DataBaseContext is required to interact with the database for this operation.
+            // Since this instance is created within an async context and properly disposed with 'await using', it does not cause any unnecessary resource usage or performance issues.
             await using var context = new DataBaseContext(existingDatabase.FilePath);
             var resultExportToExcel = context.ToExcelWorksheet(saveExcel);
 
@@ -96,6 +98,8 @@ public static class ExistingDatabaseToFolder
         var redMarkerFilePath = Path.Join(mapsDirectory, "RedMarker.svg");
 
         // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // The array allocation here is necessary to store the file paths for further processing.
+        // This allocation is minimal and scoped to this method only, so it does not have any significant impact on performance.
         var svgs = new[] { bleuMarkerFilePath, greenMarkerFilePath, redMarkerFilePath };
         foreach (var svg in svgs)
         {
