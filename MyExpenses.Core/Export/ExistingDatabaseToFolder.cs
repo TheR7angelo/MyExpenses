@@ -41,6 +41,7 @@ public static class ExistingDatabaseToFolder
             var saveExcel = Path.Join(saveFolder, $"{existingDatabase.FileNameWithoutExtension}.xlsx");
             Log.Information("Exporting records to Excel file at \"{SaveExcel}\"", saveExcel);
 
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
             await using var context = new DataBaseContext(existingDatabase.FilePath);
             var resultExportToExcel = context.ToExcelWorksheet(saveExcel);
 
@@ -93,7 +94,9 @@ public static class ExistingDatabaseToFolder
         var bleuMarkerFilePath = Path.Join(mapsDirectory, "BlueMarker.svg");
         var greenMarkerFilePath = Path.Join(mapsDirectory, "GreenMarker.svg");
         var redMarkerFilePath = Path.Join(mapsDirectory, "RedMarker.svg");
-        var svgs = new List<string> { bleuMarkerFilePath, greenMarkerFilePath, redMarkerFilePath };
+
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        var svgs = new[] { bleuMarkerFilePath, greenMarkerFilePath, redMarkerFilePath };
         foreach (var svg in svgs)
         {
             var filename = Path.GetFileName(svg);
