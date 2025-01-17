@@ -7,42 +7,6 @@ namespace MyExpenses.IO.Csv;
 
 public static class CsvReader
 {
-    /// <summary>
-    /// Provides the configuration options for CSV file operations used within the application.
-    /// </summary>
-    /// <remarks>
-    /// This property is a static instance of <see cref="CsvHelper.Configuration.CsvConfiguration"/> preconfigured
-    /// to use the invariant culture and to handle specific CSV parsing features. The configuration disables header
-    /// validation and missing field handling while enabling automatic detection of the delimiter.
-    /// </remarks>
-    // ReSharper disable once HeapView.ObjectAllocation.Evident
-    // The allocation here is intentional and necessary because CsvConfiguration requires instantiation with specific settings.
-    // As this is a static property, the allocation happens only once during the lifetime of the application and has no significant impact on performance.
-    private static CsvConfiguration CsvConfiguration { get; } = new(CultureInfo.InvariantCulture)
-    {
-        HeaderValidated = null,
-        MissingFieldFound = null,
-        DetectDelimiter = true
-    };
-
-    /// <summary>
-    /// Provides configuration options for file stream operations, including access level,
-    /// sharing mode, and other stream settings.
-    /// </summary>
-    /// <remarks>
-    /// This property encapsulates a preconfigured instance of <see cref="System.IO.FileStreamOptions"/>
-    /// designed for reading files with specific access and sharing permissions. It ensures compatibility
-    /// when handling file streams in scenarios that require concurrent or shared file access.
-    /// </remarks>
-    // ReSharper disable once HeapView.ObjectAllocation.Evident
-    // The allocation here is intentional and necessary to configure specific file stream options.
-    // As this is a static property, the allocation occurs only once during the application lifetime and has no significant performance impact.
-    private static FileStreamOptions FileStreamOptions { get; } = new()
-    {
-        Access = FileAccess.Read,
-        Share = FileShare.ReadWrite
-    };
-
     static CsvReader()
     {
         Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
@@ -60,11 +24,22 @@ public static class CsvReader
         var encoding = Encoding.GetEncoding(encodingName);
 
         // ReSharper disable HeapView.ObjectAllocation.Evident
-        // The allocation of StreamReader and CsvReader is necessary here to read the file and parse its content according to the specified encoding and CSV configuration.
-        // Both instances are properly wrapped in 'using' statements, ensuring they are disposed of immediately after use.
-        // This short-lived allocation is required for the operation and does not impact overall performance.
-        using var streamReader = new StreamReader(filePath, encoding, true, FileStreamOptions);
-        using var reader = new CsvHelper.CsvReader(streamReader, CsvConfiguration);
+        // The allocations for FileStreamOptions, StreamReader, and CsvReader, as well as the CsvConfiguration instance,
+        // are necessary for reading the file and parsing its content with the specified encoding and settings.
+        // These objects are intentionally created within the scope of this method and wrapped in 'using' statements
+        // to ensure that they are properly disposed of after use. Since these allocations are short-lived and limited
+        // to this operation, they have no significant impact on the overall performance and enable efficient resource usage.
+        var fileStreamOptions = new FileStreamOptions { Access = FileAccess.Read,Share = FileShare.ReadWrite };
+        using var streamReader = new StreamReader(filePath, encoding, true, fileStreamOptions);
+
+        var csvConfiguration = new CsvConfiguration(CultureInfo.InvariantCulture)
+        {
+            HeaderValidated = null,
+            MissingFieldFound = null,
+            DetectDelimiter = true
+        };
+
+        using var reader = new CsvHelper.CsvReader(streamReader, csvConfiguration);
         // ReSharper restore HeapView.ObjectAllocation.Evident
 
         var records = reader.GetRecords<T>();
