@@ -31,6 +31,17 @@ public static class CsvWriter
         };
     }
 
+    /// <summary>
+    /// Writes a collection of records to a CSV file at the specified file path.
+    /// Converts the records into the CSV format and handles file creation or overwriting.
+    /// </summary>
+    /// <typeparam name="T">The type of the records to be written to the CSV file.</typeparam>
+    /// <param name="records">The collection of records to be written to the file.</param>
+    /// <param name="filePath">The path where the CSV file should be created or overwritten.</param>
+    /// <returns>
+    /// A boolean value indicating whether the operation succeeded.
+    /// Returns true if the CSV file was successfully created or overwritten, otherwise false.
+    /// </returns>
     public static bool WriteCsv<T>(this IEnumerable<T> records, string filePath)
     {
         filePath = Path.ChangeExtension(filePath, ".csv");
