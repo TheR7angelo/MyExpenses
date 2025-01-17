@@ -32,6 +32,11 @@ public static class ToFileUtils
     {
         var content = File.Exists(file) ? File.ReadAllText(file) : file;
 
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // The MarkdownPipeline instance is intentionally created here as it is needed
+        // only once during the application lifecycle. Using a static reference would
+        // cause unnecessary memory retention, so this allocation is acceptable and
+        // will be collected by the Garbage Collector shortly after use.
         var pipeline = new MarkdownPipelineBuilder().UseAdvancedExtensions().Build();
         var htmlBody = Markdown.ToHtml(content, pipeline);
 
