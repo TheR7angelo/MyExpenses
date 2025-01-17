@@ -17,6 +17,10 @@ public static class ImportExportDataTableExcel
     {
         filePath = Path.ChangeExtension(filePath, ".xlsx");
 
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // The allocation of ExcelPackage is necessary for creating and managing the Excel workbook.
+        // It is properly used within a 'using' statement, ensuring resources are disposed of correctly after use.
+        // This allocation is essential for the operation and does not have a significant impact on performance.
         using var package = new ExcelPackage();
         var workbook = package.Workbook;
 
