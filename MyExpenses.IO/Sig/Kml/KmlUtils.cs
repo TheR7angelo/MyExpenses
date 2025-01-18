@@ -9,6 +9,13 @@ public static class KmlUtils
 {
     public static XNamespace KmlNamespace => XNamespace.Get("http://www.opengis.net/kml/2.2");
 
+    /// <summary>
+    /// Creates a KML (Keyhole Markup Language) attribute representation for an object based on its properties,
+    /// including an ExtendedData element and associated SchemaData elements.
+    /// </summary>
+    /// <param name="obj">The object whose properties will be converted to KML attributes.</param>
+    /// <param name="schemaId">The schema ID used to reference the schema in the KML SchemaData.</param>
+    /// <returns>A KML XElement containing the ExtendedData with SchemaData and SimpleData elements derived from the object's properties.</returns>
     public static XElement CreateKmlAttribute(this object obj, string schemaId)
     {
         var extendedDataElement = new XElement(KmlNamespace + "ExtendedData");
