@@ -18,10 +18,21 @@ public static class KmlUtils
     /// <returns>A KML XElement containing the ExtendedData with SchemaData and SimpleData elements derived from the object's properties.</returns>
     public static XElement CreateKmlAttribute(this object obj, string schemaId)
     {
+        // The creation of multiple XElement instances is necessary to construct
+        // the KML file's XML tree structure.
+        // Each XElement represents a unique XML node or tag
+        // and cannot be reused due to the hierarchical nature of the XML document.
+        // These allocations are required to ensure that the serialized KML adheres to the specification and maintains data integrity.
+        // This approach guarantees the correct representation of KML elements with their
+        // attributes and values, and is essential for proper functioning.
+
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
         var extendedDataElement = new XElement(KmlNamespace + "ExtendedData");
 
+        // ReSharper disable HeapView.ObjectAllocation.Evident
         var schemaDataElement = new XElement(KmlNamespace + "SchemaData",
             new XAttribute("schemaUrl", $"#{schemaId}"));
+        // ReSharper restore HeapView.ObjectAllocation.Evident
 
         extendedDataElement.Add(schemaDataElement);
 
@@ -34,6 +45,8 @@ public static class KmlUtils
             var value = propertyInfo.GetValue(obj);
             if (value is bool b) value = b ? "1" : "0";
 
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
+            // ReSharper disable once HeapView.ObjectAllocation
             var xElement = new XElement(KmlNamespace + "SimpleData",
                 new XAttribute("name", columnName), value);
             schemaDataElement.Add(xElement);
@@ -45,7 +58,9 @@ public static class KmlUtils
     public static XElement CreateKmlSchema(this Dictionary<string, DbfField> fields, string schemaId)
     {
         var schemaElement = new XElement(KmlNamespace + "Schema",
+            // ReSharper disable once HeapView.ObjectAllocation
             new XAttribute("name", schemaId),
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
             new XAttribute("id", schemaId)
         );
 
@@ -54,7 +69,9 @@ public static class KmlUtils
             var type = Utils.GetDbFieldTypeMap[field.Value.FieldType];
 
             var fieldElement = new XElement(KmlNamespace + "SimpleField",
+                // ReSharper disable once HeapView.ObjectAllocation
                 new XAttribute("name", field.Value.Name),
+                // ReSharper disable once HeapView.ObjectAllocation.Evident
                 new XAttribute("type", type)
             );
             schemaElement.Add(fieldElement);
