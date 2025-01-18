@@ -27,7 +27,7 @@ namespace MyExpenses.Wpf.Pages;
 
 public partial class DashBoardPage
 {
-    public ObservableCollection<VHistory> VHistories { get; }
+    public ObservableCollection<VHistory> VHistories { get; } = [];
     public ObservableCollection<VTotalByAccount> VTotalByAccounts { get; } = [];
 
     private DataGridRow? DataGridRow { get; set; }
@@ -346,9 +346,6 @@ public partial class DashBoardPage
 
         InitializeComponent();
         UpdateLanguage();
-
-        VHistories = [];
-        FilterDataGrid.ItemsSource = VHistories;
 
         UpdatePieChartLegendTextPaint();
 

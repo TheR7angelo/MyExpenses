@@ -87,7 +87,7 @@ public partial class RecurrentExpensePage
 
     private DataGridRow? DataGridRow { get; set; }
 
-    public ObservableCollection<VRecursiveExpense> VRecursiveExpenses { get; }
+    public ObservableCollection<VRecursiveExpense> VRecursiveExpenses { get; } = [];
 
     public RecurrentExpensePage()
     {
@@ -96,8 +96,6 @@ public partial class RecurrentExpensePage
         InitializeComponent();
 
         UpdateLanguage();
-        VRecursiveExpenses = [];
-        FilterDataGrid.ItemsSource = VRecursiveExpenses;
 
         UpdateDataGrid();
 

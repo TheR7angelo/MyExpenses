@@ -96,7 +96,7 @@ public partial class RecurrentAddWindow
 
     // private DataGridRow? DataGridRow { get; set; }
 
-    public ObservableCollection<VRecursiveExpenseDerive> VRecursiveExpensesDerives { get; }
+    public ObservableCollection<VRecursiveExpenseDerive> VRecursiveExpensesDerives { get; } = [];
 
     public RecurrentAddWindow(Size currentSize)
     {
@@ -107,9 +107,6 @@ public partial class RecurrentAddWindow
         UpdateLanguage();
         Width = currentSize.Width;
         Height = currentSize.Height;
-
-        VRecursiveExpensesDerives = [];
-        FilterDataGrid.ItemsSource = VRecursiveExpensesDerives;
 
         UpdateDataGrid();
 
