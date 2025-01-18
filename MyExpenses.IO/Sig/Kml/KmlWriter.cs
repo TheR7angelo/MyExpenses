@@ -33,6 +33,12 @@ public static class KmlWriter
 
         var schemaElement = fields.CreateKmlSchema(filenameWithoutExtension);
 
+        // ReSharper disable HeapView.ObjectAllocation.Evident
+        // Suppression applied because creating instances of XDocument and XElement involves
+        // unavoidable memory allocations. Despite ReSharper's warning regarding performance,
+        // these allocations are fundamental for building the KML document structure.
+        // Optimizing this further is not practical without compromising functionality.
+        // ReSharper warnings are temporarily disabled to prevent unnecessary distraction.
         var kml = new XDocument(
             new XDeclaration("1.0", "UTF-8", string.Empty),
             new XElement(KmlUtils.KmlNamespace + "kml",
@@ -40,6 +46,7 @@ public static class KmlWriter
                 new XElement(KmlUtils.KmlNamespace + "Document",
                     new XAttribute("id", "root_doc"),
                     schemaElement)));
+        // ReSharper restore HeapView.ObjectAllocation.Evident
 
         var displayNameProperty = GetDisplayNameProperty(typeSig);
 
@@ -53,6 +60,11 @@ public static class KmlWriter
 
             var kmlAttribute = obj.point.CreateKmlAttribute(filenameWithoutExtension);
 
+            // ReSharper disable HeapView.ObjectAllocation.Evident
+            // This suppression is applied because creating instances of XElement for the "Placemark" structure
+            // unavoidably requires memory allocations. ReSharper warns about possible performance issues due to
+            // these allocations, but they are essential for constructing the KML elements with the necessary attributes.
+            // Disabling the warning here avoids unnecessary interruptions as these allocations are intentional.
             kml.Root!.Element(KmlUtils.KmlNamespace +"Document")!.Add(
                 new XElement(KmlUtils.KmlNamespace + "Placemark",
                     kmlAttribute,
@@ -62,6 +74,7 @@ public static class KmlWriter
                             $"{yInvariant}, {xInvariant}")
                     )
                 )
+                // ReSharper restore HeapView.ObjectAllocation.Evident
             );
         }
 
@@ -94,6 +107,11 @@ public static class KmlWriter
 
         var (xInvariant, yInvariant) = ((Point)sig.Geometry!).ToInvariantCoordinate();
 
+        // ReSharper disable HeapView.ObjectAllocation.Evident
+        // This suppression is applied because creating the XDocument and XElement objects for the KML structure
+        // involves unavoidable memory allocations. ReSharper raises a warning about potential performance concerns,
+        // but these allocations are necessary to build a valid KML file with the required elements such as Placemark,
+        // Point, and their associated attributes. Optimizing these allocations is not feasible without compromising functionality.
         var kml = new XDocument(
             new XDeclaration("1.0", "UTF-8", string.Empty),
             new XElement(KmlUtils.KmlNamespace + "kml",
@@ -107,6 +125,7 @@ public static class KmlWriter
                     new XElement(KmlUtils.KmlNamespace + "Point",
                         new XElement(KmlUtils.KmlNamespace + "coordinates",
                             $"{yInvariant}, {xInvariant}"))))));
+        // ReSharper restore HeapView.ObjectAllocation.Evident
 
         SaveToKmlKmzFile(fileSavePath, kml, extension);
     }
@@ -122,18 +141,29 @@ public static class KmlWriter
         var extension = Path.GetExtension(fileSavePath);
         extension.TestExtensionError();
 
+        // ReSharper disable HeapView.ObjectAllocation.Evident
+        // This suppression is applied because constructing the XDocument and XElement objects
+        // inherently requires memory allocations. ReSharper warns about potential performance overhead,
+        // but these allocations are essential for initializing the KML file structure.
+        // This operation is necessary and cannot be optimized further.
         var kml = new XDocument(
             new XDeclaration("1.0", "UTF-8", string.Empty),
             new XElement(KmlUtils.KmlNamespace + "kml",
                 new XElement(KmlUtils.KmlNamespace + "Document")
             )
         );
+        // ReSharper restore HeapView.ObjectAllocation.Evident
 
         foreach (var obj in points.Select((point, i) => new { i, point }))
         {
             var indexedName = $"{geomType} {obj.i + 1}";
             var (xInvariant, yInvariant) = obj.point.ToInvariantCoordinate();
 
+            // ReSharper disable HeapView.ObjectAllocation.Evident
+            // Suppression applied because constructing XElement objects for the "Placemark" structure
+            // and its child elements (e.g., name, coordinates) requires memory allocations. ReSharper raises warnings
+            // about performance concerns, but these allocations are necessary for creating a valid KML structure.
+            // This is intentional and integral to the functionality.
             kml.Root!.Element(KmlUtils.KmlNamespace +"Document")!.Add(
                 new XElement(KmlUtils.KmlNamespace + "Placemark",
                     new XElement(KmlUtils.KmlNamespace + "name", indexedName),
@@ -143,6 +173,7 @@ public static class KmlWriter
                     )
                 )
             );
+            // ReSharper restore HeapView.ObjectAllocation.Evident
         }
 
         SaveToKmlKmzFile(fileSavePath, kml, extension);
@@ -161,6 +192,11 @@ public static class KmlWriter
 
         var (xInvariant, yInvariant) = point.ToInvariantCoordinate();
 
+        // ReSharper disable HeapView.ObjectAllocation.Evident
+        // This suppression is applied because creating XDocument and XElement objects requires memory allocations.
+        // These allocations are flagged by ReSharper as potential performance issues, but they are necessary parts
+        // of constructing the KML file structure, including elements such as Placemark, Point, and coordinates.
+        // These operations are fundamental and cannot be further optimized without compromising functionality.
         var kml = new XDocument(
             new XDeclaration("1.0", "UTF-8", string.Empty),
             new XElement(KmlUtils.KmlNamespace + "kml",
@@ -169,6 +205,7 @@ public static class KmlWriter
                     new XElement(KmlUtils.KmlNamespace + "Point",
                         new XElement(KmlUtils.KmlNamespace + "coordinates",
                             $"{xInvariant}, {yInvariant}")))));
+        // ReSharper restore HeapView.ObjectAllocation.Evident
 
         SaveToKmlKmzFile(fileSavePath, kml, extension);
     }
