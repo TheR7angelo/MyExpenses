@@ -12,6 +12,13 @@ namespace MyExpenses.IO.Sig.Kml;
 
 public static class KmlWriter
 {
+    /// <summary>
+    /// Exports a collection of <see cref="ISig"/> geometries to a KML or KMZ file and saves it to the specified path.
+    /// </summary>
+    /// <param name="sigs">An enumerable collection of <see cref="ISig"/> instances containing the geometry data to be exported.</param>
+    /// <param name="fileSavePath">The file path where the KML or KMZ file will be saved. The file extension must be ".kml" or ".kmz".</param>
+    /// <param name="geomType">Optional. Specifies the type of geometry being exported, such as "Point". Defaults to "Point".</param>
+    /// <returns>Returns true if the operation is successful; otherwise, returns false.</returns>
     public static bool ToKmlFile(this IEnumerable<ISig> sigs, string fileSavePath, string geomType = "Point")
     {
         var extension = Path.GetExtension(fileSavePath);
@@ -68,6 +75,12 @@ public static class KmlWriter
         return displayNameProperty;
     }
 
+    /// <summary>
+    /// Exports an individual <see cref="ISig"/> geometry to a KML or KMZ file and saves it to the specified path.
+    /// </summary>
+    /// <param name="sig">The <see cref="ISig"/> instance containing the geometry data to be exported.</param>
+    /// <param name="fileSavePath">The file path where the KML or KMZ file will be saved. The file extension must be ".kml" or ".kmz".</param>
+    /// <param name="geomType">Optional. Specifies the type of geometry being exported, such as "Point". Defaults to "Point".</param>
     public static void ToKmlFile(this ISig sig, string fileSavePath, string geomType = "Point")
     {
         var extension = Path.GetExtension(fileSavePath);
@@ -98,6 +111,12 @@ public static class KmlWriter
         SaveToKmlKmzFile(fileSavePath, kml, extension);
     }
 
+    /// <summary>
+    /// Exports a collection of <see cref="Point"/> geometries to a KML or KMZ file and saves it to the specified path.
+    /// </summary>
+    /// <param name="points">The collection of <see cref="Point"/> geometries to be exported.</param>
+    /// <param name="fileSavePath">The file path where the KML or KMZ file will be saved. The file extension must be ".kml" or ".kmz".</param>
+    /// <param name="geomType">Optional. Defines the type of geometry being exported. Defaults to "Point".</param>
     public static void ToKmlFile(this IEnumerable<Point> points, string fileSavePath, string geomType = "Point")
     {
         var extension = Path.GetExtension(fileSavePath);
@@ -129,6 +148,12 @@ public static class KmlWriter
         SaveToKmlKmzFile(fileSavePath, kml, extension);
     }
 
+    /// <summary>
+    /// Exports a given <see cref="Point"/> geometry to a KML or KMZ file and saves it to the specified path.
+    /// </summary>
+    /// <param name="point">The <see cref="Point"/> geometry to be exported.</param>
+    /// <param name="fileSavePath">The file path where the KML or KMZ file will be saved. The file extension must be ".kml" or ".kmz".</param>
+    /// <param name="geomType">Optional. Defines the type of geometry being exported. Defaults to "Point".</param>
     public static void ToKmlFile(this Point point, string fileSavePath, string geomType = "Point")
     {
         var extension = Path.GetExtension(fileSavePath);
