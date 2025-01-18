@@ -45,10 +45,10 @@ public static class KmlUtils
             var value = propertyInfo.GetValue(obj);
             if (value is bool b) value = b ? "1" : "0";
 
-            // ReSharper disable once HeapView.ObjectAllocation.Evident
-            // ReSharper disable once HeapView.ObjectAllocation
+            // ReSharper disable HeapView.ObjectAllocation.Evident
             var xElement = new XElement(KmlNamespace + "SimpleData",
                 new XAttribute("name", columnName), value);
+            // ReSharper restore HeapView.ObjectAllocation.Evident
             schemaDataElement.Add(xElement);
         }
 
@@ -57,22 +57,22 @@ public static class KmlUtils
 
     public static XElement CreateKmlSchema(this Dictionary<string, DbfField> fields, string schemaId)
     {
+        // ReSharper disable HeapView.ObjectAllocation.Evident
         var schemaElement = new XElement(KmlNamespace + "Schema",
-            // ReSharper disable once HeapView.ObjectAllocation
             new XAttribute("name", schemaId),
-            // ReSharper disable once HeapView.ObjectAllocation.Evident
             new XAttribute("id", schemaId)
+            // ReSharper restore HeapView.ObjectAllocation.Evident
         );
 
         foreach(var field in fields)
         {
             var type = Utils.GetDbFieldTypeMap[field.Value.FieldType];
 
+            // ReSharper disable HeapView.ObjectAllocation.Evident
             var fieldElement = new XElement(KmlNamespace + "SimpleField",
-                // ReSharper disable once HeapView.ObjectAllocation
                 new XAttribute("name", field.Value.Name),
-                // ReSharper disable once HeapView.ObjectAllocation.Evident
                 new XAttribute("type", type)
+                // ReSharper restore HeapView.ObjectAllocation.Evident
             );
             schemaElement.Add(fieldElement);
         }
