@@ -214,7 +214,8 @@ public static class KmlWriter
     {
         extension = extension.ToLower();
 
-        var extensions = new List<string> { ".kml", ".kmz" };
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        var extensions = new[] { ".kml", ".kmz" };
         if (!extensions.Contains(extension))
         {
             throw new ArgumentException($"The file extension must be .kml or .kmz. The provided extension was {extension}.");
