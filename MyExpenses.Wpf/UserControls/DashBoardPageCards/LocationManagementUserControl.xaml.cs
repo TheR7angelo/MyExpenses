@@ -9,7 +9,7 @@ namespace MyExpenses.Wpf.UserControls.DashBoardPageCards;
 
 public partial class LocationManagementUserControl
 {
-    private WritableLayer PlaceLayer { get; } = new() { Style = null, IsMapInfoLayer = false };
+    private WritableLayer PlaceLayer { get; } = new() { Style = null };
 
     public LocationManagementUserControl()
     {

@@ -202,7 +202,7 @@ public partial class DetailedRecordContentPage
 
     public EPackIcons CloseCircle { get; } = EPackIcons.CloseCircle;
 
-    private WritableLayer PlaceLayer { get; } = new() { Style = null, IsMapInfoLayer = true, Tag = typeof(TPlace) };
+    private WritableLayer PlaceLayer { get; } = new() { Style = null, Tag = typeof(TPlace) };
     public List<KnownTileSource> KnownTileSources { get; private init; } = [];
     public KnownTileSource KnownTileSourceSelected { get; set; }
 

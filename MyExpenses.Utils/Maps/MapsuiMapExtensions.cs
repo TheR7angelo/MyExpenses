@@ -3,6 +3,7 @@ using Mapsui;
 using Mapsui.Extensions;
 using Mapsui.Layers;
 using Mapsui.Styles;
+using Mapsui.Tiling.Layers;
 using Mapsui.Widgets;
 using Mapsui.Widgets.ButtonWidgets;
 using Mapsui.Widgets.InfoWidgets;
@@ -36,7 +37,7 @@ public static class MapsuiMapExtensions
         {
             map.Widgets.AddRange(new List<IWidget>
             {
-                new MapInfoWidget(map),
+                new MapInfoWidget(map, s => s is not TileLayer),
                 new ZoomInOutWidget(),
                 new ScaleBarWidget(map)
             });

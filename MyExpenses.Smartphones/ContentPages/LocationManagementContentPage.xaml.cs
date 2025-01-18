@@ -19,7 +19,8 @@ public partial class LocationManagementContentPage
     public List<KnownTileSource> KnownTileSources { get; }
     public KnownTileSource KnownTileSourceSelected { get; set; }
 
-    private WritableLayer PlaceLayer { get; } = new() { Style = null, IsMapInfoLayer = true, Tag = typeof(TPlace) };
+    private WritableLayer PlaceLayer { get; } = new() { Style = null, Tag = typeof(TPlace) };
+    private IEnumerable<ILayer> InfoLayers { get; }
 
     private TPlace? ClickTPlace { get; set; }
     private Point ClickPoint { get; set; } = Point.Empty;
@@ -34,6 +35,7 @@ public partial class LocationManagementContentPage
         MapControlLongPressCommand = new Command<object>(MapControlLong_OnLongPress);
 
         KnownTileSources = [..MapsuiMapExtensions.GetAllKnowTileSource()];
+        InfoLayers = new List<ILayer> { PlaceLayer };
 
         var (treeViewNodes, places) = GenerateTreeViewNodes();
         TreeViewNodes = [..treeViewNodes];
@@ -163,7 +165,7 @@ public partial class LocationManagementContentPage
 
     private void MapControl_OnInfo(object? sender, MapInfoEventArgs e)
     {
-        var mapInfo = e.MapInfo;
+        var mapInfo = e.GetMapInfo(InfoLayers);
         SetClickTPlace(mapInfo);
     }
 

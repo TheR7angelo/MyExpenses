@@ -303,7 +303,7 @@ public partial class AddEditRecurrentExpenseWindow
     public string DisplayMemberPathPlaceName { get; } = nameof(TPlace.Name);
 
     // public bool RecursiveExpenseDeleted { get; set; }
-    private WritableLayer PlaceLayer { get; } = new() { Style = null, IsMapInfoLayer = true, Tag = typeof(TPlace) };
+    private WritableLayer PlaceLayer { get; } = new() { Style = null, Tag = typeof(TPlace) };
     public List<KnownTileSource> KnownTileSources { get; }
     public KnownTileSource KnownTileSourceSelected { get; set; }
 

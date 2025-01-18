@@ -113,7 +113,8 @@ public partial class LocationManagementPage
     public List<KnownTileSource> KnownTileSources { get; }
     public KnownTileSource KnownTileSourceSelected { get; set; }
 
-    private WritableLayer PlaceLayer { get; } = new() { Style = null, IsMapInfoLayer = true, Tag = typeof(TPlace) };
+    private WritableLayer PlaceLayer { get; } = new() { Style = null, Tag = typeof(TPlace) };
+    private IEnumerable<ILayer> InfoLayers { get; }
 
     private TPlace? ClickTPlace { get; set; }
     private Point ClickPoint { get; set; } = Point.Empty;
@@ -122,6 +123,7 @@ public partial class LocationManagementPage
     public LocationManagementPage()
     {
         KnownTileSources = [..MapsuiMapExtensions.GetAllKnowTileSource()];
+        InfoLayers = new List<ILayer> { PlaceLayer };
 
         using var context = new DataBaseContext();
         var places = context.TPlaces.OrderBy(s => s.Country).ThenBy(s => s.City).ThenBy(s => s.Name).ToList();
@@ -184,13 +186,13 @@ public partial class LocationManagementPage
         ClickPoint = new Point(lonLat.lon, lonLat.lat);
 
         var screenPosition = new ScreenPosition(position.X, position.Y);
-        var mapInfo = MapControl.GetMapInfo(screenPosition);
+        var mapInfo = MapControl.GetMapInfo(screenPosition, InfoLayers);
         SetClickTPlace(mapInfo);
     }
 
     private void MapControl_OnInfo(object? sender, MapInfoEventArgs e)
     {
-        var mapInfo = e.MapInfo;
+        var mapInfo = e.GetMapInfo(InfoLayers);
         SetClickTPlace(mapInfo);
     }
 
