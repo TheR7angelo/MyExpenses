@@ -66,7 +66,7 @@ public static class KmlUtils
 
         foreach(var field in fields)
         {
-            var type = Utils.GetDbFieldTypeMap[field.Value.FieldType];
+            var type = Utils.GetDbFieldType(field.Value.FieldType);
 
             // ReSharper disable HeapView.ObjectAllocation.Evident
             var fieldElement = new XElement(KmlNamespace + "SimpleField",

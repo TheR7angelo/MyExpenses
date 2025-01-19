@@ -10,14 +10,18 @@ namespace MyExpenses.IO.Sig;
 
 public static class Utils
 {
-    public static Dictionary<DbfType, string> GetDbFieldTypeMap { get; } = new()
+    public static string GetDbFieldType(DbfType dbfType)
     {
-        { DbfType.Numeric, "long" },
-        { DbfType.Float, "double" },
-        { DbfType.Character, "string" },
-        { DbfType.Date, "DateTime" },
-        { DbfType.Logical, "int" }
-    };
+        return dbfType switch
+        {
+            DbfType.Numeric => "long",
+            DbfType.Float => "double",
+            DbfType.Character => "string",
+            DbfType.Date => "DateTime",
+            DbfType.Logical => "int",
+            _ => throw new ArgumentOutOfRangeException(nameof(dbfType), dbfType, @"Unsupported DbfType")
+        };
+    }
 
     private static Dictionary<Type, Func<string, int?, int?, DbfField>> FieldCreators { get; } = new()
     {
