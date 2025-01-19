@@ -17,6 +17,7 @@ public class PointFeatureToTPlaceProfile : Profile
 
     private static TPlace PointFeatureToTPlace(PointFeature feature, TPlace tPlace)
     {
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
         var place = new TPlace();
         var properties = typeof(TPlace).GetProperties();
         foreach (var entry in feature.Fields)
@@ -46,7 +47,7 @@ public class PointFeatureToTPlaceProfile : Profile
     private static PointFeature PlaceToPointFeature(TPlace place, PointFeature pointFeature)
     {
         var point = SphericalMercator.FromLonLat(place.Longitude ?? 0, place.Latitude ?? 0);
-        var feature = new PointFeature(new PointFeature(point.x, point.y));
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
         var feature = new PointFeature(point.x, point.y);
 
         var properties = typeof(TPlace).GetProperties();
