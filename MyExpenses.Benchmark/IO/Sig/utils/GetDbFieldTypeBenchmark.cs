@@ -1,7 +1,7 @@
 using BenchmarkDotNet.Attributes;
 using NetTopologySuite.IO.Esri.Dbf;
 
-namespace MyExpenses.Benchmark.IO.Sig;
+namespace MyExpenses.Benchmark.IO.Sig.utils;
 
 [MemoryDiagnoser]
 [ThreadingDiagnoser]
@@ -9,7 +9,7 @@ namespace MyExpenses.Benchmark.IO.Sig;
 [HtmlExporter]
 [MarkdownExporter]
 [RankColumn]
-public class UtilsBenchmark
+public class GetDbFieldTypeBenchmark
 {
     private static readonly Dictionary<DbfType, string> FieldTypeMap = new()
     {
