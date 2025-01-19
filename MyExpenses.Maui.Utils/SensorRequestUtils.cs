@@ -11,6 +11,9 @@ public static class SensorRequestUtils
     [SupportedOSPlatform("Windows")]
     public static async Task<Location?> GetLocation(GeolocationAccuracy geolocationAccuracy = GeolocationAccuracy.Default)
     {
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // This hint is disabled because the highlighted allocation is intentional and unavoidable in this context.
+// The creation of the object is necessary for the functionality, and the performance impact of this allocation is negligible.
         var geolocationRequest = new GeolocationRequest(geolocationAccuracy);
         var location = await Geolocation.GetLocationAsync(geolocationRequest);
 
