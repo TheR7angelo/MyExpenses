@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.Reflection;
 using MyExpenses.Models.IO.Sig.Interfaces;
-using MyExpenses.Models.IO.Sig.Shp.Converters;
 using MyExpenses.Models.Sql.Bases.Tables;
+using MyExpenses.SharedUtils.Converters;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils.Objects;
 using MyExpenses.Utils.Properties;
@@ -15,6 +15,10 @@ namespace MyExpenses.IO.Sig.Shp;
 
 public static class ShapeReader
 {
+    // Static readonly instance of DateTimeConverter initialized once.
+    // This allocation is intentional and optimal as it avoids repeated instantiations,
+    // ensuring a single shared instance for the entire lifetime of the application.
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     private static readonly DateTimeConverter DateTimeConverterObject = new();
 
     /// <summary>
@@ -52,15 +56,24 @@ public static class ShapeReader
 
     private static TSpatialRefSy? GetGeographicCoordinateSystemFromPrj(this string projectionString)
     {
+        // Creating a new DataBaseContext instance is required to access the database.
+        // This usage is expected and unavoidable as each call represents a discrete transactional context.
+        // The "using" statement ensures proper disposal of the context after use.
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
         using var context = new DataBaseContext(DbContextBackup.LocalFilePathDataBaseModel);
         return context.TSpatialRefSys.FirstOrDefault(s => s.Proj4text.Equals(projectionString));
     }
 
     private static List<T> ToList<T>(this IEnumerable<Feature> features) where T : class, ISig
     {
-        var results = new List<T>();
+        var enumerable = features as Feature[] ?? features.ToArray();
+        var count = enumerable.Length;
 
-        foreach (var feature in features)
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // Initialize the list with a predefined capacity to avoid unnecessary reallocations
+        var results = new List<T>(count);
+
+        foreach (var feature in enumerable)
         {
             var instance = Activator.CreateInstance<T>();
             instance.Geometry = feature.Geometry;
@@ -115,6 +128,11 @@ public static class ShapeReader
 
     private static List<Feature> ReadFeatures(this string filePath, TSpatialRefSy? spatialRef = null)
     {
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // The "features" list is required to store processed and cleaned Feature objects.
+        // This allocation is intentional and necessary to accumulate the results
+        // before returning them to the caller. The scope is limited to this method,
+        // ensuring no memory leaks.
         var features = new List<Feature>();
 
         foreach (var feature in Shapefile.ReadAllFeatures(filePath))
@@ -134,11 +152,17 @@ public static class ShapeReader
 
     private static Feature CleanFeature(this Feature feature)
     {
+        // Creating a new "Feature" instance is necessary to encapsulate a cleaned geometry
+        // and a new attributes table. This allocation ensures isolation from the original
+        // object and avoids unintended side effects. The scope of this new object is
+        // limited to the current processing logic.
+        // ReSharper disable HeapView.ObjectAllocation.Evident
         var newFeature = new Feature
         {
             Geometry = feature.Geometry,
             Attributes = new AttributesTable()
         };
+        // ReSharper restore HeapView.ObjectAllocation.Evident
 
         foreach (var name in feature.Attributes.GetNames())
         {
