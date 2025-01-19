@@ -37,6 +37,11 @@ public static class ShapeWriter
             var geomType = shapeType ?? collection.First().Geometry!.GetShapeType();
 
             var options = new ShapefileWriterOptions((ShapeType)geomType!, fieldsArray);
+            var options = new ShapefileWriterOptions((ShapeType)geomType!, fieldsArray)
+            {
+                Encoding = encoding,
+                Projection = projection
+            };
 
             var currentPartNumber = 1;
             var currentBasePath = AddPartSuffix(savePath, currentPartNumber);
@@ -47,7 +52,6 @@ public static class ShapeWriter
                 if (totalFileSize >= MaxFileSize)
                 {
                     shpWriter?.Dispose();
-                    WriteProjectionFile(currentBasePath, projection, encoding);
 
                     currentPartNumber++;
                     currentBasePath = AddPartSuffix(savePath, currentPartNumber);
@@ -59,7 +63,6 @@ public static class ShapeWriter
                 shpWriter.Write();
             }
 
-            WriteProjectionFile(currentBasePath, projection, encoding);
             shpWriter.Dispose();
 
             if (currentPartNumber.Equals(1)) CleanNames(currentBasePath);
@@ -126,14 +129,6 @@ public static class ShapeWriter
         {
             field.Value = key.GetPropertiesInfoByName<ColumnAttribute>(feature);
         }
-    }
-
-    private static void WriteProjectionFile(string savePath, string? projection, Encoding? encoding)
-    {
-        if (string.IsNullOrWhiteSpace(projection)) return;
-
-        var prjFilePath = Path.ChangeExtension(savePath, "prj");
-        File.WriteAllText(prjFilePath, projection, encoding ?? Encoding.UTF8);
     }
 
     private static ShapeType? GetShapeType(this Geometry geometry)
