@@ -25,6 +25,11 @@ public static class Utils
 
     private static DbfField CreateFieldUsingSwitch(Type propertyType, string name, int? maxLength = null, int? precision = null)
     {
+        // ReSharper disable HeapView.ObjectAllocation.Evident
+        // The warning is disabled because the object allocations here are intentional and necessary.
+        // Each case in the switch expression explicitly creates an instance of a `DbfField` or its derived types,
+        // which inherently involves heap allocation since these objects need to exist independently.
+        // This allocation is acceptable as these objects are lightweight and their lifespan aligns with the usage patterns.
         return propertyType switch
         {
             _ when propertyType == typeof(int) =>
@@ -48,6 +53,7 @@ public static class Utils
 
             _ => throw new ArgumentOutOfRangeException(nameof(propertyType), @$"Type not supported : {propertyType.Name}")
         };
+        // ReSharper restore HeapView.ObjectAllocation.Evident
     }
 
     public static Dictionary<string, DbfField> GetFields(this Type type)
