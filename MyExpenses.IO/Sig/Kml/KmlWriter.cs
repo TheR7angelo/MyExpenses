@@ -3,6 +3,7 @@ using System.IO.Compression;
 using System.Reflection;
 using System.Xml.Linq;
 using MyExpenses.Models.IO.Sig.Interfaces;
+using MyExpenses.SharedUtils;
 using MyExpenses.Utils.Maps;
 using MyExpenses.Utils.Properties;
 using NetTopologySuite.Geometries;
@@ -50,15 +51,15 @@ public static class KmlWriter
 
         var displayNameProperty = GetDisplayNameProperty(typeSig);
 
-        foreach (var obj in enumerable.Select((point, i) => new { i, point }))
+        foreach (var obj in enumerable.WithIndex())
         {
             var displayName = displayNameProperty is null
-                ? $"{geomType} {obj.i + 1}"
-                : displayNameProperty.GetValue(obj.point);
+                ? $"{geomType} {obj.Index + 1}"
+                : displayNameProperty.GetValue(obj.Element);
 
-            var (xInvariant, yInvariant) = ((Point)obj.point.Geometry!).ToInvariantCoordinate();
+            var (xInvariant, yInvariant) = ((Point)obj.Element.Geometry!).ToInvariantCoordinate();
 
-            var kmlAttribute = obj.point.CreateKmlAttribute(filenameWithoutExtension);
+            var kmlAttribute = obj.Element.CreateKmlAttribute(filenameWithoutExtension);
 
             // ReSharper disable HeapView.ObjectAllocation.Evident
             // This suppression is applied because creating instances of XElement for the "Placemark" structure
@@ -154,10 +155,10 @@ public static class KmlWriter
         );
         // ReSharper restore HeapView.ObjectAllocation.Evident
 
-        foreach (var obj in points.Select((point, i) => new { i, point }))
+        foreach (var obj in points.WithIndex())
         {
-            var indexedName = $"{geomType} {obj.i + 1}";
-            var (xInvariant, yInvariant) = obj.point.ToInvariantCoordinate();
+            var indexedName = $"{geomType} {obj.Index + 1}";
+            var (xInvariant, yInvariant) = obj.Element.ToInvariantCoordinate();
 
             // ReSharper disable HeapView.ObjectAllocation.Evident
             // Suppression applied because constructing XElement objects for the "Placemark" structure
