@@ -11,8 +11,11 @@ public static class HttpClientHandlerCustom
     public static HttpClient CreateHttpClientHandler()
     {
 #if __ANDROID__
+        // ReSharper disable HeapView.ObjectAllocation.Evident
         return new HttpClient(new HttpClientHandlerAndroid());
+        // ReSharper restore HeapView.ObjectAllocation.Evident
 #else
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
         return new HttpClient();
 #endif
     }
@@ -27,6 +30,7 @@ public class HttpClientHandlerAndroid : AndroidMessageHandler
     {
         if (request.RequestUri!.AbsolutePath.Contains("files/download"))
         {
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
             request.Content!.Headers.ContentType = new MediaTypeHeaderValue("application/octet-stream");
         }
         return base.SendAsync(request, cancellationToken);
