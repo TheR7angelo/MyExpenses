@@ -1,4 +1,4 @@
-﻿namespace MyExpenses.Models.IO.Sig.Shp.Converters;
+﻿namespace MyExpenses.SharedUtils.Converters;
 
 public static class ConversionExtensions
 {
