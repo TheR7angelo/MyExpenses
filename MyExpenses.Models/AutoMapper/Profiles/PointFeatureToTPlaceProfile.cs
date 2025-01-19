@@ -47,6 +47,7 @@ public class PointFeatureToTPlaceProfile : Profile
     {
         var point = SphericalMercator.FromLonLat(place.Longitude ?? 0, place.Latitude ?? 0);
         var feature = new PointFeature(new PointFeature(point.x, point.y));
+        var feature = new PointFeature(point.x, point.y);
 
         var properties = typeof(TPlace).GetProperties();
         foreach (var property in properties)
