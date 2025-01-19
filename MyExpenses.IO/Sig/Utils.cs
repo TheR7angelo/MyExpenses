@@ -59,6 +59,12 @@ public static class Utils
     public static Dictionary<string, DbfField> GetFields(this Type type)
     {
         if (!typeof(ISig).IsAssignableFrom(type)) throw new ArgumentException(@"Type must implement ISig", nameof(type));
+
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // This warning is disabled because the allocation of a Dictionary<string, DbfField> is
+        // both intentional and necessary to store the mapping between field names and the corresponding DbfField objects.
+        // Dictionaries inherently require heap allocation since they are data structures designed for dynamic key-value storage.
+        // In this context, this allocation has minimal impact on performance and is fundamental to the method's purpose.
         var fields = new Dictionary<string, DbfField>();
 
         foreach (var property in type.GetProperties())
