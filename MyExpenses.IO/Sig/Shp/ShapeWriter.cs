@@ -58,7 +58,7 @@ public static class ShapeWriter
                     shpWriter = Shapefile.OpenWrite(currentBasePath, options);
                 }
 
-                WriteGeometry(shpWriter, feature);
+                shpWriter.Geometry = feature.Geometry;
                 WriteFields(feature, fieldsDictionary);
                 shpWriter.Write();
             }
@@ -111,16 +111,6 @@ public static class ShapeWriter
         var filePath = Path.ChangeExtension(basePath, extension);
         var fileSize = File.Exists(filePath) ? new FileInfo(filePath).Length : 0;
         return fileSize;
-    }
-
-    private static void WriteGeometry(ShapefileWriter shpWriter, ISig feature)
-    {
-        shpWriter.Geometry = feature.Geometry switch
-        {
-            LineString lineString => new MultiLineString([lineString]),
-            Polygon polygon => new MultiPolygon([polygon]),
-            _ => feature.Geometry
-        };
     }
 
     private static void WriteFields(ISig feature, Dictionary<string, DbfField> fieldsDictionary)
