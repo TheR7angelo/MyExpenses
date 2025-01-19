@@ -36,7 +36,11 @@ public static class ShapeWriter
 
             var geomType = shapeType ?? collection.First().Geometry!.GetShapeType();
 
-            var options = new ShapefileWriterOptions((ShapeType)geomType!, fieldsArray);
+            // The creation of ShapefileWriterOptions is essential to configure shapefile writing.
+            // It defines the ShapeType (geometry type) and the fields structure required for attributes.
+            // This allocation is unavoidable and necessary to ensure accurate file writing with the
+            // correct configuration for geometries and attributes fields.
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
             var options = new ShapefileWriterOptions((ShapeType)geomType!, fieldsArray)
             {
                 Encoding = encoding,
@@ -109,7 +113,17 @@ public static class ShapeWriter
     private static long GetFileSize(string basePath, string extension)
     {
         var filePath = Path.ChangeExtension(basePath, extension);
-        var fileSize = File.Exists(filePath) ? new FileInfo(filePath).Length : 0;
+
+        var fileSize = File.Exists(filePath) ?
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
+            // The allocation of a FileInfo object is necessary here to retrieve the file's length.
+            // While ReSharper warns about a potentially unnecessary allocation, this is the most
+            // straightforward and platform-agnostic way to access the file size. FileInfo provides
+            // a clean abstraction over platform-specific file system APIs, making this approach reliable
+            // and maintainable. The code intentionally avoids premature optimizations or more complex
+            // methods (e.g., P/Invoke or unsaf
+            new FileInfo(filePath).Length
+            : 0;
         return fileSize;
     }
 
