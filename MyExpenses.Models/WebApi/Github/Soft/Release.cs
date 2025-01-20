@@ -17,7 +17,13 @@ public class Release
         {
             if (string.IsNullOrEmpty(TagName)) return null;
             var tagName = TagName.Replace("v", string.Empty);
-           return new Version(tagName);
+
+            // This implementation avoids unnecessary allocations by only creating
+            // a Version instance when TagName is not null or empty. The use of
+            // Replace ensures that any leading 'v' is removed before parsing,
+            // keeping the code simple and efficient while adhering to expected input formats.
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
+            return new Version(tagName);
         }
     }
 
