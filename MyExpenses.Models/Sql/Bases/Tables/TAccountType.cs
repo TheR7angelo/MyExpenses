@@ -19,6 +19,9 @@ public partial class TAccountType : ISql
     [Column("date_added", TypeName = "DATETIME")]
     public DateTime? DateAdded { get; init; } = DateTime.Now;
 
+    // ICollection property is initialized to prevent null references
+    // and to ensure the collection are ready for use, even if no data is loaded from the database.
+    // ReSharper disable HeapView.ObjectAllocation.Evident
     // ReSharper disable PropertyCanBeMadeInitOnly.Global
     [InverseProperty("AccountTypeFkNavigation")]
     public virtual ICollection<TAccount> TAccounts { get; set; } = new List<TAccount>();

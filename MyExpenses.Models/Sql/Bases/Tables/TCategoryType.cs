@@ -27,10 +27,14 @@ public partial class TCategoryType : ISql
     [InverseProperty("TCategoryTypes")]
     public virtual TColor? ColorFkNavigation { get; set; }
 
+    // Each ICollection property is initialized to prevent null references
+    // and to ensure the collections are ready for use, even if no data is loaded from the database.
+    // ReSharper disable HeapView.ObjectAllocation.Evident
     [InverseProperty("CategoryTypeFkNavigation")]
     public virtual ICollection<THistory> THistories { get; set; } = new List<THistory>();
 
     [InverseProperty("CategoryTypeFkNavigation")]
     public virtual ICollection<TRecursiveExpense> TRecursiveExpenses { get; set; } = new List<TRecursiveExpense>();
+    // ReSharper restore HeapView.ObjectAllocation.Evident
     // ReSharper restore PropertyCanBeMadeInitOnly.Global
 }

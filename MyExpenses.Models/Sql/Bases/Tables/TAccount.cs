@@ -41,6 +41,9 @@ public partial class TAccount : ISql
     [InverseProperty("TAccounts")]
     public virtual TCurrency? CurrencyFkNavigation { get; set; }
 
+    // Each ICollection property is initialized to prevent null references
+    // and to ensure the collections are ready for use, even if no data is loaded from the database.
+    // ReSharper disable HeapView.ObjectAllocation.Evident
     [InverseProperty("FromAccountFkNavigation")]
     public virtual ICollection<TBankTransfer> TBankTransferFromAccountFkNavigations { get; set; } = new List<TBankTransfer>();
 
@@ -53,4 +56,5 @@ public partial class TAccount : ISql
     [InverseProperty("AccountFkNavigation")]
     public virtual ICollection<TRecursiveExpense> TRecursiveExpenses { get; set; } = new List<TRecursiveExpense>();
     // ReSharper restore PropertyCanBeMadeInitOnly.Global
+    // ReSharper restore HeapView.ObjectAllocation.Evident
 }
