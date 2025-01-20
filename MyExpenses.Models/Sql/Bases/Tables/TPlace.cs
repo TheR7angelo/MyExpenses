@@ -135,6 +135,12 @@ public partial class TPlace : ISql, ISig
     {
         if (_longitude.HasValue && _latitude.HasValue)
         {
+            // This implementation was chosen for its clarity and efficiency.
+            // It ensures that the geometry is updated only when both longitude and
+            // latitude have valid values, minimizing unnecessary object creation.
+            // Setting _geometry to null when values are invalid ensures consistent state
+            // management without introducing additional complexity.
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
             _geometry = new Point(_longitude.Value, _latitude.Value) { SRID = 4326 };
         }
         else
