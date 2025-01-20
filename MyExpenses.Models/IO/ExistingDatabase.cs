@@ -36,6 +36,9 @@ public class ExistingDatabase
     /// If the file doesn't exist, some <see cref="System.IO.FileInfo"/> properties may return default values or throw exceptions.
     /// </summary>
     public FileInfo FileInfo
+        // Lazily initialize the FileInfo property to avoid unnecessary allocations.
+        // This ensures that the FileInfo object is only created if it is explicitly accessed.
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
         => _fileInfo ??= new FileInfo(FilePath);
 
     /// <summary>
@@ -67,10 +70,20 @@ public class ExistingDatabase
         const int blockSize = 4 * 1024 * 1024; // 4 Mo (4 194 304 octets)
 
         using var sha256 = SHA256.Create();
+        // A FileStream is required here to read the file contents in chunks for hashing.
+        // This approach is optimal for handling large files without loading them fully into memory.
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
         using var fileStream = new FileStream(FilePath, FileMode.Open, FileAccess.Read, FileShare.Read);
 
+        // A buffer is required here to read the file in fixed-size chunks (4 MB in this case) for hashing.
+        // This ensures efficient file processing while avoiding excessive memory usage for large files.
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
         var buffer = new byte[blockSize];
         int bytesRead;
+
+        // A MemoryStream is required to temporarily store and concatenate the hash results of each file block.
+        // This is necessary for the final hashing step and ensures efficient memory usage.
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
         using var concatenatedHashStream = new MemoryStream();
 
         while ((bytesRead = fileStream.Read(buffer, 0, blockSize)) > 0)
