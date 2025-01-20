@@ -114,6 +114,14 @@ public partial class TPlace : ISql, ISig
 
     public override string ToString()
     {
+        // This implementation was chosen based on performance benchmarks.
+        // It uses a List<string> to collect non-empty components of the address,
+        // which is both fast and memory-efficient for the given use case.
+        // Alternative approaches, such as StringBuilder or LINQ, introduced
+        // either higher memory allocation or slower execution times.
+        // This method achieves the best balance between simplicity, performance,
+        // and maintainability.
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
         var partAddress = new List<string>();
         if (!string.IsNullOrEmpty(Number)) partAddress.Add(Number);
         if (!string.IsNullOrEmpty(Street)) partAddress.Add(Street);
