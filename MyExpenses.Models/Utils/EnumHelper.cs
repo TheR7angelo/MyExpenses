@@ -10,6 +10,12 @@ public static class EnumHelper<T> where T : struct, Enum
     static EnumHelper()
     {
         var enumValues = Enum.GetValues<T>();
+
+        // This implementation minimizes allocations by initializing a fixed-size
+        // string array based on the count of enum values. It avoids unnecessary
+        // collections or dynamic resizing operations, ensuring efficient memory use
+        // while maintaining clarity in the code.
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
         Names = new string[enumValues.Length];
 
         for (var i = 0; i < enumValues.Length; i++)
