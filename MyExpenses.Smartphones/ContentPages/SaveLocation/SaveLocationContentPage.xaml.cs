@@ -65,6 +65,10 @@ public partial class SaveLocationContentPage
         // This creates a command that encapsulates the behavior to be executed when the user triggers the "Back" action.
         BackCommand = new Command(OnBackCommandPressed);
 
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // Necessary instantiation of TaskCompletionSource to manage asynchronous communication between the dialog
+        // and the calling logic. This allows the dialog to return a result (true or false) to the caller once
+        // the user interacts with the UI elements.
         _taskCompletionSource = new TaskCompletionSource<bool>();
 
         switch (saveLocationMode)
