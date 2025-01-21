@@ -85,8 +85,10 @@ public partial class AccountManagementContentPage
 
     #region Function
 
-        private async Task HandleButtonImageViewAddAccountAsync()
+    private async Task HandleButtonImageViewAddAccountAsync()
     {
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // This creates and pushes the page onto the navigation stack, enabling interaction with the user.
         var addEditAccountContentPage = new AddEditAccountContentPage();
         await Navigation.PushAsync(addEditAccountContentPage);
 
@@ -99,6 +101,8 @@ public partial class AccountManagementContentPage
 
     private async Task HandleButtonImageViewCreatBankTransferAsync()
     {
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // This creates and pushes the page onto the navigation stack, enabling interaction with the user.
         var addEditBankTransferContentPage = new AddEditBankTransferContentPage { IsNewBankTransfer = true };
         await Navigation.PushAsync(addEditBankTransferContentPage);
 
@@ -108,6 +112,8 @@ public partial class AccountManagementContentPage
 
     private async Task HandleButtonImageViewHistory()
     {
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // This creates and pushes the page onto the navigation stack, enabling interaction with the user.
         var bankTransferSummaryContentPage = new BankTransferSummaryContentPage();
         await Navigation.PushAsync(bankTransferSummaryContentPage);
 
@@ -117,10 +123,17 @@ public partial class AccountManagementContentPage
 
     private async Task HandleButtonImageViewRemoveAccount()
     {
-                var mapper = Mapping.Mapper;
+        var mapper = Mapping.Mapper;
+
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // Necessary instantiation of DataBaseContext to interact with the database.
+        // This creates a scoped database context for performing queries and modifications in the database.
         await using var context = new DataBaseContext();
         var accountsDerives = context.TAccounts.Select(s => mapper.Map<TAccountDerive>(s)).AsEnumerable();
 
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // Necessary instantiation of CustomPopupFilterAccount to display a popup for account filtering.
+        // The 'accountsDerives' collection is passed to the popup to populate its filtering options.
         var customPopupFilterAccount = new CustomPopupFilterAccount(accountsDerives);
         await this.ShowPopupAsync(customPopupFilterAccount);
 
@@ -138,7 +151,7 @@ public partial class AccountManagementContentPage
         this.ShowCustomPopupActivityIndicator(AccountManagementContentPageResources.CustomPopupActivityIndicatorDeleteAccount);
         await Task.Delay(TimeSpan.FromMilliseconds(100));
 
-        var deleteErrors = new List<TAccount>();
+        List<TAccount>? deleteErrors = null;
         foreach (var accountDerive in filteredItem)
         {
             TAccount account = accountDerive;
@@ -151,6 +164,8 @@ public partial class AccountManagementContentPage
             else
             {
                 Log.Error(exception, "Error while deleting account");
+
+                deleteErrors ??= [];
                 deleteErrors.Add(account);
             }
         }
@@ -181,6 +196,8 @@ public partial class AccountManagementContentPage
         if (sender is not Grid grid) return;
         if (grid.BindingContext is not VTotalByAccount vTotalByAccount) return;
 
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // This creates and pushes the page onto the navigation stack, enabling interaction with the user.
         var addEditAccountContentPage = new AddEditAccountContentPage { CanDelete = true };
         addEditAccountContentPage.SetAccount(id: vTotalByAccount.Id);
         await Navigation.PushAsync(addEditAccountContentPage);
@@ -196,6 +213,9 @@ public partial class AccountManagementContentPage
     {
         VTotalByAccounts.Clear();
 
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // Necessary instantiation of DataBaseContext to interact with the database.
+        // This creates a scoped database context for performing queries and modifications in the database.
         using var context = new DataBaseContext();
         VTotalByAccounts.AddRange(context.VTotalByAccounts.OrderBy(s => s.Name));
         TotalAllAccount = VTotalByAccounts.Sum(s => s.Total) ?? 0d;
