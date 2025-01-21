@@ -1,8 +1,8 @@
 using System.Drawing;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Models.Utils;
+using MyExpenses.SharedUtils.RegexUtils;
 using MyExpenses.Sql.Resources.Resx.DbContextHelperSetDefaultValues;
-using MyExpenses.Sql.Utils.Regex;
 
 namespace MyExpenses.Sql.Context;
 
