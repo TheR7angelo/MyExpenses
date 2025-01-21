@@ -86,6 +86,10 @@ public partial class DashBoardShell
     {
         DataBaseContext.FilePath = null;
 
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // Necessary allocation of a new AppShell instance.
+        // This is required to reset the application's navigation or interface when logging out.
+        // AppShell serves as the main entry point for the application, and a new instance ensures a clean state.
         var appShell = new AppShell();
         Application.Current!.Windows[0].Page = appShell;
     }
