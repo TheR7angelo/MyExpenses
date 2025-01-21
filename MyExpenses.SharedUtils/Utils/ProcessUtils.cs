@@ -16,9 +16,7 @@ public static class ProcessUtils
     /// This method opens the specified process using the default program associated with it.
     /// </remarks>
     public static void StartProcess(this string process)
-    {
-        Process.Start(new ProcessStartInfo(process) { UseShellExecute = true });
-    }
+        => process.StartProcessWithParameters();
 
     /// <summary>
     /// Starts a process with the specified file and parameters.
@@ -34,12 +32,33 @@ public static class ProcessUtils
         bool createNoWindow = false,
         ProcessWindowStyle windowStyle = ProcessWindowStyle.Normal)
     {
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // Normal and required allocation of a Process object to start a new system process.
+        // Process.StartInfo is configured with parameters to define how the process executes.
         var process = new Process();
         process.StartInfo.UseShellExecute = useShellExecute;
         process.StartInfo.CreateNoWindow = createNoWindow;
         process.StartInfo.WindowStyle = windowStyle;
         process.StartInfo.FileName = filename;
         process.Start();
+    }
+
+    /// <summary>
+    /// Starts a process using the specified command and arguments.
+    /// </summary>
+    /// <param name="command">The command or executable file to start as the process.</param>
+    /// <param name="arguments">The arguments to pass to the command or executable file.</param>
+    /// <param name="useShellExecute">Indicates whether to use the operating system shell to start the process.</param>
+    /// <remarks>
+    /// This method creates a new process with the specified command and arguments, and determines
+    /// whether to use the operating system shell to execute the process.
+    /// </remarks>
+    private static void StartProcessInfo(this string command, string arguments, bool useShellExecute = true)
+    {
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // Allocation of ProcessStartInfo to specify the command and its arguments.
+        var processStartInfo = new ProcessStartInfo(command, arguments) { UseShellExecute = useShellExecute };
+        Process.Start(processStartInfo);
     }
 
     /// <summary>
@@ -86,7 +105,7 @@ public static class ProcessUtils
 
         try
         {
-            Process.Start(new ProcessStartInfo(command, arguments) { UseShellExecute = true });
+            command.StartProcessInfo(arguments);
         }
         catch (Exception ex)
         {
