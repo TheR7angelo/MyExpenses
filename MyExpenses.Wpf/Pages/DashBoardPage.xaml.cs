@@ -12,6 +12,7 @@ using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Models.Sql.Bases.Views;
 using MyExpenses.Models.Wpf.Charts;
 using MyExpenses.Sql.Context;
+using MyExpenses.Sql.Queries;
 using MyExpenses.Utils;
 using MyExpenses.Utils.Collection;
 using MyExpenses.Utils.Strings;
@@ -302,11 +303,7 @@ public partial class DashBoardPage
 
         var (currentYear, currentMonth, _) = DateTime.Now;
         using var context = new DataBaseContext();
-        var recurrences = context.TRecursiveExpenses
-            .Where(s => !s.ForceDeactivate)
-            .Where(s => s.IsActive)
-            .Where(s => s.NextDueDate.Year <= currentYear && s.NextDueDate.Month <= currentMonth)
-            .AsEnumerable();
+        var recurrences = context.GetActiveRecurrencesForCurrentMonth(currentYear, currentMonth);
 
         if (recurrences.Any())
         {
@@ -323,13 +320,8 @@ public partial class DashBoardPage
 
         Years =
         [
-            ..context
-                .THistories
-                .Where(s => s.Date.HasValue)
-                .Select(s => s.Date!.Value.Year)
-                .Distinct()
-                .OrderByDescending(y => y)
-                .Select(y => y.ToString())
+            ..context.GetDistinctYearsFromHistories()
+                .Select(s => s.ToString())
         ];
 
         if (Years.Count.Equals(0)) Years.Add(currentYear.ToString());
@@ -617,32 +609,24 @@ public partial class DashBoardPage
 
         if (string.IsNullOrEmpty(accountName)) return;
 
-        using var context = new DataBaseContext();
         VHistories.Clear();
 
-        var query = context.VHistories
-            .Where(s => s.Account == accountName);
-
+        int? monthInt = null;
         if (!string.IsNullOrEmpty(SelectedMonth))
         {
-            var monthInt = Months.IndexOf(SelectedMonth) + 1;
-            query = query.Where(s => s.Date!.Value.Month.Equals(monthInt));
+            monthInt = Months.IndexOf(SelectedMonth) + 1;
         }
 
+        int? yearInt = null;
         if (!string.IsNullOrEmpty(SelectedYear))
         {
-            _ = SelectedYear.ToInt(out var yearInt);
-            query = query.Where(s => s.Date!.Value.Year.Equals(yearInt));
+            _ = SelectedYear.ToInt(out yearInt);
         }
 
-        var records = query
-            .OrderBy(s => s.IsPointed)
-            .ThenByDescending(s => s.Date)
-            .ThenBy(s => s.Category);
-
+        var records = accountName.GetFilteredHistories(monthInt, yearInt);
         VHistories.AddRange(records);
 
-        var filteredData = GetFilteredData(accountName);
+        var filteredData = accountName.GetFilteredVDetailTotalCategories(monthInt, yearInt);
         var categoriesTotals = CalculateCategoryTotals(filteredData, out var grandTotal);
         UpdateChartUi(categoriesTotals, grandTotal);
     }
@@ -687,30 +671,6 @@ public partial class DashBoardPage
         if (radioButtons.Count == 0) return null;
 
         return radioButtons.FirstOrDefault(s => s.IsChecked == true)?.Content as string;
-    }
-
-    private List<VDetailTotalCategory> GetFilteredData(string accountName)
-    {
-        using var context = new DataBaseContext();
-
-        var query = context.VDetailTotalCategories
-            .Where(s => s.Account == accountName);
-
-        if (!string.IsNullOrEmpty(SelectedMonth))
-        {
-            var monthInt = Months.IndexOf(SelectedMonth) + 1;
-            query = query.Where(s => s.Month == monthInt);
-        }
-
-        if (string.IsNullOrEmpty(SelectedYear)) return query.ToList();
-        {
-            if (SelectedYear.ToInt(out var yearInt))
-            {
-                query = query.Where(s => s.Year == yearInt);
-            }
-        }
-
-        return query.ToList();
     }
 
     private static List<CategoryTotalData> CalculateCategoryTotals(IEnumerable<VDetailTotalCategory> data, out double grandTotal)
