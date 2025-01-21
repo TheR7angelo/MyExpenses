@@ -21,6 +21,28 @@ public static class ProcessUtils
     }
 
     /// <summary>
+    /// Starts a process with the specified file and parameters.
+    /// </summary>
+    /// <param name="filename">The path or name of the file to start as a process.</param>
+    /// <param name="useShellExecute">Indicates whether to use the operating system shell to start the process.</param>
+    /// <param name="createNoWindow">Indicates whether to start the process without creating a new window.</param>
+    /// <param name="windowStyle">Specifies the style of the window for the process.</param>
+    /// <remarks>
+    /// This method starts a process with customizable execution options.
+    /// </remarks>
+    public static void StartProcessWithParameters(this string filename, bool useShellExecute = true,
+        bool createNoWindow = false,
+        ProcessWindowStyle windowStyle = ProcessWindowStyle.Normal)
+    {
+        var process = new Process();
+        process.StartInfo.UseShellExecute = useShellExecute;
+        process.StartInfo.CreateNoWindow = createNoWindow;
+        process.StartInfo.WindowStyle = windowStyle;
+        process.StartInfo.FileName = filename;
+        process.Start();
+    }
+
+    /// <summary>
     /// Opens the specified file or folder in the default system file explorer or viewer.
     /// </summary>
     /// <param name="path">The path of the file or folder to open.</param>

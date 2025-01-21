@@ -1,7 +1,7 @@
-using System.Diagnostics;
 using System.Net;
 using MyExpenses.Models.WebApi.Authenticator;
 using MyExpenses.Models.WebApi.DropBox;
+using MyExpenses.SharedUtils.Utils;
 
 namespace MyExpenses.Share.Core.WebApi;
 
@@ -17,13 +17,7 @@ public class WpfAuthenticator : IAuthenticator
         httpListener.Start();
 
         var uri = $"https://www.dropbox.com/oauth2/authorize?client_id={dropboxKeys.AppKey}&redirect_uri={dropboxKeys.RedirectUriWpf}&response_type=code&code_challenge={pkceData.CodeChallenge}&code_challenge_method=S256&token_access_type=offline";
-
-        var process = new Process();
-        process.StartInfo.UseShellExecute = true;
-        process.StartInfo.CreateNoWindow = false;
-        process.StartInfo.WindowStyle = ProcessWindowStyle.Normal;
-        process.StartInfo.FileName = uri;
-        process.Start();
+        uri.StartProcessWithParameters();
 
         var context = await httpListener.GetContextAsync();
         var response = context.Response;
