@@ -47,7 +47,12 @@ public partial class AddDatabaseFileContentPage
         set => SetValue(CustomEntryControlPlaceholderTextProperty, value);
     }
 
-    private readonly TaskCompletionSource<bool> _taskCompletionSource;
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
+    // TaskCompletionSource is intentionally allocated here as it is the fundamental mechanism
+    // for creating and controlling the completion of the Task exposed by `ResultDialog`.
+    // This object is required to manually signal task completion (`SetResult`, `SetException`, etc.)
+    // when the operation is resolved, ensuring proper asynchronous flow.
+    private readonly TaskCompletionSource<bool> _taskCompletionSource = new();
 
     public Task<bool> ResultDialog
         => _taskCompletionSource.Task;
@@ -56,9 +61,12 @@ public partial class AddDatabaseFileContentPage
 
     public AddDatabaseFileContentPage()
     {
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // The Command object is explicitly created here to handle the user's interaction with the UI.
+        // This allocation is necessary because `Command` encapsulates the behavior (in this case, `OnBackCommandPressed`)
+        // and binds it to the associated UI element, such as a Button or a gesture.
+        // This ensures proper separation between the UI and logic layers.
         BackCommand = new Command(OnBackCommandPressed);
-
-        _taskCompletionSource = new TaskCompletionSource<bool>();
 
         UpdateLanguage();
         InitializeComponent();

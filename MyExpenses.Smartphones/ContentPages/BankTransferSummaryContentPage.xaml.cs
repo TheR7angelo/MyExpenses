@@ -263,6 +263,11 @@ public partial class BankTransferSummaryContentPage
     private List<StringIsChecked> BankTransferAdditionalReasonFilters { get; } = [];
     private List<VCategoryDerive> VCategoryDerivesFilter { get; } = [];
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
+    // TaskCompletionSource is intentionally allocated here as it is the fundamental mechanism
+    // for creating and controlling the completion of the Task exposed by `ResultDialog`.
+    // This object is required to manually signal task completion (`SetResult`, `SetException`, etc.)
+    // when the operation is resolved, ensuring proper asynchronous flow.
     private readonly TaskCompletionSource<bool> _taskCompletionSource = new();
 
     public Task<bool> ResultDialog
@@ -484,6 +489,11 @@ public partial class BankTransferSummaryContentPage
         }
 
         var mapper = Mapping.Mapper;
+
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // The creation of a new DataBaseContext instance (via `new DataBaseContext()`) is necessary to interact with the database.
+        // This context provides the connection to the database and allows querying or updating data.
+        // The `using` statement ensures that the context is disposed of properly after its use, freeing up resources like database connections.
         await using var context = new DataBaseContext();
         var categoryTypeFk = context.THistories
             .Where(s => s.BankTransferFk != null)
@@ -520,6 +530,11 @@ public partial class BankTransferSummaryContentPage
         }
 
         var mapper = Mapping.Mapper;
+
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // The creation of a new DataBaseContext instance (via `new DataBaseContext()`) is necessary to interact with the database.
+        // This context provides the connection to the database and allows querying or updating data.
+        // The `using` statement ensures that the context is disposed of properly after its use, freeing up resources like database connections.
         await using var context = new DataBaseContext();
         var fromAccountFk = context.TBankTransfers
             .Where(s => transferIds.Contains(s.Id))
@@ -603,6 +618,11 @@ public partial class BankTransferSummaryContentPage
         }
 
         var mapper = Mapping.Mapper;
+
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // The creation of a new DataBaseContext instance (via `new DataBaseContext()`) is necessary to interact with the database.
+        // This context provides the connection to the database and allows querying or updating data.
+        // The `using` statement ensures that the context is disposed of properly after its use, freeing up resources like database connections.
         await using var context = new DataBaseContext();
         var toAccountFk = context.TBankTransfers
             .Where(s => transferIds.Contains(s.Id))
@@ -752,6 +772,10 @@ public partial class BankTransferSummaryContentPage
         var stopwatch = new Stopwatch();
         stopwatch.Start();
 
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // The creation of a new DataBaseContext instance (via `new DataBaseContext()`) is necessary to interact with the database.
+        // This context provides the connection to the database and allows querying or updating data.
+        // The `using` statement ensures that the context is disposed of properly after its use, freeing up resources like database connections.
         using var context = new DataBaseContext();
 
         IQueryable<VBankTransferSummary> query = context.VBankTransferSummaries;

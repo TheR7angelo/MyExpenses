@@ -85,6 +85,11 @@ public partial class AddEditAccountContentPage
     public TAccount Account { get; } = new();
     private TAccount? OriginalAccount { get; set; }
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
+    // TaskCompletionSource is intentionally allocated here as it is the fundamental mechanism
+    // for creating and controlling the completion of the Task exposed by `ResultDialog`.
+    // This object is required to manually signal task completion (`SetResult`, `SetException`, etc.)
+    // when the operation is resolved, ensuring proper asynchronous flow.
     private readonly TaskCompletionSource<bool> _taskCompletionSource = new();
 
     public Task<bool> ResultDialog
@@ -92,6 +97,10 @@ public partial class AddEditAccountContentPage
 
     public AddEditAccountContentPage()
     {
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // The creation of a new DataBaseContext instance (via `new DataBaseContext()`) is necessary to interact with the database.
+        // This context provides the connection to the database and allows querying or updating data.
+        // The `using` statement ensures that the context is disposed of properly after its use, freeing up resources like database connections.
         using var context = new DataBaseContext();
         Accounts = [..context.TAccounts];
 
@@ -240,6 +249,10 @@ public partial class AddEditAccountContentPage
 
     private void RefreshAccountTypes()
     {
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // The creation of a new DataBaseContext instance (via `new DataBaseContext()`) is necessary to interact with the database.
+        // This context provides the connection to the database and allows querying or updating data.
+        // The `using` statement ensures that the context is disposed of properly after its use, freeing up resources like database connections.
         using var context = new DataBaseContext();
         AccountTypes.Clear();
         AccountTypes.AddRange(context.TAccountTypes.OrderBy(s => s.Name));
@@ -247,6 +260,10 @@ public partial class AddEditAccountContentPage
 
     private void RefreshCurrencies()
     {
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // The creation of a new DataBaseContext instance (via `new DataBaseContext()`) is necessary to interact with the database.
+        // This context provides the connection to the database and allows querying or updating data.
+        // The `using` statement ensures that the context is disposed of properly after its use, freeing up resources like database connections.
         using var context = new DataBaseContext();
         Currencies.Clear();
         Currencies.AddRange(context.TCurrencies.OrderBy(s => s.Symbol));

@@ -50,6 +50,11 @@ public partial class AccountTypeSummaryContentPage
 
     public ICommand BackCommand { get; set; }
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
+    // TaskCompletionSource is intentionally allocated here as it is the fundamental mechanism
+    // for creating and controlling the completion of the Task exposed by `ResultDialog`.
+    // This object is required to manually signal task completion (`SetResult`, `SetException`, etc.)
+    // when the operation is resolved, ensuring proper asynchronous flow.
     private readonly TaskCompletionSource<bool> _taskCompletionSource = new();
 
     public Task<bool> ResultDialog
@@ -59,6 +64,11 @@ public partial class AccountTypeSummaryContentPage
     {
         MaxLength = Utils.Converters.MaxLengthConverter.Convert(typeof(TAccountType), nameof(TAccountType.Name));
 
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // The Command object is explicitly created here to handle the user's interaction with the UI.
+        // This allocation is necessary because `Command` encapsulates the behavior (in this case, `OnBackCommandPressed`)
+        // and binds it to the associated UI element, such as a Button or a gesture.
+        // This ensures proper separation between the UI and logic layers.
         BackCommand = new Command(OnBackCommandPressed);
 
         RefreshAccountTypes();
@@ -196,6 +206,11 @@ public partial class AccountTypeSummaryContentPage
             AccountTypeSummaryContentPageResources.MesageBoxAddNewAccountTypeQuestionNoButton);
         if (!response) return;
 
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // The allocation of the TAccountType object is necessary as it represents a new instance
+        // of the data structure being created. This object encapsulates the account type's properties,
+        // such as `Name` and `DateAdded`, which will be stored or processed further.
+        // This allocation is intentional and fundamental to the purpose of adding a new account type.
         var newAccountType = new TAccountType
         {
             Name = AccountTypeName,
@@ -230,6 +245,10 @@ public partial class AccountTypeSummaryContentPage
     {
         AccountTypes.Clear();
 
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // The creation of a new DataBaseContext instance (via `new DataBaseContext()`) is necessary to interact with the database.
+        // This context provides the connection to the database and allows querying or updating data.
+        // The `using` statement ensures that the context is disposed of properly after its use, freeing up resources like database connections.
         using var context = new DataBaseContext();
         AccountTypes.AddRange(context.TAccountTypes.OrderBy(s => s.Name));
     }
@@ -238,7 +257,18 @@ public partial class AccountTypeSummaryContentPage
     {
         var placeHolder = AccountTypeSummaryContentPageResources.PlaceholderText;
 
-        var customPopupEntry = new CustomPopupEntry { MaxLenght = MaxLength, PlaceholderText = placeHolder, EntryText = accountType.Name!, CanDelete = true };
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // The creation of a new CustomPopupEntry instance is necessary to display a popup dialog.
+        // This object encapsulates the properties (`MaxLength`, `PlaceholderText`, etc.) specific to the popup's configuration.
+        // It is intentionally allocated to dynamically adapt to the context of the operation (e.g., editing or creating an account type).
+        var customPopupEntry = new CustomPopupEntry
+        {
+            MaxLenght = MaxLength,
+            PlaceholderText = placeHolder,
+            EntryText = accountType.Name!,
+            CanDelete = true
+        };
+
         await this.ShowPopupAsync(customPopupEntry);
 
         var result = await customPopupEntry.ResultDialog;

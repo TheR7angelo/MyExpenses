@@ -219,8 +219,14 @@ public partial class DashBoardContentPage
     [SupportedOSPlatform("Windows")]
     public DashBoardContentPage()
     {
+        // ReSharper disable HeapView.ObjectAllocation.Evident
+        // The Command object is explicitly created here to handle the user's interaction with the UI.
+        // This allocation is necessary because `Command` encapsulates the behavior (in this case, `OnBackCommandPressed`)
+        // and binds it to the associated UI element, such as a Button or a gesture.
+        // This ensures proper separation between the UI and logic layers.
         CollectionViewVHistoryShortPressCommand = new Command(CollectionViewVHistory_OnShortPress);
         CollectionViewVHistoryLongPressCommand = new Command(CollectionViewVHistory_OnLongPress);
+        // ReSharper restore HeapView.ObjectAllocation.Evident
 
         Instance = this;
 
@@ -491,6 +497,10 @@ public partial class DashBoardContentPage
         }
 
         var mapper = Mapping.Mapper;
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // The creation of a new DataBaseContext instance (via `new DataBaseContext()`) is necessary to interact with the database.
+        // This context provides the connection to the database and allows querying or updating data.
+        // The `using` statement ensures that the context is disposed of properly after its use, freeing up resources like database connections.
         await using var context = new DataBaseContext();
         var categoryTypeFk = context.THistories
             .Where(s => historyIds.Contains(s.Id))
@@ -611,6 +621,10 @@ public partial class DashBoardContentPage
         }
 
         var mapper = Mapping.Mapper;
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // The creation of a new DataBaseContext instance (via `new DataBaseContext()`) is necessary to interact with the database.
+        // This context provides the connection to the database and allows querying or updating data.
+        // The `using` statement ensures that the context is disposed of properly after its use, freeing up resources like database connections.
         await using var context = new DataBaseContext();
         var modePaymentFk = context.THistories
             .Where(s => historyIds.Contains(s.Id))
@@ -651,6 +665,10 @@ public partial class DashBoardContentPage
         }
 
         var mapper = Mapping.Mapper;
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // The creation of a new DataBaseContext instance (via `new DataBaseContext()`) is necessary to interact with the database.
+        // This context provides the connection to the database and allows querying or updating data.
+        // The `using` statement ensures that the context is disposed of properly after its use, freeing up resources like database connections.
         await using var context = new DataBaseContext();
         var placeFk = context.THistories
             .Where(s => historyIds.Contains(s.Id))
@@ -803,6 +821,10 @@ public partial class DashBoardContentPage
 
     internal void RefreshAccountTotal()
     {
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // The creation of a new DataBaseContext instance (via `new DataBaseContext()`) is necessary to interact with the database.
+        // This context provides the connection to the database and allows querying or updating data.
+        // The `using` statement ensures that the context is disposed of properly after its use, freeing up resources like database connections.
         using var context = new DataBaseContext();
         var newVTotalByAccounts = context.VTotalByAccounts.ToList();
 
@@ -830,6 +852,10 @@ public partial class DashBoardContentPage
 
     private void RefreshAccountTotal(int id)
     {
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // The creation of a new DataBaseContext instance (via `new DataBaseContext()`) is necessary to interact with the database.
+        // This context provides the connection to the database and allows querying or updating data.
+        // The `using` statement ensures that the context is disposed of properly after its use, freeing up resources like database connections.
         using var context = new DataBaseContext();
         var newVTotalByAccount = context.VTotalByAccounts.FirstOrDefault(s => s.Id.Equals(id));
         if (newVTotalByAccount is null) return;
@@ -872,6 +898,10 @@ public partial class DashBoardContentPage
         var stopwatch = new Stopwatch();
         stopwatch.Start();
 
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // The creation of a new DataBaseContext instance (via `new DataBaseContext()`) is necessary to interact with the database.
+        // This context provides the connection to the database and allows querying or updating data.
+        // The `using` statement ensures that the context is disposed of properly after its use, freeing up resources like database connections.
         using var context = new DataBaseContext();
 
         int? monthInt = null;

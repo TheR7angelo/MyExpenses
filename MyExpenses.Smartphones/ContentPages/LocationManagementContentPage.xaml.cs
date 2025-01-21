@@ -32,6 +32,11 @@ public partial class LocationManagementContentPage
 
     public LocationManagementContentPage()
     {
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // The Command object is explicitly created here to handle the user's interaction with the UI.
+        // This allocation is necessary because `Command` encapsulates the behavior (in this case, `OnBackCommandPressed`)
+        // and binds it to the associated UI element, such as a Button or a gesture.
+        // This ensures proper separation between the UI and logic layers.
         MapControlLongPressCommand = new Command<object>(MapControlLong_OnLongPress);
 
         KnownTileSources = [..MapsuiMapExtensions.GetAllKnowTileSource()];
@@ -90,6 +95,10 @@ public partial class LocationManagementContentPage
 
     private static (IEnumerable<TreeViewNode> TreeViewNodes, IEnumerable<TPlace> Places) GenerateTreeViewNodes()
     {
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // The creation of a new DataBaseContext instance (via `new DataBaseContext()`) is necessary to interact with the database.
+        // This context provides the connection to the database and allows querying or updating data.
+        // The `using` statement ensures that the context is disposed of properly after its use, freeing up resources like database connections.
         using var context = new DataBaseContext();
         var places = context.TPlaces.OrderBy(s => s.Country).ThenBy(s => s.City).ThenBy(s => s.Name).ToList();
         var groups = places.GetGroups();

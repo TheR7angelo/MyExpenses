@@ -185,6 +185,11 @@ public partial class AddEditBankTransferContentPage
 
     public ICommand BackCommand { get; set; }
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
+    // TaskCompletionSource is intentionally allocated here as it is the fundamental mechanism
+    // for creating and controlling the completion of the Task exposed by `ResultDialog`.
+    // This object is required to manually signal task completion (`SetResult`, `SetException`, etc.)
+    // when the operation is resolved, ensuring proper asynchronous flow.
     private readonly TaskCompletionSource<bool> _taskCompletionSource = new();
 
     public Task<bool> ResultDialog
@@ -194,8 +199,17 @@ public partial class AddEditBankTransferContentPage
 
     public AddEditBankTransferContentPage()
     {
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // The Command object is explicitly created here to handle the user's interaction with the UI.
+        // This allocation is necessary because `Command` encapsulates the behavior (in this case, `OnBackCommandPressed`)
+        // and binds it to the associated UI element, such as a Button or a gesture.
+        // This ensures proper separation between the UI and logic layers.
         BackCommand = new Command(OnBackCommandPressed);
 
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // The creation of a new DataBaseContext instance (via `new DataBaseContext()`) is necessary to interact with the database.
+        // This context provides the connection to the database and allows querying or updating data.
+        // The `using` statement ensures that the context is disposed of properly after its use, freeing up resources like database connections.
         using var context = new DataBaseContext();
         Accounts = [..context.TAccounts.OrderBy(s => s.Name)];
         CategoryTypes = [..context.TCategoryTypes.OrderBy(s => s.Name)];
@@ -440,6 +454,10 @@ public partial class AddEditBankTransferContentPage
             return;
         }
 
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // The creation of a new DataBaseContext instance (via `new DataBaseContext()`) is necessary to interact with the database.
+        // This context provides the connection to the database and allows querying or updating data.
+        // The `using` statement ensures that the context is disposed of properly after its use, freeing up resources like database connections.
         using var context = new DataBaseContext();
         var account = Accounts.First(a => a.Id.Equals(BankTransfer.FromAccountFk!.Value));
         FromAccountSymbol = context.TCurrencies.First(s => s.Id.Equals(account.CurrencyFk)).Symbol!;
@@ -496,6 +514,10 @@ public partial class AddEditBankTransferContentPage
 
     private void UpdateTransactionHistories(DateTime now)
     {
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // The creation of a new DataBaseContext instance (via `new DataBaseContext()`) is necessary to interact with the database.
+        // This context provides the connection to the database and allows querying or updating data.
+        // The `using` statement ensures that the context is disposed of properly after its use, freeing up resources like database connections.
         using var context = new DataBaseContext();
         var fromHistory = context.THistories.First(s => s.BankTransferFk.Equals(BankTransfer.Id) && s.AccountFk.Equals(OriginalBankTransfer!.FromAccountFk));
         var toHistory = context.THistories.First(s => s.BankTransferFk.Equals(BankTransfer.Id) && s.AccountFk.Equals(OriginalBankTransfer!.ToAccountFk));
@@ -516,6 +538,10 @@ public partial class AddEditBankTransferContentPage
         bankTransfer.CopyPropertiesTo(BankTransfer);
         OriginalBankTransfer = bankTransfer.DeepCopy();
 
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // The creation of a new DataBaseContext instance (via `new DataBaseContext()`) is necessary to interact with the database.
+        // This context provides the connection to the database and allows querying or updating data.
+        // The `using` statement ensures that the context is disposed of properly after its use, freeing up resources like database connections.
         using var context = new DataBaseContext();
         var history = context.THistories.First(s => s.BankTransferFk.Equals(bankTransfer.Id));
         var categoryTypeId = context.TCategoryTypes.First(s => s.Id.Equals(history.CategoryTypeFk)).Id;

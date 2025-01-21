@@ -218,6 +218,11 @@ public partial class DetailedRecordContentPage
 
     public ICommand BackCommand { get; set; }
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
+    // TaskCompletionSource is intentionally allocated here as it is the fundamental mechanism
+    // for creating and controlling the completion of the Task exposed by `ResultDialog`.
+    // This object is required to manually signal task completion (`SetResult`, `SetException`, etc.)
+    // when the operation is resolved, ensuring proper asynchronous flow.
     private readonly TaskCompletionSource<bool> _taskCompletionSource = new();
 
     public Task<bool> ResultDialog
@@ -247,8 +252,17 @@ public partial class DetailedRecordContentPage
 
     public DetailedRecordContentPage()
     {
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // The Command object is explicitly created here to handle the user's interaction with the UI.
+        // This allocation is necessary because `Command` encapsulates the behavior (in this case, `OnBackCommandPressed`)
+        // and binds it to the associated UI element, such as a Button or a gesture.
+        // This ensures proper separation between the UI and logic layers.
         BackCommand = new Command(OnBackCommandPressed);
 
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // The creation of a new DataBaseContext instance (via `new DataBaseContext()`) is necessary to interact with the database.
+        // This context provides the connection to the database and allows querying or updating data.
+        // The `using` statement ensures that the context is disposed of properly after its use, freeing up resources like database connections.
         using var context = new DataBaseContext();
         ModePayments.AddRange(context.TModePayments.OrderBy(s => s.Name));
         CategoryTypes.AddRange(context.TCategoryTypes.OrderBy(s => s.Name));
@@ -349,6 +363,10 @@ public partial class DetailedRecordContentPage
         if (sender is not Picker comboBox) return;
         var country = comboBox.SelectedItem as string;
 
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // The creation of a new DataBaseContext instance (via `new DataBaseContext()`) is necessary to interact with the database.
+        // This context provides the connection to the database and allows querying or updating data.
+        // The `using` statement ensures that the context is disposed of properly after its use, freeing up resources like database connections.
         using var context = new DataBaseContext();
         var query = context.TPlaces.Where(s => s.IsOpen);
 
@@ -385,6 +403,10 @@ public partial class DetailedRecordContentPage
         if (sender is not Picker comboBox) return;
         var city = comboBox.SelectedItem as string;
 
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // The creation of a new DataBaseContext instance (via `new DataBaseContext()`) is necessary to interact with the database.
+        // This context provides the connection to the database and allows querying or updating data.
+        // The `using` statement ensures that the context is disposed of properly after its use, freeing up resources like database connections.
         using var context = new DataBaseContext();
         var query = context.TPlaces.Where(s => s.IsOpen);
 
@@ -612,6 +634,10 @@ public partial class DetailedRecordContentPage
             throw new ArgumentNullException(nameof(historyPk), @"historyPk is null");
         }
 
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // The creation of a new DataBaseContext instance (via `new DataBaseContext()`) is necessary to interact with the database.
+        // This context provides the connection to the database and allows querying or updating data.
+        // The `using` statement ensures that the context is disposed of properly after its use, freeing up resources like database connections.
         using var context = new DataBaseContext();
         if (tHistory is not null)
         {
@@ -651,6 +677,10 @@ public partial class DetailedRecordContentPage
         if (THistory.CategoryTypeFk is null) hexadecimalColorCode = "#00000000";
         else
         {
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
+            // The creation of a new DataBaseContext instance (via `new DataBaseContext()`) is necessary to interact with the database.
+            // This context provides the connection to the database and allows querying or updating data.
+            // The `using` statement ensures that the context is disposed of properly after its use, freeing up resources like database connections.
             using var context = new DataBaseContext();
             var category = CategoryTypes.First(s => s.Id.Equals(THistory.CategoryTypeFk.Value));
             var color = context.TColors.First(s => s.Id.Equals(category.ColorFk!.Value));
@@ -666,6 +696,10 @@ public partial class DetailedRecordContentPage
         if (THistory.AccountFk is null) symbol = string.Empty;
         else
         {
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
+            // The creation of a new DataBaseContext instance (via `new DataBaseContext()`) is necessary to interact with the database.
+            // This context provides the connection to the database and allows querying or updating data.
+            // The `using` statement ensures that the context is disposed of properly after its use, freeing up resources like database connections.
             using var context = new DataBaseContext();
             var currency = context.TCurrencies.First(s => s.Id.Equals(THistory.AccountFk));
             symbol = currency.Symbol!;
