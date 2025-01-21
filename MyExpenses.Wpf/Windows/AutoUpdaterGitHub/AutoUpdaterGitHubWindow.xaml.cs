@@ -4,6 +4,7 @@ using Microsoft.Web.WebView2.Core;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.WebApi.Github.Soft;
 using MyExpenses.Models.Wpf.AutoUpdaterGitHub;
+using MyExpenses.SharedUtils.Utils;
 using MyExpenses.Utils;
 using MyExpenses.Wpf.Resources.Resx.Windows.AutoUpdaterGitHubWindow;
 using MyExpenses.Wpf.Utils;

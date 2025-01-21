@@ -8,8 +8,8 @@ using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.IO;
 using MyExpenses.Models.WebApi.Authenticator;
 using MyExpenses.Models.Wpf.Save;
+using MyExpenses.SharedUtils.Utils;
 using MyExpenses.Sql.Context;
-using MyExpenses.Utils;
 using MyExpenses.WebApi.Dropbox;
 using MyExpenses.Wpf.Resources.Resx.Windows.MainWindow;
 using MyExpenses.Wpf.Utils;
@@ -156,7 +156,7 @@ public partial class MainWindow
     #region Action
 
     private void ButtonGithubPage_OnClick(object sender, RoutedEventArgs e)
-        => MyExpenses.Utils.Utils.OpenGithubPage();
+        => WebUtils.OpenGithubPage();
 
     private void FrameBody_OnPreviewMouseUp(object sender, MouseButtonEventArgs e)
     {

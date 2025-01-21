@@ -1,9 +1,7 @@
 using System.Reflection;
 using MyExpenses.IO.Sig.Shp;
-using MyExpenses.Models.WebApi.Github.Soft;
+using MyExpenses.SharedUtils.Utils;
 using MyExpenses.Sql.Context;
-using MyExpenses.Utils;
-using NetTopologySuite.Features;
 
 namespace MyExpenses.IO.Test.Sig.Shps;
 

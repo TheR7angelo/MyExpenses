@@ -1,7 +1,7 @@
 using System.Reflection;
 using MyExpenses.IO.Sig.Kml;
+using MyExpenses.SharedUtils.Utils;
 using MyExpenses.Sql.Context;
-using MyExpenses.Utils;
 using NetTopologySuite.Geometries;
 
 namespace MyExpenses.IO.Test.Sig.Kml;

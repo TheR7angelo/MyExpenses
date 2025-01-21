@@ -1,5 +1,5 @@
 ﻿using System.Reflection;
-using MyExpenses.Utils;
+using MyExpenses.SharedUtils.Utils;
 using MyExpenses.WebApi.GitHub;
 using Xunit.Abstractions;
 

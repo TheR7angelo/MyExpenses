@@ -4,6 +4,7 @@ using System.Runtime.InteropServices;
 using System.Windows;
 using MyExpenses.IO.MarkDown;
 using MyExpenses.Models.WebApi.Github.Soft;
+using MyExpenses.SharedUtils.Utils;
 using MyExpenses.Utils;
 using MyExpenses.WebApi.GitHub;
 using Serilog;

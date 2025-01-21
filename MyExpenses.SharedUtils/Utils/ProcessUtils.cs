@@ -1,41 +1,13 @@
-﻿using System.Diagnostics;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 
-namespace MyExpenses.Utils;
+namespace MyExpenses.SharedUtils.Utils;
 
-public static class Utils
+/// <summary>
+/// Utility class for starting processes or opening system-level files and folders.
+/// </summary>
+public static class ProcessUtils
 {
-    /// <summary>
-    /// Retrieves the parent directory of the specified path.
-    /// </summary>
-    /// <param name="path">The path for which the parent directory will be retrieved.</param>
-    /// <param name="depth">The number of levels up in the directory structure that will be traversed.
-    /// Default is 1.</param>
-    /// <returns>The parent directory of the specified path.</returns>
-    public static string GetParentDirectory(this string path, int depth = 1)
-    {
-        for (var i = 1; i <= depth; i++)
-        {
-            path = Path.GetDirectoryName(path)!;
-        }
-
-        return path;
-    }
-
-    /// <summary>
-    /// Opens the MyExpenses GitHub page.
-    /// </summary>
-    /// <remarks>
-    /// This method opens the web page for the MyExpenses project on GitHub.
-    /// The URL for the page is "https://github.com/TheR7angelo/MyExpenses".
-    /// </remarks>
-    /// <seealso cref="StartProcess(string)"/>
-    public static void OpenGithubPage()
-    {
-        const string url = "https://github.com/TheR7angelo/MyExpenses";
-        url.StartProcess();
-    }
-
     /// <summary>
     /// Opens the specified process.
     /// </summary>

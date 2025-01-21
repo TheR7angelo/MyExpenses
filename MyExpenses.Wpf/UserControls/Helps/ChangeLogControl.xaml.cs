@@ -1,7 +1,7 @@
 using System.Windows;
 using Microsoft.Web.WebView2.Core;
 using MyExpenses.Models.Config.Interfaces;
-using MyExpenses.Utils;
+using MyExpenses.SharedUtils.Utils;
 using MyExpenses.Wpf.Resources.Resx.UserControls.Helps.ChangeLogControl;
 using MyExpenses.Wpf.Windows.AutoUpdaterGitHub;
 using Serilog;

@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 using MyExpenses.IO.MarkDown;
-using MyExpenses.Utils;
+using MyExpenses.SharedUtils.Utils;
 
 namespace MyExpenses.IO.Test.Html;
 
