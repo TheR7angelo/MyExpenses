@@ -1,10 +1,8 @@
-using System.Collections.ObjectModel;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Maui.CustomPopup;
 using MyExpenses.Models.Sql.Derivatives.Tables;
 using MyExpenses.Smartphones.PackIcons;
 using MyExpenses.Smartphones.Resources.Resx.ContentPages.CustomPopups.CustomPopupFilterModePayments;
-using MyExpenses.Utils.Collection;
 
 namespace MyExpenses.Smartphones.ContentPages.CustomPopups;
 
@@ -40,14 +38,14 @@ public partial class CustomPopupFilterModePayments : ICustomPopupFilter<TModePay
     }
 
     private List<TModePaymentDerive> OriginalModePaymentDerives { get; }
-    public ObservableCollection<TModePaymentDerive> ModePaymentDerives { get; }
+    public List<TModePaymentDerive> ModePaymentDerives { get; }
 
     private string? SearchText { get; set; }
 
     public CustomPopupFilterModePayments(IReadOnlyCollection<TModePaymentDerive> currentTModePaymentDerives, IReadOnlyCollection<TModePaymentDerive>? modePaymentsAlreadyChecked = null)
     {
         OriginalModePaymentDerives = [..currentTModePaymentDerives];
-        ModePaymentDerives = new ObservableCollection<TModePaymentDerive>(OriginalModePaymentDerives);
+        ModePaymentDerives = [..OriginalModePaymentDerives];
 
         if (modePaymentsAlreadyChecked is not null)
         {

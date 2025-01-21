@@ -1,9 +1,7 @@
-using System.Collections.ObjectModel;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Maui.CustomPopup;
 using MyExpenses.Smartphones.PackIcons;
 using MyExpenses.Smartphones.Resources.Resx.ContentPages.CustomPopups.CustomPopupFilterHistoryDescriptions;
-using MyExpenses.Utils.Collection;
 
 namespace MyExpenses.Smartphones.ContentPages.CustomPopups;
 
@@ -39,7 +37,7 @@ public partial class CustomPopupFilterDescriptions : ICustomPopupFilter<StringIs
     }
 
     private List<StringIsChecked> OriginalHistoryDescriptions { get; }
-    public ObservableCollection<StringIsChecked> HistoryDescriptions { get; }
+    public List<StringIsChecked> HistoryDescriptions { get; }
 
     private string? SearchText { get; set; }
 
@@ -47,7 +45,7 @@ public partial class CustomPopupFilterDescriptions : ICustomPopupFilter<StringIs
         IReadOnlyCollection<StringIsChecked>? historyDescriptionsAlreadyChecked = null)
     {
         OriginalHistoryDescriptions = [..currentHistoryDescriptions];
-        HistoryDescriptions = new ObservableCollection<StringIsChecked>(OriginalHistoryDescriptions);
+        HistoryDescriptions = [..OriginalHistoryDescriptions];
 
         if (historyDescriptionsAlreadyChecked is not null)
         {

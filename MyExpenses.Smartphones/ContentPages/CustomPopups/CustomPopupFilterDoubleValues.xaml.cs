@@ -1,10 +1,8 @@
-using System.Collections.ObjectModel;
 using System.Globalization;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Maui.CustomPopup;
 using MyExpenses.Smartphones.PackIcons;
 using MyExpenses.Smartphones.Resources.Resx.ContentPages.CustomPopups.CustomPopupFilterHistoryValues;
-using MyExpenses.Utils.Collection;
 using MyExpenses.Utils.Doubles;
 
 namespace MyExpenses.Smartphones.ContentPages.CustomPopups;
@@ -41,7 +39,7 @@ public partial class CustomPopupFilterDoubleValues : ICustomPopupFilter<DoubleIs
     }
 
     private List<DoubleIsChecked> OriginalHistoryValues { get; }
-    public ObservableCollection<DoubleIsChecked> HistoryValues { get; }
+    public List<DoubleIsChecked> HistoryValues { get; }
 
     private string? SearchText { get; set; }
 
@@ -49,7 +47,7 @@ public partial class CustomPopupFilterDoubleValues : ICustomPopupFilter<DoubleIs
         IReadOnlyCollection<DoubleIsChecked>? historyValuesAlreadyChecked = null)
     {
         OriginalHistoryValues = [..currentHistoryValues];
-        HistoryValues = new ObservableCollection<DoubleIsChecked>(OriginalHistoryValues);
+        HistoryValues = [..OriginalHistoryValues];
 
         if (historyValuesAlreadyChecked is not null)
         {

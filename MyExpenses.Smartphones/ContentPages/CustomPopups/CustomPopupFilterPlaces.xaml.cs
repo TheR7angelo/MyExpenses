@@ -1,10 +1,8 @@
-using System.Collections.ObjectModel;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Maui.CustomPopup;
 using MyExpenses.Models.Sql.Derivatives.Tables;
 using MyExpenses.Smartphones.PackIcons;
 using MyExpenses.Smartphones.Resources.Resx.ContentPages.CustomPopups.CustomPopupFilterPlaces;
-using MyExpenses.Utils.Collection;
 
 namespace MyExpenses.Smartphones.ContentPages.CustomPopups;
 
@@ -40,7 +38,7 @@ public partial class CustomPopupFilterPlaces : ICustomPopupFilter<TPlaceDerive>
     }
 
     private List<TPlaceDerive> OriginalPlaceDerives { get; }
-    public ObservableCollection<TPlaceDerive> PlaceDerives { get; }
+    public List<TPlaceDerive> PlaceDerives { get; }
 
     private string? SearchText { get; set; }
 
@@ -48,7 +46,7 @@ public partial class CustomPopupFilterPlaces : ICustomPopupFilter<TPlaceDerive>
         IReadOnlyCollection<TPlaceDerive>? modePlacesAlreadyChecked = null)
     {
         OriginalPlaceDerives = [..currentTPlaceDerives];
-        PlaceDerives = new ObservableCollection<TPlaceDerive>(OriginalPlaceDerives);
+        PlaceDerives = [..OriginalPlaceDerives];
 
         if (modePlacesAlreadyChecked is not null)
         {

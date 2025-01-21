@@ -1,10 +1,8 @@
-using System.Collections.ObjectModel;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Maui.CustomPopup;
 using MyExpenses.Models.Sql.Derivatives.Tables;
 using MyExpenses.Smartphones.PackIcons;
 using MyExpenses.Smartphones.Resources.Resx.ContentPages.CustomPopups.CustomPopupFilterAccount;
-using MyExpenses.Utils.Collection;
 
 namespace MyExpenses.Smartphones.ContentPages.CustomPopups;
 
@@ -40,7 +38,7 @@ public partial class CustomPopupFilterAccount : ICustomPopupFilter<TAccountDeriv
     }
 
     private List<TAccountDerive> OriginalAccountDerives { get; }
-    public ObservableCollection<TAccountDerive> AccountDerives { get; }
+    public List<TAccountDerive> AccountDerives { get; }
 
     private string? SearchText { get; set; }
 
@@ -48,7 +46,7 @@ public partial class CustomPopupFilterAccount : ICustomPopupFilter<TAccountDeriv
         IReadOnlyCollection<TAccountDerive>? accountDerivesAlreadyChecked = null)
     {
         OriginalAccountDerives = [..currentAccountDerives];
-        AccountDerives = new ObservableCollection<TAccountDerive>(OriginalAccountDerives);
+        AccountDerives = [..OriginalAccountDerives];
 
         if (accountDerivesAlreadyChecked is not null)
         {

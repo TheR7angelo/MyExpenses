@@ -107,6 +107,10 @@ public partial class CustomPopupEditCategory
 
     public List<TColor> Colors { get; }
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
+    // Necessary allocation of TaskCompletionSource to manage the asynchronous result of the popup dialog.
+    // This allows the dialog to communicate its selected result (Cancel, Delete, Valid) back to the caller
+    // and acts as a bridge between UI actions and the task-based asynchronous code.
     private readonly TaskCompletionSource<ECustomPopupEntryResult> _taskCompletionSource = new();
 
     public Task<ECustomPopupEntryResult> ResultDialog
@@ -114,6 +118,9 @@ public partial class CustomPopupEditCategory
 
     public CustomPopupEditCategory()
     {
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // Necessary instantiation of the DataBaseContext to establish a connection with the database.
+        // The 'using' statement ensures proper disposal of the context to free up resources once the operation is completed.
         using var context = new DataBaseContext();
         Colors = [..context.TColors.OrderBy(s => s.Name)];
 

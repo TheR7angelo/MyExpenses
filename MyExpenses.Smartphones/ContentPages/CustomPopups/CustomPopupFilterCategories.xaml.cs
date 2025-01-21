@@ -1,10 +1,8 @@
-using System.Collections.ObjectModel;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Maui.CustomPopup;
 using MyExpenses.Models.Sql.Derivatives.Views;
 using MyExpenses.Smartphones.PackIcons;
 using MyExpenses.Smartphones.Resources.Resx.ContentPages.CustomPopups.CustomPopupFilterCategories;
-using MyExpenses.Utils.Collection;
 
 namespace MyExpenses.Smartphones.ContentPages.CustomPopups;
 
@@ -40,14 +38,14 @@ public partial class CustomPopupFilterCategories : ICustomPopupFilter<VCategoryD
     }
 
     private List<VCategoryDerive> OriginalCategories { get; }
-    public ObservableCollection<VCategoryDerive> VCategoryDerives { get; }
+    public List<VCategoryDerive> VCategoryDerives { get; }
 
     private string? SearchText { get; set; }
 
     public CustomPopupFilterCategories(IReadOnlyCollection<VCategoryDerive> currentVCategoryDerive, IReadOnlyCollection<VCategoryDerive>? categoryDerivesAlreadyChecked = null)
     {
         OriginalCategories = [..currentVCategoryDerive];
-        VCategoryDerives = new ObservableCollection<VCategoryDerive>(OriginalCategories);
+        VCategoryDerives = [..OriginalCategories];
 
         if (categoryDerivesAlreadyChecked is not null)
         {

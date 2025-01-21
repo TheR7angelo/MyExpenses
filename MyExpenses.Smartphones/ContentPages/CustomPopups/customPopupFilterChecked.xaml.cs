@@ -1,4 +1,3 @@
-using System.Collections.ObjectModel;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Maui.CustomPopup;
 using MyExpenses.Smartphones.Resources.Resx.ContentPages.CustomPopups.CustomPopupFilterChecked;
@@ -17,13 +16,13 @@ public partial class CustomPopupFilterChecked : ICustomPopupFilter<BoolIsChecked
     }
 
     private List<BoolIsChecked> OriginalIsCheckeds { get; }
-    public ObservableCollection<BoolIsChecked> IsCheckeds { get; }
+    public List<BoolIsChecked> IsCheckeds { get; }
 
     public CustomPopupFilterChecked(IEnumerable<BoolIsChecked> currentHistoryIsCheckeds,
         IReadOnlyCollection<BoolIsChecked>? historyIsCheckedsAlreadyChecked = null)
     {
         OriginalIsCheckeds = [..currentHistoryIsCheckeds];
-        IsCheckeds = new ObservableCollection<BoolIsChecked>(OriginalIsCheckeds);
+        IsCheckeds = [..OriginalIsCheckeds];
 
         if (historyIsCheckedsAlreadyChecked is not null)
         {

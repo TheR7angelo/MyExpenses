@@ -93,6 +93,10 @@ public partial class CustomPopupEntry
         init => SetValue(CanDeleteProperty, value);
     }
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
+    // Necessary allocation of TaskCompletionSource to manage the asynchronous result of the popup dialog.
+    // This allows the dialog to communicate its selected result (Cancel, Delete, Valid) back to the caller
+    // and acts as a bridge between UI actions and the task-based asynchronous code.
     private readonly TaskCompletionSource<ECustomPopupEntryResult> _taskCompletionSource = new();
 
     public Task<ECustomPopupEntryResult> ResultDialog
