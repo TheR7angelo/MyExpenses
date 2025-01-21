@@ -8,6 +8,9 @@ public static class Utils
 {
     public static Pkce GeneratePkceData()
     {
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // Normal allocation of a 32-byte array for generating the PKCE code verifier.
+        // This array is filled with cryptographically secure random bytes.
         var codeVerifierBytes = new byte[32];
         RandomNumberGenerator.Fill(codeVerifierBytes);
         var codeVerifier = Convert.ToBase64String(codeVerifierBytes)
