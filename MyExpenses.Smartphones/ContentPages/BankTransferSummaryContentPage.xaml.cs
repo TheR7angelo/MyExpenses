@@ -779,7 +779,7 @@ public partial class BankTransferSummaryContentPage
         using var context = new DataBaseContext();
 
         IQueryable<VBankTransferSummary> query = context.VBankTransferSummaries;
-        if (query.Count() is 0) return;
+        if (!query.Any()) return;
 
         if (!string.IsNullOrEmpty(SelectedMonth))
         {
