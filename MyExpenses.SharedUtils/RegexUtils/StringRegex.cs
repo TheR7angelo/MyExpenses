@@ -1,4 +1,4 @@
-﻿namespace MyExpenses.Sql.Utils.Regex;
+namespace MyExpenses.SharedUtils.RegexUtils;
 
 public static class StringRegex
 {

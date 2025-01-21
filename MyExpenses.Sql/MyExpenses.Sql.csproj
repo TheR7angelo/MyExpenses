@@ -10,6 +10,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\MyExpenses.Models\MyExpenses.Models.csproj" />
+      <ProjectReference Include="..\MyExpenses.SharedUtils\MyExpenses.SharedUtils.csproj" />
     </ItemGroup>
 
     <ItemGroup>

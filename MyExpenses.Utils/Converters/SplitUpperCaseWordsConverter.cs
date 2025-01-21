@@ -1,4 +1,4 @@
-using MyExpenses.Sql.Utils.Regex;
+using MyExpenses.SharedUtils.RegexUtils;
 
 namespace MyExpenses.Utils.Converters;
 
