@@ -19,6 +19,7 @@ using MyExpenses.Smartphones.PackIcons;
 using MyExpenses.Smartphones.Resources.Resx.ContentPages.DashBoardContentPage;
 using MyExpenses.Smartphones.UserControls.Images;
 using MyExpenses.Sql.Context;
+using MyExpenses.Sql.Queries;
 using MyExpenses.Utils;
 using MyExpenses.Utils.Collection;
 using MyExpenses.Utils.Strings;
@@ -873,68 +874,60 @@ public partial class DashBoardContentPage
 
         using var context = new DataBaseContext();
 
-        var query = context.VHistories
-            .Where(s => s.Account == accountName);
-
+        int? monthInt = null;
         if (!string.IsNullOrEmpty(SelectedMonth))
         {
-            var monthInt = Months.IndexOf(SelectedMonth) + 1;
-            query = query.Where(s => s.Date!.Value.Month.Equals(monthInt));
+            monthInt = Months.IndexOf(SelectedMonth) + 1;
         }
 
+        int? yearInt = null;
         if (!string.IsNullOrEmpty(SelectedYear))
         {
-            _ = SelectedYear.ToInt(out var yearInt);
-            query = query.Where(s => s.Date!.Value.Year.Equals(yearInt));
+            _ = SelectedYear.ToInt(out yearInt);
         }
 
-        var rowTotalCount = query.Count();
-
+        string[]? categoryNames = null;
         if (VCategoryDerivesFilter.Count > 0)
         {
-            var categoryName = VCategoryDerivesFilter.Select(s => s.CategoryName!);
-            query = query.Where(s => categoryName.Contains(s.Category));
+            categoryNames = VCategoryDerivesFilter.Select(s => s.CategoryName!).ToArray();
         }
 
+        string?[]? descriptions = null;
         if (HistoryDescriptions.Count > 0)
         {
-            var historyDescriptions = HistoryDescriptions.Select(s => s.StringValue);
-            query = query.Where(s => historyDescriptions.Contains(s.Description));
+            descriptions = HistoryDescriptions.Select(s => s.StringValue).ToArray();
         }
 
+        string[]? modePayments = null;
         if (ModePaymentDeriveFilter.Count > 0)
         {
-            var modePayments = ModePaymentDeriveFilter.Select(s => s.Name);
-            query = query.Where(s => modePayments.Contains(s.ModePayment));
+            modePayments = ModePaymentDeriveFilter.Select(s => s.Name!).ToArray();
         }
 
-        if (HistoryValues.Count > 0)
-        {
-            var historyValues = HistoryValues.Select(s => s.DoubleValue);
-            query = query.Where(s => historyValues.Contains(s.Value));
-        }
-
-        if (HistoryChecked.Count > 0)
-        {
-            var historyChecked = HistoryChecked.Select(s => s.BoolValue);
-            query = query.Where(s => historyChecked.Contains((bool)s.IsPointed!));
-        }
-
+        string[]? places = null;
         if (PlaceDeriveFilter.Count > 0)
         {
-            var historyPlaces = PlaceDeriveFilter.Select(s => s.Name);
-            query = query.Where(s => historyPlaces.Contains(s.Place));
+            places = PlaceDeriveFilter.Select(s => s.Name!).ToArray();
         }
 
-        records = query
-            .OrderBy(s => s.IsPointed)
-            .ThenByDescending(s => s.Date)
-            .ThenBy(s => s.Category)
-            .ToList();
+        double[]? values = null;
+        if (HistoryValues.Count > 0)
+        {
+            values = HistoryValues.Select(s => s.DoubleValue!.Value).ToArray();
+        }
+
+        bool[]? pointeds = null;
+        if (HistoryChecked.Count > 0)
+        {
+            pointeds = HistoryChecked.Select(s => s.BoolValue).ToArray();
+        }
+
+        var results = accountName.GetFilteredHistories(monthInt, yearInt, categoryNames, descriptions, modePayments, places, values, pointeds);
+        records = results.Histories.ToList();
 
         stopwatch.Stop();
         elapsedTimeLoadingData = stopwatch.Elapsed;
-        return rowTotalCount;
+        return results.TotalRowCount;
     }
 
     [SupportedOSPlatform("Android21.0")]

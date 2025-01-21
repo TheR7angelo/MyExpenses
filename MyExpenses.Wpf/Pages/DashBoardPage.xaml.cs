@@ -623,8 +623,8 @@ public partial class DashBoardPage
             _ = SelectedYear.ToInt(out yearInt);
         }
 
-        var records = accountName.GetFilteredHistories(monthInt, yearInt);
-        VHistories.AddRange(records);
+        var results = accountName.GetFilteredHistories(monthInt, yearInt);
+        VHistories.AddRange(results.Histories);
 
         var filteredData = accountName.GetFilteredVDetailTotalCategories(monthInt, yearInt);
         var categoriesTotals = CalculateCategoryTotals(filteredData, out var grandTotal);

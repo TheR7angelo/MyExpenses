@@ -1,5 +1,6 @@
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Models.Sql.Bases.Views;
+using MyExpenses.Models.Sql.Queries;
 using MyExpenses.Sql.Context;
 
 namespace MyExpenses.Sql.Queries;
@@ -72,8 +73,10 @@ public static class EntityQueries
     /// A collection of <see cref="VHistory"/> objects representing the filtered financial history records
     /// for the specified account name and optional time filters.
     /// </returns>
-    public static IEnumerable<VHistory> GetFilteredHistories(this string accountName, int? month = null,
-        int? year = null)
+    public static FilteredHistoriesResults GetFilteredHistories(this string accountName,
+        int? month = null, int? year = null,
+        string[]? categories = null, string?[]? descriptions = null, string[]? modePayments = null, string[]? places = null,
+        double[]? values = null, bool[]? pointed = null)
     {
         using var context = new DataBaseContext();
         var query = context.VHistories
@@ -89,12 +92,47 @@ public static class EntityQueries
             query = query.Where(s => s.Date!.Value.Year.Equals(year.Value));
         }
 
+        var totalRowCount = query.Count();
+
+        if (categories is { Length: > 0 })
+        {
+            query = query.Where(s => categories.Contains(s.Category));
+        }
+
+        if (descriptions is { Length: > 0 })
+        {
+            query = query.Where(s => descriptions.Contains(s.Description));
+        }
+
+        if (modePayments is { Length: > 0 })
+        {
+            query = query.Where(s => modePayments.Contains(s.ModePayment));
+        }
+
+        if (places is { Length: > 0 })
+        {
+            query = query.Where(s => places.Contains(s.Place));
+        }
+
+        if (values is { Length: > 0 })
+        {
+            query = query.Where(s => values.Contains(s.Value!.Value));
+        }
+
+        if (pointed is { Length: > 0 })
+        {
+            query = query.Where(s => pointed.Contains((bool)s.IsPointed!));
+        }
+
+        var totalFilteredRowCount = query.Count();
+
         var records = query
             .OrderBy(s => s.IsPointed)
             .ThenByDescending(s => s.Date)
             .ThenBy(s => s.Category)
             .ToList();
-        return records;
+
+        return new FilteredHistoriesResults { Histories = records, TotalRowCount = totalRowCount, TotalFilteredRowCount = totalFilteredRowCount};
     }
 
     /// <summary>
