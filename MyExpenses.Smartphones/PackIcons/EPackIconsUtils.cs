@@ -44,7 +44,12 @@ public static class EPackIconsUtils
     {
         var geometryString = icon.ToGeometryString();
 
-        // Add parsing logic here
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // A new instance of PathGeometryConverter is explicitly allocated here to convert
+        // a geometry string into a Geometry object. This allocation is essential because
+        // the converter provides the necessary functionality to parse the string and create
+        // a corresponding Geometry instance. Creating a new instance ensures that the
+        // converter operates independently, without conflicts with other instances or threads.
         var converter = new PathGeometryConverter();
         return converter.ConvertFromInvariantString(geometryString) as Geometry;
     }
