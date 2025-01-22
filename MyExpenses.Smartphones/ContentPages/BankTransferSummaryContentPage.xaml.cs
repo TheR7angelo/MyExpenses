@@ -15,6 +15,7 @@ using MyExpenses.Smartphones.PackIcons;
 using MyExpenses.Smartphones.Resources.Resx.ContentPages.BankTransferSummaryContentPage;
 using MyExpenses.Smartphones.UserControls.Images;
 using MyExpenses.Sql.Context;
+using MyExpenses.Sql.Queries;
 using MyExpenses.Utils.Collection;
 using MyExpenses.Utils.Strings;
 
@@ -280,13 +281,8 @@ public partial class BankTransferSummaryContentPage
         using var context = new DataBaseContext();
         Years =
         [
-            ..context
-                .TBankTransfers
-                .Where(s => s.Date.HasValue)
-                .Select(s => s.Date!.Value.Year)
-                .Distinct()
-                .OrderByDescending(y => y)
-                .Select(y => y.ToString())
+            ..context.GetDistinctYearsFromBankTransfer()
+                .Select(s => s.ToString())
         ];
 
         if (Years.Count.Equals(0))

@@ -57,6 +57,27 @@ public static class EntityQueries
     }
 
     /// <summary>
+    /// Retrieves a distinct, ordered collection of years from bank transfer records
+    /// where the date field has a valid value.
+    /// </summary>
+    /// <param name="context">
+    /// The database context used to query the bank transfer records.
+    /// </param>
+    /// <returns>
+    /// A collection of distinct integer values representing the years found in the
+    /// bank transfer records, ordered in descending order.
+    /// </returns>
+    public static IEnumerable<int> GetDistinctYearsFromBankTransfer(this DataBaseContext context)
+    {
+        return context.TBankTransfers
+            .Where(s => s.Date.HasValue)
+            .Select(s => s.Date!.Value.Year)
+            .Distinct()
+            .OrderByDescending(y => y)
+            .AsEnumerable();
+    }
+
+    /// <summary>
     /// Retrieves a filtered list of transaction histories for the specified account
     /// based on various optional filters such as month, year, categories, descriptions,
     /// mode of payments, places, values, and pointed status.
