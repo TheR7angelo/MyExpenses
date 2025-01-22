@@ -82,6 +82,13 @@ public partial class AddEditAccountContentPage
     public ObservableCollection<TAccountType> AccountTypes { get; } = [];
     public ObservableCollection<TCurrency> Currencies { get; } = [];
     private List<TAccount> Accounts { get; }
+
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
+    // A new instance of `TAccount` is intentionally allocated here to represent the currently
+    // editable account. This allocation ensures that each instance of `AddEditAccountContentPage`
+    // has its own independent `Account` object, avoiding unintended shared state between pages
+    // or operations. This is crucial for enabling proper data encapsulation and ensuring that
+    // the `Account` instance can be safely manipulated without affecting other parts of the application.
     public TAccount Account { get; } = new();
     private TAccount? OriginalAccount { get; set; }
 

@@ -174,6 +174,12 @@ public partial class AddEditBankTransferContentPage
 
     private TModePayment? OriginalSelectedModePayment { get; set; }
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
+    // A new instance of `TBankTransfer` is intentionally allocated here to represent the current
+    // bank transfer being added or edited. By creating a new instance for each `AddEditBankTransferContentPage`,
+    // we ensure that every page has its own separate state for the `BankTransfer` object, preventing
+    // unexpected interactions or shared states across different pages. This helps preserve proper data
+    // encapsulation and ensures the integrity of the bank transfer operations.
     public TBankTransfer BankTransfer { get; } = new();
     private TBankTransfer? OriginalBankTransfer { get; set; }
 

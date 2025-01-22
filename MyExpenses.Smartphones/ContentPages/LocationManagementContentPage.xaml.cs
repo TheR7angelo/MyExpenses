@@ -19,6 +19,13 @@ public partial class LocationManagementContentPage
     public List<KnownTileSource> KnownTileSources { get; }
     public KnownTileSource KnownTileSourceSelected { get; set; }
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
+    // A new WritableLayer instance is intentionally allocated here to represent the layer
+    // dedicated to places (TPlace). This layer acts as a container for displaying map features
+    // related to places and provides the flexibility to dynamically add or remove features
+    // as needed. By creating a unique instance for each `DetailedRecordContentPage`, we
+    // ensure that map layers remain properly isolated and do not interfere with layers
+    // managed by other pages or components in the application.
     private WritableLayer PlaceLayer { get; } = new() { Style = null, Tag = typeof(TPlace) };
     private IEnumerable<ILayer> InfoLayers { get; }
 

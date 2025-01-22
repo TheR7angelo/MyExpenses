@@ -199,9 +199,22 @@ public partial class DetailedRecordContentPage
     }
 
     public THistory THistory { get; } = new();
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
+    // A new instance of `THistory` is intentionally allocated here to represent the current
+    // history being added or edited. This ensures that every `DetailedRecordContentPage` instance
+    // starts with its own unique `THistory` object, avoiding any shared or unintended state
+    // between multiple pages or operations. This allows proper handling and safe manipulation
+    // of history data throughout the application's workflow.
 
     public EPackIcons CloseCircle { get; } = EPackIcons.CloseCircle;
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
+    // A new WritableLayer instance is intentionally allocated here to represent the layer
+    // dedicated to places (TPlace). This layer acts as a container for displaying map features
+    // related to places and provides the flexibility to dynamically add or remove features
+    // as needed. By creating a unique instance for each `DetailedRecordContentPage`, we
+    // ensure that map layers remain properly isolated and don't interfere with layers
+    // managed by other pages or components in the application.
     private WritableLayer PlaceLayer { get; } = new() { Style = null, Tag = typeof(TPlace) };
     public List<KnownTileSource> KnownTileSources { get; private init; } = [];
     public KnownTileSource KnownTileSourceSelected { get; set; }
