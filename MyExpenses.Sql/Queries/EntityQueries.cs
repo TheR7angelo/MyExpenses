@@ -179,6 +179,109 @@ public static class EntityQueries
     }
 
     /// <summary>
+    /// Retrieves filtered bank transfers from the database based on the specified criteria.
+    /// </summary>
+    /// <param name="context">
+    /// The database context to query the bank transfer summaries from.
+    /// </param>
+    /// <param name="year">
+    /// The year to filter the bank transfers. If null, transfers from all years are included.
+    /// </param>
+    /// <param name="month">
+    /// The month to filter the bank transfers. If null, transfers from all months are included.
+    /// </param>
+    /// <param name="fromAccounts">
+    /// An array of account identifiers to filter transfers originating from specific accounts.
+    /// If null or empty, no filtering is applied based on the source accounts.
+    /// </param>
+    /// <param name="toAccounts">
+    /// An array of account identifiers to filter transfers targeting specific accounts.
+    /// If null or empty, no filtering is applied based on the destination accounts.
+    /// </param>
+    /// <param name="values">
+    /// An array of transaction values to filter the bank transfers. If null or empty,
+    /// no filtering is applied based on the transaction values.
+    /// </param>
+    /// <param name="mainReasons">
+    /// An array of main reasons to filter the bank transfers. If null or empty,
+    /// no filtering is applied based on the main reasons.
+    /// </param>
+    /// <param name="additionalReasons">
+    /// An array of additional reasons to filter the bank transfers. If null or empty,
+    /// no filtering is applied based on the additional reasons.
+    /// </param>
+    /// <param name="categories">
+    /// An array of categories to filter the bank transfers. If null or empty,
+    /// no filtering is applied based on the categories.
+    /// </param>
+    /// <returns>
+    /// A <see cref="FilteredBankTransfersResults"/> object containing the filtered bank transfers,
+    /// the total row counts before filtering, and the row counts after applying filters.
+    /// </returns>
+    public static FilteredBankTransfersResults GetFilteredBankTransfers(this DataBaseContext context,
+        int? year = null, int? month = null,
+        string[]? fromAccounts = null, string[]? toAccounts = null,
+        double[]? values = null, string[]? mainReasons = null, string?[]? additionalReasons = null,
+        string[]? categories = null)
+    {
+        IQueryable<VBankTransferSummary> query = context.VBankTransferSummaries;
+        if (!query.Any()) return new FilteredBankTransfersResults();
+
+        if (year.HasValue)
+        {
+            query = query.Where(s => s.Date!.Value.Year.Equals(year.Value));
+        }
+
+        if (month.HasValue)
+        {
+            query = query.Where(s => s.Date!.Value.Month.Equals(month.Value));
+        }
+
+        var totalRowCount = query.Count();
+
+        if (fromAccounts is { Length: > 0 })
+        {
+            query = query.Where(s => fromAccounts.Contains(s.FromAccountName));
+        }
+
+        if (toAccounts is { Length: > 0})
+        {
+            query = query.Where(s => toAccounts.Contains(s.ToAccountName));
+        }
+
+        if (values is { Length: > 0 })
+        {
+            query = query.Where(s => values.Contains(s.Value!.Value));
+        }
+
+        if (mainReasons is { Length: > 0 })
+        {
+            query = query.Where(s => mainReasons.Contains(s.MainReason));
+        }
+
+        if (additionalReasons is { Length: > 0})
+        {
+            query = query.Where(s => additionalReasons.Contains(s.AdditionalReason));
+        }
+
+        if (categories is { Length: > 0})
+        {
+            query = query.Where(s => categories.Contains(s.CategoryName));
+        }
+
+        var totalFilteredRowCount = query.Count();
+        var records = query
+            .OrderByDescending(s => s.Date).AsEnumerable();
+
+        return new FilteredBankTransfersResults
+        {
+            BankTransferSummaries = records,
+            TotalRowCount = totalRowCount,
+            TotalFilteredRowCount = totalFilteredRowCount
+        };
+    }
+
+    /// <summary>
     /// Retrieves filtered total category details for a specific account name
     /// from the database context, optionally filtering by month and year.
     /// </summary>

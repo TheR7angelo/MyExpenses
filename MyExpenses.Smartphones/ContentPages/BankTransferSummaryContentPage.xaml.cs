@@ -768,75 +768,45 @@ public partial class BankTransferSummaryContentPage
         var stopwatch = new Stopwatch();
         stopwatch.Start();
 
+        int? yearInt = null;
+        if (!string.IsNullOrEmpty(SelectedYear)) _ = SelectedYear.ToInt(out yearInt);
+
+        int? monthInt = null;
+        if (!string.IsNullOrEmpty(SelectedMonth)) monthInt = Months.IndexOf(SelectedMonth) + 1;
+
+        string[]? fromAccounts = null;
+        if (BankTransferFromAccountsFilters.Count > 0) fromAccounts = BankTransferFromAccountsFilters.Select(s => s.Name!).ToArray();
+
+        string[]? toAccounts = null;
+        if (BankTransferToAccountsFilters.Count > 0) toAccounts = BankTransferToAccountsFilters.Select(s => s.Name!).ToArray();
+
+        double[]? values = null;
+        if (BankTransferValuesFilters.Count > 0) values = BankTransferValuesFilters.Select(s => (double)s.DoubleValue!).ToArray();
+
+        string[]? mainReasons = null;
+        if (BankTransferMainReasonFilters.Count > 0) mainReasons = BankTransferMainReasonFilters.Select(s => s.StringValue!).ToArray();
+
+        string?[]? additionalReasons = null;
+        if (BankTransferAdditionalReasonFilters.Count > 0) additionalReasons = BankTransferAdditionalReasonFilters.Select(s => s.StringValue).ToArray();
+
+        string[]? categories = null;
+        if (VCategoryDerivesFilter.Count > 0) categories = VCategoryDerivesFilter.Select(s => s.CategoryName!).ToArray();
+
         // ReSharper disable once HeapView.ObjectAllocation.Evident
         // The creation of a new DataBaseContext instance (via `new DataBaseContext()`) is necessary to interact with the database.
         // This context provides the connection to the database and allows querying or updating data.
         // The `using` statement ensures that the context is disposed of properly after its use, freeing up resources like database connections.
         using var context = new DataBaseContext();
+        var result = context.GetFilteredBankTransfers(yearInt, monthInt, fromAccounts, toAccounts, values, mainReasons, additionalReasons, categories);
 
-        IQueryable<VBankTransferSummary> query = context.VBankTransferSummaries;
-        if (!query.Any()) return;
-
-        if (!string.IsNullOrEmpty(SelectedMonth))
-        {
-            var monthInt = Months.IndexOf(SelectedMonth) + 1;
-            query = query.Where(s => s.Date!.Value.Month.Equals(monthInt));
-        }
-
-        if (!string.IsNullOrEmpty(SelectedYear))
-        {
-            _ = SelectedYear.ToInt(out var yearInt);
-            query = query.Where(s => s.Date!.Value.Year.Equals(yearInt));
-        }
-
-        RowTotalCount = query.Count();
-
-        if (BankTransferFromAccountsFilters.Count > 0)
-        {
-            var accountNames = BankTransferFromAccountsFilters.Select(s => s.Name!);
-            query = query.Where(s => accountNames.Contains(s.FromAccountName));
-        }
-
-        if (BankTransferToAccountsFilters.Count > 0)
-        {
-            var accountNames = BankTransferToAccountsFilters.Select(s => s.Name);
-            query = query.Where(s => accountNames.Contains(s.ToAccountName));
-        }
-
-        if (BankTransferValuesFilters.Count > 0)
-        {
-            var values = BankTransferValuesFilters.Select(s => s.DoubleValue);
-            query = query.Where(s => values.Contains(s.Value));
-        }
-
-        if (BankTransferMainReasonFilters.Count > 0)
-        {
-            var values = BankTransferMainReasonFilters.Select(s => s.StringValue);
-            query = query.Where(s => values.Contains(s.MainReason));
-        }
-
-        if (BankTransferAdditionalReasonFilters.Count > 0)
-        {
-            var values = BankTransferAdditionalReasonFilters.Select(s => s.StringValue);
-            query = query.Where(s => values.Contains(s.AdditionalReason));
-        }
-
-        if (VCategoryDerivesFilter.Count > 0)
-        {
-            var categoryName = VCategoryDerivesFilter.Select(s => s.CategoryName!);
-            query = query.Where(s => categoryName.Contains(s.CategoryName));
-        }
-
-        RowTotalFilteredCount = query.Count();
-
-        var records = query
-            .OrderByDescending(s => s.Date);
+        RowTotalCount = result.TotalRowCount;
+        RowTotalFilteredCount = result.TotalFilteredRowCount;
 
         stopwatch.Stop();
         ElapsedTimeLoadingData = stopwatch.Elapsed.ToString("hh\\:mm\\:ss");
 
         BankTransferSummaries.Clear();
-        BankTransferSummaries.AddRange(records);
+        BankTransferSummaries.AddRange(result.BankTransferSummaries);
     }
 
     private bool RefreshFilter<T>(List<T> collection, ICustomPopupFilter<T> customPopupFilter, SvgPath svgPath)
