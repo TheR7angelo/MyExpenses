@@ -57,25 +57,47 @@ public static class EntityQueries
     }
 
     /// <summary>
-    /// Retrieves a collection of filtered financial history records based on the provided account name,
-    /// and optionally filtered by month and year.
+    /// Retrieves a filtered list of transaction histories for the specified account
+    /// based on various optional filters such as month, year, categories, descriptions,
+    /// mode of payments, places, values, and pointed status.
     /// </summary>
     /// <param name="accountName">
-    /// The name of the account for which the financial history is to be retrieved.
+    /// The name of the account for which the transaction histories should be retrieved.
+    /// This parameter is required.
     /// </param>
     /// <param name="month">
-    /// The optional month value to filter the history records. If null, no month-based filtering is applied.
+    /// The specific month for filtering the transaction histories. This parameter is optional.
     /// </param>
     /// <param name="year">
-    /// The optional year value to filter the history records. If null, no year-based filtering is applied.
+    /// The specific year for filtering the transaction histories. This parameter is optional.
+    /// </param>
+    /// <param name="categories">
+    /// An array of category names to filter the transaction histories. This parameter is optional.
+    /// </param>
+    /// <param name="descriptions">
+    /// An array of descriptions to filter the transaction histories. This parameter is optional.
+    /// </param>
+    /// <param name="modePayments">
+    /// An array of mode of payment methods to filter the transaction histories. This parameter is optional.
+    /// </param>
+    /// <param name="places">
+    /// An array of place names to filter the transaction histories. This parameter is optional.
+    /// </param>
+    /// <param name="values">
+    /// An array of values to filter the transaction histories. This parameter is optional.
+    /// </param>
+    /// <param name="pointed">
+    /// An array of boolean values to filter the transaction histories based on whether they are pointed or not.
+    /// This parameter is optional.
     /// </param>
     /// <returns>
-    /// A collection of <see cref="VHistory"/> objects representing the filtered financial history records
-    /// for the specified account name and optional time filters.
+    /// A <see cref="FilteredHistoriesResults"/> object containing the filtered transaction histories,
+    /// along with the total row count and the total count of filtered rows.
     /// </returns>
     public static FilteredHistoriesResults GetFilteredHistories(this string accountName,
         int? month = null, int? year = null,
-        string[]? categories = null, string?[]? descriptions = null, string[]? modePayments = null, string[]? places = null,
+        string[]? categories = null, string?[]? descriptions = null, string[]? modePayments = null,
+        string[]? places = null,
         double[]? values = null, bool[]? pointed = null)
     {
         using var context = new DataBaseContext();
