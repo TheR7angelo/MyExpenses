@@ -129,6 +129,10 @@ public partial class AddEditAccountContentPage
 
     private void ButtonCancel_OnClicked(object? sender, EventArgs e)
     {
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // Explicitly creating a new instance of TAccount here because TAccount is a class.
+        // Using 'default(TAccount)' would result in null, which is not usable in this context.
+        // We need a valid instance of TAccount to ensure the application behaves correctly.
         var account = OriginalAccount ?? new TAccount();
         account.CopyPropertiesTo(Account);
     }
@@ -165,6 +169,10 @@ public partial class AddEditAccountContentPage
     {
         var accountTypeFk = Account.AccountTypeFk;
 
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // Explicitly creating a new instance of AccountTypeSummaryContentPage.
+        // This ensures that each time this method is executed, a fresh, independent page instance is used.
+        // Reusing an existing instance could cause unexpected state sharing or UI issues.
         var accountTypeSummaryContentPage = new AccountTypeSummaryContentPage();
         await Navigation.PushAsync(accountTypeSummaryContentPage);
 
@@ -179,6 +187,10 @@ public partial class AddEditAccountContentPage
     {
         var currencyFk = Account.CurrencyFk;
 
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // Explicitly creating a new instance of CurrencySymbolSummaryContentPage.
+        // This ensures that a fresh instance is always used, avoiding potential state or UI inconsistencies
+        // that might arise from reusing an existing instance of this page.
         var currencySymbolSummaryContentPage = new CurrencySymbolSummaryContentPage();
         await Navigation.PushAsync(currencySymbolSummaryContentPage);
 
@@ -308,7 +320,16 @@ public partial class AddEditAccountContentPage
 
     private async Task<bool> ValidAccount()
     {
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // Creating a new ValidationContext for the Account object to perform data validation.
+        // The serviceProvider and items are set to null because they are not required in this context.
+        // The ValidationResults list will store any validation errors detected during the process.
         var validationContext = new ValidationContext(Account, serviceProvider: null, items: null);
+
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // Using 'var' keeps the code concise and readable, as the type (List<ValidationResult>)
+        // is evident from the initialization. The result will still be compatible with any method
+        // that expects an ICollection<ValidationResult>, as List<T> implements the ICollection interface.
         var validationResults = new List<ValidationResult>();
         var isValid = Validator.TryValidateObject(Account, validationContext, validationResults, true);
         if (isValid) return isValid;
