@@ -278,6 +278,12 @@ public partial class BankTransferSummaryContentPage
     {
         UpdateMonthLanguage();
 
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // The creation of a new instance of DataBaseContext within a `using` statement ensures that the database context is properly
+        // managed and disposed of after use. This allocation is necessary to interact with the database for the operation being
+        // performed. The `using` statement guarantees that resources, such as database connections, are released promptly, minimizing
+        // the risk of resource leaks and ensuring optimal performance in scenarios where multiple database operations might occur
+        // in parallel or sequentially.
         using var context = new DataBaseContext();
         Years =
         [
@@ -448,22 +454,40 @@ public partial class BankTransferSummaryContentPage
 
         IEnumerable<StringIsChecked> bankTransferAdditionalReason;
         if (Filters.Count is 0)
-            bankTransferAdditionalReason =
-                BankTransferSummaries.Select(s => new StringIsChecked { StringValue = s.AdditionalReason });
+        {
+            bankTransferAdditionalReason = BankTransferSummaries
+                // ReSharper disable once HeapView.ObjectAllocation.Evident
+                // This LINQ expression selects the 'AdditionalReason' property from each item in the BankTransferSummaries collection
+                // and creates a new instance of the StringIsChecked class for each entry. This approach is necessary to map the raw data
+                // from the summaries into a format suitable for further filtering or manipulation while maintaining separation of concerns
+                // and ensuring immutability of the original dataset.
+                .Select(s => new StringIsChecked { StringValue = s.AdditionalReason });
+        }
         else
         {
             var items = Filters.Last() == eFilter
                 ? OriginalVBankTransferSummary.Last().AsEnumerable()
                 : BankTransferSummaries.AsEnumerable();
 
-            bankTransferAdditionalReason = items.Select(s => new StringIsChecked { StringValue = s.AdditionalReason });
+            bankTransferAdditionalReason = items
+                // ReSharper disable once HeapView.ObjectAllocation.Evident
+                // This LINQ expression iterates over the 'items' collection and transforms each element into a new StringIsChecked object,
+                // initializing it with the 'AdditionalReason' property of the current item. This transformation is essential to prepare the data
+                // for filtering or display purposes, encapsulating the string value within a specific structure (StringIsChecked) that
+                // includes additional context or state (e.g., a "checked" property for selection).
+                .Select(s => new StringIsChecked { StringValue = s.AdditionalReason });
         }
 
         bankTransferAdditionalReason = bankTransferAdditionalReason.Distinct();
         bankTransferAdditionalReason = bankTransferAdditionalReason.OrderBy(s => s.StringValue);
 
-        var customPopupFilterDescription =
-            new CustomPopupFilterDescriptions(bankTransferAdditionalReason, BankTransferAdditionalReasonFilters);
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // A new instance of CustomPopupFilterDescriptions is created here to initialize a popup filter with
+        // the provided additional reason data (bankTransferAdditionalReason) and the target filter collection
+        // (BankTransferAdditionalReasonFilters). This allocation is necessary to encapsulate the filtering
+        // logic and user interaction functionality into a reusable component, enabling a clean separation of
+        // concerns and facilitating the dynamic display of filter options.
+        var customPopupFilterDescription = new CustomPopupFilterDescriptions(bankTransferAdditionalReason, BankTransferAdditionalReasonFilters);
         await this.ShowPopupAsync(customPopupFilterDescription);
 
         FilterManagement(BankTransferAdditionalReasonFilters, customPopupFilterDescription, eFilter, svgPath);
@@ -504,6 +528,11 @@ public partial class BankTransferSummaryContentPage
             .Select(s => mapper.Map<VCategoryDerive>(s))
             .ToList();
 
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // A new instance of CustomPopupFilterCategories is created to initialize a popup filter with the provided
+        // category data (vCategoryDerives) and the target filter collection (VCategoryDerivesFilter). This allocation
+        // is necessary to encapsulate the filtering logic specific to categories into a reusable component, ensuring a
+        // clean separation of concerns and facilitating the dynamic display and management of category filter options.
         var customPopupFilterCategories = new CustomPopupFilterCategories(vCategoryDerives, VCategoryDerivesFilter);
         await this.ShowPopupAsync(customPopupFilterCategories);
 
@@ -544,6 +573,11 @@ public partial class BankTransferSummaryContentPage
             .Select(s => mapper.Map<TAccountDerive>(s))
             .ToList();
 
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // A new instance of CustomPopupFilterAccount is created to initialize a popup filter with the provided
+        // account data (accountDerives) and the corresponding filter collection (BankTransferFromAccountsFilters).
+        // This is essential to encapsulate filtering logic for accounts, ensuring proper separation of concerns,
+        // while enabling a user-friendly and dynamic management of account-based filter options.
         var customPopupFilterAccount = new CustomPopupFilterAccount(accountDerives, BankTransferFromAccountsFilters);
         await this.ShowPopupAsync(customPopupFilterAccount);
 
@@ -556,22 +590,39 @@ public partial class BankTransferSummaryContentPage
 
         IEnumerable<StringIsChecked> bankTransferMainReason;
         if (Filters.Count is 0)
-            bankTransferMainReason =
-                BankTransferSummaries.Select(s => new StringIsChecked { StringValue = s.MainReason });
+        {
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
+            // This LINQ expression selects the 'MainReason' property from each item in the BankTransferSummaries collection
+            // and creates a new instance of the StringIsChecked class for each entry. This approach is necessary to map the raw data
+            // from the summaries into a format suitable for further filtering or manipulation while maintaining separation of concerns
+            // and ensuring immutability of the original dataset.
+            bankTransferMainReason = BankTransferSummaries.Select(s => new StringIsChecked { StringValue = s.MainReason });
+        }
         else
         {
             var items = Filters.Last() == eFilter
                 ? OriginalVBankTransferSummary.Last().AsEnumerable()
                 : BankTransferSummaries.AsEnumerable();
 
-            bankTransferMainReason = items.Select(s => new StringIsChecked { StringValue = s.MainReason });
+            bankTransferMainReason = items
+                    // ReSharper disable once HeapView.ObjectAllocation.Evident
+                    // This LINQ expression iterates over the 'items' collection and transforms each element into a new StringIsChecked object,
+                    // initializing it with the 'MainReason' property of the current item. This transformation is essential to prepare the data
+                    // for filtering or display purposes, encapsulating the string value within a specific structure (StringIsChecked) that
+                    // includes additional context or state (e.g., a "checked" property for selection).
+                .Select(s => new StringIsChecked { StringValue = s.MainReason });
         }
 
         bankTransferMainReason = bankTransferMainReason.Distinct();
         bankTransferMainReason = bankTransferMainReason.OrderBy(s => s.StringValue);
 
-        var customPopupFilterDescription =
-            new CustomPopupFilterDescriptions(bankTransferMainReason, BankTransferMainReasonFilters);
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // A new instance of CustomPopupFilterDescriptions is created here to initialize a popup filter with
+        // the provided additional reason data (bankTransferMainReason) and the target filter collection
+        // (BankTransferMainReasonFilters). This allocation is necessary to encapsulate the filtering
+        // logic and user interaction functionality into a reusable component, enabling a clean separation of
+        // concerns and facilitating the dynamic display of filter options.
+        var customPopupFilterDescription = new CustomPopupFilterDescriptions(bankTransferMainReason, BankTransferMainReasonFilters);
         await this.ShowPopupAsync(customPopupFilterDescription);
 
         FilterManagement(BankTransferMainReasonFilters, customPopupFilterDescription, eFilter, svgPath);
@@ -632,6 +683,11 @@ public partial class BankTransferSummaryContentPage
             .Select(s => mapper.Map<TAccountDerive>(s))
             .ToList();
 
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // A new instance of CustomPopupFilterAccount is created to initialize a popup filter with the provided
+        // account data (accountDerives) and the corresponding filter collection (BankTransferToAccountsFilters).
+        // This is essential to encapsulate filtering logic for accounts, ensuring proper separation of concerns,
+        // while enabling a user-friendly and dynamic management of account-based filter options.
         var customPopupFilterAccount = new CustomPopupFilterAccount(accountDerives, BankTransferToAccountsFilters);
         await this.ShowPopupAsync(customPopupFilterAccount);
 
@@ -644,19 +700,37 @@ public partial class BankTransferSummaryContentPage
 
         IEnumerable<DoubleIsChecked> values;
         if (Filters.Count is 0)
+        {
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
+            // This LINQ expression selects the 'Value' property from each item in the BankTransferSummaries collection
+            // and creates a new instance of the DoubleIsChecked class for each entry. This approach is necessary to map the raw data
+            // from the summaries into a format suitable for further filtering or manipulation while maintaining separation of concerns
+            // and ensuring immutability of the original dataset.
             values = BankTransferSummaries.Select(s => new DoubleIsChecked { DoubleValue = s.Value });
+        }
         else
         {
             var items = Filters.Last() == eFilter
                 ? OriginalVBankTransferSummary.Last().AsEnumerable()
                 : BankTransferSummaries.AsEnumerable();
 
-            values = items.Select(s => new DoubleIsChecked { DoubleValue = s.Value });
+            values = items
+                // ReSharper disable once HeapView.ObjectAllocation.Evident
+                // This LINQ expression iterates over the 'items' collection and transforms each element into a new DoubleIsChecked object,
+                // initializing it with the 'Value' property of the current item. This transformation is essential to prepare the data
+                // for filtering or display purposes, encapsulating the double value within a specific structure (DoubleIsChecked) that
+                // includes additional context or state (e.g., a "checked" property for selection).
+                .Select(s => new DoubleIsChecked { DoubleValue = s.Value });
         }
 
         values = values.Distinct();
         values = values.OrderBy(s => s.DoubleValue);
 
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // A new instance of CustomPopupFilterValues is created here to initialize a popup filter with the provided
+        // value data (values) and the target filter collection (BankTransferValuesFilters). This allocation is necessary to encapsulate
+        // the filtering logic and user interaction functionality into a reusable component, enabling a clean separation of
+        // concerns and facilitating the dynamic display of filter options.
         var customPopupFilterHistoryValues = new CustomPopupFilterDoubleValues(values, BankTransferValuesFilters);
         await this.ShowPopupAsync(customPopupFilterHistoryValues);
 
@@ -710,6 +784,11 @@ public partial class BankTransferSummaryContentPage
         if (sender is not Border border) return;
         if (border.BindingContext is not VBankTransferSummary vBankTransferSummary) return;
 
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // An instance of AddEditBankTransferContentPage is created here with the property CanBeDeleted set to true.
+        // This setup is necessary to define the initial state of the page, specifying that the bank transfer can
+        // be deleted. It ensures proper configuration of the content page, aligning with the expected functionality
+        // for adding or editing bank transfer entries.
         var addEditBankTransferContentPage = new AddEditBankTransferContentPage { CanBeDeleted = true };
         addEditBankTransferContentPage.SetVBankTransferSummary(vBankTransferSummary);
 
@@ -765,6 +844,10 @@ public partial class BankTransferSummaryContentPage
 
     private void RefreshDataGrid()
     {
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // An instance of Stopwatch is created here to measure the elapsed time for a specific operation or
+        // process. This is useful for performance monitoring, debugging, or optimizing code execution by
+        // tracking the duration of the targeted operation with precision.
         var stopwatch = new Stopwatch();
         stopwatch.Start();
 
