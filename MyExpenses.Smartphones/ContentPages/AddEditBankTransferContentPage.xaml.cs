@@ -236,6 +236,10 @@ public partial class AddEditBankTransferContentPage
     {
         if (OriginalBankTransfer is null)
         {
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
+            // Using 'var' maintains code conciseness and readability. The type (TBankTransfer) is clear
+            // from the context and initialization. Additionally, since 'var' is type-safe, the strongly
+            // typed TBankTransfer object is fully enforced by the compiler.
             var clearBankTransfer = new TBankTransfer();
             clearBankTransfer.CopyPropertiesTo(BankTransfer);
 
@@ -342,6 +346,10 @@ public partial class AddEditBankTransferContentPage
 
     private THistory CreateHistory(int? accountFk, double value, DateTime now)
     {
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // Using an object initializer here simplifies the creation of the THistory instance,
+        // ensuring that all necessary properties are set at once. Explicitly returning 'new THistory'
+        // is required to construct and return a fresh, complete object with the desired values.
         return new THistory
         {
             AccountFk = accountFk,
@@ -565,8 +573,15 @@ public partial class AddEditBankTransferContentPage
 
     private async Task<bool> ValidValidBankTransfer()
     {
+        // The 'var' keyword is used for simplicity and clarity, as the types
+        // (ValidationContext and List<ValidationResult>) are visible from the initialization.
+        // ValidationContext is instantiated to provide context for validation, and
+        // a new List<ValidationResult> is created to collect potential validation errors.
+        // ReSharper disable HeapView.ObjectAllocation.Evident
         var validationContext = new ValidationContext(BankTransfer, serviceProvider: null, items: null);
         var validationResults = new List<ValidationResult>();
+        // ReSharper restore HeapView.ObjectAllocation.Evident
+
         var isValid = Validator.TryValidateObject(BankTransfer, validationContext, validationResults, true);
 
         if (isValid)
