@@ -198,13 +198,13 @@ public partial class DetailedRecordContentPage
         set => SetValue(HexadecimalColorCodeProperty, value);
     }
 
-    public THistory THistory { get; } = new();
     // ReSharper disable once HeapView.ObjectAllocation.Evident
     // A new instance of `THistory` is intentionally allocated here to represent the current
     // history being added or edited. This ensures that every `DetailedRecordContentPage` instance
     // starts with its own unique `THistory` object, avoiding any shared or unintended state
     // between multiple pages or operations. This allows proper handling and safe manipulation
     // of history data throughout the application's workflow.
+    public THistory History { get; } = new();
 
     public EPackIcons CloseCircle { get; } = EPackIcons.CloseCircle;
 
@@ -311,7 +311,7 @@ public partial class DetailedRecordContentPage
         if (OriginalHistory is null)
         {
             var cleanHistory = new THistory();
-            cleanHistory.CopyPropertiesTo(THistory);
+            cleanHistory.CopyPropertiesTo(History);
         }
         else
         {
@@ -319,7 +319,7 @@ public partial class DetailedRecordContentPage
             SelectedCountry = EmptyStringTreeViewConverter.ToUnknown(place?.Country);
             SelectedCity = EmptyStringTreeViewConverter.ToUnknown(place?.City);
 
-            OriginalHistory.CopyPropertiesTo(THistory);
+            OriginalHistory.CopyPropertiesTo(History);
             Refocus();
         }
 
@@ -453,7 +453,7 @@ public partial class DetailedRecordContentPage
 
         IsPlaceholderVisible = picker.SelectedItem is null;
 
-        var place = THistory.PlaceFk?.ToISql<TPlace>();
+        var place = History.PlaceFk?.ToISql<TPlace>();
         UpdateMapPoint(place);
 
         try
@@ -478,7 +478,7 @@ public partial class DetailedRecordContentPage
 
         ComboBoxSelectorCountry.SelectedItem = country;
         ComboBoxSelectorCity.SelectedItem = city;
-        THistory.PlaceFk = place?.Id;
+        History.PlaceFk = place?.Id;
 
         ComboBoxSelectorCountry.SelectedIndexChanged += SelectorCountry_OnSelectionChanged;
         ComboBoxSelectorCity.SelectedIndexChanged += SelectorCity_OnSelectionChanged;
@@ -508,10 +508,10 @@ public partial class DetailedRecordContentPage
     {
         if (sender is not TimePicker timePicker) return;
         var time = timePicker.Time;
-        var dateTime = (DateTime)THistory.Date!;
+        var dateTime = (DateTime)History.Date!;
 
         dateTime = new DateTime(dateTime.Year, dateTime.Month, dateTime.Day, time.Hours, time.Minutes, time.Seconds);
-        THistory.Date = dateTime;
+        History.Date = dateTime;
 
         UpdateIsDirty();
     }
@@ -523,15 +523,15 @@ public partial class DetailedRecordContentPage
     private bool AddOrEditHistory()
     {
         var now = DateTime.Now;
-        if (OriginalHistory?.IsPointed is true) { if (!THistory.IsPointed) THistory.DatePointed = null; }
-        else if (THistory.IsPointed) THistory.DatePointed = now;
+        if (OriginalHistory?.IsPointed is true) { if (!History.IsPointed) History.DatePointed = null; }
+        else if (History.IsPointed) History.DatePointed = now;
 
-        if (IsNewHistory) THistory.DateAdded = now;
+        if (IsNewHistory) History.DateAdded = now;
 
-        var json = THistory.ToJson();
+        var json = History.ToJson();
 
         Log.Information("Attempting to add edit history : {Json}", json);
-        var (success, exception) = THistory.AddOrEdit();
+        var (success, exception) = History.AddOrEdit();
 
         if (success) Log.Information("Successful history editing");
         else Log.Error(exception, "Failed history editing");
@@ -581,9 +581,9 @@ public partial class DetailedRecordContentPage
             DetailedRecordContentPageResources.MessageBoxDeleteHistoryQuestionNoButton);
         if (!response) return;
 
-        var json = THistory.ToJson();
+        var json = History.ToJson();
         Log.Information("Attempting to delete history : {Json}", json);
-        var (success, exception) = THistory.Delete();
+        var (success, exception) = History.Delete();
         if (!success)
         {
             Log.Error(exception, "An error occur while deleting the record");
@@ -654,22 +654,22 @@ public partial class DetailedRecordContentPage
         using var context = new DataBaseContext();
         if (tHistory is not null)
         {
-            tHistory.CopyPropertiesTo(THistory);
+            tHistory.CopyPropertiesTo(History);
         }
         else
         {
             var history = context.THistories.First(s => s.Id.Equals(historyPk));
-            history.CopyPropertiesTo(THistory);
+            history.CopyPropertiesTo(History);
         }
 
-        TimePicker.Time = THistory.Date.ToTimeSpan();
+        TimePicker.Time = History.Date.ToTimeSpan();
 
         UpdateHistorySymbol();
         UpdateHexadecimalColorCode();
 
-        OriginalHistory = THistory.DeepCopy();
+        OriginalHistory = History.DeepCopy();
 
-        if (THistory.PlaceFk is null)
+        if (History.PlaceFk is null)
         {
             SelectedCountry = EmptyStringTreeViewConverter.ToUnknown();
             SelectedCity = EmptyStringTreeViewConverter.ToUnknown();
@@ -677,7 +677,7 @@ public partial class DetailedRecordContentPage
         }
         else
         {
-            var place = PlacesCollection.First(s => s.Id.Equals(THistory.PlaceFk.Value));
+            var place = PlacesCollection.First(s => s.Id.Equals(History.PlaceFk.Value));
             SelectedCountry = EmptyStringTreeViewConverter.ToUnknown(place.Country);
             SelectedCity = EmptyStringTreeViewConverter.ToUnknown(place.City);
             ComboBoxSelectorPlace.SelectedItem = place;
@@ -687,7 +687,7 @@ public partial class DetailedRecordContentPage
     private void UpdateHexadecimalColorCode()
     {
         string hexadecimalColorCode;
-        if (THistory.CategoryTypeFk is null) hexadecimalColorCode = "#00000000";
+        if (History.CategoryTypeFk is null) hexadecimalColorCode = "#00000000";
         else
         {
             // ReSharper disable once HeapView.ObjectAllocation.Evident
@@ -695,7 +695,7 @@ public partial class DetailedRecordContentPage
             // This context provides the connection to the database and allows querying or updating data.
             // The `using` statement ensures that the context is disposed of properly after its use, freeing up resources like database connections.
             using var context = new DataBaseContext();
-            var category = CategoryTypes.First(s => s.Id.Equals(THistory.CategoryTypeFk.Value));
+            var category = CategoryTypes.First(s => s.Id.Equals(History.CategoryTypeFk.Value));
             var color = context.TColors.First(s => s.Id.Equals(category.ColorFk!.Value));
             hexadecimalColorCode = color.HexadecimalColorCode!;
         }
@@ -706,7 +706,7 @@ public partial class DetailedRecordContentPage
     private void UpdateHistorySymbol()
     {
         string symbol;
-        if (THistory.AccountFk is null) symbol = string.Empty;
+        if (History.AccountFk is null) symbol = string.Empty;
         else
         {
             // ReSharper disable once HeapView.ObjectAllocation.Evident
@@ -714,7 +714,7 @@ public partial class DetailedRecordContentPage
             // This context provides the connection to the database and allows querying or updating data.
             // The `using` statement ensures that the context is disposed of properly after its use, freeing up resources like database connections.
             using var context = new DataBaseContext();
-            var currency = context.TCurrencies.First(s => s.Id.Equals(THistory.AccountFk));
+            var currency = context.TCurrencies.First(s => s.Id.Equals(History.AccountFk));
             symbol = currency.Symbol!;
         }
 
@@ -723,7 +723,7 @@ public partial class DetailedRecordContentPage
 
     private void UpdateIsDirty()
     {
-        IsDirty = !THistory.AreEqual(OriginalHistory);
+        IsDirty = !History.AreEqual(OriginalHistory);
 
         Title = IsDirty && !IsNewHistory
             ? DetailedRecordContentPageResources.TitleIsDirty
@@ -788,9 +788,9 @@ public partial class DetailedRecordContentPage
 
     private async Task<bool> ValidHistory()
     {
-        var validationContext = new ValidationContext(THistory, serviceProvider: null, items: null);
+        var validationContext = new ValidationContext(History, serviceProvider: null, items: null);
         var validationResults = new List<ValidationResult>();
-        var isValid = Validator.TryValidateObject(THistory, validationContext, validationResults, true);
+        var isValid = Validator.TryValidateObject(History, validationContext, validationResults, true);
 
         if (isValid) return isValid;
 
@@ -799,16 +799,16 @@ public partial class DetailedRecordContentPage
 
         var messageErrorKey = propertyMemberName switch
         {
-            nameof(THistory.AccountFk) => nameof(DetailedRecordContentPageResources.MessageBoxValidationAccountFkError),
-            nameof(THistory.Description) => nameof(DetailedRecordContentPageResources
+            nameof(History.AccountFk) => nameof(DetailedRecordContentPageResources.MessageBoxValidationAccountFkError),
+            nameof(History.Description) => nameof(DetailedRecordContentPageResources
                 .MessageBoxValidationDescriptionError),
-            nameof(THistory.CategoryTypeFk) => nameof(DetailedRecordContentPageResources
+            nameof(History.CategoryTypeFk) => nameof(DetailedRecordContentPageResources
                 .MessageBoxValidationCategoryTypeFkError),
-            nameof(THistory.ModePaymentFk) => nameof(DetailedRecordContentPageResources
+            nameof(History.ModePaymentFk) => nameof(DetailedRecordContentPageResources
                 .MessageBoxValidationModePaymentFkError),
-            nameof(THistory.Value) => nameof(DetailedRecordContentPageResources.MessageBoxValidationValueError),
-            nameof(THistory.Date) => nameof(DetailedRecordContentPageResources.MessageBoxValidationDateError),
-            nameof(THistory.PlaceFk) => nameof(DetailedRecordContentPageResources.MessageBoxValidationPlaceFkError),
+            nameof(History.Value) => nameof(DetailedRecordContentPageResources.MessageBoxValidationValueError),
+            nameof(History.Date) => nameof(DetailedRecordContentPageResources.MessageBoxValidationDateError),
+            nameof(History.PlaceFk) => nameof(DetailedRecordContentPageResources.MessageBoxValidationPlaceFkError),
             _ => null
         };
 

@@ -90,15 +90,15 @@
 
                         <Entry Grid.Row="0"
                                HorizontalTextAlignment="Start"
-                               Text="{Binding THistory.Description, Mode=TwoWay}"
-                               MaxLength="{Binding THistory, Converter={StaticResource MaxLengthConverter}, ConverterParameter=Description}"
+                               Text="{Binding History.Description, Mode=TwoWay}"
+                               MaxLength="{Binding History, Converter={StaticResource MaxLengthConverter}, ConverterParameter=Description}"
                                FontSize="24"
                                TextChanged="EntryDescription_OnTextChanged">
                         </Entry>
 
                         <Picker Grid.Row="1"
                                 ItemsSource="{Binding ModePayments, Mode=OneWay, Source={RelativeSource AncestorType={x:Type local:DetailedRecordContentPage}}}"
-                                SelectedItem="{Binding THistory.ModePaymentFk, Mode=TwoWay, Converter={StaticResource ISqlConverter}, ConverterParameter={Binding ModePayments, Source={Reference This}}, Source={Reference This}, Source={RelativeSource AncestorType={x:Type local:DetailedRecordContentPage}}}"
+                                SelectedItem="{Binding History.ModePaymentFk, Mode=TwoWay, Converter={StaticResource ISqlConverter}, ConverterParameter={Binding ModePayments, Source={Reference This}}, Source={Reference This}, Source={RelativeSource AncestorType={x:Type local:DetailedRecordContentPage}}}"
                                 ItemDisplayBinding="{Binding Name}" x:DataType="tables:TModePayment"
                                 SelectedIndexChanged="PickerModePayment_OnSelectedIndexChanged">
                         </Picker>
@@ -107,13 +107,13 @@
 
                             <Label HorizontalTextAlignment="Start"
                                    VerticalOptions="Center"
-                                   Text="{Binding THistory.Value, Mode=OneWay, Converter={StaticResource ValueToCreditDebitedConverter}}">
+                                   Text="{Binding History.Value, Mode=OneWay, Converter={StaticResource ValueToCreditDebitedConverter}}">
                             </Label>
 
                             <DatePicker HorizontalOptions="Start"
                                         VerticalOptions="Center"
                                         Margin="5, 0, 0, 0"
-                                        Date="{Binding THistory.Date, Mode=TwoWay}"
+                                        Date="{Binding History.Date, Mode=TwoWay}"
                                         DateSelected="DatePicker_OnDateSelected">
                             </DatePicker>
 
@@ -121,7 +121,7 @@
                                         HorizontalOptions="Start"
                                         VerticalOptions="Center"
                                         Margin="5, 0, 0, 0"
-                                        Time="{Binding THistory.Date, Mode=TwoWay}"
+                                        Time="{Binding History.Date, Mode=TwoWay}"
                                         PropertyChanged="TimePicker_OnTimeChanged">
                             </TimePicker>
 
@@ -135,7 +135,7 @@
 
                             <Label HorizontalTextAlignment="Start"
                                    Margin="5, 0, 0, 0"
-                                   Text="{Binding THistory.DateAdded, Mode=OneWay}">
+                                   Text="{Binding History.DateAdded, Mode=OneWay}">
                             </Label>
 
                         </HorizontalStackLayout>
@@ -148,7 +148,7 @@
                             </Label>
 
                             <Picker ItemsSource="{Binding Accounts, Mode=OneWay, Source={RelativeSource AncestorType={x:Type local:DetailedRecordContentPage}}}"
-                                    SelectedItem="{Binding THistory.AccountFk, Mode=TwoWay, Converter={StaticResource ISqlConverter}, ConverterParameter={Binding Accounts, Source={Reference This}}, Source={Reference This}, Source={RelativeSource AncestorType={x:Type local:DetailedRecordContentPage}}}"
+                                    SelectedItem="{Binding History.AccountFk, Mode=TwoWay, Converter={StaticResource ISqlConverter}, ConverterParameter={Binding Accounts, Source={Reference This}}, Source={Reference This}, Source={RelativeSource AncestorType={x:Type local:DetailedRecordContentPage}}}"
                                     ItemDisplayBinding="{Binding Name}" x:DataType="tables:TAccount"
                                     SelectedIndexChanged="PickerAccount_OnSelectedIndexChanged">
                             </Picker>
@@ -163,7 +163,7 @@
                                    FontAttributes="Bold"
                                    FontSize="24"
                                    Keyboard="Numeric"
-                                   Text="{Binding THistory.Value, Mode=TwoWay}"
+                                   Text="{Binding History.Value, Mode=TwoWay}"
                                    TextChanged="EntryValue_OnTextChanged">
                             </Entry>
 
@@ -216,7 +216,7 @@
                             <Picker Grid.Column="1"
                                     HorizontalTextAlignment="Start"
                                     ItemsSource="{Binding CategoryTypes, Mode=OneWay, Source={RelativeSource AncestorType={x:Type local:DetailedRecordContentPage}}}"
-                                    SelectedItem="{Binding THistory.CategoryTypeFk, Mode=TwoWay, Converter={StaticResource ISqlConverter}, ConverterParameter={Binding CategoryTypes, Source={Reference This}}, Source={Reference This}, Source={RelativeSource AncestorType={x:Type local:DetailedRecordContentPage}}}"
+                                    SelectedItem="{Binding History.CategoryTypeFk, Mode=TwoWay, Converter={StaticResource ISqlConverter}, ConverterParameter={Binding CategoryTypes, Source={Reference This}}, Source={Reference This}, Source={RelativeSource AncestorType={x:Type local:DetailedRecordContentPage}}}"
                                     ItemDisplayBinding="{Binding Name}" x:DataType="tables:TCategoryType"
                                     SelectedIndexChanged="PickerCategoryTypeFk_OnSelectedIndexChanged">
                             </Picker>
@@ -239,7 +239,7 @@
                             <Switch Grid.Column="2"
                                     HorizontalOptions="End"
                                     VerticalOptions="Center"
-                                    IsToggled="{Binding THistory.IsPointed, Mode=TwoWay}"
+                                    IsToggled="{Binding History.IsPointed, Mode=TwoWay}"
                                     Toggled="SwitchPointed_OnToggled">
                             </Switch>
 
@@ -253,7 +253,7 @@
 
                             <Label HorizontalTextAlignment="Start"
                                    Margin="5, 0, 0, 0"
-                                   Text="{Binding THistory.DatePointed, Mode=OneWay}">
+                                   Text="{Binding History.DatePointed, Mode=OneWay}">
                             </Label>
 
                         </HorizontalStackLayout>
@@ -330,7 +330,7 @@
                             <Picker Grid.Row="1" Grid.Column="0"
                                     x:Name="ComboBoxSelectorPlace"
                                     ItemsSource="{Binding PlacesCollection, Mode=OneWay, Source={RelativeSource AncestorType={x:Type local:DetailedRecordContentPage}}}"
-                                    SelectedItem="{Binding THistory.PlaceFk, Mode=TwoWay, Converter={StaticResource ISqlConverter}, ConverterParameter={Binding PlacesCollection, Source={Reference This}}, Source={Reference This}, Source={RelativeSource AncestorType={x:Type local:DetailedRecordContentPage}}}"
+                                    SelectedItem="{Binding History.PlaceFk, Mode=TwoWay, Converter={StaticResource ISqlConverter}, ConverterParameter={Binding PlacesCollection, Source={Reference This}}, Source={Reference This}, Source={RelativeSource AncestorType={x:Type local:DetailedRecordContentPage}}}"
                                     Title="{Binding PlaceholderTextPlace, Mode=OneWay, Source={RelativeSource AncestorType={x:Type local:DetailedRecordContentPage}}}"
                                     ItemDisplayBinding="{Binding Name}" x:DataType="tables:TPlace"
                                     Margin="5"
