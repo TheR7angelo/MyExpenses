@@ -16,6 +16,10 @@ public partial class App
     {
         SetInitialFile();
 
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // A new instance of CancellationTokenSource is created to manage cancellation tokens across various
+        // tasks in the application. This allows proper handling and cooperative cancellation of asynchronous
+        // operations, ensuring resources are released effectively when tasks are canceled.
         CancellationTokenSource = new CancellationTokenSource();
 
         Log.Logger = LoggerConfig.CreateConfig(null);
@@ -43,8 +47,13 @@ public partial class App
         InitializeComponent();
     }
 
+    // A new instance of Window is created with an AppShell object as its root.
+    // This ensures that the application's main UI structure is properly initialized,
+    // providing the entry point for navigation and user interaction within the app.
     protected override Window CreateWindow(IActivationState? activationState)
+        // ReSharper disable HeapView.ObjectAllocation.Evident
         => new(new AppShell());
+        // ReSharper restore HeapView.ObjectAllocation.Evident
 
 
     private static void LoadInterfaceConfiguration(Interface configurationInterface)
@@ -61,6 +70,10 @@ public partial class App
         {
             var currentCurrentCulture = CultureInfo.CurrentUICulture.Name;
 
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
+            // A new instance of DataBaseContext is created using the specified database file path.
+            // The "using" statement ensures that the database context is properly disposed of
+            // after use, releasing any resources it holds and maintaining efficient resource management.
             using var context = new DataBaseContext(DbContextBackup.LocalFilePathDataBaseModel);
 
             currentCultureIsSupported = context.TSupportedLanguages.Any(s => s.Code == currentCurrentCulture);
@@ -73,6 +86,10 @@ public partial class App
             configuration.WriteConfiguration();
         }
 
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // A new CultureInfo object is created using the specified cultureInfoCode.
+        // This object represents information about a specific culture (such as language and regional settings)
+        // and is used to configure cultural aspects of the application, like formatting and localization.
         var cultureInfo = new CultureInfo(cultureInfoCode);
         Thread.CurrentThread.CurrentCulture = cultureInfo;
         Thread.CurrentThread.CurrentUICulture = cultureInfo;
@@ -134,6 +151,10 @@ public partial class App
         }
         else
         {
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
+            // A new instance of AppVersionInfo is created and initialized with the current version of the application
+            // and the current timestamp. This provides metadata about the application's version and the last update
+            // time, which can later be used for version control or update tracking purposes.
             var appVersionInfo = new AppVersionInfo
             {
                 Version = currentVersion,
