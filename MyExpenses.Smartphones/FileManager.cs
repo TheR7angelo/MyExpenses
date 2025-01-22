@@ -12,7 +12,7 @@ public static class FileManager
         var packageDirectory = Path.Join("Resources", "Maps");
         var storageDirectoryPath = Path.Join(FileSystem.AppDataDirectory, packageDirectory);
 
-        var files = new List<string> { "BlueMarker.svg", "GreenMarker.svg", "RedMarker.svg" };
+        var files = new [] { "BlueMarker.svg", "GreenMarker.svg", "RedMarker.svg" };
         foreach (var file in files)
         {
             var packageFile = Path.Join(packageDirectory, file);
