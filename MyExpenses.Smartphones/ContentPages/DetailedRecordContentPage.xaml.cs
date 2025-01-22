@@ -310,6 +310,11 @@ public partial class DetailedRecordContentPage
     {
         if (OriginalHistory is null)
         {
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
+            // A new instance of THistory is created here to represent a clean or default state of a history object.
+            // This initialization is required to reset or prepare a fresh instance of the object, ensuring that
+            // no unintended data persists, which helps maintain consistency and avoid conflicts when manipulating
+            // history data.
             var cleanHistory = new THistory();
             cleanHistory.CopyPropertiesTo(History);
         }
@@ -777,6 +782,12 @@ public partial class DetailedRecordContentPage
         const string layerName = "Background";
 
         var httpTileSource = BruTile.Predefined.KnownTileSources.Create(KnownTileSourceSelected);
+
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // A new instance of TileLayer is created here using the specified httpTileSource.
+        // This layer is responsible for rendering map tiles from the configured tile source,
+        // allowing the application to display background maps or other geographic data dynamically
+        // based on the selected tile provider.
         var tileLayer = new TileLayer(httpTileSource);
         tileLayer.Name = layerName;
 
@@ -788,8 +799,15 @@ public partial class DetailedRecordContentPage
 
     private async Task<bool> ValidHistory()
     {
+        // A ValidationContext is created for the History object to perform data validation.
+        // This specifies the object to validate and allows passing optional services or metadata.
+        // A List of ValidationResult is also initialized to store any validation errors or warnings
+        // detected during the validation process.
+        // ReSharper disable HeapView.ObjectAllocation.Evident
         var validationContext = new ValidationContext(History, serviceProvider: null, items: null);
         var validationResults = new List<ValidationResult>();
+        // ReSharper restore HeapView.ObjectAllocation.Evident
+
         var isValid = Validator.TryValidateObject(History, validationContext, validationResults, true);
 
         if (isValid) return isValid;

@@ -115,6 +115,11 @@ public partial class CurrencySymbolSummaryContentPage
             CurrencySymbolSummaryContentPageResources.MesageBoxAddNewCurrencyQuestionNoButton);
         if (!response) return;
 
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // An instance of TCurrency is created here to represent a new currency with its essential properties.
+        // The `Symbol` is set using `SymbolText`, which represents the user-provided currency value, and
+        // `DateAdded` is initialized to the current date and time. This ensures that the new currency object
+        // is properly prepared for further operations such as adding it to the database or the application state.
         var newCurrency = new TCurrency
         {
             Symbol = SymbolText,
@@ -252,6 +257,11 @@ public partial class CurrencySymbolSummaryContentPage
     {
         var placeHolder = CurrencySymbolSummaryContentPageResources.PlaceholderText;
 
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // A new instance of CustomPopupEntry is created and initialized with specific properties such as MaxLenght,
+        // PlaceholderText, EntryText, and CanDelete. This instance is configured to provide a customizable popup
+        // for editing or interacting with a currency's symbol. This setup allows the user to input or modify data
+        // interactively while maintaining flexibility and ensuring proper validation during the interaction.
         var customPopupEntry = new CustomPopupEntry { MaxLenght = MaxLength, PlaceholderText = placeHolder, EntryText = currency.Symbol!, CanDelete = true };
         await this.ShowPopupAsync(customPopupEntry);
 
