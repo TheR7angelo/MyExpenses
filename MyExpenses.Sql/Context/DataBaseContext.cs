@@ -125,14 +125,10 @@ public class DataBaseContext : DbContext
             ? TempFilePath
             : FilePath;
 
-        var connectionStringBuilder = new SqliteConnectionStringBuilder
-        {
-            DataSource = DataSource,
-            Pooling = false,
-            Mode = IsReadOnly ? SqliteOpenMode.ReadOnly : SqliteOpenMode.ReadWrite
-        };
+        var mode = IsReadOnly ? SqliteOpenMode.ReadOnly : SqliteOpenMode.ReadWrite;
+        var connectionString = DataSource!.BuildConnectionString(pooling: false, mode: mode);
 
-        optionsBuilder.UseSqlite(connectionStringBuilder.ConnectionString);
+        optionsBuilder.UseSqlite(connectionString);
 
         if (LogEfCore is not true) return;
         var serilogLoggerFactory = ConfigureLogging();
