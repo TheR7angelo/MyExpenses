@@ -46,6 +46,9 @@ public partial class MainPage
 
         DataBaseContext.FilePath = existingDatabase.FilePath;
 
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // Create a new instance of DashBoardShell and assign the selected database.
+        // This action allocates memory for the new shell object and switches the application to the new shell.
         var dashBoardShell = new DashBoardShell { SelectedDatabase = existingDatabase };
         Application.Current!.Windows[0].Page = dashBoardShell;
     }
@@ -158,10 +161,10 @@ public partial class MainPage
     [SupportedOSPlatform("iOS14.0")]
     [SupportedOSPlatform("MacCatalyst14.0")]
     [SupportedOSPlatform("Windows")]
-    private async Task ExportToLocalFolderAsync(List<ExistingDatabase> existingDatabasesSelected, bool isCompress)
+    private async Task<List<ExistingDatabase>?> ExportToLocalFolderAsync(List<ExistingDatabase> existingDatabasesSelected, bool isCompress)
     {
         var folderPickerResult = await FolderPicker.Default.PickAsync();
-        if (!folderPickerResult.IsSuccessful) return;
+        if (!folderPickerResult.IsSuccessful) return null;
 
         var selectedFolder = folderPickerResult.Folder.Path;
 
@@ -194,6 +197,8 @@ public partial class MainPage
 
     private async Task HandleButtonAddDataBase()
     {
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // Instantiates a new page of type AddDatabaseFileContentPage, likely used to manage or display database file content.
         var addDatabaseFileContentPage = new AddDatabaseFileContentPage();
         addDatabaseFileContentPage.SetExistingDatabase(ExistingDatabases);
 
@@ -215,10 +220,17 @@ public partial class MainPage
         {
             File.Copy(DbContextBackup.LocalFilePathDataBaseModel, filePath, true);
 
+
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
+            // Asynchronously initializes a new instance of DataBaseContext for interacting with the database at the specified file path.
             await using var context = new DataBaseContext(filePath);
+
             _ = context.SetAllDefaultValues();
             await context.SaveChangesAsync();
 
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
+            // Adds a new instance of ExistingDatabase, created with the specified file path, to the ExistingDatabases collection
+            // and sorts it based on the FileNameWithoutExtension property.
             ExistingDatabases.AddAndSort(new ExistingDatabase(filePath),
                 s => s.FileNameWithoutExtension);
 
@@ -246,7 +258,10 @@ public partial class MainPage
 
         await Task.Delay(TimeSpan.FromMilliseconds(100));
 
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // Instantiates a new page of type SelectDatabaseFileContentPage, likely used to allow the user to select database file content.
         var selectDatabaseFileContentPage = new SelectDatabaseFileContentPage();
+
         selectDatabaseFileContentPage.ExistingDatabases.AddRange(ExistingDatabases);
         await Navigation.PushAsync(selectDatabaseFileContentPage);
         var result = await selectDatabaseFileContentPage.ResultDialog;
@@ -356,8 +371,12 @@ public partial class MainPage
         var metadatas = await dropboxService.ListFileAsync(DbContextBackup.CloudDirectoryBackupDatabase);
         metadatas = metadatas.Where(s => Path.GetExtension(s.PathDisplay).Equals(DbContextBackup.Extension));
 
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // Creates a collection of ExistingDatabase instances by projecting the metadata objects and using their PathDisplay property.
         var existingDatabase = metadatas.Select(s => new ExistingDatabase(s.PathDisplay));
 
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // Creates an instance of SelectDatabaseFileContentPage, likely used to handle the selection of database file content.
         var selectDatabaseFileContentPage = new SelectDatabaseFileContentPage();
         selectDatabaseFileContentPage.ExistingDatabases.AddRange(existingDatabase);
 
@@ -391,6 +410,9 @@ public partial class MainPage
     private static async Task ImportFromLocalAsync(MainPage mainPage)
         {
             Log.Information("Starting to import the database from local storage");
+
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
+            // Defines a dictionary mapping each DevicePlatform to its associated collection of MIME types or UTIs for handling file types.
             var dictionary = new Dictionary<DevicePlatform, IEnumerable<string>>
             {
                 { DevicePlatform.iOS, ["public.database"] },
@@ -398,7 +420,10 @@ public partial class MainPage
                 { DevicePlatform.MacCatalyst, ["public.database"] }
             };
 
+            // ReSharper disable HeapView.ObjectAllocation.Evident
+            // Creates a new PickOptions instance to specify file picker options, including allowed FileTypes using the provided dictionary.
             var filePickerOption = new PickOptions { FileTypes = new FilePickerFileType(dictionary) };
+            // ReSharper restore HeapView.ObjectAllocation.Evident
 
             var result = await FilePicker.PickAsync(filePickerOption);
             if (result is null) return;
@@ -441,7 +466,10 @@ public partial class MainPage
 
     private async Task<List<ExistingDatabase>?> SelectDatabases()
     {
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // Instantiates a SelectDatabaseFileContentPage, likely representing a page for selecting database file content.
         var selectDatabaseFileContentPage = new SelectDatabaseFileContentPage();
+
         selectDatabaseFileContentPage.ExistingDatabases.AddRange(ExistingDatabases);
         await Navigation.PushAsync(selectDatabaseFileContentPage);
 
