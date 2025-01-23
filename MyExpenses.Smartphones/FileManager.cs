@@ -12,6 +12,10 @@ public static class FileManager
         var packageDirectory = Path.Join("Resources", "Maps");
         var storageDirectoryPath = Path.Join(FileSystem.AppDataDirectory, packageDirectory);
 
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // A static array of file names that are used exclusively in this method.
+        // This approach keeps things simple and efficient since the files are fixed
+        // and do not require any dynamic modifications or usage elsewhere.
         var files = new [] { "BlueMarker.svg", "GreenMarker.svg", "RedMarker.svg" };
         foreach (var file in files)
         {
