@@ -168,21 +168,28 @@ public partial class MainPage
         Log.Information("Starting to export database to {SelectedDialog}", selectedFolder);
 
         this.ShowCustomPopupActivityIndicator(MainPageResources.CustomPopupActivityIndicatorExportDatabaseToLocal);
-        var failedExistingDatabases = new List<ExistingDatabase>();
-        await Task.Run(async () =>
+
+        List<ExistingDatabase>? failedExistingDatabases = null;
+        foreach (var existingDatabase in existingDatabasesSelected)
         {
-            foreach (var existingDatabase in existingDatabasesSelected)
+            Log.Information("Starting to export {ExistingDatabaseFileName} to {SelectedDialog}", existingDatabase.FileNameWithoutExtension, selectedFolder);
+            var success = await existingDatabase.ToFolderAsync(selectedFolder, isCompress);
+            if (!success)
             {
-                Log.Information("Starting to export {ExistingDatabaseFileName}", existingDatabase.FileNameWithoutExtension);
-                var success = await existingDatabase.ToFolderAsync(selectedFolder, isCompress);
-                if (!success) failedExistingDatabases.Add(existingDatabase);
-                else Log.Information("Successfully exported {ExistingDatabaseFileName}", existingDatabase.FileNameWithoutExtension);
+                failedExistingDatabases ??= [];
+                failedExistingDatabases.Add(existingDatabase);
+                Log.Error("Failed to export {ExistingDatabaseFileName}", existingDatabase.FileNameWithoutExtension);
             }
-        });
+            else Log.Information("Successfully exported {ExistingDatabaseFileName}", existingDatabase.FileNameWithoutExtension);
+        }
+
         CustomPopupActivityIndicatorHelper.CloseCustomPopupActivityIndicator();
 
-        if (failedExistingDatabases.Count > 0) throw new Exception("Failed to export some databases");
-        Log.Information("Database successfully copied to local storage");
+        var maxFailedDatabase = failedExistingDatabases?.Count ?? 0;
+        var rate = existingDatabasesSelected.Count - maxFailedDatabase;
+        Log.Information("Exporting database to {SelectedDialog} completed with {Rate}/{ExistingDatabasesSelectedCount}", selectedFolder, rate, existingDatabasesSelected.Count);
+
+        return failedExistingDatabases;
     }
 
     private async Task HandleButtonAddDataBase()
@@ -246,6 +253,7 @@ public partial class MainPage
         if (result is not true) return;
         if (selectDatabaseFileContentPage.ExistingDatabasesSelected.Count.Equals(0)) return;
 
+        List<ExistingDatabase>? errors = null;
         try
         {
             switch (saveLocation)
@@ -255,7 +263,7 @@ public partial class MainPage
                     break;
 
                 case SaveLocation.Folder:
-                    await ExportToLocalFolderAsync(selectDatabaseFileContentPage.ExistingDatabasesSelected, false);
+                    errors = await ExportToLocalFolderAsync(selectDatabaseFileContentPage.ExistingDatabasesSelected, false);
                     break;
 
 
@@ -270,7 +278,15 @@ public partial class MainPage
                     throw new ArgumentOutOfRangeException();
             }
 
-            await DisplayAlert(MainPageResources.MessageBoxExportDataBaseSuccessTitle, MainPageResources.MessageBoxExportDataBaseSuccessMessage, MainPageResources.MessageBoxExportDataBaseSuccessOkButton);
+            if (errors is {Count: > 0})
+            {
+                var message = string.Format(MainPageResources.MessageBoxExportDataBaseExportErrorSomeDatabaseMessage, Environment.NewLine, string.Join(", ", errors.Select(s => s.FileNameWithoutExtension)));
+                await DisplayAlert(
+                    MainPageResources.MessageBoxExportDataBaseExportErrorSomeDatabaseTitle,
+                    message,
+                    MainPageResources.MessageBoxExportDataBaseExportErrorSomeDatabaseOkButton);
+            }
+            else await DisplayAlert(MainPageResources.MessageBoxExportDataBaseSuccessTitle, MainPageResources.MessageBoxExportDataBaseSuccessMessage, MainPageResources.MessageBoxExportDataBaseSuccessOkButton);
         }
         catch (Exception exception)
         {

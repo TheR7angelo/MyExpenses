@@ -195,6 +195,33 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.MainPage {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The following databases could not be exported :{0}{1}.
+        /// </summary>
+        internal static string MessageBoxExportDataBaseExportErrorSomeDatabaseMessage {
+            get {
+                return ResourceManager.GetString("MessageBoxExportDataBaseExportErrorSomeDatabaseMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ok.
+        /// </summary>
+        internal static string MessageBoxExportDataBaseExportErrorSomeDatabaseOkButton {
+            get {
+                return ResourceManager.GetString("MessageBoxExportDataBaseExportErrorSomeDatabaseOkButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        internal static string MessageBoxExportDataBaseExportErrorSomeDatabaseTitle {
+            get {
+                return ResourceManager.GetString("MessageBoxExportDataBaseExportErrorSomeDatabaseTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Database backup operation was successful.
         /// </summary>
         internal static string MessageBoxExportDataBaseSuccessMessage {

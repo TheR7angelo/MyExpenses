@@ -116,4 +116,13 @@
     <data name="CustomPopupActivityIndicatorExportDatabaseToCloud" xml:space="preserve">
         <value>Exportation des bases de données sélectionnées vers le cloud</value>
     </data>
+    <data name="MessageBoxExportDataBaseExportErrorSomeDatabaseTitle" xml:space="preserve">
+        <value>Erreur</value>
+    </data>
+    <data name="MessageBoxExportDataBaseExportErrorSomeDatabaseOkButton" xml:space="preserve">
+        <value>Ok</value>
+    </data>
+    <data name="MessageBoxExportDataBaseExportErrorSomeDatabaseMessage" xml:space="preserve">
+        <value>Les bases de données suivantes n’ont pas pu être exportées :{0}{1}</value>
+    </data>
 </root>
