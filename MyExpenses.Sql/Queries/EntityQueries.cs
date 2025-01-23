@@ -60,35 +60,35 @@ public static class EntityQueries
             .Select(s => s.Date!.Value.Year)
             .Distinct();
 
-        query = sortOrder switch
-        {
-            SortOrder.Ascending => query.OrderBy(year => year),
-            SortOrder.Descending => query.OrderByDescending(year => year),
-            _ => query
-        };
+        query = query.ApplySortingToQuery(sortOrder);
 
         return query.AsEnumerable();
     }
 
     /// <summary>
-    /// Retrieves a distinct, ordered collection of years from bank transfer records
-    /// where the date field has a valid value.
+    /// Retrieves the distinct years from the bank transfer records that have a valid date,
+    /// optionally sorted by the specified sort order.
     /// </summary>
     /// <param name="context">
-    /// The database context used to query the bank transfer records.
+    /// The database context containing the bank transfer records.
+    /// </param>
+    /// <param name="sortOrder">
+    /// The sort order to apply to the list of years. The default is <see cref="SortOrder.None"/>.
     /// </param>
     /// <returns>
-    /// A collection of distinct integer values representing the years found in the
-    /// bank transfer records, ordered in descending order.
+    /// A collection of unique years extracted from the bank transfer dates.
     /// </returns>
-    public static IEnumerable<int> GetDistinctYearsFromBankTransfer(this DataBaseContext context)
+    public static IEnumerable<int> GetDistinctYearsFromBankTransfer(this DataBaseContext context,
+        SortOrder sortOrder = SortOrder.None)
     {
-        return context.TBankTransfers
+        var query = context.TBankTransfers
             .Where(s => s.Date.HasValue)
             .Select(s => s.Date!.Value.Year)
-            .Distinct()
-            .OrderByDescending(y => y)
-            .AsEnumerable();
+            .Distinct();
+
+        query = query.ApplySortingToQuery(sortOrder);
+
+        return query.AsEnumerable();
     }
 
     /// <summary>
@@ -334,5 +334,32 @@ public static class EntityQueries
         }
 
         return query.ToList();
+    }
+
+    /// <summary>
+    /// Applies the specified sort order to the given query.
+    /// </summary>
+    /// <typeparam name="T">
+    /// The type of the elements within the query.
+    /// </typeparam>
+    /// <param name="sortOrder">
+    /// The sorting order to be applied. It can be <see cref="SortOrder.Ascending"/>, <see cref="SortOrder.Descending"/>, or <see cref="SortOrder.None"/>.
+    /// </param>
+    /// <param name="query">
+    /// The query to which the sorting is to be applied.
+    /// </param>
+    /// <returns>
+    /// An <see cref="IQueryable{T}"/> representing the query with the applied sorting order.
+    /// If the sort order is <see cref="SortOrder.None"/>, the query is returned unmodified.
+    /// </returns>
+    private static IQueryable<T> ApplySortingToQuery<T>(this IQueryable<T> query, SortOrder sortOrder)
+    {
+        query = sortOrder switch
+        {
+            SortOrder.Ascending => query.OrderBy(year => year),
+            SortOrder.Descending => query.OrderByDescending(year => year),
+            _ => query
+        };
+        return query;
     }
 }

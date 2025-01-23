@@ -10,6 +10,7 @@ using MyExpenses.Models.Maui.CustomPopup;
 using MyExpenses.Models.Sql.Bases.Views;
 using MyExpenses.Models.Sql.Derivatives.Tables;
 using MyExpenses.Models.Sql.Derivatives.Views;
+using MyExpenses.Models.Sql.Queries;
 using MyExpenses.Smartphones.ContentPages.CustomPopups;
 using MyExpenses.Smartphones.PackIcons;
 using MyExpenses.Smartphones.Resources.Resx.ContentPages.BankTransferSummaryContentPage;
@@ -287,7 +288,7 @@ public partial class BankTransferSummaryContentPage
         using var context = new DataBaseContext();
         Years =
         [
-            ..context.GetDistinctYearsFromBankTransfer()
+            ..context.GetDistinctYearsFromBankTransfer(SortOrder.Descending)
                 .Select(s => s.ToString())
         ];
 

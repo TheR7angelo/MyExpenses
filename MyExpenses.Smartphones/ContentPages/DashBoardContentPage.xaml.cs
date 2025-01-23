@@ -13,6 +13,7 @@ using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Models.Sql.Bases.Views;
 using MyExpenses.Models.Sql.Derivatives.Tables;
 using MyExpenses.Models.Sql.Derivatives.Views;
+using MyExpenses.Models.Sql.Queries;
 using MyExpenses.Smartphones.ContentPages.CustomPopups;
 using MyExpenses.Smartphones.ContentPages.CustomPopups.CustomPopupActivityIndicator;
 using MyExpenses.Smartphones.PackIcons;
@@ -236,12 +237,7 @@ public partial class DashBoardContentPage
         using var context = new DataBaseContext();
         Years =
         [
-            ..context
-                .THistories
-                .Where(s => s.Date.HasValue)
-                .Select(s => s.Date!.Value.Year)
-                .Distinct()
-                .OrderByDescending(y => y)
+            ..context.GetDistinctYearsFromHistories(SortOrder.Descending)
                 .Select(y => y.ToString())
         ];
 
