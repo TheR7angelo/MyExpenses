@@ -234,6 +234,14 @@ public partial class DashBoardContentPage
         UpdateMonthLanguage();
 
         var (currentYear, currentMonth, _) = DateTime.Now;
+
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // The use of `using var context = new DataBaseContext();` is essential here because
+        // we need to interact with the database to retrieve the required data.
+        // The DataBaseContext instance provides access to execute SQL queries or LINQ
+        // operations on the database tables and views. Using the `using` statement ensures
+        // proper disposal of resources (like database connections) once the context is no
+        // longer needed, optimizing resource management and preventing potential memory leaks.
         using var context = new DataBaseContext();
         Years =
         [
@@ -285,6 +293,12 @@ public partial class DashBoardContentPage
     [SupportedOSPlatform("Windows")]
     private async Task HandleButtonImageViewAddRecordHistory()
     {
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // The instantiation of `DetailedRecordContentPage` with `IsNewHistory = true` is necessary
+        // to create a new page instance specifically configured for adding a new history record.
+        // This allows passing initial parameters or configurations to the page, ensuring that
+        // it behaves appropriately for the intended use case. The explicit allocation ensures
+        // the page is initialized correctly in an isolated and controlled way.
         var detailedRecordContentPage = new DetailedRecordContentPage { IsNewHistory = true };
         await Navigation.PushAsync(detailedRecordContentPage);
 
@@ -510,6 +524,11 @@ public partial class DashBoardContentPage
             .Select(s => mapper.Map<VCategoryDerive>(s))
             .ToList();
 
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // The instantiation of `CustomPopupFilterCategories` is crucial here because it creates a popup
+        // specifically designed to filter categories based on the derived category list (`vCategoryDerives`)
+        // and the previously applied filters (`VCategoryDerivesFilter`). This ensures the filtering logic
+        // and UI display are tailored to the current context, providing a dynamic and interactive user experience.
         var customPopupFilterCategories = new CustomPopupFilterCategories(vCategoryDerives, VCategoryDerivesFilter);
         await this.ShowPopupAsync(customPopupFilterCategories);
 
@@ -525,19 +544,37 @@ public partial class DashBoardContentPage
         const EFilter eFilter = EFilter.Checked;
 
         IEnumerable<BoolIsChecked> isCheckeds;
-        if (Filters.Count is 0) isCheckeds = VHistories.Select(s => new BoolIsChecked { BoolValue = (bool)s.IsPointed! });
+        if (Filters.Count is 0)
+        {
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
+            // The creation of a new `BoolIsChecked` object for each history entry is necessary to map
+            // the `IsPointed` property from `VHistories` into a format compatible with the filtering logic.
+            // This transformation ensures the data can be processed and displayed appropriately in
+            // filter-related components while maintaining a consistent structure.
+            isCheckeds = VHistories.Select(s => new BoolIsChecked { BoolValue = (bool)s.IsPointed! });
+        }
         else
         {
             var items = Filters.Last() == eFilter
                 ? OriginalVHistories.Last().AsEnumerable()
                 : VHistories.AsEnumerable();
 
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
+            // The mapping of `items` to a collection of `BoolIsChecked` objects is necessary to transform
+            // the `IsPointed` property into a format compatible with subsequent processing or UI logic.
+            // This ensures that each item's boolean state is encapsulated in a consistent structure for
+            // easier handling and display.
             isCheckeds = items.Select(s => new BoolIsChecked { BoolValue = (bool)s.IsPointed! });
         }
 
         isCheckeds = isCheckeds.Distinct();
         isCheckeds = isCheckeds.OrderBy(s => s.BoolValue);
 
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // The instantiation of `CustomPopupFilterChecked` is necessary to create a popup specifically
+        // designed to handle filtering based on the `isCheckeds` collection and the `HistoryChecked` logic.
+        // This ensures the popup is dynamically customized to reflect the current checked states and
+        // allows appropriate processing within the filtering workflow.
         var customPopupFilterChecked = new CustomPopupFilterChecked(isCheckeds, HistoryChecked);
         await this.ShowPopupAsync(customPopupFilterChecked);
 
@@ -553,19 +590,36 @@ public partial class DashBoardContentPage
         const EFilter eFilter = EFilter.Description;
 
         IEnumerable<StringIsChecked> historyDescription;
-        if (Filters.Count is 0) historyDescription = VHistories.Select(s => new StringIsChecked { StringValue = s.Description });
+        if (Filters.Count is 0)
+        {
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
+            // The transformation of `VHistories` into a collection of `StringIsChecked` objects is necessary
+            // to encapsulate each history's `Description` in a standardized format (`StringIsChecked`).
+            // This facilitates consistent handling, processing, and display of descriptions within the context
+            // of the application's workflow or UI components.
+            historyDescription = VHistories.Select(s => new StringIsChecked { StringValue = s.Description });
+        }
         else
         {
             var items = Filters.Last() == eFilter
                 ? OriginalVHistories.Last().AsEnumerable()
                 : VHistories.AsEnumerable();
 
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
+            // The mapping of `items` into `StringIsChecked` objects is essential to wrap each `Description`
+            // within a structured format (`StringIsChecked`). This ensures uniform processing and simplifies
+            // integration with filtering logic or UI components that rely on this standardized representation.
             historyDescription = items.Select(s => new StringIsChecked { StringValue = s.Description });
         }
 
         historyDescription = historyDescription.Distinct();
         historyDescription = historyDescription.OrderBy(s => s.StringValue);
 
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // The creation of `CustomPopupFilterDescriptions` is necessary to initialize a filter popup
+        // tailored to handle the `historyDescription` collection and the `HistoryDescriptions` logic.
+        // This ensures the popup is equipped to process and display descriptions effectively
+        // within the filtering mechanism.
         var customPopupFilterDescription = new CustomPopupFilterDescriptions(historyDescription, HistoryDescriptions);
         await this.ShowPopupAsync(customPopupFilterDescription);
 
@@ -634,8 +688,11 @@ public partial class DashBoardContentPage
             .Select(s => mapper.Map<TModePaymentDerive>(s))
             .ToList();
 
-        var customPopupFilterModePayment =
-            new CustomPopupFilterModePayments(tModePaymentDerives, ModePaymentDeriveFilter);
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // The initialization of `CustomPopupFilterModePayments` is crucial for creating a filter popup
+        // designed to manage the `tModePaymentDerives` collection and the `ModePaymentDeriveFilter` logic.
+        // This allows the popup to handle mode-of-payment data efficiently within the filtering process.
+        var customPopupFilterModePayment = new CustomPopupFilterModePayments(tModePaymentDerives, ModePaymentDeriveFilter);
         await this.ShowPopupAsync(customPopupFilterModePayment);
 
         FilterManagement(ModePaymentDeriveFilter, customPopupFilterModePayment, eFilter, svgPath);
@@ -678,6 +735,10 @@ public partial class DashBoardContentPage
             .Select(s => mapper.Map<TPlaceDerive>(s))
             .ToList();
 
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // The instantiation of `CustomPopupFilterPlaces` is vital for configuring a filter popup
+        // that processes the `placeDerives` collection and applies the `PlaceDeriveFilter` logic.
+        // This ensures effective filtering and management of place-related data within the application.
         var customPopupFilterPlaces = new CustomPopupFilterPlaces(placeDerives, PlaceDeriveFilter);
         await this.ShowPopupAsync(customPopupFilterPlaces);
 
@@ -693,19 +754,34 @@ public partial class DashBoardContentPage
         const EFilter eFilter = EFilter.Value;
 
         IEnumerable<DoubleIsChecked> historyValues;
-        if (Filters.Count is 0) historyValues = VHistories.Select(s => new DoubleIsChecked { DoubleValue = s.Value });
+        if (Filters.Count is 0)
+        {
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
+            // Transforming `VHistories` into `DoubleIsChecked` objects is essential for encapsulating each `Value`
+            // within a structured format (`DoubleIsChecked`). This provides consistency and simplifies processing
+            // or filtering of historical numeric data across the application's components.
+            historyValues = VHistories.Select(s => new DoubleIsChecked { DoubleValue = s.Value });
+        }
         else
         {
             var items = Filters.Last() == eFilter
                 ? OriginalVHistories.Last().AsEnumerable()
                 : VHistories.AsEnumerable();
 
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
+            // Transforming `VHistories` into `DoubleIsChecked` objects is essential for encapsulating each `Value`
+            // within a structured format (`DoubleIsChecked`). This provides consistency and simplifies processing
+            // or filtering of historical numeric data across the application's components.
             historyValues = items.Select(s => new DoubleIsChecked { DoubleValue = s.Value });
         }
 
         historyValues = historyValues.Distinct();
         historyValues = historyValues.OrderBy(s => s.DoubleValue);
 
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // The creation of `CustomPopupFilterDoubleValues` is key to setting up a filter popup
+        // capable of managing `historyValues` and applying the `HistoryValues` filtering logic.
+        // This ensures efficient handling and filtering of numeric data within the application.
         var customPopupFilterDoubleValues = new CustomPopupFilterDoubleValues(historyValues, HistoryValues);
         await this.ShowPopupAsync(customPopupFilterDoubleValues);
 
@@ -804,6 +880,10 @@ public partial class DashBoardContentPage
 
         if (obj is not VHistory vHistory) return;
 
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // The initialization of `DetailedRecordContentPage` with `CanBeDeleted` set to `true`
+        // allows for creating a detailed record page where records can be marked as deletable.
+        // This enables flexibility in managing record actions within the application's user interface.
         var detailedRecordContentPage = new DetailedRecordContentPage { CanBeDeleted = true };
         detailedRecordContentPage.SetHistory(vHistory.Id);
         await Navigation.PushAsync(detailedRecordContentPage);
@@ -891,6 +971,10 @@ public partial class DashBoardContentPage
     private int FilterAndSortHistoryRecords(string accountName, out List<VHistory> records,
         out TimeSpan elapsedTimeLoadingData)
     {
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // The initialization of a `Stopwatch` instance is crucial for accurately measuring
+        // the duration of operations or processes. This is useful for performance tracking
+        // and optimization within the application.
         var stopwatch = new Stopwatch();
         stopwatch.Start();
 
