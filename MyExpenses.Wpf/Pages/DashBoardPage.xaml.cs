@@ -10,6 +10,7 @@ using LiveChartsCore.SkiaSharpView.Painting;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Models.Sql.Bases.Views;
+using MyExpenses.Models.Sql.Queries;
 using MyExpenses.Models.Wpf.Charts;
 using MyExpenses.Sql.Context;
 using MyExpenses.Sql.Queries;
@@ -320,7 +321,7 @@ public partial class DashBoardPage
 
         Years =
         [
-            ..context.GetDistinctYearsFromHistories()
+            ..context.GetDistinctYearsFromHistories(SortOrder.Descending)
                 .Select(s => s.ToString())
         ];
 

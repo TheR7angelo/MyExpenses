@@ -38,22 +38,36 @@ public static class EntityQueries
     }
 
     /// <summary>
-    /// Retrieves the distinct years from the "t_history" table where the date field has a value.
+    /// Retrieves a collection of distinct years from the history entries in the database,
+    /// optionally sorted in the specified order.
     /// </summary>
     /// <param name="context">
-    /// The database context to query the "t_history" table for distinct years.
+    /// The database context containing the history data to query.
+    /// </param>
+    /// <param name="sortOrder">
+    /// The order in which the years should be sorted. Can be None, Ascending, or Descending.
+    /// Defaults to None.
     /// </param>
     /// <returns>
-    /// A collection of integer values representing distinct years ordered in descending order.
+    /// An enumerable collection of distinct years retrieved from the history entries
+    /// in the database.
     /// </returns>
-    public static IEnumerable<int> GetDistinctYearsFromHistories(this DataBaseContext context)
+    public static IEnumerable<int> GetDistinctYearsFromHistories(this DataBaseContext context,
+        SortOrder sortOrder = SortOrder.None)
     {
-        return context.THistories
+        var query = context.THistories
             .Where(s => s.Date.HasValue)
             .Select(s => s.Date!.Value.Year)
-            .Distinct()
-            .OrderByDescending(year => year)
-            .AsEnumerable();
+            .Distinct();
+
+        query = sortOrder switch
+        {
+            SortOrder.Ascending => query.OrderBy(year => year),
+            SortOrder.Descending => query.OrderByDescending(year => year),
+            _ => query
+        };
+
+        return query.AsEnumerable();
     }
 
     /// <summary>
