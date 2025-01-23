@@ -142,11 +142,21 @@ public class DataBaseContext : DbContext
     {
         var logDirectoryPath = Directory.CreateDirectory(Path.Join(DbContextBackup.OsBasePath, "log")).FullName;
 
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // Allocation of LoggerConfiguration is required here as we are initializing
+        // the logging system configuration. This allocation cannot be bypassed since
+        // it represents the primary object to configure logging parameters.
         var loggerConfiguration = new LoggerConfiguration();
         loggerConfiguration.SetLoggerConfigurationLevel(LogEventLevel);
         loggerConfiguration.SetWriteToOption(true, WriteToFileEfCore, logDirectoryPath);
 
         var logger = loggerConfiguration.CreateLogger();
+
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // Allocation is required for both the logger and the SerilogLoggerFactory
+        // as they are necessary to set up and return the logging factory instance.
+        // These allocations are unavoidable since the logger must be created from
+        // the logger configuration, and a factory is required for dependency injection.
         var serilogLoggerFactory = new SerilogLoggerFactory(logger);
         return serilogLoggerFactory;
     }
