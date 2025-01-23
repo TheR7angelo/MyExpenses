@@ -75,6 +75,7 @@ exclude:
       - MyExpenses.Wpf.Helper
       - MyExpenses.Wpf.Calc
       - MyExpenses.Benchmark
+      - Unit-Tests
 
 #include:
 #  - name: CheckDependencyLicenses
