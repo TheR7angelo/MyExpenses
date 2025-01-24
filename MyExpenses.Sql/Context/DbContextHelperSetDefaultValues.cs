@@ -49,7 +49,7 @@ public static class DbContextHelperSetDefaultValues
         // the application and avoiding issues related to missing or inconsistent values. The structure ensures robustness
         // and proper data integrity across various system components.
         var recursiveFrequencies = new List<TRecursiveFrequency>
-            {
+        {
             new()
             {
                 Frequency = DbContextHelperSetDefaultValuesResources.DefaultTRecursiveFrequencyDaily,
