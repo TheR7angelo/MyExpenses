@@ -2,6 +2,7 @@ using System.Reflection;
 using System.Windows;
 using Microsoft.EntityFrameworkCore;
 using MyExpenses.Models.Config.Interfaces;
+using MyExpenses.SharedUtils.GlobalInfos;
 using MyExpenses.Sql.Context;
 using MyExpenses.Wpf.Resources.Resx.UserControls.Helps.VersionControl;
 
@@ -107,7 +108,7 @@ public partial class VersionControl
 
     private void SetSqliteVersionValue()
     {
-        var dbPath = DbContextBackup.LocalFilePathDataBaseModel;
+        var dbPath = DatabaseInfos.LocalFilePathDataBaseModel;
         using var context = new DataBaseContext(dbPath);
 
         var command = context.Database.GetDbConnection().CreateCommand();
@@ -124,8 +125,7 @@ public partial class VersionControl
 
     private void SetDatabaseVersionValue()
     {
-        var dbPath = DbContextBackup.LocalFilePathDataBaseModel;
-        using var context = new DataBaseContext(dbPath);
+        using var context = new DataBaseContext(DatabaseInfos.LocalFilePathDataBaseModel);
         var version = context.TVersions.First();
 
         DatabaseVersionValue = $"{version.Version!.Major}.{version.Version!.Minor}.{version.Version!.Build}";

@@ -3,6 +3,7 @@ using System.Reflection;
 using MyExpenses.Models.IO.Sig.Interfaces;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.SharedUtils.Converters;
+using MyExpenses.SharedUtils.GlobalInfos;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils.Objects;
 using MyExpenses.Utils.Properties;
@@ -54,7 +55,7 @@ public static class ShapeReader
         // This usage is expected and unavoidable as each call represents a discrete transactional context.
         // The "using" statement ensures proper disposal of the context after use.
         // ReSharper disable once HeapView.ObjectAllocation.Evident
-        using var context = new DataBaseContext(DbContextBackup.LocalFilePathDataBaseModel);
+        using var context = new DataBaseContext(DatabaseInfos.LocalFilePathDataBaseModel);
         return context.TSpatialRefSys.FirstOrDefault(s => s.Proj4text.Equals(projectionString));
     }
 

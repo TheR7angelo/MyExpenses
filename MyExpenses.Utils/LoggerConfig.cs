@@ -1,5 +1,5 @@
 ﻿using MyExpenses.Models.Systems;
-using MyExpenses.Sql.Context;
+using MyExpenses.SharedUtils.GlobalInfos;
 using Serilog;
 using Serilog.Core;
 using Serilog.Events;
@@ -11,9 +11,6 @@ namespace MyExpenses.Utils;
 /// </summary>
 public static class LoggerConfig
 {
-    private static string LogDirectoryPath { get; }
-        = Directory.CreateDirectory(Path.Join(DbContextBackup.OsBasePath, "log")).FullName;
-
     /// <summary>
     /// Creates a logger configuration for the application.
     /// </summary>
@@ -21,7 +18,7 @@ public static class LoggerConfig
     public static Logger CreateConfig(LogEventLevel? logEventLevel)
     {
         var loggerConfiguration = new LoggerConfiguration();
-        loggerConfiguration.SetWriteToOption(true, true, LogDirectoryPath);
+        loggerConfiguration.SetWriteToOption(true, true, OsInfos.LogDirectoryPath);
         loggerConfiguration.SetLoggerConfigurationLevel(logEventLevel);
         var logger = loggerConfiguration.CreateLogger();
 
@@ -38,7 +35,7 @@ public static class LoggerConfig
         var today = DateTime.Now;
 
         var deletedCount = 0;
-        var files = Directory.GetFiles(LogDirectoryPath);
+        var files = Directory.GetFiles(OsInfos.LogDirectoryPath);
         foreach (var file in files)
         {
             var fileCreationTime = File.GetCreationTime(file);

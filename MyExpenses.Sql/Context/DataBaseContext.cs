@@ -5,6 +5,7 @@ using MyExpenses.Models.Sql.Bases.Views;
 using MyExpenses.Models.Sql.Bases.Views.Analysis;
 using MyExpenses.Models.Sql.Bases.Views.Exports;
 using MyExpenses.Models.Systems;
+using MyExpenses.SharedUtils.GlobalInfos;
 using Serilog;
 using Serilog.Events;
 using Serilog.Extensions.Logging;
@@ -140,15 +141,13 @@ public class DataBaseContext : DbContext
 
     private static SerilogLoggerFactory ConfigureLogging()
     {
-        var logDirectoryPath = Directory.CreateDirectory(Path.Join(DbContextBackup.OsBasePath, "log")).FullName;
-
         // ReSharper disable once HeapView.ObjectAllocation.Evident
         // Allocation of LoggerConfiguration is required here as we are initializing
         // the logging system configuration. This allocation cannot be bypassed since
         // it represents the primary object to configure logging parameters.
         var loggerConfiguration = new LoggerConfiguration();
         loggerConfiguration.SetLoggerConfigurationLevel(LogEventLevel);
-        loggerConfiguration.SetWriteToOption(true, WriteToFileEfCore, logDirectoryPath);
+        loggerConfiguration.SetWriteToOption(true, WriteToFileEfCore, OsInfos.LogDirectoryPath);
 
         var logger = loggerConfiguration.CreateLogger();
 

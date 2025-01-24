@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Media;
 using MaterialDesignThemes.Wpf;
 using MyExpenses.Models.Config.Interfaces;
+using MyExpenses.SharedUtils.GlobalInfos;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils;
 using MyExpenses.Utils.Systems;
@@ -69,7 +70,7 @@ public partial class App
         {
             var currentCurrentCulture = CultureInfo.CurrentUICulture.Name;
 
-            using var context = new DataBaseContext(DbContextBackup.LocalFilePathDataBaseModel);
+            using var context = new DataBaseContext(DatabaseInfos.LocalFilePathDataBaseModel);
 
             currentCultureIsSupported = context.TSupportedLanguages.Any(s => s.Code == currentCurrentCulture);
             cultureInfoCode = currentCultureIsSupported

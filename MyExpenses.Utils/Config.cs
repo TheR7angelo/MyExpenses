@@ -1,17 +1,15 @@
 using MyExpenses.Models.Config;
-using MyExpenses.Sql.Context;
+using MyExpenses.SharedUtils.GlobalInfos;
 
 namespace MyExpenses.Utils;
 
 public static class Config
 {
-    private static string ConfigurationFilePath { get; } = Path.Join(DbContextBackup.OsBasePath, "appsettings.json");
-    
     public static Configuration Configuration { get; private set; }
 
     static Config()
     {
-        if (File.Exists(ConfigurationFilePath))
+        if (File.Exists(OsInfos.ConfigurationFilePath))
         {
             Configuration = ReadConfiguration();
         }
@@ -30,7 +28,7 @@ public static class Config
     /// <returns>The Configuration object representing the configuration settings.</returns>
     private static Configuration ReadConfiguration()
     {
-        var json = File.ReadAllText(ConfigurationFilePath);
+        var json = File.ReadAllText(OsInfos.ConfigurationFilePath);
         var configuration = json.ToObject<Configuration>() ?? new Configuration();
         return configuration;
     }
@@ -42,6 +40,6 @@ public static class Config
     public static void WriteConfiguration(this Configuration configuration)
     {
         var json = configuration.ToJson();
-        File.WriteAllText(ConfigurationFilePath, json);
+        File.WriteAllText(OsInfos.ConfigurationFilePath, json);
     }
 }

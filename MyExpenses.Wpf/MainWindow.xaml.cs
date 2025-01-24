@@ -8,6 +8,7 @@ using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.IO;
 using MyExpenses.Models.WebApi.Authenticator;
 using MyExpenses.Models.Wpf.Save;
+using MyExpenses.SharedUtils.GlobalInfos;
 using MyExpenses.SharedUtils.Utils;
 using MyExpenses.Sql.Context;
 using MyExpenses.WebApi.Dropbox;
@@ -343,7 +344,7 @@ public partial class MainWindow
     {
         var dropboxService = await DropboxService.CreateAsync(ProjectSystem.Wpf);
         Log.Information("Starting to upload {FileName} to cloud storage", Path.GetFileName(database));
-        _ = await dropboxService.UploadFileAsync(database, DbContextBackup.CloudDirectoryBackupDatabase);
+        _ = await dropboxService.UploadFileAsync(database, DatabaseInfos.CloudDirectoryBackupDatabase);
         Log.Information("Successfully uploaded {FileName} to cloud storage", Path.GetFileName(database));
 
         // return fileMetadata;
@@ -393,7 +394,7 @@ public partial class MainWindow
             return;
         }
 
-        selectedDialog = Path.ChangeExtension(selectedDialog, DbContextBackup.Extension);
+        selectedDialog = Path.ChangeExtension(selectedDialog, DatabaseInfos.Extension);
         Log.Information("Starting to copy database to {SelectedDialog}", selectedDialog);
         await Task.Run(() => { File.Copy(database, selectedDialog, true); });
         Log.Information("Database successfully copied to local storage");

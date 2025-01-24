@@ -1,7 +1,7 @@
 using MyExpenses.Models.IO;
 using MyExpenses.Models.WebApi.Authenticator;
 using MyExpenses.Models.WebApi.DropBox;
-using MyExpenses.Sql.Context;
+using MyExpenses.SharedUtils.GlobalInfos;
 
 namespace MyExpenses.WebApi.Dropbox;
 
@@ -58,7 +58,7 @@ public static class DropboxServiceUtils
         if (!File.Exists(existingDatabase.FilePath)) return SyncStatus.UnSynchronized;
 
         var dropboxService = await DropboxService.CreateAsync(projectSystem);
-        var cloudDatabaseFiles = await dropboxService.ListFileAsync(DbContextBackup.CloudDirectoryBackupDatabase);
+        var cloudDatabaseFiles = await dropboxService.ListFileAsync(DatabaseInfos.CloudDirectoryBackupDatabase);
         var cloudDatabase = cloudDatabaseFiles.FirstOrDefault(s => s.Name.Equals(existingDatabase.FileInfo.Name));
         if (cloudDatabase is null) return SyncStatus.UnSynchronized;
 

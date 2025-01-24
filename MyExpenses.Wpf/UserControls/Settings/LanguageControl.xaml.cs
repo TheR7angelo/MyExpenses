@@ -2,6 +2,7 @@ using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Windows;
 using MyExpenses.Models.Config.Interfaces;
+using MyExpenses.SharedUtils.GlobalInfos;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils;
 using MyExpenses.Utils.Collection;
@@ -63,8 +64,7 @@ public partial class LanguageControl
     {
         CultureInfoSelected = CultureInfo.CurrentUICulture;
 
-        var localFilePathDataBaseModel = DbContextBackup.LocalFilePathDataBaseModel;
-        using var context = new DataBaseContext(localFilePathDataBaseModel);
+        using var context = new DataBaseContext(DatabaseInfos.LocalFilePathDataBaseModel);
         CultureInfoCodes = [..context.TSupportedLanguages.Select(s => s.Code)];
 
         var configuration = Config.Configuration;

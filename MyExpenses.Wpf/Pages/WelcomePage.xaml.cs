@@ -8,6 +8,7 @@ using MyExpenses.Models.IO;
 using MyExpenses.Models.WebApi.Authenticator;
 using MyExpenses.Models.WebApi.DropBox;
 using MyExpenses.Models.Wpf.Save;
+using MyExpenses.SharedUtils.GlobalInfos;
 using MyExpenses.SharedUtils.Utils;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils;
@@ -53,14 +54,14 @@ public partial class WelcomePage
         if (result is not true) return;
 
         var fileName = addDatabaseFileWindow.DatabaseFilename;
-        fileName = Path.ChangeExtension(fileName, ".sqlite");
-        var filePath = Path.Combine(DbContextBackup.LocalDirectoryDatabase, fileName);
+        fileName = Path.ChangeExtension(fileName, DatabaseInfos.Extension);
+        var filePath = Path.Combine(DatabaseInfos.LocalDirectoryDatabase, fileName);
 
         Log.Information("Create new database with name \"{FileName}\"", fileName);
 
         try
         {
-            File.Copy(DbContextBackup.LocalFilePathDataBaseModel, filePath, true);
+            File.Copy(DatabaseInfos.LocalFilePathDataBaseModel, filePath, true);
 
             using var context = new DataBaseContext(filePath);
             context.SetAllDefaultValues();
@@ -123,7 +124,7 @@ public partial class WelcomePage
         Log.Information("Preparing to delete the following files: {Files}", files);
 
         var dropboxService = await DropboxService.CreateAsync(ProjectSystem.Wpf);
-        _ = await dropboxService.DeleteFilesAsync(files, DbContextBackup.CloudDirectoryBackupDatabase);
+        _ = await dropboxService.DeleteFilesAsync(files, DatabaseInfos.CloudDirectoryBackupDatabase);
 
         Log.Information("Files successfully deleted from cloud");
     }
@@ -135,7 +136,7 @@ public partial class WelcomePage
         {
             File.Delete(database.FilePath);
 
-            var backupDirectory = Path.Join(DbContextBackup.LocalDirectoryBackupDatabase,
+            var backupDirectory = Path.Join(DatabaseInfos.LocalDirectoryBackupDatabase,
                 database.FileNameWithoutExtension);
             if (Directory.Exists(backupDirectory))
             {
@@ -152,7 +153,7 @@ public partial class WelcomePage
             Log.Information("Starting to upload {ExistingDatabaseFileName} to cloud storage",
                 existingDatabase.FileName);
             _ = await dropboxService.UploadFileAsync(existingDatabase.FilePath,
-                DbContextBackup.CloudDirectoryBackupDatabase);
+                DatabaseInfos.CloudDirectoryBackupDatabase);
             Log.Information("Successfully uploaded {ExistingDatabaseFileName} to cloud storage",
                 existingDatabase.FileName);
         }
@@ -163,7 +164,7 @@ public partial class WelcomePage
         var dropboxService = await DropboxService.CreateAsync(ProjectSystem.Wpf);
         Log.Information("Starting to upload {FileName} to cloud storage", existingDatabasesSelected.FileName);
         _ = await dropboxService.UploadFileAsync(existingDatabasesSelected.FilePath,
-            DbContextBackup.CloudDirectoryBackupDatabase);
+            DatabaseInfos.CloudDirectoryBackupDatabase);
         Log.Information("Successfully uploaded {FileName} to cloud storage", existingDatabasesSelected.FileName);
     }
 
@@ -390,7 +391,7 @@ public partial class WelcomePage
             return;
         }
 
-        selectedDialog = Path.ChangeExtension(selectedDialog, DbContextBackup.Extension);
+        selectedDialog = Path.ChangeExtension(selectedDialog, DatabaseInfos.Extension);
         var selectedFilePath = existingDatabasesSelected.FilePath;
         Log.Information("Starting to copy database to {SelectedDialog}", selectedDialog);
         await Task.Run(() => { File.Copy(selectedFilePath, selectedDialog, true); });
@@ -406,13 +407,13 @@ public partial class WelcomePage
     {
         Log.Information("Starting to import the database from cloud storage");
         var dropboxService = await DropboxService.CreateAsync(ProjectSystem.Wpf);
-        var metadatas = await dropboxService.ListFileAsync(DbContextBackup.CloudDirectoryBackupDatabase);
-        metadatas = metadatas.Where(s => Path.GetExtension(s.PathDisplay).Equals(DbContextBackup.Extension));
+        var metadatas = await dropboxService.ListFileAsync(DatabaseInfos.CloudDirectoryBackupDatabase);
+        metadatas = metadatas.Where(s => Path.GetExtension(s.PathDisplay).Equals(DatabaseInfos.Extension));
 
         var existingDatabases = metadatas.Select(s => new ExistingDatabase(s.PathDisplay)).ToList();
         foreach (var existingDatabase in existingDatabases)
         {
-            var filePath = Path.Join(DbContextBackup.LocalDirectoryDatabase, existingDatabase.FileName);
+            var filePath = Path.Join(DatabaseInfos.LocalDirectoryDatabase, existingDatabase.FileName);
             var localDatabase = new ExistingDatabase(filePath);
             existingDatabase.SyncStatus = await localDatabase.CheckStatus(ProjectSystem.Wpf);
         }
@@ -442,7 +443,7 @@ public partial class WelcomePage
         foreach (var file in files)
         {
             var fileName = Path.GetFileName(file);
-            var newFilePath = Path.Join(DbContextBackup.LocalDirectoryDatabase, fileName);
+            var newFilePath = Path.Join(DatabaseInfos.LocalDirectoryDatabase, fileName);
 
             var temp = await dropboxService.DownloadFileAsync(file);
             Log.Information("Downloading {FileName} from cloud storage", fileName);
@@ -466,7 +467,7 @@ public partial class WelcomePage
         await Parallel.ForEachAsync(files, (file, _) =>
         {
             var fileName = Path.GetFileName(file);
-            var newFilePath = Path.Join(DbContextBackup.LocalDirectoryDatabase, fileName);
+            var newFilePath = Path.Join(DatabaseInfos.LocalDirectoryDatabase, fileName);
 
             Log.Information("Copying {FileName} to local storage", fileName);
             File.Copy(file, newFilePath, true);
