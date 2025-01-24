@@ -135,6 +135,10 @@ public static class EntityQueries
         string[]? places = null,
         double[]? values = null, bool[]? pointed = null)
     {
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // Accessing the underlying data is only possible through the "DataBaseContext" object, which serves as the entry point
+        // to the database. This allocation is mandatory to perform any query or operation on the "VHistories" view, and
+        // without it, retrieving or filtering data would not be possible.
         using var context = new DataBaseContext();
         var query = context.VHistories
             .Where(s => s.Account == accountName);
@@ -318,6 +322,10 @@ public static class EntityQueries
     public static IEnumerable<VDetailTotalCategory> GetFilteredVDetailTotalCategories(this string accountName,
         int? month = null, int? year = null)
     {
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // Accessing the underlying data is only possible through the "DataBaseContext" object, which serves as the entry point
+        // to the database. This allocation is mandatory to perform any query or operation on the "VDetailTotalCategories" view, and
+        // without it, retrieving or filtering data would not be possible.
         using var context = new DataBaseContext();
 
         var query = context.VDetailTotalCategories
