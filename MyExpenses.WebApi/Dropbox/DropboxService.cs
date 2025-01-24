@@ -111,11 +111,25 @@ public class DropboxService
 
         using var dropboxClient = await GetDropboxClient();
 
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // The FileStream is mandatory here because it allows controlled and efficient access to the file,
+        // while respecting the need for asynchronous operations. The FileShare.ReadWrite mode ensures that
+        // the file can still be shared with other processes during the operation, avoiding access conflicts.
+        // This setup is particularly important when working with files that may be read or written to by
+        // other applications or parts of your code at the same time.
         await using var fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // The MemoryStream is necessary here to store the file content in memory,
+        // while ensuring that the file is not read from disk until it is needed.
         var byteArray = new byte[fileStream.Length];
+
         var content = new Memory<byte>(byteArray);
         _ = await fileStream.ReadAsync(content, CancellationToken.None).ConfigureAwait(false);
 
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // The MemoryStream is necessary here to store the file content in memory,
+        // while ensuring that the file is not read from disk until it is needed.
         using var memoryStream = new MemoryStream(byteArray);
 
         var dropboxFilePath = string.IsNullOrWhiteSpace(folder)
@@ -136,9 +150,11 @@ public class DropboxService
                 await RefreshAccessTokenAuthentication();
             }
 
+            // The DropboxClient is necessary here to interact with the Dropbox API.
             dropboxClient = httpClient is null
                 ? new DropboxClient(AccessTokenAuthentication.AccessToken)
                 : new DropboxClient(AccessTokenAuthentication.AccessToken, new DropboxClientConfig { HttpClient = httpClient });
+            // ReSharper restore HeapView.ObjectAllocation.Evident
 
             return dropboxClient;
         }
@@ -152,6 +168,11 @@ public class DropboxService
     private async Task RefreshAccessTokenAuthentication()
     {
         using var httpClient = Http.GetHttpClient();
+
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // The FormUrlEncodedContent is necessary here to create a request body for the POST request.
+        // The request body contains the necessary data to authenticate the application and refresh the access token.
+        // The request is sent to the Dropbox API to obtain a new access token.
         var requestData = new Dictionary<string, string>
         {
             { "grant_type", "refresh_token" },
@@ -160,7 +181,11 @@ public class DropboxService
             { "client_secret", DropboxKeys.AppSecret! }
         };
 
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // The requestContent is necessary here to send the request body to the Dropbox API.
+        // The request is sent to the Dropbox API to obtain a new access token.
         var requestContent = new FormUrlEncodedContent(requestData);
+
         var response = await httpClient.PostAsync("https://api.dropbox.com/oauth2/token", requestContent);
         var responseContent = await response.Content.ReadAsStringAsync();
 
@@ -178,7 +203,10 @@ public class DropboxService
 
     public static async Task<DropboxService> CreateAsync(ProjectSystem projectSystem)
     {
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // The DropboxService is necessary here to interact with the Dropbox API.
         var service = new DropboxService { ProjectSystem = projectSystem };
+
         await service.InitializeAsync(projectSystem);
         return service;
     }
@@ -227,7 +255,12 @@ public class DropboxService
         var resourceName = resources.First(s => s.Contains("DropboxKeys.json"));
 
         using var stream = assembly.GetManifestResourceStream(resourceName)!;
+
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // The StreamReader is necessary here to read the JSON file and convert it to a dictionary.
+        // The JSON file contains the necessary information to authenticate the application with Dropbox.
         using var reader = new StreamReader(stream);
+
         var jsonStr = reader.ReadToEnd();
 
         return jsonStr.ToObject<DropboxKeys>()!;
@@ -241,6 +274,10 @@ public class DropboxService
             : DropboxKeys.RedirectUri!;
 
         using var httpClient = Http.GetHttpClient();
+
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // The FormUrlEncodedContent is necessary here to create a request body for the POST request.
+        // The request body contains the necessary data to authenticate the application and obtain an access token.
         var requestData = new Dictionary<string, string>
         {
             { "code", tempToken },
@@ -251,7 +288,11 @@ public class DropboxService
             { "code_verifier", pkceData.CodeVerifier }
         };
 
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // The requestContent is necessary here to send the request body to the Dropbox API.
+        // The request is sent to the Dropbox API to obtain an access token.
         var requestContent = new FormUrlEncodedContent(requestData);
+
         var response = await httpClient.PostAsync("https://api.dropbox.com/oauth2/token", requestContent)
             .ConfigureAwait(false);
         var responseContent = await response.Content.ReadAsStringAsync();
