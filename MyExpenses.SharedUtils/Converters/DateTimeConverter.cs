@@ -11,8 +11,7 @@ public static class DateTimeConverter
         "yyyy-MM-dd HH:mm",
         "MM-dd-yyyy HH:mm",
         "yyyy-MM-dd HH:mm:ss.fff",
-        "yyyy-MM-dd HH:mm:ss",
-        "yyyyMMdd_HHmmss"
+        "yyyy-MM-dd HH:mm:ss"
     ];
 
     private static readonly System.Globalization.CultureInfo InvariantCulture =

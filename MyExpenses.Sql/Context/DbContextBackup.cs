@@ -104,7 +104,7 @@ public static class DbContextBackup
             var directory = Path.Join(DatabaseInfos.LocalDirectoryBackupDatabase, existingDatabase.FileNameWithoutExtension);
             Directory.CreateDirectory(directory);
 
-            var timestamp = DateTime.Now.ToString("yyyyMMdd_HHmmss");
+            var timestamp = DateTime.Now.ToString(DatabaseInfos.FormatDateTimeBackup);
             var extension = Path.GetExtension(existingDatabase.FilePath);
             var destinationFileName = Path.Join(directory, $"{existingDatabase.FileNameWithoutExtension}_{timestamp}{extension}");
             File.Copy(existingDatabase.FilePath, destinationFileName, true);

@@ -1,5 +1,5 @@
+using System.Globalization;
 using System.Text.RegularExpressions;
-using MyExpenses.SharedUtils.Converters;
 using MyExpenses.SharedUtils.GlobalInfos;
 
 namespace MyExpenses.SharedUtils.RegexUtils;
@@ -14,6 +14,9 @@ public static class FileNameExtractDateTime
         var regex = new Regex(pattern);
         var match = regex.Match(fileName);
 
-        return match.Success ? match.Value.ConvertFromString() : null;
+        if (!match.Success) return null;
+
+        var success = DateTime.TryParseExact(match.Value, DatabaseInfos.FormatDateTimeBackup, CultureInfo.InvariantCulture, DateTimeStyles.None, out var dateTime);
+        return success ? dateTime : null;
     }
 }

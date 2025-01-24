@@ -11,6 +11,8 @@ public static class DatabaseInfos
 
     public static string LocalFilePathDataBaseModel { get; }
 
+    public static string FormatDateTimeBackup => "yyyyMMdd_HHmmss";
+
     static DatabaseInfos()
     {
         LocalDirectoryDatabase = Path.Join(OsInfos.OsBasePath, "Databases");
