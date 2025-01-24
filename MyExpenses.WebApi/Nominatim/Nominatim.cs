@@ -21,6 +21,9 @@ public static class Nominatim
     {
         try
         {
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
+            // The allocation of the parameters list is necessary here to build the URL for the Nominatim API.
+            // This allocation is minimal and short-lived, limited to the scope of this operation, and does not significantly impact performance.
             var parameters = new List<string>
             {
                 $"reverse?format=json&lat={position.Y.ToString(CultureInfo.InvariantCulture)}&lon={position.X.ToString(CultureInfo.InvariantCulture)}"
@@ -50,7 +53,11 @@ public static class Nominatim
     {
         try
         {
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
+            // The allocation of the parameters list is necessary here to build the URL for the Nominatim API.
+            // This allocation is minimal and short-lived, limited to the scope of this operation, and does not significantly impact performance.
             var parameters = new List<string> { $"search?q={Http.ParseToUrlFormat(address)}&format=json" };
+
             if (addressDetails) parameters.Add("addressdetails=1");
             if (polygon) parameters.Add("polygon=1");
             if (polygonGeojson) parameters.Add("polygon_geojson=1");

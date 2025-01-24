@@ -150,6 +150,7 @@ public class DropboxService
                 await RefreshAccessTokenAuthentication();
             }
 
+            // ReSharper disable HeapView.ObjectAllocation.Evident
             // The DropboxClient is necessary here to interact with the Dropbox API.
             dropboxClient = httpClient is null
                 ? new DropboxClient(AccessTokenAuthentication.AccessToken)
