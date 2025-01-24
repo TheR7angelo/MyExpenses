@@ -67,7 +67,13 @@ public static class ObjectsExtensions
     {
         if (original is null) return original;
 
-        return InternalCopy(original, new Dictionary<object, object?>(new ReferenceEqualityComparer())) as T;
+        // ReSharper disable HeapView.ObjectAllocation.Evident
+        // A dictionary is intentionally created with a custom reference equality comparer.
+        var referenceEqualityComparer = new ReferenceEqualityComparer();
+        var dictionary = new Dictionary<object, object?>(referenceEqualityComparer);
+        // ReSharper restore HeapView.ObjectAllocation.Evident
+
+        return InternalCopy(original, dictionary) as T;
     }
 }
 
@@ -89,7 +95,10 @@ public static class ArrayExtensions
 {
     public static void ForEach(this Array array, Action<Array, int[]> action)
     {
-        if (array.LongLength == 0) return;
+        if (array.LongLength is 0) return;
+
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // An ArrayTraverse instance is intentionally created to walk through the array.
         var walker = new ArrayTraverse(array);
         do action(array, walker.Position);
         while (walker.Step());
@@ -103,12 +112,16 @@ internal class ArrayTraverse
 
     public ArrayTraverse(Array array)
     {
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // An array is initialized to store the maximum lengths for each rank of the multidimensional array.
         _maxLengths = new int[array.Rank];
         for (var i = 0; i < array.Rank; ++i)
         {
             _maxLengths[i] = array.GetLength(i) - 1;
         }
 
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // An array is initialized to track the current position for each rank of the multidimensional array.
         Position = new int[array.Rank];
     }
 
