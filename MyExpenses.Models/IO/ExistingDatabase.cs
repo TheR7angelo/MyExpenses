@@ -1,10 +1,15 @@
 using System.Security.Cryptography;
 using MyExpenses.Models.WebApi.DropBox;
+using MyExpenses.SharedUtils.GlobalInfos;
+using MyExpenses.SharedUtils.RegexUtils;
 
 namespace MyExpenses.Models.IO;
 
 public class ExistingDatabase
 {
+    public bool IsBackup { get; }
+    public DateTime? BackupDateTime { get; }
+
     /// <summary>
     /// Gets the full path of the database file.
     /// This property represents the location of the database file on the filesystem
@@ -53,6 +58,10 @@ public class ExistingDatabase
         FilePath = filePath;
         FileName = Path.GetFileName(filePath);
         FileNameWithoutExtension = Path.GetFileNameWithoutExtension(FilePath);
+
+        if (!filePath.StartsWith(DatabaseInfos.LocalDirectoryBackupDatabase)) return;
+        IsBackup = true;
+        BackupDateTime = FileName.ExtractDateTime();
     }
 
     /// <summary>
