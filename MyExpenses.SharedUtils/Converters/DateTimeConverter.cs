@@ -1,8 +1,8 @@
 ﻿namespace MyExpenses.SharedUtils.Converters;
 
-public class DateTimeConverter
+public static class DateTimeConverter
 {
-    private readonly string[] _supportedFormats =
+    private static readonly string[] SupportedFormats =
     [
         "dd/MM/yyyy HH:mm",
         "MM/dd/yyyy HH:mm",
@@ -11,7 +11,8 @@ public class DateTimeConverter
         "yyyy-MM-dd HH:mm",
         "MM-dd-yyyy HH:mm",
         "yyyy-MM-dd HH:mm:ss.fff",
-        "yyyy-MM-dd HH:mm:ss"
+        "yyyy-MM-dd HH:mm:ss",
+        "yyyyMMdd_HHmmss"
     ];
 
     private static readonly System.Globalization.CultureInfo InvariantCulture =
@@ -24,13 +25,13 @@ public class DateTimeConverter
     /// <returns>
     /// A nullable <see cref="DateTime"/> object if the conversion is successful; otherwise, <c>null</c>.
     /// </returns>
-    public DateTime? ConvertFromString(string? input)
+    public static DateTime? ConvertFromString(this string? input)
     {
         if (string.IsNullOrWhiteSpace(input)) return null;
 
         if (DateTime.TryParseExact(
                 input,
-                _supportedFormats,
+                SupportedFormats,
                 InvariantCulture,
                 System.Globalization.DateTimeStyles.None,
                 out var result))

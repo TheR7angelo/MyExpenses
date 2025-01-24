@@ -15,12 +15,6 @@ namespace MyExpenses.IO.Sig.Shp;
 
 public static class ShapeReader
 {
-    // Static readonly instance of DateTimeConverter initialized once.
-    // This allocation is intentional and optimal as it avoids repeated instantiations,
-    // ensuring a single shared instance for the entire lifetime of the application.
-    // ReSharper disable once HeapView.ObjectAllocation.Evident
-    private static readonly DateTimeConverter DateTimeConverterObject = new();
-
     /// <summary>
     /// Reads a shapefile from the specified file path and extracts the features and projection information.
     /// </summary>
@@ -172,7 +166,7 @@ public static class ShapeReader
                 str = str.Trim('*', ' ');
                 value = string.IsNullOrEmpty(str) ? null : str;
                 // ReSharper disable once HeapView.BoxingAllocation
-                var dateConvert = value is not null ? DateTimeConverterObject.ConvertFromString((string?)value) : value;
+                var dateConvert = value is not null ? ((string?)value).ConvertFromString() : value;
 
                 value = dateConvert ?? value;
             }
