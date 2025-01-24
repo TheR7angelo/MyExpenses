@@ -11,9 +11,8 @@ public static class HttpClientHandlerCustom
     public static HttpClient CreateHttpClientHandler()
     {
 #if __ANDROID__
-        // ReSharper disable HeapView.ObjectAllocation.Evident
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
         return new HttpClient(new HttpClientHandlerAndroid());
-        // ReSharper restore HeapView.ObjectAllocation.Evident
 #else
         // ReSharper disable once HeapView.ObjectAllocation.Evident
         return new HttpClient();
