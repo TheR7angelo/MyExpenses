@@ -1,4 +1,5 @@
 ﻿using Mapsui.Styles;
+using MyExpenses.SharedUtils.GlobalInfos;
 
 namespace MyExpenses.Utils.Maps;
 
@@ -18,15 +19,11 @@ public static class MapsuiStyleExtensions
     private static Offset Offset => new() { X = 0, Y = 222 };
     private static double Scale => 0.1;
 
-    private static readonly string IcoPath = Path.Join(AppContext.BaseDirectory, "Resources", "Assets", "Maps");
-
     private static SymbolStyle SetGreenMarkerStyle()
     {
-        var icon = Path.Join(IcoPath, "GreenMarker.svg");
-
         return new SymbolStyle
         {
-            ImageSource = icon,
+            ImageSource = MapsAssetsInfos.GreenMarkerFilePath,
             SymbolOffset = Offset,
             SymbolScale = Scale
         };
@@ -34,11 +31,9 @@ public static class MapsuiStyleExtensions
 
     private static SymbolStyle SetRedMarkerStyle()
     {
-        var icon = Path.Join(IcoPath, "RedMarker.svg");
-
         return new SymbolStyle
         {
-            ImageSource = icon,
+            ImageSource = MapsAssetsInfos.RedMarkerFilePath,
             SymbolOffset = Offset,
             SymbolScale = Scale
         };
@@ -46,11 +41,9 @@ public static class MapsuiStyleExtensions
 
     private static SymbolStyle SetBlueMarkerStyle()
     {
-        var icon = Path.Join(IcoPath, "BlueMarker.svg");
-
         return new SymbolStyle
         {
-            ImageSource = icon,
+            ImageSource = MapsAssetsInfos.BleuMarkerFilePath,
             SymbolOffset = Offset,
             SymbolScale = Scale
         };

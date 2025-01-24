@@ -2,6 +2,7 @@
 using MyExpenses.IO.Sig.GeoJson;
 using MyExpenses.IO.Sig.Kml;
 using MyExpenses.Models.IO;
+using MyExpenses.SharedUtils.GlobalInfos;
 using MyExpenses.Sql.Context;
 using Serilog;
 
@@ -92,12 +93,7 @@ public static class ExistingDatabaseToFolder
         var assetsDirectory = Path.Join(saveFolder, "Assets");
         Directory.CreateDirectory(assetsDirectory);
 
-        var mapsDirectory = Path.Join(resoucesDirectory, "Assets", "Maps");
-        var bleuMarkerFilePath = Path.Join(mapsDirectory, "BlueMarker.svg");
-        var greenMarkerFilePath = Path.Join(mapsDirectory, "GreenMarker.svg");
-        var redMarkerFilePath = Path.Join(mapsDirectory, "RedMarker.svg");
-
-        ReadOnlySpan<string> svgs = [bleuMarkerFilePath, greenMarkerFilePath, redMarkerFilePath];
+        ReadOnlySpan<string> svgs = [MapsAssetsInfos.BleuMarkerFilePath, MapsAssetsInfos.GreenMarkerFilePath, MapsAssetsInfos.RedMarkerFilePath];
         foreach (var svg in svgs)
         {
             var filename = Path.GetFileName(svg);
