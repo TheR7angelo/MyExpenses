@@ -16,10 +16,11 @@ public static class GroupExtensions
     /// <returns>A collection of CountryGroup objects representing the grouped places.</returns>
     public static IEnumerable<CountryGroup> GetGroups(this IEnumerable<TPlace> places)
     {
+        // ReSharper disable HeapView.ObjectAllocation.Evident
         var groupedPlacesByCountryCity = places
             .GroupBy(country => country.Country)
             .Select(country => new CountryGroup
-            {
+                {
                 Country = country.Key,
                 CityGroups = new ObservableCollection<CityGroup>(
                     country.GroupBy(s => s.City)
@@ -29,6 +30,8 @@ public static class GroupExtensions
                             Places = new ObservableCollection<TPlace>(city.ToList())
                         }).ToList())
             }).ToList();
+        // ReSharper restore HeapView.ObjectAllocation.Evident
+
         return groupedPlacesByCountryCity;
     }
 }

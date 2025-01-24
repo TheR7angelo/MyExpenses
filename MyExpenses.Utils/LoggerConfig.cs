@@ -17,7 +17,10 @@ public static class LoggerConfig
     /// <returns>A Logger object representing the configured logger.</returns>
     public static Logger CreateConfig(LogEventLevel? logEventLevel)
     {
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // The LoggerConfiguration instance is created here to configure and build the logger.
         var loggerConfiguration = new LoggerConfiguration();
+
         loggerConfiguration.SetWriteToOption(true, true, OsInfos.LogDirectoryPath);
         loggerConfiguration.SetLoggerConfigurationLevel(logEventLevel);
         var logger = loggerConfiguration.CreateLogger();

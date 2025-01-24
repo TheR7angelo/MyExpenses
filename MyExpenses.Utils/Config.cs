@@ -15,6 +15,8 @@ public static class Config
         }
         else
         {
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
+            // The Configuration instance is created here as it might be extended or configured further in the future.
             var configuration = new Configuration();
             configuration.WriteConfiguration();
 
@@ -29,6 +31,9 @@ public static class Config
     private static Configuration ReadConfiguration()
     {
         var json = File.ReadAllText(OsInfos.ConfigurationFilePath);
+
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // The Configuration instance is created here to ensure a valid object even if json deserialization fails.
         var configuration = json.ToObject<Configuration>() ?? new Configuration();
         return configuration;
     }

@@ -7,6 +7,9 @@ public static class CommandLineUtility
 {
     public static SSystems GetArguments(this string[] args)
     {
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // The parser is from the CommandLineParser library and needs to be instantiated here
+        // because each instance can have its own specific configuration.
         var parser = new Parser(settings => settings.CaseInsensitiveEnumValues = true);
 
         var result = new SSystems();
