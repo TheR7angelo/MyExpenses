@@ -43,8 +43,13 @@ public static class DbContextHelperSetDefaultValues
 
     private static void SetDefaultRecursiveFrequency(this DataBaseContext context)
     {
+        // ReSharper disable HeapView.ObjectAllocation.Evident
+        // All the allocations and default values set in this method are mandatory to ensure the database is initialized
+        // with consistent and predictable data. These defaults are essential for maintaining expected behavior within
+        // the application and avoiding issues related to missing or inconsistent values. The structure ensures robustness
+        // and proper data integrity across various system components.
         var recursiveFrequencies = new List<TRecursiveFrequency>
-        {
+            {
             new()
             {
                 Frequency = DbContextHelperSetDefaultValuesResources.DefaultTRecursiveFrequencyDaily,
@@ -86,12 +91,18 @@ public static class DbContextHelperSetDefaultValues
                 Description = DbContextHelperSetDefaultValuesResources.DefaultTRecursiveFrequencyYearlyDefinition
             }
         };
+        // ReSharper restore HeapView.ObjectAllocation.Evident
 
         context.TRecursiveFrequencies.AddRange(recursiveFrequencies);
     }
 
     private static void UpdateDefaultRecursiveFrequency(this DataBaseContext context)
     {
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // This method ensures that the default values for recursive frequencies are updated in the database.
+        // Each value, including its frequency and description, is mapped to an existing record to maintain consistency
+        // with the application's predefined default entries. These updates are essential to ensure proper functionality
+        // of features dependent on accurate and updated default values.
         var oldDefaultTRecursiveFrequency = new List<(string Frequency, string Description)>
         {
             (DbContextHelperSetDefaultValuesResources.DefaultTRecursiveFrequencyDaily,
@@ -122,6 +133,10 @@ public static class DbContextHelperSetDefaultValues
 
     private static void SetDefaultTPlace(this DataBaseContext context)
     {
+        // ReSharper disable once HeapView.ObjectAllocation.Evident// This method sets the default value for the "TPlace" table. The predefined value
+        // (e.g., a place named "Internet") is crucial for ensuring that the system has a consistent
+        // default entry that cannot be deleted. This allocation ensures the application behaves as expected,
+        // especially in scenarios where a default place is required.
         var place = new TPlace { Name = DbContextHelperSetDefaultValuesResources.DefaultTPlaceNameInternet, CanBeDeleted = false };
         context.TPlaces.Add(place);
     }
@@ -134,6 +149,11 @@ public static class DbContextHelperSetDefaultValues
 
     private static void SetDefaultTModePayment(this DataBaseContext context)
     {
+        // ReSharper disable HeapView.ObjectAllocation.Evident
+        // All the allocations and default values set in this method are mandatory to ensure the database is initialized
+        // with consistent and predictable data. These defaults are essential for maintaining expected behavior within
+        // the application and avoiding issues related to missing or inconsistent values. The structure ensures robustness
+        // and proper data integrity across various system components.
         var paymentModes = new List<TModePayment>
         {
             new() { Name = DbContextHelperSetDefaultValuesResources.DefaultTModePaymentNameBankCard, CanBeDeleted = false },
@@ -141,11 +161,18 @@ public static class DbContextHelperSetDefaultValues
             new() { Name = DbContextHelperSetDefaultValuesResources.DefaultTModePaymentNameBankDirectDebit, CanBeDeleted = false },
             new() { Name = DbContextHelperSetDefaultValuesResources.DefaultTModePaymentNameBankCheck, CanBeDeleted = false }
         };
+        // ReSharper restore HeapView.ObjectAllocation.Evident
+
         context.TModePayments.AddRange(paymentModes);
     }
 
     private static void UpdateDefaultTModePayment(this DataBaseContext context)
     {
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // This method updates the default values for the "TModePayment" table. Each predefined mode of payment
+        // (e.g., Bank Card, Bank Transfer, etc.) is essential for the system's correct operation. The update ensures
+        // that existing records are aligned with the application's predefined defaults, which guarantees consistency
+        // and avoids issues related to outdated or missing entries.
         var oldDefaultTModePayments = new List<string>
         {
             DbContextHelperSetDefaultValuesResources.DefaultTModePaymentNameBankCard,
@@ -163,7 +190,11 @@ public static class DbContextHelperSetDefaultValues
 
     private static void SetDefaultTColor(this DataBaseContext context)
     {
-        var blackList = new List<KnownColor>
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // This blacklist of colors contains system-related or non-user-friendly colors (e.g., "Control", "Desktop", "Transparent").
+        // These colors are excluded to ensure that only user-visible, aesthetic, and meaningful colors are used in the application.
+        // This restriction is crucial for maintaining a clean and consistent user interface experience.
+        var blackList = new[]
         {
             KnownColor.Control, KnownColor.Desktop, KnownColor.Highlight, KnownColor.Info, KnownColor.Menu,
             KnownColor.Transparent, KnownColor.Window, KnownColor.ActiveBorder, KnownColor.ActiveCaption,
@@ -175,10 +206,15 @@ public static class DbContextHelperSetDefaultValues
             KnownColor.ActiveCaptionText, KnownColor.ControlDarkDark, KnownColor.ControlLightLight,
             KnownColor.GradientActiveCaption, KnownColor.GradientInactiveCaption
         };
+
         var knownColors = Enum.GetValues<KnownColor>()
             .Where(s => !blackList.Contains(s))
             .OrderBy(s => s).AsEnumerable();
 
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // This list is initialized to store a collection of "TColor" objects. It serves as the foundation
+        // for managing or manipulating color entries within the application. This allocation is necessary
+        // to ensure that colors can be organized, processed, or used as required in subsequent operations.
         var colors = new List<TColor>();
         foreach (var knownColor in knownColors)
         {
@@ -186,6 +222,10 @@ public static class DbContextHelperSetDefaultValues
             var color = Color.FromKnownColor(knownColor);
             var hex = $"#{color.A:X2}{color.R:X2}{color.G:X2}{color.B:X2}";
 
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
+            // This code adds a new "TColor" object to the list with a specified name and hexadecimal color code.
+            // Each color entry is created dynamically and added to the collection to ensure that all required
+            // colors are systematically defined and available for use in the application.
             colors.Add(new TColor
             {
                 Name = name,
