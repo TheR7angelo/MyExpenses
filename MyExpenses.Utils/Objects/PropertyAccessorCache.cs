@@ -10,8 +10,12 @@ namespace MyExpenses.Utils.Objects;
 /// <typeparam name="T">The type of object for which the property setters are created.</typeparam>
 public static class PropertyAccessorCache<T>
 {
+    // ReSharper disable HeapView.ObjectAllocation.Evident
+    // Static dictionaries to cache property getter and setter delegates,
+    // enhancing performance by reducing repetitive reflection operations.
     private static readonly Dictionary<string, Func<T, object?>> GettersCache = new();
     private static readonly Dictionary<string, Action<T, object?>> SettersCache = new();
+    // ReSharper restore HeapView.ObjectAllocation.Evident
 
     /// <summary>
     /// Creates a property getter function for the given property of the type <typeparamref name="T"/>.

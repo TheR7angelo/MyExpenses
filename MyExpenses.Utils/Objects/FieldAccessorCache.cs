@@ -10,8 +10,12 @@ namespace MyExpenses.Utils.Objects;
 /// <typeparam name="T">The type of object for which the field getters and setters are created.</typeparam>
 public static class FieldAccessorCache<T>
 {
+    // ReSharper disable HeapView.ObjectAllocation.Evident
+    // Static dictionaries to cache field getter and setter delegates,
+    // optimizing reflection for improved performance and reuse.
     private static readonly Dictionary<string, Func<T, object?>> FieldGettersCache = new();
     private static readonly Dictionary<string, Action<T, object?>> FieldSettersCache = new();
+    // ReSharper restore HeapView.ObjectAllocation.Evident
 
     /// <summary>
     /// Creates a field getter function for the given field of the type <typeparamref name="T"/>.
