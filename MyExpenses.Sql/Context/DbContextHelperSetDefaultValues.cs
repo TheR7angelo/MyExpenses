@@ -133,7 +133,8 @@ public static class DbContextHelperSetDefaultValues
 
     private static void SetDefaultTPlace(this DataBaseContext context)
     {
-        // ReSharper disable once HeapView.ObjectAllocation.Evident// This method sets the default value for the "TPlace" table. The predefined value
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // This method sets the default value for the "TPlace" table. The predefined value
         // (e.g., a place named "Internet") is crucial for ensuring that the system has a consistent
         // default entry that cannot be deleted. This allocation ensures the application behaves as expected,
         // especially in scenarios where a default place is required.
