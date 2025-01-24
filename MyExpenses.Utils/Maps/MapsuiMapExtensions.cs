@@ -18,13 +18,21 @@ public static class MapsuiMapExtensions
 {
     public static IEnumerable<KnownTileSource> GetAllKnowTileSource()
     {
-        var blackList = new List<KnownTileSource>
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // Memory allocation is currently required due to limitations with Span<T> and lambda capturing.
+        // Span<T> cannot be captured in a lambda or delegate because it is a byref-like type and
+        // cannot live beyond the scope of the current stack frame.
+        // Once the lambda usage is refactored or removed, this array can be replaced with Span<T>
+        // or ReadOnlySpan<T> to avoid heap allocation and optimize memory usage.
+        var blackList = new []
         {
             KnownTileSource.OpenCycleMap, KnownTileSource.OpenCycleMapTransport,
-            KnownTileSource.StamenToner, KnownTileSource.StamenTonerLite, KnownTileSource.StamenWatercolor, KnownTileSource.StamenTerrain,
-            KnownTileSource.EsriWorldReferenceOverlay, KnownTileSource.EsriWorldBoundariesAndPlaces,
-            KnownTileSource.HereHybrid, KnownTileSource.HereTerrain
+            KnownTileSource.StamenToner, KnownTileSource.StamenTonerLite, KnownTileSource.StamenWatercolor,
+            KnownTileSource.StamenTerrain, KnownTileSource.EsriWorldReferenceOverlay,
+            KnownTileSource.EsriWorldBoundariesAndPlaces, KnownTileSource.HereHybrid,
+            KnownTileSource.HereTerrain
         };
+
         var knownTileSources = Enum.GetValues<KnownTileSource>().Where(s => !blackList.Contains(s)).ToList();
         return knownTileSources;
     }
