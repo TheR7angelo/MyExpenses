@@ -12,10 +12,8 @@ public static class StringsExtensions
     /// <returns>A boolean indicating if the conversion was successful.</returns>
     public static bool ToDouble(this string input, out double? output)
     {
-        var separators = new[] { ',' };
-        input = separators.Aggregate(input, (current, separator) => current.Replace(separator, '.'));
-
-        var success = double.TryParse(input, NumberStyles.Any, CultureInfo.InvariantCulture,  out var result);
+        input = input.Replace(',', '.');
+        var success = double.TryParse(input, NumberStyles.Any, CultureInfo.InvariantCulture, out var result);
         output = success ? result : null;
 
         return success;
