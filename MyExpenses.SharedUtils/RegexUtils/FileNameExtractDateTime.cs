@@ -11,7 +11,10 @@ public static class FileNameExtractDateTime
         if (File.Exists(fileName)) fileName = Path.GetFileNameWithoutExtension(fileName);
 
         var pattern = $@"(?<=_)\d{{8}}_\d{{6}}(?={DatabaseInfos.Extension})";
-        var regex = new Regex(pattern);
+
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // This Regex instance is intentionally created with a dynamic pattern.
+        var regex = new Regex(pattern, RegexOptions.Compiled);
         var match = regex.Match(fileName);
 
         if (!match.Success) return null;
