@@ -9,7 +9,15 @@ public static class ContainsIncorrectCharFileName
             : filePath;
 
         if (fileName.StartsWith('.')) return true;
-        var charsIncorrects = new[] { '/', '\\', '?', '%', '*', ':', '|', '"', '<', '>', '\0' };
-        return charsIncorrects.Any(fileName.Contains);
+
+        ReadOnlySpan<char> charsIncorrects = ['/', '\\', '?', '%', '*', ':', '|', '"', '<', '>', '\0'];
+
+        foreach (var c in fileName)
+        {
+            if (charsIncorrects.Contains(c)) return true;
+        }
+
+        return false;
+
     }
 }
