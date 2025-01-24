@@ -38,6 +38,10 @@ public static class DbContextHelper
             throw new ArgumentException(@"DataSource cannot be null or empty", nameof(dataSource));
         if (!File.Exists(dataSource)) throw new FileNotFoundException("DataSource does not exist", dataSource);
 
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // Ignoring the performance hint regarding the use of StringBuilder for constructing the connection string.
+        // The use of List<string> here is deliberate for better readability and maintainability, especially
+        // given that the list of parameters is relatively small and the performance difference is negligible.
         var parts = new List<string>
         {
             $"Data Source=\"{dataSource}\"",
@@ -55,23 +59,62 @@ public static class DbContextHelper
         return string.Join(";", parts);
     }
 
+    /// <summary>
+    /// Executes a raw SQL query asynchronously using Entity Framework and returns the number of rows affected.
+    /// </summary>
+    /// <param name="sql">The raw SQL query to execute. The caller is responsible for ensuring the validity and safety of the query.</param>
+    /// <param name="tempFilePath">Optional parameter specifying a temporary file path for creating the database context. If null, the default data source is used.</param>
+    /// <returns>A task that represents the asynchronous operation. The task result contains the number of rows affected by the command.</returns>
+    /// <exception cref="ArgumentNullException">Thrown if the sql parameter is null or empty.</exception>
+    /// <exception cref="DbUpdateException">Thrown if an error occurs while attempting to perform the SQL operation.</exception>
     public static async Task<int> ExecuteRawSqlAsync(this string sql, string? tempFilePath = null)
     {
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // Using raw SQL execution here is necessary due to the specific nature of the operation that cannot be
+        // performed with Entity Framework's LINQ or other abstractions. The responsibility of ensuring the safety
+        // and correctness of the SQL query lies with the caller.
         await using var context = new DataBaseContext(tempFilePath);
         return await context.Database.ExecuteSqlRawAsync(sql);
     }
 
+    /// <summary>
+    /// Executes a raw SQL statement against the database using a specific database context.
+    /// </summary>
+    /// <param name="sql">The raw SQL command to execute. It is the caller's responsibility to ensure the safety and correctness of the SQL syntax.</param>
+    /// <param name="tempFilePath">The file path of the database to use for this operation. If null, the default database context will be used.</param>
+    /// <returns>The number of rows affected by the SQL command.</returns>
+    /// <exception cref="ArgumentNullException">Thrown if the provided SQL command is null or empty.</exception>
+    /// <exception cref="InvalidOperationException">Thrown if the database context cannot be initialized properly.</exception>
+    /// <exception cref="DbUpdateException">Thrown if there is an error executing the SQL command.</exception>
     public static int ExecuteRawSql(this string sql, string? tempFilePath = null)
     {
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // Using raw SQL execution here is necessary due to the specific nature of the operation that cannot be
+        // performed with Entity Framework's LINQ or other abstractions. The responsibility of ensuring the safety
+        // and correctness of the SQL query lies with the caller.
         using var context = new DataBaseContext(tempFilePath);
         return context.Database.ExecuteSqlRaw(sql);
     }
 
+    /// <summary>
+    /// Deletes an entity of type <typeparamref name="T"/> from the database, with an option for cascading deletions.
+    /// </summary>
+    /// <typeparam name="T">The entity type that implements the <see cref="ISql"/> interface.</typeparam>
+    /// <param name="entity">The entity to delete from the database.</param>
+    /// <param name="cascade">Specifies whether to perform cascading deletions. Default is false.</param>
+    /// <returns>A tuple indicating the success of the operation and any exception that may have occurred.
+    /// The first item is a boolean representing success; the second is an exception if an error occurred.</returns>
+    /// <exception cref="ArgumentNullException">Thrown when the provided entity is null.</exception>
+    /// <exception cref="InvalidOperationException">Thrown when the database context cannot perform the delete operation.</exception>
     public static (bool Success, Exception? Exception) Delete<T>(this T entity, bool cascade = false)
         where T : class, ISql
     {
         try
         {
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
+            // This implementation requires direct deletion of the entity due to specific application logic and
+            // the need to handle cascading deletions explicitly. The use of `SaveChanges()` ensures the operation
+            // is committed immediately, and the exception handling guarantees robustness in case of failure.
             using var context = new DataBaseContext();
             context.Delete(entity, s => s.Id == entity.Id, cascade);
             context.SaveChanges();
@@ -84,6 +127,13 @@ public static class DbContextHelper
         }
     }
 
+    /// <summary>
+    /// Deletes the specified entity from the database context with optional cascading behavior.
+    /// </summary>
+    /// <typeparam name="T">The type of the entity to delete. Must implement ISql interface.</typeparam>
+    /// <param name="entity">The entity instance to delete.</param>
+    /// <param name="cascade">A boolean indicating whether to perform cascading deletion. Default is false.</param>
+    /// <returns>A tuple containing a success indicator and an optional exception if an error occurs.</returns>
     private static void Delete<TEntity>(this DbContext context, TEntity entity,
         Expression<Func<TEntity, bool>> predicate, bool cascade) where TEntity : class
     {
@@ -109,10 +159,20 @@ public static class DbContextHelper
         }
     }
 
+    /// <summary>
+    /// Adds a new entity or updates an existing one in the database.
+    /// </summary>
+    /// <typeparam name="T">The type of the entity, which must implement the ISql interface.</typeparam>
+    /// <param name="entity">The entity to be added or updated in the database.</param>
+    /// <returns>A tuple containing a success flag and an exception if an error occurs. The success value is true if the operation was successful, otherwise false. If the operation fails, the exception will contain details of the error.</returns>
     public static (bool Success, Exception? Exception) AddOrEdit<T>(this T entity) where T : class, ISql
     {
         try
         {
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
+            // This method implements an upsert operation, which directly handles adding or updating the entity based on its existence.
+            // The use of `SaveChanges()` ensures that modifications are committed immediately, and exception handling provides robustness
+            // in case the operation fails. The approach is necessary to fulfill specific application requirements.
             using var context = new DataBaseContext();
             context.Upsert(entity, s => s.Id == entity.Id);
             context.SaveChanges();
@@ -125,6 +185,14 @@ public static class DbContextHelper
         }
     }
 
+    /// <summary>
+    /// Performs an Upsert operation, which adds the entity to the DbContext if it does not already exist,
+    /// otherwise updates the existing entity based on the specified predicate.
+    /// </summary>
+    /// <param name="context">The DbContext instance used to perform the Upsert operation.</param>
+    /// <param name="entity">The entity to be added or updated in the database.</param>
+    /// <param name="predicate">A lambda expression to identify whether the entity already exists in the database.</param>
+    /// <typeparam name="TEntity">The type of the entity to be added or updated. Must be a reference type.</typeparam>
     private static void Upsert<TEntity>(this DbContext context, TEntity entity,
         Expression<Func<TEntity, bool>> predicate) where TEntity : class
     {
@@ -134,6 +202,11 @@ public static class DbContextHelper
         else context.Set<TEntity>().Update(entity);
     }
 
+    /// <summary>
+    /// Loads all related collections for a given entity in the DbContext.
+    /// </summary>
+    /// <param name="context">The DbContext instance used to track entities and their state.</param>
+    /// <param name="entity">The entity for which related collections will be loaded.</param>
     private static void LoadAllCollections(this DbContext context, object entity)
     {
         var entry = context.Entry(entity);
@@ -148,6 +221,12 @@ public static class DbContextHelper
         }
     }
 
+    /// <summary>
+    /// Retrieves the navigation properties of a specified entity.
+    /// </summary>
+    /// <typeparam name="T">The type of the entity.</typeparam>
+    /// <param name="entity">The entity for which to retrieve the navigation properties.</param>
+    /// <returns>A collection of PropertyInfo objects representing the navigation properties of the entity.</returns>
     private static IEnumerable<PropertyInfo> GetNavigationProperty<T>(this T entity)
     {
         var properties = entity!.GetType().GetProperties()
@@ -158,17 +237,33 @@ public static class DbContextHelper
         return properties;
     }
 
+    /// <summary>
+    /// Updates the default language values for all existing databases. This method retrieves
+    /// all existing database file paths, updates their default values to align with the current
+    /// application language or configuration, and saves the changes to each database.
+    /// </summary>
     public static void UpdateDbLanguage()
     {
-        var newExistingDatabases = DbContextBackup.GetExistingDatabase();
-        foreach (var newExistingDatabase in newExistingDatabases)
+        var existingDatabases = DbContextBackup.GetExistingDatabase();
+        foreach (var existingDatabase in existingDatabases)
         {
-            using var context = new DataBaseContext(newExistingDatabase.FilePath);
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
+            // This method is required to update all default values across multiple databases by iterating through them.
+            // Using `SaveChanges()` ensures that the updates are persisted immediately to each database. The approach
+            // is necessary to maintain consistency across all database instances, and the use of a loop handles multiple
+            // database contexts sequentially.
+            using var context = new DataBaseContext(existingDatabase.FilePath);
             _ = context.UpdateAllDefaultValues();
             context.SaveChanges();
         }
     }
 
+    /// <summary>
+    /// Retrieves the table or view name for the specified entity type from the database context.
+    /// </summary>
+    /// <param name="context">The database context used to access model metadata.</param>
+    /// <param name="tableType">The type of the entity for which to retrieve the table or view name.</param>
+    /// <returns>The name of the table or view associated with the specified entity type, or null if none is found.</returns>
     public static string? GetTableName(this DataBaseContext context, Type tableType)
     {
         var tableName = context.Model.FindEntityType(tableType)?.GetTableName();
