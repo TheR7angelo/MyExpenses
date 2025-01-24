@@ -46,6 +46,10 @@ public static class DbContextBackup
 
         var existingDatabases = Directory
             .GetFiles(localDirectoryBackupDatabase, $"*{DatabaseInfos.Extension}", SearchOption.TopDirectoryOnly)
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
+            // Suppressing the hint: In this specific case, using an array instead of a List<T> is intentional.
+            // The number of files is very small (typically less than 15), and the collection is fixed and will not be resized or modified.
+            // Using an array here avoids unnecessary overhead and keeps memory allocations minimal.
             .Select(s => new ExistingDatabase(s)).ToArray();
 
         return existingDatabases;
@@ -69,6 +73,10 @@ public static class DbContextBackup
             var files = Directory.GetFiles(directory, $"*{DatabaseInfos.Extension}").ToList();
             if (files.Count <= maxDatabaseBackup) continue;
 
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
+            // Suppressing the hint: The number of files is very small (a maximum of 17 files due to the limit of 15 backups per database)
+            // Using ToList() here is acceptable since the overhead is minimal for such a small collection size
+            // This approach ensures the files are ordered by their creation time for further processing.
             files = files.OrderBy(s => new FileInfo(s).CreationTime).ToList();
             while (files.Count >= maxDatabaseBackup)
             {
