@@ -22,15 +22,16 @@ public class DropboxService
         DropboxKeys = GetDropboxKeys();
     }
 
-    public async Task<List<DeleteResult?>> DeleteFilesAsync(string[] filePaths, string? folder = null)
+    /// <summary>
+    /// Deletes multiple files from a specified folder in Dropbox.
+    /// </summary>
+    /// <param name="filePaths">An array of file paths to be deleted.</param>
+    /// <param name="folder">The folder in which the files reside. Default is null, which assumes the root folder or current context.</param>
+    /// <returns>An array of <see cref="DeleteResult"/> objects indicating the result of the delete operation for each file. Returns null if any file was not successfully handled.</returns>
+    public async Task<DeleteResult?[]> DeleteFilesAsync(string[] filePaths, string? folder = null)
     {
-        var results = new List<DeleteResult?>();
-
-        foreach (var filePath in filePaths)
-        {
-            var result = await DeleteFileAsync(filePath, folder);
-            results.Add(result);
-        }
+        var deleteTasks = filePaths.Select(filePath => DeleteFileAsync(filePath, folder));
+        var results = await Task.WhenAll(deleteTasks);
 
         return results;
     }
