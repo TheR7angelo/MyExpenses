@@ -97,10 +97,7 @@ public static class ExistingDatabaseToFolder
         var greenMarkerFilePath = Path.Join(mapsDirectory, "GreenMarker.svg");
         var redMarkerFilePath = Path.Join(mapsDirectory, "RedMarker.svg");
 
-        // ReSharper disable once HeapView.ObjectAllocation.Evident
-        // The array allocation here is necessary to store the file paths for further processing.
-        // This allocation is minimal and scoped to this method only, so it does not have any significant impact on performance.
-        var svgs = new[] { bleuMarkerFilePath, greenMarkerFilePath, redMarkerFilePath };
+        ReadOnlySpan<string> svgs = [bleuMarkerFilePath, greenMarkerFilePath, redMarkerFilePath];
         foreach (var svg in svgs)
         {
             var filename = Path.GetFileName(svg);
