@@ -40,8 +40,8 @@ public static class CsvReader
         };
 
         using var reader = new CsvHelper.CsvReader(streamReader, csvConfiguration);
-        // ReSharper restore HeapView.ObjectAllocation.Evident
 
+        // ReSharper restore HeapView.ObjectAllocation.Evident
         var records = reader.GetRecords<T>();
 
         return records.ToList();
