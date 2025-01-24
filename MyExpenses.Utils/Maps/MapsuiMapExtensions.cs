@@ -40,15 +40,21 @@ public static class MapsuiMapExtensions
     public static Map GetMap(bool widget, Color? backColor = null)
     {
         backColor ??= Color.Black;
+
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // Map initialization allocates memory for persistent objects like CRS and BackColor.
         var map = new Map { CRS = "EPSG:3857", BackColor = (Color)backColor };
         if (widget)
         {
+            // ReSharper disable HeapView.ObjectAllocation.Evident
+            // Widgets are added to the map using a heap-allocated List<IWidget> to ensure persistence and support MapsUI's dynamic behavior.
             map.Widgets.AddRange(new List<IWidget>
-            {
+                {
                 new MapInfoWidget(map, s => s is not TileLayer),
                 new ZoomInOutWidget(),
                 new ScaleBarWidget(map)
             });
+            // ReSharper restore HeapView.ObjectAllocation.Evident
         }
 
         return map;
@@ -57,6 +63,10 @@ public static class MapsuiMapExtensions
     public static TemporaryPointFeature ToTemporaryFeature(this TPlace place, SymbolStyle? symbolStyle = null)
     {
         var feature = place.ToSingleFeature(symbolStyle);
+
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // Memory allocation is necessary here as the method creates a new TemporaryPointFeature
+        // to encapsulate the generated SingleFeature with its associated style.
         return new TemporaryPointFeature(feature);
     }
 
@@ -72,8 +82,11 @@ public static class MapsuiMapExtensions
         var mapper = Mapping.Mapper;
         var feature = mapper.Map<PointFeature>(place);
 
+        // ReSharper disable HeapView.ObjectAllocation.Evident
+        // Allocates a List<IStyle> to define rendering styles for the feature,
+        // as required by MapsUI's design to handle visual representation dynamically.
         feature.Styles = new List<IStyle>
-        {
+            {
             new LabelStyle
             {
                 Text = place.Name, Offset = new Offset { X = 0, Y = 11 },
@@ -81,6 +94,8 @@ public static class MapsuiMapExtensions
                 Halo = new Pen { Color = Color.White, Width = 2 }
             }
         };
+        // ReSharper restore HeapView.ObjectAllocation.Evident
+
         if (symbolStyle is not null) feature.Styles.Add(symbolStyle);
 
         return feature;
