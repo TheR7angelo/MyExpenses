@@ -6,6 +6,7 @@ using MyExpenses.Maui.Utils.WebApi;
 using MyExpenses.Models.IO;
 using MyExpenses.Models.WebApi.Authenticator;
 using MyExpenses.Models.Wpf.Save;
+using MyExpenses.SharedUtils.GlobalInfos;
 using MyExpenses.Smartphones.AppShells;
 using MyExpenses.Smartphones.ContentPages;
 using MyExpenses.Smartphones.ContentPages.CustomPopups.CustomPopupActivityIndicator;
@@ -92,7 +93,7 @@ public partial class MainPage
         Log.Information("Preparing to delete the following files: {Files}", files);
 
         var dropboxService = await DropboxService.CreateAsync(ProjectSystem.Maui);
-        _ = await dropboxService.DeleteFilesAsync(files, DbContextBackup.CloudDirectoryBackupDatabase);
+        _ = await dropboxService.DeleteFilesAsync(files, DatabaseInfos.CloudDirectoryBackupDatabase);
 
         Log.Information("Files successfully deleted from Dropbox");
     }
@@ -103,7 +104,7 @@ public partial class MainPage
         {
             File.Delete(database.FilePath);
 
-            var backupDirectory = Path.Join(DbContextBackup.LocalDirectoryBackupDatabase, database.FileNameWithoutExtension);
+            var backupDirectory = Path.Join(DatabaseInfos.LocalDirectoryBackupDatabase, database.FileNameWithoutExtension);
             if (Directory.Exists(backupDirectory))
             {
                 Directory.Delete(backupDirectory, true);
@@ -129,7 +130,7 @@ public partial class MainPage
         foreach (var existingDatabase in existingDatabasesSelected)
         {
             Log.Information("Starting to upload {ExistingDatabaseFileName} to cloud storage", existingDatabase.FileName);
-            _ = await dropboxService.UploadFileAsync(existingDatabase.FilePath, DbContextBackup.CloudDirectoryBackupDatabase);
+            _ = await dropboxService.UploadFileAsync(existingDatabase.FilePath, DatabaseInfos.CloudDirectoryBackupDatabase);
             Log.Information("Successfully uploaded {ExistingDatabaseFileName} to cloud storage", existingDatabase.FileName);
         }
         CustomPopupActivityIndicatorHelper.CloseCustomPopupActivityIndicator();
@@ -212,13 +213,13 @@ public partial class MainPage
 
         var fileName = addDatabaseFileContentPage.DatabaseFilename;
         fileName = Path.ChangeExtension(fileName, ".sqlite");
-        var filePath = Path.Combine(DbContextBackup.LocalDirectoryDatabase, fileName);
+        var filePath = Path.Combine(DatabaseInfos.LocalDirectoryDatabase, fileName);
 
         Log.Information("Create new database with name \"{FileName}\"", fileName);
 
         try
         {
-            File.Copy(DbContextBackup.LocalFilePathDataBaseModel, filePath, true);
+            File.Copy(DatabaseInfos.LocalFilePathDataBaseModel, filePath, true);
 
 
             // ReSharper disable once HeapView.ObjectAllocation.Evident
@@ -368,8 +369,8 @@ public partial class MainPage
     {
         Log.Information("Starting to import the database from cloud storage");
         var dropboxService = await DropboxService.CreateAsync(ProjectSystem.Maui);
-        var metadatas = await dropboxService.ListFileAsync(DbContextBackup.CloudDirectoryBackupDatabase);
-        metadatas = metadatas.Where(s => Path.GetExtension(s.PathDisplay).Equals(DbContextBackup.Extension));
+        var metadatas = await dropboxService.ListFileAsync(DatabaseInfos.CloudDirectoryBackupDatabase);
+        metadatas = metadatas.Where(s => Path.GetExtension(s.PathDisplay).Equals(DatabaseInfos.Extension));
 
         // ReSharper disable once HeapView.ObjectAllocation.Evident
         // Creates a collection of ExistingDatabase instances by projecting the metadata objects and using their PathDisplay property.
@@ -396,7 +397,7 @@ public partial class MainPage
         foreach (var file in files)
         {
             var fileName = Path.GetFileName(file);
-            var newFilePath = Path.Join(DbContextBackup.LocalDirectoryDatabase, fileName);
+            var newFilePath = Path.Join(DatabaseInfos.LocalDirectoryDatabase, fileName);
 
             var fileTemp = Path.Join(AppContext.BaseDirectory, "temp.sqlite");
 
@@ -432,7 +433,7 @@ public partial class MainPage
             var filePath = result.FullPath;
 
             var fileName = Path.GetFileName(filePath);
-            var newFilePath = Path.Join(DbContextBackup.LocalDirectoryDatabase, fileName);
+            var newFilePath = Path.Join(DatabaseInfos.LocalDirectoryDatabase, fileName);
 
             Log.Information("Copying {FileName} to local storage", fileName);
             File.Copy(filePath, newFilePath, true);

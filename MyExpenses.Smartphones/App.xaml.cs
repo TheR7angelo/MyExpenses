@@ -2,6 +2,7 @@
 using System.Reflection;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.IO.Smartphones;
+using MyExpenses.SharedUtils.GlobalInfos;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils;
 using Serilog;
@@ -74,7 +75,7 @@ public partial class App
             // A new instance of DataBaseContext is created using the specified database file path.
             // The "using" statement ensures that the database context is properly disposed of
             // after use, releasing any resources it holds and maintaining efficient resource management.
-            using var context = new DataBaseContext(DbContextBackup.LocalFilePathDataBaseModel);
+            using var context = new DataBaseContext(DatabaseInfos.LocalFilePathDataBaseModel);
 
             currentCultureIsSupported = context.TSupportedLanguages.Any(s => s.Code == currentCurrentCulture);
             cultureInfoCode = currentCultureIsSupported
@@ -137,13 +138,11 @@ public partial class App
 
     private void SetInitialFile()
     {
-        var jsonFile = Path.Join(DbContextBackup.OsBasePath, "AppVersionInfo.json");
-
         var currentVersion = Assembly.GetExecutingAssembly().GetName().Version;
         var needUpdateFiles = false;
-        if (File.Exists(jsonFile))
+        if (File.Exists(OsInfos.AppVersionInfo))
         {
-            var appVersionInfo = jsonFile.ToObject<AppVersionInfo>()!;
+            var appVersionInfo = OsInfos.AppVersionInfo.ToObject<AppVersionInfo>()!;
             if (currentVersion > appVersionInfo.Version)
             {
                 needUpdateFiles = true;
@@ -161,7 +160,7 @@ public partial class App
                 LastUpdated = DateTime.Now
             };
             var json = appVersionInfo.ToJson();
-            File.WriteAllText(jsonFile, json);
+            File.WriteAllText(OsInfos.AppVersionInfo, json);
 
             needUpdateFiles = true;
         }
