@@ -26,6 +26,11 @@ public static class DbContextBackup
         LocalFilePathDataBaseModel = Path.Join(OsBasePath, "Database Models", "Model.sqlite");
     }
 
+    /// <summary>
+    /// Retrieves all existing database files from the local database directory.
+    /// Searches for database files with the specified extension within the top directory only.
+    /// </summary>
+    /// <returns>An array of ExistingDatabase objects representing the database files found.</returns>
     public static ExistingDatabase[] GetExistingDatabase()
     {
         var existingDatabases = Directory
@@ -35,6 +40,11 @@ public static class DbContextBackup
         return existingDatabases;
     }
 
+    /// <summary>
+    /// Retrieves all existing backup database files from the local backup directory, including those in subdirectories.
+    /// Ensures the backup directory exists before searching for files.
+    /// </summary>
+    /// <returns>An array of ExistingDatabase objects representing the backup database files found.</returns>
     public static ExistingDatabase[] GetExistingBackupDatabase()
     {
         Directory.CreateDirectory(LocalDirectoryBackupDatabase);
@@ -46,6 +56,12 @@ public static class DbContextBackup
         return existingDatabases;
     }
 
+    /// <summary>
+    /// Cleans up backup files in the local database backup directory by ensuring the total number of backups per database does not exceed the specified maximum.
+    /// Older backup files are deleted until the limit is met.
+    /// </summary>
+    /// <param name="maxDatabaseBackup">The maximum allowed backups per database in the local backup directory.</param>
+    /// <returns>The total number of backup files deleted.</returns>
     public static int CleanBackupDatabase(int maxDatabaseBackup)
     {
         var totalDelete = 0;
@@ -70,6 +86,12 @@ public static class DbContextBackup
         return totalDelete;
     }
 
+    /// <summary>
+    /// Backs up existing databases to a defined local directory.
+    /// Creates a backup directory for each database and saves the files with a timestamp.
+    /// Only databases with valid file paths and existing files will be backed up.
+    /// </summary>
+    /// <returns>The total number of databases successfully backed up.</returns>
     public static int BackupDatabase()
     {
         var existingDatabases = GetExistingDatabase();
