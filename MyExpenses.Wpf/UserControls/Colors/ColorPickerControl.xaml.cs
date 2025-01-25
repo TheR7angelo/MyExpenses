@@ -31,6 +31,7 @@ public sealed partial class ColorPickerControl
         DependencyProperty.Register(nameof(RedSliderBorderThickness), typeof(Thickness), typeof(ColorPickerControl),
             new PropertyMetadata(default(Thickness)));
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty RedSliderBorderBrushProperty =
         DependencyProperty.Register(nameof(RedSliderBorderBrush), typeof(Brush), typeof(ColorPickerControl),
             new PropertyMetadata(default(Brush)));
@@ -54,6 +55,7 @@ public sealed partial class ColorPickerControl
         DependencyProperty.Register(nameof(GreenSliderBorderThickness), typeof(Thickness), typeof(ColorPickerControl),
             new PropertyMetadata(default(Thickness)));
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty GreenSliderBorderBrushProperty =
         DependencyProperty.Register(nameof(GreenSliderBorderBrush), typeof(Brush), typeof(ColorPickerControl),
             new PropertyMetadata(default(Brush)));
@@ -77,6 +79,7 @@ public sealed partial class ColorPickerControl
         DependencyProperty.Register(nameof(BlueSliderBorderThickness), typeof(Thickness), typeof(ColorPickerControl),
             new PropertyMetadata(default(Thickness)));
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty BlueSliderBorderBrushProperty =
         DependencyProperty.Register(nameof(BlueSliderBorderBrush), typeof(Brush), typeof(ColorPickerControl),
             new PropertyMetadata(default(Brush)));
@@ -100,6 +103,7 @@ public sealed partial class ColorPickerControl
         DependencyProperty.Register(nameof(HueSliderBorderThickness), typeof(Thickness), typeof(ColorPickerControl),
             new PropertyMetadata(default(Thickness)));
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty HueSliderBorderBrushProperty =
         DependencyProperty.Register(nameof(HueSliderBorderBrush), typeof(Brush), typeof(ColorPickerControl),
             new PropertyMetadata(default(Brush)));
@@ -168,6 +172,7 @@ public sealed partial class ColorPickerControl
         DependencyProperty.Register(nameof(AlphaSliderBorderThickness), typeof(Thickness), typeof(ColorPickerControl),
             new PropertyMetadata(default(Thickness)));
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty AlphaSliderBorderBrushProperty =
         DependencyProperty.Register(nameof(AlphaSliderBorderBrush), typeof(Brush), typeof(ColorPickerControl),
             new PropertyMetadata(default(Brush)));
@@ -212,7 +217,7 @@ public sealed partial class ColorPickerControl
     public static readonly DependencyProperty LabelAlphaChannelProperty =
         DependencyProperty.Register(nameof(LabelAlphaChannel), typeof(string), typeof(ColorPickerControl),
             new PropertyMetadata("A"));
-
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty LabelPreviewProperty = DependencyProperty.Register(nameof(LabelPreview),
         typeof(string), typeof(ColorPickerControl), new PropertyMetadata(default(string)));
 
