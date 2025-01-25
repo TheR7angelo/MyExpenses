@@ -7,21 +7,20 @@ namespace MyExpenses.WebApi.Maps;
 
 public static class GoogleEarth
 {
-    public static Uri ToGoogleEarthWeb(this TPlace place, int altitudeLevel = 200)
+    public static string ToGoogleEarthWeb(this TPlace place, int altitudeLevel = 200)
     {
         var point = place.Geometry as Point;
         return point?.ToGoogleEarthWeb(altitudeLevel)!;
     }
 
-    public static Uri ToGoogleEarthWeb(this Point point, int altitudeLevel = 200)
+    public static string ToGoogleEarthWeb(this Point point, int altitudeLevel = 200)
     {
         var (xInvariant, yInvariant) = point.ToInvariantCoordinate();
 
         var googleEarthUrl = $"https://earth.google.com/web/@{xInvariant},{yInvariant},{altitudeLevel}a,0d,30y,0h,0t,0r";
-        var uri = new Uri(googleEarthUrl);
 
         googleEarthUrl.StartProcess();
 
-        return uri;
+        return googleEarthUrl;
     }
 }
