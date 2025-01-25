@@ -6,6 +6,7 @@ namespace MyExpenses.Wpf.Resources.Styles;
 public static class TabAssist
 {
     // ReSharper disable once HeapView.BoxingAllocation
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty HasFilledTabProperty = DependencyProperty.RegisterAttached(
         "HasFilledTab", typeof(bool), typeof(TabAssist), new PropertyMetadata(false));
 
@@ -17,6 +18,7 @@ public static class TabAssist
         => (bool)element.GetValue(HasFilledTabProperty);
 
     // ReSharper disable once HeapView.BoxingAllocation
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty HasUniformTabWidthProperty = DependencyProperty.RegisterAttached(
         "HasUniformTabWidth", typeof(bool), typeof(TabAssist), new PropertyMetadata(false));
 
@@ -28,6 +30,7 @@ public static class TabAssist
         => (bool)element.GetValue(HasUniformTabWidthProperty);
 
     // ReSharper disable once HeapView.BoxingAllocation
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty HeaderPanelMarginProperty = DependencyProperty.RegisterAttached(
         "HeaderPanelMargin", typeof(Thickness), typeof(TabAssist), new PropertyMetadata(default(Thickness)));
 
@@ -46,6 +49,7 @@ public static class TabAssist
         => obj.SetValue(BindableIsItemsHostProperty, value);
 
     // ReSharper disable once HeapView.BoxingAllocation
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     internal static readonly DependencyProperty BindableIsItemsHostProperty =
         DependencyProperty.RegisterAttached("BindableIsItemsHost", typeof(Visibility), typeof(TabAssist), new PropertyMetadata(Visibility.Collapsed, OnBindableIsItemsHostChanged));
 

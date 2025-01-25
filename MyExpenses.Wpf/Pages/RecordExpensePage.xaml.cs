@@ -34,6 +34,7 @@ public partial class RecordExpensePage
 {
 
     // ReSharper disable once HeapView.BoxingAllocation
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty EditHistoryProperty = DependencyProperty.Register(nameof(EditHistory),
         typeof(bool), typeof(RecordExpensePage), new PropertyMetadata(false));
 
@@ -46,6 +47,7 @@ public partial class RecordExpensePage
 
     public static readonly DependencyProperty SelectedCountryProperty =
         DependencyProperty.Register(nameof(SelectedCountry), typeof(string), typeof(RecordExpensePage),
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
             new PropertyMetadata(default(string)));
 
     public string? SelectedCountry
@@ -55,6 +57,7 @@ public partial class RecordExpensePage
     }
 
     public static readonly DependencyProperty SelectedCityProperty = DependencyProperty.Register(nameof(SelectedCity),
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
         typeof(string), typeof(RecordExpensePage), new PropertyMetadata(default(string)));
 
     public string SelectedCity
@@ -65,6 +68,7 @@ public partial class RecordExpensePage
 
     public static readonly DependencyProperty ComboBoxAccountHintAssistProperty =
         DependencyProperty.Register(nameof(ComboBoxAccountHintAssist), typeof(string), typeof(RecordExpensePage),
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
             new PropertyMetadata(default(string)));
 
     public string ComboBoxAccountHintAssist
@@ -75,6 +79,7 @@ public partial class RecordExpensePage
 
     public static readonly DependencyProperty TextBoxDescriptionHintAssistProperty =
         DependencyProperty.Register(nameof(TextBoxDescriptionHintAssist), typeof(string), typeof(RecordExpensePage),
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
             new PropertyMetadata(default(string)));
 
     public string TextBoxDescriptionHintAssist
@@ -85,6 +90,7 @@ public partial class RecordExpensePage
 
     public static readonly DependencyProperty ComboBoxCategoryTypeHintAssistProperty =
         DependencyProperty.Register(nameof(ComboBoxCategoryTypeHintAssist), typeof(string), typeof(RecordExpensePage),
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
             new PropertyMetadata(default(string)));
 
     public string ComboBoxCategoryTypeHintAssist
@@ -95,6 +101,7 @@ public partial class RecordExpensePage
 
     public static readonly DependencyProperty ComboBoxModePaymentHintAssistProperty =
         DependencyProperty.Register(nameof(ComboBoxModePaymentHintAssist), typeof(string), typeof(RecordExpensePage),
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
             new PropertyMetadata(default(string)));
 
     public string ComboBoxModePaymentHintAssist
@@ -105,6 +112,7 @@ public partial class RecordExpensePage
 
     public static readonly DependencyProperty TextBoxValueHintAssistProperty =
         DependencyProperty.Register(nameof(TextBoxValueHintAssist), typeof(string), typeof(RecordExpensePage),
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
             new PropertyMetadata(default(string)));
 
     public string TextBoxValueHintAssist
@@ -115,6 +123,7 @@ public partial class RecordExpensePage
 
     public static readonly DependencyProperty DatePickerWhenHintAssistProperty =
         DependencyProperty.Register(nameof(DatePickerWhenHintAssist), typeof(string), typeof(RecordExpensePage),
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
             new PropertyMetadata(default(string)));
 
     public string DatePickerWhenHintAssist
@@ -125,6 +134,7 @@ public partial class RecordExpensePage
 
     public static readonly DependencyProperty TimePickerWhenHintAssistProperty =
         DependencyProperty.Register(nameof(TimePickerWhenHintAssist), typeof(string), typeof(RecordExpensePage),
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
             new PropertyMetadata(default(string)));
 
     public string TimePickerWhenHintAssist
@@ -135,6 +145,7 @@ public partial class RecordExpensePage
 
     public static readonly DependencyProperty ComboBoxPlaceHintAssistProperty =
         DependencyProperty.Register(nameof(ComboBoxPlaceHintAssist), typeof(string), typeof(RecordExpensePage),
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
             new PropertyMetadata(default(string)));
 
     public string ComboBoxPlaceHintAssist
@@ -145,6 +156,7 @@ public partial class RecordExpensePage
 
     public static readonly DependencyProperty CheckBoxPointedContentProperty =
         DependencyProperty.Register(nameof(CheckBoxPointedContent), typeof(string), typeof(RecordExpensePage),
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
             new PropertyMetadata(default(string)));
 
     public string CheckBoxPointedContent
@@ -155,6 +167,7 @@ public partial class RecordExpensePage
 
     public static readonly DependencyProperty ButtonValidContentProperty =
         DependencyProperty.Register(nameof(ButtonValidContent), typeof(string), typeof(RecordExpensePage),
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
             new PropertyMetadata(default(string)));
 
     public string ButtonValidContent
@@ -165,6 +178,7 @@ public partial class RecordExpensePage
 
     public static readonly DependencyProperty ButtonCancelContentProperty =
         DependencyProperty.Register(nameof(ButtonCancelContent), typeof(string), typeof(RecordExpensePage),
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
             new PropertyMetadata(default(string)));
 
     public string ButtonCancelContent
@@ -175,6 +189,7 @@ public partial class RecordExpensePage
 
     public static readonly DependencyProperty ButtonDeleteContentProperty =
         DependencyProperty.Register(nameof(ButtonDeleteContent), typeof(string), typeof(RecordExpensePage),
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
             new PropertyMetadata(default(string)));
 
     public string ButtonDeleteContent
@@ -185,6 +200,7 @@ public partial class RecordExpensePage
 
     public static readonly DependencyProperty ComboBoxBackgroundHintAssistProperty =
         DependencyProperty.Register(nameof(ComboBoxBackgroundHintAssist), typeof(string), typeof(RecordExpensePage),
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
             new PropertyMetadata(default(string)));
 
     public string ComboBoxBackgroundHintAssist
@@ -195,6 +211,7 @@ public partial class RecordExpensePage
 
     public static readonly DependencyProperty ComboBoxPlaceCountryHintAssistProperty =
         DependencyProperty.Register(nameof(ComboBoxPlaceCountryHintAssist), typeof(string), typeof(RecordExpensePage),
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
             new PropertyMetadata(default(string)));
 
     public string ComboBoxPlaceCountryHintAssist
@@ -205,6 +222,7 @@ public partial class RecordExpensePage
 
     public static readonly DependencyProperty ComboBoxPlaceCityHintAssistProperty =
         DependencyProperty.Register(nameof(ComboBoxPlaceCityHintAssist), typeof(string), typeof(RecordExpensePage),
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
             new PropertyMetadata(default(string)));
 
     public string ComboBoxPlaceCityHintAssist

@@ -23,11 +23,13 @@ public partial class AddEditAccountWindow
     #region DependecyProperty
 
     // ReSharper disable once HeapView.BoxingAllocation
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty EnableStartingBalanceProperty =
         DependencyProperty.Register(nameof(EnableStartingBalance), typeof(bool), typeof(AddEditAccountWindow),
             new PropertyMetadata(false));
 
     // ReSharper disable once HeapView.BoxingAllocation
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty EditAccountProperty =
         DependencyProperty.Register(nameof(EditAccount), typeof(bool), typeof(AddEditAccountWindow),
             new PropertyMetadata(false));
@@ -36,6 +38,7 @@ public partial class AddEditAccountWindow
 
     #region Resx
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty TitleWindowProperty = DependencyProperty.Register(nameof(TitleWindow),
         typeof(string), typeof(AddEditAccountWindow), new PropertyMetadata(default(string)));
 
@@ -47,6 +50,7 @@ public partial class AddEditAccountWindow
 
     #region HintAssist
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty HintAssistTextBoxAccountNameProperty =
         DependencyProperty.Register(nameof(HintAssistTextBoxAccountName), typeof(string), typeof(AddEditAccountWindow),
             new PropertyMetadata(default(string)));
@@ -57,6 +61,7 @@ public partial class AddEditAccountWindow
         set => SetValue(HintAssistTextBoxAccountNameProperty, value);
     }
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty HintAssistComboBoxAccountTypeProperty =
         DependencyProperty.Register(nameof(HintAssistComboBoxAccountType), typeof(string), typeof(AddEditAccountWindow),
             new PropertyMetadata(default(string)));
@@ -67,6 +72,7 @@ public partial class AddEditAccountWindow
         set => SetValue(HintAssistComboBoxAccountTypeProperty, value);
     }
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty HintAssistComboBoxAccountCurrencyProperty =
         DependencyProperty.Register(nameof(HintAssistComboBoxAccountCurrency), typeof(string),
             typeof(AddEditAccountWindow), new PropertyMetadata(default(string)));
@@ -77,6 +83,7 @@ public partial class AddEditAccountWindow
         set => SetValue(HintAssistComboBoxAccountCurrencyProperty, value);
     }
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty HintAssistTextBoxAccountStartingBalanceDescriptionProperty =
         DependencyProperty.Register(nameof(HintAssistTextBoxAccountStartingBalanceDescription), typeof(string),
             typeof(AddEditAccountWindow), new PropertyMetadata(default(string)));
@@ -87,6 +94,7 @@ public partial class AddEditAccountWindow
         set => SetValue(HintAssistTextBoxAccountStartingBalanceDescriptionProperty, value);
     }
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty HintAssistTextBoxAccountStartingBalanceProperty =
         DependencyProperty.Register(nameof(HintAssistTextBoxAccountStartingBalance), typeof(string),
             typeof(AddEditAccountWindow), new PropertyMetadata(default(string)));
@@ -97,6 +105,7 @@ public partial class AddEditAccountWindow
         set => SetValue(HintAssistTextBoxAccountStartingBalanceProperty, value);
     }
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty HintAssistComboBoxAccountCategoryTypeProperty =
         DependencyProperty.Register(nameof(HintAssistComboBoxAccountCategoryType), typeof(string),
             typeof(AddEditAccountWindow), new PropertyMetadata(default(string)));
@@ -111,6 +120,7 @@ public partial class AddEditAccountWindow
 
     #region Button
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty ButtonValidContentProperty =
         DependencyProperty.Register(nameof(ButtonValidContent), typeof(string), typeof(AddEditAccountWindow),
             new PropertyMetadata(default(string)));
@@ -121,6 +131,7 @@ public partial class AddEditAccountWindow
         set => SetValue(ButtonValidContentProperty, value);
     }
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty ButtonDeleteContentProperty =
         DependencyProperty.Register(nameof(ButtonDeleteContent), typeof(string), typeof(AddEditAccountWindow),
             new PropertyMetadata(default(string)));
@@ -131,6 +142,7 @@ public partial class AddEditAccountWindow
         set => SetValue(ButtonDeleteContentProperty, value);
     }
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty ButtonCancelContentProperty =
         DependencyProperty.Register(nameof(ButtonCancelContent), typeof(string), typeof(AddEditAccountWindow),
             new PropertyMetadata(default(string)));

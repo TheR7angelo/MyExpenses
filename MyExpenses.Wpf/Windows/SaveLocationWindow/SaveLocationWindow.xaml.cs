@@ -9,11 +9,13 @@ public partial class SaveLocationWindow
     #region DependencyProperty
 
     // ReSharper disable once HeapView.BoxingAllocation
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty ButtonFolderCompressVisibilityProperty =
         DependencyProperty.Register(nameof(ButtonFolderCompressVisibility), typeof(bool), typeof(SaveLocationWindow),
             new PropertyMetadata(false));
 
     // ReSharper disable once HeapView.BoxingAllocation
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public bool ButtonFolderCompressVisibility
     {
         get => (bool)GetValue(ButtonFolderCompressVisibilityProperty);
@@ -21,6 +23,7 @@ public partial class SaveLocationWindow
     }
 
     // ReSharper disable once HeapView.BoxingAllocation
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty ButtonDatabaseVisibilityProperty =
         DependencyProperty.Register(nameof(ButtonDatabaseVisibility), typeof(bool), typeof(SaveLocationWindow),
             new PropertyMetadata(false));
@@ -33,6 +36,7 @@ public partial class SaveLocationWindow
     }
 
     // ReSharper disable once HeapView.BoxingAllocation
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty ButtonFolderVisibilityProperty =
         DependencyProperty.Register(nameof(ButtonFolderVisibility), typeof(bool), typeof(SaveLocationWindow),
             new PropertyMetadata(false));
@@ -45,6 +49,7 @@ public partial class SaveLocationWindow
     }
 
     // ReSharper disable once HeapView.BoxingAllocation
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty ButtonDropboxVisibilityProperty =
         DependencyProperty.Register(nameof(ButtonDropboxVisibility), typeof(bool), typeof(SaveLocationWindow),
             new PropertyMetadata(false));
@@ -57,6 +62,7 @@ public partial class SaveLocationWindow
     }
 
     // ReSharper disable once HeapView.BoxingAllocation
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty ButtonLocalVisibilityProperty =
         DependencyProperty.Register(nameof(ButtonLocalVisibility), typeof(bool), typeof(SaveLocationWindow),
             new PropertyMetadata(false));

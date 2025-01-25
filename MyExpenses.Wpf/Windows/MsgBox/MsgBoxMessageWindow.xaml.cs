@@ -7,16 +7,19 @@ namespace MyExpenses.Wpf.Windows.MsgBox;
 
 public partial class MsgBoxMessageWindow
 {
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty MessageBoxTextProperty =
         DependencyProperty.Register(nameof(MessageBoxText), typeof(string), typeof(MsgBoxMessageWindow),
             new PropertyMetadata(default(string)));
 
     // ReSharper disable once HeapView.BoxingAllocation
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty MessageBoxResultProperty =
         DependencyProperty.Register(nameof(MessageBoxResult), typeof(MessageBoxResult), typeof(MsgBoxMessageWindow),
             new PropertyMetadata(default(MessageBoxResult)));
 
     // ReSharper disable once HeapView.BoxingAllocation
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty MsgBoxImageProperty = DependencyProperty.Register(nameof(MsgBoxImage),
         typeof(MsgBoxImage), typeof(MsgBoxMessageWindow), new PropertyMetadata(default(MsgBoxImage)));
 

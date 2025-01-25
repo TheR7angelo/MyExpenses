@@ -23,6 +23,7 @@ public partial class RecurrentExpensePage
     #region DependencyProperty
 
     // ReSharper disable once HeapView.BoxingAllocation
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty LocalLanguageProperty = DependencyProperty.Register(nameof(LocalLanguage),
         typeof(Local), typeof(RecurrentExpensePage), new PropertyMetadata(default(Local)));
 
@@ -35,6 +36,7 @@ public partial class RecurrentExpensePage
 
     public static readonly DependencyProperty DateFormatStringProperty =
         DependencyProperty.Register(nameof(DateFormatString), typeof(string), typeof(RecurrentExpensePage),
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
             new PropertyMetadata(default(string)));
 
     public string DateFormatString
@@ -45,6 +47,7 @@ public partial class RecurrentExpensePage
 
     public static readonly DependencyProperty DataGridMenuItemHeaderEditRecordProperty =
         DependencyProperty.Register(nameof(DataGridMenuItemHeaderEditRecord), typeof(string),
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
             typeof(RecurrentExpensePage), new PropertyMetadata(default(string)));
 
     public string DataGridMenuItemHeaderEditRecord
@@ -55,6 +58,7 @@ public partial class RecurrentExpensePage
 
     public static readonly DependencyProperty DataGridMenuItemHeaderDeleteRecordProperty =
         DependencyProperty.Register(nameof(DataGridMenuItemHeaderDeleteRecord), typeof(string),
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
             typeof(RecurrentExpensePage), new PropertyMetadata(default(string)));
 
     public string DataGridMenuItemHeaderDeleteRecord
@@ -65,6 +69,7 @@ public partial class RecurrentExpensePage
 
     public static readonly DependencyProperty ButtonContentEditRecordProperty =
         DependencyProperty.Register(nameof(ButtonContentEditRecord), typeof(string), typeof(RecurrentExpensePage),
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
             new PropertyMetadata(default(string)));
 
     public string ButtonContentEditRecord
@@ -75,6 +80,7 @@ public partial class RecurrentExpensePage
 
     public static readonly DependencyProperty ButtonContentDeleteRecordProperty =
         DependencyProperty.Register(nameof(ButtonContentDeleteRecord), typeof(string), typeof(RecurrentExpensePage),
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
             new PropertyMetadata(default(string)));
 
     public string ButtonContentDeleteRecord

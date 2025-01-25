@@ -25,11 +25,13 @@ namespace MyExpenses.Wpf;
 public partial class MainWindow
 {
     // ReSharper disable once HeapView.BoxingAllocation
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty CanGoBackProperty = DependencyProperty.Register(nameof(CanGoBack),
         typeof(bool), typeof(MainWindow), new PropertyMetadata(false));
 
     #region MenuItemFile
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty MenuItemHeaderFileProperty =
         DependencyProperty.Register(nameof(MenuItemHeaderFile), typeof(string), typeof(MainWindow),
             new PropertyMetadata(default(string)));
@@ -42,6 +44,7 @@ public partial class MainWindow
 
     #region MenuItem Database
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty MenuItemHeaderDatabaseProperty =
         DependencyProperty.Register(nameof(MenuItemHeaderDatabase), typeof(string), typeof(MainWindow),
             new PropertyMetadata(default(string)));
@@ -52,6 +55,7 @@ public partial class MainWindow
         set => SetValue(MenuItemHeaderDatabaseProperty, value);
     }
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty MenuItemHeaderExportDatabaseProperty =
         DependencyProperty.Register(nameof(MenuItemHeaderExportDatabase), typeof(string), typeof(MainWindow),
             new PropertyMetadata(default(string)));
@@ -62,6 +66,7 @@ public partial class MainWindow
         set => SetValue(MenuItemHeaderExportDatabaseProperty, value);
     }
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty MenuItemHeaderImportDatabaseProperty =
         DependencyProperty.Register(nameof(MenuItemHeaderImportDatabase), typeof(string), typeof(MainWindow),
             new PropertyMetadata(default(string)));
@@ -74,6 +79,7 @@ public partial class MainWindow
 
     #endregion
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty MenuItemHeaderHelpProperty =
         DependencyProperty.Register(nameof(MenuItemHeaderHelp), typeof(string), typeof(MainWindow),
             new PropertyMetadata(default(string)));
@@ -84,6 +90,7 @@ public partial class MainWindow
         set => SetValue(MenuItemHeaderHelpProperty, value);
     }
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty MenuItemHeaderSettingsProperty =
         DependencyProperty.Register(nameof(MenuItemHeaderSettings), typeof(string), typeof(MainWindow),
             new PropertyMetadata(default(string)));
@@ -94,6 +101,7 @@ public partial class MainWindow
         set => SetValue(MenuItemHeaderSettingsProperty, value);
     }
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty MenuItemHeaderPreviousProperty =
         DependencyProperty.Register(nameof(MenuItemHeaderPrevious), typeof(string), typeof(MainWindow),
             new PropertyMetadata(default(string)));
@@ -104,6 +112,7 @@ public partial class MainWindow
         set => SetValue(MenuItemHeaderPreviousProperty, value);
     }
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty MenuItemHeaderVacuumDatabasesProperty =
         DependencyProperty.Register(nameof(MenuItemHeaderVacuumDatabases), typeof(string), typeof(MainWindow),
             new PropertyMetadata(default(string)));
@@ -114,6 +123,7 @@ public partial class MainWindow
         set => SetValue(MenuItemHeaderVacuumDatabasesProperty, value);
     }
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty MenuItemHeaderVacuumDatabaseProperty =
         DependencyProperty.Register(nameof(MenuItemHeaderVacuumDatabase), typeof(string), typeof(MainWindow),
             new PropertyMetadata(default(string)));

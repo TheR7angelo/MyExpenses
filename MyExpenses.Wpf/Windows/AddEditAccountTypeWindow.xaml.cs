@@ -16,6 +16,7 @@ namespace MyExpenses.Wpf.Windows;
 public partial class AddEditAccountTypeWindow
 {
     // ReSharper disable once HeapView.BoxingAllocation
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty EditAccountTypeProperty =
         DependencyProperty.Register(nameof(EditAccountType), typeof(bool), typeof(AddEditAccountTypeWindow),
             new PropertyMetadata(false));
@@ -39,6 +40,7 @@ public partial class AddEditAccountTypeWindow
 
     #region Resx
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty TextBoxAccountTypeNameProperty =
         DependencyProperty.Register(nameof(TextBoxAccountTypeName), typeof(string), typeof(AddEditAccountTypeWindow),
             new PropertyMetadata(default(string)));
@@ -49,6 +51,7 @@ public partial class AddEditAccountTypeWindow
         set => SetValue(TextBoxAccountTypeNameProperty, value);
     }
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty ButtonValidContentProperty = DependencyProperty.Register(
         nameof(ButtonValidContent),
         typeof(string), typeof(AddEditAccountTypeWindow), new PropertyMetadata(default(string)));
@@ -59,6 +62,7 @@ public partial class AddEditAccountTypeWindow
         set => SetValue(ButtonValidContentProperty, value);
     }
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty ButtonDeleteContentProperty =
         DependencyProperty.Register(nameof(ButtonDeleteContent), typeof(string), typeof(AddEditAccountTypeWindow),
             new PropertyMetadata(default(string)));
@@ -69,6 +73,7 @@ public partial class AddEditAccountTypeWindow
         set => SetValue(ButtonDeleteContentProperty, value);
     }
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty ButtonCancelContentProperty =
         DependencyProperty.Register(nameof(ButtonCancelContent), typeof(string), typeof(AddEditAccountTypeWindow),
             new PropertyMetadata(default(string)));
@@ -79,6 +84,7 @@ public partial class AddEditAccountTypeWindow
         set => SetValue(ButtonCancelContentProperty, value);
     }
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty TitleWindowProperty = DependencyProperty.Register(nameof(TitleWindow),
         typeof(string), typeof(AddEditAccountTypeWindow), new PropertyMetadata(default(string)));
 

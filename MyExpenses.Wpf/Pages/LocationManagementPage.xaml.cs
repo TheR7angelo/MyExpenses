@@ -31,6 +31,7 @@ public partial class LocationManagementPage
 {
     public static readonly DependencyProperty ComboBoxBasemapHintAssistProperty =
         DependencyProperty.Register(nameof(ComboBoxBasemapHintAssist), typeof(string), typeof(LocationManagementPage),
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
             new PropertyMetadata(default(string)));
 
     public object ComboBoxBasemapHintAssist
@@ -41,6 +42,7 @@ public partial class LocationManagementPage
 
     public static readonly DependencyProperty MenuItemHeaderAddPointProperty =
         DependencyProperty.Register(nameof(MenuItemHeaderAddPoint), typeof(string), typeof(LocationManagementPage),
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
             new PropertyMetadata(default(string)));
 
     public string MenuItemHeaderAddPoint
@@ -51,6 +53,7 @@ public partial class LocationManagementPage
 
     public static readonly DependencyProperty MenuItemHeaderEditFeatureProperty =
         DependencyProperty.Register(nameof(MenuItemHeaderEditFeature), typeof(string), typeof(LocationManagementPage),
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
             new PropertyMetadata(default(string)));
 
     public string MenuItemHeaderEditFeature
@@ -61,6 +64,7 @@ public partial class LocationManagementPage
 
     public static readonly DependencyProperty MenuItemHeaderDeleteFeatureProperty =
         DependencyProperty.Register(nameof(MenuItemHeaderDeleteFeature), typeof(string), typeof(LocationManagementPage),
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
             new PropertyMetadata(default(string)));
 
     public string MenuItemHeaderDeleteFeature
@@ -71,6 +75,7 @@ public partial class LocationManagementPage
 
     public static readonly DependencyProperty MenuItemHeaderMapsProperty =
         DependencyProperty.Register(nameof(MenuItemHeaderMaps), typeof(string), typeof(LocationManagementPage),
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
             new PropertyMetadata(default(string)));
 
     public string MenuItemHeaderMaps
@@ -81,6 +86,7 @@ public partial class LocationManagementPage
 
     public static readonly DependencyProperty MenuItemHeaderGoogleEarthWebProperty =
         DependencyProperty.Register(nameof(MenuItemHeaderGoogleEarthWeb), typeof(string),
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
             typeof(LocationManagementPage), new PropertyMetadata(default(string)));
 
     public string MenuItemHeaderGoogleEarthWeb
@@ -91,6 +97,7 @@ public partial class LocationManagementPage
 
     public static readonly DependencyProperty MenuItemHeaderGoogleMapsProperty =
         DependencyProperty.Register(nameof(MenuItemHeaderGoogleMaps), typeof(string), typeof(LocationManagementPage),
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
             new PropertyMetadata(default(string)));
 
     public string MenuItemHeaderGoogleMaps
@@ -101,6 +108,7 @@ public partial class LocationManagementPage
 
     public static readonly DependencyProperty MenuItemHeaderGoogleStreetViewProperty =
         DependencyProperty.Register(nameof(MenuItemHeaderGoogleStreetView), typeof(string),
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
             typeof(LocationManagementPage), new PropertyMetadata(default(string)));
 
     public string MenuItemHeaderGoogleStreetView

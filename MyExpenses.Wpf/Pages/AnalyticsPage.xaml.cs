@@ -8,6 +8,7 @@ public partial class AnalyticsPage
 {
     public static readonly DependencyProperty TabItemAccountsModePaymentMonthlySumControlHeaderProperty =
         DependencyProperty.Register(nameof(TabItemAccountsModePaymentMonthlySumControlHeader), typeof(string),
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
             typeof(AnalyticsPage), new PropertyMetadata(default(string)));
 
     public string TabItemAccountsModePaymentMonthlySumControlHeader
@@ -18,6 +19,7 @@ public partial class AnalyticsPage
 
     public static readonly DependencyProperty TabItemCumulativeSumChartControlHeaderProperty =
         DependencyProperty.Register(nameof(TabItemCumulativeSumChartControlHeader), typeof(string),
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
             typeof(AnalyticsPage), new PropertyMetadata(default(string)));
 
     public string TabItemCumulativeSumChartControlHeader
@@ -28,6 +30,7 @@ public partial class AnalyticsPage
 
     public static readonly DependencyProperty TabItemAccountTotalEllipseControlHeaderProperty =
         DependencyProperty.Register(nameof(TabItemAccountTotalEllipseControlHeader), typeof(string),
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
             typeof(AnalyticsPage), new PropertyMetadata(default(string)));
 
     public string TabItemAccountTotalEllipseControlHeader
@@ -38,6 +41,7 @@ public partial class AnalyticsPage
 
     public static readonly DependencyProperty TabItemAccountsCategorySumControlHeaderProperty =
         DependencyProperty.Register(nameof(TabItemAccountsCategorySumControlHeader), typeof(string),
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
             typeof(AnalyticsPage), new PropertyMetadata(default(string)));
 
     public string TabItemAccountsCategorySumControlHeader
@@ -48,6 +52,7 @@ public partial class AnalyticsPage
 
     public static readonly DependencyProperty TabItemAccountsCategorySumPositiveNegativeControlProperty =
         DependencyProperty.Register(nameof(TabItemAccountsCategorySumPositiveNegativeControl), typeof(string),
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
             typeof(AnalyticsPage), new PropertyMetadata(default(string)));
 
     public string TabItemAccountsCategorySumPositiveNegativeControl
@@ -58,6 +63,7 @@ public partial class AnalyticsPage
 
     public static readonly DependencyProperty TabItemBudgetsControlHeaderProperty =
         DependencyProperty.Register(nameof(TabItemBudgetsControlHeader), typeof(string), typeof(AnalyticsPage),
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
             new PropertyMetadata(default(string)));
 
     public string TabItemBudgetsControlHeader

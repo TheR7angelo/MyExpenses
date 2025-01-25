@@ -38,6 +38,7 @@ public partial class DashBoardPage
 
     public static readonly DependencyProperty ButtonAccountManagementProperty =
         DependencyProperty.Register(nameof(ButtonAccountManagement), typeof(string), typeof(DashBoardPage),
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
             new PropertyMetadata(default(string)));
 
     public string ButtonAccountManagement
@@ -48,6 +49,7 @@ public partial class DashBoardPage
 
     public static readonly DependencyProperty ButtonAccountTypeManagementProperty =
         DependencyProperty.Register(nameof(ButtonAccountTypeManagement), typeof(string), typeof(DashBoardPage),
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
             new PropertyMetadata(default(string)));
 
     public string ButtonAccountTypeManagement
@@ -58,6 +60,7 @@ public partial class DashBoardPage
 
     public static readonly DependencyProperty ButtonCategoryTypeManagementProperty =
         DependencyProperty.Register(nameof(ButtonCategoryTypeManagement), typeof(string), typeof(DashBoardPage),
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
             new PropertyMetadata(default(string)));
 
     public string ButtonCategoryTypeManagement
@@ -68,6 +71,7 @@ public partial class DashBoardPage
 
     public static readonly DependencyProperty ButtonLocationManagementProperty =
         DependencyProperty.Register(nameof(ButtonLocationManagement), typeof(string), typeof(DashBoardPage),
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
             new PropertyMetadata(default(string)));
 
     public string ButtonLocationManagement
@@ -78,6 +82,7 @@ public partial class DashBoardPage
 
     public static readonly DependencyProperty ButtonColorManagementProperty =
         DependencyProperty.Register(nameof(ButtonColorManagement), typeof(string), typeof(DashBoardPage),
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
             new PropertyMetadata(default(string)));
 
     public string ButtonColorManagement
@@ -88,6 +93,7 @@ public partial class DashBoardPage
 
     public static readonly DependencyProperty ButtonCurrencyManagementProperty =
         DependencyProperty.Register(nameof(ButtonCurrencyManagement), typeof(string), typeof(DashBoardPage),
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
             new PropertyMetadata(default(string)));
 
     public string ButtonCurrencyManagement
@@ -98,6 +104,7 @@ public partial class DashBoardPage
 
     public static readonly DependencyProperty ButtonModePaymentManagementProperty =
         DependencyProperty.Register(nameof(ButtonModePaymentManagement), typeof(string), typeof(DashBoardPage),
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
             new PropertyMetadata(default(string)));
 
     public string ButtonModePaymentManagement
@@ -108,6 +115,7 @@ public partial class DashBoardPage
 
     public static readonly DependencyProperty ButtonMakeBankTransferProperty =
         DependencyProperty.Register(nameof(ButtonMakeBankTransfer), typeof(string), typeof(DashBoardPage),
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
             new PropertyMetadata(default(string)));
 
     public string ButtonMakeBankTransfer
@@ -118,6 +126,7 @@ public partial class DashBoardPage
 
     public static readonly DependencyProperty ButtonRecordExpenseProperty =
         DependencyProperty.Register(nameof(ButtonRecordExpense), typeof(string), typeof(DashBoardPage),
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
             new PropertyMetadata(default(string)));
 
     public string ButtonRecordExpense
@@ -128,6 +137,7 @@ public partial class DashBoardPage
 
     public static readonly DependencyProperty ButtonAnalyticsProperty =
         DependencyProperty.Register(nameof(ButtonAnalytics), typeof(string), typeof(DashBoardPage),
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
             new PropertyMetadata(default(string)));
 
     public string ButtonAnalytics
@@ -138,6 +148,7 @@ public partial class DashBoardPage
 
     public static readonly DependencyProperty ButtonRecurrentExpenseProperty =
         DependencyProperty.Register(nameof(ButtonRecurrentExpense), typeof(string), typeof(DashBoardPage),
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
             new PropertyMetadata(default(string)));
 
     public string ButtonRecurrentExpense
@@ -152,6 +163,7 @@ public partial class DashBoardPage
 
     public static readonly DependencyProperty DataGridMenuItemHeaderEditRecordProperty =
         DependencyProperty.Register(nameof(DataGridMenuItemHeaderEditRecord), typeof(string), typeof(DashBoardPage),
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
             new PropertyMetadata(default(string)));
 
     public string DataGridMenuItemHeaderEditRecord
@@ -162,6 +174,7 @@ public partial class DashBoardPage
 
     public static readonly DependencyProperty DataGridMenuItemHeaderDeleteRecordProperty =
         DependencyProperty.Register(nameof(DataGridMenuItemHeaderDeleteRecord), typeof(string), typeof(DashBoardPage),
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
             new PropertyMetadata(default(string)));
 
     public string DataGridMenuItemHeaderDeleteRecord
@@ -172,6 +185,7 @@ public partial class DashBoardPage
 
     public static readonly DependencyProperty DataGridCheckBoxColumnPointedProperty =
         DependencyProperty.Register(nameof(DataGridCheckBoxColumnPointed), typeof(string), typeof(DashBoardPage),
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
             new PropertyMetadata(default(string)));
 
     public string DataGridCheckBoxColumnPointed
@@ -182,6 +196,7 @@ public partial class DashBoardPage
 
     public static readonly DependencyProperty ButtonContentEditRecordProperty =
         DependencyProperty.Register(nameof(ButtonContentEditRecord), typeof(string), typeof(DashBoardPage),
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
             new PropertyMetadata(default(string)));
 
     public string ButtonContentEditRecord
@@ -192,6 +207,7 @@ public partial class DashBoardPage
 
     public static readonly DependencyProperty ButtonContentDeleteRecordProperty =
         DependencyProperty.Register(nameof(ButtonContentDeleteRecord), typeof(string), typeof(DashBoardPage),
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
             new PropertyMetadata(default(string)));
 
     public string ButtonContentDeleteRecord
@@ -202,6 +218,7 @@ public partial class DashBoardPage
 
     public static readonly DependencyProperty ButtonContentPointedRecordProperty =
         DependencyProperty.Register(nameof(ButtonContentPointedRecord), typeof(string), typeof(DashBoardPage),
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
             new PropertyMetadata(default(string)));
 
     public string ButtonContentPointedRecord
@@ -214,6 +231,7 @@ public partial class DashBoardPage
 
     public static readonly DependencyProperty ComboBoxYearsHintAssistProperty =
         DependencyProperty.Register(nameof(ComboBoxYearsHintAssist), typeof(string), typeof(DashBoardPage),
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
             new PropertyMetadata(default(string)));
 
     public string ComboBoxYearsHintAssist
@@ -224,6 +242,7 @@ public partial class DashBoardPage
 
     public static readonly DependencyProperty ComboBoxMonthHintAssistProperty =
         DependencyProperty.Register(nameof(ComboBoxMonthHintAssist), typeof(string), typeof(DashBoardPage),
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
             new PropertyMetadata(default(string)));
 
     public string ComboBoxMonthHintAssist
@@ -237,6 +256,7 @@ public partial class DashBoardPage
     public ObservableCollection<string> Months { get; } = [];
 
     public static readonly DependencyProperty SelectedYearProperty = DependencyProperty.Register(nameof(SelectedYear),
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
         typeof(string), typeof(DashBoardPage), new PropertyMetadata(default(string)));
 
     public string SelectedYear
@@ -246,6 +266,7 @@ public partial class DashBoardPage
     }
 
     public static readonly DependencyProperty SelectedMonthProperty = DependencyProperty.Register(nameof(SelectedMonth),
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
         typeof(string), typeof(DashBoardPage), new PropertyMetadata(default(string)));
 
     public string SelectedMonth
@@ -255,6 +276,7 @@ public partial class DashBoardPage
     }
 
     // ReSharper disable once HeapView.BoxingAllocation
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty LocalLanguageProperty = DependencyProperty.Register(nameof(LocalLanguage),
         typeof(Local), typeof(DashBoardPage), new PropertyMetadata(default(Local)));
 
@@ -267,6 +289,7 @@ public partial class DashBoardPage
 
     public static readonly DependencyProperty DateFormatStringProperty =
         DependencyProperty.Register(nameof(DateFormatString), typeof(string), typeof(DashBoardPage),
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
             new PropertyMetadata(default(string)));
 
     public string DateFormatString
@@ -277,6 +300,7 @@ public partial class DashBoardPage
 
     public static readonly DependencyProperty CurrentVTotalByAccountProperty =
         DependencyProperty.Register(nameof(CurrentVTotalByAccount), typeof(VTotalByAccount), typeof(DashBoardPage),
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
             new PropertyMetadata(default(VTotalByAccount)));
 
     public VTotalByAccount? CurrentVTotalByAccount

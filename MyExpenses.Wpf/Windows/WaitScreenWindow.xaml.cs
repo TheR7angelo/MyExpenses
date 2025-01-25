@@ -6,6 +6,7 @@ namespace MyExpenses.Wpf.Windows;
 
 public partial class WaitScreenWindow
 {
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty WaitMessageProperty = DependencyProperty.Register(nameof(WaitMessage),
         typeof(string), typeof(WaitScreenWindow), new PropertyMetadata(default(string)));
 

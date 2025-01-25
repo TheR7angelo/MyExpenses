@@ -12,6 +12,7 @@ namespace MyExpenses.Wpf.Windows;
 
 public partial class AddDatabaseFileWindow
 {
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty TextBoxHintAssistProperty =
         DependencyProperty.Register(nameof(TextBoxHintAssist), typeof(string), typeof(AddDatabaseFileWindow),
             new PropertyMetadata(default(string)));
@@ -22,7 +23,7 @@ public partial class AddDatabaseFileWindow
         set => SetValue(TextBoxHintAssistProperty, value);
     }
 
-
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty ButtonCancelContentProperty =
         DependencyProperty.Register(nameof(ButtonCancelContent), typeof(string), typeof(AddDatabaseFileWindow),
             new PropertyMetadata(default(string)));
@@ -33,6 +34,7 @@ public partial class AddDatabaseFileWindow
         set => SetValue(ButtonCancelContentProperty, value);
     }
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty ButtonValidContentProperty =
         DependencyProperty.Register(nameof(ButtonValidContent), typeof(string), typeof(AddDatabaseFileWindow),
             new PropertyMetadata(default(string)));
@@ -43,10 +45,12 @@ public partial class AddDatabaseFileWindow
         set => SetValue(ButtonValidContentProperty, value);
     }
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty DatabaseFilenameProperty =
         DependencyProperty.Register(nameof(DatabaseFilename), typeof(string), typeof(AddDatabaseFileWindow),
             new PropertyMetadata(default(string)));
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty TitleWindowProperty = DependencyProperty.Register(nameof(TitleWindow),
         typeof(string), typeof(AddDatabaseFileWindow), new PropertyMetadata(default(string)));
 

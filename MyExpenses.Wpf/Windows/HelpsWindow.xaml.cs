@@ -11,6 +11,7 @@ public partial class HelpsWindow
 {
     #region Resx
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty TitleWindowProperty = DependencyProperty.Register(nameof(TitleWindow),
         typeof(string), typeof(HelpsWindow), new PropertyMetadata(default(string)));
 
@@ -20,6 +21,7 @@ public partial class HelpsWindow
         set => SetValue(TitleWindowProperty, value);
     }
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty TreeViewItemItemVersionHeaderProperty =
         DependencyProperty.Register(nameof(TreeViewItemItemVersionHeader), typeof(string), typeof(HelpsWindow),
             new PropertyMetadata(default(string)));
@@ -30,6 +32,7 @@ public partial class HelpsWindow
         set => SetValue(TreeViewItemItemVersionHeaderProperty, value);
     }
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty TreeViewItemItemChangelogHeaderProperty =
         DependencyProperty.Register(nameof(TreeViewItemItemChangelogHeader), typeof(string), typeof(HelpsWindow),
             new PropertyMetadata(default(string)));
@@ -40,6 +43,7 @@ public partial class HelpsWindow
         set => SetValue(TreeViewItemItemChangelogHeaderProperty, value);
     }
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty TreeViewItemItemHowToUseHeaderProperty =
         DependencyProperty.Register(nameof(TreeViewItemItemHowToUseHeader), typeof(string), typeof(HelpsWindow),
             new PropertyMetadata(default(string)));

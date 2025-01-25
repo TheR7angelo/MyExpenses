@@ -25,6 +25,7 @@ public partial class BankTransferPage
     #region DependencyProperty
 
     // ReSharper disable once HeapView.BoxingAllocation
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty BankTransferPrepareProperty =
         DependencyProperty.Register(nameof(BankTransferPrepare), typeof(bool), typeof(BankTransferPage),
             new PropertyMetadata(false));
@@ -37,6 +38,7 @@ public partial class BankTransferPage
     }
 
     public static readonly DependencyProperty VFromAccountProperty = DependencyProperty.Register(nameof(VFromAccount),
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
         typeof(VTotalByAccount), typeof(BankTransferPage), new PropertyMetadata(default(VTotalByAccount)));
 
     public VTotalByAccount? VFromAccount
@@ -46,6 +48,7 @@ public partial class BankTransferPage
     }
 
     // ReSharper disable once HeapView.BoxingAllocation
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty VFromAccountReduceProperty =
         DependencyProperty.Register(nameof(VFromAccountReduce), typeof(double), typeof(BankTransferPage),
             new PropertyMetadata(0d));
@@ -58,6 +61,7 @@ public partial class BankTransferPage
     }
 
     public static readonly DependencyProperty VToAccountProperty = DependencyProperty.Register(nameof(VToAccount),
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
         typeof(VTotalByAccount), typeof(BankTransferPage), new PropertyMetadata(default(VTotalByAccount)));
 
     public VTotalByAccount? VToAccount
@@ -67,6 +71,7 @@ public partial class BankTransferPage
     }
 
     // ReSharper disable once HeapView.BoxingAllocation
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty VToAccountIncreaseProperty =
         DependencyProperty.Register(nameof(VToAccountIncrease), typeof(double), typeof(BankTransferPage),
             new PropertyMetadata(0d));
@@ -79,6 +84,7 @@ public partial class BankTransferPage
     }
 
     public static readonly DependencyProperty CategoryProperty = DependencyProperty.Register(nameof(Category),
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
         typeof(TCategoryType), typeof(BankTransferPage), new PropertyMetadata(default(TCategoryType)));
 
     public TCategoryType? Category
@@ -88,6 +94,7 @@ public partial class BankTransferPage
     }
 
     public static readonly DependencyProperty ModePaymentProperty = DependencyProperty.Register(nameof(ModePayment),
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
         typeof(TModePayment), typeof(BankTransferPage), new PropertyMetadata(default(TModePayment)));
 
     public TModePayment? ModePayment
@@ -97,6 +104,7 @@ public partial class BankTransferPage
     }
 
     // ReSharper disable once HeapView.BoxingAllocation
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty IsPointedProperty = DependencyProperty.Register(nameof(IsPointed),
         typeof(bool), typeof(BankTransferPage), new PropertyMetadata(false));
 
@@ -127,6 +135,7 @@ public partial class BankTransferPage
 
     public static readonly DependencyProperty ComboBoxFromAccountHintAssistProperty =
         DependencyProperty.Register(nameof(ComboBoxFromAccountHintAssist), typeof(string), typeof(BankTransferPage),
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
             new PropertyMetadata(default(string)));
 
     public string ComboBoxFromAccountHintAssist
@@ -137,6 +146,7 @@ public partial class BankTransferPage
 
     public static readonly DependencyProperty ComboBoxToAccountHintAssistProperty =
         DependencyProperty.Register(nameof(ComboBoxToAccountHintAssist), typeof(string), typeof(BankTransferPage),
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
             new PropertyMetadata(default(string)));
 
     public string ComboBoxToAccountHintAssist
@@ -147,6 +157,7 @@ public partial class BankTransferPage
 
     public static readonly DependencyProperty ComboBoxCategoryTypeHintAssistProperty =
         DependencyProperty.Register(nameof(ComboBoxCategoryTypeHintAssist), typeof(string), typeof(BankTransferPage),
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
             new PropertyMetadata(default(string)));
 
     public string ComboBoxCategoryTypeHintAssist
@@ -157,6 +168,7 @@ public partial class BankTransferPage
 
     public static readonly DependencyProperty ComboBoxModePaymentHintAssistProperty =
         DependencyProperty.Register(nameof(ComboBoxModePaymentHintAssist), typeof(string), typeof(BankTransferPage),
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
             new PropertyMetadata(default(string)));
 
     public string ComboBoxModePaymentHintAssist
@@ -167,6 +179,7 @@ public partial class BankTransferPage
 
     public static readonly DependencyProperty CheckBoxPointedHintAssistProperty =
         DependencyProperty.Register(nameof(CheckBoxPointedHintAssist), typeof(string), typeof(BankTransferPage),
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
             new PropertyMetadata(default(string)));
 
     public string CheckBoxPointedHintAssist
@@ -177,6 +190,7 @@ public partial class BankTransferPage
 
     public static readonly DependencyProperty DatePickerWhenHintAssistProperty =
         DependencyProperty.Register(nameof(DatePickerWhenHintAssist), typeof(string), typeof(BankTransferPage),
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
             new PropertyMetadata(default(string)));
 
     public string DatePickerWhenHintAssist
@@ -187,6 +201,7 @@ public partial class BankTransferPage
 
     public static readonly DependencyProperty TextBoxValueHintAssistProperty =
         DependencyProperty.Register(nameof(TextBoxValueHintAssist), typeof(string), typeof(BankTransferPage),
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
             new PropertyMetadata(default(string)));
 
     public string TextBoxValueHintAssist
@@ -197,6 +212,7 @@ public partial class BankTransferPage
 
     public static readonly DependencyProperty TextBoxMainReasonHintAssistProperty =
         DependencyProperty.Register(nameof(TextBoxMainReasonHintAssist), typeof(string), typeof(BankTransferPage),
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
             new PropertyMetadata(default(string)));
 
     public string TextBoxMainReasonHintAssist
@@ -207,6 +223,7 @@ public partial class BankTransferPage
 
     public static readonly DependencyProperty TextBoxAdditionalReasonHintAssistProperty =
         DependencyProperty.Register(nameof(TextBoxAdditionalReasonHintAssist), typeof(string), typeof(BankTransferPage),
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
             new PropertyMetadata(default(string)));
 
     public string TextBoxAdditionalReasonHintAssist
@@ -217,6 +234,7 @@ public partial class BankTransferPage
 
     public static readonly DependencyProperty ButtonPrepareValidContentProperty =
         DependencyProperty.Register(nameof(ButtonPrepareValidContent), typeof(string), typeof(BankTransferPage),
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
             new PropertyMetadata(default(string)));
 
     public string ButtonPrepareValidContent
@@ -227,6 +245,7 @@ public partial class BankTransferPage
 
     public static readonly DependencyProperty ButtonPrepareCancelContentProperty =
         DependencyProperty.Register(nameof(ButtonPrepareCancelContent), typeof(string), typeof(BankTransferPage),
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
             new PropertyMetadata(default(string)));
 
     public string ButtonPrepareCancelContent
@@ -237,6 +256,7 @@ public partial class BankTransferPage
 
     public static readonly DependencyProperty ButtonPreviewValidContentProperty =
         DependencyProperty.Register(nameof(ButtonPreviewValidContent), typeof(string), typeof(BankTransferPage),
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
             new PropertyMetadata(default(string)));
 
     public string ButtonPreviewValidContent
@@ -247,6 +267,7 @@ public partial class BankTransferPage
 
     public static readonly DependencyProperty ButtonPreviewCancelContentProperty =
         DependencyProperty.Register(nameof(ButtonPreviewCancelContent), typeof(string), typeof(BankTransferPage),
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
             new PropertyMetadata(default(string)));
 
     public string ButtonPreviewCancelContent

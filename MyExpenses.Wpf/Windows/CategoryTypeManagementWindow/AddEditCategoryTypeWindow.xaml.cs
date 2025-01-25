@@ -19,6 +19,7 @@ namespace MyExpenses.Wpf.Windows.CategoryTypeManagementWindow;
 public partial class AddEditCategoryTypeWindow
 {
     // ReSharper disable once HeapView.BoxingAllocation
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty EditCategoryTypeProperty =
         DependencyProperty.Register(nameof(EditCategoryType), typeof(bool), typeof(AddEditCategoryTypeWindow),
             new PropertyMetadata(false));
@@ -42,6 +43,7 @@ public partial class AddEditCategoryTypeWindow
 
     #region Resx
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty TitleWindowProperty = DependencyProperty.Register(nameof(TitleWindow),
         typeof(string), typeof(AddEditCategoryTypeWindow), new PropertyMetadata(default(string)));
 
@@ -51,6 +53,7 @@ public partial class AddEditCategoryTypeWindow
         set => SetValue(TitleWindowProperty, value);
     }
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty TextBoxCategoryTypeNameProperty =
         DependencyProperty.Register(nameof(TextBoxCategoryTypeName), typeof(string), typeof(AddEditCategoryTypeWindow),
             new PropertyMetadata(default(string)));
@@ -61,6 +64,7 @@ public partial class AddEditCategoryTypeWindow
         set => SetValue(TextBoxCategoryTypeNameProperty, value);
     }
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty ComboBoxColorValueProperty =
         DependencyProperty.Register(nameof(ComboBoxColorValue), typeof(string), typeof(AddEditCategoryTypeWindow),
             new PropertyMetadata(default(string)));
@@ -71,6 +75,7 @@ public partial class AddEditCategoryTypeWindow
         set => SetValue(ComboBoxColorValueProperty, value);
     }
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty ButtonValidContentProperty =
         DependencyProperty.Register(nameof(ButtonValidContent), typeof(string), typeof(AddEditCategoryTypeWindow),
             new PropertyMetadata(default(string)));
@@ -81,6 +86,7 @@ public partial class AddEditCategoryTypeWindow
         set => SetValue(ButtonValidContentProperty, value);
     }
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty ButtonDeleteContentProperty =
         DependencyProperty.Register(nameof(ButtonDeleteContent), typeof(string), typeof(AddEditCategoryTypeWindow),
             new PropertyMetadata(default(string)));
@@ -91,6 +97,7 @@ public partial class AddEditCategoryTypeWindow
         set => SetValue(ButtonDeleteContentProperty, value);
     }
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty ButtonCancelContentProperty =
         DependencyProperty.Register(nameof(ButtonCancelContent), typeof(string), typeof(AddEditCategoryTypeWindow),
             new PropertyMetadata(default(string)));

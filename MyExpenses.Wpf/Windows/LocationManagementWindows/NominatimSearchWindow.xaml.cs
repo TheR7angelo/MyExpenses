@@ -12,6 +12,7 @@ namespace MyExpenses.Wpf.Windows.LocationManagementWindows;
 
 public partial class NominatimSearchWindow
 {
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty PlaceNameHintAssistProperty = DependencyProperty.Register(
         nameof(PlaceNameHintAssist),
         typeof(string), typeof(NominatimSearchWindow), new PropertyMetadata(default(string)));
@@ -22,6 +23,7 @@ public partial class NominatimSearchWindow
         set => SetValue(PlaceNameHintAssistProperty, value);
     }
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty PlaceNumberHintAssistProperty =
         DependencyProperty.Register(nameof(PlaceNumberHintAssist), typeof(string), typeof(NominatimSearchWindow),
             new PropertyMetadata(default(string)));
@@ -32,6 +34,7 @@ public partial class NominatimSearchWindow
         set => SetValue(PlaceNumberHintAssistProperty, value);
     }
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty CurrentPlaceProperty = DependencyProperty.Register(nameof(CurrentPlace),
         typeof(TPlace), typeof(NominatimSearchWindow), new PropertyMetadata(default(TPlace)));
 
@@ -41,6 +44,7 @@ public partial class NominatimSearchWindow
         set => SetValue(CurrentPlaceProperty, value);
     }
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty PlaceStreetHintAssistProperty =
         DependencyProperty.Register(nameof(PlaceStreetHintAssist), typeof(string), typeof(NominatimSearchWindow),
             new PropertyMetadata(default(string)));
@@ -51,6 +55,7 @@ public partial class NominatimSearchWindow
         set => SetValue(PlaceStreetHintAssistProperty, value);
     }
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty PlacePostalHintAssistProperty =
         DependencyProperty.Register(nameof(PlacePostalHintAssist), typeof(string), typeof(NominatimSearchWindow),
             new PropertyMetadata(default(string)));
@@ -61,6 +66,7 @@ public partial class NominatimSearchWindow
         set => SetValue(PlacePostalHintAssistProperty, value);
     }
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty PlaceCityHintAssistProperty =
         DependencyProperty.Register(nameof(PlaceCityHintAssist), typeof(string), typeof(NominatimSearchWindow),
             new PropertyMetadata(default(string)));
@@ -71,6 +77,7 @@ public partial class NominatimSearchWindow
         set => SetValue(PlaceCityHintAssistProperty, value);
     }
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty PlaceCountryHintAssistProperty =
         DependencyProperty.Register(nameof(PlaceCountryHintAssist), typeof(string), typeof(NominatimSearchWindow),
             new PropertyMetadata(default(string)));
@@ -81,6 +88,7 @@ public partial class NominatimSearchWindow
         set => SetValue(PlaceCountryHintAssistProperty, value);
     }
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty ButtonCancelContentProperty =
         DependencyProperty.Register(nameof(ButtonCancelContent), typeof(string), typeof(NominatimSearchWindow),
             new PropertyMetadata(default(string)));
@@ -91,6 +99,7 @@ public partial class NominatimSearchWindow
         set => SetValue(ButtonCancelContentProperty, value);
     }
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty ButtonValidContentProperty =
         DependencyProperty.Register(nameof(ButtonValidContent), typeof(string), typeof(NominatimSearchWindow),
             new PropertyMetadata(default(string)));

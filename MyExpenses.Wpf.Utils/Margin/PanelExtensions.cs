@@ -14,6 +14,7 @@ public static class PanelExtensions
     /// </summary>
     public static readonly DependencyProperty MarginForAllChildrenProperty =
         DependencyProperty.RegisterAttached("MarginForAllChildren", typeof(Thickness),
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
             typeof(PanelExtensions), new PropertyMetadata(default(Thickness), OnMarginForAllChildrenChanged));
 
     // ReSharper disable once HeapView.BoxingAllocation

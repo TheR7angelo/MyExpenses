@@ -13,6 +13,7 @@ namespace MyExpenses.Wpf.UserControls.Analytics;
 public partial class CumulativeSumChartControl
 {
     public static readonly DependencyProperty TextPaintProperty = DependencyProperty.Register(nameof(TextPaint),
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
         typeof(SolidColorPaint), typeof(CumulativeSumChartControl), new PropertyMetadata(default(SolidColorPaint)));
 
     public SolidColorPaint TextPaint

@@ -12,6 +12,7 @@ public partial class VersionControl
 {
     #region DependencyProperty
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty ApplicationVersionProperty =
         DependencyProperty.Register(nameof(ApplicationVersion), typeof(string), typeof(VersionControl),
             new PropertyMetadata(default(string)));
@@ -22,6 +23,7 @@ public partial class VersionControl
         set => SetValue(ApplicationVersionProperty, value);
     }
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty ApplicationVersionValueProperty =
         DependencyProperty.Register(nameof(ApplicationVersionValue), typeof(string), typeof(VersionControl),
             new PropertyMetadata(default(string)));
@@ -32,6 +34,7 @@ public partial class VersionControl
         set => SetValue(ApplicationVersionValueProperty, value);
     }
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty DatabaseVersionProperty =
         DependencyProperty.Register(nameof(DatabaseVersion), typeof(string), typeof(VersionControl),
             new PropertyMetadata(default(string)));
@@ -42,6 +45,7 @@ public partial class VersionControl
         set => SetValue(DatabaseVersionProperty, value);
     }
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty DatabaseVersionValueProperty =
         DependencyProperty.Register(nameof(DatabaseVersionValue), typeof(string), typeof(VersionControl),
             new PropertyMetadata(default(string)));
@@ -52,6 +56,7 @@ public partial class VersionControl
         set => SetValue(DatabaseVersionValueProperty, value);
     }
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty SqliteVersionProperty = DependencyProperty.Register(nameof(SqliteVersion),
         typeof(string), typeof(VersionControl), new PropertyMetadata(default(string)));
 
@@ -61,6 +66,7 @@ public partial class VersionControl
         set => SetValue(SqliteVersionProperty, value);
     }
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty SqliteVersionValueProperty =
         DependencyProperty.Register(nameof(SqliteVersionValue), typeof(string), typeof(VersionControl),
             new PropertyMetadata(default(string)));

@@ -20,6 +20,7 @@ namespace MyExpenses.Wpf.UserControls.Analytics.BudgetsControl;
 public partial class BudgetAnnualControl
 {
     public static readonly DependencyProperty TextPaintProperty = DependencyProperty.Register(nameof(TextPaint),
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
         typeof(SolidColorPaint), typeof(BudgetAnnualControl), new PropertyMetadata(default(SolidColorPaint)));
 
     public SolidColorPaint TextPaint

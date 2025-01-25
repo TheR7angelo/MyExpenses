@@ -9,6 +9,7 @@ public partial class StackedTotalEllipseControl
 {
     public static readonly DependencyProperty VTotalByAccountProperty =
         DependencyProperty.Register(nameof(VTotalByAccount), typeof(VTotalByAccount),
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
             typeof(StackedTotalEllipseControl), new PropertyMetadata(default(VTotalByAccount)));
 
     public VTotalByAccount VTotalByAccount
@@ -19,6 +20,7 @@ public partial class StackedTotalEllipseControl
 
     public static readonly DependencyProperty TitleTotalTotalNotPointedProperty =
         DependencyProperty.Register(nameof(TitleTotalTotalNotPointed), typeof(string),
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
             typeof(StackedTotalEllipseControl), new PropertyMetadata(default(string)));
 
     public string TitleTotalTotalNotPointed
@@ -29,6 +31,7 @@ public partial class StackedTotalEllipseControl
 
     public static readonly DependencyProperty TitleTotalTotalProperty =
         DependencyProperty.Register(nameof(TitleTotalTotal), typeof(string), typeof(StackedTotalEllipseControl),
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
             new PropertyMetadata(default(string)));
 
     public string TitleTotalTotal
@@ -39,6 +42,7 @@ public partial class StackedTotalEllipseControl
 
     public static readonly DependencyProperty TitleTotalTotalPointedProperty =
         DependencyProperty.Register(nameof(TitleTotalTotalPointed), typeof(string), typeof(StackedTotalEllipseControl),
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
             new PropertyMetadata(default(string)));
 
     public string TitleTotalTotalPointed

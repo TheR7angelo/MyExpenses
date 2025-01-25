@@ -25,6 +25,7 @@ public partial class RecurrentAddWindow
     #region DataGrid
 
     // ReSharper disable once HeapView.BoxingAllocation
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty LocalLanguageProperty = DependencyProperty.Register(nameof(LocalLanguage),
         typeof(Local), typeof(RecurrentAddWindow), new PropertyMetadata(default(Local)));
 
@@ -35,6 +36,7 @@ public partial class RecurrentAddWindow
         set => SetValue(LocalLanguageProperty, value);
     }
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty DateFormatStringProperty =
         DependencyProperty.Register(nameof(DateFormatString), typeof(string), typeof(RecurrentAddWindow),
             new PropertyMetadata(default(string)));
@@ -49,6 +51,7 @@ public partial class RecurrentAddWindow
 
     #region Button
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty ButtonCancelContentProperty =
         DependencyProperty.Register(nameof(ButtonCancelContent), typeof(string), typeof(RecurrentAddWindow),
             new PropertyMetadata(default(string)));
@@ -59,6 +62,7 @@ public partial class RecurrentAddWindow
         set => SetValue(ButtonCancelContentProperty, value);
     }
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty ButtonValidContentProperty =
         DependencyProperty.Register(nameof(ButtonValidContent), typeof(string), typeof(RecurrentAddWindow),
             new PropertyMetadata(default(string)));
@@ -71,6 +75,7 @@ public partial class RecurrentAddWindow
 
     #endregion
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty TitleWindowProperty = DependencyProperty.Register(nameof(TitleWindow),
         typeof(string), typeof(RecurrentAddWindow), new PropertyMetadata(default(string)));
 
@@ -80,6 +85,7 @@ public partial class RecurrentAddWindow
         set => SetValue(TitleWindowProperty, value);
     }
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty TextBlockAddRecurrenceNeededProperty =
         DependencyProperty.Register(nameof(TextBlockAddRecurrenceNeeded), typeof(string), typeof(RecurrentAddWindow),
             new PropertyMetadata(default(string)));

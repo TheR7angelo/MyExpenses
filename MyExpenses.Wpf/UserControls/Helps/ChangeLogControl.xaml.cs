@@ -12,6 +12,7 @@ public partial class ChangeLogControl
 {
     #region DependencyProperty
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty TextBlockVersionProperty =
         DependencyProperty.Register(nameof(TextBlockVersion), typeof(string), typeof(ChangeLogControl),
             new PropertyMetadata(default(string)));
@@ -22,6 +23,7 @@ public partial class ChangeLogControl
         set => SetValue(TextBlockVersionProperty, value);
     }
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty TextBlockNewVersionIsAvailableProperty =
         DependencyProperty.Register(nameof(TextBlockNewVersionIsAvailable), typeof(string), typeof(ChangeLogControl),
             new PropertyMetadata(default(string)));
@@ -32,6 +34,7 @@ public partial class ChangeLogControl
         set => SetValue(TextBlockNewVersionIsAvailableProperty, value);
     }
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty ButtonUpdateContentProperty =
         DependencyProperty.Register(nameof(ButtonUpdateContent), typeof(string), typeof(ChangeLogControl),
             new PropertyMetadata(default(string)));

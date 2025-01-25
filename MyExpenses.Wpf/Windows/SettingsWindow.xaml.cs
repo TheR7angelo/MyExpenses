@@ -14,6 +14,7 @@ public partial class SettingsWindow
 {
     #region Resx
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty TitleWindowProperty = DependencyProperty.Register(nameof(TitleWindow),
         typeof(string), typeof(SettingsWindow), new PropertyMetadata(default(string)));
 
@@ -23,6 +24,7 @@ public partial class SettingsWindow
         set => SetValue(TitleWindowProperty, value);
     }
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty TreeViewItemAppearanceHeaderProperty =
         DependencyProperty.Register(nameof(TreeViewItemAppearanceHeader), typeof(string), typeof(SettingsWindow),
             new PropertyMetadata(default(string)));
@@ -33,6 +35,7 @@ public partial class SettingsWindow
         set => SetValue(TreeViewItemAppearanceHeaderProperty, value);
     }
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty TreeViewItemLanguageHeaderProperty =
         DependencyProperty.Register(nameof(TreeViewItemLanguageHeader), typeof(string), typeof(SettingsWindow),
             new PropertyMetadata(default(string)));
@@ -43,6 +46,7 @@ public partial class SettingsWindow
         set => SetValue(TreeViewItemLanguageHeaderProperty, value);
     }
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty ButtonSaveContentProperty =
         DependencyProperty.Register(nameof(ButtonSaveContent), typeof(string), typeof(SettingsWindow),
             new PropertyMetadata(default(string)));
@@ -53,6 +57,7 @@ public partial class SettingsWindow
         set => SetValue(ButtonSaveContentProperty, value);
     }
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty ButtonCancelContentProperty =
         DependencyProperty.Register(nameof(ButtonCancelContent), typeof(string), typeof(SettingsWindow),
             new PropertyMetadata(default(string)));

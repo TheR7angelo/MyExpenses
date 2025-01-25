@@ -16,6 +16,7 @@ public partial class AutoUpdaterGitHubWindow
 {
     #region DependencyProperty
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty TitleWindowProperty = DependencyProperty.Register(nameof(TitleWindow),
         typeof(string), typeof(AutoUpdaterGitHubWindow), new PropertyMetadata(default(string)));
 
@@ -25,6 +26,7 @@ public partial class AutoUpdaterGitHubWindow
         set => SetValue(TitleWindowProperty, value);
     }
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty TextBlockNewVersionIsAvailableProperty =
         DependencyProperty.Register(nameof(TextBlockNewVersionIsAvailable), typeof(string),
             typeof(AutoUpdaterGitHubWindow), new PropertyMetadata(default(string)));
@@ -35,6 +37,7 @@ public partial class AutoUpdaterGitHubWindow
         set => SetValue(TextBlockNewVersionIsAvailableProperty, value);
     }
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty TextBlockNewVersionIsAvailableParagraphProperty =
         DependencyProperty.Register(nameof(TextBlockNewVersionIsAvailableParagraph), typeof(string),
             typeof(AutoUpdaterGitHubWindow), new PropertyMetadata(default(string)));
@@ -45,6 +48,7 @@ public partial class AutoUpdaterGitHubWindow
         set => SetValue(TextBlockNewVersionIsAvailableParagraphProperty, value);
     }
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty TextBlockVersionNoteProperty =
         DependencyProperty.Register(nameof(TextBlockVersionNote), typeof(string), typeof(AutoUpdaterGitHubWindow),
             new PropertyMetadata(default(string)));
@@ -55,6 +59,7 @@ public partial class AutoUpdaterGitHubWindow
         set => SetValue(TextBlockVersionNoteProperty, value);
     }
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty ButtonCallBackLaterContentProperty =
         DependencyProperty.Register(nameof(ButtonCallBackLaterContent), typeof(string), typeof(AutoUpdaterGitHubWindow),
             new PropertyMetadata(default(string)));
@@ -65,6 +70,7 @@ public partial class AutoUpdaterGitHubWindow
         set => SetValue(ButtonCallBackLaterContentProperty, value);
     }
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty ButtonUpdateNowContentProperty =
         DependencyProperty.Register(nameof(ButtonUpdateNowContent), typeof(string), typeof(AutoUpdaterGitHubWindow),
             new PropertyMetadata(default(string)));

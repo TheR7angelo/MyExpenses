@@ -18,6 +18,7 @@ public partial class AddEditCurrencyWindow
     #region DepencyProperty
 
     // ReSharper disable once HeapView.BoxingAllocation
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty EditCurrencyProperty = DependencyProperty.Register(nameof(EditCurrency),
         typeof(bool), typeof(AddEditCurrencyWindow), new PropertyMetadata(false));
 
@@ -42,6 +43,7 @@ public partial class AddEditCurrencyWindow
 
     #region Resx
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty TextBoxCurrencySymbolProperty =
         DependencyProperty.Register(nameof(TextBoxCurrencySymbol), typeof(string), typeof(AddEditCurrencyWindow),
             new PropertyMetadata(default(string)));
@@ -52,6 +54,7 @@ public partial class AddEditCurrencyWindow
         set => SetValue(TextBoxCurrencySymbolProperty, value);
     }
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty ButtonValidContentProperty =
         DependencyProperty.Register(nameof(ButtonValidContent), typeof(string), typeof(AddEditCurrencyWindow),
             new PropertyMetadata(default(string)));
@@ -62,6 +65,7 @@ public partial class AddEditCurrencyWindow
         set => SetValue(ButtonValidContentProperty, value);
     }
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty ButtonDeleteContentProperty =
         DependencyProperty.Register(nameof(ButtonDeleteContent), typeof(string), typeof(AddEditCurrencyWindow),
             new PropertyMetadata(default(string)));
@@ -72,6 +76,7 @@ public partial class AddEditCurrencyWindow
         set => SetValue(ButtonDeleteContentProperty, value);
     }
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty ButtonCancelContentProperty =
         DependencyProperty.Register(nameof(ButtonCancelContent), typeof(string), typeof(AddEditCurrencyWindow),
             new PropertyMetadata(default(string)));
@@ -82,6 +87,7 @@ public partial class AddEditCurrencyWindow
         set => SetValue(ButtonCancelContentProperty, value);
     }
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty TitleWindowProperty = DependencyProperty.Register(nameof(TitleWindow),
         typeof(string), typeof(AddEditCurrencyWindow), new PropertyMetadata(default(string)));
 

@@ -10,6 +10,7 @@ public partial class CallBackLaterWindow
 {
     #region DependencyProperty
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty TitleWindowProperty = DependencyProperty.Register(nameof(TitleWindow),
         typeof(string), typeof(CallBackLaterWindow), new PropertyMetadata(default(string)));
 
@@ -19,6 +20,7 @@ public partial class CallBackLaterWindow
         set => SetValue(TitleWindowProperty, value);
     }
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty TextBlockDownloadLaterQuestionProperty =
         DependencyProperty.Register(nameof(TextBlockDownloadLaterQuestion), typeof(string), typeof(CallBackLaterWindow),
             new PropertyMetadata(default(string)));
@@ -29,6 +31,7 @@ public partial class CallBackLaterWindow
         set => SetValue(TextBlockDownloadLaterQuestionProperty, value);
     }
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty TextBlockDownloadLaterContentProperty =
         DependencyProperty.Register(nameof(TextBlockDownloadLaterContent), typeof(string), typeof(CallBackLaterWindow),
             new PropertyMetadata(default(string)));
@@ -39,6 +42,7 @@ public partial class CallBackLaterWindow
         set => SetValue(TextBlockDownloadLaterContentProperty, value);
     }
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty RadioButtonDownloadLaterYesProperty =
         DependencyProperty.Register(nameof(RadioButtonDownloadLaterYes), typeof(string), typeof(CallBackLaterWindow),
             new PropertyMetadata(default(string)));
@@ -49,6 +53,7 @@ public partial class CallBackLaterWindow
         set => SetValue(RadioButtonDownloadLaterYesProperty, value);
     }
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty RadioButtonDownloadLaterNoProperty =
         DependencyProperty.Register(nameof(RadioButtonDownloadLaterNo), typeof(string), typeof(CallBackLaterWindow),
             new PropertyMetadata(default(string)));
@@ -59,6 +64,7 @@ public partial class CallBackLaterWindow
         set => SetValue(RadioButtonDownloadLaterNoProperty, value);
     }
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty ButtonOkContentProperty =
         DependencyProperty.Register(nameof(ButtonOkContent), typeof(string), typeof(CallBackLaterWindow),
             new PropertyMetadata(default(string)));

@@ -16,6 +16,7 @@ namespace MyExpenses.Wpf.Windows;
 public partial class AddEditColorWindow
 {
     // ReSharper disable once HeapView.BoxingAllocation
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty EditColorProperty =
         DependencyProperty.Register(nameof(EditColor), typeof(bool), typeof(AddEditColorWindow),
             new PropertyMetadata(false));
@@ -29,6 +30,7 @@ public partial class AddEditColorWindow
 
     #region Resx
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty TitleWindowProperty = DependencyProperty.Register(nameof(TitleWindow),
         typeof(string), typeof(AddEditColorWindow), new PropertyMetadata(default(string)));
 
@@ -38,6 +40,7 @@ public partial class AddEditColorWindow
         set => SetValue(TitleWindowProperty, value);
     }
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty TextBoxColorNameProperty =
         DependencyProperty.Register(nameof(TextBoxColorName), typeof(string), typeof(AddEditColorWindow),
             new PropertyMetadata(default(string)));
@@ -48,6 +51,7 @@ public partial class AddEditColorWindow
         set => SetValue(TextBoxColorNameProperty, value);
     }
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty ButtonValidContentProperty =
         DependencyProperty.Register(nameof(ButtonValidContent), typeof(string), typeof(AddEditColorWindow),
             new PropertyMetadata(default(string)));
@@ -58,6 +62,7 @@ public partial class AddEditColorWindow
         set => SetValue(ButtonValidContentProperty, value);
     }
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty ButtonDeleteContentProperty =
         DependencyProperty.Register(nameof(ButtonDeleteContent), typeof(string), typeof(AddEditColorWindow),
             new PropertyMetadata(default(string)));
@@ -68,6 +73,7 @@ public partial class AddEditColorWindow
         set => SetValue(ButtonDeleteContentProperty, value);
     }
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty ButtonCancelContentProperty =
         DependencyProperty.Register(nameof(ButtonCancelContent), typeof(string), typeof(AddEditColorWindow),
             new PropertyMetadata(default(string)));

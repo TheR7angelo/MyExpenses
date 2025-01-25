@@ -8,6 +8,7 @@ public partial class BudgetsControl
 {
     public static readonly DependencyProperty BudgetMonthlyControlHeaderProperty =
         DependencyProperty.Register(nameof(BudgetMonthlyControlHeader), typeof(string), typeof(BudgetsControl),
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
             new PropertyMetadata(default(string)));
 
     public string BudgetMonthlyControlHeader
@@ -18,6 +19,7 @@ public partial class BudgetsControl
 
     public static readonly DependencyProperty BudgetAnnualControlHeaderProperty =
         DependencyProperty.Register(nameof(BudgetAnnualControlHeader), typeof(string), typeof(BudgetsControl),
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
             new PropertyMetadata(default(string)));
 
     public string BudgetAnnualControlHeader
@@ -28,6 +30,7 @@ public partial class BudgetsControl
 
     public static readonly DependencyProperty BudgetTotalAnnualControlHeaderProperty =
         DependencyProperty.Register(nameof(BudgetTotalAnnualControlHeader), typeof(string), typeof(BudgetsControl),
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
             new PropertyMetadata(default(string)));
 
     public string BudgetTotalAnnualControlHeader

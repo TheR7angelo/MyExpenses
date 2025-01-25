@@ -8,6 +8,7 @@ namespace MyExpenses.Wpf.UserControls.Helps;
 
 public partial class HowToUseControl
 {
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty HowToUseCulturePathProperty =
         DependencyProperty.Register(nameof(HowToUseCulturePath), typeof(HowToUseCulturePath), typeof(HowToUseControl),
             new PropertyMetadata(default(HowToUseCulturePath)));

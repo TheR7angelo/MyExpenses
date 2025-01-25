@@ -13,6 +13,7 @@ public partial class ProgressBarWindow
 {
     #region DependencyProperty
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty SpeedProgressProperty = DependencyProperty.Register(nameof(SpeedProgress),
         typeof(string), typeof(ProgressBarWindow), new PropertyMetadata(default(string)));
 
@@ -23,6 +24,7 @@ public partial class ProgressBarWindow
     }
 
     // ReSharper disable once HeapView.BoxingAllocation
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty TimeLeftProgressProperty =
         DependencyProperty.Register(nameof(TimeLeftProgress), typeof(TimeSpan), typeof(ProgressBarWindow),
             new PropertyMetadata(TimeSpan.Zero));
@@ -35,6 +37,7 @@ public partial class ProgressBarWindow
     }
 
     // ReSharper disable once HeapView.BoxingAllocation
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty TimeElapsedProperty = DependencyProperty.Register(nameof(TimeElapsed),
         typeof(TimeSpan), typeof(ProgressBarWindow), new PropertyMetadata(TimeSpan.Zero));
 
@@ -45,6 +48,7 @@ public partial class ProgressBarWindow
         set => SetValue(TimeElapsedProperty, value);
     }
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty LabelTimeElapsedProperty =
         DependencyProperty.Register(nameof(LabelTimeElapsed), typeof(string), typeof(ProgressBarWindow),
             new PropertyMetadata(default(string)));
@@ -55,6 +59,7 @@ public partial class ProgressBarWindow
         set => SetValue(LabelTimeElapsedProperty, value);
     }
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty LabelTimeLeftProperty = DependencyProperty.Register(nameof(LabelTimeLeft),
         typeof(string), typeof(ProgressBarWindow), new PropertyMetadata(default(string)));
 
@@ -64,6 +69,7 @@ public partial class ProgressBarWindow
         set => SetValue(LabelTimeLeftProperty, value);
     }
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty LabelSpeedProperty = DependencyProperty.Register(nameof(LabelSpeed),
         typeof(string), typeof(ProgressBarWindow), new PropertyMetadata(default(string)));
 
@@ -73,6 +79,7 @@ public partial class ProgressBarWindow
         set => SetValue(LabelSpeedProperty, value);
     }
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty TitleWindowProperty = DependencyProperty.Register(nameof(TitleWindow),
         typeof(string), typeof(ProgressBarWindow), new PropertyMetadata(default(string)));
 

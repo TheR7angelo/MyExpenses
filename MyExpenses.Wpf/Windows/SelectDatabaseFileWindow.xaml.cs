@@ -14,6 +14,7 @@ public partial class SelectDatabaseFileWindow
 
     public List<ExistingDatabase> ExistingDatabasesSelected { get; } = [];
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty SelectDatabaseFileWindowTitleProperty =
         DependencyProperty.Register(nameof(SelectDatabaseFileWindowTitle), typeof(string),
             typeof(SelectDatabaseFileWindow), new PropertyMetadata(default(string)));
@@ -24,6 +25,7 @@ public partial class SelectDatabaseFileWindow
         set => SetValue(SelectDatabaseFileWindowTitleProperty, value);
     }
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty ButtonValidContentProperty =
         DependencyProperty.Register(nameof(ButtonValidContent), typeof(string), typeof(SelectDatabaseFileWindow),
             new PropertyMetadata(default(string)));
@@ -34,6 +36,7 @@ public partial class SelectDatabaseFileWindow
         set => SetValue(ButtonValidContentProperty, value);
     }
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty ButtonCancelContentProperty =
         DependencyProperty.Register(nameof(ButtonCancelContent), typeof(string), typeof(SelectDatabaseFileWindow),
             new PropertyMetadata(default(string)));
@@ -44,6 +47,7 @@ public partial class SelectDatabaseFileWindow
         set => SetValue(ButtonCancelContentProperty, value);
     }
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty LabelStatusProperty = DependencyProperty.Register(nameof(LabelStatus),
         typeof(string), typeof(SelectDatabaseFileWindow), new PropertyMetadata(default(string)));
 

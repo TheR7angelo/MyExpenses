@@ -15,6 +15,7 @@ public partial class AppearanceControl
 
     #region DependencyProperties
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty LabelThemeModeProperty =
         DependencyProperty.Register(nameof(LabelThemeMode), typeof(string), typeof(AppearanceControl),
             new PropertyMetadata(default(string)));
@@ -25,6 +26,7 @@ public partial class AppearanceControl
         set => SetValue(LabelThemeModeProperty, value);
     }
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty CheckBoxContentSyncWithOsProperty =
         DependencyProperty.Register(nameof(CheckBoxContentSyncWithOs), typeof(string), typeof(AppearanceControl),
             new PropertyMetadata(default(string)));
@@ -35,6 +37,7 @@ public partial class AppearanceControl
         set => SetValue(CheckBoxContentSyncWithOsProperty, value);
     }
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty LabelContentPrimaryLightProperty =
         DependencyProperty.Register(nameof(LabelContentPrimaryLight), typeof(string), typeof(AppearanceControl),
             new PropertyMetadata(default(string)));
@@ -45,6 +48,7 @@ public partial class AppearanceControl
         set => SetValue(LabelContentPrimaryLightProperty, value);
     }
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty LabelContentPrimaryMindProperty =
         DependencyProperty.Register(nameof(LabelContentPrimaryMind), typeof(string), typeof(AppearanceControl),
             new PropertyMetadata(default(string)));
@@ -55,6 +59,7 @@ public partial class AppearanceControl
         set => SetValue(LabelContentPrimaryMindProperty, value);
     }
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty LabelContentPrimaryDarkProperty =
         DependencyProperty.Register(nameof(LabelContentPrimaryDark), typeof(string), typeof(AppearanceControl),
             new PropertyMetadata(default(string)));
@@ -65,6 +70,7 @@ public partial class AppearanceControl
         set => SetValue(LabelContentPrimaryDarkProperty, value);
     }
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty LabelContentSecondaryLightProperty =
         DependencyProperty.Register(nameof(LabelContentSecondaryLight), typeof(string), typeof(AppearanceControl),
             new PropertyMetadata(default(string)));
@@ -75,6 +81,7 @@ public partial class AppearanceControl
         set => SetValue(LabelContentSecondaryLightProperty, value);
     }
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty LabelContentSecondaryMindProperty =
         DependencyProperty.Register(nameof(LabelContentSecondaryMind), typeof(string), typeof(AppearanceControl),
             new PropertyMetadata(default(string)));
@@ -91,10 +98,12 @@ public partial class AppearanceControl
         set => SetValue(LabelContentSecondaryDarkProperty, value);
     }
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty LabelContentSecondaryDarkProperty =
         DependencyProperty.Register(nameof(LabelContentSecondaryDark), typeof(string), typeof(AppearanceControl),
             new PropertyMetadata(default(string)));
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty ButtonContentPrimaryColorProperty =
         DependencyProperty.Register(nameof(ButtonContentPrimaryColor), typeof(string), typeof(AppearanceControl),
             new PropertyMetadata(default(string)));
@@ -105,6 +114,7 @@ public partial class AppearanceControl
         set => SetValue(ButtonContentPrimaryColorProperty, value);
     }
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty ButtonContentSecondaryColorProperty =
         DependencyProperty.Register(nameof(ButtonContentSecondaryColor), typeof(string), typeof(AppearanceControl),
             new PropertyMetadata(default(string)));
@@ -115,6 +125,7 @@ public partial class AppearanceControl
         set => SetValue(ButtonContentSecondaryColorProperty, value);
     }
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty BackgroundPrimaryMindBrushProperty =
         DependencyProperty.Register(nameof(BackgroundPrimaryMindBrush), typeof(Brush), typeof(AppearanceControl),
             new PropertyMetadata(default(Brush)));
@@ -125,6 +136,7 @@ public partial class AppearanceControl
         set => SetValue(BackgroundPrimaryMindBrushProperty, value);
     }
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty BackgroundPrimaryLightBrushProperty =
         DependencyProperty.Register(nameof(BackgroundPrimaryLightBrush), typeof(Brush), typeof(AppearanceControl),
             new PropertyMetadata(default(Brush)));
@@ -135,6 +147,7 @@ public partial class AppearanceControl
         set => SetValue(BackgroundPrimaryLightBrushProperty, value);
     }
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty BackgroundPrimaryDarkBrushProperty =
         DependencyProperty.Register(nameof(BackgroundPrimaryDarkBrush), typeof(Brush), typeof(AppearanceControl),
             new PropertyMetadata(default(Brush)));
@@ -145,6 +158,7 @@ public partial class AppearanceControl
         set => SetValue(BackgroundPrimaryDarkBrushProperty, value);
     }
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty BackgroundSecondaryLightBrushProperty =
         DependencyProperty.Register(nameof(BackgroundSecondaryLightBrush), typeof(Brush), typeof(AppearanceControl),
             new PropertyMetadata(default(Brush)));
@@ -155,6 +169,7 @@ public partial class AppearanceControl
         set => SetValue(BackgroundSecondaryLightBrushProperty, value);
     }
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty BackgroundSecondaryMindBrushProperty =
         DependencyProperty.Register(nameof(BackgroundSecondaryMindBrush), typeof(Brush), typeof(AppearanceControl),
             new PropertyMetadata(default(Brush)));
@@ -165,11 +180,13 @@ public partial class AppearanceControl
         set => SetValue(BackgroundSecondaryMindBrushProperty, value);
     }
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty BackgroundSecondaryDarkBrushProperty =
         DependencyProperty.Register(nameof(BackgroundSecondaryDarkBrush), typeof(Brush), typeof(AppearanceControl),
             new PropertyMetadata(default(Brush)));
 
     // ReSharper disable once HeapView.BoxingAllocation
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty SyncWithOsProperty = DependencyProperty.Register(nameof(SyncWithOs),
         typeof(bool), typeof(AppearanceControl), new PropertyMetadata(false));
 
@@ -181,6 +198,7 @@ public partial class AppearanceControl
     }
 
     // ReSharper disable once HeapView.BoxingAllocation
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty LightDarkProperty = DependencyProperty.Register(nameof(LightDark),
         typeof(bool), typeof(AppearanceControl), new PropertyMetadata(false));
 

@@ -14,6 +14,7 @@ public partial class LanguageControl
 {
     #region Resx
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty ComboBoxLanguageSelectorHintAssistProperty =
         DependencyProperty.Register(nameof(ComboBoxLanguageSelectorHintAssist), typeof(string), typeof(LanguageControl),
             new PropertyMetadata(default(string)));
@@ -24,6 +25,7 @@ public partial class LanguageControl
         set => SetValue(ComboBoxLanguageSelectorHintAssistProperty, value);
     }
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty LabelIs24HFormatProperty =
         DependencyProperty.Register(nameof(LabelIs24HFormat), typeof(string), typeof(LanguageControl),
             new PropertyMetadata(default(string)));
@@ -36,6 +38,7 @@ public partial class LanguageControl
 
     #endregion
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty CultureInfoSelectedProperty =
         DependencyProperty.Register(nameof(CultureInfoSelected), typeof(CultureInfo), typeof(LanguageControl),
             new PropertyMetadata(default(CultureInfo)));
@@ -47,6 +50,7 @@ public partial class LanguageControl
     }
 
     // ReSharper disable once HeapView.BoxingAllocation
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty Is24HoursProperty = DependencyProperty.Register(nameof(Is24Hours),
         typeof(bool), typeof(LanguageControl), new PropertyMetadata(false));
 

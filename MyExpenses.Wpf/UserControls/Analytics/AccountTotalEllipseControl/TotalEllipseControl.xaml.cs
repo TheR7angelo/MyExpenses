@@ -6,6 +6,7 @@ public partial class TotalEllipseControl
 {
     public static readonly DependencyProperty TotalProperty = DependencyProperty.Register(nameof(Total), typeof(double),
         // ReSharper disable once HeapView.BoxingAllocation
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
         typeof(TotalEllipseControl), new PropertyMetadata(0d));
 
     public double? Total
@@ -16,6 +17,7 @@ public partial class TotalEllipseControl
     }
 
     public static readonly DependencyProperty SymbolProperty = DependencyProperty.Register(nameof(Symbol),
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
         typeof(string), typeof(TotalEllipseControl), new PropertyMetadata(default(string)));
 
     public string Symbol
@@ -25,6 +27,7 @@ public partial class TotalEllipseControl
     }
 
     public static readonly DependencyProperty TitleTotalProperty = DependencyProperty.Register(nameof(TitleTotal),
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
         typeof(string), typeof(TotalEllipseControl), new PropertyMetadata(default(string)));
 
     public string TitleTotal

@@ -14,6 +14,7 @@ namespace MyExpenses.Wpf.UserControls.Analytics.AccountsModePaymentMonthlySumCon
 public partial class AccountModePaymentMonthlySumControl
 {
     public static readonly DependencyProperty TextPaintProperty = DependencyProperty.Register(nameof(TextPaint),
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
         typeof(SolidColorPaint), typeof(AccountModePaymentMonthlySumControl), new PropertyMetadata(default(SolidColorPaint)));
 
     public SolidColorPaint TextPaint

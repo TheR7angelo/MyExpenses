@@ -37,6 +37,7 @@ public partial class AddEditRecurrentExpenseWindow
 {
     #region DependencyProperty
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty WindowTitleProperty = DependencyProperty.Register(nameof(WindowTitle),
         typeof(string), typeof(AddEditRecurrentExpenseWindow), new PropertyMetadata(default(string)));
 
@@ -46,6 +47,7 @@ public partial class AddEditRecurrentExpenseWindow
         set => SetValue(WindowTitleProperty, value);
     }
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty ComboBoxAccountHintAssistProperty =
         DependencyProperty.Register(nameof(ComboBoxAccountHintAssist), typeof(string),
             typeof(AddEditRecurrentExpenseWindow), new PropertyMetadata(default(string)));
@@ -56,6 +58,7 @@ public partial class AddEditRecurrentExpenseWindow
         set => SetValue(ComboBoxAccountHintAssistProperty, value);
     }
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty ComboBoxBackgroundHintAssistProperty =
         DependencyProperty.Register(nameof(ComboBoxBackgroundHintAssist), typeof(string),
             typeof(AddEditRecurrentExpenseWindow), new PropertyMetadata(default(string)));
@@ -66,6 +69,7 @@ public partial class AddEditRecurrentExpenseWindow
         set => SetValue(ComboBoxBackgroundHintAssistProperty, value);
     }
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty TextBoxDescriptionHintAssistProperty =
         DependencyProperty.Register(nameof(TextBoxDescriptionHintAssist), typeof(string),
             typeof(AddEditRecurrentExpenseWindow), new PropertyMetadata(default(string)));
@@ -76,6 +80,7 @@ public partial class AddEditRecurrentExpenseWindow
         set => SetValue(TextBoxDescriptionHintAssistProperty, value);
     }
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty TextBoxNoteHintAssistProperty =
         DependencyProperty.Register(nameof(TextBoxNoteHintAssist), typeof(string),
             typeof(AddEditRecurrentExpenseWindow), new PropertyMetadata(default(string)));
@@ -86,6 +91,7 @@ public partial class AddEditRecurrentExpenseWindow
         set => SetValue(TextBoxNoteHintAssistProperty, value);
     }
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty ComboBoxModePaymentHintAssistProperty =
         DependencyProperty.Register(nameof(ComboBoxModePaymentHintAssist), typeof(string),
             typeof(AddEditRecurrentExpenseWindow), new PropertyMetadata(default(string)));
@@ -96,6 +102,7 @@ public partial class AddEditRecurrentExpenseWindow
         set => SetValue(ComboBoxModePaymentHintAssistProperty, value);
     }
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty ComboBoxCategoryTypeHintAssistProperty =
         DependencyProperty.Register(nameof(ComboBoxCategoryTypeHintAssist), typeof(string),
             typeof(AddEditRecurrentExpenseWindow), new PropertyMetadata(default(string)));
@@ -106,6 +113,7 @@ public partial class AddEditRecurrentExpenseWindow
         set => SetValue(ComboBoxCategoryTypeHintAssistProperty, value);
     }
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty TextBoxValueHintAssistProperty =
         DependencyProperty.Register(nameof(TextBoxValueHintAssist), typeof(string),
             typeof(AddEditRecurrentExpenseWindow), new PropertyMetadata(default(string)));
@@ -116,6 +124,7 @@ public partial class AddEditRecurrentExpenseWindow
         set => SetValue(TextBoxValueHintAssistProperty, value);
     }
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty ComboBoxFrequencyHintAssistProperty =
         DependencyProperty.Register(nameof(ComboBoxFrequencyHintAssist), typeof(string),
             typeof(AddEditRecurrentExpenseWindow), new PropertyMetadata(default(string)));
@@ -126,6 +135,7 @@ public partial class AddEditRecurrentExpenseWindow
         set => SetValue(ComboBoxFrequencyHintAssistProperty, value);
     }
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty TextBoxRecursiveTotalHintAssistProperty =
         DependencyProperty.Register(nameof(TextBoxRecursiveTotalHintAssist), typeof(string),
             typeof(AddEditRecurrentExpenseWindow), new PropertyMetadata(default(string)));
@@ -136,6 +146,7 @@ public partial class AddEditRecurrentExpenseWindow
         set => SetValue(TextBoxRecursiveTotalHintAssistProperty, value);
     }
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty TextBoxRecursiveCountHintAssistProperty =
         DependencyProperty.Register(nameof(TextBoxRecursiveCountHintAssist), typeof(string),
             typeof(AddEditRecurrentExpenseWindow), new PropertyMetadata(default(string)));
@@ -146,6 +157,7 @@ public partial class AddEditRecurrentExpenseWindow
         set => SetValue(TextBoxRecursiveCountHintAssistProperty, value);
     }
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty DatePickerStartDateHintAssistProperty =
         DependencyProperty.Register(nameof(DatePickerStartDateHintAssist), typeof(string),
             typeof(AddEditRecurrentExpenseWindow), new PropertyMetadata(default(string)));
@@ -156,6 +168,7 @@ public partial class AddEditRecurrentExpenseWindow
         set => SetValue(DatePickerStartDateHintAssistProperty, value);
     }
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty TextBoxNextDueDateHintAssistProperty =
         DependencyProperty.Register(nameof(TextBoxNextDueDateHintAssist), typeof(string),
             typeof(AddEditRecurrentExpenseWindow), new PropertyMetadata(default(string)));
@@ -166,6 +179,7 @@ public partial class AddEditRecurrentExpenseWindow
         set => SetValue(TextBoxNextDueDateHintAssistProperty, value);
     }
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty CheckBoxForceDeactivateProperty =
         DependencyProperty.Register(nameof(CheckBoxForceDeactivate), typeof(string),
             typeof(AddEditRecurrentExpenseWindow), new PropertyMetadata(default(string)));
@@ -176,6 +190,7 @@ public partial class AddEditRecurrentExpenseWindow
         set => SetValue(CheckBoxForceDeactivateProperty, value);
     }
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty CheckBoxIsActiveProperty =
         DependencyProperty.Register(nameof(CheckBoxIsActive), typeof(string), typeof(AddEditRecurrentExpenseWindow),
             new PropertyMetadata(default(string)));
@@ -186,6 +201,7 @@ public partial class AddEditRecurrentExpenseWindow
         set => SetValue(CheckBoxIsActiveProperty, value);
     }
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty ComboBoxPlaceCountryHintAssistProperty =
         DependencyProperty.Register(nameof(ComboBoxPlaceCountryHintAssist), typeof(string),
             typeof(AddEditRecurrentExpenseWindow), new PropertyMetadata(default(string)));
@@ -196,6 +212,7 @@ public partial class AddEditRecurrentExpenseWindow
         set => SetValue(ComboBoxPlaceCountryHintAssistProperty, value);
     }
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty ComboBoxPlaceCityHintAssistProperty =
         DependencyProperty.Register(nameof(ComboBoxPlaceCityHintAssist), typeof(string),
             typeof(AddEditRecurrentExpenseWindow), new PropertyMetadata(default(string)));
@@ -206,6 +223,7 @@ public partial class AddEditRecurrentExpenseWindow
         set => SetValue(ComboBoxPlaceCityHintAssistProperty, value);
     }
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty ComboBoxPlaceHintAssistProperty =
         DependencyProperty.Register(nameof(ComboBoxPlaceHintAssist), typeof(string),
             typeof(AddEditRecurrentExpenseWindow), new PropertyMetadata(default(string)));
@@ -216,6 +234,7 @@ public partial class AddEditRecurrentExpenseWindow
         set => SetValue(ComboBoxPlaceHintAssistProperty, value);
     }
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty ButtonValidContentProperty =
         DependencyProperty.Register(nameof(ButtonValidContent), typeof(string), typeof(AddEditRecurrentExpenseWindow),
             new PropertyMetadata(default(string)));
@@ -226,6 +245,7 @@ public partial class AddEditRecurrentExpenseWindow
         set => SetValue(ButtonValidContentProperty, value);
     }
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty ButtonDeleteContentProperty =
         DependencyProperty.Register(nameof(ButtonDeleteContent), typeof(string), typeof(AddEditRecurrentExpenseWindow),
             new PropertyMetadata(default(string)));
@@ -236,6 +256,7 @@ public partial class AddEditRecurrentExpenseWindow
         set => SetValue(ButtonDeleteContentProperty, value);
     }
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty ButtonCancelContentProperty =
         DependencyProperty.Register(nameof(ButtonCancelContent), typeof(string), typeof(AddEditRecurrentExpenseWindow),
             new PropertyMetadata(default(string)));
@@ -247,6 +268,7 @@ public partial class AddEditRecurrentExpenseWindow
     }
 
     // ReSharper disable once HeapView.BoxingAllocation
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty EditRecurrentExpenseProperty =
         DependencyProperty.Register(nameof(EditRecurrentExpense), typeof(bool), typeof(AddEditRecurrentExpenseWindow),
             new PropertyMetadata(false));
@@ -258,6 +280,7 @@ public partial class AddEditRecurrentExpenseWindow
         set => SetValue(EditRecurrentExpenseProperty, value);
     }
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty SelectedCountryProperty =
         DependencyProperty.Register(nameof(SelectedCountry), typeof(string), typeof(AddEditRecurrentExpenseWindow),
             new PropertyMetadata(default(string)));
@@ -268,6 +291,7 @@ public partial class AddEditRecurrentExpenseWindow
         set => SetValue(SelectedCountryProperty, value);
     }
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty SelectedCityProperty = DependencyProperty.Register(nameof(SelectedCity),
         typeof(string), typeof(AddEditRecurrentExpenseWindow), new PropertyMetadata(default(string)));
 
