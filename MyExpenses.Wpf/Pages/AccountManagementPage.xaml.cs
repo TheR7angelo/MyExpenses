@@ -33,6 +33,11 @@ public partial class AccountManagementPage
 
     private void ButtonAddNewAccount_OnClick(object sender, RoutedEventArgs e)
     {
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // The instance of AddEditAccountWindow is created locally and used exclusively within this method.
+        // Since it is scoped to this method and no further references to it exist after its use,
+        // the Garbage Collector will automatically handle the memory cleanup once the method execution ends.
+        // Therefore, explicit management of this allocation is unnecessary, and the hint can be safely ignored.
         var addEditAccountWindow = new AddEditAccountWindow();
         addEditAccountWindow.ShowDialog();
         if (addEditAccountWindow.DialogResult is not true) return;
@@ -43,7 +48,7 @@ public partial class AccountManagementPage
         {
             var newHistory = addEditAccountWindow.History;
             newHistory.ModePaymentFk = 1;
-            newAccount.THistories = new List<THistory> { newHistory };
+            newAccount.THistories = [newHistory];
         }
 
         Log.Information("Attempting to inject the new account \"{NewAccountName}\"", newAccount.Name);
@@ -77,6 +82,11 @@ public partial class AccountManagementPage
         var account = vTotalByAccount.Id.ToISql<TAccount>();
         if (account is null) return;
 
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // The instance of AddEditAccountWindow is created within the scope of this method
+        // and is only used temporarily. Once the execution of the method completes,
+        // and no references remain, the Garbage Collector will handle its cleanup automatically.
+        // Explicit allocation management is not required here, so the hint is safely ignored.
         var addEditAccountWindow = new AddEditAccountWindow();
         addEditAccountWindow.SetTAccount(account);
         addEditAccountWindow.ShowDialog();

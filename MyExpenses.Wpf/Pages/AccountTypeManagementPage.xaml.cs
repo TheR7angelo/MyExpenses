@@ -29,6 +29,10 @@ public partial class AccountTypeManagementPage
 
     private void ButtonAddNewAccountType_OnClick(object sender, RoutedEventArgs e)
     {
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // The instance of AddEditAccountTypeWindow is created locally within this method and is used temporarily.
+        // Since there are no references to it after this scope and the Garbage Collector will handle
+        // its cleanup efficiently, this allocation is intentional and does not require further optimization.
         var addEditAccountType = new AddEditAccountTypeWindow();
         var result = addEditAccountType.ShowDialog();
         if (result is not true) return;
@@ -59,6 +63,10 @@ public partial class AccountTypeManagementPage
         var button = (Button)sender;
         if (button.DataContext is not TAccountType accountType) return;
 
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // The instance of AddEditAccountTypeWindow is created locally within this method and is used temporarily.
+        // Since there are no references to it after this scope and the Garbage Collector will handle
+        // its cleanup efficiently, this allocation is intentional and does not require further optimization.
         var addEditAccountType = new AddEditAccountTypeWindow();
         addEditAccountType.SetTAccountType(accountType);
 
