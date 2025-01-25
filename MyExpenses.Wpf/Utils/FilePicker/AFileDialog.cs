@@ -4,32 +4,71 @@ namespace MyExpenses.Wpf.Utils.FilePicker;
 
 public abstract class AFileDialog
 {
+    private VistaOpenFileDialog? _vistaOpenFileDialog;
+
+    private VistaOpenFileDialog VistaOpenFileDialog
+    {
+        get
+        {
+            if (_vistaOpenFileDialog is null) InitializeOpenFileDialog();
+            return _vistaOpenFileDialog!;
+        }
+    }
+
+    private VistaSaveFileDialog? _vistaSaveFileDialog;
+
+    private VistaSaveFileDialog VistaSaveFileDialog
+    {
+        get
+        {
+            if (_vistaSaveFileDialog is null) InitializeVistaSaveFileDialog();
+            return _vistaSaveFileDialog!;
+        }
+    }
+
+    private string? TitleOpenFile { get; }
+    private string? TitleSaveFile { get; }
+    private bool Multiselect { get; }
+    private string? DefaultFileName { get; }
+    private string Filter { get; }
     private string FilterText { get; }
     private IEnumerable<string> Extensions { get; }
-
-    private readonly VistaOpenFileDialog _vistaOpenFileDialog;
-    private readonly VistaSaveFileDialog _vistaSaveFileDialog;
 
     protected AFileDialog(string? titleOpenFile, string? titleSaveFile, bool multiselect,
         IEnumerable<string> extensions, string filterText, string? defaultFileName=null)
     {
+        TitleOpenFile = titleOpenFile;
+        TitleSaveFile = titleSaveFile;
+        Multiselect = multiselect;
+        DefaultFileName = defaultFileName;
+
         Extensions = extensions;
         FilterText = filterText;
 
-        var filter = GetFilter();
+        Filter = GetFilter();
+    }
 
-        _vistaOpenFileDialog = new VistaOpenFileDialog
-        {
-            Title = titleOpenFile,
-            Multiselect = multiselect,
-            Filter = filter
-        };
-
+    private void InitializeVistaSaveFileDialog()
+    {
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // Creates an instance of VistaSaveFileDialog to handle file saving operations.
         _vistaSaveFileDialog = new VistaSaveFileDialog
         {
-            Title = titleSaveFile,
-            Filter = filter,
-            FileName = defaultFileName
+            Title = TitleSaveFile,
+            Filter = Filter,
+            FileName = DefaultFileName
+        };
+    }
+
+    private void InitializeOpenFileDialog()
+    {
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // Creates an instance of VistaOpenFileDialog to handle file opening operations.
+        _vistaOpenFileDialog = new VistaOpenFileDialog
+        {
+            Title = TitleOpenFile,
+            Multiselect = Multiselect,
+            Filter = Filter
         };
     }
 
@@ -41,33 +80,22 @@ public abstract class AFileDialog
 
     public string[]? GetFiles()
     {
-        var result = _vistaOpenFileDialog.ShowDialog();
+        var result = VistaOpenFileDialog.ShowDialog();
 
         if (result is true)
         {
-            return _vistaOpenFileDialog.Multiselect ? _vistaOpenFileDialog.FileNames : [_vistaOpenFileDialog.FileName];
+            return VistaOpenFileDialog.Multiselect ? VistaOpenFileDialog.FileNames : [VistaOpenFileDialog.FileName];
         }
 
         return null;
     }
 
     public string? GetFile()
-    {
-        var result = _vistaOpenFileDialog.ShowDialog();
-
-        if (result is true)
-        {
-            return _vistaOpenFileDialog.Multiselect
-                ? _vistaOpenFileDialog.FileNames.First()
-                : _vistaOpenFileDialog.FileName;
-        }
-
-        return null;
-    }
+        => GetFiles()?.FirstOrDefault();
 
     public string? SaveFile()
     {
-        var result = _vistaSaveFileDialog.ShowDialog();
-        return result is true ? _vistaSaveFileDialog.FileName : null;
+        var result = VistaSaveFileDialog.ShowDialog();
+        return result is true ? VistaSaveFileDialog.FileName : null;
     }
 }
