@@ -125,6 +125,9 @@ public partial class LocationManagementPage
         KnownTileSources = [..MapsuiMapExtensions.GetAllKnowTileSource()];
         InfoLayers = new List<ILayer> { PlaceLayer };
 
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // Necessary instantiation of DataBaseContext to interact with the database.
+        // This creates a scoped database context for performing queries and modifications in the database.
         using var context = new DataBaseContext();
         var places = context.TPlaces.OrderBy(s => s.Country).ThenBy(s => s.City).ThenBy(s => s.Name).ToList();
         var groups = places.GetGroups();

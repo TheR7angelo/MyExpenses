@@ -303,6 +303,10 @@ public partial class DashBoardPage
         Instance = this;
 
         var (currentYear, currentMonth, _) = DateTime.Now;
+
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // Necessary instantiation of DataBaseContext to interact with the database.
+        // This creates a scoped database context for performing queries and modifications in the database.
         using var context = new DataBaseContext();
         var recurrences = context.GetActiveRecurrencesForCurrentMonth(currentYear, currentMonth);
 
@@ -567,6 +571,9 @@ public partial class DashBoardPage
 
     private void RefreshAccountTotal(int id)
     {
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // Necessary instantiation of DataBaseContext to interact with the database.
+        // This creates a scoped database context for performing queries and modifications in the database.
         using var context = new DataBaseContext();
         var newVTotalByAccount = context.VTotalByAccounts.FirstOrDefault(s => s.Id.Equals(id));
         if (newVTotalByAccount is null) return;
@@ -579,6 +586,9 @@ public partial class DashBoardPage
 
     internal void RefreshAccountTotal()
     {
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // Necessary instantiation of DataBaseContext to interact with the database.
+        // This creates a scoped database context for performing queries and modifications in the database.
         using var context = new DataBaseContext();
         var newVTotalByAccounts = context.VTotalByAccounts.ToList();
 

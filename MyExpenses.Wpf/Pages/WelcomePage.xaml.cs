@@ -63,6 +63,9 @@ public partial class WelcomePage
         {
             File.Copy(DatabaseInfos.LocalFilePathDataBaseModel, filePath, true);
 
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
+            // Necessary instantiation of DataBaseContext to interact with the database.
+            // This creates a scoped database context for performing queries and modifications in the database.
             using var context = new DataBaseContext(filePath);
             context.SetAllDefaultValues();
             context.SaveChanges();

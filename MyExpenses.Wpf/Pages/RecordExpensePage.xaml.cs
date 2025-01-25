@@ -241,6 +241,9 @@ public partial class RecordExpensePage
     {
         KnownTileSources = [..MapsuiMapExtensions.GetAllKnowTileSource()];
 
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // Necessary instantiation of DataBaseContext to interact with the database.
+        // This creates a scoped database context for performing queries and modifications in the database.
         using var context = new DataBaseContext();
         Accounts = [..context.TAccounts.OrderBy(s => s.Name)];
         CategoryTypes = [..context.TCategoryTypes.OrderBy(s => s.Name)];
@@ -337,6 +340,9 @@ public partial class RecordExpensePage
             var (success, exception) = editedCategoryType.AddOrEdit();
             if (success)
             {
+                // ReSharper disable once HeapView.ObjectAllocation.Evident
+                // Necessary instantiation of DataBaseContext to interact with the database.
+                // This creates a scoped database context for performing queries and modifications in the database.
                 using var context = new DataBaseContext();
                 editedCategoryTypeDeepCopy.ColorFkNavigation =
                     context.TColors.FirstOrDefault(s => s.Id == editedCategoryTypeDeepCopy.ColorFk);
@@ -595,6 +601,9 @@ public partial class RecordExpensePage
         var comboBox = (ComboBox)sender;
         var city = comboBox.SelectedItem as string;
 
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // Necessary instantiation of DataBaseContext to interact with the database.
+        // This creates a scoped database context for performing queries and modifications in the database.
         using var context = new DataBaseContext();
         var query = context.TPlaces.Where(s => s.IsOpen);
 
@@ -627,6 +636,9 @@ public partial class RecordExpensePage
         var comboBox = (ComboBox)sender;
         var country = comboBox.SelectedItem as string;
 
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // Necessary instantiation of DataBaseContext to interact with the database.
+        // This creates a scoped database context for performing queries and modifications in the database.
         using var context = new DataBaseContext();
         var query = context.TPlaces.Where(s => s.IsOpen);
 

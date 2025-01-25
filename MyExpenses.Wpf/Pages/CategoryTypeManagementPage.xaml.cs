@@ -20,6 +20,9 @@ public partial class CategoryTypeManagementPage
 
     public CategoryTypeManagementPage()
     {
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // Necessary instantiation of DataBaseContext to interact with the database.
+        // This creates a scoped database context for performing queries and modifications in the database.
         using var context = new DataBaseContext();
 
         CategoryTypes = new ObservableCollection<TCategoryType>();
@@ -89,6 +92,9 @@ public partial class CategoryTypeManagementPage
         var (success, exception) = editedCategoryTypeDeepCopy.AddOrEdit();
         if (success)
         {
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
+            // Necessary instantiation of DataBaseContext to interact with the database.
+            // This creates a scoped database context for performing queries and modifications in the database.
             using var context = new DataBaseContext();
             editedCategoryTypeDeepCopy.ColorFkNavigation =
                 context.TColors.FirstOrDefault(s => s.Id == editedCategoryTypeDeepCopy.ColorFk);
