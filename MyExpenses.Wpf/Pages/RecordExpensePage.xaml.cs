@@ -478,7 +478,15 @@ public partial class RecordExpensePage
 
     private void ButtonValid_OnClick(object sender, RoutedEventArgs e)
     {
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // The serviceProvider and items are set to null because they are not required in this context.
+        // The ValidationResults list will store any validation errors detected during the process.
         var validationContext = new ValidationContext(History, serviceProvider: null, items: null);
+
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // Using 'var' keeps the code concise and readable, as the type (List<ValidationResult>)
+        // is evident from the initialization. The result will still be compatible with any method
+        // that expects an ICollection<ValidationResult>, as List<T> implements the ICollection interface.
         var validationResults = new List<ValidationResult>();
         var isValid = Validator.TryValidateObject(History, validationContext, validationResults, true);
 
