@@ -36,6 +36,10 @@ public partial class ColorManagementPage
 
     private void ButtonAddColor_OnClick(object sender, RoutedEventArgs e)
     {
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // The instance of AddEditColorWindow is created locally within this method and is used temporarily.
+        // Since there are no references to it after this scope and the Garbage Collector will handle
+        // its cleanup efficiently, this allocation is intentional and does not require further optimization.
         var addEditColorWindow = new AddEditColorWindow();
         addEditColorWindow.ShowDialog();
 
@@ -69,6 +73,10 @@ public partial class ColorManagementPage
         var button = (Button)sender;
         if (button.DataContext is not TColor colorToEdit) return;
 
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // The instance of AddEditColorWindow is created locally within this method and is used temporarily.
+        // Since there are no references to it after this scope and the Garbage Collector will handle
+        // its cleanup efficiently, this allocation is intentional and does not require further optimization.
         var addEditColorWindow = new AddEditColorWindow();
         addEditColorWindow.SetTColor(colorToEdit);
 

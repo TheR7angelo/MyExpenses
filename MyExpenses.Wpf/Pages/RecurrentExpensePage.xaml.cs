@@ -112,6 +112,10 @@ public partial class RecurrentExpensePage
 
     private void ButtonAddNewRecurrent_OnClick(object sender, RoutedEventArgs e)
     {
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // An instance of AddEditRecurrentExpenseWindow is created to manage adding or editing recurrent expenses.
+        // ShowDialog() is called to display the window modally and capture the user's action.
+        // If the dialog result is not true (e.g., the user cancels the operation), the method returns early.
         var addEditRecurrentExpenseWindow = new AddEditRecurrentExpenseWindow();
 
         var result = addEditRecurrentExpenseWindow.ShowDialog();
@@ -211,6 +215,10 @@ public partial class RecurrentExpensePage
 
     private void EditRecurrentExpense(VRecursiveExpense vRecurrentExpense)
     {
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // An instance of AddEditRecurrentExpenseWindow is created to manage adding or editing recurrent expenses.
+        // ShowDialog() is called to display the window modally and capture the user's action.
+        // If the dialog result is not true (e.g., the user cancels the operation), the method returns early.
         var addEditRecurrentExpenseWindow = new AddEditRecurrentExpenseWindow();
         addEditRecurrentExpenseWindow.SetVRecursiveExpense(vRecurrentExpense);
 

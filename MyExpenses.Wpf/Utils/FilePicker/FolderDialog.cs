@@ -4,6 +4,8 @@ namespace MyExpenses.Wpf.Utils.FilePicker;
 
 public class FolderDialog(string? titleOpenFile = null, bool multiSelect = false)
 {
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
+    // Creates an instance of VistaFolderBrowserDialog to handle folder selection operations.
     private readonly VistaFolderBrowserDialog _vistaFolderBrowserDialog = new()
     {
         Description = titleOpenFile,
@@ -22,10 +24,7 @@ public class FolderDialog(string? titleOpenFile = null, bool multiSelect = false
     }
 
     public string? GetFile()
-    {
-        var result = _vistaFolderBrowserDialog.ShowDialog();
-        return result is true ? _vistaFolderBrowserDialog.SelectedPath : null;
-    }
+        => GetFiles()?.FirstOrDefault();
 
     public string? SaveFile()
         => null;

@@ -44,6 +44,10 @@ public partial class CategoryTypeManagementPage
 
     private void ButtonAddCategoryType_OnClick(object sender, RoutedEventArgs e)
     {
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // The instance of AddEditCategoryTypeWindow is created locally within this method and is used temporarily.
+        // Since there are no references to it after this scope and the Garbage Collector will handle
+        // its cleanup efficiently, this allocation is intentional and does not require further optimization.
         var addEditCategoryType = new AddEditCategoryTypeWindow();
         var result = addEditCategoryType.ShowDialog();
         if (result is not true) return;
@@ -73,6 +77,10 @@ public partial class CategoryTypeManagementPage
         var button = (Button)sender;
         if (button.DataContext is not TCategoryType categoryType) return;
 
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // The instance of AddEditCategoryTypeWindow is created locally within this method and is used temporarily.
+        // Since there are no references to it after this scope and the Garbage Collector will handle
+        // its cleanup efficiently, this allocation is intentional and does not require further optimization.
         var addEditCategoryTypeWindow = new AddEditCategoryTypeWindow();
         addEditCategoryTypeWindow.SetTCategoryType(categoryType);
         var result = addEditCategoryTypeWindow.ShowDialog();

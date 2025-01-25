@@ -209,6 +209,10 @@ public partial class LocationManagementPage
 
     private void MenuItemAddFeature_OnClick(object sender, RoutedEventArgs e)
     {
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // The AddEditLocationWindow instance is created to allow the user to add or edit a location.
+        // The SetPlace method is called with the current ClickPoint to initialize the dialog with the relevant location data.
+        // ShowDialog() displays the window modally, pausing execution until the user has interacted with and closed the dialog.
         var addEditLocationWindow = new AddEditLocationWindow();
         addEditLocationWindow.SetPlace(ClickPoint);
         addEditLocationWindow.ShowDialog();
@@ -278,6 +282,10 @@ public partial class LocationManagementPage
 
     private void MenuItemEditFeature_OnClick(object sender, RoutedEventArgs e)
     {
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // The AddEditLocationWindow instance is created to manage the addition or editing of a location.
+        // The SetPlace method is called with the current ClickTPlace and an additional parameter to configure the dialog appropriately.
+        // ShowDialog() is used to display the window modally, halting execution until the user closes the dialog.
         var addEditLocationWindow = new AddEditLocationWindow();
         addEditLocationWindow.SetPlace(ClickTPlace!, false);
         addEditLocationWindow.ShowDialog();

@@ -294,6 +294,8 @@ public partial class RecordExpensePage
 
     private void ButtonAccount_OnClick(object sender, RoutedEventArgs e)
     {
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // An instance of AddEditAccountWindow is created to handle adding or editing an account.
         var addEditAccountWindow = new AddEditAccountWindow();
 
         var account = History.AccountFk?.ToISql<TAccount>();
@@ -336,6 +338,9 @@ public partial class RecordExpensePage
 
     private void ButtonCategoryType_OnClick(object sender, RoutedEventArgs e)
     {
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // An instance of AddEditCategoryTypeWindow is created to handle adding or editing a category type.
+        // The category type is set to null if the category type is not found.
         var addEditCategoryTypeWindow = new AddEditCategoryTypeWindow();
         var categoryType = History.CategoryTypeFk?.ToISql<TCategoryType>();
         if (categoryType is not null) addEditCategoryTypeWindow.SetTCategoryType(categoryType);
@@ -390,6 +395,9 @@ public partial class RecordExpensePage
             return;
         }
 
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // An instance of AddEditModePaymentWindow is created to handle adding or editing a mode payment.
+        // The mode payment is set to null if the mode payment is not found.
         var addEditModePaymentWindow = new AddEditModePaymentWindow();
         if (modePayment is not null) addEditModePaymentWindow.SetTModePayment(modePayment);
 
@@ -437,6 +445,9 @@ public partial class RecordExpensePage
             return;
         }
 
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // An instance of AddEditPlaceWindow is created to handle adding or editing a place.
+        // The place is set to null if the place is not found.
         var addEditLocationWindow = new AddEditLocationWindow();
         if (place is not null) addEditLocationWindow.SetPlace(place, false);
 

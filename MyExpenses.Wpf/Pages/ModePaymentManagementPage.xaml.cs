@@ -29,6 +29,10 @@ public partial class ModePaymentManagementPage
 
     private void ButtonAddNewModePayment_OnClick(object sender, RoutedEventArgs e)
     {
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // The instance of AddEditModePaymentWindow is created locally within this method and is used temporarily.
+        // Since there are no references to it after this scope and the Garbage Collector will handle
+        // its cleanup efficiently, this allocation is intentional and does not require further optimization.
         var addEditModePaymentWindow = new AddEditModePaymentWindow();
         var result = addEditModePaymentWindow.ShowDialog();
         if (result is not true) return;
@@ -65,6 +69,10 @@ public partial class ModePaymentManagementPage
             return;
         }
 
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // The instance of AddEditModePaymentWindow is created locally within this method and is used temporarily.
+        // Since there are no references to it after this scope and the Garbage Collector will handle
+        // its cleanup efficiently, this allocation is intentional and does not require further optimization.
         var addEditModePaymentWindow = new AddEditModePaymentWindow();
         addEditModePaymentWindow.SetTModePayment(modePaymentToEdit);
 

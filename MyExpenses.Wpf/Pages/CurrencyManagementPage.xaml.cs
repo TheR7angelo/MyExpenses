@@ -29,6 +29,10 @@ public partial class CurrencyManagementPage
 
     private void ButtonAddCurrency_OnClick(object sender, RoutedEventArgs e)
     {
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // The instance of AddEditCurrencyWindow is created locally within this method and is used temporarily.
+        // Since there are no references to it after this scope and the Garbage Collector will handle
+        // its cleanup efficiently, this allocation is intentional and does not require further optimization.
         var addEditCurrency = new AddEditCurrencyWindow();
         var result = addEditCurrency.ShowDialog();
         if (result is not true) return;
@@ -59,6 +63,10 @@ public partial class CurrencyManagementPage
         var button = (Button)sender;
         if (button.DataContext is not TCurrency currencyToEdit) return;
 
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // The instance of AddEditCurrencyWindow is created locally within this method and is used temporarily.
+        // Since there are no references to it after this scope and the Garbage Collector will handle
+        // its cleanup efficiently, this allocation is intentional and does not require further optimization.
         var addEditCurrency = new AddEditCurrencyWindow();
         addEditCurrency.SetTCurrency(currencyToEdit);
 

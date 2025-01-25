@@ -429,6 +429,11 @@ public partial class BankTransferPage
 
     private void ButtonFromAddAccount_OnClick(object sender, RoutedEventArgs e)
     {
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // The AddEditAccountWindow instance is created here to handle user interactions for editing or adding an account.
+        // The FromAccountFk, if not null, is converted to the appropriate type and passed to the dialog for initialization.
+        // ShowDialog() is used to display the window modally, pausing execution until the user closes it.
+        // The DialogResult is checked to ensure the user confirmed their actions before proceeding with further logic.
         var addEditAccountWindow = new AddEditAccountWindow();
         var fromAccount = BankTransfer.FromAccountFk?.ToISql<TAccount>();
         if (fromAccount is not null) addEditAccountWindow.SetTAccount(fromAccount);
@@ -468,6 +473,11 @@ public partial class BankTransferPage
 
     private void ButtonToAddAccount_OnClick(object sender, RoutedEventArgs e)
     {
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // The AddEditAccountWindow instance is created here to allow the user to view or edit an account.
+        // The ToAccountFk, if not null, is converted to the expected type and passed to the dialog for pre-populating the fields.
+        // ShowDialog() displays the window modally, ensuring the current execution flow is paused until the dialog is closed.
+        // The DialogResult is verified to check if the user confirmed the operation before continuing.
         var addEditAccountWindow = new AddEditAccountWindow();
         var fromAccount = BankTransfer.ToAccountFk?.ToISql<TAccount>();
         if (fromAccount is not null) addEditAccountWindow.SetTAccount(fromAccount);

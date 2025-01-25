@@ -46,6 +46,11 @@ public partial class WelcomePage
 
     private void ButtonAddDataBase_OnClick(object sender, RoutedEventArgs e)
     {
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // An instance of AddDatabaseFileWindow is created to handle the addition of a new database file.
+        // The SetExistingDatabase method is called with the ExistingDatabases to provide context or validate against existing entries.
+        // ShowDialog() is used to display the window modally and obtain the user's action.
+        // If the dialog result is not true (e.g., the user cancels or closes the window), the method exits early.
         var addDatabaseFileWindow = new AddDatabaseFileWindow();
         addDatabaseFileWindow.SetExistingDatabase(ExistingDatabases);
 
@@ -174,6 +179,10 @@ public partial class WelcomePage
     private static async Task ExportToLocalFolderAsync(List<ExistingDatabase> existingDatabasesSelected,
         bool isCompress)
     {
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // An instance of FolderDialog is created to handle the selection of a folder to export the database to.
+        // ShowDialog() is used to display the window modally and obtain the user's action.
+        // If the dialog result is not true (e.g., the user cancels or closes the window), the method exits early.
         var folderDialog = new FolderDialog();
         var selectedDialog = folderDialog.GetFile();
 
@@ -217,6 +226,11 @@ public partial class WelcomePage
 
     private List<ExistingDatabase>? GetSelectedDatabases()
     {
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // An instance of SelectDatabaseFileWindow is created to handle the selection of existing databases to remove.
+        // The SetExistingDatabase method is called with the ExistingDatabases to provide context or validate against existing entries.
+        // ShowDialog() is used to display the window modally and obtain the user's action.
+        // If the dialog result is not true (e.g., the user cancels or closes the window), the method exits early.
         var selectDatabaseFileWindow = new SelectDatabaseFileWindow();
         selectDatabaseFileWindow.ExistingDatabases.AddRange(ExistingDatabases);
         selectDatabaseFileWindow.ShowDialog();
@@ -231,6 +245,11 @@ public partial class WelcomePage
         var saveLocation = SaveLocationUtils.GetExportSaveLocation();
         if (saveLocation is null) return;
 
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // An instance of SelectDatabaseFileWindow is created to handle the selection of existing databases to export.
+        // The SetExistingDatabase method is called with the ExistingDatabases to provide context or validate against existing entries.
+        // ShowDialog() is used to display the window modally and obtain the user's action.
+        // If the dialog result is not true (e.g., the user cancels or closes the window), the method exits early.
         var selectDatabaseFileWindow = new SelectDatabaseFileWindow();
         selectDatabaseFileWindow.ExistingDatabases.AddRange(ExistingDatabases);
 
@@ -239,6 +258,10 @@ public partial class WelcomePage
         if (selectDatabaseFileWindow.DialogResult is not true) return;
         if (selectDatabaseFileWindow.ExistingDatabasesSelected.Count.Equals(0)) return;
 
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // An instance of WaitScreenWindow is created to handle the display of a wait screen while the export is in progress.
+        // The Show() method is used to display the window and start the wait screen.
+        // The Close() method is used to close the window and stop the wait screen.
         var waitScreenWindow = new WaitScreenWindow();
         try
         {
@@ -292,6 +315,10 @@ public partial class WelcomePage
         var saveLocation = SaveLocationUtils.GetImportSaveLocation(SaveLocationMode.LocalDropbox);
         if (saveLocation is null) return;
 
+        // An instance of AddDatabaseFileWindow is created to handle the addition of a new database file.
+        // The SetExistingDatabase method is called with the ExistingDatabases to provide context or validate against existing entries.
+        // ShowDialog() is used to display the window modally and obtain the user's action.
+        // If the dialog result is not true (e.g., the user cancels or closes the window), the method exits early.
         var waitScreenWindow = new WaitScreenWindow();
         try
         {
@@ -359,6 +386,10 @@ public partial class WelcomePage
 
     private static async Task ExportToLocalDirectoryDatabaseAsync(List<ExistingDatabase> existingDatabasesSelected)
     {
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // An instance of FolderDialog is created to handle the selection of a folder to export the database to.
+        // ShowDialog() is used to display the window modally and obtain the user's action.
+        // If the dialog result is not true (e.g., the user cancels or closes the window), the method exits early.
         var folderDialog = new FolderDialog();
         var selectedFolder = folderDialog.GetFile();
 
@@ -385,6 +416,10 @@ public partial class WelcomePage
 
     private static async Task ExportToLocalDatabaseFileAsync(ExistingDatabase existingDatabasesSelected)
     {
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // An instance of SqliteFileDialog is created to handle the selection of a file to export the database to.
+        // ShowDialog() is used to display the window modally and obtain the user's action.
+        // If the dialog result is not true (e.g., the user cancels or closes the window), the method exits early.
         var sqliteDialog = new SqliteFileDialog(defaultFileName: existingDatabasesSelected.FileName);
         var selectedDialog = sqliteDialog.SaveFile();
 
@@ -421,6 +456,11 @@ public partial class WelcomePage
             existingDatabase.SyncStatus = await localDatabase.CheckStatus(ProjectSystem.Wpf);
         }
 
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // An instance of SelectDatabaseFileWindow is created to handle the selection of existing databases to import.
+        // The SetExistingDatabase method is called with the ExistingDatabases to provide context or validate against existing entries.
+        // ShowDialog() is used to display the window modally and obtain the user's action.
+        // If the dialog result is not true (e.g., the user cancels or closes the window), the method exits early.
         var selectDatabaseFileWindow = new SelectDatabaseFileWindow();
         selectDatabaseFileWindow.ExistingDatabases.AddRange(existingDatabases);
         selectDatabaseFileWindow.ShowDialog();
@@ -458,6 +498,11 @@ public partial class WelcomePage
     private static async Task ImportFromLocalAsync()
     {
         Log.Information("Starting to import the database from local storage");
+
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // An instance of SqliteFileDialog is created to handle the selection of a file to import the database from.
+        // ShowDialog() is used to display the window modally and obtain the user's action.
+        // If the dialog result is not true (e.g., the user cancels or closes the window), the method exits early.
         var dialog = new SqliteFileDialog(multiSelect: true);
         var files = dialog.GetFiles();
 

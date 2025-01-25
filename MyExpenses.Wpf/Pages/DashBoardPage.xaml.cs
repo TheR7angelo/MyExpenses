@@ -341,6 +341,9 @@ public partial class DashBoardPage
             var actualHeight = mainWindow.ActualHeight;
             var size = new Size(actualWidth, actualHeight);
 
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
+            // The RecurrentAddWindow instance is created with the specified size to handle recurrent addition operations.
+            // ShowDialog() is used to open the window modally, pausing the current execution flow until the user closes the dialog.
             var recurrentAddWindow = new RecurrentAddWindow(size);
             recurrentAddWindow.ShowDialog();
         }
@@ -380,6 +383,9 @@ public partial class DashBoardPage
 
     private void ButtonAccountManagement_OnClick(object sender, RoutedEventArgs e)
     {
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // The AccountManagementPage instance is created with the specified DashBoardPage instance to handle account management operations.
+        // ShowDialog() is used to open the window modally, pausing the current execution flow until the user closes the dialog.
         var page = new AccountManagementPage { DashBoardPage = this };
         nameof(MainWindow.FrameBody).NavigateTo(page);
     }
@@ -557,6 +563,9 @@ public partial class DashBoardPage
         var history = vHistory.Id.ToISql<THistory>();
         if (history is null) return;
 
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // The RecordExpensePage instance is created with the specified THistory instance to handle record edition operations.
+        // ShowDialog() is used to open the window modally, pausing the current execution flow until the user closes the dialog.
         var recordExpensePage = new RecordExpensePage();
         recordExpensePage.SetTHistory(history);
 
