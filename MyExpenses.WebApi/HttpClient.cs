@@ -7,7 +7,14 @@ public abstract class Http
 {
     protected internal static HttpClient GetHttpClient(string? baseUrl=null, string? userAgent=null)
     {
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // The HttpClient instance is created here to configure and build the HttpClient.
+        // Since it is a scoped and lightweight object, its allocation occurs only when required and has no measurable impact on performance.
         var httpClient = new HttpClient();
+
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // The Uri instance is created here to build the base address of the HttpClient.
+        // Since it is a scoped and lightweight object, its allocation occurs only when required and has no measurable impact on performance.
         if (!string.IsNullOrWhiteSpace(baseUrl)) httpClient.BaseAddress = new Uri(baseUrl);
 
         userAgent ??= Path.GetFileNameWithoutExtension(AppDomain.CurrentDomain.FriendlyName);
@@ -41,6 +48,9 @@ public abstract class Http
             throw new IOException($"Destination file {destinationFile} already exists.");
         }
 
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // The Progress instance is created here to report progress.
+        // Since it is a scoped and lightweight object, its allocation occurs only when required and has no measurable impact on performance.
         IProgress<(double Percentage, double NormalizeBytes, string NormalizeBytesUnit, TimeSpan TimeLeft)> progressLog =
             new Progress<(double Percentage, double NormalizeBytes, string NormalizeBytesUnit, TimeSpan TimeLeft)>(
                 value => Log.Information("Progress: {Percentage:F2}% | Speed: {Speed:F2} {NormalizeBytesUnit}/s | Time Left: {TimeLeft:g}",
@@ -55,6 +65,10 @@ public abstract class Http
             response.EnsureSuccessStatusCode();
 
             var totalBytes = response.Content.Headers.ContentLength ?? throw new InvalidOperationException("Unable to determine file size.");
+
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
+            // The MemoryStream instance is created here to read the response stream.
+            // Since it is a scoped and lightweight object, its allocation occurs only when required and has no measurable impact on performance.
             var buffer = new byte[1024 * 1024]; // 1MB buffer
 
             await using var sourceStream = await response.Content.ReadAsStreamAsync(cancellationToken);

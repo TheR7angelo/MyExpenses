@@ -9,7 +9,10 @@ public class SolidColorBrushToSolidColorBrushContrastingForegroundColorConverter
 {
     public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
-        return value is not SolidColorBrush solidColorBrush ? null : new SolidColorBrush(solidColorBrush.Color.ContrastingForegroundColor());
+        return value is not SolidColorBrush solidColorBrush
+            ? null
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
+            : new SolidColorBrush(solidColorBrush.Color.ContrastingForegroundColor());
     }
 
     public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
