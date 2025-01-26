@@ -8,7 +8,6 @@ using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Models.Sql.Bases.Views;
 using MyExpenses.Sql.Context;
-using MyExpenses.Utils;
 using MyExpenses.Utils.Collection;
 using MyExpenses.Utils.Sql;
 using MyExpenses.Wpf.Resources.Regex;
@@ -127,6 +126,8 @@ public partial class BankTransferPage
     public ObservableCollection<TAccount> FromAccounts { get; }
     public ObservableCollection<TAccount> ToAccounts { get; }
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
+    // The allocation is necessary to initialize an instance of TBankTransfer for use within the current class.
     public TBankTransfer BankTransfer { get; } = new();
     public string DisplayMemberPathAccount { get; } = nameof(TAccount.Name);
     public string DisplayMemberPathCategoryType { get; } = nameof(TCategoryType.Name);
@@ -412,8 +413,7 @@ public partial class BankTransferPage
             if (response is not MessageBoxResult.Yes) nameof(MainWindow.FrameBody).GoBack();
             else
             {
-                var bankTransfer = new TBankTransfer();
-                bankTransfer.CopyPropertiesTo(BankTransfer);
+                BankTransfer.Reset();
                 BankTransferPrepare = false;
             }
         }

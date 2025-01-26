@@ -3,6 +3,7 @@ using System.Linq.Expressions;
 using System.Reflection;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
+using MyExpenses.Models.Attributs;
 using MyExpenses.Models.Sql;
 
 namespace MyExpenses.Sql.Context;
@@ -270,5 +271,43 @@ public static class DbContextHelper
         var viewName = context.Model.FindEntityType(tableType)?.GetViewName();
 
         return tableName ?? viewName;
+    }
+
+    /// <summary>
+    /// Resets all writable properties of the object implementing ISql to their default values.
+    /// </summary>
+    /// <param name="iSql">The object implementing the ISql interface to be reset.</param>
+    public static void Reset(this ISql iSql)
+    {
+        iSql.DetachEntity();
+
+        var properties = iSql.GetType().GetProperties()
+            .Where(p => p.CanWrite && p.GetCustomAttributes(typeof(IgnoreResetAttribute), true).Length is 0);
+        foreach (var property in properties)
+        {
+            object? defaultValue;
+            if (property.PropertyType.IsGenericType && typeof(ICollection<>).IsAssignableFrom(property.PropertyType.GetGenericTypeDefinition()))
+            {
+                var itemType = property.PropertyType.GetGenericArguments()[0];
+                defaultValue = Activator.CreateInstance(typeof(List<>).MakeGenericType(itemType));
+            }
+            else
+            {
+                defaultValue = property.PropertyType.IsValueType
+                    ? Activator.CreateInstance(property.PropertyType)
+                    : null;
+            }
+
+            property.SetValue(iSql, defaultValue);
+
+        }
+
+        if (iSql is IDefaultBehavior defaultBehavior) defaultBehavior.SetDefaultValues();
+    }
+
+    private static void DetachEntity(this ISql iSql)
+    {
+        using var context = new DataBaseContext();
+        context.Entry(iSql).State = EntityState.Detached;
     }
 }

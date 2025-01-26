@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using MyExpenses.Models.Attributs;
 using PropertyChanged;
 
 namespace MyExpenses.Models.Sql.Bases.Tables;
@@ -34,20 +35,22 @@ public partial class TBankTransfer : ISql
     public string? AdditionalReason { get; set; }
 
     [Required]
+    [IgnoreReset]
     [Column("date", TypeName = "DATETIME")]
-    public DateTime? Date { get; set; } = DateTime.Today;
+    public DateTime? Date { get; set; }
 
+    [IgnoreReset]
     [Column("date_added", TypeName = "DATETIME")]
-    public DateTime? DateAdded { get; set; } = DateTime.Now;
+    public DateTime? DateAdded { get; set; }
 
     // ReSharper disable PropertyCanBeMadeInitOnly.Global
     [ForeignKey("FromAccountFk")]
     [InverseProperty("TBankTransferFromAccountFkNavigations")]
     public virtual TAccount? FromAccountFkNavigation { get; set; }
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     // ICollection property is initialized to prevent null references
     // and to ensure the collection are ready for use, even if no data is loaded from the database.
-    // ReSharper disable once HeapView.ObjectAllocation.Evident
     [InverseProperty("BankTransferFkNavigation")]
     public virtual ICollection<THistory> THistories { get; set; } = new List<THistory>();
 
