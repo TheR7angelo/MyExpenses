@@ -129,12 +129,24 @@ public static class DbContextHelper
     }
 
     /// <summary>
-    /// Deletes the specified entity from the database context with optional cascading behavior.
+    /// Deletes an entity from the DbContext, with optional cascade deletion.
     /// </summary>
-    /// <typeparam name="T">The type of the entity to delete. Must implement ISql interface.</typeparam>
-    /// <param name="entity">The entity instance to delete.</param>
-    /// <param name="cascade">A boolean indicating whether to perform cascading deletion. Default is false.</param>
-    /// <returns>A tuple containing a success indicator and an optional exception if an error occurs.</returns>
+    /// <typeparam name="TEntity">The type of the entity to delete.</typeparam>
+    /// <param name="context">The <see cref="DbContext"/> used to manage the data operations.</param>
+    /// <param name="entity">The target entity to be deleted.</param>
+    /// <param name="predicate">
+    /// An expression defining the condition to locate an existing entity.
+    /// Used only when cascade deletion is disabled.
+    /// </param>
+    /// <param name="cascade">
+    /// Determines whether the deletion should be cascaded.
+    /// If enabled, all related entities (via navigation properties) will also be deleted.
+    /// </param>
+    /// <remarks>
+    /// When cascade deletion is enabled, all navigation collections of the entity are loaded,
+    /// and their child entities are also deleted.
+    /// Otherwise, the deletion is conditional, depending on the result of locating a matching entity.
+    /// </remarks>
     private static void Delete<TEntity>(this DbContext context, TEntity entity,
         Expression<Func<TEntity, bool>> predicate, bool cascade) where TEntity : class
     {
