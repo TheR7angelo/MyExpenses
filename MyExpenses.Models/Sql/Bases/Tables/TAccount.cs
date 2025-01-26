@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using MyExpenses.Models.Attributs;
 using PropertyChanged;
 
 namespace MyExpenses.Models.Sql.Bases.Tables;
@@ -25,10 +26,12 @@ public partial class TAccount : ISql
     [Column("currency_fk")]
     public int? CurrencyFk { get; set; }
 
+    [IgnoreReset]
     [Required]
     [Column("active", TypeName = "BOOLEAN")]
     public bool? Active { get; set; } = true;
 
+    [IgnoreReset]
     [Column("date_added", TypeName = "DATETIME")]
     public DateTime? DateAdded { get; set; } = DateTime.Now;
 
