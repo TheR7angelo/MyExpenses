@@ -285,15 +285,26 @@ public partial class BankTransferPage
         // Necessary instantiation of DataBaseContext to interact with the database.
         // This creates a scoped database context for performing queries and modifications in the database.
         using var context = new DataBaseContext();
+
         CategoryTypes = [..context.TCategoryTypes.OrderBy(s => s.Name)];
         ModePayments = [..context.TModePayments.OrderBy(s => s.Name)];
         Accounts = [..context.TAccounts.OrderBy(s => s.Name)];
+
+        // ReSharper disable HeapView.ObjectAllocation.Evident
+        // The use of ObservableCollection<T> is mandatory here to ensure that any changes
+        // (additions, removals, or updates) made to the collection are automatically reflected
+        // in the UI. ObservableCollection implements the INotifyCollectionChanged interface,
+        // which notifies WPF binding mechanisms of such changes, allowing the UI to remain up-to-date
+        // without manual intervention. This is essential for maintaining synchronization
+        // between the data and the interface in real-time.
         FromAccounts = new ObservableCollection<TAccount>(Accounts);
         ToAccounts = new ObservableCollection<TAccount>(Accounts);
+        // ReSharper restore HeapView.ObjectAllocation.Evident
+
+        UpdateLanguage();
+        InitializeComponent();
 
         Interface.LanguageChanged += Interface_OnLanguageChanged;
-        InitializeComponent();
-        UpdateLanguage();
     }
 
     #region Action
@@ -362,6 +373,9 @@ public partial class BankTransferPage
     {
         var now = DateTime.Now;
         var valueAbs = Math.Abs(BankTransfer.Value ?? 0);
+
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // The THistories collection is created here to store the THistory instances for the transfer.
         var fromHistory = new THistory
         {
             AccountFk = BankTransfer.FromAccountFk,
@@ -376,6 +390,8 @@ public partial class BankTransferPage
             DatePointed = now
         };
 
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // The THistories collection is created here to store the THistory instances for the transfer.
         var toHistory = new THistory
         {
             AccountFk = BankTransfer.ToAccountFk,
@@ -390,6 +406,12 @@ public partial class BankTransferPage
             DatePointed = now
         };
 
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // Ensuring that the THistories collection is initialized with an empty List<THistory>
+        // if it is null. This prevents potential NullReferenceExceptions when attempting
+        // to add items to the collection. It ensures that the property is always in a valid
+        // state and ready for use regardless of its initial state.
+        BankTransfer.THistories ??= new List<THistory>();
         BankTransfer.THistories.Add(fromHistory);
         BankTransfer.THistories.Add(toHistory);
 
