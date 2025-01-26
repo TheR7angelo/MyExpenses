@@ -319,6 +319,10 @@ public static class DbContextHelper
 
     private static void DetachEntity(this ISql iSql)
     {
+        // Creating a new DataBaseContext instance is required to access the database.
+        // This usage is expected and unavoidable as each call represents a discrete transactional context.
+        // The "using" statement ensures proper disposal of the context after use.
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
         using var context = new DataBaseContext();
         context.Entry(iSql).State = EntityState.Detached;
     }
