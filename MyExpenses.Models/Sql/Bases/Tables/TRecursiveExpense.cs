@@ -102,10 +102,7 @@ public partial class TRecursiveExpense : ISql
     [InverseProperty("TRecursiveExpenses")]
     public virtual TPlace? PlaceFkNavigation { get; set; }
 
-    // ICollection property is initialized to prevent null references
-    // and to ensure the collection are ready for use, even if no data is loaded from the database.
-    // ReSharper disable once HeapView.ObjectAllocation.Evident
     [InverseProperty("RecursiveExpenseFkNavigation")]
-    public virtual ICollection<THistory> THistories { get; set; } = new List<THistory>();
+    public virtual ICollection<THistory> THistories { get; set; }
     // ReSharper restore PropertyCanBeMadeInitOnly.Global
 }

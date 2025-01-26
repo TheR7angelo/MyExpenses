@@ -297,18 +297,18 @@ public static class DbContextHelper
             .Where(p => p.CanWrite && p.GetCustomAttributes(typeof(IgnoreResetAttribute), true).Length is 0);
         foreach (var property in properties)
         {
-            object? defaultValue;
-            if (property.PropertyType.IsGenericType && typeof(ICollection<>).IsAssignableFrom(property.PropertyType.GetGenericTypeDefinition()))
-            {
-                var itemType = property.PropertyType.GetGenericArguments()[0];
-                defaultValue = Activator.CreateInstance(typeof(List<>).MakeGenericType(itemType));
-            }
-            else
-            {
-                defaultValue = property.PropertyType.IsValueType
-                    ? Activator.CreateInstance(property.PropertyType)
-                    : null;
-            }
+            // object? defaultValue;
+            // if (property.PropertyType.IsGenericType && typeof(ICollection<>).IsAssignableFrom(property.PropertyType.GetGenericTypeDefinition()))
+            // {
+            //     var itemType = property.PropertyType.GetGenericArguments()[0];
+            //     defaultValue = Activator.CreateInstance(typeof(List<>).MakeGenericType(itemType));
+            // }
+            // else
+            // {
+            var defaultValue = property.PropertyType.IsValueType
+                ? Activator.CreateInstance(property.PropertyType)
+                : null;
+            // }
 
             property.SetValue(iSql, defaultValue);
 

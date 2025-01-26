@@ -48,11 +48,8 @@ public partial class TBankTransfer : ISql
     [InverseProperty("TBankTransferFromAccountFkNavigations")]
     public virtual TAccount? FromAccountFkNavigation { get; set; }
 
-    // ReSharper disable once HeapView.ObjectAllocation.Evident
-    // ICollection property is initialized to prevent null references
-    // and to ensure the collection are ready for use, even if no data is loaded from the database.
     [InverseProperty("BankTransferFkNavigation")]
-    public virtual ICollection<THistory> THistories { get; set; } = new List<THistory>();
+    public virtual ICollection<THistory>? THistories { get; set; }
 
     [ForeignKey("ToAccountFk")]
     [InverseProperty("TBankTransferToAccountFkNavigations")]
