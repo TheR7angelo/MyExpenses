@@ -1,13 +1,14 @@
 namespace MyExpenses.Models.Sql.Bases.Tables;
 
-public partial class TAccount : IDefaultBehavior
+public partial class THistory : IDefaultBehavior
 {
-    public TAccount()
+    public THistory()
         => SetDefaultValues();
 
     public void SetDefaultValues()
     {
-        Active = true;
+        Date = DateTime.Now;
+        IsPointed = false;
         DateAdded = DateTime.Now;
     }
 }

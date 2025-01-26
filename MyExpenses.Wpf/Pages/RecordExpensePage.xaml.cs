@@ -552,8 +552,7 @@ public partial class RecordExpensePage
                 MessageBoxButton.YesNoCancel);
             if (response is not MessageBoxResult.Yes) nameof(MainWindow.FrameBody).GoBack();
 
-            var newHistory = new THistory();
-            newHistory.CopyPropertiesTo(History);
+            History.Reset();
         }
         else
         {

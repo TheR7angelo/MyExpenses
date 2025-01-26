@@ -1,13 +1,13 @@
 namespace MyExpenses.Models.Sql.Bases.Tables;
 
-public partial class TAccount : IDefaultBehavior
+public partial class TRecursiveExpense : IDefaultBehavior
 {
-    public TAccount()
+    public TRecursiveExpense()
         => SetDefaultValues();
 
     public void SetDefaultValues()
     {
-        Active = true;
+        StartDate = DateOnly.FromDateTime(DateTime.Now);
         DateAdded = DateTime.Now;
     }
 }

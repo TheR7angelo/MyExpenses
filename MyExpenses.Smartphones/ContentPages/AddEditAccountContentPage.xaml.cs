@@ -129,12 +129,8 @@ public partial class AddEditAccountContentPage
 
     private void ButtonCancel_OnClicked(object? sender, EventArgs e)
     {
-        // ReSharper disable once HeapView.ObjectAllocation.Evident
-        // Explicitly creating a new instance of TAccount here because TAccount is a class.
-        // Using 'default(TAccount)' would result in null, which is not usable in this context.
-        // We need a valid instance of TAccount to ensure the application behaves correctly.
-        var account = OriginalAccount ?? new TAccount();
-        account.CopyPropertiesTo(Account);
+        if (OriginalAccount is not null) OriginalAccount.CopyPropertiesTo(Account);
+        else Account.Reset();
     }
 
     private void ButtonDelete_OnClicked(object? sender, EventArgs e)

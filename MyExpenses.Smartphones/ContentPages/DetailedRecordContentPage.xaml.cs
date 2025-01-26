@@ -308,16 +308,7 @@ public partial class DetailedRecordContentPage
 
     private void ButtonCancelUpdateHistory_OnClicked(object? sender, EventArgs e)
     {
-        if (OriginalHistory is null)
-        {
-            // ReSharper disable once HeapView.ObjectAllocation.Evident
-            // A new instance of THistory is created here to represent a clean or default state of a history object.
-            // This initialization is required to reset or prepare a fresh instance of the object, ensuring that
-            // no unintended data persists, which helps maintain consistency and avoid conflicts when manipulating
-            // history data.
-            var cleanHistory = new THistory();
-            cleanHistory.CopyPropertiesTo(History);
-        }
+        if (OriginalHistory is null) History.Reset();
         else
         {
             var place = OriginalHistory.PlaceFk?.ToISql<TPlace>();
@@ -652,17 +643,17 @@ public partial class DetailedRecordContentPage
             throw new ArgumentNullException(nameof(historyPk), @"historyPk is null");
         }
 
-        // ReSharper disable once HeapView.ObjectAllocation.Evident
-        // The creation of a new DataBaseContext instance (via `new DataBaseContext()`) is necessary to interact with the database.
-        // This context provides the connection to the database and allows querying or updating data.
-        // The `using` statement ensures that the context is disposed of properly after its use, freeing up resources like database connections.
-        using var context = new DataBaseContext();
         if (tHistory is not null)
         {
             tHistory.CopyPropertiesTo(History);
         }
         else
         {
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
+            // The creation of a new DataBaseContext instance (via `new DataBaseContext()`) is necessary to interact with the database.
+            // This context provides the connection to the database and allows querying or updating data.
+            // The `using` statement ensures that the context is disposed of properly after its use, freeing up resources like database connections.
+            using var context = new DataBaseContext();
             var history = context.THistories.First(s => s.Id.Equals(historyPk));
             history.CopyPropertiesTo(History);
         }

@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using MyExpenses.Models.Attributs;
 using PropertyChanged;
 
 namespace MyExpenses.Models.Sql.Bases.Tables;
@@ -33,14 +34,16 @@ public partial class THistory : ISql
     [Column("value")]
     public double? Value { get; set; }
 
+    [IgnoreReset]
     [Required]
     [Column("date", TypeName = "DATETIME")]
-    public DateTime? Date { get; set; } = DateTime.Now;
+    public DateTime? Date { get; set; }
 
     [Required]
     [Column("place_fk")]
     public int? PlaceFk { get; set; }
 
+    [IgnoreReset]
     [Column("is_pointed", TypeName = "BOOLEAN")]
     public bool IsPointed { get; set; }
 
@@ -50,8 +53,9 @@ public partial class THistory : ISql
     [Column("recursive_expense_fk")]
     public int? RecursiveExpenseFk { get; init; }
 
+    [IgnoreReset]
     [Column("date_added", TypeName = "DATETIME")]
-    public DateTime? DateAdded { get; set; } = DateTime.Now;
+    public DateTime? DateAdded { get; set; }
 
     [Column("date_pointed", TypeName = "DATETIME")]
     public DateTime? DatePointed { get; set; }

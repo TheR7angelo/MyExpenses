@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using MyExpenses.Models.Attributs;
 using MyExpenses.Models.Sql.Bases.Enums;
 using PropertyChanged;
 
@@ -42,9 +43,10 @@ public partial class TRecursiveExpense : ISql
     [Column("place_fk")]
     public int? PlaceFk { get; set; }
 
+    [IgnoreReset]
     [Required]
     [Column("start_date", TypeName = "DATE")]
-    public DateOnly StartDate { get; set; } = DateOnly.FromDateTime(DateTime.Now);
+    public DateOnly StartDate { get; set; }
 
     [Column("recursive_total")]
     public int? RecursiveTotal { get; set; }
@@ -72,8 +74,9 @@ public partial class TRecursiveExpense : ISql
     [Column("force_deactivate", TypeName = "BOOLEAN")]
     public bool ForceDeactivate { get; set; }
 
+    [IgnoreReset]
     [Column("date_added", TypeName = "DATE")]
-    public DateTime? DateAdded { get; init; } = DateTime.Now;
+    public DateTime? DateAdded { get; private set; }
 
     [Column("last_updated", TypeName = "DATE")]
     public DateTime? LastUpdated { get; set; }

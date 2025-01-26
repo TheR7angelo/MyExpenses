@@ -236,13 +236,7 @@ public partial class AddEditBankTransferContentPage
     {
         if (OriginalBankTransfer is null)
         {
-            // ReSharper disable once HeapView.ObjectAllocation.Evident
-            // Using 'var' maintains code conciseness and readability. The type (TBankTransfer) is clear
-            // from the context and initialization. Additionally, since 'var' is type-safe, the strongly
-            // typed TBankTransfer object is fully enforced by the compiler.
-            var clearBankTransfer = new TBankTransfer();
-            clearBankTransfer.CopyPropertiesTo(BankTransfer);
-
+            BankTransfer.Reset();
             SelectedCategoryType = null;
             SelectedModePayment = null;
         }

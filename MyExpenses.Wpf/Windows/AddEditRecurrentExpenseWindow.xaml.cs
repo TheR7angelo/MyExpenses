@@ -678,8 +678,7 @@ public partial class AddEditRecurrentExpenseWindow
                 MessageBoxButton.YesNoCancel);
             if (response is not MessageBoxResult.Yes) Close();
 
-            var newRecursiveExpense = new TRecursiveExpense();
-            newRecursiveExpense.CopyPropertiesTo(RecursiveExpense);
+            RecursiveExpense.Reset();
         }
         else
         {

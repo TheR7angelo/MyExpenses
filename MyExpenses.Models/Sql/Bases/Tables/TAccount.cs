@@ -29,11 +29,11 @@ public partial class TAccount : ISql
     [IgnoreReset]
     [Required]
     [Column("active", TypeName = "BOOLEAN")]
-    public bool? Active { get; set; } = true;
+    public bool? Active { get; set; }
 
     [IgnoreReset]
     [Column("date_added", TypeName = "DATETIME")]
-    public DateTime? DateAdded { get; set; } = DateTime.Now;
+    public DateTime? DateAdded { get; set; }
 
     // ReSharper disable PropertyCanBeMadeInitOnly.Global
     [ForeignKey("AccountTypeFk")]
