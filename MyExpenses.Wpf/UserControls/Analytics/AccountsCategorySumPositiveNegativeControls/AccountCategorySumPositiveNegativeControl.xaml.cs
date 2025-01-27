@@ -36,8 +36,7 @@ public partial class AccountCategorySumPositiveNegativeControl
     {
         AccountId = accountId;
 
-        var skColor = Utils.Resources.GetMaterialDesignBodySkColor();
-        TextPaint = new SolidColorPaint(skColor);
+        UpdateTextPaint();
 
         SetChart();
         UpdateLanguage();
@@ -53,10 +52,17 @@ public partial class AccountCategorySumPositiveNegativeControl
 
     private void Interface_OnThemeChanged()
     {
-        var skColor = Utils.Resources.GetMaterialDesignBodySkColor();
-        TextPaint = new SolidColorPaint(skColor);
-
+        UpdateTextPaint();
         UpdateAxisTextPaint();
+    }
+
+    private void UpdateTextPaint()
+    {
+        var skColor = Utils.Resources.GetMaterialDesignBodySkColor();
+
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // The creation of a new SolidColorPaint is necessary to set the TextPaint color
+        TextPaint = new SolidColorPaint(skColor);
     }
 
     private void UpdateAxisTextPaint()
@@ -84,6 +90,8 @@ public partial class AccountCategorySumPositiveNegativeControl
         for (var i = 0; i < Series.Length; i++)
         {
             var tmp = Series[i] as ColumnSeries<double>;
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
+            // The creation of a new SolidColorPaint is necessary to set the fill color.
             tmp!.Fill = new SolidColorPaint(skColors[i]);
             Series[i] = tmp;
         }
@@ -171,6 +179,9 @@ public partial class AccountCategorySumPositiveNegativeControl
         {
             Name = AccountsCategorySumPositiveNegativeControlsResources.ColumnSeriesPositiveName,
             Values = positiveValues.ToList(),
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
+            // The creation of a new SolidColorPaint is necessary to set the fill color
+            // using the primaryColor converted to a Skia color (SkColor).
             Fill = new SolidColorPaint(primaryColor.ToSkColor()),
             YToolTipLabelFormatter = y =>
             {
@@ -183,6 +194,9 @@ public partial class AccountCategorySumPositiveNegativeControl
         {
             Name = AccountsCategorySumPositiveNegativeControlsResources.ColumnSeriesNegativeName,
             Values = negativeValues.ToList(),
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
+            // The creation of a new SolidColorPaint is necessary to set the fill color
+            // using the secondaryColor converted to a Skia color (SkColor).
             Fill = new SolidColorPaint(secondaryColor.ToSkColor()),
             YToolTipLabelFormatter = y =>
             {
