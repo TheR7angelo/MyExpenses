@@ -121,6 +121,8 @@ public partial class LocationManagementPage
     public List<KnownTileSource> KnownTileSources { get; }
     public KnownTileSource KnownTileSourceSelected { get; set; }
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
+    // The PlaceLayer instance is used to store the features of the places.
     private WritableLayer PlaceLayer { get; } = new() { Style = null, Tag = typeof(TPlace) };
     private IEnumerable<ILayer> InfoLayers { get; }
 
@@ -131,7 +133,7 @@ public partial class LocationManagementPage
     public LocationManagementPage()
     {
         KnownTileSources = [..MapsuiMapExtensions.GetAllKnowTileSource()];
-        InfoLayers = new List<ILayer> { PlaceLayer };
+        InfoLayers = [PlaceLayer];
 
         // ReSharper disable once HeapView.ObjectAllocation.Evident
         // Necessary instantiation of DataBaseContext to interact with the database.
@@ -194,6 +196,9 @@ public partial class LocationManagementPage
         var worldPosition = MapControl.Map.Navigator.Viewport.ScreenToWorld(position.X, position.Y);
 
         var lonLat = SphericalMercator.ToLonLat(worldPosition.X, worldPosition.Y);
+
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // The ClickPoint instance is used to store the coordinates of the point clicked on the map.
         ClickPoint = new Point(lonLat.lon, lonLat.lat);
 
         var screenPosition = new ScreenPosition(position.X, position.Y);
@@ -334,26 +339,23 @@ public partial class LocationManagementPage
     {
         if (sender is not TreeView treeView) return;
 
-        var points = new List<MPoint>();
-        switch (treeView.SelectedItem)
+        var points = treeView.SelectedItem switch
         {
-            case CountryGroup countryGroup:
-                var ps1 = countryGroup.CityGroups?
-                    .SelectMany(s => s.Places!)
-                    .Where(s => (s.Geometry as Point)?.X is not 0 && (s.Geometry as Point)?.Y is not 0)
-                    .Select(s => s.ToMPoint());
-                if (ps1 is not null) points.AddRange(ps1);
-                break;
-
-            case CityGroup cityGroup:
-                var ps2 = cityGroup.Places?
-                    .Where(s => (s.Geometry as Point)?.X is not 0 && (s.Geometry as Point)?.Y is not 0)
-                    .Select(s => s.ToMPoint());
-                if (ps2 is not null) points.AddRange(ps2);
-                break;
-        }
+            CountryGroup countryGroup => countryGroup.CityGroups?
+                .SelectMany(cityGroup => GetPoints(cityGroup.Places)) ?? [],
+            CityGroup cityGroup => GetPoints(cityGroup.Places),
+            _ => []
+        };
 
         SetZoom(points.ToArray());
+        return;
+
+        IEnumerable<MPoint> GetPoints(IEnumerable<TPlace>? places)
+        {
+            return places?
+                .Where(s => (s.Geometry as Point)?.X is not 0 && (s.Geometry as Point)?.Y is not 0)
+                .Select(s => s.ToMPoint()) ?? [];
+        }
     }
 
     #endregion
@@ -367,11 +369,15 @@ public partial class LocationManagementPage
 
         if (cityGroup is null)
         {
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
+            // The newCityGroup instance is used to store the information of the city.
             var newCityGroup = new CityGroup { City = placeToAdd.City, Places = [placeToAdd] };
 
             var countryGroup = CountryGroups.FirstOrDefault(s => s.Country == placeToAdd.Country);
             if (countryGroup is null)
             {
+                // ReSharper disable once HeapView.ObjectAllocation.Evident
+                // The newGroupCountry instance is used to store the information of the country.
                 var newGroupCountry = new CountryGroup { Country = placeToAdd.Country, CityGroups = [newCityGroup] };
                 CountryGroups.AddAndSort(newGroupCountry, s => s.Country ?? string.Empty);
             }
@@ -497,18 +503,7 @@ public partial class LocationManagementPage
                 break;
 
             case > 1:
-                double minX = points.Min(p => p.X), maxX = points.Max(p => p.X);
-                double minY = points.Min(p => p.Y), maxY = points.Max(p => p.Y);
-
-                var width = maxX - minX;
-                var height = maxY - minY;
-
-                const double marginPercentage = 10; // Change this value to suit your needs
-                var marginX = width * marginPercentage / 100;
-                var marginY = height * marginPercentage / 100;
-
-                var mRect = new MRect(minX - marginX, minY - marginY, maxX + marginX, maxY + marginY);
-
+                var mRect = points.ToMRect();
                 MapControl.Map.Navigator.ZoomToBox(mRect);
                 break;
         }
@@ -516,9 +511,9 @@ public partial class LocationManagementPage
 
     private void SetInitialZoom()
     {
-        var points = PlaceLayer.GetFeatures().Select(s => ((PointFeature)s).Point).ToList();
+        var points = PlaceLayer.GetFeatures().Select(s => ((PointFeature)s).Point).ToArray();
 
-        switch (points.Count)
+        switch (points.Length)
         {
             case 0:
                 break;
@@ -526,18 +521,7 @@ public partial class LocationManagementPage
                 MapControl.Map.Navigator.CenterOnAndZoomTo(points[0], 1);
                 break;
             case > 1:
-                double minX = points.Min(p => p.X), maxX = points.Max(p => p.X);
-                double minY = points.Min(p => p.Y), maxY = points.Max(p => p.Y);
-
-                var width = maxX - minX;
-                var height = maxY - minY;
-
-                const double marginPercentage = 10; // Change this value to suit your needs
-                var marginX = width * marginPercentage / 100;
-                var marginY = height * marginPercentage / 100;
-
-                var mRect = new MRect(minX - marginX, minY - marginY, maxX + marginX, maxY + marginY);
-
+                var mRect = points.ToMRect();
                 MapControl.Map.Navigator.ZoomToBox(mRect);
                 break;
         }
@@ -568,6 +552,12 @@ public partial class LocationManagementPage
         const string layerName = "Background";
 
         var httpTileSource = BruTile.Predefined.KnownTileSources.Create(KnownTileSourceSelected);
+
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // A new instance of TileLayer is created here using the specified httpTileSource.
+        // This layer is responsible for rendering map tiles from the configured tile source,
+        // allowing the application to display background maps or other geographic data dynamically
+        // based on the selected tile provider.
         var tileLayer = new TileLayer(httpTileSource);
         tileLayer.Name = layerName;
 
