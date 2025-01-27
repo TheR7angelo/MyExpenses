@@ -749,7 +749,7 @@ public partial class DashBoardPage
 
         if (existingSeries.TryGetValue(categoryTotal.Category!, out var pieSeries))
         {
-            pieSeries.Values = new ObservableCollection<double> { absTotal };
+            pieSeries.Values = [absTotal];
             pieSeries.Name = $"{categoryTotal.Category} ({percentage}%)";
             pieSeries.ToolTipLabelFormatter = _ => toolTipLabelFormatter;
 
@@ -760,9 +760,11 @@ public partial class DashBoardPage
         }
         else
         {
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
+            // The PieSeries instance is created with the specified values to handle pie series operations.
             pieSeries = new PieSeries<double>
             {
-                Values = new ObservableCollection<double> { absTotal },
+                Values = [absTotal],
                 Name = $"{categoryTotal.Category} ({percentage}%)",
                 ToolTipLabelFormatter = _ => toolTipLabelFormatter,
                 Fill = solidColorPaint,
@@ -785,6 +787,8 @@ public partial class DashBoardPage
         }
         else
         {
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
+            // The CategoryTotal instance is created with the specified values to handle category total operations.
             var newCategoryTotal = new CategoryTotal
             {
                 Name = categoryTotal.Category,
