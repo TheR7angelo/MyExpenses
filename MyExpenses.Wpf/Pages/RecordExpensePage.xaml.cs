@@ -231,6 +231,7 @@ public partial class RecordExpensePage
         set => SetValue(ComboBoxPlaceCityHintAssistProperty, value);
     }
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public THistory History { get; } = new();
 
     public string SelectedValuePathAccount { get; } = nameof(TAccount.Id);
@@ -850,6 +851,13 @@ public partial class RecordExpensePage
         const string layerName = "Background";
 
         var httpTileSource = BruTile.Predefined.KnownTileSources.Create(KnownTileSourceSelected);
+
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // Allocation is necessary because a TileLayer is immutable after it is created.
+        // This means that once the TileSource of a TileLayer is set,
+        // it can no longer be changed directly.
+        // In this case, to change the source, a new TileLayer must be created
+        // and added to the menu.
         var tileLayer = new TileLayer(httpTileSource);
         tileLayer.Name = layerName;
 
