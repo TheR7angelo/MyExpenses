@@ -4,7 +4,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media;
 using MyExpenses.Models.Config.Interfaces;
-using MyExpenses.Wpf.Resources.Regex;
+using MyExpenses.SharedUtils.RegexUtils;
 using MyExpenses.Wpf.Resources.Resx.UserControls.ColorPickerControl;
 using MyExpenses.Wpf.Utils;
 
