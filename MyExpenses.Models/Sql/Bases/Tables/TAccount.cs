@@ -51,7 +51,7 @@ public partial class TAccount : ISql
     public virtual ICollection<TBankTransfer> TBankTransferToAccountFkNavigations { get; set; }
 
     [InverseProperty("AccountFkNavigation")]
-    public virtual ICollection<THistory> THistories { get; set; } = new List<THistory>();
+    public virtual ICollection<THistory> THistories { get; set; }
 
     [InverseProperty("AccountFkNavigation")]
     public virtual ICollection<TRecursiveExpense> TRecursiveExpenses { get; set; }
