@@ -38,9 +38,7 @@ public partial class BudgetMonthlyControl
 
     public BudgetMonthlyControl()
     {
-        var skColor = Utils.Resources.GetMaterialDesignBodySkColor();
-        TextPaint = new SolidColorPaint(skColor);
-
+        UpdateTextPaint();
         SetChart();
         UpdateLanguage();
 
@@ -57,39 +55,8 @@ public partial class BudgetMonthlyControl
 
     private void Interface_OnThemeChanged()
     {
-        var skColor = Utils.Resources.GetMaterialDesignBodySkColor();
-        TextPaint = new SolidColorPaint(skColor);
-
+        UpdateTextPaint();
         UpdateAxisTextPaint();
-    }
-
-    private void UpdateAxisTextPaint()
-    {
-        for (var i = 0; i < YAxis.Length; i++)
-        {
-            var tmp = YAxis[i] as Axis;
-            tmp!.LabelsPaint = TextPaint;
-            YAxis[i] = tmp;
-        }
-
-        for (var i = 0; i < XAxis.Length; i++)
-        {
-            var tmp = XAxis[i] as Axis;
-            tmp!.LabelsPaint = TextPaint;
-            XAxis[i] = tmp;
-        }
-
-        var configuration = Config.Configuration;
-        var primaryColor = ((Color)configuration.Interface.Theme.HexadecimalCodePrimaryColor.ToColor()!).ToSkColor();
-        var secondaryColor = ((Color)configuration.Interface.Theme.HexadecimalCodeSecondaryColor.ToColor()!).ToSkColor();
-        var skColors = new List<SKColor> { secondaryColor, primaryColor };
-
-        for (var i = 0; i < Series.Length; i++)
-        {
-            var tmp = Series[i] as ColumnSeries<double>;
-            tmp!.Fill = new SolidColorPaint(skColors[i]);
-            Series[i] = tmp;
-        }
     }
 
     #endregion
@@ -127,6 +94,44 @@ public partial class BudgetMonthlyControl
         }
 
         UpdateLayout();
+    }
+
+    private void UpdateAxisTextPaint()
+    {
+        for (var i = 0; i < YAxis.Length; i++)
+        {
+            var tmp = YAxis[i] as Axis;
+            tmp!.LabelsPaint = TextPaint;
+            YAxis[i] = tmp;
+        }
+
+        for (var i = 0; i < XAxis.Length; i++)
+        {
+            var tmp = XAxis[i] as Axis;
+            tmp!.LabelsPaint = TextPaint;
+            XAxis[i] = tmp;
+        }
+
+        var configuration = Config.Configuration;
+        var primaryColor = ((Color)configuration.Interface.Theme.HexadecimalCodePrimaryColor.ToColor()!).ToSkColor();
+        var secondaryColor = ((Color)configuration.Interface.Theme.HexadecimalCodeSecondaryColor.ToColor()!).ToSkColor();
+        var skColors = new List<SKColor> { secondaryColor, primaryColor };
+
+        for (var i = 0; i < Series.Length; i++)
+        {
+            var tmp = Series[i] as ColumnSeries<double>;
+            tmp!.Fill = new SolidColorPaint(skColors[i]);
+            Series[i] = tmp;
+        }
+    }
+
+    private void UpdateTextPaint()
+    {
+        var skColor = Utils.Resources.GetMaterialDesignBodySkColor();
+
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // The creation of a new SolidColorPaint is necessary to set the TextPaint color
+        TextPaint = new SolidColorPaint(skColor);
     }
 
     private void SetChart()

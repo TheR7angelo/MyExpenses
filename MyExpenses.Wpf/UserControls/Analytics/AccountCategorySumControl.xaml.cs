@@ -34,9 +34,7 @@ public partial class AccountCategorySumControl
     {
         AccountId = accountId;
 
-        var skColor = Utils.Resources.GetMaterialDesignBodySkColor();
-        TextPaint = new SolidColorPaint(skColor);
-
+        UpdateTextPaint();
         SetChart();
         UpdateLanguage();
 
@@ -53,15 +51,22 @@ public partial class AccountCategorySumControl
 
     private void Interface_OnThemeChanged()
     {
-        var skColor = MyExpenses.Wpf.Utils.Resources.GetMaterialDesignBodySkColor();
-        TextPaint = new SolidColorPaint(skColor);
-
+        UpdateTextPaint();
         UpdateAxisTextPaint();
     }
 
     #endregion
 
     #region Function
+
+    private void UpdateTextPaint()
+    {
+        var skColor = Utils.Resources.GetMaterialDesignBodySkColor();
+
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // The creation of a new SolidColorPaint is necessary to set the TextPaint color
+        TextPaint = new SolidColorPaint(skColor);
+    }
 
     private void SetChart()
     {

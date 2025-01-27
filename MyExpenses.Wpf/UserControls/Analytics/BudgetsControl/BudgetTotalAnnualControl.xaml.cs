@@ -37,9 +37,7 @@ public partial class BudgetTotalAnnualControl
 
     public BudgetTotalAnnualControl()
     {
-        var skColor = Utils.Resources.GetMaterialDesignBodySkColor();
-        TextPaint = new SolidColorPaint(skColor);
-
+        UpdateTextPaint();
         SetChart();
         UpdateLanguage();
 
@@ -56,9 +54,7 @@ public partial class BudgetTotalAnnualControl
 
     private void Interface_OnThemeChanged()
     {
-        var skColor = Utils.Resources.GetMaterialDesignBodySkColor();
-        TextPaint = new SolidColorPaint(skColor);
-
+        UpdateTextPaint();
         UpdateAxisTextPaint();
     }
 
@@ -117,6 +113,15 @@ public partial class BudgetTotalAnnualControl
         }
 
         UpdateLayout();
+    }
+
+    private void UpdateTextPaint()
+    {
+        var skColor = Utils.Resources.GetMaterialDesignBodySkColor();
+
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // The creation of a new SolidColorPaint is necessary to set the TextPaint color
+        TextPaint = new SolidColorPaint(skColor);
     }
 
     private void SetChart()
