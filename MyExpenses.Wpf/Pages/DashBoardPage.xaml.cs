@@ -5,6 +5,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using FilterDataGrid;
+using LiveChartsCore;
 using LiveChartsCore.SkiaSharpView;
 using LiveChartsCore.SkiaSharpView.Painting;
 using MyExpenses.Models.Config.Interfaces;
@@ -716,45 +717,182 @@ public partial class DashBoardPage
         return radioButtons.FirstOrDefault(s => s.IsChecked == true)?.Content as string;
     }
 
+    // private void UpdateChartUi(IEnumerable<CategoryTotalData> categoriesTotals, double grandTotal)
+    // {
+    //     var series = (ObservableCollection<ISeries>)PieChart.Series;
+    //
+    //     var existingSeries = PieChart.Series
+    //         .OfType<PieSeries<double>>()
+    //         .ToDictionary(s => (string)s.Tag!, s => s);
+    //
+    //     var categoryTotalDatas = categoriesTotals as CategoryTotalData[] ?? categoriesTotals.ToArray();
+    //
+    //     var updatedCategories = new HashSet<string>(categoryTotalDatas.Select(ct => ct.Category!));
+    //
+    //     foreach (var categoryTotal in categoryTotalDatas)
+    //     {
+    //         var absTotal = Math.Abs(categoryTotal.Total);
+    //         var percentage = grandTotal != 0 ? Math.Round(absTotal / grandTotal * 100, 2) : 0;
+    //         var toolTipLabelFormatter = $"{categoryTotal.Total:F2} {categoryTotal.Symbol}";
+    //         var solidColorPaint = !string.IsNullOrEmpty(categoryTotal.HexadecimalColorCode) &&
+    //                               categoryTotal.HexadecimalColorCode.ToSkColor() is { } skColor
+    //             ? new SolidColorPaint(skColor)
+    //             : null;
+    //
+    //         if (existingSeries.TryGetValue(categoryTotal.Category!, out var pieSeries))
+    //         {
+    //             pieSeries.Values!.Clear();
+    //             pieSeries.Values!.Add(absTotal);
+    //
+    //             pieSeries.Name = $"{categoryTotal.Category} ({percentage}%)";
+    //             pieSeries.ToolTipLabelFormatter = _ => toolTipLabelFormatter;
+    //
+    //             if (pieSeries.Fill is SolidColorPaint solidColorPaintPaint &&
+    //                 solidColorPaintPaint.Color != solidColorPaint?.Color)
+    //             {
+    //                 pieSeries.Fill = solidColorPaint;
+    //             }
+    //
+    //             var categoryTotalToUpdate = CategoryTotals.First(ct => ct.Name == categoryTotal.Category);
+    //             categoryTotalToUpdate.HexadecimalColor = categoryTotal.HexadecimalColorCode;
+    //             categoryTotalToUpdate.Percentage = percentage;
+    //             categoryTotalToUpdate.Value = categoryTotal.Total;
+    //             categoryTotalToUpdate.Symbol = categoryTotal.Symbol;
+    //
+    //         }
+    //         else
+    //         {
+    //             pieSeries = new PieSeries<double>
+    //             {
+    //                 Values = new ObservableCollection<double> { absTotal },
+    //                 Name = $"{categoryTotal.Category} ({percentage}%)",
+    //                 ToolTipLabelFormatter = _ => toolTipLabelFormatter,
+    //                 Fill = solidColorPaint,
+    //                 Tag = categoryTotal.Category
+    //             };
+    //
+    //             series.Add(pieSeries);
+    //
+    //             CategoryTotals.Add(new CategoryTotal
+    //             {
+    //                 Name = categoryTotal.Category,
+    //                 HexadecimalColor = categoryTotal.HexadecimalColorCode,
+    //                 Percentage = percentage,
+    //                 Value = categoryTotal.Total,
+    //                 Symbol = categoryTotal.Symbol
+    //             });
+    //         }
+    //     }
+    //
+    //     if (existingSeries.Count == updatedCategories.Count) return;
+    //
+    //     foreach (var key in existingSeries.Keys.Where(key => !updatedCategories.Contains(key)))
+    //     {
+    //         series.Remove(existingSeries[key]);
+    //     }
+    // }
+
     private void UpdateChartUi(IEnumerable<CategoryTotalData> categoriesTotals, double grandTotal)
     {
-        CategoryTotals.Clear();
+        var series = (ObservableCollection<ISeries>)PieChart.Series;
 
-        var series = new List<PieSeries<double>>();
-        foreach (var categoryTotal in categoriesTotals)
+        var existingSeries = series
+            .OfType<PieSeries<double>>()
+            .ToDictionary(s => (string)s.Tag!, s => s);
+
+        var categoryTotalsDict = CategoryTotals.ToDictionary(ct => ct.Name!, ct => ct);
+
+        var categoryTotalDatas = categoriesTotals as CategoryTotalData[] ?? categoriesTotals.ToArray();
+        var updatedCategories = new HashSet<string>(categoryTotalDatas.Select(ct => ct.Category!));
+
+        foreach (var categoryTotal in categoryTotalDatas)
         {
             var absTotal = Math.Abs(categoryTotal.Total);
-            var percentage = Math.Round(absTotal / grandTotal * 100, 2);
+            var percentage = grandTotal != 0 ? Math.Round(absTotal / grandTotal * 100, 2) : 0;
 
-            var pieSeries = new PieSeries<double>
+            UpdateOrCreatePieSeries(series, existingSeries, categoryTotal, absTotal, percentage);
+            UpdateOrCreateCategoryTotal(CategoryTotals, categoryTotalsDict, categoryTotal, percentage);
+        }
+
+        RemoveObsoleteElements(series, existingSeries, CategoryTotals, categoryTotalsDict, updatedCategories);
+    }
+
+    private static void UpdateOrCreatePieSeries(ObservableCollection<ISeries> series, Dictionary<string, PieSeries<double>> existingSeries,
+        CategoryTotalData categoryTotal, double absTotal, double percentage)
+    {
+        var toolTipLabelFormatter = $"{categoryTotal.Total:F2} {categoryTotal.Symbol}";
+        var solidColorPaint = !string.IsNullOrEmpty(categoryTotal.HexadecimalColorCode) &&
+                              categoryTotal.HexadecimalColorCode.ToSkColor() is { } skColor
+            ? new SolidColorPaint(skColor)
+            : null;
+
+        if (existingSeries.TryGetValue(categoryTotal.Category!, out var pieSeries))
+        {
+            pieSeries.Values = new ObservableCollection<double> { absTotal };
+            pieSeries.Name = $"{categoryTotal.Category} ({percentage}%)";
+            pieSeries.ToolTipLabelFormatter = _ => toolTipLabelFormatter;
+
+            if (pieSeries.Fill is not SolidColorPaint solidColorPaintPaint || solidColorPaintPaint.Color != solidColorPaint?.Color)
             {
-                Values = new List<double> { absTotal },
+                pieSeries.Fill = solidColorPaint;
+            }
+        }
+        else
+        {
+            pieSeries = new PieSeries<double>
+            {
+                Values = new ObservableCollection<double> { absTotal },
                 Name = $"{categoryTotal.Category} ({percentage}%)",
-                ToolTipLabelFormatter = _ => $"{categoryTotal.Total:F2} {categoryTotal.Symbol}",
+                ToolTipLabelFormatter = _ => toolTipLabelFormatter,
+                Fill = solidColorPaint,
                 Tag = categoryTotal.Category
             };
 
-            if (!string.IsNullOrEmpty(categoryTotal.HexadecimalColorCode))
-            {
-                if (categoryTotal.HexadecimalColorCode.ToSkColor() is { } skColor)
-                {
-                    pieSeries.Fill = new SolidColorPaint(skColor);
-                }
-            }
-
             series.Add(pieSeries);
+        }
+    }
 
-            CategoryTotals.Add(new CategoryTotal
+    private static void UpdateOrCreateCategoryTotal(ObservableCollection<CategoryTotal> categoryTotals, Dictionary<string, CategoryTotal> categoryTotalsDict,
+        CategoryTotalData categoryTotal, double percentage)
+    {
+        if (categoryTotalsDict.TryGetValue(categoryTotal.Category!, out var existingCategoryTotal))
+        {
+            existingCategoryTotal.HexadecimalColor = categoryTotal.HexadecimalColorCode;
+            existingCategoryTotal.Percentage = percentage;
+            existingCategoryTotal.Value = categoryTotal.Total;
+            existingCategoryTotal.Symbol = categoryTotal.Symbol;
+        }
+        else
+        {
+            var newCategoryTotal = new CategoryTotal
             {
                 Name = categoryTotal.Category,
                 HexadecimalColor = categoryTotal.HexadecimalColorCode,
                 Percentage = percentage,
                 Value = categoryTotal.Total,
                 Symbol = categoryTotal.Symbol
-            });
+            };
+
+            categoryTotals.Add(newCategoryTotal);
+            categoryTotalsDict[categoryTotal.Category!] = newCategoryTotal;
+        }
+    }
+
+    private static void RemoveObsoleteElements(ObservableCollection<ISeries> series,
+        Dictionary<string, PieSeries<double>> existingSeries,
+        ObservableCollection<CategoryTotal> categoryTotals,
+        Dictionary<string, CategoryTotal> categoryTotalsDict,
+        HashSet<string> updatedCategories)
+    {
+        foreach (var keyToRemove in existingSeries.Keys.Except(updatedCategories))
+        {
+            series.Remove(existingSeries[keyToRemove]);
         }
 
-        PieChart.Series = series;
+        foreach (var category in categoryTotalsDict.Keys.Except(updatedCategories))
+        {
+            categoryTotals.Remove(categoryTotalsDict[category]);
+        }
     }
 
     private void UpdateMonthLanguage()
