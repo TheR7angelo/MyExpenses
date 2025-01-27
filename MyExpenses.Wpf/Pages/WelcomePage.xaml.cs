@@ -75,8 +75,14 @@ public partial class WelcomePage
             context.SetAllDefaultValues();
             context.SaveChanges();
 
-            ExistingDatabases.AddAndSort(new ExistingDatabase(filePath),
-                s => s.FileNameWithoutExtension);
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
+            // The instantiation of ExistingDatabase is necessary to interact with
+            // a specific database identified by its file path (filePath).
+            // This ensures that each database is represented by a dedicated instance,
+            // allowing proper management and addition to the ExistingDatabases collection.
+            var existingDatabase = new ExistingDatabase(filePath);
+            ExistingDatabases.AddAndSort(existingDatabase, s => s.FileNameWithoutExtension);
 
             Log.Information("New database was successfully added");
             MsgBox.Show(WelcomePageResources.MessageBoxCreateNewDatabaseSuccess, MsgBoxImage.Check);
