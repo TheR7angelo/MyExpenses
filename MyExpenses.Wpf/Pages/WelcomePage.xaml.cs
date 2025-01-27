@@ -1,3 +1,4 @@
+using System.Collections.Concurrent;
 using System.Collections.Immutable;
 using System.Collections.ObjectModel;
 using System.IO;
@@ -200,22 +201,30 @@ public partial class WelcomePage
 
         Log.Information("Starting to export database to {SelectedDialog}", selectedDialog);
 
-        var failedExistingDatabases = new List<ExistingDatabase>();
-        await Task.Run(async () =>
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // This code uses Parallel.ForEachAsync for parallel processing of database exports, maximizing performance by utilizing multiple threads.
+        // A thread-safe ConcurrentBag is used to track failed exports. Logs provide feedback on success or failure for each database export.
+        var failedExistingDatabases = new ConcurrentBag<ExistingDatabase>();
+        await Parallel.ForEachAsync(existingDatabasesSelected, async (existingDatabase, _) =>
         {
-            foreach (var existingDatabase in existingDatabasesSelected)
+            Log.Information("Starting to export {ExistingDatabaseFileName}",
+                existingDatabase.FileNameWithoutExtension);
+
+            var success = await existingDatabase.ToFolderAsync(selectedDialog, isCompress);
+
+            if (!success)
             {
-                Log.Information("Starting to export {ExistingDatabaseFileName}",
+                failedExistingDatabases.Add(existingDatabase);
+                Log.Warning("Failed to export {ExistingDatabaseFileName}", existingDatabase.FileNameWithoutExtension);
+            }
+            else
+            {
+                Log.Information("Successfully exported {ExistingDatabaseFileName}",
                     existingDatabase.FileNameWithoutExtension);
-                var success = await existingDatabase.ToFolderAsync(selectedDialog, isCompress);
-                if (!success) failedExistingDatabases.Add(existingDatabase);
-                else
-                    Log.Information("Successfully exported {ExistingDatabaseFileName}",
-                        existingDatabase.FileNameWithoutExtension);
             }
         });
 
-        if (failedExistingDatabases.Count > 0)
+        if (!failedExistingDatabases.IsEmpty)
         {
             Log.Information("Failed to export some database to local folder");
             MsgBox.Show(WelcomePageResources.MessageBoxErrorExportToLocalFolder, MsgBoxImage.Error,
