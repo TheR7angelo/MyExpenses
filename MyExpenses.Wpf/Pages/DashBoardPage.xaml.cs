@@ -23,7 +23,6 @@ using MyExpenses.Wpf.Utils.FilterDataGrid;
 using MyExpenses.Wpf.Windows;
 using MyExpenses.Wpf.Windows.MsgBox;
 using Serilog;
-using SkiaSharp;
 
 namespace MyExpenses.Wpf.Pages;
 
@@ -729,7 +728,7 @@ public partial class DashBoardPage
 
             var pieSeries = new PieSeries<double>
             {
-                Values = new ObservableCollection<double> { absTotal },
+                Values = new List<double> { absTotal },
                 Name = $"{categoryTotal.Category} ({percentage}%)",
                 ToolTipLabelFormatter = _ => $"{categoryTotal.Total:F2} {categoryTotal.Symbol}",
                 Tag = categoryTotal.Category
@@ -737,10 +736,9 @@ public partial class DashBoardPage
 
             if (!string.IsNullOrEmpty(categoryTotal.HexadecimalColorCode))
             {
-                var skColor = categoryTotal.HexadecimalColorCode.ToSkColor();
-                if (skColor is not null)
+                if (categoryTotal.HexadecimalColorCode.ToSkColor() is { } skColor)
                 {
-                    pieSeries.Fill = new SolidColorPaint((SKColor)skColor);
+                    pieSeries.Fill = new SolidColorPaint(skColor);
                 }
             }
 
