@@ -78,7 +78,8 @@ public partial class AccountCategorySumPositiveNegativeControl
         var configuration = MyExpenses.Utils.Config.Configuration;
         var primaryColor = ((Color)configuration.Interface.Theme.HexadecimalCodePrimaryColor.ToColor()!).ToSkColor();
         var secondaryColor = ((Color)configuration.Interface.Theme.HexadecimalCodeSecondaryColor.ToColor()!).ToSkColor();
-        var skColors = new List<SKColor> { secondaryColor, primaryColor };
+
+        Span<SKColor> skColors = [secondaryColor, primaryColor];
 
         for (var i = 0; i < Series.Length; i++)
         {
