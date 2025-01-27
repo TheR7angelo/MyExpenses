@@ -33,9 +33,7 @@ public partial class AccountModePaymentMonthlySumControl
     {
         AccountId = accountId;
 
-        var skColor = Utils.Resources.GetMaterialDesignBodySkColor();
-        TextPaint = new SolidColorPaint(skColor);
-
+        UpdateTextPaint();
         SetChart();
         UpdateLanguage();
 
@@ -48,11 +46,18 @@ public partial class AccountModePaymentMonthlySumControl
     private void Interface_OnLanguageChanged()
         => UpdateLanguage();
 
-    private void Interface_OnThemeChanged()
+    private void UpdateTextPaint()
     {
         var skColor = Utils.Resources.GetMaterialDesignBodySkColor();
-        TextPaint = new SolidColorPaint(skColor);
 
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // The creation of a new SolidColorPaint is necessary to set the TextPaint color
+        TextPaint = new SolidColorPaint(skColor);
+    }
+
+    private void Interface_OnThemeChanged()
+    {
+        UpdateTextPaint();
         UpdateAxisTextPaint();
     }
 
