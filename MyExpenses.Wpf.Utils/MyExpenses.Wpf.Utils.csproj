@@ -9,6 +9,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <PackageReference Include="LiveChartsCore.SkiaSharpView" Version="2.0.0-rc4.5" />
       <PackageReference Include="SkiaSharp" Version="3.116.1" />
     </ItemGroup>
 

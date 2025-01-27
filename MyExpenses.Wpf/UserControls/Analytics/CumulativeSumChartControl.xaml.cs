@@ -7,6 +7,7 @@ using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Sql.Bases.Views.Analysis;
 using MyExpenses.Sql.Context;
 using MyExpenses.Wpf.Converters.Analytics;
+using MyExpenses.Wpf.Utils;
 
 namespace MyExpenses.Wpf.UserControls.Analytics;
 
@@ -29,9 +30,7 @@ public partial class CumulativeSumChartControl
 
     public CumulativeSumChartControl()
     {
-        var skColor = Utils.Resources.GetMaterialDesignBodySkColor();
-        TextPaint = new SolidColorPaint(skColor);
-
+        UpdateTextPaint();
         SetChart();
         UpdateLanguage();
 
@@ -48,15 +47,19 @@ public partial class CumulativeSumChartControl
 
     private void Interface_OnThemeChanged()
     {
-        var skColor = Utils.Resources.GetMaterialDesignBodySkColor();
-        TextPaint = new SolidColorPaint(skColor);
-
+        UpdateTextPaint();
         UpdateAxisTextPaint();
     }
 
     #endregion
 
     #region Function
+
+    private void UpdateTextPaint()
+    {
+        var skColor = Utils.Resources.GetMaterialDesignBodySkColor();
+        TextPaint = skColor.ToSolidColorPaint();
+    }
 
     private void SetChart()
     {

@@ -1,5 +1,6 @@
 ﻿using System.Windows.Media;
 using System.Globalization;
+using LiveChartsCore.SkiaSharpView.Painting;
 using SkiaSharp;
 
 namespace MyExpenses.Wpf.Utils;
@@ -127,6 +128,29 @@ public static class ColorExtensions
     /// <returns>The SkiaSharp.SKColor object representing the converted color.</returns>
     public static SKColor ToSkColor(this Color color)
         => new(color.R, color.G, color.B, color.A);
+
+    /// <summary>
+    /// Converts a hexadecimal color code to a SolidColorPaint object.
+    /// </summary>
+    /// <param name="hexColor">The hexadecimal color code to convert.</param>
+    /// <returns>A SolidColorPaint object representing the converted color, or null if the input is invalid.</returns>
+    public static SolidColorPaint? ToSolidColorPaint(this string? hexColor)
+    {
+        var solidColorPaint = !string.IsNullOrEmpty(hexColor) &&
+                              hexColor.ToSkColor() is { } skColor
+            ? skColor.ToSolidColorPaint()
+            : null;
+
+        return solidColorPaint;
+    }
+
+    /// <summary>
+    /// Converts an SKColor object to a SolidColorPaint object.
+    /// </summary>
+    /// <param name="skColor">The SKColor object to convert.</param>
+    /// <returns>A SolidColorPaint object representing the specified SKColor.</returns>
+    public static SolidColorPaint ToSolidColorPaint(this SKColor skColor)
+        => new(skColor);
 
     /// <summary>
     /// Converts a hexadecimal color code to a System.Drawing.Color object.

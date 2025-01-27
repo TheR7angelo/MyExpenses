@@ -8,7 +8,6 @@ using MyExpenses.Models.Sql.Bases.Groups.VAccountCategoryMonthlySums;
 using MyExpenses.Sql.Context;
 using MyExpenses.Wpf.Converters.Analytics;
 using MyExpenses.Wpf.Utils;
-using SkiaSharp;
 
 namespace MyExpenses.Wpf.UserControls.Analytics;
 
@@ -62,10 +61,7 @@ public partial class AccountCategorySumControl
     private void UpdateTextPaint()
     {
         var skColor = Utils.Resources.GetMaterialDesignBodySkColor();
-
-        // ReSharper disable once HeapView.ObjectAllocation.Evident
-        // The creation of a new SolidColorPaint is necessary to set the TextPaint color
-        TextPaint = new SolidColorPaint(skColor);
+        TextPaint = skColor.ToSolidColorPaint();
     }
 
     private void SetChart()
@@ -110,14 +106,14 @@ public partial class AccountCategorySumControl
         {
             var name = groupsByCategory.Key;
             var colorCode = groupsByCategory.First().ColorCode;
-            var skColor = (SKColor)colorCode!.ToSkColor()!;
+            var solidColorPaint = colorCode.ToSolidColorPaint();
             var values = groupsByCategory.Select(s => Math.Round(s.SumMonthlySum ?? 0, 2))
                 .ToList();
 
             var columnSeries = new ColumnSeries<double>
             {
                 Name = name,
-                Fill = new SolidColorPaint(skColor),
+                Fill = solidColorPaint,
                 Values = values,
                 YToolTipLabelFormatter = point => $"{point.Model} {currency}"
             };

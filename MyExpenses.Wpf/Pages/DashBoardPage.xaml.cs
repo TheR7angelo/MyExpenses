@@ -745,10 +745,7 @@ public partial class DashBoardPage
         CategoryTotalData categoryTotal, double absTotal, double percentage)
     {
         var toolTipLabelFormatter = $"{categoryTotal.Total:F2} {categoryTotal.Symbol}";
-        var solidColorPaint = !string.IsNullOrEmpty(categoryTotal.HexadecimalColorCode) &&
-                              categoryTotal.HexadecimalColorCode.ToSkColor() is { } skColor
-            ? new SolidColorPaint(skColor)
-            : null;
+        var solidColorPaint = categoryTotal.HexadecimalColorCode.ToSolidColorPaint();
 
         if (existingSeries.TryGetValue(categoryTotal.Category!, out var pieSeries))
         {
@@ -886,7 +883,7 @@ public partial class DashBoardPage
     private void UpdatePieChartLegendTextPaint()
     {
         var wpfColor = MyExpenses.Wpf.Utils.Resources.GetMaterialDesignBodySkColor();
-        PieChart.LegendTextPaint = new SolidColorPaint(wpfColor);
+        PieChart.LegendTextPaint = wpfColor.ToSolidColorPaint();
     }
 
     #endregion

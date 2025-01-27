@@ -1,6 +1,5 @@
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
 using LiveChartsCore;
 using LiveChartsCore.Kernel.Sketches;
 using LiveChartsCore.SkiaSharpView;
@@ -12,7 +11,6 @@ using MyExpenses.Sql.Context;
 using MyExpenses.Utils;
 using MyExpenses.Wpf.Resources.Resx.UserControls.Analytics.BudgetsControl;
 using MyExpenses.Wpf.Utils;
-using SkiaSharp;
 
 namespace MyExpenses.Wpf.UserControls.Analytics.BudgetsControl;
 
@@ -75,14 +73,15 @@ public partial class BudgetTotalAnnualControl
         }
 
         var configuration = Config.Configuration;
-        var primaryColor = ((Color)configuration.Interface.Theme.HexadecimalCodePrimaryColor.ToColor()!).ToSkColor();
-        var secondaryColor = ((Color)configuration.Interface.Theme.HexadecimalCodeSecondaryColor.ToColor()!).ToSkColor();
-        var skColors = new List<SKColor> { secondaryColor, primaryColor };
+        var primarySolidColorPaint = configuration.Interface.Theme.HexadecimalCodePrimaryColor.ToSolidColorPaint();
+        var secondarySolidColorPaint = configuration.Interface.Theme.HexadecimalCodeSecondaryColor.ToSolidColorPaint();
+
+        Span<SolidColorPaint?> solidColorPaints = [secondarySolidColorPaint, primarySolidColorPaint];
 
         for (var i = 0; i < Series.Length; i++)
         {
             var tmp = Series[i] as ColumnSeries<double>;
-            tmp!.Fill = new SolidColorPaint(skColors[i]);
+            tmp!.Fill = solidColorPaints[i];
             Series[i] = tmp;
         }
     }
@@ -118,10 +117,7 @@ public partial class BudgetTotalAnnualControl
     private void UpdateTextPaint()
     {
         var skColor = Utils.Resources.GetMaterialDesignBodySkColor();
-
-        // ReSharper disable once HeapView.ObjectAllocation.Evident
-        // The creation of a new SolidColorPaint is necessary to set the TextPaint color
-        TextPaint = new SolidColorPaint(skColor);
+        TextPaint = skColor.ToSolidColorPaint();
     }
 
     private void SetChart()

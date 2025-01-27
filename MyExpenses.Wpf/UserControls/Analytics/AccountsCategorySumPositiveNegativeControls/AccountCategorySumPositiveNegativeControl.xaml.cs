@@ -1,5 +1,4 @@
 ﻿using System.Windows;
-using System.Windows.Media;
 using LiveChartsCore;
 using LiveChartsCore.Kernel.Sketches;
 using LiveChartsCore.SkiaSharpView;
@@ -10,7 +9,6 @@ using MyExpenses.Sql.Context;
 using MyExpenses.Wpf.Converters.Analytics;
 using MyExpenses.Wpf.Resources.Resx.UserControls.Analytics.AccountsCategorySumPositiveNegativeControls;
 using MyExpenses.Wpf.Utils;
-using SkiaSharp;
 
 namespace MyExpenses.Wpf.UserControls.Analytics.AccountsCategorySumPositiveNegativeControls;
 
@@ -59,10 +57,7 @@ public partial class AccountCategorySumPositiveNegativeControl
     private void UpdateTextPaint()
     {
         var skColor = Utils.Resources.GetMaterialDesignBodySkColor();
-
-        // ReSharper disable once HeapView.ObjectAllocation.Evident
-        // The creation of a new SolidColorPaint is necessary to set the TextPaint color
-        TextPaint = new SolidColorPaint(skColor);
+        TextPaint = skColor.ToSolidColorPaint();
     }
 
     private void UpdateAxisTextPaint()
@@ -82,17 +77,15 @@ public partial class AccountCategorySumPositiveNegativeControl
         }
 
         var configuration = MyExpenses.Utils.Config.Configuration;
-        var primaryColor = ((Color)configuration.Interface.Theme.HexadecimalCodePrimaryColor.ToColor()!).ToSkColor();
-        var secondaryColor = ((Color)configuration.Interface.Theme.HexadecimalCodeSecondaryColor.ToColor()!).ToSkColor();
+        var primarySolidColorPaint = configuration.Interface.Theme.HexadecimalCodePrimaryColor.ToSolidColorPaint();
+        var secondarySolidColorPaint = configuration.Interface.Theme.HexadecimalCodeSecondaryColor.ToSolidColorPaint();
 
-        Span<SKColor> skColors = [secondaryColor, primaryColor];
+        Span<SolidColorPaint?> solidColorPaints = [secondarySolidColorPaint, primarySolidColorPaint];
 
         for (var i = 0; i < Series.Length; i++)
         {
             var tmp = Series[i] as ColumnSeries<double>;
-            // ReSharper disable once HeapView.ObjectAllocation.Evident
-            // The creation of a new SolidColorPaint is necessary to set the fill color.
-            tmp!.Fill = new SolidColorPaint(skColors[i]);
+            tmp!.Fill = solidColorPaints[i];
             Series[i] = tmp;
         }
     }
@@ -172,17 +165,14 @@ public partial class AccountCategorySumPositiveNegativeControl
             Math.Round(g.Sum(r => Math.Abs(r.MonthlyNegativeSum ?? 0)), 2));
 
         var configuration = MyExpenses.Utils.Config.Configuration;
-        var primaryColor = (Color)configuration.Interface.Theme.HexadecimalCodePrimaryColor.ToColor()!;
-        var secondaryColor = (Color)configuration.Interface.Theme.HexadecimalCodeSecondaryColor.ToColor()!;
+        var primarySolidColorPaint = configuration.Interface.Theme.HexadecimalCodePrimaryColor.ToSolidColorPaint();
+        var secondarySolidColorPaint = configuration.Interface.Theme.HexadecimalCodeSecondaryColor.ToSolidColorPaint();
 
         var positiveSeries = new ColumnSeries<double>
         {
             Name = AccountsCategorySumPositiveNegativeControlsResources.ColumnSeriesPositiveName,
             Values = positiveValues.ToList(),
-            // ReSharper disable once HeapView.ObjectAllocation.Evident
-            // The creation of a new SolidColorPaint is necessary to set the fill color
-            // using the primaryColor converted to a Skia color (SkColor).
-            Fill = new SolidColorPaint(primaryColor.ToSkColor()),
+            Fill = primarySolidColorPaint,
             YToolTipLabelFormatter = y =>
             {
                 var value = y.Model;
@@ -194,10 +184,7 @@ public partial class AccountCategorySumPositiveNegativeControl
         {
             Name = AccountsCategorySumPositiveNegativeControlsResources.ColumnSeriesNegativeName,
             Values = negativeValues.ToList(),
-            // ReSharper disable once HeapView.ObjectAllocation.Evident
-            // The creation of a new SolidColorPaint is necessary to set the fill color
-            // using the secondaryColor converted to a Skia color (SkColor).
-            Fill = new SolidColorPaint(secondaryColor.ToSkColor()),
+            Fill = secondarySolidColorPaint,
             YToolTipLabelFormatter = y =>
             {
                 var value = -1 * y.Model;

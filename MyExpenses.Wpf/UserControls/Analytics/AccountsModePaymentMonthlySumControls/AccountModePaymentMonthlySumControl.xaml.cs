@@ -8,6 +8,7 @@ using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Sql.Bases.Groups.VAccountModePaymentCategoryMonthlySums;
 using MyExpenses.Sql.Context;
 using MyExpenses.Wpf.Converters.Analytics;
+using MyExpenses.Wpf.Utils;
 
 namespace MyExpenses.Wpf.UserControls.Analytics.AccountsModePaymentMonthlySumControls;
 
@@ -49,10 +50,7 @@ public partial class AccountModePaymentMonthlySumControl
     private void UpdateTextPaint()
     {
         var skColor = Utils.Resources.GetMaterialDesignBodySkColor();
-
-        // ReSharper disable once HeapView.ObjectAllocation.Evident
-        // The creation of a new SolidColorPaint is necessary to set the TextPaint color
-        TextPaint = new SolidColorPaint(skColor);
+        TextPaint = skColor.ToSolidColorPaint();
     }
 
     private void Interface_OnThemeChanged()
@@ -80,7 +78,7 @@ public partial class AccountModePaymentMonthlySumControl
         for (var i = 0; i < Series.Length; i++)
         {
             var tmp = Series[i] as ColumnSeries<double>;
-            tmp!.DataLabelsPaint = new SolidColorPaint(TextPaint.Color);
+            tmp!.DataLabelsPaint = TextPaint.Color.ToSolidColorPaint();
             Series[i] = tmp;
         }
     }
@@ -180,7 +178,7 @@ public partial class AccountModePaymentMonthlySumControl
                     var count = dataPoint.MonthlyModePayment is 0 ? string.Empty : dataPoint.MonthlyModePayment.ToString()!;
                     return count;
                 },
-                DataLabelsPaint = new SolidColorPaint(TextPaint.Color),
+                DataLabelsPaint = TextPaint.Color.ToSolidColorPaint(),
                 DataLabelsPosition = DataLabelsPosition.Middle
             };
 
