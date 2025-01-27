@@ -323,8 +323,9 @@ public partial class WelcomePage
 
         // An instance of AddDatabaseFileWindow is created to handle the addition of a new database file.
         // The SetExistingDatabase method is called with the ExistingDatabases to provide context or validate against existing entries.
-        // ShowDialog() is used to display the window modally and obtain the user's action.
+        // ShowDialog() is used to display the window modally and get the user's action.
         // If the dialog result is not true (e.g., the user cancels or closes the window), the method exits early.
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
         var waitScreenWindow = new WaitScreenWindow();
         try
         {
@@ -454,10 +455,15 @@ public partial class WelcomePage
         var metadatas = await dropboxService.ListFileAsync(DatabaseInfos.CloudDirectoryBackupDatabase);
         metadatas = metadatas.Where(s => Path.GetExtension(s.PathDisplay).Equals(DatabaseInfos.Extension));
 
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // An instance of ExistingDatabase is created for each file in the cloud directory.
         var existingDatabases = metadatas.Select(s => new ExistingDatabase(s.PathDisplay)).ToList();
         foreach (var existingDatabase in existingDatabases)
         {
             var filePath = Path.Join(DatabaseInfos.LocalDirectoryDatabase, existingDatabase.FileName);
+
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
+            // An instance of ExistingDatabase is created to handle the status of the database.
             var localDatabase = new ExistingDatabase(filePath);
             existingDatabase.SyncStatus = await localDatabase.CheckStatus(ProjectSystem.Wpf);
         }
