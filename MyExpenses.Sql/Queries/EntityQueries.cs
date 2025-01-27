@@ -1,6 +1,7 @@
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Models.Sql.Bases.Views;
 using MyExpenses.Models.Sql.Queries;
+using MyExpenses.Models.Wpf.Charts;
 using MyExpenses.Sql.Context;
 
 namespace MyExpenses.Sql.Queries;
@@ -371,4 +372,24 @@ public static class EntityQueries
         return query.ToList();
     }
 
+    public static IEnumerable<CategoryTotalData> CalculateCategoryTotals(this IEnumerable<VDetailTotalCategory> data, out double grandTotal)
+    {
+        var categoriesTotals = data
+            .GroupBy(s => s.Category)
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
+            // The allocation here is necessary as a new instance of VDetailTotalCategory is created for each group.
+            .Select(g => new CategoryTotalData
+            {
+                Category = g.Key,
+                Total = Math.Round(g.Sum(s => s.Value) ?? 0d, 2),
+                Symbol = g.First().Symbol,
+                HexadecimalColorCode = g.First().HexadecimalColorCode
+            })
+            .OrderByDescending(s => Math.Abs(s.Total))
+            .ToList();
+
+        grandTotal = Math.Round(categoriesTotals.Sum(ct => Math.Abs(ct.Total)), 2);
+
+        return categoriesTotals;
+    }
 }

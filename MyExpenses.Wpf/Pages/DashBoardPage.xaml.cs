@@ -671,7 +671,7 @@ public partial class DashBoardPage
         VHistories.AddRange(results.Histories);
 
         var filteredData = accountName.GetFilteredVDetailTotalCategories(monthInt, yearInt);
-        var categoriesTotals = CalculateCategoryTotals(filteredData, out var grandTotal);
+        var categoriesTotals = filteredData.CalculateCategoryTotals(out var grandTotal);
         UpdateChartUi(categoriesTotals, grandTotal);
     }
 
@@ -715,25 +715,6 @@ public partial class DashBoardPage
         if (radioButtons.Count == 0) return null;
 
         return radioButtons.FirstOrDefault(s => s.IsChecked == true)?.Content as string;
-    }
-
-    private static List<CategoryTotalData> CalculateCategoryTotals(IEnumerable<VDetailTotalCategory> data, out double grandTotal)
-    {
-        var categoriesTotals = data
-            .GroupBy(s => s.Category)
-            .Select(g => new CategoryTotalData
-            {
-                Category = g.Key,
-                Total = Math.Round(g.Sum(s => s.Value) ?? 0d, 2),
-                Symbol = g.First().Symbol,
-                HexadecimalColorCode = g.First().HexadecimalColorCode
-            })
-            .OrderByDescending(s => Math.Abs(s.Total))
-            .ToList();
-
-        grandTotal = Math.Round(categoriesTotals.Sum(ct => Math.Abs(ct.Total)), 2);
-
-        return categoriesTotals;
     }
 
     private void UpdateChartUi(IEnumerable<CategoryTotalData> categoriesTotals, double grandTotal)
