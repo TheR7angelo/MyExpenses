@@ -37,7 +37,10 @@ public partial class HowToUseControl
         var directory = Path.GetFullPath("Resources");
         directory = Path.Join(directory, "How to use");
 
+        // A List<T> is used here to dynamically gather culture-specific file paths
+        // as the number of results isn't predetermined or fixed at compile time.
         var results = new List<HowToUseCulturePath>();
+
         var allCulture = CultureInfo.GetCultures(CultureTypes.AllCultures);
         var files = Directory.GetFiles(directory, "*.pdf");
         foreach (var file in files)
@@ -73,7 +76,7 @@ public partial class HowToUseControl
         HowToUseCulturePath = HowToUseCulturePaths.First(s => s.CultureInfo.TwoLetterISOLanguageName.ToLower().Equals(currentCulture.TwoLetterISOLanguageName.ToLower()));
 
         if (HowToUseCulturePath is null) return;
-        WebView2.CoreWebView2.Navigate(HowToUseCulturePath.Path);
+        WebView2.CoreWebView2.Navigate(HowToUseCulturePath.Value.Path);
 
         ListView.SelectionChanged += ListView_SelectionChanged;
     }
