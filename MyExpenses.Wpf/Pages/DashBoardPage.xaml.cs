@@ -728,7 +728,6 @@ public partial class DashBoardPage
         var categoryTotalsDict = CategoryTotals.ToDictionary(ct => ct.Name!, ct => ct);
 
         var categoryTotalDatas = categoriesTotals as CategoryTotalData[] ?? categoriesTotals.ToArray();
-        var updatedCategories = new HashSet<string>(categoryTotalDatas.Select(ct => ct.Category!));
 
         foreach (var categoryTotal in categoryTotalDatas)
         {
@@ -739,7 +738,7 @@ public partial class DashBoardPage
             UpdateOrCreateCategoryTotal(CategoryTotals, categoryTotalsDict, categoryTotal, percentage);
         }
 
-        RemoveObsoleteElements(series, existingSeries, CategoryTotals, categoryTotalsDict, updatedCategories);
+        RemoveObsoleteElements(series, existingSeries, CategoryTotals, categoryTotalsDict, categoryTotalDatas);
     }
 
     private static void UpdateOrCreatePieSeries(ObservableCollection<ISeries> series, Dictionary<string, PieSeries<double>> existingSeries,
@@ -807,8 +806,10 @@ public partial class DashBoardPage
         Dictionary<string, PieSeries<double>> existingSeries,
         ObservableCollection<CategoryTotal> categoryTotals,
         Dictionary<string, CategoryTotal> categoryTotalsDict,
-        HashSet<string> updatedCategories)
+        CategoryTotalData[] categoryTotalDatas)
     {
+        var updatedCategories = categoryTotalDatas.Select(ct => ct.Category!).ToHashSet();
+
         foreach (var keyToRemove in existingSeries.Keys.Except(updatedCategories))
         {
             series.Remove(existingSeries[keyToRemove]);
