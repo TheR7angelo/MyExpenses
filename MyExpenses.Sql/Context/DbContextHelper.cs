@@ -119,10 +119,17 @@ public static class DbContextHelper
 
         context.Database.OpenConnection();
 
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // The use of `ExecuteReader()` is necessary to retrieve the results of the query.
+        // The use of `Dictionary<string, object?>` is necessary to represent the results as a list of dictionaries,
+        // where each dictionary represents a record with key-value pairs corresponding to column names and their respective values.
+        // The use of `List<Dictionary<string, object?>>` is necessary to represent the results as a list of dictionaries,
+        // where each dictionary contains column names as keys and their respective values as values.
         var results = new List<Dictionary<string, object?>>();
         using var reader = command.ExecuteReader();
         while (reader.Read())
         {
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
             var row = new Dictionary<string, object?>();
             for (var i = 0; i < reader.FieldCount; i++)
             {
