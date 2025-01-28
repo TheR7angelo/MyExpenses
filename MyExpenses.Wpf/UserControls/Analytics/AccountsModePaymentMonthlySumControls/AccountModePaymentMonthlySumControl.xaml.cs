@@ -7,6 +7,7 @@ using LiveChartsCore.SkiaSharpView.Painting;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Sql.Bases.Groups.VAccountModePaymentCategoryMonthlySums;
 using MyExpenses.Sql.Context;
+using MyExpenses.Sql.Queries;
 using MyExpenses.Wpf.Converters.Analytics;
 using MyExpenses.Wpf.Utils;
 
@@ -99,24 +100,8 @@ public partial class AccountModePaymentMonthlySumControl
 
     private void SetChart()
     {
-        using var context = new DataBaseContext();
-        var groupsByModePaymentCategory = context.AnalysisVAccountModePaymentCategoryMonthlySums
-            .Where(s => s.AccountFk == AccountId)
-            .GroupBy(v => new { v.AccountFk, v.Account, v.ModePayment, v.Period, v.CurrencyFk, v.Currency })
-            .Select(g => new GroupsByModePaymentCategory
-            {
-                AccountFk = g.Key.AccountFk,
-                Account = g.Key.Account,
-                ModePayment = g.Key.ModePayment,
-                Period = g.Key.Period,
-                TotalMonthlySum = g.Sum(v => Math.Round(v.MonthlySum ?? 0, 2)),
-                CurrencyFk = g.Key.CurrencyFk,
-                Currency = g.Key.Currency,
-                TotalMonthlyModePayment = g.Sum(v => v.MonthlyModePayment)
-            })
-            .OrderBy(s => s.Period).ThenBy(s => s.ModePayment)
-            .AsEnumerable()
-            .GroupBy(s => s.ModePayment).ToList();
+        var groupsByModePaymentCategory = AccountId.GetVAccountModePaymentCategoryMonthlySums()
+            .ToList();
 
         if (groupsByModePaymentCategory.Count is 0) return;
 
