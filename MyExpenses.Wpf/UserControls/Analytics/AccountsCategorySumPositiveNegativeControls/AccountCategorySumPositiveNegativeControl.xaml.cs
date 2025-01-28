@@ -1,7 +1,9 @@
 ﻿using System.Windows;
 using LiveChartsCore;
+using LiveChartsCore.Kernel;
 using LiveChartsCore.Kernel.Sketches;
 using LiveChartsCore.SkiaSharpView;
+using LiveChartsCore.SkiaSharpView.Drawing.Geometries;
 using LiveChartsCore.SkiaSharpView.Painting;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Sql.Bases.Views.Analysis;
@@ -168,30 +170,26 @@ public partial class AccountCategorySumPositiveNegativeControl
         var primarySolidColorPaint = configuration.Interface.Theme.HexadecimalCodePrimaryColor.ToSolidColorPaint();
         var secondarySolidColorPaint = configuration.Interface.Theme.HexadecimalCodeSecondaryColor.ToSolidColorPaint();
 
-        var positiveSeries = new ColumnSeries<double>
-        {
-            Name = AccountsCategorySumPositiveNegativeControlsResources.ColumnSeriesPositiveName,
-            Values = positiveValues.ToList(),
-            Fill = primarySolidColorPaint,
-            YToolTipLabelFormatter = y =>
-            {
-                var value = y.Model;
-                return $"{value:F2} {symbol}";
-            }
-        };
-
-        var negativeSeries = new ColumnSeries<double>
-        {
-            Name = AccountsCategorySumPositiveNegativeControlsResources.ColumnSeriesNegativeName,
-            Values = negativeValues.ToList(),
-            Fill = secondarySolidColorPaint,
-            YToolTipLabelFormatter = y =>
-            {
-                var value = -1 * y.Model;
-                return $"{value:F2} {symbol}";
-            }
-        };
+        var positiveSeries = CreateSeries(AccountsCategorySumPositiveNegativeControlsResources.ColumnSeriesPositiveName,
+            positiveValues, primarySolidColorPaint, y => $"{y.Model:F2} {symbol}");
+        var negativeSeries = CreateSeries(AccountsCategorySumPositiveNegativeControlsResources.ColumnSeriesNegativeName,
+            negativeValues, secondarySolidColorPaint, y => $"{-1 * y.Model:F2} {symbol}");
 
         Series = [negativeSeries, positiveSeries];
     }
+
+    private static ColumnSeries<T> CreateSeries<T>(string name, IEnumerable<T> values, SolidColorPaint? solidColorPaint,
+        Func<ChartPoint<T, RoundedRectangleGeometry, LabelGeometry>, string>? tooltipFormatter)
+    {
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // This allocation is required to define a custom column series (ColumnSeries<T>).
+        return new ColumnSeries<T>
+        {
+            Name = name,
+            Values = values.ToList(),
+            Fill = solidColorPaint,
+            YToolTipLabelFormatter = tooltipFormatter
+        };
+    }
+
 }
