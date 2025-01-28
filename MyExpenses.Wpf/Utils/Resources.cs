@@ -14,6 +14,7 @@ public static class Resources
     /// <returns>The resource object associated with the specified key.</returns>
     private static object GetFindResource(this string resourceKey)
     {
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
         var frameworkElement = new System.Windows.FrameworkElement();
         return frameworkElement.FindResource(resourceKey);
     }
