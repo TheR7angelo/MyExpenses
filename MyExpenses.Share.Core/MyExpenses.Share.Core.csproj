@@ -7,12 +7,14 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <PackageReference Include="LiveChartsCore.SkiaSharpView" Version="2.0.0-rc4.5" />
       <PackageReference Include="Microsoft.Maui.Essentials" Version="9.0.30" />
     </ItemGroup>
 
     <ItemGroup>
       <ProjectReference Include="..\MyExpenses.Models\MyExpenses.Models.csproj" />
       <ProjectReference Include="..\MyExpenses.SharedUtils\MyExpenses.SharedUtils.csproj" />
+      <ProjectReference Include="..\MyExpenses.Utils\MyExpenses.Utils.csproj" />
     </ItemGroup>
 
 </Project>

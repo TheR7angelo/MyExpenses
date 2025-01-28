@@ -11,7 +11,7 @@ public static class EntityQueriesAnalysis
     /// </summary>
     /// <param name="accountId">The unique identifier of the account to retrieve the data for.</param>
     /// <returns>An enumerable collection of groups where each group contains records grouped by mode of payment.</returns>
-    public static IEnumerable<IGrouping<string?, GroupsByModePaymentCategory>> GetVAccountModePaymentCategoryMonthlySums(this int accountId)
+    public static List<IGrouping<string?, GroupsByModePaymentCategory>> GetVAccountModePaymentCategoryMonthlySums(this int accountId)
     {
         // ReSharper disable once HeapView.ObjectAllocation.Evident
         // Retrieve records from the database filtered by AccountFk.
@@ -37,7 +37,8 @@ public static class EntityQueriesAnalysis
             })
             .OrderBy(s => s.Period).ThenBy(s => s.ModePayment)
             .AsEnumerable()
-            .GroupBy(s => s.ModePayment);
+            .GroupBy(s => s.ModePayment)
+            .ToList();
 
         return groupsByModePaymentCategory;
     }
@@ -47,7 +48,7 @@ public static class EntityQueriesAnalysis
     /// </summary>
     /// <param name="accountId">The unique identifier of the account to retrieve the data for.</param>
     /// <returns>An enumerable collection of groups where each group contains records grouped by period.</returns>
-    public static IEnumerable<IGrouping<string?, AnalysisVAccountCategoryMonthlySumPositiveNegative>> GetVAccountCategoryMonthlySumPositiveNegative(this int accountId)
+    public static List<IGrouping<string?, AnalysisVAccountCategoryMonthlySumPositiveNegative>> GetVAccountCategoryMonthlySumPositiveNegative(this int accountId)
     {
         // ReSharper disable once HeapView.ObjectAllocation.Evident
         // Retrieve records from the database filtered by AccountFk.
@@ -60,7 +61,8 @@ public static class EntityQueriesAnalysis
         var records = context.AnalysisVAccountCategoryMonthlySumPositiveNegatives
             .Where(s => s.AccountFk == accountId)
             .AsEnumerable()
-            .GroupBy(s => s.Period);
+            .GroupBy(s => s.Period)
+            .ToList();
 
         return records;
     }

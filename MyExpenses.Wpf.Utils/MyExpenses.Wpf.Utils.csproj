@@ -13,4 +13,8 @@
       <PackageReference Include="SkiaSharp" Version="3.116.1" />
     </ItemGroup>
 
+    <ItemGroup>
+      <ProjectReference Include="..\MyExpenses.Utils\MyExpenses.Utils.csproj" />
+    </ItemGroup>
+
 </Project>

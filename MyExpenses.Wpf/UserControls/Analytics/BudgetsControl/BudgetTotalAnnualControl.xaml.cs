@@ -10,7 +10,6 @@ using MyExpenses.Models.Wpf.Charts;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils;
 using MyExpenses.Wpf.Resources.Resx.UserControls.Analytics.BudgetsControl;
-using MyExpenses.Wpf.Utils;
 
 namespace MyExpenses.Wpf.UserControls.Analytics.BudgetsControl;
 

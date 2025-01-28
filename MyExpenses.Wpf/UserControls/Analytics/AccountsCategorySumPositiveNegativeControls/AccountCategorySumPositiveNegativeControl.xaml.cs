@@ -1,16 +1,15 @@
 ﻿using System.Windows;
 using LiveChartsCore;
-using LiveChartsCore.Kernel;
 using LiveChartsCore.Kernel.Sketches;
 using LiveChartsCore.SkiaSharpView;
-using LiveChartsCore.SkiaSharpView.Drawing.Geometries;
 using LiveChartsCore.SkiaSharpView.Painting;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Sql.Bases.Views.Analysis;
+using MyExpenses.Share.Core.Analysis;
 using MyExpenses.Sql.Queries;
+using MyExpenses.Utils;
 using MyExpenses.Wpf.Converters.Analytics;
 using MyExpenses.Wpf.Resources.Resx.UserControls.Analytics.AccountsCategorySumPositiveNegativeControls;
-using MyExpenses.Wpf.Utils;
 
 namespace MyExpenses.Wpf.UserControls.Analytics.AccountsCategorySumPositiveNegativeControls;
 
@@ -78,7 +77,7 @@ public partial class AccountCategorySumPositiveNegativeControl
             XAxis[i] = tmp;
         }
 
-        var configuration = MyExpenses.Utils.Config.Configuration;
+        var configuration = Config.Configuration;
         var primarySolidColorPaint = configuration.Interface.Theme.HexadecimalCodePrimaryColor.ToSolidColorPaint();
         var secondarySolidColorPaint = configuration.Interface.Theme.HexadecimalCodeSecondaryColor.ToSolidColorPaint();
 
@@ -117,7 +116,7 @@ public partial class AccountCategorySumPositiveNegativeControl
 
     private void SetChart()
     {
-        var records = AccountId.GetVAccountCategoryMonthlySumPositiveNegative().ToList();
+        var records = AccountId.GetVAccountCategoryMonthlySumPositiveNegative();
         
         if (records.Count is 0) return;
 
@@ -161,38 +160,15 @@ public partial class AccountCategorySumPositiveNegativeControl
 
     private void SetSeries(List<IGrouping<string?, AnalysisVAccountCategoryMonthlySumPositiveNegative>> records)
     {
-        var symbol = records.First().Select(s => s.Currency).First();
+        var configuration = Config.Configuration;
+        var primarySolidColorPaint = configuration.Interface.Theme.HexadecimalCodePrimaryColor;
+        var secondarySolidColorPaint = configuration.Interface.Theme.HexadecimalCodeSecondaryColor;
 
-        var positiveValues = records.Select(g =>
-            Math.Round(g.Sum(r => Math.Abs(r.MonthlyPositiveSum ?? 0)), 2));
-
-        var negativeValues = records.Select(g =>
-            Math.Round(g.Sum(r => Math.Abs(r.MonthlyNegativeSum ?? 0)), 2));
-
-        var configuration = MyExpenses.Utils.Config.Configuration;
-        var primarySolidColorPaint = configuration.Interface.Theme.HexadecimalCodePrimaryColor.ToSolidColorPaint();
-        var secondarySolidColorPaint = configuration.Interface.Theme.HexadecimalCodeSecondaryColor.ToSolidColorPaint();
-
-        var positiveSeries = CreateSeries(AccountsCategorySumPositiveNegativeControlsResources.ColumnSeriesPositiveName,
-            positiveValues, primarySolidColorPaint, y => $"{y.Model:F2} {symbol}");
-        var negativeSeries = CreateSeries(AccountsCategorySumPositiveNegativeControlsResources.ColumnSeriesNegativeName,
-            negativeValues, secondarySolidColorPaint, y => $"{-1 * y.Model:F2} {symbol}");
+        var (positiveSeries, negativeSeries) = records.GenerateSeries(primarySolidColorPaint, secondarySolidColorPaint,
+            AccountsCategorySumPositiveNegativeControlsResources.ColumnSeriesPositiveName,
+            AccountsCategorySumPositiveNegativeControlsResources.ColumnSeriesNegativeName);
 
         Series = [negativeSeries, positiveSeries];
-    }
-
-    private static ColumnSeries<T> CreateSeries<T>(string name, IEnumerable<T> values, SolidColorPaint? solidColorPaint,
-        Func<ChartPoint<T, RoundedRectangleGeometry, LabelGeometry>, string>? tooltipFormatter)
-    {
-        // ReSharper disable once HeapView.ObjectAllocation.Evident
-        // This allocation is required to define a custom column series (ColumnSeries<T>).
-        return new ColumnSeries<T>
-        {
-            Name = name,
-            Values = values.ToList(),
-            Fill = solidColorPaint,
-            YToolTipLabelFormatter = tooltipFormatter
-        };
     }
 
 }

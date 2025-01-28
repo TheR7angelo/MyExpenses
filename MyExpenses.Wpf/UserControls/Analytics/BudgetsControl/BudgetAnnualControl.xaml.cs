@@ -11,7 +11,6 @@ using MyExpenses.Sql.Context;
 using MyExpenses.Utils;
 using MyExpenses.Wpf.Converters.Analytics;
 using MyExpenses.Wpf.Resources.Resx.UserControls.Analytics.BudgetsControl;
-using MyExpenses.Wpf.Utils;
 
 namespace MyExpenses.Wpf.UserControls.Analytics.BudgetsControl;
 

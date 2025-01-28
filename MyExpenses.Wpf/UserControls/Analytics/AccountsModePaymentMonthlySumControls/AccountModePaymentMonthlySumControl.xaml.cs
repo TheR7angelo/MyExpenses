@@ -6,10 +6,9 @@ using LiveChartsCore.SkiaSharpView;
 using LiveChartsCore.SkiaSharpView.Painting;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Sql.Bases.Groups.VAccountModePaymentCategoryMonthlySums;
-using MyExpenses.Sql.Context;
 using MyExpenses.Sql.Queries;
+using MyExpenses.Utils;
 using MyExpenses.Wpf.Converters.Analytics;
-using MyExpenses.Wpf.Utils;
 
 namespace MyExpenses.Wpf.UserControls.Analytics.AccountsModePaymentMonthlySumControls;
 
@@ -100,8 +99,7 @@ public partial class AccountModePaymentMonthlySumControl
 
     private void SetChart()
     {
-        var groupsByModePaymentCategory = AccountId.GetVAccountModePaymentCategoryMonthlySums()
-            .ToList();
+        var groupsByModePaymentCategory = AccountId.GetVAccountModePaymentCategoryMonthlySums();
 
         if (groupsByModePaymentCategory.Count is 0) return;
 
