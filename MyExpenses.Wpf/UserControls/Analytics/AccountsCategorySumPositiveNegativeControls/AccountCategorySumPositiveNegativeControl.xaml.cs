@@ -7,7 +7,6 @@ using LiveChartsCore.SkiaSharpView.Drawing.Geometries;
 using LiveChartsCore.SkiaSharpView.Painting;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Sql.Bases.Views.Analysis;
-using MyExpenses.Sql.Context;
 using MyExpenses.Sql.Queries;
 using MyExpenses.Wpf.Converters.Analytics;
 using MyExpenses.Wpf.Resources.Resx.UserControls.Analytics.AccountsCategorySumPositiveNegativeControls;
