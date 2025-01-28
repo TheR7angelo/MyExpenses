@@ -40,7 +40,7 @@ public sealed partial class ColorPickerControl
     // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty RedValueProperty = DependencyProperty.Register(nameof(RedValue),
         typeof(byte), typeof(ColorPickerControl),
-        new PropertyMetadata(0, PropertyRedValue_OnChangedCallback));
+        new PropertyMetadata((byte)0, PropertyRedValue_OnChangedCallback));
 
     private static void PropertyRedValue_OnChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
@@ -64,7 +64,7 @@ public sealed partial class ColorPickerControl
     // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty GreenValueProperty = DependencyProperty.Register(nameof(GreenValue),
         typeof(byte), typeof(ColorPickerControl),
-        new PropertyMetadata(0, PropertyGreenValue_OnChangedCallback));
+        new PropertyMetadata((byte)0, PropertyGreenValue_OnChangedCallback));
 
     private static void PropertyGreenValue_OnChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
@@ -88,7 +88,7 @@ public sealed partial class ColorPickerControl
     // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty BlueValueProperty = DependencyProperty.Register(nameof(BlueValue),
         typeof(byte), typeof(ColorPickerControl),
-        new PropertyMetadata(0, PropertyBlueValue_OnChangedCallback));
+        new PropertyMetadata((byte)0, PropertyBlueValue_OnChangedCallback));
 
     private static void PropertyBlueValue_OnChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
@@ -112,7 +112,7 @@ public sealed partial class ColorPickerControl
     // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty HueValueProperty = DependencyProperty.Register(nameof(HueValue),
         typeof(double), typeof(ColorPickerControl),
-        new PropertyMetadata(0, PropertyHueValue_OnChangedCallback));
+        new PropertyMetadata(0d, PropertyHueValue_OnChangedCallback));
 
     private static void PropertyHueValue_OnChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
@@ -158,7 +158,7 @@ public sealed partial class ColorPickerControl
     // ReSharper disable once HeapView.BoxingAllocation
     public static readonly DependencyProperty ValueValueProperty = DependencyProperty.Register(nameof(ValueValue),
         typeof(double), typeof(ColorPickerControl),
-        new PropertyMetadata(0, PropertyValueValue_OnChangedCallback));
+        new PropertyMetadata(0d, PropertyValueValue_OnChangedCallback));
 
     private static void PropertyValueValue_OnChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
@@ -181,7 +181,7 @@ public sealed partial class ColorPickerControl
     // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty AlphaValueProperty = DependencyProperty.Register(nameof(AlphaValue),
         typeof(byte), typeof(ColorPickerControl),
-        new PropertyMetadata(0, PropertyAlphaValue_OnChangedCallback));
+        new PropertyMetadata((byte)0, PropertyAlphaValue_OnChangedCallback));
 
     // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty LabelRedChannelProperty =
