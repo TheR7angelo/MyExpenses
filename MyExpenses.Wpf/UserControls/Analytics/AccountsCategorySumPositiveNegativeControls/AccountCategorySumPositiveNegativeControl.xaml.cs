@@ -8,6 +8,7 @@ using LiveChartsCore.SkiaSharpView.Painting;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Sql.Bases.Views.Analysis;
 using MyExpenses.Sql.Context;
+using MyExpenses.Sql.Queries;
 using MyExpenses.Wpf.Converters.Analytics;
 using MyExpenses.Wpf.Resources.Resx.UserControls.Analytics.AccountsCategorySumPositiveNegativeControls;
 using MyExpenses.Wpf.Utils;
@@ -117,12 +118,7 @@ public partial class AccountCategorySumPositiveNegativeControl
 
     private void SetChart()
     {
-        using var context = new DataBaseContext();
-        var records = context.AnalysisVAccountCategoryMonthlySumPositiveNegatives
-            .Where(s => s.AccountFk == AccountId)
-            .AsEnumerable()
-            .GroupBy(s => s.Period)
-            .ToList();
+        var records = AccountId.GetVAccountCategoryMonthlySumPositiveNegative().ToList();
         
         if (records.Count is 0) return;
 
