@@ -135,6 +135,11 @@ public partial class AccountCategorySumPositiveNegativeControl
 
     private void SetYAxis()
     {
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // This allocation is required to define a custom vertical axis (YAxis).
+        // We configure the axis here with a specific paint (TextPaint) to ensure
+        // the label style aligns with the application's visual theme.
+        // This method ensures the chart always has a properly configured Y-axis.
         var axis = new Axis
         {
             LabelsPaint = TextPaint
@@ -146,6 +151,11 @@ public partial class AccountCategorySumPositiveNegativeControl
     {
         var transformedLabels = labels.ToTransformLabelsToTitleCaseDateFormat();
 
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // This allocation is required to define a custom horizontal axis (XAxis).
+        // The axis is configured with transformed labels (transformedLabels)
+        // and a specific paint (TextPaint) to ensure both proper labeling and
+        // a consistent style aligned with the application's visual theme.
         var axis = new Axis
         {
             Labels = transformedLabels,
