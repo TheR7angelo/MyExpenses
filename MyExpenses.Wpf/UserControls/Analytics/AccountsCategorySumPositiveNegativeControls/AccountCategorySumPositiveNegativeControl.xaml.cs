@@ -103,13 +103,11 @@ public partial class AccountCategorySumPositiveNegativeControl
             XAxis[i] = tmp;
         }
 
-        var names = new List<string>
-        {
-            AccountsCategorySumPositiveNegativeControlsResources.ColumnSeriesNegativeName,
-            AccountsCategorySumPositiveNegativeControlsResources.ColumnSeriesPositiveName
-        };
+        Span<string> names =
+            [AccountsCategorySumPositiveNegativeControlsResources.ColumnSeriesNegativeName,
+            AccountsCategorySumPositiveNegativeControlsResources.ColumnSeriesPositiveName];
 
-        for (var i = 0; i < names.Count; i++)
+        for (var i = 0; i < names.Length; i++)
         {
             Series[i].Name = names[i];
         }
