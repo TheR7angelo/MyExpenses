@@ -39,6 +39,7 @@ public partial class HowToUseControl
 
         // A List<T> is used here to dynamically gather culture-specific file paths
         // as the number of results isn't predetermined or fixed at compile time.
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
         var results = new List<HowToUseCulturePath>();
 
         var allCulture = CultureInfo.GetCultures(CultureTypes.AllCultures);

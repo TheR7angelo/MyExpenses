@@ -25,6 +25,7 @@ public partial class AccountsCategorySumControl
             // this control is responsible for managing and visualizing account category
             // data, tailored to specific accounts.
             var accountCategorySumControl = new AccountCategorySumControl(account.Id);
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
             var tabItemData = new TabItemData
             {
                 Header = account.Name!,

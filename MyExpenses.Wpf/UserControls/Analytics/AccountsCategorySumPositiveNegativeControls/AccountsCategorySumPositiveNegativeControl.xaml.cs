@@ -24,6 +24,7 @@ public partial class AccountsCategorySumPositiveNegativeControl
             // The instantiation of AccountCategorySumPositiveNegativeControl is essential because
             // this control handles the logic for visualizing account category data.
             var accountModePaymentMonthlySumControl = new AccountCategorySumPositiveNegativeControl(account.Id);
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
             var tabItemData = new TabItemData
             {
                 Header = account.Name!,

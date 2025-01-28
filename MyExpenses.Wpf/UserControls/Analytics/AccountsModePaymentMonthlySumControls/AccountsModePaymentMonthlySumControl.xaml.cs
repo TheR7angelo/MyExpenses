@@ -25,6 +25,7 @@ public partial class AccountsModePaymentMonthlySumControl
             // this control is specifically responsible for managing and displaying the logic
             // related to the visualization of account category data on a per-account basis.
             var accountModePaymentMonthlySumControl = new AccountModePaymentMonthlySumControl(account.Id);
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
             var tabItemData = new TabItemData
             {
                 Header = account.Name!,
