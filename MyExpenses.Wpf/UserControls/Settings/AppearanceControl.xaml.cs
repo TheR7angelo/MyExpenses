@@ -228,6 +228,7 @@ public partial class AppearanceControl
         var primaryColor = (Color)configuration.Interface.Theme.HexadecimalCodePrimaryColor.ToColor()!;
         var secondaryColor = (Color)configuration.Interface.Theme.HexadecimalCodeSecondaryColor.ToColor()!;
 
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
         Theme = new Theme();
         Theme.SetBaseTheme(baseTheme);
         Theme.SetPrimaryColor(primaryColor);
@@ -240,9 +241,10 @@ public partial class AppearanceControl
         else if (baseTheme is BaseTheme.Dark) LightDark = true;
 
         UpdateLanguage();
-        Interface.LanguageChanged += Interface_OnLanguageChanged;
 
         InitializeComponent();
+
+        Interface.LanguageChanged += Interface_OnLanguageChanged;
     }
 
     #region Action
@@ -290,6 +292,7 @@ public partial class AppearanceControl
 
     private static Color GetNewColor(Color defaultColor, string title)
     {
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
         var colorPickerWindow = new ColorPickerWindow { Title = title };
         colorPickerWindow.ColorPickerControl.InitializeValue(defaultColor);
         colorPickerWindow.ShowDialog();
@@ -332,16 +335,16 @@ public partial class AppearanceControl
 
     private void UpdatePrimaryLabelTheme()
     {
-        BackgroundPrimaryLightBrush = new SolidColorBrush(Theme.PrimaryLight.Color);
-        BackgroundPrimaryMindBrush = new SolidColorBrush(Theme.PrimaryMid.Color);
-        BackgroundPrimaryDarkBrush = new SolidColorBrush(Theme.PrimaryDark.Color);
+        BackgroundPrimaryLightBrush = Theme.PrimaryLight.Color.ToSolidColorBrush();
+        BackgroundPrimaryMindBrush = Theme.PrimaryMid.Color.ToSolidColorBrush();
+        BackgroundPrimaryDarkBrush = Theme.PrimaryDark.Color.ToSolidColorBrush();
     }
 
     private void UpdateSecondaryLabelTheme()
     {
-        BackgroundSecondaryLightBrush = new SolidColorBrush(Theme.SecondaryLight.Color);
-        BackgroundSecondaryMindBrush = new SolidColorBrush(Theme.SecondaryMid.Color);
-        BackgroundSecondaryDarkBrush = new SolidColorBrush(Theme.SecondaryDark.Color);
+        BackgroundSecondaryLightBrush = Theme.SecondaryLight.Color.ToSolidColorBrush();
+        BackgroundSecondaryMindBrush = Theme.SecondaryMid.Color.ToSolidColorBrush();
+        BackgroundSecondaryDarkBrush = Theme.SecondaryDark.Color.ToSolidColorBrush();
     }
 
     #endregion
