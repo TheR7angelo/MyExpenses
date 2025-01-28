@@ -1,6 +1,4 @@
 ﻿using System.Windows.Media;
-using System.Globalization;
-using LiveChartsCore.SkiaSharpView.Painting;
 using SkiaSharp;
 
 namespace MyExpenses.Wpf.Utils;
@@ -72,53 +70,9 @@ public static class ColorExtensions
             return Color.FromArgb(alpha, gray, gray, gray);
         }
 
-        var (r, g, b) = ConvertHsvToRgb(hue, saturation, value);
+        var (r, g, b) = MyExpenses.Utils.ColorExtensions.ConvertHsvToRgb(hue, saturation, value);
 
         return Color.FromArgb(alpha, (byte)(r * 255), (byte)(g * 255), (byte)(b * 255));
-    }
-
-    /// <summary>
-    /// Converts HSV components to RGB components.
-    /// </summary>
-    /// <param name="hue">The hue value (0-360).</param>
-    /// <param name="saturation">The saturation value (0-1).</param>
-    /// <param name="value">The brightness value (0-1).</param>
-    /// <returns>A tuple representing the RGB components as doubles (range 0-1).</returns>
-    private static (double r, double g, double b) ConvertHsvToRgb(double hue, double saturation, double value)
-    {
-        const double tolerance = 0.00001;
-
-        if (Math.Abs(hue - 360.0) < tolerance) hue = 0;
-
-        hue /= 60;
-
-        var i = (int)Math.Floor(hue);
-        var f = hue - i;
-
-        var p = value * (1.0 - saturation);
-        var q = value * (1.0 - saturation * f);
-        var t = value * (1.0 - saturation * (1.0 - f));
-
-        return i switch
-        {
-            0 => (value, t, p),
-            1 => (q, value, p),
-            2 => (p, value, t),
-            3 => (p, q, value),
-            4 => (t, p, value),
-            _ => (value, p, q)
-        };
-    }
-
-    /// <summary>
-    /// Converts a hexadecimal color code to a SkiaSharp.SKColor object.
-    /// </summary>
-    /// <param name="hexColor">The hexadecimal color code to convert.</param>
-    /// <returns>The SkiaSharp.SKColor object representing the converted color.</returns>
-    public static SKColor? ToSkColor(this string hexColor)
-    {
-        var color = hexColor.ToColor();
-        return color?.ToSkColor();
     }
 
     /// <summary>
@@ -138,29 +92,6 @@ public static class ColorExtensions
         => new(color);
 
     /// <summary>
-    /// Converts a hexadecimal color code to a SolidColorPaint object.
-    /// </summary>
-    /// <param name="hexColor">The hexadecimal color code to convert.</param>
-    /// <returns>A SolidColorPaint object representing the converted color, or null if the input is invalid.</returns>
-    public static SolidColorPaint? ToSolidColorPaint(this string? hexColor)
-    {
-        var solidColorPaint = !string.IsNullOrEmpty(hexColor) &&
-                              hexColor.ToSkColor() is { } skColor
-            ? skColor.ToSolidColorPaint()
-            : null;
-
-        return solidColorPaint;
-    }
-
-    /// <summary>
-    /// Converts an SKColor object to a SolidColorPaint object.
-    /// </summary>
-    /// <param name="skColor">The SKColor object to convert.</param>
-    /// <returns>A SolidColorPaint object representing the specified SKColor.</returns>
-    public static SolidColorPaint ToSolidColorPaint(this SKColor skColor)
-        => new(skColor);
-
-    /// <summary>
     /// Converts a hexadecimal color code to a System.Drawing.Color object.
     /// </summary>
     /// <param name="hexColor">The hexadecimal color code to convert.</param>
@@ -173,28 +104,20 @@ public static class ColorExtensions
 
         if (hexColor.Length is not 8) return null;
 
-        byte a, r, g, b;
+        byte alpha, red, green, blue;
 
         try
         {
-            a = ConvertToByte(hexColor[..2]);
-            r = ConvertToByte(hexColor.Substring(2, 2));
-            g = ConvertToByte(hexColor.Substring(4, 2));
-            b = ConvertToByte(hexColor.Substring(6, 2));
+            alpha = MyExpenses.Utils.ColorExtensions.ConvertToByte(hexColor[..2]);
+            red = MyExpenses.Utils.ColorExtensions.ConvertToByte(hexColor.Substring(2, 2));
+            green = MyExpenses.Utils.ColorExtensions.ConvertToByte(hexColor.Substring(4, 2));
+            blue = MyExpenses.Utils.ColorExtensions.ConvertToByte(hexColor.Substring(6, 2));
         }
         catch
         {
             return null;
         }
 
-        return Color.FromArgb(a, r, g, b);
+        return Color.FromArgb(alpha, red, green, blue);
     }
-
-    /// <summary>
-    /// Converts a hexadecimal string value to a byte.
-    /// </summary>
-    /// <param name="hex">The hexadecimal string value to convert.</param>
-    /// <returns>The byte representation of the hexadecimal string value.</returns>
-    private static byte ConvertToByte(string hex)
-        => byte.Parse(hex, NumberStyles.HexNumber);
 }
