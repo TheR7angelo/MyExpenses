@@ -115,18 +115,9 @@ public partial class VersionControl
     private void SetSqliteVersionValue()
     {
         var dbPath = DatabaseInfos.LocalFilePathDataBaseModel;
-        using var context = new DataBaseContext(dbPath);
+        var record = "SELECT sqlite_version();".ExecuteRawSqlWithResponse(dbPath).First();
 
-        var command = context.Database.GetDbConnection().CreateCommand();
-        command.CommandText = "SELECT sqlite_version();";
-
-        context.Database.OpenConnection();
-
-        using var reader = command.ExecuteReader();
-        reader.Read();
-        SqliteVersionValue = reader.GetString(0);
-
-        context.Database.CloseConnection();
+        SqliteVersionValue = record["sqlite_version()"]!.ToString()!;
     }
 
     private void SetDatabaseVersionValue()

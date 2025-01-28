@@ -98,6 +98,47 @@ public static class DbContextHelper
     }
 
     /// <summary>
+    /// Executes a raw SQL query and returns the result as a list of dictionaries, where each dictionary represents a record with key-value pairs corresponding to column names and their respective values.
+    /// </summary>
+    /// <param name="sql">The raw SQL query to execute.</param>
+    /// <param name="tempFilePath">The optional temporary file path for the database.</param>
+    /// <returns>A list of dictionaries where each dictionary contains column names as keys and their respective values as values.</returns>
+    /// <exception cref="InvalidOperationException">Thrown if the database connection couldn't be opened.</exception>
+    /// <exception cref="KeyNotFoundException">Thrown if the column name is not found in the result set.</exception>
+    public static List<Dictionary<string, object?>> ExecuteRawSqlWithResponse(this string sql,
+        string? tempFilePath = null)
+    {
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // Using raw SQL execution here is necessary due to the specific nature of the operation that cannot be
+        // performed with Entity Framework's LINQ or other abstractions. The responsibility of ensuring the safety
+        // and correctness of the SQL query lies with the caller.
+        using var context = new DataBaseContext(tempFilePath);
+
+        var command = context.Database.GetDbConnection().CreateCommand();
+        command.CommandText = sql;
+
+        context.Database.OpenConnection();
+
+        var results = new List<Dictionary<string, object?>>();
+        using var reader = command.ExecuteReader();
+        while (reader.Read())
+        {
+            var row = new Dictionary<string, object?>();
+            for (var i = 0; i < reader.FieldCount; i++)
+            {
+                var fieldName = reader.GetName(i);
+                var value = reader.IsDBNull(i)
+                    ? null
+                    : reader.GetValue(i);
+                row.Add(fieldName, value);
+            }
+            results.Add(row);
+        }
+
+        return results;
+    }
+
+    /// <summary>
     /// Deletes an entity of type <typeparamref name="T"/> from the database, with an option for cascading deletions.
     /// </summary>
     /// <typeparam name="T">The entity type that implements the <see cref="ISql"/> interface.</typeparam>
