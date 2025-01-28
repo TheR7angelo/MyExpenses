@@ -130,6 +130,14 @@ public static class ColorExtensions
         => new(color.R, color.G, color.B, color.A);
 
     /// <summary>
+    /// Converts a System.Drawing.Color object to a SolidColorBrush instance.
+    /// </summary>
+    /// <param name="color">The System.Drawing.Color object to convert.</param>
+    /// <returns>A SolidColorBrush instance representing the converted color.</returns>
+    public static SolidColorBrush ToSolidColorBrush(this Color color)
+        => new(color);
+
+    /// <summary>
     /// Converts a hexadecimal color code to a SolidColorPaint object.
     /// </summary>
     /// <param name="hexColor">The hexadecimal color code to convert.</param>
