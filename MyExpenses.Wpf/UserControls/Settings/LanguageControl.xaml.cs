@@ -6,6 +6,7 @@ using MyExpenses.SharedUtils.GlobalInfos;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils;
 using MyExpenses.Utils.Collection;
+using MyExpenses.Utils.Objects;
 using MyExpenses.Wpf.Resources.Resx.UserControls.Settings.LanguageControl;
 
 namespace MyExpenses.Wpf.UserControls.Settings;
@@ -68,6 +69,10 @@ public partial class LanguageControl
     {
         CultureInfoSelected = CultureInfo.CurrentUICulture;
 
+        // Creating a new DataBaseContext instance is required to access the database.
+        // This usage is expected and unavoidable as each call represents a discrete transactional context.
+        // The "using" statement ensures proper disposal of the context after use.
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
         using var context = new DataBaseContext(DatabaseInfos.LocalFilePathDataBaseModel);
         CultureInfoCodes = [..context.TSupportedLanguages.Select(s => s.Code)];
 
@@ -90,18 +95,20 @@ public partial class LanguageControl
 
         if (CultureInfos.Count is 0)
         {
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
             var cultureInfos = CultureInfoCodes.Select(s => new CultureInfo(s));
             CultureInfos.AddRange(cultureInfos);
         }
         else
         {
-            var selectedCultureInfoCode = CultureInfoSelected.Name;
+            var originalSelectedCultureInfoCode = CultureInfoSelected.DeepCopy()!;
             for (var i = 0; i < CultureInfoCodes.Count; i++)
             {
+                // ReSharper disable once HeapView.ObjectAllocation.Evident
                 CultureInfos[i] = new CultureInfo(CultureInfoCodes[i]);
             }
 
-            CultureInfoSelected = new CultureInfo(selectedCultureInfoCode);
+            CultureInfoSelected = originalSelectedCultureInfoCode;
         }
     }
 }
