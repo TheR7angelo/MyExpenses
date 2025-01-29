@@ -306,15 +306,10 @@ public partial class AppearanceControl
     private void UpdateBaseTheme()
     {
         var configuration = MyExpenses.Utils.Config.Configuration;
-        var paletteHelper = new PaletteHelper();
-
         configuration.Interface.Theme.BaseTheme = SyncWithOs ? EBaseTheme.Inherit :
             LightDark is false ? EBaseTheme.Light : EBaseTheme.Dark;
 
-        var theme = paletteHelper.GetTheme();
-        theme.SetBaseTheme((BaseTheme)configuration.Interface.Theme.BaseTheme);
-
-        paletteHelper.SetTheme(theme);
+        ((BaseTheme)configuration.Interface.Theme.BaseTheme).ApplyBaseTheme();
     }
 
     private void UpdateLanguage()

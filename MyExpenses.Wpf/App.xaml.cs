@@ -95,13 +95,7 @@ public partial class App
         var primaryColor = configurationTheme.HexadecimalCodePrimaryColor.ToColor() ?? Color.FromRgb(0, 128, 0);
         var secondaryColor = configurationTheme.HexadecimalCodeSecondaryColor.ToColor() ?? Color.FromRgb(255, 165, 0);
 
-        var paletteHelper = new PaletteHelper();
-        var theme = paletteHelper.GetTheme();
-        theme.SetBaseTheme(baseTheme);
-        theme.SetPrimaryColor(primaryColor);
-        theme.SetSecondaryColor(secondaryColor);
-
-        paletteHelper.SetTheme(theme);
+        baseTheme.ApplyBaseTheme(primaryColor, secondaryColor);
     }
 
     private static void LoadLogConfiguration(int logMaxDays)
