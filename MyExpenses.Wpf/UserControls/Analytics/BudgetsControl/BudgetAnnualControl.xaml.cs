@@ -7,7 +7,9 @@ using LiveChartsCore.SkiaSharpView.Painting;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Sql.Bases.Views.Analysis;
 using MyExpenses.Models.Wpf.Charts;
+using MyExpenses.Share.Core.Analysis;
 using MyExpenses.Sql.Context;
+using MyExpenses.Sql.Queries;
 using MyExpenses.Utils;
 using MyExpenses.Wpf.Converters.Analytics;
 using MyExpenses.Wpf.Resources.Resx.UserControls.Analytics.BudgetsControl;
@@ -131,11 +133,7 @@ public partial class BudgetAnnualControl
 
     private void SetChart()
     {
-        using var context = new DataBaseContext();
-        var records = context.AnalysisVBudgetPeriodAnnuals
-            .AsEnumerable()
-            .GroupBy(s => s.Period)
-            .ToList();
+        var records = EntityQueriesAnalysis.GetVBudgetPeriodAnnuals();
 
         if (records.Count is 0) return;
 
@@ -149,73 +147,47 @@ public partial class BudgetAnnualControl
 
     private void SetSeries(List<IGrouping<string?, AnalysisVBudgetPeriodAnnual>> records)
     {
-        var trend = BudgetsControlResources.Trend;
-
-        var currency = records.First().Select(s => s.Symbol).First();
-        var series = new List<ISeries>();
+        var currency = records.First().Select(s => s.Symbol).First()!;
 
         var recordsByAccounts = records.SelectMany(s => s)
             .GroupBy(s => s.AccountFk);
 
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        var series = new List<ISeries>();
         foreach (var recordsByAccount in recordsByAccounts)
         {
-            var name = recordsByAccount.First().AccountName;
-            var values = recordsByAccount.Select(s => Math.Round(s.PeriodValue ?? 0, 2)).ToList();
-
-            var analysisVBudgetMonthlies = recordsByAccount.Select(s => s)
-                .ToList();
-            var lineSeries = new LineSeries<double>
-            {
-                Name = name,
-                Values = values,
-                YToolTipLabelFormatter = point =>
-                {
-                    var dataPoint = analysisVBudgetMonthlies[point.Index];
-                    return $"{dataPoint.PeriodValue} {currency}{Environment.NewLine}" +
-                           $"{dataPoint.Status} {dataPoint.DifferenceValue ?? 0:F2}{currency} ({dataPoint.Percentage}%)";
-                }
-            };
-
-            var xData = Enumerable.Range(1, values.Count).Select(i => (double)i).ToArray();
-            var (a, b) = AnalyticsUtils.CalculateLinearTrend(xData, values.ToArray());
-            var trendValues = xData.Select(x => Math.Round(a * x + b, 2)).ToArray();
-
-            var trendName = $"{name} {trend}";
-            var isSeriesTranslatableTrend = new IsSeriesTranslatable { OriginalName = name, IsTranslatable = true };
-            var trendSeries = new LineSeries<double>
-            {
-                Name = trendName,
-                Values = trendValues,
-                Fill = null,
-                YToolTipLabelFormatter = point => $"{point.Model} {currency}",
-                IsVisible = false,
-                GeometrySize = 0,
-                Tag = isSeriesTranslatableTrend
-            };
+            var name = recordsByAccount.First().AccountName!;
+            var trendName = $"{name} {BudgetsControlResources.Trend}";
+            var (lineSeries, trendSeries) = recordsByAccount.GenerateSeries(name, trendName, currency);
 
             series.Add(lineSeries);
             series.Add(trendSeries);
 
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
             var checkBox = new CheckBox
             {
                 Content = name,
                 IsChecked = lineSeries.IsVisible,
                 Margin = new Thickness(5)
             };
+
             checkBox.Click += (_, _) =>
             {
                 {
                     lineSeries.IsVisible = !lineSeries.IsVisible;
                 }
             };
+
             CheckBoxes.Add(checkBox);
 
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
             var checkBoxTrend = new CheckBox
             {
                 Content = trendName,
                 IsChecked = trendSeries.IsVisible,
                 Margin = new Thickness(5)
             };
+
             checkBoxTrend.Click += (_, _) =>
             {
                 {
@@ -232,48 +204,33 @@ public partial class BudgetAnnualControl
 
     private void SetSeriesGlobal()
     {
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
         using var context = new DataBaseContext();
-        var records = context.AnalysisVBudgetPeriodAnnualGlobals.ToList();
-
-        var trend = BudgetsControlResources.Trend;
-        var series = new List<ISeries>();
+        var records = context.AnalysisVBudgetPeriodAnnualGlobals.ToArray();
 
         var name = BudgetsControlResources.Global;
         var values = records.Select(s => Math.Round(s.PeriodValue ?? 0, 2)).ToList();
 
-        var lineSeries = new LineSeries<double>
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        var isSeriesTranslatable = new IsSeriesTranslatable { OriginalName = name, IsTranslatable = true, IsGlobal = true, IsTrend = false };
+        var lineSeries = name.CreateLineSeries(values, point =>
         {
-            Name = name,
-            Values = values,
-            YToolTipLabelFormatter = point =>
-            {
-                var dataPoint = records[point.Index];
-                return $"{dataPoint.PeriodValue}{Environment.NewLine}" +
-                       $"{dataPoint.Status} {dataPoint.DifferenceValue ?? 0:F2} ({dataPoint.Percentage}%)";
-            },
-            Tag = new IsSeriesTranslatable { OriginalName = name, IsTranslatable = true, IsGlobal = true, IsTrend = false }
-        };
+            var dataPoint = records[point.Index];
+            return $"{dataPoint.PeriodValue}{Environment.NewLine}" +
+                   $"{dataPoint.Status} {dataPoint.DifferenceValue ?? 0:F2} ({dataPoint.Percentage}%)";
+        }, tag: isSeriesTranslatable);
 
         var xData = Enumerable.Range(1, values.Count).Select(i => (double)i).ToArray();
         var (a, b) = AnalyticsUtils.CalculateLinearTrend(xData, values.ToArray());
         var trendValues = xData.Select(x => Math.Round(a * x + b, 2)).ToArray();
 
-        var trendName = $"{name} {trend}";
+        var trendName = $"{name} {BudgetsControlResources.Trend}";
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
         var isSeriesTranslatableTrend = new IsSeriesTranslatable { OriginalName = name, IsTranslatable = true, IsGlobal = true };
-        var trendSeries = new LineSeries<double>
-        {
-            Name = trendName,
-            Values = trendValues,
-            Fill = null,
-            YToolTipLabelFormatter = point => $"{point.Model}",
-            IsVisible = false,
-            GeometrySize = 0,
-            Tag = isSeriesTranslatableTrend
-        };
+        var trendSeries = trendName.CreateLineSeries(trendValues, point => $"{point.Model}", null, false, 0,
+            isSeriesTranslatableTrend);
 
-        series.Add(lineSeries);
-        series.Add(trendSeries);
-
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
         var checkBox = new CheckBox
         {
             Content = name,
@@ -288,6 +245,7 @@ public partial class BudgetAnnualControl
         };
         CheckBoxes.Add(checkBox);
 
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
         var checkBoxTrend = new CheckBox
         {
             Content = trendName,
@@ -302,27 +260,19 @@ public partial class BudgetAnnualControl
         };
         CheckBoxesTrend.Add(checkBoxTrend);
 
-        Series = [..series];
+        Series = [lineSeries, trendSeries];
     }
 
     private void SetXAxis(IEnumerable<string> labels)
     {
         var transformedLabels = labels.ToTransformLabelsToTitleCaseDateFormat();
-
-        var axis = new Axis
-        {
-            Labels = transformedLabels,
-            LabelsPaint = TextPaint
-        };
+        var axis = transformedLabels.CreateAxis(TextPaint);
         XAxis = [axis];
     }
 
     private void SetYAxis()
     {
-        var axis = new Axis
-        {
-            LabelsPaint = TextPaint
-        };
+        var axis = TextPaint.CreateAxis();
         YAxis = [axis];
     }
 
