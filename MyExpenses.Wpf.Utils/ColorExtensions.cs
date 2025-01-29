@@ -1,4 +1,5 @@
 ﻿using System.Windows.Media;
+using MyExpenses.Utils;
 using SkiaSharp;
 
 namespace MyExpenses.Wpf.Utils;
@@ -104,20 +105,9 @@ public static class ColorExtensions
 
         if (hexColor.Length is not 8) return null;
 
-        byte alpha, red, green, blue;
+        var convert = hexColor.ToArgb();
+        if (!convert.HasValue) return null;
 
-        try
-        {
-            alpha = MyExpenses.Utils.ColorExtensions.ConvertToByte(hexColor[..2]);
-            red = MyExpenses.Utils.ColorExtensions.ConvertToByte(hexColor.Substring(2, 2));
-            green = MyExpenses.Utils.ColorExtensions.ConvertToByte(hexColor.Substring(4, 2));
-            blue = MyExpenses.Utils.ColorExtensions.ConvertToByte(hexColor.Substring(6, 2));
-        }
-        catch
-        {
-            return null;
-        }
-
-        return Color.FromArgb(alpha, red, green, blue);
+        return Color.FromArgb(convert.Value.Alpha, convert.Value.Red, convert.Value.Green, convert.Value.Blue);
     }
 }
