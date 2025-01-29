@@ -4,10 +4,8 @@ using Serilog;
 
 namespace MyExpenses.WebApi.GitHub;
 
-public class GitHubClient : Http, IDisposable
+public class GitHubClient : Http
 {
-    private HttpClient HttpClient { get; } = GetHttpClient("https://api.github.com/repos/");
-
     /// <summary>
     /// Retrieves the release notes for a specific GitHub repository.
     /// </summary>
@@ -18,10 +16,11 @@ public class GitHubClient : Http, IDisposable
     /// The task result contains a collection of <see cref="MyExpenses.Models.WebApi.Github.Soft.Release"/> objects representing the release notes.
     /// If the GitHub API request fails or no release notes are found, the result is null.
     /// </returns>
-    public async Task<List<MyExpenses.Models.WebApi.Github.Soft.Release>?> GetReleaseNotes(string owner,
+    public static async Task<List<MyExpenses.Models.WebApi.Github.Soft.Release>?> GetReleaseNotes(string owner,
         string repository)
     {
-        var response = await HttpClient.GetAsync($"{owner}/{repository}/releases");
+        using var httpClient = GetHttpClient("https://api.github.com/repos/");
+        var response = await httpClient.GetAsync($"{owner}/{repository}/releases");
 
         if (!response.IsSuccessStatusCode)
         {
@@ -36,14 +35,5 @@ public class GitHubClient : Http, IDisposable
         var softReleases = hardReleases.Select(s => mapper.Map<MyExpenses.Models.WebApi.Github.Soft.Release>(s)).ToList();
 
         return softReleases;
-    }
-
-    /// <summary>
-    /// Releases the resources used by the HttpClient and suppresses the finalization of the current object.
-    /// </summary>
-    public void Dispose()
-    {
-        HttpClient.Dispose();
-        GC.SuppressFinalize(this);
     }
 }
