@@ -37,8 +37,8 @@ public static class GenerateAnalysisSeries
         var funcPositive = symbol.CreateLabelFunc();
         var funcNegative = symbol.CreateLabelFunc(-1);
 
-        var positiveSeries = Commons.CreateColumnSeries(positiveName, positiveValues, primarySolidColorPaint, funcPositive);
-        var negativeSeries = Commons.CreateColumnSeries(negativeName, negativeValues, secondarySolidColorPaint, funcNegative);
+        var positiveSeries = positiveName.CreateColumnSeries(positiveValues, primarySolidColorPaint, funcPositive);
+        var negativeSeries = negativeName.CreateColumnSeries(negativeValues, secondarySolidColorPaint, funcNegative);
 
         return (positiveSeries, negativeSeries);
     }
@@ -62,7 +62,7 @@ public static class GenerateAnalysisSeries
             var solidColorPaint = colorCode.ToSolidColorPaint();
             var values = groupsByCategory.Select(s => Math.Round(s.SumMonthlySum ?? 0, 2));
 
-            var columnSeries = Commons.CreateColumnSeries(name, values, solidColorPaint, func);
+            var columnSeries = name.CreateColumnSeries(values, solidColorPaint, func);
 
             series.Add(columnSeries);
         }

@@ -5,7 +5,7 @@ using LiveChartsCore.SkiaSharpView;
 using LiveChartsCore.SkiaSharpView.Painting;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Sql.Bases.Views.Analysis;
-using MyExpenses.Sql.Context;
+using MyExpenses.Sql.Queries;
 using MyExpenses.Utils;
 using MyExpenses.Wpf.Converters.Analytics;
 
@@ -63,12 +63,7 @@ public partial class CumulativeSumChartControl
 
     private void SetChart()
     {
-        using var context = new DataBaseContext();
-        var groupsByPeriods = context.AnalysisVAccountMonthlyCumulativeSums
-            .OrderBy(s => s.Period).ThenBy(s => s.AccountFk)
-            .AsEnumerable()
-            .GroupBy(s => s.AccountFk)
-            .ToList();
+        var groupsByPeriods = EntityQueriesAnalysis.GetVAccountMonthlyCumulativeSums();
 
         if (groupsByPeriods.Count is 0) return;
 

@@ -16,7 +16,7 @@ public static class Commons
     /// <param name="solidColorPaint">The solid color paint used to fill the columns in the series. Null if no color is specified.</param>
     /// <param name="tooltipFormatter">An optional function to format the tooltip labels associated with the series data points.</param>
     /// <returns>A new instance of <see cref="ColumnSeries{T}" /> configured with the provided properties.</returns>
-    public static ColumnSeries<T> CreateColumnSeries<T>(string name, IEnumerable<T> values,
+    public static ColumnSeries<T> CreateColumnSeries<T>(this string name, IEnumerable<T> values,
         SolidColorPaint? solidColorPaint,
         Func<ChartPoint<T, RoundedRectangleGeometry, LabelGeometry>, string>? tooltipFormatter)
     {
