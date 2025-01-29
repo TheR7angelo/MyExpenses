@@ -115,6 +115,7 @@ public partial class NominatimSearchWindow
     private int Index { get; set; }
     private int Total { get; set; }
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     private WritableLayer WritableLayer { get; } = new() { Style = null };
 
     public NominatimSearchWindow()
@@ -172,7 +173,7 @@ public partial class NominatimSearchWindow
     {
         var mapper = Mapping.Mapper;
         var feature = mapper.Map<PointFeature>(CurrentPlace);
-        feature.Styles = new List<IStyle> { MapsuiStyleExtensions.RedMarkerStyle };
+        feature.Styles = [MapsuiStyleExtensions.RedMarkerStyle];
         WritableLayer.Clear();
         WritableLayer.Add(feature);
         MapControl.Map.Navigator.CenterOnAndZoomTo(feature.Point, 1);
