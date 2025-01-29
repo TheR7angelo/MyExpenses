@@ -88,14 +88,10 @@ public static class GenerateAnalysisSeries
 
         foreach (var groupsByAccount in groupsByAccounts)
         {
+            var name = groupsByAccount.Key!.ToString()!;
             var values = groupsByAccount.Select(s => Math.Round(s.CumulativeSum ?? 0, 2)).ToList();
 
-            var stakedColumnSeries = new StackedColumnSeries<double>
-            {
-                Values = values,
-                Name = groupsByAccount.First().Account,
-                YToolTipLabelFormatter = func
-            };
+            var stakedColumnSeries = name.CreateStackedColumnSeries(values, func);
 
             yield return stakedColumnSeries;
         }
