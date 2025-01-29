@@ -1,4 +1,5 @@
 using LiveChartsCore.Kernel;
+using LiveChartsCore.Measure;
 using LiveChartsCore.SkiaSharpView;
 using LiveChartsCore.SkiaSharpView.Drawing.Geometries;
 using LiveChartsCore.SkiaSharpView.Painting;
@@ -13,22 +14,33 @@ public static class Commons
     /// <typeparam name="T">The type of the values in the column series.</typeparam>
     /// <param name="name">The name of the column series.</param>
     /// <param name="values">The collection of values to be displayed in the column series.</param>
-    /// <param name="solidColorPaint">The solid color paint used to fill the columns in the series. Null if no color is specified.</param>
+    /// <param name="fill">The fill paint to apply to the columns in the series.</param>
     /// <param name="tooltipFormatter">An optional function to format the tooltip labels associated with the series data points.</param>
+    /// <param name="dataLabelFormatter">An optional function to format the displayed data labels for the series data points.</param>
+    /// <param name="dataLabelsPaint">An optional paint to style the data labels.</param>
+    /// <param name="dataLabelsPosition">The position of the data labels in relation to the columns in the series.</param>
     /// <returns>A new instance of <see cref="ColumnSeries{T}" /> configured with the provided properties.</returns>
     public static ColumnSeries<T> CreateColumnSeries<T>(this string name, IEnumerable<T> values,
-        SolidColorPaint? solidColorPaint,
-        Func<ChartPoint<T, RoundedRectangleGeometry, LabelGeometry>, string>? tooltipFormatter)
+        SolidColorPaint? fill,
+        Func<ChartPoint<T, RoundedRectangleGeometry, LabelGeometry>, string>? tooltipFormatter = null,
+        Func<ChartPoint<T, RoundedRectangleGeometry, LabelGeometry>, string>? dataLabelFormatter = null,
+        SolidColorPaint? dataLabelsPaint = null, DataLabelsPosition? dataLabelsPosition = null)
     {
         // ReSharper disable once HeapView.ObjectAllocation.Evident
         // This allocation is required to define a custom column series (ColumnSeries<T>).
-        return new ColumnSeries<T>
+        var columnSeries  = new ColumnSeries<T>
         {
             Name = name,
-            Values = values.ToList(),
-            Fill = solidColorPaint,
-            YToolTipLabelFormatter = tooltipFormatter
+            Values = values.ToList()
         };
+
+        if (fill is not null) columnSeries.Fill = fill;
+        if (tooltipFormatter is not null) columnSeries.YToolTipLabelFormatter = tooltipFormatter;
+        if (dataLabelFormatter is not null) columnSeries.DataLabelsFormatter = dataLabelFormatter;
+        if (dataLabelsPaint is not null) columnSeries.DataLabelsPaint = dataLabelsPaint;
+        if (dataLabelsPosition is not null) columnSeries.DataLabelsPosition = (DataLabelsPosition)dataLabelsPosition;
+
+        return columnSeries;
     }
 
     /// <summary>
