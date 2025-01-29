@@ -10,8 +10,7 @@ public class GetReleaseGithubTest(ITestOutputHelper testOutputHelper)
     [Fact]
     public async Task GetRelease()
     {
-        var gitHubClient = new GitHubClient();
-        var releases = await gitHubClient.GetReleaseNotes("microsoft", "PowerToys");
+        var releases = await GitHubClient.GetReleaseNotes("microsoft", "PowerToys");
 
         var xmls = new List<string>();
         foreach (var release in releases!)
