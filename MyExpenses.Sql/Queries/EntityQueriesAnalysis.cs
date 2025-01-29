@@ -1,3 +1,4 @@
+using MyExpenses.Models.Sql.Bases.Groups.VAccountCategoryMonthlySums;
 using MyExpenses.Models.Sql.Bases.Groups.VAccountModePaymentCategoryMonthlySums;
 using MyExpenses.Models.Sql.Bases.Views.Analysis;
 using MyExpenses.Sql.Context;
@@ -65,5 +66,37 @@ public static class EntityQueriesAnalysis
             .ToList();
 
         return records;
+    }
+
+    /// <summary>
+    /// Retrieves the monthly sums of expenses for a given account, grouped by category and period.
+    /// </summary>
+    /// <param name="accountId">The unique identifier of the account to retrieve data for.</param>
+    /// <returns>A list of grouped results, where each group contains records classified by category type.</returns>
+    public static List<IGrouping<string?, GroupsByCategories>> GetVAccountCategoryMonthlySums(this int accountId)
+    {
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // Retrieve records from the database filtered by AccountFk.
+        using var context = new DataBaseContext();
+
+        var groupsByCategories = context.AnalysisVAccountCategoryMonthlySums
+            .Where(s => s.AccountFk == accountId)
+            .GroupBy(s => new { s.AccountFk, s.Account, s.Period, s.CategoryType, s.ColorCode, s.CurrencyFk, s.Currency })
+            .Select(g => new GroupsByCategories
+            {
+                AccountFk = g.Key.AccountFk,
+                Account = g.Key.Account,
+                Period = g.Key.Period,
+                CategoryType = g.Key.CategoryType,
+                ColorCode = g.Key.ColorCode,
+                SumMonthlySum = Math.Round(g.Sum(v => v.MonthlySum ?? 0), 2),
+                CurrencyFk = g.Key.CurrencyFk,
+                Currency = g.Key.Currency
+            })
+            .OrderBy(s => s.Period).ThenBy(s => s.CategoryType)
+            .AsEnumerable()
+            .GroupBy(s => s.CategoryType)
+            .ToList();
+        return groupsByCategories;
     }
 }

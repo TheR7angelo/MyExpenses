@@ -5,7 +5,8 @@ using LiveChartsCore.SkiaSharpView;
 using LiveChartsCore.SkiaSharpView.Painting;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Sql.Bases.Groups.VAccountCategoryMonthlySums;
-using MyExpenses.Sql.Context;
+using MyExpenses.Share.Core.Analysis;
+using MyExpenses.Sql.Queries;
 using MyExpenses.Utils;
 using MyExpenses.Wpf.Converters.Analytics;
 
@@ -66,26 +67,7 @@ public partial class AccountCategorySumControl
 
     private void SetChart()
     {
-        using var context = new DataBaseContext();
-
-        var groupsByCategories = context.AnalysisVAccountCategoryMonthlySums
-            .Where(s => s.AccountFk == AccountId)
-            .GroupBy(s => new { s.AccountFk, s.Account, s.Period, s.CategoryType, s.ColorCode, s.CurrencyFk, s.Currency })
-            .Select(g => new GroupsByCategories
-            {
-                AccountFk = g.Key.AccountFk,
-                Account = g.Key.Account,
-                Period = g.Key.Period,
-                CategoryType = g.Key.CategoryType,
-                ColorCode = g.Key.ColorCode,
-                SumMonthlySum = Math.Round(g.Sum(v => v.MonthlySum ?? 0), 2),
-                CurrencyFk = g.Key.CurrencyFk,
-                Currency = g.Key.Currency
-            })
-            .OrderBy(s => s.Period).ThenBy(s => s.CategoryType)
-            .AsEnumerable()
-            .GroupBy(s => s.CategoryType)
-            .ToList();
+        var groupsByCategories = AccountId.GetVAccountCategoryMonthlySums();
 
         if (groupsByCategories.Count is 0) return;
 
@@ -98,28 +80,7 @@ public partial class AccountCategorySumControl
 
     private void SetSeries(List<IGrouping<string?, GroupsByCategories>> groupsByCategories)
     {
-        var currency = groupsByCategories.First().Select(s => s.Currency).First();
-
-        var series = new List<ISeries>();
-
-        foreach (var groupsByCategory in groupsByCategories)
-        {
-            var name = groupsByCategory.Key;
-            var colorCode = groupsByCategory.First().ColorCode;
-            var solidColorPaint = colorCode.ToSolidColorPaint();
-            var values = groupsByCategory.Select(s => Math.Round(s.SumMonthlySum ?? 0, 2))
-                .ToList();
-
-            var columnSeries = new ColumnSeries<double>
-            {
-                Name = name,
-                Fill = solidColorPaint,
-                Values = values,
-                YToolTipLabelFormatter = point => $"{point.Model} {currency}"
-            };
-
-            series.Add(columnSeries);
-        }
+        var series = groupsByCategories.GenerateSeries();
         Series = [..series];
     }
 
