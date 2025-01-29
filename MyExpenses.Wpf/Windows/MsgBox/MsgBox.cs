@@ -56,6 +56,7 @@ public static class MsgBox
             }
             : caption;
 
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
         var msgBoxMessageWindow = new MsgBoxMessageWindow
         {
             MessageBoxText = messageBoxText,
