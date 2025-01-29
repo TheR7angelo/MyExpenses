@@ -9,6 +9,8 @@ public static class WindowUtils
     public static void SetWindowCornerPreference(this Window window, DwmWindowCornerPreference dwmWindowCornerPreference = DwmWindowCornerPreference.Round)
     {
         var w = Window.GetWindow(window)!;
+
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
         var hWnd = new WindowInteropHelper(w).EnsureHandle();
         _ = hWnd.SetWindowCornerPreference(dwmWindowCornerPreference);
     }
