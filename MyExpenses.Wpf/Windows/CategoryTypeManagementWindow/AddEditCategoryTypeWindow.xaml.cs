@@ -33,6 +33,7 @@ public partial class AddEditCategoryTypeWindow
 
     #region Property
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public TCategoryType CategoryType { get; } = new();
     public ObservableCollection<TColor> Colors { get; }
     private List<TCategoryType> CategoryTypes { get; }
@@ -114,6 +115,9 @@ public partial class AddEditCategoryTypeWindow
 
     public AddEditCategoryTypeWindow()
     {
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // Necessary instantiation of DataBaseContext to interact with the database.
+        // This creates a scoped database context for performing queries and modifications in the database.
         using var context = new DataBaseContext();
         CategoryTypes = [..context.TCategoryTypes];
         Colors = [..context.TColors.OrderBy(s => s.Name)];
@@ -265,6 +269,7 @@ public partial class AddEditCategoryTypeWindow
 
     private void EditColor()
     {
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
         var addEditColorWindow = new AddEditColorWindow();
         addEditColorWindow.SetTColor((int)CategoryType.ColorFk!);
 
@@ -302,6 +307,7 @@ public partial class AddEditCategoryTypeWindow
 
     private void CreateNewColor()
     {
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
         var addEditColorWindow = new AddEditColorWindow();
         addEditColorWindow.ShowDialog();
 
