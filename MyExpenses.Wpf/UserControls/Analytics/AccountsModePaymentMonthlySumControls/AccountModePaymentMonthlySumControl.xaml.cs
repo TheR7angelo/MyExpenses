@@ -1,7 +1,6 @@
 ﻿using System.Windows;
 using LiveChartsCore;
 using LiveChartsCore.Kernel.Sketches;
-using LiveChartsCore.Measure;
 using LiveChartsCore.SkiaSharpView;
 using LiveChartsCore.SkiaSharpView.Painting;
 using MyExpenses.Models.Config.Interfaces;
@@ -126,7 +125,8 @@ public partial class AccountModePaymentMonthlySumControl
 
     private void SetSeries(List<IGrouping<string?, GroupsByModePaymentCategory>> groupsByModePayments)
     {
-        var series = groupsByModePayments.GenerateSeries(TextPaint);
+        var solidColorPaint = TextPaint.Color.ToSolidColorPaint();
+        var series = groupsByModePayments.GenerateSeries(solidColorPaint);
         Series = [..series];
     }
 }
