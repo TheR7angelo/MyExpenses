@@ -6,7 +6,7 @@ using MyExpenses.Utils;
 
 namespace MyExpenses.Share.Core.Analysis;
 
-public static class VAccountCategoryMonthlySumPositiveNegative
+public static class GenerateAnalysisSeries
 {
     /// <summary>
     /// Generates positive and negative column series for the given records using specified parameters.
@@ -22,8 +22,6 @@ public static class VAccountCategoryMonthlySumPositiveNegative
         string hexadecimalCodePrimaryColor, string hexadecimalCodeSecondaryColor, string positiveName,
         string negativeName)
     {
-        var symbol = records.First().Select(s => s.Currency).First();
-
         var positiveValues = records.Select(g =>
             Math.Round(g.Sum(r => Math.Abs(r.MonthlyPositiveSum ?? 0)), 2));
 
@@ -33,12 +31,23 @@ public static class VAccountCategoryMonthlySumPositiveNegative
         var primarySolidColorPaint = hexadecimalCodePrimaryColor.ToSolidColorPaint();
         var secondarySolidColorPaint = hexadecimalCodeSecondaryColor.ToSolidColorPaint();
 
-        var funcPositive = new Func<ChartPoint<double, RoundedRectangleGeometry, LabelGeometry>, string>(y => $"{y.Model:F2} {symbol}");
-        var funcNegative = new Func<ChartPoint<double, RoundedRectangleGeometry, LabelGeometry>, string>(y => $"{-1 * y.Model:F2} {symbol}");
+        var symbol = records.First().Select(s => s.Currency).First()!;
+        var funcPositive = symbol.CreateLabelFunc();
+        var funcNegative = symbol.CreateLabelFunc(-1);
 
         var positiveSeries = Commons.CreateColumnSeries(positiveName, positiveValues, primarySolidColorPaint, funcPositive);
         var negativeSeries = Commons.CreateColumnSeries(negativeName, negativeValues, secondarySolidColorPaint, funcNegative);
 
         return (positiveSeries, negativeSeries);
     }
+
+    /// <summary>
+    /// Creates a label formatting function for chart points using the specified currency symbol and multiplier.
+    /// </summary>
+    /// <param name="symbol">The currency symbol to be included in the formatted label.</param>
+    /// <param name="multiplier">An optional multiplier to adjust the chart point value (default is 1).</param>
+    /// <returns>A function that formats chart point labels as strings, including the currency symbol.</returns>
+    private static Func<ChartPoint<double, RoundedRectangleGeometry, LabelGeometry>, string> CreateLabelFunc(
+        this string symbol, int multiplier = 1)
+        => point => $"{point.Model * multiplier:F2} {symbol}";
 }
