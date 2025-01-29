@@ -183,14 +183,24 @@ public static class AutoUpdaterGitHub
                 @$"The system architecture '{RuntimeInformation.OSArchitecture}' is not recognized or supported")
         };
 
-        var possibleExtensions = new[] { ".msi", ".exe" };
+        Span<string> possibleExtensions = [".msi", ".exe"];
+        foreach (var asset in assets)
+        {
+            if (asset.Name is null)
+            {
+                continue;
+            }
 
-        var matchingAssets = assets
-            .Where(a => a.Name is not null)
-            .Where(a => possibleExtensions.Any(ext =>
-                    a.Name!.EndsWith($"{architectureSuffix}{ext}", StringComparison.OrdinalIgnoreCase)));
+            foreach (var ext in possibleExtensions)
+            {
+                if (asset.Name.EndsWith($"{architectureSuffix}{ext}", StringComparison.OrdinalIgnoreCase))
+                {
+                    return asset;
+                }
+            }
+        }
 
-        return matchingAssets.FirstOrDefault();
+        return null;
     }
 
     /// <summary>
