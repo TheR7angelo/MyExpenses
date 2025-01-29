@@ -37,8 +37,8 @@ public static class GenerateAnalysisSeries
         var secondarySolidColorPaint = hexadecimalCodeSecondaryColor.ToSolidColorPaint();
 
         var symbol = records.First().Select(s => s.Currency).First()!;
-        var funcPositive = symbol.CreateLabelFunc();
-        var funcNegative = symbol.CreateLabelFunc(-1);
+        var funcPositive = symbol.CreateRoundedRectangleLabelFunc();
+        var funcNegative = symbol.CreateRoundedRectangleLabelFunc(-1);
 
         var positiveSeries = positiveName.CreateColumnSeries(positiveValues, primarySolidColorPaint, funcPositive);
         var negativeSeries = negativeName.CreateColumnSeries(negativeValues, secondarySolidColorPaint, funcNegative);
@@ -54,7 +54,7 @@ public static class GenerateAnalysisSeries
     public static IEnumerable<ColumnSeries<double>> GenerateSeries(this List<IGrouping<string?, GroupsByCategories>> groupsByCategories)
     {
         var currency = groupsByCategories.First().Select(s => s.Currency).First()!;
-        var func = currency.CreateLabelFunc();
+        var func = currency.CreateRoundedRectangleLabelFunc();
 
         foreach (var groupsByCategory in groupsByCategories)
         {
@@ -84,7 +84,7 @@ public static class GenerateAnalysisSeries
         this List<IGrouping<int?, AnalysisVAccountMonthlyCumulativeSum>> groupsByAccounts)
     {
         var currency = groupsByAccounts.First().Select(s => s.Currency).First()!;
-        var func = currency.CreateLabelFunc();
+        var func = currency.CreateRoundedRectangleLabelFunc();
 
         foreach (var groupsByAccount in groupsByAccounts)
         {
@@ -101,7 +101,7 @@ public static class GenerateAnalysisSeries
     {
         var currency = groupsByModePayments.First().Select(s => s.Currency).First()!;
 
-        var tooltipFormatter = currency.CreateLabelFunc();
+        var tooltipFormatter = currency.CreateRoundedRectangleLabelFunc();
 
         foreach (var groupsByCategory in groupsByModePayments)
         {
@@ -137,7 +137,10 @@ public static class GenerateAnalysisSeries
     /// <param name="symbol">The currency symbol to be included in the formatted label.</param>
     /// <param name="multiplier">An optional multiplier to adjust the chart point value (default is 1).</param>
     /// <returns>A function that formats chart point labels as strings, including the currency symbol.</returns>
-    private static Func<ChartPoint<double, RoundedRectangleGeometry, LabelGeometry>, string> CreateLabelFunc(
+    private static Func<ChartPoint<double, RoundedRectangleGeometry, LabelGeometry>, string> CreateRoundedRectangleLabelFunc(
         this string symbol, int multiplier = 1)
         => point => $"{point.Model * multiplier:F2} {symbol}";
+
+    private static Func<ChartPoint<double, CircleGeometry, LabelGeometry>, string> CreateCircleGeometryLabelFunc(this string symbol)
+        => point => $"{point.Model:F2} {symbol}";
 }
