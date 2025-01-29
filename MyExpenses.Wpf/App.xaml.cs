@@ -1,6 +1,5 @@
 ﻿using System.Globalization;
 using System.Windows;
-using System.Windows.Interop;
 using System.Windows.Media;
 using MaterialDesignThemes.Wpf;
 using MyExpenses.Models.Config.Interfaces;
@@ -8,7 +7,6 @@ using MyExpenses.SharedUtils.GlobalInfos;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils;
 using MyExpenses.Utils.Systems;
-using MyExpenses.Utils.WindowStyle;
 using MyExpenses.Wpf.Utils;
 using Log = Serilog.Log;
 using Theme = MyExpenses.Models.Config.Interfaces.Theme;
@@ -23,8 +21,6 @@ public partial class App
     protected override void OnStartup(StartupEventArgs e)
     {
         base.OnStartup(e);
-        EventManager.RegisterClassHandler(typeof(Window), FrameworkElement.LoadedEvent,
-            new RoutedEventHandler(OnWindowLoaded));
 
         var systemArgs = e.Args.GetArguments();
         DataBaseContext.LogEventLevel = systemArgs.LogEventLevel;
@@ -123,12 +119,5 @@ public partial class App
 
         Log.Information("Application exit");
         Log.CloseAndFlush();
-    }
-
-    private static void OnWindowLoaded(object sender, RoutedEventArgs e)
-    {
-        if (sender is not Window window) return;
-        var hWnd = new WindowInteropHelper(window).EnsureHandle();
-        hWnd.SetWindowCornerPreference(DwmWindowCornerPreference.Round);
     }
 }
