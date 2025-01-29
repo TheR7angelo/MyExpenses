@@ -71,6 +71,42 @@ public static class GenerateAnalysisSeries
     }
 
     /// <summary>
+    /// Generates a list of stacked column series for grouped account monthly cumulative sums.
+    /// Each series represents an account group with its respective cumulative values and formatted labels.
+    /// </summary>
+    /// <param name="groupsByAccounts">
+    /// A list of groups categorized by accounts, each containing cumulative sums and related account metadata.
+    /// </param>
+    /// <returns>
+    /// A list of <see cref="ISeries"/> objects, each representing a stacked column series
+    /// for the corresponding account group.
+    /// </returns>
+    public static List<ISeries> GenerateSeries(
+        this List<IGrouping<int?, AnalysisVAccountMonthlyCumulativeSum>> groupsByAccounts)
+    {
+        var currency = groupsByAccounts.First().Select(s => s.Currency).First()!;
+        var func = currency.CreateLabelFunc();
+
+        var series = new List<ISeries>();
+
+        foreach (var groupsByAccount in groupsByAccounts)
+        {
+            var values = groupsByAccount.Select(s => Math.Round(s.CumulativeSum ?? 0, 2)).ToList();
+
+            var stakedColumnSeries = new StackedColumnSeries<double>
+            {
+                Values = values,
+                Name = groupsByAccount.First().Account,
+                YToolTipLabelFormatter = func
+            };
+
+            series.Add(stakedColumnSeries);
+        }
+
+        return series;
+    }
+
+    /// <summary>
     /// Creates a label formatting function for chart points using the specified currency symbol and multiplier.
     /// </summary>
     /// <param name="symbol">The currency symbol to be included in the formatted label.</param>

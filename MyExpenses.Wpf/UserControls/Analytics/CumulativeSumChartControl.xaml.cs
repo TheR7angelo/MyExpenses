@@ -5,6 +5,7 @@ using LiveChartsCore.SkiaSharpView;
 using LiveChartsCore.SkiaSharpView.Painting;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Sql.Bases.Views.Analysis;
+using MyExpenses.Share.Core.Analysis;
 using MyExpenses.Sql.Queries;
 using MyExpenses.Utils;
 using MyExpenses.Wpf.Converters.Analytics;
@@ -77,25 +78,7 @@ public partial class CumulativeSumChartControl
 
     private void SetSeries(List<IGrouping<int?, AnalysisVAccountMonthlyCumulativeSum>> groupsByAccounts)
     {
-        var currency = groupsByAccounts.First().Select(s => s.Currency).First();
-
-        var series = new List<ISeries>();
-
-        foreach (var groupsByAccount in groupsByAccounts)
-        {
-            var values = groupsByAccount.Select(s => Math.Round(s.CumulativeSum ?? 0, 2))
-                .ToList();
-
-            var stakedColumnSeries = new StackedColumnSeries<double>
-            {
-                Values = values,
-                Name = groupsByAccount.First().Account,
-                YToolTipLabelFormatter = point => $"{point.Model} {currency}"
-            };
-
-            series.Add(stakedColumnSeries);
-        }
-
+        var series = groupsByAccounts.GenerateSeries();
         Series = [..series];
     }
 
@@ -103,20 +86,13 @@ public partial class CumulativeSumChartControl
     {
         var transformedLabels = labels.ToTransformLabelsToTitleCaseDateFormat();
 
-        var axis = new Axis
-        {
-            Labels = transformedLabels,
-            LabelsPaint = TextPaint
-        };
+        var axis = transformedLabels.CreateAxis(TextPaint);
         XAxis = [axis];
     }
 
     private void SetYAxis()
     {
-        var axis = new Axis
-        {
-            LabelsPaint = TextPaint
-        };
+        var axis = TextPaint.CreateAxis();
         YAxis = [axis];
     }
 

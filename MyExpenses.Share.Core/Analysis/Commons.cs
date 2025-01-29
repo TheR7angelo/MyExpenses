@@ -32,6 +32,27 @@ public static class Commons
     }
 
     /// <summary>
+    /// Creates a new stacked column series with the specified properties.
+    /// </summary>
+    /// <typeparam name="T">The type of the values in the stacked column series.</typeparam>
+    /// <param name="name">The name of the stacked column series.</param>
+    /// <param name="values">The collection of values to be displayed in the stacked column series.</param>
+    /// <param name="tooltipFormatter">An optional function to format the tooltip labels associated with the series data points.</param>
+    /// <returns>A new instance of <see cref="StackedColumnSeries{T}" /> configured with the provided properties.</returns>
+    public static StackedColumnSeries<T> CreateStackedColumnSeries<T>(this string name, IEnumerable<T> values,
+        Func<ChartPoint<T, RoundedRectangleGeometry, LabelGeometry>, string>? tooltipFormatter)
+    {
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // This allocation is required to define a custom column series (ColumnSeries<T>).
+        return new StackedColumnSeries<T>
+        {
+            Name = name,
+            Values = values.ToList(),
+            YToolTipLabelFormatter = tooltipFormatter
+        };
+    }
+
+    /// <summary>
     /// Creates a new axis with the specified labels and label painting properties.
     /// </summary>
     /// <param name="labels">The collection of labels to display on the axis. Can be null if no labels are specified.</param>

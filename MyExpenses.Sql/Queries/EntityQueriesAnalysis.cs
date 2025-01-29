@@ -99,4 +99,22 @@ public static class EntityQueriesAnalysis
             .ToList();
         return groupsByCategories;
     }
+
+    /// <summary>
+    /// Retrieves the monthly cumulative sums of accounts grouped by account identifier.
+    /// </summary>
+    /// <returns>A list of grouped data, where each group contains records grouped by their account identifier.</returns>
+    public static List<IGrouping<int?, AnalysisVAccountMonthlyCumulativeSum>> GetVAccountMonthlyCumulativeSums()
+    {
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // Retrieve records from the database.
+        using var context = new DataBaseContext();
+        var groupsByPeriods = context.AnalysisVAccountMonthlyCumulativeSums
+            .OrderBy(s => s.Period).ThenBy(s => s.AccountFk)
+            .AsEnumerable()
+            .GroupBy(s => s.AccountFk)
+            .ToList();
+
+        return groupsByPeriods;
+    }
 }
