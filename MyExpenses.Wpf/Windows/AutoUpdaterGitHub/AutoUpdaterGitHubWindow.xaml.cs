@@ -131,7 +131,8 @@ public partial class AutoUpdaterGitHubWindow
 
     private async Task HandleButtonCallBackLater()
     {
-                var callBackLaterWindow = new CallBackLaterWindow();
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        var callBackLaterWindow = new CallBackLaterWindow();
         var result = callBackLaterWindow.ShowDialog();
 
         if (result is false or null) Close();
