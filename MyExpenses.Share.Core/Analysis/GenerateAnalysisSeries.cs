@@ -1,8 +1,11 @@
 using LiveChartsCore;
 using LiveChartsCore.Kernel;
+using LiveChartsCore.Measure;
 using LiveChartsCore.SkiaSharpView;
 using LiveChartsCore.SkiaSharpView.Drawing.Geometries;
+using LiveChartsCore.SkiaSharpView.Painting;
 using MyExpenses.Models.Sql.Bases.Groups.VAccountCategoryMonthlySums;
+using MyExpenses.Models.Sql.Bases.Groups.VAccountModePaymentCategoryMonthlySums;
 using MyExpenses.Models.Sql.Bases.Views.Analysis;
 using MyExpenses.Utils;
 
@@ -54,7 +57,6 @@ public static class GenerateAnalysisSeries
         var func = currency.CreateLabelFunc();
 
         var series = new List<ISeries>();
-
         foreach (var groupsByCategory in groupsByCategories)
         {
             var name = groupsByCategory.Key!;
@@ -88,7 +90,6 @@ public static class GenerateAnalysisSeries
         var func = currency.CreateLabelFunc();
 
         var series = new List<ISeries>();
-
         foreach (var groupsByAccount in groupsByAccounts)
         {
             var values = groupsByAccount.Select(s => Math.Round(s.CumulativeSum ?? 0, 2)).ToList();
@@ -103,6 +104,42 @@ public static class GenerateAnalysisSeries
             series.Add(stakedColumnSeries);
         }
 
+        return series;
+    }
+
+    public static List<ISeries> GenerateSeries(this List<IGrouping<string?, GroupsByModePaymentCategory>> groupsByModePayments, SolidColorPaint textPaint)
+    {
+        var currency = groupsByModePayments.First().Select(s => s.Currency).First()!;
+
+        var tooltipFormatter = currency.CreateLabelFunc();
+
+        var series = new List<ISeries>();
+        foreach (var groupsByCategory in groupsByModePayments)
+        {
+            var name = groupsByCategory.Key!;
+
+            var monthlyPaymentDataPoints = groupsByCategory
+                .GroupBy(s => s.Period)
+                .Select(g => new
+                {
+                    MonthlySum = Math.Round(g.Sum(v => v.TotalMonthlySum ?? 0), 2),
+                    MonthlyModePayment = g.Sum(v => v.TotalMonthlyModePayment)
+                })
+                .ToArray();
+
+            var values = monthlyPaymentDataPoints.Select(s => s.MonthlySum).ToList();
+            var columnSeries = name.CreateColumnSeries(values, null, tooltipFormatter, point =>
+                {
+                    var index = point.Index;
+                    var dataPoint = monthlyPaymentDataPoints[index];
+                    return dataPoint.MonthlyModePayment is 0 ? string.Empty : dataPoint.MonthlyModePayment.ToString()!;
+                },
+                textPaint,
+                DataLabelsPosition.Middle
+            );
+
+            series.Add(columnSeries);
+        }
         return series;
     }
 

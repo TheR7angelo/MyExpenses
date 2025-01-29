@@ -126,40 +126,7 @@ public partial class AccountModePaymentMonthlySumControl
 
     private void SetSeries(List<IGrouping<string?, GroupsByModePaymentCategory>> groupsByModePayments)
     {
-        var currency = groupsByModePayments.First().Select(s => s.Currency).First();
-        var series = new List<ISeries>();
-
-        foreach (var groupsByCategory in groupsByModePayments)
-        {
-            var name = groupsByCategory.Key;
-
-            var monthlyPaymentDataPoints = groupsByCategory
-                .GroupBy(s => s.Period)
-                .Select(g => new
-                {
-                    MonthlySum = Math.Round(g.Sum(v => v.TotalMonthlySum ?? 0), 2),
-                    MonthlyModePayment = g.Sum(v => v.TotalMonthlyModePayment)
-                })
-                .ToList();
-
-            var columnSeries = new ColumnSeries<double>
-            {
-                Name = name,
-                Values = monthlyPaymentDataPoints.Select(s => s.MonthlySum).ToList(),
-                YToolTipLabelFormatter = point => $"{point.Model} {currency}",
-                DataLabelsFormatter = point =>
-                {
-                    var index = point.Index;
-                    var dataPoint = monthlyPaymentDataPoints[index];
-                    var count = dataPoint.MonthlyModePayment is 0 ? string.Empty : dataPoint.MonthlyModePayment.ToString()!;
-                    return count;
-                },
-                DataLabelsPaint = TextPaint.Color.ToSolidColorPaint(),
-                DataLabelsPosition = DataLabelsPosition.Middle
-            };
-
-            series.Add(columnSeries);
-        }
+        var series = groupsByModePayments.GenerateSeries(TextPaint);
         Series = [..series];
     }
 }
