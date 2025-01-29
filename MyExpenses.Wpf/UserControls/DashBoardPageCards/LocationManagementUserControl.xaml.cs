@@ -1,4 +1,3 @@
-using Mapsui;
 using Mapsui.Layers;
 using Mapsui.Styles;
 using MyExpenses.Models.AutoMapper;
@@ -9,6 +8,7 @@ namespace MyExpenses.Wpf.UserControls.DashBoardPageCards;
 
 public partial class LocationManagementUserControl
 {
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     private WritableLayer PlaceLayer { get; } = new() { Style = null };
 
     public LocationManagementUserControl()
@@ -24,7 +24,7 @@ public partial class LocationManagementUserControl
             var feature = mapper.Map<PointFeature>(place);
             feature.Styles = place.IsOpen
                 ? [MapsuiStyleExtensions.RedMarkerStyle]
-                : new List<IStyle> { MapsuiStyleExtensions.BlueMarkerStyle };
+                : [MapsuiStyleExtensions.BlueMarkerStyle];
             PlaceLayer.Add(feature);
         }
 
@@ -51,18 +51,7 @@ public partial class LocationManagementUserControl
                 MapControl.Map.Navigator.CenterOnAndZoomTo(points[0], 1);
                 break;
             case > 1:
-                double minX = points.Min(p => p.X), maxX = points.Max(p => p.X);
-                double minY = points.Min(p => p.Y), maxY = points.Max(p => p.Y);
-
-                var width = maxX - minX;
-                var height = maxY - minY;
-
-                const double marginPercentage = 10; // Change this value to suit your needs
-                var marginX = width * marginPercentage / 100;
-                var marginY = height * marginPercentage / 100;
-
-                var mRect = new MRect(minX - marginX, minY - marginY, maxX + marginX, maxY + marginY);
-
+                var mRect = points.ToMRect();
                 MapControl.Map.Navigator.ZoomToBox(mRect);
                 break;
         }
