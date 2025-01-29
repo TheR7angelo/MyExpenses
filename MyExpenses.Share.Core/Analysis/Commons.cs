@@ -65,6 +65,39 @@ public static class Commons
     }
 
     /// <summary>
+    /// Creates a new line series with the specified properties.
+    /// </summary>
+    /// <typeparam name="T">The type of the values in the line series.</typeparam>
+    /// <param name="name">The name of the line series.</param>
+    /// <param name="values">The collection of values to be displayed in the line series.</param>
+    /// <param name="tooltipFormatter">A function to format the tooltip labels associated with the series data points.</param>
+    /// <param name="fill">An optional fill paint to apply to the series.</param>
+    /// <param name="isVisible">Specifies whether the series is visible in the chart.</param>
+    /// <param name="geometrySize">An optional size of the geometry representing points in the series.</param>
+    /// <param name="tag">An optional tag to associate with the series for custom identification or metadata.</param>
+    /// <returns>A new instance of <see cref="LineSeries{T}"/> configured with the provided properties.</returns>
+    public static LineSeries<T> CreateLineSeries<T>(this string name, IEnumerable<T> values,
+        Func<ChartPoint<T, CircleGeometry, LabelGeometry>, string>? tooltipFormatter,
+        SolidColorPaint? fill = null, bool isVisible = true, double? geometrySize = null, object? tag = null)
+    {
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // This allocation is required to define a custom column series (ColumnSeries<T>).
+        var lineSeries = new LineSeries<T>
+        {
+            Name = name,
+            Values = values.ToList(),
+            YToolTipLabelFormatter = tooltipFormatter,
+            IsVisible = isVisible,
+            Tag = tag
+        };
+
+        if (fill is not null) lineSeries.Fill = fill;
+        if (geometrySize is not null) lineSeries.GeometrySize = geometrySize.Value;
+
+        return lineSeries;
+    }
+
+    /// <summary>
     /// Creates a new axis with the specified labels and label painting properties.
     /// </summary>
     /// <param name="labels">The collection of labels to display on the axis. Can be null if no labels are specified.</param>
