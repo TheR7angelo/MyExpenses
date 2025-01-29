@@ -26,4 +26,14 @@ public static class Utils
         // The mRect instance is used to store the coordinates of the rectangle to zoom to.
         return new MRect(minX - marginX, minY - marginY, maxX + marginX, maxY + marginY);
     }
+
+    /// <summary>
+    /// Converts an enumerable collection of points into an MRect structure, representing a rectangle
+    /// that encompasses all the points, optionally applying a margin.
+    /// </summary>
+    /// <param name="points">An enumerable collection of points that define the boundaries of the rectangle.</param>
+    /// <param name="margin">An optional margin percentage to expand the boundaries of the rectangle. Default is 10.</param>
+    /// <returns>An MRect structure that encompasses all the points with the applied margin.</returns>
+    public static MRect ToMRect(this IEnumerable<MPoint> points, double margin = 10)
+        => ToMRect(points.ToArray(), margin);
 }
