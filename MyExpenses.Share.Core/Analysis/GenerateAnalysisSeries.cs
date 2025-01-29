@@ -1,6 +1,8 @@
+using LiveChartsCore;
 using LiveChartsCore.Kernel;
 using LiveChartsCore.SkiaSharpView;
 using LiveChartsCore.SkiaSharpView.Drawing.Geometries;
+using MyExpenses.Models.Sql.Bases.Groups.VAccountCategoryMonthlySums;
 using MyExpenses.Models.Sql.Bases.Views.Analysis;
 using MyExpenses.Utils;
 
@@ -39,6 +41,33 @@ public static class GenerateAnalysisSeries
         var negativeSeries = Commons.CreateColumnSeries(negativeName, negativeValues, secondarySolidColorPaint, funcNegative);
 
         return (positiveSeries, negativeSeries);
+    }
+
+    /// <summary>
+    /// Generates a list of series for grouped account categories, with each series representing the corresponding category group.
+    /// </summary>
+    /// <param name="groupsByCategories">A list of groups categorized by account category, each containing monthly sums and other metadata.</param>
+    /// <returns>A list of series representing the grouped account categories, with their respective values and visual styling.</returns>
+    public static List<ISeries> GenerateSeries(this List<IGrouping<string?, GroupsByCategories>> groupsByCategories)
+    {
+        var currency = groupsByCategories.First().Select(s => s.Currency).First()!;
+        var func = currency.CreateLabelFunc();
+
+        var series = new List<ISeries>();
+
+        foreach (var groupsByCategory in groupsByCategories)
+        {
+            var name = groupsByCategory.Key!;
+            var colorCode = groupsByCategory.First().ColorCode;
+            var solidColorPaint = colorCode.ToSolidColorPaint();
+            var values = groupsByCategory.Select(s => Math.Round(s.SumMonthlySum ?? 0, 2));
+
+            var columnSeries = Commons.CreateColumnSeries(name, values, solidColorPaint, func);
+
+            series.Add(columnSeries);
+        }
+
+        return series;
     }
 
     /// <summary>
