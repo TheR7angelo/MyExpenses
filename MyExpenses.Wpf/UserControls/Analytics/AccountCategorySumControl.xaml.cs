@@ -87,21 +87,13 @@ public partial class AccountCategorySumControl
     private void SetXAxis(IEnumerable<string> labels)
     {
         var transformedLabels = labels.ToTransformLabelsToTitleCaseDateFormat();
-
-        var axis = new Axis
-        {
-            Labels = transformedLabels,
-            LabelsPaint = TextPaint
-        };
+        var axis = transformedLabels.CreateAxis(TextPaint);
         XAxis = [axis];
     }
 
     private void SetYAxis()
     {
-        var axis = new Axis
-        {
-            LabelsPaint = TextPaint
-        };
+        var axis = TextPaint.CreateAxis();
         YAxis = [axis];
     }
 
