@@ -117,4 +117,21 @@ public static class EntityQueriesAnalysis
 
         return groupsByPeriods;
     }
+
+    /// <summary>
+    /// Retrieves annual budget period data, grouped by the associated period.
+    /// </summary>
+    /// <returns>A list of grouped records, where each group represents data associated with a specific period.</returns>
+    public static List<IGrouping<string?, AnalysisVBudgetPeriodAnnual>> GetVBudgetPeriodAnnuals()
+    {
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // Retrieve records from the database.
+        using var context = new DataBaseContext();
+        var records = context.AnalysisVBudgetPeriodAnnuals
+            .AsEnumerable()
+            .GroupBy(s => s.Period)
+            .ToList();
+
+        return records;
+    }
 }
