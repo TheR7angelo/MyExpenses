@@ -116,7 +116,10 @@ public static class AutoUpdaterGitHub
     private static void Initialize()
     {
         Log.Information("Initializing update dialog");
+
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
         var autoUpdaterGitHubWindow = new AutoUpdaterGitHubWindow(HtmlFilePath, LastRelease!);
+
         Log.Information("Showing update dialog");
         autoUpdaterGitHubWindow.ShowDialog();
     }
@@ -216,6 +219,7 @@ public static class AutoUpdaterGitHub
 
         var savePath = Path.Join(tempDirectory, asset.Name);
 
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
         var progressBarWindow = new ProgressBarWindow();
         progressBarWindow.Show();
 
