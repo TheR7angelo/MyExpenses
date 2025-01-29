@@ -7,6 +7,7 @@ using LiveChartsCore.SkiaSharpView.Painting;
 using MyExpenses.Models.Sql.Bases.Groups.VAccountCategoryMonthlySums;
 using MyExpenses.Models.Sql.Bases.Groups.VAccountModePaymentCategoryMonthlySums;
 using MyExpenses.Models.Sql.Bases.Views.Analysis;
+using MyExpenses.Models.Wpf.Charts;
 using MyExpenses.Utils;
 
 namespace MyExpenses.Share.Core.Analysis;
@@ -129,6 +130,44 @@ public static class GenerateAnalysisSeries
 
             yield return columnSeries;
         }
+    }
+
+    /// <summary>
+    /// Generates a line series and its corresponding trend series based on the provided records and parameters.
+    /// </summary>
+    /// <param name="recordsByAccount">The grouped records by account containing periodic budget data.</param>
+    /// <param name="name">The name/label for the generated line series.</param>
+    /// <param name="trendName">The name/label for the generated trend series.</param>
+    /// <param name="currency">The currency symbol to be used in tooltips and labels.</param>
+    /// <returns>A tuple containing the line series and its corresponding trend series.</returns>
+    public static (LineSeries<double> LineSeries, LineSeries<double> TrendSeries) GenerateSeries(
+        this IGrouping<int?, AnalysisVBudgetPeriodAnnual> recordsByAccount, string name, string trendName,
+        string currency)
+    {
+        var values = recordsByAccount.Select(s => Math.Round(s.PeriodValue ?? 0, 2)).ToList();
+
+        var analysisVBudgetMonthlies = recordsByAccount.Select(s => s)
+            .ToList();
+
+        var lineSeries = name.CreateLineSeries(values, point =>
+        {
+            var dataPoint = analysisVBudgetMonthlies[point.Index];
+            return $"{dataPoint.PeriodValue} {currency}{Environment.NewLine}" +
+                   $"{dataPoint.Status} {dataPoint.DifferenceValue ?? 0:F2}{currency} ({dataPoint.Percentage}%)";
+        });
+
+        var xData = Enumerable.Range(1, values.Count).Select(i => (double)i).ToArray();
+        var (a, b) = AnalyticsUtils.CalculateLinearTrend(xData, values.ToArray());
+        var trendValues = xData.Select(x => Math.Round(a * x + b, 2)).ToArray();
+
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // This allocation is required to define a custom line series (LineSeries<double>).
+        var isSeriesTranslatableTrend = new IsSeriesTranslatable { OriginalName = name, IsTranslatable = true };
+
+        var func = currency.CreateCircleGeometryLabelFunc();
+        var trendSeries = trendName.CreateLineSeries(trendValues, func, null, false, 0, isSeriesTranslatableTrend);
+
+        return (lineSeries, trendSeries);
     }
 
     /// <summary>
