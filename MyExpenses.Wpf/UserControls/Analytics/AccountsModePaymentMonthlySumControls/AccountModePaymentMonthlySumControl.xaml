@@ -4,17 +4,17 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:wpf="clr-namespace:LiveChartsCore.SkiaSharpView.WPF;assembly=LiveChartsCore.SkiaSharpView.WPF"
-             xmlns:accountsModePaymentMonthlySumControls="clr-namespace:MyExpenses.Wpf.UserControls.Analytics.AccountsModePaymentMonthlySumControls"
+             xmlns:local="clr-namespace:MyExpenses.Wpf.UserControls.Analytics.AccountsModePaymentMonthlySumControls"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
 
     <Grid>
 
-        <wpf:CartesianChart Series="{Binding Series, RelativeSource={RelativeSource AncestorType={x:Type accountsModePaymentMonthlySumControls:AccountModePaymentMonthlySumControl}}}"
-                            XAxes="{Binding XAxis, RelativeSource={RelativeSource AncestorType={x:Type accountsModePaymentMonthlySumControls:AccountModePaymentMonthlySumControl}}}"
-                            YAxes="{Binding YAxis, RelativeSource={RelativeSource AncestorType={x:Type accountsModePaymentMonthlySumControls:AccountModePaymentMonthlySumControl}}}"
-                            LegendTextPaint="{Binding TextPaint, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type accountsModePaymentMonthlySumControls:AccountModePaymentMonthlySumControl}}}"
+        <wpf:CartesianChart Series="{Binding Series, RelativeSource={RelativeSource AncestorType={x:Type local:AccountModePaymentMonthlySumControl}}}"
+                            XAxes="{Binding XAxis, RelativeSource={RelativeSource AncestorType={x:Type local:AccountModePaymentMonthlySumControl}}}"
+                            YAxes="{Binding YAxis, RelativeSource={RelativeSource AncestorType={x:Type local:AccountModePaymentMonthlySumControl}}}"
                             LegendPosition="Left"
+                            LegendTextPaint="{Binding TextPaint, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:AccountModePaymentMonthlySumControl}}}"
                             ZoomMode="X">
         </wpf:CartesianChart>
 
