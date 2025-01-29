@@ -71,6 +71,7 @@ public static class ColorExtensions
     /// <param name="skColor">The SKColor object to convert.</param>
     /// <returns>A SolidColorPaint object representing the specified SKColor.</returns>
     public static SolidColorPaint ToSolidColorPaint(this SKColor skColor)
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
         => new(skColor);
 
     /// <summary>
