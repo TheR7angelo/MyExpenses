@@ -51,12 +51,11 @@ public static class GenerateAnalysisSeries
     /// </summary>
     /// <param name="groupsByCategories">A list of groups categorized by account category, each containing monthly sums and other metadata.</param>
     /// <returns>A list of series representing the grouped account categories, with their respective values and visual styling.</returns>
-    public static List<ISeries> GenerateSeries(this List<IGrouping<string?, GroupsByCategories>> groupsByCategories)
+    public static IEnumerable<ColumnSeries<double>> GenerateSeries(this List<IGrouping<string?, GroupsByCategories>> groupsByCategories)
     {
         var currency = groupsByCategories.First().Select(s => s.Currency).First()!;
         var func = currency.CreateLabelFunc();
 
-        var series = new List<ISeries>();
         foreach (var groupsByCategory in groupsByCategories)
         {
             var name = groupsByCategory.Key!;
@@ -66,10 +65,8 @@ public static class GenerateAnalysisSeries
 
             var columnSeries = name.CreateColumnSeries(values, solidColorPaint, func);
 
-            series.Add(columnSeries);
+            yield return columnSeries;
         }
-
-        return series;
     }
 
     /// <summary>
@@ -83,13 +80,12 @@ public static class GenerateAnalysisSeries
     /// A list of <see cref="ISeries"/> objects, each representing a stacked column series
     /// for the corresponding account group.
     /// </returns>
-    public static List<ISeries> GenerateSeries(
+    public static IEnumerable<StackedColumnSeries<double>> GenerateSeries(
         this List<IGrouping<int?, AnalysisVAccountMonthlyCumulativeSum>> groupsByAccounts)
     {
         var currency = groupsByAccounts.First().Select(s => s.Currency).First()!;
         var func = currency.CreateLabelFunc();
 
-        var series = new List<ISeries>();
         foreach (var groupsByAccount in groupsByAccounts)
         {
             var values = groupsByAccount.Select(s => Math.Round(s.CumulativeSum ?? 0, 2)).ToList();
@@ -101,19 +97,16 @@ public static class GenerateAnalysisSeries
                 YToolTipLabelFormatter = func
             };
 
-            series.Add(stakedColumnSeries);
+            yield return stakedColumnSeries;
         }
-
-        return series;
     }
 
-    public static List<ISeries> GenerateSeries(this List<IGrouping<string?, GroupsByModePaymentCategory>> groupsByModePayments, SolidColorPaint textPaint)
+    public static IEnumerable<ColumnSeries<double>> GenerateSeries(this List<IGrouping<string?, GroupsByModePaymentCategory>> groupsByModePayments, SolidColorPaint textPaint)
     {
         var currency = groupsByModePayments.First().Select(s => s.Currency).First()!;
 
         var tooltipFormatter = currency.CreateLabelFunc();
 
-        var series = new List<ISeries>();
         foreach (var groupsByCategory in groupsByModePayments)
         {
             var name = groupsByCategory.Key!;
@@ -138,9 +131,8 @@ public static class GenerateAnalysisSeries
                 DataLabelsPosition.Middle
             );
 
-            series.Add(columnSeries);
+            yield return columnSeries;
         }
-        return series;
     }
 
     /// <summary>
