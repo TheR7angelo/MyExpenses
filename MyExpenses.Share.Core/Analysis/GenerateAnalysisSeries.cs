@@ -98,7 +98,14 @@ public static class GenerateAnalysisSeries
         }
     }
 
-    public static IEnumerable<ColumnSeries<double>> GenerateSeries(this List<IGrouping<string?, GroupsByModePaymentCategory>> groupsByModePayments, SolidColorPaint textPaint)
+    /// <summary>
+    /// Generates a collection of column series based on the given groups of mode payment categories and a specified text paint format.
+    /// </summary>
+    /// <param name="groupsByModePayments">The grouped data containing mode payment categories and related monthly sums.</param>
+    /// <param name="textPaint">The text paint used for data labels formatting in the series.</param>
+    /// <returns>A collection of column series with formatted data labels based on the groups provided.</returns>
+    public static IEnumerable<ColumnSeries<double>> GenerateSeries(
+        this List<IGrouping<string?, GroupsByModePaymentCategory>> groupsByModePayments, SolidColorPaint textPaint)
     {
         var currency = groupsByModePayments.First().Select(s => s.Currency).First()!;
 
@@ -110,6 +117,7 @@ public static class GenerateAnalysisSeries
 
             var monthlyPaymentDataPoints = groupsByCategory
                 .GroupBy(s => s.Period)
+                // ReSharper disable once HeapView.ObjectAllocation.Evident
                 .Select(g => new
                 {
                     MonthlySum = Math.Round(g.Sum(v => v.TotalMonthlySum ?? 0), 2),
