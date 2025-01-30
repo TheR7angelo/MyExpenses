@@ -178,6 +178,40 @@ public static class GenerateAnalysisSeries
     }
 
     /// <summary>
+    /// Generates a line series and a trend line series for the given records, using specified parameters such as name, trend name, and currency.
+    /// </summary>
+    /// <param name="recordsByAccount">The grouped records by account containing the monthly analysis and budget values.</param>
+    /// <param name="name">The name/label for the main line series.</param>
+    /// <param name="trendName">The name/label for the trend line series.</param>
+    /// <param name="currency">The currency symbol to include in the data labels.</param>
+    /// <returns>A tuple containing the main line series and the trend line series.</returns>
+    public static (LineSeries<double> LineSeries, LineSeries<double> TrendSeries) GenerateSeries(
+        this IGrouping<int?, AnalysisVBudgetMonthly> recordsByAccount, string name, string trendName,
+        string currency)
+    {
+        var values = recordsByAccount.Select(s => Math.Round(s.PeriodValue ?? 0, 2)).ToList();
+
+        var analysisVBudgetMonthlies = recordsByAccount.Select(s => s)
+            .ToList();
+
+        var lineSeries = name.CreateLineSeries(values, point =>
+        {
+            var dataPoint = analysisVBudgetMonthlies[point.Index];
+            return $"{dataPoint.PeriodValue} {currency}{Environment.NewLine}" +
+                   $"{dataPoint.Status} {dataPoint.DifferenceValue ?? 0:F2}{currency} ({dataPoint.Percentage}%)";
+        });
+
+        var trendValues = values.GenerateLinearTrendValues();
+
+        var isSeriesTranslatableTrend = new IsSeriesTranslatable { OriginalName = name, IsTranslatable = true };
+
+        var func = currency.CreateCircleGeometryLabelFunc();
+        var trendSeries = trendName.CreateLineSeries(trendValues, func, null, false, 0, isSeriesTranslatableTrend);
+
+        return (lineSeries, trendSeries);
+    }
+
+    /// <summary>
     /// Creates a label formatting function for chart points using the specified currency symbol and multiplier.
     /// </summary>
     /// <param name="symbol">The currency symbol to be included in the formatted label.</param>

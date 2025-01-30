@@ -134,4 +134,21 @@ public static class EntityQueriesAnalysis
 
         return records;
     }
+
+    /// <summary>
+    /// Retrieves the monthly budget analyses grouped by their respective periods.
+    /// </summary>
+    /// <returns>A list of groups where each group contains records associated with a specific budget analysis period.</returns>
+    public static List<IGrouping<string?, AnalysisVBudgetMonthly>> GetVBudgetMonthlies()
+    {
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // Retrieve records from the database.
+        using var context = new DataBaseContext();
+        var records = context.AnalysisVBudgetMonthlies
+            .AsEnumerable()
+            .GroupBy(s => s.Period)
+            .ToList();
+
+        return records;
+    }
 }
