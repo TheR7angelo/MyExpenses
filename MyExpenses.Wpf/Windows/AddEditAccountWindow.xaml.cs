@@ -166,7 +166,9 @@ public partial class AddEditAccountWindow
 
     public bool DeleteAccount { get; private set; }
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public TAccount Account { get; } = new();
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public THistory History { get; } = new() { IsPointed = true };
 
     public static string DisplayMemberPathAccountType => nameof(TAccountType.Name);
@@ -199,6 +201,7 @@ public partial class AddEditAccountWindow
 
     public AddEditAccountWindow()
     {
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
         using var context = new DataBaseContext();
         Accounts = [..context.TAccounts.OrderBy(s => s.Name)];
         AccountTypes = [..context.TAccountTypes.OrderBy(s => s.Name)];
@@ -216,6 +219,7 @@ public partial class AddEditAccountWindow
 
     private void ButtonAddAccountType_OnClick(object sender, RoutedEventArgs e)
     {
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
         var addEditAccountType = new AddEditAccountTypeWindow();
         var result = addEditAccountType.ShowDialog();
         if (result is not true) return;
@@ -244,6 +248,7 @@ public partial class AddEditAccountWindow
 
     private void ButtonAddCategoryType_OnClick(object sender, RoutedEventArgs e)
     {
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
         var addEditCategoryType = new AddEditCategoryTypeWindow();
         var result = addEditCategoryType.ShowDialog();
         if (result is not true) return;
@@ -272,6 +277,7 @@ public partial class AddEditAccountWindow
 
     private void ButtonAddCurrency_OnClick(object sender, RoutedEventArgs e)
     {
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
         var addEditCurrency = new AddEditCurrencyWindow();
         var result = addEditCurrency.ShowDialog();
         if (result is not true) return;
