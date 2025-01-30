@@ -8,6 +8,20 @@
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
 
+    <UserControl.Resources>
+
+        <CollectionViewSource x:Key="ViewSourceSeries"
+                              Source="{Binding Series, RelativeSource={RelativeSource AncestorType={x:Type local:BudgetMonthlyControl}}}"
+                              Filter="ViewSourceSeries_OnFilter">
+        </CollectionViewSource>
+
+        <CollectionViewSource x:Key="ViewSourceTrendSeries"
+                              Source="{Binding Series, RelativeSource={RelativeSource AncestorType={x:Type local:BudgetMonthlyControl}}}"
+                              Filter="ViewSourceTrendSeries_OnFilter">
+        </CollectionViewSource>
+
+    </UserControl.Resources>
+
     <Grid>
 
         <Grid.RowDefinitions>
@@ -17,7 +31,7 @@
         </Grid.RowDefinitions>
 
         <ItemsControl Grid.Row="0" HorizontalAlignment="Center"
-                      ItemsSource="{Binding CheckBoxes, RelativeSource={RelativeSource AncestorType={x:Type local:BudgetMonthlyControl}}}">
+                      ItemsSource="{Binding Source={StaticResource ViewSourceSeries}}">
 
             <ItemsControl.Resources>
                 <Style TargetType="CheckBox" BasedOn="{StaticResource {x:Type CheckBox}}" />
@@ -29,10 +43,16 @@
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
 
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <CheckBox Content="{Binding Name}" IsChecked="{Binding IsVisible}" />
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+
         </ItemsControl>
 
         <ItemsControl Grid.Row="1" HorizontalAlignment="Center"
-                      ItemsSource="{Binding CheckBoxesTrend, RelativeSource={RelativeSource AncestorType={x:Type local:BudgetMonthlyControl}}}">
+                      ItemsSource="{Binding Source={StaticResource ViewSourceTrendSeries}}">
 
             <ItemsControl.Resources>
                 <Style TargetType="CheckBox" BasedOn="{StaticResource {x:Type CheckBox}}" />
@@ -40,9 +60,15 @@
 
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <WrapPanel Orientation="Horizontal"/>
+                    <WrapPanel Orientation="Horizontal" />
                 </ItemsPanelTemplate>
             </ItemsControl.ItemsPanel>
+
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <CheckBox Content="{Binding Name}" IsChecked="{Binding IsVisible}" />
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
 
         </ItemsControl>
 

@@ -1,5 +1,5 @@
 using System.Windows;
-using System.Windows.Controls;
+using System.Windows.Data;
 using LiveChartsCore;
 using LiveChartsCore.Kernel.Sketches;
 using LiveChartsCore.SkiaSharpView;
@@ -33,9 +33,6 @@ public partial class BudgetMonthlyControl
     public ICartesianAxis[] XAxis { get; set; } = null!;
     public ICartesianAxis[] YAxis { get; set; } = null!;
 
-    public List<CheckBox> CheckBoxes { get; } = [];
-    public List<CheckBox> CheckBoxesTrend { get; } = [];
-
     public BudgetMonthlyControl()
     {
         UpdateTextPaint();
@@ -49,6 +46,12 @@ public partial class BudgetMonthlyControl
     }
 
     #region Action
+
+    private void ViewSourceSeries_OnFilter(object sender, FilterEventArgs e)
+        => FilterSeriesTrend.ViewSourceSeries_OnFilter(e);
+
+    private void ViewSourceTrendSeries_OnFilter(object sender, FilterEventArgs e)
+        => FilterSeriesTrend.ViewSourceTrendSeries_OnFilter(e);
 
     private void Interface_OnLanguageChanged()
         => UpdateLanguage();
@@ -82,15 +85,11 @@ public partial class BudgetMonthlyControl
             var series = (LineSeries<double>)iSeries;
             if (series.Tag is not IsSeriesTranslatable { IsTranslatable: true } isSeriesTranslatable) continue;
 
-            var name = series.Name!;
-            var checkBox = CheckBoxesTrend.FirstOrDefault(s => s.Content.Equals(name)) ?? CheckBoxes.First(s => s.Content.Equals(name));
-
             var newName = isSeriesTranslatable.IsGlobal
                 ? isSeriesTranslatable.IsTrend ? $"{global} {trend}" : global
                 : $"{isSeriesTranslatable.OriginalName} {trend}";
 
             series.Name = newName;
-            checkBox.Content = newName;
         }
 
         UpdateLayout();
@@ -164,36 +163,6 @@ public partial class BudgetMonthlyControl
 
             series.Add(lineSeries);
             series.Add(trendSeries);
-
-            // ReSharper disable once HeapView.ObjectAllocation.Evident
-            var checkBox = new CheckBox
-            {
-                Content = name,
-                IsChecked = lineSeries.IsVisible,
-                Margin = new Thickness(5)
-            };
-            checkBox.Click += (_, _) =>
-            {
-                {
-                    lineSeries.IsVisible = !lineSeries.IsVisible;
-                }
-            };
-            CheckBoxes.Add(checkBox);
-
-            // ReSharper disable once HeapView.ObjectAllocation.Evident
-            var checkBoxTrend = new CheckBox
-            {
-                Content = trendName,
-                IsChecked = trendSeries.IsVisible,
-                Margin = new Thickness(5)
-            };
-            checkBoxTrend.Click += (_, _) =>
-            {
-                {
-                    trendSeries.IsVisible = !trendSeries.IsVisible;
-                }
-            };
-            CheckBoxesTrend.Add(checkBoxTrend);
         }
 
         var newSeries = Series.ToList();
@@ -228,36 +197,6 @@ public partial class BudgetMonthlyControl
         var isSeriesTranslatableTrend = new IsSeriesTranslatable { OriginalName = name, IsTranslatable = true, IsGlobal = true };
         var trendSeries = trendName.CreateLineSeries(trendValues, point => $"{point.Model}", null, false, 0,
             isSeriesTranslatableTrend);
-
-        // ReSharper disable once HeapView.ObjectAllocation.Evident
-        var checkBox = new CheckBox
-        {
-            Content = name,
-            IsChecked = lineSeries.IsVisible,
-            Margin = new Thickness(5)
-        };
-        checkBox.Click += (_, _) =>
-        {
-            {
-                lineSeries.IsVisible = !lineSeries.IsVisible;
-            }
-        };
-        CheckBoxes.Add(checkBox);
-
-        // ReSharper disable once HeapView.ObjectAllocation.Evident
-        var checkBoxTrend = new CheckBox
-        {
-            Content = trendName,
-            IsChecked = trendSeries.IsVisible,
-            Margin = new Thickness(5)
-        };
-        checkBoxTrend.Click += (_, _) =>
-        {
-            {
-                trendSeries.IsVisible = !trendSeries.IsVisible;
-            }
-        };
-        CheckBoxesTrend.Add(checkBoxTrend);
 
         Series = [lineSeries, trendSeries];
     }
