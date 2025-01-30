@@ -326,11 +326,12 @@ public partial class AddEditRecurrentExpenseWindow
     public string SelectedValuePathPlace { get; } = nameof(TPlace.Id);
     public string DisplayMemberPathPlaceName { get; } = nameof(TPlace.Name);
 
-    // public bool RecursiveExpenseDeleted { get; set; }
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     private WritableLayer PlaceLayer { get; } = new() { Style = null, Tag = typeof(TPlace) };
     public List<KnownTileSource> KnownTileSources { get; }
     public KnownTileSource KnownTileSourceSelected { get; set; }
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public TRecursiveExpense RecursiveExpense { get; } = new();
 
     #endregion
@@ -339,6 +340,7 @@ public partial class AddEditRecurrentExpenseWindow
     {
         KnownTileSources = [..MapsuiMapExtensions.GetAllKnowTileSource()];
 
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
         using var context = new DataBaseContext();
         Accounts = [..context.TAccounts.OrderBy(s => s.Name)];
         CategoryTypes = [..context.TCategoryTypes.OrderBy(s => s.Name)];
@@ -349,9 +351,11 @@ public partial class AddEditRecurrentExpenseWindow
 
         var records = PlacesCollection.Select(s => EmptyStringTreeViewConverter.ToUnknown(s.Country)).Order()
             .Distinct();
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
         CountriesCollection = new ObservableCollection<string>(records);
 
         records = PlacesCollection.Select(s => EmptyStringTreeViewConverter.ToUnknown(s.City)).Order().Distinct();
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
         CitiesCollection = new ObservableCollection<string>(records);
 
         var backColor = Utils.Resources.GetMaterialDesignPaperMapsUiStylesColor();
@@ -371,6 +375,7 @@ public partial class AddEditRecurrentExpenseWindow
 
     private void ButtonAccount_OnClick(object sender, RoutedEventArgs e)
     {
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
         var addEditAccountWindow = new AddEditAccountWindow();
 
         var account = RecursiveExpense.AccountFk?.ToISql<TAccount>();
@@ -419,6 +424,7 @@ public partial class AddEditRecurrentExpenseWindow
 
     private void ButtonCategoryType_OnClick(object sender, RoutedEventArgs e)
     {
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
         var addEditCategoryTypeWindow = new AddEditCategoryTypeWindow();
         var categoryType = RecursiveExpense.CategoryTypeFk?.ToISql<TCategoryType>();
         if (categoryType is not null) addEditCategoryTypeWindow.SetTCategoryType(categoryType);
@@ -441,6 +447,7 @@ public partial class AddEditRecurrentExpenseWindow
             var (success, exception) = editedCategoryType.AddOrEdit();
             if (success)
             {
+                // ReSharper disable once HeapView.ObjectAllocation.Evident
                 using var context = new DataBaseContext();
                 editedCategoryTypeDeepCopy.ColorFkNavigation =
                     context.TColors.FirstOrDefault(s => s.Id == editedCategoryTypeDeepCopy.ColorFk);
@@ -521,6 +528,7 @@ public partial class AddEditRecurrentExpenseWindow
             return;
         }
 
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
         var addEditModePaymentWindow = new AddEditModePaymentWindow();
         if (modePayment is not null) addEditModePaymentWindow.SetTModePayment(modePayment);
 
@@ -568,6 +576,7 @@ public partial class AddEditRecurrentExpenseWindow
             return;
         }
 
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
         var addEditLocationWindow = new AddEditLocationWindow();
         if (place is not null) addEditLocationWindow.SetPlace(place, false);
 
@@ -704,6 +713,7 @@ public partial class AddEditRecurrentExpenseWindow
         var comboBox = (ComboBox)sender;
         var city = comboBox.SelectedItem as string;
 
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
         using var context = new DataBaseContext();
         var query = context.TPlaces.Where(s => s.IsOpen);
 
@@ -736,6 +746,7 @@ public partial class AddEditRecurrentExpenseWindow
         var comboBox = (ComboBox)sender;
         var country = comboBox.SelectedItem as string;
 
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
         using var context = new DataBaseContext();
         var query = context.TPlaces.Where(s => s.IsOpen);
 
@@ -978,6 +989,7 @@ public partial class AddEditRecurrentExpenseWindow
         const string layerName = "Background";
 
         var httpTileSource = BruTile.Predefined.KnownTileSources.Create(KnownTileSourceSelected);
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
         var tileLayer = new TileLayer(httpTileSource);
         tileLayer.Name = layerName;
 
