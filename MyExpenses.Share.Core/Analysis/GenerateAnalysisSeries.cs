@@ -188,6 +188,11 @@ public static class GenerateAnalysisSeries
         this string symbol, int multiplier = 1)
         => point => $"{point.Model * multiplier:F2} {symbol}";
 
+    /// <summary>
+    /// Creates a label formatting function for circle geometry labels, displaying the provided symbol alongside the numeric value.
+    /// </summary>
+    /// <param name="symbol">The symbol to be appended to the numeric value in the label.</param>
+    /// <returns>A function that formats a string label for a chart point with a numeric model and the given symbol.</returns>
     private static Func<ChartPoint<double, CircleGeometry, LabelGeometry>, string> CreateCircleGeometryLabelFunc(this string symbol)
         => point => $"{point.Model:F2} {symbol}";
 }
