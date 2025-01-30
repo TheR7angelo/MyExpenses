@@ -7,6 +7,7 @@ using LiveChartsCore.SkiaSharpView.Painting;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Sql.Bases.Views.Analysis;
 using MyExpenses.Models.Wpf.Charts;
+using MyExpenses.SharedUtils.Maths;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils;
 using MyExpenses.Wpf.Converters.Analytics;
@@ -176,16 +177,14 @@ public partial class BudgetMonthlyControl
                 }
             };
 
-            var xData = Enumerable.Range(1, values.Count).Select(i => (double)i).ToArray();
-            var (a, b) = AnalyticsUtils.CalculateLinearTrend(xData, values.ToArray());
-            var trendValues = xData.Select(x => Math.Round(a * x + b, 2)).ToArray();
+            var trendValues = values.CreateLinearTrendLine();
 
             var trendName = $"{name} {trend}";
             var isSeriesTranslatableTrend = new IsSeriesTranslatable { OriginalName = name, IsTranslatable = true };
             var trendSeries = new LineSeries<double>
             {
                 Name = trendName,
-                Values = trendValues,
+                Values = trendValues.ToList(),
                 Fill = null,
                 YToolTipLabelFormatter = point => $"{point.Model} {currency}",
                 IsVisible = false,
@@ -254,16 +253,14 @@ public partial class BudgetMonthlyControl
             Tag = new IsSeriesTranslatable { OriginalName = name, IsTranslatable = true, IsGlobal = true, IsTrend = false }
         };
 
-        var xData = Enumerable.Range(1, values.Count).Select(i => (double)i).ToArray();
-        var (a, b) = AnalyticsUtils.CalculateLinearTrend(xData, values.ToArray());
-        var trendValues = xData.Select(x => Math.Round(a * x + b, 2)).ToArray();
+        var trendValues = values.CreateLinearTrendLine();
 
         var trendName = $"{name} {trend}";
         var isSeriesTranslatableTrend = new IsSeriesTranslatable { OriginalName = name, IsTranslatable = true, IsGlobal = true };
         var trendSeries = new LineSeries<double>
         {
             Name = trendName,
-            Values = trendValues,
+            Values = trendValues.ToList(),
             Fill = null,
             YToolTipLabelFormatter = point => $"{point.Model}",
             IsVisible = false,

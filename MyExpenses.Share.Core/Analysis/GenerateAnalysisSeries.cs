@@ -8,6 +8,7 @@ using MyExpenses.Models.Sql.Bases.Groups.VAccountCategoryMonthlySums;
 using MyExpenses.Models.Sql.Bases.Groups.VAccountModePaymentCategoryMonthlySums;
 using MyExpenses.Models.Sql.Bases.Views.Analysis;
 using MyExpenses.Models.Wpf.Charts;
+using MyExpenses.SharedUtils.Maths;
 using MyExpenses.Utils;
 
 namespace MyExpenses.Share.Core.Analysis;
@@ -164,9 +165,7 @@ public static class GenerateAnalysisSeries
                    $"{dataPoint.Status} {dataPoint.DifferenceValue ?? 0:F2}{currency} ({dataPoint.Percentage}%)";
         });
 
-        var xData = Enumerable.Range(1, values.Count).Select(i => (double)i).ToArray();
-        var (a, b) = AnalyticsUtils.CalculateLinearTrend(xData, values.ToArray());
-        var trendValues = xData.Select(x => Math.Round(a * x + b, 2)).ToArray();
+        var trendValues = values.CreateLinearTrendLine();
 
         // ReSharper disable once HeapView.ObjectAllocation.Evident
         // This allocation is required to define a custom line series (LineSeries<double>).
