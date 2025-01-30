@@ -62,7 +62,7 @@ public static class MapsuiMapExtensions
 
     public static TemporaryPointFeature ToTemporaryFeature(this TPlace place, SymbolStyle? symbolStyle = null)
     {
-        var feature = place.ToSingleFeature(symbolStyle);
+        var feature = place.ToSingleFeature(symbolStyle, false);
 
         // ReSharper disable once HeapView.ObjectAllocation.Evident
         // Memory allocation is necessary here as the method creates a new TemporaryPointFeature
@@ -77,24 +77,25 @@ public static class MapsuiMapExtensions
     // public static IEnumerable<PointFeature> ToFeature(this IEnumerable<TPlace> places, SymbolStyle? symbolStyle = null)
     //     => places.Select(place => place.ToSingleFeature(symbolStyle));
 
-    private static PointFeature ToSingleFeature(this TPlace place, SymbolStyle? symbolStyle = null)
+    private static PointFeature ToSingleFeature(this TPlace place, SymbolStyle? symbolStyle = null, bool labelStyle = true)
     {
         var mapper = Mapping.Mapper;
         var feature = mapper.Map<PointFeature>(place);
 
-        // ReSharper disable HeapView.ObjectAllocation.Evident
-        // Allocates a List<IStyle> to define rendering styles for the feature,
-        // as required by MapsUI's design to handle visual representation dynamically.
-        feature.Styles = new List<IStyle>
-            {
-            new LabelStyle
+        feature.Styles = [];
+        if (labelStyle)
+        {
+            // ReSharper disable HeapView.ObjectAllocation.Evident
+            // Allocates a List<IStyle> to define rendering styles for the feature,
+            // as required by MapsUI's design to handle visual representation dynamically.
+            feature.Styles.Add(new LabelStyle
             {
                 Text = place.Name, Offset = new Offset { X = 0, Y = 11 },
                 Font = new Font { FontFamily = "Arial", Size = 12 },
                 Halo = new Pen { Color = Color.White, Width = 2 }
-            }
-        };
-        // ReSharper restore HeapView.ObjectAllocation.Evident
+            });
+            // ReSharper restore HeapView.ObjectAllocation.Evident
+        }
 
         if (symbolStyle is not null) feature.Styles.Add(symbolStyle);
 

@@ -348,7 +348,9 @@ public partial class AddEditLocationWindow
         Place.Geometry = new Point(coordinate.X, coordinate.Y);
 
         newFeature.IsTemp = false;
-        newFeature.Styles = new List<IStyle> { MapsuiStyleExtensions.RedMarkerStyle };
+        newFeature.Styles.Clear();
+        newFeature.Styles.Add(MapsuiStyleExtensions.RedMarkerStyle);
+
         WritableLayer.Add(newFeature);
 
         ZoomToMPoint(newFeature.Point);
@@ -450,8 +452,11 @@ public partial class AddEditLocationWindow
     private void MapControl_OnInfo(object? sender, MapInfoEventArgs e)
     {
         var worldPosition = e.WorldPosition;
+
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
         var feature = new TemporaryPointFeature(worldPosition)
         {
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
             Styles = new List<IStyle> { MapsuiStyleExtensions.GreenMarkerStyle },
             IsTemp = true
         };
@@ -537,11 +542,8 @@ public partial class AddEditLocationWindow
 
     private void UpdateMiniMap()
     {
-        var feature = Place.ToTemporaryFeature();
-        feature.Styles = new List<IStyle> { MapsuiStyleExtensions.RedMarkerStyle };
+        var feature = Place.ToTemporaryFeature(MapsuiStyleExtensions.RedMarkerStyle);
         feature.IsTemp = false;
-
-        // feature[ColumnTemp] = false;
 
         WritableLayer.Add(feature);
 
