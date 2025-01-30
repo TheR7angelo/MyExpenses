@@ -146,17 +146,7 @@ public partial class BudgetAnnualControl
         var recordsByAccounts = records.SelectMany(s => s)
             .GroupBy(s => s.AccountFk);
 
-        // ReSharper disable once HeapView.ObjectAllocation.Evident
-        var series = new List<ISeries>();
-        foreach (var recordsByAccount in recordsByAccounts)
-        {
-            var name = recordsByAccount.First().AccountName!;
-            var trendName = $"{name} {BudgetsControlResources.Trend}";
-            var (lineSeries, trendSeries) = recordsByAccount.GenerateSeries(name, trendName, currency);
-
-            series.Add(lineSeries);
-            series.Add(trendSeries);
-        }
+        var series = recordsByAccounts.GenerateSeries(BudgetsControlResources.Trend, currency);
 
         var newSeries = Series.ToList();
         newSeries.AddRange(series);

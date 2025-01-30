@@ -149,21 +149,10 @@ public partial class BudgetMonthlyControl
     {
         var currency = records.First().Select(s => s.Symbol).First()!;
 
-        // ReSharper disable once HeapView.ObjectAllocation.Evident
-        var series = new List<ISeries>();
         var recordsByAccounts = records.SelectMany(s => s)
             .GroupBy(s => s.AccountFk);
 
-        foreach (var recordsByAccount in recordsByAccounts)
-        {
-            var name = recordsByAccount.First().AccountName!;
-            var trendName = $"{name} {BudgetsControlResources.Trend}";
-
-            var (lineSeries, trendSeries) = recordsByAccount.GenerateSeries(name, trendName, currency);
-
-            series.Add(lineSeries);
-            series.Add(trendSeries);
-        }
+        var series = recordsByAccounts.GenerateSeries(BudgetsControlResources.Trend, currency);
 
         var newSeries = Series.ToList();
         newSeries.AddRange(series);

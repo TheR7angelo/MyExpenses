@@ -142,73 +142,86 @@ public static class GenerateAnalysisSeries
     }
 
     /// <summary>
-    /// Generates a line series and its corresponding trend series based on the provided records and parameters.
+    /// Generates a collection of series representing annual budget period analysis for the given grouped account records.
     /// </summary>
-    /// <param name="recordsByAccount">The grouped records by account containing periodic budget data.</param>
-    /// <param name="name">The name/label for the generated line series.</param>
-    /// <param name="trendName">The name/label for the generated trend series.</param>
-    /// <param name="currency">The currency symbol to be used in tooltips and labels.</param>
-    /// <returns>A tuple containing the line series and its corresponding trend series.</returns>
-    public static (LineSeries<double> LineSeries, LineSeries<double> TrendSeries) GenerateSeries(
-        this IGrouping<int?, AnalysisVBudgetPeriodAnnual> recordsByAccount, string name, string trendName,
-        string currency)
+    /// <param name="recordsByAccounts">The collection of records grouped by account, containing budget period data.</param>
+    /// <param name="trend">The label used to describe the trend series.</param>
+    /// <param name="currency">The currency symbol used for displaying values.</param>
+    /// <returns>An enumerable collection of series representing the data and its calculated trend line.</returns>
+    public static IEnumerable<ISeries> GenerateSeries(
+        this IEnumerable<IGrouping<int?, AnalysisVBudgetPeriodAnnual>> recordsByAccounts,
+        string trend, string currency)
     {
-        var values = recordsByAccount.Select(s => Math.Round(s.PeriodValue ?? 0, 2)).ToList();
-
-        var analysisVBudgetMonthlies = recordsByAccount.Select(s => s)
-            .ToList();
-
-        var lineSeries = name.CreateLineSeries(values, point =>
+        foreach (var recordsByAccount in recordsByAccounts)
         {
-            var dataPoint = analysisVBudgetMonthlies[point.Index];
-            return $"{dataPoint.PeriodValue} {currency}{Environment.NewLine}" +
-                   $"{dataPoint.Status} {dataPoint.DifferenceValue ?? 0:F2}{currency} ({dataPoint.Percentage}%)";
-        });
+            var name = recordsByAccount.First().AccountName!;
 
-        var trendValues = values.GenerateLinearTrendValues();
+            var values = recordsByAccount.Select(s => Math.Round(s.PeriodValue ?? 0, 2)).ToList();
+            var analysisVBudgetMonthlies = recordsByAccount.Select(s => s).ToList();
 
-        // ReSharper disable once HeapView.ObjectAllocation.Evident
-        // This allocation is required to define a custom line series (LineSeries<double>).
-        var isSeriesTranslatableTrend = new IsSeriesTranslatable { OriginalName = name, IsTranslatable = true };
+            var lineSeries = name.CreateLineSeries(values, point =>
+                {
+                    var dataPoint = analysisVBudgetMonthlies[point.Index];
+                    return $"{dataPoint.PeriodValue} {currency}{Environment.NewLine}" +
+                           $"{dataPoint.Status} {dataPoint.DifferenceValue ?? 0:F2}{currency} ({dataPoint.Percentage}%)";
+                });
 
-        var func = currency.CreateCircleGeometryLabelFunc();
-        var trendSeries = trendName.CreateLineSeries(trendValues, func, null, false, 0, isSeriesTranslatableTrend);
+            yield return lineSeries;
 
-        return (lineSeries, trendSeries);
+            var trendValues = values.GenerateLinearTrendValues();
+
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
+            var isSeriesTranslatableTrend = new IsSeriesTranslatable { OriginalName = name, IsTranslatable = true };
+
+            var trendName = $"{name} {trend}";
+            var func = currency.CreateCircleGeometryLabelFunc();
+            var trendSeries = trendName.CreateLineSeries(trendValues, func, null, false, 0, isSeriesTranslatableTrend);
+
+            yield return trendSeries;
+        }
     }
 
     /// <summary>
-    /// Generates a line series and a trend line series for the given records, using specified parameters such as name, trend name, and currency.
+    /// Generates a collection of series (ISeries) from grouped records,
+    /// including both normal and trend series.
     /// </summary>
-    /// <param name="recordsByAccount">The grouped records by account containing the monthly analysis and budget values.</param>
-    /// <param name="name">The name/label for the main line series.</param>
-    /// <param name="trendName">The name/label for the trend line series.</param>
-    /// <param name="currency">The currency symbol to include in the data labels.</param>
-    /// <returns>A tuple containing the main line series and the trend line series.</returns>
-    public static (LineSeries<double> LineSeries, LineSeries<double> TrendSeries) GenerateSeries(
-        this IGrouping<int?, AnalysisVBudgetMonthly> recordsByAccount, string name, string trendName,
-        string currency)
+    /// <param name="recordsByAccounts">Grouped records, each group represents an account.</param>
+    /// <param name="trend">Suffix for trend series names (e.g., "Trend").</param>
+    /// <param name="currency">Currency symbol for data point labels (e.g., "$").</param>
+    /// <returns>
+    /// An IEnumerable of ISeries containing one normal and one trend series per group.
+    /// </returns>
+    public static IEnumerable<ISeries> GenerateSeries(
+        this IEnumerable<IGrouping<int?, AnalysisVBudgetMonthly>> recordsByAccounts,
+        string trend, string currency)
     {
-        var values = recordsByAccount.Select(s => Math.Round(s.PeriodValue ?? 0, 2)).ToList();
-
-        var analysisVBudgetMonthlies = recordsByAccount.Select(s => s)
-            .ToList();
-
-        var lineSeries = name.CreateLineSeries(values, point =>
+        foreach (var recordsByAccount in recordsByAccounts)
         {
-            var dataPoint = analysisVBudgetMonthlies[point.Index];
-            return $"{dataPoint.PeriodValue} {currency}{Environment.NewLine}" +
-                   $"{dataPoint.Status} {dataPoint.DifferenceValue ?? 0:F2}{currency} ({dataPoint.Percentage}%)";
-        });
+            var name = recordsByAccount.First().AccountName!;
 
-        var trendValues = values.GenerateLinearTrendValues();
+            var values = recordsByAccount.Select(s => Math.Round(s.PeriodValue ?? 0, 2)).ToList();
+            var analysisVBudgetMonthlies = recordsByAccount.Select(s => s).ToList();
 
-        var isSeriesTranslatableTrend = new IsSeriesTranslatable { OriginalName = name, IsTranslatable = true };
+            var lineSeries = name.CreateLineSeries(values, point =>
+            {
+                var dataPoint = analysisVBudgetMonthlies[point.Index];
+                return $"{dataPoint.PeriodValue} {currency}{Environment.NewLine}" +
+                       $"{dataPoint.Status} {dataPoint.DifferenceValue ?? 0:F2}{currency} ({dataPoint.Percentage}%)";
+            });
 
-        var func = currency.CreateCircleGeometryLabelFunc();
-        var trendSeries = trendName.CreateLineSeries(trendValues, func, null, false, 0, isSeriesTranslatableTrend);
+            yield return lineSeries;
 
-        return (lineSeries, trendSeries);
+            var trendValues = values.GenerateLinearTrendValues();
+
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
+            var isSeriesTranslatableTrend = new IsSeriesTranslatable { OriginalName = name, IsTranslatable = true };
+
+            var trendName = $"{name} {trend}";
+            var func = currency.CreateCircleGeometryLabelFunc();
+            var trendSeries = trendName.CreateLineSeries(trendValues, func, null, false, 0, isSeriesTranslatableTrend);
+
+            yield return trendSeries;
+        }
     }
 
     /// <summary>
