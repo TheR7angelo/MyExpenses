@@ -52,18 +52,35 @@ public static class Utilities
     /// <returns>An IEnumerable of the found visual children.</returns>
     public static IEnumerable<T> FindVisualChildren<T>(this DependencyObject obj) where T : DependencyObject
     {
-        var children = new List<T>();
         for (var i = 0; i < VisualTreeHelper.GetChildrenCount(obj); i++)
         {
             var child = VisualTreeHelper.GetChild(obj, i);
             if (child is T tchild)
             {
-                children.Add(tchild);
+                yield return tchild;
             }
 
-            children.AddRange(FindVisualChildren<T>(child));
+            foreach (var descendant in FindVisualChildren<T>(child))
+            {
+                yield return descendant;
+            }
         }
-
-        return children;
     }
+
+    // public static IEnumerable<T> FindVisualChildren<T>(this DependencyObject obj) where T : DependencyObject
+    // {
+    //     var children = new List<T>();
+    //     for (var i = 0; i < VisualTreeHelper.GetChildrenCount(obj); i++)
+    //     {
+    //         var child = VisualTreeHelper.GetChild(obj, i);
+    //         if (child is T tchild)
+    //         {
+    //             children.Add(tchild);
+    //         }
+    //
+    //         children.AddRange(FindVisualChildren<T>(child));
+    //     }
+    //
+    //     return children;
+    // }
 }

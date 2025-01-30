@@ -105,7 +105,7 @@ public static class DbContextHelper
     /// <returns>A list of dictionaries where each dictionary contains column names as keys and their respective values as values.</returns>
     /// <exception cref="InvalidOperationException">Thrown if the database connection couldn't be opened.</exception>
     /// <exception cref="KeyNotFoundException">Thrown if the column name is not found in the result set.</exception>
-    public static List<Dictionary<string, object?>> ExecuteRawSqlWithResponse(this string sql,
+    public static IEnumerable<Dictionary<string, object?>> ExecuteRawSqlWithResponse(this string sql,
         string? tempFilePath = null)
     {
         // ReSharper disable once HeapView.ObjectAllocation.Evident
@@ -119,13 +119,6 @@ public static class DbContextHelper
 
         context.Database.OpenConnection();
 
-        // ReSharper disable once HeapView.ObjectAllocation.Evident
-        // The use of `ExecuteReader()` is necessary to retrieve the results of the query.
-        // The use of `Dictionary<string, object?>` is necessary to represent the results as a list of dictionaries,
-        // where each dictionary represents a record with key-value pairs corresponding to column names and their respective values.
-        // The use of `List<Dictionary<string, object?>>` is necessary to represent the results as a list of dictionaries,
-        // where each dictionary contains column names as keys and their respective values as values.
-        var results = new List<Dictionary<string, object?>>();
         using var reader = command.ExecuteReader();
         while (reader.Read())
         {
@@ -139,10 +132,9 @@ public static class DbContextHelper
                     : reader.GetValue(i);
                 row.Add(fieldName, value);
             }
-            results.Add(row);
-        }
 
-        return results;
+            yield return row;
+        }
     }
 
     /// <summary>

@@ -43,10 +43,11 @@ public static class ShapeReader
         }
 
         var features = filePath.ReadFeatures();
+        var enumerable = features as Feature[] ?? features.ToArray();
 
-        Log.Information("Shape \"{FilePath}\" read, Number of entities: {NbCount}", filePath, features.Count.ToString());
+        Log.Information("Shape \"{FilePath}\" read, Number of entities: {NbCount}", filePath, enumerable.Length.ToString());
 
-        return (features.ToList<T>(), projection);
+        return (enumerable.ToList<T>().ToList(), projection);
     }
 
     private static TSpatialRefSy? GetGeographicCoordinateSystemFromPrj(this string projectionString)
@@ -59,14 +60,9 @@ public static class ShapeReader
         return context.TSpatialRefSys.FirstOrDefault(s => s.Proj4text.Equals(projectionString));
     }
 
-    private static List<T> ToList<T>(this IEnumerable<Feature> features) where T : class, ISig
+    private static IEnumerable<T> ToList<T>(this IEnumerable<Feature> features) where T : class, ISig
     {
         var enumerable = features as Feature[] ?? features.ToArray();
-        var count = enumerable.Length;
-
-        // ReSharper disable once HeapView.ObjectAllocation.Evident
-        // Initialize the list with a predefined capacity to avoid unnecessary reallocations
-        var results = new List<T>(count);
 
         foreach (var feature in enumerable)
         {
@@ -74,10 +70,8 @@ public static class ShapeReader
             instance.Geometry = feature.Geometry;
 
             ProcessAttributes(feature, instance);
-            results.Add(instance);
+            yield return instance;
         }
-
-        return results;
     }
 
     private static void ProcessAttributes<T>(Feature feature, T instance) where T : class
@@ -121,14 +115,14 @@ public static class ShapeReader
         }
     }
 
-    private static List<Feature> ReadFeatures(this string filePath, TSpatialRefSy? spatialRef = null)
+    private static IEnumerable<Feature> ReadFeatures(this string filePath, TSpatialRefSy? spatialRef = null)
     {
         // ReSharper disable once HeapView.ObjectAllocation.Evident
         // The "features" list is required to store processed and cleaned Feature objects.
         // This allocation is intentional and necessary to accumulate the results
         // before returning them to the caller. The scope is limited to this method,
         // ensuring no memory leaks.
-        var features = new List<Feature>();
+        // var features = new List<Feature>();
 
         foreach (var feature in Shapefile.ReadAllFeatures(filePath))
         {
@@ -139,10 +133,11 @@ public static class ShapeReader
 
             if (spatialRef is not null) feature.Geometry.SRID = spatialRef.Srid;
             var newFeature = feature.CleanFeature();
-            features.Add(newFeature);
+            // features.Add(newFeature);
+            yield return newFeature;
         }
 
-        return features;
+        // return features;
     }
 
     private static Feature CleanFeature(this Feature feature)
