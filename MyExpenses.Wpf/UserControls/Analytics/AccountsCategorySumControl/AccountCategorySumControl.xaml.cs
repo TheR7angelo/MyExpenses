@@ -10,7 +10,7 @@ using MyExpenses.Sql.Queries;
 using MyExpenses.Utils;
 using MyExpenses.Wpf.Converters.Analytics;
 
-namespace MyExpenses.Wpf.UserControls.Analytics;
+namespace MyExpenses.Wpf.UserControls.Analytics.AccountsCategorySumControl;
 
 public partial class AccountCategorySumControl
 {

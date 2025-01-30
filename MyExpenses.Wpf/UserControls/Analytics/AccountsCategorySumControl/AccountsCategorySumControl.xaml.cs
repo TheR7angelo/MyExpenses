@@ -2,7 +2,7 @@ using System.Collections.ObjectModel;
 using MyExpenses.Models.Ui;
 using MyExpenses.Sql.Context;
 
-namespace MyExpenses.Wpf.UserControls.Analytics;
+namespace MyExpenses.Wpf.UserControls.Analytics.AccountsCategorySumControl;
 
 public partial class AccountsCategorySumControl
 {
