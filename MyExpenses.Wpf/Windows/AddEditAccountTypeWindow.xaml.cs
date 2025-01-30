@@ -23,6 +23,7 @@ public partial class AddEditAccountTypeWindow
 
     #region Property
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public TAccountType AccountType { get; } = new();
 
     private List<TAccountType> AccountTypes { get; }
@@ -98,6 +99,7 @@ public partial class AddEditAccountTypeWindow
 
     public AddEditAccountTypeWindow()
     {
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
         using var context = new DataBaseContext();
         AccountTypes = [..context.TAccountTypes];
 
