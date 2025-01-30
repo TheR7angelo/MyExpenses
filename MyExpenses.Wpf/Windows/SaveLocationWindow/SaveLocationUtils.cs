@@ -25,6 +25,7 @@ public static class SaveLocationUtils
 
     private static SaveLocation? GetSaveLocation(this string? title, SaveLocationMode saveLocationMode)
     {
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
         var saveLocationWindow = new SaveLocationWindow(saveLocationMode) { Title = title };
         saveLocationWindow.ShowDialog();
 
