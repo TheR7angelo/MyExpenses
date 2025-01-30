@@ -165,7 +165,7 @@ public static class GenerateAnalysisSeries
                    $"{dataPoint.Status} {dataPoint.DifferenceValue ?? 0:F2}{currency} ({dataPoint.Percentage}%)";
         });
 
-        var trendValues = values.CreateLinearTrendLine();
+        var trendValues = values.GenerateLinearTrendValues();
 
         // ReSharper disable once HeapView.ObjectAllocation.Evident
         // This allocation is required to define a custom line series (LineSeries<double>).

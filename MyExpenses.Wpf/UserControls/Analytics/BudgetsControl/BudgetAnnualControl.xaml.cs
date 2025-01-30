@@ -8,6 +8,7 @@ using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Sql.Bases.Views.Analysis;
 using MyExpenses.Models.Wpf.Charts;
 using MyExpenses.Share.Core.Analysis;
+using MyExpenses.SharedUtils.Maths;
 using MyExpenses.Sql.Context;
 using MyExpenses.Sql.Queries;
 using MyExpenses.Utils;
@@ -220,9 +221,7 @@ public partial class BudgetAnnualControl
                    $"{dataPoint.Status} {dataPoint.DifferenceValue ?? 0:F2} ({dataPoint.Percentage}%)";
         }, tag: isSeriesTranslatable);
 
-        var xData = Enumerable.Range(1, values.Count).Select(i => (double)i).ToArray();
-        var (a, b) = AnalyticsUtils.CalculateLinearTrend(xData, values.ToArray());
-        var trendValues = xData.Select(x => Math.Round(a * x + b, 2)).ToArray();
+        var trendValues = values.GenerateLinearTrendValues();
 
         var trendName = $"{name} {BudgetsControlResources.Trend}";
         // ReSharper disable once HeapView.ObjectAllocation.Evident

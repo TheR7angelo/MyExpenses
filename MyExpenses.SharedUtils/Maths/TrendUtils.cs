@@ -3,11 +3,11 @@ namespace MyExpenses.SharedUtils.Maths;
 public static class TrendUtils
 {
     /// <summary>
-    /// Generates a linear trend line based on the provided collection of numerical values.
+    /// Generates the linear trend values based on the provided set of data points.
     /// </summary>
-    /// <param name="values">The sequence of numerical values for which the trend line is to be calculated.</param>
-    /// <returns>An enumerable collection of calculated trend line values.</returns>
-    public static IEnumerable<double> CreateLinearTrendLine(this IEnumerable<double> values)
+    /// <param name="values">The collection of numeric values for which the linear trend will be calculated.</param>
+    /// <returns>An enumerable collection of double values representing the linear trend corresponding to the input data points.</returns>
+    public static IEnumerable<double> GenerateLinearTrendValues(this IEnumerable<double> values)
     {
         var enumerable = values as double[] ?? values.ToArray();
 
