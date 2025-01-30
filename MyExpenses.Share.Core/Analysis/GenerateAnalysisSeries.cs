@@ -225,6 +225,47 @@ public static class GenerateAnalysisSeries
     }
 
     /// <summary>
+    /// Generates a collection of series for the given grouped annual budget records based on account data.
+    /// </summary>
+    /// <param name="recordsByAccounts">A collection of grouped annual budget records by account.</param>
+    /// <param name="trend">The trend label to be applied to the trend series.</param>
+    /// <param name="currency">The currency symbol to format the data points and tooltips in the series.</param>
+    /// <returns>An enumerable collection of series, including line series for the data and its corresponding trend.</returns>
+    public static IEnumerable<ISeries> GenerateSeries(
+        this IEnumerable<IGrouping<int?, AnalysisVBudgetTotalAnnual>> recordsByAccounts,
+        string trend, string currency)
+    {
+        foreach (var recordsByAccount in recordsByAccounts)
+        {
+            var name = recordsByAccount.First().AccountName!;
+            var values = recordsByAccount.Select(s => Math.Round(s.PeriodValue ?? 0, 2)).ToList();
+
+            var analysisVBudgetMonthlies = recordsByAccount.Select(s => s)
+                .ToList();
+
+            var lineSeries = name.CreateLineSeries(values, point =>
+            {
+                var dataPoint = analysisVBudgetMonthlies[point.Index];
+                return $"{dataPoint.PeriodValue} {currency}{Environment.NewLine}" +
+                       $"{dataPoint.Status} {dataPoint.DifferenceValue ?? 0:F2}{currency} ({dataPoint.Percentage}%)";
+            });
+
+            yield return lineSeries;
+
+            var trendValues = values.GenerateLinearTrendValues();
+
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
+            var isSeriesTranslatableTrend = new IsSeriesTranslatable { OriginalName = name, IsTranslatable = true };
+
+            var trendName = $"{name} {trend}";
+            var func = currency.CreateCircleGeometryLabelFunc();
+            var trendSeries = trendName.CreateLineSeries(trendValues, func, null, false, 0, isSeriesTranslatableTrend);
+
+            yield return trendSeries;
+        }
+    }
+
+    /// <summary>
     /// Creates a label formatting function for chart points using the specified currency symbol and multiplier.
     /// </summary>
     /// <param name="symbol">The currency symbol to be included in the formatted label.</param>

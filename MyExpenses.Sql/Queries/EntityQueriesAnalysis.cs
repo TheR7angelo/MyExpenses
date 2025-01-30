@@ -151,4 +151,21 @@ public static class EntityQueriesAnalysis
 
         return records;
     }
+
+    /// <summary>
+    /// Retrieves the total annual budget data grouped by period.
+    /// </summary>
+    /// <returns>A list of groups, where each group represents annual budget records categorized by their period key.</returns>
+    public static List<IGrouping<int?, AnalysisVBudgetTotalAnnual>> GetVBudgetTotalAnnuals()
+    {
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // Retrieve records from the database.
+        using var context = new DataBaseContext();
+        var records = context.AnalysisVBudgetTotalAnnuals
+            .AsEnumerable()
+            .GroupBy(s => s.Period)
+            .ToList();
+
+        return records;
+    }
 }
