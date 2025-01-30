@@ -49,13 +49,23 @@ public partial class MsgBoxMessageWindow
     public string ButtonNoContent { get; } = MsgBoxMessageWindowResources.ButtonNo;
     public string ButtonYesContent { get; } = MsgBoxMessageWindowResources.ButtonYes;
 
+    private readonly Button[] _okOnly;
+    private readonly Button[] _okCancel;
+    private readonly Button[] _yesNo;
+    private readonly Button[] _yesNoCancel;
+
     public MsgBoxMessageWindow()
     {
         InitializeComponent();
 
-        this.SetWindowCornerPreference();
+        _okOnly = [ButtonOk];
+        _okCancel = [ButtonOk, ButtonCancel];
+        _yesNo = [ButtonYes, ButtonNo];
+        _yesNoCancel = [ButtonYes, ButtonNo, ButtonCancel];
 
         SetButtonVisibility();
+
+        this.SetWindowCornerPreference();
     }
 
     private void ButtonYes_OnClick(object sender, RoutedEventArgs e)
@@ -80,12 +90,12 @@ public partial class MsgBoxMessageWindow
     {
         var buttonSet = button switch
         {
-            MessageBoxButton.OK => (Visible: [ButtonOk], Collapsed: [ButtonYes, ButtonNo, ButtonCancel]),
-            MessageBoxButton.OKCancel => (Visible: [ButtonOk, ButtonCancel], Collapsed: [ButtonYes, ButtonNo]),
-            MessageBoxButton.YesNoCancel => (Visible: [ButtonYes, ButtonNo, ButtonCancel], Collapsed: [ButtonOk]),
-            MessageBoxButton.YesNo => (Visible: [ButtonYes, ButtonNo], Collapsed: [ButtonOk, ButtonCancel]),
-            _ => (Visible: new List<Button> { ButtonOk },
-                Collapsed: new List<Button> { ButtonYes, ButtonNo, ButtonCancel })
+            MessageBoxButton.OK => (Visible: _okOnly, Collapsed: _yesNoCancel),
+            MessageBoxButton.OKCancel => (Visible: _okCancel, Collapsed: _yesNo),
+            MessageBoxButton.YesNoCancel => (Visible: _yesNoCancel, Collapsed: _okOnly),
+            MessageBoxButton.YesNo => (Visible: _yesNo, Collapsed:_okCancel),
+            _ => (Visible: _okOnly,
+                Collapsed: _yesNoCancel)
         };
 
         foreach (var b in buttonSet.Visible) b.Visibility = Visibility.Visible;
