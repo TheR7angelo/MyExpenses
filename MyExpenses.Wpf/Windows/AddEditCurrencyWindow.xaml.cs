@@ -33,6 +33,7 @@ public partial class AddEditCurrencyWindow
 
     #region Property
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public TCurrency Currency { get; } = new();
 
     private List<TCurrency> Currencies { get; }
@@ -101,6 +102,7 @@ public partial class AddEditCurrencyWindow
 
     public AddEditCurrencyWindow()
     {
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
         using var context = new DataBaseContext();
         Currencies = [..context.TCurrencies];
 

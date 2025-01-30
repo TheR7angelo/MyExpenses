@@ -22,6 +22,7 @@ public partial class AddEditModePaymentWindow
         DependencyProperty.Register(nameof(EditModePayment), typeof(bool), typeof(AddEditModePaymentWindow),
             new PropertyMetadata(false));
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public TModePayment ModePayment { get; } = new();
 
     // ReSharper disable once HeapView.BoxingAllocation
@@ -91,6 +92,7 @@ public partial class AddEditModePaymentWindow
 
     public AddEditModePaymentWindow()
     {
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
         using var context = new DataBaseContext();
         ModePayments = [..context.TModePayments];
 

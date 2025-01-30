@@ -88,12 +88,14 @@ public partial class AddEditColorWindow
 
     private List<TColor> Colors { get; }
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public TColor Color { get; } = new();
 
     public bool DeleteColor { get; private set; }
 
     public AddEditColorWindow()
     {
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
         using var context = new DataBaseContext();
         Colors = [..context.TColors];
 
