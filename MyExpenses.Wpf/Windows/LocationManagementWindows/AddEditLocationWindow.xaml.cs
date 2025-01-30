@@ -4,7 +4,6 @@ using BruTile.Predefined;
 using Mapsui;
 using Mapsui.Layers;
 using Mapsui.Projections;
-using Mapsui.Styles;
 using Mapsui.Tiling.Layers;
 using Microsoft.Data.Sqlite;
 using MyExpenses.Models.AutoMapper;
@@ -237,8 +236,11 @@ public partial class AddEditLocationWindow
         set => SetValue(TitleWindowProperty, value);
     }
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public TPlace Place { get; } = new();
     public bool PlaceDeleted { get; private set; }
+
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     private WritableLayer WritableLayer { get; } = new() { Style = null };
     public List<KnownTileSource> KnownTileSources { get; }
 
@@ -345,6 +347,7 @@ public partial class AddEditLocationWindow
         }
 
         var coordinate = SphericalMercator.ToLonLat(newFeature.Point);
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
         Place.Geometry = new Point(coordinate.X, coordinate.Y);
 
         newFeature.IsTemp = false;
@@ -363,18 +366,7 @@ public partial class AddEditLocationWindow
 
         if (points.Count > 1)
         {
-            double minX = points.Min(p => p.X), maxX = points.Max(p => p.X);
-            double minY = points.Min(p => p.Y), maxY = points.Max(p => p.Y);
-
-            var width = maxX - minX;
-            var height = maxY - minY;
-
-            const double marginPercentage = 10; // Change this value to suit your needs
-            var marginX = width * marginPercentage / 100;
-            var marginY = height * marginPercentage / 100;
-
-            var mRect = new MRect(minX - marginX, minY - marginY, maxX + marginX, maxY + marginY);
-
+            var mRect = points.ToMRect();
             MapControl.Map.Navigator.ZoomToBox(mRect);
         }
         else ZoomToMPoint(points[0]);
@@ -457,7 +449,7 @@ public partial class AddEditLocationWindow
         var feature = new TemporaryPointFeature(worldPosition)
         {
             // ReSharper disable once HeapView.ObjectAllocation.Evident
-            Styles = new List<IStyle> { MapsuiStyleExtensions.GreenMarkerStyle },
+            Styles = [MapsuiStyleExtensions.GreenMarkerStyle],
             IsTemp = true
         };
 
@@ -500,6 +492,8 @@ public partial class AddEditLocationWindow
                     MsgBoxImage.Information);
 
                 var places = nominatimSearchResults.Select(s => mapper.Map<TPlace>(s));
+
+                // ReSharper disable once HeapView.ObjectAllocation.Evident
                 var nominatimSearchWindows = new NominatimSearchWindow();
                 nominatimSearchWindows.AddRange(places);
                 nominatimSearchWindows.ShowDialog();
@@ -556,6 +550,8 @@ public partial class AddEditLocationWindow
         const string layerName = "Background";
 
         var httpTileSource = BruTile.Predefined.KnownTileSources.Create(KnownTileSourceSelected);
+
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
         var tileLayer = new TileLayer(httpTileSource);
         tileLayer.Name = layerName;
 
