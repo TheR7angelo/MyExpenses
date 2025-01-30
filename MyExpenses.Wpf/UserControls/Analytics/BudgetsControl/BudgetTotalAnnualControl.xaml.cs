@@ -1,5 +1,5 @@
 using System.Windows;
-using System.Windows.Controls;
+using System.Windows.Data;
 using LiveChartsCore;
 using LiveChartsCore.Kernel.Sketches;
 using LiveChartsCore.SkiaSharpView;
@@ -30,9 +30,6 @@ public partial class BudgetTotalAnnualControl
     public ICartesianAxis[] XAxis { get; set; } = null!;
     public ICartesianAxis[] YAxis { get; set; } = null!;
 
-    public List<CheckBox> CheckBoxes { get; } = [];
-    public List<CheckBox> CheckBoxesTrend { get; } = [];
-
     public BudgetTotalAnnualControl()
     {
         UpdateTextPaint();
@@ -55,6 +52,16 @@ public partial class BudgetTotalAnnualControl
         UpdateTextPaint();
         UpdateAxisTextPaint();
     }
+
+    private void ViewSourceSeries_OnFilter(object sender, FilterEventArgs e)
+        => FilterSeriesTrend.ViewSourceSeries_OnFilter(e);
+
+    private void ViewSourceTrendSeries_OnFilter(object sender, FilterEventArgs e)
+        => FilterSeriesTrend.ViewSourceTrendSeries_OnFilter(e);
+
+    #endregion
+
+    #region Function
 
     private void UpdateAxisTextPaint()
     {
@@ -86,10 +93,6 @@ public partial class BudgetTotalAnnualControl
         }
     }
 
-    #endregion
-
-    #region Function
-
     private void UpdateLanguage()
     {
         var trend = BudgetsControlResources.Trend;
@@ -100,15 +103,11 @@ public partial class BudgetTotalAnnualControl
             var series = (LineSeries<double>)iSeries;
             if (series.Tag is not IsSeriesTranslatable { IsTranslatable: true } isSeriesTranslatable) continue;
 
-            var name = series.Name!;
-            var checkBox = CheckBoxesTrend.FirstOrDefault(s => s.Content.Equals(name)) ?? CheckBoxes.First(s => s.Content.Equals(name));
-
             var newName = isSeriesTranslatable.IsGlobal
                 ? isSeriesTranslatable.IsTrend ? $"{global} {trend}" : global
                 : $"{isSeriesTranslatable.OriginalName} {trend}";
 
             series.Name = newName;
-            checkBox.Content = newName;
         }
 
         UpdateLayout();
@@ -184,34 +183,6 @@ public partial class BudgetTotalAnnualControl
 
             series.Add(lineSeries);
             series.Add(trendSeries);
-
-            var checkBox = new CheckBox
-            {
-                Content = name,
-                IsChecked = lineSeries.IsVisible,
-                Margin = new Thickness(5)
-            };
-            checkBox.Click += (_, _) =>
-            {
-                {
-                    lineSeries.IsVisible = !lineSeries.IsVisible;
-                }
-            };
-            CheckBoxes.Add(checkBox);
-
-            var checkBoxTrend = new CheckBox
-            {
-                Content = trendName,
-                IsChecked = trendSeries.IsVisible,
-                Margin = new Thickness(5)
-            };
-            checkBoxTrend.Click += (_, _) =>
-            {
-                {
-                    trendSeries.IsVisible = !trendSeries.IsVisible;
-                }
-            };
-            CheckBoxesTrend.Add(checkBoxTrend);
         }
 
         var newSeries = Series.ToList();
@@ -260,34 +231,6 @@ public partial class BudgetTotalAnnualControl
 
         series.Add(lineSeries);
         series.Add(trendSeries);
-
-        var checkBox = new CheckBox
-        {
-            Content = name,
-            IsChecked = lineSeries.IsVisible,
-            Margin = new Thickness(5)
-        };
-        checkBox.Click += (_, _) =>
-        {
-            {
-                lineSeries.IsVisible = !lineSeries.IsVisible;
-            }
-        };
-        CheckBoxes.Add(checkBox);
-
-        var checkBoxTrend = new CheckBox
-        {
-            Content = trendName,
-            IsChecked = trendSeries.IsVisible,
-            Margin = new Thickness(5)
-        };
-        checkBoxTrend.Click += (_, _) =>
-        {
-            {
-                trendSeries.IsVisible = !trendSeries.IsVisible;
-            }
-        };
-        CheckBoxesTrend.Add(checkBoxTrend);
 
         Series = [..series];
     }
