@@ -372,7 +372,21 @@ public static class EntityQueries
         return query.ToList();
     }
 
-    public static IEnumerable<CategoryTotalData> CalculateCategoryTotals(this IEnumerable<VDetailTotalCategory> data, out double grandTotal)
+
+    /// <summary>
+    /// Calculates category totals from a collection of detailed category data and computes the overall grand total.
+    /// </summary>
+    /// <param name="data">
+    /// A collection of <see cref="VDetailTotalCategory"/> objects containing detailed information about categories.
+    /// </param>
+    /// <param name="grandTotal">
+    /// An output parameter that will hold the computed grand total, which is the sum of absolute values of all category totals.
+    /// </param>
+    /// <returns>
+    /// An <see cref="IEnumerable{T}"/> of <see cref="CategoryTotalData"/> representing the totals for each category, ordered in descending order by the absolute value of the totals.
+    /// </returns>
+    public static IEnumerable<CategoryTotalData> CalculateCategoryTotals(this IEnumerable<VDetailTotalCategory> data,
+        out double grandTotal)
     {
         var categoriesTotals = data
             .GroupBy(s => s.Category)
