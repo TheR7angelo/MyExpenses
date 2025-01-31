@@ -162,7 +162,7 @@ public partial class ProgressBarWindow
         {
             Dispatcher.Invoke(() =>
             {
-                var roundNormalizeBytes = Math.Round(latestSpeed, 1);
+                var roundNormalizeBytes = Math.Round(latestSpeed, 2);
                 SpeedProgress = $"{roundNormalizeBytes} {latestUnit}/s";
             });
         };
