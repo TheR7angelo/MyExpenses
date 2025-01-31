@@ -304,6 +304,7 @@ public partial class BankTransferPage
         UpdateLanguage();
         InitializeComponent();
 
+        UpdateLanguageDatePicker();
         Interface.LanguageChanged += Interface_OnLanguageChanged;
     }
 
@@ -539,7 +540,10 @@ public partial class BankTransferPage
     }
 
     private void Interface_OnLanguageChanged()
-        => UpdateLanguage();
+    {
+        UpdateLanguage();
+        UpdateLanguageDatePicker();
+    }
 
     private void SelectorFromAccount_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
     {
@@ -599,9 +603,11 @@ public partial class BankTransferPage
         ButtonPrepareCancelContent = BankTransferPageResources.ButtonPrepareCancelContent;
         ButtonPreviewValidContent = BankTransferPageResources.ButtonPreviewValidContent;
         ButtonPreviewCancelContent = BankTransferPageResources.ButtonPreviewCancelContent;
-
-        DatePicker.Language = System.Windows.Markup.XmlLanguage.GetLanguage(Thread.CurrentThread.CurrentCulture.Name);
     }
+
+    private void UpdateLanguageDatePicker()
+        => DatePicker.Language = System.Windows.Markup.XmlLanguage.GetLanguage(Thread.CurrentThread.CurrentCulture.Name);
+
 
     private void RefreshListFromAccount()
     {
