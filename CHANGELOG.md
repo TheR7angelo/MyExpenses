@@ -1,4 +1,14 @@
-# [](https://github.com/TheR7angelo/MyExpenses/compare/v1.0.7...v) (2025-01-01)
+# [](https://github.com/TheR7angelo/MyExpenses/compare/v1.0.7...v) (2025-01-31)
+
+
+### Features
+
+* **Update:** Remove unused Frame style from Styles.xaml ([1ec6e80](https://github.com/TheR7angelo/MyExpenses/commit/1ec6e80143625a3e8235ff0a857b37539362f666))
+
+
+### Performance Improvements
+
+* **Update:** Improved performance and clarity in data updates ([8f29f5d](https://github.com/TheR7angelo/MyExpenses/commit/8f29f5da48333bc82911074222c8aa148f74bb93))
 
 
 
@@ -19,7 +29,7 @@
 
 
 
-## [1.0.5](https://github.com/TheR7angelo/MyExpenses/compare/v1.0.0...v1.0.5) (2024-11-20)
+## [1.0.5](https://github.com/TheR7angelo/MyExpenses/compare/1.0.5...v1.0.5) (2024-11-20)
 
 
 ### Bug Fixes
