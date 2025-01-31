@@ -11,11 +11,12 @@ public partial class HowToUseControl
     // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty HowToUseCulturePathProperty =
         DependencyProperty.Register(nameof(HowToUseCulturePath), typeof(HowToUseCulturePath), typeof(HowToUseControl),
-            new PropertyMetadata(default(HowToUseCulturePath)));
+            new PropertyMetadata(null));
 
     public HowToUseCulturePath? HowToUseCulturePath
     {
         get => (HowToUseCulturePath)GetValue(HowToUseCulturePathProperty);
+        // ReSharper disable once HeapView.BoxingAllocation
         set => SetValue(HowToUseCulturePathProperty, value);
     }
 
