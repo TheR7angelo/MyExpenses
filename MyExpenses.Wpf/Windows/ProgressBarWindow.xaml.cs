@@ -157,6 +157,7 @@ public partial class ProgressBarWindow
     {
         double latestSpeed = 0;
         var latestUnit = "";
+        var latestUnit = string.Empty;
         var speedTimer = new Timer(TimeSpan.FromSeconds(2.5));
         speedTimer.Elapsed += (_, _) =>
         {
