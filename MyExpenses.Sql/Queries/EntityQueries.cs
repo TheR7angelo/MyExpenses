@@ -1,5 +1,7 @@
+using MyExpenses.Models.AutoMapper;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Models.Sql.Bases.Views;
+using MyExpenses.Models.Sql.Derivatives.Views;
 using MyExpenses.Models.Sql.Queries;
 using MyExpenses.Models.Wpf.Charts;
 using MyExpenses.Sql.Context;
@@ -372,6 +374,27 @@ public static class EntityQueries
         return query.ToList();
     }
 
+    public static IEnumerable<VRecursiveExpenseDerive> GetVRecursiveExpenseDerive()
+    {
+        var mapper = Mapping.Mapper;
+
+        var now = DateTime.Now;
+
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // Accessing the underlying data is only possible through the "DataBaseContext" object, which serves as the entry point
+        // to the database.
+        using var context = new DataBaseContext();
+        var records = context.TRecursiveExpenses
+            .Where(s => !s.ForceDeactivate)
+            .Where(s => s.IsActive)
+            .Where(s => s.NextDueDate.Year.Equals(now.Year) && s.NextDueDate.Month.Equals(now.Month))
+            .OrderBy(s => s.NextDueDate)
+            .Select(s => s.Id.ToISql<VRecursiveExpense>())
+            .Select(s => mapper.Map<VRecursiveExpenseDerive>(s))
+            .ToList();
+
+        return records;
+    }
 
     /// <summary>
     /// Calculates category totals from a collection of detailed category data and computes the overall grand total.

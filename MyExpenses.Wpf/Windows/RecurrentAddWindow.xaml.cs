@@ -5,9 +5,9 @@ using FilterDataGrid;
 using MyExpenses.Models.AutoMapper;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Sql.Bases.Tables;
-using MyExpenses.Models.Sql.Bases.Views;
 using MyExpenses.Models.Sql.Derivatives.Views;
 using MyExpenses.Sql.Context;
+using MyExpenses.Sql.Queries;
 using MyExpenses.Utils.Collection;
 using MyExpenses.Utils.DateTimes;
 using MyExpenses.Wpf.Resources.Resx.Windows.RecurrentAddWindow;
@@ -175,18 +175,7 @@ public partial class RecurrentAddWindow
 
     private void UpdateDataGrid()
     {
-        var mapper = Mapping.Mapper;
-
-        var now = DateTime.Now;
-        using var context = new DataBaseContext();
-        var records = context.TRecursiveExpenses
-            .Where(s => !s.ForceDeactivate)
-            .Where(s => s.IsActive)
-            .Where(s => s.NextDueDate.Year.Equals(now.Year) && s.NextDueDate.Month.Equals(now.Month))
-            .OrderBy(s => s.NextDueDate)
-            .Select(s => s.Id.ToISql<VRecursiveExpense>())
-            .Select(s => mapper.Map<VRecursiveExpenseDerive>(s));
-
+        var records = EntityQueries.GetVRecursiveExpenseDerive();
         VRecursiveExpensesDerives.Clear();
         VRecursiveExpensesDerives.AddRange(records);
     }
