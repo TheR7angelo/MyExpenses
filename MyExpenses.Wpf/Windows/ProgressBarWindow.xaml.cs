@@ -94,8 +94,6 @@ public partial class ProgressBarWindow
     private CancellationTokenSource? CancellationTokenSource { get; set; }
     private bool DownloadIsDone { get; set; }
 
-    private Stopwatch Stopwatch { get; } = new();
-
     public ProgressBarWindow()
     {
         UpdateLanguage();
@@ -107,9 +105,6 @@ public partial class ProgressBarWindow
     }
 
     #region Action
-
-    private void DispatcherTimer_OnTick(object? sender, EventArgs e)
-        => Dispatcher.Invoke(() => { TimeElapsed = Stopwatch.Elapsed; });
 
     private void Interface_OnLanguageChanged()
         => UpdateLanguage();
@@ -156,8 +151,9 @@ public partial class ProgressBarWindow
     private Timer GetSpeedProgress(out IProgress<(double NormalizeBytes, string NormalizeBytesUnit)> speedProgress)
     {
         double latestSpeed = 0;
-        var latestUnit = "";
         var latestUnit = string.Empty;
+
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
         var speedTimer = new Timer(TimeSpan.FromSeconds(2.5));
         speedTimer.Elapsed += (_, _) =>
         {
@@ -186,8 +182,12 @@ public partial class ProgressBarWindow
     /// <returns>A Task representing the asynchronous download operation.</returns>
     public async Task StartProgressBarDownload(string url, string destinationFile, bool overwrite = false)
     {
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        var stopwatch = new Stopwatch();
+
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
         var dispatcherTimer = new DispatcherTimer { Interval = TimeSpan.FromSeconds(1) };
-        dispatcherTimer.Tick += DispatcherTimer_OnTick;
+        dispatcherTimer.Tick += (_, _) => Dispatcher.Invoke(() => { TimeElapsed = stopwatch.Elapsed; });
 
         IProgress<double> percentProgress = new Progress<double>(d => { ProgressBarPercent.Value = d; });
 
@@ -198,7 +198,7 @@ public partial class ProgressBarWindow
         CancellationTokenSource = new CancellationTokenSource();
 
         dispatcherTimer.Start();
-        Stopwatch.Start();
+        stopwatch.Start();
         await Http.DownloadFileWithReportAsync(url, destinationFile, overwrite, percentProgress: percentProgress,
             speedProgress: speedProgress, timeLeftProgress: timeLeftProgress,
             cancellationToken: CancellationTokenSource.Token);
@@ -206,7 +206,7 @@ public partial class ProgressBarWindow
         DownloadIsDone = true;
         speedTimer.Stop();
         dispatcherTimer.Stop();
-        Stopwatch.Stop();
+        stopwatch.Stop();
 
         Thread.Sleep(TimeSpan.FromSeconds(2.5));
     }
