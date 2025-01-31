@@ -194,14 +194,18 @@ public partial class MainWindow
 
     private void MenuItemHelp_OnClick(object sender, RoutedEventArgs e)
     {
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
         var helpsWindow = new HelpsWindow();
         helpsWindow.ShowDialog();
     }
 
     private void MenuItemVacuumDatabases_OnClick(object sender, RoutedEventArgs e)
     {
+        // ReSharper disable HeapView.ObjectAllocation.Evident
         var listSuccess = new List<bool>();
         var sizeDatabases = new List<SizeDatabase>();
+        // ReSharper restore HeapView.ObjectAllocation.Evident
+
         foreach (var existingDatabase in DbContextBackup.GetExistingDatabase())
         {
             var oldSize = existingDatabase.FileInfo.Length;
@@ -210,9 +214,10 @@ public partial class MainWindow
 
             if (result is not true) continue;
 
-            var newSize = new ExistingDatabase(existingDatabase.FilePath).FileInfo.Length;
             // ReSharper disable once HeapView.ObjectAllocation.Evident
             var newSize = new FileInfo(existingDatabase.FilePath).Length;
+
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
             var sizeDatabase = new SizeDatabase { FileNameWithoutExtension = existingDatabase.FileNameWithoutExtension };
             sizeDatabase.SetOldSize(oldSize);
             sizeDatabase.SetNewSize(newSize);
@@ -235,12 +240,14 @@ public partial class MainWindow
 
         if (!listSuccess.Any(s => s)) return;
 
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
         var vacuumDatabaseUpdateWindow = new VacuumDatabaseUpdateWindow(sizeDatabases);
         vacuumDatabaseUpdateWindow.ShowDialog();
     }
 
     private void MenuItemVacuumDatabase_OnClick(object sender, RoutedEventArgs e)
     {
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
         var existingDatabase = new ExistingDatabase(DataBaseContext.FilePath!);
 
         var oldSize = existingDatabase.FileInfo.Length;
@@ -250,13 +257,15 @@ public partial class MainWindow
             MsgBox.Show(MainWindowResources.MessageBoxMenuItemVacuumDatabaseSucess, MsgBoxImage.Check,
                 MessageBoxButton.OK);
 
-            var newSize = new ExistingDatabase(DataBaseContext.FilePath!).FileInfo.Length;
             // ReSharper disable once HeapView.ObjectAllocation.Evident
             var newSize = new FileInfo(DataBaseContext.FilePath!).Length;
+
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
             var sizeDatabase = new SizeDatabase { FileNameWithoutExtension = existingDatabase.FileNameWithoutExtension };
             sizeDatabase.SetOldSize(oldSize);
             sizeDatabase.SetNewSize(newSize);
 
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
             var vacuumDatabaseUpdateWindow = new VacuumDatabaseUpdateWindow(sizeDatabase);
             vacuumDatabaseUpdateWindow.ShowDialog();
         }
@@ -271,6 +280,7 @@ public partial class MainWindow
 
     private void MenuItemSetting_OnClick(object sender, RoutedEventArgs e)
     {
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
         var settingsWindow = new SettingsWindow();
         settingsWindow.ShowDialog();
     }
@@ -292,6 +302,7 @@ public partial class MainWindow
 
         var database = DataBaseContext.FilePath!;
 
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
         var waitScreenWindow = new WaitScreenWindow();
         try
         {
@@ -366,6 +377,7 @@ public partial class MainWindow
 
     private static async Task ExportToLocalFolderAsync(string databaseFilePath, bool isCompress)
     {
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
         var folderDialog = new FolderDialog();
         var selectedDialog = folderDialog.GetFile();
 
@@ -380,6 +392,7 @@ public partial class MainWindow
         var success = false;
         await Task.Run(async () =>
         {
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
             var existingDatabase = new ExistingDatabase(databaseFilePath);
             success = await existingDatabase.ToFolderAsync(selectedDialog, isCompress);
         });
@@ -399,6 +412,7 @@ public partial class MainWindow
 
     private static async Task SaveToLocal(string database)
     {
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
         var sqliteDialog = new SqliteFileDialog(Path.GetFileName(database));
         var selectedDialog = sqliteDialog.SaveFile();
 
