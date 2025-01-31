@@ -557,12 +557,12 @@ CREATE TRIGGER after_insert_on_t_recursive_expense
 BEGIN
     UPDATE t_recursive_expense
     SET start_date    = CASE
-                            WHEN typeof(NEW.start_date) = 'integer' THEN datetime(NEW.start_date / 1000, 'unixepoch')
+                            WHEN typeof(NEW.start_date) = 'integer' THEN date(NEW.start_date / 1000, 'unixepoch')
                             ELSE NEW.start_date
         END,
         next_due_date = CASE
                             WHEN typeof(NEW.next_due_date) = 'integer'
-                                THEN datetime(NEW.next_due_date / 1000, 'unixepoch')
+                                THEN date(NEW.next_due_date / 1000, 'unixepoch')
                             ELSE NEW.next_due_date
             END,
         date_added    = CASE
@@ -580,12 +580,12 @@ CREATE TRIGGER after_update_on_t_recursive_expense
 BEGIN
     UPDATE t_recursive_expense
     SET start_date    = CASE
-                            WHEN typeof(NEW.start_date) = 'integer' THEN datetime(NEW.start_date / 1000, 'unixepoch')
+                            WHEN typeof(NEW.start_date) = 'integer' THEN date(NEW.start_date / 1000, 'unixepoch')
                             ELSE NEW.start_date
         END,
         next_due_date = CASE
                             WHEN typeof(NEW.next_due_date) = 'integer'
-                                THEN datetime(NEW.next_due_date / 1000, 'unixepoch')
+                                THEN date(NEW.next_due_date / 1000, 'unixepoch')
                             ELSE NEW.next_due_date
             END,
         date_added    = CASE
