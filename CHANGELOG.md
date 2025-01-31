@@ -1,8 +1,13 @@
-# [](https://github.com/TheR7angelo/MyExpenses/compare/v1.0.7...v) (2025-01-31)
+#  (2025-01-31)
+
+
+
+# [1.1.0](https://github.com/TheR7angelo/MyExpenses/compare/v1.0.7...1.1.0) (2025-01-31)
 
 
 ### Features
 
+* **Update:** Add information about cloud synchronization status ([734f216](https://github.com/TheR7angelo/MyExpenses/commit/734f21618faa397df1fa284847dc9f0413805ba9))
 * **Update:** Remove unused Frame style from Styles.xaml ([1ec6e80](https://github.com/TheR7angelo/MyExpenses/commit/1ec6e80143625a3e8235ff0a857b37539362f666))
 
 
@@ -29,7 +34,7 @@
 
 
 
-## [1.0.5](https://github.com/TheR7angelo/MyExpenses/compare/1.0.5...v1.0.5) (2024-11-20)
+## [1.0.5](https://github.com/TheR7angelo/MyExpenses/compare/v1.0.0...v1.0.5) (2024-11-20)
 
 
 ### Bug Fixes
