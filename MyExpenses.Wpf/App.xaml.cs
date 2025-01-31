@@ -27,9 +27,11 @@ public partial class App
         DataBaseContext.LogEfCore = systemArgs.LogEfCore;
         DataBaseContext.WriteToFileEfCore = systemArgs.WriteToFileEfCore;
 
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
         CancellationTokenSource = new CancellationTokenSource();
 
         var splashScreenWindow = new SplashScreen("Resources\\Assets\\Applications\\Icon Resize.png");
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
         splashScreenWindow.Show(true, true);
 
         Log.Logger = LoggerConfig.CreateConfig(systemArgs.LogEventLevel);
@@ -70,6 +72,7 @@ public partial class App
         {
             var currentCurrentCulture = CultureInfo.CurrentUICulture.Name;
 
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
             using var context = new DataBaseContext(DatabaseInfos.LocalFilePathDataBaseModel);
 
             currentCultureIsSupported = context.TSupportedLanguages.Any(s => s.Code == currentCurrentCulture);
@@ -82,6 +85,7 @@ public partial class App
             configuration.WriteConfiguration();
         }
         
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
         var cultureInfo = new CultureInfo(cultureInfoCode);
         Thread.CurrentThread.CurrentCulture = cultureInfo;
         Thread.CurrentThread.CurrentUICulture = cultureInfo;
