@@ -5,6 +5,7 @@ namespace MyExpenses.Wpf;
 
 public static class ThemeManager
 {
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     private static PaletteHelper ThemeHelper { get; } = new();
 
     /// <summary>

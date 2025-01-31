@@ -49,6 +49,8 @@ public static class Navigator
         {
             if (_canGoBack == value) return;
             _canGoBack = value;
+
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
             CanGoBackChanged?.Invoke(null, new NavigatorEventArgs { CanGoBack = _canGoBack, CanGoForward = _canGoForward});
         }
     }
@@ -66,10 +68,13 @@ public static class Navigator
         {
             if (_canGoForward == value) return;
             _canGoForward = value;
+
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
             CanGoForwardChanged?.Invoke(null, new NavigatorEventArgs { CanGoBack = _canGoBack, CanGoForward = _canGoForward});
         }
     }
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     private static readonly Dictionary<string, NavigationService> NavigationServices = new();
 
     /// <summary>
@@ -105,6 +110,7 @@ public static class Navigator
     /// <param name="param">Optional parameter to pass to the page being navigated to.</param>
     private static void NavigateTo(this string nameOfFrame, string path, object? param = null)
     {
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
         NavigationServices[nameOfFrame].Navigate(new Uri(path, UriKind.RelativeOrAbsolute), param);
         CanGoBack = true;
     }

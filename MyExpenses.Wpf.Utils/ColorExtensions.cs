@@ -90,6 +90,7 @@ public static class ColorExtensions
     /// <param name="color">The System.Drawing.Color object to convert.</param>
     /// <returns>A SolidColorBrush instance representing the converted color.</returns>
     public static SolidColorBrush ToSolidColorBrush(this Color color)
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
         => new(color);
 
     /// <summary>
