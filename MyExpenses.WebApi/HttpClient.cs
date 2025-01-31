@@ -53,10 +53,10 @@ public abstract class Http
         // Since it is a scoped and lightweight object, its allocation occurs only when required and has no measurable impact on performance.
         IProgress<(double Percentage, double NormalizeBytes, string NormalizeBytesUnit, TimeSpan TimeLeft)> progressLog =
             new Progress<(double Percentage, double NormalizeBytes, string NormalizeBytesUnit, TimeSpan TimeLeft)>(
-                value => Log.Information("Progress: {Percentage:F2}% | Speed: {Speed:F2} {NormalizeBytesUnit}/s | Time Left: {TimeLeft:g}",
-                    value.Percentage.ToString(CultureInfo.InvariantCulture),
-                    value.NormalizeBytes.ToString(CultureInfo.InvariantCulture),
-                    value.NormalizeBytesUnit, value.TimeLeft.ToString()));
+                value => Log.Information("Progress: {Percentage}% | Speed: {Speed} {NormalizeBytesUnit}/s | Time Left: {TimeLeft}",
+                    value.Percentage.ToString("F2"),
+                    value.NormalizeBytes.ToString("F2"),
+                    value.NormalizeBytesUnit, value.TimeLeft.ToString(@"hh\:mm\:ss")));
 
         try
         {
