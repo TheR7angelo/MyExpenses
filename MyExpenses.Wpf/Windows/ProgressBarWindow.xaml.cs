@@ -135,10 +135,13 @@ public partial class ProgressBarWindow
     private Timer GetTimeLeftProgress(out IProgress<TimeSpan> timeLeftProgress)
     {
         var timeLeft = TimeSpan.Zero;
+
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
         var timeLeftTimer = new Timer(TimeSpan.FromSeconds(1));
         timeLeftTimer.Elapsed += (_, _) => { Dispatcher.Invoke(() => { TimeLeftProgress = timeLeft; }); };
         timeLeftTimer.Start();
 
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
         timeLeftProgress = new Progress<TimeSpan>(d => { timeLeft = d; });
         return timeLeftTimer;
     }
@@ -165,6 +168,7 @@ public partial class ProgressBarWindow
         };
         speedTimer.Start();
 
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
         speedProgress = new Progress<(double NormalizeBytes, string NormalizeBytesUnit)>(d =>
         {
             latestSpeed = d.NormalizeBytes;
@@ -189,12 +193,15 @@ public partial class ProgressBarWindow
         var dispatcherTimer = new DispatcherTimer { Interval = TimeSpan.FromSeconds(1) };
         dispatcherTimer.Tick += (_, _) => Dispatcher.Invoke(() => { TimeElapsed = stopwatch.Elapsed; });
 
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
         IProgress<double> percentProgress = new Progress<double>(d => { ProgressBarPercent.Value = d; });
 
         using var speedTimer = GetSpeedProgress(out var speedProgress);
         using var timeRemainingTimer = GetTimeLeftProgress(out var timeLeftProgress);
 
         CancellationTokenSource?.Dispose();
+
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
         CancellationTokenSource = new CancellationTokenSource();
 
         dispatcherTimer.Start();
