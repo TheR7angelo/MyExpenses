@@ -211,6 +211,8 @@ public partial class MainWindow
             if (result is not true) continue;
 
             var newSize = new ExistingDatabase(existingDatabase.FilePath).FileInfo.Length;
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
+            var newSize = new FileInfo(existingDatabase.FilePath).Length;
             var sizeDatabase = new SizeDatabase { FileNameWithoutExtension = existingDatabase.FileNameWithoutExtension };
             sizeDatabase.SetOldSize(oldSize);
             sizeDatabase.SetNewSize(newSize);
@@ -249,6 +251,8 @@ public partial class MainWindow
                 MessageBoxButton.OK);
 
             var newSize = new ExistingDatabase(DataBaseContext.FilePath!).FileInfo.Length;
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
+            var newSize = new FileInfo(DataBaseContext.FilePath!).Length;
             var sizeDatabase = new SizeDatabase { FileNameWithoutExtension = existingDatabase.FileNameWithoutExtension };
             sizeDatabase.SetOldSize(oldSize);
             sizeDatabase.SetNewSize(newSize);
