@@ -131,19 +131,11 @@ public partial class RecurrentAddWindow
         var vRecursiveExpenseDerives = VRecursiveExpensesDerives
             .Where(s => s.RecursiveToAdd);
 
+        var mapper = Mapping.Mapper;
         foreach (var vRecursiveExpenseDerive in vRecursiveExpenseDerives)
         {
-            var history = new THistory
-            {
-                AccountFk = vRecursiveExpenseDerive.AccountFk,
-                Description = vRecursiveExpenseDerive.Description,
-                CategoryTypeFk = vRecursiveExpenseDerive.CategoryTypeFk,
-                ModePaymentFk = vRecursiveExpenseDerive.ModePaymentFk,
-                Value = vRecursiveExpenseDerive.Value,
-                Date = DateTimeExtensions.ToDateTime(vRecursiveExpenseDerive.NextDueDate),
-                PlaceFk = vRecursiveExpenseDerive.PlaceFk,
-                RecursiveExpenseFk = vRecursiveExpenseDerive.Id
-            };
+            var history = mapper.Map<THistory>(vRecursiveExpenseDerive);
+            history.Date = DateTimeExtensions.ToDateTime(vRecursiveExpenseDerive.NextDueDate);
             history.AddOrEdit();
 
             var recursive = vRecursiveExpenseDerive.Id.ToISql<TRecursiveExpense>()!;
