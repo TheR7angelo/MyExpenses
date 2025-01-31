@@ -1,4 +1,5 @@
 ﻿using System.Globalization;
+using System.IO;
 using System.Windows;
 using System.Windows.Media;
 using MaterialDesignThemes.Wpf;
@@ -30,8 +31,9 @@ public partial class App
         // ReSharper disable once HeapView.ObjectAllocation.Evident
         CancellationTokenSource = new CancellationTokenSource();
 
-        var splashScreenWindow = new SplashScreen("Resources\\Assets\\Applications\\Icon Resize.png");
+        var iconPath = Path.Join("Resources", "Assets", "Applications", "Icon Resize.png");
         // ReSharper disable once HeapView.ObjectAllocation.Evident
+        var splashScreenWindow = new SplashScreen(iconPath);
         splashScreenWindow.Show(true, true);
 
         Log.Logger = LoggerConfig.CreateConfig(systemArgs.LogEventLevel);
