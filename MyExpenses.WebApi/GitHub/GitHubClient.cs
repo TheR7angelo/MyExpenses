@@ -29,7 +29,8 @@ public class GitHubClient : Http
         }
 
         var content = await response.Content.ReadAsStringAsync();
-        var hardReleases = content.ToObject<List<MyExpenses.Models.WebApi.Github.Hard.Release>>()!;
+        var hardReleases = content.ToObject<List<MyExpenses.Models.WebApi.Github.Hard.Release>>()!
+            .OrderByDescending(s => s.PublishedAt);
 
         var mapper = Mapping.Mapper;
         var softReleases = hardReleases.Select(s => mapper.Map<MyExpenses.Models.WebApi.Github.Soft.Release>(s)).ToList();
