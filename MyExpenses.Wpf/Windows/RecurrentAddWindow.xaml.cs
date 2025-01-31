@@ -146,9 +146,9 @@ public partial class RecurrentAddWindow
             };
             history.AddOrEdit();
 
-            var recurcive = vRecursiveExpenseDerive.Id.ToISql<TRecursiveExpense>()!;
-            recurcive = UpdateTRecursiveExpense(recurcive);
-            recurcive.AddOrEdit();
+            var recursive = vRecursiveExpenseDerive.Id.ToISql<TRecursiveExpense>()!;
+            recursive = UpdateTRecursiveExpense(recursive);
+            recursive.AddOrEdit();
         }
 
         Close();
