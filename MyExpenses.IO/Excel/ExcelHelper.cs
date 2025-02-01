@@ -52,9 +52,14 @@ public static class ExcelHelper
     /// <param name="onPropertyName">The name of the property in the target Type that corresponds to the column to be sorted.</param>
     /// <param name="sortOrder">The order in which to sort the column (ascending or descending).</param>
     public static void OrderTable(this ExcelTable excelTable, Type onType, string onPropertyName,
+        // ReSharper disable once HeapView.ClosureAllocation
         eSortOrder sortOrder = eSortOrder.Ascending)
     {
         var index = Array.IndexOf(onType.GetProperties(), onType.GetProperty(onPropertyName));
+
+        // ReSharper disable once HeapView.DelegateAllocation
+        // The hint related to possible closure or allocation inefficiencies was purposefully ignored,
+        // as the performance-cost tradeoff is minimal, and the lambda provides better readability for this use case.
         excelTable.Sort(s => s.SortBy.Column(index, sortOrder));
     }
 
