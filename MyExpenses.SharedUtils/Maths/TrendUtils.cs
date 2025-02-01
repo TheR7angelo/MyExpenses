@@ -13,9 +13,12 @@ public static class TrendUtils
 
         var xData = Enumerable.Range(1, enumerable.Length).Select(i => (double)i).ToArray();
         var (a, b) = xData.CalculateLinearTrend(enumerable.ToArray());
-        var trendValues = xData.Select(x => Math.Round(a * x + b, 2));
 
-        return trendValues;
+        foreach (var x in xData)
+        {
+            var round = Math.Round(a * x + b, 2);
+            yield return round;
+        }
     }
 
     /// <summary>
