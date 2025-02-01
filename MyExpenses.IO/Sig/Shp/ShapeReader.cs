@@ -50,6 +50,9 @@ public static class ShapeReader
         return (enumerable.ToList<T>().ToList(), projection);
     }
 
+    // ReSharper disable once HeapView.ClosureAllocation
+    // The "GetGeographicCoordinateSystemFromPrj" method is used to retrieve the projection information from the .prj file.
+    // This method is expected to be called only once per file, so it is declared as a static method.
     private static TSpatialRefSy? GetGeographicCoordinateSystemFromPrj(this string projectionString)
     {
         // Creating a new DataBaseContext instance is required to access the database.
@@ -57,6 +60,10 @@ public static class ShapeReader
         // The "using" statement ensures proper disposal of the context after use.
         // ReSharper disable once HeapView.ObjectAllocation.Evident
         using var context = new DataBaseContext(DatabaseInfos.LocalFilePathDataBaseModel);
+
+        // ReSharper disable once HeapView.ObjectAllocation
+        // The "TSpatialRefSys" table is used to retrieve the projection information from the database.
+        // This allocation is intentional and necessary to avoid unnecessary overhead.
         return context.TSpatialRefSys.FirstOrDefault(s => s.Proj4text.Equals(projectionString));
     }
 
