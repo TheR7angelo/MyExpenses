@@ -4,6 +4,7 @@ using AutoMapper;
 using Mapsui.Layers;
 using Mapsui.Projections;
 using MyExpenses.Models.Sql.Bases.Tables;
+using MyExpenses.SharedUtils.Properties;
 
 namespace MyExpenses.Models.AutoMapper.Profiles;
 
@@ -22,7 +23,7 @@ public class PointFeatureToTPlaceProfile : Profile
         var properties = typeof(TPlace).GetProperties();
         foreach (var entry in feature.Fields)
         {
-            var property = properties.FirstOrDefault(s => s.GetCustomAttribute<ColumnAttribute>()?.Name == entry);
+            var property = entry.GetPropertiesInfoByName<ColumnAttribute>(properties);
             if (property is null) continue;
             var value = feature[entry];
             if ((value is string str && !string.IsNullOrEmpty(str)) || value is not null)

@@ -4,8 +4,8 @@ using System.Reflection;
 using System.Xml.Linq;
 using MyExpenses.Models.IO.Sig.Interfaces;
 using MyExpenses.SharedUtils;
+using MyExpenses.SharedUtils.Properties;
 using MyExpenses.Utils.Maps;
-using MyExpenses.Utils.Properties;
 using NetTopologySuite.Geometries;
 using Serilog;
 

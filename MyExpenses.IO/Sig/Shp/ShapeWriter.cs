@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 using MyExpenses.Models.IO.Sig.Interfaces;
-using MyExpenses.Utils.Properties;
+using MyExpenses.SharedUtils.Properties;
 using NetTopologySuite.Geometries;
 using NetTopologySuite.IO.Esri;
 using NetTopologySuite.IO.Esri.Dbf.Fields;

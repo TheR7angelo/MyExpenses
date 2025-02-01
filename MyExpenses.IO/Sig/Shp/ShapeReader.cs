@@ -4,9 +4,9 @@ using MyExpenses.Models.IO.Sig.Interfaces;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.SharedUtils.Converters;
 using MyExpenses.SharedUtils.GlobalInfos;
+using MyExpenses.SharedUtils.Properties;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils.Objects;
-using MyExpenses.Utils.Properties;
 using NetTopologySuite.Features;
 using NetTopologySuite.Geometries.Utilities;
 using NetTopologySuite.IO.Esri;
@@ -83,10 +83,13 @@ public static class ShapeReader
 
     private static void ProcessAttributes<T>(Feature feature, T instance) where T : class
     {
+        var type = typeof(T);
+        var properties = type.GetProperties();
+
         foreach (var attributeName in feature.Attributes.GetNames())
         {
             var truncatedName = TruncateName(attributeName);
-            var property = truncatedName.GetPropertiesInfoByName<T, ColumnAttribute>();
+            var property = truncatedName.GetPropertiesInfoByName<ColumnAttribute>(properties);
 
             if (property == null || !property.CanWrite) continue;
 
