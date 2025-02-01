@@ -106,7 +106,11 @@ public static class ShapeWriter
 
     private static long GetCurrentTotalFileSize(string basePath)
     {
-        var finalSize = Extensions.Sum(extension => GetFileSize(basePath, extension));
+        long finalSize = 0;
+        foreach (var extension in Extensions)
+        {
+            finalSize += GetFileSize(basePath, extension);
+        }
         return finalSize;
     }
 
