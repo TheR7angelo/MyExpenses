@@ -2,6 +2,9 @@ using Ookii.Dialogs.Wpf;
 
 namespace MyExpenses.Wpf.Utils.FilePicker;
 
+/// <summary>
+/// Represents a dialog for selecting folders or files.
+/// </summary>
 public class FolderDialog(string? titleOpenFile = null, bool multiSelect = false)
 {
     // ReSharper disable once HeapView.ObjectAllocation.Evident
@@ -13,6 +16,10 @@ public class FolderDialog(string? titleOpenFile = null, bool multiSelect = false
         Multiselect = multiSelect
     };
 
+    /// <summary>
+    /// Retrieves all selected files from the folder picker dialog.
+    /// </summary>
+    /// <returns>An array of strings containing the paths of selected files, or null if no files were selected.</returns>
     private string[]? GetFiles()
     {
         var success = _vistaFolderBrowserDialog.ShowDialog();
@@ -22,6 +29,10 @@ public class FolderDialog(string? titleOpenFile = null, bool multiSelect = false
         return path.Length is 0 ? null : path;
     }
 
+    /// <summary>
+    /// Retrieves the first selected file from the file picker dialog.
+    /// </summary>
+    /// <returns>The path of the first selected file as a string, or null if no file was selected.</returns>
     public string? GetFile()
         => GetFiles()?.FirstOrDefault();
 }
