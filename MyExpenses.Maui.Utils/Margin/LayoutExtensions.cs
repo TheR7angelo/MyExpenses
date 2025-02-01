@@ -44,45 +44,48 @@ namespace MyExpenses.Maui.Utils.Margin
             (Thickness)layout.GetValue(MarginForAllChildrenProperty);
 
         /// <summary>
-        /// Handler for the <see cref="LayoutExtensions.MarginForAllChildrenProperty"/> property changed event.
-        /// Applies the margin value to all children of the layout.
+        /// Handles changes to the MarginForAllChildren attached property and updates the margin of all child elements accordingly.
         /// </summary>
-        /// <param name="bindable">The bindable object representing the layout.</param>
-        /// <param name="oldValue">The old margin value.</param>
-        /// <param name="newValue">The new margin value.</param>
+        /// <param name="bindable">The object to which the property is attached, expected to be of type <see cref="Microsoft.Maui.Controls.Layout"/>.</param>
+        /// <param name="oldValue">The old value of the MarginForAllChildren property.</param>
+        /// <param name="newValue">The new value of the MarginForAllChildren property.</param>
         [SupportedOSPlatform("Android21.0")]
         [SupportedOSPlatform("iOS15.0")]
         [SupportedOSPlatform("MacCatalyst14.0")]
         [SupportedOSPlatform("Windows")]
         private static void OnMarginForAllChildrenChanged(BindableObject bindable, object oldValue, object newValue)
         {
-            if (bindable is Layout layout)
+            if (bindable is not Layout layout) return;
+            var margin = (Thickness)newValue;
+
+            ApplyMarginToAllChildren(layout, margin);
+
+            layout.ChildAdded += (_, e) => ApplyMarginToChild(e.Element as View, margin);
+        }
+
+        /// <summary>
+        /// Applies the specified margin to all children of the given <see cref="Microsoft.Maui.Controls.Layout"/>.
+        /// </summary>
+        /// <param name="layout">The Layout instance whose children's margins will be set.</param>
+        /// <param name="margin">The margin value to be applied to all children of the layout.</param>
+        private static void ApplyMarginToAllChildren(Layout layout, Thickness margin)
+        {
+            foreach (var child in layout.Children)
             {
-                ApplyMargin(layout, (Thickness)newValue);
-                layout.ChildAdded += (_, _) => ApplyMargin(layout, (Thickness)newValue);
+                ApplyMarginToChild(child as View, margin);
             }
         }
 
         /// <summary>
-        /// Applies the specified margin to all children of the specified <see cref="Microsoft.Maui.Controls.Layout"/>.
+        /// Applies the specified margin to a child view if its current margin is not set.
         /// </summary>
-        /// <param name="layout">The <see cref="Microsoft.Maui.Controls.Layout"/> instance to apply the margin to its children.</param>
-        /// <param name="margin">The margin value to be applied to all children.</param>
-        [SupportedOSPlatform("Android")]
-        [SupportedOSPlatform("iOS15.0")]
-        [SupportedOSPlatform("MacCatalyst14.0")]
-        [SupportedOSPlatform("Windows")]
-        private static void ApplyMargin(Layout layout, Thickness margin)
+        /// <param name="child">The child view to which the margin will be applied.</param>
+        /// <param name="margin">The margin value to be applied to the child view.</param>
+        private static void ApplyMarginToChild(View? child, Thickness margin)
         {
-            foreach (var child in layout.Children)
+            if (child != null && child.Margin == default)
             {
-                if (child is View view)
-                {
-                    if (view.Margin == default)
-                    {
-                        view.Margin = margin;
-                    }
-                }
+                child.Margin = margin;
             }
         }
     }
