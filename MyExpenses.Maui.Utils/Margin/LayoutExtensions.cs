@@ -60,6 +60,7 @@ namespace MyExpenses.Maui.Utils.Margin
 
             ApplyMarginToAllChildren(layout, margin);
 
+            // ReSharper disable once HeapView.DelegateAllocation
             layout.ChildAdded += (_, e) => ApplyMarginToChild(e.Element as View, margin);
         }
 
