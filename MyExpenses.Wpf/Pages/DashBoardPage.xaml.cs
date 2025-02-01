@@ -13,6 +13,7 @@ using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Models.Sql.Bases.Views;
 using MyExpenses.Models.Sql.Queries;
 using MyExpenses.Models.Wpf.Charts;
+using MyExpenses.SharedUtils.Properties;
 using MyExpenses.Sql.Context;
 using MyExpenses.Sql.Queries;
 using MyExpenses.Utils;

@@ -11,6 +11,7 @@ using Mapsui.Tiling.Layers;
 using Microsoft.Data.Sqlite;
 using MyExpenses.Models.Config;
 using MyExpenses.Models.Sql.Bases.Tables;
+using MyExpenses.SharedUtils.Properties;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils;
 using MyExpenses.Utils.Collection;

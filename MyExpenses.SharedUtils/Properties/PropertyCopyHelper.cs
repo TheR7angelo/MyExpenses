@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 
-namespace MyExpenses.Utils;
+namespace MyExpenses.SharedUtils.Properties;
 
 /// <summary>
 /// A static class that provides methods for copying properties from one object to another.

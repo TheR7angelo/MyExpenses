@@ -4,6 +4,7 @@ using System.Windows.Input;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Models.Sql.Bases.Views;
+using MyExpenses.SharedUtils.Properties;
 using MyExpenses.Smartphones.Resources.Resx.ContentPages.AddEditBankTransferContentPage;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils;

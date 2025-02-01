@@ -2,6 +2,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Sql.Bases.Tables;
+using MyExpenses.SharedUtils.Properties;
 using MyExpenses.Smartphones.ContentPages.CustomPopups.CustomPopupActivityIndicator;
 using MyExpenses.Smartphones.Resources.Resx.ContentPages.AddEditAccountContentPage;
 using MyExpenses.Sql.Context;
