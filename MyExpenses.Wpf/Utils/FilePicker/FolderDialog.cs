@@ -13,9 +13,6 @@ public class FolderDialog(string? titleOpenFile = null, bool multiSelect = false
         Multiselect = multiSelect
     };
 
-    public IEnumerable<string> Extensions { get; } = Array.Empty<string>();
-
-    public string[]? GetFiles()
     private string[]? GetFiles()
     {
         var success = _vistaFolderBrowserDialog.ShowDialog();
@@ -27,7 +24,4 @@ public class FolderDialog(string? titleOpenFile = null, bool multiSelect = false
 
     public string? GetFile()
         => GetFiles()?.FirstOrDefault();
-
-    public string? SaveFile()
-        => null;
 }
