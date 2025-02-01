@@ -16,11 +16,13 @@ public class FolderDialog(string? titleOpenFile = null, bool multiSelect = false
     public IEnumerable<string> Extensions { get; } = Array.Empty<string>();
 
     public string[]? GetFiles()
+    private string[]? GetFiles()
     {
-        var path = GetFile();
+        var success = _vistaFolderBrowserDialog.ShowDialog();
+        if(success is not true) return null;
+        var path = _vistaFolderBrowserDialog.SelectedPaths;
 
-        if (string.IsNullOrEmpty(path)) return null;
-        return [path];
+        return path.Length is 0 ? null : path;
     }
 
     public string? GetFile()
