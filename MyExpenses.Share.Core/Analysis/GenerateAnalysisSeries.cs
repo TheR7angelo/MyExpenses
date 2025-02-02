@@ -4,6 +4,7 @@ using LiveChartsCore.Measure;
 using LiveChartsCore.SkiaSharpView;
 using LiveChartsCore.SkiaSharpView.Drawing.Geometries;
 using LiveChartsCore.SkiaSharpView.Painting;
+using MyExpenses.Models.AutoMapper;
 using MyExpenses.Models.Sql.Bases.Groups.VAccountCategoryMonthlySums;
 using MyExpenses.Models.Sql.Bases.Groups.VAccountModePaymentCategoryMonthlySums;
 using MyExpenses.Models.Sql.Bases.Views.Analysis;
@@ -127,6 +128,8 @@ public static class GenerateAnalysisSeries
                 .ToArray();
 
             var values = monthlyPaymentDataPoints.Select(s => s.MonthlySum).ToList();
+
+            // ReSharper disable once HeapView.DelegateAllocation
             var columnSeries = name.CreateColumnSeries(values, null, tooltipFormatter, point =>
                 {
                     var index = point.Index;
@@ -157,14 +160,10 @@ public static class GenerateAnalysisSeries
             var name = recordsByAccount.First().AccountName!;
 
             var values = recordsByAccount.Select(s => Math.Round(s.PeriodValue ?? 0, 2)).ToList();
-            var analysisVBudgetMonthlies = recordsByAccount.Select(s => s).ToList();
+            var analysisVBudgetMonthlies = recordsByAccount.Select(s => Mapping.Mapper.Map<BudgetRecordInfo>(s)).ToArray();
 
-            var lineSeries = name.CreateLineSeries(values, point =>
-                {
-                    var dataPoint = analysisVBudgetMonthlies[point.Index];
-                    return $"{dataPoint.PeriodValue} {currency}{Environment.NewLine}" +
-                           $"{dataPoint.Status} {dataPoint.DifferenceValue ?? 0:F2}{currency} ({dataPoint.Percentage}%)";
-                });
+            var func = analysisVBudgetMonthlies.CreateCircleGeometryLabelFunc(currency);
+            var lineSeries = name.CreateLineSeries(values, func);
 
             yield return lineSeries;
 
@@ -174,7 +173,7 @@ public static class GenerateAnalysisSeries
             var isSeriesTranslatableTrend = new IsSeriesTranslatable { OriginalName = name, IsTranslatable = true };
 
             var trendName = $"{name} {trend}";
-            var func = currency.CreateCircleGeometryLabelFunc();
+            func = currency.CreateCircleGeometryLabelFunc();
             var trendSeries = trendName.CreateLineSeries(trendValues, func, null, false, 0, isSeriesTranslatableTrend);
 
             yield return trendSeries;
@@ -200,14 +199,11 @@ public static class GenerateAnalysisSeries
             var name = recordsByAccount.First().AccountName!;
 
             var values = recordsByAccount.Select(s => Math.Round(s.PeriodValue ?? 0, 2)).ToList();
-            var analysisVBudgetMonthlies = recordsByAccount.Select(s => s).ToList();
 
-            var lineSeries = name.CreateLineSeries(values, point =>
-            {
-                var dataPoint = analysisVBudgetMonthlies[point.Index];
-                return $"{dataPoint.PeriodValue} {currency}{Environment.NewLine}" +
-                       $"{dataPoint.Status} {dataPoint.DifferenceValue ?? 0:F2}{currency} ({dataPoint.Percentage}%)";
-            });
+            var analysisVBudgetMonthlies = recordsByAccount.Select(s => Mapping.Mapper.Map<BudgetRecordInfo>(s)).ToArray();
+            var func = analysisVBudgetMonthlies.CreateCircleGeometryLabelFunc(currency);
+
+            var lineSeries = name.CreateLineSeries(values, func);
 
             yield return lineSeries;
 
@@ -217,7 +213,7 @@ public static class GenerateAnalysisSeries
             var isSeriesTranslatableTrend = new IsSeriesTranslatable { OriginalName = name, IsTranslatable = true };
 
             var trendName = $"{name} {trend}";
-            var func = currency.CreateCircleGeometryLabelFunc();
+            func = currency.CreateCircleGeometryLabelFunc();
             var trendSeries = trendName.CreateLineSeries(trendValues, func, null, false, 0, isSeriesTranslatableTrend);
 
             yield return trendSeries;
@@ -240,15 +236,10 @@ public static class GenerateAnalysisSeries
             var name = recordsByAccount.First().AccountName!;
             var values = recordsByAccount.Select(s => Math.Round(s.PeriodValue ?? 0, 2)).ToList();
 
-            var analysisVBudgetMonthlies = recordsByAccount.Select(s => s)
-                .ToList();
+            var analysisVBudgetMonthlies = recordsByAccount.Select(s => Mapping.Mapper.Map<BudgetRecordInfo>(s)).ToArray();
 
-            var lineSeries = name.CreateLineSeries(values, point =>
-            {
-                var dataPoint = analysisVBudgetMonthlies[point.Index];
-                return $"{dataPoint.PeriodValue} {currency}{Environment.NewLine}" +
-                       $"{dataPoint.Status} {dataPoint.DifferenceValue ?? 0:F2}{currency} ({dataPoint.Percentage}%)";
-            });
+            var func = analysisVBudgetMonthlies.CreateCircleGeometryLabelFunc(currency);
+            var lineSeries = name.CreateLineSeries(values, func);
 
             yield return lineSeries;
 
@@ -258,7 +249,7 @@ public static class GenerateAnalysisSeries
             var isSeriesTranslatableTrend = new IsSeriesTranslatable { OriginalName = name, IsTranslatable = true };
 
             var trendName = $"{name} {trend}";
-            var func = currency.CreateCircleGeometryLabelFunc();
+            func = currency.CreateCircleGeometryLabelFunc();
             var trendSeries = trendName.CreateLineSeries(trendValues, func, null, false, 0, isSeriesTranslatableTrend);
 
             yield return trendSeries;
@@ -273,13 +264,31 @@ public static class GenerateAnalysisSeries
     /// <returns>A function that formats chart point labels as strings, including the currency symbol.</returns>
     private static Func<ChartPoint<double, RoundedRectangleGeometry, LabelGeometry>, string> CreateRoundedRectangleLabelFunc(
         this string symbol, int multiplier = 1)
+        // ReSharper disable once HeapView.DelegateAllocation
         => point => $"{point.Model * multiplier:F2} {symbol}";
 
+    /// <summary>
+    /// Creates a function that generates a label text for circle geometries based on the budget records and currency.
+    /// </summary>
+    /// <param name="records">An array of budget record information used for label generation.</param>
+    /// <param name="currency">The currency symbol to include in the label text.</param>
+    /// <returns>A function that takes a chart point and returns the corresponding label as a string.</returns>
+    private static Func<ChartPoint<double, CircleGeometry, LabelGeometry>, string> CreateCircleGeometryLabelFunc
+        (this BudgetRecordInfo[] records, string currency)
+        // ReSharper disable once HeapView.DelegateAllocation
+        => point =>
+        {
+            var dataPoint = records[point.Index];
+            return $"{dataPoint.Value} {currency}{Environment.NewLine}" +
+                   $"{dataPoint.Status} {dataPoint.DifferenceValue:F2}{currency} ({dataPoint.Percentage}%)";
+        };
+    
     /// <summary>
     /// Creates a label formatting function for circle geometry labels, displaying the provided symbol alongside the numeric value.
     /// </summary>
     /// <param name="symbol">The symbol to be appended to the numeric value in the label.</param>
     /// <returns>A function that formats a string label for a chart point with a numeric model and the given symbol.</returns>
     private static Func<ChartPoint<double, CircleGeometry, LabelGeometry>, string> CreateCircleGeometryLabelFunc(this string symbol)
+        // ReSharper disable once HeapView.DelegateAllocation
         => point => $"{point.Model:F2} {symbol}";
 }
