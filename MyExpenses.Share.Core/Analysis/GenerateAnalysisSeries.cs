@@ -90,7 +90,7 @@ public static class GenerateAnalysisSeries
 
         foreach (var groupsByAccount in groupsByAccounts)
         {
-            var name = groupsByAccount.Key!.ToString()!;
+            var name = groupsByAccount.First().Account!;
             var values = groupsByAccount.Select(s => Math.Round(s.CumulativeSum ?? 0, 2)).ToList();
 
             var stakedColumnSeries = name.CreateStackedColumnSeries(values, func);
