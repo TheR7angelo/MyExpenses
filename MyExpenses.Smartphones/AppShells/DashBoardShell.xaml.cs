@@ -74,6 +74,8 @@ public partial class DashBoardShell
 
         InitializeComponent();
 
+        // ReSharper disable once HeapView.DelegateAllocation
+        // Necessary allocation of a new AppShell instance.
         Interface.LanguageChanged += Interface_OnLanguageChanged;
     }
 
