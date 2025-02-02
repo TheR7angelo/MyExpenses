@@ -100,4 +100,54 @@ public static class PropertiesUtils
 
         return null;
     }
+
+    /// <summary>
+    /// Retrieves the property information from a set of destination properties
+    /// based on a specified property name and source type.
+    /// </summary>
+    /// <param name="destinationProperties">An array of PropertyInfo objects representing the destination properties to search within.</param>
+    /// <param name="name">The name of the property to search for.</param>
+    /// <param name="sourceType">The type of the source property to match against.</param>
+    /// <returns>
+    /// A PropertyInfo object that matches the specified name and type, or null if no match is found.
+    /// </returns>
+    private static PropertyInfo? GetPropertiesInfoByNameAndType(this PropertyInfo[] destinationProperties, string name,
+        Type sourceType)
+    {
+        foreach (var propertyInfo in destinationProperties)
+        {
+            if (propertyInfo.Name.Equals(name) && (Nullable.GetUnderlyingType(propertyInfo.PropertyType) ?? propertyInfo.PropertyType) == sourceType)
+            {
+                return propertyInfo;
+            }
+        }
+
+        return null;
+    }
+
+    /// <summary>
+    /// Copies the properties from one object to another.
+    /// </summary>
+    /// <typeparam name="TSource">The type of the source object.</typeparam>
+    /// <typeparam name="TDestination">The type of the destination object.</typeparam>
+    /// <param name="source">The source object.</param>
+    /// <param name="destination">The destination object.</param>
+    public static void CopyPropertiesTo<TSource, TDestination>(this TSource source, TDestination destination)
+        where TSource : class
+        where TDestination : class
+    {
+        var sourceProperties = typeof(TSource).GetProperties(BindingFlags.Public | BindingFlags.Instance);
+        var destinationProperties = typeof(TDestination).GetProperties(BindingFlags.Public | BindingFlags.Instance);
+
+        foreach (var sourceProperty in sourceProperties)
+        {
+            var sourceType = Nullable.GetUnderlyingType(sourceProperty.PropertyType) ?? sourceProperty.PropertyType;
+
+            var destinationProperty = destinationProperties.GetPropertiesInfoByNameAndType(sourceProperty.Name, sourceType);
+
+            if (destinationProperty == null || !destinationProperty.CanWrite) continue;
+            var value = sourceProperty.GetValue(source);
+            destinationProperty.SetValue(destination, value);
+        }
+    }
 }
