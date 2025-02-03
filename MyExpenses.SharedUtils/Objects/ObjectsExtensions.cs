@@ -27,6 +27,8 @@ public static class ObjectsExtensions
             if (IsPrimitive(arrayType) == false)
             {
                 var clonedArray = (Array)cloneObject!;
+
+                // ReSharper disable once HeapView.DelegateAllocation
                 clonedArray.ForEach((array, indices) =>
                     array.SetValue(InternalCopy(clonedArray.GetValue(indices), visited), indices));
             }

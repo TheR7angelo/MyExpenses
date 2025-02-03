@@ -15,6 +15,7 @@ public static class CommandLineUtility
         var result = new SSystems();
 
         parser.ParseArguments<Options>(args)
+            // ReSharper disable once HeapView.DelegateAllocation
             .WithParsed(o =>
                 {
                     result.LogEventLevel = o.DebugLevel;
