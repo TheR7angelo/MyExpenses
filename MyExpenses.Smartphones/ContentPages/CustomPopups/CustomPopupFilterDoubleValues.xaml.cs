@@ -53,6 +53,7 @@ public partial class CustomPopupFilterDoubleValues : ICustomPopupFilter<DoubleIs
         {
             foreach (var historyValueAlreadyChecked in historyValuesAlreadyChecked.Where(s => s.IsChecked))
             {
+                // ReSharper disable once HeapView.DelegateAllocation
                 var histories = HistoryValues
                     .Where(history => history.DoubleValue.HasValue &&
                                       historyValueAlreadyChecked.DoubleValue.HasValue &&
@@ -137,8 +138,8 @@ public partial class CustomPopupFilterDoubleValues : ICustomPopupFilter<DoubleIs
         var value = SearchText.Replace(',', '.');
         var result = double.TryParse(value, out var parsedResult) ? parsedResult : 0;
 
-        var filterHistory = OriginalHistoryValues.Where(s =>
-            s.DoubleValue!.ToString()!.Contains(result.ToString(CultureInfo.InvariantCulture)));
+        // ReSharper disable once HeapView.DelegateAllocation
+        var filterHistory = OriginalHistoryValues.Where(s => s.DoubleValue!.ToString()!.Contains(result.ToString(CultureInfo.InvariantCulture)));
 
         HistoryValues.Clear();
         HistoryValues.AddRange(filterHistory);

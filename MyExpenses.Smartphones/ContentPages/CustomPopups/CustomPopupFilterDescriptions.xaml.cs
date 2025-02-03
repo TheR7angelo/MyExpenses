@@ -51,8 +51,8 @@ public partial class CustomPopupFilterDescriptions : ICustomPopupFilter<StringIs
         {
             foreach (var historyDescriptionAlreadyChecked in historyDescriptionsAlreadyChecked.Where(s => s.IsChecked))
             {
-                var histories = HistoryDescriptions.Where(s =>
-                    s.StringValue == historyDescriptionAlreadyChecked.StringValue).ToList();
+                // ReSharper disable once HeapView.DelegateAllocation
+                var histories = HistoryDescriptions.Where(s => s.StringValue == historyDescriptionAlreadyChecked.StringValue).ToList();
                 if (histories.Count is 0) continue;
 
                 foreach (var history in histories)
@@ -130,8 +130,8 @@ public partial class CustomPopupFilterDescriptions : ICustomPopupFilter<StringIs
     {
         SearchText ??= string.Empty;
 
-        var filterHistory = OriginalHistoryDescriptions.Where(s =>
-            s.StringValue!.Contains(SearchText, StringComparison.InvariantCultureIgnoreCase));
+        // ReSharper disable once HeapView.DelegateAllocation
+        var filterHistory = OriginalHistoryDescriptions.Where(s => s.StringValue!.Contains(SearchText, StringComparison.InvariantCultureIgnoreCase));
 
         HistoryDescriptions.Clear();
         HistoryDescriptions.AddRange(filterHistory);

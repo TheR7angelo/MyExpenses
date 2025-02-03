@@ -52,8 +52,8 @@ public partial class CustomPopupFilterAccount : ICustomPopupFilter<TAccountDeriv
         {
             foreach (var accountDeriveAlreadyChecked in accountDerivesAlreadyChecked.Where(s => s.IsChecked))
             {
-                var histories = AccountDerives.Where(s =>
-                    s.Name!.Equals(accountDeriveAlreadyChecked.Name)).ToList();
+                // ReSharper disable once HeapView.DelegateAllocation
+                var histories = AccountDerives.Where(s => s.Name!.Equals(accountDeriveAlreadyChecked.Name)).ToList();
                 if (histories.Count is 0) continue;
 
                 foreach (var history in histories)
@@ -131,8 +131,8 @@ public partial class CustomPopupFilterAccount : ICustomPopupFilter<TAccountDeriv
     {
         SearchText ??= string.Empty;
 
-        var filterAccountNames = OriginalAccountDerives.Where(s =>
-            s.Name!.Contains(SearchText, StringComparison.InvariantCultureIgnoreCase));
+        // ReSharper disable once HeapView.DelegateAllocation
+        var filterAccountNames = OriginalAccountDerives.Where(s => s.Name!.Contains(SearchText, StringComparison.InvariantCultureIgnoreCase));
 
         AccountDerives.Clear();
         AccountDerives.AddRange(filterAccountNames);

@@ -51,6 +51,7 @@ public partial class CustomPopupFilterCategories : ICustomPopupFilter<VCategoryD
         {
             foreach (var categoryDeriveAlreadyChecked in categoryDerivesAlreadyChecked.Where(s => s.IsChecked))
             {
+                // ReSharper disable once HeapView.DelegateAllocation
                 var categoryDerive = VCategoryDerives.FirstOrDefault(s => s.Id.Equals(categoryDeriveAlreadyChecked.Id));
                 if (categoryDerive is null) continue;
                 categoryDerive.IsChecked = categoryDeriveAlreadyChecked.IsChecked;
@@ -116,8 +117,8 @@ public partial class CustomPopupFilterCategories : ICustomPopupFilter<VCategoryD
     {
         SearchText ??= string.Empty;
 
-        var filterCategories = OriginalCategories.Where(s =>
-            s.CategoryName!.Contains(SearchText, StringComparison.InvariantCultureIgnoreCase));
+        // ReSharper disable once HeapView.DelegateAllocation
+        var filterCategories = OriginalCategories.Where(s => s.CategoryName!.Contains(SearchText, StringComparison.InvariantCultureIgnoreCase));
 
         VCategoryDerives.Clear();
         VCategoryDerives.AddRange(filterCategories);

@@ -52,6 +52,7 @@ public partial class CustomPopupFilterPlaces : ICustomPopupFilter<TPlaceDerive>
         {
             foreach (var modePlaceAlreadyChecked in modePlacesAlreadyChecked.Where(s => s.IsChecked))
             {
+                // ReSharper disable once HeapView.DelegateAllocation
                 var placeDerive = PlaceDerives.FirstOrDefault(s => s.Id.Equals(modePlaceAlreadyChecked.Id));
                 if (placeDerive is null) continue;
                 placeDerive.IsChecked = modePlaceAlreadyChecked.IsChecked;
@@ -117,8 +118,8 @@ public partial class CustomPopupFilterPlaces : ICustomPopupFilter<TPlaceDerive>
     {
         SearchText ??= string.Empty;
 
-        var filterPlaces = OriginalPlaceDerives.Where(s =>
-            s.Name!.Contains(SearchText, StringComparison.InvariantCultureIgnoreCase));
+        // ReSharper disable once HeapView.DelegateAllocation
+        var filterPlaces = OriginalPlaceDerives.Where(s => s.Name!.Contains(SearchText, StringComparison.InvariantCultureIgnoreCase));
 
         PlaceDerives.Clear();
         PlaceDerives.AddRange(filterPlaces);

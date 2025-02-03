@@ -51,6 +51,7 @@ public partial class CustomPopupFilterModePayments : ICustomPopupFilter<TModePay
         {
             foreach (var modePaymentAlreadyChecked in modePaymentsAlreadyChecked.Where(s => s.IsChecked))
             {
+                // ReSharper disable once HeapView.DelegateAllocation
                 var modePaymentDerive = ModePaymentDerives.FirstOrDefault(s => s.Id.Equals(modePaymentAlreadyChecked.Id));
                 if (modePaymentDerive is null) continue;
                 modePaymentDerive.IsChecked = modePaymentAlreadyChecked.IsChecked;
@@ -116,8 +117,8 @@ public partial class CustomPopupFilterModePayments : ICustomPopupFilter<TModePay
     {
         SearchText ??= string.Empty;
 
-        var filterCategories = OriginalModePaymentDerives.Where(s =>
-            s.Name!.Contains(SearchText, StringComparison.InvariantCultureIgnoreCase));
+        // ReSharper disable once HeapView.DelegateAllocation
+        var filterCategories = OriginalModePaymentDerives.Where(s => s.Name!.Contains(SearchText, StringComparison.InvariantCultureIgnoreCase));
 
         ModePaymentDerives.Clear();
         ModePaymentDerives.AddRange(filterCategories);

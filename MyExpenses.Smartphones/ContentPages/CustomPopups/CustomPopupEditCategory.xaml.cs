@@ -174,6 +174,7 @@ public partial class CustomPopupEditCategory
 
     public void SetVCategory(VCategory category)
     {
+        // ReSharper disable once HeapView.DelegateAllocation
         var color = Colors.First(s => s.Id.Equals((int)category.ColorFk!));
         SelectedColor = color;
         SelectedHexadecimalColorCode = color.HexadecimalColorCode!;
