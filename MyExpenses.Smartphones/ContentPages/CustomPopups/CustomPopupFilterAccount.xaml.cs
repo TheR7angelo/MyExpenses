@@ -55,7 +55,11 @@ public partial class CustomPopupFilterAccount : ICustomPopupFilter<TAccountDeriv
                 var histories = AccountDerives.Where(s =>
                     s.Name!.Equals(accountDeriveAlreadyChecked.Name)).ToList();
                 if (histories.Count is 0) continue;
-                histories.ForEach(s => s.IsChecked = accountDeriveAlreadyChecked.IsChecked);
+
+                foreach (var history in histories)
+                {
+                    history.IsChecked = accountDeriveAlreadyChecked.IsChecked;
+                }
             }
         }
 
@@ -94,7 +98,10 @@ public partial class CustomPopupFilterAccount : ICustomPopupFilter<TAccountDeriv
     {
         var check = GeometrySource is EPackIcons.CheckboxBlankOutline;
 
-        OriginalAccountDerives.ForEach(s => s.IsChecked = check);
+        foreach (var originalAccountDerive in OriginalAccountDerives)
+        {
+            originalAccountDerive.IsChecked = check;
+        }
 
         FilterAccountNamesBySearchText();
         CalculateCheckboxIconGeometrySource();

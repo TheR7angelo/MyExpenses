@@ -87,7 +87,10 @@ public partial class CustomPopupFilterPlaces : ICustomPopupFilter<TPlaceDerive>
     {
         var check = GeometrySource is EPackIcons.CheckboxBlankOutline;
 
-        OriginalPlaceDerives.ForEach(s => s.IsChecked = check);
+        foreach (var originalPlaceDerive in OriginalPlaceDerives)
+        {
+            originalPlaceDerive.IsChecked = check;
+        }
 
         FilterPlaceBySearchText();
         CalculateCheckboxIconGeometrySource();

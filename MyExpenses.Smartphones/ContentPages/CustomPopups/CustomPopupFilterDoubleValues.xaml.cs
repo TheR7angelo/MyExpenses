@@ -59,7 +59,11 @@ public partial class CustomPopupFilterDoubleValues : ICustomPopupFilter<DoubleIs
                                       history.DoubleValue.Value.AreEqual(historyValueAlreadyChecked.DoubleValue.Value))
                     .ToList();
                 if (histories.Count is 0) continue;
-                histories.ForEach(s => s.IsChecked = historyValueAlreadyChecked.IsChecked);
+
+                foreach (var history in histories)
+                {
+                    history.IsChecked = historyValueAlreadyChecked.IsChecked;
+                }
             }
         }
 
@@ -98,7 +102,10 @@ public partial class CustomPopupFilterDoubleValues : ICustomPopupFilter<DoubleIs
     {
         var check = GeometrySource is EPackIcons.CheckboxBlankOutline;
 
-        OriginalHistoryValues.ForEach(s => s.IsChecked = check);
+        foreach (var originalHistoryValue in OriginalHistoryValues)
+        {
+            originalHistoryValue.IsChecked = check;
+        }
 
         FilterHistoryValuesBySearchText();
         CalculateCheckboxIconGeometrySource();

@@ -86,7 +86,10 @@ public partial class CustomPopupFilterModePayments : ICustomPopupFilter<TModePay
     {
         var check = GeometrySource is EPackIcons.CheckboxBlankOutline;
 
-        OriginalModePaymentDerives.ForEach(s => s.IsChecked = check);
+        foreach (var originalModePaymentDerive in OriginalModePaymentDerives)
+        {
+            originalModePaymentDerive.IsChecked = check;
+        }
 
         FilterModePaymentBySearchText();
         CalculateCheckboxIconGeometrySource();

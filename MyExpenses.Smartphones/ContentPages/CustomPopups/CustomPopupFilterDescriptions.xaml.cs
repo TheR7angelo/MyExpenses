@@ -54,7 +54,11 @@ public partial class CustomPopupFilterDescriptions : ICustomPopupFilter<StringIs
                 var histories = HistoryDescriptions.Where(s =>
                     s.StringValue == historyDescriptionAlreadyChecked.StringValue).ToList();
                 if (histories.Count is 0) continue;
-                histories.ForEach(s => s.IsChecked = historyDescriptionAlreadyChecked.IsChecked);
+
+                foreach (var history in histories)
+                {
+                    history.IsChecked = historyDescriptionAlreadyChecked.IsChecked;
+                }
             }
         }
 
@@ -93,7 +97,10 @@ public partial class CustomPopupFilterDescriptions : ICustomPopupFilter<StringIs
     {
         var check = GeometrySource is EPackIcons.CheckboxBlankOutline;
 
-        OriginalHistoryDescriptions.ForEach(s => s.IsChecked = check);
+        foreach (var originalHistoryDescription in OriginalHistoryDescriptions)
+        {
+            originalHistoryDescription.IsChecked = check;
+        }
 
         FilterHistoryDescriptionsBySearchText();
         CalculateCheckboxIconGeometrySource();

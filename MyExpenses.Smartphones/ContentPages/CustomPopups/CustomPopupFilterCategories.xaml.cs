@@ -86,7 +86,10 @@ public partial class CustomPopupFilterCategories : ICustomPopupFilter<VCategoryD
     {
         var check = GeometrySource is EPackIcons.CheckboxBlankOutline;
 
-        OriginalCategories.ForEach(s => s.IsChecked = check);
+        foreach (var originalCategory in OriginalCategories)
+        {
+            originalCategory.IsChecked = check;
+        }
 
         FilterCategoriesBySearchText();
         CalculateCheckboxIconGeometrySource();
