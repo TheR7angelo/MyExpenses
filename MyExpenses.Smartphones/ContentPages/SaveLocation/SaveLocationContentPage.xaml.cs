@@ -92,51 +92,24 @@ public partial class SaveLocationContentPage
     }
 
     private void OnBackCommandPressed()
-    {
-        Task.Run(async () =>
-        {
-            _taskCompletionSource.SetResult(false);
-            await Navigation.PopAsync();
-        });
-    }
+        => _ = HandleReturn(false);
 
     private void ButtonImageViewCellphone_OnClicked(object? sender, EventArgs e)
-    {
-        Task.Run(async () =>
-        {
-            SaveLocationResult = Models.Wpf.Save.SaveLocation.Local;
-            _taskCompletionSource.SetResult(true);
-            await Navigation.PopAsync();
-        });
-    }
+        => _ = HandleReturn(true, Models.Wpf.Save.SaveLocation.Local);
 
     private void ButtonImageViewDropbox_OnClicked(object? sender, EventArgs e)
-    {
-        Task.Run(async () =>
-        {
-            SaveLocationResult = Models.Wpf.Save.SaveLocation.Dropbox;
-            _taskCompletionSource.SetResult(true);
-            await Navigation.PopAsync();
-        });
-    }
+        => _ = HandleReturn(true, Models.Wpf.Save.SaveLocation.Dropbox);
 
     private void ButtonImageViewFolder_OnClicked(object? sender, EventArgs e)
-    {
-        Task.Run(async () =>
-        {
-            SaveLocationResult = Models.Wpf.Save.SaveLocation.Folder;
-            _taskCompletionSource.SetResult(true);
-            await Navigation.PopAsync();
-        });
-    }
+        => _ = HandleReturn(true, Models.Wpf.Save.SaveLocation.Folder);
 
     private void ButtonImageViewDatabase_OnClicked(object? sender, EventArgs e)
+        => _ = HandleReturn(true, Models.Wpf.Save.SaveLocation.Database);
+
+    private async Task HandleReturn(bool result, MyExpenses.Models.Wpf.Save.SaveLocation? saveLocation = null)
     {
-        Task.Run(async () =>
-        {
-            SaveLocationResult = Models.Wpf.Save.SaveLocation.Database;
-            _taskCompletionSource.SetResult(true);
-            await Navigation.PopAsync();
-        });
+        SaveLocationResult = saveLocation;
+        _taskCompletionSource.SetResult(result);
+        await Navigation.PopAsync();
     }
 }
