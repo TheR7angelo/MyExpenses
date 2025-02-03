@@ -1,7 +1,7 @@
 using System.Linq.Expressions;
 using System.Reflection;
 
-namespace MyExpenses.Utils.Objects;
+namespace MyExpenses.SharedUtils.Objects;
 
 /// <summary>
 /// Provides a cache mechanism for dynamically creating and storing field getter and setter actions

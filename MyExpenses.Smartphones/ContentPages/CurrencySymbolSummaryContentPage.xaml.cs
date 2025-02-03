@@ -5,12 +5,12 @@ using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Maui.CustomPopup;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.SharedUtils.Collection;
+using MyExpenses.SharedUtils.Objects;
 using MyExpenses.Smartphones.ContentPages.CustomPopups;
 using MyExpenses.Smartphones.ContentPages.CustomPopups.CustomPopupActivityIndicator;
 using MyExpenses.Smartphones.Resources.Resx.ContentPages.CurrencySymbolSummaryContentPage;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils;
-using MyExpenses.Utils.Objects;
 using Serilog;
 
 namespace MyExpenses.Smartphones.ContentPages;

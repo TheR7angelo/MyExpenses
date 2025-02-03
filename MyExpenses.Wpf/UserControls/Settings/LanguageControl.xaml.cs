@@ -4,9 +4,9 @@ using System.Windows;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.SharedUtils.Collection;
 using MyExpenses.SharedUtils.GlobalInfos;
+using MyExpenses.SharedUtils.Objects;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils;
-using MyExpenses.Utils.Objects;
 using MyExpenses.Wpf.Resources.Resx.UserControls.Settings.LanguageControl;
 
 namespace MyExpenses.Wpf.UserControls.Settings;

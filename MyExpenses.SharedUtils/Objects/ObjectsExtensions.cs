@@ -1,6 +1,6 @@
 using System.Reflection;
 
-namespace MyExpenses.Utils.Objects;
+namespace MyExpenses.SharedUtils.Objects;
 
 public static class ObjectsExtensions
 {

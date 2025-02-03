@@ -1,6 +1,6 @@
 using System.Reflection;
 using BenchmarkDotNet.Attributes;
-using MyExpenses.Utils.Objects;
+using MyExpenses.SharedUtils.Objects;
 
 namespace MyExpenses.Benchmark.Utils.Objects
 {
