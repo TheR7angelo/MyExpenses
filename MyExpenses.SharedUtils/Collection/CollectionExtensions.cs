@@ -38,6 +38,8 @@ public static class CollectionExtensions
 
         var tempList = collection.ToList();
         tempList.Add(item);
+
+        // ReSharper disable once HeapView.DelegateAllocation
         tempList.Sort((x, y) => string.Compare(keySelector(x), keySelector(y), StringComparison.Ordinal));
 
         var index = tempList.IndexOf(item);
@@ -121,6 +123,8 @@ public static class CollectionExtensions
 
         var tempList = collection.ToList();
         tempList.Add(item);
+
+        // ReSharper disable once HeapView.DelegateAllocation
         tempList.Sort((x, y) => string.Compare(keySelector(x), keySelector(y), StringComparison.Ordinal));
 
         var index = tempList.IndexOf(item);
