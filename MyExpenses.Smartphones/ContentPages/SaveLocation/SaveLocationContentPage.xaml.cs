@@ -61,6 +61,7 @@ public partial class SaveLocationContentPage
     public SaveLocationContentPage(SaveLocationMode saveLocationMode)
     {
         // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // ReSharper disable once HeapView.DelegateAllocation
         // Necessary instantiation of the Command to bind the OnBackCommandPressed logic to the UI event.
         // This creates a command that encapsulates the behavior to be executed when the user triggers the "Back" action.
         BackCommand = new Command(OnBackCommandPressed);
