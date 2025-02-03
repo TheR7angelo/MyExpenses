@@ -2,12 +2,12 @@ using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Sql.Bases.Tables;
+using MyExpenses.SharedUtils.Collection;
 using MyExpenses.SharedUtils.Properties;
 using MyExpenses.Smartphones.ContentPages.CustomPopups.CustomPopupActivityIndicator;
 using MyExpenses.Smartphones.Resources.Resx.ContentPages.AddEditAccountContentPage;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils;
-using MyExpenses.Utils.Collection;
 using MyExpenses.Utils.Objects;
 using Serilog;
 
@@ -297,6 +297,7 @@ public partial class AddEditAccountContentPage
         if (account is not null) account.CopyPropertiesTo(Account);
         else if (id is not null)
         {
+            // ReSharper disable once HeapView.DelegateAllocation
             account = Accounts.First(s => s.Id.Equals(id.Value));
             account.CopyPropertiesTo(Account);
         }

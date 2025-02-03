@@ -11,13 +11,13 @@ using MyExpenses.Models.Sql.Bases.Views;
 using MyExpenses.Models.Sql.Derivatives.Tables;
 using MyExpenses.Models.Sql.Derivatives.Views;
 using MyExpenses.Models.Sql.Queries;
+using MyExpenses.SharedUtils.Collection;
 using MyExpenses.Smartphones.ContentPages.CustomPopups;
 using MyExpenses.Smartphones.PackIcons;
 using MyExpenses.Smartphones.Resources.Resx.ContentPages.BankTransferSummaryContentPage;
 using MyExpenses.Smartphones.UserControls.Images;
 using MyExpenses.Sql.Context;
 using MyExpenses.Sql.Queries;
-using MyExpenses.Utils.Collection;
 using MyExpenses.Utils.Strings;
 
 namespace MyExpenses.Smartphones.ContentPages;

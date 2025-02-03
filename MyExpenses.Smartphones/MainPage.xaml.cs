@@ -6,6 +6,7 @@ using MyExpenses.Maui.Utils.WebApi;
 using MyExpenses.Models.IO;
 using MyExpenses.Models.WebApi.Authenticator;
 using MyExpenses.Models.Wpf.Save;
+using MyExpenses.SharedUtils.Collection;
 using MyExpenses.SharedUtils.GlobalInfos;
 using MyExpenses.SharedUtils.Properties;
 using MyExpenses.Smartphones.AppShells;
@@ -15,7 +16,6 @@ using MyExpenses.Smartphones.ContentPages.SaveLocation;
 using MyExpenses.Smartphones.Resources.Resx.ContentPages.MainPage;
 using MyExpenses.Smartphones.UserControls.Buttons.CustomFrame;
 using MyExpenses.Sql.Context;
-using MyExpenses.Utils.Collection;
 using MyExpenses.WebApi.Dropbox;
 using Serilog;
 

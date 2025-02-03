@@ -2,10 +2,10 @@ using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Windows;
 using MyExpenses.Models.Config.Interfaces;
+using MyExpenses.SharedUtils.Collection;
 using MyExpenses.SharedUtils.GlobalInfos;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils;
-using MyExpenses.Utils.Collection;
 using MyExpenses.Utils.Objects;
 using MyExpenses.Wpf.Resources.Resx.UserControls.Settings.LanguageControl;
 

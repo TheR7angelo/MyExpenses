@@ -1,6 +1,6 @@
 using System.Collections.ObjectModel;
 using MyExpenses.Models.IO;
-using MyExpenses.Utils.Collection;
+using MyExpenses.SharedUtils.Collection;
 using MyExpenses.Wpf.Utils;
 
 namespace MyExpenses.Wpf.Windows;
