@@ -209,6 +209,7 @@ public static class DbContextHelperSetDefaultValues
         };
 
         var knownColors = Enum.GetValues<KnownColor>()
+            // ReSharper disable once HeapView.DelegateAllocation
             .Where(s => !blackList.Contains(s))
             .OrderBy(s => s).AsEnumerable();
 

@@ -14,6 +14,7 @@ public class ISqlConverter : IValueConverter
         parameter = binding.Source.GetPropertyValue(binding.Path);
         if (parameter is not IEnumerable<ISql> enumerable) return null;
 
+        // ReSharper disable once HeapView.DelegateAllocation
         return enumerable.FirstOrDefault(s => s.Id.Equals(id));
     }
 

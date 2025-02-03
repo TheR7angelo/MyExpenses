@@ -152,6 +152,8 @@ public partial class MainPage
         {
             var newFilePath = Path.Join(selectedFolder, existingDatabase.FileName);
             Log.Information("Starting to copy {ExistingDatabaseFileName} to {NewFilePath}", existingDatabase.FileName, newFilePath);
+
+            // ReSharper disable once HeapView.DelegateAllocation
             await Task.Run(() => File.Copy(existingDatabase.FilePath, newFilePath, true));
             Log.Information("Successfully copied {ExistingDatabaseFileName} to {NewFilePath}", existingDatabase.FileName, newFilePath);
         }
@@ -453,6 +455,7 @@ public partial class MainPage
         var newExistingDatabases = DbContextBackup.GetExistingDatabase();
         foreach (var existingDatabase in newExistingDatabases)
         {
+            // ReSharper disable once HeapView.DelegateAllocation
             var exist = ExistingDatabases.FirstOrDefault(s => s.FilePath == existingDatabase.FilePath);
             if (exist is not null)
             {

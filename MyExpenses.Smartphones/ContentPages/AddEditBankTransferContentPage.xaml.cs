@@ -207,6 +207,7 @@ public partial class AddEditBankTransferContentPage
     public AddEditBankTransferContentPage()
     {
         // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // ReSharper disable once HeapView.DelegateAllocation
         // The Command object is explicitly created here to handle the user's interaction with the UI.
         // This allocation is necessary because `Command` encapsulates the behavior (in this case, `OnBackCommandPressed`)
         // and binds it to the associated UI element, such as a Button or a gesture.
@@ -228,6 +229,7 @@ public partial class AddEditBankTransferContentPage
         UpdateLanguage();
         InitializeComponent();
 
+        // ReSharper disable once HeapView.DelegateAllocation
         Interface.LanguageChanged += Interface_OnLanguageChanged;
     }
 
@@ -246,9 +248,11 @@ public partial class AddEditBankTransferContentPage
             OriginalBankTransfer!.CopyPropertiesTo(BankTransfer);
             SelectedCategoryType = OriginalSelectedCategoryType is null
                 ? null
+                // ReSharper disable once HeapView.DelegateAllocation
                 : CategoryTypes.FirstOrDefault(s => s.Id.Equals(OriginalSelectedCategoryType.Id));
             SelectedModePayment = OriginalSelectedModePayment is null
                 ? null
+                // ReSharper disable once HeapView.DelegateAllocation
                 : ModePayments.FirstOrDefault(s => s.Id.Equals(OriginalSelectedModePayment.Id));
         }
 
@@ -278,11 +282,13 @@ public partial class AddEditBankTransferContentPage
         var accountIdToRemove = BankTransfer.FromAccountFk;
         var currentAccountId = BankTransfer.ToAccountFk;
 
+        // ReSharper disable once HeapView.DelegateAllocation
         PickerToAccountFk.SelectedIndexChanged -= PickerToAccount_OnSelectedIndexChanged;
 
         UpdateAccountsCollection(accountIdToRemove, ToAccounts);
         BankTransfer.ToAccountFk = currentAccountId;
 
+        // ReSharper disable once HeapView.DelegateAllocation
         PickerToAccountFk.SelectedIndexChanged += PickerToAccount_OnSelectedIndexChanged;
 
         UpdateIsDirty();
@@ -297,11 +303,13 @@ public partial class AddEditBankTransferContentPage
         var accountIdToRemove = BankTransfer.ToAccountFk;
         var currentAccountId = BankTransfer.FromAccountFk;
 
+        // ReSharper disable once HeapView.DelegateAllocation
         PickerFromAccountFk.SelectedIndexChanged -= PickerFromAccount_OnSelectedIndexChanged;
 
         UpdateAccountsCollection(accountIdToRemove, FromAccounts);
         BankTransfer.FromAccountFk = currentAccountId;
 
+        // ReSharper disable once HeapView.DelegateAllocation
         PickerFromAccountFk.SelectedIndexChanged += PickerFromAccount_OnSelectedIndexChanged;
 
         UpdateIsDirty();
@@ -449,6 +457,7 @@ public partial class AddEditBankTransferContentPage
 
     private void UpdateAccountsCollection(int? accountIdToRemove, ObservableCollection<TAccount> collection)
     {
+        // ReSharper disable once HeapView.DelegateAllocation
         var newCollection = Accounts.Where(s => s.Id != accountIdToRemove);
 
         collection.Clear();
@@ -468,6 +477,8 @@ public partial class AddEditBankTransferContentPage
         // This context provides the connection to the database and allows querying or updating data.
         // The `using` statement ensures that the context is disposed of properly after its use, freeing up resources like database connections.
         using var context = new DataBaseContext();
+
+        // ReSharper disable once HeapView.DelegateAllocation
         var account = Accounts.First(a => a.Id.Equals(BankTransfer.FromAccountFk!.Value));
         FromAccountSymbol = context.TCurrencies.First(s => s.Id.Equals(account.CurrencyFk)).Symbol!;
     }
@@ -556,9 +567,11 @@ public partial class AddEditBankTransferContentPage
         var categoryTypeId = context.TCategoryTypes.First(s => s.Id.Equals(history.CategoryTypeFk)).Id;
         var modePaymentId = context.TModePayments.First(s => s.Id.Equals(history.ModePaymentFk)).Id;
 
+        // ReSharper disable once HeapView.DelegateAllocation
         SelectedCategoryType = CategoryTypes.FirstOrDefault(s => s.Id.Equals(categoryTypeId));
         OriginalSelectedCategoryType = SelectedCategoryType.DeepCopy();
 
+        // ReSharper disable once HeapView.DelegateAllocation
         SelectedModePayment = ModePayments.FirstOrDefault(s => s.Id.Equals(modePaymentId));
         OriginalSelectedModePayment = SelectedModePayment.DeepCopy();
 

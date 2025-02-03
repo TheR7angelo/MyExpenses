@@ -221,12 +221,14 @@ public partial class DashBoardContentPage
     public DashBoardContentPage()
     {
         // ReSharper disable HeapView.ObjectAllocation.Evident
+        // ReSharper disable HeapView.DelegateAllocation
         // The Command object is explicitly created here to handle the user's interaction with the UI.
         // This allocation is necessary because `Command` encapsulates the behavior (in this case, `OnBackCommandPressed`)
         // and binds it to the associated UI element, such as a Button or a gesture.
         // This ensures proper separation between the UI and logic layers.
         CollectionViewVHistoryShortPressCommand = new Command(CollectionViewVHistory_OnShortPress);
         CollectionViewVHistoryLongPressCommand = new Command(CollectionViewVHistory_OnLongPress);
+        // ReSharper restore HeapView.DelegateAllocation
         // ReSharper restore HeapView.ObjectAllocation.Evident
 
         Instance = this;
@@ -266,6 +268,7 @@ public partial class DashBoardContentPage
         UpdateLanguage();
         InitializeComponent();
 
+        // ReSharper disable once HeapView.DelegateAllocation
         Interface.LanguageChanged += Interface_OnLanguageChanged;
     }
 
@@ -317,6 +320,7 @@ public partial class DashBoardContentPage
     [SupportedOSPlatform("MacCatalyst13.0")]
     [SupportedOSPlatform("Windows")]
     private void CategoryTapGestureRecognizer_OnTapped(object? sender, TappedEventArgs e)
+        // ReSharper disable once HeapView.DelegateAllocation
         => _ = RunFilter(sender, FilterCategory);
 
     [SupportedOSPlatform("Android21.0")]
@@ -324,6 +328,7 @@ public partial class DashBoardContentPage
     [SupportedOSPlatform("MacCatalyst13.0")]
     [SupportedOSPlatform("Windows")]
     private void CategorySvgPath_OnClicked(object? sender, EventArgs e)
+        // ReSharper disable once HeapView.DelegateAllocation
         => _ = RunFilter(sender, FilterCategory);
 
     [SupportedOSPlatform("Android21.0")]
@@ -346,6 +351,7 @@ public partial class DashBoardContentPage
     [SupportedOSPlatform("Windows")]
     private void CollectionViewVTotalAccount_OnLoaded(object? sender, EventArgs e)
     {
+        // ReSharper disable once HeapView.DelegateAllocation
         _ = Dispatcher.DispatchAsync(async () =>
         {
             await Task.Delay(TimeSpan.FromMilliseconds(100));
@@ -367,6 +373,7 @@ public partial class DashBoardContentPage
     [SupportedOSPlatform("MacCatalyst13.0")]
     [SupportedOSPlatform("Windows")]
     private void DescriptionTapGestureRecognizer_OnTapped(object? sender, TappedEventArgs e)
+        // ReSharper disable once HeapView.DelegateAllocation
         => _ = RunFilter(sender, FilterDescription);
 
     [SupportedOSPlatform("Android21.0")]
@@ -374,6 +381,7 @@ public partial class DashBoardContentPage
     [SupportedOSPlatform("MacCatalyst13.0")]
     [SupportedOSPlatform("Windows")]
     private void DescriptionSvgPath_OnClicked(object? sender, EventArgs e)
+        // ReSharper disable once HeapView.DelegateAllocation
         => _ = RunFilter(sender, FilterDescription);
 
     private void Interface_OnLanguageChanged()
@@ -387,6 +395,7 @@ public partial class DashBoardContentPage
     [SupportedOSPlatform("MacCatalyst13.0")]
     [SupportedOSPlatform("Windows")]
     private void PaymentModeTapGestureRecognizer_OnTapped(object? sender, TappedEventArgs e)
+        // ReSharper disable once HeapView.DelegateAllocation
         => _ = RunFilter(sender, FilterPaymentMode);
 
     [SupportedOSPlatform("Android21.0")]
@@ -394,6 +403,7 @@ public partial class DashBoardContentPage
     [SupportedOSPlatform("MacCatalyst13.0")]
     [SupportedOSPlatform("Windows")]
     private void PaymentModeSvgPath_OnClicked(object? sender, EventArgs e)
+        // ReSharper disable once HeapView.DelegateAllocation
         => _ = RunFilter(sender, FilterPaymentMode);
 
     [SupportedOSPlatform("Android21.0")]
@@ -401,6 +411,7 @@ public partial class DashBoardContentPage
     [SupportedOSPlatform("MacCatalyst13.0")]
     [SupportedOSPlatform("Windows")]
     private void PlaceTapGestureRecognizer_OnTapped(object? sender, TappedEventArgs e)
+        // ReSharper disable once HeapView.DelegateAllocation
         => _ = RunFilter(sender, FilterPlace);
 
     [SupportedOSPlatform("Android21.0")]
@@ -408,6 +419,7 @@ public partial class DashBoardContentPage
     [SupportedOSPlatform("MacCatalyst13.0")]
     [SupportedOSPlatform("Windows")]
     private void PlaceSvgPath_OnClicked(object? sender, EventArgs e)
+        // ReSharper disable once HeapView.DelegateAllocation
         => _ = RunFilter(sender, FilterPlace);
 
     [SupportedOSPlatform("Android21.0")]
@@ -415,6 +427,7 @@ public partial class DashBoardContentPage
     [SupportedOSPlatform("MacCatalyst13.0")]
     [SupportedOSPlatform("Windows")]
     private void PointedTapGestureRecognizer_OnTapped(object? sender, TappedEventArgs e)
+        // ReSharper disable once HeapView.DelegateAllocation
         => _ = RunFilter(sender, FilterChecked);
 
     [SupportedOSPlatform("Android21.0")]
@@ -422,6 +435,7 @@ public partial class DashBoardContentPage
     [SupportedOSPlatform("MacCatalyst13.0")]
     [SupportedOSPlatform("Windows")]
     private void PointedSvgPath_OnClicked(object? sender, EventArgs e)
+        // ReSharper disable once HeapView.DelegateAllocation
         => _ = RunFilter(sender, FilterChecked);
 
     [SupportedOSPlatform("Android21.0")]
@@ -457,6 +471,7 @@ public partial class DashBoardContentPage
     [SupportedOSPlatform("MacCatalyst13.0")]
     [SupportedOSPlatform("Windows")]
     private void ValueTapGestureRecognizer_OnTapped(object? sender, TappedEventArgs e)
+        // ReSharper disable once HeapView.DelegateAllocation
         => _ = RunFilter(sender, FilterValue);
 
     [SupportedOSPlatform("Android21.0")]
@@ -464,6 +479,7 @@ public partial class DashBoardContentPage
     [SupportedOSPlatform("MacCatalyst13.0")]
     [SupportedOSPlatform("Windows")]
     private void ValueSvgPath_OnClicked(object? sender, EventArgs e)
+        // ReSharper disable once HeapView.DelegateAllocation
         => _ = RunFilter(sender, FilterValue);
 
     [SupportedOSPlatform("Android21.0")]
@@ -904,8 +920,10 @@ public partial class DashBoardContentPage
         using var context = new DataBaseContext();
         var newVTotalByAccounts = context.VTotalByAccounts.ToList();
 
+        // ReSharper disable HeapView.DelegateAllocation
         var itemsToDelete = VTotalByAccounts
             .Where(s => newVTotalByAccounts.All(n => n.Id != s.Id)).ToImmutableArray();
+        // ReSharper restore HeapView.DelegateAllocation
 
         foreach (var item in itemsToDelete)
         {
@@ -914,6 +932,7 @@ public partial class DashBoardContentPage
 
         foreach (var vTotalByAccount in newVTotalByAccounts)
         {
+            // ReSharper disable once HeapView.DelegateAllocation
             var exist = VTotalByAccounts.FirstOrDefault(s => s.Id == vTotalByAccount.Id);
             if (exist is not null)
             {
@@ -936,6 +955,7 @@ public partial class DashBoardContentPage
         var newVTotalByAccount = context.VTotalByAccounts.FirstOrDefault(s => s.Id.Equals(id));
         if (newVTotalByAccount is null) return;
 
+        // ReSharper disable once HeapView.DelegateAllocation
         var vTotalByAccount = VTotalByAccounts.FirstOrDefault(s => s.Id.Equals(id));
         if (vTotalByAccount is null) return;
 
@@ -1129,6 +1149,7 @@ public partial class DashBoardContentPage
         }
         else
         {
+            // ReSharper disable once HeapView.DelegateAllocation
             var selectedMonth = Months.FirstOrDefault(month => month.Equals(SelectedMonth)) ?? string.Empty;
             for (var i = 0; i < months.Count; i++)
             {

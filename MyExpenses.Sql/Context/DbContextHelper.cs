@@ -194,10 +194,13 @@ public static class DbContextHelper
         {
             context.LoadAllCollections(entity);
             var properties = entity.GetNavigationProperty();
+
+            // ReSharper disable HeapView.DelegateAllocation
             var children = properties
                 .Where(property => property.GetValue(entity) is IList && (property.GetValue(entity) as IList)!.Count > 0)
                 .SelectMany(property => (property.GetValue(entity) as IList)!.OfType<ISql>())
                 .ToList();
+            // ReSharper restore HeapView.DelegateAllocation
 
             foreach (var child in children) child.Delete(cascade);
 

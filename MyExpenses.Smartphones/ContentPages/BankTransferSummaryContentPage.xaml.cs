@@ -304,6 +304,7 @@ public partial class BankTransferSummaryContentPage
         UpdateLanguage();
         InitializeComponent();
 
+        // ReSharper disable once HeapView.DelegateAllocation
         Interface.LanguageChanged += Interface_OnLanguageChanged;
     }
 
@@ -314,6 +315,7 @@ public partial class BankTransferSummaryContentPage
     [SupportedOSPlatform("MacCatalyst13.0")]
     [SupportedOSPlatform("Windows")]
     private void AdditionalReasonSvgPath_OnClicked(object? sender, EventArgs e)
+        // ReSharper disable once HeapView.DelegateAllocation
         => _ = RunFilter(sender, FilterAdditionalReason);
 
     [SupportedOSPlatform("Android21.0")]
@@ -321,6 +323,7 @@ public partial class BankTransferSummaryContentPage
     [SupportedOSPlatform("MacCatalyst13.0")]
     [SupportedOSPlatform("Windows")]
     private void AdditionalReasonTapGestureRecognizer_Tapped(object? sender, TappedEventArgs e)
+        // ReSharper disable once HeapView.DelegateAllocation
         => _ = RunFilter(sender, FilterAdditionalReason);
 
     private void ButtonAddMonth_OnClick(object? sender, EventArgs e)
@@ -340,6 +343,7 @@ public partial class BankTransferSummaryContentPage
     [SupportedOSPlatform("MacCatalyst13.0")]
     [SupportedOSPlatform("Windows")]
     private void CategorySvgPath_OnClicked(object? sender, EventArgs e)
+        // ReSharper disable once HeapView.DelegateAllocation
         => _ = RunFilter(sender, FilterCategory);
 
     [SupportedOSPlatform("Android21.0")]
@@ -347,6 +351,7 @@ public partial class BankTransferSummaryContentPage
     [SupportedOSPlatform("MacCatalyst13.0")]
     [SupportedOSPlatform("Windows")]
     private void CategoryTapGestureRecognizer_Tapped(object? sender, TappedEventArgs e)
+        // ReSharper disable once HeapView.DelegateAllocation
         => _ = RunFilter(sender, FilterCategory);
 
     private void CustomPicker_OnSelectedIndexChanged(object? sender, EventArgs e)
@@ -357,6 +362,7 @@ public partial class BankTransferSummaryContentPage
     [SupportedOSPlatform("MacCatalyst13.0")]
     [SupportedOSPlatform("Windows")]
     private void FromAccountSvgPath_OnClicked(object? sender, EventArgs e)
+        // ReSharper disable once HeapView.DelegateAllocation
         => _ = RunFilter(sender, FilterFromAccount);
 
     [SupportedOSPlatform("Android21.0")]
@@ -364,6 +370,7 @@ public partial class BankTransferSummaryContentPage
     [SupportedOSPlatform("MacCatalyst13.0")]
     [SupportedOSPlatform("Windows")]
     private void FromAccountTapGestureRecognizer_Tapped(object? sender, TappedEventArgs e)
+        // ReSharper disable once HeapView.DelegateAllocation
         => _ = RunFilter(sender, FilterFromAccount);
 
     private void Interface_OnLanguageChanged()
@@ -377,6 +384,7 @@ public partial class BankTransferSummaryContentPage
     [SupportedOSPlatform("MacCatalyst13.0")]
     [SupportedOSPlatform("Windows")]
     private void MainReasonSvgPath_OnClicked(object? sender, EventArgs e)
+        // ReSharper disable once HeapView.DelegateAllocation
         => _ = RunFilter(sender, FilterMainReason);
 
     [SupportedOSPlatform("Android21.0")]
@@ -384,6 +392,7 @@ public partial class BankTransferSummaryContentPage
     [SupportedOSPlatform("MacCatalyst13.0")]
     [SupportedOSPlatform("Windows")]
     private void MainReasonTapGestureRecognizer_Tapped(object? sender, TappedEventArgs e)
+        // ReSharper disable once HeapView.DelegateAllocation
         => _ = RunFilter(sender, FilterMainReason);
 
     [SupportedOSPlatform("Android21.0")]
@@ -422,6 +431,7 @@ public partial class BankTransferSummaryContentPage
     [SupportedOSPlatform("MacCatalyst13.0")]
     [SupportedOSPlatform("Windows")]
     private void ToAccountSvgPath_OnClicked(object? sender, EventArgs e)
+        // ReSharper disable once HeapView.DelegateAllocation
         => _ = RunFilter(sender, FilterToAccount);
 
     [SupportedOSPlatform("Android21.0")]
@@ -429,6 +439,7 @@ public partial class BankTransferSummaryContentPage
     [SupportedOSPlatform("MacCatalyst13.0")]
     [SupportedOSPlatform("Windows")]
     private void ToAccountTapGestureRecognizer_Tapped(object? sender, TappedEventArgs e)
+        // ReSharper disable once HeapView.DelegateAllocation
         => _ = RunFilter(sender, FilterToAccount);
 
     [SupportedOSPlatform("Android21.0")]
@@ -436,6 +447,7 @@ public partial class BankTransferSummaryContentPage
     [SupportedOSPlatform("MacCatalyst13.0")]
     [SupportedOSPlatform("Windows")]
     private void ValueSvgPath_OnClicked(object? sender, EventArgs e)
+        // ReSharper disable once HeapView.DelegateAllocation
         => _ = RunFilter(sender, FilterValue);
 
     [SupportedOSPlatform("Android21.0")]
@@ -443,6 +455,7 @@ public partial class BankTransferSummaryContentPage
     [SupportedOSPlatform("MacCatalyst13.0")]
     [SupportedOSPlatform("Windows")]
     private void ValueTapGestureRecognizer_OnTapped(object? sender, TappedEventArgs e)
+        // ReSharper disable once HeapView.DelegateAllocation
         => _ = RunFilter(sender, FilterValue);
 
     #endregion
@@ -926,6 +939,7 @@ public partial class BankTransferSummaryContentPage
         }
         else
         {
+            // ReSharper disable once HeapView.DelegateAllocation
             var selectedMonth = Months.FirstOrDefault(month => month.Equals(SelectedMonth)) ?? string.Empty;
             for (var i = 0; i < months.Count; i++)
             {

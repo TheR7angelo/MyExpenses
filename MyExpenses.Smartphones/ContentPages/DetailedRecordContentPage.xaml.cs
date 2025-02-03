@@ -267,6 +267,7 @@ public partial class DetailedRecordContentPage
     public DetailedRecordContentPage()
     {
         // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // ReSharper disable once HeapView.DelegateAllocation
         // The Command object is explicitly created here to handle the user's interaction with the UI.
         // This allocation is necessary because `Command` encapsulates the behavior (in this case, `OnBackCommandPressed`)
         // and binds it to the associated UI element, such as a Button or a gesture.
@@ -302,6 +303,7 @@ public partial class DetailedRecordContentPage
 
         MapControl.Map = map;
 
+        // ReSharper disable once HeapView.DelegateAllocation
         Interface.LanguageChanged += Interface_OnLanguageChanged;
     }
 
@@ -395,8 +397,10 @@ public partial class DetailedRecordContentPage
 
         var citiesResults = records.Select(s => EmptyStringTreeViewConverter.ToUnknown(s.City)).Distinct();
 
+        // ReSharper disable HeapView.DelegateAllocation
         ComboBoxSelectorCity.SelectedIndexChanged -= SelectorCity_OnSelectionChanged;
         ComboBoxSelectorPlace.SelectedIndexChanged -= SelectorPlace_OnSelectionChanged;
+        // ReSharper restore HeapView.DelegateAllocation
 
         CitiesCollection.Clear();
         CitiesCollection.AddRangeAndSort(citiesResults, s => s);
@@ -404,8 +408,10 @@ public partial class DetailedRecordContentPage
         PlacesCollection.Clear();
         PlacesCollection.AddRange(records.OrderBy(s => s.Name));
 
+        // ReSharper disable HeapView.DelegateAllocation
         ComboBoxSelectorCity.SelectedIndexChanged += SelectorCity_OnSelectionChanged;
         ComboBoxSelectorPlace.SelectedIndexChanged += SelectorPlace_OnSelectionChanged;
+        // ReSharper restore HeapView.DelegateAllocation
     }
 
     private void SelectorCity_OnSelectionChanged(object? sender, EventArgs e)
@@ -435,9 +441,11 @@ public partial class DetailedRecordContentPage
 
         if (SelectedCountry is null)
         {
+            // ReSharper disable HeapView.DelegateAllocation
             ComboBoxSelectorCountry.SelectedIndexChanged -= SelectorCountry_OnSelectionChanged;
             SelectedCountry = records.First().Country;
             ComboBoxSelectorCountry.SelectedIndexChanged += SelectorCountry_OnSelectionChanged;
+            // ReSharper restore HeapView.DelegateAllocation
         }
 
         PlacesCollection.Clear();
@@ -455,6 +463,7 @@ public partial class DetailedRecordContentPage
 
         try
         {
+            // ReSharper disable once HeapView.DelegateAllocation
             ComboBoxSelectorCountry.SelectedIndexChanged -= SelectorCountry_OnSelectionChanged;
         }
         catch (NullReferenceException)
@@ -463,6 +472,7 @@ public partial class DetailedRecordContentPage
             return;
         }
 
+        // ReSharper disable once HeapView.DelegateAllocation
         ComboBoxSelectorCity.SelectedIndexChanged -= SelectorCity_OnSelectionChanged;
 
         var country = string.IsNullOrEmpty(place?.Country)
@@ -477,8 +487,10 @@ public partial class DetailedRecordContentPage
         ComboBoxSelectorCity.SelectedItem = city;
         History.PlaceFk = place?.Id;
 
+        // ReSharper disable HeapView.DelegateAllocation
         ComboBoxSelectorCountry.SelectedIndexChanged += SelectorCountry_OnSelectionChanged;
         ComboBoxSelectorCity.SelectedIndexChanged += SelectorCity_OnSelectionChanged;
+        // ReSharper restore HeapView.DelegateAllocation
 
         UpdateIsDirty();
     }
@@ -674,6 +686,7 @@ public partial class DetailedRecordContentPage
         }
         else
         {
+            // ReSharper disable once HeapView.DelegateAllocation
             var place = PlacesCollection.First(s => s.Id.Equals(History.PlaceFk.Value));
             SelectedCountry = EmptyStringTreeViewConverter.ToUnknown(place.Country);
             SelectedCity = EmptyStringTreeViewConverter.ToUnknown(place.City);
@@ -692,6 +705,8 @@ public partial class DetailedRecordContentPage
             // This context provides the connection to the database and allows querying or updating data.
             // The `using` statement ensures that the context is disposed of properly after its use, freeing up resources like database connections.
             using var context = new DataBaseContext();
+
+            // ReSharper disable once HeapView.DelegateAllocation
             var category = CategoryTypes.First(s => s.Id.Equals(History.CategoryTypeFk.Value));
             var color = context.TColors.First(s => s.Id.Equals(category.ColorFk!.Value));
             hexadecimalColorCode = color.HexadecimalColorCode!;

@@ -44,6 +44,7 @@ public partial class SelectDatabaseFileContentPage
     public SelectDatabaseFileContentPage()
     {
         // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // ReSharper disable once HeapView.DelegateAllocation
         // The Command object is explicitly created here to handle the user's interaction with the UI.
         // This allocation is necessary because `Command` encapsulates the behavior (in this case, `OnBackCommandPressed`)
         // and binds it to the associated UI element, such as a Button or a gesture.
@@ -53,6 +54,7 @@ public partial class SelectDatabaseFileContentPage
         UpdateLanguage();
         InitializeComponent();
 
+        // ReSharper disable once HeapView.DelegateAllocation
         Interface.LanguageChanged += Interface_OnLanguageChanged;
     }
 
@@ -67,6 +69,8 @@ public partial class SelectDatabaseFileContentPage
     private void ListView_OnItemTapped(object? sender, ItemTappedEventArgs e)
     {
         var selectedDatabase = e.Item as ExistingDatabase;
+
+        // ReSharper disable once HeapView.DelegateAllocation
         if (ListView.TemplatedItems.FirstOrDefault(item => item.BindingContext == selectedDatabase) is not ViewCell
             viewCell) return;
 

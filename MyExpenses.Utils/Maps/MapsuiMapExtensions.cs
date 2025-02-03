@@ -33,6 +33,7 @@ public static class MapsuiMapExtensions
             KnownTileSource.HereTerrain
         };
 
+        // ReSharper disable once HeapView.DelegateAllocation
         var knownTileSources = Enum.GetValues<KnownTileSource>().Where(s => !blackList.Contains(s)).ToList();
         return knownTileSources;
     }
