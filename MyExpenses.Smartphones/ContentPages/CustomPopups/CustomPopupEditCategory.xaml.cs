@@ -127,6 +127,7 @@ public partial class CustomPopupEditCategory
         UpdateLanguage();
         InitializeComponent();
 
+        // ReSharper disable once HeapView.DelegateAllocation
         Interface.LanguageChanged += Interface_OnLanguageChanged;
     }
 

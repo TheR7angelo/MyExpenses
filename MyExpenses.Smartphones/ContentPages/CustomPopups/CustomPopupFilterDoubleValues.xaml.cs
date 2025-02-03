@@ -66,6 +66,7 @@ public partial class CustomPopupFilterDoubleValues : ICustomPopupFilter<DoubleIs
         UpdateLanguage();
         InitializeComponent();
 
+        // ReSharper disable once HeapView.DelegateAllocation
         Interface.LanguageChanged += Interface_OnLanguageChanged;
     }
 

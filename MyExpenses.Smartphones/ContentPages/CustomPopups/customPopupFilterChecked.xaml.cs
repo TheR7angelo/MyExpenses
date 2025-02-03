@@ -37,6 +37,7 @@ public partial class CustomPopupFilterChecked : ICustomPopupFilter<BoolIsChecked
         UpdateLanguage();
         InitializeComponent();
 
+        // ReSharper disable once HeapView.DelegateAllocation
         Interface.LanguageChanged += Interface_OnLanguageChanged;
     }
 

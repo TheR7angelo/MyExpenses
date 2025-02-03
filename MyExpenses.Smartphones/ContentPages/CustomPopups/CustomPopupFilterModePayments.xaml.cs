@@ -60,6 +60,7 @@ public partial class CustomPopupFilterModePayments : ICustomPopupFilter<TModePay
         UpdateLanguage();
         InitializeComponent();
 
+        // ReSharper disable once HeapView.DelegateAllocation
         Interface.LanguageChanged += Interface_OnLanguageChanged;
     }
 

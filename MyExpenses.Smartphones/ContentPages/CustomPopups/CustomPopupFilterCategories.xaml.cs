@@ -60,6 +60,7 @@ public partial class CustomPopupFilterCategories : ICustomPopupFilter<VCategoryD
         UpdateLanguage();
         InitializeComponent();
 
+        // ReSharper disable once HeapView.DelegateAllocation
         Interface.LanguageChanged += Interface_OnLanguageChanged;
     }
 
