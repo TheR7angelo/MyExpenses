@@ -93,6 +93,7 @@ public partial class AddEditCategoryTypesContentPage
         MaxLength = Utils.Converters.MaxLengthConverter.Convert(typeof(TCategoryType), nameof(TCategoryType.Name));
 
         // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // ReSharper disable once HeapView.DelegateAllocation
         // The Command object is explicitly created here to handle the user's interaction with the UI.
         // This allocation is necessary because `Command` encapsulates the behavior (in this case, `OnBackCommandPressed`)
         // and binds it to the associated UI element, such as a Button or a gesture.
@@ -104,6 +105,7 @@ public partial class AddEditCategoryTypesContentPage
         UpdateLanguage();
         InitializeComponent();
 
+        // ReSharper disable once HeapView.DelegateAllocation
         Interface.LanguageChanged += Interface_OnLanguageChanged;
     }
 
@@ -365,6 +367,7 @@ public partial class AddEditCategoryTypesContentPage
             return false;
         }
 
+        // ReSharper disable once HeapView.DelegateAllocation
         var alreadyExist = Categories.Any(s => s.CategoryName!.Equals(categoryTypeNameToTest));
         if (alreadyExist)
         {
