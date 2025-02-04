@@ -9,12 +9,34 @@ using MyExpenses.Utils;
 
 namespace MyExpenses.WebApi.Dropbox;
 
+/// <summary>
+/// The DropboxService class provides methods for interacting with the Dropbox API,
+/// allowing operations such as uploading, downloading, listing, and deleting files.
+/// </summary>
 public class DropboxService
 {
+    /// <summary>
+    /// Represents the property used to manage access token authentication within the DropboxService class.
+    /// This property stores the authentication information required to interact with the Dropbox API,
+    /// including the access token, token type, creation date, and expiration date of the token.
+    /// The property ensures that the token is valid and can be refreshed when needed.
+    /// </summary>
     private AccessTokenAuthentication? AccessTokenAuthentication { get; set; }
 
+    /// <summary>
+    /// Represents the property used to store the API keys and secrets required for authenticating and interacting with the Dropbox API.
+    /// This property encapsulates critical configuration details, such as application credentials,
+    /// which are used across the DropboxService class for various API operations including authentication,
+    /// token management, and request execution.
+    /// </summary>
     private DropboxKeys DropboxKeys { get; set; }
 
+    /// <summary>
+    /// Represents the project system configuration used by the DropboxService class.
+    /// This property indicates the targeted application platform, such as WPF or MAUI,
+    /// for which the DropboxService is being utilized. It may alter behavior based on
+    /// the specific requirements or limitations of the selected project system.
+    /// </summary>
     private ProjectSystem ProjectSystem { get; init; }
 
     private DropboxService()
@@ -37,6 +59,12 @@ public class DropboxService
         return results;
     }
 
+    /// <summary>
+    /// Creates a collection of asynchronous tasks to delete files from a specified folder in Dropbox.
+    /// </summary>
+    /// <param name="filePaths">A collection of file paths to be deleted.</param>
+    /// <param name="folder">The folder in which the files reside. Default is null, which assumes the root folder or current context.</param>
+    /// <returns>A collection of tasks that represent the asynchronous delete operations for each file. Each task returns a <see cref="DeleteResult"/> object indicating the result of the delete operation, or null if the operation was unsuccessful.</returns>
     private IEnumerable<Task<DeleteResult?>> GetAllDeleteTasks(IEnumerable<string> filePaths, string? folder)
     {
         foreach (var filePath in filePaths)
@@ -44,6 +72,13 @@ public class DropboxService
             yield return DeleteFileAsync(filePath, folder);
         }
     }
+
+    /// <summary>
+    /// Deletes a single file from a specified folder in Dropbox.
+    /// </summary>
+    /// <param name="filePath">The path of the file to be deleted.</param>
+    /// <param name="folder">The folder in which the file resides. Default is null, which assumes the root folder or current context.</param>
+    /// <returns>A <see cref="DeleteResult"/> object indicating the result of the delete operation for the file. Returns null if the file was not found or the operation failed.</returns>
     private async Task<DeleteResult?> DeleteFileAsync(string filePath, string? folder = null)
     {
         folder ??= string.Empty;
@@ -63,7 +98,22 @@ public class DropboxService
         return deleteResult;
     }
 
-    public async Task<IEnumerable<Metadata>> ListFileAsync(string? folder = null, bool recursive = false, bool includeMediaInfo = false,
+    /// <summary>
+    /// Lists all files within a specified folder in Dropbox based on the given options.
+    /// </summary>
+    /// <param name="folder">The folder path to list files from. Default is null, which targets the root folder.</param>
+    /// <param name="recursive">Specifies whether to recursively list files in all subfolders. Default is false.</param>
+    /// <param name="includeMediaInfo">Indicates whether to include media information in the results. Default is false.</param>
+    /// <param name="includeDeleted">Specifies whether to include deleted files in the results. Default is false.</param>
+    /// <param name="includeHasExplicitSharedMembers">Indicates whether to include a flag for files with explicit shared members. Default is false.</param>
+    /// <param name="includeMountedFolders">Determines whether to include mounted folders in the results. Default is true.</param>
+    /// <param name="limit">Limits the number of entries returned, if specified. Default is null, meaning no limit.</param>
+    /// <param name="sharedLink">A shared link object to list contents within the link context. Default is null.</param>
+    /// <param name="includePropertyGroups">Specifies property groups to include in the results. Default is null.</param>
+    /// <param name="includeNonDownloadableFiles">Indicates whether to include files that cannot be downloaded. Default is true.</param>
+    /// <returns>A collection of <see cref="Metadata"/> objects representing the listed files.</returns>
+    public async Task<IEnumerable<Metadata>> ListFileAsync(string? folder = null, bool recursive = false,
+        bool includeMediaInfo = false,
         bool includeDeleted = false, bool includeHasExplicitSharedMembers = false,
         bool includeMountedFolders = true, uint? limit = null, SharedLink? sharedLink = null,
         TemplateFilterBase? includePropertyGroups = null, bool includeNonDownloadableFiles = true)
@@ -80,6 +130,14 @@ public class DropboxService
         return list.Entries.Where(s => s.IsFile);
     }
 
+    /// <summary>
+    /// Downloads a file from Dropbox and optionally saves it to the specified destination path.
+    /// </summary>
+    /// <param name="filePath">The path of the file to download from Dropbox.</param>
+    /// <param name="destinationFilePath">The full file path where the downloaded file will be saved. If null, the file will be saved with its original name in the current directory.</param>
+    /// <param name="httpClient">An optional custom instance of <see cref="HttpClient"/>. Required for MAUI projects.</param>
+    /// <returns>The full file path where the downloaded file was saved.</returns>
+    /// <exception cref="InvalidOperationException">Thrown if the application is running on a MAUI project and no <see cref="HttpClient"/> is provided.</exception>
     public async Task<string> DownloadFileAsync(string filePath, string? destinationFilePath = null, HttpClient? httpClient = null)
     {
         if (ProjectSystem is ProjectSystem.Maui && httpClient is null)
@@ -110,6 +168,13 @@ public class DropboxService
         return destinationFilePath;
     }
 
+    /// <summary>
+    /// Uploads a file to the specified folder in Dropbox.
+    /// </summary>
+    /// <param name="filePath">The path of the file to be uploaded.</param>
+    /// <param name="folder">The Dropbox folder where the file will be stored. Default is null, which uploads the file to the root folder.</param>
+    /// <returns>A <see cref="FileMetadata"/> object containing metadata of the uploaded file.</returns>
+    /// <exception cref="FileNotFoundException">Thrown if the specified file does not exist.</exception>
     public async Task<FileMetadata> UploadFileAsync(string filePath, string? folder = null)
     {
         if (!File.Exists(filePath))
@@ -148,6 +213,11 @@ public class DropboxService
             body: memoryStream);
     }
 
+    /// <summary>
+    /// Retrieves a DropboxClient instance to interact with the Dropbox API using the current authentication token.
+    /// </summary>
+    /// <param name="httpClient">An optional <see cref="HttpClient"/> instance to use for API requests. If not provided, a new instance is created internally.</param>
+    /// <returns>A <see cref="DropboxClient"/> instance initialized with valid authentication credentials.</returns>
     private async Task<DropboxClient> GetDropboxClient(HttpClient? httpClient = null)
     {
         DropboxClient? dropboxClient = null;
@@ -174,6 +244,11 @@ public class DropboxService
         }
     }
 
+    /// <summary>
+    /// Refreshes the access token used for Dropbox API authentication by generating a new token
+    /// using the refresh token and updating the current access token details.
+    /// </summary>
+    /// <returns>A task that represents the asynchronous operation of refreshing the access token. Returns nothing when the process is complete.</returns>
     private async Task RefreshAccessTokenAuthentication()
     {
         using var httpClient = Http.GetHttpClient();
@@ -210,6 +285,11 @@ public class DropboxService
         await File.WriteAllTextAsync(DropboxServiceUtils.FilePathSecretKeys, AccessTokenAuthentication.ToJson());
     }
 
+    /// <summary>
+    /// Creates and initializes an instance of <see cref="DropboxService"/> for interacting with the Dropbox API.
+    /// </summary>
+    /// <param name="projectSystem">The project system for which the Dropbox service is being initialized, such as Wpf or Maui.</param>
+    /// <returns>An initialized instance of <see cref="DropboxService"/> ready for use.</returns>
     public static async Task<DropboxService> CreateAsync(ProjectSystem projectSystem)
     {
         // ReSharper disable once HeapView.ObjectAllocation.Evident
@@ -220,6 +300,11 @@ public class DropboxService
         return service;
     }
 
+    /// <summary>
+    /// Initializes the DropboxService by acquiring Dropbox keys and setting up the access token authentication.
+    /// </summary>
+    /// <param name="projectSystem">The specific project system (e.g., Wpf or Maui) that determines the context of the initialization.</param>
+    /// <returns>A task that represents the asynchronous initialization operation.</returns>
     private async Task InitializeAsync(ProjectSystem projectSystem)
     {
         DropboxKeys = GetDropboxKeys();
@@ -236,6 +321,11 @@ public class DropboxService
         }
     }
 
+    /// <summary>
+    /// Authenticates the application with Dropbox and retrieves an access token.
+    /// </summary>
+    /// <param name="projectSystem">The platform-specific project system used for generating the authentication process (e.g., WPF or MAUI).</param>
+    /// <returns>An <see cref="AccessTokenAuthentication"/> object containing the access token and metadata, or null if the authentication fails.</returns>
     private async Task<AccessTokenAuthentication?> AuthorizeApplicationAsync(ProjectSystem projectSystem)
     {
         var pkceData = Share.Core.WebApi.Utils.GeneratePkceData();
@@ -257,6 +347,11 @@ public class DropboxService
         return accessTokenAuthentication;
     }
 
+    /// <summary>
+    /// Loads and retrieves the DropboxKeys necessary for authenticating with the Dropbox API.
+    /// The keys are fetched from an embedded JSON resource within the assembly.
+    /// </summary>
+    /// <returns>An instance of <see cref="DropboxKeys"/> containing app key, app secret, and redirect URIs required for authentication.</returns>
     private static DropboxKeys GetDropboxKeys()
     {
         var assembly = Assembly.GetAssembly(typeof(DropboxService))!;
@@ -275,6 +370,13 @@ public class DropboxService
         return jsonStr.ToObject<DropboxKeys>()!;
     }
 
+    /// <summary>
+    /// Exchanges a temporary token with Dropbox for an access token using the OAuth 2.0 authorization code flow.
+    /// </summary>
+    /// <param name="tempToken">The temporary authorization code received during the initial authorization step.</param>
+    /// <param name="pkceData">The PKCE (Proof Key for Code Exchange) data used for enhanced security during the authorization process.</param>
+    /// <param name="projectSystem">The project system specifying the platform (e.g., WPF or MAUI) to determine the appropriate redirect URI.</param>
+    /// <returns>An <see cref="AccessTokenAuthentication"/> object containing the access token and related authentication data, or null if the process fails.</returns>
     private async Task<AccessTokenAuthentication?> GetAccessTokenAuthentication(string tempToken, Pkce pkceData,
         ProjectSystem projectSystem)
     {
