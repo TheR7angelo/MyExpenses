@@ -30,12 +30,20 @@ public class DropboxService
     /// <returns>An array of <see cref="DeleteResult"/> objects indicating the result of the delete operation for each file. Returns null if any file was not successfully handled.</returns>
     public async Task<DeleteResult?[]> DeleteFilesAsync(string[] filePaths, string? folder = null)
     {
-        var deleteTasks = filePaths.Select(filePath => DeleteFileAsync(filePath, folder));
+        // ReSharper disable once HeapView.ObjectAllocation
+        var deleteTasks = GetAllDeleteTasks(filePaths, folder);
         var results = await Task.WhenAll(deleteTasks);
 
         return results;
     }
 
+    private IEnumerable<Task<DeleteResult?>> GetAllDeleteTasks(IEnumerable<string> filePaths, string? folder)
+    {
+        foreach (var filePath in filePaths)
+        {
+            yield return DeleteFileAsync(filePath, folder);
+        }
+    }
     private async Task<DeleteResult?> DeleteFileAsync(string filePath, string? folder = null)
     {
         folder ??= string.Empty;
