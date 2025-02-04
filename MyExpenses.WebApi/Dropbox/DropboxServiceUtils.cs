@@ -59,6 +59,8 @@ public static class DropboxServiceUtils
 
         var dropboxService = await DropboxService.CreateAsync(projectSystem);
         var cloudDatabaseFiles = await dropboxService.ListFileAsync(DatabaseInfos.CloudDirectoryBackupDatabase);
+
+        // ReSharper disable once HeapView.DelegateAllocation
         var cloudDatabase = cloudDatabaseFiles.FirstOrDefault(s => s.Name.Equals(existingDatabase.FileInfo.Name));
         if (cloudDatabase is null) return SyncStatus.UnSynchronized;
 
