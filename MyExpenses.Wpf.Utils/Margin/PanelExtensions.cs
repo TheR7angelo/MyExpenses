@@ -44,6 +44,7 @@ public static class PanelExtensions
     {
         if (d is Panel panel)
         {
+            // ReSharper disable once HeapView.DelegateAllocation
             panel.Loaded += (_, _) => ApplyMargin(panel, (Thickness)e.NewValue);
         }
     }

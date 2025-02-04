@@ -18,6 +18,8 @@ public static class Utilities
     public static TabItem? FindTabItemByHeader(this TabControl tabControl, string header)
     {
         var children = tabControl.FindVisualChildren<TabItem>();
+
+        // ReSharper disable once HeapView.DelegateAllocation
         return children.FirstOrDefault(child => child.Header.Equals(header));
     }
 
