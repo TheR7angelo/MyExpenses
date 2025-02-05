@@ -85,7 +85,8 @@ public partial class ColorManagementPage
         if (addEditColorWindow.DialogResult is not true) return;
         if (addEditColorWindow.DeleteColor)
         {
-            var colorDeleted = Colors.FirstOrDefault(s => s.Id == colorToEdit.Id);
+            // ReSharper disable once HeapView.DelegateAllocation
+            var colorDeleted = Colors.FirstOrDefault(s => s.Id.Equals(colorToEdit.Id));
             if (colorDeleted is not null) Colors.Remove(colorDeleted);
 
             return;
@@ -101,7 +102,8 @@ public partial class ColorManagementPage
             var json = editedColor.ToJsonString();
             Log.Information("{Json}", json);
 
-            var oldColor = Colors.First(s => s.Id == editedColor.Id);
+            // ReSharper disable once HeapView.DelegateAllocation
+            var oldColor = Colors.First(s => s.Id.Equals(editedColor.Id));
             editedColor.CopyPropertiesTo(oldColor);
 
             MsgBox.Show(ColorManagementPageResources.MessageBoxEditColorSuccess, MsgBoxImage.Check);
