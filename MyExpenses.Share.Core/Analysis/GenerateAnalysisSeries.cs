@@ -268,14 +268,15 @@ public static class GenerateAnalysisSeries
         => point => $"{point.Model * multiplier:F2} {symbol}";
 
     /// <summary>
-    /// Creates a function to generate formatted labels for a Doughnut chart point using the specified symbol.
+    /// Creates a function to format the labels for the doughnut chart, using a specified symbol and multiplier.
     /// </summary>
-    /// <param name="symbol">The symbol to include in the label, such as a currency or unit symbol.</param>
-    /// <returns>A function that formats a Doughnut chart point label by appending the specified symbol.</returns>
+    /// <param name="symbol">The symbol to append to the label (e.g., currency symbol).</param>
+    /// <param name="multiplier">The multiplier to adjust the chart point's value before formatting.</param>
+    /// <returns>A function that takes a chart point and returns a formatted string label.</returns>
     public static Func<ChartPoint<double, DoughnutGeometry, LabelGeometry>, string> CreateDoughnutLabelFunc(
-        this string symbol)
+            this string symbol, int multiplier)
         // ReSharper disable once HeapView.DelegateAllocation
-        => point => $"{point.Model:F2} {symbol}";
+        => point => $"{point.Model * multiplier:F2} {symbol}";
 
     /// <summary>
     /// Creates a function that generates a label text for circle geometries based on the budget records and currency.
