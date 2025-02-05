@@ -4,6 +4,12 @@ namespace MyExpenses.SharedUtils.Converters;
 
 public static class LabelConverter
 {
+    /// <summary>
+    /// Transforms a collection of label strings in "YYYY-MM" date format into a title case format based on the current culture's date representation.
+    /// </summary>
+    /// <param name="labels">The collection of label strings to process and transform.</param>
+    /// <returns>A collection of strings in title case format representing the date.</returns>
+    /// <exception cref="FormatException">Thrown when a label doesn't follow the expected "YYYY-MM" format or can't be parsed.</exception>
     public static List<string> ToTransformLabelsToTitleCaseDateFormat(this IEnumerable<string> labels)
     {
         var transformedLabels = labels.Select(label =>
@@ -22,7 +28,12 @@ public static class LabelConverter
         return transformedLabels;
     }
 
-    public static List<string> ToTransformLabelsToTitleCaseDateFormatConvertBack(this IEnumerable<string> labels)
+    /// <summary>
+    /// Converts a collection of label strings in title case format back into a consistent "MMMM yyyy" date format.
+    /// </summary>
+    /// <param name="labels">The collection of labels to process and convert.</param>
+    /// <returns>A collection of strings in "MMMM yyyy" date format.</returns>
+    /// <exception cref="FormatException">Thrown when a label cannot be parsed into the expected format or culture.</exception>
     public static IEnumerable<string> ToTransformLabelsToTitleCaseDateFormatConvertBack(this IEnumerable<string> labels)
     {
         var cultures = CultureInfo.GetCultures(CultureTypes.AllCultures).ToList();
