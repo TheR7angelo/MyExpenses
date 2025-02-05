@@ -614,6 +614,7 @@ public partial class DashBoardPage
         var newVTotalByAccount = context.VTotalByAccounts.FirstOrDefault(s => s.Id.Equals(id));
         if (newVTotalByAccount is null) return;
 
+        // ReSharper disable once HeapView.DelegateAllocation
         var vTotalByAccount = VTotalByAccounts.FirstOrDefault(s => s.Id.Equals(id));
         if (vTotalByAccount is null) return;
 
@@ -629,6 +630,7 @@ public partial class DashBoardPage
         var newVTotalByAccounts = context.VTotalByAccounts.ToList();
 
         var itemsToDelete = VTotalByAccounts
+            // ReSharper disable once HeapView.DelegateAllocation
             .Where(s => newVTotalByAccounts.All(n => n.Id != s.Id)).ToImmutableArray();
 
         foreach (var item in itemsToDelete)
@@ -638,6 +640,7 @@ public partial class DashBoardPage
 
         foreach (var vTotalByAccount in newVTotalByAccounts)
         {
+            // ReSharper disable once HeapView.DelegateAllocation
             var exist = VTotalByAccounts.FirstOrDefault(s => s.Id == vTotalByAccount.Id);
             if (exist is not null)
             {
@@ -840,6 +843,7 @@ public partial class DashBoardPage
         }
         else
         {
+            // ReSharper disable once HeapView.DelegateAllocation
             var selectedMonth = Months.FirstOrDefault(month => month.Equals(SelectedMonth)) ?? string.Empty;
             for (var i = 0; i < months.Count; i++)
             {
