@@ -33,7 +33,7 @@ public static class LabelConverter
     /// </summary>
     /// <param name="labels">The collection of labels to process and convert.</param>
     /// <returns>A collection of strings in "MMMM yyyy" date format.</returns>
-    /// <exception cref="FormatException">Thrown when a label cannot be parsed into the expected format or culture.</exception>
+    /// <exception cref="FormatException">Thrown when a label can't be parsed into the expected format or culture.</exception>
     public static IEnumerable<string> ToTransformLabelsToTitleCaseDateFormatConvertBack(this IEnumerable<string> labels)
     {
         var cultures = CultureInfo.GetCultures(CultureTypes.AllCultures).ToList();
