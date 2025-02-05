@@ -624,7 +624,8 @@ public partial class BankTransferPage
 
         FromAccounts.AddRangeAndSort(accountToAdd, s => s.Name!);
 
-        var accountToRemove = FromAccounts.Where(s => s.Id == VToAccount?.Id).ToList();
+        // ReSharper disable once HeapView.DelegateAllocation
+        var accountToRemove = FromAccounts.Where(s => s.Id == VToAccount?.Id);
         FromAccounts.RemoveRange(accountToRemove);
     }
 
@@ -634,7 +635,8 @@ public partial class BankTransferPage
 
         ToAccounts.AddRangeAndSort(accountToAdd, s => s.Name!);
 
-        var accountToRemove = ToAccounts.Where(s => s.Id == VFromAccount?.Id).ToList();
+        // ReSharper disable once HeapView.DelegateAllocation
+        var accountToRemove = ToAccounts.Where(s => s.Id == VFromAccount?.Id);
         ToAccounts.RemoveRange(accountToRemove);
     }
 
@@ -654,12 +656,15 @@ public partial class BankTransferPage
 
     private void RemoveByAccountId(int? accountId)
     {
+        // ReSharper disable once HeapView.DelegateAllocation
         var accountToRemove = Accounts.FirstOrDefault(s => s.Id == accountId);
         if (accountToRemove is not null) Accounts.Remove(accountToRemove);
 
+        // ReSharper disable once HeapView.DelegateAllocation
         accountToRemove = FromAccounts.FirstOrDefault(s => s.Id == accountId);
         if (accountToRemove is not null) FromAccounts.Remove(accountToRemove);
 
+        // ReSharper disable once HeapView.DelegateAllocation
         accountToRemove = ToAccounts.FirstOrDefault(s => s.Id == accountId);
         if (accountToRemove is not null) ToAccounts.Remove(accountToRemove);
     }
