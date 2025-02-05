@@ -46,7 +46,7 @@ public static class LabelConverter
             var culture = cultures.FirstOrDefault(c => DateTime.TryParseExact(label, "MMMM yyyy", c, DateTimeStyles.None, out dateTime));
             if (culture is null) throw new FormatException($"Invalid format for label '{label}'. Cannot determine the original culture.");
 
-            yield return dateTime.ToString("MMMM yyyy");
+            yield return dateTime.ToString("yyyy-MM");
         }
     }
 }
