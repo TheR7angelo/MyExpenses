@@ -118,9 +118,7 @@ public partial class CumulativeSumChartControl
         for (var i = 0; i < XAxis.Length; i++)
         {
             var tmp = XAxis[i] as Axis;
-            tmp!.Labels = tmp.Labels!
-                .ToTransformLabelsToTitleCaseDateFormatConvertBack()
-                .ToTransformLabelsToTitleCaseDateFormat();
+            tmp!.Labels = tmp.Labels!.ToRoundTripDateLabelTransformation();
             XAxis[i] = tmp;
         }
 

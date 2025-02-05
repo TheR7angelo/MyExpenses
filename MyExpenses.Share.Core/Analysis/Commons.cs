@@ -103,13 +103,13 @@ public static class Commons
     /// <param name="labels">The collection of labels to display on the axis. Can be null if no labels are specified.</param>
     /// <param name="labelPaint">The paint settings used for rendering the labels.</param>
     /// <returns>A new instance of <see cref="Axis" /> configured with the provided labels and paint settings.</returns>
-    public static Axis CreateAxis(this IList<string>? labels, SolidColorPaint labelPaint)
+    public static Axis CreateAxis(this IEnumerable<string>? labels, SolidColorPaint labelPaint)
     {
         // ReSharper disable once HeapView.ObjectAllocation.Evident
         // This allocation is required to define a custom axis.
         var axis = new Axis
         {
-            Labels = labels,
+            Labels = labels?.ToList(),
             LabelsPaint = labelPaint
         };
 
