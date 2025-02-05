@@ -590,6 +590,11 @@ public partial class BankTransferPage
 
     #region Function
 
+    private IEnumerable<TAccount> GetAccountToAdd(IEnumerable<TAccount> accounts)
+        // ReSharper disable HeapView.DelegateAllocation
+        => Accounts.Where(account => accounts.All(s => s.Id != account.Id));
+    // ReSharper restore HeapView.DelegateAllocation
+
     private void UpdateLanguage()
     {
         ComboBoxFromAccountHintAssist = BankTransferPageResources.ComboBoxFromAccountHintAssist;
@@ -613,10 +618,7 @@ public partial class BankTransferPage
 
     private void RefreshListFromAccount()
     {
-        var accountToAdd = from account in Accounts
-            let a = FromAccounts.FirstOrDefault(s => s.Id == account.Id)
-            where a is null
-            select account;
+        var accountToAdd = GetAccountToAdd(FromAccounts);
 
         FromAccounts.AddRangeAndSort(accountToAdd, s => s.Name!);
 
@@ -626,10 +628,7 @@ public partial class BankTransferPage
 
     private void RefreshListToAccount()
     {
-        var accountToAdd = from account in Accounts
-            let a = ToAccounts.FirstOrDefault(s => s.Id == account.Id)
-            where a is null
-            select account;
+        var accountToAdd = GetAccountToAdd(ToAccounts);
 
         ToAccounts.AddRangeAndSort(accountToAdd, s => s.Name!);
 
