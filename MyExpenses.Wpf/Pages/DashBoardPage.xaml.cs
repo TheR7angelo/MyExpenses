@@ -1,4 +1,3 @@
-using System.Collections.Immutable;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Windows;
@@ -13,6 +12,7 @@ using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Models.Sql.Bases.Views;
 using MyExpenses.Models.Sql.Queries;
 using MyExpenses.Models.Wpf.Charts;
+using MyExpenses.Share.Core.Analysis;
 using MyExpenses.SharedUtils.Collection;
 using MyExpenses.SharedUtils.Properties;
 using MyExpenses.Sql.Context;
@@ -630,8 +630,9 @@ public partial class DashBoardPage
         var newVTotalByAccounts = context.VTotalByAccounts.ToList();
 
         var itemsToDelete = VTotalByAccounts
-            // ReSharper disable once HeapView.DelegateAllocation
-            .Where(s => newVTotalByAccounts.All(n => n.Id != s.Id)).ToImmutableArray();
+            // ReSharper disable HeapView.DelegateAllocation
+            .Where(s => newVTotalByAccounts.All(n => n.Id != s.Id)).ToArray();
+        // ReSharper restore HeapView.DelegateAllocation
 
         foreach (var item in itemsToDelete)
         {
@@ -750,14 +751,14 @@ public partial class DashBoardPage
     private static void UpdateOrCreatePieSeries(ObservableCollection<ISeries> series, Dictionary<string, PieSeries<double>> existingSeries,
         CategoryTotalData categoryTotal, double absTotal, double percentage)
     {
-        var toolTipLabelFormatter = $"{categoryTotal.Total:F2} {categoryTotal.Symbol}";
+        var func = categoryTotal.Symbol!.CreateDoughnutLabelFunc();
         var solidColorPaint = categoryTotal.HexadecimalColorCode.ToSolidColorPaint();
 
         if (existingSeries.TryGetValue(categoryTotal.Category!, out var pieSeries))
         {
             pieSeries.Values = [absTotal];
             pieSeries.Name = $"{categoryTotal.Category} ({percentage}%)";
-            pieSeries.ToolTipLabelFormatter = _ => toolTipLabelFormatter;
+            pieSeries.ToolTipLabelFormatter = func;
 
             if (pieSeries.Fill is not SolidColorPaint solidColorPaintPaint || solidColorPaintPaint.Color != solidColorPaint?.Color)
             {
@@ -772,7 +773,7 @@ public partial class DashBoardPage
             {
                 Values = [absTotal],
                 Name = $"{categoryTotal.Category} ({percentage}%)",
-                ToolTipLabelFormatter = _ => toolTipLabelFormatter,
+                ToolTipLabelFormatter = func,
                 Fill = solidColorPaint,
                 Tag = categoryTotal.Category
             };
