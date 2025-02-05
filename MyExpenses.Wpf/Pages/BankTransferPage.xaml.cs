@@ -305,6 +305,8 @@ public partial class BankTransferPage
         InitializeComponent();
 
         UpdateLanguageDatePicker();
+
+        // ReSharper disable once HeapView.DelegateAllocation
         Interface.LanguageChanged += Interface_OnLanguageChanged;
     }
 

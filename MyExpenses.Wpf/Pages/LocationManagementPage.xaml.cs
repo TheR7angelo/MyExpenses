@@ -157,8 +157,6 @@ public partial class LocationManagementPage
         var map = MapsuiMapExtensions.GetMap(true, backColor);
         map.Layers.Add(PlaceLayer);
 
-        Interface.ThemeChanged += Interface_OnThemeChanged;
-        Interface.LanguageChanged += Interface_OnLanguageChanged;
         UpdateLanguage();
 
         InitializeComponent();
@@ -166,6 +164,11 @@ public partial class LocationManagementPage
         MapControl.Map = map;
 
         SetInitialZoom();
+
+        // ReSharper disable HeapView.DelegateAllocation
+        Interface.ThemeChanged += Interface_OnThemeChanged;
+        Interface.LanguageChanged += Interface_OnLanguageChanged;
+        // ReSharper restore HeapView.DelegateAllocation
     }
 
     #region Action

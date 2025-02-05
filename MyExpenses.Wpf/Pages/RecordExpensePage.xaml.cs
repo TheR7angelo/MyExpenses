@@ -293,7 +293,6 @@ public partial class RecordExpensePage
         var map = MapsuiMapExtensions.GetMap(true, backColor);
         map.Layers.Add(PlaceLayer);
 
-        Configuration.ConfigurationChanged += Configuration_OnConfigurationChanged;
         InitializeComponent();
 
         History.Date = DateTime.Now;
@@ -301,6 +300,9 @@ public partial class RecordExpensePage
         UpdateConfiguration();
 
         MapControl.Map = map;
+
+        // ReSharper disable once HeapView.DelegateAllocation
+        Configuration.ConfigurationChanged += Configuration_OnConfigurationChanged;
     }
 
     #region Action

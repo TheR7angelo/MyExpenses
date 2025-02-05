@@ -374,8 +374,10 @@ public partial class DashBoardPage
 
         UpdatePieChartLegendTextPaint();
 
+        // ReSharper disable HeapView.DelegateAllocation
         Interface.ThemeChanged += Interface_OnThemeChanged;
         Interface.LanguageChanged += Interface_OnLanguageChanged;
+        // ReSharper restore HeapView.DelegateAllocation
     }
 
     #region Action

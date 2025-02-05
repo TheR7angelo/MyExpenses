@@ -105,6 +105,7 @@ public partial class RecurrentExpensePage
 
         UpdateDataGrid();
 
+        // ReSharper disable once HeapView.DelegateAllocation
         Interface.LanguageChanged += Interface_OnLanguageChanged;
     }
 

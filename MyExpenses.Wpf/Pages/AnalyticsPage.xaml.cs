@@ -78,6 +78,7 @@ public partial class AnalyticsPage
 
         InitializeComponent();
 
+        // ReSharper disable once HeapView.DelegateAllocation
         Interface.LanguageChanged += Interface_OnLanguageChanged;
     }
 

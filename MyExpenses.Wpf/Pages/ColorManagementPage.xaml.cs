@@ -29,6 +29,7 @@ public partial class ColorManagementPage
 
         InitializeComponent();
 
+        // ReSharper disable once HeapView.DelegateAllocation
         Colors.CollectionChanged += Colors_OnCollectionChanged;
     }
 
