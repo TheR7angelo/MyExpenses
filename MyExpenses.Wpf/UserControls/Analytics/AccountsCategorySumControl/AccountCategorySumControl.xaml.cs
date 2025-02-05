@@ -6,9 +6,9 @@ using LiveChartsCore.SkiaSharpView.Painting;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Sql.Bases.Groups.VAccountCategoryMonthlySums;
 using MyExpenses.Share.Core.Analysis;
+using MyExpenses.SharedUtils.Converters;
 using MyExpenses.Sql.Queries;
 using MyExpenses.Utils;
-using MyExpenses.Wpf.Converters.Analytics;
 
 namespace MyExpenses.Wpf.UserControls.Analytics.AccountsCategorySumControl;
 

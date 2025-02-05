@@ -1,6 +1,6 @@
 using System.Globalization;
 
-namespace MyExpenses.Wpf.Converters.Analytics;
+namespace MyExpenses.SharedUtils.Converters;
 
 public static class LabelConverter
 {

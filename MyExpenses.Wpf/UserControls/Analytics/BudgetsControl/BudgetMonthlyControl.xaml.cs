@@ -8,11 +8,11 @@ using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Sql.Bases.Views.Analysis;
 using MyExpenses.Models.Wpf.Charts;
 using MyExpenses.Share.Core.Analysis;
+using MyExpenses.SharedUtils.Converters;
 using MyExpenses.SharedUtils.Maths;
 using MyExpenses.Sql.Context;
 using MyExpenses.Sql.Queries;
 using MyExpenses.Utils;
-using MyExpenses.Wpf.Converters.Analytics;
 using MyExpenses.Wpf.Resources.Resx.UserControls.Analytics.BudgetsControl;
 
 namespace MyExpenses.Wpf.UserControls.Analytics.BudgetsControl;
