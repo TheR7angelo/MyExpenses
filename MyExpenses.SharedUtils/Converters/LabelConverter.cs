@@ -41,6 +41,8 @@ public static class LabelConverter
         foreach (var label in labels)
         {
             DateTime dateTime = default;
+
+            // ReSharper disable once HeapView.DelegateAllocation
             var culture = cultures.FirstOrDefault(c => DateTime.TryParseExact(label, "MMMM yyyy", c, DateTimeStyles.None, out dateTime));
             if (culture is null) throw new FormatException($"Invalid format for label '{label}'. Cannot determine the original culture.");
 
