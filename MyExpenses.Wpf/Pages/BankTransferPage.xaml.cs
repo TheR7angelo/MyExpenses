@@ -549,6 +549,7 @@ public partial class BankTransferPage
 
     private void SelectorFromAccount_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
     {
+        // ReSharper disable once HeapView.DelegateAllocation
         var fromAccount = Accounts.FirstOrDefault(s => s.Id == BankTransfer.FromAccountFk);
         VFromAccount = fromAccount?.Id.ToISql<VTotalByAccount>();
 
@@ -558,6 +559,7 @@ public partial class BankTransferPage
 
     private void SelectorToAccount_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
     {
+        // ReSharper disable once HeapView.DelegateAllocation
         var toAccount = Accounts.FirstOrDefault(s => s.Id == BankTransfer.ToAccountFk);
         VToAccount = toAccount?.Id.ToISql<VTotalByAccount>();
 
