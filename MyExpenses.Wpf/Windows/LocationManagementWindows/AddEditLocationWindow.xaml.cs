@@ -474,7 +474,6 @@ public partial class AddEditLocationWindow
     {
         TPlace? place = null;
 
-        var mapper = Mapping.Mapper;
         switch (nominatimSearchResults.Count)
         {
             case 0:
@@ -485,13 +484,13 @@ public partial class AddEditLocationWindow
                 MsgBox.MsgBox.Show(AddEditLocationWindowResources.HandleNominatimResultOneResult,
                     MsgBoxImage.Check);
                 var nominatimSearchResult = nominatimSearchResults.First();
-                place = mapper.Map<TPlace>(nominatimSearchResult);
+                place = Mapping.Mapper.Map<TPlace>(nominatimSearchResult);
                 break;
             case > 1:
                 MsgBox.MsgBox.Show(AddEditLocationWindowResources.HandleNominatimResultMultipleResult,
                     MsgBoxImage.Information);
 
-                var places = nominatimSearchResults.Select(s => mapper.Map<TPlace>(s));
+                var places = nominatimSearchResults.Select(s => Mapping.Mapper.Map<TPlace>(s));
 
                 // ReSharper disable once HeapView.ObjectAllocation.Evident
                 var nominatimSearchWindows = new NominatimSearchWindow();
@@ -500,7 +499,7 @@ public partial class AddEditLocationWindow
 
                 if (nominatimSearchWindows.DialogResult is not true) return;
 
-                place = mapper.Map<TPlace>(nominatimSearchWindows.CurrentPlace);
+                place = Mapping.Mapper.Map<TPlace>(nominatimSearchWindows.CurrentPlace);
                 break;
         }
 
