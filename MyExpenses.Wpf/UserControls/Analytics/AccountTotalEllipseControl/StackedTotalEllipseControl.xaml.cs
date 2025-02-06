@@ -57,6 +57,7 @@ public partial class StackedTotalEllipseControl
 
         InitializeComponent();
 
+        // ReSharper disable once HeapView.DelegateAllocation
         Interface.LanguageChanged += InterfaceOnLanguageChanged;
     }
 

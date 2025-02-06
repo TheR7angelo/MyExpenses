@@ -454,14 +454,17 @@ public partial class LocationManagementPage
         var countryToRemove = CountryGroups
             .FirstOrDefault(countryGroup => countryGroup.CityGroups is not null &&
                                             countryGroup.CityGroups.Any(cityGroup => cityGroup.Places is not null &&
+                                                // ReSharper disable once HeapView.DelegateAllocation
                                                 cityGroup.Places.Any(place => place.Id == placeToDelete.Id)));
 
         var cityToRemove = countryToRemove?
             .CityGroups?.FirstOrDefault(cityGroup => cityGroup.Places is not null &&
+                                                     // ReSharper disable once HeapView.DelegateAllocation
                                                      cityGroup.Places.Any(place => place.Id == placeToDelete.Id));
 
         var placeToRemove = cityToRemove?.Places?
-            .FirstOrDefault(place => place.Id == placeToDelete.Id);
+            // ReSharper disable once HeapView.DelegateAllocation
+            .FirstOrDefault(place => place.Id.Equals(placeToDelete.Id));
         if (placeToRemove is null) return;
 
         cityToRemove?.Places?.Remove(placeToRemove);
