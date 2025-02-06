@@ -321,6 +321,7 @@ public partial class RecordExpensePage
 
         if (addEditAccountWindow.DeleteAccount)
         {
+            // ReSharper disable once HeapView.DelegateAllocation
             var accountToRemove = Accounts.FirstOrDefault(s => s.Id == History.AccountFk);
             if (accountToRemove is not null) Accounts.Remove(accountToRemove);
         }
@@ -338,6 +339,7 @@ public partial class RecordExpensePage
 
                 MsgBox.Show(RecordExpensePageResources.MessageBoxEditAccountSuccess, MsgBoxImage.Check);
 
+                // ReSharper disable once HeapView.DelegateAllocation
                 var accountToRemove = Accounts.FirstOrDefault(s => s.Id == History.AccountFk);
                 Accounts!.AddAndSort(accountToRemove, editedAccount, s => s?.Name!);
 
@@ -365,6 +367,7 @@ public partial class RecordExpensePage
 
         if (addEditCategoryTypeWindow.CategoryTypeDeleted)
         {
+            // ReSharper disable once HeapView.DelegateAllocation
             var categoryTypeToRemove = CategoryTypes.FirstOrDefault(s => s.Id == History.CategoryTypeFk);
             if (categoryTypeToRemove is not null) CategoryTypes.Remove(categoryTypeToRemove);
         }
@@ -419,6 +422,7 @@ public partial class RecordExpensePage
         var result = addEditModePaymentWindow.ShowDialog();
         if (result is not true) return;
 
+        // ReSharper disable once HeapView.DelegateAllocation
         var modePaymentToRemove = ModePayments.FirstOrDefault(s => s.Id == History.ModePaymentFk);
         if (addEditModePaymentWindow.ModePaymentDeleted)
         {
@@ -469,6 +473,7 @@ public partial class RecordExpensePage
         var result = addEditLocationWindow.ShowDialog();
         if (result is not true) return;
 
+        // ReSharper disable once HeapView.DelegateAllocation
         var oldPlace = PlacesCollection.FirstOrDefault(s => s.Id == History.PlaceFk);
         if (addEditLocationWindow.PlaceDeleted)
         {
@@ -673,9 +678,11 @@ public partial class RecordExpensePage
 
         if (SelectedCountry is null)
         {
+            // ReSharper disable HeapView.DelegateAllocation
             ComboBoxSelectorCountry.SelectionChanged -= SelectorCountry_OnSelectionChanged;
             SelectedCountry = records.First().Country;
             ComboBoxSelectorCountry.SelectionChanged += SelectorCountry_OnSelectionChanged;
+            // ReSharper restore HeapView.DelegateAllocation
         }
 
         PlacesCollection.Clear();
@@ -708,8 +715,10 @@ public partial class RecordExpensePage
 
         var citiesResults = records.Select(s => EmptyStringTreeViewConverter.ToUnknown(s.City)).Distinct();
 
+        // ReSharper disable HeapView.DelegateAllocation
         ComboBoxSelectorCity.SelectionChanged -= SelectorCity_OnSelectionChanged;
         ComboBoxSelectorPlace.SelectionChanged -= SelectorPlace_OnSelectionChanged;
+        // ReSharper restore HeapView.DelegateAllocation
 
         CitiesCollection.Clear();
         CitiesCollection.AddRangeAndSort(citiesResults, s => s);
@@ -717,8 +726,10 @@ public partial class RecordExpensePage
         PlacesCollection.Clear();
         PlacesCollection.AddRangeAndSort(records, s => s.Name!);
 
+        // ReSharper disable HeapView.DelegateAllocation
         ComboBoxSelectorCity.SelectionChanged += SelectorCity_OnSelectionChanged;
         ComboBoxSelectorPlace.SelectionChanged += SelectorPlace_OnSelectionChanged;
+        // ReSharper restore HeapView.DelegateAllocation
     }
 
     private void SelectorPlace_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -726,8 +737,10 @@ public partial class RecordExpensePage
         var place = History.PlaceFk?.ToISql<TPlace>();
         UpdateMapPoint(place);
 
+        // ReSharper disable HeapView.DelegateAllocation
         ComboBoxSelectorCountry.SelectionChanged -= SelectorCountry_OnSelectionChanged;
         ComboBoxSelectorCity.SelectionChanged -= SelectorCity_OnSelectionChanged;
+        // ReSharper restore HeapView.DelegateAllocation
 
         var country = string.IsNullOrEmpty(place?.Country)
             ? EmptyStringTreeViewConverterResources.Unknown
@@ -741,8 +754,10 @@ public partial class RecordExpensePage
         ComboBoxSelectorCity.SelectedItem = city;
         History.PlaceFk = place?.Id;
 
+        // ReSharper disable HeapView.DelegateAllocation
         ComboBoxSelectorCountry.SelectionChanged += SelectorCountry_OnSelectionChanged;
         ComboBoxSelectorCity.SelectionChanged += SelectorCity_OnSelectionChanged;
+        // ReSharper restore HeapView.DelegateAllocation
     }
 
     private void SelectorTile_OnSelectionChanged(object sender, SelectionChangedEventArgs e)

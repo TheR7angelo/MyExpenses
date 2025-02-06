@@ -419,8 +419,8 @@ public partial class WelcomePage
         foreach (var existingDatabase in existingDatabasesSelected)
         {
             var newFilePath = Path.Join(selectedFolder, existingDatabase.FileName);
-            Log.Information("Starting to copy {ExistingDatabaseFileName} to {NewFilePath}", existingDatabase.FileName,
-                newFilePath);
+            Log.Information("Starting to copy {ExistingDatabaseFileName} to {NewFilePath}", existingDatabase.FileName, newFilePath);
+
             await Task.Run(() => File.Copy(existingDatabase.FilePath, newFilePath, true));
             Log.Information("Successfully copied {ExistingDatabaseFileName} to {NewFilePath}",
                 existingDatabase.FileName, newFilePath);
@@ -560,7 +560,8 @@ public partial class WelcomePage
         var newExistingDatabases = DbContextBackup.GetExistingDatabase();
         foreach (var existingDatabase in newExistingDatabases)
         {
-            var exist = ExistingDatabases.FirstOrDefault(s => s.FilePath == existingDatabase.FilePath);
+            // ReSharper disable once HeapView.DelegateAllocation
+            var exist = ExistingDatabases.FirstOrDefault(s => s.FilePath.Equals(existingDatabase.FilePath));
             if (exist is not null)
             {
                 existingDatabase.CopyPropertiesTo(exist);

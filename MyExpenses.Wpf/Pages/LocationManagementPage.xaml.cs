@@ -367,8 +367,10 @@ public partial class LocationManagementPage
 
     private void AddPlaceTreeViewCountryGroup(TPlace placeToAdd)
     {
+        // ReSharper disable HeapView.DelegateAllocation
         var cityGroup = CountryGroups.FirstOrDefault(s => s.Country == placeToAdd.Country)?.CityGroups
             ?.FirstOrDefault(s => s.City == placeToAdd.City);
+        // ReSharper restore HeapView.DelegateAllocation
 
         if (cityGroup is null)
         {
@@ -376,6 +378,7 @@ public partial class LocationManagementPage
             // The newCityGroup instance is used to store the information of the city.
             var newCityGroup = new CityGroup { City = placeToAdd.City, Places = [placeToAdd] };
 
+            // ReSharper disable once HeapView.DelegateAllocation
             var countryGroup = CountryGroups.FirstOrDefault(s => s.Country == placeToAdd.Country);
             if (countryGroup is null)
             {
