@@ -205,11 +205,10 @@ public partial class WelcomePage
         // ReSharper disable once HeapView.ObjectAllocation.Evident
         // This code uses Parallel.ForEachAsync for parallel processing of database exports, maximizing performance by utilizing multiple threads.
         // A thread-safe ConcurrentBag is used to track failed exports. Logs provide feedback on success or failure for each database export.
-        var failedExistingDatabases = new ConcurrentBag<ExistingDatabase>();
-        await Parallel.ForEachAsync(existingDatabasesSelected, async (existingDatabase, _) =>
+        var failedExistingDatabases = new List<ExistingDatabase>();
+        foreach (var existingDatabase in existingDatabasesSelected)
         {
-            Log.Information("Starting to export {ExistingDatabaseFileName}",
-                existingDatabase.FileNameWithoutExtension);
+            Log.Information("Starting to export {ExistingDatabaseFileName}", existingDatabase.FileNameWithoutExtension);
 
             var success = await existingDatabase.ToFolderAsync(selectedDialog, isCompress);
 
@@ -220,12 +219,11 @@ public partial class WelcomePage
             }
             else
             {
-                Log.Information("Successfully exported {ExistingDatabaseFileName}",
-                    existingDatabase.FileNameWithoutExtension);
+                Log.Information("Successfully exported {ExistingDatabaseFileName}", existingDatabase.FileNameWithoutExtension);
             }
-        });
+        }
 
-        if (!failedExistingDatabases.IsEmpty)
+        if (!failedExistingDatabases.Count.Equals(0))
         {
             Log.Information("Failed to export some database to local folder");
             MsgBox.Show(WelcomePageResources.MessageBoxErrorExportToLocalFolder, MsgBoxImage.Error,
@@ -401,7 +399,7 @@ public partial class WelcomePage
         else await ExportToLocalDirectoryDatabaseAsync(existingDatabasesSelected);
     }
 
-    private static async Task ExportToLocalDirectoryDatabaseAsync(List<ExistingDatabase> existingDatabasesSelected)
+    private static Task ExportToLocalDirectoryDatabaseAsync(List<ExistingDatabase> existingDatabasesSelected)
     {
         // ReSharper disable once HeapView.ObjectAllocation.Evident
         // An instance of FolderDialog is created to handle the selection of a folder to export the database to.
@@ -413,7 +411,7 @@ public partial class WelcomePage
         if (string.IsNullOrEmpty(selectedFolder))
         {
             Log.Warning("Export cancelled. No directory selected");
-            return;
+            return Task.CompletedTask;
         }
 
         foreach (var existingDatabase in existingDatabasesSelected)
@@ -421,7 +419,7 @@ public partial class WelcomePage
             var newFilePath = Path.Join(selectedFolder, existingDatabase.FileName);
             Log.Information("Starting to copy {ExistingDatabaseFileName} to {NewFilePath}", existingDatabase.FileName, newFilePath);
 
-            await Task.Run(() => File.Copy(existingDatabase.FilePath, newFilePath, true));
+            File.Copy(existingDatabase.FilePath, newFilePath, true);
             Log.Information("Successfully copied {ExistingDatabaseFileName} to {NewFilePath}",
                 existingDatabase.FileName, newFilePath);
         }
@@ -429,9 +427,11 @@ public partial class WelcomePage
         var response = MsgBox.Show(WelcomePageResources.MessageBoxOpenExportFolderQuestion, MsgBoxImage.Question,
             MessageBoxButton.YesNo);
         if (response is MessageBoxResult.Yes) selectedFolder.StartFile();
+
+        return Task.CompletedTask;
     }
 
-    private static async Task ExportToLocalDatabaseFileAsync(ExistingDatabase existingDatabasesSelected)
+    private static Task ExportToLocalDatabaseFileAsync(ExistingDatabase existingDatabasesSelected)
     {
         // ReSharper disable once HeapView.ObjectAllocation.Evident
         // An instance of SqliteFileDialog is created to handle the selection of a file to export the database to.
@@ -443,19 +443,22 @@ public partial class WelcomePage
         if (string.IsNullOrEmpty(selectedDialog))
         {
             Log.Warning("Export cancelled. No file path provided");
-            return;
+            return Task.CompletedTask;;
         }
 
         selectedDialog = Path.ChangeExtension(selectedDialog, DatabaseInfos.Extension);
         var selectedFilePath = existingDatabasesSelected.FilePath;
         Log.Information("Starting to copy database to {SelectedDialog}", selectedDialog);
-        await Task.Run(() => { File.Copy(selectedFilePath, selectedDialog, true); });
+
+        File.Copy(selectedFilePath, selectedDialog, true);
         Log.Information("Database successfully copied to local storage");
 
         var parentDirectory = Path.GetDirectoryName(selectedDialog)!;
         var response = MsgBox.Show(WelcomePageResources.MessageBoxOpenExportFolderQuestion, MsgBoxImage.Question,
             MessageBoxButton.YesNo);
         if (response is MessageBoxResult.Yes) parentDirectory.StartFile();
+
+        return Task.CompletedTask;
     }
 
     private static async Task ImportFromCloudAsync()
