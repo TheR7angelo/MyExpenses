@@ -4,6 +4,7 @@ using LiveChartsCore;
 using LiveChartsCore.Kernel.Sketches;
 using LiveChartsCore.SkiaSharpView;
 using LiveChartsCore.SkiaSharpView.Painting;
+using MyExpenses.Models.AutoMapper;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Sql.Bases.Views.Analysis;
 using MyExpenses.Models.Wpf.Charts;
@@ -162,14 +163,12 @@ public partial class BudgetAnnualControl
         var name = BudgetsControlResources.Global;
         var values = records.Select(s => Math.Round(s.PeriodValue ?? 0, 2)).ToList();
 
+        var budgetRecordInfos = records.Select(s => Mapping.Mapper.Map<BudgetRecordInfo>(s)).ToArray();
+        var func = budgetRecordInfos.CreateCircleGeometryLabelFunc();
+
         // ReSharper disable once HeapView.ObjectAllocation.Evident
         var isSeriesTranslatable = new IsSeriesTranslatable { OriginalName = name, IsTranslatable = true, IsGlobal = true, IsTrend = false };
-        var lineSeries = name.CreateLineSeries(values, point =>
-        {
-            var dataPoint = records[point.Index];
-            return $"{dataPoint.PeriodValue}{Environment.NewLine}" +
-                   $"{dataPoint.Status} {dataPoint.DifferenceValue ?? 0:F2} ({dataPoint.Percentage}%)";
-        }, tag: isSeriesTranslatable);
+        var lineSeries = name.CreateLineSeries(values, func, tag: isSeriesTranslatable);
 
         var trendValues = values.GenerateLinearTrendValues();
 
