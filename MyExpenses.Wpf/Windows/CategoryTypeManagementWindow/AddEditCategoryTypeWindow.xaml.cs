@@ -281,6 +281,7 @@ public partial class AddEditCategoryTypeWindow
         if (addEditColorWindow.DialogResult is not true) return;
         if (addEditColorWindow.DeleteColor)
         {
+            // ReSharper disable once HeapView.DelegateAllocation
             var colorDeleted = Colors.FirstOrDefault(s => s.Id == CategoryType.ColorFk);
             if (colorDeleted is not null) Colors.Remove(colorDeleted);
 

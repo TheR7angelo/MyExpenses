@@ -152,6 +152,7 @@ public static class AutoUpdaterGitHub
         string background = null!;
         string foreground = null!;
 
+        // ReSharper disable once HeapView.DelegateAllocation
         Application.Current.Dispatcher.Invoke(() =>
         {
             background = Utils.Resources.GetMaterialDesignPaperColorHexadecimalWithoutAlpha();

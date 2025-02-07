@@ -42,8 +42,11 @@ public partial class BudgetMonthlyControl
 
         InitializeComponent();
 
+
+        // ReSharper disable HeapView.DelegateAllocation
         Interface.ThemeChanged += Interface_OnThemeChanged;
         Interface.LanguageChanged += Interface_OnLanguageChanged;
+        // ReSharper restore HeapView.DelegateAllocation
     }
 
     #region Action

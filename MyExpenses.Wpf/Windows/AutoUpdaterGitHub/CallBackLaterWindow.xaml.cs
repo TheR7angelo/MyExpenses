@@ -98,6 +98,7 @@ public partial class CallBackLaterWindow
 
         InitializeComponent();
 
+        // ReSharper disable once HeapView.DelegateAllocation
         Interface.LanguageChanged += Interface_OnLanguageChanged;
 
         this.SetWindowCornerPreference();

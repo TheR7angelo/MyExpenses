@@ -241,6 +241,7 @@ public sealed partial class ColorPickerControl
 
         InitializeValue();
 
+        // ReSharper disable once HeapView.DelegateAllocation
         Interface.LanguageChanged += Interface_OnLanguageChanged;
     }
 

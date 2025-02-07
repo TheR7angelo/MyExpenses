@@ -53,8 +53,8 @@ public partial class HowToUseControl
 
             var cultureName = filenameSplit[1];
 
-            var cultureInfo = allCulture.FirstOrDefault(c =>
-                c.EnglishName.Contains(cultureName, StringComparison.CurrentCultureIgnoreCase));
+            // ReSharper disable once HeapView.DelegateAllocation
+            var cultureInfo = allCulture.FirstOrDefault(c => c.EnglishName.Contains(cultureName, StringComparison.CurrentCultureIgnoreCase));
             if (cultureInfo is null) continue;
 
             var howToUseCulturePath = new HowToUseCulturePath
@@ -75,7 +75,6 @@ public partial class HowToUseControl
         await WebView2.EnsureCoreWebView2Async();
 
         var currentCulture = CultureInfo.CurrentCulture;
-        HowToUseCulturePath = HowToUseCulturePaths.First(s => s.CultureInfo.TwoLetterISOLanguageName.ToLower().Equals(currentCulture.TwoLetterISOLanguageName.ToLower()));
 
         // ReSharper disable once HeapView.DelegateAllocation
         HowToUseCulturePath = HowToUseCulturePaths.First(s =>
@@ -84,6 +83,7 @@ public partial class HowToUseControl
         if (HowToUseCulturePath is null) return;
         WebView2.CoreWebView2.Navigate(HowToUseCulturePath.Value.Path);
 
+        // ReSharper disable once HeapView.DelegateAllocation
         ListView.SelectionChanged += ListView_SelectionChanged;
     }
 
