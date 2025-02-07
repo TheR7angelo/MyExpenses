@@ -126,12 +126,14 @@ public partial class NominatimSearchWindow
 
         UpdateLanguage();
 
-        Interface.LanguageChanged += Interface_OnLanguageChanged;
         InitializeComponent();
 
-        this.SetWindowCornerPreference();
-
         MapControl.Map = map;
+
+        // ReSharper disable once HeapView.DelegateAllocation
+        Interface.LanguageChanged += Interface_OnLanguageChanged;
+
+        this.SetWindowCornerPreference();
     }
 
     private void Interface_OnLanguageChanged()

@@ -79,10 +79,12 @@ public partial class LanguageControl
         var configuration = Config.Configuration;
         Is24Hours = configuration.Interface.Clock.Is24Hours;
 
-        Interface.LanguageChanged += Interface_OnLanguageChanged;
         UpdateLanguage();
 
         InitializeComponent();
+
+        // ReSharper disable once HeapView.DelegateAllocation
+        Interface.LanguageChanged += Interface_OnLanguageChanged;
     }
 
     private void Interface_OnLanguageChanged()

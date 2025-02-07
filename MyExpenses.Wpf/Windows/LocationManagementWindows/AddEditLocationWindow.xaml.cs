@@ -256,15 +256,17 @@ public partial class AddEditLocationWindow
         var map = MapsuiMapExtensions.GetMap(true, backColor);
         map.Layers.Add(WritableLayer);
 
-        Interface.ThemeChanged += Interface_OnThemeChanged;
-        Interface.LanguageChanged += Interface_OnLanguageChanged;
-
         UpdateLanguage();
         InitializeComponent();
 
-        this.SetWindowCornerPreference();
-
         MapControl.Map = map;
+
+        // ReSharper disable HeapView.DelegateAllocation
+        Interface.ThemeChanged += Interface_OnThemeChanged;
+        Interface.LanguageChanged += Interface_OnLanguageChanged;
+        // ReSharper restore HeapView.DelegateAllocation
+
+        this.SetWindowCornerPreference();
     }
 
     private void Interface_OnLanguageChanged()
