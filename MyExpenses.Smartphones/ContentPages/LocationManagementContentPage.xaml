@@ -42,26 +42,33 @@
 
                 </material:PickerField>
 
-                <Grid x:Name="GridMapControl">
+                <!-- <Grid x:Name="GridMapControl"> -->
+                <!-- -->
+                <!--     <Grid.Behaviors> -->
+                <!--         <toolkit:TouchBehavior -->
+                <!--             LongPressCommand="{Binding MapControlLongPressCommand, Source={x:Reference This}}" -->
+                <!--             LongPressDuration="1500"> -->
+                <!--         </toolkit:TouchBehavior> -->
+                <!--     </Grid.Behaviors> -->
+                <!-- -->
+                <!--     <Grid.GestureRecognizers> -->
+                <!-- -->
+                <!--     </Grid.GestureRecognizers> -->
+                <!-- -->
+                <!--     <maui:MapControl x:Name="MapControl" -->
+                <!--                      Background="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}" -->
+                <!--                      Info="MapControl_OnInfo" -->
+                <!--                      Loaded="MapControl_OnLoaded"> -->
+                <!--     </maui:MapControl> -->
+                <!-- -->
+                <!-- </Grid> -->
 
-                    <Grid.Behaviors>
-                        <toolkit:TouchBehavior
-                            LongPressCommand="{Binding MapControlLongPressCommand, Source={x:Reference This}}"
-                            LongPressDuration="1500">
-                        </toolkit:TouchBehavior>
-                    </Grid.Behaviors>
+                <maui:MapControl x:Name="MapControl"
+                                 Background="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
+                                 Info="MapControl_OnInfo"
+                                 Loaded="MapControl_OnLoaded">
 
-                    <Grid.GestureRecognizers>
-
-                    </Grid.GestureRecognizers>
-
-                    <maui:MapControl x:Name="MapControl"
-                                     Background="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
-                                     Info="MapControl_OnInfo"
-                                     Loaded="MapControl_OnLoaded">
-                    </maui:MapControl>
-
-                </Grid>
+                </maui:MapControl>
 
                                     <!-- ContextMenuOpening="MapControl_OnContextMenuOpening" -->
                                 <!-- Loaded="MapControl_OnLoaded"> -->

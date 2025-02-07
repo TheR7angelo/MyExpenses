@@ -145,7 +145,7 @@ public partial class LocationManagementContentPage
 
     private void UpdateDisplay()
     {
-        foreach (var view in new List<View> { ScrollViewTreeView, GridMapControl, PickerFieldKnownTileSource })
+        foreach (var view in new List<View> { ScrollViewTreeView, MapControl, PickerFieldKnownTileSource })
         {
             if (view.Parent is Grid grid) grid.Children.Remove(view);
         }
@@ -154,13 +154,13 @@ public partial class LocationManagementContentPage
         if (orientation is DisplayOrientation.Landscape)
         {
             AddToGrid(GridLandscape, ScrollViewTreeView, 0, 0, 2);
-            AddToGrid(GridLandscape, GridMapControl, 0, 1);
+            AddToGrid(GridLandscape, MapControl, 0, 1);
             AddToGrid(GridLandscape, PickerFieldKnownTileSource, 1, 1);
         }
         else
         {
             AddToGrid(GridPortrait, PickerFieldKnownTileSource, 0, 0);
-            AddToGrid(GridPortrait, GridMapControl, 1, 0);
+            AddToGrid(GridPortrait, MapControl, 1, 0);
             AddToGrid(GridPortrait, ScrollViewTreeView, 2, 0);
         }
     }
@@ -185,6 +185,9 @@ public partial class LocationManagementContentPage
     {
         var mapInfo = e.GetMapInfo(InfoLayers);
         SetClickTPlace(mapInfo);
+
+        var z = e.TapType;
+        DisplayAlert("Tap", $"Z={z}", "OK");
     }
 
     private void SetClickTPlace(MapInfo mapInfo)
@@ -228,5 +231,10 @@ public partial class LocationManagementContentPage
         // }
 
         await DisplayAlert("Long press", "Long press", "OK");
+    }
+
+    private async void TapGestureRecognizer_OnTapped(object? sender, TappedEventArgs e)
+    {
+
     }
 }
