@@ -91,4 +91,20 @@ public static class DropboxServiceUtils
             existingDatabase.SyncStatus = syncStatus;
         }
     }
+
+    /// <summary>
+    /// Checks and updates the synchronization status of an existing database with the Dropbox cloud storage.
+    /// This process evaluates the current synchronization state by comparing the database on local storage and in the cloud.
+    /// </summary>
+    /// <param name="existingDatabase">The instance of the database to be checked for synchronization.</param>
+    /// <param name="projectSystem">The type of project system initiating the sync check.</param>
+    public static void CheckExistingDatabaseIsSync(this ExistingDatabase existingDatabase,
+        ProjectSystem projectSystem)
+    {
+        Task.Run(async () =>
+        {
+            var syncStatus = await existingDatabase.CheckStatus(projectSystem);
+            existingDatabase.SyncStatus = syncStatus;
+        }).ConfigureAwait(false).GetAwaiter().GetResult();
+    }
 }

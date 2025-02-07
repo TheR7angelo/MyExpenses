@@ -100,6 +100,7 @@ public partial class WelcomePage
         var button = (Button)sender;
         if (button.DataContext is not ExistingDatabase existingDatabase) return;
 
+        if (existingDatabase.SyncStatus is SyncStatus.Unknown) existingDatabase.CheckExistingDatabaseIsSync(ProjectSystem.Wpf);
         if (existingDatabase.SyncStatus is SyncStatus.LocalIsOutdated)
         {
             var question = string.Format(WelcomePageResources.MessageBoxUseOutdatedWarningQuestion, Environment.NewLine);
