@@ -41,7 +41,7 @@ public partial class WelcomePage
     }
 
     private void MainWindow_OnVaccumDatabase()
-        => _ = ExistingDatabases.CheckExistingDatabaseIsSyncAsync();
+        => _ = ExistingDatabases.CheckExistingDatabaseIsSyncAsync(ProjectSystem.Wpf);
 
     #region Action
 
@@ -574,7 +574,7 @@ public partial class WelcomePage
             }
         }
 
-        _ = ExistingDatabases.CheckExistingDatabaseIsSyncAsync();
+        _ = ExistingDatabases.CheckExistingDatabaseIsSyncAsync(ProjectSystem.Wpf);
     }
 
     private static async Task SaveToCloudAsync(List<ExistingDatabase> existingDatabasesSelected)
@@ -582,7 +582,7 @@ public partial class WelcomePage
         if (existingDatabasesSelected.Count is 1) await ExportToCloudFileAsync(existingDatabasesSelected.First());
         else await ExportToCloudDirectoryAsync(existingDatabasesSelected);
 
-        await existingDatabasesSelected.CheckExistingDatabaseIsSyncAsync();
+        await existingDatabasesSelected.CheckExistingDatabaseIsSyncAsync(ProjectSystem.Wpf);
     }
 
     private static void ShowSuccessMessage(string message)

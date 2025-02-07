@@ -76,16 +76,18 @@ public static class DropboxServiceUtils
     }
 
     /// <summary>
-    /// Updates the synchronization status for a collection of existing databases by analyzing their state
-    /// against the Dropbox cloud storage.
+    /// Checks the synchronization status of all specified existing databases in relation to the provided project system.
+    /// Updates the synchronization status for each database accordingly.
     /// </summary>
-    /// <param name="existingDatabases">A collection of <see cref="ExistingDatabase"/> objects to be checked for synchronization status.</param>
-    /// <returns>An asynchronous task that represents the operation of updating the synchronization statuses for the provided databases.</returns>
-    public static async Task CheckExistingDatabaseIsSyncAsync(this IEnumerable<ExistingDatabase> existingDatabases)
+    /// <param name="existingDatabases">A collection of existing databases to be checked for synchronization.</param>
+    /// <param name="projectSystem">The project system context that determines the synchronization behavior.</param>
+    /// <returns>A task that represents the asynchronous operation.</returns>
+    public static async Task CheckExistingDatabaseIsSyncAsync(this IEnumerable<ExistingDatabase> existingDatabases,
+        ProjectSystem projectSystem)
     {
         foreach (var existingDatabase in existingDatabases)
         {
-            var syncStatus = await existingDatabase.CheckStatus(ProjectSystem.Wpf);
+            var syncStatus = await existingDatabase.CheckStatus(projectSystem);
             existingDatabase.SyncStatus = syncStatus;
         }
     }
