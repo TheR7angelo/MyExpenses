@@ -253,7 +253,9 @@ public partial class AddEditCategoryTypeWindow
     {
         categoryType.CopyPropertiesTo(CategoryType);
         EditCategoryType = true;
-        CategoryTypes.Remove(CategoryTypes.Find(s => s.Id == categoryType.Id)!);
+
+        // ReSharper disable once HeapView.DelegateAllocation
+        CategoryTypes.Remove(CategoryTypes.Find(s => s.Id.Equals(categoryType.Id))!);
     }
 
     private static void ShowErrorMessage()
@@ -293,7 +295,7 @@ public partial class AddEditCategoryTypeWindow
             var json = editedColor.ToJsonString();
             Log.Information("{Json}", json);
 
-            var oldColor = Colors.First(s => s.Id == editedColor.Id);
+            var oldColor = Colors.First(s => s.Id.Equals(editedColor.Id));
             editedColor.CopyPropertiesTo(oldColor);
 
             MsgBox.MsgBox.Show(AddEditCategoryTypeWindowResources.MessageBoxEditColorSuccess, MsgBoxImage.Check);

@@ -77,6 +77,10 @@ public partial class HowToUseControl
         var currentCulture = CultureInfo.CurrentCulture;
         HowToUseCulturePath = HowToUseCulturePaths.First(s => s.CultureInfo.TwoLetterISOLanguageName.ToLower().Equals(currentCulture.TwoLetterISOLanguageName.ToLower()));
 
+        // ReSharper disable once HeapView.DelegateAllocation
+        HowToUseCulturePath = HowToUseCulturePaths.First(s =>
+            s.CultureInfo.TwoLetterISOLanguageName.Equals(currentCulture.TwoLetterISOLanguageName, StringComparison.CurrentCultureIgnoreCase));
+
         if (HowToUseCulturePath is null) return;
         WebView2.CoreWebView2.Navigate(HowToUseCulturePath.Value.Path);
 
