@@ -1,6 +1,5 @@
 ﻿using System.Windows;
 using Mapsui.Layers;
-using Mapsui.Styles;
 using MyExpenses.Models.AutoMapper;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Sql.Bases.Tables;
