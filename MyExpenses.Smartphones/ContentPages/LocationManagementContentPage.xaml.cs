@@ -1,8 +1,9 @@
 using System.Collections.ObjectModel;
 using BruTile.Predefined;
-using CommunityToolkit.Maui.Core;
 using Mapsui;
 using Mapsui.Layers;
+using Mapsui.Manipulations;
+using Mapsui.Projections;
 using Mapsui.Tiling.Layers;
 using MyExpenses.Models.Sql.Bases.Groups;
 using MyExpenses.Models.Sql.Bases.Tables;
@@ -177,8 +178,15 @@ public partial class LocationManagementContentPage
     {
         var mapInfo = e.GetMapInfo(InfoLayers);
         SetClickTPlace(mapInfo);
-        var z = e.TapType;
-        DisplayAlert("Info", $"TapType: {z}", "OK");
+
+        var worldPosition = e.WorldPosition;
+        var lonLat = SphericalMercator.ToLonLat(worldPosition.X, worldPosition.Y);
+
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // The ClickPoint instance is used to store the coordinates of the point clicked on the map.
+        ClickPoint = new Point(lonLat.lon, lonLat.lat);
+
+        if (e.TapType is TapType.Long) _ = HandleLongTap();
     }
 
     private void SetClickTPlace(MapInfo mapInfo)
@@ -207,24 +215,8 @@ public partial class LocationManagementContentPage
         ClickTPlace = place;
     }
 
-    // private void MapControlLong_OnLongPress(object e)
-    // {
-    //     // if (e.Type == TouchActionType.Pressed || e.Type == TouchActionType.Moved)
-    //     // {
-    //     //     // Si le mouvement ou le clic se produit sur le MapControl, laissez-le gérer l'interaction
-    //     //     var mapControlBounds = MapControl.GetBoundingBox(); // Extension pour obtenir les limites
-    //     //     if (mapControlBounds.Contains(e.Location))
-    //     //     {
-    //     //         // Transférer les événements au MapControl
-    //     //         MapControl.OnTouch(e); // Appel natif à la carte pour déplacer/zoomer
-    //     //         return;
-    //     //     }
-    //     // }
-    //
-    //     // DisplayAlert("Long press", "Long press", "OK");
-    // }
-    private void TouchBehavior_OnTouchGestureCompleted(object? sender, TouchGestureCompletedEventArgs e)
+    private async Task HandleLongTap()
     {
-        throw new NotImplementedException();
+        await DisplayAlert("Point", $"{ClickPoint}", "OK");
     }
 }
