@@ -1,6 +1,6 @@
 using System.Collections.ObjectModel;
-using System.Windows.Input;
 using BruTile.Predefined;
+using CommunityToolkit.Maui.Core;
 using Mapsui;
 using Mapsui.Layers;
 using Mapsui.Tiling.Layers;
@@ -35,18 +35,8 @@ public partial class LocationManagementContentPage
 
     public ObservableCollection<TreeViewNode> TreeViewNodes { get; }
 
-    public ICommand MapControlLongPressCommand { get; }
-
     public LocationManagementContentPage()
     {
-        // ReSharper disable once HeapView.ObjectAllocation.Evident
-        // ReSharper disable once HeapView.DelegateAllocation
-        // The Command object is explicitly created here to handle the user's interaction with the UI.
-        // This allocation is necessary because `Command` encapsulates the behavior (in this case, `OnBackCommandPressed`)
-        // and binds it to the associated UI element, such as a Button or a gesture.
-        // This ensures proper separation between the UI and logic layers.
-        MapControlLongPressCommand = new Command<object>(MapControlLong_OnLongPress);
-
         KnownTileSources = [..MapsuiMapExtensions.GetAllKnowTileSource()];
         InfoLayers = new List<ILayer> { PlaceLayer };
 
@@ -181,13 +171,14 @@ public partial class LocationManagementContentPage
 
     #endregion
 
+    // Before beta 8
+    // https://mapsui.com/v5/nuget-of-latest-build/
     private void MapControl_OnInfo(object? sender, MapInfoEventArgs e)
     {
         var mapInfo = e.GetMapInfo(InfoLayers);
         SetClickTPlace(mapInfo);
-
         var z = e.TapType;
-        DisplayAlert("Tap", $"Z={z}", "OK");
+        DisplayAlert("Info", $"TapType: {z}", "OK");
     }
 
     private void SetClickTPlace(MapInfo mapInfo)
@@ -216,25 +207,24 @@ public partial class LocationManagementContentPage
         ClickTPlace = place;
     }
 
-    private async void MapControlLong_OnLongPress(object e)
+    // private void MapControlLong_OnLongPress(object e)
+    // {
+    //     // if (e.Type == TouchActionType.Pressed || e.Type == TouchActionType.Moved)
+    //     // {
+    //     //     // Si le mouvement ou le clic se produit sur le MapControl, laissez-le gérer l'interaction
+    //     //     var mapControlBounds = MapControl.GetBoundingBox(); // Extension pour obtenir les limites
+    //     //     if (mapControlBounds.Contains(e.Location))
+    //     //     {
+    //     //         // Transférer les événements au MapControl
+    //     //         MapControl.OnTouch(e); // Appel natif à la carte pour déplacer/zoomer
+    //     //         return;
+    //     //     }
+    //     // }
+    //
+    //     // DisplayAlert("Long press", "Long press", "OK");
+    // }
+    private void TouchBehavior_OnTouchGestureCompleted(object? sender, TouchGestureCompletedEventArgs e)
     {
-        // if (e.Type == TouchActionType.Pressed || e.Type == TouchActionType.Moved)
-        // {
-        //     // Si le mouvement ou le clic se produit sur le MapControl, laissez-le gérer l'interaction
-        //     var mapControlBounds = MapControl.GetBoundingBox(); // Extension pour obtenir les limites
-        //     if (mapControlBounds.Contains(e.Location))
-        //     {
-        //         // Transférer les événements au MapControl
-        //         MapControl.OnTouch(e); // Appel natif à la carte pour déplacer/zoomer
-        //         return;
-        //     }
-        // }
-
-        await DisplayAlert("Long press", "Long press", "OK");
-    }
-
-    private async void TapGestureRecognizer_OnTapped(object? sender, TappedEventArgs e)
-    {
-
+        throw new NotImplementedException();
     }
 }
