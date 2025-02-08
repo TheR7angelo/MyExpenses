@@ -9,7 +9,7 @@ public static class FileManager
 
     private static async Task AddMapsMaker()
     {
-        var packageDirectory = Path.Join("Resources", "Maps");
+        var packageDirectory = Path.Join("Resources", "Assets", "Maps");
         var storageDirectoryPath = Path.Join(FileSystem.AppDataDirectory, packageDirectory);
 
         // ReSharper disable once HeapView.ObjectAllocation.Evident

@@ -5,7 +5,7 @@ $scriptDirectory = Split-Path -Parent $MyInvocation.MyCommand.Definition
 $sourcePath = Join-Path -Path $scriptDirectory -ChildPath "..\..\..\MyExpenses.Wpf\Resources\Maps"
 
 # Destination folder path
-$destinationPath = Join-Path -Path $scriptDirectory -ChildPath "..\Raw\Resources\Maps"
+$destinationPath = Join-Path -Path $scriptDirectory -ChildPath "..\Raw\Resources\Assets\Maps"
 
 # Check if the destination folder exists, if not create it
 if (-Not (Test-Path -Path $destinationPath)) {
