@@ -101,6 +101,7 @@ public static class DropboxServiceUtils
     public static void CheckExistingDatabaseIsSync(this ExistingDatabase existingDatabase,
         ProjectSystem projectSystem)
     {
+        // ReSharper disable once HeapView.DelegateAllocation
         Task.Run(async () =>
         {
             var syncStatus = await existingDatabase.CheckStatus(projectSystem);
