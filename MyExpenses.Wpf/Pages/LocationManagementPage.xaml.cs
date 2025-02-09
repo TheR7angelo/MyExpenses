@@ -14,6 +14,7 @@ using Microsoft.Data.Sqlite;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Sql.Bases.Groups;
 using MyExpenses.Models.Sql.Bases.Tables;
+using MyExpenses.Models.WebApi.Authenticator;
 using MyExpenses.SharedUtils.Collection;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils;
@@ -312,7 +313,7 @@ public partial class LocationManagementPage
         var log = GetLogAction("Google Earth web");
 
         Log.Information("{Log}", log);
-        var uri = ClickPoint.ToGoogleEarthWeb();
+        var uri = ClickPoint.ToGoogleEarthWeb(ProjectSystem.Wpf);
         Log.Information("{Uri}", uri);
     }
 
@@ -322,7 +323,7 @@ public partial class LocationManagementPage
         var log = GetLogAction("Google Maps");
 
         Log.Information("{Log}", log);
-        var uri = ClickPoint.ToGoogleMaps();
+        var uri = ClickPoint.ToGoogleMaps(ProjectSystem.Wpf);
         Log.Information("{Uri}", uri);
     }
 
@@ -331,7 +332,7 @@ public partial class LocationManagementPage
         var log = GetLogAction("Google Street View");
 
         Log.Information("{Log}", log);
-        var uri = ClickPoint.ToGoogleStreetView();
+        var uri = ClickPoint.ToGoogleStreetView(ProjectSystem.Wpf);
         Log.Information("{Uri}", uri);
     }
 

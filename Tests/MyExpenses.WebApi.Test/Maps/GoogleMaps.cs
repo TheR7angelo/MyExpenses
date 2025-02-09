@@ -1,3 +1,4 @@
+using MyExpenses.Models.WebApi.Authenticator;
 using MyExpenses.WebApi.Maps;
 using NetTopologySuite.Geometries;
 
@@ -10,18 +11,18 @@ public class StreetViewTest
     [Fact]
     private void GoToGoogleEarthWeb()
     {
-        Point.ToGoogleEarthWeb();
+        Point.ToGoogleEarthWeb(ProjectSystem.Wpf);
     }
 
     [Fact]
     private void GoToMaps()
     {
-        Point.ToGoogleMaps();
+        Point.ToGoogleMaps(ProjectSystem.Wpf);
     }
 
     [Fact]
     private void GoToStreetView()
     {
-        Point.ToGoogleStreetView();
+        Point.ToGoogleStreetView(ProjectSystem.Wpf);
     }
 }
