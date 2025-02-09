@@ -5,6 +5,7 @@ using Mapsui.Layers;
 using Mapsui.Manipulations;
 using Mapsui.Projections;
 using Mapsui.Tiling.Layers;
+using MyExpenses.Models.Maui.CustomPopup;
 using MyExpenses.Models.Sql.Bases.Groups;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Smartphones.Converters;
@@ -191,32 +192,26 @@ public partial class LocationManagementContentPage
 
     private void SetClickTPlace(MapInfo mapInfo)
     {
-        var feature = mapInfo.Feature as PointFeature;
-        var layer = mapInfo.Layer;
-
-        if (feature is null || layer is null)
+        if (mapInfo.Feature is not PointFeature pointFeature || mapInfo.Layer?.Tag is not Type layerType || layerType != typeof(TPlace))
         {
-            // MenuItemAddFeature.Visibility = Visibility.Visible;
-            // MenuItemEditFeature.Visibility = Visibility.Collapsed;
-            // MenuItemDeleteFeature.Visibility = Visibility.Collapsed;
             ClickTPlace = null;
             return;
         }
 
-        // MenuItemAddFeature.Visibility = Visibility.Collapsed;
-        // MenuItemEditFeature.Visibility = Visibility.Visible;
-        // MenuItemDeleteFeature.Visibility = Visibility.Visible;
-
-        var type = (Type)layer.Tag!;
-        if (type != typeof(TPlace)) return;
-
-        PointFeature = feature;
-        var place = feature.ToTPlace();
+        PointFeature = pointFeature;
+        var place = pointFeature.ToTPlace();
         ClickTPlace = place;
     }
 
     private async Task HandleLongTap()
     {
-        await DisplayAlert("Point", $"{ClickPoint}", "OK");
+        var menuItemVisibility = ClickTPlace is null
+            ? new MenuItemVisibility { MenuItemAddFeature = true }
+            : new MenuItemVisibility { MenuItemEditFeature = true, MenuItemDeleteFeature = true };
+
+        var content = $"{nameof(MenuItemVisibility.MenuItemAddFeature)}: {menuItemVisibility.MenuItemAddFeature}, " +
+                      $"{nameof(MenuItemVisibility.MenuItemEditFeature)}: {menuItemVisibility.MenuItemEditFeature}, " +
+                      $"{nameof(MenuItemVisibility.MenuItemDeleteFeature)}: {menuItemVisibility.MenuItemDeleteFeature})";
+        await DisplayAlert("Long tap", content, "OK");
     }
 }
