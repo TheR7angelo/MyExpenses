@@ -7,10 +7,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MyExpenses.Wpf.Resources.Resx.Pages.LocationManagementPage {
+namespace MyExpenses.SharedUtils.Resources.Resx.LocationManagement {
     using System;
-    
-    
+
+
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
     /// </summary>
@@ -21,16 +21,16 @@ namespace MyExpenses.Wpf.Resources.Resx.Pages.LocationManagementPage {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class LocationManagementPageResources {
-        
+    public class LocationManagementResources {
+
         private static global::System.Resources.ResourceManager resourceMan;
-        
+
         private static global::System.Globalization.CultureInfo resourceCulture;
-        
+
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal LocationManagementPageResources() {
+        internal LocationManagementResources() {
         }
-        
+
         /// <summary>
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
@@ -38,14 +38,14 @@ namespace MyExpenses.Wpf.Resources.Resx.Pages.LocationManagementPage {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MyExpenses.Wpf.Resources.Resx.Pages.LocationManagementPage.LocationManagementPage" +
-                            "Resources", typeof(LocationManagementPageResources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MyExpenses.SharedUtils.Resources.Resx.LocationManagement.LocationManagementResour" +
+                            "ces", typeof(LocationManagementResources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
             }
         }
-        
+
         /// <summary>
         ///   Overrides the current thread's CurrentUICulture property for all
         ///   resource lookups using this strongly typed resource class.
@@ -59,146 +59,146 @@ namespace MyExpenses.Wpf.Resources.Resx.Pages.LocationManagementPage {
                 resourceCulture = value;
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Basemap :.
         /// </summary>
-        internal static string ComboBoxBasemapHintAssist {
+        public static string ComboBoxBasemapHintAssist {
             get {
                 return ResourceManager.GetString("ComboBoxBasemapHintAssist", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Add new point.
         /// </summary>
-        internal static string MenuItemHeaderAddPoint {
+        public static string MenuItemHeaderAddPoint {
             get {
                 return ResourceManager.GetString("MenuItemHeaderAddPoint", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Delete point.
         /// </summary>
-        internal static string MenuItemHeaderDeleteFeature {
+        public static string MenuItemHeaderDeleteFeature {
             get {
                 return ResourceManager.GetString("MenuItemHeaderDeleteFeature", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Edit point.
         /// </summary>
-        internal static string MenuItemHeaderEditFeature {
+        public static string MenuItemHeaderEditFeature {
             get {
                 return ResourceManager.GetString("MenuItemHeaderEditFeature", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Go to Google Earth web.
         /// </summary>
-        internal static string MenuItemHeaderGoogleEarthWeb {
+        public static string MenuItemHeaderGoogleEarthWeb {
             get {
                 return ResourceManager.GetString("MenuItemHeaderGoogleEarthWeb", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Go to Google Maps.
         /// </summary>
-        internal static string MenuItemHeaderGoogleMaps {
+        public static string MenuItemHeaderGoogleMaps {
             get {
                 return ResourceManager.GetString("MenuItemHeaderGoogleMaps", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Go to Google Street View.
         /// </summary>
-        internal static string MenuItemHeaderGoogleStreetView {
+        public static string MenuItemHeaderGoogleStreetView {
             get {
                 return ResourceManager.GetString("MenuItemHeaderGoogleStreetView", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Maps.
         /// </summary>
-        internal static string MenuItemHeaderMaps {
+        public static string MenuItemHeaderMaps {
             get {
                 return ResourceManager.GetString("MenuItemHeaderMaps", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Are you sure you want to delete place &quot;{0}&quot; ?.
         /// </summary>
-        internal static string MessageBoxDeleteQuestion {
+        public static string MessageBoxDeleteQuestion {
             get {
                 return ResourceManager.GetString("MessageBoxDeleteQuestion", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to An error occurred please retry.
         /// </summary>
-        internal static string MessageBoxMenuItemDeleteFeatureError {
+        public static string MessageBoxMenuItemDeleteFeatureError {
             get {
                 return ResourceManager.GetString("MessageBoxMenuItemDeleteFeatureError", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Place was successfully removed.
         /// </summary>
-        internal static string MessageBoxMenuItemDeleteFeatureNoUseSuccess {
+        public static string MessageBoxMenuItemDeleteFeatureNoUseSuccess {
             get {
                 return ResourceManager.GetString("MessageBoxMenuItemDeleteFeatureNoUseSuccess", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to This location is in use.Are you sure you want to delete this location and everything linked to it ?.
         /// </summary>
-        internal static string MessageBoxMenuItemDeleteFeatureUseQuestion {
+        public static string MessageBoxMenuItemDeleteFeatureUseQuestion {
             get {
                 return ResourceManager.GetString("MessageBoxMenuItemDeleteFeatureUseQuestion", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Place and all relative element was successfully removed.
         /// </summary>
-        internal static string MessageBoxMenuItemDeleteFeatureUseSuccess {
+        public static string MessageBoxMenuItemDeleteFeatureUseSuccess {
             get {
                 return ResourceManager.GetString("MessageBoxMenuItemDeleteFeatureUseSuccess", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to The new place has been added successfully.
         /// </summary>
-        internal static string MessageBoxProcessNewPlaceAddSuccess {
+        public static string MessageBoxProcessNewPlaceAddSuccess {
             get {
                 return ResourceManager.GetString("MessageBoxProcessNewPlaceAddSuccess", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to The new location has been successfully edited.
         /// </summary>
-        internal static string MessageBoxProcessNewPlaceEditSuccess {
+        public static string MessageBoxProcessNewPlaceEditSuccess {
             get {
                 return ResourceManager.GetString("MessageBoxProcessNewPlaceEditSuccess", resourceCulture);
             }
         }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to An error occurred please retry.
         /// </summary>
-        internal static string MessageBoxProcessNewPlaceError {
+        public static string MessageBoxProcessNewPlaceError {
             get {
                 return ResourceManager.GetString("MessageBoxProcessNewPlaceError", resourceCulture);
             }

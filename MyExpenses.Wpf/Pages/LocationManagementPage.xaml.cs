@@ -16,11 +16,11 @@ using MyExpenses.Models.Sql.Bases.Groups;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Models.WebApi.Authenticator;
 using MyExpenses.SharedUtils.Collection;
+using MyExpenses.SharedUtils.Resources.Resx.LocationManagement;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils;
 using MyExpenses.Utils.Maps;
 using MyExpenses.WebApi.Maps;
-using MyExpenses.Wpf.Resources.Resx.Pages.LocationManagementPage;
 using MyExpenses.Wpf.Windows.LocationManagementWindows;
 using MyExpenses.Wpf.Windows.MsgBox;
 using Serilog;
@@ -240,7 +240,7 @@ public partial class LocationManagementPage
 
         var placeToDelete = feature.ToTPlace();
         var response =
-            MsgBox.Show(string.Format(LocationManagementPageResources.MessageBoxDeleteQuestion, placeToDelete.Name),
+            MsgBox.Show(string.Format(LocationManagementResources.MessageBoxDeleteQuestion, placeToDelete.Name),
                 MsgBoxImage.Question, MessageBoxButton.YesNoCancel);
         if (response is not MessageBoxResult.Yes) return;
 
@@ -254,7 +254,7 @@ public partial class LocationManagementPage
             MapControl.Refresh();
 
             Log.Information("Place was successfully removed");
-            MsgBox.Show(LocationManagementPageResources.MessageBoxMenuItemDeleteFeatureNoUseSuccess, MsgBoxImage.Check);
+            MsgBox.Show(LocationManagementResources.MessageBoxMenuItemDeleteFeatureNoUseSuccess, MsgBoxImage.Check);
 
             return;
         }
@@ -267,7 +267,7 @@ public partial class LocationManagementPage
             Log.Error("Foreign key constraint violation");
 
             response =
-                MsgBox.Show(LocationManagementPageResources.MessageBoxMenuItemDeleteFeatureUseQuestion,
+                MsgBox.Show(LocationManagementResources.MessageBoxMenuItemDeleteFeatureUseQuestion,
                     MsgBoxImage.Question, MessageBoxButton.YesNoCancel);
 
             if (response is not MessageBoxResult.Yes) return;
@@ -276,7 +276,7 @@ public partial class LocationManagementPage
                 placeToDelete.Name);
             placeToDelete.Delete(true);
             Log.Information("Place and all relative element was successfully removed");
-            MsgBox.Show(LocationManagementPageResources.MessageBoxMenuItemDeleteFeatureUseSuccess, MsgBoxImage.Check);
+            MsgBox.Show(LocationManagementResources.MessageBoxMenuItemDeleteFeatureUseSuccess, MsgBoxImage.Check);
 
             RemovePlaceTreeViewCountryGroup(placeToDelete);
 
@@ -286,7 +286,7 @@ public partial class LocationManagementPage
         }
 
         Log.Error(exception, "An error occurred please retry");
-        MsgBox.Show(LocationManagementPageResources.MessageBoxMenuItemDeleteFeatureError, MsgBoxImage.Error);
+        MsgBox.Show(LocationManagementResources.MessageBoxMenuItemDeleteFeatureError, MsgBoxImage.Error);
     }
 
     private void MenuItemEditFeature_OnClick(object sender, RoutedEventArgs e)
@@ -416,7 +416,7 @@ public partial class LocationManagementPage
             switch (add)
             {
                 case true when !edit:
-                    MsgBox.Show(LocationManagementPageResources.MessageBoxProcessNewPlaceAddSuccess, MsgBoxImage.Check);
+                    MsgBox.Show(LocationManagementResources.MessageBoxProcessNewPlaceAddSuccess, MsgBoxImage.Check);
 
                     Log.Information("The new place was successfully added");
 
@@ -426,7 +426,7 @@ public partial class LocationManagementPage
 
                     break;
                 case false when edit:
-                    MsgBox.Show(LocationManagementPageResources.MessageBoxProcessNewPlaceEditSuccess,
+                    MsgBox.Show(LocationManagementResources.MessageBoxProcessNewPlaceEditSuccess,
                         MsgBoxImage.Check);
 
                     Log.Information("The new place was successfully edited");
@@ -438,7 +438,7 @@ public partial class LocationManagementPage
                     break;
             }
         }
-        else MsgBox.Show(LocationManagementPageResources.MessageBoxProcessNewPlaceError, MsgBoxImage.Error);
+        else MsgBox.Show(LocationManagementResources.MessageBoxProcessNewPlaceError, MsgBoxImage.Error);
     }
 
     private void RemovePlaceTreeViewCountryGroup(TPlace placeToDelete)
@@ -530,16 +530,16 @@ public partial class LocationManagementPage
 
     private void UpdateLanguage()
     {
-        ComboBoxBasemapHintAssist = LocationManagementPageResources.ComboBoxBasemapHintAssist;
+        ComboBoxBasemapHintAssist = LocationManagementResources.ComboBoxBasemapHintAssist;
 
-        MenuItemHeaderAddPoint = LocationManagementPageResources.MenuItemHeaderAddPoint;
-        MenuItemHeaderEditFeature = LocationManagementPageResources.MenuItemHeaderEditFeature;
-        MenuItemHeaderDeleteFeature = LocationManagementPageResources.MenuItemHeaderDeleteFeature;
+        MenuItemHeaderAddPoint = LocationManagementResources.MenuItemHeaderAddPoint;
+        MenuItemHeaderEditFeature = LocationManagementResources.MenuItemHeaderEditFeature;
+        MenuItemHeaderDeleteFeature = LocationManagementResources.MenuItemHeaderDeleteFeature;
 
-        MenuItemHeaderMaps = LocationManagementPageResources.MenuItemHeaderMaps;
-        MenuItemHeaderGoogleEarthWeb = LocationManagementPageResources.MenuItemHeaderGoogleEarthWeb;
-        MenuItemHeaderGoogleMaps = LocationManagementPageResources.MenuItemHeaderGoogleMaps;
-        MenuItemHeaderGoogleStreetView = LocationManagementPageResources.MenuItemHeaderGoogleStreetView;
+        MenuItemHeaderMaps = LocationManagementResources.MenuItemHeaderMaps;
+        MenuItemHeaderGoogleEarthWeb = LocationManagementResources.MenuItemHeaderGoogleEarthWeb;
+        MenuItemHeaderGoogleMaps = LocationManagementResources.MenuItemHeaderGoogleMaps;
+        MenuItemHeaderGoogleStreetView = LocationManagementResources.MenuItemHeaderGoogleStreetView;
     }
 
     private void UpdateMapBackColor()

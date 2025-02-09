@@ -1,0 +1,62 @@
+<root>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <data name="MenuItemHeaderAddPoint" xml:space="preserve">
+        <value>Ajouter un nouveau point</value>
+    </data>
+    <data name="MenuItemHeaderDeleteFeature" xml:space="preserve">
+        <value>Supprimer le point</value>
+    </data>
+    <data name="ComboBoxBasemapHintAssist" xml:space="preserve">
+        <value>Fond de carte :</value>
+    </data>
+    <data name="MenuItemHeaderEditFeature" xml:space="preserve">
+        <value>Modifier le point</value>
+    </data>
+    <data name="MenuItemHeaderGoogleEarthWeb" xml:space="preserve">
+        <value>Accédez au site Web de Google Earth</value>
+    </data>
+    <data name="MenuItemHeaderGoogleMaps" xml:space="preserve">
+        <value>Allez sur Google Maps</value>
+    </data>
+    <data name="MenuItemHeaderGoogleStreetView" xml:space="preserve">
+        <value>Accédez à Google Street View</value>
+    </data>
+    <data name="MenuItemHeaderMaps" xml:space="preserve">
+        <value>Plans</value>
+    </data>
+    <data name="MessageBoxDeleteQuestion" xml:space="preserve">
+        <value>Etes-vous sûr de vouloir supprimer le lieu "{0}" ?</value>
+    </data>
+    <data name="MessageBoxMenuItemDeleteFeatureError" xml:space="preserve">
+        <value>Une erreur s'est produite, veuillez réessayer</value>
+    </data>
+    <data name="MessageBoxMenuItemDeleteFeatureNoUseSuccess" xml:space="preserve">
+        <value>Le lieu a été supprimé avec succès</value>
+    </data>
+    <data name="MessageBoxMenuItemDeleteFeatureUseQuestion" xml:space="preserve">
+        <value>Cet emplacement est en cours d'utilisation.Êtes-vous sûr de vouloir supprimer cet emplacement et tout ce qui y est lié ?</value>
+    </data>
+    <data name="MessageBoxMenuItemDeleteFeatureUseSuccess" xml:space="preserve">
+        <value>Le lieu et tous les éléments relatifs ont été supprimés avec succès</value>
+    </data>
+    <data name="MessageBoxProcessNewPlaceAddSuccess" xml:space="preserve">
+        <value>Le nouveau lieu a été ajouté avec succès</value>
+    </data>
+    <data name="MessageBoxProcessNewPlaceEditSuccess" xml:space="preserve">
+        <value>Le nouvel emplacement a été modifié avec succès</value>
+    </data>
+    <data name="MessageBoxProcessNewPlaceError" xml:space="preserve">
+        <value>Une erreur s'est produite, veuillez réessayer</value>
+    </data>
+</root>

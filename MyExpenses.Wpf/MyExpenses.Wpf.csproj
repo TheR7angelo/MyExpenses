@@ -57,10 +57,6 @@
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>MainWindowResource.Designer.cs</LastGenOutput>
       </EmbeddedResource>
-      <EmbeddedResource Update="Resources\Resx\Pages\LocationManagementPage\LocationManagementPageResources.resx">
-        <Generator>ResXFileCodeGenerator</Generator>
-        <LastGenOutput>LocationManagementPageResources.Designer.cs</LastGenOutput>
-      </EmbeddedResource>
       <EmbeddedResource Update="Resources\Resx\Windows\AddEditLocationWindow\AddEditLocationWindowResources.resx">
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>AddEditLocationWindowResources.Designer.cs</LastGenOutput>
@@ -248,11 +244,6 @@
       <None Remove="Resources\Assets\Icon.ico" />
       <None Remove="Resources\Assets\Icon.png" />
       <None Remove="Resources\Assets\Icon.svg" />
-      <Compile Update="Resources\Resx\Pages\LocationManagementPage\LocationManagementPageResources.Designer.cs">
-        <DesignTime>True</DesignTime>
-        <AutoGen>True</AutoGen>
-        <DependentUpon>LocationManagementPageResources.resx</DependentUpon>
-      </Compile>
       <Compile Update="Resources\Resx\Windows\AddEditLocationWindow\AddEditLocationWindowResources.Designer.cs">
         <DesignTime>True</DesignTime>
         <AutoGen>True</AutoGen>
