@@ -310,7 +310,7 @@ public partial class LocationManagementPage
 
     private void MenuItemToGoogleEarthWeb_OnClick(object sender, RoutedEventArgs e)
     {
-        var log = GetLogAction("Google Earth web");
+        var log = ClickTPlace.GetLogForGoogleEarthWeb(ClickPoint);
 
         Log.Information("{Log}", log);
         var uri = ClickPoint.ToGoogleEarthWeb(ProjectSystem.Wpf);
@@ -320,7 +320,7 @@ public partial class LocationManagementPage
 
     private void MenuItemToGoogleMaps_OnClick(object sender, RoutedEventArgs e)
     {
-        var log = GetLogAction("Google Maps");
+        var log = ClickTPlace.GetLogForGoogleMaps(ClickPoint);
 
         Log.Information("{Log}", log);
         var uri = ClickPoint.ToGoogleMaps(ProjectSystem.Wpf);
@@ -329,7 +329,7 @@ public partial class LocationManagementPage
 
     private void MenuItemToGoogleStreetView_OnClick(object sender, RoutedEventArgs e)
     {
-        var log = GetLogAction("Google Street View");
+        var log = ClickTPlace.GetLogForGoogleStreetView(ClickPoint);
 
         Log.Information("{Log}", log);
         var uri = ClickPoint.ToGoogleStreetView(ProjectSystem.Wpf);
@@ -397,15 +397,6 @@ public partial class LocationManagementPage
         {
             cityGroup.Places?.AddAndSort(placeToAdd, s => s.Name ?? string.Empty);
         }
-    }
-
-    private string GetLogAction(string action)
-    {
-        var log = ClickTPlace is not null
-            ? $"Launch to {action} at \"{ClickTPlace}\", Latitude={ClickTPlace.Latitude} Longitude={ClickTPlace.Longitude}"
-            : $"Launch to {action}, Latitude={ClickPoint.Y} Longitude={ClickPoint.X}";
-
-        return log;
     }
 
     private void ProcessNewPlace(TPlace newPlace, bool add = false, bool edit = false)

@@ -23,7 +23,7 @@ public partial class CustomPopupLocationManagement
 
     private void ButtonGoogleEarthWeb_OnClicked(object? sender, EventArgs e)
     {
-        var log = GetLogAction("Google Earth web");
+        var log = Place.GetLogForGoogleEarthWeb(Point);
 
         Log.Information("{Log}", log);
         var uri = Point.ToGoogleEarthWeb(ProjectSystem.Maui);
@@ -32,7 +32,7 @@ public partial class CustomPopupLocationManagement
 
     private void ButtonToGoogleMaps_OnClick(object sender, EventArgs e)
     {
-        var log = GetLogAction("Google Maps");
+        var log = Place.GetLogForGoogleMaps(Point);
 
         Log.Information("{Log}", log);
         var uri = Point.ToGoogleMaps(ProjectSystem.Maui);
@@ -41,19 +41,10 @@ public partial class CustomPopupLocationManagement
 
     private void ButtonToGoogleStreetView_OnClick(object sender, EventArgs e)
     {
-        var log = GetLogAction("Google Street View");
+        var log = Place.GetLogForGoogleStreetView(Point);
 
         Log.Information("{Log}", log);
         var uri = Point.ToGoogleStreetView(ProjectSystem.Maui);
         Log.Information("{Uri}", uri);
-    }
-
-    private string GetLogAction(string action)
-    {
-        var log = Place is not null
-            ? $"Launch to {action} at \"{Place}\", Latitude={Place.Latitude} Longitude={Place.Longitude}"
-            : $"Launch to {action}, Latitude={Point.Y} Longitude={Point.X}";
-
-        return log;
     }
 }
