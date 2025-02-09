@@ -29,6 +29,7 @@ exclude:
       - MyExpenses.Smartphones/Resources/Resx
       - MyExpenses.Models/Resources/Resx
       - MyExpenses.Sql/Resources/Resx
+      - MyExpenses.SharedUtils/Resources/Resx
 
   - name: OverriddenWithSameValue
     paths:
