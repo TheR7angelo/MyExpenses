@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<toolkit:Popup
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:margin="clr-namespace:MyExpenses.Maui.Utils.Margin;assembly=MyExpenses.Maui.Utils"
+    xmlns:local="clr-namespace:MyExpenses.Smartphones.ContentPages.CustomPopups"
+    x:Class="MyExpenses.Smartphones.ContentPages.CustomPopups.CustomPopupLocationManagement">
+
+    <Border BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Black}}"
+            Padding="20"
+            StrokeThickness="1.5"
+            Stroke="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
+            margin:LayoutExtensions.MarginForAllChildren="5">
+
+        <Grid>
+
+            <VerticalStackLayout>
+
+                <Button Text="MenuItemAddFeature"
+                        IsVisible="{Binding MenuItemVisibility.MenuItemAddFeature, Mode=OneWay, Source={RelativeSource AncestorType={x:Type local:CustomPopupLocationManagement}}}">
+                </Button>
+
+                <Button Text="MenuItemEditFeature"
+                        IsVisible="{Binding MenuItemVisibility.MenuItemEditFeature, Mode=OneWay, Source={RelativeSource AncestorType={x:Type local:CustomPopupLocationManagement}}}">
+                </Button>
+
+                <Button Text="MenuItemDeleteFeature"
+                        IsVisible="{Binding MenuItemVisibility.MenuItemDeleteFeature, Mode=OneWay, Source={RelativeSource AncestorType={x:Type local:CustomPopupLocationManagement}}}">
+                </Button>
+
+                <Button Text="MenuItemHeaderGoogleEarthWeb"
+                        Clicked="ButtonGoogleEarthWeb_OnClicked">
+                </Button>
+
+                <Button Text="MenuItemHeaderGoogleMaps"
+                        Clicked="ButtonToGoogleMaps_OnClick">
+                </Button>
+
+                <Button Text="MenuItemHeaderGoogleStreetView"
+                        Clicked="ButtonToGoogleStreetView_OnClick">
+                </Button>
+
+            </VerticalStackLayout>
+
+        </Grid>
+
+    </Border>
+
+</toolkit:Popup>

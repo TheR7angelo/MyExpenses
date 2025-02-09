@@ -1,5 +1,6 @@
 using System.Collections.ObjectModel;
 using BruTile.Predefined;
+using CommunityToolkit.Maui.Views;
 using Mapsui;
 using Mapsui.Layers;
 using Mapsui.Manipulations;
@@ -8,6 +9,7 @@ using Mapsui.Tiling.Layers;
 using MyExpenses.Models.Maui.CustomPopup;
 using MyExpenses.Models.Sql.Bases.Groups;
 using MyExpenses.Models.Sql.Bases.Tables;
+using MyExpenses.Smartphones.ContentPages.CustomPopups;
 using MyExpenses.Smartphones.Converters;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils;
@@ -209,9 +211,7 @@ public partial class LocationManagementContentPage
             ? new MenuItemVisibility { MenuItemAddFeature = true }
             : new MenuItemVisibility { MenuItemEditFeature = true, MenuItemDeleteFeature = true };
 
-        var content = $"{nameof(MenuItemVisibility.MenuItemAddFeature)}: {menuItemVisibility.MenuItemAddFeature}, " +
-                      $"{nameof(MenuItemVisibility.MenuItemEditFeature)}: {menuItemVisibility.MenuItemEditFeature}, " +
-                      $"{nameof(MenuItemVisibility.MenuItemDeleteFeature)}: {menuItemVisibility.MenuItemDeleteFeature})";
-        await DisplayAlert("Long tap", content, "OK");
+        var customPopupLocationManagement = new CustomPopupLocationManagement(menuItemVisibility, ClickPoint, ClickTPlace);
+        await this.ShowPopupAsync(customPopupLocationManagement);
     }
 }
