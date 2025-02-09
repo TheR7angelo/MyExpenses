@@ -5,8 +5,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:margin="clr-namespace:MyExpenses.Maui.Utils.Margin;assembly=MyExpenses.Maui.Utils"
-    xmlns:local="clr-namespace:MyExpenses.Smartphones.ContentPages.CustomPopups"
-    x:Class="MyExpenses.Smartphones.ContentPages.CustomPopups.CustomPopupLocationManagement">
+    x:Class="MyExpenses.Smartphones.ContentPages.CustomPopups.CustomPopupLocationManagement"
+    BindingContext="{Binding Source={RelativeSource Self}}">
 
     <Border BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Black}}"
             Padding="20"
@@ -18,27 +18,27 @@
 
             <VerticalStackLayout>
 
-                <Button Text="MenuItemAddFeature"
-                        IsVisible="{Binding MenuItemVisibility.MenuItemAddFeature, Mode=OneWay, Source={RelativeSource AncestorType={x:Type local:CustomPopupLocationManagement}}}">
+                <Button Text="{Binding MenuItemHeaderAddPoint, Mode=OneWay}"
+                        IsVisible="{Binding MenuItemVisibility.MenuItemAddFeature, Mode=OneWay}">
                 </Button>
 
-                <Button Text="MenuItemEditFeature"
-                        IsVisible="{Binding MenuItemVisibility.MenuItemEditFeature, Mode=OneWay, Source={RelativeSource AncestorType={x:Type local:CustomPopupLocationManagement}}}">
+                <Button Text="{Binding MenuItemHeaderEditFeature, Mode=OneWay}"
+                        IsVisible="{Binding MenuItemVisibility.MenuItemEditFeature, Mode=OneWay}">
                 </Button>
 
-                <Button Text="MenuItemDeleteFeature"
-                        IsVisible="{Binding MenuItemVisibility.MenuItemDeleteFeature, Mode=OneWay, Source={RelativeSource AncestorType={x:Type local:CustomPopupLocationManagement}}}">
+                <Button Text="{Binding MenuItemHeaderDeleteFeature, Mode=OneWay}"
+                        IsVisible="{Binding MenuItemVisibility.MenuItemDeleteFeature, Mode=OneWay}">
                 </Button>
 
-                <Button Text="MenuItemHeaderGoogleEarthWeb"
+                <Button Text="{Binding MenuItemHeaderGoogleEarthWeb, Mode=OneWay}"
                         Clicked="ButtonGoogleEarthWeb_OnClicked">
                 </Button>
 
-                <Button Text="MenuItemHeaderGoogleMaps"
+                <Button Text="{Binding MenuItemHeaderGoogleMaps, Mode=OneWay}"
                         Clicked="ButtonToGoogleMaps_OnClick">
                 </Button>
 
-                <Button Text="MenuItemHeaderGoogleStreetView"
+                <Button Text="{Binding MenuItemHeaderGoogleStreetView, Mode=OneWay}"
                         Clicked="ButtonToGoogleStreetView_OnClick">
                 </Button>
 
