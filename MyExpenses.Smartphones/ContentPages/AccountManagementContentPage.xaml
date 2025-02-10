@@ -3,8 +3,8 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:converters="clr-namespace:MyExpenses.Smartphones.Converters"
-             xmlns:customFrame="clr-namespace:MyExpenses.Smartphones.UserControls.Buttons.CustomFrame"
              xmlns:margin="clr-namespace:MyExpenses.Maui.Utils.Margin;assembly=MyExpenses.Maui.Utils"
+             xmlns:uraniumButtonView="clr-namespace:MyExpenses.Smartphones.UserControls.Buttons.UraniumButtonView"
              x:Class="MyExpenses.Smartphones.ContentPages.AccountManagementContentPage"
              x:Name="This"
              BindingContext="{Binding Source={RelativeSource Self}}">
@@ -57,6 +57,11 @@
 
             <Grid Grid.Row="1">
 
+                <Grid.Resources>
+                    <x:Double x:Key="ImageHeight">40</x:Double>
+                    <x:Double x:Key="HeightRequest">64</x:Double>
+                </Grid.Resources>
+
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />
@@ -67,15 +72,14 @@
                                      HorizontalOptions="Center"
                                      VerticalOptions="Center">
 
-                    <customFrame:ButtonImageView Style="{StaticResource FloatingActionMiniLightButtonImageView}"
-                                                 GeometryColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
-                                                 GeometrySource="History"
-                                                 HeightRequest="64"
-                                                 WidthRequest="{Binding HeightRequest, Source={RelativeSource Self}}"
-                                                 ImageHeightRequest="40"
-                                                 ImageWidthRequest="{Binding ImageHeightRequest, Source={RelativeSource Self}}"
-                                                 Clicked="ButtonImageViewHistory_OnClicked">
-                    </customFrame:ButtonImageView>
+                    <uraniumButtonView:UraniumButtonView GeometrySource="History"
+                                                         ImageHeightRequest="{StaticResource ImageHeight}"
+                                                         ImageWidthRequest="{StaticResource ImageHeight}"
+                                                         HeightRequest="{StaticResource HeightRequest}"
+                                                         WidthRequest="{StaticResource HeightRequest}"
+                                                         Style="{StaticResource ButtonViewPrimaryLight}"
+                                                         Tapped="ButtonImageViewHistory_OnClicked">
+                    </uraniumButtonView:UraniumButtonView>
 
                     <Label Text="{Binding LabelTextTransactionHistory, Mode=OneWay}"
                            HorizontalTextAlignment="Center"
@@ -88,15 +92,14 @@
                                      HorizontalOptions="Center"
                                      VerticalOptions="Center">
 
-                    <customFrame:ButtonImageView Style="{StaticResource FloatingActionMiniDarkButtonImageView}"
-                                                 GeometryColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
-                                                 GeometrySource="SwapHorizontal"
-                                                 HeightRequest="64"
-                                                 WidthRequest="{Binding HeightRequest, Source={RelativeSource Self}}"
-                                                 ImageHeightRequest="40"
-                                                 ImageWidthRequest="{Binding ImageHeightRequest, Source={RelativeSource Self}}"
-                                                 Clicked="ButtonImageViewCreatBankTransfer_OnClicked">
-                    </customFrame:ButtonImageView>
+                    <uraniumButtonView:UraniumButtonView GeometrySource="SwapHorizontal"
+                                                         ImageHeightRequest="{StaticResource ImageHeight}"
+                                                         ImageWidthRequest="{StaticResource ImageHeight}"
+                                                         HeightRequest="{StaticResource HeightRequest}"
+                                                         WidthRequest="{StaticResource HeightRequest}"
+                                                         Style="{StaticResource ButtonViewPrimaryDark}"
+                                                         Tapped="ButtonImageViewCreatBankTransfer_OnClicked">
+                    </uraniumButtonView:UraniumButtonView>
 
                     <Label Text="{Binding LabelTextTransactionTransfer, Mode=OneWay}"
                            HorizontalTextAlignment="Center"
@@ -171,24 +174,28 @@
             <HorizontalStackLayout Grid.Row="3"
                                    HorizontalOptions="Center"
                                    margin:LayoutExtensions.MarginForAllChildren="5">
+                <HorizontalStackLayout.Resources>
+                    <x:Double x:Key="ImageHeight">24</x:Double>
+                    <x:Double x:Key="HeightRequest">40</x:Double>
+                </HorizontalStackLayout.Resources>
 
-                <customFrame:ButtonImageView Style="{StaticResource FloatingActionMiniMidButtonImageView}"
-                                             GeometrySource="Plus"
-                                             ImageHeightRequest="24"
-                                             ImageWidthRequest="{Binding ImageHeightRequest, Source={RelativeSource Self}}"
-                                             HeightRequest="40"
-                                             WidthRequest="{Binding HeightRequest, Source={RelativeSource Self}}"
-                                             Clicked="ButtonImageViewAddAccount_OnClicked">
-                </customFrame:ButtonImageView>
+                <uraniumButtonView:UraniumButtonView GeometrySource="Plus"
+                                                     ImageHeightRequest="{StaticResource ImageHeight}"
+                                                     ImageWidthRequest="{StaticResource ImageHeight}"
+                                                     HeightRequest="{StaticResource HeightRequest}"
+                                                     WidthRequest="{StaticResource HeightRequest}"
+                                                     Style="{StaticResource ButtonViewPrimaryMid}"
+                                                     Tapped="ButtonImageViewAddAccount_OnClicked">
+                </uraniumButtonView:UraniumButtonView>
 
-                <customFrame:ButtonImageView Style="{StaticResource FloatingActionMiniSecondaryDarkButtonImageView}"
-                                             GeometrySource="Minus"
-                                             ImageHeightRequest="24"
-                                             ImageWidthRequest="{Binding ImageHeightRequest, Source={RelativeSource Self}}"
-                                             HeightRequest="40"
-                                             WidthRequest="{Binding HeightRequest, Source={RelativeSource Self}}"
-                                             Clicked="ButtonImageViewRemoveAccount_OnClicked">
-                </customFrame:ButtonImageView>
+                <uraniumButtonView:UraniumButtonView GeometrySource="Minus"
+                                                     ImageHeightRequest="{StaticResource ImageHeight}"
+                                                     ImageWidthRequest="{StaticResource ImageHeight}"
+                                                     HeightRequest="{StaticResource HeightRequest}"
+                                                     WidthRequest="{StaticResource HeightRequest}"
+                                                     Style="{StaticResource ButtonViewSecondaryDark}"
+                                                     Tapped="ButtonImageViewRemoveAccount_OnClicked">
+                </uraniumButtonView:UraniumButtonView>
 
             </HorizontalStackLayout>
 

@@ -7,7 +7,7 @@
              xmlns:converters="clr-namespace:MyExpenses.Smartphones.Converters"
              xmlns:tables="clr-namespace:MyExpenses.Models.Sql.Bases.Tables;assembly=MyExpenses.Models"
              xmlns:margin="clr-namespace:MyExpenses.Maui.Utils.Margin;assembly=MyExpenses.Maui.Utils"
-             xmlns:customFrame="clr-namespace:MyExpenses.Smartphones.UserControls.Buttons.CustomFrame"
+             xmlns:uraniumButtonView="clr-namespace:MyExpenses.Smartphones.UserControls.Buttons.UraniumButtonView"
              x:Class="MyExpenses.Smartphones.ContentPages.AddEditAccountContentPage"
              x:Name="This"
              BindingContext="{Binding Source={RelativeSource Self}}">
@@ -21,6 +21,11 @@
 
         <Grid VerticalOptions="Center"
               margin:LayoutExtensions.MarginForAllChildren="5">
+
+            <Grid.Resources>
+                <x:Double x:Key="ImageHeight">24</x:Double>
+                <x:Double x:Key="HeightRequest">40</x:Double>
+            </Grid.Resources>
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
@@ -57,15 +62,15 @@
 
             </VerticalStackLayout>
 
-            <customFrame:ButtonImageView Grid.Row="0" Grid.Column="2"
-                                         Style="{StaticResource FloatingActionMidButtonImageView}"
-                                         GeometrySource="Pencil"
-                                         ImageHeightRequest="24"
-                                         ImageWidthRequest="{Binding ImageHeightRequest, Source={RelativeSource Self}}"
-                                         HeightRequest="40"
-                                         WidthRequest="{Binding HeightRequest, Source={RelativeSource Self}}"
-                                         Clicked="ButtonAddEditCurrency_OnClick">
-            </customFrame:ButtonImageView>
+            <uraniumButtonView:UraniumButtonView Grid.Row="0" Grid.Column="2"
+                                                 GeometrySource="Pencil"
+                                                 ImageHeightRequest="{StaticResource ImageHeight}"
+                                                 ImageWidthRequest="{StaticResource ImageHeight}"
+                                                 HeightRequest="{StaticResource HeightRequest}"
+                                                 WidthRequest="{StaticResource HeightRequest}"
+                                                 Style="{StaticResource ButtonViewPrimaryMid}"
+                                                 Tapped="ButtonAddEditCurrency_OnClick">
+            </uraniumButtonView:UraniumButtonView>
 
             <HorizontalStackLayout Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
                                  VerticalOptions="Center">
@@ -83,15 +88,15 @@
 
             </HorizontalStackLayout>
 
-            <customFrame:ButtonImageView Grid.Row="1" Grid.Column="2"
-                                         Style="{StaticResource FloatingActionMidButtonImageView}"
-                                         GeometrySource="Pencil"
-                                         ImageHeightRequest="24"
-                                         ImageWidthRequest="{Binding ImageHeightRequest, Source={RelativeSource Self}}"
-                                         HeightRequest="40"
-                                         WidthRequest="{Binding HeightRequest, Source={RelativeSource Self}}"
-                                         Clicked="ButtonAddEditAccountType_OnClick">
-            </customFrame:ButtonImageView>
+            <uraniumButtonView:UraniumButtonView Grid.Row="1" Grid.Column="2"
+                                                 GeometrySource="Pencil"
+                                                 ImageHeightRequest="{StaticResource ImageHeight}"
+                                                 ImageWidthRequest="{StaticResource ImageHeight}"
+                                                 HeightRequest="{StaticResource HeightRequest}"
+                                                 WidthRequest="{StaticResource HeightRequest}"
+                                                 Style="{StaticResource ButtonViewPrimaryMid}"
+                                                 Tapped="ButtonAddEditAccountType_OnClick">
+            </uraniumButtonView:UraniumButtonView>
 
             <HorizontalStackLayout Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3"
                                    HorizontalOptions="End"

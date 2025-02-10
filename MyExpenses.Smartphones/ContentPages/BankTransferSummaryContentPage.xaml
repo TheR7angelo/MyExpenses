@@ -3,11 +3,11 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:margin="clr-namespace:MyExpenses.Maui.Utils.Margin;assembly=MyExpenses.Maui.Utils"
-             xmlns:customFrame="clr-namespace:MyExpenses.Smartphones.UserControls.Buttons.CustomFrame"
              xmlns:pickers="clr-namespace:MyExpenses.Smartphones.UserControls.Pickers"
              xmlns:converters="clr-namespace:MyExpenses.Smartphones.Converters"
              xmlns:local="clr-namespace:MyExpenses.Smartphones.ContentPages"
              xmlns:images="clr-namespace:MyExpenses.Smartphones.UserControls.Images"
+             xmlns:uraniumButtonView="clr-namespace:MyExpenses.Smartphones.UserControls.Buttons.UraniumButtonView"
              x:Class="MyExpenses.Smartphones.ContentPages.BankTransferSummaryContentPage"
              BindingContext="{Binding Source={RelativeSource Self}}">
 
@@ -33,36 +33,37 @@
                                    HorizontalOptions="Center"
                                    margin:LayoutExtensions.MarginForAllChildren="5">
 
-                <customFrame:ButtonImageView Style="{StaticResource FloatingActionMiniLightButtonImageView}"
-                                             Margin="5"
-                                             GeometrySource="Plus"
-                                             GeometryColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
-                                             ImageHeightRequest="24"
-                                             ImageWidthRequest="{Binding ImageHeightRequest, Source={RelativeSource Self}}"
-                                             HeightRequest="40"
-                                             WidthRequest="{Binding HeightRequest, Source={RelativeSource Self}}"
-                                             Clicked="ButtonAddMonth_OnClick">
-                </customFrame:ButtonImageView>
+                <HorizontalStackLayout.Resources>
+                    <x:Double x:Key="ImageHeight">24</x:Double>
+                    <x:Double x:Key="HeightRequest">40</x:Double>
+                </HorizontalStackLayout.Resources>
 
-                <customFrame:ButtonImageView Style="{StaticResource FloatingActionMiniDarkButtonImageView}"
-                                             Margin="5"
-                                             GeometrySource="ClockFast"
-                                             ImageHeightRequest="24"
-                                             ImageWidthRequest="{Binding ImageHeightRequest, Source={RelativeSource Self}}"
-                                             HeightRequest="40"
-                                             WidthRequest="{Binding HeightRequest, Source={RelativeSource Self}}"
-                                             Clicked="ButtonDateNow_OnClick">
-                </customFrame:ButtonImageView>
+                <uraniumButtonView:UraniumButtonView GeometrySource="Plus"
+                                                     ImageHeightRequest="{StaticResource ImageHeight}"
+                                                     ImageWidthRequest="{StaticResource ImageHeight}"
+                                                     HeightRequest="{StaticResource HeightRequest}"
+                                                     WidthRequest="{StaticResource HeightRequest}"
+                                                     Style="{StaticResource ButtonViewPrimaryLight}"
+                                                     Tapped="ButtonAddMonth_OnClick">
+                </uraniumButtonView:UraniumButtonView>
 
-                <customFrame:ButtonImageView Style="{StaticResource FloatingActionMiniSecondaryDarkButtonImageView}"
-                                             Margin="5"
-                                             GeometrySource="Minus"
-                                             ImageHeightRequest="24"
-                                             ImageWidthRequest="{Binding ImageHeightRequest, Source={RelativeSource Self}}"
-                                             HeightRequest="40"
-                                             WidthRequest="{Binding HeightRequest, Source={RelativeSource Self}}"
-                                             Clicked="ButtonRemoveMonth_OnClick">
-                </customFrame:ButtonImageView>
+                <uraniumButtonView:UraniumButtonView GeometrySource="ClockFast"
+                                                     ImageHeightRequest="{StaticResource ImageHeight}"
+                                                     ImageWidthRequest="{StaticResource ImageHeight}"
+                                                     HeightRequest="{StaticResource HeightRequest}"
+                                                     WidthRequest="{StaticResource HeightRequest}"
+                                                     Style="{StaticResource ButtonViewPrimaryDark}"
+                                                     Tapped="ButtonDateNow_OnClick">
+                </uraniumButtonView:UraniumButtonView>
+
+                <uraniumButtonView:UraniumButtonView GeometrySource="Minus"
+                                                     ImageHeightRequest="{StaticResource ImageHeight}"
+                                                     ImageWidthRequest="{StaticResource ImageHeight}"
+                                                     HeightRequest="{StaticResource HeightRequest}"
+                                                     WidthRequest="{StaticResource HeightRequest}"
+                                                     Style="{StaticResource ButtonViewSecondaryDark}"
+                                                     Tapped="ButtonRemoveMonth_OnClick">
+                </uraniumButtonView:UraniumButtonView>
 
             </HorizontalStackLayout>
 
