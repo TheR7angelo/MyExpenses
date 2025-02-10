@@ -35,4 +35,12 @@
 
     </Style>
 
+    <Style x:Key="ButtonViewPrimaryLight" TargetType="uraniumButtonView:UraniumButtonView"
+           ApplyToDerivedTypes="True" CanCascade="True" BasedOn="{StaticResource BaseButtonViewStyle}">
+
+        <Setter Property="BackgroundColor" Value="{StaticResource PrimaryLight}" />
+        <Setter Property="GeometryColor" Value="{StaticResource PrimaryLightForeground}" />
+
+    </Style>
+
 </ResourceDictionary>
