@@ -72,12 +72,14 @@ public partial class SettingsWindow
 
     public SettingsWindow()
     {
-        Interface.LanguageChanged += Interface_OnLanguageChanged;
         UpdateLanguage();
 
         InitializeComponent();
 
         this.SetWindowCornerPreference();
+
+        // ReSharper disable once HeapView.DelegateAllocation
+        Interface.LanguageChanged += Interface_OnLanguageChanged;
     }
 
     private void UpdateLanguage()

@@ -96,13 +96,14 @@ public partial class AddEditModePaymentWindow
         using var context = new DataBaseContext();
         ModePayments = [..context.TModePayments];
 
-        Interface.LanguageChanged += Interface_OnLanguageChanged;
         UpdateLanguage();
         InitializeComponent();
+        TextBoxModePayment.Focus();
 
         this.SetWindowCornerPreference();
 
-        TextBoxModePayment.Focus();
+        // ReSharper disable once HeapView.DelegateAllocation
+        Interface.LanguageChanged += Interface_OnLanguageChanged;
     }
 
     private void Interface_OnLanguageChanged()
@@ -220,6 +221,7 @@ public partial class AddEditModePaymentWindow
         oldModePayment.CopyPropertiesTo(ModePayment);
         EditModePayment = true;
 
+        // ReSharper disable once HeapView.DelegateAllocation
         var modePaymentToRemove = ModePayments.FirstOrDefault(s => s.Id == oldModePayment.Id);
         if (modePaymentToRemove is not null) ModePayments.Remove(modePaymentToRemove);
     }

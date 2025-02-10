@@ -298,6 +298,7 @@ public partial class AddEditCategoryTypeWindow
             var json = editedColor.ToJsonString();
             Log.Information("{Json}", json);
 
+            // ReSharper disable once HeapView.DelegateAllocation
             var oldColor = Colors.First(s => s.Id.Equals(editedColor.Id));
             editedColor.CopyPropertiesTo(oldColor);
 

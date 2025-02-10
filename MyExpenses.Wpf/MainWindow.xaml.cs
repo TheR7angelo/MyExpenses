@@ -160,8 +160,10 @@ public partial class MainWindow
 
         this.SetWindowCornerPreference();
 
+        // ReSharper disable HeapView.DelegateAllocation
         Interface.LanguageChanged += Interface_OnLanguageChanged;
         Navigator.CanGoBackChanged += Navigator_OnCanGoBackChanged;
+        // ReSharper restore HeapView.DelegateAllocation
     }
 
     #region Action

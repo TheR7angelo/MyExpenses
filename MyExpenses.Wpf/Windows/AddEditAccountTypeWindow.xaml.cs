@@ -103,13 +103,14 @@ public partial class AddEditAccountTypeWindow
         using var context = new DataBaseContext();
         AccountTypes = [..context.TAccountTypes];
 
-        Interface.LanguageChanged += Interface_OnLanguageChanged;
         UpdateLanguage();
         InitializeComponent();
+        TextBoxAccountType.Focus();
 
         this.SetWindowCornerPreference();
 
-        TextBoxAccountType.Focus();
+        // ReSharper disable once HeapView.DelegateAllocation
+        Interface.LanguageChanged += Interface_OnLanguageChanged;
     }
 
     #region Action

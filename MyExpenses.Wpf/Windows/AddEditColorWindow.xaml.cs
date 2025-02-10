@@ -99,11 +99,13 @@ public partial class AddEditColorWindow
         using var context = new DataBaseContext();
         Colors = [..context.TColors];
 
-        Interface.LanguageChanged += Interface_OnLanguageChanged;
         UpdateLanguage();
         InitializeComponent();
 
         this.SetWindowCornerPreference();
+
+        // ReSharper disable once HeapView.DelegateAllocation
+        Interface.LanguageChanged += Interface_OnLanguageChanged;
     }
 
     private void UpdateLanguage()
@@ -140,6 +142,7 @@ public partial class AddEditColorWindow
             return;
         }
 
+        // ReSharper disable once HeapView.DelegateAllocation
         var colorAlreadyExist = Colors.FirstOrDefault(s => s.HexadecimalColorCode == Color.HexadecimalColorCode);
         if (colorAlreadyExist is not null)
         {
@@ -244,6 +247,7 @@ public partial class AddEditColorWindow
         colorToEdit.CopyPropertiesTo(Color);
         EditColor = true;
 
+        // ReSharper disable once HeapView.DelegateAllocation
         var removeItem = Colors.FirstOrDefault(s => s.Id == colorToEdit.Id);
         if (removeItem is not null) Colors.Remove(removeItem);
     }

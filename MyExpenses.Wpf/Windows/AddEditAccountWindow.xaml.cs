@@ -208,11 +208,13 @@ public partial class AddEditAccountWindow
         Currencies = [..context.TCurrencies.OrderBy(s => s.Symbol)];
         CategoryTypes = [..context.TCategoryTypes.OrderBy(s => s.Name)];
 
-        Interface.LanguageChanged += Interface_OnLanguageChanged;
         UpdateLanguage();
         InitializeComponent();
 
         this.SetWindowCornerPreference();
+
+        // ReSharper disable once HeapView.DelegateAllocation
+        Interface.LanguageChanged += Interface_OnLanguageChanged;
     }
 
     #region Action

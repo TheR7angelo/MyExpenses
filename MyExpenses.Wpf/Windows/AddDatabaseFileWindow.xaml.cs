@@ -76,6 +76,7 @@ public partial class AddDatabaseFileWindow
 
         this.SetWindowCornerPreference();
 
+        // ReSharper disable once HeapView.DelegateAllocation
         Interface.LanguageChanged += Interface_OnLanguageChanged;
     }
 

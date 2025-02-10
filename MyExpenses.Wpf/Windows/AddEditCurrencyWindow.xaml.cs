@@ -106,13 +106,14 @@ public partial class AddEditCurrencyWindow
         using var context = new DataBaseContext();
         Currencies = [..context.TCurrencies];
 
-        Interface.LanguageChanged += Interface_OnLanguageChanged;
         UpdateLanguage();
         InitializeComponent();
+        TextBoxCurrency.Focus();
 
         this.SetWindowCornerPreference();
 
-        TextBoxCurrency.Focus();
+        // ReSharper disable once HeapView.DelegateAllocation
+        Interface.LanguageChanged += Interface_OnLanguageChanged;
     }
 
     private void Interface_OnLanguageChanged()

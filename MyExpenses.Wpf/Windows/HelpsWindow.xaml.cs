@@ -58,12 +58,14 @@ public partial class HelpsWindow
 
     public HelpsWindow()
     {
-        Interface.LanguageChanged += Interface_OnLanguageChanged;
         UpdateLanguage();
 
         InitializeComponent();
 
         this.SetWindowCornerPreference();
+
+        // ReSharper disable once HeapView.DelegateAllocation
+        Interface.LanguageChanged += Interface_OnLanguageChanged;
     }
 
     #region Action
