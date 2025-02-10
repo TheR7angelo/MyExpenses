@@ -5,12 +5,17 @@
              xmlns:margin="clr-namespace:MyExpenses.Maui.Utils.Margin;assembly=MyExpenses.Maui.Utils"
              xmlns:customFrame="clr-namespace:MyExpenses.Smartphones.UserControls.Buttons.CustomFrame"
              xmlns:io="clr-namespace:MyExpenses.Models.IO;assembly=MyExpenses.Models"
-
+             xmlns:uraniumButtonView="clr-namespace:MyExpenses.Smartphones.UserControls.Buttons.UraniumButtonView"
              x:Class="MyExpenses.Smartphones.MainPage"
              BindingContext="{Binding Source={RelativeSource Self}}">
 
     <Grid HorizontalOptions="Center" VerticalOptions="Center"
           margin:LayoutExtensions.MarginForAllChildren="3">
+
+        <Grid.Resources>
+            <x:Double x:Key="ImageHeight">40</x:Double>
+            <x:Double x:Key="HeightRequest">56</x:Double>
+        </Grid.Resources>
 
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -32,49 +37,45 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <customFrame:ButtonImageView Grid.Row="0" Grid.Column="0"
-                                         Style="{StaticResource FloatingActionDarkButtonImageView}"
-                                         Margin="5"
-                                         GeometrySource="Plus"
-                                         ImageHeightRequest="40"
-                                         ImageWidthRequest="{Binding ImageHeightRequest, Source={RelativeSource Self}}"
-                                         HeightRequest="56"
-                                         WidthRequest="{Binding HeightRequest, Source={RelativeSource Self}}"
-                                         Clicked="ButtonAddDataBase_OnClick">
-            </customFrame:ButtonImageView>
+            <uraniumButtonView:UraniumButtonView Grid.Row="0" Grid.Column="0"
+                                                 GeometrySource="Plus"
+                                                 ImageHeightRequest="{StaticResource ImageHeight}"
+                                                 ImageWidthRequest="{StaticResource ImageHeight}"
+                                                 HeightRequest="{StaticResource HeightRequest}"
+                                                 WidthRequest="{StaticResource HeightRequest}"
+                                                 Style="{StaticResource ButtonViewPrimaryDark}"
+                                                 Tapped="ButtonAddDataBase_OnClick">
+            </uraniumButtonView:UraniumButtonView>
 
-            <customFrame:ButtonImageView Grid.Row="0" Grid.Column="1"
-                                         Style="{StaticResource FloatingActionSecondaryMidButtonImageView}"
-                                         Margin="5"
-                                         GeometrySource="Minus"
-                                         ImageHeightRequest="40"
-                                         ImageWidthRequest="{Binding ImageHeightRequest, Source={RelativeSource Self}}"
-                                         HeightRequest="56"
-                                         WidthRequest="{Binding HeightRequest, Source={RelativeSource Self}}"
-                                         Clicked="ButtonRemoveDataBase_OnClick">
-            </customFrame:ButtonImageView>
+            <uraniumButtonView:UraniumButtonView Grid.Row="0" Grid.Column="1"
+                                                 GeometrySource="Minus"
+                                                 ImageHeightRequest="{StaticResource ImageHeight}"
+                                                 ImageWidthRequest="{StaticResource ImageHeight}"
+                                                 HeightRequest="{StaticResource HeightRequest}"
+                                                 WidthRequest="{StaticResource HeightRequest}"
+                                                 Style="{StaticResource ButtonViewSecondaryDark}"
+                                                 Tapped="ButtonRemoveDataBase_OnClick">
+            </uraniumButtonView:UraniumButtonView>
 
-            <customFrame:ButtonImageView Grid.Row="1" Grid.Column="0"
-                                         Style="{StaticResource FloatingActionMidButtonImageView}"
-                                         Margin="5"
-                                         GeometrySource="DatabaseImport"
-                                         ImageHeightRequest="40"
-                                         ImageWidthRequest="{Binding ImageHeightRequest, Source={RelativeSource Self}}"
-                                         HeightRequest="56"
-                                         WidthRequest="{Binding HeightRequest, Source={RelativeSource Self}}"
-                                         Clicked="ButtonImportDataBase_OnClick">
-            </customFrame:ButtonImageView>
+            <uraniumButtonView:UraniumButtonView Grid.Row="1" Grid.Column="0"
+                                                 GeometrySource="DatabaseImport"
+                                                 ImageHeightRequest="{StaticResource ImageHeight}"
+                                                 ImageWidthRequest="{StaticResource ImageHeight}"
+                                                 HeightRequest="{StaticResource HeightRequest}"
+                                                 WidthRequest="{StaticResource HeightRequest}"
+                                                 Style="{StaticResource ButtonViewPrimaryMid}"
+                                                 Tapped="ButtonImportDataBase_OnClick">
+            </uraniumButtonView:UraniumButtonView>
 
-            <customFrame:ButtonImageView Grid.Row="1" Grid.Column="1"
-                                         Style="{StaticResource FloatingActionMidButtonImageView}"
-                                         Margin="5"
-                                         GeometrySource="DatabaseExport"
-                                         ImageHeightRequest="40"
-                                         ImageWidthRequest="{Binding ImageHeightRequest, Source={RelativeSource Self}}"
-                                         HeightRequest="56"
-                                         WidthRequest="{Binding HeightRequest, Source={RelativeSource Self}}"
-                                         Clicked="ButtonExportDataBase_OnClick">
-            </customFrame:ButtonImageView>
+            <uraniumButtonView:UraniumButtonView Grid.Row="1" Grid.Column="1"
+                                                 GeometrySource="DatabaseExport"
+                                                 ImageHeightRequest="{StaticResource ImageHeight}"
+                                                 ImageWidthRequest="{StaticResource ImageHeight}"
+                                                 HeightRequest="{StaticResource HeightRequest}"
+                                                 WidthRequest="{StaticResource HeightRequest}"
+                                                 Style="{StaticResource ButtonViewPrimaryMid}"
+                                                 Tapped="ButtonExportDataBase_OnClick">
+            </uraniumButtonView:UraniumButtonView>
 
         </Grid>
 
