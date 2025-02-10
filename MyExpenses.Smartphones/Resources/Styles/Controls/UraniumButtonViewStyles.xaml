@@ -1,0 +1,38 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                    xmlns:uraniumButtonView="clr-namespace:MyExpenses.Smartphones.UserControls.Buttons.UraniumButtonView">
+
+    <Style x:Key="BaseButtonViewStyle" TargetType="uraniumButtonView:UraniumButtonView">
+        <Setter Property="StrokeShape" Value="{RoundRectangle CornerRadius=50}" />
+        <Setter Property="HorizontalOptions" Value="Center" />
+        <Setter Property="HorizontalImageOptions" Value="Center" />
+        <Setter Property="VerticalOptions" Value="Center" />
+        <Setter Property="VerticalImageOptions" Value="Center" />
+        <Setter Property="Padding" Value="10" />
+    </Style>
+
+    <Style x:Key="ButtonViewPrimaryDark" TargetType="uraniumButtonView:UraniumButtonView"
+           ApplyToDerivedTypes="True" CanCascade="True" BasedOn="{StaticResource BaseButtonViewStyle}">
+
+        <Setter Property="BackgroundColor" Value="{StaticResource PrimaryDark}" />
+        <Setter Property="GeometryColor" Value="{StaticResource PrimaryDarkForeground}" />
+
+    </Style>
+
+    <Style x:Key="ButtonViewSecondaryDark" TargetType="uraniumButtonView:UraniumButtonView"
+           ApplyToDerivedTypes="True" CanCascade="True" BasedOn="{StaticResource BaseButtonViewStyle}">
+
+        <Setter Property="BackgroundColor" Value="{StaticResource SecondaryDark}" />
+        <Setter Property="GeometryColor" Value="{StaticResource SecondaryDarkForeground}" />
+
+    </Style>
+
+    <Style x:Key="ButtonViewPrimaryMid" TargetType="uraniumButtonView:UraniumButtonView"
+           ApplyToDerivedTypes="True" CanCascade="True" BasedOn="{StaticResource BaseButtonViewStyle}">
+
+        <Setter Property="BackgroundColor" Value="{StaticResource PrimaryMid}" />
+        <Setter Property="GeometryColor" Value="{StaticResource PrimaryMidForeground}" />
+
+    </Style>
+
+</ResourceDictionary>

@@ -5,6 +5,7 @@
         <ResourceDictionary Source="Controls/ShadowsStyles.xaml" />
         <ResourceDictionary Source="Controls/ButtonsStyles.xaml" />
         <ResourceDictionary Source="Controls/ButtonImageViewStyles.xaml" />
+        <ResourceDictionary Source="Controls/UraniumButtonViewStyles.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
 </ResourceDictionary>
