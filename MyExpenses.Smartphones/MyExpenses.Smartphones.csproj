@@ -376,8 +376,4 @@
       </None>
     </ItemGroup>
 
-    <ItemGroup>
-      <Folder Include="Resources\Raw\Resources\Assets\" />
-    </ItemGroup>
-
 </Project>
