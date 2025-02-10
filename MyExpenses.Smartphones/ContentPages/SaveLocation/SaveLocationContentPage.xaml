@@ -2,7 +2,8 @@
 
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:customFrame="clr-namespace:MyExpenses.Smartphones.UserControls.Buttons.CustomFrame"
+             xmlns:margin="clr-namespace:MyExpenses.Maui.Utils.Margin;assembly=MyExpenses.Maui.Utils"
+             xmlns:uraniumButtonView="clr-namespace:MyExpenses.Smartphones.UserControls.Buttons.UraniumButtonView"
              x:Class="MyExpenses.Smartphones.ContentPages.SaveLocation.SaveLocationContentPage"
              BindingContext="{Binding Source={RelativeSource Self}}">
 
@@ -12,43 +13,46 @@
 
     <ContentPage.Content>
 
-        <VerticalStackLayout VerticalOptions="Center">
+        <VerticalStackLayout VerticalOptions="Center"
+                             margin:LayoutExtensions.MarginForAllChildren="5">
 
-            <customFrame:ButtonImageView Style="{StaticResource FloatingActionMidButtonImageView}"
-                                         Margin="5"
-                                         GeometrySource="Cellphone"
-                                         GeometryColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
-                                         ImageHeightRequest="96"
-                                         ImageWidthRequest="{Binding ImageHeightRequest, Source={RelativeSource Self}}"
-                                         HeightRequest="120"
-                                         WidthRequest="{Binding HeightRequest, Source={RelativeSource Self}}"
-                                         IsVisible="{Binding ButtonLocalVisibility, Mode=OneWay}"
-                                         Clicked="ButtonImageViewCellphone_OnClicked">
-            </customFrame:ButtonImageView>
+            <VerticalStackLayout.Resources>
+                <x:Double x:Key="ImageHeight">96</x:Double>
+                <x:Double x:Key="HeightRequest">120</x:Double>
+            </VerticalStackLayout.Resources>
 
-            <customFrame:ButtonImageView Style="{StaticResource FloatingActionMidButtonImageView}"
-                                         Margin="5"
-                                         GeometrySource="Dropbox"
-                                         GeometryColor="#FF007EE5"
-                                         ImageHeightRequest="96"
-                                         ImageWidthRequest="{Binding ImageHeightRequest, Source={RelativeSource Self}}"
-                                         HeightRequest="120"
-                                         WidthRequest="{Binding HeightRequest, Source={RelativeSource Self}}"
-                                         IsVisible="{Binding ButtonDropboxVisibility, Mode=OneWay}"
-                                         Clicked="ButtonImageViewDropbox_OnClicked">
-            </customFrame:ButtonImageView>
+            <uraniumButtonView:UraniumButtonView GeometrySource="Cellphone"
+                                                 GeometryColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
+                                                 ImageHeightRequest="{StaticResource ImageHeight}"
+                                                 ImageWidthRequest="{StaticResource ImageHeight}"
+                                                 HeightRequest="{StaticResource HeightRequest}"
+                                                 WidthRequest="{StaticResource HeightRequest}"
+                                                 IsVisible="{Binding ButtonLocalVisibility, Mode=OneWay}"
+                                                 Style="{StaticResource ButtonViewPrimaryMid}"
+                                                 Tapped="ButtonImageViewCellphone_OnClicked">
+            </uraniumButtonView:UraniumButtonView>
 
-            <customFrame:ButtonImageView Style="{StaticResource FloatingActionMidButtonImageView}"
-                                         Margin="5"
-                                         GeometrySource="Folder"
-                                         GeometryColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
-                                         ImageHeightRequest="96"
-                                         ImageWidthRequest="{Binding ImageHeightRequest, Source={RelativeSource Self}}"
-                                         HeightRequest="120"
-                                         WidthRequest="{Binding HeightRequest, Source={RelativeSource Self}}"
-                                         IsVisible="{Binding ButtonFolderVisibility, Mode=OneWay}"
-                                         Clicked="ButtonImageViewFolder_OnClicked">
-            </customFrame:ButtonImageView>
+            <uraniumButtonView:UraniumButtonView GeometrySource="Dropbox"
+                                                 GeometryColor="#FF007EE5"
+                                                 ImageHeightRequest="{StaticResource ImageHeight}"
+                                                 ImageWidthRequest="{StaticResource ImageHeight}"
+                                                 HeightRequest="{StaticResource HeightRequest}"
+                                                 WidthRequest="{StaticResource HeightRequest}"
+                                                 IsVisible="{Binding ButtonDropboxVisibility, Mode=OneWay}"
+                                                 Style="{StaticResource ButtonViewPrimaryMid}"
+                                                 Tapped="ButtonImageViewDropbox_OnClicked">
+            </uraniumButtonView:UraniumButtonView>
+
+            <uraniumButtonView:UraniumButtonView GeometrySource="Folder"
+                                                 GeometryColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
+                                                 ImageHeightRequest="{StaticResource ImageHeight}"
+                                                 ImageWidthRequest="{StaticResource ImageHeight}"
+                                                 HeightRequest="{StaticResource HeightRequest}"
+                                                 WidthRequest="{StaticResource HeightRequest}"
+                                                 IsVisible="{Binding ButtonFolderVisibility, Mode=OneWay}"
+                                                 Style="{StaticResource ButtonViewPrimaryMid}"
+                                                 Tapped="ButtonImageViewFolder_OnClicked">
+            </uraniumButtonView:UraniumButtonView>
 
             <!-- <Button Grid.Column="1" -->
             <!--         Height="{Binding Height, RelativeSource={RelativeSource Self}}" -->
@@ -62,17 +66,16 @@
             <!--     </Button.Content> -->
             <!-- </Button> -->
 
-            <customFrame:ButtonImageView Style="{StaticResource FloatingActionMidButtonImageView}"
-                                         Margin="5"
-                                         GeometrySource="Database"
-                                         GeometryColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
-                                         ImageHeightRequest="96"
-                                         ImageWidthRequest="{Binding ImageHeightRequest, Source={RelativeSource Self}}"
-                                         HeightRequest="120"
-                                         WidthRequest="{Binding HeightRequest, Source={RelativeSource Self}}"
-                                         IsVisible="{Binding ButtonDatabaseVisibility, Mode=OneWay}"
-                                         Clicked="ButtonImageViewDatabase_OnClicked">
-            </customFrame:ButtonImageView>
+            <uraniumButtonView:UraniumButtonView GeometrySource="Database"
+                                                 GeometryColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
+                                                 ImageHeightRequest="{StaticResource ImageHeight}"
+                                                 ImageWidthRequest="{StaticResource ImageHeight}"
+                                                 HeightRequest="{StaticResource HeightRequest}"
+                                                 WidthRequest="{StaticResource HeightRequest}"
+                                                 IsVisible="{Binding ButtonDatabaseVisibility, Mode=OneWay}"
+                                                 Style="{StaticResource ButtonViewPrimaryMid}"
+                                                 Tapped="ButtonImageViewDatabase_OnClicked">
+            </uraniumButtonView:UraniumButtonView>
 
         </VerticalStackLayout>
 
