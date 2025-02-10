@@ -11,34 +11,39 @@
     <Border BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Black}}"
             Padding="20"
             StrokeThickness="1.5"
-            Stroke="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
-            margin:LayoutExtensions.MarginForAllChildren="5">
+            Stroke="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}">
 
         <Grid>
 
-            <VerticalStackLayout>
+            <VerticalStackLayout margin:LayoutExtensions.MarginForAllChildren="5">
 
                 <Button Text="{Binding MenuItemHeaderAddPoint, Mode=OneWay}"
-                        IsVisible="{Binding MenuItemVisibility.MenuItemAddFeature, Mode=OneWay}">
+                        IsVisible="{Binding MenuItemVisibility.MenuItemAddFeature, Mode=OneWay}"
+                        StyleClass="FilledTonalButton">
                 </Button>
 
                 <Button Text="{Binding MenuItemHeaderEditFeature, Mode=OneWay}"
-                        IsVisible="{Binding MenuItemVisibility.MenuItemEditFeature, Mode=OneWay}">
+                        IsVisible="{Binding MenuItemVisibility.MenuItemEditFeature, Mode=OneWay}"
+                        StyleClass="FilledTonalButton">
                 </Button>
 
                 <Button Text="{Binding MenuItemHeaderDeleteFeature, Mode=OneWay}"
-                        IsVisible="{Binding MenuItemVisibility.MenuItemDeleteFeature, Mode=OneWay}">
+                        IsVisible="{Binding MenuItemVisibility.MenuItemDeleteFeature, Mode=OneWay}"
+                        StyleClass="FilledTonalButton">
                 </Button>
 
                 <Button Text="{Binding MenuItemHeaderGoogleEarthWeb, Mode=OneWay}"
+                        StyleClass="FilledTonalButton"
                         Clicked="ButtonGoogleEarthWeb_OnClicked">
                 </Button>
 
                 <Button Text="{Binding MenuItemHeaderGoogleMaps, Mode=OneWay}"
+                        StyleClass="FilledTonalButton"
                         Clicked="ButtonToGoogleMaps_OnClick">
                 </Button>
 
                 <Button Text="{Binding MenuItemHeaderGoogleStreetView, Mode=OneWay}"
+                        StyleClass="FilledTonalButton"
                         Clicked="ButtonToGoogleStreetView_OnClick">
                 </Button>
 
