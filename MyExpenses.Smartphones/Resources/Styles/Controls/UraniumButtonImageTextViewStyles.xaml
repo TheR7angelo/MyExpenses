@@ -11,10 +11,10 @@
         <Setter Property="ImageWidthRequest" Value="48" />
         <Setter Property="HorizontalOptions" Value="Center" />
         <Setter Property="HorizontalImageOptions" Value="Center" />
-        <Setter Property="HorizontalLabelOptions" Value="Center" />
+        <Setter Property="LabelHorizontalOptions" Value="Center" />
         <Setter Property="VerticalOptions" Value="Center" />
         <Setter Property="VerticalImageOptions" Value="Center" />
-        <Setter Property="VerticalLabelOptions" Value="Center" />
+        <Setter Property="LabelVerticalOptions" Value="Center" />
         <Setter Property="Padding" Value="16,4,16,4" />
     </Style>
 

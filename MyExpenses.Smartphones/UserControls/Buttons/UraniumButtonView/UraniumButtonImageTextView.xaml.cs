@@ -4,6 +4,30 @@ namespace MyExpenses.Smartphones.UserControls.Buttons.UraniumButtonView;
 
 public partial class UraniumButtonImageTextView
 {
+    public static readonly BindableProperty LabelVerticalOptionsProperty =
+        // ReSharper disable once HeapView.BoxingAllocation
+        BindableProperty.Create(nameof(LabelVerticalOptions), typeof(LayoutOptions), typeof(UraniumButtonImageTextView),
+            default(LayoutOptions));
+
+    public LayoutOptions LabelVerticalOptions
+    {
+        get => (LayoutOptions)GetValue(LabelVerticalOptionsProperty);
+        // ReSharper disable once HeapView.BoxingAllocation
+        set => SetValue(LabelVerticalOptionsProperty, value);
+    }
+
+    public static readonly BindableProperty LabelHorizontalOptionsProperty =
+        BindableProperty.Create(nameof(LabelHorizontalOptions), typeof(LayoutOptions),
+            // ReSharper disable once HeapView.BoxingAllocation
+            typeof(UraniumButtonImageTextView), default(LayoutOptions));
+
+    public LayoutOptions LabelHorizontalOptions
+    {
+        get => (LayoutOptions)GetValue(LabelHorizontalOptionsProperty);
+        // ReSharper disable once HeapView.BoxingAllocation
+        set => SetValue(LabelHorizontalOptionsProperty, value);
+    }
+
     public static readonly BindableProperty TextColorProperty =
         BindableProperty.Create(nameof(TextColor), typeof(Color), typeof(UraniumButtonImageTextView));
 
@@ -15,37 +39,14 @@ public partial class UraniumButtonImageTextView
 
     public static readonly BindableProperty GeometrySourceProperty =
         // ReSharper disable once HeapView.BoxingAllocation
-        BindableProperty.Create(nameof(GeometrySource), typeof(EPackIcons), typeof(UraniumButtonImageTextView), default(EPackIcons));
+        BindableProperty.Create(nameof(GeometrySource), typeof(EPackIcons), typeof(UraniumButtonImageTextView),
+            default(EPackIcons));
 
     public EPackIcons GeometrySource
     {
         get => (EPackIcons)GetValue(GeometrySourceProperty);
         // ReSharper disable once HeapView.BoxingAllocation
         set => SetValue(GeometrySourceProperty, value);
-    }
-
-    public static readonly BindableProperty VerticalLabelOptionsProperty =
-        // ReSharper disable once HeapView.BoxingAllocation
-        BindableProperty.Create(nameof(VerticalLabelOptions), typeof(LayoutOptions), typeof(UraniumButtonImageTextView),
-            default(LayoutOptions));
-
-    public LayoutOptions VerticalLabelOptions
-    {
-        get => (LayoutOptions)GetValue(VerticalLabelOptionsProperty);
-        // ReSharper disable once HeapView.BoxingAllocation
-        set => SetValue(VerticalLabelOptionsProperty, value);
-    }
-
-    public static readonly BindableProperty HorizontalLabelOptionsProperty =
-    // ReSharper disable once HeapView.BoxingAllocation
-    BindableProperty.Create(nameof(HorizontalLabelOptions), typeof(LayoutOptions), typeof(UraniumButtonImageTextView),
-    default(LayoutOptions));
-
-    public LayoutOptions HorizontalLabelOptions
-    {
-        get => (LayoutOptions)GetValue(HorizontalLabelOptionsProperty);
-        // ReSharper disable once HeapView.BoxingAllocation
-        set => SetValue(HorizontalLabelOptionsProperty, value);
     }
 
     public static readonly BindableProperty LabelTextProperty =
@@ -93,7 +94,8 @@ public partial class UraniumButtonImageTextView
 
     public static readonly BindableProperty HorizontalImageOptionsProperty =
         // ReSharper disable once HeapView.BoxingAllocation
-        BindableProperty.Create(nameof(HorizontalImageOptions), typeof(LayoutOptions), typeof(UraniumButtonImageTextView),
+        BindableProperty.Create(nameof(HorizontalImageOptions), typeof(LayoutOptions),
+            typeof(UraniumButtonImageTextView),
             default(LayoutOptions));
 
     public LayoutOptions HorizontalImageOptions

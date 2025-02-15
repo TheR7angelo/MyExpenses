@@ -26,9 +26,8 @@
         <Label TextColor="{Binding TextColor, Mode=OneWay, UpdateSourceEventName=PropertyChanged, Source={RelativeSource AncestorType={x:Type local:UraniumButtonImageTextView}}}"
                Text="{Binding Text, Mode=OneWay, UpdateSourceEventName=PropertyChanged, Source={RelativeSource AncestorType={x:Type local:UraniumButtonImageTextView}}}"
                FontAutoScalingEnabled="True"
-               HorizontalOptions="{Binding HorizontalLabelOptions, Mode=OneWay, UpdateSourceEventName=PropertyChanged, Source={RelativeSource AncestorType={x:Type local:UraniumButtonImageTextView}}}"
-               VerticalOptions="{Binding VerticalLabelOptions, Mode=OneWay, UpdateSourceEventName=PropertyChanged, Source={RelativeSource AncestorType={x:Type local:UraniumButtonImageTextView}}}"
-               IsVisible="False">
+               HorizontalOptions="{Binding LabelHorizontalOptions, Mode=OneWay, UpdateSourceEventName=PropertyChanged, Source={RelativeSource AncestorType={x:Type local:UraniumButtonImageTextView}}}"
+               VerticalOptions="{Binding LabelVerticalOptions, Mode=OneWay, UpdateSourceEventName=PropertyChanged, Source={RelativeSource AncestorType={x:Type local:UraniumButtonImageTextView}}}">
         </Label>
 
     </StackLayout>
