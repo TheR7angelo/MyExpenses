@@ -14,7 +14,7 @@ using MyExpenses.Smartphones.ContentPages;
 using MyExpenses.Smartphones.ContentPages.CustomPopups.CustomPopupActivityIndicator;
 using MyExpenses.Smartphones.ContentPages.SaveLocation;
 using MyExpenses.Smartphones.Resources.Resx.ContentPages.MainPage;
-using MyExpenses.Smartphones.UserControls.Buttons.CustomFrame;
+using MyExpenses.Smartphones.UserControls.Buttons.UraniumButtonView;
 using MyExpenses.Sql.Context;
 using MyExpenses.WebApi.Dropbox;
 using Serilog;
@@ -39,7 +39,7 @@ public partial class MainPage
 
     private void ButtonDatabase_OnClick(object? sender, EventArgs e)
     {
-        var buttonImageView = (ButtonImageTextView)sender!;
+        var buttonImageView = (UraniumButtonImageTextView)sender!;
         if (buttonImageView.BindingContext is not ExistingDatabase existingDatabase) return;
 
         var message = string.Format(MainPageResources.CustomPopupActivityIndicatorOpenDatabase, existingDatabase.FileNameWithoutExtension);

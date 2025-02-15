@@ -1,0 +1,21 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                    xmlns:uraniumButtonView="clr-namespace:MyExpenses.Smartphones.UserControls.Buttons.UraniumButtonView">
+
+        <Style x:Key="PaperMidButtonImageTextView" TargetType="{x:Type uraniumButtonView:UraniumButtonImageTextView}">
+        <Setter Property="Background" Value="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Black}}" />
+        <Setter Property="Stroke" Value="{DynamicResource PrimaryMid}" />
+        <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}" />
+        <Setter Property="Height" Value="64" />
+        <Setter Property="ImageHeightRequest" Value="48" />
+        <Setter Property="ImageWidthRequest" Value="48" />
+        <Setter Property="HorizontalOptions" Value="Center" />
+        <Setter Property="HorizontalImageOptions" Value="Center" />
+        <Setter Property="HorizontalLabelOptions" Value="Center" />
+        <Setter Property="VerticalOptions" Value="Center" />
+        <Setter Property="VerticalImageOptions" Value="Center" />
+        <Setter Property="VerticalLabelOptions" Value="Center" />
+        <Setter Property="Padding" Value="16,4,16,4" />
+    </Style>
+
+</ResourceDictionary>

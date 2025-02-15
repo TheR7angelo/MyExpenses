@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<material:ButtonView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                     xmlns:local="clr-namespace:MyExpenses.Smartphones.UserControls.Buttons.UraniumButtonView"
+                     xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
+                     xmlns:converters="clr-namespace:MyExpenses.Smartphones.Converters"
+                     x:Class="MyExpenses.Smartphones.UserControls.Buttons.UraniumButtonView.UraniumButtonImageTextView">
+
+    <material:ButtonView.Resources>
+        <converters:EPackIconsToGeometryConverter x:Key="StringToGeometryConverter" />
+    </material:ButtonView.Resources>
+
+    <StackLayout Orientation="Vertical"
+                 Margin="3">
+
+        <Path Aspect="Uniform"
+              Fill="{Binding TextColor, Mode=OneWay, UpdateSourceEventName=PropertyChanged, Source={RelativeSource AncestorType={x:Type local:UraniumButtonImageTextView}}}"
+              Data="{Binding GeometrySource, Mode=OneWay, Converter={StaticResource StringToGeometryConverter},  UpdateSourceEventName=PropertyChanged, Source={RelativeSource AncestorType={x:Type local:UraniumButtonImageTextView}}}"
+              HorizontalOptions="{Binding HorizontalImageOptions, Mode=OneWay, UpdateSourceEventName=PropertyChanged, Source={RelativeSource AncestorType={x:Type local:UraniumButtonImageTextView}}}"
+              VerticalOptions="{Binding VerticalImageOptions, Mode=OneWay, UpdateSourceEventName=PropertyChanged, Source={RelativeSource AncestorType={x:Type local:UraniumButtonImageTextView}}}"
+              WidthRequest="{Binding ImageWidthRequest, Mode=OneWay, UpdateSourceEventName=PropertyChanged, Source={RelativeSource AncestorType={x:Type local:UraniumButtonImageTextView}}}"
+              HeightRequest="{Binding ImageHeightRequest, Mode=OneWay, UpdateSourceEventName=PropertyChanged, Source={RelativeSource AncestorType={x:Type local:UraniumButtonImageTextView}}}">
+        </Path>
+
+        <Label TextColor="{Binding TextColor, Mode=OneWay, UpdateSourceEventName=PropertyChanged, Source={RelativeSource AncestorType={x:Type local:UraniumButtonImageTextView}}}"
+               Text="{Binding Text, Mode=OneWay, UpdateSourceEventName=PropertyChanged, Source={RelativeSource AncestorType={x:Type local:UraniumButtonImageTextView}}}"
+               FontAutoScalingEnabled="True"
+               HorizontalOptions="{Binding HorizontalLabelOptions, Mode=OneWay, UpdateSourceEventName=PropertyChanged, Source={RelativeSource AncestorType={x:Type local:UraniumButtonImageTextView}}}"
+               VerticalOptions="{Binding VerticalLabelOptions, Mode=OneWay, UpdateSourceEventName=PropertyChanged, Source={RelativeSource AncestorType={x:Type local:UraniumButtonImageTextView}}}"
+               IsVisible="False">
+        </Label>
+
+    </StackLayout>
+
+</material:ButtonView>

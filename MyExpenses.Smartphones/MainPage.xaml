@@ -3,7 +3,6 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:margin="clr-namespace:MyExpenses.Maui.Utils.Margin;assembly=MyExpenses.Maui.Utils"
-             xmlns:customFrame="clr-namespace:MyExpenses.Smartphones.UserControls.Buttons.CustomFrame"
              xmlns:io="clr-namespace:MyExpenses.Models.IO;assembly=MyExpenses.Models"
              xmlns:uraniumButtonView="clr-namespace:MyExpenses.Smartphones.UserControls.Buttons.UraniumButtonView"
              x:Class="MyExpenses.Smartphones.MainPage"
@@ -97,12 +96,12 @@
                     <BindableLayout.ItemTemplate>
                         <DataTemplate x:DataType="io:ExistingDatabase">
 
-                            <customFrame:ButtonImageTextView Style="{StaticResource PaperMidButtonImageTextView}"
-                                                             Margin="1"
-                                                             GeometrySource="Database"
-                                                             LabelText="{Binding FileNameWithoutExtension}"
-                                                             Clicked="ButtonDatabase_OnClick">
-                            </customFrame:ButtonImageTextView>
+                            <uraniumButtonView:UraniumButtonImageTextView Style="{StaticResource PaperMidButtonImageTextView}"
+                                                                   Margin="1"
+                                                                   GeometrySource="Database"
+                                                                   LabelText="{Binding FileNameWithoutExtension}"
+                                                                   Tapped="ButtonDatabase_OnClick">
+                            </uraniumButtonView:UraniumButtonImageTextView>
 
                         </DataTemplate>
                     </BindableLayout.ItemTemplate>
