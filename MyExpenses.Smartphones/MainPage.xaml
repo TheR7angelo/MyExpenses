@@ -37,9 +37,9 @@
             </Grid.ColumnDefinitions>
 
             <uraniumButtonView:UraniumButtonView Grid.Row="0" Grid.Column="0"
-                                                 GeometrySource="Plus"
-                                                 ImageHeightRequest="{StaticResource ImageHeight}"
-                                                 ImageWidthRequest="{StaticResource ImageHeight}"
+                                                 PathSource="Plus"
+                                                 PathHeightRequest="{StaticResource ImageHeight}"
+                                                 PathWidthRequest="{StaticResource ImageHeight}"
                                                  HeightRequest="{StaticResource HeightRequest}"
                                                  WidthRequest="{StaticResource HeightRequest}"
                                                  Style="{StaticResource ButtonViewPrimaryDark}"
@@ -47,9 +47,9 @@
             </uraniumButtonView:UraniumButtonView>
 
             <uraniumButtonView:UraniumButtonView Grid.Row="0" Grid.Column="1"
-                                                 GeometrySource="Minus"
-                                                 ImageHeightRequest="{StaticResource ImageHeight}"
-                                                 ImageWidthRequest="{StaticResource ImageHeight}"
+                                                 PathSource="Minus"
+                                                 PathHeightRequest="{StaticResource ImageHeight}"
+                                                 PathWidthRequest="{StaticResource ImageHeight}"
                                                  HeightRequest="{StaticResource HeightRequest}"
                                                  WidthRequest="{StaticResource HeightRequest}"
                                                  Style="{StaticResource ButtonViewSecondaryDark}"
@@ -57,9 +57,9 @@
             </uraniumButtonView:UraniumButtonView>
 
             <uraniumButtonView:UraniumButtonView Grid.Row="1" Grid.Column="0"
-                                                 GeometrySource="DatabaseImport"
-                                                 ImageHeightRequest="{StaticResource ImageHeight}"
-                                                 ImageWidthRequest="{StaticResource ImageHeight}"
+                                                 PathSource="DatabaseImport"
+                                                 PathHeightRequest="{StaticResource ImageHeight}"
+                                                 PathWidthRequest="{StaticResource ImageHeight}"
                                                  HeightRequest="{StaticResource HeightRequest}"
                                                  WidthRequest="{StaticResource HeightRequest}"
                                                  Style="{StaticResource ButtonViewPrimaryMid}"
@@ -67,9 +67,9 @@
             </uraniumButtonView:UraniumButtonView>
 
             <uraniumButtonView:UraniumButtonView Grid.Row="1" Grid.Column="1"
-                                                 GeometrySource="DatabaseExport"
-                                                 ImageHeightRequest="{StaticResource ImageHeight}"
-                                                 ImageWidthRequest="{StaticResource ImageHeight}"
+                                                 PathSource="DatabaseExport"
+                                                 PathHeightRequest="{StaticResource ImageHeight}"
+                                                 PathWidthRequest="{StaticResource ImageHeight}"
                                                  HeightRequest="{StaticResource HeightRequest}"
                                                  WidthRequest="{StaticResource HeightRequest}"
                                                  Style="{StaticResource ButtonViewPrimaryMid}"

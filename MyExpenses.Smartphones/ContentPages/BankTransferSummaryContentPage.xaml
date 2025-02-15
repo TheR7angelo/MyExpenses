@@ -38,27 +38,27 @@
                     <x:Double x:Key="HeightRequest">40</x:Double>
                 </HorizontalStackLayout.Resources>
 
-                <uraniumButtonView:UraniumButtonView GeometrySource="Plus"
-                                                     ImageHeightRequest="{StaticResource ImageHeight}"
-                                                     ImageWidthRequest="{StaticResource ImageHeight}"
+                <uraniumButtonView:UraniumButtonView PathSource="Plus"
+                                                     PathHeightRequest="{StaticResource ImageHeight}"
+                                                     PathWidthRequest="{StaticResource ImageHeight}"
                                                      HeightRequest="{StaticResource HeightRequest}"
                                                      WidthRequest="{StaticResource HeightRequest}"
                                                      Style="{StaticResource ButtonViewPrimaryLight}"
                                                      Tapped="ButtonAddMonth_OnClick">
                 </uraniumButtonView:UraniumButtonView>
 
-                <uraniumButtonView:UraniumButtonView GeometrySource="ClockFast"
-                                                     ImageHeightRequest="{StaticResource ImageHeight}"
-                                                     ImageWidthRequest="{StaticResource ImageHeight}"
+                <uraniumButtonView:UraniumButtonView PathSource="ClockFast"
+                                                     PathHeightRequest="{StaticResource ImageHeight}"
+                                                     PathWidthRequest="{StaticResource ImageHeight}"
                                                      HeightRequest="{StaticResource HeightRequest}"
                                                      WidthRequest="{StaticResource HeightRequest}"
                                                      Style="{StaticResource ButtonViewPrimaryDark}"
                                                      Tapped="ButtonDateNow_OnClick">
                 </uraniumButtonView:UraniumButtonView>
 
-                <uraniumButtonView:UraniumButtonView GeometrySource="Minus"
-                                                     ImageHeightRequest="{StaticResource ImageHeight}"
-                                                     ImageWidthRequest="{StaticResource ImageHeight}"
+                <uraniumButtonView:UraniumButtonView PathSource="Minus"
+                                                     PathHeightRequest="{StaticResource ImageHeight}"
+                                                     PathWidthRequest="{StaticResource ImageHeight}"
                                                      HeightRequest="{StaticResource HeightRequest}"
                                                      WidthRequest="{StaticResource HeightRequest}"
                                                      Style="{StaticResource ButtonViewSecondaryDark}"

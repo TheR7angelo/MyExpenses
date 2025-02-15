@@ -12,12 +12,12 @@
     </material:ButtonView.Resources>
 
     <Path Aspect="Uniform"
-          Fill="{Binding GeometryColor, Mode=OneWay, UpdateSourceEventName=PropertyChanged, Source={RelativeSource AncestorType={x:Type local:UraniumButtonView}}}"
-          Data="{Binding GeometrySource, Mode=OneWay, Converter={StaticResource StringToGeometryConverter}, UpdateSourceEventName=PropertyChanged, Source={RelativeSource AncestorType={x:Type local:UraniumButtonView}}}"
-          HorizontalOptions="{Binding HorizontalImageOptions, Mode=OneWay, UpdateSourceEventName=PropertyChanged, Source={RelativeSource AncestorType={x:Type local:UraniumButtonView}}}"
-          VerticalOptions="{Binding VerticalImageOptions, Mode=OneWay, UpdateSourceEventName=PropertyChanged, Source={RelativeSource AncestorType={x:Type local:UraniumButtonView}}}"
-          WidthRequest="{Binding ImageWidthRequest, Mode=OneWay, UpdateSourceEventName=PropertyChanged, Source={RelativeSource AncestorType={x:Type local:UraniumButtonView}}}"
-          HeightRequest="{Binding ImageHeightRequest, Mode=OneWay, UpdateSourceEventName=PropertyChanged, Source={RelativeSource AncestorType={x:Type local:UraniumButtonView}}}">
+          Fill="{Binding PathFillColor, Mode=OneWay, UpdateSourceEventName=PropertyChanged, Source={RelativeSource AncestorType={x:Type local:UraniumButtonView}}}"
+          Data="{Binding PathSource, Mode=OneWay, Converter={StaticResource StringToGeometryConverter}, UpdateSourceEventName=PropertyChanged, Source={RelativeSource AncestorType={x:Type local:UraniumButtonView}}}"
+          HorizontalOptions="{Binding PathHorizontalOptions, Mode=OneWay, UpdateSourceEventName=PropertyChanged, Source={RelativeSource AncestorType={x:Type local:UraniumButtonView}}}"
+          VerticalOptions="{Binding PathVerticalOptions, Mode=OneWay, UpdateSourceEventName=PropertyChanged, Source={RelativeSource AncestorType={x:Type local:UraniumButtonView}}}"
+          WidthRequest="{Binding PathWidthRequest, Mode=OneWay, UpdateSourceEventName=PropertyChanged, Source={RelativeSource AncestorType={x:Type local:UraniumButtonView}}}"
+          HeightRequest="{Binding PathHeightRequest, Mode=OneWay, UpdateSourceEventName=PropertyChanged, Source={RelativeSource AncestorType={x:Type local:UraniumButtonView}}}">
     </Path>
 
 </material:ButtonView>

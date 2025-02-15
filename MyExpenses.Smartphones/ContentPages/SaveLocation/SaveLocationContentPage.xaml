@@ -21,10 +21,10 @@
                 <x:Double x:Key="HeightRequest">120</x:Double>
             </VerticalStackLayout.Resources>
 
-            <uraniumButtonView:UraniumButtonView GeometrySource="Cellphone"
-                                                 GeometryColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
-                                                 ImageHeightRequest="{StaticResource ImageHeight}"
-                                                 ImageWidthRequest="{StaticResource ImageHeight}"
+            <uraniumButtonView:UraniumButtonView PathSource="Cellphone"
+                                                 PathFillColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
+                                                 PathHeightRequest="{StaticResource ImageHeight}"
+                                                 PathWidthRequest="{StaticResource ImageHeight}"
                                                  HeightRequest="{StaticResource HeightRequest}"
                                                  WidthRequest="{StaticResource HeightRequest}"
                                                  IsVisible="{Binding ButtonLocalVisibility, Mode=OneWay}"
@@ -32,10 +32,10 @@
                                                  Tapped="ButtonImageViewCellphone_OnClicked">
             </uraniumButtonView:UraniumButtonView>
 
-            <uraniumButtonView:UraniumButtonView GeometrySource="Dropbox"
-                                                 GeometryColor="#FF007EE5"
-                                                 ImageHeightRequest="{StaticResource ImageHeight}"
-                                                 ImageWidthRequest="{StaticResource ImageHeight}"
+            <uraniumButtonView:UraniumButtonView PathSource="Dropbox"
+                                                 PathFillColor="#FF007EE5"
+                                                 PathHeightRequest="{StaticResource ImageHeight}"
+                                                 PathWidthRequest="{StaticResource ImageHeight}"
                                                  HeightRequest="{StaticResource HeightRequest}"
                                                  WidthRequest="{StaticResource HeightRequest}"
                                                  IsVisible="{Binding ButtonDropboxVisibility, Mode=OneWay}"
@@ -43,10 +43,10 @@
                                                  Tapped="ButtonImageViewDropbox_OnClicked">
             </uraniumButtonView:UraniumButtonView>
 
-            <uraniumButtonView:UraniumButtonView GeometrySource="Folder"
-                                                 GeometryColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
-                                                 ImageHeightRequest="{StaticResource ImageHeight}"
-                                                 ImageWidthRequest="{StaticResource ImageHeight}"
+            <uraniumButtonView:UraniumButtonView PathSource="Folder"
+                                                 PathFillColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
+                                                 PathHeightRequest="{StaticResource ImageHeight}"
+                                                 PathWidthRequest="{StaticResource ImageHeight}"
                                                  HeightRequest="{StaticResource HeightRequest}"
                                                  WidthRequest="{StaticResource HeightRequest}"
                                                  IsVisible="{Binding ButtonFolderVisibility, Mode=OneWay}"
@@ -66,10 +66,10 @@
             <!--     </Button.Content> -->
             <!-- </Button> -->
 
-            <uraniumButtonView:UraniumButtonView GeometrySource="Database"
-                                                 GeometryColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
-                                                 ImageHeightRequest="{StaticResource ImageHeight}"
-                                                 ImageWidthRequest="{StaticResource ImageHeight}"
+            <uraniumButtonView:UraniumButtonView PathSource="Database"
+                                                 PathFillColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
+                                                 PathHeightRequest="{StaticResource ImageHeight}"
+                                                 PathWidthRequest="{StaticResource ImageHeight}"
                                                  HeightRequest="{StaticResource HeightRequest}"
                                                  WidthRequest="{StaticResource HeightRequest}"
                                                  IsVisible="{Binding ButtonDatabaseVisibility, Mode=OneWay}"

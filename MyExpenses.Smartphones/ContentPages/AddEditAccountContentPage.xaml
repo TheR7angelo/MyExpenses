@@ -63,9 +63,9 @@
             </VerticalStackLayout>
 
             <uraniumButtonView:UraniumButtonView Grid.Row="0" Grid.Column="2"
-                                                 GeometrySource="Pencil"
-                                                 ImageHeightRequest="{StaticResource ImageHeight}"
-                                                 ImageWidthRequest="{StaticResource ImageHeight}"
+                                                 PathSource="Pencil"
+                                                 PathHeightRequest="{StaticResource ImageHeight}"
+                                                 PathWidthRequest="{StaticResource ImageHeight}"
                                                  HeightRequest="{StaticResource HeightRequest}"
                                                  WidthRequest="{StaticResource HeightRequest}"
                                                  Style="{StaticResource ButtonViewPrimaryMid}"
@@ -89,9 +89,9 @@
             </HorizontalStackLayout>
 
             <uraniumButtonView:UraniumButtonView Grid.Row="1" Grid.Column="2"
-                                                 GeometrySource="Pencil"
-                                                 ImageHeightRequest="{StaticResource ImageHeight}"
-                                                 ImageWidthRequest="{StaticResource ImageHeight}"
+                                                 PathSource="Pencil"
+                                                 PathHeightRequest="{StaticResource ImageHeight}"
+                                                 PathWidthRequest="{StaticResource ImageHeight}"
                                                  HeightRequest="{StaticResource HeightRequest}"
                                                  WidthRequest="{StaticResource HeightRequest}"
                                                  Style="{StaticResource ButtonViewPrimaryMid}"

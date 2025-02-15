@@ -5,9 +5,9 @@
     <Style x:Key="BaseButtonViewStyle" TargetType="uraniumButtonView:UraniumButtonView">
         <Setter Property="StrokeShape" Value="{RoundRectangle CornerRadius=50}" />
         <Setter Property="HorizontalOptions" Value="Center" />
-        <Setter Property="HorizontalImageOptions" Value="Center" />
+        <Setter Property="PathHorizontalOptions" Value="Center" />
         <Setter Property="VerticalOptions" Value="Center" />
-        <Setter Property="VerticalImageOptions" Value="Center" />
+        <Setter Property="PathVerticalOptions" Value="Center" />
         <Setter Property="Padding" Value="10" />
     </Style>
 
@@ -15,7 +15,7 @@
            ApplyToDerivedTypes="True" CanCascade="True" BasedOn="{StaticResource BaseButtonViewStyle}">
 
         <Setter Property="BackgroundColor" Value="{StaticResource PrimaryDark}" />
-        <Setter Property="GeometryColor" Value="{StaticResource PrimaryDarkForeground}" />
+        <Setter Property="PathFillColor" Value="{StaticResource PrimaryDarkForeground}" />
 
     </Style>
 
@@ -23,7 +23,7 @@
            ApplyToDerivedTypes="True" CanCascade="True" BasedOn="{StaticResource BaseButtonViewStyle}">
 
         <Setter Property="BackgroundColor" Value="{StaticResource SecondaryDark}" />
-        <Setter Property="GeometryColor" Value="{StaticResource SecondaryDarkForeground}" />
+        <Setter Property="PathFillColor" Value="{StaticResource SecondaryDarkForeground}" />
 
     </Style>
 
@@ -31,7 +31,7 @@
            ApplyToDerivedTypes="True" CanCascade="True" BasedOn="{StaticResource BaseButtonViewStyle}">
 
         <Setter Property="BackgroundColor" Value="{StaticResource PrimaryMid}" />
-        <Setter Property="GeometryColor" Value="{StaticResource PrimaryMidForeground}" />
+        <Setter Property="PathFillColor" Value="{StaticResource PrimaryMidForeground}" />
 
     </Style>
 
@@ -39,7 +39,7 @@
            ApplyToDerivedTypes="True" CanCascade="True" BasedOn="{StaticResource BaseButtonViewStyle}">
 
         <Setter Property="BackgroundColor" Value="{StaticResource PrimaryLight}" />
-        <Setter Property="GeometryColor" Value="{StaticResource PrimaryLightForeground}" />
+        <Setter Property="PathFillColor" Value="{StaticResource PrimaryLightForeground}" />
 
     </Style>
 

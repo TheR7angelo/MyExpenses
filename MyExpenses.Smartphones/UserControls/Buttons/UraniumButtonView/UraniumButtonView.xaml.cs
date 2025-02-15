@@ -4,70 +4,70 @@ namespace MyExpenses.Smartphones.UserControls.Buttons.UraniumButtonView;
 
 public partial class UraniumButtonView
 {
-    public static readonly BindableProperty GeometryColorProperty =
-        BindableProperty.Create(nameof(GeometryColor), typeof(Color), typeof(UraniumButtonView));
+    public static readonly BindableProperty PathFillColorProperty =
+        BindableProperty.Create(nameof(PathFillColor), typeof(Color), typeof(UraniumButtonView));
 
-    public Color GeometryColor
+    public Color PathFillColor
     {
-        get => (Color)GetValue(GeometryColorProperty);
-        set => SetValue(GeometryColorProperty, value);
+        get => (Color)GetValue(PathFillColorProperty);
+        set => SetValue(PathFillColorProperty, value);
     }
 
-    public static readonly BindableProperty GeometrySourceProperty =
+    public static readonly BindableProperty PathSourceProperty =
         // ReSharper disable once HeapView.BoxingAllocation
-        BindableProperty.Create(nameof(GeometrySource), typeof(EPackIcons), typeof(UraniumButtonView), default(EPackIcons));
+        BindableProperty.Create(nameof(PathSource), typeof(EPackIcons), typeof(UraniumButtonView), default(EPackIcons));
 
-    public EPackIcons GeometrySource
+    public EPackIcons PathSource
     {
-        get => (EPackIcons)GetValue(GeometrySourceProperty);
+        get => (EPackIcons)GetValue(PathSourceProperty);
         // ReSharper disable once HeapView.BoxingAllocation
-        set => SetValue(GeometrySourceProperty, value);
+        set => SetValue(PathSourceProperty, value);
     }
 
-    public static readonly BindableProperty ImageHeightRequestProperty =
+    public static readonly BindableProperty PathHeightRequestProperty =
         // ReSharper disable once HeapView.BoxingAllocation
-        BindableProperty.Create(nameof(ImageHeightRequest), typeof(double), typeof(UraniumButtonView), 0d);
+        BindableProperty.Create(nameof(PathHeightRequest), typeof(double), typeof(UraniumButtonView), 0d);
 
-    public double ImageHeightRequest
+    public double PathHeightRequest
     {
-        get => (double)GetValue(ImageHeightRequestProperty);
+        get => (double)GetValue(PathHeightRequestProperty);
         // ReSharper disable once HeapView.BoxingAllocation
-        set => SetValue(ImageHeightRequestProperty, value);
+        set => SetValue(PathHeightRequestProperty, value);
     }
 
-    public static readonly BindableProperty ImageWidthRequestProperty =
+    public static readonly BindableProperty PathWidthRequestProperty =
         // ReSharper disable once HeapView.BoxingAllocation
-        BindableProperty.Create(nameof(ImageWidthRequest), typeof(double), typeof(UraniumButtonView), 0d);
+        BindableProperty.Create(nameof(PathWidthRequest), typeof(double), typeof(UraniumButtonView), 0d);
 
-    public double ImageWidthRequest
+    public double PathWidthRequest
     {
-        get => (double)GetValue(ImageWidthRequestProperty);
+        get => (double)GetValue(PathWidthRequestProperty);
         // ReSharper disable once HeapView.BoxingAllocation
-        set => SetValue(ImageWidthRequestProperty, value);
+        set => SetValue(PathWidthRequestProperty, value);
     }
 
-    public static readonly BindableProperty VerticalImageOptionsProperty =
+    public static readonly BindableProperty PathVerticalOptionsProperty =
         // ReSharper disable once HeapView.BoxingAllocation
-        BindableProperty.Create(nameof(VerticalImageOptions), typeof(LayoutOptions), typeof(UraniumButtonView),
+        BindableProperty.Create(nameof(PathVerticalOptions), typeof(LayoutOptions), typeof(UraniumButtonView),
             default(LayoutOptions));
 
-    public LayoutOptions VerticalImageOptions
+    public LayoutOptions PathVerticalOptions
     {
-        get => (LayoutOptions)GetValue(VerticalImageOptionsProperty);
+        get => (LayoutOptions)GetValue(PathVerticalOptionsProperty);
         // ReSharper disable once HeapView.BoxingAllocation
-        set => SetValue(VerticalImageOptionsProperty, value);
+        set => SetValue(PathVerticalOptionsProperty, value);
     }
 
-    public static readonly BindableProperty HorizontalImageOptionsProperty =
+    public static readonly BindableProperty PathHorizontalOptionsProperty =
         // ReSharper disable once HeapView.BoxingAllocation
-        BindableProperty.Create(nameof(HorizontalImageOptions), typeof(LayoutOptions), typeof(UraniumButtonView),
+        BindableProperty.Create(nameof(PathHorizontalOptions), typeof(LayoutOptions), typeof(UraniumButtonView),
             default(LayoutOptions));
 
-    public LayoutOptions HorizontalImageOptions
+    public LayoutOptions PathHorizontalOptions
     {
-        get => (LayoutOptions)GetValue(HorizontalImageOptionsProperty);
+        get => (LayoutOptions)GetValue(PathHorizontalOptionsProperty);
         // ReSharper disable once HeapView.BoxingAllocation
-        set => SetValue(HorizontalImageOptionsProperty, value);
+        set => SetValue(PathHorizontalOptionsProperty, value);
     }
 
     public UraniumButtonView()
