@@ -11,6 +11,10 @@
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>LocationManagementResources.Designer.cs</LastGenOutput>
       </EmbeddedResource>
+      <EmbeddedResource Update="Resources\Resx\AddDatabaseFile\AddDatabaseFileResources.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>AddDatabaseFileResources.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
     </ItemGroup>
 
     <ItemGroup>
@@ -18,6 +22,11 @@
         <DesignTime>True</DesignTime>
         <AutoGen>True</AutoGen>
         <DependentUpon>LocationManagementResources.resx</DependentUpon>
+      </Compile>
+      <Compile Update="Resources\Resx\AddDatabaseFile\AddDatabaseFileResources.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>AddDatabaseFileResources.resx</DependentUpon>
       </Compile>
     </ItemGroup>
 

@@ -1,7 +1,7 @@
 using System.Windows.Input;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.IO;
-using MyExpenses.Smartphones.Resources.Resx.ContentPages.AddDatabaseFileContentPage;
+using MyExpenses.SharedUtils.Resources.Resx.AddDatabaseFile;
 using MyExpenses.Utils.Strings;
 
 namespace MyExpenses.Smartphones.ContentPages;
@@ -110,9 +110,9 @@ public partial class AddDatabaseFileContentPage
     {
         if (string.IsNullOrEmpty(DatabaseFilename))
         {
-            await DisplayAlert(AddDatabaseFileContentPageResources.MessageBoxEmptyNameErrorTitle,
-                AddDatabaseFileContentPageResources.MessageBoxEmptyNameErrorMessage,
-                AddDatabaseFileContentPageResources.MessageBoxEmptyNameErrorOkButton);
+            await DisplayAlert(AddDatabaseFileResources.MessageBoxEmptyNameErrorTitle,
+                AddDatabaseFileResources.MessageBoxEmptyNameErrorMessage,
+                AddDatabaseFileResources.MessageBoxEmptyNameErrorOkButton);
             return;
         }
 
@@ -120,9 +120,9 @@ public partial class AddDatabaseFileContentPage
         if (containsIncorrectChar)
         {
             await DisplayAlert(
-                AddDatabaseFileContentPageResources.MessageBoxDatabaseFilenameContainsIncorrectCharErrorTitle,
-                AddDatabaseFileContentPageResources.MessageBoxDatabaseFilenameContainsIncorrectCharErrorMessage,
-                AddDatabaseFileContentPageResources.MessageBoxDatabaseFilenameContainsIncorrectCharErrorOkButton);
+                AddDatabaseFileResources.MessageBoxDatabaseFilenameContainsIncorrectCharErrorTitle,
+                AddDatabaseFileResources.MessageBoxDatabaseFilenameContainsIncorrectCharErrorMessage,
+                AddDatabaseFileResources.MessageBoxDatabaseFilenameContainsIncorrectCharErrorOkButton);
             return;
         }
 
@@ -130,9 +130,9 @@ public partial class AddDatabaseFileContentPage
         if (alreadyExist)
         {
             await DisplayAlert(
-                AddDatabaseFileContentPageResources.MessageBoxDatabaseFilenameContainsIncorrectCharErrorTitle,
-                AddDatabaseFileContentPageResources.MessageBoxDatabaseFilenameContainsIncorrectCharErrorMessage,
-                AddDatabaseFileContentPageResources.MessageBoxDatabaseFilenameContainsIncorrectCharErrorOkButton);
+                AddDatabaseFileResources.MessageBoxDatabaseAlreadyExistErrorTitle,
+                AddDatabaseFileResources.MessageBoxDatabaseAlreadyExistErrorMessage,
+                AddDatabaseFileResources.MessageBoxDatabaseAlreadyExistErrorOkButton);
         }
         else
         {
@@ -146,10 +146,9 @@ public partial class AddDatabaseFileContentPage
 
     private void UpdateLanguage()
     {
-        CustomEntryControlPlaceholderText = AddDatabaseFileContentPageResources.CustomEntryControlPlaceholderText;
-
-        ButtonValidContent = AddDatabaseFileContentPageResources.ButtonValidContent;
-        ButtonCancelContent = AddDatabaseFileContentPageResources.ButtonCancelContent;
+        CustomEntryControlPlaceholderText = AddDatabaseFileResources.TextBoxHintAssist;
+        ButtonValidContent = AddDatabaseFileResources.ButtonValidContent;
+        ButtonCancelContent = AddDatabaseFileResources.ButtonCancelContent;
     }
 
     #endregion

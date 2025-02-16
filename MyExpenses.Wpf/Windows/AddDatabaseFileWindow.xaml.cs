@@ -3,6 +3,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.IO;
+using MyExpenses.SharedUtils.Resources.Resx.AddDatabaseFile;
 using MyExpenses.Utils.Strings;
 using MyExpenses.Wpf.Resources.Resx.Windows.AddDatabaseFileWindow;
 using MyExpenses.Wpf.Utils;
@@ -86,7 +87,8 @@ public partial class AddDatabaseFileWindow
     {
         if (string.IsNullOrEmpty(DatabaseFilename))
         {
-            MsgBox.MsgBox.Show(AddDatabaseFileWindowResources.MessageBoxEmptyNameError, MsgBoxImage.Error);
+            MsgBox.MsgBox.Show(AddDatabaseFileResources.MessageBoxEmptyNameErrorTitle,
+                AddDatabaseFileResources.MessageBoxEmptyNameErrorMessage, MsgBoxImage.Error);
             return;
         }
 
@@ -139,21 +141,20 @@ public partial class AddDatabaseFileWindow
     public void SetExistingDatabase(IEnumerable<ExistingDatabase> existingDatabases)
         => ExistingDatabases.AddRange(existingDatabases);
 
-
     private static void ShowErrorMessageAlreadyExist()
-        => MsgBox.MsgBox.Show(AddDatabaseFileWindowResources.MessageBoxDatabaseAlreadyExistError, MsgBoxImage.Warning);
+        => MsgBox.MsgBox.Show(AddDatabaseFileResources.MessageBoxDatabaseAlreadyExistErrorTitle, AddDatabaseFileResources.MessageBoxDatabaseAlreadyExistErrorMessage, MsgBoxImage.Warning);
 
     private static void ShowErrorMessageContainsIncorrectChar()
-        => MsgBox.MsgBox.Show(AddDatabaseFileWindowResources.MessageBoxDatabaseFilenameContainsIncorrectCharError,
+        => MsgBox.MsgBox.Show(AddDatabaseFileResources.MessageBoxDatabaseFilenameContainsIncorrectCharErrorTitle, AddDatabaseFileResources.MessageBoxDatabaseFilenameContainsIncorrectCharErrorMessage,
             MsgBoxImage.Error);
 
     private void UpdateLanguage()
     {
         TitleWindow = AddDatabaseFileWindowResources.TitleWindow;
 
-        TextBoxHintAssist = AddDatabaseFileWindowResources.TextBoxHintAssist;
-        ButtonValidContent = AddDatabaseFileWindowResources.ButtonValidContent;
-        ButtonCancelContent = AddDatabaseFileWindowResources.ButtonCancelContent;
+        TextBoxHintAssist = AddDatabaseFileResources.TextBoxHintAssist;
+        ButtonValidContent = AddDatabaseFileResources.ButtonValidContent;
+        ButtonCancelContent = AddDatabaseFileResources.ButtonCancelContent;
     }
 
     #endregion

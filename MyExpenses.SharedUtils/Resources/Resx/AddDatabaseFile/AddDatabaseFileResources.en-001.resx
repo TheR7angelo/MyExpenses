@@ -11,7 +11,25 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-    <data name="MessageBoxEmptyNameErrorTitle" xml:space="preserve">
+    <data name="ButtonCancelContent" xml:space="preserve">
+        <value>Cancel</value>
+    </data>
+    <data name="ButtonValidContent" xml:space="preserve">
+        <value>Valid</value>
+    </data>
+    <data name="MessageBoxDatabaseAlreadyExistErrorTitle" xml:space="preserve">
+        <value>Error</value>
+    </data>
+    <data name="MessageBoxDatabaseFilenameContainsIncorrectCharErrorMessage" xml:space="preserve">
+        <value>Database file name contains incorrect characters</value>
+    </data>
+    <data name="MessageBoxDatabaseFilenameContainsIncorrectCharErrorOkButton" xml:space="preserve">
+        <value>Ok</value>
+    </data>
+    <data name="MessageBoxDatabaseAlreadyExistErrorOkButton" xml:space="preserve">
+        <value>Ok</value>
+    </data>
+    <data name="MessageBoxDatabaseFilenameContainsIncorrectCharErrorTitle" xml:space="preserve">
         <value>Error</value>
     </data>
     <data name="MessageBoxEmptyNameErrorMessage" xml:space="preserve">
@@ -20,31 +38,13 @@
     <data name="MessageBoxEmptyNameErrorOkButton" xml:space="preserve">
         <value>Ok</value>
     </data>
-    <data name="MessageBoxDatabaseFilenameContainsIncorrectCharErrorOkButton" xml:space="preserve">
-        <value>Ok</value>
-    </data>
-    <data name="MessageBoxDatabaseFilenameContainsIncorrectCharErrorTitle" xml:space="preserve">
-        <value>Error</value>
-    </data>
-    <data name="MessageBoxDatabaseFilenameContainsIncorrectCharErrorMessage" xml:space="preserve">
-        <value>Database file name contains incorrect characters</value>
-    </data>
-    <data name="MessageBoxDatabaseAlreadyExistErrorOkButton" xml:space="preserve">
-        <value>Ok</value>
-    </data>
-    <data name="MessageBoxDatabaseAlreadyExistErrorTitle" xml:space="preserve">
+    <data name="MessageBoxEmptyNameErrorTitle" xml:space="preserve">
         <value>Error</value>
     </data>
     <data name="MessageBoxDatabaseAlreadyExistErrorMessage" xml:space="preserve">
         <value>Database file name already exist</value>
     </data>
-    <data name="CustomEntryControlPlaceholderText" xml:space="preserve">
+    <data name="TextBoxHintAssist" xml:space="preserve">
         <value>Database file name :</value>
-    </data>
-    <data name="ButtonValidContent" xml:space="preserve">
-        <value>Valid</value>
-    </data>
-    <data name="ButtonCancelContent" xml:space="preserve">
-        <value>Cancel</value>
     </data>
 </root>

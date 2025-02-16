@@ -61,60 +61,6 @@ namespace MyExpenses.Wpf.Resources.Resx.Windows.AddDatabaseFileWindow {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cancel.
-        /// </summary>
-        internal static string ButtonCancelContent {
-            get {
-                return ResourceManager.GetString("ButtonCancelContent", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Valid.
-        /// </summary>
-        internal static string ButtonValidContent {
-            get {
-                return ResourceManager.GetString("ButtonValidContent", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Database file name already exist.
-        /// </summary>
-        internal static string MessageBoxDatabaseAlreadyExistError {
-            get {
-                return ResourceManager.GetString("MessageBoxDatabaseAlreadyExistError", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Database file name contains incorrect characters.
-        /// </summary>
-        internal static string MessageBoxDatabaseFilenameContainsIncorrectCharError {
-            get {
-                return ResourceManager.GetString("MessageBoxDatabaseFilenameContainsIncorrectCharError", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Database file name cannot be empty.
-        /// </summary>
-        internal static string MessageBoxEmptyNameError {
-            get {
-                return ResourceManager.GetString("MessageBoxEmptyNameError", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Database file name :.
-        /// </summary>
-        internal static string TextBoxHintAssist {
-            get {
-                return ResourceManager.GetString("TextBoxHintAssist", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Adding a Database File.
         /// </summary>
         internal static string TitleWindow {
