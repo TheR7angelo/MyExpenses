@@ -6,6 +6,7 @@ using Mapsui.Layers;
 using Mapsui.Manipulations;
 using Mapsui.Projections;
 using Mapsui.Tiling.Layers;
+using MyExpenses.Maui.Utils.Maps;
 using MyExpenses.Models.Maui.CustomPopup;
 using MyExpenses.Models.Sql.Bases.Groups;
 using MyExpenses.Models.Sql.Bases.Tables;
@@ -65,6 +66,7 @@ public partial class LocationManagementContentPage
         InitializeComponent();
 
         MapControl.Map = map;
+        MapControl.SetZoom(PlaceLayer);
         UpdateDisplay();
 
         // ReSharper disable once HeapView.DelegateAllocation

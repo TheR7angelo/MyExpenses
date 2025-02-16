@@ -1,8 +1,8 @@
 using Mapsui.Layers;
-using Mapsui.Styles;
 using MyExpenses.Models.AutoMapper;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils.Maps;
+using MyExpenses.Wpf.Utils.Maps;
 
 namespace MyExpenses.Wpf.UserControls.DashBoardPageCards;
 
@@ -35,25 +35,6 @@ public partial class LocationManagementUserControl
         InitializeComponent();
 
         MapControl.Map = map;
-
-        SetInitialZoom();
-    }
-
-    private void SetInitialZoom()
-    {
-        var points = PlaceLayer.GetFeatures().Select(s => ((PointFeature)s).Point).ToList();
-
-        switch (points.Count)
-        {
-            case 0:
-                break;
-            case 1:
-                MapControl.Map.Navigator.CenterOnAndZoomTo(points[0], 1);
-                break;
-            case > 1:
-                var mRect = points.ToMRect();
-                MapControl.Map.Navigator.ZoomToBox(mRect);
-                break;
-        }
+        MapControl.SetZoom(PlaceLayer);
     }
 }
