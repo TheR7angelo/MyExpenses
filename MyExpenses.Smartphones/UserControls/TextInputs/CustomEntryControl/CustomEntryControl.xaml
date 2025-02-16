@@ -4,80 +4,60 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MyExpenses.Smartphones.UserControls.TextInputs.CustomEntryControl.CustomEntryControl"
              xmlns:local="clr-namespace:MyExpenses.Smartphones.UserControls.TextInputs.CustomEntryControl"
-             xmlns:converters="clr-namespace:MyExpenses.Smartphones.Converters">
+             xmlns:converters="clr-namespace:MyExpenses.Smartphones.Converters"
+             xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
+             xmlns:images="clr-namespace:MyExpenses.Smartphones.UserControls.Images"
+             xmlns:packIcons="clr-namespace:MyExpenses.Smartphones.PackIcons">
 
     <ContentView.Resources>
         <converters:InvertBooleanConverter x:Key="InvertBooleanConverter" />
-        <converters:EPackIconsToGeometryConverter x:Key="StringToGeometryConverter" />
+
+        <x:Double x:Key="ImageSize">24</x:Double>
+        <Thickness x:Key="Thickness">0, 0, 5, 0</Thickness>
+        <packIcons:EPackIcons x:Key="Icon">CloseCircle</packIcons:EPackIcons>
+
     </ContentView.Resources>
 
-    <Border Stroke="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
-            Padding="0">
+    <Grid>
 
-        <Border.StrokeShape>
-            <RoundRectangle CornerRadius="5" />
-        </Border.StrokeShape>
+        <material:TextField Title="{Binding PlaceholderText, Source={RelativeSource AncestorType={x:Type local:CustomEntryControl}}}"
+                            Text="{Binding Text, Mode=TwoWay, Source={RelativeSource AncestorType={x:Type local:CustomEntryControl}}}"
+                            MaxLength="{Binding MaxLength, Source={RelativeSource AncestorType={x:Type local:CustomEntryControl}}}"
+                            IsVisible="{Binding HasMultiline, Converter={StaticResource InvertBooleanConverter}, Source={RelativeSource AncestorType={x:Type local:CustomEntryControl}}}">
 
-        <Grid>
+            <material:TextField.Attachments>
 
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
+                <images:SvgPath HeightRequest="{StaticResource ImageSize}" WidthRequest="{StaticResource ImageSize}"
+                                GeometrySource="{StaticResource Icon}"
+                                GeometryColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
+                                Margin="{StaticResource Thickness}"
+                                IsVisible="{Binding HasClearButton, Source={RelativeSource AncestorType={x:Type local:CustomEntryControl}}}"
+                                Clicked="SvgPath_OnClicked">
+                </images:SvgPath>
 
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
+            </material:TextField.Attachments>
 
-            <Label Grid.Row="0" Grid.Column="0"
-                   Text="{Binding PlaceholderText, Source={RelativeSource AncestorType={x:Type local:CustomEntryControl}}}"
-                   FontAttributes="Italic"
-                   Margin="10,3,0,0"
-                   VerticalOptions="End"
-                   TextColor="{AppThemeBinding Light={StaticResource PlaceholderTextColorLight}, Dark={StaticResource PlaceholderTextColorDark}}"
-                   IsVisible="{Binding IsPlaceholderVisible, Converter={StaticResource InvertBooleanConverter}, Source={RelativeSource AncestorType={x:Type local:CustomEntryControl}}}">
-            </Label>
+        </material:TextField>
 
-            <Path Grid.Row="0" Grid.Column="1"
-                  Aspect="Uniform"
-                  Fill="{AppThemeBinding Light={StaticResource PlaceholderTextColorLight}, Dark={StaticResource PlaceholderTextColorDark}}"
-                  Data="{Binding CloseCircle, Mode=OneWay, Converter={StaticResource StringToGeometryConverter}, UpdateSourceEventName=PropertyChanged, Source={RelativeSource AncestorType={x:Type local:CustomEntryControl}}}"
-                  HorizontalOptions="End"
-                  VerticalOptions="Center"
-                  Margin="5"
-                  WidthRequest="24"
-                  HeightRequest="24"
-                  IsVisible="{Binding HasClearButton, Source={RelativeSource AncestorType={x:Type local:CustomEntryControl}}}">
+        <material:EditorField Title="{Binding PlaceholderText, Source={RelativeSource AncestorType={x:Type local:CustomEntryControl}}}"
+                              Text="{Binding Text, Mode=TwoWay, Source={RelativeSource AncestorType={x:Type local:CustomEntryControl}}}"
+                              MaxLength="{Binding MaxLength, Source={RelativeSource AncestorType={x:Type local:CustomEntryControl}}}"
+                              IsVisible="{Binding HasMultiline, Source={RelativeSource AncestorType={x:Type local:CustomEntryControl}}}">
 
-                <Path.GestureRecognizers>
-                    <TapGestureRecognizer Tapped="TapGestureRecognizer_OnTapped" NumberOfTapsRequired="1"/>
-                </Path.GestureRecognizers>
+            <material:EditorField.Attachments>
 
-            </Path>
+                <images:SvgPath HeightRequest="{StaticResource ImageSize}" WidthRequest="{StaticResource ImageSize}"
+                                GeometrySource="{StaticResource Icon}"
+                                GeometryColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
+                                Margin="{StaticResource Thickness}"
+                                IsVisible="{Binding HasClearButton, Source={RelativeSource AncestorType={x:Type local:CustomEntryControl}}}"
+                                Clicked="SvgPath_OnClicked">
+                </images:SvgPath>
 
-            <Entry Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
-                Text="{Binding Text, Mode=TwoWay, Source={RelativeSource AncestorType={x:Type local:CustomEntryControl}}}"
-                TextColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
-                TextChanged="InputView_OnTextChanged"
-                Placeholder="{Binding PlaceholderText, Source={RelativeSource AncestorType={x:Type local:CustomEntryControl}}}"
-                VerticalOptions="CenterAndExpand"
-                Margin="5"
-                IsVisible="{Binding HasMultiline, Converter={StaticResource InvertBooleanConverter}, Source={RelativeSource AncestorType={x:Type local:CustomEntryControl}}}"
-                MaxLength="{Binding MaxLength, Source={RelativeSource AncestorType={x:Type local:CustomEntryControl}}}">
-            </Entry>
+            </material:EditorField.Attachments>
 
-            <Editor Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
-                   Text="{Binding Text, Mode=TwoWay, Source={RelativeSource AncestorType={x:Type local:CustomEntryControl}}}"
-                   TextColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
-                   TextChanged="InputView_OnTextChanged"
-                   Placeholder="{Binding PlaceholderText, Source={RelativeSource AncestorType={x:Type local:CustomEntryControl}}}"
-                   Margin="5"
-                   IsVisible="{Binding HasMultiline, Source={RelativeSource AncestorType={x:Type local:CustomEntryControl}}}"
-                   AutoSize="TextChanges">
-            </Editor>
-        </Grid>
+        </material:EditorField>
 
-    </Border>
+    </Grid>
 
 </ContentView>

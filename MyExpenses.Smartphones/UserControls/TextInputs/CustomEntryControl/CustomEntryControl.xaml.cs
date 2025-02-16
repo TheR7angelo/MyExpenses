@@ -1,5 +1,3 @@
-using MyExpenses.Smartphones.PackIcons;
-
 namespace MyExpenses.Smartphones.UserControls.TextInputs.CustomEntryControl;
 
 public partial class CustomEntryControl
@@ -55,27 +53,11 @@ public partial class CustomEntryControl
         set => SetValue(PlaceholderTextProperty, value);
     }
 
-    public static readonly BindableProperty IsPlaceholderVisibleProperty =
-        // ReSharper disable once HeapView.BoxingAllocation
-        BindableProperty.Create(nameof(IsPlaceholderVisible), typeof(bool), typeof(CustomEntryControl), true);
-
-    public bool IsPlaceholderVisible
-    {
-        get => (bool)GetValue(IsPlaceholderVisibleProperty);
-        // ReSharper disable once HeapView.BoxingAllocation
-        set => SetValue(IsPlaceholderVisibleProperty, value);
-    }
-
-    public EPackIcons CloseCircle { get; } = EPackIcons.CloseCircle;
-
     public CustomEntryControl()
     {
         InitializeComponent();
     }
 
-    private void InputView_OnTextChanged(object? sender, TextChangedEventArgs e)
-        => IsPlaceholderVisible = string.IsNullOrEmpty(e.NewTextValue);
-
-    private void TapGestureRecognizer_OnTapped(object? sender, TappedEventArgs e)
+    private void SvgPath_OnClicked(object? sender, EventArgs e)
         => Text = string.Empty;
 }
