@@ -119,22 +119,21 @@ public static class GenerateAnalysisSeries
 
             var monthlyPaymentDataPoints = groupsByCategory
                 .GroupBy(s => s.Period)
-                // ReSharper disable once HeapView.ObjectAllocation.Evident
-                .Select(g => new
+                .Select(g => new PaymentDataPoints
                 {
-                    MonthlySum = Math.Round(g.Sum(v => v.TotalMonthlySum ?? 0), 2),
-                    MonthlyModePayment = g.Sum(v => v.TotalMonthlyModePayment)
+                    TotalSum = Math.Round(g.Sum(v => v.TotalMonthlySum ?? 0), 2),
+                    TotalModePayment = g.Sum(v => v.TotalMonthlyModePayment) ?? 0
                 })
                 .ToArray();
 
-            var values = monthlyPaymentDataPoints.Select(s => s.MonthlySum).ToList();
+            var values = monthlyPaymentDataPoints.Select(s => s.TotalSum).ToList();
 
             // ReSharper disable once HeapView.DelegateAllocation
             var columnSeries = name.CreateColumnSeries(values, null, tooltipFormatter, point =>
                 {
                     var index = point.Index;
                     var dataPoint = monthlyPaymentDataPoints[index];
-                    return dataPoint.MonthlyModePayment is 0 ? string.Empty : dataPoint.MonthlyModePayment.ToString()!;
+                    return dataPoint.TotalModePayment is 0 ? string.Empty : dataPoint.TotalModePayment.ToString();
                 },
                 textPaint,
                 DataLabelsPosition.Middle
