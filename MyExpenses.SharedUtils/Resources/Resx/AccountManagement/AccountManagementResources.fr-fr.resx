@@ -1,0 +1,50 @@
+<root>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <data name="MessageBoxRemoveAccountSuccessTitle" xml:space="preserve">
+        <value>Succès</value>
+    </data>
+    <data name="MessageBoxRemoveAccountSuccessOkButton" xml:space="preserve">
+        <value>Ok</value>
+    </data>
+    <data name="MessageBoxRemoveAccountSuccessMessage" xml:space="preserve">
+        <value>Suppression réussie de {0} comptes</value>
+    </data>
+    <data name="MessageBoxRemoveAccountQuestionYesButton" xml:space="preserve">
+        <value>Oui</value>
+    </data>
+    <data name="MessageBoxRemoveAccountQuestionTitle" xml:space="preserve">
+        <value>Question</value>
+    </data>
+    <data name="MessageBoxRemoveAccountQuestionNoButton" xml:space="preserve">
+        <value>Non</value>
+    </data>
+    <data name="MessageBoxRemoveAccountQuestionMessage" xml:space="preserve">
+        <value>Voulez-vous vraiment supprimer les comptes sélectionnés ?{0}Attention cela peut prendre plus ou moins de temps en fonction du nombre de données liées à supprimer</value>
+    </data>
+    <data name="MessageBoxRemoveAccountErrorTitle" xml:space="preserve">
+        <value>Erreur</value>
+    </data>
+    <data name="MessageBoxRemoveAccountErrorOkButton" xml:space="preserve">
+        <value>Ok</value>
+    </data>
+    <data name="MessageBoxRemoveAccountErrorMessage" xml:space="preserve">
+        <value>Erreur lors de la suppression de {0} comptes</value>
+    </data>
+    <data name="CustomPopupActivityIndicatorDeleteAccount" xml:space="preserve">
+        <value>Suppression des comptes sélectionnés et de toutes les transactions associées...</value>
+    </data>
+    <data name="CustomPopupActivityIndicatorDeleteAccounts" xml:space="preserve">
+        <value>Suppression de comptes...</value>
+    </data>
+</root>

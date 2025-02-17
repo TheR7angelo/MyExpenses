@@ -61,24 +61,6 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.AccountManagementCo
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Deleting selected accounts and all associated transactions....
-        /// </summary>
-        internal static string CustomPopupActivityIndicatorDeleteAccount {
-            get {
-                return ResourceManager.GetString("CustomPopupActivityIndicatorDeleteAccount", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Deleting accounts....
-        /// </summary>
-        internal static string CustomPopupActivityIndicatorDeleteAccounts {
-            get {
-                return ResourceManager.GetString("CustomPopupActivityIndicatorDeleteAccounts", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Transaction history.
         /// </summary>
         internal static string LabelTextTransactionHistory {
@@ -93,96 +75,6 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.AccountManagementCo
         internal static string LabelTextTransactionTransfer {
             get {
                 return ResourceManager.GetString("LabelTextTransactionTransfer", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Error while deleting {0} accounts.
-        /// </summary>
-        internal static string MessageBoxRemoveAccountErrorMessage {
-            get {
-                return ResourceManager.GetString("MessageBoxRemoveAccountErrorMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Ok.
-        /// </summary>
-        internal static string MessageBoxRemoveAccountErrorOkButton {
-            get {
-                return ResourceManager.GetString("MessageBoxRemoveAccountErrorOkButton", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Error.
-        /// </summary>
-        internal static string MessageBoxRemoveAccountErrorTitle {
-            get {
-                return ResourceManager.GetString("MessageBoxRemoveAccountErrorTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Do you really want to delete the selected accounts ?{0}Be careful it may take more or less time depending on the number of linked data to be deleted.
-        /// </summary>
-        internal static string MessageBoxRemoveAccountQuestionMessage {
-            get {
-                return ResourceManager.GetString("MessageBoxRemoveAccountQuestionMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to No.
-        /// </summary>
-        internal static string MessageBoxRemoveAccountQuestionNoButton {
-            get {
-                return ResourceManager.GetString("MessageBoxRemoveAccountQuestionNoButton", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Question.
-        /// </summary>
-        internal static string MessageBoxRemoveAccountQuestionTitle {
-            get {
-                return ResourceManager.GetString("MessageBoxRemoveAccountQuestionTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Yes.
-        /// </summary>
-        internal static string MessageBoxRemoveAccountQuestionYesButton {
-            get {
-                return ResourceManager.GetString("MessageBoxRemoveAccountQuestionYesButton", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Successfully deleted of {0} accounts.
-        /// </summary>
-        internal static string MessageBoxRemoveAccountSuccessMessage {
-            get {
-                return ResourceManager.GetString("MessageBoxRemoveAccountSuccessMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Ok.
-        /// </summary>
-        internal static string MessageBoxRemoveAccountSuccessOkButton {
-            get {
-                return ResourceManager.GetString("MessageBoxRemoveAccountSuccessOkButton", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Success.
-        /// </summary>
-        internal static string MessageBoxRemoveAccountSuccessTitle {
-            get {
-                return ResourceManager.GetString("MessageBoxRemoveAccountSuccessTitle", resourceCulture);
             }
         }
     }

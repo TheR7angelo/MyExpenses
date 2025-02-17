@@ -7,6 +7,7 @@ using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Models.Sql.Bases.Views;
 using MyExpenses.Models.Sql.Derivatives.Tables;
 using MyExpenses.SharedUtils.Collection;
+using MyExpenses.SharedUtils.Resources.Resx.AccountManagement;
 using MyExpenses.Smartphones.ContentPages.CustomPopups;
 using MyExpenses.Smartphones.ContentPages.CustomPopups.CustomPopupActivityIndicator;
 using MyExpenses.Smartphones.Resources.Resx.ContentPages.AccountManagementContentPage;
@@ -140,14 +141,14 @@ public partial class AccountManagementContentPage
         if (filteredItem.IsEmpty) return;
 
         var response = await DisplayAlert(
-            AccountManagementContentPageResources.MessageBoxRemoveAccountQuestionTitle,
-            string.Format(AccountManagementContentPageResources.MessageBoxRemoveAccountQuestionMessage, Environment.NewLine),
-            AccountManagementContentPageResources.MessageBoxRemoveAccountQuestionYesButton,
-            AccountManagementContentPageResources.MessageBoxRemoveAccountQuestionNoButton);
+            AccountManagementResources.MessageBoxRemoveAccountQuestionTitle,
+            string.Format(AccountManagementResources.MessageBoxRemoveAccountQuestionMessage, Environment.NewLine),
+            AccountManagementResources.MessageBoxRemoveAccountQuestionYesButton,
+            AccountManagementResources.MessageBoxRemoveAccountQuestionNoButton);
         if (!response) return;
 
         await Task.Delay(TimeSpan.FromMilliseconds(100));
-        this.ShowCustomPopupActivityIndicator(AccountManagementContentPageResources.CustomPopupActivityIndicatorDeleteAccount);
+        this.ShowCustomPopupActivityIndicator(AccountManagementResources.CustomPopupActivityIndicatorDeleteAccount);
         await Task.Delay(TimeSpan.FromMilliseconds(100));
 
         List<TAccount>? deleteErrors = null;
@@ -174,19 +175,19 @@ public partial class AccountManagementContentPage
 
         CustomPopupActivityIndicatorHelper.CloseCustomPopupActivityIndicator();
 
-        if (deleteErrors.Count > 0)
+        if (deleteErrors!.Count > 0)
         {
             await DisplayAlert(
-                AccountManagementContentPageResources.MessageBoxRemoveAccountErrorTitle,
-                string.Format(AccountManagementContentPageResources.MessageBoxRemoveAccountErrorMessage, deleteErrors.Count.ToString()),
-                AccountManagementContentPageResources.MessageBoxRemoveAccountErrorOkButton);
+                AccountManagementResources.MessageBoxRemoveAccountErrorTitle,
+                string.Format(AccountManagementResources.MessageBoxRemoveAccountErrorMessage, deleteErrors.Count.ToString()),
+                AccountManagementResources.MessageBoxRemoveAccountErrorOkButton);
         }
         else
         {
             await DisplayAlert(
-                AccountManagementContentPageResources.MessageBoxRemoveAccountSuccessTitle,
-                string.Format(AccountManagementContentPageResources.MessageBoxRemoveAccountSuccessMessage, filteredItem.Count.ToString()),
-                AccountManagementContentPageResources.MessageBoxRemoveAccountSuccessOkButton);
+                AccountManagementResources.MessageBoxRemoveAccountSuccessTitle,
+                string.Format(AccountManagementResources.MessageBoxRemoveAccountSuccessMessage, filteredItem.Count.ToString()),
+                AccountManagementResources.MessageBoxRemoveAccountSuccessOkButton);
         }
     }
 
