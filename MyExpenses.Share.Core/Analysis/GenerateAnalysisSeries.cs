@@ -284,30 +284,18 @@ public static class GenerateAnalysisSeries
     /// <param name="records">An array of budget record information used for label generation.</param>
     /// <param name="currency">The currency symbol to include in the label text.</param>
     /// <returns>A function that takes a chart point and returns the corresponding label as a string.</returns>
-    private static Func<ChartPoint<double, CircleGeometry, LabelGeometry>, string> CreateCircleGeometryLabelFunc
-        (this BudgetRecordInfo[] records, string currency)
+    public static Func<ChartPoint<double, CircleGeometry, LabelGeometry>, string> CreateCircleGeometryLabelFunc
+        (this BudgetRecordInfo[] records, string? currency = null)
         // ReSharper disable once HeapView.DelegateAllocation
-        => point =>
+    {
+        currency ??= string.Empty;
+        return point =>
         {
             var dataPoint = records[point.Index];
             return $"{dataPoint.Value} {currency}{Environment.NewLine}" +
                    $"{dataPoint.Status} {dataPoint.DifferenceValue:F2}{currency} ({dataPoint.Percentage}%)";
         };
-
-    /// <summary>
-    /// Creates a function to generate a label for a circle geometry chart point based on the given budget records.
-    /// </summary>
-    /// <param name="records">An array of budget record information used to construct labels for circle geometry chart points.</param>
-    /// <returns>A function that takes a chart point containing a circle geometry and associated data, and returns a string label.</returns>
-    public static Func<ChartPoint<double, CircleGeometry, LabelGeometry>, string> CreateCircleGeometryLabelFunc
-        (this BudgetRecordInfo[] records)
-        // ReSharper disable once HeapView.DelegateAllocation
-        => point =>
-        {
-            var dataPoint = records[point.Index];
-            return $"{dataPoint.Value}{Environment.NewLine}" +
-                   $"{dataPoint.Status} {dataPoint.DifferenceValue:F2} ({dataPoint.Percentage}%)";
-        };
+    }
     
     /// <summary>
     /// Creates a label formatting function for circle geometry labels, displaying the provided symbol alongside the numeric value.
