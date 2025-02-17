@@ -35,7 +35,7 @@ namespace MyExpenses.SharedUtils.Resources.Resx.AddEditAccount {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MyExpenses.SharedUtils.Resources.Resx.AddEditAccount.AddEditAccountResources", typeof(AddEditAccountResources).Assembly);
@@ -137,6 +137,60 @@ namespace MyExpenses.SharedUtils.Resources.Resx.AddEditAccount {
         public static string MessageBoxButtonValidationNameError {
             get {
                 return ResourceManager.GetString("MessageBoxButtonValidationNameError", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to There was an error updating. Please try again.
+        /// </summary>
+        public static string MessageBoxButtonValidErrorMessage {
+            get {
+                return ResourceManager.GetString("MessageBoxButtonValidErrorMessage", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Ok.
+        /// </summary>
+        public static string MessageBoxButtonValidErrorOkButton {
+            get {
+                return ResourceManager.GetString("MessageBoxButtonValidErrorOkButton", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        public static string MessageBoxButtonValidErrorTitle {
+            get {
+                return ResourceManager.GetString("MessageBoxButtonValidErrorTitle", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Account was added or edited successfully.
+        /// </summary>
+        public static string MessageBoxButtonValidSuccessMessage {
+            get {
+                return ResourceManager.GetString("MessageBoxButtonValidSuccessMessage", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Ok.
+        /// </summary>
+        public static string MessageBoxButtonValidSuccessOkButton {
+            get {
+                return ResourceManager.GetString("MessageBoxButtonValidSuccessOkButton", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Success.
+        /// </summary>
+        public static string MessageBoxButtonValidSuccessTitle {
+            get {
+                return ResourceManager.GetString("MessageBoxButtonValidSuccessTitle", resourceCulture);
             }
         }
 

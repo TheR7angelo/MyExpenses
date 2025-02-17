@@ -84,4 +84,22 @@
     <data name="PlaceholderText" xml:space="preserve">
         <value>Account name :</value>
     </data>
+    <data name="MessageBoxButtonValidErrorMessage" xml:space="preserve">
+        <value>There was an error updating. Please try again</value>
+    </data>
+    <data name="MessageBoxButtonValidErrorOkButton" xml:space="preserve">
+        <value>Ok</value>
+    </data>
+    <data name="MessageBoxButtonValidErrorTitle" xml:space="preserve">
+        <value>Error</value>
+    </data>
+    <data name="MessageBoxButtonValidSuccessMessage" xml:space="preserve">
+        <value>Account was added or edited successfully</value>
+    </data>
+    <data name="MessageBoxButtonValidSuccessOkButton" xml:space="preserve">
+        <value>Ok</value>
+    </data>
+    <data name="MessageBoxButtonValidSuccessTitle" xml:space="preserve">
+        <value>Success</value>
+    </data>
 </root>

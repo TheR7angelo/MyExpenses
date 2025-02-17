@@ -7,7 +7,6 @@ using MyExpenses.SharedUtils.Objects;
 using MyExpenses.SharedUtils.Properties;
 using MyExpenses.SharedUtils.Resources.Resx.AddEditAccount;
 using MyExpenses.Smartphones.ContentPages.CustomPopups.CustomPopupActivityIndicator;
-using MyExpenses.Smartphones.Resources.Resx.ContentPages.AddEditAccountContentPage;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils;
 using Serilog;
@@ -250,16 +249,16 @@ public partial class AddEditAccountContentPage
         if (!success)
         {
             await DisplayAlert(
-                AddEditAccountContentPageResources.MessageBoxOnBackCommandPressedErrorTitle,
-                AddEditAccountContentPageResources.MessageBoxOnBackCommandPressedErrorMessage,
-                AddEditAccountContentPageResources.MessageBoxOnBackCommandPressedErrorOkButton);
+                AddEditAccountResources.MessageBoxButtonValidErrorTitle,
+                AddEditAccountResources.MessageBoxButtonValidErrorMessage,
+                AddEditAccountResources.MessageBoxButtonValidErrorOkButton);
             return;
         }
 
         await DisplayAlert(
-            AddEditAccountContentPageResources.MessageBoxOnBackCommandPressedSuccessTitle,
-            AddEditAccountContentPageResources.MessageBoxOnBackCommandPressedSuccessMessage,
-            AddEditAccountContentPageResources.MessageBoxOnBackCommandPressedSuccessOkButton);
+            AddEditAccountResources.MessageBoxButtonValidSuccessTitle,
+            AddEditAccountResources.MessageBoxButtonValidSuccessMessage,
+            AddEditAccountResources.MessageBoxButtonValidSuccessOkButton);
 
         _taskCompletionSource.SetResult(true);
         await Navigation.PopAsync();
@@ -348,7 +347,7 @@ public partial class AddEditAccountContentPage
 
         var localizedErrorMessage = string.IsNullOrEmpty(messageErrorKey)
             ? propertyError.ErrorMessage!
-            : AddEditAccountContentPageResources.ResourceManager.GetString(messageErrorKey)!;
+            : AddEditAccountResources.ResourceManager.GetString(messageErrorKey)!;
 
         await DisplayAlert(AddEditAccountResources.MessageBoxValidAccountErrorTitle,
             localizedErrorMessage, AddEditAccountResources.MessageBoxValidAccountErrorOkButton);

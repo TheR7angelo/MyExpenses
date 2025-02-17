@@ -77,4 +77,22 @@
     <data name="PlaceholderText" xml:space="preserve">
         <value>Nom du compte :</value>
     </data>
+    <data name="MessageBoxButtonValidErrorMessage" xml:space="preserve">
+        <value>Une erreur s'est produite lors de la mise à jour. Veuillez réessayer</value>
+    </data>
+    <data name="MessageBoxButtonValidErrorOkButton" xml:space="preserve">
+        <value>Ok</value>
+    </data>
+    <data name="MessageBoxButtonValidErrorTitle" xml:space="preserve">
+        <value>Erreur</value>
+    </data>
+    <data name="MessageBoxButtonValidSuccessMessage" xml:space="preserve">
+        <value>Le compte a été ajouté ou modifié avec succès</value>
+    </data>
+    <data name="MessageBoxButtonValidSuccessOkButton" xml:space="preserve">
+        <value>Ok</value>
+    </data>
+    <data name="MessageBoxButtonValidSuccessTitle" xml:space="preserve">
+        <value>Succès</value>
+    </data>
 </root>
