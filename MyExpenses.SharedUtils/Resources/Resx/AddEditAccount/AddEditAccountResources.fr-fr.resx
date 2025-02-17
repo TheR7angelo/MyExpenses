@@ -87,12 +87,24 @@
         <value>Erreur</value>
     </data>
     <data name="MessageBoxButtonValidSuccessMessage" xml:space="preserve">
-        <value>Le compte a été ajouté ou modifié avec succès</value>
+        <value>Le compte a été ajouté avec succès</value>
     </data>
     <data name="MessageBoxButtonValidSuccessOkButton" xml:space="preserve">
         <value>Ok</value>
     </data>
     <data name="MessageBoxButtonValidSuccessTitle" xml:space="preserve">
         <value>Succès</value>
+    </data>
+    <data name="MessageBoxEditAccountErrorMessage" xml:space="preserve">
+        <value>Une erreur s'est produite, veuillez réessayer</value>
+    </data>
+    <data name="MessageBoxEditAccountSuccessMessage" xml:space="preserve">
+        <value>Le compte a été modifié avec succès</value>
+    </data>
+    <data name="MessageBoxAddAccountError" xml:space="preserve">
+        <value>Une erreur s'est produite, veuillez réessayer</value>
+    </data>
+    <data name="MessageBoxAddAccountSuccess" xml:space="preserve">
+        <value>Le compte a été ajouté avec succès</value>
     </data>
 </root>

@@ -93,6 +93,8 @@ public partial class AddEditAccountContentPage
     public TAccount Account { get; } = new();
     private TAccount? OriginalAccount { get; set; }
 
+    private bool EditAccount { get; set; }
+
     // ReSharper disable once HeapView.ObjectAllocation.Evident
     // TaskCompletionSource is intentionally allocated here as it is the fundamental mechanism
     // for creating and controlling the completion of the Task exposed by `ResultDialog`.
@@ -255,10 +257,11 @@ public partial class AddEditAccountContentPage
             return;
         }
 
-        await DisplayAlert(
-            AddEditAccountResources.MessageBoxButtonValidSuccessTitle,
-            AddEditAccountResources.MessageBoxButtonValidSuccessMessage,
-            AddEditAccountResources.MessageBoxButtonValidSuccessOkButton);
+        var message = EditAccount
+            ? AddEditAccountResources.MessageBoxEditAccountSuccessMessage
+            : AddEditAccountResources.MessageBoxButtonValidSuccessMessage;
+
+        await DisplayAlert(AddEditAccountResources.MessageBoxButtonValidSuccessTitle, message, AddEditAccountResources.MessageBoxButtonValidSuccessOkButton);
 
         _taskCompletionSource.SetResult(true);
         await Navigation.PopAsync();
@@ -301,6 +304,7 @@ public partial class AddEditAccountContentPage
             // ReSharper disable once HeapView.DelegateAllocation
             account = Accounts.First(s => s.Id.Equals(id.Value));
             account.CopyPropertiesTo(Account);
+            EditAccount = true;
         }
         else throw new ArgumentNullException(nameof(id), @"account id is null");
 

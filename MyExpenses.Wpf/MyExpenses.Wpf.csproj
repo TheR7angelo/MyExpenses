@@ -61,10 +61,6 @@
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>AddEditLocationWindowResources.Designer.cs</LastGenOutput>
       </EmbeddedResource>
-      <EmbeddedResource Update="Resources\Resx\Pages\AccountManagementPage\AccountManagementPageResources.resx">
-        <Generator>ResXFileCodeGenerator</Generator>
-        <LastGenOutput>AccountManagementPageResources.Designer.cs</LastGenOutput>
-      </EmbeddedResource>
       <EmbeddedResource Update="Resources\Resx\Windows\MsgBox\MsgBoxMessageWindowResources.resx">
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>MsgBoxMessageWindowResources.Designer.cs</LastGenOutput>
@@ -248,11 +244,6 @@
         <DesignTime>True</DesignTime>
         <AutoGen>True</AutoGen>
         <DependentUpon>AddEditLocationWindowResources.resx</DependentUpon>
-      </Compile>
-      <Compile Update="Resources\Resx\Pages\AccountManagementPage\AccountManagementPageResources.Designer.cs">
-        <DesignTime>True</DesignTime>
-        <AutoGen>True</AutoGen>
-        <DependentUpon>AccountManagementPageResources.resx</DependentUpon>
       </Compile>
       <Compile Update="Resources\Resx\Windows\MsgBox\MsgBoxMessageWindowResources.Designer.cs">
         <DesignTime>True</DesignTime>

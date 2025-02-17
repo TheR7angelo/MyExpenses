@@ -28,7 +28,7 @@ namespace MyExpenses.SharedUtils.Resources.Resx.AddEditAccount {
         private static global::System.Globalization.CultureInfo resourceCulture;
 
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal AddEditAccountResources() {
+        public AddEditAccountResources() {
         }
 
         /// <summary>
@@ -50,7 +50,7 @@ namespace MyExpenses.SharedUtils.Resources.Resx.AddEditAccount {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -114,6 +114,24 @@ namespace MyExpenses.SharedUtils.Resources.Resx.AddEditAccount {
         }
 
         /// <summary>
+        ///   Looks up a localized string similar to An error occurred please retry.
+        /// </summary>
+        public static string MessageBoxAddAccountError {
+            get {
+                return ResourceManager.GetString("MessageBoxAddAccountError", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Account was successfully added.
+        /// </summary>
+        public static string MessageBoxAddAccountSuccess {
+            get {
+                return ResourceManager.GetString("MessageBoxAddAccountSuccess", resourceCulture);
+            }
+        }
+
+        /// <summary>
         ///   Looks up a localized string similar to Account type cannot be null.
         /// </summary>
         public static string MessageBoxButtonValidationAccountTypeFkError {
@@ -168,7 +186,7 @@ namespace MyExpenses.SharedUtils.Resources.Resx.AddEditAccount {
         }
 
         /// <summary>
-        ///   Looks up a localized string similar to Account was added or edited successfully.
+        ///   Looks up a localized string similar to Account was added successfully.
         /// </summary>
         public static string MessageBoxButtonValidSuccessMessage {
             get {
@@ -281,6 +299,24 @@ namespace MyExpenses.SharedUtils.Resources.Resx.AddEditAccount {
         public static string MessageBoxDeleteAccountSuccessTitle {
             get {
                 return ResourceManager.GetString("MessageBoxDeleteAccountSuccessTitle", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to An error occurred please retry.
+        /// </summary>
+        public static string MessageBoxEditAccountErrorMessage {
+            get {
+                return ResourceManager.GetString("MessageBoxEditAccountErrorMessage", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Account was successfully edited.
+        /// </summary>
+        public static string MessageBoxEditAccountSuccessMessage {
+            get {
+                return ResourceManager.GetString("MessageBoxEditAccountSuccessMessage", resourceCulture);
             }
         }
 

@@ -4,9 +4,9 @@ using System.Windows.Controls;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Models.Sql.Bases.Views;
 using MyExpenses.SharedUtils.Collection;
+using MyExpenses.SharedUtils.Resources.Resx.AddEditAccount;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils.Sql;
-using MyExpenses.Wpf.Resources.Resx.Pages.AccountManagementPage;
 using MyExpenses.Wpf.Windows;
 using MyExpenses.Wpf.Windows.MsgBox;
 using Serilog;
@@ -59,7 +59,7 @@ public partial class AccountManagementPage
             var json = newAccount.ToJsonString();
             Log.Information("{Json}", json);
 
-            MsgBox.Show(AccountManagementPageResources.MessageBoxAddAccountSuccess, MsgBoxImage.Check);
+            MsgBox.Show(AddEditAccountResources.MessageBoxButtonValidSuccessTitle, AddEditAccountResources.MessageBoxButtonValidSuccessMessage, MsgBoxImage.Check);
 
             var newVTotalByAccount = newAccount.Id.ToISql<VTotalByAccount>();
             if (newVTotalByAccount is null) return;
@@ -70,7 +70,7 @@ public partial class AccountManagementPage
         else
         {
             Log.Error(exception, "An error occurred please retry");
-            MsgBox.Show(AccountManagementPageResources.MessageBoxAddAccountError, MsgBoxImage.Warning);
+            MsgBox.Show(AddEditAccountResources.MessageBoxButtonValidErrorTitle, AddEditAccountResources.MessageBoxButtonValidErrorMessage, MsgBoxImage.Warning);
         }
     }
 
@@ -109,7 +109,7 @@ public partial class AccountManagementPage
             var json = editedAccount.ToJsonString();
             Log.Information("{Json}", json);
 
-            MsgBox.Show(AccountManagementPageResources.MessageBoxEditAccountSuccess, MsgBoxImage.Check);
+            MsgBox.Show(AddEditAccountResources.MessageBoxEditAccountSuccessMessage, MsgBoxImage.Check);
 
             var newVTotalByAccount = editedAccount.Id.ToISql<VTotalByAccount>();
             if (newVTotalByAccount is null) return;
@@ -122,7 +122,7 @@ public partial class AccountManagementPage
         else
         {
             Log.Error(exception, "An error occurred please retry");
-            MsgBox.Show(AccountManagementPageResources.MessageBoxEditAccountError, MsgBoxImage.Warning);
+            MsgBox.Show(AddEditAccountResources.MessageBoxEditAccountErrorMessage, MsgBoxImage.Warning);
         }
     }
 

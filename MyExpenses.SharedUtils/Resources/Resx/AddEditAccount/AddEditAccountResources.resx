@@ -94,12 +94,24 @@
         <value>Error</value>
     </data>
     <data name="MessageBoxButtonValidSuccessMessage" xml:space="preserve">
-        <value>Account was added or edited successfully</value>
+        <value>Account was added successfully</value>
     </data>
     <data name="MessageBoxButtonValidSuccessOkButton" xml:space="preserve">
         <value>Ok</value>
     </data>
     <data name="MessageBoxButtonValidSuccessTitle" xml:space="preserve">
         <value>Success</value>
+    </data>
+    <data name="MessageBoxEditAccountErrorMessage" xml:space="preserve">
+        <value>An error occurred please retry</value>
+    </data>
+    <data name="MessageBoxEditAccountSuccessMessage" xml:space="preserve">
+        <value>Account was successfully edited</value>
+    </data>
+    <data name="MessageBoxAddAccountError" xml:space="preserve">
+        <value>An error occurred please retry</value>
+    </data>
+    <data name="MessageBoxAddAccountSuccess" xml:space="preserve">
+        <value>Account was successfully added</value>
     </data>
 </root>
