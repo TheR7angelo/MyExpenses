@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MyExpenses.Wpf.Resources.Resx.Windows.AddAccountWindow {
+namespace MyExpenses.Wpf.Resources.Resx.Windows.AddEditAccountWindow {
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
     /// </summary>
@@ -89,24 +89,6 @@ namespace MyExpenses.Wpf.Resources.Resx.Windows.AddAccountWindow {
         internal static string LabelIsAccountActive {
             get {
                 return ResourceManager.GetString("LabelIsAccountActive", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to An error occurred please retry.
-        /// </summary>
-        internal static string MessageBoxAddAccountTypeError {
-            get {
-                return ResourceManager.GetString("MessageBoxAddAccountTypeError", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to New account type was successfully added.
-        /// </summary>
-        internal static string MessageBoxAddAccountTypeSuccess {
-            get {
-                return ResourceManager.GetString("MessageBoxAddAccountTypeSuccess", resourceCulture);
             }
         }
         

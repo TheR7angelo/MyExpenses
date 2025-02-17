@@ -10,7 +10,8 @@ using MyExpenses.SharedUtils.Properties;
 using MyExpenses.SharedUtils.RegexUtils;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils.Sql;
-using MyExpenses.Wpf.Resources.Resx.Windows.AddAccountWindow;
+using MyExpenses.Wpf.Resources.Resx.Windows.AddEditAccountTypeWindow;
+using MyExpenses.Wpf.Resources.Resx.Windows.AddEditAccountWindow;
 using MyExpenses.Wpf.Utils;
 using MyExpenses.Wpf.Windows.CategoryTypeManagementWindow;
 using MyExpenses.Wpf.Windows.MsgBox;
@@ -244,12 +245,12 @@ public partial class AddEditAccountWindow
             var json = newAccountType.ToJsonString();
             Log.Information("{Json}", json);
 
-            MsgBox.MsgBox.Show(AddEditAccountWindowResources.MessageBoxAddAccountTypeSuccess, MsgBoxImage.Check);
+            MsgBox.MsgBox.Show(AddEditAccountTypeWindowResources.MessageBoxAddAccountTypeSuccess, MsgBoxImage.Check);
         }
         else
         {
             Log.Error(exception, "An error occurred please retry");
-            MsgBox.MsgBox.Show(AddEditAccountWindowResources.MessageBoxAddAccountTypeError, MsgBoxImage.Error);
+            MsgBox.MsgBox.Show(AddEditAccountTypeWindowResources.MessageBoxAddAccountTypeError, MsgBoxImage.Error);
         }
     }
 
