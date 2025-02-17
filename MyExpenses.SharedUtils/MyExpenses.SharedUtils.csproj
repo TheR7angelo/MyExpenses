@@ -19,6 +19,10 @@
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>AccountManagementResources.Designer.cs</LastGenOutput>
       </EmbeddedResource>
+      <EmbeddedResource Update="Resources\Resx\AddEditAccount\AddEditAccountResources.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>AddEditAccountResources.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
     </ItemGroup>
 
     <ItemGroup>
@@ -36,6 +40,11 @@
         <DesignTime>True</DesignTime>
         <AutoGen>True</AutoGen>
         <DependentUpon>AccountManagementResources.resx</DependentUpon>
+      </Compile>
+      <Compile Update="Resources\Resx\AddEditAccount\AddEditAccountResources.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>AddEditAccountResources.resx</DependentUpon>
       </Compile>
     </ItemGroup>
 

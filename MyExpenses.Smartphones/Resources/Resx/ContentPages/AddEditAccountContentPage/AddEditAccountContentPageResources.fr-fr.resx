@@ -11,39 +11,6 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-    <data name="PlaceholderText" xml:space="preserve">
-        <value>Nom du compte :</value>
-    </data>
-    <data name="LabelTextTitleCurrency" xml:space="preserve">
-        <value>Devise :</value>
-    </data>
-    <data name="LabelTextTitleAccountType" xml:space="preserve">
-        <value>Type de compte :</value>
-    </data>
-    <data name="ButtonValidText" xml:space="preserve">
-        <value>Valider</value>
-    </data>
-    <data name="ButtonDeleteText" xml:space="preserve">
-        <value>Supprimer</value>
-    </data>
-    <data name="ButtonCancelText" xml:space="preserve">
-        <value>Annuler</value>
-    </data>
-    <data name="MessageBoxButtonValidationNameError" xml:space="preserve">
-        <value>Le nom du compte ne peut pas être vide</value>
-    </data>
-    <data name="MessageBoxButtonValidationCurrencyFkError" xml:space="preserve">
-        <value>Le type de devise du compte ne peut pas être vide</value>
-    </data>
-    <data name="MessageBoxButtonValidationAccountTypeFkError" xml:space="preserve">
-        <value>Le type de compte ne peut pas être nul</value>
-    </data>
-    <data name="MessageBoxValidAccountErrorTitle" xml:space="preserve">
-        <value>Erreur</value>
-    </data>
-    <data name="MessageBoxValidAccountErrorOkButton" xml:space="preserve">
-        <value>Ok</value>
-    </data>
     <data name="MessageBoxOnBackCommandPressedSuccessOkButton" xml:space="preserve">
         <value>Ok</value>
     </data>
@@ -61,38 +28,5 @@
     </data>
     <data name="MessageBoxOnBackCommandPressedErrorMessage" xml:space="preserve">
         <value>Une erreur s'est produite lors de la mise à jour. Veuillez réessayer</value>
-    </data>
-    <data name="MessageBoxDeleteAccountSuccessOkButton" xml:space="preserve">
-        <value>Ok</value>
-    </data>
-    <data name="MessageBoxDeleteAccountErrorOkButton" xml:space="preserve">
-        <value>Ok</value>
-    </data>
-    <data name="MessageBoxDeleteAccountQuestionNoButton" xml:space="preserve">
-        <value>Non</value>
-    </data>
-    <data name="MessageBoxDeleteAccountQuestionYesButton" xml:space="preserve">
-        <value>Oui</value>
-    </data>
-    <data name="MessageBoxDeleteAccountQuestionTitle" xml:space="preserve">
-        <value>Question</value>
-    </data>
-    <data name="MessageBoxDeleteAccountQuestionMessage" xml:space="preserve">
-        <value>Voulez-vous vraiment supprimer ce compte ?{0}Tous les éléments associés seront également supprimés. Attention, cela peut prendre plus ou moins de temps selon la quantité de données à supprimer</value>
-    </data>
-    <data name="MessageBoxDeleteAccountSuccessTitle" xml:space="preserve">
-        <value>Succès</value>
-    </data>
-    <data name="MessageBoxDeleteAccountSuccessMessage" xml:space="preserve">
-        <value>Compte supprimé avec succès</value>
-    </data>
-    <data name="MessageBoxDeleteAccountErrorMessage" xml:space="preserve">
-        <value>Échec de la suppression du compte, veuillez réessayer</value>
-    </data>
-    <data name="MessageBoxDeleteAccountErrorTitle" xml:space="preserve">
-        <value>Erreur</value>
-    </data>
-    <data name="CustomPopupActivityIndicatorDeleteAccount" xml:space="preserve">
-        <value>Suppression du compte et de toutes les transactions associées</value>
     </data>
 </root>

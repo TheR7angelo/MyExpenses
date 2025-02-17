@@ -5,6 +5,7 @@ using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.SharedUtils.Collection;
 using MyExpenses.SharedUtils.Objects;
 using MyExpenses.SharedUtils.Properties;
+using MyExpenses.SharedUtils.Resources.Resx.AddEditAccount;
 using MyExpenses.Smartphones.ContentPages.CustomPopups.CustomPopupActivityIndicator;
 using MyExpenses.Smartphones.Resources.Resx.ContentPages.AddEditAccountContentPage;
 using MyExpenses.Sql.Context;
@@ -202,15 +203,15 @@ public partial class AddEditAccountContentPage
     private async Task HandleButtonDelete()
     {
         var response = await DisplayAlert(
-            AddEditAccountContentPageResources.MessageBoxDeleteAccountQuestionTitle,
-            string.Format(AddEditAccountContentPageResources.MessageBoxDeleteAccountQuestionMessage, Environment.NewLine),
-            AddEditAccountContentPageResources.MessageBoxDeleteAccountQuestionYesButton,
-            AddEditAccountContentPageResources.MessageBoxDeleteAccountQuestionNoButton);
+            AddEditAccountResources.MessageBoxDeleteAccountQuestionTitle,
+            string.Format(AddEditAccountResources.MessageBoxDeleteAccountQuestionMessage, Environment.NewLine),
+            AddEditAccountResources.MessageBoxDeleteAccountQuestionYesButton,
+            AddEditAccountResources.MessageBoxDeleteAccountQuestionNoButton);
 
         if (!response) return;
 
         await Task.Delay(TimeSpan.FromMilliseconds(100));
-        this.ShowCustomPopupActivityIndicator(AddEditAccountContentPageResources.CustomPopupActivityIndicatorDeleteAccount);
+        this.ShowCustomPopupActivityIndicator(AddEditAccountResources.CustomPopupActivityIndicatorDeleteAccount);
         await Task.Delay(TimeSpan.FromMilliseconds(100));
 
         var json = Account.ToJson();
@@ -223,9 +224,9 @@ public partial class AddEditAccountContentPage
         {
             Log.Information("Successful account deletion");
             await DisplayAlert(
-                AddEditAccountContentPageResources.MessageBoxDeleteAccountSuccessTitle,
-                AddEditAccountContentPageResources.MessageBoxDeleteAccountSuccessMessage,
-                AddEditAccountContentPageResources.MessageBoxDeleteAccountSuccessOkButton);
+                AddEditAccountResources.MessageBoxDeleteAccountSuccessTitle,
+                AddEditAccountResources.MessageBoxDeleteAccountSuccessMessage,
+                AddEditAccountResources.MessageBoxDeleteAccountSuccessOkButton);
 
             _taskCompletionSource.SetResult(true);
             await Navigation.PopAsync();
@@ -234,9 +235,9 @@ public partial class AddEditAccountContentPage
         {
             Log.Error(exception, "Failed account deletion");
             await DisplayAlert(
-                AddEditAccountContentPageResources.MessageBoxDeleteAccountErrorTitle,
-                AddEditAccountContentPageResources.MessageBoxDeleteAccountErrorMessage,
-                AddEditAccountContentPageResources.MessageBoxDeleteAccountErrorOkButton);
+                AddEditAccountResources.MessageBoxDeleteAccountErrorTitle,
+                AddEditAccountResources.MessageBoxDeleteAccountErrorMessage,
+                AddEditAccountResources.MessageBoxDeleteAccountErrorOkButton);
         }
     }
 
@@ -309,13 +310,13 @@ public partial class AddEditAccountContentPage
 
     private void UpdateLanguage()
     {
-        PlaceholderText = AddEditAccountContentPageResources.PlaceholderText;
-        LabelTextTitleCurrency = AddEditAccountContentPageResources.LabelTextTitleCurrency;
-        LabelTextTitleAccountType = AddEditAccountContentPageResources.LabelTextTitleAccountType;
+        PlaceholderText = AddEditAccountResources.PlaceholderText;
+        LabelTextTitleCurrency = AddEditAccountResources.LabelTextTitleCurrency;
+        LabelTextTitleAccountType = AddEditAccountResources.LabelTextTitleAccountType;
 
-        ButtonValidText = AddEditAccountContentPageResources.ButtonValidText;
-        ButtonDeleteText = AddEditAccountContentPageResources.ButtonDeleteText;
-        ButtonCancelText = AddEditAccountContentPageResources.ButtonCancelText;
+        ButtonValidText = AddEditAccountResources.ButtonValidText;
+        ButtonDeleteText = AddEditAccountResources.ButtonDeleteText;
+        ButtonCancelText = AddEditAccountResources.ButtonCancelText;
     }
 
     private async Task<bool> ValidAccount()
@@ -339,9 +340,9 @@ public partial class AddEditAccountContentPage
 
         var messageErrorKey = propertyMemberName switch
         {
-            nameof(TAccount.Name) => nameof(AddEditAccountContentPageResources.MessageBoxButtonValidationNameError),
-            nameof(TAccount.AccountTypeFk) => nameof(AddEditAccountContentPageResources.MessageBoxButtonValidationAccountTypeFkError),
-            nameof(TAccount.CurrencyFk) => nameof(AddEditAccountContentPageResources.MessageBoxButtonValidationCurrencyFkError),
+            nameof(TAccount.Name) => nameof(AddEditAccountResources.MessageBoxButtonValidationNameError),
+            nameof(TAccount.AccountTypeFk) => nameof(AddEditAccountResources.MessageBoxButtonValidationAccountTypeFkError),
+            nameof(TAccount.CurrencyFk) => nameof(AddEditAccountResources.MessageBoxButtonValidationCurrencyFkError),
             _ => null
         };
 
@@ -349,8 +350,8 @@ public partial class AddEditAccountContentPage
             ? propertyError.ErrorMessage!
             : AddEditAccountContentPageResources.ResourceManager.GetString(messageErrorKey)!;
 
-        await DisplayAlert(AddEditAccountContentPageResources.MessageBoxValidAccountErrorTitle,
-            localizedErrorMessage, AddEditAccountContentPageResources.MessageBoxValidAccountErrorOkButton);
+        await DisplayAlert(AddEditAccountResources.MessageBoxValidAccountErrorTitle,
+            localizedErrorMessage, AddEditAccountResources.MessageBoxValidAccountErrorOkButton);
 
         return isValid;
     }
