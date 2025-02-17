@@ -41,10 +41,10 @@
     <data name="MessageBoxRemoveAccountErrorMessage" xml:space="preserve">
         <value>Erreur lors de la suppression de {0} comptes</value>
     </data>
-    <data name="CustomPopupActivityIndicatorDeleteAccount" xml:space="preserve">
+    <data name="ActivityIndicatorDeleteAccount" xml:space="preserve">
         <value>Suppression des comptes sélectionnés et de toutes les transactions associées...</value>
     </data>
-    <data name="CustomPopupActivityIndicatorDeleteAccounts" xml:space="preserve">
+    <data name="ActivityIndicatorDeleteAccounts" xml:space="preserve">
         <value>Suppression de comptes...</value>
     </data>
 </root>

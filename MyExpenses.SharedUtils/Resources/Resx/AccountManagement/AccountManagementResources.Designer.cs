@@ -63,18 +63,18 @@ namespace MyExpenses.SharedUtils.Resources.Resx.AccountManagement {
         /// <summary>
         ///   Looks up a localized string similar to Deleting selected accounts and all associated transactions....
         /// </summary>
-        public static string CustomPopupActivityIndicatorDeleteAccount {
+        public static string ActivityIndicatorDeleteAccount {
             get {
-                return ResourceManager.GetString("CustomPopupActivityIndicatorDeleteAccount", resourceCulture);
+                return ResourceManager.GetString("ActivityIndicatorDeleteAccount", resourceCulture);
             }
         }
 
         /// <summary>
         ///   Looks up a localized string similar to Deleting accounts....
         /// </summary>
-        public static string CustomPopupActivityIndicatorDeleteAccounts {
+        public static string ActivityIndicatorDeleteAccounts {
             get {
-                return ResourceManager.GetString("CustomPopupActivityIndicatorDeleteAccounts", resourceCulture);
+                return ResourceManager.GetString("ActivityIndicatorDeleteAccounts", resourceCulture);
             }
         }
 
