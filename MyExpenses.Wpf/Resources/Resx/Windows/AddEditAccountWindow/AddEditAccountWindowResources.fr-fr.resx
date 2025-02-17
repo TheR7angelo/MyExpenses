@@ -17,9 +17,6 @@
     <data name="ComboBoxAccountType" xml:space="preserve">
         <value>Type de compte :</value>
     </data>
-    <data name="ComboBoxAccountCurrency" xml:space="preserve">
-        <value>Devise :</value>
-    </data>
     <data name="LabelIsAccountActive" xml:space="preserve">
         <value>Le compte est-il actif ?</value>
     </data>
@@ -46,18 +43,6 @@
     </data>
     <data name="MsgBoxErrorAccountStartingBalanceDescriptionCannotByEmpty" xml:space="preserve">
         <value>La description du départ du solde ne peut pas etre vide</value>
-    </data>
-    <data name="MessageBoxAddAccountTypeError" xml:space="preserve">
-        <value>Une erreur s'est produite, veuillez réessayer</value>
-    </data>
-    <data name="MessageBoxAddAccountTypeSuccess" xml:space="preserve">
-        <value>Le nouveau type de compte a été ajouté avec succès</value>
-    </data>
-    <data name="MessageBoxAddCurrencySuccess" xml:space="preserve">
-        <value>La nouvelle devise a été ajoutée avec succès</value>
-    </data>
-    <data name="MessageBoxAddCurrencyError" xml:space="preserve">
-        <value>Une erreur s'est produite, veuillez réessayer</value>
     </data>
     <data name="ButtonValidContent" xml:space="preserve">
         <value>Valider</value>

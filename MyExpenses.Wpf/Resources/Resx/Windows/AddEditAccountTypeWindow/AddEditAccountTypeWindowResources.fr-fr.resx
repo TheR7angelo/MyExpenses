@@ -47,4 +47,10 @@
     <data name="TitleWindow" xml:space="preserve">
         <value>Ajouter ou modifier le type de compte</value>
     </data>
+    <data name="MessageBoxAddAccountTypeError" xml:space="preserve">
+        <value>Une erreur s'est produite, veuillez réessayer</value>
+    </data>
+    <data name="MessageBoxAddAccountTypeSuccess" xml:space="preserve">
+        <value>Le nouveau type de compte a été ajouté avec succès</value>
+    </data>
 </root>

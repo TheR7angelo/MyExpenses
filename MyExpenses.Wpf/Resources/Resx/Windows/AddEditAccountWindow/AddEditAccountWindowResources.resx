@@ -24,9 +24,6 @@
     <data name="ComboBoxAccountType" xml:space="preserve">
         <value>Account type :</value>
     </data>
-    <data name="ComboBoxAccountCurrency" xml:space="preserve">
-        <value>Currency :</value>
-    </data>
     <data name="LabelIsAccountActive" xml:space="preserve">
         <value>Is the account active ?</value>
     </data>
@@ -53,18 +50,6 @@
     </data>
     <data name="MsgBoxErrorAccountStartingBalanceDescriptionCannotByEmpty" xml:space="preserve">
         <value>The balance departure description cannot be empty</value>
-    </data>
-    <data name="MessageBoxAddAccountTypeError" xml:space="preserve">
-        <value>An error occurred please retry</value>
-    </data>
-    <data name="MessageBoxAddAccountTypeSuccess" xml:space="preserve">
-        <value>New account type was successfully added</value>
-    </data>
-    <data name="MessageBoxAddCurrencySuccess" xml:space="preserve">
-        <value>The new currency has been added successfully</value>
-    </data>
-    <data name="MessageBoxAddCurrencyError" xml:space="preserve">
-        <value>An error occurred please retry</value>
     </data>
     <data name="ButtonValidContent" xml:space="preserve">
         <value>Valid</value>

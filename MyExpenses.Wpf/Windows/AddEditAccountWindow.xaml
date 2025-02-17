@@ -107,7 +107,7 @@
 
         <StackPanel Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"
                     Orientation="Horizontal">
-            <Label Margin="0, 0, 1.5, 0" VerticalContentAlignment="Center" Content="{Binding LabelIsAccountActive}" />
+            <Label Margin="0, 0, 1.5, 0" VerticalContentAlignment="Center" Content="{Binding LabelIsAccountActive, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
 
             <ToggleButton Margin="1.5, 0, 0, 0"
                           IsThreeState="False"

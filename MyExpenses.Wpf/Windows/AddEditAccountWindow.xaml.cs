@@ -22,6 +22,16 @@ public partial class AddEditAccountWindow
 {
     #region DependecyProperty
 
+    public static readonly DependencyProperty LabelIsAccountActiveProperty =
+        DependencyProperty.Register(nameof(LabelIsAccountActive), typeof(string), typeof(AddEditAccountWindow),
+            new PropertyMetadata(default(string)));
+
+    public string LabelIsAccountActive
+    {
+        get => (string)GetValue(LabelIsAccountActiveProperty);
+        set => SetValue(LabelIsAccountActiveProperty, value);
+    }
+
     // ReSharper disable once HeapView.BoxingAllocation
     // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty EnableStartingBalanceProperty =
@@ -154,11 +164,6 @@ public partial class AddEditAccountWindow
     }
 
     #endregion
-
-    public string LabelIsAccountActive { get; } = AddEditAccountWindowResources.LabelIsAccountActive;
-
-    private string MsgBoxErrorAccountNameAlreadyExists { get; } =
-        AddEditAccountWindowResources.MsgBoxErrorAccountNameAlreadyExists;
 
     #endregion
 
@@ -411,7 +416,7 @@ public partial class AddEditAccountWindow
         var errorName = CheckAccountName(Account.Name);
         if (errorName)
         {
-            MsgBox.MsgBox.Show(MsgBoxErrorAccountNameAlreadyExists, MsgBoxImage.Warning);
+            MsgBox.MsgBox.Show(AddEditAccountWindowResources.MsgBoxErrorAccountNameAlreadyExists, MsgBoxImage.Warning);
             return true;
         }
 
@@ -441,7 +446,7 @@ public partial class AddEditAccountWindow
     }
 
     private void DisplayErrorAccountName()
-        => MsgBox.MsgBox.Show(MsgBoxErrorAccountNameAlreadyExists, MsgBoxImage.Warning);
+        => MsgBox.MsgBox.Show(AddEditAccountWindowResources.MsgBoxErrorAccountNameAlreadyExists, MsgBoxImage.Warning);
 
 
     public void SetTAccount(TAccount account)
@@ -461,6 +466,8 @@ public partial class AddEditAccountWindow
         HintAssistTextBoxAccountStartingBalance = AddEditAccountWindowResources.TextBoxAccountStartingBalance;
         HintAssistTextBoxAccountStartingBalanceDescription =
             AddEditAccountWindowResources.TextBoxAccountStartingBalanceDescription;
+
+        LabelIsAccountActive = AddEditAccountWindowResources.LabelIsAccountActive;
 
         ButtonCancelContent = AddEditAccountWindowResources.ButtonCancelContent;
         ButtonDeleteContent = AddEditAccountWindowResources.ButtonDeleteContent;

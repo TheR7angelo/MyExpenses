@@ -54,4 +54,13 @@
     <data name="TitleWindow" xml:space="preserve">
         <value>Adding or changing account currencies</value>
     </data>
+    <data name="MessageBoxAddCurrencyError" xml:space="preserve">
+        <value>An error occurred please retry</value>
+    </data>
+    <data name="ComboBoxAccountCurrency" xml:space="preserve">
+        <value>Currency :</value>
+    </data>
+    <data name="MessageBoxAddCurrencySuccess" xml:space="preserve">
+        <value>The new currency has been added successfully</value>
+    </data>
 </root>

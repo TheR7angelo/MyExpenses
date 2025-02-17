@@ -47,4 +47,13 @@
     <data name="TitleWindow" xml:space="preserve">
         <value>Ajout ou modification des devises des compte</value>
     </data>
+    <data name="MessageBoxAddCurrencyError" xml:space="preserve">
+        <value>Une erreur s'est produite, veuillez réessayer</value>
+    </data>
+    <data name="ComboBoxAccountCurrency" xml:space="preserve">
+        <value>Devise :</value>
+    </data>
+    <data name="MessageBoxAddCurrencySuccess" xml:space="preserve">
+        <value>La nouvelle devise a été ajoutée avec succès</value>
+    </data>
 </root>
