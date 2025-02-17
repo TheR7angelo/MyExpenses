@@ -49,7 +49,8 @@ public partial class CustomPopupFilterDescriptions : ICustomPopupFilter<StringIs
 
         if (historyDescriptionsAlreadyChecked is not null)
         {
-            foreach (var historyDescriptionAlreadyChecked in historyDescriptionsAlreadyChecked.Where(s => s.IsChecked))
+            // ReSharper disable once HeapView.ClosureAllocation
+            foreach (var historyDescriptionAlreadyChecked in historyDescriptionsAlreadyChecked.Where(s => s.IsChecked).ToArray())
             {
                 // ReSharper disable once HeapView.DelegateAllocation
                 var histories = HistoryDescriptions.Where(s => s.StringValue == historyDescriptionAlreadyChecked.StringValue).ToList();

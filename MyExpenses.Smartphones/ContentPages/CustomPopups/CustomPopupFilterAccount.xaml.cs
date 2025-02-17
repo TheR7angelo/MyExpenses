@@ -50,7 +50,8 @@ public partial class CustomPopupFilterAccount : ICustomPopupFilter<TAccountDeriv
 
         if (accountDerivesAlreadyChecked is not null)
         {
-            foreach (var accountDeriveAlreadyChecked in accountDerivesAlreadyChecked.Where(s => s.IsChecked))
+            // ReSharper disable once HeapView.ClosureAllocation
+            foreach (var accountDeriveAlreadyChecked in accountDerivesAlreadyChecked.Where(s => s.IsChecked).ToArray())
             {
                 // ReSharper disable once HeapView.DelegateAllocation
                 var histories = AccountDerives.Where(s => s.Name!.Equals(accountDeriveAlreadyChecked.Name)).ToList();

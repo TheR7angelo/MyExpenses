@@ -455,6 +455,7 @@ public partial class AddEditBankTransferContentPage
         await Navigation.PopAsync();
     }
 
+    // ReSharper disable once HeapView.ClosureAllocation
     private void UpdateAccountsCollection(int? accountIdToRemove, ObservableCollection<TAccount> collection)
     {
         // ReSharper disable once HeapView.DelegateAllocation
@@ -479,7 +480,10 @@ public partial class AddEditBankTransferContentPage
         using var context = new DataBaseContext();
 
         // ReSharper disable once HeapView.DelegateAllocation
+        // ReSharper disable once HeapView.ClosureAllocation
         var account = Accounts.First(a => a.Id.Equals(BankTransfer.FromAccountFk!.Value));
+
+        // ReSharper disable once HeapView.ObjectAllocation
         FromAccountSymbol = context.TCurrencies.First(s => s.Id.Equals(account.CurrencyFk)).Symbol!;
     }
 
@@ -554,6 +558,7 @@ public partial class AddEditBankTransferContentPage
     {
         if (vBankTransferSummary is null) return;
 
+        // ReSharper disable once HeapView.ClosureAllocation
         var bankTransfer = vBankTransferSummary.Id.ToISql<TBankTransfer>()!;
         bankTransfer.CopyPropertiesTo(BankTransfer);
         OriginalBankTransfer = bankTransfer.DeepCopy();

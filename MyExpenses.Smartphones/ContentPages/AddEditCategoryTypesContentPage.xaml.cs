@@ -157,6 +157,7 @@ public partial class AddEditCategoryTypesContentPage
         // Using an object initializer here ensures that the TCategoryType instance is constructed
         // and all required properties (Name, ColorFk, and DateAdded) are initialized in one concise
         // and readable statement. This approach minimizes the chance of missing a property initialization.
+        // ReSharper disable once HeapView.ClosureAllocation
         var newCategoryTypeType = new TCategoryType
         {
             Name = CategoryTypeName,
@@ -345,6 +346,7 @@ public partial class AddEditCategoryTypesContentPage
 
     private async Task<bool> ValidateCategoryType(string? categoryTypeName = null)
     {
+        // ReSharper disable once HeapView.ClosureAllocation
         var categoryTypeNameToTest = string.IsNullOrWhiteSpace(categoryTypeName)
             ? CategoryTypeName
             : categoryTypeName;

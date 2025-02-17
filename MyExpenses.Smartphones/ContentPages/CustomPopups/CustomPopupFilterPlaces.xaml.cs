@@ -50,7 +50,8 @@ public partial class CustomPopupFilterPlaces : ICustomPopupFilter<TPlaceDerive>
 
         if (modePlacesAlreadyChecked is not null)
         {
-            foreach (var modePlaceAlreadyChecked in modePlacesAlreadyChecked.Where(s => s.IsChecked))
+            // ReSharper disable once HeapView.ClosureAllocation
+            foreach (var modePlaceAlreadyChecked in modePlacesAlreadyChecked.Where(s => s.IsChecked).ToArray())
             {
                 // ReSharper disable once HeapView.DelegateAllocation
                 var placeDerive = PlaceDerives.FirstOrDefault(s => s.Id.Equals(modePlaceAlreadyChecked.Id));

@@ -34,8 +34,11 @@ public static class LabelConverter
     {
         var cultures = CultureInfo.GetCultures(CultureTypes.AllCultures).ToList();
 
-        foreach (var label in labels)
+        var labelsArray = labels.ToArray();
+        // ReSharper disable once HeapView.ClosureAllocation
+        foreach (var label in labelsArray)
         {
+            // ReSharper disable once HeapView.ClosureAllocation
             DateTime dateTime = default;
 
             // ReSharper disable once HeapView.DelegateAllocation

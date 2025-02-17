@@ -51,7 +51,8 @@ public partial class CustomPopupFilterDoubleValues : ICustomPopupFilter<DoubleIs
 
         if (historyValuesAlreadyChecked is not null)
         {
-            foreach (var historyValueAlreadyChecked in historyValuesAlreadyChecked.Where(s => s.IsChecked))
+            // ReSharper disable once HeapView.ClosureAllocation
+            foreach (var historyValueAlreadyChecked in historyValuesAlreadyChecked.Where(s => s.IsChecked).ToArray())
             {
                 // ReSharper disable once HeapView.DelegateAllocation
                 var histories = HistoryValues
@@ -136,6 +137,8 @@ public partial class CustomPopupFilterDoubleValues : ICustomPopupFilter<DoubleIs
     {
         SearchText ??= "0";
         var value = SearchText.Replace(',', '.');
+
+        // ReSharper disable once HeapView.ClosureAllocation
         var result = double.TryParse(value, out var parsedResult) ? parsedResult : 0;
 
         // ReSharper disable once HeapView.DelegateAllocation

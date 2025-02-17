@@ -289,6 +289,7 @@ public partial class AccountTypeSummaryContentPage
 
     private async Task<bool> ValidateAccountType(string? accountTypeName = null)
     {
+        // ReSharper disable once HeapView.ClosureAllocation
         var accountTypeNameToTest = string.IsNullOrWhiteSpace(accountTypeName)
             ? AccountTypeName
             : accountTypeName;

@@ -55,8 +55,8 @@ namespace MyExpenses.Maui.Utils.Margin
         [SupportedOSPlatform("Windows")]
         private static void OnMarginForAllChildrenChanged(BindableObject bindable, object oldValue, object newValue)
         {
-            if (bindable is not Layout layout) return;
-            var margin = (Thickness)newValue;
+            // ReSharper disable once HeapView.ClosureAllocation
+            if (bindable is not Layout layout || newValue is not Thickness margin) return;
 
             ApplyMarginToAllChildren(layout, margin);
 

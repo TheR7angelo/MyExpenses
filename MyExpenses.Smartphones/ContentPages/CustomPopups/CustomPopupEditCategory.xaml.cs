@@ -172,10 +172,11 @@ public partial class CustomPopupEditCategory
         Close();
     }
 
+    // ReSharper disable once HeapView.ClosureAllocation
     public void SetVCategory(VCategory category)
     {
         // ReSharper disable once HeapView.DelegateAllocation
-        var color = Colors.First(s => s.Id.Equals((int)category.ColorFk!));
+        var color = Colors.First(s => s.Id.Equals(category.ColorFk!.Value));
         SelectedColor = color;
         SelectedHexadecimalColorCode = color.HexadecimalColorCode!;
         EntryText = category.CategoryName!;

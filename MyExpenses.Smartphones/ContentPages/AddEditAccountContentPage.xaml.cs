@@ -292,6 +292,7 @@ public partial class AddEditAccountContentPage
         RefreshAccountTypes();
     }
 
+    // ReSharper disable once HeapView.ClosureAllocation
     public void SetAccount(TAccount? account = null, int? id = null)
     {
         if (account is not null) account.CopyPropertiesTo(Account);

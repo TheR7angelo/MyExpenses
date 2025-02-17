@@ -117,6 +117,7 @@ public static class GenerateAnalysisSeries
         {
             var name = groupsByCategory.Key!;
 
+            // ReSharper disable once HeapView.ClosureAllocation
             var monthlyPaymentDataPoints = groupsByCategory
                 .GroupBy(s => s.Period)
                 .Select(g => new PaymentDataPoints
@@ -261,8 +262,10 @@ public static class GenerateAnalysisSeries
     /// <param name="symbol">The currency symbol to be included in the formatted label.</param>
     /// <param name="multiplier">An optional multiplier to adjust the chart point value (default is 1).</param>
     /// <returns>A function that formats chart point labels as strings, including the currency symbol.</returns>
-    private static Func<ChartPoint<double, RoundedRectangleGeometry, LabelGeometry>, string> CreateRoundedRectangleLabelFunc(
-        this string symbol, int multiplier = 1)
+    private static Func<ChartPoint<double, RoundedRectangleGeometry, LabelGeometry>, string> CreateRoundedRectangleLabelFunc
+            // ReSharper disable HeapView.ClosureAllocation
+            (this string symbol, int multiplier = 1)
+        // ReSharper restore HeapView.ClosureAllocation
         // ReSharper disable once HeapView.DelegateAllocation
         => point => $"{point.Model * multiplier:F2} {symbol}";
 
@@ -272,8 +275,10 @@ public static class GenerateAnalysisSeries
     /// <param name="symbol">The symbol to append to the label (e.g., currency symbol).</param>
     /// <param name="multiplier">The multiplier to adjust the chart point's value before formatting.</param>
     /// <returns>A function that takes a chart point and returns a formatted string label.</returns>
-    public static Func<ChartPoint<double, DoughnutGeometry, LabelGeometry>, string> CreateDoughnutLabelFunc(
-            this string symbol, int multiplier)
+    public static Func<ChartPoint<double, DoughnutGeometry, LabelGeometry>, string> CreateDoughnutLabelFunc
+            // ReSharper disable HeapView.ClosureAllocation
+            (this string symbol, int multiplier)
+        // ReSharper restore HeapView.ClosureAllocation
         // ReSharper disable once HeapView.DelegateAllocation
         => point => $"{point.Model * multiplier:F2} {symbol}";
 
@@ -284,7 +289,9 @@ public static class GenerateAnalysisSeries
     /// <param name="currency">The currency symbol to include in the label text.</param>
     /// <returns>A function that takes a chart point and returns the corresponding label as a string.</returns>
     public static Func<ChartPoint<double, CircleGeometry, LabelGeometry>, string> CreateCircleGeometryLabelFunc
+        // ReSharper disable HeapView.ClosureAllocation
         (this BudgetRecordInfo[] records, string? currency = null)
+        // ReSharper restore HeapView.ClosureAllocation
         // ReSharper disable once HeapView.DelegateAllocation
     {
         currency ??= string.Empty;
@@ -301,6 +308,7 @@ public static class GenerateAnalysisSeries
     /// </summary>
     /// <param name="symbol">The symbol to be appended to the numeric value in the label.</param>
     /// <returns>A function that formats a string label for a chart point with a numeric model and the given symbol.</returns>
+    // ReSharper disable once HeapView.ClosureAllocation
     private static Func<ChartPoint<double, CircleGeometry, LabelGeometry>, string> CreateCircleGeometryLabelFunc(this string symbol)
         // ReSharper disable once HeapView.DelegateAllocation
         => point => $"{point.Model:F2} {symbol}";

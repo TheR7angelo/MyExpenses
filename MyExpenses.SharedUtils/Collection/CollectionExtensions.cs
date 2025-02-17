@@ -32,6 +32,7 @@ public static class CollectionExtensions
     /// <param name="item">The item to add to the collection.</param>
     /// <param name="keySelector">A function that returns the key used for sorting.</param>
     /// <exception cref="ArgumentNullException">Thrown when the collection is null.</exception>
+    // ReSharper disable once HeapView.ClosureAllocation
     public static void AddAndSort<T>(this List<T> collection, T item, Func<T, string> keySelector)
     {
         ArgumentNullException.ThrowIfNull(collection);
@@ -117,6 +118,7 @@ public static class CollectionExtensions
     /// <param name="item">The item to add.</param>
     /// <param name="keySelector">A function to extract the sort key from each element.</param>
     /// <exception cref="ArgumentNullException">Thrown when the collection is null.</exception>
+    // ReSharper disable once HeapView.ClosureAllocation
     public static void AddAndSort<T>(this ObservableCollection<T> collection, T item, Func<T, string> keySelector)
     {
         ArgumentNullException.ThrowIfNull(collection);

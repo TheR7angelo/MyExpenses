@@ -26,7 +26,8 @@ public partial class CustomPopupFilterChecked : ICustomPopupFilter<BoolIsChecked
 
         if (historyIsCheckedsAlreadyChecked is not null)
         {
-            foreach (var historyIsCheckedAlreadyChecked in historyIsCheckedsAlreadyChecked.Where(s => s.IsChecked))
+            // ReSharper disable once HeapView.ClosureAllocation
+            foreach (var historyIsCheckedAlreadyChecked in historyIsCheckedsAlreadyChecked.Where(s => s.IsChecked).ToArray())
             {
                 // ReSharper disable once HeapView.DelegateAllocation
                 var isChecked = IsCheckeds.FirstOrDefault(s => s.BoolValue.Equals(historyIsCheckedAlreadyChecked.BoolValue));

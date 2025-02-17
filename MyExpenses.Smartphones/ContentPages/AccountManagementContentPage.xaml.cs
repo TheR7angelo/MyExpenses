@@ -124,13 +124,11 @@ public partial class AccountManagementContentPage
 
     private async Task HandleButtonImageViewRemoveAccount()
     {
-        var mapper = Mapping.Mapper;
-
         // ReSharper disable once HeapView.ObjectAllocation.Evident
         // Necessary instantiation of DataBaseContext to interact with the database.
         // This creates a scoped database context for performing queries and modifications in the database.
         await using var context = new DataBaseContext();
-        var accountsDerives = context.TAccounts.Select(s => mapper.Map<TAccountDerive>(s)).AsEnumerable();
+        var accountsDerives = context.TAccounts.Select(s => Mapping.Mapper.Map<TAccountDerive>(s)).AsEnumerable();
 
         // ReSharper disable once HeapView.ObjectAllocation.Evident
         // Necessary instantiation of CustomPopupFilterAccount to display a popup for account filtering.

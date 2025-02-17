@@ -13,6 +13,7 @@ public static class ObjectsExtensions
         return type != null && type.IsValueType & type.IsPrimitive;
     }
 
+    // ReSharper disable once HeapView.ClosureAllocation
     private static object? InternalCopy(object? originalObject, IDictionary<object, object?> visited)
     {
         if (originalObject is null) return null;
@@ -26,6 +27,7 @@ public static class ObjectsExtensions
             var arrayType = typeToReflect.GetElementType();
             if (IsPrimitive(arrayType) == false)
             {
+                // ReSharper disable once HeapView.ClosureAllocation
                 var clonedArray = (Array)cloneObject!;
 
                 // ReSharper disable once HeapView.DelegateAllocation
