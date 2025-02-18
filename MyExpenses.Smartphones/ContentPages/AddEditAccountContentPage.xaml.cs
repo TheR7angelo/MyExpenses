@@ -165,6 +165,9 @@ public partial class AddEditAccountContentPage
         return success;
     }
 
+    private bool CheckAccountName(string accountName)
+        => !EditAccount && Accounts.Select(s => s.Name).Contains(accountName);
+
     private async Task HandleButtonAddEditAccountType()
     {
         var accountTypeFk = Account.AccountTypeFk;
@@ -336,7 +339,15 @@ public partial class AddEditAccountContentPage
         // that expects an ICollection<ValidationResult>, as List<T> implements the ICollection interface.
         var validationResults = new List<ValidationResult>();
         var isValid = Validator.TryValidateObject(Account, validationContext, validationResults, true);
-        if (isValid) return isValid;
+        if (isValid)
+        {
+            var alreadyExiste = CheckAccountName(Account.Name!);
+            if (!alreadyExiste) return isValid;
+
+            await DisplayAlert(AddEditAccountResources.MessageBoxValidAccountErrorTitle,
+                AddEditAccountResources.MessageBoxErrorAccountNameAlreadyExists, AddEditAccountResources.MessageBoxValidAccountErrorOkButton);
+            return false;
+        }
 
         var propertyError = validationResults.First();
         var propertyMemberName = propertyError.MemberNames.First();
