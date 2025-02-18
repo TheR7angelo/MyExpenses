@@ -1,5 +1,3 @@
-using System.Runtime.Versioning;
-
 namespace MyExpenses.Maui.Utils;
 
 public static class VisualTreeHelperExtensions
