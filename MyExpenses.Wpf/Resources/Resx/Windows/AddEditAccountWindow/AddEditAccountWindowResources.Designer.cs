@@ -66,15 +66,6 @@ namespace MyExpenses.Wpf.Resources.Resx.Windows.AddEditAccountWindow {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Currency :.
-        /// </summary>
-        internal static string ComboBoxAccountCurrency {
-            get {
-                return ResourceManager.GetString("ComboBoxAccountCurrency", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Account type :.
         /// </summary>
         internal static string ComboBoxAccountType {
@@ -91,25 +82,7 @@ namespace MyExpenses.Wpf.Resources.Resx.Windows.AddEditAccountWindow {
                 return ResourceManager.GetString("LabelIsAccountActive", resourceCulture);
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to An error occurred please retry.
-        /// </summary>
-        internal static string MessageBoxAddCurrencyError {
-            get {
-                return ResourceManager.GetString("MessageBoxAddCurrencyError", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The new currency has been added successfully.
-        /// </summary>
-        internal static string MessageBoxAddCurrencySuccess {
-            get {
-                return ResourceManager.GetString("MessageBoxAddCurrencySuccess", resourceCulture);
-            }
-        }
-        
+
         /// <summary>
         ///   Looks up a localized string similar to Account currency cannot be empty.
         /// </summary>

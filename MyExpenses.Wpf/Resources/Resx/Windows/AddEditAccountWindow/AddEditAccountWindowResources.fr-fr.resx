@@ -14,18 +14,6 @@
     <data name="TextBoxAccountName" xml:space="preserve">
         <value>Nom du compte :</value>
     </data>
-    <data name="ComboBoxAccountType" xml:space="preserve">
-        <value>Type de compte :</value>
-    </data>
-    <data name="LabelIsAccountActive" xml:space="preserve">
-        <value>Le compte est-il actif ?</value>
-    </data>
-    <data name="TextBoxAccountStartingBalance" xml:space="preserve">
-        <value>Solde de départ :</value>
-    </data>
-    <data name="MsgBoxErrorAccountNameAlreadyExists" xml:space="preserve">
-        <value>Un compte existe déjà avec ce nom</value>
-    </data>
     <data name="MsgBoxErrorAccountNameCannotByEmpty" xml:space="preserve">
         <value>Le nom du compte ne peut pas être vide</value>
     </data>
@@ -34,24 +22,6 @@
     </data>
     <data name="MsgBoxErrorAccountCurrencyCannotByEmpty" xml:space="preserve">
         <value>La devise du compte ne peut pas être vide</value>
-    </data>
-    <data name="TextBoxAccountStartingBalanceDescription" xml:space="preserve">
-        <value>La description du solde de départ :</value>
-    </data>
-    <data name="ComboBoxAccountCategoryType" xml:space="preserve">
-        <value>Catégorie :</value>
-    </data>
-    <data name="MsgBoxErrorAccountStartingBalanceDescriptionCannotByEmpty" xml:space="preserve">
-        <value>La description du départ du solde ne peut pas etre vide</value>
-    </data>
-    <data name="ButtonValidContent" xml:space="preserve">
-        <value>Valider</value>
-    </data>
-    <data name="ButtonDeleteContent" xml:space="preserve">
-        <value>Supprimer</value>
-    </data>
-    <data name="ButtonCancelContent" xml:space="preserve">
-        <value>Annuler</value>
     </data>
     <data name="MessageBoxDeleteAccountNoUseSuccess" xml:space="preserve">
         <value>Le compte a été supprimé avec succès</value>
@@ -67,8 +37,5 @@
     </data>
     <data name="MessageBoxDeleteAccountQuestion" xml:space="preserve">
         <value>Etes-vous sûr de vouloir supprimer le compte "{0}" ?</value>
-    </data>
-    <data name="TitleWindow" xml:space="preserve">
-        <value>Ajouter ou modifier le compte</value>
     </data>
 </root>

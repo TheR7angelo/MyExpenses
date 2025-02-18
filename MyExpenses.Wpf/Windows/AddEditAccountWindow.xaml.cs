@@ -2,16 +2,16 @@
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using Microsoft.Data.Sqlite;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.SharedUtils.Collection;
 using MyExpenses.SharedUtils.Properties;
 using MyExpenses.SharedUtils.RegexUtils;
+using MyExpenses.SharedUtils.Resources.Resx.AddEditAccount;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils.Sql;
 using MyExpenses.Wpf.Resources.Resx.Windows.AddEditAccountTypeWindow;
-using MyExpenses.Wpf.Resources.Resx.Windows.AddEditAccountWindow;
+using MyExpenses.Wpf.Resources.Resx.Windows.AddEditCurrencyWindow;
 using MyExpenses.Wpf.Utils;
 using MyExpenses.Wpf.Windows.CategoryTypeManagementWindow;
 using MyExpenses.Wpf.Windows.MsgBox;
@@ -274,12 +274,12 @@ public partial class AddEditAccountWindow
             var json = newCategoryType.ToJsonString();
             Log.Information("{Json}", json);
 
-            MsgBox.MsgBox.Show(AddEditAccountWindowResources.MessageBoxAddCurrencySuccess, MsgBoxImage.Check);
+            MsgBox.MsgBox.Show(AddEditCurrencyWindowResources.MessageBoxAddCurrencySuccess, MsgBoxImage.Check);
         }
         else
         {
             Log.Error(exception, "An error occurred please retry");
-            MsgBox.MsgBox.Show(AddEditAccountWindowResources.MessageBoxAddCurrencyError, MsgBoxImage.Error);
+            MsgBox.MsgBox.Show(AddEditCurrencyWindowResources.MessageBoxAddCurrencyError, MsgBoxImage.Error);
         }
     }
 
@@ -303,12 +303,12 @@ public partial class AddEditAccountWindow
             var json = newCurrency.ToJsonString();
             Log.Information("{Json}", json);
 
-            MsgBox.MsgBox.Show(AddEditAccountWindowResources.MessageBoxAddCurrencySuccess, MsgBoxImage.Check);
+            MsgBox.MsgBox.Show(AddEditCurrencyWindowResources.MessageBoxAddCurrencySuccess, MsgBoxImage.Check);
         }
         else
         {
             Log.Error(exception, "An error occurred please retry");
-            MsgBox.MsgBox.Show(AddEditAccountWindowResources.MessageBoxAddCurrencyError, MsgBoxImage.Error);
+            MsgBox.MsgBox.Show(AddEditCurrencyWindowResources.MessageBoxAddCurrencyError, MsgBoxImage.Error);
         }
     }
 
@@ -320,53 +320,29 @@ public partial class AddEditAccountWindow
 
     private void ButtonDelete_OnClick(object sender, RoutedEventArgs e)
     {
-        var response = MsgBox.MsgBox.Show(
-            string.Format(AddEditAccountWindowResources.MessageBoxDeleteAccountQuestion, Account.Name),
-            MsgBoxImage.Question,
-            MessageBoxButton.YesNoCancel);
+        var response = MsgBox.MsgBox.Show(AddEditAccountResources.MessageBoxDeleteAccountQuestionTitle,
+            string.Format(AddEditAccountResources.MessageBoxDeleteAccountQuestionMessage, Account.Name),
+            MessageBoxButton.YesNoCancel, MsgBoxImage.Question);
         if (response is not MessageBoxResult.Yes) return;
 
         Log.Information("Attempting to remove the account \"{AccountToDeleteName}\"", Account.Name);
-        var (success, exception) = Account.Delete();
+        var (success, exception) = Account.Delete(true);
 
         if (success)
         {
             Log.Information("Account was successfully removed");
-            MsgBox.MsgBox.Show(AddEditAccountWindowResources.MessageBoxDeleteAccountNoUseSuccess, MsgBoxImage.Check);
+            MsgBox.MsgBox.Show(AddEditAccountResources.MessageBoxDeleteAccountSuccessTitle,
+                AddEditAccountResources.MessageBoxDeleteAccountSuccessMessage, MsgBoxImage.Check);
 
             DeleteAccount = true;
             DialogResult = true;
             Close();
-            return;
-        }
-
-        if (exception!.InnerException is SqliteException
-            {
-                SqliteExtendedErrorCode: SQLitePCL.raw.SQLITE_CONSTRAINT_FOREIGNKEY
-            })
-        {
-            Log.Error("Foreign key constraint violation");
-
-            response = MsgBox.MsgBox.Show(AddEditAccountWindowResources.MessageBoxDeleteAccountUseQuestion,
-                MsgBoxImage.Question, MessageBoxButton.YesNoCancel);
-
-            if (response is not MessageBoxResult.Yes) return;
-
-            Log.Information("Attempting to remove the account \"{AccountToDeleteName}\" with all relative element",
-                Account.Name);
-            Account.Delete(true);
-            Log.Information("Account and all relative element was successfully removed");
-            MsgBox.MsgBox.Show(AddEditAccountWindowResources.MessageBoxDeleteAccountUseSuccess, MsgBoxImage.Check);
-
-            DeleteAccount = true;
-            DialogResult = true;
-            Close();
-
             return;
         }
 
         Log.Error(exception, "An error occurred please retry");
-        MsgBox.MsgBox.Show(AddEditAccountWindowResources.MessageBoxDeleteAccountError, MsgBoxImage.Error);
+        MsgBox.MsgBox.Show(AddEditAccountResources.MessageBoxDeleteAccountErrorTitle,
+            AddEditAccountResources.MessageBoxDeleteAccountErrorMessage, MsgBoxImage.Error);
     }
 
     private void ButtonValid_OnClick(object sender, RoutedEventArgs e)
@@ -387,7 +363,7 @@ public partial class AddEditAccountWindow
         if (string.IsNullOrEmpty(accountName)) return;
 
         var alreadyExist = CheckAccountName(accountName);
-        if (alreadyExist) DisplayErrorAccountName();
+        if (alreadyExist) MsgBox.MsgBox.Show(AddEditAccountResources.MessageBoxErrorAccountNameAlreadyExists, MsgBoxImage.Warning);
     }
 
     private void TextBoxStartingBalance_OnPreviewTextInput(object sender, TextCompositionEventArgs e)
@@ -410,26 +386,26 @@ public partial class AddEditAccountWindow
     {
         if (string.IsNullOrEmpty(Account.Name))
         {
-            MsgBox.MsgBox.Show(AddEditAccountWindowResources.MsgBoxErrorAccountNameCannotByEmpty, MsgBoxImage.Warning);
+            MsgBox.MsgBox.Show(AddEditAccountResources.MessageBoxButtonValidationAccountNameError, MsgBoxImage.Warning);
             return true;
         }
 
         var errorName = CheckAccountName(Account.Name);
         if (errorName)
         {
-            MsgBox.MsgBox.Show(AddEditAccountWindowResources.MsgBoxErrorAccountNameAlreadyExists, MsgBoxImage.Warning);
+            MsgBox.MsgBox.Show(AddEditAccountResources.MessageBoxErrorAccountNameAlreadyExists, MsgBoxImage.Warning);
             return true;
         }
 
         if (Account.AccountTypeFk is null)
         {
-            MsgBox.MsgBox.Show(AddEditAccountWindowResources.MsgBoxErrorAccountTypeCannotByEmpty, MsgBoxImage.Warning);
+            MsgBox.MsgBox.Show(AddEditAccountResources.MessageBoxButtonValidationAccountTypeFkError, MsgBoxImage.Warning);
             return true;
         }
 
         if (Account.CurrencyFk is null)
         {
-            MsgBox.MsgBox.Show(AddEditAccountWindowResources.MsgBoxErrorAccountCurrencyCannotByEmpty,
+            MsgBox.MsgBox.Show(AddEditAccountResources.MessageBoxButtonValidationCurrencyFkError,
                 MsgBoxImage.Warning);
             return true;
         }
@@ -438,17 +414,13 @@ public partial class AddEditAccountWindow
 
         if (string.IsNullOrEmpty(History.Description))
         {
-            MsgBox.MsgBox.Show(AddEditAccountWindowResources.MsgBoxErrorAccountStartingBalanceDescriptionCannotByEmpty,
+            MsgBox.MsgBox.Show(AddEditAccountResources.MessageBoxErrorAccountStartingBalanceDescriptionCannotByEmpty,
                 MsgBoxImage.Warning);
             return true;
         }
 
         return false;
     }
-
-    private void DisplayErrorAccountName()
-        => MsgBox.MsgBox.Show(AddEditAccountWindowResources.MsgBoxErrorAccountNameAlreadyExists, MsgBoxImage.Warning);
-
 
     public void SetTAccount(TAccount account)
     {
@@ -458,21 +430,20 @@ public partial class AddEditAccountWindow
 
     private void UpdateLanguage()
     {
-        TitleWindow = AddEditAccountWindowResources.TitleWindow;
+        TitleWindow = AddEditAccountResources.TitleWindow;
 
-        HintAssistTextBoxAccountName = AddEditAccountWindowResources.TextBoxAccountName;
-        HintAssistComboBoxAccountType = AddEditAccountWindowResources.ComboBoxAccountType;
-        HintAssistComboBoxAccountCategoryType = AddEditAccountWindowResources.ComboBoxAccountCategoryType;
-        HintAssistComboBoxAccountCurrency = AddEditAccountWindowResources.ComboBoxAccountCurrency;
-        HintAssistTextBoxAccountStartingBalance = AddEditAccountWindowResources.TextBoxAccountStartingBalance;
-        HintAssistTextBoxAccountStartingBalanceDescription =
-            AddEditAccountWindowResources.TextBoxAccountStartingBalanceDescription;
+        HintAssistTextBoxAccountName = AddEditAccountResources.TextBoxAccountName;
+        HintAssistComboBoxAccountType = AddEditAccountResources.ComboBoxAccountType;
+        HintAssistComboBoxAccountCategoryType = AddEditAccountResources.ComboBoxAccountCategoryType;
+        HintAssistComboBoxAccountCurrency = AddEditAccountResources.ComboBoxAccountCurrency;
+        HintAssistTextBoxAccountStartingBalance = AddEditAccountResources.TextBoxAccountStartingBalance;
+        HintAssistTextBoxAccountStartingBalanceDescription = AddEditAccountResources.TextBoxAccountStartingBalanceDescription;
 
-        LabelIsAccountActive = AddEditAccountWindowResources.LabelIsAccountActive;
+        LabelIsAccountActive = AddEditAccountResources.LabelIsAccountActive;
 
-        ButtonCancelContent = AddEditAccountWindowResources.ButtonCancelContent;
-        ButtonDeleteContent = AddEditAccountWindowResources.ButtonDeleteContent;
-        ButtonValidContent = AddEditAccountWindowResources.ButtonValidContent;
+        ButtonCancelContent = AddEditAccountResources.ButtonCancelContent;
+        ButtonDeleteContent = AddEditAccountResources.ButtonDeleteContent;
+        ButtonValidContent = AddEditAccountResources.ButtonValidContent;
     }
 
     #endregion

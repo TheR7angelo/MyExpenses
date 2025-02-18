@@ -313,7 +313,7 @@ public partial class AddEditAccountContentPage
 
     private void UpdateLanguage()
     {
-        PlaceholderText = AddEditAccountResources.PlaceholderText;
+        PlaceholderText = AddEditAccountResources.TextBoxAccountName;
         LabelTextTitleCurrency = AddEditAccountResources.LabelTextTitleCurrency;
         LabelTextTitleAccountType = AddEditAccountResources.LabelTextTitleAccountType;
 
@@ -343,7 +343,7 @@ public partial class AddEditAccountContentPage
 
         var messageErrorKey = propertyMemberName switch
         {
-            nameof(TAccount.Name) => nameof(AddEditAccountResources.MessageBoxButtonValidationNameError),
+            nameof(TAccount.Name) => nameof(AddEditAccountResources.MessageBoxButtonValidationAccountNameError),
             nameof(TAccount.AccountTypeFk) => nameof(AddEditAccountResources.MessageBoxButtonValidationAccountTypeFkError),
             nameof(TAccount.CurrencyFk) => nameof(AddEditAccountResources.MessageBoxButtonValidationCurrencyFkError),
             _ => null

@@ -35,7 +35,7 @@
     <data name="MessageBoxButtonValidationCurrencyFkError" xml:space="preserve">
         <value>Le type de devise du compte ne peut pas être vide</value>
     </data>
-    <data name="MessageBoxButtonValidationNameError" xml:space="preserve">
+    <data name="MessageBoxButtonValidationAccountNameError" xml:space="preserve">
         <value>Le nom du compte ne peut pas être vide</value>
     </data>
     <data name="MessageBoxDeleteAccountErrorMessage" xml:space="preserve">
@@ -74,7 +74,7 @@
     <data name="MessageBoxValidAccountErrorTitle" xml:space="preserve">
         <value>Erreur</value>
     </data>
-    <data name="PlaceholderText" xml:space="preserve">
+    <data name="TextBoxAccountName" xml:space="preserve">
         <value>Nom du compte :</value>
     </data>
     <data name="MessageBoxButtonValidErrorMessage" xml:space="preserve">
@@ -106,5 +106,41 @@
     </data>
     <data name="MessageBoxAddAccountSuccess" xml:space="preserve">
         <value>Le compte a été ajouté avec succès</value>
+    </data>
+    <data name="MessageBoxErrorAccountNameAlreadyExists" xml:space="preserve">
+        <value>Un compte existe déjà avec ce nom</value>
+    </data>
+    <data name="MessageBoxErrorAccountStartingBalanceDescriptionCannotByEmpty" xml:space="preserve">
+        <value>La description du départ du solde ne peut pas etre vide</value>
+    </data>
+    <data name="TitleWindow" xml:space="preserve">
+        <value>Ajouter ou modifier le compte</value>
+    </data>
+    <data name="ComboBoxAccountType" xml:space="preserve">
+        <value>Type de compte :</value>
+    </data>
+    <data name="TextBoxAccountStartingBalance" xml:space="preserve">
+        <value>Solde de départ :</value>
+    </data>
+    <data name="TextBoxAccountStartingBalanceDescription" xml:space="preserve">
+        <value>La description du solde de départ :</value>
+    </data>
+    <data name="ComboBoxAccountCategoryType" xml:space="preserve">
+        <value>Catégorie :</value>
+    </data>
+    <data name="ButtonCancelContent" xml:space="preserve">
+        <value>Annuler</value>
+    </data>
+    <data name="ButtonDeleteContent" xml:space="preserve">
+        <value>Supprimer</value>
+    </data>
+    <data name="ButtonValidContent" xml:space="preserve">
+        <value>Valider</value>
+    </data>
+    <data name="LabelIsAccountActive" xml:space="preserve">
+        <value>Le compte est-il actif ?</value>
+    </data>
+    <data name="ComboBoxAccountCurrency" xml:space="preserve">
+        <value>Devise :</value>
     </data>
 </root>

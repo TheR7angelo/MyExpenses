@@ -9,8 +9,8 @@
 
 namespace MyExpenses.SharedUtils.Resources.Resx.AddEditAccount {
     using System;
-
-
+    
+    
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
     /// </summary>
@@ -22,15 +22,15 @@ namespace MyExpenses.SharedUtils.Resources.Resx.AddEditAccount {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class AddEditAccountResources {
-
+        
         private static global::System.Resources.ResourceManager resourceMan;
-
+        
         private static global::System.Globalization.CultureInfo resourceCulture;
-
+        
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
         public AddEditAccountResources() {
         }
-
+        
         /// <summary>
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
@@ -44,7 +44,7 @@ namespace MyExpenses.SharedUtils.Resources.Resx.AddEditAccount {
                 return resourceMan;
             }
         }
-
+        
         /// <summary>
         ///   Overrides the current thread's CurrentUICulture property for all
         ///   resource lookups using this strongly typed resource class.
@@ -58,7 +58,16 @@ namespace MyExpenses.SharedUtils.Resources.Resx.AddEditAccount {
                 resourceCulture = value;
             }
         }
-
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        public static string ButtonCancelContent {
+            get {
+                return ResourceManager.GetString("ButtonCancelContent", resourceCulture);
+            }
+        }
+        
         /// <summary>
         ///   Looks up a localized string similar to Cancel.
         /// </summary>
@@ -67,7 +76,16 @@ namespace MyExpenses.SharedUtils.Resources.Resx.AddEditAccount {
                 return ResourceManager.GetString("ButtonCancelText", resourceCulture);
             }
         }
-
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete.
+        /// </summary>
+        public static string ButtonDeleteContent {
+            get {
+                return ResourceManager.GetString("ButtonDeleteContent", resourceCulture);
+            }
+        }
+        
         /// <summary>
         ///   Looks up a localized string similar to Delete.
         /// </summary>
@@ -76,7 +94,16 @@ namespace MyExpenses.SharedUtils.Resources.Resx.AddEditAccount {
                 return ResourceManager.GetString("ButtonDeleteText", resourceCulture);
             }
         }
-
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Valid.
+        /// </summary>
+        public static string ButtonValidContent {
+            get {
+                return ResourceManager.GetString("ButtonValidContent", resourceCulture);
+            }
+        }
+        
         /// <summary>
         ///   Looks up a localized string similar to Valid.
         /// </summary>
@@ -85,7 +112,34 @@ namespace MyExpenses.SharedUtils.Resources.Resx.AddEditAccount {
                 return ResourceManager.GetString("ButtonValidText", resourceCulture);
             }
         }
-
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Category :.
+        /// </summary>
+        public static string ComboBoxAccountCategoryType {
+            get {
+                return ResourceManager.GetString("ComboBoxAccountCategoryType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Currency :.
+        /// </summary>
+        public static string ComboBoxAccountCurrency {
+            get {
+                return ResourceManager.GetString("ComboBoxAccountCurrency", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Account type :.
+        /// </summary>
+        public static string ComboBoxAccountType {
+            get {
+                return ResourceManager.GetString("ComboBoxAccountType", resourceCulture);
+            }
+        }
+        
         /// <summary>
         ///   Looks up a localized string similar to Deleting account and all related transactions.
         /// </summary>
@@ -94,7 +148,16 @@ namespace MyExpenses.SharedUtils.Resources.Resx.AddEditAccount {
                 return ResourceManager.GetString("CustomPopupActivityIndicatorDeleteAccount", resourceCulture);
             }
         }
-
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Is the account active ?.
+        /// </summary>
+        public static string LabelIsAccountActive {
+            get {
+                return ResourceManager.GetString("LabelIsAccountActive", resourceCulture);
+            }
+        }
+        
         /// <summary>
         ///   Looks up a localized string similar to Account type :.
         /// </summary>
@@ -103,7 +166,7 @@ namespace MyExpenses.SharedUtils.Resources.Resx.AddEditAccount {
                 return ResourceManager.GetString("LabelTextTitleAccountType", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Currency :.
         /// </summary>
@@ -112,7 +175,7 @@ namespace MyExpenses.SharedUtils.Resources.Resx.AddEditAccount {
                 return ResourceManager.GetString("LabelTextTitleCurrency", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to An error occurred please retry.
         /// </summary>
@@ -121,7 +184,7 @@ namespace MyExpenses.SharedUtils.Resources.Resx.AddEditAccount {
                 return ResourceManager.GetString("MessageBoxAddAccountError", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Account was successfully added.
         /// </summary>
@@ -130,7 +193,16 @@ namespace MyExpenses.SharedUtils.Resources.Resx.AddEditAccount {
                 return ResourceManager.GetString("MessageBoxAddAccountSuccess", resourceCulture);
             }
         }
-
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The account name cannot be empty.
+        /// </summary>
+        public static string MessageBoxButtonValidationAccountNameError {
+            get {
+                return ResourceManager.GetString("MessageBoxButtonValidationAccountNameError", resourceCulture);
+            }
+        }
+        
         /// <summary>
         ///   Looks up a localized string similar to Account type cannot be null.
         /// </summary>
@@ -139,7 +211,7 @@ namespace MyExpenses.SharedUtils.Resources.Resx.AddEditAccount {
                 return ResourceManager.GetString("MessageBoxButtonValidationAccountTypeFkError", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Account currency type cannot be blank.
         /// </summary>
@@ -148,16 +220,7 @@ namespace MyExpenses.SharedUtils.Resources.Resx.AddEditAccount {
                 return ResourceManager.GetString("MessageBoxButtonValidationCurrencyFkError", resourceCulture);
             }
         }
-
-        /// <summary>
-        ///   Looks up a localized string similar to The account name cannot be empty.
-        /// </summary>
-        public static string MessageBoxButtonValidationNameError {
-            get {
-                return ResourceManager.GetString("MessageBoxButtonValidationNameError", resourceCulture);
-            }
-        }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to There was an error updating. Please try again.
         /// </summary>
@@ -166,7 +229,7 @@ namespace MyExpenses.SharedUtils.Resources.Resx.AddEditAccount {
                 return ResourceManager.GetString("MessageBoxButtonValidErrorMessage", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Ok.
         /// </summary>
@@ -175,7 +238,7 @@ namespace MyExpenses.SharedUtils.Resources.Resx.AddEditAccount {
                 return ResourceManager.GetString("MessageBoxButtonValidErrorOkButton", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Error.
         /// </summary>
@@ -184,7 +247,7 @@ namespace MyExpenses.SharedUtils.Resources.Resx.AddEditAccount {
                 return ResourceManager.GetString("MessageBoxButtonValidErrorTitle", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Account was added successfully.
         /// </summary>
@@ -193,7 +256,7 @@ namespace MyExpenses.SharedUtils.Resources.Resx.AddEditAccount {
                 return ResourceManager.GetString("MessageBoxButtonValidSuccessMessage", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Ok.
         /// </summary>
@@ -202,7 +265,7 @@ namespace MyExpenses.SharedUtils.Resources.Resx.AddEditAccount {
                 return ResourceManager.GetString("MessageBoxButtonValidSuccessOkButton", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Success.
         /// </summary>
@@ -211,7 +274,7 @@ namespace MyExpenses.SharedUtils.Resources.Resx.AddEditAccount {
                 return ResourceManager.GetString("MessageBoxButtonValidSuccessTitle", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Failed to delete account, please retry.
         /// </summary>
@@ -220,7 +283,7 @@ namespace MyExpenses.SharedUtils.Resources.Resx.AddEditAccount {
                 return ResourceManager.GetString("MessageBoxDeleteAccountErrorMessage", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Ok.
         /// </summary>
@@ -229,7 +292,7 @@ namespace MyExpenses.SharedUtils.Resources.Resx.AddEditAccount {
                 return ResourceManager.GetString("MessageBoxDeleteAccountErrorOkButton", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Error.
         /// </summary>
@@ -238,7 +301,7 @@ namespace MyExpenses.SharedUtils.Resources.Resx.AddEditAccount {
                 return ResourceManager.GetString("MessageBoxDeleteAccountErrorTitle", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Are you sure you want to delete this account?{0}All associated items will also be deleted. Please note, this may take more or less time depending on the amount of data to be deleted.
         /// </summary>
@@ -247,7 +310,7 @@ namespace MyExpenses.SharedUtils.Resources.Resx.AddEditAccount {
                 return ResourceManager.GetString("MessageBoxDeleteAccountQuestionMessage", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to No.
         /// </summary>
@@ -256,7 +319,7 @@ namespace MyExpenses.SharedUtils.Resources.Resx.AddEditAccount {
                 return ResourceManager.GetString("MessageBoxDeleteAccountQuestionNoButton", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Question.
         /// </summary>
@@ -265,7 +328,7 @@ namespace MyExpenses.SharedUtils.Resources.Resx.AddEditAccount {
                 return ResourceManager.GetString("MessageBoxDeleteAccountQuestionTitle", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Yes.
         /// </summary>
@@ -274,7 +337,7 @@ namespace MyExpenses.SharedUtils.Resources.Resx.AddEditAccount {
                 return ResourceManager.GetString("MessageBoxDeleteAccountQuestionYesButton", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Account successfully deleted.
         /// </summary>
@@ -283,7 +346,7 @@ namespace MyExpenses.SharedUtils.Resources.Resx.AddEditAccount {
                 return ResourceManager.GetString("MessageBoxDeleteAccountSuccessMessage", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Ok.
         /// </summary>
@@ -292,7 +355,7 @@ namespace MyExpenses.SharedUtils.Resources.Resx.AddEditAccount {
                 return ResourceManager.GetString("MessageBoxDeleteAccountSuccessOkButton", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Success.
         /// </summary>
@@ -301,7 +364,7 @@ namespace MyExpenses.SharedUtils.Resources.Resx.AddEditAccount {
                 return ResourceManager.GetString("MessageBoxDeleteAccountSuccessTitle", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to An error occurred please retry.
         /// </summary>
@@ -310,7 +373,7 @@ namespace MyExpenses.SharedUtils.Resources.Resx.AddEditAccount {
                 return ResourceManager.GetString("MessageBoxEditAccountErrorMessage", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Account was successfully edited.
         /// </summary>
@@ -319,7 +382,25 @@ namespace MyExpenses.SharedUtils.Resources.Resx.AddEditAccount {
                 return ResourceManager.GetString("MessageBoxEditAccountSuccessMessage", resourceCulture);
             }
         }
-
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An account already exists with this name.
+        /// </summary>
+        public static string MessageBoxErrorAccountNameAlreadyExists {
+            get {
+                return ResourceManager.GetString("MessageBoxErrorAccountNameAlreadyExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The balance departure description cannot be empty.
+        /// </summary>
+        public static string MessageBoxErrorAccountStartingBalanceDescriptionCannotByEmpty {
+            get {
+                return ResourceManager.GetString("MessageBoxErrorAccountStartingBalanceDescriptionCannotByEmpty", resourceCulture);
+            }
+        }
+        
         /// <summary>
         ///   Looks up a localized string similar to Ok.
         /// </summary>
@@ -328,7 +409,7 @@ namespace MyExpenses.SharedUtils.Resources.Resx.AddEditAccount {
                 return ResourceManager.GetString("MessageBoxValidAccountErrorOkButton", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Error.
         /// </summary>
@@ -337,13 +418,40 @@ namespace MyExpenses.SharedUtils.Resources.Resx.AddEditAccount {
                 return ResourceManager.GetString("MessageBoxValidAccountErrorTitle", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Account name :.
         /// </summary>
-        public static string PlaceholderText {
+        public static string TextBoxAccountName {
             get {
-                return ResourceManager.GetString("PlaceholderText", resourceCulture);
+                return ResourceManager.GetString("TextBoxAccountName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Starting balance :.
+        /// </summary>
+        public static string TextBoxAccountStartingBalance {
+            get {
+                return ResourceManager.GetString("TextBoxAccountStartingBalance", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The description of the starting balance :.
+        /// </summary>
+        public static string TextBoxAccountStartingBalanceDescription {
+            get {
+                return ResourceManager.GetString("TextBoxAccountStartingBalanceDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add or edit account.
+        /// </summary>
+        public static string TitleWindow {
+            get {
+                return ResourceManager.GetString("TitleWindow", resourceCulture);
             }
         }
     }

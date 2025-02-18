@@ -159,9 +159,36 @@ namespace MyExpenses.Wpf.Resources.Resx.Windows.AddEditCurrencyWindow {
         /// <summary>
         ///   Looks up a localized string similar to Adding or changing account currencies.
         /// </summary>
-        public static string TitleWindow {
+        internal static string TitleWindow {
             get {
                 return ResourceManager.GetString("TitleWindow", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to The new currency has been added successfully.
+        /// </summary>
+        internal static string MessageBoxAddCurrencySuccess {
+            get {
+                return ResourceManager.GetString("MessageBoxAddCurrencySuccess", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to An error occurred please retry.
+        /// </summary>
+        internal static string MessageBoxAddCurrencyError {
+            get {
+                return ResourceManager.GetString("MessageBoxAddCurrencyError", resourceCulture);
+            }
+        }
+
+        /// <summary>
+        ///   Looks up a localized string similar to Currency :.
+        /// </summary>
+        internal static string ComboBoxAccountCurrency {
+            get {
+                return ResourceManager.GetString("ComboBoxAccountCurrency", resourceCulture);
             }
         }
     }
