@@ -383,7 +383,6 @@ public partial class AddEditAccountWindow
     private bool CheckAccountName(string accountName)
         => !EditAccount && Accounts.Select(s => s.Name).Contains(accountName);
 
-
     private bool CheckIsError()
     {
         // ReSharper disable once HeapView.ObjectAllocation.Evident
