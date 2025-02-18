@@ -8,6 +8,9 @@
              xmlns:tables="clr-namespace:MyExpenses.Models.Sql.Bases.Tables;assembly=MyExpenses.Models"
              xmlns:margin="clr-namespace:MyExpenses.Maui.Utils.Margin;assembly=MyExpenses.Maui.Utils"
              xmlns:uraniumButtonView="clr-namespace:MyExpenses.Smartphones.UserControls.Buttons.UraniumButtonView"
+             xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
+             xmlns:images="clr-namespace:MyExpenses.Smartphones.UserControls.Images"
+             xmlns:packIcons="clr-namespace:MyExpenses.Smartphones.PackIcons"
              x:Class="MyExpenses.Smartphones.ContentPages.AddEditAccountContentPage"
              x:Name="This"
              BindingContext="{Binding Source={RelativeSource Self}}">
@@ -25,6 +28,11 @@
             <Grid.Resources>
                 <x:Double x:Key="ImageHeight">24</x:Double>
                 <x:Double x:Key="HeightRequest">40</x:Double>
+
+                <x:Double x:Key="ImageSize">24</x:Double>
+                <Thickness x:Key="Thickness">10, 0, 5, 0</Thickness>
+                <packIcons:EPackIcons x:Key="Icon">CloseCircle</packIcons:EPackIcons>
+
             </Grid.Resources>
 
             <Grid.RowDefinitions>
@@ -46,21 +54,26 @@
                                                    Text="{Binding Account.Name, Mode=TwoWay}">
             </customEntryControl:CustomEntryControl>
 
-            <VerticalStackLayout Grid.Row="0" Grid.Column="1"
-                                 VerticalOptions="Center">
+            <material:PickerField Grid.Row="0" Grid.Column="1"
+                                  Title="{Binding LabelTextTitleCurrency, Mode=OneWay, Source={RelativeSource AncestorType={x:Type local:AddEditAccountContentPage}}}"
+                                  ItemsSource="{Binding Currencies, Mode=OneWay, Source={RelativeSource AncestorType={x:Type local:AddEditAccountContentPage}}}"
+                                  ItemDisplayBinding="{Binding Symbol}" x:DataType="tables:TCurrency"
+                                  SelectedItem="{Binding Account.CurrencyFk, Mode=TwoWay, Converter={StaticResource ISqlConverter}, ConverterParameter={Binding Currencies, Source={Reference This}}, Source={RelativeSource AncestorType={x:Type local:AddEditAccountContentPage}}}"
+                                  AllowClear="False"
+                                  HorizontalOptions="Center"
+                                  VerticalOptions="Center">
+                <material:PickerField.Attachments>
 
-                <Label Text="{Binding LabelTextTitleCurrency, Mode=OneWay}"
-                       HorizontalTextAlignment="Center">
-                </Label>
+                    <images:SvgPath HeightRequest="{StaticResource ImageSize}" WidthRequest="{StaticResource ImageSize}"
+                                    GeometrySource="{StaticResource Icon}"
+                                    GeometryColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
+                                    Margin="{StaticResource Thickness}"
+                                    Clicked="SvgPathClear_OnClicked">
+                    </images:SvgPath>
 
-                <Picker ItemsSource="{Binding Currencies, Mode=OneWay, Source={RelativeSource AncestorType={x:Type local:AddEditAccountContentPage}}}"
-                        SelectedItem="{Binding Account.CurrencyFk, Mode=TwoWay, Converter={StaticResource ISqlConverter}, ConverterParameter={Binding Currencies, Source={Reference This}}, Source={RelativeSource AncestorType={x:Type local:AddEditAccountContentPage}}}"
-                        ItemDisplayBinding="{Binding Symbol}" x:DataType="tables:TCurrency"
-                        HorizontalTextAlignment="Center"
-                        HorizontalOptions="Center">
-                </Picker>
+                </material:PickerField.Attachments>
 
-            </VerticalStackLayout>
+            </material:PickerField>
 
             <uraniumButtonView:UraniumButtonView Grid.Row="0" Grid.Column="2"
                                                  PathSource="Pencil"
@@ -72,21 +85,26 @@
                                                  Tapped="ButtonAddEditCurrency_OnClick">
             </uraniumButtonView:UraniumButtonView>
 
-            <HorizontalStackLayout Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
-                                 VerticalOptions="Center">
+            <material:PickerField Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
+                                  Title="{Binding LabelTextTitleAccountType, Mode=OneWay, Source={RelativeSource AncestorType={x:Type local:AddEditAccountContentPage}}}"
+                                  ItemsSource="{Binding AccountTypes, Mode=OneWay, Source={RelativeSource AncestorType={x:Type local:AddEditAccountContentPage}}}"
+                                  ItemDisplayBinding="{Binding Name}" x:DataType="tables:TAccountType"
+                                  SelectedItem="{Binding Account.AccountTypeFk, Mode=TwoWay, Converter={StaticResource ISqlConverter}, ConverterParameter={Binding AccountTypes, Source={Reference This}}, Source={RelativeSource AncestorType={x:Type local:AddEditAccountContentPage}}}"
+                                  AllowClear="False"
+                                  HorizontalOptions="Start"
+                                  VerticalOptions="Center">
+                <material:PickerField.Attachments>
 
-                <Label Text="{Binding LabelTextTitleAccountType, Mode=OneWay}"
-                       VerticalTextAlignment="Center">
-                </Label>
+                    <images:SvgPath HeightRequest="{StaticResource ImageSize}" WidthRequest="{StaticResource ImageSize}"
+                                    GeometrySource="{StaticResource Icon}"
+                                    GeometryColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
+                                    Margin="{StaticResource Thickness}"
+                                    Clicked="SvgPathClear_OnClicked">
+                    </images:SvgPath>
 
-                <Picker ItemsSource="{Binding AccountTypes, Mode=OneWay, Source={RelativeSource AncestorType={x:Type local:AddEditAccountContentPage}}}"
-                        SelectedItem="{Binding Account.AccountTypeFk, Mode=TwoWay, Converter={StaticResource ISqlConverter}, ConverterParameter={Binding AccountTypes, Source={Reference This}}, Source={RelativeSource AncestorType={x:Type local:AddEditAccountContentPage}}}"
-                        ItemDisplayBinding="{Binding Name}" x:DataType="tables:TAccountType"
-                        HorizontalTextAlignment="Center"
-                        HorizontalOptions="Center">
-                </Picker>
+                </material:PickerField.Attachments>
 
-            </HorizontalStackLayout>
+            </material:PickerField>
 
             <uraniumButtonView:UraniumButtonView Grid.Row="1" Grid.Column="2"
                                                  PathSource="Pencil"
