@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.ComponentModel.DataAnnotations;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -16,6 +17,7 @@ using MyExpenses.Wpf.Utils;
 using MyExpenses.Wpf.Windows.CategoryTypeManagementWindow;
 using MyExpenses.Wpf.Windows.MsgBox;
 using Serilog;
+using ValidationResult = System.ComponentModel.DataAnnotations.ValidationResult;
 
 namespace MyExpenses.Wpf.Windows;
 
@@ -347,7 +349,7 @@ public partial class AddEditAccountWindow
 
     private void ButtonValid_OnClick(object sender, RoutedEventArgs e)
     {
-        var error = CheckError();
+        var error = CheckIsError();
         if (error) return;
 
         DialogResult = true;
@@ -382,44 +384,57 @@ public partial class AddEditAccountWindow
         => !EditAccount && Accounts.Select(s => s.Name).Contains(accountName);
 
 
-    private bool CheckError()
+    private bool CheckIsError()
     {
-        if (string.IsNullOrEmpty(Account.Name))
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // Creating a new ValidationContext for the Account object to perform data validation.
+        // The serviceProvider and items are set to null because they are not required in this context.
+        // The ValidationResults list will store any validation errors detected during the process.
+        var validationContext = new ValidationContext(Account, serviceProvider: null, items: null);
+
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // Using 'var' keeps the code concise and readable, as the type (List<ValidationResult>)
+        // is evident from the initialization. The result will still be compatible with any method
+        // that expects an ICollection<ValidationResult>, as List<T> implements the ICollection interface.
+        var validationResults = new List<ValidationResult>();
+        var isValid = Validator.TryValidateObject(Account, validationContext, validationResults, true);
+        if (isValid)
         {
-            MsgBox.MsgBox.Show(AddEditAccountResources.MessageBoxButtonValidationAccountNameError, MsgBoxImage.Warning);
-            return true;
+            var alreadyExiste = CheckAccountName(Account.Name!);
+            if (alreadyExiste)
+            {
+                MsgBox.MsgBox.Show(AddEditAccountResources.MessageBoxErrorAccountNameAlreadyExists, MsgBoxImage.Warning);
+                return true;
+            }
+
+            if (EnableStartingBalance is false) return false;
+
+            if (string.IsNullOrEmpty(History.Description))
+            {
+                MsgBox.MsgBox.Show(AddEditAccountResources.MessageBoxErrorAccountStartingBalanceDescriptionCannotByEmpty,
+                    MsgBoxImage.Warning);
+                return true;
+            }
         }
 
-        var errorName = CheckAccountName(Account.Name);
-        if (errorName)
+        var propertyError = validationResults.First();
+        var propertyMemberName = propertyError.MemberNames.First();
+
+        var messageErrorKey = propertyMemberName switch
         {
-            MsgBox.MsgBox.Show(AddEditAccountResources.MessageBoxErrorAccountNameAlreadyExists, MsgBoxImage.Warning);
-            return true;
-        }
+            nameof(TAccount.Name) => nameof(AddEditAccountResources.MessageBoxButtonValidationAccountNameError),
+            nameof(TAccount.AccountTypeFk) => nameof(AddEditAccountResources.MessageBoxButtonValidationAccountTypeFkError),
+            nameof(TAccount.CurrencyFk) => nameof(AddEditAccountResources.MessageBoxButtonValidationCurrencyFkError),
+            _ => null
+        };
 
-        if (Account.AccountTypeFk is null)
-        {
-            MsgBox.MsgBox.Show(AddEditAccountResources.MessageBoxButtonValidationAccountTypeFkError, MsgBoxImage.Warning);
-            return true;
-        }
+        var localizedErrorMessage = string.IsNullOrEmpty(messageErrorKey)
+            ? propertyError.ErrorMessage!
+            : AddEditAccountResources.ResourceManager.GetString(messageErrorKey)!;
 
-        if (Account.CurrencyFk is null)
-        {
-            MsgBox.MsgBox.Show(AddEditAccountResources.MessageBoxButtonValidationCurrencyFkError,
-                MsgBoxImage.Warning);
-            return true;
-        }
+        MsgBox.MsgBox.Show(localizedErrorMessage, MsgBoxImage.Warning);
 
-        if (EnableStartingBalance is false) return false;
-
-        if (string.IsNullOrEmpty(History.Description))
-        {
-            MsgBox.MsgBox.Show(AddEditAccountResources.MessageBoxErrorAccountStartingBalanceDescriptionCannotByEmpty,
-                MsgBoxImage.Warning);
-            return true;
-        }
-
-        return false;
+        return true;
     }
 
     public void SetTAccount(TAccount account)
