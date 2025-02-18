@@ -4,10 +4,12 @@ namespace MyExpenses.Maui.Utils;
 
 public static class VisualTreeHelperExtensions
 {
-    [SupportedOSPlatform("Android21.0")]
-    [SupportedOSPlatform("iOS13.0")]
-    [SupportedOSPlatform("MacCatalyst15.0")]
-    [SupportedOSPlatform("Windows")]
+    /// <summary>
+    /// Recursively retrieves all visual children of a specific type from a given element.
+    /// </summary>
+    /// <typeparam name="T">The type of visual children to search for.</typeparam>
+    /// <param name="element">The parent element from which to start the search.</param>
+    /// <returns>An enumerable collection of all children of the given type found within the visual tree.</returns>
     public static IEnumerable<T> FindVisualChildren<T>(this Element? element) where T : Element
     {
         if (element is not IVisualTreeElement visualElement) yield break;
