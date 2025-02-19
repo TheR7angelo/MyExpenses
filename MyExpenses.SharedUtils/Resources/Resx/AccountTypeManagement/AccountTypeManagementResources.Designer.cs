@@ -468,9 +468,11 @@ namespace MyExpenses.SharedUtils.Resources.Resx.AccountTypeManagement {
         /// <summary>
         ///   Looks up a localized string similar to Add a new account type :.
         /// </summary>
-        public static string PlaceholderText {
+        public static string TextBoxAccountTypeName {
             get {
-                return ResourceManager.GetString("PlaceholderText", resourceCulture);
+                return ResourceManager.GetString("TextBoxAccountTypeName", resourceCulture);
+            }
+        }
         
         /// <summary>
         ///   Looks up a localized string similar to Add or Change account type.

@@ -92,7 +92,7 @@
     <data name="MessageBoxValidateAccountTypeErrorEmptyTitle" xml:space="preserve">
         <value>Erreur</value>
     </data>
-    <data name="PlaceholderText" xml:space="preserve">
+    <data name="TextBoxAccountTypeName" xml:space="preserve">
         <value>Ajouter un nouveau type de compte :</value>
     </data>
     <data name="ActivityIndicatorDeleteAccountType" xml:space="preserve">

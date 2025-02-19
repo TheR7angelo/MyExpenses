@@ -281,7 +281,7 @@ public partial class AccountTypeSummaryContentPage
 
     private void UpdateLanguage()
     {
-        PlaceholderText = AccountTypeManagementResources.PlaceholderText;
+        PlaceholderText = AccountTypeManagementResources.TextBoxAccountTypeName;
         ButtonValidText = AccountTypeManagementResources.ButtonValidText;
     }
 
