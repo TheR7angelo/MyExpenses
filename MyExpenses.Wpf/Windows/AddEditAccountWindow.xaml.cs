@@ -8,10 +8,10 @@ using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.SharedUtils.Collection;
 using MyExpenses.SharedUtils.Properties;
 using MyExpenses.SharedUtils.RegexUtils;
+using MyExpenses.SharedUtils.Resources.Resx.AccountTypeManagement;
 using MyExpenses.SharedUtils.Resources.Resx.AddEditAccount;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils.Sql;
-using MyExpenses.Wpf.Resources.Resx.Windows.AddEditAccountTypeWindow;
 using MyExpenses.Wpf.Resources.Resx.Windows.AddEditCurrencyWindow;
 using MyExpenses.Wpf.Utils;
 using MyExpenses.Wpf.Windows.CategoryTypeManagementWindow;
@@ -247,12 +247,14 @@ public partial class AddEditAccountWindow
             var json = newAccountType.ToJsonString();
             Log.Information("{Json}", json);
 
-            MsgBox.MsgBox.Show(AddEditAccountTypeWindowResources.MessageBoxAddAccountTypeSuccess, MsgBoxImage.Check);
+            MsgBox.MsgBox.Show(AccountTypeManagementResources.MessageBoxAddNewAccountTypeSuccessTitle,
+                AccountTypeManagementResources.MessageBoxAddNewAccountTypeSuccessMessage, MsgBoxImage.Check);
         }
         else
         {
             Log.Error(exception, "An error occurred please retry");
-            MsgBox.MsgBox.Show(AddEditAccountTypeWindowResources.MessageBoxAddAccountTypeError, MsgBoxImage.Error);
+            MsgBox.MsgBox.Show(AccountTypeManagementResources.MessageBoxAddNewAccountTypeErrorTitle,
+                AccountTypeManagementResources.MessageBoxAddNewAccountTypeErrorMessage, MsgBoxImage.Error);
         }
     }
 
