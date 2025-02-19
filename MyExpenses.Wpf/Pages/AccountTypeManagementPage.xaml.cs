@@ -3,9 +3,9 @@ using System.Windows;
 using System.Windows.Controls;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.SharedUtils.Collection;
+using MyExpenses.SharedUtils.Resources.Resx.AccountTypeManagement;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils.Sql;
-using MyExpenses.Wpf.Resources.Resx.Pages.AccountTypeManagementPage;
 using MyExpenses.Wpf.Windows;
 using MyExpenses.Wpf.Windows.MsgBox;
 using Serilog;
@@ -49,12 +49,14 @@ public partial class AccountTypeManagementPage
             var json = newAccountType.ToJsonString();
             Log.Information("{Json}", json);
 
-            MsgBox.Show(AccountTypeManagementPageResources.MessageBoxAddAccountTypeSuccess, MsgBoxImage.Check);
+            MsgBox.Show(AccountTypeManagementResources.MessageBoxAddNewAccountTypeSuccessTitle,
+                AccountTypeManagementResources.MessageBoxAddNewAccountTypeSuccessMessage, MsgBoxImage.Check);
         }
         else
         {
             Log.Error(exception, "An error occurred please retry");
-            MsgBox.Show(AccountTypeManagementPageResources.MessageBoxAddAccountTypeError, MsgBoxImage.Error);
+            MsgBox.Show(AccountTypeManagementResources.MessageBoxAddNewAccountTypeErrorTitle,
+                AccountTypeManagementResources.MessageBoxAddNewAccountTypeErrorMessage, MsgBoxImage.Error);
         }
     }
 
@@ -88,12 +90,14 @@ public partial class AccountTypeManagementPage
                 var json = editedAccountType.ToJsonString();
                 Log.Information("{Json}", json);
 
-                MsgBox.Show(AccountTypeManagementPageResources.MessageBoxEditAccountTypeSuccess, MsgBoxImage.Check);
+                MsgBox.Show(AccountTypeManagementResources.MessageBoxAccountTypeEditSuccessTitle,
+                    AccountTypeManagementResources.MessageBoxAccountTypeEditSuccessMessage, MsgBoxImage.Check);
             }
             else
             {
                 Log.Error(exception, "An error occurred please retry");
-                MsgBox.Show(AccountTypeManagementPageResources.MessageBoxEditAccountTypeError, MsgBoxImage.Error);
+                MsgBox.Show(AccountTypeManagementResources.MessageBoxAccountTypeEditErrorTitle,
+                AccountTypeManagementResources.MessageBoxAccountTypeEditErrorMessage, MsgBoxImage.Error);
             }
         }
     }
