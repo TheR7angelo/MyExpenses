@@ -70,6 +70,33 @@ namespace MyExpenses.SharedUtils.Resources.Resx.AccountTypeManagement {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        public static string ButtonCancelContent {
+            get {
+                return ResourceManager.GetString("ButtonCancelContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete.
+        /// </summary>
+        public static string ButtonDeleteContent {
+            get {
+                return ResourceManager.GetString("ButtonDeleteContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Valid.
+        /// </summary>
+        public static string ButtonValidContent {
+            get {
+                return ResourceManager.GetString("ButtonValidContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Valid.
         /// </summary>
         public static string ButtonValidText {
@@ -349,6 +376,42 @@ namespace MyExpenses.SharedUtils.Resources.Resx.AccountTypeManagement {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Account type was successfully removed.
+        /// </summary>
+        public static string MessageBoxDeleteAccountTypeNoUseSuccess {
+            get {
+                return ResourceManager.GetString("MessageBoxDeleteAccountTypeNoUseSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This account type is in use.Are you sure you want to delete this account type and everything linked to it ?.
+        /// </summary>
+        public static string MessageBoxDeleteAccountTypeUseQuestion {
+            get {
+                return ResourceManager.GetString("MessageBoxDeleteAccountTypeUseQuestion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Account type and all relative element was successfully removed.
+        /// </summary>
+        public static string MessageBoxDeleteAccountTypeUseSuccess {
+            get {
+                return ResourceManager.GetString("MessageBoxDeleteAccountTypeUseSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you really want to delete this account type ?.
+        /// </summary>
+        public static string MessageBoxDeleteQuestion {
+            get {
+                return ResourceManager.GetString("MessageBoxDeleteQuestion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Account type already exist.
         /// </summary>
         public static string MessageBoxValidateAccountTypeErrorAlreadyExistMessage {
@@ -408,6 +471,13 @@ namespace MyExpenses.SharedUtils.Resources.Resx.AccountTypeManagement {
         public static string PlaceholderText {
             get {
                 return ResourceManager.GetString("PlaceholderText", resourceCulture);
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add or Change account type.
+        /// </summary>
+        public static string TitleWindow {
+            get {
+                return ResourceManager.GetString("TitleWindow", resourceCulture);
             }
         }
     }

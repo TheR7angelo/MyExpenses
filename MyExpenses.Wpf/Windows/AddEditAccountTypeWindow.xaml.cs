@@ -5,8 +5,8 @@ using Microsoft.Data.Sqlite;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.SharedUtils.Properties;
+using MyExpenses.SharedUtils.Resources.Resx.AccountTypeManagement;
 using MyExpenses.Sql.Context;
-using MyExpenses.Wpf.Resources.Resx.Windows.AddEditAccountTypeWindow;
 using MyExpenses.Wpf.Utils;
 using MyExpenses.Wpf.Windows.MsgBox;
 using Serilog;
@@ -123,7 +123,7 @@ public partial class AddEditAccountTypeWindow
 
     private void ButtonDelete_OnClick(object sender, RoutedEventArgs e)
     {
-        var response = MsgBox.MsgBox.Show(AddEditAccountTypeWindowResources.MessageBoxDeleteQuestion,
+        var response = MsgBox.MsgBox.Show(AccountTypeManagementResources.MessageBoxDeleteQuestion,
             MsgBoxImage.Question, MessageBoxButton.YesNoCancel);
         if (response is not MessageBoxResult.Yes) return;
 
@@ -133,7 +133,7 @@ public partial class AddEditAccountTypeWindow
         if (success)
         {
             Log.Information("Account was successfully removed");
-            MsgBox.MsgBox.Show(AddEditAccountTypeWindowResources.MessageBoxDeleteAccountTypeNoUseSuccess,
+            MsgBox.MsgBox.Show(AccountTypeManagementResources.MessageBoxDeleteAccountTypeNoUseSuccess,
                 MsgBoxImage.Check);
 
             AccountTypeDeleted = true;
@@ -149,7 +149,7 @@ public partial class AddEditAccountTypeWindow
         {
             Log.Error("Foreign key constraint violation");
 
-            response = MsgBox.MsgBox.Show(AddEditAccountTypeWindowResources.MessageBoxDeleteAccountTypeUseQuestion,
+            response = MsgBox.MsgBox.Show(AccountTypeManagementResources.MessageBoxDeleteAccountTypeUseQuestion,
                 MsgBoxImage.Question, MessageBoxButton.YesNoCancel);
 
             if (response is not MessageBoxResult.Yes) return;
@@ -159,7 +159,7 @@ public partial class AddEditAccountTypeWindow
                 AccountType.Name);
             AccountType.Delete(true);
             Log.Information("Account type and all relative element was successfully removed");
-            MsgBox.MsgBox.Show(AddEditAccountTypeWindowResources.MessageBoxDeleteAccountTypeUseSuccess,
+            MsgBox.MsgBox.Show(AccountTypeManagementResources.MessageBoxDeleteAccountTypeUseSuccess,
                 MsgBoxImage.Check);
 
             AccountTypeDeleted = true;
@@ -170,7 +170,7 @@ public partial class AddEditAccountTypeWindow
         }
 
         Log.Error(exception, "An error occurred please retry");
-        MsgBox.MsgBox.Show(AddEditAccountTypeWindowResources.MessageBoxDeleteAccountTypeError, MsgBoxImage.Error);
+        MsgBox.MsgBox.Show(AccountTypeManagementResources.MessageBoxDeleteAccountTypeNoUseSuccess, MsgBoxImage.Error);
     }
 
     private void ButtonValid_OnClick(object sender, RoutedEventArgs e)
@@ -179,7 +179,7 @@ public partial class AddEditAccountTypeWindow
 
         if (string.IsNullOrEmpty(accountTypeName))
         {
-            MsgBox.MsgBox.Show(AddEditAccountTypeWindowResources.MessageBoxAccountTypeNameCannotEmptyError,
+            MsgBox.MsgBox.Show(AccountTypeManagementResources.MessageBoxValidateAccountTypeErrorEmptyMessage,
                 MsgBoxImage.Error);
             return;
         }
@@ -225,17 +225,17 @@ public partial class AddEditAccountTypeWindow
         => AccountTypes.Select(s => s.Name).Contains(accountName);
 
     private static void ShowErrorMessage()
-        => MsgBox.MsgBox.Show(AddEditAccountTypeWindowResources.MessageBoxAccountTypeNameAlreadyExists,
+        => MsgBox.MsgBox.Show(AccountTypeManagementResources.MessageBoxValidateAccountTypeErrorAlreadyExistMessage,
             MsgBoxImage.Warning);
 
     private void UpdateLanguage()
     {
-        TitleWindow = AddEditAccountTypeWindowResources.TitleWindow;
+        TitleWindow = AccountTypeManagementResources.TitleWindow;
 
-        TextBoxAccountTypeName = AddEditAccountTypeWindowResources.TextBoxAccountTypeName;
-        ButtonValidContent = AddEditAccountTypeWindowResources.ButtonValidContent;
-        ButtonDeleteContent = AddEditAccountTypeWindowResources.ButtonDeleteContent;
-        ButtonCancelContent = AddEditAccountTypeWindowResources.ButtonCancelContent;
+        TextBoxAccountTypeName = AccountTypeManagementResources.TextBoxAccountTypeName;
+        ButtonValidContent = AccountTypeManagementResources.ButtonValidContent;
+        ButtonDeleteContent = AccountTypeManagementResources.ButtonDeleteContent;
+        ButtonCancelContent = AccountTypeManagementResources.ButtonCancelContent;
     }
 
     #endregion

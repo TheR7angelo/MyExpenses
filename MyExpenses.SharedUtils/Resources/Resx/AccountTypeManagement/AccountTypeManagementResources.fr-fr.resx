@@ -128,4 +128,28 @@
     <data name="MessageBoxAccountTypeEditSuccessTitle" xml:space="preserve">
         <value>Succès</value>
     </data>
+    <data name="MessageBoxDeleteQuestion" xml:space="preserve">
+        <value>Voulez-vous vraiment supprimer ce type de compte ?</value>
+    </data>
+    <data name="MessageBoxDeleteAccountTypeNoUseSuccess" xml:space="preserve">
+        <value>Le type de compte a été supprimé avec succès</value>
+    </data>
+    <data name="MessageBoxDeleteAccountTypeUseQuestion" xml:space="preserve">
+        <value>Ce type de compte est en cours d'utilisation. Êtes-vous sûr de vouloir supprimer ce type de compte et tout ce qui y est lié ?</value>
+    </data>
+    <data name="MessageBoxDeleteAccountTypeUseSuccess" xml:space="preserve">
+        <value>Le type de compte et tous les éléments relatifs ont été supprimés avec succès</value>
+    </data>
+    <data name="ButtonCancelContent" xml:space="preserve">
+        <value>Annuler</value>
+    </data>
+    <data name="ButtonDeleteContent" xml:space="preserve">
+        <value>Supprimer</value>
+    </data>
+    <data name="ButtonValidContent" xml:space="preserve">
+        <value>Valider</value>
+    </data>
+    <data name="TitleWindow" xml:space="preserve">
+        <value>Ajouter ou modifier le type de compte</value>
+    </data>
 </root>
