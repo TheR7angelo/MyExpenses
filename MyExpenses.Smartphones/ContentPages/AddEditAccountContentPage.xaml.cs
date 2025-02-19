@@ -331,9 +331,9 @@ public partial class AddEditAccountContentPage
         LabelTextTitleCurrency = AddEditAccountResources.LabelTextTitleCurrency;
         LabelTextTitleAccountType = AddEditAccountResources.LabelTextTitleAccountType;
 
-        ButtonValidText = AddEditAccountResources.ButtonValidText;
-        ButtonDeleteText = AddEditAccountResources.ButtonDeleteText;
-        ButtonCancelText = AddEditAccountResources.ButtonCancelText;
+        ButtonValidText = AddEditAccountResources.ButtonValidContent;
+        ButtonDeleteText = AddEditAccountResources.ButtonDeleteContent;
+        ButtonCancelText = AddEditAccountResources.ButtonCancelContent;
     }
 
     private async Task<bool> ValidAccount()

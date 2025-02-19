@@ -97,15 +97,6 @@ namespace MyExpenses.SharedUtils.Resources.Resx.AccountTypeManagement {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Valid.
-        /// </summary>
-        public static string ButtonValidText {
-            get {
-                return ResourceManager.GetString("ButtonValidText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to An error occurred while deleting account type, please retry.
         /// </summary>
         public static string MessageBoxAccountTypeDeleteErrorMessage {

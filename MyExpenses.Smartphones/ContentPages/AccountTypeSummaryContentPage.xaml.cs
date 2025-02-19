@@ -282,7 +282,7 @@ public partial class AccountTypeSummaryContentPage
     private void UpdateLanguage()
     {
         PlaceholderText = AccountTypeManagementResources.TextBoxAccountTypeName;
-        ButtonValidText = AccountTypeManagementResources.ButtonValidText;
+        ButtonValidText = AccountTypeManagementResources.ButtonValidContent;
     }
 
     private async Task<bool> ValidateAccountType(string? accountTypeName = null)
