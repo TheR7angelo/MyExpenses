@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.AccountTypeSummaryContentPage {
+namespace MyExpenses.SharedUtils.Resources.Resx.AccountTypeManagement {
     using System;
     
     
@@ -21,25 +21,25 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.AccountTypeSummaryC
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class AccountTypeSummaryContentPageResources {
+    public class AccountTypeManagementResources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal AccountTypeSummaryContentPageResources() {
+        public AccountTypeManagementResources() {
         }
         
         /// <summary>
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MyExpenses.Smartphones.Resources.Resx.ContentPages.AccountTypeSummaryContentPage." +
-                            "AccountTypeSummaryContentPageResources", typeof(AccountTypeSummaryContentPageResources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MyExpenses.SharedUtils.Resources.Resx.AccountTypeManagement.AccountTypeManagement" +
+                            "Resources", typeof(AccountTypeManagementResources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -51,7 +51,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.AccountTypeSummaryC
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -61,54 +61,27 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.AccountTypeSummaryC
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Deleting the account type and all linked accounts.
+        /// </summary>
+        public static string ActivityIndicatorDeleteAccountType {
+            get {
+                return ResourceManager.GetString("ActivityIndicatorDeleteAccountType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Valid.
         /// </summary>
-        internal static string ButtonValidText {
+        public static string ButtonValidText {
             get {
                 return ResourceManager.GetString("ButtonValidText", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Deleting the account type and all linked accounts.
-        /// </summary>
-        internal static string CustomPopupActivityIndicatorDeleteAccountType {
-            get {
-                return ResourceManager.GetString("CustomPopupActivityIndicatorDeleteAccountType", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to An error occurred while adding account type, please retry.
-        /// </summary>
-        internal static string MesageBoxAddNewAccountTypeErrorMessage {
-            get {
-                return ResourceManager.GetString("MesageBoxAddNewAccountTypeErrorMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Ok.
-        /// </summary>
-        internal static string MesageBoxAddNewAccountTypeErrorOkButton {
-            get {
-                return ResourceManager.GetString("MesageBoxAddNewAccountTypeErrorOkButton", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Error.
-        /// </summary>
-        internal static string MesageBoxAddNewAccountTypeErrorTitle {
-            get {
-                return ResourceManager.GetString("MesageBoxAddNewAccountTypeErrorTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Do you really want to add &quot;{0}&quot; as a new account type ?.
         /// </summary>
-        internal static string MesageBoxAddNewAccountTypeQuestionMessage {
+        public static string MesageBoxAddNewAccountTypeQuestionMessage {
             get {
                 return ResourceManager.GetString("MesageBoxAddNewAccountTypeQuestionMessage", resourceCulture);
             }
@@ -117,7 +90,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.AccountTypeSummaryC
         /// <summary>
         ///   Looks up a localized string similar to No.
         /// </summary>
-        internal static string MesageBoxAddNewAccountTypeQuestionNoButton {
+        public static string MesageBoxAddNewAccountTypeQuestionNoButton {
             get {
                 return ResourceManager.GetString("MesageBoxAddNewAccountTypeQuestionNoButton", resourceCulture);
             }
@@ -126,7 +99,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.AccountTypeSummaryC
         /// <summary>
         ///   Looks up a localized string similar to Add new account type ?.
         /// </summary>
-        internal static string MesageBoxAddNewAccountTypeQuestionTitle {
+        public static string MesageBoxAddNewAccountTypeQuestionTitle {
             get {
                 return ResourceManager.GetString("MesageBoxAddNewAccountTypeQuestionTitle", resourceCulture);
             }
@@ -135,7 +108,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.AccountTypeSummaryC
         /// <summary>
         ///   Looks up a localized string similar to Yes.
         /// </summary>
-        internal static string MesageBoxAddNewAccountTypeQuestionYesButton {
+        public static string MesageBoxAddNewAccountTypeQuestionYesButton {
             get {
                 return ResourceManager.GetString("MesageBoxAddNewAccountTypeQuestionYesButton", resourceCulture);
             }
@@ -144,7 +117,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.AccountTypeSummaryC
         /// <summary>
         ///   Looks up a localized string similar to Account type was successfully added.
         /// </summary>
-        internal static string MesageBoxAddNewAccountTypeSuccessMessage {
+        public static string MesageBoxAddNewAccountTypeSuccessMessage {
             get {
                 return ResourceManager.GetString("MesageBoxAddNewAccountTypeSuccessMessage", resourceCulture);
             }
@@ -153,7 +126,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.AccountTypeSummaryC
         /// <summary>
         ///   Looks up a localized string similar to Ok.
         /// </summary>
-        internal static string MesageBoxAddNewAccountTypeSuccessOkButton {
+        public static string MesageBoxAddNewAccountTypeSuccessOkButton {
             get {
                 return ResourceManager.GetString("MesageBoxAddNewAccountTypeSuccessOkButton", resourceCulture);
             }
@@ -162,16 +135,43 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.AccountTypeSummaryC
         /// <summary>
         ///   Looks up a localized string similar to Success.
         /// </summary>
-        internal static string MesageBoxAddNewAccountTypeSuccessTitle {
+        public static string MesageBoxAddNewAccountTypeSuccessTitle {
             get {
                 return ResourceManager.GetString("MesageBoxAddNewAccountTypeSuccessTitle", resourceCulture);
             }
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to An error occurred while adding account type, please retry.
+        /// </summary>
+        public static string MessageBoxAddNewAccountTypeErrorMessage {
+            get {
+                return ResourceManager.GetString("MessageBoxAddNewAccountTypeErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ok.
+        /// </summary>
+        public static string MessageBoxAddNewAccountTypeErrorOkButton {
+            get {
+                return ResourceManager.GetString("MessageBoxAddNewAccountTypeErrorOkButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        public static string MessageBoxAddNewAccountTypeErrorTitle {
+            get {
+                return ResourceManager.GetString("MessageBoxAddNewAccountTypeErrorTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to An error occurred while deleting account type, please retry.
         /// </summary>
-        internal static string MessageBoxHandleAccountTypeDeleteErrorMessage {
+        public static string MessageBoxHandleAccountTypeDeleteErrorMessage {
             get {
                 return ResourceManager.GetString("MessageBoxHandleAccountTypeDeleteErrorMessage", resourceCulture);
             }
@@ -180,7 +180,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.AccountTypeSummaryC
         /// <summary>
         ///   Looks up a localized string similar to Ok.
         /// </summary>
-        internal static string MessageBoxHandleAccountTypeDeleteErrorOkButton {
+        public static string MessageBoxHandleAccountTypeDeleteErrorOkButton {
             get {
                 return ResourceManager.GetString("MessageBoxHandleAccountTypeDeleteErrorOkButton", resourceCulture);
             }
@@ -189,7 +189,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.AccountTypeSummaryC
         /// <summary>
         ///   Looks up a localized string similar to Error.
         /// </summary>
-        internal static string MessageBoxHandleAccountTypeDeleteErrorTitle {
+        public static string MessageBoxHandleAccountTypeDeleteErrorTitle {
             get {
                 return ResourceManager.GetString("MessageBoxHandleAccountTypeDeleteErrorTitle", resourceCulture);
             }
@@ -198,7 +198,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.AccountTypeSummaryC
         /// <summary>
         ///   Looks up a localized string similar to Are you sure you want to remove this account type?{0}All accounts that use this account type will also be deleted, be careful the operation may take more or less time depending on the number of data to be deleted.
         /// </summary>
-        internal static string MessageBoxHandleAccountTypeDeleteQuestionMessage {
+        public static string MessageBoxHandleAccountTypeDeleteQuestionMessage {
             get {
                 return ResourceManager.GetString("MessageBoxHandleAccountTypeDeleteQuestionMessage", resourceCulture);
             }
@@ -207,7 +207,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.AccountTypeSummaryC
         /// <summary>
         ///   Looks up a localized string similar to No.
         /// </summary>
-        internal static string MessageBoxHandleAccountTypeDeleteQuestionNoButton {
+        public static string MessageBoxHandleAccountTypeDeleteQuestionNoButton {
             get {
                 return ResourceManager.GetString("MessageBoxHandleAccountTypeDeleteQuestionNoButton", resourceCulture);
             }
@@ -216,7 +216,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.AccountTypeSummaryC
         /// <summary>
         ///   Looks up a localized string similar to Question.
         /// </summary>
-        internal static string MessageBoxHandleAccountTypeDeleteQuestionTitle {
+        public static string MessageBoxHandleAccountTypeDeleteQuestionTitle {
             get {
                 return ResourceManager.GetString("MessageBoxHandleAccountTypeDeleteQuestionTitle", resourceCulture);
             }
@@ -225,7 +225,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.AccountTypeSummaryC
         /// <summary>
         ///   Looks up a localized string similar to Yes.
         /// </summary>
-        internal static string MessageBoxHandleAccountTypeDeleteQuestionYesButton {
+        public static string MessageBoxHandleAccountTypeDeleteQuestionYesButton {
             get {
                 return ResourceManager.GetString("MessageBoxHandleAccountTypeDeleteQuestionYesButton", resourceCulture);
             }
@@ -234,7 +234,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.AccountTypeSummaryC
         /// <summary>
         ///   Looks up a localized string similar to Account type and all related accounts were successfully deleted.
         /// </summary>
-        internal static string MessageBoxHandleAccountTypeDeleteSuccessMessage {
+        public static string MessageBoxHandleAccountTypeDeleteSuccessMessage {
             get {
                 return ResourceManager.GetString("MessageBoxHandleAccountTypeDeleteSuccessMessage", resourceCulture);
             }
@@ -243,7 +243,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.AccountTypeSummaryC
         /// <summary>
         ///   Looks up a localized string similar to Ok.
         /// </summary>
-        internal static string MessageBoxHandleAccountTypeDeleteSuccessOkButton {
+        public static string MessageBoxHandleAccountTypeDeleteSuccessOkButton {
             get {
                 return ResourceManager.GetString("MessageBoxHandleAccountTypeDeleteSuccessOkButton", resourceCulture);
             }
@@ -252,7 +252,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.AccountTypeSummaryC
         /// <summary>
         ///   Looks up a localized string similar to Success.
         /// </summary>
-        internal static string MessageBoxHandleAccountTypeDeleteSuccessTitle {
+        public static string MessageBoxHandleAccountTypeDeleteSuccessTitle {
             get {
                 return ResourceManager.GetString("MessageBoxHandleAccountTypeDeleteSuccessTitle", resourceCulture);
             }
@@ -261,7 +261,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.AccountTypeSummaryC
         /// <summary>
         ///   Looks up a localized string similar to An error occurred while editing currency symbol, please retry.
         /// </summary>
-        internal static string MessageBoxHandleAccountTypeEditErrorMessage {
+        public static string MessageBoxHandleAccountTypeEditErrorMessage {
             get {
                 return ResourceManager.GetString("MessageBoxHandleAccountTypeEditErrorMessage", resourceCulture);
             }
@@ -270,7 +270,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.AccountTypeSummaryC
         /// <summary>
         ///   Looks up a localized string similar to Ok.
         /// </summary>
-        internal static string MessageBoxHandleAccountTypeEditErrorOkButton {
+        public static string MessageBoxHandleAccountTypeEditErrorOkButton {
             get {
                 return ResourceManager.GetString("MessageBoxHandleAccountTypeEditErrorOkButton", resourceCulture);
             }
@@ -279,7 +279,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.AccountTypeSummaryC
         /// <summary>
         ///   Looks up a localized string similar to Error.
         /// </summary>
-        internal static string MessageBoxHandleAccountTypeEditErrorTitle {
+        public static string MessageBoxHandleAccountTypeEditErrorTitle {
             get {
                 return ResourceManager.GetString("MessageBoxHandleAccountTypeEditErrorTitle", resourceCulture);
             }
@@ -288,7 +288,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.AccountTypeSummaryC
         /// <summary>
         ///   Looks up a localized string similar to Do you really want to edit this account type ?.
         /// </summary>
-        internal static string MessageBoxHandleAccountTypeEditQuestionMessage {
+        public static string MessageBoxHandleAccountTypeEditQuestionMessage {
             get {
                 return ResourceManager.GetString("MessageBoxHandleAccountTypeEditQuestionMessage", resourceCulture);
             }
@@ -297,7 +297,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.AccountTypeSummaryC
         /// <summary>
         ///   Looks up a localized string similar to No.
         /// </summary>
-        internal static string MessageBoxHandleAccountTypeEditQuestionNoButton {
+        public static string MessageBoxHandleAccountTypeEditQuestionNoButton {
             get {
                 return ResourceManager.GetString("MessageBoxHandleAccountTypeEditQuestionNoButton", resourceCulture);
             }
@@ -306,7 +306,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.AccountTypeSummaryC
         /// <summary>
         ///   Looks up a localized string similar to Question.
         /// </summary>
-        internal static string MessageBoxHandleAccountTypeEditQuestionTitle {
+        public static string MessageBoxHandleAccountTypeEditQuestionTitle {
             get {
                 return ResourceManager.GetString("MessageBoxHandleAccountTypeEditQuestionTitle", resourceCulture);
             }
@@ -315,7 +315,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.AccountTypeSummaryC
         /// <summary>
         ///   Looks up a localized string similar to Yes.
         /// </summary>
-        internal static string MessageBoxHandleAccountTypeEditQuestionYesButton {
+        public static string MessageBoxHandleAccountTypeEditQuestionYesButton {
             get {
                 return ResourceManager.GetString("MessageBoxHandleAccountTypeEditQuestionYesButton", resourceCulture);
             }
@@ -324,7 +324,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.AccountTypeSummaryC
         /// <summary>
         ///   Looks up a localized string similar to Account type was successfully edited.
         /// </summary>
-        internal static string MessageBoxHandleAccountTypeEditSuccessMessage {
+        public static string MessageBoxHandleAccountTypeEditSuccessMessage {
             get {
                 return ResourceManager.GetString("MessageBoxHandleAccountTypeEditSuccessMessage", resourceCulture);
             }
@@ -333,7 +333,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.AccountTypeSummaryC
         /// <summary>
         ///   Looks up a localized string similar to Ok.
         /// </summary>
-        internal static string MessageBoxHandleAccountTypeEditSuccessOkButton {
+        public static string MessageBoxHandleAccountTypeEditSuccessOkButton {
             get {
                 return ResourceManager.GetString("MessageBoxHandleAccountTypeEditSuccessOkButton", resourceCulture);
             }
@@ -342,7 +342,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.AccountTypeSummaryC
         /// <summary>
         ///   Looks up a localized string similar to Success.
         /// </summary>
-        internal static string MessageBoxHandleAccountTypeEditSuccessTitle {
+        public static string MessageBoxHandleAccountTypeEditSuccessTitle {
             get {
                 return ResourceManager.GetString("MessageBoxHandleAccountTypeEditSuccessTitle", resourceCulture);
             }
@@ -351,7 +351,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.AccountTypeSummaryC
         /// <summary>
         ///   Looks up a localized string similar to Account type already exist.
         /// </summary>
-        internal static string MessageBoxValidateAccountTypeErrorAlreadyExistMessage {
+        public static string MessageBoxValidateAccountTypeErrorAlreadyExistMessage {
             get {
                 return ResourceManager.GetString("MessageBoxValidateAccountTypeErrorAlreadyExistMessage", resourceCulture);
             }
@@ -360,7 +360,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.AccountTypeSummaryC
         /// <summary>
         ///   Looks up a localized string similar to Ok.
         /// </summary>
-        internal static string MessageBoxValidateAccountTypeErrorAlreadyExistOkButton {
+        public static string MessageBoxValidateAccountTypeErrorAlreadyExistOkButton {
             get {
                 return ResourceManager.GetString("MessageBoxValidateAccountTypeErrorAlreadyExistOkButton", resourceCulture);
             }
@@ -369,7 +369,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.AccountTypeSummaryC
         /// <summary>
         ///   Looks up a localized string similar to Error.
         /// </summary>
-        internal static string MessageBoxValidateAccountTypeErrorAlreadyExistTitle {
+        public static string MessageBoxValidateAccountTypeErrorAlreadyExistTitle {
             get {
                 return ResourceManager.GetString("MessageBoxValidateAccountTypeErrorAlreadyExistTitle", resourceCulture);
             }
@@ -378,7 +378,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.AccountTypeSummaryC
         /// <summary>
         ///   Looks up a localized string similar to Account type can&apos;t be empty.
         /// </summary>
-        internal static string MessageBoxValidateAccountTypeErrorEmptyMessage {
+        public static string MessageBoxValidateAccountTypeErrorEmptyMessage {
             get {
                 return ResourceManager.GetString("MessageBoxValidateAccountTypeErrorEmptyMessage", resourceCulture);
             }
@@ -387,7 +387,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.AccountTypeSummaryC
         /// <summary>
         ///   Looks up a localized string similar to Ok.
         /// </summary>
-        internal static string MessageBoxValidateAccountTypeErrorEmptyOkButton {
+        public static string MessageBoxValidateAccountTypeErrorEmptyOkButton {
             get {
                 return ResourceManager.GetString("MessageBoxValidateAccountTypeErrorEmptyOkButton", resourceCulture);
             }
@@ -396,7 +396,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.AccountTypeSummaryC
         /// <summary>
         ///   Looks up a localized string similar to Error.
         /// </summary>
-        internal static string MessageBoxValidateAccountTypeErrorEmptyTitle {
+        public static string MessageBoxValidateAccountTypeErrorEmptyTitle {
             get {
                 return ResourceManager.GetString("MessageBoxValidateAccountTypeErrorEmptyTitle", resourceCulture);
             }
@@ -405,7 +405,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.AccountTypeSummaryC
         /// <summary>
         ///   Looks up a localized string similar to Add a new account type :.
         /// </summary>
-        internal static string PlaceholderText {
+        public static string PlaceholderText {
             get {
                 return ResourceManager.GetString("PlaceholderText", resourceCulture);
             }

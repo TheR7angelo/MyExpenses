@@ -248,11 +248,6 @@
         <AutoGen>True</AutoGen>
         <DependentUpon>AddEditAccountContentPageResources.resx</DependentUpon>
       </Compile>
-      <Compile Update="Resources\Resx\ContentPages\AccountTypeSummaryContentPage\AccountTypeSummaryContentPageResources.Designer.cs">
-        <DesignTime>True</DesignTime>
-        <AutoGen>True</AutoGen>
-        <DependentUpon>AccountTypeSummaryContentPageResources.resx</DependentUpon>
-      </Compile>
       <Compile Update="ContentPages\CustomPopups\CustomPopupActivityIndicator\CustomPopupActivityIndicator.xaml.cs">
         <DependentUpon>CustomPopupActivityIndicator.xaml</DependentUpon>
         <SubType>Code</SubType>

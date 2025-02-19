@@ -6,9 +6,9 @@ using MyExpenses.Models.Maui.CustomPopup;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.SharedUtils.Collection;
 using MyExpenses.SharedUtils.Objects;
+using MyExpenses.SharedUtils.Resources.Resx.AccountTypeManagement;
 using MyExpenses.Smartphones.ContentPages.CustomPopups;
 using MyExpenses.Smartphones.ContentPages.CustomPopups.CustomPopupActivityIndicator;
-using MyExpenses.Smartphones.Resources.Resx.ContentPages.AccountTypeSummaryContentPage;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils;
 using Serilog;
@@ -110,17 +110,17 @@ public partial class AccountTypeSummaryContentPage
         {
             Log.Information("Account type and all related accounts were successfully deleted");
             await DisplayAlert(
-                AccountTypeSummaryContentPageResources.MessageBoxHandleAccountTypeDeleteSuccessTitle,
-                AccountTypeSummaryContentPageResources.MessageBoxHandleAccountTypeDeleteSuccessMessage,
-                AccountTypeSummaryContentPageResources.MessageBoxHandleAccountTypeDeleteSuccessOkButton);
+                AccountTypeManagementResources.MessageBoxHandleAccountTypeDeleteSuccessTitle,
+                AccountTypeManagementResources.MessageBoxHandleAccountTypeDeleteSuccessMessage,
+                AccountTypeManagementResources.MessageBoxHandleAccountTypeDeleteSuccessOkButton);
         }
         else
         {
             Log.Error(exception, "An error occurred while deleting currency symbol");
             await DisplayAlert(
-                AccountTypeSummaryContentPageResources.MessageBoxHandleAccountTypeDeleteErrorTitle,
-                AccountTypeSummaryContentPageResources.MessageBoxHandleAccountTypeDeleteErrorMessage,
-                AccountTypeSummaryContentPageResources.MessageBoxHandleAccountTypeDeleteErrorOkButton);
+                AccountTypeManagementResources.MessageBoxHandleAccountTypeDeleteErrorTitle,
+                AccountTypeManagementResources.MessageBoxHandleAccountTypeDeleteErrorMessage,
+                AccountTypeManagementResources.MessageBoxHandleAccountTypeDeleteErrorOkButton);
         }
     }
 
@@ -131,17 +131,17 @@ public partial class AccountTypeSummaryContentPage
         {
             Log.Information("Account type was successfully edited");
             await DisplayAlert(
-                AccountTypeSummaryContentPageResources.MessageBoxHandleAccountTypeEditSuccessTitle,
-                AccountTypeSummaryContentPageResources.MessageBoxHandleAccountTypeEditSuccessMessage,
-                AccountTypeSummaryContentPageResources.MessageBoxHandleAccountTypeEditSuccessOkButton);
+                AccountTypeManagementResources.MessageBoxHandleAccountTypeEditSuccessTitle,
+                AccountTypeManagementResources.MessageBoxHandleAccountTypeEditSuccessMessage,
+                AccountTypeManagementResources.MessageBoxHandleAccountTypeEditSuccessOkButton);
         }
         else
         {
             Log.Error(exception, "An error occurred while editing currency symbol");
             await DisplayAlert(
-                AccountTypeSummaryContentPageResources.MessageBoxHandleAccountTypeEditErrorTitle,
-                AccountTypeSummaryContentPageResources.MessageBoxHandleAccountTypeEditErrorMessage,
-                AccountTypeSummaryContentPageResources.MessageBoxHandleAccountTypeEditErrorOkButton);
+                AccountTypeManagementResources.MessageBoxHandleAccountTypeEditErrorTitle,
+                AccountTypeManagementResources.MessageBoxHandleAccountTypeEditErrorMessage,
+                AccountTypeManagementResources.MessageBoxHandleAccountTypeEditErrorOkButton);
         }
     }
 
@@ -154,10 +154,10 @@ public partial class AccountTypeSummaryContentPage
             if (!validate) return;
 
             var response = await DisplayAlert(
-                AccountTypeSummaryContentPageResources.MessageBoxHandleAccountTypeEditQuestionTitle,
-                AccountTypeSummaryContentPageResources.MessageBoxHandleAccountTypeEditQuestionMessage,
-                AccountTypeSummaryContentPageResources.MessageBoxHandleAccountTypeEditQuestionYesButton,
-                AccountTypeSummaryContentPageResources.MessageBoxHandleAccountTypeEditQuestionNoButton);
+                AccountTypeManagementResources.MessageBoxHandleAccountTypeEditQuestionTitle,
+                AccountTypeManagementResources.MessageBoxHandleAccountTypeEditQuestionMessage,
+                AccountTypeManagementResources.MessageBoxHandleAccountTypeEditQuestionYesButton,
+                AccountTypeManagementResources.MessageBoxHandleAccountTypeEditQuestionNoButton);
             if (!response) return;
 
             Log.Information("Attempt to edit account type : {AccountType}", json);
@@ -167,14 +167,14 @@ public partial class AccountTypeSummaryContentPage
         }
 
         var deleteResponse = await DisplayAlert(
-            AccountTypeSummaryContentPageResources.MessageBoxHandleAccountTypeDeleteQuestionTitle,
-            string.Format(AccountTypeSummaryContentPageResources.MessageBoxHandleAccountTypeDeleteQuestionMessage, Environment.NewLine),
-            AccountTypeSummaryContentPageResources.MessageBoxHandleAccountTypeDeleteQuestionYesButton,
-            AccountTypeSummaryContentPageResources.MessageBoxHandleAccountTypeDeleteQuestionNoButton);
+            AccountTypeManagementResources.MessageBoxHandleAccountTypeDeleteQuestionTitle,
+            string.Format(AccountTypeManagementResources.MessageBoxHandleAccountTypeDeleteQuestionMessage, Environment.NewLine),
+            AccountTypeManagementResources.MessageBoxHandleAccountTypeDeleteQuestionYesButton,
+            AccountTypeManagementResources.MessageBoxHandleAccountTypeDeleteQuestionNoButton);
         if (!deleteResponse) return;
 
         await Task.Delay(TimeSpan.FromMilliseconds(100));
-        this.ShowCustomPopupActivityIndicator(AccountTypeSummaryContentPageResources.CustomPopupActivityIndicatorDeleteAccountType);
+        this.ShowCustomPopupActivityIndicator(AccountTypeManagementResources.ActivityIndicatorDeleteAccountType);
         await Task.Delay(TimeSpan.FromMilliseconds(100));
 
         Log.Information("Attempt to delete currency symbol : {Symbol}", json);
@@ -202,10 +202,10 @@ public partial class AccountTypeSummaryContentPage
         if (!validate) return;
 
         var response = await DisplayAlert(
-            AccountTypeSummaryContentPageResources.MesageBoxAddNewAccountTypeQuestionTitle,
-            string.Format(AccountTypeSummaryContentPageResources.MesageBoxAddNewAccountTypeQuestionMessage, AccountTypeName),
-            AccountTypeSummaryContentPageResources.MesageBoxAddNewAccountTypeQuestionYesButton,
-            AccountTypeSummaryContentPageResources.MesageBoxAddNewAccountTypeQuestionNoButton);
+            AccountTypeManagementResources.MesageBoxAddNewAccountTypeQuestionTitle,
+            string.Format(AccountTypeManagementResources.MesageBoxAddNewAccountTypeQuestionMessage, AccountTypeName),
+            AccountTypeManagementResources.MesageBoxAddNewAccountTypeQuestionYesButton,
+            AccountTypeManagementResources.MesageBoxAddNewAccountTypeQuestionNoButton);
         if (!response) return;
 
         // ReSharper disable once HeapView.ObjectAllocation.Evident
@@ -229,17 +229,17 @@ public partial class AccountTypeSummaryContentPage
             AccountTypeName = string.Empty;
 
             await DisplayAlert(
-                AccountTypeSummaryContentPageResources.MesageBoxAddNewAccountTypeSuccessTitle,
-                AccountTypeSummaryContentPageResources.MesageBoxAddNewAccountTypeSuccessMessage,
-                AccountTypeSummaryContentPageResources.MesageBoxAddNewAccountTypeSuccessOkButton);
+                AccountTypeManagementResources.MesageBoxAddNewAccountTypeSuccessTitle,
+                AccountTypeManagementResources.MesageBoxAddNewAccountTypeSuccessMessage,
+                AccountTypeManagementResources.MesageBoxAddNewAccountTypeSuccessOkButton);
         }
         else
         {
             Log.Error(exception, "An error occurred while adding new account type");
             await DisplayAlert(
-                AccountTypeSummaryContentPageResources.MesageBoxAddNewAccountTypeErrorTitle,
-                AccountTypeSummaryContentPageResources.MesageBoxAddNewAccountTypeErrorMessage,
-                AccountTypeSummaryContentPageResources.MesageBoxAddNewAccountTypeErrorOkButton);
+                AccountTypeManagementResources.MessageBoxAddNewAccountTypeErrorTitle,
+                AccountTypeManagementResources.MessageBoxAddNewAccountTypeErrorMessage,
+                AccountTypeManagementResources.MessageBoxAddNewAccountTypeErrorOkButton);
         }
     }
 
@@ -281,8 +281,8 @@ public partial class AccountTypeSummaryContentPage
 
     private void UpdateLanguage()
     {
-        PlaceholderText = AccountTypeSummaryContentPageResources.PlaceholderText;
-        ButtonValidText = AccountTypeSummaryContentPageResources.ButtonValidText;
+        PlaceholderText = AccountTypeManagementResources.PlaceholderText;
+        ButtonValidText = AccountTypeManagementResources.ButtonValidText;
     }
 
     private async Task<bool> ValidateAccountType(string? accountTypeName = null)
@@ -295,9 +295,9 @@ public partial class AccountTypeSummaryContentPage
         if (string.IsNullOrWhiteSpace(accountTypeNameToTest))
         {
             await DisplayAlert(
-                AccountTypeSummaryContentPageResources.MessageBoxValidateAccountTypeErrorEmptyTitle,
-                AccountTypeSummaryContentPageResources.MessageBoxValidateAccountTypeErrorEmptyMessage,
-                AccountTypeSummaryContentPageResources.MessageBoxValidateAccountTypeErrorEmptyOkButton);
+                AccountTypeManagementResources.MessageBoxValidateAccountTypeErrorEmptyTitle,
+                AccountTypeManagementResources.MessageBoxValidateAccountTypeErrorEmptyMessage,
+                AccountTypeManagementResources.MessageBoxValidateAccountTypeErrorEmptyOkButton);
             return false;
         }
 
@@ -306,9 +306,9 @@ public partial class AccountTypeSummaryContentPage
         if (alreadyExist)
         {
             await DisplayAlert(
-                AccountTypeSummaryContentPageResources.MessageBoxValidateAccountTypeErrorAlreadyExistTitle,
-                AccountTypeSummaryContentPageResources.MessageBoxValidateAccountTypeErrorAlreadyExistMessage,
-                AccountTypeSummaryContentPageResources.MessageBoxValidateAccountTypeErrorAlreadyExistOkButton);
+                AccountTypeManagementResources.MessageBoxValidateAccountTypeErrorAlreadyExistTitle,
+                AccountTypeManagementResources.MessageBoxValidateAccountTypeErrorAlreadyExistMessage,
+                AccountTypeManagementResources.MessageBoxValidateAccountTypeErrorAlreadyExistOkButton);
             return false;
         }
 
