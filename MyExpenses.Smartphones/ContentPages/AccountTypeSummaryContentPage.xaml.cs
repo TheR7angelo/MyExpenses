@@ -110,17 +110,17 @@ public partial class AccountTypeSummaryContentPage
         {
             Log.Information("Account type and all related accounts were successfully deleted");
             await DisplayAlert(
-                AccountTypeManagementResources.MessageBoxHandleAccountTypeDeleteSuccessTitle,
-                AccountTypeManagementResources.MessageBoxHandleAccountTypeDeleteSuccessMessage,
-                AccountTypeManagementResources.MessageBoxHandleAccountTypeDeleteSuccessOkButton);
+                AccountTypeManagementResources.MessageBoxAccountTypeDeleteSuccessTitle,
+                AccountTypeManagementResources.MessageBoxAccountTypeDeleteSuccessMessage,
+                AccountTypeManagementResources.MessageBoxAccountTypeDeleteSuccessOkButton);
         }
         else
         {
             Log.Error(exception, "An error occurred while deleting currency symbol");
             await DisplayAlert(
-                AccountTypeManagementResources.MessageBoxHandleAccountTypeDeleteErrorTitle,
-                AccountTypeManagementResources.MessageBoxHandleAccountTypeDeleteErrorMessage,
-                AccountTypeManagementResources.MessageBoxHandleAccountTypeDeleteErrorOkButton);
+                AccountTypeManagementResources.MessageBoxAccountTypeDeleteErrorTitle,
+                AccountTypeManagementResources.MessageBoxAccountTypeDeleteErrorMessage,
+                AccountTypeManagementResources.MessageBoxAccountTypeDeleteErrorOkButton);
         }
     }
 
@@ -131,17 +131,17 @@ public partial class AccountTypeSummaryContentPage
         {
             Log.Information("Account type was successfully edited");
             await DisplayAlert(
-                AccountTypeManagementResources.MessageBoxHandleAccountTypeEditSuccessTitle,
-                AccountTypeManagementResources.MessageBoxHandleAccountTypeEditSuccessMessage,
-                AccountTypeManagementResources.MessageBoxHandleAccountTypeEditSuccessOkButton);
+                AccountTypeManagementResources.MessageBoxAccountTypeEditSuccessTitle,
+                AccountTypeManagementResources.MessageBoxAccountTypeEditSuccessMessage,
+                AccountTypeManagementResources.MessageBoxAccountTypeEditSuccessOkButton);
         }
         else
         {
             Log.Error(exception, "An error occurred while editing currency symbol");
             await DisplayAlert(
-                AccountTypeManagementResources.MessageBoxHandleAccountTypeEditErrorTitle,
-                AccountTypeManagementResources.MessageBoxHandleAccountTypeEditErrorMessage,
-                AccountTypeManagementResources.MessageBoxHandleAccountTypeEditErrorOkButton);
+                AccountTypeManagementResources.MessageBoxAccountTypeEditErrorTitle,
+                AccountTypeManagementResources.MessageBoxAccountTypeEditErrorMessage,
+                AccountTypeManagementResources.MessageBoxAccountTypeEditErrorOkButton);
         }
     }
 
@@ -154,10 +154,10 @@ public partial class AccountTypeSummaryContentPage
             if (!validate) return;
 
             var response = await DisplayAlert(
-                AccountTypeManagementResources.MessageBoxHandleAccountTypeEditQuestionTitle,
-                AccountTypeManagementResources.MessageBoxHandleAccountTypeEditQuestionMessage,
-                AccountTypeManagementResources.MessageBoxHandleAccountTypeEditQuestionYesButton,
-                AccountTypeManagementResources.MessageBoxHandleAccountTypeEditQuestionNoButton);
+                AccountTypeManagementResources.MessageBoxAccountTypeEditQuestionTitle,
+                AccountTypeManagementResources.MessageBoxAccountTypeEditQuestionMessage,
+                AccountTypeManagementResources.MessageBoxAccountTypeEditQuestionYesButton,
+                AccountTypeManagementResources.MessageBoxAccountTypeEditQuestionNoButton);
             if (!response) return;
 
             Log.Information("Attempt to edit account type : {AccountType}", json);
@@ -167,10 +167,10 @@ public partial class AccountTypeSummaryContentPage
         }
 
         var deleteResponse = await DisplayAlert(
-            AccountTypeManagementResources.MessageBoxHandleAccountTypeDeleteQuestionTitle,
-            string.Format(AccountTypeManagementResources.MessageBoxHandleAccountTypeDeleteQuestionMessage, Environment.NewLine),
-            AccountTypeManagementResources.MessageBoxHandleAccountTypeDeleteQuestionYesButton,
-            AccountTypeManagementResources.MessageBoxHandleAccountTypeDeleteQuestionNoButton);
+            AccountTypeManagementResources.MessageBoxAccountTypeDeleteQuestionTitle,
+            string.Format(AccountTypeManagementResources.MessageBoxAccountTypeDeleteQuestionMessage, Environment.NewLine),
+            AccountTypeManagementResources.MessageBoxAccountTypeDeleteQuestionYesButton,
+            AccountTypeManagementResources.MessageBoxAccountTypeDeleteQuestionNoButton);
         if (!deleteResponse) return;
 
         await Task.Delay(TimeSpan.FromMilliseconds(100));
@@ -202,10 +202,10 @@ public partial class AccountTypeSummaryContentPage
         if (!validate) return;
 
         var response = await DisplayAlert(
-            AccountTypeManagementResources.MesageBoxAddNewAccountTypeQuestionTitle,
-            string.Format(AccountTypeManagementResources.MesageBoxAddNewAccountTypeQuestionMessage, AccountTypeName),
-            AccountTypeManagementResources.MesageBoxAddNewAccountTypeQuestionYesButton,
-            AccountTypeManagementResources.MesageBoxAddNewAccountTypeQuestionNoButton);
+            AccountTypeManagementResources.MessageBoxAddNewAccountTypeQuestionTitle,
+            string.Format(AccountTypeManagementResources.MessageBoxAddNewAccountTypeQuestionMessage, AccountTypeName),
+            AccountTypeManagementResources.MessageBoxAddNewAccountTypeQuestionYesButton,
+            AccountTypeManagementResources.MessageBoxAddNewAccountTypeQuestionNoButton);
         if (!response) return;
 
         // ReSharper disable once HeapView.ObjectAllocation.Evident
@@ -229,9 +229,9 @@ public partial class AccountTypeSummaryContentPage
             AccountTypeName = string.Empty;
 
             await DisplayAlert(
-                AccountTypeManagementResources.MesageBoxAddNewAccountTypeSuccessTitle,
-                AccountTypeManagementResources.MesageBoxAddNewAccountTypeSuccessMessage,
-                AccountTypeManagementResources.MesageBoxAddNewAccountTypeSuccessOkButton);
+                AccountTypeManagementResources.MessageBoxAddNewAccountTypeSuccessTitle,
+                AccountTypeManagementResources.MessageBoxAddNewAccountTypeSuccessMessage,
+                AccountTypeManagementResources.MessageBoxAddNewAccountTypeSuccessOkButton);
         }
         else
         {

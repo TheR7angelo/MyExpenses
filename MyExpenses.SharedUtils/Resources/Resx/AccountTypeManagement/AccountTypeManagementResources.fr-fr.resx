@@ -23,55 +23,55 @@
     <data name="MessageBoxAddNewAccountTypeErrorTitle" xml:space="preserve">
         <value>Erreur</value>
     </data>
-    <data name="MesageBoxAddNewAccountTypeQuestionMessage" xml:space="preserve">
+    <data name="MessageBoxAddNewAccountTypeQuestionMessage" xml:space="preserve">
         <value>Voulez-vous vraiment ajouter "{0}" comme nouveau type de compte ?</value>
     </data>
-    <data name="MesageBoxAddNewAccountTypeQuestionNoButton" xml:space="preserve">
+    <data name="MessageBoxAddNewAccountTypeQuestionNoButton" xml:space="preserve">
         <value>Non</value>
     </data>
-    <data name="MesageBoxAddNewAccountTypeQuestionTitle" xml:space="preserve">
+    <data name="MessageBoxAddNewAccountTypeQuestionTitle" xml:space="preserve">
         <value>Ajouter un nouveau type de compte ?</value>
     </data>
-    <data name="MesageBoxAddNewAccountTypeQuestionYesButton" xml:space="preserve">
+    <data name="MessageBoxAddNewAccountTypeQuestionYesButton" xml:space="preserve">
         <value>Oui</value>
     </data>
-    <data name="MesageBoxAddNewAccountTypeSuccessMessage" xml:space="preserve">
-        <value>Le type de compte a été ajouté avec succès</value>
+    <data name="MessageBoxAddNewAccountTypeSuccessMessage" xml:space="preserve">
+        <value>Le nouveau type de compte a été ajouté avec succès</value>
     </data>
-    <data name="MesageBoxAddNewAccountTypeSuccessOkButton" xml:space="preserve">
+    <data name="MessageBoxAddNewAccountTypeSuccessOkButton" xml:space="preserve">
         <value>Ok</value>
     </data>
-    <data name="MesageBoxAddNewAccountTypeSuccessTitle" xml:space="preserve">
+    <data name="MessageBoxAddNewAccountTypeSuccessTitle" xml:space="preserve">
         <value>Succès</value>
     </data>
-    <data name="MessageBoxHandleAccountTypeDeleteErrorMessage" xml:space="preserve">
+    <data name="MessageBoxAccountTypeDeleteErrorMessage" xml:space="preserve">
         <value>Une erreur s'est produite lors de la suppression du type de compte, veuillez réessayer</value>
     </data>
-    <data name="MessageBoxHandleAccountTypeDeleteErrorOkButton" xml:space="preserve">
+    <data name="MessageBoxAccountTypeDeleteErrorOkButton" xml:space="preserve">
         <value>Ok</value>
     </data>
-    <data name="MessageBoxHandleAccountTypeDeleteErrorTitle" xml:space="preserve">
+    <data name="MessageBoxAccountTypeDeleteErrorTitle" xml:space="preserve">
         <value>Erreur</value>
     </data>
-    <data name="MessageBoxHandleAccountTypeDeleteQuestionMessage" xml:space="preserve">
+    <data name="MessageBoxAccountTypeDeleteQuestionMessage" xml:space="preserve">
         <value>Etes-vous sûr de vouloir supprimer ce type de compte ?{0}Tous les comptes qui utilisent ce type de compte seront également supprimés, attention l'opération peut prendre plus ou moins de temps en fonction du nombre de données à supprimer.</value>
     </data>
-    <data name="MessageBoxHandleAccountTypeDeleteQuestionNoButton" xml:space="preserve">
+    <data name="MessageBoxAccountTypeDeleteQuestionNoButton" xml:space="preserve">
         <value>Non</value>
     </data>
-    <data name="MessageBoxHandleAccountTypeDeleteQuestionTitle" xml:space="preserve">
+    <data name="MessageBoxAccountTypeDeleteQuestionTitle" xml:space="preserve">
         <value>Question</value>
     </data>
-    <data name="MessageBoxHandleAccountTypeDeleteQuestionYesButton" xml:space="preserve">
+    <data name="MessageBoxAccountTypeDeleteQuestionYesButton" xml:space="preserve">
         <value>Oui</value>
     </data>
-    <data name="MessageBoxHandleAccountTypeDeleteSuccessMessage" xml:space="preserve">
+    <data name="MessageBoxAccountTypeDeleteSuccessMessage" xml:space="preserve">
         <value>Le type de compte et tous les comptes associés ont été supprimés avec succès</value>
     </data>
-    <data name="MessageBoxHandleAccountTypeDeleteSuccessOkButton" xml:space="preserve">
+    <data name="MessageBoxAccountTypeDeleteSuccessOkButton" xml:space="preserve">
         <value>Ok</value>
     </data>
-    <data name="MessageBoxHandleAccountTypeDeleteSuccessTitle" xml:space="preserve">
+    <data name="MessageBoxAccountTypeDeleteSuccessTitle" xml:space="preserve">
         <value>Succès</value>
     </data>
     <data name="MessageBoxValidateAccountTypeErrorAlreadyExistMessage" xml:space="preserve">
@@ -98,34 +98,34 @@
     <data name="ActivityIndicatorDeleteAccountType" xml:space="preserve">
         <value>Suppression du type de compte et de tous les comptes associés</value>
     </data>
-    <data name="MessageBoxHandleAccountTypeEditErrorMessage" xml:space="preserve">
+    <data name="MessageBoxAccountTypeEditErrorMessage" xml:space="preserve">
         <value>Une erreur s'est produite lors de la modification du symbole monétaire, veuillez réessayer</value>
     </data>
-    <data name="MessageBoxHandleAccountTypeEditErrorOkButton" xml:space="preserve">
+    <data name="MessageBoxAccountTypeEditErrorOkButton" xml:space="preserve">
         <value>Ok</value>
     </data>
-    <data name="MessageBoxHandleAccountTypeEditErrorTitle" xml:space="preserve">
+    <data name="MessageBoxAccountTypeEditErrorTitle" xml:space="preserve">
         <value>Erreur</value>
     </data>
-    <data name="MessageBoxHandleAccountTypeEditQuestionMessage" xml:space="preserve">
+    <data name="MessageBoxAccountTypeEditQuestionMessage" xml:space="preserve">
         <value>Voulez-vous vraiment modifier ce type de compte ?</value>
     </data>
-    <data name="MessageBoxHandleAccountTypeEditQuestionNoButton" xml:space="preserve">
+    <data name="MessageBoxAccountTypeEditQuestionNoButton" xml:space="preserve">
         <value>Non</value>
     </data>
-    <data name="MessageBoxHandleAccountTypeEditQuestionTitle" xml:space="preserve">
+    <data name="MessageBoxAccountTypeEditQuestionTitle" xml:space="preserve">
         <value>Question</value>
     </data>
-    <data name="MessageBoxHandleAccountTypeEditQuestionYesButton" xml:space="preserve">
+    <data name="MessageBoxAccountTypeEditQuestionYesButton" xml:space="preserve">
         <value>Oui</value>
     </data>
-    <data name="MessageBoxHandleAccountTypeEditSuccessMessage" xml:space="preserve">
+    <data name="MessageBoxAccountTypeEditSuccessMessage" xml:space="preserve">
         <value>Le type de compte a été modifié avec succès</value>
     </data>
-    <data name="MessageBoxHandleAccountTypeEditSuccessOkButton" xml:space="preserve">
+    <data name="MessageBoxAccountTypeEditSuccessOkButton" xml:space="preserve">
         <value>Ok</value>
     </data>
-    <data name="MessageBoxHandleAccountTypeEditSuccessTitle" xml:space="preserve">
+    <data name="MessageBoxAccountTypeEditSuccessTitle" xml:space="preserve">
         <value>Succès</value>
     </data>
 </root>

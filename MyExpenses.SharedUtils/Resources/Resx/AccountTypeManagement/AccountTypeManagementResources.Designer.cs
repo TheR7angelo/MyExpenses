@@ -79,65 +79,182 @@ namespace MyExpenses.SharedUtils.Resources.Resx.AccountTypeManagement {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Do you really want to add &quot;{0}&quot; as a new account type ?.
+        ///   Looks up a localized string similar to An error occurred while deleting account type, please retry.
         /// </summary>
-        public static string MesageBoxAddNewAccountTypeQuestionMessage {
+        public static string MessageBoxAccountTypeDeleteErrorMessage {
             get {
-                return ResourceManager.GetString("MesageBoxAddNewAccountTypeQuestionMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to No.
-        /// </summary>
-        public static string MesageBoxAddNewAccountTypeQuestionNoButton {
-            get {
-                return ResourceManager.GetString("MesageBoxAddNewAccountTypeQuestionNoButton", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Add new account type ?.
-        /// </summary>
-        public static string MesageBoxAddNewAccountTypeQuestionTitle {
-            get {
-                return ResourceManager.GetString("MesageBoxAddNewAccountTypeQuestionTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Yes.
-        /// </summary>
-        public static string MesageBoxAddNewAccountTypeQuestionYesButton {
-            get {
-                return ResourceManager.GetString("MesageBoxAddNewAccountTypeQuestionYesButton", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Account type was successfully added.
-        /// </summary>
-        public static string MesageBoxAddNewAccountTypeSuccessMessage {
-            get {
-                return ResourceManager.GetString("MesageBoxAddNewAccountTypeSuccessMessage", resourceCulture);
+                return ResourceManager.GetString("MessageBoxAccountTypeDeleteErrorMessage", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Ok.
         /// </summary>
-        public static string MesageBoxAddNewAccountTypeSuccessOkButton {
+        public static string MessageBoxAccountTypeDeleteErrorOkButton {
             get {
-                return ResourceManager.GetString("MesageBoxAddNewAccountTypeSuccessOkButton", resourceCulture);
+                return ResourceManager.GetString("MessageBoxAccountTypeDeleteErrorOkButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        public static string MessageBoxAccountTypeDeleteErrorTitle {
+            get {
+                return ResourceManager.GetString("MessageBoxAccountTypeDeleteErrorTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to remove this account type?{0}All accounts that use this account type will also be deleted, be careful the operation may take more or less time depending on the number of data to be deleted.
+        /// </summary>
+        public static string MessageBoxAccountTypeDeleteQuestionMessage {
+            get {
+                return ResourceManager.GetString("MessageBoxAccountTypeDeleteQuestionMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No.
+        /// </summary>
+        public static string MessageBoxAccountTypeDeleteQuestionNoButton {
+            get {
+                return ResourceManager.GetString("MessageBoxAccountTypeDeleteQuestionNoButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Question.
+        /// </summary>
+        public static string MessageBoxAccountTypeDeleteQuestionTitle {
+            get {
+                return ResourceManager.GetString("MessageBoxAccountTypeDeleteQuestionTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yes.
+        /// </summary>
+        public static string MessageBoxAccountTypeDeleteQuestionYesButton {
+            get {
+                return ResourceManager.GetString("MessageBoxAccountTypeDeleteQuestionYesButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Account type and all related accounts were successfully deleted.
+        /// </summary>
+        public static string MessageBoxAccountTypeDeleteSuccessMessage {
+            get {
+                return ResourceManager.GetString("MessageBoxAccountTypeDeleteSuccessMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ok.
+        /// </summary>
+        public static string MessageBoxAccountTypeDeleteSuccessOkButton {
+            get {
+                return ResourceManager.GetString("MessageBoxAccountTypeDeleteSuccessOkButton", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Success.
         /// </summary>
-        public static string MesageBoxAddNewAccountTypeSuccessTitle {
+        public static string MessageBoxAccountTypeDeleteSuccessTitle {
             get {
-                return ResourceManager.GetString("MesageBoxAddNewAccountTypeSuccessTitle", resourceCulture);
+                return ResourceManager.GetString("MessageBoxAccountTypeDeleteSuccessTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error occurred while editing currency symbol, please retry.
+        /// </summary>
+        public static string MessageBoxAccountTypeEditErrorMessage {
+            get {
+                return ResourceManager.GetString("MessageBoxAccountTypeEditErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ok.
+        /// </summary>
+        public static string MessageBoxAccountTypeEditErrorOkButton {
+            get {
+                return ResourceManager.GetString("MessageBoxAccountTypeEditErrorOkButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        public static string MessageBoxAccountTypeEditErrorTitle {
+            get {
+                return ResourceManager.GetString("MessageBoxAccountTypeEditErrorTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you really want to edit this account type ?.
+        /// </summary>
+        public static string MessageBoxAccountTypeEditQuestionMessage {
+            get {
+                return ResourceManager.GetString("MessageBoxAccountTypeEditQuestionMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No.
+        /// </summary>
+        public static string MessageBoxAccountTypeEditQuestionNoButton {
+            get {
+                return ResourceManager.GetString("MessageBoxAccountTypeEditQuestionNoButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Question.
+        /// </summary>
+        public static string MessageBoxAccountTypeEditQuestionTitle {
+            get {
+                return ResourceManager.GetString("MessageBoxAccountTypeEditQuestionTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yes.
+        /// </summary>
+        public static string MessageBoxAccountTypeEditQuestionYesButton {
+            get {
+                return ResourceManager.GetString("MessageBoxAccountTypeEditQuestionYesButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Account type was successfully edited.
+        /// </summary>
+        public static string MessageBoxAccountTypeEditSuccessMessage {
+            get {
+                return ResourceManager.GetString("MessageBoxAccountTypeEditSuccessMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ok.
+        /// </summary>
+        public static string MessageBoxAccountTypeEditSuccessOkButton {
+            get {
+                return ResourceManager.GetString("MessageBoxAccountTypeEditSuccessOkButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Success.
+        /// </summary>
+        public static string MessageBoxAccountTypeEditSuccessTitle {
+            get {
+                return ResourceManager.GetString("MessageBoxAccountTypeEditSuccessTitle", resourceCulture);
             }
         }
         
@@ -169,182 +286,65 @@ namespace MyExpenses.SharedUtils.Resources.Resx.AccountTypeManagement {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to An error occurred while deleting account type, please retry.
+        ///   Looks up a localized string similar to Do you really want to add &quot;{0}&quot; as a new account type ?.
         /// </summary>
-        public static string MessageBoxHandleAccountTypeDeleteErrorMessage {
+        public static string MessageBoxAddNewAccountTypeQuestionMessage {
             get {
-                return ResourceManager.GetString("MessageBoxHandleAccountTypeDeleteErrorMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Ok.
-        /// </summary>
-        public static string MessageBoxHandleAccountTypeDeleteErrorOkButton {
-            get {
-                return ResourceManager.GetString("MessageBoxHandleAccountTypeDeleteErrorOkButton", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Error.
-        /// </summary>
-        public static string MessageBoxHandleAccountTypeDeleteErrorTitle {
-            get {
-                return ResourceManager.GetString("MessageBoxHandleAccountTypeDeleteErrorTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Are you sure you want to remove this account type?{0}All accounts that use this account type will also be deleted, be careful the operation may take more or less time depending on the number of data to be deleted.
-        /// </summary>
-        public static string MessageBoxHandleAccountTypeDeleteQuestionMessage {
-            get {
-                return ResourceManager.GetString("MessageBoxHandleAccountTypeDeleteQuestionMessage", resourceCulture);
+                return ResourceManager.GetString("MessageBoxAddNewAccountTypeQuestionMessage", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to No.
         /// </summary>
-        public static string MessageBoxHandleAccountTypeDeleteQuestionNoButton {
+        public static string MessageBoxAddNewAccountTypeQuestionNoButton {
             get {
-                return ResourceManager.GetString("MessageBoxHandleAccountTypeDeleteQuestionNoButton", resourceCulture);
+                return ResourceManager.GetString("MessageBoxAddNewAccountTypeQuestionNoButton", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Question.
+        ///   Looks up a localized string similar to Add new account type ?.
         /// </summary>
-        public static string MessageBoxHandleAccountTypeDeleteQuestionTitle {
+        public static string MessageBoxAddNewAccountTypeQuestionTitle {
             get {
-                return ResourceManager.GetString("MessageBoxHandleAccountTypeDeleteQuestionTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Yes.
-        /// </summary>
-        public static string MessageBoxHandleAccountTypeDeleteQuestionYesButton {
-            get {
-                return ResourceManager.GetString("MessageBoxHandleAccountTypeDeleteQuestionYesButton", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Account type and all related accounts were successfully deleted.
-        /// </summary>
-        public static string MessageBoxHandleAccountTypeDeleteSuccessMessage {
-            get {
-                return ResourceManager.GetString("MessageBoxHandleAccountTypeDeleteSuccessMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Ok.
-        /// </summary>
-        public static string MessageBoxHandleAccountTypeDeleteSuccessOkButton {
-            get {
-                return ResourceManager.GetString("MessageBoxHandleAccountTypeDeleteSuccessOkButton", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Success.
-        /// </summary>
-        public static string MessageBoxHandleAccountTypeDeleteSuccessTitle {
-            get {
-                return ResourceManager.GetString("MessageBoxHandleAccountTypeDeleteSuccessTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to An error occurred while editing currency symbol, please retry.
-        /// </summary>
-        public static string MessageBoxHandleAccountTypeEditErrorMessage {
-            get {
-                return ResourceManager.GetString("MessageBoxHandleAccountTypeEditErrorMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Ok.
-        /// </summary>
-        public static string MessageBoxHandleAccountTypeEditErrorOkButton {
-            get {
-                return ResourceManager.GetString("MessageBoxHandleAccountTypeEditErrorOkButton", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Error.
-        /// </summary>
-        public static string MessageBoxHandleAccountTypeEditErrorTitle {
-            get {
-                return ResourceManager.GetString("MessageBoxHandleAccountTypeEditErrorTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Do you really want to edit this account type ?.
-        /// </summary>
-        public static string MessageBoxHandleAccountTypeEditQuestionMessage {
-            get {
-                return ResourceManager.GetString("MessageBoxHandleAccountTypeEditQuestionMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to No.
-        /// </summary>
-        public static string MessageBoxHandleAccountTypeEditQuestionNoButton {
-            get {
-                return ResourceManager.GetString("MessageBoxHandleAccountTypeEditQuestionNoButton", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Question.
-        /// </summary>
-        public static string MessageBoxHandleAccountTypeEditQuestionTitle {
-            get {
-                return ResourceManager.GetString("MessageBoxHandleAccountTypeEditQuestionTitle", resourceCulture);
+                return ResourceManager.GetString("MessageBoxAddNewAccountTypeQuestionTitle", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Yes.
         /// </summary>
-        public static string MessageBoxHandleAccountTypeEditQuestionYesButton {
+        public static string MessageBoxAddNewAccountTypeQuestionYesButton {
             get {
-                return ResourceManager.GetString("MessageBoxHandleAccountTypeEditQuestionYesButton", resourceCulture);
+                return ResourceManager.GetString("MessageBoxAddNewAccountTypeQuestionYesButton", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Account type was successfully edited.
+        ///   Looks up a localized string similar to The new account type has been successfully added.
         /// </summary>
-        public static string MessageBoxHandleAccountTypeEditSuccessMessage {
+        public static string MessageBoxAddNewAccountTypeSuccessMessage {
             get {
-                return ResourceManager.GetString("MessageBoxHandleAccountTypeEditSuccessMessage", resourceCulture);
+                return ResourceManager.GetString("MessageBoxAddNewAccountTypeSuccessMessage", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Ok.
         /// </summary>
-        public static string MessageBoxHandleAccountTypeEditSuccessOkButton {
+        public static string MessageBoxAddNewAccountTypeSuccessOkButton {
             get {
-                return ResourceManager.GetString("MessageBoxHandleAccountTypeEditSuccessOkButton", resourceCulture);
+                return ResourceManager.GetString("MessageBoxAddNewAccountTypeSuccessOkButton", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Success.
         /// </summary>
-        public static string MessageBoxHandleAccountTypeEditSuccessTitle {
+        public static string MessageBoxAddNewAccountTypeSuccessTitle {
             get {
-                return ResourceManager.GetString("MessageBoxHandleAccountTypeEditSuccessTitle", resourceCulture);
+                return ResourceManager.GetString("MessageBoxAddNewAccountTypeSuccessTitle", resourceCulture);
             }
         }
         
