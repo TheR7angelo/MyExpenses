@@ -257,8 +257,6 @@ public partial class AccountTypeSummaryContentPage
 
     private async Task ShowCustomPopupEntryForCurrency(TAccountType accountType)
     {
-        var placeHolder = AccountTypeSummaryContentPageResources.PlaceholderText;
-
         // ReSharper disable once HeapView.ObjectAllocation.Evident
         // The creation of a new CustomPopupEntry instance is necessary to display a popup dialog.
         // This object encapsulates the properties (`MaxLength`, `PlaceholderText`, etc.) specific to the popup's configuration.
@@ -266,7 +264,7 @@ public partial class AccountTypeSummaryContentPage
         var customPopupEntry = new CustomPopupEntry
         {
             MaxLenght = MaxLength,
-            PlaceholderText = placeHolder,
+            PlaceholderText = PlaceholderText,
             EntryText = accountType.Name!,
             CanDelete = true
         };
