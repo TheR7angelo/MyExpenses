@@ -95,4 +95,64 @@
     <data name="ButtonCancelUpdateText" xml:space="preserve">
         <value>Annuler</value>
     </data>
+    <data name="MessageBoxValidBankTransferErrorTitle" xml:space="preserve">
+        <value>Erreur</value>
+    </data>
+    <data name="TitleIsDirty" xml:space="preserve">
+        <value>Changements en cours</value>
+    </data>
+    <data name="MessageBoxDeleteBankTransferErrorMessage" xml:space="preserve">
+        <value>Une erreur s'est produite lors de la mise à jour. Veuillez réessayer</value>
+    </data>
+    <data name="MessageBoxDeleteBankTransferErrorOkButton" xml:space="preserve">
+        <value>Ok</value>
+    </data>
+    <data name="MessageBoxDeleteBankTransferErrorTitle" xml:space="preserve">
+        <value>Erreur</value>
+    </data>
+    <data name="MessageBoxDeleteBankTransferMessage" xml:space="preserve">
+        <value>Voulez-vous vraiment supprimer ce virement bancaire ?</value>
+    </data>
+    <data name="MessageBoxDeleteBankTransferNoButton" xml:space="preserve">
+        <value>Non</value>
+    </data>
+    <data name="MessageBoxDeleteBankTransferSuccessMessage" xml:space="preserve">
+        <value>Le virement bancaire a été supprimé avec succès</value>
+    </data>
+    <data name="MessageBoxDeleteBankTransferSuccessOkButton" xml:space="preserve">
+        <value>Ok</value>
+    </data>
+    <data name="MessageBoxDeleteBankTransferSuccessTitle" xml:space="preserve">
+        <value>Succès</value>
+    </data>
+    <data name="MessageBoxDeleteBankTransferTitle" xml:space="preserve">
+        <value>Question</value>
+    </data>
+    <data name="MessageBoxDeleteBankTransferYesButton" xml:space="preserve">
+        <value>Oui</value>
+    </data>
+    <data name="MessageBoxBankTransferUpdateErrorMessage" xml:space="preserve">
+        <value>Une erreur s'est produite lors de la mise à jour. Veuillez réessayer</value>
+    </data>
+    <data name="MessageBoxBankTransferUpdateErrorOkButton" xml:space="preserve">
+        <value>Ok</value>
+    </data>
+    <data name="MessageBoxBankTransferUpdateErrorTitle" xml:space="preserve">
+        <value>Erreur</value>
+    </data>
+    <data name="MessageBoxBankTransferUpdateMessage" xml:space="preserve">
+        <value>Souhaitez-vous sauvegarder les modifications apportées à cet enregistrement ?</value>
+    </data>
+    <data name="MessageBoxBankTransferUpdateNoButton" xml:space="preserve">
+        <value>Non</value>
+    </data>
+    <data name="MessageBoxBankTransferUpdateTitle" xml:space="preserve">
+        <value>Confirmation</value>
+    </data>
+    <data name="MessageBoxValidBankTransferErrorOkButton" xml:space="preserve">
+        <value>Ok</value>
+    </data>
+    <data name="MessageBoxBankTransferUpdateYesButton" xml:space="preserve">
+        <value>Oui</value>
+    </data>
 </root>

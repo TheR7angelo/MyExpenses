@@ -187,6 +187,69 @@ namespace MyExpenses.SharedUtils.Resources.Resx.BankTransferManagement {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to There was an error updating. Please try again.
+        /// </summary>
+        public static string MessageBoxBankTransferUpdateErrorMessage {
+            get {
+                return ResourceManager.GetString("MessageBoxBankTransferUpdateErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ok.
+        /// </summary>
+        public static string MessageBoxBankTransferUpdateErrorOkButton {
+            get {
+                return ResourceManager.GetString("MessageBoxBankTransferUpdateErrorOkButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        public static string MessageBoxBankTransferUpdateErrorTitle {
+            get {
+                return ResourceManager.GetString("MessageBoxBankTransferUpdateErrorTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you want to save the changes made to this record ?.
+        /// </summary>
+        public static string MessageBoxBankTransferUpdateMessage {
+            get {
+                return ResourceManager.GetString("MessageBoxBankTransferUpdateMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No.
+        /// </summary>
+        public static string MessageBoxBankTransferUpdateNoButton {
+            get {
+                return ResourceManager.GetString("MessageBoxBankTransferUpdateNoButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Confirmation.
+        /// </summary>
+        public static string MessageBoxBankTransferUpdateTitle {
+            get {
+                return ResourceManager.GetString("MessageBoxBankTransferUpdateTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yes.
+        /// </summary>
+        public static string MessageBoxBankTransferUpdateYesButton {
+            get {
+                return ResourceManager.GetString("MessageBoxBankTransferUpdateYesButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Date cannot be empty.
         /// </summary>
         public static string MessageBoxButtonValidationDateError {
@@ -277,6 +340,96 @@ namespace MyExpenses.SharedUtils.Resources.Resx.BankTransferManagement {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to There was an error updating. Please try again.
+        /// </summary>
+        public static string MessageBoxDeleteBankTransferErrorMessage {
+            get {
+                return ResourceManager.GetString("MessageBoxDeleteBankTransferErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ok.
+        /// </summary>
+        public static string MessageBoxDeleteBankTransferErrorOkButton {
+            get {
+                return ResourceManager.GetString("MessageBoxDeleteBankTransferErrorOkButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        public static string MessageBoxDeleteBankTransferErrorTitle {
+            get {
+                return ResourceManager.GetString("MessageBoxDeleteBankTransferErrorTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you really want to delete this bank transfer ?.
+        /// </summary>
+        public static string MessageBoxDeleteBankTransferMessage {
+            get {
+                return ResourceManager.GetString("MessageBoxDeleteBankTransferMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No.
+        /// </summary>
+        public static string MessageBoxDeleteBankTransferNoButton {
+            get {
+                return ResourceManager.GetString("MessageBoxDeleteBankTransferNoButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Bank transfer was successfully deleted.
+        /// </summary>
+        public static string MessageBoxDeleteBankTransferSuccessMessage {
+            get {
+                return ResourceManager.GetString("MessageBoxDeleteBankTransferSuccessMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ok.
+        /// </summary>
+        public static string MessageBoxDeleteBankTransferSuccessOkButton {
+            get {
+                return ResourceManager.GetString("MessageBoxDeleteBankTransferSuccessOkButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Success.
+        /// </summary>
+        public static string MessageBoxDeleteBankTransferSuccessTitle {
+            get {
+                return ResourceManager.GetString("MessageBoxDeleteBankTransferSuccessTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Question.
+        /// </summary>
+        public static string MessageBoxDeleteBankTransferTitle {
+            get {
+                return ResourceManager.GetString("MessageBoxDeleteBankTransferTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yes.
+        /// </summary>
+        public static string MessageBoxDeleteBankTransferYesButton {
+            get {
+                return ResourceManager.GetString("MessageBoxDeleteBankTransferYesButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to An error occurred please retry.
         /// </summary>
         public static string MessageBoxEditAccountError {
@@ -295,6 +448,24 @@ namespace MyExpenses.SharedUtils.Resources.Resx.BankTransferManagement {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ok.
+        /// </summary>
+        public static string MessageBoxValidBankTransferErrorOkButton {
+            get {
+                return ResourceManager.GetString("MessageBoxValidBankTransferErrorOkButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        public static string MessageBoxValidBankTransferErrorTitle {
+            get {
+                return ResourceManager.GetString("MessageBoxValidBankTransferErrorTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Additional reason :.
         /// </summary>
         public static string TextBoxAdditionalReasonHintAssist {
@@ -309,6 +480,15 @@ namespace MyExpenses.SharedUtils.Resources.Resx.BankTransferManagement {
         public static string TextBoxMainReasonHintAssist {
             get {
                 return ResourceManager.GetString("TextBoxMainReasonHintAssist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Changes in progress.
+        /// </summary>
+        public static string TitleIsDirty {
+            get {
+                return ResourceManager.GetString("TitleIsDirty", resourceCulture);
             }
         }
     }

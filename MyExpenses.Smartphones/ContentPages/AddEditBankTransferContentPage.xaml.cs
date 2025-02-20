@@ -8,7 +8,6 @@ using MyExpenses.SharedUtils.Collection;
 using MyExpenses.SharedUtils.Objects;
 using MyExpenses.SharedUtils.Properties;
 using MyExpenses.SharedUtils.Resources.Resx.BankTransferManagement;
-using MyExpenses.Smartphones.Resources.Resx.ContentPages.AddEditBankTransferContentPage;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils;
 using Serilog;
@@ -372,10 +371,10 @@ public partial class AddEditBankTransferContentPage
     private async Task HandleButtonDeleteBankTransfer()
     {
         var response = await DisplayAlert(
-            AddEditBankTransferContentPageResources.MessageBoxDeleteBankTransferTitle,
-            AddEditBankTransferContentPageResources.MessageBoxDeleteBankTransferMessage,
-            AddEditBankTransferContentPageResources.MessageBoxDeleteBankTransferYesButton,
-            AddEditBankTransferContentPageResources.MessageBoxDeleteBankTransferNoButton);
+            BankTransferManagementResources.MessageBoxDeleteBankTransferTitle,
+            BankTransferManagementResources.MessageBoxDeleteBankTransferMessage,
+            BankTransferManagementResources.MessageBoxDeleteBankTransferYesButton,
+            BankTransferManagementResources.MessageBoxDeleteBankTransferNoButton);
         if (!response) return;
 
         var json = BankTransfer.ToJson();
@@ -387,9 +386,9 @@ public partial class AddEditBankTransferContentPage
         {
             Log.Information("Bank transfer successfully deleted");
             await DisplayAlert(
-                AddEditBankTransferContentPageResources.MessageBoxDeleteBankTransferSuccessTitle,
-                AddEditBankTransferContentPageResources.MessageBoxDeleteBankTransferSuccessMessage,
-                AddEditBankTransferContentPageResources.MessageBoxDeleteBankTransferSuccessOkButton);
+                BankTransferManagementResources.MessageBoxDeleteBankTransferSuccessTitle,
+                BankTransferManagementResources.MessageBoxDeleteBankTransferSuccessMessage,
+                BankTransferManagementResources.MessageBoxDeleteBankTransferSuccessOkButton);
 
             _taskCompletionSource.SetResult(true);
             await Navigation.PopAsync();
@@ -398,9 +397,9 @@ public partial class AddEditBankTransferContentPage
         {
             Log.Error(exception, "Failed to delete bank transfer");
             await DisplayAlert(
-                AddEditBankTransferContentPageResources.MessageBoxDeleteBankTransferErrorTitle,
-                AddEditBankTransferContentPageResources.MessageBoxDeleteBankTransferErrorMessage,
-                AddEditBankTransferContentPageResources.MessageBoxDeleteBankTransferErrorOkButton);
+                BankTransferManagementResources.MessageBoxDeleteBankTransferErrorTitle,
+                BankTransferManagementResources.MessageBoxDeleteBankTransferErrorMessage,
+                BankTransferManagementResources.MessageBoxDeleteBankTransferErrorOkButton);
         }
     }
 
@@ -413,9 +412,9 @@ public partial class AddEditBankTransferContentPage
         if (!success)
         {
             await DisplayAlert(
-                AddEditBankTransferContentPageResources.MessageBoxOnBackCommandPressedErrorTitle,
-                AddEditBankTransferContentPageResources.MessageBoxOnBackCommandPressedErrorMessage,
-                AddEditBankTransferContentPageResources.MessageBoxOnBackCommandPressedErrorOkButton);
+                BankTransferManagementResources.MessageBoxBankTransferUpdateErrorTitle,
+                BankTransferManagementResources.MessageBoxBankTransferUpdateErrorMessage,
+                BankTransferManagementResources.MessageBoxBankTransferUpdateErrorOkButton);
             return;
         }
 
@@ -428,10 +427,10 @@ public partial class AddEditBankTransferContentPage
         if (IsDirty)
         {
             var response = await DisplayAlert(
-                AddEditBankTransferContentPageResources.MessageBoxOnBackCommandPressedTitle,
-                AddEditBankTransferContentPageResources.MessageBoxOnBackCommandPressedMessage,
-                AddEditBankTransferContentPageResources.MessageBoxOnBackCommandPressedYesButton,
-                AddEditBankTransferContentPageResources.MessageBoxOnBackCommandPressedNoButton);
+                BankTransferManagementResources.MessageBoxBankTransferUpdateTitle,
+                BankTransferManagementResources.MessageBoxBankTransferUpdateMessage,
+                BankTransferManagementResources.MessageBoxBankTransferUpdateYesButton,
+                BankTransferManagementResources.MessageBoxBankTransferUpdateNoButton);
 
             if (response)
             {
@@ -442,9 +441,9 @@ public partial class AddEditBankTransferContentPage
                 if (!success)
                 {
                     await DisplayAlert(
-                        AddEditBankTransferContentPageResources.MessageBoxOnBackCommandPressedErrorTitle,
-                        AddEditBankTransferContentPageResources.MessageBoxOnBackCommandPressedErrorMessage,
-                        AddEditBankTransferContentPageResources.MessageBoxOnBackCommandPressedErrorOkButton);
+                        BankTransferManagementResources.MessageBoxBankTransferUpdateErrorTitle,
+                        BankTransferManagementResources.MessageBoxBankTransferUpdateErrorMessage,
+                        BankTransferManagementResources.MessageBoxBankTransferUpdateErrorOkButton);
                     return;
                 }
 
@@ -512,7 +511,7 @@ public partial class AddEditBankTransferContentPage
         if (IsNewBankTransfer) return;
 
         Title = IsDirty
-            ? AddEditBankTransferContentPageResources.TitleIsDirty
+            ? BankTransferManagementResources.TitleIsDirty
             : string.Empty;
     }
 
@@ -602,17 +601,17 @@ public partial class AddEditBankTransferContentPage
         {
             if (SelectedCategoryType is null)
             {
-                await DisplayAlert(AddEditBankTransferContentPageResources.MessageBoxValidBankTransferErrorTitle,
-                    AddEditBankTransferContentPageResources.MessageBoxButtonValidBankTransferPrepareCategoryIsNullError,
-                    AddEditBankTransferContentPageResources.MessageBoxValidBankTransferErrorOkButton);
+                await DisplayAlert(BankTransferManagementResources.MessageBoxValidBankTransferErrorTitle,
+                    BankTransferManagementResources.MessageBoxButtonValidBankTransferPrepareCategoryIsNullError,
+                    BankTransferManagementResources.MessageBoxValidBankTransferErrorOkButton);
                 return false;
             }
 
             if (SelectedModePayment is null)
             {
-                await DisplayAlert(AddEditBankTransferContentPageResources.MessageBoxValidBankTransferErrorTitle,
-                    AddEditBankTransferContentPageResources.MessageBoxButtonValidBankTransferPrepareModePaymentIsNullError,
-                    AddEditBankTransferContentPageResources.MessageBoxValidBankTransferErrorOkButton);
+                await DisplayAlert(BankTransferManagementResources.MessageBoxValidBankTransferErrorTitle,
+                    BankTransferManagementResources.MessageBoxButtonValidBankTransferPrepareModePaymentIsNullError,
+                    BankTransferManagementResources.MessageBoxValidBankTransferErrorOkButton);
                 return false;
             }
 
@@ -624,25 +623,25 @@ public partial class AddEditBankTransferContentPage
 
         var messageErrorKey = propertyMemberName switch
         {
-            nameof(TBankTransfer.FromAccountFk) => nameof(AddEditBankTransferContentPageResources
+            nameof(TBankTransfer.FromAccountFk) => nameof(BankTransferManagementResources
                 .MessageBoxButtonValidationFromAccountFkError),
-            nameof(TBankTransfer.ToAccountFk) => nameof(AddEditBankTransferContentPageResources
+            nameof(TBankTransfer.ToAccountFk) => nameof(BankTransferManagementResources
                 .MessageBoxButtonValidationToAccountFkError),
-            nameof(TBankTransfer.Value) => nameof(AddEditBankTransferContentPageResources
+            nameof(TBankTransfer.Value) => nameof(BankTransferManagementResources
                 .MessageBoxButtonValidationValueError),
-            nameof(TBankTransfer.Date) => nameof(AddEditBankTransferContentPageResources
+            nameof(TBankTransfer.Date) => nameof(BankTransferManagementResources
                 .MessageBoxButtonValidationDateError),
-            nameof(TBankTransfer.MainReason) => nameof(AddEditBankTransferContentPageResources
+            nameof(TBankTransfer.MainReason) => nameof(BankTransferManagementResources
                 .MessageBoxButtonValidationMainReasonError),
             _ => null
         };
 
         var localizedErrorMessage = string.IsNullOrEmpty(messageErrorKey)
             ? propertyError.ErrorMessage!
-            : AddEditBankTransferContentPageResources.ResourceManager.GetString(messageErrorKey)!;
+            : BankTransferManagementResources.ResourceManager.GetString(messageErrorKey)!;
 
-        await DisplayAlert(AddEditBankTransferContentPageResources.MessageBoxValidBankTransferErrorTitle,
-            localizedErrorMessage, AddEditBankTransferContentPageResources.MessageBoxValidBankTransferErrorOkButton);
+        await DisplayAlert(BankTransferManagementResources.MessageBoxValidBankTransferErrorTitle,
+            localizedErrorMessage, BankTransferManagementResources.MessageBoxValidBankTransferErrorOkButton);
 
         return isValid;
     }
