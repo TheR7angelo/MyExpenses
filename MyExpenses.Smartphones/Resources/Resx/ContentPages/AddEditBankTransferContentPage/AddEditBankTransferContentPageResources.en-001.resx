@@ -14,9 +14,6 @@
     <data name="LabelTextFromAccountFrom" xml:space="preserve">
         <value>From</value>
     </data>
-    <data name="LabelTextTransferDate" xml:space="preserve">
-        <value>Date :</value>
-    </data>
     <data name="ButtonUpdateText" xml:space="preserve">
         <value>Update</value>
     </data>
@@ -25,9 +22,6 @@
     </data>
     <data name="ButtonCancelUpdateText" xml:space="preserve">
         <value>Cancel</value>
-    </data>
-    <data name="LabelTextTransferValue" xml:space="preserve">
-        <value>Amount :</value>
     </data>
     <data name="LabelTextToAccountTo" xml:space="preserve">
         <value>To</value>

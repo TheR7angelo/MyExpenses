@@ -93,10 +93,6 @@
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>ModePaymentManagementPageResources.Designer.cs</LastGenOutput>
       </EmbeddedResource>
-      <EmbeddedResource Update="Resources\Resx\Pages\BankTransferPage\BankTransferPageResources.resx">
-        <Generator>ResXFileCodeGenerator</Generator>
-        <LastGenOutput>BankTransferPageResources.Designer.cs</LastGenOutput>
-      </EmbeddedResource>
       <EmbeddedResource Update="Resources\Resx\Pages\RecordExpensePage\RecordExpensePageResources.resx">
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>RecordExpensePageResources.Designer.cs</LastGenOutput>
@@ -284,11 +280,6 @@
         <DesignTime>True</DesignTime>
         <AutoGen>True</AutoGen>
         <DependentUpon>ModePaymentManagementPageResources.resx</DependentUpon>
-      </Compile>
-      <Compile Update="Resources\Resx\Pages\BankTransferPage\BankTransferPageResources.Designer.cs">
-        <DesignTime>True</DesignTime>
-        <AutoGen>True</AutoGen>
-        <DependentUpon>BankTransferPageResources.resx</DependentUpon>
       </Compile>
       <Compile Update="Resources\Resx\Pages\RecordExpensePage\RecordExpensePageResources.Designer.cs">
         <DesignTime>True</DesignTime>

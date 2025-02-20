@@ -27,6 +27,10 @@
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>AccountTypeManagementResources.Designer.cs</LastGenOutput>
       </EmbeddedResource>
+      <EmbeddedResource Update="Resources\Resx\BankTransferManagement\BankTransferManagementResources.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>BankTransferManagementResources.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
     </ItemGroup>
 
     <ItemGroup>
@@ -54,6 +58,11 @@
         <DesignTime>True</DesignTime>
         <AutoGen>True</AutoGen>
         <DependentUpon>AccountTypeManagementResources.resx</DependentUpon>
+      </Compile>
+      <Compile Update="Resources\Resx\BankTransferManagement\BankTransferManagementResources.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>BankTransferManagementResources.resx</DependentUpon>
       </Compile>
     </ItemGroup>
 

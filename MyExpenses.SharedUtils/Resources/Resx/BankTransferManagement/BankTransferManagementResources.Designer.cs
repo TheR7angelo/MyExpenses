@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MyExpenses.Wpf.Resources.Resx.Pages.BankTransferPage {
+namespace MyExpenses.SharedUtils.Resources.Resx.BankTransferManagement {
     using System;
     
     
@@ -21,24 +21,25 @@ namespace MyExpenses.Wpf.Resources.Resx.Pages.BankTransferPage {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class BankTransferPageResources {
+    public class BankTransferManagementResources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal BankTransferPageResources() {
+        public BankTransferManagementResources() {
         }
         
         /// <summary>
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MyExpenses.Wpf.Resources.Resx.Pages.BankTransferPage.BankTransferPageResources", typeof(BankTransferPageResources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MyExpenses.SharedUtils.Resources.Resx.BankTransferManagement.BankTransferManageme" +
+                            "ntResources", typeof(BankTransferManagementResources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -50,7 +51,7 @@ namespace MyExpenses.Wpf.Resources.Resx.Pages.BankTransferPage {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -62,7 +63,7 @@ namespace MyExpenses.Wpf.Resources.Resx.Pages.BankTransferPage {
         /// <summary>
         ///   Looks up a localized string similar to Cancel.
         /// </summary>
-        internal static string ButtonPrepareCancelContent {
+        public static string ButtonPrepareCancelContent {
             get {
                 return ResourceManager.GetString("ButtonPrepareCancelContent", resourceCulture);
             }
@@ -71,7 +72,7 @@ namespace MyExpenses.Wpf.Resources.Resx.Pages.BankTransferPage {
         /// <summary>
         ///   Looks up a localized string similar to Valid.
         /// </summary>
-        internal static string ButtonPrepareValidContent {
+        public static string ButtonPrepareValidContent {
             get {
                 return ResourceManager.GetString("ButtonPrepareValidContent", resourceCulture);
             }
@@ -80,7 +81,7 @@ namespace MyExpenses.Wpf.Resources.Resx.Pages.BankTransferPage {
         /// <summary>
         ///   Looks up a localized string similar to Cancel.
         /// </summary>
-        internal static string ButtonPreviewCancelContent {
+        public static string ButtonPreviewCancelContent {
             get {
                 return ResourceManager.GetString("ButtonPreviewCancelContent", resourceCulture);
             }
@@ -89,25 +90,16 @@ namespace MyExpenses.Wpf.Resources.Resx.Pages.BankTransferPage {
         /// <summary>
         ///   Looks up a localized string similar to Valid.
         /// </summary>
-        internal static string ButtonPreviewValidContent {
+        public static string ButtonPreviewValidContent {
             get {
                 return ResourceManager.GetString("ButtonPreviewValidContent", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Pointed :.
-        /// </summary>
-        internal static string CheckBoxPointedHintAssist {
-            get {
-                return ResourceManager.GetString("CheckBoxPointedHintAssist", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Category type :.
         /// </summary>
-        internal static string ComboBoxCategoryTypeHintAssist {
+        public static string ComboBoxCategoryTypeHintAssist {
             get {
                 return ResourceManager.GetString("ComboBoxCategoryTypeHintAssist", resourceCulture);
             }
@@ -116,7 +108,7 @@ namespace MyExpenses.Wpf.Resources.Resx.Pages.BankTransferPage {
         /// <summary>
         ///   Looks up a localized string similar to From account :.
         /// </summary>
-        internal static string ComboBoxFromAccountHintAssist {
+        public static string ComboBoxFromAccountHintAssist {
             get {
                 return ResourceManager.GetString("ComboBoxFromAccountHintAssist", resourceCulture);
             }
@@ -125,7 +117,7 @@ namespace MyExpenses.Wpf.Resources.Resx.Pages.BankTransferPage {
         /// <summary>
         ///   Looks up a localized string similar to Mode payment :.
         /// </summary>
-        internal static string ComboBoxModePaymentHintAssist {
+        public static string ComboBoxModePaymentHintAssist {
             get {
                 return ResourceManager.GetString("ComboBoxModePaymentHintAssist", resourceCulture);
             }
@@ -134,25 +126,34 @@ namespace MyExpenses.Wpf.Resources.Resx.Pages.BankTransferPage {
         /// <summary>
         ///   Looks up a localized string similar to To account :.
         /// </summary>
-        internal static string ComboBoxToAccountHintAssist {
+        public static string ComboBoxToAccountHintAssist {
             get {
                 return ResourceManager.GetString("ComboBoxToAccountHintAssist", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to When :.
+        ///   Looks up a localized string similar to Date :.
         /// </summary>
-        internal static string DatePickerWhenHintAssist {
+        public static string LabelTextTransferDate {
             get {
-                return ResourceManager.GetString("DatePickerWhenHintAssist", resourceCulture);
+                return ResourceManager.GetString("LabelTextTransferDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Amount :.
+        /// </summary>
+        public static string LabelTextTransferValue {
+            get {
+                return ResourceManager.GetString("LabelTextTransferValue", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Date cannot be empty.
         /// </summary>
-        internal static string MessageBoxButtonValidationDateError {
+        public static string MessageBoxButtonValidationDateError {
             get {
                 return ResourceManager.GetString("MessageBoxButtonValidationDateError", resourceCulture);
             }
@@ -161,7 +162,7 @@ namespace MyExpenses.Wpf.Resources.Resx.Pages.BankTransferPage {
         /// <summary>
         ///   Looks up a localized string similar to The starting account cannot be empty.
         /// </summary>
-        internal static string MessageBoxButtonValidationFromAccountFkError {
+        public static string MessageBoxButtonValidationFromAccountFkError {
             get {
                 return ResourceManager.GetString("MessageBoxButtonValidationFromAccountFkError", resourceCulture);
             }
@@ -170,7 +171,7 @@ namespace MyExpenses.Wpf.Resources.Resx.Pages.BankTransferPage {
         /// <summary>
         ///   Looks up a localized string similar to Main reason cannot be empty.
         /// </summary>
-        internal static string MessageBoxButtonValidationMainReasonError {
+        public static string MessageBoxButtonValidationMainReasonError {
             get {
                 return ResourceManager.GetString("MessageBoxButtonValidationMainReasonError", resourceCulture);
             }
@@ -179,7 +180,7 @@ namespace MyExpenses.Wpf.Resources.Resx.Pages.BankTransferPage {
         /// <summary>
         ///   Looks up a localized string similar to Arrival account cannot be empty.
         /// </summary>
-        internal static string MessageBoxButtonValidationToAccountFkError {
+        public static string MessageBoxButtonValidationToAccountFkError {
             get {
                 return ResourceManager.GetString("MessageBoxButtonValidationToAccountFkError", resourceCulture);
             }
@@ -188,7 +189,7 @@ namespace MyExpenses.Wpf.Resources.Resx.Pages.BankTransferPage {
         /// <summary>
         ///   Looks up a localized string similar to Value cannot be empty.
         /// </summary>
-        internal static string MessageBoxButtonValidationValueError {
+        public static string MessageBoxButtonValidationValueError {
             get {
                 return ResourceManager.GetString("MessageBoxButtonValidationValueError", resourceCulture);
             }
@@ -197,7 +198,7 @@ namespace MyExpenses.Wpf.Resources.Resx.Pages.BankTransferPage {
         /// <summary>
         ///   Looks up a localized string similar to Category cannot be empty.
         /// </summary>
-        internal static string MessageBoxButtonValidBankTransferPrepareCategoryIsNullError {
+        public static string MessageBoxButtonValidBankTransferPrepareCategoryIsNullError {
             get {
                 return ResourceManager.GetString("MessageBoxButtonValidBankTransferPrepareCategoryIsNullError", resourceCulture);
             }
@@ -206,7 +207,7 @@ namespace MyExpenses.Wpf.Resources.Resx.Pages.BankTransferPage {
         /// <summary>
         ///   Looks up a localized string similar to Mode payment cannot be empty.
         /// </summary>
-        internal static string MessageBoxButtonValidBankTransferPrepareModePaymentIsNullError {
+        public static string MessageBoxButtonValidBankTransferPrepareModePaymentIsNullError {
             get {
                 return ResourceManager.GetString("MessageBoxButtonValidBankTransferPrepareModePaymentIsNullError", resourceCulture);
             }
@@ -215,7 +216,7 @@ namespace MyExpenses.Wpf.Resources.Resx.Pages.BankTransferPage {
         /// <summary>
         ///   Looks up a localized string similar to An error occurred please retry.
         /// </summary>
-        internal static string MessageBoxButtonValidBankTransferPreviewError {
+        public static string MessageBoxButtonValidBankTransferPreviewError {
             get {
                 return ResourceManager.GetString("MessageBoxButtonValidBankTransferPreviewError", resourceCulture);
             }
@@ -224,7 +225,7 @@ namespace MyExpenses.Wpf.Resources.Resx.Pages.BankTransferPage {
         /// <summary>
         ///   Looks up a localized string similar to Do you want to make another bank transfer ?.
         /// </summary>
-        internal static string MessageBoxButtonValidBankTransferPreviewNewTransferQuestion {
+        public static string MessageBoxButtonValidBankTransferPreviewNewTransferQuestion {
             get {
                 return ResourceManager.GetString("MessageBoxButtonValidBankTransferPreviewNewTransferQuestion", resourceCulture);
             }
@@ -233,7 +234,7 @@ namespace MyExpenses.Wpf.Resources.Resx.Pages.BankTransferPage {
         /// <summary>
         ///   Looks up a localized string similar to The transfer has been successfully completed.
         /// </summary>
-        internal static string MessageBoxButtonValidBankTransferPreviewSuccess {
+        public static string MessageBoxButtonValidBankTransferPreviewSuccess {
             get {
                 return ResourceManager.GetString("MessageBoxButtonValidBankTransferPreviewSuccess", resourceCulture);
             }
@@ -242,7 +243,7 @@ namespace MyExpenses.Wpf.Resources.Resx.Pages.BankTransferPage {
         /// <summary>
         ///   Looks up a localized string similar to An error occurred please retry.
         /// </summary>
-        internal static string MessageBoxEditAccountError {
+        public static string MessageBoxEditAccountError {
             get {
                 return ResourceManager.GetString("MessageBoxEditAccountError", resourceCulture);
             }
@@ -251,7 +252,7 @@ namespace MyExpenses.Wpf.Resources.Resx.Pages.BankTransferPage {
         /// <summary>
         ///   Looks up a localized string similar to Account was successfully edited.
         /// </summary>
-        internal static string MessageBoxEditAccountSuccess {
+        public static string MessageBoxEditAccountSuccess {
             get {
                 return ResourceManager.GetString("MessageBoxEditAccountSuccess", resourceCulture);
             }
@@ -260,7 +261,7 @@ namespace MyExpenses.Wpf.Resources.Resx.Pages.BankTransferPage {
         /// <summary>
         ///   Looks up a localized string similar to Additional reason :.
         /// </summary>
-        internal static string TextBoxAdditionalReasonHintAssist {
+        public static string TextBoxAdditionalReasonHintAssist {
             get {
                 return ResourceManager.GetString("TextBoxAdditionalReasonHintAssist", resourceCulture);
             }
@@ -269,18 +270,9 @@ namespace MyExpenses.Wpf.Resources.Resx.Pages.BankTransferPage {
         /// <summary>
         ///   Looks up a localized string similar to Main reason :.
         /// </summary>
-        internal static string TextBoxMainReasonHintAssist {
+        public static string TextBoxMainReasonHintAssist {
             get {
                 return ResourceManager.GetString("TextBoxMainReasonHintAssist", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Value :.
-        /// </summary>
-        internal static string TextBoxValueHintAssist {
-            get {
-                return ResourceManager.GetString("TextBoxValueHintAssist", resourceCulture);
             }
         }
     }

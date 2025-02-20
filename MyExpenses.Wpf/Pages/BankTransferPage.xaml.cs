@@ -9,9 +9,9 @@ using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Models.Sql.Bases.Views;
 using MyExpenses.SharedUtils.Collection;
 using MyExpenses.SharedUtils.RegexUtils;
+using MyExpenses.SharedUtils.Resources.Resx.BankTransferManagement;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils.Sql;
-using MyExpenses.Wpf.Resources.Resx.Pages.BankTransferPage;
 using MyExpenses.Wpf.Windows;
 using MyExpenses.Wpf.Windows.MsgBox;
 using Serilog;
@@ -178,17 +178,6 @@ public partial class BankTransferPage
         set => SetValue(ComboBoxModePaymentHintAssistProperty, value);
     }
 
-    public static readonly DependencyProperty CheckBoxPointedHintAssistProperty =
-        DependencyProperty.Register(nameof(CheckBoxPointedHintAssist), typeof(string), typeof(BankTransferPage),
-            // ReSharper disable once HeapView.ObjectAllocation.Evident
-            new PropertyMetadata(default(string)));
-
-    public string CheckBoxPointedHintAssist
-    {
-        get => (string)GetValue(CheckBoxPointedHintAssistProperty);
-        set => SetValue(CheckBoxPointedHintAssistProperty, value);
-    }
-
     public static readonly DependencyProperty DatePickerWhenHintAssistProperty =
         DependencyProperty.Register(nameof(DatePickerWhenHintAssist), typeof(string), typeof(BankTransferPage),
             // ReSharper disable once HeapView.ObjectAllocation.Evident
@@ -336,20 +325,17 @@ public partial class BankTransferPage
 
             var messageErrorKey = propertyMemberName switch
             {
-                nameof(TBankTransfer.FromAccountFk) => nameof(BankTransferPageResources
-                    .MessageBoxButtonValidationFromAccountFkError),
-                nameof(TBankTransfer.ToAccountFk) => nameof(BankTransferPageResources
-                    .MessageBoxButtonValidationToAccountFkError),
-                nameof(TBankTransfer.Value) => nameof(BankTransferPageResources.MessageBoxButtonValidationValueError),
-                nameof(TBankTransfer.Date) => nameof(BankTransferPageResources.MessageBoxButtonValidationDateError),
-                nameof(TBankTransfer.MainReason) => nameof(BankTransferPageResources
-                    .MessageBoxButtonValidationMainReasonError),
+                nameof(TBankTransfer.FromAccountFk) => nameof(BankTransferManagementResources.MessageBoxButtonValidationFromAccountFkError),
+                nameof(TBankTransfer.ToAccountFk) => nameof(BankTransferManagementResources.MessageBoxButtonValidationToAccountFkError),
+                nameof(TBankTransfer.Value) => nameof(BankTransferManagementResources.MessageBoxButtonValidationValueError),
+                nameof(TBankTransfer.Date) => nameof(BankTransferManagementResources.MessageBoxButtonValidationDateError),
+                nameof(TBankTransfer.MainReason) => nameof(BankTransferManagementResources.MessageBoxButtonValidationMainReasonError),
                 _ => null
             };
 
             var localizedErrorMessage = string.IsNullOrEmpty(messageErrorKey)
                 ? propertyError.ErrorMessage!
-                : BankTransferPageResources.ResourceManager.GetString(messageErrorKey)!;
+                : BankTransferManagementResources.ResourceManager.GetString(messageErrorKey)!;
 
             MsgBox.Show(localizedErrorMessage, MsgBoxImage.Error);
             return;
@@ -357,14 +343,14 @@ public partial class BankTransferPage
 
         if (Category is null)
         {
-            MsgBox.Show(BankTransferPageResources.MessageBoxButtonValidBankTransferPrepareCategoryIsNullError,
+            MsgBox.Show(BankTransferManagementResources.MessageBoxButtonValidBankTransferPrepareCategoryIsNullError,
                 MsgBoxImage.Warning);
             return;
         }
 
         if (ModePayment is null)
         {
-            MsgBox.Show(BankTransferPageResources.MessageBoxButtonValidBankTransferPrepareModePaymentIsNullError,
+            MsgBox.Show(BankTransferManagementResources.MessageBoxButtonValidBankTransferPrepareModePaymentIsNullError,
                 MsgBoxImage.Warning);
             return;
         }
@@ -429,10 +415,10 @@ public partial class BankTransferPage
             // var json = BankTransfer.ToJsonString();
             // Log.Information("{Json}", json);
 
-            MsgBox.Show(BankTransferPageResources.MessageBoxButtonValidBankTransferPreviewSuccess, MsgBoxImage.Check);
+            MsgBox.Show(BankTransferManagementResources.MessageBoxButtonValidBankTransferPreviewSuccess, MsgBoxImage.Check);
 
             var response = MsgBox.Show(
-                BankTransferPageResources.MessageBoxButtonValidBankTransferPreviewNewTransferQuestion,
+                BankTransferManagementResources.MessageBoxButtonValidBankTransferPreviewNewTransferQuestion,
                 MsgBoxImage.Question, MessageBoxButton.YesNo);
 
             if (response is not MessageBoxResult.Yes) nameof(MainWindow.FrameBody).GoBack();
@@ -445,7 +431,7 @@ public partial class BankTransferPage
         else
         {
             Log.Error(exception, "An error occurred please retry");
-            MsgBox.Show(BankTransferPageResources.MessageBoxButtonValidBankTransferPreviewError, MsgBoxImage.Error);
+            MsgBox.Show(BankTransferManagementResources.MessageBoxButtonValidBankTransferPreviewError, MsgBoxImage.Error);
         }
     }
 
@@ -482,7 +468,7 @@ public partial class BankTransferPage
             var json = editedAccount.ToJsonString();
             Log.Information("{Json}", json);
 
-            MsgBox.Show(BankTransferPageResources.MessageBoxEditAccountSuccess, MsgBoxImage.Check);
+            MsgBox.Show(BankTransferManagementResources.MessageBoxEditAccountSuccess, MsgBoxImage.Check);
 
             RemoveByAccountId(editedAccount.Id);
             Accounts.AddAndSort(editedAccount, s => s.Name!);
@@ -492,7 +478,7 @@ public partial class BankTransferPage
         else
         {
             Log.Error(exception, "An error occurred please retry");
-            MsgBox.Show(BankTransferPageResources.MessageBoxEditAccountError, MsgBoxImage.Warning);
+            MsgBox.Show(BankTransferManagementResources.MessageBoxEditAccountError, MsgBoxImage.Warning);
         }
     }
 
@@ -526,7 +512,7 @@ public partial class BankTransferPage
             var json = editedAccount.ToJsonString();
             Log.Information("{Json}", json);
 
-            MsgBox.Show(BankTransferPageResources.MessageBoxEditAccountSuccess, MsgBoxImage.Check);
+            MsgBox.Show(BankTransferManagementResources.MessageBoxEditAccountSuccess, MsgBoxImage.Check);
 
             RemoveByAccountId(editedAccount.Id);
             Accounts.AddAndSort(editedAccount, s => s.Name!);
@@ -537,7 +523,7 @@ public partial class BankTransferPage
         else
         {
             Log.Error(exception, "An error occurred please retry");
-            MsgBox.Show(BankTransferPageResources.MessageBoxEditAccountError, MsgBoxImage.Warning);
+            MsgBox.Show(BankTransferManagementResources.MessageBoxEditAccountError, MsgBoxImage.Warning);
         }
     }
 
@@ -599,19 +585,18 @@ public partial class BankTransferPage
 
     private void UpdateLanguage()
     {
-        ComboBoxFromAccountHintAssist = BankTransferPageResources.ComboBoxFromAccountHintAssist;
-        ComboBoxToAccountHintAssist = BankTransferPageResources.ComboBoxToAccountHintAssist;
-        ComboBoxCategoryTypeHintAssist = BankTransferPageResources.ComboBoxCategoryTypeHintAssist;
-        ComboBoxModePaymentHintAssist = BankTransferPageResources.ComboBoxModePaymentHintAssist;
-        CheckBoxPointedHintAssist = BankTransferPageResources.CheckBoxPointedHintAssist;
-        DatePickerWhenHintAssist = BankTransferPageResources.DatePickerWhenHintAssist;
-        TextBoxValueHintAssist = BankTransferPageResources.TextBoxValueHintAssist;
-        TextBoxMainReasonHintAssist = BankTransferPageResources.TextBoxMainReasonHintAssist;
-        TextBoxAdditionalReasonHintAssist = BankTransferPageResources.TextBoxAdditionalReasonHintAssist;
-        ButtonPrepareValidContent = BankTransferPageResources.ButtonPrepareValidContent;
-        ButtonPrepareCancelContent = BankTransferPageResources.ButtonPrepareCancelContent;
-        ButtonPreviewValidContent = BankTransferPageResources.ButtonPreviewValidContent;
-        ButtonPreviewCancelContent = BankTransferPageResources.ButtonPreviewCancelContent;
+        ComboBoxFromAccountHintAssist = BankTransferManagementResources.ComboBoxFromAccountHintAssist;
+        ComboBoxToAccountHintAssist = BankTransferManagementResources.ComboBoxToAccountHintAssist;
+        ComboBoxCategoryTypeHintAssist = BankTransferManagementResources.ComboBoxCategoryTypeHintAssist;
+        ComboBoxModePaymentHintAssist = BankTransferManagementResources.ComboBoxModePaymentHintAssist;
+        DatePickerWhenHintAssist = BankTransferManagementResources.LabelTextTransferDate;
+        TextBoxValueHintAssist = BankTransferManagementResources.LabelTextTransferValue;
+        TextBoxMainReasonHintAssist = BankTransferManagementResources.TextBoxMainReasonHintAssist;
+        TextBoxAdditionalReasonHintAssist = BankTransferManagementResources.TextBoxAdditionalReasonHintAssist;
+        ButtonPrepareValidContent = BankTransferManagementResources.ButtonPrepareValidContent;
+        ButtonPrepareCancelContent = BankTransferManagementResources.ButtonPrepareCancelContent;
+        ButtonPreviewValidContent = BankTransferManagementResources.ButtonPreviewValidContent;
+        ButtonPreviewCancelContent = BankTransferManagementResources.ButtonPreviewCancelContent;
     }
 
     private void UpdateLanguageDatePicker()
