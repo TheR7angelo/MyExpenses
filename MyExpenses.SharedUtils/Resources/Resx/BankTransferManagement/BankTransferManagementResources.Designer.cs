@@ -61,6 +61,33 @@ namespace MyExpenses.SharedUtils.Resources.Resx.BankTransferManagement {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add a new bank transfer.
+        /// </summary>
+        public static string ButtonAddNewBankTransferText {
+            get {
+                return ResourceManager.GetString("ButtonAddNewBankTransferText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete.
+        /// </summary>
+        public static string ButtonCanBeDeletedText {
+            get {
+                return ResourceManager.GetString("ButtonCanBeDeletedText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        public static string ButtonCancelUpdateText {
+            get {
+                return ResourceManager.GetString("ButtonCancelUpdateText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cancel.
         /// </summary>
         public static string ButtonPrepareCancelContent {
@@ -93,6 +120,15 @@ namespace MyExpenses.SharedUtils.Resources.Resx.BankTransferManagement {
         public static string ButtonPreviewValidContent {
             get {
                 return ResourceManager.GetString("ButtonPreviewValidContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Update.
+        /// </summary>
+        public static string ButtonUpdateText {
+            get {
+                return ResourceManager.GetString("ButtonUpdateText", resourceCulture);
             }
         }
         

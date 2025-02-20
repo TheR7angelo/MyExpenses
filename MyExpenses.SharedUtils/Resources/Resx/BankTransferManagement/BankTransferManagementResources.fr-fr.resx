@@ -83,4 +83,16 @@
     <data name="ButtonPreviewValidContent" xml:space="preserve">
         <value>Valider</value>
     </data>
+    <data name="ButtonUpdateText" xml:space="preserve">
+        <value>Mettre à jour</value>
+    </data>
+    <data name="ButtonAddNewBankTransferText" xml:space="preserve">
+        <value>Ajouter un nouveau virement bancaire</value>
+    </data>
+    <data name="ButtonCanBeDeletedText" xml:space="preserve">
+        <value>Supprimer</value>
+    </data>
+    <data name="ButtonCancelUpdateText" xml:space="preserve">
+        <value>Annuler</value>
+    </data>
 </root>

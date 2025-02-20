@@ -61,42 +61,6 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.AddEditBankTransfer
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Add a new bank transfer.
-        /// </summary>
-        internal static string ButtonAddNewBankTransferText {
-            get {
-                return ResourceManager.GetString("ButtonAddNewBankTransferText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Delete.
-        /// </summary>
-        internal static string ButtonCanBeDeletedText {
-            get {
-                return ResourceManager.GetString("ButtonCanBeDeletedText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Cancel.
-        /// </summary>
-        internal static string ButtonCancelUpdateText {
-            get {
-                return ResourceManager.GetString("ButtonCancelUpdateText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Update.
-        /// </summary>
-        internal static string ButtonUpdateText {
-            get {
-                return ResourceManager.GetString("ButtonUpdateText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Additional reason :.
         /// </summary>
         internal static string CustomEntryControlPlaceholderTextAdditionalReason {

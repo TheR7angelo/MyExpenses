@@ -21,15 +21,6 @@
     <data name="LabelTextFromAccountFrom" xml:space="preserve">
         <value>From</value>
     </data>
-    <data name="ButtonUpdateText" xml:space="preserve">
-        <value>Update</value>
-    </data>
-    <data name="ButtonCanBeDeletedText" xml:space="preserve">
-        <value>Delete</value>
-    </data>
-    <data name="ButtonCancelUpdateText" xml:space="preserve">
-        <value>Cancel</value>
-    </data>
     <data name="LabelTextToAccountTo" xml:space="preserve">
         <value>To</value>
     </data>
@@ -125,8 +116,5 @@
     </data>
     <data name="MessageBoxDeleteBankTransferErrorOkButton" xml:space="preserve">
         <value>Ok</value>
-    </data>
-    <data name="ButtonAddNewBankTransferText" xml:space="preserve">
-        <value>Add a new bank transfer</value>
     </data>
 </root>

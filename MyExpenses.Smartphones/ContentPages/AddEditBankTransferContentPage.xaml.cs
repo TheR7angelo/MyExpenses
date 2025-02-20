@@ -7,6 +7,7 @@ using MyExpenses.Models.Sql.Bases.Views;
 using MyExpenses.SharedUtils.Collection;
 using MyExpenses.SharedUtils.Objects;
 using MyExpenses.SharedUtils.Properties;
+using MyExpenses.SharedUtils.Resources.Resx.BankTransferManagement;
 using MyExpenses.Smartphones.Resources.Resx.ContentPages.AddEditBankTransferContentPage;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils;
@@ -518,22 +519,22 @@ public partial class AddEditBankTransferContentPage
     private void UpdateLanguage()
     {
         ButtonUpdateText = IsNewBankTransfer
-            ? AddEditBankTransferContentPageResources.ButtonUpdateText
-            : AddEditBankTransferContentPageResources.ButtonAddNewBankTransferText;
+            ? BankTransferManagementResources.ButtonUpdateText
+            : BankTransferManagementResources.ButtonAddNewBankTransferText;
 
-        ButtonCanBeDeletedText = AddEditBankTransferContentPageResources.ButtonCanBeDeletedText;
-        ButtonCancelUpdateText = AddEditBankTransferContentPageResources.ButtonCancelUpdateText;
+        ButtonCanBeDeletedText = BankTransferManagementResources.ButtonCanBeDeletedText;
+        ButtonCancelUpdateText = BankTransferManagementResources.ButtonCancelUpdateText;
 
-        LabelTextFromAccountFrom = AddEditBankTransferContentPageResources.LabelTextFromAccountFrom;
-        LabelTextTransferDate = AddEditBankTransferContentPageResources.LabelTextTransferDate;
-        LabelTextTransferValue = AddEditBankTransferContentPageResources.LabelTextTransferValue;
-        LabelTextToAccountTo = AddEditBankTransferContentPageResources.LabelTextToAccountTo;
+        LabelTextFromAccountFrom = BankTransferManagementResources.ComboBoxFromAccountHintAssist;
+        LabelTextTransferDate = BankTransferManagementResources.LabelTextTransferDate;
+        LabelTextTransferValue = BankTransferManagementResources.LabelTextTransferValue;
+        LabelTextToAccountTo = BankTransferManagementResources.ComboBoxToAccountHintAssist;
 
-        CustomEntryControlPlaceholderTextMainReason = AddEditBankTransferContentPageResources.CustomEntryControlPlaceholderTextMainReason;
-        CustomEntryControlPlaceholderTextAdditionalReason = AddEditBankTransferContentPageResources.CustomEntryControlPlaceholderTextAdditionalReason;
+        CustomEntryControlPlaceholderTextMainReason = BankTransferManagementResources.TextBoxMainReasonHintAssist;
+        CustomEntryControlPlaceholderTextAdditionalReason = BankTransferManagementResources.TextBoxAdditionalReasonHintAssist;
 
-        LabelTextTransferCategory = AddEditBankTransferContentPageResources.LabelTextTransferCategoryProperty;
-        LabelTextTransferPaymentMode = AddEditBankTransferContentPageResources.LabelTextTransferPaymentMode;
+        LabelTextTransferCategory = BankTransferManagementResources.ComboBoxCategoryTypeHintAssist;
+        LabelTextTransferPaymentMode = BankTransferManagementResources.ComboBoxModePaymentHintAssist;
     }
 
     private void UpdateTransactionHistories(DateTime now)
