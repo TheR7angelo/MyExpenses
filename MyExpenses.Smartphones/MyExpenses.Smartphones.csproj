@@ -313,10 +313,6 @@
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>CustomPopupFilterPlacesResources.Designer.cs</LastGenOutput>
       </EmbeddedResource>
-      <EmbeddedResource Update="Resources\Resx\ContentPages\AccountManagementContentPage\AccountManagementContentPageResources.resx">
-        <Generator>ResXFileCodeGenerator</Generator>
-        <LastGenOutput>AccountManagementContentPageResources.Designer.cs</LastGenOutput>
-      </EmbeddedResource>
       <EmbeddedResource Update="Resources\Resx\ContentPages\GeneralAccountSetupContentPage\GeneralAccountSetupContentPageResources.resx">
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>GeneralAccountSetupContentPageResources.Designer.cs</LastGenOutput>
