@@ -9,8 +9,8 @@
 
 namespace MyExpenses.SharedUtils.Resources.Resx.AccountManagement {
     using System;
-
-
+    
+    
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
     /// </summary>
@@ -22,15 +22,15 @@ namespace MyExpenses.SharedUtils.Resources.Resx.AccountManagement {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class AccountManagementResources {
-
+        
         private static global::System.Resources.ResourceManager resourceMan;
-
+        
         private static global::System.Globalization.CultureInfo resourceCulture;
-
+        
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal AccountManagementResources() {
+        public AccountManagementResources() {
         }
-
+        
         /// <summary>
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
@@ -45,7 +45,7 @@ namespace MyExpenses.SharedUtils.Resources.Resx.AccountManagement {
                 return resourceMan;
             }
         }
-
+        
         /// <summary>
         ///   Overrides the current thread's CurrentUICulture property for all
         ///   resource lookups using this strongly typed resource class.
@@ -59,7 +59,7 @@ namespace MyExpenses.SharedUtils.Resources.Resx.AccountManagement {
                 resourceCulture = value;
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Deleting selected accounts and all associated transactions....
         /// </summary>
@@ -68,7 +68,7 @@ namespace MyExpenses.SharedUtils.Resources.Resx.AccountManagement {
                 return ResourceManager.GetString("ActivityIndicatorDeleteAccount", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Deleting accounts....
         /// </summary>
@@ -77,7 +77,25 @@ namespace MyExpenses.SharedUtils.Resources.Resx.AccountManagement {
                 return ResourceManager.GetString("ActivityIndicatorDeleteAccounts", resourceCulture);
             }
         }
-
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Transaction history.
+        /// </summary>
+        public static string LabelTextTransactionHistory {
+            get {
+                return ResourceManager.GetString("LabelTextTransactionHistory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New bank transfer.
+        /// </summary>
+        public static string LabelTextTransactionTransfer {
+            get {
+                return ResourceManager.GetString("LabelTextTransactionTransfer", resourceCulture);
+            }
+        }
+        
         /// <summary>
         ///   Looks up a localized string similar to Error while deleting {0} accounts.
         /// </summary>
@@ -86,7 +104,7 @@ namespace MyExpenses.SharedUtils.Resources.Resx.AccountManagement {
                 return ResourceManager.GetString("MessageBoxRemoveAccountErrorMessage", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Ok.
         /// </summary>
@@ -95,7 +113,7 @@ namespace MyExpenses.SharedUtils.Resources.Resx.AccountManagement {
                 return ResourceManager.GetString("MessageBoxRemoveAccountErrorOkButton", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Error.
         /// </summary>
@@ -104,7 +122,7 @@ namespace MyExpenses.SharedUtils.Resources.Resx.AccountManagement {
                 return ResourceManager.GetString("MessageBoxRemoveAccountErrorTitle", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Do you really want to delete the selected accounts ?{0}Be careful it may take more or less time depending on the number of linked data to be deleted.
         /// </summary>
@@ -113,7 +131,7 @@ namespace MyExpenses.SharedUtils.Resources.Resx.AccountManagement {
                 return ResourceManager.GetString("MessageBoxRemoveAccountQuestionMessage", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to No.
         /// </summary>
@@ -122,7 +140,7 @@ namespace MyExpenses.SharedUtils.Resources.Resx.AccountManagement {
                 return ResourceManager.GetString("MessageBoxRemoveAccountQuestionNoButton", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Question.
         /// </summary>
@@ -131,7 +149,7 @@ namespace MyExpenses.SharedUtils.Resources.Resx.AccountManagement {
                 return ResourceManager.GetString("MessageBoxRemoveAccountQuestionTitle", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Yes.
         /// </summary>
@@ -140,7 +158,7 @@ namespace MyExpenses.SharedUtils.Resources.Resx.AccountManagement {
                 return ResourceManager.GetString("MessageBoxRemoveAccountQuestionYesButton", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Successfully deleted of {0} accounts.
         /// </summary>
@@ -149,7 +167,7 @@ namespace MyExpenses.SharedUtils.Resources.Resx.AccountManagement {
                 return ResourceManager.GetString("MessageBoxRemoveAccountSuccessMessage", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Ok.
         /// </summary>
@@ -158,7 +176,7 @@ namespace MyExpenses.SharedUtils.Resources.Resx.AccountManagement {
                 return ResourceManager.GetString("MessageBoxRemoveAccountSuccessOkButton", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Success.
         /// </summary>

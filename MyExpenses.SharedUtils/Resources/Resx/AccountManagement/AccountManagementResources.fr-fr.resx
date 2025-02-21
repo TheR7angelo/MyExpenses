@@ -47,4 +47,10 @@
     <data name="ActivityIndicatorDeleteAccounts" xml:space="preserve">
         <value>Suppression de comptes...</value>
     </data>
+    <data name="LabelTextTransactionHistory" xml:space="preserve">
+        <value>Historique des transactions</value>
+    </data>
+    <data name="LabelTextTransactionTransfer" xml:space="preserve">
+        <value>Nouveau virement bancaire</value>
+    </data>
 </root>

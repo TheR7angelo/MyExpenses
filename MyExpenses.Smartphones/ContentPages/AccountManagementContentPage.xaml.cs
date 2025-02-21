@@ -10,7 +10,6 @@ using MyExpenses.SharedUtils.Collection;
 using MyExpenses.SharedUtils.Resources.Resx.AccountManagement;
 using MyExpenses.Smartphones.ContentPages.CustomPopups;
 using MyExpenses.Smartphones.ContentPages.CustomPopups.CustomPopupActivityIndicator;
-using MyExpenses.Smartphones.Resources.Resx.ContentPages.AccountManagementContentPage;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils;
 using Serilog;
@@ -223,8 +222,8 @@ public partial class AccountManagementContentPage
 
     private void UpdateLanguage()
     {
-        LabelTextTransactionHistory = AccountManagementContentPageResources.LabelTextTransactionHistory;
-        LabelTextTransactionTransfer = AccountManagementContentPageResources.LabelTextTransactionTransfer;
+        LabelTextTransactionHistory = AccountManagementResources.LabelTextTransactionHistory;
+        LabelTextTransactionTransfer = AccountManagementResources.LabelTextTransactionTransfer;
     }
 
     #endregion
