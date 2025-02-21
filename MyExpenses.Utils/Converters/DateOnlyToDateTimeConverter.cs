@@ -6,10 +6,10 @@ public static class DateOnlyToDateTimeConverter
 {
     public static object? Convert(object? value)
     {
-        if (value is DateTime dateTime)
+        if (value is DateOnly dateOnly)
         {
             // ReSharper disable once HeapView.BoxingAllocation
-            return new DateOnly(dateTime.Year, dateTime.Month, dateTime.Day);
+            return DateTimeExtensions.ToDateTime(dateOnly);
         }
         return value;
     }
