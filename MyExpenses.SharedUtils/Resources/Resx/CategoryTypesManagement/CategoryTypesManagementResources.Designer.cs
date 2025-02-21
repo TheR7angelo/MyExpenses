@@ -90,90 +90,90 @@ namespace MyExpenses.SharedUtils.Resources.Resx.CategoryTypesManagement {
         /// <summary>
         ///   Looks up a localized string similar to An error occurred while adding the new category, please try again.
         /// </summary>
-        public static string MesageBoxAddNewCategoryTypeErrorMessage {
+        public static string MessageBoxAddNewCategoryTypeErrorMessage {
             get {
-                return ResourceManager.GetString("MesageBoxAddNewCategoryTypeErrorMessage", resourceCulture);
+                return ResourceManager.GetString("MessageBoxAddNewCategoryTypeErrorMessage", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Ok.
         /// </summary>
-        public static string MesageBoxAddNewCategoryTypeErrorOkButton {
+        public static string MessageBoxAddNewCategoryTypeErrorOkButton {
             get {
-                return ResourceManager.GetString("MesageBoxAddNewCategoryTypeErrorOkButton", resourceCulture);
+                return ResourceManager.GetString("MessageBoxAddNewCategoryTypeErrorOkButton", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Error.
         /// </summary>
-        public static string MesageBoxAddNewCategoryTypeErrorTitle {
+        public static string MessageBoxAddNewCategoryTypeErrorTitle {
             get {
-                return ResourceManager.GetString("MesageBoxAddNewCategoryTypeErrorTitle", resourceCulture);
+                return ResourceManager.GetString("MessageBoxAddNewCategoryTypeErrorTitle", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Do you really want to add &quot;{0}&quot; as a new category ?.
         /// </summary>
-        public static string MesageBoxAddNewCategoryTypeQuestionMessage {
+        public static string MessageBoxAddNewCategoryTypeQuestionMessage {
             get {
-                return ResourceManager.GetString("MesageBoxAddNewCategoryTypeQuestionMessage", resourceCulture);
+                return ResourceManager.GetString("MessageBoxAddNewCategoryTypeQuestionMessage", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to No.
         /// </summary>
-        public static string MesageBoxAddNewCategoryTypeQuestionNoButton {
+        public static string MessageBoxAddNewCategoryTypeQuestionNoButton {
             get {
-                return ResourceManager.GetString("MesageBoxAddNewCategoryTypeQuestionNoButton", resourceCulture);
+                return ResourceManager.GetString("MessageBoxAddNewCategoryTypeQuestionNoButton", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Add new category ?.
         /// </summary>
-        public static string MesageBoxAddNewCategoryTypeQuestionTitle {
+        public static string MessageBoxAddNewCategoryTypeQuestionTitle {
             get {
-                return ResourceManager.GetString("MesageBoxAddNewCategoryTypeQuestionTitle", resourceCulture);
+                return ResourceManager.GetString("MessageBoxAddNewCategoryTypeQuestionTitle", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Yes.
         /// </summary>
-        public static string MesageBoxAddNewCategoryTypeQuestionYesButton {
+        public static string MessageBoxAddNewCategoryTypeQuestionYesButton {
             get {
-                return ResourceManager.GetString("MesageBoxAddNewCategoryTypeQuestionYesButton", resourceCulture);
+                return ResourceManager.GetString("MessageBoxAddNewCategoryTypeQuestionYesButton", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to The new category has been successfully added.
         /// </summary>
-        public static string MesageBoxAddNewCategoryTypeSuccessMessage {
+        public static string MessageBoxAddNewCategoryTypeSuccessMessage {
             get {
-                return ResourceManager.GetString("MesageBoxAddNewCategoryTypeSuccessMessage", resourceCulture);
+                return ResourceManager.GetString("MessageBoxAddNewCategoryTypeSuccessMessage", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Ok.
         /// </summary>
-        public static string MesageBoxAddNewCategoryTypeSuccessOkButton {
+        public static string MessageBoxAddNewCategoryTypeSuccessOkButton {
             get {
-                return ResourceManager.GetString("MesageBoxAddNewCategoryTypeSuccessOkButton", resourceCulture);
+                return ResourceManager.GetString("MessageBoxAddNewCategoryTypeSuccessOkButton", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Success.
         /// </summary>
-        public static string MesageBoxAddNewCategoryTypeSuccessTitle {
+        public static string MessageBoxAddNewCategoryTypeSuccessTitle {
             get {
-                return ResourceManager.GetString("MesageBoxAddNewCategoryTypeSuccessTitle", resourceCulture);
+                return ResourceManager.GetString("MessageBoxAddNewCategoryTypeSuccessTitle", resourceCulture);
             }
         }
         

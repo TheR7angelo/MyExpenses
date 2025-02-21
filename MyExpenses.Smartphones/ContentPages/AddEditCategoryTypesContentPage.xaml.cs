@@ -146,11 +146,11 @@ public partial class AddEditCategoryTypesContentPage
         if (!validate) return;
 
         var response = await DisplayAlert(
-            CategoryTypesManagementResources.MesageBoxAddNewCategoryTypeQuestionTitle,
-            string.Format(CategoryTypesManagementResources.MesageBoxAddNewCategoryTypeQuestionMessage,
+            CategoryTypesManagementResources.MessageBoxAddNewCategoryTypeQuestionTitle,
+            string.Format(CategoryTypesManagementResources.MessageBoxAddNewCategoryTypeQuestionMessage,
                 CategoryTypeName),
-            CategoryTypesManagementResources.MesageBoxAddNewCategoryTypeQuestionYesButton,
-            CategoryTypesManagementResources.MesageBoxAddNewCategoryTypeQuestionNoButton);
+            CategoryTypesManagementResources.MessageBoxAddNewCategoryTypeQuestionYesButton,
+            CategoryTypesManagementResources.MessageBoxAddNewCategoryTypeQuestionNoButton);
         if (!response) return;
 
         // ReSharper disable once HeapView.ObjectAllocation.Evident
@@ -184,17 +184,17 @@ public partial class AddEditCategoryTypesContentPage
             SelectedColor = null;
 
             await DisplayAlert(
-                CategoryTypesManagementResources.MesageBoxAddNewCategoryTypeSuccessTitle,
-                CategoryTypesManagementResources.MesageBoxAddNewCategoryTypeSuccessMessage,
-                CategoryTypesManagementResources.MesageBoxAddNewCategoryTypeSuccessOkButton);
+                CategoryTypesManagementResources.MessageBoxAddNewCategoryTypeSuccessTitle,
+                CategoryTypesManagementResources.MessageBoxAddNewCategoryTypeSuccessMessage,
+                CategoryTypesManagementResources.MessageBoxAddNewCategoryTypeSuccessOkButton);
         }
         else
         {
             Log.Error(exception, "An error occurred while adding new category type");
             await DisplayAlert(
-                CategoryTypesManagementResources.MesageBoxAddNewCategoryTypeErrorTitle,
-                CategoryTypesManagementResources.MesageBoxAddNewCategoryTypeErrorMessage,
-                CategoryTypesManagementResources.MesageBoxAddNewCategoryTypeErrorOkButton);
+                CategoryTypesManagementResources.MessageBoxAddNewCategoryTypeErrorTitle,
+                CategoryTypesManagementResources.MessageBoxAddNewCategoryTypeErrorMessage,
+                CategoryTypesManagementResources.MessageBoxAddNewCategoryTypeErrorOkButton);
         }
     }
 

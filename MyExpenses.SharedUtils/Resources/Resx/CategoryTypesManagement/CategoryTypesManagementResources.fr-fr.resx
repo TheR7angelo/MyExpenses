@@ -20,34 +20,34 @@
     <data name="LabelTextColor" xml:space="preserve">
         <value>Couleur de la catégorie :</value>
     </data>
-    <data name="MesageBoxAddNewCategoryTypeErrorMessage" xml:space="preserve">
+    <data name="MessageBoxAddNewCategoryTypeErrorMessage" xml:space="preserve">
         <value>Une erreur s’est produite lors de l’ajout de la nouvelle catégorie, veuillez réessayer</value>
     </data>
-    <data name="MesageBoxAddNewCategoryTypeErrorOkButton" xml:space="preserve">
+    <data name="MessageBoxAddNewCategoryTypeErrorOkButton" xml:space="preserve">
         <value>Ok</value>
     </data>
-    <data name="MesageBoxAddNewCategoryTypeErrorTitle" xml:space="preserve">
+    <data name="MessageBoxAddNewCategoryTypeErrorTitle" xml:space="preserve">
         <value>Erreur</value>
     </data>
-    <data name="MesageBoxAddNewCategoryTypeQuestionMessage" xml:space="preserve">
+    <data name="MessageBoxAddNewCategoryTypeQuestionMessage" xml:space="preserve">
         <value>Voulez-vous vraiment ajouter "{0}" comme nouvelle catégorie ?</value>
     </data>
-    <data name="MesageBoxAddNewCategoryTypeQuestionNoButton" xml:space="preserve">
+    <data name="MessageBoxAddNewCategoryTypeQuestionNoButton" xml:space="preserve">
         <value>Non</value>
     </data>
-    <data name="MesageBoxAddNewCategoryTypeQuestionTitle" xml:space="preserve">
+    <data name="MessageBoxAddNewCategoryTypeQuestionTitle" xml:space="preserve">
         <value>Ajouter une nouvelle catégorie ?</value>
     </data>
-    <data name="MesageBoxAddNewCategoryTypeQuestionYesButton" xml:space="preserve">
+    <data name="MessageBoxAddNewCategoryTypeQuestionYesButton" xml:space="preserve">
         <value>Oui</value>
     </data>
-    <data name="MesageBoxAddNewCategoryTypeSuccessMessage" xml:space="preserve">
+    <data name="MessageBoxAddNewCategoryTypeSuccessMessage" xml:space="preserve">
         <value>La nouvelle catégorie a été ajoutée avec succès</value>
     </data>
-    <data name="MesageBoxAddNewCategoryTypeSuccessOkButton" xml:space="preserve">
+    <data name="MessageBoxAddNewCategoryTypeSuccessOkButton" xml:space="preserve">
         <value>Ok</value>
     </data>
-    <data name="MesageBoxAddNewCategoryTypeSuccessTitle" xml:space="preserve">
+    <data name="MessageBoxAddNewCategoryTypeSuccessTitle" xml:space="preserve">
         <value>Succès</value>
     </data>
     <data name="MessageBoxCategoryTypeDeleteErrorMessage" xml:space="preserve">

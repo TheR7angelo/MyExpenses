@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.SharedUtils.Collection;
 using MyExpenses.SharedUtils.Objects;
+using MyExpenses.SharedUtils.Resources.Resx.CategoryTypesManagement;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils.Sql;
-using MyExpenses.Wpf.Resources.Resx.Pages.CategoryTypeManagementPage;
 using MyExpenses.Wpf.Windows.CategoryTypeManagementWindow;
 using MyExpenses.Wpf.Windows.MsgBox;
 using Serilog;
@@ -63,12 +63,14 @@ public partial class CategoryTypeManagementPage
             var json = newCategoryType.ToJsonString();
             Log.Information("{Json}", json);
 
-            MsgBox.Show(CategoryTypeManagementPageResources.MessageBoxAddCategorySuccess, MsgBoxImage.Check);
+            MsgBox.Show(CategoryTypesManagementResources.MessageBoxAddNewCategoryTypeSuccessTitle,
+                CategoryTypesManagementResources.MessageBoxAddNewCategoryTypeSuccessMessage, MsgBoxImage.Check);
         }
         else
         {
             Log.Error(exception, "An error occurred please retry");
-            MsgBox.Show(CategoryTypeManagementPageResources.MessageBoxAddCategoryError, MsgBoxImage.Error);
+            MsgBox.Show(CategoryTypesManagementResources.MessageBoxAddNewCategoryTypeErrorTitle,
+                CategoryTypesManagementResources.MessageBoxAddNewCategoryTypeErrorMessage, MsgBoxImage.Error);
         }
     }
 
@@ -113,12 +115,14 @@ public partial class CategoryTypeManagementPage
             var json = editedCategoryTypeDeepCopy.ToJsonString();
             Log.Information("{Json}", json);
 
-            MsgBox.Show(CategoryTypeManagementPageResources.MessageBoxEditCategorySuccess, MsgBoxImage.Check);
+            MsgBox.Show(CategoryTypesManagementResources.MessageBoxCategoryTypeEditSuccessTitle,
+                CategoryTypesManagementResources.MessageBoxCategoryTypeEditSuccessMessage, MsgBoxImage.Check);
         }
         else
         {
             Log.Error(exception, "An error occurred please retry");
-            MsgBox.Show(CategoryTypeManagementPageResources.MessageBoxEditCategoryError, MsgBoxImage.Error);
+            MsgBox.Show(CategoryTypesManagementResources.MessageBoxCategoryTypeEditErrorTitle,
+                CategoryTypesManagementResources.MessageBoxCategoryTypeEditErrorMessage, MsgBoxImage.Error);
         }
     }
 }
