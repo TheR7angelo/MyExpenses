@@ -7,9 +7,10 @@ using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.SharedUtils.Collection;
 using MyExpenses.SharedUtils.Properties;
+using MyExpenses.SharedUtils.Resources.Resx.CategoryTypesManagement;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils.Sql;
-using MyExpenses.Wpf.Resources.Resx.Windows.AddEditCategoryTypeWindow;
+using MyExpenses.Wpf.Resources.Resx.Pages.ColorManagementPage;
 using MyExpenses.Wpf.Utils;
 using MyExpenses.Wpf.Windows.MsgBox;
 using Serilog;
@@ -133,13 +134,13 @@ public partial class AddEditCategoryTypeWindow
 
     private void UpdateLanguage()
     {
-        TitleWindow = AddEditCategoryTypeWindowResources.TitleWindow;
+        TitleWindow = CategoryTypesManagementResources.TitleWindow;
 
-        TextBoxCategoryTypeName = AddEditCategoryTypeWindowResources.TextBoxCategoryTypeName;
-        ComboBoxColorValue = AddEditCategoryTypeWindowResources.ComboBoxColorValue;
-        ButtonValidContent = AddEditCategoryTypeWindowResources.ButtonValidContent;
-        ButtonDeleteContent = AddEditCategoryTypeWindowResources.ButtonDeleteContent;
-        ButtonCancelContent = AddEditCategoryTypeWindowResources.ButtonCancelContent;
+        TextBoxCategoryTypeName = CategoryTypesManagementResources.TextBoxCategoryTypeName;
+        ComboBoxColorValue = CategoryTypesManagementResources.ComboBoxColorValue;
+        ButtonValidContent = CategoryTypesManagementResources.ButtonValidText;
+        ButtonDeleteContent = CategoryTypesManagementResources.ButtonDeleteText;
+        ButtonCancelContent = CategoryTypesManagementResources.ButtonCancelText;
     }
 
     #region Action
@@ -152,7 +153,7 @@ public partial class AddEditCategoryTypeWindow
 
     private void ButtonDelete_OnClick(object sender, RoutedEventArgs e)
     {
-        var response = MsgBox.MsgBox.Show(AddEditCategoryTypeWindowResources.MessageBoxDeleteQuestion,
+        var response = MsgBox.MsgBox.Show(CategoryTypesManagementResources.MessageBoxDeleteQuestion,
             MsgBoxImage.Question, MessageBoxButton.YesNoCancel);
         if (response is not MessageBoxResult.Yes) return;
 
@@ -162,7 +163,7 @@ public partial class AddEditCategoryTypeWindow
         if (success)
         {
             Log.Information("Category type was successfully removed");
-            MsgBox.MsgBox.Show(AddEditCategoryTypeWindowResources.MessageBoxDeleteCategoryTypeNoUseSuccess,
+            MsgBox.MsgBox.Show(CategoryTypesManagementResources.MessageBoxDeleteCategoryTypeNoUseSuccess,
                 MsgBoxImage.Check);
 
             CategoryTypeDeleted = true;
@@ -179,7 +180,7 @@ public partial class AddEditCategoryTypeWindow
         {
             Log.Error("Foreign key constraint violation");
 
-            response = MsgBox.MsgBox.Show(AddEditCategoryTypeWindowResources.MessageBoxDeleteCategoryTypeUseQuestion,
+            response = MsgBox.MsgBox.Show(CategoryTypesManagementResources.MessageBoxDeleteCategoryTypeUseQuestion,
                 MsgBoxImage.Question, MessageBoxButton.YesNoCancel);
 
             if (response is not MessageBoxResult.Yes) return;
@@ -189,7 +190,7 @@ public partial class AddEditCategoryTypeWindow
                 CategoryType.Name);
             CategoryType.Delete(true);
             Log.Information("Category type and all relative element was successfully removed");
-            MsgBox.MsgBox.Show(AddEditCategoryTypeWindowResources.MessageBoxDeleteCategoryTypeUseSuccess,
+            MsgBox.MsgBox.Show(CategoryTypesManagementResources.MessageBoxDeleteCategoryTypeUseSuccess,
                 MsgBoxImage.Check);
 
             CategoryTypeDeleted = true;
@@ -200,7 +201,7 @@ public partial class AddEditCategoryTypeWindow
         }
 
         Log.Error(exception, "An error occurred please retry");
-        MsgBox.MsgBox.Show(AddEditCategoryTypeWindowResources.MessageBoxDeleteCategoryTypeError, MsgBoxImage.Error);
+        MsgBox.MsgBox.Show(CategoryTypesManagementResources.MessageBoxCategoryTypeDeleteErrorMessage, MsgBoxImage.Error);
     }
 
     private void ButtonValid_OnClick(object sender, RoutedEventArgs e)
@@ -208,7 +209,7 @@ public partial class AddEditCategoryTypeWindow
         var categoryTypeName = CategoryType.Name;
         if (string.IsNullOrWhiteSpace(categoryTypeName))
         {
-            MsgBox.MsgBox.Show(AddEditCategoryTypeWindowResources.MessageBoxCategoryNameCannotBeEmptyError,
+            MsgBox.MsgBox.Show(CategoryTypesManagementResources.MessageBoxValidateCategoryTypeErrorEmptyMessage,
                 MsgBoxImage.Error);
             return;
         }
@@ -221,7 +222,7 @@ public partial class AddEditCategoryTypeWindow
 
         if (CategoryType.ColorFk is null)
         {
-            MsgBox.MsgBox.Show(AddEditCategoryTypeWindowResources.MessageBoxCategoryColorCannotBeEmptyError,
+            MsgBox.MsgBox.Show(CategoryTypesManagementResources.MessageBoxValidateColorErrorEmptyMessage,
                 MsgBoxImage.Error);
             return;
         }
@@ -261,7 +262,7 @@ public partial class AddEditCategoryTypeWindow
     }
 
     private static void ShowErrorMessage()
-        => MsgBox.MsgBox.Show(AddEditCategoryTypeWindowResources.MessageBoxCategoryAlreadyExists, MsgBoxImage.Warning);
+        => MsgBox.MsgBox.Show(CategoryTypesManagementResources.MessageBoxValidateCategoryTypeErrorAlreadyExistMessage, MsgBoxImage.Warning);
 
     #endregion
 
@@ -302,12 +303,12 @@ public partial class AddEditCategoryTypeWindow
             var oldColor = Colors.First(s => s.Id.Equals(editedColor.Id));
             editedColor.CopyPropertiesTo(oldColor);
 
-            MsgBox.MsgBox.Show(AddEditCategoryTypeWindowResources.MessageBoxEditColorSuccess, MsgBoxImage.Check);
+            MsgBox.MsgBox.Show(ColorManagementPageResources.MessageBoxEditColorSuccess, MsgBoxImage.Check);
         }
         else
         {
             Log.Error(exception, "An error occurred please retry");
-            MsgBox.MsgBox.Show(AddEditCategoryTypeWindowResources.MessageBoxEditColorError, MsgBoxImage.Warning);
+            MsgBox.MsgBox.Show(ColorManagementPageResources.MessageBoxEditColorError, MsgBoxImage.Warning);
         }
     }
 
@@ -332,14 +333,14 @@ public partial class AddEditCategoryTypeWindow
             var json = newColor.ToJsonString();
             Log.Information("{Json}", json);
 
-            MsgBox.MsgBox.Show(AddEditCategoryTypeWindowResources.MessageBoxAddColorSuccess, MsgBoxImage.Check);
+            MsgBox.MsgBox.Show(ColorManagementPageResources.MessageBoxAddColorSuccess, MsgBoxImage.Check);
 
             Colors.AddAndSort(newColor, s => s.Name!);
         }
         else
         {
             Log.Error(exception, "An error occurred please retry");
-            MsgBox.MsgBox.Show(AddEditCategoryTypeWindowResources.MessageBoxAddColorError, MsgBoxImage.Error);
+            MsgBox.MsgBox.Show(ColorManagementPageResources.MessageBoxAddColorError, MsgBoxImage.Error);
         }
     }
 }

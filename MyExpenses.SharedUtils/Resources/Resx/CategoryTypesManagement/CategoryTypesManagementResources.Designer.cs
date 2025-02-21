@@ -70,6 +70,24 @@ namespace MyExpenses.SharedUtils.Resources.Resx.CategoryTypesManagement {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        public static string ButtonCancelText {
+            get {
+                return ResourceManager.GetString("ButtonCancelText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete.
+        /// </summary>
+        public static string ButtonDeleteText {
+            get {
+                return ResourceManager.GetString("ButtonDeleteText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Valid.
         /// </summary>
         public static string ButtonValidText {
@@ -81,9 +99,9 @@ namespace MyExpenses.SharedUtils.Resources.Resx.CategoryTypesManagement {
         /// <summary>
         ///   Looks up a localized string similar to Category color :.
         /// </summary>
-        public static string LabelTextColor {
+        public static string ComboBoxColorValue {
             get {
-                return ResourceManager.GetString("LabelTextColor", resourceCulture);
+                return ResourceManager.GetString("ComboBoxColorValue", resourceCulture);
             }
         }
         
@@ -232,7 +250,7 @@ namespace MyExpenses.SharedUtils.Resources.Resx.CategoryTypesManagement {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Question.
+        ///   Looks up a localized string similar to Are you sure you want to remove this category ? {0}All records that use this category will also be deleted, be careful the operation may take more or less time depending on the number of data to be deleted.
         /// </summary>
         public static string MessageBoxCategoryTypeEditDeleteQuestionMessage {
             get {
@@ -250,7 +268,7 @@ namespace MyExpenses.SharedUtils.Resources.Resx.CategoryTypesManagement {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Are you sure you want to remove this category ? {0}All records that use this category will also be deleted, be careful the operation may take more or less time depending on the number of data to be deleted.
+        ///   Looks up a localized string similar to Question.
         /// </summary>
         public static string MessageBoxCategoryTypeEditDeleteQuestionTitle {
             get {
@@ -358,11 +376,38 @@ namespace MyExpenses.SharedUtils.Resources.Resx.CategoryTypesManagement {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No.
+        ///   Looks up a localized string similar to Category type was successfully removed.
         /// </summary>
-        public static string MessageBoxHandleCategoryTypeEditDeleteQuestionNoButton {
+        public static string MessageBoxDeleteCategoryTypeNoUseSuccess {
             get {
-                return ResourceManager.GetString("MessageBoxHandleCategoryTypeEditDeleteQuestionNoButton", resourceCulture);
+                return ResourceManager.GetString("MessageBoxDeleteCategoryTypeNoUseSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This category type is in use. Are you sure you want to delete this category type and everything linked to it ?.
+        /// </summary>
+        public static string MessageBoxDeleteCategoryTypeUseQuestion {
+            get {
+                return ResourceManager.GetString("MessageBoxDeleteCategoryTypeUseQuestion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Category type and all relative element was successfully removed.
+        /// </summary>
+        public static string MessageBoxDeleteCategoryTypeUseSuccess {
+            get {
+                return ResourceManager.GetString("MessageBoxDeleteCategoryTypeUseSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you really want to delete this category type ?.
+        /// </summary>
+        public static string MessageBoxDeleteQuestion {
+            get {
+                return ResourceManager.GetString("MessageBoxDeleteQuestion", resourceCulture);
             }
         }
         
@@ -450,9 +495,18 @@ namespace MyExpenses.SharedUtils.Resources.Resx.CategoryTypesManagement {
         /// <summary>
         ///   Looks up a localized string similar to Category Name :.
         /// </summary>
-        public static string PlaceholderText {
+        public static string TextBoxCategoryTypeName {
             get {
-                return ResourceManager.GetString("PlaceholderText", resourceCulture);
+                return ResourceManager.GetString("TextBoxCategoryTypeName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add or edit a category type.
+        /// </summary>
+        public static string TitleWindow {
+            get {
+                return ResourceManager.GetString("TitleWindow", resourceCulture);
             }
         }
     }

@@ -17,7 +17,7 @@
     <data name="ActivityIndicatorDeleteCategoryType" xml:space="preserve">
         <value>Suppression de la catégorie et des enregistrements associés...</value>
     </data>
-    <data name="LabelTextColor" xml:space="preserve">
+    <data name="ComboBoxColorValue" xml:space="preserve">
         <value>Couleur de la catégorie :</value>
     </data>
     <data name="MessageBoxAddNewCategoryTypeErrorMessage" xml:space="preserve">
@@ -69,13 +69,13 @@
         <value>Succès</value>
     </data>
     <data name="MessageBoxCategoryTypeEditDeleteQuestionMessage" xml:space="preserve">
-        <value>Question</value>
+        <value>Êtes-vous sûr de vouloir supprimer cette catégorie ? {0}Tous les enregistrements qui utilisent cette catégorie seront également supprimés, attention l’opération peut prendre plus ou moins de temps en fonction du nombre de données à supprimerQuestion</value>
     </data>
     <data name="MessageBoxCategoryTypeEditDeleteQuestionNoButton" xml:space="preserve">
         <value>Non</value>
     </data>
     <data name="MessageBoxCategoryTypeEditDeleteQuestionTitle" xml:space="preserve">
-        <value>Êtes-vous sûr de vouloir supprimer cette catégorie ? {0}Tous les enregistrements qui utilisent cette catégorie seront également supprimés, attention l’opération peut prendre plus ou moins de temps en fonction du nombre de données à supprimer</value>
+        <value>Question</value>
     </data>
     <data name="MessageBoxCategoryTypeEditDeleteQuestionYesButton" xml:space="preserve">
         <value>Oui</value>
@@ -137,7 +137,28 @@
     <data name="MessageBoxValidateColorErrorEmptyTitle" xml:space="preserve">
         <value>Erreur</value>
     </data>
-    <data name="PlaceholderText" xml:space="preserve">
+    <data name="TextBoxCategoryTypeName" xml:space="preserve">
         <value>Nom de la catégorie :</value>
+    </data>
+    <data name="TitleWindow" xml:space="preserve">
+        <value>Ajouter ou modifier un type de catégorie</value>
+    </data>
+    <data name="ButtonCancelText" xml:space="preserve">
+        <value>Annuler</value>
+    </data>
+    <data name="ButtonDeleteText" xml:space="preserve">
+        <value>Supprimer</value>
+    </data>
+    <data name="MessageBoxDeleteQuestion" xml:space="preserve">
+        <value>Voulez-vous vraiment supprimer ce type de catégorie ?</value>
+    </data>
+    <data name="MessageBoxDeleteCategoryTypeNoUseSuccess" xml:space="preserve">
+        <value>Le type de catégorie a été supprimé avec succès</value>
+    </data>
+    <data name="MessageBoxDeleteCategoryTypeUseQuestion" xml:space="preserve">
+        <value>Ce type de catégorie est utilisé. Etes-vous sûr de vouloir supprimer ce type de catégorie et tout ce qui y est lié ?</value>
+    </data>
+    <data name="MessageBoxDeleteCategoryTypeUseSuccess" xml:space="preserve">
+        <value>Le type de catégorie et tous les éléments relatifs ont été supprimés avec succès</value>
     </data>
 </root>

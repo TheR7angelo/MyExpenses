@@ -297,7 +297,7 @@ public partial class AddEditCategoryTypesContentPage
             CategoryTypesManagementResources.MessageBoxCategoryTypeEditDeleteQuestionTitle,
             string.Format(CategoryTypesManagementResources.MessageBoxCategoryTypeEditDeleteQuestionMessage, Environment.NewLine),
             CategoryTypesManagementResources.MessageBoxCategoryTypeEditDeleteQuestionYesButton,
-            CategoryTypesManagementResources.MessageBoxHandleCategoryTypeEditDeleteQuestionNoButton);
+            CategoryTypesManagementResources.MessageBoxCategoryTypeEditDeleteQuestionNoButton);
 
         if (!deleteResponse) return;
 
@@ -339,8 +339,8 @@ public partial class AddEditCategoryTypesContentPage
 
     private void UpdateLanguage()
     {
-        PlaceholderText = CategoryTypesManagementResources.PlaceholderText;
-        LabelTextColor = CategoryTypesManagementResources.LabelTextColor;
+        PlaceholderText = CategoryTypesManagementResources.TextBoxCategoryTypeName;
+        LabelTextColor = CategoryTypesManagementResources.ComboBoxColorValue;
         ButtonValidText = CategoryTypesManagementResources.ButtonValidText;
     }
 
