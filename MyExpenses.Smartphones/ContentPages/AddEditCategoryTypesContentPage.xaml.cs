@@ -6,9 +6,9 @@ using MyExpenses.Models.Maui.CustomPopup;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Models.Sql.Bases.Views;
 using MyExpenses.SharedUtils.Collection;
+using MyExpenses.SharedUtils.Resources.Resx.CategoryTypesManagement;
 using MyExpenses.Smartphones.ContentPages.CustomPopups;
 using MyExpenses.Smartphones.ContentPages.CustomPopups.CustomPopupActivityIndicator;
-using MyExpenses.Smartphones.Resources.Resx.ContentPages.AddEditCategoryTypesContentPage;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils;
 using Serilog;
@@ -146,11 +146,11 @@ public partial class AddEditCategoryTypesContentPage
         if (!validate) return;
 
         var response = await DisplayAlert(
-            AddEditCategoryTypesContentPageResources.MesageBoxAddNewCategoryTypeQuestionTitle,
-            string.Format(AddEditCategoryTypesContentPageResources.MesageBoxAddNewCategoryTypeQuestionMessage,
+            CategoryTypesManagementResources.MesageBoxAddNewCategoryTypeQuestionTitle,
+            string.Format(CategoryTypesManagementResources.MesageBoxAddNewCategoryTypeQuestionMessage,
                 CategoryTypeName),
-            AddEditCategoryTypesContentPageResources.MesageBoxAddNewCategoryTypeQuestionYesButton,
-            AddEditCategoryTypesContentPageResources.MesageBoxAddNewCategoryTypeQuestionNoButton);
+            CategoryTypesManagementResources.MesageBoxAddNewCategoryTypeQuestionYesButton,
+            CategoryTypesManagementResources.MesageBoxAddNewCategoryTypeQuestionNoButton);
         if (!response) return;
 
         // ReSharper disable once HeapView.ObjectAllocation.Evident
@@ -184,17 +184,17 @@ public partial class AddEditCategoryTypesContentPage
             SelectedColor = null;
 
             await DisplayAlert(
-                AddEditCategoryTypesContentPageResources.MesageBoxAddNewCategoryTypeSuccessTitle,
-                AddEditCategoryTypesContentPageResources.MesageBoxAddNewCategoryTypeSuccessMessage,
-                AddEditCategoryTypesContentPageResources.MesageBoxAddNewCategoryTypeSuccessOkButton);
+                CategoryTypesManagementResources.MesageBoxAddNewCategoryTypeSuccessTitle,
+                CategoryTypesManagementResources.MesageBoxAddNewCategoryTypeSuccessMessage,
+                CategoryTypesManagementResources.MesageBoxAddNewCategoryTypeSuccessOkButton);
         }
         else
         {
             Log.Error(exception, "An error occurred while adding new category type");
             await DisplayAlert(
-                AddEditCategoryTypesContentPageResources.MesageBoxAddNewCategoryTypeErrorTitle,
-                AddEditCategoryTypesContentPageResources.MesageBoxAddNewCategoryTypeErrorMessage,
-                AddEditCategoryTypesContentPageResources.MesageBoxAddNewCategoryTypeErrorOkButton);
+                CategoryTypesManagementResources.MesageBoxAddNewCategoryTypeErrorTitle,
+                CategoryTypesManagementResources.MesageBoxAddNewCategoryTypeErrorMessage,
+                CategoryTypesManagementResources.MesageBoxAddNewCategoryTypeErrorOkButton);
         }
     }
 
@@ -208,17 +208,17 @@ public partial class AddEditCategoryTypesContentPage
         {
             Log.Information("Category type and all related records were successfully deleted");
             await DisplayAlert(
-                AddEditCategoryTypesContentPageResources.MessageBoxHandleCategoryTypeDeleteSuccessTitle,
-                AddEditCategoryTypesContentPageResources.MessageBoxHandleCategoryTypeDeleteSuccessMessage,
-                AddEditCategoryTypesContentPageResources.MessageBoxHandleCategoryTypeDeleteSuccessOkButton);
+                CategoryTypesManagementResources.MessageBoxCategoryTypeDeleteSuccessTitle,
+                CategoryTypesManagementResources.MessageBoxCategoryTypeDeleteSuccessMessage,
+                CategoryTypesManagementResources.MessageBoxCategoryTypeDeleteSuccessOkButton);
         }
         else
         {
             Log.Error(exception, "An error occurred while deleting category type");
             await DisplayAlert(
-                AddEditCategoryTypesContentPageResources.MessageBoxHandleCategoryTypeDeleteErrorTitle,
-                AddEditCategoryTypesContentPageResources.MessageBoxHandleCategoryTypeDeleteErrorMessage,
-                AddEditCategoryTypesContentPageResources.MessageBoxHandleCategoryTypeDeleteErrorOkButton);
+                CategoryTypesManagementResources.MessageBoxCategoryTypeDeleteErrorTitle,
+                CategoryTypesManagementResources.MessageBoxCategoryTypeDeleteErrorMessage,
+                CategoryTypesManagementResources.MessageBoxCategoryTypeDeleteErrorOkButton);
         }
     }
 
@@ -229,17 +229,17 @@ public partial class AddEditCategoryTypesContentPage
         {
             Log.Information("Category type was successfully edited");
             await DisplayAlert(
-                AddEditCategoryTypesContentPageResources.MessageBoxHandleCategoryTypeEditSuccessTitle,
-                AddEditCategoryTypesContentPageResources.MessageBoxHandleCategoryTypeEditSuccessMessage,
-                AddEditCategoryTypesContentPageResources.MessageBoxHandleCategoryTypeEditSuccessOkButton);
+                CategoryTypesManagementResources.MessageBoxCategoryTypeEditSuccessTitle,
+                CategoryTypesManagementResources.MessageBoxCategoryTypeEditSuccessMessage,
+                CategoryTypesManagementResources.MessageBoxCategoryTypeEditSuccessOkButton);
         }
         else
         {
             Log.Error(exception, "An error occurred while editing Category type");
             await DisplayAlert(
-                AddEditCategoryTypesContentPageResources.MessageBoxHandleCategoryTypeEditErrorTitle,
-                AddEditCategoryTypesContentPageResources.MessageBoxHandleCategoryTypeEditErrorMessage,
-                AddEditCategoryTypesContentPageResources.MessageBoxHandleCategoryTypeEditErrorOkButton);
+                CategoryTypesManagementResources.MessageBoxCategoryTypeEditErrorTitle,
+                CategoryTypesManagementResources.MessageBoxCategoryTypeEditErrorMessage,
+                CategoryTypesManagementResources.MessageBoxCategoryTypeEditErrorOkButton);
         }
     }
 
@@ -281,10 +281,10 @@ public partial class AddEditCategoryTypesContentPage
             if (!validate) return;
 
             var response = await DisplayAlert(
-                AddEditCategoryTypesContentPageResources.MessageBoxHandleCategoryTypeEditQuestionTitle,
-                string.Format(AddEditCategoryTypesContentPageResources.MessageBoxHandleCategoryTypeEditQuestionMessage, Environment.NewLine),
-                AddEditCategoryTypesContentPageResources.MessageBoxHandleCategoryTypeEditQuestionYesButton,
-                AddEditCategoryTypesContentPageResources.MessageBoxHandleCategoryTypeEditQuestionNoButton);
+                CategoryTypesManagementResources.MessageBoxCategoryTypeEditQuestionTitle,
+                string.Format(CategoryTypesManagementResources.MessageBoxCategoryTypeEditQuestionMessage, Environment.NewLine),
+                CategoryTypesManagementResources.MessageBoxCategoryTypeEditQuestionYesButton,
+                CategoryTypesManagementResources.MessageBoxCategoryTypeEditQuestionNoButton);
             if (!response) return;
 
             Log.Information("Attempt to edit category type : {Category}", json);
@@ -294,15 +294,15 @@ public partial class AddEditCategoryTypesContentPage
         }
 
         var deleteResponse = await DisplayAlert(
-            AddEditCategoryTypesContentPageResources.MessageBoxHandleCategoryTypeEditDeleteQuestionTitle,
-            string.Format(AddEditCategoryTypesContentPageResources.MessageBoxHandleCategoryTypeEditDeleteQuestionMessage, Environment.NewLine),
-            AddEditCategoryTypesContentPageResources.MessageBoxHandleCategoryTypeEditDeleteQuestionYesButton,
-            AddEditCategoryTypesContentPageResources.MessageBoxHandleCategoryTypeEditDeleteQuestionNoButton);
+            CategoryTypesManagementResources.MessageBoxCategoryTypeEditDeleteQuestionTitle,
+            string.Format(CategoryTypesManagementResources.MessageBoxCategoryTypeEditDeleteQuestionMessage, Environment.NewLine),
+            CategoryTypesManagementResources.MessageBoxCategoryTypeEditDeleteQuestionYesButton,
+            CategoryTypesManagementResources.MessageBoxHandleCategoryTypeEditDeleteQuestionNoButton);
 
         if (!deleteResponse) return;
 
         await Task.Delay(TimeSpan.FromMilliseconds(100));
-        this.ShowCustomPopupActivityIndicator(AddEditCategoryTypesContentPageResources.CustomPopupActivityIndicatorDeleteCategoryType);
+        this.ShowCustomPopupActivityIndicator(CategoryTypesManagementResources.ActivityIndicatorDeleteCategoryType);
         await Task.Delay(TimeSpan.FromMilliseconds(100));
 
         Log.Information("Attempt to delete category type : {Category}", json);
@@ -339,9 +339,9 @@ public partial class AddEditCategoryTypesContentPage
 
     private void UpdateLanguage()
     {
-        PlaceholderText = AddEditCategoryTypesContentPageResources.PlaceholderText;
-        LabelTextColor = AddEditCategoryTypesContentPageResources.LabelTextColor;
-        ButtonValidText = AddEditCategoryTypesContentPageResources.ButtonValidText;
+        PlaceholderText = CategoryTypesManagementResources.PlaceholderText;
+        LabelTextColor = CategoryTypesManagementResources.LabelTextColor;
+        ButtonValidText = CategoryTypesManagementResources.ButtonValidText;
     }
 
     private async Task<bool> ValidateCategoryType(string? categoryTypeName = null)
@@ -354,18 +354,18 @@ public partial class AddEditCategoryTypesContentPage
         if (string.IsNullOrWhiteSpace(categoryTypeNameToTest))
         {
             await DisplayAlert(
-                AddEditCategoryTypesContentPageResources.MessageBoxValidateCategoryTypeErrorEmptyTitle,
-                AddEditCategoryTypesContentPageResources.MessageBoxValidateCategoryTypeErrorEmptyMessage,
-                AddEditCategoryTypesContentPageResources.MessageBoxValidateCategoryTypeErrorEmptyOkButton);
+                CategoryTypesManagementResources.MessageBoxValidateCategoryTypeErrorEmptyTitle,
+                CategoryTypesManagementResources.MessageBoxValidateCategoryTypeErrorEmptyMessage,
+                CategoryTypesManagementResources.MessageBoxValidateCategoryTypeErrorEmptyOkButton);
             return false;
         }
 
         if (SelectedColor is null)
         {
             await DisplayAlert(
-                AddEditCategoryTypesContentPageResources.MessageBoxValidateColorErrorEmptyTitle,
-                AddEditCategoryTypesContentPageResources.MessageBoxValidateColorErrorEmptyMessage,
-                AddEditCategoryTypesContentPageResources.MessageBoxValidateColorErrorEmptyOkButton);
+                CategoryTypesManagementResources.MessageBoxValidateColorErrorEmptyTitle,
+                CategoryTypesManagementResources.MessageBoxValidateColorErrorEmptyMessage,
+                CategoryTypesManagementResources.MessageBoxValidateColorErrorEmptyOkButton);
             return false;
         }
 
@@ -374,9 +374,9 @@ public partial class AddEditCategoryTypesContentPage
         if (alreadyExist)
         {
             await DisplayAlert(
-                AddEditCategoryTypesContentPageResources.MessageBoxValidateCategoryTypeErrorAlreadyExistTitle,
-                AddEditCategoryTypesContentPageResources.MessageBoxValidateCategoryTypeErrorAlreadyExistMessage,
-                AddEditCategoryTypesContentPageResources.MessageBoxValidateCategoryTypeErrorAlreadyExistOkButton);
+                CategoryTypesManagementResources.MessageBoxValidateCategoryTypeErrorAlreadyExistTitle,
+                CategoryTypesManagementResources.MessageBoxValidateCategoryTypeErrorAlreadyExistMessage,
+                CategoryTypesManagementResources.MessageBoxValidateCategoryTypeErrorAlreadyExistOkButton);
             return false;
         }
 
