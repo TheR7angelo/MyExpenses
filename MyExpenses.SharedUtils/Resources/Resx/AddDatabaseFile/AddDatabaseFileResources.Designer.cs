@@ -9,8 +9,8 @@
 
 namespace MyExpenses.SharedUtils.Resources.Resx.AddDatabaseFile {
     using System;
-
-
+    
+    
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
     /// </summary>
@@ -22,20 +22,20 @@ namespace MyExpenses.SharedUtils.Resources.Resx.AddDatabaseFile {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class AddDatabaseFileResources {
-
+        
         private static global::System.Resources.ResourceManager resourceMan;
-
+        
         private static global::System.Globalization.CultureInfo resourceCulture;
-
+        
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal AddDatabaseFileResources() {
+        public AddDatabaseFileResources() {
         }
-
+        
         /// <summary>
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MyExpenses.SharedUtils.Resources.Resx.AddDatabaseFile.AddDatabaseFileResources", typeof(AddDatabaseFileResources).Assembly);
@@ -44,13 +44,13 @@ namespace MyExpenses.SharedUtils.Resources.Resx.AddDatabaseFile {
                 return resourceMan;
             }
         }
-
+        
         /// <summary>
         ///   Overrides the current thread's CurrentUICulture property for all
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -58,7 +58,7 @@ namespace MyExpenses.SharedUtils.Resources.Resx.AddDatabaseFile {
                 resourceCulture = value;
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Cancel.
         /// </summary>
@@ -67,7 +67,7 @@ namespace MyExpenses.SharedUtils.Resources.Resx.AddDatabaseFile {
                 return ResourceManager.GetString("ButtonCancelContent", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Valid.
         /// </summary>
@@ -76,7 +76,7 @@ namespace MyExpenses.SharedUtils.Resources.Resx.AddDatabaseFile {
                 return ResourceManager.GetString("ButtonValidContent", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Database file name already exist.
         /// </summary>
@@ -85,7 +85,7 @@ namespace MyExpenses.SharedUtils.Resources.Resx.AddDatabaseFile {
                 return ResourceManager.GetString("MessageBoxDatabaseAlreadyExistErrorMessage", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Ok.
         /// </summary>
@@ -94,7 +94,7 @@ namespace MyExpenses.SharedUtils.Resources.Resx.AddDatabaseFile {
                 return ResourceManager.GetString("MessageBoxDatabaseAlreadyExistErrorOkButton", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Error.
         /// </summary>
@@ -103,7 +103,7 @@ namespace MyExpenses.SharedUtils.Resources.Resx.AddDatabaseFile {
                 return ResourceManager.GetString("MessageBoxDatabaseAlreadyExistErrorTitle", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Database file name contains incorrect characters.
         /// </summary>
@@ -112,7 +112,7 @@ namespace MyExpenses.SharedUtils.Resources.Resx.AddDatabaseFile {
                 return ResourceManager.GetString("MessageBoxDatabaseFilenameContainsIncorrectCharErrorMessage", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Ok.
         /// </summary>
@@ -121,7 +121,7 @@ namespace MyExpenses.SharedUtils.Resources.Resx.AddDatabaseFile {
                 return ResourceManager.GetString("MessageBoxDatabaseFilenameContainsIncorrectCharErrorOkButton", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Error.
         /// </summary>
@@ -130,7 +130,7 @@ namespace MyExpenses.SharedUtils.Resources.Resx.AddDatabaseFile {
                 return ResourceManager.GetString("MessageBoxDatabaseFilenameContainsIncorrectCharErrorTitle", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Database file name cannot be empty.
         /// </summary>
@@ -139,7 +139,7 @@ namespace MyExpenses.SharedUtils.Resources.Resx.AddDatabaseFile {
                 return ResourceManager.GetString("MessageBoxEmptyNameErrorMessage", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Ok.
         /// </summary>
@@ -148,7 +148,7 @@ namespace MyExpenses.SharedUtils.Resources.Resx.AddDatabaseFile {
                 return ResourceManager.GetString("MessageBoxEmptyNameErrorOkButton", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Error.
         /// </summary>
@@ -157,13 +157,22 @@ namespace MyExpenses.SharedUtils.Resources.Resx.AddDatabaseFile {
                 return ResourceManager.GetString("MessageBoxEmptyNameErrorTitle", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Database file name :.
         /// </summary>
         public static string TextBoxHintAssist {
             get {
                 return ResourceManager.GetString("TextBoxHintAssist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Adding a Database File.
+        /// </summary>
+        public static string TitleWindow {
+            get {
+                return ResourceManager.GetString("TitleWindow", resourceCulture);
             }
         }
     }

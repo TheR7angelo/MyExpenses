@@ -47,4 +47,7 @@
     <data name="MessageBoxDatabaseAlreadyExistErrorMessage" xml:space="preserve">
         <value>Le nom du fichier de base de données existe déjà</value>
     </data>
+    <data name="TitleWindow" xml:space="preserve">
+        <value>Ajout d'un fichier de base de données</value>
+    </data>
 </root>

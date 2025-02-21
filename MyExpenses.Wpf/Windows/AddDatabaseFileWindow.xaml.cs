@@ -5,7 +5,6 @@ using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.IO;
 using MyExpenses.SharedUtils.Resources.Resx.AddDatabaseFile;
 using MyExpenses.Utils.Strings;
-using MyExpenses.Wpf.Resources.Resx.Windows.AddDatabaseFileWindow;
 using MyExpenses.Wpf.Utils;
 using MyExpenses.Wpf.Windows.MsgBox;
 
@@ -150,7 +149,7 @@ public partial class AddDatabaseFileWindow
 
     private void UpdateLanguage()
     {
-        TitleWindow = AddDatabaseFileWindowResources.TitleWindow;
+        TitleWindow = AddDatabaseFileResources.TitleWindow;
 
         TextBoxHintAssist = AddDatabaseFileResources.TextBoxHintAssist;
         ButtonValidContent = AddDatabaseFileResources.ButtonValidContent;
