@@ -10,6 +10,7 @@ using MyExpenses.SharedUtils.Properties;
 using MyExpenses.SharedUtils.RegexUtils;
 using MyExpenses.SharedUtils.Resources.Resx.AccountTypeManagement;
 using MyExpenses.SharedUtils.Resources.Resx.AddEditAccount;
+using MyExpenses.SharedUtils.Resources.Resx.CategoryTypesManagement;
 using MyExpenses.SharedUtils.Resources.Resx.CurrencySymbolManagement;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils.Sql;
@@ -278,12 +279,14 @@ public partial class AddEditAccountWindow
             var json = newCategoryType.ToJsonString();
             Log.Information("{Json}", json);
 
-            MsgBox.MsgBox.Show(AddEditCurrencyWindowResources.MessageBoxAddCurrencySuccess, MsgBoxImage.Check);
+            MsgBox.MsgBox.Show(CategoryTypesManagementResources.MessageBoxAddNewCategoryTypeSuccessTitle,
+                CategoryTypesManagementResources.MessageBoxAddNewCategoryTypeSuccessMessage, MsgBoxImage.Check);
         }
         else
         {
             Log.Error(exception, "An error occurred please retry");
-            MsgBox.MsgBox.Show(AddEditCurrencyWindowResources.MessageBoxAddCurrencyError, MsgBoxImage.Error);
+            MsgBox.MsgBox.Show(CategoryTypesManagementResources.MessageBoxAddNewCategoryTypeErrorTitle,
+                CategoryTypesManagementResources.MessageBoxAddNewCategoryTypeErrorMessage, MsgBoxImage.Error);
         }
     }
 
