@@ -1,6 +1,6 @@
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Maui.CustomPopup;
-using MyExpenses.Smartphones.Resources.Resx.ContentPages.CustomPopups.CustomPopupEntry;
+using MyExpenses.SharedUtils.Resources.Resx.PopupEntryManagement;
 
 namespace MyExpenses.Smartphones.ContentPages.CustomPopups;
 
@@ -131,9 +131,9 @@ public partial class CustomPopupEntry
 
     private void UpdateLanguage()
     {
-        ButtonValidText = CustomPopupEntryResources.ButtonValidText;
-        ButtonDeleteText = CustomPopupEntryResources.ButtonDeleteText;
-        ButtonCancelText = CustomPopupEntryResources.ButtonCancelText;
+        ButtonValidText = PopupEntryManagementResources.ButtonValidText;
+        ButtonDeleteText = PopupEntryManagementResources.ButtonDeleteText;
+        ButtonCancelText = PopupEntryManagementResources.ButtonCancelText;
     }
 
     private void SetDialogueResult(ECustomPopupEntryResult customPopupEntryResult)

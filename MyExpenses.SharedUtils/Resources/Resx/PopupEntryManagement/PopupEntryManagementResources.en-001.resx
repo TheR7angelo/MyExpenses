@@ -11,13 +11,13 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-    <data name="ButtonValidText" xml:space="preserve">
-        <value>Valider</value>
+    <data name="ButtonCancelText" xml:space="preserve">
+        <value>Cancel</value>
     </data>
     <data name="ButtonDeleteText" xml:space="preserve">
-        <value>Supprimer</value>
+        <value>Delete</value>
     </data>
-    <data name="ButtonCancelText" xml:space="preserve">
-        <value>Annuler</value>
+    <data name="ButtonValidText" xml:space="preserve">
+        <value>Valid</value>
     </data>
 </root>

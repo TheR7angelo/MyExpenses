@@ -44,6 +44,10 @@
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>CurrencySymbolManagementResources.Designer.cs</LastGenOutput>
       </EmbeddedResource>
+      <EmbeddedResource Update="Resources\Resx\PopupEntryManagement\PopupEntryManagementResources.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>PopupEntryManagementResources.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
     </ItemGroup>
 
     <ItemGroup>
@@ -91,6 +95,11 @@
         <DesignTime>True</DesignTime>
         <AutoGen>True</AutoGen>
         <DependentUpon>CurrencySymbolManagementResources.resx</DependentUpon>
+      </Compile>
+      <Compile Update="Resources\Resx\PopupEntryManagement\PopupEntryManagementResources.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>PopupEntryManagementResources.resx</DependentUpon>
       </Compile>
     </ItemGroup>
 
