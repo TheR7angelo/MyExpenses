@@ -247,11 +247,6 @@
         <AutoGen>True</AutoGen>
         <DependentUpon>AddEditCategoryTypesContentPageResources.resx</DependentUpon>
       </Compile>
-      <Compile Update="Resources\Resx\ContentPages\CustomPopups\CustomPopupEditCategory\CustomPopupEditCategoryResources.Designer.cs">
-        <DesignTime>True</DesignTime>
-        <AutoGen>True</AutoGen>
-        <DependentUpon>CustomPopupEditCategoryResources.resx</DependentUpon>
-      </Compile>
     </ItemGroup>
 
     <ItemGroup>

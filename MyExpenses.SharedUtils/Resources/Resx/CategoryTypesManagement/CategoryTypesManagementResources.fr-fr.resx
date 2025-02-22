@@ -161,4 +161,7 @@
     <data name="MessageBoxDeleteCategoryTypeUseSuccess" xml:space="preserve">
         <value>Le type de catégorie et tous les éléments relatifs ont été supprimés avec succès</value>
     </data>
+    <data name="TextBoxCategoryTypeColorName" xml:space="preserve">
+        <value>Couleur de la catégorie :</value>
+    </data>
 </root>

@@ -2,7 +2,7 @@ using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Maui.CustomPopup;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Models.Sql.Bases.Views;
-using MyExpenses.Smartphones.Resources.Resx.ContentPages.CustomPopups.CustomPopupEditCategory;
+using MyExpenses.SharedUtils.Resources.Resx.CategoryTypesManagement;
 using MyExpenses.Sql.Context;
 
 namespace MyExpenses.Smartphones.ContentPages.CustomPopups;
@@ -158,12 +158,12 @@ public partial class CustomPopupEditCategory
 
     private void UpdateLanguage()
     {
-        PlaceholderText = CustomPopupEditCategoryResources.PlaceholderText;
-        LabelTextColor = CustomPopupEditCategoryResources.LabelTextColor;
+        PlaceholderText = CategoryTypesManagementResources.TextBoxCategoryTypeName;
+        LabelTextColor = CategoryTypesManagementResources.TextBoxCategoryTypeColorName;
 
-        ButtonValidText = CustomPopupEditCategoryResources.ButtonValidText;
-        ButtonDeleteText = CustomPopupEditCategoryResources.ButtonDeleteText;
-        ButtonCancelText = CustomPopupEditCategoryResources.ButtonCancelText;
+        ButtonValidText = CategoryTypesManagementResources.ButtonValidText;
+        ButtonDeleteText = CategoryTypesManagementResources.ButtonDeleteText;
+        ButtonCancelText = CategoryTypesManagementResources.ButtonCancelText;
     }
 
     private void SetDialogueResult(ECustomPopupEntryResult customPopupEntryResult)

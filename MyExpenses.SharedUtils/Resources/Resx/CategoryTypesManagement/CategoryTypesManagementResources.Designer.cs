@@ -493,6 +493,15 @@ namespace MyExpenses.SharedUtils.Resources.Resx.CategoryTypesManagement {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Category color :.
+        /// </summary>
+        public static string TextBoxCategoryTypeColorName {
+            get {
+                return ResourceManager.GetString("TextBoxCategoryTypeColorName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Category Name :.
         /// </summary>
         public static string TextBoxCategoryTypeName {
