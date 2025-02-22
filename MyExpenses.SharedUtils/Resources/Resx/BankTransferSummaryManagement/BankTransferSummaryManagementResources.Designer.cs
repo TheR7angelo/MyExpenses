@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.BankTransferSummaryContentPage {
+namespace MyExpenses.SharedUtils.Resources.Resx.BankTransferSummaryManagement {
     using System;
     
     
@@ -21,25 +21,25 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.BankTransferSummary
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class BankTransferSummaryContentPageResources {
+    public class BankTransferSummaryManagementResources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal BankTransferSummaryContentPageResources() {
+        public BankTransferSummaryManagementResources() {
         }
         
         /// <summary>
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MyExpenses.Smartphones.Resources.Resx.ContentPages.BankTransferSummaryContentPage" +
-                            ".BankTransferSummaryContentPageResources", typeof(BankTransferSummaryContentPageResources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MyExpenses.SharedUtils.Resources.Resx.BankTransferSummaryManagement.BankTransferS" +
+                            "ummaryManagementResources", typeof(BankTransferSummaryManagementResources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -51,7 +51,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.BankTransferSummary
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,7 +63,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.BankTransferSummary
         /// <summary>
         ///   Looks up a localized string similar to Choice of the month :.
         /// </summary>
-        internal static string ComboBoxMonthHintAssist {
+        public static string ComboBoxMonthHintAssist {
             get {
                 return ResourceManager.GetString("ComboBoxMonthHintAssist", resourceCulture);
             }
@@ -72,7 +72,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.BankTransferSummary
         /// <summary>
         ///   Looks up a localized string similar to Choice of the year :.
         /// </summary>
-        internal static string ComboBoxYearsHintAssist {
+        public static string ComboBoxYearsHintAssist {
             get {
                 return ResourceManager.GetString("ComboBoxYearsHintAssist", resourceCulture);
             }
@@ -81,7 +81,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.BankTransferSummary
         /// <summary>
         ///   Looks up a localized string similar to Elapsed time :.
         /// </summary>
-        internal static string ElapsedTimeLoadingDataText {
+        public static string ElapsedTimeLoadingDataText {
             get {
                 return ResourceManager.GetString("ElapsedTimeLoadingDataText", resourceCulture);
             }
@@ -90,7 +90,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.BankTransferSummary
         /// <summary>
         ///   Looks up a localized string similar to Additional reason :.
         /// </summary>
-        internal static string LabelTextAdditionalReason {
+        public static string LabelTextAdditionalReason {
             get {
                 return ResourceManager.GetString("LabelTextAdditionalReason", resourceCulture);
             }
@@ -99,7 +99,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.BankTransferSummary
         /// <summary>
         ///   Looks up a localized string similar to After.
         /// </summary>
-        internal static string LabelTextAfter {
+        public static string LabelTextAfter {
             get {
                 return ResourceManager.GetString("LabelTextAfter", resourceCulture);
             }
@@ -108,7 +108,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.BankTransferSummary
         /// <summary>
         ///   Looks up a localized string similar to Balance.
         /// </summary>
-        internal static string LabelTextBalance {
+        public static string LabelTextBalance {
             get {
                 return ResourceManager.GetString("LabelTextBalance", resourceCulture);
             }
@@ -117,7 +117,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.BankTransferSummary
         /// <summary>
         ///   Looks up a localized string similar to Before.
         /// </summary>
-        internal static string LabelTextBefore {
+        public static string LabelTextBefore {
             get {
                 return ResourceManager.GetString("LabelTextBefore", resourceCulture);
             }
@@ -126,7 +126,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.BankTransferSummary
         /// <summary>
         ///   Looks up a localized string similar to Category.
         /// </summary>
-        internal static string LabelTextCategoryFilter {
+        public static string LabelTextCategoryFilter {
             get {
                 return ResourceManager.GetString("LabelTextCategoryFilter", resourceCulture);
             }
@@ -135,7 +135,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.BankTransferSummary
         /// <summary>
         ///   Looks up a localized string similar to Date.
         /// </summary>
-        internal static string LabelTextDate {
+        public static string LabelTextDate {
             get {
                 return ResourceManager.GetString("LabelTextDate", resourceCulture);
             }
@@ -144,7 +144,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.BankTransferSummary
         /// <summary>
         ///   Looks up a localized string similar to From.
         /// </summary>
-        internal static string LabelTextFromAccount {
+        public static string LabelTextFromAccount {
             get {
                 return ResourceManager.GetString("LabelTextFromAccount", resourceCulture);
             }
@@ -153,7 +153,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.BankTransferSummary
         /// <summary>
         ///   Looks up a localized string similar to From the account.
         /// </summary>
-        internal static string LabelTextFromAccountFilter {
+        public static string LabelTextFromAccountFilter {
             get {
                 return ResourceManager.GetString("LabelTextFromAccountFilter", resourceCulture);
             }
@@ -162,7 +162,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.BankTransferSummary
         /// <summary>
         ///   Looks up a localized string similar to Main reason :.
         /// </summary>
-        internal static string LabelTextMainReason {
+        public static string LabelTextMainReason {
             get {
                 return ResourceManager.GetString("LabelTextMainReason", resourceCulture);
             }
@@ -171,7 +171,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.BankTransferSummary
         /// <summary>
         ///   Looks up a localized string similar to Main reason.
         /// </summary>
-        internal static string LabelTextMainReasonFilter {
+        public static string LabelTextMainReasonFilter {
             get {
                 return ResourceManager.GetString("LabelTextMainReasonFilter", resourceCulture);
             }
@@ -180,7 +180,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.BankTransferSummary
         /// <summary>
         ///   Looks up a localized string similar to To.
         /// </summary>
-        internal static string LabelTextToAccount {
+        public static string LabelTextToAccount {
             get {
                 return ResourceManager.GetString("LabelTextToAccount", resourceCulture);
             }
@@ -189,7 +189,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.BankTransferSummary
         /// <summary>
         ///   Looks up a localized string similar to To the account.
         /// </summary>
-        internal static string LabelTextToAccountFilter {
+        public static string LabelTextToAccountFilter {
             get {
                 return ResourceManager.GetString("LabelTextToAccountFilter", resourceCulture);
             }
@@ -198,7 +198,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.BankTransferSummary
         /// <summary>
         ///   Looks up a localized string similar to Additional reason.
         /// </summary>
-        internal static string LabelTextToAdditionalReasonFilter {
+        public static string LabelTextToAdditionalReasonFilter {
             get {
                 return ResourceManager.GetString("LabelTextToAdditionalReasonFilter", resourceCulture);
             }
@@ -207,7 +207,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.BankTransferSummary
         /// <summary>
         ///   Looks up a localized string similar to Amount.
         /// </summary>
-        internal static string LabelTextValue {
+        public static string LabelTextValue {
             get {
                 return ResourceManager.GetString("LabelTextValue", resourceCulture);
             }
@@ -216,7 +216,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.BankTransferSummary
         /// <summary>
         ///   Looks up a localized string similar to Amount.
         /// </summary>
-        internal static string LabelTextValueFilter {
+        public static string LabelTextValueFilter {
             get {
                 return ResourceManager.GetString("LabelTextValueFilter", resourceCulture);
             }
@@ -225,7 +225,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.BankTransferSummary
         /// <summary>
         ///   Looks up a localized string similar to No additional dates are available.
         /// </summary>
-        internal static string MessageBoxAddMonthErrorMessage {
+        public static string MessageBoxAddMonthErrorMessage {
             get {
                 return ResourceManager.GetString("MessageBoxAddMonthErrorMessage", resourceCulture);
             }
@@ -234,7 +234,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.BankTransferSummary
         /// <summary>
         ///   Looks up a localized string similar to Ok.
         /// </summary>
-        internal static string MessageBoxAddMonthErrorOkButton {
+        public static string MessageBoxAddMonthErrorOkButton {
             get {
                 return ResourceManager.GetString("MessageBoxAddMonthErrorOkButton", resourceCulture);
             }
@@ -243,7 +243,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.BankTransferSummary
         /// <summary>
         ///   Looks up a localized string similar to Error.
         /// </summary>
-        internal static string MessageBoxAddMonthErrorTitle {
+        public static string MessageBoxAddMonthErrorTitle {
             get {
                 return ResourceManager.GetString("MessageBoxAddMonthErrorTitle", resourceCulture);
             }
@@ -252,7 +252,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.BankTransferSummary
         /// <summary>
         ///   Looks up a localized string similar to No lower dates are available.
         /// </summary>
-        internal static string MessageBoxRemoveMonthErrorMessage {
+        public static string MessageBoxRemoveMonthErrorMessage {
             get {
                 return ResourceManager.GetString("MessageBoxRemoveMonthErrorMessage", resourceCulture);
             }
@@ -261,7 +261,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.BankTransferSummary
         /// <summary>
         ///   Looks up a localized string similar to Ok.
         /// </summary>
-        internal static string MessageBoxRemoveMonthErrorOkButton {
+        public static string MessageBoxRemoveMonthErrorOkButton {
             get {
                 return ResourceManager.GetString("MessageBoxRemoveMonthErrorOkButton", resourceCulture);
             }
@@ -270,7 +270,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.BankTransferSummary
         /// <summary>
         ///   Looks up a localized string similar to Error.
         /// </summary>
-        internal static string MessageBoxRemoveMonthErrorTitle {
+        public static string MessageBoxRemoveMonthErrorTitle {
             get {
                 return ResourceManager.GetString("MessageBoxRemoveMonthErrorTitle", resourceCulture);
             }
@@ -279,7 +279,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.BankTransferSummary
         /// <summary>
         ///   Looks up a localized string similar to record(s) found on.
         /// </summary>
-        internal static string RecordFoundOn {
+        public static string RecordFoundOn {
             get {
                 return ResourceManager.GetString("RecordFoundOn", resourceCulture);
             }

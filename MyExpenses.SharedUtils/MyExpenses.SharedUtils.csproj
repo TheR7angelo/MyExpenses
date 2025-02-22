@@ -36,6 +36,10 @@
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>CategoryTypesManagementResources.Designer.cs</LastGenOutput>
       </EmbeddedResource>
+      <EmbeddedResource Update="Resources\Resx\BankTransferSummaryManagement\BankTransferSummaryManagementResources.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>BankTransferSummaryManagementResources.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
     </ItemGroup>
 
     <ItemGroup>
@@ -73,6 +77,11 @@
         <DesignTime>True</DesignTime>
         <AutoGen>True</AutoGen>
         <DependentUpon>CategoryTypesManagementResources.resx</DependentUpon>
+      </Compile>
+      <Compile Update="Resources\Resx\BankTransferSummaryManagement\BankTransferSummaryManagementResources.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>BankTransferSummaryManagementResources.resx</DependentUpon>
       </Compile>
     </ItemGroup>
 

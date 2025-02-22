@@ -12,9 +12,9 @@ using MyExpenses.Models.Sql.Derivatives.Tables;
 using MyExpenses.Models.Sql.Derivatives.Views;
 using MyExpenses.Models.Sql.Queries;
 using MyExpenses.SharedUtils.Collection;
+using MyExpenses.SharedUtils.Resources.Resx.BankTransferSummaryManagement;
 using MyExpenses.Smartphones.ContentPages.CustomPopups;
 using MyExpenses.Smartphones.PackIcons;
-using MyExpenses.Smartphones.Resources.Resx.ContentPages.BankTransferSummaryContentPage;
 using MyExpenses.Smartphones.UserControls.Images;
 using MyExpenses.Sql.Context;
 using MyExpenses.Sql.Queries;
@@ -774,9 +774,9 @@ public partial class BankTransferSummaryContentPage
 
         if (result) return;
 
-        await DisplayAlert(BankTransferSummaryContentPageResources.MessageBoxAddMonthErrorTitle,
-            BankTransferSummaryContentPageResources.MessageBoxAddMonthErrorMessage,
-            BankTransferSummaryContentPageResources.MessageBoxAddMonthErrorOkButton);
+        await DisplayAlert(BankTransferSummaryManagementResources.MessageBoxAddMonthErrorTitle,
+            BankTransferSummaryManagementResources.MessageBoxAddMonthErrorMessage,
+            BankTransferSummaryManagementResources.MessageBoxAddMonthErrorOkButton);
     }
 
     private async Task HandleButtonRemoveMonth()
@@ -788,9 +788,9 @@ public partial class BankTransferSummaryContentPage
 
         if (result) return;
 
-        await DisplayAlert(BankTransferSummaryContentPageResources.MessageBoxRemoveMonthErrorTitle,
-            BankTransferSummaryContentPageResources.MessageBoxRemoveMonthErrorMessage,
-            BankTransferSummaryContentPageResources.MessageBoxRemoveMonthErrorOkButton);
+        await DisplayAlert(BankTransferSummaryManagementResources.MessageBoxRemoveMonthErrorTitle,
+            BankTransferSummaryManagementResources.MessageBoxRemoveMonthErrorMessage,
+            BankTransferSummaryManagementResources.MessageBoxRemoveMonthErrorOkButton);
     }
 
     private async Task HandleTapGestureRecognizer(object? sender)
@@ -830,30 +830,30 @@ public partial class BankTransferSummaryContentPage
 
     private void UpdateLanguage()
     {
-        ComboBoxYearsHintAssist = BankTransferSummaryContentPageResources.ComboBoxYearsHintAssist;
-        ComboBoxMonthHintAssist = BankTransferSummaryContentPageResources.ComboBoxMonthHintAssist;
+        ComboBoxYearsHintAssist = BankTransferSummaryManagementResources.ComboBoxYearsHintAssist;
+        ComboBoxMonthHintAssist = BankTransferSummaryManagementResources.ComboBoxMonthHintAssist;
 
-        LabelTextFromAccountFilter = BankTransferSummaryContentPageResources.LabelTextFromAccountFilter;
-        LabelTextToAccountFilter = BankTransferSummaryContentPageResources.LabelTextToAccountFilter;
-        LabelTextValueFilter = BankTransferSummaryContentPageResources.LabelTextValueFilter;
-        LabelTextMainReasonFilter = BankTransferSummaryContentPageResources.LabelTextMainReasonFilter;
-        LabelTextToAdditionalReasonFilter = BankTransferSummaryContentPageResources.LabelTextToAdditionalReasonFilter;
-        LabelTextCategoryFilter = BankTransferSummaryContentPageResources.LabelTextCategoryFilter;
+        LabelTextFromAccountFilter = BankTransferSummaryManagementResources.LabelTextFromAccountFilter;
+        LabelTextToAccountFilter = BankTransferSummaryManagementResources.LabelTextToAccountFilter;
+        LabelTextValueFilter = BankTransferSummaryManagementResources.LabelTextValueFilter;
+        LabelTextMainReasonFilter = BankTransferSummaryManagementResources.LabelTextMainReasonFilter;
+        LabelTextToAdditionalReasonFilter = BankTransferSummaryManagementResources.LabelTextToAdditionalReasonFilter;
+        LabelTextCategoryFilter = BankTransferSummaryManagementResources.LabelTextCategoryFilter;
 
-        LabelTextFromAccount = BankTransferSummaryContentPageResources.LabelTextFromAccount;
-        LabelTextToAccount = BankTransferSummaryContentPageResources.LabelTextToAccount;
-        LabelTextBalance = BankTransferSummaryContentPageResources.LabelTextBalance;
-        LabelTextBefore = BankTransferSummaryContentPageResources.LabelTextBefore;
-        LabelTextAfter = BankTransferSummaryContentPageResources.LabelTextAfter;
+        LabelTextFromAccount = BankTransferSummaryManagementResources.LabelTextFromAccount;
+        LabelTextToAccount = BankTransferSummaryManagementResources.LabelTextToAccount;
+        LabelTextBalance = BankTransferSummaryManagementResources.LabelTextBalance;
+        LabelTextBefore = BankTransferSummaryManagementResources.LabelTextBefore;
+        LabelTextAfter = BankTransferSummaryManagementResources.LabelTextAfter;
 
-        LabelTextValue = BankTransferSummaryContentPageResources.LabelTextValue;
-        LabelTextDate = BankTransferSummaryContentPageResources.LabelTextDate;
+        LabelTextValue = BankTransferSummaryManagementResources.LabelTextValue;
+        LabelTextDate = BankTransferSummaryManagementResources.LabelTextDate;
 
-        LabelTextMainReason = $"{BankTransferSummaryContentPageResources.LabelTextMainReason} ";
-        LabelTextAdditionalReason = $"{BankTransferSummaryContentPageResources.LabelTextAdditionalReason} ";
+        LabelTextMainReason = $"{BankTransferSummaryManagementResources.LabelTextMainReason} ";
+        LabelTextAdditionalReason = $"{BankTransferSummaryManagementResources.LabelTextAdditionalReason} ";
 
-        ElapsedTimeLoadingDataText = $"{BankTransferSummaryContentPageResources.ElapsedTimeLoadingDataText} ";
-        RecordFoundOn = $" {BankTransferSummaryContentPageResources.RecordFoundOn} ";
+        ElapsedTimeLoadingDataText = $"{BankTransferSummaryManagementResources.ElapsedTimeLoadingDataText} ";
+        RecordFoundOn = $" {BankTransferSummaryManagementResources.RecordFoundOn} ";
     }
 
     private void RefreshDataGrid()
