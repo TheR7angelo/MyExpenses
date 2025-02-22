@@ -128,7 +128,25 @@
     <data name="MessageBoxValidateCurrencySymbolErrorEmptyTitle" xml:space="preserve">
         <value>Error</value>
     </data>
-    <data name="PlaceholderText" xml:space="preserve">
+    <data name="TextBoxCurrencySymbol" xml:space="preserve">
         <value>Add a new currency symbol :</value>
+    </data>
+    <data name="TitleWindow" xml:space="preserve">
+        <value>Adding or changing account currencies</value>
+    </data>
+    <data name="ButtonCancelText" xml:space="preserve">
+        <value>Cancel</value>
+    </data>
+    <data name="ButtonDeleteText" xml:space="preserve">
+        <value>Delete</value>
+    </data>
+    <data name="MessageBoxDeleteCurrencyNoUseSuccess" xml:space="preserve">
+        <value>Currency symbol was successfully removed</value>
+    </data>
+    <data name="MessageBoxDeleteCurrencyUseQuestion" xml:space="preserve">
+        <value>This currency symbol is in use.Are you sure you want to delete this currency symbol and everything linked to it ?</value>
+    </data>
+    <data name="MessageBoxDeleteQuestion" xml:space="preserve">
+        <value>Do you really want to delete this currency symbol ?</value>
     </data>
 </root>

@@ -5,8 +5,8 @@ using Microsoft.Data.Sqlite;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.SharedUtils.Properties;
+using MyExpenses.SharedUtils.Resources.Resx.CurrencySymbolManagement;
 using MyExpenses.Sql.Context;
-using MyExpenses.Wpf.Resources.Resx.Windows.AddEditCurrencyWindow;
 using MyExpenses.Wpf.Resources.Resx.Windows.AddEditModePaymentWindow;
 using MyExpenses.Wpf.Utils;
 using MyExpenses.Wpf.Windows.MsgBox;
@@ -227,8 +227,8 @@ public partial class AddEditModePaymentWindow
     }
 
     private static void ShowErrorMessage()
-        => MsgBox.MsgBox.Show(AddEditCurrencyWindowResources.MessageBoxCurrencySymbolAlreadyExists,
-            MsgBoxImage.Warning);
+        => MsgBox.MsgBox.Show(CurrencySymbolManagementResources.MessageBoxValidateCurrencySymbolErrorAlreadyExistTitle,
+            CurrencySymbolManagementResources.MessageBoxValidateCurrencySymbolErrorAlreadyExistMessage, MsgBoxImage.Warning);
 
     #endregion
 }

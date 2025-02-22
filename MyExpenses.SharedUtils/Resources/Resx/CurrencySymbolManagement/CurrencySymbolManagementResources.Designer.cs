@@ -70,6 +70,24 @@ namespace MyExpenses.SharedUtils.Resources.Resx.CurrencySymbolManagement {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        public static string ButtonCancelText {
+            get {
+                return ResourceManager.GetString("ButtonCancelText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete.
+        /// </summary>
+        public static string ButtonDeleteText {
+            get {
+                return ResourceManager.GetString("ButtonDeleteText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Valid.
         /// </summary>
         public static string ButtonValidText {
@@ -358,6 +376,33 @@ namespace MyExpenses.SharedUtils.Resources.Resx.CurrencySymbolManagement {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Currency symbol was successfully removed.
+        /// </summary>
+        public static string MessageBoxDeleteCurrencyNoUseSuccess {
+            get {
+                return ResourceManager.GetString("MessageBoxDeleteCurrencyNoUseSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This currency symbol is in use.Are you sure you want to delete this currency symbol and everything linked to it ?.
+        /// </summary>
+        public static string MessageBoxDeleteCurrencyUseQuestion {
+            get {
+                return ResourceManager.GetString("MessageBoxDeleteCurrencyUseQuestion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you really want to delete this currency symbol ?.
+        /// </summary>
+        public static string MessageBoxDeleteQuestion {
+            get {
+                return ResourceManager.GetString("MessageBoxDeleteQuestion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Symbol already exist.
         /// </summary>
         public static string MessageBoxValidateCurrencySymbolErrorAlreadyExistMessage {
@@ -414,9 +459,18 @@ namespace MyExpenses.SharedUtils.Resources.Resx.CurrencySymbolManagement {
         /// <summary>
         ///   Looks up a localized string similar to Add a new currency symbol :.
         /// </summary>
-        public static string PlaceholderText {
+        public static string TextBoxCurrencySymbol {
             get {
-                return ResourceManager.GetString("PlaceholderText", resourceCulture);
+                return ResourceManager.GetString("TextBoxCurrencySymbol", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Adding or changing account currencies.
+        /// </summary>
+        public static string TitleWindow {
+            get {
+                return ResourceManager.GetString("TitleWindow", resourceCulture);
             }
         }
     }

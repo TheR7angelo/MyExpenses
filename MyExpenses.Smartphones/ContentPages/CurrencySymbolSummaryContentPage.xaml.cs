@@ -257,7 +257,7 @@ public partial class CurrencySymbolSummaryContentPage
 
     private async Task ShowCustomPopupEntryForCurrency(TCurrency currency)
     {
-        var placeHolder = CurrencySymbolManagementResources.PlaceholderText;
+        var placeHolder = CurrencySymbolManagementResources.TextBoxCurrencySymbol;
 
         // ReSharper disable once HeapView.ObjectAllocation.Evident
         // A new instance of CustomPopupEntry is created and initialized with specific properties such as MaxLenght,
@@ -277,7 +277,7 @@ public partial class CurrencySymbolSummaryContentPage
 
     private void UpdateLanguage()
     {
-        PlaceholderText = CurrencySymbolManagementResources.PlaceholderText;
+        PlaceholderText = CurrencySymbolManagementResources.TextBoxCurrencySymbol;
         ButtonValidText = CurrencySymbolManagementResources.ButtonValidText;
     }
 
