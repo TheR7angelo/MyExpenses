@@ -90,90 +90,90 @@ namespace MyExpenses.SharedUtils.Resources.Resx.CurrencySymbolManagement {
         /// <summary>
         ///   Looks up a localized string similar to An error occurred while adding currency symbol, please retry.
         /// </summary>
-        public static string MesageBoxAddNewCurrencyErrorMessage {
+        public static string MessageBoxAddNewCurrencyErrorMessage {
             get {
-                return ResourceManager.GetString("MesageBoxAddNewCurrencyErrorMessage", resourceCulture);
+                return ResourceManager.GetString("MessageBoxAddNewCurrencyErrorMessage", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Ok.
         /// </summary>
-        public static string MesageBoxAddNewCurrencyErrorOkButton {
+        public static string MessageBoxAddNewCurrencyErrorOkButton {
             get {
-                return ResourceManager.GetString("MesageBoxAddNewCurrencyErrorOkButton", resourceCulture);
+                return ResourceManager.GetString("MessageBoxAddNewCurrencyErrorOkButton", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Error.
         /// </summary>
-        public static string MesageBoxAddNewCurrencyErrorTitle {
+        public static string MessageBoxAddNewCurrencyErrorTitle {
             get {
-                return ResourceManager.GetString("MesageBoxAddNewCurrencyErrorTitle", resourceCulture);
+                return ResourceManager.GetString("MessageBoxAddNewCurrencyErrorTitle", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Do you really want to add &quot;{0}&quot; as a currency ?.
         /// </summary>
-        public static string MesageBoxAddNewCurrencyQuestionMessage {
+        public static string MessageBoxAddNewCurrencyQuestionMessage {
             get {
-                return ResourceManager.GetString("MesageBoxAddNewCurrencyQuestionMessage", resourceCulture);
+                return ResourceManager.GetString("MessageBoxAddNewCurrencyQuestionMessage", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to No.
         /// </summary>
-        public static string MesageBoxAddNewCurrencyQuestionNoButton {
+        public static string MessageBoxAddNewCurrencyQuestionNoButton {
             get {
-                return ResourceManager.GetString("MesageBoxAddNewCurrencyQuestionNoButton", resourceCulture);
+                return ResourceManager.GetString("MessageBoxAddNewCurrencyQuestionNoButton", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Add new currency ?.
         /// </summary>
-        public static string MesageBoxAddNewCurrencyQuestionTitle {
+        public static string MessageBoxAddNewCurrencyQuestionTitle {
             get {
-                return ResourceManager.GetString("MesageBoxAddNewCurrencyQuestionTitle", resourceCulture);
+                return ResourceManager.GetString("MessageBoxAddNewCurrencyQuestionTitle", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Yes.
         /// </summary>
-        public static string MesageBoxAddNewCurrencyQuestionYesButton {
+        public static string MessageBoxAddNewCurrencyQuestionYesButton {
             get {
-                return ResourceManager.GetString("MesageBoxAddNewCurrencyQuestionYesButton", resourceCulture);
+                return ResourceManager.GetString("MessageBoxAddNewCurrencyQuestionYesButton", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Currency symbol was successfully added.
         /// </summary>
-        public static string MesageBoxAddNewCurrencySuccessMessage {
+        public static string MessageBoxAddNewCurrencySuccessMessage {
             get {
-                return ResourceManager.GetString("MesageBoxAddNewCurrencySuccessMessage", resourceCulture);
+                return ResourceManager.GetString("MessageBoxAddNewCurrencySuccessMessage", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Ok.
         /// </summary>
-        public static string MesageBoxAddNewCurrencySuccessOkButton {
+        public static string MessageBoxAddNewCurrencySuccessOkButton {
             get {
-                return ResourceManager.GetString("MesageBoxAddNewCurrencySuccessOkButton", resourceCulture);
+                return ResourceManager.GetString("MessageBoxAddNewCurrencySuccessOkButton", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Success.
         /// </summary>
-        public static string MesageBoxAddNewCurrencySuccessTitle {
+        public static string MessageBoxAddNewCurrencySuccessTitle {
             get {
-                return ResourceManager.GetString("MesageBoxAddNewCurrencySuccessTitle", resourceCulture);
+                return ResourceManager.GetString("MessageBoxAddNewCurrencySuccessTitle", resourceCulture);
             }
         }
         

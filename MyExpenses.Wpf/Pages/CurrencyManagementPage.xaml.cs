@@ -3,9 +3,9 @@ using System.Windows;
 using System.Windows.Controls;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.SharedUtils.Collection;
+using MyExpenses.SharedUtils.Resources.Resx.CurrencySymbolManagement;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils.Sql;
-using MyExpenses.Wpf.Resources.Resx.Pages.CurrencyManagementPage;
 using MyExpenses.Wpf.Windows;
 using MyExpenses.Wpf.Windows.MsgBox;
 using Serilog;
@@ -49,12 +49,14 @@ public partial class CurrencyManagementPage
             var json = newCurrency.ToJsonString();
             Log.Information("{Json}", json);
 
-            MsgBox.Show(CurrencyManagementPageResources.MessageBoxAddCurrencySuccess, MsgBoxImage.Check);
+            MsgBox.Show(CurrencySymbolManagementResources.MessageBoxAddNewCurrencySuccessTitle,
+                CurrencySymbolManagementResources.MessageBoxAddNewCurrencySuccessMessage, MsgBoxImage.Check);
         }
         else
         {
             Log.Error(exception, "An error occurred please retry");
-            MsgBox.Show(CurrencyManagementPageResources.MessageBoxAddCurrencyError, MsgBoxImage.Error);
+            MsgBox.Show(CurrencySymbolManagementResources.MessageBoxAddNewCurrencyErrorTitle,
+                CurrencySymbolManagementResources.MessageBoxAddNewCurrencyErrorMessage, MsgBoxImage.Error);
         }
     }
 
@@ -88,12 +90,14 @@ public partial class CurrencyManagementPage
                 var json = editedCurrency.ToJsonString();
                 Log.Information("{Json}", json);
 
-                MsgBox.Show(CurrencyManagementPageResources.MessageBoxEditCurrencySuccess, MsgBoxImage.Check);
+                MsgBox.Show(CurrencySymbolManagementResources.MessageBoxCurrencyEditSuccessTitle,
+                    CurrencySymbolManagementResources.MessageBoxCurrencyEditSuccessMessage, MsgBoxImage.Check);
             }
             else
             {
                 Log.Error(exception, "An error occurred please retry");
-                MsgBox.Show(CurrencyManagementPageResources.MessageBoxEditCurrencyError, MsgBoxImage.Error);
+                MsgBox.Show(CurrencySymbolManagementResources.MessageBoxCurrencyEditErrorTitle,
+                    CurrencySymbolManagementResources.MessageBoxCurrencyEditErrorMessage, MsgBoxImage.Error);
             }
         }
     }

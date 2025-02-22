@@ -20,34 +20,34 @@
     <data name="CustomPopupEntryPlaceHolderText" xml:space="preserve">
         <value>Valeur dela devise :</value>
     </data>
-    <data name="MesageBoxAddNewCurrencyErrorMessage" xml:space="preserve">
+    <data name="MessageBoxAddNewCurrencyErrorMessage" xml:space="preserve">
         <value>Une erreur s’est produite lors de l’ajout du symbole monétaire, veuillez réessayer</value>
     </data>
-    <data name="MesageBoxAddNewCurrencyErrorOkButton" xml:space="preserve">
+    <data name="MessageBoxAddNewCurrencyErrorOkButton" xml:space="preserve">
         <value>Ok</value>
     </data>
-    <data name="MesageBoxAddNewCurrencyErrorTitle" xml:space="preserve">
+    <data name="MessageBoxAddNewCurrencyErrorTitle" xml:space="preserve">
         <value>Erreur</value>
     </data>
-    <data name="MesageBoxAddNewCurrencyQuestionMessage" xml:space="preserve">
+    <data name="MessageBoxAddNewCurrencyQuestionMessage" xml:space="preserve">
         <value>Voulez-vous vraiment ajouter "{0}" comme nouvelle devise ?</value>
     </data>
-    <data name="MesageBoxAddNewCurrencyQuestionNoButton" xml:space="preserve">
+    <data name="MessageBoxAddNewCurrencyQuestionNoButton" xml:space="preserve">
         <value>Non</value>
     </data>
-    <data name="MesageBoxAddNewCurrencyQuestionTitle" xml:space="preserve">
+    <data name="MessageBoxAddNewCurrencyQuestionTitle" xml:space="preserve">
         <value>Ajouter une nouvelle devise ?</value>
     </data>
-    <data name="MesageBoxAddNewCurrencyQuestionYesButton" xml:space="preserve">
+    <data name="MessageBoxAddNewCurrencyQuestionYesButton" xml:space="preserve">
         <value>Oui</value>
     </data>
-    <data name="MesageBoxAddNewCurrencySuccessMessage" xml:space="preserve">
+    <data name="MessageBoxAddNewCurrencySuccessMessage" xml:space="preserve">
         <value>Le symbole de la devise a été ajouté avec succès</value>
     </data>
-    <data name="MesageBoxAddNewCurrencySuccessOkButton" xml:space="preserve">
+    <data name="MessageBoxAddNewCurrencySuccessOkButton" xml:space="preserve">
         <value>Ok</value>
     </data>
-    <data name="MesageBoxAddNewCurrencySuccessTitle" xml:space="preserve">
+    <data name="MessageBoxAddNewCurrencySuccessTitle" xml:space="preserve">
         <value>Succès</value>
     </data>
     <data name="MessageBoxCurrencyDeleteErrorMessage" xml:space="preserve">

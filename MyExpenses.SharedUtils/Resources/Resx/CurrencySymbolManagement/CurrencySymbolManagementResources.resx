@@ -27,34 +27,34 @@
     <data name="CustomPopupEntryPlaceHolderText" xml:space="preserve">
         <value>Currency value :</value>
     </data>
-    <data name="MesageBoxAddNewCurrencyErrorMessage" xml:space="preserve">
+    <data name="MessageBoxAddNewCurrencyErrorMessage" xml:space="preserve">
         <value>An error occurred while adding currency symbol, please retry</value>
     </data>
-    <data name="MesageBoxAddNewCurrencyErrorOkButton" xml:space="preserve">
+    <data name="MessageBoxAddNewCurrencyErrorOkButton" xml:space="preserve">
         <value>Ok</value>
     </data>
-    <data name="MesageBoxAddNewCurrencyErrorTitle" xml:space="preserve">
+    <data name="MessageBoxAddNewCurrencyErrorTitle" xml:space="preserve">
         <value>Error</value>
     </data>
-    <data name="MesageBoxAddNewCurrencyQuestionMessage" xml:space="preserve">
+    <data name="MessageBoxAddNewCurrencyQuestionMessage" xml:space="preserve">
         <value>Do you really want to add "{0}" as a currency ?</value>
     </data>
-    <data name="MesageBoxAddNewCurrencyQuestionNoButton" xml:space="preserve">
+    <data name="MessageBoxAddNewCurrencyQuestionNoButton" xml:space="preserve">
         <value>No</value>
     </data>
-    <data name="MesageBoxAddNewCurrencyQuestionTitle" xml:space="preserve">
+    <data name="MessageBoxAddNewCurrencyQuestionTitle" xml:space="preserve">
         <value>Add new currency ?</value>
     </data>
-    <data name="MesageBoxAddNewCurrencyQuestionYesButton" xml:space="preserve">
+    <data name="MessageBoxAddNewCurrencyQuestionYesButton" xml:space="preserve">
         <value>Yes</value>
     </data>
-    <data name="MesageBoxAddNewCurrencySuccessMessage" xml:space="preserve">
+    <data name="MessageBoxAddNewCurrencySuccessMessage" xml:space="preserve">
         <value>Currency symbol was successfully added</value>
     </data>
-    <data name="MesageBoxAddNewCurrencySuccessOkButton" xml:space="preserve">
+    <data name="MessageBoxAddNewCurrencySuccessOkButton" xml:space="preserve">
         <value>Ok</value>
     </data>
-    <data name="MesageBoxAddNewCurrencySuccessTitle" xml:space="preserve">
+    <data name="MessageBoxAddNewCurrencySuccessTitle" xml:space="preserve">
         <value>Success</value>
     </data>
     <data name="MessageBoxCurrencyDeleteErrorMessage" xml:space="preserve">

@@ -111,10 +111,10 @@ public partial class CurrencySymbolSummaryContentPage
         if (!validate) return;
 
         var response = await DisplayAlert(
-            CurrencySymbolManagementResources.MesageBoxAddNewCurrencyQuestionTitle,
-            string.Format(CurrencySymbolManagementResources.MesageBoxAddNewCurrencyQuestionMessage, SymbolText),
-            CurrencySymbolManagementResources.MesageBoxAddNewCurrencyQuestionYesButton,
-            CurrencySymbolManagementResources.MesageBoxAddNewCurrencyQuestionNoButton);
+            CurrencySymbolManagementResources.MessageBoxAddNewCurrencyQuestionTitle,
+            string.Format(CurrencySymbolManagementResources.MessageBoxAddNewCurrencyQuestionMessage, SymbolText),
+            CurrencySymbolManagementResources.MessageBoxAddNewCurrencyQuestionYesButton,
+            CurrencySymbolManagementResources.MessageBoxAddNewCurrencyQuestionNoButton);
         if (!response) return;
 
         // ReSharper disable once HeapView.ObjectAllocation.Evident
@@ -138,17 +138,17 @@ public partial class CurrencySymbolSummaryContentPage
             SymbolText = string.Empty;
 
             await DisplayAlert(
-                CurrencySymbolManagementResources.MesageBoxAddNewCurrencySuccessTitle,
-                CurrencySymbolManagementResources.MesageBoxAddNewCurrencySuccessMessage,
-                CurrencySymbolManagementResources.MesageBoxAddNewCurrencySuccessOkButton);
+                CurrencySymbolManagementResources.MessageBoxAddNewCurrencySuccessTitle,
+                CurrencySymbolManagementResources.MessageBoxAddNewCurrencySuccessMessage,
+                CurrencySymbolManagementResources.MessageBoxAddNewCurrencySuccessOkButton);
         }
         else
         {
             Log.Error(exception, "An error occurred while adding new currency symbol");
             await DisplayAlert(
-                CurrencySymbolManagementResources.MesageBoxAddNewCurrencyErrorTitle,
-                CurrencySymbolManagementResources.MesageBoxAddNewCurrencyErrorMessage,
-                CurrencySymbolManagementResources.MesageBoxAddNewCurrencyErrorOkButton);
+                CurrencySymbolManagementResources.MessageBoxAddNewCurrencyErrorTitle,
+                CurrencySymbolManagementResources.MessageBoxAddNewCurrencyErrorMessage,
+                CurrencySymbolManagementResources.MessageBoxAddNewCurrencyErrorOkButton);
         }
     }
 

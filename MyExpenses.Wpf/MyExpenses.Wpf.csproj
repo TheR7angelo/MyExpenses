@@ -77,10 +77,6 @@
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>ColorManagementPageResources.Designer.cs</LastGenOutput>
       </EmbeddedResource>
-      <EmbeddedResource Update="Resources\Resx\Pages\CurrencyManagementPage\CurrencyManagementPageResources.resx">
-        <Generator>ResXFileCodeGenerator</Generator>
-        <LastGenOutput>CurrencyManagementPageResources.Designer.cs</LastGenOutput>
-      </EmbeddedResource>
       <EmbeddedResource Update="Resources\Resx\Windows\AddEditModePaymentWindow\AddEditModePaymentWindowResources.resx">
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>AddEditModePaymentWindowResources.Designer.cs</LastGenOutput>
@@ -252,11 +248,6 @@
         <DesignTime>True</DesignTime>
         <AutoGen>True</AutoGen>
         <DependentUpon>ColorManagementPageResources.resx</DependentUpon>
-      </Compile>
-      <Compile Update="Resources\Resx\Pages\CurrencyManagementPage\CurrencyManagementPageResources.Designer.cs">
-        <DesignTime>True</DesignTime>
-        <AutoGen>True</AutoGen>
-        <DependentUpon>CurrencyManagementPageResources.resx</DependentUpon>
       </Compile>
       <Compile Update="Resources\Resx\Windows\AddEditModePaymentWindow\AddEditModePaymentWindowResources.Designer.cs">
         <DesignTime>True</DesignTime>
