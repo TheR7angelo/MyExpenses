@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.CurrencySymbolSummaryContentPage {
+namespace MyExpenses.SharedUtils.Resources.Resx.CurrencySymbolManagement {
     using System;
     
     
@@ -21,25 +21,25 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.CurrencySymbolSumma
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class CurrencySymbolSummaryContentPageResources {
+    public class CurrencySymbolManagementResources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal CurrencySymbolSummaryContentPageResources() {
+        public CurrencySymbolManagementResources() {
         }
         
         /// <summary>
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MyExpenses.Smartphones.Resources.Resx.ContentPages.CurrencySymbolSummaryContentPa" +
-                            "ge.CurrencySymbolSummaryContentPageResources", typeof(CurrencySymbolSummaryContentPageResources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MyExpenses.SharedUtils.Resources.Resx.CurrencySymbolManagement.CurrencySymbolMana" +
+                            "gementResources", typeof(CurrencySymbolManagementResources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -51,7 +51,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.CurrencySymbolSumma
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -61,27 +61,27 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.CurrencySymbolSumma
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Deleting currency symbol and related accounts....
+        /// </summary>
+        public static string ActivityIndicatorDeleteCurrency {
+            get {
+                return ResourceManager.GetString("ActivityIndicatorDeleteCurrency", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Valid.
         /// </summary>
-        internal static string ButtonValidText {
+        public static string ButtonValidText {
             get {
                 return ResourceManager.GetString("ButtonValidText", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Deleting currency symbol and related accounts....
-        /// </summary>
-        internal static string CustomPopupActivityIndicatorDeleteCurrency {
-            get {
-                return ResourceManager.GetString("CustomPopupActivityIndicatorDeleteCurrency", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Currency value :.
         /// </summary>
-        internal static string CustomPopupEntryPlaceHolderText {
+        public static string CustomPopupEntryPlaceHolderText {
             get {
                 return ResourceManager.GetString("CustomPopupEntryPlaceHolderText", resourceCulture);
             }
@@ -90,7 +90,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.CurrencySymbolSumma
         /// <summary>
         ///   Looks up a localized string similar to An error occurred while adding currency symbol, please retry.
         /// </summary>
-        internal static string MesageBoxAddNewCurrencyErrorMessage {
+        public static string MesageBoxAddNewCurrencyErrorMessage {
             get {
                 return ResourceManager.GetString("MesageBoxAddNewCurrencyErrorMessage", resourceCulture);
             }
@@ -99,7 +99,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.CurrencySymbolSumma
         /// <summary>
         ///   Looks up a localized string similar to Ok.
         /// </summary>
-        internal static string MesageBoxAddNewCurrencyErrorOkButton {
+        public static string MesageBoxAddNewCurrencyErrorOkButton {
             get {
                 return ResourceManager.GetString("MesageBoxAddNewCurrencyErrorOkButton", resourceCulture);
             }
@@ -108,7 +108,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.CurrencySymbolSumma
         /// <summary>
         ///   Looks up a localized string similar to Error.
         /// </summary>
-        internal static string MesageBoxAddNewCurrencyErrorTitle {
+        public static string MesageBoxAddNewCurrencyErrorTitle {
             get {
                 return ResourceManager.GetString("MesageBoxAddNewCurrencyErrorTitle", resourceCulture);
             }
@@ -117,7 +117,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.CurrencySymbolSumma
         /// <summary>
         ///   Looks up a localized string similar to Do you really want to add &quot;{0}&quot; as a currency ?.
         /// </summary>
-        internal static string MesageBoxAddNewCurrencyQuestionMessage {
+        public static string MesageBoxAddNewCurrencyQuestionMessage {
             get {
                 return ResourceManager.GetString("MesageBoxAddNewCurrencyQuestionMessage", resourceCulture);
             }
@@ -126,7 +126,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.CurrencySymbolSumma
         /// <summary>
         ///   Looks up a localized string similar to No.
         /// </summary>
-        internal static string MesageBoxAddNewCurrencyQuestionNoButton {
+        public static string MesageBoxAddNewCurrencyQuestionNoButton {
             get {
                 return ResourceManager.GetString("MesageBoxAddNewCurrencyQuestionNoButton", resourceCulture);
             }
@@ -135,7 +135,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.CurrencySymbolSumma
         /// <summary>
         ///   Looks up a localized string similar to Add new currency ?.
         /// </summary>
-        internal static string MesageBoxAddNewCurrencyQuestionTitle {
+        public static string MesageBoxAddNewCurrencyQuestionTitle {
             get {
                 return ResourceManager.GetString("MesageBoxAddNewCurrencyQuestionTitle", resourceCulture);
             }
@@ -144,7 +144,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.CurrencySymbolSumma
         /// <summary>
         ///   Looks up a localized string similar to Yes.
         /// </summary>
-        internal static string MesageBoxAddNewCurrencyQuestionYesButton {
+        public static string MesageBoxAddNewCurrencyQuestionYesButton {
             get {
                 return ResourceManager.GetString("MesageBoxAddNewCurrencyQuestionYesButton", resourceCulture);
             }
@@ -153,7 +153,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.CurrencySymbolSumma
         /// <summary>
         ///   Looks up a localized string similar to Currency symbol was successfully added.
         /// </summary>
-        internal static string MesageBoxAddNewCurrencySuccessMessage {
+        public static string MesageBoxAddNewCurrencySuccessMessage {
             get {
                 return ResourceManager.GetString("MesageBoxAddNewCurrencySuccessMessage", resourceCulture);
             }
@@ -162,7 +162,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.CurrencySymbolSumma
         /// <summary>
         ///   Looks up a localized string similar to Ok.
         /// </summary>
-        internal static string MesageBoxAddNewCurrencySuccessOkButton {
+        public static string MesageBoxAddNewCurrencySuccessOkButton {
             get {
                 return ResourceManager.GetString("MesageBoxAddNewCurrencySuccessOkButton", resourceCulture);
             }
@@ -171,7 +171,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.CurrencySymbolSumma
         /// <summary>
         ///   Looks up a localized string similar to Success.
         /// </summary>
-        internal static string MesageBoxAddNewCurrencySuccessTitle {
+        public static string MesageBoxAddNewCurrencySuccessTitle {
             get {
                 return ResourceManager.GetString("MesageBoxAddNewCurrencySuccessTitle", resourceCulture);
             }
@@ -180,187 +180,187 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.CurrencySymbolSumma
         /// <summary>
         ///   Looks up a localized string similar to An error occurred while deleting currency symbol, please retry.
         /// </summary>
-        internal static string MessageBoxHandleCurrencyDeleteErrorMessage {
+        public static string MessageBoxCurrencyDeleteErrorMessage {
             get {
-                return ResourceManager.GetString("MessageBoxHandleCurrencyDeleteErrorMessage", resourceCulture);
+                return ResourceManager.GetString("MessageBoxCurrencyDeleteErrorMessage", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Ok.
         /// </summary>
-        internal static string MessageBoxHandleCurrencyDeleteErrorOkButton {
+        public static string MessageBoxCurrencyDeleteErrorOkButton {
             get {
-                return ResourceManager.GetString("MessageBoxHandleCurrencyDeleteErrorOkButton", resourceCulture);
+                return ResourceManager.GetString("MessageBoxCurrencyDeleteErrorOkButton", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Error.
         /// </summary>
-        internal static string MessageBoxHandleCurrencyDeleteErrorTitle {
+        public static string MessageBoxCurrencyDeleteErrorTitle {
             get {
-                return ResourceManager.GetString("MessageBoxHandleCurrencyDeleteErrorTitle", resourceCulture);
+                return ResourceManager.GetString("MessageBoxCurrencyDeleteErrorTitle", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Are you sure you want to remove this currency? {0}All accounts that use this currency will also be deleted, be careful the operation may take more or less time depending on the number of data to be deleted.
         /// </summary>
-        internal static string MessageBoxHandleCurrencyDeleteQuestionMessage {
+        public static string MessageBoxCurrencyDeleteQuestionMessage {
             get {
-                return ResourceManager.GetString("MessageBoxHandleCurrencyDeleteQuestionMessage", resourceCulture);
+                return ResourceManager.GetString("MessageBoxCurrencyDeleteQuestionMessage", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to No.
         /// </summary>
-        internal static string MessageBoxHandleCurrencyDeleteQuestionNoButton {
+        public static string MessageBoxCurrencyDeleteQuestionNoButton {
             get {
-                return ResourceManager.GetString("MessageBoxHandleCurrencyDeleteQuestionNoButton", resourceCulture);
+                return ResourceManager.GetString("MessageBoxCurrencyDeleteQuestionNoButton", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Question.
         /// </summary>
-        internal static string MessageBoxHandleCurrencyDeleteQuestionTitle {
+        public static string MessageBoxCurrencyDeleteQuestionTitle {
             get {
-                return ResourceManager.GetString("MessageBoxHandleCurrencyDeleteQuestionTitle", resourceCulture);
+                return ResourceManager.GetString("MessageBoxCurrencyDeleteQuestionTitle", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Yes.
         /// </summary>
-        internal static string MessageBoxHandleCurrencyDeleteQuestionYesButton {
+        public static string MessageBoxCurrencyDeleteQuestionYesButton {
             get {
-                return ResourceManager.GetString("MessageBoxHandleCurrencyDeleteQuestionYesButton", resourceCulture);
+                return ResourceManager.GetString("MessageBoxCurrencyDeleteQuestionYesButton", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Currency symbol and all related accounts were successfully deleted.
         /// </summary>
-        internal static string MessageBoxHandleCurrencyDeleteSuccessMessage {
+        public static string MessageBoxCurrencyDeleteSuccessMessage {
             get {
-                return ResourceManager.GetString("MessageBoxHandleCurrencyDeleteSuccessMessage", resourceCulture);
+                return ResourceManager.GetString("MessageBoxCurrencyDeleteSuccessMessage", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Ok.
         /// </summary>
-        internal static string MessageBoxHandleCurrencyDeleteSuccessOkButton {
+        public static string MessageBoxCurrencyDeleteSuccessOkButton {
             get {
-                return ResourceManager.GetString("MessageBoxHandleCurrencyDeleteSuccessOkButton", resourceCulture);
+                return ResourceManager.GetString("MessageBoxCurrencyDeleteSuccessOkButton", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Success.
         /// </summary>
-        internal static string MessageBoxHandleCurrencyDeleteSuccessTitle {
+        public static string MessageBoxCurrencyDeleteSuccessTitle {
             get {
-                return ResourceManager.GetString("MessageBoxHandleCurrencyDeleteSuccessTitle", resourceCulture);
+                return ResourceManager.GetString("MessageBoxCurrencyDeleteSuccessTitle", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to An error occurred while editing currency symbol, please retry.
         /// </summary>
-        internal static string MessageBoxHandleCurrencyEditErrorMessage {
+        public static string MessageBoxCurrencyEditErrorMessage {
             get {
-                return ResourceManager.GetString("MessageBoxHandleCurrencyEditErrorMessage", resourceCulture);
+                return ResourceManager.GetString("MessageBoxCurrencyEditErrorMessage", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Ok.
         /// </summary>
-        internal static string MessageBoxHandleCurrencyEditErrorOkButton {
+        public static string MessageBoxCurrencyEditErrorOkButton {
             get {
-                return ResourceManager.GetString("MessageBoxHandleCurrencyEditErrorOkButton", resourceCulture);
+                return ResourceManager.GetString("MessageBoxCurrencyEditErrorOkButton", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Error.
         /// </summary>
-        internal static string MessageBoxHandleCurrencyEditErrorTitle {
+        public static string MessageBoxCurrencyEditErrorTitle {
             get {
-                return ResourceManager.GetString("MessageBoxHandleCurrencyEditErrorTitle", resourceCulture);
+                return ResourceManager.GetString("MessageBoxCurrencyEditErrorTitle", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Do you really want to edit this currency ?.
         /// </summary>
-        internal static string MessageBoxHandleCurrencyEditQuestionMessage {
+        public static string MessageBoxCurrencyEditQuestionMessage {
             get {
-                return ResourceManager.GetString("MessageBoxHandleCurrencyEditQuestionMessage", resourceCulture);
+                return ResourceManager.GetString("MessageBoxCurrencyEditQuestionMessage", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to No.
         /// </summary>
-        internal static string MessageBoxHandleCurrencyEditQuestionNoButton {
+        public static string MessageBoxCurrencyEditQuestionNoButton {
             get {
-                return ResourceManager.GetString("MessageBoxHandleCurrencyEditQuestionNoButton", resourceCulture);
+                return ResourceManager.GetString("MessageBoxCurrencyEditQuestionNoButton", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Question.
         /// </summary>
-        internal static string MessageBoxHandleCurrencyEditQuestionTitle {
+        public static string MessageBoxCurrencyEditQuestionTitle {
             get {
-                return ResourceManager.GetString("MessageBoxHandleCurrencyEditQuestionTitle", resourceCulture);
+                return ResourceManager.GetString("MessageBoxCurrencyEditQuestionTitle", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Yes.
         /// </summary>
-        internal static string MessageBoxHandleCurrencyEditQuestionYesButton {
+        public static string MessageBoxCurrencyEditQuestionYesButton {
             get {
-                return ResourceManager.GetString("MessageBoxHandleCurrencyEditQuestionYesButton", resourceCulture);
+                return ResourceManager.GetString("MessageBoxCurrencyEditQuestionYesButton", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Currency symbol was successfully edited.
         /// </summary>
-        internal static string MessageBoxHandleCurrencyEditSuccessMessage {
+        public static string MessageBoxCurrencyEditSuccessMessage {
             get {
-                return ResourceManager.GetString("MessageBoxHandleCurrencyEditSuccessMessage", resourceCulture);
+                return ResourceManager.GetString("MessageBoxCurrencyEditSuccessMessage", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Ok.
         /// </summary>
-        internal static string MessageBoxHandleCurrencyEditSuccessOkButton {
+        public static string MessageBoxCurrencyEditSuccessOkButton {
             get {
-                return ResourceManager.GetString("MessageBoxHandleCurrencyEditSuccessOkButton", resourceCulture);
+                return ResourceManager.GetString("MessageBoxCurrencyEditSuccessOkButton", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Success.
         /// </summary>
-        internal static string MessageBoxHandleCurrencyEditSuccessTitle {
+        public static string MessageBoxCurrencyEditSuccessTitle {
             get {
-                return ResourceManager.GetString("MessageBoxHandleCurrencyEditSuccessTitle", resourceCulture);
+                return ResourceManager.GetString("MessageBoxCurrencyEditSuccessTitle", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Symbol already exist.
         /// </summary>
-        internal static string MessageBoxValidateCurrencySymbolErrorAlreadyExistMessage {
+        public static string MessageBoxValidateCurrencySymbolErrorAlreadyExistMessage {
             get {
                 return ResourceManager.GetString("MessageBoxValidateCurrencySymbolErrorAlreadyExistMessage", resourceCulture);
             }
@@ -369,7 +369,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.CurrencySymbolSumma
         /// <summary>
         ///   Looks up a localized string similar to Ok.
         /// </summary>
-        internal static string MessageBoxValidateCurrencySymbolErrorAlreadyExistOkButton {
+        public static string MessageBoxValidateCurrencySymbolErrorAlreadyExistOkButton {
             get {
                 return ResourceManager.GetString("MessageBoxValidateCurrencySymbolErrorAlreadyExistOkButton", resourceCulture);
             }
@@ -378,7 +378,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.CurrencySymbolSumma
         /// <summary>
         ///   Looks up a localized string similar to Error.
         /// </summary>
-        internal static string MessageBoxValidateCurrencySymbolErrorAlreadyExistTitle {
+        public static string MessageBoxValidateCurrencySymbolErrorAlreadyExistTitle {
             get {
                 return ResourceManager.GetString("MessageBoxValidateCurrencySymbolErrorAlreadyExistTitle", resourceCulture);
             }
@@ -387,7 +387,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.CurrencySymbolSumma
         /// <summary>
         ///   Looks up a localized string similar to Symbol can&apos;t be empty.
         /// </summary>
-        internal static string MessageBoxValidateCurrencySymbolErrorEmptyMessage {
+        public static string MessageBoxValidateCurrencySymbolErrorEmptyMessage {
             get {
                 return ResourceManager.GetString("MessageBoxValidateCurrencySymbolErrorEmptyMessage", resourceCulture);
             }
@@ -396,7 +396,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.CurrencySymbolSumma
         /// <summary>
         ///   Looks up a localized string similar to Ok.
         /// </summary>
-        internal static string MessageBoxValidateCurrencySymbolErrorEmptyOkButton {
+        public static string MessageBoxValidateCurrencySymbolErrorEmptyOkButton {
             get {
                 return ResourceManager.GetString("MessageBoxValidateCurrencySymbolErrorEmptyOkButton", resourceCulture);
             }
@@ -405,7 +405,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.CurrencySymbolSumma
         /// <summary>
         ///   Looks up a localized string similar to Error.
         /// </summary>
-        internal static string MessageBoxValidateCurrencySymbolErrorEmptyTitle {
+        public static string MessageBoxValidateCurrencySymbolErrorEmptyTitle {
             get {
                 return ResourceManager.GetString("MessageBoxValidateCurrencySymbolErrorEmptyTitle", resourceCulture);
             }
@@ -414,7 +414,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.CurrencySymbolSumma
         /// <summary>
         ///   Looks up a localized string similar to Add a new currency symbol :.
         /// </summary>
-        internal static string PlaceholderText {
+        public static string PlaceholderText {
             get {
                 return ResourceManager.GetString("PlaceholderText", resourceCulture);
             }

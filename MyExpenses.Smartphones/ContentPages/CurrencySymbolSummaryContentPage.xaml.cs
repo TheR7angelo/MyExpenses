@@ -6,9 +6,9 @@ using MyExpenses.Models.Maui.CustomPopup;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.SharedUtils.Collection;
 using MyExpenses.SharedUtils.Objects;
+using MyExpenses.SharedUtils.Resources.Resx.CurrencySymbolManagement;
 using MyExpenses.Smartphones.ContentPages.CustomPopups;
 using MyExpenses.Smartphones.ContentPages.CustomPopups.CustomPopupActivityIndicator;
-using MyExpenses.Smartphones.Resources.Resx.ContentPages.CurrencySymbolSummaryContentPage;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils;
 using Serilog;
@@ -111,10 +111,10 @@ public partial class CurrencySymbolSummaryContentPage
         if (!validate) return;
 
         var response = await DisplayAlert(
-            CurrencySymbolSummaryContentPageResources.MesageBoxAddNewCurrencyQuestionTitle,
-            string.Format(CurrencySymbolSummaryContentPageResources.MesageBoxAddNewCurrencyQuestionMessage, SymbolText),
-            CurrencySymbolSummaryContentPageResources.MesageBoxAddNewCurrencyQuestionYesButton,
-            CurrencySymbolSummaryContentPageResources.MesageBoxAddNewCurrencyQuestionNoButton);
+            CurrencySymbolManagementResources.MesageBoxAddNewCurrencyQuestionTitle,
+            string.Format(CurrencySymbolManagementResources.MesageBoxAddNewCurrencyQuestionMessage, SymbolText),
+            CurrencySymbolManagementResources.MesageBoxAddNewCurrencyQuestionYesButton,
+            CurrencySymbolManagementResources.MesageBoxAddNewCurrencyQuestionNoButton);
         if (!response) return;
 
         // ReSharper disable once HeapView.ObjectAllocation.Evident
@@ -138,17 +138,17 @@ public partial class CurrencySymbolSummaryContentPage
             SymbolText = string.Empty;
 
             await DisplayAlert(
-                CurrencySymbolSummaryContentPageResources.MesageBoxAddNewCurrencySuccessTitle,
-                CurrencySymbolSummaryContentPageResources.MesageBoxAddNewCurrencySuccessMessage,
-                CurrencySymbolSummaryContentPageResources.MesageBoxAddNewCurrencySuccessOkButton);
+                CurrencySymbolManagementResources.MesageBoxAddNewCurrencySuccessTitle,
+                CurrencySymbolManagementResources.MesageBoxAddNewCurrencySuccessMessage,
+                CurrencySymbolManagementResources.MesageBoxAddNewCurrencySuccessOkButton);
         }
         else
         {
             Log.Error(exception, "An error occurred while adding new currency symbol");
             await DisplayAlert(
-                CurrencySymbolSummaryContentPageResources.MesageBoxAddNewCurrencyErrorTitle,
-                CurrencySymbolSummaryContentPageResources.MesageBoxAddNewCurrencyErrorMessage,
-                CurrencySymbolSummaryContentPageResources.MesageBoxAddNewCurrencyErrorOkButton);
+                CurrencySymbolManagementResources.MesageBoxAddNewCurrencyErrorTitle,
+                CurrencySymbolManagementResources.MesageBoxAddNewCurrencyErrorMessage,
+                CurrencySymbolManagementResources.MesageBoxAddNewCurrencyErrorOkButton);
         }
     }
 
@@ -171,17 +171,17 @@ public partial class CurrencySymbolSummaryContentPage
         {
             Log.Information("Currency symbol and all related accounts were successfully deleted");
             await DisplayAlert(
-                CurrencySymbolSummaryContentPageResources.MessageBoxHandleCurrencyDeleteSuccessTitle,
-                CurrencySymbolSummaryContentPageResources.MessageBoxHandleCurrencyDeleteSuccessMessage,
-                CurrencySymbolSummaryContentPageResources.MessageBoxHandleCurrencyDeleteSuccessOkButton);
+                CurrencySymbolManagementResources.MessageBoxCurrencyDeleteSuccessTitle,
+                CurrencySymbolManagementResources.MessageBoxCurrencyDeleteSuccessMessage,
+                CurrencySymbolManagementResources.MessageBoxCurrencyDeleteSuccessOkButton);
         }
         else
         {
             Log.Error(exception, "An error occurred while deleting currency symbol");
             await DisplayAlert(
-                CurrencySymbolSummaryContentPageResources.MessageBoxHandleCurrencyDeleteErrorTitle,
-                CurrencySymbolSummaryContentPageResources.MessageBoxHandleCurrencyDeleteErrorMessage,
-                CurrencySymbolSummaryContentPageResources.MessageBoxHandleCurrencyDeleteErrorOkButton);
+                CurrencySymbolManagementResources.MessageBoxCurrencyDeleteErrorTitle,
+                CurrencySymbolManagementResources.MessageBoxCurrencyDeleteErrorMessage,
+                CurrencySymbolManagementResources.MessageBoxCurrencyDeleteErrorOkButton);
         }
     }
 
@@ -192,17 +192,17 @@ public partial class CurrencySymbolSummaryContentPage
         {
             Log.Information("Currency symbol was successfully edited");
             await DisplayAlert(
-                CurrencySymbolSummaryContentPageResources.MessageBoxHandleCurrencyEditSuccessTitle,
-                CurrencySymbolSummaryContentPageResources.MessageBoxHandleCurrencyEditSuccessMessage,
-                CurrencySymbolSummaryContentPageResources.MessageBoxHandleCurrencyEditSuccessOkButton);
+                CurrencySymbolManagementResources.MessageBoxCurrencyEditSuccessTitle,
+                CurrencySymbolManagementResources.MessageBoxCurrencyEditSuccessMessage,
+                CurrencySymbolManagementResources.MessageBoxCurrencyEditSuccessOkButton);
         }
         else
         {
             Log.Error(exception, "An error occurred while editing currency symbol");
             await DisplayAlert(
-                CurrencySymbolSummaryContentPageResources.MessageBoxHandleCurrencyEditErrorTitle,
-                CurrencySymbolSummaryContentPageResources.MessageBoxHandleCurrencyEditErrorMessage,
-                CurrencySymbolSummaryContentPageResources.MessageBoxHandleCurrencyEditErrorOkButton);
+                CurrencySymbolManagementResources.MessageBoxCurrencyEditErrorTitle,
+                CurrencySymbolManagementResources.MessageBoxCurrencyEditErrorMessage,
+                CurrencySymbolManagementResources.MessageBoxCurrencyEditErrorOkButton);
         }
     }
 
@@ -215,10 +215,10 @@ public partial class CurrencySymbolSummaryContentPage
             if (!validate) return;
 
             var response = await DisplayAlert(
-                CurrencySymbolSummaryContentPageResources.MessageBoxHandleCurrencyEditQuestionTitle,
-                string.Format(CurrencySymbolSummaryContentPageResources.MessageBoxHandleCurrencyEditQuestionMessage, Environment.NewLine),
-                CurrencySymbolSummaryContentPageResources.MessageBoxHandleCurrencyEditQuestionYesButton,
-                CurrencySymbolSummaryContentPageResources.MessageBoxHandleCurrencyEditQuestionNoButton);
+                CurrencySymbolManagementResources.MessageBoxCurrencyEditQuestionTitle,
+                string.Format(CurrencySymbolManagementResources.MessageBoxCurrencyEditQuestionMessage, Environment.NewLine),
+                CurrencySymbolManagementResources.MessageBoxCurrencyEditQuestionYesButton,
+                CurrencySymbolManagementResources.MessageBoxCurrencyEditQuestionNoButton);
             if (!response) return;
 
             Log.Information("Attempt to edit currency symbol : {Symbol}", json);
@@ -228,15 +228,15 @@ public partial class CurrencySymbolSummaryContentPage
         }
 
         var deleteResponse = await DisplayAlert(
-            CurrencySymbolSummaryContentPageResources.MessageBoxHandleCurrencyDeleteQuestionTitle,
-            string.Format(CurrencySymbolSummaryContentPageResources.MessageBoxHandleCurrencyDeleteQuestionMessage, Environment.NewLine),
-            CurrencySymbolSummaryContentPageResources.MessageBoxHandleCurrencyDeleteQuestionYesButton,
-            CurrencySymbolSummaryContentPageResources.MessageBoxHandleCurrencyDeleteQuestionNoButton);
+            CurrencySymbolManagementResources.MessageBoxCurrencyDeleteQuestionTitle,
+            string.Format(CurrencySymbolManagementResources.MessageBoxCurrencyDeleteQuestionMessage, Environment.NewLine),
+            CurrencySymbolManagementResources.MessageBoxCurrencyDeleteQuestionYesButton,
+            CurrencySymbolManagementResources.MessageBoxCurrencyDeleteQuestionNoButton);
 
         if (!deleteResponse) return;
 
         await Task.Delay(TimeSpan.FromMilliseconds(100));
-        this.ShowCustomPopupActivityIndicator(CurrencySymbolSummaryContentPageResources.CustomPopupActivityIndicatorDeleteCurrency);
+        this.ShowCustomPopupActivityIndicator(CurrencySymbolManagementResources.ActivityIndicatorDeleteCurrency);
         await Task.Delay(TimeSpan.FromMilliseconds(100));
 
         Log.Information("Attempt to delete currency symbol : {Symbol}", json);
@@ -257,7 +257,7 @@ public partial class CurrencySymbolSummaryContentPage
 
     private async Task ShowCustomPopupEntryForCurrency(TCurrency currency)
     {
-        var placeHolder = CurrencySymbolSummaryContentPageResources.PlaceholderText;
+        var placeHolder = CurrencySymbolManagementResources.PlaceholderText;
 
         // ReSharper disable once HeapView.ObjectAllocation.Evident
         // A new instance of CustomPopupEntry is created and initialized with specific properties such as MaxLenght,
@@ -277,8 +277,8 @@ public partial class CurrencySymbolSummaryContentPage
 
     private void UpdateLanguage()
     {
-        PlaceholderText = CurrencySymbolSummaryContentPageResources.PlaceholderText;
-        ButtonValidText = CurrencySymbolSummaryContentPageResources.ButtonValidText;
+        PlaceholderText = CurrencySymbolManagementResources.PlaceholderText;
+        ButtonValidText = CurrencySymbolManagementResources.ButtonValidText;
     }
 
     private async Task<bool> ValidateCurrencySymbol(string? currencySymbol = null)
@@ -290,9 +290,9 @@ public partial class CurrencySymbolSummaryContentPage
         if (string.IsNullOrWhiteSpace(symbolToTest))
         {
             await DisplayAlert(
-                CurrencySymbolSummaryContentPageResources.MessageBoxValidateCurrencySymbolErrorEmptyTitle,
-                CurrencySymbolSummaryContentPageResources.MessageBoxValidateCurrencySymbolErrorEmptyMessage,
-                CurrencySymbolSummaryContentPageResources.MessageBoxValidateCurrencySymbolErrorEmptyOkButton);
+                CurrencySymbolManagementResources.MessageBoxValidateCurrencySymbolErrorEmptyTitle,
+                CurrencySymbolManagementResources.MessageBoxValidateCurrencySymbolErrorEmptyMessage,
+                CurrencySymbolManagementResources.MessageBoxValidateCurrencySymbolErrorEmptyOkButton);
             return false;
         }
 
@@ -301,9 +301,9 @@ public partial class CurrencySymbolSummaryContentPage
         if (alreadyExist)
         {
             await DisplayAlert(
-                CurrencySymbolSummaryContentPageResources.MessageBoxValidateCurrencySymbolErrorAlreadyExistTitle,
-                CurrencySymbolSummaryContentPageResources.MessageBoxValidateCurrencySymbolErrorAlreadyExistMessage,
-                CurrencySymbolSummaryContentPageResources.MessageBoxValidateCurrencySymbolErrorAlreadyExistOkButton);
+                CurrencySymbolManagementResources.MessageBoxValidateCurrencySymbolErrorAlreadyExistTitle,
+                CurrencySymbolManagementResources.MessageBoxValidateCurrencySymbolErrorAlreadyExistMessage,
+                CurrencySymbolManagementResources.MessageBoxValidateCurrencySymbolErrorAlreadyExistOkButton);
             return false;
         }
 

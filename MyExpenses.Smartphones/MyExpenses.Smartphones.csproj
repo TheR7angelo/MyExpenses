@@ -228,11 +228,6 @@
         <AutoGen>True</AutoGen>
         <DependentUpon>AddEditBankTransferContentPageResources.resx</DependentUpon>
       </Compile>
-      <Compile Update="Resources\Resx\ContentPages\CurrencySymbolSummaryContentPage\CurrencySymbolSummaryContentPageResources.Designer.cs">
-        <DesignTime>True</DesignTime>
-        <AutoGen>True</AutoGen>
-        <DependentUpon>CurrencySymbolSummaryContentPageResources.resx</DependentUpon>
-      </Compile>
       <Compile Update="Resources\Resx\ContentPages\CustomPopups\CustomPopupEntry\CustomPopupEntryResources.Designer.cs">
         <DesignTime>True</DesignTime>
         <AutoGen>True</AutoGen>
