@@ -2,7 +2,7 @@ using AutoMapper;
 using MyExpenses.Models.Maui.CustomPopup;
 using MyExpenses.Models.Sql.Bases.Tables;
 
-namespace MyExpenses.Models.AutoMapper.Profiles.PopupSeachs;
+namespace MyExpenses.Models.AutoMapper.Profiles.PopupSearchs;
 
 public class TAccountToPopupSearchFilterProfile : Profile
 {
