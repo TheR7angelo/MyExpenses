@@ -30,4 +30,7 @@
     <data name="SearchBarPlaceHolderTextDescription" xml:space="preserve">
         <value>Search by description</value>
     </data>
+    <data name="SearchBarPlaceHolderTextAdditionalReason" xml:space="preserve">
+        <value>Search by an additional reason</value>
+    </data>
 </root>

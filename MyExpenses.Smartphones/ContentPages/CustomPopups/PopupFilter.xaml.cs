@@ -57,7 +57,7 @@ public partial class PopupFilter
             foreach (var currentPopupSearchAlreadyChecked in currentPopupSearchesAlreadyChecked.Where(s => s.IsChecked).ToArray())
             {
                 // ReSharper disable once HeapView.DelegateAllocation
-                var popupSearches = PopupSearches.Where(s => s.Content.Equals(currentPopupSearchAlreadyChecked.Content)).ToList();
+                var popupSearches = PopupSearches.Where(s => s.Content == currentPopupSearchAlreadyChecked.Content).ToList();
 
                 if (popupSearches.Count is 0) continue;
 
@@ -148,6 +148,7 @@ public partial class PopupFilter
         SearchBarPlaceHolderText = EPopupSearch switch
         {
             EPopupSearch.Account => PopupFilterManagementResources.SearchBarPlaceHolderTextAccount,
+            EPopupSearch.AdditionalReason => PopupFilterManagementResources.SearchBarPlaceHolderTextAdditionalReason,
             EPopupSearch.Category => PopupFilterManagementResources.SearchBarPlaceHolderTextCategory,
             EPopupSearch.Description => PopupFilterManagementResources.SearchBarPlaceHolderTextDescription,
             _ => throw new ArgumentOutOfRangeException()

@@ -873,10 +873,10 @@ public partial class BankTransferSummaryContentPage
         if (!string.IsNullOrEmpty(SelectedMonth)) monthInt = Months.IndexOf(SelectedMonth) + 1;
 
         string[]? fromAccounts = null;
-        if (BankTransferFromAccountsFilters.Count > 0) fromAccounts = BankTransferFromAccountsFilters.Select(s => s.Content).ToArray();
+        if (BankTransferFromAccountsFilters.Count > 0) fromAccounts = BankTransferFromAccountsFilters.Select(s => s.Content!).ToArray();
 
         string[]? toAccounts = null;
-        if (BankTransferToAccountsFilters.Count > 0) toAccounts = BankTransferToAccountsFilters.Select(s => s.Content).ToArray();
+        if (BankTransferToAccountsFilters.Count > 0) toAccounts = BankTransferToAccountsFilters.Select(s => s.Content!).ToArray();
 
         double[]? values = null;
         if (BankTransferValuesFilters.Count > 0) values = BankTransferValuesFilters.Select(s => (double)s.DoubleValue!).ToArray();
@@ -885,10 +885,10 @@ public partial class BankTransferSummaryContentPage
         if (BankTransferMainReasonFilters.Count > 0) mainReasons = BankTransferMainReasonFilters.Select(s => s.StringValue!).ToArray();
 
         string?[]? additionalReasons = null;
-        if (BankTransferAdditionalReasonFilters.Count > 0) additionalReasons = BankTransferAdditionalReasonFilters.Select(s => s.StringValue).ToArray();
+        if (BankTransferAdditionalReasonFilters.Count > 0) additionalReasons = BankTransferAdditionalReasonFilters.Select(s => s.Content).ToArray();
 
         string[]? categories = null;
-        if (VCategoryDerivesFilter.Count > 0) categories = VCategoryDerivesFilter.Select(s => s.Content).ToArray();
+        if (VCategoryDerivesFilter.Count > 0) categories = VCategoryDerivesFilter.Select(s => s.Content!).ToArray();
 
         // ReSharper disable once HeapView.ObjectAllocation.Evident
         // The creation of a new DataBaseContext instance (via `new DataBaseContext()`) is necessary to interact with the database.
