@@ -197,9 +197,9 @@ public static class DbContextHelper
 
             // ReSharper disable HeapView.DelegateAllocation
             var children = properties
-                .Where(property => property.GetValue(entity) is IList && (property.GetValue(entity) as IList)!.Count > 0)
-                .SelectMany(property => (property.GetValue(entity) as IList)!.OfType<ISql>())
-                .ToList();
+                .Where(property => property.GetValue(entity) is IEnumerable<ISql> enumerable && enumerable.Any())
+                .SelectMany(property => (property.GetValue(entity) as IEnumerable)!.OfType<ISql>())
+                .ToArray();
             // ReSharper restore HeapView.DelegateAllocation
 
             foreach (var child in children) child.Delete(cascade);
