@@ -5,37 +5,37 @@ namespace MyExpenses.Wpf.Windows.MsgBox;
 
 public static class MsgBox
 {
-    public static MessageBoxResult Show(string messageBoxText, string caption, MessageBoxButton button,
+    public static MessageBoxResult Show(string caption, string messageBoxText, MessageBoxButton button,
         MsgBoxImage icon, MessageBoxResult defaultResult)
-        => ShowCore(messageBoxText, caption, button, icon, defaultResult);
+        => ShowCore(caption, messageBoxText, button, icon, defaultResult);
 
-    public static MessageBoxResult Show(string messageBoxText, string caption, MessageBoxButton button,
+    public static MessageBoxResult Show(string caption, string messageBoxText, MessageBoxButton button,
         MsgBoxImage icon)
-        => ShowCore(messageBoxText, caption, button, icon);
+        => ShowCore(caption, messageBoxText, button, icon);
 
-    public static MessageBoxResult Show(string messageBoxText, string caption, MessageBoxButton button)
-        => ShowCore(messageBoxText, caption, button);
+    public static MessageBoxResult Show(string caption, string messageBoxText, MessageBoxButton button)
+        => ShowCore(caption, messageBoxText, button);
 
-    public static MessageBoxResult Show(string messageBoxText, string caption, MsgBoxImage icon)
-        => ShowCore(messageBoxText, caption, icon:icon);
+    public static MessageBoxResult Show(string caption, string messageBoxText, MsgBoxImage icon)
+        => ShowCore(caption, messageBoxText, icon:icon);
 
-    public static MessageBoxResult Show(string messageBoxText, string caption)
-        => ShowCore(messageBoxText, caption);
+    public static MessageBoxResult Show(string caption, string messageBoxText)
+        => ShowCore(caption, messageBoxText);
 
     public static void Show(string messageBoxText, MsgBoxImage icon)
-        => ShowCore(messageBoxText, string.Empty, icon:icon);
+        => ShowCore(string.Empty, messageBoxText, icon:icon);
 
     public static MessageBoxResult Show(string messageBoxText, MsgBoxImage icon, MessageBoxButton button)
     {
-        return ShowCore(messageBoxText, string.Empty, icon:icon, button:button);
+        return ShowCore(string.Empty, messageBoxText, button, icon);
     }
 
     public static MessageBoxResult Show(string messageBoxText)
     {
-        return ShowCore(messageBoxText, string.Empty);
+        return ShowCore(string.Empty, messageBoxText);
     }
 
-    private static MessageBoxResult ShowCore(string messageBoxText, string caption,
+    private static MessageBoxResult ShowCore(string caption, string messageBoxText,
         MessageBoxButton button = MessageBoxButton.OK, MsgBoxImage icon = MsgBoxImage.None,
         MessageBoxResult defaultResult = MessageBoxResult.None)
     {
