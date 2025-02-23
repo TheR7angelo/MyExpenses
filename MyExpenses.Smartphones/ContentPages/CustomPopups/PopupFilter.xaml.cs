@@ -149,6 +149,7 @@ public partial class PopupFilter
         {
             EPopupSearch.Account => PopupFilterManagementResources.SearchBarPlaceHolderTextAccount,
             EPopupSearch.Category => PopupFilterManagementResources.SearchBarPlaceHolderTextCategory,
+            EPopupSearch.Description => PopupFilterManagementResources.SearchBarPlaceHolderTextDescription,
             _ => throw new ArgumentOutOfRangeException()
         };
 

@@ -3,5 +3,6 @@ namespace MyExpenses.Models.Maui.CustomPopup;
 public enum EPopupSearch
 {
     Account,
-    Category
+    Category,
+    Description
 }

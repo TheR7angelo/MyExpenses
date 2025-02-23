@@ -262,10 +262,6 @@
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>DetailedRecordContentPageResources.Designer.cs</LastGenOutput>
       </EmbeddedResource>
-      <EmbeddedResource Update="Resources\Resx\ContentPages\CustomPopups\CustomPopupFilterDescription\CustomPopupFilterDescriptionResources.resx">
-        <Generator>ResXFileCodeGenerator</Generator>
-        <LastGenOutput>CustomPopupFilterDescriptionResources.Designer.cs</LastGenOutput>
-      </EmbeddedResource>
       <EmbeddedResource Update="Resources\Resx\ContentPages\CustomPopups\CustomPopupFilterModePayments\CustomPopupFilterModePaymentsResources.resx">
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>CustomPopupFilterModePaymentsResources.Designer.cs</LastGenOutput>

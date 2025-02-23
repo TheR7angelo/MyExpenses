@@ -1,7 +1,7 @@
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Maui.CustomPopup;
+using MyExpenses.SharedUtils.Resources.Resx.PopupFilterManagement;
 using MyExpenses.Smartphones.PackIcons;
-using MyExpenses.Smartphones.Resources.Resx.ContentPages.CustomPopups.CustomPopupFilterHistoryDescriptions;
 
 namespace MyExpenses.Smartphones.ContentPages.CustomPopups;
 
@@ -140,8 +140,8 @@ public partial class CustomPopupFilterDescriptions : ICustomPopupFilter<StringIs
 
     private void UpdateLanguage()
     {
-        SearchBarPlaceHolderText = CustomPopupFilterDescriptionsResources.SearchBarPlaceHolderText;
-        ButtonCloseText = CustomPopupFilterDescriptionsResources.ButtonCloseText;
+        SearchBarPlaceHolderText = PopupFilterManagementResources.SearchBarPlaceHolderTextDescription;
+        ButtonCloseText = PopupFilterManagementResources.ButtonCloseText;
     }
 
     #endregion

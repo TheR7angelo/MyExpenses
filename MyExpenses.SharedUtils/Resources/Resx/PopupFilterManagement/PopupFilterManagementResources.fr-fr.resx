@@ -20,4 +20,7 @@
     <data name="SearchBarPlaceHolderTextCategory" xml:space="preserve">
         <value>Rechercher par nom de catégorie</value>
     </data>
+    <data name="SearchBarPlaceHolderTextDescription" xml:space="preserve">
+        <value>Rechercher par description</value>
+    </data>
 </root>
