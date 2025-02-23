@@ -218,11 +218,6 @@
         <DependentUpon>CustomPopupFilterBankTransferAccount.xaml</DependentUpon>
         <SubType>Code</SubType>
       </Compile>
-      <Compile Update="Resources\Resx\ContentPages\CustomPopups\CustomPopupFilterAccount\CustomPopupFilterAccountResources.Designer.cs">
-        <DesignTime>True</DesignTime>
-        <AutoGen>True</AutoGen>
-        <DependentUpon>CustomPopupFilterAccountResources.resx</DependentUpon>
-      </Compile>
       <Compile Update="Resources\Resx\ContentPages\AddEditBankTransferContentPage\AddEditBankTransferContentPageResources.Designer.cs">
         <DesignTime>True</DesignTime>
         <AutoGen>True</AutoGen>
