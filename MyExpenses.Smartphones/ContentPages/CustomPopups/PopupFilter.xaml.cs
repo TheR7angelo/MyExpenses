@@ -2,7 +2,6 @@ using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Maui.CustomPopup;
 using MyExpenses.SharedUtils.Resources.Resx.PopupFilterManagement;
 using MyExpenses.Smartphones.PackIcons;
-using MyExpenses.Utils.PopupFilter;
 
 namespace MyExpenses.Smartphones.ContentPages.CustomPopups;
 
