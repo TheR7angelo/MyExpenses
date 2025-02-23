@@ -8,7 +8,6 @@ using MyExpenses.Models.AutoMapper;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Maui.CustomPopup;
 using MyExpenses.Models.Sql.Bases.Views;
-using MyExpenses.Models.Sql.Derivatives.Views;
 using MyExpenses.Models.Sql.Queries;
 using MyExpenses.SharedUtils.Collection;
 using MyExpenses.SharedUtils.Resources.Resx.BankTransferSummaryManagement;
@@ -262,7 +261,7 @@ public partial class BankTransferSummaryContentPage
     private List<DoubleIsChecked> BankTransferValuesFilters { get; } = [];
     private List<StringIsChecked> BankTransferMainReasonFilters { get; } = [];
     private List<StringIsChecked> BankTransferAdditionalReasonFilters { get; } = [];
-    private List<VCategoryDerive> VCategoryDerivesFilter { get; } = [];
+    private List<PopupSearch> VCategoryDerivesFilter { get; } = [];
 
     // ReSharper disable once HeapView.ObjectAllocation.Evident
     // TaskCompletionSource is intentionally allocated here as it is the fundamental mechanism
@@ -533,21 +532,17 @@ public partial class BankTransferSummaryContentPage
             .Distinct()
             .ToList();
 
-        var vCategoryDerives = context.VCategories
+        var popupSearches = context.VCategories
             .Where(s => categoryTypeFk.Contains(s.Id))
             .OrderBy(s => s.CategoryName)
-            .Select(s => Mapping.Mapper.Map<VCategoryDerive>(s))
+            .Select(s => Mapping.Mapper.Map<PopupSearch>(s))
             .ToList();
 
         // ReSharper disable once HeapView.ObjectAllocation.Evident
-        // A new instance of CustomPopupFilterCategories is created to initialize a popup filter with the provided
-        // category data (vCategoryDerives) and the target filter collection (VCategoryDerivesFilter). This allocation
-        // is necessary to encapsulate the filtering logic specific to categories into a reusable component, ensuring a
-        // clean separation of concerns and facilitating the dynamic display and management of category filter options.
-        var customPopupFilterCategories = new CustomPopupFilterCategories(vCategoryDerives, VCategoryDerivesFilter);
-        await this.ShowPopupAsync(customPopupFilterCategories);
+        var popupFilter = new PopupFilter(popupSearches, EPopupSearch.Category, VCategoryDerivesFilter);
+        await this.ShowPopupAsync(popupFilter);
 
-        FilterManagement(VCategoryDerivesFilter, customPopupFilterCategories, eFilter, svgPath);
+        FilterManagement(VCategoryDerivesFilter, popupFilter, eFilter, svgPath);
     }
 
     private async Task FilterFromAccount(SvgPath svgPath)
@@ -893,7 +888,7 @@ public partial class BankTransferSummaryContentPage
         if (BankTransferAdditionalReasonFilters.Count > 0) additionalReasons = BankTransferAdditionalReasonFilters.Select(s => s.StringValue).ToArray();
 
         string[]? categories = null;
-        if (VCategoryDerivesFilter.Count > 0) categories = VCategoryDerivesFilter.Select(s => s.CategoryName!).ToArray();
+        if (VCategoryDerivesFilter.Count > 0) categories = VCategoryDerivesFilter.Select(s => s.Content).ToArray();
 
         // ReSharper disable once HeapView.ObjectAllocation.Evident
         // The creation of a new DataBaseContext instance (via `new DataBaseContext()`) is necessary to interact with the database.

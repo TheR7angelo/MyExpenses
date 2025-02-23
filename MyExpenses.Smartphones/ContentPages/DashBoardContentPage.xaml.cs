@@ -12,7 +12,6 @@ using MyExpenses.Models.Maui.CustomPopup;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Models.Sql.Bases.Views;
 using MyExpenses.Models.Sql.Derivatives.Tables;
-using MyExpenses.Models.Sql.Derivatives.Views;
 using MyExpenses.Models.Sql.Queries;
 using MyExpenses.SharedUtils.Collection;
 using MyExpenses.SharedUtils.Properties;
@@ -199,7 +198,7 @@ public partial class DashBoardContentPage
 
     public static DashBoardContentPage Instance { get; set; } = null!;
 
-    private List<VCategoryDerive> VCategoryDerivesFilter { get; } = [];
+    private List<PopupSearch> VCategoryDerivesFilter { get; } = [];
     private List<StringIsChecked> HistoryDescriptions { get; } = [];
     private List<TModePaymentDerive> ModePaymentDeriveFilter { get; } = [];
     private List<DoubleIsChecked> HistoryValues { get; } = [];
@@ -534,21 +533,17 @@ public partial class DashBoardContentPage
             .Distinct()
             .ToList();
 
-        var vCategoryDerives = context.VCategories
+        var popupSearches = context.VCategories
             .Where(s => categoryTypeFk.Contains(s.Id))
             .OrderBy(s => s.CategoryName)
-            .Select(s => mapper.Map<VCategoryDerive>(s))
+            .Select(s => mapper.Map<PopupSearch>(s))
             .ToList();
 
         // ReSharper disable once HeapView.ObjectAllocation.Evident
-        // The instantiation of `CustomPopupFilterCategories` is crucial here because it creates a popup
-        // specifically designed to filter categories based on the derived category list (`vCategoryDerives`)
-        // and the previously applied filters (`VCategoryDerivesFilter`). This ensures the filtering logic
-        // and UI display are tailored to the current context, providing a dynamic and interactive user experience.
-        var customPopupFilterCategories = new CustomPopupFilterCategories(vCategoryDerives, VCategoryDerivesFilter);
-        await this.ShowPopupAsync(customPopupFilterCategories);
+        var popupFilter = new PopupFilter(popupSearches, EPopupSearch.Category, VCategoryDerivesFilter);
+        await this.ShowPopupAsync(popupFilter);
 
-        FilterManagement(VCategoryDerivesFilter, customPopupFilterCategories, eFilter, svgPath);
+        FilterManagement(VCategoryDerivesFilter, popupFilter, eFilter, svgPath);
     }
 
     [SupportedOSPlatform("Android21.0")]
@@ -656,6 +651,27 @@ public partial class DashBoardContentPage
         }
 
         var isActive = RefreshFilter(collection, customPopupFilter, svgPath);
+
+        if (!isActive && Filters.Last() == eFilter)
+        {
+            var lastIndex = Filters.Count - 1;
+            Filters.RemoveAt(lastIndex);
+
+            lastIndex = OriginalVHistories.Count - 1;
+            OriginalVHistories.RemoveAt(lastIndex);
+        }
+    }
+
+    private void FilterManagement(List<PopupSearch> collection, PopupFilter popupFilter, EFilter eFilter,
+        SvgPath svgPath)
+    {
+        if (Filters.Count is 0 || Filters.Last() != eFilter)
+        {
+            Filters.Add(eFilter);
+            OriginalVHistories.Add(VHistories.ToList());
+        }
+
+        var isActive = RefreshFilter(collection, popupFilter, svgPath);
 
         if (!isActive && Filters.Last() == eFilter)
         {
@@ -1019,7 +1035,7 @@ public partial class DashBoardContentPage
         string[]? categoryNames = null;
         if (VCategoryDerivesFilter.Count > 0)
         {
-            categoryNames = VCategoryDerivesFilter.Select(s => s.CategoryName!).ToArray();
+            categoryNames = VCategoryDerivesFilter.Select(s => s.Content).ToArray();
         }
 
         string?[]? descriptions = null;
@@ -1071,6 +1087,25 @@ public partial class DashBoardContentPage
 
         var itemCheckedCount = customPopupFilter.GetFilteredItemCheckedCount();
         var itemCount = customPopupFilter.GetFilteredItemCount();
+
+        var icon = itemCheckedCount is 0 || itemCheckedCount.Equals(itemCount)
+            ? EPackIcons.Filter
+            : EPackIcons.FilterCheck;
+
+        svgPath.GeometrySource = icon;
+
+        RefreshDataGrid();
+
+        return icon is EPackIcons.FilterCheck;
+    }
+
+    private bool RefreshFilter(List<PopupSearch> collection, PopupFilter popupFilter, SvgPath svgPath)
+    {
+        collection.Clear();
+        collection.AddRange(popupFilter.GetFilteredItemChecked());
+
+        var itemCheckedCount = popupFilter.GetFilteredItemCheckedCount();
+        var itemCount = popupFilter.GetFilteredItemCount();
 
         var icon = itemCheckedCount is 0 || itemCheckedCount.Equals(itemCount)
             ? EPackIcons.Filter

@@ -148,6 +148,7 @@ public partial class PopupFilter
         SearchBarPlaceHolderText = EPopupSearch switch
         {
             EPopupSearch.Account => PopupFilterManagementResources.SearchBarPlaceHolderTextAccount,
+            EPopupSearch.Category => PopupFilterManagementResources.SearchBarPlaceHolderTextCategory,
             _ => throw new ArgumentOutOfRangeException()
         };
 

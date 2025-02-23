@@ -17,4 +17,7 @@
     <data name="SearchBarPlaceHolderTextAccount" xml:space="preserve">
         <value>Search by account name</value>
     </data>
+    <data name="SearchBarPlaceHolderTextCategory" xml:space="preserve">
+        <value>Search by category name</value>
+    </data>
 </root>
