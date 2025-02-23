@@ -87,12 +87,6 @@ public partial class PopupFilter
     public IEnumerable<PopupSearch> GetFilteredItemChecked()
         => PopupSearches.Where(s => s.IsChecked);
 
-    public IEnumerable<T> GetFilteredItemChecked<T>()
-    {
-        // ReSharper disable once HeapView.ClosureAllocation
-        return GetFilteredItemChecked().ToTable<T>()!;
-    }
-
     public int GetFilteredItemCheckedCount()
         => PopupSearches.Count(s => s.IsChecked);
 
