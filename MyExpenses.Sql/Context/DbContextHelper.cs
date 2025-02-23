@@ -283,7 +283,7 @@ public static class DbContextHelper
     /// <typeparam name="T">The type of the entity.</typeparam>
     /// <param name="entity">The entity for which to retrieve the navigation properties.</param>
     /// <returns>A collection of PropertyInfo objects representing the navigation properties of the entity.</returns>
-    private static IEnumerable<PropertyInfo> GetNavigationProperty<T>(this T entity)
+    private static PropertyInfo[] GetNavigationProperty<T>(this T entity)
     {
         var properties = entity!.GetType().GetProperties()
             .Where(p =>
