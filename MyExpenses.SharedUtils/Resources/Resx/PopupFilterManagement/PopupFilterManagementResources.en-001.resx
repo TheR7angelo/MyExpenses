@@ -26,4 +26,7 @@
     <data name="SearchBarPlaceHolderTextAdditionalReason" xml:space="preserve">
         <value>Search by an additional reason</value>
     </data>
+    <data name="SearchBarPlaceHolderTextMainReason" xml:space="preserve">
+        <value>Search by the main reason</value>
+    </data>
 </root>

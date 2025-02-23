@@ -137,7 +137,7 @@ public partial class PopupFilter
         SearchText ??= string.Empty;
 
         // ReSharper disable once HeapView.DelegateAllocation
-        var filterAccountNames = OriginalPopupSearches.Where(s => s.Content.Contains(SearchText, StringComparison.InvariantCultureIgnoreCase));
+        var filterAccountNames = OriginalPopupSearches.Where(s => (s.Content ?? string.Empty).Contains(SearchText, StringComparison.InvariantCultureIgnoreCase));
 
         PopupSearches.Clear();
         PopupSearches.AddRange(filterAccountNames);
@@ -151,6 +151,7 @@ public partial class PopupFilter
             EPopupSearch.AdditionalReason => PopupFilterManagementResources.SearchBarPlaceHolderTextAdditionalReason,
             EPopupSearch.Category => PopupFilterManagementResources.SearchBarPlaceHolderTextCategory,
             EPopupSearch.Description => PopupFilterManagementResources.SearchBarPlaceHolderTextDescription,
+            EPopupSearch.MainReason => PopupFilterManagementResources.SearchBarPlaceHolderTextMainReason,
             _ => throw new ArgumentOutOfRangeException()
         };
 

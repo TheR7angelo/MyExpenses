@@ -104,5 +104,14 @@ namespace MyExpenses.SharedUtils.Resources.Resx.PopupFilterManagement {
                 return ResourceManager.GetString("SearchBarPlaceHolderTextDescription", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search by the main reason.
+        /// </summary>
+        public static string SearchBarPlaceHolderTextMainReason {
+            get {
+                return ResourceManager.GetString("SearchBarPlaceHolderTextMainReason", resourceCulture);
+            }
+        }
     }
 }
