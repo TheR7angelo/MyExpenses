@@ -23,4 +23,7 @@
     <data name="SearchBarPlaceHolderTextDescription" xml:space="preserve">
         <value>Rechercher par description</value>
     </data>
+    <data name="SearchBarPlaceHolderTextAdditionalReason" xml:space="preserve">
+        <value>Recherche par une raison supplémentaire</value>
+    </data>
 </root>

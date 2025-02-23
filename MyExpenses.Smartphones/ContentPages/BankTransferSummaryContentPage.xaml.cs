@@ -260,7 +260,7 @@ public partial class BankTransferSummaryContentPage
     private List<PopupSearch> BankTransferToAccountsFilters { get; } = [];
     private List<DoubleIsChecked> BankTransferValuesFilters { get; } = [];
     private List<StringIsChecked> BankTransferMainReasonFilters { get; } = [];
-    private List<StringIsChecked> BankTransferAdditionalReasonFilters { get; } = [];
+    private List<PopupSearch> BankTransferAdditionalReasonFilters { get; } = [];
     private List<PopupSearch> VCategoryDerivesFilter { get; } = [];
 
     // ReSharper disable once HeapView.ObjectAllocation.Evident
@@ -464,16 +464,16 @@ public partial class BankTransferSummaryContentPage
     {
         const EFilter eFilter = EFilter.AdditionalReason;
 
-        IEnumerable<StringIsChecked> bankTransferAdditionalReason;
+        IEnumerable<PopupSearch> popupSearches;
         if (Filters.Count is 0)
         {
-            bankTransferAdditionalReason = BankTransferSummaries
+            popupSearches = BankTransferSummaries
                 // ReSharper disable once HeapView.ObjectAllocation.Evident
                 // This LINQ expression selects the 'AdditionalReason' property from each item in the BankTransferSummaries collection
                 // and creates a new instance of the StringIsChecked class for each entry. This approach is necessary to map the raw data
                 // from the summaries into a format suitable for further filtering or manipulation while maintaining separation of concerns
                 // and ensuring immutability of the original dataset.
-                .Select(s => new StringIsChecked { StringValue = s.AdditionalReason });
+                .Select(s => new PopupSearch { Content = s.AdditionalReason ?? string.Empty });
         }
         else
         {
@@ -481,28 +481,23 @@ public partial class BankTransferSummaryContentPage
                 ? OriginalVBankTransferSummary.Last().AsEnumerable()
                 : BankTransferSummaries.AsEnumerable();
 
-            bankTransferAdditionalReason = items
+            popupSearches = items
                 // ReSharper disable once HeapView.ObjectAllocation.Evident
                 // This LINQ expression iterates over the 'items' collection and transforms each element into a new StringIsChecked object,
                 // initializing it with the 'AdditionalReason' property of the current item. This transformation is essential to prepare the data
                 // for filtering or display purposes, encapsulating the string value within a specific structure (StringIsChecked) that
                 // includes additional context or state (e.g., a "checked" property for selection).
-                .Select(s => new StringIsChecked { StringValue = s.AdditionalReason });
+                .Select(s => new PopupSearch { Content = s.AdditionalReason ?? string.Empty });
         }
 
-        bankTransferAdditionalReason = bankTransferAdditionalReason.Distinct();
-        bankTransferAdditionalReason = bankTransferAdditionalReason.OrderBy(s => s.StringValue);
+        popupSearches = popupSearches.DistinctBy(s => s.Content)
+            .OrderBy(s => s.Content);
 
         // ReSharper disable once HeapView.ObjectAllocation.Evident
-        // A new instance of CustomPopupFilterDescriptions is created here to initialize a popup filter with
-        // the provided additional reason data (bankTransferAdditionalReason) and the target filter collection
-        // (BankTransferAdditionalReasonFilters). This allocation is necessary to encapsulate the filtering
-        // logic and user interaction functionality into a reusable component, enabling a clean separation of
-        // concerns and facilitating the dynamic display of filter options.
-        var customPopupFilterDescription = new CustomPopupFilterDescriptions(bankTransferAdditionalReason, BankTransferAdditionalReasonFilters);
-        await this.ShowPopupAsync(customPopupFilterDescription);
+        var popupFilter = new PopupFilter(popupSearches, EPopupSearch.AdditionalReason, BankTransferAdditionalReasonFilters);
+        await this.ShowPopupAsync(popupFilter);
 
-        FilterManagement(BankTransferAdditionalReasonFilters, customPopupFilterDescription, eFilter, svgPath);
+        FilterManagement(BankTransferAdditionalReasonFilters, popupFilter, eFilter, svgPath);
     }
 
     private async Task FilterCategory(SvgPath svgPath)
