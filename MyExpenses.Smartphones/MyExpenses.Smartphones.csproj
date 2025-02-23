@@ -168,11 +168,6 @@
         <AutoGen>True</AutoGen>
         <DependentUpon>CustomPopupFilterCategoriesResources.resx</DependentUpon>
       </Compile>
-      <Compile Update="Resources\Resx\ContentPages\CustomPopups\CustomPopupFilterDescription\CustomPopupFilterDescriptionResources.Designer.cs">
-        <DesignTime>True</DesignTime>
-        <AutoGen>True</AutoGen>
-        <DependentUpon>CustomPopupFilterDescriptionResources.resx</DependentUpon>
-      </Compile>
       <Compile Update="ContentPages\CustomPopups\CustomPopupFilterModePayments.xaml.cs">
         <DependentUpon>CustomPopupFilterModePayments.xaml</DependentUpon>
         <SubType>Code</SubType>
