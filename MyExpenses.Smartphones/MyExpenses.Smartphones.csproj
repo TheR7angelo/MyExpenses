@@ -107,9 +107,6 @@
       <MauiXaml Update="ContentPages\CustomPopups\CustomPopupFilterDoubleValues.xaml">
         <SubType>Designer</SubType>
       </MauiXaml>
-      <MauiXaml Update="ContentPages\CustomPopups\CustomPopupFilterAccount.xaml">
-        <SubType>Designer</SubType>
-      </MauiXaml>
       <MauiXaml Update="ContentPages\CustomPopups\CustomPopupActivityIndicator\CustomPopupActivityIndicator.xaml">
         <SubType>Designer</SubType>
       </MauiXaml>
@@ -213,10 +210,6 @@
         <DesignTime>True</DesignTime>
         <AutoGen>True</AutoGen>
         <DependentUpon>GeneralAccountSetupContentPageResources.resx</DependentUpon>
-      </Compile>
-      <Compile Update="ContentPages\CustomPopups\CustomPopupFilterAccount.xaml.cs">
-        <DependentUpon>CustomPopupFilterBankTransferAccount.xaml</DependentUpon>
-        <SubType>Code</SubType>
       </Compile>
       <Compile Update="Resources\Resx\ContentPages\AddEditBankTransferContentPage\AddEditBankTransferContentPageResources.Designer.cs">
         <DesignTime>True</DesignTime>

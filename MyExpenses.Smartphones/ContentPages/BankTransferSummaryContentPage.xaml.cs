@@ -7,8 +7,8 @@ using MyExpenses.Maui.Utils;
 using MyExpenses.Models.AutoMapper;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Maui.CustomPopup;
+using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Models.Sql.Bases.Views;
-using MyExpenses.Models.Sql.Derivatives.Tables;
 using MyExpenses.Models.Sql.Derivatives.Views;
 using MyExpenses.Models.Sql.Queries;
 using MyExpenses.SharedUtils.Collection;
@@ -258,8 +258,8 @@ public partial class BankTransferSummaryContentPage
     private List<EFilter> Filters { get; } = [];
     private List<List<VBankTransferSummary>> OriginalVBankTransferSummary { get; } = [];
 
-    private List<TAccountDerive> BankTransferFromAccountsFilters { get; } = [];
-    private List<TAccountDerive> BankTransferToAccountsFilters { get; } = [];
+    private List<TAccount> BankTransferFromAccountsFilters { get; } = [];
+    private List<TAccount> BankTransferToAccountsFilters { get; } = [];
     private List<DoubleIsChecked> BankTransferValuesFilters { get; } = [];
     private List<StringIsChecked> BankTransferMainReasonFilters { get; } = [];
     private List<StringIsChecked> BankTransferAdditionalReasonFilters { get; } = [];
@@ -577,21 +577,19 @@ public partial class BankTransferSummaryContentPage
             .Distinct()
             .ToList();
 
-        var accountDerives = context.TAccounts
+        var popupSearches = context.TAccounts
             .Where(s => fromAccountFk.Contains(s.Id))
             .OrderBy(s => s.Name)
-            .Select(s => Mapping.Mapper.Map<TAccountDerive>(s))
+            .Select(s => Mapping.Mapper.Map<PopupSearch>(s))
             .ToList();
 
-        // ReSharper disable once HeapView.ObjectAllocation.Evident
-        // A new instance of CustomPopupFilterAccount is created to initialize a popup filter with the provided
-        // account data (accountDerives) and the corresponding filter collection (BankTransferFromAccountsFilters).
-        // This is essential to encapsulate filtering logic for accounts, ensuring proper separation of concerns,
-        // while enabling a user-friendly and dynamic management of account-based filter options.
-        var customPopupFilterAccount = new CustomPopupFilterAccount(accountDerives, BankTransferFromAccountsFilters);
-        await this.ShowPopupAsync(customPopupFilterAccount);
+        var searchesAlreadyChecked = BankTransferFromAccountsFilters.Select(s => Mapping.Mapper.Map<PopupSearch>(s)).ToList();
 
-        FilterManagement(BankTransferFromAccountsFilters, customPopupFilterAccount, eFilter, svgPath);
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        var popupFilter = new PopupFilter(popupSearches, EPopupSearch.Account, searchesAlreadyChecked);
+        await this.ShowPopupAsync(popupFilter);
+
+        FilterManagement(BankTransferFromAccountsFilters, popupFilter, eFilter, svgPath);
     }
 
     private async Task FilterMainReason(SvgPath svgPath)
@@ -659,6 +657,27 @@ public partial class BankTransferSummaryContentPage
         }
     }
 
+    private void FilterManagement<T>(List<T> collection, PopupFilter popupFilter, EFilter eFilter,
+        SvgPath svgPath)
+    {
+        if (Filters.Count is 0 || Filters.Last() != eFilter)
+        {
+            Filters.Add(eFilter);
+            OriginalVBankTransferSummary.Add(BankTransferSummaries.ToList());
+        }
+
+        var isActive = RefreshFilter(collection, popupFilter, svgPath);
+
+        if (!isActive && Filters.Last() == eFilter)
+        {
+            var lastIndex = Filters.Count - 1;
+            Filters.RemoveAt(lastIndex);
+
+            lastIndex = OriginalVBankTransferSummary.Count - 1;
+            OriginalVBankTransferSummary.RemoveAt(lastIndex);
+        }
+    }
+
     private async Task FilterToAccount(SvgPath svgPath)
     {
         const EFilter eFilter = EFilter.ToAccounts;
@@ -685,21 +704,19 @@ public partial class BankTransferSummaryContentPage
             .Distinct()
             .ToList();
 
-        var accountDerives = context.TAccounts
+        var popupSearches = context.TAccounts
             .Where(s => toAccountFk.Contains(s.Id))
             .OrderBy(s => s.Name)
-            .Select(s => Mapping.Mapper.Map<TAccountDerive>(s))
+            .Select(s => Mapping.Mapper.Map<PopupSearch>(s))
             .ToList();
 
-        // ReSharper disable once HeapView.ObjectAllocation.Evident
-        // A new instance of CustomPopupFilterAccount is created to initialize a popup filter with the provided
-        // account data (accountDerives) and the corresponding filter collection (BankTransferToAccountsFilters).
-        // This is essential to encapsulate filtering logic for accounts, ensuring proper separation of concerns,
-        // while enabling a user-friendly and dynamic management of account-based filter options.
-        var customPopupFilterAccount = new CustomPopupFilterAccount(accountDerives, BankTransferToAccountsFilters);
-        await this.ShowPopupAsync(customPopupFilterAccount);
+        var searchesAlreadyChecked = BankTransferToAccountsFilters.Select(s => Mapping.Mapper.Map<PopupSearch>(s)).ToList();
 
-        FilterManagement(BankTransferToAccountsFilters, customPopupFilterAccount, eFilter, svgPath);
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        var popupFilter = new PopupFilter(popupSearches, EPopupSearch.Account, searchesAlreadyChecked);
+        await this.ShowPopupAsync(popupFilter);
+
+        FilterManagement(BankTransferToAccountsFilters, popupFilter, eFilter, svgPath);
     }
 
     private async Task FilterValue(SvgPath svgPath)
@@ -904,6 +921,25 @@ public partial class BankTransferSummaryContentPage
     {
         collection.Clear();
         collection.AddRange(customPopupFilter.GetFilteredItemChecked());
+
+        var itemCheckedCount = customPopupFilter.GetFilteredItemCheckedCount();
+        var itemCount = customPopupFilter.GetFilteredItemCount();
+
+        var icon = itemCheckedCount is 0 || itemCheckedCount.Equals(itemCount)
+            ? EPackIcons.Filter
+            : EPackIcons.FilterCheck;
+
+        svgPath.GeometrySource = icon;
+
+        RefreshDataGrid();
+
+        return icon is EPackIcons.FilterCheck;
+    }
+
+    private bool RefreshFilter<T>(List<T> collection, PopupFilter customPopupFilter, SvgPath svgPath)
+    {
+        collection.Clear();
+        collection.AddRange(customPopupFilter.GetFilteredItemChecked<T>());
 
         var itemCheckedCount = customPopupFilter.GetFilteredItemCheckedCount();
         var itemCount = customPopupFilter.GetFilteredItemCount();
