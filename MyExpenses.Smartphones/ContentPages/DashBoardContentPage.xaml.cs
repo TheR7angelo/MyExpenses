@@ -199,7 +199,7 @@ public partial class DashBoardContentPage
     public static DashBoardContentPage Instance { get; set; } = null!;
 
     private List<PopupSearch> VCategoryDerivesFilter { get; } = [];
-    private List<StringIsChecked> HistoryDescriptions { get; } = [];
+    private List<PopupSearch> HistoryDescriptions { get; } = [];
     private List<TModePaymentDerive> ModePaymentDeriveFilter { get; } = [];
     private List<DoubleIsChecked> HistoryValues { get; } = [];
     private List<BoolIsChecked> HistoryChecked { get; } = [];
@@ -600,7 +600,7 @@ public partial class DashBoardContentPage
     {
         const EFilter eFilter = EFilter.Description;
 
-        IEnumerable<StringIsChecked> historyDescription;
+        IEnumerable<PopupSearch> popupSearches;
         if (Filters.Count is 0)
         {
             // ReSharper disable once HeapView.ObjectAllocation.Evident
@@ -608,7 +608,7 @@ public partial class DashBoardContentPage
             // to encapsulate each history's `Description` in a standardized format (`StringIsChecked`).
             // This facilitates consistent handling, processing, and display of descriptions within the context
             // of the application's workflow or UI components.
-            historyDescription = VHistories.Select(s => new StringIsChecked { StringValue = s.Description });
+            popupSearches = VHistories.Select(s => new PopupSearch { Content = s.Description });
         }
         else
         {
@@ -620,21 +620,17 @@ public partial class DashBoardContentPage
             // The mapping of `items` into `StringIsChecked` objects is essential to wrap each `Description`
             // within a structured format (`StringIsChecked`). This ensures uniform processing and simplifies
             // integration with filtering logic or UI components that rely on this standardized representation.
-            historyDescription = items.Select(s => new StringIsChecked { StringValue = s.Description });
+            popupSearches = items.Select(s => new PopupSearch { Content = s.Description });
         }
 
-        historyDescription = historyDescription.Distinct();
-        historyDescription = historyDescription.OrderBy(s => s.StringValue);
+        popupSearches = popupSearches.DistinctBy(s => s.Content)
+            .OrderBy(s => s.Content);
 
         // ReSharper disable once HeapView.ObjectAllocation.Evident
-        // The creation of `CustomPopupFilterDescriptions` is necessary to initialize a filter popup
-        // tailored to handle the `historyDescription` collection and the `HistoryDescriptions` logic.
-        // This ensures the popup is equipped to process and display descriptions effectively
-        // within the filtering mechanism.
-        var customPopupFilterDescription = new CustomPopupFilterDescriptions(historyDescription, HistoryDescriptions);
-        await this.ShowPopupAsync(customPopupFilterDescription);
+        var popupFilter = new PopupFilter(popupSearches, EPopupSearch.MainReason, HistoryDescriptions);
+        await this.ShowPopupAsync(popupFilter);
 
-        FilterManagement(HistoryDescriptions, customPopupFilterDescription, eFilter, svgPath);
+        FilterManagement(HistoryDescriptions, popupFilter, eFilter, svgPath);
     }
 
     [SupportedOSPlatform("Android21.0")]
@@ -1035,13 +1031,13 @@ public partial class DashBoardContentPage
         string[]? categoryNames = null;
         if (VCategoryDerivesFilter.Count > 0)
         {
-            categoryNames = VCategoryDerivesFilter.Select(s => s.Content).ToArray();
+            categoryNames = VCategoryDerivesFilter.Select(s => s.Content!).ToArray();
         }
 
         string?[]? descriptions = null;
         if (HistoryDescriptions.Count > 0)
         {
-            descriptions = HistoryDescriptions.Select(s => s.StringValue).ToArray();
+            descriptions = HistoryDescriptions.Select(s => s.Content).ToArray();
         }
 
         string[]? modePayments = null;
