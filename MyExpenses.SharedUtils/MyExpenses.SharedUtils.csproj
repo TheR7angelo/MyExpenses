@@ -48,6 +48,10 @@
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>PopupEntryManagementResources.Designer.cs</LastGenOutput>
       </EmbeddedResource>
+      <EmbeddedResource Update="Resources\Resx\PopupFilterManagement\PopupFilterManagementResources.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>PopupFilterManagementResources.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
     </ItemGroup>
 
     <ItemGroup>
@@ -100,6 +104,11 @@
         <DesignTime>True</DesignTime>
         <AutoGen>True</AutoGen>
         <DependentUpon>PopupEntryManagementResources.resx</DependentUpon>
+      </Compile>
+      <Compile Update="Resources\Resx\PopupFilterManagement\PopupFilterManagementResources.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>PopupFilterManagementResources.resx</DependentUpon>
       </Compile>
     </ItemGroup>
 

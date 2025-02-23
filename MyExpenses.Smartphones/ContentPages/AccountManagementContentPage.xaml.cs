@@ -1,17 +1,17 @@
-using System.Collections.Immutable;
 using System.Collections.ObjectModel;
 using CommunityToolkit.Maui.Views;
 using MyExpenses.Models.AutoMapper;
 using MyExpenses.Models.Config.Interfaces;
+using MyExpenses.Models.Maui.CustomPopup;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Models.Sql.Bases.Views;
-using MyExpenses.Models.Sql.Derivatives.Tables;
 using MyExpenses.SharedUtils.Collection;
 using MyExpenses.SharedUtils.Resources.Resx.AccountManagement;
 using MyExpenses.Smartphones.ContentPages.CustomPopups;
 using MyExpenses.Smartphones.ContentPages.CustomPopups.CustomPopupActivityIndicator;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils;
+using MyExpenses.Utils.PopupFilter;
 using Serilog;
 
 namespace MyExpenses.Smartphones.ContentPages;
@@ -128,16 +128,14 @@ public partial class AccountManagementContentPage
         // Necessary instantiation of DataBaseContext to interact with the database.
         // This creates a scoped database context for performing queries and modifications in the database.
         await using var context = new DataBaseContext();
-        var accountsDerives = context.TAccounts.Select(s => Mapping.Mapper.Map<TAccountDerive>(s)).AsEnumerable();
+        var popupSearches = context.TAccounts.Select(s => Mapping.Mapper.Map<PopupSearch>(s)).AsEnumerable();
 
         // ReSharper disable once HeapView.ObjectAllocation.Evident
-        // Necessary instantiation of CustomPopupFilterAccount to display a popup for account filtering.
-        // The 'accountsDerives' collection is passed to the popup to populate its filtering options.
-        var customPopupFilterAccount = new CustomPopupFilterAccount(accountsDerives);
-        await this.ShowPopupAsync(customPopupFilterAccount);
+        var popupFilter = new PopupFilter(popupSearches, EPopupSearch.Account);
+        await this.ShowPopupAsync(popupFilter);
 
-        var filteredItem = customPopupFilterAccount.GetFilteredItemChecked().ToImmutableList();
-        if (filteredItem.IsEmpty) return;
+        var filteredItem = popupFilter.GetFilteredItemChecked().ToArray();
+        if (filteredItem.Length is 0) return;
 
         var response = await DisplayAlert(
             AccountManagementResources.MessageBoxRemoveAccountQuestionTitle,
@@ -151,10 +149,10 @@ public partial class AccountManagementContentPage
         await Task.Delay(TimeSpan.FromMilliseconds(100));
 
         List<TAccount>? deleteErrors = null;
-        foreach (var accountDerive in filteredItem)
-        {
-            TAccount account = accountDerive;
 
+        var accounts = filteredItem.ToTable<TAccount>()!;
+        foreach (var account in accounts)
+        {
             var json = account.ToJson();
             Log.Information("Attempt to delete account {Json}", json);
 
@@ -185,7 +183,7 @@ public partial class AccountManagementContentPage
         {
             await DisplayAlert(
                 AccountManagementResources.MessageBoxRemoveAccountSuccessTitle,
-                string.Format(AccountManagementResources.MessageBoxRemoveAccountSuccessMessage, filteredItem.Count.ToString()),
+                string.Format(AccountManagementResources.MessageBoxRemoveAccountSuccessMessage, filteredItem.Length.ToString()),
                 AccountManagementResources.MessageBoxRemoveAccountSuccessOkButton);
         }
     }

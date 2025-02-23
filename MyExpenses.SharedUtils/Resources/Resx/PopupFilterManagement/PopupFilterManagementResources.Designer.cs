@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.CustomPopups.CustomPopupFilterAccount {
+namespace MyExpenses.SharedUtils.Resources.Resx.PopupFilterManagement {
     using System;
     
     
@@ -21,25 +21,25 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.CustomPopups.Custom
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class CustomPopupFilterAccountResources {
+    public class PopupFilterManagementResources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal CustomPopupFilterAccountResources() {
+        public PopupFilterManagementResources() {
         }
         
         /// <summary>
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MyExpenses.Smartphones.Resources.Resx.ContentPages.CustomPopups.CustomPopupFilter" +
-                            "Account.CustomPopupFilterAccountResources", typeof(CustomPopupFilterAccountResources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MyExpenses.SharedUtils.Resources.Resx.PopupFilterManagement.PopupFilterManagement" +
+                            "Resources", typeof(PopupFilterManagementResources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -51,12 +51,30 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.CustomPopups.Custom
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
             set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Close.
+        /// </summary>
+        public static string ButtonCloseText {
+            get {
+                return ResourceManager.GetString("ButtonCloseText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Search by account name.
+        /// </summary>
+        public static string SearchBarPlaceHolderTextAccount {
+            get {
+                return ResourceManager.GetString("SearchBarPlaceHolderTextAccount", resourceCulture);
             }
         }
     }
