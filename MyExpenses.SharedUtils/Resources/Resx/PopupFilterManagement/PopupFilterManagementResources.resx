@@ -51,4 +51,7 @@
     <data name="SearchBarPlaceHolderTextModePayment" xml:space="preserve">
         <value>Search by payment method</value>
     </data>
+    <data name="SearchBarPlaceHolderTextPlace" xml:space="preserve">
+        <value>Search by location</value>
+    </data>
 </root>

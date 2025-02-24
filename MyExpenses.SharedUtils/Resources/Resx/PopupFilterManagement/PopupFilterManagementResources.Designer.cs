@@ -142,6 +142,15 @@ namespace MyExpenses.SharedUtils.Resources.Resx.PopupFilterManagement {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Search by location.
+        /// </summary>
+        public static string SearchBarPlaceHolderTextPlace {
+            get {
+                return ResourceManager.GetString("SearchBarPlaceHolderTextPlace", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Search by a value.
         /// </summary>
         public static string SearchBarPlaceHolderTextValue {

@@ -11,7 +11,6 @@ using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Maui.CustomPopup;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Models.Sql.Bases.Views;
-using MyExpenses.Models.Sql.Derivatives.Tables;
 using MyExpenses.Models.Sql.Queries;
 using MyExpenses.SharedUtils.Collection;
 using MyExpenses.SharedUtils.Properties;
@@ -203,7 +202,7 @@ public partial class DashBoardContentPage
     private List<PopupSearch> ModePaymentDeriveFilter { get; } = [];
     private List<PopupSearch> HistoryValues { get; } = [];
     private List<PopupSearch> HistoryChecked { get; } = [];
-    private List<TPlaceDerive> PlaceDeriveFilter { get; } = [];
+    private List<PopupSearch> PlaceDeriveFilter { get; } = [];
 
     private List<EFilter> Filters { get; } = [];
     private List<List<VHistory>> OriginalVHistories { get; } = [];
@@ -742,20 +741,29 @@ public partial class DashBoardContentPage
             .Distinct()
             .ToList();
 
-        var placeDerives = context.TPlaces
+        var popupSearches = context.TPlaces
             .Where(s => placeFk.Contains(s.Id))
             .OrderBy(s => s.Name)
-            .Select(s => Mapping.Mapper.Map<TPlaceDerive>(s))
-            .ToList();
+            .Select(s => Mapping.Mapper.Map<PopupSearch>(s))
+            .ToList().AsEnumerable();
+
+        popupSearches = popupSearches.DistinctBy(s => s.Content)
+            .OrderBy(s => s.Content);
+
+        // // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // // The instantiation of `CustomPopupFilterPlaces` is vital for configuring a filter popup
+        // // that processes the `placeDerives` collection and applies the `PlaceDeriveFilter` logic.
+        // // This ensures effective filtering and management of place-related data within the application.
+        // var customPopupFilterPlaces = new CustomPopupFilterPlaces(placeDerives, PlaceDeriveFilter);
+        // await this.ShowPopupAsync(customPopupFilterPlaces);
+        //
+        // FilterManagement(PlaceDeriveFilter, customPopupFilterPlaces, eFilter, svgPath);
 
         // ReSharper disable once HeapView.ObjectAllocation.Evident
-        // The instantiation of `CustomPopupFilterPlaces` is vital for configuring a filter popup
-        // that processes the `placeDerives` collection and applies the `PlaceDeriveFilter` logic.
-        // This ensures effective filtering and management of place-related data within the application.
-        var customPopupFilterPlaces = new CustomPopupFilterPlaces(placeDerives, PlaceDeriveFilter);
-        await this.ShowPopupAsync(customPopupFilterPlaces);
+        var popupFilter = new PopupFilter(popupSearches, EPopupSearch.ModePayment, PlaceDeriveFilter);
+        await this.ShowPopupAsync(popupFilter);
 
-        FilterManagement(PlaceDeriveFilter, customPopupFilterPlaces, eFilter, svgPath);
+        FilterManagement(PlaceDeriveFilter, popupFilter, eFilter, svgPath);
     }
 
     [SupportedOSPlatform("Android21.0")]
@@ -1043,7 +1051,7 @@ public partial class DashBoardContentPage
         string[]? places = null;
         if (PlaceDeriveFilter.Count > 0)
         {
-            places = PlaceDeriveFilter.Select(s => s.Name!).ToArray();
+            places = PlaceDeriveFilter.Select(s => s.Content!).ToArray();
         }
 
         double[]? values = null;
