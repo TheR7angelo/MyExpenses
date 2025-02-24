@@ -14,7 +14,7 @@
     <data name="ButtonAddNewHistoryText" xml:space="preserve">
         <value>Add a new history</value>
     </data>
-    <data name="ButtonDeletedText" xml:space="preserve">
+    <data name="ButtonDeleteText" xml:space="preserve">
         <value>Delete</value>
     </data>
     <data name="ButtonCancelText" xml:space="preserve">
@@ -92,13 +92,13 @@
     <data name="MessageBoxValidHistoryErrorTitle" xml:space="preserve">
         <value>Error</value>
     </data>
-    <data name="PlaceholderTextCity" xml:space="preserve">
+    <data name="ComboBoxPlaceCityHintAssist" xml:space="preserve">
         <value>City :</value>
     </data>
-    <data name="PlaceholderTextCountry" xml:space="preserve">
+    <data name="ComboBoxPlaceCountryHintAssist" xml:space="preserve">
         <value>Country :</value>
     </data>
-    <data name="PlaceholderTextPlace" xml:space="preserve">
+    <data name="ComboBoxPlaceHintAssist" xml:space="preserve">
         <value>Place :</value>
     </data>
     <data name="PointedOperation" xml:space="preserve">
@@ -116,16 +116,61 @@
     <data name="MessageBoxValidNewHistoryErrorTitle" xml:space="preserve">
         <value>Error</value>
     </data>
-    <data name="MessageBoxValidNewHistoryMessage" xml:space="preserve">
+    <data name="MessageBoxValidNewHistoryQuestionMessage" xml:space="preserve">
         <value>Do you want to save the changes made to this record ?</value>
     </data>
-    <data name="MessageBoxValidNewHistoryNoButton" xml:space="preserve">
+    <data name="MessageBoxValidNewHistoryQuestionNoButton" xml:space="preserve">
         <value>No</value>
     </data>
-    <data name="MessageBoxValidNewHistoryTitle" xml:space="preserve">
+    <data name="MessageBoxValidNewHistoryQuestionTitle" xml:space="preserve">
         <value>Confirm</value>
     </data>
-    <data name="MessageBoxValidNewHistoryYesButton" xml:space="preserve">
+    <data name="MessageBoxValidNewHistoryQuestionYesButton" xml:space="preserve">
         <value>Yes</value>
+    </data>
+    <data name="MessageBoxAddHistoryErrorMessage" xml:space="preserve">
+        <value>An error occurred please retry</value>
+    </data>
+    <data name="MessageBoxAddHistoryQuestionMessage" xml:space="preserve">
+        <value>Do you want to register a new banking transaction ?</value>
+    </data>
+    <data name="MessageBoxAddHistorySuccessMessage" xml:space="preserve">
+        <value>The expense record was added successfully</value>
+    </data>
+    <data name="MessageBoxDeleteHistoryNoUseSuccessMessage" xml:space="preserve">
+        <value>This Record was successfully removed</value>
+    </data>
+    <data name="MessageBoxDeleteHistoryUseSuccessMessage" xml:space="preserve">
+        <value>This record and all relative element was successfully removed</value>
+    </data>
+    <data name="MessageBoxDeleteUseRecordQuestionMessage" xml:space="preserve">
+        <value>This record is in use. Are you sure you want to delete this record and everything linked to it ?</value>
+    </data>
+    <data name="ComboBoxAccountHintAssist" xml:space="preserve">
+        <value>From the account :</value>
+    </data>
+    <data name="ComboBoxBackgroundHintAssist" xml:space="preserve">
+        <value>Basemap :</value>
+    </data>
+    <data name="ButtonValidText" xml:space="preserve">
+        <value>Valid</value>
+    </data>
+    <data name="TextBoxValueHintAssist" xml:space="preserve">
+        <value>Value :</value>
+    </data>
+    <data name="ComboBoxCategoryTypeHintAssist" xml:space="preserve">
+        <value>Category type :</value>
+    </data>
+    <data name="ComboBoxModePaymentHintAssist" xml:space="preserve">
+        <value>Mode payment :</value>
+    </data>
+    <data name="TextBoxDescriptionHintAssist" xml:space="preserve">
+        <value>Description :</value>
+    </data>
+    <data name="TimePickerWhenHintAssist" xml:space="preserve">
+        <value>Time :</value>
+    </data>
+    <data name="DatePickerWhenHintAssist" xml:space="preserve">
+        <value>Date :</value>
     </data>
 </root>

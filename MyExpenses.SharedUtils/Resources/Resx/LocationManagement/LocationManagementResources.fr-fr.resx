@@ -59,4 +59,13 @@
     <data name="MessageBoxProcessNewPlaceError" xml:space="preserve">
         <value>Une erreur s'est produite, veuillez réessayer</value>
     </data>
+    <data name="MessageBoxPlaceCantEditMessage" xml:space="preserve">
+        <value>Ce lieu ne peut pas être modifié ou supprimé</value>
+    </data>
+    <data name="MessageBoxEditPlaceErrorMessage" xml:space="preserve">
+        <value>Une erreur s'est produite, veuillez réessayer</value>
+    </data>
+    <data name="MessageBoxEditPlaceSuccessMessage" xml:space="preserve">
+        <value>Le lieu a été modifié avec succès</value>
+    </data>
 </root>

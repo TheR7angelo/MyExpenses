@@ -15,6 +15,10 @@ using MyExpenses.Models.Sql.Bases.Views;
 using MyExpenses.SharedUtils.Collection;
 using MyExpenses.SharedUtils.Objects;
 using MyExpenses.SharedUtils.Properties;
+using MyExpenses.SharedUtils.Resources.Resx.AddEditAccount;
+using MyExpenses.SharedUtils.Resources.Resx.CategoryTypesManagement;
+using MyExpenses.SharedUtils.Resources.Resx.LocationManagement;
+using MyExpenses.SharedUtils.Resources.Resx.ModePaymentManagement;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils.DateTimes;
 using MyExpenses.Utils.Maps;
@@ -22,7 +26,6 @@ using MyExpenses.Utils.Resources.Resx.Converters.EmptyStringTreeViewConverter;
 using MyExpenses.Utils.Sql;
 using MyExpenses.Utils.Strings;
 using MyExpenses.Wpf.Converters;
-using MyExpenses.Wpf.Resources.Resx.Pages.RecordExpensePage;
 using MyExpenses.Wpf.Resources.Resx.Windows.AddEditRecurrentExpenseWindow;
 using MyExpenses.Wpf.Utils;
 using MyExpenses.Wpf.Windows.CategoryTypeManagementWindow;
@@ -404,7 +407,7 @@ public partial class AddEditRecurrentExpenseWindow
                 var json = editedAccount.ToJsonString();
                 Log.Information("{Json}", json);
 
-                MsgBox.MsgBox.Show(RecordExpensePageResources.MessageBoxEditAccountSuccess, MsgBoxImage.Check);
+                MsgBox.MsgBox.Show(AddEditAccountResources.MessageBoxEditAccountSuccessMessage, MsgBoxImage.Check);
 
                 // ReSharper disable once HeapView.DelegateAllocation
                 var accountToRemove = Accounts.FirstOrDefault(s => s.Id == RecursiveExpense.AccountFk);
@@ -415,7 +418,7 @@ public partial class AddEditRecurrentExpenseWindow
             else
             {
                 Log.Error(exception, "An error occurred please retry");
-                MsgBox.MsgBox.Show(RecordExpensePageResources.MessageBoxEditAccountError, MsgBoxImage.Warning);
+                MsgBox.MsgBox.Show(AddEditAccountResources.MessageBoxEditAccountErrorMessage, MsgBoxImage.Warning);
             }
         }
     }
@@ -463,12 +466,14 @@ public partial class AddEditRecurrentExpenseWindow
                 var json = editedCategoryTypeDeepCopy.ToJsonString();
                 Log.Information("{Json}", json);
 
-                MsgBox.MsgBox.Show(RecordExpensePageResources.MessageBoxEditCategorySuccess, MsgBoxImage.Check);
+                MsgBox.MsgBox.Show(CategoryTypesManagementResources.MessageBoxCategoryTypeEditSuccessTitle,
+                    CategoryTypesManagementResources.MessageBoxCategoryTypeEditSuccessMessage, MsgBoxImage.Check);
             }
             else
             {
                 Log.Error(exception, "An error occurred please retry");
-                MsgBox.MsgBox.Show(RecordExpensePageResources.MessageBoxEditCategoryError, MsgBoxImage.Error);
+                MsgBox.MsgBox.Show(CategoryTypesManagementResources.MessageBoxCategoryTypeEditErrorTitle,
+                    CategoryTypesManagementResources.MessageBoxCategoryTypeEditErrorMessage, MsgBoxImage.Error);
             }
         }
     }
@@ -529,7 +534,7 @@ public partial class AddEditRecurrentExpenseWindow
         var modePayment = RecursiveExpense.ModePaymentFk?.ToISql<TModePayment>();
         if (modePayment?.CanBeDeleted is false)
         {
-            MsgBox.MsgBox.Show(RecordExpensePageResources.MessageBoxModePaymentCantEdit, MsgBoxImage.Error);
+            MsgBox.MsgBox.Show(ModePaymentManagementResources.MessageBoxModePaymentCantEditMessage, MsgBoxImage.Error);
             return;
         }
 
@@ -563,12 +568,12 @@ public partial class AddEditRecurrentExpenseWindow
                 var json = editedModePayment.ToJsonString();
                 Log.Information("{Json}", json);
 
-                MsgBox.MsgBox.Show(RecordExpensePageResources.MessageBoxEditModePaymentSuccess, MsgBoxImage.Check);
+                MsgBox.MsgBox.Show(ModePaymentManagementResources.MessageBoxEditModePaymentSuccessMessage, MsgBoxImage.Check);
             }
             else
             {
                 Log.Error(exception, "An error occurred please retry");
-                MsgBox.MsgBox.Show(RecordExpensePageResources.MessageBoxEditModePaymentError, MsgBoxImage.Error);
+                MsgBox.MsgBox.Show(ModePaymentManagementResources.MessageBoxEditModePaymentErrorMessage, MsgBoxImage.Error);
             }
         }
     }
@@ -578,7 +583,7 @@ public partial class AddEditRecurrentExpenseWindow
         var place = RecursiveExpense.PlaceFk?.ToISql<TPlace>();
         if (place?.CanBeDeleted is false)
         {
-            MsgBox.MsgBox.Show(RecordExpensePageResources.MessageBoxPlaceCantEdit, MsgBoxImage.Error);
+            MsgBox.MsgBox.Show(LocationManagementResources.MessageBoxPlaceCantEditMessage, MsgBoxImage.Error);
             return;
         }
 
@@ -614,12 +619,12 @@ public partial class AddEditRecurrentExpenseWindow
             // var json = editedPlace.ToJsonString();
             // Log.Information("{Json}", json);
 
-            MsgBox.MsgBox.Show(RecordExpensePageResources.MessageBoxEditPlaceSuccess, MsgBoxImage.Check);
+            MsgBox.MsgBox.Show(LocationManagementResources.MessageBoxEditPlaceSuccessMessage, MsgBoxImage.Check);
         }
         else
         {
             Log.Error(exception, "An error occurred please retry");
-            MsgBox.MsgBox.Show(RecordExpensePageResources.MessageBoxEditPlaceError, MsgBoxImage.Error);
+            MsgBox.MsgBox.Show(LocationManagementResources.MessageBoxEditPlaceErrorMessage, MsgBoxImage.Error);
         }
     }
 

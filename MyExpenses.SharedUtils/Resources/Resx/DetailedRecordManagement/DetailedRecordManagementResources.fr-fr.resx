@@ -14,7 +14,7 @@
     <data name="ButtonAddNewHistoryText" xml:space="preserve">
         <value>Ajouter un nouvel historique</value>
     </data>
-    <data name="ButtonDeletedText" xml:space="preserve">
+    <data name="ButtonDeleteText" xml:space="preserve">
         <value>Supprimer</value>
     </data>
     <data name="ButtonCancelText" xml:space="preserve">
@@ -92,13 +92,13 @@
     <data name="MessageBoxValidHistoryErrorTitle" xml:space="preserve">
         <value>Erreur</value>
     </data>
-    <data name="PlaceholderTextCity" xml:space="preserve">
+    <data name="ComboBoxPlaceCityHintAssist" xml:space="preserve">
         <value>Ville :</value>
     </data>
-    <data name="PlaceholderTextCountry" xml:space="preserve">
+    <data name="ComboBoxPlaceCountryHintAssist" xml:space="preserve">
         <value>Pays :</value>
     </data>
-    <data name="PlaceholderTextPlace" xml:space="preserve">
+    <data name="ComboBoxPlaceHintAssist" xml:space="preserve">
         <value>Lieu :</value>
     </data>
     <data name="PointedOperation" xml:space="preserve">
@@ -116,16 +116,61 @@
     <data name="MessageBoxValidNewHistoryErrorTitle" xml:space="preserve">
         <value>Erreur</value>
     </data>
-    <data name="MessageBoxValidNewHistoryMessage" xml:space="preserve">
+    <data name="MessageBoxValidNewHistoryQuestionMessage" xml:space="preserve">
         <value>Souhaitez-vous sauvegarder les modifications apportées à cet enregistrement ?</value>
     </data>
-    <data name="MessageBoxValidNewHistoryNoButton" xml:space="preserve">
+    <data name="MessageBoxValidNewHistoryQuestionNoButton" xml:space="preserve">
         <value>Non</value>
     </data>
-    <data name="MessageBoxValidNewHistoryTitle" xml:space="preserve">
+    <data name="MessageBoxValidNewHistoryQuestionTitle" xml:space="preserve">
         <value>Confirmation</value>
     </data>
-    <data name="MessageBoxValidNewHistoryYesButton" xml:space="preserve">
+    <data name="MessageBoxValidNewHistoryQuestionYesButton" xml:space="preserve">
         <value>Oui</value>
+    </data>
+    <data name="MessageBoxAddHistoryErrorMessage" xml:space="preserve">
+        <value>Une erreur s'est produite, veuillez réessayer</value>
+    </data>
+    <data name="MessageBoxAddHistoryQuestionMessage" xml:space="preserve">
+        <value>Vous souhaitez enregistrer une nouvelle opération bancaire ?</value>
+    </data>
+    <data name="MessageBoxAddHistorySuccessMessage" xml:space="preserve">
+        <value>L'enregistrement de la dépense a été ajouté avec succès</value>
+    </data>
+    <data name="MessageBoxDeleteHistoryNoUseSuccessMessage" xml:space="preserve">
+        <value>Cet enregistrement a été supprimé avec succès</value>
+    </data>
+    <data name="MessageBoxDeleteHistoryUseSuccessMessage" xml:space="preserve">
+        <value>Cet enregistrement et tous les éléments relatifs ont été supprimés avec succès</value>
+    </data>
+    <data name="MessageBoxDeleteUseRecordQuestionMessage" xml:space="preserve">
+        <value>Cet enregistrement est en cours d'utilisation. Etes-vous sûr de vouloir supprimer cet enregistrement et tout ce qui y est lié ?</value>
+    </data>
+    <data name="ComboBoxAccountHintAssist" xml:space="preserve">
+        <value>Depuis le compte :</value>
+    </data>
+    <data name="ComboBoxBackgroundHintAssist" xml:space="preserve">
+        <value>Fond de carte :</value>
+    </data>
+    <data name="ButtonValidText" xml:space="preserve">
+        <value>Valider</value>
+    </data>
+    <data name="TextBoxValueHintAssist" xml:space="preserve">
+        <value>Valeur :</value>
+    </data>
+    <data name="ComboBoxCategoryTypeHintAssist" xml:space="preserve">
+        <value>Type de catégorie :</value>
+    </data>
+    <data name="ComboBoxModePaymentHintAssist" xml:space="preserve">
+        <value>Mode de paiement :</value>
+    </data>
+    <data name="TextBoxDescriptionHintAssist" xml:space="preserve">
+        <value>Description :</value>
+    </data>
+    <data name="TimePickerWhenHintAssist" xml:space="preserve">
+        <value>Temps :</value>
+    </data>
+    <data name="DatePickerWhenHintAssist" xml:space="preserve">
+        <value>Date :</value>
     </data>
 </root>

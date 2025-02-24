@@ -85,10 +85,6 @@
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>ModePaymentManagementPageResources.Designer.cs</LastGenOutput>
       </EmbeddedResource>
-      <EmbeddedResource Update="Resources\Resx\Pages\RecordExpensePage\RecordExpensePageResources.resx">
-        <Generator>ResXFileCodeGenerator</Generator>
-        <LastGenOutput>RecordExpensePageResources.Designer.cs</LastGenOutput>
-      </EmbeddedResource>
       <EmbeddedResource Update="Resources\Resx\Windows\RemoveDatabaseFile\SelectDatabaseFileWindowResources.resx">
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>RemoveDatabaseFileResources.Designer.cs</LastGenOutput>
@@ -258,11 +254,6 @@
         <DesignTime>True</DesignTime>
         <AutoGen>True</AutoGen>
         <DependentUpon>ModePaymentManagementPageResources.resx</DependentUpon>
-      </Compile>
-      <Compile Update="Resources\Resx\Pages\RecordExpensePage\RecordExpensePageResources.Designer.cs">
-        <DesignTime>True</DesignTime>
-        <AutoGen>True</AutoGen>
-        <DependentUpon>RecordExpensePageResources.resx</DependentUpon>
       </Compile>
       <Compile Update="Resources\Resx\Windows\RemoveDatabaseFile\SelectDatabaseFileWindowResources.Designer.cs">
         <DesignTime>True</DesignTime>

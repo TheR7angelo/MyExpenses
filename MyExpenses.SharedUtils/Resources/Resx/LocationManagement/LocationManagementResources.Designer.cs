@@ -9,8 +9,8 @@
 
 namespace MyExpenses.SharedUtils.Resources.Resx.LocationManagement {
     using System;
-
-
+    
+    
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
     /// </summary>
@@ -22,20 +22,20 @@ namespace MyExpenses.SharedUtils.Resources.Resx.LocationManagement {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class LocationManagementResources {
-
+        
         private static global::System.Resources.ResourceManager resourceMan;
-
+        
         private static global::System.Globalization.CultureInfo resourceCulture;
-
+        
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal LocationManagementResources() {
+        public LocationManagementResources() {
         }
-
+        
         /// <summary>
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MyExpenses.SharedUtils.Resources.Resx.LocationManagement.LocationManagementResour" +
@@ -45,13 +45,13 @@ namespace MyExpenses.SharedUtils.Resources.Resx.LocationManagement {
                 return resourceMan;
             }
         }
-
+        
         /// <summary>
         ///   Overrides the current thread's CurrentUICulture property for all
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -59,7 +59,7 @@ namespace MyExpenses.SharedUtils.Resources.Resx.LocationManagement {
                 resourceCulture = value;
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Basemap :.
         /// </summary>
@@ -68,7 +68,7 @@ namespace MyExpenses.SharedUtils.Resources.Resx.LocationManagement {
                 return ResourceManager.GetString("ComboBoxBasemapHintAssist", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Add new point.
         /// </summary>
@@ -77,7 +77,7 @@ namespace MyExpenses.SharedUtils.Resources.Resx.LocationManagement {
                 return ResourceManager.GetString("MenuItemHeaderAddPoint", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Delete point.
         /// </summary>
@@ -86,7 +86,7 @@ namespace MyExpenses.SharedUtils.Resources.Resx.LocationManagement {
                 return ResourceManager.GetString("MenuItemHeaderDeleteFeature", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Edit point.
         /// </summary>
@@ -95,7 +95,7 @@ namespace MyExpenses.SharedUtils.Resources.Resx.LocationManagement {
                 return ResourceManager.GetString("MenuItemHeaderEditFeature", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Go to Google Earth web.
         /// </summary>
@@ -104,7 +104,7 @@ namespace MyExpenses.SharedUtils.Resources.Resx.LocationManagement {
                 return ResourceManager.GetString("MenuItemHeaderGoogleEarthWeb", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Go to Google Maps.
         /// </summary>
@@ -113,7 +113,7 @@ namespace MyExpenses.SharedUtils.Resources.Resx.LocationManagement {
                 return ResourceManager.GetString("MenuItemHeaderGoogleMaps", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Go to Google Street View.
         /// </summary>
@@ -122,7 +122,7 @@ namespace MyExpenses.SharedUtils.Resources.Resx.LocationManagement {
                 return ResourceManager.GetString("MenuItemHeaderGoogleStreetView", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Maps.
         /// </summary>
@@ -131,7 +131,7 @@ namespace MyExpenses.SharedUtils.Resources.Resx.LocationManagement {
                 return ResourceManager.GetString("MenuItemHeaderMaps", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Are you sure you want to delete place &quot;{0}&quot; ?.
         /// </summary>
@@ -140,7 +140,25 @@ namespace MyExpenses.SharedUtils.Resources.Resx.LocationManagement {
                 return ResourceManager.GetString("MessageBoxDeleteQuestion", resourceCulture);
             }
         }
-
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error occurred please retry.
+        /// </summary>
+        public static string MessageBoxEditPlaceErrorMessage {
+            get {
+                return ResourceManager.GetString("MessageBoxEditPlaceErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Place was successfully edited.
+        /// </summary>
+        public static string MessageBoxEditPlaceSuccessMessage {
+            get {
+                return ResourceManager.GetString("MessageBoxEditPlaceSuccessMessage", resourceCulture);
+            }
+        }
+        
         /// <summary>
         ///   Looks up a localized string similar to An error occurred please retry.
         /// </summary>
@@ -149,7 +167,7 @@ namespace MyExpenses.SharedUtils.Resources.Resx.LocationManagement {
                 return ResourceManager.GetString("MessageBoxMenuItemDeleteFeatureError", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Place was successfully removed.
         /// </summary>
@@ -158,7 +176,7 @@ namespace MyExpenses.SharedUtils.Resources.Resx.LocationManagement {
                 return ResourceManager.GetString("MessageBoxMenuItemDeleteFeatureNoUseSuccess", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to This location is in use.Are you sure you want to delete this location and everything linked to it ?.
         /// </summary>
@@ -167,7 +185,7 @@ namespace MyExpenses.SharedUtils.Resources.Resx.LocationManagement {
                 return ResourceManager.GetString("MessageBoxMenuItemDeleteFeatureUseQuestion", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Place and all relative element was successfully removed.
         /// </summary>
@@ -176,7 +194,16 @@ namespace MyExpenses.SharedUtils.Resources.Resx.LocationManagement {
                 return ResourceManager.GetString("MessageBoxMenuItemDeleteFeatureUseSuccess", resourceCulture);
             }
         }
-
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This place cannot be changed or deleted.
+        /// </summary>
+        public static string MessageBoxPlaceCantEditMessage {
+            get {
+                return ResourceManager.GetString("MessageBoxPlaceCantEditMessage", resourceCulture);
+            }
+        }
+        
         /// <summary>
         ///   Looks up a localized string similar to The new place has been added successfully.
         /// </summary>
@@ -185,7 +212,7 @@ namespace MyExpenses.SharedUtils.Resources.Resx.LocationManagement {
                 return ResourceManager.GetString("MessageBoxProcessNewPlaceAddSuccess", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to The new location has been successfully edited.
         /// </summary>
@@ -194,7 +221,7 @@ namespace MyExpenses.SharedUtils.Resources.Resx.LocationManagement {
                 return ResourceManager.GetString("MessageBoxProcessNewPlaceEditSuccess", resourceCulture);
             }
         }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to An error occurred please retry.
         /// </summary>

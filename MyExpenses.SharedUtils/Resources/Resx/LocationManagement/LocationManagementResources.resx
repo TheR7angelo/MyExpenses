@@ -66,4 +66,13 @@
     <data name="MessageBoxProcessNewPlaceError" xml:space="preserve">
         <value>An error occurred please retry</value>
     </data>
+    <data name="MessageBoxPlaceCantEditMessage" xml:space="preserve">
+        <value>This place cannot be changed or deleted</value>
+    </data>
+    <data name="MessageBoxEditPlaceErrorMessage" xml:space="preserve">
+        <value>An error occurred please retry</value>
+    </data>
+    <data name="MessageBoxEditPlaceSuccessMessage" xml:space="preserve">
+        <value>Place was successfully edited</value>
+    </data>
 </root>

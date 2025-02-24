@@ -56,6 +56,10 @@
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>DetailedRecordManagementResources.Designer.cs</LastGenOutput>
       </EmbeddedResource>
+      <EmbeddedResource Update="Resources\Resx\ModePaymentManagement\ModePaymentManagementResources.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>ModePaymentManagementResources.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
     </ItemGroup>
 
     <ItemGroup>
@@ -118,6 +122,11 @@
         <DesignTime>True</DesignTime>
         <AutoGen>True</AutoGen>
         <DependentUpon>DetailedRecordManagementResources.resx</DependentUpon>
+      </Compile>
+      <Compile Update="Resources\Resx\ModePaymentManagement\ModePaymentManagementResources.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>ModePaymentManagementResources.resx</DependentUpon>
       </Compile>
     </ItemGroup>
 

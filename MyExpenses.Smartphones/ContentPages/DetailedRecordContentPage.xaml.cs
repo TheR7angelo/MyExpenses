@@ -553,10 +553,10 @@ public partial class DetailedRecordContentPage
         if (IsDirty)
         {
             var response = await DisplayAlert(
-                DetailedRecordManagementResources.MessageBoxValidNewHistoryTitle,
-                DetailedRecordManagementResources.MessageBoxValidNewHistoryMessage,
-                DetailedRecordManagementResources.MessageBoxValidNewHistoryYesButton,
-                DetailedRecordManagementResources.MessageBoxValidNewHistoryNoButton);
+                DetailedRecordManagementResources.MessageBoxValidNewHistoryQuestionTitle,
+                DetailedRecordManagementResources.MessageBoxValidNewHistoryQuestionMessage,
+                DetailedRecordManagementResources.MessageBoxValidNewHistoryQuestionYesButton,
+                DetailedRecordManagementResources.MessageBoxValidNewHistoryQuestionNoButton);
 
             if (response)
             {
@@ -737,7 +737,7 @@ public partial class DetailedRecordContentPage
             ? DetailedRecordManagementResources.ButtonAddNewHistoryText
             : DetailedRecordManagementResources.ButtonUpdateText;
         ButtonCancelUpdateText = DetailedRecordManagementResources.ButtonCancelText;
-        ButtonCanBeDeletedText = DetailedRecordManagementResources.ButtonDeletedText;
+        ButtonCanBeDeletedText = DetailedRecordManagementResources.ButtonDeleteText;
 
         LabelTextAddedOn = DetailedRecordManagementResources.LabelTextAddedOn;
         PointedOperation = DetailedRecordManagementResources.PointedOperation;
@@ -748,9 +748,9 @@ public partial class DetailedRecordContentPage
 
         if (IsDirty) Title = DetailedRecordManagementResources.TitleIsDirty;
 
-        PlaceholderTextCountry = DetailedRecordManagementResources.PlaceholderTextCountry;
-        PlaceholderTextCity = DetailedRecordManagementResources.PlaceholderTextCity;
-        PlaceholderTextPlace = DetailedRecordManagementResources.PlaceholderTextPlace;
+        PlaceholderTextCountry = DetailedRecordManagementResources.ComboBoxPlaceCountryHintAssist;
+        PlaceholderTextCity = DetailedRecordManagementResources.ComboBoxPlaceCityHintAssist;
+        PlaceholderTextPlace = DetailedRecordManagementResources.ComboBoxPlaceHintAssist;
     }
 
     private void UpdateMapPoint(TPlace? place)

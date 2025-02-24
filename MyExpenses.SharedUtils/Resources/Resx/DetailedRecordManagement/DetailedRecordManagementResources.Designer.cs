@@ -81,9 +81,9 @@ namespace MyExpenses.SharedUtils.Resources.Resx.DetailedRecordManagement {
         /// <summary>
         ///   Looks up a localized string similar to Delete.
         /// </summary>
-        public static string ButtonDeletedText {
+        public static string ButtonDeleteText {
             get {
-                return ResourceManager.GetString("ButtonDeletedText", resourceCulture);
+                return ResourceManager.GetString("ButtonDeleteText", resourceCulture);
             }
         }
         
@@ -102,6 +102,87 @@ namespace MyExpenses.SharedUtils.Resources.Resx.DetailedRecordManagement {
         public static string ButtonUpdateText {
             get {
                 return ResourceManager.GetString("ButtonUpdateText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Valid.
+        /// </summary>
+        public static string ButtonValidText {
+            get {
+                return ResourceManager.GetString("ButtonValidText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to From the account :.
+        /// </summary>
+        public static string ComboBoxAccountHintAssist {
+            get {
+                return ResourceManager.GetString("ComboBoxAccountHintAssist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Basemap :.
+        /// </summary>
+        public static string ComboBoxBackgroundHintAssist {
+            get {
+                return ResourceManager.GetString("ComboBoxBackgroundHintAssist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Category type :.
+        /// </summary>
+        public static string ComboBoxCategoryTypeHintAssist {
+            get {
+                return ResourceManager.GetString("ComboBoxCategoryTypeHintAssist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mode payment :.
+        /// </summary>
+        public static string ComboBoxModePaymentHintAssist {
+            get {
+                return ResourceManager.GetString("ComboBoxModePaymentHintAssist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to City :.
+        /// </summary>
+        public static string ComboBoxPlaceCityHintAssist {
+            get {
+                return ResourceManager.GetString("ComboBoxPlaceCityHintAssist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Country :.
+        /// </summary>
+        public static string ComboBoxPlaceCountryHintAssist {
+            get {
+                return ResourceManager.GetString("ComboBoxPlaceCountryHintAssist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Place :.
+        /// </summary>
+        public static string ComboBoxPlaceHintAssist {
+            get {
+                return ResourceManager.GetString("ComboBoxPlaceHintAssist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Date :.
+        /// </summary>
+        public static string DatePickerWhenHintAssist {
+            get {
+                return ResourceManager.GetString("DatePickerWhenHintAssist", resourceCulture);
             }
         }
         
@@ -133,6 +214,33 @@ namespace MyExpenses.SharedUtils.Resources.Resx.DetailedRecordManagement {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to An error occurred please retry.
+        /// </summary>
+        public static string MessageBoxAddHistoryErrorMessage {
+            get {
+                return ResourceManager.GetString("MessageBoxAddHistoryErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you want to register a new banking transaction ?.
+        /// </summary>
+        public static string MessageBoxAddHistoryQuestionMessage {
+            get {
+                return ResourceManager.GetString("MessageBoxAddHistoryQuestionMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The expense record was added successfully.
+        /// </summary>
+        public static string MessageBoxAddHistorySuccessMessage {
+            get {
+                return ResourceManager.GetString("MessageBoxAddHistorySuccessMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to An error has occurred, please try again.
         /// </summary>
         public static string MessageBoxDeleteHistoryErrorMessage {
@@ -156,6 +264,15 @@ namespace MyExpenses.SharedUtils.Resources.Resx.DetailedRecordManagement {
         public static string MessageBoxDeleteHistoryErrorTitle {
             get {
                 return ResourceManager.GetString("MessageBoxDeleteHistoryErrorTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This Record was successfully removed.
+        /// </summary>
+        public static string MessageBoxDeleteHistoryNoUseSuccessMessage {
+            get {
+                return ResourceManager.GetString("MessageBoxDeleteHistoryNoUseSuccessMessage", resourceCulture);
             }
         }
         
@@ -219,6 +336,24 @@ namespace MyExpenses.SharedUtils.Resources.Resx.DetailedRecordManagement {
         public static string MessageBoxDeleteHistorySuccessTitle {
             get {
                 return ResourceManager.GetString("MessageBoxDeleteHistorySuccessTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This record and all relative element was successfully removed.
+        /// </summary>
+        public static string MessageBoxDeleteHistoryUseSuccessMessage {
+            get {
+                return ResourceManager.GetString("MessageBoxDeleteHistoryUseSuccessMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This record is in use. Are you sure you want to delete this record and everything linked to it ?.
+        /// </summary>
+        public static string MessageBoxDeleteUseRecordQuestionMessage {
+            get {
+                return ResourceManager.GetString("MessageBoxDeleteUseRecordQuestionMessage", resourceCulture);
             }
         }
         
@@ -333,63 +468,36 @@ namespace MyExpenses.SharedUtils.Resources.Resx.DetailedRecordManagement {
         /// <summary>
         ///   Looks up a localized string similar to Do you want to save the changes made to this record ?.
         /// </summary>
-        public static string MessageBoxValidNewHistoryMessage {
+        public static string MessageBoxValidNewHistoryQuestionMessage {
             get {
-                return ResourceManager.GetString("MessageBoxValidNewHistoryMessage", resourceCulture);
+                return ResourceManager.GetString("MessageBoxValidNewHistoryQuestionMessage", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to No.
         /// </summary>
-        public static string MessageBoxValidNewHistoryNoButton {
+        public static string MessageBoxValidNewHistoryQuestionNoButton {
             get {
-                return ResourceManager.GetString("MessageBoxValidNewHistoryNoButton", resourceCulture);
+                return ResourceManager.GetString("MessageBoxValidNewHistoryQuestionNoButton", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Confirm.
         /// </summary>
-        public static string MessageBoxValidNewHistoryTitle {
+        public static string MessageBoxValidNewHistoryQuestionTitle {
             get {
-                return ResourceManager.GetString("MessageBoxValidNewHistoryTitle", resourceCulture);
+                return ResourceManager.GetString("MessageBoxValidNewHistoryQuestionTitle", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Yes.
         /// </summary>
-        public static string MessageBoxValidNewHistoryYesButton {
+        public static string MessageBoxValidNewHistoryQuestionYesButton {
             get {
-                return ResourceManager.GetString("MessageBoxValidNewHistoryYesButton", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to City :.
-        /// </summary>
-        public static string PlaceholderTextCity {
-            get {
-                return ResourceManager.GetString("PlaceholderTextCity", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Country :.
-        /// </summary>
-        public static string PlaceholderTextCountry {
-            get {
-                return ResourceManager.GetString("PlaceholderTextCountry", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Place :.
-        /// </summary>
-        public static string PlaceholderTextPlace {
-            get {
-                return ResourceManager.GetString("PlaceholderTextPlace", resourceCulture);
+                return ResourceManager.GetString("MessageBoxValidNewHistoryQuestionYesButton", resourceCulture);
             }
         }
         
@@ -399,6 +507,33 @@ namespace MyExpenses.SharedUtils.Resources.Resx.DetailedRecordManagement {
         public static string PointedOperation {
             get {
                 return ResourceManager.GetString("PointedOperation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Description :.
+        /// </summary>
+        public static string TextBoxDescriptionHintAssist {
+            get {
+                return ResourceManager.GetString("TextBoxDescriptionHintAssist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Value :.
+        /// </summary>
+        public static string TextBoxValueHintAssist {
+            get {
+                return ResourceManager.GetString("TextBoxValueHintAssist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Time :.
+        /// </summary>
+        public static string TimePickerWhenHintAssist {
+            get {
+                return ResourceManager.GetString("TimePickerWhenHintAssist", resourceCulture);
             }
         }
         

@@ -14,6 +14,11 @@ using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.SharedUtils.Collection;
 using MyExpenses.SharedUtils.Objects;
 using MyExpenses.SharedUtils.Properties;
+using MyExpenses.SharedUtils.Resources.Resx.AddEditAccount;
+using MyExpenses.SharedUtils.Resources.Resx.CategoryTypesManagement;
+using MyExpenses.SharedUtils.Resources.Resx.DetailedRecordManagement;
+using MyExpenses.SharedUtils.Resources.Resx.LocationManagement;
+using MyExpenses.SharedUtils.Resources.Resx.ModePaymentManagement;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils;
 using MyExpenses.Utils.Maps;
@@ -22,7 +27,7 @@ using MyExpenses.Wpf.Windows;
 using MyExpenses.Utils.Sql;
 using MyExpenses.Utils.Strings;
 using MyExpenses.Wpf.Converters;
-using MyExpenses.Wpf.Resources.Resx.Pages.RecordExpensePage;
+// using MyExpenses.Wpf.Resources.Resx.Pages.RecordExpensePage;
 using MyExpenses.Wpf.Windows.CategoryTypeManagementWindow;
 using MyExpenses.Wpf.Windows.LocationManagementWindows;
 using MyExpenses.Wpf.Windows.MsgBox;
@@ -337,7 +342,7 @@ public partial class RecordExpensePage
                 var json = editedAccount.ToJsonString();
                 Log.Information("{Json}", json);
 
-                MsgBox.Show(RecordExpensePageResources.MessageBoxEditAccountSuccess, MsgBoxImage.Check);
+                MsgBox.Show(AddEditAccountResources.MessageBoxEditAccountSuccessMessage, MsgBoxImage.Check);
 
                 // ReSharper disable once HeapView.DelegateAllocation
                 var accountToRemove = Accounts.FirstOrDefault(s => s.Id == History.AccountFk);
@@ -348,7 +353,7 @@ public partial class RecordExpensePage
             else
             {
                 Log.Error(exception, "An error occurred please retry");
-                MsgBox.Show(RecordExpensePageResources.MessageBoxEditAccountError, MsgBoxImage.Warning);
+                MsgBox.Show(AddEditAccountResources.MessageBoxEditAccountErrorMessage, MsgBoxImage.Warning);
             }
         }
     }
@@ -394,12 +399,14 @@ public partial class RecordExpensePage
                 var json = editedCategoryTypeDeepCopy.ToJsonString();
                 Log.Information("{Json}", json);
 
-                MsgBox.Show(RecordExpensePageResources.MessageBoxEditCategorySuccess, MsgBoxImage.Check);
+                MsgBox.Show(CategoryTypesManagementResources.MessageBoxCategoryTypeEditSuccessTitle,
+                    CategoryTypesManagementResources.MessageBoxCategoryTypeEditSuccessMessage, MsgBoxImage.Check);
             }
             else
             {
                 Log.Error(exception, "An error occurred please retry");
-                MsgBox.Show(RecordExpensePageResources.MessageBoxEditCategoryError, MsgBoxImage.Error);
+                MsgBox.Show(CategoryTypesManagementResources.MessageBoxCategoryTypeEditErrorTitle,
+                    CategoryTypesManagementResources.MessageBoxCategoryTypeEditErrorMessage, MsgBoxImage.Error);
             }
         }
     }
@@ -409,7 +416,7 @@ public partial class RecordExpensePage
         var modePayment = History.ModePaymentFk?.ToISql<TModePayment>();
         if (modePayment?.CanBeDeleted is false)
         {
-            MsgBox.Show(RecordExpensePageResources.MessageBoxModePaymentCantEdit, MsgBoxImage.Error);
+            MsgBox.Show(ModePaymentManagementResources.MessageBoxModePaymentCantEditMessage, MsgBoxImage.Error);
             return;
         }
 
@@ -445,12 +452,12 @@ public partial class RecordExpensePage
                 var json = editedModePayment.ToJsonString();
                 Log.Information("{Json}", json);
 
-                MsgBox.Show(RecordExpensePageResources.MessageBoxEditModePaymentSuccess, MsgBoxImage.Check);
+                MsgBox.Show(ModePaymentManagementResources.MessageBoxEditModePaymentSuccessMessage, MsgBoxImage.Check);
             }
             else
             {
                 Log.Error(exception, "An error occurred please retry");
-                MsgBox.Show(RecordExpensePageResources.MessageBoxEditModePaymentError, MsgBoxImage.Error);
+                MsgBox.Show(ModePaymentManagementResources.MessageBoxEditModePaymentErrorMessage, MsgBoxImage.Error);
             }
         }
     }
@@ -460,7 +467,7 @@ public partial class RecordExpensePage
         var place = History.PlaceFk?.ToISql<TPlace>();
         if (place?.CanBeDeleted is false)
         {
-            MsgBox.Show(RecordExpensePageResources.MessageBoxPlaceCantEdit, MsgBoxImage.Error);
+            MsgBox.Show(LocationManagementResources.MessageBoxPlaceCantEditMessage, MsgBoxImage.Error);
             return;
         }
 
@@ -498,12 +505,12 @@ public partial class RecordExpensePage
             // var json = editedPlace.ToJsonString();
             // Log.Information("{Json}", json);
 
-            MsgBox.Show(RecordExpensePageResources.MessageBoxEditPlaceSuccess, MsgBoxImage.Check);
+            MsgBox.Show(LocationManagementResources.MessageBoxEditPlaceSuccessMessage, MsgBoxImage.Check);
         }
         else
         {
             Log.Error(exception, "An error occurred please retry");
-            MsgBox.Show(RecordExpensePageResources.MessageBoxEditPlaceError, MsgBoxImage.Error);
+            MsgBox.Show(LocationManagementResources.MessageBoxEditPlaceErrorMessage, MsgBoxImage.Error);
         }
     }
 
@@ -528,21 +535,19 @@ public partial class RecordExpensePage
 
             var messageErrorKey = propertyMemberName switch
             {
-                nameof(THistory.AccountFk) => nameof(RecordExpensePageResources.MessageBoxValidationAccountFkError),
-                nameof(THistory.Description) => nameof(RecordExpensePageResources.MessageBoxValidationDescriptionError),
-                nameof(THistory.CategoryTypeFk) => nameof(RecordExpensePageResources
-                    .MessageBoxValidationCategoryTypeFkError),
-                nameof(THistory.ModePaymentFk) => nameof(RecordExpensePageResources
-                    .MessageBoxValidationModePaymentFkError),
-                nameof(THistory.Value) => nameof(RecordExpensePageResources.MessageBoxValidationValueError),
-                nameof(THistory.Date) => nameof(RecordExpensePageResources.MessageBoxValidationDateError),
-                nameof(THistory.PlaceFk) => nameof(RecordExpensePageResources.MessageBoxValidationPlaceFkError),
+                nameof(THistory.AccountFk) => nameof(DetailedRecordManagementResources.MessageBoxValidationAccountFkError),
+                nameof(THistory.Description) => nameof(DetailedRecordManagementResources.MessageBoxValidationDescriptionError),
+                nameof(THistory.CategoryTypeFk) => nameof(DetailedRecordManagementResources.MessageBoxValidationCategoryTypeFkError),
+                nameof(THistory.ModePaymentFk) => nameof(DetailedRecordManagementResources.MessageBoxValidationModePaymentFkError),
+                nameof(THistory.Value) => nameof(DetailedRecordManagementResources.MessageBoxValidationValueError),
+                nameof(THistory.Date) => nameof(DetailedRecordManagementResources.MessageBoxValidationDateError),
+                nameof(THistory.PlaceFk) => nameof(DetailedRecordManagementResources.MessageBoxValidationPlaceFkError),
                 _ => null
             };
 
             var localizedErrorMessage = string.IsNullOrEmpty(messageErrorKey)
                 ? propertyError.ErrorMessage!
-                : RecordExpensePageResources.ResourceManager.GetString(messageErrorKey)!;
+                : DetailedRecordManagementResources.ResourceManager.GetString(messageErrorKey)!;
 
             MsgBox.Show(localizedErrorMessage, MsgBoxImage.Error);
             return;
@@ -560,7 +565,7 @@ public partial class RecordExpensePage
             var json = History.ToJsonString();
             Log.Information("{Json}", json);
 
-            MsgBox.Show(RecordExpensePageResources.MessageBoxAddHistorySuccess, MsgBoxImage.Check);
+            MsgBox.Show(DetailedRecordManagementResources.MessageBoxAddHistorySuccessMessage, MsgBoxImage.Check);
 
             if (EditHistory)
             {
@@ -568,7 +573,7 @@ public partial class RecordExpensePage
                 return;
             }
 
-            var response = MsgBox.Show(RecordExpensePageResources.MessageBoxAddHistoryQuestion, MsgBoxImage.Question,
+            var response = MsgBox.Show(DetailedRecordManagementResources.MessageBoxAddHistoryQuestionMessage, MsgBoxImage.Question,
                 MessageBoxButton.YesNoCancel);
             if (response is not MessageBoxResult.Yes) nameof(MainWindow.FrameBody).GoBack();
 
@@ -577,7 +582,7 @@ public partial class RecordExpensePage
         else
         {
             Log.Error(exception, "An error occurred please retry");
-            MsgBox.Show(RecordExpensePageResources.MessageBoxAddHistoryError, MsgBoxImage.Error);
+            MsgBox.Show(DetailedRecordManagementResources.MessageBoxAddHistoryErrorMessage, MsgBoxImage.Error);
         }
     }
 
@@ -589,7 +594,7 @@ public partial class RecordExpensePage
 
     private void ButtonDelete_OnClick(object sender, RoutedEventArgs e)
     {
-        var response = MsgBox.Show(RecordExpensePageResources.MessageBoxDeleteRecordQuestion, MsgBoxImage.Question,
+        var response = MsgBox.Show(DetailedRecordManagementResources.MessageBoxDeleteHistoryQuestionMessage, MsgBoxImage.Question,
             MessageBoxButton.YesNoCancel);
 
         if (response is not MessageBoxResult.Yes) return;
@@ -600,7 +605,7 @@ public partial class RecordExpensePage
         if (success)
         {
             Log.Information("This Record was successfully removed");
-            MsgBox.Show(RecordExpensePageResources.MessageBoxDeleteHistoryNoUseSuccess, MsgBoxImage.Check);
+            MsgBox.Show(DetailedRecordManagementResources.MessageBoxDeleteHistoryNoUseSuccessMessage, MsgBoxImage.Check);
 
             nameof(MainWindow.FrameBody).GoBack();
             return;
@@ -613,7 +618,7 @@ public partial class RecordExpensePage
         {
             Log.Error("Foreign key constraint violation");
 
-            response = MsgBox.Show(RecordExpensePageResources.MessageBoxDeleteUseRecordQuestion,
+            response = MsgBox.Show(DetailedRecordManagementResources.MessageBoxDeleteUseRecordQuestionMessage,
                 MsgBoxImage.Question, MessageBoxButton.YesNoCancel);
 
             if (response is not MessageBoxResult.Yes) return;
@@ -624,14 +629,14 @@ public partial class RecordExpensePage
             History.Delete(true);
             Log.Information("This record and all relative element was successfully removed");
 
-            MsgBox.Show(RecordExpensePageResources.MessageBoxDeleteHistoryUseSuccess, MsgBoxImage.Check);
+            MsgBox.Show(DetailedRecordManagementResources.MessageBoxDeleteHistoryUseSuccessMessage, MsgBoxImage.Check);
 
             nameof(MainWindow.FrameBody).GoBack();
             return;
         }
 
         Log.Error(exception, "An error occurred please retry");
-        MsgBox.Show(RecordExpensePageResources.MessageBoxDeleteHistoryError, MsgBoxImage.Error);
+        MsgBox.Show(DetailedRecordManagementResources.MessageBoxDeleteHistoryErrorMessage, MsgBoxImage.Error);
     }
 
     private void Configuration_OnConfigurationChanged()
@@ -837,21 +842,21 @@ public partial class RecordExpensePage
         var xmlLanguage = XmlLanguage.GetLanguage(cultureInfoCode);
         DatePicker.Language = xmlLanguage;
 
-        ComboBoxAccountHintAssist = RecordExpensePageResources.ComboBoxAccountHintAssist;
-        TextBoxDescriptionHintAssist = RecordExpensePageResources.TextBoxDescriptionHintAssist;
-        ComboBoxCategoryTypeHintAssist = RecordExpensePageResources.ComboBoxCategoryTypeHintAssist;
-        ComboBoxModePaymentHintAssist = RecordExpensePageResources.ComboBoxModePaymentHintAssist;
-        TextBoxValueHintAssist = RecordExpensePageResources.TextBoxValueHintAssist;
-        DatePickerWhenHintAssist = RecordExpensePageResources.DatePickerWhenHintAssist;
-        TimePickerWhenHintAssist = RecordExpensePageResources.TimePickerWhenHintAssist;
-        ComboBoxPlaceCountryHintAssist = RecordExpensePageResources.ComboBoxPlaceCountryHintAssist;
-        ComboBoxPlaceCityHintAssist = RecordExpensePageResources.ComboBoxPlaceCityHintAssist;
-        ComboBoxPlaceHintAssist = RecordExpensePageResources.ComboBoxPlaceHintAssist;
-        CheckBoxPointedContent = RecordExpensePageResources.CheckBoxPointedContent;
-        ComboBoxBackgroundHintAssist = RecordExpensePageResources.ComboBoxBackgroundHintAssist;
-        ButtonValidContent = RecordExpensePageResources.ButtonValidContent;
-        ButtonDeleteContent = RecordExpensePageResources.ButtonDeleteContent;
-        ButtonCancelContent = RecordExpensePageResources.ButtonCancelContent;
+        ComboBoxAccountHintAssist = DetailedRecordManagementResources.ComboBoxAccountHintAssist;
+        TextBoxDescriptionHintAssist = DetailedRecordManagementResources.TextBoxDescriptionHintAssist;
+        ComboBoxCategoryTypeHintAssist = DetailedRecordManagementResources.ComboBoxCategoryTypeHintAssist;
+        ComboBoxModePaymentHintAssist = DetailedRecordManagementResources.ComboBoxModePaymentHintAssist;
+        TextBoxValueHintAssist = DetailedRecordManagementResources.TextBoxValueHintAssist;
+        DatePickerWhenHintAssist = DetailedRecordManagementResources.DatePickerWhenHintAssist;
+        TimePickerWhenHintAssist = DetailedRecordManagementResources.TimePickerWhenHintAssist;
+        ComboBoxPlaceCountryHintAssist = DetailedRecordManagementResources.ComboBoxPlaceCountryHintAssist;
+        ComboBoxPlaceCityHintAssist = DetailedRecordManagementResources.ComboBoxPlaceCityHintAssist;
+        ComboBoxPlaceHintAssist = DetailedRecordManagementResources.ComboBoxPlaceHintAssist;
+        CheckBoxPointedContent = DetailedRecordManagementResources.PointedOperation;
+        ComboBoxBackgroundHintAssist = DetailedRecordManagementResources.ComboBoxBackgroundHintAssist;
+        ButtonValidContent = DetailedRecordManagementResources.ButtonValidText;
+        ButtonDeleteContent = DetailedRecordManagementResources.ButtonDeleteText;
+        ButtonCancelContent = DetailedRecordManagementResources.ButtonCancelText;
     }
 
     private void UpdateMapPoint(TPlace? place)
