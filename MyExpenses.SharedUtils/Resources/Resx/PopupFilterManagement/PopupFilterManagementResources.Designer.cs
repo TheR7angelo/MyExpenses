@@ -70,6 +70,15 @@ namespace MyExpenses.SharedUtils.Resources.Resx.PopupFilterManagement {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Checked.
+        /// </summary>
+        public static string Checked {
+            get {
+                return ResourceManager.GetString("Checked", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Search by account name.
         /// </summary>
         public static string SearchBarPlaceHolderTextAccount {
@@ -97,6 +106,15 @@ namespace MyExpenses.SharedUtils.Resources.Resx.PopupFilterManagement {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Search by a checked or unchecked value.
+        /// </summary>
+        public static string SearchBarPlaceHolderTextCheckUncheck {
+            get {
+                return ResourceManager.GetString("SearchBarPlaceHolderTextCheckUncheck", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Search by description.
         /// </summary>
         public static string SearchBarPlaceHolderTextDescription {
@@ -111,6 +129,15 @@ namespace MyExpenses.SharedUtils.Resources.Resx.PopupFilterManagement {
         public static string SearchBarPlaceHolderTextMainReason {
             get {
                 return ResourceManager.GetString("SearchBarPlaceHolderTextMainReason", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Unchecked.
+        /// </summary>
+        public static string Unchecked {
+            get {
+                return ResourceManager.GetString("Unchecked", resourceCulture);
             }
         }
     }

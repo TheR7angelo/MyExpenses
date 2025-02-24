@@ -10,6 +10,10 @@
                x:Class="MyExpenses.Smartphones.ContentPages.CustomPopups.PopupFilter"
                BindingContext="{Binding Source={RelativeSource Self}}">
 
+    <toolkit:Popup.Resources>
+        <converters:ValuesToStringConverter x:Key="ValuesToStringConverter" />
+    </toolkit:Popup.Resources>
+
     <Border BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Black}}"
             Padding="20"
             StrokeThickness="1.5"
@@ -51,9 +55,20 @@
                         <DataTemplate>
 
                             <material:CheckBox IsChecked="{Binding IsChecked, Mode=TwoWay}"
-                                               Text="{Binding Content, Mode=OneWay}"
                                                VerticalOptions="Center"
                                                CheckChanged="CheckBox_OnCheckedChanged">
+
+                                <material:CheckBox.Text>
+
+                                    <MultiBinding Converter="{StaticResource ValuesToStringConverter}">
+                                        <Binding Path="Content" />
+                                        <Binding Path="Value" />
+                                        <Binding Path="BValue" />
+                                    </MultiBinding>
+
+
+                                </material:CheckBox.Text>
+
                             </material:CheckBox>
 
                         </DataTemplate>

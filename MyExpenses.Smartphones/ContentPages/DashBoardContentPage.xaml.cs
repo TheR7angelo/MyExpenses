@@ -202,7 +202,7 @@ public partial class DashBoardContentPage
     private List<PopupSearch> HistoryDescriptions { get; } = [];
     private List<TModePaymentDerive> ModePaymentDeriveFilter { get; } = [];
     private List<DoubleIsChecked> HistoryValues { get; } = [];
-    private List<BoolIsChecked> HistoryChecked { get; } = [];
+    private List<PopupSearch> HistoryChecked { get; } = [];
     private List<TPlaceDerive> PlaceDeriveFilter { get; } = [];
 
     private List<EFilter> Filters { get; } = [];
@@ -554,15 +554,11 @@ public partial class DashBoardContentPage
     {
         const EFilter eFilter = EFilter.Checked;
 
-        IEnumerable<BoolIsChecked> isCheckeds;
+        IEnumerable<PopupSearch> popupSearch;
         if (Filters.Count is 0)
         {
             // ReSharper disable once HeapView.ObjectAllocation.Evident
-            // The creation of a new `BoolIsChecked` object for each history entry is necessary to map
-            // the `IsPointed` property from `VHistories` into a format compatible with the filtering logic.
-            // This transformation ensures the data can be processed and displayed appropriately in
-            // filter-related components while maintaining a consistent structure.
-            isCheckeds = VHistories.Select(s => new BoolIsChecked { BoolValue = (bool)s.IsPointed! });
+            popupSearch = VHistories.Select(s => new PopupSearch { BValue = s.IsPointed });
         }
         else
         {
@@ -571,25 +567,17 @@ public partial class DashBoardContentPage
                 : VHistories.AsEnumerable();
 
             // ReSharper disable once HeapView.ObjectAllocation.Evident
-            // The mapping of `items` to a collection of `BoolIsChecked` objects is necessary to transform
-            // the `IsPointed` property into a format compatible with subsequent processing or UI logic.
-            // This ensures that each item's boolean state is encapsulated in a consistent structure for
-            // easier handling and display.
-            isCheckeds = items.Select(s => new BoolIsChecked { BoolValue = (bool)s.IsPointed! });
+            popupSearch = items.Select(s => new PopupSearch { BValue = s.IsPointed });
         }
 
-        isCheckeds = isCheckeds.Distinct();
-        isCheckeds = isCheckeds.OrderBy(s => s.BoolValue);
+        popupSearch = popupSearch.DistinctBy(s => s.BValue)
+            .OrderBy(s => s.BValue);
 
         // ReSharper disable once HeapView.ObjectAllocation.Evident
-        // The instantiation of `CustomPopupFilterChecked` is necessary to create a popup specifically
-        // designed to handle filtering based on the `isCheckeds` collection and the `HistoryChecked` logic.
-        // This ensures the popup is dynamically customized to reflect the current checked states and
-        // allows appropriate processing within the filtering workflow.
-        var customPopupFilterChecked = new CustomPopupFilterChecked(isCheckeds, HistoryChecked);
-        await this.ShowPopupAsync(customPopupFilterChecked);
+        var popupFilter = new PopupFilter(popupSearch, EPopupSearch.MainReason, HistoryChecked);
+        await this.ShowPopupAsync(popupFilter);
 
-        FilterManagement(HistoryChecked, customPopupFilterChecked, eFilter, svgPath);
+        FilterManagement(HistoryChecked, popupFilter, eFilter, svgPath);
     }
 
     [SupportedOSPlatform("Android21.0")]
@@ -1061,7 +1049,7 @@ public partial class DashBoardContentPage
         bool[]? pointeds = null;
         if (HistoryChecked.Count > 0)
         {
-            pointeds = HistoryChecked.Select(s => s.BoolValue).ToArray();
+            pointeds = HistoryChecked.Select(s => s.BValue!.Value).ToArray();
         }
 
         var results = accountName.GetFilteredHistories(monthInt, yearInt, categoryNames, descriptions, modePayments, places, values, pointeds);

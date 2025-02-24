@@ -29,4 +29,13 @@
     <data name="SearchBarPlaceHolderTextMainReason" xml:space="preserve">
         <value>Search by the main reason</value>
     </data>
+    <data name="Checked" xml:space="preserve">
+        <value>Checked</value>
+    </data>
+    <data name="Unchecked" xml:space="preserve">
+        <value>Unchecked</value>
+    </data>
+    <data name="SearchBarPlaceHolderTextCheckUncheck" xml:space="preserve">
+        <value>Search by a checked or unchecked value</value>
+    </data>
 </root>

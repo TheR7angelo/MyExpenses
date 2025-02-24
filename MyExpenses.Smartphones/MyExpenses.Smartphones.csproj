@@ -186,11 +186,6 @@
         <AutoGen>True</AutoGen>
         <DependentUpon>CustomPopupFilterHistoryValuesResources.resx</DependentUpon>
       </Compile>
-      <Compile Update="Resources\Resx\ContentPages\CustomPopups\CustomPopupFilterChecked\CustomPopupFilterCheckedResources.Designer.cs">
-        <DesignTime>True</DesignTime>
-        <AutoGen>True</AutoGen>
-        <DependentUpon>CustomPopupFilterCheckedResources.resx</DependentUpon>
-      </Compile>
       <Compile Update="Resources\Resx\ContentPages\CustomPopups\CustomPopupFilterPlaces\CustomPopupFilterPlacesResources.Designer.cs">
         <DesignTime>True</DesignTime>
         <AutoGen>True</AutoGen>

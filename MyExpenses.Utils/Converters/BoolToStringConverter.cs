@@ -1,4 +1,4 @@
-using MyExpenses.Utils.Resources.Resx.Converters.BoolToStringConverter;
+using MyExpenses.SharedUtils.Resources.Resx.PopupFilterManagement;
 
 namespace MyExpenses.Utils.Converters;
 
@@ -8,19 +8,19 @@ public static class BoolToStringConverter
     {
         if (value is not bool b) return null;
 
-        return b ? BoolToStringConverterResources.Checked : BoolToStringConverterResources.Unchecked;
+        return b ? PopupFilterManagementResources.Checked : PopupFilterManagementResources.Unchecked;
     }
 
     public static bool? ConvertBack(object? value)
     {
         if (value is not string s) return null;
 
-        if (s.Equals(BoolToStringConverterResources.Checked))
+        if (s.Equals(PopupFilterManagementResources.Checked))
         {
             return true;
         }
 
-        if (s.Equals(BoolToStringConverterResources.Unchecked))
+        if (s.Equals(PopupFilterManagementResources.Unchecked))
         {
             return false;
         }
