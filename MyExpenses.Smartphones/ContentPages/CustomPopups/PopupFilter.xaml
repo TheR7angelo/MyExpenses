@@ -6,6 +6,7 @@
                xmlns:margin="clr-namespace:MyExpenses.Maui.Utils.Margin;assembly=MyExpenses.Maui.Utils"
                xmlns:images="clr-namespace:MyExpenses.Smartphones.UserControls.Images"
                xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
+               xmlns:converters="clr-namespace:MyExpenses.Smartphones.Converters"
                x:Class="MyExpenses.Smartphones.ContentPages.CustomPopups.PopupFilter"
                BindingContext="{Binding Source={RelativeSource Self}}">
 

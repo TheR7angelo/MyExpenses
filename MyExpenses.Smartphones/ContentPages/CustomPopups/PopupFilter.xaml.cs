@@ -56,10 +56,17 @@ public partial class PopupFilter
             // ReSharper disable once HeapView.ClosureAllocation
             foreach (var currentPopupSearchAlreadyChecked in currentPopupSearchesAlreadyChecked.Where(s => s.IsChecked).ToArray())
             {
-                // ReSharper disable once HeapView.DelegateAllocation
-                var popupSearches = PopupSearches.Where(s => s.Content == currentPopupSearchAlreadyChecked.Content).ToList();
+                // ReSharper disable HeapView.DelegateAllocation
+                const double tolerance = 0.00001;
+                IEnumerable<PopupSearch> ePopupSearches;
+                if (currentPopupSearchAlreadyChecked.Value is not null) ePopupSearches = PopupSearches.Where(s => s.Value is { } value &&
+                        currentPopupSearchAlreadyChecked.Value is { } checkedValue && Math.Abs(value - checkedValue) <= tolerance);
+                else if (currentPopupSearchAlreadyChecked.BValue is not null) ePopupSearches = PopupSearches.Where(s => s.BValue == currentPopupSearchAlreadyChecked.BValue);
+                else ePopupSearches = PopupSearches.Where(s => s.Content == currentPopupSearchAlreadyChecked.Content);
+                // ReSharper restore HeapView.DelegateAllocation
 
-                if (popupSearches.Count is 0) continue;
+                var popupSearches = ePopupSearches.ToArray();
+                if (popupSearches.Length is 0) continue;
 
                 foreach (var popupSearch in popupSearches)
                 {

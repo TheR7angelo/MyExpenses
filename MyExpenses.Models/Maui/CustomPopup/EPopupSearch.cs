@@ -6,5 +6,6 @@ public enum EPopupSearch
     AdditionalReason,
     Category,
     Description,
-    MainReason
+    MainReason,
+    Pointed
 }
