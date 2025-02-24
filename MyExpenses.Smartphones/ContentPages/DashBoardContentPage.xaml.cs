@@ -521,7 +521,6 @@ public partial class DashBoardContentPage
             historyIds = items.Select(s => s.Id);
         }
 
-        var mapper = Mapping.Mapper;
         // ReSharper disable once HeapView.ObjectAllocation.Evident
         // The creation of a new DataBaseContext instance (via `new DataBaseContext()`) is necessary to interact with the database.
         // This context provides the connection to the database and allows querying or updating data.
@@ -536,7 +535,7 @@ public partial class DashBoardContentPage
         var popupSearches = context.VCategories
             .Where(s => categoryTypeFk.Contains(s.Id))
             .OrderBy(s => s.CategoryName)
-            .Select(s => mapper.Map<PopupSearch>(s))
+            .Select(s => Mapping.Mapper.Map<PopupSearch>(s))
             .ToList();
 
         // ReSharper disable once HeapView.ObjectAllocation.Evident
@@ -686,7 +685,6 @@ public partial class DashBoardContentPage
             historyIds = items.Select(s => s.Id);
         }
 
-        var mapper = Mapping.Mapper;
         // ReSharper disable once HeapView.ObjectAllocation.Evident
         // The creation of a new DataBaseContext instance (via `new DataBaseContext()`) is necessary to interact with the database.
         // This context provides the connection to the database and allows querying or updating data.
@@ -701,7 +699,7 @@ public partial class DashBoardContentPage
         var tModePaymentDerives = context.TModePayments
             .Where(s => modePaymentFk.Contains(s.Id))
             .OrderBy(s => s.Name)
-            .Select(s => mapper.Map<TModePaymentDerive>(s))
+            .Select(s => Mapping.Mapper.Map<TModePaymentDerive>(s))
             .ToList();
 
         // ReSharper disable once HeapView.ObjectAllocation.Evident
@@ -733,7 +731,6 @@ public partial class DashBoardContentPage
             historyIds = items.Select(s => s.Id);
         }
 
-        var mapper = Mapping.Mapper;
         // ReSharper disable once HeapView.ObjectAllocation.Evident
         // The creation of a new DataBaseContext instance (via `new DataBaseContext()`) is necessary to interact with the database.
         // This context provides the connection to the database and allows querying or updating data.
@@ -748,7 +745,7 @@ public partial class DashBoardContentPage
         var placeDerives = context.TPlaces
             .Where(s => placeFk.Contains(s.Id))
             .OrderBy(s => s.Name)
-            .Select(s => mapper.Map<TPlaceDerive>(s))
+            .Select(s => Mapping.Mapper.Map<TPlaceDerive>(s))
             .ToList();
 
         // ReSharper disable once HeapView.ObjectAllocation.Evident
