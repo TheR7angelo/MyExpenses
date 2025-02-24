@@ -12,9 +12,9 @@ using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.SharedUtils.Collection;
 using MyExpenses.SharedUtils.Objects;
 using MyExpenses.SharedUtils.Properties;
+using MyExpenses.SharedUtils.Resources.Resx.DetailedRecordManagement;
 using MyExpenses.Smartphones.Converters;
 using MyExpenses.Smartphones.PackIcons;
-using MyExpenses.Smartphones.Resources.Resx.ContentPages.DetailedRecordContentPage;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils;
 using MyExpenses.Utils.DateTimes;
@@ -253,8 +253,8 @@ public partial class DetailedRecordContentPage
         if (bindable is not DetailedRecordContentPage sender) return;
 
         sender.ButtonUpdateText = isNewHistory
-            ? DetailedRecordContentPageResources.ButtonAddNewHistoryText
-            : DetailedRecordContentPageResources.ButtonUpdateText;
+            ? DetailedRecordManagementResources.ButtonAddNewHistoryText
+            : DetailedRecordManagementResources.ButtonUpdateText;
     }
 
     public bool IsNewHistory
@@ -553,29 +553,18 @@ public partial class DetailedRecordContentPage
         if (IsDirty)
         {
             var response = await DisplayAlert(
-                DetailedRecordContentPageResources.MessageBoxOnBackCommandPressedTitle,
-                DetailedRecordContentPageResources.MessageBoxOnBackCommandPressedMessage,
-                DetailedRecordContentPageResources.MessageBoxOnBackCommandPressedYesButton,
-                DetailedRecordContentPageResources.MessageBoxOnBackCommandPressedNoButton);
+                DetailedRecordManagementResources.MessageBoxValidNewHistoryTitle,
+                DetailedRecordManagementResources.MessageBoxValidNewHistoryMessage,
+                DetailedRecordManagementResources.MessageBoxValidNewHistoryYesButton,
+                DetailedRecordManagementResources.MessageBoxValidNewHistoryNoButton);
 
             if (response)
             {
-                var isValidHistory = await ValidHistory();
-                if (!isValidHistory) return;
-
-                var success = AddOrEditHistory();
-                if (!success)
-                {
-                    await DisplayAlert(
-                        DetailedRecordContentPageResources.MessageBoxOnBackCommandPressedErrorTitle,
-                        DetailedRecordContentPageResources.MessageBoxOnBackCommandPressedErrorMessage,
-                        DetailedRecordContentPageResources.MessageBoxOnBackCommandPressedErrorOkButton);
-                    return;
-                }
-
-                _taskCompletionSource.SetResult(true);
+                await HandleButtonUpdateHistory();
+                return;
             }
-            else _taskCompletionSource.SetResult(false);
+
+            _taskCompletionSource.SetResult(false);
         }
 
         await Navigation.PopAsync();
@@ -584,10 +573,10 @@ public partial class DetailedRecordContentPage
     private async Task HandleButtonDeleteHistory()
     {
         var response = await DisplayAlert(
-            DetailedRecordContentPageResources.MessageBoxDeleteHistoryQuestionTitle,
-            DetailedRecordContentPageResources.MessageBoxDeleteHistoryQuestionMessage,
-            DetailedRecordContentPageResources.MessageBoxDeleteHistoryQuestionYesButton,
-            DetailedRecordContentPageResources.MessageBoxDeleteHistoryQuestionNoButton);
+            DetailedRecordManagementResources.MessageBoxDeleteHistoryQuestionTitle,
+            DetailedRecordManagementResources.MessageBoxDeleteHistoryQuestionMessage,
+            DetailedRecordManagementResources.MessageBoxDeleteHistoryQuestionYesButton,
+            DetailedRecordManagementResources.MessageBoxDeleteHistoryQuestionNoButton);
         if (!response) return;
 
         var json = History.ToJson();
@@ -598,17 +587,17 @@ public partial class DetailedRecordContentPage
             Log.Error(exception, "An error occur while deleting the record");
 
             await DisplayAlert(
-                DetailedRecordContentPageResources.MessageBoxDeleteHistoryErrorTitle,
-                DetailedRecordContentPageResources.MessageBoxDeleteHistoryErrorMessage,
-                DetailedRecordContentPageResources.MessageBoxDeleteHistoryErrorOkButton);
+                DetailedRecordManagementResources.MessageBoxDeleteHistoryErrorTitle,
+                DetailedRecordManagementResources.MessageBoxDeleteHistoryErrorMessage,
+                DetailedRecordManagementResources.MessageBoxDeleteHistoryErrorOkButton);
             return;
         }
 
         Log.Information("Record was successfully deleted");
         await DisplayAlert(
-            DetailedRecordContentPageResources.MessageBoxDeleteHistorySuccessTitle,
-            DetailedRecordContentPageResources.MessageBoxDeleteHistorySuccessMessage,
-            DetailedRecordContentPageResources.MessageBoxDeleteHistorySuccessOkButton);
+            DetailedRecordManagementResources.MessageBoxDeleteHistorySuccessTitle,
+            DetailedRecordManagementResources.MessageBoxDeleteHistorySuccessMessage,
+            DetailedRecordManagementResources.MessageBoxDeleteHistorySuccessOkButton);
 
         _taskCompletionSource.SetResult(true);
         await Navigation.PopAsync();
@@ -623,9 +612,9 @@ public partial class DetailedRecordContentPage
         if (!success)
         {
             await DisplayAlert(
-                DetailedRecordContentPageResources.MessageBoxOnBackCommandPressedErrorTitle,
-                DetailedRecordContentPageResources.MessageBoxOnBackCommandPressedErrorMessage,
-                DetailedRecordContentPageResources.MessageBoxOnBackCommandPressedErrorOkButton);
+                DetailedRecordManagementResources.MessageBoxValidNewHistoryErrorTitle,
+                DetailedRecordManagementResources.MessageBoxValidNewHistoryErrorMessage,
+                DetailedRecordManagementResources.MessageBoxValidNewHistoryErrorOkButton);
             return;
         }
 
@@ -738,30 +727,30 @@ public partial class DetailedRecordContentPage
         IsDirty = !History.AreEqual(OriginalHistory);
 
         Title = IsDirty && !IsNewHistory
-            ? DetailedRecordContentPageResources.TitleIsDirty
+            ? DetailedRecordManagementResources.TitleIsDirty
             : string.Empty;
     }
 
     private void UpdateLanguage()
     {
         ButtonUpdateText = IsNewHistory
-            ? DetailedRecordContentPageResources.ButtonAddNewHistoryText
-            : DetailedRecordContentPageResources.ButtonUpdateText;
-        ButtonCancelUpdateText = DetailedRecordContentPageResources.ButtonCancelUpdateText;
-        ButtonCanBeDeletedText = DetailedRecordContentPageResources.ButtonCanBeDeletedText;
+            ? DetailedRecordManagementResources.ButtonAddNewHistoryText
+            : DetailedRecordManagementResources.ButtonUpdateText;
+        ButtonCancelUpdateText = DetailedRecordManagementResources.ButtonCancelText;
+        ButtonCanBeDeletedText = DetailedRecordManagementResources.ButtonDeletedText;
 
-        LabelTextAddedOn = DetailedRecordContentPageResources.LabelTextAddedOn;
-        PointedOperation = DetailedRecordContentPageResources.PointedOperation;
-        LabelTextPointedOn = DetailedRecordContentPageResources.LabelTextPointedOn;
-        LabelTextOnTheAccount = DetailedRecordContentPageResources.LabelTextOnTheAccount;
+        LabelTextAddedOn = DetailedRecordManagementResources.LabelTextAddedOn;
+        PointedOperation = DetailedRecordManagementResources.PointedOperation;
+        LabelTextPointedOn = DetailedRecordManagementResources.LabelTextPointedOn;
+        LabelTextOnTheAccount = DetailedRecordManagementResources.LabelTextOnTheAccount;
 
-        ButtonRefocusText = DetailedRecordContentPageResources.ButtonRefocusText;
+        ButtonRefocusText = DetailedRecordManagementResources.ButtonRefocusText;
 
-        if (IsDirty) Title = DetailedRecordContentPageResources.TitleIsDirty;
+        if (IsDirty) Title = DetailedRecordManagementResources.TitleIsDirty;
 
-        PlaceholderTextCountry = DetailedRecordContentPageResources.PlaceholderTextCountry;
-        PlaceholderTextCity = DetailedRecordContentPageResources.PlaceholderTextCity;
-        PlaceholderTextPlace = DetailedRecordContentPageResources.PlaceholderTextPlace;
+        PlaceholderTextCountry = DetailedRecordManagementResources.PlaceholderTextCountry;
+        PlaceholderTextCity = DetailedRecordManagementResources.PlaceholderTextCity;
+        PlaceholderTextPlace = DetailedRecordManagementResources.PlaceholderTextPlace;
     }
 
     private void UpdateMapPoint(TPlace? place)
@@ -824,25 +813,22 @@ public partial class DetailedRecordContentPage
 
         var messageErrorKey = propertyMemberName switch
         {
-            nameof(History.AccountFk) => nameof(DetailedRecordContentPageResources.MessageBoxValidationAccountFkError),
-            nameof(History.Description) => nameof(DetailedRecordContentPageResources
-                .MessageBoxValidationDescriptionError),
-            nameof(History.CategoryTypeFk) => nameof(DetailedRecordContentPageResources
-                .MessageBoxValidationCategoryTypeFkError),
-            nameof(History.ModePaymentFk) => nameof(DetailedRecordContentPageResources
-                .MessageBoxValidationModePaymentFkError),
-            nameof(History.Value) => nameof(DetailedRecordContentPageResources.MessageBoxValidationValueError),
-            nameof(History.Date) => nameof(DetailedRecordContentPageResources.MessageBoxValidationDateError),
-            nameof(History.PlaceFk) => nameof(DetailedRecordContentPageResources.MessageBoxValidationPlaceFkError),
+            nameof(History.AccountFk) => nameof(DetailedRecordManagementResources.MessageBoxValidationAccountFkError),
+            nameof(History.Description) => nameof(DetailedRecordManagementResources.MessageBoxValidationDescriptionError),
+            nameof(History.CategoryTypeFk) => nameof(DetailedRecordManagementResources.MessageBoxValidationCategoryTypeFkError),
+            nameof(History.ModePaymentFk) => nameof(DetailedRecordManagementResources.MessageBoxValidationModePaymentFkError),
+            nameof(History.Value) => nameof(DetailedRecordManagementResources.MessageBoxValidationValueError),
+            nameof(History.Date) => nameof(DetailedRecordManagementResources.MessageBoxValidationDateError),
+            nameof(History.PlaceFk) => nameof(DetailedRecordManagementResources.MessageBoxValidationPlaceFkError),
             _ => null
         };
 
         var localizedErrorMessage = string.IsNullOrEmpty(messageErrorKey)
             ? propertyError.ErrorMessage!
-            : DetailedRecordContentPageResources.ResourceManager.GetString(messageErrorKey)!;
+            : DetailedRecordManagementResources.ResourceManager.GetString(messageErrorKey)!;
 
-        await DisplayAlert(DetailedRecordContentPageResources.MessageBoxValidHistoryErrorTitle, localizedErrorMessage,
-            DetailedRecordContentPageResources.MessageBoxValidHistoryErrorOkButton);
+        await DisplayAlert(DetailedRecordManagementResources.MessageBoxValidHistoryErrorTitle, localizedErrorMessage,
+            DetailedRecordManagementResources.MessageBoxValidHistoryErrorOkButton);
 
         return isValid;
     }

@@ -148,11 +148,6 @@
         <AutoGen>True</AutoGen>
         <DependentUpon>DashBoardContentPageResources.resx</DependentUpon>
       </Compile>
-      <Compile Update="Resources\Resx\ContentPages\DetailedRecordContentPage\DetailedRecordContentPageResources.Designer.cs">
-        <DesignTime>True</DesignTime>
-        <AutoGen>True</AutoGen>
-        <DependentUpon>DetailedRecordContentPageResources.resx</DependentUpon>
-      </Compile>
       <Compile Update="ContentPages\CustomPopups\CustomPopup.xaml.cs">
         <DependentUpon>CustomPopup.xaml</DependentUpon>
         <SubType>Code</SubType>
@@ -229,22 +224,6 @@
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>DashBoardContentPageResources.Designer.cs</LastGenOutput>
       </EmbeddedResource>
-      <EmbeddedResource Update="Resources\Resx\ContentPages\DetailedRecordContentPage\DetailedRecordContentPageResources.resx">
-        <Generator>ResXFileCodeGenerator</Generator>
-        <LastGenOutput>DetailedRecordContentPageResources.Designer.cs</LastGenOutput>
-      </EmbeddedResource>
-      <EmbeddedResource Update="Resources\Resx\ContentPages\CustomPopups\CustomPopupFilterModePayments\CustomPopupFilterModePaymentsResources.resx">
-        <Generator>ResXFileCodeGenerator</Generator>
-        <LastGenOutput>CustomPopupFilterModePaymentsResources.Designer.cs</LastGenOutput>
-      </EmbeddedResource>
-      <EmbeddedResource Update="Resources\Resx\ContentPages\CustomPopups\CustomPopupFilterHistoryValues\CustomPopupFilterHistoryValuesResources.resx">
-        <Generator>ResXFileCodeGenerator</Generator>
-        <LastGenOutput>CustomPopupFilterHistoryValuesResources.Designer.cs</LastGenOutput>
-      </EmbeddedResource>
-      <EmbeddedResource Update="Resources\Resx\ContentPages\CustomPopups\CustomPopupFilterPlaces\CustomPopupFilterPlacesResources.resx">
-        <Generator>ResXFileCodeGenerator</Generator>
-        <LastGenOutput>CustomPopupFilterPlacesResources.Designer.cs</LastGenOutput>
-      </EmbeddedResource>
       <EmbeddedResource Update="Resources\Resx\ContentPages\GeneralAccountSetupContentPage\GeneralAccountSetupContentPageResources.resx">
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>GeneralAccountSetupContentPageResources.Designer.cs</LastGenOutput>
@@ -268,10 +247,6 @@
       <EmbeddedResource Update="Resources\Resx\ContentPages\AccountTypeSummaryContentPage\AccountTypeSummaryContentPageResources.resx">
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>AccountTypeSummaryContentPageResources.Designer.cs</LastGenOutput>
-      </EmbeddedResource>
-      <EmbeddedResource Update="Resources\Resx\ContentPages\CustomPopups\CustomPopupEditCategory\CustomPopupEditCategoryResources.resx">
-        <Generator>ResXFileCodeGenerator</Generator>
-        <LastGenOutput>CustomPopupEditCategoryResources.Designer.cs</LastGenOutput>
       </EmbeddedResource>
     </ItemGroup>
 

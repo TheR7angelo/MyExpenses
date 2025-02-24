@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.DetailedRecordContentPage {
+namespace MyExpenses.SharedUtils.Resources.Resx.DetailedRecordManagement {
     using System;
     
     
@@ -21,25 +21,25 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.DetailedRecordConte
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class DetailedRecordContentPageResources {
+    public class DetailedRecordManagementResources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal DetailedRecordContentPageResources() {
+        public DetailedRecordManagementResources() {
         }
         
         /// <summary>
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MyExpenses.Smartphones.Resources.Resx.ContentPages.DetailedRecordContentPage.Deta" +
-                            "iledRecordContentPageResources", typeof(DetailedRecordContentPageResources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MyExpenses.SharedUtils.Resources.Resx.DetailedRecordManagement.DetailedRecordMana" +
+                            "gementResources", typeof(DetailedRecordManagementResources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -51,7 +51,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.DetailedRecordConte
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,34 +63,34 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.DetailedRecordConte
         /// <summary>
         ///   Looks up a localized string similar to Add a new history.
         /// </summary>
-        internal static string ButtonAddNewHistoryText {
+        public static string ButtonAddNewHistoryText {
             get {
                 return ResourceManager.GetString("ButtonAddNewHistoryText", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Delete.
+        ///   Looks up a localized string similar to Cancel.
         /// </summary>
-        internal static string ButtonCanBeDeletedText {
+        public static string ButtonCancelText {
             get {
-                return ResourceManager.GetString("ButtonCanBeDeletedText", resourceCulture);
+                return ResourceManager.GetString("ButtonCancelText", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Cancel.
+        ///   Looks up a localized string similar to Delete.
         /// </summary>
-        internal static string ButtonCancelUpdateText {
+        public static string ButtonDeletedText {
             get {
-                return ResourceManager.GetString("ButtonCancelUpdateText", resourceCulture);
+                return ResourceManager.GetString("ButtonDeletedText", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Refocus.
         /// </summary>
-        internal static string ButtonRefocusText {
+        public static string ButtonRefocusText {
             get {
                 return ResourceManager.GetString("ButtonRefocusText", resourceCulture);
             }
@@ -99,16 +99,16 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.DetailedRecordConte
         /// <summary>
         ///   Looks up a localized string similar to Update.
         /// </summary>
-        internal static string ButtonUpdateText {
+        public static string ButtonUpdateText {
             get {
                 return ResourceManager.GetString("ButtonUpdateText", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Added on.
+        ///   Looks up a localized string similar to Added on :.
         /// </summary>
-        internal static string LabelTextAddedOn {
+        public static string LabelTextAddedOn {
             get {
                 return ResourceManager.GetString("LabelTextAddedOn", resourceCulture);
             }
@@ -117,16 +117,16 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.DetailedRecordConte
         /// <summary>
         ///   Looks up a localized string similar to On the account :.
         /// </summary>
-        internal static string LabelTextOnTheAccount {
+        public static string LabelTextOnTheAccount {
             get {
                 return ResourceManager.GetString("LabelTextOnTheAccount", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Pointed on.
+        ///   Looks up a localized string similar to Pointed on :.
         /// </summary>
-        internal static string LabelTextPointedOn {
+        public static string LabelTextPointedOn {
             get {
                 return ResourceManager.GetString("LabelTextPointedOn", resourceCulture);
             }
@@ -135,7 +135,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.DetailedRecordConte
         /// <summary>
         ///   Looks up a localized string similar to An error has occurred, please try again.
         /// </summary>
-        internal static string MessageBoxDeleteHistoryErrorMessage {
+        public static string MessageBoxDeleteHistoryErrorMessage {
             get {
                 return ResourceManager.GetString("MessageBoxDeleteHistoryErrorMessage", resourceCulture);
             }
@@ -144,7 +144,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.DetailedRecordConte
         /// <summary>
         ///   Looks up a localized string similar to Ok.
         /// </summary>
-        internal static string MessageBoxDeleteHistoryErrorOkButton {
+        public static string MessageBoxDeleteHistoryErrorOkButton {
             get {
                 return ResourceManager.GetString("MessageBoxDeleteHistoryErrorOkButton", resourceCulture);
             }
@@ -153,7 +153,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.DetailedRecordConte
         /// <summary>
         ///   Looks up a localized string similar to Error.
         /// </summary>
-        internal static string MessageBoxDeleteHistoryErrorTitle {
+        public static string MessageBoxDeleteHistoryErrorTitle {
             get {
                 return ResourceManager.GetString("MessageBoxDeleteHistoryErrorTitle", resourceCulture);
             }
@@ -162,7 +162,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.DetailedRecordConte
         /// <summary>
         ///   Looks up a localized string similar to Do you really want to delete this record ?.
         /// </summary>
-        internal static string MessageBoxDeleteHistoryQuestionMessage {
+        public static string MessageBoxDeleteHistoryQuestionMessage {
             get {
                 return ResourceManager.GetString("MessageBoxDeleteHistoryQuestionMessage", resourceCulture);
             }
@@ -171,7 +171,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.DetailedRecordConte
         /// <summary>
         ///   Looks up a localized string similar to No.
         /// </summary>
-        internal static string MessageBoxDeleteHistoryQuestionNoButton {
+        public static string MessageBoxDeleteHistoryQuestionNoButton {
             get {
                 return ResourceManager.GetString("MessageBoxDeleteHistoryQuestionNoButton", resourceCulture);
             }
@@ -180,7 +180,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.DetailedRecordConte
         /// <summary>
         ///   Looks up a localized string similar to Delete this record ?.
         /// </summary>
-        internal static string MessageBoxDeleteHistoryQuestionTitle {
+        public static string MessageBoxDeleteHistoryQuestionTitle {
             get {
                 return ResourceManager.GetString("MessageBoxDeleteHistoryQuestionTitle", resourceCulture);
             }
@@ -189,7 +189,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.DetailedRecordConte
         /// <summary>
         ///   Looks up a localized string similar to Yes.
         /// </summary>
-        internal static string MessageBoxDeleteHistoryQuestionYesButton {
+        public static string MessageBoxDeleteHistoryQuestionYesButton {
             get {
                 return ResourceManager.GetString("MessageBoxDeleteHistoryQuestionYesButton", resourceCulture);
             }
@@ -198,7 +198,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.DetailedRecordConte
         /// <summary>
         ///   Looks up a localized string similar to Record was successfully deleted.
         /// </summary>
-        internal static string MessageBoxDeleteHistorySuccessMessage {
+        public static string MessageBoxDeleteHistorySuccessMessage {
             get {
                 return ResourceManager.GetString("MessageBoxDeleteHistorySuccessMessage", resourceCulture);
             }
@@ -207,7 +207,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.DetailedRecordConte
         /// <summary>
         ///   Looks up a localized string similar to Ok.
         /// </summary>
-        internal static string MessageBoxDeleteHistorySuccessOkButton {
+        public static string MessageBoxDeleteHistorySuccessOkButton {
             get {
                 return ResourceManager.GetString("MessageBoxDeleteHistorySuccessOkButton", resourceCulture);
             }
@@ -216,79 +216,16 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.DetailedRecordConte
         /// <summary>
         ///   Looks up a localized string similar to Success.
         /// </summary>
-        internal static string MessageBoxDeleteHistorySuccessTitle {
+        public static string MessageBoxDeleteHistorySuccessTitle {
             get {
                 return ResourceManager.GetString("MessageBoxDeleteHistorySuccessTitle", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to There was an error updating the history. Please try again.
-        /// </summary>
-        internal static string MessageBoxOnBackCommandPressedErrorMessage {
-            get {
-                return ResourceManager.GetString("MessageBoxOnBackCommandPressedErrorMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Ok.
-        /// </summary>
-        internal static string MessageBoxOnBackCommandPressedErrorOkButton {
-            get {
-                return ResourceManager.GetString("MessageBoxOnBackCommandPressedErrorOkButton", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Error.
-        /// </summary>
-        internal static string MessageBoxOnBackCommandPressedErrorTitle {
-            get {
-                return ResourceManager.GetString("MessageBoxOnBackCommandPressedErrorTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Do you want to save the changes made to this record ?.
-        /// </summary>
-        internal static string MessageBoxOnBackCommandPressedMessage {
-            get {
-                return ResourceManager.GetString("MessageBoxOnBackCommandPressedMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to No.
-        /// </summary>
-        internal static string MessageBoxOnBackCommandPressedNoButton {
-            get {
-                return ResourceManager.GetString("MessageBoxOnBackCommandPressedNoButton", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Confirm.
-        /// </summary>
-        internal static string MessageBoxOnBackCommandPressedTitle {
-            get {
-                return ResourceManager.GetString("MessageBoxOnBackCommandPressedTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Yes.
-        /// </summary>
-        internal static string MessageBoxOnBackCommandPressedYesButton {
-            get {
-                return ResourceManager.GetString("MessageBoxOnBackCommandPressedYesButton", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Account cannot be null, please select an account.
         /// </summary>
-        internal static string MessageBoxValidationAccountFkError {
+        public static string MessageBoxValidationAccountFkError {
             get {
                 return ResourceManager.GetString("MessageBoxValidationAccountFkError", resourceCulture);
             }
@@ -297,7 +234,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.DetailedRecordConte
         /// <summary>
         ///   Looks up a localized string similar to Category type cannot be null, please select a category type.
         /// </summary>
-        internal static string MessageBoxValidationCategoryTypeFkError {
+        public static string MessageBoxValidationCategoryTypeFkError {
             get {
                 return ResourceManager.GetString("MessageBoxValidationCategoryTypeFkError", resourceCulture);
             }
@@ -306,7 +243,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.DetailedRecordConte
         /// <summary>
         ///   Looks up a localized string similar to Date cannot be null, please select a date.
         /// </summary>
-        internal static string MessageBoxValidationDateError {
+        public static string MessageBoxValidationDateError {
             get {
                 return ResourceManager.GetString("MessageBoxValidationDateError", resourceCulture);
             }
@@ -315,7 +252,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.DetailedRecordConte
         /// <summary>
         ///   Looks up a localized string similar to Description cannot be empty, please enter a description.
         /// </summary>
-        internal static string MessageBoxValidationDescriptionError {
+        public static string MessageBoxValidationDescriptionError {
             get {
                 return ResourceManager.GetString("MessageBoxValidationDescriptionError", resourceCulture);
             }
@@ -324,7 +261,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.DetailedRecordConte
         /// <summary>
         ///   Looks up a localized string similar to Mode payment cannot be null, please select a mode payment.
         /// </summary>
-        internal static string MessageBoxValidationModePaymentFkError {
+        public static string MessageBoxValidationModePaymentFkError {
             get {
                 return ResourceManager.GetString("MessageBoxValidationModePaymentFkError", resourceCulture);
             }
@@ -333,7 +270,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.DetailedRecordConte
         /// <summary>
         ///   Looks up a localized string similar to Place cannot be null, please select a place.
         /// </summary>
-        internal static string MessageBoxValidationPlaceFkError {
+        public static string MessageBoxValidationPlaceFkError {
             get {
                 return ResourceManager.GetString("MessageBoxValidationPlaceFkError", resourceCulture);
             }
@@ -342,7 +279,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.DetailedRecordConte
         /// <summary>
         ///   Looks up a localized string similar to Value cannot be null, please enter a valid value.
         /// </summary>
-        internal static string MessageBoxValidationValueError {
+        public static string MessageBoxValidationValueError {
             get {
                 return ResourceManager.GetString("MessageBoxValidationValueError", resourceCulture);
             }
@@ -351,7 +288,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.DetailedRecordConte
         /// <summary>
         ///   Looks up a localized string similar to Ok.
         /// </summary>
-        internal static string MessageBoxValidHistoryErrorOkButton {
+        public static string MessageBoxValidHistoryErrorOkButton {
             get {
                 return ResourceManager.GetString("MessageBoxValidHistoryErrorOkButton", resourceCulture);
             }
@@ -360,16 +297,79 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.DetailedRecordConte
         /// <summary>
         ///   Looks up a localized string similar to Error.
         /// </summary>
-        internal static string MessageBoxValidHistoryErrorTitle {
+        public static string MessageBoxValidHistoryErrorTitle {
             get {
                 return ResourceManager.GetString("MessageBoxValidHistoryErrorTitle", resourceCulture);
             }
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to There was an error updating the history. Please try again.
+        /// </summary>
+        public static string MessageBoxValidNewHistoryErrorMessage {
+            get {
+                return ResourceManager.GetString("MessageBoxValidNewHistoryErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ok.
+        /// </summary>
+        public static string MessageBoxValidNewHistoryErrorOkButton {
+            get {
+                return ResourceManager.GetString("MessageBoxValidNewHistoryErrorOkButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        public static string MessageBoxValidNewHistoryErrorTitle {
+            get {
+                return ResourceManager.GetString("MessageBoxValidNewHistoryErrorTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you want to save the changes made to this record ?.
+        /// </summary>
+        public static string MessageBoxValidNewHistoryMessage {
+            get {
+                return ResourceManager.GetString("MessageBoxValidNewHistoryMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No.
+        /// </summary>
+        public static string MessageBoxValidNewHistoryNoButton {
+            get {
+                return ResourceManager.GetString("MessageBoxValidNewHistoryNoButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Confirm.
+        /// </summary>
+        public static string MessageBoxValidNewHistoryTitle {
+            get {
+                return ResourceManager.GetString("MessageBoxValidNewHistoryTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yes.
+        /// </summary>
+        public static string MessageBoxValidNewHistoryYesButton {
+            get {
+                return ResourceManager.GetString("MessageBoxValidNewHistoryYesButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to City :.
         /// </summary>
-        internal static string PlaceholderTextCity {
+        public static string PlaceholderTextCity {
             get {
                 return ResourceManager.GetString("PlaceholderTextCity", resourceCulture);
             }
@@ -378,7 +378,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.DetailedRecordConte
         /// <summary>
         ///   Looks up a localized string similar to Country :.
         /// </summary>
-        internal static string PlaceholderTextCountry {
+        public static string PlaceholderTextCountry {
             get {
                 return ResourceManager.GetString("PlaceholderTextCountry", resourceCulture);
             }
@@ -387,16 +387,16 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.DetailedRecordConte
         /// <summary>
         ///   Looks up a localized string similar to Place :.
         /// </summary>
-        internal static string PlaceholderTextPlace {
+        public static string PlaceholderTextPlace {
             get {
                 return ResourceManager.GetString("PlaceholderTextPlace", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Pointed operation.
+        ///   Looks up a localized string similar to Pointed operation :.
         /// </summary>
-        internal static string PointedOperation {
+        public static string PointedOperation {
             get {
                 return ResourceManager.GetString("PointedOperation", resourceCulture);
             }
@@ -405,7 +405,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.DetailedRecordConte
         /// <summary>
         ///   Looks up a localized string similar to Changes in progress.
         /// </summary>
-        internal static string TitleIsDirty {
+        public static string TitleIsDirty {
             get {
                 return ResourceManager.GetString("TitleIsDirty", resourceCulture);
             }

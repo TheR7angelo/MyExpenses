@@ -52,6 +52,10 @@
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>PopupFilterManagementResources.Designer.cs</LastGenOutput>
       </EmbeddedResource>
+      <EmbeddedResource Update="Resources\Resx\DetailedRecordManagement\DetailedRecordManagementResources.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>DetailedRecordManagementResources.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
     </ItemGroup>
 
     <ItemGroup>
@@ -109,6 +113,11 @@
         <DesignTime>True</DesignTime>
         <AutoGen>True</AutoGen>
         <DependentUpon>PopupFilterManagementResources.resx</DependentUpon>
+      </Compile>
+      <Compile Update="Resources\Resx\DetailedRecordManagement\DetailedRecordManagementResources.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>DetailedRecordManagementResources.resx</DependentUpon>
       </Compile>
     </ItemGroup>
 
