@@ -133,6 +133,15 @@ namespace MyExpenses.SharedUtils.Resources.Resx.PopupFilterManagement {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Search by payment method.
+        /// </summary>
+        public static string SearchBarPlaceHolderTextModePayment {
+            get {
+                return ResourceManager.GetString("SearchBarPlaceHolderTextModePayment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Search by a value.
         /// </summary>
         public static string SearchBarPlaceHolderTextValue {

@@ -200,7 +200,7 @@ public partial class DashBoardContentPage
 
     private List<PopupSearch> VCategoryDerivesFilter { get; } = [];
     private List<PopupSearch> HistoryDescriptions { get; } = [];
-    private List<TModePaymentDerive> ModePaymentDeriveFilter { get; } = [];
+    private List<PopupSearch> ModePaymentDeriveFilter { get; } = [];
     private List<PopupSearch> HistoryValues { get; } = [];
     private List<PopupSearch> HistoryChecked { get; } = [];
     private List<TPlaceDerive> PlaceDeriveFilter { get; } = [];
@@ -696,20 +696,20 @@ public partial class DashBoardContentPage
             .Distinct()
             .ToList();
 
-        var tModePaymentDerives = context.TModePayments
+        var popupSearches = context.TModePayments
             .Where(s => modePaymentFk.Contains(s.Id))
             .OrderBy(s => s.Name)
-            .Select(s => Mapping.Mapper.Map<TModePaymentDerive>(s))
-            .ToList();
+            .Select(s => Mapping.Mapper.Map<PopupSearch>(s))
+            .ToList().AsEnumerable();
+
+        popupSearches = popupSearches.DistinctBy(s => s.Content)
+            .OrderBy(s => s.Content);
 
         // ReSharper disable once HeapView.ObjectAllocation.Evident
-        // The initialization of `CustomPopupFilterModePayments` is crucial for creating a filter popup
-        // designed to manage the `tModePaymentDerives` collection and the `ModePaymentDeriveFilter` logic.
-        // This allows the popup to handle mode-of-payment data efficiently within the filtering process.
-        var customPopupFilterModePayment = new CustomPopupFilterModePayments(tModePaymentDerives, ModePaymentDeriveFilter);
-        await this.ShowPopupAsync(customPopupFilterModePayment);
+        var popupFilter = new PopupFilter(popupSearches, EPopupSearch.ModePayment, ModePaymentDeriveFilter);
+        await this.ShowPopupAsync(popupFilter);
 
-        FilterManagement(ModePaymentDeriveFilter, customPopupFilterModePayment, eFilter, svgPath);
+        FilterManagement(ModePaymentDeriveFilter, popupFilter, eFilter, svgPath);
     }
 
     [SupportedOSPlatform("Android21.0")]
@@ -1037,7 +1037,7 @@ public partial class DashBoardContentPage
         string[]? modePayments = null;
         if (ModePaymentDeriveFilter.Count > 0)
         {
-            modePayments = ModePaymentDeriveFilter.Select(s => s.Name!).ToArray();
+            modePayments = ModePaymentDeriveFilter.Select(s => s.Content!).ToArray();
         }
 
         string[]? places = null;

@@ -101,9 +101,6 @@
       <MauiXaml Update="ContentPages\CustomPopups\CustomPopup.xaml">
         <SubType>Designer</SubType>
       </MauiXaml>
-      <MauiXaml Update="ContentPages\CustomPopups\CustomPopupFilterModePayments.xaml">
-        <SubType>Designer</SubType>
-      </MauiXaml>
       <MauiXaml Update="ContentPages\CustomPopups\CustomPopupActivityIndicator\CustomPopupActivityIndicator.xaml">
         <SubType>Designer</SubType>
       </MauiXaml>
@@ -164,15 +161,6 @@
         <DesignTime>True</DesignTime>
         <AutoGen>True</AutoGen>
         <DependentUpon>CustomPopupFilterCategoriesResources.resx</DependentUpon>
-      </Compile>
-      <Compile Update="ContentPages\CustomPopups\CustomPopupFilterModePayments.xaml.cs">
-        <DependentUpon>CustomPopupFilterModePayments.xaml</DependentUpon>
-        <SubType>Code</SubType>
-      </Compile>
-      <Compile Update="Resources\Resx\ContentPages\CustomPopups\CustomPopupFilterModePayments\CustomPopupFilterModePaymentsResources.Designer.cs">
-        <DesignTime>True</DesignTime>
-        <AutoGen>True</AutoGen>
-        <DependentUpon>CustomPopupFilterModePaymentsResources.resx</DependentUpon>
       </Compile>
       <Compile Update="Resources\Resx\ContentPages\CustomPopups\CustomPopupFilterHistoryValues\CustomPopupFilterHistoryValuesResources.Designer.cs">
         <DesignTime>True</DesignTime>

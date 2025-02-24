@@ -7,6 +7,7 @@ public enum EPopupSearch
     Category,
     Description,
     MainReason,
+    ModePayment,
     Pointed,
     Value
 }
