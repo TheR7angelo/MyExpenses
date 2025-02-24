@@ -45,4 +45,7 @@
     <data name="SearchBarPlaceHolderTextCheckUncheck" xml:space="preserve">
         <value>Search by a checked or unchecked value</value>
     </data>
+    <data name="SearchBarPlaceHolderTextValue" xml:space="preserve">
+        <value>Search by a value</value>
+    </data>
 </root>

@@ -201,7 +201,7 @@ public partial class DashBoardContentPage
     private List<PopupSearch> VCategoryDerivesFilter { get; } = [];
     private List<PopupSearch> HistoryDescriptions { get; } = [];
     private List<TModePaymentDerive> ModePaymentDeriveFilter { get; } = [];
-    private List<DoubleIsChecked> HistoryValues { get; } = [];
+    private List<PopupSearch> HistoryValues { get; } = [];
     private List<PopupSearch> HistoryChecked { get; } = [];
     private List<TPlaceDerive> PlaceDeriveFilter { get; } = [];
 
@@ -769,14 +769,14 @@ public partial class DashBoardContentPage
     {
         const EFilter eFilter = EFilter.Value;
 
-        IEnumerable<DoubleIsChecked> historyValues;
+        IEnumerable<PopupSearch> popupSearches;
         if (Filters.Count is 0)
         {
             // ReSharper disable once HeapView.ObjectAllocation.Evident
             // Transforming `VHistories` into `DoubleIsChecked` objects is essential for encapsulating each `Value`
             // within a structured format (`DoubleIsChecked`). This provides consistency and simplifies processing
             // or filtering of historical numeric data across the application's components.
-            historyValues = VHistories.Select(s => new DoubleIsChecked { DoubleValue = s.Value });
+            popupSearches = VHistories.Select(s => new PopupSearch { Value = s.Value });
         }
         else
         {
@@ -788,20 +788,29 @@ public partial class DashBoardContentPage
             // Transforming `VHistories` into `DoubleIsChecked` objects is essential for encapsulating each `Value`
             // within a structured format (`DoubleIsChecked`). This provides consistency and simplifies processing
             // or filtering of historical numeric data across the application's components.
-            historyValues = items.Select(s => new DoubleIsChecked { DoubleValue = s.Value });
+            popupSearches = items.Select(s => new PopupSearch { Value = s.Value });
         }
 
-        historyValues = historyValues.Distinct();
-        historyValues = historyValues.OrderBy(s => s.DoubleValue);
+        popupSearches = popupSearches.DistinctBy(s => s.Value)
+            .OrderBy(s => s.Value);
 
         // ReSharper disable once HeapView.ObjectAllocation.Evident
-        // The creation of `CustomPopupFilterDoubleValues` is key to setting up a filter popup
-        // capable of managing `historyValues` and applying the `HistoryValues` filtering logic.
-        // This ensures efficient handling and filtering of numeric data within the application.
-        var customPopupFilterDoubleValues = new CustomPopupFilterDoubleValues(historyValues, HistoryValues);
-        await this.ShowPopupAsync(customPopupFilterDoubleValues);
+        // // The creation of `CustomPopupFilterDoubleValues` is key to setting up a filter popup
+        // // capable of managing `historyValues` and applying the `HistoryValues` filtering logic.
+        // // This ensures efficient handling and filtering of numeric data within the application.
+        // var customPopupFilterDoubleValues = new CustomPopupFilterDoubleValues(historyValues, HistoryValues);
+        // await this.ShowPopupAsync(customPopupFilterDoubleValues);
+        //
+        // FilterManagement(HistoryValues, customPopupFilterDoubleValues, eFilter, svgPath);
 
-        FilterManagement(HistoryValues, customPopupFilterDoubleValues, eFilter, svgPath);
+        popupSearches = popupSearches.DistinctBy(s => s.Value)
+            .OrderBy(s => s.Value);
+
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        var popupFilter = new PopupFilter(popupSearches, EPopupSearch.Value, HistoryValues);
+        await this.ShowPopupAsync(popupFilter);
+
+        FilterManagement(HistoryValues, popupFilter, eFilter, svgPath);
     }
 
     private DateOnly GetDateOnlyFilter()
@@ -1043,7 +1052,7 @@ public partial class DashBoardContentPage
         double[]? values = null;
         if (HistoryValues.Count > 0)
         {
-            values = HistoryValues.Select(s => s.DoubleValue!.Value).ToArray();
+            values = HistoryValues.Select(s => s.Value!.Value).ToArray();
         }
 
         bool[]? pointeds = null;

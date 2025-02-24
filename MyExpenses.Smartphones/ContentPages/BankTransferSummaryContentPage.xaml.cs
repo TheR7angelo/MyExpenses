@@ -258,7 +258,7 @@ public partial class BankTransferSummaryContentPage
 
     private List<PopupSearch> BankTransferFromAccountsFilters { get; } = [];
     private List<PopupSearch> BankTransferToAccountsFilters { get; } = [];
-    private List<DoubleIsChecked> BankTransferValuesFilters { get; } = [];
+    private List<PopupSearch> BankTransferValuesFilters { get; } = [];
     private List<PopupSearch> BankTransferMainReasonFilters { get; } = [];
     private List<PopupSearch> BankTransferAdditionalReasonFilters { get; } = [];
     private List<PopupSearch> VCategoryDerivesFilter { get; } = [];
@@ -618,27 +618,6 @@ public partial class BankTransferSummaryContentPage
         FilterManagement(BankTransferMainReasonFilters, popupFilter, eFilter, svgPath);
     }
 
-    private void FilterManagement<T>(List<T> collection, ICustomPopupFilter<T> customPopupFilter, EFilter eFilter,
-        SvgPath svgPath)
-    {
-        if (Filters.Count is 0 || Filters.Last() != eFilter)
-        {
-            Filters.Add(eFilter);
-            OriginalVBankTransferSummary.Add(BankTransferSummaries.ToList());
-        }
-
-        var isActive = RefreshFilter(collection, customPopupFilter, svgPath);
-
-        if (!isActive && Filters.Last() == eFilter)
-        {
-            var lastIndex = Filters.Count - 1;
-            Filters.RemoveAt(lastIndex);
-
-            lastIndex = OriginalVBankTransferSummary.Count - 1;
-            OriginalVBankTransferSummary.RemoveAt(lastIndex);
-        }
-    }
-
     private void FilterManagement(List<PopupSearch> collection, PopupFilter popupFilter, EFilter eFilter,
         SvgPath svgPath)
     {
@@ -703,15 +682,11 @@ public partial class BankTransferSummaryContentPage
     {
         const EFilter eFilter = EFilter.Values;
 
-        IEnumerable<DoubleIsChecked> values;
+        IEnumerable<PopupSearch> popupSearches;
         if (Filters.Count is 0)
         {
             // ReSharper disable once HeapView.ObjectAllocation.Evident
-            // This LINQ expression selects the 'Value' property from each item in the BankTransferSummaries collection
-            // and creates a new instance of the DoubleIsChecked class for each entry. This approach is necessary to map the raw data
-            // from the summaries into a format suitable for further filtering or manipulation while maintaining separation of concerns
-            // and ensuring immutability of the original dataset.
-            values = BankTransferSummaries.Select(s => new DoubleIsChecked { DoubleValue = s.Value });
+            popupSearches = BankTransferSummaries.Select(s => new PopupSearch { Value = s.Value });
         }
         else
         {
@@ -719,27 +694,19 @@ public partial class BankTransferSummaryContentPage
                 ? OriginalVBankTransferSummary.Last().AsEnumerable()
                 : BankTransferSummaries.AsEnumerable();
 
-            values = items
+            popupSearches = items
                 // ReSharper disable once HeapView.ObjectAllocation.Evident
-                // This LINQ expression iterates over the 'items' collection and transforms each element into a new DoubleIsChecked object,
-                // initializing it with the 'Value' property of the current item. This transformation is essential to prepare the data
-                // for filtering or display purposes, encapsulating the double value within a specific structure (DoubleIsChecked) that
-                // includes additional context or state (e.g., a "checked" property for selection).
-                .Select(s => new DoubleIsChecked { DoubleValue = s.Value });
+                .Select(s => new PopupSearch { Value = s.Value });
         }
 
-        values = values.Distinct();
-        values = values.OrderBy(s => s.DoubleValue);
+        popupSearches = popupSearches.DistinctBy(s => s.Value)
+            .OrderBy(s => s.Value);
 
         // ReSharper disable once HeapView.ObjectAllocation.Evident
-        // A new instance of CustomPopupFilterValues is created here to initialize a popup filter with the provided
-        // value data (values) and the target filter collection (BankTransferValuesFilters). This allocation is necessary to encapsulate
-        // the filtering logic and user interaction functionality into a reusable component, enabling a clean separation of
-        // concerns and facilitating the dynamic display of filter options.
-        var customPopupFilterHistoryValues = new CustomPopupFilterDoubleValues(values, BankTransferValuesFilters);
-        await this.ShowPopupAsync(customPopupFilterHistoryValues);
+        var popupFilter = new PopupFilter(popupSearches, EPopupSearch.Value, BankTransferValuesFilters);
+        await this.ShowPopupAsync(popupFilter);
 
-        FilterManagement(BankTransferValuesFilters, customPopupFilterHistoryValues, eFilter, svgPath);
+        FilterManagement(BankTransferValuesFilters, popupFilter, eFilter, svgPath);
     }
 
     private DateOnly GetDateOnlyFilter()
@@ -869,7 +836,7 @@ public partial class BankTransferSummaryContentPage
         if (BankTransferToAccountsFilters.Count > 0) toAccounts = BankTransferToAccountsFilters.Select(s => s.Content!).ToArray();
 
         double[]? values = null;
-        if (BankTransferValuesFilters.Count > 0) values = BankTransferValuesFilters.Select(s => (double)s.DoubleValue!).ToArray();
+        if (BankTransferValuesFilters.Count > 0) values = BankTransferValuesFilters.Select(s => s.Value!.Value).ToArray();
 
         string[]? mainReasons = null;
         if (BankTransferMainReasonFilters.Count > 0) mainReasons = BankTransferMainReasonFilters.Select(s => s.Content!).ToArray();
@@ -895,25 +862,6 @@ public partial class BankTransferSummaryContentPage
 
         BankTransferSummaries.Clear();
         BankTransferSummaries.AddRange(result.BankTransferSummaries);
-    }
-
-    private bool RefreshFilter<T>(List<T> collection, ICustomPopupFilter<T> customPopupFilter, SvgPath svgPath)
-    {
-        collection.Clear();
-        collection.AddRange(customPopupFilter.GetFilteredItemChecked());
-
-        var itemCheckedCount = customPopupFilter.GetFilteredItemCheckedCount();
-        var itemCount = customPopupFilter.GetFilteredItemCount();
-
-        var icon = itemCheckedCount is 0 || itemCheckedCount.Equals(itemCount)
-            ? EPackIcons.Filter
-            : EPackIcons.FilterCheck;
-
-        svgPath.GeometrySource = icon;
-
-        RefreshDataGrid();
-
-        return icon is EPackIcons.FilterCheck;
     }
 
     private bool RefreshFilter(List<PopupSearch> collection, PopupFilter popupFilter, SvgPath svgPath)

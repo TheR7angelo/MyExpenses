@@ -38,4 +38,7 @@
     <data name="SearchBarPlaceHolderTextCheckUncheck" xml:space="preserve">
         <value>Recherche par une valeur cochée ou non cochée</value>
     </data>
+    <data name="SearchBarPlaceHolderTextValue" xml:space="preserve">
+        <value>Rechercher par une valeur</value>
+    </data>
 </root>
