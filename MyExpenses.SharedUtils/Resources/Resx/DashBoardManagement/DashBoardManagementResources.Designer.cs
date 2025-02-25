@@ -61,6 +61,123 @@ namespace MyExpenses.SharedUtils.Resources.Resx.DashBoardManagement {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Account management.
+        /// </summary>
+        public static string ButtonAccountManagement {
+            get {
+                return ResourceManager.GetString("ButtonAccountManagement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Account types management.
+        /// </summary>
+        public static string ButtonAccountTypeManagement {
+            get {
+                return ResourceManager.GetString("ButtonAccountTypeManagement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Graphical analysis.
+        /// </summary>
+        public static string ButtonAnalytics {
+            get {
+                return ResourceManager.GetString("ButtonAnalytics", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Category types management.
+        /// </summary>
+        public static string ButtonCategoryTypeManagement {
+            get {
+                return ResourceManager.GetString("ButtonCategoryTypeManagement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Color management.
+        /// </summary>
+        public static string ButtonColorManagement {
+            get {
+                return ResourceManager.GetString("ButtonColorManagement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete.
+        /// </summary>
+        public static string ButtonContentDeleteRecord {
+            get {
+                return ResourceManager.GetString("ButtonContentDeleteRecord", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit.
+        /// </summary>
+        public static string ButtonContentEditRecord {
+            get {
+                return ResourceManager.GetString("ButtonContentEditRecord", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Currency symbols management.
+        /// </summary>
+        public static string ButtonCurrencyManagement {
+            get {
+                return ResourceManager.GetString("ButtonCurrencyManagement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Location management.
+        /// </summary>
+        public static string ButtonLocationManagement {
+            get {
+                return ResourceManager.GetString("ButtonLocationManagement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Make a bank transfer.
+        /// </summary>
+        public static string ButtonMakeBankTransfer {
+            get {
+                return ResourceManager.GetString("ButtonMakeBankTransfer", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Payment method management.
+        /// </summary>
+        public static string ButtonModePaymentManagement {
+            get {
+                return ResourceManager.GetString("ButtonModePaymentManagement", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Record financial transaction.
+        /// </summary>
+        public static string ButtonRecordExpense {
+            get {
+                return ResourceManager.GetString("ButtonRecordExpense", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Recurring expense management.
+        /// </summary>
+        public static string ButtonRecurrentExpense {
+            get {
+                return ResourceManager.GetString("ButtonRecurrentExpense", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Choice of the month :.
         /// </summary>
         public static string ComboBoxMonthHintAssist {
@@ -79,6 +196,87 @@ namespace MyExpenses.SharedUtils.Resources.Resx.DashBoardManagement {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Actions.
+        /// </summary>
+        public static string DataGridTemplateColumnActionsHeader {
+            get {
+                return ResourceManager.GetString("DataGridTemplateColumnActionsHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Account.
+        /// </summary>
+        public static string DataGridTextColumnAccount {
+            get {
+                return ResourceManager.GetString("DataGridTextColumnAccount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Category.
+        /// </summary>
+        public static string DataGridTextColumnCategory {
+            get {
+                return ResourceManager.GetString("DataGridTextColumnCategory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Date.
+        /// </summary>
+        public static string DataGridTextColumnDate {
+            get {
+                return ResourceManager.GetString("DataGridTextColumnDate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Description.
+        /// </summary>
+        public static string DataGridTextColumnDescription {
+            get {
+                return ResourceManager.GetString("DataGridTextColumnDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Payment method.
+        /// </summary>
+        public static string DataGridTextColumnModePayment {
+            get {
+                return ResourceManager.GetString("DataGridTextColumnModePayment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Place.
+        /// </summary>
+        public static string DataGridTextColumnPlace {
+            get {
+                return ResourceManager.GetString("DataGridTextColumnPlace", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Pointed.
+        /// </summary>
+        public static string DataGridTextColumnPointed {
+            get {
+                return ResourceManager.GetString("DataGridTextColumnPointed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Value.
+        /// </summary>
+        public static string DataGridTextColumnValue {
+            get {
+                return ResourceManager.GetString("DataGridTextColumnValue", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Elapsed time :.
         /// </summary>
         public static string ElapsedTimeLoadingDataText {
@@ -88,56 +286,11 @@ namespace MyExpenses.SharedUtils.Resources.Resx.DashBoardManagement {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Category.
+        ///   Looks up a localized string similar to yyyy/MM/dd HH:mm.
         /// </summary>
-        public static string LabelTextCategory {
+        public static string FilterDataGridDateFormatString {
             get {
-                return ResourceManager.GetString("LabelTextCategory", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Pointed.
-        /// </summary>
-        public static string LabelTextChecked {
-            get {
-                return ResourceManager.GetString("LabelTextChecked", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Description.
-        /// </summary>
-        public static string LabelTextDescription {
-            get {
-                return ResourceManager.GetString("LabelTextDescription", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Payment method.
-        /// </summary>
-        public static string LabelTextPaymentMode {
-            get {
-                return ResourceManager.GetString("LabelTextPaymentMode", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Place.
-        /// </summary>
-        public static string LabelTextPlace {
-            get {
-                return ResourceManager.GetString("LabelTextPlace", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Value.
-        /// </summary>
-        public static string LabelTextValue {
-            get {
-                return ResourceManager.GetString("LabelTextValue", resourceCulture);
+                return ResourceManager.GetString("FilterDataGridDateFormatString", resourceCulture);
             }
         }
         

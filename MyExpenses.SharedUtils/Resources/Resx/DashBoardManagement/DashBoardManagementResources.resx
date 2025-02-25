@@ -27,22 +27,22 @@
     <data name="ElapsedTimeLoadingDataText" xml:space="preserve">
         <value>Elapsed time :</value>
     </data>
-    <data name="LabelTextCategory" xml:space="preserve">
+    <data name="DataGridTextColumnCategory" xml:space="preserve">
         <value>Category</value>
     </data>
-    <data name="LabelTextChecked" xml:space="preserve">
+    <data name="DataGridTextColumnPointed" xml:space="preserve">
         <value>Pointed</value>
     </data>
-    <data name="LabelTextDescription" xml:space="preserve">
+    <data name="DataGridTextColumnDescription" xml:space="preserve">
         <value>Description</value>
     </data>
-    <data name="LabelTextPaymentMode" xml:space="preserve">
+    <data name="DataGridTextColumnModePayment" xml:space="preserve">
         <value>Payment method</value>
     </data>
-    <data name="LabelTextPlace" xml:space="preserve">
+    <data name="DataGridTextColumnPlace" xml:space="preserve">
         <value>Place</value>
     </data>
-    <data name="LabelTextValue" xml:space="preserve">
+    <data name="DataGridTextColumnValue" xml:space="preserve">
         <value>Value</value>
     </data>
     <data name="MessageBoxAddMonthErrorMessage" xml:space="preserve">
@@ -83,5 +83,56 @@
     </data>
     <data name="MessageBoxCollectionViewVHistoryOnLongPressYesButton" xml:space="preserve">
         <value>Confirm</value>
+    </data>
+    <data name="ButtonAccountManagement" xml:space="preserve">
+        <value>Account management</value>
+    </data>
+    <data name="ButtonAccountTypeManagement" xml:space="preserve">
+        <value>Account types management</value>
+    </data>
+    <data name="ButtonAnalytics" xml:space="preserve">
+        <value>Graphical analysis</value>
+    </data>
+    <data name="ButtonCategoryTypeManagement" xml:space="preserve">
+        <value>Category types management</value>
+    </data>
+    <data name="ButtonColorManagement" xml:space="preserve">
+        <value>Color management</value>
+    </data>
+    <data name="ButtonCurrencyManagement" xml:space="preserve">
+        <value>Currency symbols management</value>
+    </data>
+    <data name="ButtonLocationManagement" xml:space="preserve">
+        <value>Location management</value>
+    </data>
+    <data name="ButtonContentDeleteRecord" xml:space="preserve">
+        <value>Delete</value>
+    </data>
+    <data name="ButtonContentEditRecord" xml:space="preserve">
+        <value>Edit</value>
+    </data>
+    <data name="ButtonMakeBankTransfer" xml:space="preserve">
+        <value>Make a bank transfer</value>
+    </data>
+    <data name="ButtonModePaymentManagement" xml:space="preserve">
+        <value>Payment method management</value>
+    </data>
+    <data name="ButtonRecordExpense" xml:space="preserve">
+        <value>Record financial transaction</value>
+    </data>
+    <data name="ButtonRecurrentExpense" xml:space="preserve">
+        <value>Recurring expense management</value>
+    </data>
+    <data name="FilterDataGridDateFormatString" xml:space="preserve">
+        <value>yyyy/MM/dd HH:mm</value>
+    </data>
+    <data name="DataGridTemplateColumnActionsHeader" xml:space="preserve">
+        <value>Actions</value>
+    </data>
+    <data name="DataGridTextColumnAccount" xml:space="preserve">
+        <value>Account</value>
+    </data>
+    <data name="DataGridTextColumnDate" xml:space="preserve">
+        <value>Date</value>
     </data>
 </root>

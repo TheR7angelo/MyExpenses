@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using MyExpenses.Wpf.Resources.Resx.Pages.DashBoardPage;
+using MyExpenses.SharedUtils.Resources.Resx.DashBoardManagement;
 using MyExpenses.Wpf.Utils;
 
 namespace MyExpenses.Wpf.Pages;
@@ -10,15 +10,15 @@ public partial class DashBoard2Page
 {
     #region Button WrapPanel
 
-    public string ButtonAccountManagement { get; } = DashBoardPageResources.ButtonAccountManagement;
-    public string ButtonAccountTypeManagement { get; } = DashBoardPageResources.ButtonAccountTypeManagement;
-    public string ButtonCategoryTypeManagement { get; } = DashBoardPageResources.ButtonCategoryTypeManagement;
-    public string ButtonColorManagement { get; } = DashBoardPageResources.ButtonColorManagement;
-    public string ButtonCurrencyManagement { get; } = DashBoardPageResources.ButtonCurrencyManagement;
-    public string ButtonLocationManagement { get; } = DashBoardPageResources.ButtonLocationManagement;
-    public string ButtonModePaymentManagement { get; } = DashBoardPageResources.ButtonModePaymentManagement;
-    public string ButtonMakeBankTransfer { get; } = DashBoardPageResources.ButtonMakeBankTransfer;
-    public string ButtonRecordExpense { get; } = DashBoardPageResources.ButtonRecordExpense;
+    public string ButtonAccountManagement { get; } = DashBoardManagementResources.ButtonAccountManagement;
+    public string ButtonAccountTypeManagement { get; } = DashBoardManagementResources.ButtonAccountTypeManagement;
+    public string ButtonCategoryTypeManagement { get; } = DashBoardManagementResources.ButtonCategoryTypeManagement;
+    public string ButtonColorManagement { get; } = DashBoardManagementResources.ButtonColorManagement;
+    public string ButtonCurrencyManagement { get; } = DashBoardManagementResources.ButtonCurrencyManagement;
+    public string ButtonLocationManagement { get; } = DashBoardManagementResources.ButtonLocationManagement;
+    public string ButtonModePaymentManagement { get; } = DashBoardManagementResources.ButtonModePaymentManagement;
+    public string ButtonMakeBankTransfer { get; } = DashBoardManagementResources.ButtonMakeBankTransfer;
+    public string ButtonRecordExpense { get; } = DashBoardManagementResources.ButtonRecordExpense;
     // TODO work
     public string TextBoxSearchHintAssist { get; } = "Search here";
 

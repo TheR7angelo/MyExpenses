@@ -1117,12 +1117,12 @@ public partial class DashBoardContentPage
         ComboBoxYearsHintAssist = DashBoardManagementResources.ComboBoxYearsHintAssist;
         ComboBoxMonthHintAssist = DashBoardManagementResources.ComboBoxMonthHintAssist;
 
-        LabelTextCategory = DashBoardManagementResources.LabelTextCategory;
-        LabelTextDescription = DashBoardManagementResources.LabelTextDescription;
-        LabelTextPaymentMode = DashBoardManagementResources.LabelTextPaymentMode;
-        LabelTextValue = DashBoardManagementResources.LabelTextValue;
-        LabelTextChecked = DashBoardManagementResources.LabelTextChecked;
-        LabelTextPlace = DashBoardManagementResources.LabelTextPlace;
+        LabelTextCategory = DashBoardManagementResources.DataGridTextColumnCategory;
+        LabelTextDescription = DashBoardManagementResources.DataGridTextColumnDescription;
+        LabelTextPaymentMode = DashBoardManagementResources.DataGridTextColumnModePayment;
+        LabelTextValue = DashBoardManagementResources.DataGridTextColumnValue;
+        LabelTextChecked = DashBoardManagementResources.DataGridTextColumnPointed;
+        LabelTextPlace = DashBoardManagementResources.DataGridTextColumnPlace;
 
         ElapsedTimeLoadingDataText = $"{DashBoardManagementResources.ElapsedTimeLoadingDataText} ";
         RecordFoundOn = $" {DashBoardManagementResources.RecordFoundOn} ";

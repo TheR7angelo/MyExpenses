@@ -11,11 +11,12 @@ using MyExpenses.Models.Sql.Queries;
 using MyExpenses.Models.Wpf.Charts;
 using MyExpenses.SharedUtils.Collection;
 using MyExpenses.SharedUtils.Properties;
+using MyExpenses.SharedUtils.Resources.Resx.DashBoardManagement;
+using MyExpenses.SharedUtils.Resources.Resx.DetailedRecordManagement;
 using MyExpenses.Sql.Context;
 using MyExpenses.Sql.Queries;
 using MyExpenses.Utils;
 using MyExpenses.Utils.Strings;
-using MyExpenses.Wpf.Resources.Resx.Pages.DashBoardPage;
 using MyExpenses.Wpf.Utils;
 using MyExpenses.Wpf.Utils.FilterDataGrid;
 using MyExpenses.Wpf.Windows;
@@ -437,7 +438,8 @@ public partial class DashBoardPage
 
         if (result) return;
 
-        MsgBox.Show(DashBoardPageResources.MessageBoxAddMonthError, MsgBoxImage.Warning, MessageBoxButton.OK);
+        MsgBox.Show(DashBoardManagementResources.MessageBoxAddMonthErrorTitle,
+            DashBoardManagementResources.MessageBoxAddMonthErrorMessage, MessageBoxButton.OK, MsgBoxImage.Warning);
     }
 
     private void ButtonDateNow_OnClick(object sender, RoutedEventArgs e)
@@ -448,8 +450,10 @@ public partial class DashBoardPage
 
     private void ButtonDeleteRecord_OnClick(object sender, RoutedEventArgs e)
     {
-        var response = MsgBox.Show(DashBoardPageResources.MessageBoxDeleteRecordQuestion,
-            MsgBoxImage.Question, MessageBoxButton.YesNoCancel);
+        var response = MsgBox.Show(
+            DetailedRecordManagementResources.MessageBoxDeleteHistoryQuestionTitle,
+            DetailedRecordManagementResources.MessageBoxDeleteHistoryQuestionMessage,
+            MessageBoxButton.YesNoCancel, MsgBoxImage.Question);
 
         if (response is not MessageBoxResult.Yes) return;
 
@@ -484,7 +488,8 @@ public partial class DashBoardPage
 
         if (result) return;
 
-        MsgBox.Show(DashBoardPageResources.MessageBoxRemoveMonthError, MsgBoxImage.Warning, MessageBoxButton.OK);
+        MsgBox.Show(DashBoardManagementResources.MessageBoxRemoveMonthErrorTitle,
+            DashBoardManagementResources.MessageBoxRemoveMonthErrorMessage, MessageBoxButton.OK, MsgBoxImage.Warning);
     }
 
     private void DataGridRow_PreviewMouseRightButtonDown(object sender, MouseButtonEventArgs e)
@@ -504,8 +509,10 @@ public partial class DashBoardPage
 
     private void MenuItemDeleteRecord_OnClick(object sender, RoutedEventArgs e)
     {
-        var response = MsgBox.Show(DashBoardPageResources.MessageBoxDeleteRecordQuestion,
-            MsgBoxImage.Question, MessageBoxButton.YesNoCancel);
+        var response = MsgBox.Show(
+            DetailedRecordManagementResources.MessageBoxDeleteHistoryQuestionTitle,
+            DetailedRecordManagementResources.MessageBoxDeleteHistoryQuestionMessage,
+            MessageBoxButton.YesNoCancel, MsgBoxImage.Question);
 
         if (response is not MessageBoxResult.Yes) return;
 
@@ -756,39 +763,41 @@ public partial class DashBoardPage
 
     private void UpdateLanguage()
     {
-        ButtonAccountManagement = DashBoardPageResources.ButtonAccountManagement;
-        ButtonAccountTypeManagement = DashBoardPageResources.ButtonAccountTypeManagement;
-        ButtonCategoryTypeManagement = DashBoardPageResources.ButtonCategoryTypeManagement;
-        ButtonColorManagement = DashBoardPageResources.ButtonColorManagement;
-        ButtonCurrencyManagement = DashBoardPageResources.ButtonCurrencyManagement;
-        ButtonLocationManagement = DashBoardPageResources.ButtonLocationManagement;
-        ButtonModePaymentManagement = DashBoardPageResources.ButtonModePaymentManagement;
-        ButtonMakeBankTransfer = DashBoardPageResources.ButtonMakeBankTransfer;
-        ButtonRecordExpense = DashBoardPageResources.ButtonRecordExpense;
-        ButtonAnalytics = DashBoardPageResources.ButtonAnalytics;
-        ButtonRecurrentExpense = DashBoardPageResources.ButtonRecurrentExpense;
+        ButtonAccountManagement = DashBoardManagementResources.ButtonAccountManagement;
+        ButtonAccountTypeManagement = DashBoardManagementResources.ButtonAccountTypeManagement;
+        ButtonCategoryTypeManagement = DashBoardManagementResources.ButtonCategoryTypeManagement;
+        ButtonColorManagement = DashBoardManagementResources.ButtonColorManagement;
+        ButtonCurrencyManagement = DashBoardManagementResources.ButtonCurrencyManagement;
+        ButtonLocationManagement = DashBoardManagementResources.ButtonLocationManagement;
+        ButtonModePaymentManagement = DashBoardManagementResources.ButtonModePaymentManagement;
+        ButtonMakeBankTransfer = DashBoardManagementResources.ButtonMakeBankTransfer;
+        ButtonRecordExpense = DashBoardManagementResources.ButtonRecordExpense;
+        ButtonAnalytics = DashBoardManagementResources.ButtonAnalytics;
+        ButtonRecurrentExpense = DashBoardManagementResources.ButtonRecurrentExpense;
 
-        TextColumnAccount.Header = DashBoardPageResources.DataGridTextColumnAccount;
-        TextColumnDescription.Header = DashBoardPageResources.DataGridTextColumnDescription;
-        TemplateColumnCategory.Header = DashBoardPageResources.DataGridTextColumnCategory;
-        TextColumnModePayment.Header = DashBoardPageResources.DataGridTextColumnModePayment;
-        TemplateColumnValue.Header = DashBoardPageResources.DataGridTextColumnValue;
-        TextColumnDate.Header = DashBoardPageResources.DataGridTextColumnDate;
-        TextColumnPlace.Header = DashBoardPageResources.DataGridTextColumnPlace;
-        CheckBoxColumnPointed.Header = DashBoardPageResources.DataGridTextColumnPointed;
-        TemplateColumnActions.Header = DashBoardPageResources.DataGridTemplateColumnActionsHeader;
-        ButtonContentEditRecord = DashBoardPageResources.ButtonContentEditRecord;
-        ButtonContentPointedRecord = DashBoardPageResources.DataGridTextColumnPointed;
-        ButtonContentDeleteRecord = DashBoardPageResources.ButtonContentDeleteRecord;
+        TextColumnAccount.Header = DashBoardManagementResources.DataGridTextColumnAccount;
+        TextColumnDescription.Header = DashBoardManagementResources.DataGridTextColumnDescription;
+        TemplateColumnCategory.Header = DashBoardManagementResources.DataGridTextColumnCategory;
+        TextColumnModePayment.Header = DashBoardManagementResources.DataGridTextColumnModePayment;
+        TemplateColumnValue.Header = DashBoardManagementResources.DataGridTextColumnValue;
+        TextColumnDate.Header = DashBoardManagementResources.DataGridTextColumnDate;
+        TextColumnPlace.Header = DashBoardManagementResources.DataGridTextColumnPlace;
+        CheckBoxColumnPointed.Header = DashBoardManagementResources.DataGridTextColumnPointed;
+        ButtonContentPointedRecord = DashBoardManagementResources.DataGridTextColumnPointed;
 
-        DataGridCheckBoxColumnPointed = DashBoardPageResources.DataGridTextColumnPointed;
-        DataGridMenuItemHeaderEditRecord = DashBoardPageResources.DataGridMenuItemHeaderEditRecord;
-        DataGridMenuItemHeaderDeleteRecord = DashBoardPageResources.DataGridMenuItemHeaderDeleteRecord;
+        TemplateColumnActions.Header = DashBoardManagementResources.DataGridTemplateColumnActionsHeader;
+        ButtonContentPointedRecord = DashBoardManagementResources.DataGridTextColumnPointed;
+        ButtonContentEditRecord = DashBoardManagementResources.ButtonContentEditRecord;
+        ButtonContentDeleteRecord = DashBoardManagementResources.ButtonContentDeleteRecord;
 
-        ComboBoxYearsHintAssist = DashBoardPageResources.ComboBoxYearsHintAssist;
-        ComboBoxMonthHintAssist = DashBoardPageResources.ComboBoxMonthHintAssist;
+        DataGridCheckBoxColumnPointed = DashBoardManagementResources.DataGridTextColumnPointed;
+        DataGridMenuItemHeaderEditRecord = DashBoardManagementResources.ButtonContentEditRecord;
+        DataGridMenuItemHeaderDeleteRecord = DashBoardManagementResources.ButtonContentDeleteRecord;
 
-        DateFormatString = DashBoardPageResources.FilterDataGridDateFormatString;
+        ComboBoxYearsHintAssist = DashBoardManagementResources.ComboBoxYearsHintAssist;
+        ComboBoxMonthHintAssist = DashBoardManagementResources.ComboBoxMonthHintAssist;
+
+        DateFormatString = DashBoardManagementResources.FilterDataGridDateFormatString;
     }
 
     private void UpdatePieChartLegendTextPaint()
