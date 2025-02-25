@@ -9,11 +9,11 @@ using MyExpenses.Models.Wpf.Save;
 using MyExpenses.SharedUtils.Collection;
 using MyExpenses.SharedUtils.GlobalInfos;
 using MyExpenses.SharedUtils.Properties;
+using MyExpenses.SharedUtils.Resources.Resx.WelcomeManagement;
 using MyExpenses.Smartphones.AppShells;
 using MyExpenses.Smartphones.ContentPages;
 using MyExpenses.Smartphones.ContentPages.CustomPopups.CustomPopupActivityIndicator;
 using MyExpenses.Smartphones.ContentPages.SaveLocation;
-using MyExpenses.Smartphones.Resources.Resx.ContentPages.MainPage;
 using MyExpenses.Smartphones.UserControls.Buttons.UraniumButtonView;
 using MyExpenses.Sql.Context;
 using MyExpenses.WebApi.Dropbox;
@@ -42,7 +42,7 @@ public partial class MainPage
         var buttonImageView = (UraniumButtonImageTextView)sender!;
         if (buttonImageView.BindingContext is not ExistingDatabase existingDatabase) return;
 
-        var message = string.Format(MainPageResources.CustomPopupActivityIndicatorOpenDatabase, existingDatabase.FileNameWithoutExtension);
+        var message = string.Format(WelcomeManagementResources.ActivityIndicatorOpenDatabase, existingDatabase.FileNameWithoutExtension);
         this.ShowCustomPopupActivityIndicator(message);
 
         DataBaseContext.FilePath = existingDatabase.FilePath;
@@ -73,18 +73,18 @@ public partial class MainPage
 
     private async Task<bool> ConfirmCloudDeletion()
     {
-        return await DisplayAlert(MainPageResources.MessageBoxRemoveDataBaseDropboxQuestionTitle,
-            MainPageResources.MessageBoxRemoveDataBaseDropboxQuestionMessage,
-            MainPageResources.MessageBoxRemoveDataBaseDropboxQuestionYesButton,
-            MainPageResources.MessageBoxRemoveDataBaseDropboxQuestionNoButton);
+        return await DisplayAlert(WelcomeManagementResources.MessageBoxRemoveDataBaseDropboxQuestionTitle,
+            WelcomeManagementResources.MessageBoxRemoveDataBaseDropboxQuestionMessage,
+            WelcomeManagementResources.MessageBoxRemoveDataBaseDropboxQuestionYesButton,
+            WelcomeManagementResources.MessageBoxRemoveDataBaseDropboxQuestionNoButton);
     }
 
     private async Task<bool> ConfirmLocalDeletion()
     {
-        return await DisplayAlert(MainPageResources.MessageBoxRemoveDataBaseQuestionTitle,
-            MainPageResources.MessageBoxRemoveDataBaseQuestionMessage,
-            MainPageResources.MessageBoxRemoveDataBaseQuestionYesButton,
-            MainPageResources.MessageBoxRemoveDataBaseQuestionCancelButton);
+        return await DisplayAlert(WelcomeManagementResources.MessageBoxRemoveDataBaseQuestionTitle,
+            WelcomeManagementResources.MessageBoxRemoveDataBaseQuestionMessage,
+            WelcomeManagementResources.MessageBoxRemoveDataBaseQuestionYesButton,
+            WelcomeManagementResources.MessageBoxRemoveDataBaseQuestionCancelButton);
     }
 
     private static async Task DeleteCloudFilesAsync(List<ExistingDatabase> databasesToDelete)
@@ -116,14 +116,14 @@ public partial class MainPage
 
     private async Task DisplaySuccessMessage()
     {
-        await DisplayAlert(MainPageResources.MessageBoxRemoveDataBaseSuccessTitle,
-            MainPageResources.MessageBoxRemoveDataBaseSuccessMessage,
-            MainPageResources.MessageBoxRemoveDataBaseSuccessOkButton);
+        await DisplayAlert(WelcomeManagementResources.MessageBoxRemoveDataBaseSuccessTitle,
+            WelcomeManagementResources.MessageBoxRemoveDataBaseSuccessMessage,
+            WelcomeManagementResources.MessageBoxRemoveDataBaseSuccessOkButton);
     }
 
     private async Task ExportToCloudAsync(List<ExistingDatabase> existingDatabasesSelected)
     {
-        this.ShowCustomPopupActivityIndicator(MainPageResources.CustomPopupActivityIndicatorExportDatabaseToCloud);
+        this.ShowCustomPopupActivityIndicator(WelcomeManagementResources.ActivityIndicatorExportDatabaseToCloud);
         Log.Information("Starting to export database to cloud storage");
 
         var dropboxService = await DropboxService.CreateAsync(ProjectSystem.Maui);
@@ -147,7 +147,7 @@ public partial class MainPage
 
         var selectedFolder = folderPickerResult.Folder.Path;
 
-        this.ShowCustomPopupActivityIndicator(MainPageResources.CustomPopupActivityIndicatorExportDatabaseToLocalDatabase);
+        this.ShowCustomPopupActivityIndicator(WelcomeManagementResources.ActivityIndicatorExportDatabaseToLocal);
         foreach (var existingDatabase in existingDatabasesSelected)
         {
             var newFilePath = Path.Join(selectedFolder, existingDatabase.FileName);
@@ -173,7 +173,7 @@ public partial class MainPage
 
         Log.Information("Starting to export database to {SelectedDialog}", selectedFolder);
 
-        this.ShowCustomPopupActivityIndicator(MainPageResources.CustomPopupActivityIndicatorExportDatabaseToLocal);
+        this.ShowCustomPopupActivityIndicator(WelcomeManagementResources.ActivityIndicatorExportDatabaseToLocal);
 
         List<ExistingDatabase>? failedExistingDatabases = null;
         foreach (var existingDatabase in existingDatabasesSelected)
@@ -211,7 +211,7 @@ public partial class MainPage
 
         if (result is not true) return;
 
-        this.ShowCustomPopupActivityIndicator(MainPageResources.CustomPopupActivityIndicatorCreateNewDatabase);
+        this.ShowCustomPopupActivityIndicator(WelcomeManagementResources.ActivityIndicatorCreateNewDatabase);
 
         var fileName = addDatabaseFileContentPage.DatabaseFilename;
         fileName = Path.ChangeExtension(fileName, ".sqlite");
@@ -239,14 +239,14 @@ public partial class MainPage
 
             CustomPopupActivityIndicatorHelper.CloseCustomPopupActivityIndicator();
             Log.Information("New database was successfully added");
-            await DisplayAlert(MainPageResources.MessageBoxAddDataBaseSuccessTitle, MainPageResources.MessageBoxAddDataBaseSuccessMessage, MainPageResources.MessageBoxAddDataBaseOkButton);
+            await DisplayAlert(WelcomeManagementResources.MessageBoxAddDataBaseSuccessTitle, WelcomeManagementResources.MessageBoxAddDataBaseSuccessMessage, WelcomeManagementResources.MessageBoxAddDataBaseOkButton);
         }
         catch (Exception exception)
         {
             CustomPopupActivityIndicatorHelper.CloseCustomPopupActivityIndicator();
             Log.Error(exception, "An error occur");
 
-            await DisplayAlert(MainPageResources.MessageBoxAddDataBaseErrorTitle, MainPageResources.MessageBoxAddDataBaseErrorMessage, MainPageResources.MessageBoxAddDataBaseOkButton);
+            await DisplayAlert(WelcomeManagementResources.MessageBoxAddDataBaseErrorTitle, WelcomeManagementResources.MessageBoxAddDataBaseErrorMessage, WelcomeManagementResources.MessageBoxAddDataBaseOkButton);
         }
     }
 
@@ -298,18 +298,18 @@ public partial class MainPage
 
             if (errors is {Count: > 0})
             {
-                var message = string.Format(MainPageResources.MessageBoxExportDataBaseExportErrorSomeDatabaseMessage, Environment.NewLine, string.Join(", ", errors.Select(s => s.FileNameWithoutExtension)));
+                var message = string.Format(WelcomeManagementResources.MessageBoxExportDataBaseExportErrorSomeDatabaseMessage, Environment.NewLine, string.Join(", ", errors.Select(s => s.FileNameWithoutExtension)));
                 await DisplayAlert(
-                    MainPageResources.MessageBoxExportDataBaseExportErrorSomeDatabaseTitle,
+                    WelcomeManagementResources.MessageBoxExportDataBaseExportErrorSomeDatabaseTitle,
                     message,
-                    MainPageResources.MessageBoxExportDataBaseExportErrorSomeDatabaseOkButton);
+                    WelcomeManagementResources.MessageBoxExportDataBaseExportErrorSomeDatabaseOkButton);
             }
-            else await DisplayAlert(MainPageResources.MessageBoxExportDataBaseSuccessTitle, MainPageResources.MessageBoxExportDataBaseSuccessMessage, MainPageResources.MessageBoxExportDataBaseSuccessOkButton);
+            else await DisplayAlert(WelcomeManagementResources.MessageBoxExportDataBaseSuccessTitle, WelcomeManagementResources.MessageBoxExportDataBaseSuccessMessage, WelcomeManagementResources.MessageBoxExportDataBaseSuccessOkButton);
         }
         catch (Exception exception)
         {
             Log.Error(exception, "An error occurred. Please try again");
-            await DisplayAlert(MainPageResources.MessageBoxExportDataBaseErrorTitle, MainPageResources.MessageBoxExportDataBaseErrorMessage, MainPageResources.MessageBoxExportDataBaseErrorOkButton);
+            await DisplayAlert(WelcomeManagementResources.MessageBoxExportDataBaseErrorTitle, WelcomeManagementResources.MessageBoxExportDataBaseErrorMessage, WelcomeManagementResources.MessageBoxExportDataBaseErrorOkButton);
         }
     }
 
@@ -339,12 +339,12 @@ public partial class MainPage
             RefreshExistingDatabases();
 
             CustomPopupActivityIndicatorHelper.CloseCustomPopupActivityIndicator();
-            await DisplayAlert(MainPageResources.MessageBoxImportDatabaseSuccessTitle, MainPageResources.MessageBoxImportDatabaseSuccessMessage, MainPageResources.MessageBoxImportDatabaseSuccessOkButton);
+            await DisplayAlert(WelcomeManagementResources.MessageBoxImportDatabaseSuccessTitle, WelcomeManagementResources.MessageBoxImportDatabaseSuccessMessage, WelcomeManagementResources.MessageBoxImportDatabaseSuccessOkButton);
         }
         catch (Exception exception)
         {
             Log.Error(exception, "An error occurred. Please try again");
-            await DisplayAlert(MainPageResources.MessageBoxImportDatabaseErrorTitle, MainPageResources.MessageBoxImportDatabaseErrorMessage, MainPageResources.MessageBoxImportDatabaseErrorOkButton);
+            await DisplayAlert(WelcomeManagementResources.MessageBoxImportDatabaseErrorTitle, WelcomeManagementResources.MessageBoxImportDatabaseErrorMessage, WelcomeManagementResources.MessageBoxImportDatabaseErrorOkButton);
         }
     }
 
@@ -393,7 +393,7 @@ public partial class MainPage
             return;
         }
 
-        this.ShowCustomPopupActivityIndicator(MainPageResources.CustomPopupActivityIndicatorImportDatabaseFromCloud);
+        this.ShowCustomPopupActivityIndicator(WelcomeManagementResources.ActivityIndicatorImportDatabaseFromCloud);
         var mauiClient = HttpClientHandlerCustom.CreateHttpClientHandler();
         var files = selectDatabaseFileContentPage.ExistingDatabasesSelected.Select(s => s.FilePath);
         foreach (var file in files)
@@ -431,7 +431,7 @@ public partial class MainPage
             var result = await FilePicker.PickAsync(filePickerOption);
             if (result is null) return;
 
-            mainPage.ShowCustomPopupActivityIndicator(MainPageResources.CustomPopupActivityIndicatorImportDatabaseFromLocal);
+            mainPage.ShowCustomPopupActivityIndicator(WelcomeManagementResources.ActivityIndicatorImportDatabaseFromLocal);
             var filePath = result.FullPath;
 
             var fileName = Path.GetFileName(filePath);

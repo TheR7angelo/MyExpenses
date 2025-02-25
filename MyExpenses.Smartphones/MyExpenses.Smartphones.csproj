@@ -212,10 +212,6 @@
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>AddDatabaseFileContentPageResources.Designer.cs</LastGenOutput>
       </EmbeddedResource>
-      <EmbeddedResource Update="Resources\Resx\ContentPages\MainPage\MainPageResources.resx">
-        <Generator>ResXFileCodeGenerator</Generator>
-        <LastGenOutput>MainPageResources.Designer.cs</LastGenOutput>
-      </EmbeddedResource>
       <EmbeddedResource Update="Resources\Resx\AppShells\DashBoardShell\DashBoardShellResources.resx">
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>DashBoardShellResources.Designer.cs</LastGenOutput>

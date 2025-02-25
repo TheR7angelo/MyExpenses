@@ -11,10 +11,10 @@ using MyExpenses.Models.Wpf.Save;
 using MyExpenses.SharedUtils.Collection;
 using MyExpenses.SharedUtils.GlobalInfos;
 using MyExpenses.SharedUtils.Properties;
+using MyExpenses.SharedUtils.Resources.Resx.WelcomeManagement;
 using MyExpenses.SharedUtils.Utils;
 using MyExpenses.Sql.Context;
 using MyExpenses.WebApi.Dropbox;
-using MyExpenses.Wpf.Resources.Resx.Pages.WelcomePage;
 using MyExpenses.Wpf.Utils.FilePicker;
 using MyExpenses.Wpf.Windows;
 using MyExpenses.Wpf.Windows.AutoUpdaterGitHub;
@@ -86,12 +86,14 @@ public partial class WelcomePage
             ExistingDatabases.AddAndSort(existingDatabase, s => s.FileNameWithoutExtension);
 
             Log.Information("New database was successfully added");
-            MsgBox.Show(WelcomePageResources.MessageBoxCreateNewDatabaseSuccess, MsgBoxImage.Check);
+            MsgBox.Show(WelcomeManagementResources.MessageBoxAddDataBaseSuccessTitle,
+                WelcomeManagementResources.MessageBoxAddDataBaseSuccessMessage, MsgBoxImage.Check);
         }
         catch (Exception exception)
         {
             Log.Error(exception, "An error occur");
-            MsgBox.Show(WelcomePageResources.MessageBoxCreateNewDatabaseError, MsgBoxImage.Error);
+            MsgBox.Show(WelcomeManagementResources.MessageBoxAddDataBaseErrorTitle,
+                WelcomeManagementResources.MessageBoxAddDataBaseErrorMessage, MsgBoxImage.Error);
         }
     }
 
@@ -103,7 +105,8 @@ public partial class WelcomePage
         if (existingDatabase.SyncStatus is SyncStatus.Unknown) existingDatabase.CheckExistingDatabaseIsSync(ProjectSystem.Wpf);
         if (existingDatabase.SyncStatus is SyncStatus.LocalIsOutdated)
         {
-            var question = string.Format(WelcomePageResources.MessageBoxUseOutdatedWarningQuestion, Environment.NewLine);
+            var question = string.Format(WelcomeManagementResources.MessageBoxUseOutdatedWarningQuestionMessage, Environment.NewLine);
+
             var response = MsgBox.Show(question, MsgBoxImage.Question, MessageBoxButton.YesNo);
             if (response is not MessageBoxResult.Yes) return;
         }
@@ -226,14 +229,15 @@ public partial class WelcomePage
         if (!failedExistingDatabases.Count.Equals(0))
         {
             Log.Information("Failed to export some database to local folder");
-            MsgBox.Show(WelcomePageResources.MessageBoxErrorExportToLocalFolder, MsgBoxImage.Error,
-                MessageBoxButton.OK);
+            var message = string.Format(WelcomeManagementResources.MessageBoxExportDataBaseExportErrorSomeDatabaseMessage, Environment.NewLine, string.Join(", ", failedExistingDatabases.Select(s => s.FileNameWithoutExtension)));
+            MsgBox.Show(WelcomeManagementResources.MessageBoxExportDataBaseExportErrorSomeDatabaseTitle,
+                message, MessageBoxButton.OK, MsgBoxImage.Error);
             return;
         }
 
         Log.Information("Database successfully copied to local storage");
 
-        var response = MsgBox.Show(WelcomePageResources.MessageBoxOpenExportFolderQuestion, MsgBoxImage.Question,
+        var response = MsgBox.Show(WelcomeManagementResources.MessageBoxOpenExportFolderQuestionMessage, MsgBoxImage.Question,
             MessageBoxButton.YesNo);
         if (response is MessageBoxResult.Yes) selectedDialog.StartFile();
     }
@@ -282,25 +286,25 @@ public partial class WelcomePage
             switch (saveLocation)
             {
                 case SaveLocation.Database:
-                    waitScreenWindow.WaitMessage = WelcomePageResources.ButtonExportDataBaseWaitMessageExportToLocal;
+                    waitScreenWindow.WaitMessage = WelcomeManagementResources.ActivityIndicatorExportDatabaseToLocal;
                     waitScreenWindow.Show();
                     await SaveToLocalDatabase(selectDatabaseFileWindow.ExistingDatabasesSelected);
                     break;
 
                 case SaveLocation.Folder:
-                    waitScreenWindow.WaitMessage = WelcomePageResources.ButtonExportDataBaseWaitMessageExportToLocal;
+                    waitScreenWindow.WaitMessage = WelcomeManagementResources.ActivityIndicatorExportDatabaseToLocal;
                     waitScreenWindow.Show();
                     await ExportToLocalFolderAsync(selectDatabaseFileWindow.ExistingDatabasesSelected, false);
                     break;
 
                 case SaveLocation.Compress:
-                    waitScreenWindow.WaitMessage = WelcomePageResources.ButtonExportDataBaseWaitMessageExportToLocal;
+                    waitScreenWindow.WaitMessage = WelcomeManagementResources.ActivityIndicatorExportDatabaseToLocal;
                     waitScreenWindow.Show();
                     await ExportToLocalFolderAsync(selectDatabaseFileWindow.ExistingDatabasesSelected, true);
                     break;
 
                 case SaveLocation.Dropbox:
-                    waitScreenWindow.WaitMessage = WelcomePageResources.ButtonExportDataBaseWaitMessageExportToCloud;
+                    waitScreenWindow.WaitMessage = WelcomeManagementResources.ActivityIndicatorExportDatabaseToCloud;
                     waitScreenWindow.Show();
                     await SaveToCloudAsync(selectDatabaseFileWindow.ExistingDatabasesSelected);
                     break;
@@ -313,14 +317,14 @@ public partial class WelcomePage
 
             waitScreenWindow.Close();
 
-            MsgBox.Show(WelcomePageResources.ButtonExportDataBaseSuccess, MsgBoxImage.Check);
+            MsgBox.Show(WelcomeManagementResources.ButtonExportDataBaseSuccessMessage, MsgBoxImage.Check);
         }
         catch (Exception exception)
         {
             Log.Error(exception, "An error occurred. Please try again");
             waitScreenWindow.Close();
 
-            MsgBox.Show(WelcomePageResources.ButtonExportDataBaseError, MsgBoxImage.Warning);
+            MsgBox.Show(WelcomeManagementResources.MessageBoxExportDataBaseErrorMessage, MsgBoxImage.Warning);
         }
     }
 
@@ -340,13 +344,13 @@ public partial class WelcomePage
             switch (saveLocation)
             {
                 case SaveLocation.Local:
-                    waitScreenWindow.WaitMessage = WelcomePageResources.ButtonImportDataBaseWaitMessageImportFromLocal;
+                    waitScreenWindow.WaitMessage = WelcomeManagementResources.ActivityIndicatorImportDatabaseFromLocal;
                     waitScreenWindow.Show();
                     await ImportFromLocalAsync();
                     break;
 
                 case SaveLocation.Dropbox:
-                    waitScreenWindow.WaitMessage = WelcomePageResources.ButtonImportDataBaseWaitMessageImportFromCloud;
+                    waitScreenWindow.WaitMessage = WelcomeManagementResources.ActivityIndicatorImportDatabaseFromCloud;
                     waitScreenWindow.Show();
                     await ImportFromCloudAsync();
                     break;
@@ -362,14 +366,14 @@ public partial class WelcomePage
             RefreshExistingDatabases();
 
             waitScreenWindow.Close();
-            MsgBox.Show(WelcomePageResources.ButtonImportDataBaseImportSucess, MsgBoxImage.Check);
+            MsgBox.Show(WelcomeManagementResources.ButtonImportDataBaseImportSucessMessage, MsgBoxImage.Check);
         }
         catch (Exception exception)
         {
             Log.Error(exception, "An error occurred. Please try again");
             waitScreenWindow.Close();
 
-            MsgBox.Show(WelcomePageResources.ButtonImportDataBaseError, MsgBoxImage.Warning);
+            MsgBox.Show(WelcomeManagementResources.ButtonImportDataBaseErrorMessage, MsgBoxImage.Warning);
         }
     }
 
@@ -378,18 +382,18 @@ public partial class WelcomePage
         var selectedDatabases = GetSelectedDatabases();
         if (selectedDatabases is null || selectedDatabases.Count is 0) return;
 
-        var confirmLocalDeletion = ConfirmDeletion(WelcomePageResources.DeleteDatabaseQuestion);
+        var confirmLocalDeletion = ConfirmDeletion(WelcomeManagementResources.MessageBoxRemoveDataBaseQuestionMessage);
         if (!confirmLocalDeletion) return;
 
         DeleteLocalDatabases(selectedDatabases);
         RefreshExistingDatabases();
 
-        var confirmCloudDeletion = ConfirmDeletion(WelcomePageResources.MessageBoxDeleteCloudQuestion);
+        var confirmCloudDeletion = ConfirmDeletion(WelcomeManagementResources.MessageBoxRemoveDataBaseDropboxQuestionMessage);
         if (!confirmCloudDeletion) return;
 
         await DeleteCloudFilesAsync(selectedDatabases);
 
-        ShowSuccessMessage(WelcomePageResources.MessageBoxDeleteCloudQuestionSuccess);
+        ShowSuccessMessage(WelcomeManagementResources.MessageBoxRemoveDataBaseSuccessMessage);
     }
 
     private static async Task SaveToLocalDatabase(List<ExistingDatabase> existingDatabasesSelected)
@@ -424,7 +428,7 @@ public partial class WelcomePage
                 existingDatabase.FileName, newFilePath);
         }
 
-        var response = MsgBox.Show(WelcomePageResources.MessageBoxOpenExportFolderQuestion, MsgBoxImage.Question,
+        var response = MsgBox.Show(WelcomeManagementResources.MessageBoxOpenExportFolderQuestionMessage, MsgBoxImage.Question,
             MessageBoxButton.YesNo);
         if (response is MessageBoxResult.Yes) selectedFolder.StartFile();
 
@@ -454,7 +458,7 @@ public partial class WelcomePage
         Log.Information("Database successfully copied to local storage");
 
         var parentDirectory = Path.GetDirectoryName(selectedDialog)!;
-        var response = MsgBox.Show(WelcomePageResources.MessageBoxOpenExportFolderQuestion, MsgBoxImage.Question,
+        var response = MsgBox.Show(WelcomeManagementResources.MessageBoxOpenExportFolderQuestionMessage, MsgBoxImage.Question,
             MessageBoxButton.YesNo);
         if (response is MessageBoxResult.Yes) parentDirectory.StartFile();
 
@@ -498,7 +502,7 @@ public partial class WelcomePage
 
         if (selectDatabaseFileWindow.ExistingDatabasesSelected.Any(s => s.SyncStatus is SyncStatus.RemoteIsOutdated))
         {
-            var question = string.Format(WelcomePageResources.CloudDatabaseOutdatedWarningQuestion, Environment.NewLine);
+            var question = string.Format(WelcomeManagementResources.CloudDatabaseOutdatedWarningQuestionMessage, Environment.NewLine);
             var response = MsgBox.Show(question, MsgBoxImage.Warning, MessageBoxButton.YesNo);
             if (response is not MessageBoxResult.Yes)
             {

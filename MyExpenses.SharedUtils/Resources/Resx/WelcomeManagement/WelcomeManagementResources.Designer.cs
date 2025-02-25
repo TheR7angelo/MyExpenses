@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.MainPage {
+namespace MyExpenses.SharedUtils.Resources.Resx.WelcomeManagement {
     using System;
     
     
@@ -21,24 +21,25 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.MainPage {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class MainPageResources {
+    public class WelcomeManagementResources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal MainPageResources() {
+        public WelcomeManagementResources() {
         }
         
         /// <summary>
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MyExpenses.Smartphones.Resources.Resx.ContentPages.MainPage.MainPageResources", typeof(MainPageResources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MyExpenses.SharedUtils.Resources.Resx.WelcomeManagement.WelcomeManagementResource" +
+                            "s", typeof(WelcomeManagementResources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -50,7 +51,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.MainPage {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -62,70 +63,97 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.MainPage {
         /// <summary>
         ///   Looks up a localized string similar to Creating new database....
         /// </summary>
-        internal static string CustomPopupActivityIndicatorCreateNewDatabase {
+        public static string ActivityIndicatorCreateNewDatabase {
             get {
-                return ResourceManager.GetString("CustomPopupActivityIndicatorCreateNewDatabase", resourceCulture);
+                return ResourceManager.GetString("ActivityIndicatorCreateNewDatabase", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Export selected databases to cloud storage.
+        ///   Looks up a localized string similar to Export selected databases to cloud storage... Please wait.
         /// </summary>
-        internal static string CustomPopupActivityIndicatorExportDatabaseToCloud {
+        public static string ActivityIndicatorExportDatabaseToCloud {
             get {
-                return ResourceManager.GetString("CustomPopupActivityIndicatorExportDatabaseToCloud", resourceCulture);
+                return ResourceManager.GetString("ActivityIndicatorExportDatabaseToCloud", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Exporting selected databases to local storage.
+        ///   Looks up a localized string similar to Saving to local storage... Please wait.
         /// </summary>
-        internal static string CustomPopupActivityIndicatorExportDatabaseToLocal {
+        public static string ActivityIndicatorExportDatabaseToLocal {
             get {
-                return ResourceManager.GetString("CustomPopupActivityIndicatorExportDatabaseToLocal", resourceCulture);
+                return ResourceManager.GetString("ActivityIndicatorExportDatabaseToLocal", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Export selected databases to local database storage.
+        ///   Looks up a localized string similar to Importing the database from cloud... Please wait.
         /// </summary>
-        internal static string CustomPopupActivityIndicatorExportDatabaseToLocalDatabase {
+        public static string ActivityIndicatorImportDatabaseFromCloud {
             get {
-                return ResourceManager.GetString("CustomPopupActivityIndicatorExportDatabaseToLocalDatabase", resourceCulture);
+                return ResourceManager.GetString("ActivityIndicatorImportDatabaseFromCloud", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Importing the database....
+        ///   Looks up a localized string similar to Importing the database from local storage... Please wait.
         /// </summary>
-        internal static string CustomPopupActivityIndicatorImportDatabaseFromCloud {
+        public static string ActivityIndicatorImportDatabaseFromLocal {
             get {
-                return ResourceManager.GetString("CustomPopupActivityIndicatorImportDatabaseFromCloud", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Importing the database....
-        /// </summary>
-        internal static string CustomPopupActivityIndicatorImportDatabaseFromLocal {
-            get {
-                return ResourceManager.GetString("CustomPopupActivityIndicatorImportDatabaseFromLocal", resourceCulture);
+                return ResourceManager.GetString("ActivityIndicatorImportDatabaseFromLocal", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Opening database &quot;{0}&quot;....
         /// </summary>
-        internal static string CustomPopupActivityIndicatorOpenDatabase {
+        public static string ActivityIndicatorOpenDatabase {
             get {
-                return ResourceManager.GetString("CustomPopupActivityIndicatorOpenDatabase", resourceCulture);
+                return ResourceManager.GetString("ActivityIndicatorOpenDatabase", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Database backup operation was successful.
+        /// </summary>
+        public static string ButtonExportDataBaseSuccessMessage {
+            get {
+                return ResourceManager.GetString("ButtonExportDataBaseSuccessMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error occurred. Please try again.
+        /// </summary>
+        public static string ButtonImportDataBaseErrorMessage {
+            get {
+                return ResourceManager.GetString("ButtonImportDataBaseErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Database import operation was successful.
+        /// </summary>
+        public static string ButtonImportDataBaseImportSucessMessage {
+            get {
+                return ResourceManager.GetString("ButtonImportDataBaseImportSucessMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Some of the databases selected in the cloud appear to be less recent than those currently available in local storage.{0}Are you sure you want to import these cloud databases into local storage?.
+        /// </summary>
+        public static string CloudDatabaseOutdatedWarningQuestionMessage {
+            get {
+                return ResourceManager.GetString("CloudDatabaseOutdatedWarningQuestionMessage", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to An error occurred while adding the new database.
         /// </summary>
-        internal static string MessageBoxAddDataBaseErrorMessage {
+        public static string MessageBoxAddDataBaseErrorMessage {
             get {
                 return ResourceManager.GetString("MessageBoxAddDataBaseErrorMessage", resourceCulture);
             }
@@ -134,7 +162,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.MainPage {
         /// <summary>
         ///   Looks up a localized string similar to An error occur.
         /// </summary>
-        internal static string MessageBoxAddDataBaseErrorTitle {
+        public static string MessageBoxAddDataBaseErrorTitle {
             get {
                 return ResourceManager.GetString("MessageBoxAddDataBaseErrorTitle", resourceCulture);
             }
@@ -143,7 +171,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.MainPage {
         /// <summary>
         ///   Looks up a localized string similar to Ok.
         /// </summary>
-        internal static string MessageBoxAddDataBaseOkButton {
+        public static string MessageBoxAddDataBaseOkButton {
             get {
                 return ResourceManager.GetString("MessageBoxAddDataBaseOkButton", resourceCulture);
             }
@@ -152,7 +180,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.MainPage {
         /// <summary>
         ///   Looks up a localized string similar to New database was successfully added.
         /// </summary>
-        internal static string MessageBoxAddDataBaseSuccessMessage {
+        public static string MessageBoxAddDataBaseSuccessMessage {
             get {
                 return ResourceManager.GetString("MessageBoxAddDataBaseSuccessMessage", resourceCulture);
             }
@@ -161,7 +189,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.MainPage {
         /// <summary>
         ///   Looks up a localized string similar to Success.
         /// </summary>
-        internal static string MessageBoxAddDataBaseSuccessTitle {
+        public static string MessageBoxAddDataBaseSuccessTitle {
             get {
                 return ResourceManager.GetString("MessageBoxAddDataBaseSuccessTitle", resourceCulture);
             }
@@ -170,7 +198,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.MainPage {
         /// <summary>
         ///   Looks up a localized string similar to An error occurred. Please try again.
         /// </summary>
-        internal static string MessageBoxExportDataBaseErrorMessage {
+        public static string MessageBoxExportDataBaseErrorMessage {
             get {
                 return ResourceManager.GetString("MessageBoxExportDataBaseErrorMessage", resourceCulture);
             }
@@ -179,7 +207,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.MainPage {
         /// <summary>
         ///   Looks up a localized string similar to Ok.
         /// </summary>
-        internal static string MessageBoxExportDataBaseErrorOkButton {
+        public static string MessageBoxExportDataBaseErrorOkButton {
             get {
                 return ResourceManager.GetString("MessageBoxExportDataBaseErrorOkButton", resourceCulture);
             }
@@ -188,7 +216,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.MainPage {
         /// <summary>
         ///   Looks up a localized string similar to Error.
         /// </summary>
-        internal static string MessageBoxExportDataBaseErrorTitle {
+        public static string MessageBoxExportDataBaseErrorTitle {
             get {
                 return ResourceManager.GetString("MessageBoxExportDataBaseErrorTitle", resourceCulture);
             }
@@ -197,7 +225,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.MainPage {
         /// <summary>
         ///   Looks up a localized string similar to The following databases could not be exported :{0}{1}.
         /// </summary>
-        internal static string MessageBoxExportDataBaseExportErrorSomeDatabaseMessage {
+        public static string MessageBoxExportDataBaseExportErrorSomeDatabaseMessage {
             get {
                 return ResourceManager.GetString("MessageBoxExportDataBaseExportErrorSomeDatabaseMessage", resourceCulture);
             }
@@ -206,7 +234,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.MainPage {
         /// <summary>
         ///   Looks up a localized string similar to Ok.
         /// </summary>
-        internal static string MessageBoxExportDataBaseExportErrorSomeDatabaseOkButton {
+        public static string MessageBoxExportDataBaseExportErrorSomeDatabaseOkButton {
             get {
                 return ResourceManager.GetString("MessageBoxExportDataBaseExportErrorSomeDatabaseOkButton", resourceCulture);
             }
@@ -215,7 +243,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.MainPage {
         /// <summary>
         ///   Looks up a localized string similar to Error.
         /// </summary>
-        internal static string MessageBoxExportDataBaseExportErrorSomeDatabaseTitle {
+        public static string MessageBoxExportDataBaseExportErrorSomeDatabaseTitle {
             get {
                 return ResourceManager.GetString("MessageBoxExportDataBaseExportErrorSomeDatabaseTitle", resourceCulture);
             }
@@ -224,7 +252,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.MainPage {
         /// <summary>
         ///   Looks up a localized string similar to Database backup operation was successful.
         /// </summary>
-        internal static string MessageBoxExportDataBaseSuccessMessage {
+        public static string MessageBoxExportDataBaseSuccessMessage {
             get {
                 return ResourceManager.GetString("MessageBoxExportDataBaseSuccessMessage", resourceCulture);
             }
@@ -233,7 +261,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.MainPage {
         /// <summary>
         ///   Looks up a localized string similar to Ok.
         /// </summary>
-        internal static string MessageBoxExportDataBaseSuccessOkButton {
+        public static string MessageBoxExportDataBaseSuccessOkButton {
             get {
                 return ResourceManager.GetString("MessageBoxExportDataBaseSuccessOkButton", resourceCulture);
             }
@@ -242,7 +270,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.MainPage {
         /// <summary>
         ///   Looks up a localized string similar to Success.
         /// </summary>
-        internal static string MessageBoxExportDataBaseSuccessTitle {
+        public static string MessageBoxExportDataBaseSuccessTitle {
             get {
                 return ResourceManager.GetString("MessageBoxExportDataBaseSuccessTitle", resourceCulture);
             }
@@ -251,7 +279,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.MainPage {
         /// <summary>
         ///   Looks up a localized string similar to An error occurred. Please try again.
         /// </summary>
-        internal static string MessageBoxImportDatabaseErrorMessage {
+        public static string MessageBoxImportDatabaseErrorMessage {
             get {
                 return ResourceManager.GetString("MessageBoxImportDatabaseErrorMessage", resourceCulture);
             }
@@ -260,7 +288,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.MainPage {
         /// <summary>
         ///   Looks up a localized string similar to Ok.
         /// </summary>
-        internal static string MessageBoxImportDatabaseErrorOkButton {
+        public static string MessageBoxImportDatabaseErrorOkButton {
             get {
                 return ResourceManager.GetString("MessageBoxImportDatabaseErrorOkButton", resourceCulture);
             }
@@ -269,7 +297,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.MainPage {
         /// <summary>
         ///   Looks up a localized string similar to An error occur.
         /// </summary>
-        internal static string MessageBoxImportDatabaseErrorTitle {
+        public static string MessageBoxImportDatabaseErrorTitle {
             get {
                 return ResourceManager.GetString("MessageBoxImportDatabaseErrorTitle", resourceCulture);
             }
@@ -278,7 +306,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.MainPage {
         /// <summary>
         ///   Looks up a localized string similar to Database import operation was successful.
         /// </summary>
-        internal static string MessageBoxImportDatabaseSuccessMessage {
+        public static string MessageBoxImportDatabaseSuccessMessage {
             get {
                 return ResourceManager.GetString("MessageBoxImportDatabaseSuccessMessage", resourceCulture);
             }
@@ -287,7 +315,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.MainPage {
         /// <summary>
         ///   Looks up a localized string similar to Ok.
         /// </summary>
-        internal static string MessageBoxImportDatabaseSuccessOkButton {
+        public static string MessageBoxImportDatabaseSuccessOkButton {
             get {
                 return ResourceManager.GetString("MessageBoxImportDatabaseSuccessOkButton", resourceCulture);
             }
@@ -296,16 +324,25 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.MainPage {
         /// <summary>
         ///   Looks up a localized string similar to Success.
         /// </summary>
-        internal static string MessageBoxImportDatabaseSuccessTitle {
+        public static string MessageBoxImportDatabaseSuccessTitle {
             get {
                 return ResourceManager.GetString("MessageBoxImportDatabaseSuccessTitle", resourceCulture);
             }
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Do you want to open the export folder ?.
+        /// </summary>
+        public static string MessageBoxOpenExportFolderQuestionMessage {
+            get {
+                return ResourceManager.GetString("MessageBoxOpenExportFolderQuestionMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Do you want to delete cloud databases if it also exists ?.
         /// </summary>
-        internal static string MessageBoxRemoveDataBaseDropboxQuestionMessage {
+        public static string MessageBoxRemoveDataBaseDropboxQuestionMessage {
             get {
                 return ResourceManager.GetString("MessageBoxRemoveDataBaseDropboxQuestionMessage", resourceCulture);
             }
@@ -314,7 +351,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.MainPage {
         /// <summary>
         ///   Looks up a localized string similar to No.
         /// </summary>
-        internal static string MessageBoxRemoveDataBaseDropboxQuestionNoButton {
+        public static string MessageBoxRemoveDataBaseDropboxQuestionNoButton {
             get {
                 return ResourceManager.GetString("MessageBoxRemoveDataBaseDropboxQuestionNoButton", resourceCulture);
             }
@@ -323,7 +360,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.MainPage {
         /// <summary>
         ///   Looks up a localized string similar to Question.
         /// </summary>
-        internal static string MessageBoxRemoveDataBaseDropboxQuestionTitle {
+        public static string MessageBoxRemoveDataBaseDropboxQuestionTitle {
             get {
                 return ResourceManager.GetString("MessageBoxRemoveDataBaseDropboxQuestionTitle", resourceCulture);
             }
@@ -332,7 +369,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.MainPage {
         /// <summary>
         ///   Looks up a localized string similar to Yes.
         /// </summary>
-        internal static string MessageBoxRemoveDataBaseDropboxQuestionYesButton {
+        public static string MessageBoxRemoveDataBaseDropboxQuestionYesButton {
             get {
                 return ResourceManager.GetString("MessageBoxRemoveDataBaseDropboxQuestionYesButton", resourceCulture);
             }
@@ -341,7 +378,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.MainPage {
         /// <summary>
         ///   Looks up a localized string similar to Cancel.
         /// </summary>
-        internal static string MessageBoxRemoveDataBaseQuestionCancelButton {
+        public static string MessageBoxRemoveDataBaseQuestionCancelButton {
             get {
                 return ResourceManager.GetString("MessageBoxRemoveDataBaseQuestionCancelButton", resourceCulture);
             }
@@ -350,7 +387,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.MainPage {
         /// <summary>
         ///   Looks up a localized string similar to Do you really want to delete all database selected ?.
         /// </summary>
-        internal static string MessageBoxRemoveDataBaseQuestionMessage {
+        public static string MessageBoxRemoveDataBaseQuestionMessage {
             get {
                 return ResourceManager.GetString("MessageBoxRemoveDataBaseQuestionMessage", resourceCulture);
             }
@@ -359,7 +396,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.MainPage {
         /// <summary>
         ///   Looks up a localized string similar to Question.
         /// </summary>
-        internal static string MessageBoxRemoveDataBaseQuestionTitle {
+        public static string MessageBoxRemoveDataBaseQuestionTitle {
             get {
                 return ResourceManager.GetString("MessageBoxRemoveDataBaseQuestionTitle", resourceCulture);
             }
@@ -368,7 +405,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.MainPage {
         /// <summary>
         ///   Looks up a localized string similar to Yes.
         /// </summary>
-        internal static string MessageBoxRemoveDataBaseQuestionYesButton {
+        public static string MessageBoxRemoveDataBaseQuestionYesButton {
             get {
                 return ResourceManager.GetString("MessageBoxRemoveDataBaseQuestionYesButton", resourceCulture);
             }
@@ -377,7 +414,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.MainPage {
         /// <summary>
         ///   Looks up a localized string similar to All databases have been deleted.
         /// </summary>
-        internal static string MessageBoxRemoveDataBaseSuccessMessage {
+        public static string MessageBoxRemoveDataBaseSuccessMessage {
             get {
                 return ResourceManager.GetString("MessageBoxRemoveDataBaseSuccessMessage", resourceCulture);
             }
@@ -386,7 +423,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.MainPage {
         /// <summary>
         ///   Looks up a localized string similar to Ok.
         /// </summary>
-        internal static string MessageBoxRemoveDataBaseSuccessOkButton {
+        public static string MessageBoxRemoveDataBaseSuccessOkButton {
             get {
                 return ResourceManager.GetString("MessageBoxRemoveDataBaseSuccessOkButton", resourceCulture);
             }
@@ -395,9 +432,18 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.MainPage {
         /// <summary>
         ///   Looks up a localized string similar to Success.
         /// </summary>
-        internal static string MessageBoxRemoveDataBaseSuccessTitle {
+        public static string MessageBoxRemoveDataBaseSuccessTitle {
             get {
                 return ResourceManager.GetString("MessageBoxRemoveDataBaseSuccessTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Are you sure you want to use this database?{0}Your local version is outdated, we recommend that you sync it before using it.
+        /// </summary>
+        public static string MessageBoxUseOutdatedWarningQuestionMessage {
+            get {
+                return ResourceManager.GetString("MessageBoxUseOutdatedWarningQuestionMessage", resourceCulture);
             }
         }
     }

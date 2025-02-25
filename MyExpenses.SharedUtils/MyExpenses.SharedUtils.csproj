@@ -64,6 +64,10 @@
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>DashBoardManagementResources.Designer.cs</LastGenOutput>
       </EmbeddedResource>
+      <EmbeddedResource Update="Resources\Resx\WelcomeManagement\WelcomeManagementResources.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>WelcomeManagementResources.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
     </ItemGroup>
 
     <ItemGroup>
@@ -136,6 +140,11 @@
         <DesignTime>True</DesignTime>
         <AutoGen>True</AutoGen>
         <DependentUpon>DashBoardManagementResources.resx</DependentUpon>
+      </Compile>
+      <Compile Update="Resources\Resx\WelcomeManagement\WelcomeManagementResources.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>WelcomeManagementResources.resx</DependentUpon>
       </Compile>
     </ItemGroup>
 

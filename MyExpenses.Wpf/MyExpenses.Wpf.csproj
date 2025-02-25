@@ -89,10 +89,6 @@
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>RemoveDatabaseFileResources.Designer.cs</LastGenOutput>
       </EmbeddedResource>
-      <EmbeddedResource Update="Resources\Resx\Pages\WelcomePage\WelcomePageResources.resx">
-        <Generator>ResXFileCodeGenerator</Generator>
-        <LastGenOutput>WelcomePageResources.Designer.cs</LastGenOutput>
-      </EmbeddedResource>
       <EmbeddedResource Update="Resources\Resx\Windows\WaitScreenWindow\WaitScreenWindowResources.resx">
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>WaitScreenWindowResources.Designer.cs</LastGenOutput>
@@ -259,11 +255,6 @@
         <DesignTime>True</DesignTime>
         <AutoGen>True</AutoGen>
         <DependentUpon>SelectDatabaseFileWindowResources.resx</DependentUpon>
-      </Compile>
-      <Compile Update="Resources\Resx\Pages\WelcomePage\WelcomePageResources.Designer.cs">
-        <DesignTime>True</DesignTime>
-        <AutoGen>True</AutoGen>
-        <DependentUpon>WelcomePageResources.resx</DependentUpon>
       </Compile>
       <Compile Update="Resources\Resx\Windows\WaitScreenWindow\WaitScreenWindowResources.Designer.cs">
         <DesignTime>True</DesignTime>
