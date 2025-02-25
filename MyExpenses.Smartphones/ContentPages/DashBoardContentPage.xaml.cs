@@ -623,27 +623,6 @@ public partial class DashBoardContentPage
     [SupportedOSPlatform("iOS13.0")]
     [SupportedOSPlatform("MacCatalyst13.0")]
     [SupportedOSPlatform("Windows")]
-    private void FilterManagement<T>(List<T> collection, ICustomPopupFilter<T> customPopupFilter, EFilter eFilter,
-        SvgPath svgPath)
-    {
-        if (Filters.Count is 0 || Filters.Last() != eFilter)
-        {
-            Filters.Add(eFilter);
-            OriginalVHistories.Add(VHistories.ToList());
-        }
-
-        var isActive = RefreshFilter(collection, customPopupFilter, svgPath);
-
-        if (!isActive && Filters.Last() == eFilter)
-        {
-            var lastIndex = Filters.Count - 1;
-            Filters.RemoveAt(lastIndex);
-
-            lastIndex = OriginalVHistories.Count - 1;
-            OriginalVHistories.RemoveAt(lastIndex);
-        }
-    }
-
     private void FilterManagement(List<PopupSearch> collection, PopupFilter popupFilter, EFilter eFilter,
         SvgPath svgPath)
     {
@@ -1078,25 +1057,6 @@ public partial class DashBoardContentPage
     [SupportedOSPlatform("iOS13.0")]
     [SupportedOSPlatform("MacCatalyst13.0")]
     [SupportedOSPlatform("Windows")]
-    private bool RefreshFilter<T>(List<T> collection, ICustomPopupFilter<T> customPopupFilter, SvgPath svgPath)
-    {
-        collection.Clear();
-        collection.AddRange(customPopupFilter.GetFilteredItemChecked());
-
-        var itemCheckedCount = customPopupFilter.GetFilteredItemCheckedCount();
-        var itemCount = customPopupFilter.GetFilteredItemCount();
-
-        var icon = itemCheckedCount is 0 || itemCheckedCount.Equals(itemCount)
-            ? EPackIcons.Filter
-            : EPackIcons.FilterCheck;
-
-        svgPath.GeometrySource = icon;
-
-        RefreshDataGrid();
-
-        return icon is EPackIcons.FilterCheck;
-    }
-
     private bool RefreshFilter(List<PopupSearch> collection, PopupFilter popupFilter, SvgPath svgPath)
     {
         collection.Clear();
