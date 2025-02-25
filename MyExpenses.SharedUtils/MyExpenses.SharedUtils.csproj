@@ -60,6 +60,10 @@
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>ModePaymentManagementResources.Designer.cs</LastGenOutput>
       </EmbeddedResource>
+      <EmbeddedResource Update="Resources\Resx\DashBoardManagement\DashBoardManagementResources.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>DashBoardManagementResources.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
     </ItemGroup>
 
     <ItemGroup>
@@ -127,6 +131,11 @@
         <DesignTime>True</DesignTime>
         <AutoGen>True</AutoGen>
         <DependentUpon>ModePaymentManagementResources.resx</DependentUpon>
+      </Compile>
+      <Compile Update="Resources\Resx\DashBoardManagement\DashBoardManagementResources.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>DashBoardManagementResources.resx</DependentUpon>
       </Compile>
     </ItemGroup>
 

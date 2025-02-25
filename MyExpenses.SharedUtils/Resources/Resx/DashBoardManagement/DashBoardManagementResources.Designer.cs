@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.DashBoardContentPage {
+namespace MyExpenses.SharedUtils.Resources.Resx.DashBoardManagement {
     using System;
     
     
@@ -21,25 +21,25 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.DashBoardContentPag
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class DashBoardContentPageResources {
+    public class DashBoardManagementResources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal DashBoardContentPageResources() {
+        public DashBoardManagementResources() {
         }
         
         /// <summary>
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MyExpenses.Smartphones.Resources.Resx.ContentPages.DashBoardContentPage.DashBoard" +
-                            "ContentPageResources", typeof(DashBoardContentPageResources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MyExpenses.SharedUtils.Resources.Resx.DashBoardManagement.DashBoardManagementReso" +
+                            "urces", typeof(DashBoardManagementResources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -51,7 +51,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.DashBoardContentPag
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,7 +63,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.DashBoardContentPag
         /// <summary>
         ///   Looks up a localized string similar to Choice of the month :.
         /// </summary>
-        internal static string ComboBoxMonthHintAssist {
+        public static string ComboBoxMonthHintAssist {
             get {
                 return ResourceManager.GetString("ComboBoxMonthHintAssist", resourceCulture);
             }
@@ -72,7 +72,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.DashBoardContentPag
         /// <summary>
         ///   Looks up a localized string similar to Choice of the year :.
         /// </summary>
-        internal static string ComboBoxYearsHintAssist {
+        public static string ComboBoxYearsHintAssist {
             get {
                 return ResourceManager.GetString("ComboBoxYearsHintAssist", resourceCulture);
             }
@@ -81,7 +81,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.DashBoardContentPag
         /// <summary>
         ///   Looks up a localized string similar to Elapsed time :.
         /// </summary>
-        internal static string ElapsedTimeLoadingDataText {
+        public static string ElapsedTimeLoadingDataText {
             get {
                 return ResourceManager.GetString("ElapsedTimeLoadingDataText", resourceCulture);
             }
@@ -90,7 +90,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.DashBoardContentPag
         /// <summary>
         ///   Looks up a localized string similar to Category.
         /// </summary>
-        internal static string LabelTextCategory {
+        public static string LabelTextCategory {
             get {
                 return ResourceManager.GetString("LabelTextCategory", resourceCulture);
             }
@@ -99,7 +99,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.DashBoardContentPag
         /// <summary>
         ///   Looks up a localized string similar to Pointed.
         /// </summary>
-        internal static string LabelTextChecked {
+        public static string LabelTextChecked {
             get {
                 return ResourceManager.GetString("LabelTextChecked", resourceCulture);
             }
@@ -108,7 +108,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.DashBoardContentPag
         /// <summary>
         ///   Looks up a localized string similar to Description.
         /// </summary>
-        internal static string LabelTextDescription {
+        public static string LabelTextDescription {
             get {
                 return ResourceManager.GetString("LabelTextDescription", resourceCulture);
             }
@@ -117,7 +117,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.DashBoardContentPag
         /// <summary>
         ///   Looks up a localized string similar to Payment method.
         /// </summary>
-        internal static string LabelTextPaymentMode {
+        public static string LabelTextPaymentMode {
             get {
                 return ResourceManager.GetString("LabelTextPaymentMode", resourceCulture);
             }
@@ -126,7 +126,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.DashBoardContentPag
         /// <summary>
         ///   Looks up a localized string similar to Place.
         /// </summary>
-        internal static string LabelTextPlace {
+        public static string LabelTextPlace {
             get {
                 return ResourceManager.GetString("LabelTextPlace", resourceCulture);
             }
@@ -135,7 +135,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.DashBoardContentPag
         /// <summary>
         ///   Looks up a localized string similar to Value.
         /// </summary>
-        internal static string LabelTextValue {
+        public static string LabelTextValue {
             get {
                 return ResourceManager.GetString("LabelTextValue", resourceCulture);
             }
@@ -144,7 +144,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.DashBoardContentPag
         /// <summary>
         ///   Looks up a localized string similar to No additional dates are available.
         /// </summary>
-        internal static string MessageBoxAddMonthErrorMessage {
+        public static string MessageBoxAddMonthErrorMessage {
             get {
                 return ResourceManager.GetString("MessageBoxAddMonthErrorMessage", resourceCulture);
             }
@@ -153,7 +153,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.DashBoardContentPag
         /// <summary>
         ///   Looks up a localized string similar to Ok.
         /// </summary>
-        internal static string MessageBoxAddMonthErrorOkButton {
+        public static string MessageBoxAddMonthErrorOkButton {
             get {
                 return ResourceManager.GetString("MessageBoxAddMonthErrorOkButton", resourceCulture);
             }
@@ -162,7 +162,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.DashBoardContentPag
         /// <summary>
         ///   Looks up a localized string similar to Error.
         /// </summary>
-        internal static string MessageBoxAddMonthErrorTitle {
+        public static string MessageBoxAddMonthErrorTitle {
             get {
                 return ResourceManager.GetString("MessageBoxAddMonthErrorTitle", resourceCulture);
             }
@@ -171,7 +171,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.DashBoardContentPag
         /// <summary>
         ///   Looks up a localized string similar to point.
         /// </summary>
-        internal static string MessageBoxCollectionViewVHistoryOnLongPressCheck {
+        public static string MessageBoxCollectionViewVHistoryOnLongPressCheck {
             get {
                 return ResourceManager.GetString("MessageBoxCollectionViewVHistoryOnLongPressCheck", resourceCulture);
             }
@@ -180,7 +180,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.DashBoardContentPag
         /// <summary>
         ///   Looks up a localized string similar to Do you really want to {0} this record ?{1}.
         /// </summary>
-        internal static string MessageBoxCollectionViewVHistoryOnLongPressMessage {
+        public static string MessageBoxCollectionViewVHistoryOnLongPressMessage {
             get {
                 return ResourceManager.GetString("MessageBoxCollectionViewVHistoryOnLongPressMessage", resourceCulture);
             }
@@ -189,7 +189,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.DashBoardContentPag
         /// <summary>
         ///   Looks up a localized string similar to Cancel.
         /// </summary>
-        internal static string MessageBoxCollectionViewVHistoryOnLongPressNoButton {
+        public static string MessageBoxCollectionViewVHistoryOnLongPressNoButton {
             get {
                 return ResourceManager.GetString("MessageBoxCollectionViewVHistoryOnLongPressNoButton", resourceCulture);
             }
@@ -198,7 +198,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.DashBoardContentPag
         /// <summary>
         ///   Looks up a localized string similar to Confirm update of this record.
         /// </summary>
-        internal static string MessageBoxCollectionViewVHistoryOnLongPressTitle {
+        public static string MessageBoxCollectionViewVHistoryOnLongPressTitle {
             get {
                 return ResourceManager.GetString("MessageBoxCollectionViewVHistoryOnLongPressTitle", resourceCulture);
             }
@@ -207,7 +207,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.DashBoardContentPag
         /// <summary>
         ///   Looks up a localized string similar to unpoint.
         /// </summary>
-        internal static string MessageBoxCollectionViewVHistoryOnLongPressUnCheck {
+        public static string MessageBoxCollectionViewVHistoryOnLongPressUnCheck {
             get {
                 return ResourceManager.GetString("MessageBoxCollectionViewVHistoryOnLongPressUnCheck", resourceCulture);
             }
@@ -216,7 +216,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.DashBoardContentPag
         /// <summary>
         ///   Looks up a localized string similar to Confirm.
         /// </summary>
-        internal static string MessageBoxCollectionViewVHistoryOnLongPressYesButton {
+        public static string MessageBoxCollectionViewVHistoryOnLongPressYesButton {
             get {
                 return ResourceManager.GetString("MessageBoxCollectionViewVHistoryOnLongPressYesButton", resourceCulture);
             }
@@ -225,7 +225,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.DashBoardContentPag
         /// <summary>
         ///   Looks up a localized string similar to No lower dates are available.
         /// </summary>
-        internal static string MessageBoxRemoveMonthErrorMessage {
+        public static string MessageBoxRemoveMonthErrorMessage {
             get {
                 return ResourceManager.GetString("MessageBoxRemoveMonthErrorMessage", resourceCulture);
             }
@@ -234,7 +234,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.DashBoardContentPag
         /// <summary>
         ///   Looks up a localized string similar to Ok.
         /// </summary>
-        internal static string MessageBoxRemoveMonthErrorOkButton {
+        public static string MessageBoxRemoveMonthErrorOkButton {
             get {
                 return ResourceManager.GetString("MessageBoxRemoveMonthErrorOkButton", resourceCulture);
             }
@@ -243,7 +243,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.DashBoardContentPag
         /// <summary>
         ///   Looks up a localized string similar to Error.
         /// </summary>
-        internal static string MessageBoxRemoveMonthErrorTitle {
+        public static string MessageBoxRemoveMonthErrorTitle {
             get {
                 return ResourceManager.GetString("MessageBoxRemoveMonthErrorTitle", resourceCulture);
             }
@@ -252,7 +252,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.DashBoardContentPag
         /// <summary>
         ///   Looks up a localized string similar to record(s) found on.
         /// </summary>
-        internal static string RecordFoundOn {
+        public static string RecordFoundOn {
             get {
                 return ResourceManager.GetString("RecordFoundOn", resourceCulture);
             }

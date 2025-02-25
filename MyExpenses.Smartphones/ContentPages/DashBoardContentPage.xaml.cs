@@ -14,10 +14,10 @@ using MyExpenses.Models.Sql.Bases.Views;
 using MyExpenses.Models.Sql.Queries;
 using MyExpenses.SharedUtils.Collection;
 using MyExpenses.SharedUtils.Properties;
+using MyExpenses.SharedUtils.Resources.Resx.DashBoardManagement;
 using MyExpenses.Smartphones.ContentPages.CustomPopups;
 using MyExpenses.Smartphones.ContentPages.CustomPopups.CustomPopupActivityIndicator;
 using MyExpenses.Smartphones.PackIcons;
-using MyExpenses.Smartphones.Resources.Resx.ContentPages.DashBoardContentPage;
 using MyExpenses.Smartphones.UserControls.Images;
 using MyExpenses.Sql.Context;
 using MyExpenses.Sql.Queries;
@@ -820,9 +820,9 @@ public partial class DashBoardContentPage
 
         if (result) return;
 
-        await DisplayAlert(DashBoardContentPageResources.MessageBoxAddMonthErrorTitle,
-            DashBoardContentPageResources.MessageBoxAddMonthErrorMessage,
-            DashBoardContentPageResources.MessageBoxAddMonthErrorOkButton);
+        await DisplayAlert(DashBoardManagementResources.MessageBoxAddMonthErrorTitle,
+            DashBoardManagementResources.MessageBoxAddMonthErrorMessage,
+            DashBoardManagementResources.MessageBoxAddMonthErrorOkButton);
     }
 
     private async Task HandleButtonRemoveMonth()
@@ -834,9 +834,9 @@ public partial class DashBoardContentPage
 
         if (result) return;
 
-        await DisplayAlert(DashBoardContentPageResources.MessageBoxRemoveMonthErrorTitle,
-            DashBoardContentPageResources.MessageBoxRemoveMonthErrorMessage,
-            DashBoardContentPageResources.MessageBoxRemoveMonthErrorOkButton);
+        await DisplayAlert(DashBoardManagementResources.MessageBoxRemoveMonthErrorTitle,
+            DashBoardManagementResources.MessageBoxRemoveMonthErrorMessage,
+            DashBoardManagementResources.MessageBoxRemoveMonthErrorOkButton);
     }
 
     [SupportedOSPlatform("Android21.0")]
@@ -852,15 +852,15 @@ public partial class DashBoardContentPage
         var history = vHistory.Id.ToISql<THistory>()!;
 
         var word = history.IsPointed
-            ? DashBoardContentPageResources.MessageBoxCollectionViewVHistoryOnLongPressUnCheck
-            : DashBoardContentPageResources.MessageBoxCollectionViewVHistoryOnLongPressCheck;
+            ? DashBoardManagementResources.MessageBoxCollectionViewVHistoryOnLongPressUnCheck
+            : DashBoardManagementResources.MessageBoxCollectionViewVHistoryOnLongPressCheck;
 
-        var message = string.Format(DashBoardContentPageResources.MessageBoxCollectionViewVHistoryOnLongPressMessage,
+        var message = string.Format(DashBoardManagementResources.MessageBoxCollectionViewVHistoryOnLongPressMessage,
             word, $"\n{history.Description}");
         var response = await DisplayAlert(
-            DashBoardContentPageResources.MessageBoxCollectionViewVHistoryOnLongPressTitle, message,
-            DashBoardContentPageResources.MessageBoxCollectionViewVHistoryOnLongPressYesButton,
-            DashBoardContentPageResources.MessageBoxCollectionViewVHistoryOnLongPressNoButton);
+            DashBoardManagementResources.MessageBoxCollectionViewVHistoryOnLongPressTitle, message,
+            DashBoardManagementResources.MessageBoxCollectionViewVHistoryOnLongPressYesButton,
+            DashBoardManagementResources.MessageBoxCollectionViewVHistoryOnLongPressNoButton);
         if (response)
         {
             history.IsPointed = !history.IsPointed;
@@ -1114,18 +1114,18 @@ public partial class DashBoardContentPage
 
     private void UpdateLanguage()
     {
-        ComboBoxYearsHintAssist = DashBoardContentPageResources.ComboBoxYearsHintAssist;
-        ComboBoxMonthHintAssist = DashBoardContentPageResources.ComboBoxMonthHintAssist;
+        ComboBoxYearsHintAssist = DashBoardManagementResources.ComboBoxYearsHintAssist;
+        ComboBoxMonthHintAssist = DashBoardManagementResources.ComboBoxMonthHintAssist;
 
-        LabelTextCategory = DashBoardContentPageResources.LabelTextCategory;
-        LabelTextDescription = DashBoardContentPageResources.LabelTextDescription;
-        LabelTextPaymentMode = DashBoardContentPageResources.LabelTextPaymentMode;
-        LabelTextValue = DashBoardContentPageResources.LabelTextValue;
-        LabelTextChecked = DashBoardContentPageResources.LabelTextChecked;
-        LabelTextPlace = DashBoardContentPageResources.LabelTextPlace;
+        LabelTextCategory = DashBoardManagementResources.LabelTextCategory;
+        LabelTextDescription = DashBoardManagementResources.LabelTextDescription;
+        LabelTextPaymentMode = DashBoardManagementResources.LabelTextPaymentMode;
+        LabelTextValue = DashBoardManagementResources.LabelTextValue;
+        LabelTextChecked = DashBoardManagementResources.LabelTextChecked;
+        LabelTextPlace = DashBoardManagementResources.LabelTextPlace;
 
-        ElapsedTimeLoadingDataText = $"{DashBoardContentPageResources.ElapsedTimeLoadingDataText} ";
-        RecordFoundOn = $" {DashBoardContentPageResources.RecordFoundOn} ";
+        ElapsedTimeLoadingDataText = $"{DashBoardManagementResources.ElapsedTimeLoadingDataText} ";
+        RecordFoundOn = $" {DashBoardManagementResources.RecordFoundOn} ";
     }
 
     private void UpdateMonthLanguage()

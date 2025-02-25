@@ -220,10 +220,6 @@
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>DashBoardShellResources.Designer.cs</LastGenOutput>
       </EmbeddedResource>
-      <EmbeddedResource Update="Resources\Resx\ContentPages\DashBoardContentPage\DashBoardContentPageResources.resx">
-        <Generator>ResXFileCodeGenerator</Generator>
-        <LastGenOutput>DashBoardContentPageResources.Designer.cs</LastGenOutput>
-      </EmbeddedResource>
       <EmbeddedResource Update="Resources\Resx\ContentPages\GeneralAccountSetupContentPage\GeneralAccountSetupContentPageResources.resx">
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>GeneralAccountSetupContentPageResources.Designer.cs</LastGenOutput>

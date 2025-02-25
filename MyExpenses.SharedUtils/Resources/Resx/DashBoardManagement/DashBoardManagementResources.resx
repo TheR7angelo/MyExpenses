@@ -1,4 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+
 <root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+            
+        </xsd:element>
+    </xsd:schema>
     <resheader name="resmimetype">
         <value>text/microsoft-resx</value>
     </resheader>
@@ -17,44 +24,14 @@
     <data name="ComboBoxYearsHintAssist" xml:space="preserve">
         <value>Choice of the year :</value>
     </data>
-    <data name="MessageBoxAddMonthErrorOkButton" xml:space="preserve">
-        <value>Ok</value>
-    </data>
-    <data name="MessageBoxAddMonthErrorMessage" xml:space="preserve">
-        <value>No additional dates are available</value>
-    </data>
-    <data name="MessageBoxAddMonthErrorTitle" xml:space="preserve">
-        <value>Error</value>
-    </data>
-    <data name="MessageBoxRemoveMonthErrorOkButton" xml:space="preserve">
-        <value>Ok</value>
-    </data>
-    <data name="MessageBoxRemoveMonthErrorTitle" xml:space="preserve">
-        <value>Error</value>
-    </data>
-    <data name="MessageBoxRemoveMonthErrorMessage" xml:space="preserve">
-        <value>No lower dates are available</value>
-    </data>
-    <data name="MessageBoxCollectionViewVHistoryOnLongPressTitle" xml:space="preserve">
-        <value>Confirm update of this record</value>
-    </data>
-    <data name="MessageBoxCollectionViewVHistoryOnLongPressMessage" xml:space="preserve">
-        <value>Do you really want to {0} this record ?{1}</value>
-    </data>
-    <data name="MessageBoxCollectionViewVHistoryOnLongPressCheck" xml:space="preserve">
-        <value>point</value>
-    </data>
-    <data name="MessageBoxCollectionViewVHistoryOnLongPressUnCheck" xml:space="preserve">
-        <value>unpoint</value>
-    </data>
-    <data name="MessageBoxCollectionViewVHistoryOnLongPressYesButton" xml:space="preserve">
-        <value>Confirm</value>
-    </data>
-    <data name="MessageBoxCollectionViewVHistoryOnLongPressNoButton" xml:space="preserve">
-        <value>Cancel</value>
+    <data name="ElapsedTimeLoadingDataText" xml:space="preserve">
+        <value>Elapsed time :</value>
     </data>
     <data name="LabelTextCategory" xml:space="preserve">
         <value>Category</value>
+    </data>
+    <data name="LabelTextChecked" xml:space="preserve">
+        <value>Pointed</value>
     </data>
     <data name="LabelTextDescription" xml:space="preserve">
         <value>Description</value>
@@ -62,19 +39,49 @@
     <data name="LabelTextPaymentMode" xml:space="preserve">
         <value>Payment method</value>
     </data>
+    <data name="LabelTextPlace" xml:space="preserve">
+        <value>Place</value>
+    </data>
     <data name="LabelTextValue" xml:space="preserve">
         <value>Value</value>
     </data>
-    <data name="LabelTextChecked" xml:space="preserve">
-        <value>Pointed</value>
+    <data name="MessageBoxAddMonthErrorMessage" xml:space="preserve">
+        <value>No additional dates are available</value>
     </data>
-    <data name="LabelTextPlace" xml:space="preserve">
-        <value>Place</value>
+    <data name="MessageBoxAddMonthErrorOkButton" xml:space="preserve">
+        <value>Ok</value>
+    </data>
+    <data name="MessageBoxAddMonthErrorTitle" xml:space="preserve">
+        <value>Error</value>
+    </data>
+    <data name="MessageBoxRemoveMonthErrorMessage" xml:space="preserve">
+        <value>No lower dates are available</value>
+    </data>
+    <data name="MessageBoxRemoveMonthErrorOkButton" xml:space="preserve">
+        <value>Ok</value>
+    </data>
+    <data name="MessageBoxRemoveMonthErrorTitle" xml:space="preserve">
+        <value>Error</value>
     </data>
     <data name="RecordFoundOn" xml:space="preserve">
         <value>record(s) found on</value>
     </data>
-    <data name="ElapsedTimeLoadingDataText" xml:space="preserve">
-        <value>Elapsed time :</value>
+    <data name="MessageBoxCollectionViewVHistoryOnLongPressCheck" xml:space="preserve">
+        <value>point</value>
+    </data>
+    <data name="MessageBoxCollectionViewVHistoryOnLongPressMessage" xml:space="preserve">
+        <value>Do you really want to {0} this record ?{1}</value>
+    </data>
+    <data name="MessageBoxCollectionViewVHistoryOnLongPressNoButton" xml:space="preserve">
+        <value>Cancel</value>
+    </data>
+    <data name="MessageBoxCollectionViewVHistoryOnLongPressTitle" xml:space="preserve">
+        <value>Confirm update of this record</value>
+    </data>
+    <data name="MessageBoxCollectionViewVHistoryOnLongPressUnCheck" xml:space="preserve">
+        <value>unpoint</value>
+    </data>
+    <data name="MessageBoxCollectionViewVHistoryOnLongPressYesButton" xml:space="preserve">
+        <value>Confirm</value>
     </data>
 </root>
