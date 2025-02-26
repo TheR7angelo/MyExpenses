@@ -208,37 +208,9 @@
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>SelectDatabaseFileContentPageResources.Designer.cs</LastGenOutput>
       </EmbeddedResource>
-      <EmbeddedResource Update="Resources\Resx\ContentPages\AddDatabaseFileContentPage\AddDatabaseFileContentPageResources.resx">
-        <Generator>ResXFileCodeGenerator</Generator>
-        <LastGenOutput>AddDatabaseFileContentPageResources.Designer.cs</LastGenOutput>
-      </EmbeddedResource>
       <EmbeddedResource Update="Resources\Resx\AppShells\DashBoardShell\DashBoardShellResources.resx">
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>DashBoardShellResources.Designer.cs</LastGenOutput>
-      </EmbeddedResource>
-      <EmbeddedResource Update="Resources\Resx\ContentPages\GeneralAccountSetupContentPage\GeneralAccountSetupContentPageResources.resx">
-        <Generator>ResXFileCodeGenerator</Generator>
-        <LastGenOutput>GeneralAccountSetupContentPageResources.Designer.cs</LastGenOutput>
-      </EmbeddedResource>
-      <EmbeddedResource Update="Resources\Resx\ContentPages\BankTransferSummaryContentPage\BankTransferSummaryContentPageResources.resx">
-        <Generator>ResXFileCodeGenerator</Generator>
-        <LastGenOutput>BankTransferSummaryContentPageResources.Designer.cs</LastGenOutput>
-      </EmbeddedResource>
-      <EmbeddedResource Update="Resources\Resx\ContentPages\CustomPopups\CustomPopupFilterAccount\CustomPopupFilterAccountResources.resx">
-        <Generator>ResXFileCodeGenerator</Generator>
-        <LastGenOutput>CustomPopupFilterAccountResources.Designer.cs</LastGenOutput>
-      </EmbeddedResource>
-      <EmbeddedResource Update="Resources\Resx\ContentPages\CurrencySymbolSummaryContentPage\CurrencySymbolSummaryContentPageResources.resx">
-        <Generator>ResXFileCodeGenerator</Generator>
-        <LastGenOutput>CurrencySymbolSummaryContentPageResources.Designer.cs</LastGenOutput>
-      </EmbeddedResource>
-      <EmbeddedResource Update="Resources\Resx\ContentPages\AddEditAccountContentPage\AddEditAccountContentPageResources.resx">
-        <Generator>ResXFileCodeGenerator</Generator>
-        <LastGenOutput>AddEditAccountContentPageResources.Designer.cs</LastGenOutput>
-      </EmbeddedResource>
-      <EmbeddedResource Update="Resources\Resx\ContentPages\AccountTypeSummaryContentPage\AccountTypeSummaryContentPageResources.resx">
-        <Generator>ResXFileCodeGenerator</Generator>
-        <LastGenOutput>AccountTypeSummaryContentPageResources.Designer.cs</LastGenOutput>
       </EmbeddedResource>
     </ItemGroup>
 

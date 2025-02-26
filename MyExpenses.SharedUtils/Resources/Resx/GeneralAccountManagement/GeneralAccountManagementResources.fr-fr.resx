@@ -12,24 +12,24 @@
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
     <data name="ButtonTextAccountManagement" xml:space="preserve">
-        <value>Account(s) Management</value>
-    </data>
-    <data name="ButtonTextManagingAccountTypes" xml:space="preserve">
-        <value>Managing account types</value>
-    </data>
-    <data name="ButtonTextManagingCategoryTypes" xml:space="preserve">
-        <value>Managing category types</value>
-    </data>
-    <data name="ButtonTextLocationManagement" xml:space="preserve">
-        <value>Location management</value>
+        <value>Gestion de(s) compte(s)</value>
     </data>
     <data name="ButtonTextColorManagement" xml:space="preserve">
-        <value>Color management</value>
+        <value>Gestion des couleurs</value>
     </data>
     <data name="ButtonTextCurrencySymbolManagement" xml:space="preserve">
-        <value>Currency symbol management</value>
+        <value>Gestion des symboles monétaires</value>
+    </data>
+    <data name="ButtonTextLocationManagement" xml:space="preserve">
+        <value>Gestion des emplacements</value>
+    </data>
+    <data name="ButtonTextManagingAccountTypes" xml:space="preserve">
+        <value>Gestion des types de comptes</value>
+    </data>
+    <data name="ButtonTextManagingCategoryTypes" xml:space="preserve">
+        <value>Gestion des types de catégories</value>
     </data>
     <data name="ButtonTextPaymentMethodManagement" xml:space="preserve">
-        <value>Payment method management</value>
+        <value>Gestion des moyens de paiement</value>
     </data>
 </root>

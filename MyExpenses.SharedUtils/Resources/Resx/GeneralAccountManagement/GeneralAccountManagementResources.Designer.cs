@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.GeneralAccountSetupContentPage {
+namespace MyExpenses.SharedUtils.Resources.Resx.GeneralAccountManagement {
     using System;
     
     
@@ -21,25 +21,25 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.GeneralAccountSetup
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class GeneralAccountSetupContentPageResources {
+    public class GeneralAccountManagementResources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal GeneralAccountSetupContentPageResources() {
+        public GeneralAccountManagementResources() {
         }
         
         /// <summary>
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MyExpenses.Smartphones.Resources.Resx.ContentPages.GeneralAccountSetupContentPage" +
-                            ".GeneralAccountSetupContentPageResources", typeof(GeneralAccountSetupContentPageResources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MyExpenses.SharedUtils.Resources.Resx.GeneralAccountManagement.GeneralAccountMana" +
+                            "gementResources", typeof(GeneralAccountManagementResources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -51,7 +51,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.GeneralAccountSetup
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,7 +63,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.GeneralAccountSetup
         /// <summary>
         ///   Looks up a localized string similar to Account(s) Management.
         /// </summary>
-        internal static string ButtonTextAccountManagement {
+        public static string ButtonTextAccountManagement {
             get {
                 return ResourceManager.GetString("ButtonTextAccountManagement", resourceCulture);
             }
@@ -72,7 +72,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.GeneralAccountSetup
         /// <summary>
         ///   Looks up a localized string similar to Color management.
         /// </summary>
-        internal static string ButtonTextColorManagement {
+        public static string ButtonTextColorManagement {
             get {
                 return ResourceManager.GetString("ButtonTextColorManagement", resourceCulture);
             }
@@ -81,7 +81,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.GeneralAccountSetup
         /// <summary>
         ///   Looks up a localized string similar to Currency symbol management.
         /// </summary>
-        internal static string ButtonTextCurrencySymbolManagement {
+        public static string ButtonTextCurrencySymbolManagement {
             get {
                 return ResourceManager.GetString("ButtonTextCurrencySymbolManagement", resourceCulture);
             }
@@ -90,7 +90,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.GeneralAccountSetup
         /// <summary>
         ///   Looks up a localized string similar to Location management.
         /// </summary>
-        internal static string ButtonTextLocationManagement {
+        public static string ButtonTextLocationManagement {
             get {
                 return ResourceManager.GetString("ButtonTextLocationManagement", resourceCulture);
             }
@@ -99,7 +99,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.GeneralAccountSetup
         /// <summary>
         ///   Looks up a localized string similar to Managing account types.
         /// </summary>
-        internal static string ButtonTextManagingAccountTypes {
+        public static string ButtonTextManagingAccountTypes {
             get {
                 return ResourceManager.GetString("ButtonTextManagingAccountTypes", resourceCulture);
             }
@@ -108,7 +108,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.GeneralAccountSetup
         /// <summary>
         ///   Looks up a localized string similar to Managing category types.
         /// </summary>
-        internal static string ButtonTextManagingCategoryTypes {
+        public static string ButtonTextManagingCategoryTypes {
             get {
                 return ResourceManager.GetString("ButtonTextManagingCategoryTypes", resourceCulture);
             }
@@ -117,7 +117,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.ContentPages.GeneralAccountSetup
         /// <summary>
         ///   Looks up a localized string similar to Payment method management.
         /// </summary>
-        internal static string ButtonTextPaymentMethodManagement {
+        public static string ButtonTextPaymentMethodManagement {
             get {
                 return ResourceManager.GetString("ButtonTextPaymentMethodManagement", resourceCulture);
             }

@@ -1,5 +1,5 @@
 using MyExpenses.Models.Config.Interfaces;
-using MyExpenses.Smartphones.Resources.Resx.ContentPages.GeneralAccountSetupContentPage;
+using MyExpenses.SharedUtils.Resources.Resx.GeneralAccountManagement;
 
 namespace MyExpenses.Smartphones.ContentPages;
 
@@ -113,13 +113,13 @@ public partial class GeneralAccountSetupContentPage
 
     private void UpdateLanguage()
     {
-        ButtonTextAccountManagement = GeneralAccountSetupContentPageResources.ButtonTextAccountManagement;
-        ButtonTextManagingAccountTypes = GeneralAccountSetupContentPageResources.ButtonTextManagingAccountTypes;
-        ButtonTextManagingCategoryTypes = GeneralAccountSetupContentPageResources.ButtonTextManagingCategoryTypes;
-        ButtonTextLocationManagement = GeneralAccountSetupContentPageResources.ButtonTextLocationManagement;
-        ButtonTextColorManagement = GeneralAccountSetupContentPageResources.ButtonTextColorManagement;
-        ButtonTextCurrencySymbolManagement = GeneralAccountSetupContentPageResources.ButtonTextCurrencySymbolManagement;
-        ButtonTextPaymentMethodManagement = GeneralAccountSetupContentPageResources.ButtonTextPaymentMethodManagement;
+        ButtonTextAccountManagement = GeneralAccountManagementResources.ButtonTextAccountManagement;
+        ButtonTextManagingAccountTypes = GeneralAccountManagementResources.ButtonTextManagingAccountTypes;
+        ButtonTextManagingCategoryTypes = GeneralAccountManagementResources.ButtonTextManagingCategoryTypes;
+        ButtonTextLocationManagement = GeneralAccountManagementResources.ButtonTextLocationManagement;
+        ButtonTextColorManagement = GeneralAccountManagementResources.ButtonTextColorManagement;
+        ButtonTextCurrencySymbolManagement = GeneralAccountManagementResources.ButtonTextCurrencySymbolManagement;
+        ButtonTextPaymentMethodManagement = GeneralAccountManagementResources.ButtonTextPaymentMethodManagement;
     }
 
     #endregion
