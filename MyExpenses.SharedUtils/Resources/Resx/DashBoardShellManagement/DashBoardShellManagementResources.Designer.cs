@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MyExpenses.Smartphones.Resources.Resx.AppShells.DashBoardShell {
+namespace MyExpenses.SharedUtils.Resources.Resx.DashBoardShellManagement {
     using System;
     
     
@@ -21,25 +21,25 @@ namespace MyExpenses.Smartphones.Resources.Resx.AppShells.DashBoardShell {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class DashBoardShellResources {
+    public class DashBoardShellManagementResources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal DashBoardShellResources() {
+        public DashBoardShellManagementResources() {
         }
         
         /// <summary>
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MyExpenses.Smartphones.Resources.Resx.AppShells.DashBoardShell.DashBoardShellReso" +
-                            "urces", typeof(DashBoardShellResources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MyExpenses.SharedUtils.Resources.Resx.DashBoardShellManagement.DashBoardShellMana" +
+                            "gementResources", typeof(DashBoardShellManagementResources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -51,7 +51,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.AppShells.DashBoardShell {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,7 +63,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.AppShells.DashBoardShell {
         /// <summary>
         ///   Looks up a localized string similar to DashBoard.
         /// </summary>
-        internal static string FlyoutItemDashBoardContentPageTitle {
+        public static string FlyoutItemDashBoardContentPageTitle {
             get {
                 return ResourceManager.GetString("FlyoutItemDashBoardContentPageTitle", resourceCulture);
             }
@@ -72,7 +72,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.AppShells.DashBoardShell {
         /// <summary>
         ///   Looks up a localized string similar to General account setup.
         /// </summary>
-        internal static string FlyoutItemGeneralAccountSetupContentPageTitle {
+        public static string FlyoutItemGeneralAccountSetupContentPageTitle {
             get {
                 return ResourceManager.GetString("FlyoutItemGeneralAccountSetupContentPageTitle", resourceCulture);
             }
@@ -81,7 +81,7 @@ namespace MyExpenses.Smartphones.Resources.Resx.AppShells.DashBoardShell {
         /// <summary>
         ///   Looks up a localized string similar to Logout.
         /// </summary>
-        internal static string MenuItemLogoutText {
+        public static string MenuItemLogoutText {
             get {
                 return ResourceManager.GetString("MenuItemLogoutText", resourceCulture);
             }

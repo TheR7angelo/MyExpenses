@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.IO;
-using MyExpenses.Smartphones.Resources.Resx.AppShells.DashBoardShell;
+using MyExpenses.SharedUtils.Resources.Resx.DashBoardShellManagement;
 using MyExpenses.Sql.Context;
 
 namespace MyExpenses.Smartphones.AppShells;
@@ -102,9 +102,9 @@ public partial class DashBoardShell
 
     private void UpdateLanguage()
     {
-        FlyoutItemDashBoardContentPageTitle = DashBoardShellResources.FlyoutItemDashBoardContentPageTitle;
-        FlyoutItemGeneralAccountSetupContentPageTitle = DashBoardShellResources.FlyoutItemGeneralAccountSetupContentPageTitle;
-        MenuItemLogoutText = DashBoardShellResources.MenuItemLogoutText;
+        FlyoutItemDashBoardContentPageTitle = DashBoardShellManagementResources.FlyoutItemDashBoardContentPageTitle;
+        FlyoutItemGeneralAccountSetupContentPageTitle = DashBoardShellManagementResources.FlyoutItemGeneralAccountSetupContentPageTitle;
+        MenuItemLogoutText = DashBoardShellManagementResources.MenuItemLogoutText;
     }
 
     #endregion
