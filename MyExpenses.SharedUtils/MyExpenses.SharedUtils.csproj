@@ -72,6 +72,10 @@
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>GeneralAccountManagementResources.Designer.cs</LastGenOutput>
       </EmbeddedResource>
+      <EmbeddedResource Update="Resources\Resx\SelectDatabaseFileManagement\SelectDatabaseFileManagementResources.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>SelectDatabaseFileManagementResources.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
     </ItemGroup>
 
     <ItemGroup>
@@ -154,6 +158,11 @@
         <DesignTime>True</DesignTime>
         <AutoGen>True</AutoGen>
         <DependentUpon>GeneralAccountManagementResources.resx</DependentUpon>
+      </Compile>
+      <Compile Update="Resources\Resx\SelectDatabaseFileManagement\SelectDatabaseFileManagementResources.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>SelectDatabaseFileManagementResources.resx</DependentUpon>
       </Compile>
     </ItemGroup>
 

@@ -204,10 +204,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <EmbeddedResource Update="Resources\Resx\ContentPages\SelectDatabaseFileContentPage\SelectDatabaseFileContentPageResources.resx">
-        <Generator>ResXFileCodeGenerator</Generator>
-        <LastGenOutput>SelectDatabaseFileContentPageResources.Designer.cs</LastGenOutput>
-      </EmbeddedResource>
       <EmbeddedResource Update="Resources\Resx\AppShells\DashBoardShell\DashBoardShellResources.resx">
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>DashBoardShellResources.Designer.cs</LastGenOutput>

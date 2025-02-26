@@ -2,7 +2,7 @@ using System.Collections.ObjectModel;
 using System.Windows.Input;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.IO;
-using MyExpenses.Smartphones.Resources.Resx.ContentPages.SelectDatabaseFileContentPage;
+using MyExpenses.SharedUtils.Resources.Resx.SelectDatabaseFileManagement;
 
 namespace MyExpenses.Smartphones.ContentPages;
 
@@ -118,8 +118,8 @@ public partial class SelectDatabaseFileContentPage
 
     private void UpdateLanguage()
     {
-        ButtonCancelContent = SelectDatabaseFileContentPageResources.ButtonCancelContent;
-        ButtonValidMidContent = SelectDatabaseFileContentPageResources.ButtonValidMidContent;
+        ButtonCancelContent = SelectDatabaseFileManagementResources.ButtonCancelContent;
+        ButtonValidMidContent = SelectDatabaseFileManagementResources.ButtonValidMidContent;
     }
 
     #endregion
