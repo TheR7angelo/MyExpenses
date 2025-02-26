@@ -14,7 +14,13 @@
     <data name="ButtonCancelContent" xml:space="preserve">
         <value>Annuler</value>
     </data>
-    <data name="ButtonValidMidContent" xml:space="preserve">
+    <data name="ButtonValidContent" xml:space="preserve">
         <value>Valider</value>
+    </data>
+    <data name="SelectDatabaseFileWindowTitle" xml:space="preserve">
+        <value>Sélectionnez une ou plusieurs base(s) de données</value>
+    </data>
+    <data name="LabelStatusContent" xml:space="preserve">
+        <value>Statut :</value>
     </data>
 </root>

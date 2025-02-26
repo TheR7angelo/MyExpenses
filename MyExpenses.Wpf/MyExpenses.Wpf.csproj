@@ -85,10 +85,6 @@
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>ModePaymentManagementPageResources.Designer.cs</LastGenOutput>
       </EmbeddedResource>
-      <EmbeddedResource Update="Resources\Resx\Windows\RemoveDatabaseFile\SelectDatabaseFileWindowResources.resx">
-        <Generator>ResXFileCodeGenerator</Generator>
-        <LastGenOutput>RemoveDatabaseFileResources.Designer.cs</LastGenOutput>
-      </EmbeddedResource>
       <EmbeddedResource Update="Resources\Resx\Windows\WaitScreenWindow\WaitScreenWindowResources.resx">
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>WaitScreenWindowResources.Designer.cs</LastGenOutput>

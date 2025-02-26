@@ -119,7 +119,7 @@ public partial class SelectDatabaseFileContentPage
     private void UpdateLanguage()
     {
         ButtonCancelContent = SelectDatabaseFileManagementResources.ButtonCancelContent;
-        ButtonValidMidContent = SelectDatabaseFileManagementResources.ButtonValidMidContent;
+        ButtonValidMidContent = SelectDatabaseFileManagementResources.ButtonValidContent;
     }
 
     #endregion

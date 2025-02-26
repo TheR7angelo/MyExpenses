@@ -72,9 +72,27 @@ namespace MyExpenses.SharedUtils.Resources.Resx.SelectDatabaseFileManagement {
         /// <summary>
         ///   Looks up a localized string similar to Valid.
         /// </summary>
-        public static string ButtonValidMidContent {
+        public static string ButtonValidContent {
             get {
-                return ResourceManager.GetString("ButtonValidMidContent", resourceCulture);
+                return ResourceManager.GetString("ButtonValidContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Status :.
+        /// </summary>
+        public static string LabelStatusContent {
+            get {
+                return ResourceManager.GetString("LabelStatusContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select one or more database(s).
+        /// </summary>
+        public static string SelectDatabaseFileWindowTitle {
+            get {
+                return ResourceManager.GetString("SelectDatabaseFileWindowTitle", resourceCulture);
             }
         }
     }

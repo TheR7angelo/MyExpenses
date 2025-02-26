@@ -3,7 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.IO;
-using MyExpenses.Wpf.Resources.Resx.Windows.SelectDatabaseFileWindow;
+using MyExpenses.SharedUtils.Resources.Resx.SelectDatabaseFileManagement;
 using MyExpenses.Wpf.Utils;
 
 namespace MyExpenses.Wpf.Windows;
@@ -74,11 +74,11 @@ public partial class SelectDatabaseFileWindow
 
     private void UpdateLanguage()
     {
-        SelectDatabaseFileWindowTitle = SelectDatabaseFileWindowResources.SelectDatabaseFileWindowTitle;
+        SelectDatabaseFileWindowTitle = SelectDatabaseFileManagementResources.SelectDatabaseFileWindowTitle;
 
-        ButtonCancelContent = SelectDatabaseFileWindowResources.ButtonCancelCotent;
-        ButtonValidContent = SelectDatabaseFileWindowResources.ButtonValidContent;
-        LabelStatus = SelectDatabaseFileWindowResources.LabelStatus;
+        ButtonCancelContent = SelectDatabaseFileManagementResources.ButtonCancelContent;
+        ButtonValidContent = SelectDatabaseFileManagementResources.ButtonValidContent;
+        LabelStatus = SelectDatabaseFileManagementResources.LabelStatusContent;
     }
 
     private void ButtonValid_OnClick(object sender, RoutedEventArgs e)
