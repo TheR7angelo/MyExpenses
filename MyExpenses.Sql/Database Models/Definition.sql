@@ -513,30 +513,13 @@ BEGIN
     WHERE id = NEW.id;
 END;
 
-DROP TRIGGER IF EXISTS after_insert_on_t_bank_transfer;
-CREATE TRIGGER after_insert_on_t_bank_transfer
-    AFTER INSERT
-    ON t_bank_transfer
-    FOR EACH ROW
-BEGIN
-    UPDATE t_bank_transfer
-    SET date       = CASE
-                         WHEN typeof(NEW.date) = 'integer' THEN datetime(NEW.date / 1000, 'unixepoch')
-                         ELSE NEW.date
-        END,
-        date_added = CASE
-                         WHEN typeof(NEW.date_added) = 'integer' THEN datetime(NEW.date_added / 1000, 'unixepoch')
-                         ELSE NEW.date_added
-            END
-    WHERE id = NEW.id;
-END;
-
 DROP TRIGGER IF EXISTS after_update_on_t_bank_transfer;
 CREATE TRIGGER after_update_on_t_bank_transfer
     AFTER UPDATE
     ON t_bank_transfer
     FOR EACH ROW
 BEGIN
+
     UPDATE t_bank_transfer
     SET date       = CASE
                          WHEN typeof(NEW.date) = 'integer' THEN datetime(NEW.date / 1000, 'unixepoch')
@@ -547,6 +530,16 @@ BEGIN
                          ELSE NEW.date_added
             END
     WHERE id = NEW.id;
+
+    UPDATE t_history
+    SET description = NEW.main_reason,
+        value = CASE
+                    WHEN t_history.account_fk = NEW.from_account_fk THEN - ABS(NEW.value)
+                    WHEN t_history.account_fk = NEW.to_account_fk THEN ABS(NEW.value)
+        END
+    WHERE t_history.bank_transfer_fk = NEW.id
+      AND t_history.account_fk IN (NEW.from_account_fk, NEW.to_account_fk);
+
 END;
 
 DROP TRIGGER IF EXISTS after_insert_on_t_recursive_expense;
