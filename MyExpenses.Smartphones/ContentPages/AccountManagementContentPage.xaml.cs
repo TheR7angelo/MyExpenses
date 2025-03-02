@@ -68,7 +68,7 @@ public partial class AccountManagementContentPage
         => _ = HandleButtonImageViewAddAccountAsync();
 
     private void ButtonImageViewCreatBankTransfer_OnClicked(object? sender, EventArgs e)
-        => _ = HandleButtonImageViewCreatBankTransferAsync();
+        => _ = HandleButtonImageViewCreateBankTransferAsync();
 
     private void ButtonImageViewHistory_OnClicked(object? sender, EventArgs e)
         => _ = HandleButtonImageViewHistory();
@@ -100,7 +100,7 @@ public partial class AccountManagementContentPage
         DashBoardContentPage.Instance.RefreshAccountTotal();
     }
 
-    private async Task HandleButtonImageViewCreatBankTransferAsync()
+    private async Task HandleButtonImageViewCreateBankTransferAsync()
     {
         // ReSharper disable once HeapView.ObjectAllocation.Evident
         // This creates and pushes the page onto the navigation stack, enabling interaction with the user.

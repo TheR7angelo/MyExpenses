@@ -343,8 +343,8 @@ public partial class AddEditBankTransferContentPage
         var toHistory = CreateHistory(BankTransfer.ToAccountFk, valueAbs, now);
 
         BankTransfer.DateAdded = now;
-        BankTransfer.THistories.Add(fromHistory);
-        BankTransfer.THistories.Add(toHistory);
+        BankTransfer.THistories?.Add(fromHistory);
+        BankTransfer.THistories?.Add(toHistory);
     }
 
     private THistory CreateHistory(int? accountFk, double value, DateTime now)
@@ -549,9 +549,9 @@ public partial class AddEditBankTransferContentPage
         UpdateHistory(fromHistory, BankTransfer.FromAccountFk, -Math.Abs(BankTransfer.Value ?? 0), now);
         UpdateHistory(toHistory, BankTransfer.ToAccountFk, Math.Abs(BankTransfer.Value ?? 0), now);
 
-        BankTransfer.THistories.Clear();
-        BankTransfer.THistories.Add(fromHistory);
-        BankTransfer.THistories.Add(toHistory);
+        BankTransfer.THistories?.Clear();
+        BankTransfer.THistories?.Add(fromHistory);
+        BankTransfer.THistories?.Add(toHistory);
     }
 
     public void SetVBankTransferSummary(VBankTransferSummary? vBankTransferSummary)
@@ -647,4 +647,7 @@ public partial class AddEditBankTransferContentPage
     }
 
     #endregion
+
+    private void CustomEntryControl_OnTextChanged(object? sender, EventArgs e)
+        => UpdateIsDirty();
 }

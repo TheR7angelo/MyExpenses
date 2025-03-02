@@ -186,7 +186,8 @@
                                                    Text="{Binding BankTransfer.MainReason, Mode=TwoWay}"
                                                    MaxLength="{Binding BankTransfer, Converter={StaticResource MaxLengthConverter}, ConverterParameter=MainReason}"
                                                    HasClearButton="True"
-                                                   HasMultiline="True">
+                                                   HasMultiline="True"
+                                                   TextChanged="CustomEntryControl_OnTextChanged">
             </customEntryControl:CustomEntryControl>
 
             <customEntryControl:CustomEntryControl Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="3"
@@ -194,7 +195,8 @@
                                                    Text="{Binding BankTransfer.AdditionalReason, Mode=TwoWay}"
                                                    MaxLength="{Binding BankTransfer, Converter={StaticResource MaxLengthConverter}, ConverterParameter=AdditionalReason}"
                                                    HasClearButton="True"
-                                                   HasMultiline="True">
+                                                   HasMultiline="True"
+                                                   TextChanged="CustomEntryControl_OnTextChanged">
             </customEntryControl:CustomEntryControl>
 
         </Grid>
