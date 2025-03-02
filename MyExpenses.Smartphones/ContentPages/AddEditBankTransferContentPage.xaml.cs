@@ -202,7 +202,17 @@ public partial class AddEditBankTransferContentPage
     public Task<bool> ResultDialog
         => _taskCompletionSource.Task;
 
-    public bool IsNewBankTransfer { get; init; }
+    private bool _isNewBankTransfer { get; init; }
+
+    public bool IsNewBankTransfer
+    {
+        get => _isNewBankTransfer;
+        init
+        {
+            _isNewBankTransfer = value;
+            UpdateButtonUpdateText();
+        }
+    }
 
     public AddEditBankTransferContentPage()
     {
@@ -520,9 +530,7 @@ public partial class AddEditBankTransferContentPage
 
     private void UpdateLanguage()
     {
-        ButtonUpdateText = IsNewBankTransfer
-            ? BankTransferManagementResources.ButtonUpdateText
-            : BankTransferManagementResources.ButtonAddNewBankTransferText;
+        UpdateButtonUpdateText();
 
         ButtonCanBeDeletedText = BankTransferManagementResources.ButtonCanBeDeletedText;
         ButtonCancelUpdateText = BankTransferManagementResources.ButtonCancelUpdateText;
@@ -538,6 +546,11 @@ public partial class AddEditBankTransferContentPage
         LabelTextTransferCategory = BankTransferManagementResources.ComboBoxCategoryTypeHintAssist;
         LabelTextTransferPaymentMode = BankTransferManagementResources.ComboBoxModePaymentHintAssist;
     }
+
+    private void UpdateButtonUpdateText()
+        => ButtonUpdateText = IsNewBankTransfer
+            ? BankTransferManagementResources.ButtonAddNewBankTransferText
+            : BankTransferManagementResources.ButtonUpdateText;
 
     private void UpdateTransactionHistories(DateTime now)
     {
