@@ -265,6 +265,9 @@ public partial class AddEditBankTransferContentPage
     private void ButtonUpdateBankTransfer_OnClicked(object? sender, EventArgs e)
         => _ = HandleButtonUpdateBankTransfer();
 
+    private void CustomEntryControl_OnTextChanged(object? sender, EventArgs e)
+        => UpdateIsDirty();
+
     private void EntryValue_OnTextChanged(object? sender, TextChangedEventArgs e)
         => UpdateIsDirty();
 
@@ -647,7 +650,4 @@ public partial class AddEditBankTransferContentPage
     }
 
     #endregion
-
-    private void CustomEntryControl_OnTextChanged(object? sender, EventArgs e)
-        => UpdateIsDirty();
 }
