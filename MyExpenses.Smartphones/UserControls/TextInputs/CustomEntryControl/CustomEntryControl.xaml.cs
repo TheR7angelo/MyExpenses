@@ -53,6 +53,8 @@ public partial class CustomEntryControl
         set => SetValue(PlaceholderTextProperty, value);
     }
 
+    public event EventHandler? TextChanged;
+
     public CustomEntryControl()
     {
         InitializeComponent();
@@ -60,4 +62,7 @@ public partial class CustomEntryControl
 
     private void SvgPath_OnClicked(object? sender, EventArgs e)
         => Text = string.Empty;
+
+    private void TextField_OnTextChanged(object? sender, TextChangedEventArgs e)
+        => TextChanged?.Invoke(sender, e);
 }

@@ -23,7 +23,8 @@
         <material:TextField Title="{Binding PlaceholderText, Source={RelativeSource AncestorType={x:Type local:CustomEntryControl}}}"
                             Text="{Binding Text, Mode=TwoWay, Source={RelativeSource AncestorType={x:Type local:CustomEntryControl}}}"
                             MaxLength="{Binding MaxLength, Source={RelativeSource AncestorType={x:Type local:CustomEntryControl}}}"
-                            IsVisible="{Binding HasMultiline, Converter={StaticResource InvertBooleanConverter}, Source={RelativeSource AncestorType={x:Type local:CustomEntryControl}}}">
+                            IsVisible="{Binding HasMultiline, Converter={StaticResource InvertBooleanConverter}, Source={RelativeSource AncestorType={x:Type local:CustomEntryControl}}}"
+                            TextChanged="TextField_OnTextChanged">
 
             <material:TextField.Attachments>
 
@@ -42,7 +43,8 @@
         <material:EditorField Title="{Binding PlaceholderText, Source={RelativeSource AncestorType={x:Type local:CustomEntryControl}}}"
                               Text="{Binding Text, Mode=TwoWay, Source={RelativeSource AncestorType={x:Type local:CustomEntryControl}}}"
                               MaxLength="{Binding MaxLength, Source={RelativeSource AncestorType={x:Type local:CustomEntryControl}}}"
-                              IsVisible="{Binding HasMultiline, Source={RelativeSource AncestorType={x:Type local:CustomEntryControl}}}">
+                              IsVisible="{Binding HasMultiline, Source={RelativeSource AncestorType={x:Type local:CustomEntryControl}}}"
+                              TextChanged="TextField_OnTextChanged">
 
             <material:EditorField.Attachments>
 
