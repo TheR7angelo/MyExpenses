@@ -40,7 +40,7 @@ public static class FileManager
         if (!packageExist) return;
 
         var parentPath = Path.GetDirectoryName(storagePath)!;
-        Directory.CreateDirectory(parentPath);
+        if (!Directory.Exists(parentPath)) Directory.CreateDirectory(parentPath);
 
         await using var stream = await FileSystem.Current.OpenAppPackageFileAsync(packageFile);
         await using var fileStream = File.Create(storagePath);
