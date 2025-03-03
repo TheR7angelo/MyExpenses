@@ -23,7 +23,8 @@
                 <ScrollView x:Name="ScrollViewTreeView">
 
                     <material:TreeView ItemsSource="{Binding TreeViewNodes}"
-                                       SelectionMode="Single">
+                                       SelectionMode="Single"
+                                       Margin="25, 0, 0, 0">
                     </material:TreeView>
 
                 </ScrollView>
