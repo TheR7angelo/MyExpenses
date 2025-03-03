@@ -75,7 +75,7 @@
                                         <CheckBox IsThreeState="False"
                                                   IsChecked="{Binding IsOpen, Mode=OneWay}"
                                                   Content="{Binding Name, Converter={StaticResource EmptyStringTreeViewConverter}}"
-                                                  Click="CheckBoxPlaceIsOpen_OnClick">
+                                                  PreviewMouseDown="CheckBoxPlaceIsOpen_OnClick">
                                         </CheckBox>
                                 </HierarchicalDataTemplate>
                             </HierarchicalDataTemplate.ItemTemplate>
