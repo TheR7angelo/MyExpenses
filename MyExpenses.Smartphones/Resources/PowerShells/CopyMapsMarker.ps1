@@ -2,7 +2,7 @@
 $scriptDirectory = Split-Path -Parent $MyInvocation.MyCommand.Definition
 
 # Source folder path
-$sourcePath = Join-Path -Path $scriptDirectory -ChildPath "..\..\..\MyExpenses.Wpf\Resources\Maps"
+$sourcePath = Join-Path -Path $scriptDirectory -ChildPath "..\..\..\MyExpenses.Commons\Resources\Assets\Maps"
 
 # Destination folder path
 $destinationPath = Join-Path -Path $scriptDirectory -ChildPath "..\Raw\Resources\Assets\Maps"
