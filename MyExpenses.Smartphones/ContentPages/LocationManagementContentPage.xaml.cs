@@ -66,6 +66,7 @@ public partial class LocationManagementContentPage
         InitializeComponent();
 
         MapControl.Map = map;
+        MapControl.Map.Tapped += MapControl_OnTapped;
         MapControl.SetZoom(PlaceLayer);
         UpdateDisplay();
 
@@ -177,9 +178,7 @@ public partial class LocationManagementContentPage
 
     #endregion
 
-    // Before beta 8
-    // https://mapsui.com/v5/nuget-of-latest-build/
-    private void MapControl_OnInfo(object? sender, MapInfoEventArgs e)
+    private bool MapControl_OnTapped(Mapsui.Map sender, MapEventArgs e)
     {
         var mapInfo = e.GetMapInfo(InfoLayers);
         SetClickTPlace(mapInfo);
@@ -191,7 +190,8 @@ public partial class LocationManagementContentPage
         // The ClickPoint instance is used to store the coordinates of the point clicked on the map.
         ClickPoint = new Point(lonLat.lon, lonLat.lat);
 
-        if (e.TapType is TapType.Long) _ = HandleLongTap();
+        if (e.GestureType is GestureType.LongPress) _ = HandleLongTap();
+        return true;
     }
 
     private void SetClickTPlace(MapInfo mapInfo)
