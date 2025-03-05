@@ -283,6 +283,7 @@ public partial class CurrencySymbolSummaryContentPage
 
     private async Task<bool> ValidateCurrencySymbol(string? currencySymbol = null)
     {
+        // ReSharper disable once HeapView.ClosureAllocation
         var symbolToTest = string.IsNullOrWhiteSpace(currencySymbol)
             ? SymbolText
             : currencySymbol;

@@ -69,6 +69,7 @@ public partial class App
 
         if (string.IsNullOrEmpty(cultureInfoCode))
         {
+            // ReSharper disable once HeapView.ClosureAllocation
             var currentCurrentCulture = CultureInfo.CurrentUICulture.Name;
 
             // ReSharper disable once HeapView.ObjectAllocation.Evident

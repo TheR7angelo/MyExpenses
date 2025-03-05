@@ -148,8 +148,11 @@ public partial class MainPage
         var selectedFolder = folderPickerResult.Folder.Path;
 
         this.ShowCustomPopupActivityIndicator(WelcomeManagementResources.ActivityIndicatorExportDatabaseToLocal);
+
+        // ReSharper disable once HeapView.ClosureAllocation
         foreach (var existingDatabase in existingDatabasesSelected)
         {
+            // ReSharper disable once HeapView.ClosureAllocation
             var newFilePath = Path.Join(selectedFolder, existingDatabase.FileName);
             Log.Information("Starting to copy {ExistingDatabaseFileName} to {NewFilePath}", existingDatabase.FileName, newFilePath);
 
@@ -453,6 +456,8 @@ public partial class MainPage
         }
 
         var newExistingDatabases = DbContextBackup.GetExistingDatabase();
+
+        // ReSharper disable once HeapView.ClosureAllocation
         foreach (var existingDatabase in newExistingDatabases)
         {
             // ReSharper disable once HeapView.DelegateAllocation

@@ -68,7 +68,8 @@ public partial class SelectDatabaseFileContentPage
 
     private void ListView_OnItemTapped(object? sender, ItemTappedEventArgs e)
     {
-        var selectedDatabase = e.Item as ExistingDatabase;
+        // ReSharper disable once HeapView.ClosureAllocation
+        if (e.Item is not ExistingDatabase selectedDatabase) return;
 
         // ReSharper disable once HeapView.DelegateAllocation
         if (ListView.TemplatedItems.FirstOrDefault(item => item.BindingContext == selectedDatabase) is not ViewCell

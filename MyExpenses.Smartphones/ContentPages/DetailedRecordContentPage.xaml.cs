@@ -373,7 +373,9 @@ public partial class DetailedRecordContentPage
     private void SelectorCountry_OnSelectionChanged(object? sender, EventArgs e)
     {
         if (sender is not Picker comboBox) return;
-        var country = comboBox.SelectedItem as string;
+
+        // ReSharper disable once HeapView.ClosureAllocation
+        if (comboBox.SelectedItem is not string country) return;
 
         // ReSharper disable once HeapView.ObjectAllocation.Evident
         // The creation of a new DataBaseContext instance (via `new DataBaseContext()`) is necessary to interact with the database.
@@ -417,7 +419,9 @@ public partial class DetailedRecordContentPage
     private void SelectorCity_OnSelectionChanged(object? sender, EventArgs e)
     {
         if (sender is not Picker comboBox) return;
-        var city = comboBox.SelectedItem as string;
+
+        // ReSharper disable once HeapView.ClosureAllocation
+        if (comboBox.SelectedItem is not string city) return;
 
         // ReSharper disable once HeapView.ObjectAllocation.Evident
         // The creation of a new DataBaseContext instance (via `new DataBaseContext()`) is necessary to interact with the database.
@@ -638,6 +642,7 @@ public partial class DetailedRecordContentPage
         }
     }
 
+    // ReSharper disable once HeapView.ClosureAllocation
     public void SetHistory(int? historyPk = null, THistory? tHistory = null)
     {
         if (historyPk is null && tHistory is null)
@@ -696,6 +701,7 @@ public partial class DetailedRecordContentPage
             using var context = new DataBaseContext();
 
             // ReSharper disable once HeapView.DelegateAllocation
+            // ReSharper disable once HeapView.ClosureAllocation
             var category = CategoryTypes.First(s => s.Id.Equals(History.CategoryTypeFk.Value));
             var color = context.TColors.First(s => s.Id.Equals(category.ColorFk!.Value));
             hexadecimalColorCode = color.HexadecimalColorCode!;

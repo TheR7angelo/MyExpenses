@@ -1,4 +1,3 @@
-using System.Collections.Immutable;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Globalization;
@@ -509,16 +508,12 @@ public partial class DashBoardContentPage
     {
         const EFilter eFilter = EFilter.Category;
 
-        IEnumerable<int> historyIds;
-        if (Filters.Count is 0) historyIds = VHistories.Select(s => s.Id);
-        else
-        {
-            var items = Filters.Last() == eFilter
-                ? OriginalVHistories.Last().AsEnumerable()
-                : VHistories.AsEnumerable();
-
-            historyIds = items.Select(s => s.Id);
-        }
+        // ReSharper disable once HeapView.ClosureAllocation
+        var historyIds = Filters.Count is 0
+            ? VHistories.Select(s => s.Id)
+            : Filters.Last() == eFilter
+                ? OriginalVHistories.Last().AsEnumerable().Select(s => s.Id)
+                : VHistories.AsEnumerable().Select(s => s.Id);
 
         // ReSharper disable once HeapView.ObjectAllocation.Evident
         // The creation of a new DataBaseContext instance (via `new DataBaseContext()`) is necessary to interact with the database.
@@ -652,16 +647,12 @@ public partial class DashBoardContentPage
     {
         const EFilter eFilter = EFilter.PaymentMode;
 
-        IEnumerable<int> historyIds;
-        if (Filters.Count is 0) historyIds = VHistories.Select(s => s.Id);
-        else
-        {
-            var items = Filters.Last() == eFilter
-                ? OriginalVHistories.Last().AsEnumerable()
-                : VHistories.AsEnumerable();
-
-            historyIds = items.Select(s => s.Id);
-        }
+        // ReSharper disable once HeapView.ClosureAllocation
+        var historyIds = Filters.Count is 0
+            ? VHistories.Select(s => s.Id)
+            : Filters.Last() == eFilter
+                ? OriginalVHistories.Last().AsEnumerable().Select(s => s.Id)
+                : VHistories.AsEnumerable().Select(s => s.Id);
 
         // ReSharper disable once HeapView.ObjectAllocation.Evident
         // The creation of a new DataBaseContext instance (via `new DataBaseContext()`) is necessary to interact with the database.
@@ -698,16 +689,12 @@ public partial class DashBoardContentPage
     {
         const EFilter eFilter = EFilter.Place;
 
-        IEnumerable<int> historyIds;
-        if (Filters.Count is 0) historyIds = VHistories.Select(s => s.Id);
-        else
-        {
-            var items = Filters.Last() == eFilter
-                ? OriginalVHistories.Last().AsEnumerable()
-                : VHistories.AsEnumerable();
-
-            historyIds = items.Select(s => s.Id);
-        }
+        // ReSharper disable once HeapView.ClosureAllocation
+        var historyIds = Filters.Count is 0
+            ? VHistories.Select(s => s.Id)
+            : Filters.Last() == eFilter
+                ? OriginalVHistories.Last().AsEnumerable().Select(s => s.Id)
+                : VHistories.AsEnumerable().Select(s => s.Id);
 
         // ReSharper disable once HeapView.ObjectAllocation.Evident
         // The creation of a new DataBaseContext instance (via `new DataBaseContext()`) is necessary to interact with the database.
@@ -911,11 +898,14 @@ public partial class DashBoardContentPage
         // This context provides the connection to the database and allows querying or updating data.
         // The `using` statement ensures that the context is disposed of properly after its use, freeing up resources like database connections.
         using var context = new DataBaseContext();
-        var newVTotalByAccounts = context.VTotalByAccounts.ToList();
+        // ReSharper disable once HeapView.ClosureAllocation
+        var newVTotalByAccounts = context.VTotalByAccounts.ToArray();
 
         // ReSharper disable HeapView.DelegateAllocation
+        // ReSharper disable HeapView.ClosureAllocation
         var itemsToDelete = VTotalByAccounts
-            .Where(s => newVTotalByAccounts.All(n => n.Id != s.Id)).ToImmutableArray();
+            .Where(s => newVTotalByAccounts.All(n => n.Id != s.Id)).ToArray();
+        // ReSharper restore HeapView.ClosureAllocation
         // ReSharper restore HeapView.DelegateAllocation
 
         foreach (var item in itemsToDelete)
@@ -923,6 +913,7 @@ public partial class DashBoardContentPage
             VTotalByAccounts.Remove(item);
         }
 
+        // ReSharper disable once HeapView.ClosureAllocation
         foreach (var vTotalByAccount in newVTotalByAccounts)
         {
             // ReSharper disable once HeapView.DelegateAllocation
@@ -938,6 +929,7 @@ public partial class DashBoardContentPage
         }
     }
 
+    // ReSharper disable once HeapView.ClosureAllocation
     private void RefreshAccountTotal(int id)
     {
         // ReSharper disable once HeapView.ObjectAllocation.Evident

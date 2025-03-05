@@ -8,6 +8,7 @@ public class ISqlConverter : IValueConverter
 {
     public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
+        // ReSharper disable once HeapView.ClosureAllocation
         if (value is not int id) return null;
         if (parameter is not Binding binding) return null;
 
