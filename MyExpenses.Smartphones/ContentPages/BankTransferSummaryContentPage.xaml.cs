@@ -504,16 +504,12 @@ public partial class BankTransferSummaryContentPage
     {
         const EFilter eFilter = EFilter.Category;
 
-        IEnumerable<int> transferIds;
-        if (Filters.Count is 0) transferIds = BankTransferSummaries.Select(s => s.Id);
-        else
-        {
-            var items = Filters.Last() == eFilter
-                ? OriginalVBankTransferSummary.Last().AsEnumerable()
-                : BankTransferSummaries.AsEnumerable();
-
-            transferIds = items.Select(s => s.Id);
-        }
+        // ReSharper disable once HeapView.ClosureAllocation
+        var transferIds = Filters.Count is 0
+            ? BankTransferSummaries.Select(s => s.Id)
+            : Filters.Last() == eFilter
+                ? OriginalVBankTransferSummary.Last().AsEnumerable().Select(s => s.Id)
+                : BankTransferSummaries.AsEnumerable().Select(s => s.Id);
 
         // ReSharper disable once HeapView.ObjectAllocation.Evident
         // The creation of a new DataBaseContext instance (via `new DataBaseContext()`) is necessary to interact with the database.
@@ -544,16 +540,12 @@ public partial class BankTransferSummaryContentPage
     {
         const EFilter eFilter = EFilter.FromAccounts;
 
-        IEnumerable<int> transferIds;
-        if (Filters.Count is 0) transferIds = BankTransferSummaries.Select(s => s.Id);
-        else
-        {
-            var items = Filters.Last() == eFilter
-                ? OriginalVBankTransferSummary.Last().AsEnumerable()
-                : BankTransferSummaries.AsEnumerable();
-
-            transferIds = items.Select(s => s.Id);
-        }
+        // ReSharper disable once HeapView.ClosureAllocation
+        var transferIds = Filters.Count is 0
+            ? BankTransferSummaries.Select(s => s.Id)
+            : Filters.Last() == eFilter
+                ? OriginalVBankTransferSummary.Last().AsEnumerable().Select(s => s.Id)
+                : BankTransferSummaries.AsEnumerable().Select(s => s.Id);
 
         // ReSharper disable once HeapView.ObjectAllocation.Evident
         // The creation of a new DataBaseContext instance (via `new DataBaseContext()`) is necessary to interact with the database.
@@ -643,16 +635,12 @@ public partial class BankTransferSummaryContentPage
     {
         const EFilter eFilter = EFilter.ToAccounts;
 
-        IEnumerable<int> transferIds;
-        if (Filters.Count is 0) transferIds = BankTransferSummaries.Select(s => s.Id);
-        else
-        {
-            var items = Filters.Last() == eFilter
-                ? OriginalVBankTransferSummary.Last().AsEnumerable()
-                : BankTransferSummaries.AsEnumerable();
-
-            transferIds = items.Select(s => s.Id);
-        }
+        // ReSharper disable once HeapView.ClosureAllocation
+        var transferIds = Filters.Count is 0
+            ? BankTransferSummaries.Select(s => s.Id)
+            : Filters.Last() == eFilter
+                ? OriginalVBankTransferSummary.Last().AsEnumerable().Select(s => s.Id)
+                : BankTransferSummaries.AsEnumerable().Select(s => s.Id);
 
         // ReSharper disable once HeapView.ObjectAllocation.Evident
         // The creation of a new DataBaseContext instance (via `new DataBaseContext()`) is necessary to interact with the database.
