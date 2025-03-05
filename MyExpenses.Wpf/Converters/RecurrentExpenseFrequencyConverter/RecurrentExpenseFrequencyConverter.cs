@@ -11,6 +11,7 @@ public class RecurrentExpenseFrequencyConverter : IValueConverter
     {
         if (value is not ERecursiveFrequency recursiveFrequency) return Binding.DoNothing;
 
+        // ReSharper disable once HeapView.ClosureAllocation
         var id = (int)recursiveFrequency;
 
         // ReSharper disable once HeapView.ObjectAllocation.Evident

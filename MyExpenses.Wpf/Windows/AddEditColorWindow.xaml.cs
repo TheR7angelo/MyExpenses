@@ -242,6 +242,7 @@ public partial class AddEditColorWindow
         SetTColor(colorToEdit);
     }
 
+    // ReSharper disable once HeapView.ClosureAllocation
     public void SetTColor(TColor colorToEdit)
     {
         colorToEdit.CopyPropertiesTo(Color);

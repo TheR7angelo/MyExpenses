@@ -71,7 +71,9 @@ public partial class ColorManagementPage
 
     private void ButtonEditColor_OnClick(object sender, RoutedEventArgs e)
     {
-        var button = (Button)sender;
+        if (sender is not Button button) return;
+
+        // ReSharper disable once HeapView.ClosureAllocation
         if (button.DataContext is not TColor colorToEdit) return;
 
         // ReSharper disable once HeapView.ObjectAllocation.Evident

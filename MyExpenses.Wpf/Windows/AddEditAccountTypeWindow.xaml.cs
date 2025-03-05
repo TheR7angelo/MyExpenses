@@ -193,6 +193,7 @@ public partial class AddEditAccountTypeWindow
         }
     }
 
+    // ReSharper disable once HeapView.ClosureAllocation
     public void SetTAccountType(TAccountType accountType)
     {
         accountType.CopyPropertiesTo(AccountType);

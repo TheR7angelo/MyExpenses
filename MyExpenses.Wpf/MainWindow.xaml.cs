@@ -377,7 +377,9 @@ public partial class MainWindow
         // return fileMetadata;
     }
 
+    // ReSharper disable HeapView.ClosureAllocation
     private static async Task ExportToLocalFolderAsync(string databaseFilePath, bool isCompress)
+        // ReSharper restore HeapView.ClosureAllocation
     {
         // ReSharper disable once HeapView.ObjectAllocation.Evident
         var folderDialog = new FolderDialog();
@@ -412,6 +414,7 @@ public partial class MainWindow
         if (response is MessageBoxResult.Yes) selectedDialog.StartFile();
     }
 
+    // ReSharper disable once HeapView.ClosureAllocation
     private static async Task SaveToLocal(string database)
     {
         // ReSharper disable once HeapView.ObjectAllocation.Evident

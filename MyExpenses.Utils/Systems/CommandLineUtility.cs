@@ -12,6 +12,7 @@ public static class CommandLineUtility
         // because each instance can have its own specific configuration.
         var parser = new Parser(settings => settings.CaseInsensitiveEnumValues = true);
 
+        // ReSharper disable once HeapView.ClosureAllocation
         var result = new SSystems();
 
         parser.ParseArguments<Options>(args)

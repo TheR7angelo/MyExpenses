@@ -40,6 +40,7 @@ public static class PanelExtensions
     /// </summary>
     /// <param name="d">The dependency object representing the panel.</param>
     /// <param name="e">The event arguments containing the new margin value.</param>
+    // ReSharper disable once HeapView.ClosureAllocation
     private static void OnMarginForAllChildrenChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
     {
         if (d is Panel panel)

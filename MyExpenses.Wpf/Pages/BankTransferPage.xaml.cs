@@ -578,8 +578,10 @@ public partial class BankTransferPage
 
     #region Function
 
+    // ReSharper disable once HeapView.ClosureAllocation
     private IEnumerable<TAccount> GetAccountToAdd(IEnumerable<TAccount> accounts)
         // ReSharper disable HeapView.DelegateAllocation
+        // ReSharper disable once HeapView.ClosureAllocation
         => Accounts.Where(account => accounts.All(s => s.Id != account.Id));
     // ReSharper restore HeapView.DelegateAllocation
 
@@ -639,6 +641,7 @@ public partial class BankTransferPage
             : 0;
     }
 
+    // ReSharper disable once HeapView.ClosureAllocation
     private void RemoveByAccountId(int? accountId)
     {
         // ReSharper disable once HeapView.DelegateAllocation

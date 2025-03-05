@@ -15,11 +15,13 @@ public static class PopupFilterToTableUtils
     /// <exception cref="NotImplementedException">Thrown if the specified type is not supported.</exception>
     public static T[]? ToTable<T>(this IEnumerable<PopupSearch> items)
     {
+        // ReSharper disable once HeapView.ClosureAllocation
         using var context = new DataBaseContext();
 
         var type = typeof(T);
         if (type == typeof(TAccount))
         {
+            // ReSharper disable once HeapView.ClosureAllocation
             return items.Select(s => context.TAccounts.First(a => a.Id.Equals(s.Id))).ToArray() as T[];
         }
 

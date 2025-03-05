@@ -56,7 +56,9 @@ public static class EntityQueries
     /// year and month that are marked as active and not forcefully deactivated.
     /// </returns>
     public static IEnumerable<TRecursiveExpense> GetActiveRecurrencesForCurrentMonth(this DataBaseContext context,
+        // ReSharper disable HeapView.ClosureAllocation
         int year, int month)
+        // ReSharper restore HeapView.ClosureAllocation
     {
         ArgumentOutOfRangeException.ThrowIfGreaterThan(month, 12);
 
@@ -162,10 +164,12 @@ public static class EntityQueries
     /// the total row counts before filtering, and the row counts after applying filters.
     /// </returns>
     public static FilteredBankTransfersResults GetFilteredBankTransfers(this DataBaseContext context,
+        // ReSharper disable HeapView.ClosureAllocation
         int? year = null, int? month = null,
         string[]? fromAccounts = null, string[]? toAccounts = null,
         double[]? values = null, string[]? mainReasons = null, string?[]? additionalReasons = null,
         string[]? categories = null)
+        // ReSharper restore HeapView.ClosureAllocation
     {
         IQueryable<VBankTransferSummary> query = context.VBankTransferSummaries;
         if (!query.Any()) return new FilteredBankTransfersResults();
@@ -262,11 +266,13 @@ public static class EntityQueries
     /// A <see cref="FilteredHistoriesResults"/> object containing the filtered transaction histories,
     /// along with the total row count and the total count of filtered rows.
     /// </returns>
+    // ReSharper disable once HeapView.ClosureAllocation
     public static FilteredHistoriesResults GetFilteredHistories(this string accountName,
         int? month = null, int? year = null,
         string[]? categories = null, string?[]? descriptions = null, string[]? modePayments = null,
         string[]? places = null,
         double[]? values = null, bool[]? pointed = null)
+        // ReSharper restore HeapView.ClosureAllocation
     {
         // ReSharper disable once HeapView.ObjectAllocation.Evident
         // Accessing the underlying data is only possible through the "DataBaseContext" object, which serves as the entry point
@@ -349,8 +355,10 @@ public static class EntityQueries
     /// filtered category total details based on the specified account name
     /// and optional filters for month and year.
     /// </returns>
+    // ReSharper disable once HeapView.ClosureAllocation
     public static IEnumerable<VDetailTotalCategory> GetFilteredVDetailTotalCategories(this string accountName,
         int? month = null, int? year = null)
+        // ReSharper restore HeapView.ClosureAllocation
     {
         // ReSharper disable once HeapView.ObjectAllocation.Evident
         // Accessing the underlying data is only possible through the "DataBaseContext" object, which serves as the entry point
@@ -376,8 +384,7 @@ public static class EntityQueries
 
     public static IEnumerable<VRecursiveExpenseDerive> GetVRecursiveExpenseDerive()
     {
-        var mapper = Mapping.Mapper;
-
+        // ReSharper disable once HeapView.ClosureAllocation
         var now = DateTime.Now;
 
         // ReSharper disable once HeapView.ObjectAllocation.Evident
@@ -390,7 +397,7 @@ public static class EntityQueries
             .Where(s => s.NextDueDate.Year.Equals(now.Year) && s.NextDueDate.Month.Equals(now.Month))
             .OrderBy(s => s.NextDueDate)
             .Select(s => s.Id.ToISql<VRecursiveExpense>())
-            .Select(s => mapper.Map<VRecursiveExpenseDerive>(s))
+            .Select(s => Mapping.Mapper.Map<VRecursiveExpenseDerive>(s))
             .ToList();
 
         return records;

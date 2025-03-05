@@ -51,6 +51,7 @@ public partial class HowToUseControl
             var filenameSplit = filename.Split('_');
             if (filenameSplit.Length < 1) continue;
 
+            // ReSharper disable once HeapView.ClosureAllocation
             var cultureName = filenameSplit[1];
 
             // ReSharper disable once HeapView.DelegateAllocation
@@ -74,6 +75,7 @@ public partial class HowToUseControl
     {
         await WebView2.EnsureCoreWebView2Async();
 
+        // ReSharper disable once HeapView.ClosureAllocation
         var currentCulture = CultureInfo.CurrentCulture;
 
         // ReSharper disable once HeapView.DelegateAllocation

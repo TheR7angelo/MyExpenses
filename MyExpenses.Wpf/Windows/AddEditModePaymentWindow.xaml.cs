@@ -216,6 +216,7 @@ public partial class AddEditModePaymentWindow
     private bool CheckModePaymentName(string modePaymentName)
         => ModePayments.Select(s => s.Name).Contains(modePaymentName);
 
+    // ReSharper disable once HeapView.ClosureAllocation
     public void SetTModePayment(TModePayment oldModePayment)
     {
         oldModePayment.CopyPropertiesTo(ModePayment);

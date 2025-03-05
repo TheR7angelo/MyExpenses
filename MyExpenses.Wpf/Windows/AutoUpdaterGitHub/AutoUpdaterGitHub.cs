@@ -149,8 +149,10 @@ public static class AutoUpdaterGitHub
     /// <returns>The updated list of release notes</returns>
     private static void UpdateReleaseNotesFiles(this List<Release> releasesNotes)
     {
+        // ReSharper disable HeapView.ClosureAllocation
         string background = null!;
         string foreground = null!;
+        // ReSharper restore HeapView.ClosureAllocation
 
         // ReSharper disable once HeapView.DelegateAllocation
         Application.Current.Dispatcher.Invoke(() =>

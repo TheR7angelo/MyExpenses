@@ -195,6 +195,7 @@ public static class DbContextHelperSetDefaultValues
         // This blacklist of colors contains system-related or non-user-friendly colors (e.g., "Control", "Desktop", "Transparent").
         // These colors are excluded to ensure that only user-visible, aesthetic, and meaningful colors are used in the application.
         // This restriction is crucial for maintaining a clean and consistent user interface experience.
+        // ReSharper disable once HeapView.ClosureAllocation
         var blackList = new[]
         {
             KnownColor.Control, KnownColor.Desktop, KnownColor.Highlight, KnownColor.Info, KnownColor.Menu,

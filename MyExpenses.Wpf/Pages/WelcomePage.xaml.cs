@@ -565,6 +565,7 @@ public partial class WelcomePage
         }
 
         var newExistingDatabases = DbContextBackup.GetExistingDatabase();
+        // ReSharper disable once HeapView.ClosureAllocation
         foreach (var existingDatabase in newExistingDatabases)
         {
             // ReSharper disable once HeapView.DelegateAllocation

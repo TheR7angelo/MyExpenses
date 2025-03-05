@@ -12,6 +12,7 @@ public static class EntityQueriesAnalysis
     /// </summary>
     /// <param name="accountId">The unique identifier of the account to retrieve the data for.</param>
     /// <returns>An enumerable collection of groups where each group contains records grouped by mode of payment.</returns>
+    // ReSharper disable once HeapView.ClosureAllocation
     public static List<IGrouping<string?, GroupsByModePaymentCategory>> GetVAccountModePaymentCategoryMonthlySums(this int accountId)
     {
         // ReSharper disable once HeapView.ObjectAllocation.Evident
@@ -49,6 +50,7 @@ public static class EntityQueriesAnalysis
     /// </summary>
     /// <param name="accountId">The unique identifier of the account to retrieve the data for.</param>
     /// <returns>An enumerable collection of groups where each group contains records grouped by period.</returns>
+    // ReSharper disable once HeapView.ClosureAllocation
     public static List<IGrouping<string?, AnalysisVAccountCategoryMonthlySumPositiveNegative>> GetVAccountCategoryMonthlySumPositiveNegative(this int accountId)
     {
         // ReSharper disable once HeapView.ObjectAllocation.Evident
@@ -73,6 +75,7 @@ public static class EntityQueriesAnalysis
     /// </summary>
     /// <param name="accountId">The unique identifier of the account to retrieve data for.</param>
     /// <returns>A list of grouped results, where each group contains records classified by category type.</returns>
+    // ReSharper disable once HeapView.ClosureAllocation
     public static List<IGrouping<string?, GroupsByCategories>> GetVAccountCategoryMonthlySums(this int accountId)
     {
         // ReSharper disable once HeapView.ObjectAllocation.Evident

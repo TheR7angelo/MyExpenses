@@ -136,6 +136,7 @@ public partial class ProgressBarWindow
     /// <returns>A Timer object that updates the remaining time.</returns>
     private Timer GetTimeLeftProgress(out IProgress<TimeSpan> timeLeftProgress)
     {
+        // ReSharper disable once HeapView.ClosureAllocation
         var timeLeft = TimeSpan.Zero;
 
         // ReSharper disable once HeapView.ObjectAllocation.Evident
@@ -155,6 +156,7 @@ public partial class ProgressBarWindow
     /// <returns>A Timer instance that updates the speed progress at regular intervals.</returns>
     private Timer GetSpeedProgress(out IProgress<(double NormalizeBytes, string NormalizeBytesUnit)> speedProgress)
     {
+        // ReSharper disable once HeapView.ClosureAllocation
         double latestSpeed = 0;
         var latestUnit = string.Empty;
 
@@ -189,6 +191,7 @@ public partial class ProgressBarWindow
     public async Task StartProgressBarDownload(string url, string destinationFile, bool overwrite = false)
     {
         // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // ReSharper disable once HeapView.ClosureAllocation
         var stopwatch = new Stopwatch();
 
         // ReSharper disable once HeapView.ObjectAllocation.Evident

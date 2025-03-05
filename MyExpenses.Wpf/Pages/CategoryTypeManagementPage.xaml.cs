@@ -97,6 +97,7 @@ public partial class CategoryTypeManagementPage
         var editedCategoryType = addEditCategoryTypeWindow.CategoryType;
         Log.Information("Attempting to edit the category type id: {Id}", editedCategoryType.Id);
 
+        // ReSharper disable once HeapView.ClosureAllocation
         var editedCategoryTypeDeepCopy = editedCategoryType.DeepCopy()!;
 
         var (success, exception) = editedCategoryTypeDeepCopy.AddOrEdit();

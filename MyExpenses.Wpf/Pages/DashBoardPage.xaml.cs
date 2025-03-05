@@ -615,6 +615,7 @@ public partial class DashBoardPage
         RefreshDataGrid();
     }
 
+    // ReSharper disable once HeapView.ClosureAllocation
     private void RefreshAccountTotal(int id)
     {
         // ReSharper disable once HeapView.ObjectAllocation.Evident
@@ -637,10 +638,13 @@ public partial class DashBoardPage
         // Necessary instantiation of DataBaseContext to interact with the database.
         // This creates a scoped database context for performing queries and modifications in the database.
         using var context = new DataBaseContext();
+
+        // ReSharper disable once HeapView.ClosureAllocation
         var newVTotalByAccounts = context.VTotalByAccounts.ToList();
 
         var itemsToDelete = VTotalByAccounts
             // ReSharper disable HeapView.DelegateAllocation
+            // ReSharper disable once HeapView.ClosureAllocation
             .Where(s => newVTotalByAccounts.All(n => n.Id != s.Id)).ToArray();
         // ReSharper restore HeapView.DelegateAllocation
 
@@ -649,6 +653,7 @@ public partial class DashBoardPage
             VTotalByAccounts.Remove(item);
         }
 
+        // ReSharper disable once HeapView.ClosureAllocation
         foreach (var vTotalByAccount in newVTotalByAccounts)
         {
             // ReSharper disable once HeapView.DelegateAllocation

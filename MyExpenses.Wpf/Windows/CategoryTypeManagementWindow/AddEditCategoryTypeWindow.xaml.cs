@@ -252,6 +252,7 @@ public partial class AddEditCategoryTypeWindow
     private bool CheckCategoryTypeName(string accountName)
         => CategoryTypes.Select(s => s.Name).Contains(accountName);
 
+    // ReSharper disable once HeapView.ClosureAllocation
     public void SetTCategoryType(TCategoryType categoryType)
     {
         categoryType.CopyPropertiesTo(CategoryType);
@@ -289,6 +290,7 @@ public partial class AddEditCategoryTypeWindow
             return;
         }
 
+        // ReSharper disable once HeapView.ClosureAllocation
         var editedColor = addEditColorWindow.Color;
 
         Log.Information("Attempting to edit the color \"{AccountName}\"", editedColor.Name);

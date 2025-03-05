@@ -147,6 +147,7 @@ public static class DbContextHelper
     /// The first item is a boolean representing success; the second is an exception if an error occurred.</returns>
     /// <exception cref="ArgumentNullException">Thrown when the provided entity is null.</exception>
     /// <exception cref="InvalidOperationException">Thrown when the database context cannot perform the delete operation.</exception>
+    // ReSharper disable once HeapView.ClosureAllocation
     public static (bool Success, Exception? Exception) Delete<T>(this T entity, bool cascade = false)
         where T : class, ISql
     {
@@ -187,6 +188,7 @@ public static class DbContextHelper
     /// and their child entities are also deleted.
     /// Otherwise, the deletion is conditional, depending on the result of locating a matching entity.
     /// </remarks>
+    // ReSharper disable once HeapView.ClosureAllocation
     private static void Delete<TEntity>(this DbContext context, TEntity entity,
         Expression<Func<TEntity, bool>> predicate, bool cascade) where TEntity : class
     {
@@ -221,6 +223,7 @@ public static class DbContextHelper
     /// <typeparam name="T">The type of the entity, which must implement the ISql interface.</typeparam>
     /// <param name="entity">The entity to be added or updated in the database.</param>
     /// <returns>A tuple containing a success flag and an exception if an error occurs. The success value is true if the operation was successful, otherwise false. If the operation fails, the exception will contain details of the error.</returns>
+    // ReSharper disable once HeapView.ClosureAllocation
     public static (bool Success, Exception? Exception) AddOrEdit<T>(this T entity) where T : class, ISql
     {
         try

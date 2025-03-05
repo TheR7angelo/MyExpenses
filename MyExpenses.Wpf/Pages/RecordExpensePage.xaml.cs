@@ -381,6 +381,7 @@ public partial class RecordExpensePage
             var editedCategoryType = addEditCategoryTypeWindow.CategoryType;
             Log.Information("Attempting to edit the category type id: {Id}", editedCategoryType.Id);
 
+            // ReSharper disable once HeapView.ClosureAllocation
             var editedCategoryTypeDeepCopy = editedCategoryType.DeepCopy()!;
 
             var (success, exception) = editedCategoryType.AddOrEdit();
@@ -659,8 +660,10 @@ public partial class RecordExpensePage
 
     private void SelectorCity_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        var comboBox = (ComboBox)sender;
-        var city = comboBox.SelectedItem as string;
+        if (sender is not ComboBox comboBox)return;
+
+        // ReSharper disable once HeapView.ClosureAllocation
+        if (comboBox.SelectedItem is not string city) return;
 
         // ReSharper disable once HeapView.ObjectAllocation.Evident
         // Necessary instantiation of DataBaseContext to interact with the database.
@@ -696,8 +699,10 @@ public partial class RecordExpensePage
 
     private void SelectorCountry_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        var comboBox = (ComboBox)sender;
-        var country = comboBox.SelectedItem as string;
+        if (sender is not ComboBox comboBox)return;
+
+        // ReSharper disable once HeapView.ClosureAllocation
+        if (comboBox.SelectedItem is not string country) return;
 
         // ReSharper disable once HeapView.ObjectAllocation.Evident
         // Necessary instantiation of DataBaseContext to interact with the database.

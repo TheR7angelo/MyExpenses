@@ -368,6 +368,7 @@ public partial class LocationManagementPage
 
     #region Function
 
+    // ReSharper disable once HeapView.ClosureAllocation
     private void AddPlaceTreeViewCountryGroup(TPlace placeToAdd)
     {
         // ReSharper disable HeapView.DelegateAllocation
@@ -443,6 +444,7 @@ public partial class LocationManagementPage
         else MsgBox.Show(LocationManagementResources.MessageBoxProcessNewPlaceError, MsgBoxImage.Error);
     }
 
+    // ReSharper disable once HeapView.ClosureAllocation
     private void RemovePlaceTreeViewCountryGroup(TPlace placeToDelete)
     {
         var countryToRemove = CountryGroups

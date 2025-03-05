@@ -226,6 +226,7 @@ public partial class AddEditCurrencyWindow
     private bool CheckCurrencySymbol(string currencySymbol)
         => Currencies.Select(s => s.Symbol).Contains(currencySymbol);
 
+    // ReSharper disable once HeapView.ClosureAllocation
     public void SetTCurrency(TCurrency currencyToEdit)
     {
         currencyToEdit.CopyPropertiesTo(Currency);

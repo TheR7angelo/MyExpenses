@@ -51,6 +51,7 @@ public static class DropboxServiceUtils
     /// <param name="existingDatabase">The existing database to evaluate for synchronization status.</param>
     /// <param name="projectSystem">The project system context (for example, Wpf or Maui) used to create and initialize a Dropbox service instance.</param>
     /// <returns>A task representing the asynchronous operation, containing the synchronization status of the database as a <see cref="SyncStatus"/> value.</returns>
+    // ReSharper disable once HeapView.ClosureAllocation
     public static async Task<SyncStatus> CheckStatus(this ExistingDatabase existingDatabase,
         ProjectSystem projectSystem)
     {
@@ -98,6 +99,7 @@ public static class DropboxServiceUtils
     /// </summary>
     /// <param name="existingDatabase">The instance of the database to be checked for synchronization.</param>
     /// <param name="projectSystem">The type of project system initiating the sync check.</param>
+    // ReSharper disable once HeapView.ClosureAllocation
     public static void CheckExistingDatabaseIsSync(this ExistingDatabase existingDatabase,
         ProjectSystem projectSystem)
     {

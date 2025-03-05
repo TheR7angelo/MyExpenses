@@ -24,6 +24,7 @@ public static class MapsuiMapExtensions
         // cannot live beyond the scope of the current stack frame.
         // Once the lambda usage is refactored or removed, this array can be replaced with Span<T>
         // or ReadOnlySpan<T> to avoid heap allocation and optimize memory usage.
+        // ReSharper disable once HeapView.ClosureAllocation
         var blackList = new []
         {
             KnownTileSource.OpenCycleMap, KnownTileSource.OpenCycleMapTransport,

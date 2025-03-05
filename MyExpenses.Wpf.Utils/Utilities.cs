@@ -15,6 +15,7 @@ public static class Utilities
     /// <param name="tabControl">The TabControl to search.</param>
     /// <param name="header">The header text to match.</param>
     /// <returns>The TabItem with a matching header, or null if not found.</returns>
+    // ReSharper disable once HeapView.ClosureAllocation
     public static TabItem? FindTabItemByHeader(this TabControl tabControl, string header)
     {
         var children = tabControl.FindVisualChildren<TabItem>();
