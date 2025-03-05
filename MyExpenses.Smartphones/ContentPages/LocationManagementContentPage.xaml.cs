@@ -66,12 +66,13 @@ public partial class LocationManagementContentPage
         InitializeComponent();
 
         MapControl.Map = map;
-        MapControl.Map.Tapped += MapControl_OnTapped;
         MapControl.SetZoom(PlaceLayer);
         UpdateDisplay();
 
-        // ReSharper disable once HeapView.DelegateAllocation
+        // ReSharper disable HeapView.DelegateAllocation
+        MapControl.Map.Tapped += MapControl_OnTapped;
         DeviceDisplay.MainDisplayInfoChanged += DeviceDisplay_OnMainDisplayInfoChanged;
+        // ReSharper restore HeapView.DelegateAllocation
     }
 
     #region Action
