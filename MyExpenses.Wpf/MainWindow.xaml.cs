@@ -8,6 +8,7 @@ using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.IO;
 using MyExpenses.Models.WebApi.Authenticator;
 using MyExpenses.Models.Wpf.Save;
+using MyExpenses.SharedUtils;
 using MyExpenses.SharedUtils.GlobalInfos;
 using MyExpenses.SharedUtils.Utils;
 using MyExpenses.Sql.Context;
@@ -429,7 +430,9 @@ public partial class MainWindow
 
         selectedDialog = Path.ChangeExtension(selectedDialog, DatabaseInfos.Extension);
         Log.Information("Starting to copy database to {SelectedDialog}", selectedDialog);
-        await Task.Run(() => { File.Copy(database, selectedDialog, true); });
+
+        await database.CopyAsync(selectedDialog, true);
+
         Log.Information("Database successfully copied to local storage");
 
         var parentDirectory = Path.GetDirectoryName(selectedDialog)!;
