@@ -1,4 +1,20 @@
-#  (2025-01-31)
+#  (2025-03-09)
+
+
+
+## [1.1.6](https://github.com/TheR7angelo/MyExpenses/compare/1.1.0...1.1.6) (2025-03-09)
+
+
+### Bug Fixes
+
+* **Update:** Fix account name assignment in analysis series generation ([e600f4b](https://github.com/TheR7angelo/MyExpenses/commit/e600f4b946f2f46e18104a42eed27a00c894db66))
+* **Update:** Fix DateOnly to DateTime conversion logic ([3dde5b3](https://github.com/TheR7angelo/MyExpenses/commit/3dde5b3b0c3edbb269dc94083bbf62bab480b003))
+* **Update:** Fix folder selection logic in FolderDialog ([e2bcef3](https://github.com/TheR7angelo/MyExpenses/commit/e2bcef3a065e8dc34d26ff50db31e275f4b7b8ba))
+* **Update:** Order GitHub releases by publication date in API client ([0f199c1](https://github.com/TheR7angelo/MyExpenses/commit/0f199c1c9d70123b6b9105a8d1398abfee6b5b05))
+* **Update:** Simplify child entity extraction in DbContextHelper ([d17300c](https://github.com/TheR7angelo/MyExpenses/commit/d17300cb2e3ad5f72f3f335c4b0cda69f1843c1e))
+* **Update:** Swap parameter order for consistency in MsgBox methods ([6a63fcf](https://github.com/TheR7angelo/MyExpenses/commit/6a63fcfa718bab890062676940fb238c22f4640f))
+* **Update:** Update location checkbox event to use PreviewMouseDown ([a1477bb](https://github.com/TheR7angelo/MyExpenses/commit/a1477bbb5670fd02b7167f6b1f2246671bb25a96))([63b8b99](https://github.com/TheR7angelo/MyExpenses/commit/63b8b9926e73beb4c6e087a169087477d57277cd))
+* **Update:** Update message box resources for category type actions ([8582c63](https://github.com/TheR7angelo/MyExpenses/commit/8582c63cb3f89c592b3377fa98b4b92253421ce0))
 
 
 
@@ -34,7 +50,7 @@
 
 
 
-## [1.0.5](https://github.com/TheR7angelo/MyExpenses/compare/v1.0.0...v1.0.5) (2024-11-20)
+## [1.0.5](https://github.com/TheR7angelo/MyExpenses/compare/v1.1.0...v1.0.5) (2024-11-20)
 
 
 ### Bug Fixes
@@ -51,9 +67,17 @@
 
 ### Features
 
-* Update CHANGELOG date to 2024-09-27 ([b1389f0](https://github.com/TheR7angelo/MyExpenses/commit/b1389f0d37f6e94c3bac012b2dc5ad665956a8ca))
 * **Update:** Add PKCE support for OAuth authentication ([2f704f9](https://github.com/TheR7angelo/MyExpenses/commit/2f704f99b37202b9c1e694e6e2183a3e46db3d52))
 * **Update:** Add XML documentation comments to ObjectComparer methods ([2c3b2e3](https://github.com/TheR7angelo/MyExpenses/commit/2c3b2e3384e9143104f5fc575a804e571a6394b4))
+
+
+
+# [1.1.0](https://github.com/TheR7angelo/MyExpenses/compare/v1.0.0...v1.1.0) (2024-09-27)
+
+
+### Features
+
+* Update CHANGELOG date to 2024-09-27 ([b1389f0](https://github.com/TheR7angelo/MyExpenses/commit/b1389f0d37f6e94c3bac012b2dc5ad665956a8ca))
 
 
 

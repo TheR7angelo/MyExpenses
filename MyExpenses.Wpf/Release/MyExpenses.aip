@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<DOCUMENT Type="Advanced Installer" CreateVersion="22.0" version="22.4" Modules="professional" RootPath="." Language="en" Id="{8CDCC87C-04C7-466B-AD40-6720D0E36EE0}">
+<DOCUMENT Type="Advanced Installer" CreateVersion="22.0" version="22.5" Modules="professional" RootPath="." Language="en" Id="{8CDCC87C-04C7-466B-AD40-6720D0E36EE0}">
   <COMPONENT cid="caphyon.advinst.msicomp.MsiPropsComponent">
     <ROW Property="AI_APP_FILE" Value="[#MyExpenses.exe]"/>
     <ROW Property="AI_BITMAP_DISPLAY_MODE" Value="0"/>
@@ -17,10 +17,10 @@
     <ROW Property="ARPURLINFOABOUT" Value="https://github.com/TheR7angelo/MyExpenses"/>
     <ROW Property="CTRLS" Value="2"/>
     <ROW Property="Manufacturer" Value="TheR7angelo"/>
-    <ROW Property="ProductCode" Value="1033:{86ED2219-DA0B-4F49-8652-139A3499F8C0} 1036:{86ED2219-DA0B-4F49-8652-139A3499F8C0} 2057:{86ED2219-DA0B-4F49-8652-139A3499F8C0} " Type="16"/>
+    <ROW Property="ProductCode" Value="1033:{0B20D735-653E-4572-8095-5FD601D56662} 1036:{0B20D735-653E-4572-8095-5FD601D56662} 2057:{0B20D735-653E-4572-8095-5FD601D56662} " Type="16"/>
     <ROW Property="ProductLanguage" Value="1033"/>
     <ROW Property="ProductName" Value="MyExpenses"/>
-    <ROW Property="ProductVersion" Value="1.1.0.0" Options="32"/>
+    <ROW Property="ProductVersion" Value="1.1.6.0" Options="32"/>
     <ROW Property="RUNAPPLICATION" Value="1" Type="4"/>
     <ROW Property="SecureCustomProperties" Value="OLDPRODUCTS;AI_NEWERPRODUCTFOUND;AI_SETUPEXEPATH;SETUPEXEDIR"/>
     <ROW Property="UpgradeCode" Value="{453EF60B-7093-49CF-969A-AC4748CA88F9}"/>
@@ -166,6 +166,8 @@
     <ROW Component="MyExpenses.Models.resources.dll_1" ComponentId="{566D1324-5EF0-4522-A976-EF1108DA0DA2}" Directory_="frfr_Dir" Attributes="0" KeyPath="MyExpenses.Models.resources.dll_1"/>
     <ROW Component="MyExpenses.Share.Core.dll" ComponentId="{C11B001F-E715-4649-A43F-458D4844158A}" Directory_="APPDIR" Attributes="0" KeyPath="MyExpenses.Share.Core.dll"/>
     <ROW Component="MyExpenses.SharedUtils.dll" ComponentId="{92610FDF-B421-443E-B128-6C63A161B61A}" Directory_="APPDIR" Attributes="0" KeyPath="MyExpenses.SharedUtils.dll"/>
+    <ROW Component="MyExpenses.SharedUtils.resources.dll" ComponentId="{5060E2B6-DF21-48BB-9068-7ED765734227}" Directory_="frfr_Dir" Attributes="0" KeyPath="MyExpenses.SharedUtils.resources.dll"/>
+    <ROW Component="MyExpenses.SharedUtils.resources.dll_1" ComponentId="{71A15D31-B9CC-4369-AC10-1BA31F8372AC}" Directory_="en001_Dir" Attributes="0" KeyPath="MyExpenses.SharedUtils.resources.dll_1"/>
     <ROW Component="MyExpenses.Sql.dll" ComponentId="{7003DF7C-6069-4F2E-A1BC-3F94398F6111}" Directory_="APPDIR" Attributes="0" KeyPath="MyExpenses.Sql.dll"/>
     <ROW Component="MyExpenses.Sql.resources.dll" ComponentId="{13C38BA0-F721-495F-993C-78BB699F9399}" Directory_="en001_Dir" Attributes="0" KeyPath="MyExpenses.Sql.resources.dll"/>
     <ROW Component="MyExpenses.Sql.resources.dll_1" ComponentId="{1C602460-4993-4003-9697-A685EC0E8DF4}" Directory_="frfr_Dir" Attributes="0" KeyPath="MyExpenses.Sql.resources.dll_1"/>
@@ -641,7 +643,7 @@
     <ROW Component="libHarfBuzzSharp.dll" ComponentId="{BAC35E8C-3BB0-431A-9C09-3D02E05D150A}" Directory_="APPDIR" Attributes="256" KeyPath="libHarfBuzzSharp.dll"/>
     <ROW Component="libSkiaSharp.dll" ComponentId="{4B8372B1-5171-4D24-8616-66723E911CB2}" Directory_="APPDIR" Attributes="256" KeyPath="libSkiaSharp.dll"/>
     <ROW Component="mscordaccore.dll" ComponentId="{4C90EC97-685F-4305-9354-FA5E334BA784}" Directory_="APPDIR" Attributes="256" KeyPath="mscordaccore.dll"/>
-    <ROW Component="mscordaccore_amd64_amd64_9.0.24.52809.dll" ComponentId="{9B186816-FBDE-44A9-B942-EBB80C8FA67D}" Directory_="APPDIR" Attributes="256" KeyPath="mscordaccore_amd64_amd64_9.0.24.52809.dll"/>
+    <ROW Component="mscordaccore_amd64_amd64_9.0.225.6610.dll" ComponentId="{DE8A2D9B-4FA3-4789-AC9D-99C610E37B78}" Directory_="APPDIR" Attributes="256" KeyPath="mscordaccore_amd64_amd64_9.0.225.6610.dll"/>
     <ROW Component="mscordbi.dll" ComponentId="{A81E4FD7-E97D-4F1E-B118-4FEBF7790BF4}" Directory_="APPDIR" Attributes="256" KeyPath="mscordbi.dll"/>
     <ROW Component="mscorlib.dll" ComponentId="{6C6150C3-C92F-465D-B6BC-726D38A6DFF0}" Directory_="APPDIR" Attributes="0" KeyPath="mscorlib.dll"/>
     <ROW Component="mscorrc.dll" ComponentId="{3BDFF883-465E-4889-9CDC-45A18A58C1E9}" Directory_="APPDIR" Attributes="256" KeyPath="mscorrc.dll"/>
@@ -1225,12 +1227,14 @@
     <ROW File="clrgcexp.dll" Component_="clrgcexp.dll" FileName="clrgcexp.dll" Attributes="0" SourcePath="..\bin\Release\net9.0-windows\win-x64\publish\clrgcexp.dll" SelfReg="false"/>
     <ROW File="CommandLine.dll" Component_="CommandLine.dll" FileName="COMMAN~1.DLL|CommandLine.dll" Attributes="0" SourcePath="..\bin\Release\net9.0-windows\win-x64\publish\CommandLine.dll" SelfReg="false"/>
     <ROW File="LICENSE.txt" Component_="LICENSE.txt" FileName="LICENSE.txt" Attributes="0" SourcePath="..\bin\Release\net9.0-windows\win-x64\publish\LICENSE.txt" SelfReg="false"/>
-    <ROW File="mscordaccore_amd64_amd64_9.0.24.52809.dll" Component_="mscordaccore_amd64_amd64_9.0.24.52809.dll" FileName="MSCORD~3.DLL|mscordaccore_amd64_amd64_9.0.24.52809.dll" Attributes="0" SourcePath="..\bin\Release\net9.0-windows\win-x64\publish\mscordaccore_amd64_amd64_9.0.24.52809.dll" SelfReg="false"/>
     <ROW File="MyExpenses.SharedUtils.dll" Component_="MyExpenses.SharedUtils.dll" FileName="MYEXP~10.DLL|MyExpenses.SharedUtils.dll" Attributes="0" SourcePath="..\bin\Release\net9.0-windows\win-x64\publish\MyExpenses.SharedUtils.dll" SelfReg="false"/>
     <ROW File="PresentationFramework.Fluent.dll" Component_="PresentationFramework.Fluent.dll" FileName="PRESE~16.DLL|PresentationFramework.Fluent.dll" Attributes="0" SourcePath="..\bin\Release\net9.0-windows\win-x64\publish\PresentationFramework.Fluent.dll" SelfReg="false"/>
     <ROW File="System.Formats.Nrbf.dll" Component_="System.Formats.Nrbf.dll" FileName="SYST~188.DLL|System.Formats.Nrbf.dll" Attributes="0" SourcePath="..\bin\Release\net9.0-windows\win-x64\publish\System.Formats.Nrbf.dll" SelfReg="false"/>
     <ROW File="System.Private.Windows.Core.dll" Component_="System.Private.Windows.Core.dll" FileName="SYST~189.DLL|System.Private.Windows.Core.dll" Attributes="0" SourcePath="..\bin\Release\net9.0-windows\win-x64\publish\System.Private.Windows.Core.dll" SelfReg="false"/>
     <ROW File="MyExpenses.Utils.resources.dll_1" Component_="MyExpenses.Utils.resources.dll_1" FileName="MYEXPE~4.DLL|MyExpenses.Utils.resources.dll" Attributes="0" SourcePath="..\bin\Release\net9.0-windows\win-x64\publish\en-001\MyExpenses.Utils.resources.dll" SelfReg="false"/>
+    <ROW File="MyExpenses.SharedUtils.resources.dll" Component_="MyExpenses.SharedUtils.resources.dll" FileName="MYEXPE~5.DLL|MyExpenses.SharedUtils.resources.dll" Attributes="0" SourcePath="..\bin\Release\net9.0-windows\win-x64\publish\fr-fr\MyExpenses.SharedUtils.resources.dll" SelfReg="false"/>
+    <ROW File="mscordaccore_amd64_amd64_9.0.225.6610.dll" Component_="mscordaccore_amd64_amd64_9.0.225.6610.dll" FileName="MSCORD~2.DLL|mscordaccore_amd64_amd64_9.0.225.6610.dll" Attributes="0" SourcePath="..\bin\Release\net9.0-windows\win-x64\publish\mscordaccore_amd64_amd64_9.0.225.6610.dll" SelfReg="false"/>
+    <ROW File="MyExpenses.SharedUtils.resources.dll_1" Component_="MyExpenses.SharedUtils.resources.dll_1" FileName="MYEXPE~5.DLL|MyExpenses.SharedUtils.resources.dll" Attributes="0" SourcePath="..\bin\Release\net9.0-windows\win-x64\publish\en-001\MyExpenses.SharedUtils.resources.dll" SelfReg="false"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.AiPersistentPropComponent">
     <ROW Property="AI_SHORTCUTSREG" Registry="AI_SHORTCUTSREG" HklmSearch="AI_SHORTCUTSREG" HkcuSearch="AI_SHORTCUTSREG_1" Hklm64Search="AI_SHORTCUTSREG_2" Hkcu64Search="AI_SHORTCUTSREG_3"/>
@@ -1933,12 +1937,14 @@
     <ROW Feature_="MainFeature" Component_="clrgcexp.dll"/>
     <ROW Feature_="MainFeature" Component_="CommandLine.dll"/>
     <ROW Feature_="MainFeature" Component_="LICENSE.txt"/>
-    <ROW Feature_="MainFeature" Component_="mscordaccore_amd64_amd64_9.0.24.52809.dll"/>
     <ROW Feature_="MainFeature" Component_="MyExpenses.SharedUtils.dll"/>
     <ROW Feature_="MainFeature" Component_="PresentationFramework.Fluent.dll"/>
     <ROW Feature_="MainFeature" Component_="System.Formats.Nrbf.dll"/>
     <ROW Feature_="MainFeature" Component_="System.Private.Windows.Core.dll"/>
     <ROW Feature_="MainFeature" Component_="MyExpenses.Utils.resources.dll_1"/>
+    <ROW Feature_="MainFeature" Component_="MyExpenses.SharedUtils.resources.dll"/>
+    <ROW Feature_="MainFeature" Component_="mscordaccore_amd64_amd64_9.0.225.6610.dll"/>
+    <ROW Feature_="MainFeature" Component_="MyExpenses.SharedUtils.resources.dll_1"/>
   </COMPONENT>
   <COMPONENT cid="caphyon.advinst.msicomp.MsiIconsComponent">
     <ROW Name="MyExpenses_1.exe" SourcePath="..\..\MyExpenses.Commons\Resources\Assets\Applications\Icon.ico" Index="0"/>
