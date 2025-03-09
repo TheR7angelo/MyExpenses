@@ -48,6 +48,7 @@ public static class TreeViewNodeUtils
 
     private static List<TreeViewNode> ToTreeViewNode(this CityGroup cityGroup)
     {
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
         var treeViewNodes = new List<TreeViewNode>();
         if (cityGroup.Places is null) return treeViewNodes;
 
