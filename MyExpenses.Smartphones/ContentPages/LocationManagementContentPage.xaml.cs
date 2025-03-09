@@ -148,6 +148,7 @@ public partial class LocationManagementContentPage
         var httpTileSource = BruTile.Predefined.KnownTileSources.Create(KnownTileSourceSelected);
         var tileLayer = new TileLayer(httpTileSource);
         tileLayer.Name = layerName;
+        var tileLayer = new TileLayer(httpTileSource) { Name = layerName };
 
         var layers = MapControl?.Map.Layers.FindLayer(layerName);
         if (layers is not null) MapControl?.Map.Layers.Remove(layers.ToArray());
