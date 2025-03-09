@@ -26,6 +26,7 @@ public partial class AddEditAccountWindow
 {
     #region DependecyProperty
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty LabelIsAccountActiveProperty =
         DependencyProperty.Register(nameof(LabelIsAccountActive), typeof(string), typeof(AddEditAccountWindow),
             new PropertyMetadata(default(string)));

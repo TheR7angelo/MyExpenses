@@ -146,8 +146,8 @@ public partial class LocationManagementContentPage
         const string layerName = "Background";
 
         var httpTileSource = BruTile.Predefined.KnownTileSources.Create(KnownTileSourceSelected);
-        var tileLayer = new TileLayer(httpTileSource);
-        tileLayer.Name = layerName;
+
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
         var tileLayer = new TileLayer(httpTileSource) { Name = layerName };
 
         var layers = MapControl?.Map.Layers.FindLayer(layerName);
@@ -193,6 +193,7 @@ public partial class LocationManagementContentPage
             ? new MenuItemVisibility { MenuItemAddFeature = true }
             : new MenuItemVisibility { MenuItemEditFeature = true, MenuItemDeleteFeature = true };
 
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
         var customPopupLocationManagement = new CustomPopupLocationManagement(menuItemVisibility, ClickPoint, ClickTPlace);
         await this.ShowPopupAsync(customPopupLocationManagement);
     }

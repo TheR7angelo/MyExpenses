@@ -16,6 +16,7 @@ public static class PopupFilterToTableUtils
     public static T[]? ToTable<T>(this IEnumerable<PopupSearch> items)
     {
         // ReSharper disable once HeapView.ClosureAllocation
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
         using var context = new DataBaseContext();
 
         var type = typeof(T);
@@ -23,6 +24,7 @@ public static class PopupFilterToTableUtils
         {
             // ReSharper disable once HeapView.ClosureAllocation
             // ReSharper disable once HeapView.DelegateAllocation
+            // ReSharper disable once HeapView.ObjectAllocation
             return items.Select(s => context.TAccounts.First(a => a.Id.Equals(s.Id))).ToArray() as T[];
         }
 
