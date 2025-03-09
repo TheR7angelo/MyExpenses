@@ -536,6 +536,9 @@
         <Link>Resources\Qgis\GeoVisionary.qgz</Link>
         <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       </AdditionalFiles>
+      <Content Include="..\MyExpenses.Wpf.sln">
+        <Link>MyExpenses.Wpf.sln</Link>
+      </Content>
       <Content Include="..\qodana.yaml">
         <Link>qodana.yaml</Link>
       </Content>
