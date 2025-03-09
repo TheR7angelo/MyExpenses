@@ -34,6 +34,8 @@ public partial class LocationManagementContentPage
     private WritableLayer PlaceLayer { get; } = new() { Style = null, Tag = typeof(TPlace) };
     private IEnumerable<ILayer> InfoLayers { get; }
 
+    private View[] Views { get; }
+
     private TPlace? ClickTPlace { get; set; }
     private Point ClickPoint { get; set; } = Point.Empty;
     private PointFeature? PointFeature { get; set; }
@@ -65,6 +67,8 @@ public partial class LocationManagementContentPage
         map.Layers.Add(PlaceLayer);
 
         InitializeComponent();
+
+        Views = [ScrollViewTreeView, MapControl, PickerFieldKnownTileSource];
 
         MapControl.Map = map;
         MapControl.SetZoom(PlaceLayer);
@@ -117,7 +121,7 @@ public partial class LocationManagementContentPage
 
     private void UpdateDisplay()
     {
-        foreach (var view in new List<View> { ScrollViewTreeView, MapControl, PickerFieldKnownTileSource })
+        foreach (var view in Views)
         {
             if (view.Parent is Grid grid) grid.Children.Remove(view);
         }
