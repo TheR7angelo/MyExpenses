@@ -6,12 +6,12 @@ using Mapsui.Layers;
 using Mapsui.Manipulations;
 using Mapsui.Projections;
 using Mapsui.Tiling.Layers;
+using MyExpenses.Maui.Utils;
 using MyExpenses.Maui.Utils.Maps;
 using MyExpenses.Models.Maui.CustomPopup;
 using MyExpenses.Models.Sql.Bases.Groups;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Smartphones.ContentPages.CustomPopups;
-using MyExpenses.Smartphones.Converters;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils;
 using MyExpenses.Utils.Maps;
@@ -43,6 +43,7 @@ public partial class LocationManagementContentPage
     public LocationManagementContentPage()
     {
         KnownTileSources = [..MapsuiMapExtensions.GetAllKnowTileSource()];
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
         InfoLayers = new List<ILayer> { PlaceLayer };
 
         var (treeViewNodes, places) = GenerateTreeViewNodes();
@@ -108,35 +109,8 @@ public partial class LocationManagementContentPage
         // The `using` statement ensures that the context is disposed of properly after its use, freeing up resources like database connections.
         using var context = new DataBaseContext();
         var places = context.TPlaces.OrderBy(s => s.Country).ThenBy(s => s.City).ThenBy(s => s.Name).ToList();
-        var groups = places.GetGroups();
-
-        var treeViewNodes = new List<TreeViewNode>();
-        foreach (var group in groups)
-        {
-            var firstChildren = new List<TreeViewNode>();
-            foreach (var cityGroup in group.CityGroups!)
-            {
-                var secondChildren = new List<TreeViewNode>();
-                foreach (var place in cityGroup.Places!)
-                {
-                    var placeName = EmptyStringTreeViewConverter.ToUnknown(place.Name);
-                    var placeNode = new TreeViewNode { Name = placeName, AdditionalData = place };
-                    secondChildren.Add(placeNode);
-                }
-
-                var cityName = EmptyStringTreeViewConverter.ToUnknown(cityGroup.City);
-                cityName = $"{cityName} [{secondChildren.Count}]";
-
-                var cityNode = new TreeViewNode { Name = cityName, Children = secondChildren };
-                firstChildren.Add(cityNode);
-            }
-
-            var countryName = EmptyStringTreeViewConverter.ToUnknown(group.Country);
-            countryName = $"{countryName} [{firstChildren.Count}]";
-
-            var groupNode = new TreeViewNode { Name = countryName, Children = firstChildren };
-            treeViewNodes.Add(groupNode);
-        }
+        var groups = places.GetGroups().ToArray();
+        var treeViewNodes = groups.ToTreeViewNode();
 
         return (treeViewNodes, places);
     }
