@@ -232,6 +232,7 @@ public partial class AddEditCurrencyWindow
         currencyToEdit.CopyPropertiesTo(Currency);
         EditCurrency = true;
 
+        // ReSharper disable once HeapView.DelegateAllocation
         var oldItem = Currencies.FirstOrDefault(s => s.Id == currencyToEdit.Id);
         if (oldItem is null) return;
         Currencies.Remove(oldItem);

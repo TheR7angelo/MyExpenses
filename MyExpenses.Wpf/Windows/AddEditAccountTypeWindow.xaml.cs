@@ -199,6 +199,7 @@ public partial class AddEditAccountTypeWindow
         accountType.CopyPropertiesTo(AccountType);
         EditAccountType = true;
 
+        // ReSharper disable once HeapView.DelegateAllocation
         var oldItem = AccountTypes.FirstOrDefault(s => s.Id == accountType.Id);
         if (oldItem is null) return;
         AccountTypes.Remove(oldItem);

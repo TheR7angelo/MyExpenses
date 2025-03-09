@@ -22,6 +22,7 @@ public static class PopupFilterToTableUtils
         if (type == typeof(TAccount))
         {
             // ReSharper disable once HeapView.ClosureAllocation
+            // ReSharper disable once HeapView.DelegateAllocation
             return items.Select(s => context.TAccounts.First(a => a.Id.Equals(s.Id))).ToArray() as T[];
         }
 

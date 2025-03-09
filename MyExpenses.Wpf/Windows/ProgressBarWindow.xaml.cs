@@ -141,10 +141,15 @@ public partial class ProgressBarWindow
 
         // ReSharper disable once HeapView.ObjectAllocation.Evident
         var timeLeftTimer = new Timer(TimeSpan.FromSeconds(1));
+
+        // ReSharper disable HeapView.DelegateAllocation
         timeLeftTimer.Elapsed += (_, _) => { Dispatcher.Invoke(() => { TimeLeftProgress = timeLeft; }); };
+        // ReSharper restore HeapView.DelegateAllocation
+
         timeLeftTimer.Start();
 
         // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // ReSharper disable once HeapView.DelegateAllocation
         timeLeftProgress = new Progress<TimeSpan>(d => { timeLeft = d; });
         return timeLeftTimer;
     }
@@ -162,8 +167,11 @@ public partial class ProgressBarWindow
 
         // ReSharper disable once HeapView.ObjectAllocation.Evident
         var speedTimer = new Timer(TimeSpan.FromSeconds(2.5));
+
+        // ReSharper disable once HeapView.DelegateAllocation
         speedTimer.Elapsed += (_, _) =>
         {
+            // ReSharper disable once HeapView.DelegateAllocation
             Dispatcher.Invoke(() =>
             {
                 var roundNormalizeBytes = Math.Round(latestSpeed, 2);
@@ -173,6 +181,7 @@ public partial class ProgressBarWindow
         speedTimer.Start();
 
         // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // ReSharper disable once HeapView.DelegateAllocation
         speedProgress = new Progress<(double NormalizeBytes, string NormalizeBytesUnit)>(d =>
         {
             latestSpeed = d.NormalizeBytes;
@@ -196,10 +205,14 @@ public partial class ProgressBarWindow
 
         // ReSharper disable once HeapView.ObjectAllocation.Evident
         var dispatcherTimer = new DispatcherTimer { Interval = TimeSpan.FromSeconds(1) };
+
+        // ReSharper disable HeapView.DelegateAllocation
         dispatcherTimer.Tick += (_, _) => Dispatcher.Invoke(() => { TimeElapsed = stopwatch.Elapsed; });
+        // ReSharper restore HeapView.DelegateAllocation
 
         // ReSharper disable once HeapView.ObjectAllocation.Evident
-        IProgress<double> percentProgress = new Progress<double>(d => { ProgressBarPercent.Value = d; });
+        // ReSharper disable once HeapView.DelegateAllocation
+        IProgress<double> percentProgress = new Progress<double>(d => ProgressBarPercent.Value = d);
 
         using var speedTimer = GetSpeedProgress(out var speedProgress);
         using var timeRemainingTimer = GetTimeLeftProgress(out var timeLeftProgress);

@@ -395,6 +395,8 @@ public partial class MainWindow
         Log.Information("Starting to export database to {SelectedDialog}", selectedDialog);
 
         var success = false;
+
+        // ReSharper disable once HeapView.DelegateAllocation
         await Task.Run(async () =>
         {
             // ReSharper disable once HeapView.ObjectAllocation.Evident
