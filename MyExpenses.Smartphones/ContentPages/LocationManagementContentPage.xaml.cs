@@ -1,4 +1,5 @@
 using System.Collections.ObjectModel;
+using System.Reflection;
 using BruTile.Predefined;
 using CommunityToolkit.Maui.Views;
 using Mapsui;
@@ -51,31 +52,46 @@ public partial class LocationManagementContentPage
         var (treeViewNodes, places) = GenerateTreeViewNodes();
         TreeViewNodes = [..treeViewNodes];
 
-        var features = places
-            .Where(s => s.Latitude is not null && s.Latitude is not 0 && s.Longitude is not null &&
-                        s.Longitude is not 0)
-            .Select(feature => feature.IsOpen
-                ? feature.ToFeature(MapsuiStyleExtensions.RedMarkerStyle)
-                : feature.ToFeature(MapsuiStyleExtensions.BlueMarkerStyle));
+        var assembly = Assembly.GetExecutingAssembly()!;
+        var resources = assembly.GetManifestResourceNames().Where(s => s.EndsWith(".svg"));
 
-        PlaceLayer.AddRange(features);
-        var backColor = AppInfo.RequestedTheme is AppTheme.Dark
-            ? Mapsui.Styles.Color.Black
-            : Mapsui.Styles.Color.White;
+        foreach (var resource in resources)
+        {
+            _ = DisplayAlert("Resource", resource, "OK");
+        }
 
-        var map = MapsuiMapExtensions.GetMap(true, backColor);
-        map.Layers.Add(PlaceLayer);
+        try
+        {
+            var features = places
+                .Where(s => s.Latitude is not null && s.Latitude is not 0 && s.Longitude is not null &&
+                            s.Longitude is not 0)
+                .Select(feature => feature.IsOpen
+                    ? feature.ToFeature(MapsuiStyleExtensions.RedMarkerStyle)
+                    : feature.ToFeature(MapsuiStyleExtensions.BlueMarkerStyle));
 
-        InitializeComponent();
+            PlaceLayer.AddRange(features);
+            var backColor = AppInfo.RequestedTheme is AppTheme.Dark
+                ? Mapsui.Styles.Color.Black
+                : Mapsui.Styles.Color.White;
 
-        Views = [ScrollViewTreeView, MapControl, PickerFieldKnownTileSource];
+            var map = MapsuiMapExtensions.GetMap(true, backColor);
+            map.Layers.Add(PlaceLayer);
 
-        MapControl.Map = map;
-        MapControl.SetZoom(PlaceLayer);
-        UpdateDisplay();
+            InitializeComponent();
+
+            Views = [ScrollViewTreeView, MapControl, PickerFieldKnownTileSource];
+
+            // MapControl.Map = map;
+            MapControl.SetZoom(PlaceLayer);
+            UpdateDisplay();
+        }
+        catch (Exception e)
+        {
+            _ = DisplayAlert("Error", e.Message, "OK");
+        }
 
         // ReSharper disable HeapView.DelegateAllocation
-        MapControl.Map.Tapped += MapControl_OnTapped;
+        // MapControl.Map.Tapped += MapControl_OnTapped;
         DeviceDisplay.MainDisplayInfoChanged += DeviceDisplay_OnMainDisplayInfoChanged;
         // ReSharper restore HeapView.DelegateAllocation
     }
@@ -158,21 +174,21 @@ public partial class LocationManagementContentPage
 
     #endregion
 
-    private bool MapControl_OnTapped(Mapsui.Map sender, MapEventArgs e)
-    {
-        var mapInfo = e.GetMapInfo(InfoLayers);
-        SetClickTPlace(mapInfo);
-
-        var worldPosition = e.WorldPosition;
-        var lonLat = SphericalMercator.ToLonLat(worldPosition.X, worldPosition.Y);
-
-        // ReSharper disable once HeapView.ObjectAllocation.Evident
-        // The ClickPoint instance is used to store the coordinates of the point clicked on the map.
-        ClickPoint = new Point(lonLat.lon, lonLat.lat);
-
-        if (e.GestureType is GestureType.LongPress) _ = HandleLongTap();
-        return true;
-    }
+    // private bool MapControl_OnTapped(Mapsui.Map sender, MapEventArgs e)
+    // {
+    //     var mapInfo = e.GetMapInfo(InfoLayers);
+    //     SetClickTPlace(mapInfo);
+    //
+    //     var worldPosition = e.WorldPosition;
+    //     var lonLat = SphericalMercator.ToLonLat(worldPosition.X, worldPosition.Y);
+    //
+    //     // ReSharper disable once HeapView.ObjectAllocation.Evident
+    //     // The ClickPoint instance is used to store the coordinates of the point clicked on the map.
+    //     ClickPoint = new Point(lonLat.lon, lonLat.lat);
+    //
+    //     if (e.GestureType is GestureType.LongPress) _ = HandleLongTap();
+    //     return true;
+    // }
 
     private void SetClickTPlace(MapInfo mapInfo)
     {
@@ -196,5 +212,20 @@ public partial class LocationManagementContentPage
         // ReSharper disable once HeapView.ObjectAllocation.Evident
         var customPopupLocationManagement = new CustomPopupLocationManagement(menuItemVisibility, ClickPoint, ClickTPlace);
         await this.ShowPopupAsync(customPopupLocationManagement);
+    }
+
+    private void MapControl_OnInfo(object? sender, MapInfoEventArgs e)
+    {
+        var mapInfo = e.GetMapInfo(InfoLayers);
+        SetClickTPlace(mapInfo);
+
+        var worldPosition = e.WorldPosition;
+        var lonLat = SphericalMercator.ToLonLat(worldPosition.X, worldPosition.Y);
+
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // The ClickPoint instance is used to store the coordinates of the point clicked on the map.
+        ClickPoint = new Point(lonLat.lon, lonLat.lat);
+
+        if (e.GestureType is GestureType.LongPress) _ = HandleLongTap();
     }
 }
