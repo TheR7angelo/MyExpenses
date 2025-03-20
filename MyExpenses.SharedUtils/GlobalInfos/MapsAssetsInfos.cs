@@ -1,10 +1,23 @@
+using System.Reflection;
+
 namespace MyExpenses.SharedUtils.GlobalInfos;
 
 public static class MapsAssetsInfos
 {
-    private static string MapsAssetsBasePath => Path.Join(OsInfos.OsBasePath, "Resources", "Assets", "Maps");
+    public static string BlueMarkerFilename => "BlueMarker.svg";
+    public static string GreenMarkerFilename => "GreenMarker.svg";
+    public static string RedMarkerFilename => "RedMarker.svg";
+    public static string EmbeddedBleuMarkerFilePath { get; }
+    public static string EmbeddedGreenMarkerFilePath { get; }
+    public static string EmbeddedRedMarkerFilePath { get; }
 
-    public static string BleuMarkerFilePath => Path.Join(MapsAssetsBasePath, "BlueMarker.svg");
-    public static string GreenMarkerFilePath => Path.Join(MapsAssetsBasePath, "GreenMarker.svg");
-    public static string RedMarkerFilePath => Path.Join(MapsAssetsBasePath, "RedMarker.svg");
+    static MapsAssetsInfos()
+    {
+        var assembly = Assembly.GetEntryAssembly()!;
+        var resources = assembly.GetManifestResourceNames();
+
+        EmbeddedBleuMarkerFilePath = resources.First(s => s.EndsWith(BlueMarkerFilename));
+        EmbeddedGreenMarkerFilePath = resources.First(s => s.EndsWith(GreenMarkerFilename));
+        EmbeddedRedMarkerFilePath = resources.First(s => s.EndsWith(RedMarkerFilename));
+    }
 }

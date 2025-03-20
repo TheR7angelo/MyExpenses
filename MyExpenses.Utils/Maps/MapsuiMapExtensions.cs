@@ -62,7 +62,7 @@ public static class MapsuiMapExtensions
         return map;
     }
 
-    public static TemporaryPointFeature ToTemporaryFeature(this TPlace place, SymbolStyle? symbolStyle = null)
+    public static TemporaryPointFeature ToTemporaryFeature(this TPlace place, ImageStyle? symbolStyle = null)
     {
         var feature = place.ToSingleFeature(symbolStyle, false);
 
@@ -73,13 +73,13 @@ public static class MapsuiMapExtensions
     }
 
 
-    public static PointFeature ToFeature(this TPlace place, SymbolStyle? symbolStyle = null)
+    public static PointFeature ToFeature(this TPlace place, ImageStyle? symbolStyle = null)
         => place.ToSingleFeature(symbolStyle);
 
     // public static IEnumerable<PointFeature> ToFeature(this IEnumerable<TPlace> places, SymbolStyle? symbolStyle = null)
     //     => places.Select(place => place.ToSingleFeature(symbolStyle));
 
-    private static PointFeature ToSingleFeature(this TPlace place, SymbolStyle? symbolStyle = null, bool labelStyle = true)
+    private static PointFeature ToSingleFeature(this TPlace place, ImageStyle? symbolStyle = null, bool labelStyle = true)
     {
         var mapper = Mapping.Mapper;
         var feature = mapper.Map<PointFeature>(place);

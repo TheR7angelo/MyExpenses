@@ -262,7 +262,7 @@ public partial class AddEditLocationWindow
         MapControl.Map = map;
 
         // ReSharper disable HeapView.DelegateAllocation
-        map.Tapped += Tapped;
+        // map.Tapped += Tapped;
         Interface.ThemeChanged += Interface_OnThemeChanged;
         Interface.LanguageChanged += Interface_OnLanguageChanged;
         // ReSharper restore HeapView.DelegateAllocation

@@ -5,9 +5,9 @@ namespace MyExpenses.Utils.Maps;
 
 public static class MapsuiStyleExtensions
 {
-    public static SymbolStyle RedMarkerStyle { get; private set; }
-    public static SymbolStyle GreenMarkerStyle { get; private set; }
-    public static SymbolStyle BlueMarkerStyle { get; private set; }
+    public static ImageStyle RedMarkerStyle { get; private set; }
+    public static ImageStyle GreenMarkerStyle { get; private set; }
+    public static ImageStyle BlueMarkerStyle { get; private set; }
 
     static MapsuiStyleExtensions()
     {
@@ -22,41 +22,41 @@ public static class MapsuiStyleExtensions
     private static Offset Offset => new() { X = 0, Y = 222 };
     private static double Scale => 0.1;
 
-    private static SymbolStyle SetGreenMarkerStyle()
+    private static ImageStyle SetGreenMarkerStyle()
     {
         // ReSharper disable once HeapView.ObjectAllocation.Evident
-        // Constructs a new SymbolStyle instance, defining the marker appearance
+        // Constructs a new ImageStyle instance, defining the marker appearance
         // with a specified image source, offset, and scale for consistent styling.
-        return new SymbolStyle
+        return new ImageStyle
         {
-            ImageSource = MapsAssetsInfos.GreenMarkerFilePath,
-            SymbolOffset = Offset,
+            Image = $"embedded://{MapsAssetsInfos.EmbeddedGreenMarkerFilePath}",
+            Offset = Offset,
             SymbolScale = Scale
         };
     }
 
-    private static SymbolStyle SetRedMarkerStyle()
+    private static ImageStyle SetRedMarkerStyle()
     {
         // ReSharper disable once HeapView.ObjectAllocation.Evident
-        // Constructs a new SymbolStyle instance, defining the marker appearance
+        // Constructs a new ImageStyle instance, defining the marker appearance
         // with a specified image source, offset, and scale for consistent styling.
-        return new SymbolStyle
+        return new ImageStyle
         {
-            ImageSource = MapsAssetsInfos.RedMarkerFilePath,
-            SymbolOffset = Offset,
+            Image = $"embedded://{MapsAssetsInfos.EmbeddedRedMarkerFilePath}",
+            Offset = Offset,
             SymbolScale = Scale
         };
     }
 
-    private static SymbolStyle SetBlueMarkerStyle()
+    private static ImageStyle SetBlueMarkerStyle()
     {
         // ReSharper disable once HeapView.ObjectAllocation.Evident
-        // Constructs a new SymbolStyle instance, defining the marker appearance
+        // Constructs a new ImageStyle instance, defining the marker appearance
         // with a specified image source, offset, and scale for consistent styling.
-        return new SymbolStyle
+        return new ImageStyle
         {
-            ImageSource = MapsAssetsInfos.BleuMarkerFilePath,
-            SymbolOffset = Offset,
+            Image = $"embedded://{MapsAssetsInfos.EmbeddedBleuMarkerFilePath}",
+            Offset = Offset,
             SymbolScale = Scale
         };
     }

@@ -1,4 +1,5 @@
-﻿using MyExpenses.IO.Excel;
+﻿using System.Reflection;
+using MyExpenses.IO.Excel;
 using MyExpenses.IO.Sig.GeoJson;
 using MyExpenses.IO.Sig.Kml;
 using MyExpenses.Models.IO;
@@ -93,12 +94,18 @@ public static class ExistingDatabaseToFolder
         var assetsDirectory = Path.Join(saveFolder, "Assets");
         Directory.CreateDirectory(assetsDirectory);
 
-        ReadOnlySpan<string> svgs = [MapsAssetsInfos.BleuMarkerFilePath, MapsAssetsInfos.GreenMarkerFilePath, MapsAssetsInfos.RedMarkerFilePath];
-        foreach (var svg in svgs)
+        var assembly = Assembly.GetEntryAssembly();
+        ReadOnlySpan<string> svgs = [MapsAssetsInfos.EmbeddedBleuMarkerFilePath, MapsAssetsInfos.EmbeddedGreenMarkerFilePath, MapsAssetsInfos.EmbeddedRedMarkerFilePath];
+        ReadOnlySpan<string> svgsNames = [MapsAssetsInfos.BlueMarkerFilename, MapsAssetsInfos.GreenMarkerFilename, MapsAssetsInfos.RedMarkerFilename];
+
+        for (var i = 0; i < svgs.Length; i++)
         {
-            var filename = Path.GetFileName(svg);
+            var filename = Path.GetFileName(svgsNames[i]);
             var newFilePath = Path.Join(assetsDirectory, filename);
-            File.Copy(svg, newFilePath, true);
+
+            using var resourceStream = assembly!.GetManifestResourceStream(svgs[i]);
+            using var fileStream = File.Create(newFilePath);
+            resourceStream!.CopyTo(fileStream);
         }
     }
 }

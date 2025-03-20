@@ -4,27 +4,28 @@ public static class FileManager
 {
     public static void AddAllFiles()
     {
-        Task.WhenAll(AddDatabaseFileModels(), AddMapsMaker());
+        // Task.WhenAll(AddDatabaseFileModels(), AddMapsMaker());
+        Task.WhenAll(AddDatabaseFileModels());
     }
 
-    private static async Task AddMapsMaker()
-    {
-        var packageDirectory = Path.Join("Resources", "Assets", "Maps");
-        var storageDirectoryPath = Path.Join(FileSystem.AppDataDirectory, packageDirectory);
-
-        // ReSharper disable once HeapView.ObjectAllocation.Evident
-        // A static array of file names that are used exclusively in this method.
-        // This approach keeps things simple and efficient since the files are fixed
-        // and do not require any dynamic modifications or usage elsewhere.
-        var files = new [] { "BlueMarker.svg", "GreenMarker.svg", "RedMarker.svg" };
-        foreach (var file in files)
-        {
-            var packageFile = Path.Join(packageDirectory, file);
-            var storageFile = Path.Join(storageDirectoryPath, file);
-
-            await WritePackageFile(packageFile, storageFile);
-        }
-    }
+    // private static async Task AddMapsMaker()
+    // {
+    //     var packageDirectory = Path.Join("Resources", "Assets", "Maps");
+    //     var storageDirectoryPath = Path.Join(FileSystem.AppDataDirectory, packageDirectory);
+    //
+    //     // ReSharper disable once HeapView.ObjectAllocation.Evident
+    //     // A static array of file names that are used exclusively in this method.
+    //     // This approach keeps things simple and efficient since the files are fixed
+    //     // and do not require any dynamic modifications or usage elsewhere.
+    //     var files = new [] { "BlueMarker.svg", "GreenMarker.svg", "RedMarker.svg" };
+    //     foreach (var file in files)
+    //     {
+    //         var packageFile = Path.Join(packageDirectory, file);
+    //         var storageFile = Path.Join(storageDirectoryPath, file);
+    //
+    //         await WritePackageFile(packageFile, storageFile);
+    //     }
+    // }
 
     private static async Task AddDatabaseFileModels()
     {
