@@ -16,26 +16,21 @@ namespace MyExpenses.Utils.Maps;
 
 public static class MapsuiMapExtensions
 {
+    private static readonly KnownTileSource[] BlackListKnownTileSource =
+    [
+        KnownTileSource.OpenCycleMap, KnownTileSource.OpenCycleMapTransport,
+        KnownTileSource.StamenToner, KnownTileSource.StamenTonerLite, KnownTileSource.StamenWatercolor,
+        KnownTileSource.StamenTerrain, KnownTileSource.EsriWorldReferenceOverlay,
+        KnownTileSource.EsriWorldBoundariesAndPlaces, KnownTileSource.HereHybrid,
+        KnownTileSource.HereTerrain
+    ];
+
+    private static readonly Offset LabelOffset = new() { X = 0, Y = 11 };
+
     public static IEnumerable<KnownTileSource> GetAllKnowTileSource()
     {
-        // ReSharper disable once HeapView.ObjectAllocation.Evident
-        // Memory allocation is currently required due to limitations with Span<T> and lambda capturing.
-        // Span<T> cannot be captured in a lambda or delegate because it is a byref-like type and
-        // cannot live beyond the scope of the current stack frame.
-        // Once the lambda usage is refactored or removed, this array can be replaced with Span<T>
-        // or ReadOnlySpan<T> to avoid heap allocation and optimize memory usage.
-        // ReSharper disable once HeapView.ClosureAllocation
-        var blackList = new []
-        {
-            KnownTileSource.OpenCycleMap, KnownTileSource.OpenCycleMapTransport,
-            KnownTileSource.StamenToner, KnownTileSource.StamenTonerLite, KnownTileSource.StamenWatercolor,
-            KnownTileSource.StamenTerrain, KnownTileSource.EsriWorldReferenceOverlay,
-            KnownTileSource.EsriWorldBoundariesAndPlaces, KnownTileSource.HereHybrid,
-            KnownTileSource.HereTerrain
-        };
-
         // ReSharper disable once HeapView.DelegateAllocation
-        var knownTileSources = Enum.GetValues<KnownTileSource>().Where(s => !blackList.Contains(s)).ToList();
+        var knownTileSources = Enum.GetValues<KnownTileSource>().Where(s => !BlackListKnownTileSource.Contains(s)).ToList();
         return knownTileSources;
     }
 
@@ -92,7 +87,7 @@ public static class MapsuiMapExtensions
             // as required by MapsUI's design to handle visual representation dynamically.
             feature.Styles.Add(new LabelStyle
             {
-                Text = place.Name, Offset = new Offset { X = 0, Y = 11 },
+                Text = place.Name, Offset = LabelOffset,
                 Font = new Font { FontFamily = "Arial", Size = 12 },
                 Halo = new Pen { Color = Color.White, Width = 2 }
             });
