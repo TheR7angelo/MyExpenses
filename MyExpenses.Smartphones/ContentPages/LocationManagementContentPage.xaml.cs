@@ -1,5 +1,4 @@
 using System.Collections.ObjectModel;
-using System.Reflection;
 using BruTile.Predefined;
 using CommunityToolkit.Maui.Views;
 using Mapsui;
@@ -52,43 +51,28 @@ public partial class LocationManagementContentPage
         var (treeViewNodes, places) = GenerateTreeViewNodes();
         TreeViewNodes = [..treeViewNodes];
 
-        var assembly = Assembly.GetExecutingAssembly()!;
-        var resources = assembly.GetManifestResourceNames().Where(s => s.EndsWith(".svg"));
+        var features = places
+            .Where(s => s.Latitude is not null && s.Latitude is not 0 && s.Longitude is not null &&
+                        s.Longitude is not 0)
+            .Select(feature => feature.IsOpen
+                ? feature.ToFeature(MapsuiStyleExtensions.RedMarkerStyle)
+                : feature.ToFeature(MapsuiStyleExtensions.BlueMarkerStyle));
 
-        foreach (var resource in resources)
-        {
-            _ = DisplayAlert("Resource", resource, "OK");
-        }
+        PlaceLayer.AddRange(features);
+        var backColor = AppInfo.RequestedTheme is AppTheme.Dark
+            ? Mapsui.Styles.Color.Black
+            : Mapsui.Styles.Color.White;
 
-        try
-        {
-            var features = places
-                .Where(s => s.Latitude is not null && s.Latitude is not 0 && s.Longitude is not null &&
-                            s.Longitude is not 0)
-                .Select(feature => feature.IsOpen
-                    ? feature.ToFeature(MapsuiStyleExtensions.RedMarkerStyle)
-                    : feature.ToFeature(MapsuiStyleExtensions.BlueMarkerStyle));
+        var map = MapsuiMapExtensions.GetMap(true, backColor);
+        map.Layers.Add(PlaceLayer);
 
-            PlaceLayer.AddRange(features);
-            var backColor = AppInfo.RequestedTheme is AppTheme.Dark
-                ? Mapsui.Styles.Color.Black
-                : Mapsui.Styles.Color.White;
+        InitializeComponent();
 
-            var map = MapsuiMapExtensions.GetMap(true, backColor);
-            map.Layers.Add(PlaceLayer);
+        Views = [ScrollViewTreeView, MapControl, PickerFieldKnownTileSource];
 
-            InitializeComponent();
-
-            Views = [ScrollViewTreeView, MapControl, PickerFieldKnownTileSource];
-
-            // MapControl.Map = map;
-            MapControl.SetZoom(PlaceLayer);
-            UpdateDisplay();
-        }
-        catch (Exception e)
-        {
-            _ = DisplayAlert("Error", e.Message, "OK");
-        }
+        // MapControl.Map = map;
+        MapControl.SetZoom(PlaceLayer);
+        UpdateDisplay();
 
         // ReSharper disable HeapView.DelegateAllocation
         // MapControl.Map.Tapped += MapControl_OnTapped;
