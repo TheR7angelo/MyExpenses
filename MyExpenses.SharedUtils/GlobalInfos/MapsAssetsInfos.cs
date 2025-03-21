@@ -13,7 +13,12 @@ public static class MapsAssetsInfos
 
     static MapsAssetsInfos()
     {
-        var assembly = Assembly.GetEntryAssembly()!;
+        var assembly = Assembly.GetEntryAssembly()
+                       ?? AppDomain.CurrentDomain.GetAssemblies().First(a => a.GetManifestResourceNames().Any(r =>
+                           r.EndsWith(BlueMarkerFilename) ||
+                           r.EndsWith(GreenMarkerFilename) ||
+                           r.EndsWith(RedMarkerFilename)));
+
         var resources = assembly.GetManifestResourceNames();
 
         EmbeddedBleuMarkerFilePath = resources.First(s => s.EndsWith(BlueMarkerFilename));
