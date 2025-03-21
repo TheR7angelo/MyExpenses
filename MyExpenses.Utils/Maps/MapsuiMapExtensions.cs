@@ -79,7 +79,7 @@ public static class MapsuiMapExtensions
         var mapper = Mapping.Mapper;
         var feature = mapper.Map<PointFeature>(place);
 
-        feature.Styles = [];
+        // feature.Styles.Clear();
         if (labelStyle)
         {
             // ReSharper disable HeapView.ObjectAllocation.Evident
