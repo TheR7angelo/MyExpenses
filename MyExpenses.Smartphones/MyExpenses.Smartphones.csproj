@@ -212,16 +212,4 @@
       </None>
     </ItemGroup>
 
-    <ItemGroup>
-      <EmbeddedResource Include="..\MyExpenses.Commons\Resources\Assets\Maps\BlueMarker.svg">
-        <Link>Resources\Assets\Maps\BlueMarker.svg</Link>
-      </EmbeddedResource>
-      <EmbeddedResource Include="..\MyExpenses.Commons\Resources\Assets\Maps\GreenMarker.svg">
-        <Link>Resources\Assets\Maps\GreenMarker.svg</Link>
-      </EmbeddedResource>
-      <EmbeddedResource Include="..\MyExpenses.Commons\Resources\Assets\Maps\RedMarker.svg">
-        <Link>Resources\Assets\Maps\RedMarker.svg</Link>
-      </EmbeddedResource>
-    </ItemGroup>
-
 </Project>
