@@ -22,6 +22,9 @@ public static class MapsuiStyleExtensions
     private static Offset Offset => new() { X = 0, Y = 222 };
     private static double Scale => 0.1;
 
+    private static string EmbeddedString => "embedded://";
+    private static string FileString => "file://";
+
     private static ImageStyle SetGreenMarkerStyle()
     {
         // ReSharper disable once HeapView.ObjectAllocation.Evident
@@ -29,7 +32,9 @@ public static class MapsuiStyleExtensions
         // with a specified image source, offset, and scale for consistent styling.
         return new ImageStyle
         {
-            Image = $"embedded://{MapsAssetsInfos.EmbeddedGreenMarkerFilePath}",
+            // Image = $"{EmbeddedString}{MapsAssetsInfos.GreenMarkerFilePath}",
+            // Image = $"{FileString}{MapsAssetsInfos.GreenMarkerFilePath}",
+            Image = MapsAssetsInfos.EmbeddedGreenMarkerFilePath,
             Offset = Offset,
             SymbolScale = Scale
         };
@@ -42,7 +47,9 @@ public static class MapsuiStyleExtensions
         // with a specified image source, offset, and scale for consistent styling.
         return new ImageStyle
         {
-            Image = $"embedded://{MapsAssetsInfos.EmbeddedRedMarkerFilePath}",
+            // Image = $"{EmbeddedString}{MapsAssetsInfos.RedMarkerFilePath}",
+            // Image = $"{FileString}{MapsAssetsInfos.RedMarkerFilePath}",
+            Image = MapsAssetsInfos.EmbeddedRedMarkerFilePath,
             Offset = Offset,
             SymbolScale = Scale
         };
@@ -55,7 +62,9 @@ public static class MapsuiStyleExtensions
         // with a specified image source, offset, and scale for consistent styling.
         return new ImageStyle
         {
-            Image = $"embedded://{MapsAssetsInfos.EmbeddedBleuMarkerFilePath}",
+            // Image = $"{EmbeddedString}{MapsAssetsInfos.BleuMarkerFilePath}",
+            // Image = $"{FileString}{MapsAssetsInfos.BleuMarkerFilePath}",
+            Image = MapsAssetsInfos.EmbeddedBleuMarkerFilePath,
             Offset = Offset,
             SymbolScale = Scale
         };
