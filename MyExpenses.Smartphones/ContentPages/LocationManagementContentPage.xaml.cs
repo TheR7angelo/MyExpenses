@@ -32,6 +32,7 @@ public partial class LocationManagementContentPage
     // ensure that map layers remain properly isolated and do not interfere with layers
     // managed by other pages or components in the application.
     private WritableLayer PlaceLayer { get; } = new() { Style = null, Tag = typeof(TPlace) };
+    // private WritableLayer PlaceLayer { get; } = new() { Tag = typeof(TPlace) };
     private IEnumerable<ILayer> InfoLayers { get; }
 
     private View[] Views { get; }
