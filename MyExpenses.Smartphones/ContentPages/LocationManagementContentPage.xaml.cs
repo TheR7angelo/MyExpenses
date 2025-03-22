@@ -45,8 +45,7 @@ public partial class LocationManagementContentPage
     public LocationManagementContentPage()
     {
         KnownTileSources = [..MapsuiMapExtensions.GetAllKnowTileSource()];
-        // ReSharper disable once HeapView.ObjectAllocation.Evident
-        InfoLayers = new List<ILayer> { PlaceLayer };
+        InfoLayers = [PlaceLayer];
 
         var (treeViewNodes, places) = GenerateTreeViewNodes();
         TreeViewNodes = [..treeViewNodes];
