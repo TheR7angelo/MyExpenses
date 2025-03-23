@@ -32,7 +32,7 @@ public static class MapsuiStyleExtensions
         // with a specified image source, offset, and scale for consistent styling.
         return new ImageStyle
         {
-            Image = $"{EmbeddedString}{MapsAssetsInfos.GreenMarkerFilePath}",
+            Image = $"{EmbeddedString}{MapsAssetsInfos.EmbeddedGreenMarkerFilePath}",
             // Image = $"{FileString}{MapsAssetsInfos.GreenMarkerFilePath}",
             // Image = MapsAssetsInfos.EmbeddedGreenMarkerFilePath,
             Offset = Offset,
@@ -47,7 +47,7 @@ public static class MapsuiStyleExtensions
         // with a specified image source, offset, and scale for consistent styling.
         return new ImageStyle
         {
-            Image = $"{EmbeddedString}{MapsAssetsInfos.RedMarkerFilePath}",
+            Image = $"{EmbeddedString}{MapsAssetsInfos.EmbeddedRedMarkerFilePath}",
             // Image = $"{FileString}{MapsAssetsInfos.RedMarkerFilePath}",
             // Image = MapsAssetsInfos.EmbeddedRedMarkerFilePath,
             Offset = Offset,
@@ -62,7 +62,7 @@ public static class MapsuiStyleExtensions
         // with a specified image source, offset, and scale for consistent styling.
         return new ImageStyle
         {
-            Image = $"{EmbeddedString}{MapsAssetsInfos.BleuMarkerFilePath}",
+            Image = $"{EmbeddedString}{MapsAssetsInfos.EmbeddedBleuMarkerFilePath}",
             // Image = $"{FileString}{MapsAssetsInfos.BleuMarkerFilePath}",
             // Image = MapsAssetsInfos.EmbeddedBleuMarkerFilePath,
             Offset = Offset,
