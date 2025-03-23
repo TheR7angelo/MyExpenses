@@ -139,34 +139,34 @@ public partial class App
 
     private void SetInitialFile()
     {
-        var currentVersion = Assembly.GetExecutingAssembly().GetName().Version;
-        var needUpdateFiles = false;
-        if (File.Exists(OsInfos.AppVersionInfo))
-        {
-            var appVersionInfo = OsInfos.AppVersionInfo.ToObject<AppVersionInfo>()!;
-            if (currentVersion > appVersionInfo.Version)
-            {
-                needUpdateFiles = true;
-            }
-        }
-        else
-        {
-            // ReSharper disable once HeapView.ObjectAllocation.Evident
-            // A new instance of AppVersionInfo is created and initialized with the current version of the application
-            // and the current timestamp. This provides metadata about the application's version and the last update
-            // time, which can later be used for version control or update tracking purposes.
-            var appVersionInfo = new AppVersionInfo
-            {
-                Version = currentVersion,
-                LastUpdated = DateTime.Now
-            };
-            var json = appVersionInfo.ToJson();
-            File.WriteAllText(OsInfos.AppVersionInfo, json);
-
-            needUpdateFiles = true;
-        }
-
-        if (!needUpdateFiles) return;
+        // var currentVersion = Assembly.GetExecutingAssembly().GetName().Version;
+        // var needUpdateFiles = false;
+        // if (File.Exists(OsInfos.AppVersionInfo))
+        // {
+        //     var appVersionInfo = OsInfos.AppVersionInfo.ToObject<AppVersionInfo>()!;
+        //     if (currentVersion > appVersionInfo.Version)
+        //     {
+        //         needUpdateFiles = true;
+        //     }
+        // }
+        // else
+        // {
+        //     // ReSharper disable once HeapView.ObjectAllocation.Evident
+        //     // A new instance of AppVersionInfo is created and initialized with the current version of the application
+        //     // and the current timestamp. This provides metadata about the application's version and the last update
+        //     // time, which can later be used for version control or update tracking purposes.
+        //     var appVersionInfo = new AppVersionInfo
+        //     {
+        //         Version = currentVersion,
+        //         LastUpdated = DateTime.Now
+        //     };
+        //     var json = appVersionInfo.ToJson();
+        //     File.WriteAllText(OsInfos.AppVersionInfo, json);
+        //
+        //     needUpdateFiles = true;
+        // }
+        //
+        // if (!needUpdateFiles) return;
 
         FileManager.AddAllFiles();
     }
