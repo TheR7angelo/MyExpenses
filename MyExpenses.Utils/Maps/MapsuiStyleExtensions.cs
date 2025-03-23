@@ -33,8 +33,8 @@ public static class MapsuiStyleExtensions
         return new ImageStyle
         {
             // Image = $"{EmbeddedString}{MapsAssetsInfos.GreenMarkerFilePath}",
-            // Image = $"{FileString}{MapsAssetsInfos.GreenMarkerFilePath}",
-            Image = MapsAssetsInfos.EmbeddedGreenMarkerFilePath,
+            Image = $"{FileString}{MapsAssetsInfos.GreenMarkerFilePath}",
+            // Image = MapsAssetsInfos.EmbeddedGreenMarkerFilePath,
             Offset = Offset,
             SymbolScale = Scale
         };
@@ -48,8 +48,8 @@ public static class MapsuiStyleExtensions
         return new ImageStyle
         {
             // Image = $"{EmbeddedString}{MapsAssetsInfos.RedMarkerFilePath}",
-            // Image = $"{FileString}{MapsAssetsInfos.RedMarkerFilePath}",
-            Image = MapsAssetsInfos.EmbeddedRedMarkerFilePath,
+            Image = $"{FileString}{MapsAssetsInfos.RedMarkerFilePath}",
+            // Image = MapsAssetsInfos.EmbeddedRedMarkerFilePath,
             Offset = Offset,
             SymbolScale = Scale
         };
@@ -63,8 +63,8 @@ public static class MapsuiStyleExtensions
         return new ImageStyle
         {
             // Image = $"{EmbeddedString}{MapsAssetsInfos.BleuMarkerFilePath}",
-            // Image = $"{FileString}{MapsAssetsInfos.BleuMarkerFilePath}",
-            Image = MapsAssetsInfos.EmbeddedBleuMarkerFilePath,
+            Image = $"{FileString}{MapsAssetsInfos.BleuMarkerFilePath}",
+            // Image = MapsAssetsInfos.EmbeddedBleuMarkerFilePath,
             Offset = Offset,
             SymbolScale = Scale
         };
