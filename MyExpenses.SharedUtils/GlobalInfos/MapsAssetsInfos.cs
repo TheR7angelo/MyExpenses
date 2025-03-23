@@ -20,20 +20,20 @@ public static class MapsAssetsInfos
 
     static MapsAssetsInfos()
     {
-        // var assembly = Assembly.GetEntryAssembly()
-        //                ?? AppDomain.CurrentDomain.GetAssemblies().First(a => a.GetManifestResourceNames().Any(r =>
-        //                    r.EndsWith(BlueMarkerFilename) ||
-        //                    r.EndsWith(GreenMarkerFilename) ||
-        //                    r.EndsWith(RedMarkerFilename)));
-        //
-        // var resources = assembly.GetManifestResourceNames();
-        //
-        // EmbeddedBleuMarkerFilePath = resources.First(s => s.EndsWith(BlueMarkerFilename));
-        // EmbeddedGreenMarkerFilePath = resources.First(s => s.EndsWith(GreenMarkerFilename));
-        // EmbeddedRedMarkerFilePath = resources.First(s => s.EndsWith(RedMarkerFilename));0
+        var assembly = Assembly.GetEntryAssembly()
+                       ?? AppDomain.CurrentDomain.GetAssemblies().First(a => a.GetManifestResourceNames().Any(r =>
+                           r.EndsWith(BlueMarkerFilename) ||
+                           r.EndsWith(GreenMarkerFilename) ||
+                           r.EndsWith(RedMarkerFilename)));
 
-        EmbeddedBleuMarkerFilePath = "embedded://MyExpenses.SharedUtils.Resources.Assets.Maps.BlueMarker.svg";
-        EmbeddedGreenMarkerFilePath = "embedded://MyExpenses.SharedUtils.Resources.Assets.Maps.GreenMarker.svg";
-        EmbeddedRedMarkerFilePath = "embedded://MyExpenses.SharedUtils.Resources.Assets.Maps.RedMarker.svg";
+        var resources = assembly.GetManifestResourceNames();
+
+        EmbeddedBleuMarkerFilePath = resources.First(s => s.EndsWith(BlueMarkerFilename));
+        EmbeddedGreenMarkerFilePath = resources.First(s => s.EndsWith(GreenMarkerFilename));
+        EmbeddedRedMarkerFilePath = resources.First(s => s.EndsWith(RedMarkerFilename));
+
+        // EmbeddedBleuMarkerFilePath = "embedded://MyExpenses.SharedUtils.BlueMarker.svg";
+        // EmbeddedGreenMarkerFilePath = "embedded://MyExpenses.SharedUtils.GreenMarker.svg";
+        // EmbeddedRedMarkerFilePath = "embedded://MyExpenses.SharedUtils.RedMarker.svg";
     }
 }
