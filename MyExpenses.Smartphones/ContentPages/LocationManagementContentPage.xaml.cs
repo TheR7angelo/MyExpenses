@@ -73,10 +73,9 @@ public partial class LocationManagementContentPage
         MapControl.SetZoom(PlaceLayer);
         UpdateDisplay();
 
-        // ReSharper disable HeapView.DelegateAllocation
-        // MapControl.Map.Tapped += MapControl_OnTapped;
+        // ReSharper disable once HeapView.ObjectAllocation.Possible
+        // ReSharper disable once HeapView.DelegateAllocation
         DeviceDisplay.MainDisplayInfoChanged += DeviceDisplay_OnMainDisplayInfoChanged;
-        // ReSharper restore HeapView.DelegateAllocation
     }
 
     #region Action
@@ -157,22 +156,6 @@ public partial class LocationManagementContentPage
 
     #endregion
 
-    // private bool MapControl_OnTapped(Mapsui.Map sender, MapEventArgs e)
-    // {
-    //     var mapInfo = e.GetMapInfo(InfoLayers);
-    //     SetClickTPlace(mapInfo);
-    //
-    //     var worldPosition = e.WorldPosition;
-    //     var lonLat = SphericalMercator.ToLonLat(worldPosition.X, worldPosition.Y);
-    //
-    //     // ReSharper disable once HeapView.ObjectAllocation.Evident
-    //     // The ClickPoint instance is used to store the coordinates of the point clicked on the map.
-    //     ClickPoint = new Point(lonLat.lon, lonLat.lat);
-    //
-    //     if (e.GestureType is GestureType.LongPress) _ = HandleLongTap();
-    //     return true;
-    // }
-
     private void SetClickTPlace(MapInfo mapInfo)
     {
         if (mapInfo.Feature is not PointFeature pointFeature || mapInfo.Layer?.Tag is not Type layerType || layerType != typeof(TPlace))
@@ -197,7 +180,7 @@ public partial class LocationManagementContentPage
         await this.ShowPopupAsync(customPopupLocationManagement);
     }
 
-    private void MapControl_OnInfo(object? sender, MapInfoEventArgs e)
+    public void MapControl_OnInfo(object? sender, MapInfoEventArgs e)
     {
         var mapInfo = e.GetMapInfo(InfoLayers);
         SetClickTPlace(mapInfo);
