@@ -69,8 +69,7 @@ public partial class LocationManagementContentPage
         InitializeComponent();
 
         Views = [ScrollViewTreeView, MapControl, PickerFieldKnownTileSource];
-
-        // MapControl.Map = map;
+        MapControl.Map = map;
         MapControl.SetZoom(PlaceLayer);
         UpdateDisplay();
 
