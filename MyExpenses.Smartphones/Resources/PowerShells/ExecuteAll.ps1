@@ -5,7 +5,7 @@ $scriptDirectory = Split-Path -Parent $MyInvocation.MyCommand.Definition
 $copyDatabaseModelScript = Join-Path -Path $scriptDirectory -ChildPath "CopyDatabaseModel.ps1"
 
 # Path to the CopyMapsMarker script
-$copyMapsMarkerScript = Join-Path -Path $scriptDirectory -ChildPath "CopyMapsMarker.ps1"
+# $copyMapsMarkerScript = Join-Path -Path $scriptDirectory -ChildPath "CopyMapsMarker.ps1"
 
 # Function to execute a script and handle errors
 function Execute-Script {
@@ -30,7 +30,7 @@ function Execute-Script {
 Execute-Script -scriptPath $copyDatabaseModelScript
 
 # Execute CopyMapsMarker script
-Execute-Script -scriptPath $copyMapsMarkerScript
+# Execute-Script -scriptPath $copyMapsMarkerScript
 
 # Output success message for the whole execution
 Write-Output "All scripts executed successfully."
