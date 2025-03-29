@@ -385,17 +385,7 @@ public partial class AddEditLocationWindow
     }
 
     private void ButtonZoomToPoint_OnClick(object sender, RoutedEventArgs e)
-    {
-        var pointsFeatures = WritableLayer.GetFeatures();
-        var points = pointsFeatures.Select(s => ((PointFeature)s).Point).ToList();
-
-        if (points.Count > 1)
-        {
-            var mRect = points.ToMRect();
-            MapControl.Map.Navigator.ZoomToBox(mRect);
-        }
-        else ZoomToMPoint(points[0]);
-    }
+        => MapControl.Map.Navigator.SetZoom(WritableLayer);
 
     private void ButtonCancel_OnClick(object sender, RoutedEventArgs e)
     {

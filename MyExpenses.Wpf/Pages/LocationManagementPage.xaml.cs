@@ -21,7 +21,6 @@ using MyExpenses.Sql.Context;
 using MyExpenses.Utils;
 using MyExpenses.Utils.Maps;
 using MyExpenses.WebApi.Maps;
-using MyExpenses.Wpf.Utils.Maps;
 using MyExpenses.Wpf.Windows.LocationManagementWindows;
 using MyExpenses.Wpf.Windows.MsgBox;
 using Serilog;
@@ -164,7 +163,7 @@ public partial class LocationManagementPage
         InitializeComponent();
 
         MapControl.Map = map;
-        MapControl.SetZoom(PlaceLayer);
+        MapControl.Map.Navigator.SetZoom(PlaceLayer);
 
         // ReSharper disable HeapView.DelegateAllocation
         Interface.ThemeChanged += Interface_OnThemeChanged;
@@ -497,22 +496,7 @@ public partial class LocationManagementPage
     }
 
     private void SetZoom(params MPoint[] points)
-    {
-        switch (points.Length)
-        {
-            case 0:
-                break;
-            case 1:
-                MapControl.Map.Navigator.CenterOn(points[0]);
-                MapControl.Map.Navigator.ZoomTo(1);
-                break;
-
-            case > 1:
-                var mRect = points.ToMRect();
-                MapControl.Map.Navigator.ZoomToBox(mRect);
-                break;
-        }
-    }
+        => MapControl.Map.Navigator.SetZoom(points);
 
     private void UpdateLanguage()
     {

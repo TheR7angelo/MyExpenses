@@ -35,6 +35,6 @@ public partial class LocationManagementUserControl
         InitializeComponent();
 
         MapControl.Map = map;
-        MapControl.SetZoom(PlaceLayer);
+        MapControl.Map.Navigator.SetZoom(PlaceLayer);
     }
 }

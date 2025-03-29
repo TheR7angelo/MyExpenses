@@ -7,7 +7,6 @@ using Mapsui.Manipulations;
 using Mapsui.Projections;
 using Mapsui.Tiling.Layers;
 using MyExpenses.Maui.Utils;
-using MyExpenses.Maui.Utils.Maps;
 using MyExpenses.Models.Maui.CustomPopup;
 using MyExpenses.Models.Sql.Bases.Groups;
 using MyExpenses.Models.Sql.Bases.Tables;
@@ -70,7 +69,7 @@ public partial class LocationManagementContentPage
 
         Views = [ScrollViewTreeView, MapControl, PickerFieldKnownTileSource];
         MapControl.Map = map;
-        MapControl.SetZoom(PlaceLayer);
+        MapControl.Map.Navigator.SetZoom(PlaceLayer);
         UpdateDisplay();
 
         // ReSharper disable once HeapView.ObjectAllocation.Possible
