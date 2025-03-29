@@ -177,7 +177,7 @@ public partial class NominatimSearchWindow
         feature.Styles = [MapsuiStyleExtensions.RedMarkerStyle];
         WritableLayer.Clear();
         WritableLayer.Add(feature);
-        MapControl.Map.Navigator.CenterOnAndZoomTo(feature.Point, 1);
+        MapControl.Map.Navigator.CenterOnAndZoomTo(feature.Point);
         MapControl.Refresh();
     }
 

@@ -39,4 +39,20 @@ public static class ZoomUtils
                 break;
         }
     }
+
+    /// <summary>
+    /// Centers the navigator on a specific point and adjusts the zoom level to the specified resolution within an optional duration.
+    /// </summary>
+    /// <param name="navigator">The navigator instance to be adjusted.</param>
+    /// <param name="center">The point to center the navigator on.</param>
+    /// <param name="resolution">The zoom level resolution to apply. Default is 0.01.</param>
+    /// <param name="duration">The duration of the animation in milliseconds. Default is -1, meaning no animation.</param>
+    /// <param name="easing">The easing function to use for the animation. Default is null.</param>
+    public static void CenterOnAndZoomTo(this Navigator navigator, MPoint center, double resolution = 0.01,
+        long duration = -1,
+        Easing? easing = null)
+    {
+        navigator.CenterOn(center, duration, easing);
+        navigator.ZoomTo(resolution, duration, easing);
+    }
 }

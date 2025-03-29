@@ -989,8 +989,7 @@ public partial class AddEditRecurrentExpenseWindow
         var pointFeature = place.ToFeature(MapsuiStyleExtensions.RedMarkerStyle);
 
         PlaceLayer.Add(pointFeature);
-        MapControl.Map.Navigator.CenterOn(pointFeature.Point);
-        MapControl.Map.Navigator.ZoomTo(0);
+        MapControl.Map.Navigator.CenterOnAndZoomTo(pointFeature.Point);
     }
 
     private void UpdateNextDueDate()

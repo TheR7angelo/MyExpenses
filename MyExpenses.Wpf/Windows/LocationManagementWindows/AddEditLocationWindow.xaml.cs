@@ -381,7 +381,7 @@ public partial class AddEditLocationWindow
 
         WritableLayer.Add(newFeature);
 
-        ZoomToMPoint(newFeature.Point);
+        MapControl.Map.Navigator.CenterOnAndZoomTo(newFeature.Point);
     }
 
     private void ButtonZoomToPoint_OnClick(object sender, RoutedEventArgs e)
@@ -573,12 +573,6 @@ public partial class AddEditLocationWindow
         if (layers is not null) MapControl?.Map.Layers.Remove(layers.ToArray());
 
         MapControl?.Map.Layers.Insert(0, tileLayer);
-    }
-
-    private void ZoomToMPoint(MPoint mPoint)
-    {
-        MapControl.Map.Navigator.CenterOn(mPoint);
-        MapControl.Map.Navigator.ZoomTo(1);
     }
 
     #endregion

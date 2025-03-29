@@ -634,7 +634,7 @@ public partial class DetailedRecordContentPage
             var firstFeature = features.FirstOrDefault();
             if (firstFeature is not PointFeature pointFeature) return;
 
-            MapControl.Map.Navigator.CenterOnAndZoomTo(pointFeature.Point, 1);
+            MapControl.Map.Navigator.CenterOnAndZoomTo(pointFeature.Point);
         }
         catch (NullReferenceException)
         {
