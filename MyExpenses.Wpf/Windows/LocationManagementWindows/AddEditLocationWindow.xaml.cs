@@ -270,28 +270,6 @@ public partial class AddEditLocationWindow
         this.SetWindowCornerPreference();
     }
 
-    // TODO Temp method
-    private bool Tapped(Map sender, MapEventArgs e)
-    {
-        var worldPosition = e.WorldPosition;
-
-        // ReSharper disable once HeapView.ObjectAllocation.Evident
-        var feature = new TemporaryPointFeature(worldPosition)
-        {
-            // ReSharper disable once HeapView.ObjectAllocation.Evident
-            Styles = [MapsuiStyleExtensions.GreenMarkerStyle],
-            IsTemp = true
-        };
-
-        var oldFeature = WritableLayer.GetFeatures().FirstOrDefault(f => (TemporaryPointFeature)f is { IsTemp: true });
-        if (oldFeature is not null) WritableLayer.TryRemove(oldFeature);
-
-        WritableLayer.Add(feature);
-        MapControl.Map.Refresh();
-
-        return true;
-    }
-
     private void Interface_OnLanguageChanged()
         => UpdateLanguage();
 
