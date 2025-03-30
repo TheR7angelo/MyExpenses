@@ -87,16 +87,16 @@ public partial class GeneralAccountSetupContentPage
     #region Action
 
     private void ButtonAccountManagement_OnClicked(object? sender, EventArgs e)
-        => _ = NavigateTo(typeof(AccountManagementContentPage));
+        => _ = typeof(AccountManagementContentPage).NavigateToAsync();
 
     private void ButtonLocationManagement_OnClicked(object? sender, EventArgs e)
-        => _ = NavigateTo(typeof(LocationManagementContentPage));
+        => _ = typeof(LocationManagementContentPage).NavigateToAsync();
 
     private void ButtonManagingAccountTypes_OnClicked(object? sender, EventArgs e)
-        => _ = NavigateTo(typeof(AccountTypeSummaryContentPage));
+        => _ = typeof(AccountTypeSummaryContentPage).NavigateToAsync();
 
     private void ButtonManagingCategoryTypes_OnClicked(object? sender, EventArgs e)
-        => _ = NavigateTo(typeof(AddEditCategoryTypesContentPage));
+        => _ = typeof(AddEditCategoryTypesContentPage).NavigateToAsync();
 
     private void Interface_OnLanguageChanged()
         => UpdateLanguage();
@@ -104,12 +104,6 @@ public partial class GeneralAccountSetupContentPage
     #endregion
 
     #region Function
-
-    private async Task NavigateTo(Type type)
-    {
-        var contentPage = (ContentPage)Activator.CreateInstance(type)!;
-        await Navigation.PushAsync(contentPage);
-    }
 
     private void UpdateLanguage()
     {

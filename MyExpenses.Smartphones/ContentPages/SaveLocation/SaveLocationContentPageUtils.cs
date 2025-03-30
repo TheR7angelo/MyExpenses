@@ -27,7 +27,7 @@ public static class SaveLocationContentPageUtils
         // This creates and pushes the page to the navigation stack, allowing the user to interact with the UI
         // and select a save location. The ResultDialog property is awaited to retrieve the user’s choice.
         var saveLocationContentPage = new SaveLocationContentPage(saveLocationMode);
-        await Shell.Current.Navigation.PushAsync(saveLocationContentPage);
+        await saveLocationContentPage.NavigateToAsync();
         var result = await saveLocationContentPage.ResultDialog;
 
         return result is not true ? null : saveLocationContentPage.SaveLocationResult;

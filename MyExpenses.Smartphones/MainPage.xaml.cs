@@ -208,7 +208,7 @@ public partial class MainPage
         var addDatabaseFileContentPage = new AddDatabaseFileContentPage();
         addDatabaseFileContentPage.SetExistingDatabase(ExistingDatabases);
 
-        await Navigation.PushAsync(addDatabaseFileContentPage);
+        await addDatabaseFileContentPage.NavigateToAsync();
 
         var result = await addDatabaseFileContentPage.ResultDialog;
 
@@ -269,7 +269,7 @@ public partial class MainPage
         var selectDatabaseFileContentPage = new SelectDatabaseFileContentPage();
 
         selectDatabaseFileContentPage.ExistingDatabases.AddRange(ExistingDatabases);
-        await Navigation.PushAsync(selectDatabaseFileContentPage);
+        await selectDatabaseFileContentPage.NavigateToAsync();
         var result = await selectDatabaseFileContentPage.ResultDialog;
         if (result is not true) return;
         if (selectDatabaseFileContentPage.ExistingDatabasesSelected.Count.Equals(0)) return;
@@ -386,7 +386,7 @@ public partial class MainPage
         var selectDatabaseFileContentPage = new SelectDatabaseFileContentPage();
         selectDatabaseFileContentPage.ExistingDatabases.AddRange(existingDatabase);
 
-        await Navigation.PushAsync(selectDatabaseFileContentPage);
+        await selectDatabaseFileContentPage.NavigateToAsync();
 
         var result = await selectDatabaseFileContentPage.ResultDialog;
 
@@ -480,7 +480,7 @@ public partial class MainPage
         var selectDatabaseFileContentPage = new SelectDatabaseFileContentPage();
 
         selectDatabaseFileContentPage.ExistingDatabases.AddRange(ExistingDatabases);
-        await Navigation.PushAsync(selectDatabaseFileContentPage);
+        await selectDatabaseFileContentPage.NavigateToAsync();
 
         var result = await selectDatabaseFileContentPage.ResultDialog;
         return result ? selectDatabaseFileContentPage.ExistingDatabasesSelected : null;

@@ -300,7 +300,7 @@ public partial class DashBoardContentPage
         // it behaves appropriately for the intended use case. The explicit allocation ensures
         // the page is initialized correctly in an isolated and controlled way.
         var detailedRecordContentPage = new DetailedRecordContentPage { IsNewHistory = true };
-        await Navigation.PushAsync(detailedRecordContentPage);
+        await detailedRecordContentPage.NavigateToAsync();
 
         var result = await detailedRecordContentPage.ResultDialog;
         if (result is not true) return;
@@ -882,7 +882,7 @@ public partial class DashBoardContentPage
         // This enables flexibility in managing record actions within the application's user interface.
         var detailedRecordContentPage = new DetailedRecordContentPage { CanBeDeleted = true };
         detailedRecordContentPage.SetHistory(vHistory.Id);
-        await Navigation.PushAsync(detailedRecordContentPage);
+        await detailedRecordContentPage.NavigateToAsync();
 
         var result = await detailedRecordContentPage.ResultDialog;
         if (result is not true) return;

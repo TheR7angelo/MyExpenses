@@ -752,7 +752,7 @@ public partial class BankTransferSummaryContentPage
         var addEditBankTransferContentPage = new AddEditBankTransferContentPage { CanBeDeleted = true };
         addEditBankTransferContentPage.SetVBankTransferSummary(vBankTransferSummary);
 
-        await Navigation.PushAsync(addEditBankTransferContentPage);
+        await addEditBankTransferContentPage.NavigateToAsync();
 
         var success = await addEditBankTransferContentPage.ResultDialog;
         if (!success) return;

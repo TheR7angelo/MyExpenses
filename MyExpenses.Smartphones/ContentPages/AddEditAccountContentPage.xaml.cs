@@ -188,7 +188,7 @@ public partial class AddEditAccountContentPage
         // This ensures that each time this method is executed, a fresh, independent page instance is used.
         // Reusing an existing instance could cause unexpected state sharing or UI issues.
         var accountTypeSummaryContentPage = new AccountTypeSummaryContentPage();
-        await Navigation.PushAsync(accountTypeSummaryContentPage);
+        await accountTypeSummaryContentPage.NavigateToAsync();
 
         var result = await accountTypeSummaryContentPage.ResultDialog;
         if (!result) return;
@@ -206,7 +206,7 @@ public partial class AddEditAccountContentPage
         // This ensures that a fresh instance is always used, avoiding potential state or UI inconsistencies
         // that might arise from reusing an existing instance of this page.
         var currencySymbolSummaryContentPage = new CurrencySymbolSummaryContentPage();
-        await Navigation.PushAsync(currencySymbolSummaryContentPage);
+        await currencySymbolSummaryContentPage.NavigateToAsync();
 
         var result = await currencySymbolSummaryContentPage.ResultDialog;
         if (!result) return;

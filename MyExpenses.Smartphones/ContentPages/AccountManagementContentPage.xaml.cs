@@ -91,7 +91,7 @@ public partial class AccountManagementContentPage
         // ReSharper disable once HeapView.ObjectAllocation.Evident
         // This creates and pushes the page onto the navigation stack, enabling interaction with the user.
         var addEditAccountContentPage = new AddEditAccountContentPage();
-        await Navigation.PushAsync(addEditAccountContentPage);
+        await addEditAccountContentPage.NavigateToAsync();
 
         var result = await addEditAccountContentPage.ResultDialog;
         if (result is not true) return;
@@ -105,7 +105,7 @@ public partial class AccountManagementContentPage
         // ReSharper disable once HeapView.ObjectAllocation.Evident
         // This creates and pushes the page onto the navigation stack, enabling interaction with the user.
         var addEditBankTransferContentPage = new AddEditBankTransferContentPage { IsNewBankTransfer = true };
-        await Navigation.PushAsync(addEditBankTransferContentPage);
+        await addEditBankTransferContentPage.NavigateToAsync();
 
         var needToRefresh = await addEditBankTransferContentPage.ResultDialog;
         if (needToRefresh) RefreshAccountTotals();
@@ -116,7 +116,7 @@ public partial class AccountManagementContentPage
         // ReSharper disable once HeapView.ObjectAllocation.Evident
         // This creates and pushes the page onto the navigation stack, enabling interaction with the user.
         var bankTransferSummaryContentPage = new BankTransferSummaryContentPage();
-        await Navigation.PushAsync(bankTransferSummaryContentPage);
+        await bankTransferSummaryContentPage.NavigateToAsync();
 
         var needToRefresh = await bankTransferSummaryContentPage.ResultDialog;
         if (needToRefresh) RefreshAccountTotals();
@@ -197,7 +197,7 @@ public partial class AccountManagementContentPage
         // This creates and pushes the page onto the navigation stack, enabling interaction with the user.
         var addEditAccountContentPage = new AddEditAccountContentPage { CanDelete = true };
         addEditAccountContentPage.SetAccount(id: vTotalByAccount.Id);
-        await Navigation.PushAsync(addEditAccountContentPage);
+        await addEditAccountContentPage.NavigateToAsync();
 
         var result = await addEditAccountContentPage.ResultDialog;
         if (result is not true) return;
