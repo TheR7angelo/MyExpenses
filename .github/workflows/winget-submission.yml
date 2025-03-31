@@ -1,50 +1,32 @@
----
 name: WinGet submission on release
+# based off of https://github.com/nushell/nushell/blob/main/.github/workflows/winget-submission.yml
+
 on:
   workflow_dispatch:
-    release:
-      types:
-        - published
+  release:
+    types: [published]
+
 jobs:
   winget:
     name: Publish winget package
     runs-on: windows-latest
-    env:
-      SIMULATE: true
     steps:
-      - name: Define variables
-        run: |
-          $wingetPackage = "TheR7angelo.MyExpenses"
-          $gitToken = "${{ secrets.GITHUB_TOKEN }}"
-          $githubReleases = Invoke-RestMethod -uri "https://api.github.com/repos/TheR7angelo/MyExpenses/releases"
-          echo "set-output name=winget_package: $wingetPackage"
-          echo "set-output name=github_releases: $githubReleases"
-
-      - name: Get release details
-        env:
-          GITHUB_RELEASE: ${{ steps.variables.outputs.github_releases }}
-        run: |
-          $githubReleases = $Env:GITHUB_RELEASES               
-          $targetRelease = $githubReleases | Where-Object { -not $_.draft -and -not $_.prerelease } | Select -First 1
-          $installerUserX64Url = $targetRelease | Select -ExpandProperty assets -First 1 | Where-Object -Property name -match 'MyExpenses.*x64' | Select -ExpandProperty browser_download_url
-          # $installerMachineX64Url = $targetRelease | Select -ExpandProperty assets -First 1 | Where-Object -Property name -match 'MyExpensesSetup.*x64' | Select -ExpandProperty browser_download_url
-          # $installerUserArmUrl = $targetRelease | Select -ExpandProperty assets -First 1 | Where-Object -Property name -match 'MyExpensesUserSetup.*arm64' | Select -ExpandProperty browser_download_url
-          # $installerMachineArmUrl = $targetRelease | Select -ExpandProperty assets -First 1 | Where-Object -Property name -match 'MyExpensesSetup.*arm64' | Select -ExpandProperty browser_download_url
-          echo "set-output name=target_release: $targetRelease"
-          echo "set-output name=installer_user_x64_url: $installerUserX64Url"
-
-      - name: Get version from release tag
-        run: |
-          $targetRelease = ${{ steps.release_details.outputs.target_release }}
-          $ver = $targetRelease.tag_name -ireplace '^v'
-
-      - name: Download WingetCreate
-        run: |
-          Invoke-WebRequest -Uri https://aka.ms/wingetcreate/latest -OutFile wingetcreate.exe
-
       - name: Submit TheR7angelo.MyExpenses package to Windows Package Manager Community Repository
         run: |
-          $wingetPackage = ${{ steps.variables.outputs.winget_package }}
-          $version = ${{ steps.version.outputs.version }}
-          $installerUserX64Url = ${{ steps.release_details.outputs.installer_user_x64_url }}
-          .\wingetcreate.exe update $wingetPackage -s -v $version -u "$installerUserX64Url|user" -t "${{ secrets.GITHUB_TOKEN }}"
+
+          $wingetPackage = "TheR7angelo.MyExpenses"
+          $gitToken = "${{ secrets.GITHUB_TOKEN }}"
+
+          $github = Invoke-RestMethod -uri "https://api.github.com/repos/TheR7angelo/MyExpenses/releases" 
+
+          $targetRelease = $github | Where-Object { -not $_.draft -and -not $_.prerelease } | Select -First 1
+          $installerUserX64Url = $targetRelease | Select -ExpandProperty assets -First 1 | Where-Object -Property name -match 'MyExpenses.*x64' | Select -ExpandProperty browser_download_url
+          # $installerMachineX64Url = $targetRelease | Select -ExpandProperty assets -First 1 | Where-Object -Property name -match 'PowerToysSetup.*x64' | Select -ExpandProperty browser_download_url
+          # $installerUserArmUrl = $targetRelease | Select -ExpandProperty assets -First 1 | Where-Object -Property name -match 'PowerToysUserSetup.*arm64' | Select -ExpandProperty browser_download_url
+          # $installerMachineArmUrl = $targetRelease | Select -ExpandProperty assets -First 1 | Where-Object -Property name -match 'PowerToysSetup.*arm64' | Select -ExpandProperty browser_download_url
+          $ver = $targetRelease.tag_name -ireplace '^v'
+
+          # getting latest wingetcreate file
+          iwr https://aka.ms/wingetcreate/latest -OutFile wingetcreate.exe
+          # .\wingetcreate.exe update $wingetPackage -s -v $ver -u "$installerUserX64Url|user" "$installerMachineX64Url|machine" "$installerUserArmUrl|user" "$installerMachineArmUrl|machine" -t $gitToken
+          .\wingetcreate.exe update $wingetPackage -s -v $ver -u "$installerUserX64Url|user" -t $gitToken
