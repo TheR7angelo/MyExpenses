@@ -19,7 +19,6 @@ jobs:
           $githubReleases = Invoke-RestMethod -uri "https://api.github.com/repos/TheR7angelo/MyExpenses/releases"
           echo "set-output name=winget_package: $wingetPackage"
           echo "set-output name=github_releases: $githubReleases"
-
       - name: Get release details
         env:
           GITHUB_RELEASE: ${{ steps.variables.outputs.github_releases }}
