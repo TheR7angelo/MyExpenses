@@ -29,8 +29,8 @@ jobs:
 #          $installerMachineX64Url = $targetRelease | Select -ExpandProperty assets -First 1 | Where-Object -Property name -match 'MyExpensesSetup.*x64' | Select -ExpandProperty browser_download_url
 #          $installerUserArmUrl = $targetRelease | Select -ExpandProperty assets -First 1 | Where-Object -Property name -match 'MyExpensesUserSetup.*arm64' | Select -ExpandProperty browser_download_url
 #          $installerMachineArmUrl = $targetRelease | Select -ExpandProperty assets -First 1 | Where-Object -Property name -match 'MyExpensesSetup.*arm64' | Select -ExpandProperty browser_download_url
-#          echo "set-output name=target_release: $targetRelease"
-#          echo "set-output name=installer_user_x64_url: $installerUserX64Url"
+          echo "set-output name=target_release: $targetRelease"
+          echo "set-output name=installer_user_x64_url: $installerUserX64Url"
 
       - name: Get version from release tag
         run: |
