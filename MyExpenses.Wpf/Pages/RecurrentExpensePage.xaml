@@ -43,7 +43,6 @@
         </Button>
 
         <filterDataGrid:FilterDataGrid Grid.Row="1"
-                                       x:Name="FilterDataGrid"
                                        ShowStatusBar="True" ShowElapsedTime="True"
                                        FilterPopupBackground="{DynamicResource MaterialDesignPaper}"
                                        ItemsSource="{Binding VRecursiveExpenses, Mode=OneWay}"
