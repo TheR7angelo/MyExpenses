@@ -1005,7 +1005,7 @@ public partial class AddEditRecurrentExpenseWindow
         var now = DateOnly.FromDateTime(DateTime.Now);
 
         var dateOnly = RecursiveExpense.StartDate >= now
-            ? RecursiveExpense.StartDate
+            ? RecursiveExpense.StartDate.AdjustForWeekends()
             : RecursiveExpense.ERecursiveFrequency.CalculateNextDueDate(RecursiveExpense.StartDate, TModePayment.GetModePayment(RecursiveExpense.ModePaymentFk));
 
         RecursiveExpense.NextDueDate = dateOnly;
