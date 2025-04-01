@@ -1,5 +1,6 @@
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using Serilog;
 
 namespace MyExpenses.Utils.WindowStyle;
 
@@ -15,6 +16,12 @@ public static class DesktopWindowsManager
     /// <returns>bool true if the set worked</returns>
     public static bool SetWindowCornerPreference(this IntPtr hWnd, DwmWindowCornerPreference windowCornerPreference)
     {
+        if (!IsDwmApiAvailable())
+        {
+            Log.Warning("dwmapi.dll is not available, skipping SetWindowCornerPreference");
+            return false;
+        }
+
         if (!WindowsVersion.IsWindows11OrLater)
         {
             return false;
@@ -28,6 +35,16 @@ public static class DesktopWindowsManager
         var result = DwmSetWindowAttribute(hWnd, DwmWindowAttributes.WindowCornerPreference, refToWindowCornerPreference, Marshal.SizeOf(typeof(uint)));
         return result.Succeeded();
     }
+
+    /// <summary>
+    /// Checks if the Desktop Window Manager (DWM) API is available on the system.
+    /// </summary>
+    /// <returns>True if the DWM API is available; otherwise, false.</returns>
+    private static bool IsDwmApiAvailable()
+    {
+        return NativeLibrary.TryLoad("dwmapi.dll", out _);
+    }
+
 
     /// <summary>
     ///     Sets the value of non-client rendering attributes for a window.

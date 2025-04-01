@@ -1,6 +1,7 @@
 using System.Windows;
 using System.Windows.Interop;
 using MyExpenses.Utils.WindowStyle;
+using Serilog;
 
 namespace MyExpenses.Wpf.Utils;
 
@@ -8,10 +9,27 @@ public static class WindowUtils
 {
     public static void SetWindowCornerPreference(this Window window, DwmWindowCornerPreference dwmWindowCornerPreference = DwmWindowCornerPreference.Round)
     {
-        var w = Window.GetWindow(window)!;
+        try
+        {
+            var w = Window.GetWindow(window);
+            if (w is null)
+            {
+                Log.Error("Window is null");
+                return;
+            };
 
-        // ReSharper disable once HeapView.ObjectAllocation.Evident
-        var hWnd = new WindowInteropHelper(w).EnsureHandle();
-        _ = hWnd.SetWindowCornerPreference(dwmWindowCornerPreference);
+            var hwd = new WindowInteropHelper(w).EnsureHandle();
+            if (hwd == IntPtr.Zero)
+            {
+                Log.Error("Window handle is invalid, skipping SetWindowCornerPreference");
+                return;
+            }
+
+            _ = hwd.SetWindowCornerPreference(dwmWindowCornerPreference);
+        }
+        catch (Exception e)
+        {
+            Log.Error(e, "Error setting window corner preference");
+        }
     }
 }
