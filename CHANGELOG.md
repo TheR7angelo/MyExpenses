@@ -13,7 +13,7 @@
 
 
 
-## [1.1.6](https://github.com/TheR7angelo/MyExpenses/compare/1.1.6...v1.1.6) (2025-03-09)
+## [1.1.6](https://github.com/TheR7angelo/MyExpenses/compare/v1.0.7...v1.1.6) (2025-03-09)
 
 
 ### Bug Fixes
