@@ -35,6 +35,9 @@ public partial class TRecursiveExpense : ISql
     [Column("mode_payment_fk")]
     public int? ModePaymentFk { get; set; }
 
+    [NotMapped]
+    public EModePayment EModePaymentFk => TModePayment.GetModePayment(ModePaymentFk);
+
     [Required]
     [Column("value")]
     public double? Value { get; set; }

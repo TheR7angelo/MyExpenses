@@ -38,13 +38,15 @@ public static class DateTimeExtensions
     }
 
     /// <summary>
-    /// Calculates the next due date based on the specified recursive frequency and base date.
+    /// Calculates the next due date for a given base date based on a specified recursive frequency and payment mode.
     /// </summary>
-    /// <param name="recursiveFrequency">The frequency at which the event recurs (e.g., daily, weekly, monthly).</param>
-    /// <param name="baseDate">The starting date from which to calculate the next due date.</param>
+    /// <param name="recursiveFrequency">The frequency of recurrence, determining the interval for the next due date.</param>
+    /// <param name="baseDate">The starting date from which the next due date will be calculated.</param>
+    /// <param name="modePayment">The mode of payment, used to potentially influence the calculation.</param>
     /// <returns>The calculated next due date as a DateOnly object.</returns>
     /// <exception cref="ArgumentOutOfRangeException">Thrown when an unsupported recursive frequency is provided.</exception>
-    public static DateOnly CalculateNextDueDate(this ERecursiveFrequency recursiveFrequency, DateOnly baseDate)
+    public static DateOnly CalculateNextDueDate(this ERecursiveFrequency recursiveFrequency, DateOnly baseDate,
+        EModePayment modePayment)
     {
         var dateOnly = recursiveFrequency switch
         {
@@ -58,6 +60,23 @@ public static class DateTimeExtensions
             ERecursiveFrequency.Yearly => baseDate.AddYears(1),
             _ => throw new ArgumentOutOfRangeException()
         };
+
+        if (modePayment is EModePayment.BankDirectDebit) dateOnly = dateOnly.AdjustForWeekends();
         return dateOnly;
+    }
+
+    /// <summary>
+    /// Adjusts the given date to a weekday if it falls on a weekend.
+    /// </summary>
+    /// <param name="date">The date to be adjusted.</param>
+    /// <returns>The adjusted date that falls on a weekday.</returns>
+    private static DateOnly AdjustForWeekends(this DateOnly date)
+    {
+        return date.DayOfWeek switch
+        {
+            DayOfWeek.Saturday => date.AddDays(1), // Décaler au lundi
+            DayOfWeek.Sunday => date.AddDays(2),  // Décaler au lundi
+            _ => date
+        };
     }
 }
