@@ -10,7 +10,7 @@ public static class ImportExportDataTableExcel
 {
     static ImportExportDataTableExcel()
     {
-        ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
+        ExcelPackage.License.SetNonCommercialPersonal(nameof(MyExpenses));
     }
 
     public static bool ToExcelWorksheet(this DataBaseContext context, string filePath)
