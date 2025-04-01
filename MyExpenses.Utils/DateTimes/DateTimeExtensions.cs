@@ -38,30 +38,48 @@ public static class DateTimeExtensions
     }
 
     /// <summary>
-    /// Calculates the next due date for a given base date based on a specified recursive frequency and payment mode.
+    /// Calculates the next due date for a recurrent expense based on the given frequency, base date, payment mode, and cycle count.
     /// </summary>
-    /// <param name="recursiveFrequency">The frequency of recurrence, determining the interval for the next due date.</param>
-    /// <param name="baseDate">The starting date from which the next due date will be calculated.</param>
-    /// <param name="modePayment">The mode of payment, used to potentially influence the calculation.</param>
+    /// <param name="recursiveFrequency">The recurrence frequency (e.g., daily, weekly, monthly, etc.).</param>
+    /// <param name="baseDate">The starting date for the recurrence calculation.</param>
+    /// <param name="modePayment">The payment mode which may influence adjustments (e.g., handling weekends).</param>
+    /// <param name="cycle">An optional parameter representing the number of recurrence cycles, defaulting to 1. Must be greater than or equal to 1.</param>
+    /// <returns>The calculated next due date as a DateOnly object.</returns>
+    /// <exception cref="ArgumentOutOfRangeException">Thrown if the cycle parameter is less than 1.</exception>
+    public static DateOnly CalculateNextDueDate(this ERecursiveFrequency recursiveFrequency, DateOnly baseDate,
+        EModePayment modePayment, int cycle = 1)
+    {
+        if (cycle < 1) throw new ArgumentOutOfRangeException(nameof(cycle), @"Cycle must be greater than or equal to 1.");
+
+        var dateOnly = recursiveFrequency.CalculateNextDueDate(baseDate, cycle);
+        if (modePayment is EModePayment.BankDirectDebit) dateOnly = dateOnly.AdjustForWeekends();
+        return dateOnly;
+    }
+
+    /// <summary>
+    /// Calculates the next due date based on a specified recursive frequency, starting from a given base date and cycle.
+    /// </summary>
+    /// <param name="recursiveFrequency">The frequency of recurrence which determines how the next due date is calculated.</param>
+    /// <param name="baseDate">The starting date from which the recurrence calculation begins.</param>
+    /// <param name="cycle">The recurrence cycle multiplier to calculate how many intervals to add to the base date.</param>
     /// <returns>The calculated next due date as a DateOnly object.</returns>
     /// <exception cref="ArgumentOutOfRangeException">Thrown when an unsupported recursive frequency is provided.</exception>
-    public static DateOnly CalculateNextDueDate(this ERecursiveFrequency recursiveFrequency, DateOnly baseDate,
-        EModePayment modePayment)
+    private static DateOnly CalculateNextDueDate(this ERecursiveFrequency recursiveFrequency, DateOnly baseDate,
+        int cycle)
     {
         var dateOnly = recursiveFrequency switch
         {
-            ERecursiveFrequency.Daily => baseDate.AddDays(1),
-            ERecursiveFrequency.Weekly => baseDate.AddDays(7),
-            ERecursiveFrequency.Monthly => baseDate.AddMonths(1),
-            ERecursiveFrequency.Bimonthly => baseDate.AddMonths(2),
-            ERecursiveFrequency.Trimonthly => baseDate.AddMonths(3),
-            ERecursiveFrequency.Quarterly => baseDate.AddMonths(4),
-            ERecursiveFrequency.SixMonthly => baseDate.AddMonths(6),
-            ERecursiveFrequency.Yearly => baseDate.AddYears(1),
-            _ => throw new ArgumentOutOfRangeException()
+            ERecursiveFrequency.Daily => baseDate.AddDays(1 * cycle),
+            ERecursiveFrequency.Weekly => baseDate.AddDays(7 * cycle),
+            ERecursiveFrequency.Monthly => baseDate.AddMonths(1 * cycle),
+            ERecursiveFrequency.Bimonthly => baseDate.AddMonths(2 * cycle),
+            ERecursiveFrequency.Trimonthly => baseDate.AddMonths(3 * cycle),
+            ERecursiveFrequency.Quarterly => baseDate.AddMonths(4 * cycle),
+            ERecursiveFrequency.SixMonthly => baseDate.AddMonths(6 * cycle),
+            ERecursiveFrequency.Yearly => baseDate.AddYears(1 * cycle),
+            _ => baseDate
         };
 
-        if (modePayment is EModePayment.BankDirectDebit) dateOnly = dateOnly.AdjustForWeekends();
         return dateOnly;
     }
 

@@ -996,17 +996,27 @@ public partial class AddEditRecurrentExpenseWindow
     {
         // ReSharper disable once HeapView.DelegateAllocation
         var selectedFrequency = RecursiveFrequencies.FirstOrDefault(s => s.Id == RecursiveExpense.FrequencyFk);
-        if (selectedFrequency is null)
+        if (selectedFrequency is null && !EditRecurrentExpense)
         {
             RecursiveExpense.NextDueDate = RecursiveExpense.StartDate;
             return;
         }
 
-        var now = DateOnly.FromDateTime(DateTime.Now);
+        DateOnly dateOnly;
+        if (EditRecurrentExpense)
+        {
+            var cycle = RecursiveExpense.RecursiveCount < 1 ? 1 : RecursiveExpense.RecursiveCount;
+            dateOnly = RecursiveExpense.ERecursiveFrequency
+                .CalculateNextDueDate(RecursiveExpense.StartDate, TModePayment.GetModePayment(RecursiveExpense.ModePaymentFk), cycle);
+        }
+        else
+        {
+            var now = DateOnly.FromDateTime(DateTime.Now);
 
-        var dateOnly = RecursiveExpense.StartDate >= now
-            ? RecursiveExpense.StartDate.AdjustForWeekends()
-            : RecursiveExpense.ERecursiveFrequency.CalculateNextDueDate(RecursiveExpense.StartDate, TModePayment.GetModePayment(RecursiveExpense.ModePaymentFk));
+            dateOnly = RecursiveExpense.StartDate >= now
+                ? RecursiveExpense.StartDate.AdjustForWeekends()
+                : RecursiveExpense.ERecursiveFrequency.CalculateNextDueDate(RecursiveExpense.StartDate, TModePayment.GetModePayment(RecursiveExpense.ModePaymentFk));
+        }
 
         RecursiveExpense.NextDueDate = dateOnly;
     }
