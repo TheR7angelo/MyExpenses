@@ -150,7 +150,8 @@
                   ItemsSource="{Binding ModePayments, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                   SelectedValue="{Binding RecursiveExpense.ModePaymentFk, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                   SelectedValuePath="{Binding SelectedValuePathModePayment}"
-                  DisplayMemberPath="{Binding DisplayMemberPathModePayment}">
+                  DisplayMemberPath="{Binding DisplayMemberPathModePayment}"
+                  SelectionChanged="Selector_OnSelectionChanged">
         </ComboBox>
 
         <Button Grid.Row="4" Grid.Column="1"
