@@ -1,8 +1,19 @@
-#  (2025-03-09)
+# [](https://github.com/TheR7angelo/MyExpenses/compare/v1.1.6...v) (2025-04-01)
+
+
+### Bug Fixes
+
+* **Update:** Add cycle-based recurrence logic for due date calculation ([f619c3e](https://github.com/TheR7angelo/MyExpenses/commit/f619c3e3755a5adc941d71f345a37b407e37f3f5))
+
+
+### Features
+
+* **Update:** Add payment mode support for due date calculation ([7ee2589](https://github.com/TheR7angelo/MyExpenses/commit/7ee2589b4e92373771f6cbd2ea646ae35b131e57))
+* **Update:** Set default payment mode to BankTransfer on load ([6d2afb9](https://github.com/TheR7angelo/MyExpenses/commit/6d2afb90cf967e52d5a5587ae5ac184a0562a122))
 
 
 
-## [1.1.6](https://github.com/TheR7angelo/MyExpenses/compare/1.1.0...1.1.6) (2025-03-09)
+## [1.1.6](https://github.com/TheR7angelo/MyExpenses/compare/1.1.6...v1.1.6) (2025-03-09)
 
 
 ### Bug Fixes
@@ -10,10 +21,12 @@
 * **Update:** Fix account name assignment in analysis series generation ([e600f4b](https://github.com/TheR7angelo/MyExpenses/commit/e600f4b946f2f46e18104a42eed27a00c894db66))
 * **Update:** Fix DateOnly to DateTime conversion logic ([3dde5b3](https://github.com/TheR7angelo/MyExpenses/commit/3dde5b3b0c3edbb269dc94083bbf62bab480b003))
 * **Update:** Fix folder selection logic in FolderDialog ([e2bcef3](https://github.com/TheR7angelo/MyExpenses/commit/e2bcef3a065e8dc34d26ff50db31e275f4b7b8ba))
+* **Update:** Fix type reference in GeometrySource property definition ([f012043](https://github.com/TheR7angelo/MyExpenses/commit/f0120432d44469090ae10ff882c6dbe8978eadf4))
 * **Update:** Order GitHub releases by publication date in API client ([0f199c1](https://github.com/TheR7angelo/MyExpenses/commit/0f199c1c9d70123b6b9105a8d1398abfee6b5b05))
 * **Update:** Simplify child entity extraction in DbContextHelper ([d17300c](https://github.com/TheR7angelo/MyExpenses/commit/d17300cb2e3ad5f72f3f335c4b0cda69f1843c1e))
 * **Update:** Swap parameter order for consistency in MsgBox methods ([6a63fcf](https://github.com/TheR7angelo/MyExpenses/commit/6a63fcfa718bab890062676940fb238c22f4640f))
-* **Update:** Update location checkbox event to use PreviewMouseDown ([a1477bb](https://github.com/TheR7angelo/MyExpenses/commit/a1477bbb5670fd02b7167f6b1f2246671bb25a96))([63b8b99](https://github.com/TheR7angelo/MyExpenses/commit/63b8b9926e73beb4c6e087a169087477d57277cd))
+* **Update:** Update location checkbox event to use PreviewMouseDown ([a1477bb](https://github.com/TheR7angelo/MyExpenses/commit/a1477bbb5670fd02b7167f6b1f2246671bb25a96))
+* **Update:** Update location checkbox event to use PreviewMouseDown ([63b8b99](https://github.com/TheR7angelo/MyExpenses/commit/63b8b9926e73beb4c6e087a169087477d57277cd))
 * **Update:** Update message box resources for category type actions ([8582c63](https://github.com/TheR7angelo/MyExpenses/commit/8582c63cb3f89c592b3377fa98b4b92253421ce0))
 
 
