@@ -70,12 +70,12 @@ public static class DateTimeExtensions
     /// </summary>
     /// <param name="date">The date to be adjusted.</param>
     /// <returns>The adjusted date that falls on a weekday.</returns>
-    private static DateOnly AdjustForWeekends(this DateOnly date)
+    public static DateOnly AdjustForWeekends(this DateOnly date)
     {
         return date.DayOfWeek switch
         {
-            DayOfWeek.Saturday => date.AddDays(1), // Décaler au lundi
-            DayOfWeek.Sunday => date.AddDays(2),  // Décaler au lundi
+            DayOfWeek.Saturday => date.AddDays(2), // Décaler au lundi
+            DayOfWeek.Sunday => date.AddDays(1),  // Décaler au lundi
             _ => date
         };
     }
