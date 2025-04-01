@@ -5,6 +5,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using MyExpenses.Models.Config.Interfaces;
+using MyExpenses.Models.Sql.Bases.Enums;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Models.Sql.Bases.Views;
 using MyExpenses.SharedUtils.Collection;
@@ -278,6 +279,7 @@ public partial class BankTransferPage
         CategoryTypes = [..context.TCategoryTypes.OrderBy(s => s.Name)];
         ModePayments = [..context.TModePayments.OrderBy(s => s.Name)];
         Accounts = [..context.TAccounts.OrderBy(s => s.Name)];
+        ModePayment = ModePayments.First(s => s.EModePayment is EModePayment.BankTransfer);
 
         // ReSharper disable HeapView.ObjectAllocation.Evident
         // The use of ObservableCollection<T> is mandatory here to ensure that any changes
