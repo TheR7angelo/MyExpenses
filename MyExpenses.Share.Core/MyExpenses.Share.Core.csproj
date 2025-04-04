@@ -7,7 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="LiveChartsCore.SkiaSharpView" Version="2.0.0-rc5.1" />
+      <PackageReference Include="LiveChartsCore.SkiaSharpView" Version="2.0.0-rc5.4" />
       <PackageReference Include="Microsoft.Maui.Essentials" Version="9.0.50" />
     </ItemGroup>
 
