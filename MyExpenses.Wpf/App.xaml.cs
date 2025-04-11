@@ -62,7 +62,7 @@ public partial class App
         }
         catch (Exception exception)
         {
-            Console.WriteLine(exception);
+            Log.Fatal(exception, "An unexpected error occurred");
             throw;
         }
     }
