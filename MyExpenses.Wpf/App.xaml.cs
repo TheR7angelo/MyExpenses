@@ -21,11 +21,16 @@ public partial class App
 
     protected override void OnStartup(StartupEventArgs e)
     {
+        AppDomain.CurrentDomain.ProcessExit += CurrentDomainOnProcessExit;
+        AppDomain.CurrentDomain.UnhandledException += CurrentDomainOnUnhandledException;
+
         var systemArgs = e.Args.GetArguments();
         DataBaseContext.LogEventLevel = systemArgs.LogEventLevel;
         DataBaseContext.LogEfCore = systemArgs.LogEfCore;
         DataBaseContext.WriteToFileEfCore = systemArgs.WriteToFileEfCore;
         Log.Logger = LoggerConfig.CreateConfig(systemArgs.LogEventLevel);
+        Log.Information("Logger created with log event level: {SystemArgsLogEventLevel}", systemArgs.LogEventLevel);
+        Log.Information("Starting the application");
 
         try
         {
@@ -38,9 +43,6 @@ public partial class App
             // ReSharper disable once HeapView.ObjectAllocation.Evident
             var splashScreenWindow = new SplashScreen(iconPath);
             splashScreenWindow.Show(true, true);
-
-            Log.Information("Logger created with log event level: {SystemArgsLogEventLevel}", systemArgs.LogEventLevel);
-            Log.Information("Starting the application");
 
             Log.Information("Reading configuration file");
             var configuration = Config.Configuration;
@@ -63,9 +65,6 @@ public partial class App
             Console.WriteLine(exception);
             throw;
         }
-
-        AppDomain.CurrentDomain.ProcessExit += CurrentDomainOnProcessExit;
-        AppDomain.CurrentDomain.UnhandledException += CurrentDomainOnUnhandledException;
     }
 
     private static void LoadInterfaceConfiguration(Interface configurationInterface)
