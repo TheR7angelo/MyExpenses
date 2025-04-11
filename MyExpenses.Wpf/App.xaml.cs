@@ -21,40 +21,48 @@ public partial class App
 
     protected override void OnStartup(StartupEventArgs e)
     {
-        base.OnStartup(e);
-
         var systemArgs = e.Args.GetArguments();
         DataBaseContext.LogEventLevel = systemArgs.LogEventLevel;
         DataBaseContext.LogEfCore = systemArgs.LogEfCore;
         DataBaseContext.WriteToFileEfCore = systemArgs.WriteToFileEfCore;
-
-        // ReSharper disable once HeapView.ObjectAllocation.Evident
-        CancellationTokenSource = new CancellationTokenSource();
-
-        var iconPath = Path.Join("Resources", "Assets", "Applications", "Icon Resize.png");
-        // ReSharper disable once HeapView.ObjectAllocation.Evident
-        var splashScreenWindow = new SplashScreen(iconPath);
-        splashScreenWindow.Show(true, true);
-
         Log.Logger = LoggerConfig.CreateConfig(systemArgs.LogEventLevel);
-        Log.Information("Logger created with log event level: {SystemArgsLogEventLevel}", systemArgs.LogEventLevel);
-        Log.Information("Starting the application");
 
-        Log.Information("Reading configuration file");
-        var configuration = Config.Configuration;
-        Log.Information("Configuration read :{NewLine}{Configuration}", Environment.NewLine, configuration);
+        try
+        {
+            base.OnStartup(e);
 
-        Log.Information("Apply log configuration");
-        LoadLogConfiguration(configuration.System.MaxDaysLog);
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
+            CancellationTokenSource = new CancellationTokenSource();
 
-        Log.Information("Start of database backup on start");
-        var totalDatabaseBackup = DbContextBackup.BackupDatabase();
-        var totalDatabaseDelete = DbContextBackup.CleanBackupDatabase(configuration.System.MaxBackupDatabase);
-        Log.Information("{TotalDatabaseDelete} backup(s) database has been deleted", totalDatabaseDelete);
-        Log.Information("{TotalDatabaseBackup} database(s) has been backed up", totalDatabaseBackup);
+            var iconPath = Path.Join("Resources", "Assets", "Applications", "Icon Resize.png");
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
+            var splashScreenWindow = new SplashScreen(iconPath);
+            splashScreenWindow.Show(true, true);
 
-        Log.Information("Apply interface configuration");
-        LoadInterfaceConfiguration(configuration.Interface);
+            Log.Information("Logger created with log event level: {SystemArgsLogEventLevel}", systemArgs.LogEventLevel);
+            Log.Information("Starting the application");
+
+            Log.Information("Reading configuration file");
+            var configuration = Config.Configuration;
+            Log.Information("Configuration read :{NewLine}{Configuration}", Environment.NewLine, configuration);
+
+            Log.Information("Apply log configuration");
+            LoadLogConfiguration(configuration.System.MaxDaysLog);
+
+            Log.Information("Start of database backup on start");
+            var totalDatabaseBackup = DbContextBackup.BackupDatabase();
+            var totalDatabaseDelete = DbContextBackup.CleanBackupDatabase(configuration.System.MaxBackupDatabase);
+            Log.Information("{TotalDatabaseDelete} backup(s) database has been deleted", totalDatabaseDelete);
+            Log.Information("{TotalDatabaseBackup} database(s) has been backed up", totalDatabaseBackup);
+
+            Log.Information("Apply interface configuration");
+            LoadInterfaceConfiguration(configuration.Interface);
+        }
+        catch (Exception exception)
+        {
+            Console.WriteLine(exception);
+            throw;
+        }
 
         AppDomain.CurrentDomain.ProcessExit += CurrentDomainOnProcessExit;
         AppDomain.CurrentDomain.UnhandledException += CurrentDomainOnUnhandledException;
