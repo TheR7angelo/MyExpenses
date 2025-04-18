@@ -34,6 +34,10 @@
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>DateOnlyToStringConverterResources.Designer.cs</LastGenOutput>
       </EmbeddedResource>
+      <EmbeddedResource Update="Resources\Resx\Converters\SyncStatusToLocalizedStringConverter\SyncStatusToLocalizedStringConverterResources.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>SyncStatusToLocalizedStringConverterResources.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
     </ItemGroup>
 
     <ItemGroup>
@@ -51,6 +55,11 @@
         <DesignTime>True</DesignTime>
         <AutoGen>True</AutoGen>
         <DependentUpon>DateOnlyToStringConverterResources.resx</DependentUpon>
+      </Compile>
+      <Compile Update="Resources\Resx\Converters\SyncStatusToLocalizedStringConverter\SyncStatusToLocalizedStringConverterResources.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>SyncStatusToLocalizedStringConverterResources.resx</DependentUpon>
       </Compile>
     </ItemGroup>
 

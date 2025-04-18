@@ -1,4 +1,4 @@
-<root>
+﻿<root>
     <resheader name="resmimetype">
         <value>text/microsoft-resx</value>
     </resheader>
@@ -11,9 +11,6 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-    <data name="Unknown" xml:space="preserve">
-        <value>Inconnu</value>
-    </data>
     <data name="LocalIsOutdated" xml:space="preserve">
         <value>Version locale obsolète</value>
     </data>
@@ -22,6 +19,9 @@
     </data>
     <data name="Synchronized" xml:space="preserve">
         <value>Synchronisé</value>
+    </data>
+    <data name="Unknown" xml:space="preserve">
+        <value>Inconnu</value>
     </data>
     <data name="UnSynchronized" xml:space="preserve">
         <value>Non synchronisé</value>

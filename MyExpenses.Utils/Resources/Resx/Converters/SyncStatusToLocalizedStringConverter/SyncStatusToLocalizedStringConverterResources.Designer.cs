@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MyExpenses.Wpf.Resources.Resx.Converters.SyncStatusToLocalizedStringConverter {
+namespace MyExpenses.Utils.Resources.Resx.Converters.SyncStatusToLocalizedStringConverter {
     using System;
     
     
@@ -38,8 +38,8 @@ namespace MyExpenses.Wpf.Resources.Resx.Converters.SyncStatusToLocalizedStringCo
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MyExpenses.Wpf.Resources.Resx.Converters.SyncStatusToLocalizedStringConverter.Syn" +
-                            "cStatusToLocalizedStringConverterResources", typeof(SyncStatusToLocalizedStringConverterResources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MyExpenses.Utils.Resources.Resx.Converters.SyncStatusToLocalizedStringConverter.S" +
+                            "yncStatusToLocalizedStringConverterResources", typeof(SyncStatusToLocalizedStringConverterResources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
