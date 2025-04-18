@@ -378,13 +378,22 @@ public partial class MainPage
         metadatas = metadatas.Where(s => Path.GetExtension(s.PathDisplay).Equals(DatabaseInfos.Extension));
 
         // ReSharper disable once HeapView.ObjectAllocation.Evident
-        // Creates a collection of ExistingDatabase instances by projecting the metadata objects and using their PathDisplay property.
-        var existingDatabase = metadatas.Select(s => new ExistingDatabase(s.PathDisplay));
+        // An instance of ExistingDatabase is created for each file in the cloud directory.
+        var existingDatabases = metadatas.Select(s => new ExistingDatabase(s.PathDisplay)).ToList();
+        foreach (var existingDatabase in existingDatabases)
+        {
+            var filePath = Path.Join(DatabaseInfos.LocalDirectoryDatabase, existingDatabase.FileName);
+
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
+            // An instance of ExistingDatabase is created to handle the status of the database.
+            var localDatabase = new ExistingDatabase(filePath);
+            existingDatabase.SyncStatus = await localDatabase.CheckStatus(ProjectSystem.Maui);
+        }
 
         // ReSharper disable once HeapView.ObjectAllocation.Evident
         // Creates an instance of SelectDatabaseFileContentPage, likely used to handle the selection of database file content.
         var selectDatabaseFileContentPage = new SelectDatabaseFileContentPage();
-        selectDatabaseFileContentPage.ExistingDatabases.AddRange(existingDatabase);
+        selectDatabaseFileContentPage.ExistingDatabases.AddRange(existingDatabases);
 
         await selectDatabaseFileContentPage.NavigateToAsync();
 
