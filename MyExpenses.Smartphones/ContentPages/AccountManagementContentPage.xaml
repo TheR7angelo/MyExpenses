@@ -6,7 +6,6 @@
              xmlns:margin="clr-namespace:MyExpenses.Maui.Utils.Margin;assembly=MyExpenses.Maui.Utils"
              xmlns:uraniumButtonView="clr-namespace:MyExpenses.Smartphones.UserControls.Buttons.UraniumButtonView"
              x:Class="MyExpenses.Smartphones.ContentPages.AccountManagementContentPage"
-             x:Name="This"
              BindingContext="{Binding Source={RelativeSource Self}}">
 
     <ContentPage.Resources>
