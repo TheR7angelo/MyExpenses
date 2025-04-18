@@ -491,6 +491,8 @@ public partial class MainPage
                 ExistingDatabases.AddAndSort(existingDatabase, s => s.FileNameWithoutExtension);
             }
         }
+
+        _ = ExistingDatabases.CheckExistingDatabaseIsSyncAsync(ProjectSystem.Maui);
     }
 
     private async Task<List<ExistingDatabase>?> SelectDatabases()
