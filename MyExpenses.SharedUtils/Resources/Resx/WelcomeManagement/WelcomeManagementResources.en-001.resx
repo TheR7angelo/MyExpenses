@@ -140,4 +140,13 @@
     <data name="ButtonImportDataBaseErrorMessage" xml:space="preserve">
         <value>An error occurred. Please try again</value>
     </data>
+    <data name="MessageBoxUseOutdatedWarningQuestionYesButton" xml:space="preserve">
+        <value>Yes</value>
+    </data>
+    <data name="MessageBoxUseOutdatedWarningQuestionTitle" xml:space="preserve">
+        <value>Question</value>
+    </data>
+    <data name="MessageBoxUseOutdatedWarningQuestionCancelButton" xml:space="preserve">
+        <value>Cancel</value>
+    </data>
 </root>

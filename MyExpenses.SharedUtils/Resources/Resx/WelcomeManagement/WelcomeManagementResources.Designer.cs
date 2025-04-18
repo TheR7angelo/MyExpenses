@@ -439,11 +439,38 @@ namespace MyExpenses.SharedUtils.Resources.Resx.WelcomeManagement {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        public static string MessageBoxUseOutdatedWarningQuestionCancelButton {
+            get {
+                return ResourceManager.GetString("MessageBoxUseOutdatedWarningQuestionCancelButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Are you sure you want to use this database?{0}Your local version is outdated, we recommend that you sync it before using it.
         /// </summary>
         public static string MessageBoxUseOutdatedWarningQuestionMessage {
             get {
                 return ResourceManager.GetString("MessageBoxUseOutdatedWarningQuestionMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Question.
+        /// </summary>
+        public static string MessageBoxUseOutdatedWarningQuestionTitle {
+            get {
+                return ResourceManager.GetString("MessageBoxUseOutdatedWarningQuestionTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yes.
+        /// </summary>
+        public static string MessageBoxUseOutdatedWarningQuestionYesButton {
+            get {
+                return ResourceManager.GetString("MessageBoxUseOutdatedWarningQuestionYesButton", resourceCulture);
             }
         }
     }
