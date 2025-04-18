@@ -5,6 +5,7 @@ using MyExpenses.Core.Export;
 using MyExpenses.Maui.Utils.WebApi;
 using MyExpenses.Models.IO;
 using MyExpenses.Models.WebApi.Authenticator;
+using MyExpenses.Models.WebApi.DropBox;
 using MyExpenses.Models.Wpf.Save;
 using MyExpenses.SharedUtils.Collection;
 using MyExpenses.SharedUtils.GlobalInfos;
@@ -37,10 +38,20 @@ public partial class MainPage
     private void ButtonAddDataBase_OnClick(object? sender, EventArgs e)
         => _ = HandleButtonAddDataBase();
 
-    private void ButtonDatabase_OnClick(object? sender, EventArgs e)
+    private async void ButtonDatabase_OnClick(object? sender, EventArgs e)
     {
         var buttonImageView = (UraniumButtonImageTextView)sender!;
         if (buttonImageView.BindingContext is not ExistingDatabase existingDatabase) return;
+
+        if (existingDatabase.SyncStatus is SyncStatus.Unknown) existingDatabase.CheckExistingDatabaseIsSync(ProjectSystem.Maui);
+        if (existingDatabase.SyncStatus is SyncStatus.LocalIsOutdated)
+        {
+            var question = string.Format(WelcomeManagementResources.MessageBoxUseOutdatedWarningQuestionMessage, Environment.NewLine);
+
+            var response = await DisplayAlert(WelcomeManagementResources.MessageBoxUseOutdatedWarningQuestionTitle, question,
+                WelcomeManagementResources.MessageBoxUseOutdatedWarningQuestionYesButton, WelcomeManagementResources.MessageBoxUseOutdatedWarningQuestionCancelButton);
+            if (response is not true) return;
+        }
 
         var message = string.Format(WelcomeManagementResources.ActivityIndicatorOpenDatabase, existingDatabase.FileNameWithoutExtension);
         this.ShowCustomPopupActivityIndicator(message);
