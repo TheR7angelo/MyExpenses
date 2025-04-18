@@ -73,7 +73,6 @@
                                   Content="{Binding FileNameWithoutExtension}">
                         </CheckBox>
 
-                        <!-- TODO trad -->
                         <Label Grid.Column="2"
                                Content="{Binding LabelStatus, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:SelectDatabaseFileWindow}}}">
                         </Label>

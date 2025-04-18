@@ -5,7 +5,13 @@
              x:Class="MyExpenses.Smartphones.ContentPages.SelectDatabaseFileContentPage"
              xmlns:margin="clr-namespace:MyExpenses.Maui.Utils.Margin;assembly=MyExpenses.Maui.Utils"
              xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
+             xmlns:converters="clr-namespace:MyExpenses.Smartphones.Converters"
+             x:Name="This"
              BindingContext="{Binding Source={RelativeSource Self}}">
+
+    <ContentPage.Resources>
+        <converters:SyncStatusToLocalizedStringConverter x:Key="SyncStatusToLocalizedStringConverter" />
+    </ContentPage.Resources>
 
     <Shell.BackButtonBehavior>
         <BackButtonBehavior Command="{Binding BackCommand}" />
@@ -28,11 +34,32 @@
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
-                            <material:CheckBox IsChecked="False"
-                                               Text="{Binding FileNameWithoutExtension}"
-                                               VerticalOptions="Center"
-                                               Margin="10,0,0,0">
-                            </material:CheckBox>
+
+                            <Grid>
+
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+
+                                <material:CheckBox Grid.Column="0" IsChecked="False"
+                                                   Text="{Binding FileNameWithoutExtension}"
+                                                   VerticalOptions="Center"
+                                                   Margin="10,0,0,0">
+                                </material:CheckBox>
+
+                                <Label Grid.Column="2"
+                                       Text="{Binding LabelStatus, Mode=OneWay, Source={Reference This}}">
+                                </Label>
+
+                                <Label Grid.Column="3"
+                                       Text="{Binding SyncStatus, Mode=OneWay, Converter={StaticResource SyncStatusToLocalizedStringConverter}}">
+                                </Label>
+
+                            </Grid>
+
                         </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>

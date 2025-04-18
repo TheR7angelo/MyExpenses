@@ -11,6 +11,15 @@ public partial class SelectDatabaseFileContentPage
     public ObservableCollection<ExistingDatabase> ExistingDatabases { get; } = [];
     public List<ExistingDatabase> ExistingDatabasesSelected { get; } = [];
 
+    public static readonly BindableProperty LabelStatusProperty = BindableProperty.Create(nameof(LabelStatus),
+        typeof(string), typeof(SelectDatabaseFileContentPage));
+
+    public string LabelStatus
+    {
+        get => (string)GetValue(LabelStatusProperty);
+        set => SetValue(LabelStatusProperty, value);
+    }
+
     public static readonly BindableProperty ButtonCancelContentProperty =
         BindableProperty.Create(nameof(ButtonCancelContent), typeof(string), typeof(SelectDatabaseFileContentPage));
 
@@ -119,6 +128,7 @@ public partial class SelectDatabaseFileContentPage
 
     private void UpdateLanguage()
     {
+        LabelStatus = SelectDatabaseFileManagementResources.LabelStatusContent;
         ButtonCancelContent = SelectDatabaseFileManagementResources.ButtonCancelContent;
         ButtonValidMidContent = SelectDatabaseFileManagementResources.ButtonValidContent;
     }
