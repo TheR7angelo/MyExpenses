@@ -107,7 +107,7 @@ public partial class WelcomePage
         {
             var question = string.Format(WelcomeManagementResources.MessageBoxUseOutdatedWarningQuestionMessage, Environment.NewLine);
 
-            var response = MsgBox.Show(question, MsgBoxImage.Question, MessageBoxButton.YesNo);
+            var response = MsgBox.Show(WelcomeManagementResources.MessageBoxUseOutdatedWarningQuestionTitle, question, MessageBoxButton.YesNo, MsgBoxImage.Question);
             if (response is not MessageBoxResult.Yes) return;
         }
 
