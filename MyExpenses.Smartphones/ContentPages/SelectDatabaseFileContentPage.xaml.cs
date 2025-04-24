@@ -114,7 +114,10 @@ public partial class SelectDatabaseFileContentPage
 
         foreach (var viewCell in viewCells)
         {
-            if (viewCell.View is not UraniumUI.Material.Controls.CheckBox checkBox) continue;
+            if (viewCell.View is not Grid grid) continue;
+
+            var checkBox = grid.Children.OfType<UraniumUI.Material.Controls.CheckBox>().FirstOrDefault();
+            if (checkBox is null) continue;
 
             if (!checkBox.IsChecked) continue;
             if (viewCell.BindingContext is not ExistingDatabase existingDatabase) continue;
