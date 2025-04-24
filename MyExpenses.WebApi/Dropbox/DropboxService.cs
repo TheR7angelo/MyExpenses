@@ -6,6 +6,7 @@ using MyExpenses.Models.WebApi.Authenticator;
 using MyExpenses.Models.WebApi.DropBox;
 using MyExpenses.Share.Core.WebApi;
 using MyExpenses.Utils;
+using Serilog;
 
 namespace MyExpenses.WebApi.Dropbox;
 
@@ -220,13 +221,22 @@ public class DropboxService
     /// <returns>A <see cref="DropboxClient"/> instance initialized with valid authentication credentials.</returns>
     private async Task<DropboxClient> GetDropboxClient(HttpClient? httpClient = null)
     {
+        Log.Information("Initializing Dropbox client");
         DropboxClient? dropboxClient = null;
         try
         {
             if (!AccessTokenAuthentication!.IsTokenValid())
             {
+                Log.Information("Access token expired or invalid. Refreshing token");
                 await RefreshAccessTokenAuthentication();
+                Log.Information("Access token successfully refreshed");
             }
+            else
+            {
+                Log.Information("The token is still valid until {DateExpiration}", AccessTokenAuthentication.DateExpiration?.ToString("yyyy-MM-dd HH:mm:ss"));
+            }
+
+            Log.Information("Creating Dropbox client {WithCustomHttpClient}", httpClient != null ? "with custom HTTP client" : "with default HTTP client");
 
             // ReSharper disable HeapView.ObjectAllocation.Evident
             // The DropboxClient is necessary here to interact with the Dropbox API.
@@ -235,10 +245,12 @@ public class DropboxService
                 : new DropboxClient(AccessTokenAuthentication.AccessToken, new DropboxClientConfig { HttpClient = httpClient });
             // ReSharper restore HeapView.ObjectAllocation.Evident
 
+            Log.Information("Dropbox client successfully created");
             return dropboxClient;
         }
-        catch
+        catch (Exception exception)
         {
+            Log.Error(exception, "Error while creating Dropbox client");
             dropboxClient?.Dispose();
             throw;
         }
@@ -307,17 +319,32 @@ public class DropboxService
     /// <returns>A task that represents the asynchronous initialization operation.</returns>
     private async Task InitializeAsync(ProjectSystem projectSystem)
     {
+        Log.Information("Starting Dropbox service initialization");
+
         DropboxKeys = GetDropboxKeys();
+        Log.Information("Dropbox keys retrieved");
 
         if (!File.Exists(DropboxServiceUtils.FilePathSecretKeys))
         {
+            Log.Information("Secret keys file not found. Starting application authorization");
             AccessTokenAuthentication = await AuthorizeApplicationAsync(projectSystem);
         }
         else
         {
+            Log.Information("Reading existing secret keys file");
             var jsonStr = await File.ReadAllTextAsync(DropboxServiceUtils.FilePathSecretKeys);
             AccessTokenAuthentication = jsonStr.ToObject<AccessTokenAuthentication>();
-            if (AccessTokenAuthentication!.AccessToken is null) AccessTokenAuthentication = await AuthorizeApplicationAsync(projectSystem);
+            if (AccessTokenAuthentication!.AccessToken is null)
+            {
+                Log.Warning("Access token not found in file. New authorization required");
+                AccessTokenAuthentication = await AuthorizeApplicationAsync(projectSystem);
+            }
+            else
+            {
+                Log.Information("Access token successfully retrieved from file");
+            }
+
+            Log.Information("Dropbox service initialization completed");
         }
     }
 
@@ -328,22 +355,40 @@ public class DropboxService
     /// <returns>An <see cref="AccessTokenAuthentication"/> object containing the access token and metadata, or null if the authentication fails.</returns>
     private async Task<AccessTokenAuthentication?> AuthorizeApplicationAsync(ProjectSystem projectSystem)
     {
+        Log.Information("Starting application authorization process");
+
         var pkceData = Share.Core.WebApi.Utils.GeneratePkceData();
+        Log.Information("PKCE data generated");
         
         var authenticator = projectSystem.CreateAuthenticator();
-        var tempToken = await authenticator.AuthenticateAsync(DropboxKeys, pkceData);
-        if (string.IsNullOrEmpty(tempToken)) return null;
+        Log.Information("Created authenticator for project system: {ProjectSystem}", projectSystem);
 
+        var tempToken = await authenticator.AuthenticateAsync(DropboxKeys, pkceData);
+        if (string.IsNullOrEmpty(tempToken))
+        {
+            Log.Warning("Failed to obtain temporary token. Authentication aborted");
+            return null;
+        }
+
+        Log.Information("Temporary token obtained successfully");
         var accessTokenAuthentication = await GetAccessTokenAuthentication(tempToken, pkceData, projectSystem);
 
         if (accessTokenAuthentication is not null)
         {
+            Log.Information("Access token authentication received");
             accessTokenAuthentication.DateCreated = DateTime.Now;
             accessTokenAuthentication.DateExpiration =
                 DateTime.Now.AddSeconds(accessTokenAuthentication.ExpiresIn ?? 0);
+            Log.Information("Token expiration set to: {ExpirationDate}", accessTokenAuthentication.DateExpiration);
+        }
+        else
+        {
+            Log.Warning("Failed to obtain access token authentication");
         }
 
         await File.WriteAllTextAsync(DropboxServiceUtils.FilePathSecretKeys, accessTokenAuthentication?.ToJson());
+        Log.Information("Authentication data saved to secret keys file");
+
         return accessTokenAuthentication;
     }
 
