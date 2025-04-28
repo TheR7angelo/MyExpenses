@@ -435,36 +435,36 @@ public partial class MainPage
     }
 
     private static async Task ImportFromLocalAsync(MainPage mainPage)
+    {
+        Log.Information("Starting to import the database from local storage");
+
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // Defines a dictionary mapping each DevicePlatform to its associated collection of MIME types or UTIs for handling file types.
+        var dictionary = new Dictionary<DevicePlatform, IEnumerable<string>>
         {
-            Log.Information("Starting to import the database from local storage");
+            { DevicePlatform.iOS, ["public.database"] },
+            { DevicePlatform.Android, ["application/octet-stream"] },
+            { DevicePlatform.MacCatalyst, ["public.database"] }
+        };
 
-            // ReSharper disable once HeapView.ObjectAllocation.Evident
-            // Defines a dictionary mapping each DevicePlatform to its associated collection of MIME types or UTIs for handling file types.
-            var dictionary = new Dictionary<DevicePlatform, IEnumerable<string>>
-            {
-                { DevicePlatform.iOS, ["public.database"] },
-                { DevicePlatform.Android, ["application/octet-stream"] },
-                { DevicePlatform.MacCatalyst, ["public.database"] }
-            };
+        // ReSharper disable HeapView.ObjectAllocation.Evident
+        // Creates a new PickOptions instance to specify file picker options, including allowed FileTypes using the provided dictionary.
+        var filePickerOption = new PickOptions { FileTypes = new FilePickerFileType(dictionary) };
+        // ReSharper restore HeapView.ObjectAllocation.Evident
 
-            // ReSharper disable HeapView.ObjectAllocation.Evident
-            // Creates a new PickOptions instance to specify file picker options, including allowed FileTypes using the provided dictionary.
-            var filePickerOption = new PickOptions { FileTypes = new FilePickerFileType(dictionary) };
-            // ReSharper restore HeapView.ObjectAllocation.Evident
+        var result = await FilePicker.PickAsync(filePickerOption);
+        if (result is null) return;
 
-            var result = await FilePicker.PickAsync(filePickerOption);
-            if (result is null) return;
+        mainPage.ShowCustomPopupActivityIndicator(WelcomeManagementResources.ActivityIndicatorImportDatabaseFromLocal);
+        var filePath = result.FullPath;
 
-            mainPage.ShowCustomPopupActivityIndicator(WelcomeManagementResources.ActivityIndicatorImportDatabaseFromLocal);
-            var filePath = result.FullPath;
+        var fileName = Path.GetFileName(filePath);
+        var newFilePath = Path.Join(DatabaseInfos.LocalDirectoryDatabase, fileName);
 
-            var fileName = Path.GetFileName(filePath);
-            var newFilePath = Path.Join(DatabaseInfos.LocalDirectoryDatabase, fileName);
-
-            Log.Information("Copying {FileName} to local storage", fileName);
-            File.Copy(filePath, newFilePath, true);
-            Log.Information("Successfully copied {FileName} to local storage", fileName);
-        }
+        Log.Information("Copying {FileName} to local storage", fileName);
+        File.Copy(filePath, newFilePath, true);
+        Log.Information("Successfully copied {FileName} to local storage", fileName);
+    }
 
     private void RefreshExistingDatabases()
     {
