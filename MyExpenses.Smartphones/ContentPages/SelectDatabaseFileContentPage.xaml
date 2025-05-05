@@ -45,16 +45,22 @@
                                 </Grid.ColumnDefinitions>
 
                                 <material:CheckBox Grid.Column="0" IsChecked="False"
+                                                   HorizontalOptions="Center"
                                                    Text="{Binding FileNameWithoutExtension}"
                                                    VerticalOptions="Center"
                                                    Margin="10,0,0,0">
                                 </material:CheckBox>
 
                                 <Label Grid.Column="2"
+                                       HorizontalOptions="Center"
+                                       VerticalOptions="Center" VerticalTextAlignment="Center"
                                        Text="{Binding LabelStatus, Mode=OneWay, Source={Reference This}}">
                                 </Label>
 
                                 <Label Grid.Column="3"
+                                       HorizontalOptions="Center"
+                                       VerticalOptions="Center" VerticalTextAlignment="Center"
+                                       Margin="2.5, 0, 5, 0"
                                        Text="{Binding SyncStatus, Mode=OneWay, Converter={StaticResource SyncStatusToLocalizedStringConverter}}">
                                 </Label>
 
