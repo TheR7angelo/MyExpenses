@@ -10,6 +10,7 @@ using MyExpenses.Maui.Utils;
 using MyExpenses.Models.Maui.CustomPopup;
 using MyExpenses.Models.Sql.Bases.Groups;
 using MyExpenses.Models.Sql.Bases.Tables;
+using MyExpenses.SharedUtils.Resources.Resx.LocationManagement;
 using MyExpenses.Smartphones.ContentPages.CustomPopups;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils;
@@ -227,5 +228,18 @@ public partial class LocationManagementContentPage
         // ReSharper disable once HeapView.ObjectAllocation.Evident
         var customPopupLocationManagement = new CustomPopupLocationManagement(menuItemVisibility, ClickPoint, ClickTPlace);
         await this.ShowPopupAsync(customPopupLocationManagement);
+
+        var result = await customPopupLocationManagement.ResultDialog;
+        if (result is ECustomPopupLocationManagement.Delete) _ = HandleDeleteFeature();
+    }
+
+    private async Task HandleDeleteFeature()
+    {
+        var message = string.Format(LocationManagementResources.MessageBoxDeleteQuestionMessage, ClickTPlace!.Name);
+        var response = await DisplayAlert(LocationManagementResources.MessageBoxDeleteQuestionTitle, message,
+            LocationManagementResources.MessageBoxDeleteQuestionYesButton,
+            LocationManagementResources.MessageBoxDeleteQuestionCancelButton);
+
+        if (!response) return;
     }
 }
