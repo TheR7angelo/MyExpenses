@@ -20,6 +20,16 @@ namespace MyExpenses.Smartphones.ContentPages;
 
 public partial class LocationManagementContentPage
 {
+    public static readonly BindableProperty SelectedTreeViewNodeProperty =
+        BindableProperty.Create(nameof(SelectedTreeViewNode), typeof(TreeViewNode),
+            typeof(LocationManagementContentPage), propertyChanged: SelectedTreeViewNode_OnChanged);
+
+    public TreeViewNode SelectedTreeViewNode
+    {
+        get => (TreeViewNode)GetValue(SelectedTreeViewNodeProperty);
+        set => SetValue(SelectedTreeViewNodeProperty, value);
+    }
+
     public List<KnownTileSource> KnownTileSources { get; }
     public KnownTileSource KnownTileSourceSelected { get; set; }
 
@@ -88,6 +98,12 @@ public partial class LocationManagementContentPage
     private void PickerFieldKnownTileSource_OnSelectedItemChanged(object? sender, object o)
         => UpdateTileLayer();
 
+    private static void SelectedTreeViewNode_OnChanged(BindableObject bindable, object oldValue, object newValue)
+    {
+        var sender = (LocationManagementContentPage)bindable;
+        sender.UpdateMapZoom();
+    }
+
     #endregion
 
     #region Function
@@ -116,6 +132,19 @@ public partial class LocationManagementContentPage
         return (treeViewNodes, places);
     }
 
+    private static List<TPlace> GetPlaces(TreeViewNode node)
+    {
+        var places = new List<TPlace>();
+        foreach (var treeViewNode in node.Children)
+        {
+            var temp = GetPlaces(treeViewNode);
+            places.AddRange(temp);
+        }
+
+        if (node.AdditionalData is TPlace place) places.Add(place);
+        return places;
+    }
+
     private void UpdateDisplay()
     {
         foreach (var view in Views)
@@ -136,6 +165,12 @@ public partial class LocationManagementContentPage
             AddToGrid(GridPortrait, MapControl, 1, 0);
             AddToGrid(GridPortrait, ScrollViewTreeView, 2, 0);
         }
+    }
+
+    private void UpdateMapZoom()
+    {
+        var points = GetPlaces(SelectedTreeViewNode).Select(s => s.ToMPoint());
+        MapControl.Map.Navigator.SetZoom(points.ToArray());
     }
 
     private void UpdateTileLayer()

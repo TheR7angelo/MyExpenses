@@ -24,7 +24,8 @@
 
                     <material:TreeView ItemsSource="{Binding TreeViewNodes}"
                                        SelectionMode="Single"
-                                       Margin="25, 0, 0, 0">
+                                       Margin="25, 0, 0, 0"
+                                       SelectedItem="{Binding SelectedTreeViewNode, Mode=TwoWay}">
                     </material:TreeView>
 
                 </ScrollView>
