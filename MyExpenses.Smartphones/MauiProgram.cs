@@ -20,7 +20,8 @@ public static class MauiProgram
                 fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 fonts.AddMaterialSymbolsFonts();
             })
-            .UseUraniumUIMaterial();
+            .UseUraniumUIMaterial()
+            .UseUraniumUI();
 
 #if DEBUG
         builder.Logging.AddDebug();
