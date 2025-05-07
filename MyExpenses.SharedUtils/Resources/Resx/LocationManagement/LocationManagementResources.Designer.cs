@@ -133,11 +133,38 @@ namespace MyExpenses.SharedUtils.Resources.Resx.LocationManagement {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        public static string MessageBoxDeleteQuestionCancelButton {
+            get {
+                return ResourceManager.GetString("MessageBoxDeleteQuestionCancelButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Are you sure you want to delete place &quot;{0}&quot; ?.
         /// </summary>
-        public static string MessageBoxDeleteQuestion {
+        public static string MessageBoxDeleteQuestionMessage {
             get {
-                return ResourceManager.GetString("MessageBoxDeleteQuestion", resourceCulture);
+                return ResourceManager.GetString("MessageBoxDeleteQuestionMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Question.
+        /// </summary>
+        public static string MessageBoxDeleteQuestionTitle {
+            get {
+                return ResourceManager.GetString("MessageBoxDeleteQuestionTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yes.
+        /// </summary>
+        public static string MessageBoxDeleteQuestionYesButton {
+            get {
+                return ResourceManager.GetString("MessageBoxDeleteQuestionYesButton", resourceCulture);
             }
         }
         

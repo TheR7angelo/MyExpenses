@@ -35,7 +35,7 @@
     <data name="MenuItemHeaderMaps" xml:space="preserve">
         <value>Maps</value>
     </data>
-    <data name="MessageBoxDeleteQuestion" xml:space="preserve">
+    <data name="MessageBoxDeleteQuestionMessage" xml:space="preserve">
         <value>Are you sure you want to delete place "{0}" ?</value>
     </data>
     <data name="MessageBoxMenuItemDeleteFeatureError" xml:space="preserve">
@@ -67,5 +67,14 @@
     </data>
     <data name="MessageBoxEditPlaceSuccessMessage" xml:space="preserve">
         <value>Place was successfully edited</value>
+    </data>
+    <data name="MessageBoxDeleteQuestionYesButton" xml:space="preserve">
+        <value>Yes</value>
+    </data>
+    <data name="MessageBoxDeleteQuestionCancelButton" xml:space="preserve">
+        <value>Cancel</value>
+    </data>
+    <data name="MessageBoxDeleteQuestionTitle" xml:space="preserve">
+        <value>Question</value>
     </data>
 </root>
