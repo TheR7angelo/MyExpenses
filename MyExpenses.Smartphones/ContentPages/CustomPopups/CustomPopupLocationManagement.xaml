@@ -19,17 +19,20 @@
 
                 <Button Text="{Binding MenuItemHeaderAddPoint, Mode=OneWay}"
                         IsVisible="{Binding MenuItemVisibility.MenuItemAddFeature, Mode=OneWay}"
-                        StyleClass="FilledTonalButton">
+                        StyleClass="FilledTonalButton"
+                        Clicked="ButtonAddFeature_OnClicked">
                 </Button>
 
                 <Button Text="{Binding MenuItemHeaderEditFeature, Mode=OneWay}"
                         IsVisible="{Binding MenuItemVisibility.MenuItemEditFeature, Mode=OneWay}"
-                        StyleClass="FilledTonalButton">
+                        StyleClass="FilledTonalButton"
+                        Clicked="ButtonEditFeature_OnClicked">
                 </Button>
 
                 <Button Text="{Binding MenuItemHeaderDeleteFeature, Mode=OneWay}"
                         IsVisible="{Binding MenuItemVisibility.MenuItemDeleteFeature, Mode=OneWay}"
-                        StyleClass="FilledTonalButton">
+                        StyleClass="FilledTonalButton"
+                        Clicked="ButtonDeleteFeature_OnClicked">
                 </Button>
 
                 <Button Text="{Binding MenuItemHeaderGoogleEarthWeb, Mode=OneWay}"

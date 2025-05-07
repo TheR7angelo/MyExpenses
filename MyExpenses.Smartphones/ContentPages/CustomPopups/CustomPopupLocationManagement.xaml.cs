@@ -67,6 +67,15 @@ public partial class CustomPopupLocationManagement
     private NetTopologySuite.Geometries.Point Point { get; }
     private TPlace? Place { get; }
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
+    // Necessary allocation of TaskCompletionSource to manage the asynchronous result of the popup dialog.
+    // This allows the dialog to communicate its selected result (Cancel, Delete, Valid) back to the caller
+    // and acts as a bridge between UI actions and the task-based asynchronous code.
+    private readonly TaskCompletionSource<ECustomPopupLocationManagement> _taskCompletionSource = new();
+
+    public Task<ECustomPopupLocationManagement> ResultDialog
+        => _taskCompletionSource.Task;
+
     public CustomPopupLocationManagement(MenuItemVisibility menuItemVisibility, NetTopologySuite.Geometries.Point point, TPlace? place)
     {
         MenuItemVisibility = menuItemVisibility;
@@ -112,5 +121,20 @@ public partial class CustomPopupLocationManagement
         Log.Information("{Log}", log);
         var uri = Point.ToGoogleStreetView(ProjectSystem.Maui);
         Log.Information("{Uri}", uri);
+    }
+
+    private void ButtonAddFeature_OnClicked(object? sender, EventArgs e)
+        => SetDialogueResult(ECustomPopupLocationManagement.Add);
+
+    private void ButtonEditFeature_OnClicked(object? sender, EventArgs e)
+        => SetDialogueResult(ECustomPopupLocationManagement.Edit);
+
+    private void ButtonDeleteFeature_OnClicked(object? sender, EventArgs e)
+        => SetDialogueResult(ECustomPopupLocationManagement.Delete);
+
+    private void SetDialogueResult(ECustomPopupLocationManagement customPopupLocationManagement)
+    {
+        _taskCompletionSource.SetResult(customPopupLocationManagement);
+        Close();
     }
 }
