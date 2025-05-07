@@ -15,6 +15,7 @@ using MyExpenses.Smartphones.ContentPages.CustomPopups;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils;
 using MyExpenses.Utils.Maps;
+using Serilog;
 using Point = NetTopologySuite.Geometries.Point;
 
 namespace MyExpenses.Smartphones.ContentPages;
@@ -241,5 +242,45 @@ public partial class LocationManagementContentPage
             LocationManagementResources.MessageBoxDeleteQuestionCancelButton);
 
         if (!response) return;
+
+        Log.Information("Attempting to remove the place \"{PlaceToDeleteName}\"", ClickTPlace.Name);
+        var (success, exception) = ClickTPlace.Delete(true);
+
+        if (success)
+        {
+            RemoveTreeViewNodePlace();
+
+            PlaceLayer.TryRemove(PointFeature!);
+            MapControl.Refresh();
+
+            Log.Information("Place was successfully removed");
+            // MsgBox.Show(LocationManagementResources.MessageBoxMenuItemDeleteFeatureNoUseSuccess, MsgBoxImage.Check);
+
+            return;
+        }
+    }
+
+    private void RemoveTreeViewNodePlace()
+    {
+        try
+        {
+            var countryName = Utils.Converters.EmptyStringTreeViewConverter.ToUnknown(ClickTPlace!.Country);
+            var cityName = Utils.Converters.EmptyStringTreeViewConverter.ToUnknown(ClickTPlace!.City);
+
+            _ = DisplayAlert("Test", e.Message, "OK");
+
+            var countryTreeViewNodes = TreeViewNodes.First(s => s.AdditionalData!.Equals(countryName));
+            var cityTreeViewNodes = countryTreeViewNodes.Children.First(s => s.AdditionalData!.Equals(cityName));
+            var placeTreeViewNodes = cityTreeViewNodes.Children.First(s => s.Name!.Equals(ClickTPlace!.Name));
+
+            cityTreeViewNodes.Children.Remove(placeTreeViewNodes);
+            if (cityTreeViewNodes.Children.Count is 0) countryTreeViewNodes.Children.Remove(cityTreeViewNodes);
+            if (countryTreeViewNodes.Children.Count is 0) TreeViewNodes.Remove(countryTreeViewNodes);
+        }
+        catch (Exception e)
+        {
+            _ = DisplayAlert("Error", e.Message, "OK");
+            Console.WriteLine(e);
+        }
     }
 }

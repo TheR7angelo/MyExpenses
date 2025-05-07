@@ -21,6 +21,7 @@ public static class TreeViewNodeUtils
             var countryName = countryGroup.Country.FormatNodeName(firstChildren);
 
             var item = countryName.CreateTreeViewNode(firstChildren);
+            item.AdditionalData = countryGroup.Country;
             treeViewNodes.Add(item);
         }
 
@@ -40,6 +41,7 @@ public static class TreeViewNodeUtils
             var cityName = cityGroup.City.FormatNodeName(secondChildren);
 
             var item = cityName.CreateTreeViewNode(secondChildren);
+            item.AdditionalData = cityGroup.City;
             treeViewNodes.Add(item);
         }
 

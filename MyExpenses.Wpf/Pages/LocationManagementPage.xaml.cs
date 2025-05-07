@@ -247,12 +247,11 @@ public partial class LocationManagementPage
         if (response is not MessageBoxResult.Yes) return;
 
         Log.Information("Attempting to remove the place \"{PlaceToDeleteName}\"", placeToDelete.Name);
-        PlaceLayer.TryRemove(feature);
-
         var (success, exception) = placeToDelete.Delete();
 
         if (success)
         {
+            PlaceLayer.TryRemove(feature);
             MapControl.Refresh();
 
             Log.Information("Place was successfully removed");
