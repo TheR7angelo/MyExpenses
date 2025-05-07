@@ -18,7 +18,7 @@
       <PackageReference Include="Mapsui.Wpf" Version="5.0.0-beta.15" />
       <PackageReference Include="MaterialDesignThemes" Version="5.2.2-ci976" />
       <PackageReference Include="MaterialDesignThemes.MahApps" Version="5.2.2-ci976" />
-      <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.3179.45" />
+      <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.3240.44" />
       <PackageReference Include="Ookii.Dialogs.Wpf" Version="5.0.1" />
       <PackageReference Include="System.Text.Json" Version="9.0.4" />
     </ItemGroup>
