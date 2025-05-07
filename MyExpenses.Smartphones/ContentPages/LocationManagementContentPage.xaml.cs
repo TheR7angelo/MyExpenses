@@ -95,6 +95,21 @@ public partial class LocationManagementContentPage
     private void MapControl_OnLoaded(object? sender, EventArgs e)
         => UpdateTileLayer();
 
+    public void MapControl_OnInfo(object? sender, MapInfoEventArgs e)
+    {
+        var mapInfo = e.GetMapInfo(InfoLayers);
+        SetClickTPlace(mapInfo);
+
+        var worldPosition = e.WorldPosition;
+        var lonLat = SphericalMercator.ToLonLat(worldPosition.X, worldPosition.Y);
+
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // The ClickPoint instance is used to store the coordinates of the point clicked on the map.
+        ClickPoint = new Point(lonLat.lon, lonLat.lat);
+
+        if (e.GestureType is GestureType.LongPress) _ = HandleLongTap();
+    }
+
     private void PickerFieldKnownTileSource_OnSelectedItemChanged(object? sender, object o)
         => UpdateTileLayer();
 
@@ -145,6 +160,19 @@ public partial class LocationManagementContentPage
         return places;
     }
 
+    private void SetClickTPlace(MapInfo mapInfo)
+    {
+        if (mapInfo.Feature is not PointFeature pointFeature || mapInfo.Layer?.Tag is not Type layerType || layerType != typeof(TPlace))
+        {
+            ClickTPlace = null;
+            return;
+        }
+
+        PointFeature = pointFeature;
+        var place = pointFeature.ToTPlace();
+        ClickTPlace = place;
+    }
+
     private void UpdateDisplay()
     {
         foreach (var view in Views)
@@ -190,19 +218,6 @@ public partial class LocationManagementContentPage
 
     #endregion
 
-    private void SetClickTPlace(MapInfo mapInfo)
-    {
-        if (mapInfo.Feature is not PointFeature pointFeature || mapInfo.Layer?.Tag is not Type layerType || layerType != typeof(TPlace))
-        {
-            ClickTPlace = null;
-            return;
-        }
-
-        PointFeature = pointFeature;
-        var place = pointFeature.ToTPlace();
-        ClickTPlace = place;
-    }
-
     private async Task HandleLongTap()
     {
         var menuItemVisibility = ClickTPlace is null
@@ -212,20 +227,5 @@ public partial class LocationManagementContentPage
         // ReSharper disable once HeapView.ObjectAllocation.Evident
         var customPopupLocationManagement = new CustomPopupLocationManagement(menuItemVisibility, ClickPoint, ClickTPlace);
         await this.ShowPopupAsync(customPopupLocationManagement);
-    }
-
-    public void MapControl_OnInfo(object? sender, MapInfoEventArgs e)
-    {
-        var mapInfo = e.GetMapInfo(InfoLayers);
-        SetClickTPlace(mapInfo);
-
-        var worldPosition = e.WorldPosition;
-        var lonLat = SphericalMercator.ToLonLat(worldPosition.X, worldPosition.Y);
-
-        // ReSharper disable once HeapView.ObjectAllocation.Evident
-        // The ClickPoint instance is used to store the coordinates of the point clicked on the map.
-        ClickPoint = new Point(lonLat.lon, lonLat.lat);
-
-        if (e.GestureType is GestureType.LongPress) _ = HandleLongTap();
     }
 }
