@@ -240,9 +240,10 @@ public partial class LocationManagementPage
         if (feature is null) return;
 
         var placeToDelete = feature.ToTPlace();
+        var message = string.Format(LocationManagementResources.MessageBoxDeleteQuestionMessage, placeToDelete.Name);
         var response =
-            MsgBox.Show(string.Format(LocationManagementResources.MessageBoxDeleteQuestion, placeToDelete.Name),
-                MsgBoxImage.Question, MessageBoxButton.YesNoCancel);
+            MsgBox.Show(LocationManagementResources.MessageBoxDeleteQuestionTitle, message,
+                MessageBoxButton.YesNoCancel, MsgBoxImage.Question);
         if (response is not MessageBoxResult.Yes) return;
 
         Log.Information("Attempting to remove the place \"{PlaceToDeleteName}\"", placeToDelete.Name);
