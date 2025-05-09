@@ -72,10 +72,21 @@ public static class TreeViewNodeUtils
     /// <param name="rawName">The raw name of the node as a string, which might be null or empty.</param>
     /// <param name="treeViewNodes">A list of <see cref="TreeViewNode"/> objects associated with the node.</param>
     /// <returns>A formatted string containing the node name and the count of associated <see cref="TreeViewNode"/> objects.</returns>
-    private static string FormatNodeName(this string? rawName, List<TreeViewNode> treeViewNodes)
+    private static string FormatNodeName(this string? rawName, IEnumerable<TreeViewNode> treeViewNodes)
     {
         var name = EmptyStringTreeViewConverter.ToUnknown(rawName);
-        return $"{name} [{treeViewNodes.Count}]";
+        return $"{name} [{treeViewNodes.Count()}]";
+    }
+
+    /// <summary>
+    /// Generates a formatted node name using the raw name and its child nodes.
+    /// </summary>
+    /// <param name="treeViewNode">The <see cref="TreeViewNode"/> containing the raw name and its child nodes.</param>
+    /// <returns>A formatted string representing the node name, appending the count of child nodes.</returns>
+    public static string ToFormatNodeName(this TreeViewNode treeViewNode)
+    {
+        var rawName = treeViewNode.AdditionalData as string;
+        return rawName.FormatNodeName(treeViewNode.Children);
     }
 
     /// <summary>

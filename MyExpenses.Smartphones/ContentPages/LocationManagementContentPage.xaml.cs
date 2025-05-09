@@ -260,25 +260,20 @@ public partial class LocationManagementContentPage
         }
     }
 
-    private async void RemoveTreeViewNodePlace()
+    private void RemoveTreeViewNodePlace()
     {
-        try
-        {
-            var countryName = Utils.Converters.EmptyStringTreeViewConverter.ToUnknown(ClickTPlace!.Country);
-            var cityName = Utils.Converters.EmptyStringTreeViewConverter.ToUnknown(ClickTPlace!.City);
+        var countryName = Utils.Converters.EmptyStringTreeViewConverter.ToUnknown(ClickTPlace!.Country);
+        var cityName = Utils.Converters.EmptyStringTreeViewConverter.ToUnknown(ClickTPlace!.City);
 
-            var countryTreeViewNodes = TreeViewNodes.First(s => Utils.Converters.EmptyStringTreeViewConverter.ToUnknown(s.AdditionalData).Equals(countryName));
-            var cityTreeViewNodes = countryTreeViewNodes.Children.First(s => Utils.Converters.EmptyStringTreeViewConverter.ToUnknown(s.AdditionalData).Equals(cityName));
-            var placeTreeViewNodes = cityTreeViewNodes.Children.First(s => s.Name!.Equals(ClickTPlace!.Name));
+        var countryTreeViewNodes = TreeViewNodes.First(s => Utils.Converters.EmptyStringTreeViewConverter.ToUnknown(s.AdditionalData).Equals(countryName));
+        var cityTreeViewNodes = countryTreeViewNodes.Children.First(s => Utils.Converters.EmptyStringTreeViewConverter.ToUnknown(s.AdditionalData).Equals(cityName));
+        var placeTreeViewNodes = cityTreeViewNodes.Children.First(s => s.Name!.Equals(ClickTPlace!.Name));
 
-            cityTreeViewNodes.Children.Remove(placeTreeViewNodes);
-            if (cityTreeViewNodes.Children.Count is 0) countryTreeViewNodes.Children.Remove(cityTreeViewNodes);
-            if (countryTreeViewNodes.Children.Count is 0) TreeViewNodes.Remove(countryTreeViewNodes);
-        }
-        catch (Exception e)
-        {
-            await DisplayAlert("Error", e.Message, "OK");
-            Console.WriteLine(e);
-        }
+        cityTreeViewNodes.Children.Remove(placeTreeViewNodes);
+        if (cityTreeViewNodes.Children.Count is 0) countryTreeViewNodes.Children.Remove(cityTreeViewNodes);
+        else cityTreeViewNodes.Name = cityTreeViewNodes.ToFormatNodeName();
+
+        if (countryTreeViewNodes.Children.Count is 0) TreeViewNodes.Remove(countryTreeViewNodes);
+        else countryTreeViewNodes.Name = countryTreeViewNodes.ToFormatNodeName();
     }
 }
