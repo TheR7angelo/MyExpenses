@@ -1,4 +1,6 @@
-﻿namespace MyExpenses.SharedUtils.Converters;
+﻿using System.Globalization;
+
+namespace MyExpenses.SharedUtils.Converters;
 
 public static class StringToDateTimeConverter
 {
@@ -14,25 +16,27 @@ public static class StringToDateTimeConverter
         "yyyy-MM-dd HH:mm:ss"
     ];
 
-    private static readonly System.Globalization.CultureInfo InvariantCulture =
-        System.Globalization.CultureInfo.InvariantCulture;
+    private static readonly CultureInfo InvariantCulture = CultureInfo.InvariantCulture;
 
     /// <summary>
-    /// Converts a string to a nullable DateTime, using predefined formats.
+    /// Converts a string representation of a date and time to a nullable DateTime object
+    /// using predefined formats and an optional culture.
     /// </summary>
-    /// <param name="input">The string representation of a date and time.</param>
+    /// <param name="input">The string representation of the date and time to be converted.</param>
+    /// <param name="cultureInfo">Optional. The culture information used for the conversion. If null, the invariant culture is used.</param>
     /// <returns>
-    /// A nullable <see cref="DateTime"/> object if the conversion is successful; otherwise, <c>null</c>.
+    /// A nullable DateTime object representing the converted value if the string matches one of the supported formats; otherwise, null.
     /// </returns>
-    public static DateTime? ConvertFromString(this string? input)
+    public static DateTime? ConvertFromString(this string? input, CultureInfo? cultureInfo = null)
     {
         if (string.IsNullOrWhiteSpace(input)) return null;
 
+        var culture = cultureInfo ?? InvariantCulture;
         if (DateTime.TryParseExact(
                 input,
                 SupportedFormats,
-                InvariantCulture,
-                System.Globalization.DateTimeStyles.None,
+                culture,
+                DateTimeStyles.None,
                 out var result))
         {
             return result;
