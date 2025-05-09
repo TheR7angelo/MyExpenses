@@ -21,6 +21,7 @@
     <Page.Resources>
         <converters:TotalToIconConverter x:Key="TotalToIconConverter" />
         <converters:ValueSymbolConverter x:Key="ValueSymbolConverter" />
+        <converters:DateTimeToDateTimeWithoutSecondsConverter x:Key="DateTimeToDateTimeWithoutSecondsConverter" />
     </Page.Resources>
 
     <Grid margin:PanelExtensions.MarginForAllChildren="5">
@@ -403,7 +404,7 @@
                     </filterDataGrid:DataGridTemplateColumn>
 
                     <filterDataGrid:DataGridTextColumn x:Name="TextColumnDate" IsColumnFiltered="True"
-                                                       Binding="{Binding Date}">
+                                                       Binding="{Binding Date, Converter={StaticResource DateTimeToDateTimeWithoutSecondsConverter}}">
                     </filterDataGrid:DataGridTextColumn>
 
                     <filterDataGrid:DataGridTextColumn x:Name="TextColumnPlace" IsColumnFiltered="True"

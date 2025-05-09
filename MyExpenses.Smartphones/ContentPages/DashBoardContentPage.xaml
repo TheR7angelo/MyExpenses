@@ -18,6 +18,7 @@
         <converters:TotalToIconConverter x:Key="TotalToIconConverter" />
         <converters:ValueSymbolConverter x:Key="ValueSymbolConverter" />
         <converters:StringToBrushConverter x:Key="StringToBrushConverter" />
+        <converters:DateTimeToDateTimeWithoutSecondsConverter x:Key="DateTimeToDateTimeWithoutSecondsConverter" />
     </ContentPage.Resources>
 
     <ContentPage.Content>
@@ -392,7 +393,7 @@
                                 <Label Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3"
                                        HorizontalTextAlignment="Start"
                                        Margin="3, 3, 0, 3"
-                                       Text="{Binding Date}">
+                                       Text="{Binding Date, Converter={StaticResource DateTimeToDateTimeWithoutSecondsConverter}}">
                                 </Label>
 
                             </Grid>
