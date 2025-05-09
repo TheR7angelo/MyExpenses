@@ -1,6 +1,6 @@
 ﻿namespace MyExpenses.SharedUtils.Converters;
 
-public static class DateTimeConverter
+public static class StringToDateTimeConverter
 {
     private static readonly string[] SupportedFormats =
     [
