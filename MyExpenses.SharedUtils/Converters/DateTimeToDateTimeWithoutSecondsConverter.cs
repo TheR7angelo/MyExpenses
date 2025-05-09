@@ -18,11 +18,9 @@ public static class DateTimeToDateTimeWithoutSecondsConverter
         if (value is not DateTime dateTime) return string.Empty;
 
         var cultureToUse = culture ?? CultureInfo.CurrentCulture;
+        var pattern = GetDateTimePattern(cultureToUse);
 
-        var datePattern = cultureToUse.DateTimeFormat.ShortDatePattern;
-        var timePattern = cultureToUse.DateTimeFormat.ShortTimePattern.Replace(":ss", "");
-
-        return dateTime.ToString($"{datePattern} {timePattern}", cultureToUse);
+        return dateTime.ToString(pattern, cultureToUse);
     }
 
     /// <summary>
@@ -35,5 +33,20 @@ public static class DateTimeToDateTimeWithoutSecondsConverter
     /// </returns>
     public static object? ConvertBack(this object? value, CultureInfo culture)
         => value is not string str ? null : str.ConvertFromString(culture);
+
+    /// <summary>
+    /// Retrieves the date and time pattern for a specific culture, omitting seconds in the time format.
+    /// </summary>
+    /// <param name="culture">An optional CultureInfo object to specify the culture-specific formatting. If not provided, the current culture is used.</param>
+    /// <returns>A string representing the combined date and time pattern for the specified culture without seconds.</returns>
+    public static string GetDateTimePattern(CultureInfo? culture = null)
+    {
+        culture ??= CultureInfo.CurrentCulture;
+
+        var datePattern = culture.DateTimeFormat.ShortDatePattern;
+        var timePattern = culture.DateTimeFormat.ShortTimePattern.Replace(":ss", "");
+
+        return $"{datePattern} {timePattern}";
+    }
 
 }
