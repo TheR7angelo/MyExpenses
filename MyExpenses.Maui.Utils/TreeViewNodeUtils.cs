@@ -1,3 +1,4 @@
+using System.Collections.ObjectModel;
 using MyExpenses.Models.Sql.Bases.Groups;
 using MyExpenses.Utils.Converters;
 
@@ -88,12 +89,13 @@ public static class TreeViewNodeUtils
         object? additionalData = null)
     {
         children ??= [];
+        var collection = new ObservableCollection<TreeViewNode>(children);
 
         // ReSharper disable once HeapView.ObjectAllocation.Evident
         return new TreeViewNode
         {
             Name = name,
-            Children = children,
+            Children = collection,
             AdditionalData = additionalData
         };
     }
