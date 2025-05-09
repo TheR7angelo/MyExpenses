@@ -260,17 +260,15 @@ public partial class LocationManagementContentPage
         }
     }
 
-    private void RemoveTreeViewNodePlace()
+    private async void RemoveTreeViewNodePlace()
     {
         try
         {
             var countryName = Utils.Converters.EmptyStringTreeViewConverter.ToUnknown(ClickTPlace!.Country);
             var cityName = Utils.Converters.EmptyStringTreeViewConverter.ToUnknown(ClickTPlace!.City);
 
-            _ = DisplayAlert("Test", e.Message, "OK");
-
-            var countryTreeViewNodes = TreeViewNodes.First(s => s.AdditionalData!.Equals(countryName));
-            var cityTreeViewNodes = countryTreeViewNodes.Children.First(s => s.AdditionalData!.Equals(cityName));
+            var countryTreeViewNodes = TreeViewNodes.First(s => Utils.Converters.EmptyStringTreeViewConverter.ToUnknown(s.AdditionalData).Equals(countryName));
+            var cityTreeViewNodes = countryTreeViewNodes.Children.First(s => Utils.Converters.EmptyStringTreeViewConverter.ToUnknown(s.AdditionalData).Equals(cityName));
             var placeTreeViewNodes = cityTreeViewNodes.Children.First(s => s.Name!.Equals(ClickTPlace!.Name));
 
             cityTreeViewNodes.Children.Remove(placeTreeViewNodes);
@@ -279,7 +277,7 @@ public partial class LocationManagementContentPage
         }
         catch (Exception e)
         {
-            _ = DisplayAlert("Error", e.Message, "OK");
+            await DisplayAlert("Error", e.Message, "OK");
             Console.WriteLine(e);
         }
     }
