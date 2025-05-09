@@ -802,7 +802,7 @@ public partial class DashBoardPage
         ComboBoxYearsHintAssist = DashBoardManagementResources.ComboBoxYearsHintAssist;
         ComboBoxMonthHintAssist = DashBoardManagementResources.ComboBoxMonthHintAssist;
 
-        DateFormatString = DashBoardManagementResources.FilterDataGridDateFormatString;
+        DateFormatString = SharedUtils.Converters.DateTimeToDateTimeWithoutSecondsConverter.GetDateTimePattern();
     }
 
     private void UpdatePieChartLegendTextPaint()

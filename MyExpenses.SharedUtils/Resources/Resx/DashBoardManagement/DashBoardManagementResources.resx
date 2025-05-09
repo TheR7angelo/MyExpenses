@@ -123,9 +123,6 @@
     <data name="ButtonRecurrentExpense" xml:space="preserve">
         <value>Recurring expense management</value>
     </data>
-    <data name="FilterDataGridDateFormatString" xml:space="preserve">
-        <value>yyyy/MM/dd HH:mm</value>
-    </data>
     <data name="DataGridTemplateColumnActionsHeader" xml:space="preserve">
         <value>Actions</value>
     </data>

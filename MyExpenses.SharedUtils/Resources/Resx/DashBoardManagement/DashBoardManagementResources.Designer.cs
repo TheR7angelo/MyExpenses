@@ -286,15 +286,6 @@ namespace MyExpenses.SharedUtils.Resources.Resx.DashBoardManagement {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to yyyy/MM/dd HH:mm.
-        /// </summary>
-        public static string FilterDataGridDateFormatString {
-            get {
-                return ResourceManager.GetString("FilterDataGridDateFormatString", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to No additional dates are available.
         /// </summary>
         public static string MessageBoxAddMonthErrorMessage {
