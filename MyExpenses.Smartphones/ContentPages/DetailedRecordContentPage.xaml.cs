@@ -372,10 +372,10 @@ public partial class DetailedRecordContentPage
 
     private void SelectorCountry_OnSelectionChanged(object? sender, EventArgs e)
     {
-        if (sender is not Picker comboBox) return;
+        if (sender is not Picker picker) return;
 
         // ReSharper disable once HeapView.ClosureAllocation
-        if (comboBox.SelectedItem is not string country) return;
+        if (picker.SelectedItem is not string country) return;
 
         // ReSharper disable once HeapView.ObjectAllocation.Evident
         // The creation of a new DataBaseContext instance (via `new DataBaseContext()`) is necessary to interact with the database.
