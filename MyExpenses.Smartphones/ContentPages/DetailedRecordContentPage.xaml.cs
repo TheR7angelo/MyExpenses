@@ -103,6 +103,25 @@ public partial class DetailedRecordContentPage
         set => SetValue(PlaceholderTextPlaceProperty, value);
     }
 
+    public static readonly BindableProperty TextBoxDescriptionHintAssistProperty =
+        BindableProperty.Create(nameof(TextBoxDescriptionHintAssist), typeof(string), typeof(DetailedRecordContentPage));
+
+    public string TextBoxDescriptionHintAssist
+    {
+        get => (string)GetValue(TextBoxDescriptionHintAssistProperty);
+        set => SetValue(TextBoxDescriptionHintAssistProperty, value);
+    }
+
+    public static readonly BindableProperty ComboBoxModePaymentHintAssistProperty =
+        BindableProperty.Create(nameof(ComboBoxModePaymentHintAssist), typeof(string),
+            typeof(DetailedRecordContentPage));
+
+    public string ComboBoxModePaymentHintAssist
+    {
+        get => (string)GetValue(ComboBoxModePaymentHintAssistProperty);
+        set => SetValue(ComboBoxModePaymentHintAssistProperty, value);
+    }
+
     public static readonly BindableProperty PlaceholderTextCityProperty =
         BindableProperty.Create(nameof(PlaceholderTextCity), typeof(string), typeof(DetailedRecordContentPage));
 
@@ -226,7 +245,7 @@ public partial class DetailedRecordContentPage
     public ObservableCollection<string> CountriesCollection { get; private init; } = [];
 
     public ObservableCollection<string> CitiesCollection { get; private init; } = [];
-    public List<TPlace> PlacesCollection { get; private init; } = [];
+    public ObservableCollection<TPlace> PlacesCollection { get; private init; } = [];
 
     private THistory? OriginalHistory { get; set; }
 
@@ -418,10 +437,10 @@ public partial class DetailedRecordContentPage
 
     private void SelectorCity_OnSelectionChanged(object? sender, EventArgs e)
     {
-        if (sender is not Picker comboBox) return;
+        if (sender is not Picker picker) return;
 
         // ReSharper disable once HeapView.ClosureAllocation
-        if (comboBox.SelectedItem is not string city) return;
+        if (picker.SelectedItem is not string city) return;
 
         // ReSharper disable once HeapView.ObjectAllocation.Evident
         // The creation of a new DataBaseContext instance (via `new DataBaseContext()`) is necessary to interact with the database.
@@ -754,6 +773,8 @@ public partial class DetailedRecordContentPage
 
         if (IsDirty) Title = DetailedRecordManagementResources.TitleIsDirty;
 
+        TextBoxDescriptionHintAssist = DetailedRecordManagementResources.TextBoxDescriptionHintAssist;
+        ComboBoxModePaymentHintAssist = DetailedRecordManagementResources.ComboBoxModePaymentHintAssist;
         PlaceholderTextCountry = DetailedRecordManagementResources.ComboBoxPlaceCountryHintAssist;
         PlaceholderTextCity = DetailedRecordManagementResources.ComboBoxPlaceCityHintAssist;
         PlaceholderTextPlace = DetailedRecordManagementResources.ComboBoxPlaceHintAssist;

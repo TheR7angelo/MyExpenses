@@ -90,18 +90,26 @@
 
                         <Entry Grid.Row="0"
                                HorizontalTextAlignment="Start"
+                               FontSize="24"
                                Text="{Binding History.Description, Mode=TwoWay}"
                                MaxLength="{Binding History, Converter={StaticResource MaxLengthConverter}, ConverterParameter=Description}"
-                               FontSize="24"
+                               Placeholder="{Binding TextBoxDescriptionHintAssist, Mode=OneWay}"
                                TextChanged="EntryDescription_OnTextChanged">
                         </Entry>
 
-                        <Picker Grid.Row="1"
-                                ItemsSource="{Binding ModePayments, Mode=OneWay, Source={RelativeSource AncestorType={x:Type local:DetailedRecordContentPage}}}"
-                                SelectedItem="{Binding History.ModePaymentFk, Mode=TwoWay, Converter={StaticResource ISqlConverter}, ConverterParameter={Binding ModePayments, Source={Reference This}}, Source={Reference This}, Source={RelativeSource AncestorType={x:Type local:DetailedRecordContentPage}}}"
-                                ItemDisplayBinding="{Binding Name}" x:DataType="tables:TModePayment"
-                                SelectedIndexChanged="PickerModePayment_OnSelectedIndexChanged">
-                        </Picker>
+                        <HorizontalStackLayout Grid.Row="1">
+
+                            <Label Text="{Binding ComboBoxModePaymentHintAssist, Mode=OneWay}"
+                                   VerticalTextAlignment="Center">
+                            </Label>
+
+                            <Picker ItemsSource="{Binding ModePayments, Mode=OneWay, Source={RelativeSource AncestorType={x:Type local:DetailedRecordContentPage}}}"
+                                    SelectedItem="{Binding History.ModePaymentFk, Mode=TwoWay, Converter={StaticResource ISqlConverter}, ConverterParameter={Binding ModePayments, Source={Reference This}}, Source={Reference This}, Source={RelativeSource AncestorType={x:Type local:DetailedRecordContentPage}}}"
+                                    ItemDisplayBinding="{Binding Name}" x:DataType="tables:TModePayment"
+                                    SelectedIndexChanged="PickerModePayment_OnSelectedIndexChanged">
+                            </Picker>
+
+                        </HorizontalStackLayout>
 
                         <HorizontalStackLayout Grid.Row="2">
 
