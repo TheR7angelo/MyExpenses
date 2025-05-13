@@ -740,7 +740,8 @@ public partial class DetailedRecordContentPage
             // This context provides the connection to the database and allows querying or updating data.
             // The `using` statement ensures that the context is disposed of properly after its use, freeing up resources like database connections.
             using var context = new DataBaseContext();
-            var currency = context.TCurrencies.First(s => s.Id.Equals(History.AccountFk));
+            var account = context.TAccounts.First(s => s.Id.Equals(History.AccountFk.Value));
+            var currency = context.TCurrencies.First(s => s.Id.Equals(account.CurrencyFk!.Value));;
             symbol = currency.Symbol!;
         }
 
