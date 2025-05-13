@@ -267,8 +267,9 @@ public partial class LocationManagementPage
             Log.Error("Foreign key constraint violation");
 
             response =
-                MsgBox.Show(LocationManagementResources.MessageBoxMenuItemDeleteFeatureUseQuestion,
-                    MsgBoxImage.Question, MessageBoxButton.YesNoCancel);
+                MsgBox.Show(LocationManagementResources.MessageBoxMenuItemDeleteFeatureUseQuestionTitle,
+                    LocationManagementResources.MessageBoxMenuItemDeleteFeatureUseQuestionMessage,
+                    MessageBoxButton.YesNoCancel, MsgBoxImage.Question);
 
             if (response is not MessageBoxResult.Yes) return;
 
@@ -276,7 +277,8 @@ public partial class LocationManagementPage
                 placeToDelete.Name);
             placeToDelete.Delete(true);
             Log.Information("Place and all relative element was successfully removed");
-            MsgBox.Show(LocationManagementResources.MessageBoxMenuItemDeleteFeatureUseSuccess, MsgBoxImage.Check);
+            MsgBox.Show(LocationManagementResources.MessageBoxMenuItemDeleteFeatureUseSuccessTitle,
+                LocationManagementResources.MessageBoxMenuItemDeleteFeatureUseSuccessMessage, MsgBoxImage.Check);
 
             RemovePlaceTreeViewCountryGroup(placeToDelete);
 
