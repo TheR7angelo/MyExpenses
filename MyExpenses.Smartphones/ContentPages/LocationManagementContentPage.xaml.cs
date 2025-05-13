@@ -288,6 +288,11 @@ public partial class LocationManagementContentPage
 
             return;
         }
+
+        Log.Error(exception, "An error occurred please retry");
+        await DisplayAlert(LocationManagementResources.MessageBoxMenuItemDeleteFeatureErrorTitle,
+            LocationManagementResources.MessageBoxMenuItemDeleteFeatureErrorMessage,
+            LocationManagementResources.MessageBoxMenuItemDeleteFeatureErrorOkButton);
     }
 
     private void RemoveTreeViewNodePlace()

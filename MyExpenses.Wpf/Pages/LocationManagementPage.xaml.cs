@@ -288,7 +288,9 @@ public partial class LocationManagementPage
         }
 
         Log.Error(exception, "An error occurred please retry");
-        MsgBox.Show(LocationManagementResources.MessageBoxMenuItemDeleteFeatureError, MsgBoxImage.Error);
+        MsgBox.Show(LocationManagementResources.MessageBoxMenuItemDeleteFeatureErrorTitle,
+            LocationManagementResources.MessageBoxMenuItemDeleteFeatureErrorMessage,
+            MsgBoxImage.Error);
     }
 
     private void MenuItemEditFeature_OnClick(object sender, RoutedEventArgs e)
