@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MyExpenses.Wpf.Resources.Resx.Windows.AddEditLocationWindow {
+namespace MyExpenses.SharedUtils.Resources.Resx.AddEditLocation {
     using System;
     
     
@@ -21,25 +21,24 @@ namespace MyExpenses.Wpf.Resources.Resx.Windows.AddEditLocationWindow {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class AddEditLocationWindowResources {
+    public class AddEditLocationResources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal AddEditLocationWindowResources() {
+        public AddEditLocationResources() {
         }
         
         /// <summary>
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MyExpenses.Wpf.Resources.Resx.Windows.AddEditLocationWindow.AddEditLocationWindow" +
-                            "Resources", typeof(AddEditLocationWindowResources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MyExpenses.SharedUtils.Resources.Resx.AddEditLocation.AddEditLocationResources", typeof(AddEditLocationResources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -51,7 +50,7 @@ namespace MyExpenses.Wpf.Resources.Resx.Windows.AddEditLocationWindow {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,7 +62,7 @@ namespace MyExpenses.Wpf.Resources.Resx.Windows.AddEditLocationWindow {
         /// <summary>
         ///   Looks up a localized string similar to Cancel.
         /// </summary>
-        internal static string ButtonContentCancel {
+        public static string ButtonContentCancel {
             get {
                 return ResourceManager.GetString("ButtonContentCancel", resourceCulture);
             }
@@ -72,7 +71,7 @@ namespace MyExpenses.Wpf.Resources.Resx.Windows.AddEditLocationWindow {
         /// <summary>
         ///   Looks up a localized string similar to Delete.
         /// </summary>
-        internal static string ButtonContentDelete {
+        public static string ButtonContentDelete {
             get {
                 return ResourceManager.GetString("ButtonContentDelete", resourceCulture);
             }
@@ -81,7 +80,7 @@ namespace MyExpenses.Wpf.Resources.Resx.Windows.AddEditLocationWindow {
         /// <summary>
         ///   Looks up a localized string similar to Search by address.
         /// </summary>
-        internal static string ButtonContentSearchByAddress {
+        public static string ButtonContentSearchByAddress {
             get {
                 return ResourceManager.GetString("ButtonContentSearchByAddress", resourceCulture);
             }
@@ -90,7 +89,7 @@ namespace MyExpenses.Wpf.Resources.Resx.Windows.AddEditLocationWindow {
         /// <summary>
         ///   Looks up a localized string similar to Search by coordinates.
         /// </summary>
-        internal static string ButtonContentSearchByCoordinate {
+        public static string ButtonContentSearchByCoordinate {
             get {
                 return ResourceManager.GetString("ButtonContentSearchByCoordinate", resourceCulture);
             }
@@ -99,7 +98,7 @@ namespace MyExpenses.Wpf.Resources.Resx.Windows.AddEditLocationWindow {
         /// <summary>
         ///   Looks up a localized string similar to Valid.
         /// </summary>
-        internal static string ButtonContentValid {
+        public static string ButtonContentValid {
             get {
                 return ResourceManager.GetString("ButtonContentValid", resourceCulture);
             }
@@ -108,7 +107,7 @@ namespace MyExpenses.Wpf.Resources.Resx.Windows.AddEditLocationWindow {
         /// <summary>
         ///   Looks up a localized string similar to Validate the new point.
         /// </summary>
-        internal static string ButtonContentValidNewPoint {
+        public static string ButtonContentValidNewPoint {
             get {
                 return ResourceManager.GetString("ButtonContentValidNewPoint", resourceCulture);
             }
@@ -117,7 +116,7 @@ namespace MyExpenses.Wpf.Resources.Resx.Windows.AddEditLocationWindow {
         /// <summary>
         ///   Looks up a localized string similar to Zoom in on the point.
         /// </summary>
-        internal static string ButtonContentZoomToPoint {
+        public static string ButtonContentZoomToPoint {
             get {
                 return ResourceManager.GetString("ButtonContentZoomToPoint", resourceCulture);
             }
@@ -126,7 +125,7 @@ namespace MyExpenses.Wpf.Resources.Resx.Windows.AddEditLocationWindow {
         /// <summary>
         ///   Looks up a localized string similar to No results found.
         /// </summary>
-        internal static string ButtonSearchByCoordinateMessageBoxError {
+        public static string ButtonSearchByCoordinateMessageBoxError {
             get {
                 return ResourceManager.GetString("ButtonSearchByCoordinateMessageBoxError", resourceCulture);
             }
@@ -135,7 +134,7 @@ namespace MyExpenses.Wpf.Resources.Resx.Windows.AddEditLocationWindow {
         /// <summary>
         ///   Looks up a localized string similar to The place is open :.
         /// </summary>
-        internal static string CheckBoxContentIsOpen {
+        public static string CheckBoxContentIsOpen {
             get {
                 return ResourceManager.GetString("CheckBoxContentIsOpen", resourceCulture);
             }
@@ -144,7 +143,7 @@ namespace MyExpenses.Wpf.Resources.Resx.Windows.AddEditLocationWindow {
         /// <summary>
         ///   Looks up a localized string similar to Several results were found, please choose one.
         /// </summary>
-        internal static string HandleNominatimResultMultipleResult {
+        public static string HandleNominatimResultMultipleResult {
             get {
                 return ResourceManager.GetString("HandleNominatimResultMultipleResult", resourceCulture);
             }
@@ -153,7 +152,7 @@ namespace MyExpenses.Wpf.Resources.Resx.Windows.AddEditLocationWindow {
         /// <summary>
         ///   Looks up a localized string similar to A result was found.
         /// </summary>
-        internal static string HandleNominatimResultOneResult {
+        public static string HandleNominatimResultOneResult {
             get {
                 return ResourceManager.GetString("HandleNominatimResultOneResult", resourceCulture);
             }
@@ -162,7 +161,7 @@ namespace MyExpenses.Wpf.Resources.Resx.Windows.AddEditLocationWindow {
         /// <summary>
         ///   Looks up a localized string similar to No results found.
         /// </summary>
-        internal static string HandleNominatimResultZeroResult {
+        public static string HandleNominatimResultZeroResult {
             get {
                 return ResourceManager.GetString("HandleNominatimResultZeroResult", resourceCulture);
             }
@@ -171,7 +170,7 @@ namespace MyExpenses.Wpf.Resources.Resx.Windows.AddEditLocationWindow {
         /// <summary>
         ///   Looks up a localized string similar to An error occurred please retry.
         /// </summary>
-        internal static string MessageBoxDeletePlaceError {
+        public static string MessageBoxDeletePlaceError {
             get {
                 return ResourceManager.GetString("MessageBoxDeletePlaceError", resourceCulture);
             }
@@ -180,7 +179,7 @@ namespace MyExpenses.Wpf.Resources.Resx.Windows.AddEditLocationWindow {
         /// <summary>
         ///   Looks up a localized string similar to Place was successfully removed.
         /// </summary>
-        internal static string MessageBoxDeletePlaceNoUseSuccess {
+        public static string MessageBoxDeletePlaceNoUseSuccess {
             get {
                 return ResourceManager.GetString("MessageBoxDeletePlaceNoUseSuccess", resourceCulture);
             }
@@ -189,7 +188,7 @@ namespace MyExpenses.Wpf.Resources.Resx.Windows.AddEditLocationWindow {
         /// <summary>
         ///   Looks up a localized string similar to This place is in use. Are you sure you want to delete this place and everything linked to it ?.
         /// </summary>
-        internal static string MessageBoxDeletePlaceUseQuestion {
+        public static string MessageBoxDeletePlaceUseQuestion {
             get {
                 return ResourceManager.GetString("MessageBoxDeletePlaceUseQuestion", resourceCulture);
             }
@@ -198,7 +197,7 @@ namespace MyExpenses.Wpf.Resources.Resx.Windows.AddEditLocationWindow {
         /// <summary>
         ///   Looks up a localized string similar to Place and all relative element was successfully removed.
         /// </summary>
-        internal static string MessageBoxDeletePlaceUseSuccess {
+        public static string MessageBoxDeletePlaceUseSuccess {
             get {
                 return ResourceManager.GetString("MessageBoxDeletePlaceUseSuccess", resourceCulture);
             }
@@ -207,7 +206,7 @@ namespace MyExpenses.Wpf.Resources.Resx.Windows.AddEditLocationWindow {
         /// <summary>
         ///   Looks up a localized string similar to Do you want to delete this location ?.
         /// </summary>
-        internal static string MessageBoxDeleteQuestion {
+        public static string MessageBoxDeleteQuestion {
             get {
                 return ResourceManager.GetString("MessageBoxDeleteQuestion", resourceCulture);
             }
@@ -216,7 +215,7 @@ namespace MyExpenses.Wpf.Resources.Resx.Windows.AddEditLocationWindow {
         /// <summary>
         ///   Looks up a localized string similar to City :.
         /// </summary>
-        internal static string TextBoxCityHintAssist {
+        public static string TextBoxCityHintAssist {
             get {
                 return ResourceManager.GetString("TextBoxCityHintAssist", resourceCulture);
             }
@@ -225,7 +224,7 @@ namespace MyExpenses.Wpf.Resources.Resx.Windows.AddEditLocationWindow {
         /// <summary>
         ///   Looks up a localized string similar to Country :.
         /// </summary>
-        internal static string TextBoxCountryHintAssist {
+        public static string TextBoxCountryHintAssist {
             get {
                 return ResourceManager.GetString("TextBoxCountryHintAssist", resourceCulture);
             }
@@ -234,7 +233,7 @@ namespace MyExpenses.Wpf.Resources.Resx.Windows.AddEditLocationWindow {
         /// <summary>
         ///   Looks up a localized string similar to Latitude :.
         /// </summary>
-        internal static string TextBoxLatitudeHintAssist {
+        public static string TextBoxLatitudeHintAssist {
             get {
                 return ResourceManager.GetString("TextBoxLatitudeHintAssist", resourceCulture);
             }
@@ -243,7 +242,7 @@ namespace MyExpenses.Wpf.Resources.Resx.Windows.AddEditLocationWindow {
         /// <summary>
         ///   Looks up a localized string similar to Longitude :.
         /// </summary>
-        internal static string TextBoxLongitudeHintAssist {
+        public static string TextBoxLongitudeHintAssist {
             get {
                 return ResourceManager.GetString("TextBoxLongitudeHintAssist", resourceCulture);
             }
@@ -252,7 +251,7 @@ namespace MyExpenses.Wpf.Resources.Resx.Windows.AddEditLocationWindow {
         /// <summary>
         ///   Looks up a localized string similar to Name :.
         /// </summary>
-        internal static string TextBoxNameHintAssist {
+        public static string TextBoxNameHintAssist {
             get {
                 return ResourceManager.GetString("TextBoxNameHintAssist", resourceCulture);
             }
@@ -261,7 +260,7 @@ namespace MyExpenses.Wpf.Resources.Resx.Windows.AddEditLocationWindow {
         /// <summary>
         ///   Looks up a localized string similar to Number :.
         /// </summary>
-        internal static string TextBoxNumberHintAssist {
+        public static string TextBoxNumberHintAssist {
             get {
                 return ResourceManager.GetString("TextBoxNumberHintAssist", resourceCulture);
             }
@@ -270,7 +269,7 @@ namespace MyExpenses.Wpf.Resources.Resx.Windows.AddEditLocationWindow {
         /// <summary>
         ///   Looks up a localized string similar to Postal code :.
         /// </summary>
-        internal static string TextBoxPostalCodeHintAssist {
+        public static string TextBoxPostalCodeHintAssist {
             get {
                 return ResourceManager.GetString("TextBoxPostalCodeHintAssist", resourceCulture);
             }
@@ -279,7 +278,7 @@ namespace MyExpenses.Wpf.Resources.Resx.Windows.AddEditLocationWindow {
         /// <summary>
         ///   Looks up a localized string similar to Street :.
         /// </summary>
-        internal static string TextBoxStreetHintAssist {
+        public static string TextBoxStreetHintAssist {
             get {
                 return ResourceManager.GetString("TextBoxStreetHintAssist", resourceCulture);
             }
@@ -288,7 +287,7 @@ namespace MyExpenses.Wpf.Resources.Resx.Windows.AddEditLocationWindow {
         /// <summary>
         ///   Looks up a localized string similar to Adding or editing a location.
         /// </summary>
-        internal static string TitleWindow {
+        public static string TitleWindow {
             get {
                 return ResourceManager.GetString("TitleWindow", resourceCulture);
             }

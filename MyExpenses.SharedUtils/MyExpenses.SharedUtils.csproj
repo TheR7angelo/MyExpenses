@@ -80,6 +80,10 @@
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>DashBoardShellManagementResources.Designer.cs</LastGenOutput>
       </EmbeddedResource>
+      <EmbeddedResource Update="Resources\Resx\AddEditLocation\AddEditLocationResources.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>AddEditLocationResources.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
     </ItemGroup>
 
     <ItemGroup>
@@ -172,6 +176,11 @@
         <DesignTime>True</DesignTime>
         <AutoGen>True</AutoGen>
         <DependentUpon>DashBoardShellManagementResources.resx</DependentUpon>
+      </Compile>
+      <Compile Update="Resources\Resx\AddEditLocation\AddEditLocationResources.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>AddEditLocationResources.resx</DependentUpon>
       </Compile>
     </ItemGroup>
 

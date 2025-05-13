@@ -1,0 +1,92 @@
+﻿<root>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <data name="ButtonContentCancel" xml:space="preserve">
+        <value>Annuler</value>
+    </data>
+    <data name="ButtonContentDelete" xml:space="preserve">
+        <value>Supprimer</value>
+    </data>
+    <data name="ButtonContentSearchByAddress" xml:space="preserve">
+        <value>Rechercher par adresse</value>
+    </data>
+    <data name="ButtonContentSearchByCoordinate" xml:space="preserve">
+        <value>Rechercher par coordonnées</value>
+    </data>
+    <data name="ButtonContentValid" xml:space="preserve">
+        <value>Valider</value>
+    </data>
+    <data name="ButtonContentValidNewPoint" xml:space="preserve">
+        <value>Valider le nouveau point</value>
+    </data>
+    <data name="ButtonContentZoomToPoint" xml:space="preserve">
+        <value>Zoom sur le point</value>
+    </data>
+    <data name="ButtonSearchByCoordinateMessageBoxError" xml:space="preserve">
+        <value>Aucun résultat trouvé</value>
+    </data>
+    <data name="CheckBoxContentIsOpen" xml:space="preserve">
+        <value>Le lieu est ouvert :</value>
+    </data>
+    <data name="HandleNominatimResultMultipleResult" xml:space="preserve">
+        <value>Plusieurs résultats ont été trouvés, veuillez en choisir un</value>
+    </data>
+    <data name="HandleNominatimResultOneResult" xml:space="preserve">
+        <value>Un résultat a été trouvé</value>
+    </data>
+    <data name="HandleNominatimResultZeroResult" xml:space="preserve">
+        <value>Aucun résultat trouvé</value>
+    </data>
+    <data name="MessageBoxDeletePlaceError" xml:space="preserve">
+        <value>Une erreur s'est produite, veuillez réessayer</value>
+    </data>
+    <data name="MessageBoxDeletePlaceNoUseSuccess" xml:space="preserve">
+        <value>Le lieu a été supprimé avec succès</value>
+    </data>
+    <data name="MessageBoxDeletePlaceUseQuestion" xml:space="preserve">
+        <value>Cet endroit est utilisé. Etes-vous sûr de vouloir supprimer ce lieu et tout ce qui y est lié ?</value>
+    </data>
+    <data name="MessageBoxDeletePlaceUseSuccess" xml:space="preserve">
+        <value>Le lieu et tous les éléments relatifs ont été supprimés avec succès</value>
+    </data>
+    <data name="MessageBoxDeleteQuestion" xml:space="preserve">
+        <value>Voulez-vous supprimer cet emplacement ?</value>
+    </data>
+    <data name="TextBoxCityHintAssist" xml:space="preserve">
+        <value>Ville :</value>
+    </data>
+    <data name="TextBoxCountryHintAssist" xml:space="preserve">
+        <value>Pays :</value>
+    </data>
+    <data name="TextBoxLatitudeHintAssist" xml:space="preserve">
+        <value>Latitude :</value>
+    </data>
+    <data name="TextBoxLongitudeHintAssist" xml:space="preserve">
+        <value>Longitude :</value>
+    </data>
+    <data name="TextBoxNameHintAssist" xml:space="preserve">
+        <value>Nom :</value>
+    </data>
+    <data name="TextBoxNumberHintAssist" xml:space="preserve">
+        <value>Nombre :</value>
+    </data>
+    <data name="TextBoxPostalCodeHintAssist" xml:space="preserve">
+        <value>Code postal :</value>
+    </data>
+    <data name="TextBoxStreetHintAssist" xml:space="preserve">
+        <value>Rue :</value>
+    </data>
+    <data name="TitleWindow" xml:space="preserve">
+        <value>Ajouter ou modifier un emplacement</value>
+    </data>
+</root>

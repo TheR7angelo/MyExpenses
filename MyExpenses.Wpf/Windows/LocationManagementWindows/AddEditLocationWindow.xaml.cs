@@ -12,10 +12,10 @@ using MyExpenses.Models.Mapsui.PointFeatures;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Models.WebApi.Nominatim;
 using MyExpenses.SharedUtils.Properties;
+using MyExpenses.SharedUtils.Resources.Resx.AddEditLocation;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils.Maps;
 using MyExpenses.WebApi.Nominatim;
-using MyExpenses.Wpf.Resources.Resx.Windows.AddEditLocationWindow;
 using MyExpenses.Wpf.Utils;
 using MyExpenses.Wpf.Windows.MsgBox;
 using Serilog;
@@ -275,27 +275,27 @@ public partial class AddEditLocationWindow
 
     private void UpdateLanguage()
     {
-        TitleWindow = AddEditLocationWindowResources.TitleWindow;
+        TitleWindow = AddEditLocationResources.TitleWindow;
 
-        TextBoxCityHintAssist = AddEditLocationWindowResources.TextBoxCityHintAssist;
-        TextBoxCountryHintAssist = AddEditLocationWindowResources.TextBoxCountryHintAssist;
-        TextBoxLatitudeHintAssist = AddEditLocationWindowResources.TextBoxLatitudeHintAssist;
-        TextBoxLongitudeHintAssist = AddEditLocationWindowResources.TextBoxLongitudeHintAssist;
-        TextBoxNameHintAssist = AddEditLocationWindowResources.TextBoxNameHintAssist;
-        TextBoxNumberHintAssist = AddEditLocationWindowResources.TextBoxNumberHintAssist;
-        TextBoxPostalCodeHintAssist = AddEditLocationWindowResources.TextBoxPostalCodeHintAssist;
-        TextBoxStreetHintAssist = AddEditLocationWindowResources.TextBoxStreetHintAssist;
-        ButtonContentValidNewPoint = AddEditLocationWindowResources.ButtonContentValidNewPoint;
-        ButtonContentZoomToPoint = AddEditLocationWindowResources.ButtonContentZoomToPoint;
-        ButtonContentSearchByAddress = AddEditLocationWindowResources.ButtonContentSearchByAddress;
+        TextBoxCityHintAssist = AddEditLocationResources.TextBoxCityHintAssist;
+        TextBoxCountryHintAssist = AddEditLocationResources.TextBoxCountryHintAssist;
+        TextBoxLatitudeHintAssist = AddEditLocationResources.TextBoxLatitudeHintAssist;
+        TextBoxLongitudeHintAssist = AddEditLocationResources.TextBoxLongitudeHintAssist;
+        TextBoxNameHintAssist = AddEditLocationResources.TextBoxNameHintAssist;
+        TextBoxNumberHintAssist = AddEditLocationResources.TextBoxNumberHintAssist;
+        TextBoxPostalCodeHintAssist = AddEditLocationResources.TextBoxPostalCodeHintAssist;
+        TextBoxStreetHintAssist = AddEditLocationResources.TextBoxStreetHintAssist;
+        ButtonContentValidNewPoint = AddEditLocationResources.ButtonContentValidNewPoint;
+        ButtonContentZoomToPoint = AddEditLocationResources.ButtonContentZoomToPoint;
+        ButtonContentSearchByAddress = AddEditLocationResources.ButtonContentSearchByAddress;
 
-        ButtonContentSearchByCoordinate = AddEditLocationWindowResources.ButtonContentSearchByCoordinate;
+        ButtonContentSearchByCoordinate = AddEditLocationResources.ButtonContentSearchByCoordinate;
 
-        ButtonContentCancel = AddEditLocationWindowResources.ButtonContentCancel;
-        ButtonContentDelete = AddEditLocationWindowResources.ButtonContentDelete;
-        ButtonContentValid = AddEditLocationWindowResources.ButtonContentValid;
+        ButtonContentCancel = AddEditLocationResources.ButtonContentCancel;
+        ButtonContentDelete = AddEditLocationResources.ButtonContentDelete;
+        ButtonContentValid = AddEditLocationResources.ButtonContentValid;
 
-        CheckBoxContentIsOpen = AddEditLocationWindowResources.CheckBoxContentIsOpen;
+        CheckBoxContentIsOpen = AddEditLocationResources.CheckBoxContentIsOpen;
     }
 
     #region Action
@@ -326,7 +326,7 @@ public partial class AddEditLocationWindow
         {
             Log.Information("The API returned no result(s)");
 
-            MsgBox.MsgBox.Show(AddEditLocationWindowResources.ButtonSearchByCoordinateMessageBoxError,
+            MsgBox.MsgBox.Show(AddEditLocationResources.ButtonSearchByCoordinateMessageBoxError,
                 MsgBoxImage.Error);
             return;
         }
@@ -373,7 +373,7 @@ public partial class AddEditLocationWindow
 
     private void ButtonDelete_OnClick(object sender, RoutedEventArgs e)
     {
-        var response = MsgBox.MsgBox.Show(AddEditLocationWindowResources.MessageBoxDeleteQuestion,
+        var response = MsgBox.MsgBox.Show(AddEditLocationResources.MessageBoxDeleteQuestion,
             MsgBoxImage.Question, MessageBoxButton.YesNoCancel);
         if (response is not MessageBoxResult.Yes) return;
 
@@ -382,7 +382,7 @@ public partial class AddEditLocationWindow
         if (success)
         {
             Log.Information("Place was successfully removed");
-            MsgBox.MsgBox.Show(AddEditLocationWindowResources.MessageBoxDeletePlaceNoUseSuccess, MsgBoxImage.Check);
+            MsgBox.MsgBox.Show(AddEditLocationResources.MessageBoxDeletePlaceNoUseSuccess, MsgBoxImage.Check);
 
             PlaceDeleted = true;
             DialogResult = true;
@@ -398,7 +398,7 @@ public partial class AddEditLocationWindow
         {
             Log.Error("Foreign key constraint violation");
 
-            response = MsgBox.MsgBox.Show(AddEditLocationWindowResources.MessageBoxDeletePlaceUseQuestion,
+            response = MsgBox.MsgBox.Show(AddEditLocationResources.MessageBoxDeletePlaceUseQuestion,
                 MsgBoxImage.Question, MessageBoxButton.YesNoCancel);
 
             if (response is not MessageBoxResult.Yes) return;
@@ -407,7 +407,7 @@ public partial class AddEditLocationWindow
                 Place.Name);
             Place.Delete(true);
             Log.Information("Place and all relative element was successfully removed");
-            MsgBox.MsgBox.Show(AddEditLocationWindowResources.MessageBoxDeletePlaceUseSuccess, MsgBoxImage.Check);
+            MsgBox.MsgBox.Show(AddEditLocationResources.MessageBoxDeletePlaceUseSuccess, MsgBoxImage.Check);
 
             PlaceDeleted = true;
             DialogResult = true;
@@ -417,7 +417,7 @@ public partial class AddEditLocationWindow
         }
 
         Log.Error(exception, "An error occurred please retry");
-        MsgBox.MsgBox.Show(AddEditLocationWindowResources.MessageBoxDeletePlaceError, MsgBoxImage.Error);
+        MsgBox.MsgBox.Show(AddEditLocationResources.MessageBoxDeletePlaceError, MsgBoxImage.Error);
     }
 
     private void ButtonValid_OnClick(object sender, RoutedEventArgs e)
@@ -470,17 +470,17 @@ public partial class AddEditLocationWindow
         switch (nominatimSearchResults.Count)
         {
             case 0:
-                MsgBox.MsgBox.Show(AddEditLocationWindowResources.HandleNominatimResultZeroResult,
+                MsgBox.MsgBox.Show(AddEditLocationResources.HandleNominatimResultZeroResult,
                     MsgBoxImage.Exclamation);
                 break;
             case 1:
-                MsgBox.MsgBox.Show(AddEditLocationWindowResources.HandleNominatimResultOneResult,
+                MsgBox.MsgBox.Show(AddEditLocationResources.HandleNominatimResultOneResult,
                     MsgBoxImage.Check);
                 var nominatimSearchResult = nominatimSearchResults.First();
                 place = Mapping.Mapper.Map<TPlace>(nominatimSearchResult);
                 break;
             case > 1:
-                MsgBox.MsgBox.Show(AddEditLocationWindowResources.HandleNominatimResultMultipleResult,
+                MsgBox.MsgBox.Show(AddEditLocationResources.HandleNominatimResultMultipleResult,
                     MsgBoxImage.Information);
 
                 var places = nominatimSearchResults.Select(s => Mapping.Mapper.Map<TPlace>(s));
