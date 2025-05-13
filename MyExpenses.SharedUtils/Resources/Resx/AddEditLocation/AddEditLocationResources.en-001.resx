@@ -89,4 +89,7 @@
     <data name="TitleWindow" xml:space="preserve">
         <value>Adding or editing a location</value>
     </data>
+    <data name="ButtonContentSearchByCurrentCoordinate" xml:space="preserve">
+        <value>Search by current coordinates</value>
+    </data>
 </root>

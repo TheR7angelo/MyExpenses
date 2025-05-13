@@ -96,6 +96,15 @@ namespace MyExpenses.SharedUtils.Resources.Resx.AddEditLocation {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Search by current coordinates.
+        /// </summary>
+        public static string ButtonContentSearchByCurrentCoordinate {
+            get {
+                return ResourceManager.GetString("ButtonContentSearchByCurrentCoordinate", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Valid.
         /// </summary>
         public static string ButtonContentValid {
