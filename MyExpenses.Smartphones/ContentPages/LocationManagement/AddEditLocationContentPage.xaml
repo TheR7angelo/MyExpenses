@@ -18,7 +18,6 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
             <Entry Grid.Row="0"
@@ -27,54 +26,59 @@
                    MaxLength="{Binding Place, Converter={StaticResource MaxLengthConverter}, ConverterParameter=Name}">
             </Entry>
 
-            <Grid Grid.Row="1">
+            <Border Grid.Row="1"
+                    BackgroundColor="{AppThemeBinding Light={StaticResource Wheat}, Dark={StaticResource Black}}">
 
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="5" />
+                </Border.StrokeShape>
 
-                <Entry Grid.Column="0"
-                       Placeholder="{Binding TextBoxNumberHintAssist, Mode=OneWay}"
-                       Text="{Binding Place.Number, Mode=TwoWay}"
-                       MaxLength="{Binding Place, Converter={StaticResource MaxLengthConverter}, ConverterParameter=Number}">
-                </Entry>
+                <Grid>
 
-                <Entry Grid.Column="1"
-                       Placeholder="{Binding TextBoxStreetHintAssist, Mode=OneWay}"
-                       Text="{Binding Place.Street, Mode=TwoWay}"
-                       MaxLength="{Binding Place, Converter={StaticResource MaxLengthConverter}, ConverterParameter=Street}">
-                </Entry>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
 
-            </Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
 
-            <Grid Grid.Row="2">
+                    <Entry Grid.Row="0" Grid.Column="0"
+                           Placeholder="{Binding TextBoxNumberHintAssist, Mode=OneWay}"
+                           Text="{Binding Place.Number, Mode=TwoWay}"
+                           MaxLength="{Binding Place, Converter={StaticResource MaxLengthConverter}, ConverterParameter=Number}">
+                    </Entry>
 
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
+                    <Entry Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2"
+                           Placeholder="{Binding TextBoxStreetHintAssist, Mode=OneWay}"
+                           Text="{Binding Place.Street, Mode=TwoWay}"
+                           MaxLength="{Binding Place, Converter={StaticResource MaxLengthConverter}, ConverterParameter=Street}">
+                    </Entry>
 
-                <Entry Grid.Column="0"
-                       Placeholder="{Binding TextBoxPostalCodeHintAssist, Mode=OneWay}"
-                       Text="{Binding Place.Postal, Mode=TwoWay}"
-                       MaxLength="{Binding Place, Converter={StaticResource MaxLengthConverter}, ConverterParameter=Postal}">
-                </Entry>
+                    <Entry Grid.Row="1" Grid.Column="0"
+                           Placeholder="{Binding TextBoxPostalCodeHintAssist, Mode=OneWay}"
+                           Text="{Binding Place.Postal, Mode=TwoWay}"
+                           MaxLength="{Binding Place, Converter={StaticResource MaxLengthConverter}, ConverterParameter=Postal}">
+                    </Entry>
 
-                <Entry Grid.Column="1"
-                       Placeholder="{Binding TextBoxCityHintAssist, Mode=OneWay}"
-                       Text="{Binding Place.City, Mode=TwoWay}"
-                       MaxLength="{Binding Place, Converter={StaticResource MaxLengthConverter}, ConverterParameter=City}">
-                </Entry>
+                    <Entry Grid.Row="1" Grid.Column="1"
+                           Placeholder="{Binding TextBoxCityHintAssist, Mode=OneWay}"
+                           Text="{Binding Place.City, Mode=TwoWay}"
+                           MaxLength="{Binding Place, Converter={StaticResource MaxLengthConverter}, ConverterParameter=City}">
+                    </Entry>
 
-                <Entry Grid.Column="2"
-                       Placeholder="{Binding TextBoxCountryHintAssist, Mode=OneWay}"
-                       Text="{Binding Place.Country, Mode=TwoWay}"
-                       MaxLength="{Binding Place, Converter={StaticResource MaxLengthConverter}, ConverterParameter=Country}">
-                </Entry>
+                    <Entry Grid.Row="1" Grid.Column="2"
+                           Placeholder="{Binding TextBoxCountryHintAssist, Mode=OneWay}"
+                           Text="{Binding Place.Country, Mode=TwoWay}"
+                           MaxLength="{Binding Place, Converter={StaticResource MaxLengthConverter}, ConverterParameter=Country}">
+                    </Entry>
 
-            </Grid>
+                </Grid>
+
+            </Border>
 
         </Grid>
 
