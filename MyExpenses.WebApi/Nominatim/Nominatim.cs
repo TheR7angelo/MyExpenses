@@ -2,16 +2,18 @@
 using MyExpenses.Models.WebApi.Nominatim;
 using MyExpenses.Utils;
 using NetTopologySuite.Geometries;
+using Serilog;
 
 namespace MyExpenses.WebApi.Nominatim;
 
 public static class Nominatim
 {
+    private const string BaseUrl = "https://nominatim.openstreetmap.org";
     private static HttpClient HttpClient { get; }
 
     static Nominatim()
     {
-        HttpClient = Http.GetHttpClient("https://nominatim.openstreetmap.org");
+        HttpClient = Http.GetHttpClient(BaseUrl);
     }
 
     public static NominatimSearchResult? ToNominatim(this Point position, bool addressDetails = false, bool polygon = false, bool polygonGeojson = false)
@@ -33,6 +35,7 @@ public static class Nominatim
             if (polygonGeojson) parameters.Add("polygon_geojson=1");
 
             var url = string.Join('&', parameters);
+            Log.Information("Nominatim search with url: {BaseUrl}/{Url}", BaseUrl, url);
 
             var httpResult = await HttpClient
                 .GetAsync(url)
@@ -40,8 +43,9 @@ public static class Nominatim
             var result = await httpResult.Content.ReadAsStringAsync();
             return result.ToObject<NominatimSearchResult>();
         }
-        catch (Exception)
+        catch (Exception e)
         {
+            Log.Error(e, "Error while getting Nominatim result");
             return null;
         }
     }
@@ -63,6 +67,7 @@ public static class Nominatim
             if (polygonGeojson) parameters.Add("polygon_geojson=1");
 
             var url = string.Join('&', parameters);
+            Log.Information("Nominatim search with url: {BaseUrl}/{Url}", BaseUrl, url);
 
             var httpResult = await HttpClient
                 .GetAsync(url)
@@ -71,8 +76,9 @@ public static class Nominatim
 
             return result.ToObject<List<NominatimSearchResult>>();
         }
-        catch (Exception)
+        catch (Exception e)
         {
+            Log.Error(e, "Error while getting Nominatim result");
             return null;
         }
     }
