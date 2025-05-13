@@ -38,6 +38,7 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
 
                     <Grid.ColumnDefinitions>
@@ -75,6 +76,38 @@
                            Text="{Binding Place.Country, Mode=TwoWay}"
                            MaxLength="{Binding Place, Converter={StaticResource MaxLengthConverter}, ConverterParameter=Country}">
                     </Entry>
+
+                    <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2">
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <Label Grid.Row="0" Grid.Column="0"
+                               Text="{Binding TextBoxLongitudeHintAssist, Mode=OneWay}">
+                        </Label>
+
+                        <Label Grid.Row="0" Grid.Column="1"
+                               Text="{Binding TextBoxLatitudeHintAssist, Mode=OneWay}">
+                        </Label>
+
+                        <Entry Grid.Row="1" Grid.Column="0"
+                               Text="{Binding Place.Longitude, Mode=TwoWay}"
+                               Keyboard="Numeric">
+                        </Entry>
+
+                        <Entry Grid.Row="1" Grid.Column="1"
+                               Text="{Binding Place.Latitude, Mode=TwoWay}"
+                               Keyboard="Numeric">
+                        </Entry>
+
+                    </Grid>
 
                 </Grid>
 
