@@ -163,6 +163,66 @@ public partial class LocationManagementContentPage
         return places;
     }
 
+    private async Task HandleDeleteFeature()
+    {
+        var message = string.Format(LocationManagementResources.MessageBoxDeleteQuestionMessage, ClickTPlace!.Name);
+        var response = await DisplayAlert(LocationManagementResources.MessageBoxDeleteQuestionTitle, message,
+            LocationManagementResources.MessageBoxDeleteQuestionYesButton,
+            LocationManagementResources.MessageBoxDeleteQuestionCancelButton);
+
+        if (!response) return;
+
+        Log.Information("Attempting to remove the place \"{PlaceToDeleteName}\"", ClickTPlace.Name);
+        var (success, exception) = ClickTPlace.Delete();
+
+        if (success)
+        {
+            PlaceLayer.TryRemove(PointFeature!);
+            MapControl.Refresh();
+            RemoveTreeViewNodePlace();
+
+            Log.Information("Place was successfully removed");
+            await DisplayAlert(
+                LocationManagementResources.MessageBoxMenuItemDeleteFeatureNoUseSuccessTitle,
+                LocationManagementResources.MessageBoxMenuItemDeleteFeatureNoUseSuccessMessage,
+                LocationManagementResources.MessageBoxMenuItemDeleteFeatureNoUseSuccessOkButton);
+        }
+        else if (exception!.InnerException is SqliteException
+            {
+                SqliteExtendedErrorCode: SQLitePCL.raw.SQLITE_CONSTRAINT_FOREIGNKEY
+            })
+        {
+            Log.Error("Foreign key constraint violation");
+
+            response = await DisplayAlert(LocationManagementResources.MessageBoxMenuItemDeleteFeatureUseQuestionTitle,
+                LocationManagementResources.MessageBoxMenuItemDeleteFeatureUseQuestionMessage,
+                LocationManagementResources.MessageBoxMenuItemDeleteFeatureUseQuestionYesButton,
+                LocationManagementResources.MessageBoxMenuItemDeleteFeatureUseQuestionNoButton);
+
+            if (!response) return;
+
+            Log.Information("Attempting to remove the place \"{PlaceToDeleteName}\" with all relative element",
+                ClickTPlace.Name);
+            ClickTPlace.Delete(true);
+            Log.Information("Place and all relative element was successfully removed");
+
+            await DisplayAlert(LocationManagementResources.MessageBoxMenuItemDeleteFeatureUseSuccessTitle,
+                LocationManagementResources.MessageBoxMenuItemDeleteFeatureUseSuccessMessage,
+                LocationManagementResources.MessageBoxMenuItemDeleteFeatureUseSuccessOkButton);
+
+            PlaceLayer.TryRemove(PointFeature!);
+            MapControl.Refresh();
+            RemoveTreeViewNodePlace();
+
+            return;
+        }
+
+        Log.Error(exception, "An error occurred please retry");
+        await DisplayAlert(LocationManagementResources.MessageBoxMenuItemDeleteFeatureErrorTitle,
+            LocationManagementResources.MessageBoxMenuItemDeleteFeatureErrorMessage,
+            LocationManagementResources.MessageBoxMenuItemDeleteFeatureErrorOkButton);
+    }
+
     private void SetClickTPlace(MapInfo mapInfo)
     {
         if (mapInfo.Feature is not PointFeature pointFeature || mapInfo.Layer?.Tag is not Type layerType || layerType != typeof(TPlace))
@@ -233,66 +293,6 @@ public partial class LocationManagementContentPage
 
         var result = await customPopupLocationManagement.ResultDialog;
         if (result is ECustomPopupLocationManagement.Delete) _ = HandleDeleteFeature();
-    }
-
-    private async Task HandleDeleteFeature()
-    {
-        var message = string.Format(LocationManagementResources.MessageBoxDeleteQuestionMessage, ClickTPlace!.Name);
-        var response = await DisplayAlert(LocationManagementResources.MessageBoxDeleteQuestionTitle, message,
-            LocationManagementResources.MessageBoxDeleteQuestionYesButton,
-            LocationManagementResources.MessageBoxDeleteQuestionCancelButton);
-
-        if (!response) return;
-
-        Log.Information("Attempting to remove the place \"{PlaceToDeleteName}\"", ClickTPlace.Name);
-        var (success, exception) = ClickTPlace.Delete();
-
-        if (success)
-        {
-            PlaceLayer.TryRemove(PointFeature!);
-            MapControl.Refresh();
-            RemoveTreeViewNodePlace();
-
-            Log.Information("Place was successfully removed");
-            await DisplayAlert(
-                LocationManagementResources.MessageBoxMenuItemDeleteFeatureNoUseSuccessTitle,
-                LocationManagementResources.MessageBoxMenuItemDeleteFeatureNoUseSuccessMessage,
-                LocationManagementResources.MessageBoxMenuItemDeleteFeatureNoUseSuccessOkButton);
-        }
-        else if (exception!.InnerException is SqliteException
-            {
-                SqliteExtendedErrorCode: SQLitePCL.raw.SQLITE_CONSTRAINT_FOREIGNKEY
-            })
-        {
-            Log.Error("Foreign key constraint violation");
-
-            response = await DisplayAlert(LocationManagementResources.MessageBoxMenuItemDeleteFeatureUseQuestionTitle,
-                LocationManagementResources.MessageBoxMenuItemDeleteFeatureUseQuestionMessage,
-                LocationManagementResources.MessageBoxMenuItemDeleteFeatureUseQuestionYesButton,
-                LocationManagementResources.MessageBoxMenuItemDeleteFeatureUseQuestionNoButton);
-
-            if (!response) return;
-
-            Log.Information("Attempting to remove the place \"{PlaceToDeleteName}\" with all relative element",
-                ClickTPlace.Name);
-            ClickTPlace.Delete(true);
-            Log.Information("Place and all relative element was successfully removed");
-
-            await DisplayAlert(LocationManagementResources.MessageBoxMenuItemDeleteFeatureUseSuccessTitle,
-                LocationManagementResources.MessageBoxMenuItemDeleteFeatureUseSuccessMessage,
-                LocationManagementResources.MessageBoxMenuItemDeleteFeatureUseSuccessOkButton);
-
-            PlaceLayer.TryRemove(PointFeature!);
-            MapControl.Refresh();
-            RemoveTreeViewNodePlace();
-
-            return;
-        }
-
-        Log.Error(exception, "An error occurred please retry");
-        await DisplayAlert(LocationManagementResources.MessageBoxMenuItemDeleteFeatureErrorTitle,
-            LocationManagementResources.MessageBoxMenuItemDeleteFeatureErrorMessage,
-            LocationManagementResources.MessageBoxMenuItemDeleteFeatureErrorOkButton);
     }
 
     private void RemoveTreeViewNodePlace()
