@@ -198,9 +198,27 @@ namespace MyExpenses.SharedUtils.Resources.Resx.LocationManagement {
         /// <summary>
         ///   Looks up a localized string similar to Place was successfully removed.
         /// </summary>
-        public static string MessageBoxMenuItemDeleteFeatureNoUseSuccess {
+        public static string MessageBoxMenuItemDeleteFeatureNoUseSuccessMessage {
             get {
-                return ResourceManager.GetString("MessageBoxMenuItemDeleteFeatureNoUseSuccess", resourceCulture);
+                return ResourceManager.GetString("MessageBoxMenuItemDeleteFeatureNoUseSuccessMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ok.
+        /// </summary>
+        public static string MessageBoxMenuItemDeleteFeatureNoUseSuccessOkButton {
+            get {
+                return ResourceManager.GetString("MessageBoxMenuItemDeleteFeatureNoUseSuccessOkButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Success.
+        /// </summary>
+        public static string MessageBoxMenuItemDeleteFeatureNoUseSuccessTitle {
+            get {
+                return ResourceManager.GetString("MessageBoxMenuItemDeleteFeatureNoUseSuccessTitle", resourceCulture);
             }
         }
         
