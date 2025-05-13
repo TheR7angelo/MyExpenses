@@ -258,11 +258,8 @@ public partial class LocationManagementPage
             MsgBox.Show(LocationManagementResources.MessageBoxMenuItemDeleteFeatureNoUseSuccessTitle,
                 LocationManagementResources.MessageBoxMenuItemDeleteFeatureNoUseSuccessMessage,
                 MsgBoxImage.Check);
-
-            return;
         }
-
-        if (exception!.InnerException is SqliteException
+        else if (exception!.InnerException is SqliteException
             {
                 SqliteExtendedErrorCode: SQLitePCL.raw.SQLITE_CONSTRAINT_FOREIGNKEY
             })
