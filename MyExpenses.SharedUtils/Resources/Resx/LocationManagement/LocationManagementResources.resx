@@ -45,7 +45,7 @@
     <data name="MessageBoxDeleteQuestionMessage" xml:space="preserve">
         <value>Are you sure you want to delete place "{0}" ?</value>
     </data>
-    <data name="MessageBoxMenuItemDeleteFeatureError" xml:space="preserve">
+    <data name="MessageBoxMenuItemDeleteFeatureErrorMessage" xml:space="preserve">
         <value>An error occurred please retry</value>
     </data>
     <data name="MessageBoxMenuItemDeleteFeatureNoUseSuccessMessage" xml:space="preserve">
@@ -103,6 +103,12 @@
         <value>Success</value>
     </data>
     <data name="MessageBoxMenuItemDeleteFeatureUseSuccessOkButton" xml:space="preserve">
+        <value>Ok</value>
+    </data>
+    <data name="MessageBoxMenuItemDeleteFeatureErrorTitle" xml:space="preserve">
+        <value>Error</value>
+    </data>
+    <data name="MessageBoxMenuItemDeleteFeatureErrorOkButton" xml:space="preserve">
         <value>Ok</value>
     </data>
 </root>

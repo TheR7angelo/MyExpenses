@@ -189,9 +189,27 @@ namespace MyExpenses.SharedUtils.Resources.Resx.LocationManagement {
         /// <summary>
         ///   Looks up a localized string similar to An error occurred please retry.
         /// </summary>
-        public static string MessageBoxMenuItemDeleteFeatureError {
+        public static string MessageBoxMenuItemDeleteFeatureErrorMessage {
             get {
-                return ResourceManager.GetString("MessageBoxMenuItemDeleteFeatureError", resourceCulture);
+                return ResourceManager.GetString("MessageBoxMenuItemDeleteFeatureErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ok.
+        /// </summary>
+        public static string MessageBoxMenuItemDeleteFeatureErrorOkButton {
+            get {
+                return ResourceManager.GetString("MessageBoxMenuItemDeleteFeatureErrorOkButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        public static string MessageBoxMenuItemDeleteFeatureErrorTitle {
+            get {
+                return ResourceManager.GetString("MessageBoxMenuItemDeleteFeatureErrorTitle", resourceCulture);
             }
         }
         
