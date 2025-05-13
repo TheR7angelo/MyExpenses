@@ -254,7 +254,10 @@ public partial class LocationManagementContentPage
             MapControl.Refresh();
 
             Log.Information("Place was successfully removed");
-            // MsgBox.Show(LocationManagementResources.MessageBoxMenuItemDeleteFeatureNoUseSuccess, MsgBoxImage.Check);
+            await DisplayAlert(
+                LocationManagementResources.MessageBoxMenuItemDeleteFeatureNoUseSuccessTitle,
+                LocationManagementResources.MessageBoxMenuItemDeleteFeatureNoUseSuccessMessage,
+                LocationManagementResources.MessageBoxMenuItemDeleteFeatureNoUseSuccessOkButton);
 
             return;
         }
