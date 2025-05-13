@@ -4,6 +4,8 @@ using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.SharedUtils.Resources.Resx.AddEditLocation;
 using MyExpenses.Utils.Maps;
+using MyExpenses.WebApi.Nominatim;
+using Point = NetTopologySuite.Geometries.Point;
 
 namespace MyExpenses.Smartphones.ContentPages.LocationManagement;
 
@@ -275,20 +277,30 @@ public partial class AddEditLocationContentPage
     }
 
     private void ButtonSearchByCoordinate_OnClicked(object? sender, EventArgs e)
-        => SearchByCoordinate();
+    {
+        // if (Place.Latitude is null || Place.Longitude is null)
+        // {
+        //
+        // }
+
+        var point = Place.Geometry as Point;
+        SearchByCoordinate(point!);
+    }
 
     private async void ButtonSearchByCurrentCoordinate_OnClicked(object? sender, EventArgs e)
     {
         var currentCoordinate = await Maui.Utils.SensorRequestUtils.GetLocation();
         if (currentCoordinate is null) return;
 
-        SearchByCoordinate(currentCoordinate);
+        var point = new Point(currentCoordinate.Longitude, currentCoordinate.Latitude);
+        SearchByCoordinate(point);
     }
 
-    private void SearchByCoordinate(Location? currentCoordinateLatitude = null)
+    private void SearchByCoordinate(Point point)
     {
+        var nominatim = point.ToNominatim();
         _ = DisplayAlert("Test",
-            $"Latitude: {currentCoordinateLatitude?.Latitude} | Longitude: {currentCoordinateLatitude?.Longitude}",
+            $"Latitude: {nominatim}",
             "Ok");
     }
 }
