@@ -241,7 +241,7 @@ namespace MyExpenses.SharedUtils.Resources.Resx.LocationManagement {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Yes.
+        ///   Looks up a localized string similar to Question.
         /// </summary>
         public static string MessageBoxMenuItemDeleteFeatureUseQuestionTitle {
             get {
@@ -250,7 +250,7 @@ namespace MyExpenses.SharedUtils.Resources.Resx.LocationManagement {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Question.
+        ///   Looks up a localized string similar to Yes.
         /// </summary>
         public static string MessageBoxMenuItemDeleteFeatureUseQuestionYesButton {
             get {

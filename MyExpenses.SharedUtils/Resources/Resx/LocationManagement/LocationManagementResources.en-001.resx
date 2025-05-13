@@ -87,10 +87,10 @@
         <value>No</value>
     </data>
     <data name="MessageBoxMenuItemDeleteFeatureUseQuestionTitle" xml:space="preserve">
-        <value>Yes</value>
+        <value>Question</value>
     </data>
     <data name="MessageBoxMenuItemDeleteFeatureUseQuestionYesButton" xml:space="preserve">
-        <value>Question</value>
+        <value>Yes</value>
     </data>
     <data name="MessageBoxMenuItemDeleteFeatureUseSuccessOkButton" xml:space="preserve">
         <value>Ok</value>
