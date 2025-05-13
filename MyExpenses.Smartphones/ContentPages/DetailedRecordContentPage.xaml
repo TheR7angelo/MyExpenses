@@ -88,14 +88,15 @@
                             <RowDefinition Height="2*" />
                         </Grid.RowDefinitions>
 
-                        <Entry Grid.Row="0"
+                        <Editor Grid.Row="0"
                                HorizontalTextAlignment="Start"
                                FontSize="24"
                                Text="{Binding History.Description, Mode=TwoWay}"
                                MaxLength="{Binding History, Converter={StaticResource MaxLengthConverter}, ConverterParameter=Description}"
                                Placeholder="{Binding TextBoxDescriptionHintAssist, Mode=OneWay}"
+                               AutoSize="TextChanges"
                                TextChanged="EntryDescription_OnTextChanged">
-                        </Entry>
+                        </Editor>
 
                         <HorizontalStackLayout Grid.Row="1">
 
