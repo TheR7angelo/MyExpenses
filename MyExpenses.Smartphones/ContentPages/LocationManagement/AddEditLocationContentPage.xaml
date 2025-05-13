@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converters="clr-namespace:MyExpenses.Smartphones.Converters"
+             x:Class="MyExpenses.Smartphones.ContentPages.LocationManagement.AddEditLocationContentPage"
+
+             BindingContext="{Binding Source={RelativeSource Self}}">
+
+    <ContentPage.Resources>
+        <converters:MaxLengthConverter x:Key="MaxLengthConverter" />
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+
+        <Grid>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <Entry Grid.Row="0"
+                   Placeholder="{Binding TextBoxNameHintAssist, Mode=OneWay}"
+                   Text="{Binding Place.Name, Mode=TwoWay}"
+                   MaxLength="{Binding Place, Converter={StaticResource MaxLengthConverter}, ConverterParameter=Name}">
+            </Entry>
+
+            <Grid Grid.Row="1">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <Entry Grid.Column="0"
+                       Placeholder="{Binding TextBoxNumberHintAssist, Mode=OneWay}"
+                       Text="{Binding Place.Number, Mode=TwoWay}"
+                       MaxLength="{Binding Place, Converter={StaticResource MaxLengthConverter}, ConverterParameter=Number}">
+                </Entry>
+
+                <Entry Grid.Column="1"
+                       Placeholder="{Binding TextBoxStreetHintAssist, Mode=OneWay}"
+                       Text="{Binding Place.Street, Mode=TwoWay}"
+                       MaxLength="{Binding Place, Converter={StaticResource MaxLengthConverter}, ConverterParameter=Street}">
+                </Entry>
+
+            </Grid>
+
+        </Grid>
+
+    </ContentPage.Content>
+
+</ContentPage>

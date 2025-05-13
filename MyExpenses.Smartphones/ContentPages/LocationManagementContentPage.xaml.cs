@@ -13,6 +13,7 @@ using MyExpenses.Models.Sql.Bases.Groups;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.SharedUtils.Resources.Resx.LocationManagement;
 using MyExpenses.Smartphones.ContentPages.CustomPopups;
+using MyExpenses.Smartphones.ContentPages.LocationManagement;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils;
 using MyExpenses.Utils.Maps;
@@ -292,7 +293,17 @@ public partial class LocationManagementContentPage
         await this.ShowPopupAsync(customPopupLocationManagement);
 
         var result = await customPopupLocationManagement.ResultDialog;
-        if (result is ECustomPopupLocationManagement.Delete) _ = HandleDeleteFeature();
+        switch (result)
+        {
+            case ECustomPopupLocationManagement.Delete:
+                _ = HandleDeleteFeature();
+                break;
+            case ECustomPopupLocationManagement.Add:
+                await typeof(AddEditLocationContentPage).NavigateToAsync();
+                // var addEditLocationContentPage = new AddEditLocationContentPage();
+                // addEditLocationContentPage.
+                break;
+        }
     }
 
     private void RemoveTreeViewNodePlace()
