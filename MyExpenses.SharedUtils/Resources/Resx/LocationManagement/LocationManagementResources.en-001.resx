@@ -44,7 +44,7 @@
     <data name="MessageBoxMenuItemDeleteFeatureNoUseSuccessMessage" xml:space="preserve">
         <value>Place was successfully removed</value>
     </data>
-    <data name="MessageBoxMenuItemDeleteFeatureUseQuestion" xml:space="preserve">
+    <data name="MessageBoxMenuItemDeleteFeatureUseQuestionMessage" xml:space="preserve">
         <value>This location is in use.Are you sure you want to delete this location and everything linked to it ?</value>
     </data>
     <data name="MessageBoxMenuItemDeleteFeatureUseSuccess" xml:space="preserve">
@@ -82,5 +82,14 @@
     </data>
     <data name="MessageBoxMenuItemDeleteFeatureNoUseSuccessTitle" xml:space="preserve">
         <value>Success</value>
+    </data>
+    <data name="MessageBoxMenuItemDeleteFeatureUseQuestionNoButton" xml:space="preserve">
+        <value>No</value>
+    </data>
+    <data name="MessageBoxMenuItemDeleteFeatureUseQuestionTitle" xml:space="preserve">
+        <value>Yes</value>
+    </data>
+    <data name="MessageBoxMenuItemDeleteFeatureUseQuestionYesButton" xml:space="preserve">
+        <value>Question</value>
     </data>
 </root>

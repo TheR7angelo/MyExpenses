@@ -225,9 +225,36 @@ namespace MyExpenses.SharedUtils.Resources.Resx.LocationManagement {
         /// <summary>
         ///   Looks up a localized string similar to This location is in use.Are you sure you want to delete this location and everything linked to it ?.
         /// </summary>
-        public static string MessageBoxMenuItemDeleteFeatureUseQuestion {
+        public static string MessageBoxMenuItemDeleteFeatureUseQuestionMessage {
             get {
-                return ResourceManager.GetString("MessageBoxMenuItemDeleteFeatureUseQuestion", resourceCulture);
+                return ResourceManager.GetString("MessageBoxMenuItemDeleteFeatureUseQuestionMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No.
+        /// </summary>
+        public static string MessageBoxMenuItemDeleteFeatureUseQuestionNoButton {
+            get {
+                return ResourceManager.GetString("MessageBoxMenuItemDeleteFeatureUseQuestionNoButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yes.
+        /// </summary>
+        public static string MessageBoxMenuItemDeleteFeatureUseQuestionTitle {
+            get {
+                return ResourceManager.GetString("MessageBoxMenuItemDeleteFeatureUseQuestionTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Question.
+        /// </summary>
+        public static string MessageBoxMenuItemDeleteFeatureUseQuestionYesButton {
+            get {
+                return ResourceManager.GetString("MessageBoxMenuItemDeleteFeatureUseQuestionYesButton", resourceCulture);
             }
         }
         
