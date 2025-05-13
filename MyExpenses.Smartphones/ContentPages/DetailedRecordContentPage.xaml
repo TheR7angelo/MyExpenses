@@ -209,10 +209,16 @@
 
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
 
-                            <Ellipse Grid.Column="0"
+                            <Label Grid.Column="0"
+                                   VerticalTextAlignment="Center"
+                                   Text="{Binding ComboBoxCategoryTypeHintAssist, Mode=OneWay}">
+                            </Label>
+
+                            <Ellipse Grid.Column="1"
                                      HeightRequest="24"
                                      WidthRequest="{Binding HeightRequest, Source={RelativeSource Self}}"
                                      Stroke="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
@@ -221,7 +227,7 @@
                                      Margin="10, 0">
                             </Ellipse>
 
-                            <Picker Grid.Column="1"
+                            <Picker Grid.Column="2"
                                     HorizontalTextAlignment="Start"
                                     ItemsSource="{Binding CategoryTypes, Mode=OneWay, Source={RelativeSource AncestorType={x:Type local:DetailedRecordContentPage}}}"
                                     SelectedItem="{Binding History.CategoryTypeFk, Mode=TwoWay, Converter={StaticResource ISqlConverter}, ConverterParameter={Binding CategoryTypes, Source={Reference This}}, Source={Reference This}, Source={RelativeSource AncestorType={x:Type local:DetailedRecordContentPage}}}"

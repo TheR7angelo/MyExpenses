@@ -218,6 +218,16 @@ public partial class DetailedRecordContentPage
         set => SetValue(HexadecimalColorCodeProperty, value);
     }
 
+    public static readonly BindableProperty ComboBoxCategoryTypeHintAssistProperty =
+        BindableProperty.Create(nameof(ComboBoxCategoryTypeHintAssist), typeof(string),
+            typeof(DetailedRecordContentPage));
+
+    public string ComboBoxCategoryTypeHintAssist
+    {
+        get => (string)GetValue(ComboBoxCategoryTypeHintAssistProperty);
+        set => SetValue(ComboBoxCategoryTypeHintAssistProperty, value);
+    }
+
     // ReSharper disable once HeapView.ObjectAllocation.Evident
     // A new instance of `THistory` is intentionally allocated here to represent the current
     // history being added or edited. This ensures that every `DetailedRecordContentPage` instance
@@ -779,6 +789,7 @@ public partial class DetailedRecordContentPage
         PlaceholderTextCountry = DetailedRecordManagementResources.ComboBoxPlaceCountryHintAssist;
         PlaceholderTextCity = DetailedRecordManagementResources.ComboBoxPlaceCityHintAssist;
         PlaceholderTextPlace = DetailedRecordManagementResources.ComboBoxPlaceHintAssist;
+        ComboBoxCategoryTypeHintAssist = DetailedRecordManagementResources.ComboBoxCategoryTypeHintAssist;
     }
 
     private void UpdateMapPoint(TPlace? place)
