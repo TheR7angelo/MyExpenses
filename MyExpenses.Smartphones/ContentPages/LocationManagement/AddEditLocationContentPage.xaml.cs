@@ -165,6 +165,17 @@ public partial class AddEditLocationContentPage
     }
 
     // ReSharper disable once HeapView.ObjectAllocation.Evident
+    public static readonly BindableProperty ButtonContentSearchByCurrentCoordinateProperty =
+        BindableProperty.Create(nameof(ButtonContentSearchByCurrentCoordinate), typeof(string),
+            typeof(AddEditLocationContentPage));
+
+    public string ButtonContentSearchByCurrentCoordinate
+    {
+        get => (string)GetValue(ButtonContentSearchByCurrentCoordinateProperty);
+        set => SetValue(ButtonContentSearchByCurrentCoordinateProperty, value);
+    }
+
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly BindableProperty ButtonContentValidProperty =
         BindableProperty.Create(nameof(ButtonContentValid), typeof(string), typeof(AddEditLocationContentPage));
 
@@ -246,14 +257,38 @@ public partial class AddEditLocationContentPage
         TextBoxStreetHintAssist = AddEditLocationResources.TextBoxStreetHintAssist;
         ButtonContentValidNewPoint = AddEditLocationResources.ButtonContentValidNewPoint;
         ButtonContentZoomToPoint = AddEditLocationResources.ButtonContentZoomToPoint;
-        ButtonContentSearchByAddress = AddEditLocationResources.ButtonContentSearchByAddress;
 
+        ButtonContentSearchByAddress = AddEditLocationResources.ButtonContentSearchByAddress;
         ButtonContentSearchByCoordinate = AddEditLocationResources.ButtonContentSearchByCoordinate;
+        ButtonContentSearchByCurrentCoordinate = AddEditLocationResources.ButtonContentSearchByCurrentCoordinate;
 
         ButtonContentCancel = AddEditLocationResources.ButtonContentCancel;
         ButtonContentDelete = AddEditLocationResources.ButtonContentDelete;
         ButtonContentValid = AddEditLocationResources.ButtonContentValid;
 
         CheckBoxContentIsOpen = AddEditLocationResources.CheckBoxContentIsOpen;
+    }
+
+    private void ButtonSearchByAddress_OnClicked(object? sender, EventArgs e)
+    {
+        throw new NotImplementedException();
+    }
+
+    private void ButtonSearchByCoordinate_OnClicked(object? sender, EventArgs e)
+        => SearchByCoordinate();
+
+    private async void ButtonSearchByCurrentCoordinate_OnClicked(object? sender, EventArgs e)
+    {
+        var currentCoordinate = await Maui.Utils.SensorRequestUtils.GetLocation();
+        if (currentCoordinate is null) return;
+
+        SearchByCoordinate(currentCoordinate);
+    }
+
+    private void SearchByCoordinate(Location? currentCoordinateLatitude = null)
+    {
+        _ = DisplayAlert("Test",
+            $"Latitude: {currentCoordinateLatitude?.Latitude} | Longitude: {currentCoordinateLatitude?.Longitude}",
+            "Ok");
     }
 }

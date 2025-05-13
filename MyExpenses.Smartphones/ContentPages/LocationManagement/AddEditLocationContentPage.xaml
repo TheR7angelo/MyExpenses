@@ -3,6 +3,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:converters="clr-namespace:MyExpenses.Smartphones.Converters"
+             xmlns:margin="clr-namespace:MyExpenses.Maui.Utils.Margin;assembly=MyExpenses.Maui.Utils"
              x:Class="MyExpenses.Smartphones.ContentPages.LocationManagement.AddEditLocationContentPage"
 
              BindingContext="{Binding Source={RelativeSource Self}}">
@@ -36,6 +37,7 @@
                 <Grid>
 
                     <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
@@ -108,6 +110,59 @@
                         </Entry>
 
                     </Grid>
+
+                    <FlexLayout Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3"
+                                Wrap="Wrap"
+                                JustifyContent="Center" AlignItems="Center"
+
+                                margin:LayoutExtensions.MarginForAllChildren="3">
+
+                            <Button Text="{Binding ButtonContentSearchByAddress, Mode=OneWay}"
+                                    Style="{StaticResource RaisedMidButton}"
+                                    Clicked="ButtonSearchByAddress_OnClicked">
+                            </Button>
+
+                            <Button Text="{Binding ButtonContentSearchByCoordinate, Mode=OneWay}"
+                                    Style="{StaticResource RaisedMidButton}"
+                                    Clicked="ButtonSearchByCoordinate_OnClicked">
+                            </Button>
+
+                            <Button Text="{Binding ButtonContentSearchByCurrentCoordinate, Mode=OneWay}"
+                                    Style="{StaticResource RaisedMidButton}"
+                                    Clicked="ButtonSearchByCurrentCoordinate_OnClicked">
+                            </Button>
+
+                    </FlexLayout>
+
+                    <!-- <VerticalStackLayout Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3" -->
+                    <!--       margin:LayoutExtensions.MarginForAllChildren="3"> -->
+                    <!-- -->
+                    <!--     ~1~ <Grid.RowDefinitions> @1@ -->
+                    <!--     ~1~     <RowDefinition Height="*" /> @1@ -->
+                    <!--     ~1~     <RowDefinition Height="*" /> @1@ -->
+                    <!--     ~1~ </Grid.RowDefinitions> @1@ -->
+                    <!--     ~1~ @1@ -->
+                    <!--     ~1~ <Grid.ColumnDefinitions> @1@ -->
+                    <!--     ~1~     <ColumnDefinition Width="*" /> @1@ -->
+                    <!--     ~1~     <ColumnDefinition Width="*" /> @1@ -->
+                    <!--     ~1~ </Grid.ColumnDefinitions> @1@ -->
+                    <!-- -->
+                    <!--     <Button Text="{Binding ButtonContentSearchByAddress, Mode=OneWay}" -->
+                    <!--             Style="{StaticResource RaisedMidButton}" -->
+                    <!--             Clicked="ButtonSearchByAddress_OnClicked"> -->
+                    <!--     </Button> -->
+                    <!-- -->
+                    <!--     <Button Text="{Binding ButtonContentSearchByCoordinate, Mode=OneWay}" -->
+                    <!--             Style="{StaticResource RaisedMidButton}" -->
+                    <!--             Clicked="ButtonSearchByCoordinate_OnClicked"> -->
+                    <!--     </Button> -->
+                    <!-- -->
+                    <!--     <Button Text="{Binding ButtonContentSearchByCurrentCoordinate, Mode=OneWay}" -->
+                    <!--             Style="{StaticResource RaisedMidButton}" -->
+                    <!--             Clicked="ButtonSearchByCurrentCoordinate_OnClicked"> -->
+                    <!--     </Button> -->
+                    <!-- -->
+                    <!-- </VerticalStackLayout> -->
 
                 </Grid>
 
