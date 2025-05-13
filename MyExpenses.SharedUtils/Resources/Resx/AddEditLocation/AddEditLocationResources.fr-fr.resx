@@ -78,7 +78,7 @@
         <value>Nom :</value>
     </data>
     <data name="TextBoxNumberHintAssist" xml:space="preserve">
-        <value>Nombre :</value>
+        <value>Numéros :</value>
     </data>
     <data name="TextBoxPostalCodeHintAssist" xml:space="preserve">
         <value>Code postal :</value>
