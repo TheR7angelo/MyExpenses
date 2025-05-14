@@ -334,10 +334,9 @@ public partial class AddEditLocationContentPage
         if (newPlace is null)
         {
             Log.Information("The API returned no result(s)");
-            await DisplayAlert("Error", "No result found", "Ok");
-
-            // MsgBox.MsgBox.Show(AddEditLocationResources.ButtonSearchByCoordinateMessageBoxError,
-            //     MsgBoxImage.Error);
+            await DisplayAlert(AddEditLocationResources.ButtonSearchByCoordinateMessageBoxErrorTitle,
+                AddEditLocationResources.ButtonSearchByCoordinateMessageBoxErrorMessage,
+                AddEditLocationResources.ButtonSearchByCoordinateMessageBoxErrorOkButton);
             return;
         }
 
