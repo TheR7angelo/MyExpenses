@@ -385,8 +385,8 @@ public partial class AddEditLocationContentPage
 
         WritableLayer.Add(feature);
 
-        // MapControl.Map.Navigator.CenterOnAndZoomTo(feature.Point, 1);
-        // MapControl.Refresh();
+        MapControl.Map.Navigator.CenterOnAndZoomTo(feature.Point, 1);
+        MapControl.Refresh();
     }
 
     private void PickerFieldKnownTileSource_OnSelectedItemChanged(object? sender, object o)
