@@ -346,10 +346,6 @@ public partial class AddEditLocationContentPage
         newPlace.Id = Place.Id;
         newPlace.DateAdded = Place.DateAdded ?? newPlace.DateAdded;
         SetPlace(newPlace, true);
-
-        // _ = DisplayAlert("Test",
-        //     $"Latitude: {nominatimSearchResult}",
-        //     "Ok");
     }
 
     public void SetPlace(TPlace newTPlace, bool clear)
