@@ -92,4 +92,7 @@
     <data name="ButtonContentSearchByCurrentCoordinate" xml:space="preserve">
         <value>Recherche par coordonnées actuelles</value>
     </data>
+    <data name="ComboBoxBasemapHintAssist" xml:space="preserve">
+        <value>Fond de carte :</value>
+    </data>
 </root>

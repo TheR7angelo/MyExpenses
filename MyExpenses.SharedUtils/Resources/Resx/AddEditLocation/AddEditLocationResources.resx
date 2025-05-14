@@ -99,4 +99,7 @@
     <data name="ButtonContentSearchByCurrentCoordinate" xml:space="preserve">
         <value>Search by current coordinates</value>
     </data>
+    <data name="ComboBoxBasemapHintAssist" xml:space="preserve">
+        <value>Basemap :</value>
+    </data>
 </root>

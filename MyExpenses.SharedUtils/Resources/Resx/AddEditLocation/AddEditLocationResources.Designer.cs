@@ -150,6 +150,15 @@ namespace MyExpenses.SharedUtils.Resources.Resx.AddEditLocation {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Basemap :.
+        /// </summary>
+        public static string ComboBoxBasemapHintAssist {
+            get {
+                return ResourceManager.GetString("ComboBoxBasemapHintAssist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Several results were found, please choose one.
         /// </summary>
         public static string HandleNominatimResultMultipleResult {
