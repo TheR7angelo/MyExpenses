@@ -5,6 +5,7 @@ using Mapsui.Tiling.Layers;
 using MyExpenses.Models.AutoMapper;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Sql.Bases.Tables;
+using MyExpenses.Models.WebApi.Nominatim;
 using MyExpenses.SharedUtils.Properties;
 using MyExpenses.SharedUtils.Resources.Resx.AddEditLocation;
 using MyExpenses.Utils.Maps;
@@ -290,7 +291,13 @@ public partial class AddEditLocationContentPage
 
     private void ButtonSearchByAddress_OnClicked(object? sender, EventArgs e)
     {
-        throw new NotImplementedException();
+        var address = Place.ToString();
+        Log.Information("Using the nominatim API to search via an address : \"{Address}\"", address);
+
+        var nominatimSearchResults = address.ToNominatim()?.ToList() ?? [];
+
+        Log.Information("The API returned \"{Count}\" result(s)", nominatimSearchResults.Count);
+        _ = HandleNominatimResult(nominatimSearchResults);
     }
 
     private void ButtonSearchByCoordinate_OnClicked(object? sender, EventArgs e)
@@ -301,7 +308,7 @@ public partial class AddEditLocationContentPage
         // }
 
         var point = Place.Geometry as Point;
-        SearchByCoordinate(point!);
+        _ = SearchByCoordinate(point!);
     }
 
     [SupportedOSPlatform("Android21.0")]
@@ -321,10 +328,10 @@ public partial class AddEditLocationContentPage
         if (location is null) return;
 
         var point = new Point(location.Longitude, location.Latitude);
-        SearchByCoordinate(point);
+        _ = SearchByCoordinate(point);
     }
 
-    private async void SearchByCoordinate(Point point)
+    private async Task SearchByCoordinate(Point point)
     {
         Log.Information("Using the nominatim API to search via a point : {Point}", point);
         var nominatimSearchResult = point.ToNominatim();
@@ -350,6 +357,8 @@ public partial class AddEditLocationContentPage
     public void SetPlace(TPlace newTPlace, bool clear)
     {
         if (clear) WritableLayer.Clear();
+
+        Log.Information("The new place is : {Json}", newTPlace.ToString());
 
         newTPlace.CopyPropertiesTo(Place);
         UpdateMiniMap();
@@ -413,5 +422,40 @@ public partial class AddEditLocationContentPage
     private void ButtonZoomToPoint_OnClicked(object? sender, EventArgs e)
     {
         throw new NotImplementedException();
+    }
+
+    private async Task HandleNominatimResult(IReadOnlyCollection<NominatimSearchResult> nominatimSearchResults)
+    {
+        TPlace? place = null;
+
+        switch (nominatimSearchResults.Count)
+        {
+            case 0:
+                await DisplayAlert("Test", AddEditLocationResources.HandleNominatimResultZeroResult, "Ok");
+                break;
+            case 1:
+                await DisplayAlert("Test", AddEditLocationResources.HandleNominatimResultOneResult, "Ok");
+                var nominatimSearchResult = nominatimSearchResults.First();
+                place = Mapping.Mapper.Map<TPlace>(nominatimSearchResult);
+                break;
+            case > 1:
+                await DisplayAlert("Test", AddEditLocationResources.HandleNominatimResultMultipleResult, "Ok");
+
+                // TODO work
+                var places = nominatimSearchResults.Select(s => Mapping.Mapper.Map<TPlace>(s));
+
+                // ReSharper disable once HeapView.ObjectAllocation.Evident
+                // var nominatimSearchWindows = new NominatimSearchWindow();
+                // nominatimSearchWindows.AddRange(places);
+                // nominatimSearchWindows.ShowDialog();
+
+                // if (nominatimSearchWindows.DialogResult is not true) return;
+
+                // place = Mapping.Mapper.Map<TPlace>(nominatimSearchWindows.CurrentPlace);
+                break;
+        }
+
+        if (place is null) return;
+        SetPlace(place, true);
     }
 }
