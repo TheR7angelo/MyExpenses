@@ -326,7 +326,8 @@ public partial class AddEditLocationWindow
         {
             Log.Information("The API returned no result(s)");
 
-            MsgBox.MsgBox.Show(AddEditLocationResources.ButtonSearchByCoordinateMessageBoxError,
+            MsgBox.MsgBox.Show(AddEditLocationResources.ButtonSearchByCoordinateMessageBoxErrorTitle,
+                AddEditLocationResources.ButtonSearchByCoordinateMessageBoxErrorMessage,
                 MsgBoxImage.Error);
             return;
         }
