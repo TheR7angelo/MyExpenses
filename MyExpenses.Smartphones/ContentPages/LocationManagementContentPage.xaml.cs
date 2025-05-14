@@ -320,9 +320,9 @@ public partial class LocationManagementContentPage
                 _ = HandleDeleteFeature();
                 break;
             case ECustomPopupLocationManagement.Add:
-                await typeof(AddEditLocationContentPage).NavigateToAsync();
-                // var addEditLocationContentPage = new AddEditLocationContentPage();
-                // addEditLocationContentPage.
+                var addEditLocationContentPage = new AddEditLocationContentPage();
+                addEditLocationContentPage.SetPlace(ClickPoint);
+                await addEditLocationContentPage.NavigateToAsync();
                 break;
         }
     }
