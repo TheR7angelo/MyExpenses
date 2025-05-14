@@ -1,6 +1,7 @@
 ﻿using System.Runtime.Versioning;
 using BruTile.Predefined;
 using Mapsui.Layers;
+using Mapsui.Tiling.Layers;
 using MyExpenses.Models.AutoMapper;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Sql.Bases.Tables;
@@ -243,7 +244,8 @@ public partial class AddEditLocationContentPage
         UpdateLanguage();
         InitializeComponent();
 
-        // MapControl.Map = map;
+        MapControl.Map = map;
+        // MapControl.Map.Navigator.SetZoom(WritableLayer);
 
         Interface.LanguageChanged += Interface_OnLanguageChanged;
     }
@@ -375,4 +377,25 @@ public partial class AddEditLocationContentPage
         // MapControl.Map.Navigator.CenterOnAndZoomTo(feature.Point, 1);
         // MapControl.Refresh();
     }
+
+    private void PickerFieldKnownTileSource_OnSelectedItemChanged(object? sender, object o)
+        => UpdateTileLayer();
+
+    private void UpdateTileLayer()
+    {
+        const string layerName = "Background";
+
+        var httpTileSource = BruTile.Predefined.KnownTileSources.Create(KnownTileSourceSelected);
+
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        var tileLayer = new TileLayer(httpTileSource) { Name = layerName };
+
+        var layers = MapControl?.Map.Layers.FindLayer(layerName);
+        if (layers is not null) MapControl?.Map.Layers.Remove(layers.ToArray());
+
+        MapControl?.Map.Layers.Insert(0, tileLayer);
+    }
+
+    private void MapControl_OnLoaded(object? sender, EventArgs e)
+        => UpdateTileLayer();
 }

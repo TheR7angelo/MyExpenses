@@ -4,12 +4,15 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:converters="clr-namespace:MyExpenses.Smartphones.Converters"
              xmlns:margin="clr-namespace:MyExpenses.Maui.Utils.Margin;assembly=MyExpenses.Maui.Utils"
+             xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
+             xmlns:maui="clr-namespace:Mapsui.UI.Maui;assembly=Mapsui.UI.Maui"
              x:Class="MyExpenses.Smartphones.ContentPages.LocationManagement.AddEditLocationContentPage"
 
              BindingContext="{Binding Source={RelativeSource Self}}">
 
     <ContentPage.Resources>
         <converters:MaxLengthConverter x:Key="MaxLengthConverter" />
+        <converters:SplitUpperCaseWordsConverter x:Key="SplitCamelCaseConverter" />
     </ContentPage.Resources>
 
     <ContentPage.Content>
@@ -20,6 +23,7 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
             <Entry Grid.Row="0"
@@ -152,6 +156,43 @@
                     </FlexLayout>
 
                 </VerticalStackLayout>
+
+            </Border>
+
+            <Border Grid.Row="3"
+                    BackgroundColor="{AppThemeBinding Light={StaticResource Wheat}, Dark={StaticResource Black}}">
+
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="5" />
+                </Border.StrokeShape>
+
+                <Grid>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <material:PickerField Grid.Row="0"
+                                          ItemsSource="{Binding KnownTileSources, Mode=OneWay}"
+                                          SelectedItem="{Binding KnownTileSourceSelected, Mode=TwoWay}"
+                                          AllowClear="False"
+                                          Title="Test"
+                                          SelectedValueChanged="PickerFieldKnownTileSource_OnSelectedItemChanged">
+
+                        <material:PickerField.ItemDisplayBinding>
+                            <Binding Converter="{StaticResource SplitCamelCaseConverter}" />
+                        </material:PickerField.ItemDisplayBinding>
+
+                    </material:PickerField>
+
+                    <maui:MapControl Grid.Row="1"
+                                     x:Name="MapControl"
+                                     Background="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
+                                     Loaded="MapControl_OnLoaded">
+                    </maui:MapControl>
+
+                </Grid>
 
             </Border>
 
