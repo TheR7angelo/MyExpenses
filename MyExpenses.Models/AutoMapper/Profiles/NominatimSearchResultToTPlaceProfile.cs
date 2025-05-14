@@ -21,7 +21,12 @@ public class NominatimSearchResultToTPlaceProfile : Profile
                         : null))
             .ForMember(dest => dest.Postal,
                 opt => opt.MapFrom(src => src.Address != null ? src.Address!.Postcode : null))
-            .ForMember(dest => dest.City, opt => opt.MapFrom(src => src.Address != null ? src.Address!.City : null))
+            .ForMember(dest => dest.City, opt => opt.MapFrom(src =>
+                src.Address == null
+                    ? null
+                    : !string.IsNullOrEmpty(src.Address.City)
+                        ? src.Address.City
+                        : src.Address.Village))
             .ForMember(dest => dest.Country,
                 opt => opt.MapFrom(src => src.Address != null ? src.Address!.Country : null))
             .ForMember(dest => dest.Latitude, opt => opt.MapFrom(src => src.Latitude))
