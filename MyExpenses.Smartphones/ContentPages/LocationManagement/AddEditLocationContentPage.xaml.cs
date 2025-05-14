@@ -31,6 +31,16 @@ public partial class AddEditLocationContentPage
     }
 
     // ReSharper disable once HeapView.ObjectAllocation.Evident
+    public static readonly BindableProperty ComboBoxBasemapHintAssistProperty =
+        BindableProperty.Create(nameof(ComboBoxBasemapHintAssist), typeof(string), typeof(AddEditLocationContentPage));
+
+    public string ComboBoxBasemapHintAssist
+    {
+        get => (string)GetValue(ComboBoxBasemapHintAssistProperty);
+        set => SetValue(ComboBoxBasemapHintAssistProperty, value);
+    }
+
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly BindableProperty TextBoxNameHintAssistProperty =
         BindableProperty.Create(nameof(TextBoxNameHintAssist), typeof(string), typeof(AddEditLocationContentPage));
 
@@ -265,6 +275,7 @@ public partial class AddEditLocationContentPage
         TextBoxStreetHintAssist = AddEditLocationResources.TextBoxStreetHintAssist;
         ButtonContentValidNewPoint = AddEditLocationResources.ButtonContentValidNewPoint;
         ButtonContentZoomToPoint = AddEditLocationResources.ButtonContentZoomToPoint;
+        ComboBoxBasemapHintAssist = AddEditLocationResources.ComboBoxBasemapHintAssist;
 
         ButtonContentSearchByAddress = AddEditLocationResources.ButtonContentSearchByAddress;
         ButtonContentSearchByCoordinate = AddEditLocationResources.ButtonContentSearchByCoordinate;
