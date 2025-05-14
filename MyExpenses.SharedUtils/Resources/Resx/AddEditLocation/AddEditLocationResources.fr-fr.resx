@@ -32,7 +32,7 @@
     <data name="ButtonContentZoomToPoint" xml:space="preserve">
         <value>Zoom sur le point</value>
     </data>
-    <data name="ButtonSearchByCoordinateMessageBoxError" xml:space="preserve">
+    <data name="ButtonSearchByCoordinateMessageBoxErrorMessage" xml:space="preserve">
         <value>Aucun résultat trouvé</value>
     </data>
     <data name="CheckBoxContentIsOpen" xml:space="preserve">
@@ -94,5 +94,11 @@
     </data>
     <data name="ComboBoxBasemapHintAssist" xml:space="preserve">
         <value>Fond de carte :</value>
+    </data>
+    <data name="ButtonSearchByCoordinateMessageBoxErrorOkButton" xml:space="preserve">
+        <value>Ok</value>
+    </data>
+    <data name="ButtonSearchByCoordinateMessageBoxErrorTitle" xml:space="preserve">
+        <value>Erreur</value>
     </data>
 </root>

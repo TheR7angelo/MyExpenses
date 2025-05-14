@@ -134,9 +134,27 @@ namespace MyExpenses.SharedUtils.Resources.Resx.AddEditLocation {
         /// <summary>
         ///   Looks up a localized string similar to No results found.
         /// </summary>
-        public static string ButtonSearchByCoordinateMessageBoxError {
+        public static string ButtonSearchByCoordinateMessageBoxErrorMessage {
             get {
-                return ResourceManager.GetString("ButtonSearchByCoordinateMessageBoxError", resourceCulture);
+                return ResourceManager.GetString("ButtonSearchByCoordinateMessageBoxErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ok.
+        /// </summary>
+        public static string ButtonSearchByCoordinateMessageBoxErrorOkButton {
+            get {
+                return ResourceManager.GetString("ButtonSearchByCoordinateMessageBoxErrorOkButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        public static string ButtonSearchByCoordinateMessageBoxErrorTitle {
+            get {
+                return ResourceManager.GetString("ButtonSearchByCoordinateMessageBoxErrorTitle", resourceCulture);
             }
         }
         
