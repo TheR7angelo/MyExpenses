@@ -398,4 +398,14 @@ public partial class AddEditLocationContentPage
 
     private void MapControl_OnLoaded(object? sender, EventArgs e)
         => UpdateTileLayer();
+
+    private void ButtonValidNewPoint_OnClicked(object? sender, EventArgs e)
+    {
+        throw new NotImplementedException();
+    }
+
+    private void ButtonZoomToPoint_OnClicked(object? sender, EventArgs e)
+    {
+        throw new NotImplementedException();
+    }
 }

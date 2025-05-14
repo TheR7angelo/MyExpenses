@@ -171,6 +171,7 @@
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
 
                     <material:PickerField Grid.Row="0"
@@ -191,6 +192,21 @@
                                      Background="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
                                      Loaded="MapControl_OnLoaded">
                     </maui:MapControl>
+
+                    <FlexLayout Grid.Row="2" Wrap="Wrap" JustifyContent="Center" AlignItems="Center"
+                                margin:LayoutExtensions.MarginForAllChildren="3">
+
+                        <Button Text="{Binding ButtonContentValidNewPoint, Mode=OneWay}"
+                                Style="{StaticResource RaisedMidButton}"
+                                Clicked="ButtonValidNewPoint_OnClicked">
+                        </Button>
+
+                        <Button Text="{Binding ButtonContentZoomToPoint, Mode=OneWay}"
+                                Style="{StaticResource RaisedMidButton}"
+                                Clicked="ButtonZoomToPoint_OnClicked">
+                        </Button>
+
+                    </FlexLayout>
 
                 </Grid>
 
