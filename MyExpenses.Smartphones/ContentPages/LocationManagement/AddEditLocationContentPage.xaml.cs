@@ -1,10 +1,14 @@
-﻿using BruTile.Predefined;
+﻿using System.Runtime.Versioning;
+using BruTile.Predefined;
 using Mapsui.Layers;
+using MyExpenses.Models.AutoMapper;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Sql.Bases.Tables;
+using MyExpenses.SharedUtils.Properties;
 using MyExpenses.SharedUtils.Resources.Resx.AddEditLocation;
 using MyExpenses.Utils.Maps;
 using MyExpenses.WebApi.Nominatim;
+using Serilog;
 using Point = NetTopologySuite.Geometries.Point;
 
 namespace MyExpenses.Smartphones.ContentPages.LocationManagement;
@@ -287,20 +291,88 @@ public partial class AddEditLocationContentPage
         SearchByCoordinate(point!);
     }
 
-    private async void ButtonSearchByCurrentCoordinate_OnClicked(object? sender, EventArgs e)
-    {
-        var currentCoordinate = await Maui.Utils.SensorRequestUtils.GetLocation();
-        if (currentCoordinate is null) return;
+    [SupportedOSPlatform("Android21.0")]
+    [SupportedOSPlatform("iOS13.0")]
+    [SupportedOSPlatform("MacCatalyst15.0")]
+    [SupportedOSPlatform("Windows")]
+    private void ButtonSearchByCurrentCoordinate_OnClicked(object? sender, EventArgs e)
+        => _ = HandleSearchWithCurrentCoordinate();
 
-        var point = new Point(currentCoordinate.Longitude, currentCoordinate.Latitude);
+    [SupportedOSPlatform("Android21.0")]
+    [SupportedOSPlatform("iOS13.0")]
+    [SupportedOSPlatform("MacCatalyst15.0")]
+    [SupportedOSPlatform("Windows")]
+    private async Task HandleSearchWithCurrentCoordinate()
+    {
+        var location = await Maui.Utils.SensorRequestUtils.GetLocation();
+        if (location is null) return;
+
+        var point = new Point(location.Longitude, location.Latitude);
         SearchByCoordinate(point);
     }
 
-    private void SearchByCoordinate(Point point)
+    private async void SearchByCoordinate(Point point)
+    {
+        Log.Information("Using the nominatim API to search via a point : {Point}", point);
+        var nominatimSearchResult = point.ToNominatim();
+
+        var mapper = Mapping.Mapper;
+        var newPlace = mapper.Map<TPlace>(nominatimSearchResult);
+        if (newPlace is null)
+        {
+            Log.Information("The API returned no result(s)");
+            await DisplayAlert("Error", "No result found", "Ok");
+
+            // MsgBox.MsgBox.Show(AddEditLocationResources.ButtonSearchByCoordinateMessageBoxError,
+            //     MsgBoxImage.Error);
+            return;
+        }
+
+        Log.Information("The API returned one result");
+
+        newPlace.Id = Place.Id;
+        newPlace.DateAdded = Place.DateAdded ?? newPlace.DateAdded;
+        SetPlace(newPlace, true);
+
+        // _ = DisplayAlert("Test",
+        //     $"Latitude: {nominatimSearchResult}",
+        //     "Ok");
+    }
+
+    public void SetPlace(TPlace newTPlace, bool clear)
+    {
+        if (clear) WritableLayer.Clear();
+
+        newTPlace.CopyPropertiesTo(Place);
+        UpdateMiniMap();
+        EditPlace = true;
+    }
+
+    public void SetPlace(Point point)
     {
         var nominatim = point.ToNominatim();
-        _ = DisplayAlert("Test",
-            $"Latitude: {nominatim}",
-            "Ok");
+        if (nominatim is not null)
+        {
+            var mapper = Mapping.Mapper;
+            var place = mapper.Map<TPlace>(nominatim);
+            place.CopyPropertiesTo(Place);
+        }
+        else
+        {
+            Place.Geometry = point;
+        }
+
+        UpdateMiniMap();
+    }
+
+    private void UpdateMiniMap()
+    {
+        var feature = Place.ToTemporaryFeature(MapsuiStyleExtensions.RedMarkerStyle);
+        feature.IsTemp = false;
+
+        WritableLayer.Add(feature);
+
+        // MapControl.Map.Navigator.CenterOnAndZoomTo(feature.Point, 1);
+        // MapControl.Refresh();
     }
 }
