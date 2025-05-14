@@ -19,6 +19,7 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
             <Entry Grid.Row="0"
@@ -34,52 +35,71 @@
                     <RoundRectangle CornerRadius="5" />
                 </Border.StrokeShape>
 
-                <Grid>
+                <VerticalStackLayout>
 
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
+                    <Grid>
 
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="Auto" />
-                    </Grid.ColumnDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
 
-                    <Entry Grid.Row="0" Grid.Column="0"
-                           Placeholder="{Binding TextBoxNumberHintAssist, Mode=OneWay}"
-                           Text="{Binding Place.Number, Mode=TwoWay}"
-                           MaxLength="{Binding Place, Converter={StaticResource MaxLengthConverter}, ConverterParameter=Number}">
-                    </Entry>
+                        <Entry Grid.Column="0"
+                               Placeholder="{Binding TextBoxNumberHintAssist, Mode=OneWay}"
+                               Text="{Binding Place.Number, Mode=TwoWay}"
+                               MaxLength="{Binding Place, Converter={StaticResource MaxLengthConverter}, ConverterParameter=Number}">
+                        </Entry>
 
-                    <Entry Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="2"
-                           Placeholder="{Binding TextBoxStreetHintAssist, Mode=OneWay}"
-                           Text="{Binding Place.Street, Mode=TwoWay}"
-                           MaxLength="{Binding Place, Converter={StaticResource MaxLengthConverter}, ConverterParameter=Street}">
-                    </Entry>
+                        <Entry Grid.Column="1"
+                               Placeholder="{Binding TextBoxStreetHintAssist, Mode=OneWay}"
+                               Text="{Binding Place.Street, Mode=TwoWay}"
+                               MaxLength="{Binding Place, Converter={StaticResource MaxLengthConverter}, ConverterParameter=Street}">
+                        </Entry>
 
-                    <Entry Grid.Row="1" Grid.Column="0"
-                           Placeholder="{Binding TextBoxPostalCodeHintAssist, Mode=OneWay}"
-                           Text="{Binding Place.Postal, Mode=TwoWay}"
-                           MaxLength="{Binding Place, Converter={StaticResource MaxLengthConverter}, ConverterParameter=Postal}">
-                    </Entry>
+                    </Grid>
 
-                    <Entry Grid.Row="1" Grid.Column="1"
-                           Placeholder="{Binding TextBoxCityHintAssist, Mode=OneWay}"
-                           Text="{Binding Place.City, Mode=TwoWay}"
-                           MaxLength="{Binding Place, Converter={StaticResource MaxLengthConverter}, ConverterParameter=City}">
-                    </Entry>
+                    <Grid>
 
-                    <Entry Grid.Row="1" Grid.Column="2"
-                           Placeholder="{Binding TextBoxCountryHintAssist, Mode=OneWay}"
-                           Text="{Binding Place.Country, Mode=TwoWay}"
-                           MaxLength="{Binding Place, Converter={StaticResource MaxLengthConverter}, ConverterParameter=Country}">
-                    </Entry>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
 
-                    <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2">
+                        <Entry Grid.Column="0"
+                               Placeholder="{Binding TextBoxCityHintAssist, Mode=OneWay}"
+                               Text="{Binding Place.City, Mode=TwoWay}"
+                               MaxLength="{Binding Place, Converter={StaticResource MaxLengthConverter}, ConverterParameter=City}">
+                        </Entry>
+
+                        <Entry Grid.Column="1"
+                               Placeholder="{Binding TextBoxPostalCodeHintAssist, Mode=OneWay}"
+                               Text="{Binding Place.Postal, Mode=TwoWay}"
+                               MaxLength="{Binding Place, Converter={StaticResource MaxLengthConverter}, ConverterParameter=Postal}">
+                        </Entry>
+
+                        <Entry Grid.Column="2"
+                               Placeholder="{Binding TextBoxCountryHintAssist, Mode=OneWay}"
+                               Text="{Binding Place.Country, Mode=TwoWay}"
+                               MaxLength="{Binding Place, Converter={StaticResource MaxLengthConverter}, ConverterParameter=Country}">
+                        </Entry>
+
+                    </Grid>
+
+                </VerticalStackLayout>
+
+            </Border>
+
+            <Border Grid.Row="2"
+                    BackgroundColor="{AppThemeBinding Light={StaticResource Wheat}, Dark={StaticResource Black}}">
+
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="5" />
+                </Border.StrokeShape>
+
+                <VerticalStackLayout>
+
+                    <Grid>
 
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
@@ -111,28 +131,27 @@
 
                     </Grid>
 
-                    <FlexLayout Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3"
-                                Wrap="Wrap" JustifyContent="Center" AlignItems="Center"
+                    <FlexLayout Wrap="Wrap" JustifyContent="Center" AlignItems="Center"
                                 margin:LayoutExtensions.MarginForAllChildren="3">
 
-                            <Button Text="{Binding ButtonContentSearchByAddress, Mode=OneWay}"
-                                    Style="{StaticResource RaisedMidButton}"
-                                    Clicked="ButtonSearchByAddress_OnClicked">
-                            </Button>
+                        <Button Text="{Binding ButtonContentSearchByAddress, Mode=OneWay}"
+                                Style="{StaticResource RaisedMidButton}"
+                                Clicked="ButtonSearchByAddress_OnClicked">
+                        </Button>
 
-                            <Button Text="{Binding ButtonContentSearchByCoordinate, Mode=OneWay}"
-                                    Style="{StaticResource RaisedMidButton}"
-                                    Clicked="ButtonSearchByCoordinate_OnClicked">
-                            </Button>
+                        <Button Text="{Binding ButtonContentSearchByCoordinate, Mode=OneWay}"
+                                Style="{StaticResource RaisedMidButton}"
+                                Clicked="ButtonSearchByCoordinate_OnClicked">
+                        </Button>
 
-                            <Button Text="{Binding ButtonContentSearchByCurrentCoordinate, Mode=OneWay}"
-                                    Style="{StaticResource RaisedMidButton}"
-                                    Clicked="ButtonSearchByCurrentCoordinate_OnClicked">
-                            </Button>
+                        <Button Text="{Binding ButtonContentSearchByCurrentCoordinate, Mode=OneWay}"
+                                Style="{StaticResource RaisedMidButton}"
+                                Clicked="ButtonSearchByCurrentCoordinate_OnClicked">
+                        </Button>
 
                     </FlexLayout>
 
-                </Grid>
+                </VerticalStackLayout>
 
             </Border>
 
