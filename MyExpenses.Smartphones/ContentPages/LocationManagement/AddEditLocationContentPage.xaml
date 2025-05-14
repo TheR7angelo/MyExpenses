@@ -17,7 +17,7 @@
 
     <ContentPage.Content>
 
-        <Grid>
+        <Grid margin:LayoutExtensions.MarginForAllChildren="5">
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
@@ -41,7 +41,7 @@
 
                 <VerticalStackLayout>
 
-                    <Grid>
+                    <Grid margin:LayoutExtensions.MarginForAllChildren="3, 3, 3, 0">
 
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
@@ -62,7 +62,7 @@
 
                     </Grid>
 
-                    <Grid>
+                    <Grid margin:LayoutExtensions.MarginForAllChildren="3">
 
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
@@ -103,7 +103,7 @@
 
                 <VerticalStackLayout>
 
-                    <Grid>
+                    <Grid margin:LayoutExtensions.MarginForAllChildren="5">
 
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
@@ -160,13 +160,14 @@
             </Border>
 
             <Border Grid.Row="3"
-                    BackgroundColor="{AppThemeBinding Light={StaticResource Wheat}, Dark={StaticResource Black}}">
+                    BackgroundColor="{AppThemeBinding Light={StaticResource Wheat}, Dark={StaticResource Black}}"
+                    margin:LayoutExtensions.MarginForAllChildren="3">
 
                 <Border.StrokeShape>
                     <RoundRectangle CornerRadius="5" />
                 </Border.StrokeShape>
 
-                <Grid>
+                <Grid margin:LayoutExtensions.MarginForAllChildren="3">
 
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
