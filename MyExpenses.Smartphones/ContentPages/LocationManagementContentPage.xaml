@@ -35,7 +35,7 @@
                                        ItemsSource="{Binding KnownTileSources, Mode=OneWay}"
                                        SelectedItem="{Binding KnownTileSourceSelected, Mode=TwoWay}"
                                        AllowClear="False"
-                                       Title="Test"
+                                       Title="{Binding ComboBoxBasemapHintAssist, Mode=OneWay}"
                                        SelectedValueChanged="PickerFieldKnownTileSource_OnSelectedItemChanged">
 
                     <material:PickerField.ItemDisplayBinding>

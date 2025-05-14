@@ -8,6 +8,7 @@ using Mapsui.Projections;
 using Mapsui.Tiling.Layers;
 using Microsoft.Data.Sqlite;
 using MyExpenses.Maui.Utils;
+using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Maui.CustomPopup;
 using MyExpenses.Models.Sql.Bases.Groups;
 using MyExpenses.Models.Sql.Bases.Tables;
@@ -24,6 +25,16 @@ namespace MyExpenses.Smartphones.ContentPages;
 
 public partial class LocationManagementContentPage
 {
+    public static readonly BindableProperty ComboBoxBasemapHintAssistProperty =
+        BindableProperty.Create(nameof(ComboBoxBasemapHintAssist), typeof(string),
+            typeof(LocationManagementContentPage));
+
+    public string ComboBoxBasemapHintAssist
+    {
+        get => (string)GetValue(ComboBoxBasemapHintAssistProperty);
+        set => SetValue(ComboBoxBasemapHintAssistProperty, value);
+    }
+
     public static readonly BindableProperty SelectedTreeViewNodeProperty =
         BindableProperty.Create(nameof(SelectedTreeViewNode), typeof(TreeViewNode),
             typeof(LocationManagementContentPage), propertyChanged: SelectedTreeViewNode_OnChanged);
@@ -79,6 +90,7 @@ public partial class LocationManagementContentPage
         var map = MapsuiMapExtensions.GetMap(true, backColor);
         map.Layers.Add(PlaceLayer);
 
+        UpdateLanguage();
         InitializeComponent();
 
         Views = [ScrollViewTreeView, MapControl, PickerFieldKnownTileSource];
@@ -89,12 +101,16 @@ public partial class LocationManagementContentPage
         // ReSharper disable once HeapView.ObjectAllocation.Possible
         // ReSharper disable once HeapView.DelegateAllocation
         DeviceDisplay.MainDisplayInfoChanged += DeviceDisplay_OnMainDisplayInfoChanged;
+        Interface.LanguageChanged += Interface_OnLanguageChanged;
     }
 
     #region Action
 
     private void DeviceDisplay_OnMainDisplayInfoChanged(object? sender, DisplayInfoChangedEventArgs e)
         => UpdateDisplay();
+
+    private void Interface_OnLanguageChanged()
+        => UpdateLanguage();
 
     private void MapControl_OnLoaded(object? sender, EventArgs e)
         => UpdateTileLayer();
@@ -257,6 +273,11 @@ public partial class LocationManagementContentPage
             AddToGrid(GridPortrait, MapControl, 1, 0);
             AddToGrid(GridPortrait, ScrollViewTreeView, 2, 0);
         }
+    }
+
+    private void UpdateLanguage()
+    {
+        ComboBoxBasemapHintAssist = LocationManagementResources.ComboBoxBasemapHintAssist;
     }
 
     private void UpdateMapZoom()
