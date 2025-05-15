@@ -358,8 +358,6 @@ public partial class AddEditLocationContentPage
     {
         if (clear) WritableLayer.Clear();
 
-        Log.Information("The new place is : {Json}", newTPlace.ToString());
-
         newTPlace.CopyPropertiesTo(Place);
         UpdateMiniMap();
         EditPlace = true;
