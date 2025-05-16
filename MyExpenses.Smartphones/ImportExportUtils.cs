@@ -226,19 +226,11 @@ public static class ImportExportUtils
     /// <param name="parent">The parent ContentPage that triggers the export operation.</param>
     /// <param name="existingDatabasesSelected">The list of databases selected for export to the cloud.</param>
     /// <returns>A task that represents the asynchronous export operation.</returns>
-    public static async Task ExportToCloudAsync(this Page parent,
+    private static async Task ExportToCloudAsync(this Page parent,
         List<ExistingDatabase> existingDatabasesSelected)
     {
         parent.ShowCustomPopupActivityIndicator(WelcomeManagementResources.ActivityIndicatorExportDatabaseToCloud);
-        Log.Information("Starting to export database to cloud storage");
-
-        var dropboxService = await DropboxService.CreateAsync(ProjectSystem.Maui);
-        foreach (var existingDatabase in existingDatabasesSelected)
-        {
-            Log.Information("Starting to upload {ExistingDatabaseFileName} to cloud storage", existingDatabase.FileName);
-            _ = await dropboxService.UploadFileAsync(existingDatabase.FilePath, DatabaseInfos.CloudDirectoryBackupDatabase);
-            Log.Information("Successfully uploaded {ExistingDatabaseFileName} to cloud storage", existingDatabase.FileName);
-        }
+        await existingDatabasesSelected.ExportToCloudFileAsync(ProjectSystem.Maui);
         CustomPopupActivityIndicatorHelper.CloseCustomPopupActivityIndicator();
     }
 

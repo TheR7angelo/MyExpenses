@@ -3,7 +3,6 @@ using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 using MyExpenses.Core;
-using MyExpenses.Core.Export;
 using MyExpenses.Models.IO;
 using MyExpenses.Models.WebApi.Authenticator;
 using MyExpenses.Models.WebApi.DropBox;
@@ -11,7 +10,6 @@ using MyExpenses.Models.Wpf.Save;
 using MyExpenses.SharedUtils.Collection;
 using MyExpenses.SharedUtils.GlobalInfos;
 using MyExpenses.SharedUtils.Resources.Resx.WelcomeManagement;
-using MyExpenses.SharedUtils.Utils;
 using MyExpenses.Sql.Context;
 using MyExpenses.WebApi.Dropbox;
 using MyExpenses.Wpf.Utils.FilePicker;
@@ -163,83 +161,14 @@ public partial class WelcomePage
         }
     }
 
-    private static async Task ExportToCloudDirectoryAsync(List<ExistingDatabase> existingDatabasesSelected)
-    {
-        var dropboxService = await DropboxService.CreateAsync(ProjectSystem.Wpf);
-        foreach (var existingDatabase in existingDatabasesSelected)
-        {
-            Log.Information("Starting to upload {ExistingDatabaseFileName} to cloud storage",
-                existingDatabase.FileName);
-            _ = await dropboxService.UploadFileAsync(existingDatabase.FilePath,
-                DatabaseInfos.CloudDirectoryBackupDatabase);
-            Log.Information("Successfully uploaded {ExistingDatabaseFileName} to cloud storage",
-                existingDatabase.FileName);
-        }
-    }
-
-    private static async Task ExportToCloudFileAsync(ExistingDatabase existingDatabasesSelected)
-    {
-        var dropboxService = await DropboxService.CreateAsync(ProjectSystem.Wpf);
-        Log.Information("Starting to upload {FileName} to cloud storage", existingDatabasesSelected.FileName);
-        _ = await dropboxService.UploadFileAsync(existingDatabasesSelected.FilePath,
-            DatabaseInfos.CloudDirectoryBackupDatabase);
-        Log.Information("Successfully uploaded {FileName} to cloud storage", existingDatabasesSelected.FileName);
-    }
-
-    private static async Task ExportToLocalFolderAsync(List<ExistingDatabase> existingDatabasesSelected,
-        bool isCompress)
-    {
-        // ReSharper disable once HeapView.ObjectAllocation.Evident
-        // An instance of FolderDialog is created to handle the selection of a folder to export the database to.
-        // ShowDialog() is used to display the window modally and obtain the user's action.
-        // If the dialog result is not true (e.g., the user cancels or closes the window), the method exits early.
-        var folderDialog = new FolderDialog();
-        var selectedDialog = folderDialog.GetFile();
-
-        if (string.IsNullOrEmpty(selectedDialog))
-        {
-            Log.Warning("Export cancelled. No file path provided");
-            return;
-        }
-
-        Log.Information("Starting to export database to {SelectedDialog}", selectedDialog);
-
-        // ReSharper disable once HeapView.ObjectAllocation.Evident
-        // This code uses Parallel.ForEachAsync for parallel processing of database exports, maximizing performance by utilizing multiple threads.
-        // A thread-safe ConcurrentBag is used to track failed exports. Logs provide feedback on success or failure for each database export.
-        var failedExistingDatabases = new List<ExistingDatabase>();
-        foreach (var existingDatabase in existingDatabasesSelected)
-        {
-            Log.Information("Starting to export {ExistingDatabaseFileName}", existingDatabase.FileNameWithoutExtension);
-
-            var success = await existingDatabase.ToFolderAsync(selectedDialog, isCompress);
-
-            if (!success)
-            {
-                failedExistingDatabases.Add(existingDatabase);
-                Log.Warning("Failed to export {ExistingDatabaseFileName}", existingDatabase.FileNameWithoutExtension);
-            }
-            else
-            {
-                Log.Information("Successfully exported {ExistingDatabaseFileName}", existingDatabase.FileNameWithoutExtension);
-            }
-        }
-
-        if (!failedExistingDatabases.Count.Equals(0))
-        {
-            Log.Information("Failed to export some database to local folder");
-            var message = string.Format(WelcomeManagementResources.MessageBoxExportDataBaseExportErrorSomeDatabaseMessage, Environment.NewLine, string.Join(", ", failedExistingDatabases.Select(s => s.FileNameWithoutExtension)));
-            MsgBox.Show(WelcomeManagementResources.MessageBoxExportDataBaseExportErrorSomeDatabaseTitle,
-                message, MessageBoxButton.OK, MsgBoxImage.Error);
-            return;
-        }
-
-        Log.Information("Database successfully copied to local storage");
-
-        var response = MsgBox.Show(WelcomeManagementResources.MessageBoxOpenExportFolderQuestionMessage, MsgBoxImage.Question,
-            MessageBoxButton.YesNo);
-        if (response is MessageBoxResult.Yes) selectedDialog.StartFile();
-    }
+    // private static async Task ExportToCloudFileAsync(ExistingDatabase existingDatabasesSelected)
+    // {
+    //     var dropboxService = await DropboxService.CreateAsync(ProjectSystem.Wpf);
+    //     Log.Information("Starting to upload {FileName} to cloud storage", existingDatabasesSelected.FileName);
+    //     _ = await dropboxService.UploadFileAsync(existingDatabasesSelected.FilePath,
+    //         DatabaseInfos.CloudDirectoryBackupDatabase);
+    //     Log.Information("Successfully uploaded {FileName} to cloud storage", existingDatabasesSelected.FileName);
+    // }
 
     private List<ExistingDatabase>? GetSelectedDatabases()
     {
@@ -287,25 +216,25 @@ public partial class WelcomePage
                 case SaveLocation.Database:
                     waitScreenWindow.WaitMessage = WelcomeManagementResources.ActivityIndicatorExportDatabaseToLocal;
                     waitScreenWindow.Show();
-                    await SaveToLocalDatabase(selectDatabaseFileWindow.ExistingDatabasesSelected);
+                    await selectDatabaseFileWindow.ExistingDatabasesSelected.SaveToLocalDatabase();
                     break;
 
                 case SaveLocation.Folder:
                     waitScreenWindow.WaitMessage = WelcomeManagementResources.ActivityIndicatorExportDatabaseToLocal;
                     waitScreenWindow.Show();
-                    await ExportToLocalFolderAsync(selectDatabaseFileWindow.ExistingDatabasesSelected, false);
+                    await selectDatabaseFileWindow.ExistingDatabasesSelected.ExportToLocalFolderAsync(false);
                     break;
 
                 case SaveLocation.Compress:
                     waitScreenWindow.WaitMessage = WelcomeManagementResources.ActivityIndicatorExportDatabaseToLocal;
                     waitScreenWindow.Show();
-                    await ExportToLocalFolderAsync(selectDatabaseFileWindow.ExistingDatabasesSelected, true);
+                    await selectDatabaseFileWindow.ExistingDatabasesSelected.ExportToLocalFolderAsync(true);
                     break;
 
                 case SaveLocation.Dropbox:
                     waitScreenWindow.WaitMessage = WelcomeManagementResources.ActivityIndicatorExportDatabaseToCloud;
                     waitScreenWindow.Show();
-                    await SaveToCloudAsync(selectDatabaseFileWindow.ExistingDatabasesSelected);
+                    await selectDatabaseFileWindow.ExistingDatabasesSelected.SaveToCloudAsync(ProjectSystem.Wpf);
                     break;
 
                 case null:
@@ -393,75 +322,6 @@ public partial class WelcomePage
         await DeleteCloudFilesAsync(selectedDatabases);
 
         MsgBox.Show(WelcomeManagementResources.MessageBoxRemoveDataBaseSuccessMessage, MsgBoxImage.Check, MessageBoxButton.OK);
-    }
-
-    private static async Task SaveToLocalDatabase(List<ExistingDatabase> existingDatabasesSelected)
-    {
-        if (existingDatabasesSelected.Count is 1)
-            await ExportToLocalDatabaseFileAsync(existingDatabasesSelected.First());
-        else await ExportToLocalDirectoryDatabaseAsync(existingDatabasesSelected);
-    }
-
-    private static Task ExportToLocalDirectoryDatabaseAsync(List<ExistingDatabase> existingDatabasesSelected)
-    {
-        // ReSharper disable once HeapView.ObjectAllocation.Evident
-        // An instance of FolderDialog is created to handle the selection of a folder to export the database to.
-        // ShowDialog() is used to display the window modally and obtain the user's action.
-        // If the dialog result is not true (e.g., the user cancels or closes the window), the method exits early.
-        var folderDialog = new FolderDialog();
-        var selectedFolder = folderDialog.GetFile();
-
-        if (string.IsNullOrEmpty(selectedFolder))
-        {
-            Log.Warning("Export cancelled. No directory selected");
-            return Task.CompletedTask;
-        }
-
-        foreach (var existingDatabase in existingDatabasesSelected)
-        {
-            var newFilePath = Path.Join(selectedFolder, existingDatabase.FileName);
-            Log.Information("Starting to copy {ExistingDatabaseFileName} to {NewFilePath}", existingDatabase.FileName, newFilePath);
-
-            File.Copy(existingDatabase.FilePath, newFilePath, true);
-            Log.Information("Successfully copied {ExistingDatabaseFileName} to {NewFilePath}",
-                existingDatabase.FileName, newFilePath);
-        }
-
-        var response = MsgBox.Show(WelcomeManagementResources.MessageBoxOpenExportFolderQuestionMessage, MsgBoxImage.Question,
-            MessageBoxButton.YesNo);
-        if (response is MessageBoxResult.Yes) selectedFolder.StartFile();
-
-        return Task.CompletedTask;
-    }
-
-    private static Task ExportToLocalDatabaseFileAsync(ExistingDatabase existingDatabasesSelected)
-    {
-        // ReSharper disable once HeapView.ObjectAllocation.Evident
-        // An instance of SqliteFileDialog is created to handle the selection of a file to export the database to.
-        // ShowDialog() is used to display the window modally and obtain the user's action.
-        // If the dialog result is not true (e.g., the user cancels or closes the window), the method exits early.
-        var sqliteDialog = new SqliteFileDialog(defaultFileName: existingDatabasesSelected.FileName);
-        var selectedDialog = sqliteDialog.SaveFile();
-
-        if (string.IsNullOrEmpty(selectedDialog))
-        {
-            Log.Warning("Export cancelled. No file path provided");
-            return Task.CompletedTask;;
-        }
-
-        selectedDialog = Path.ChangeExtension(selectedDialog, DatabaseInfos.Extension);
-        var selectedFilePath = existingDatabasesSelected.FilePath;
-        Log.Information("Starting to copy database to {SelectedDialog}", selectedDialog);
-
-        File.Copy(selectedFilePath, selectedDialog, true);
-        Log.Information("Database successfully copied to local storage");
-
-        var parentDirectory = Path.GetDirectoryName(selectedDialog)!;
-        var response = MsgBox.Show(WelcomeManagementResources.MessageBoxOpenExportFolderQuestionMessage, MsgBoxImage.Question,
-            MessageBoxButton.YesNo);
-        if (response is MessageBoxResult.Yes) parentDirectory.StartFile();
-
-        return Task.CompletedTask;
     }
 
     private static async Task ImportFromCloudAsync()
@@ -552,14 +412,6 @@ public partial class WelcomePage
 
             return default;
         });
-    }
-
-    private static async Task SaveToCloudAsync(List<ExistingDatabase> existingDatabasesSelected)
-    {
-        if (existingDatabasesSelected.Count is 1) await ExportToCloudFileAsync(existingDatabasesSelected.First());
-        else await ExportToCloudDirectoryAsync(existingDatabasesSelected);
-
-        await existingDatabasesSelected.CheckExistingDatabaseIsSyncAsync(ProjectSystem.Wpf);
     }
 
     #endregion
