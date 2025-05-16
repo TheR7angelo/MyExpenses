@@ -6,7 +6,7 @@ public static class CustomPopupActivityIndicatorHelper
 {
     private static CustomPopupActivityIndicator? _customPopupActivityIndicator;
 
-    public static void ShowCustomPopupActivityIndicator(this ContentPage contentPage, string messageToDisplay)
+    public static void ShowCustomPopupActivityIndicator(this Page contentPage, string messageToDisplay)
     {
         // ReSharper disable once HeapView.ObjectAllocation.Evident
         // Necessary allocation of a new CustomPopupActivityIndicator instance.
