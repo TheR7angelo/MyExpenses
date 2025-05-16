@@ -416,6 +416,17 @@ public partial class MainPage
             return;
         }
 
+        if (selectDatabaseFileContentPage.ExistingDatabasesSelected.Any(s => s.SyncStatus is SyncStatus.RemoteIsOutdated))
+        {
+            var question = string.Format(WelcomeManagementResources.CloudDatabaseOutdatedWarningQuestionMessage, Environment.NewLine);
+            var response = await DisplayAlert("Question", question, "Yes", "No");
+            if (response is not true)
+            {
+                Log.Information("Import cancelled. User chose to not import the cloud databases");
+                return;
+            }
+        }
+
         this.ShowCustomPopupActivityIndicator(WelcomeManagementResources.ActivityIndicatorImportDatabaseFromCloud);
         var mauiClient = HttpClientHandlerCustom.CreateHttpClientHandler();
         var files = selectDatabaseFileContentPage.ExistingDatabasesSelected.Select(s => s.FilePath);
