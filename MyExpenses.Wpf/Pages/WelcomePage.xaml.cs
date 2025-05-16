@@ -1,8 +1,8 @@
-using System.Collections.Immutable;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
+using MyExpenses.Core;
 using MyExpenses.Core.Export;
 using MyExpenses.Models.IO;
 using MyExpenses.Models.WebApi.Authenticator;
@@ -10,7 +10,6 @@ using MyExpenses.Models.WebApi.DropBox;
 using MyExpenses.Models.Wpf.Save;
 using MyExpenses.SharedUtils.Collection;
 using MyExpenses.SharedUtils.GlobalInfos;
-using MyExpenses.SharedUtils.Properties;
 using MyExpenses.SharedUtils.Resources.Resx.WelcomeManagement;
 using MyExpenses.SharedUtils.Utils;
 using MyExpenses.Sql.Context;
@@ -30,7 +29,7 @@ public partial class WelcomePage
 
     public WelcomePage()
     {
-        RefreshExistingDatabases();
+        ExistingDatabases.RefreshExistingDatabases(ProjectSystem.Wpf);
 
         InitializeComponent();
 
@@ -363,7 +362,7 @@ public partial class WelcomePage
                     throw new ArgumentOutOfRangeException();
             }
 
-            RefreshExistingDatabases();
+            ExistingDatabases.RefreshExistingDatabases(ProjectSystem.Wpf);
 
             waitScreenWindow.Close();
             MsgBox.Show(WelcomeManagementResources.ButtonImportDataBaseImportSucessMessage, MsgBoxImage.Check);
@@ -386,14 +385,14 @@ public partial class WelcomePage
         if (!confirmLocalDeletion) return;
 
         DeleteLocalDatabases(selectedDatabases);
-        RefreshExistingDatabases();
+        ExistingDatabases.RefreshExistingDatabases(ProjectSystem.Wpf);
 
         var confirmCloudDeletion = ConfirmDeletion(WelcomeManagementResources.MessageBoxRemoveDataBaseDropboxQuestionMessage);
         if (!confirmCloudDeletion) return;
 
         await DeleteCloudFilesAsync(selectedDatabases);
 
-        ShowSuccessMessage(WelcomeManagementResources.MessageBoxRemoveDataBaseSuccessMessage);
+        MsgBox.Show(WelcomeManagementResources.MessageBoxRemoveDataBaseSuccessMessage, MsgBoxImage.Check, MessageBoxButton.OK);
     }
 
     private static async Task SaveToLocalDatabase(List<ExistingDatabase> existingDatabasesSelected)
@@ -555,35 +554,6 @@ public partial class WelcomePage
         });
     }
 
-    private void RefreshExistingDatabases()
-    {
-        var itemsToDelete = ExistingDatabases
-            .Where(s => !File.Exists(s.FilePath)).ToImmutableArray();
-
-        foreach (var item in itemsToDelete)
-        {
-            ExistingDatabases.Remove(item);
-        }
-
-        var newExistingDatabases = DbContextBackup.GetExistingDatabase();
-        // ReSharper disable once HeapView.ClosureAllocation
-        foreach (var existingDatabase in newExistingDatabases)
-        {
-            // ReSharper disable once HeapView.DelegateAllocation
-            var exist = ExistingDatabases.FirstOrDefault(s => s.FilePath.Equals(existingDatabase.FilePath));
-            if (exist is not null)
-            {
-                existingDatabase.CopyPropertiesTo(exist);
-            }
-            else
-            {
-                ExistingDatabases.AddAndSort(existingDatabase, s => s.FileNameWithoutExtension);
-            }
-        }
-
-        _ = ExistingDatabases.CheckExistingDatabaseIsSyncAsync(ProjectSystem.Wpf);
-    }
-
     private static async Task SaveToCloudAsync(List<ExistingDatabase> existingDatabasesSelected)
     {
         if (existingDatabasesSelected.Count is 1) await ExportToCloudFileAsync(existingDatabasesSelected.First());
@@ -591,9 +561,6 @@ public partial class WelcomePage
 
         await existingDatabasesSelected.CheckExistingDatabaseIsSyncAsync(ProjectSystem.Wpf);
     }
-
-    private static void ShowSuccessMessage(string message)
-        => MsgBox.Show(message, MsgBoxImage.Check, MessageBoxButton.OK);
 
     #endregion
 }

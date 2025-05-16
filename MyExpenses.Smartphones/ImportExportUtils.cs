@@ -1,6 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.Runtime.Versioning;
 using CommunityToolkit.Maui.Storage;
+using MyExpenses.Core;
 using MyExpenses.Core.Export;
 using MyExpenses.Maui.Utils.WebApi;
 using MyExpenses.Models.IO;
@@ -9,12 +10,10 @@ using MyExpenses.Models.WebApi.DropBox;
 using MyExpenses.Models.Wpf.Save;
 using MyExpenses.SharedUtils.Collection;
 using MyExpenses.SharedUtils.GlobalInfos;
-using MyExpenses.SharedUtils.Properties;
 using MyExpenses.SharedUtils.Resources.Resx.WelcomeManagement;
 using MyExpenses.Smartphones.ContentPages;
 using MyExpenses.Smartphones.ContentPages.CustomPopups.CustomPopupActivityIndicator;
 using MyExpenses.Smartphones.ContentPages.SaveLocation;
-using MyExpenses.Sql.Context;
 using MyExpenses.WebApi.Dropbox;
 using Serilog;
 
@@ -22,43 +21,6 @@ namespace MyExpenses.Smartphones;
 
 public static class ImportExportUtils
 {
-    /// <summary>
-    /// Refreshes the collection of existing databases by removing non-existent database files
-    /// and adding or updating databases based on the current state of the file system.
-    /// </summary>
-    /// <param name="existingDatabases">The collection of existing databases to be refreshed.</param>
-    /// <param name="projectSystem">Specifies the project system, such as Wpf or Maui, for handling specific operations.</param>
-    public static void RefreshExistingDatabases(this ObservableCollection<ExistingDatabase> existingDatabases,
-        ProjectSystem projectSystem)
-    {
-        var itemsToDelete = existingDatabases
-            .Where(s => !File.Exists(s.FilePath)).ToArray();
-
-        foreach (var item in itemsToDelete)
-        {
-            existingDatabases.Remove(item);
-        }
-
-        var newExistingDatabases = DbContextBackup.GetExistingDatabase();
-
-        // ReSharper disable once HeapView.ClosureAllocation
-        foreach (var existingDatabase in newExistingDatabases)
-        {
-            // ReSharper disable once HeapView.DelegateAllocation
-            var exist = existingDatabases.FirstOrDefault(s => s.FilePath == existingDatabase.FilePath);
-            if (exist is not null)
-            {
-                existingDatabase.CopyPropertiesTo(exist);
-            }
-            else
-            {
-                existingDatabases.AddAndSort(existingDatabase, s => s.FileNameWithoutExtension);
-            }
-        }
-
-        _ = existingDatabases.CheckExistingDatabaseIsSyncAsync(projectSystem);
-    }
-
     /// <summary>
     /// Displays a user interface for selecting databases from the provided collection of existing databases.
     /// Returns the selected databases or null if no selection was made.
@@ -430,7 +392,7 @@ public static class ImportExportUtils
                     throw new ArgumentOutOfRangeException();
             }
 
-            RefreshExistingDatabases(existingDatabases, projectSystem);
+            existingDatabases.RefreshExistingDatabases(projectSystem);
 
             CustomPopupActivityIndicatorHelper.CloseCustomPopupActivityIndicator();
             await parent.DisplayAlert(WelcomeManagementResources.MessageBoxImportDatabaseSuccessTitle, WelcomeManagementResources.MessageBoxImportDatabaseSuccessMessage, WelcomeManagementResources.MessageBoxImportDatabaseSuccessOkButton);
