@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using System.Runtime.Versioning;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.IO;
 using MyExpenses.SharedUtils.Resources.Resx.DashBoardShellManagement;
@@ -80,6 +81,17 @@ public partial class DashBoardShell
     }
 
     #region Action
+
+    [SupportedOSPlatform("Android")]
+    [SupportedOSPlatform("iOS14.0")]
+    [SupportedOSPlatform("MacCatalyst14.0")]
+    [SupportedOSPlatform("Windows")]
+    private void ButtonExportDataBase_OnClick(object? sender, EventArgs e)
+    {
+        var existingDatabase = new ExistingDatabase(DataBaseContext.FilePath!);
+        _ = this.HandleButtonExportDataBase(existingDatabase);
+        Current.FlyoutIsPresented = false;
+    }
 
     private void Interface_OnLanguageChanged()
         => UpdateLanguage();

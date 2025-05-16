@@ -61,6 +61,7 @@
 
     </FlyoutItem>
 
+    <MenuItem Text="Export to" Clicked="ButtonExportDataBase_OnClick" />
     <MenuItem Text="{Binding MenuItemLogoutText, Mode=OneWay}" Clicked="MenuItemLogout_OnClicked" />
 
 </Shell>
