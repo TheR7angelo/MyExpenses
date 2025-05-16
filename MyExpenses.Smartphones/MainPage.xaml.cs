@@ -68,10 +68,10 @@ public partial class MainPage
         => _ = this.HandleButtonExportDataBase(ExistingDatabases);
 
     private void ButtonImportDataBase_OnClick(object? sender, EventArgs e)
-        => _ = this.HandleButtonImportDataBase(ExistingDatabases, ProjectSystem.Maui);
+        => _ = this.HandleButtonImportDataBase(ExistingDatabases);
 
     private void ButtonRemoveDataBase_OnClick(object? sender, EventArgs e)
-        => _ = this.HandleButtonRemoveDataBase(ExistingDatabases, ProjectSystem.Maui);
+        => _ = this.HandleButtonRemoveDataBase(ExistingDatabases);
 
     #endregion
 

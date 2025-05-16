@@ -51,10 +51,9 @@ public static class ImportExportUtils
     /// </summary>
     /// <param name="parent">The page instance that serves as the parent for displaying alerts and interacting with UI elements.</param>
     /// <param name="existingDatabases">The collection of existing databases from which databases will be selected and removed.</param>
-    /// <param name="projectSystem">Specifies the project system type, such as Wpf or Maui, used for database interaction.</param>
     /// <returns>A task that represents the asynchronous operation of handling database removal.</returns>
     public static async Task HandleButtonRemoveDataBase(this Page parent,
-        ObservableCollection<ExistingDatabase> existingDatabases, ProjectSystem projectSystem)
+        ObservableCollection<ExistingDatabase> existingDatabases)
     {
         var databasesToDelete = await existingDatabases.SelectDatabases();
         if (databasesToDelete is null || databasesToDelete.Count is 0) return;
@@ -82,7 +81,7 @@ public static class ImportExportUtils
             WelcomeManagementResources.MessageBoxRemoveDataBaseSuccessMessage,
             WelcomeManagementResources.MessageBoxRemoveDataBaseSuccessOkButton);
 
-        existingDatabases.RefreshExistingDatabases(projectSystem);
+        existingDatabases.RefreshExistingDatabases(ProjectSystem.Maui);
     }
 
     #endregion
@@ -322,11 +321,10 @@ public static class ImportExportUtils
     /// </summary>
     /// <param name="parent">The page instance initiating the import process.</param>
     /// <param name="existingDatabases">The collection of existing databases to be updated after the import operation.</param>
-    /// <param name="projectSystem">Specifies the project system, such as Wpf or Maui, for handling platform-specific operations.</param>
     /// <returns>A task representing the asynchronous operation of importing a database.</returns>
     /// <exception cref="ArgumentOutOfRangeException">Thrown when an unsupported save location mode is encountered during the import process.</exception>
     public static async Task HandleButtonImportDataBase(this Page parent,
-        ObservableCollection<ExistingDatabase> existingDatabases, ProjectSystem projectSystem)
+        ObservableCollection<ExistingDatabase> existingDatabases)
     {
         var saveLocation = await SaveLocationMode.LocalDropbox.GetImportSaveLocation();
         if (saveLocation is null) return;
@@ -349,7 +347,7 @@ public static class ImportExportUtils
                     throw new ArgumentOutOfRangeException();
             }
 
-            existingDatabases.RefreshExistingDatabases(projectSystem);
+            existingDatabases.RefreshExistingDatabases(ProjectSystem.Maui);
 
             CustomPopupActivityIndicatorHelper.CloseCustomPopupActivityIndicator();
             await parent.DisplayAlert(WelcomeManagementResources.MessageBoxImportDatabaseSuccessTitle, WelcomeManagementResources.MessageBoxImportDatabaseSuccessMessage, WelcomeManagementResources.MessageBoxImportDatabaseSuccessOkButton);
