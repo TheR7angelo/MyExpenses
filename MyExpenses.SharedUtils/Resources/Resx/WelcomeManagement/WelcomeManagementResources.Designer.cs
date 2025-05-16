@@ -151,6 +151,33 @@ namespace MyExpenses.SharedUtils.Resources.Resx.WelcomeManagement {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No.
+        /// </summary>
+        public static string CloudDatabaseOutdatedWarningQuestionNoButton {
+            get {
+                return ResourceManager.GetString("CloudDatabaseOutdatedWarningQuestionNoButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Question.
+        /// </summary>
+        public static string CloudDatabaseOutdatedWarningQuestionTitle {
+            get {
+                return ResourceManager.GetString("CloudDatabaseOutdatedWarningQuestionTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yes.
+        /// </summary>
+        public static string CloudDatabaseOutdatedWarningQuestionYesButton {
+            get {
+                return ResourceManager.GetString("CloudDatabaseOutdatedWarningQuestionYesButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to An error occurred while adding the new database.
         /// </summary>
         public static string MessageBoxAddDataBaseErrorMessage {

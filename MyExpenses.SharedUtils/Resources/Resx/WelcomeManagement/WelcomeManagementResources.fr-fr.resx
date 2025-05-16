@@ -149,4 +149,13 @@
     <data name="MessageBoxUseOutdatedWarningQuestionCancelButton" xml:space="preserve">
         <value>Annuler</value>
     </data>
+    <data name="CloudDatabaseOutdatedWarningQuestionNoButton" xml:space="preserve">
+        <value>Non</value>
+    </data>
+    <data name="CloudDatabaseOutdatedWarningQuestionTitle" xml:space="preserve">
+        <value>Question</value>
+    </data>
+    <data name="CloudDatabaseOutdatedWarningQuestionYesButton" xml:space="preserve">
+        <value>Oui</value>
+    </data>
 </root>
