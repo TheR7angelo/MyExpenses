@@ -22,7 +22,7 @@ public partial class MainPage
 
     public MainPage()
     {
-        ExistingDatabases.RefreshExistingDatabases();
+        ExistingDatabases.RefreshExistingDatabases(ProjectSystem.Maui);
 
         InitializeComponent();
     }
@@ -67,10 +67,10 @@ public partial class MainPage
         => _ = this.HandleButtonExportDataBase(ExistingDatabases);
 
     private void ButtonImportDataBase_OnClick(object? sender, EventArgs e)
-        => _ = this.HandleButtonImportDataBase(ExistingDatabases);
+        => _ = this.HandleButtonImportDataBase(ExistingDatabases, ProjectSystem.Maui);
 
     private void ButtonRemoveDataBase_OnClick(object? sender, EventArgs e)
-        => _ = this.HandleButtonRemoveDataBase(ExistingDatabases);
+        => _ = this.HandleButtonRemoveDataBase(ExistingDatabases, ProjectSystem.Maui);
 
     #endregion
 
