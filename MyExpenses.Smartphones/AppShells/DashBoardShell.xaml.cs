@@ -2,6 +2,7 @@
 using System.Runtime.Versioning;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.IO;
+using MyExpenses.SharedUtils.Resources.Resx.DashBoardManagement;
 using MyExpenses.SharedUtils.Resources.Resx.DashBoardShellManagement;
 using MyExpenses.Sql.Context;
 
@@ -9,6 +10,15 @@ namespace MyExpenses.Smartphones.AppShells;
 
 public partial class DashBoardShell
 {
+    public static readonly BindableProperty MenuItemExportDatabaseToTextProperty =
+        BindableProperty.Create(nameof(MenuItemExportDatabaseToText), typeof(string), typeof(DashBoardShell));
+
+    public string MenuItemExportDatabaseToText
+    {
+        get => (string)GetValue(MenuItemExportDatabaseToTextProperty);
+        set => SetValue(MenuItemExportDatabaseToTextProperty, value);
+    }
+
     public static readonly BindableProperty FlyoutItemGeneralAccountSetupContentPageTitleProperty =
         BindableProperty.Create(nameof(FlyoutItemGeneralAccountSetupContentPageTitle), typeof(string),
             typeof(DashBoardShell));
@@ -117,6 +127,7 @@ public partial class DashBoardShell
         FlyoutItemDashBoardContentPageTitle = DashBoardShellManagementResources.FlyoutItemDashBoardContentPageTitle;
         FlyoutItemGeneralAccountSetupContentPageTitle = DashBoardShellManagementResources.FlyoutItemGeneralAccountSetupContentPageTitle;
         MenuItemLogoutText = DashBoardShellManagementResources.MenuItemLogoutText;
+        MenuItemExportDatabaseToText = DashBoardManagementResources.MenuItemHeaderExportDatabase;
     }
 
     #endregion
