@@ -14,9 +14,6 @@
     <data name="MenuItemHeaderFile" xml:space="preserve">
         <value>Fichier</value>
     </data>
-    <data name="MenuItemHeaderExportDatabase" xml:space="preserve">
-        <value>Exporter la base de données</value>
-    </data>
     <data name="MenuItemHeaderImportDatabase" xml:space="preserve">
         <value>Charger la base de données</value>
     </data>

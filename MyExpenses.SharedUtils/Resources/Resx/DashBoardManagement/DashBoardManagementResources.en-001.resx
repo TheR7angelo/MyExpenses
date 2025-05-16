@@ -128,4 +128,7 @@
     <data name="DataGridTextColumnDate" xml:space="preserve">
         <value>Date</value>
     </data>
+    <data name="MenuItemHeaderExportDatabase" xml:space="preserve">
+        <value>Export database</value>
+    </data>
 </root>
