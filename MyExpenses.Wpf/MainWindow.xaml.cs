@@ -10,6 +10,7 @@ using MyExpenses.Models.WebApi.Authenticator;
 using MyExpenses.Models.Wpf.Save;
 using MyExpenses.SharedUtils;
 using MyExpenses.SharedUtils.GlobalInfos;
+using MyExpenses.SharedUtils.Resources.Resx.DashBoardManagement;
 using MyExpenses.SharedUtils.Utils;
 using MyExpenses.Sql.Context;
 using MyExpenses.WebApi.Dropbox;
@@ -356,7 +357,7 @@ public partial class MainWindow
         MenuItemHeaderFile = MainWindowResources.MenuItemHeaderFile;
 
         MenuItemHeaderDatabase = MainWindowResources.MenuItemHeaderDatabase;
-        MenuItemHeaderExportDatabase = MainWindowResources.MenuItemHeaderExportDatabase;
+        MenuItemHeaderExportDatabase = DashBoardManagementResources.MenuItemHeaderExportDatabase;
         MenuItemHeaderImportDatabase = MainWindowResources.MenuItemHeaderImportDatabase;
         MenuItemHeaderVacuumDatabases = MainWindowResources.MenuItemHeaderVacuumDatabases;
         MenuItemHeaderVacuumDatabase = MainWindowResources.MenuItemHeaderVacuumDatabase;
