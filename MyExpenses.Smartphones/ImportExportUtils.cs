@@ -81,7 +81,7 @@ public static class ImportExportUtils
 
     #region Delete
 
-    public static async Task HandleButtonRemoveDataBase(this Page parent, IEnumerable<ExistingDatabase> existingDatabases)
+    public static async Task HandleButtonRemoveDataBase(this Page parent, ObservableCollection<ExistingDatabase> existingDatabases)
     {
         var databasesToDelete = await existingDatabases.SelectDatabases();
         if (databasesToDelete is null || databasesToDelete.Count is 0) return;
@@ -108,6 +108,8 @@ public static class ImportExportUtils
         await parent.DisplayAlert(WelcomeManagementResources.MessageBoxRemoveDataBaseSuccessTitle,
             WelcomeManagementResources.MessageBoxRemoveDataBaseSuccessMessage,
             WelcomeManagementResources.MessageBoxRemoveDataBaseSuccessOkButton);
+
+        existingDatabases.RefreshExistingDatabases();
     }
 
     /// <summary>
@@ -193,6 +195,67 @@ public static class ImportExportUtils
 
                 case SaveLocation.Dropbox:
                     await parent.ExportToCloudAsync(selectDatabaseFileContentPage.ExistingDatabasesSelected);
+                    break;
+
+                case SaveLocation.Local:
+                case SaveLocation.Compress:
+                case null:
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+
+            if (errors is {Count: > 0})
+            {
+                var message = string.Format(WelcomeManagementResources.MessageBoxExportDataBaseExportErrorSomeDatabaseMessage, Environment.NewLine, string.Join(", ", errors.Select(s => s.FileNameWithoutExtension)));
+                await parent.DisplayAlert(
+                    WelcomeManagementResources.MessageBoxExportDataBaseExportErrorSomeDatabaseTitle,
+                    message,
+                    WelcomeManagementResources.MessageBoxExportDataBaseExportErrorSomeDatabaseOkButton);
+            }
+            else await parent.DisplayAlert(WelcomeManagementResources.MessageBoxExportDataBaseSuccessTitle, WelcomeManagementResources.MessageBoxExportDataBaseSuccessMessage, WelcomeManagementResources.MessageBoxExportDataBaseSuccessOkButton);
+        }
+        catch (Exception exception)
+        {
+            Log.Error(exception, "An error occurred. Please try again");
+            await parent.DisplayAlert(WelcomeManagementResources.MessageBoxExportDataBaseErrorTitle, WelcomeManagementResources.MessageBoxExportDataBaseErrorMessage, WelcomeManagementResources.MessageBoxExportDataBaseErrorOkButton);
+        }
+    }
+
+    /// <summary>
+    /// Handles the export of a database by allowing the user to select a save location
+    /// and performing the export operation to the chosen destination.
+    /// </summary>
+    /// <param name="parent">The page from which the export operation is initiated, used for UI-related operations.</param>
+    /// <param name="existingDatabase">The databases to be exported.</param>
+    /// <returns>A task representing the asynchronous export operation.</returns>
+    [SupportedOSPlatform("Android")]
+    [SupportedOSPlatform("iOS14.0")]
+    [SupportedOSPlatform("MacCatalyst14.0")]
+    [SupportedOSPlatform("Windows")]
+    public static async Task HandleButtonExportDataBase(this Page parent, ExistingDatabase existingDatabase)
+    {
+        var exportList = new List<ExistingDatabase> { existingDatabase };
+        var saveLocation = await SaveLocationContentPageUtils.GetExportSaveLocation();
+        if (saveLocation is null) return;
+
+        await Task.Delay(TimeSpan.FromMilliseconds(100));
+
+        List<ExistingDatabase>? errors = null;
+        try
+        {
+            switch (saveLocation)
+            {
+                case SaveLocation.Database:
+                    await parent.ExportToLocalDatabase(exportList);
+                    break;
+
+                case SaveLocation.Folder:
+                    errors = await parent.ExportToLocalFolderAsync(exportList, false);
+                    break;
+
+
+                case SaveLocation.Dropbox:
+                    await parent.ExportToCloudAsync(exportList);
                     break;
 
                 case SaveLocation.Local:
