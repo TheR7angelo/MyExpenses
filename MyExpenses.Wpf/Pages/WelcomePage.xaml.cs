@@ -503,7 +503,8 @@ public partial class WelcomePage
         if (selectDatabaseFileWindow.ExistingDatabasesSelected.Any(s => s.SyncStatus is SyncStatus.RemoteIsOutdated))
         {
             var question = string.Format(WelcomeManagementResources.CloudDatabaseOutdatedWarningQuestionMessage, Environment.NewLine);
-            var response = MsgBox.Show(question, MsgBoxImage.Warning, MessageBoxButton.YesNo);
+            var response = MsgBox.Show(WelcomeManagementResources.CloudDatabaseOutdatedWarningQuestionTitle, question,
+                MessageBoxButton.YesNoCancel, MsgBoxImage.Warning);
             if (response is not MessageBoxResult.Yes)
             {
                 Log.Information("Import cancelled. User chose to not import the cloud databases");
