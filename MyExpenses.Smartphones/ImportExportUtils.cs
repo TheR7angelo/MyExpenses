@@ -74,7 +74,7 @@ public static class ImportExportUtils
 
         if (confirmCloudDeletion)
         {
-            await databasesToDelete.DeleteCloudFilesAsync();
+            await databasesToDelete.DeleteCloudFilesAsync(ProjectSystem.Maui);
         }
 
         await parent.DisplayAlert(WelcomeManagementResources.MessageBoxRemoveDataBaseSuccessTitle,
