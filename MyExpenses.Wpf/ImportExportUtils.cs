@@ -286,6 +286,74 @@ public static class ImportExportUtils
     }
 
     /// <summary>
+    /// Handles the export operation for a specified database file path, allowing users to export the database
+    /// to a selected save location. The method supports various export options like saving to local storage,
+    /// compressing the file, or uploading to the cloud.
+    /// </summary>
+    /// <param name="databaseFilePath">The file path of the database to be exported.</param>
+    /// <returns>A Task representing the asynchronous export operation.</returns>
+    /// <exception cref="ArgumentOutOfRangeException">Thrown when an unsupported save location option is selected.</exception>
+    public static async Task HandleButtonExportDataBase(this string databaseFilePath)
+    {
+        var existingDatabase = new ExistingDatabase(databaseFilePath);
+        var existingDatabases = new List<ExistingDatabase> {existingDatabase};
+
+        var saveLocation = SaveLocationUtils.GetExportSaveLocation();
+        if (saveLocation is null) return;
+
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // An instance of WaitScreenWindow is created to handle the display of a wait screen while the export is in progress.
+        // The Show() method is used to display the window and start the wait screen.
+        // The Close() method is used to close the window and stop the wait screen.
+        var waitScreenWindow = new WaitScreenWindow();
+        try
+        {
+            switch (saveLocation)
+            {
+                case SaveLocation.Database:
+                    waitScreenWindow.WaitMessage = WelcomeManagementResources.ActivityIndicatorExportDatabaseToLocal;
+                    waitScreenWindow.Show();
+                    await existingDatabases.SaveToLocalDatabase();
+                    break;
+
+                case SaveLocation.Folder:
+                    waitScreenWindow.WaitMessage = WelcomeManagementResources.ActivityIndicatorExportDatabaseToLocal;
+                    waitScreenWindow.Show();
+                    await existingDatabases.ExportToLocalFolderAsync(false);
+                    break;
+
+                case SaveLocation.Compress:
+                    waitScreenWindow.WaitMessage = WelcomeManagementResources.ActivityIndicatorExportDatabaseToLocal;
+                    waitScreenWindow.Show();
+                    await existingDatabases.ExportToLocalFolderAsync(true);
+                    break;
+
+                case SaveLocation.Dropbox:
+                    waitScreenWindow.WaitMessage = WelcomeManagementResources.ActivityIndicatorExportDatabaseToCloud;
+                    waitScreenWindow.Show();
+                    await existingDatabases.SaveToCloudAsync(ProjectSystem.Wpf);
+                    break;
+
+                case null:
+                case SaveLocation.Local:
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+
+            waitScreenWindow.Close();
+
+            MsgBox.Show(WelcomeManagementResources.ButtonExportDataBaseSuccessMessage, MsgBoxImage.Check);
+        }
+        catch (Exception exception)
+        {
+            Log.Error(exception, "An error occurred. Please try again");
+            waitScreenWindow.Close();
+
+            MsgBox.Show(WelcomeManagementResources.MessageBoxExportDataBaseErrorMessage, MsgBoxImage.Warning);
+        }
+    }
+
+    /// <summary>
     /// Saves the selected databases to a local file or directory, depending on the number of databases provided.
     /// If a single database is provided, it is saved to a file.
     /// If multiple databases are provided, they're saved to a directory.
