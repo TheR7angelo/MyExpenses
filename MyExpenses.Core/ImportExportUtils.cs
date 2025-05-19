@@ -52,16 +52,18 @@ public static class ImportExportUtils
     #region Delete
 
     /// <summary>
-    /// Deletes a collection of cloud-stored database files from the specified cloud directory.
+    /// Deletes the specified cloud files associated with the provided databases in the target project system.
     /// </summary>
-    /// <param name="databasesToDelete">A collection of database entries representing the files to be deleted from the cloud storage.</param>
+    /// <param name="databasesToDelete">A collection of databases whose associated cloud files should be deleted.</param>
+    /// <param name="projectSystem">Specifies the project system, such as Wpf or Maui, to manage cloud file deletion.</param>
     /// <returns>A task that represents the asynchronous delete operation.</returns>
-    public static async Task DeleteCloudFilesAsync(this IEnumerable<ExistingDatabase> databasesToDelete)
+    public static async Task DeleteCloudFilesAsync(this IEnumerable<ExistingDatabase> databasesToDelete,
+        ProjectSystem projectSystem)
     {
         var files = databasesToDelete.Select(db => db.FileName).ToArray();
         Log.Information("Preparing to delete the following files: {Files}", files);
 
-        var dropboxService = await DropboxService.CreateAsync(ProjectSystem.Maui);
+        var dropboxService = await DropboxService.CreateAsync(projectSystem);
         _ = await dropboxService.DeleteFilesAsync(files, DatabaseInfos.CloudDirectoryBackupDatabase);
 
         Log.Information("Files successfully deleted from Dropbox");
