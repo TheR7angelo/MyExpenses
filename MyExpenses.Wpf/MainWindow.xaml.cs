@@ -213,7 +213,7 @@ public partial class MainWindow
         foreach (var existingDatabase in DbContextBackup.GetExistingDatabase())
         {
             var oldSize = existingDatabase.FileInfo.Length;
-            var result = VacuumDatabase(existingDatabase.FilePath);
+            var result = existingDatabase.FilePath.VacuumDatabase();
             listSuccess.Add(result);
 
             if (result is not true) continue;
@@ -255,7 +255,7 @@ public partial class MainWindow
         var existingDatabase = new ExistingDatabase(DataBaseContext.FilePath!);
 
         var oldSize = existingDatabase.FileInfo.Length;
-        var result = VacuumDatabase();
+        var result = existingDatabase.FilePath.VacuumDatabase();
         if (result)
         {
             MsgBox.Show(MainWindowResources.MessageBoxMenuItemVacuumDatabaseSucess, MsgBoxImage.Check,
@@ -442,26 +442,6 @@ public partial class MainWindow
         var response = MsgBox.Show(MainWindowResources.MessageBoxOpenExportFolderQuestion, MsgBoxImage.Question,
             MessageBoxButton.YesNo);
         if (response is MessageBoxResult.Yes) parentDirectory.StartFile();
-    }
-
-    private static bool VacuumDatabase(string? dataBaseFilePath = null)
-    {
-        dataBaseFilePath ??= DataBaseContext.FilePath;
-
-        Log.Information("Starting to vacuum database: {DatabasePath}", dataBaseFilePath);
-
-        try
-        {
-            var row = "VACUUM ;".ExecuteRawSql(dataBaseFilePath);
-            Log.Information("Database vacuumed successfully");
-            Log.Information("Number of rows affected: {Row}", row);
-            return true;
-        }
-        catch (Exception e)
-        {
-            Log.Error(e, "An error occured while vacuuming the database");
-            return false;
-        }
     }
 
     #endregion
