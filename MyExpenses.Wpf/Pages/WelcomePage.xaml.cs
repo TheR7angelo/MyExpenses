@@ -125,25 +125,9 @@ public partial class WelcomePage
 
     #region Function
 
-    private List<ExistingDatabase>? GetSelectedDatabases()
-    {
-        // ReSharper disable once HeapView.ObjectAllocation.Evident
-        // An instance of SelectDatabaseFileWindow is created to handle the selection of existing databases to remove.
-        // The SetExistingDatabase method is called with the ExistingDatabases to provide context or validate against existing entries.
-        // ShowDialog() is used to display the window modally and obtain the user's action.
-        // If the dialog result is not true (e.g., the user cancels or closes the window), the method exits early.
-        var selectDatabaseFileWindow = new SelectDatabaseFileWindow();
-        selectDatabaseFileWindow.ExistingDatabases.AddRange(ExistingDatabases);
-        selectDatabaseFileWindow.ShowDialog();
-
-        return selectDatabaseFileWindow.DialogResult == true
-            ? selectDatabaseFileWindow.ExistingDatabasesSelected
-            : null;
-    }
-
     private async Task HandleButtonRemoveDataBase()
     {
-        var selectedDatabases = GetSelectedDatabases();
+        var selectedDatabases = ExistingDatabases.GetSelectedDatabases();
         if (selectedDatabases is null || selectedDatabases.Count is 0) return;
 
         var confirmLocalDelection = MsgBox.Show(WelcomeManagementResources.MessageBoxRemoveDataBaseQuestionMessage,

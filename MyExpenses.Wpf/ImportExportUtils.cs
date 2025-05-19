@@ -22,6 +22,28 @@ namespace MyExpenses.Wpf;
 
 public static class ImportExportUtils
 {
+    /// <summary>
+    /// Retrieves the list of databases selected by the user from a modal window.
+    /// This method displays a selection window for the user to choose from an existing list of databases.
+    /// </summary>
+    /// <param name="existingDatabases">The collection of existing databases that will be displayed in the selection window for the user to choose from.</param>
+    /// <returns>A list of selected databases if the selection is confirmed by the user; otherwise, null if no selection is made or the operation is canceled.</returns>
+    public static List<ExistingDatabase>? GetSelectedDatabases(this IEnumerable<ExistingDatabase> existingDatabases)
+    {
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // An instance of SelectDatabaseFileWindow is created to handle the selection of existing databases to remove.
+        // The SetExistingDatabase method is called with the ExistingDatabases to provide context or validate against existing entries.
+        // ShowDialog() is used to display the window modally and obtain the user's action.
+        // If the dialog result is not true (e.g., the user cancels or closes the window), the method exits early.
+        var selectDatabaseFileWindow = new SelectDatabaseFileWindow();
+        selectDatabaseFileWindow.ExistingDatabases.AddRange(existingDatabases);
+        selectDatabaseFileWindow.ShowDialog();
+
+        return selectDatabaseFileWindow.DialogResult == true
+            ? selectDatabaseFileWindow.ExistingDatabasesSelected
+            : null;
+    }
+
     #region Export
 
     /// <summary>
