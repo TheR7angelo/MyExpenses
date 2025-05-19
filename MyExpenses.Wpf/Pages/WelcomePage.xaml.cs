@@ -125,17 +125,6 @@ public partial class WelcomePage
 
     #region Function
 
-    private static async Task DeleteCloudFilesAsync(List<ExistingDatabase> databases)
-    {
-        var files = databases.Select(db => db.FileName).ToArray();
-        Log.Information("Preparing to delete the following files: {Files}", files);
-
-        var dropboxService = await DropboxService.CreateAsync(ProjectSystem.Wpf);
-        _ = await dropboxService.DeleteFilesAsync(files, DatabaseInfos.CloudDirectoryBackupDatabase);
-
-        Log.Information("Files successfully deleted from cloud");
-    }
-
     private List<ExistingDatabase>? GetSelectedDatabases()
     {
         // ReSharper disable once HeapView.ObjectAllocation.Evident
@@ -168,7 +157,7 @@ public partial class WelcomePage
             MsgBoxImage.Question, MessageBoxButton.YesNoCancel);
         if (confirmCloudDeletion is not MessageBoxResult.Yes) return;
 
-        await DeleteCloudFilesAsync(selectedDatabases);
+        await selectedDatabases.DeleteCloudFilesAsync(ProjectSystem.Wpf);
 
         MsgBox.Show(WelcomeManagementResources.MessageBoxRemoveDataBaseSuccessMessage, MsgBoxImage.Check, MessageBoxButton.OK);
     }
