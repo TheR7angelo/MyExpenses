@@ -3,6 +3,7 @@ using System.IO;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Input;
+using MyExpenses.Core;
 using MyExpenses.Core.Export;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.IO;
@@ -231,21 +232,11 @@ public partial class MainWindow
     {
         // ReSharper disable once HeapView.ObjectAllocation.Evident
         var existingDatabase = new ExistingDatabase(DataBaseContext.FilePath!);
-
-        var oldSize = existingDatabase.FileInfo.Length;
-        var result = existingDatabase.FilePath.VacuumDatabase();
-        if (result)
+        var sizeDatabase = existingDatabase.VacuumDatabase();
+        if (sizeDatabase is not null)
         {
             MsgBox.Show(MainWindowResources.MessageBoxMenuItemVacuumDatabaseSucess, MsgBoxImage.Check,
                 MessageBoxButton.OK);
-
-            // ReSharper disable once HeapView.ObjectAllocation.Evident
-            var newSize = new FileInfo(DataBaseContext.FilePath!).Length;
-
-            // ReSharper disable once HeapView.ObjectAllocation.Evident
-            var sizeDatabase = new SizeDatabase { FileNameWithoutExtension = existingDatabase.FileNameWithoutExtension };
-            sizeDatabase.SetOldSize(oldSize);
-            sizeDatabase.SetNewSize(newSize);
 
             // ReSharper disable once HeapView.ObjectAllocation.Evident
             var vacuumDatabaseUpdateWindow = new VacuumDatabaseUpdateWindow(sizeDatabase);
