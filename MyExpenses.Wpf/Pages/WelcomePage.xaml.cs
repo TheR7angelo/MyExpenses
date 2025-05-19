@@ -125,12 +125,6 @@ public partial class WelcomePage
 
     #region Function
 
-    private static bool ConfirmDeletion(string message)
-    {
-        var response = MsgBox.Show(message, MsgBoxImage.Question, MessageBoxButton.YesNoCancel);
-        return response is MessageBoxResult.Yes;
-    }
-
     private static async Task DeleteCloudFilesAsync(List<ExistingDatabase> databases)
     {
         var files = databases.Select(db => db.FileName).ToArray();
@@ -141,31 +135,6 @@ public partial class WelcomePage
 
         Log.Information("Files successfully deleted from cloud");
     }
-
-    private static void DeleteLocalDatabases(List<ExistingDatabase> databases)
-    {
-        foreach (var database in databases.Where(database =>
-                     !string.IsNullOrEmpty(database.FilePath) && File.Exists(database.FilePath)))
-        {
-            File.Delete(database.FilePath);
-
-            var backupDirectory = Path.Join(DatabaseInfos.LocalDirectoryBackupDatabase,
-                database.FileNameWithoutExtension);
-            if (Directory.Exists(backupDirectory))
-            {
-                Directory.Delete(backupDirectory, true);
-            }
-        }
-    }
-
-    // private static async Task ExportToCloudFileAsync(ExistingDatabase existingDatabasesSelected)
-    // {
-    //     var dropboxService = await DropboxService.CreateAsync(ProjectSystem.Wpf);
-    //     Log.Information("Starting to upload {FileName} to cloud storage", existingDatabasesSelected.FileName);
-    //     _ = await dropboxService.UploadFileAsync(existingDatabasesSelected.FilePath,
-    //         DatabaseInfos.CloudDirectoryBackupDatabase);
-    //     Log.Information("Successfully uploaded {FileName} to cloud storage", existingDatabasesSelected.FileName);
-    // }
 
     private List<ExistingDatabase>? GetSelectedDatabases()
     {
@@ -188,14 +157,16 @@ public partial class WelcomePage
         var selectedDatabases = GetSelectedDatabases();
         if (selectedDatabases is null || selectedDatabases.Count is 0) return;
 
-        var confirmLocalDeletion = ConfirmDeletion(WelcomeManagementResources.MessageBoxRemoveDataBaseQuestionMessage);
-        if (!confirmLocalDeletion) return;
+        var confirmLocalDelection = MsgBox.Show(WelcomeManagementResources.MessageBoxRemoveDataBaseQuestionMessage,
+            MsgBoxImage.Question, MessageBoxButton.YesNoCancel);
+        if (confirmLocalDelection is not MessageBoxResult.Yes) return;
 
-        DeleteLocalDatabases(selectedDatabases);
+        selectedDatabases.DeleteLocalDatabases();
         ExistingDatabases.RefreshExistingDatabases(ProjectSystem.Wpf);
 
-        var confirmCloudDeletion = ConfirmDeletion(WelcomeManagementResources.MessageBoxRemoveDataBaseDropboxQuestionMessage);
-        if (!confirmCloudDeletion) return;
+        var confirmCloudDeletion = MsgBox.Show(WelcomeManagementResources.MessageBoxRemoveDataBaseDropboxQuestionMessage,
+            MsgBoxImage.Question, MessageBoxButton.YesNoCancel);
+        if (confirmCloudDeletion is not MessageBoxResult.Yes) return;
 
         await DeleteCloudFilesAsync(selectedDatabases);
 
