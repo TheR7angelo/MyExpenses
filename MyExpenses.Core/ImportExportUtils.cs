@@ -140,4 +140,55 @@ public static class ImportExportUtils
     }
 
     #endregion
+
+    /// <summary>
+    /// Executes the vacuum operation on all existing databases retrieved from the database context, optimizing their storage
+    /// by reclaiming unused space and reducing file size. Returns a list containing information about the size changes for each processed database.
+    /// </summary>
+    /// <returns>A list of <see cref="SizeDatabase"/> objects, each representing the storage details of a database before and after the vacuum operation.
+    /// If an error occurs for a specific database, the list may contain null entries.</returns>
+    public static List<SizeDatabase?> VacuumDatabases()
+    {
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        var sizeDatabases = new List<SizeDatabase?>();
+
+        foreach (var existingDatabase in DbContextBackup.GetExistingDatabase())
+        {
+            var sizeDatabase = existingDatabase.VacuumDatabase();
+            sizeDatabases.Add(sizeDatabase);
+        }
+
+        return sizeDatabases;
+    }
+
+    /// <summary>
+    /// Performs a vacuum operation on the specified database file to optimize its size and structure.
+    /// Returns the details of the size changes before and after the operation, or null if the operation fails.
+    /// </summary>
+    /// <param name="existingDatabase">The database to be vacuumed. Contains details such as file path and metadata.</param>
+    /// <returns>
+    /// A <see cref="SizeDatabase"/> object containing the size details of the database before and after the vacuum operation.
+    /// Returns null if the vacuum operation fails.
+    /// </returns>
+    public static SizeDatabase? VacuumDatabase(this ExistingDatabase existingDatabase)
+    {
+        var oldSize = existingDatabase.FileInfo.Length;
+        var result = existingDatabase.FilePath.VacuumDatabase();
+
+        if (result is not true)
+        {
+            Log.Error("Error while vacuum database {FileName}", existingDatabase.FileName);
+            return null;
+        }
+
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        var newSize = new FileInfo(existingDatabase.FilePath).Length;
+
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        var sizeDatabase = new SizeDatabase { FileNameWithoutExtension = existingDatabase.FileNameWithoutExtension };
+        sizeDatabase.SetOldSize(oldSize);
+        sizeDatabase.SetNewSize(newSize);
+
+        return sizeDatabase;
+    }
 }
