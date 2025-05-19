@@ -5,6 +5,7 @@ using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using MyExpenses.Models.Attributs;
 using MyExpenses.Models.Sql;
+using Serilog;
 
 namespace MyExpenses.Sql.Context;
 
@@ -134,6 +135,32 @@ public static class DbContextHelper
             }
 
             yield return row;
+        }
+    }
+
+    /// <summary>
+    /// Performs a vacuum operation on the specified SQLite database to rebuild the database file,
+    /// optimize its structure, and reduce its size.
+    /// </summary>
+    /// <param name="dataBaseFilePath">The file path of the SQLite database to be vacuumed.</param>
+    /// <returns>
+    /// True if the vacuum operation completes successfully; false if an error occurs during the process.
+    /// </returns>
+    public static bool VacuumDatabase(this string dataBaseFilePath)
+    {
+        Log.Information("Starting to vacuum database: {DatabasePath}", dataBaseFilePath);
+
+        try
+        {
+            var row = "VACUUM ;".ExecuteRawSql(dataBaseFilePath);
+            Log.Information("Database vacuumed successfully");
+            Log.Information("Number of rows affected: {Row}", row);
+            return true;
+        }
+        catch (Exception e)
+        {
+            Log.Error(e, "An error occured while vacuuming the database");
+            return false;
         }
     }
 
