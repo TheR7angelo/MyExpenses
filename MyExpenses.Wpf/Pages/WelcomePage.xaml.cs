@@ -119,32 +119,7 @@ public partial class WelcomePage
         => _ = ExistingDatabases.HandleButtonImportDataBase();
 
     private void ButtonRemoveDataBase_OnClick(object sender, RoutedEventArgs e)
-        => _ = HandleButtonRemoveDataBase();
-
-    #endregion
-
-    #region Function
-
-    private async Task HandleButtonRemoveDataBase()
-    {
-        var selectedDatabases = ExistingDatabases.GetSelectedDatabases();
-        if (selectedDatabases is null || selectedDatabases.Count is 0) return;
-
-        var confirmLocalDelection = MsgBox.Show(WelcomeManagementResources.MessageBoxRemoveDataBaseQuestionMessage,
-            MsgBoxImage.Question, MessageBoxButton.YesNoCancel);
-        if (confirmLocalDelection is not MessageBoxResult.Yes) return;
-
-        selectedDatabases.DeleteLocalDatabases();
-        ExistingDatabases.RefreshExistingDatabases(ProjectSystem.Wpf);
-
-        var confirmCloudDeletion = MsgBox.Show(WelcomeManagementResources.MessageBoxRemoveDataBaseDropboxQuestionMessage,
-            MsgBoxImage.Question, MessageBoxButton.YesNoCancel);
-        if (confirmCloudDeletion is not MessageBoxResult.Yes) return;
-
-        await selectedDatabases.DeleteCloudFilesAsync(ProjectSystem.Wpf);
-
-        MsgBox.Show(WelcomeManagementResources.MessageBoxRemoveDataBaseSuccessMessage, MsgBoxImage.Check, MessageBoxButton.OK);
-    }
+        => _ = ExistingDatabases.HandleButtonRemoveDataBase();
 
     #endregion
 }

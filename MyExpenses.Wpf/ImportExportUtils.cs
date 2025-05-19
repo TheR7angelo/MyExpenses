@@ -44,6 +44,38 @@ public static class ImportExportUtils
             : null;
     }
 
+    #region Delete
+
+    /// <summary>
+    /// Handles the removal of selected databases from both local storage and the cloud, if confirmed by the user.
+    /// This method interacts with the user through confirmation dialogs and performs the necessary actions
+    /// based on the user's input.
+    /// </summary>
+    /// <param name="existingDatabases">The collection of existing databases to be managed and potentially removed.</param>
+    /// <returns>A task representing the asynchronous operation of database removal.</returns>
+    public static async Task HandleButtonRemoveDataBase(this ObservableCollection<ExistingDatabase> existingDatabases)
+    {
+        var selectedDatabases = existingDatabases.GetSelectedDatabases();
+        if (selectedDatabases is null || selectedDatabases.Count is 0) return;
+
+        var confirmLocalDelection = MsgBox.Show(WelcomeManagementResources.MessageBoxRemoveDataBaseQuestionMessage,
+            MsgBoxImage.Question, MessageBoxButton.YesNoCancel);
+        if (confirmLocalDelection is not MessageBoxResult.Yes) return;
+
+        selectedDatabases.DeleteLocalDatabases();
+        existingDatabases.RefreshExistingDatabases(ProjectSystem.Wpf);
+
+        var confirmCloudDeletion = MsgBox.Show(WelcomeManagementResources.MessageBoxRemoveDataBaseDropboxQuestionMessage,
+            MsgBoxImage.Question, MessageBoxButton.YesNoCancel);
+        if (confirmCloudDeletion is not MessageBoxResult.Yes) return;
+
+        await selectedDatabases.DeleteCloudFilesAsync(ProjectSystem.Wpf);
+
+        MsgBox.Show(WelcomeManagementResources.MessageBoxRemoveDataBaseSuccessMessage, MsgBoxImage.Check, MessageBoxButton.OK);
+    }
+
+    #endregion
+
     #region Export
 
     /// <summary>
