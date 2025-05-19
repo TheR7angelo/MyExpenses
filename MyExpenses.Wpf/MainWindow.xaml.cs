@@ -205,31 +205,9 @@ public partial class MainWindow
 
     private void MenuItemVacuumDatabases_OnClick(object sender, RoutedEventArgs e)
     {
-        // ReSharper disable HeapView.ObjectAllocation.Evident
-        var listSuccess = new List<bool>();
-        var sizeDatabases = new List<SizeDatabase>();
-        // ReSharper restore HeapView.ObjectAllocation.Evident
+        var vacuumDatabases = Core.ImportExportUtils.VacuumDatabases();
 
-        foreach (var existingDatabase in DbContextBackup.GetExistingDatabase())
-        {
-            var oldSize = existingDatabase.FileInfo.Length;
-            var result = existingDatabase.FilePath.VacuumDatabase();
-            listSuccess.Add(result);
-
-            if (result is not true) continue;
-
-            // ReSharper disable once HeapView.ObjectAllocation.Evident
-            var newSize = new FileInfo(existingDatabase.FilePath).Length;
-
-            // ReSharper disable once HeapView.ObjectAllocation.Evident
-            var sizeDatabase = new SizeDatabase { FileNameWithoutExtension = existingDatabase.FileNameWithoutExtension };
-            sizeDatabase.SetOldSize(oldSize);
-            sizeDatabase.SetNewSize(newSize);
-
-            sizeDatabases.Add(sizeDatabase);
-        }
-
-        if (listSuccess.Contains(false))
+        if (vacuumDatabases.Contains(null))
         {
             MsgBox.Show(MainWindowResources.MessageBoxMenuItemVacuumDatabasesError, MsgBoxImage.Error,
                 MessageBoxButton.OK);
@@ -242,10 +220,10 @@ public partial class MainWindow
 
         VaccumDatabase?.Invoke();
 
-        if (!listSuccess.Any(s => s)) return;
+        var notNullVacuumDatabases = vacuumDatabases.Where(s => s is not null);
 
         // ReSharper disable once HeapView.ObjectAllocation.Evident
-        var vacuumDatabaseUpdateWindow = new VacuumDatabaseUpdateWindow(sizeDatabases);
+        var vacuumDatabaseUpdateWindow = new VacuumDatabaseUpdateWindow(notNullVacuumDatabases!);
         vacuumDatabaseUpdateWindow.ShowDialog();
     }
 
