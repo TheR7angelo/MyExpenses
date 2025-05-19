@@ -116,7 +116,7 @@ public partial class WelcomePage
     }
 
     private void ButtonExportDataBase_OnClick(object sender, RoutedEventArgs e)
-        => _ = HandleButtonExportDataBase();
+        => _ = ExistingDatabases.HandleButtonExportDataBase();
 
     private void ButtonImportDataBase_OnClick(object sender, RoutedEventArgs e)
         => _ = HandleButtonImportDataBase();
@@ -131,7 +131,7 @@ public partial class WelcomePage
     private static bool ConfirmDeletion(string message)
     {
         var response = MsgBox.Show(message, MsgBoxImage.Question, MessageBoxButton.YesNoCancel);
-        return response == MessageBoxResult.Yes;
+        return response is MessageBoxResult.Yes;
     }
 
     private static async Task DeleteCloudFilesAsync(List<ExistingDatabase> databases)
@@ -184,76 +184,6 @@ public partial class WelcomePage
         return selectDatabaseFileWindow.DialogResult == true
             ? selectDatabaseFileWindow.ExistingDatabasesSelected
             : null;
-    }
-
-    private async Task HandleButtonExportDataBase()
-    {
-        var saveLocation = SaveLocationUtils.GetExportSaveLocation();
-        if (saveLocation is null) return;
-
-        // ReSharper disable once HeapView.ObjectAllocation.Evident
-        // An instance of SelectDatabaseFileWindow is created to handle the selection of existing databases to export.
-        // The SetExistingDatabase method is called with the ExistingDatabases to provide context or validate against existing entries.
-        // ShowDialog() is used to display the window modally and obtain the user's action.
-        // If the dialog result is not true (e.g., the user cancels or closes the window), the method exits early.
-        var selectDatabaseFileWindow = new SelectDatabaseFileWindow();
-        selectDatabaseFileWindow.ExistingDatabases.AddRange(ExistingDatabases);
-
-        selectDatabaseFileWindow.ShowDialog();
-
-        if (selectDatabaseFileWindow.DialogResult is not true) return;
-        if (selectDatabaseFileWindow.ExistingDatabasesSelected.Count.Equals(0)) return;
-
-        // ReSharper disable once HeapView.ObjectAllocation.Evident
-        // An instance of WaitScreenWindow is created to handle the display of a wait screen while the export is in progress.
-        // The Show() method is used to display the window and start the wait screen.
-        // The Close() method is used to close the window and stop the wait screen.
-        var waitScreenWindow = new WaitScreenWindow();
-        try
-        {
-            switch (saveLocation)
-            {
-                case SaveLocation.Database:
-                    waitScreenWindow.WaitMessage = WelcomeManagementResources.ActivityIndicatorExportDatabaseToLocal;
-                    waitScreenWindow.Show();
-                    await selectDatabaseFileWindow.ExistingDatabasesSelected.SaveToLocalDatabase();
-                    break;
-
-                case SaveLocation.Folder:
-                    waitScreenWindow.WaitMessage = WelcomeManagementResources.ActivityIndicatorExportDatabaseToLocal;
-                    waitScreenWindow.Show();
-                    await selectDatabaseFileWindow.ExistingDatabasesSelected.ExportToLocalFolderAsync(false);
-                    break;
-
-                case SaveLocation.Compress:
-                    waitScreenWindow.WaitMessage = WelcomeManagementResources.ActivityIndicatorExportDatabaseToLocal;
-                    waitScreenWindow.Show();
-                    await selectDatabaseFileWindow.ExistingDatabasesSelected.ExportToLocalFolderAsync(true);
-                    break;
-
-                case SaveLocation.Dropbox:
-                    waitScreenWindow.WaitMessage = WelcomeManagementResources.ActivityIndicatorExportDatabaseToCloud;
-                    waitScreenWindow.Show();
-                    await selectDatabaseFileWindow.ExistingDatabasesSelected.SaveToCloudAsync(ProjectSystem.Wpf);
-                    break;
-
-                case null:
-                case SaveLocation.Local:
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
-
-            waitScreenWindow.Close();
-
-            MsgBox.Show(WelcomeManagementResources.ButtonExportDataBaseSuccessMessage, MsgBoxImage.Check);
-        }
-        catch (Exception exception)
-        {
-            Log.Error(exception, "An error occurred. Please try again");
-            waitScreenWindow.Close();
-
-            MsgBox.Show(WelcomeManagementResources.MessageBoxExportDataBaseErrorMessage, MsgBoxImage.Warning);
-        }
     }
 
     private async Task HandleButtonImportDataBase()

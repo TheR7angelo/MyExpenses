@@ -1,12 +1,18 @@
 ﻿using System.IO;
 using System.Windows;
+using MyExpenses.Core;
 using MyExpenses.Core.Export;
 using MyExpenses.Models.IO;
+using MyExpenses.Models.WebApi.Authenticator;
+using MyExpenses.Models.Wpf.Save;
+using MyExpenses.SharedUtils.Collection;
 using MyExpenses.SharedUtils.GlobalInfos;
 using MyExpenses.SharedUtils.Resources.Resx.WelcomeManagement;
 using MyExpenses.SharedUtils.Utils;
 using MyExpenses.Wpf.Utils.FilePicker;
+using MyExpenses.Wpf.Windows;
 using MyExpenses.Wpf.Windows.MsgBox;
+using MyExpenses.Wpf.Windows.SaveLocationWindow;
 using Serilog;
 
 namespace MyExpenses.Wpf;
@@ -143,6 +149,83 @@ public static class ImportExportUtils
         var response = MsgBox.Show(WelcomeManagementResources.MessageBoxOpenExportFolderQuestionMessage, MsgBoxImage.Question,
             MessageBoxButton.YesNo);
         if (response is MessageBoxResult.Yes) selectedDialog.StartFile();
+    }
+
+    /// <summary>
+    /// Handles the export process of the selected database based on the chosen save location.
+    /// The method includes displaying selection dialogs, handling export actions, and providing feedback to the user.
+    /// </summary>
+    /// <param name="existingDatabases">A list of existing database instances available for selection and export.</param>
+    /// <returns>A task that represents the asynchronous operation of exporting the selected database.</returns>
+    /// <exception cref="ArgumentOutOfRangeException">Thrown when the provided save location is invalid or unsupported.</exception>
+    public static async Task HandleButtonExportDataBase(this IEnumerable<ExistingDatabase> existingDatabases)
+    {
+        var saveLocation = SaveLocationUtils.GetExportSaveLocation();
+        if (saveLocation is null) return;
+
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // An instance of SelectDatabaseFileWindow is created to handle the selection of existing databases to export.
+        // The SetExistingDatabase method is called with the ExistingDatabases to provide context or validate against existing entries.
+        // ShowDialog() is used to display the window modally and obtain the user's action.
+        // If the dialog result is not true (e.g., the user cancels or closes the window), the method exits early.
+        var selectDatabaseFileWindow = new SelectDatabaseFileWindow();
+        selectDatabaseFileWindow.ExistingDatabases.AddRange(existingDatabases);
+
+        selectDatabaseFileWindow.ShowDialog();
+
+        if (selectDatabaseFileWindow.DialogResult is not true) return;
+        if (selectDatabaseFileWindow.ExistingDatabasesSelected.Count.Equals(0)) return;
+
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // An instance of WaitScreenWindow is created to handle the display of a wait screen while the export is in progress.
+        // The Show() method is used to display the window and start the wait screen.
+        // The Close() method is used to close the window and stop the wait screen.
+        var waitScreenWindow = new WaitScreenWindow();
+        try
+        {
+            switch (saveLocation)
+            {
+                case SaveLocation.Database:
+                    waitScreenWindow.WaitMessage = WelcomeManagementResources.ActivityIndicatorExportDatabaseToLocal;
+                    waitScreenWindow.Show();
+                    await selectDatabaseFileWindow.ExistingDatabasesSelected.SaveToLocalDatabase();
+                    break;
+
+                case SaveLocation.Folder:
+                    waitScreenWindow.WaitMessage = WelcomeManagementResources.ActivityIndicatorExportDatabaseToLocal;
+                    waitScreenWindow.Show();
+                    await selectDatabaseFileWindow.ExistingDatabasesSelected.ExportToLocalFolderAsync(false);
+                    break;
+
+                case SaveLocation.Compress:
+                    waitScreenWindow.WaitMessage = WelcomeManagementResources.ActivityIndicatorExportDatabaseToLocal;
+                    waitScreenWindow.Show();
+                    await selectDatabaseFileWindow.ExistingDatabasesSelected.ExportToLocalFolderAsync(true);
+                    break;
+
+                case SaveLocation.Dropbox:
+                    waitScreenWindow.WaitMessage = WelcomeManagementResources.ActivityIndicatorExportDatabaseToCloud;
+                    waitScreenWindow.Show();
+                    await selectDatabaseFileWindow.ExistingDatabasesSelected.SaveToCloudAsync(ProjectSystem.Wpf);
+                    break;
+
+                case null:
+                case SaveLocation.Local:
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
+
+            waitScreenWindow.Close();
+
+            MsgBox.Show(WelcomeManagementResources.ButtonExportDataBaseSuccessMessage, MsgBoxImage.Check);
+        }
+        catch (Exception exception)
+        {
+            Log.Error(exception, "An error occurred. Please try again");
+            waitScreenWindow.Close();
+
+            MsgBox.Show(WelcomeManagementResources.MessageBoxExportDataBaseErrorMessage, MsgBoxImage.Warning);
+        }
     }
 
     /// <summary>
