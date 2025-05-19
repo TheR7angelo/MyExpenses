@@ -49,6 +49,8 @@ public static class ImportExportUtils
         _ = existingDatabases.CheckExistingDatabaseIsSyncAsync(projectSystem);
     }
 
+    #region Delete
+
     /// <summary>
     /// Deletes a collection of cloud-stored database files from the specified cloud directory.
     /// </summary>
@@ -83,6 +85,8 @@ public static class ImportExportUtils
             }
         }
     }
+
+    #endregion
 
     #region Export
 

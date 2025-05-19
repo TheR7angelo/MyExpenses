@@ -6,17 +6,14 @@ using MyExpenses.Core;
 using MyExpenses.Models.IO;
 using MyExpenses.Models.WebApi.Authenticator;
 using MyExpenses.Models.WebApi.DropBox;
-using MyExpenses.Models.Wpf.Save;
 using MyExpenses.SharedUtils.Collection;
 using MyExpenses.SharedUtils.GlobalInfos;
 using MyExpenses.SharedUtils.Resources.Resx.WelcomeManagement;
 using MyExpenses.Sql.Context;
 using MyExpenses.WebApi.Dropbox;
-using MyExpenses.Wpf.Utils.FilePicker;
 using MyExpenses.Wpf.Windows;
 using MyExpenses.Wpf.Windows.AutoUpdaterGitHub;
 using MyExpenses.Wpf.Windows.MsgBox;
-using MyExpenses.Wpf.Windows.SaveLocationWindow;
 using Serilog;
 
 namespace MyExpenses.Wpf.Pages;
@@ -119,7 +116,7 @@ public partial class WelcomePage
         => _ = ExistingDatabases.HandleButtonExportDataBase();
 
     private void ButtonImportDataBase_OnClick(object sender, RoutedEventArgs e)
-        => _ = HandleButtonImportDataBase();
+        => _ = ExistingDatabases.HandleButtonImportDataBase();
 
     private void ButtonRemoveDataBase_OnClick(object sender, RoutedEventArgs e)
         => _ = HandleButtonRemoveDataBase();
@@ -186,55 +183,6 @@ public partial class WelcomePage
             : null;
     }
 
-    private async Task HandleButtonImportDataBase()
-    {
-        var saveLocation = SaveLocationUtils.GetImportSaveLocation(SaveLocationMode.LocalDropbox);
-        if (saveLocation is null) return;
-
-        // An instance of AddDatabaseFileWindow is created to handle the addition of a new database file.
-        // The SetExistingDatabase method is called with the ExistingDatabases to provide context or validate against existing entries.
-        // ShowDialog() is used to display the window modally and get the user's action.
-        // If the dialog result is not true (e.g., the user cancels or closes the window), the method exits early.
-        // ReSharper disable once HeapView.ObjectAllocation.Evident
-        var waitScreenWindow = new WaitScreenWindow();
-        try
-        {
-            switch (saveLocation)
-            {
-                case SaveLocation.Local:
-                    waitScreenWindow.WaitMessage = WelcomeManagementResources.ActivityIndicatorImportDatabaseFromLocal;
-                    waitScreenWindow.Show();
-                    await ImportFromLocalAsync();
-                    break;
-
-                case SaveLocation.Dropbox:
-                    waitScreenWindow.WaitMessage = WelcomeManagementResources.ActivityIndicatorImportDatabaseFromCloud;
-                    waitScreenWindow.Show();
-                    await ImportFromCloudAsync();
-                    break;
-
-                case null:
-                case SaveLocation.Folder:
-                case SaveLocation.Database:
-                case SaveLocation.Compress:
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
-
-            ExistingDatabases.RefreshExistingDatabases(ProjectSystem.Wpf);
-
-            waitScreenWindow.Close();
-            MsgBox.Show(WelcomeManagementResources.ButtonImportDataBaseImportSucessMessage, MsgBoxImage.Check);
-        }
-        catch (Exception exception)
-        {
-            Log.Error(exception, "An error occurred. Please try again");
-            waitScreenWindow.Close();
-
-            MsgBox.Show(WelcomeManagementResources.ButtonImportDataBaseErrorMessage, MsgBoxImage.Warning);
-        }
-    }
-
     private async Task HandleButtonRemoveDataBase()
     {
         var selectedDatabases = GetSelectedDatabases();
@@ -252,96 +200,6 @@ public partial class WelcomePage
         await DeleteCloudFilesAsync(selectedDatabases);
 
         MsgBox.Show(WelcomeManagementResources.MessageBoxRemoveDataBaseSuccessMessage, MsgBoxImage.Check, MessageBoxButton.OK);
-    }
-
-    private static async Task ImportFromCloudAsync()
-    {
-        Log.Information("Starting to import the database from cloud storage");
-        var dropboxService = await DropboxService.CreateAsync(ProjectSystem.Wpf);
-        var metadatas = await dropboxService.ListFileAsync(DatabaseInfos.CloudDirectoryBackupDatabase);
-        metadatas = metadatas.Where(s => Path.GetExtension(s.PathDisplay).Equals(DatabaseInfos.Extension));
-
-        // ReSharper disable once HeapView.ObjectAllocation.Evident
-        // An instance of ExistingDatabase is created for each file in the cloud directory.
-        var existingDatabases = metadatas.Select(s => new ExistingDatabase(s.PathDisplay)).ToList();
-        foreach (var existingDatabase in existingDatabases)
-        {
-            var filePath = Path.Join(DatabaseInfos.LocalDirectoryDatabase, existingDatabase.FileName);
-
-            // ReSharper disable once HeapView.ObjectAllocation.Evident
-            // An instance of ExistingDatabase is created to handle the status of the database.
-            var localDatabase = new ExistingDatabase(filePath);
-            existingDatabase.SyncStatus = await localDatabase.CheckStatus(ProjectSystem.Wpf);
-        }
-
-        // ReSharper disable once HeapView.ObjectAllocation.Evident
-        // An instance of SelectDatabaseFileWindow is created to handle the selection of existing databases to import.
-        // The SetExistingDatabase method is called with the ExistingDatabases to provide context or validate against existing entries.
-        // ShowDialog() is used to display the window modally and obtain the user's action.
-        // If the dialog result is not true (e.g., the user cancels or closes the window), the method exits early.
-        var selectDatabaseFileWindow = new SelectDatabaseFileWindow();
-        selectDatabaseFileWindow.ExistingDatabases.AddRange(existingDatabases);
-        selectDatabaseFileWindow.ShowDialog();
-
-        if (selectDatabaseFileWindow.DialogResult is not true)
-        {
-            Log.Warning("Import cancelled. No database selected");
-            return;
-        }
-
-        if (selectDatabaseFileWindow.ExistingDatabasesSelected.Any(s => s.SyncStatus is SyncStatus.RemoteIsOutdated))
-        {
-            var question = string.Format(WelcomeManagementResources.CloudDatabaseOutdatedWarningQuestionMessage, Environment.NewLine);
-            var response = MsgBox.Show(WelcomeManagementResources.CloudDatabaseOutdatedWarningQuestionTitle, question,
-                MessageBoxButton.YesNoCancel, MsgBoxImage.Warning);
-            if (response is not MessageBoxResult.Yes)
-            {
-                Log.Information("Import cancelled. User chose to not import the cloud databases");
-                return;
-            }
-        }
-
-        var files = selectDatabaseFileWindow.ExistingDatabasesSelected.Select(s => s.FilePath);
-        foreach (var file in files)
-        {
-            var fileName = Path.GetFileName(file);
-            var newFilePath = Path.Join(DatabaseInfos.LocalDirectoryDatabase, fileName);
-
-            var temp = await dropboxService.DownloadFileAsync(file);
-            Log.Information("Downloading {FileName} from cloud storage", fileName);
-            File.Move(temp, newFilePath, true);
-            Log.Information("Successfully downloaded {FileName} from cloud storage", fileName);
-        }
-    }
-
-    private static async Task ImportFromLocalAsync()
-    {
-        Log.Information("Starting to import the database from local storage");
-
-        // ReSharper disable once HeapView.ObjectAllocation.Evident
-        // An instance of SqliteFileDialog is created to handle the selection of a file to import the database from.
-        // ShowDialog() is used to display the window modally and obtain the user's action.
-        // If the dialog result is not true (e.g., the user cancels or closes the window), the method exits early.
-        var dialog = new SqliteFileDialog(multiSelect: true);
-        var files = dialog.GetFiles();
-
-        if (files is null || files.Length.Equals(0))
-        {
-            Log.Warning("Import cancelled. No files selected");
-            return;
-        }
-
-        await Parallel.ForEachAsync(files, (file, _) =>
-        {
-            var fileName = Path.GetFileName(file);
-            var newFilePath = Path.Join(DatabaseInfos.LocalDirectoryDatabase, fileName);
-
-            Log.Information("Copying {FileName} to local storage", fileName);
-            File.Copy(file, newFilePath, true);
-            Log.Information("Successfully copied {FileName} to local storage", fileName);
-
-            return default;
-        });
     }
 
     #endregion
