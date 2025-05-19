@@ -1,27 +1,17 @@
 ﻿using System.ComponentModel;
-using System.IO;
 using System.Reflection;
 using System.Windows;
 using System.Windows.Input;
 using MyExpenses.Core;
-using MyExpenses.Core.Export;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.IO;
-using MyExpenses.Models.WebApi.Authenticator;
-using MyExpenses.Models.Wpf.Save;
-using MyExpenses.SharedUtils;
-using MyExpenses.SharedUtils.GlobalInfos;
 using MyExpenses.SharedUtils.Resources.Resx.DashBoardManagement;
 using MyExpenses.SharedUtils.Utils;
 using MyExpenses.Sql.Context;
-using MyExpenses.WebApi.Dropbox;
 using MyExpenses.Wpf.Resources.Resx.Windows.MainWindow;
 using MyExpenses.Wpf.Utils;
-using MyExpenses.Wpf.Utils.FilePicker;
 using MyExpenses.Wpf.Windows;
 using MyExpenses.Wpf.Windows.MsgBox;
-using MyExpenses.Wpf.Windows.SaveLocationWindow;
-using Serilog;
 
 namespace MyExpenses.Wpf;
 
@@ -195,7 +185,7 @@ public partial class MainWindow
         => App.CancellationTokenSource.Cancel();
 
     private void MenuItemDatabaseExport_OnClick(object sender, RoutedEventArgs e)
-        => _ = HandleMenuItemDatabaseExport();
+        => _ = DataBaseContext.FilePath!.HandleButtonExportDataBase();
 
     private void MenuItemHelp_OnClick(object sender, RoutedEventArgs e)
     {
@@ -268,59 +258,6 @@ public partial class MainWindow
 
     #region Function
 
-    private static async Task HandleMenuItemDatabaseExport()
-    {
-        var saveLocation = SaveLocationUtils.GetExportSaveLocation();
-        if (saveLocation is null) return;
-
-        var database = DataBaseContext.FilePath!;
-
-        // ReSharper disable once HeapView.ObjectAllocation.Evident
-        var waitScreenWindow = new WaitScreenWindow();
-        try
-        {
-            switch (saveLocation)
-            {
-                case SaveLocation.Database:
-                    waitScreenWindow.WaitMessage = MainWindowResources.MenuItemDatabaseExportWaitMessageExportToLocal;
-                    waitScreenWindow.Show();
-                    await SaveToLocal(database);
-                    break;
-
-                case SaveLocation.Folder:
-                    waitScreenWindow.WaitMessage = MainWindowResources.MenuItemDatabaseExportWaitMessageExportToLocal;
-                    waitScreenWindow.Show();
-                    await ExportToLocalFolderAsync(database, false);
-                    break;
-
-                case SaveLocation.Compress:
-                    waitScreenWindow.WaitMessage = MainWindowResources.MenuItemDatabaseExportWaitMessageExportToLocal;
-                    waitScreenWindow.Show();
-                    await ExportToLocalFolderAsync(database, true);
-                    break;
-
-                case SaveLocation.Dropbox:
-                    waitScreenWindow.WaitMessage = MainWindowResources.MenuItemDatabaseExportWaitMessageExportToCloud;
-                    waitScreenWindow.Show();
-                    await SaveToCloudAsync(database);
-                    break;
-
-                default:
-                    throw new ArgumentOutOfRangeException();
-            }
-
-            waitScreenWindow.Close();
-            MsgBox.Show(MainWindowResources.MenuItemDatabaseExportSucess, MsgBoxImage.Check);
-        }
-        catch (Exception exception)
-        {
-            Log.Error(exception, "An error occurred. Please try again");
-            waitScreenWindow.Close();
-
-            MsgBox.Show(MainWindowResources.MenuItemDatabaseExportError, MsgBoxImage.Warning);
-        }
-    }
-
     private void UpdateLanguage()
     {
         MenuItemHeaderFile = MainWindowResources.MenuItemHeaderFile;
@@ -335,82 +272,6 @@ public partial class MainWindow
 
         MenuItemHeaderSettings = MainWindowResources.MenuItemHeaderSettings;
         MenuItemHeaderPrevious = MainWindowResources.MenuItemHeaderPrevious;
-    }
-
-    // private static async Task<FileMetadata> SaveToCloudAsync(string database)
-    private static async Task SaveToCloudAsync(string database)
-    {
-        var dropboxService = await DropboxService.CreateAsync(ProjectSystem.Wpf);
-        Log.Information("Starting to upload {FileName} to cloud storage", Path.GetFileName(database));
-        _ = await dropboxService.UploadFileAsync(database, DatabaseInfos.CloudDirectoryBackupDatabase);
-        Log.Information("Successfully uploaded {FileName} to cloud storage", Path.GetFileName(database));
-
-        // return fileMetadata;
-    }
-
-    // ReSharper disable HeapView.ClosureAllocation
-    private static async Task ExportToLocalFolderAsync(string databaseFilePath, bool isCompress)
-        // ReSharper restore HeapView.ClosureAllocation
-    {
-        // ReSharper disable once HeapView.ObjectAllocation.Evident
-        var folderDialog = new FolderDialog();
-        var selectedDialog = folderDialog.GetFile();
-
-        if (string.IsNullOrEmpty(selectedDialog))
-        {
-            Log.Warning("Export cancelled. No file path provided");
-            return;
-        }
-
-        Log.Information("Starting to export database to {SelectedDialog}", selectedDialog);
-
-        var success = false;
-
-        // ReSharper disable once HeapView.DelegateAllocation
-        await Task.Run(async () =>
-        {
-            // ReSharper disable once HeapView.ObjectAllocation.Evident
-            var existingDatabase = new ExistingDatabase(databaseFilePath);
-            success = await existingDatabase.ToFolderAsync(selectedDialog, isCompress);
-        });
-
-        if (!success)
-        {
-            Log.Error("An error occured while exporting the database");
-            MsgBox.Show(MainWindowResources.MessageBoxErrorExportToLocalFolder, MsgBoxImage.Error, MessageBoxButton.OK);
-            return;
-        }
-        Log.Information("Database successfully copied to local storage");
-
-        var response = MsgBox.Show(MainWindowResources.MessageBoxOpenExportFolderQuestion, MsgBoxImage.Question,
-            MessageBoxButton.YesNo);
-        if (response is MessageBoxResult.Yes) selectedDialog.StartFile();
-    }
-
-    // ReSharper disable once HeapView.ClosureAllocation
-    private static async Task SaveToLocal(string database)
-    {
-        // ReSharper disable once HeapView.ObjectAllocation.Evident
-        var sqliteDialog = new SqliteFileDialog(Path.GetFileName(database));
-        var selectedDialog = sqliteDialog.SaveFile();
-
-        if (string.IsNullOrEmpty(selectedDialog))
-        {
-            Log.Warning("Export cancelled. No file path provided");
-            return;
-        }
-
-        selectedDialog = Path.ChangeExtension(selectedDialog, DatabaseInfos.Extension);
-        Log.Information("Starting to copy database to {SelectedDialog}", selectedDialog);
-
-        await database.CopyAsync(selectedDialog, true);
-
-        Log.Information("Database successfully copied to local storage");
-
-        var parentDirectory = Path.GetDirectoryName(selectedDialog)!;
-        var response = MsgBox.Show(MainWindowResources.MessageBoxOpenExportFolderQuestion, MsgBoxImage.Question,
-            MessageBoxButton.YesNo);
-        if (response is MessageBoxResult.Yes) parentDirectory.StartFile();
     }
 
     #endregion
