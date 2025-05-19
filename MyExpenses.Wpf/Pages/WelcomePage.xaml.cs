@@ -31,7 +31,7 @@ public partial class WelcomePage
         AutoUpdaterGitHub.CheckUpdateGitHub();
 
         // ReSharper disable once HeapView.DelegateAllocation
-        MainWindow.VaccumDatabase += MainWindow_OnVaccumDatabase;
+        Models.Sql.Vaccum.VaccumDatabase += MainWindow_OnVaccumDatabase;
     }
 
     private void MainWindow_OnVaccumDatabase()

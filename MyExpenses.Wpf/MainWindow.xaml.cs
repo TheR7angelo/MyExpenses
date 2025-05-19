@@ -138,10 +138,6 @@ public partial class MainWindow
 
     #endregion
 
-    public delegate void VaccumDatabaseEventHandler();
-
-    public static event VaccumDatabaseEventHandler? VaccumDatabase;
-
     public MainWindow()
     {
         var assembly = Assembly.GetEntryAssembly()!;
@@ -209,7 +205,7 @@ public partial class MainWindow
                 MessageBoxButton.OK);
         }
 
-        VaccumDatabase?.Invoke();
+        Models.Sql.Vaccum.OnVacuumDatabase();
 
         var notNullVacuumDatabases = vacuumDatabases.Where(s => s is not null);
 
@@ -238,7 +234,7 @@ public partial class MainWindow
                 MessageBoxButton.OK);
         }
 
-        VaccumDatabase?.Invoke();
+        Models.Sql.Vaccum.OnVacuumDatabase();
     }
 
     private void MenuItemSetting_OnClick(object sender, RoutedEventArgs e)
