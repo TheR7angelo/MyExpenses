@@ -434,7 +434,10 @@ public partial class AddEditLocationContentPage
                     AddEditLocationResources.MessageBoxNominatimResultZeroResultOkButton);
                 break;
             case 1:
-                await DisplayAlert("Test", AddEditLocationResources.HandleNominatimResultOneResult, "Ok");
+                await DisplayAlert(AddEditLocationResources.HandleNominatimResultOneResultTitle,
+                    AddEditLocationResources.HandleNominatimResultOneResultMessage,
+                    AddEditLocationResources.HandleNominatimResultOneResultOkButton);
+
                 var nominatimSearchResult = nominatimSearchResults.First();
                 place = Mapping.Mapper.Map<TPlace>(nominatimSearchResult);
                 break;
