@@ -469,11 +469,13 @@ public partial class AddEditLocationWindow
         switch (nominatimSearchResults.Count)
         {
             case 0:
+                Log.Information("The API returned no result(s)");
                 MsgBox.MsgBox.Show(AddEditLocationResources.MessageBoxNominatimResultZeroResultTitle,
                     AddEditLocationResources.MessageBoxNominatimResultZeroResultMessage,
                     MessageBoxButton.OK, MsgBoxImage.Exclamation);
                 break;
             case 1:
+                Log.Information("The API returned one result");
                 MsgBox.MsgBox.Show(AddEditLocationResources.MessageBoxNominatimResultOneResultTitle,
                     AddEditLocationResources.MessageBoxNominatimResultOneResultMessage,
                     MessageBoxButton.OK, MsgBoxImage.Check);
@@ -485,8 +487,12 @@ public partial class AddEditLocationWindow
                 Log.Information("The API returned multiple results ({Count}) :", nominatimSearchResults.Count);
                 Log.Information("Detailed results: {NominatimSearchResults}", nominatimSearchResults);
 
-                var places = nominatimSearchResults.Select(s => Mapping.Mapper.Map<TPlace>(s));
+                MsgBox.MsgBox.Show(AddEditLocationResources.MessageBoxNominatimResultMultipleResultTitle,
+                    AddEditLocationResources.MessageBoxNominatimResultMultipleResultMessage,
+                    MessageBoxButton.OK, MsgBoxImage.Information);
 
+                var places = nominatimSearchResults
+                    .Select(s => Mapping.Mapper.Map<TPlace>(s));
                 // ReSharper disable once HeapView.ObjectAllocation.Evident
                 var nominatimSearchWindows = new NominatimSearchWindow();
                 nominatimSearchWindows.AddRange(places);
