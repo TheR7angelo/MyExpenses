@@ -336,22 +336,9 @@ public partial class AddEditLocationContentPage
         Log.Information("Using the nominatim API to search via a point : {Point}", point);
         var nominatimSearchResult = point.ToNominatim();
 
-        var mapper = Mapping.Mapper;
-        var newPlace = mapper.Map<TPlace>(nominatimSearchResult);
-        if (newPlace is null)
-        {
-            Log.Information("The API returned no result(s)");
-            await DisplayAlert(AddEditLocationResources.ButtonSearchByCoordinateMessageBoxErrorTitle,
-                AddEditLocationResources.ButtonSearchByCoordinateMessageBoxErrorMessage,
-                AddEditLocationResources.ButtonSearchByCoordinateMessageBoxErrorOkButton);
-            return;
-        }
-
-        Log.Information("The API returned one result");
-
-        newPlace.Id = Place.Id;
-        newPlace.DateAdded = Place.DateAdded ?? newPlace.DateAdded;
-        SetPlace(newPlace, true);
+        var results = new List<NominatimSearchResult>();
+        if (nominatimSearchResult is not null) results.Add(nominatimSearchResult);
+        await HandleNominatimResult(results);
     }
 
     public void SetPlace(TPlace newTPlace, bool clear)
@@ -429,11 +416,13 @@ public partial class AddEditLocationContentPage
         switch (nominatimSearchResults.Count)
         {
             case 0:
+                Log.Information("The API returned no result(s)");
                 await DisplayAlert(AddEditLocationResources.MessageBoxNominatimResultZeroResultTitle,
                     AddEditLocationResources.MessageBoxNominatimResultZeroResultMessage,
                     AddEditLocationResources.MessageBoxNominatimResultZeroResultOkButton);
                 break;
             case 1:
+                Log.Information("The API returned one result");
                 await DisplayAlert(AddEditLocationResources.HandleNominatimResultOneResultTitle,
                     AddEditLocationResources.HandleNominatimResultOneResultMessage,
                     AddEditLocationResources.HandleNominatimResultOneResultOkButton);
