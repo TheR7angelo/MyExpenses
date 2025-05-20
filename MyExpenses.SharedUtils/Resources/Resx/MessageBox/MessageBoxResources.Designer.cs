@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MyExpenses.Wpf.Resources.Resx.Windows.MsgBox {
+namespace MyExpenses.SharedUtils.Resources.Resx.MessageBox {
     using System;
     
     
@@ -21,24 +21,24 @@ namespace MyExpenses.Wpf.Resources.Resx.Windows.MsgBox {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class MsgBoxMessageWindowResources {
+    public class MessageBoxResources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal MsgBoxMessageWindowResources() {
+        public MessageBoxResources() {
         }
         
         /// <summary>
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MyExpenses.Wpf.Resources.Resx.Windows.MsgBox.MsgBoxMessageWindowResources", typeof(MsgBoxMessageWindowResources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MyExpenses.SharedUtils.Resources.Resx.MessageBox.MessageBoxResources", typeof(MessageBoxResources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -50,7 +50,7 @@ namespace MyExpenses.Wpf.Resources.Resx.Windows.MsgBox {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -62,7 +62,7 @@ namespace MyExpenses.Wpf.Resources.Resx.Windows.MsgBox {
         /// <summary>
         ///   Looks up a localized string similar to Cancel.
         /// </summary>
-        internal static string ButtonCancel {
+        public static string ButtonCancel {
             get {
                 return ResourceManager.GetString("ButtonCancel", resourceCulture);
             }
@@ -71,7 +71,7 @@ namespace MyExpenses.Wpf.Resources.Resx.Windows.MsgBox {
         /// <summary>
         ///   Looks up a localized string similar to No.
         /// </summary>
-        internal static string ButtonNo {
+        public static string ButtonNo {
             get {
                 return ResourceManager.GetString("ButtonNo", resourceCulture);
             }
@@ -80,7 +80,7 @@ namespace MyExpenses.Wpf.Resources.Resx.Windows.MsgBox {
         /// <summary>
         ///   Looks up a localized string similar to Ok.
         /// </summary>
-        internal static string ButtonOk {
+        public static string ButtonOk {
             get {
                 return ResourceManager.GetString("ButtonOk", resourceCulture);
             }
@@ -89,12 +89,21 @@ namespace MyExpenses.Wpf.Resources.Resx.Windows.MsgBox {
         /// <summary>
         ///   Looks up a localized string similar to Yes.
         /// </summary>
-        internal static string ButtonYes {
+        public static string ButtonYes {
             get {
                 return ResourceManager.GetString("ButtonYes", resourceCulture);
             }
         }
-
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Confirm.
+        /// </summary>
+        public static string CaptionCheck {
+            get {
+                return ResourceManager.GetString("CaptionCheck", resourceCulture);
+            }
+        }
+        
         /// <summary>
         ///   Looks up a localized string similar to Error.
         /// </summary>
@@ -103,25 +112,7 @@ namespace MyExpenses.Wpf.Resources.Resx.Windows.MsgBox {
                 return ResourceManager.GetString("CaptionError", resourceCulture);
             }
         }
-
-        /// <summary>
-        ///   Looks up a localized string similar to Question.
-        /// </summary>
-        public static string CaptionQuestion {
-            get {
-                return ResourceManager.GetString("CaptionQuestion", resourceCulture);
-            }
-        }
-
-        /// <summary>
-        ///   Looks up a localized string similar to Warning.
-        /// </summary>
-        public static string CaptionWarning {
-            get {
-                return ResourceManager.GetString("CaptionWarning", resourceCulture);
-            }
-        }
-
+        
         /// <summary>
         ///   Looks up a localized string similar to Information.
         /// </summary>
@@ -130,13 +121,22 @@ namespace MyExpenses.Wpf.Resources.Resx.Windows.MsgBox {
                 return ResourceManager.GetString("CaptionInformation", resourceCulture);
             }
         }
-
+        
         /// <summary>
-        ///   Looks up a localized string similar to Confirm.
+        ///   Looks up a localized string similar to Question.
         /// </summary>
-        public static string CaptionCheck {
+        public static string CaptionQuestion {
             get {
-                return ResourceManager.GetString("CaptionCheck", resourceCulture);
+                return ResourceManager.GetString("CaptionQuestion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Warning.
+        /// </summary>
+        public static string CaptionWarning {
+            get {
+                return ResourceManager.GetString("CaptionWarning", resourceCulture);
             }
         }
     }

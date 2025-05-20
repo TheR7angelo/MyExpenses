@@ -1,5 +1,5 @@
 ﻿using System.Windows;
-using MyExpenses.Wpf.Resources.Resx.Windows.MsgBox;
+using MyExpenses.SharedUtils.Resources.Resx.MessageBox;
 
 namespace MyExpenses.Wpf.Windows.MsgBox;
 
@@ -42,15 +42,15 @@ public static class MsgBox
         caption = string.IsNullOrWhiteSpace(caption)
             ? icon switch
             {
-                MsgBoxImage.Error => MsgBoxMessageWindowResources.CaptionError,
-                MsgBoxImage.Question => MsgBoxMessageWindowResources.CaptionQuestion,
-                MsgBoxImage.Warning => MsgBoxMessageWindowResources.CaptionWarning,
-                MsgBoxImage.Information => MsgBoxMessageWindowResources.CaptionInformation,
-                MsgBoxImage.Check => MsgBoxMessageWindowResources.CaptionCheck,
-                MsgBoxImage.Asterisk => string.Empty,
+                MsgBoxImage.Error => MessageBoxResources.CaptionError,
+                MsgBoxImage.Question => MessageBoxResources.CaptionQuestion,
+                MsgBoxImage.Warning => MessageBoxResources.CaptionWarning,
+                MsgBoxImage.Information => MessageBoxResources.CaptionInformation,
+                MsgBoxImage.Check => MessageBoxResources.CaptionCheck,
+                // MsgBoxImage.Asterisk => string.Empty,
                 MsgBoxImage.Exclamation => string.Empty,
-                MsgBoxImage.Stop => string.Empty,
-                MsgBoxImage.Hand => string.Empty,
+                // MsgBoxImage.Stop => string.Empty,
+                // MsgBoxImage.Hand => string.Empty,
                 MsgBoxImage.None => string.Empty,
                 _ => string.Empty
             }
