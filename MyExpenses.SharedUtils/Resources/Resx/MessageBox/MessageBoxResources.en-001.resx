@@ -38,4 +38,7 @@
     <data name="CaptionWarning" xml:space="preserve">
         <value>Warning</value>
     </data>
+    <data name="CaptionExclamation" xml:space="preserve">
+        <value>Attention</value>
+    </data>
 </root>

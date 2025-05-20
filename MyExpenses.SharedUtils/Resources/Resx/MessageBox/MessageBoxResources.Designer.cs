@@ -114,6 +114,15 @@ namespace MyExpenses.SharedUtils.Resources.Resx.MessageBox {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Attention.
+        /// </summary>
+        public static string CaptionExclamation {
+            get {
+                return ResourceManager.GetString("CaptionExclamation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Information.
         /// </summary>
         public static string CaptionInformation {

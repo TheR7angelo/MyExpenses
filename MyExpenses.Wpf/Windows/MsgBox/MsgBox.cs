@@ -48,7 +48,7 @@ public static class MsgBox
                 MsgBoxImage.Information => MessageBoxResources.CaptionInformation,
                 MsgBoxImage.Check => MessageBoxResources.CaptionCheck,
                 // MsgBoxImage.Asterisk => string.Empty,
-                MsgBoxImage.Exclamation => string.Empty,
+                MsgBoxImage.Exclamation => MessageBoxResources.CaptionExclamation,
                 // MsgBoxImage.Stop => string.Empty,
                 // MsgBoxImage.Hand => string.Empty,
                 MsgBoxImage.None => string.Empty,
