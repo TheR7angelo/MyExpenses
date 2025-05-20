@@ -188,9 +188,27 @@ namespace MyExpenses.SharedUtils.Resources.Resx.AddEditLocation {
         /// <summary>
         ///   Looks up a localized string similar to A result was found.
         /// </summary>
-        public static string HandleNominatimResultOneResult {
+        public static string HandleNominatimResultOneResultMessage {
             get {
-                return ResourceManager.GetString("HandleNominatimResultOneResult", resourceCulture);
+                return ResourceManager.GetString("HandleNominatimResultOneResultMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ok.
+        /// </summary>
+        public static string HandleNominatimResultOneResultOkButton {
+            get {
+                return ResourceManager.GetString("HandleNominatimResultOneResultOkButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Confirm.
+        /// </summary>
+        public static string HandleNominatimResultOneResultTitle {
+            get {
+                return ResourceManager.GetString("HandleNominatimResultOneResultTitle", resourceCulture);
             }
         }
         
