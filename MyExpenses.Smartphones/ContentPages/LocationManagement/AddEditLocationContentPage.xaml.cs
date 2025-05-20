@@ -441,16 +441,16 @@ public partial class AddEditLocationContentPage
 
                 // TODO work
 
-                // var places = nominatimSearchResults
-                //     .Select(s => Mapping.Mapper.Map<TPlace>(s));
+                var places = nominatimSearchResults.Select(s => Mapping.Mapper.Map<TPlace>(s));
                 // ReSharper disable once HeapView.ObjectAllocation.Evident
-                // var nominatimSearchWindows = new NominatimSearchWindow();
-                // nominatimSearchWindows.AddRange(places);
-                // nominatimSearchWindows.ShowDialog();
+                var nominatimSearchContentPage = new NominatimSearchContentPage();
+                nominatimSearchContentPage.AddRange(places);
+                await nominatimSearchContentPage.NavigateToAsync();
 
-                // if (nominatimSearchWindows.DialogResult is not true) return;
+                var result = await nominatimSearchContentPage.ResultDialog;
+                if (result is not true) return;
 
-                // place = Mapping.Mapper.Map<TPlace>(nominatimSearchWindows.CurrentPlace);
+                place = nominatimSearchContentPage.CurrentPlace;
                 break;
         }
 
