@@ -429,7 +429,9 @@ public partial class AddEditLocationContentPage
         switch (nominatimSearchResults.Count)
         {
             case 0:
-                await DisplayAlert("Test", AddEditLocationResources.HandleNominatimResultZeroResult, "Ok");
+                await DisplayAlert(AddEditLocationResources.MessageBoxNominatimResultZeroResultTitle,
+                    AddEditLocationResources.MessageBoxNominatimResultZeroResultMessage,
+                    AddEditLocationResources.MessageBoxNominatimResultZeroResultOkButton);
                 break;
             case 1:
                 await DisplayAlert("Test", AddEditLocationResources.HandleNominatimResultOneResult, "Ok");
