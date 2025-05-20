@@ -45,7 +45,7 @@
     <data name="CheckBoxContentIsOpen" xml:space="preserve">
         <value>The place is open :</value>
     </data>
-    <data name="HandleNominatimResultMultipleResult" xml:space="preserve">
+    <data name="MessageBoxNominatimResultMultipleResultMessage" xml:space="preserve">
         <value>Several results were found, please choose one</value>
     </data>
     <data name="MessageBoxNominatimResultOneResultMessage" xml:space="preserve">
@@ -118,6 +118,12 @@
         <value>Confirm</value>
     </data>
     <data name="MessageBoxNominatimResultOneResultOkButton" xml:space="preserve">
+        <value>Ok</value>
+    </data>
+    <data name="MessageBoxNominatimResultMultipleResultTitle" xml:space="preserve">
+        <value>Information</value>
+    </data>
+    <data name="MessageBoxNominatimResultMultipleResultOkButton" xml:space="preserve">
         <value>Ok</value>
     </data>
 </root>

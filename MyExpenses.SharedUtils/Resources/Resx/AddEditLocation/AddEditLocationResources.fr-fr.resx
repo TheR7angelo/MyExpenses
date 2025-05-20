@@ -38,7 +38,7 @@
     <data name="CheckBoxContentIsOpen" xml:space="preserve">
         <value>Le lieu est ouvert :</value>
     </data>
-    <data name="HandleNominatimResultMultipleResult" xml:space="preserve">
+    <data name="MessageBoxNominatimResultMultipleResultMessage" xml:space="preserve">
         <value>Plusieurs résultats ont été trouvés, veuillez en choisir un</value>
     </data>
     <data name="MessageBoxNominatimResultOneResultMessage" xml:space="preserve">
@@ -112,5 +112,11 @@
     </data>
     <data name="MessageBoxNominatimResultOneResultTitle" xml:space="preserve">
         <value>Confirmer</value>
+    </data>
+    <data name="MessageBoxNominatimResultMultipleResultOkButton" xml:space="preserve">
+        <value>Ok</value>
+    </data>
+    <data name="MessageBoxNominatimResultMultipleResultTitle" xml:space="preserve">
+        <value>Information</value>
     </data>
 </root>

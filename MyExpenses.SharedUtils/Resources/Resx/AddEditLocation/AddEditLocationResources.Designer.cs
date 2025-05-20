@@ -177,15 +177,6 @@ namespace MyExpenses.SharedUtils.Resources.Resx.AddEditLocation {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Several results were found, please choose one.
-        /// </summary>
-        public static string HandleNominatimResultMultipleResult {
-            get {
-                return ResourceManager.GetString("HandleNominatimResultMultipleResult", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to An error occurred please retry.
         /// </summary>
         public static string MessageBoxDeletePlaceError {
@@ -227,6 +218,33 @@ namespace MyExpenses.SharedUtils.Resources.Resx.AddEditLocation {
         public static string MessageBoxDeleteQuestion {
             get {
                 return ResourceManager.GetString("MessageBoxDeleteQuestion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Several results were found, please choose one.
+        /// </summary>
+        public static string MessageBoxNominatimResultMultipleResultMessage {
+            get {
+                return ResourceManager.GetString("MessageBoxNominatimResultMultipleResultMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ok.
+        /// </summary>
+        public static string MessageBoxNominatimResultMultipleResultOkButton {
+            get {
+                return ResourceManager.GetString("MessageBoxNominatimResultMultipleResultOkButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Information.
+        /// </summary>
+        public static string MessageBoxNominatimResultMultipleResultTitle {
+            get {
+                return ResourceManager.GetString("MessageBoxNominatimResultMultipleResultTitle", resourceCulture);
             }
         }
         
