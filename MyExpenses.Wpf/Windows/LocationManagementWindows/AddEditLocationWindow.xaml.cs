@@ -500,7 +500,7 @@ public partial class AddEditLocationWindow
 
                 if (nominatimSearchWindows.DialogResult is not true) return;
 
-                place = Mapping.Mapper.Map<TPlace>(nominatimSearchWindows.CurrentPlace);
+                place = nominatimSearchWindows.CurrentPlace;
                 break;
         }
 
