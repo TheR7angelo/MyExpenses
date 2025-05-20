@@ -107,6 +107,11 @@ public partial class NominatimSearchContentPage
     // ReSharper disable once HeapView.ObjectAllocation.Evident
     private WritableLayer WritableLayer { get; } = new() { Style = null };
 
+    private readonly TaskCompletionSource<bool> _taskCompletionSource = new();
+
+    public Task<bool> ResultDialog
+        => _taskCompletionSource.Task;
+
     public NominatimSearchContentPage()
     {
         var map = MapsuiMapExtensions.GetMap(false);
