@@ -88,6 +88,10 @@
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>MessageBoxResources.Designer.cs</LastGenOutput>
       </EmbeddedResource>
+      <EmbeddedResource Update="Resources\Resx\NominatimSearchManagement\NominatimSearchManagementResources.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>NominatimSearchManagementResources.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
     </ItemGroup>
 
     <ItemGroup>
@@ -190,6 +194,11 @@
         <DesignTime>True</DesignTime>
         <AutoGen>True</AutoGen>
         <DependentUpon>MessageBoxResources.resx</DependentUpon>
+      </Compile>
+      <Compile Update="Resources\Resx\NominatimSearchManagement\NominatimSearchManagementResources.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>NominatimSearchManagementResources.resx</DependentUpon>
       </Compile>
     </ItemGroup>
 

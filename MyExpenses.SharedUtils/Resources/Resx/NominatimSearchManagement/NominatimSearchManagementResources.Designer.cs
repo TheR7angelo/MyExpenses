@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MyExpenses.Wpf.Resources.Resx.Windows.NominatimSearchWindow {
+namespace MyExpenses.SharedUtils.Resources.Resx.NominatimSearchManagement {
     using System;
     
     
@@ -21,25 +21,25 @@ namespace MyExpenses.Wpf.Resources.Resx.Windows.NominatimSearchWindow {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class NominatimSearchWindowResources {
+    public class NominatimSearchManagementResources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal NominatimSearchWindowResources() {
+        public NominatimSearchManagementResources() {
         }
         
         /// <summary>
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MyExpenses.Wpf.Resources.Resx.Windows.NominatimSearchWindow.NominatimSearchWindow" +
-                            "Resources", typeof(NominatimSearchWindowResources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MyExpenses.SharedUtils.Resources.Resx.NominatimSearchManagement.NominatimSearchMa" +
+                            "nagementResources", typeof(NominatimSearchManagementResources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -51,7 +51,7 @@ namespace MyExpenses.Wpf.Resources.Resx.Windows.NominatimSearchWindow {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,7 +63,7 @@ namespace MyExpenses.Wpf.Resources.Resx.Windows.NominatimSearchWindow {
         /// <summary>
         ///   Looks up a localized string similar to Cancel.
         /// </summary>
-        internal static string ButtonCancelContent {
+        public static string ButtonCancelContent {
             get {
                 return ResourceManager.GetString("ButtonCancelContent", resourceCulture);
             }
@@ -72,7 +72,7 @@ namespace MyExpenses.Wpf.Resources.Resx.Windows.NominatimSearchWindow {
         /// <summary>
         ///   Looks up a localized string similar to Valid.
         /// </summary>
-        internal static string ButtonValidContent {
+        public static string ButtonValidContent {
             get {
                 return ResourceManager.GetString("ButtonValidContent", resourceCulture);
             }
@@ -81,7 +81,7 @@ namespace MyExpenses.Wpf.Resources.Resx.Windows.NominatimSearchWindow {
         /// <summary>
         ///   Looks up a localized string similar to City :.
         /// </summary>
-        internal static string PlaceCityHintAssist {
+        public static string PlaceCityHintAssist {
             get {
                 return ResourceManager.GetString("PlaceCityHintAssist", resourceCulture);
             }
@@ -90,7 +90,7 @@ namespace MyExpenses.Wpf.Resources.Resx.Windows.NominatimSearchWindow {
         /// <summary>
         ///   Looks up a localized string similar to Country :.
         /// </summary>
-        internal static string PlaceCountryHintAssist {
+        public static string PlaceCountryHintAssist {
             get {
                 return ResourceManager.GetString("PlaceCountryHintAssist", resourceCulture);
             }
@@ -99,7 +99,7 @@ namespace MyExpenses.Wpf.Resources.Resx.Windows.NominatimSearchWindow {
         /// <summary>
         ///   Looks up a localized string similar to Name :.
         /// </summary>
-        internal static string PlaceNameHintAssist {
+        public static string PlaceNameHintAssist {
             get {
                 return ResourceManager.GetString("PlaceNameHintAssist", resourceCulture);
             }
@@ -108,7 +108,7 @@ namespace MyExpenses.Wpf.Resources.Resx.Windows.NominatimSearchWindow {
         /// <summary>
         ///   Looks up a localized string similar to Number :.
         /// </summary>
-        internal static string PlaceNumberHintAssist {
+        public static string PlaceNumberHintAssist {
             get {
                 return ResourceManager.GetString("PlaceNumberHintAssist", resourceCulture);
             }
@@ -117,7 +117,7 @@ namespace MyExpenses.Wpf.Resources.Resx.Windows.NominatimSearchWindow {
         /// <summary>
         ///   Looks up a localized string similar to Postal code :.
         /// </summary>
-        internal static string PlacePostalHintAssist {
+        public static string PlacePostalHintAssist {
             get {
                 return ResourceManager.GetString("PlacePostalHintAssist", resourceCulture);
             }
@@ -126,7 +126,7 @@ namespace MyExpenses.Wpf.Resources.Resx.Windows.NominatimSearchWindow {
         /// <summary>
         ///   Looks up a localized string similar to Street :.
         /// </summary>
-        internal static string PlaceStreetHintAssist {
+        public static string PlaceStreetHintAssist {
             get {
                 return ResourceManager.GetString("PlaceStreetHintAssist", resourceCulture);
             }

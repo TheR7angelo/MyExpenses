@@ -1,4 +1,4 @@
-<root>
+﻿<root>
     <resheader name="resmimetype">
         <value>text/microsoft-resx</value>
     </resheader>
@@ -11,28 +11,28 @@
     <resheader name="writer">
         <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
     </resheader>
-    <data name="PlaceNameHintAssist" xml:space="preserve">
-        <value>Name :</value>
-    </data>
-    <data name="PlaceNumberHintAssist" xml:space="preserve">
-        <value>Number :</value>
-    </data>
-    <data name="PlaceStreetHintAssist" xml:space="preserve">
-        <value>Street :</value>
-    </data>
-    <data name="PlacePostalHintAssist" xml:space="preserve">
-        <value>Postal code :</value>
-    </data>
-    <data name="PlaceCityHintAssist" xml:space="preserve">
-        <value>City :</value>
-    </data>
-    <data name="PlaceCountryHintAssist" xml:space="preserve">
-        <value>Country :</value>
-    </data>
     <data name="ButtonCancelContent" xml:space="preserve">
-        <value>Cancel</value>
+        <value>Annuler</value>
     </data>
     <data name="ButtonValidContent" xml:space="preserve">
-        <value>Valid</value>
+        <value>Valider</value>
+    </data>
+    <data name="PlaceCityHintAssist" xml:space="preserve">
+        <value>Ville :</value>
+    </data>
+    <data name="PlaceCountryHintAssist" xml:space="preserve">
+        <value>Pays :</value>
+    </data>
+    <data name="PlaceNameHintAssist" xml:space="preserve">
+        <value>Nom :</value>
+    </data>
+    <data name="PlaceNumberHintAssist" xml:space="preserve">
+        <value>Nombre :</value>
+    </data>
+    <data name="PlacePostalHintAssist" xml:space="preserve">
+        <value>Code Postal :</value>
+    </data>
+    <data name="PlaceStreetHintAssist" xml:space="preserve">
+        <value>Rue :</value>
     </data>
 </root>
