@@ -471,8 +471,9 @@ public partial class AddEditLocationWindow
         switch (nominatimSearchResults.Count)
         {
             case 0:
-                MsgBox.MsgBox.Show(AddEditLocationResources.HandleNominatimResultZeroResult,
-                    MsgBoxImage.Exclamation);
+                MsgBox.MsgBox.Show(AddEditLocationResources.MessageBoxNominatimResultZeroResultTitle,
+                    AddEditLocationResources.MessageBoxNominatimResultZeroResultMessage,
+                    MessageBoxButton.OK, MsgBoxImage.Exclamation);
                 break;
             case 1:
                 MsgBox.MsgBox.Show(AddEditLocationResources.HandleNominatimResultOneResult,
