@@ -476,8 +476,8 @@ public partial class AddEditLocationWindow
                     MessageBoxButton.OK, MsgBoxImage.Exclamation);
                 break;
             case 1:
-                MsgBox.MsgBox.Show(AddEditLocationResources.HandleNominatimResultOneResultTitle,
-                    AddEditLocationResources.HandleNominatimResultOneResultMessage,
+                MsgBox.MsgBox.Show(AddEditLocationResources.MessageBoxNominatimResultOneResultTitle,
+                    AddEditLocationResources.MessageBoxNominatimResultOneResultMessage,
                     MessageBoxButton.OK, MsgBoxImage.Check);
 
                 var nominatimSearchResult = nominatimSearchResults.First();

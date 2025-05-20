@@ -41,7 +41,7 @@
     <data name="HandleNominatimResultMultipleResult" xml:space="preserve">
         <value>Several results were found, please choose one</value>
     </data>
-    <data name="HandleNominatimResultOneResultMessage" xml:space="preserve">
+    <data name="MessageBoxNominatimResultOneResultMessage" xml:space="preserve">
         <value>A result was found</value>
     </data>
     <data name="MessageBoxNominatimResultZeroResultMessage" xml:space="preserve">
@@ -107,10 +107,10 @@
     <data name="MessageBoxNominatimResultZeroResultTitle" xml:space="preserve">
         <value>Attention</value>
     </data>
-    <data name="HandleNominatimResultOneResultOkButton" xml:space="preserve">
+    <data name="MessageBoxNominatimResultOneResultOkButton" xml:space="preserve">
         <value>Ok</value>
     </data>
-    <data name="HandleNominatimResultOneResultTitle" xml:space="preserve">
+    <data name="MessageBoxNominatimResultOneResultTitle" xml:space="preserve">
         <value>Confirm</value>
     </data>
 </root>

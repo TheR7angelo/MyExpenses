@@ -186,33 +186,6 @@ namespace MyExpenses.SharedUtils.Resources.Resx.AddEditLocation {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to A result was found.
-        /// </summary>
-        public static string HandleNominatimResultOneResultMessage {
-            get {
-                return ResourceManager.GetString("HandleNominatimResultOneResultMessage", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Ok.
-        /// </summary>
-        public static string HandleNominatimResultOneResultOkButton {
-            get {
-                return ResourceManager.GetString("HandleNominatimResultOneResultOkButton", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Confirm.
-        /// </summary>
-        public static string HandleNominatimResultOneResultTitle {
-            get {
-                return ResourceManager.GetString("HandleNominatimResultOneResultTitle", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to An error occurred please retry.
         /// </summary>
         public static string MessageBoxDeletePlaceError {
@@ -254,6 +227,33 @@ namespace MyExpenses.SharedUtils.Resources.Resx.AddEditLocation {
         public static string MessageBoxDeleteQuestion {
             get {
                 return ResourceManager.GetString("MessageBoxDeleteQuestion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A result was found.
+        /// </summary>
+        public static string MessageBoxNominatimResultOneResultMessage {
+            get {
+                return ResourceManager.GetString("MessageBoxNominatimResultOneResultMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ok.
+        /// </summary>
+        public static string MessageBoxNominatimResultOneResultOkButton {
+            get {
+                return ResourceManager.GetString("MessageBoxNominatimResultOneResultOkButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Confirm.
+        /// </summary>
+        public static string MessageBoxNominatimResultOneResultTitle {
+            get {
+                return ResourceManager.GetString("MessageBoxNominatimResultOneResultTitle", resourceCulture);
             }
         }
         

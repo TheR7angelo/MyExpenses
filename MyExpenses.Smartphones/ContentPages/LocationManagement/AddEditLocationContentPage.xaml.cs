@@ -424,9 +424,9 @@ public partial class AddEditLocationContentPage
                 break;
             case 1:
                 Log.Information("The API returned one result");
-                await DisplayAlert(AddEditLocationResources.HandleNominatimResultOneResultTitle,
-                    AddEditLocationResources.HandleNominatimResultOneResultMessage,
-                    AddEditLocationResources.HandleNominatimResultOneResultOkButton);
+                await DisplayAlert(AddEditLocationResources.MessageBoxNominatimResultOneResultTitle,
+                    AddEditLocationResources.MessageBoxNominatimResultOneResultMessage,
+                    AddEditLocationResources.MessageBoxNominatimResultOneResultOkButton);
 
                 var nominatimSearchResult = nominatimSearchResults.First();
                 place = Mapping.Mapper.Map<TPlace>(nominatimSearchResult);
