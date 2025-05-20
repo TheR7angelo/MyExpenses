@@ -308,8 +308,6 @@ public partial class AddEditLocationWindow
         Log.Information("Using the nominatim API to search via an address : \"{Address}\"", address);
 
         var nominatimSearchResults = address.ToNominatim()?.ToList() ?? [];
-
-        Log.Information("The API returned \"{Count}\" result(s)", nominatimSearchResults.Count);
         HandleNominatimResult(nominatimSearchResults);
     }
 
@@ -484,8 +482,8 @@ public partial class AddEditLocationWindow
                 place = Mapping.Mapper.Map<TPlace>(nominatimSearchResult);
                 break;
             case > 1:
-                MsgBox.MsgBox.Show(AddEditLocationResources.HandleNominatimResultMultipleResult,
-                    MsgBoxImage.Information);
+                Log.Information("The API returned multiple results ({Count}) :", nominatimSearchResults.Count);
+                Log.Information("Detailed results: {NominatimSearchResults}", nominatimSearchResults);
 
                 var places = nominatimSearchResults.Select(s => Mapping.Mapper.Map<TPlace>(s));
 
