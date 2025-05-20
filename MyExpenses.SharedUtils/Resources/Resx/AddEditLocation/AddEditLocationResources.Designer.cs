@@ -195,15 +195,6 @@ namespace MyExpenses.SharedUtils.Resources.Resx.AddEditLocation {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No results found.
-        /// </summary>
-        public static string HandleNominatimResultZeroResult {
-            get {
-                return ResourceManager.GetString("HandleNominatimResultZeroResult", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to An error occurred please retry.
         /// </summary>
         public static string MessageBoxDeletePlaceError {
@@ -245,6 +236,33 @@ namespace MyExpenses.SharedUtils.Resources.Resx.AddEditLocation {
         public static string MessageBoxDeleteQuestion {
             get {
                 return ResourceManager.GetString("MessageBoxDeleteQuestion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No results found.
+        /// </summary>
+        public static string MessageBoxNominatimResultZeroResultMessage {
+            get {
+                return ResourceManager.GetString("MessageBoxNominatimResultZeroResultMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ok.
+        /// </summary>
+        public static string MessageBoxNominatimResultZeroResultOkButton {
+            get {
+                return ResourceManager.GetString("MessageBoxNominatimResultZeroResultOkButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Attention.
+        /// </summary>
+        public static string MessageBoxNominatimResultZeroResultTitle {
+            get {
+                return ResourceManager.GetString("MessageBoxNominatimResultZeroResultTitle", resourceCulture);
             }
         }
         

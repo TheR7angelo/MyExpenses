@@ -51,7 +51,7 @@
     <data name="HandleNominatimResultOneResult" xml:space="preserve">
         <value>A result was found</value>
     </data>
-    <data name="HandleNominatimResultZeroResult" xml:space="preserve">
+    <data name="MessageBoxNominatimResultZeroResultMessage" xml:space="preserve">
         <value>No results found</value>
     </data>
     <data name="MessageBoxDeletePlaceError" xml:space="preserve">
@@ -106,6 +106,12 @@
         <value>Error</value>
     </data>
     <data name="ButtonSearchByCoordinateMessageBoxErrorOkButton" xml:space="preserve">
+        <value>Ok</value>
+    </data>
+    <data name="MessageBoxNominatimResultZeroResultTitle" xml:space="preserve">
+        <value>Attention</value>
+    </data>
+    <data name="MessageBoxNominatimResultZeroResultOkButton" xml:space="preserve">
         <value>Ok</value>
     </data>
 </root>
