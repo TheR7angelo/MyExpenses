@@ -3,8 +3,8 @@ using Mapsui.Layers;
 using MyExpenses.Models.AutoMapper;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Sql.Bases.Tables;
+using MyExpenses.SharedUtils.Resources.Resx.NominatimSearchManagement;
 using MyExpenses.Utils.Maps;
-using MyExpenses.Wpf.Resources.Resx.Windows.NominatimSearchWindow;
 using MyExpenses.Wpf.Utils;
 
 namespace MyExpenses.Wpf.Windows.LocationManagementWindows;
@@ -140,15 +140,15 @@ public partial class NominatimSearchWindow
 
     private void UpdateLanguage()
     {
-        PlaceNameHintAssist = NominatimSearchWindowResources.PlaceNameHintAssist;
-        PlaceNumberHintAssist = NominatimSearchWindowResources.PlaceNumberHintAssist;
-        PlaceStreetHintAssist = NominatimSearchWindowResources.PlaceStreetHintAssist;
-        PlacePostalHintAssist = NominatimSearchWindowResources.PlacePostalHintAssist;
-        PlaceCityHintAssist = NominatimSearchWindowResources.PlaceCityHintAssist;
-        PlaceCountryHintAssist = NominatimSearchWindowResources.PlaceCountryHintAssist;
+        PlaceNameHintAssist = NominatimSearchManagementResources.PlaceNameHintAssist;
+        PlaceNumberHintAssist = NominatimSearchManagementResources.PlaceNumberHintAssist;
+        PlaceStreetHintAssist = NominatimSearchManagementResources.PlaceStreetHintAssist;
+        PlacePostalHintAssist = NominatimSearchManagementResources.PlacePostalHintAssist;
+        PlaceCityHintAssist = NominatimSearchManagementResources.PlaceCityHintAssist;
+        PlaceCountryHintAssist = NominatimSearchManagementResources.PlaceCountryHintAssist;
 
-        ButtonCancelContent = NominatimSearchWindowResources.ButtonCancelContent;
-        ButtonValidContent = NominatimSearchWindowResources.ButtonValidContent;
+        ButtonCancelContent = NominatimSearchManagementResources.ButtonCancelContent;
+        ButtonValidContent = NominatimSearchManagementResources.ButtonValidContent;
     }
 
     public void AddRange(IEnumerable<TPlace> places)
