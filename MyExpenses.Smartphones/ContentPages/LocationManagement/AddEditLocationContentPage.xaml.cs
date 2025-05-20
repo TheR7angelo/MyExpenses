@@ -432,11 +432,17 @@ public partial class AddEditLocationContentPage
                 place = Mapping.Mapper.Map<TPlace>(nominatimSearchResult);
                 break;
             case > 1:
-                await DisplayAlert("Test", AddEditLocationResources.HandleNominatimResultMultipleResult, "Ok");
+                Log.Information("The API returned multiple results ({Count}) :", nominatimSearchResults.Count);
+                Log.Information("Detailed results: {NominatimSearchResults}", nominatimSearchResults);
+
+                await DisplayAlert(AddEditLocationResources.MessageBoxNominatimResultMultipleResultTitle,
+                    AddEditLocationResources.MessageBoxNominatimResultMultipleResultMessage,
+                    AddEditLocationResources.MessageBoxNominatimResultMultipleResultOkButton);
 
                 // TODO work
-                var places = nominatimSearchResults.Select(s => Mapping.Mapper.Map<TPlace>(s));
 
+                // var places = nominatimSearchResults
+                //     .Select(s => Mapping.Mapper.Map<TPlace>(s));
                 // ReSharper disable once HeapView.ObjectAllocation.Evident
                 // var nominatimSearchWindows = new NominatimSearchWindow();
                 // nominatimSearchWindows.AddRange(places);
