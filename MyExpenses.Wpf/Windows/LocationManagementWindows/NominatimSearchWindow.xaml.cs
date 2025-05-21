@@ -172,8 +172,7 @@ public partial class NominatimSearchWindow
 
     private void UpdatePointFeature()
     {
-        var mapper = Mapping.Mapper;
-        var feature = mapper.Map<PointFeature>(CurrentPlace);
+        var feature = Mapping.Mapper.Map<PointFeature>(CurrentPlace);
         feature.Styles = [MapsuiStyleExtensions.RedMarkerStyle];
         WritableLayer.Clear();
         WritableLayer.Add(feature);
