@@ -4,6 +4,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:margin="clr-namespace:MyExpenses.Maui.Utils.Margin;assembly=MyExpenses.Maui.Utils"
              xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
+             xmlns:maui="clr-namespace:Mapsui.UI.Maui;assembly=Mapsui.UI.Maui"
              x:Class="MyExpenses.Smartphones.ContentPages.LocationManagement.NominatimSearchContentPage"
 
              BindingContext="{Binding Source={RelativeSource Self}}">
@@ -34,7 +35,41 @@
                     IsReadOnly="True">
             </material:TextField>
 
-            <Button Grid.Row="0" Grid.Column="0" Text="Ok" Clicked="Button_OnClicked" />
+            <material:TextField Grid.Row="1" Grid.Column="1"
+                                Title="{Binding PlaceNumberHintAssist, Mode=OneWay}"
+                                Content="{Binding CurrentPlace.Number, Mode=OneWay}"
+                                IsReadOnly="True">
+            </material:TextField>
+
+            <material:TextField Grid.Row="2" Grid.Column="1"
+                                Title="{Binding PlaceStreetHintAssist, Mode=OneWay}"
+                                Content="{Binding CurrentPlace.Street, Mode=OneWay}"
+                                IsReadOnly="True">
+            </material:TextField>
+
+            <material:TextField Grid.Row="3" Grid.Column="1"
+                                Title="{Binding PlacePostalHintAssist, Mode=OneWay}"
+                                Content="{Binding CurrentPlace.Postal, Mode=OneWay}"
+                                IsReadOnly="True">
+            </material:TextField>
+
+            <material:TextField Grid.Row="4" Grid.Column="1"
+                                Title="{Binding PlaceCityHintAssist, Mode=OneWay}"
+                                Content="{Binding CurrentPlace.City, Mode=OneWay}"
+                                IsReadOnly="True">
+            </material:TextField>
+
+            <material:TextField Grid.Row="5" Grid.Column="1"
+                                Title="{Binding PlaceCountryHintAssist, Mode=OneWay}"
+                                Content="{Binding CurrentPlace.Country, Mode=OneWay}"
+                                IsReadOnly="True">
+            </material:TextField>
+
+            <maui:MapControl x:Name="MapControl"
+                             Grid.Row="6" Grid.Column="1">
+            </maui:MapControl>
+
+            <Button Grid.Row="6" Grid.Column="2" Text="Ok" Clicked="Button_OnClicked" />
 
         </Grid>
 
