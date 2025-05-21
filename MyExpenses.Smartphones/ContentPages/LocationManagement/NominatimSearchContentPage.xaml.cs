@@ -1,4 +1,5 @@
 ﻿using Mapsui.Layers;
+using MyExpenses.Models.AutoMapper;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.SharedUtils.Resources.Resx.NominatimSearchManagement;
@@ -157,16 +158,44 @@ public partial class NominatimSearchContentPage
         if (Index.Equals(Total + 1)) Index = 1;
 
         CurrentPlace = Places[Index - 1];
-        // UpdatePointFeature();
+        UpdatePointFeature();
         UpdateTitle();
+    }
+
+    private void UpdatePointFeature()
+    {
+        var feature = Mapping.Mapper.Map<PointFeature>(CurrentPlace);
+        feature.Styles = [MapsuiStyleExtensions.RedMarkerStyle];
+        WritableLayer.Clear();
+        WritableLayer.Add(feature);
+        MapControl.Map.Navigator.CenterOnAndZoomTo(feature.Point);
+        MapControl.Refresh();
     }
 
     private void UpdateTitle()
         => Title = $"{Index}/{Total} - {CurrentPlace}";
 
-    private async void Button_OnClicked(object? sender, EventArgs e)
+    private void ButtonGoBack_OnClick(object sender, EventArgs e)
     {
-        _taskCompletionSource.SetResult(true);
+        Index--;
+        UpdateCurrentPlace();
+    }
+
+    private void ButtonGoNext_OnClick(object sender, EventArgs e)
+    {
+        Index++;
+        UpdateCurrentPlace();
+    }
+
+    private void ButtonCancel_OnClick(object sender, EventArgs e)
+        => _ = HandleButtonResponse(false);
+
+    private void ButtonValid_OnClick(object sender, EventArgs e)
+        => _ = HandleButtonResponse(true);
+
+    private async Task HandleButtonResponse(bool result)
+    {
+        _taskCompletionSource.SetResult(result);
         await Navigation.PopAsync();
     }
 }
