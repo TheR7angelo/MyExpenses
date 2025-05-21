@@ -4,6 +4,7 @@ public enum EPackIcons
 {
     Abacus,
     ArrowDownThin,
+    ArrowLeftThin,
     ArrowRightThin,
     Cellphone,
     CheckboxBlankOutline,
