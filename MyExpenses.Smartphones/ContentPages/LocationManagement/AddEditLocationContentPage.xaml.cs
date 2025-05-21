@@ -439,8 +439,6 @@ public partial class AddEditLocationContentPage
                     AddEditLocationResources.MessageBoxNominatimResultMultipleResultMessage,
                     AddEditLocationResources.MessageBoxNominatimResultMultipleResultOkButton);
 
-                // TODO work
-
                 var places = nominatimSearchResults.Select(s => Mapping.Mapper.Map<TPlace>(s));
                 // ReSharper disable once HeapView.ObjectAllocation.Evident
                 var nominatimSearchContentPage = new NominatimSearchContentPage();
