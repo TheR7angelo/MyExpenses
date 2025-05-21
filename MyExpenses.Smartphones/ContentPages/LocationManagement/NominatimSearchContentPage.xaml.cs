@@ -121,7 +121,7 @@ public partial class NominatimSearchContentPage
         UpdateLanguage();
         InitializeComponent();
 
-        // MapControl.Map = map;
+        MapControl.Map = map;
 
         Interface.LanguageChanged += Interface_OnLanguageChanged;
     }
