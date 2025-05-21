@@ -21,6 +21,8 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
             <Grid.ColumnDefinitions>
@@ -29,47 +31,57 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <material:TextField Grid.Row="0" Grid.Column="1"
+            <material:TextField Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"
                     Title="{Binding PlaceNameHintAssist, Mode=OneWay}"
-                    Content="{Binding CurrentPlace.Name, Mode=OneWay}"
+                    Text="{Binding CurrentPlace.Name, Mode=OneWay}"
                     IsReadOnly="True">
             </material:TextField>
 
-            <material:TextField Grid.Row="1" Grid.Column="1"
+            <material:TextField Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3"
                                 Title="{Binding PlaceNumberHintAssist, Mode=OneWay}"
-                                Content="{Binding CurrentPlace.Number, Mode=OneWay}"
+                                Text="{Binding CurrentPlace.Number, Mode=OneWay}"
                                 IsReadOnly="True">
             </material:TextField>
 
-            <material:TextField Grid.Row="2" Grid.Column="1"
+            <material:TextField Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3"
                                 Title="{Binding PlaceStreetHintAssist, Mode=OneWay}"
-                                Content="{Binding CurrentPlace.Street, Mode=OneWay}"
+                                Text="{Binding CurrentPlace.Street, Mode=OneWay}"
                                 IsReadOnly="True">
             </material:TextField>
 
-            <material:TextField Grid.Row="3" Grid.Column="1"
+            <material:TextField Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="3"
                                 Title="{Binding PlacePostalHintAssist, Mode=OneWay}"
-                                Content="{Binding CurrentPlace.Postal, Mode=OneWay}"
+                                Text="{Binding CurrentPlace.Postal, Mode=OneWay}"
                                 IsReadOnly="True">
             </material:TextField>
 
-            <material:TextField Grid.Row="4" Grid.Column="1"
+            <material:TextField Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="3"
                                 Title="{Binding PlaceCityHintAssist, Mode=OneWay}"
-                                Content="{Binding CurrentPlace.City, Mode=OneWay}"
+                                Text="{Binding CurrentPlace.City, Mode=OneWay}"
                                 IsReadOnly="True">
             </material:TextField>
 
-            <material:TextField Grid.Row="5" Grid.Column="1"
+            <material:TextField Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="3"
                                 Title="{Binding PlaceCountryHintAssist, Mode=OneWay}"
-                                Content="{Binding CurrentPlace.Country, Mode=OneWay}"
+                                Text="{Binding CurrentPlace.Country, Mode=OneWay}"
                                 IsReadOnly="True">
             </material:TextField>
 
             <maui:MapControl x:Name="MapControl"
-                             Grid.Row="6" Grid.Column="1">
+                             Grid.Row="6" Grid.Column="1" Grid.RowSpan="3">
             </maui:MapControl>
 
-            <Button Grid.Row="6" Grid.Column="2" Text="Ok" Clicked="Button_OnClicked" />
+            <Button Grid.Row="8" Grid.Column="0"
+                    Text="{Binding ButtonCancelContent, Mode=OneWay}"
+                    Style="{StaticResource PaperMidButton}"
+                    Clicked="ButtonCancel_OnClick">
+            </Button>
+
+            <Button Grid.Row="8" Grid.Column="2"
+                    Text="{Binding ButtonValidContent, Mode=OneWay}"
+                    Style="{StaticResource PaperMidButton}"
+                    Clicked="ButtonValid_OnClick">
+            </Button>
 
         </Grid>
 
