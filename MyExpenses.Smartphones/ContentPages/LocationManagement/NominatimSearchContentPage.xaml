@@ -30,7 +30,8 @@
 
             <material:TextField Grid.Row="0" Grid.Column="1"
                     Title="{Binding PlaceNameHintAssist, Mode=OneWay}"
-                    Content="{Binding CurrentPlace.Name, Mode=OneWay}">
+                    Content="{Binding CurrentPlace.Name, Mode=OneWay}"
+                    IsReadOnly="True">
             </material:TextField>
 
             <Button Grid.Row="0" Grid.Column="0" Text="Ok" Clicked="Button_OnClicked" />
