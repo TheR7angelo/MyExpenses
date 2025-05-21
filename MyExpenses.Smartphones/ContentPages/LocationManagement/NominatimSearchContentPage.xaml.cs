@@ -158,6 +158,15 @@ public partial class NominatimSearchContentPage
 
         CurrentPlace = Places[Index - 1];
         // UpdatePointFeature();
-        // UpdateTitle();
+        UpdateTitle();
+    }
+
+    private void UpdateTitle()
+        => Title = $"{Index}/{Total} - {CurrentPlace}";
+
+    private async void Button_OnClicked(object? sender, EventArgs e)
+    {
+        _taskCompletionSource.SetResult(true);
+        await Navigation.PopAsync();
     }
 }
