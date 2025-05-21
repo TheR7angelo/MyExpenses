@@ -28,7 +28,7 @@
 
             <material:TextField Grid.Row="0"
                                 Title="{Binding TextBoxNameHintAssist, Mode=OneWay}"
-                                Content="{Binding Place.Name, Mode=TwoWay}"
+                                Text="{Binding Place.Name, Mode=TwoWay}"
                                 MaxLength="{Binding Place, Converter={StaticResource MaxLengthConverter}, ConverterParameter=Name}">
             </material:TextField>
 
@@ -50,13 +50,13 @@
 
                         <material:TextField Grid.Column="0"
                                             Title="{Binding TextBoxNumberHintAssist, Mode=OneWay}"
-                                            Content="{Binding Place.Number, Mode=TwoWay}"
+                                            Text="{Binding Place.Number, Mode=TwoWay}"
                                             MaxLength="{Binding Place, Converter={StaticResource MaxLengthConverter}, ConverterParameter=Number}">
                         </material:TextField>
 
                         <material:TextField Grid.Column="1"
                                             Title="{Binding TextBoxStreetHintAssist, Mode=OneWay}"
-                                            Content="{Binding Place.Street, Mode=TwoWay}"
+                                            Text="{Binding Place.Street, Mode=TwoWay}"
                                             MaxLength="{Binding Place, Converter={StaticResource MaxLengthConverter}, ConverterParameter=Street}">
                         </material:TextField>
 
@@ -77,19 +77,19 @@
 
                         <material:TextField Grid.Row="0" Grid.Column="0"
                                             Title="{Binding TextBoxCityHintAssist, Mode=OneWay}"
-                                            Content="{Binding Place.City, Mode=TwoWay}"
+                                            Text="{Binding Place.City, Mode=TwoWay}"
                                             MaxLength="{Binding Place, Converter={StaticResource MaxLengthConverter}, ConverterParameter=City}">
                         </material:TextField>
 
                         <material:TextField Grid.Row="0" Grid.Column="1"
                                             Title="{Binding TextBoxPostalCodeHintAssist, Mode=OneWay}"
-                                            Content="{Binding Place.Postal, Mode=TwoWay}"
+                                            Text="{Binding Place.Postal, Mode=TwoWay}"
                                             MaxLength="{Binding Place, Converter={StaticResource MaxLengthConverter}, ConverterParameter=Postal}">
                         </material:TextField>
 
                         <material:TextField Grid.Row="0" Grid.Column="2"
                                             Title="{Binding TextBoxCountryHintAssist, Mode=OneWay}"
-                                            Content="{Binding Place.Country, Mode=TwoWay}"
+                                            Text="{Binding Place.Country, Mode=TwoWay}"
                                             MaxLength="{Binding Place, Converter={StaticResource MaxLengthConverter}, ConverterParameter=Country}">
                         </material:TextField>
 
@@ -124,13 +124,13 @@
 
                         <material:TextField Grid.Column="0"
                                             Title="{Binding TextBoxLongitudeHintAssist, Mode=OneWay}"
-                                            Content="{Binding Place.Longitude, Mode=TwoWay}"
+                                            Text="{Binding Place.Longitude, Mode=TwoWay}"
                                             Keyboard="Numeric">
                         </material:TextField>
 
                         <material:TextField Grid.Column="1"
                                             Title="{Binding TextBoxLatitudeHintAssist, Mode=OneWay}"
-                                            Content="{Binding Place.Latitude, Mode=TwoWay}"
+                                            Text="{Binding Place.Latitude, Mode=TwoWay}"
                                             Keyboard="Numeric">
                         </material:TextField>
 
@@ -178,7 +178,7 @@
 
                     <material:PickerField Grid.Row="0"
                                           ItemsSource="{Binding KnownTileSources, Mode=OneWay}"
-                                          SelectedItem="{Binding KnownTileSourceSelected, Mode=TwoWay}"
+                                          SelectedItem="{Binding KnownTileSourceSelected, Mode=TwoWay, UpdateSourceEventName=PropertyChanged}"
                                           AllowClear="False"
                                           Title="{Binding ComboBoxBasemapHintAssist, Mode=OneWay}"
                                           SelectedValueChanged="PickerFieldKnownTileSource_OnSelectedItemChanged">
