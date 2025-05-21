@@ -10,7 +10,7 @@
 
     <ContentPage.Content>
 
-        <Grid margin:LayoutExtensions.MarginForAllChildren="5">
+        <Grid margin:LayoutExtensions.MarginForAllChildren="3">
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
