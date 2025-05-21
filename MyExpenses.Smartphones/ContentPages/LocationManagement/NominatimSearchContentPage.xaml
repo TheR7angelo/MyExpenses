@@ -5,6 +5,7 @@
              xmlns:margin="clr-namespace:MyExpenses.Maui.Utils.Margin;assembly=MyExpenses.Maui.Utils"
              xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
              xmlns:maui="clr-namespace:Mapsui.UI.Maui;assembly=Mapsui.UI.Maui"
+             xmlns:uraniumButtonView="clr-namespace:MyExpenses.Smartphones.UserControls.Buttons.UraniumButtonView"
              x:Class="MyExpenses.Smartphones.ContentPages.LocationManagement.NominatimSearchContentPage"
 
              BindingContext="{Binding Source={RelativeSource Self}}">
@@ -71,13 +72,35 @@
                              Grid.Row="6" Grid.Column="1" Grid.RowSpan="3">
             </maui:MapControl>
 
-            <Button Grid.Row="8" Grid.Column="0"
+            <uraniumButtonView:UraniumButtonView Grid.Row="7" Grid.Column="0"
+                                                 PathSource="ArrowLeftThin"
+                                                 PathHeightRequest="{Binding HeightRequest, Source={Reference ButtonCancel}}"
+                                                 PathWidthRequest="{Binding HeightRequest, Source={Reference ButtonCancel}}"
+                                                 HeightRequest="{Binding HeightRequest, Source={Reference ButtonCancel}}"
+                                                 WidthRequest="{Binding WidthRequest, Source={Reference ButtonCancel}}"
+                                                 Style="{StaticResource ButtonViewPrimaryMid}"
+                                                 Tapped="ButtonGoBack_OnClick">
+            </uraniumButtonView:UraniumButtonView>
+
+            <uraniumButtonView:UraniumButtonView Grid.Row="7" Grid.Column="2"
+                                                 PathSource="ArrowRightThin"
+                                                 PathHeightRequest="{Binding HeightRequest, Source={Reference ButtonValid}}"
+                                                 PathWidthRequest="{Binding HeightRequest, Source={Reference ButtonValid}}"
+                                                 HeightRequest="{Binding HeightRequest, Source={Reference ButtonValid}}"
+                                                 WidthRequest="{Binding WidthRequest, Source={Reference ButtonValid}}"
+                                                 Style="{StaticResource ButtonViewPrimaryMid}"
+                                                 Tapped="ButtonGoNext_OnClick">
+            </uraniumButtonView:UraniumButtonView>
+
+            <Button x:Name="ButtonCancel"
+                    Grid.Row="8" Grid.Column="0"
                     Text="{Binding ButtonCancelContent, Mode=OneWay}"
                     Style="{StaticResource PaperMidButton}"
                     Clicked="ButtonCancel_OnClick">
             </Button>
 
-            <Button Grid.Row="8" Grid.Column="2"
+            <Button x:Name="ButtonValid"
+                    Grid.Row="8" Grid.Column="2"
                     Text="{Binding ButtonValidContent, Mode=OneWay}"
                     Style="{StaticResource PaperMidButton}"
                     Clicked="ButtonValid_OnClick">
