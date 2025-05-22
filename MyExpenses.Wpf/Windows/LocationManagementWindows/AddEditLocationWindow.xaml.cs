@@ -456,7 +456,8 @@ public partial class AddEditLocationWindow
                 ? propertyError.ErrorMessage!
                 : AddEditLocationResources.ResourceManager.GetString(messageErrorKey)!;
 
-            MsgBox.MsgBox.Show(localizedErrorMessage, MsgBoxImage.Error);
+            MsgBox.MsgBox.Show(AddEditLocationResources.MessageBoxButtonValidationTitleError,
+                localizedErrorMessage, MessageBoxButton.OK, MsgBoxImage.Error);
             return;
         }
 
