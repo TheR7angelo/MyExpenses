@@ -192,6 +192,7 @@
                     <maui:MapControl Grid.Row="1"
                                      x:Name="MapControl"
                                      Background="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
+                                     Info="MapControl_OnInfo"
                                      Loaded="MapControl_OnLoaded">
                     </maui:MapControl>
 

@@ -1,9 +1,12 @@
 ﻿using System.Runtime.Versioning;
 using BruTile.Predefined;
+using Mapsui;
 using Mapsui.Layers;
+using Mapsui.Manipulations;
 using Mapsui.Tiling.Layers;
 using MyExpenses.Models.AutoMapper;
 using MyExpenses.Models.Config.Interfaces;
+using MyExpenses.Models.Mapsui.PointFeatures;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Models.WebApi.Nominatim;
 using MyExpenses.SharedUtils.Properties;
@@ -464,5 +467,26 @@ public partial class AddEditLocationContentPage
 
         if (place is null) return;
         SetPlace(place, true);
+    }
+
+    private void MapControl_OnInfo(object? sender, MapInfoEventArgs e)
+    {
+        if (e.GestureType is not GestureType.SingleTap) return;
+
+        var worldPosition = e.WorldPosition;
+
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        var feature = new TemporaryPointFeature(worldPosition)
+        {
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
+            Styles = [MapsuiStyleExtensions.GreenMarkerStyle],
+            IsTemp = true
+        };
+
+        var oldFeature = WritableLayer.GetFeatures().FirstOrDefault(f => (TemporaryPointFeature)f is { IsTemp: true });
+        if (oldFeature is not null) WritableLayer.TryRemove(oldFeature);
+
+        WritableLayer.Add(feature);
+        MapControl.Map.Refresh();
     }
 }
