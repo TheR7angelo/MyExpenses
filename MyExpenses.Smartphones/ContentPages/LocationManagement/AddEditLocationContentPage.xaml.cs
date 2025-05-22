@@ -5,6 +5,7 @@ using Mapsui.Layers;
 using Mapsui.Manipulations;
 using Mapsui.Projections;
 using Mapsui.Tiling.Layers;
+using Microsoft.Data.Sqlite;
 using MyExpenses.Models.AutoMapper;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Mapsui.PointFeatures;
@@ -12,6 +13,8 @@ using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Models.WebApi.Nominatim;
 using MyExpenses.SharedUtils.Properties;
 using MyExpenses.SharedUtils.Resources.Resx.AddEditLocation;
+using MyExpenses.SharedUtils.Resources.Resx.LocationManagement;
+using MyExpenses.Sql.Context;
 using MyExpenses.Utils.Maps;
 using MyExpenses.WebApi.Nominatim;
 using Serilog;
@@ -517,8 +520,65 @@ public partial class AddEditLocationContentPage
         => _ = HandleButtonResponse(true);
 
     private void ButtonDelete_OnClick(object? sender, EventArgs e)
+        => _ = HandleButtonDelete();
+
+    private async Task HandleButtonDelete()
     {
-        throw new NotImplementedException();
+        var message = string.Format(LocationManagementResources.MessageBoxDeleteQuestionMessage, Place.Name);
+        var response = await DisplayAlert(LocationManagementResources.MessageBoxDeleteQuestionTitle,
+            message,
+            LocationManagementResources.MessageBoxDeleteQuestionYesButton,
+            LocationManagementResources.MessageBoxDeleteQuestionCancelButton);
+
+        if (response is not true) return;
+
+        Log.Information("Attempting to remove the place \"{PlaceToDeleteName}\"", Place.Name);
+        var (success, exception) = Place.Delete();
+        if (success)
+        {
+            Log.Information("Place was successfully removed");
+            await DisplayAlert(
+                LocationManagementResources.MessageBoxMenuItemDeleteFeatureNoUseSuccessTitle,
+                LocationManagementResources.MessageBoxMenuItemDeleteFeatureNoUseSuccessMessage,
+                LocationManagementResources.MessageBoxMenuItemDeleteFeatureNoUseSuccessOkButton);
+
+            PlaceDeleted = true;
+            await HandleButtonResponse(true);
+            return;
+        }
+
+        if (exception!.InnerException is SqliteException
+            {
+                SqliteExtendedErrorCode: SQLitePCL.raw.SQLITE_CONSTRAINT_FOREIGNKEY
+            })
+        {
+            Log.Error("Foreign key constraint violation");
+
+            response = await DisplayAlert(LocationManagementResources.MessageBoxMenuItemDeleteFeatureUseQuestionTitle,
+                LocationManagementResources.MessageBoxMenuItemDeleteFeatureUseQuestionMessage,
+                LocationManagementResources.MessageBoxMenuItemDeleteFeatureUseQuestionYesButton,
+                LocationManagementResources.MessageBoxMenuItemDeleteFeatureUseQuestionNoButton);
+
+            if (response is not true) return;
+
+            Log.Information("Attempting to remove the place \"{PlaceToDeleteName}\" with all relative element",
+                Place.Name);
+            Place.Delete(true);
+            Log.Information("Place and all relative element was successfully removed");
+            await DisplayAlert(LocationManagementResources.MessageBoxMenuItemDeleteFeatureUseSuccessTitle,
+                LocationManagementResources.MessageBoxMenuItemDeleteFeatureUseSuccessMessage,
+                LocationManagementResources.MessageBoxMenuItemDeleteFeatureUseSuccessOkButton);
+
+            PlaceDeleted = true;
+            await HandleButtonResponse(true);
+
+            return;
+        }
+
+        Log.Error(exception, "An error occurred please retry");
+        await DisplayAlert(LocationManagementResources.MessageBoxMenuItemDeleteFeatureErrorTitle,
+            LocationManagementResources.MessageBoxMenuItemDeleteFeatureErrorMessage,
+            LocationManagementResources.MessageBoxMenuItemDeleteFeatureErrorOkButton);
     }
 
     private void ButtonCancel_OnClick(object? sender, EventArgs e)
