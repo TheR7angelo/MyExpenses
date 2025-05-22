@@ -230,8 +230,8 @@ public partial class LocationManagementPage
         if (addEditLocationWindow.DialogResult is not true) return;
 
         var newPlace = addEditLocationWindow.Place;
-        ProcessNewPlace(newPlace, add: true);
-        AddPlaceTreeViewCountryGroup(newPlace);
+        var success = ProcessNewPlace(newPlace, add: true);
+        if (success) AddPlaceTreeViewCountryGroup(newPlace);
     }
 
     private void MenuItemDeleteFeature_OnClick(object sender, RoutedEventArgs e)
@@ -306,7 +306,8 @@ public partial class LocationManagementPage
         if (addEditLocationWindow.DialogResult is not true) return;
 
         var editedPlace = addEditLocationWindow.Place;
-        ProcessNewPlace(editedPlace, edit: true);
+        var success = ProcessNewPlace(editedPlace, edit: true);
+        if (!success) return;
 
         RemovePlaceTreeViewCountryGroup(editedPlace);
         AddPlaceTreeViewCountryGroup(editedPlace);
@@ -404,9 +405,9 @@ public partial class LocationManagementPage
         }
     }
 
-    private void ProcessNewPlace(TPlace newPlace, bool add = false, bool edit = false)
+    private bool ProcessNewPlace(TPlace newPlace, bool add = false, bool edit = false)
     {
-        var (success, _) = newPlace.AddOrEdit();
+        var (success, exception) = newPlace.AddOrEdit();
         if (success)
         {
             var feature = newPlace.IsOpen
@@ -442,8 +443,14 @@ public partial class LocationManagementPage
 
                     break;
             }
+
+            return true;
         }
-        else MsgBox.Show(LocationManagementResources.MessageBoxProcessNewPlaceError, MsgBoxImage.Error);
+
+        Log.Error(exception, "An error occurred please retry");
+        MsgBox.Show(LocationManagementResources.MessageBoxProcessNewPlaceError, MsgBoxImage.Error);
+
+        return false;
     }
 
     // ReSharper disable once HeapView.ClosureAllocation
