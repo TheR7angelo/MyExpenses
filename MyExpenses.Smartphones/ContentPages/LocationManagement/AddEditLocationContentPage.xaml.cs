@@ -439,9 +439,7 @@ public partial class AddEditLocationContentPage
     }
 
     private void ButtonZoomToPoint_OnClicked(object? sender, EventArgs e)
-    {
-        throw new NotImplementedException();
-    }
+        => MapControl.Map.Navigator.SetZoom(WritableLayer);
 
     private async Task HandleNominatimResult(IReadOnlyCollection<NominatimSearchResult> nominatimSearchResults)
     {
