@@ -322,6 +322,7 @@ public partial class LocationManagementContentPage
             case ECustomPopupLocationManagement.Delete:
                 _ = HandleDeleteFeature();
                 break;
+
             case ECustomPopupLocationManagement.Add:
                 var addEditLocationContentPage = new AddEditLocationContentPage();
                 addEditLocationContentPage.SetPlace(ClickPoint);
