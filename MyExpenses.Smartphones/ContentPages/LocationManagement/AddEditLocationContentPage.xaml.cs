@@ -3,6 +3,7 @@ using BruTile.Predefined;
 using Mapsui;
 using Mapsui.Layers;
 using Mapsui.Manipulations;
+using Mapsui.Projections;
 using Mapsui.Tiling.Layers;
 using MyExpenses.Models.AutoMapper;
 using MyExpenses.Models.Config.Interfaces;
@@ -415,7 +416,26 @@ public partial class AddEditLocationContentPage
 
     private void ButtonValidNewPoint_OnClicked(object? sender, EventArgs e)
     {
-        throw new NotImplementedException();
+        var pointsFeatures = WritableLayer.GetFeatures().Select(s => (TemporaryPointFeature)s).ToList();
+        if (pointsFeatures.Count < 2) return;
+
+        var newFeature = pointsFeatures.First(f => f.IsTemp.Equals(true));
+        foreach (var pointFeature in pointsFeatures)
+        {
+            WritableLayer.TryRemove(pointFeature);
+        }
+
+        var coordinate = SphericalMercator.ToLonLat(newFeature.Point);
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        Place.Geometry = new Point(coordinate.X, coordinate.Y);
+
+        newFeature.IsTemp = false;
+        newFeature.Styles.Clear();
+        newFeature.Styles.Add(MapsuiStyleExtensions.RedMarkerStyle);
+
+        WritableLayer.Add(newFeature);
+
+        MapControl.Map.Navigator.CenterOnAndZoomTo(newFeature.Point);
     }
 
     private void ButtonZoomToPoint_OnClicked(object? sender, EventArgs e)
