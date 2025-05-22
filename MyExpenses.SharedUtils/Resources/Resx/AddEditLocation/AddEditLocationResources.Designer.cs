@@ -222,6 +222,15 @@ namespace MyExpenses.SharedUtils.Resources.Resx.AddEditLocation {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ok.
+        /// </summary>
+        public static string MessageBoxButtonValidationOkButtonError {
+            get {
+                return ResourceManager.GetString("MessageBoxButtonValidationOkButtonError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The postal code of the place must be filled.
         /// </summary>
         public static string MessageBoxButtonValidationPostalError {
@@ -236,6 +245,15 @@ namespace MyExpenses.SharedUtils.Resources.Resx.AddEditLocation {
         public static string MessageBoxButtonValidationStreetError {
             get {
                 return ResourceManager.GetString("MessageBoxButtonValidationStreetError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        public static string MessageBoxButtonValidationTitleError {
+            get {
+                return ResourceManager.GetString("MessageBoxButtonValidationTitleError", resourceCulture);
             }
         }
         

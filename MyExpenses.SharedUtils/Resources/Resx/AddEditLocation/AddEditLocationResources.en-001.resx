@@ -158,4 +158,10 @@
     <data name="MessageBoxButtonValidationStreetError" xml:space="preserve">
         <value>The name of the street of the place must be filled in</value>
     </data>
+    <data name="MessageBoxButtonValidationOkButtonError" xml:space="preserve">
+        <value>Ok</value>
+    </data>
+    <data name="MessageBoxButtonValidationTitleError" xml:space="preserve">
+        <value>Error</value>
+    </data>
 </root>

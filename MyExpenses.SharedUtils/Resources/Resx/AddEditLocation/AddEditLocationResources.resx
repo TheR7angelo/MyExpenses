@@ -165,4 +165,10 @@
     <data name="MessageBoxButtonValidationLongitudeError" xml:space="preserve">
         <value>The longitude of the place must be entered</value>
     </data>
+    <data name="MessageBoxButtonValidationTitleError" xml:space="preserve">
+        <value>Error</value>
+    </data>
+    <data name="MessageBoxButtonValidationOkButtonError" xml:space="preserve">
+        <value>Ok</value>
+    </data>
 </root>
