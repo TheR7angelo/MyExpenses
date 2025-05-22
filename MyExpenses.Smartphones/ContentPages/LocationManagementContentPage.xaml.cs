@@ -358,7 +358,6 @@ public partial class LocationManagementContentPage
         var cityName = Utils.Converters.EmptyStringTreeViewConverter.ToUnknown(place.City);
 
         var group = place.GetGroups();
-        _ = DisplayAlert("Success", group.Country, "Ok");
         var cityNode = group.ToTreeViewNode().First();
         var countryNode = new TreeViewNode
         {
