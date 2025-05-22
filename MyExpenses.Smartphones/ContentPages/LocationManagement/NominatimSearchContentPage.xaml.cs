@@ -127,8 +127,57 @@ public partial class NominatimSearchContentPage
         Interface.LanguageChanged += Interface_OnLanguageChanged;
     }
 
+    #region Action
+
+    private void ButtonCancel_OnClick(object sender, EventArgs e)
+        => _ = HandleButtonResponse(false);
+
+    private void ButtonGoBack_OnClick(object sender, EventArgs e)
+    {
+        Index--;
+        UpdateCurrentPlace();
+    }
+
+    private void ButtonGoNext_OnClick(object sender, EventArgs e)
+    {
+        Index++;
+        UpdateCurrentPlace();
+    }
+
+    private void ButtonValid_OnClick(object sender, EventArgs e)
+        => _ = HandleButtonResponse(true);
+
     private void Interface_OnLanguageChanged()
         => UpdateLanguage();
+
+    #endregion
+
+    #region Function
+
+    public void AddRange(IEnumerable<TPlace> places)
+    {
+        Places.AddRange(places);
+        Index = 1;
+        Total = Places.Count;
+
+        UpdateCurrentPlace();
+    }
+
+    private async Task HandleButtonResponse(bool result)
+    {
+        _taskCompletionSource.SetResult(result);
+        await Navigation.PopAsync();
+    }
+
+    private void UpdateCurrentPlace()
+    {
+        if (Index.Equals(0)) Index = Total;
+        if (Index.Equals(Total + 1)) Index = 1;
+
+        CurrentPlace = Places[Index - 1];
+        UpdatePointFeature();
+        UpdateTitle();
+    }
 
     private void UpdateLanguage()
     {
@@ -141,25 +190,6 @@ public partial class NominatimSearchContentPage
 
         ButtonCancelContent = NominatimSearchManagementResources.ButtonCancelContent;
         ButtonValidContent = NominatimSearchManagementResources.ButtonValidContent;
-    }
-
-    public void AddRange(IEnumerable<TPlace> places)
-    {
-        Places.AddRange(places);
-        Index = 1;
-        Total = Places.Count;
-
-        UpdateCurrentPlace();
-    }
-
-    private void UpdateCurrentPlace()
-    {
-        if (Index.Equals(0)) Index = Total;
-        if (Index.Equals(Total + 1)) Index = 1;
-
-        CurrentPlace = Places[Index - 1];
-        UpdatePointFeature();
-        UpdateTitle();
     }
 
     private void UpdatePointFeature()
@@ -175,27 +205,5 @@ public partial class NominatimSearchContentPage
     private void UpdateTitle()
         => Title = $"{Index}/{Total} - {CurrentPlace}";
 
-    private void ButtonGoBack_OnClick(object sender, EventArgs e)
-    {
-        Index--;
-        UpdateCurrentPlace();
-    }
-
-    private void ButtonGoNext_OnClick(object sender, EventArgs e)
-    {
-        Index++;
-        UpdateCurrentPlace();
-    }
-
-    private void ButtonCancel_OnClick(object sender, EventArgs e)
-        => _ = HandleButtonResponse(false);
-
-    private void ButtonValid_OnClick(object sender, EventArgs e)
-        => _ = HandleButtonResponse(true);
-
-    private async Task HandleButtonResponse(bool result)
-    {
-        _taskCompletionSource.SetResult(result);
-        await Navigation.PopAsync();
-    }
+    #endregion
 }
