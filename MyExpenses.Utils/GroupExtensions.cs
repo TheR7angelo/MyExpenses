@@ -34,4 +34,22 @@ public static class GroupExtensions
 
         return groupedPlacesByCountryCity;
     }
+
+    public static CountryGroup GetGroups(this TPlace places)
+    {
+        var countryGroup = new CountryGroup
+        {
+            Country = places.Country,
+            CityGroups =
+            [
+                new CityGroup
+                {
+                    City = places.City,
+                    Places = [places]
+                }
+            ]
+        };
+
+        return countryGroup;
+    }
 }

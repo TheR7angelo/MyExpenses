@@ -29,7 +29,13 @@ public static class TreeViewNodeUtils
         return treeViewNodes;
     }
 
-    private static List<TreeViewNode> ToTreeViewNode(this CountryGroup countryGroup)
+    /// <summary>
+    /// Converts a <see cref="CountryGroup"/> object into a list of <see cref="TreeViewNode"/> objects
+    /// representing its hierarchical structure based on associated city groups.
+    /// </summary>
+    /// <param name="countryGroup">The <see cref="CountryGroup"/> instance containing city groups and associated data.</param>
+    /// <returns>A list of <see cref="TreeViewNode"/> objects representing the country group and its related city groups.</returns>
+    public static List<TreeViewNode> ToTreeViewNode(this CountryGroup countryGroup)
     {
         // ReSharper disable once HeapView.ObjectAllocation.Evident
         var treeViewNodes = new List<TreeViewNode>();
@@ -96,7 +102,7 @@ public static class TreeViewNodeUtils
     /// <param name="children">A list of child nodes for this node. Defaults to an empty list if not specified.</param>
     /// <param name="additionalData">Additional data associated with the node. Can be null if no data is provided.</param>
     /// <returns>A new <see cref="TreeViewNode"/> instance populated with the provided parameters.</returns>
-    private static TreeViewNode CreateTreeViewNode(this string name, List<TreeViewNode>? children = null,
+    public static TreeViewNode CreateTreeViewNode(this string name, List<TreeViewNode>? children = null,
         object? additionalData = null)
     {
         children ??= [];
