@@ -177,6 +177,69 @@ namespace MyExpenses.SharedUtils.Resources.Resx.AddEditLocation {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The name of the city must be filled in.
+        /// </summary>
+        public static string MessageBoxButtonValidationCityError {
+            get {
+                return ResourceManager.GetString("MessageBoxButtonValidationCityError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The name of the country must be filled in.
+        /// </summary>
+        public static string MessageBoxButtonValidationCountryError {
+            get {
+                return ResourceManager.GetString("MessageBoxButtonValidationCountryError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The latitude of the place must be filled in.
+        /// </summary>
+        public static string MessageBoxButtonValidationLatitudeError {
+            get {
+                return ResourceManager.GetString("MessageBoxButtonValidationLatitudeError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The longitude of the place must be entered.
+        /// </summary>
+        public static string MessageBoxButtonValidationLongitudeError {
+            get {
+                return ResourceManager.GetString("MessageBoxButtonValidationLongitudeError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The name of the place must be filled.
+        /// </summary>
+        public static string MessageBoxButtonValidationNameError {
+            get {
+                return ResourceManager.GetString("MessageBoxButtonValidationNameError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The postal code of the place must be filled.
+        /// </summary>
+        public static string MessageBoxButtonValidationPostalError {
+            get {
+                return ResourceManager.GetString("MessageBoxButtonValidationPostalError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The name of the street of the place must be filled in.
+        /// </summary>
+        public static string MessageBoxButtonValidationStreetError {
+            get {
+                return ResourceManager.GetString("MessageBoxButtonValidationStreetError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to An error occurred please retry.
         /// </summary>
         public static string MessageBoxDeletePlaceError {

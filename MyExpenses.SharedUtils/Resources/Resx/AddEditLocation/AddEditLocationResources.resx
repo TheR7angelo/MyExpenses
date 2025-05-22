@@ -144,4 +144,25 @@
     <data name="MessageBoxErrorLongitudeIsNullTitle" xml:space="preserve">
         <value>Error</value>
     </data>
+    <data name="MessageBoxButtonValidationNameError" xml:space="preserve">
+        <value>The name of the place must be filled</value>
+    </data>
+    <data name="MessageBoxButtonValidationStreetError" xml:space="preserve">
+        <value>The name of the street of the place must be filled in</value>
+    </data>
+    <data name="MessageBoxButtonValidationPostalError" xml:space="preserve">
+        <value>The postal code of the place must be filled</value>
+    </data>
+    <data name="MessageBoxButtonValidationCityError" xml:space="preserve">
+        <value>The name of the city must be filled in</value>
+    </data>
+    <data name="MessageBoxButtonValidationCountryError" xml:space="preserve">
+        <value>The name of the country must be filled in</value>
+    </data>
+    <data name="MessageBoxButtonValidationLatitudeError" xml:space="preserve">
+        <value>The latitude of the place must be filled in</value>
+    </data>
+    <data name="MessageBoxButtonValidationLongitudeError" xml:space="preserve">
+        <value>The longitude of the place must be entered</value>
+    </data>
 </root>

@@ -137,4 +137,25 @@
     <data name="MessageBoxErrorLongitudeIsNullTitle" xml:space="preserve">
         <value>Erreur</value>
     </data>
+    <data name="MessageBoxButtonValidationNameError" xml:space="preserve">
+        <value>Le nom du lieu doit être renseigné</value>
+    </data>
+    <data name="MessageBoxButtonValidationCityError" xml:space="preserve">
+        <value>Le nom de la ville doit être renseigné</value>
+    </data>
+    <data name="MessageBoxButtonValidationCountryError" xml:space="preserve">
+        <value>Le nom du pays doit être renseigné</value>
+    </data>
+    <data name="MessageBoxButtonValidationLatitudeError" xml:space="preserve">
+        <value>La latitude du lieu doit être renseignée</value>
+    </data>
+    <data name="MessageBoxButtonValidationLongitudeError" xml:space="preserve">
+        <value>La longitude du lieu doit être saisie</value>
+    </data>
+    <data name="MessageBoxButtonValidationPostalError" xml:space="preserve">
+        <value>Le code postal du lieu doit être  renseigné</value>
+    </data>
+    <data name="MessageBoxButtonValidationStreetError" xml:space="preserve">
+        <value>Le nom de la rue du lieu doit être renseigné</value>
+    </data>
 </root>
