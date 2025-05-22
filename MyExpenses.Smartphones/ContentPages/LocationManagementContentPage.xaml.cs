@@ -316,6 +316,8 @@ public partial class LocationManagementContentPage
         var customPopupLocationManagement = new CustomPopupLocationManagement(menuItemVisibility, ClickPoint, ClickTPlace);
         await this.ShowPopupAsync(customPopupLocationManagement);
 
+        AddEditLocationContentPage addEditLocationContentPage;
+        bool success;
         var result = await customPopupLocationManagement.ResultDialog;
         switch (result)
         {
@@ -324,14 +326,31 @@ public partial class LocationManagementContentPage
                 break;
 
             case ECustomPopupLocationManagement.Add:
-                var addEditLocationContentPage = new AddEditLocationContentPage();
+                addEditLocationContentPage = new AddEditLocationContentPage();
                 addEditLocationContentPage.SetPlace(ClickPoint);
                 await addEditLocationContentPage.NavigateToAsync();
-                var success = await addEditLocationContentPage.ResultDialog;
+                success = await addEditLocationContentPage.ResultDialog;
                 if (!success) return;
                 success = await ProcessNewPlace(addEditLocationContentPage.Place, add: true);
                 if (success) AddTreeViewNodePlace(addEditLocationContentPage.Place);
                 break;
+
+            case ECustomPopupLocationManagement.Edit:
+                addEditLocationContentPage = new AddEditLocationContentPage();
+                addEditLocationContentPage.SetPlace(ClickTPlace!, false);
+                await addEditLocationContentPage.NavigateToAsync();
+                success = await addEditLocationContentPage.ResultDialog;
+                if (!success) return;
+
+                var editedPlace = addEditLocationContentPage.Place;
+                success = await ProcessNewPlace(editedPlace, edit: true);
+                if (!success) return;
+
+                RemoveTreeViewNodePlace(editedPlace);
+                AddTreeViewNodePlace(editedPlace);
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
         }
     }
 
