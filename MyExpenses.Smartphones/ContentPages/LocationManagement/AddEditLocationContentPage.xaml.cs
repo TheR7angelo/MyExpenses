@@ -302,10 +302,20 @@ public partial class AddEditLocationContentPage
 
     private void ButtonSearchByCoordinate_OnClicked(object? sender, EventArgs e)
     {
-        if (Place.Latitude is null || Place.Longitude is null)
+        if (Place.Latitude is null)
         {
-            // TODO work
-            _ = DisplayAlert("Error", "The latitude or longitude are not set", "Ok");
+            _ = DisplayAlert(AddEditLocationResources.MessageBoxErrorLatitudeIsNullTitle,
+                AddEditLocationResources.MessageBoxErrorLatitudeIsNullMessage,
+                AddEditLocationResources.MessageBoxErrorLatitudeIsNullOkButton);
+            return;
+        }
+
+        if (Place.Longitude is null)
+        {
+            _ = DisplayAlert(AddEditLocationResources.MessageBoxErrorLongitudeIsNullTitle,
+                AddEditLocationResources.MessageBoxErrorLongitudeIsNullMessage,
+                AddEditLocationResources.MessageBoxErrorLongitudeIsNullOkButton);
+            return;
         }
 
         var point = Place.Geometry as Point;
