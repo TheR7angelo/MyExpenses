@@ -98,7 +98,6 @@ public partial class TPlace : ISql, ISig
         }
     }
 
-    [Required]
     [Column("is_open", TypeName = "BOOLEAN")]
     public bool IsOpen { get; set; } = true;
 

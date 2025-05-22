@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Windows;
 using System.Windows.Controls;
 using BruTile.Predefined;
 using Mapsui;
@@ -20,6 +21,7 @@ using MyExpenses.Wpf.Utils;
 using MyExpenses.Wpf.Windows.MsgBox;
 using Serilog;
 using Point = NetTopologySuite.Geometries.Point;
+using ValidationResult = System.ComponentModel.DataAnnotations.ValidationResult;
 
 namespace MyExpenses.Wpf.Windows.LocationManagementWindows;
 
@@ -421,6 +423,43 @@ public partial class AddEditLocationWindow
 
     private void ButtonValid_OnClick(object sender, RoutedEventArgs e)
     {
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // The serviceProvider and items are set to null because they are not required in this context.
+        // The ValidationResults list will store any validation errors detected during the process.
+        var validationContext = new ValidationContext(Place, serviceProvider: null, items: null);
+
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // Using 'var' keeps the code concise and readable, as the type (List<ValidationResult>)
+        // is evident from the initialization. The result will still be compatible with any method
+        // that expects an ICollection<ValidationResult>, as List<T> implements the ICollection interface.
+        var validationResults = new List<ValidationResult>();
+        var isValid = Validator.TryValidateObject(Place, validationContext, validationResults, true);
+
+        if (!isValid)
+        {
+            var propertyError = validationResults.First();
+            var propertyMemberName = propertyError.MemberNames.First();
+
+            var messageErrorKey = propertyMemberName switch
+            {
+                nameof(TPlace.Name) => nameof(AddEditLocationResources.MessageBoxButtonValidationNameError),
+                nameof(TPlace.Street) => nameof(AddEditLocationResources.MessageBoxButtonValidationStreetError),
+                nameof(TPlace.Postal) => nameof(AddEditLocationResources.MessageBoxButtonValidationPostalError),
+                nameof(TPlace.City) => nameof(AddEditLocationResources.MessageBoxButtonValidationCityError),
+                nameof(TPlace.Country) => nameof(AddEditLocationResources.MessageBoxButtonValidationCountryError),
+                nameof(TPlace.Latitude) => nameof(AddEditLocationResources.MessageBoxButtonValidationLatitudeError),
+                nameof(TPlace.Longitude) => nameof(AddEditLocationResources.MessageBoxButtonValidationLongitudeError),
+                _ => null
+            };
+
+            var localizedErrorMessage = string.IsNullOrEmpty(messageErrorKey)
+                ? propertyError.ErrorMessage!
+                : AddEditLocationResources.ResourceManager.GetString(messageErrorKey)!;
+
+            MsgBox.MsgBox.Show(localizedErrorMessage, MsgBoxImage.Error);
+            return;
+        }
+
         DialogResult = true;
         Close();
     }
