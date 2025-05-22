@@ -119,4 +119,22 @@
     <data name="MessageBoxNominatimResultMultipleResultTitle" xml:space="preserve">
         <value>Information</value>
     </data>
+    <data name="MessageBoxErrorLatitudeIsNullMessage" xml:space="preserve">
+        <value>The latitude is not set</value>
+    </data>
+    <data name="MessageBoxErrorLatitudeIsNullOkButton" xml:space="preserve">
+        <value>Ok</value>
+    </data>
+    <data name="MessageBoxErrorLatitudeIsNullTitle" xml:space="preserve">
+        <value>Error</value>
+    </data>
+    <data name="MessageBoxErrorLongitudeIsNullMessage" xml:space="preserve">
+        <value>The longitude is not set</value>
+    </data>
+    <data name="MessageBoxErrorLongitudeIsNullOkButton" xml:space="preserve">
+        <value>Ok</value>
+    </data>
+    <data name="MessageBoxErrorLongitudeIsNullTitle" xml:space="preserve">
+        <value>Error</value>
+    </data>
 </root>

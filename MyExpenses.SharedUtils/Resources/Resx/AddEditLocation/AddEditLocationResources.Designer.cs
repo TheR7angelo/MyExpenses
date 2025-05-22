@@ -222,6 +222,60 @@ namespace MyExpenses.SharedUtils.Resources.Resx.AddEditLocation {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The latitude is not set.
+        /// </summary>
+        public static string MessageBoxErrorLatitudeIsNullMessage {
+            get {
+                return ResourceManager.GetString("MessageBoxErrorLatitudeIsNullMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ok.
+        /// </summary>
+        public static string MessageBoxErrorLatitudeIsNullOkButton {
+            get {
+                return ResourceManager.GetString("MessageBoxErrorLatitudeIsNullOkButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        public static string MessageBoxErrorLatitudeIsNullTitle {
+            get {
+                return ResourceManager.GetString("MessageBoxErrorLatitudeIsNullTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The longitude is not set.
+        /// </summary>
+        public static string MessageBoxErrorLongitudeIsNullMessage {
+            get {
+                return ResourceManager.GetString("MessageBoxErrorLongitudeIsNullMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ok.
+        /// </summary>
+        public static string MessageBoxErrorLongitudeIsNullOkButton {
+            get {
+                return ResourceManager.GetString("MessageBoxErrorLongitudeIsNullOkButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        public static string MessageBoxErrorLongitudeIsNullTitle {
+            get {
+                return ResourceManager.GetString("MessageBoxErrorLongitudeIsNullTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Several results were found, please choose one.
         /// </summary>
         public static string MessageBoxNominatimResultMultipleResultMessage {
