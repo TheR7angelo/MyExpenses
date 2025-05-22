@@ -507,4 +507,19 @@ public partial class AddEditLocationContentPage
         WritableLayer.Add(feature);
         MapControl.Map.Refresh();
     }
+
+    private void ButtonValid_OnClick(object? sender, EventArgs e)
+    {
+        throw new NotImplementedException();
+    }
+
+    private void ButtonDelete_OnClick(object? sender, EventArgs e)
+    {
+        throw new NotImplementedException();
+    }
+
+    private void ButtonCancel_OnClick(object? sender, EventArgs e)
+    {
+        throw new NotImplementedException();
+    }
 }

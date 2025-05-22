@@ -24,6 +24,7 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
             <material:TextField Grid.Row="0"
@@ -214,6 +215,28 @@
                 </Grid>
 
             </Border>
+
+            <HorizontalStackLayout Grid.Row="4"
+                                   HorizontalOptions="Center"
+                                   margin:LayoutExtensions.MarginForAllChildren="3">
+
+                <Button Style="{StaticResource RaisedMidButton}"
+                        Text="{Binding ButtonContentValid, Mode=OneWay}"
+                        Clicked="ButtonValid_OnClick">
+                </Button>
+
+                <Button Style="{StaticResource RaisedMidButton}"
+                        Text="{Binding ButtonContentDelete, Mode=OneWay}"
+                        IsVisible="{Binding EditPlace, Mode=OneWay}"
+                        Clicked="ButtonDelete_OnClick">
+                </Button>
+
+                <Button Style="{StaticResource RaisedMidButton}"
+                        Text="{Binding ButtonContentCancel, Mode=OneWay}"
+                        Clicked="ButtonCancel_OnClick">
+                </Button>
+
+            </HorizontalStackLayout>
 
         </Grid>
 
