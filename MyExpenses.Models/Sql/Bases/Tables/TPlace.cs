@@ -14,7 +14,6 @@ public partial class TPlace : ISql, ISig
     [Column("id")]
     public int Id { get; set; }
 
-    [Required]
     [Column("name")]
     [MaxLength(155)]
     public string? Name { get; set; }
@@ -23,22 +22,18 @@ public partial class TPlace : ISql, ISig
     [MaxLength(20)]
     public string? Number { get; set; }
 
-    [Required]
     [Column("street")]
     [MaxLength(155)]
     public string? Street { get; set; }
 
-    [Required]
     [Column("postal")]
     [MaxLength(10)]
     public string? Postal { get; set; }
 
-    [Required]
     [Column("city")]
     [MaxLength(100)]
     public string? City { get; set; }
 
-    [Required]
     [Column("country")]
     [MaxLength(55)]
     public string? Country { get; set; }
@@ -46,7 +41,6 @@ public partial class TPlace : ISql, ISig
     [NotMapped]
     private double? _latitude;
 
-    [Required]
     [Column("latitude")]
     public double? Latitude
     {
@@ -61,7 +55,6 @@ public partial class TPlace : ISql, ISig
     [NotMapped]
     private double? _longitude;
 
-    [Required]
     [Column("longitude")]
     public double? Longitude
     {
