@@ -249,6 +249,11 @@ public partial class AddEditLocationContentPage
 
     #endregion
 
+    private readonly TaskCompletionSource<bool> _taskCompletionSource = new();
+
+    public Task<bool> ResultDialog
+        => _taskCompletionSource.Task;
+
     public AddEditLocationContentPage()
     {
         KnownTileSources = [..MapsuiMapExtensions.GetAllKnowTileSource()];
@@ -509,9 +514,7 @@ public partial class AddEditLocationContentPage
     }
 
     private void ButtonValid_OnClick(object? sender, EventArgs e)
-    {
-        throw new NotImplementedException();
-    }
+        => _ = HandleButtonResponse(true);
 
     private void ButtonDelete_OnClick(object? sender, EventArgs e)
     {
@@ -519,7 +522,11 @@ public partial class AddEditLocationContentPage
     }
 
     private void ButtonCancel_OnClick(object? sender, EventArgs e)
+        => _ = HandleButtonResponse(false);
+
+    private async Task HandleButtonResponse(bool result)
     {
-        throw new NotImplementedException();
+        _taskCompletionSource.SetResult(result);
+        await Navigation.PopAsync();
     }
 }
