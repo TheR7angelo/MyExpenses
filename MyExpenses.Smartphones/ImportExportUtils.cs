@@ -404,7 +404,10 @@ public static class ImportExportUtils
         if (selectDatabaseFileContentPage.ExistingDatabasesSelected.Any(s => s.SyncStatus is SyncStatus.RemoteIsOutdated))
         {
             var question = string.Format(WelcomeManagementResources.CloudDatabaseOutdatedWarningQuestionMessage, Environment.NewLine);
-            var response = await parent.DisplayAlert("Question", question, "Yes", "No");
+            var response = await parent.DisplayAlert(WelcomeManagementResources.CloudDatabaseOutdatedWarningQuestionTitle,
+                question,
+                WelcomeManagementResources.CloudDatabaseOutdatedWarningQuestionYesButton,
+                WelcomeManagementResources.CloudDatabaseOutdatedWarningQuestionNoButton);
             if (response is not true)
             {
                 Log.Information("Import cancelled. User chose to not import the cloud databases");
