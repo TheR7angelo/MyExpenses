@@ -154,6 +154,43 @@ public partial class LocationManagementContentPage
         Grid.SetColumnSpan(control, columnSpan);
     }
 
+    private void AddTreeViewNodePlace(TPlace place)
+    {
+        var countryName = Utils.Converters.EmptyStringTreeViewConverter.ToUnknown(place.Country);
+        var cityName = Utils.Converters.EmptyStringTreeViewConverter.ToUnknown(place.City);
+
+        var group = place.GetGroups();
+        var cityNode = group.ToTreeViewNode().First();
+        var countryNode = new TreeViewNode
+        {
+            Name = countryName,
+            Children = [cityNode],
+            AdditionalData = place.Country
+        };
+
+        var countryTreeViewNodes = TreeViewNodes.FirstOrDefault(s => Utils.Converters.EmptyStringTreeViewConverter.ToUnknown(s.AdditionalData).Equals(countryName));
+        if (countryTreeViewNodes is null)
+        {
+            TreeViewNodes.AddAndSort(countryNode, s => s.Name!);
+            return;
+        }
+
+        var cityTreeViewNodes = countryTreeViewNodes.Children.FirstOrDefault(s => Utils.Converters.EmptyStringTreeViewConverter.ToUnknown(s.AdditionalData).Equals(cityName));
+        if (cityTreeViewNodes is null)
+        {
+            countryTreeViewNodes.Children.AddAndSort(cityNode, s => s.Name!);
+            countryTreeViewNodes.Name = countryTreeViewNodes.ToFormatNodeName();
+        }
+        else
+        {
+            var placeNode = place.Name!.CreateTreeViewNode(additionalData: place);
+            cityTreeViewNodes.Children.AddAndSort(placeNode, s=> s.Name!);
+            cityTreeViewNodes.Name = cityTreeViewNodes.ToFormatNodeName();
+        }
+
+
+    }
+
     private static (IEnumerable<TreeViewNode> TreeViewNodes, IEnumerable<TPlace> Places) GenerateTreeViewNodes()
     {
         // ReSharper disable once HeapView.ObjectAllocation.Evident
@@ -241,6 +278,116 @@ public partial class LocationManagementContentPage
             LocationManagementResources.MessageBoxMenuItemDeleteFeatureErrorOkButton);
     }
 
+    private async Task HandleLongTap()
+    {
+        var menuItemVisibility = ClickTPlace is null
+            ? new MenuItemVisibility { MenuItemAddFeature = true }
+            : new MenuItemVisibility { MenuItemEditFeature = true, MenuItemDeleteFeature = true };
+
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        var customPopupLocationManagement = new CustomPopupLocationManagement(menuItemVisibility, ClickPoint, ClickTPlace);
+        await this.ShowPopupAsync(customPopupLocationManagement);
+
+        AddEditLocationContentPage addEditLocationContentPage;
+        bool success;
+        var result = await customPopupLocationManagement.ResultDialog;
+        switch (result)
+        {
+            case ECustomPopupLocationManagement.Delete:
+                _ = HandleDeleteFeature();
+                break;
+
+            case ECustomPopupLocationManagement.Add:
+                addEditLocationContentPage = new AddEditLocationContentPage();
+                addEditLocationContentPage.SetPlace(ClickPoint);
+                await addEditLocationContentPage.NavigateToAsync();
+                success = await addEditLocationContentPage.ResultDialog;
+                if (!success) return;
+                success = await ProcessNewPlace(addEditLocationContentPage.Place, add: true);
+                if (success) AddTreeViewNodePlace(addEditLocationContentPage.Place);
+                break;
+
+            case ECustomPopupLocationManagement.Edit:
+                addEditLocationContentPage = new AddEditLocationContentPage();
+                addEditLocationContentPage.SetPlace(ClickTPlace!, false);
+                await addEditLocationContentPage.NavigateToAsync();
+                success = await addEditLocationContentPage.ResultDialog;
+                if (!success) return;
+
+                var editedPlace = addEditLocationContentPage.Place;
+                success = await ProcessNewPlace(editedPlace, edit: true);
+                if (!success) return;
+
+                RemoveTreeViewNodePlace(editedPlace);
+                AddTreeViewNodePlace(editedPlace);
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
+    }
+
+    private async Task<bool> ProcessNewPlace(TPlace newPlace, bool add = false, bool edit = false)
+    {
+        var (success, exception) = newPlace.AddOrEdit();
+        if (success)
+        {
+            var feature = newPlace.IsOpen
+                ? newPlace.ToFeature(MapsuiStyleExtensions.RedMarkerStyle)
+                : newPlace.ToFeature(MapsuiStyleExtensions.BlueMarkerStyle);
+
+            PlaceLayer.TryRemove(PointFeature!);
+            PlaceLayer.Add(feature);
+            MapControl.Refresh();
+
+            // string json;
+            switch (add)
+            {
+                case true when !edit:
+                    await DisplayAlert("Success", LocationManagementResources.MessageBoxProcessNewPlaceAddSuccess, "Ok");
+                    Log.Information("The new place was successfully added");
+
+                    // Loop crash
+                    // json = newPlace.ToJsonString();
+                    // Log.Information("{Json}", json);
+
+                    break;
+                case false when edit:
+                    await DisplayAlert("Success", LocationManagementResources.MessageBoxProcessNewPlaceEditSuccess, "Ok");
+                    Log.Information("The new place was successfully edited");
+
+                    // Loop crash
+                    // json = newPlace.ToJsonString();
+                    // Log.Information("{Json}", json);
+
+                    break;
+            }
+
+            return true;
+        }
+
+        Log.Error(exception, "An error occurred please retry");
+        await DisplayAlert("Error", LocationManagementResources.MessageBoxProcessNewPlaceError, "Ok");
+
+        return false;
+    }
+
+    private void RemoveTreeViewNodePlace(TPlace place)
+    {
+        var countryName = Utils.Converters.EmptyStringTreeViewConverter.ToUnknown(place.Country);
+        var cityName = Utils.Converters.EmptyStringTreeViewConverter.ToUnknown(place.City);
+
+        var countryTreeViewNodes = TreeViewNodes.First(s => Utils.Converters.EmptyStringTreeViewConverter.ToUnknown(s.AdditionalData).Equals(countryName));
+        var cityTreeViewNodes = countryTreeViewNodes.Children.First(s => Utils.Converters.EmptyStringTreeViewConverter.ToUnknown(s.AdditionalData).Equals(cityName));
+        var placeTreeViewNodes = cityTreeViewNodes.Children.First(s => s.Name!.Equals(ClickTPlace!.Name));
+
+        cityTreeViewNodes.Children.Remove(placeTreeViewNodes);
+        if (cityTreeViewNodes.Children.Count is 0) countryTreeViewNodes.Children.Remove(cityTreeViewNodes);
+        else cityTreeViewNodes.Name = cityTreeViewNodes.ToFormatNodeName();
+
+        if (countryTreeViewNodes.Children.Count is 0) TreeViewNodes.Remove(countryTreeViewNodes);
+        else countryTreeViewNodes.Name = countryTreeViewNodes.ToFormatNodeName();
+    }
+
     private void SetClickTPlace(MapInfo mapInfo)
     {
         if (mapInfo.Feature is not PointFeature pointFeature || mapInfo.Layer?.Tag is not Type layerType || layerType != typeof(TPlace))
@@ -305,151 +452,4 @@ public partial class LocationManagementContentPage
     }
 
     #endregion
-
-    private async Task HandleLongTap()
-    {
-        var menuItemVisibility = ClickTPlace is null
-            ? new MenuItemVisibility { MenuItemAddFeature = true }
-            : new MenuItemVisibility { MenuItemEditFeature = true, MenuItemDeleteFeature = true };
-
-        // ReSharper disable once HeapView.ObjectAllocation.Evident
-        var customPopupLocationManagement = new CustomPopupLocationManagement(menuItemVisibility, ClickPoint, ClickTPlace);
-        await this.ShowPopupAsync(customPopupLocationManagement);
-
-        AddEditLocationContentPage addEditLocationContentPage;
-        bool success;
-        var result = await customPopupLocationManagement.ResultDialog;
-        switch (result)
-        {
-            case ECustomPopupLocationManagement.Delete:
-                _ = HandleDeleteFeature();
-                break;
-
-            case ECustomPopupLocationManagement.Add:
-                addEditLocationContentPage = new AddEditLocationContentPage();
-                addEditLocationContentPage.SetPlace(ClickPoint);
-                await addEditLocationContentPage.NavigateToAsync();
-                success = await addEditLocationContentPage.ResultDialog;
-                if (!success) return;
-                success = await ProcessNewPlace(addEditLocationContentPage.Place, add: true);
-                if (success) AddTreeViewNodePlace(addEditLocationContentPage.Place);
-                break;
-
-            case ECustomPopupLocationManagement.Edit:
-                addEditLocationContentPage = new AddEditLocationContentPage();
-                addEditLocationContentPage.SetPlace(ClickTPlace!, false);
-                await addEditLocationContentPage.NavigateToAsync();
-                success = await addEditLocationContentPage.ResultDialog;
-                if (!success) return;
-
-                var editedPlace = addEditLocationContentPage.Place;
-                success = await ProcessNewPlace(editedPlace, edit: true);
-                if (!success) return;
-
-                RemoveTreeViewNodePlace(editedPlace);
-                AddTreeViewNodePlace(editedPlace);
-                break;
-            default:
-                throw new ArgumentOutOfRangeException();
-        }
-    }
-
-    private void RemoveTreeViewNodePlace(TPlace place)
-    {
-        var countryName = Utils.Converters.EmptyStringTreeViewConverter.ToUnknown(place.Country);
-        var cityName = Utils.Converters.EmptyStringTreeViewConverter.ToUnknown(place.City);
-
-        var countryTreeViewNodes = TreeViewNodes.First(s => Utils.Converters.EmptyStringTreeViewConverter.ToUnknown(s.AdditionalData).Equals(countryName));
-        var cityTreeViewNodes = countryTreeViewNodes.Children.First(s => Utils.Converters.EmptyStringTreeViewConverter.ToUnknown(s.AdditionalData).Equals(cityName));
-        var placeTreeViewNodes = cityTreeViewNodes.Children.First(s => s.Name!.Equals(ClickTPlace!.Name));
-
-        cityTreeViewNodes.Children.Remove(placeTreeViewNodes);
-        if (cityTreeViewNodes.Children.Count is 0) countryTreeViewNodes.Children.Remove(cityTreeViewNodes);
-        else cityTreeViewNodes.Name = cityTreeViewNodes.ToFormatNodeName();
-
-        if (countryTreeViewNodes.Children.Count is 0) TreeViewNodes.Remove(countryTreeViewNodes);
-        else countryTreeViewNodes.Name = countryTreeViewNodes.ToFormatNodeName();
-    }
-
-    private void AddTreeViewNodePlace(TPlace place)
-    {
-        var countryName = Utils.Converters.EmptyStringTreeViewConverter.ToUnknown(place.Country);
-        var cityName = Utils.Converters.EmptyStringTreeViewConverter.ToUnknown(place.City);
-
-        var group = place.GetGroups();
-        var cityNode = group.ToTreeViewNode().First();
-        var countryNode = new TreeViewNode
-        {
-            Name = countryName,
-            Children = [cityNode],
-            AdditionalData = place.Country
-        };
-
-        var countryTreeViewNodes = TreeViewNodes.FirstOrDefault(s => Utils.Converters.EmptyStringTreeViewConverter.ToUnknown(s.AdditionalData).Equals(countryName));
-        if (countryTreeViewNodes is null)
-        {
-            TreeViewNodes.AddAndSort(countryNode, s => s.Name!);
-            return;
-        }
-
-        var cityTreeViewNodes = countryTreeViewNodes.Children.FirstOrDefault(s => Utils.Converters.EmptyStringTreeViewConverter.ToUnknown(s.AdditionalData).Equals(cityName));
-        if (cityTreeViewNodes is null)
-        {
-            countryTreeViewNodes.Children.AddAndSort(cityNode, s => s.Name!);
-            countryTreeViewNodes.Name = countryTreeViewNodes.ToFormatNodeName();
-        }
-        else
-        {
-            var placeNode = place.Name!.CreateTreeViewNode(additionalData: place);
-            cityTreeViewNodes.Children.AddAndSort(placeNode, s=> s.Name!);
-            cityTreeViewNodes.Name = cityTreeViewNodes.ToFormatNodeName();
-        }
-
-
-    }
-
-    private async Task<bool> ProcessNewPlace(TPlace newPlace, bool add = false, bool edit = false)
-    {
-        var (success, exception) = newPlace.AddOrEdit();
-        if (success)
-        {
-            var feature = newPlace.IsOpen
-                ? newPlace.ToFeature(MapsuiStyleExtensions.RedMarkerStyle)
-                : newPlace.ToFeature(MapsuiStyleExtensions.BlueMarkerStyle);
-
-            PlaceLayer.TryRemove(PointFeature!);
-            PlaceLayer.Add(feature);
-            MapControl.Refresh();
-
-            // string json;
-            switch (add)
-            {
-                case true when !edit:
-                    await DisplayAlert("Success", LocationManagementResources.MessageBoxProcessNewPlaceAddSuccess, "Ok");
-                    Log.Information("The new place was successfully added");
-
-                    // Loop crash
-                    // json = newPlace.ToJsonString();
-                    // Log.Information("{Json}", json);
-
-                    break;
-                case false when edit:
-                    await DisplayAlert("Success", LocationManagementResources.MessageBoxProcessNewPlaceEditSuccess, "Ok");
-                    Log.Information("The new place was successfully edited");
-
-                    // Loop crash
-                    // json = newPlace.ToJsonString();
-                    // Log.Information("{Json}", json);
-
-                    break;
-            }
-
-            return true;
-        }
-
-        Log.Error(exception, "An error occurred please retry");
-        await DisplayAlert("Error", LocationManagementResources.MessageBoxProcessNewPlaceError, "Ok");
-
-        return false;
-    }
 }
