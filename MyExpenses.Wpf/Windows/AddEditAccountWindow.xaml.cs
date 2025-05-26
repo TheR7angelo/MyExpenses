@@ -381,7 +381,7 @@ public partial class AddEditAccountWindow
         var textBox = (TextBox)sender;
         var txt = textBox.Text.Insert(textBox.SelectionStart, e.Text);
 
-        e.Handled = txt.IsOnlyDecimal();
+        e.Handled = !txt.IsOnlyDecimal();
     }
 
     #endregion
