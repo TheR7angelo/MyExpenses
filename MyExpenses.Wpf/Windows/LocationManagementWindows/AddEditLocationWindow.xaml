@@ -124,7 +124,8 @@
         <TextBox Grid.Row="6" Grid.Column="0"
                  materialDesign:HintAssist.Hint="{Binding TextBoxLongitudeHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                  Style="{StaticResource MaterialDesignFilledTextBox}"
-                 Text="{Binding Place.Longitude, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                 Text="{Binding Place.Longitude, Mode=TwoWay}"
+                 PreviewTextInput="UIElement_OnPreviewTextInput">
         </TextBox>
 
         <StackPanel Grid.Row="6" Grid.Column="1"
@@ -150,7 +151,8 @@
         <TextBox Grid.Row="7" Grid.Column="0"
                  materialDesign:HintAssist.Hint="{Binding TextBoxLatitudeHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                  Style="{StaticResource MaterialDesignFilledTextBox}"
-                 Text="{Binding Place.Latitude, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                 Text="{Binding Place.Latitude, Mode=TwoWay}"
+                 PreviewTextInput="UIElement_OnPreviewTextInput">
         </TextBox>
 
         <Grid Grid.Row="8" Grid.Column="0"

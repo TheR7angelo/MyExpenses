@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using BruTile.Predefined;
 using Mapsui;
 using Mapsui.Layers;
@@ -12,6 +13,7 @@ using MyExpenses.Models.Mapsui.PointFeatures;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Models.WebApi.Nominatim;
 using MyExpenses.SharedUtils.Properties;
+using MyExpenses.SharedUtils.RegexUtils;
 using MyExpenses.SharedUtils.Resources.Resx.AddEditLocation;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils.Maps;
@@ -577,4 +579,12 @@ public partial class AddEditLocationWindow
     }
 
     #endregion
+
+    private void UIElement_OnPreviewTextInput(object sender, TextCompositionEventArgs e)
+    {
+        var textBox = (TextBox)sender;
+        var txt = textBox.Text.Insert(textBox.SelectionStart, e.Text);
+
+        e.Handled = !txt.IsOnlyDecimal();
+    }
 }
