@@ -11,7 +11,7 @@ public static partial class DecimalRegex
     /// <returns>True if the string contains only decimal numbers, otherwise false.</returns>
     public static bool IsOnlyDecimal(this string txt)
     {
-        var result = !IsOnlyDecimalRegex().IsMatch(txt);
+        var result = IsOnlyDecimalRegex().IsMatch(txt);
         return result;
     }
 
