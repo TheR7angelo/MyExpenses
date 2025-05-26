@@ -34,7 +34,8 @@
 
                     <!-- TODO work -->
                     <Button Text="{Binding ButtonTextColorManagement, Mode=OneWay}"
-                            Style="{StaticResource RaisedMidButton}">
+                            Style="{StaticResource RaisedMidButton}"
+                            Clicked="ButtonColorManagement_OnClicked">
                     </Button>
 
                     <!-- TODO work -->
