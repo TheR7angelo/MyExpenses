@@ -566,6 +566,8 @@ public partial class BankTransferPage
 
         RefreshVFromAccountReduce();
         RefreshVToAccountIncrease();
+
+        textBox.CaretIndex = txt.Length;
     }
 
     private void UIElement_OnPreviewTextInput(object sender, TextCompositionEventArgs e)
@@ -573,7 +575,7 @@ public partial class BankTransferPage
         var textBox = (TextBox)sender;
         var txt = textBox.Text.Insert(textBox.SelectionStart, e.Text);
 
-        e.Handled = txt.IsOnlyDecimal();
+        e.Handled = !txt.IsOnlyDecimal();
     }
 
     #endregion
