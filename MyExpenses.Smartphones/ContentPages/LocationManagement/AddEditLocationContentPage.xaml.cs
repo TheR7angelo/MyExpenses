@@ -273,33 +273,13 @@ public partial class AddEditLocationContentPage
         Interface.LanguageChanged += Interface_OnLanguageChanged;
     }
 
-    private void Interface_OnLanguageChanged()
-        => UpdateLanguage();
+    #region Action
 
-    private void UpdateLanguage()
-    {
-        TextBoxCityHintAssist = AddEditLocationResources.TextBoxCityHintAssist;
-        TextBoxCountryHintAssist = AddEditLocationResources.TextBoxCountryHintAssist;
-        TextBoxLatitudeHintAssist = AddEditLocationResources.TextBoxLatitudeHintAssist;
-        TextBoxLongitudeHintAssist = AddEditLocationResources.TextBoxLongitudeHintAssist;
-        TextBoxNameHintAssist = AddEditLocationResources.TextBoxNameHintAssist;
-        TextBoxNumberHintAssist = AddEditLocationResources.TextBoxNumberHintAssist;
-        TextBoxPostalCodeHintAssist = AddEditLocationResources.TextBoxPostalCodeHintAssist;
-        TextBoxStreetHintAssist = AddEditLocationResources.TextBoxStreetHintAssist;
-        ButtonContentValidNewPoint = AddEditLocationResources.ButtonContentValidNewPoint;
-        ButtonContentZoomToPoint = AddEditLocationResources.ButtonContentZoomToPoint;
-        ComboBoxBasemapHintAssist = AddEditLocationResources.ComboBoxBasemapHintAssist;
+    private void ButtonCancel_OnClick(object? sender, EventArgs e)
+        => _ = HandleButtonResponse(false);
 
-        ButtonContentSearchByAddress = AddEditLocationResources.ButtonContentSearchByAddress;
-        ButtonContentSearchByCoordinate = AddEditLocationResources.ButtonContentSearchByCoordinate;
-        ButtonContentSearchByCurrentCoordinate = AddEditLocationResources.ButtonContentSearchByCurrentCoordinate;
-
-        ButtonContentCancel = AddEditLocationResources.ButtonContentCancel;
-        ButtonContentDelete = AddEditLocationResources.ButtonContentDelete;
-        ButtonContentValid = AddEditLocationResources.ButtonContentValid;
-
-        CheckBoxContentIsOpen = AddEditLocationResources.CheckBoxContentIsOpen;
-    }
+    private void ButtonDelete_OnClick(object? sender, EventArgs e)
+        => _ = HandleButtonDelete();
 
     private void ButtonSearchByAddress_OnClicked(object? sender, EventArgs e)
     {
@@ -341,86 +321,26 @@ public partial class AddEditLocationContentPage
     private void ButtonSearchByCurrentCoordinate_OnClicked(object? sender, EventArgs e)
         => _ = HandleSearchWithCurrentCoordinate();
 
-    [SupportedOSPlatform("Android21.0")]
-    [SupportedOSPlatform("iOS13.0")]
-    [SupportedOSPlatform("MacCatalyst15.0")]
-    [SupportedOSPlatform("Windows")]
-    private async Task HandleSearchWithCurrentCoordinate()
+    private void ButtonValid_OnClick(object? sender, EventArgs e)
     {
-        var location = await Maui.Utils.SensorRequestUtils.GetLocation();
-        if (location is null) return;
-
-        var point = new Point(location.Longitude, location.Latitude);
-        _ = SearchByCoordinate(point);
-    }
-
-    private async Task SearchByCoordinate(Point point)
-    {
-        Log.Information("Using the nominatim API to search via a point : {Point}", point);
-        var nominatimSearchResult = point.ToNominatim();
-
-        var results = new List<NominatimSearchResult>();
-        if (nominatimSearchResult is not null) results.Add(nominatimSearchResult);
-        await HandleNominatimResult(results);
-    }
-
-    public void SetPlace(TPlace newTPlace, bool clear)
-    {
-        if (clear) WritableLayer.Clear();
-
-        newTPlace.CopyPropertiesTo(Place);
-        UpdateMiniMap();
-        EditPlace = true;
-    }
-
-    public void SetPlace(Point point)
-    {
-        var nominatim = point.ToNominatim();
-        if (nominatim is not null)
+        string? localizedErrorMessage = null;
+        if (string.IsNullOrWhiteSpace(Place.Name)) localizedErrorMessage = AddEditLocationResources.MessageBoxButtonValidationNameError;
+        if (string.IsNullOrWhiteSpace(Place.Street)) localizedErrorMessage = AddEditLocationResources.MessageBoxButtonValidationStreetError;
+        if (string.IsNullOrWhiteSpace(Place.Postal)) localizedErrorMessage = AddEditLocationResources.MessageBoxButtonValidationPostalError;
+        if (string.IsNullOrWhiteSpace(Place.City)) localizedErrorMessage = AddEditLocationResources.MessageBoxButtonValidationCityError;
+        if (string.IsNullOrWhiteSpace(Place.Country)) localizedErrorMessage = AddEditLocationResources.MessageBoxButtonValidationCountryError;
+        if (Place.Latitude is null or 0) localizedErrorMessage = AddEditLocationResources.MessageBoxButtonValidationLatitudeError;
+        if (Place.Longitude is null or 0) localizedErrorMessage = AddEditLocationResources.MessageBoxButtonValidationLongitudeError;
+        if (!string.IsNullOrWhiteSpace(localizedErrorMessage))
         {
-            var mapper = Mapping.Mapper;
-            var place = mapper.Map<TPlace>(nominatim);
-            place.CopyPropertiesTo(Place);
-        }
-        else
-        {
-            Place.Geometry = point;
+            _ = DisplayAlert(AddEditLocationResources.MessageBoxButtonValidationTitleError,
+                localizedErrorMessage,
+                AddEditLocationResources.MessageBoxButtonValidationOkButtonError);
+            return;
         }
 
-        UpdateMiniMap();
+        _ = HandleButtonResponse(true);
     }
-
-    private void UpdateMiniMap()
-    {
-        var feature = Place.ToTemporaryFeature(MapsuiStyleExtensions.RedMarkerStyle);
-        feature.IsTemp = false;
-
-        WritableLayer.Add(feature);
-
-        MapControl.Map.Navigator.CenterOnAndZoomTo(feature.Point, 1);
-        MapControl.Refresh();
-    }
-
-    private void PickerFieldKnownTileSource_OnSelectedItemChanged(object? sender, object o)
-        => UpdateTileLayer();
-
-    private void UpdateTileLayer()
-    {
-        const string layerName = "Background";
-
-        var httpTileSource = BruTile.Predefined.KnownTileSources.Create(KnownTileSourceSelected);
-
-        // ReSharper disable once HeapView.ObjectAllocation.Evident
-        var tileLayer = new TileLayer(httpTileSource) { Name = layerName };
-
-        var layers = MapControl?.Map.Layers.FindLayer(layerName);
-        if (layers is not null) MapControl?.Map.Layers.Remove(layers.ToArray());
-
-        MapControl?.Map.Layers.Insert(0, tileLayer);
-    }
-
-    private void MapControl_OnLoaded(object? sender, EventArgs e)
-        => UpdateTileLayer();
 
     private void ButtonValidNewPoint_OnClicked(object? sender, EventArgs e)
     {
@@ -449,51 +369,8 @@ public partial class AddEditLocationContentPage
     private void ButtonZoomToPoint_OnClicked(object? sender, EventArgs e)
         => MapControl.Map.Navigator.SetZoom(WritableLayer);
 
-    private async Task HandleNominatimResult(IReadOnlyCollection<NominatimSearchResult> nominatimSearchResults)
-    {
-        TPlace? place = null;
-
-        switch (nominatimSearchResults.Count)
-        {
-            case 0:
-                Log.Information("The API returned no result(s)");
-                await DisplayAlert(AddEditLocationResources.MessageBoxNominatimResultZeroResultTitle,
-                    AddEditLocationResources.MessageBoxNominatimResultZeroResultMessage,
-                    AddEditLocationResources.MessageBoxNominatimResultZeroResultOkButton);
-                break;
-            case 1:
-                Log.Information("The API returned one result");
-                await DisplayAlert(AddEditLocationResources.MessageBoxNominatimResultOneResultTitle,
-                    AddEditLocationResources.MessageBoxNominatimResultOneResultMessage,
-                    AddEditLocationResources.MessageBoxNominatimResultOneResultOkButton);
-
-                var nominatimSearchResult = nominatimSearchResults.First();
-                place = Mapping.Mapper.Map<TPlace>(nominatimSearchResult);
-                break;
-            case > 1:
-                Log.Information("The API returned multiple results ({Count}) :", nominatimSearchResults.Count);
-                Log.Information("Detailed results: {NominatimSearchResults}", nominatimSearchResults);
-
-                await DisplayAlert(AddEditLocationResources.MessageBoxNominatimResultMultipleResultTitle,
-                    AddEditLocationResources.MessageBoxNominatimResultMultipleResultMessage,
-                    AddEditLocationResources.MessageBoxNominatimResultMultipleResultOkButton);
-
-                var places = nominatimSearchResults.Select(s => Mapping.Mapper.Map<TPlace>(s));
-                // ReSharper disable once HeapView.ObjectAllocation.Evident
-                var nominatimSearchContentPage = new NominatimSearchContentPage();
-                nominatimSearchContentPage.AddRange(places);
-                await nominatimSearchContentPage.NavigateToAsync();
-
-                var result = await nominatimSearchContentPage.ResultDialog;
-                if (result is not true) return;
-
-                place = nominatimSearchContentPage.CurrentPlace;
-                break;
-        }
-
-        if (place is null) return;
-        SetPlace(place, true);
-    }
+    private void Interface_OnLanguageChanged()
+        => UpdateLanguage();
 
     private void MapControl_OnInfo(object? sender, MapInfoEventArgs e)
     {
@@ -516,29 +393,15 @@ public partial class AddEditLocationContentPage
         MapControl.Map.Refresh();
     }
 
-    private void ButtonValid_OnClick(object? sender, EventArgs e)
-    {
-        string? localizedErrorMessage = null;
-        if (string.IsNullOrWhiteSpace(Place.Name)) localizedErrorMessage = AddEditLocationResources.MessageBoxButtonValidationNameError;
-        if (string.IsNullOrWhiteSpace(Place.Street)) localizedErrorMessage = AddEditLocationResources.MessageBoxButtonValidationStreetError;
-        if (string.IsNullOrWhiteSpace(Place.Postal)) localizedErrorMessage = AddEditLocationResources.MessageBoxButtonValidationPostalError;
-        if (string.IsNullOrWhiteSpace(Place.City)) localizedErrorMessage = AddEditLocationResources.MessageBoxButtonValidationCityError;
-        if (string.IsNullOrWhiteSpace(Place.Country)) localizedErrorMessage = AddEditLocationResources.MessageBoxButtonValidationCountryError;
-        if (Place.Latitude is null or 0) localizedErrorMessage = AddEditLocationResources.MessageBoxButtonValidationLatitudeError;
-        if (Place.Longitude is null or 0) localizedErrorMessage = AddEditLocationResources.MessageBoxButtonValidationLongitudeError;
-        if (!string.IsNullOrWhiteSpace(localizedErrorMessage))
-        {
-            _ = DisplayAlert(AddEditLocationResources.MessageBoxButtonValidationTitleError,
-                localizedErrorMessage,
-            AddEditLocationResources.MessageBoxButtonValidationOkButtonError);
-            return;
-        }
+    private void MapControl_OnLoaded(object? sender, EventArgs e)
+        => UpdateTileLayer();
 
-        _ = HandleButtonResponse(true);
-    }
+    private void PickerFieldKnownTileSource_OnSelectedItemChanged(object? sender, object o)
+        => UpdateTileLayer();
 
-    private void ButtonDelete_OnClick(object? sender, EventArgs e)
-        => _ = HandleButtonDelete();
+    #endregion
+
+    #region Function
 
     private async Task HandleButtonDelete()
     {
@@ -599,12 +462,157 @@ public partial class AddEditLocationContentPage
             LocationManagementResources.MessageBoxMenuItemDeleteFeatureErrorOkButton);
     }
 
-    private void ButtonCancel_OnClick(object? sender, EventArgs e)
-        => _ = HandleButtonResponse(false);
-
     private async Task HandleButtonResponse(bool result)
     {
         _taskCompletionSource.SetResult(result);
         await Navigation.PopAsync();
     }
+
+    private async Task HandleNominatimResult(IReadOnlyCollection<NominatimSearchResult> nominatimSearchResults)
+    {
+        TPlace? place = null;
+
+        switch (nominatimSearchResults.Count)
+        {
+            case 0:
+                Log.Information("The API returned no result(s)");
+                await DisplayAlert(AddEditLocationResources.MessageBoxNominatimResultZeroResultTitle,
+                    AddEditLocationResources.MessageBoxNominatimResultZeroResultMessage,
+                    AddEditLocationResources.MessageBoxNominatimResultZeroResultOkButton);
+                break;
+            case 1:
+                Log.Information("The API returned one result");
+                await DisplayAlert(AddEditLocationResources.MessageBoxNominatimResultOneResultTitle,
+                    AddEditLocationResources.MessageBoxNominatimResultOneResultMessage,
+                    AddEditLocationResources.MessageBoxNominatimResultOneResultOkButton);
+
+                var nominatimSearchResult = nominatimSearchResults.First();
+                place = Mapping.Mapper.Map<TPlace>(nominatimSearchResult);
+                break;
+            case > 1:
+                Log.Information("The API returned multiple results ({Count}) :", nominatimSearchResults.Count);
+                Log.Information("Detailed results: {NominatimSearchResults}", nominatimSearchResults);
+
+                await DisplayAlert(AddEditLocationResources.MessageBoxNominatimResultMultipleResultTitle,
+                    AddEditLocationResources.MessageBoxNominatimResultMultipleResultMessage,
+                    AddEditLocationResources.MessageBoxNominatimResultMultipleResultOkButton);
+
+                var places = nominatimSearchResults.Select(s => Mapping.Mapper.Map<TPlace>(s));
+                // ReSharper disable once HeapView.ObjectAllocation.Evident
+                var nominatimSearchContentPage = new NominatimSearchContentPage();
+                nominatimSearchContentPage.AddRange(places);
+                await nominatimSearchContentPage.NavigateToAsync();
+
+                var result = await nominatimSearchContentPage.ResultDialog;
+                if (result is not true) return;
+
+                place = nominatimSearchContentPage.CurrentPlace;
+                break;
+        }
+
+        if (place is null) return;
+        SetPlace(place, true);
+    }
+
+    [SupportedOSPlatform("Android21.0")]
+    [SupportedOSPlatform("iOS13.0")]
+    [SupportedOSPlatform("MacCatalyst15.0")]
+    [SupportedOSPlatform("Windows")]
+    private async Task HandleSearchWithCurrentCoordinate()
+    {
+        var location = await Maui.Utils.SensorRequestUtils.GetLocation();
+        if (location is null) return;
+
+        var point = new Point(location.Longitude, location.Latitude);
+        _ = SearchByCoordinate(point);
+    }
+
+    private async Task SearchByCoordinate(Point point)
+    {
+        Log.Information("Using the nominatim API to search via a point : {Point}", point);
+        var nominatimSearchResult = point.ToNominatim();
+
+        var results = new List<NominatimSearchResult>();
+        if (nominatimSearchResult is not null) results.Add(nominatimSearchResult);
+        await HandleNominatimResult(results);
+    }
+
+    public void SetPlace(TPlace newTPlace, bool clear)
+    {
+        if (clear) WritableLayer.Clear();
+
+        newTPlace.CopyPropertiesTo(Place);
+        UpdateMiniMap();
+        EditPlace = true;
+    }
+
+    public void SetPlace(Point point)
+    {
+        var nominatim = point.ToNominatim();
+        if (nominatim is not null)
+        {
+            var mapper = Mapping.Mapper;
+            var place = mapper.Map<TPlace>(nominatim);
+            place.CopyPropertiesTo(Place);
+        }
+        else
+        {
+            Place.Geometry = point;
+        }
+
+        UpdateMiniMap();
+    }
+
+    private void UpdateLanguage()
+    {
+        TextBoxCityHintAssist = AddEditLocationResources.TextBoxCityHintAssist;
+        TextBoxCountryHintAssist = AddEditLocationResources.TextBoxCountryHintAssist;
+        TextBoxLatitudeHintAssist = AddEditLocationResources.TextBoxLatitudeHintAssist;
+        TextBoxLongitudeHintAssist = AddEditLocationResources.TextBoxLongitudeHintAssist;
+        TextBoxNameHintAssist = AddEditLocationResources.TextBoxNameHintAssist;
+        TextBoxNumberHintAssist = AddEditLocationResources.TextBoxNumberHintAssist;
+        TextBoxPostalCodeHintAssist = AddEditLocationResources.TextBoxPostalCodeHintAssist;
+        TextBoxStreetHintAssist = AddEditLocationResources.TextBoxStreetHintAssist;
+        ButtonContentValidNewPoint = AddEditLocationResources.ButtonContentValidNewPoint;
+        ButtonContentZoomToPoint = AddEditLocationResources.ButtonContentZoomToPoint;
+        ComboBoxBasemapHintAssist = AddEditLocationResources.ComboBoxBasemapHintAssist;
+
+        ButtonContentSearchByAddress = AddEditLocationResources.ButtonContentSearchByAddress;
+        ButtonContentSearchByCoordinate = AddEditLocationResources.ButtonContentSearchByCoordinate;
+        ButtonContentSearchByCurrentCoordinate = AddEditLocationResources.ButtonContentSearchByCurrentCoordinate;
+
+        ButtonContentCancel = AddEditLocationResources.ButtonContentCancel;
+        ButtonContentDelete = AddEditLocationResources.ButtonContentDelete;
+        ButtonContentValid = AddEditLocationResources.ButtonContentValid;
+
+        CheckBoxContentIsOpen = AddEditLocationResources.CheckBoxContentIsOpen;
+    }
+
+    private void UpdateMiniMap()
+    {
+        var feature = Place.ToTemporaryFeature(MapsuiStyleExtensions.RedMarkerStyle);
+        feature.IsTemp = false;
+
+        WritableLayer.Add(feature);
+
+        MapControl.Map.Navigator.CenterOnAndZoomTo(feature.Point, 1);
+        MapControl.Refresh();
+    }
+
+    private void UpdateTileLayer()
+    {
+        const string layerName = "Background";
+
+        var httpTileSource = BruTile.Predefined.KnownTileSources.Create(KnownTileSourceSelected);
+
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        var tileLayer = new TileLayer(httpTileSource) { Name = layerName };
+
+        var layers = MapControl?.Map.Layers.FindLayer(layerName);
+        if (layers is not null) MapControl?.Map.Layers.Remove(layers.ToArray());
+
+        MapControl?.Map.Layers.Insert(0, tileLayer);
+    }
+
+    #endregion
 }
