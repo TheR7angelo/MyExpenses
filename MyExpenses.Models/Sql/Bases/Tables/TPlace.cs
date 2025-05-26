@@ -79,14 +79,14 @@ public partial class TPlace : ISql, ISig
             _geometry = value;
             if (_geometry is null)
             {
-                _longitude = null;
-                _latitude = null;
+                Longitude = null;
+                Latitude = null;
             }
             else
             {
                 var point = (Point)_geometry;
-                _longitude = point.X;
-                _latitude = point.Y;
+                Longitude = point.X;
+                Latitude = point.Y;
             }
         }
     }
