@@ -543,7 +543,10 @@ public sealed partial class ColorPickerControl
 
     private void UIElement_double_only_OnPreviewTextInput(object sender, TextCompositionEventArgs e)
     {
-        e.Handled = e.Text.IsOnlyDecimal();
+        var textBox = (TextBox)sender;
+        var txt = textBox.Text.Insert(textBox.SelectionStart, e.Text);
+
+        e.Handled = !txt.IsOnlyDecimal();
     }
 
     private void TextBoxBase_0_to_360_OnTextChanged(object sender, TextChangedEventArgs e)
