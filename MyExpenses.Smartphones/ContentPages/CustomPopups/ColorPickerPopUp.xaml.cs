@@ -98,4 +98,22 @@ public partial class ColorPickerPopup
 
     private void UpdateColor()
         => BackgroundColor = Color.FromRgba(RedValue ?? 0, GreenValue ?? 0, BlueValue ?? 0, AlphaValue ?? 0);
+
+    private void TextFieldColorHexadecimal_OnTextChanged(object? sender, TextChangedEventArgs e)
+    {
+        if (sender is not TextField textField) return;
+        if (string.IsNullOrWhiteSpace(textField.Text)) return;
+
+        var txt = textField.Text.ToUpper();
+        if (textField.Text.Length > 9) txt = txt[..9];
+
+        var correctedText = new char[txt.Length];
+        for (var i = 0; i < txt.Length; i++)
+        {
+            var currentChar = txt[i];
+            if (char.IsLetter(currentChar) && currentChar > 'F') correctedText[i] = 'F';
+            else correctedText[i] = currentChar;
+        }
+        textField.Text = new string(correctedText);
+    }
 }

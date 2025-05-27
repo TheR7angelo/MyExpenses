@@ -96,7 +96,8 @@
             </material:TextField>
 
             <material:TextField Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2"
-                                Text="{Binding BackgroundColor, Mode=TwoWay, Converter={StaticResource ColorToStringConverter}, ConverterParameter=True}">
+                                Text="{Binding BackgroundColor, Mode=TwoWay, Converter={StaticResource ColorToStringConverter}, ConverterParameter=True}"
+                                TextChanged="TextFieldColorHexadecimal_OnTextChanged">
             </material:TextField>
 
             <!-- <HorizontalStackLayout Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" -->
