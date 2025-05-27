@@ -87,6 +87,87 @@ namespace MyExpenses.SharedUtils.Resources.Resx.ColorManagement {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Alpha :.
+        /// </summary>
+        public static string LabelAlphaChannel {
+            get {
+                return ResourceManager.GetString("LabelAlphaChannel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Blue :.
+        /// </summary>
+        public static string LabelBlueChannel {
+            get {
+                return ResourceManager.GetString("LabelBlueChannel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Green :.
+        /// </summary>
+        public static string LabelGreenChannel {
+            get {
+                return ResourceManager.GetString("LabelGreenChannel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hexadecimal code :.
+        /// </summary>
+        public static string LabelHexadecimalCode {
+            get {
+                return ResourceManager.GetString("LabelHexadecimalCode", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hue :.
+        /// </summary>
+        public static string LabelHueChannel {
+            get {
+                return ResourceManager.GetString("LabelHueChannel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Preview :.
+        /// </summary>
+        public static string LabelPreview {
+            get {
+                return ResourceManager.GetString("LabelPreview", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Red :.
+        /// </summary>
+        public static string LabelRedChannel {
+            get {
+                return ResourceManager.GetString("LabelRedChannel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Saturation :.
+        /// </summary>
+        public static string LabelSaturationChannel {
+            get {
+                return ResourceManager.GetString("LabelSaturationChannel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Value :.
+        /// </summary>
+        public static string LabelValueChannel {
+            get {
+                return ResourceManager.GetString("LabelValueChannel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Unable to add duplicate color hexadecimal code, existing color name is &quot;{0}&quot;.
         /// </summary>
         public static string MessageBoxCannotAddDuplicateColorHexError {

@@ -53,4 +53,31 @@
     <data name="ButtonCancelContent" xml:space="preserve">
         <value>Annuler</value>
     </data>
+    <data name="LabelAlphaChannel" xml:space="preserve">
+        <value>Alpha :</value>
+    </data>
+    <data name="LabelBlueChannel" xml:space="preserve">
+        <value>Bleu :</value>
+    </data>
+    <data name="LabelGreenChannel" xml:space="preserve">
+        <value>Vert :</value>
+    </data>
+    <data name="LabelHexadecimalCode" xml:space="preserve">
+        <value>Code hexadécimal :</value>
+    </data>
+    <data name="LabelHueChannel" xml:space="preserve">
+        <value>Teinte :</value>
+    </data>
+    <data name="LabelPreview" xml:space="preserve">
+        <value>Aperçu :</value>
+    </data>
+    <data name="LabelRedChannel" xml:space="preserve">
+        <value>Rouge :</value>
+    </data>
+    <data name="LabelSaturationChannel" xml:space="preserve">
+        <value>Saturation :</value>
+    </data>
+    <data name="LabelValueChannel" xml:space="preserve">
+        <value>Valeur :</value>
+    </data>
 </root>

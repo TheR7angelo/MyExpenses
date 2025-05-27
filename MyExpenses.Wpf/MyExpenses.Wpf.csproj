@@ -145,10 +145,6 @@
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>ChangeLogControlResources.Designer.cs</LastGenOutput>
       </EmbeddedResource>
-      <EmbeddedResource Update="Resources\Resx\UserControls\ColorPickerControl\ColorPickerControlResources.resx">
-        <Generator>ResXFileCodeGenerator</Generator>
-        <LastGenOutput>ColorPickerControlResources.Designer.cs</LastGenOutput>
-      </EmbeddedResource>
       <EmbeddedResource Update="Resources\Resx\UserControls\Analytics\BudgetsControl\BudgetsControlResources.resx">
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>BudgetsControlResources.Designer.cs</LastGenOutput>
@@ -306,11 +302,6 @@
         <DesignTime>True</DesignTime>
         <AutoGen>True</AutoGen>
         <DependentUpon>ChangeLogControlResources.resx</DependentUpon>
-      </Compile>
-      <Compile Update="Resources\Resx\UserControls\ColorPickerControl\ColorPickerControlResources.Designer.cs">
-        <DesignTime>True</DesignTime>
-        <AutoGen>True</AutoGen>
-        <DependentUpon>ColorPickerControlResources.resx</DependentUpon>
       </Compile>
       <Compile Update="Resources\Resx\UserControls\Analytics\BudgetsControl\BudgetsControlResources.Designer.cs">
         <DesignTime>True</DesignTime>

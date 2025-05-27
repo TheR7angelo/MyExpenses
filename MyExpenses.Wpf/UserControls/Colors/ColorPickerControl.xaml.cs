@@ -5,7 +5,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.SharedUtils.RegexUtils;
-using MyExpenses.Wpf.Resources.Resx.UserControls.ColorPickerControl;
+using MyExpenses.SharedUtils.Resources.Resx.ColorManagement;
 using MyExpenses.Wpf.Utils;
 
 namespace MyExpenses.Wpf.UserControls.Colors;
@@ -250,15 +250,15 @@ public sealed partial class ColorPickerControl
 
     private void UpdateLanguage()
     {
-        LabelRedChannel = ColorPickerControlResources.LabelRedChannel;
-        LabelGreenChannel = ColorPickerControlResources.LabelGreenChannel;
-        LabelBlueChannel = ColorPickerControlResources.LabelBlueChannel;
-        LabelHueChannel = ColorPickerControlResources.LabelHueChannel;
-        LabelSaturationChannel = ColorPickerControlResources.LabelSaturationChannel;
-        LabelValueChannel = ColorPickerControlResources.LabelValueChannel;
-        LabelAlphaChannel = ColorPickerControlResources.LabelAlphaChannel;
-        LabelHexadecimalCode = ColorPickerControlResources.LabelHexadecimalCode;
-        LabelPreview = ColorPickerControlResources.LabelPreview;
+        LabelRedChannel = ColorManagementResources.LabelRedChannel;
+        LabelGreenChannel = ColorManagementResources.LabelGreenChannel;
+        LabelBlueChannel = ColorManagementResources.LabelBlueChannel;
+        LabelHueChannel = ColorManagementResources.LabelHueChannel;
+        LabelSaturationChannel = ColorManagementResources.LabelSaturationChannel;
+        LabelValueChannel = ColorManagementResources.LabelValueChannel;
+        LabelAlphaChannel = ColorManagementResources.LabelAlphaChannel;
+        LabelHexadecimalCode = ColorManagementResources.LabelHexadecimalCode;
+        LabelPreview = ColorManagementResources.LabelPreview;
     }
 
     private void UpdateHsvValue()
