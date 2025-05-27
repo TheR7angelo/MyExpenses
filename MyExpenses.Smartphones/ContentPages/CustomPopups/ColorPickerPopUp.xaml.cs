@@ -5,8 +5,17 @@ namespace MyExpenses.Smartphones.ContentPages.CustomPopups;
 
 public partial class ColorPickerPopup
 {
+    public static readonly BindableProperty BackgroundColorProperty =
+        BindableProperty.Create(nameof(BackgroundColor), typeof(Color), typeof(ColorPickerPopup), Colors.Black);
+
+    public Color BackgroundColor
+    {
+        get => (Color)GetValue(BackgroundColorProperty);
+        set => SetValue(BackgroundColorProperty, value);
+    }
+
     public static readonly BindableProperty RedValueProperty = BindableProperty.Create(nameof(RedValue), typeof(int),
-        typeof(ColorPickerPopup), 0);
+        typeof(ColorPickerPopup), 0, propertyChanged: ColorValue_PropertyChanged);
 
     public int? RedValue
     {
@@ -15,7 +24,7 @@ public partial class ColorPickerPopup
     }
 
     public static readonly BindableProperty GreenValueProperty = BindableProperty.Create(nameof(GreenValue), typeof(int),
-        typeof(ColorPickerPopup), 0);
+        typeof(ColorPickerPopup), 0, propertyChanged: ColorValue_PropertyChanged);
 
     public int? GreenValue
     {
@@ -24,7 +33,7 @@ public partial class ColorPickerPopup
     }
 
     public static readonly BindableProperty BlueValueProperty = BindableProperty.Create(nameof(BlueValue), typeof(int),
-        typeof(ColorPickerPopup), 0);
+        typeof(ColorPickerPopup), 0, propertyChanged: ColorValue_PropertyChanged);
 
     public int? BlueValue
     {
@@ -41,8 +50,6 @@ public partial class ColorPickerPopup
     {
         if (e.NewTextValue.Equals(e.OldTextValue, StringComparison.InvariantCultureIgnoreCase)) return;
         if (sender is not TextField textField) return;
-
-        Log.Information("New text value: {NewTextValue}", textField.Text);
 
         int? value = string.IsNullOrWhiteSpace(textField.Text)
             ? null
@@ -61,5 +68,16 @@ public partial class ColorPickerPopup
         }
 
         textField.Text = value.ToString();
+    }
+
+    private static void ColorValue_PropertyChanged(BindableObject bindable, object oldValue, object newValue)
+    {
+        var sender = (ColorPickerPopup)bindable;
+        sender.UpdateColor();
+    }
+
+    private void UpdateColor()
+    {
+        BackgroundColor = Color.FromRgba(RedValue ?? 0, GreenValue ?? 0, BlueValue ?? 0, 255);
     }
 }
