@@ -21,21 +21,21 @@ namespace MyExpenses.SharedUtils.Resources.Resx.ColorManagement {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class ColorManagementResources {
+    public class ColorManagementResources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal ColorManagementResources() {
+        public ColorManagementResources() {
         }
         
         /// <summary>
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MyExpenses.SharedUtils.Resources.Resx.ColorManagement.ColorManagementResources", typeof(ColorManagementResources).Assembly);
@@ -50,7 +50,7 @@ namespace MyExpenses.SharedUtils.Resources.Resx.ColorManagement {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -62,7 +62,7 @@ namespace MyExpenses.SharedUtils.Resources.Resx.ColorManagement {
         /// <summary>
         ///   Looks up a localized string similar to Cancel.
         /// </summary>
-        internal static string ButtonCancelContent {
+        public static string ButtonCancelContent {
             get {
                 return ResourceManager.GetString("ButtonCancelContent", resourceCulture);
             }
@@ -71,7 +71,7 @@ namespace MyExpenses.SharedUtils.Resources.Resx.ColorManagement {
         /// <summary>
         ///   Looks up a localized string similar to Delete.
         /// </summary>
-        internal static string ButtonDeleteContent {
+        public static string ButtonDeleteContent {
             get {
                 return ResourceManager.GetString("ButtonDeleteContent", resourceCulture);
             }
@@ -80,7 +80,7 @@ namespace MyExpenses.SharedUtils.Resources.Resx.ColorManagement {
         /// <summary>
         ///   Looks up a localized string similar to Valid.
         /// </summary>
-        internal static string ButtonValidContent {
+        public static string ButtonValidContent {
             get {
                 return ResourceManager.GetString("ButtonValidContent", resourceCulture);
             }
@@ -89,7 +89,7 @@ namespace MyExpenses.SharedUtils.Resources.Resx.ColorManagement {
         /// <summary>
         ///   Looks up a localized string similar to Unable to add duplicate color hexadecimal code, existing color name is &quot;{0}&quot;.
         /// </summary>
-        internal static string MessageBoxCannotAddDuplicateColorHexError {
+        public static string MessageBoxCannotAddDuplicateColorHexError {
             get {
                 return ResourceManager.GetString("MessageBoxCannotAddDuplicateColorHexError", resourceCulture);
             }
@@ -98,7 +98,7 @@ namespace MyExpenses.SharedUtils.Resources.Resx.ColorManagement {
         /// <summary>
         ///   Looks up a localized string similar to The color name already exists.
         /// </summary>
-        internal static string MessageBoxCannotAddDuplicateColorNameError {
+        public static string MessageBoxCannotAddDuplicateColorNameError {
             get {
                 return ResourceManager.GetString("MessageBoxCannotAddDuplicateColorNameError", resourceCulture);
             }
@@ -107,7 +107,7 @@ namespace MyExpenses.SharedUtils.Resources.Resx.ColorManagement {
         /// <summary>
         ///   Looks up a localized string similar to Cannot add empty color hex code.
         /// </summary>
-        internal static string MessageBoxCannotAddEmptyColorHexError {
+        public static string MessageBoxCannotAddEmptyColorHexError {
             get {
                 return ResourceManager.GetString("MessageBoxCannotAddEmptyColorHexError", resourceCulture);
             }
@@ -116,7 +116,7 @@ namespace MyExpenses.SharedUtils.Resources.Resx.ColorManagement {
         /// <summary>
         ///   Looks up a localized string similar to Cannot add empty color name.
         /// </summary>
-        internal static string MessageBoxCannotAddEmptyColorNameError {
+        public static string MessageBoxCannotAddEmptyColorNameError {
             get {
                 return ResourceManager.GetString("MessageBoxCannotAddEmptyColorNameError", resourceCulture);
             }
@@ -125,7 +125,7 @@ namespace MyExpenses.SharedUtils.Resources.Resx.ColorManagement {
         /// <summary>
         ///   Looks up a localized string similar to An error occurred please retry.
         /// </summary>
-        internal static string MessageBoxDeleteAccountError {
+        public static string MessageBoxDeleteAccountError {
             get {
                 return ResourceManager.GetString("MessageBoxDeleteAccountError", resourceCulture);
             }
@@ -134,7 +134,7 @@ namespace MyExpenses.SharedUtils.Resources.Resx.ColorManagement {
         /// <summary>
         ///   Looks up a localized string similar to Color was successfully removed.
         /// </summary>
-        internal static string MessageBoxDeleteColorNoUseSuccess {
+        public static string MessageBoxDeleteColorNoUseSuccess {
             get {
                 return ResourceManager.GetString("MessageBoxDeleteColorNoUseSuccess", resourceCulture);
             }
@@ -143,7 +143,7 @@ namespace MyExpenses.SharedUtils.Resources.Resx.ColorManagement {
         /// <summary>
         ///   Looks up a localized string similar to Are you sure you want to remove the color &quot;{0}&quot; ?.
         /// </summary>
-        internal static string MessageBoxDeleteColorQuestion {
+        public static string MessageBoxDeleteColorQuestion {
             get {
                 return ResourceManager.GetString("MessageBoxDeleteColorQuestion", resourceCulture);
             }
@@ -152,7 +152,7 @@ namespace MyExpenses.SharedUtils.Resources.Resx.ColorManagement {
         /// <summary>
         ///   Looks up a localized string similar to This color is in use. Are you sure you want to delete this account and everything linked to it ?.
         /// </summary>
-        internal static string MessageBoxDeleteColorUseQuestion {
+        public static string MessageBoxDeleteColorUseQuestion {
             get {
                 return ResourceManager.GetString("MessageBoxDeleteColorUseQuestion", resourceCulture);
             }
@@ -161,7 +161,7 @@ namespace MyExpenses.SharedUtils.Resources.Resx.ColorManagement {
         /// <summary>
         ///   Looks up a localized string similar to Color was successfully removed.
         /// </summary>
-        internal static string MessageBoxDeleteColorUseSuccess {
+        public static string MessageBoxDeleteColorUseSuccess {
             get {
                 return ResourceManager.GetString("MessageBoxDeleteColorUseSuccess", resourceCulture);
             }
@@ -170,7 +170,7 @@ namespace MyExpenses.SharedUtils.Resources.Resx.ColorManagement {
         /// <summary>
         ///   Looks up a localized string similar to Color name :.
         /// </summary>
-        internal static string TextBoxColorName {
+        public static string TextBoxColorName {
             get {
                 return ResourceManager.GetString("TextBoxColorName", resourceCulture);
             }
@@ -179,7 +179,7 @@ namespace MyExpenses.SharedUtils.Resources.Resx.ColorManagement {
         /// <summary>
         ///   Looks up a localized string similar to Add or change a color.
         /// </summary>
-        internal static string TitleWindow {
+        public static string TitleWindow {
             get {
                 return ResourceManager.GetString("TitleWindow", resourceCulture);
             }
