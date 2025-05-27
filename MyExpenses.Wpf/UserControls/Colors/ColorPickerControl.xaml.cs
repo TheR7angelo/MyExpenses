@@ -526,7 +526,7 @@ public sealed partial class ColorPickerControl
 
     private void TextBoxBase_0_to_255_OnTextChanged(object sender, TextChangedEventArgs e)
     {
-        var textBox = (TextBox)sender;
+        if (sender is not TextBox textBox) return;
         if (string.IsNullOrEmpty(textBox.Text)) return;
         var nbr = int.Parse(textBox.Text);
         var oldNbr = nbr;
