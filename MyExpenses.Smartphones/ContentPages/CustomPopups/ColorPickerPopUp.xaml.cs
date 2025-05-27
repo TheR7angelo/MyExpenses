@@ -15,7 +15,13 @@ public partial class ColorPickerPopup
     }
 
     public static readonly BindableProperty BackgroundColorProperty =
-        BindableProperty.Create(nameof(BackgroundColor), typeof(Color), typeof(ColorPickerPopup), Colors.Black);
+        BindableProperty.Create(nameof(BackgroundColor), typeof(Color), typeof(ColorPickerPopup), Colors.Black, propertyChanged: BackgroundColor_PropertyChanged);
+
+    private static void BackgroundColor_PropertyChanged(BindableObject bindable, object oldValue, object newValue)
+    {
+        var sender = (ColorPickerPopup)bindable;
+        sender.UpdateRgba();
+    }
 
     public Color BackgroundColor
     {
@@ -96,8 +102,22 @@ public partial class ColorPickerPopup
         sender.UpdateColor();
     }
 
+    private bool _isUpdateSlider;
     private void UpdateColor()
-        => BackgroundColor = Color.FromRgba(RedValue ?? 0, GreenValue ?? 0, BlueValue ?? 0, AlphaValue ?? 0);
+    {
+        if (!_isUpdateSlider) BackgroundColor = Color.FromRgba(RedValue ?? 0, GreenValue ?? 0, BlueValue ?? 0, AlphaValue ?? 0);
+    }
+
+    private void UpdateRgba()
+    {
+        _isUpdateSlider = true;
+        BackgroundColor.ToRgba(out var r, out var g, out var b, out var a);
+        RedValue = r;
+        GreenValue = g;
+        BlueValue = b;
+        AlphaValue = a;
+        _isUpdateSlider = false;
+    }
 
     private void TextFieldColorHexadecimal_OnTextChanged(object? sender, TextChangedEventArgs e)
     {
