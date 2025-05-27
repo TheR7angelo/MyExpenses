@@ -5,8 +5,9 @@ using Microsoft.Data.Sqlite;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.SharedUtils.Properties;
+using MyExpenses.SharedUtils.Resources.Resx.AddEditLocation;
+using MyExpenses.SharedUtils.Resources.Resx.ColorManagement;
 using MyExpenses.Sql.Context;
-using MyExpenses.Wpf.Resources.Resx.Windows.AddEditColorWindow;
 using MyExpenses.Wpf.Utils;
 using MyExpenses.Wpf.Windows.MsgBox;
 using Serilog;
@@ -110,13 +111,13 @@ public partial class AddEditColorWindow
 
     private void UpdateLanguage()
     {
-        TitleWindow = AddEditColorWindowResources.TitleWindow;
+        TitleWindow = ColorManagementResources.TitleWindow;
 
-        TextBoxColorName = AddEditColorWindowResources.TextBoxColorName;
+        TextBoxColorName = ColorManagementResources.TextBoxColorName;
 
-        ButtonValidContent = AddEditColorWindowResources.ButtonValidContent;
-        ButtonCancelContent = AddEditColorWindowResources.ButtonCancelContent;
-        ButtonDeleteContent = AddEditColorWindowResources.ButtonDeleteContent;
+        ButtonValidContent = ColorManagementResources.ButtonValidContent;
+        ButtonCancelContent = ColorManagementResources.ButtonCancelContent;
+        ButtonDeleteContent = ColorManagementResources.ButtonDeleteContent;
     }
 
     #region Action
@@ -125,13 +126,13 @@ public partial class AddEditColorWindow
     {
         if (string.IsNullOrWhiteSpace(Color.Name))
         {
-            MsgBox.MsgBox.Show(AddEditColorWindowResources.MessageBoxCannotAddEmptyColorNameError, MsgBoxImage.Error);
+            MsgBox.MsgBox.Show(ColorManagementResources.MessageBoxCannotAddEmptyColorNameError, MsgBoxImage.Error);
             return;
         }
 
         if (string.IsNullOrWhiteSpace(Color.HexadecimalColorCode))
         {
-            MsgBox.MsgBox.Show(AddEditColorWindowResources.MessageBoxCannotAddEmptyColorHexError, MsgBoxImage.Error);
+            MsgBox.MsgBox.Show(ColorManagementResources.MessageBoxCannotAddEmptyColorHexError, MsgBoxImage.Error);
             return;
         }
 
@@ -147,7 +148,7 @@ public partial class AddEditColorWindow
         if (colorAlreadyExist is not null)
         {
             MsgBox.MsgBox.Show(
-                string.Format(AddEditColorWindowResources.MessageBoxCannotAddDuplicateColorHexError,
+                string.Format(ColorManagementResources.MessageBoxCannotAddDuplicateColorHexError,
                     colorAlreadyExist.Name),
                 MsgBoxImage.Error);
             return;
@@ -166,7 +167,7 @@ public partial class AddEditColorWindow
     private void ButtonDelete_OnClick(object sender, RoutedEventArgs e)
     {
         var response =
-            MsgBox.MsgBox.Show(string.Format(AddEditColorWindowResources.MessageBoxDeleteColorQuestion, Color.Name),
+            MsgBox.MsgBox.Show(string.Format(ColorManagementResources.MessageBoxDeleteColorQuestion, Color.Name),
                 MsgBoxImage.Question, MessageBoxButton.YesNoCancel);
         if (response is not MessageBoxResult.Yes) return;
 
@@ -176,7 +177,7 @@ public partial class AddEditColorWindow
         if (success)
         {
             Log.Information("Color was successfully removed");
-            MsgBox.MsgBox.Show(AddEditColorWindowResources.MessageBoxDeleteColorNoUseSuccess, MsgBoxImage.Check);
+            MsgBox.MsgBox.Show(ColorManagementResources.MessageBoxDeleteColorNoUseSuccess, MsgBoxImage.Check);
 
             DeleteColor = true;
             DialogResult = true;
@@ -191,7 +192,7 @@ public partial class AddEditColorWindow
         {
             Log.Error("Foreign key constraint violation");
 
-            response = MsgBox.MsgBox.Show(AddEditColorWindowResources.MessageBoxDeleteColorUseQuestion,
+            response = MsgBox.MsgBox.Show(ColorManagementResources.MessageBoxDeleteColorUseQuestion,
                 MsgBoxImage.Question, MessageBoxButton.YesNoCancel);
 
             if (response is not MessageBoxResult.Yes) return;
@@ -200,7 +201,7 @@ public partial class AddEditColorWindow
                 Color.Name);
             Color.Delete(true);
             Log.Information("Account and all relative element was successfully removed");
-            MsgBox.MsgBox.Show(AddEditColorWindowResources.MessageBoxDeleteColorUseSuccess, MsgBoxImage.Check);
+            MsgBox.MsgBox.Show(ColorManagementResources.MessageBoxDeleteColorUseSuccess, MsgBoxImage.Check);
 
             DeleteColor = true;
             DialogResult = true;
@@ -210,7 +211,7 @@ public partial class AddEditColorWindow
         }
 
         Log.Error(exception, "An error occurred please retry");
-        MsgBox.MsgBox.Show(AddEditColorWindowResources.MessageBoxDeleteAccountError, MsgBoxImage.Error);
+        MsgBox.MsgBox.Show(ColorManagementResources.MessageBoxDeleteAccountError, MsgBoxImage.Error);
     }
 
     private void Interface_OnLanguageChanged()
@@ -254,7 +255,7 @@ public partial class AddEditColorWindow
     }
 
     private static void ShowErrorMessage()
-        => MsgBox.MsgBox.Show(AddEditColorWindowResources.MessageBoxCannotAddDuplicateColorNameError,
+        => MsgBox.MsgBox.Show(ColorManagementResources.MessageBoxCannotAddDuplicateColorNameError,
             MsgBoxImage.Warning);
 
     #endregion
