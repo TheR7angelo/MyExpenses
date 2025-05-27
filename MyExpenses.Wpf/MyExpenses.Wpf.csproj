@@ -57,10 +57,6 @@
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>MainWindowResource.Designer.cs</LastGenOutput>
       </EmbeddedResource>
-      <EmbeddedResource Update="Resources\Resx\Windows\AddEditColorWindow\AddEditColorWindowResources.resx">
-        <Generator>ResXFileCodeGenerator</Generator>
-        <LastGenOutput>AddEditColorWindowResources.Designer.cs</LastGenOutput>
-      </EmbeddedResource>
       <EmbeddedResource Update="Resources\Resx\Pages\AccountTypeManagementPage\AccountTypeManagementPageResources.resx">
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>AccountTypeManagementPageResources.Designer.cs</LastGenOutput>
@@ -196,11 +192,6 @@
       <None Remove="Resources\Assets\Icon.ico" />
       <None Remove="Resources\Assets\Icon.png" />
       <None Remove="Resources\Assets\Icon.svg" />
-      <Compile Update="Resources\Resx\Windows\AddEditColorWindow\AddEditColorWindowResources.Designer.cs">
-        <DesignTime>True</DesignTime>
-        <AutoGen>True</AutoGen>
-        <DependentUpon>AddEditColorWindowResources.resx</DependentUpon>
-      </Compile>
       <Compile Update="Resources\Resx\Pages\AccountTypeManagementPage\AccountTypeManagementPageResources.Designer.cs">
         <DesignTime>True</DesignTime>
         <AutoGen>True</AutoGen>

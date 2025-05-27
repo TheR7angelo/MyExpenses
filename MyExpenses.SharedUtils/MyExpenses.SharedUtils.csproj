@@ -92,6 +92,10 @@
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>NominatimSearchManagementResources.Designer.cs</LastGenOutput>
       </EmbeddedResource>
+      <EmbeddedResource Update="Resources\Resx\ColorManagement\ColorManagementResources.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>ColorManagementResources.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
     </ItemGroup>
 
     <ItemGroup>
@@ -199,6 +203,11 @@
         <DesignTime>True</DesignTime>
         <AutoGen>True</AutoGen>
         <DependentUpon>NominatimSearchManagementResources.resx</DependentUpon>
+      </Compile>
+      <Compile Update="Resources\Resx\ColorManagement\ColorManagementResources.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>ColorManagementResources.resx</DependentUpon>
       </Compile>
     </ItemGroup>
 
