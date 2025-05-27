@@ -42,7 +42,7 @@
             </material:TextField>
 
             <Border Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
-                    HeightRequest="255"
+                    HeightRequest="96"
                     BackgroundColor="{Binding BackgroundColor, Mode=TwoWay}">
             </Border>
 
