@@ -11,7 +11,7 @@
                BindingContext="{Binding Source={RelativeSource Self}}">
 
     <toolkit:Popup.Resources>
-        <converters:StringToBrushConverter x:Key="StringToBrushConverter" />
+        <converters:ColorToStringConverter x:Key="ColorToStringConverter" />
     </toolkit:Popup.Resources>
 
     <Border BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Black}}"
@@ -24,6 +24,7 @@
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
@@ -92,6 +93,10 @@
                                 Keyboard="Numeric"
                                 Text="{Binding AlphaValue, Mode=TwoWay}"
                                 TextChanged="TextField_OnTextChanged">
+            </material:TextField>
+
+            <material:TextField Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2"
+                                Text="{Binding BackgroundColor, Mode=TwoWay, Converter={StaticResource ColorToStringConverter}, ConverterParameter=True}">
             </material:TextField>
 
             <!-- <HorizontalStackLayout Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" -->
