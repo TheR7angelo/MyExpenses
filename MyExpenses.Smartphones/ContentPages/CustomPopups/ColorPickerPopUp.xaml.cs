@@ -1,5 +1,6 @@
 ﻿using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Sql.Bases.Tables;
+using MyExpenses.SharedUtils.Objects;
 using MyExpenses.SharedUtils.Resources.Resx.ColorManagement;
 using UraniumUI.Material.Controls;
 
@@ -121,6 +122,8 @@ public partial class ColorPickerPopup
         set => SetValue(BlueValueProperty, value);
     }
 
+    private TColor? Tcolor { get; set; }
+
     public ColorPickerPopup()
     {
         UpdateLanguage();
@@ -217,5 +220,7 @@ public partial class ColorPickerPopup
         var color = Color.FromArgb(tColor.HexadecimalColorCode);
         BackgroundColor = color;
         ColorName = tColor.Name;
+
+        Tcolor = tColor.DeepCopy();
     }
 }
