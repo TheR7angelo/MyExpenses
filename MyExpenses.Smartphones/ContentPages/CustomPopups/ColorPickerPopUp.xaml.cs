@@ -86,7 +86,5 @@ public partial class ColorPickerPopup
     }
 
     private void UpdateColor()
-    {
-        BackgroundColor = Color.FromRgba(RedValue ?? 0, GreenValue ?? 0, BlueValue ?? 0, AlphaValue ?? 0);
-    }
+        => BackgroundColor = Color.FromRgba(RedValue ?? 0, GreenValue ?? 0, BlueValue ?? 0, AlphaValue ?? 0);
 }
