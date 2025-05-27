@@ -14,7 +14,7 @@
              BindingContext="{Binding Source={RelativeSource Self}}">
 
     <ContentPage.Resources>
-        <converters:StringToBrushConverter x:Key="StringToBrushConverter" />
+        <converters:StringToSolidColorBrush x:Key="StringToSolidColorBrush" />
     </ContentPage.Resources>
 
     <ContentPage.Content>
@@ -58,7 +58,7 @@
                              WidthRequest="{Binding HeightRequest, Source={RelativeSource Self}}"
                              Stroke="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
                              StrokeThickness="1.5"
-                             Fill="{Binding SelectedHexadecimalColorCode, Mode=TwoWay, Converter={StaticResource StringToBrushConverter}}"
+                             Fill="{Binding SelectedHexadecimalColorCode, Mode=TwoWay, Converter={StaticResource StringToSolidColorBrush}}"
                              Margin="10, 0">
                     </Ellipse>
 
@@ -115,7 +115,7 @@
                                                  WidthRequest="{Binding HeightRequest, Source={RelativeSource Self}}"
                                                  Stroke="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
                                                  StrokeThickness="1.5"
-                                                 Fill="{Binding HexadecimalColorCode, Mode=OneWay, Converter={StaticResource StringToBrushConverter}}"
+                                                 Fill="{Binding HexadecimalColorCode, Mode=OneWay, Converter={StaticResource StringToSolidColorBrush}}"
                                                  Margin="10, 0">
                                         </Ellipse>
 

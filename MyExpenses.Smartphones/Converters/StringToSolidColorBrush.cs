@@ -4,7 +4,7 @@ using Color = Microsoft.Maui.Graphics.Color;
 
 namespace MyExpenses.Smartphones.Converters;
 
-public class StringToBrushConverter : IValueConverter
+public class StringToSolidColorBrush : IValueConverter
 {
     public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
     {

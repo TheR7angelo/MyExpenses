@@ -14,7 +14,7 @@
     <ContentPage.Resources>
         <converters:ValueSymbolConverter x:Key="ValueSymbolConverter" />
         <converters:DateTimeToDateOnlyConverter x:Key="DateTimeToDateOnlyConverter" />
-        <converters:StringToBrushConverter x:Key="StringToBrushConverter" />
+        <converters:StringToSolidColorBrush x:Key="StringToSolidColorBrush" />
     </ContentPage.Resources>
 
     <ContentPage.Content>
@@ -295,7 +295,7 @@
                                                      WidthRequest="{Binding HeightRequest, Source={RelativeSource Self}}"
                                                      Stroke="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
                                                      StrokeThickness="1.5"
-                                                     Fill="{Binding CategoryColor, Mode=OneWay, Converter={StaticResource StringToBrushConverter}}"
+                                                     Fill="{Binding CategoryColor, Mode=OneWay, Converter={StaticResource StringToSolidColorBrush}}"
                                                      Margin="10, 0">
                                             </Ellipse>
 

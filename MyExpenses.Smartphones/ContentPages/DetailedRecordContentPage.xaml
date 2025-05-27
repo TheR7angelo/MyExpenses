@@ -20,7 +20,7 @@
     <ContentPage.Resources>
         <converters:ISqlConverter x:Key="ISqlConverter" />
         <converters:ValueToCreditDebitedConverter x:Key="ValueToCreditDebitedConverter" />
-        <converters:StringToBrushConverter x:Key="StringToBrushConverter" />
+        <converters:StringToSolidColorBrush x:Key="StringToSolidColorBrush" />
         <converters:SplitUpperCaseWordsConverter x:Key="SplitUpperCaseWordsConverter" />
         <converters:InvertBooleanConverter x:Key="InvertBooleanConverter" />
         <converters:EPackIconsToGeometryConverter x:Key="StringToGeometryConverter" />
@@ -224,7 +224,7 @@
                                      WidthRequest="{Binding HeightRequest, Source={RelativeSource Self}}"
                                      Stroke="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
                                      StrokeThickness="1.5"
-                                     Fill="{Binding HexadecimalColorCode, Mode=OneWay, Converter={StaticResource StringToBrushConverter}}"
+                                     Fill="{Binding HexadecimalColorCode, Mode=OneWay, Converter={StaticResource StringToSolidColorBrush}}"
                                      Margin="10, 0">
                             </Ellipse>
 

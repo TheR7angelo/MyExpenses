@@ -13,7 +13,7 @@
                BindingContext="{Binding Source={RelativeSource Self}}">
 
     <toolkit:Popup.Resources>
-        <converters:StringToBrushConverter x:Key="StringToBrushConverter" />
+        <converters:StringToSolidColorBrush x:Key="StringToSolidColorBrush" />
     </toolkit:Popup.Resources>
 
     <Border BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Black}}"
@@ -61,7 +61,7 @@
                              WidthRequest="{Binding HeightRequest, Source={RelativeSource Self}}"
                              Stroke="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
                              StrokeThickness="1.5"
-                             Fill="{Binding SelectedHexadecimalColorCode, Mode=TwoWay, Converter={StaticResource StringToBrushConverter}}"
+                             Fill="{Binding SelectedHexadecimalColorCode, Mode=TwoWay, Converter={StaticResource StringToSolidColorBrush}}"
                              Margin="10, 0">
                     </Ellipse>
 
