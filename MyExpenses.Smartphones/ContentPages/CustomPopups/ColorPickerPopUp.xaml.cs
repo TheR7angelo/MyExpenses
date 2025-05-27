@@ -7,6 +7,15 @@ namespace MyExpenses.Smartphones.ContentPages.CustomPopups;
 
 public partial class ColorPickerPopup
 {
+    public static readonly BindableProperty TextBoxColorNameProperty = BindableProperty.Create(nameof(TextBoxColorName),
+        typeof(string), typeof(ColorPickerPopup));
+
+    public string TextBoxColorName
+    {
+        get => (string)GetValue(TextBoxColorNameProperty);
+        set => SetValue(TextBoxColorNameProperty, value);
+    }
+
     public static readonly BindableProperty ColorNameProperty =
         BindableProperty.Create(nameof(ColorName), typeof(string), typeof(ColorPickerPopup));
 
@@ -130,6 +139,7 @@ public partial class ColorPickerPopup
         LabelBlueChannel = ColorManagementResources.LabelBlueChannel;
         LabelAlphaChannel = ColorManagementResources.LabelAlphaChannel;
         LabelHexadecimalCode = ColorManagementResources.LabelHexadecimalCode;
+        TextBoxColorName = ColorManagementResources.TextBoxColorName;
     }
 
     private void TextField_OnTextChanged(object? sender, TextChangedEventArgs e)

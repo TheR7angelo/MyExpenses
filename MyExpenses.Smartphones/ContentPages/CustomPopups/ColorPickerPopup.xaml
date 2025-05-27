@@ -38,6 +38,7 @@
             </Grid.ColumnDefinitions>
 
             <material:TextField Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+                                Title="{Binding TextBoxColorName, Mode=OneWay}"
                                 Text="{Binding ColorName, Mode=TwoWay}">
             </material:TextField>
 
