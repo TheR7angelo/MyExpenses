@@ -20,6 +20,14 @@ public class ColorToStringConverter : IValueConverter
     public object? ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
     {
         if (value is not string hexString || string.IsNullOrWhiteSpace(hexString)) return Colors.Transparent;
+        var withAlpha = parameter switch
+        {
+            string paramString when bool.TryParse(paramString, out var parsedBool) => parsedBool,
+            bool boolParam => boolParam,
+            _ => false
+        };
+
+        if (withAlpha && hexString.Length != 9 || !withAlpha && hexString.Length != 7) return Binding.DoNothing;
 
         try
         {
