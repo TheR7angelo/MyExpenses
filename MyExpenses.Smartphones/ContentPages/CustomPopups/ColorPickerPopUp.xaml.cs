@@ -1,11 +1,57 @@
 ﻿using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Sql.Bases.Tables;
+using MyExpenses.SharedUtils.Resources.Resx.ColorManagement;
 using UraniumUI.Material.Controls;
 
 namespace MyExpenses.Smartphones.ContentPages.CustomPopups;
 
 public partial class ColorPickerPopup
 {
+    public static readonly BindableProperty LabelAlphaChannelProperty =
+        BindableProperty.Create(nameof(LabelAlphaChannel), typeof(string), typeof(ColorPickerPopup));
+
+    public string LabelAlphaChannel
+    {
+        get => (string)GetValue(LabelAlphaChannelProperty);
+        set => SetValue(LabelAlphaChannelProperty, value);
+    }
+
+    public static readonly BindableProperty LabelRedChannelProperty = BindableProperty.Create(nameof(LabelRedChannel),
+        typeof(string), typeof(ColorPickerPopup));
+
+    public string LabelRedChannel
+    {
+        get => (string)GetValue(LabelRedChannelProperty);
+        set => SetValue(LabelRedChannelProperty, value);
+    }
+
+    public static readonly BindableProperty LabelGreenChannelProperty =
+        BindableProperty.Create(nameof(LabelGreenChannel), typeof(string), typeof(ColorPickerPopup));
+
+    public string LabelGreenChannel
+    {
+        get => (string)GetValue(LabelGreenChannelProperty);
+        set => SetValue(LabelGreenChannelProperty, value);
+    }
+
+    public static readonly BindableProperty LabelBlueChannelProperty = BindableProperty.Create(nameof(LabelBlueChannel),
+        typeof(string), typeof(ColorPickerPopup));
+
+    public string LabelBlueChannel
+    {
+        get => (string)GetValue(LabelBlueChannelProperty);
+        set => SetValue(LabelBlueChannelProperty, value);
+    }
+
+    public static readonly BindableProperty LabelHexadecimalCodeProperty =
+        BindableProperty.Create(nameof(LabelHexadecimalCode), typeof(string), typeof(ColorPickerPopup));
+
+    public string LabelHexadecimalCode
+    {
+        get => (string)GetValue(LabelHexadecimalCodeProperty);
+        set => SetValue(LabelHexadecimalCodeProperty, value);
+    }
+
     public static readonly BindableProperty AlphaValueProperty = BindableProperty.Create(nameof(AlphaValue), typeof(int),
             typeof(ColorPickerPopup), 255, propertyChanged: ColorValue_PropertyChanged);
 
@@ -70,7 +116,11 @@ public partial class ColorPickerPopup
 
     private void UpdateLanguage()
     {
-
+        LabelRedChannel = ColorManagementResources.LabelRedChannel;
+        LabelGreenChannel = ColorManagementResources.LabelGreenChannel;
+        LabelBlueChannel = ColorManagementResources.LabelBlueChannel;
+        LabelAlphaChannel = ColorManagementResources.LabelAlphaChannel;
+        LabelHexadecimalCode = ColorManagementResources.LabelHexadecimalCode;
     }
 
     private void TextField_OnTextChanged(object? sender, TextChangedEventArgs e)
@@ -104,6 +154,7 @@ public partial class ColorPickerPopup
     }
 
     private bool _isUpdateSlider;
+
     private void UpdateColor()
     {
         if (!_isUpdateSlider) BackgroundColor = Color.FromRgba(RedValue ?? 0, GreenValue ?? 0, BlueValue ?? 0, AlphaValue ?? 0);
