@@ -1,4 +1,5 @@
-﻿using UraniumUI.Material.Controls;
+﻿using MyExpenses.Models.Config.Interfaces;
+using UraniumUI.Material.Controls;
 
 namespace MyExpenses.Smartphones.ContentPages.CustomPopups;
 
@@ -51,7 +52,18 @@ public partial class ColorPickerPopup
 
     public ColorPickerPopup()
     {
+        UpdateLanguage();
         InitializeComponent();
+
+        Interface.LanguageChanged += Interface_OnLanguageChanged;
+    }
+
+    private void Interface_OnLanguageChanged()
+        => UpdateLanguage();
+
+    private void UpdateLanguage()
+    {
+
     }
 
     private void TextField_OnTextChanged(object? sender, TextChangedEventArgs e)
