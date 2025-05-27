@@ -1,4 +1,5 @@
 ﻿using MyExpenses.Models.Config.Interfaces;
+using MyExpenses.Models.Sql.Bases.Tables;
 using UraniumUI.Material.Controls;
 
 namespace MyExpenses.Smartphones.ContentPages.CustomPopups;
@@ -135,5 +136,15 @@ public partial class ColorPickerPopup
             else correctedText[i] = currentChar;
         }
         textField.Text = new string(correctedText);
+    }
+
+    /// <summary>
+    /// Sets the color of the ColorPickerPopup based on the provided TColor object.
+    /// </summary>
+    /// <param name="tColor">The TColor object containing the color value to be applied.</param>
+    public void SetColor(TColor tColor)
+    {
+        var color = Color.FromArgb(tColor.HexadecimalColorCode);
+        BackgroundColor = color;
     }
 }
