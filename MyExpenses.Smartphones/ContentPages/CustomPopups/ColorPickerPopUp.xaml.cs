@@ -1,5 +1,4 @@
-﻿using Serilog;
-using UraniumUI.Material.Controls;
+﻿using UraniumUI.Material.Controls;
 
 namespace MyExpenses.Smartphones.ContentPages.CustomPopups;
 
@@ -24,7 +23,7 @@ public partial class ColorPickerPopup
     }
 
     public static readonly BindableProperty RedValueProperty = BindableProperty.Create(nameof(RedValue), typeof(int),
-        typeof(ColorPickerPopup), 0, propertyChanged: ColorValue_PropertyChanged);
+        typeof(ColorPickerPopup), propertyChanged: ColorValue_PropertyChanged);
 
     public int? RedValue
     {
@@ -33,7 +32,7 @@ public partial class ColorPickerPopup
     }
 
     public static readonly BindableProperty GreenValueProperty = BindableProperty.Create(nameof(GreenValue), typeof(int),
-        typeof(ColorPickerPopup), 0, propertyChanged: ColorValue_PropertyChanged);
+        typeof(ColorPickerPopup), propertyChanged: ColorValue_PropertyChanged);
 
     public int? GreenValue
     {
@@ -42,7 +41,7 @@ public partial class ColorPickerPopup
     }
 
     public static readonly BindableProperty BlueValueProperty = BindableProperty.Create(nameof(BlueValue), typeof(int),
-        typeof(ColorPickerPopup), 0, propertyChanged: ColorValue_PropertyChanged);
+        typeof(ColorPickerPopup), propertyChanged: ColorValue_PropertyChanged);
 
     public int? BlueValue
     {
