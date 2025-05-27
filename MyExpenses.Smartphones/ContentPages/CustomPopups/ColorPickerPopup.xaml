@@ -27,6 +27,7 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
             <Grid.ColumnDefinitions>
@@ -78,6 +79,18 @@
             <material:TextField Grid.Row="3" Grid.Column="1"
                                 Keyboard="Numeric"
                                 Text="{Binding BlueValue, Mode=TwoWay}"
+                                TextChanged="TextField_OnTextChanged">
+            </material:TextField>
+
+            <Slider Grid.Row="4" Grid.Column="0"
+                    Minimum="0" Maximum="255"
+                    WidthRequest="255"
+                    Value="{Binding AlphaValue, Mode=TwoWay}">
+            </Slider>
+
+            <material:TextField Grid.Row="4" Grid.Column="1"
+                                Keyboard="Numeric"
+                                Text="{Binding AlphaValue, Mode=TwoWay}"
                                 TextChanged="TextField_OnTextChanged">
             </material:TextField>
 

@@ -5,6 +5,15 @@ namespace MyExpenses.Smartphones.ContentPages.CustomPopups;
 
 public partial class ColorPickerPopup
 {
+    public static readonly BindableProperty AlphaValueProperty = BindableProperty.Create(nameof(AlphaValue), typeof(int),
+            typeof(ColorPickerPopup), 255, propertyChanged: ColorValue_PropertyChanged);
+
+    public int? AlphaValue
+    {
+        get => (int?)GetValue(AlphaValueProperty);
+        set => SetValue(AlphaValueProperty, value);
+    }
+
     public static readonly BindableProperty BackgroundColorProperty =
         BindableProperty.Create(nameof(BackgroundColor), typeof(Color), typeof(ColorPickerPopup), Colors.Black);
 
@@ -78,6 +87,6 @@ public partial class ColorPickerPopup
 
     private void UpdateColor()
     {
-        BackgroundColor = Color.FromRgba(RedValue ?? 0, GreenValue ?? 0, BlueValue ?? 0, 255);
+        BackgroundColor = Color.FromRgba(RedValue ?? 0, GreenValue ?? 0, BlueValue ?? 0, AlphaValue ?? 0);
     }
 }
