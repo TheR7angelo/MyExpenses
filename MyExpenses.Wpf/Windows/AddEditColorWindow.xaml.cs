@@ -214,7 +214,8 @@ public partial class AddEditColorWindow
         }
 
         Log.Error(exception, "An error occurred please retry");
-        MsgBox.MsgBox.Show(ColorManagementResources.MessageBoxDeleteAccountError, MsgBoxImage.Error);
+        MsgBox.MsgBox.Show(ColorManagementResources.MessageBoxDeleteColorErrorTitle,
+            ColorManagementResources.MessageBoxDeleteColorErrorMessage, MsgBoxImage.Error);
     }
 
     private void Interface_OnLanguageChanged()
