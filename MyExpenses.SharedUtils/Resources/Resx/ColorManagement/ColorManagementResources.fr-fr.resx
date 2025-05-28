@@ -17,7 +17,7 @@
     <data name="ButtonValidContent" xml:space="preserve">
         <value>Valider</value>
     </data>
-    <data name="MessageBoxCannotAddDuplicateColorHexError" xml:space="preserve">
+    <data name="MessageBoxCannotAddDuplicateColorHexErrorMessage" xml:space="preserve">
         <value>Impossible d'ajouter un code hexadécimal de couleur en double. Le nom de la couleur existante est "{0}".</value>
     </data>
     <data name="MessageBoxCannotAddDuplicateColorNameErrorMessage" xml:space="preserve">
@@ -169,5 +169,11 @@
     </data>
     <data name="MessageBoxCannotAddDuplicateColorNameErrorTitle" xml:space="preserve">
         <value>Erreur</value>
+    </data>
+    <data name="MessageBoxCannotAddDuplicateColorHexErrorTitle" xml:space="preserve">
+        <value>Erreur</value>
+    </data>
+    <data name="MessageBoxCannotAddDuplicateColorHexErrorOkButton" xml:space="preserve">
+        <value>Ok</value>
     </data>
 </root>

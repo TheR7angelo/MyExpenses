@@ -224,9 +224,27 @@ namespace MyExpenses.SharedUtils.Resources.Resx.ColorManagement {
         /// <summary>
         ///   Looks up a localized string similar to Unable to add duplicate color hexadecimal code, existing color name is &quot;{0}&quot;.
         /// </summary>
-        public static string MessageBoxCannotAddDuplicateColorHexError {
+        public static string MessageBoxCannotAddDuplicateColorHexErrorMessage {
             get {
-                return ResourceManager.GetString("MessageBoxCannotAddDuplicateColorHexError", resourceCulture);
+                return ResourceManager.GetString("MessageBoxCannotAddDuplicateColorHexErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ok.
+        /// </summary>
+        public static string MessageBoxCannotAddDuplicateColorHexErrorOkButton {
+            get {
+                return ResourceManager.GetString("MessageBoxCannotAddDuplicateColorHexErrorOkButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        public static string MessageBoxCannotAddDuplicateColorHexErrorTitle {
+            get {
+                return ResourceManager.GetString("MessageBoxCannotAddDuplicateColorHexErrorTitle", resourceCulture);
             }
         }
         
