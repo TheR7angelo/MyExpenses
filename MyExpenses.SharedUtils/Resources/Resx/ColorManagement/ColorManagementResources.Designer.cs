@@ -276,7 +276,7 @@ namespace MyExpenses.SharedUtils.Resources.Resx.ColorManagement {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to This color is in use. Are you sure you want to delete this account and everything linked to it ?.
+        ///   Looks up a localized string similar to This color is in use. Are you sure you want to delete this color and everything linked to it ?.
         /// </summary>
         public static string MessageBoxDeleteColorUseQuestionMessage {
             get {

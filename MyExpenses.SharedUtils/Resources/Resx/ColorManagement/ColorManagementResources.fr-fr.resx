@@ -39,7 +39,7 @@
         <value>Etes-vous sûr de vouloir supprimer la couleur "{0}" ?</value>
     </data>
     <data name="MessageBoxDeleteColorUseQuestionMessage" xml:space="preserve">
-        <value>Ce compte est en cours d'utilisation. Etes-vous sûr de vouloir supprimer ce compte et tout ce qui y est lié ?</value>
+        <value>Cette couleur est utilisée. Êtes-vous sûr de vouloir supprimer cette couleur et tout ce qui y est lié ?</value>
     </data>
     <data name="MessageBoxDeleteColorUseSuccessMessage" xml:space="preserve">
         <value>La couleur a été supprimée avec succès</value>

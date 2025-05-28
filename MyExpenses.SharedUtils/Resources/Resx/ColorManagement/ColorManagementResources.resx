@@ -46,7 +46,7 @@
         <value>Are you sure you want to remove the color "{0}" ?</value>
     </data>
     <data name="MessageBoxDeleteColorUseQuestionMessage" xml:space="preserve">
-        <value>This color is in use. Are you sure you want to delete this account and everything linked to it ?</value>
+        <value>This color is in use. Are you sure you want to delete this color and everything linked to it ?</value>
     </data>
     <data name="MessageBoxDeleteColorUseSuccessMessage" xml:space="preserve">
         <value>Color was successfully removed</value>
