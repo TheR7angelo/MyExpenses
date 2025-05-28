@@ -7,6 +7,7 @@ using MyExpenses.SharedUtils.Collection;
 using MyExpenses.SharedUtils.Resources.Resx.ColorManagement;
 using MyExpenses.Smartphones.ContentPages.CustomPopups;
 using MyExpenses.Sql.Context;
+using MyExpenses.Utils.Sql;
 using Serilog;
 
 namespace MyExpenses.Smartphones.ContentPages;
@@ -148,7 +149,29 @@ public partial class ColorManagementContentPage
 
     private async Task HandleAddColor(TColor newColor)
     {
-        // TODO work
+        Log.Information("Attempt to inject the new color \"{ColorName}\" with hexadecimal code \"{ColorHexadecimalColorCode}\"",
+            newColor.Name, newColor.HexadecimalColorCode);
+
+        var (success, exception) = newColor.AddOrEdit();
+        if (success)
+        {
+            Log.Information("color was successfully added");
+            var json = newColor.ToJsonString();
+            Log.Information("{Json}", json);
+
+            await DisplayAlert(ColorManagementResources.MessageBoxAddColorSuccessTitle,
+                ColorManagementResources.MessageBoxAddColorSuccessMessage,
+                ColorManagementResources.MessageBoxAddColorSuccessOkButton);
+
+            Colors.AddAndSort(newColor, s => s.Name!);
+        }
+        else
+        {
+            Log.Error(exception, "An error occurred please retry");
+            await DisplayAlert(ColorManagementResources.MessageBoxAddColorErrorTitle,
+                ColorManagementResources.MessageBoxAddColorErrorMessage,
+                ColorManagementResources.MessageBoxAddColorErrorOkButton);
+        }
     }
 
     private async Task HandleEditColor(TColor newColor, TColor oldColor)
