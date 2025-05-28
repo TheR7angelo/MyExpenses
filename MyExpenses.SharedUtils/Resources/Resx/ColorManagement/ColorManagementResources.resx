@@ -27,7 +27,7 @@
     <data name="MessageBoxCannotAddDuplicateColorHexError" xml:space="preserve">
         <value>Unable to add duplicate color hexadecimal code, existing color name is "{0}"</value>
     </data>
-    <data name="MessageBoxCannotAddDuplicateColorNameError" xml:space="preserve">
+    <data name="MessageBoxCannotAddDuplicateColorNameErrorMessage" xml:space="preserve">
         <value>The color name already exists</value>
     </data>
     <data name="MessageBoxCannotAddEmptyColorHexErrorMessage" xml:space="preserve">
@@ -169,6 +169,12 @@
         <value>Ok</value>
     </data>
     <data name="MessageBoxCannotAddEmptyColorHexErrorTitle" xml:space="preserve">
+        <value>Error</value>
+    </data>
+    <data name="MessageBoxCannotAddDuplicateColorNameErrorOkButton" xml:space="preserve">
+        <value>Ok</value>
+    </data>
+    <data name="MessageBoxCannotAddDuplicateColorNameErrorTitle" xml:space="preserve">
         <value>Error</value>
     </data>
 </root>

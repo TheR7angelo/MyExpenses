@@ -233,9 +233,27 @@ namespace MyExpenses.SharedUtils.Resources.Resx.ColorManagement {
         /// <summary>
         ///   Looks up a localized string similar to The color name already exists.
         /// </summary>
-        public static string MessageBoxCannotAddDuplicateColorNameError {
+        public static string MessageBoxCannotAddDuplicateColorNameErrorMessage {
             get {
-                return ResourceManager.GetString("MessageBoxCannotAddDuplicateColorNameError", resourceCulture);
+                return ResourceManager.GetString("MessageBoxCannotAddDuplicateColorNameErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ok.
+        /// </summary>
+        public static string MessageBoxCannotAddDuplicateColorNameErrorOkButton {
+            get {
+                return ResourceManager.GetString("MessageBoxCannotAddDuplicateColorNameErrorOkButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        public static string MessageBoxCannotAddDuplicateColorNameErrorTitle {
+            get {
+                return ResourceManager.GetString("MessageBoxCannotAddDuplicateColorNameErrorTitle", resourceCulture);
             }
         }
         
