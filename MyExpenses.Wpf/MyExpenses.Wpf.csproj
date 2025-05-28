@@ -61,10 +61,6 @@
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>AccountTypeManagementPageResources.Designer.cs</LastGenOutput>
       </EmbeddedResource>
-      <EmbeddedResource Update="Resources\Resx\Pages\ColorManagementPage\ColorManagementPageResources.resx">
-        <Generator>ResXFileCodeGenerator</Generator>
-        <LastGenOutput>ColorManagementPageResources.Designer.cs</LastGenOutput>
-      </EmbeddedResource>
       <EmbeddedResource Update="Resources\Resx\Windows\AddEditModePaymentWindow\AddEditModePaymentWindowResources.resx">
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>AddEditModePaymentWindowResources.Designer.cs</LastGenOutput>
@@ -192,11 +188,6 @@
         <DesignTime>True</DesignTime>
         <AutoGen>True</AutoGen>
         <DependentUpon>AccountTypeManagementPageResources.resx</DependentUpon>
-      </Compile>
-      <Compile Update="Resources\Resx\Pages\ColorManagementPage\ColorManagementPageResources.Designer.cs">
-        <DesignTime>True</DesignTime>
-        <AutoGen>True</AutoGen>
-        <DependentUpon>ColorManagementPageResources.resx</DependentUpon>
       </Compile>
       <Compile Update="Resources\Resx\Windows\AddEditModePaymentWindow\AddEditModePaymentWindowResources.Designer.cs">
         <DesignTime>True</DesignTime>

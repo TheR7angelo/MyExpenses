@@ -5,9 +5,9 @@ using System.Windows.Controls;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.SharedUtils.Collection;
 using MyExpenses.SharedUtils.Properties;
+using MyExpenses.SharedUtils.Resources.Resx.ColorManagement;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils.Sql;
-using MyExpenses.Wpf.Resources.Resx.Pages.ColorManagementPage;
 using MyExpenses.Wpf.Utils;
 using MyExpenses.Wpf.Windows;
 using MyExpenses.Wpf.Windows.MsgBox;
@@ -58,14 +58,14 @@ public partial class ColorManagementPage
             var json = newColor.ToJsonString();
             Log.Information("{Json}", json);
 
-            MsgBox.Show(ColorManagementPageResources.MessageBoxAddColorSuccess, MsgBoxImage.Check);
+            MsgBox.Show(ColorManagementResources.MessageBoxAddColorSuccessMessage, MsgBoxImage.Check);
 
             Colors.AddAndSort(newColor, s => s.Name!);
         }
         else
         {
             Log.Error(exception, "An error occurred please retry");
-            MsgBox.Show(ColorManagementPageResources.MessageBoxAddColorError, MsgBoxImage.Error);
+            MsgBox.Show(ColorManagementResources.MessageBoxAddColorError, MsgBoxImage.Error);
         }
     }
 
@@ -108,12 +108,12 @@ public partial class ColorManagementPage
             var oldColor = Colors.First(s => s.Id.Equals(editedColor.Id));
             editedColor.CopyPropertiesTo(oldColor);
 
-            MsgBox.Show(ColorManagementPageResources.MessageBoxEditColorSuccess, MsgBoxImage.Check);
+            MsgBox.Show(ColorManagementResources.MessageBoxEditColorSuccess, MsgBoxImage.Check);
         }
         else
         {
             Log.Error(exception, "An error occurred please retry");
-            MsgBox.Show(ColorManagementPageResources.MessageBoxEditColorError, MsgBoxImage.Warning);
+            MsgBox.Show(ColorManagementResources.MessageBoxEditColorError, MsgBoxImage.Warning);
         }
     }
 

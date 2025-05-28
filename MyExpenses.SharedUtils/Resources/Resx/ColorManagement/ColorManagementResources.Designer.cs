@@ -168,6 +168,24 @@ namespace MyExpenses.SharedUtils.Resources.Resx.ColorManagement {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to An error occurred please retry.
+        /// </summary>
+        public static string MessageBoxAddColorError {
+            get {
+                return ResourceManager.GetString("MessageBoxAddColorError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to New color was successfully added.
+        /// </summary>
+        public static string MessageBoxAddColorSuccess {
+            get {
+                return ResourceManager.GetString("MessageBoxAddColorSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Unable to add duplicate color hexadecimal code, existing color name is &quot;{0}&quot;.
         /// </summary>
         public static string MessageBoxCannotAddDuplicateColorHexError {
@@ -353,6 +371,24 @@ namespace MyExpenses.SharedUtils.Resources.Resx.ColorManagement {
         public static string MessageBoxDeleteColorUseSuccessTitle {
             get {
                 return ResourceManager.GetString("MessageBoxDeleteColorUseSuccessTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error occurred please retry.
+        /// </summary>
+        public static string MessageBoxEditColorError {
+            get {
+                return ResourceManager.GetString("MessageBoxEditColorError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Color was successfully edited.
+        /// </summary>
+        public static string MessageBoxEditColorSuccess {
+            get {
+                return ResourceManager.GetString("MessageBoxEditColorSuccess", resourceCulture);
             }
         }
         

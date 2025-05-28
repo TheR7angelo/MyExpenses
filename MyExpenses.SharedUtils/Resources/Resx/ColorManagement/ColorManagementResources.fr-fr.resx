@@ -116,4 +116,16 @@
     <data name="MessageBoxDeleteColorErrorTitle" xml:space="preserve">
         <value>Erreur</value>
     </data>
+    <data name="MessageBoxAddColorError" xml:space="preserve">
+        <value>Une erreur s'est produite, veuillez réessayer</value>
+    </data>
+    <data name="MessageBoxAddColorSuccess" xml:space="preserve">
+        <value>La nouvelle couleur a été ajoutée avec succès</value>
+    </data>
+    <data name="MessageBoxEditColorError" xml:space="preserve">
+        <value>Une erreur s'est produite, veuillez réessayer</value>
+    </data>
+    <data name="MessageBoxEditColorSuccess" xml:space="preserve">
+        <value>La couleur a été modifiée avec succès</value>
+    </data>
 </root>

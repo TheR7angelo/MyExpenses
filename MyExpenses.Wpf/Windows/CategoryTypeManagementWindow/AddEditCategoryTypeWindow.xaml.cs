@@ -8,9 +8,9 @@ using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.SharedUtils.Collection;
 using MyExpenses.SharedUtils.Properties;
 using MyExpenses.SharedUtils.Resources.Resx.CategoryTypesManagement;
+using MyExpenses.SharedUtils.Resources.Resx.ColorManagement;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils.Sql;
-using MyExpenses.Wpf.Resources.Resx.Pages.ColorManagementPage;
 using MyExpenses.Wpf.Utils;
 using MyExpenses.Wpf.Windows.MsgBox;
 using Serilog;
@@ -305,12 +305,12 @@ public partial class AddEditCategoryTypeWindow
             var oldColor = Colors.First(s => s.Id.Equals(editedColor.Id));
             editedColor.CopyPropertiesTo(oldColor);
 
-            MsgBox.MsgBox.Show(ColorManagementPageResources.MessageBoxEditColorSuccess, MsgBoxImage.Check);
+            MsgBox.MsgBox.Show(ColorManagementResources.MessageBoxEditColorSuccess, MsgBoxImage.Check);
         }
         else
         {
             Log.Error(exception, "An error occurred please retry");
-            MsgBox.MsgBox.Show(ColorManagementPageResources.MessageBoxEditColorError, MsgBoxImage.Warning);
+            MsgBox.MsgBox.Show(ColorManagementResources.MessageBoxEditColorError, MsgBoxImage.Warning);
         }
     }
 
@@ -335,14 +335,14 @@ public partial class AddEditCategoryTypeWindow
             var json = newColor.ToJsonString();
             Log.Information("{Json}", json);
 
-            MsgBox.MsgBox.Show(ColorManagementPageResources.MessageBoxAddColorSuccess, MsgBoxImage.Check);
+            MsgBox.MsgBox.Show(ColorManagementResources.MessageBoxAddColorSuccess, MsgBoxImage.Check);
 
             Colors.AddAndSort(newColor, s => s.Name!);
         }
         else
         {
             Log.Error(exception, "An error occurred please retry");
-            MsgBox.MsgBox.Show(ColorManagementPageResources.MessageBoxAddColorError, MsgBoxImage.Error);
+            MsgBox.MsgBox.Show(ColorManagementResources.MessageBoxAddColorError, MsgBoxImage.Error);
         }
     }
 }
