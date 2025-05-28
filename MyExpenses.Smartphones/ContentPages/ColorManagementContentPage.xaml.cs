@@ -23,31 +23,10 @@ public partial class ColorManagementContentPage
         InitializeComponent();
     }
 
-    private void RefreshColors()
-    {
-        // ReSharper disable once HeapView.ObjectAllocation.Evident
-        // The creation of a new DataBaseContext instance (via `new DataBaseContext()`) is necessary to interact with the database.
-        // This context provides the connection to the database and allows querying or updating data.
-        // The `using` statement ensures that the context is disposed of properly after its use, freeing up resources like database connections.
-        using var context = new DataBaseContext();
-        Colors.Clear();
-        Colors.AddRange(context.TColors.OrderBy(s => s.Name));
-    }
+    #region Action
 
-    private void RefreshColor(TColor color, bool add = false, bool remove = false)
-    {
-        switch (add)
-        {
-            case true when remove:
-                throw new ArgumentException("'add' and 'remove' cannot both be true at the same time.");
-            case true:
-                Colors.AddAndSort(color, s => s.Name!);
-                break;
-            default:
-                Colors.Remove(color);
-                break;
-        }
-    }
+    private void ButtonAddColor_OnClick(object? sender, EventArgs e)
+        => _ = HandleAddEditColor();
 
     private void TapGestureRecognizer_OnTapped(object? sender, TappedEventArgs e)
     {
@@ -57,8 +36,39 @@ public partial class ColorManagementContentPage
         _ = HandleAddEditColor(color);
     }
 
-    private void ButtonAddColor_OnClick(object? sender, EventArgs e)
-        => _ = HandleAddEditColor();
+    #endregion
+
+    #region Function
+
+    private bool CheckColorName(string colorName)
+        => Colors.Select(s => s.Name).Contains(colorName);
+
+    private async Task HandleAddColor(TColor newColor)
+    {
+        Log.Information("Attempt to inject the new color \"{ColorName}\" with hexadecimal code \"{ColorHexadecimalColorCode}\"",
+            newColor.Name, newColor.HexadecimalColorCode);
+
+        var (success, exception) = newColor.AddOrEdit();
+        if (success)
+        {
+            Log.Information("color was successfully added");
+            var json = newColor.ToJsonString();
+            Log.Information("{Json}", json);
+
+            await DisplayAlert(ColorManagementResources.MessageBoxAddColorSuccessTitle,
+                ColorManagementResources.MessageBoxAddColorSuccessMessage,
+                ColorManagementResources.MessageBoxAddColorSuccessOkButton);
+
+            Colors.AddAndSort(newColor, s => s.Name!);
+        }
+        else
+        {
+            Log.Error(exception, "An error occurred please retry");
+            await DisplayAlert(ColorManagementResources.MessageBoxAddColorErrorTitle,
+                ColorManagementResources.MessageBoxAddColorErrorMessage,
+                ColorManagementResources.MessageBoxAddColorErrorOkButton);
+        }
+    }
 
     private async Task HandleAddEditColor(TColor? color = null)
     {
@@ -78,53 +88,6 @@ public partial class ColorManagementContentPage
         await HandleColorResult(result, newColor, color);
 
     }
-
-    private async Task<bool> NewColorIsError(TColor newColor)
-    {
-        if (string.IsNullOrWhiteSpace(newColor.Name))
-        {
-            await DisplayAlert(ColorManagementResources.MessageBoxCannotAddEmptyColorNameErrorTitle,
-                ColorManagementResources.MessageBoxCannotAddEmptyColorNameErrorMessage,
-                ColorManagementResources.MessageBoxCannotAddEmptyColorNameErrorOkButton);
-            return true;
-        }
-
-        if (string.IsNullOrWhiteSpace(newColor.HexadecimalColorCode))
-        {
-            await DisplayAlert(ColorManagementResources.MessageBoxCannotAddEmptyColorHexErrorTitle,
-                ColorManagementResources.MessageBoxCannotAddEmptyColorHexErrorMessage,
-                ColorManagementResources.MessageBoxCannotAddEmptyColorHexErrorOkButton);
-            return true;
-        }
-
-        var nameAlreadyExist = CheckColorName(newColor.Name);
-        if (nameAlreadyExist)
-        {
-            await ShowErrorMessageDuplicateName();
-            return true;
-        }
-
-        // ReSharper disable once HeapView.DelegateAllocation
-        var colorAlreadyExist = Colors.FirstOrDefault(s => s.HexadecimalColorCode == newColor.HexadecimalColorCode);
-        if (colorAlreadyExist is not null)
-        {
-            var message = string.Format(ColorManagementResources.MessageBoxCannotAddDuplicateColorHexErrorMessage,
-                colorAlreadyExist.Name);
-            await DisplayAlert(ColorManagementResources.MessageBoxCannotAddDuplicateColorHexErrorTitle, message,
-                ColorManagementResources.MessageBoxCannotAddDuplicateColorHexErrorOkButton);
-            return true;
-        }
-
-        return false;
-    }
-
-    private async Task ShowErrorMessageDuplicateName()
-        => await DisplayAlert(ColorManagementResources.MessageBoxCannotAddDuplicateColorNameErrorTitle,
-            ColorManagementResources.MessageBoxCannotAddDuplicateColorNameErrorMessage,
-            ColorManagementResources.MessageBoxCannotAddDuplicateColorNameErrorOkButton);
-
-    private bool CheckColorName(string colorName)
-        => Colors.Select(s => s.Name).Contains(colorName);
 
     private async Task HandleColorResult(ECustomPopupEntryResult result, TColor newColor, TColor? oldColor)
     {
@@ -195,33 +158,6 @@ public partial class ColorManagementContentPage
             ColorManagementResources.MessageBoxDeleteColorErrorOkButton);
     }
 
-    private async Task HandleAddColor(TColor newColor)
-    {
-        Log.Information("Attempt to inject the new color \"{ColorName}\" with hexadecimal code \"{ColorHexadecimalColorCode}\"",
-            newColor.Name, newColor.HexadecimalColorCode);
-
-        var (success, exception) = newColor.AddOrEdit();
-        if (success)
-        {
-            Log.Information("color was successfully added");
-            var json = newColor.ToJsonString();
-            Log.Information("{Json}", json);
-
-            await DisplayAlert(ColorManagementResources.MessageBoxAddColorSuccessTitle,
-                ColorManagementResources.MessageBoxAddColorSuccessMessage,
-                ColorManagementResources.MessageBoxAddColorSuccessOkButton);
-
-            Colors.AddAndSort(newColor, s => s.Name!);
-        }
-        else
-        {
-            Log.Error(exception, "An error occurred please retry");
-            await DisplayAlert(ColorManagementResources.MessageBoxAddColorErrorTitle,
-                ColorManagementResources.MessageBoxAddColorErrorMessage,
-                ColorManagementResources.MessageBoxAddColorErrorOkButton);
-        }
-    }
-
     private async Task HandleEditColor(TColor newColor, TColor oldColor)
     {
         oldColor.Name = newColor.Name;
@@ -247,4 +183,76 @@ public partial class ColorManagementContentPage
                 ColorManagementResources.MessageBoxEditColorErrorOkButton);
         }
     }
+
+    private async Task<bool> NewColorIsError(TColor newColor)
+    {
+        if (string.IsNullOrWhiteSpace(newColor.Name))
+        {
+            await DisplayAlert(ColorManagementResources.MessageBoxCannotAddEmptyColorNameErrorTitle,
+                ColorManagementResources.MessageBoxCannotAddEmptyColorNameErrorMessage,
+                ColorManagementResources.MessageBoxCannotAddEmptyColorNameErrorOkButton);
+            return true;
+        }
+
+        if (string.IsNullOrWhiteSpace(newColor.HexadecimalColorCode))
+        {
+            await DisplayAlert(ColorManagementResources.MessageBoxCannotAddEmptyColorHexErrorTitle,
+                ColorManagementResources.MessageBoxCannotAddEmptyColorHexErrorMessage,
+                ColorManagementResources.MessageBoxCannotAddEmptyColorHexErrorOkButton);
+            return true;
+        }
+
+        var nameAlreadyExist = CheckColorName(newColor.Name);
+        if (nameAlreadyExist)
+        {
+            await ShowErrorMessageDuplicateName();
+            return true;
+        }
+
+        // ReSharper disable once HeapView.DelegateAllocation
+        var colorAlreadyExist = Colors.FirstOrDefault(s => s.HexadecimalColorCode == newColor.HexadecimalColorCode);
+        if (colorAlreadyExist is not null)
+        {
+            var message = string.Format(ColorManagementResources.MessageBoxCannotAddDuplicateColorHexErrorMessage,
+                colorAlreadyExist.Name);
+            await DisplayAlert(ColorManagementResources.MessageBoxCannotAddDuplicateColorHexErrorTitle, message,
+                ColorManagementResources.MessageBoxCannotAddDuplicateColorHexErrorOkButton);
+            return true;
+        }
+
+        return false;
+    }
+
+    private void RefreshColor(TColor color, bool add = false, bool remove = false)
+    {
+        switch (add)
+        {
+            case true when remove:
+                throw new ArgumentException("'add' and 'remove' cannot both be true at the same time.");
+            case true:
+                Colors.AddAndSort(color, s => s.Name!);
+                break;
+            default:
+                Colors.Remove(color);
+                break;
+        }
+    }
+
+    private void RefreshColors()
+    {
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // The creation of a new DataBaseContext instance (via `new DataBaseContext()`) is necessary to interact with the database.
+        // This context provides the connection to the database and allows querying or updating data.
+        // The `using` statement ensures that the context is disposed of properly after its use, freeing up resources like database connections.
+        using var context = new DataBaseContext();
+        Colors.Clear();
+        Colors.AddRange(context.TColors.OrderBy(s => s.Name));
+    }
+
+    private async Task ShowErrorMessageDuplicateName()
+        => await DisplayAlert(ColorManagementResources.MessageBoxCannotAddDuplicateColorNameErrorTitle,
+            ColorManagementResources.MessageBoxCannotAddDuplicateColorNameErrorMessage,
+            ColorManagementResources.MessageBoxCannotAddDuplicateColorNameErrorOkButton);
+
+    #endregion
 }
