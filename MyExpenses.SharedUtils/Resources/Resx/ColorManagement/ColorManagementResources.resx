@@ -36,7 +36,7 @@
     <data name="MessageBoxCannotAddEmptyColorNameError" xml:space="preserve">
         <value>Cannot add empty color name</value>
     </data>
-    <data name="MessageBoxDeleteAccountError" xml:space="preserve">
+    <data name="MessageBoxDeleteColorErrorMessage" xml:space="preserve">
         <value>An error occurred please retry</value>
     </data>
     <data name="MessageBoxDeleteColorNoUseSuccessMessage" xml:space="preserve">
@@ -116,5 +116,11 @@
     </data>
     <data name="MessageBoxDeleteColorUseSuccessTitle" xml:space="preserve">
         <value>Success</value>
+    </data>
+    <data name="MessageBoxDeleteColorErrorTitle" xml:space="preserve">
+        <value>Error</value>
+    </data>
+    <data name="MessageBoxDeleteColorErrorOkButton" xml:space="preserve">
+        <value>Ok</value>
     </data>
 </root>
