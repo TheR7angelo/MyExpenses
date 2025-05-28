@@ -1,4 +1,5 @@
 ﻿using MyExpenses.Models.Config.Interfaces;
+using MyExpenses.Models.Maui.CustomPopup;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.SharedUtils.Objects;
 using MyExpenses.SharedUtils.Resources.Resx.ColorManagement;
@@ -167,9 +168,9 @@ public partial class ColorPickerPopup
     // for creating and controlling the completion of the Task exposed by `ResultDialog`.
     // This object is required to manually signal task completion (`SetResult`, `SetException`, etc.)
     // when the operation is resolved, ensuring proper asynchronous flow.
-    private readonly TaskCompletionSource<bool> _taskCompletionSource = new();
+    private readonly TaskCompletionSource<ECustomPopupEntryResult> _taskCompletionSource = new();
 
-    public Task<bool> ResultDialog
+    public Task<ECustomPopupEntryResult> ResultDialog
         => _taskCompletionSource.Task;
 
     public ColorPickerPopup()
@@ -278,19 +279,15 @@ public partial class ColorPickerPopup
     }
 
     private void ButtonValid_OnClicked(object? sender, EventArgs e)
-    {
-        throw new NotImplementedException();
-    }
+        => SetResult(ECustomPopupEntryResult.Valid);
 
     private void ButtonDelete_OnClicked(object? sender, EventArgs e)
-    {
-        throw new NotImplementedException();
-    }
+        => SetResult(ECustomPopupEntryResult.Delete);
 
     private void ButtonCancel_OnClicked(object? sender, EventArgs e)
-        => SetResult(false);
+        => SetResult(ECustomPopupEntryResult.Cancel);
 
-    private void SetResult(bool result)
+    private void SetResult(ECustomPopupEntryResult result)
     {
         _taskCompletionSource.SetResult(result);
         Close();
