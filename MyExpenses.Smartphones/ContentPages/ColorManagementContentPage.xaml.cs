@@ -176,6 +176,25 @@ public partial class ColorManagementContentPage
 
     private async Task HandleEditColor(TColor newColor, TColor oldColor)
     {
-        // TODO work
+        oldColor.Name = newColor.Name;
+        oldColor.HexadecimalColorCode = newColor.HexadecimalColorCode;
+
+        Log.Information("Attempting to edit the color \"{AccountName}\"", oldColor.Name);
+        var (success, exception) = oldColor.AddOrEdit();
+        if (success)
+        {
+            Log.Information("Color was successfully edited");
+            var json = oldColor.ToJsonString();
+            Log.Information("{Json}", json);
+
+            await DisplayAlert(ColorManagementResources.MessageBoxEditColorSuccessTitle,
+                ColorManagementResources.MessageBoxEditColorSuccessMessage,
+                ColorManagementResources.MessageBoxEditColorSuccessOkButton);
+        }
+        // else
+        // {
+        //     Log.Error(exception, "An error occurred please retry");
+        //     MsgBox.Show(ColorManagementResources.MessageBoxEditColorError, MsgBoxImage.Warning);
+        // }
     }
 }
