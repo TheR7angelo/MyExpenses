@@ -3,8 +3,10 @@ using CommunityToolkit.Maui.Views;
 using MyExpenses.Models.Maui.CustomPopup;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.SharedUtils.Collection;
+using MyExpenses.SharedUtils.Resources.Resx.ColorManagement;
 using MyExpenses.Smartphones.ContentPages.CustomPopups;
 using MyExpenses.Sql.Context;
+using Serilog;
 
 namespace MyExpenses.Smartphones.ContentPages;
 
@@ -28,6 +30,21 @@ public partial class ColorManagementContentPage
         using var context = new DataBaseContext();
         Colors.Clear();
         Colors.AddRange(context.TColors.OrderBy(s => s.Name));
+    }
+
+    private void RefreshColor(TColor color, bool add = false, bool remove = false)
+    {
+        switch (add)
+        {
+            case true when remove:
+                throw new ArgumentException("'add' and 'remove' cannot both be true at the same time.");
+            case true:
+                Colors.AddAndSort(color, s => s.Name!);
+                break;
+            default:
+                Colors.Remove(color);
+                break;
+        }
     }
 
     private void TapGestureRecognizer_OnTapped(object? sender, TappedEventArgs e)
@@ -59,6 +76,71 @@ public partial class ColorManagementContentPage
 
     private async Task HandleColorResult(ECustomPopupEntryResult result, TColor newColor, TColor? oldColor)
     {
-        //TODO work
+        if (result is ECustomPopupEntryResult.Delete) await HandleDeleteColor(oldColor!);
+        else if (result is ECustomPopupEntryResult.Valid && oldColor is null) await HandleAddColor(newColor);
+        else await HandleEditColor(newColor, oldColor!);
+    }
+
+    private async Task HandleDeleteColor(TColor oldColor)
+    {
+        var message = string.Format(ColorManagementResources.MessageBoxDeleteColorQuestionMessage, oldColor.Name);
+        var response = await DisplayAlert(ColorManagementResources.MessageBoxDeleteColorQuestionTitle, message,
+            ColorManagementResources.MessageBoxDeleteColorQuestionYesButton, ColorManagementResources.MessageBoxDeleteColorQuestionNoButton);
+
+        if (response is not true) return;
+
+        Log.Information("Attempting to remove the color \"{ColorToDeleteName}\"", oldColor.Name);
+        var (success, exception) = oldColor.Delete();
+
+        if (success)
+        {
+            Log.Information("Color was successfully removed");
+            await DisplayAlert("Success", ColorManagementResources.MessageBoxDeleteColorNoUseSuccess, "Ok");
+            // MsgBox.MsgBox.Show(ColorManagementResources.MessageBoxDeleteColorNoUseSuccess, MsgBoxImage.Check);
+
+            RefreshColor(oldColor, remove: true);
+            // DeleteColor = true;
+            // DialogResult = true;
+            // Close();
+            return;
+        }
+        //
+        // if (exception!.InnerException is SqliteException
+        //     {
+        //         SqliteExtendedErrorCode: SQLitePCL.raw.SQLITE_CONSTRAINT_FOREIGNKEY
+        //     })
+        // {
+        //     Log.Error("Foreign key constraint violation");
+        //
+        //     response = MsgBox.MsgBox.Show(ColorManagementResources.MessageBoxDeleteColorUseQuestion,
+        //         MsgBoxImage.Question, MessageBoxButton.YesNoCancel);
+        //
+        //     if (response is not MessageBoxResult.Yes) return;
+        //
+        //     Log.Information("Attempting to remove the color \"{ColorToDeleteName}\" with all relative element",
+        //         Color.Name);
+        //     Color.Delete(true);
+        //     Log.Information("Account and all relative element was successfully removed");
+        //     MsgBox.MsgBox.Show(ColorManagementResources.MessageBoxDeleteColorUseSuccess, MsgBoxImage.Check);
+        //
+        //     DeleteColor = true;
+        //     DialogResult = true;
+        //     Close();
+        //
+        //     return;
+        // }
+        //
+        // Log.Error(exception, "An error occurred please retry");
+        // MsgBox.MsgBox.Show(ColorManagementResources.MessageBoxDeleteAccountError, MsgBoxImage.Error);
+    }
+
+    private async Task HandleAddColor(TColor newColor)
+    {
+        // TODO work
+    }
+
+    private async Task HandleEditColor(TColor newColor, TColor oldColor)
+    {
+        // TODO work
     }
 }
