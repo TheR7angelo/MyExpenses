@@ -4,9 +4,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:converters="clr-namespace:MyExpenses.Smartphones.Converters"
              xmlns:margin="clr-namespace:MyExpenses.Maui.Utils.Margin;assembly=MyExpenses.Maui.Utils"
-             xmlns:customEntryControl="clr-namespace:MyExpenses.Smartphones.UserControls.TextInputs.CustomEntryControl"
              xmlns:local="clr-namespace:MyExpenses.Smartphones.ContentPages"
              xmlns:tables="clr-namespace:MyExpenses.Models.Sql.Bases.Tables;assembly=MyExpenses.Models"
+             xmlns:uraniumButtonView="clr-namespace:MyExpenses.Smartphones.UserControls.Buttons.UraniumButtonView"
              x:Class="MyExpenses.Smartphones.ContentPages.ColorManagementContentPage"
 
              BindingContext="{Binding Source={RelativeSource Self}}">
@@ -24,53 +24,19 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="Auto" />
-            </Grid.ColumnDefinitions>
+            <uraniumButtonView:UraniumButtonView Grid.Row="0"
+                                                 HorizontalOptions="Center"
+                                                 VerticalOptions="Center"
+                                                 PathSource="Plus"
+                                                 PathHeightRequest="40"
+                                                 PathWidthRequest="40"
+                                                 HeightRequest="56"
+                                                 WidthRequest="56"
+                                                 Style="{StaticResource ButtonViewPrimaryDark}"
+                                                 Tapped="ButtonAddColor_OnClick">
+            </uraniumButtonView:UraniumButtonView>
 
-            <!-- <customEntryControl:CustomEntryControl Grid.Row="0" Grid.Column="0" -->
-            <!--                                        PlaceholderText="{Binding PlaceholderText, Mode=OneWay}" -->
-            <!--                                        Text="{Binding CategoryTypeName, Mode=TwoWay}" -->
-            <!--                                        HasClearButton="True" -->
-            <!--                                        MaxLength="{Binding MaxLength, Mode=OneWay}"> -->
-            <!-- </customEntryControl:CustomEntryControl> -->
-            <!-- -->
-            <!-- <VerticalStackLayout Grid.Row="0" Grid.Column="1" -->
-            <!--                      VerticalOptions="Center"> -->
-            <!-- -->
-            <!--     <Label Text="{Binding LabelTextColor, Mode=OneWay}" /> -->
-            <!-- -->
-            <!--     <HorizontalStackLayout HorizontalOptions="Center"> -->
-            <!-- -->
-            <!--         <Picker ItemsSource="{Binding Colors, Mode=OneWay, Source={RelativeSource AncestorType={x:Type local:AddEditCategoryTypesContentPage}}}" -->
-            <!--                 SelectedItem="{Binding SelectedColor, Mode=TwoWay, Source={Reference This}}" -->
-            <!--                 ItemDisplayBinding="{Binding Name}" x:DataType="tables:TColor" -->
-            <!--                 VerticalTextAlignment="Center" -->
-            <!--                 VerticalOptions="Center" -->
-            <!--                 SelectedIndexChanged="PickerColor_OnSelectedIndexChanged"> -->
-            <!--         </Picker> -->
-            <!-- -->
-            <!--         <Ellipse HeightRequest="24" -->
-            <!--                  WidthRequest="{Binding HeightRequest, Source={RelativeSource Self}}" -->
-            <!--                  Stroke="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}" -->
-            <!--                  StrokeThickness="1.5" -->
-            <!--                  Fill="{Binding SelectedHexadecimalColorCode, Mode=TwoWay, Converter={StaticResource StringToBrushConverter}}" -->
-            <!--                  Margin="10, 0"> -->
-            <!--         </Ellipse> -->
-            <!-- -->
-            <!--     </HorizontalStackLayout> -->
-            <!-- -->
-            <!-- </VerticalStackLayout> -->
-            <!-- -->
-            <!-- <Button Grid.Row="0" Grid.Column="2" -->
-            <!--         Style="{StaticResource RaisedMidButton}" -->
-            <!--         Text="{Binding ButtonValidText, Mode=OneWay}" -->
-            <!--         Clicked="ButtonValid_OnClicked"> -->
-            <!-- </Button> -->
-
-            <Border Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3"
+            <Border Grid.Row="1"
                     Stroke="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
                     StrokeThickness="2"
                     Padding="0"

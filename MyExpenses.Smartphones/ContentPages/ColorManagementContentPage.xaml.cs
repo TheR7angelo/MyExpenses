@@ -31,24 +31,34 @@ public partial class ColorManagementContentPage
     }
 
     private void TapGestureRecognizer_OnTapped(object? sender, TappedEventArgs e)
-        => _ = HandleTapGestureRecognizer(sender);
-
-    private async Task HandleTapGestureRecognizer(object? sender)
     {
         if (sender is not Border border) return;
         if (border.BindingContext is not TColor color) return;
 
+        _ = HandleAddEditColor(color);
+    }
+
+    private void ButtonAddColor_OnClick(object? sender, EventArgs e)
+        => _ = HandleAddEditColor();
+
+    private async Task HandleAddEditColor(TColor? color = null)
+    {
         var colorPickerPopup = new ColorPickerPopup { EditColor = true };
-        colorPickerPopup.SetColor(color);
+        if (color is not null) colorPickerPopup.SetColor(color);
         await this.ShowPopupAsync(colorPickerPopup);
 
-        // var result = await colorPickerPopup.ResultDialog;
-        // if (result is ECustomPopupEntryResult.Cancel) return;
-        //
-        // category.CategoryName = customPopupEditCategory.EntryText;
-        // category.ColorFk = customPopupEditCategory.SelectedColor?.Id;
-        //
-        // await HandleVCategoryResult(category, result);
-        // RefreshCategories();
+        var result = await colorPickerPopup.ResultDialog;
+        if (result is ECustomPopupEntryResult.Cancel) return;
+
+        var hexadecimal = colorPickerPopup.BackgroundColor.ToArgbHex(true);
+        var newColor = new TColor { Name = colorPickerPopup.ColorName, HexadecimalColorCode = hexadecimal };
+
+        await HandleColorResult(result, newColor, color);
+
+    }
+
+    private async Task HandleColorResult(ECustomPopupEntryResult result, TColor newColor, TColor? color)
+    {
+        //TODO work
     }
 }
