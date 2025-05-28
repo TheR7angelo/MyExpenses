@@ -95,14 +95,11 @@ public partial class ColorManagementContentPage
         if (success)
         {
             Log.Information("Color was successfully removed");
-            await DisplayAlert("Success", ColorManagementResources.MessageBoxDeleteColorNoUseSuccess, "Ok");
-            // MsgBox.MsgBox.Show(ColorManagementResources.MessageBoxDeleteColorNoUseSuccess, MsgBoxImage.Check);
+            await DisplayAlert(ColorManagementResources.MessageBoxDeleteColorNoUseSuccessTitle,
+                ColorManagementResources.MessageBoxDeleteColorNoUseSuccessMessage,
+                ColorManagementResources.MessageBoxDeleteColorNoUseSuccessOkButton);
 
             RefreshColor(oldColor, remove: true);
-            // DeleteColor = true;
-            // DialogResult = true;
-            // Close();
-            return;
         }
         //
         // if (exception!.InnerException is SqliteException
