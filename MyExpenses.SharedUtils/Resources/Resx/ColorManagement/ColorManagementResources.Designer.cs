@@ -170,9 +170,27 @@ namespace MyExpenses.SharedUtils.Resources.Resx.ColorManagement {
         /// <summary>
         ///   Looks up a localized string similar to An error occurred please retry.
         /// </summary>
-        public static string MessageBoxAddColorError {
+        public static string MessageBoxAddColorErrorMessage {
             get {
-                return ResourceManager.GetString("MessageBoxAddColorError", resourceCulture);
+                return ResourceManager.GetString("MessageBoxAddColorErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ok.
+        /// </summary>
+        public static string MessageBoxAddColorErrorOkButton {
+            get {
+                return ResourceManager.GetString("MessageBoxAddColorErrorOkButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        public static string MessageBoxAddColorErrorTitle {
+            get {
+                return ResourceManager.GetString("MessageBoxAddColorErrorTitle", resourceCulture);
             }
         }
         
