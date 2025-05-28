@@ -126,7 +126,8 @@ public partial class AddEditColorWindow
     {
         if (string.IsNullOrWhiteSpace(Color.Name))
         {
-            MsgBox.MsgBox.Show(ColorManagementResources.MessageBoxCannotAddEmptyColorNameError, MsgBoxImage.Error);
+            MsgBox.MsgBox.Show(ColorManagementResources.MessageBoxCannotAddEmptyColorNameErrorTitle,
+                ColorManagementResources.MessageBoxCannotAddEmptyColorNameErrorMessage, MsgBoxImage.Error);
             return;
         }
 
