@@ -42,7 +42,7 @@
     <data name="MessageBoxDeleteColorNoUseSuccess" xml:space="preserve">
         <value>Color was successfully removed</value>
     </data>
-    <data name="MessageBoxDeleteColorQuestion" xml:space="preserve">
+    <data name="MessageBoxDeleteColorQuestionMessage" xml:space="preserve">
         <value>Are you sure you want to remove the color "{0}" ?</value>
     </data>
     <data name="MessageBoxDeleteColorUseQuestion" xml:space="preserve">
@@ -86,5 +86,14 @@
     </data>
     <data name="LabelValueChannel" xml:space="preserve">
         <value>Value :</value>
+    </data>
+    <data name="MessageBoxDeleteColorQuestionTitle" xml:space="preserve">
+        <value>Question</value>
+    </data>
+    <data name="MessageBoxDeleteColorQuestionYesButton" xml:space="preserve">
+        <value>Yes</value>
+    </data>
+    <data name="MessageBoxDeleteColorQuestionNoButton" xml:space="preserve">
+        <value>No</value>
     </data>
 </root>
