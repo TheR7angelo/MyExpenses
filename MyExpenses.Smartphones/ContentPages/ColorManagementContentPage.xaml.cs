@@ -57,7 +57,7 @@ public partial class ColorManagementContentPage
 
     }
 
-    private async Task HandleColorResult(ECustomPopupEntryResult result, TColor newColor, TColor? color)
+    private async Task HandleColorResult(ECustomPopupEntryResult result, TColor newColor, TColor? oldColor)
     {
         //TODO work
     }
