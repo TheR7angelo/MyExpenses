@@ -203,7 +203,8 @@ public partial class AddEditColorWindow
                 Color.Name);
             Color.Delete(true);
             Log.Information("Account and all relative element was successfully removed");
-            MsgBox.MsgBox.Show(ColorManagementResources.MessageBoxDeleteColorUseSuccess, MsgBoxImage.Check);
+            MsgBox.MsgBox.Show(ColorManagementResources.MessageBoxDeleteColorUseSuccessTitle,
+                ColorManagementResources.MessageBoxDeleteColorUseSuccessMessage, MsgBoxImage.Check);
 
             DeleteColor = true;
             DialogResult = true;
