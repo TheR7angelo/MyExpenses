@@ -162,6 +162,16 @@ public partial class ColorPickerPopup
 
     public int MaxLength { get; }
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
+    // TaskCompletionSource is intentionally allocated here as it is the fundamental mechanism
+    // for creating and controlling the completion of the Task exposed by `ResultDialog`.
+    // This object is required to manually signal task completion (`SetResult`, `SetException`, etc.)
+    // when the operation is resolved, ensuring proper asynchronous flow.
+    private readonly TaskCompletionSource<bool> _taskCompletionSource = new();
+
+    public Task<bool> ResultDialog
+        => _taskCompletionSource.Task;
+
     public ColorPickerPopup()
     {
         MaxLength = Utils.Converters.MaxLengthConverter.Convert(typeof(TColor), nameof(TColor.Name));
@@ -278,7 +288,11 @@ public partial class ColorPickerPopup
     }
 
     private void ButtonCancel_OnClicked(object? sender, EventArgs e)
+        => SetResult(false);
+
+    private void SetResult(bool result)
     {
-        throw new NotImplementedException();
+        _taskCompletionSource.SetResult(result);
+        Close();
     }
 }
