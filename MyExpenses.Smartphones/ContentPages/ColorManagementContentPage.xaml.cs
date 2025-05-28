@@ -69,13 +69,51 @@ public partial class ColorManagementContentPage
         var result = await colorPickerPopup.ResultDialog;
         if (result is ECustomPopupEntryResult.Cancel) return;
 
-        //TODO check if color already exist
-
         var hexadecimal = colorPickerPopup.BackgroundColor.ToArgbHex(true);
         var newColor = new TColor { Name = colorPickerPopup.ColorName, HexadecimalColorCode = hexadecimal };
 
+        var newColorIsError = await NewColorIsError(newColor);
+        if (newColorIsError) return;
+
         await HandleColorResult(result, newColor, color);
 
+    }
+
+    private async Task<bool> NewColorIsError(TColor newColor)
+    {
+        if (string.IsNullOrWhiteSpace(newColor.Name))
+        {
+            await DisplayAlert(ColorManagementResources.MessageBoxCannotAddEmptyColorNameErrorTitle,
+                ColorManagementResources.MessageBoxCannotAddEmptyColorNameErrorMessage,
+                ColorManagementResources.MessageBoxCannotAddEmptyColorNameErrorOkButton);
+            return true;
+        }
+
+        // if (string.IsNullOrWhiteSpace(newColor.HexadecimalColorCode))
+        // {
+        //     MsgBox.MsgBox.Show(ColorManagementResources.MessageBoxCannotAddEmptyColorHexError, MsgBoxImage.Error);
+        //     return true;
+        // }
+        //
+        // var nameAlreadyExist = CheckColorName(newColor.Name);
+        // if (nameAlreadyExist)
+        // {
+        //     ShowErrorMessage();
+        //     return true;
+        // }
+        //
+        // // ReSharper disable once HeapView.DelegateAllocation
+        // var colorAlreadyExist = Colors.FirstOrDefault(s => s.HexadecimalColorCode == Color.HexadecimalColorCode);
+        // if (colorAlreadyExist is not null)
+        // {
+        //     MsgBox.MsgBox.Show(
+        //         string.Format(ColorManagementResources.MessageBoxCannotAddDuplicateColorHexError,
+        //             colorAlreadyExist.Name),
+        //         MsgBoxImage.Error);
+        //     return true;
+        // }
+
+        return false;
     }
 
     private async Task HandleColorResult(ECustomPopupEntryResult result, TColor newColor, TColor? oldColor)
