@@ -58,7 +58,8 @@ public partial class ColorManagementPage
             var json = newColor.ToJsonString();
             Log.Information("{Json}", json);
 
-            MsgBox.Show(ColorManagementResources.MessageBoxAddColorSuccessMessage, MsgBoxImage.Check);
+            MsgBox.Show(ColorManagementResources.MessageBoxAddColorSuccessTitle,
+                ColorManagementResources.MessageBoxAddColorSuccessMessage, MsgBoxImage.Check);
 
             Colors.AddAndSort(newColor, s => s.Name!);
         }
