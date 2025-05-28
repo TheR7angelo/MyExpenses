@@ -104,16 +104,16 @@ public partial class ColorManagementContentPage
             return true;
         }
 
-        // // ReSharper disable once HeapView.DelegateAllocation
-        // var colorAlreadyExist = Colors.FirstOrDefault(s => s.HexadecimalColorCode == Color.HexadecimalColorCode);
-        // if (colorAlreadyExist is not null)
-        // {
-        //     MsgBox.MsgBox.Show(
-        //         string.Format(ColorManagementResources.MessageBoxCannotAddDuplicateColorHexError,
-        //             colorAlreadyExist.Name),
-        //         MsgBoxImage.Error);
-        //     return true;
-        // }
+        // ReSharper disable once HeapView.DelegateAllocation
+        var colorAlreadyExist = Colors.FirstOrDefault(s => s.HexadecimalColorCode == newColor.HexadecimalColorCode);
+        if (colorAlreadyExist is not null)
+        {
+            var message = string.Format(ColorManagementResources.MessageBoxCannotAddDuplicateColorHexErrorMessage,
+                colorAlreadyExist.Name);
+            await DisplayAlert(ColorManagementResources.MessageBoxCannotAddDuplicateColorHexErrorTitle, message,
+                ColorManagementResources.MessageBoxCannotAddDuplicateColorHexErrorOkButton);
+            return true;
+        }
 
         return false;
     }
