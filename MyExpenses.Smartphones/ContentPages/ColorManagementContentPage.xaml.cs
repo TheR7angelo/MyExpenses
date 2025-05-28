@@ -89,12 +89,14 @@ public partial class ColorManagementContentPage
             return true;
         }
 
-        // if (string.IsNullOrWhiteSpace(newColor.HexadecimalColorCode))
-        // {
-        //     MsgBox.MsgBox.Show(ColorManagementResources.MessageBoxCannotAddEmptyColorHexError, MsgBoxImage.Error);
-        //     return true;
-        // }
-        //
+        if (string.IsNullOrWhiteSpace(newColor.HexadecimalColorCode))
+        {
+            await DisplayAlert(ColorManagementResources.MessageBoxCannotAddEmptyColorHexErrorTitle,
+                ColorManagementResources.MessageBoxCannotAddEmptyColorHexErrorMessage,
+                ColorManagementResources.MessageBoxCannotAddEmptyColorHexErrorOkButton);
+            return true;
+        }
+
         // var nameAlreadyExist = CheckColorName(newColor.Name);
         // if (nameAlreadyExist)
         // {
