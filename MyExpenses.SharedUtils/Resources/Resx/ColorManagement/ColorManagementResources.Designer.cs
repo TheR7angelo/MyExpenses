@@ -215,9 +215,27 @@ namespace MyExpenses.SharedUtils.Resources.Resx.ColorManagement {
         /// <summary>
         ///   Looks up a localized string similar to Color was successfully removed.
         /// </summary>
-        public static string MessageBoxDeleteColorNoUseSuccess {
+        public static string MessageBoxDeleteColorNoUseSuccessMessage {
             get {
-                return ResourceManager.GetString("MessageBoxDeleteColorNoUseSuccess", resourceCulture);
+                return ResourceManager.GetString("MessageBoxDeleteColorNoUseSuccessMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ok.
+        /// </summary>
+        public static string MessageBoxDeleteColorNoUseSuccessOkButton {
+            get {
+                return ResourceManager.GetString("MessageBoxDeleteColorNoUseSuccessOkButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Success.
+        /// </summary>
+        public static string MessageBoxDeleteColorNoUseSuccessTitle {
+            get {
+                return ResourceManager.GetString("MessageBoxDeleteColorNoUseSuccessTitle", resourceCulture);
             }
         }
         

@@ -32,7 +32,7 @@
     <data name="MessageBoxDeleteAccountError" xml:space="preserve">
         <value>Une erreur s'est produite, veuillez réessayer</value>
     </data>
-    <data name="MessageBoxDeleteColorNoUseSuccess" xml:space="preserve">
+    <data name="MessageBoxDeleteColorNoUseSuccessMessage" xml:space="preserve">
         <value>La couleur a été supprimée avec succès</value>
     </data>
     <data name="MessageBoxDeleteColorQuestionMessage" xml:space="preserve">
@@ -88,5 +88,11 @@
     </data>
     <data name="MessageBoxDeleteColorQuestionTitle" xml:space="preserve">
         <value>Question</value>
+    </data>
+    <data name="MessageBoxDeleteColorNoUseSuccessOkButton" xml:space="preserve">
+        <value>Ok</value>
+    </data>
+    <data name="MessageBoxDeleteColorNoUseSuccessTitle" xml:space="preserve">
+        <value>Succès</value>
     </data>
 </root>
