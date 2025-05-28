@@ -173,6 +173,8 @@ public partial class ColorPickerPopup
     public Task<ECustomPopupEntryResult> ResultDialog
         => _taskCompletionSource.Task;
 
+    private bool _isUpdateSlider;
+
     public ColorPickerPopup()
     {
         MaxLength = Utils.Converters.MaxLengthConverter.Convert(typeof(TColor), nameof(TColor.Name));
@@ -183,24 +185,44 @@ public partial class ColorPickerPopup
         Interface.LanguageChanged += Interface_OnLanguageChanged;
     }
 
+    #region Action
+
+    private void ButtonCancel_OnClicked(object? sender, EventArgs e)
+        => SetResult(ECustomPopupEntryResult.Cancel);
+
+    private void ButtonDelete_OnClicked(object? sender, EventArgs e)
+        => SetResult(ECustomPopupEntryResult.Delete);
+
+    private void ButtonValid_OnClicked(object? sender, EventArgs e)
+        => SetResult(ECustomPopupEntryResult.Valid);
+
+    private static void ColorValue_PropertyChanged(BindableObject bindable, object oldValue, object newValue)
+    {
+        var sender = (ColorPickerPopup)bindable;
+        sender.UpdateColor();
+    }
+
     private void Interface_OnLanguageChanged()
         => UpdateLanguage();
 
-    private void UpdateLanguage()
+    private void TextFieldColorHexadecimal_OnTextChanged(object? sender, TextChangedEventArgs e)
     {
-        LabelRedChannel = ColorManagementResources.LabelRedChannel;
-        LabelGreenChannel = ColorManagementResources.LabelGreenChannel;
-        LabelBlueChannel = ColorManagementResources.LabelBlueChannel;
-        LabelAlphaChannel = ColorManagementResources.LabelAlphaChannel;
-        LabelHexadecimalCode = ColorManagementResources.LabelHexadecimalCode;
-        TextBoxColorName = ColorManagementResources.TextBoxColorName;
+        if (sender is not TextField textField) return;
+        if (string.IsNullOrWhiteSpace(textField.Text)) return;
 
-        ButtonValidText = ColorManagementResources.ButtonValidContent;
-        ButtonDeleteText = ColorManagementResources.ButtonDeleteContent;
-        ButtonCancelText = ColorManagementResources.ButtonCancelContent;
+        var txt = textField.Text.ToUpper();
+
+        var correctedText = new char[txt.Length];
+        for (var i = 0; i < txt.Length; i++)
+        {
+            var currentChar = txt[i];
+            if (char.IsLetter(currentChar) && currentChar > 'F') correctedText[i] = 'F';
+            else correctedText[i] = currentChar;
+        }
+        textField.Text = new string(correctedText);
     }
 
-    private void TextField_OnTextChanged(object? sender, TextChangedEventArgs e)
+    private void TextFieldSlider_OnTextChanged(object? sender, TextChangedEventArgs e)
     {
         if (e.NewTextValue.Equals(e.OldTextValue, StringComparison.InvariantCultureIgnoreCase)) return;
         if (sender is not TextField textField) return;
@@ -224,17 +246,27 @@ public partial class ColorPickerPopup
         textField.Text = value.ToString();
     }
 
-    private static void ColorValue_PropertyChanged(BindableObject bindable, object oldValue, object newValue)
-    {
-        var sender = (ColorPickerPopup)bindable;
-        sender.UpdateColor();
-    }
+    #endregion
 
-    private bool _isUpdateSlider;
+    #region Function
 
     private void UpdateColor()
     {
         if (!_isUpdateSlider) BackgroundColor = Color.FromRgba(RedValue ?? 0, GreenValue ?? 0, BlueValue ?? 0, AlphaValue ?? 0);
+    }
+
+    private void UpdateLanguage()
+    {
+        LabelRedChannel = ColorManagementResources.LabelRedChannel;
+        LabelGreenChannel = ColorManagementResources.LabelGreenChannel;
+        LabelBlueChannel = ColorManagementResources.LabelBlueChannel;
+        LabelAlphaChannel = ColorManagementResources.LabelAlphaChannel;
+        LabelHexadecimalCode = ColorManagementResources.LabelHexadecimalCode;
+        TextBoxColorName = ColorManagementResources.TextBoxColorName;
+
+        ButtonValidText = ColorManagementResources.ButtonValidContent;
+        ButtonDeleteText = ColorManagementResources.ButtonDeleteContent;
+        ButtonCancelText = ColorManagementResources.ButtonCancelContent;
     }
 
     private void UpdateRgba()
@@ -246,23 +278,6 @@ public partial class ColorPickerPopup
         BlueValue = b;
         AlphaValue = a;
         _isUpdateSlider = false;
-    }
-
-    private void TextFieldColorHexadecimal_OnTextChanged(object? sender, TextChangedEventArgs e)
-    {
-        if (sender is not TextField textField) return;
-        if (string.IsNullOrWhiteSpace(textField.Text)) return;
-
-        var txt = textField.Text.ToUpper();
-
-        var correctedText = new char[txt.Length];
-        for (var i = 0; i < txt.Length; i++)
-        {
-            var currentChar = txt[i];
-            if (char.IsLetter(currentChar) && currentChar > 'F') correctedText[i] = 'F';
-            else correctedText[i] = currentChar;
-        }
-        textField.Text = new string(correctedText);
     }
 
     /// <summary>
@@ -278,18 +293,11 @@ public partial class ColorPickerPopup
         TColor = tColor.DeepCopy();
     }
 
-    private void ButtonValid_OnClicked(object? sender, EventArgs e)
-        => SetResult(ECustomPopupEntryResult.Valid);
-
-    private void ButtonDelete_OnClicked(object? sender, EventArgs e)
-        => SetResult(ECustomPopupEntryResult.Delete);
-
-    private void ButtonCancel_OnClicked(object? sender, EventArgs e)
-        => SetResult(ECustomPopupEntryResult.Cancel);
-
     private void SetResult(ECustomPopupEntryResult result)
     {
         _taskCompletionSource.SetResult(result);
         Close();
     }
+
+    #endregion
 }
