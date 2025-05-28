@@ -110,7 +110,8 @@ public partial class ColorManagementPage
             var oldColor = Colors.First(s => s.Id.Equals(editedColor.Id));
             editedColor.CopyPropertiesTo(oldColor);
 
-            MsgBox.Show(ColorManagementResources.MessageBoxEditColorSuccess, MsgBoxImage.Check);
+            MsgBox.Show(ColorManagementResources.MessageBoxEditColorSuccessTitle,
+                ColorManagementResources.MessageBoxEditColorSuccessMessage, MsgBoxImage.Check);
         }
         else
         {

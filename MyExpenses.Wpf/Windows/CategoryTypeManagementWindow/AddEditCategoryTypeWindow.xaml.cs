@@ -305,7 +305,8 @@ public partial class AddEditCategoryTypeWindow
             var oldColor = Colors.First(s => s.Id.Equals(editedColor.Id));
             editedColor.CopyPropertiesTo(oldColor);
 
-            MsgBox.MsgBox.Show(ColorManagementResources.MessageBoxEditColorSuccess, MsgBoxImage.Check);
+            MsgBox.MsgBox.Show(ColorManagementResources.MessageBoxEditColorSuccessTitle,
+                ColorManagementResources.MessageBoxEditColorSuccessMessage, MsgBoxImage.Check);
         }
         else
         {
