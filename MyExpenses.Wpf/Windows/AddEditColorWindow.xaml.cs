@@ -166,9 +166,9 @@ public partial class AddEditColorWindow
 
     private void ButtonDelete_OnClick(object sender, RoutedEventArgs e)
     {
-        var response =
-            MsgBox.MsgBox.Show(string.Format(ColorManagementResources.MessageBoxDeleteColorQuestion, Color.Name),
-                MsgBoxImage.Question, MessageBoxButton.YesNoCancel);
+        var message = string.Format(ColorManagementResources.MessageBoxDeleteColorQuestionMessage, Color.Name);
+        var response = MsgBox.MsgBox.Show(ColorManagementResources.MessageBoxDeleteColorQuestionTitle, message,
+                MessageBoxButton.YesNoCancel, MsgBoxImage.Question);
         if (response is not MessageBoxResult.Yes) return;
 
         Log.Information("Attempting to remove the color \"{ColorToDeleteName}\"", Color.Name);
