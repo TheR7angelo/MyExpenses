@@ -61,7 +61,7 @@
                                 Keyboard="Numeric"
                                 Title="{Binding LabelRedChannel, Mode=OneWay}"
                                 Text="{Binding RedValue, Mode=TwoWay}"
-                                TextChanged="TextField_OnTextChanged">
+                                TextChanged="TextFieldSlider_OnTextChanged">
             </material:TextField>
 
             <Slider Grid.Row="3" Grid.Column="0"
@@ -76,7 +76,7 @@
                                 Keyboard="Numeric"
                                 Title="{Binding LabelGreenChannel, Mode=OneWay}"
                                 Text="{Binding GreenValue, Mode=TwoWay}"
-                                TextChanged="TextField_OnTextChanged">
+                                TextChanged="TextFieldSlider_OnTextChanged">
             </material:TextField>
 
             <Slider Grid.Row="4" Grid.Column="0"
@@ -91,7 +91,7 @@
                                 Keyboard="Numeric"
                                 Title="{Binding LabelBlueChannel, Mode=OneWay}"
                                 Text="{Binding BlueValue, Mode=TwoWay}"
-                                TextChanged="TextField_OnTextChanged">
+                                TextChanged="TextFieldSlider_OnTextChanged">
             </material:TextField>
 
             <Slider Grid.Row="5" Grid.Column="0"
@@ -104,7 +104,7 @@
                                 Keyboard="Numeric"
                                 Title="{Binding LabelAlphaChannel, Mode=OneWay}"
                                 Text="{Binding AlphaValue, Mode=TwoWay}"
-                                TextChanged="TextField_OnTextChanged">
+                                TextChanged="TextFieldSlider_OnTextChanged">
             </material:TextField>
 
             <material:TextField Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2"
