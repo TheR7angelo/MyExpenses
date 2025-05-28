@@ -140,7 +140,7 @@ public partial class AddEditColorWindow
         var nameAlreadyExist = CheckColorName(Color.Name);
         if (nameAlreadyExist)
         {
-            ShowErrorMessage();
+            ShowErrorMessageDuplicateName();
             return;
         }
 
@@ -230,7 +230,7 @@ public partial class AddEditColorWindow
         if (string.IsNullOrEmpty(colorName)) return;
 
         var alreadyExist = CheckColorName(colorName);
-        if (alreadyExist) ShowErrorMessage();
+        if (alreadyExist) ShowErrorMessageDuplicateName();
     }
 
     #endregion
@@ -259,8 +259,9 @@ public partial class AddEditColorWindow
         if (removeItem is not null) Colors.Remove(removeItem);
     }
 
-    private static void ShowErrorMessage()
-        => MsgBox.MsgBox.Show(ColorManagementResources.MessageBoxCannotAddDuplicateColorNameError,
+    private static void ShowErrorMessageDuplicateName()
+        => MsgBox.MsgBox.Show(ColorManagementResources.MessageBoxCannotAddDuplicateColorNameErrorTitle,
+            ColorManagementResources.MessageBoxCannotAddDuplicateColorNameErrorMessage,
             MsgBoxImage.Warning);
 
     #endregion
