@@ -177,7 +177,8 @@ public partial class AddEditColorWindow
         if (success)
         {
             Log.Information("Color was successfully removed");
-            MsgBox.MsgBox.Show(ColorManagementResources.MessageBoxDeleteColorNoUseSuccess, MsgBoxImage.Check);
+            MsgBox.MsgBox.Show(ColorManagementResources.MessageBoxDeleteColorNoUseSuccessTitle,
+                ColorManagementResources.MessageBoxDeleteColorNoUseSuccessMessage, MsgBoxImage.Check);
 
             DeleteColor = true;
             DialogResult = true;
