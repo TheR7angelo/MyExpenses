@@ -128,9 +128,11 @@ public partial class ColorManagementContentPage
             RefreshColor(oldColor, remove: true);
             return;
         }
-        //
-        // Log.Error(exception, "An error occurred please retry");
-        // MsgBox.MsgBox.Show(ColorManagementResources.MessageBoxDeleteAccountError, MsgBoxImage.Error);
+
+        Log.Error(exception, "An error occurred please retry");
+        await DisplayAlert(ColorManagementResources.MessageBoxDeleteColorErrorTitle,
+            ColorManagementResources.MessageBoxDeleteColorErrorMessage,
+            ColorManagementResources.MessageBoxDeleteColorErrorOkButton);
     }
 
     private async Task HandleAddColor(TColor newColor)
