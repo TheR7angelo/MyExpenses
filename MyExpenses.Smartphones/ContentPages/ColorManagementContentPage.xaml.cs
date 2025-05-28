@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using CommunityToolkit.Maui.Views;
+using Microsoft.Data.Sqlite;
 using MyExpenses.Models.Maui.CustomPopup;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.SharedUtils.Collection;
@@ -101,31 +102,32 @@ public partial class ColorManagementContentPage
 
             RefreshColor(oldColor, remove: true);
         }
-        //
-        // if (exception!.InnerException is SqliteException
-        //     {
-        //         SqliteExtendedErrorCode: SQLitePCL.raw.SQLITE_CONSTRAINT_FOREIGNKEY
-        //     })
-        // {
-        //     Log.Error("Foreign key constraint violation");
-        //
-        //     response = MsgBox.MsgBox.Show(ColorManagementResources.MessageBoxDeleteColorUseQuestion,
-        //         MsgBoxImage.Question, MessageBoxButton.YesNoCancel);
-        //
-        //     if (response is not MessageBoxResult.Yes) return;
-        //
-        //     Log.Information("Attempting to remove the color \"{ColorToDeleteName}\" with all relative element",
-        //         Color.Name);
-        //     Color.Delete(true);
-        //     Log.Information("Account and all relative element was successfully removed");
-        //     MsgBox.MsgBox.Show(ColorManagementResources.MessageBoxDeleteColorUseSuccess, MsgBoxImage.Check);
-        //
-        //     DeleteColor = true;
-        //     DialogResult = true;
-        //     Close();
-        //
-        //     return;
-        // }
+
+        if (exception!.InnerException is SqliteException
+            {
+                SqliteExtendedErrorCode: SQLitePCL.raw.SQLITE_CONSTRAINT_FOREIGNKEY
+            })
+        {
+            Log.Error("Foreign key constraint violation");
+
+            response = await DisplayAlert(ColorManagementResources.MessageBoxDeleteColorUseQuestionTitle,
+                ColorManagementResources.MessageBoxDeleteColorUseQuestionMessage,
+                ColorManagementResources.MessageBoxDeleteColorUseQuestionYesButton,
+                ColorManagementResources.MessageBoxDeleteColorUseQuestionNoButton);
+
+            if (response is not true) return;
+
+            Log.Information("Attempting to remove the color \"{ColorToDeleteName}\" with all relative element",
+                oldColor.Name);
+            oldColor.Delete(true);
+            Log.Information("Account and all relative element was successfully removed");
+            await DisplayAlert(ColorManagementResources.MessageBoxDeleteColorUseSuccessTitle,
+                ColorManagementResources.MessageBoxDeleteColorUseSuccessMessage,
+                ColorManagementResources.MessageBoxDeleteColorUseSuccessOkButton);
+
+            RefreshColor(oldColor, remove: true);
+            return;
+        }
         //
         // Log.Error(exception, "An error occurred please retry");
         // MsgBox.MsgBox.Show(ColorManagementResources.MessageBoxDeleteAccountError, MsgBoxImage.Error);
