@@ -342,7 +342,8 @@ public partial class AddEditCategoryTypeWindow
         else
         {
             Log.Error(exception, "An error occurred please retry");
-            MsgBox.MsgBox.Show(ColorManagementResources.MessageBoxAddColorError, MsgBoxImage.Error);
+            MsgBox.MsgBox.Show(ColorManagementResources.MessageBoxAddColorErrorTitle,
+                ColorManagementResources.MessageBoxAddColorErrorMessage, MsgBoxImage.Error);
         }
     }
 }

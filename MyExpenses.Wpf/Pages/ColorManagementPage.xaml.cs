@@ -66,7 +66,8 @@ public partial class ColorManagementPage
         else
         {
             Log.Error(exception, "An error occurred please retry");
-            MsgBox.Show(ColorManagementResources.MessageBoxAddColorError, MsgBoxImage.Error);
+            MsgBox.Show(ColorManagementResources.MessageBoxAddColorErrorTitle,
+                ColorManagementResources.MessageBoxAddColorErrorMessage, MsgBoxImage.Error);
         }
     }
 
