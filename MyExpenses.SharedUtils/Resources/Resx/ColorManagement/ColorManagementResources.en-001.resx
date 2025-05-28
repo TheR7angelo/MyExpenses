@@ -119,7 +119,7 @@
     <data name="MessageBoxAddColorError" xml:space="preserve">
         <value>An error occurred please retry</value>
     </data>
-    <data name="MessageBoxAddColorSuccess" xml:space="preserve">
+    <data name="MessageBoxAddColorSuccessMessage" xml:space="preserve">
         <value>New color was successfully added</value>
     </data>
     <data name="MessageBoxEditColorError" xml:space="preserve">
@@ -127,5 +127,11 @@
     </data>
     <data name="MessageBoxEditColorSuccess" xml:space="preserve">
         <value>Color was successfully edited</value>
+    </data>
+    <data name="MessageBoxAddColorSuccessTitle" xml:space="preserve">
+        <value>Success</value>
+    </data>
+    <data name="MessageBoxAddColorSuccessOkButton" xml:space="preserve">
+        <value>Ok</value>
     </data>
 </root>

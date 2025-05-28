@@ -179,9 +179,27 @@ namespace MyExpenses.SharedUtils.Resources.Resx.ColorManagement {
         /// <summary>
         ///   Looks up a localized string similar to New color was successfully added.
         /// </summary>
-        public static string MessageBoxAddColorSuccess {
+        public static string MessageBoxAddColorSuccessMessage {
             get {
-                return ResourceManager.GetString("MessageBoxAddColorSuccess", resourceCulture);
+                return ResourceManager.GetString("MessageBoxAddColorSuccessMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ok.
+        /// </summary>
+        public static string MessageBoxAddColorSuccessOkButton {
+            get {
+                return ResourceManager.GetString("MessageBoxAddColorSuccessOkButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Success.
+        /// </summary>
+        public static string MessageBoxAddColorSuccessTitle {
+            get {
+                return ResourceManager.GetString("MessageBoxAddColorSuccessTitle", resourceCulture);
             }
         }
         
