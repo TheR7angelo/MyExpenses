@@ -26,7 +26,7 @@
     <data name="MessageBoxCannotAddEmptyColorHexError" xml:space="preserve">
         <value>Impossible d'ajouter un code hexadécimal de couleur vide</value>
     </data>
-    <data name="MessageBoxCannotAddEmptyColorNameError" xml:space="preserve">
+    <data name="MessageBoxCannotAddEmptyColorNameErrorMessage" xml:space="preserve">
         <value>Impossible d'ajouter un nom de couleur vide</value>
     </data>
     <data name="MessageBoxDeleteColorErrorMessage" xml:space="preserve">
@@ -150,6 +150,12 @@
         <value>Ok</value>
     </data>
     <data name="MessageBoxEditColorErrorTitle" xml:space="preserve">
+        <value>Erreur</value>
+    </data>
+    <data name="MessageBoxCannotAddEmptyColorNameErrorOkButton" xml:space="preserve">
+        <value>Ok</value>
+    </data>
+    <data name="MessageBoxCannotAddEmptyColorNameErrorTitle" xml:space="preserve">
         <value>Erreur</value>
     </data>
 </root>

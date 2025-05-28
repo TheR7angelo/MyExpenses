@@ -33,7 +33,7 @@
     <data name="MessageBoxCannotAddEmptyColorHexError" xml:space="preserve">
         <value>Cannot add empty color hex code</value>
     </data>
-    <data name="MessageBoxCannotAddEmptyColorNameError" xml:space="preserve">
+    <data name="MessageBoxCannotAddEmptyColorNameErrorMessage" xml:space="preserve">
         <value>Cannot add empty color name</value>
     </data>
     <data name="MessageBoxDeleteColorErrorMessage" xml:space="preserve">
@@ -158,5 +158,11 @@
     </data>
     <data name="MessageBoxEditColorErrorOkButton" xml:space="preserve">
         <value>Ok</value>
+    </data>
+    <data name="MessageBoxCannotAddEmptyColorNameErrorOkButton" xml:space="preserve">
+        <value>Ok</value>
+    </data>
+    <data name="MessageBoxCannotAddEmptyColorNameErrorTitle" xml:space="preserve">
+        <value>Error</value>
     </data>
 </root>

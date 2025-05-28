@@ -251,9 +251,27 @@ namespace MyExpenses.SharedUtils.Resources.Resx.ColorManagement {
         /// <summary>
         ///   Looks up a localized string similar to Cannot add empty color name.
         /// </summary>
-        public static string MessageBoxCannotAddEmptyColorNameError {
+        public static string MessageBoxCannotAddEmptyColorNameErrorMessage {
             get {
-                return ResourceManager.GetString("MessageBoxCannotAddEmptyColorNameError", resourceCulture);
+                return ResourceManager.GetString("MessageBoxCannotAddEmptyColorNameErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ok.
+        /// </summary>
+        public static string MessageBoxCannotAddEmptyColorNameErrorOkButton {
+            get {
+                return ResourceManager.GetString("MessageBoxCannotAddEmptyColorNameErrorOkButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        public static string MessageBoxCannotAddEmptyColorNameErrorTitle {
+            get {
+                return ResourceManager.GetString("MessageBoxCannotAddEmptyColorNameErrorTitle", resourceCulture);
             }
         }
         
