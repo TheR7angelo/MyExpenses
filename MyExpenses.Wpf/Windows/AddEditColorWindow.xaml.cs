@@ -193,8 +193,9 @@ public partial class AddEditColorWindow
         {
             Log.Error("Foreign key constraint violation");
 
-            response = MsgBox.MsgBox.Show(ColorManagementResources.MessageBoxDeleteColorUseQuestion,
-                MsgBoxImage.Question, MessageBoxButton.YesNoCancel);
+            response = MsgBox.MsgBox.Show(ColorManagementResources.MessageBoxDeleteColorUseQuestionTitle,
+                ColorManagementResources.MessageBoxDeleteColorUseQuestionMessage,
+                MessageBoxButton.YesNoCancel, MsgBoxImage.Question);
 
             if (response is not MessageBoxResult.Yes) return;
 
