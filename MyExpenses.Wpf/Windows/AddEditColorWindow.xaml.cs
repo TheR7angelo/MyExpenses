@@ -148,10 +148,10 @@ public partial class AddEditColorWindow
         var colorAlreadyExist = Colors.FirstOrDefault(s => s.HexadecimalColorCode == Color.HexadecimalColorCode);
         if (colorAlreadyExist is not null)
         {
-            MsgBox.MsgBox.Show(
-                string.Format(ColorManagementResources.MessageBoxCannotAddDuplicateColorHexError,
-                    colorAlreadyExist.Name),
-                MsgBoxImage.Error);
+            var message = string.Format(ColorManagementResources.MessageBoxCannotAddDuplicateColorHexErrorMessage,
+                colorAlreadyExist.Name);
+            MsgBox.MsgBox.Show(ColorManagementResources.MessageBoxCannotAddDuplicateColorHexErrorTitle,
+                message, MsgBoxImage.Error);
             return;
         }
 
