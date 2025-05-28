@@ -160,8 +160,12 @@ public partial class ColorPickerPopup
 
     private TColor? TColor { get; set; }
 
+    public int MaxLength { get; }
+
     public ColorPickerPopup()
     {
+        MaxLength = Utils.Converters.MaxLengthConverter.Convert(typeof(TColor), nameof(TColor.Name));
+
         UpdateLanguage();
         InitializeComponent();
 

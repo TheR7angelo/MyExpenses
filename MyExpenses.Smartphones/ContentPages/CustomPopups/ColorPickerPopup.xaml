@@ -40,7 +40,8 @@
 
             <material:TextField Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
                                 Title="{Binding TextBoxColorName, Mode=OneWay}"
-                                Text="{Binding ColorName, Mode=TwoWay}">
+                                Text="{Binding ColorName, Mode=TwoWay}"
+                                MaxLength="{Binding MaxLength, Mode=OneWay}">
             </material:TextField>
 
             <Border Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
