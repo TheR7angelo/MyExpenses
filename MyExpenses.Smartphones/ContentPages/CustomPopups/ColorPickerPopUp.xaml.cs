@@ -8,6 +8,42 @@ namespace MyExpenses.Smartphones.ContentPages.CustomPopups;
 
 public partial class ColorPickerPopup
 {
+    public static readonly BindableProperty ButtonValidTextProperty = BindableProperty.Create(nameof(ButtonValidText),
+        typeof(string), typeof(ColorPickerPopup));
+
+    public string ButtonValidText
+    {
+        get => (string)GetValue(ButtonValidTextProperty);
+        set => SetValue(ButtonValidTextProperty, value);
+    }
+
+    public static readonly BindableProperty ButtonDeleteTextProperty = BindableProperty.Create(nameof(ButtonDeleteText),
+        typeof(string), typeof(ColorPickerPopup));
+
+    public string ButtonDeleteText
+    {
+        get => (string)GetValue(ButtonDeleteTextProperty);
+        set => SetValue(ButtonDeleteTextProperty, value);
+    }
+
+    public static readonly BindableProperty ButtonCancelTextProperty = BindableProperty.Create(nameof(ButtonCancelText),
+        typeof(string), typeof(ColorPickerPopup));
+
+    public string ButtonCancelText
+    {
+        get => (string)GetValue(ButtonCancelTextProperty);
+        set => SetValue(ButtonCancelTextProperty, value);
+    }
+
+    public static readonly BindableProperty EditColorProperty =
+        BindableProperty.Create(nameof(EditColor), typeof(bool), typeof(ColorPickerPopup), false);
+
+    public bool EditColor
+    {
+        get => (bool)GetValue(EditColorProperty);
+        set => SetValue(EditColorProperty, value);
+    }
+
     public static readonly BindableProperty TextBoxColorNameProperty = BindableProperty.Create(nameof(TextBoxColorName),
         typeof(string), typeof(ColorPickerPopup));
 
@@ -143,6 +179,10 @@ public partial class ColorPickerPopup
         LabelAlphaChannel = ColorManagementResources.LabelAlphaChannel;
         LabelHexadecimalCode = ColorManagementResources.LabelHexadecimalCode;
         TextBoxColorName = ColorManagementResources.TextBoxColorName;
+
+        ButtonValidText = ColorManagementResources.ButtonValidContent;
+        ButtonDeleteText = ColorManagementResources.ButtonDeleteContent;
+        ButtonCancelText = ColorManagementResources.ButtonCancelContent;
     }
 
     private void TextField_OnTextChanged(object? sender, TextChangedEventArgs e)
@@ -222,5 +262,20 @@ public partial class ColorPickerPopup
         ColorName = tColor.Name;
 
         TColor = tColor.DeepCopy();
+    }
+
+    private void ButtonValid_OnClicked(object? sender, EventArgs e)
+    {
+        throw new NotImplementedException();
+    }
+
+    private void ButtonDelete_OnClicked(object? sender, EventArgs e)
+    {
+        throw new NotImplementedException();
+    }
+
+    private void ButtonCancel_OnClicked(object? sender, EventArgs e)
+    {
+        throw new NotImplementedException();
     }
 }

@@ -30,6 +30,7 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
             <Grid.ColumnDefinitions>
@@ -111,27 +112,27 @@
                                 TextChanged="TextFieldColorHexadecimal_OnTextChanged">
             </material:TextField>
 
-            <!-- <HorizontalStackLayout Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" -->
-            <!--                        HorizontalOptions="End" -->
-            <!--                        margin:LayoutExtensions.MarginForAllChildren="3"> -->
-            <!-- -->
-            <!--     <Button Style="{StaticResource RaisedMidButton}" -->
-            <!--             Text="{Binding ButtonValidText, Mode=OneWay}" -->
-            <!--             Clicked="ButtonValid_OnClicked"> -->
-            <!--     </Button> -->
-            <!-- -->
-            <!--     <Button Style="{StaticResource RaisedSecondaryMidButton}" -->
-            <!--             Text="{Binding ButtonDeleteText, Mode=OneWay}" -->
-            <!--             IsVisible="{Binding CanDelete, Mode=OneWay}" -->
-            <!--             Clicked="ButtonDelete_OnClicked"> -->
-            <!--     </Button> -->
-            <!-- -->
-            <!--     <Button Style="{StaticResource RaisedSecondaryMidButton}" -->
-            <!--             Text="{Binding ButtonCancelText, Mode=OneWay}" -->
-            <!--             Clicked="ButtonCancel_OnClicked"> -->
-            <!--     </Button> -->
-            <!-- -->
-            <!-- </HorizontalStackLayout> -->
+            <HorizontalStackLayout Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2"
+                                   HorizontalOptions="Center"
+                                   margin:LayoutExtensions.MarginForAllChildren="3">
+
+                <Button Style="{StaticResource RaisedMidButton}"
+                        Text="{Binding ButtonValidText, Mode=OneWay}"
+                        Clicked="ButtonValid_OnClicked">
+                </Button>
+
+                <Button Style="{StaticResource RaisedSecondaryMidButton}"
+                        Text="{Binding ButtonDeleteText, Mode=OneWay}"
+                        IsVisible="{Binding EditColor, Mode=OneWay}"
+                        Clicked="ButtonDelete_OnClicked">
+                </Button>
+
+                <Button Style="{StaticResource RaisedSecondaryMidButton}"
+                        Text="{Binding ButtonCancelText, Mode=OneWay}"
+                        Clicked="ButtonCancel_OnClicked">
+                </Button>
+
+            </HorizontalStackLayout>
 
         </Grid>
 
