@@ -41,7 +41,7 @@
     <data name="MessageBoxDeleteColorUseQuestionMessage" xml:space="preserve">
         <value>Ce compte est en cours d'utilisation. Etes-vous sûr de vouloir supprimer ce compte et tout ce qui y est lié ?</value>
     </data>
-    <data name="MessageBoxDeleteColorUseSuccess" xml:space="preserve">
+    <data name="MessageBoxDeleteColorUseSuccessMessage" xml:space="preserve">
         <value>La couleur a été supprimée avec succès</value>
     </data>
     <data name="TextBoxColorName" xml:space="preserve">
@@ -103,5 +103,11 @@
     </data>
     <data name="MessageBoxDeleteColorUseQuestionTitle" xml:space="preserve">
         <value>Question</value>
+    </data>
+    <data name="MessageBoxDeleteColorUseSuccessTitle" xml:space="preserve">
+        <value>Succès</value>
+    </data>
+    <data name="MessageBoxDeleteColorUseSuccessOkButton" xml:space="preserve">
+        <value>Ok</value>
     </data>
 </root>

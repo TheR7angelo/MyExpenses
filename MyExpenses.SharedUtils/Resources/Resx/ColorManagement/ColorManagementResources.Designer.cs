@@ -303,7 +303,7 @@ namespace MyExpenses.SharedUtils.Resources.Resx.ColorManagement {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ye.
+        ///   Looks up a localized string similar to Yes.
         /// </summary>
         public static string MessageBoxDeleteColorUseQuestionYesButton {
             get {
@@ -314,9 +314,27 @@ namespace MyExpenses.SharedUtils.Resources.Resx.ColorManagement {
         /// <summary>
         ///   Looks up a localized string similar to Color was successfully removed.
         /// </summary>
-        public static string MessageBoxDeleteColorUseSuccess {
+        public static string MessageBoxDeleteColorUseSuccessMessage {
             get {
-                return ResourceManager.GetString("MessageBoxDeleteColorUseSuccess", resourceCulture);
+                return ResourceManager.GetString("MessageBoxDeleteColorUseSuccessMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ok.
+        /// </summary>
+        public static string MessageBoxDeleteColorUseSuccessOkButton {
+            get {
+                return ResourceManager.GetString("MessageBoxDeleteColorUseSuccessOkButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Success.
+        /// </summary>
+        public static string MessageBoxDeleteColorUseSuccessTitle {
+            get {
+                return ResourceManager.GetString("MessageBoxDeleteColorUseSuccessTitle", resourceCulture);
             }
         }
         
