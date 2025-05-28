@@ -335,7 +335,7 @@ public partial class AddEditCategoryTypeWindow
             var json = newColor.ToJsonString();
             Log.Information("{Json}", json);
 
-            MsgBox.MsgBox.Show(ColorManagementResources.MessageBoxAddColorSuccess, MsgBoxImage.Check);
+            MsgBox.MsgBox.Show(ColorManagementResources.MessageBoxAddColorSuccessMessage, MsgBoxImage.Check);
 
             Colors.AddAndSort(newColor, s => s.Name!);
         }
