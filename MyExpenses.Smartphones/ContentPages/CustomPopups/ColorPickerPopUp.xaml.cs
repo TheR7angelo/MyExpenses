@@ -122,7 +122,7 @@ public partial class ColorPickerPopup
         set => SetValue(BlueValueProperty, value);
     }
 
-    private TColor? Tcolor { get; set; }
+    private TColor? TColor { get; set; }
 
     public ColorPickerPopup()
     {
@@ -221,6 +221,6 @@ public partial class ColorPickerPopup
         BackgroundColor = color;
         ColorName = tColor.Name;
 
-        Tcolor = tColor.DeepCopy();
+        TColor = tColor.DeepCopy();
     }
 }
