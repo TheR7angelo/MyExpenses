@@ -110,6 +110,7 @@
             <material:TextField Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2"
                                 Title="{Binding LabelHexadecimalCode, Mode=OneWay}"
                                 Text="{Binding BackgroundColor, Mode=TwoWay, Converter={StaticResource ColorToStringConverter}, ConverterParameter=True}"
+                                MaxLength="9"
                                 TextChanged="TextFieldColorHexadecimal_OnTextChanged">
             </material:TextField>
 

@@ -243,7 +243,6 @@ public partial class ColorPickerPopup
         if (string.IsNullOrWhiteSpace(textField.Text)) return;
 
         var txt = textField.Text.ToUpper();
-        if (textField.Text.Length > 9) txt = txt[..9];
 
         var correctedText = new char[txt.Length];
         for (var i = 0; i < txt.Length; i++)
