@@ -191,10 +191,12 @@ public partial class ColorManagementContentPage
                 ColorManagementResources.MessageBoxEditColorSuccessMessage,
                 ColorManagementResources.MessageBoxEditColorSuccessOkButton);
         }
-        // else
-        // {
-        //     Log.Error(exception, "An error occurred please retry");
-        //     MsgBox.Show(ColorManagementResources.MessageBoxEditColorError, MsgBoxImage.Warning);
-        // }
+        else
+        {
+            Log.Error(exception, "An error occurred please retry");
+            await DisplayAlert(ColorManagementResources.MessageBoxEditColorErrorTitle,
+                ColorManagementResources.MessageBoxEditColorErrorMessage,
+                ColorManagementResources.MessageBoxEditColorErrorOkButton);
+        }
     }
 }
