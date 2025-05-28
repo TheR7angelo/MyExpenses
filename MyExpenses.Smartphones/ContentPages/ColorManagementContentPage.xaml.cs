@@ -79,9 +79,18 @@ public partial class ColorManagementContentPage
 
     private async Task HandleColorResult(ECustomPopupEntryResult result, TColor newColor, TColor? oldColor)
     {
-        if (result is ECustomPopupEntryResult.Delete) await HandleDeleteColor(oldColor!);
-        else if (result is ECustomPopupEntryResult.Valid && oldColor is null) await HandleAddColor(newColor);
-        else await HandleEditColor(newColor, oldColor!);
+        switch (result)
+        {
+            case ECustomPopupEntryResult.Delete:
+                await HandleDeleteColor(oldColor!);
+                break;
+            case ECustomPopupEntryResult.Valid when oldColor is null:
+                await HandleAddColor(newColor);
+                break;
+            default:
+                await HandleEditColor(newColor, oldColor!);
+                break;
+        }
     }
 
     private async Task HandleDeleteColor(TColor oldColor)
