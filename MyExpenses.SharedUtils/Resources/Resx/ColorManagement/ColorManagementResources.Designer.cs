@@ -242,9 +242,27 @@ namespace MyExpenses.SharedUtils.Resources.Resx.ColorManagement {
         /// <summary>
         ///   Looks up a localized string similar to Cannot add empty color hex code.
         /// </summary>
-        public static string MessageBoxCannotAddEmptyColorHexError {
+        public static string MessageBoxCannotAddEmptyColorHexErrorMessage {
             get {
-                return ResourceManager.GetString("MessageBoxCannotAddEmptyColorHexError", resourceCulture);
+                return ResourceManager.GetString("MessageBoxCannotAddEmptyColorHexErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ok.
+        /// </summary>
+        public static string MessageBoxCannotAddEmptyColorHexErrorOkButton {
+            get {
+                return ResourceManager.GetString("MessageBoxCannotAddEmptyColorHexErrorOkButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        public static string MessageBoxCannotAddEmptyColorHexErrorTitle {
+            get {
+                return ResourceManager.GetString("MessageBoxCannotAddEmptyColorHexErrorTitle", resourceCulture);
             }
         }
         

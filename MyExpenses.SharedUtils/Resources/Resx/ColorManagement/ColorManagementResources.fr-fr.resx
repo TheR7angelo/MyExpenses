@@ -23,7 +23,7 @@
     <data name="MessageBoxCannotAddDuplicateColorNameError" xml:space="preserve">
         <value>Le nom de la couleur existe déjà</value>
     </data>
-    <data name="MessageBoxCannotAddEmptyColorHexError" xml:space="preserve">
+    <data name="MessageBoxCannotAddEmptyColorHexErrorMessage" xml:space="preserve">
         <value>Impossible d'ajouter un code hexadécimal de couleur vide</value>
     </data>
     <data name="MessageBoxCannotAddEmptyColorNameErrorMessage" xml:space="preserve">
@@ -157,5 +157,11 @@
     </data>
     <data name="MessageBoxCannotAddEmptyColorNameErrorTitle" xml:space="preserve">
         <value>Erreur</value>
+    </data>
+    <data name="MessageBoxCannotAddEmptyColorHexErrorTitle" xml:space="preserve">
+        <value>Erreur</value>
+    </data>
+    <data name="MessageBoxCannotAddEmptyColorHexErrorOkButton" xml:space="preserve">
+        <value>Ok</value>
     </data>
 </root>
