@@ -238,8 +238,8 @@ public partial class AddEditColorWindow
 
     #region Function
 
-    private bool CheckColorName(string accountName)
-        => Colors.Select(s => s.Name).Contains(accountName);
+    private bool CheckColorName(string colorName)
+        => Colors.Select(s => s.Name).Contains(colorName);
 
     public void SetTColor(int categoryTypeColorFk)
     {
