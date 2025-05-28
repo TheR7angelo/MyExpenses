@@ -133,7 +133,8 @@ public partial class AddEditColorWindow
 
         if (string.IsNullOrWhiteSpace(Color.HexadecimalColorCode))
         {
-            MsgBox.MsgBox.Show(ColorManagementResources.MessageBoxCannotAddEmptyColorHexError, MsgBoxImage.Error);
+            MsgBox.MsgBox.Show(ColorManagementResources.MessageBoxCannotAddEmptyColorHexErrorTitle,
+                ColorManagementResources.MessageBoxCannotAddEmptyColorHexErrorMessage, MsgBoxImage.Error);
             return;
         }
 
