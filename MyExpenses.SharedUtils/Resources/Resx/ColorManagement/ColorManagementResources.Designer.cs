@@ -278,9 +278,36 @@ namespace MyExpenses.SharedUtils.Resources.Resx.ColorManagement {
         /// <summary>
         ///   Looks up a localized string similar to This color is in use. Are you sure you want to delete this account and everything linked to it ?.
         /// </summary>
-        public static string MessageBoxDeleteColorUseQuestion {
+        public static string MessageBoxDeleteColorUseQuestionMessage {
             get {
-                return ResourceManager.GetString("MessageBoxDeleteColorUseQuestion", resourceCulture);
+                return ResourceManager.GetString("MessageBoxDeleteColorUseQuestionMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No.
+        /// </summary>
+        public static string MessageBoxDeleteColorUseQuestionNoButton {
+            get {
+                return ResourceManager.GetString("MessageBoxDeleteColorUseQuestionNoButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Question.
+        /// </summary>
+        public static string MessageBoxDeleteColorUseQuestionTitle {
+            get {
+                return ResourceManager.GetString("MessageBoxDeleteColorUseQuestionTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ye.
+        /// </summary>
+        public static string MessageBoxDeleteColorUseQuestionYesButton {
+            get {
+                return ResourceManager.GetString("MessageBoxDeleteColorUseQuestionYesButton", resourceCulture);
             }
         }
         

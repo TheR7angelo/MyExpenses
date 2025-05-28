@@ -38,7 +38,7 @@
     <data name="MessageBoxDeleteColorQuestionMessage" xml:space="preserve">
         <value>Etes-vous sûr de vouloir supprimer la couleur "{0}" ?</value>
     </data>
-    <data name="MessageBoxDeleteColorUseQuestion" xml:space="preserve">
+    <data name="MessageBoxDeleteColorUseQuestionMessage" xml:space="preserve">
         <value>Ce compte est en cours d'utilisation. Etes-vous sûr de vouloir supprimer ce compte et tout ce qui y est lié ?</value>
     </data>
     <data name="MessageBoxDeleteColorUseSuccess" xml:space="preserve">
@@ -94,5 +94,14 @@
     </data>
     <data name="MessageBoxDeleteColorNoUseSuccessTitle" xml:space="preserve">
         <value>Succès</value>
+    </data>
+    <data name="MessageBoxDeleteColorUseQuestionNoButton" xml:space="preserve">
+        <value>Non</value>
+    </data>
+    <data name="MessageBoxDeleteColorUseQuestionYesButton" xml:space="preserve">
+        <value>Oui</value>
+    </data>
+    <data name="MessageBoxDeleteColorUseQuestionTitle" xml:space="preserve">
+        <value>Question</value>
     </data>
 </root>
