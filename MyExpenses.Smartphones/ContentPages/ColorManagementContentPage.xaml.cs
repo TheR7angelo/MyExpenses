@@ -68,6 +68,8 @@ public partial class ColorManagementContentPage
         var result = await colorPickerPopup.ResultDialog;
         if (result is ECustomPopupEntryResult.Cancel) return;
 
+        //TODO check if color already exist
+
         var hexadecimal = colorPickerPopup.BackgroundColor.ToArgbHex(true);
         var newColor = new TColor { Name = colorPickerPopup.ColorName, HexadecimalColorCode = hexadecimal };
 
