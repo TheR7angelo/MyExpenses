@@ -97,13 +97,13 @@ public partial class ColorManagementContentPage
             return true;
         }
 
-        // var nameAlreadyExist = CheckColorName(newColor.Name);
-        // if (nameAlreadyExist)
-        // {
-        //     ShowErrorMessage();
-        //     return true;
-        // }
-        //
+        var nameAlreadyExist = CheckColorName(newColor.Name);
+        if (nameAlreadyExist)
+        {
+            await ShowErrorMessageDuplicateName();
+            return true;
+        }
+
         // // ReSharper disable once HeapView.DelegateAllocation
         // var colorAlreadyExist = Colors.FirstOrDefault(s => s.HexadecimalColorCode == Color.HexadecimalColorCode);
         // if (colorAlreadyExist is not null)
@@ -117,6 +117,14 @@ public partial class ColorManagementContentPage
 
         return false;
     }
+
+    private async Task ShowErrorMessageDuplicateName()
+        => await DisplayAlert(ColorManagementResources.MessageBoxCannotAddDuplicateColorNameErrorTitle,
+            ColorManagementResources.MessageBoxCannotAddDuplicateColorNameErrorMessage,
+            ColorManagementResources.MessageBoxCannotAddDuplicateColorNameErrorOkButton);
+
+    private bool CheckColorName(string colorName)
+        => Colors.Select(s => s.Name).Contains(colorName);
 
     private async Task HandleColorResult(ECustomPopupEntryResult result, TColor newColor, TColor? oldColor)
     {
