@@ -5,7 +5,6 @@ using Microsoft.Data.Sqlite;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.SharedUtils.Properties;
-using MyExpenses.SharedUtils.Resources.Resx.CurrencySymbolManagement;
 using MyExpenses.SharedUtils.Resources.Resx.ModePaymentManagement;
 using MyExpenses.Sql.Context;
 using MyExpenses.Wpf.Utils;
@@ -190,7 +189,7 @@ public partial class AddEditModePaymentWindow
         }
 
         var alreadyExist = CheckModePaymentName(modePaymentName);
-        if (alreadyExist) ShowErrorMessage();
+        if (alreadyExist) ShowErrorMessageDuplicate();
         else
         {
             DialogResult = true;
@@ -206,7 +205,7 @@ public partial class AddEditModePaymentWindow
         if (string.IsNullOrEmpty(modePaymentName)) return;
 
         var alreadyExist = CheckModePaymentName(modePaymentName);
-        if (alreadyExist) ShowErrorMessage();
+        if (alreadyExist) ShowErrorMessageDuplicate();
     }
 
     #endregion
@@ -227,9 +226,9 @@ public partial class AddEditModePaymentWindow
         if (modePaymentToRemove is not null) ModePayments.Remove(modePaymentToRemove);
     }
 
-    private static void ShowErrorMessage()
-        => MsgBox.MsgBox.Show(CurrencySymbolManagementResources.MessageBoxValidateCurrencySymbolErrorAlreadyExistTitle,
-            CurrencySymbolManagementResources.MessageBoxValidateCurrencySymbolErrorAlreadyExistMessage, MsgBoxImage.Warning);
+    private static void ShowErrorMessageDuplicate()
+        => MsgBox.MsgBox.Show(ModePaymentManagementResources.MessageBoxModePaymentNameAlreadyExistsTitle,
+            ModePaymentManagementResources.MessageBoxModePaymentNameAlreadyExistsMessage, MsgBoxImage.Warning);
 
     #endregion
 }
