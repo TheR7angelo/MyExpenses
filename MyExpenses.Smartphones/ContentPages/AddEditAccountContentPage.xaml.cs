@@ -205,7 +205,7 @@ public partial class AddEditAccountContentPage
         // Explicitly creating a new instance of CurrencySymbolSummaryContentPage.
         // This ensures that a fresh instance is always used, avoiding potential state or UI inconsistencies
         // that might arise from reusing an existing instance of this page.
-        var currencySymbolSummaryContentPage = new CurrencySymbolSummaryContentPage();
+        var currencySymbolSummaryContentPage = new CurrencyManagementContentPage();
         await currencySymbolSummaryContentPage.NavigateToAsync();
 
         var result = await currencySymbolSummaryContentPage.ResultDialog;
