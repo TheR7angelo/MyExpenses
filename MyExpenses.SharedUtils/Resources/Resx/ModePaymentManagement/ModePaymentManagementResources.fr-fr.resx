@@ -44,7 +44,7 @@
     <data name="MessageBoxDeleteQuestion" xml:space="preserve">
         <value>Voulez-vous vraiment supprimer ce mode de paiement ?</value>
     </data>
-    <data name="MessageBoxModePaymentNameAlreadyExists" xml:space="preserve">
+    <data name="MessageBoxModePaymentNameAlreadyExistsMessage" xml:space="preserve">
         <value>Le mode de paiement existe déjà</value>
     </data>
     <data name="MessageBoxModePaymentNameEmptyError" xml:space="preserve">
@@ -60,6 +60,15 @@
         <value>Ok</value>
     </data>
     <data name="MessageBoxModePaymentCantEditTitle" xml:space="preserve">
+        <value>Erreur</value>
+    </data>
+    <data name="MessageBoxValidateModePaymentErrorAlreadyExistMessage" xml:space="preserve">
+        <value>Le mode de paiement existe déjà</value>
+    </data>
+    <data name="MessageBoxModePaymentNameAlreadyExistsOkButton" xml:space="preserve">
+        <value>Ok</value>
+    </data>
+    <data name="MessageBoxModePaymentNameAlreadyExistsTitle" xml:space="preserve">
         <value>Erreur</value>
     </data>
 </root>

@@ -180,9 +180,27 @@ namespace MyExpenses.SharedUtils.Resources.Resx.ModePaymentManagement {
         /// <summary>
         ///   Looks up a localized string similar to Mode payment already exist.
         /// </summary>
-        public static string MessageBoxModePaymentNameAlreadyExists {
+        public static string MessageBoxModePaymentNameAlreadyExistsMessage {
             get {
-                return ResourceManager.GetString("MessageBoxModePaymentNameAlreadyExists", resourceCulture);
+                return ResourceManager.GetString("MessageBoxModePaymentNameAlreadyExistsMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ok.
+        /// </summary>
+        public static string MessageBoxModePaymentNameAlreadyExistsOkButton {
+            get {
+                return ResourceManager.GetString("MessageBoxModePaymentNameAlreadyExistsOkButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        public static string MessageBoxModePaymentNameAlreadyExistsTitle {
+            get {
+                return ResourceManager.GetString("MessageBoxModePaymentNameAlreadyExistsTitle", resourceCulture);
             }
         }
         
@@ -192,6 +210,15 @@ namespace MyExpenses.SharedUtils.Resources.Resx.ModePaymentManagement {
         public static string MessageBoxModePaymentNameEmptyError {
             get {
                 return ResourceManager.GetString("MessageBoxModePaymentNameEmptyError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The payment method already exists.
+        /// </summary>
+        public static string MessageBoxValidateModePaymentErrorAlreadyExistMessage {
+            get {
+                return ResourceManager.GetString("MessageBoxValidateModePaymentErrorAlreadyExistMessage", resourceCulture);
             }
         }
         
