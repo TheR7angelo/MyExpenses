@@ -4,7 +4,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MyExpenses.Smartphones.ContentPages.ModePaymentManagementContentPage"
              xmlns:margin="clr-namespace:MyExpenses.Maui.Utils.Margin;assembly=MyExpenses.Maui.Utils"
-             xmlns:customEntryControl="clr-namespace:MyExpenses.Smartphones.UserControls.TextInputs.CustomEntryControl"
+             xmlns:uraniumButtonView="clr-namespace:MyExpenses.Smartphones.UserControls.Buttons.UraniumButtonView"
              xmlns:tables="clr-namespace:MyExpenses.Models.Sql.Bases.Tables;assembly=MyExpenses.Models"
 
              BindingContext="{Binding Source={RelativeSource Self}}">
@@ -18,25 +18,19 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="Auto" />
-            </Grid.ColumnDefinitions>
+            <uraniumButtonView:UraniumButtonView Grid.Row="0"
+                                                 HorizontalOptions="Center"
+                                                 VerticalOptions="Center"
+                                                 PathSource="Plus"
+                                                 PathHeightRequest="40"
+                                                 PathWidthRequest="40"
+                                                 HeightRequest="56"
+                                                 WidthRequest="56"
+                                                 Style="{StaticResource ButtonViewPrimaryDark}"
+                                                 Tapped="ButtonAddModePayment_OnClick">
+            </uraniumButtonView:UraniumButtonView>
 
-            <customEntryControl:CustomEntryControl Grid.Row="0" Grid.Column="0"
-                                                   PlaceholderText="{Binding PlaceholderText, Mode=OneWay}"
-                                                   Text="{Binding ModePaymentText, Mode=TwoWay}"
-                                                   HasClearButton="True"
-                                                   MaxLength="{Binding MaxLength, Mode=OneWay}">
-            </customEntryControl:CustomEntryControl>
-
-            <!-- <Button Grid.Row="0" Grid.Column="1" -->
-            <!--         Style="{StaticResource RaisedMidButton}" -->
-            <!--         Text="{Binding ButtonValidText, Mode=OneWay}" -->
-            <!--         Clicked="ButtonValid_OnClicked"> -->
-            <!-- </Button> -->
-
-            <Border Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
+            <Border Grid.Row="1" Grid.Column="0"
                     Stroke="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
                     StrokeThickness="2"
                     Padding="0"
@@ -62,8 +56,8 @@
                                 <Button Margin="3"
                                         Padding="7, 0"
                                         Style="{StaticResource FloatingActionMidButton}"
-                                        Text="{Binding Name, Mode=OneWay}">
-                                        <!-- Clicked="ButtonSymbol_OnClicked"> -->
+                                        Text="{Binding Name, Mode=OneWay}"
+                                        Clicked="ButtonModePayment_OnClicked">
                                 </Button>
 
                             </DataTemplate>
