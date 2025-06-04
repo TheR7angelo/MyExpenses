@@ -13,7 +13,7 @@ namespace MyExpenses.Smartphones.ContentPages;
 
 public partial class ModePaymentManagementContentPage
 {
-    public int MaxLength { get; }
+    private int MaxLength { get; }
 
     public ObservableCollection<TModePayment> ModePayments { get; } = [];
 
