@@ -92,6 +92,9 @@ public partial class GeneralAccountSetupContentPage
     private void ButtonColorManagement_OnClicked(object? sender, EventArgs e)
         => _ = typeof(ColorManagementContentPage).NavigateToAsync();
 
+    private void ButtonCurrencyManagement_OnClicked(object? sender, EventArgs e)
+        => _ = typeof(CurrencyManagementContentPage).NavigateToAsync();
+
     private void ButtonLocationManagement_OnClicked(object? sender, EventArgs e)
         => _ = typeof(LocationManagementContentPage).NavigateToAsync();
 

@@ -37,9 +37,9 @@
                             Clicked="ButtonColorManagement_OnClicked">
                     </Button>
 
-                    <!-- TODO work -->
                     <Button Text="{Binding ButtonTextCurrencySymbolManagement, Mode=OneWay}"
-                            Style="{StaticResource RaisedMidButton}">
+                            Style="{StaticResource RaisedMidButton}"
+                            Clicked="ButtonCurrencyManagement_OnClicked">
                     </Button>
 
                     <!-- TODO work -->
