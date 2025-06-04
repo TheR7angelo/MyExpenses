@@ -20,4 +20,40 @@
     <data name="MessageBoxEditModePaymentSuccessMessage" xml:space="preserve">
         <value>Mode payment was successfully edited</value>
     </data>
+    <data name="ButtonCancelContent" xml:space="preserve">
+        <value>Cancel</value>
+    </data>
+    <data name="ButtonDeleteContent" xml:space="preserve">
+        <value>Delete</value>
+    </data>
+    <data name="ButtonValidContent" xml:space="preserve">
+        <value>Valid</value>
+    </data>
+    <data name="MessageBoxDeleteModePaymentError" xml:space="preserve">
+        <value>An error occurred please retry</value>
+    </data>
+    <data name="MessageBoxDeleteModePaymentNoUseSuccess" xml:space="preserve">
+        <value>Mode payment was successfully removed</value>
+    </data>
+    <data name="MessageBoxDeleteModePaymentUseQuestion" xml:space="preserve">
+        <value>This mode payment is in use. Are you sure you want to delete this mode payment and everything linked to it ?</value>
+    </data>
+    <data name="MessageBoxDeleteModePaymentUseSuccess" xml:space="preserve">
+        <value>Mode payment and all relative element was successfully removed</value>
+    </data>
+    <data name="MessageBoxDeleteQuestion" xml:space="preserve">
+        <value>Do you really want to delete this mode payment ?</value>
+    </data>
+    <data name="MessageBoxModePaymentNameAlreadyExists" xml:space="preserve">
+        <value>Mode payment already exist</value>
+    </data>
+    <data name="MessageBoxModePaymentNameEmptyError" xml:space="preserve">
+        <value>Mode payment name cannot be empty</value>
+    </data>
+    <data name="TextBoxModePaymentName" xml:space="preserve">
+        <value>Mode payment name :</value>
+    </data>
+    <data name="WindowTitle" xml:space="preserve">
+        <value>Add or edit a payment method</value>
+    </data>
 </root>

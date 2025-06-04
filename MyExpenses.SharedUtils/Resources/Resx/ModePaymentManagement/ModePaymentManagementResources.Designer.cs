@@ -61,6 +61,78 @@ namespace MyExpenses.SharedUtils.Resources.Resx.ModePaymentManagement {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        public static string ButtonCancelContent {
+            get {
+                return ResourceManager.GetString("ButtonCancelContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete.
+        /// </summary>
+        public static string ButtonDeleteContent {
+            get {
+                return ResourceManager.GetString("ButtonDeleteContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Valid.
+        /// </summary>
+        public static string ButtonValidContent {
+            get {
+                return ResourceManager.GetString("ButtonValidContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error occurred please retry.
+        /// </summary>
+        public static string MessageBoxDeleteModePaymentError {
+            get {
+                return ResourceManager.GetString("MessageBoxDeleteModePaymentError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mode payment was successfully removed.
+        /// </summary>
+        public static string MessageBoxDeleteModePaymentNoUseSuccess {
+            get {
+                return ResourceManager.GetString("MessageBoxDeleteModePaymentNoUseSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This mode payment is in use. Are you sure you want to delete this mode payment and everything linked to it ?.
+        /// </summary>
+        public static string MessageBoxDeleteModePaymentUseQuestion {
+            get {
+                return ResourceManager.GetString("MessageBoxDeleteModePaymentUseQuestion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mode payment and all relative element was successfully removed.
+        /// </summary>
+        public static string MessageBoxDeleteModePaymentUseSuccess {
+            get {
+                return ResourceManager.GetString("MessageBoxDeleteModePaymentUseSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Do you really want to delete this mode payment ?.
+        /// </summary>
+        public static string MessageBoxDeleteQuestion {
+            get {
+                return ResourceManager.GetString("MessageBoxDeleteQuestion", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to An error occurred please retry.
         /// </summary>
         public static string MessageBoxEditModePaymentErrorMessage {
@@ -84,6 +156,42 @@ namespace MyExpenses.SharedUtils.Resources.Resx.ModePaymentManagement {
         public static string MessageBoxModePaymentCantEditMessage {
             get {
                 return ResourceManager.GetString("MessageBoxModePaymentCantEditMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mode payment already exist.
+        /// </summary>
+        public static string MessageBoxModePaymentNameAlreadyExists {
+            get {
+                return ResourceManager.GetString("MessageBoxModePaymentNameAlreadyExists", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mode payment name cannot be empty.
+        /// </summary>
+        public static string MessageBoxModePaymentNameEmptyError {
+            get {
+                return ResourceManager.GetString("MessageBoxModePaymentNameEmptyError", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Mode payment name :.
+        /// </summary>
+        public static string TextBoxModePaymentName {
+            get {
+                return ResourceManager.GetString("TextBoxModePaymentName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add or edit a payment method.
+        /// </summary>
+        public static string WindowTitle {
+            get {
+                return ResourceManager.GetString("WindowTitle", resourceCulture);
             }
         }
     }

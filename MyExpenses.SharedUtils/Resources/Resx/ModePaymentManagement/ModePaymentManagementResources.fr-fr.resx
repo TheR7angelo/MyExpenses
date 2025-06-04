@@ -20,4 +20,40 @@
     <data name="MessageBoxEditModePaymentSuccessMessage" xml:space="preserve">
         <value>Le mode de paiement a été modifié avec succès</value>
     </data>
+    <data name="ButtonCancelContent" xml:space="preserve">
+        <value>Annuler</value>
+    </data>
+    <data name="ButtonDeleteContent" xml:space="preserve">
+        <value>Supprimer</value>
+    </data>
+    <data name="ButtonValidContent" xml:space="preserve">
+        <value>Valide</value>
+    </data>
+    <data name="MessageBoxDeleteModePaymentError" xml:space="preserve">
+        <value>Une erreur s'est produite, veuillez réessayer</value>
+    </data>
+    <data name="MessageBoxDeleteModePaymentNoUseSuccess" xml:space="preserve">
+        <value>Le mode de paiement a été supprimé avec succès</value>
+    </data>
+    <data name="MessageBoxDeleteModePaymentUseQuestion" xml:space="preserve">
+        <value>Ce mode de paiement est utilisé. Etes-vous sûr de vouloir supprimer ce mode de paiement et tout ce qui y est lié ?</value>
+    </data>
+    <data name="MessageBoxDeleteModePaymentUseSuccess" xml:space="preserve">
+        <value>Le mode de paiement et tous les éléments relatifs ont été supprimés avec succès</value>
+    </data>
+    <data name="MessageBoxDeleteQuestion" xml:space="preserve">
+        <value>Voulez-vous vraiment supprimer ce mode de paiement ?</value>
+    </data>
+    <data name="MessageBoxModePaymentNameAlreadyExists" xml:space="preserve">
+        <value>Le mode de paiement existe déjà</value>
+    </data>
+    <data name="MessageBoxModePaymentNameEmptyError" xml:space="preserve">
+        <value>Le nom du mode de paiement ne peut pas être vide</value>
+    </data>
+    <data name="TextBoxModePaymentName" xml:space="preserve">
+        <value>Nom du mode de paiement :</value>
+    </data>
+    <data name="WindowTitle" xml:space="preserve">
+        <value>Ajouter ou modifier un mode de paiement</value>
+    </data>
 </root>
