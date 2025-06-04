@@ -3,6 +3,7 @@ using CommunityToolkit.Maui.Views;
 using MyExpenses.Models.Maui.CustomPopup;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.SharedUtils.Collection;
+using MyExpenses.SharedUtils.Resources.Resx.ModePaymentManagement;
 using MyExpenses.Smartphones.ContentPages.CustomPopups;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils.Sql;
@@ -242,14 +243,15 @@ public partial class ModePaymentManagementContentPage
 
     private async Task HandleAddEditModePayment(TModePayment? modePayment = null)
     {
-        // TODO work
-        var placeHolder = "PlaceHolder"; // CurrencySymbolManagementResources.TextBoxCurrencySymbol;
+        var placeHolder = ModePaymentManagementResources.TextBoxModePaymentName;
 
         var modePaymentName = string.Empty;
         switch (modePayment?.CanBeDeleted)
         {
             case false:
-                await DisplayAlert("Title", "ModePayment", "Ok");
+                await DisplayAlert(ModePaymentManagementResources.MessageBoxModePaymentCantEditTitle,
+                    ModePaymentManagementResources.MessageBoxModePaymentCantEditMessage,
+                    ModePaymentManagementResources.MessageBoxModePaymentCantEditOkButton);
                 return;
             case true:
                 modePaymentName = modePayment.Name!;
