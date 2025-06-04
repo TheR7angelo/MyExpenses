@@ -207,9 +207,27 @@ namespace MyExpenses.SharedUtils.Resources.Resx.ModePaymentManagement {
         /// <summary>
         ///   Looks up a localized string similar to Mode payment name cannot be empty.
         /// </summary>
-        public static string MessageBoxModePaymentNameEmptyError {
+        public static string MessageBoxModePaymentNameEmptyErrorMessage {
             get {
-                return ResourceManager.GetString("MessageBoxModePaymentNameEmptyError", resourceCulture);
+                return ResourceManager.GetString("MessageBoxModePaymentNameEmptyErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ok.
+        /// </summary>
+        public static string MessageBoxModePaymentNameEmptyErrorOkButton {
+            get {
+                return ResourceManager.GetString("MessageBoxModePaymentNameEmptyErrorOkButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        public static string MessageBoxModePaymentNameEmptyErrorTitle {
+            get {
+                return ResourceManager.GetString("MessageBoxModePaymentNameEmptyErrorTitle", resourceCulture);
             }
         }
         

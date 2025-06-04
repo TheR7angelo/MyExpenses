@@ -47,7 +47,7 @@
     <data name="MessageBoxModePaymentNameAlreadyExistsMessage" xml:space="preserve">
         <value>Mode payment already exist</value>
     </data>
-    <data name="MessageBoxModePaymentNameEmptyError" xml:space="preserve">
+    <data name="MessageBoxModePaymentNameEmptyErrorMessage" xml:space="preserve">
         <value>Mode payment name cannot be empty</value>
     </data>
     <data name="TextBoxModePaymentName" xml:space="preserve">
@@ -69,6 +69,12 @@
         <value>Ok</value>
     </data>
     <data name="MessageBoxModePaymentNameAlreadyExistsTitle" xml:space="preserve">
+        <value>Error</value>
+    </data>
+    <data name="MessageBoxModePaymentNameEmptyErrorOkButton" xml:space="preserve">
+        <value>Ok</value>
+    </data>
+    <data name="MessageBoxModePaymentNameEmptyErrorTitle" xml:space="preserve">
         <value>Error</value>
     </data>
 </root>
