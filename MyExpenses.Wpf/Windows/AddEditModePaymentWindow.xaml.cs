@@ -183,7 +183,8 @@ public partial class AddEditModePaymentWindow
 
         if (string.IsNullOrWhiteSpace(modePaymentName))
         {
-            MsgBox.MsgBox.Show(ModePaymentManagementResources.MessageBoxModePaymentNameEmptyError,
+            MsgBox.MsgBox.Show(ModePaymentManagementResources.MessageBoxModePaymentNameEmptyErrorTitle,
+                ModePaymentManagementResources.MessageBoxModePaymentNameEmptyErrorMessage,
                 MsgBoxImage.Error);
             return;
         }
