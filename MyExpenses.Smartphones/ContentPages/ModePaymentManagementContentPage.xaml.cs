@@ -41,8 +41,8 @@ public partial class ModePaymentManagementContentPage
 
     #region Function
 
-    // private bool CheckColorName(string colorName)
-    //     => Colors.Select(s => s.Name).Contains(colorName);
+    private bool CheckModePaymentName(string modePaymentName)
+        => ModePayments.Select(s => s.Name).Contains(modePaymentName);
 
     private async Task HandleAddNewModePayment(TModePayment newModePayment)
     {
@@ -178,21 +178,17 @@ public partial class ModePaymentManagementContentPage
             return true;
         }
 
-        // TODO work
-        // var nameAlreadyExist = CheckColorName(newModePayment.Name);
-        // if (nameAlreadyExist)
-        // {
-        //     await ShowErrorMessageDuplicateName();
-        //     return true;
-        // }
+        var nameAlreadyExist = CheckModePaymentName(newModePayment.Name);
+        if (nameAlreadyExist)
+        {
+            await DisplayAlert(ModePaymentManagementResources.MessageBoxModePaymentNameAlreadyExistsTitle,
+                ModePaymentManagementResources.MessageBoxModePaymentNameAlreadyExistsMessage,
+                ModePaymentManagementResources.MessageBoxModePaymentNameAlreadyExistsOkButton);
+            return true;
+        }
 
         return false;
     }
-
-    // private async Task ShowErrorMessageDuplicateName()
-    //     => await DisplayAlert(ColorManagementResources.MessageBoxCannotAddDuplicateColorNameErrorTitle,
-    //         ColorManagementResources.MessageBoxCannotAddDuplicateColorNameErrorMessage,
-    //         ColorManagementResources.MessageBoxCannotAddDuplicateColorNameErrorOkButton);
 
     #endregion
 
