@@ -142,31 +142,30 @@ public partial class ModePaymentManagementContentPage
     //         ColorManagementResources.MessageBoxDeleteColorErrorOkButton);
     // }
 
-    // private async Task HandleEditColor(TColor newColor, TColor oldColor)
-    // {
-    //     oldColor.Name = newColor.Name;
-    //     oldColor.HexadecimalColorCode = newColor.HexadecimalColorCode;
-    //
-    //     Log.Information("Attempting to edit the color \"{AccountName}\"", oldColor.Name);
-    //     var (success, exception) = oldColor.AddOrEdit();
-    //     if (success)
-    //     {
-    //         Log.Information("Color was successfully edited");
-    //         var json = oldColor.ToJsonString();
-    //         Log.Information("{Json}", json);
-    //
-    //         await DisplayAlert(ColorManagementResources.MessageBoxEditColorSuccessTitle,
-    //             ColorManagementResources.MessageBoxEditColorSuccessMessage,
-    //             ColorManagementResources.MessageBoxEditColorSuccessOkButton);
-    //     }
-    //     else
-    //     {
-    //         Log.Error(exception, "An error occurred please retry");
-    //         await DisplayAlert(ColorManagementResources.MessageBoxEditColorErrorTitle,
-    //             ColorManagementResources.MessageBoxEditColorErrorMessage,
-    //             ColorManagementResources.MessageBoxEditColorErrorOkButton);
-    //     }
-    // }
+    private async Task HandleEditModePayment(TModePayment newModePayment, TModePayment oldModePayment)
+    {
+        oldModePayment.Name = newModePayment.Name;
+
+        Log.Information("Attempting to edit the mode payment \"{ModePaymentName}\"", oldModePayment.Name);
+        var (success, exception) = oldModePayment.AddOrEdit();
+        if (success)
+        {
+            Log.Information("Mode payment was successfully edited");
+            var json = oldModePayment.ToJsonString();
+            Log.Information("{Json}", json);
+
+            // await DisplayAlert(ColorManagementResources.MessageBoxEditColorSuccessTitle,
+                // ColorManagementResources.MessageBoxEditColorSuccessMessage,
+                // ColorManagementResources.MessageBoxEditColorSuccessOkButton);
+        }
+        else
+        {
+            Log.Error(exception, "An error occurred please retry");
+            // await DisplayAlert(ColorManagementResources.MessageBoxEditColorErrorTitle,
+                // ColorManagementResources.MessageBoxEditColorErrorMessage,
+                // ColorManagementResources.MessageBoxEditColorErrorOkButton);
+        }
+    }
 
     private async Task<bool> NewModePaymentIsError(TModePayment newModePayment)
     {
@@ -269,9 +268,9 @@ public partial class ModePaymentManagementContentPage
             case ECustomPopupEntryResult.Valid when oldModePayment is null:
                 await HandleAddNewModePayment(newModePayment);
                 break;
-            // default:
-            //     await HandleEditColor(newColor, oldColor!);
-            //     break;
+            default:
+                await HandleEditModePayment(newModePayment, oldModePayment!);
+                break;
         }
     }
 }
