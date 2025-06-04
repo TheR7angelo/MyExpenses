@@ -535,7 +535,8 @@ public partial class AddEditRecurrentExpenseWindow
         var modePayment = RecursiveExpense.ModePaymentFk?.ToISql<TModePayment>();
         if (modePayment?.CanBeDeleted is false)
         {
-            MsgBox.MsgBox.Show(ModePaymentManagementResources.MessageBoxModePaymentCantEditMessage, MsgBoxImage.Error);
+            MsgBox.MsgBox.Show(ModePaymentManagementResources.MessageBoxModePaymentCantEditTitle,
+                ModePaymentManagementResources.MessageBoxModePaymentCantEditMessage, MsgBoxImage.Error);
             return;
         }
 
