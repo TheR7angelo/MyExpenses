@@ -6,8 +6,8 @@ using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.SharedUtils.Properties;
 using MyExpenses.SharedUtils.Resources.Resx.CurrencySymbolManagement;
+using MyExpenses.SharedUtils.Resources.Resx.ModePaymentManagement;
 using MyExpenses.Sql.Context;
-using MyExpenses.Wpf.Resources.Resx.Windows.AddEditModePaymentWindow;
 using MyExpenses.Wpf.Utils;
 using MyExpenses.Wpf.Windows.MsgBox;
 using Serilog;
@@ -111,12 +111,12 @@ public partial class AddEditModePaymentWindow
 
     private void UpdateLanguage()
     {
-        WindowTitle = AddEditModePaymentWindowResources.WindowTitle;
+        WindowTitle = ModePaymentManagementResources.WindowTitle;
 
-        TextBoxModePaymentName = AddEditModePaymentWindowResources.TextBoxModePaymentName;
-        ButtonValidContent = AddEditModePaymentWindowResources.ButtonValidContent;
-        ButtonDeleteContent = AddEditModePaymentWindowResources.ButtonDeleteContent;
-        ButtonCancelContent = AddEditModePaymentWindowResources.ButtonCancelContent;
+        TextBoxModePaymentName = ModePaymentManagementResources.TextBoxModePaymentName;
+        ButtonValidContent = ModePaymentManagementResources.ButtonValidContent;
+        ButtonDeleteContent = ModePaymentManagementResources.ButtonDeleteContent;
+        ButtonCancelContent = ModePaymentManagementResources.ButtonCancelContent;
     }
 
     #region Action
@@ -129,7 +129,7 @@ public partial class AddEditModePaymentWindow
 
     private void ButtonDelete_OnClick(object sender, RoutedEventArgs e)
     {
-        var response = MsgBox.MsgBox.Show(AddEditModePaymentWindowResources.MessageBoxDeleteQuestion,
+        var response = MsgBox.MsgBox.Show(ModePaymentManagementResources.MessageBoxDeleteQuestion,
             MsgBoxImage.Question, MessageBoxButton.YesNoCancel);
         if (response is not MessageBoxResult.Yes) return;
 
@@ -139,7 +139,7 @@ public partial class AddEditModePaymentWindow
         if (success)
         {
             Log.Information("Mode payment was successfully removed");
-            MsgBox.MsgBox.Show(AddEditModePaymentWindowResources.MessageBoxDeleteModePaymentNoUseSuccess,
+            MsgBox.MsgBox.Show(ModePaymentManagementResources.MessageBoxDeleteModePaymentNoUseSuccess,
                 MsgBoxImage.Check);
 
             ModePaymentDeleted = true;
@@ -155,7 +155,7 @@ public partial class AddEditModePaymentWindow
         {
             Log.Error("Foreign key constraint violation");
 
-            response = MsgBox.MsgBox.Show(AddEditModePaymentWindowResources.MessageBoxDeleteModePaymentUseQuestion,
+            response = MsgBox.MsgBox.Show(ModePaymentManagementResources.MessageBoxDeleteModePaymentUseQuestion,
                 MsgBoxImage.Question, MessageBoxButton.YesNoCancel);
 
             if (response is not MessageBoxResult.Yes) return;
@@ -164,7 +164,7 @@ public partial class AddEditModePaymentWindow
                 ModePayment.Name);
             ModePayment.Delete(true);
             Log.Information("Mode payment and all relative element was successfully removed");
-            MsgBox.MsgBox.Show(AddEditModePaymentWindowResources.MessageBoxDeleteModePaymentUseSuccess,
+            MsgBox.MsgBox.Show(ModePaymentManagementResources.MessageBoxDeleteModePaymentUseSuccess,
                 MsgBoxImage.Check);
 
             ModePaymentDeleted = true;
@@ -175,7 +175,7 @@ public partial class AddEditModePaymentWindow
         }
 
         Log.Error(exception, "An error occurred please retry");
-        MsgBox.MsgBox.Show(AddEditModePaymentWindowResources.MessageBoxDeleteModePaymentError, MsgBoxImage.Error);
+        MsgBox.MsgBox.Show(ModePaymentManagementResources.MessageBoxDeleteModePaymentError, MsgBoxImage.Error);
     }
 
     private void ButtonValid_OnClick(object sender, RoutedEventArgs e)
@@ -184,7 +184,7 @@ public partial class AddEditModePaymentWindow
 
         if (string.IsNullOrWhiteSpace(modePaymentName))
         {
-            MsgBox.MsgBox.Show(AddEditModePaymentWindowResources.MessageBoxModePaymentNameEmptyError,
+            MsgBox.MsgBox.Show(ModePaymentManagementResources.MessageBoxModePaymentNameEmptyError,
                 MsgBoxImage.Error);
             return;
         }
