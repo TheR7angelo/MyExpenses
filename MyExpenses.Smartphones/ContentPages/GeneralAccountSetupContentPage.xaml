@@ -42,9 +42,9 @@
                             Clicked="ButtonCurrencyManagement_OnClicked">
                     </Button>
 
-                    <!-- TODO work -->
                     <Button Text="{Binding ButtonTextPaymentMethodManagement, Mode=OneWay}"
-                            Style="{StaticResource RaisedMidButton}">
+                            Style="{StaticResource RaisedMidButton}"
+                            Clicked="ButtonModePaymentManagement_OnClicked">
                     </Button>
 
                 </VerticalStackLayout>

@@ -104,6 +104,9 @@ public partial class GeneralAccountSetupContentPage
     private void ButtonManagingCategoryTypes_OnClicked(object? sender, EventArgs e)
         => _ = typeof(AddEditCategoryTypesContentPage).NavigateToAsync();
 
+    private void ButtonModePaymentManagement_OnClicked(object? sender, EventArgs e)
+        => _ = typeof(ModePaymentManagementContentPage).NavigateToAsync();
+
     private void Interface_OnLanguageChanged()
         => UpdateLanguage();
 
