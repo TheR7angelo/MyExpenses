@@ -168,44 +168,26 @@ public partial class ModePaymentManagementContentPage
     //     }
     // }
 
-    // private async Task<bool> NewColorIsError(TColor newColor)
-    // {
-    //     if (string.IsNullOrWhiteSpace(newColor.Name))
-    //     {
-    //         await DisplayAlert(ColorManagementResources.MessageBoxCannotAddEmptyColorNameErrorTitle,
-    //             ColorManagementResources.MessageBoxCannotAddEmptyColorNameErrorMessage,
-    //             ColorManagementResources.MessageBoxCannotAddEmptyColorNameErrorOkButton);
-    //         return true;
-    //     }
-    //
-    //     if (string.IsNullOrWhiteSpace(newColor.HexadecimalColorCode))
-    //     {
-    //         await DisplayAlert(ColorManagementResources.MessageBoxCannotAddEmptyColorHexErrorTitle,
-    //             ColorManagementResources.MessageBoxCannotAddEmptyColorHexErrorMessage,
-    //             ColorManagementResources.MessageBoxCannotAddEmptyColorHexErrorOkButton);
-    //         return true;
-    //     }
-    //
-    //     var nameAlreadyExist = CheckColorName(newColor.Name);
-    //     if (nameAlreadyExist)
-    //     {
-    //         await ShowErrorMessageDuplicateName();
-    //         return true;
-    //     }
-    //
-    //     // ReSharper disable once HeapView.DelegateAllocation
-    //     var colorAlreadyExist = Colors.FirstOrDefault(s => s.HexadecimalColorCode == newColor.HexadecimalColorCode);
-    //     if (colorAlreadyExist is not null)
-    //     {
-    //         var message = string.Format(ColorManagementResources.MessageBoxCannotAddDuplicateColorHexErrorMessage,
-    //             colorAlreadyExist.Name);
-    //         await DisplayAlert(ColorManagementResources.MessageBoxCannotAddDuplicateColorHexErrorTitle, message,
-    //             ColorManagementResources.MessageBoxCannotAddDuplicateColorHexErrorOkButton);
-    //         return true;
-    //     }
-    //
-    //     return false;
-    // }
+    private async Task<bool> NewModePaymentIsError(TModePayment newModePayment)
+    {
+        if (string.IsNullOrWhiteSpace(newModePayment.Name))
+        {
+            await DisplayAlert(ModePaymentManagementResources.MessageBoxModePaymentNameEmptyErrorTitle,
+                ModePaymentManagementResources.MessageBoxModePaymentNameEmptyErrorMessage,
+                ModePaymentManagementResources.MessageBoxModePaymentNameEmptyErrorOkButton);
+            return true;
+        }
+
+        // TODO work
+        // var nameAlreadyExist = CheckColorName(newModePayment.Name);
+        // if (nameAlreadyExist)
+        // {
+        //     await ShowErrorMessageDuplicateName();
+        //     return true;
+        // }
+
+        return false;
+    }
 
     // private async Task ShowErrorMessageDuplicateName()
     //     => await DisplayAlert(ColorManagementResources.MessageBoxCannotAddDuplicateColorNameErrorTitle,
@@ -275,9 +257,8 @@ public partial class ModePaymentManagementContentPage
 
         var newModePayment = new TModePayment { Name = customPopupEntry.EntryText, CanBeDeleted = true };
 
-        // TODO work
-        // var newColorIsError = await NewColorIsError(newColor);
-        // if (newColorIsError) return;
+        var newModePaymentIsError = await NewModePaymentIsError(newModePayment);
+        if (newModePaymentIsError) return;
 
         await HandleModePaymentResult(result, newModePayment, modePayment);
     }
