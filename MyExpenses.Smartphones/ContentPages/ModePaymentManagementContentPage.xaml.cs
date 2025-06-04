@@ -5,6 +5,8 @@ using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.SharedUtils.Collection;
 using MyExpenses.Smartphones.ContentPages.CustomPopups;
 using MyExpenses.Sql.Context;
+using MyExpenses.Utils.Sql;
+using Serilog;
 
 namespace MyExpenses.Smartphones.ContentPages;
 
@@ -41,32 +43,31 @@ public partial class ModePaymentManagementContentPage
     // private bool CheckColorName(string colorName)
     //     => Colors.Select(s => s.Name).Contains(colorName);
 
-    // private async Task HandleAddColor(TColor newColor)
-    // {
-    //     Log.Information("Attempt to inject the new color \"{ColorName}\" with hexadecimal code \"{ColorHexadecimalColorCode}\"",
-    //         newColor.Name, newColor.HexadecimalColorCode);
-    //
-    //     var (success, exception) = newColor.AddOrEdit();
-    //     if (success)
-    //     {
-    //         Log.Information("color was successfully added");
-    //         var json = newColor.ToJsonString();
-    //         Log.Information("{Json}", json);
-    //
-    //         await DisplayAlert(ColorManagementResources.MessageBoxAddColorSuccessTitle,
-    //             ColorManagementResources.MessageBoxAddColorSuccessMessage,
-    //             ColorManagementResources.MessageBoxAddColorSuccessOkButton);
-    //
-    //         Colors.AddAndSort(newColor, s => s.Name!);
-    //     }
-    //     else
-    //     {
-    //         Log.Error(exception, "An error occurred please retry");
-    //         await DisplayAlert(ColorManagementResources.MessageBoxAddColorErrorTitle,
-    //             ColorManagementResources.MessageBoxAddColorErrorMessage,
-    //             ColorManagementResources.MessageBoxAddColorErrorOkButton);
-    //     }
-    // }
+    private async Task HandleAddNewModePayment(TModePayment newModePayment)
+    {
+        Log.Information("Attempt to inject the new mode payment \"{ColorName}\"", newModePayment.Name);
+        var (success, exception) = newModePayment.AddOrEdit();
+
+        if (success)
+        {
+            Log.Information("mode payment was successfully added");
+            var json = newModePayment.ToJsonString();
+            Log.Information("{Json}", json);
+
+            // await DisplayAlert(ColorManagementResources.MessageBoxAddColorSuccessTitle,
+            //     ColorManagementResources.MessageBoxAddColorSuccessMessage,
+            //     ColorManagementResources.MessageBoxAddColorSuccessOkButton);
+
+            ModePayments.AddAndSort(newModePayment, s => s.Name!);
+        }
+        else
+        {
+            Log.Error(exception, "An error occurred please retry");
+            // await DisplayAlert(ColorManagementResources.MessageBoxAddColorErrorTitle,
+            //     ColorManagementResources.MessageBoxAddColorErrorMessage,
+            //     ColorManagementResources.MessageBoxAddColorErrorOkButton);
+        }
+    }
 
     // private async Task HandleAddEditColor(TColor? color = null)
     // {
@@ -85,22 +86,6 @@ public partial class ModePaymentManagementContentPage
     //
     //     await HandleColorResult(result, newColor, color);
     //
-    // }
-
-    // private async Task HandleColorResult(ECustomPopupEntryResult result, TColor newColor, TColor? oldColor)
-    // {
-    //     switch (result)
-    //     {
-    //         case ECustomPopupEntryResult.Delete:
-    //             await HandleDeleteColor(oldColor!);
-    //             break;
-    //         case ECustomPopupEntryResult.Valid when oldColor is null:
-    //             await HandleAddColor(newColor);
-    //             break;
-    //         default:
-    //             await HandleEditColor(newColor, oldColor!);
-    //             break;
-    //     }
     // }
 
     // private async Task HandleDeleteColor(TColor oldColor)
@@ -257,6 +242,7 @@ public partial class ModePaymentManagementContentPage
 
     private async Task HandleAddEditModePayment(TModePayment? modePayment = null)
     {
+        // TODO work
         var placeHolder = "PlaceHolder"; // CurrencySymbolManagementResources.TextBoxCurrencySymbol;
 
         var modePaymentName = string.Empty;
@@ -285,10 +271,28 @@ public partial class ModePaymentManagementContentPage
         var result = await customPopupEntry.ResultDialog;
         if (result is ECustomPopupEntryResult.Cancel) return;
 
-        await DisplayAlert("Title", customPopupEntry.EntryText, "Ok");
+        var newModePayment = new TModePayment { Name = customPopupEntry.EntryText, CanBeDeleted = true };
 
-        // currency.Symbol = customPopupEntry.EntryText;
-        // await HandleCurrencyResult(currency, result);
-        // RefreshCurrencies();
+        // TODO work
+        // var newColorIsError = await NewColorIsError(newColor);
+        // if (newColorIsError) return;
+
+        await HandleModePaymentResult(result, newModePayment, modePayment);
+    }
+
+    private async Task HandleModePaymentResult(ECustomPopupEntryResult result, TModePayment newModePayment, TModePayment? oldModePayment)
+    {
+        switch (result)
+        {
+            // case ECustomPopupEntryResult.Delete:
+            //     await HandleDeleteColor(oldColor!);
+            //     break;
+            case ECustomPopupEntryResult.Valid when oldModePayment is null:
+                await HandleAddNewModePayment(newModePayment);
+                break;
+            // default:
+            //     await HandleEditColor(newColor, oldColor!);
+            //     break;
+        }
     }
 }
