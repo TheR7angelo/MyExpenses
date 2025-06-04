@@ -160,6 +160,24 @@ namespace MyExpenses.SharedUtils.Resources.Resx.ModePaymentManagement {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ok.
+        /// </summary>
+        public static string MessageBoxModePaymentCantEditOkButton {
+            get {
+                return ResourceManager.GetString("MessageBoxModePaymentCantEditOkButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        public static string MessageBoxModePaymentCantEditTitle {
+            get {
+                return ResourceManager.GetString("MessageBoxModePaymentCantEditTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Mode payment already exist.
         /// </summary>
         public static string MessageBoxModePaymentNameAlreadyExists {

@@ -56,4 +56,10 @@
     <data name="WindowTitle" xml:space="preserve">
         <value>Ajouter ou modifier un mode de paiement</value>
     </data>
+    <data name="MessageBoxModePaymentCantEditOkButton" xml:space="preserve">
+        <value>Ok</value>
+    </data>
+    <data name="MessageBoxModePaymentCantEditTitle" xml:space="preserve">
+        <value>Erreur</value>
+    </data>
 </root>

@@ -63,4 +63,10 @@
     <data name="WindowTitle" xml:space="preserve">
         <value>Add or edit a payment method</value>
     </data>
+    <data name="MessageBoxModePaymentCantEditTitle" xml:space="preserve">
+        <value>Error</value>
+    </data>
+    <data name="MessageBoxModePaymentCantEditOkButton" xml:space="preserve">
+        <value>Ok</value>
+    </data>
 </root>
