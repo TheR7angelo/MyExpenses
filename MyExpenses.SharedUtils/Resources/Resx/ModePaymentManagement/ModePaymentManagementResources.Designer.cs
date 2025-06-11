@@ -144,45 +144,153 @@ namespace MyExpenses.SharedUtils.Resources.Resx.ModePaymentManagement {
         /// <summary>
         ///   Looks up a localized string similar to An error occurred please retry.
         /// </summary>
-        public static string MessageBoxDeleteModePaymentError {
+        public static string MessageBoxDeleteModePaymentErrorMessage {
             get {
-                return ResourceManager.GetString("MessageBoxDeleteModePaymentError", resourceCulture);
+                return ResourceManager.GetString("MessageBoxDeleteModePaymentErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ok.
+        /// </summary>
+        public static string MessageBoxDeleteModePaymentErrorOkButton {
+            get {
+                return ResourceManager.GetString("MessageBoxDeleteModePaymentErrorOkButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        public static string MessageBoxDeleteModePaymentErrorTitle {
+            get {
+                return ResourceManager.GetString("MessageBoxDeleteModePaymentErrorTitle", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Mode payment was successfully removed.
         /// </summary>
-        public static string MessageBoxDeleteModePaymentNoUseSuccess {
+        public static string MessageBoxDeleteModePaymentNoUseSuccessMessage {
             get {
-                return ResourceManager.GetString("MessageBoxDeleteModePaymentNoUseSuccess", resourceCulture);
+                return ResourceManager.GetString("MessageBoxDeleteModePaymentNoUseSuccessMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ok.
+        /// </summary>
+        public static string MessageBoxDeleteModePaymentNoUseSuccessOkButton {
+            get {
+                return ResourceManager.GetString("MessageBoxDeleteModePaymentNoUseSuccessOkButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Success.
+        /// </summary>
+        public static string MessageBoxDeleteModePaymentNoUseSuccessTitle {
+            get {
+                return ResourceManager.GetString("MessageBoxDeleteModePaymentNoUseSuccessTitle", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to This mode payment is in use. Are you sure you want to delete this mode payment and everything linked to it ?.
         /// </summary>
-        public static string MessageBoxDeleteModePaymentUseQuestion {
+        public static string MessageBoxDeleteModePaymentUseQuestionMessage {
             get {
-                return ResourceManager.GetString("MessageBoxDeleteModePaymentUseQuestion", resourceCulture);
+                return ResourceManager.GetString("MessageBoxDeleteModePaymentUseQuestionMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No.
+        /// </summary>
+        public static string MessageBoxDeleteModePaymentUseQuestionNoButton {
+            get {
+                return ResourceManager.GetString("MessageBoxDeleteModePaymentUseQuestionNoButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Question.
+        /// </summary>
+        public static string MessageBoxDeleteModePaymentUseQuestionTitle {
+            get {
+                return ResourceManager.GetString("MessageBoxDeleteModePaymentUseQuestionTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yes.
+        /// </summary>
+        public static string MessageBoxDeleteModePaymentUseQuestionYesButton {
+            get {
+                return ResourceManager.GetString("MessageBoxDeleteModePaymentUseQuestionYesButton", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Mode payment and all relative element was successfully removed.
         /// </summary>
-        public static string MessageBoxDeleteModePaymentUseSuccess {
+        public static string MessageBoxDeleteModePaymentUseSuccessMessage {
             get {
-                return ResourceManager.GetString("MessageBoxDeleteModePaymentUseSuccess", resourceCulture);
+                return ResourceManager.GetString("MessageBoxDeleteModePaymentUseSuccessMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ok.
+        /// </summary>
+        public static string MessageBoxDeleteModePaymentUseSuccessOkButton {
+            get {
+                return ResourceManager.GetString("MessageBoxDeleteModePaymentUseSuccessOkButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Success.
+        /// </summary>
+        public static string MessageBoxDeleteModePaymentUseSuccessTitle {
+            get {
+                return ResourceManager.GetString("MessageBoxDeleteModePaymentUseSuccessTitle", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Do you really want to delete this mode payment ?.
         /// </summary>
-        public static string MessageBoxDeleteQuestion {
+        public static string MessageBoxDeleteQuestionMessage {
             get {
-                return ResourceManager.GetString("MessageBoxDeleteQuestion", resourceCulture);
+                return ResourceManager.GetString("MessageBoxDeleteQuestionMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No.
+        /// </summary>
+        public static string MessageBoxDeleteQuestionNoButton {
+            get {
+                return ResourceManager.GetString("MessageBoxDeleteQuestionNoButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Question.
+        /// </summary>
+        public static string MessageBoxDeleteQuestionTitle {
+            get {
+                return ResourceManager.GetString("MessageBoxDeleteQuestionTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Yes.
+        /// </summary>
+        public static string MessageBoxDeleteQuestionYesButton {
+            get {
+                return ResourceManager.GetString("MessageBoxDeleteQuestionYesButton", resourceCulture);
             }
         }
         

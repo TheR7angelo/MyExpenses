@@ -29,19 +29,19 @@
     <data name="ButtonValidContent" xml:space="preserve">
         <value>Valide</value>
     </data>
-    <data name="MessageBoxDeleteModePaymentError" xml:space="preserve">
+    <data name="MessageBoxDeleteModePaymentErrorMessage" xml:space="preserve">
         <value>Une erreur s'est produite, veuillez réessayer</value>
     </data>
-    <data name="MessageBoxDeleteModePaymentNoUseSuccess" xml:space="preserve">
+    <data name="MessageBoxDeleteModePaymentNoUseSuccessMessage" xml:space="preserve">
         <value>Le mode de paiement a été supprimé avec succès</value>
     </data>
-    <data name="MessageBoxDeleteModePaymentUseQuestion" xml:space="preserve">
+    <data name="MessageBoxDeleteModePaymentUseQuestionMessage" xml:space="preserve">
         <value>Ce mode de paiement est utilisé. Etes-vous sûr de vouloir supprimer ce mode de paiement et tout ce qui y est lié ?</value>
     </data>
-    <data name="MessageBoxDeleteModePaymentUseSuccess" xml:space="preserve">
+    <data name="MessageBoxDeleteModePaymentUseSuccessMessage" xml:space="preserve">
         <value>Le mode de paiement et tous les éléments relatifs ont été supprimés avec succès</value>
     </data>
-    <data name="MessageBoxDeleteQuestion" xml:space="preserve">
+    <data name="MessageBoxDeleteQuestionMessage" xml:space="preserve">
         <value>Voulez-vous vraiment supprimer ce mode de paiement ?</value>
     </data>
     <data name="MessageBoxModePaymentNameAlreadyExistsMessage" xml:space="preserve">
@@ -111,6 +111,42 @@
         <value>Ok</value>
     </data>
     <data name="MessageBoxEditModePaymentErrorTitle" xml:space="preserve">
-        <value>Error</value>
+        <value>Erreur</value>
+    </data>
+    <data name="MessageBoxDeleteQuestionYesButton" xml:space="preserve">
+        <value>Oui</value>
+    </data>
+    <data name="MessageBoxDeleteQuestionTitle" xml:space="preserve">
+        <value>Question</value>
+    </data>
+    <data name="MessageBoxDeleteQuestionNoButton" xml:space="preserve">
+        <value>Non</value>
+    </data>
+    <data name="MessageBoxDeleteModePaymentNoUseSuccessTitle" xml:space="preserve">
+        <value>Succès</value>
+    </data>
+    <data name="MessageBoxDeleteModePaymentNoUseSuccessOkButton" xml:space="preserve">
+        <value>Ok</value>
+    </data>
+    <data name="MessageBoxDeleteModePaymentUseQuestionNoButton" xml:space="preserve">
+        <value>Non</value>
+    </data>
+    <data name="MessageBoxDeleteModePaymentUseQuestionYesButton" xml:space="preserve">
+        <value>Oui</value>
+    </data>
+    <data name="MessageBoxDeleteModePaymentUseQuestionTitle" xml:space="preserve">
+        <value>Question</value>
+    </data>
+    <data name="MessageBoxDeleteModePaymentUseSuccessOkButton" xml:space="preserve">
+        <value>Ok</value>
+    </data>
+    <data name="MessageBoxDeleteModePaymentUseSuccessTitle" xml:space="preserve">
+        <value>Succès</value>
+    </data>
+    <data name="MessageBoxDeleteModePaymentErrorTitle" xml:space="preserve">
+        <value>Erreur</value>
+    </data>
+    <data name="MessageBoxDeleteModePaymentErrorOkButton" xml:space="preserve">
+        <value>Ok</value>
     </data>
 </root>
