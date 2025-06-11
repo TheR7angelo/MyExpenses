@@ -128,8 +128,9 @@ public partial class AddEditModePaymentWindow
 
     private void ButtonDelete_OnClick(object sender, RoutedEventArgs e)
     {
-        var response = MsgBox.MsgBox.Show(ModePaymentManagementResources.MessageBoxDeleteQuestion,
-            MsgBoxImage.Question, MessageBoxButton.YesNoCancel);
+        var response = MsgBox.MsgBox.Show(ModePaymentManagementResources.MessageBoxDeleteQuestionTitle,
+            ModePaymentManagementResources.MessageBoxDeleteQuestionMessage,
+            MessageBoxButton.YesNoCancel, MsgBoxImage.Question);
         if (response is not MessageBoxResult.Yes) return;
 
         Log.Information("Attempting to remove the currency symbol \"{ModePaymentName}\"", ModePayment.Name);
@@ -138,7 +139,8 @@ public partial class AddEditModePaymentWindow
         if (success)
         {
             Log.Information("Mode payment was successfully removed");
-            MsgBox.MsgBox.Show(ModePaymentManagementResources.MessageBoxDeleteModePaymentNoUseSuccess,
+            MsgBox.MsgBox.Show(ModePaymentManagementResources.MessageBoxDeleteModePaymentNoUseSuccessTitle,
+                ModePaymentManagementResources.MessageBoxDeleteModePaymentNoUseSuccessMessage,
                 MsgBoxImage.Check);
 
             ModePaymentDeleted = true;
@@ -154,8 +156,9 @@ public partial class AddEditModePaymentWindow
         {
             Log.Error("Foreign key constraint violation");
 
-            response = MsgBox.MsgBox.Show(ModePaymentManagementResources.MessageBoxDeleteModePaymentUseQuestion,
-                MsgBoxImage.Question, MessageBoxButton.YesNoCancel);
+            response = MsgBox.MsgBox.Show(ModePaymentManagementResources.MessageBoxDeleteModePaymentUseQuestionTitle,
+                ModePaymentManagementResources.MessageBoxDeleteModePaymentUseQuestionMessage,
+                MessageBoxButton.YesNoCancel, MsgBoxImage.Question);
 
             if (response is not MessageBoxResult.Yes) return;
 
@@ -163,7 +166,8 @@ public partial class AddEditModePaymentWindow
                 ModePayment.Name);
             ModePayment.Delete(true);
             Log.Information("Mode payment and all relative element was successfully removed");
-            MsgBox.MsgBox.Show(ModePaymentManagementResources.MessageBoxDeleteModePaymentUseSuccess,
+            MsgBox.MsgBox.Show(ModePaymentManagementResources.MessageBoxDeleteModePaymentUseSuccessTitle,
+                ModePaymentManagementResources.MessageBoxDeleteModePaymentUseSuccessMessage,
                 MsgBoxImage.Check);
 
             ModePaymentDeleted = true;
@@ -174,7 +178,8 @@ public partial class AddEditModePaymentWindow
         }
 
         Log.Error(exception, "An error occurred please retry");
-        MsgBox.MsgBox.Show(ModePaymentManagementResources.MessageBoxDeleteModePaymentError, MsgBoxImage.Error);
+        MsgBox.MsgBox.Show(ModePaymentManagementResources.MessageBoxDeleteModePaymentErrorTitle,
+            ModePaymentManagementResources.MessageBoxDeleteModePaymentErrorMessage, MsgBoxImage.Error);
     }
 
     private void ButtonValid_OnClick(object sender, RoutedEventArgs e)
