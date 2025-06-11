@@ -63,24 +63,6 @@ namespace MyExpenses.Wpf.Resources.Resx.Pages.ModePaymentManagementPage {
         /// <summary>
         ///   Looks up a localized string similar to An error occurred please retry.
         /// </summary>
-        internal static string MessageBoxAddModePaymentError {
-            get {
-                return ResourceManager.GetString("MessageBoxAddModePaymentError", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to The new mode payment has been added successfully.
-        /// </summary>
-        internal static string MessageBoxAddModePaymentSuccess {
-            get {
-                return ResourceManager.GetString("MessageBoxAddModePaymentSuccess", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to An error occurred please retry.
-        /// </summary>
         internal static string MessageBoxEditModePaymentError {
             get {
                 return ResourceManager.GetString("MessageBoxEditModePaymentError", resourceCulture);

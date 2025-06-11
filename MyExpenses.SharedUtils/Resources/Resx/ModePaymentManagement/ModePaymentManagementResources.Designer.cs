@@ -90,6 +90,60 @@ namespace MyExpenses.SharedUtils.Resources.Resx.ModePaymentManagement {
         /// <summary>
         ///   Looks up a localized string similar to An error occurred please retry.
         /// </summary>
+        public static string MessageBoxAddModePaymentErrorMessage {
+            get {
+                return ResourceManager.GetString("MessageBoxAddModePaymentErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ok.
+        /// </summary>
+        public static string MessageBoxAddModePaymentErrorOkButton {
+            get {
+                return ResourceManager.GetString("MessageBoxAddModePaymentErrorOkButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        public static string MessageBoxAddModePaymentErrorTitle {
+            get {
+                return ResourceManager.GetString("MessageBoxAddModePaymentErrorTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The new mode payment has been added successfully.
+        /// </summary>
+        public static string MessageBoxAddModePaymentSuccessMessage {
+            get {
+                return ResourceManager.GetString("MessageBoxAddModePaymentSuccessMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ok.
+        /// </summary>
+        public static string MessageBoxAddModePaymentSuccessOkButton {
+            get {
+                return ResourceManager.GetString("MessageBoxAddModePaymentSuccessOkButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Success.
+        /// </summary>
+        public static string MessageBoxAddModePaymentSuccessTitle {
+            get {
+                return ResourceManager.GetString("MessageBoxAddModePaymentSuccessTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error occurred please retry.
+        /// </summary>
         public static string MessageBoxDeleteModePaymentError {
             get {
                 return ResourceManager.GetString("MessageBoxDeleteModePaymentError", resourceCulture);

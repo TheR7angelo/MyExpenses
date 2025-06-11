@@ -77,4 +77,22 @@
     <data name="MessageBoxModePaymentNameEmptyErrorTitle" xml:space="preserve">
         <value>Error</value>
     </data>
+    <data name="MessageBoxAddModePaymentErrorMessage" xml:space="preserve">
+        <value>An error occurred please retry</value>
+    </data>
+    <data name="MessageBoxAddModePaymentErrorOkButton" xml:space="preserve">
+        <value>Ok</value>
+    </data>
+    <data name="MessageBoxAddModePaymentErrorTitle" xml:space="preserve">
+        <value>Error</value>
+    </data>
+    <data name="MessageBoxAddModePaymentSuccessMessage" xml:space="preserve">
+        <value>The new mode payment has been added successfully</value>
+    </data>
+    <data name="MessageBoxAddModePaymentSuccessOkButton" xml:space="preserve">
+        <value>Ok</value>
+    </data>
+    <data name="MessageBoxAddModePaymentSuccessTitle" xml:space="preserve">
+        <value>Success</value>
+    </data>
 </root>
