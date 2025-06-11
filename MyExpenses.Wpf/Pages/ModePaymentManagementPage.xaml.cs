@@ -99,12 +99,16 @@ public partial class ModePaymentManagementPage
                 var json = updatedModePayment.ToJsonString();
                 Log.Information("{Json}", json);
 
-                MsgBox.Show(ModePaymentManagementPageResources.MessageBoxEditModePaymentSuccess, MsgBoxImage.Check);
+                MsgBox.Show(ModePaymentManagementResources.MessageBoxEditModePaymentSuccessTitle,
+                    ModePaymentManagementResources.MessageBoxEditModePaymentSuccessMessage,
+                    MsgBoxImage.Check);
             }
             else
             {
                 Log.Error(exception, "An error occurred please retry");
-                MsgBox.Show(ModePaymentManagementPageResources.MessageBoxEditModePaymentError, MsgBoxImage.Error);
+                MsgBox.Show(ModePaymentManagementResources.MessageBoxEditModePaymentErrorTitle,
+                    ModePaymentManagementResources.MessageBoxEditModePaymentErrorMessage,
+                    MsgBoxImage.Error);
             }
         }
     }
