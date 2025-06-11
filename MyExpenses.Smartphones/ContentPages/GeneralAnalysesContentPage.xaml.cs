@@ -1,4 +1,5 @@
 ﻿using MyExpenses.Models.Config.Interfaces;
+using MyExpenses.SharedUtils.Resources.Resx.AnalyticsManagement;
 
 namespace MyExpenses.Smartphones.ContentPages;
 
@@ -28,11 +29,9 @@ public partial class GeneralAnalysesContentPage
 
     private void UpdateLanguage()
     {
-        ButtonTextAccountAnalyzedByMonth = "ButtonTextAccountAnalyzedByMonth";
+        ButtonTextAccountAnalyzedByMonth = AnalyticsManagementResources.ButtonTextAnalyseByCategoryAndMonth;
     }
 
     private void ButtonAccountAnalyzedByMonth_OnClicked(object? sender, EventArgs e)
-    {
-        throw new NotImplementedException();
-    }
+        => _ = typeof(AccountAnalyzedByMonthContentPage).NavigateToAsync();
 }
