@@ -61,6 +61,16 @@
 
     </FlyoutItem>
 
+    <FlyoutItem Title="{Binding FlyoutItemGeneralAnalysesContentPageTitle, Mode=OneWay}"
+                FlyoutItemIsVisible="True">
+
+        <ShellContent Title="{Binding FlyoutItemGeneralAnalysesContentPageTitle, Mode=OneWay}"
+                      ContentTemplate="{DataTemplate contentPages:GeneralAnalysesContentPage}"
+                      Route="GeneralAnalysesContentPage">
+        </ShellContent>
+
+    </FlyoutItem>
+
     <MenuItem Text="{Binding MenuItemExportDatabaseToText, Mode=OneWay}" Clicked="ButtonExportDataBase_OnClick" />
     <MenuItem Text="{Binding MenuItemLogoutText, Mode=OneWay}" Clicked="MenuItemLogout_OnClicked" />
 

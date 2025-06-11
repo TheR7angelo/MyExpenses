@@ -10,6 +10,16 @@ namespace MyExpenses.Smartphones.AppShells;
 
 public partial class DashBoardShell
 {
+    public static readonly BindableProperty FlyoutItemGeneralAnalysesContentPageTitleProperty =
+        BindableProperty.Create(nameof(FlyoutItemGeneralAnalysesContentPageTitle), typeof(string),
+            typeof(DashBoardShell));
+
+    public string FlyoutItemGeneralAnalysesContentPageTitle
+    {
+        get => (string)GetValue(FlyoutItemGeneralAnalysesContentPageTitleProperty);
+        set => SetValue(FlyoutItemGeneralAnalysesContentPageTitleProperty, value);
+    }
+
     public static readonly BindableProperty MenuItemExportDatabaseToTextProperty =
         BindableProperty.Create(nameof(MenuItemExportDatabaseToText), typeof(string), typeof(DashBoardShell));
 
@@ -126,6 +136,7 @@ public partial class DashBoardShell
     {
         FlyoutItemDashBoardContentPageTitle = DashBoardShellManagementResources.FlyoutItemDashBoardContentPageTitle;
         FlyoutItemGeneralAccountSetupContentPageTitle = DashBoardShellManagementResources.FlyoutItemGeneralAccountSetupContentPageTitle;
+        FlyoutItemGeneralAnalysesContentPageTitle = DashBoardManagementResources.ButtonAnalytics;
         MenuItemLogoutText = DashBoardShellManagementResources.MenuItemLogoutText;
         MenuItemExportDatabaseToText = DashBoardManagementResources.MenuItemHeaderExportDatabase;
     }
