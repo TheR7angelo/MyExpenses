@@ -2,11 +2,126 @@
 
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:uraniumButtonView="clr-namespace:MyExpenses.Smartphones.UserControls.Buttons.UraniumButtonView"
+             xmlns:margin="clr-namespace:MyExpenses.Maui.Utils.Margin;assembly=MyExpenses.Maui.Utils"
+             xmlns:pickers="clr-namespace:MyExpenses.Smartphones.UserControls.Pickers"
              x:Class="MyExpenses.Smartphones.ContentPages.AccountAnalyzedByMonthContentPage"
              BindingContext="{Binding Source={RelativeSource Self}}">
 
     <ContentPage.Content>
-        
+
+        <Grid>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <HorizontalStackLayout Grid.Row="1"
+                                   HorizontalOptions="Center"
+                                   margin:LayoutExtensions.MarginForAllChildren="5">
+
+                <HorizontalStackLayout.Resources>
+                    <x:Double x:Key="ImageHeight">24</x:Double>
+                    <x:Double x:Key="HeightRequest">40</x:Double>
+                </HorizontalStackLayout.Resources>
+
+                <uraniumButtonView:UraniumButtonView PathSource="Plus"
+                                                     PathHeightRequest="{StaticResource ImageHeight}"
+                                                     PathWidthRequest="{StaticResource ImageHeight}"
+                                                     HeightRequest="{StaticResource HeightRequest}"
+                                                     WidthRequest="{StaticResource HeightRequest}"
+                                                     Style="{StaticResource ButtonViewPrimaryLight}"
+                                                     Tapped="ButtonAddMonth_OnClick">
+                </uraniumButtonView:UraniumButtonView>
+
+                <uraniumButtonView:UraniumButtonView PathSource="ClockFast"
+                                                     PathHeightRequest="{StaticResource ImageHeight}"
+                                                     PathWidthRequest="{StaticResource ImageHeight}"
+                                                     HeightRequest="{StaticResource HeightRequest}"
+                                                     WidthRequest="{StaticResource HeightRequest}"
+                                                     Style="{StaticResource ButtonViewPrimaryDark}"
+                                                     Tapped="ButtonDateNow_OnClick">
+                </uraniumButtonView:UraniumButtonView>
+
+                <uraniumButtonView:UraniumButtonView PathSource="Minus"
+                                                     PathHeightRequest="{StaticResource ImageHeight}"
+                                                     PathWidthRequest="{StaticResource ImageHeight}"
+                                                     HeightRequest="{StaticResource HeightRequest}"
+                                                     WidthRequest="{StaticResource HeightRequest}"
+                                                     Style="{StaticResource ButtonViewSecondaryDark}"
+                                                     Tapped="ButtonRemoveMonth_OnClick">
+                </uraniumButtonView:UraniumButtonView>
+
+            </HorizontalStackLayout>
+
+            <Grid Grid.Row="2" margin:LayoutExtensions.MarginForAllChildren="5">
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <pickers:CustomPicker Grid.Column="0"
+                                      ItemsSource="{Binding Years, Mode=OneWay}"
+                                      SelectedItem="{Binding SelectedYear, Mode=TwoWay}"
+                                      GeometryColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
+                                      PlaceholderText="{Binding ComboBoxYearsHintAssist, Mode=OneWay}"
+                                      HasClearButton="True"
+                                      SelectedIndexChanged="CustomPicker_OnSelectedIndexChanged">
+                </pickers:CustomPicker>
+
+                <pickers:CustomPicker Grid.Column="1"
+                                      ItemsSource="{Binding Months, Mode=OneWay}"
+                                      SelectedItem="{Binding SelectedMonth, Mode=TwoWay}"
+                                      GeometryColor="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
+                                      PlaceholderText="{Binding ComboBoxMonthHintAssist, Mode=OneWay}"
+                                      HasClearButton="True"
+                                      SelectedIndexChanged="CustomPicker_OnSelectedIndexChanged">
+                </pickers:CustomPicker>
+
+            </Grid>
+
+            <Border Grid.Row="3"
+                    Stroke="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
+                    StrokeThickness="2"
+                    HorizontalOptions="Center">
+
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="5" />
+                </Border.StrokeShape>
+
+                <ScrollView Orientation="Horizontal">
+
+                    <CollectionView x:Name="CollectionViewAccount"
+                                    ItemsSource="{Binding Accounts}"
+                                    Loaded="CollectionAccount_OnLoaded">
+
+                        <CollectionView.ItemsLayout>
+                            <LinearItemsLayout Orientation="Horizontal" ItemSpacing="3" />
+                        </CollectionView.ItemsLayout>
+
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <RadioButton GroupName="ToggleButtonAccount"
+                                             Content="{Binding Name}"
+                                             Margin="3"
+                                             CheckedChanged="RadioButton_OnCheckedChanged">
+                                </RadioButton>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+
+                    </CollectionView>
+
+                </ScrollView>
+
+            </Border>
+
+        </Grid>
+
     </ContentPage.Content>
 
 </ContentPage>
