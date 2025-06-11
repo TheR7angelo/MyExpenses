@@ -1,11 +1,9 @@
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using CommunityToolkit.Maui.Views;
-using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Maui.CustomPopup;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.SharedUtils.Collection;
-using MyExpenses.SharedUtils.Objects;
 using MyExpenses.SharedUtils.Resources.Resx.AccountTypeManagement;
 using MyExpenses.Smartphones.ContentPages.CustomPopups;
 using MyExpenses.Smartphones.ContentPages.CustomPopups.CustomPopupActivityIndicator;
@@ -17,33 +15,6 @@ namespace MyExpenses.Smartphones.ContentPages;
 
 public partial class AccountTypeSummaryContentPage
 {
-    public static readonly BindableProperty ButtonValidTextProperty = BindableProperty.Create(nameof(ButtonValidText),
-        typeof(string), typeof(AccountTypeSummaryContentPage));
-
-    public string ButtonValidText
-    {
-        get => (string)GetValue(ButtonValidTextProperty);
-        set => SetValue(ButtonValidTextProperty, value);
-    }
-
-    public static readonly BindableProperty AccountTypeNameProperty = BindableProperty.Create(nameof(AccountTypeName),
-        typeof(string), typeof(AccountTypeSummaryContentPage));
-
-    public string AccountTypeName
-    {
-        get => (string)GetValue(AccountTypeNameProperty);
-        set => SetValue(AccountTypeNameProperty, value);
-    }
-
-    public static readonly BindableProperty PlaceholderTextProperty = BindableProperty.Create(nameof(PlaceholderText),
-        typeof(string), typeof(AccountTypeSummaryContentPage));
-
-    public string PlaceholderText
-    {
-        get => (string)GetValue(PlaceholderTextProperty);
-        set => SetValue(PlaceholderTextProperty, value);
-    }
-
     public int MaxLength { get; }
 
     public ObservableCollection<TAccountType> AccountTypes { get; } = [];
@@ -74,40 +45,70 @@ public partial class AccountTypeSummaryContentPage
 
         RefreshAccountTypes();
 
-        UpdateLanguage();
         InitializeComponent();
-
-        // ReSharper disable once HeapView.DelegateAllocation
-        Interface.LanguageChanged += Interface_OnLanguageChanged;
     }
-
-    #region Action
 
     private void ButtonAccountType_OnClicked(object? sender, EventArgs e)
     {
-        // _ = HandleButtonAccountType(sender);
+        if (sender is not Button button) return;
+        if (button.BindingContext is not TAccountType accountType) return;
+        _ = HandleAddEditAccountType(accountType);
     }
 
     private void ButtonAddAccountType_OnClick(object? sender, EventArgs e)
+        => _ = HandleAddEditAccountType();
+
+    private async Task HandleAddEditAccountType(TAccountType? accountType = null)
     {
-        // ShowCustomPopupEntryForAccountType();
+        var placeHolder = AccountTypeManagementResources.TextBoxAccountTypeName;
+        var modePaymentName = accountType?.Name ?? string.Empty;
+
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // A new instance of CustomPopupEntry is created and initialized with specific properties such as MaxLenght,
+        // PlaceholderText, EntryText, and CanDelete. This instance is configured to provide a customizable popup
+        // for editing or interacting with a currency's symbol. This setup allows the user to input or modify data
+        // interactively while maintaining flexibility and ensuring proper validation during the interaction.
+        var customPopupEntry = new CustomPopupEntry
+        {
+            MaxLenght = MaxLength, PlaceholderText = placeHolder,
+            EntryText = modePaymentName, CanDelete = accountType is not null
+        };
+        await this.ShowPopupAsync(customPopupEntry);
+
+        var result = await customPopupEntry.ResultDialog;
+        if (result is ECustomPopupEntryResult.Cancel) return;
+
+        var newAccountType = new TAccountType { Name = customPopupEntry.EntryText };
+
+        if (result is not ECustomPopupEntryResult.Delete)
+        {
+            var newModePaymentIsError = await NewModePaymentIsError(newAccountType.Name);
+            if (newModePaymentIsError) return;
+        }
+        else { newAccountType.Name = modePaymentName; }
+
+        await HandleAccountTypeResult(result, newAccountType, accountType);
     }
 
-    private void Interface_OnLanguageChanged()
-        => UpdateLanguage();
+    private async Task HandleAccountTypeResult(ECustomPopupEntryResult result, TAccountType newModePayment, TAccountType? oldModePayment)
+    {
+        Log.Information("Attempt to {Result} account type : {AccountType}", result, newModePayment.ToJson());
+        switch (result)
+        {
+            case ECustomPopupEntryResult.Delete:
+                await HandleDeleteAccountType(oldModePayment!);
+                break;
+            case ECustomPopupEntryResult.Valid when oldModePayment is null:
+                await HandleAddNewAccountType(newModePayment);
+                break;
+            default:
+                await HandleEditAccountType(newModePayment, oldModePayment!);
+                break;
+        }
+    }
 
     private void OnBackCommandPressed()
         => _ = HandleBackCommand();
-
-    #endregion
-
-    #region Function
-
-    private void UpdateLanguage()
-    {
-        PlaceholderText = AccountTypeManagementResources.TextBoxAccountTypeName;
-        ButtonValidText = AccountTypeManagementResources.ButtonValidContent;
-    }
 
     private async Task HandleBackCommand()
     {
@@ -127,196 +128,123 @@ public partial class AccountTypeSummaryContentPage
         AccountTypes.AddRange(context.TAccountTypes.OrderBy(s => s.Name));
     }
 
-    // private async Task HandleAccountTypeDelete(TAccountType accountType)
-    // {
-    //     var (success, exception) = accountType.Delete(true);
-    //     DashBoardContentPage.Instance.RefreshAccountTotal();
-    //
-    //     CustomPopupActivityIndicatorHelper.CloseCustomPopupActivityIndicator();
-    //
-    //     if (success)
-    //     {
-    //         Log.Information("Account type and all related accounts were successfully deleted");
-    //         await DisplayAlert(
-    //             AccountTypeManagementResources.MessageBoxAccountTypeDeleteSuccessTitle,
-    //             AccountTypeManagementResources.MessageBoxAccountTypeDeleteSuccessMessage,
-    //             AccountTypeManagementResources.MessageBoxAccountTypeDeleteSuccessOkButton);
-    //     }
-    //     else
-    //     {
-    //         Log.Error(exception, "An error occurred while deleting currency symbol");
-    //         await DisplayAlert(
-    //             AccountTypeManagementResources.MessageBoxAccountTypeDeleteErrorTitle,
-    //             AccountTypeManagementResources.MessageBoxAccountTypeDeleteErrorMessage,
-    //             AccountTypeManagementResources.MessageBoxAccountTypeDeleteErrorOkButton);
-    //     }
-    // }
-    //
-    // private async Task HandleAccountTypeEdit(TAccountType accountType)
-    // {
-    //     var (success, exception) = accountType.AddOrEdit();
-    //     if (success)
-    //     {
-    //         Log.Information("Account type was successfully edited");
-    //         await DisplayAlert(
-    //             AccountTypeManagementResources.MessageBoxAccountTypeEditSuccessTitle,
-    //             AccountTypeManagementResources.MessageBoxAccountTypeEditSuccessMessage,
-    //             AccountTypeManagementResources.MessageBoxAccountTypeEditSuccessOkButton);
-    //     }
-    //     else
-    //     {
-    //         Log.Error(exception, "An error occurred while editing currency symbol");
-    //         await DisplayAlert(
-    //             AccountTypeManagementResources.MessageBoxAccountTypeEditErrorTitle,
-    //             AccountTypeManagementResources.MessageBoxAccountTypeEditErrorMessage,
-    //             AccountTypeManagementResources.MessageBoxAccountTypeEditErrorOkButton);
-    //     }
-    // }
-    //
-    // private async Task HandleAccountTypeResult(TAccountType accountType, ECustomPopupEntryResult result)
-    // {
-    //     var json = accountType.ToJson();
-    //     if (result is ECustomPopupEntryResult.Valid)
-    //     {
-    //         var validate = await ValidateAccountType(accountType.Name!);
-    //         if (!validate) return;
-    //
-    //         var response = await DisplayAlert(
-    //             AccountTypeManagementResources.MessageBoxAccountTypeEditQuestionTitle,
-    //             AccountTypeManagementResources.MessageBoxAccountTypeEditQuestionMessage,
-    //             AccountTypeManagementResources.MessageBoxAccountTypeEditQuestionYesButton,
-    //             AccountTypeManagementResources.MessageBoxAccountTypeEditQuestionNoButton);
-    //         if (!response) return;
-    //
-    //         Log.Information("Attempt to edit account type : {AccountType}", json);
-    //         await HandleAccountTypeEdit(accountType);
-    //
-    //         return;
-    //     }
-    //
-    //     var deleteResponse = await DisplayAlert(
-    //         AccountTypeManagementResources.MessageBoxAccountTypeDeleteQuestionTitle,
-    //         string.Format(AccountTypeManagementResources.MessageBoxAccountTypeDeleteQuestionMessage, Environment.NewLine),
-    //         AccountTypeManagementResources.MessageBoxAccountTypeDeleteQuestionYesButton,
-    //         AccountTypeManagementResources.MessageBoxAccountTypeDeleteQuestionNoButton);
-    //     if (!deleteResponse) return;
-    //
-    //     await Task.Delay(TimeSpan.FromMilliseconds(100));
-    //     this.ShowCustomPopupActivityIndicator(AccountTypeManagementResources.ActivityIndicatorDeleteAccountType);
-    //     await Task.Delay(TimeSpan.FromMilliseconds(100));
-    //
-    //     Log.Information("Attempt to delete currency symbol : {Symbol}", json);
-    //     await HandleAccountTypeDelete(accountType);
-    // }
-    //     private async Task HandleButtonAccountType(object? sender)
-    // {
-    //     if (sender is not Button button) return;
-    //     if (button.BindingContext is not TAccountType accountType) return;
-    //
-    //     var tempAccountType = accountType.DeepCopy()!;
-    //     await ShowCustomPopupEntryForAccountType(tempAccountType);
-    // }
-    //
-    // private async Task HandleButtonValid()
-    // {
-    //     var validate = await ValidateAccountType();
-    //     if (!validate) return;
-    //
-    //     var response = await DisplayAlert(
-    //         AccountTypeManagementResources.MessageBoxAddNewAccountTypeQuestionTitle,
-    //         string.Format(AccountTypeManagementResources.MessageBoxAddNewAccountTypeQuestionMessage, AccountTypeName),
-    //         AccountTypeManagementResources.MessageBoxAddNewAccountTypeQuestionYesButton,
-    //         AccountTypeManagementResources.MessageBoxAddNewAccountTypeQuestionNoButton);
-    //     if (!response) return;
-    //
-    //     // ReSharper disable once HeapView.ObjectAllocation.Evident
-    //     // The allocation of the TAccountType object is necessary as it represents a new instance
-    //     // of the data structure being created. This object encapsulates the account type's properties,
-    //     // such as `Name` and `DateAdded`, which will be stored or processed further.
-    //     // This allocation is intentional and fundamental to the purpose of adding a new account type.
-    //     var newAccountType = new TAccountType
-    //     {
-    //         Name = AccountTypeName,
-    //         DateAdded = DateTime.Now
-    //     };
-    //
-    //     var json = newAccountType.ToJson();
-    //     Log.Information("Attempt to add new account type : {AccountType}", json);
-    //     var (success, exception) = newAccountType.AddOrEdit();
-    //     if (success)
-    //     {
-    //         Log.Information("New account type was successfully added");
-    //         AccountTypes.AddAndSort(newAccountType, s => s.Name!);
-    //         AccountTypeName = string.Empty;
-    //
-    //         await DisplayAlert(
-    //             AccountTypeManagementResources.MessageBoxAddNewAccountTypeSuccessTitle,
-    //             AccountTypeManagementResources.MessageBoxAddNewAccountTypeSuccessMessage,
-    //             AccountTypeManagementResources.MessageBoxAddNewAccountTypeSuccessOkButton);
-    //     }
-    //     else
-    //     {
-    //         Log.Error(exception, "An error occurred while adding new account type");
-    //         await DisplayAlert(
-    //             AccountTypeManagementResources.MessageBoxAddNewAccountTypeErrorTitle,
-    //             AccountTypeManagementResources.MessageBoxAddNewAccountTypeErrorMessage,
-    //             AccountTypeManagementResources.MessageBoxAddNewAccountTypeErrorOkButton);
-    //     }
-    // }
-    // private async Task ShowCustomPopupEntryForAccountType(TAccountType? accountType = null)
-    // {
-    //     // ReSharper disable once HeapView.ObjectAllocation.Evident
-    //     // The creation of a new CustomPopupEntry instance is necessary to display a popup dialog.
-    //     // This object encapsulates the properties (`MaxLength`, `PlaceholderText`, etc.) specific to the popup's configuration.
-    //     // It is intentionally allocated to dynamically adapt to the context of the operation (e.g., editing or creating an account type).
-    //     var customPopupEntry = new CustomPopupEntry
-    //     {
-    //         MaxLenght = MaxLength,
-    //         PlaceholderText = PlaceholderText,
-    //         EntryText = accountType?.Name ?? string.Empty,
-    //         CanDelete = accountType is not null
-    //     };
-    //
-    //     await this.ShowPopupAsync(customPopupEntry);
-    //
-    //     var result = await customPopupEntry.ResultDialog;
-    //     if (result is ECustomPopupEntryResult.Cancel) return;
-    //
-    //     accountType ??= new TAccountType();
-    //     accountType.Name = customPopupEntry.EntryText;
-    //     await HandleAccountTypeResult(accountType, result);
-    //     RefreshAccountTypes();
-    // }
+    private async Task HandleDeleteAccountType(TAccountType accountType)
+    {
+        var (success, exception) = accountType.Delete(true);
+        DashBoardContentPage.Instance.RefreshAccountTotal();
 
-    // private async Task<bool> ValidateAccountType(string? accountTypeName = null)
-    // {
-    //     // ReSharper disable once HeapView.ClosureAllocation
-    //     var accountTypeNameToTest = string.IsNullOrWhiteSpace(accountTypeName)
-    //         ? AccountTypeName
-    //         : accountTypeName;
-    //
-    //     if (string.IsNullOrWhiteSpace(accountTypeNameToTest))
-    //     {
-    //         await DisplayAlert(
-    //             AccountTypeManagementResources.MessageBoxValidateAccountTypeErrorEmptyTitle,
-    //             AccountTypeManagementResources.MessageBoxValidateAccountTypeErrorEmptyMessage,
-    //             AccountTypeManagementResources.MessageBoxValidateAccountTypeErrorEmptyOkButton);
-    //         return false;
-    //     }
-    //
-    //     // ReSharper disable once HeapView.DelegateAllocation
-    //     var alreadyExist = AccountTypes.Any(s => s.Name!.Equals(accountTypeNameToTest));
-    //     if (alreadyExist)
-    //     {
-    //         await DisplayAlert(
-    //             AccountTypeManagementResources.MessageBoxValidateAccountTypeErrorAlreadyExistTitle,
-    //             AccountTypeManagementResources.MessageBoxValidateAccountTypeErrorAlreadyExistMessage,
-    //             AccountTypeManagementResources.MessageBoxValidateAccountTypeErrorAlreadyExistOkButton);
-    //         return false;
-    //     }
-    //
-    //     return true;
-    // }
+        CustomPopupActivityIndicatorHelper.CloseCustomPopupActivityIndicator();
 
-    #endregion
+        if (success)
+        {
+            Log.Information("Account type and all related accounts were successfully deleted");
+            await DisplayAlert(
+                AccountTypeManagementResources.MessageBoxAccountTypeDeleteSuccessTitle,
+                AccountTypeManagementResources.MessageBoxAccountTypeDeleteSuccessMessage,
+                AccountTypeManagementResources.MessageBoxAccountTypeDeleteSuccessOkButton);
+            RefreshAccountType(accountType, remove: true);
+        }
+        else
+        {
+            Log.Error(exception, "An error occurred while deleting currency symbol");
+            await DisplayAlert(
+                AccountTypeManagementResources.MessageBoxAccountTypeDeleteErrorTitle,
+                AccountTypeManagementResources.MessageBoxAccountTypeDeleteErrorMessage,
+                AccountTypeManagementResources.MessageBoxAccountTypeDeleteErrorOkButton);
+        }
+    }
+
+    private async Task HandleEditAccountType(TAccountType newModePayment, TAccountType oldAccountType)
+    {
+        oldAccountType.Name = newModePayment.Name;
+        var (success, exception) = oldAccountType.AddOrEdit();
+        if (success)
+        {
+            Log.Information("Account type was successfully edited");
+            await DisplayAlert(
+                AccountTypeManagementResources.MessageBoxAccountTypeEditSuccessTitle,
+                AccountTypeManagementResources.MessageBoxAccountTypeEditSuccessMessage,
+                AccountTypeManagementResources.MessageBoxAccountTypeEditSuccessOkButton);
+        }
+        else
+        {
+            Log.Error(exception, "An error occurred while editing currency symbol");
+            await DisplayAlert(
+                AccountTypeManagementResources.MessageBoxAccountTypeEditErrorTitle,
+                AccountTypeManagementResources.MessageBoxAccountTypeEditErrorMessage,
+                AccountTypeManagementResources.MessageBoxAccountTypeEditErrorOkButton);
+        }
+    }
+
+    private async Task HandleAddNewAccountType(TAccountType newAccountType)
+    {
+        var response = await DisplayAlert(
+            AccountTypeManagementResources.MessageBoxAddNewAccountTypeQuestionTitle,
+            string.Format(AccountTypeManagementResources.MessageBoxAddNewAccountTypeQuestionMessage, newAccountType.Name),
+            AccountTypeManagementResources.MessageBoxAddNewAccountTypeQuestionYesButton,
+            AccountTypeManagementResources.MessageBoxAddNewAccountTypeQuestionNoButton);
+        if (!response) return;
+
+        var json = newAccountType.ToJson();
+        Log.Information("Attempt to add new account type : {AccountType}", json);
+        var (success, exception) = newAccountType.AddOrEdit();
+        if (success)
+        {
+            Log.Information("New account type was successfully added");
+            RefreshAccountType(newAccountType, true);
+
+            await DisplayAlert(
+                AccountTypeManagementResources.MessageBoxAddNewAccountTypeSuccessTitle,
+                AccountTypeManagementResources.MessageBoxAddNewAccountTypeSuccessMessage,
+                AccountTypeManagementResources.MessageBoxAddNewAccountTypeSuccessOkButton);
+        }
+        else
+        {
+            Log.Error(exception, "An error occurred while adding new account type");
+            await DisplayAlert(
+                AccountTypeManagementResources.MessageBoxAddNewAccountTypeErrorTitle,
+                AccountTypeManagementResources.MessageBoxAddNewAccountTypeErrorMessage,
+                AccountTypeManagementResources.MessageBoxAddNewAccountTypeErrorOkButton);
+        }
+    }
+
+    private async Task<bool> NewModePaymentIsError(string? accountTypeName = null)
+    {
+        if (string.IsNullOrWhiteSpace(accountTypeName))
+        {
+            await DisplayAlert(
+                AccountTypeManagementResources.MessageBoxValidateAccountTypeErrorEmptyTitle,
+                AccountTypeManagementResources.MessageBoxValidateAccountTypeErrorEmptyMessage,
+                AccountTypeManagementResources.MessageBoxValidateAccountTypeErrorEmptyOkButton);
+            return true;
+        }
+
+        // ReSharper disable once HeapView.DelegateAllocation
+        var alreadyExist = AccountTypes.Any(s => s.Name!.Equals(accountTypeName));
+        if (alreadyExist)
+        {
+            await DisplayAlert(
+                AccountTypeManagementResources.MessageBoxValidateAccountTypeErrorAlreadyExistTitle,
+                AccountTypeManagementResources.MessageBoxValidateAccountTypeErrorAlreadyExistMessage,
+                AccountTypeManagementResources.MessageBoxValidateAccountTypeErrorAlreadyExistOkButton);
+            return true;
+        }
+
+        return false;
+    }
+
+    private void RefreshAccountType(TAccountType accountType, bool add = false, bool remove = false)
+    {
+        switch (add)
+        {
+            case true when remove:
+                throw new ArgumentException("'add' and 'remove' cannot both be true at the same time.");
+            case true:
+                AccountTypes.AddAndSort(accountType, s => s.Name!);
+                break;
+            default:
+                AccountTypes.Remove(accountType);
+                break;
+        }
+    }
 }
