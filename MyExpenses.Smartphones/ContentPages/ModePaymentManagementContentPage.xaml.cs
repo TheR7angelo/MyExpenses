@@ -194,7 +194,6 @@ public partial class ModePaymentManagementContentPage
 
     private async Task HandleModePaymentResult(ECustomPopupEntryResult result, TModePayment newModePayment, TModePayment? oldModePayment)
     {
-        Log.Information("Mode payment result: {Result}", result);
         switch (result)
         {
             case ECustomPopupEntryResult.Delete:
