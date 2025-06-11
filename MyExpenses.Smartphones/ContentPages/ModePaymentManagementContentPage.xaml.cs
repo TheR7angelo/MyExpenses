@@ -45,6 +45,50 @@ public partial class ModePaymentManagementContentPage
     private bool CheckModePaymentName(string modePaymentName)
         => ModePayments.Select(s => s.Name).Contains(modePaymentName);
 
+    private async Task HandleAddEditModePayment(TModePayment? modePayment = null)
+    {
+        var placeHolder = ModePaymentManagementResources.TextBoxModePaymentName;
+
+        var modePaymentName = string.Empty;
+        switch (modePayment?.CanBeDeleted)
+        {
+            case false:
+                await DisplayAlert(ModePaymentManagementResources.MessageBoxModePaymentCantEditTitle,
+                    ModePaymentManagementResources.MessageBoxModePaymentCantEditMessage,
+                    ModePaymentManagementResources.MessageBoxModePaymentCantEditOkButton);
+                return;
+            case true:
+                modePaymentName = modePayment.Name!;
+                break;
+        }
+
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // A new instance of CustomPopupEntry is created and initialized with specific properties such as MaxLenght,
+        // PlaceholderText, EntryText, and CanDelete. This instance is configured to provide a customizable popup
+        // for editing or interacting with a currency's symbol. This setup allows the user to input or modify data
+        // interactively while maintaining flexibility and ensuring proper validation during the interaction.
+        var customPopupEntry = new CustomPopupEntry
+        {
+            MaxLenght = MaxLength, PlaceholderText = placeHolder,
+            EntryText = modePaymentName, CanDelete = modePayment?.CanBeDeleted ?? false
+        };
+        await this.ShowPopupAsync(customPopupEntry);
+
+        var result = await customPopupEntry.ResultDialog;
+        if (result is ECustomPopupEntryResult.Cancel) return;
+
+        var newModePayment = new TModePayment { Name = customPopupEntry.EntryText, CanBeDeleted = true };
+
+        if (result is not ECustomPopupEntryResult.Delete)
+        {
+            var newModePaymentIsError = await NewModePaymentIsError(newModePayment);
+            if (newModePaymentIsError) return;
+        }
+        else { newModePayment.Name = modePaymentName; }
+
+        await HandleModePaymentResult(result, newModePayment, modePayment);
+    }
+
     private async Task HandleAddNewModePayment(TModePayment newModePayment)
     {
         Log.Information("Attempt to inject the new mode payment \"{ColorName}\"", newModePayment.Name);
@@ -148,6 +192,23 @@ public partial class ModePaymentManagementContentPage
         }
     }
 
+    private async Task HandleModePaymentResult(ECustomPopupEntryResult result, TModePayment newModePayment, TModePayment? oldModePayment)
+    {
+        Log.Information("Mode payment result: {Result}", result);
+        switch (result)
+        {
+            case ECustomPopupEntryResult.Delete:
+                await HandleDeleteModePayment(oldModePayment!);
+                break;
+            case ECustomPopupEntryResult.Valid when oldModePayment is null:
+                await HandleAddNewModePayment(newModePayment);
+                break;
+            default:
+                await HandleEditModePayment(newModePayment, oldModePayment!);
+                break;
+        }
+    }
+
     private async Task<bool> NewModePaymentIsError(TModePayment newModePayment)
     {
         if (string.IsNullOrWhiteSpace(newModePayment.Name))
@@ -169,8 +230,6 @@ public partial class ModePaymentManagementContentPage
 
         return false;
     }
-
-    #endregion
 
     private void RefreshModePayment(TModePayment modePayment, bool add = false, bool remove = false)
     {
@@ -199,64 +258,5 @@ public partial class ModePaymentManagementContentPage
         ModePayments.AddRange(context.TModePayments.OrderBy(s => s.Name));
     }
 
-    private async Task HandleAddEditModePayment(TModePayment? modePayment = null)
-    {
-        var placeHolder = ModePaymentManagementResources.TextBoxModePaymentName;
-
-        var modePaymentName = string.Empty;
-        switch (modePayment?.CanBeDeleted)
-        {
-            case false:
-                await DisplayAlert(ModePaymentManagementResources.MessageBoxModePaymentCantEditTitle,
-                    ModePaymentManagementResources.MessageBoxModePaymentCantEditMessage,
-                    ModePaymentManagementResources.MessageBoxModePaymentCantEditOkButton);
-                return;
-            case true:
-                modePaymentName = modePayment.Name!;
-                break;
-        }
-
-        // ReSharper disable once HeapView.ObjectAllocation.Evident
-        // A new instance of CustomPopupEntry is created and initialized with specific properties such as MaxLenght,
-        // PlaceholderText, EntryText, and CanDelete. This instance is configured to provide a customizable popup
-        // for editing or interacting with a currency's symbol. This setup allows the user to input or modify data
-        // interactively while maintaining flexibility and ensuring proper validation during the interaction.
-        var customPopupEntry = new CustomPopupEntry
-        {
-            MaxLenght = MaxLength, PlaceholderText = placeHolder,
-            EntryText = modePaymentName, CanDelete = modePayment?.CanBeDeleted ?? false
-        };
-        await this.ShowPopupAsync(customPopupEntry);
-
-        var result = await customPopupEntry.ResultDialog;
-        if (result is ECustomPopupEntryResult.Cancel) return;
-
-        var newModePayment = new TModePayment { Name = customPopupEntry.EntryText, CanBeDeleted = true };
-
-        if (result is not ECustomPopupEntryResult.Delete)
-        {
-            var newModePaymentIsError = await NewModePaymentIsError(newModePayment);
-            if (newModePaymentIsError) return;
-        }
-        else { newModePayment.Name = modePaymentName; }
-
-        await HandleModePaymentResult(result, newModePayment, modePayment);
-    }
-
-    private async Task HandleModePaymentResult(ECustomPopupEntryResult result, TModePayment newModePayment, TModePayment? oldModePayment)
-    {
-        Log.Information("Mode payment result: {Result}", result);
-        switch (result)
-        {
-            case ECustomPopupEntryResult.Delete:
-                await HandleDeleteModePayment(oldModePayment!);
-                break;
-            case ECustomPopupEntryResult.Valid when oldModePayment is null:
-                await HandleAddNewModePayment(newModePayment);
-                break;
-            default:
-                await HandleEditModePayment(newModePayment, oldModePayment!);
-                break;
-        }
-    }
+    #endregion
 }
