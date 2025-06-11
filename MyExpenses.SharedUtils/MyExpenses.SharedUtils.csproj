@@ -96,6 +96,10 @@
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>ColorManagementResources.Designer.cs</LastGenOutput>
       </EmbeddedResource>
+      <EmbeddedResource Update="Resources\Resx\AnalyticsManagement\AnalyticsManagementResources.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>AnalyticsManagementResources.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
     </ItemGroup>
 
     <ItemGroup>
@@ -208,6 +212,11 @@
         <DesignTime>True</DesignTime>
         <AutoGen>True</AutoGen>
         <DependentUpon>ColorManagementResources.resx</DependentUpon>
+      </Compile>
+      <Compile Update="Resources\Resx\AnalyticsManagement\AnalyticsManagementResources.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>AnalyticsManagementResources.resx</DependentUpon>
       </Compile>
     </ItemGroup>
 
