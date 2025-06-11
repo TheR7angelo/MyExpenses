@@ -15,7 +15,7 @@ namespace MyExpenses.Smartphones.ContentPages;
 
 public partial class AccountTypeSummaryContentPage
 {
-    public int MaxLength { get; }
+    private int MaxLength { get; }
 
     public ObservableCollection<TAccountType> AccountTypes { get; } = [];
 
@@ -48,6 +48,8 @@ public partial class AccountTypeSummaryContentPage
         InitializeComponent();
     }
 
+    #region Action
+
     private void ButtonAccountType_OnClicked(object? sender, EventArgs e)
     {
         if (sender is not Button button) return;
@@ -57,6 +59,29 @@ public partial class AccountTypeSummaryContentPage
 
     private void ButtonAddAccountType_OnClick(object? sender, EventArgs e)
         => _ = HandleAddEditAccountType();
+
+    private void OnBackCommandPressed()
+        => _ = HandleBackCommand();
+
+    #endregion
+
+    #region Function
+
+    private async Task HandleAccountTypeResult(ECustomPopupEntryResult result, TAccountType newModePayment, TAccountType? oldModePayment)
+    {
+        switch (result)
+        {
+            case ECustomPopupEntryResult.Delete:
+                await HandleDeleteAccountType(oldModePayment!);
+                break;
+            case ECustomPopupEntryResult.Valid when oldModePayment is null:
+                await HandleAddNewAccountType(newModePayment);
+                break;
+            default:
+                await HandleEditAccountType(newModePayment, oldModePayment!);
+                break;
+        }
+    }
 
     private async Task HandleAddEditAccountType(TAccountType? accountType = null)
     {
@@ -90,42 +115,42 @@ public partial class AccountTypeSummaryContentPage
         await HandleAccountTypeResult(result, newAccountType, accountType);
     }
 
-    private async Task HandleAccountTypeResult(ECustomPopupEntryResult result, TAccountType newModePayment, TAccountType? oldModePayment)
+    private async Task HandleAddNewAccountType(TAccountType newAccountType)
     {
-        Log.Information("Attempt to {Result} account type : {AccountType}", result, newModePayment.ToJson());
-        switch (result)
+        var response = await DisplayAlert(
+            AccountTypeManagementResources.MessageBoxAddNewAccountTypeQuestionTitle,
+            string.Format(AccountTypeManagementResources.MessageBoxAddNewAccountTypeQuestionMessage, newAccountType.Name),
+            AccountTypeManagementResources.MessageBoxAddNewAccountTypeQuestionYesButton,
+            AccountTypeManagementResources.MessageBoxAddNewAccountTypeQuestionNoButton);
+        if (!response) return;
+
+        var json = newAccountType.ToJson();
+        Log.Information("Attempt to add new account type : {AccountType}", json);
+        var (success, exception) = newAccountType.AddOrEdit();
+        if (success)
         {
-            case ECustomPopupEntryResult.Delete:
-                await HandleDeleteAccountType(oldModePayment!);
-                break;
-            case ECustomPopupEntryResult.Valid when oldModePayment is null:
-                await HandleAddNewAccountType(newModePayment);
-                break;
-            default:
-                await HandleEditAccountType(newModePayment, oldModePayment!);
-                break;
+            Log.Information("New account type was successfully added");
+            RefreshAccountType(newAccountType, true);
+
+            await DisplayAlert(
+                AccountTypeManagementResources.MessageBoxAddNewAccountTypeSuccessTitle,
+                AccountTypeManagementResources.MessageBoxAddNewAccountTypeSuccessMessage,
+                AccountTypeManagementResources.MessageBoxAddNewAccountTypeSuccessOkButton);
+        }
+        else
+        {
+            Log.Error(exception, "An error occurred while adding new account type");
+            await DisplayAlert(
+                AccountTypeManagementResources.MessageBoxAddNewAccountTypeErrorTitle,
+                AccountTypeManagementResources.MessageBoxAddNewAccountTypeErrorMessage,
+                AccountTypeManagementResources.MessageBoxAddNewAccountTypeErrorOkButton);
         }
     }
-
-    private void OnBackCommandPressed()
-        => _ = HandleBackCommand();
 
     private async Task HandleBackCommand()
     {
         _taskCompletionSource.SetResult(true);
         await Navigation.PopAsync();
-    }
-
-    private void RefreshAccountTypes()
-    {
-        AccountTypes.Clear();
-
-        // ReSharper disable once HeapView.ObjectAllocation.Evident
-        // The creation of a new DataBaseContext instance (via `new DataBaseContext()`) is necessary to interact with the database.
-        // This context provides the connection to the database and allows querying or updating data.
-        // The `using` statement ensures that the context is disposed of properly after its use, freeing up resources like database connections.
-        using var context = new DataBaseContext();
-        AccountTypes.AddRange(context.TAccountTypes.OrderBy(s => s.Name));
     }
 
     private async Task HandleDeleteAccountType(TAccountType accountType)
@@ -176,38 +201,6 @@ public partial class AccountTypeSummaryContentPage
         }
     }
 
-    private async Task HandleAddNewAccountType(TAccountType newAccountType)
-    {
-        var response = await DisplayAlert(
-            AccountTypeManagementResources.MessageBoxAddNewAccountTypeQuestionTitle,
-            string.Format(AccountTypeManagementResources.MessageBoxAddNewAccountTypeQuestionMessage, newAccountType.Name),
-            AccountTypeManagementResources.MessageBoxAddNewAccountTypeQuestionYesButton,
-            AccountTypeManagementResources.MessageBoxAddNewAccountTypeQuestionNoButton);
-        if (!response) return;
-
-        var json = newAccountType.ToJson();
-        Log.Information("Attempt to add new account type : {AccountType}", json);
-        var (success, exception) = newAccountType.AddOrEdit();
-        if (success)
-        {
-            Log.Information("New account type was successfully added");
-            RefreshAccountType(newAccountType, true);
-
-            await DisplayAlert(
-                AccountTypeManagementResources.MessageBoxAddNewAccountTypeSuccessTitle,
-                AccountTypeManagementResources.MessageBoxAddNewAccountTypeSuccessMessage,
-                AccountTypeManagementResources.MessageBoxAddNewAccountTypeSuccessOkButton);
-        }
-        else
-        {
-            Log.Error(exception, "An error occurred while adding new account type");
-            await DisplayAlert(
-                AccountTypeManagementResources.MessageBoxAddNewAccountTypeErrorTitle,
-                AccountTypeManagementResources.MessageBoxAddNewAccountTypeErrorMessage,
-                AccountTypeManagementResources.MessageBoxAddNewAccountTypeErrorOkButton);
-        }
-    }
-
     private async Task<bool> NewModePaymentIsError(string? accountTypeName = null)
     {
         if (string.IsNullOrWhiteSpace(accountTypeName))
@@ -247,4 +240,18 @@ public partial class AccountTypeSummaryContentPage
                 break;
         }
     }
+
+    private void RefreshAccountTypes()
+    {
+        AccountTypes.Clear();
+
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // The creation of a new DataBaseContext instance (via `new DataBaseContext()`) is necessary to interact with the database.
+        // This context provides the connection to the database and allows querying or updating data.
+        // The `using` statement ensures that the context is disposed of properly after its use, freeing up resources like database connections.
+        using var context = new DataBaseContext();
+        AccountTypes.AddRange(context.TAccountTypes.OrderBy(s => s.Name));
+    }
+
+    #endregion
 }
