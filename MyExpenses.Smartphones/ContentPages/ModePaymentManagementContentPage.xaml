@@ -30,7 +30,7 @@
                                                  Tapped="ButtonAddModePayment_OnClick">
             </uraniumButtonView:UraniumButtonView>
 
-            <Border Grid.Row="1" Grid.Column="0"
+            <Border Grid.Row="1"
                     Stroke="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
                     StrokeThickness="2"
                     Padding="0"
