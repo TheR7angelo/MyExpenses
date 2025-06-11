@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.SharedUtils.Collection;
+using MyExpenses.SharedUtils.Resources.Resx.ModePaymentManagement;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils.Sql;
 using MyExpenses.Wpf.Resources.Resx.Pages.ModePaymentManagementPage;
@@ -49,12 +50,16 @@ public partial class ModePaymentManagementPage
             var json = newModePayment.ToJsonString();
             Log.Information("{Json}", json);
 
-            MsgBox.Show(ModePaymentManagementPageResources.MessageBoxAddModePaymentSuccess, MsgBoxImage.Check);
+            MsgBox.Show(ModePaymentManagementResources.MessageBoxAddModePaymentSuccessTitle,
+                ModePaymentManagementResources.MessageBoxAddModePaymentSuccessMessage,
+                MessageBoxButton.OK, MsgBoxImage.Check);
         }
         else
         {
             Log.Error(exception, "An error occurred please retry");
-            MsgBox.Show(ModePaymentManagementPageResources.MessageBoxAddModePaymentError, MsgBoxImage.Error);
+            MsgBox.Show(ModePaymentManagementResources.MessageBoxAddModePaymentErrorTitle,
+                ModePaymentManagementResources.MessageBoxAddModePaymentErrorMessage,
+                MessageBoxButton.OK, MsgBoxImage.Error);
         }
     }
 
