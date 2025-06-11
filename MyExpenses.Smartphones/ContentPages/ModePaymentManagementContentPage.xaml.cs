@@ -1,5 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using CommunityToolkit.Maui.Views;
+using Microsoft.Data.Sqlite;
 using MyExpenses.Models.Maui.CustomPopup;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.SharedUtils.Collection;
@@ -70,77 +71,57 @@ public partial class ModePaymentManagementContentPage
         }
     }
 
-    // private async Task HandleAddEditColor(TColor? color = null)
-    // {
-    //     var colorPickerPopup = new ColorPickerPopup { EditColor = true };
-    //     if (color is not null) colorPickerPopup.SetColor(color);
-    //     await this.ShowPopupAsync(colorPickerPopup);
-    //
-    //     var result = await colorPickerPopup.ResultDialog;
-    //     if (result is ECustomPopupEntryResult.Cancel) return;
-    //
-    //     var hexadecimal = colorPickerPopup.BackgroundColor.ToArgbHex(true);
-    //     var newColor = new TColor { Name = colorPickerPopup.ColorName, HexadecimalColorCode = hexadecimal };
-    //
-    //     var newColorIsError = await NewColorIsError(newColor);
-    //     if (newColorIsError) return;
-    //
-    //     await HandleColorResult(result, newColor, color);
-    //
-    // }
+    private async Task HandleDeleteModePayment(TModePayment oldModePayment)
+    {
+        var response =  await DisplayAlert(ModePaymentManagementResources.MessageBoxDeleteQuestionTitle,
+            ModePaymentManagementResources.MessageBoxDeleteQuestionMessage,
+            ModePaymentManagementResources.MessageBoxDeleteQuestionYesButton, ModePaymentManagementResources.MessageBoxDeleteQuestionNoButton);
+        if (response is not true) return;
 
-    // private async Task HandleDeleteColor(TColor oldColor)
-    // {
-    //     var message = string.Format(ColorManagementResources.MessageBoxDeleteColorQuestionMessage, oldColor.Name);
-    //     var response = await DisplayAlert(ColorManagementResources.MessageBoxDeleteColorQuestionTitle, message,
-    //         ColorManagementResources.MessageBoxDeleteColorQuestionYesButton, ColorManagementResources.MessageBoxDeleteColorQuestionNoButton);
-    //
-    //     if (response is not true) return;
-    //
-    //     Log.Information("Attempting to remove the color \"{ColorToDeleteName}\"", oldColor.Name);
-    //     var (success, exception) = oldColor.Delete();
-    //
-    //     if (success)
-    //     {
-    //         Log.Information("Color was successfully removed");
-    //         await DisplayAlert(ColorManagementResources.MessageBoxDeleteColorNoUseSuccessTitle,
-    //             ColorManagementResources.MessageBoxDeleteColorNoUseSuccessMessage,
-    //             ColorManagementResources.MessageBoxDeleteColorNoUseSuccessOkButton);
-    //
-    //         RefreshColor(oldColor, remove: true);
-    //     }
-    //
-    //     if (exception!.InnerException is SqliteException
-    //         {
-    //             SqliteExtendedErrorCode: SQLitePCL.raw.SQLITE_CONSTRAINT_FOREIGNKEY
-    //         })
-    //     {
-    //         Log.Error("Foreign key constraint violation");
-    //
-    //         response = await DisplayAlert(ColorManagementResources.MessageBoxDeleteColorUseQuestionTitle,
-    //             ColorManagementResources.MessageBoxDeleteColorUseQuestionMessage,
-    //             ColorManagementResources.MessageBoxDeleteColorUseQuestionYesButton,
-    //             ColorManagementResources.MessageBoxDeleteColorUseQuestionNoButton);
-    //
-    //         if (response is not true) return;
-    //
-    //         Log.Information("Attempting to remove the color \"{ColorToDeleteName}\" with all relative element",
-    //             oldColor.Name);
-    //         oldColor.Delete(true);
-    //         Log.Information("Account and all relative element was successfully removed");
-    //         await DisplayAlert(ColorManagementResources.MessageBoxDeleteColorUseSuccessTitle,
-    //             ColorManagementResources.MessageBoxDeleteColorUseSuccessMessage,
-    //             ColorManagementResources.MessageBoxDeleteColorUseSuccessOkButton);
-    //
-    //         RefreshColor(oldColor, remove: true);
-    //         return;
-    //     }
-    //
-    //     Log.Error(exception, "An error occurred please retry");
-    //     await DisplayAlert(ColorManagementResources.MessageBoxDeleteColorErrorTitle,
-    //         ColorManagementResources.MessageBoxDeleteColorErrorMessage,
-    //         ColorManagementResources.MessageBoxDeleteColorErrorOkButton);
-    // }
+        Log.Information("Attempting to remove the currency symbol \"{ModePaymentName}\"", oldModePayment.Name);
+        var (success, exception) = oldModePayment.Delete();
+
+        if (success)
+        {
+            Log.Information("Mode payment was successfully removed");
+            await DisplayAlert(ModePaymentManagementResources.MessageBoxDeleteModePaymentNoUseSuccessTitle,
+                ModePaymentManagementResources.MessageBoxDeleteModePaymentNoUseSuccessMessage,
+                ModePaymentManagementResources.MessageBoxDeleteModePaymentNoUseSuccessOkButton);
+
+            RefreshModePayment(oldModePayment, remove: true);
+        }
+
+        if (exception!.InnerException is SqliteException
+            {
+                SqliteExtendedErrorCode: SQLitePCL.raw.SQLITE_CONSTRAINT_FOREIGNKEY
+            })
+        {
+            Log.Error("Foreign key constraint violation");
+
+            response = await DisplayAlert(ModePaymentManagementResources.MessageBoxDeleteModePaymentUseQuestionTitle,
+                ModePaymentManagementResources.MessageBoxDeleteModePaymentUseQuestionMessage,
+                ModePaymentManagementResources.MessageBoxDeleteModePaymentUseQuestionYesButton,
+                ModePaymentManagementResources.MessageBoxDeleteModePaymentUseQuestionNoButton);
+
+            if (response is not true) return;
+
+            Log.Information("Attempting to remove the mode payment \"{ModePaymentName}\" with all relative element",
+                oldModePayment.Name);
+            oldModePayment.Delete(true);
+            Log.Information("Mode payment and all relative element was successfully removed");
+            await DisplayAlert(ModePaymentManagementResources.MessageBoxDeleteModePaymentUseSuccessTitle,
+                ModePaymentManagementResources.MessageBoxDeleteModePaymentUseSuccessMessage,
+                ModePaymentManagementResources.MessageBoxDeleteModePaymentUseSuccessOkButton);
+
+            RefreshModePayment(oldModePayment, remove: true);
+            return;
+        }
+
+        Log.Error(exception, "An error occurred please retry");
+        await DisplayAlert(ModePaymentManagementResources.MessageBoxDeleteModePaymentErrorTitle,
+            ModePaymentManagementResources.MessageBoxDeleteModePaymentErrorMessage,
+            ModePaymentManagementResources.MessageBoxDeleteModePaymentErrorOkButton);
+    }
 
     private async Task HandleEditModePayment(TModePayment newModePayment, TModePayment oldModePayment)
     {
@@ -252,19 +233,24 @@ public partial class ModePaymentManagementContentPage
 
         var newModePayment = new TModePayment { Name = customPopupEntry.EntryText, CanBeDeleted = true };
 
-        var newModePaymentIsError = await NewModePaymentIsError(newModePayment);
-        if (newModePaymentIsError) return;
+        if (result is not ECustomPopupEntryResult.Delete)
+        {
+            var newModePaymentIsError = await NewModePaymentIsError(newModePayment);
+            if (newModePaymentIsError) return;
+        }
+        else { newModePayment.Name = modePaymentName; }
 
         await HandleModePaymentResult(result, newModePayment, modePayment);
     }
 
     private async Task HandleModePaymentResult(ECustomPopupEntryResult result, TModePayment newModePayment, TModePayment? oldModePayment)
     {
+        Log.Information("Mode payment result: {Result}", result);
         switch (result)
         {
-            // case ECustomPopupEntryResult.Delete:
-            //     await HandleDeleteColor(oldColor!);
-            //     break;
+            case ECustomPopupEntryResult.Delete:
+                await HandleDeleteModePayment(oldModePayment!);
+                break;
             case ECustomPopupEntryResult.Valid when oldModePayment is null:
                 await HandleAddNewModePayment(newModePayment);
                 break;
