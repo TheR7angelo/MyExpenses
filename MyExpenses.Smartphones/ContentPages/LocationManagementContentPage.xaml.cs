@@ -1,5 +1,6 @@
 using System.Collections.ObjectModel;
 using BruTile.Predefined;
+using CommunityToolkit.Maui.Extensions;
 using CommunityToolkit.Maui.Views;
 using Mapsui;
 using Mapsui.Layers;

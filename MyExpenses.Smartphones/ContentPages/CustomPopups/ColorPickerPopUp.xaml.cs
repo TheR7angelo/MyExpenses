@@ -296,7 +296,8 @@ public partial class ColorPickerPopup
     private void SetResult(ECustomPopupEntryResult result)
     {
         _taskCompletionSource.SetResult(result);
-        Close();
+        // TODO work
+        // Close();
     }
 
     #endregion

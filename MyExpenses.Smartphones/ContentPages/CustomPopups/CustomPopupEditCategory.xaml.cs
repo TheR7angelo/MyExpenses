@@ -169,7 +169,8 @@ public partial class CustomPopupEditCategory
     private void SetDialogueResult(ECustomPopupEntryResult customPopupEntryResult)
     {
         _taskCompletionSource.SetResult(customPopupEntryResult);
-        Close();
+        // TODO work
+        // Close();
     }
 
     // ReSharper disable once HeapView.ClosureAllocation

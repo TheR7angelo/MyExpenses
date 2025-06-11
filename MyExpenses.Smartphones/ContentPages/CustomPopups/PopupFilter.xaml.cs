@@ -85,7 +85,10 @@ public partial class PopupFilter
     #region Action
 
     private void ButtonClose_OnClicked(object? sender, EventArgs e)
-        => Close();
+    {
+        // TODO work
+        // Close();
+    }
 
     private void CheckBox_OnCheckedChanged(object? sender, EventArgs eventArgs)
         => CalculateCheckboxIconGeometrySource();

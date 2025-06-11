@@ -1,4 +1,5 @@
 using System.Collections.ObjectModel;
+using CommunityToolkit.Maui.Extensions;
 using CommunityToolkit.Maui.Views;
 using MyExpenses.Models.AutoMapper;
 using MyExpenses.Models.Config.Interfaces;

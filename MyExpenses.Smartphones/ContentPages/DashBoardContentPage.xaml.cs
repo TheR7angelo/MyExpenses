@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Runtime.Versioning;
 using System.Windows.Input;
+using CommunityToolkit.Maui.Extensions;
 using CommunityToolkit.Maui.Views;
 using MyExpenses.Maui.Utils;
 using MyExpenses.Models.AutoMapper;

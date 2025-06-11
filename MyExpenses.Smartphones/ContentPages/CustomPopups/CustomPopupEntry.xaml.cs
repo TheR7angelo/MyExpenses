@@ -139,7 +139,8 @@ public partial class CustomPopupEntry
     private void SetDialogueResult(ECustomPopupEntryResult customPopupEntryResult)
     {
         _taskCompletionSource.SetResult(customPopupEntryResult);
-        Close();
+        // TODO work
+        // Close();
     }
 
     #endregion
