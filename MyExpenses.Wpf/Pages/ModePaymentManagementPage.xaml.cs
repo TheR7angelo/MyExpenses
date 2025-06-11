@@ -6,7 +6,6 @@ using MyExpenses.SharedUtils.Collection;
 using MyExpenses.SharedUtils.Resources.Resx.ModePaymentManagement;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils.Sql;
-using MyExpenses.Wpf.Resources.Resx.Pages.ModePaymentManagementPage;
 using MyExpenses.Wpf.Windows;
 using MyExpenses.Wpf.Windows.MsgBox;
 using Serilog;
@@ -70,7 +69,8 @@ public partial class ModePaymentManagementPage
 
         if (modePaymentToEdit.CanBeDeleted is false)
         {
-            MsgBox.Show(ModePaymentManagementPageResources.MessageBoxEditModePaymentNoEditOrDelete, MsgBoxImage.Error);
+            MsgBox.Show(ModePaymentManagementResources.MessageBoxModePaymentCantEditTitle,
+                ModePaymentManagementResources.MessageBoxModePaymentCantEditMessage, MsgBoxImage.Error);
             return;
         }
 

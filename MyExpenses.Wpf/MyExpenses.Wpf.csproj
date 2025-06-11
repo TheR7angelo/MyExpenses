@@ -61,10 +61,6 @@
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>AccountTypeManagementPageResources.Designer.cs</LastGenOutput>
       </EmbeddedResource>
-      <EmbeddedResource Update="Resources\Resx\Pages\ModePaymentManagementPage\ModePaymentManagementPageResources.resx">
-        <Generator>ResXFileCodeGenerator</Generator>
-        <LastGenOutput>ModePaymentManagementPageResources.Designer.cs</LastGenOutput>
-      </EmbeddedResource>
       <EmbeddedResource Update="Resources\Resx\Windows\WaitScreenWindow\WaitScreenWindowResources.resx">
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>WaitScreenWindowResources.Designer.cs</LastGenOutput>
@@ -184,11 +180,6 @@
         <DesignTime>True</DesignTime>
         <AutoGen>True</AutoGen>
         <DependentUpon>AccountTypeManagementPageResources.resx</DependentUpon>
-      </Compile>
-      <Compile Update="Resources\Resx\Pages\ModePaymentManagementPage\ModePaymentManagementPageResources.Designer.cs">
-        <DesignTime>True</DesignTime>
-        <AutoGen>True</AutoGen>
-        <DependentUpon>ModePaymentManagementPageResources.resx</DependentUpon>
       </Compile>
       <Compile Update="Resources\Resx\Windows\RemoveDatabaseFile\SelectDatabaseFileWindowResources.Designer.cs">
         <DesignTime>True</DesignTime>
