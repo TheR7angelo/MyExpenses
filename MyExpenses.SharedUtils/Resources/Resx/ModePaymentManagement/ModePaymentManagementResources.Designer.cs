@@ -196,6 +196,24 @@ namespace MyExpenses.SharedUtils.Resources.Resx.ModePaymentManagement {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ok.
+        /// </summary>
+        public static string MessageBoxEditModePaymentErrorOkButton {
+            get {
+                return ResourceManager.GetString("MessageBoxEditModePaymentErrorOkButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Error.
+        /// </summary>
+        public static string MessageBoxEditModePaymentErrorTitle {
+            get {
+                return ResourceManager.GetString("MessageBoxEditModePaymentErrorTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Mode payment was successfully edited.
         /// </summary>
         public static string MessageBoxEditModePaymentSuccessMessage {

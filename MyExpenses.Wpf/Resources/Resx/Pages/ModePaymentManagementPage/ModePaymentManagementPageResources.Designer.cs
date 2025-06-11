@@ -61,15 +61,6 @@ namespace MyExpenses.Wpf.Resources.Resx.Pages.ModePaymentManagementPage {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to An error occurred please retry.
-        /// </summary>
-        internal static string MessageBoxEditModePaymentError {
-            get {
-                return ResourceManager.GetString("MessageBoxEditModePaymentError", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to This payment method cannot be changed or deleted.
         /// </summary>
         internal static string MessageBoxEditModePaymentNoEditOrDelete {

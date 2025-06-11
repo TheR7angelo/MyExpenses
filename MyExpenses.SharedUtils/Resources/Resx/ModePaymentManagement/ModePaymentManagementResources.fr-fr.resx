@@ -104,4 +104,13 @@
     <data name="MessageBoxEditModePaymentSuccessTitle" xml:space="preserve">
         <value>Success</value>
     </data>
+    <data name="MessageBoxEditModePaymentErrorMessage" xml:space="preserve">
+        <value>Une erreur s'est produite, veuillez réessayer</value>
+    </data>
+    <data name="MessageBoxEditModePaymentErrorOkButton" xml:space="preserve">
+        <value>Ok</value>
+    </data>
+    <data name="MessageBoxEditModePaymentErrorTitle" xml:space="preserve">
+        <value>Error</value>
+    </data>
 </root>
