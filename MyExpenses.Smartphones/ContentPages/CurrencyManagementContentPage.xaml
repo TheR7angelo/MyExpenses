@@ -6,6 +6,7 @@
              xmlns:customEntryControl="clr-namespace:MyExpenses.Smartphones.UserControls.TextInputs.CustomEntryControl"
              x:Class="MyExpenses.Smartphones.ContentPages.CurrencyManagementContentPage"
              xmlns:margin="clr-namespace:MyExpenses.Maui.Utils.Margin;assembly=MyExpenses.Maui.Utils"
+             xmlns:uraniumButtonView="clr-namespace:MyExpenses.Smartphones.UserControls.Buttons.UraniumButtonView"
 
              BindingContext="{Binding Source={RelativeSource Self}}">
 
@@ -22,25 +23,19 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="Auto" />
-            </Grid.ColumnDefinitions>
+            <uraniumButtonView:UraniumButtonView Grid.Row="0"
+                                                 HorizontalOptions="Center"
+                                                 VerticalOptions="Center"
+                                                 PathSource="Plus"
+                                                 PathHeightRequest="40"
+                                                 PathWidthRequest="40"
+                                                 HeightRequest="56"
+                                                 WidthRequest="56"
+                                                 Style="{StaticResource ButtonViewPrimaryDark}"
+                                                 Tapped="ButtonAddCurrency_OnClick">
+            </uraniumButtonView:UraniumButtonView>
 
-            <customEntryControl:CustomEntryControl Grid.Row="0" Grid.Column="0"
-                                                   PlaceholderText="{Binding PlaceholderText, Mode=OneWay}"
-                                                   Text="{Binding SymbolText, Mode=TwoWay}"
-                                                   HasClearButton="True"
-                                                   MaxLength="{Binding MaxLength, Mode=OneWay}">
-            </customEntryControl:CustomEntryControl>
-
-            <Button Grid.Row="0" Grid.Column="1"
-                    Style="{StaticResource RaisedMidButton}"
-                    Text="{Binding ButtonValidText, Mode=OneWay}"
-                    Clicked="ButtonValid_OnClicked">
-            </Button>
-
-            <Border Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
+            <Border Grid.Row="1"
                     Stroke="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
                     StrokeThickness="2"
                     Padding="0"

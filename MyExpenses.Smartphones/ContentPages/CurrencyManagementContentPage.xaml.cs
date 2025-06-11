@@ -1,11 +1,9 @@
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using CommunityToolkit.Maui.Views;
-using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Maui.CustomPopup;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.SharedUtils.Collection;
-using MyExpenses.SharedUtils.Objects;
 using MyExpenses.SharedUtils.Resources.Resx.CurrencySymbolManagement;
 using MyExpenses.Smartphones.ContentPages.CustomPopups;
 using MyExpenses.Smartphones.ContentPages.CustomPopups.CustomPopupActivityIndicator;
@@ -17,34 +15,7 @@ namespace MyExpenses.Smartphones.ContentPages;
 
 public partial class CurrencyManagementContentPage
 {
-    public static readonly BindableProperty ButtonValidTextProperty = BindableProperty.Create(nameof(ButtonValidText),
-        typeof(string), typeof(CurrencyManagementContentPage));
-
-    public string ButtonValidText
-    {
-        get => (string)GetValue(ButtonValidTextProperty);
-        set => SetValue(ButtonValidTextProperty, value);
-    }
-
-    public static readonly BindableProperty SymbolTextProperty = BindableProperty.Create(nameof(SymbolText),
-        typeof(string), typeof(CurrencyManagementContentPage));
-
-    public string SymbolText
-    {
-        get => (string)GetValue(SymbolTextProperty);
-        set => SetValue(SymbolTextProperty, value);
-    }
-
-    public static readonly BindableProperty PlaceholderTextProperty = BindableProperty.Create(nameof(PlaceholderText),
-        typeof(string), typeof(CurrencyManagementContentPage));
-
-    public string PlaceholderText
-    {
-        get => (string)GetValue(PlaceholderTextProperty);
-        set => SetValue(PlaceholderTextProperty, value);
-    }
-
-    public int MaxLength { get; }
+    private int MaxLength { get; }
 
     public ObservableCollection<TCurrency> Currencies { get; } = [];
 
@@ -74,59 +45,66 @@ public partial class CurrencyManagementContentPage
 
         RefreshCurrencies();
 
-        UpdateLanguage();
         InitializeComponent();
-
-        // ReSharper disable once HeapView.DelegateAllocation
-        Interface.LanguageChanged += Interface_OnLanguageChanged;
     }
 
     #region Action
 
-    private void ButtonValid_OnClicked(object? sender, EventArgs e)
-        => _ = HandleButtonValid();
+    private void ButtonAddCurrency_OnClick(object? sender, EventArgs e)
+        => _ = HandleAddEditCurrency();
 
     private void ButtonSymbol_OnClicked(object? sender, EventArgs e)
-        => _ = HandleButtonSymbol(sender);
-
-    private void Interface_OnLanguageChanged()
-        => UpdateLanguage();
-
-    private void OnBackCommandPressed()
-        => _ = HandleBackCommand();
+    {
+        if (sender is not Button button) return;
+        if (button.BindingContext is not TCurrency currency) return;
+        _ = HandleAddEditCurrency(currency);
+    }
 
     #endregion
 
-    #region Function
+        #region Function
 
-    private async Task HandleBackCommand()
+    private async Task HandleAddEditCurrency(TCurrency? currency = null)
     {
-        _taskCompletionSource.SetResult(true);
-        await Navigation.PopAsync();
+        var placeHolder = CurrencySymbolManagementResources.TextBoxCurrencySymbol;
+
+        var currencySymbol = currency?.Symbol ?? string.Empty;
+
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // A new instance of CustomPopupEntry is created and initialized with specific properties such as MaxLenght,
+        // PlaceholderText, EntryText, and CanDelete. This instance is configured to provide a customizable popup
+        // for editing or interacting with a currency's symbol. This setup allows the user to input or modify data
+        // interactively while maintaining flexibility and ensuring proper validation during the interaction.
+        var customPopupEntry = new CustomPopupEntry
+        {
+            MaxLenght = MaxLength, PlaceholderText = placeHolder,
+            EntryText = currencySymbol, CanDelete = currency is not null
+        };
+        await this.ShowPopupAsync(customPopupEntry);
+
+        var result = await customPopupEntry.ResultDialog;
+        if (result is ECustomPopupEntryResult.Cancel) return;
+
+        var newCurrency = new TCurrency { Symbol = customPopupEntry.EntryText };
+
+        if (result is not ECustomPopupEntryResult.Delete)
+        {
+            var newCurrencyIsError = await NewCurrencyIsError(newCurrency.Symbol);
+            if (newCurrencyIsError) return;
+        }
+        else { newCurrency.Symbol = currencySymbol; }
+
+        await HandleModePaymentResult(result, newCurrency, currency);
     }
 
-    private async Task HandleButtonValid()
+    private async Task HandleAddNewCurrency(TCurrency newCurrency)
     {
-        var validate = await ValidateCurrencySymbol();
-        if (!validate) return;
-
         var response = await DisplayAlert(
             CurrencySymbolManagementResources.MessageBoxAddNewCurrencyQuestionTitle,
-            string.Format(CurrencySymbolManagementResources.MessageBoxAddNewCurrencyQuestionMessage, SymbolText),
+            string.Format(CurrencySymbolManagementResources.MessageBoxAddNewCurrencyQuestionMessage, newCurrency.Symbol),
             CurrencySymbolManagementResources.MessageBoxAddNewCurrencyQuestionYesButton,
             CurrencySymbolManagementResources.MessageBoxAddNewCurrencyQuestionNoButton);
         if (!response) return;
-
-        // ReSharper disable once HeapView.ObjectAllocation.Evident
-        // An instance of TCurrency is created here to represent a new currency with its essential properties.
-        // The `Symbol` is set using `SymbolText`, which represents the user-provided currency value, and
-        // `DateAdded` is initialized to the current date and time. This ensures that the new currency object
-        // is properly prepared for further operations such as adding it to the database or the application state.
-        var newCurrency = new TCurrency
-        {
-            Symbol = SymbolText,
-            DateAdded = DateTime.Now
-        };
 
         var json = newCurrency.ToJson();
         Log.Information("Attempt to add new currency symbol : {Symbol}", json);
@@ -134,8 +112,7 @@ public partial class CurrencyManagementContentPage
         if (success)
         {
             Log.Information("New currency symbol was successfully added");
-            Currencies.AddAndSort(newCurrency, s => s.Symbol!);
-            SymbolText = string.Empty;
+            RefreshCurrency(newCurrency, add: true);
 
             await DisplayAlert(
                 CurrencySymbolManagementResources.MessageBoxAddNewCurrencySuccessTitle,
@@ -152,18 +129,17 @@ public partial class CurrencyManagementContentPage
         }
     }
 
-    private async Task HandleButtonSymbol(object? sender)
+    private async Task HandleBackCommand()
     {
-        if (sender is not Button button) return;
-        if (button.BindingContext is not TCurrency currency) return;
-
-        var tempCurrency = currency.DeepCopy()!;
-        await ShowCustomPopupEntryForCurrency(tempCurrency);
+        _taskCompletionSource.SetResult(true);
+        await Navigation.PopAsync();
     }
 
-    private async Task HandleCurrencyDelete(TCurrency currency)
+    private async Task HandleDeleteCurrency(TCurrency oldCurrency)
     {
-        var (success, exception) = currency.Delete(true);
+        Log.Information("Attempting to remove the currency symbol \"{CurrencySymbol}\" with all relative element",
+            oldCurrency.Symbol);
+        var (success, exception) = oldCurrency.Delete(true);
         DashBoardContentPage.Instance.RefreshAccountTotal();
 
         CustomPopupActivityIndicatorHelper.CloseCustomPopupActivityIndicator();
@@ -174,6 +150,8 @@ public partial class CurrencyManagementContentPage
                 CurrencySymbolManagementResources.MessageBoxCurrencyDeleteSuccessTitle,
                 CurrencySymbolManagementResources.MessageBoxCurrencyDeleteSuccessMessage,
                 CurrencySymbolManagementResources.MessageBoxCurrencyDeleteSuccessOkButton);
+
+            RefreshCurrency(oldCurrency, remove: true);
         }
         else
         {
@@ -185,9 +163,10 @@ public partial class CurrencyManagementContentPage
         }
     }
 
-    private async Task HandleCurrencyEdit(TCurrency currency)
+    private async Task HandleEditModePayment(TCurrency newCurrency, TCurrency oldCurrency)
     {
-        var (success, exception) = currency.AddOrEdit();
+        oldCurrency.Symbol = newCurrency.Symbol;
+        var (success, exception) = oldCurrency.AddOrEdit();
         if (success)
         {
             Log.Information("Currency symbol was successfully edited");
@@ -206,42 +185,49 @@ public partial class CurrencyManagementContentPage
         }
     }
 
-    private async Task HandleCurrencyResult(TCurrency currency, ECustomPopupEntryResult result)
+    private async Task HandleModePaymentResult(ECustomPopupEntryResult result, TCurrency newCurrency, TCurrency? oldCurrency)
     {
-        var json = currency.ToJson();
-        if (result is ECustomPopupEntryResult.Valid)
+        switch (result)
         {
-            var validate = await ValidateCurrencySymbol(currency.Symbol!);
-            if (!validate) return;
+            case ECustomPopupEntryResult.Delete:
+                await HandleDeleteCurrency(oldCurrency!);
+                break;
+            case ECustomPopupEntryResult.Valid when oldCurrency is null:
+                await HandleAddNewCurrency(newCurrency);
+                break;
+            default:
+                await HandleEditModePayment(newCurrency, oldCurrency!);
+                break;
+        }
+    }
 
-            var response = await DisplayAlert(
-                CurrencySymbolManagementResources.MessageBoxCurrencyEditQuestionTitle,
-                string.Format(CurrencySymbolManagementResources.MessageBoxCurrencyEditQuestionMessage, Environment.NewLine),
-                CurrencySymbolManagementResources.MessageBoxCurrencyEditQuestionYesButton,
-                CurrencySymbolManagementResources.MessageBoxCurrencyEditQuestionNoButton);
-            if (!response) return;
-
-            Log.Information("Attempt to edit currency symbol : {Symbol}", json);
-            await HandleCurrencyEdit(currency);
-
-            return;
+    private async Task<bool> NewCurrencyIsError(string? currencySymbol = null)
+    {
+        if (string.IsNullOrWhiteSpace(currencySymbol))
+        {
+            await DisplayAlert(
+                CurrencySymbolManagementResources.MessageBoxValidateCurrencySymbolErrorEmptyTitle,
+                CurrencySymbolManagementResources.MessageBoxValidateCurrencySymbolErrorEmptyMessage,
+                CurrencySymbolManagementResources.MessageBoxValidateCurrencySymbolErrorEmptyOkButton);
+            return true;
         }
 
-        var deleteResponse = await DisplayAlert(
-            CurrencySymbolManagementResources.MessageBoxCurrencyDeleteQuestionTitle,
-            string.Format(CurrencySymbolManagementResources.MessageBoxCurrencyDeleteQuestionMessage, Environment.NewLine),
-            CurrencySymbolManagementResources.MessageBoxCurrencyDeleteQuestionYesButton,
-            CurrencySymbolManagementResources.MessageBoxCurrencyDeleteQuestionNoButton);
+        // ReSharper disable once HeapView.DelegateAllocation
+        var alreadyExist = Currencies.Any(s => s.Symbol!.Equals(currencySymbol));
+        if (alreadyExist)
+        {
+            await DisplayAlert(
+                CurrencySymbolManagementResources.MessageBoxValidateCurrencySymbolErrorAlreadyExistTitle,
+                CurrencySymbolManagementResources.MessageBoxValidateCurrencySymbolErrorAlreadyExistMessage,
+                CurrencySymbolManagementResources.MessageBoxValidateCurrencySymbolErrorAlreadyExistOkButton);
+            return true;
+        }
 
-        if (!deleteResponse) return;
-
-        await Task.Delay(TimeSpan.FromMilliseconds(100));
-        this.ShowCustomPopupActivityIndicator(CurrencySymbolManagementResources.ActivityIndicatorDeleteCurrency);
-        await Task.Delay(TimeSpan.FromMilliseconds(100));
-
-        Log.Information("Attempt to delete currency symbol : {Symbol}", json);
-        await HandleCurrencyDelete(currency);
+        return false;
     }
+
+    private void OnBackCommandPressed()
+        => _ = HandleBackCommand();
 
     private void RefreshCurrencies()
     {
@@ -255,60 +241,19 @@ public partial class CurrencyManagementContentPage
         Currencies.AddRange(context.TCurrencies.OrderBy(s => s.Symbol));
     }
 
-    private async Task ShowCustomPopupEntryForCurrency(TCurrency currency)
+    private void RefreshCurrency(TCurrency currency, bool add = false, bool remove = false)
     {
-        var placeHolder = CurrencySymbolManagementResources.TextBoxCurrencySymbol;
-
-        // ReSharper disable once HeapView.ObjectAllocation.Evident
-        // A new instance of CustomPopupEntry is created and initialized with specific properties such as MaxLenght,
-        // PlaceholderText, EntryText, and CanDelete. This instance is configured to provide a customizable popup
-        // for editing or interacting with a currency's symbol. This setup allows the user to input or modify data
-        // interactively while maintaining flexibility and ensuring proper validation during the interaction.
-        var customPopupEntry = new CustomPopupEntry { MaxLenght = MaxLength, PlaceholderText = placeHolder, EntryText = currency.Symbol!, CanDelete = true };
-        await this.ShowPopupAsync(customPopupEntry);
-
-        var result = await customPopupEntry.ResultDialog;
-        if (result is ECustomPopupEntryResult.Cancel) return;
-
-        currency.Symbol = customPopupEntry.EntryText;
-        await HandleCurrencyResult(currency, result);
-        RefreshCurrencies();
-    }
-
-    private void UpdateLanguage()
-    {
-        PlaceholderText = CurrencySymbolManagementResources.TextBoxCurrencySymbol;
-        ButtonValidText = CurrencySymbolManagementResources.ButtonValidText;
-    }
-
-    private async Task<bool> ValidateCurrencySymbol(string? currencySymbol = null)
-    {
-        // ReSharper disable once HeapView.ClosureAllocation
-        var symbolToTest = string.IsNullOrWhiteSpace(currencySymbol)
-            ? SymbolText
-            : currencySymbol;
-
-        if (string.IsNullOrWhiteSpace(symbolToTest))
+        switch (add)
         {
-            await DisplayAlert(
-                CurrencySymbolManagementResources.MessageBoxValidateCurrencySymbolErrorEmptyTitle,
-                CurrencySymbolManagementResources.MessageBoxValidateCurrencySymbolErrorEmptyMessage,
-                CurrencySymbolManagementResources.MessageBoxValidateCurrencySymbolErrorEmptyOkButton);
-            return false;
+            case true when remove:
+                throw new ArgumentException("'add' and 'remove' cannot both be true at the same time.");
+            case true:
+                Currencies.AddAndSort(currency, s => s.Symbol!);
+                break;
+            default:
+                Currencies.Remove(currency);
+                break;
         }
-
-        // ReSharper disable once HeapView.DelegateAllocation
-        var alreadyExist = Currencies.Any(s => s.Symbol!.Equals(symbolToTest));
-        if (alreadyExist)
-        {
-            await DisplayAlert(
-                CurrencySymbolManagementResources.MessageBoxValidateCurrencySymbolErrorAlreadyExistTitle,
-                CurrencySymbolManagementResources.MessageBoxValidateCurrencySymbolErrorAlreadyExistMessage,
-                CurrencySymbolManagementResources.MessageBoxValidateCurrencySymbolErrorAlreadyExistOkButton);
-            return false;
-        }
-
-        return true;
     }
 
     #endregion
