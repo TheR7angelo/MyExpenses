@@ -95,4 +95,13 @@
     <data name="MessageBoxAddModePaymentSuccessTitle" xml:space="preserve">
         <value>Succès</value>
     </data>
+    <data name="MessageBoxEditModePaymentSuccessMessage" xml:space="preserve">
+        <value>Le mode de paiement a été modifié avec succès</value>
+    </data>
+    <data name="MessageBoxEditModePaymentSuccessOkButton" xml:space="preserve">
+        <value>Ok</value>
+    </data>
+    <data name="MessageBoxEditModePaymentSuccessTitle" xml:space="preserve">
+        <value>Success</value>
+    </data>
 </root>

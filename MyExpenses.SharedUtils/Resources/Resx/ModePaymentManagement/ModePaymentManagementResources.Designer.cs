@@ -205,6 +205,24 @@ namespace MyExpenses.SharedUtils.Resources.Resx.ModePaymentManagement {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ok.
+        /// </summary>
+        public static string MessageBoxEditModePaymentSuccessOkButton {
+            get {
+                return ResourceManager.GetString("MessageBoxEditModePaymentSuccessOkButton", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Success.
+        /// </summary>
+        public static string MessageBoxEditModePaymentSuccessTitle {
+            get {
+                return ResourceManager.GetString("MessageBoxEditModePaymentSuccessTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to This payment method cannot be changed or deleted.
         /// </summary>
         public static string MessageBoxModePaymentCantEditMessage {

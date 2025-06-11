@@ -77,14 +77,5 @@ namespace MyExpenses.Wpf.Resources.Resx.Pages.ModePaymentManagementPage {
                 return ResourceManager.GetString("MessageBoxEditModePaymentNoEditOrDelete", resourceCulture);
             }
         }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Mode payment was successfully edited.
-        /// </summary>
-        internal static string MessageBoxEditModePaymentSuccess {
-            get {
-                return ResourceManager.GetString("MessageBoxEditModePaymentSuccess", resourceCulture);
-            }
-        }
     }
 }
