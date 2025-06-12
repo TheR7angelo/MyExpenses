@@ -8,17 +8,18 @@
                xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
                xmlns:converters="clr-namespace:MyExpenses.Smartphones.Converters"
                x:Class="MyExpenses.Smartphones.ContentPages.CustomPopups.PopupFilter"
+
+               BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Black}}"
+               Margin="25"
+               Padding="0"
+
                BindingContext="{Binding Source={RelativeSource Self}}">
 
     <toolkit:Popup.Resources>
         <converters:ValuesToStringConverter x:Key="ValuesToStringConverter" />
     </toolkit:Popup.Resources>
 
-    <Border BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Black}}"
-            Padding="20"
-            StrokeThickness="1.5"
-            Stroke="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
-            margin:LayoutExtensions.MarginForAllChildren="5">
+    <toolkit:Popup.Content>
 
         <Grid>
 
@@ -88,6 +89,8 @@
 
         </Grid>
 
-    </Border>
+    </toolkit:Popup.Content>
+
+
 
 </toolkit:Popup>
