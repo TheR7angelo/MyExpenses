@@ -1,5 +1,8 @@
+using PropertyChanged;
+
 namespace MyExpenses.Models.Maui.CustomPopup;
 
+[AddINotifyPropertyChangedInterface]
 public class PopupSearch
 {
     public int? Id { get; init; }

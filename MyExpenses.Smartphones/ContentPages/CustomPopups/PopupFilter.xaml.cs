@@ -1,7 +1,11 @@
+using System.Collections.ObjectModel;
+using CommunityToolkit.Maui.Views;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Maui.CustomPopup;
+using MyExpenses.SharedUtils.Collection;
 using MyExpenses.SharedUtils.Resources.Resx.PopupFilterManagement;
 using MyExpenses.Smartphones.PackIcons;
+using Serilog;
 
 namespace MyExpenses.Smartphones.ContentPages.CustomPopups;
 
@@ -37,7 +41,7 @@ public partial class PopupFilter
     }
 
     private List<PopupSearch> OriginalPopupSearches { get; }
-    public List<PopupSearch> PopupSearches { get; }
+    public ObservableCollection<PopupSearch> PopupSearches { get; }
 
     private string? SearchText { get; set; }
 
@@ -87,14 +91,18 @@ public partial class PopupFilter
     private void ButtonClose_OnClicked(object? sender, EventArgs e)
     {
         // TODO work
-        // Close();
+        Log.Information("Closing");
+        Log.Information(GetFilteredItemCheckedCount().ToString());
+        CloseAsync();
     }
 
     private void CheckBox_OnCheckedChanged(object? sender, EventArgs eventArgs)
         => CalculateCheckboxIconGeometrySource();
 
     public IEnumerable<PopupSearch> GetFilteredItemChecked()
-        => PopupSearches.Where(s => s.IsChecked);
+    {
+        return PopupSearches.Where(s => s.IsChecked);
+    }
 
     public int GetFilteredItemCheckedCount()
         => PopupSearches.Count(s => s.IsChecked);
