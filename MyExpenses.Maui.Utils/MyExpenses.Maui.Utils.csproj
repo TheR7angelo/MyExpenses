@@ -19,6 +19,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="LiveChartsCore.SkiaSharpView.Maui" Version="2.0.0-rc5.4" />
         <PackageReference Include="Mapsui.Maui" Version="5.0.0-beta.16" />
         <PackageReference Include="Microsoft.Maui.Controls" Version="9.0.80" />
         <PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="9.0.80" />
@@ -27,6 +28,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\MyExpenses.Models\MyExpenses.Models.csproj" />
+      <ProjectReference Include="..\MyExpenses.Share.Core\MyExpenses.Share.Core.csproj" />
       <ProjectReference Include="..\MyExpenses.Utils\MyExpenses.Utils.csproj" />
     </ItemGroup>
 
