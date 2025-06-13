@@ -144,11 +144,10 @@
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
 
-                            <Border
-                                Stroke="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
-                                StrokeThickness="2"
-                                HorizontalOptions="Center"
-                                Padding="3">
+                            <Border Stroke="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
+                                    StrokeThickness="2"
+                                    HorizontalOptions="Center"
+                                    Padding="3">
 
                                 <Border.StrokeShape>
                                     <RoundRectangle CornerRadius="5" />
