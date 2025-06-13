@@ -177,10 +177,6 @@
                                         </Label.FormattedText>
                                     </Label>
 
-                                    <!-- <Label Text="{Binding Percentage, Mode=OneWay}" -->
-                                    <!--        FormattedText="({0}%)"> -->
-                                    <!-- </Label> -->
-
                                 </HorizontalStackLayout>
 
                             </Border>
