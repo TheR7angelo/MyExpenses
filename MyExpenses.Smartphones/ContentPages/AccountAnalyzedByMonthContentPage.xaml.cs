@@ -4,6 +4,7 @@ using MyExpenses.Maui.Utils;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Models.Sql.Queries;
+using MyExpenses.Models.Wpf.Charts;
 using MyExpenses.SharedUtils.Collection;
 using MyExpenses.SharedUtils.Resources.Resx.DashBoardManagement;
 using MyExpenses.Sql.Context;
@@ -14,8 +15,14 @@ namespace MyExpenses.Smartphones.ContentPages;
 
 public partial class AccountAnalyzedByMonthContentPage
 {
-    public static readonly BindableProperty ComboBoxMonthHintAssistProperty = BindableProperty.Create(nameof(ComboBoxMonthHintAssist), typeof(string), typeof(AccountAnalyzedByMonthContentPage), default(string));
-    public static readonly BindableProperty ComboBoxYearsHintAssistProperty = BindableProperty.Create(nameof(ComboBoxYearsHintAssist), typeof(string), typeof(AccountAnalyzedByMonthContentPage), default(string));
+    public static readonly BindableProperty ComboBoxMonthHintAssistProperty =
+        BindableProperty.Create(nameof(ComboBoxMonthHintAssist), typeof(string),
+            typeof(AccountAnalyzedByMonthContentPage));
+
+    public static readonly BindableProperty ComboBoxYearsHintAssistProperty =
+        BindableProperty.Create(nameof(ComboBoxYearsHintAssist), typeof(string),
+            typeof(AccountAnalyzedByMonthContentPage));
+
     public ObservableCollection<string> Years { get; }
     public ObservableCollection<string> Months { get; } = [];
     public ObservableCollection<TAccount> Accounts { get; } = [];
@@ -49,6 +56,10 @@ public partial class AccountAnalyzedByMonthContentPage
         get => (string)GetValue(ComboBoxMonthHintAssistProperty);
         set => SetValue(ComboBoxMonthHintAssistProperty, value);
     }
+
+    public ObservableCollection<CategoryTotal> CategoryTotals { get; } = [];
+
+    private PieChartManager PieChartManager { get; }
 
     public AccountAnalyzedByMonthContentPage()
     {
@@ -84,6 +95,9 @@ public partial class AccountAnalyzedByMonthContentPage
 
         UpdateLanguage();
         InitializeComponent();
+
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        PieChartManager = new PieChartManager(PieChart, CategoryTotals);
 
         // ReSharper disable once HeapView.DelegateAllocation
         Interface.LanguageChanged += Interface_OnLanguageChanged;
@@ -194,23 +208,29 @@ public partial class AccountAnalyzedByMonthContentPage
     }
 
     private void CustomPicker_OnSelectedIndexChanged(object? sender, EventArgs e)
+        => RefreshList();
+
+    private void RefreshList(string? accountName = null)
     {
+        if (string.IsNullOrWhiteSpace(accountName)) accountName = GetSelectedAccountName();
+        if (string.IsNullOrWhiteSpace(accountName)) return;
 
-    }
+        int? monthInt = null;
+        if (!string.IsNullOrEmpty(SelectedMonth))
+        {
+            monthInt = Months.IndexOf(SelectedMonth) + 1;
+        }
 
-    private void RefreshList()
-    {
-        var radioButtons = CollectionViewAccount?.FindVisualChildren<RadioButton>().ToList() ?? [];
-        if (radioButtons.Count.Equals(0)) return;
+        int? yearInt = null;
+        if (!string.IsNullOrEmpty(SelectedYear))
+        {
+            _ = SelectedYear.ToInt(out yearInt);
+        }
 
-        var accountName = radioButtons.FirstOrDefault(s => s.IsChecked)?.Content as string;
+        var filteredData = accountName.GetFilteredVDetailTotalCategories(monthInt, yearInt);
+        var categoriesTotals = filteredData.CalculateCategoryTotals(out var grandTotal);
 
-        if (string.IsNullOrEmpty(accountName)) return;
-
-        // var rowTotalCount = FilterAndSortHistoryRecords(accountName, out var records, out var elapsedTimeLoadingData);
-        //
-        // VHistories.Clear();
-        // VHistories.AddRange(records);
+        PieChartManager.UpdateChartUi(categoriesTotals, grandTotal);
     }
 
     private void CollectionAccount_OnLoaded(object? sender, EventArgs e)
@@ -224,8 +244,16 @@ public partial class AccountAnalyzedByMonthContentPage
 
     private void RefreshRadioButtonSelected()
     {
+        var accountName = GetSelectedAccountName();
+        if (string.IsNullOrWhiteSpace(accountName)) return;
+
+        RefreshList(accountName);
+    }
+
+    private string? GetSelectedAccountName()
+    {
         var radioButtons = CollectionViewAccount.FindVisualChildren<RadioButton>().ToList();
-        if (radioButtons.Count is 0) return;
+        if (radioButtons.Count is 0) return null;
 
         var radioButton = radioButtons.FirstOrDefault(s => s.IsChecked);
         if (radioButton is null)
@@ -234,11 +262,14 @@ public partial class AccountAnalyzedByMonthContentPage
             radioButton.IsChecked = true;
         }
 
-        RefreshList();
+        return radioButton.Content is not string accountName ? null : accountName;
     }
 
     private void RadioButton_OnCheckedChanged(object? sender, CheckedChangedEventArgs e)
     {
+        if (sender is not RadioButton radioButton) return;
+        if (radioButton.Content is not string accountName) return;
 
+        RefreshList(accountName);
     }
 }

@@ -5,7 +5,9 @@
              xmlns:uraniumButtonView="clr-namespace:MyExpenses.Smartphones.UserControls.Buttons.UraniumButtonView"
              xmlns:margin="clr-namespace:MyExpenses.Maui.Utils.Margin;assembly=MyExpenses.Maui.Utils"
              xmlns:pickers="clr-namespace:MyExpenses.Smartphones.UserControls.Pickers"
+             xmlns:maui="clr-namespace:LiveChartsCore.SkiaSharpView.Maui;assembly=LiveChartsCore.SkiaSharpView.Maui"
              x:Class="MyExpenses.Smartphones.ContentPages.AccountAnalyzedByMonthContentPage"
+
              BindingContext="{Binding Source={RelativeSource Self}}">
 
     <ContentPage.Content>
@@ -13,12 +15,14 @@
         <Grid>
 
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="2*" />
             </Grid.RowDefinitions>
+
+            <maui:PieChart Grid.Row="0" x:Name="PieChart" />
 
             <HorizontalStackLayout Grid.Row="1"
                                    HorizontalOptions="Center"
