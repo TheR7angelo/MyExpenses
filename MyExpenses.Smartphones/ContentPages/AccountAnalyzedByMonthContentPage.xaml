@@ -6,9 +6,14 @@
              xmlns:margin="clr-namespace:MyExpenses.Maui.Utils.Margin;assembly=MyExpenses.Maui.Utils"
              xmlns:pickers="clr-namespace:MyExpenses.Smartphones.UserControls.Pickers"
              xmlns:maui="clr-namespace:LiveChartsCore.SkiaSharpView.Maui;assembly=LiveChartsCore.SkiaSharpView.Maui"
+             xmlns:converters="clr-namespace:MyExpenses.Smartphones.Converters"
              x:Class="MyExpenses.Smartphones.ContentPages.AccountAnalyzedByMonthContentPage"
 
              BindingContext="{Binding Source={RelativeSource Self}}">
+
+    <ContentPage.Resources>
+        <converters:StringToSolidColorBrush x:Key="StringToSolidColorBrush" />
+    </ContentPage.Resources>
 
     <ContentPage.Content>
 
@@ -123,6 +128,117 @@
                 </ScrollView>
 
             </Border>
+
+            <ScrollView Grid.Row="4"
+                        HorizontalScrollBarVisibility="Never"
+                        VerticalScrollBarVisibility="Default"
+                        Orientation="Horizontal">
+
+                <CollectionView ItemsSource="{Binding CategoryTotals, Mode=OneWay}"
+                                Margin="0, 5, 0, 0">
+
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Vertical" ItemSpacing="5" />
+                    </CollectionView.ItemsLayout>
+
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+
+                            <Border
+                                Stroke="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
+                                StrokeThickness="2"
+                                HorizontalOptions="Center"
+                                Padding="3">
+
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="5" />
+                                </Border.StrokeShape>
+
+                                <HorizontalStackLayout margin:LayoutExtensions.MarginForAllChildren="3">
+
+                                    <Ellipse HeightRequest="24"
+                                             WidthRequest="{Binding HeightRequest, Source={RelativeSource Self}}"
+                                             Stroke="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
+                                             StrokeThickness="1.5"
+                                             Fill="{Binding HexadecimalColor, Mode=OneWay, Converter={StaticResource StringToSolidColorBrush}}"
+                                             Margin="10, 0">
+                                    </Ellipse>
+
+                                    <Label Text="{Binding Name, Mode=OneWay}" />
+
+                                    <Label Text="{Binding ValueSymbol, Mode=OneWay}" />
+
+                                    <Label>
+                                        <Label.FormattedText>
+                                            <FormattedString>
+                                                <Span Text="(" />
+                                                <Span Text="{Binding Percentage}" />
+                                                <Span Text="%)" />
+                                            </FormattedString>
+                                        </Label.FormattedText>
+                                    </Label>
+
+                                    <!-- <Label Text="{Binding Percentage, Mode=OneWay}" -->
+                                    <!--        FormattedText="({0}%)"> -->
+                                    <!-- </Label> -->
+
+                                </HorizontalStackLayout>
+
+                            </Border>
+
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+
+                </CollectionView>
+
+            </ScrollView>
+
+            <!-- <ScrollViewer Grid.Row="1" -->
+            <!--               HorizontalScrollBarVisibility="Disabled" -->
+            <!--               VerticalScrollBarVisibility="Auto"> -->
+            <!-- -->
+            <!--     <ItemsControl ItemsSource="{Binding CategoryTotals, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"> -->
+            <!--         <ItemsControl.ItemsPanel> -->
+            <!--             <ItemsPanelTemplate> -->
+            <!--                 <StackPanel Orientation="Vertical" margin:PanelExtensions.MarginForAllChildren="3" /> -->
+            <!--             </ItemsPanelTemplate> -->
+            <!--         </ItemsControl.ItemsPanel> -->
+            <!-- -->
+            <!--         <ItemsControl.ItemTemplate> -->
+            <!--             <DataTemplate> -->
+            <!-- -->
+            <!--                 <Button Style="{StaticResource MaterialDesignPaperButton}" -->
+            <!--                         HorizontalContentAlignment="Left"> -->
+            <!-- -->
+            <!--                     <Button.Content> -->
+            <!--                         <StackPanel Orientation="Horizontal"> -->
+            <!-- -->
+            <!--                             <Ellipse Height="16" -->
+            <!--                                      Width="{Binding Height, RelativeSource={RelativeSource Self}}" -->
+            <!--                                      Stroke="{DynamicResource MaterialDesignBody}" -->
+            <!--                                      StrokeThickness="1.5" -->
+            <!--                                      Fill="{Binding HexadecimalColor, Mode=OneWay}"> -->
+            <!--                             </Ellipse> -->
+            <!-- -->
+            <!--                             <Label Content="{Binding Name, Mode=OneWay}" /> -->
+            <!-- -->
+            <!--                             <Label Content="{Binding ValueSymbol, Mode=OneWay}" /> -->
+            <!-- -->
+            <!--                             <Label Content="{Binding Percentage, Mode=OneWay}" -->
+            <!--                                    ContentStringFormat="({0}%)"> -->
+            <!--                             </Label> -->
+            <!-- -->
+            <!--                         </StackPanel> -->
+            <!--                     </Button.Content> -->
+            <!-- -->
+            <!--                 </Button> -->
+            <!-- -->
+            <!--             </DataTemplate> -->
+            <!--         </ItemsControl.ItemTemplate> -->
+            <!-- -->
+            <!--     </ItemsControl> -->
+            <!-- -->
+            <!-- </ScrollViewer> -->
 
         </Grid>
 
