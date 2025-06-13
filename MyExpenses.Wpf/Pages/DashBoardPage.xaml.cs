@@ -537,7 +537,7 @@ public partial class DashBoardPage
     private void Selector_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         => RefreshDataGrid();
 
-    private void ToggleButtonVTotalAccount_OnChecked(object sender, RoutedEventArgs e)
+    private void RadioButtonVTotalAccount_OnChecked(object sender, RoutedEventArgs e)
     {
         var button = (RadioButton)sender;
         if (button.DataContext is not VTotalByAccount vTotalByAccount) return;

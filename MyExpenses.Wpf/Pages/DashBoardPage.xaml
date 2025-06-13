@@ -240,7 +240,7 @@
                                              Margin="3"
                                              Content="{Binding Name}"
                                              Style="{StaticResource MaterialDesignTabRadioButtonBottom}"
-                                             Checked="ToggleButtonVTotalAccount_OnChecked">
+                                             Checked="RadioButtonVTotalAccount_OnChecked">
                                 </RadioButton>
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
