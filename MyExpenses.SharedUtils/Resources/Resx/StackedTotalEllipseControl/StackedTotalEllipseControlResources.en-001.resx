@@ -1,4 +1,4 @@
-<root>
+﻿<root>
     <resheader name="resmimetype">
         <value>text/microsoft-resx</value>
     </resheader>
@@ -14,10 +14,10 @@
     <data name="TitleTotalTotal" xml:space="preserve">
         <value>Total</value>
     </data>
-    <data name="TitleTotalTotalPointed" xml:space="preserve">
-        <value>Total pointed</value>
-    </data>
     <data name="TitleTotalTotalNotPointed" xml:space="preserve">
         <value>Total not pointed</value>
+    </data>
+    <data name="TitleTotalTotalPointed" xml:space="preserve">
+        <value>Total pointed</value>
     </data>
 </root>

@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace MyExpenses.Wpf.Resources.Resx.UserControls.Analytics.StackedTotalEllipseControl {
+namespace MyExpenses.SharedUtils.Resources.Resx.StackedTotalEllipseControl {
     using System;
     
     
@@ -21,25 +21,25 @@ namespace MyExpenses.Wpf.Resources.Resx.UserControls.Analytics.StackedTotalEllip
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class StackedTotalEllipseControlResources {
+    public class StackedTotalEllipseControlResources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal StackedTotalEllipseControlResources() {
+        public StackedTotalEllipseControlResources() {
         }
         
         /// <summary>
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MyExpenses.Wpf.Resources.Resx.UserControls.Analytics.StackedTotalEllipseControl.S" +
-                            "tackedTotalEllipseControlResources", typeof(StackedTotalEllipseControlResources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MyExpenses.SharedUtils.Resources.Resx.StackedTotalEllipseControl.StackedTotalElli" +
+                            "pseControlResources", typeof(StackedTotalEllipseControlResources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -51,7 +51,7 @@ namespace MyExpenses.Wpf.Resources.Resx.UserControls.Analytics.StackedTotalEllip
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,7 +63,7 @@ namespace MyExpenses.Wpf.Resources.Resx.UserControls.Analytics.StackedTotalEllip
         /// <summary>
         ///   Looks up a localized string similar to Total.
         /// </summary>
-        internal static string TitleTotalTotal {
+        public static string TitleTotalTotal {
             get {
                 return ResourceManager.GetString("TitleTotalTotal", resourceCulture);
             }
@@ -72,7 +72,7 @@ namespace MyExpenses.Wpf.Resources.Resx.UserControls.Analytics.StackedTotalEllip
         /// <summary>
         ///   Looks up a localized string similar to Total not pointed.
         /// </summary>
-        internal static string TitleTotalTotalNotPointed {
+        public static string TitleTotalTotalNotPointed {
             get {
                 return ResourceManager.GetString("TitleTotalTotalNotPointed", resourceCulture);
             }
@@ -81,7 +81,7 @@ namespace MyExpenses.Wpf.Resources.Resx.UserControls.Analytics.StackedTotalEllip
         /// <summary>
         ///   Looks up a localized string similar to Total pointed.
         /// </summary>
-        internal static string TitleTotalTotalPointed {
+        public static string TitleTotalTotalPointed {
             get {
                 return ResourceManager.GetString("TitleTotalTotalPointed", resourceCulture);
             }

@@ -137,10 +137,6 @@
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>BudgetsControlResources.Designer.cs</LastGenOutput>
       </EmbeddedResource>
-      <EmbeddedResource Update="Resources\Resx\UserControls\Analytics\StackedTotalEllipseControl\StackedTotalEllipseControlResources.resx">
-        <Generator>ResXFileCodeGenerator</Generator>
-        <LastGenOutput>StackedTotalEllipseControlResources.Designer.cs</LastGenOutput>
-      </EmbeddedResource>
       <EmbeddedResource Update="Resources\Resx\Utils\FilePicker\SqliteFileDialog\SqliteFileDialogResources.resx">
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>SqliteFileDialogResources.Designer.cs</LastGenOutput>
@@ -280,11 +276,6 @@
         <DesignTime>True</DesignTime>
         <AutoGen>True</AutoGen>
         <DependentUpon>BudgetsControlResources.resx</DependentUpon>
-      </Compile>
-      <Compile Update="Resources\Resx\UserControls\Analytics\StackedTotalEllipseControl\StackedTotalEllipseControlResources.Designer.cs">
-        <DesignTime>True</DesignTime>
-        <AutoGen>True</AutoGen>
-        <DependentUpon>StackedTotalEllipseControlResources.resx</DependentUpon>
       </Compile>
       <Compile Update="Resources\Resx\Utils\FilePicker\SqliteFileDialog\SqliteFileDialogResources.Designer.cs">
         <DesignTime>True</DesignTime>

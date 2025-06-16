@@ -1,5 +1,6 @@
 ﻿using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Sql.Bases.Views;
+using MyExpenses.SharedUtils.Resources.Resx.StackedTotalEllipseControl;
 
 namespace MyExpenses.Smartphones.ContentPages.Analytics.AccountTotalEllipseControl;
 
@@ -52,8 +53,8 @@ public partial class StackedTotalEllipseContentView
 
     private void UpdateLanguage()
     {
-        TitleTotalTotalNotPointed = "TitleTotalTotalNotPointed"; //StackedTotalEllipseControlResources.TitleTotalTotalNotPointed;
-        TitleTotalTotal = "TitleTotalTotal"; // StackedTotalEllipseControlResources.TitleTotalTotal;
-        TitleTotalTotalPointed = "TitleTotalTotalPointed"; // StackedTotalEllipseControlResources.TitleTotalTotalPointed;
+        TitleTotalTotalNotPointed = StackedTotalEllipseControlResources.TitleTotalTotalNotPointed;
+        TitleTotalTotal = StackedTotalEllipseControlResources.TitleTotalTotal;
+        TitleTotalTotalPointed = StackedTotalEllipseControlResources.TitleTotalTotalPointed;
     }
 }
