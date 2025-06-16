@@ -1,5 +1,6 @@
 using System.Windows;
 using MyExpenses.Models.Config.Interfaces;
+using MyExpenses.SharedUtils.Resources.Resx.AnalyticsManagement;
 using MyExpenses.Wpf.Resources.Resx.Pages.AnalyticsPage;
 
 namespace MyExpenses.Wpf.Pages;
@@ -88,7 +89,7 @@ public partial class AnalyticsPage
     private void UpdateLanguage()
     {
         TabItemCumulativeSumChartControlHeader = AnalyticsPageResources.TabItemCumulativeSumChartControlHeader;
-        TabItemAccountTotalEllipseControlHeader = AnalyticsPageResources.TabItemAccountTotalEllipseControlHeader;
+        TabItemAccountTotalEllipseControlHeader = AnalyticsManagementResources.TabItemAccountTotalEllipseControlHeader;
         TabItemAccountsCategorySumControlHeader = AnalyticsPageResources.TabItemAccountsCategorySumControlHeader;
         TabItemAccountsModePaymentMonthlySumControlHeader = AnalyticsPageResources.TabItemAccountsModePaymentMonthlySumControlHeader;
         TabItemAccountsCategorySumPositiveNegativeControl = AnalyticsPageResources.TabItemAccountsCategorySumPositiveNegativeControl;

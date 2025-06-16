@@ -14,9 +14,6 @@
     <data name="TabItemCumulativeSumChartControlHeader" xml:space="preserve">
         <value>Cumulative sum</value>
     </data>
-    <data name="TabItemAccountTotalEllipseControlHeader" xml:space="preserve">
-        <value>Projection and status</value>
-    </data>
     <data name="TabItemAccountsCategorySumControlHeader" xml:space="preserve">
         <value>Sum of categories</value>
     </data>

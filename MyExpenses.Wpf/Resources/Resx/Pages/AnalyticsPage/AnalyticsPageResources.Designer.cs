@@ -87,15 +87,6 @@ namespace MyExpenses.Wpf.Resources.Resx.Pages.AnalyticsPage {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Projection and status.
-        /// </summary>
-        internal static string TabItemAccountTotalEllipseControlHeader {
-            get {
-                return ResourceManager.GetString("TabItemAccountTotalEllipseControlHeader", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Budget balance sheet.
         /// </summary>
         internal static string TabItemBudgetsControlHeader {

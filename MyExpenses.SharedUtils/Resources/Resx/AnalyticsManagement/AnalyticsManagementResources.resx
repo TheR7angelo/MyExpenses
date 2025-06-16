@@ -21,4 +21,7 @@
     <data name="ButtonTextAnalyseByCategoryAndMonth" xml:space="preserve">
         <value>Analysis by category and month</value>
     </data>
+    <data name="TabItemAccountTotalEllipseControlHeader" xml:space="preserve">
+        <value>Projection and status</value>
+    </data>
 </root>

@@ -68,5 +68,14 @@ namespace MyExpenses.SharedUtils.Resources.Resx.AnalyticsManagement {
                 return ResourceManager.GetString("ButtonTextAnalyseByCategoryAndMonth", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Projection and status.
+        /// </summary>
+        public static string TabItemAccountTotalEllipseControlHeader {
+            get {
+                return ResourceManager.GetString("TabItemAccountTotalEllipseControlHeader", resourceCulture);
+            }
+        }
     }
 }
