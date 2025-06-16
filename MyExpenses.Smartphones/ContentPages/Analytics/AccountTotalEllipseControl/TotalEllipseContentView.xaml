@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:converters="clr-namespace:MyExpenses.Smartphones.Converters"
+             x:Class="MyExpenses.Smartphones.ContentPages.Analytics.AccountTotalEllipseControl.TotalEllipseContentView"
+             x:Name="This">
+
+    <ContentView.Resources>
+        <converters:ValueSymbolConverter x:Key="ValueSymbolConverter" />
+    </ContentView.Resources>
+
+    <ContentView.Content>
+
+        <Grid>
+
+            <Ellipse HeightRequest="240"
+                     WidthRequest="{Binding HeightRequest, Source={RelativeSource Self}}"
+                     Stroke="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
+                     StrokeThickness="3">
+            </Ellipse>
+
+            <Grid HorizontalOptions="Center"
+                  VerticalOptions="Center">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <Label Grid.Row="0"
+                       HorizontalTextAlignment="Center"
+                       VerticalTextAlignment="Center"
+                       FontAttributes="Bold"
+                       Text="{Binding TitleTotal, Mode=OneWay, Source={Reference This}}">
+                </Label>
+
+                <Label Grid.Row="1"
+                       HorizontalTextAlignment="Center"
+                       VerticalTextAlignment="Center"
+                       FontAttributes="Bold">
+                    <Label.Text>
+                        <MultiBinding Converter="{StaticResource ValueSymbolConverter}">
+                            <Binding Path="Total" FallbackValue="" Mode="OneWay" Source="{Reference This}" />
+                            <Binding Path="Symbol" FallbackValue="" Mode="OneWay" Source="{Reference This}" />
+                        </MultiBinding>
+                    </Label.Text>
+                </Label>
+
+            </Grid>
+
+        </Grid>
+
+    </ContentView.Content>
+
+</ContentView>
