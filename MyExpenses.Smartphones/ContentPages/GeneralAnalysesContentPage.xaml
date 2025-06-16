@@ -17,6 +17,11 @@
                         Clicked="ButtonAccountAnalyzedByMonth_OnClicked">
                 </Button>
 
+                <Button Text="{Binding ButtonTextAccountTotalEllipse, Mode=OneWay}"
+                        Style="{StaticResource RaisedMidButton}"
+                        Clicked="ButtonAccountTotalEllipse_OnClicked">
+                </Button>
+
             </VerticalStackLayout>
 
         </ScrollView>
