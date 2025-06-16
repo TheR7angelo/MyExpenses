@@ -1,5 +1,6 @@
 ﻿using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.SharedUtils.Resources.Resx.AnalyticsManagement;
+using MyExpenses.Smartphones.ContentPages.Analytics;
 
 namespace MyExpenses.Smartphones.ContentPages;
 

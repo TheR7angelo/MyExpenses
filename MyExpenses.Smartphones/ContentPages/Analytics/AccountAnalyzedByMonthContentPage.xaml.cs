@@ -12,7 +12,7 @@ using MyExpenses.Sql.Context;
 using MyExpenses.Sql.Queries;
 using MyExpenses.Utils.Strings;
 
-namespace MyExpenses.Smartphones.ContentPages;
+namespace MyExpenses.Smartphones.ContentPages.Analytics;
 
 public partial class AccountAnalyzedByMonthContentPage
 {

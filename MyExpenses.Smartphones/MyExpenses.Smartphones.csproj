@@ -105,6 +105,9 @@
       <MauiXaml Update="ContentPages\CustomPopups\CustomPopupActivityIndicator\CustomPopupActivityIndicator.xaml">
         <SubType>Designer</SubType>
       </MauiXaml>
+      <MauiXaml Update="ContentPages\Analytics\AccountAnalyzedByMonthContentPage.xaml">
+        <SubType>Designer</SubType>
+      </MauiXaml>
     </ItemGroup>
 
     <ItemGroup>
@@ -201,6 +204,10 @@
         <DesignTime>True</DesignTime>
         <AutoGen>True</AutoGen>
         <DependentUpon>AddEditCategoryTypesContentPageResources.resx</DependentUpon>
+      </Compile>
+      <Compile Update="ContentPages\Analytics\AccountAnalyzedByMonthContentPage.xaml.cs">
+        <DependentUpon>AccountAnalyzedByMonthContentPage.xaml</DependentUpon>
+        <SubType>Code</SubType>
       </Compile>
     </ItemGroup>
 
