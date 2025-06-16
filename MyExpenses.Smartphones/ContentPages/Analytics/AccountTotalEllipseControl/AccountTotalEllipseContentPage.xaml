@@ -20,7 +20,6 @@
                 </DataTemplate>
             </material:TabView.ItemTemplate>
 
-
         </material:TabView>
 
     </ContentPage.Content>
