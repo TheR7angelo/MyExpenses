@@ -1,0 +1,35 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MyExpenses.Smartphones.ContentPages.Analytics.AccountTotalEllipseControl.StackedTotalEllipseContentView"
+             xmlns:local="clr-namespace:MyExpenses.Smartphones.ContentPages.Analytics.AccountTotalEllipseControl"
+             xmlns:margin="clr-namespace:MyExpenses.Maui.Utils.Margin;assembly=MyExpenses.Maui.Utils"
+
+             x:Name="This">
+
+    <ContentView.Content>
+
+        <HorizontalStackLayout HorizontalOptions="Center"
+                               margin:LayoutExtensions.MarginForAllChildren="5, 0">
+
+            <local:TotalEllipseContentView TitleTotal="{Binding TitleTotalTotalNotPointed, Mode=OneWay, Source={Reference This}}"
+                                           Total="{Binding VTotalByAccount.TotalNotPointed, Source={Reference This}}"
+                                           Symbol="{Binding VTotalByAccount.Symbol, Source={Reference This}}">
+            </local:TotalEllipseContentView>
+
+            <local:TotalEllipseContentView TitleTotal="{Binding TitleTotalTotal, Mode=OneWay, Source={Reference This}}"
+                                           Total="{Binding VTotalByAccount.Total, Source={Reference This}}"
+                                           Symbol="{Binding VTotalByAccount.Symbol, Source={Reference This}}">
+            </local:TotalEllipseContentView>
+
+            <local:TotalEllipseContentView TitleTotal="{Binding TitleTotalTotalPointed, Mode=OneWay, Source={Reference This}}"
+                                           Total="{Binding VTotalByAccount.TotalPointed, Source={Reference This}}"
+                                           Symbol="{Binding VTotalByAccount.Symbol, Source={Reference This}}">
+            </local:TotalEllipseContentView>
+
+        </HorizontalStackLayout>
+
+    </ContentView.Content>
+
+</ContentView>
