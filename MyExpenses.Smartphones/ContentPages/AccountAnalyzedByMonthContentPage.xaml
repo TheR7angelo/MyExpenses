@@ -8,6 +8,7 @@
              xmlns:maui="clr-namespace:LiveChartsCore.SkiaSharpView.Maui;assembly=LiveChartsCore.SkiaSharpView.Maui"
              xmlns:converters="clr-namespace:MyExpenses.Smartphones.Converters"
              x:Class="MyExpenses.Smartphones.ContentPages.AccountAnalyzedByMonthContentPage"
+             Title="{Binding AccountAnalyzedByMonthContentPageTitle, Mode=OneWay}"
 
              BindingContext="{Binding Source={RelativeSource Self}}">
 

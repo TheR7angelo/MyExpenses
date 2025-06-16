@@ -6,6 +6,7 @@ using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Models.Sql.Queries;
 using MyExpenses.Models.Wpf.Charts;
 using MyExpenses.SharedUtils.Collection;
+using MyExpenses.SharedUtils.Resources.Resx.AnalyticsManagement;
 using MyExpenses.SharedUtils.Resources.Resx.DashBoardManagement;
 using MyExpenses.Sql.Context;
 using MyExpenses.Sql.Queries;
@@ -15,6 +16,16 @@ namespace MyExpenses.Smartphones.ContentPages;
 
 public partial class AccountAnalyzedByMonthContentPage
 {
+    public static readonly BindableProperty AccountAnalyzedByMonthContentPageTitleProperty =
+        BindableProperty.Create(nameof(AccountAnalyzedByMonthContentPageTitle), typeof(string),
+            typeof(AccountAnalyzedByMonthContentPage));
+
+    public string AccountAnalyzedByMonthContentPageTitle
+    {
+        get => (string)GetValue(AccountAnalyzedByMonthContentPageTitleProperty);
+        set => SetValue(AccountAnalyzedByMonthContentPageTitleProperty, value);
+    }
+
     public static readonly BindableProperty ComboBoxMonthHintAssistProperty =
         BindableProperty.Create(nameof(ComboBoxMonthHintAssist), typeof(string),
             typeof(AccountAnalyzedByMonthContentPage));
@@ -111,6 +122,8 @@ public partial class AccountAnalyzedByMonthContentPage
 
     private void UpdateLanguage()
     {
+        AccountAnalyzedByMonthContentPageTitle = AnalyticsManagementResources.ButtonTextAnalyseByCategoryAndMonth;
+
         ComboBoxYearsHintAssist = DashBoardManagementResources.ComboBoxYearsHintAssist;
         ComboBoxMonthHintAssist = DashBoardManagementResources.ComboBoxMonthHintAssist;
     }
