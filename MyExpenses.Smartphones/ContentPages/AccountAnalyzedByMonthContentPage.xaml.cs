@@ -30,13 +30,21 @@ public partial class AccountAnalyzedByMonthContentPage
         BindableProperty.Create(nameof(ComboBoxMonthHintAssist), typeof(string),
             typeof(AccountAnalyzedByMonthContentPage));
 
+    public string ComboBoxMonthHintAssist
+    {
+        get => (string)GetValue(ComboBoxMonthHintAssistProperty);
+        set => SetValue(ComboBoxMonthHintAssistProperty, value);
+    }
+
     public static readonly BindableProperty ComboBoxYearsHintAssistProperty =
         BindableProperty.Create(nameof(ComboBoxYearsHintAssist), typeof(string),
             typeof(AccountAnalyzedByMonthContentPage));
 
-    public ObservableCollection<string> Years { get; }
-    public ObservableCollection<string> Months { get; } = [];
-    public ObservableCollection<TAccount> Accounts { get; } = [];
+    public string ComboBoxYearsHintAssist
+    {
+        get => (string)GetValue(ComboBoxYearsHintAssistProperty);
+        set => SetValue(ComboBoxYearsHintAssistProperty, value);
+    }
 
     public static readonly BindableProperty SelectedYearProperty = BindableProperty.Create(nameof(SelectedYear),
         typeof(string), typeof(DashBoardContentPage));
@@ -56,17 +64,9 @@ public partial class AccountAnalyzedByMonthContentPage
         set => SetValue(SelectedMonthProperty, value);
     }
 
-    public string ComboBoxYearsHintAssist
-    {
-        get => (string)GetValue(ComboBoxYearsHintAssistProperty);
-        set => SetValue(ComboBoxYearsHintAssistProperty, value);
-    }
-
-    public string ComboBoxMonthHintAssist
-    {
-        get => (string)GetValue(ComboBoxMonthHintAssistProperty);
-        set => SetValue(ComboBoxMonthHintAssistProperty, value);
-    }
+    public ObservableCollection<string> Years { get; }
+    public ObservableCollection<string> Months { get; } = [];
+    public ObservableCollection<TAccount> Accounts { get; } = [];
 
     public ObservableCollection<CategoryTotal> CategoryTotals { get; } = [];
 
@@ -114,10 +114,149 @@ public partial class AccountAnalyzedByMonthContentPage
         Interface.LanguageChanged += Interface_OnLanguageChanged;
     }
 
+    #region Action
+
+    private void ButtonAddMonth_OnClick(object? sender, EventArgs e)
+        => _ = HandleButtonAddMonth();
+
+    private void ButtonDateNow_OnClick(object? sender, EventArgs e)
+    {
+        var now = DateOnly.FromDateTime(DateTime.Now);
+        UpdateFilterDate(now);
+    }
+
+    private void ButtonRemoveMonth_OnClick(object? sender, EventArgs e)
+        => _ = HandleButtonRemoveMonth();
+
+    private void CollectionAccount_OnLoaded(object? sender, EventArgs e)
+    {
+        _ = Dispatcher.DispatchAsync(async () =>
+        {
+            await Task.Delay(TimeSpan.FromMilliseconds(100));
+            RefreshRadioButtonSelected();
+        });
+    }
+
+    private void CustomPicker_OnSelectedIndexChanged(object? sender, EventArgs e)
+        => RefreshList();
+
     private void Interface_OnLanguageChanged()
     {
         UpdateMonthLanguage();
         UpdateLanguage();
+    }
+
+    private void RadioButton_OnCheckedChanged(object? sender, CheckedChangedEventArgs e)
+    {
+        if (sender is not RadioButton radioButton) return;
+        if (radioButton.Content is not string accountName) return;
+
+        RefreshList(accountName);
+    }
+
+    #endregion
+
+    #region Function
+
+    private DateOnly GetDateOnlyFilter()
+    {
+        var monthIndex = string.IsNullOrEmpty(SelectedMonth)
+            ? DateTime.Now.Month
+            : Months.IndexOf(SelectedMonth) + 1;
+
+        var year = string.IsNullOrEmpty(SelectedYear)
+            ? DateTime.Now.Year
+            : int.Parse(SelectedYear);
+
+        var date = DateOnly.Parse($"{year}/{monthIndex}/01");
+        return date;
+    }
+
+    private string? GetSelectedAccountName()
+    {
+        var radioButtons = CollectionViewAccount.FindVisualChildren<RadioButton>().ToList();
+        if (radioButtons.Count is 0) return null;
+
+        var radioButton = radioButtons.FirstOrDefault(s => s.IsChecked);
+        if (radioButton is null)
+        {
+            radioButton = radioButtons.First();
+            radioButton.IsChecked = true;
+        }
+
+        return radioButton.Content is not string accountName ? null : accountName;
+    }
+
+    private async Task HandleButtonAddMonth()
+    {
+        var date = GetDateOnlyFilter();
+        date = date.AddMonths(1);
+
+        var result = UpdateFilterDate(date);
+
+        if (result) return;
+
+        await DisplayAlert(DashBoardManagementResources.MessageBoxAddMonthErrorTitle,
+            DashBoardManagementResources.MessageBoxAddMonthErrorMessage,
+            DashBoardManagementResources.MessageBoxAddMonthErrorOkButton);
+    }
+
+    private async Task HandleButtonRemoveMonth()
+    {
+        var date = GetDateOnlyFilter();
+        date = date.AddMonths(-1);
+
+        var result = UpdateFilterDate(date);
+
+        if (result) return;
+
+        await DisplayAlert(DashBoardManagementResources.MessageBoxRemoveMonthErrorTitle,
+            DashBoardManagementResources.MessageBoxRemoveMonthErrorMessage,
+            DashBoardManagementResources.MessageBoxRemoveMonthErrorOkButton);
+    }
+
+    private void RefreshList(string? accountName = null)
+    {
+        if (string.IsNullOrWhiteSpace(accountName)) accountName = GetSelectedAccountName();
+        if (string.IsNullOrWhiteSpace(accountName)) return;
+
+        int? monthInt = null;
+        if (!string.IsNullOrEmpty(SelectedMonth))
+        {
+            monthInt = Months.IndexOf(SelectedMonth) + 1;
+        }
+
+        int? yearInt = null;
+        if (!string.IsNullOrEmpty(SelectedYear))
+        {
+            _ = SelectedYear.ToInt(out yearInt);
+        }
+
+        var filteredData = accountName.GetFilteredVDetailTotalCategories(monthInt, yearInt);
+        var categoriesTotals = filteredData.CalculateCategoryTotals(out var grandTotal);
+
+        PieChartManager.UpdateChartUi(categoriesTotals, grandTotal);
+    }
+
+    private void RefreshRadioButtonSelected()
+    {
+        var accountName = GetSelectedAccountName();
+        if (string.IsNullOrWhiteSpace(accountName)) return;
+
+        RefreshList(accountName);
+    }
+
+    private bool UpdateFilterDate(DateOnly date)
+    {
+        var yearStr = date.Year.ToString();
+        if (!Years.Contains(yearStr)) return false;
+
+        if (!yearStr.Equals(SelectedYear)) SelectedYear = yearStr;
+
+        var monthIndex = date.Month - 1;
+        SelectedMonth = Months[monthIndex];
+
+        return true;
     }
 
     private void UpdateLanguage()
@@ -153,136 +292,5 @@ public partial class AccountAnalyzedByMonthContentPage
         }
     }
 
-    private void ButtonAddMonth_OnClick(object? sender, EventArgs e)
-        => _ = HandleButtonAddMonth();
-
-    private void ButtonDateNow_OnClick(object? sender, EventArgs e)
-    {
-        var now = DateOnly.FromDateTime(DateTime.Now);
-        UpdateFilterDate(now);
-    }
-
-    private void ButtonRemoveMonth_OnClick(object? sender, EventArgs e)
-        => _ = HandleButtonRemoveMonth();
-
-    private async Task HandleButtonAddMonth()
-    {
-        var date = GetDateOnlyFilter();
-        date = date.AddMonths(1);
-
-        var result = UpdateFilterDate(date);
-
-        if (result) return;
-
-        await DisplayAlert(DashBoardManagementResources.MessageBoxAddMonthErrorTitle,
-            DashBoardManagementResources.MessageBoxAddMonthErrorMessage,
-            DashBoardManagementResources.MessageBoxAddMonthErrorOkButton);
-    }
-
-    private DateOnly GetDateOnlyFilter()
-    {
-        var monthIndex = string.IsNullOrEmpty(SelectedMonth)
-            ? DateTime.Now.Month
-            : Months.IndexOf(SelectedMonth) + 1;
-
-        var year = string.IsNullOrEmpty(SelectedYear)
-            ? DateTime.Now.Year
-            : int.Parse(SelectedYear);
-
-        var date = DateOnly.Parse($"{year}/{monthIndex}/01");
-        return date;
-    }
-
-    private bool UpdateFilterDate(DateOnly date)
-    {
-        var yearStr = date.Year.ToString();
-        if (!Years.Contains(yearStr)) return false;
-
-        if (!yearStr.Equals(SelectedYear)) SelectedYear = yearStr;
-
-        var monthIndex = date.Month - 1;
-        SelectedMonth = Months[monthIndex];
-
-        return true;
-    }
-
-    private async Task HandleButtonRemoveMonth()
-    {
-        var date = GetDateOnlyFilter();
-        date = date.AddMonths(-1);
-
-        var result = UpdateFilterDate(date);
-
-        if (result) return;
-
-        await DisplayAlert(DashBoardManagementResources.MessageBoxRemoveMonthErrorTitle,
-            DashBoardManagementResources.MessageBoxRemoveMonthErrorMessage,
-            DashBoardManagementResources.MessageBoxRemoveMonthErrorOkButton);
-    }
-
-    private void CustomPicker_OnSelectedIndexChanged(object? sender, EventArgs e)
-        => RefreshList();
-
-    private void RefreshList(string? accountName = null)
-    {
-        if (string.IsNullOrWhiteSpace(accountName)) accountName = GetSelectedAccountName();
-        if (string.IsNullOrWhiteSpace(accountName)) return;
-
-        int? monthInt = null;
-        if (!string.IsNullOrEmpty(SelectedMonth))
-        {
-            monthInt = Months.IndexOf(SelectedMonth) + 1;
-        }
-
-        int? yearInt = null;
-        if (!string.IsNullOrEmpty(SelectedYear))
-        {
-            _ = SelectedYear.ToInt(out yearInt);
-        }
-
-        var filteredData = accountName.GetFilteredVDetailTotalCategories(monthInt, yearInt);
-        var categoriesTotals = filteredData.CalculateCategoryTotals(out var grandTotal);
-
-        PieChartManager.UpdateChartUi(categoriesTotals, grandTotal);
-    }
-
-    private void CollectionAccount_OnLoaded(object? sender, EventArgs e)
-    {
-        _ = Dispatcher.DispatchAsync(async () =>
-        {
-            await Task.Delay(TimeSpan.FromMilliseconds(100));
-            RefreshRadioButtonSelected();
-        });
-    }
-
-    private void RefreshRadioButtonSelected()
-    {
-        var accountName = GetSelectedAccountName();
-        if (string.IsNullOrWhiteSpace(accountName)) return;
-
-        RefreshList(accountName);
-    }
-
-    private string? GetSelectedAccountName()
-    {
-        var radioButtons = CollectionViewAccount.FindVisualChildren<RadioButton>().ToList();
-        if (radioButtons.Count is 0) return null;
-
-        var radioButton = radioButtons.FirstOrDefault(s => s.IsChecked);
-        if (radioButton is null)
-        {
-            radioButton = radioButtons.First();
-            radioButton.IsChecked = true;
-        }
-
-        return radioButton.Content is not string accountName ? null : accountName;
-    }
-
-    private void RadioButton_OnCheckedChanged(object? sender, CheckedChangedEventArgs e)
-    {
-        if (sender is not RadioButton radioButton) return;
-        if (radioButton.Content is not string accountName) return;
-
-        RefreshList(accountName);
-    }
+    #endregion
 }
