@@ -44,12 +44,9 @@ public partial class AccountCategorySumPositiveNegativeControl
 
         // ReSharper disable HeapView.DelegateAllocation
         Interface.ThemeChanged += Interface_OnThemeChanged;
-        Interface.LanguageChanged += Interface_OnLanguageChanged;
+        Interface.LanguageChanged += UpdateLanguage;
         // ReSharper restore HeapView.DelegateAllocation
     }
-
-    private void Interface_OnLanguageChanged()
-        => UpdateLanguage();
 
     private void Interface_OnThemeChanged()
     {
