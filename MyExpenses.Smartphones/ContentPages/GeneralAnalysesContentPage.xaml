@@ -22,6 +22,11 @@
                         Clicked="ButtonAccountTotalEllipse_OnClicked">
                 </Button>
 
+                <Button Text="{Binding ButtonTextAccountsCategorySumPositiveNegativeControl, Mode=OneWay}"
+                        Style="{StaticResource RaisedMidButton}"
+                        Clicked="ButtonAccountsCategorySumPositiveNegative_OnClicked">
+                </Button>
+
             </VerticalStackLayout>
 
         </ScrollView>
