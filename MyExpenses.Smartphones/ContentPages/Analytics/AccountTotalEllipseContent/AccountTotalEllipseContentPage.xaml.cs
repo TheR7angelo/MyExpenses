@@ -37,10 +37,7 @@ public partial class AccountTotalEllipseContentPage
         Interface.LanguageChanged += UpdateLanguage;
     }
 
-    private void UpdateLanguage()
-    {
-        AccountTotalEllipseContentPageTitle = AnalyticsManagementResources.TabItemAccountTotalEllipseControlHeader;
-    }
+    #region Action
 
     protected override void OnAppearing()
     {
@@ -55,4 +52,15 @@ public partial class AccountTotalEllipseContentPage
 
         _deviceOrientationService.SetDeviceOrientation(DisplayOrientation.Unknown);
     }
+
+    #endregion
+
+    #region Function
+
+    private void UpdateLanguage()
+    {
+        AccountTotalEllipseContentPageTitle = AnalyticsManagementResources.TabItemAccountTotalEllipseControlHeader;
+    }
+
+    #endregion
 }
