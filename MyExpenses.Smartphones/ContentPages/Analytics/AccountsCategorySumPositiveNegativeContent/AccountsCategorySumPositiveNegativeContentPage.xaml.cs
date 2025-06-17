@@ -17,7 +17,7 @@ public partial class AccountsCategorySumPositiveNegativeContentPage
         set => SetValue(AccountsCategorySumPositiveNegativeContentPageTitleProperty, value);
     }
 
-    public List<TabItemData> TabItems { get; }
+    public List<TabItemData> TabItemDatas { get; }
 
     private readonly DeviceOrientationService _deviceOrientationService;
 
@@ -29,8 +29,8 @@ public partial class AccountsCategorySumPositiveNegativeContentPage
         // Necessary instantiation of DataBaseContext to interact with the database.
         // This creates a scoped database context for performing queries and modifications in the database.
         using var context = new DataBaseContext();
-        TabItems = [..context.TAccounts.OrderBy(s => s.Name)
-            .Select(s => new TabItemData { Header = s.Name!, Content = s })];
+        TabItemDatas = [..context.TAccounts.OrderBy(s => s.Name)
+            .Select(s => new TabItemData { Header = s.Name!, Content = new AccountCategorySumPositiveNegativeContentView(s.Id) })];
 
         UpdateLanguage();
         InitializeComponent();
