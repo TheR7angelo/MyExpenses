@@ -70,11 +70,56 @@ namespace MyExpenses.SharedUtils.Resources.Resx.AnalyticsManagement {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Sum of categories.
+        /// </summary>
+        public static string TabItemAccountsCategorySumControlHeader {
+            get {
+                return ResourceManager.GetString("TabItemAccountsCategorySumControlHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sum of positive and negative categories.
+        /// </summary>
+        public static string TabItemAccountsCategorySumPositiveNegativeControl {
+            get {
+                return ResourceManager.GetString("TabItemAccountsCategorySumPositiveNegativeControl", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Monthly Statistics.
+        /// </summary>
+        public static string TabItemAccountsModePaymentMonthlySumControlHeader {
+            get {
+                return ResourceManager.GetString("TabItemAccountsModePaymentMonthlySumControlHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Projection and status.
         /// </summary>
         public static string TabItemAccountTotalEllipseControlHeader {
             get {
                 return ResourceManager.GetString("TabItemAccountTotalEllipseControlHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Budget balance sheet.
+        /// </summary>
+        public static string TabItemBudgetsControlHeader {
+            get {
+                return ResourceManager.GetString("TabItemBudgetsControlHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cumulative sum.
+        /// </summary>
+        public static string TabItemCumulativeSumChartControlHeader {
+            get {
+                return ResourceManager.GetString("TabItemCumulativeSumChartControlHeader", resourceCulture);
             }
         }
     }

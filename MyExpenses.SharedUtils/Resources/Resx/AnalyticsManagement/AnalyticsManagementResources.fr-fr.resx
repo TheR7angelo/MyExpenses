@@ -17,4 +17,19 @@
     <data name="TabItemAccountTotalEllipseControlHeader" xml:space="preserve">
         <value>Projection et statut</value>
     </data>
+    <data name="TabItemAccountsCategorySumControlHeader" xml:space="preserve">
+        <value>Somme des catégories</value>
+    </data>
+    <data name="TabItemAccountsCategorySumPositiveNegativeControl" xml:space="preserve">
+        <value>Somme des catégories positive et négative</value>
+    </data>
+    <data name="TabItemAccountsModePaymentMonthlySumControlHeader" xml:space="preserve">
+        <value>Statistiques mensuelles</value>
+    </data>
+    <data name="TabItemBudgetsControlHeader" xml:space="preserve">
+        <value>Bilan budgétaire</value>
+    </data>
+    <data name="TabItemCumulativeSumChartControlHeader" xml:space="preserve">
+        <value>Somme cumulative</value>
+    </data>
 </root>

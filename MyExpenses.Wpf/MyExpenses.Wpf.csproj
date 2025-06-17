@@ -85,10 +85,6 @@
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>SettingsWindowResources.Designer.cs</LastGenOutput>
       </EmbeddedResource>
-      <EmbeddedResource Update="Resources\Resx\Pages\AnalyticsPage\AnalyticsPageResources.resx">
-        <Generator>ResXFileCodeGenerator</Generator>
-        <LastGenOutput>AnalyticsPageResources.Designer.cs</LastGenOutput>
-      </EmbeddedResource>
       <EmbeddedResource Update="Resources\Resx\Windows\RecurrentAddWindow\RecurrentAddWindowResources.resx">
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>RecurrentAddWindowResources.Designer.cs</LastGenOutput>
@@ -211,11 +207,6 @@
         <DesignTime>True</DesignTime>
         <AutoGen>True</AutoGen>
         <DependentUpon>SettingsWindowResources.resx</DependentUpon>
-      </Compile>
-      <Compile Update="Resources\Resx\Pages\AnalyticsPage\AnalyticsPageResources.Designer.cs">
-        <DesignTime>True</DesignTime>
-        <AutoGen>True</AutoGen>
-        <DependentUpon>AnalyticsPageResources.resx</DependentUpon>
       </Compile>
       <Compile Update="Resources\Resx\Windows\RecurrentAddWindow\RecurrentAddWindowResources.Designer.cs">
         <DesignTime>True</DesignTime>
