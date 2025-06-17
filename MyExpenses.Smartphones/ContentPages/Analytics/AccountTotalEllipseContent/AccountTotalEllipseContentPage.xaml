@@ -11,7 +11,7 @@
 
     <ContentPage.Content>
 
-        <material:TabView ItemsSource="{Binding VTotalByAccountAnalyses, Mode=OneWay}"
+        <material:TabView ItemsSource="{Binding TabItemDatas, Mode=OneWay}"
                           TabPlacement="Bottom">
 
             <material:TabView.ItemTemplate>

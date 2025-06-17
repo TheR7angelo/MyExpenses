@@ -1,5 +1,4 @@
-﻿using System.Collections.ObjectModel;
-using MyExpenses.Models.Config.Interfaces;
+﻿using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Ui;
 using MyExpenses.SharedUtils.Resources.Resx.AnalyticsManagement;
 using MyExpenses.Sql.Context;
@@ -20,7 +19,7 @@ public partial class AccountTotalEllipseContentPage
 
     private readonly DeviceOrientationService _deviceOrientationService;
 
-    public ObservableCollection<TabItemData> VTotalByAccountAnalyses { get; }
+    public List<TabItemData> TabItemDatas { get; }
 
     public AccountTotalEllipseContentPage()
     {
@@ -29,7 +28,7 @@ public partial class AccountTotalEllipseContentPage
         // ReSharper disable once HeapView.ObjectAllocation.Evident
         // Necessary instantiation of DataBaseContext to interact with the database.
         using var context = new DataBaseContext();
-        VTotalByAccountAnalyses = [..context.VTotalByAccounts.OrderBy(s => s.Name)
+        TabItemDatas = [..context.VTotalByAccounts.OrderBy(s => s.Name)
             .Select(s => new TabItemData { Header = s.Name!, Content = s })];
 
         UpdateLanguage();
