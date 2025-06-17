@@ -16,7 +16,7 @@
 
             <material:TabView.ItemTemplate>
                 <DataTemplate>
-                    <accountTotalEllipseContentViews:StackedTotalEllipseContentView VTotalByAccount="{Binding .}" />
+                    <accountTotalEllipseContentViews:StackedTotalEllipseContentView VTotalByAccount="{Binding .Content}" />
                 </DataTemplate>
             </material:TabView.ItemTemplate>
 

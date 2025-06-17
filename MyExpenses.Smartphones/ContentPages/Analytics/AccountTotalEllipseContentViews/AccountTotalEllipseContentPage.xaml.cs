@@ -2,6 +2,7 @@
 using MyExpenses.Models.AutoMapper;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Sql.Derivatives.Views;
+using MyExpenses.Models.Ui;
 using MyExpenses.SharedUtils.Resources.Resx.AnalyticsManagement;
 using MyExpenses.Sql.Context;
 
@@ -21,7 +22,7 @@ public partial class AccountTotalEllipseContentPage
 
     private readonly DeviceOrientationService _deviceOrientationService;
 
-    public ObservableCollection<VTotalByAccountAnalyse> VTotalByAccountAnalyses { get; }
+    public ObservableCollection<TabItemData> VTotalByAccountAnalyses { get; }
 
     public AccountTotalEllipseContentPage()
     {
@@ -31,7 +32,7 @@ public partial class AccountTotalEllipseContentPage
         // Necessary instantiation of DataBaseContext to interact with the database.
         using var context = new DataBaseContext();
         VTotalByAccountAnalyses = [..context.VTotalByAccounts.OrderBy(s => s.Name)
-            .Select(s => Mapping.Mapper.Map<VTotalByAccountAnalyse>(s))];
+            .Select(s => new TabItemData { Header = s.Name!, Content = s })];
 
         UpdateLanguage();
         InitializeComponent();
