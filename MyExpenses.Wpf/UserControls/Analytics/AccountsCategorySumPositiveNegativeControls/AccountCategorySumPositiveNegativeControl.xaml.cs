@@ -7,9 +7,9 @@ using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Sql.Bases.Views.Analysis;
 using MyExpenses.Share.Core.Analysis;
 using MyExpenses.SharedUtils.Converters;
+using MyExpenses.SharedUtils.Resources.Resx.AccountsCategorySumPositiveNegativeContent;
 using MyExpenses.Sql.Queries;
 using MyExpenses.Utils;
-using MyExpenses.Wpf.Resources.Resx.UserControls.Analytics.AccountsCategorySumPositiveNegativeControls;
 
 namespace MyExpenses.Wpf.UserControls.Analytics.AccountsCategorySumPositiveNegativeControls;
 
@@ -100,8 +100,8 @@ public partial class AccountCategorySumPositiveNegativeControl
         }
 
         Span<string> names =
-            [AccountsCategorySumPositiveNegativeControlsResources.ColumnSeriesNegativeName,
-            AccountsCategorySumPositiveNegativeControlsResources.ColumnSeriesPositiveName];
+            [AccountsCategorySumPositiveNegativeContentResources.ColumnSeriesNegativeName,
+            AccountsCategorySumPositiveNegativeContentResources.ColumnSeriesPositiveName];
 
         for (var i = 0; i < names.Length; i++)
         {
@@ -144,8 +144,8 @@ public partial class AccountCategorySumPositiveNegativeControl
         var secondarySolidColorPaint = configuration.Interface.Theme.HexadecimalCodeSecondaryColor;
 
         var (positiveSeries, negativeSeries) = records.GenerateSeries(primarySolidColorPaint, secondarySolidColorPaint,
-            AccountsCategorySumPositiveNegativeControlsResources.ColumnSeriesPositiveName,
-            AccountsCategorySumPositiveNegativeControlsResources.ColumnSeriesNegativeName);
+            AccountsCategorySumPositiveNegativeContentResources.ColumnSeriesPositiveName,
+            AccountsCategorySumPositiveNegativeContentResources.ColumnSeriesNegativeName);
 
         Series = [negativeSeries, positiveSeries];
     }
