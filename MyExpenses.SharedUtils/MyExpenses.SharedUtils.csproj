@@ -104,6 +104,10 @@
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>StackedTotalEllipseControlResources.Designer.cs</LastGenOutput>
       </EmbeddedResource>
+      <EmbeddedResource Update="Resources\Resx\AccountsCategorySumPositiveNegativeContent\AccountsCategorySumPositiveNegativeContentResources.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>AccountsCategorySumPositiveNegativeContentResources.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
     </ItemGroup>
 
     <ItemGroup>
@@ -226,6 +230,11 @@
         <DesignTime>True</DesignTime>
         <AutoGen>True</AutoGen>
         <DependentUpon>StackedTotalEllipseControlResources.resx</DependentUpon>
+      </Compile>
+      <Compile Update="Resources\Resx\AccountsCategorySumPositiveNegativeContent\AccountsCategorySumPositiveNegativeContentResources.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>AccountsCategorySumPositiveNegativeContentResources.resx</DependentUpon>
       </Compile>
     </ItemGroup>
 
