@@ -21,12 +21,6 @@
     <data name="MessageBoxModePaymentCantEditMessage" xml:space="preserve">
         <value>This payment method cannot be changed or deleted</value>
     </data>
-    <data name="MessageBoxEditModePaymentErrorMessage" xml:space="preserve">
-        <value>An error occurred please retry</value>
-    </data>
-    <data name="MessageBoxEditModePaymentSuccessMessage" xml:space="preserve">
-        <value>Mode payment was successfully edited</value>
-    </data>
     <data name="ButtonCancelContent" xml:space="preserve">
         <value>Cancel</value>
     </data>
