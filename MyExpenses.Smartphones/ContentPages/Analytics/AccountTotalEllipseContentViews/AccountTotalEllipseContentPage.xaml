@@ -2,10 +2,10 @@
 
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="MyExpenses.Smartphones.ContentPages.Analytics.AccountTotalEllipseControl.AccountTotalEllipseContentPage"
+             x:Class="MyExpenses.Smartphones.ContentPages.Analytics.AccountTotalEllipseContentViews.AccountTotalEllipseContentPage"
              Title="{Binding AccountTotalEllipseContentPageTitle, Mode=OneWay}"
              xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
-             xmlns:local="clr-namespace:MyExpenses.Smartphones.ContentPages.Analytics.AccountTotalEllipseControl"
+             xmlns:accountTotalEllipseContentViews="clr-namespace:MyExpenses.Smartphones.ContentPages.Analytics.AccountTotalEllipseContentViews"
 
              BindingContext="{Binding Source={RelativeSource Self}}">
 
@@ -16,7 +16,7 @@
 
             <material:TabView.ItemTemplate>
                 <DataTemplate>
-                    <local:StackedTotalEllipseContentView VTotalByAccount="{Binding .}" />
+                    <accountTotalEllipseContentViews:StackedTotalEllipseContentView VTotalByAccount="{Binding .}" />
                 </DataTemplate>
             </material:TabView.ItemTemplate>
 

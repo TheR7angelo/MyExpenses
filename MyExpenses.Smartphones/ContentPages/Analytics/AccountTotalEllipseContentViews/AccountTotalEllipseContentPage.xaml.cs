@@ -5,7 +5,7 @@ using MyExpenses.Models.Sql.Derivatives.Views;
 using MyExpenses.SharedUtils.Resources.Resx.AnalyticsManagement;
 using MyExpenses.Sql.Context;
 
-namespace MyExpenses.Smartphones.ContentPages.Analytics.AccountTotalEllipseControl;
+namespace MyExpenses.Smartphones.ContentPages.Analytics.AccountTotalEllipseContentViews;
 
 public partial class AccountTotalEllipseContentPage
 {

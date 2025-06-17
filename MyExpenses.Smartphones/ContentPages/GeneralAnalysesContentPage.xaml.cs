@@ -1,7 +1,7 @@
 ﻿using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.SharedUtils.Resources.Resx.AnalyticsManagement;
 using MyExpenses.Smartphones.ContentPages.Analytics;
-using MyExpenses.Smartphones.ContentPages.Analytics.AccountTotalEllipseControl;
+using MyExpenses.Smartphones.ContentPages.Analytics.AccountTotalEllipseContentViews;
 
 namespace MyExpenses.Smartphones.ContentPages;
 
