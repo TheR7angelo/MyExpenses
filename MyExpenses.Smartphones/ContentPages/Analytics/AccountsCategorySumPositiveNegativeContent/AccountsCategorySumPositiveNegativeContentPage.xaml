@@ -5,6 +5,7 @@
              x:Class="MyExpenses.Smartphones.ContentPages.Analytics.AccountsCategorySumPositiveNegativeContent.AccountsCategorySumPositiveNegativeContentPage"
              xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
 
+             Title="{Binding AccountsCategorySumPositiveNegativeContentPageTitle, Mode=OneWay}"
              BindingContext="{Binding Source={RelativeSource Self}}">
 
     <ContentPage.Content>
