@@ -1,4 +1,4 @@
-﻿namespace MyExpenses.Smartphones.ContentPages.Analytics.AccountTotalEllipseContentViews;
+﻿namespace MyExpenses.Smartphones.ContentPages.Analytics.AccountTotalEllipseContent;
 
 public partial class TotalEllipseContentView
 {

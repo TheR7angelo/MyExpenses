@@ -2,7 +2,7 @@
 using MyExpenses.Models.Sql.Bases.Views;
 using MyExpenses.SharedUtils.Resources.Resx.StackedTotalEllipseControl;
 
-namespace MyExpenses.Smartphones.ContentPages.Analytics.AccountTotalEllipseContentViews;
+namespace MyExpenses.Smartphones.ContentPages.Analytics.AccountTotalEllipseContent;
 
 public partial class StackedTotalEllipseContentView
 {

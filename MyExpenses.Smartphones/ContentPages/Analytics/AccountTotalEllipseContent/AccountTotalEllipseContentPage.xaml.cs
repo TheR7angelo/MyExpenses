@@ -1,12 +1,10 @@
 ﻿using System.Collections.ObjectModel;
-using MyExpenses.Models.AutoMapper;
 using MyExpenses.Models.Config.Interfaces;
-using MyExpenses.Models.Sql.Derivatives.Views;
 using MyExpenses.Models.Ui;
 using MyExpenses.SharedUtils.Resources.Resx.AnalyticsManagement;
 using MyExpenses.Sql.Context;
 
-namespace MyExpenses.Smartphones.ContentPages.Analytics.AccountTotalEllipseContentViews;
+namespace MyExpenses.Smartphones.ContentPages.Analytics.AccountTotalEllipseContent;
 
 public partial class AccountTotalEllipseContentPage
 {
