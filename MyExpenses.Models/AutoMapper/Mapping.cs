@@ -19,29 +19,27 @@ public static class Mapping
 
     static Mapping()
     {
-        // ReSharper disable once HeapView.ObjectAllocation.Evident
-        // This hint is disabled because the allocation of MapperConfiguration is intentional and required to set up AutoMapper mappings.
-        // The configuration object needs to be created to define how objects are mapped, and its allocation cannot be avoided.
-        // The performance impact is minimal as this is only executed during the static constructor, making it acceptable.
-        var mapperConfiguration = new MapperConfiguration(Configure);
+        var mapperConfiguration = Configure();
 
         Mapper = mapperConfiguration.CreateMapper();
     }
 
-    /// <summary>
-    /// Configures the AutoMapper with the necessary profiles from the executing assembly.
-    /// </summary>
-    /// <param name="cfg">The configuration expression used to define mapping profiles.</param>
-    private static void Configure(IMapperConfigurationExpression cfg)
+    private static MapperConfiguration Configure()
     {
         var executingAssembly = Assembly.GetExecutingAssembly();
         var profiles = executingAssembly
             .GetTypes()
             .Where(t => typeof(Profile).IsAssignableFrom(t));
 
-        foreach (var profile in profiles)
+        var loggerFactory = LoggerConfig.LoggerFactory;
+        var configuration = new MapperConfiguration(cfg =>
         {
-            cfg.AddProfile(profile);
-        }
+            foreach (var profile in profiles)
+            {
+                cfg.AddProfile(profile);
+            }
+        }, loggerFactory);
+
+        return configuration;
     }
 }

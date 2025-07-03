@@ -1,4 +1,5 @@
-﻿using MyExpenses.Models.Systems;
+﻿using Microsoft.Extensions.Logging;
+using MyExpenses.Models.Systems;
 using MyExpenses.SharedUtils.GlobalInfos;
 using Serilog;
 using Serilog.Core;
@@ -11,6 +12,8 @@ namespace MyExpenses.Models;
 /// </summary>
 public static class LoggerConfig
 {
+    public static ILoggerFactory? LoggerFactory { get; private set; }
+
     /// <summary>
     /// Creates a logger configuration for the application.
     /// </summary>
@@ -24,6 +27,8 @@ public static class LoggerConfig
         loggerConfiguration.SetWriteToOption(true, true, OsInfos.LogDirectoryPath);
         loggerConfiguration.SetLoggerConfigurationLevel(logEventLevel);
         var logger = loggerConfiguration.CreateLogger();
+
+        LoggerFactory = new LoggerFactory().AddSerilog(logger);
 
         return logger;
     }
