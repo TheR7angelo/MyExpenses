@@ -10,6 +10,7 @@
         <AssemblyName>MyExpenses</AssemblyName>
         <Version>1.1.11</Version>
         <LangVersion>13</LangVersion>
+        <Authors>TheR7angelo</Authors>
     </PropertyGroup>
 
     <ItemGroup>

@@ -1,3 +1,4 @@
+using System.Reflection;
 using MyExpenses.Models.IO.Excel;
 using MyExpenses.Models.Sql.Bases.Views.Exports;
 using MyExpenses.Sql.Context;
@@ -10,7 +11,11 @@ public static class ImportExportDataTableExcel
 {
     static ImportExportDataTableExcel()
     {
-        ExcelPackage.License.SetNonCommercialPersonal(nameof(MyExpenses));
+        var assembly = Assembly.GetEntryAssembly();
+        var attributes = assembly?.GetCustomAttributes().ToList();
+        var companyAttribute = attributes?.OfType<AssemblyCompanyAttribute>().FirstOrDefault();
+
+        ExcelPackage.License.SetNonCommercialPersonal(companyAttribute?.Company);
     }
 
     public static bool ToExcelWorksheet(this DataBaseContext context, string filePath)
