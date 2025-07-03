@@ -13,13 +13,16 @@ namespace MyExpenses.Models;
 public static class LoggerConfig
 {
     public static ILoggerFactory? LoggerFactory { get; private set; }
+    public static bool LogEfCore { get; private set; }
 
     /// <summary>
     /// Creates a logger configuration for the application.
     /// </summary>
     /// <returns>A Logger object representing the configured logger.</returns>
-    public static Logger CreateConfig(LogEventLevel? logEventLevel)
+    public static Logger CreateConfig(LogEventLevel? logEventLevel, bool logEfCore, bool writeToFileEfCore)
     {
+        LogEfCore = logEfCore;
+
         // ReSharper disable once HeapView.ObjectAllocation.Evident
         // The LoggerConfiguration instance is created here to configure and build the logger.
         var loggerConfiguration = new LoggerConfiguration();

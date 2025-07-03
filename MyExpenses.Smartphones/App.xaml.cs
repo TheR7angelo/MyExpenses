@@ -5,6 +5,7 @@ using MyExpenses.SharedUtils.GlobalInfos;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils;
 using Serilog;
+using Serilog.Events;
 
 namespace MyExpenses.Smartphones;
 
@@ -22,7 +23,17 @@ public partial class App
         // operations, ensuring resources are released effectively when tasks are canceled.
         CancellationTokenSource = new CancellationTokenSource();
 
-        Log.Logger = LoggerConfig.CreateConfig(null);
+#if DEBUG
+        const LogEventLevel logEventLevel = LogEventLevel.Debug;
+        const bool logEfCore = true;
+        const bool writeToFileEfCore = true;
+#else
+        const LogEventLevel logEventLevel = LogEventLevel.Information;
+        const bool logEfCore = false;
+        const bool writeToFileEfCore = false;
+#endif
+
+        Log.Logger = LoggerConfig.CreateConfig(null, logEfCore, writeToFileEfCore);
         Log.Information("Starting the application");
 
         Log.Information("Reading configuration file");

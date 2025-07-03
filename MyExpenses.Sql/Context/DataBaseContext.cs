@@ -4,20 +4,11 @@ using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Models.Sql.Bases.Views;
 using MyExpenses.Models.Sql.Bases.Views.Analysis;
 using MyExpenses.Models.Sql.Bases.Views.Exports;
-using MyExpenses.Models.Systems;
-using MyExpenses.SharedUtils.GlobalInfos;
-using Serilog;
-using Serilog.Events;
-using Serilog.Extensions.Logging;
 
 namespace MyExpenses.Sql.Context;
 
 public class DataBaseContext : DbContext
 {
-    public static LogEventLevel? LogEventLevel { get; set; }
-    public static bool LogEfCore { get; set; }
-    public static bool WriteToFileEfCore { get; set; }
-
     public static string? FilePath { get; set; }
 
     private string? TempFilePath { get; }
@@ -128,36 +119,14 @@ public class DataBaseContext : DbContext
 
         var mode = IsReadOnly ? SqliteOpenMode.ReadOnly : SqliteOpenMode.ReadWrite;
         var connectionString = DataSource!.BuildConnectionString(pooling: false, mode: mode);
-
         optionsBuilder.UseSqlite(connectionString);
 
-        if (LogEfCore is not true) return;
-        var serilogLoggerFactory = ConfigureLogging();
+        if (Models.LoggerConfig.LogEfCore is not true) return;
 
-        optionsBuilder.UseLoggerFactory(serilogLoggerFactory)
+        var loggerFactory = Models.LoggerConfig.LoggerFactory;
+        optionsBuilder.UseLoggerFactory(loggerFactory)
             .EnableSensitiveDataLogging()
             .EnableDetailedErrors();
-    }
-
-    private static SerilogLoggerFactory ConfigureLogging()
-    {
-        // ReSharper disable once HeapView.ObjectAllocation.Evident
-        // Allocation of LoggerConfiguration is required here as we are initializing
-        // the logging system configuration. This allocation cannot be bypassed since
-        // it represents the primary object to configure logging parameters.
-        var loggerConfiguration = new LoggerConfiguration();
-        loggerConfiguration.SetLoggerConfigurationLevel(LogEventLevel);
-        loggerConfiguration.SetWriteToOption(true, WriteToFileEfCore, OsInfos.LogDirectoryPath);
-
-        var logger = loggerConfiguration.CreateLogger();
-
-        // ReSharper disable once HeapView.ObjectAllocation.Evident
-        // Allocation is required for both the logger and the SerilogLoggerFactory
-        // as they are necessary to set up and return the logging factory instance.
-        // These allocations are unavoidable since the logger must be created from
-        // the logger configuration, and a factory is required for dependency injection.
-        var serilogLoggerFactory = new SerilogLoggerFactory(logger);
-        return serilogLoggerFactory;
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)

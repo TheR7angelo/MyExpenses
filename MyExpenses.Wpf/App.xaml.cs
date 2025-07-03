@@ -10,6 +10,7 @@ using MyExpenses.Sql.Context;
 using MyExpenses.Utils;
 using MyExpenses.Utils.Systems;
 using MyExpenses.Wpf.Utils;
+using Serilog.Events;
 using Log = Serilog.Log;
 using Theme = MyExpenses.Models.Config.Interfaces.Theme;
 
@@ -26,10 +27,14 @@ public partial class App
         AppDomain.CurrentDomain.UnhandledException += CurrentDomainOnUnhandledException;
 
         var systemArgs = e.Args.GetArguments();
-        DataBaseContext.LogEventLevel = systemArgs.LogEventLevel;
-        DataBaseContext.LogEfCore = systemArgs.LogEfCore;
-        DataBaseContext.WriteToFileEfCore = systemArgs.WriteToFileEfCore;
-        Log.Logger = LoggerConfig.CreateConfig(systemArgs.LogEventLevel);
+
+        #if DEBUG
+        systemArgs.LogEventLevel = LogEventLevel.Debug;
+        systemArgs.LogEfCore = true;
+        systemArgs.WriteToFileEfCore = true;
+        #endif
+
+        Log.Logger = LoggerConfig.CreateConfig(systemArgs.LogEventLevel, systemArgs.LogEfCore, systemArgs.WriteToFileEfCore);
         Log.Information("Logger created with log event level: {SystemArgsLogEventLevel}", systemArgs.LogEventLevel);
         Log.Information("Starting the application");
 
