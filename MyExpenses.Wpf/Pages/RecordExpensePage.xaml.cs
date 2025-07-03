@@ -570,6 +570,18 @@ public partial class RecordExpensePage
 
             if (EditHistory)
             {
+                if (History.BankTransferFk is not null)
+                {
+                    using var context = new DataBaseContext();
+                    var bankTransfer = context.TBankTransfers.FirstOrDefault(s => s.Id == History.BankTransferFk);
+                    if (bankTransfer is not null)
+                    {
+                        bankTransfer.MainReason = History.Description;
+                        bankTransfer.Value = Math.Abs(History.Value ?? 0);
+                        bankTransfer.AddOrEdit();
+                    }
+                }
+
                 nameof(MainWindow.FrameBody).GoBack();
                 return;
             }

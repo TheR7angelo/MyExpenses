@@ -651,6 +651,18 @@ public partial class DetailedRecordContentPage
             return;
         }
 
+        if (History.BankTransferFk is not null)
+        {
+            await using var context = new DataBaseContext();
+            var bankTransfer = context.TBankTransfers.FirstOrDefault(s => s.Id == History.BankTransferFk);
+            if (bankTransfer is not null)
+            {
+                bankTransfer.MainReason = History.Description;
+                bankTransfer.Value = Math.Abs(History.Value ?? 0);
+                bankTransfer.AddOrEdit();
+            }
+        }
+
         _taskCompletionSource.SetResult(true);
         await Navigation.PopAsync();
     }
