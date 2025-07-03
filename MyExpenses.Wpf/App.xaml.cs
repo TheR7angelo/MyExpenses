@@ -3,6 +3,7 @@ using System.IO;
 using System.Windows;
 using System.Windows.Media;
 using MaterialDesignThemes.Wpf;
+using MyExpenses.Models;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.SharedUtils.GlobalInfos;
 using MyExpenses.Sql.Context;

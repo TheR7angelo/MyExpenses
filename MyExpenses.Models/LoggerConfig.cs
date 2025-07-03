@@ -4,7 +4,7 @@ using Serilog;
 using Serilog.Core;
 using Serilog.Events;
 
-namespace MyExpenses.Utils;
+namespace MyExpenses.Models;
 
 /// <summary>
 /// Provides methods for configuring the logger.
