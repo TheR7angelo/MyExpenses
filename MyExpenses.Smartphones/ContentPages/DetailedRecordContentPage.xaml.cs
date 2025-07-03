@@ -626,6 +626,12 @@ public partial class DetailedRecordContentPage
             return;
         }
 
+        if (History.BankTransferFk is not null)
+        {
+            var bankTransfer = History.BankTransferFk?.ToISql<TBankTransfer>();
+            bankTransfer?.Delete(true);
+        }
+
         Log.Information("Record was successfully deleted");
         await DisplayAlert(
             DetailedRecordManagementResources.MessageBoxDeleteHistorySuccessTitle,

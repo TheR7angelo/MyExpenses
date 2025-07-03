@@ -620,6 +620,8 @@ public partial class RecordExpensePage
             Log.Information("This Record was successfully removed");
             MsgBox.Show(DetailedRecordManagementResources.MessageBoxDeleteHistoryNoUseSuccessMessage, MsgBoxImage.Check);
 
+            DeleteBankTransfer();
+
             nameof(MainWindow.FrameBody).GoBack();
             return;
         }
@@ -640,6 +642,7 @@ public partial class RecordExpensePage
                 "Attempting to remove this record \"{HistoryToDeleteDescriiption}\" with all relative element",
                 History.Description);
             History.Delete(true);
+            DeleteBankTransfer();
             Log.Information("This record and all relative element was successfully removed");
 
             MsgBox.Show(DetailedRecordManagementResources.MessageBoxDeleteHistoryUseSuccessMessage, MsgBoxImage.Check);
@@ -831,6 +834,14 @@ public partial class RecordExpensePage
     #endregion
 
     #region Function
+
+    private void DeleteBankTransfer()
+    {
+        if (History.BankTransferFk is null) return;
+
+        var bankTransfer = History.BankTransferFk?.ToISql<TBankTransfer>();
+        bankTransfer?.Delete(true);
+    }
 
     public void SetTHistory(THistory history)
     {

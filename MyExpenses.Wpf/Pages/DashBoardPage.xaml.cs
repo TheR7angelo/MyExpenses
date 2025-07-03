@@ -559,9 +559,15 @@ public partial class DashBoardPage
 
     private void DeleteRecord(VHistory vHistory)
     {
-        var history = vHistory.Id.ToISql<THistory>();
+        using var context = new DataBaseContext();
+        var history = context.THistories.FirstOrDefault(s => s.Id.Equals(vHistory.Id));
+
+        var bankTransfer = history?.BankTransferFk is null
+            ? null
+            : context.TBankTransfers.FirstOrDefault(s => s.Id == history.BankTransferFk);
 
         history?.Delete(true);
+        bankTransfer?.Delete(true);
 
         VHistories.Remove(vHistory);
 
