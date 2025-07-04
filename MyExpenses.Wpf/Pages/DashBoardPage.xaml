@@ -22,6 +22,7 @@
         <converters:TotalToIconConverter x:Key="TotalToIconConverter" />
         <converters:ValueSymbolConverter x:Key="ValueSymbolConverter" />
         <converters:DateTimeToDateTimeWithoutSecondsConverter x:Key="DateTimeToDateTimeWithoutSecondsConverter" />
+        <converters:PercentageConverter x:Key="PercentageConverter" />
     </Page.Resources>
 
     <Grid margin:PanelExtensions.MarginForAllChildren="5">
@@ -110,14 +111,12 @@
               margin:PanelExtensions.MarginForAllChildren="3">
 
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="*" />
+                <RowDefinition Height="*" MinHeight="125" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <Ellipse Grid.Row="0"
-                     MinHeight="155"
+            <Ellipse Grid.Row="0" x:Name="Ellipse"
                      Width="{Binding ActualHeight, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource self}}"
                      Stroke="{DynamicResource MaterialDesignBody}"
                      StrokeThickness="3">
@@ -127,7 +126,8 @@
 
                 <materialDesign:PackIcon
                     Kind="{Binding CurrentVTotalByAccount.Total, FallbackValue=0, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource TotalToIconConverter}}"
-                    Height="96" Width="96"
+                    Height="{Binding Height, Converter={StaticResource PercentageConverter}, ConverterParameter=75, ElementName=Ellipse}"
+                    Width="{Binding Width, Converter={StaticResource PercentageConverter}, ConverterParameter=75, ElementName=Ellipse}"
                     HorizontalAlignment="Center">
                 </materialDesign:PackIcon>
 
@@ -147,7 +147,7 @@
 
             </StackPanel>
 
-            <Grid Grid.Row="2">
+            <Grid Grid.Row="1">
 
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
@@ -217,7 +217,7 @@
 
             </Grid>
 
-            <Border Grid.Row="3"
+            <Border Grid.Row="2"
                     HorizontalAlignment="Center"
                     CornerRadius="1"
                     BorderBrush="{DynamicResource MaterialDesignBody}"
