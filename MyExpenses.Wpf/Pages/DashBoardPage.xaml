@@ -310,144 +310,141 @@
 
         </Grid>
 
-        <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3">
+        <filterDataGrid:FilterDataGrid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3"
+                                       ShowStatusBar="True" ShowElapsedTime="True"
+                                       FilterPopupBackground="{DynamicResource MaterialDesignPaper}"
+                                       IsReadOnly="True" AutoGenerateColumns="False"
+                                       ItemsSource="{Binding VHistories, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                                       CanUserAddRows="False" CanUserDeleteRows="False"
+                                       CanUserReorderColumns="False"
+                                       HorizontalScrollBarVisibility="Auto"
+                                       VerticalScrollBarVisibility="Auto"
 
-            <filterDataGrid:FilterDataGrid x:Name="FilterDataGrid"
-                                           ShowStatusBar="True" ShowElapsedTime="True"
-                                           FilterPopupBackground="{DynamicResource MaterialDesignPaper}"
-                                           IsReadOnly="True" AutoGenerateColumns="False"
-                                           ItemsSource="{Binding VHistories, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                                           CanUserAddRows="False" CanUserDeleteRows="False"
-                                           CanUserReorderColumns="False"
-                                           HorizontalScrollBarVisibility="Auto"
-                                           VerticalScrollBarVisibility="Auto"
+                                       FilterLanguage="{Binding LocalLanguage, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                                       DateFormatString="{Binding DateFormatString, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
 
-                                           FilterLanguage="{Binding LocalLanguage, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                                           DateFormatString="{Binding DateFormatString, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
+            <filterDataGrid:FilterDataGrid.Resources>
+                <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignPaperButton}" />
+            </filterDataGrid:FilterDataGrid.Resources>
 
-                <filterDataGrid:FilterDataGrid.Resources>
-                    <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignPaperButton}" />
-                </filterDataGrid:FilterDataGrid.Resources>
+            <filterDataGrid:FilterDataGrid.ItemContainerStyle>
+                <Style TargetType="DataGridRow" BasedOn="{StaticResource {x:Type DataGridRow}}">
+                    <EventSetter Event="PreviewMouseRightButtonDown"
+                                 Handler="DataGridRow_PreviewMouseRightButtonDown">
+                    </EventSetter>
+                </Style>
+            </filterDataGrid:FilterDataGrid.ItemContainerStyle>
 
-                <filterDataGrid:FilterDataGrid.ItemContainerStyle>
-                    <Style TargetType="DataGridRow" BasedOn="{StaticResource {x:Type DataGridRow}}">
-                        <EventSetter Event="PreviewMouseRightButtonDown"
-                                     Handler="DataGridRow_PreviewMouseRightButtonDown">
-                        </EventSetter>
-                    </Style>
-                </filterDataGrid:FilterDataGrid.ItemContainerStyle>
+            <filterDataGrid:FilterDataGrid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem
+                        Header="{Binding DataGridMenuItemHeaderEditRecord, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                        Click="MenuItemEditRecord_OnClick" />
+                    <MenuItem
+                        Header="{Binding DataGridCheckBoxColumnPointed, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                        Click="MenuItemPointed_OnClick" />
+                    <MenuItem
+                        Header="{Binding DataGridMenuItemHeaderDeleteRecord, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                        Click="MenuItemDeleteRecord_OnClick" />
+                </ContextMenu>
+            </filterDataGrid:FilterDataGrid.ContextMenu>
 
-                <filterDataGrid:FilterDataGrid.ContextMenu>
-                    <ContextMenu>
-                        <MenuItem
-                            Header="{Binding DataGridMenuItemHeaderEditRecord, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                            Click="MenuItemEditRecord_OnClick" />
-                        <MenuItem
-                            Header="{Binding DataGridCheckBoxColumnPointed, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                            Click="MenuItemPointed_OnClick" />
-                        <MenuItem
-                            Header="{Binding DataGridMenuItemHeaderDeleteRecord, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                            Click="MenuItemDeleteRecord_OnClick" />
-                    </ContextMenu>
-                </filterDataGrid:FilterDataGrid.ContextMenu>
+            <filterDataGrid:FilterDataGrid.Columns>
 
-                <filterDataGrid:FilterDataGrid.Columns>
+                <filterDataGrid:DataGridTextColumn x:Name="TextColumnAccount" IsColumnFiltered="True"
+                                                   Binding="{Binding Account}">
+                </filterDataGrid:DataGridTextColumn>
 
-                    <filterDataGrid:DataGridTextColumn x:Name="TextColumnAccount" IsColumnFiltered="True"
-                                                       Binding="{Binding Account}">
-                    </filterDataGrid:DataGridTextColumn>
+                <filterDataGrid:DataGridTextColumn x:Name="TextColumnDescription" IsColumnFiltered="True"
+                                                   Binding="{Binding Description}">
+                </filterDataGrid:DataGridTextColumn>
 
-                    <filterDataGrid:DataGridTextColumn x:Name="TextColumnDescription" IsColumnFiltered="True"
-                                                       Binding="{Binding Description}">
-                    </filterDataGrid:DataGridTextColumn>
+                <filterDataGrid:DataGridTemplateColumn x:Name="TemplateColumnCategory" IsColumnFiltered="True"
+                                                       SortMemberPath="Category" FieldName="Category">
+                    <filterDataGrid:DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal"
+                                        HorizontalAlignment="Left"
+                                        VerticalAlignment="Top">
 
-                    <filterDataGrid:DataGridTemplateColumn x:Name="TemplateColumnCategory" IsColumnFiltered="True"
-                                                           SortMemberPath="Category" FieldName="Category">
-                        <filterDataGrid:DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <StackPanel Orientation="Horizontal"
-                                            HorizontalAlignment="Left"
-                                            VerticalAlignment="Top">
+                                <Ellipse Height="16" Width="{Binding Height, RelativeSource={RelativeSource Self}}"
+                                         Stroke="{DynamicResource MaterialDesignBody}"
+                                         StrokeThickness="1.5"
+                                         Fill="{Binding HexadecimalColorCode, Mode=OneWay}"
+                                         Margin="0, 0, 3, 0">
+                                </Ellipse>
 
-                                    <Ellipse Height="16" Width="{Binding Height, RelativeSource={RelativeSource Self}}"
-                                             Stroke="{DynamicResource MaterialDesignBody}"
-                                             StrokeThickness="1.5"
-                                             Fill="{Binding HexadecimalColorCode, Mode=OneWay}"
-                                             Margin="0, 0, 3, 0">
-                                    </Ellipse>
+                                <TextBlock Text="{Binding Category}" Margin="3, 0, 0, 0" />
 
-                                    <TextBlock Text="{Binding Category}" Margin="3, 0, 0, 0" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </filterDataGrid:DataGridTemplateColumn.CellTemplate>
+                </filterDataGrid:DataGridTemplateColumn>
 
-                                </StackPanel>
-                            </DataTemplate>
-                        </filterDataGrid:DataGridTemplateColumn.CellTemplate>
-                    </filterDataGrid:DataGridTemplateColumn>
+                <filterDataGrid:DataGridTextColumn x:Name="TextColumnModePayment" IsColumnFiltered="True"
+                                                   Binding="{Binding ModePayment}">
+                </filterDataGrid:DataGridTextColumn>
 
-                    <filterDataGrid:DataGridTextColumn x:Name="TextColumnModePayment" IsColumnFiltered="True"
-                                                       Binding="{Binding ModePayment}">
-                    </filterDataGrid:DataGridTextColumn>
+                <filterDataGrid:DataGridTemplateColumn x:Name="TemplateColumnValue" IsColumnFiltered="True"
+                                                       SortMemberPath="Value" FieldName="Value">
+                    <filterDataGrid:DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <TextBlock>
+                                <TextBlock.Text>
+                                    <MultiBinding Converter="{StaticResource ValueSymbolConverter}">
+                                        <Binding Path="Value" />
+                                        <Binding Path="Symbol" />
+                                    </MultiBinding>
+                                </TextBlock.Text>
+                            </TextBlock>
+                        </DataTemplate>
+                    </filterDataGrid:DataGridTemplateColumn.CellTemplate>
+                </filterDataGrid:DataGridTemplateColumn>
 
-                    <filterDataGrid:DataGridTemplateColumn x:Name="TemplateColumnValue" IsColumnFiltered="True"
-                                                           SortMemberPath="Value" FieldName="Value">
-                        <filterDataGrid:DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <TextBlock>
-                                    <TextBlock.Text>
-                                        <MultiBinding Converter="{StaticResource ValueSymbolConverter}">
-                                            <Binding Path="Value" />
-                                            <Binding Path="Symbol" />
-                                        </MultiBinding>
-                                    </TextBlock.Text>
-                                </TextBlock>
-                            </DataTemplate>
-                        </filterDataGrid:DataGridTemplateColumn.CellTemplate>
-                    </filterDataGrid:DataGridTemplateColumn>
+                <filterDataGrid:DataGridTextColumn x:Name="TextColumnDate" IsColumnFiltered="True"
+                                                   Binding="{Binding Date, Converter={StaticResource DateTimeToDateTimeWithoutSecondsConverter}}">
+                </filterDataGrid:DataGridTextColumn>
 
-                    <filterDataGrid:DataGridTextColumn x:Name="TextColumnDate" IsColumnFiltered="True"
-                                                       Binding="{Binding Date, Converter={StaticResource DateTimeToDateTimeWithoutSecondsConverter}}">
-                    </filterDataGrid:DataGridTextColumn>
+                <filterDataGrid:DataGridTextColumn x:Name="TextColumnPlace" IsColumnFiltered="True"
+                                                   Binding="{Binding Place}">
+                </filterDataGrid:DataGridTextColumn>
 
-                    <filterDataGrid:DataGridTextColumn x:Name="TextColumnPlace" IsColumnFiltered="True"
-                                                       Binding="{Binding Place}">
-                    </filterDataGrid:DataGridTextColumn>
+                <filterDataGrid:DataGridCheckBoxColumn x:Name="CheckBoxColumnPointed" IsColumnFiltered="True"
+                                                       IsThreeState="False" Binding="{Binding IsPointed}">
+                </filterDataGrid:DataGridCheckBoxColumn>
 
-                    <filterDataGrid:DataGridCheckBoxColumn x:Name="CheckBoxColumnPointed" IsColumnFiltered="True"
-                                                           IsThreeState="False" Binding="{Binding IsPointed}">
-                    </filterDataGrid:DataGridCheckBoxColumn>
+                <filterDataGrid:DataGridTemplateColumn x:Name="TemplateColumnActions" IsColumnFiltered="False"
+                                                       IsReadOnly="True">
+                    <filterDataGrid:DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
 
-                    <filterDataGrid:DataGridTemplateColumn x:Name="TemplateColumnActions" IsColumnFiltered="False"
-                                                           IsReadOnly="True">
-                        <filterDataGrid:DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
+                            <StackPanel Orientation="Horizontal"
+                                        margin:PanelExtensions.MarginForAllChildren="3">
 
-                                <StackPanel Orientation="Horizontal"
-                                            margin:PanelExtensions.MarginForAllChildren="3">
+                                <Button Style="{StaticResource MaterialDesignPaperButton}"
+                                        Content="{Binding ButtonContentEditRecord, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:DashBoardPage}}}"
+                                        Click="ButtonEditRecord_OnClick">
+                                </Button>
 
-                                    <Button Style="{StaticResource MaterialDesignPaperButton}"
-                                            Content="{Binding ButtonContentEditRecord, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:DashBoardPage}}}"
-                                            Click="ButtonEditRecord_OnClick">
-                                    </Button>
+                                <Button Style="{StaticResource MaterialDesignPaperButton}"
+                                        Content="{Binding ButtonContentPointedRecord, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:DashBoardPage}}}"
+                                        Click="ButtonPointedRecord_OnClick">
+                                </Button>
 
-                                    <Button Style="{StaticResource MaterialDesignPaperButton}"
-                                            Content="{Binding ButtonContentPointedRecord, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:DashBoardPage}}}"
-                                            Click="ButtonPointedRecord_OnClick">
-                                    </Button>
+                                <Button Style="{StaticResource MaterialDesignPaperButton}"
+                                        Content="{Binding ButtonContentDeleteRecord, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:DashBoardPage}}}"
+                                        Click="ButtonDeleteRecord_OnClick">
+                                </Button>
 
-                                    <Button Style="{StaticResource MaterialDesignPaperButton}"
-                                            Content="{Binding ButtonContentDeleteRecord, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource AncestorType={x:Type local:DashBoardPage}}}"
-                                            Click="ButtonDeleteRecord_OnClick">
-                                    </Button>
+                            </StackPanel>
 
-                                </StackPanel>
+                        </DataTemplate>
+                    </filterDataGrid:DataGridTemplateColumn.CellTemplate>
+                </filterDataGrid:DataGridTemplateColumn>
 
-                            </DataTemplate>
-                        </filterDataGrid:DataGridTemplateColumn.CellTemplate>
-                    </filterDataGrid:DataGridTemplateColumn>
+            </filterDataGrid:FilterDataGrid.Columns>
 
-                </filterDataGrid:FilterDataGrid.Columns>
-
-            </filterDataGrid:FilterDataGrid>
-        </Grid>
+        </filterDataGrid:FilterDataGrid>
 
     </Grid>
 
