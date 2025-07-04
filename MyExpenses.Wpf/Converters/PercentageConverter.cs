@@ -1,10 +1,8 @@
-using System.Globalization;
+﻿using System.Globalization;
+using System.Windows.Data;
 
-namespace MyExpenses.Smartphones.Converters;
+namespace MyExpenses.Wpf.Converters;
 
-/// <summary>
-/// A value converter that converts numerical values to percentages and vice versa.
-/// </summary>
 public class PercentageConverter : IValueConverter
 {
     /// <summary>
@@ -16,7 +14,7 @@ public class PercentageConverter : IValueConverter
     /// <param name="culture">The culture to use in the conversion.</param>
     /// <returns>The value multiplied by the percentage, or 0 if the conversion fails.</returns>
     public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture)
-        => Utils.Converters.PercentageConverter.Convert(value, parameter);
+        => MyExpenses.Utils.Converters.PercentageConverter.Convert(value, parameter);
 
     /// <summary>
     /// Converts the given value back to its original form based on the parameter.
@@ -28,5 +26,5 @@ public class PercentageConverter : IValueConverter
     /// <returns>The original value before conversion, or throws a NotImplementedException if the conversion back is not implemented.</returns>
     /// <exception cref="NotImplementedException">Throws when the conversion back is not implemented.</exception>
     public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture)
-        => Utils.Converters.PercentageConverter.ConvertBack(value, parameter);
+        => MyExpenses.Utils.Converters.PercentageConverter.ConvertBack(value, parameter);
 }
