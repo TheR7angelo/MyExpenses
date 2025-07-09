@@ -13,6 +13,61 @@ namespace MyExpenses.Core;
 public static class ImportExportUtils
 {
     /// <summary>
+    /// Returns a collection of existing databases from cloud storage.
+    /// </summary>
+    /// <param name="projectSystem">Specifies the project system, such as Wpf or Maui, for handling specific operations.</param>
+    /// <returns>A collection of existing databases from cloud storage.</returns>
+    public static async Task<IEnumerable<ExistingDatabase>> GetExistingCloudDatabase(ProjectSystem projectSystem)
+    {
+        var dropboxService = await DropboxService.CreateAsync(projectSystem);
+
+        var metadatas = await dropboxService.ListFileAsync(DatabaseInfos.CloudDirectoryBackupDatabase);
+        metadatas = metadatas.Where(s => Path.GetExtension(s.PathDisplay).Equals(DatabaseInfos.Extension));
+
+        // ReSharper disable once HeapView.ObjectAllocation.Evident
+        // An instance of ExistingDatabase is created for each file in the cloud directory.
+        var existingDatabases = metadatas.Select(s => new ExistingDatabase(s.PathDisplay)).ToList();
+        foreach (var existingDatabase in existingDatabases)
+        {
+            var filePath = Path.Join(DatabaseInfos.LocalDirectoryDatabase, existingDatabase.FileName);
+
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
+            // An instance of ExistingDatabase is created to handle the status of the database.
+            var localDatabase = new ExistingDatabase(filePath);
+            existingDatabase.SyncStatus = await localDatabase.CheckStatus(projectSystem);
+        }
+
+        return existingDatabases;
+    }
+
+    /// <summary>
+    /// Downloads the selected databases from cloud storage.
+    /// </summary>
+    /// <param name="files">The file paths of the databases to download.</param>
+    /// <param name="projectSystem">Specifies the project system, such as Wpf or Maui, for handling specific operations.</param>
+    /// <param name="client">An optional HttpClient that can be used to handle HTTP requests and responses.</param>
+    /// <returns></returns>
+    public static async Task DownloadDropboxFiles(IEnumerable<string> files, ProjectSystem projectSystem,
+        HttpClient? client = null)
+    {
+        var dropboxService = await DropboxService.CreateAsync(projectSystem);
+
+        foreach (var file in files)
+        {
+            var fileName = Path.GetFileName(file);
+            var newFilePath = Path.Join(DatabaseInfos.LocalDirectoryDatabase, fileName);
+
+            var fileTemp = Path.Join(AppContext.BaseDirectory, "temp.sqlite");
+
+            Log.Information("Downloading {FileName} from cloud storage", fileName);
+            var temp = await dropboxService.DownloadFileAsync(file, fileTemp, client);
+
+            File.Move(temp, newFilePath, true);
+            Log.Information("Successfully downloaded {FileName} from cloud storage", fileName);
+        }
+    }
+
+    /// <summary>
     /// Refreshes the collection of existing databases by removing non-existent database files
     /// and adding or updating databases based on the current state of the file system.
     /// </summary>

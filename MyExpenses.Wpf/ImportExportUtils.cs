@@ -11,7 +11,6 @@ using MyExpenses.SharedUtils.Collection;
 using MyExpenses.SharedUtils.GlobalInfos;
 using MyExpenses.SharedUtils.Resources.Resx.WelcomeManagement;
 using MyExpenses.SharedUtils.Utils;
-using MyExpenses.WebApi.Dropbox;
 using MyExpenses.Wpf.Utils.FilePicker;
 using MyExpenses.Wpf.Windows;
 using MyExpenses.Wpf.Windows.MsgBox;
@@ -373,22 +372,7 @@ public static class ImportExportUtils
     public static async Task ImportFromCloudAsync()
     {
         Log.Information("Starting to import the database from cloud storage");
-        var dropboxService = await DropboxService.CreateAsync(ProjectSystem.Wpf);
-        var metadatas = await dropboxService.ListFileAsync(DatabaseInfos.CloudDirectoryBackupDatabase);
-        metadatas = metadatas.Where(s => Path.GetExtension(s.PathDisplay).Equals(DatabaseInfos.Extension));
-
-        // ReSharper disable once HeapView.ObjectAllocation.Evident
-        // An instance of ExistingDatabase is created for each file in the cloud directory.
-        var existingDatabases = metadatas.Select(s => new ExistingDatabase(s.PathDisplay)).ToArray();
-        foreach (var existingDatabase in existingDatabases)
-        {
-            var filePath = Path.Join(DatabaseInfos.LocalDirectoryDatabase, existingDatabase.FileName);
-
-            // ReSharper disable once HeapView.ObjectAllocation.Evident
-            // An instance of ExistingDatabase is created to handle the status of the database.
-            var localDatabase = new ExistingDatabase(filePath);
-            existingDatabase.SyncStatus = await localDatabase.CheckStatus(ProjectSystem.Wpf);
-        }
+        var existingDatabases = await MyExpenses.Core.ImportExportUtils.GetExistingCloudDatabase(ProjectSystem.Wpf);
 
         // ReSharper disable once HeapView.ObjectAllocation.Evident
         // An instance of SelectDatabaseFileWindow is created to handle the selection of existing databases to import.
@@ -418,16 +402,7 @@ public static class ImportExportUtils
         }
 
         var files = selectDatabaseFileWindow.ExistingDatabasesSelected.Select(s => s.FilePath);
-        foreach (var file in files)
-        {
-            var fileName = Path.GetFileName(file);
-            var newFilePath = Path.Join(DatabaseInfos.LocalDirectoryDatabase, fileName);
-
-            var temp = await dropboxService.DownloadFileAsync(file);
-            Log.Information("Downloading {FileName} from cloud storage", fileName);
-            File.Move(temp, newFilePath, true);
-            Log.Information("Successfully downloaded {FileName} from cloud storage", fileName);
-        }
+        await MyExpenses.Core.ImportExportUtils.DownloadDropboxFiles(files, ProjectSystem.Wpf);
     }
 
     /// <summary>

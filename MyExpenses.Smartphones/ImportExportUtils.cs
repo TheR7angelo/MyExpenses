@@ -14,7 +14,6 @@ using MyExpenses.SharedUtils.Resources.Resx.WelcomeManagement;
 using MyExpenses.Smartphones.ContentPages;
 using MyExpenses.Smartphones.ContentPages.CustomPopups.CustomPopupActivityIndicator;
 using MyExpenses.Smartphones.ContentPages.SaveLocation;
-using MyExpenses.WebApi.Dropbox;
 using Serilog;
 
 namespace MyExpenses.Smartphones;
@@ -369,22 +368,8 @@ public static class ImportExportUtils
     public static async Task ImportFromCloudAsync(this Page parent)
     {
         Log.Information("Starting to import the database from cloud storage");
-        var dropboxService = await DropboxService.CreateAsync(ProjectSystem.Maui);
-        var metadatas = await dropboxService.ListFileAsync(DatabaseInfos.CloudDirectoryBackupDatabase);
-        metadatas = metadatas.Where(s => Path.GetExtension(s.PathDisplay).Equals(DatabaseInfos.Extension));
 
-        // ReSharper disable once HeapView.ObjectAllocation.Evident
-        // An instance of ExistingDatabase is created for each file in the cloud directory.
-        var existingDatabases = metadatas.Select(s => new ExistingDatabase(s.PathDisplay)).ToList();
-        foreach (var existingDatabase in existingDatabases)
-        {
-            var filePath = Path.Join(DatabaseInfos.LocalDirectoryDatabase, existingDatabase.FileName);
-
-            // ReSharper disable once HeapView.ObjectAllocation.Evident
-            // An instance of ExistingDatabase is created to handle the status of the database.
-            var localDatabase = new ExistingDatabase(filePath);
-            existingDatabase.SyncStatus = await localDatabase.CheckStatus(ProjectSystem.Maui);
-        }
+        var existingDatabases = await MyExpenses.Core.ImportExportUtils.GetExistingCloudDatabase(ProjectSystem.Maui);
 
         // ReSharper disable once HeapView.ObjectAllocation.Evident
         // Creates an instance of SelectDatabaseFileContentPage, likely used to handle the selection of database file content.
@@ -418,19 +403,7 @@ public static class ImportExportUtils
         parent.ShowCustomPopupActivityIndicator(WelcomeManagementResources.ActivityIndicatorImportDatabaseFromCloud);
         var mauiClient = HttpClientHandlerCustom.CreateHttpClientHandler();
         var files = selectDatabaseFileContentPage.ExistingDatabasesSelected.Select(s => s.FilePath);
-        foreach (var file in files)
-        {
-            var fileName = Path.GetFileName(file);
-            var newFilePath = Path.Join(DatabaseInfos.LocalDirectoryDatabase, fileName);
-
-            var fileTemp = Path.Join(AppContext.BaseDirectory, "temp.sqlite");
-
-            Log.Information("Downloading {FileName} from cloud storage", fileName);
-            var temp = await dropboxService.DownloadFileAsync(file, fileTemp, mauiClient);
-
-            File.Move(temp, newFilePath, true);
-            Log.Information("Successfully downloaded {FileName} from cloud storage", fileName);
-        }
+        await MyExpenses.Core.ImportExportUtils.DownloadDropboxFiles(files, ProjectSystem.Maui, mauiClient);
     }
 
     /// <summary>
