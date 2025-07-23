@@ -4,6 +4,7 @@
 /Python/
 
 /MyExpenses.WebApi/Dropbox/DropboxKeys.json
+/MyExpenses.Models/AutoMapper/AutoMapperKey.json
 
 /MyExpenses.Sql/Database Models/Model - Test.sqlite
 /MyExpenses.Sql/Database Models/Model - Using.sqlite
