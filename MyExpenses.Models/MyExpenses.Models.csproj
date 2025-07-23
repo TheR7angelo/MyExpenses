@@ -15,7 +15,6 @@
       <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite.Core" Version="9.0.6" />
       <PackageReference Include="NetTopologySuite" Version="2.6.0" />
       <PackageReference Include="NetTopologySuite.IO.Esri.Shapefile" Version="1.2.0" />
-      <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
       <PackageReference Include="PropertyChanged.Fody" Version="4.1.0" PrivateAssets="All" />
       <PackageReference Include="Serilog" Version="4.3.0" />
       <PackageReference Include="Serilog.Extensions.Logging" Version="9.0.2" />
@@ -28,6 +27,8 @@
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>SizeDatabaseResources.Designer.cs</LastGenOutput>
       </EmbeddedResource>
+      <None Remove="AutoMapper\AutoMapperKey.json" />
+      <EmbeddedResource Include="AutoMapper\AutoMapperKey.json" />
     </ItemGroup>
 
     <ItemGroup>
