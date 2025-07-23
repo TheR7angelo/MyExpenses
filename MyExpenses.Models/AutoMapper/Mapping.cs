@@ -36,6 +36,12 @@ public static class Mapping
         var loggerFactory = LoggerConfig.LoggerFactory;
         var configuration = new MapperConfiguration(cfg =>
         {
+            var autoMapperKey = GetAutoMapperKey();
+#if DEBUG
+            Log.Information("License key for AutoMapper is valid until {ValidUntil}", autoMapperKey.ValidUntil);
+#endif
+            cfg.LicenseKey = autoMapperKey.LicenceKey;
+
             foreach (var profile in profiles)
             {
                 cfg.AddProfile(profile);
@@ -43,5 +49,11 @@ public static class Mapping
         }, loggerFactory);
 
         return configuration;
+    }
+
+    private static AutoMapperKey GetAutoMapperKey()
+    {
+        var assembly = Assembly.GetAssembly(typeof(Mapping))!;
+        return assembly.ReadFromAssembly<AutoMapperKey>("AutoMapperKey.json")!;
     }
 }
