@@ -108,9 +108,18 @@ namespace MyExpenses.SharedUtils.Resources.Resx.WelcomeManagement {
         /// <summary>
         ///   Looks up a localized string similar to Opening database &quot;{0}&quot;....
         /// </summary>
-        public static string ActivityIndicatorOpenDatabase {
+        public static string ActivityIndicatorOpenDatabaseMessage {
             get {
-                return ResourceManager.GetString("ActivityIndicatorOpenDatabase", resourceCulture);
+                return ResourceManager.GetString("ActivityIndicatorOpenDatabaseMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Loading.
+        /// </summary>
+        public static string ActivityIndicatorOpenDatabaseTitle {
+            get {
+                return ResourceManager.GetString("ActivityIndicatorOpenDatabaseTitle", resourceCulture);
             }
         }
         

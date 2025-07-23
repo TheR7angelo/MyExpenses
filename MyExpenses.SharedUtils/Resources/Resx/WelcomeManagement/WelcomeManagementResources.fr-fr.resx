@@ -104,7 +104,7 @@
     <data name="MessageBoxAddDataBaseErrorMessage" xml:space="preserve">
         <value>Une erreur s'est produite lors de l'ajout de la nouvelle base de données</value>
     </data>
-    <data name="ActivityIndicatorOpenDatabase" xml:space="preserve">
+    <data name="ActivityIndicatorOpenDatabaseMessage" xml:space="preserve">
         <value>Ouverture de la base de données "{0}"...</value>
     </data>
     <data name="ActivityIndicatorImportDatabaseFromLocal" xml:space="preserve">
@@ -157,5 +157,8 @@
     </data>
     <data name="CloudDatabaseOutdatedWarningQuestionYesButton" xml:space="preserve">
         <value>Oui</value>
+    </data>
+    <data name="ActivityIndicatorOpenDatabaseTitle" xml:space="preserve">
+        <value>Chargement</value>
     </data>
 </root>
