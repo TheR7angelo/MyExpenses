@@ -1,5 +1,7 @@
 ﻿using System.Reflection;
 using AutoMapper;
+using MyExpenses.SharedUtils;
+using Serilog;
 
 namespace MyExpenses.Models.AutoMapper;
 

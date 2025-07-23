@@ -4,12 +4,12 @@ using System.Windows.Input;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Models.Sql.Bases.Views;
+using MyExpenses.SharedUtils;
 using MyExpenses.SharedUtils.Collection;
 using MyExpenses.SharedUtils.Objects;
 using MyExpenses.SharedUtils.Properties;
 using MyExpenses.SharedUtils.Resources.Resx.BankTransferManagement;
 using MyExpenses.Sql.Context;
-using MyExpenses.Utils;
 using Serilog;
 
 namespace MyExpenses.Smartphones.ContentPages;

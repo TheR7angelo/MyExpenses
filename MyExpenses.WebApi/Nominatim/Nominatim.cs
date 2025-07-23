@@ -1,6 +1,6 @@
 ﻿using System.Globalization;
 using MyExpenses.Models.WebApi.Nominatim;
-using MyExpenses.Utils;
+using MyExpenses.SharedUtils;
 using NetTopologySuite.Geometries;
 using Serilog;
 

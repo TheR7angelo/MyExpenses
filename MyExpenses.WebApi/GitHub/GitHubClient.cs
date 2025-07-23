@@ -1,5 +1,5 @@
 ﻿using MyExpenses.Models.AutoMapper;
-using MyExpenses.Utils;
+using MyExpenses.SharedUtils;
 using Serilog;
 
 namespace MyExpenses.WebApi.GitHub;

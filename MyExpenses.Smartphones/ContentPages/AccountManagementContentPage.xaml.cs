@@ -6,12 +6,12 @@ using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Maui.CustomPopup;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Models.Sql.Bases.Views;
+using MyExpenses.SharedUtils;
 using MyExpenses.SharedUtils.Collection;
 using MyExpenses.SharedUtils.Resources.Resx.AccountManagement;
 using MyExpenses.Smartphones.ContentPages.CustomPopups;
 using MyExpenses.Smartphones.ContentPages.CustomPopups.CustomPopupActivityIndicator;
 using MyExpenses.Sql.Context;
-using MyExpenses.Utils;
 using MyExpenses.Utils.PopupFilter;
 using Serilog;
 

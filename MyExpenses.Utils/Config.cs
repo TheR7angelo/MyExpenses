@@ -1,4 +1,5 @@
 using MyExpenses.Models.Config;
+using MyExpenses.SharedUtils;
 using MyExpenses.SharedUtils.GlobalInfos;
 
 namespace MyExpenses.Utils;

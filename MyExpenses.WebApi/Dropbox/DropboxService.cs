@@ -5,7 +5,7 @@ using Dropbox.Api.Files;
 using MyExpenses.Models.WebApi.Authenticator;
 using MyExpenses.Models.WebApi.DropBox;
 using MyExpenses.Share.Core.WebApi;
-using MyExpenses.Utils;
+using MyExpenses.SharedUtils;
 using Serilog;
 
 namespace MyExpenses.WebApi.Dropbox;

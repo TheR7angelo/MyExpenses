@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using MyExpenses.Maui.Utils;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Sql.Bases.Tables;
+using MyExpenses.SharedUtils;
 using MyExpenses.SharedUtils.Collection;
 using MyExpenses.SharedUtils.Objects;
 using MyExpenses.SharedUtils.Properties;
@@ -10,7 +11,6 @@ using MyExpenses.SharedUtils.Resources.Resx.AddEditAccount;
 using MyExpenses.Smartphones.ContentPages.CustomPopups.CustomPopupActivityIndicator;
 using MyExpenses.Smartphones.UserControls.Images;
 using MyExpenses.Sql.Context;
-using MyExpenses.Utils;
 using Serilog;
 using UraniumUI.Material.Controls;
 
