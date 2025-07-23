@@ -400,19 +400,7 @@ public class DropboxService
     private static DropboxKeys GetDropboxKeys()
     {
         var assembly = Assembly.GetAssembly(typeof(DropboxService))!;
-        var resources = assembly.GetManifestResourceNames();
-        var resourceName = resources.First(s => s.Contains("DropboxKeys.json"));
-
-        using var stream = assembly.GetManifestResourceStream(resourceName)!;
-
-        // ReSharper disable once HeapView.ObjectAllocation.Evident
-        // The StreamReader is necessary here to read the JSON file and convert it to a dictionary.
-        // The JSON file contains the necessary information to authenticate the application with Dropbox.
-        using var reader = new StreamReader(stream);
-
-        var jsonStr = reader.ReadToEnd();
-
-        return jsonStr.ToObject<DropboxKeys>()!;
+        return assembly.ReadFromAssembly<DropboxKeys>("DropboxKeys.json")!;
     }
 
     /// <summary>
