@@ -41,7 +41,7 @@
     <data name="MessageBoxRemoveAccountErrorMessage" xml:space="preserve">
         <value>Error while deleting {0} accounts</value>
     </data>
-    <data name="ActivityIndicatorDeleteAccount" xml:space="preserve">
+    <data name="ActivityIndicatorDeleteAccountMessage" xml:space="preserve">
         <value>Deleting selected accounts and all associated transactions...</value>
     </data>
     <data name="ActivityIndicatorDeleteAccounts" xml:space="preserve">
@@ -52,5 +52,8 @@
     </data>
     <data name="LabelTextTransactionTransfer" xml:space="preserve">
         <value>New bank transfer</value>
+    </data>
+    <data name="ActivityIndicatorPleaseWaitTitle" xml:space="preserve">
+        <value>Please wait</value>
     </data>
 </root>

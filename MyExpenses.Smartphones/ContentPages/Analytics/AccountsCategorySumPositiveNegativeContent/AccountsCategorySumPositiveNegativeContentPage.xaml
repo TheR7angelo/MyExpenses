@@ -14,11 +14,11 @@
         <material:TabView ItemsSource="{Binding TabItemDatas, Mode=OneWay}"
                           TabPlacement="Bottom">
 
-            <!-- <material:TabView.ItemTemplate> -->
-            <!--     <DataTemplate> -->
-            <!--         <local:AccountCategorySumPositiveNegativeContentView /> -->
-            <!--     </DataTemplate> -->
-            <!-- </material:TabView.ItemTemplate> -->
+            <material:TabView.ItemTemplate>
+                <DataTemplate>
+                    <local:AccountCategorySumPositiveNegativeContentView />
+                </DataTemplate>
+            </material:TabView.ItemTemplate>
 
         </material:TabView>
 
