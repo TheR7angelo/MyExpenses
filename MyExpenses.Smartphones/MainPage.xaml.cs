@@ -1,12 +1,12 @@
 ﻿using System.Collections.ObjectModel;
 using System.Runtime.Versioning;
-using CommunityToolkit.Maui.Extensions;
 using MyExpenses.Core;
 using MyExpenses.Models.IO;
 using MyExpenses.Models.WebApi.Authenticator;
 using MyExpenses.Models.WebApi.DropBox;
 using MyExpenses.SharedUtils.Collection;
 using MyExpenses.SharedUtils.GlobalInfos;
+using MyExpenses.SharedUtils.Resources.Resx.AccountManagement;
 using MyExpenses.SharedUtils.Resources.Resx.WelcomeManagement;
 using MyExpenses.Smartphones.AppShells;
 using MyExpenses.Smartphones.ContentPages;
@@ -49,16 +49,20 @@ public partial class MainPage
             if (response is not true) return;
         }
 
-        var message = string.Format(WelcomeManagementResources.ActivityIndicatorOpenDatabase, existingDatabase.FileNameWithoutExtension);
-        this.ShowCustomPopupActivityIndicator(message);
+        var message = string.Format(WelcomeManagementResources.ActivityIndicatorOpenDatabaseMessage, existingDatabase.FileNameWithoutExtension);
 
-        DataBaseContext.FilePath = existingDatabase.FilePath;
+        await this.ShowCustomPopupActivityIndicatorAsync(WelcomeManagementResources.ActivityIndicatorOpenDatabaseTitle, message, async () =>
+        {
+            DataBaseContext.FilePath = existingDatabase.FilePath;
 
-        // ReSharper disable once HeapView.ObjectAllocation.Evident
-        // Create a new instance of DashBoardShell and assign the selected database.
-        // This action allocates memory for the new shell object and switches the application to the new shell.
-        var dashBoardShell = new DashBoardShell { SelectedDatabase = existingDatabase };
-        Application.Current!.Windows[0].Page = dashBoardShell;
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
+            // Create a new instance of DashBoardShell and assign the selected database.
+            // This action allocates memory for the new shell object and switches the application to the new shell.
+            var dashBoardShell = new DashBoardShell { SelectedDatabase = existingDatabase };
+            Application.Current!.Windows[0].Page = dashBoardShell;
+
+            await Task.Delay(TimeSpan.FromSeconds(5));
+        });
     }
 
     [SupportedOSPlatform("Android")]
@@ -91,14 +95,34 @@ public partial class MainPage
 
         if (result is not true) return;
 
-        this.ShowCustomPopupActivityIndicator(WelcomeManagementResources.ActivityIndicatorCreateNewDatabase);
+        var success = false;
+        Exception? exception = null;
 
-        var fileName = addDatabaseFileContentPage.DatabaseFilename;
+        await this.ShowCustomPopupActivityIndicatorAsync(AccountManagementResources.ActivityIndicatorPleaseWaitTitle,
+            WelcomeManagementResources.ActivityIndicatorCreateNewDatabase,
+            async () => (success, exception) = await AddDatabaseMessageAsync(addDatabaseFileContentPage.DatabaseFilename));
+
+        if (success)
+        {
+            Log.Information("New database was successfully added");
+            await DisplayAlert(WelcomeManagementResources.MessageBoxAddDataBaseSuccessTitle, WelcomeManagementResources.MessageBoxAddDataBaseSuccessMessage, WelcomeManagementResources.MessageBoxAddDataBaseOkButton);
+        }
+        else
+        {
+            Log.Error(exception, "An error occur");
+            await DisplayAlert(WelcomeManagementResources.MessageBoxAddDataBaseErrorTitle, WelcomeManagementResources.MessageBoxAddDataBaseErrorMessage, WelcomeManagementResources.MessageBoxAddDataBaseOkButton);
+        }
+    }
+
+    private async Task<(bool Success, Exception? exception)> AddDatabaseMessageAsync(string fileName)
+    {
         fileName = Path.ChangeExtension(fileName, ".sqlite");
         var filePath = Path.Combine(DatabaseInfos.LocalDirectoryDatabase, fileName);
 
         Log.Information("Create new database with name \"{FileName}\"", fileName);
 
+        var success = false;
+        Exception? exception = null;
         try
         {
             File.Copy(DatabaseInfos.LocalFilePathDataBaseModel, filePath, true);
@@ -117,17 +141,15 @@ public partial class MainPage
             ExistingDatabases.AddAndSort(new ExistingDatabase(filePath),
                 s => s.FileNameWithoutExtension);
 
-            CustomPopupActivityIndicatorHelper.CloseCustomPopupActivityIndicator();
-            Log.Information("New database was successfully added");
-            await DisplayAlert(WelcomeManagementResources.MessageBoxAddDataBaseSuccessTitle, WelcomeManagementResources.MessageBoxAddDataBaseSuccessMessage, WelcomeManagementResources.MessageBoxAddDataBaseOkButton);
+            success = true;
         }
-        catch (Exception exception)
+        catch (Exception e)
         {
-            CustomPopupActivityIndicatorHelper.CloseCustomPopupActivityIndicator();
-            Log.Error(exception, "An error occur");
-
-            await DisplayAlert(WelcomeManagementResources.MessageBoxAddDataBaseErrorTitle, WelcomeManagementResources.MessageBoxAddDataBaseErrorMessage, WelcomeManagementResources.MessageBoxAddDataBaseOkButton);
+            exception = e;
         }
+
+        Thread.Sleep(TimeSpan.FromSeconds(1));
+        return (success, exception);
     }
 
     #endregion

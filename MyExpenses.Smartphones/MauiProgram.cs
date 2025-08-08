@@ -1,6 +1,7 @@
 ﻿using CommunityToolkit.Maui;
 using LiveChartsCore.SkiaSharpView.Maui;
 using Microsoft.Extensions.Logging;
+using Mopups.Hosting;
 using SkiaSharp.Views.Maui.Controls.Hosting;
 using UraniumUI;
 
@@ -22,13 +23,15 @@ public static class MauiProgram
                 fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 fonts.AddMaterialSymbolsFonts();
             })
+            .UseUraniumUI()
             .UseUraniumUIMaterial()
-            .UseUraniumUI();
+            .ConfigureMopups();
 
 #if DEBUG
         builder.Logging.AddDebug();
 #endif
 
+        builder.Services.AddMopupsDialogs();
         return builder.Build();
     }
 }

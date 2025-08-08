@@ -1,13 +1,13 @@
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using CommunityToolkit.Maui.Extensions;
-using CommunityToolkit.Maui.Views;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Maui.CustomPopup;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Models.Sql.Bases.Views;
 using MyExpenses.SharedUtils;
 using MyExpenses.SharedUtils.Collection;
+using MyExpenses.SharedUtils.Resources.Resx.AccountManagement;
 using MyExpenses.SharedUtils.Resources.Resx.CategoryTypesManagement;
 using MyExpenses.Smartphones.ContentPages.CustomPopups;
 using MyExpenses.Smartphones.ContentPages.CustomPopups.CustomPopupActivityIndicator;
@@ -201,10 +201,13 @@ public partial class AddEditCategoryTypesContentPage
 
     private async Task HandleCategoryTypeDelete(TCategoryType categoryType)
     {
-        var (success, exception) = categoryType.Delete(true);
-        DashBoardContentPage.Instance.RefreshAccountTotal();
+        var success = false;
+        Exception? exception = null;
 
-        CustomPopupActivityIndicatorHelper.CloseCustomPopupActivityIndicator();
+        await Task.Delay(TimeSpan.FromMilliseconds(100));
+        await this.ShowCustomPopupActivityIndicatorAsync(AccountManagementResources.ActivityIndicatorPleaseWaitTitle,
+            CategoryTypesManagementResources.ActivityIndicatorDeleteCategoryType, async () => (success, exception) = await HandleCategoryTypeDeleteMessage(categoryType) );
+
         if (success)
         {
             Log.Information("Category type and all related records were successfully deleted");
@@ -221,6 +224,17 @@ public partial class AddEditCategoryTypesContentPage
                 CategoryTypesManagementResources.MessageBoxCategoryTypeDeleteErrorMessage,
                 CategoryTypesManagementResources.MessageBoxCategoryTypeDeleteErrorOkButton);
         }
+    }
+
+    private async Task<(bool success, Exception? exception)> HandleCategoryTypeDeleteMessage(TCategoryType categoryType)
+    {
+        await Task.Delay(TimeSpan.FromMilliseconds(100));
+
+        var (success, exception) = categoryType.Delete(true);
+        DashBoardContentPage.Instance.RefreshAccountTotal();
+
+        Thread.Sleep(TimeSpan.FromSeconds(1));
+        return (success, exception);
     }
 
     private async Task HandleCategoryTypeEdit(TCategoryType categoryType)
@@ -301,10 +315,6 @@ public partial class AddEditCategoryTypesContentPage
             CategoryTypesManagementResources.MessageBoxCategoryTypeEditDeleteQuestionNoButton);
 
         if (!deleteResponse) return;
-
-        await Task.Delay(TimeSpan.FromMilliseconds(100));
-        this.ShowCustomPopupActivityIndicator(CategoryTypesManagementResources.ActivityIndicatorDeleteCategoryType);
-        await Task.Delay(TimeSpan.FromMilliseconds(100));
 
         Log.Information("Attempt to delete category type : {Category}", json);
         await HandleCategoryTypeDelete(tCategory);

@@ -7,6 +7,7 @@ using MyExpenses.SharedUtils;
 using MyExpenses.SharedUtils.Collection;
 using MyExpenses.SharedUtils.Objects;
 using MyExpenses.SharedUtils.Properties;
+using MyExpenses.SharedUtils.Resources.Resx.AccountManagement;
 using MyExpenses.SharedUtils.Resources.Resx.AddEditAccount;
 using MyExpenses.Smartphones.ContentPages.CustomPopups.CustomPopupActivityIndicator;
 using MyExpenses.Smartphones.UserControls.Images;
@@ -226,14 +227,11 @@ public partial class AddEditAccountContentPage
         if (!response) return;
 
         await Task.Delay(TimeSpan.FromMilliseconds(100));
-        this.ShowCustomPopupActivityIndicator(AddEditAccountResources.CustomPopupActivityIndicatorDeleteAccount);
-        await Task.Delay(TimeSpan.FromMilliseconds(100));
 
-        var json = Account.ToJson();
-        Log.Information("Attempting to delete account : {Json}", json);
-
-        var (success, exception) = Account.Delete(true);
-        CustomPopupActivityIndicatorHelper.CloseCustomPopupActivityIndicator();
+        var success = false;
+        Exception? exception = null;
+        await this.ShowCustomPopupActivityIndicatorAsync(AccountManagementResources.ActivityIndicatorPleaseWaitTitle,
+            AddEditAccountResources.CustomPopupActivityIndicatorDeleteAccount, async () => (success, exception) = await HandleButtonDeleteAccount(Account) );
 
         if (success)
         {
@@ -254,6 +252,16 @@ public partial class AddEditAccountContentPage
                 AddEditAccountResources.MessageBoxDeleteAccountErrorMessage,
                 AddEditAccountResources.MessageBoxDeleteAccountErrorOkButton);
         }
+    }
+
+    private async Task<(bool Success, Exception? Exception)> HandleButtonDeleteAccount(TAccount account)
+    {
+        await Task.Delay(TimeSpan.FromMilliseconds(100));
+
+        var json = Account.ToJson();
+        Log.Information("Attempting to delete account : {Json}", json);
+
+        return Account.Delete(true);
     }
 
     private async Task HandleButtonValid()

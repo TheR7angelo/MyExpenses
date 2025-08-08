@@ -1,6 +1,5 @@
 using System.Collections.ObjectModel;
 using CommunityToolkit.Maui.Extensions;
-using CommunityToolkit.Maui.Views;
 using MyExpenses.Models.AutoMapper;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Maui.CustomPopup;
@@ -146,11 +145,32 @@ public partial class AccountManagementContentPage
         if (!response) return;
 
         await Task.Delay(TimeSpan.FromMilliseconds(100));
-        this.ShowCustomPopupActivityIndicator(AccountManagementResources.ActivityIndicatorDeleteAccount);
+
+        List<TAccount>? deleteErrors = null;
+        await this.ShowCustomPopupActivityIndicatorAsync(AccountManagementResources.ActivityIndicatorPleaseWaitTitle,
+            AccountManagementResources.ActivityIndicatorDeleteAccountMessage, async () => deleteErrors = await HandleDeleteAccountsAsync(filteredItem));
+
+        if (deleteErrors!.Count > 0)
+        {
+            await DisplayAlert(
+                AccountManagementResources.MessageBoxRemoveAccountErrorTitle,
+                string.Format(AccountManagementResources.MessageBoxRemoveAccountErrorMessage, deleteErrors.Count.ToString()),
+                AccountManagementResources.MessageBoxRemoveAccountErrorOkButton);
+        }
+        else
+        {
+            await DisplayAlert(
+                AccountManagementResources.MessageBoxRemoveAccountSuccessTitle,
+                string.Format(AccountManagementResources.MessageBoxRemoveAccountSuccessMessage, filteredItem.Length.ToString()),
+                AccountManagementResources.MessageBoxRemoveAccountSuccessOkButton);
+        }
+    }
+
+    private async Task<List<TAccount>?> HandleDeleteAccountsAsync(IEnumerable<PopupSearch> filteredItem)
+    {
         await Task.Delay(TimeSpan.FromMilliseconds(100));
 
         List<TAccount>? deleteErrors = null;
-
         var accounts = filteredItem.ToTable<TAccount>()!;
         foreach (var account in accounts)
         {
@@ -171,22 +191,7 @@ public partial class AccountManagementContentPage
         RefreshAccountTotals();
         DashBoardContentPage.Instance.RefreshAccountTotal();
 
-        CustomPopupActivityIndicatorHelper.CloseCustomPopupActivityIndicator();
-
-        if (deleteErrors!.Count > 0)
-        {
-            await DisplayAlert(
-                AccountManagementResources.MessageBoxRemoveAccountErrorTitle,
-                string.Format(AccountManagementResources.MessageBoxRemoveAccountErrorMessage, deleteErrors.Count.ToString()),
-                AccountManagementResources.MessageBoxRemoveAccountErrorOkButton);
-        }
-        else
-        {
-            await DisplayAlert(
-                AccountManagementResources.MessageBoxRemoveAccountSuccessTitle,
-                string.Format(AccountManagementResources.MessageBoxRemoveAccountSuccessMessage, filteredItem.Length.ToString()),
-                AccountManagementResources.MessageBoxRemoveAccountSuccessOkButton);
-        }
+        return deleteErrors;
     }
 
     private async Task HandleTapGestureRecognizerAccount(object? sender)

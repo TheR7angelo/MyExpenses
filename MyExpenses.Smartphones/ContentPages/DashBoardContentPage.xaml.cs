@@ -4,7 +4,6 @@ using System.Globalization;
 using System.Runtime.Versioning;
 using System.Windows.Input;
 using CommunityToolkit.Maui.Extensions;
-using CommunityToolkit.Maui.Views;
 using MyExpenses.Maui.Utils;
 using MyExpenses.Models.AutoMapper;
 using MyExpenses.Models.Config.Interfaces;
@@ -16,7 +15,6 @@ using MyExpenses.SharedUtils.Collection;
 using MyExpenses.SharedUtils.Properties;
 using MyExpenses.SharedUtils.Resources.Resx.DashBoardManagement;
 using MyExpenses.Smartphones.ContentPages.CustomPopups;
-using MyExpenses.Smartphones.ContentPages.CustomPopups.CustomPopupActivityIndicator;
 using MyExpenses.Smartphones.PackIcons;
 using MyExpenses.Smartphones.UserControls.Images;
 using MyExpenses.Sql.Context;
@@ -354,8 +352,6 @@ public partial class DashBoardContentPage
         {
             await Task.Delay(TimeSpan.FromMilliseconds(100));
             RefreshRadioButtonSelected();
-
-            CustomPopupActivityIndicatorHelper.CloseCustomPopupActivityIndicator();
         });
     }
 

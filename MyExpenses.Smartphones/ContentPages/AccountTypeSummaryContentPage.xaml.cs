@@ -1,11 +1,11 @@
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using CommunityToolkit.Maui.Extensions;
-using CommunityToolkit.Maui.Views;
 using MyExpenses.Models.Maui.CustomPopup;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.SharedUtils;
 using MyExpenses.SharedUtils.Collection;
+using MyExpenses.SharedUtils.Resources.Resx.AccountManagement;
 using MyExpenses.SharedUtils.Resources.Resx.AccountTypeManagement;
 using MyExpenses.Smartphones.ContentPages.CustomPopups;
 using MyExpenses.Smartphones.ContentPages.CustomPopups.CustomPopupActivityIndicator;
@@ -156,10 +156,17 @@ public partial class AccountTypeSummaryContentPage
 
     private async Task HandleDeleteAccountType(TAccountType accountType)
     {
-        var (success, exception) = accountType.Delete(true);
-        DashBoardContentPage.Instance.RefreshAccountTotal();
+        var success = false;
+        Exception? exception = null;
+        await this.ShowCustomPopupActivityIndicatorAsync(AccountManagementResources.ActivityIndicatorPleaseWaitTitle,
+            AccountTypeManagementResources.ActivityIndicatorDeleteAccountType, () =>
+        {
+            (success, exception) = accountType.Delete(true);
+            DashBoardContentPage.Instance.RefreshAccountTotal();
 
-        CustomPopupActivityIndicatorHelper.CloseCustomPopupActivityIndicator();
+            Thread.Sleep(TimeSpan.FromSeconds(1));
+            return Task.CompletedTask;
+        });
 
         if (success)
         {

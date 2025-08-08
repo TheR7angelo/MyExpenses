@@ -10,6 +10,7 @@ using MyExpenses.Models.WebApi.DropBox;
 using MyExpenses.Models.Wpf.Save;
 using MyExpenses.SharedUtils.Collection;
 using MyExpenses.SharedUtils.GlobalInfos;
+using MyExpenses.SharedUtils.Resources.Resx.AccountManagement;
 using MyExpenses.SharedUtils.Resources.Resx.WelcomeManagement;
 using MyExpenses.Smartphones.ContentPages;
 using MyExpenses.Smartphones.ContentPages.CustomPopups.CustomPopupActivityIndicator;
@@ -227,9 +228,13 @@ public static class ImportExportUtils
     private static async Task ExportToCloudAsync(this Page parent,
         List<ExistingDatabase> existingDatabasesSelected)
     {
-        parent.ShowCustomPopupActivityIndicator(WelcomeManagementResources.ActivityIndicatorExportDatabaseToCloud);
-        await existingDatabasesSelected.ExportToCloudFileAsync(ProjectSystem.Maui);
-        CustomPopupActivityIndicatorHelper.CloseCustomPopupActivityIndicator();
+        await parent.ShowCustomPopupActivityIndicatorAsync(AccountManagementResources.ActivityIndicatorPleaseWaitTitle,
+            WelcomeManagementResources.ActivityIndicatorExportDatabaseToCloud,
+            async () =>
+            {
+                await existingDatabasesSelected.ExportToCloudFileAsync(ProjectSystem.Maui);
+                Thread.Sleep(TimeSpan.FromSeconds(1));
+            });
     }
 
     /// <summary>
@@ -249,20 +254,25 @@ public static class ImportExportUtils
 
         var selectedFolder = folderPickerResult.Folder.Path;
 
-        parent.ShowCustomPopupActivityIndicator(WelcomeManagementResources.ActivityIndicatorExportDatabaseToLocal);
+        await parent.ShowCustomPopupActivityIndicatorAsync(AccountManagementResources.ActivityIndicatorPleaseWaitTitle,
+            WelcomeManagementResources.ActivityIndicatorExportDatabaseToLocal, async () =>
+            {
+                // ReSharper disable once HeapView.ClosureAllocation
+                foreach (var existingDatabase in existingDatabasesSelected)
+                {
+                    // ReSharper disable once HeapView.ClosureAllocation
+                    var newFilePath = Path.Join(selectedFolder, existingDatabase.FileName);
+                    Log.Information("Starting to copy {ExistingDatabaseFileName} to {NewFilePath}",
+                        existingDatabase.FileName, newFilePath);
 
-        // ReSharper disable once HeapView.ClosureAllocation
-        foreach (var existingDatabase in existingDatabasesSelected)
-        {
-            // ReSharper disable once HeapView.ClosureAllocation
-            var newFilePath = Path.Join(selectedFolder, existingDatabase.FileName);
-            Log.Information("Starting to copy {ExistingDatabaseFileName} to {NewFilePath}", existingDatabase.FileName, newFilePath);
+                    // ReSharper disable once HeapView.DelegateAllocation
+                    await Task.Run(() => File.Copy(existingDatabase.FilePath, newFilePath, true));
+                    Log.Information("Successfully copied {ExistingDatabaseFileName} to {NewFilePath}",
+                        existingDatabase.FileName, newFilePath);
+                }
 
-            // ReSharper disable once HeapView.DelegateAllocation
-            await Task.Run(() => File.Copy(existingDatabase.FilePath, newFilePath, true));
-            Log.Information("Successfully copied {ExistingDatabaseFileName} to {NewFilePath}", existingDatabase.FileName, newFilePath);
-        }
-        CustomPopupActivityIndicatorHelper.CloseCustomPopupActivityIndicator();
+                Thread.Sleep(TimeSpan.FromSeconds(1));
+            });
     }
 
     /// <summary>
@@ -285,23 +295,27 @@ public static class ImportExportUtils
 
         Log.Information("Starting to export database to {SelectedDialog}", selectedFolder);
 
-        parent.ShowCustomPopupActivityIndicator(WelcomeManagementResources.ActivityIndicatorExportDatabaseToLocal);
-
         List<ExistingDatabase>? failedExistingDatabases = null;
-        foreach (var existingDatabase in existingDatabasesSelected)
-        {
-            Log.Information("Starting to export {ExistingDatabaseFileName} to {SelectedDialog}", existingDatabase.FileNameWithoutExtension, selectedFolder);
-            var success = await existingDatabase.ToFolderAsync(selectedFolder, isCompress);
-            if (!success)
+        await parent.ShowCustomPopupActivityIndicatorAsync(AccountManagementResources.ActivityIndicatorPleaseWaitTitle,
+            WelcomeManagementResources.ActivityIndicatorExportDatabaseToLocal, async () =>
             {
-                failedExistingDatabases ??= [];
-                failedExistingDatabases.Add(existingDatabase);
-                Log.Error("Failed to export {ExistingDatabaseFileName}", existingDatabase.FileNameWithoutExtension);
-            }
-            else Log.Information("Successfully exported {ExistingDatabaseFileName}", existingDatabase.FileNameWithoutExtension);
-        }
-
-        CustomPopupActivityIndicatorHelper.CloseCustomPopupActivityIndicator();
+                foreach (var existingDatabase in existingDatabasesSelected)
+                {
+                    Log.Information("Starting to export {ExistingDatabaseFileName} to {SelectedDialog}",
+                        existingDatabase.FileNameWithoutExtension, selectedFolder);
+                    var success = await existingDatabase.ToFolderAsync(selectedFolder, isCompress);
+                    if (!success)
+                    {
+                        failedExistingDatabases ??= [];
+                        failedExistingDatabases.Add(existingDatabase);
+                        Log.Error("Failed to export {ExistingDatabaseFileName}",
+                            existingDatabase.FileNameWithoutExtension);
+                    }
+                    else
+                        Log.Information("Successfully exported {ExistingDatabaseFileName}",
+                            existingDatabase.FileNameWithoutExtension);
+                }
+            });
 
         var maxFailedDatabase = failedExistingDatabases?.Count ?? 0;
         var rate = existingDatabasesSelected.Count - maxFailedDatabase;
@@ -348,7 +362,6 @@ public static class ImportExportUtils
 
             existingDatabases.RefreshExistingDatabases(ProjectSystem.Maui);
 
-            CustomPopupActivityIndicatorHelper.CloseCustomPopupActivityIndicator();
             await parent.DisplayAlert(WelcomeManagementResources.MessageBoxImportDatabaseSuccessTitle, WelcomeManagementResources.MessageBoxImportDatabaseSuccessMessage, WelcomeManagementResources.MessageBoxImportDatabaseSuccessOkButton);
         }
         catch (Exception exception)
@@ -400,10 +413,15 @@ public static class ImportExportUtils
             }
         }
 
-        parent.ShowCustomPopupActivityIndicator(WelcomeManagementResources.ActivityIndicatorImportDatabaseFromCloud);
-        var mauiClient = HttpClientHandlerCustom.CreateHttpClientHandler();
-        var files = selectDatabaseFileContentPage.ExistingDatabasesSelected.Select(s => s.FilePath);
-        await MyExpenses.Core.ImportExportUtils.DownloadDropboxFiles(files, ProjectSystem.Maui, mauiClient);
+        await parent.ShowCustomPopupActivityIndicatorAsync(AccountManagementResources.ActivityIndicatorPleaseWaitTitle,
+            WelcomeManagementResources.ActivityIndicatorImportDatabaseFromCloud, async () =>
+            {
+                var mauiClient = HttpClientHandlerCustom.CreateHttpClientHandler();
+                var files = selectDatabaseFileContentPage.ExistingDatabasesSelected.Select(s => s.FilePath);
+                await MyExpenses.Core.ImportExportUtils.DownloadDropboxFiles(files, ProjectSystem.Maui, mauiClient);
+
+                Thread.Sleep(TimeSpan.FromSeconds(1));
+            });
     }
 
     /// <summary>
@@ -434,15 +452,19 @@ public static class ImportExportUtils
         var result = await FilePicker.PickAsync(filePickerOption);
         if (result is null) return;
 
-        parent.ShowCustomPopupActivityIndicator(WelcomeManagementResources.ActivityIndicatorImportDatabaseFromLocal);
-        var filePath = result.FullPath;
+        await parent.ShowCustomPopupActivityIndicatorAsync(AccountManagementResources.ActivityIndicatorPleaseWaitTitle,
+            WelcomeManagementResources.ActivityIndicatorImportDatabaseFromLocal, () =>
+            {
+                var filePath = result.FullPath;
 
-        var fileName = Path.GetFileName(filePath);
-        var newFilePath = Path.Join(DatabaseInfos.LocalDirectoryDatabase, fileName);
+                var fileName = Path.GetFileName(filePath);
+                var newFilePath = Path.Join(DatabaseInfos.LocalDirectoryDatabase, fileName);
 
-        Log.Information("Copying {FileName} to local storage", fileName);
-        File.Copy(filePath, newFilePath, true);
-        Log.Information("Successfully copied {FileName} to local storage", fileName);
+                Log.Information("Copying {FileName} to local storage", fileName);
+                File.Copy(filePath, newFilePath, true);
+                Log.Information("Successfully copied {FileName} to local storage", fileName);
+                return Task.CompletedTask;
+            });
     }
 
     #endregion

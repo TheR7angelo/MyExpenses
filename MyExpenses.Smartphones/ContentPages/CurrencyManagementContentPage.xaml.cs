@@ -1,11 +1,11 @@
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using CommunityToolkit.Maui.Extensions;
-using CommunityToolkit.Maui.Views;
 using MyExpenses.Models.Maui.CustomPopup;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.SharedUtils;
 using MyExpenses.SharedUtils.Collection;
+using MyExpenses.SharedUtils.Resources.Resx.AccountManagement;
 using MyExpenses.SharedUtils.Resources.Resx.CurrencySymbolManagement;
 using MyExpenses.Smartphones.ContentPages.CustomPopups;
 using MyExpenses.Smartphones.ContentPages.CustomPopups.CustomPopupActivityIndicator;
@@ -140,10 +140,19 @@ public partial class CurrencyManagementContentPage
     {
         Log.Information("Attempting to remove the currency symbol \"{CurrencySymbol}\" with all relative element",
             oldCurrency.Symbol);
-        var (success, exception) = oldCurrency.Delete(true);
-        DashBoardContentPage.Instance.RefreshAccountTotal();
 
-        CustomPopupActivityIndicatorHelper.CloseCustomPopupActivityIndicator();
+        var success = false;
+        Exception? exception = null;
+        await this.ShowCustomPopupActivityIndicatorAsync(AccountManagementResources.ActivityIndicatorPleaseWaitTitle,
+            CurrencySymbolManagementResources.ActivityIndicatorDeleteCurrency, () =>
+            {
+                (success, exception) = oldCurrency.Delete(true);
+                DashBoardContentPage.Instance.RefreshAccountTotal();
+
+                Thread.Sleep(TimeSpan.FromSeconds(1));
+                return Task.CompletedTask;
+            });
+
         if (success)
         {
             Log.Information("Currency symbol and all related accounts were successfully deleted");
