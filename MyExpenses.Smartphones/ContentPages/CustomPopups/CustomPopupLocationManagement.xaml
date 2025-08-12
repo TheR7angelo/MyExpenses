@@ -6,54 +6,52 @@
     xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
     xmlns:margin="clr-namespace:MyExpenses.Maui.Utils.Margin;assembly=MyExpenses.Maui.Utils"
     x:Class="MyExpenses.Smartphones.ContentPages.CustomPopups.CustomPopupLocationManagement"
+
+    BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Black}}"
+    Padding="20"
+    Margin="5"
+
     BindingContext="{Binding Source={RelativeSource Self}}">
 
-    <Border BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Black}}"
-            Padding="20"
-            StrokeThickness="1.5"
-            Stroke="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}">
+    <Grid>
 
-        <Grid>
+        <VerticalStackLayout margin:LayoutExtensions.MarginForAllChildren="5">
 
-            <VerticalStackLayout margin:LayoutExtensions.MarginForAllChildren="5">
+            <Button Text="{Binding MenuItemHeaderAddPoint, Mode=OneWay}"
+                    IsVisible="{Binding MenuItemVisibility.MenuItemAddFeature, Mode=OneWay}"
+                    StyleClass="FilledTonalButton"
+                    Clicked="ButtonAddFeature_OnClicked">
+            </Button>
 
-                <Button Text="{Binding MenuItemHeaderAddPoint, Mode=OneWay}"
-                        IsVisible="{Binding MenuItemVisibility.MenuItemAddFeature, Mode=OneWay}"
-                        StyleClass="FilledTonalButton"
-                        Clicked="ButtonAddFeature_OnClicked">
-                </Button>
+            <Button Text="{Binding MenuItemHeaderEditFeature, Mode=OneWay}"
+                    IsVisible="{Binding MenuItemVisibility.MenuItemEditFeature, Mode=OneWay}"
+                    StyleClass="FilledTonalButton"
+                    Clicked="ButtonEditFeature_OnClicked">
+            </Button>
 
-                <Button Text="{Binding MenuItemHeaderEditFeature, Mode=OneWay}"
-                        IsVisible="{Binding MenuItemVisibility.MenuItemEditFeature, Mode=OneWay}"
-                        StyleClass="FilledTonalButton"
-                        Clicked="ButtonEditFeature_OnClicked">
-                </Button>
+            <Button Text="{Binding MenuItemHeaderDeleteFeature, Mode=OneWay}"
+                    IsVisible="{Binding MenuItemVisibility.MenuItemDeleteFeature, Mode=OneWay}"
+                    StyleClass="FilledTonalButton"
+                    Clicked="ButtonDeleteFeature_OnClicked">
+            </Button>
 
-                <Button Text="{Binding MenuItemHeaderDeleteFeature, Mode=OneWay}"
-                        IsVisible="{Binding MenuItemVisibility.MenuItemDeleteFeature, Mode=OneWay}"
-                        StyleClass="FilledTonalButton"
-                        Clicked="ButtonDeleteFeature_OnClicked">
-                </Button>
+            <Button Text="{Binding MenuItemHeaderGoogleEarthWeb, Mode=OneWay}"
+                    StyleClass="FilledTonalButton"
+                    Clicked="ButtonGoogleEarthWeb_OnClicked">
+            </Button>
 
-                <Button Text="{Binding MenuItemHeaderGoogleEarthWeb, Mode=OneWay}"
-                        StyleClass="FilledTonalButton"
-                        Clicked="ButtonGoogleEarthWeb_OnClicked">
-                </Button>
+            <Button Text="{Binding MenuItemHeaderGoogleMaps, Mode=OneWay}"
+                    StyleClass="FilledTonalButton"
+                    Clicked="ButtonToGoogleMaps_OnClick">
+            </Button>
 
-                <Button Text="{Binding MenuItemHeaderGoogleMaps, Mode=OneWay}"
-                        StyleClass="FilledTonalButton"
-                        Clicked="ButtonToGoogleMaps_OnClick">
-                </Button>
+            <Button Text="{Binding MenuItemHeaderGoogleStreetView, Mode=OneWay}"
+                    StyleClass="FilledTonalButton"
+                    Clicked="ButtonToGoogleStreetView_OnClick">
+            </Button>
 
-                <Button Text="{Binding MenuItemHeaderGoogleStreetView, Mode=OneWay}"
-                        StyleClass="FilledTonalButton"
-                        Clicked="ButtonToGoogleStreetView_OnClick">
-                </Button>
+        </VerticalStackLayout>
 
-            </VerticalStackLayout>
-
-        </Grid>
-
-    </Border>
+    </Grid>
 
 </toolkit:Popup>

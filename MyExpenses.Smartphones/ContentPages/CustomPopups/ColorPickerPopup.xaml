@@ -8,136 +8,132 @@
                xmlns:material="http://schemas.enisn-projects.io/dotnet/maui/uraniumui/material"
                x:Class="MyExpenses.Smartphones.ContentPages.CustomPopups.ColorPickerPopup"
 
+               BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Black}}"
+               Padding="20"
+               Margin="5"
+
                BindingContext="{Binding Source={RelativeSource Self}}">
 
     <toolkit:Popup.Resources>
         <converters:ColorToStringConverter x:Key="ColorToStringConverter" />
     </toolkit:Popup.Resources>
 
-    <Border BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Black}}"
-            Padding="20"
-            StrokeThickness="1.5"
-            Stroke="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
-            Margin="5">
+    <Grid margin:LayoutExtensions.MarginForAllChildren="5">
 
-        <Grid margin:LayoutExtensions.MarginForAllChildren="5">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
 
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
 
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="Auto" />
-            </Grid.ColumnDefinitions>
+        <material:TextField Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
+                            Title="{Binding TextBoxColorName, Mode=OneWay}"
+                            Text="{Binding ColorName, Mode=TwoWay}"
+                            MaxLength="{Binding MaxLength, Mode=OneWay}">
+        </material:TextField>
 
-            <material:TextField Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
-                                Title="{Binding TextBoxColorName, Mode=OneWay}"
-                                Text="{Binding ColorName, Mode=TwoWay}"
-                                MaxLength="{Binding MaxLength, Mode=OneWay}">
-            </material:TextField>
+        <Border Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
+                HeightRequest="96"
+                BackgroundColor="{Binding BackgroundColor, Mode=TwoWay}">
+        </Border>
 
-            <Border Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
-                    HeightRequest="96"
-                    BackgroundColor="{Binding BackgroundColor, Mode=TwoWay}">
-            </Border>
+        <Slider Grid.Row="2" Grid.Column="0"
+                Minimum="0" Maximum="255"
+                WidthRequest="255"
+                MinimumTrackColor="Red"
+                MaximumTrackColor="Red"
+                Value="{Binding RedValue, Mode=TwoWay}">
+        </Slider>
 
-            <Slider Grid.Row="2" Grid.Column="0"
-                    Minimum="0" Maximum="255"
-                    WidthRequest="255"
-                    MinimumTrackColor="Red"
-                    MaximumTrackColor="Red"
-                    Value="{Binding RedValue, Mode=TwoWay}">
-            </Slider>
+        <material:TextField Grid.Row="2" Grid.Column="1"
+                            Keyboard="Numeric"
+                            Title="{Binding LabelRedChannel, Mode=OneWay}"
+                            Text="{Binding RedValue, Mode=TwoWay}"
+                            TextChanged="TextFieldSlider_OnTextChanged">
+        </material:TextField>
 
-            <material:TextField Grid.Row="2" Grid.Column="1"
-                                Keyboard="Numeric"
-                                Title="{Binding LabelRedChannel, Mode=OneWay}"
-                                Text="{Binding RedValue, Mode=TwoWay}"
-                                TextChanged="TextFieldSlider_OnTextChanged">
-            </material:TextField>
+        <Slider Grid.Row="3" Grid.Column="0"
+                Minimum="0" Maximum="255"
+                WidthRequest="255"
+                MinimumTrackColor="Green"
+                MaximumTrackColor="Green"
+                Value="{Binding GreenValue, Mode=TwoWay}">
+        </Slider>
 
-            <Slider Grid.Row="3" Grid.Column="0"
-                    Minimum="0" Maximum="255"
-                    WidthRequest="255"
-                    MinimumTrackColor="Green"
-                    MaximumTrackColor="Green"
-                    Value="{Binding GreenValue, Mode=TwoWay}">
-            </Slider>
+        <material:TextField Grid.Row="3" Grid.Column="1"
+                            Keyboard="Numeric"
+                            Title="{Binding LabelGreenChannel, Mode=OneWay}"
+                            Text="{Binding GreenValue, Mode=TwoWay}"
+                            TextChanged="TextFieldSlider_OnTextChanged">
+        </material:TextField>
 
-            <material:TextField Grid.Row="3" Grid.Column="1"
-                                Keyboard="Numeric"
-                                Title="{Binding LabelGreenChannel, Mode=OneWay}"
-                                Text="{Binding GreenValue, Mode=TwoWay}"
-                                TextChanged="TextFieldSlider_OnTextChanged">
-            </material:TextField>
+        <Slider Grid.Row="4" Grid.Column="0"
+                Minimum="0" Maximum="255"
+                WidthRequest="255"
+                MinimumTrackColor="Blue"
+                MaximumTrackColor="Blue"
+                Value="{Binding BlueValue, Mode=TwoWay}">
+        </Slider>
 
-            <Slider Grid.Row="4" Grid.Column="0"
-                    Minimum="0" Maximum="255"
-                    WidthRequest="255"
-                    MinimumTrackColor="Blue"
-                    MaximumTrackColor="Blue"
-                    Value="{Binding BlueValue, Mode=TwoWay}">
-            </Slider>
+        <material:TextField Grid.Row="4" Grid.Column="1"
+                            Keyboard="Numeric"
+                            Title="{Binding LabelBlueChannel, Mode=OneWay}"
+                            Text="{Binding BlueValue, Mode=TwoWay}"
+                            TextChanged="TextFieldSlider_OnTextChanged">
+        </material:TextField>
 
-            <material:TextField Grid.Row="4" Grid.Column="1"
-                                Keyboard="Numeric"
-                                Title="{Binding LabelBlueChannel, Mode=OneWay}"
-                                Text="{Binding BlueValue, Mode=TwoWay}"
-                                TextChanged="TextFieldSlider_OnTextChanged">
-            </material:TextField>
+        <Slider Grid.Row="5" Grid.Column="0"
+                Minimum="0" Maximum="255"
+                WidthRequest="255"
+                Value="{Binding AlphaValue, Mode=TwoWay}">
+        </Slider>
 
-            <Slider Grid.Row="5" Grid.Column="0"
-                    Minimum="0" Maximum="255"
-                    WidthRequest="255"
-                    Value="{Binding AlphaValue, Mode=TwoWay}">
-            </Slider>
+        <material:TextField Grid.Row="5" Grid.Column="1"
+                            Keyboard="Numeric"
+                            Title="{Binding LabelAlphaChannel, Mode=OneWay}"
+                            Text="{Binding AlphaValue, Mode=TwoWay}"
+                            TextChanged="TextFieldSlider_OnTextChanged">
+        </material:TextField>
 
-            <material:TextField Grid.Row="5" Grid.Column="1"
-                                Keyboard="Numeric"
-                                Title="{Binding LabelAlphaChannel, Mode=OneWay}"
-                                Text="{Binding AlphaValue, Mode=TwoWay}"
-                                TextChanged="TextFieldSlider_OnTextChanged">
-            </material:TextField>
+        <material:TextField Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2"
+                            Title="{Binding LabelHexadecimalCode, Mode=OneWay}"
+                            Text="{Binding BackgroundColor, Mode=TwoWay, Converter={StaticResource ColorToStringConverter}, ConverterParameter=True}"
+                            MaxLength="9"
+                            TextChanged="TextFieldColorHexadecimal_OnTextChanged">
+        </material:TextField>
 
-            <material:TextField Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2"
-                                Title="{Binding LabelHexadecimalCode, Mode=OneWay}"
-                                Text="{Binding BackgroundColor, Mode=TwoWay, Converter={StaticResource ColorToStringConverter}, ConverterParameter=True}"
-                                MaxLength="9"
-                                TextChanged="TextFieldColorHexadecimal_OnTextChanged">
-            </material:TextField>
+        <HorizontalStackLayout Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2"
+                               HorizontalOptions="Center"
+                               margin:LayoutExtensions.MarginForAllChildren="3">
 
-            <HorizontalStackLayout Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2"
-                                   HorizontalOptions="Center"
-                                   margin:LayoutExtensions.MarginForAllChildren="3">
+            <Button Style="{StaticResource RaisedMidButton}"
+                    Text="{Binding ButtonValidText, Mode=OneWay}"
+                    Clicked="ButtonValid_OnClicked">
+            </Button>
 
-                <Button Style="{StaticResource RaisedMidButton}"
-                        Text="{Binding ButtonValidText, Mode=OneWay}"
-                        Clicked="ButtonValid_OnClicked">
-                </Button>
+            <Button Style="{StaticResource RaisedSecondaryMidButton}"
+                    Text="{Binding ButtonDeleteText, Mode=OneWay}"
+                    IsVisible="{Binding EditColor, Mode=OneWay}"
+                    Clicked="ButtonDelete_OnClicked">
+            </Button>
 
-                <Button Style="{StaticResource RaisedSecondaryMidButton}"
-                        Text="{Binding ButtonDeleteText, Mode=OneWay}"
-                        IsVisible="{Binding EditColor, Mode=OneWay}"
-                        Clicked="ButtonDelete_OnClicked">
-                </Button>
+            <Button Style="{StaticResource RaisedSecondaryMidButton}"
+                    Text="{Binding ButtonCancelText, Mode=OneWay}"
+                    Clicked="ButtonCancel_OnClicked">
+            </Button>
 
-                <Button Style="{StaticResource RaisedSecondaryMidButton}"
-                        Text="{Binding ButtonCancelText, Mode=OneWay}"
-                        Clicked="ButtonCancel_OnClicked">
-                </Button>
+        </HorizontalStackLayout>
 
-            </HorizontalStackLayout>
-
-        </Grid>
-
-    </Border>
+    </Grid>
 
 </toolkit:Popup>

@@ -6,53 +6,50 @@
                xmlns:margin="clr-namespace:MyExpenses.Maui.Utils.Margin;assembly=MyExpenses.Maui.Utils"
                xmlns:customEntryControl="clr-namespace:MyExpenses.Smartphones.UserControls.TextInputs.CustomEntryControl"
                x:Class="MyExpenses.Smartphones.ContentPages.CustomPopups.CustomPopupEntry"
+
+               BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Black}}"
+               Padding="20"
+               Margin="5"
+
                BindingContext="{Binding Source={RelativeSource Self}}">
 
-    <Border BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Black}}"
-            Padding="20"
-            StrokeThickness="1.5"
-            Stroke="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource White}}"
-            Margin="5">
+    <Grid margin:LayoutExtensions.MarginForAllChildren="5">
 
-        <Grid margin:LayoutExtensions.MarginForAllChildren="5">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
 
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
+        <customEntryControl:CustomEntryControl Grid.Row="0" Grid.Column="0"
+                                               PlaceholderText="{Binding PlaceholderText, Mode=OneWay}"
+                                               Text="{Binding EntryText, Mode=TwoWay}"
+                                               HasClearButton="{Binding HasClearButton, Mode=OneWay}"
+                                               HasMultiline="{Binding HasMultiline, Mode=OneWay}"
+                                               MaxLength="{Binding MaxLenght, Mode=OneWay}">
+        </customEntryControl:CustomEntryControl>
 
-            <customEntryControl:CustomEntryControl Grid.Row="0" Grid.Column="0"
-                                                   PlaceholderText="{Binding PlaceholderText, Mode=OneWay}"
-                                                   Text="{Binding EntryText, Mode=TwoWay}"
-                                                   HasClearButton="{Binding HasClearButton, Mode=OneWay}"
-                                                   HasMultiline="{Binding HasMultiline, Mode=OneWay}"
-                                                   MaxLength="{Binding MaxLenght, Mode=OneWay}">
-            </customEntryControl:CustomEntryControl>
+        <HorizontalStackLayout Grid.Row="1"
+                               HorizontalOptions="End"
+                               margin:LayoutExtensions.MarginForAllChildren="3">
 
-            <HorizontalStackLayout Grid.Row="1"
-                                   HorizontalOptions="End"
-                                   margin:LayoutExtensions.MarginForAllChildren="3">
+            <Button Style="{StaticResource RaisedMidButton}"
+                    Text="{Binding ButtonValidText, Mode=OneWay}"
+                    Clicked="ButtonValid_OnClicked">
+            </Button>
 
-                <Button Style="{StaticResource RaisedMidButton}"
-                        Text="{Binding ButtonValidText, Mode=OneWay}"
-                        Clicked="ButtonValid_OnClicked">
-                </Button>
+            <Button Style="{StaticResource RaisedSecondaryMidButton}"
+                    Text="{Binding ButtonDeleteText, Mode=OneWay}"
+                    IsVisible="{Binding CanDelete, Mode=OneWay}"
+                    Clicked="ButtonDelete_OnClicked">
+            </Button>
 
-                <Button Style="{StaticResource RaisedSecondaryMidButton}"
-                        Text="{Binding ButtonDeleteText, Mode=OneWay}"
-                        IsVisible="{Binding CanDelete, Mode=OneWay}"
-                        Clicked="ButtonDelete_OnClicked">
-                </Button>
+            <Button Style="{StaticResource RaisedSecondaryMidButton}"
+                    Text="{Binding ButtonCancelText, Mode=OneWay}"
+                    Clicked="ButtonCancel_OnClicked">
+            </Button>
 
-                <Button Style="{StaticResource RaisedSecondaryMidButton}"
-                        Text="{Binding ButtonCancelText, Mode=OneWay}"
-                        Clicked="ButtonCancel_OnClicked">
-                </Button>
+        </HorizontalStackLayout>
 
-            </HorizontalStackLayout>
-
-        </Grid>
-
-    </Border>
+    </Grid>
 
 </toolkit:Popup>
