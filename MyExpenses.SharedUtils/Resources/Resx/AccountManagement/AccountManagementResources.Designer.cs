@@ -63,9 +63,9 @@ namespace MyExpenses.SharedUtils.Resources.Resx.AccountManagement {
         /// <summary>
         ///   Looks up a localized string similar to Deleting selected accounts and all associated transactions....
         /// </summary>
-        public static string ActivityIndicatorDeleteAccount {
+        public static string ActivityIndicatorDeleteAccountMessage {
             get {
-                return ResourceManager.GetString("ActivityIndicatorDeleteAccount", resourceCulture);
+                return ResourceManager.GetString("ActivityIndicatorDeleteAccountMessage", resourceCulture);
             }
         }
         
@@ -75,6 +75,15 @@ namespace MyExpenses.SharedUtils.Resources.Resx.AccountManagement {
         public static string ActivityIndicatorDeleteAccounts {
             get {
                 return ResourceManager.GetString("ActivityIndicatorDeleteAccounts", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Please wait.
+        /// </summary>
+        public static string ActivityIndicatorPleaseWaitTitle {
+            get {
+                return ResourceManager.GetString("ActivityIndicatorPleaseWaitTitle", resourceCulture);
             }
         }
         

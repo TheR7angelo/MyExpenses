@@ -233,7 +233,7 @@ public partial class AccountAnalyzedByMonthContentPage
         }
 
         var filteredData = accountName.GetFilteredVDetailTotalCategories(monthInt, yearInt);
-        var categoriesTotals = filteredData.CalculateCategoryTotals(out var grandTotal);
+        var categoriesTotals = filteredData.AggregateCategoryTotalsBySign(out var grandTotal);
 
         PieChartManager.UpdateChartUi(categoriesTotals, grandTotal);
     }
