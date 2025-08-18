@@ -404,20 +404,38 @@ public static class EntityQueries
     }
 
     /// <summary>
-    /// Calculates category totals from a collection of detailed category data and computes the overall grand total.
+    /// Calculates the total amount for each category from the provided collection of category details.
+    /// Also computes the grand total of all category totals.
     /// </summary>
     /// <param name="data">
-    /// A collection of <see cref="VDetailTotalCategory"/> objects containing detailed information about categories.
+    /// A collection of category details from which the category totals will be calculated.
+    /// Each element must contain information about the category, its value, and additional properties such as symbol and color code.
     /// </param>
     /// <param name="grandTotal">
-    /// An output parameter that will hold the computed grand total, which is the sum of absolute values of all category totals.
+    /// Outputs the grand total, which is the sum of the absolute values of the totals across all categories.
+    /// </param>
+    /// <param name="positive">
+    /// A boolean flag indicating whether positive totals should be included in the result. Default is true.
+    /// </param>
+    /// <param name="negative">
+    /// A boolean flag indicating whether negative totals should be included in the result. Default is true.
     /// </param>
     /// <returns>
-    /// An <see cref="IEnumerable{T}"/> of <see cref="CategoryTotalData"/> representing the totals for each category, ordered in descending order by the absolute value of the totals.
+    /// A collection of <see cref="CategoryTotalData"/> representing the calculated totals for each category.
+    /// The collection is sorted in descending order by the absolute values of the totals.
     /// </returns>
-    public static IEnumerable<CategoryTotalData> CalculateCategoryTotals(this IEnumerable<VDetailTotalCategory> data,
-        out double grandTotal)
+    /// <exception cref="ArgumentException">
+    /// Thrown if both the <paramref name="positive"/> and <paramref name="negative"/> flags are set to false.
+    /// </exception>
+    public static IEnumerable<CategoryTotalData> AggregateCategoryTotalsBySign(this IEnumerable<VDetailTotalCategory> data,
+        out double grandTotal,
+        bool positive = true, bool negative = true)
     {
+        if (!positive && !negative)
+        {
+            throw new ArgumentException("At least one of 'positive' or 'negative' must be true.");
+        }
+
         var categoriesTotals = data
             .GroupBy(s => s.Category)
             // ReSharper disable once HeapView.ObjectAllocation.Evident
@@ -428,7 +446,18 @@ public static class EntityQueries
                 Total = Math.Round(g.Sum(s => s.Value) ?? 0d, 2),
                 Symbol = g.First().Symbol,
                 HexadecimalColorCode = g.First().HexadecimalColorCode
-            })
+            });
+
+        if (positive && !negative)
+        {
+            categoriesTotals = categoriesTotals.Where(s => s.Total >= 0d);
+        }
+        else if (negative && !positive)
+        {
+            categoriesTotals = categoriesTotals.Where(s => s.Total <= 0d);
+        }
+
+        categoriesTotals = categoriesTotals
             .OrderByDescending(s => Math.Abs(s.Total))
             .ToList();
 
