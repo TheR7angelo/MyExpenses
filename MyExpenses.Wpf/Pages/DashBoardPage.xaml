@@ -256,12 +256,36 @@
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="2*" />
+                <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
-            <wpf:PieChart Grid.Row="0" x:Name="PieChart" />
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
 
-            <ScrollViewer Grid.Row="1"
+            <Button Grid.Row="0" Grid.Column="0"
+                    Style="{StaticResource MaterialDesignPaperButton}"
+                    Click="ButtonSwitchLeftPositiveNegativeChartValues_OnClick">
+                <materialDesign:PackIcon Kind="ArrowLeftBoldCircle" />
+            </Button>
+
+            <wpf:PieChart Grid.Row="0" Grid.Column="1" x:Name="PieChart" />
+
+            <Button Grid.Row="0" Grid.Column="2"
+                    Style="{StaticResource MaterialDesignPaperButton}"
+                    Click="ButtonSwitchRightPositiveNegativeChartValues_OnClick">
+                <materialDesign:PackIcon Kind="ArrowRightBoldCircle" />
+            </Button>
+
+            <Label Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3"
+                   HorizontalContentAlignment="Center"
+                   Content="{Binding MonthlyGlobalBudgetChartDistributionTitle, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
+            </Label>
+
+            <ScrollViewer Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3"
                           HorizontalScrollBarVisibility="Disabled"
                           VerticalScrollBarVisibility="Auto">
 

@@ -227,6 +227,16 @@ public partial class DashBoardPage
 
     #endregion
 
+    public string MonthlyGlobalBudgetChartDistributionTitle
+    {
+        get => (string)GetValue(MonthlyGlobalBudgetChartDistributionTitleProperty);
+        set => SetValue(MonthlyGlobalBudgetChartDistributionTitleProperty, value);
+    }
+
+    public static readonly DependencyProperty MonthlyGlobalBudgetChartDistributionTitleProperty =
+        DependencyProperty.Register(nameof(MonthlyGlobalBudgetChartDistributionTitle), typeof(string),
+            typeof(DashBoardPage), new PropertyMetadata(default(string)));
+
     public static readonly DependencyProperty ComboBoxYearsHintAssistProperty =
         DependencyProperty.Register(nameof(ComboBoxYearsHintAssist), typeof(string), typeof(DashBoardPage),
             // ReSharper disable once HeapView.ObjectAllocation.Evident
@@ -252,6 +262,15 @@ public partial class DashBoardPage
     public ObservableCollection<CategoryTotal> CategoryTotals { get; } = [];
 
     private PieChartManager PieChartManager { get; }
+
+    private static (bool Positive, bool Negative)[] PositiveNegativeChartValues =>
+    [
+        (false, true),
+        (true, true),
+        (true, false)
+    ];
+
+    private int IndexOfPositiveNegativeChartValues { get; set; } = 1;
 
     public ObservableCollection<string> Years { get; }
     public ObservableCollection<string> Months { get; } = [];
@@ -492,6 +511,12 @@ public partial class DashBoardPage
             DashBoardManagementResources.MessageBoxRemoveMonthErrorMessage, MessageBoxButton.OK, MsgBoxImage.Warning);
     }
 
+    private void ButtonSwitchLeftPositiveNegativeChartValues_OnClick(object sender, RoutedEventArgs e)
+        => RefreshPositiveNegativeChartValues(-1);
+
+    private void ButtonSwitchRightPositiveNegativeChartValues_OnClick(object sender, RoutedEventArgs e)
+        => RefreshPositiveNegativeChartValues(1);
+
     private void DataGridRow_PreviewMouseRightButtonDown(object sender, MouseButtonEventArgs e)
         => DataGridRow = sender as DataGridRow;
 
@@ -683,6 +708,16 @@ public partial class DashBoardPage
 
         VHistories.Clear();
 
+        var (yearInt, monthInt) = ExtractMonthAndYearFromSelection();
+        var results = accountName.GetFilteredHistories(monthInt, yearInt);
+
+        VHistories.AddRange(results.Histories);
+
+        UpdatePieChartData(accountName, monthInt, yearInt);
+    }
+
+    private (int? Year, int? Month) ExtractMonthAndYearFromSelection()
+    {
         int? monthInt = null;
         if (!string.IsNullOrEmpty(SelectedMonth))
         {
@@ -695,13 +730,19 @@ public partial class DashBoardPage
             _ = SelectedYear.ToInt(out yearInt);
         }
 
-        var results = accountName.GetFilteredHistories(monthInt, yearInt);
-        VHistories.AddRange(results.Histories);
+        return (yearInt, monthInt);
+    }
 
-        var filteredData = accountName.GetFilteredVDetailTotalCategories(monthInt, yearInt);
-        var categoriesTotals = filteredData.CalculateCategoryTotals(out var grandTotal);
+    private void RefreshPositiveNegativeChartValues(int valueToAdd)
+    {
+        IndexOfPositiveNegativeChartValues =
+            (IndexOfPositiveNegativeChartValues + valueToAdd + PositiveNegativeChartValues.Length)
+            % PositiveNegativeChartValues.Length;
 
-        PieChartManager.UpdateChartUi(categoriesTotals, grandTotal);
+        UpdateMonthlyGlobalBudgetChartDistributionTitle();
+
+        var (yearInt, monthInt) = ExtractMonthAndYearFromSelection();
+        UpdatePieChartData(null, monthInt, yearInt);
     }
 
     private void RefreshRadioButtonSelected()
@@ -746,32 +787,6 @@ public partial class DashBoardPage
         return radioButtons.FirstOrDefault(s => s.IsChecked == true)?.Content as string;
     }
 
-    private void UpdateMonthLanguage()
-    {
-        var currentCulture = CultureInfo.CurrentCulture;
-        LocalLanguage = currentCulture.ToLocal();
-
-        var months = currentCulture.DateTimeFormat.MonthNames
-            .Where(s => !string.IsNullOrEmpty(s))
-            .Select(s => s.ToFirstCharUpper()).ToList();
-
-        if (Months.Count is 0)
-        {
-            Months.AddRange(months);
-        }
-        else
-        {
-            // ReSharper disable once HeapView.DelegateAllocation
-            var selectedMonth = Months.FirstOrDefault(month => month.Equals(SelectedMonth)) ?? string.Empty;
-            for (var i = 0; i < months.Count; i++)
-            {
-                Months[i] = months[i];
-            }
-
-            SelectedMonth = selectedMonth;
-        }
-    }
-
     private void UpdateLanguage()
     {
         ButtonAccountManagement = DashBoardManagementResources.ButtonAccountManagement;
@@ -809,6 +824,58 @@ public partial class DashBoardPage
         ComboBoxMonthHintAssist = DashBoardManagementResources.ComboBoxMonthHintAssist;
 
         DateFormatString = SharedUtils.Converters.DateTimeToDateTimeWithoutSecondsConverter.GetDateTimePattern();
+
+        UpdateMonthlyGlobalBudgetChartDistributionTitle();
+    }
+
+    private void UpdateMonthLanguage()
+    {
+        var currentCulture = CultureInfo.CurrentCulture;
+        LocalLanguage = currentCulture.ToLocal();
+
+        var months = currentCulture.DateTimeFormat.MonthNames
+            .Where(s => !string.IsNullOrEmpty(s))
+            .Select(s => s.ToFirstCharUpper()).ToList();
+
+        if (Months.Count is 0)
+        {
+            Months.AddRange(months);
+        }
+        else
+        {
+            // ReSharper disable once HeapView.DelegateAllocation
+            var selectedMonth = Months.FirstOrDefault(month => month.Equals(SelectedMonth)) ?? string.Empty;
+            for (var i = 0; i < months.Count; i++)
+            {
+                Months[i] = months[i];
+            }
+
+            SelectedMonth = selectedMonth;
+        }
+    }
+
+    private void UpdateMonthlyGlobalBudgetChartDistributionTitle()
+    {
+        MonthlyGlobalBudgetChartDistributionTitle = IndexOfPositiveNegativeChartValues switch
+        {
+            0 => DashBoardManagementResources.MonthlyNegativeBudgetChartDistribution,
+            1 => DashBoardManagementResources.MonthlyGlobalBudgetChartDistribution,
+            2 => DashBoardManagementResources.MonthlyPositiveBudgetChartDistribution,
+            _ => MonthlyGlobalBudgetChartDistributionTitle
+        };
+    }
+
+    private void UpdatePieChartData(string? accountName = null, int? monthInt = null, int? yearInt = null)
+    {
+        if (string.IsNullOrEmpty(accountName)) accountName = GetAccountName();
+        if (string.IsNullOrEmpty(accountName)) return;
+
+        var filteredData = accountName.GetFilteredVDetailTotalCategories(monthInt, yearInt);
+
+        var (positive, negative) = PositiveNegativeChartValues[IndexOfPositiveNegativeChartValues];
+        var categoriesTotals = filteredData.AggregateCategoryTotalsBySign(out var grandTotal, positive, negative);
+
+        PieChartManager.UpdateChartUi(categoriesTotals, grandTotal);
     }
 
     private void UpdatePieChartLegendTextPaint()

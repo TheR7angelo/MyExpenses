@@ -131,4 +131,13 @@
     <data name="MenuItemHeaderExportDatabase" xml:space="preserve">
         <value>Exporter la base de données</value>
     </data>
+    <data name="MonthlyPositiveBudgetChartDistribution" xml:space="preserve">
+        <value>Répartition mensuelle du budget positif</value>
+    </data>
+    <data name="MonthlyNegativeBudgetChartDistribution" xml:space="preserve">
+        <value>Répartition mensuelle du budget négatif</value>
+    </data>
+    <data name="MonthlyGlobalBudgetChartDistribution" xml:space="preserve">
+        <value>Répartition mensuelle globale du budget</value>
+    </data>
 </root>
