@@ -314,7 +314,6 @@ public partial class AddEditLocationContentPage
         _ = SearchByCoordinate(point!);
     }
 
-    [SupportedOSPlatform("Android21.0")]
     [SupportedOSPlatform("iOS13.0")]
     [SupportedOSPlatform("MacCatalyst15.0")]
     [SupportedOSPlatform("Windows")]
@@ -514,7 +513,6 @@ public partial class AddEditLocationContentPage
         SetPlace(place, true);
     }
 
-    [SupportedOSPlatform("Android21.0")]
     [SupportedOSPlatform("iOS13.0")]
     [SupportedOSPlatform("MacCatalyst15.0")]
     [SupportedOSPlatform("Windows")]

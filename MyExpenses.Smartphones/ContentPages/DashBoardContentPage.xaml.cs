@@ -210,7 +210,6 @@ public partial class DashBoardContentPage
 
     public ICommand CollectionViewVHistoryLongPressCommand { get; }
 
-    [SupportedOSPlatform("Android21.0")]
     [SupportedOSPlatform("iOS13.0")]
     [SupportedOSPlatform("MacCatalyst13.0")]
     [SupportedOSPlatform("Windows")]
@@ -279,14 +278,12 @@ public partial class DashBoardContentPage
         UpdateFilterDate(now);
     }
 
-    [SupportedOSPlatform("Android21.0")]
     [SupportedOSPlatform("iOS13.0")]
     [SupportedOSPlatform("MacCatalyst13.0")]
     [SupportedOSPlatform("Windows")]
     private void ButtonImageViewAddRecordHistory_OnClicked(object? sender, EventArgs e)
         => _ = HandleButtonImageViewAddRecordHistory();
 
-    [SupportedOSPlatform("Android21.0")]
     [SupportedOSPlatform("iOS13.0")]
     [SupportedOSPlatform("MacCatalyst13.0")]
     [SupportedOSPlatform("Windows")]
@@ -311,7 +308,6 @@ public partial class DashBoardContentPage
     private void ButtonRemoveMonth_OnClick(object? sender, EventArgs e)
         => _ = HandleButtonRemoveMonth();
 
-    [SupportedOSPlatform("Android21.0")]
     [SupportedOSPlatform("iOS13.0")]
     [SupportedOSPlatform("MacCatalyst13.0")]
     [SupportedOSPlatform("Windows")]
@@ -319,7 +315,6 @@ public partial class DashBoardContentPage
         // ReSharper disable once HeapView.DelegateAllocation
         => _ = RunFilter(sender, FilterCategory);
 
-    [SupportedOSPlatform("Android21.0")]
     [SupportedOSPlatform("iOS13.0")]
     [SupportedOSPlatform("MacCatalyst13.0")]
     [SupportedOSPlatform("Windows")]
@@ -327,21 +322,18 @@ public partial class DashBoardContentPage
         // ReSharper disable once HeapView.DelegateAllocation
         => _ = RunFilter(sender, FilterCategory);
 
-    [SupportedOSPlatform("Android21.0")]
     [SupportedOSPlatform("iOS13.0")]
     [SupportedOSPlatform("MacCatalyst13.0")]
     [SupportedOSPlatform("Windows")]
     private void CollectionViewVHistory_OnLongPress(object obj)
         => _ = HandleCollectionViewVHistoryLongPress(obj);
 
-    [SupportedOSPlatform("Android21.0")]
     [SupportedOSPlatform("iOS13.0")]
     [SupportedOSPlatform("MacCatalyst13.0")]
     [SupportedOSPlatform("Windows")]
     private void CollectionViewVHistory_OnShortPress(object obj)
         => _ = HandleCollectionViewVHistoryShortPress(obj);
 
-    [SupportedOSPlatform("Android21.0")]
     [SupportedOSPlatform("iOS13.0")]
     [SupportedOSPlatform("MacCatalyst13.0")]
     [SupportedOSPlatform("Windows")]
@@ -355,14 +347,12 @@ public partial class DashBoardContentPage
         });
     }
 
-    [SupportedOSPlatform("Android21.0")]
     [SupportedOSPlatform("iOS13.0")]
     [SupportedOSPlatform("MacCatalyst13.0")]
     [SupportedOSPlatform("Windows")]
     private void CustomPicker_OnSelectedIndexChanged(object? sender, EventArgs e)
         => RefreshDataGrid();
 
-    [SupportedOSPlatform("Android21.0")]
     [SupportedOSPlatform("iOS13.0")]
     [SupportedOSPlatform("MacCatalyst13.0")]
     [SupportedOSPlatform("Windows")]
@@ -370,7 +360,6 @@ public partial class DashBoardContentPage
         // ReSharper disable once HeapView.DelegateAllocation
         => _ = RunFilter(sender, FilterDescription);
 
-    [SupportedOSPlatform("Android21.0")]
     [SupportedOSPlatform("iOS13.0")]
     [SupportedOSPlatform("MacCatalyst13.0")]
     [SupportedOSPlatform("Windows")]
@@ -384,7 +373,6 @@ public partial class DashBoardContentPage
         UpdateMonthLanguage();
     }
 
-    [SupportedOSPlatform("Android21.0")]
     [SupportedOSPlatform("iOS13.0")]
     [SupportedOSPlatform("MacCatalyst13.0")]
     [SupportedOSPlatform("Windows")]
@@ -392,7 +380,6 @@ public partial class DashBoardContentPage
         // ReSharper disable once HeapView.DelegateAllocation
         => _ = RunFilter(sender, FilterPaymentMode);
 
-    [SupportedOSPlatform("Android21.0")]
     [SupportedOSPlatform("iOS13.0")]
     [SupportedOSPlatform("MacCatalyst13.0")]
     [SupportedOSPlatform("Windows")]
@@ -400,7 +387,6 @@ public partial class DashBoardContentPage
         // ReSharper disable once HeapView.DelegateAllocation
         => _ = RunFilter(sender, FilterPaymentMode);
 
-    [SupportedOSPlatform("Android21.0")]
     [SupportedOSPlatform("iOS13.0")]
     [SupportedOSPlatform("MacCatalyst13.0")]
     [SupportedOSPlatform("Windows")]
@@ -408,7 +394,6 @@ public partial class DashBoardContentPage
         // ReSharper disable once HeapView.DelegateAllocation
         => _ = RunFilter(sender, FilterPlace);
 
-    [SupportedOSPlatform("Android21.0")]
     [SupportedOSPlatform("iOS13.0")]
     [SupportedOSPlatform("MacCatalyst13.0")]
     [SupportedOSPlatform("Windows")]
@@ -416,7 +401,6 @@ public partial class DashBoardContentPage
         // ReSharper disable once HeapView.DelegateAllocation
         => _ = RunFilter(sender, FilterPlace);
 
-    [SupportedOSPlatform("Android21.0")]
     [SupportedOSPlatform("iOS13.0")]
     [SupportedOSPlatform("MacCatalyst13.0")]
     [SupportedOSPlatform("Windows")]
@@ -424,7 +408,6 @@ public partial class DashBoardContentPage
         // ReSharper disable once HeapView.DelegateAllocation
         => _ = RunFilter(sender, FilterChecked);
 
-    [SupportedOSPlatform("Android21.0")]
     [SupportedOSPlatform("iOS13.0")]
     [SupportedOSPlatform("MacCatalyst13.0")]
     [SupportedOSPlatform("Windows")]
@@ -432,7 +415,6 @@ public partial class DashBoardContentPage
         // ReSharper disable once HeapView.DelegateAllocation
         => _ = RunFilter(sender, FilterChecked);
 
-    [SupportedOSPlatform("Android21.0")]
     [SupportedOSPlatform("iOS13.0")]
     [SupportedOSPlatform("MacCatalyst13.0")]
     [SupportedOSPlatform("Windows")]
@@ -460,7 +442,6 @@ public partial class DashBoardContentPage
         RefreshDataGrid();
     }
 
-    [SupportedOSPlatform("Android21.0")]
     [SupportedOSPlatform("iOS13.0")]
     [SupportedOSPlatform("MacCatalyst13.0")]
     [SupportedOSPlatform("Windows")]
@@ -468,7 +449,6 @@ public partial class DashBoardContentPage
         // ReSharper disable once HeapView.DelegateAllocation
         => _ = RunFilter(sender, FilterValue);
 
-    [SupportedOSPlatform("Android21.0")]
     [SupportedOSPlatform("iOS13.0")]
     [SupportedOSPlatform("MacCatalyst13.0")]
     [SupportedOSPlatform("Windows")]
@@ -476,7 +456,6 @@ public partial class DashBoardContentPage
         // ReSharper disable once HeapView.DelegateAllocation
         => _ = RunFilter(sender, FilterValue);
 
-    [SupportedOSPlatform("Android21.0")]
     [SupportedOSPlatform("iOS13.0")]
     [SupportedOSPlatform("MacCatalyst13.0")]
     [SupportedOSPlatform("Windows")]
@@ -497,7 +476,6 @@ public partial class DashBoardContentPage
 
     #region Function
 
-    [SupportedOSPlatform("Android21.0")]
     [SupportedOSPlatform("iOS13.0")]
     [SupportedOSPlatform("MacCatalyst13.0")]
     [SupportedOSPlatform("Windows")]
@@ -536,7 +514,6 @@ public partial class DashBoardContentPage
         FilterManagement(VCategoryDerivesFilter, popupFilter, eFilter, svgPath);
     }
 
-    [SupportedOSPlatform("Android21.0")]
     [SupportedOSPlatform("iOS13.0")]
     [SupportedOSPlatform("MacCatalyst13.0")]
     [SupportedOSPlatform("Windows")]
@@ -570,7 +547,6 @@ public partial class DashBoardContentPage
         FilterManagement(HistoryChecked, popupFilter, eFilter, svgPath);
     }
 
-    [SupportedOSPlatform("Android21.0")]
     [SupportedOSPlatform("iOS13.0")]
     [SupportedOSPlatform("MacCatalyst13.0")]
     [SupportedOSPlatform("Windows")]
@@ -611,7 +587,6 @@ public partial class DashBoardContentPage
         FilterManagement(HistoryDescriptions, popupFilter, eFilter, svgPath);
     }
 
-    [SupportedOSPlatform("Android21.0")]
     [SupportedOSPlatform("iOS13.0")]
     [SupportedOSPlatform("MacCatalyst13.0")]
     [SupportedOSPlatform("Windows")]
@@ -636,7 +611,6 @@ public partial class DashBoardContentPage
         }
     }
 
-    [SupportedOSPlatform("Android21.0")]
     [SupportedOSPlatform("iOS13.0")]
     [SupportedOSPlatform("MacCatalyst13.0")]
     [SupportedOSPlatform("Windows")]
@@ -678,7 +652,6 @@ public partial class DashBoardContentPage
         FilterManagement(ModePaymentDeriveFilter, popupFilter, eFilter, svgPath);
     }
 
-    [SupportedOSPlatform("Android21.0")]
     [SupportedOSPlatform("iOS13.0")]
     [SupportedOSPlatform("MacCatalyst13.0")]
     [SupportedOSPlatform("Windows")]
@@ -729,7 +702,6 @@ public partial class DashBoardContentPage
         FilterManagement(PlaceDeriveFilter, popupFilter, eFilter, svgPath);
     }
 
-    [SupportedOSPlatform("Android21.0")]
     [SupportedOSPlatform("iOS13.0")]
     [SupportedOSPlatform("MacCatalyst13.0")]
     [SupportedOSPlatform("Windows")]
@@ -823,7 +795,6 @@ public partial class DashBoardContentPage
             DashBoardManagementResources.MessageBoxRemoveMonthErrorOkButton);
     }
 
-    [SupportedOSPlatform("Android21.0")]
     [SupportedOSPlatform("iOS13.0")]
     [SupportedOSPlatform("MacCatalyst13.0")]
     [SupportedOSPlatform("Windows")]
@@ -863,7 +834,6 @@ public partial class DashBoardContentPage
         _isCollectionViewVHistoryLongPressInvoked = false;
     }
 
-    [SupportedOSPlatform("Android21.0")]
     [SupportedOSPlatform("iOS13.0")]
     [SupportedOSPlatform("MacCatalyst13.0")]
     [SupportedOSPlatform("Windows")]
@@ -944,7 +914,6 @@ public partial class DashBoardContentPage
         newVTotalByAccount.CopyPropertiesTo(vTotalByAccount);
     }
 
-    [SupportedOSPlatform("Android21.0")]
     [SupportedOSPlatform("iOS13.0")]
     [SupportedOSPlatform("MacCatalyst13.0")]
     [SupportedOSPlatform("Windows")]
@@ -1042,7 +1011,6 @@ public partial class DashBoardContentPage
         return results.TotalRowCount;
     }
 
-    [SupportedOSPlatform("Android21.0")]
     [SupportedOSPlatform("iOS13.0")]
     [SupportedOSPlatform("MacCatalyst13.0")]
     [SupportedOSPlatform("Windows")]
@@ -1065,7 +1033,6 @@ public partial class DashBoardContentPage
         return icon is EPackIcons.FilterCheck;
     }
 
-    [SupportedOSPlatform("Android21.0")]
     [SupportedOSPlatform("iOS13.0")]
     [SupportedOSPlatform("MacCatalyst13.0")]
     [SupportedOSPlatform("Windows")]
@@ -1144,7 +1111,6 @@ public partial class DashBoardContentPage
 
     #endregion
 
-    [SupportedOSPlatform("Android21.0")]
     [SupportedOSPlatform("iOS13.0")]
     [SupportedOSPlatform("MacCatalyst13.0")]
     [SupportedOSPlatform("Windows")]
@@ -1156,7 +1122,6 @@ public partial class DashBoardContentPage
         await func.Invoke(svgPath);
     }
 
-    [SupportedOSPlatform("Android21.0")]
     [SupportedOSPlatform("iOS13.0")]
     [SupportedOSPlatform("MacCatalyst13.0")]
     [SupportedOSPlatform("Windows")]

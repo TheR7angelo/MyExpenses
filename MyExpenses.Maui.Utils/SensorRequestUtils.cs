@@ -5,7 +5,6 @@ namespace MyExpenses.Maui.Utils;
 
 public static class SensorRequestUtils
 {
-    [SupportedOSPlatform("Android21.0")]
     [SupportedOSPlatform("iOS13.0")]
     [SupportedOSPlatform("MacCatalyst15.0")]
     [SupportedOSPlatform("Windows")]
@@ -20,7 +19,6 @@ public static class SensorRequestUtils
         return location;
     }
 
-    [SupportedOSPlatform("Android21.0")]
     [SupportedOSPlatform("iOS13.0")]
     [SupportedOSPlatform("MacCatalyst15.0")]
     [SupportedOSPlatform("Windows")]

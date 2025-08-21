@@ -10,7 +10,6 @@ namespace MyExpenses.Maui.Utils.Margin
         /// <summary>
         /// Provides an attached property for setting the margin for all children of a <see cref="Microsoft.Maui.Controls.Layout"/>.
         /// </summary>
-        [SupportedOSPlatform("Android21.0")]
         [SupportedOSPlatform("iOS15.0")]
         [SupportedOSPlatform("MacCatalyst14.0")]
         [SupportedOSPlatform("Windows")]
@@ -23,7 +22,6 @@ namespace MyExpenses.Maui.Utils.Margin
         /// </summary>
         /// <param name="layout">The Layout instance to set the margin for its children.</param>
         /// <param name="value">The margin value to be set for all children.</param>
-        [SupportedOSPlatform("Android21.0")]
         [SupportedOSPlatform("iOS15.0")]
         [SupportedOSPlatform("MacCatalyst14.0")]
         [SupportedOSPlatform("Windows")]
@@ -36,7 +34,6 @@ namespace MyExpenses.Maui.Utils.Margin
         /// </summary>
         /// <param name="layout">The Layout instance to get the margin for its children.</param>
         /// <returns>The margin value set for all children.</returns>
-        [SupportedOSPlatform("Android21.0")]
         [SupportedOSPlatform("iOS15.0")]
         [SupportedOSPlatform("MacCatalyst14.0")]
         [SupportedOSPlatform("Windows")]
@@ -49,7 +46,6 @@ namespace MyExpenses.Maui.Utils.Margin
         /// <param name="bindable">The object to which the property is attached, expected to be of type <see cref="Microsoft.Maui.Controls.Layout"/>.</param>
         /// <param name="oldValue">The old value of the MarginForAllChildren property.</param>
         /// <param name="newValue">The new value of the MarginForAllChildren property.</param>
-        [SupportedOSPlatform("Android21.0")]
         [SupportedOSPlatform("iOS15.0")]
         [SupportedOSPlatform("MacCatalyst14.0")]
         [SupportedOSPlatform("Windows")]

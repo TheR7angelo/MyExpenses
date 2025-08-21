@@ -25,7 +25,6 @@ public static class HttpClientHandlerCustom
 
 public class HttpClientHandlerAndroid : AndroidMessageHandler
 {
-    [SupportedOSPlatform("Android21.0")]
     protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
     {
         if (request.RequestUri!.AbsolutePath.Contains("files/download"))

@@ -308,7 +308,6 @@ public partial class BankTransferSummaryContentPage
 
     #region Action
 
-    [SupportedOSPlatform("Android21.0")]
     [SupportedOSPlatform("iOS13.0")]
     [SupportedOSPlatform("MacCatalyst13.0")]
     [SupportedOSPlatform("Windows")]
@@ -316,7 +315,6 @@ public partial class BankTransferSummaryContentPage
         // ReSharper disable once HeapView.DelegateAllocation
         => _ = RunFilter(sender, FilterAdditionalReason);
 
-    [SupportedOSPlatform("Android21.0")]
     [SupportedOSPlatform("iOS13.0")]
     [SupportedOSPlatform("MacCatalyst13.0")]
     [SupportedOSPlatform("Windows")]
@@ -336,7 +334,6 @@ public partial class BankTransferSummaryContentPage
     private void ButtonRemoveMonth_OnClick(object? sender, EventArgs e)
         => _ = HandleButtonRemoveMonth();
 
-    [SupportedOSPlatform("Android21.0")]
     [SupportedOSPlatform("iOS13.0")]
     [SupportedOSPlatform("MacCatalyst13.0")]
     [SupportedOSPlatform("Windows")]
@@ -344,7 +341,6 @@ public partial class BankTransferSummaryContentPage
         // ReSharper disable once HeapView.DelegateAllocation
         => _ = RunFilter(sender, FilterCategory);
 
-    [SupportedOSPlatform("Android21.0")]
     [SupportedOSPlatform("iOS13.0")]
     [SupportedOSPlatform("MacCatalyst13.0")]
     [SupportedOSPlatform("Windows")]
@@ -355,7 +351,6 @@ public partial class BankTransferSummaryContentPage
     private void CustomPicker_OnSelectedIndexChanged(object? sender, EventArgs e)
         => RefreshDataGrid();
 
-    [SupportedOSPlatform("Android21.0")]
     [SupportedOSPlatform("iOS13.0")]
     [SupportedOSPlatform("MacCatalyst13.0")]
     [SupportedOSPlatform("Windows")]
@@ -363,7 +358,6 @@ public partial class BankTransferSummaryContentPage
         // ReSharper disable once HeapView.DelegateAllocation
         => _ = RunFilter(sender, FilterFromAccount);
 
-    [SupportedOSPlatform("Android21.0")]
     [SupportedOSPlatform("iOS13.0")]
     [SupportedOSPlatform("MacCatalyst13.0")]
     [SupportedOSPlatform("Windows")]
@@ -377,7 +371,6 @@ public partial class BankTransferSummaryContentPage
         UpdateMonthLanguage();
     }
 
-    [SupportedOSPlatform("Android21.0")]
     [SupportedOSPlatform("iOS13.0")]
     [SupportedOSPlatform("MacCatalyst13.0")]
     [SupportedOSPlatform("Windows")]
@@ -385,7 +378,6 @@ public partial class BankTransferSummaryContentPage
         // ReSharper disable once HeapView.DelegateAllocation
         => _ = RunFilter(sender, FilterMainReason);
 
-    [SupportedOSPlatform("Android21.0")]
     [SupportedOSPlatform("iOS13.0")]
     [SupportedOSPlatform("MacCatalyst13.0")]
     [SupportedOSPlatform("Windows")]
@@ -393,7 +385,6 @@ public partial class BankTransferSummaryContentPage
         // ReSharper disable once HeapView.DelegateAllocation
         => _ = RunFilter(sender, FilterMainReason);
 
-    [SupportedOSPlatform("Android21.0")]
     [SupportedOSPlatform("iOS13.0")]
     [SupportedOSPlatform("MacCatalyst13.0")]
     [SupportedOSPlatform("Windows")]
@@ -424,7 +415,6 @@ public partial class BankTransferSummaryContentPage
     private void TapGestureRecognizer_OnTapped(object? sender, TappedEventArgs e)
         => _ = HandleTapGestureRecognizer(sender);
 
-    [SupportedOSPlatform("Android21.0")]
     [SupportedOSPlatform("iOS13.0")]
     [SupportedOSPlatform("MacCatalyst13.0")]
     [SupportedOSPlatform("Windows")]
@@ -432,7 +422,6 @@ public partial class BankTransferSummaryContentPage
         // ReSharper disable once HeapView.DelegateAllocation
         => _ = RunFilter(sender, FilterToAccount);
 
-    [SupportedOSPlatform("Android21.0")]
     [SupportedOSPlatform("iOS13.0")]
     [SupportedOSPlatform("MacCatalyst13.0")]
     [SupportedOSPlatform("Windows")]
@@ -440,7 +429,6 @@ public partial class BankTransferSummaryContentPage
         // ReSharper disable once HeapView.DelegateAllocation
         => _ = RunFilter(sender, FilterToAccount);
 
-    [SupportedOSPlatform("Android21.0")]
     [SupportedOSPlatform("iOS13.0")]
     [SupportedOSPlatform("MacCatalyst13.0")]
     [SupportedOSPlatform("Windows")]
@@ -448,7 +436,6 @@ public partial class BankTransferSummaryContentPage
         // ReSharper disable once HeapView.DelegateAllocation
         => _ = RunFilter(sender, FilterValue);
 
-    [SupportedOSPlatform("Android21.0")]
     [SupportedOSPlatform("iOS13.0")]
     [SupportedOSPlatform("MacCatalyst13.0")]
     [SupportedOSPlatform("Windows")]
@@ -908,7 +895,6 @@ public partial class BankTransferSummaryContentPage
         Category
     }
 
-    [SupportedOSPlatform("Android21.0")]
     [SupportedOSPlatform("iOS13.0")]
     [SupportedOSPlatform("MacCatalyst13.0")]
     [SupportedOSPlatform("Windows")]
@@ -920,7 +906,6 @@ public partial class BankTransferSummaryContentPage
         await func.Invoke(svgPath);
     }
 
-    [SupportedOSPlatform("Android21.0")]
     [SupportedOSPlatform("iOS13.0")]
     [SupportedOSPlatform("MacCatalyst13.0")]
     [SupportedOSPlatform("Windows")]

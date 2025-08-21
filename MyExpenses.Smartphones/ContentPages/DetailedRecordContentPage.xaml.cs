@@ -531,7 +531,6 @@ public partial class DetailedRecordContentPage
     private void SwitchPointed_OnToggled(object? sender, ToggledEventArgs e)
         => UpdateIsDirty();
 
-    [SupportedOSPlatform("Android21.0")]
     [SupportedOSPlatform("iOS13.0")]
     [SupportedOSPlatform("MacCatalyst13.0")]
     [SupportedOSPlatform("Windows")]
