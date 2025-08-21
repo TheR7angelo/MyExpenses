@@ -1,13 +1,9 @@
-using System.Runtime.Versioning;
 using MyExpenses.Models.Maui.Sensor.Location;
 
 namespace MyExpenses.Maui.Utils;
 
 public static class SensorRequestUtils
 {
-    [SupportedOSPlatform("iOS13.0")]
-    [SupportedOSPlatform("MacCatalyst15.0")]
-    [SupportedOSPlatform("Windows")]
     public static async Task<Location?> GetLocation(GeolocationAccuracy geolocationAccuracy = GeolocationAccuracy.Default)
     {
         // ReSharper disable once HeapView.ObjectAllocation.Evident
@@ -19,9 +15,6 @@ public static class SensorRequestUtils
         return location;
     }
 
-    [SupportedOSPlatform("iOS13.0")]
-    [SupportedOSPlatform("MacCatalyst15.0")]
-    [SupportedOSPlatform("Windows")]
     public static EHemisphere? GetHemisphere(this Location? location)
     {
         if (location is null) return null;

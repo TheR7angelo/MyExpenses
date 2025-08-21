@@ -1,5 +1,3 @@
-using System.Runtime.Versioning;
-
 namespace MyExpenses.Maui.Utils.Margin
 {
     /// <summary>
@@ -10,9 +8,6 @@ namespace MyExpenses.Maui.Utils.Margin
         /// <summary>
         /// Provides an attached property for setting the margin for all children of a <see cref="Microsoft.Maui.Controls.Layout"/>.
         /// </summary>
-        [SupportedOSPlatform("iOS15.0")]
-        [SupportedOSPlatform("MacCatalyst14.0")]
-        [SupportedOSPlatform("Windows")]
         public static readonly BindableProperty MarginForAllChildrenProperty =
             BindableProperty.CreateAttached("MarginForAllChildren", typeof(Thickness),
                 typeof(LayoutExtensions), null, propertyChanged: OnMarginForAllChildrenChanged);
@@ -22,9 +17,6 @@ namespace MyExpenses.Maui.Utils.Margin
         /// </summary>
         /// <param name="layout">The Layout instance to set the margin for its children.</param>
         /// <param name="value">The margin value to be set for all children.</param>
-        [SupportedOSPlatform("iOS15.0")]
-        [SupportedOSPlatform("MacCatalyst14.0")]
-        [SupportedOSPlatform("Windows")]
         public static void SetMarginForAllChildren(this Layout layout, Thickness value)
             // ReSharper disable once HeapView.BoxingAllocation
             => layout.SetValue(MarginForAllChildrenProperty, value);
@@ -34,9 +26,6 @@ namespace MyExpenses.Maui.Utils.Margin
         /// </summary>
         /// <param name="layout">The Layout instance to get the margin for its children.</param>
         /// <returns>The margin value set for all children.</returns>
-        [SupportedOSPlatform("iOS15.0")]
-        [SupportedOSPlatform("MacCatalyst14.0")]
-        [SupportedOSPlatform("Windows")]
         public static Thickness GetMarginForAllChildren(this Layout layout) =>
             (Thickness)layout.GetValue(MarginForAllChildrenProperty);
 
@@ -46,9 +35,6 @@ namespace MyExpenses.Maui.Utils.Margin
         /// <param name="bindable">The object to which the property is attached, expected to be of type <see cref="Microsoft.Maui.Controls.Layout"/>.</param>
         /// <param name="oldValue">The old value of the MarginForAllChildren property.</param>
         /// <param name="newValue">The new value of the MarginForAllChildren property.</param>
-        [SupportedOSPlatform("iOS15.0")]
-        [SupportedOSPlatform("MacCatalyst14.0")]
-        [SupportedOSPlatform("Windows")]
         private static void OnMarginForAllChildrenChanged(BindableObject bindable, object oldValue, object newValue)
         {
             // ReSharper disable once HeapView.ClosureAllocation

@@ -1,5 +1,4 @@
 ﻿using System.Collections.ObjectModel;
-using System.Runtime.Versioning;
 using MyExpenses.Core;
 using MyExpenses.Models.IO;
 using MyExpenses.Models.WebApi.Authenticator;
@@ -65,10 +64,6 @@ public partial class MainPage
         });
     }
 
-    [SupportedOSPlatform("Android")]
-    [SupportedOSPlatform("iOS14.0")]
-    [SupportedOSPlatform("MacCatalyst14.0")]
-    [SupportedOSPlatform("Windows")]
     private void ButtonExportDataBase_OnClick(object? sender, EventArgs e)
         => _ = this.HandleButtonExportDataBase(ExistingDatabases);
 

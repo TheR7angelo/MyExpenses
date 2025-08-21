@@ -1,5 +1,4 @@
-﻿using System.Runtime.Versioning;
-using BruTile.Predefined;
+﻿using BruTile.Predefined;
 using Mapsui;
 using Mapsui.Layers;
 using Mapsui.Manipulations;
@@ -314,9 +313,6 @@ public partial class AddEditLocationContentPage
         _ = SearchByCoordinate(point!);
     }
 
-    [SupportedOSPlatform("iOS13.0")]
-    [SupportedOSPlatform("MacCatalyst15.0")]
-    [SupportedOSPlatform("Windows")]
     private void ButtonSearchByCurrentCoordinate_OnClicked(object? sender, EventArgs e)
         => _ = HandleSearchWithCurrentCoordinate();
 
@@ -513,9 +509,6 @@ public partial class AddEditLocationContentPage
         SetPlace(place, true);
     }
 
-    [SupportedOSPlatform("iOS13.0")]
-    [SupportedOSPlatform("MacCatalyst15.0")]
-    [SupportedOSPlatform("Windows")]
     private async Task HandleSearchWithCurrentCoordinate()
     {
         var location = await Maui.Utils.SensorRequestUtils.GetLocation();

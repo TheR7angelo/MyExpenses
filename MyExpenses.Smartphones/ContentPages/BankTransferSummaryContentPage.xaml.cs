@@ -1,7 +1,6 @@
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Globalization;
-using System.Runtime.Versioning;
 using CommunityToolkit.Maui.Extensions;
 using MyExpenses.Maui.Utils;
 using MyExpenses.Models.AutoMapper;
@@ -308,16 +307,10 @@ public partial class BankTransferSummaryContentPage
 
     #region Action
 
-    [SupportedOSPlatform("iOS13.0")]
-    [SupportedOSPlatform("MacCatalyst13.0")]
-    [SupportedOSPlatform("Windows")]
     private void AdditionalReasonSvgPath_OnClicked(object? sender, EventArgs e)
         // ReSharper disable once HeapView.DelegateAllocation
         => _ = RunFilter(sender, FilterAdditionalReason);
 
-    [SupportedOSPlatform("iOS13.0")]
-    [SupportedOSPlatform("MacCatalyst13.0")]
-    [SupportedOSPlatform("Windows")]
     private void AdditionalReasonTapGestureRecognizer_Tapped(object? sender, TappedEventArgs e)
         // ReSharper disable once HeapView.DelegateAllocation
         => _ = RunFilter(sender, FilterAdditionalReason);
@@ -334,16 +327,10 @@ public partial class BankTransferSummaryContentPage
     private void ButtonRemoveMonth_OnClick(object? sender, EventArgs e)
         => _ = HandleButtonRemoveMonth();
 
-    [SupportedOSPlatform("iOS13.0")]
-    [SupportedOSPlatform("MacCatalyst13.0")]
-    [SupportedOSPlatform("Windows")]
     private void CategorySvgPath_OnClicked(object? sender, EventArgs e)
         // ReSharper disable once HeapView.DelegateAllocation
         => _ = RunFilter(sender, FilterCategory);
 
-    [SupportedOSPlatform("iOS13.0")]
-    [SupportedOSPlatform("MacCatalyst13.0")]
-    [SupportedOSPlatform("Windows")]
     private void CategoryTapGestureRecognizer_Tapped(object? sender, TappedEventArgs e)
         // ReSharper disable once HeapView.DelegateAllocation
         => _ = RunFilter(sender, FilterCategory);
@@ -351,16 +338,10 @@ public partial class BankTransferSummaryContentPage
     private void CustomPicker_OnSelectedIndexChanged(object? sender, EventArgs e)
         => RefreshDataGrid();
 
-    [SupportedOSPlatform("iOS13.0")]
-    [SupportedOSPlatform("MacCatalyst13.0")]
-    [SupportedOSPlatform("Windows")]
     private void FromAccountSvgPath_OnClicked(object? sender, EventArgs e)
         // ReSharper disable once HeapView.DelegateAllocation
         => _ = RunFilter(sender, FilterFromAccount);
 
-    [SupportedOSPlatform("iOS13.0")]
-    [SupportedOSPlatform("MacCatalyst13.0")]
-    [SupportedOSPlatform("Windows")]
     private void FromAccountTapGestureRecognizer_Tapped(object? sender, TappedEventArgs e)
         // ReSharper disable once HeapView.DelegateAllocation
         => _ = RunFilter(sender, FilterFromAccount);
@@ -371,23 +352,14 @@ public partial class BankTransferSummaryContentPage
         UpdateMonthLanguage();
     }
 
-    [SupportedOSPlatform("iOS13.0")]
-    [SupportedOSPlatform("MacCatalyst13.0")]
-    [SupportedOSPlatform("Windows")]
     private void MainReasonSvgPath_OnClicked(object? sender, EventArgs e)
         // ReSharper disable once HeapView.DelegateAllocation
         => _ = RunFilter(sender, FilterMainReason);
 
-    [SupportedOSPlatform("iOS13.0")]
-    [SupportedOSPlatform("MacCatalyst13.0")]
-    [SupportedOSPlatform("Windows")]
     private void MainReasonTapGestureRecognizer_Tapped(object? sender, TappedEventArgs e)
         // ReSharper disable once HeapView.DelegateAllocation
         => _ = RunFilter(sender, FilterMainReason);
 
-    [SupportedOSPlatform("iOS13.0")]
-    [SupportedOSPlatform("MacCatalyst13.0")]
-    [SupportedOSPlatform("Windows")]
     private void SvgPathRefresh_OnClicked(object? sender, EventArgs e)
     {
         if (sender is not SvgPath svgPath) return;
@@ -415,30 +387,18 @@ public partial class BankTransferSummaryContentPage
     private void TapGestureRecognizer_OnTapped(object? sender, TappedEventArgs e)
         => _ = HandleTapGestureRecognizer(sender);
 
-    [SupportedOSPlatform("iOS13.0")]
-    [SupportedOSPlatform("MacCatalyst13.0")]
-    [SupportedOSPlatform("Windows")]
     private void ToAccountSvgPath_OnClicked(object? sender, EventArgs e)
         // ReSharper disable once HeapView.DelegateAllocation
         => _ = RunFilter(sender, FilterToAccount);
 
-    [SupportedOSPlatform("iOS13.0")]
-    [SupportedOSPlatform("MacCatalyst13.0")]
-    [SupportedOSPlatform("Windows")]
     private void ToAccountTapGestureRecognizer_Tapped(object? sender, TappedEventArgs e)
         // ReSharper disable once HeapView.DelegateAllocation
         => _ = RunFilter(sender, FilterToAccount);
 
-    [SupportedOSPlatform("iOS13.0")]
-    [SupportedOSPlatform("MacCatalyst13.0")]
-    [SupportedOSPlatform("Windows")]
     private void ValueSvgPath_OnClicked(object? sender, EventArgs e)
         // ReSharper disable once HeapView.DelegateAllocation
         => _ = RunFilter(sender, FilterValue);
 
-    [SupportedOSPlatform("iOS13.0")]
-    [SupportedOSPlatform("MacCatalyst13.0")]
-    [SupportedOSPlatform("Windows")]
     private void ValueTapGestureRecognizer_OnTapped(object? sender, TappedEventArgs e)
         // ReSharper disable once HeapView.DelegateAllocation
         => _ = RunFilter(sender, FilterValue);
@@ -895,9 +855,6 @@ public partial class BankTransferSummaryContentPage
         Category
     }
 
-    [SupportedOSPlatform("iOS13.0")]
-    [SupportedOSPlatform("MacCatalyst13.0")]
-    [SupportedOSPlatform("Windows")]
     private static async Task RunFilter(object? sender, Func<SvgPath, Task> func)
     {
         var svgPath = FindSvgPath(sender);
@@ -906,9 +863,6 @@ public partial class BankTransferSummaryContentPage
         await func.Invoke(svgPath);
     }
 
-    [SupportedOSPlatform("iOS13.0")]
-    [SupportedOSPlatform("MacCatalyst13.0")]
-    [SupportedOSPlatform("Windows")]
     private static SvgPath? FindSvgPath(object? sender)
     {
         return sender switch

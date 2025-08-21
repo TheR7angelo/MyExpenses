@@ -1,5 +1,4 @@
 ﻿using System.Collections.ObjectModel;
-using System.Runtime.Versioning;
 using CommunityToolkit.Maui.Storage;
 using MyExpenses.Core;
 using MyExpenses.Core.Export;
@@ -95,10 +94,6 @@ public static class ImportExportUtils
     /// <param name="existingDatabases">A collection of existing databases to be exported.</param>
     /// <returns>A task representing the asynchronous operation of exporting database files.</returns>
     /// <exception cref="ArgumentOutOfRangeException">Thrown when the selected save location is not supported.</exception>
-    [SupportedOSPlatform("Android")]
-    [SupportedOSPlatform("iOS14.0")]
-    [SupportedOSPlatform("MacCatalyst14.0")]
-    [SupportedOSPlatform("Windows")]
     public static async Task HandleButtonExportDataBase(this Page parent, IEnumerable<ExistingDatabase> existingDatabases)
     {
         var saveLocation = await SaveLocationContentPageUtils.GetExportSaveLocation();
@@ -165,10 +160,6 @@ public static class ImportExportUtils
     /// <param name="parent">The page from which the export operation is initiated, used for UI-related operations.</param>
     /// <param name="existingDatabase">The databases to be exported.</param>
     /// <returns>A task representing the asynchronous export operation.</returns>
-    [SupportedOSPlatform("Android")]
-    [SupportedOSPlatform("iOS14.0")]
-    [SupportedOSPlatform("MacCatalyst14.0")]
-    [SupportedOSPlatform("Windows")]
     public static async Task HandleButtonExportDataBase(this Page parent, ExistingDatabase existingDatabase)
     {
         var exportList = new List<ExistingDatabase> { existingDatabase };
@@ -243,10 +234,6 @@ public static class ImportExportUtils
     /// <param name="parent">The parent ContentPage that initiates the export process.</param>
     /// <param name="existingDatabasesSelected">The list of databases selected for export.</param>
     /// <returns>A task that represents the asynchronous operation.</returns>
-    [SupportedOSPlatform("Android")]
-    [SupportedOSPlatform("iOS14.0")]
-    [SupportedOSPlatform("MacCatalyst14.0")]
-    [SupportedOSPlatform("Windows")]
     public static async Task ExportToLocalDatabase(this Page parent, List<ExistingDatabase> existingDatabasesSelected)
     {
         var folderPickerResult = await FolderPicker.Default.PickAsync();
@@ -282,10 +269,6 @@ public static class ImportExportUtils
     /// <param name="existingDatabasesSelected">The list of databases selected for export.</param>
     /// <param name="isCompress">A flag indicating whether the databases should be compressed during export.</param>
     /// <returns>A list of databases that failed to export, or null if the operation was canceled or fully successful.</returns>
-    [SupportedOSPlatform("Android")]
-    [SupportedOSPlatform("iOS14.0")]
-    [SupportedOSPlatform("MacCatalyst14.0")]
-    [SupportedOSPlatform("Windows")]
     public static async Task<List<ExistingDatabase>?> ExportToLocalFolderAsync(this Page parent, List<ExistingDatabase> existingDatabasesSelected, bool isCompress)
     {
         var folderPickerResult = await FolderPicker.Default.PickAsync();

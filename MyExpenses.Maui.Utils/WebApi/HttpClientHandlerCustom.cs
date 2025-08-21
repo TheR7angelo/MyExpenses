@@ -1,7 +1,6 @@
 #if __ANDROID__
 using Xamarin.Android.Net;
 using System.Net.Http.Headers;
-using System.Runtime.Versioning;
 #endif
 
 namespace MyExpenses.Maui.Utils.WebApi;

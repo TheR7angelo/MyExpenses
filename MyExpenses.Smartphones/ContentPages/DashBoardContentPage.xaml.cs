@@ -1,7 +1,6 @@
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.Globalization;
-using System.Runtime.Versioning;
 using System.Windows.Input;
 using CommunityToolkit.Maui.Extensions;
 using MyExpenses.Maui.Utils;
@@ -210,9 +209,6 @@ public partial class DashBoardContentPage
 
     public ICommand CollectionViewVHistoryLongPressCommand { get; }
 
-    [SupportedOSPlatform("iOS13.0")]
-    [SupportedOSPlatform("MacCatalyst13.0")]
-    [SupportedOSPlatform("Windows")]
     public DashBoardContentPage()
     {
         // ReSharper disable HeapView.ObjectAllocation.Evident
@@ -278,15 +274,9 @@ public partial class DashBoardContentPage
         UpdateFilterDate(now);
     }
 
-    [SupportedOSPlatform("iOS13.0")]
-    [SupportedOSPlatform("MacCatalyst13.0")]
-    [SupportedOSPlatform("Windows")]
     private void ButtonImageViewAddRecordHistory_OnClicked(object? sender, EventArgs e)
         => _ = HandleButtonImageViewAddRecordHistory();
 
-    [SupportedOSPlatform("iOS13.0")]
-    [SupportedOSPlatform("MacCatalyst13.0")]
-    [SupportedOSPlatform("Windows")]
     private async Task HandleButtonImageViewAddRecordHistory()
     {
         // ReSharper disable once HeapView.ObjectAllocation.Evident
@@ -308,35 +298,20 @@ public partial class DashBoardContentPage
     private void ButtonRemoveMonth_OnClick(object? sender, EventArgs e)
         => _ = HandleButtonRemoveMonth();
 
-    [SupportedOSPlatform("iOS13.0")]
-    [SupportedOSPlatform("MacCatalyst13.0")]
-    [SupportedOSPlatform("Windows")]
     private void CategoryTapGestureRecognizer_OnTapped(object? sender, TappedEventArgs e)
         // ReSharper disable once HeapView.DelegateAllocation
         => _ = RunFilter(sender, FilterCategory);
 
-    [SupportedOSPlatform("iOS13.0")]
-    [SupportedOSPlatform("MacCatalyst13.0")]
-    [SupportedOSPlatform("Windows")]
     private void CategorySvgPath_OnClicked(object? sender, EventArgs e)
         // ReSharper disable once HeapView.DelegateAllocation
         => _ = RunFilter(sender, FilterCategory);
 
-    [SupportedOSPlatform("iOS13.0")]
-    [SupportedOSPlatform("MacCatalyst13.0")]
-    [SupportedOSPlatform("Windows")]
     private void CollectionViewVHistory_OnLongPress(object obj)
         => _ = HandleCollectionViewVHistoryLongPress(obj);
 
-    [SupportedOSPlatform("iOS13.0")]
-    [SupportedOSPlatform("MacCatalyst13.0")]
-    [SupportedOSPlatform("Windows")]
     private void CollectionViewVHistory_OnShortPress(object obj)
         => _ = HandleCollectionViewVHistoryShortPress(obj);
 
-    [SupportedOSPlatform("iOS13.0")]
-    [SupportedOSPlatform("MacCatalyst13.0")]
-    [SupportedOSPlatform("Windows")]
     private void CollectionViewVTotalAccount_OnLoaded(object? sender, EventArgs e)
     {
         // ReSharper disable once HeapView.DelegateAllocation
@@ -347,22 +322,13 @@ public partial class DashBoardContentPage
         });
     }
 
-    [SupportedOSPlatform("iOS13.0")]
-    [SupportedOSPlatform("MacCatalyst13.0")]
-    [SupportedOSPlatform("Windows")]
     private void CustomPicker_OnSelectedIndexChanged(object? sender, EventArgs e)
         => RefreshDataGrid();
 
-    [SupportedOSPlatform("iOS13.0")]
-    [SupportedOSPlatform("MacCatalyst13.0")]
-    [SupportedOSPlatform("Windows")]
     private void DescriptionTapGestureRecognizer_OnTapped(object? sender, TappedEventArgs e)
         // ReSharper disable once HeapView.DelegateAllocation
         => _ = RunFilter(sender, FilterDescription);
 
-    [SupportedOSPlatform("iOS13.0")]
-    [SupportedOSPlatform("MacCatalyst13.0")]
-    [SupportedOSPlatform("Windows")]
     private void DescriptionSvgPath_OnClicked(object? sender, EventArgs e)
         // ReSharper disable once HeapView.DelegateAllocation
         => _ = RunFilter(sender, FilterDescription);
@@ -373,51 +339,30 @@ public partial class DashBoardContentPage
         UpdateMonthLanguage();
     }
 
-    [SupportedOSPlatform("iOS13.0")]
-    [SupportedOSPlatform("MacCatalyst13.0")]
-    [SupportedOSPlatform("Windows")]
     private void PaymentModeTapGestureRecognizer_OnTapped(object? sender, TappedEventArgs e)
         // ReSharper disable once HeapView.DelegateAllocation
         => _ = RunFilter(sender, FilterPaymentMode);
 
-    [SupportedOSPlatform("iOS13.0")]
-    [SupportedOSPlatform("MacCatalyst13.0")]
-    [SupportedOSPlatform("Windows")]
     private void PaymentModeSvgPath_OnClicked(object? sender, EventArgs e)
         // ReSharper disable once HeapView.DelegateAllocation
         => _ = RunFilter(sender, FilterPaymentMode);
 
-    [SupportedOSPlatform("iOS13.0")]
-    [SupportedOSPlatform("MacCatalyst13.0")]
-    [SupportedOSPlatform("Windows")]
     private void PlaceTapGestureRecognizer_OnTapped(object? sender, TappedEventArgs e)
         // ReSharper disable once HeapView.DelegateAllocation
         => _ = RunFilter(sender, FilterPlace);
 
-    [SupportedOSPlatform("iOS13.0")]
-    [SupportedOSPlatform("MacCatalyst13.0")]
-    [SupportedOSPlatform("Windows")]
     private void PlaceSvgPath_OnClicked(object? sender, EventArgs e)
         // ReSharper disable once HeapView.DelegateAllocation
         => _ = RunFilter(sender, FilterPlace);
 
-    [SupportedOSPlatform("iOS13.0")]
-    [SupportedOSPlatform("MacCatalyst13.0")]
-    [SupportedOSPlatform("Windows")]
     private void PointedTapGestureRecognizer_OnTapped(object? sender, TappedEventArgs e)
         // ReSharper disable once HeapView.DelegateAllocation
         => _ = RunFilter(sender, FilterChecked);
 
-    [SupportedOSPlatform("iOS13.0")]
-    [SupportedOSPlatform("MacCatalyst13.0")]
-    [SupportedOSPlatform("Windows")]
     private void PointedSvgPath_OnClicked(object? sender, EventArgs e)
         // ReSharper disable once HeapView.DelegateAllocation
         => _ = RunFilter(sender, FilterChecked);
 
-    [SupportedOSPlatform("iOS13.0")]
-    [SupportedOSPlatform("MacCatalyst13.0")]
-    [SupportedOSPlatform("Windows")]
     private void SvgPathRefresh_OnClicked(object? sender, EventArgs e)
     {
         if (sender is not SvgPath svgPath) return;
@@ -442,23 +387,14 @@ public partial class DashBoardContentPage
         RefreshDataGrid();
     }
 
-    [SupportedOSPlatform("iOS13.0")]
-    [SupportedOSPlatform("MacCatalyst13.0")]
-    [SupportedOSPlatform("Windows")]
     private void ValueTapGestureRecognizer_OnTapped(object? sender, TappedEventArgs e)
         // ReSharper disable once HeapView.DelegateAllocation
         => _ = RunFilter(sender, FilterValue);
 
-    [SupportedOSPlatform("iOS13.0")]
-    [SupportedOSPlatform("MacCatalyst13.0")]
-    [SupportedOSPlatform("Windows")]
     private void ValueSvgPath_OnClicked(object? sender, EventArgs e)
         // ReSharper disable once HeapView.DelegateAllocation
         => _ = RunFilter(sender, FilterValue);
 
-    [SupportedOSPlatform("iOS13.0")]
-    [SupportedOSPlatform("MacCatalyst13.0")]
-    [SupportedOSPlatform("Windows")]
     private void RadioButton_OnCheckedChanged(object? sender, CheckedChangedEventArgs e)
     {
         var button = sender as RadioButton;
@@ -476,9 +412,6 @@ public partial class DashBoardContentPage
 
     #region Function
 
-    [SupportedOSPlatform("iOS13.0")]
-    [SupportedOSPlatform("MacCatalyst13.0")]
-    [SupportedOSPlatform("Windows")]
     private async Task FilterCategory(SvgPath svgPath)
     {
         const EFilter eFilter = EFilter.Category;
@@ -514,9 +447,6 @@ public partial class DashBoardContentPage
         FilterManagement(VCategoryDerivesFilter, popupFilter, eFilter, svgPath);
     }
 
-    [SupportedOSPlatform("iOS13.0")]
-    [SupportedOSPlatform("MacCatalyst13.0")]
-    [SupportedOSPlatform("Windows")]
     private async Task FilterChecked(SvgPath svgPath)
     {
         const EFilter eFilter = EFilter.Checked;
@@ -547,9 +477,6 @@ public partial class DashBoardContentPage
         FilterManagement(HistoryChecked, popupFilter, eFilter, svgPath);
     }
 
-    [SupportedOSPlatform("iOS13.0")]
-    [SupportedOSPlatform("MacCatalyst13.0")]
-    [SupportedOSPlatform("Windows")]
     private async Task FilterDescription(SvgPath svgPath)
     {
         const EFilter eFilter = EFilter.Description;
@@ -587,9 +514,6 @@ public partial class DashBoardContentPage
         FilterManagement(HistoryDescriptions, popupFilter, eFilter, svgPath);
     }
 
-    [SupportedOSPlatform("iOS13.0")]
-    [SupportedOSPlatform("MacCatalyst13.0")]
-    [SupportedOSPlatform("Windows")]
     private void FilterManagement(List<PopupSearch> collection, PopupFilter popupFilter, EFilter eFilter,
         SvgPath svgPath)
     {
@@ -611,9 +535,6 @@ public partial class DashBoardContentPage
         }
     }
 
-    [SupportedOSPlatform("iOS13.0")]
-    [SupportedOSPlatform("MacCatalyst13.0")]
-    [SupportedOSPlatform("Windows")]
     private async Task FilterPaymentMode(SvgPath svgPath)
     {
         const EFilter eFilter = EFilter.PaymentMode;
@@ -652,9 +573,6 @@ public partial class DashBoardContentPage
         FilterManagement(ModePaymentDeriveFilter, popupFilter, eFilter, svgPath);
     }
 
-    [SupportedOSPlatform("iOS13.0")]
-    [SupportedOSPlatform("MacCatalyst13.0")]
-    [SupportedOSPlatform("Windows")]
     private async Task FilterPlace(SvgPath svgPath)
     {
         const EFilter eFilter = EFilter.Place;
@@ -702,9 +620,6 @@ public partial class DashBoardContentPage
         FilterManagement(PlaceDeriveFilter, popupFilter, eFilter, svgPath);
     }
 
-    [SupportedOSPlatform("iOS13.0")]
-    [SupportedOSPlatform("MacCatalyst13.0")]
-    [SupportedOSPlatform("Windows")]
     private async Task FilterValue(SvgPath svgPath)
     {
         const EFilter eFilter = EFilter.Value;
@@ -795,9 +710,6 @@ public partial class DashBoardContentPage
             DashBoardManagementResources.MessageBoxRemoveMonthErrorOkButton);
     }
 
-    [SupportedOSPlatform("iOS13.0")]
-    [SupportedOSPlatform("MacCatalyst13.0")]
-    [SupportedOSPlatform("Windows")]
     private async Task HandleCollectionViewVHistoryLongPress(object obj)
     {
         if (obj is not VHistory vHistory) return;
@@ -834,9 +746,6 @@ public partial class DashBoardContentPage
         _isCollectionViewVHistoryLongPressInvoked = false;
     }
 
-    [SupportedOSPlatform("iOS13.0")]
-    [SupportedOSPlatform("MacCatalyst13.0")]
-    [SupportedOSPlatform("Windows")]
     private async Task HandleCollectionViewVHistoryShortPress(object obj)
     {
         if (_isCollectionViewVHistoryLongPressInvoked) return;
@@ -914,9 +823,6 @@ public partial class DashBoardContentPage
         newVTotalByAccount.CopyPropertiesTo(vTotalByAccount);
     }
 
-    [SupportedOSPlatform("iOS13.0")]
-    [SupportedOSPlatform("MacCatalyst13.0")]
-    [SupportedOSPlatform("Windows")]
     private void RefreshDataGrid(string? accountName = null)
     {
         if (string.IsNullOrEmpty(accountName))
@@ -1011,9 +917,6 @@ public partial class DashBoardContentPage
         return results.TotalRowCount;
     }
 
-    [SupportedOSPlatform("iOS13.0")]
-    [SupportedOSPlatform("MacCatalyst13.0")]
-    [SupportedOSPlatform("Windows")]
     private bool RefreshFilter(List<PopupSearch> collection, PopupFilter popupFilter, SvgPath svgPath)
     {
         collection.Clear();
@@ -1033,9 +936,6 @@ public partial class DashBoardContentPage
         return icon is EPackIcons.FilterCheck;
     }
 
-    [SupportedOSPlatform("iOS13.0")]
-    [SupportedOSPlatform("MacCatalyst13.0")]
-    [SupportedOSPlatform("Windows")]
     private void RefreshRadioButtonSelected()
     {
         var radioButtons = CollectionViewVTotalAccount.FindVisualChildren<RadioButton>().ToList();
@@ -1111,9 +1011,6 @@ public partial class DashBoardContentPage
 
     #endregion
 
-    [SupportedOSPlatform("iOS13.0")]
-    [SupportedOSPlatform("MacCatalyst13.0")]
-    [SupportedOSPlatform("Windows")]
     private static async Task RunFilter(object? sender, Func<SvgPath, Task> func)
     {
         var svgPath = FindSvgPath(sender);
@@ -1122,9 +1019,6 @@ public partial class DashBoardContentPage
         await func.Invoke(svgPath);
     }
 
-    [SupportedOSPlatform("iOS13.0")]
-    [SupportedOSPlatform("MacCatalyst13.0")]
-    [SupportedOSPlatform("Windows")]
     private static SvgPath? FindSvgPath(object? sender)
     {
         return sender switch
