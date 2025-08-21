@@ -12,5 +12,7 @@ public sealed class TreeViewNode
     // ReSharper disable once HeapView.ObjectAllocation.Evident
     public ObservableCollection<TreeViewNode> Children { get; init; } = [];
 
+    public bool IsLeaf => Children.Count is 0;
+
     public object? AdditionalData { get; set; }
 }
