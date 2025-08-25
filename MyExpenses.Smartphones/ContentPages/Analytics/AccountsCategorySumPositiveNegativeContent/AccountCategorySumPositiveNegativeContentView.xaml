@@ -4,16 +4,17 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:maui="clr-namespace:LiveChartsCore.SkiaSharpView.Maui;assembly=LiveChartsCore.SkiaSharpView.Maui"
              x:Class="MyExpenses.Smartphones.ContentPages.Analytics.AccountsCategorySumPositiveNegativeContent.AccountCategorySumPositiveNegativeContentView"
+
+             BindingContextChanged="AccountCategorySumPositiveNegativeContentView_OnBindingContextChanged"
              x:Name="This">
 
     <ContentView.Content>
 
         <maui:CartesianChart Series="{Binding Series, Source={Reference This}}"
-                             XAxes="{Binding XAxis, Source={Reference This}}"
-                             YAxes="{Binding YAxis, Source={Reference This}}"
                              LegendTextPaint="{Binding TextPaint, Source={Reference This}}"
                              LegendPosition="Left"
-                             ZoomMode="X">
+                             ZoomMode="X"
+                             x:Name="CartesianChart">
         </maui:CartesianChart>
 
     </ContentView.Content>
