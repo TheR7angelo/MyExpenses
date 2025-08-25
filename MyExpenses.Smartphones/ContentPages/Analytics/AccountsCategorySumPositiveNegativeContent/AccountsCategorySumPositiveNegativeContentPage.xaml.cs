@@ -30,7 +30,10 @@ public partial class AccountsCategorySumPositiveNegativeContentPage
         // This creates a scoped database context for performing queries and modifications in the database.
         using var context = new DataBaseContext();
         TabItemDatas = [..context.TAccounts.OrderBy(s => s.Name)
-            .Select(s => new TabItemData { Header = s.Name!, Content = new AccountCategorySumPositiveNegativeContentView(s.Id) })];
+            .Select(s => new TabItemData
+            {
+                Header = s.Name ?? string.Empty, Content = new AccountCategorySumPositiveNegativeContentView(), Id = s.Id
+            })];
 
         UpdateLanguage();
         InitializeComponent();
