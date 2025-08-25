@@ -556,6 +556,7 @@ public partial class RecordExpensePage
 
         Log.Information("Attempting to inject the new history");
 
+        History.DateAdded = DateTime.Now;
         if (History.IsPointed) History.DatePointed = DateTime.Now;
         else History.DatePointed = null;
 
