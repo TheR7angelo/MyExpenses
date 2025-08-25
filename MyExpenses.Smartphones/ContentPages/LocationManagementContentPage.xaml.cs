@@ -287,10 +287,10 @@ public partial class LocationManagementContentPage
         // ReSharper disable once HeapView.ObjectAllocation.Evident
         var customPopupLocationManagement = new CustomPopupLocationManagement(menuItemVisibility, ClickPoint, ClickTPlace);
         await this.ShowPopupAsync(customPopupLocationManagement);
-
-        AddEditLocationContentPage addEditLocationContentPage;
-        bool success;
         var result = await customPopupLocationManagement.ResultDialog;
+
+        bool success;
+        AddEditLocationContentPage addEditLocationContentPage;
         switch (result)
         {
             case ECustomPopupLocationManagement.Delete:
