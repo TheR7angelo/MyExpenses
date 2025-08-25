@@ -50,43 +50,6 @@
                                  Loaded="MapControl_OnLoaded">
                 </maui:MapControl>
 
-            <!-- <maui:MapControl.ContextMenu> -->
-            <!--     <ContextMenu> -->
-            <!--          -->
-            <!--         <MenuItem x:Name="MenuItemAddFeature" -->
-            <!--                   Header="{Binding MenuItemHeaderAddPoint, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" -->
-            <!--                   Click="MenuItemAddFeature_OnClick"> -->
-            <!--         </MenuItem> -->
-            <!-- -->
-            <!--         <MenuItem x:Name="MenuItemEditFeature" -->
-            <!--                   Header="{Binding MenuItemHeaderEditFeature, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" -->
-            <!--                   Click="MenuItemEditFeature_OnClick"> -->
-            <!--         </MenuItem> -->
-            <!-- -->
-            <!--         <MenuItem x:Name="MenuItemDeleteFeature" -->
-            <!--                   Header="{Binding MenuItemHeaderDeleteFeature, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" -->
-            <!--                   Click="MenuItemDeleteFeature_OnClick"> -->
-            <!--         </MenuItem> -->
-            <!-- -->
-            <!--         <MenuItem Header="{Binding MenuItemHeaderMaps, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"> -->
-            <!-- -->
-            <!--             <MenuItem Header="{Binding MenuItemHeaderGoogleEarthWeb, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" -->
-            <!--                       Click="MenuItemToGoogleEarthWeb_OnClick"> -->
-            <!--             </MenuItem> -->
-            <!-- -->
-            <!--             <MenuItem Header="{Binding MenuItemHeaderGoogleMaps, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" -->
-            <!--                       Click="MenuItemToGoogleMaps_OnClick"> -->
-            <!--             </MenuItem> -->
-            <!-- -->
-            <!--             <MenuItem Header="{Binding MenuItemHeaderGoogleStreetView, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" -->
-            <!--                       Click="MenuItemToGoogleStreetView_OnClick"> -->
-            <!--             </MenuItem> -->
-            <!-- -->
-            <!--         </MenuItem> -->
-            <!-- -->
-            <!--     </ContextMenu> -->
-            <!-- </maui:MapControl.ContextMenu> -->
-
             </Grid>
 
             <Grid x:Name="GridLandscape">
