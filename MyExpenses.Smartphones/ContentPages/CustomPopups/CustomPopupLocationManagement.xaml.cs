@@ -135,7 +135,6 @@ public partial class CustomPopupLocationManagement
     private void SetDialogueResult(ECustomPopupLocationManagement customPopupLocationManagement)
     {
         _taskCompletionSource.SetResult(customPopupLocationManagement);
-        // TODO work
-        // Close();
+        CloseAsync();
     }
 }
