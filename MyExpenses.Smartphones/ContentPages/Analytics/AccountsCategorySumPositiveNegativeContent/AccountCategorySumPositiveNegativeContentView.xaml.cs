@@ -1,9 +1,11 @@
-﻿using LiveChartsCore;
+﻿using System.Collections.ObjectModel;
+using LiveChartsCore;
 using LiveChartsCore.Kernel.Sketches;
 using LiveChartsCore.SkiaSharpView;
 using LiveChartsCore.SkiaSharpView.Painting;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Sql.Bases.Views.Analysis;
+using MyExpenses.Models.Ui;
 using MyExpenses.Share.Core.Analysis;
 using MyExpenses.SharedUtils.Converters;
 using MyExpenses.SharedUtils.Resources.Resx.AccountsCategorySumPositiveNegativeContent;
@@ -24,21 +26,14 @@ public partial class AccountCategorySumPositiveNegativeContentView
         set => SetValue(TextPaintProperty, value);
     }
 
-    public ISeries[] Series { get; set; } = null!;
-    public ICartesianAxis[] XAxis { get; set; } = null!;
-    public ICartesianAxis[] YAxis { get; set; } = null!;
+    public ObservableCollection<ISeries> Series { get; set; } = [];
+    public ICartesianAxis[] XAxis { get; set; } = [];
+    public ICartesianAxis[] YAxis { get; set; } = [];
 
-    private int AccountId { get; }
+    private int AccountId { get; set; } = 1;
 
-    public AccountCategorySumPositiveNegativeContentView(int accountId)
+    public AccountCategorySumPositiveNegativeContentView()
     {
-        AccountId = accountId;
-
-        UpdateTextPaint();
-
-        SetChart();
-        UpdateLanguage();
-
         InitializeComponent();
 
         // ReSharper disable HeapView.DelegateAllocation
@@ -47,7 +42,7 @@ public partial class AccountCategorySumPositiveNegativeContentView
         // ReSharper restore HeapView.DelegateAllocation
     }
 
-        private void Interface_OnThemeChanged()
+    private void Interface_OnThemeChanged()
     {
         UpdateTextPaint();
         UpdateAxisTextPaint();
@@ -82,7 +77,7 @@ public partial class AccountCategorySumPositiveNegativeContentView
 
         Span<SolidColorPaint?> solidColorPaints = [secondarySolidColorPaint, primarySolidColorPaint];
 
-        for (var i = 0; i < Series.Length; i++)
+        for (var i = 0; i < Series.Count; i++)
         {
             var tmp = Series[i] as ColumnSeries<double>;
             tmp!.Fill = solidColorPaints[i];
@@ -103,6 +98,8 @@ public partial class AccountCategorySumPositiveNegativeContentView
         [AccountsCategorySumPositiveNegativeContentResources.ColumnSeriesNegativeName,
             AccountsCategorySumPositiveNegativeContentResources.ColumnSeriesPositiveName];
 
+        if (!Series.Count.Equals(names.Length)) return;
+
         for (var i = 0; i < names.Length; i++)
         {
             Series[i].Name = names[i];
@@ -111,7 +108,7 @@ public partial class AccountCategorySumPositiveNegativeContentView
         // UpdateLayout();
     }
 
-    private void SetChart()
+    public void SetChart()
     {
         var records = AccountId.GetVAccountCategoryMonthlySumPositiveNegative();
         if (records.Count is 0) return;
@@ -126,14 +123,18 @@ public partial class AccountCategorySumPositiveNegativeContentView
     private void SetYAxis()
     {
         var axis = TextPaint.CreateAxis();
+
         YAxis = [axis];
+        CartesianChart.YAxes = YAxis;
     }
 
     private void SetXAxis(IEnumerable<string> labels)
     {
         var transformedLabels = labels.ToTransformLabelsToTitleCaseDateFormat();
         var axis = transformedLabels.CreateAxis(TextPaint);
+
         XAxis = [axis];
+        CartesianChart.XAxes = XAxis;
     }
 
     private void SetSeries(List<IGrouping<string?, AnalysisVAccountCategoryMonthlySumPositiveNegative>> records)
@@ -146,6 +147,19 @@ public partial class AccountCategorySumPositiveNegativeContentView
             AccountsCategorySumPositiveNegativeContentResources.ColumnSeriesPositiveName,
             AccountsCategorySumPositiveNegativeContentResources.ColumnSeriesNegativeName);
 
-        Series = [negativeSeries, positiveSeries];
+        Series.Clear();
+        Series.Add(negativeSeries);
+        Series.Add(positiveSeries);
+    }
+
+    private void AccountCategorySumPositiveNegativeContentView_OnBindingContextChanged(object? sender, EventArgs e)
+    {
+        if (BindingContext is not TabItemData tabItemData) return;
+
+        AccountId = (int)tabItemData.Id!;
+        UpdateTextPaint();
+
+        SetChart();
+        UpdateLanguage();
     }
 }
