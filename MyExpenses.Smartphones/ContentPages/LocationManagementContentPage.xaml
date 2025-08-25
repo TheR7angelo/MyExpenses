@@ -23,6 +23,7 @@
                 <ScrollView x:Name="ScrollViewTreeView">
 
                     <material:TreeView ItemsSource="{Binding TreeViewNodes, Mode=TwoWay}"
+                                       IsLeafPropertyName="IsLeaf"
                                        SelectionMode="Single"
                                        Margin="25, 0, 0, 0"
                                        SelectedItem="{Binding SelectedTreeViewNode, Mode=TwoWay}"
