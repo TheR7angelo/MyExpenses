@@ -6,5 +6,7 @@ public class TabItemData
 
     public required object Content { get; init; }
 
+    public int? Id { get; set; }
+
     public override string ToString() => Header;
 }
