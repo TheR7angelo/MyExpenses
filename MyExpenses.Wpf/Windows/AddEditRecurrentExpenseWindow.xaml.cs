@@ -950,8 +950,8 @@ public partial class AddEditRecurrentExpenseWindow
     {
         var cultureInfoCode = CultureInfo.CurrentCulture.Name;
         var xmlLanguage = XmlLanguage.GetLanguage(cultureInfoCode);
-        DatePicker.Language = xmlLanguage;
         DatePickerStartDate.Language = xmlLanguage;
+        DatePickerNextDueDate.Language = xmlLanguage;
 
         WindowTitle = AddEditRecurrentExpenseWindowResources.WindowTitle;
 

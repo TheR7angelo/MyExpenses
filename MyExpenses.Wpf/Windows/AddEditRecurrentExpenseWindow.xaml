@@ -226,12 +226,12 @@
                     SelectedDateChanged="DatePicker_OnSelectedDateChanged">
         </DatePicker>
 
-        <TextBox  Grid.Row="8" Grid.Column="1"
-                  materialDesign:HintAssist.Hint="{Binding TextBoxNextDueDateHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                  Style="{StaticResource MaterialDesignFilledTextBox}"
-                  Text="{Binding RecursiveExpense.NextDueDate, Mode=OneWay, Converter={StaticResource DateOnlyToStringConverter}, UpdateSourceTrigger=PropertyChanged}"
-                  IsReadOnly="True">
-        </TextBox>
+        <DatePicker Grid.Row="8" Grid.Column="1" x:Name="DatePickerNextDueDate"
+                    materialDesign:HintAssist.Hint="{Binding TextBoxNextDueDateHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                    Style="{StaticResource MaterialDesignFilledDatePicker}"
+                    SelectedDate="{Binding RecursiveExpense.NextDueDate, Converter={StaticResource DateOnlyToDateTimeConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                    IsTodayHighlighted="True">
+        </DatePicker>
 
         <Grid Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="2">
 
