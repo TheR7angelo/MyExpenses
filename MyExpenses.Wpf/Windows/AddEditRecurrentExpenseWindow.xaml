@@ -218,7 +218,7 @@
                  TextChanged="TextBoxRecursiveCount_OnTextChanged">
         </TextBox>
 
-        <DatePicker Grid.Row="8" Grid.Column="0" x:Name="DatePicker"
+        <DatePicker Grid.Row="8" Grid.Column="0" x:Name="DatePickerStartDate"
                     materialDesign:HintAssist.Hint="{Binding DatePickerStartDateHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                     Style="{StaticResource MaterialDesignFilledDatePicker}"
                     SelectedDate="{Binding RecursiveExpense.StartDate, Converter={StaticResource DateOnlyToDateTimeConverter}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
