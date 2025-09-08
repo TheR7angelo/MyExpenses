@@ -236,9 +236,9 @@ public partial class RecurrentExpensePage
         // This creates a scoped database context for performing queries and modifications in the database.
         using var context = new DataBaseContext();
         var records = context.VRecursiveExpenses
-            .OrderBy(s => !s.ForceDeactivate)
-            .ThenBy(s => !s.IsActive)
+            .OrderBy(s => !s.IsActive)
             .ThenBy(s => s.NextDueDate)
+            .ThenByDescending(s => !s.ForceDeactivate)
             .ToList();
 
         VRecursiveExpenses.Clear();
