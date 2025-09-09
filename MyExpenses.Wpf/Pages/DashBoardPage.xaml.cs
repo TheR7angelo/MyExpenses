@@ -227,6 +227,26 @@ public partial class DashBoardPage
 
     #endregion
 
+    public static readonly DependencyProperty PreviousToolTipNegativeChartProperty =
+        DependencyProperty.Register(nameof(PreviousToolTipNegativeChart), typeof(string), typeof(DashBoardPage),
+            new PropertyMetadata(default(string)));
+
+    public string PreviousToolTipNegativeChart
+    {
+        get => (string)GetValue(PreviousToolTipNegativeChartProperty);
+        set => SetValue(PreviousToolTipNegativeChartProperty, value);
+    }
+
+    public static readonly DependencyProperty NextToolTipNegativeChartProperty =
+        DependencyProperty.Register(nameof(NextToolTipNegativeChart), typeof(string), typeof(DashBoardPage),
+            new PropertyMetadata(default(string)));
+
+    public string NextToolTipNegativeChart
+    {
+        get => (string)GetValue(NextToolTipNegativeChartProperty);
+        set => SetValue(NextToolTipNegativeChartProperty, value);
+    }
+
     public string MonthlyGlobalBudgetChartDistributionTitle
     {
         get => (string)GetValue(MonthlyGlobalBudgetChartDistributionTitleProperty);
@@ -862,6 +882,22 @@ public partial class DashBoardPage
             1 => DashBoardManagementResources.MonthlyGlobalBudgetChartDistribution,
             2 => DashBoardManagementResources.MonthlyPositiveBudgetChartDistribution,
             _ => MonthlyGlobalBudgetChartDistributionTitle
+        };
+
+        PreviousToolTipNegativeChart = IndexOfPositiveNegativeChartValues switch
+        {
+            0 => DashBoardManagementResources.MonthlyPositiveBudgetChartDistribution,
+            1 => DashBoardManagementResources.MonthlyNegativeBudgetChartDistribution,
+            2 => DashBoardManagementResources.MonthlyGlobalBudgetChartDistribution,
+            _ => PreviousToolTipNegativeChart
+        };
+
+        NextToolTipNegativeChart = IndexOfPositiveNegativeChartValues switch
+        {
+            0 => DashBoardManagementResources.MonthlyGlobalBudgetChartDistribution,
+            1 => DashBoardManagementResources.MonthlyPositiveBudgetChartDistribution,
+            2 => DashBoardManagementResources.MonthlyNegativeBudgetChartDistribution,
+            _ => NextToolTipNegativeChart
         };
     }
 
