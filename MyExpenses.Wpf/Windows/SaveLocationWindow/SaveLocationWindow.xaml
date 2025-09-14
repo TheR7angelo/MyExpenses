@@ -6,15 +6,16 @@
                  xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
                  xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
                  xmlns:margin="clr-namespace:MyExpenses.Wpf.Utils.Margin;assembly=MyExpenses.Wpf.Utils"
+                 xmlns:system="clr-namespace:System;assembly=System.Runtime"
                  mc:Ignorable="d"
 
                  d:DesignHeight="130"
                  d:DesignWidth="394"
 
                  MinHeight="215"
-                 MinWidth="400"
+                 MinWidth="435"
                  Height="215"
-                 Width="400"
+                 Width="435"
 
                  TitleCharacterCasing="Normal"
                  NonActiveWindowTitleBrush="Gray"
@@ -34,7 +35,13 @@
 
     <Grid margin:PanelExtensions.MarginForAllChildren="7.5">
 
+        <Grid.Resources>
+            <system:Double x:Key="HeightRequest">96</system:Double>
+            <system:Double x:Key="WidthRequest">96</system:Double>
+        </Grid.Resources>
+
         <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="Auto" />
@@ -45,10 +52,10 @@
                 Width="{Binding Height, RelativeSource={RelativeSource Self}}"
                 materialDesign:ButtonAssist.CornerRadius="10"
                 Style="{StaticResource MaterialDesignPaperButton}"
-                Visibility="{Binding ButtonLocalVisibility, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"
-                Click="ButtonLocal_OnClick">
+                Visibility="{Binding ButtonBackupVisibility, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"
+                Click="ButtonBackup_OnClick">
             <Button.Content>
-                <materialDesign:PackIcon Kind="Laptop" Height="96" Width="96" />
+                <materialDesign:PackIcon Kind="BackupRestore" Height="{StaticResource HeightRequest}" Width="{StaticResource WidthRequest}" />
             </Button.Content>
         </Button>
 
@@ -57,14 +64,26 @@
                 Width="{Binding Height, RelativeSource={RelativeSource Self}}"
                 materialDesign:ButtonAssist.CornerRadius="10"
                 Style="{StaticResource MaterialDesignPaperButton}"
-                Visibility="{Binding ButtonDropboxVisibility, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"
-                Click="ButtonDropbox_OnClick">
+                Visibility="{Binding ButtonLocalVisibility, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"
+                Click="ButtonLocal_OnClick">
             <Button.Content>
-                <Image Source="{StaticResource DropboxLogo}" Height="96" />
+                <materialDesign:PackIcon Kind="Laptop" Height="{StaticResource HeightRequest}" Width="{StaticResource WidthRequest}" />
             </Button.Content>
         </Button>
 
-        <Button Grid.Column="0"
+        <Button Grid.Column="2"
+                Height="{Binding Height, RelativeSource={RelativeSource Self}}"
+                Width="{Binding Height, RelativeSource={RelativeSource Self}}"
+                materialDesign:ButtonAssist.CornerRadius="10"
+                Style="{StaticResource MaterialDesignPaperButton}"
+                Visibility="{Binding ButtonDropboxVisibility, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"
+                Click="ButtonDropbox_OnClick">
+            <Button.Content>
+                <Image Source="{StaticResource DropboxLogo}" Height="{StaticResource HeightRequest}" Width="{StaticResource WidthRequest}" />
+            </Button.Content>
+        </Button>
+
+        <Button Grid.Column="1"
                 Height="{Binding Height, RelativeSource={RelativeSource Self}}"
                 Width="{Binding Height, RelativeSource={RelativeSource Self}}"
                 materialDesign:ButtonAssist.CornerRadius="10"
@@ -72,7 +91,7 @@
                 Visibility="{Binding ButtonFolderVisibility, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"
                 Click="ButtonFolder_OnClick">
             <Button.Content>
-                <materialDesign:PackIcon Kind="Folder" Height="96" Width="96" />
+                <materialDesign:PackIcon Kind="Folder" Height="{StaticResource HeightRequest}" Width="{StaticResource WidthRequest}" />
             </Button.Content>
         </Button>
 
@@ -84,7 +103,7 @@
         <!--         Visibility="{Binding ButtonFolderCompressVisibility, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}" -->
         <!--         Click="ButtonCompress_OnClick"> -->
         <!--     <Button.Content> -->
-        <!--         <materialDesign:PackIcon Kind="FolderZip" Height="80" Width="80" /> -->
+        <!--         <materialDesign:PackIcon Kind="FolderZip" Height="{StaticResource HeightRequest}" Width="{StaticResource WidthRequest}" /> -->
         <!--     </Button.Content> -->
         <!-- </Button> -->
 
@@ -96,7 +115,7 @@
                 Visibility="{Binding ButtonDatabaseVisibility, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"
                 Click="ButtonDatabase_OnClick">
             <Button.Content>
-                <materialDesign:PackIcon Kind="Database" Height="96" Width="96" />
+                <materialDesign:PackIcon Kind="Database" Height="{StaticResource HeightRequest}" Width="{StaticResource WidthRequest}" />
             </Button.Content>
         </Button>
 

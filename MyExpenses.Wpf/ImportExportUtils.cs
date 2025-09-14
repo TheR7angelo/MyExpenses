@@ -442,7 +442,7 @@ public static class ImportExportUtils
 
     public static async Task HandleButtonImportDataBase(this ObservableCollection<ExistingDatabase> existingDatabases)
     {
-        var saveLocation = SaveLocationUtils.GetImportSaveLocation(SaveLocationMode.LocalDropbox);
+        var saveLocation = SaveLocationUtils.GetImportSaveLocation(SaveLocationMode.BackupLocalDropbox);
         if (saveLocation is null) return;
 
         // An instance of AddDatabaseFileWindow is created to handle the addition of a new database file.
@@ -455,6 +455,11 @@ public static class ImportExportUtils
         {
             switch (saveLocation)
             {
+                case SaveLocation.Backup:
+                    // TODO work backup refresh
+                    Console.WriteLine("need todo");
+                    throw new ArgumentOutOfRangeException();
+
                 case SaveLocation.Local:
                     waitScreenWindow.WaitMessage = WelcomeManagementResources.ActivityIndicatorImportDatabaseFromLocal;
                     waitScreenWindow.Show();

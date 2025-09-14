@@ -8,6 +8,16 @@ public partial class SaveLocationWindow
 {
     #region DependencyProperty
 
+    public static readonly DependencyProperty ButtonBackupVisibilityProperty =
+        DependencyProperty.Register(nameof(ButtonBackupVisibility), typeof(bool), typeof(SaveLocationWindow),
+            new PropertyMetadata(false));
+
+    public bool ButtonBackupVisibility
+    {
+        get => (bool)GetValue(ButtonBackupVisibilityProperty);
+        set => SetValue(ButtonBackupVisibilityProperty, value);
+    }
+
     // ReSharper disable once HeapView.BoxingAllocation
     // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty ButtonFolderCompressVisibilityProperty =
@@ -82,6 +92,12 @@ public partial class SaveLocationWindow
     {
         switch (saveLocationMode)
         {
+            case SaveLocationMode.BackupLocalDropbox:
+                ButtonBackupVisibility = true;
+                ButtonLocalVisibility = true;
+                ButtonDropboxVisibility = true;
+                break;
+
             case SaveLocationMode.LocalDropbox:
                 ButtonLocalVisibility = true;
                 ButtonDropboxVisibility = true;
@@ -105,6 +121,13 @@ public partial class SaveLocationWindow
     private void ButtonDropbox_OnClick(object sender, RoutedEventArgs e)
     {
         SaveLocationResult = SaveLocation.Dropbox;
+        DialogResult = true;
+        Close();
+    }
+
+    private void ButtonBackup_OnClick(object sender, RoutedEventArgs e)
+    {
+        SaveLocationResult = SaveLocation.Backup;
         DialogResult = true;
         Close();
     }
