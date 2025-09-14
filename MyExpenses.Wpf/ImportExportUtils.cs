@@ -463,13 +463,13 @@ public static class ImportExportUtils
                 case SaveLocation.Local:
                     waitScreenWindow.WaitMessage = WelcomeManagementResources.ActivityIndicatorImportDatabaseFromLocal;
                     waitScreenWindow.Show();
-                    await ImportExportUtils.ImportFromLocalAsync();
+                    await ImportFromLocalAsync();
                     break;
 
                 case SaveLocation.Dropbox:
                     waitScreenWindow.WaitMessage = WelcomeManagementResources.ActivityIndicatorImportDatabaseFromCloud;
                     waitScreenWindow.Show();
-                    await ImportExportUtils.ImportFromCloudAsync();
+                    await ImportFromCloudAsync();
                     break;
 
                 case null:
