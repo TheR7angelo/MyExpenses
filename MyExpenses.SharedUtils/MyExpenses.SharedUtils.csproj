@@ -4,7 +4,7 @@
         <TargetFramework>net8.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
-        <Version>1.0.1</Version>
+        <Version>1.1.0</Version>
     </PropertyGroup>
 
     <ItemGroup>
@@ -107,6 +107,10 @@
       <EmbeddedResource Update="Resources\Resx\AccountsCategorySumPositiveNegativeContent\AccountsCategorySumPositiveNegativeContentResources.resx">
         <Generator>ResXFileCodeGenerator</Generator>
         <LastGenOutput>AccountsCategorySumPositiveNegativeContentResources.Designer.cs</LastGenOutput>
+      </EmbeddedResource>
+      <EmbeddedResource Update="Resources\Resx\BackupSelectorRestoreManagement\BackupSelectorRestoreManagementResources.resx">
+        <Generator>ResXFileCodeGenerator</Generator>
+        <LastGenOutput>BackupSelectorRestoreManagementResources.Designer.cs</LastGenOutput>
       </EmbeddedResource>
     </ItemGroup>
 
@@ -235,6 +239,11 @@
         <DesignTime>True</DesignTime>
         <AutoGen>True</AutoGen>
         <DependentUpon>AccountsCategorySumPositiveNegativeContentResources.resx</DependentUpon>
+      </Compile>
+      <Compile Update="Resources\Resx\BackupSelectorRestoreManagement\BackupSelectorRestoreManagementResources.Designer.cs">
+        <DesignTime>True</DesignTime>
+        <AutoGen>True</AutoGen>
+        <DependentUpon>BackupSelectorRestoreManagementResources.resx</DependentUpon>
       </Compile>
     </ItemGroup>
 

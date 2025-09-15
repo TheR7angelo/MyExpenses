@@ -1,0 +1,149 @@
+﻿<mah:MetroWindow x:Class="MyExpenses.Wpf.Windows.BackupSelectorRestoreWindow"
+                 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                 xmlns:local="clr-namespace:MyExpenses.Wpf.Windows"
+                 xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+                 xmlns:margin="clr-namespace:MyExpenses.Wpf.Utils.Margin;assembly=MyExpenses.Wpf.Utils"
+                 xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+                 xmlns:filterDataGrid="http://filterdatagrid.control.com/2021"
+                 mc:Ignorable="d"
+
+                 Title="{Binding WindowTitle, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+
+                 TitleCharacterCasing="Normal"
+                 NonActiveWindowTitleBrush="Gray"
+                 WindowTitleBrush="Gray"
+                 BorderBrush="Gray"
+
+                 ShowIconOnTitleBar="True"
+                 Icon="../Resources/Assets/Applications/Icon.png"
+
+                 WindowStartupLocation="CenterScreen"
+                 ResizeMode="CanResizeWithGrip"
+
+                 d:DesignHeight="450"
+                 d:DesignWidth="800"
+
+                 Background="{DynamicResource MaterialDesignPaper}"
+                 TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+                 DataContext="{Binding RelativeSource={RelativeSource Self}}">
+
+    <Grid margin:PanelExtensions.MarginForAllChildren="5">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Border Grid.Row="0"
+                BorderBrush="{DynamicResource MaterialDesignBody}"
+                BorderThickness="2"
+                CornerRadius="3">
+
+            <ScrollViewer HorizontalScrollBarVisibility="Disabled"
+                          VerticalScrollBarVisibility="Auto">
+
+                <ItemsControl ItemsSource="{Binding ExistingDatabases}"
+                              HorizontalAlignment="Center">
+
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel Orientation="Horizontal" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+
+                            <Button
+                                Height="{Binding Height, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource Self}}"
+                                Width="{Binding Width, UpdateSourceTrigger=PropertyChanged, RelativeSource={RelativeSource Self}}"
+                                Style="{StaticResource MaterialDesignPaperButton}"
+                                Margin="5"
+                                Click="ButtonDatabase_OnClick">
+                                <Button.Content>
+
+                                    <StackPanel Orientation="Vertical"
+                                                margin:PanelExtensions.MarginForAllChildren="3">
+
+                                        <materialDesign:PackIcon HorizontalAlignment="Center" Kind="Database"
+                                                                 Height="48" Width="48">
+                                        </materialDesign:PackIcon>
+
+                                        <TextBlock HorizontalAlignment="Center"
+                                                   Text="{Binding FileNameWithoutExtension}">
+                                        </TextBlock>
+
+                                    </StackPanel>
+
+                                </Button.Content>
+                            </Button>
+
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+
+                </ItemsControl>
+
+            </ScrollViewer>
+
+        </Border>
+
+        <filterDataGrid:FilterDataGrid Grid.Row="1"
+                                       ShowStatusBar="True" ShowElapsedTime="True"
+                                       FilterPopupBackground="{DynamicResource MaterialDesignPaper}"
+                                       IsReadOnly="True" AutoGenerateColumns="False"
+                                       ItemsSource="{Binding ExistingDatabasesBackup, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                                       CanUserAddRows="False" CanUserDeleteRows="False"
+                                       CanUserReorderColumns="False"
+                                       HorizontalScrollBarVisibility="Auto"
+                                       VerticalScrollBarVisibility="Auto"
+
+                                       FilterLanguage="{Binding LocalLanguage, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                                       DateFormatString="{Binding DateFormatString, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}">
+
+            <filterDataGrid:FilterDataGrid.Resources>
+                <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignPaperButton}" />
+            </filterDataGrid:FilterDataGrid.Resources>
+
+            <filterDataGrid:FilterDataGrid.Columns>
+
+                <filterDataGrid:DataGridTemplateColumn>
+
+                    <filterDataGrid:DataGridTemplateColumn.CellTemplate>
+
+                        <DataTemplate>
+                            <RadioButton GroupName="DatabaseSelectionGroup"
+                                         HorizontalAlignment="Center"
+                                         VerticalAlignment="Center"
+                                         IsChecked="{Binding IsSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                            </RadioButton>
+                        </DataTemplate>
+
+                    </filterDataGrid:DataGridTemplateColumn.CellTemplate>
+
+                </filterDataGrid:DataGridTemplateColumn>
+
+                <filterDataGrid:DataGridTextColumn x:Name="TextColumnDatabaseName" IsColumnFiltered="False"
+                                                   Binding="{Binding SelectedExistingDatabase.FileNameWithoutExtension, RelativeSource={RelativeSource AncestorType=local:BackupSelectorRestoreWindow}}">
+                </filterDataGrid:DataGridTextColumn>
+
+                <filterDataGrid:DataGridTextColumn x:Name="TextColumnDatabaseDateBackup" IsColumnFiltered="True"
+                                                   Binding="{Binding BackupDateTime}">
+                </filterDataGrid:DataGridTextColumn>
+
+            </filterDataGrid:FilterDataGrid.Columns>
+
+        </filterDataGrid:FilterDataGrid>
+
+        <Button Grid.Row="2"
+                Style="{StaticResource MaterialDesignPaperButton}"
+                Content="{Binding ButtonContentRestore, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                Click="ButtonRestoreBackup_OnClick">
+        </Button>
+
+    </Grid>
+
+</mah:MetroWindow>

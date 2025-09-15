@@ -445,6 +445,8 @@ public static class ImportExportUtils
         var saveLocation = SaveLocationUtils.GetImportSaveLocation(SaveLocationMode.BackupLocalDropbox);
         if (saveLocation is null) return;
 
+        var showMessageBox = true;
+
         // An instance of AddDatabaseFileWindow is created to handle the addition of a new database file.
         // The SetExistingDatabase method is called with the ExistingDatabases to provide context or validate against existing entries.
         // ShowDialog() is used to display the window modally and get the user's action.
@@ -456,9 +458,11 @@ public static class ImportExportUtils
             switch (saveLocation)
             {
                 case SaveLocation.Backup:
-                    // TODO work backup refresh
-                    Console.WriteLine("need todo");
-                    throw new ArgumentOutOfRangeException();
+                    showMessageBox = false;
+                    var backupSelectorRestoreWindow = new BackupSelectorRestoreWindow(existingDatabases);
+                    backupSelectorRestoreWindow.ShowDialog();
+
+                    break;
 
                 case SaveLocation.Local:
                     waitScreenWindow.WaitMessage = WelcomeManagementResources.ActivityIndicatorImportDatabaseFromLocal;
@@ -483,14 +487,14 @@ public static class ImportExportUtils
             existingDatabases.RefreshExistingDatabases(ProjectSystem.Wpf);
 
             waitScreenWindow.Close();
-            MsgBox.Show(WelcomeManagementResources.ButtonImportDataBaseImportSucessMessage, MsgBoxImage.Check);
+            if (showMessageBox) MsgBox.Show(WelcomeManagementResources.ButtonImportDataBaseImportSucessMessage, MsgBoxImage.Check);
         }
         catch (Exception exception)
         {
             Log.Error(exception, "An error occurred. Please try again");
             waitScreenWindow.Close();
 
-            MsgBox.Show(WelcomeManagementResources.ButtonImportDataBaseErrorMessage, MsgBoxImage.Warning);
+            if (showMessageBox) MsgBox.Show(WelcomeManagementResources.ButtonImportDataBaseErrorMessage, MsgBoxImage.Warning);
         }
     }
 
