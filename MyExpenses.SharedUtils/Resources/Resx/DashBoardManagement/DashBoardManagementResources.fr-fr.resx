@@ -24,7 +24,7 @@
         <value>Catégorie</value>
     </data>
     <data name="DataGridTextColumnPointed" xml:space="preserve">
-        <value>Pointé</value>
+        <value>Pointer</value>
     </data>
     <data name="DataGridTextColumnDescription" xml:space="preserve">
         <value>Description</value>
