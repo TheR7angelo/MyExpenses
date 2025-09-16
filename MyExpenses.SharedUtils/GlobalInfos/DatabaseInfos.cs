@@ -21,6 +21,8 @@ public static class DatabaseInfos
         if (!Directory.Exists(LocalDirectoryDatabase)) Directory.CreateDirectory(LocalDirectoryDatabase);
 
         LocalDirectoryBackupDatabase = Path.Join(LocalDirectoryDatabase, "Backups");
+        if (!Directory.Exists(LocalDirectoryBackupDatabase)) Directory.CreateDirectory(LocalDirectoryBackupDatabase);
+
         LocalFilePathDataBaseModel = Path.Join(OsInfos.OsBasePath, "Database Models", "Model.sqlite");
     }
 }
