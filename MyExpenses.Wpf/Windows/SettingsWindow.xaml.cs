@@ -105,38 +105,50 @@ public partial class SettingsWindow
     {
         if (TabControl.SelectedItem is not TabItem tabItem) return;
 
-        var configuration = Config.Configuration;
-        if (tabItem.Header.Equals(ItemAppearance.Header))
+        var dictionary = new Dictionary<object, Func<Task>>
         {
-            var primaryColor = AppearanceControl.Theme.PrimaryMid.Color;
-            var secondaryColor = AppearanceControl.Theme.SecondaryMid.Color;
+            { ItemAppearance.Header, UpdateAppearanceSettings },
+            { ItemLanguage.Header, UpdateLanguageSettings },
+        };
 
-            configuration.Interface.Theme.HexadecimalCodePrimaryColor = primaryColor.ToHexadecimal();
-            configuration.Interface.Theme.HexadecimalCodeSecondaryColor = secondaryColor.ToHexadecimal();
+        if (!dictionary.TryGetValue(tabItem.Header, out var func)) return;
 
-            configuration.WriteConfiguration();
-
-            App.LoadInterfaceTheme(configuration.Interface.Theme);
-
-            Interface.OnThemeChanged();
-        }
-
-        if (tabItem.Header.Equals(ItemLanguage.Header))
-        {
-            var cultureInfoCode = LanguageControl.CultureInfoSelected.Name;
-
-            configuration.Interface.Language = cultureInfoCode;
-            configuration.Interface.Clock.Is24Hours = LanguageControl.Is24Hours;
-
-            configuration.WriteConfiguration();
-
-            App.LoadInterfaceLanguage(cultureInfoCode);
-            DbContextHelper.UpdateDbLanguage();
-
-            Interface.OnLanguageChanged();
-        }
-
+        func.Invoke();
         Configuration.OnConfigurationChanged();
+    }
+
+    private Task UpdateLanguageSettings()
+    {
+        var cultureInfoCode = LanguageControl.CultureInfoSelected.Name;
+
+        Config.Configuration.Interface.Language = cultureInfoCode;
+        Config.Configuration.Interface.Clock.Is24Hours = LanguageControl.Is24Hours;
+
+        Config.Configuration.WriteConfiguration();
+
+        App.LoadInterfaceLanguage(cultureInfoCode);
+        DbContextHelper.UpdateDbLanguage();
+
+        Interface.OnLanguageChanged();
+
+        return Task.CompletedTask;
+    }
+
+    private Task UpdateAppearanceSettings()
+    {
+        var primaryColor = AppearanceControl.Theme.PrimaryMid.Color;
+        var secondaryColor = AppearanceControl.Theme.SecondaryMid.Color;
+
+        Config.Configuration.Interface.Theme.HexadecimalCodePrimaryColor = primaryColor.ToHexadecimal();
+        Config.Configuration.Interface.Theme.HexadecimalCodeSecondaryColor = secondaryColor.ToHexadecimal();
+
+        Config.Configuration.WriteConfiguration();
+
+        App.LoadInterfaceTheme(Config.Configuration.Interface.Theme);
+
+        Interface.OnThemeChanged();
+
+        return Task.CompletedTask;
     }
 
     private void UIElement_OnMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
