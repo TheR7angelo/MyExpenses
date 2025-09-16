@@ -1,8 +1,27 @@
-#  (2025-07-06)
+#  (2025-09-16)
 
 
 
-## [1.1.11](https://github.com/TheR7angelo/MyExpenses/compare/v1.1.9...1.1.11) (2025-07-06)
+# [1.2.0](https://github.com/TheR7angelo/MyExpenses/compare/v1.1.11...1.2.0) (2025-09-16)
+
+
+### Bug Fixes
+
+* **Database:** ensure backup directory creation at initialization ([3a663dc](https://github.com/TheR7angelo/MyExpenses/commit/3a663dcbcf9b25d576b081cdcb05b0827a54f0e5))
+* **Update:** Update French localization for "Pointé" to "Pointer" in DashBoardManagement resources ([b56f3d4](https://github.com/TheR7angelo/MyExpenses/commit/b56f3d423f67d17de6da35752e3345f1edac259d))
+
+
+### Features
+
+* **Settings:** add "System" control with localization and configurable properties ([5450489](https://github.com/TheR7angelo/MyExpenses/commit/5450489286cb262a4b10c573bb2400b059429a66))
+* **Settings:** add "System" tab with localization and configuration support ([9585add](https://github.com/TheR7angelo/MyExpenses/commit/9585add274e71c44102cb429a4db7eee84b3553f))
+* **Settings:** add buttons to open logs and backups directories in "System" control ([2376b22](https://github.com/TheR7angelo/MyExpenses/commit/2376b221cc583237e7b2ffe2f8f65f22f2d2cbed))
+* **Update:** Add navigation buttons to PieChart and enhance chart filtering by sign ([ec42fa6](https://github.com/TheR7angelo/MyExpenses/commit/ec42fa69739f4366ebc24a2b2cf95ba2cfe8a917))
+* **Update:** Update ([05eb950](https://github.com/TheR7angelo/MyExpenses/commit/05eb950a151be2da90f73a0013ef0ee1f6db00d9))
+
+
+
+## [1.1.11](https://github.com/TheR7angelo/MyExpenses/compare/v1.1.9...v1.1.11) (2025-07-06)
 
 
 ### Bug Fixes
@@ -48,10 +67,6 @@
 * **Update:** Update location checkbox event to use PreviewMouseDown ([a1477bb](https://github.com/TheR7angelo/MyExpenses/commit/a1477bbb5670fd02b7167f6b1f2246671bb25a96))
 * **Update:** Update location checkbox event to use PreviewMouseDown ([63b8b99](https://github.com/TheR7angelo/MyExpenses/commit/63b8b9926e73beb4c6e087a169087477d57277cd))
 * **Update:** Update message box resources for category type actions ([8582c63](https://github.com/TheR7angelo/MyExpenses/commit/8582c63cb3f89c592b3377fa98b4b92253421ce0))
-
-
-
-# [1.1.0](https://github.com/TheR7angelo/MyExpenses/compare/v1.0.7...1.1.0) (2025-01-31)
 
 
 ### Features
@@ -130,3 +145,6 @@
 * **Update:** Update DataGrid columns in MainWindow.xaml ([9df867d](https://github.com/TheR7angelo/MyExpenses/commit/9df867d096bcdb001c565c4e7d0322e53d9cdeb5))
 * **Update:** Update place deletion handling in RecordExpensePage ([4d97ccc](https://github.com/TheR7angelo/MyExpenses/commit/4d97ccc6d2b7f072ddb618e66ec59492de77dbb4))
 * **Update:** Update translation for budget header in French resources ([f0a3809](https://github.com/TheR7angelo/MyExpenses/commit/f0a3809f7cd5e1fb42b20886191600ced894430e))
+
+
+
