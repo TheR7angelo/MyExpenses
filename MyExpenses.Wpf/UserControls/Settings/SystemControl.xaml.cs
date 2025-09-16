@@ -2,6 +2,8 @@
 using System.Windows.Input;
 using MaterialDesignThemes.Wpf;
 using MyExpenses.Models.Config.Interfaces;
+using MyExpenses.SharedUtils.GlobalInfos;
+using MyExpenses.SharedUtils.Utils;
 using MyExpenses.Utils;
 using MyExpenses.Utils.Strings;
 using MyExpenses.Wpf.Resources.Resx.UserControls.Settings.SystemControl;
@@ -10,6 +12,26 @@ namespace MyExpenses.Wpf.UserControls.Settings;
 
 public partial class SystemControl
 {
+    public static readonly DependencyProperty ButtonOpenBackupDirectoryContentProperty =
+        DependencyProperty.Register(nameof(ButtonOpenBackupDirectoryContent), typeof(string), typeof(SystemControl),
+            new PropertyMetadata(default(string)));
+
+    public string ButtonOpenBackupDirectoryContent
+    {
+        get => (string)GetValue(ButtonOpenBackupDirectoryContentProperty);
+        set => SetValue(ButtonOpenBackupDirectoryContentProperty, value);
+    }
+
+    public static readonly DependencyProperty ButtonOpenLogDirectoryContentProperty =
+        DependencyProperty.Register(nameof(ButtonOpenLogDirectoryContent), typeof(string), typeof(SystemControl),
+            new PropertyMetadata(default(string)));
+
+    public string ButtonOpenLogDirectoryContent
+    {
+        get => (string)GetValue(ButtonOpenLogDirectoryContentProperty);
+        set => SetValue(ButtonOpenLogDirectoryContentProperty, value);
+    }
+
     public static readonly DependencyProperty MaxBackupDatabaseStringProperty =
         DependencyProperty.Register(nameof(MaxBackupDatabaseString), typeof(string), typeof(SystemControl),
             new PropertyMetadata(default(string)));
@@ -64,6 +86,9 @@ public partial class SystemControl
 
     private void UpdateLanguage()
     {
+        ButtonOpenLogDirectoryContent = SystemControlResources.ButtonOpenLogDirectoryContent;
+        ButtonOpenBackupDirectoryContent = SystemControlResources.ButtonOpenBackupDirectoryContent;
+
         MaxDaysLogString = SystemControlResources.MaxDaysLogString;
         MaxBackupDatabaseString = SystemControlResources.MaxBackupDatabaseString;
     }
@@ -77,4 +102,10 @@ public partial class SystemControl
 
         e.Handled = !canConvert;
     }
+
+    private void ButtonOpenLogDirectory_OnClick(object sender, RoutedEventArgs e)
+        => OsInfos.LogDirectoryPath.StartFile();
+
+    private void ButtonOpenBackupDirectory_OnClick(object sender, RoutedEventArgs e)
+        => DatabaseInfos.LocalDirectoryBackupDatabase.StartFile();
 }

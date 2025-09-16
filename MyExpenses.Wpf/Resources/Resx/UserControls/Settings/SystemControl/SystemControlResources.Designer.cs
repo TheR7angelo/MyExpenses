@@ -61,6 +61,24 @@ namespace MyExpenses.Wpf.Resources.Resx.UserControls.Settings.SystemControl {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Open the Backups Directory.
+        /// </summary>
+        internal static string ButtonOpenBackupDirectoryContent {
+            get {
+                return ResourceManager.GetString("ButtonOpenBackupDirectoryContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Open the Logs Directory.
+        /// </summary>
+        internal static string ButtonOpenLogDirectoryContent {
+            get {
+                return ResourceManager.GetString("ButtonOpenLogDirectoryContent", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Maximum number of backups:.
         /// </summary>
         internal static string MaxBackupDatabaseString {

@@ -17,4 +17,10 @@
     <data name="MaxBackupDatabaseString" xml:space="preserve">
         <value>Nombre maximal de sauvegardes :</value>
     </data>
+    <data name="ButtonOpenLogDirectoryContent" xml:space="preserve">
+        <value>Ouvrir le répertoire des journaux</value>
+    </data>
+    <data name="ButtonOpenBackupDirectoryContent" xml:space="preserve">
+        <value>Ouvrez le répertoire des sauvegardes</value>
+    </data>
 </root>
