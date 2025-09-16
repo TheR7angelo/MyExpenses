@@ -26,4 +26,7 @@
     <data name="TitleWindow" xml:space="preserve">
         <value>Paramètres</value>
     </data>
+    <data name="TreeViewItemSystemHeader" xml:space="preserve">
+        <value>Système</value>
+    </data>
 </root>

@@ -33,4 +33,7 @@
     <data name="TitleWindow" xml:space="preserve">
         <value>Settings</value>
     </data>
+    <data name="TreeViewItemSystemHeader" xml:space="preserve">
+        <value>System</value>
+    </data>
 </root>

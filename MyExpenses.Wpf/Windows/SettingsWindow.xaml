@@ -60,6 +60,11 @@
                           MouseLeftButtonUp="UIElement_OnMouseLeftButtonUp">
             </TreeViewItem>
 
+            <TreeViewItem x:Name="ItemSystem"
+                          Header="{Binding TreeViewItemSystemHeader, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                          MouseLeftButtonUp="UIElement_OnMouseLeftButtonUp">
+            </TreeViewItem>
+
         </TreeView>
 
         <GridSplitter Grid.Row="0" Grid.Column="1" Grid.RowSpan="2"
@@ -90,6 +95,16 @@
                 <materialDesign:Card Margin="5">
 
                     <settings:LanguageControl x:Name="LanguageControl" />
+
+                </materialDesign:Card>
+
+            </TabItem>
+
+            <TabItem Header="{Binding Header, Mode=OneWay, UpdateSourceTrigger=PropertyChanged, ElementName=ItemSystem}">
+
+                <materialDesign:Card Margin="5">
+
+                    <settings:SystemControl x:Name="SystemControl" />
 
                 </materialDesign:Card>
 

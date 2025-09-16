@@ -46,6 +46,16 @@ public partial class SettingsWindow
         set => SetValue(TreeViewItemLanguageHeaderProperty, value);
     }
 
+    public static readonly DependencyProperty TreeViewItemSystemHeaderProperty =
+        DependencyProperty.Register(nameof(TreeViewItemSystemHeader), typeof(string), typeof(SettingsWindow),
+            new PropertyMetadata(default(string)));
+
+    public string TreeViewItemSystemHeader
+    {
+        get => (string)GetValue(TreeViewItemSystemHeaderProperty);
+        set => SetValue(TreeViewItemSystemHeaderProperty, value);
+    }
+
     // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty ButtonSaveContentProperty =
         DependencyProperty.Register(nameof(ButtonSaveContent), typeof(string), typeof(SettingsWindow),
@@ -82,20 +92,6 @@ public partial class SettingsWindow
         Interface.LanguageChanged += Interface_OnLanguageChanged;
     }
 
-    private void UpdateLanguage()
-    {
-        TitleWindow = SettingsWindowResources.TitleWindow;
-
-        TreeViewItemAppearanceHeader = SettingsWindowResources.TreeViewItemAppearanceHeader;
-        TreeViewItemLanguageHeader = SettingsWindowResources.TreeViewItemLanguageHeader;
-
-        ButtonSaveContent = SettingsWindowResources.ButtonSaveContent;
-        ButtonCancelContent = SettingsWindowResources.ButtonCancelContent;
-    }
-
-    private void Interface_OnLanguageChanged()
-        => UpdateLanguage();
-
     #region Action
 
     private void ButtonCancel_OnClick(object sender, RoutedEventArgs e)
@@ -109,6 +105,7 @@ public partial class SettingsWindow
         {
             { ItemAppearance.Header, UpdateAppearanceSettings },
             { ItemLanguage.Header, UpdateLanguageSettings },
+            { ItemSystem.Header, UpdateSystemSettings },
         };
 
         if (!dictionary.TryGetValue(tabItem.Header, out var func)) return;
@@ -117,21 +114,32 @@ public partial class SettingsWindow
         Configuration.OnConfigurationChanged();
     }
 
-    private Task UpdateLanguageSettings()
+    private void Interface_OnLanguageChanged()
+        => UpdateLanguage();
+
+    private void UIElement_OnMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
     {
-        var cultureInfoCode = LanguageControl.CultureInfoSelected.Name;
+        var treeViewItem = (TreeViewItem)sender;
+        if (treeViewItem.Header is not string header) return;
 
-        Config.Configuration.Interface.Language = cultureInfoCode;
-        Config.Configuration.Interface.Clock.Is24Hours = LanguageControl.Is24Hours;
+        var tabItem = TabControl.FindTabItemByHeader(header);
+        if (tabItem is not null) tabItem.IsSelected = true;
+    }
 
-        Config.Configuration.WriteConfiguration();
+    #endregion
 
-        App.LoadInterfaceLanguage(cultureInfoCode);
-        DbContextHelper.UpdateDbLanguage();
+    #region Functon
 
-        Interface.OnLanguageChanged();
+    private void UpdateLanguage()
+    {
+        TitleWindow = SettingsWindowResources.TitleWindow;
 
-        return Task.CompletedTask;
+        TreeViewItemAppearanceHeader = SettingsWindowResources.TreeViewItemAppearanceHeader;
+        TreeViewItemLanguageHeader = SettingsWindowResources.TreeViewItemLanguageHeader;
+        TreeViewItemSystemHeader = SettingsWindowResources.TreeViewItemSystemHeader;
+
+        ButtonSaveContent = SettingsWindowResources.ButtonSaveContent;
+        ButtonCancelContent = SettingsWindowResources.ButtonCancelContent;
     }
 
     private Task UpdateAppearanceSettings()
@@ -151,13 +159,31 @@ public partial class SettingsWindow
         return Task.CompletedTask;
     }
 
-    private void UIElement_OnMouseLeftButtonUp(object sender, MouseButtonEventArgs e)
+    private Task UpdateLanguageSettings()
     {
-        var treeViewItem = (TreeViewItem)sender;
-        if (treeViewItem.Header is not string header) return;
+        var cultureInfoCode = LanguageControl.CultureInfoSelected.Name;
 
-        var tabItem = TabControl.FindTabItemByHeader(header);
-        if (tabItem is not null) tabItem.IsSelected = true;
+        Config.Configuration.Interface.Language = cultureInfoCode;
+        Config.Configuration.Interface.Clock.Is24Hours = LanguageControl.Is24Hours;
+
+        Config.Configuration.WriteConfiguration();
+
+        App.LoadInterfaceLanguage(cultureInfoCode);
+        DbContextHelper.UpdateDbLanguage();
+
+        Interface.OnLanguageChanged();
+
+        return Task.CompletedTask;
+    }
+
+    private Task UpdateSystemSettings()
+    {
+        Config.Configuration.System.MaxDaysLog = SystemControl.MaxDaysLog;
+        Config.Configuration.System.MaxBackupDatabase = SystemControl.MaxBackupDatabase;
+
+        Config.Configuration.WriteConfiguration();
+
+        return Task.CompletedTask;
     }
 
     #endregion

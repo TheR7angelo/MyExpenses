@@ -103,5 +103,14 @@ namespace MyExpenses.Wpf.Resources.Resx.Windows.SettingsWindow {
                 return ResourceManager.GetString("TreeViewItemLanguageHeader", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to System.
+        /// </summary>
+        internal static string TreeViewItemSystemHeader {
+            get {
+                return ResourceManager.GetString("TreeViewItemSystemHeader", resourceCulture);
+            }
+        }
     }
 }
