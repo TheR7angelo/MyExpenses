@@ -8,7 +8,7 @@ public class System
     public int MaxDaysLog { get; set; } = 15;
 
     [JsonProperty("max_backup_database")]
-    public int MaxBackupDatabase { get; set; } = 15;
+    public int MaxBackupDatabase { get; set; } = 16;
 
     [JsonProperty("call_back_later_time")]
     public DateTime? CallBackLaterTime { get; set; }
