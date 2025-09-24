@@ -145,10 +145,8 @@ public static class ShapeWriter
         {
             Point => ShapeType.Point,
             MultiPoint => ShapeType.MultiPoint,
-            LineString => ShapeType.PolyLine,
-            MultiLineString => ShapeType.PolyLine,
-            Polygon => ShapeType.Polygon,
-            MultiPolygon => ShapeType.Polygon,
+            LineString or MultiLineString => ShapeType.PolyLine,
+            Polygon or MultiPolygon => ShapeType.Polygon,
 
             _ => throw new ArgumentOutOfRangeException(nameof(geometry), @"Unsupported geometry type")
         };
