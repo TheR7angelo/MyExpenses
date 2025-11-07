@@ -8,8 +8,8 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <PackageReference Include="EPPlus" Version="8.2.0" />
-      <PackageReference Include="Markdig" Version="0.42.0" />
+      <PackageReference Include="EPPlus" Version="8.2.1" />
+      <PackageReference Include="Markdig" Version="0.43.0" />
       <PackageReference Include="NetTopologySuite.IO.GeoJSON" Version="4.0.0" />
       <PackageReference Include="Ude.NetStandard" Version="1.2.0" />
     </ItemGroup>
