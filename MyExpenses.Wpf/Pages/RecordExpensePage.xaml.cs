@@ -9,6 +9,7 @@ using BruTile.Predefined;
 using Mapsui.Layers;
 using Mapsui.Tiling.Layers;
 using Microsoft.Data.Sqlite;
+using MyExpenses.Models.AutoMapper;
 using MyExpenses.Models.Config;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.SharedUtils.Collection;
@@ -711,6 +712,9 @@ public partial class RecordExpensePage
 
         PlacesCollection.Clear();
         PlacesCollection.AddRangeAndSort(records, s => s.Name!);
+
+        var points = records.Select(s => Mapping.Mapper.Map<PointFeature>(s)).Select(s => s.Point).ToArray();
+        MapControl.Map.Navigator.SetZoom(points);
     }
 
     private void SelectorCountry_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -751,6 +755,9 @@ public partial class RecordExpensePage
 
         PlacesCollection.Clear();
         PlacesCollection.AddRangeAndSort(records, s => s.Name!);
+
+        var points = records.Select(s => Mapping.Mapper.Map<PointFeature>(s)).Select(s => s.Point).ToArray();
+        MapControl.Map.Navigator.SetZoom(points);
 
         // ReSharper disable HeapView.DelegateAllocation
         ComboBoxSelectorCity.SelectionChanged += SelectorCity_OnSelectionChanged;
