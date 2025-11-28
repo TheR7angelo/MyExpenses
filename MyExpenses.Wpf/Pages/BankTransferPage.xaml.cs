@@ -12,6 +12,7 @@ using MyExpenses.SharedUtils.Collection;
 using MyExpenses.SharedUtils.RegexUtils;
 using MyExpenses.SharedUtils.Resources.Resx.BankTransferManagement;
 using MyExpenses.Sql.Context;
+using MyExpenses.Sql.Queries;
 using MyExpenses.Utils.Sql;
 using MyExpenses.Wpf.Windows;
 using MyExpenses.Wpf.Windows.MsgBox;
@@ -22,6 +23,16 @@ namespace MyExpenses.Wpf.Pages;
 
 public partial class BankTransferPage
 {
+    public static readonly DependencyProperty ValuePrefixTextProperty =
+        DependencyProperty.Register(nameof(ValuePrefixText), typeof(string), typeof(BankTransferPage),
+            new PropertyMetadata(null));
+
+    public string? ValuePrefixText
+    {
+        get => (string?)GetValue(ValuePrefixTextProperty);
+        set => SetValue(ValuePrefixTextProperty, value);
+    }
+
     #region DependencyProperty
 
     // ReSharper disable once HeapView.BoxingAllocation
@@ -543,6 +554,7 @@ public partial class BankTransferPage
 
         RefreshListToAccount();
         RefreshVFromAccountReduce();
+        UpdateValuePrefixText();
     }
 
     private void SelectorToAccount_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -553,6 +565,7 @@ public partial class BankTransferPage
 
         RefreshListFromAccount();
         RefreshVToAccountIncrease();
+        UpdateValuePrefixText();
     }
 
     private void TextBoxValue_OnTextChanged(object sender, TextChangedEventArgs e)
@@ -608,6 +621,19 @@ public partial class BankTransferPage
     private void UpdateLanguageDatePicker()
         => DatePicker.Language = System.Windows.Markup.XmlLanguage.GetLanguage(Thread.CurrentThread.CurrentCulture.Name);
 
+    private void UpdateValuePrefixText()
+    {
+        int?[] accountIds = [BankTransfer.FromAccountFk, BankTransfer.ToAccountFk];
+        string? symbol = null;
+
+        if (accountIds.All(s => s is not null))
+        {
+            var symbols = accountIds.GetSymbolCurrencyFromAccount();
+            if (symbols?.Distinct().Count() is 1) symbol = symbols.First();
+        }
+
+        ValuePrefixText = symbol;
+    }
 
     private void RefreshListFromAccount()
     {

@@ -20,6 +20,7 @@ using MyExpenses.SharedUtils.Resources.Resx.CategoryTypesManagement;
 using MyExpenses.SharedUtils.Resources.Resx.LocationManagement;
 using MyExpenses.SharedUtils.Resources.Resx.ModePaymentManagement;
 using MyExpenses.Sql.Context;
+using MyExpenses.Sql.Queries;
 using MyExpenses.Utils.DateTimes;
 using MyExpenses.Utils.Maps;
 using MyExpenses.Utils.Resources.Resx.Converters.EmptyStringTreeViewConverter;
@@ -38,6 +39,16 @@ namespace MyExpenses.Wpf.Windows;
 
 public partial class AddEditRecurrentExpenseWindow
 {
+    public static readonly DependencyProperty ValuePrefixTextProperty =
+        DependencyProperty.Register(nameof(ValuePrefixText), typeof(string), typeof(AddEditRecurrentExpenseWindow),
+            new PropertyMetadata(default(string?)));
+
+    public string? ValuePrefixText
+    {
+        get => (string?)GetValue(ValuePrefixTextProperty);
+        set => SetValue(ValuePrefixTextProperty, value);
+    }
+
     #region DependencyProperty
 
     // ReSharper disable once HeapView.ObjectAllocation.Evident
@@ -721,6 +732,9 @@ public partial class AddEditRecurrentExpenseWindow
 
     private void Selector_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         => UpdateNextDueDate();
+
+    private void SelectorAccount_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        => ValuePrefixText = RecursiveExpense.AccountFk.GetSymbolCurrencyFromAccount();
 
     private void SelectorCity_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
     {

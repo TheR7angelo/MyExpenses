@@ -73,7 +73,8 @@
                   ItemsSource="{Binding Accounts, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                   SelectedValue="{Binding RecursiveExpense.AccountFk, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                   SelectedValuePath="{Binding SelectedValuePathAccount}"
-                  DisplayMemberPath="{Binding DisplayMemberPathAccount}">
+                  DisplayMemberPath="{Binding DisplayMemberPathAccount}"
+                  SelectionChanged="SelectorAccount_OnSelectionChanged">
         </ComboBox>
 
         <Button Grid.Row="0" Grid.Column="1"
@@ -170,6 +171,7 @@
                  Style="{StaticResource MaterialDesignFilledTextBox}"
                  Text="{Binding RecursiveExpense.Value, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                  AcceptsReturn="False" AcceptsTab="False"
+                 materialDesign:TextFieldAssist.PrefixText="{Binding ValuePrefixText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                  PreviewKeyDown="UIElementDoubleOnly_OnPreviewKeyDown"
                  PreviewTextInput="UIElementDoubleOnly_OnPreviewTextInput"
                  TextChanged="TextBoxValueDoubleOnly_OnTextChanged">

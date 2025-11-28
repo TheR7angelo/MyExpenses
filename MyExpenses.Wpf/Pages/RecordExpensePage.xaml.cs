@@ -21,6 +21,7 @@ using MyExpenses.SharedUtils.Resources.Resx.DetailedRecordManagement;
 using MyExpenses.SharedUtils.Resources.Resx.LocationManagement;
 using MyExpenses.SharedUtils.Resources.Resx.ModePaymentManagement;
 using MyExpenses.Sql.Context;
+using MyExpenses.Sql.Queries;
 using MyExpenses.Utils;
 using MyExpenses.Utils.Maps;
 using MyExpenses.Utils.Resources.Resx.Converters.EmptyStringTreeViewConverter;
@@ -28,7 +29,6 @@ using MyExpenses.Wpf.Windows;
 using MyExpenses.Utils.Sql;
 using MyExpenses.Utils.Strings;
 using MyExpenses.Wpf.Converters;
-// using MyExpenses.Wpf.Resources.Resx.Pages.RecordExpensePage;
 using MyExpenses.Wpf.Windows.CategoryTypeManagementWindow;
 using MyExpenses.Wpf.Windows.LocationManagementWindows;
 using MyExpenses.Wpf.Windows.MsgBox;
@@ -39,6 +39,15 @@ namespace MyExpenses.Wpf.Pages;
 
 public partial class RecordExpensePage
 {
+    public static readonly DependencyProperty ValuePrefixTextProperty =
+        DependencyProperty.Register(nameof(ValuePrefixText), typeof(string), typeof(RecordExpensePage),
+            new PropertyMetadata(null));
+
+    public string? ValuePrefixText
+    {
+        get => (string?)GetValue(ValuePrefixTextProperty);
+        set => SetValue(ValuePrefixTextProperty, value);
+    }
 
     // ReSharper disable once HeapView.BoxingAllocation
     // ReSharper disable once HeapView.ObjectAllocation.Evident
@@ -674,6 +683,9 @@ public partial class RecordExpensePage
 
     private void MapControl_OnLoaded(object sender, RoutedEventArgs e)
         => UpdateTileLayer();
+
+    private void SelectorAccount_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
+        => ValuePrefixText = History.AccountFk.GetSymbolCurrencyFromAccount();
 
     private void SelectorCity_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
     {

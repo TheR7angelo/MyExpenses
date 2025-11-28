@@ -143,6 +143,7 @@
                      Style="{StaticResource MaterialDesignFilledTextBox}"
                      Text="{Binding BankTransfer.Value, Mode=TwoWay}"
                      AcceptsReturn="False" AcceptsTab="False"
+                     materialDesign:TextFieldAssist.PrefixText="{Binding ValuePrefixText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                      PreviewTextInput="UIElement_OnPreviewTextInput"
                      TextChanged="TextBoxValue_OnTextChanged">
             </TextBox>

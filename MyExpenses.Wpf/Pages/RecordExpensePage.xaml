@@ -53,7 +53,8 @@
                   ItemsSource="{Binding Accounts, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                   SelectedValue="{Binding History.AccountFk, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                   SelectedValuePath="{Binding SelectedValuePathAccount}"
-                  DisplayMemberPath="{Binding DisplayMemberPathAccount}">
+                  DisplayMemberPath="{Binding DisplayMemberPathAccount}"
+                  SelectionChanged="SelectorAccount_OnSelectionChanged">
         </ComboBox>
 
         <Button Grid.Row="0" Grid.Column="1"
@@ -121,6 +122,7 @@
                  materialDesign:HintAssist.Hint="{Binding TextBoxValueHintAssist, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                  Style="{StaticResource MaterialDesignFilledTextBox}"
                  Text="{Binding History.Value, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                 materialDesign:TextFieldAssist.PrefixText="{Binding ValuePrefixText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                  AcceptsReturn="False" AcceptsTab="False"
                  PreviewKeyDown="UIElement_OnPreviewKeyDown"
                  PreviewTextInput="UIElement_OnPreviewTextInput"
