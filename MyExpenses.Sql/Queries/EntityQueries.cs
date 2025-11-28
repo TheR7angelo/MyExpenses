@@ -465,4 +465,26 @@ public static class EntityQueries
 
         return categoriesTotals;
     }
+
+    /// <summary>
+    /// Retrieves the currency symbol associated with the specified account ID.
+    /// </summary>
+    /// <param name="accountId">
+    /// The identifier of the account whose currency symbol is to be retrieved.
+    /// If the value is null, the method returns null.
+    /// </param>
+    /// <returns>
+    /// A string representing the currency symbol associated with the account,
+    /// or null if the account ID is null or no matching record is found.
+    /// </returns>
+    public static string? GetSymbolCurrencyFromAccount(this int? accountId)
+    {
+        if (accountId is null) return null;
+
+        using var context = new DataBaseContext();
+        return (from a in context.TAccounts
+            join c in context.TCurrencies on a.CurrencyFk equals c.Id
+            where a.Id == accountId
+            select c.Symbol).FirstOrDefault();
+    }
 }
