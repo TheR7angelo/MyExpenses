@@ -95,8 +95,6 @@ public class DataBaseContext : DbContext
 
     public virtual DbSet<TSpatialRefSy> TSpatialRefSys { get; set; }
 
-    public virtual DbSet<TSupportedLanguage> TSupportedLanguages { get; set; }
-
     public virtual DbSet<TVersion> TVersions { get; set; }
 
     public virtual DbSet<VBankTransferSummary> VBankTransferSummaries { get; set; }
@@ -304,12 +302,6 @@ public class DataBaseContext : DbContext
         modelBuilder.Entity<TSpatialRefSy>(entity =>
         {
             entity.Property(e => e.Srid).ValueGeneratedNever();
-        });
-
-        modelBuilder.Entity<TSupportedLanguage>(entity =>
-        {
-            entity.Property(e => e.DateAdded).HasDefaultValueSql("CURRENT_TIMESTAMP");
-            entity.Property(e => e.DefaultLanguage).HasDefaultValueSql("FALSE");
         });
 
         modelBuilder.Entity<VBankTransferSummary>(entity =>

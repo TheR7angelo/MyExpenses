@@ -3,9 +3,7 @@ using System.Globalization;
 using System.Windows;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.SharedUtils.Collection;
-using MyExpenses.SharedUtils.GlobalInfos;
-using MyExpenses.SharedUtils.Objects;
-using MyExpenses.Sql.Context;
+using MyExpenses.SharedUtils.Resources;
 using MyExpenses.Utils;
 using MyExpenses.Wpf.Resources.Resx.UserControls.Settings.LanguageControl;
 
@@ -63,23 +61,14 @@ public partial class LanguageControl
     }
 
     public ObservableCollection<CultureInfo> CultureInfos { get; } = [];
-    private List<string> CultureInfoCodes { get; }
 
     public LanguageControl()
     {
         CultureInfoSelected = CultureInfo.CurrentUICulture;
-
-        // Creating a new DataBaseContext instance is required to access the database.
-        // This usage is expected and unavoidable as each call represents a discrete transactional context.
-        // The "using" statement ensures proper disposal of the context after use.
-        // ReSharper disable once HeapView.ObjectAllocation.Evident
-        using var context = new DataBaseContext(DatabaseInfos.LocalFilePathDataBaseModel);
-        CultureInfoCodes = [..context.TSupportedLanguages.Select(s => s.Code)];
+        CultureInfos.AddRange(LanguagesUtils.GetSupportedCultures());
 
         var configuration = Config.Configuration;
         Is24Hours = configuration.Interface.Clock.Is24Hours;
-
-        UpdateLanguage();
 
         InitializeComponent();
 
@@ -95,22 +84,11 @@ public partial class LanguageControl
         ComboBoxLanguageSelectorHintAssist = LanguageControlResources.ComboBoxLanguageSelectorHintAssist;
         LabelIs24HFormat = LanguageControlResources.LabelIs24HFormat;
 
-        if (CultureInfos.Count is 0)
-        {
-            // ReSharper disable once HeapView.ObjectAllocation.Evident
-            var cultureInfos = CultureInfoCodes.Select(s => new CultureInfo(s));
-            CultureInfos.AddRange(cultureInfos);
-        }
-        else
-        {
-            var originalSelectedCultureInfoCode = CultureInfoSelected.DeepCopy()!;
-            for (var i = 0; i < CultureInfoCodes.Count; i++)
-            {
-                // ReSharper disable once HeapView.ObjectAllocation.Evident
-                CultureInfos[i] = new CultureInfo(CultureInfoCodes[i]);
-            }
+        var selectedName = CultureInfoSelected.Name;
 
-            CultureInfoSelected = originalSelectedCultureInfoCode;
-        }
+        CultureInfos.Clear();
+        CultureInfos.AddRange(LanguagesUtils.GetSupportedCultures());
+
+        CultureInfoSelected = CultureInfos.FirstOrDefault(c => c.Name == selectedName) ?? CultureInfo.CurrentUICulture;
     }
 }

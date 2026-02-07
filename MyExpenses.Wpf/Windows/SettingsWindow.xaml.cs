@@ -168,7 +168,7 @@ public partial class SettingsWindow
 
         Config.Configuration.WriteConfiguration();
 
-        App.LoadInterfaceLanguage(cultureInfoCode);
+        App.LoadInterfaceLanguage();
         DbContextHelper.UpdateDbLanguage();
 
         Interface.OnLanguageChanged();
