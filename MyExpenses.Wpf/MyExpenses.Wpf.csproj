@@ -9,7 +9,7 @@
         <ApplicationIcon>..\MyExpenses.Commons\Resources\Assets\Applications\Icon.ico</ApplicationIcon>
         <AssemblyName>MyExpenses</AssemblyName>
         <Version>1.4.0</Version>
-        <LangVersion>13</LangVersion>
+        <LangVersion>14</LangVersion>
         <Authors>TheR7angelo</Authors>
     </PropertyGroup>
 
