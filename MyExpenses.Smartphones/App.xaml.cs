@@ -1,7 +1,7 @@
 ﻿using System.Globalization;
 using MyExpenses.Models;
 using MyExpenses.Models.Config.Interfaces;
-using MyExpenses.SharedUtils.GlobalInfos;
+using MyExpenses.SharedUtils.Resources;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils;
 using Serilog;
@@ -77,32 +77,22 @@ public partial class App
     {
         var currentCultureIsSupported = false;
 
-        if (string.IsNullOrEmpty(cultureInfoCode))
+        if (string.IsNullOrWhiteSpace(Config.Configuration.Interface.Language))
         {
-            // ReSharper disable once HeapView.ClosureAllocation
             var currentCurrentCulture = CultureInfo.CurrentUICulture.Name;
 
-            // ReSharper disable once HeapView.ObjectAllocation.Evident
-            // A new instance of DataBaseContext is created using the specified database file path.
-            // The "using" statement ensures that the database context is properly disposed of
-            // after use, releasing any resources it holds and maintaining efficient resource management.
-            using var context = new DataBaseContext(DatabaseInfos.LocalFilePathDataBaseModel);
+            var cultureInfos = LanguagesUtils.GetSupportedCultures().Select(s => s.Name);
+            currentCultureIsSupported = cultureInfos.Any(s => s == currentCurrentCulture);
 
-            currentCultureIsSupported = context.TSupportedLanguages.Any(s => s.Code == currentCurrentCulture);
-            cultureInfoCode = currentCultureIsSupported
+            Config.Configuration.Interface.Language = currentCultureIsSupported
                 ? currentCurrentCulture
-                : context.TSupportedLanguages.First(s => (bool)s.DefaultLanguage!).Code;
+                : LanguagesUtils.DefaultCultureName;
 
-            var configuration = Config.Configuration;
-            configuration.Interface.Language = cultureInfoCode;
-            configuration.WriteConfiguration();
+            Config.Configuration.WriteConfiguration();
         }
 
         // ReSharper disable once HeapView.ObjectAllocation.Evident
-        // A new CultureInfo object is created using the specified cultureInfoCode.
-        // This object represents information about a specific culture (such as language and regional settings)
-        // and is used to configure cultural aspects of the application, like formatting and localization.
-        var cultureInfo = new CultureInfo(cultureInfoCode);
+        var cultureInfo = new CultureInfo(Config.Configuration.Interface.Language);
         Thread.CurrentThread.CurrentCulture = cultureInfo;
         Thread.CurrentThread.CurrentUICulture = cultureInfo;
 

@@ -5,6 +5,12 @@ namespace MyExpenses.SharedUtils.Resources;
 public static class LanguagesUtils
 {
     /// <summary>
+    /// Specifies the default culture name used by the application as a fallback when no specific culture is matched.
+    /// This default value ensures consistent behavior and displays resources in the "en-001" (English World) language.
+    /// </summary>
+    public const string DefaultCultureName = "en-001";
+
+    /// <summary>
     /// Retrieves a collection of <see cref="CultureInfo"/> objects representing the cultures
     /// supported by the application, based on the presence of resource files.
     /// </summary>

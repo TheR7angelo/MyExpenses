@@ -5,7 +5,7 @@ using System.Windows.Media;
 using MaterialDesignThemes.Wpf;
 using MyExpenses.Models;
 using MyExpenses.Models.Config.Interfaces;
-using MyExpenses.SharedUtils.GlobalInfos;
+using MyExpenses.SharedUtils.Resources;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils;
 using MyExpenses.Utils.Systems;
@@ -76,33 +76,29 @@ public partial class App
     private static void LoadInterfaceConfiguration(Interface configurationInterface)
     {
         LoadInterfaceTheme(configurationInterface.Theme);
-        LoadInterfaceLanguage(configurationInterface.Language);
+        LoadInterfaceLanguage();
     }
 
-    public static void LoadInterfaceLanguage(string? cultureInfoCode)
+    public static void LoadInterfaceLanguage()
     {
         var currentCultureIsSupported = false;
 
-        if (string.IsNullOrEmpty(cultureInfoCode))
+        if (string.IsNullOrWhiteSpace(Config.Configuration.Interface.Language))
         {
-            // ReSharper disable once HeapView.ClosureAllocation
             var currentCurrentCulture = CultureInfo.CurrentUICulture.Name;
 
-            // ReSharper disable once HeapView.ObjectAllocation.Evident
-            using var context = new DataBaseContext(DatabaseInfos.LocalFilePathDataBaseModel);
+            var cultureInfos = LanguagesUtils.GetSupportedCultures().Select(s => s.Name);
+            currentCultureIsSupported = cultureInfos.Any(s => s == currentCurrentCulture);
 
-            currentCultureIsSupported = context.TSupportedLanguages.Any(s => s.Code == currentCurrentCulture);
-            cultureInfoCode = currentCultureIsSupported
+            Config.Configuration.Interface.Language = currentCultureIsSupported
                 ? currentCurrentCulture
-                : context.TSupportedLanguages.First(s => (bool)s.DefaultLanguage!).Code;
+                : LanguagesUtils.DefaultCultureName;
 
-            var configuration = Config.Configuration;
-            configuration.Interface.Language = cultureInfoCode;
-            configuration.WriteConfiguration();
+            Config.Configuration.WriteConfiguration();
         }
         
         // ReSharper disable once HeapView.ObjectAllocation.Evident
-        var cultureInfo = new CultureInfo(cultureInfoCode);
+        var cultureInfo = new CultureInfo(Config.Configuration.Interface.Language);
         Thread.CurrentThread.CurrentCulture = cultureInfo;
         Thread.CurrentThread.CurrentUICulture = cultureInfo;
 

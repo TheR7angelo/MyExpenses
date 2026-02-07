@@ -27,10 +27,7 @@ public class LanguagesUtilsTests
         var cultures = LanguagesUtils.GetSupportedCultures();
         var names = cultures.Select(c => c.Name);
 
-        // The "en-001" (English World) culture is the mandatory default language of the application.
-        // It must always be present in the resources to ensure a fallback is available.
-        // This is a strict business requirement, not an arbitrary hardcoded value.
-        Assert.Contains("en-001", names);
+        Assert.Contains(LanguagesUtils.DefaultCultureName, names);
     }
 
     /// <summary>
