@@ -9,21 +9,6 @@ CREATE TABLE t_version
     version TEXT
 );
 
-DROP TABLE IF EXISTS t_supported_languages;
-CREATE TABLE t_supported_languages
-(
-    id               INTEGER
-        CONSTRAINT t_supported_languages_pk
-            PRIMARY KEY AUTOINCREMENT,
-    code             TEXT(10)    NOT NULL
-        CONSTRAINT t_supported_languages_pk_2
-            UNIQUE,
-    native_name      TEXT(55)    NOT NULL,
-    english_name     TEXT(55)    NOT NULL,
-    default_language BOOLEAN NOT NULL DEFAULT FALSE,
-    date_added       DATETIME         DEFAULT CURRENT_TIMESTAMP
-);
-
 DROP TABLE IF EXISTS t_spatial_ref_sys;
 CREATE TABLE t_spatial_ref_sys
 (

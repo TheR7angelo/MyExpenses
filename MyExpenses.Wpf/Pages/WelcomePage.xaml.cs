@@ -109,6 +109,8 @@ public partial class WelcomePage
 
         DataBaseContext.FilePath = existingDatabase.FilePath;
         // nameof(MainWindow.FrameBody).NavigateTo(typeof(DashBoard2Page));
+
+        DataBaseUpdater.ApplyMigrations();
         nameof(MainWindow.FrameBody).NavigateTo(typeof(DashBoardPage));
     }
 
