@@ -1,42 +1,42 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using CommunityToolkit.Mvvm.ComponentModel;
 using MyExpenses.Models.IO.Sig.Interfaces;
 using NetTopologySuite.Geometries;
-using PropertyChanged;
 
 namespace MyExpenses.Models.Sql.Bases.Tables;
 
-[AddINotifyPropertyChangedInterface]
+[ObservableObject]
 [Table("t_place")]
 public partial class TPlace : ISql, ISig
 {
     [Key]
     [Column("id")]
-    public int Id { get; set; }
+    public int Id { get; set => SetProperty(ref field, value); }
 
     [Column("name")]
     [MaxLength(155)]
-    public string? Name { get; set; }
+    public string? Name { get; set => SetProperty(ref field, value); }
 
     [Column("number")]
     [MaxLength(20)]
-    public string? Number { get; set; }
+    public string? Number { get; set => SetProperty(ref field, value); }
 
     [Column("street")]
     [MaxLength(155)]
-    public string? Street { get; set; }
+    public string? Street { get; set => SetProperty(ref field, value); }
 
     [Column("postal")]
     [MaxLength(10)]
-    public string? Postal { get; set; }
+    public string? Postal { get; set => SetProperty(ref field, value); }
 
     [Column("city")]
     [MaxLength(100)]
-    public string? City { get; set; }
+    public string? City { get; set => SetProperty(ref field, value); }
 
     [Column("country")]
     [MaxLength(55)]
-    public string? Country { get; set; }
+    public string? Country { get; set => SetProperty(ref field, value); }
 
     [NotMapped]
     private double? _latitude;
@@ -92,13 +92,13 @@ public partial class TPlace : ISql, ISig
     }
 
     [Column("is_open", TypeName = "BOOLEAN")]
-    public bool IsOpen { get; set; } = true;
+    public bool IsOpen { get; set => SetProperty(ref field, value); } = true;
 
     [Column("can_be_deleted", TypeName = "BOOLEAN")]
-    public bool? CanBeDeleted { get; init; } = true;
+    public bool? CanBeDeleted { get; init => SetProperty(ref field, value); } = true;
 
     [Column("date_added", TypeName = "DATETIME")]
-    public DateTime? DateAdded { get; set; } = DateTime.Now;
+    public DateTime? DateAdded { get; init => SetProperty(ref field, value); } = DateTime.Now;
 
     // Each ICollection property is initialized to prevent null references
     // and to ensure the collections are ready for use, even if no data is loaded from the database.

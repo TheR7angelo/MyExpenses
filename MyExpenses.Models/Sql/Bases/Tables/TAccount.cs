@@ -1,11 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using CommunityToolkit.Mvvm.ComponentModel;
 using MyExpenses.Models.Attributs;
-using PropertyChanged;
 
 namespace MyExpenses.Models.Sql.Bases.Tables;
 
-[AddINotifyPropertyChangedInterface]
+[ObservableObject]
 [Table("t_account")]
 public partial class TAccount : ISql
 {
@@ -16,33 +16,33 @@ public partial class TAccount : ISql
     [Required]
     [Column("name")]
     [MaxLength(55)]
-    public string? Name { get; set; }
+    public string? Name { get; set => SetProperty(ref field, value); }
 
     [Required]
     [Column("account_type_fk")]
-    public int? AccountTypeFk { get; set; }
+    public int? AccountTypeFk { get; set => SetProperty(ref field, value); }
 
     [Required]
     [Column("currency_fk")]
-    public int? CurrencyFk { get; set; }
+    public int? CurrencyFk { get; set => SetProperty(ref field, value); }
 
     [IgnoreReset]
     [Required]
     [Column("active", TypeName = "BOOLEAN")]
-    public bool? Active { get; set; }
+    public bool? Active { get; set => SetProperty(ref field, value); }
 
     [IgnoreReset]
     [Column("date_added", TypeName = "DATETIME")]
-    public DateTime? DateAdded { get; set; }
+    public DateTime? DateAdded { get; set => SetProperty(ref field, value); }
 
     // ReSharper disable PropertyCanBeMadeInitOnly.Global
     [ForeignKey("AccountTypeFk")]
     [InverseProperty("TAccounts")]
-    public virtual TAccountType? AccountTypeFkNavigation { get; set; }
+    public virtual TAccountType? AccountTypeFkNavigation { get; set => SetProperty(ref field, value); }
 
     [ForeignKey("CurrencyFk")]
     [InverseProperty("TAccounts")]
-    public virtual TCurrency? CurrencyFkNavigation { get; set; }
+    public virtual TCurrency? CurrencyFkNavigation { get; set => SetProperty(ref field, value); }
 
     [InverseProperty("FromAccountFkNavigation")]
     public virtual ICollection<TBankTransfer> TBankTransferFromAccountFkNavigations { get; set; }

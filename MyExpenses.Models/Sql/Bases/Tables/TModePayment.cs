@@ -1,27 +1,27 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using CommunityToolkit.Mvvm.ComponentModel;
 using MyExpenses.Models.Sql.Bases.Enums;
-using PropertyChanged;
 
 namespace MyExpenses.Models.Sql.Bases.Tables;
 
-[AddINotifyPropertyChangedInterface]
+[ObservableObject]
 [Table("t_mode_payment")]
 public partial class TModePayment : ISql
 {
     [Key]
     [Column("id")]
-    public int Id { get; set; }
+    public int Id { get; set => SetProperty(ref field, value); }
 
     [Column("name")]
     [MaxLength(55)]
-    public string? Name { get; set; }
+    public string? Name { get; set => SetProperty(ref field, value); }
 
     [Column("can_be_deleted", TypeName = "BOOLEAN")]
-    public bool? CanBeDeleted { get; init; } = true;
+    public bool? CanBeDeleted { get; init => SetProperty(ref field, value); } = true;
 
     [Column("date_added", TypeName = "DATETIME")]
-    public DateTime? DateAdded { get; init; } = DateTime.Now;
+    public DateTime? DateAdded { get; init => SetProperty(ref field, value); } = DateTime.Now;
 
     [NotMapped]
     public EModePayment EModePayment => GetModePayment(Id);

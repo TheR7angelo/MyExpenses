@@ -1,20 +1,20 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using PropertyChanged;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace MyExpenses.Models.Sql.Bases.Tables;
 
-[AddINotifyPropertyChangedInterface]
+[ObservableObject]
 [Table("t_currency")]
 public partial class TCurrency : ISql
 {
     [Key]
     [Column("id")]
-    public int Id { get; set; }
+    public int Id { get; set => SetProperty(ref field, value); }
 
     [Column("symbol")]
     [MaxLength(55)]
-    public string? Symbol { get; set; }
+    public string? Symbol { get; set => SetProperty(ref field, value); }
 
     [Column("date_added", TypeName = "DATETIME")]
     public DateTime? DateAdded { get; init; } = DateTime.Now;

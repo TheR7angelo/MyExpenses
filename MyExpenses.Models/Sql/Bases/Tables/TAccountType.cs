@@ -1,20 +1,20 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using PropertyChanged;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace MyExpenses.Models.Sql.Bases.Tables;
 
-[AddINotifyPropertyChangedInterface]
+[ObservableObject]
 [Table("t_account_type")]
 public partial class TAccountType : ISql
 {
     [Key]
     [Column("id")]
-    public int Id { get; set; }
+    public int Id { get; set => SetProperty(ref field, value); }
 
     [Column("name")]
     [MaxLength(100)]
-    public string? Name { get; set; }
+    public string? Name { get; set => SetProperty(ref field, value); }
 
     [Column("date_added", TypeName = "DATETIME")]
     public DateTime? DateAdded { get; init; } = DateTime.Now;

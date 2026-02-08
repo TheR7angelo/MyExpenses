@@ -1,9 +1,13 @@
-﻿using PropertyChanged;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace MyExpenses.Models.IO;
 
-[AddINotifyPropertyChangedInterface]
-public class AExistingDatabase(string filePath) : ExistingDatabase(filePath)
+[ObservableObject]
+public partial class AExistingDatabase(string filePath) : ExistingDatabase(filePath)
 {
-    public bool IsSelected { get; set; }
+    public bool IsSelected
+    {
+        get;
+        set => SetProperty(ref field, value);
+    }
 }

@@ -1,23 +1,23 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using PropertyChanged;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace MyExpenses.Models.Sql.Bases.Tables;
 
-[AddINotifyPropertyChangedInterface]
+[ObservableObject]
 [Table("t_category_type")]
 public partial class TCategoryType : ISql
 {
     [Key]
     [Column("id")]
-    public int Id { get; set; }
+    public int Id { get; set => SetProperty(ref field, value); }
 
     [Column("name")]
     [MaxLength(55)]
-    public string? Name { get; set; }
+    public string? Name { get; set => SetProperty(ref field, value); }
 
     [Column("color_fk")]
-    public int? ColorFk { get; set; }
+    public int? ColorFk { get; set => SetProperty(ref field, value); }
 
     [Column("date_added", TypeName = "DATETIME")]
     public DateTime? DateAdded { get; init; } = DateTime.Now;
@@ -25,7 +25,7 @@ public partial class TCategoryType : ISql
     // ReSharper disable PropertyCanBeMadeInitOnly.Global
     [ForeignKey("ColorFk")]
     [InverseProperty("TCategoryTypes")]
-    public virtual TColor? ColorFkNavigation { get; set; }
+    public virtual TColor? ColorFkNavigation { get; set => SetProperty(ref field, value); }
 
     // Each ICollection property is initialized to prevent null references
     // and to ensure the collections are ready for use, even if no data is loaded from the database.
