@@ -98,7 +98,7 @@ public partial class TPlace : ISql, ISig
     public bool? CanBeDeleted { get; init => SetProperty(ref field, value); } = true;
 
     [Column("date_added", TypeName = "DATETIME")]
-    public DateTime? DateAdded { get; init => SetProperty(ref field, value); } = DateTime.Now;
+    public DateTime? DateAdded { get; set => SetProperty(ref field, value); } = DateTime.Now;
 
     // Each ICollection property is initialized to prevent null references
     // and to ensure the collections are ready for use, even if no data is loaded from the database.
