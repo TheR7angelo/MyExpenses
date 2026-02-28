@@ -1,8 +1,22 @@
-#  (2025-09-16)
+# [](https://github.com/TheR7angelo/MyExpenses/compare/v1.2.0...v) (2026-02-28)
+
+
+### Bug Fixes
+
+* **UI:** correct button column position in SaveLocationWindow XAML ([2232b6a](https://github.com/TheR7angelo/MyExpenses/commit/2232b6a3bc523c1bf956874892b3d053f85a0e4a))
+
+
+### Features
+
+* **Database:** add migration support with `DataBaseUpdater` and remove unused `TSupportedLanguage` table ([95b91f8](https://github.com/TheR7angelo/MyExpenses/commit/95b91f8706ad514e77927c552edd3ce54ba85695))
+* **DataSeeding:** introduce initial database seeding and culture support tests ([3bd936d](https://github.com/TheR7angelo/MyExpenses/commit/3bd936dc6360624f0248c0d423c2c7a6955e9abc))
+* **Maps:** add auto-zoom functionality to MapControl based on selected records' locations ([6defc91](https://github.com/TheR7angelo/MyExpenses/commit/6defc91d9675380c3ba7196ef65b7b4c44b4e451))
+* **RecordExpense:** display currency symbol prefix based on selected account ([2cc44ae](https://github.com/TheR7angelo/MyExpenses/commit/2cc44aec8f4d32835475f3ccf7820d62a4a4ed0f))
+* **RecordExpense:** display currency symbol prefix based on selected account ([b60dc3d](https://github.com/TheR7angelo/MyExpenses/commit/b60dc3dd86099d9e50330056bcb8ef27cce8b79a))
 
 
 
-# [1.2.0](https://github.com/TheR7angelo/MyExpenses/compare/v1.1.11...1.2.0) (2025-09-16)
+# [1.2.0](https://github.com/TheR7angelo/MyExpenses/compare/1.2.0...v1.2.0) (2025-09-16)
 
 
 ### Bug Fixes
