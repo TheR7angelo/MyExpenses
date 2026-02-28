@@ -52,8 +52,12 @@ public static class DateTimeExtensions
         if (cycle < 1) throw new ArgumentOutOfRangeException(nameof(cycle), @"Cycle must be greater than or equal to 1.");
 
         var dateOnly = recursiveFrequency.CalculateNextDueDate(baseDate, cycle);
-        if (modePayment is EModePayment.BankDirectDebit) dateOnly = dateOnly.AdjustForWeekends();
-        return dateOnly;
+        if (modePayment is not EModePayment.BankDirectDebit) return dateOnly;
+        var adjusted = dateOnly.AdjustForWeekends();
+
+        return adjusted.Year == dateOnly.Year && adjusted.Month == dateOnly.Month
+            ? adjusted
+            : dateOnly;
     }
 
     /// <summary>
@@ -74,7 +78,7 @@ public static class DateTimeExtensions
             ERecursiveFrequency.Monthly => baseDate.AddMonths(1 * cycle),
             ERecursiveFrequency.Bimonthly => baseDate.AddMonths(2 * cycle),
             ERecursiveFrequency.Trimonthly => baseDate.AddMonths(3 * cycle),
-            ERecursiveFrequency.Quarterly => baseDate.AddMonths(4 * cycle),
+            ERecursiveFrequency.Quadrimonthly => baseDate.AddMonths(4 * cycle),
             ERecursiveFrequency.SixMonthly => baseDate.AddMonths(6 * cycle),
             ERecursiveFrequency.Yearly => baseDate.AddYears(1 * cycle),
             _ => baseDate

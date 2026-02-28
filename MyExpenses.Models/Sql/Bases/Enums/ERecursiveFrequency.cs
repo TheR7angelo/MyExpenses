@@ -7,7 +7,7 @@ public enum ERecursiveFrequency
     Monthly,
     Bimonthly,
     Trimonthly,
-    Quarterly,
+    Quadrimonthly,
     SixMonthly,
     Yearly
 }
