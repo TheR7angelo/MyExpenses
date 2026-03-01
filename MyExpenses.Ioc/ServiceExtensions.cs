@@ -1,10 +1,11 @@
+using Mapster;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using MyExpenses.Application.AutoMapper;
 using MyExpenses.Application.DbStateProviders;
 using MyExpenses.Application.Interfaces;
+using MyExpenses.Application.Mapsters;
 using MyExpenses.Infrastructure.Repositories;
 using MyExpenses.Infrastructure.Services;
 using MyExpenses.Sql.Context;
@@ -20,13 +21,15 @@ public static class ServiceExtensions
 {
     private static void AddCommonServices(this IServiceCollection services, LogEventLevel logEventLevel = LogEventLevel.Information)
     {
+        var config = new TypeAdapterConfig();
+        config.Scan(typeof(AccountMapping).Assembly);
+        config.Scan(typeof(AccountServices).Assembly);
+        config.Scan(typeof(MyExpenses.Sql.AutoMapper.MappingProfile).Assembly);
+
         services.AddServiceLogging(logEventLevel);
 
         services.AddSingleton<IDbStateProvider, DbStateProvider>();
-        services.AddAutoMapper(_ => { },
-            typeof(MappingProfile).Assembly,
-            typeof(MyExpenses.Infrastructure.AutoMapper.MappingProfile).Assembly,
-            typeof(MyExpenses.Sql.AutoMapper.MappingProfile).Assembly);
+        services.AddSingleton(config).AddMapster();
 
         services.AddDbContext<DataBaseContext>((serviceProvider, options) =>
         {

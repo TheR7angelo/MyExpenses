@@ -1,4 +1,4 @@
-using AutoMapper;
+using MapsterMapper;
 using MyExpenses.Application.Dtos.Accounts;
 using MyExpenses.Application.Interfaces;
 using MyExpenses.Infrastructure.Repositories;
@@ -10,7 +10,7 @@ public class AccountServices(IAccountRepository accountRepository, IMapper mappe
     public async Task<IEnumerable<TotalByAccountDto>> GetAllTotalByAccountAsync()
     {
         var totalByAccountDomain = await accountRepository.GetTotalByAccountAsync();
-        var z = mapper.Map<IEnumerable<TotalByAccountDto>>(totalByAccountDomain);
-        return z;
+        var totalByAccountDtos = mapper.Map<IEnumerable<TotalByAccountDto>>(totalByAccountDomain);
+        return totalByAccountDtos;
     }
 }
