@@ -3,7 +3,7 @@ using Dropbox.Api;
 using Dropbox.Api.FileProperties;
 using Dropbox.Api.Files;
 using MyExpenses.Models.WebApi.Authenticator;
-using MyExpenses.Models.WebApi.DropBox;
+using MyExpenses.Models.WebApi.Dropbox;
 using MyExpenses.Share.Core.WebApi;
 using MyExpenses.SharedUtils;
 using Serilog;

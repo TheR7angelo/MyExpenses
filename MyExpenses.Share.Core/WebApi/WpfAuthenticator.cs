@@ -1,6 +1,6 @@
 using System.Net;
 using MyExpenses.Models.WebApi.Authenticator;
-using MyExpenses.Models.WebApi.DropBox;
+using MyExpenses.Models.WebApi.Dropbox;
 using MyExpenses.SharedUtils.Utils;
 
 namespace MyExpenses.Share.Core.WebApi;

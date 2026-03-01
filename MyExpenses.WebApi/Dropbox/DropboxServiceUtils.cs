@@ -1,6 +1,6 @@
 using MyExpenses.Models.IO;
 using MyExpenses.Models.WebApi.Authenticator;
-using MyExpenses.Models.WebApi.DropBox;
+using MyExpenses.Models.WebApi.Dropbox;
 using MyExpenses.SharedUtils.GlobalInfos;
 
 namespace MyExpenses.WebApi.Dropbox;

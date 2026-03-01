@@ -2,7 +2,7 @@
 using MyExpenses.Core;
 using MyExpenses.Models.IO;
 using MyExpenses.Models.WebApi.Authenticator;
-using MyExpenses.Models.WebApi.DropBox;
+using MyExpenses.Models.WebApi.Dropbox;
 using MyExpenses.SharedUtils.Collection;
 using MyExpenses.SharedUtils.GlobalInfos;
 using MyExpenses.SharedUtils.Resources.Resx.AccountManagement;

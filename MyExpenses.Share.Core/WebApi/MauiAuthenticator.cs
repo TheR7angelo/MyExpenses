@@ -1,6 +1,6 @@
 using Microsoft.Maui.Authentication;
 using MyExpenses.Models.WebApi.Authenticator;
-using MyExpenses.Models.WebApi.DropBox;
+using MyExpenses.Models.WebApi.Dropbox;
 
 namespace MyExpenses.Share.Core.WebApi;
 

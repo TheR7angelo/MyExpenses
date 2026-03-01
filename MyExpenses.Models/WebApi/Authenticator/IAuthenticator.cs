@@ -1,4 +1,4 @@
-using MyExpenses.Models.WebApi.DropBox;
+using MyExpenses.Models.WebApi.Dropbox;
 
 namespace MyExpenses.Models.WebApi.Authenticator;
 

@@ -1,6 +1,6 @@
 using Newtonsoft.Json;
 
-namespace MyExpenses.Models.WebApi.DropBox;
+namespace MyExpenses.Models.WebApi.Dropbox;
 
 public class AccessTokenAuthentication
 {

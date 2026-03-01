@@ -5,7 +5,7 @@ using MyExpenses.Core.Export;
 using MyExpenses.Maui.Utils.WebApi;
 using MyExpenses.Models.IO;
 using MyExpenses.Models.WebApi.Authenticator;
-using MyExpenses.Models.WebApi.DropBox;
+using MyExpenses.Models.WebApi.Dropbox;
 using MyExpenses.Models.Wpf.Save;
 using MyExpenses.SharedUtils.Collection;
 using MyExpenses.SharedUtils.GlobalInfos;

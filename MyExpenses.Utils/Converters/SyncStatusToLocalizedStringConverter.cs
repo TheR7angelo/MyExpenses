@@ -1,5 +1,5 @@
 ﻿using MyExpenses.Models.Utils;
-using MyExpenses.Models.WebApi.DropBox;
+using MyExpenses.Models.WebApi.Dropbox;
 using MyExpenses.Utils.Resources.Resx.Converters.SyncStatusToLocalizedStringConverter;
 
 namespace MyExpenses.Utils.Converters;
