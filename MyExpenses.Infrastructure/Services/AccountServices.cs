@@ -1,6 +1,6 @@
 using AutoMapper;
+using MyExpenses.Application.Dtos.Accounts;
 using MyExpenses.Application.Interfaces;
-using MyExpenses.Application.Models.Accounts;
 using MyExpenses.Infrastructure.Repositories;
 
 namespace MyExpenses.Infrastructure.Services;

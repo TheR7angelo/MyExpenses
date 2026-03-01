@@ -1,8 +1,8 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 
-namespace MyExpenses.Application.Models.Accounts;
+namespace MyExpenses.Application.ViewModels.Accounts;
 
-public partial class TotalByAccountDto : ObservableObject
+public partial class TotalByAccountViewModel : ObservableObject
 {
     [ObservableProperty]
     private int _id;

@@ -1,8 +1,8 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
+using MyExpenses.Application.Dtos.Accounts;
 using MyExpenses.Application.Interfaces;
-using MyExpenses.Application.Models.Accounts;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Models.Sql.Bases.Views;
 using MyExpenses.SharedUtils.Collection;
@@ -25,10 +25,6 @@ public partial class AccountManagementPage
     public AccountManagementPage(IAccountServices accountServices)
     {
         _accountServices = accountServices;
-        // ReSharper disable once HeapView.ObjectAllocation.Evident
-        // Necessary instantiation of DataBaseContext to interact with the database.
-        // This creates a scoped database context for performing queries and modifications in the database.
-        using var context = new DataBaseContextOld();
         _ = FillTotalByAccounts();
 
         InitializeComponent();

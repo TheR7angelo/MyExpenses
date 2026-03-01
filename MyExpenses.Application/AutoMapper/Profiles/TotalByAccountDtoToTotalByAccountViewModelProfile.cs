@@ -1,14 +1,14 @@
 using AutoMapper;
-using Domain.Models.Accounts;
-using TotalByAccountDto = MyExpenses.Application.Dtos.Accounts.TotalByAccountDto;
+using MyExpenses.Application.Dtos.Accounts;
+using MyExpenses.Application.ViewModels.Accounts;
 
 namespace MyExpenses.Application.AutoMapper.Profiles;
 
-public class TotalByAccountDomainToTotalByAccountDto : Profile
+public class TotalByAccountDtoToTotalByAccountViewModelProfile : Profile
 {
-    public TotalByAccountDomainToTotalByAccountDto()
+    public TotalByAccountDtoToTotalByAccountViewModelProfile()
     {
-        CreateMap<TotalByAccountDomain, TotalByAccountDto>()
+        CreateMap<TotalByAccountDto, TotalByAccountViewModel>()
             .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
             .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.Name))
             .ForMember(dest => dest.Total, opt => opt.MapFrom(src => src.Total))

@@ -1,5 +1,4 @@
-using Domain.Models.Accounts;
-using MyExpenses.Application.Models.Accounts;
+using MyExpenses.Application.Dtos.Accounts;
 
 namespace MyExpenses.Application.Interfaces;
 
