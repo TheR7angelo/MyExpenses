@@ -41,7 +41,7 @@ public partial class App
 
         #if DEBUG
         systemArgs.LogEventLevel = LogEventLevel.Debug;
-        systemArgs.LogEfCore = true;
+        systemArgs.LogEfCore = false;
         systemArgs.WriteToFileEfCore = true;
         #endif
 
@@ -77,7 +77,7 @@ public partial class App
             Log.Information("Apply interface configuration");
             LoadInterfaceConfiguration(configuration.Interface);
 
-            var mainWindow = new MainWindow();
+            var mainWindow  = ServiceProvider.GetRequiredService<MainWindow>();
             mainWindow.Show();
         }
         catch (Exception exception)

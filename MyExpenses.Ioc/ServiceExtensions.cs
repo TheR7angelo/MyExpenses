@@ -1,9 +1,10 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using MyExpenses.Application.AutoMapper;
 using MyExpenses.Application.DbStateProviders;
-using MyExpenses.Models.AutoMapper;
 using MyExpenses.Sql.Context;
+using Serilog.Events;
 
 namespace MyExpenses.Ioc;
 
@@ -12,17 +13,28 @@ namespace MyExpenses.Ioc;
 /// </summary>
 public static class ServiceExtensions
 {
-    private static void AddCommonServices(this IServiceCollection services)
+    private static void AddCommonServices(this IServiceCollection services, LogEventLevel logEventLevel = LogEventLevel.Information)
     {
+        services.AddServiceLogging(logEventLevel);
+
         services.AddSingleton<IDbStateProvider, DbStateProvider>();
         services.AddAutoMapper(_ => { },
             typeof(MappingProfile).Assembly,
             typeof(MyExpenses.Infrastructure.AutoMapper.MappingProfile).Assembly);
 
-        services.AddDbContext<DataBaseContext>((serviceProvider, options) =>
+        services.AddDbContext<DataBaseContextInjection>((serviceProvider, options) =>
         {
             var stateProvider = serviceProvider.GetRequiredService<IDbStateProvider>();
             options.UseSqlite(stateProvider.CurrentConnectionString);
+
+            #if DEBUG
+
+            var loggerFactory =serviceProvider.GetRequiredService<ILoggerFactory>();
+            options.UseLoggerFactory(loggerFactory)
+                .EnableSensitiveDataLogging()
+                .EnableDetailedErrors();
+
+            #endif
         });
     }
 
