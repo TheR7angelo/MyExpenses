@@ -2,5 +2,5 @@ namespace MyExpenses.Application.DbStateProviders;
 
 public interface IDbStateProvider
 {
-    public string CurrentConnectionString { get; set; }
+    public string? FilePath { get; set; }
 }

@@ -1,3 +1,4 @@
+using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -25,7 +26,16 @@ public static class ServiceExtensions
         services.AddDbContext<DataBaseContextInjection>((serviceProvider, options) =>
         {
             var stateProvider = serviceProvider.GetRequiredService<IDbStateProvider>();
-            options.UseSqlite(stateProvider.CurrentConnectionString);
+            if (stateProvider.FilePath is null)
+            {
+                throw new InvalidOperationException("Database file path is null");
+            }
+
+            var connectionString =
+                stateProvider.FilePath.BuildConnectionString(pooling: false,
+                    mode: SqliteOpenMode.ReadWrite);
+
+            options.UseSqlite(connectionString);
 
             #if DEBUG
 

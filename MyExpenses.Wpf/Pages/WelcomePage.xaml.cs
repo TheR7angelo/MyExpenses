@@ -111,7 +111,7 @@ public partial class WelcomePage
 
         Log.Information("Connection to the database : \"{FileName}\" with statut : {Status}", existingDatabase.FileNameWithoutExtension, existingDatabase.SyncStatus);
 
-        _dbStateProvider.CurrentConnectionString = existingDatabase.FilePath;
+        _dbStateProvider.FilePath = existingDatabase.FilePath;
         DataBaseContext.FilePath = existingDatabase.FilePath;
         // nameof(MainWindow.FrameBody).NavigateTo(typeof(DashBoard2Page));
 
