@@ -22,7 +22,7 @@ namespace MyExpenses.Wpf;
 
 public partial class App
 {
-    private IServiceProvider? ServiceProvider { get; set; }
+    public static IServiceProvider ServiceProvider { get; private set; } = null!;
 
     public static CancellationTokenSource CancellationTokenSource { get; private set; } = null!;
 

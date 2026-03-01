@@ -1,6 +1,6 @@
-﻿using System.Windows;
-using System.Windows.Controls;
+﻿using System.Windows.Controls;
 using System.Windows.Navigation;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace MyExpenses.Wpf;
 
@@ -134,7 +134,7 @@ public static class Navigator
             throw new ArgumentException("Type must be a subclass of Page");
         }
 
-        var page = Activator.CreateInstance(type) as Page;
+        var page = App.ServiceProvider.GetRequiredService(type) as Page;
 
         NavigationServices[nameOfFrame].Navigate(page);
         CanGoBack = true;
