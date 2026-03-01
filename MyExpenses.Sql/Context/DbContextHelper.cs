@@ -11,156 +11,153 @@ namespace MyExpenses.Sql.Context;
 
 public static class DbContextHelper
 {
-    /// <summary>
-    /// Builds a SQLite connection string based on the provided parameters.
-    /// </summary>
     /// <param name="dataSource">The file path to the SQLite database.</param>
-    /// <param name="mode">Specifies the mode in which to open the SQLite database. Default is ReadWrite.</param>
-    /// <param name="pooling">Determines whether connection pooling is enabled.</param>
-    /// <param name="cache">Specifies the cache mode for the SQLite connection. Default is Default.</param>
-    /// <param name="password">The password to secure the SQLite database, if applicable.</param>
-    /// <param name="foreignKeys">Specifies whether foreign key constraints should be enforced.</param>
-    /// <param name="recursiveTriggers">Determines whether recursive triggers are enabled.</param>
-    /// <param name="browsableConnectionString">Determines whether the connection string is included in diagnostic output.</param>
-    /// <param name="defaultTimeout">Sets the default timeout value for database operations.</param>
-    /// <returns>A fully configured SQLite connection string.</returns>
-    /// <exception cref="ArgumentException">Thrown if the dataSource is null, empty, or whitespace.</exception>
-    /// <exception cref="FileNotFoundException">Thrown if the specified dataSource file doesn't exist.</exception>
-    internal static string BuildConnectionString(this string dataSource,
-        SqliteOpenMode mode = SqliteOpenMode.ReadWrite,
-        bool pooling = false,
-        SqliteCacheMode cache = SqliteCacheMode.Default,
-        string? password = null,
-        bool? foreignKeys = null,
-        bool recursiveTriggers = false,
-        bool browsableConnectionString = false,
-        int defaultTimeout = 0)
+    extension(string dataSource)
     {
-        if (string.IsNullOrWhiteSpace(dataSource))
-            throw new ArgumentException(@"DataSource cannot be null or empty", nameof(dataSource));
-        if (!File.Exists(dataSource)) throw new FileNotFoundException("DataSource does not exist", dataSource);
-
-        // ReSharper disable once HeapView.ObjectAllocation.Evident
-        // Ignoring the performance hint regarding the use of StringBuilder for constructing the connection string.
-        // The use of List<string> here is deliberate for better readability and maintainability, especially
-        // given that the list of parameters is relatively small and the performance difference is negligible.
-        var parts = new List<string>
+        /// <summary>
+        /// Builds a SQLite connection string based on the provided parameters.
+        /// </summary>
+        /// <param name="mode">Specifies the mode in which to open the SQLite database. Default is ReadWrite.</param>
+        /// <param name="pooling">Determines whether connection pooling is enabled.</param>
+        /// <param name="cache">Specifies the cache mode for the SQLite connection. Default is Default.</param>
+        /// <param name="password">The password to secure the SQLite database, if applicable.</param>
+        /// <param name="foreignKeys">Specifies whether foreign key constraints should be enforced.</param>
+        /// <param name="recursiveTriggers">Determines whether recursive triggers are enabled.</param>
+        /// <param name="browsableConnectionString">Determines whether the connection string is included in diagnostic output.</param>
+        /// <param name="defaultTimeout">Sets the default timeout value for database operations.</param>
+        /// <returns>A fully configured SQLite connection string.</returns>
+        /// <exception cref="ArgumentException">Thrown if the dataSource is null, empty, or whitespace.</exception>
+        /// <exception cref="FileNotFoundException">Thrown if the specified dataSource file doesn't exist.</exception>
+        public string BuildConnectionString(SqliteOpenMode mode = SqliteOpenMode.ReadWrite,
+            bool pooling = false,
+            SqliteCacheMode cache = SqliteCacheMode.Default,
+            string? password = null,
+            bool? foreignKeys = null,
+            bool recursiveTriggers = false,
+            bool browsableConnectionString = false,
+            int defaultTimeout = 0)
         {
-            $"Data Source=\"{dataSource}\"",
-            $"Mode={mode}",
-            $"Pooling={pooling.ToString()}"
-        };
+            if (string.IsNullOrWhiteSpace(dataSource))
+                throw new ArgumentException(@"DataSource cannot be null or empty", nameof(dataSource));
+            if (!File.Exists(dataSource)) throw new FileNotFoundException("DataSource does not exist", dataSource);
 
-        if (cache is not SqliteCacheMode.Default) parts.Add($"Cache={cache}");
-        if (!string.IsNullOrEmpty(password)) parts.Add($"Password={password}");
-        if (foreignKeys.HasValue) parts.Add($"Foreign Keys={foreignKeys.Value}");
-        if (recursiveTriggers) parts.Add($"Recursive Triggers={recursiveTriggers.ToString()}");
-        if (browsableConnectionString) parts.Add($"Browsable Connection String={browsableConnectionString.ToString()}");
-        if (defaultTimeout is not 0) parts.Add($"Default Timeout={defaultTimeout}");
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
+            // Ignoring the performance hint regarding the use of StringBuilder for constructing the connection string.
+            // The use of List<string> here is deliberate for better readability and maintainability, especially
+            // given that the list of parameters is relatively small and the performance difference is negligible.
+            var parts = new List<string>
+            {
+                $"Data Source=\"{dataSource}\"",
+                $"Mode={mode}",
+                $"Pooling={pooling.ToString()}"
+            };
 
-        return string.Join(";", parts);
-    }
+            if (cache is not SqliteCacheMode.Default) parts.Add($"Cache={cache}");
+            if (!string.IsNullOrEmpty(password)) parts.Add($"Password={password}");
+            if (foreignKeys.HasValue) parts.Add($"Foreign Keys={foreignKeys.Value}");
+            if (recursiveTriggers) parts.Add($"Recursive Triggers={recursiveTriggers.ToString()}");
+            if (browsableConnectionString) parts.Add($"Browsable Connection String={browsableConnectionString.ToString()}");
+            if (defaultTimeout is not 0) parts.Add($"Default Timeout={defaultTimeout}");
 
-    /// <summary>
-    /// Executes a raw SQL query asynchronously using Entity Framework and returns the number of rows affected.
-    /// </summary>
-    /// <param name="sql">The raw SQL query to execute. The caller is responsible for ensuring the validity and safety of the query.</param>
-    /// <param name="tempFilePath">Optional parameter specifying a temporary file path for creating the database context. If null, the default data source is used.</param>
-    /// <returns>A task that represents the asynchronous operation. The task result contains the number of rows affected by the command.</returns>
-    /// <exception cref="ArgumentNullException">Thrown if the sql parameter is null or empty.</exception>
-    /// <exception cref="DbUpdateException">Thrown if an error occurs while attempting to perform the SQL operation.</exception>
-    public static async Task<int> ExecuteRawSqlAsync(this string sql, string? tempFilePath = null)
-    {
-        // ReSharper disable once HeapView.ObjectAllocation.Evident
-        // Using raw SQL execution here is necessary due to the specific nature of the operation that cannot be
-        // performed with Entity Framework's LINQ or other abstractions. The responsibility of ensuring the safety
-        // and correctness of the SQL query lies with the caller.
-        await using var context = new DataBaseContext(tempFilePath);
-        return await context.Database.ExecuteSqlRawAsync(sql);
-    }
+            return string.Join(";", parts);
+        }
 
-    /// <summary>
-    /// Executes a raw SQL statement against the database using a specific database context.
-    /// </summary>
-    /// <param name="sql">The raw SQL command to execute. It is the caller's responsibility to ensure the safety and correctness of the SQL syntax.</param>
-    /// <param name="tempFilePath">The file path of the database to use for this operation. If null, the default database context will be used.</param>
-    /// <returns>The number of rows affected by the SQL command.</returns>
-    /// <exception cref="ArgumentNullException">Thrown if the provided SQL command is null or empty.</exception>
-    /// <exception cref="InvalidOperationException">Thrown if the database context cannot be initialized properly.</exception>
-    /// <exception cref="DbUpdateException">Thrown if there is an error executing the SQL command.</exception>
-    public static int ExecuteRawSql(this string sql, string? tempFilePath = null)
-    {
-        // ReSharper disable once HeapView.ObjectAllocation.Evident
-        // Using raw SQL execution here is necessary due to the specific nature of the operation that cannot be
-        // performed with Entity Framework's LINQ or other abstractions. The responsibility of ensuring the safety
-        // and correctness of the SQL query lies with the caller.
-        using var context = new DataBaseContext(tempFilePath);
-        return context.Database.ExecuteSqlRaw(sql);
-    }
-
-    /// <summary>
-    /// Executes a raw SQL query and returns the result as a list of dictionaries, where each dictionary represents a record with key-value pairs corresponding to column names and their respective values.
-    /// </summary>
-    /// <param name="sql">The raw SQL query to execute.</param>
-    /// <param name="tempFilePath">The optional temporary file path for the database.</param>
-    /// <returns>A list of dictionaries where each dictionary contains column names as keys and their respective values as values.</returns>
-    /// <exception cref="InvalidOperationException">Thrown if the database connection couldn't be opened.</exception>
-    /// <exception cref="KeyNotFoundException">Thrown if the column name is not found in the result set.</exception>
-    public static IEnumerable<Dictionary<string, object?>> ExecuteRawSqlWithResponse(this string sql,
-        string? tempFilePath = null)
-    {
-        // ReSharper disable once HeapView.ObjectAllocation.Evident
-        // Using raw SQL execution here is necessary due to the specific nature of the operation that cannot be
-        // performed with Entity Framework's LINQ or other abstractions. The responsibility of ensuring the safety
-        // and correctness of the SQL query lies with the caller.
-        using var context = new DataBaseContext(tempFilePath);
-
-        var command = context.Database.GetDbConnection().CreateCommand();
-        command.CommandText = sql;
-
-        context.Database.OpenConnection();
-
-        using var reader = command.ExecuteReader();
-        while (reader.Read())
+        /// <summary>
+        /// Executes a raw SQL query asynchronously using Entity Framework and returns the number of rows affected.
+        /// </summary>
+        /// <param name="tempFilePath">Optional parameter specifying a temporary file path for creating the database context. If null, the default data source is used.</param>
+        /// <returns>A task that represents the asynchronous operation. The task result contains the number of rows affected by the command.</returns>
+        /// <exception cref="ArgumentNullException">Thrown if the sql parameter is null or empty.</exception>
+        /// <exception cref="DbUpdateException">Thrown if an error occurs while attempting to perform the SQL operation.</exception>
+        public async Task<int> ExecuteRawSqlAsync(string? tempFilePath = null)
         {
             // ReSharper disable once HeapView.ObjectAllocation.Evident
-            var row = new Dictionary<string, object?>();
-            for (var i = 0; i < reader.FieldCount; i++)
+            // Using raw SQL execution here is necessary due to the specific nature of the operation that cannot be
+            // performed with Entity Framework's LINQ or other abstractions. The responsibility of ensuring the safety
+            // and correctness of the SQL query lies with the caller.
+            await using var context = new DataBaseContext(tempFilePath);
+            return await context.Database.ExecuteSqlRawAsync(dataSource);
+        }
+
+        /// <summary>
+        /// Executes a raw SQL statement against the database using a specific database context.
+        /// </summary>
+        /// <param name="tempFilePath">The file path of the database to use for this operation. If null, the default database context will be used.</param>
+        /// <returns>The number of rows affected by the SQL command.</returns>
+        /// <exception cref="ArgumentNullException">Thrown if the provided SQL command is null or empty.</exception>
+        /// <exception cref="InvalidOperationException">Thrown if the database context cannot be initialized properly.</exception>
+        /// <exception cref="DbUpdateException">Thrown if there is an error executing the SQL command.</exception>
+        public int ExecuteRawSql(string? tempFilePath = null)
+        {
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
+            // Using raw SQL execution here is necessary due to the specific nature of the operation that cannot be
+            // performed with Entity Framework's LINQ or other abstractions. The responsibility of ensuring the safety
+            // and correctness of the SQL query lies with the caller.
+            using var context = new DataBaseContext(tempFilePath);
+            return context.Database.ExecuteSqlRaw(dataSource);
+        }
+
+        /// <summary>
+        /// Executes a raw SQL query and returns the result as a list of dictionaries, where each dictionary represents a record with key-value pairs corresponding to column names and their respective values.
+        /// </summary>
+        /// <param name="tempFilePath">The optional temporary file path for the database.</param>
+        /// <returns>A list of dictionaries where each dictionary contains column names as keys and their respective values as values.</returns>
+        /// <exception cref="InvalidOperationException">Thrown if the database connection couldn't be opened.</exception>
+        /// <exception cref="KeyNotFoundException">Thrown if the column name is not found in the result set.</exception>
+        public IEnumerable<Dictionary<string, object?>> ExecuteRawSqlWithResponse(string? tempFilePath = null)
+        {
+            // ReSharper disable once HeapView.ObjectAllocation.Evident
+            // Using raw SQL execution here is necessary due to the specific nature of the operation that cannot be
+            // performed with Entity Framework's LINQ or other abstractions. The responsibility of ensuring the safety
+            // and correctness of the SQL query lies with the caller.
+            using var context = new DataBaseContext(tempFilePath);
+
+            var command = context.Database.GetDbConnection().CreateCommand();
+            command.CommandText = dataSource;
+
+            context.Database.OpenConnection();
+
+            using var reader = command.ExecuteReader();
+            while (reader.Read())
             {
-                var fieldName = reader.GetName(i);
-                var value = reader.IsDBNull(i)
-                    ? null
-                    : reader.GetValue(i);
-                row.Add(fieldName, value);
+                // ReSharper disable once HeapView.ObjectAllocation.Evident
+                var row = new Dictionary<string, object?>();
+                for (var i = 0; i < reader.FieldCount; i++)
+                {
+                    var fieldName = reader.GetName(i);
+                    var value = reader.IsDBNull(i)
+                        ? null
+                        : reader.GetValue(i);
+                    row.Add(fieldName, value);
+                }
+
+                yield return row;
             }
-
-            yield return row;
         }
-    }
 
-    /// <summary>
-    /// Performs a vacuum operation on the specified SQLite database to rebuild the database file,
-    /// optimize its structure, and reduce its size.
-    /// </summary>
-    /// <param name="dataBaseFilePath">The file path of the SQLite database to be vacuumed.</param>
-    /// <returns>
-    /// True if the vacuum operation completes successfully; false if an error occurs during the process.
-    /// </returns>
-    public static bool VacuumDatabase(this string dataBaseFilePath)
-    {
-        Log.Information("Starting to vacuum database: {DatabasePath}", dataBaseFilePath);
+        /// <summary>
+        /// Performs a vacuum operation on the specified SQLite database to rebuild the database file,
+        /// optimize its structure, and reduce its size.
+        /// </summary>
+        /// <returns>
+        /// True if the vacuum operation completes successfully; false if an error occurs during the process.
+        /// </returns>
+        public bool VacuumDatabase()
+        {
+            Log.Information("Starting to vacuum database: {DatabasePath}", dataSource);
 
-        try
-        {
-            var row = "VACUUM ;".ExecuteRawSql(dataBaseFilePath);
-            Log.Information("Database vacuumed successfully");
-            Log.Information("Number of rows affected: {Row}", row);
-            return true;
-        }
-        catch (Exception e)
-        {
-            Log.Error(e, "An error occured while vacuuming the database");
-            return false;
+            try
+            {
+                var row = "VACUUM ;".ExecuteRawSql(dataSource);
+                Log.Information("Database vacuumed successfully");
+                Log.Information("Number of rows affected: {Row}", row);
+                return true;
+            }
+            catch (Exception e)
+            {
+                Log.Error(e, "An error occured while vacuuming the database");
+                return false;
+            }
         }
     }
 
