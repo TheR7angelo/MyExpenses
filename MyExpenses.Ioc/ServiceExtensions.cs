@@ -4,7 +4,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using MyExpenses.Application.AutoMapper;
 using MyExpenses.Application.DbStateProviders;
+using MyExpenses.Application.Interfaces;
+using MyExpenses.Infrastructure.Repositories;
+using MyExpenses.Infrastructure.Services;
 using MyExpenses.Sql.Context;
+using MyExpenses.Sql.Repositories;
 using Serilog.Events;
 
 namespace MyExpenses.Ioc;
@@ -21,7 +25,8 @@ public static class ServiceExtensions
         services.AddSingleton<IDbStateProvider, DbStateProvider>();
         services.AddAutoMapper(_ => { },
             typeof(MappingProfile).Assembly,
-            typeof(MyExpenses.Infrastructure.AutoMapper.MappingProfile).Assembly);
+            typeof(MyExpenses.Infrastructure.AutoMapper.MappingProfile).Assembly,
+            typeof(MyExpenses.Sql.AutoMapper.MappingProfile).Assembly);
 
         services.AddDbContext<DataBaseContext>((serviceProvider, options) =>
         {
@@ -46,6 +51,10 @@ public static class ServiceExtensions
 
             #endif
         });
+
+        services.AddScoped<IAccountRepository, AccountRepository>()
+            .AddScoped<IAccountServices, AccountServices>()
+            ;
     }
 
     /// <summary>

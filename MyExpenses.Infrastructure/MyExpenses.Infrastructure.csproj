@@ -9,7 +9,6 @@
     <ItemGroup>
       <ProjectReference Include="..\MyExpenses.Application\MyExpenses.Application.csproj" />
       <ProjectReference Include="..\MyExpenses.Domain\MyExpenses.Domain.csproj" />
-      <ProjectReference Include="..\MyExpenses.Sql\MyExpenses.Sql.csproj" />
     </ItemGroup>
 
     <ItemGroup>

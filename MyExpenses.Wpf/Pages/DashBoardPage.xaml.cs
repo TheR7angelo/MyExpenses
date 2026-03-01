@@ -3,7 +3,9 @@ using System.Globalization;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using CommunityToolkit.Mvvm.Messaging;
 using FilterDataGrid;
+using MyExpenses.Application.Messages;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Models.Sql.Bases.Views;
@@ -421,6 +423,14 @@ public partial class DashBoardPage
         Interface.ThemeChanged += Interface_OnThemeChanged;
         Interface.LanguageChanged += Interface_OnLanguageChanged;
         // ReSharper restore HeapView.DelegateAllocation
+
+        WeakReferenceMessenger.Default.Register<EntityChangedMessage>(this, (r, m) =>
+        {
+            if (m.Value.EntityType is EntityType.Account && m.Value.DataAction is DataAction.Update or DataAction.Delete or DataAction.Add)
+            {
+                System.Windows.Application.Current.Dispatcher.Invoke(RefreshAccountTotal);
+            }
+        });
     }
 
     #region Action
@@ -432,8 +442,10 @@ public partial class DashBoardPage
         // ReSharper disable once HeapView.ObjectAllocation.Evident
         // The AccountManagementPage instance is created with the specified DashBoardPage instance to handle account management operations.
         // ShowDialog() is used to open the window modally, pausing the current execution flow until the user closes the dialog.
-        var page = new AccountManagementPage { DashBoardPage = this };
-        nameof(MainWindow.FrameBody).NavigateTo(page);
+        // var page = new AccountManagementPage { DashBoardPage = this };
+        // nameof(MainWindow.FrameBody).NavigateTo(page);
+
+        nameof(MainWindow.FrameBody).NavigateTo(typeof(AccountManagementPage));
     }
 
     private void ButtonAccountTypeManagement_OnClick(object sender, RoutedEventArgs e)

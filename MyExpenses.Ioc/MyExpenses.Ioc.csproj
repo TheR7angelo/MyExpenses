@@ -11,6 +11,7 @@
       <ProjectReference Include="..\MyExpenses.Infrastructure\MyExpenses.Infrastructure.csproj"
                         PrivateAssets="All">
       </ProjectReference>
+      <ProjectReference Include="..\MyExpenses.Sql\MyExpenses.Sql.csproj" />
     </ItemGroup>
 
     <ItemGroup>

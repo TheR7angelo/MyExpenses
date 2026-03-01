@@ -1,6 +1,8 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
+using MyExpenses.Application.Interfaces;
+using MyExpenses.Application.Models.Accounts;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Models.Sql.Bases.Views;
 using MyExpenses.SharedUtils.Collection;
@@ -15,18 +17,27 @@ namespace MyExpenses.Wpf.Pages;
 
 public partial class AccountManagementPage
 {
-    public ObservableCollection<VTotalByAccount> TotalByAccounts { get; }
-    internal DashBoardPage? DashBoardPage { get; init; }
+    public ObservableCollection<TotalByAccountDto> TotalByAccounts { get; } = [];
+    // internal DashBoardPage? DashBoardPage { get; init; }
 
-    public AccountManagementPage()
+    private readonly IAccountServices _accountServices;
+
+    public AccountManagementPage(IAccountServices accountServices)
     {
+        _accountServices = accountServices;
         // ReSharper disable once HeapView.ObjectAllocation.Evident
         // Necessary instantiation of DataBaseContext to interact with the database.
         // This creates a scoped database context for performing queries and modifications in the database.
         using var context = new DataBaseContextOld();
-        TotalByAccounts = [..context.VTotalByAccounts.OrderBy(s => s.Name)];
+        _ = FillTotalByAccounts();
 
         InitializeComponent();
+    }
+
+    private async Task FillTotalByAccounts()
+    {
+        var totalByAccounts = await _accountServices.GetAllTotalByAccountAsync();
+        TotalByAccounts.AddRangeAndSort(totalByAccounts, s => s.Name);
     }
 
     #region Action
@@ -64,8 +75,9 @@ public partial class AccountManagementPage
             var newVTotalByAccount = newAccount.Id.ToISql<VTotalByAccount>();
             if (newVTotalByAccount is null) return;
 
-            TotalByAccounts.AddAndSort(newVTotalByAccount, s => s.Name!);
-            DashBoardPage?.RefreshAccountTotal();
+            // TODO CLEAN
+            // TotalByAccounts.AddAndSort(newVTotalByAccount, s => s.Name!);
+            // DashBoardPage?.RefreshAccountTotal();
         }
         else
         {
@@ -94,8 +106,9 @@ public partial class AccountManagementPage
         if (addEditAccountWindow.DialogResult is not true) return;
         if (addEditAccountWindow.DeleteAccount)
         {
-            TotalByAccounts.Remove(vTotalByAccount);
-            DashBoardPage?.RefreshAccountTotal();
+            // TODO CLEAN
+            // TotalByAccounts.Remove(vTotalByAccount);
+            // DashBoardPage?.RefreshAccountTotal();
             return;
         }
 
@@ -114,10 +127,12 @@ public partial class AccountManagementPage
             var newVTotalByAccount = editedAccount.Id.ToISql<VTotalByAccount>();
             if (newVTotalByAccount is null) return;
 
-            TotalByAccounts.Remove(vTotalByAccount);
+            // TODO CLEAN
+            // TotalByAccounts.Remove(vTotalByAccount);
 
-            TotalByAccounts.AddAndSort(newVTotalByAccount, s => s.Name!);
-            DashBoardPage?.RefreshAccountTotal();
+            // TODO CLEAN
+            // TotalByAccounts.AddAndSort(newVTotalByAccount, s => s.Name!);
+            // DashBoardPage?.RefreshAccountTotal();
         }
         else
         {
