@@ -120,7 +120,7 @@ public partial class DashBoardShell
         // This is required to reset the application's navigation or interface when logging out.
         // AppShell serves as the main entry point for the application, and a new instance ensures a clean state.
         var appShell = new AppShell();
-        Application.Current!.Windows[0].Page = appShell;
+        Microsoft.Maui.Controls.Application.Current!.Windows[0].Page = appShell;
     }
 
     #endregion

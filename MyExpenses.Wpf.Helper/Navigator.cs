@@ -1,5 +1,4 @@
-﻿using System.Windows;
-using System.Windows.Controls;
+﻿using System.Windows.Controls;
 using System.Windows.Navigation;
 
 namespace MyExpenses.Wpf.Helper;
@@ -16,7 +15,7 @@ public static class Navigator
     /// </summary>
     static Navigator()
     {
-        var mainWindow = (MainWindow)Application.Current.MainWindow!;
+        var mainWindow = (MainWindow)System.Windows.Application.Current.MainWindow!;
         var frame = mainWindow.FrameBody;
         frame.RegisterFrame();
     }

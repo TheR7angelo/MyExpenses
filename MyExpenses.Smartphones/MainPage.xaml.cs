@@ -58,7 +58,7 @@ public partial class MainPage
             // Create a new instance of DashBoardShell and assign the selected database.
             // This action allocates memory for the new shell object and switches the application to the new shell.
             var dashBoardShell = new DashBoardShell { SelectedDatabase = existingDatabase };
-            Application.Current!.Windows[0].Page = dashBoardShell;
+            Microsoft.Maui.Controls.Application.Current!.Windows[0].Page = dashBoardShell;
 
             await Task.Delay(TimeSpan.FromSeconds(5));
         });
