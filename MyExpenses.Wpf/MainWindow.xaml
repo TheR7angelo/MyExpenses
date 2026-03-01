@@ -156,7 +156,6 @@
         </materialDesign:Card>
 
         <Frame Grid.Row="1" x:Name="FrameBody" NavigationUIVisibility="Hidden"
-               Source="Pages/WelcomePage.xaml"
                IsTabStop="False"
                PreviewMouseUp="FrameBody_OnPreviewMouseUp">
         </Frame>

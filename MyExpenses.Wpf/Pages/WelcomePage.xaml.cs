@@ -2,6 +2,7 @@ using System.Collections.ObjectModel;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
+using MyExpenses.Application.DbStateProviders;
 using MyExpenses.Core;
 using MyExpenses.Models.IO;
 using MyExpenses.Models.WebApi.Authenticator;
@@ -20,10 +21,13 @@ namespace MyExpenses.Wpf.Pages;
 
 public partial class WelcomePage
 {
+    private readonly IDbStateProvider _dbStateProvider;
+
     public ObservableCollection<ExistingDatabase> ExistingDatabases { get; } = [];
 
-    public WelcomePage()
+    public WelcomePage(IDbStateProvider dbStateProvider)
     {
+        _dbStateProvider = dbStateProvider;
         ExistingDatabases.RefreshExistingDatabases(ProjectSystem.Wpf);
 
         InitializeComponent();
@@ -107,6 +111,7 @@ public partial class WelcomePage
 
         Log.Information("Connection to the database : \"{FileName}\" with statut : {Status}", existingDatabase.FileNameWithoutExtension, existingDatabase.SyncStatus);
 
+        _dbStateProvider.CurrentConnectionString = existingDatabase.FilePath;
         DataBaseContext.FilePath = existingDatabase.FilePath;
         // nameof(MainWindow.FrameBody).NavigateTo(typeof(DashBoard2Page));
 

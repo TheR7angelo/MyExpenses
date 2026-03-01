@@ -8,6 +8,7 @@ using MyExpenses.Models.IO;
 using MyExpenses.SharedUtils.Resources.Resx.DashBoardManagement;
 using MyExpenses.SharedUtils.Utils;
 using MyExpenses.Sql.Context;
+using MyExpenses.Wpf.Pages;
 using MyExpenses.Wpf.Resources.Resx.Windows.MainWindow;
 using MyExpenses.Wpf.Utils;
 using MyExpenses.Wpf.Windows;
@@ -138,7 +139,7 @@ public partial class MainWindow
 
     #endregion
 
-    public MainWindow()
+    public MainWindow(WelcomePage welcomePage)
     {
         var assembly = Assembly.GetEntryAssembly()!;
         ApplicationName = assembly.GetName().Name!;
@@ -147,6 +148,7 @@ public partial class MainWindow
 
         InitializeComponent();
 
+        FrameBody.Content = welcomePage;
         this.SetWindowCornerPreference();
 
         // ReSharper disable HeapView.DelegateAllocation

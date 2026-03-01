@@ -11,6 +11,7 @@ using MyExpenses.SharedUtils.Resources;
 using MyExpenses.Sql.Context;
 using MyExpenses.Utils;
 using MyExpenses.Utils.Systems;
+using MyExpenses.Wpf.DependencyInjections;
 using MyExpenses.Wpf.Utils;
 using Serilog.Events;
 using Log = Serilog.Log;
@@ -21,7 +22,7 @@ namespace MyExpenses.Wpf;
 
 public partial class App
 {
-    public IServiceProvider? ServiceProvider { get; private set; }
+    private IServiceProvider? ServiceProvider { get; set; }
 
     public static CancellationTokenSource CancellationTokenSource { get; private set; } = null!;
 
@@ -29,6 +30,8 @@ public partial class App
     {
         var serviceCollection = new ServiceCollection();
         serviceCollection.AddWpfServices();
+        serviceCollection.AddAutoRegisteredViews();
+
         ServiceProvider = serviceCollection.BuildServiceProvider();
 
         AppDomain.CurrentDomain.ProcessExit += CurrentDomainOnProcessExit;
