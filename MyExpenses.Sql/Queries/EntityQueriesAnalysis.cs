@@ -22,7 +22,7 @@ public static class EntityQueriesAnalysis
         // by the LINQ to Entities query provider (EF Core) to LINQ to Objects,
         // as operations like GroupBy are not always supported or optimized
         // by the SQL database engine.
-        using var context = new DataBaseContext();
+        using var context = new DataBaseContextOld();
         var groupsByModePaymentCategory = context.AnalysisVAccountModePaymentCategoryMonthlySums
             .Where(s => s.AccountFk == accountId)
             .GroupBy(v => new { v.AccountFk, v.Account, v.ModePayment, v.Period, v.CurrencyFk, v.Currency })
@@ -60,7 +60,7 @@ public static class EntityQueriesAnalysis
         // by the LINQ to Entities query provider (EF Core) to LINQ to Objects,
         // as operations like GroupBy are not always supported or optimized
         // by the SQL database engine.
-        using var context = new DataBaseContext();
+        using var context = new DataBaseContextOld();
         var records = context.AnalysisVAccountCategoryMonthlySumPositiveNegatives
             .Where(s => s.AccountFk == accountId)
             .AsEnumerable()
@@ -80,7 +80,7 @@ public static class EntityQueriesAnalysis
     {
         // ReSharper disable once HeapView.ObjectAllocation.Evident
         // Retrieve records from the database filtered by AccountFk.
-        using var context = new DataBaseContext();
+        using var context = new DataBaseContextOld();
 
         var groupsByCategories = context.AnalysisVAccountCategoryMonthlySums
             .Where(s => s.AccountFk == accountId)
@@ -111,7 +111,7 @@ public static class EntityQueriesAnalysis
     {
         // ReSharper disable once HeapView.ObjectAllocation.Evident
         // Retrieve records from the database.
-        using var context = new DataBaseContext();
+        using var context = new DataBaseContextOld();
         var groupsByPeriods = context.AnalysisVAccountMonthlyCumulativeSums
             .OrderBy(s => s.Period).ThenBy(s => s.AccountFk)
             .AsEnumerable()
@@ -129,7 +129,7 @@ public static class EntityQueriesAnalysis
     {
         // ReSharper disable once HeapView.ObjectAllocation.Evident
         // Retrieve records from the database.
-        using var context = new DataBaseContext();
+        using var context = new DataBaseContextOld();
         var records = context.AnalysisVBudgetPeriodAnnuals
             .AsEnumerable()
             .GroupBy(s => s.Period)
@@ -146,7 +146,7 @@ public static class EntityQueriesAnalysis
     {
         // ReSharper disable once HeapView.ObjectAllocation.Evident
         // Retrieve records from the database.
-        using var context = new DataBaseContext();
+        using var context = new DataBaseContextOld();
         var records = context.AnalysisVBudgetMonthlies
             .AsEnumerable()
             .GroupBy(s => s.Period)
@@ -163,7 +163,7 @@ public static class EntityQueriesAnalysis
     {
         // ReSharper disable once HeapView.ObjectAllocation.Evident
         // Retrieve records from the database.
-        using var context = new DataBaseContext();
+        using var context = new DataBaseContextOld();
         var records = context.AnalysisVBudgetTotalAnnuals
             .AsEnumerable()
             .GroupBy(s => s.Period)

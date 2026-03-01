@@ -235,7 +235,7 @@ public partial class DashBoardContentPage
         // operations on the database tables and views. Using the `using` statement ensures
         // proper disposal of resources (like database connections) once the context is no
         // longer needed, optimizing resource management and preventing potential memory leaks.
-        using var context = new DataBaseContext();
+        using var context = new DataBaseContextOld();
         Years =
         [
             ..context.GetDistinctYearsFromHistories(SortOrder.Descending)
@@ -427,7 +427,7 @@ public partial class DashBoardContentPage
         // The creation of a new DataBaseContext instance (via `new DataBaseContext()`) is necessary to interact with the database.
         // This context provides the connection to the database and allows querying or updating data.
         // The `using` statement ensures that the context is disposed of properly after its use, freeing up resources like database connections.
-        await using var context = new DataBaseContext();
+        await using var context = new DataBaseContextOld();
         var categoryTypeFk = context.THistories
             .Where(s => historyIds.Contains(s.Id))
             .Select(s => s.CategoryTypeFk!)
@@ -550,7 +550,7 @@ public partial class DashBoardContentPage
         // The creation of a new DataBaseContext instance (via `new DataBaseContext()`) is necessary to interact with the database.
         // This context provides the connection to the database and allows querying or updating data.
         // The `using` statement ensures that the context is disposed of properly after its use, freeing up resources like database connections.
-        await using var context = new DataBaseContext();
+        await using var context = new DataBaseContextOld();
         var modePaymentFk = context.THistories
             .Where(s => historyIds.Contains(s.Id))
             .Select(s => s.ModePaymentFk!)
@@ -588,7 +588,7 @@ public partial class DashBoardContentPage
         // The creation of a new DataBaseContext instance (via `new DataBaseContext()`) is necessary to interact with the database.
         // This context provides the connection to the database and allows querying or updating data.
         // The `using` statement ensures that the context is disposed of properly after its use, freeing up resources like database connections.
-        await using var context = new DataBaseContext();
+        await using var context = new DataBaseContextOld();
         var placeFk = context.THistories
             .Where(s => historyIds.Contains(s.Id))
             .Select(s => s.PlaceFk!)
@@ -773,7 +773,7 @@ public partial class DashBoardContentPage
         // The creation of a new DataBaseContext instance (via `new DataBaseContext()`) is necessary to interact with the database.
         // This context provides the connection to the database and allows querying or updating data.
         // The `using` statement ensures that the context is disposed of properly after its use, freeing up resources like database connections.
-        using var context = new DataBaseContext();
+        using var context = new DataBaseContextOld();
         // ReSharper disable once HeapView.ClosureAllocation
         var newVTotalByAccounts = context.VTotalByAccounts.ToArray();
 
@@ -812,7 +812,7 @@ public partial class DashBoardContentPage
         // The creation of a new DataBaseContext instance (via `new DataBaseContext()`) is necessary to interact with the database.
         // This context provides the connection to the database and allows querying or updating data.
         // The `using` statement ensures that the context is disposed of properly after its use, freeing up resources like database connections.
-        using var context = new DataBaseContext();
+        using var context = new DataBaseContextOld();
         var newVTotalByAccount = context.VTotalByAccounts.FirstOrDefault(s => s.Id.Equals(id));
         if (newVTotalByAccount is null) return;
 
@@ -859,7 +859,7 @@ public partial class DashBoardContentPage
         // The creation of a new DataBaseContext instance (via `new DataBaseContext()`) is necessary to interact with the database.
         // This context provides the connection to the database and allows querying or updating data.
         // The `using` statement ensures that the context is disposed of properly after its use, freeing up resources like database connections.
-        using var context = new DataBaseContext();
+        using var context = new DataBaseContextOld();
 
         int? monthInt = null;
         if (!string.IsNullOrEmpty(SelectedMonth))

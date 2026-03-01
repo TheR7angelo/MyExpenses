@@ -17,7 +17,7 @@ public static class PopupFilterToTableUtils
     {
         // ReSharper disable once HeapView.ClosureAllocation
         // ReSharper disable once HeapView.ObjectAllocation.Evident
-        using var context = new DataBaseContext();
+        using var context = new DataBaseContextOld();
 
         var type = typeof(T);
         if (type == typeof(TAccount))

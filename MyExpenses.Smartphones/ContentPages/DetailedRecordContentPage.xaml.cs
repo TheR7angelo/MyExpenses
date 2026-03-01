@@ -306,7 +306,7 @@ public partial class DetailedRecordContentPage
         // The creation of a new DataBaseContext instance (via `new DataBaseContext()`) is necessary to interact with the database.
         // This context provides the connection to the database and allows querying or updating data.
         // The `using` statement ensures that the context is disposed of properly after its use, freeing up resources like database connections.
-        using var context = new DataBaseContext();
+        using var context = new DataBaseContextOld();
         ModePayments.AddRange(context.TModePayments.OrderBy(s => s.Name));
         CategoryTypes.AddRange(context.TCategoryTypes.OrderBy(s => s.Name));
         Accounts.AddRange(context.TAccounts.OrderBy(s => s.Name));
@@ -409,7 +409,7 @@ public partial class DetailedRecordContentPage
         // The creation of a new DataBaseContext instance (via `new DataBaseContext()`) is necessary to interact with the database.
         // This context provides the connection to the database and allows querying or updating data.
         // The `using` statement ensures that the context is disposed of properly after its use, freeing up resources like database connections.
-        using var context = new DataBaseContext();
+        using var context = new DataBaseContextOld();
         var query = context.TPlaces.Where(s => s.IsOpen);
 
         IQueryable<TPlace> records;
@@ -455,7 +455,7 @@ public partial class DetailedRecordContentPage
         // The creation of a new DataBaseContext instance (via `new DataBaseContext()`) is necessary to interact with the database.
         // This context provides the connection to the database and allows querying or updating data.
         // The `using` statement ensures that the context is disposed of properly after its use, freeing up resources like database connections.
-        using var context = new DataBaseContext();
+        using var context = new DataBaseContextOld();
         var query = context.TPlaces.Where(s => s.IsOpen);
 
         IQueryable<TPlace> records;
@@ -654,7 +654,7 @@ public partial class DetailedRecordContentPage
 
         if (History.BankTransferFk is not null)
         {
-            await using var context = new DataBaseContext();
+            await using var context = new DataBaseContextOld();
             var bankTransfer = context.TBankTransfers.FirstOrDefault(s => s.Id == History.BankTransferFk);
             if (bankTransfer is not null)
             {
@@ -702,7 +702,7 @@ public partial class DetailedRecordContentPage
             // The creation of a new DataBaseContext instance (via `new DataBaseContext()`) is necessary to interact with the database.
             // This context provides the connection to the database and allows querying or updating data.
             // The `using` statement ensures that the context is disposed of properly after its use, freeing up resources like database connections.
-            using var context = new DataBaseContext();
+            using var context = new DataBaseContextOld();
             var history = context.THistories.First(s => s.Id.Equals(historyPk));
             history.CopyPropertiesTo(History);
         }
@@ -740,7 +740,7 @@ public partial class DetailedRecordContentPage
             // The creation of a new DataBaseContext instance (via `new DataBaseContext()`) is necessary to interact with the database.
             // This context provides the connection to the database and allows querying or updating data.
             // The `using` statement ensures that the context is disposed of properly after its use, freeing up resources like database connections.
-            using var context = new DataBaseContext();
+            using var context = new DataBaseContextOld();
 
             // ReSharper disable once HeapView.DelegateAllocation
             // ReSharper disable once HeapView.ClosureAllocation
@@ -762,7 +762,7 @@ public partial class DetailedRecordContentPage
             // The creation of a new DataBaseContext instance (via `new DataBaseContext()`) is necessary to interact with the database.
             // This context provides the connection to the database and allows querying or updating data.
             // The `using` statement ensures that the context is disposed of properly after its use, freeing up resources like database connections.
-            using var context = new DataBaseContext();
+            using var context = new DataBaseContextOld();
             var account = context.TAccounts.First(s => s.Id.Equals(History.AccountFk.Value));
             var currency = context.TCurrencies.First(s => s.Id.Equals(account.CurrencyFk!.Value));;
             symbol = currency.Symbol!;

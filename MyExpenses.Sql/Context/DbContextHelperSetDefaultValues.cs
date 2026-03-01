@@ -8,14 +8,14 @@ namespace MyExpenses.Sql.Context;
 
 public static class DbContextHelperSetDefaultValues
 {
-    public static bool SetAllDefaultValues(this DataBaseContext context)
+    public static bool SetAllDefaultValues(this DataBaseContextOld contextOld)
     {
         try
         {
-            context.SetDefaultTColor();
-            context.SetDefaultTModePayment();
-            context.SetDefaultTPlace();
-            context.SetDefaultRecursiveFrequency();
+            contextOld.SetDefaultTColor();
+            contextOld.SetDefaultTModePayment();
+            contextOld.SetDefaultTPlace();
+            contextOld.SetDefaultRecursiveFrequency();
             return true;
         }
         catch (Exception e)
@@ -25,13 +25,13 @@ public static class DbContextHelperSetDefaultValues
         }
     }
 
-    public static bool UpdateAllDefaultValues(this DataBaseContext context)
+    public static bool UpdateAllDefaultValues(this DataBaseContextOld contextOld)
     {
         try
         {
-            context.UpdateDefaultTModePayment();
-            context.UpdateDefaultTPlace();
-            context.UpdateDefaultRecursiveFrequency();
+            contextOld.UpdateDefaultTModePayment();
+            contextOld.UpdateDefaultTPlace();
+            contextOld.UpdateDefaultRecursiveFrequency();
             return true;
         }
         catch (Exception e)
@@ -41,7 +41,7 @@ public static class DbContextHelperSetDefaultValues
         }
     }
 
-    private static void SetDefaultRecursiveFrequency(this DataBaseContext context)
+    private static void SetDefaultRecursiveFrequency(this DataBaseContextOld contextOld)
     {
         // ReSharper disable HeapView.ObjectAllocation.Evident
         // All the allocations and default values set in this method are mandatory to ensure the database is initialized
@@ -93,10 +93,10 @@ public static class DbContextHelperSetDefaultValues
         };
         // ReSharper restore HeapView.ObjectAllocation.Evident
 
-        context.TRecursiveFrequencies.AddRange(recursiveFrequencies);
+        contextOld.TRecursiveFrequencies.AddRange(recursiveFrequencies);
     }
 
-    private static void UpdateDefaultRecursiveFrequency(this DataBaseContext context)
+    private static void UpdateDefaultRecursiveFrequency(this DataBaseContextOld contextOld)
     {
         // ReSharper disable once HeapView.ObjectAllocation.Evident
         // This method ensures that the default values for recursive frequencies are updated in the database.
@@ -123,7 +123,7 @@ public static class DbContextHelperSetDefaultValues
                 DbContextHelperSetDefaultValuesResources.DefaultTRecursiveFrequencyYearlyDefinition)
         };
 
-        var records = context.TRecursiveFrequencies.Take(oldDefaultTRecursiveFrequency.Count).AsEnumerable();
+        var records = contextOld.TRecursiveFrequencies.Take(oldDefaultTRecursiveFrequency.Count).AsEnumerable();
         foreach (var record in records)
         {
             record.Frequency = oldDefaultTRecursiveFrequency[record.Id - 1].Frequency;
@@ -131,7 +131,7 @@ public static class DbContextHelperSetDefaultValues
         }
     }
 
-    private static void SetDefaultTPlace(this DataBaseContext context)
+    private static void SetDefaultTPlace(this DataBaseContextOld contextOld)
     {
         // ReSharper disable once HeapView.ObjectAllocation.Evident
         // This method sets the default value for the "TPlace" table. The predefined value
@@ -139,16 +139,16 @@ public static class DbContextHelperSetDefaultValues
         // default entry that cannot be deleted. This allocation ensures the application behaves as expected,
         // especially in scenarios where a default place is required.
         var place = new TPlace { Name = DbContextHelperSetDefaultValuesResources.DefaultTPlaceNameInternet, CanBeDeleted = false };
-        context.TPlaces.Add(place);
+        contextOld.TPlaces.Add(place);
     }
 
-    private static void UpdateDefaultTPlace(this DataBaseContext context)
+    private static void UpdateDefaultTPlace(this DataBaseContextOld contextOld)
     {
-        var oldDefaultTPlace = context.TPlaces.First(s => s.Id.Equals(1));
+        var oldDefaultTPlace = contextOld.TPlaces.First(s => s.Id.Equals(1));
         oldDefaultTPlace.Name = DbContextHelperSetDefaultValuesResources.DefaultTPlaceNameInternet;
     }
 
-    private static void SetDefaultTModePayment(this DataBaseContext context)
+    private static void SetDefaultTModePayment(this DataBaseContextOld contextOld)
     {
         // ReSharper disable HeapView.ObjectAllocation.Evident
         // All the allocations and default values set in this method are mandatory to ensure the database is initialized
@@ -164,10 +164,10 @@ public static class DbContextHelperSetDefaultValues
         };
         // ReSharper restore HeapView.ObjectAllocation.Evident
 
-        context.TModePayments.AddRange(paymentModes);
+        contextOld.TModePayments.AddRange(paymentModes);
     }
 
-    private static void UpdateDefaultTModePayment(this DataBaseContext context)
+    private static void UpdateDefaultTModePayment(this DataBaseContextOld contextOld)
     {
         // ReSharper disable once HeapView.ObjectAllocation.Evident
         // This method updates the default values for the "TModePayment" table. Each predefined mode of payment
@@ -182,14 +182,14 @@ public static class DbContextHelperSetDefaultValues
             DbContextHelperSetDefaultValuesResources.DefaultTModePaymentNameBankCheck
         };
 
-        var records = context.TModePayments.Take(oldDefaultTModePayments.Count).AsEnumerable();
+        var records = contextOld.TModePayments.Take(oldDefaultTModePayments.Count).AsEnumerable();
         foreach (var record in records)
         {
             record.Name = oldDefaultTModePayments[record.Id - 1];
         }
     }
 
-    private static void SetDefaultTColor(this DataBaseContext context)
+    private static void SetDefaultTColor(this DataBaseContextOld contextOld)
     {
         // ReSharper disable once HeapView.ObjectAllocation.Evident
         // This blacklist of colors contains system-related or non-user-friendly colors (e.g., "Control", "Desktop", "Transparent").
@@ -236,6 +236,6 @@ public static class DbContextHelperSetDefaultValues
             });
         }
 
-        context.TColors.AddRange(colors);
+        contextOld.TColors.AddRange(colors);
     }
 }

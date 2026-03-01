@@ -17,7 +17,7 @@ public class RecurrentExpenseFrequencyConverter : IValueConverter
         // ReSharper disable once HeapView.ObjectAllocation.Evident
         // Necessary instantiation of DataBaseContext to interact with the database.
         // This creates a scoped database context for performing queries and modifications in the database.
-        using var context = new DataBaseContext();
+        using var context = new DataBaseContextOld();
         return context.TRecursiveFrequencies
             .First(s => s.Id.Equals(id))
             .Description;

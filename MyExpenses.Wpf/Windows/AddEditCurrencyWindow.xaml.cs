@@ -103,7 +103,7 @@ public partial class AddEditCurrencyWindow
     public AddEditCurrencyWindow()
     {
         // ReSharper disable once HeapView.ObjectAllocation.Evident
-        using var context = new DataBaseContext();
+        using var context = new DataBaseContextOld();
         Currencies = [..context.TCurrencies];
 
         UpdateLanguage();

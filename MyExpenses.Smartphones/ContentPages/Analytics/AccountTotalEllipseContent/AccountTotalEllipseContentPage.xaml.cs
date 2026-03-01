@@ -27,7 +27,7 @@ public partial class AccountTotalEllipseContentPage
 
         // ReSharper disable once HeapView.ObjectAllocation.Evident
         // Necessary instantiation of DataBaseContext to interact with the database.
-        using var context = new DataBaseContext();
+        using var context = new DataBaseContextOld();
         TabItemDatas = [..context.VTotalByAccounts.OrderBy(s => s.Name)
             .Select(s => new TabItemData { Header = s.Name!, Content = s })];
 

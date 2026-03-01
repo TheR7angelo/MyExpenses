@@ -2,11 +2,11 @@ using MyExpenses.SharedUtils.Resources;
 
 namespace MyExpenses.Sql.Context;
 
-public class DataBaseSeeder(DataBaseContext context)
+public class DataBaseSeeder(DataBaseContextOld contextOld)
 {
     public static Version CurrentVersion { get; } = new(1, 1, 0);
 
-    private readonly DataBaseContext _context = context;
+    private readonly DataBaseContextOld _contextOld = contextOld;
 
     public void SeedAll()
     {

@@ -183,7 +183,7 @@ public partial class MainWindow
         => App.CancellationTokenSource.Cancel();
 
     private void MenuItemDatabaseExport_OnClick(object sender, RoutedEventArgs e)
-        => _ = DataBaseContext.FilePath!.HandleButtonExportDataBase();
+        => _ = DataBaseContextOld.FilePath!.HandleButtonExportDataBase();
 
     private void MenuItemHelp_OnClick(object sender, RoutedEventArgs e)
     {
@@ -219,7 +219,7 @@ public partial class MainWindow
     private void MenuItemVacuumDatabase_OnClick(object sender, RoutedEventArgs e)
     {
         // ReSharper disable once HeapView.ObjectAllocation.Evident
-        var existingDatabase = new ExistingDatabase(DataBaseContext.FilePath!);
+        var existingDatabase = new ExistingDatabase(DataBaseContextOld.FilePath!);
         var sizeDatabase = existingDatabase.VacuumDatabase();
         if (sizeDatabase is not null)
         {

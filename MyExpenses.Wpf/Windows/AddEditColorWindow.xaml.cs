@@ -96,7 +96,7 @@ public partial class AddEditColorWindow
     public AddEditColorWindow()
     {
         // ReSharper disable once HeapView.ObjectAllocation.Evident
-        using var context = new DataBaseContext();
+        using var context = new DataBaseContextOld();
         Colors = [..context.TColors];
 
         UpdateLanguage();

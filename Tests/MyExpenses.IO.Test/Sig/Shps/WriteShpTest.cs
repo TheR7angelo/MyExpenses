@@ -16,7 +16,7 @@ public class WriteShpTest
         var path = executablePath.GetParentDirectory(6);
         var dbFile = Path.Join(path, "MyExpenses.Wpf", "bin", "Debug", "net8.0-windows", "Databases", "Model - Using.sqlite");
 
-        using var context = new DataBaseContext(dbFile);
+        using var context = new DataBaseContextOld(dbFile);
         var projection = context.TSpatialRefSys.First(s => s.Srid.Equals(4326));
         var features = context.TPlaces.ToList();
 

@@ -286,7 +286,7 @@ public partial class RecordExpensePage
         // ReSharper disable once HeapView.ObjectAllocation.Evident
         // Necessary instantiation of DataBaseContext to interact with the database.
         // This creates a scoped database context for performing queries and modifications in the database.
-        using var context = new DataBaseContext();
+        using var context = new DataBaseContextOld();
         Accounts = [..context.TAccounts.OrderBy(s => s.Name)];
         CategoryTypes = [..context.TCategoryTypes.OrderBy(s => s.Name)];
         ModePayments = [..context.TModePayments.OrderBy(s => s.Name)];
@@ -400,7 +400,7 @@ public partial class RecordExpensePage
                 // ReSharper disable once HeapView.ObjectAllocation.Evident
                 // Necessary instantiation of DataBaseContext to interact with the database.
                 // This creates a scoped database context for performing queries and modifications in the database.
-                using var context = new DataBaseContext();
+                using var context = new DataBaseContextOld();
                 editedCategoryTypeDeepCopy.ColorFkNavigation =
                     context.TColors.FirstOrDefault(s => s.Id == editedCategoryTypeDeepCopy.ColorFk);
 
@@ -583,7 +583,7 @@ public partial class RecordExpensePage
             {
                 if (History.BankTransferFk is not null)
                 {
-                    using var context = new DataBaseContext();
+                    using var context = new DataBaseContextOld();
                     var bankTransfer = context.TBankTransfers.FirstOrDefault(s => s.Id == History.BankTransferFk);
                     if (bankTransfer is not null)
                     {
@@ -697,7 +697,7 @@ public partial class RecordExpensePage
         // ReSharper disable once HeapView.ObjectAllocation.Evident
         // Necessary instantiation of DataBaseContext to interact with the database.
         // This creates a scoped database context for performing queries and modifications in the database.
-        using var context = new DataBaseContext();
+        using var context = new DataBaseContextOld();
         var query = context.TPlaces.Where(s => s.IsOpen);
 
         IQueryable<TPlace> records;
@@ -739,7 +739,7 @@ public partial class RecordExpensePage
         // ReSharper disable once HeapView.ObjectAllocation.Evident
         // Necessary instantiation of DataBaseContext to interact with the database.
         // This creates a scoped database context for performing queries and modifications in the database.
-        using var context = new DataBaseContext();
+        using var context = new DataBaseContextOld();
         var query = context.TPlaces.Where(s => s.IsOpen);
 
         IQueryable<TPlace> records;

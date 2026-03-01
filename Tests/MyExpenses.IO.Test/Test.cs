@@ -19,7 +19,7 @@ public class Test
         var executablePath = Assembly.GetExecutingAssembly().Location;
         var path = executablePath.GetParentDirectory(6);
         var dbFile = Path.Combine(path, "MyExpenses.Wpf", "bin", "Debug", "net8.0-windows", "Databases", "Model - Using.sqlite");
-        using var context = new DataBaseContext(dbFile);
+        using var context = new DataBaseContextOld(dbFile);
 
         using var package = new ExcelPackage();
         var workbook = package.Workbook;
@@ -89,7 +89,7 @@ public class Test
         var executablePath = Assembly.GetExecutingAssembly().Location;
         var path = executablePath.GetParentDirectory(6);
         var dbFile = Path.Combine(path, "MyExpenses.Wpf", "bin", "Debug", "net8.0-windows", "Databases", "Model - Using.sqlite");
-        using var context = new DataBaseContext(dbFile);
+        using var context = new DataBaseContextOld(dbFile);
 
         var exportVAccountTypeName = context.GetTableName(typeof(ExportVAccountType));
         var exportVAccountType = context.ExportVAccountTypes.AsEnumerable();

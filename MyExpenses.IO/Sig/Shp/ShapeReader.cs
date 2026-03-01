@@ -59,7 +59,7 @@ public static class ShapeReader
         // This usage is expected and unavoidable as each call represents a discrete transactional context.
         // The "using" statement ensures proper disposal of the context after use.
         // ReSharper disable once HeapView.ObjectAllocation.Evident
-        using var context = new DataBaseContext(DatabaseInfos.LocalFilePathDataBaseModel);
+        using var context = new DataBaseContextOld(DatabaseInfos.LocalFilePathDataBaseModel);
 
         // ReSharper disable once HeapView.ObjectAllocation
         // The "TSpatialRefSys" table is used to retrieve the projection information from the database.

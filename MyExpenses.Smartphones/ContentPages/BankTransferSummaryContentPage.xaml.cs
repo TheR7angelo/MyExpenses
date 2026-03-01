@@ -282,7 +282,7 @@ public partial class BankTransferSummaryContentPage
         // performed. The `using` statement guarantees that resources, such as database connections, are released promptly, minimizing
         // the risk of resource leaks and ensuring optimal performance in scenarios where multiple database operations might occur
         // in parallel or sequentially.
-        using var context = new DataBaseContext();
+        using var context = new DataBaseContextOld();
         Years =
         [
             ..context.GetDistinctYearsFromBankTransfer(SortOrder.Descending)
@@ -462,7 +462,7 @@ public partial class BankTransferSummaryContentPage
         // The creation of a new DataBaseContext instance (via `new DataBaseContext()`) is necessary to interact with the database.
         // This context provides the connection to the database and allows querying or updating data.
         // The `using` statement ensures that the context is disposed of properly after its use, freeing up resources like database connections.
-        await using var context = new DataBaseContext();
+        await using var context = new DataBaseContextOld();
         var categoryTypeFk = context.THistories
             .Where(s => s.BankTransferFk != null)
             .Where(s => transferIds.Contains(s.BankTransferFk!.Value))
@@ -498,7 +498,7 @@ public partial class BankTransferSummaryContentPage
         // The creation of a new DataBaseContext instance (via `new DataBaseContext()`) is necessary to interact with the database.
         // This context provides the connection to the database and allows querying or updating data.
         // The `using` statement ensures that the context is disposed of properly after its use, freeing up resources like database connections.
-        await using var context = new DataBaseContext();
+        await using var context = new DataBaseContextOld();
         var fromAccountFk = context.TBankTransfers
             .Where(s => transferIds.Contains(s.Id))
             .Select(s => s.FromAccountFk!)
@@ -593,7 +593,7 @@ public partial class BankTransferSummaryContentPage
         // The creation of a new DataBaseContext instance (via `new DataBaseContext()`) is necessary to interact with the database.
         // This context provides the connection to the database and allows querying or updating data.
         // The `using` statement ensures that the context is disposed of properly after its use, freeing up resources like database connections.
-        await using var context = new DataBaseContext();
+        await using var context = new DataBaseContextOld();
         var toAccountFk = context.TBankTransfers
             .Where(s => transferIds.Contains(s.Id))
             .Select(s => s.ToAccountFk!)
@@ -786,7 +786,7 @@ public partial class BankTransferSummaryContentPage
         // The creation of a new DataBaseContext instance (via `new DataBaseContext()`) is necessary to interact with the database.
         // This context provides the connection to the database and allows querying or updating data.
         // The `using` statement ensures that the context is disposed of properly after its use, freeing up resources like database connections.
-        using var context = new DataBaseContext();
+        using var context = new DataBaseContextOld();
         var result = context.GetFilteredBankTransfers(yearInt, monthInt, fromAccounts, toAccounts, values, mainReasons, additionalReasons, categories);
 
         RowTotalCount = result.TotalRowCount;

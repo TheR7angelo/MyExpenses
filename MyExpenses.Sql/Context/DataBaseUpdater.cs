@@ -32,8 +32,8 @@ public static class DataBaseUpdater
         var needUpdate = false;
 
         var context = string.IsNullOrWhiteSpace(connectionString)
-            ? new DataBaseContext()
-            : new DataBaseContext(connectionString);
+            ? new DataBaseContextOld()
+            : new DataBaseContextOld(connectionString);
 
         var versionEntry = context.TVersions.First();
         var currentVersion = versionEntry.Version!;

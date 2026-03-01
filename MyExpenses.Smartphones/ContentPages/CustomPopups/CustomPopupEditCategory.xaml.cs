@@ -121,7 +121,7 @@ public partial class CustomPopupEditCategory
         // ReSharper disable once HeapView.ObjectAllocation.Evident
         // Necessary instantiation of the DataBaseContext to establish a connection with the database.
         // The 'using' statement ensures proper disposal of the context to free up resources once the operation is completed.
-        using var context = new DataBaseContext();
+        using var context = new DataBaseContextOld();
         Colors = [..context.TColors.OrderBy(s => s.Name)];
 
         UpdateLanguage();

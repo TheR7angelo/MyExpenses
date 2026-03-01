@@ -75,7 +75,7 @@ public static class DbContextHelper
             // Using raw SQL execution here is necessary due to the specific nature of the operation that cannot be
             // performed with Entity Framework's LINQ or other abstractions. The responsibility of ensuring the safety
             // and correctness of the SQL query lies with the caller.
-            await using var context = new DataBaseContext(tempFilePath);
+            await using var context = new DataBaseContextOld(tempFilePath);
             return await context.Database.ExecuteSqlRawAsync(dataSource);
         }
 
@@ -93,7 +93,7 @@ public static class DbContextHelper
             // Using raw SQL execution here is necessary due to the specific nature of the operation that cannot be
             // performed with Entity Framework's LINQ or other abstractions. The responsibility of ensuring the safety
             // and correctness of the SQL query lies with the caller.
-            using var context = new DataBaseContext(tempFilePath);
+            using var context = new DataBaseContextOld(tempFilePath);
             return context.Database.ExecuteSqlRaw(dataSource);
         }
 
@@ -110,7 +110,7 @@ public static class DbContextHelper
             // Using raw SQL execution here is necessary due to the specific nature of the operation that cannot be
             // performed with Entity Framework's LINQ or other abstractions. The responsibility of ensuring the safety
             // and correctness of the SQL query lies with the caller.
-            using var context = new DataBaseContext(tempFilePath);
+            using var context = new DataBaseContextOld(tempFilePath);
 
             var command = context.Database.GetDbConnection().CreateCommand();
             command.CommandText = dataSource;
@@ -181,7 +181,7 @@ public static class DbContextHelper
             // This implementation requires direct deletion of the entity due to specific application logic and
             // the need to handle cascading deletions explicitly. The use of `SaveChanges()` ensures the operation
             // is committed immediately, and the exception handling guarantees robustness in case of failure.
-            using var context = new DataBaseContext();
+            using var context = new DataBaseContextOld();
             context.Delete(entity, s => s.Id == entity.Id, cascade);
             context.SaveChanges();
             return (true, null);
@@ -256,7 +256,7 @@ public static class DbContextHelper
             // This method implements an upsert operation, which directly handles adding or updating the entity based on its existence.
             // The use of `SaveChanges()` ensures that modifications are committed immediately, and exception handling provides robustness
             // in case the operation fails. The approach is necessary to fulfill specific application requirements.
-            using var context = new DataBaseContext();
+            using var context = new DataBaseContextOld();
             context.Upsert(entity, s => s.Id == entity.Id);
             context.SaveChanges();
             return (true, null);
@@ -335,7 +335,7 @@ public static class DbContextHelper
             // Using `SaveChanges()` ensures that the updates are persisted immediately to each database. The approach
             // is necessary to maintain consistency across all database instances, and the use of a loop handles multiple
             // database contexts sequentially.
-            using var context = new DataBaseContext(existingDatabase.FilePath);
+            using var context = new DataBaseContextOld(existingDatabase.FilePath);
             _ = context.UpdateAllDefaultValues();
             context.SaveChanges();
         }
@@ -344,13 +344,13 @@ public static class DbContextHelper
     /// <summary>
     /// Retrieves the table or view name for the specified entity type from the database context.
     /// </summary>
-    /// <param name="context">The database context used to access model metadata.</param>
+    /// <param name="contextOld">The database context used to access model metadata.</param>
     /// <param name="tableType">The type of the entity for which to retrieve the table or view name.</param>
     /// <returns>The name of the table or view associated with the specified entity type, or null if none is found.</returns>
-    public static string? GetTableName(this DataBaseContext context, Type tableType)
+    public static string? GetTableName(this DataBaseContextOld contextOld, Type tableType)
     {
-        var tableName = context.Model.FindEntityType(tableType)?.GetTableName();
-        var viewName = context.Model.FindEntityType(tableType)?.GetViewName();
+        var tableName = contextOld.Model.FindEntityType(tableType)?.GetTableName();
+        var viewName = contextOld.Model.FindEntityType(tableType)?.GetViewName();
 
         return tableName ?? viewName;
     }
@@ -393,7 +393,7 @@ public static class DbContextHelper
         // This usage is expected and unavoidable as each call represents a discrete transactional context.
         // The "using" statement ensures proper disposal of the context after use.
         // ReSharper disable once HeapView.ObjectAllocation.Evident
-        using var context = new DataBaseContext();
+        using var context = new DataBaseContextOld();
         context.Entry(iSql).State = EntityState.Detached;
     }
 }

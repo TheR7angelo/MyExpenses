@@ -46,7 +46,7 @@ public static class ExistingDatabaseToFolder
             // ReSharper disable once HeapView.ObjectAllocation.Evident
             // The allocation here is necessary as a new instance of DataBaseContext is required to interact with the database for this operation.
             // Since this instance is created within an async context and properly disposed with 'await using', it does not cause any unnecessary resource usage or performance issues.
-            await using var context = new DataBaseContext(existingDatabase.FilePath);
+            await using var context = new DataBaseContextOld(existingDatabase.FilePath);
             var resultExportToExcel = context.ToExcelWorksheet(saveExcel);
 
             if (resultExportToExcel) Log.Information("Records have been successfully exported to Excel file");

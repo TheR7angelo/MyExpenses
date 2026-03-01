@@ -228,7 +228,7 @@ public partial class AddEditBankTransferContentPage
         // The creation of a new DataBaseContext instance (via `new DataBaseContext()`) is necessary to interact with the database.
         // This context provides the connection to the database and allows querying or updating data.
         // The `using` statement ensures that the context is disposed of properly after its use, freeing up resources like database connections.
-        using var context = new DataBaseContext();
+        using var context = new DataBaseContextOld();
         Accounts = [..context.TAccounts.OrderBy(s => s.Name)];
         CategoryTypes = [..context.TCategoryTypes.OrderBy(s => s.Name)];
         ModePayments = [..context.TModePayments.OrderBy(s => s.Name)];
@@ -490,7 +490,7 @@ public partial class AddEditBankTransferContentPage
         // The creation of a new DataBaseContext instance (via `new DataBaseContext()`) is necessary to interact with the database.
         // This context provides the connection to the database and allows querying or updating data.
         // The `using` statement ensures that the context is disposed of properly after its use, freeing up resources like database connections.
-        using var context = new DataBaseContext();
+        using var context = new DataBaseContextOld();
 
         // ReSharper disable once HeapView.DelegateAllocation
         // ReSharper disable once HeapView.ClosureAllocation
@@ -558,7 +558,7 @@ public partial class AddEditBankTransferContentPage
         // The creation of a new DataBaseContext instance (via `new DataBaseContext()`) is necessary to interact with the database.
         // This context provides the connection to the database and allows querying or updating data.
         // The `using` statement ensures that the context is disposed of properly after its use, freeing up resources like database connections.
-        using var context = new DataBaseContext();
+        using var context = new DataBaseContextOld();
         var fromHistory = context.THistories.First(s => s.BankTransferFk.Equals(BankTransfer.Id) && s.AccountFk.Equals(OriginalBankTransfer!.FromAccountFk));
         var toHistory = context.THistories.First(s => s.BankTransferFk.Equals(BankTransfer.Id) && s.AccountFk.Equals(OriginalBankTransfer!.ToAccountFk));
 
@@ -583,7 +583,7 @@ public partial class AddEditBankTransferContentPage
         // The creation of a new DataBaseContext instance (via `new DataBaseContext()`) is necessary to interact with the database.
         // This context provides the connection to the database and allows querying or updating data.
         // The `using` statement ensures that the context is disposed of properly after its use, freeing up resources like database connections.
-        using var context = new DataBaseContext();
+        using var context = new DataBaseContextOld();
         var history = context.THistories.First(s => s.BankTransferFk.Equals(bankTransfer.Id));
         var categoryTypeId = context.TCategoryTypes.First(s => s.Id.Equals(history.CategoryTypeFk)).Id;
         var modePaymentId = context.TModePayments.First(s => s.Id.Equals(history.ModePaymentFk)).Id;

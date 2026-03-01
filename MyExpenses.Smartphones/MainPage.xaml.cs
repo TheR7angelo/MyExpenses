@@ -52,7 +52,7 @@ public partial class MainPage
 
         await this.ShowCustomPopupActivityIndicatorAsync(WelcomeManagementResources.ActivityIndicatorOpenDatabaseTitle, message, async () =>
         {
-            DataBaseContext.FilePath = existingDatabase.FilePath;
+            DataBaseContextOld.FilePath = existingDatabase.FilePath;
 
             // ReSharper disable once HeapView.ObjectAllocation.Evident
             // Create a new instance of DashBoardShell and assign the selected database.
@@ -125,7 +125,7 @@ public partial class MainPage
 
             // ReSharper disable once HeapView.ObjectAllocation.Evident
             // Asynchronously initializes a new instance of DataBaseContext for interacting with the database at the specified file path.
-            await using var context = new DataBaseContext(filePath);
+            await using var context = new DataBaseContextOld(filePath);
 
             _ = context.SetAllDefaultValues();
             await context.SaveChangesAsync();

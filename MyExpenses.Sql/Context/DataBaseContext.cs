@@ -1,5 +1,4 @@
-﻿using Microsoft.Data.Sqlite;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Models.Sql.Bases.Views;
 using MyExpenses.Models.Sql.Bases.Views.Analysis;
@@ -9,21 +8,6 @@ namespace MyExpenses.Sql.Context;
 
 public class DataBaseContext : DbContext
 {
-    public static string? FilePath { get; set; }
-
-    private string? TempFilePath { get; }
-
-    private string? DataSource { get; set; }
-
-    private bool IsReadOnly { get; }
-
-    public DataBaseContext(string? filePath=null, bool isReadOnly=false)
-    {
-        if (!string.IsNullOrEmpty(filePath)) TempFilePath = filePath;
-
-        IsReadOnly = isReadOnly;
-    }
-
     public DataBaseContext(DbContextOptions<DataBaseContext> options)
         : base(options)
     {
@@ -108,24 +92,6 @@ public class DataBaseContext : DbContext
     public virtual DbSet<VRecursiveExpense> VRecursiveExpenses { get; set; }
 
     public virtual DbSet<VTotalByAccount> VTotalByAccounts { get; set; }
-
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    {
-        DataSource = !string.IsNullOrEmpty(TempFilePath)
-            ? TempFilePath
-            : FilePath;
-
-        var mode = IsReadOnly ? SqliteOpenMode.ReadOnly : SqliteOpenMode.ReadWrite;
-        var connectionString = DataSource!.BuildConnectionString(pooling: false, mode: mode);
-        optionsBuilder.UseSqlite(connectionString);
-
-        if (Models.LoggerConfig.LogEfCore is not true) return;
-
-        var loggerFactory = Models.LoggerConfig.LoggerFactory;
-        optionsBuilder.UseLoggerFactory(loggerFactory)
-            .EnableSensitiveDataLogging()
-            .EnableDetailedErrors();
-    }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

@@ -371,7 +371,7 @@ public partial class DashBoardPage
         // ReSharper disable once HeapView.ObjectAllocation.Evident
         // Necessary instantiation of DataBaseContext to interact with the database.
         // This creates a scoped database context for performing queries and modifications in the database.
-        using var context = new DataBaseContext();
+        using var context = new DataBaseContextOld();
         var recurrences = context.GetActiveRecurrencesForCurrentMonth(currentYear, currentMonth);
 
         if (recurrences.Any())
@@ -604,7 +604,7 @@ public partial class DashBoardPage
 
     private void DeleteRecord(VHistory vHistory)
     {
-        using var context = new DataBaseContext();
+        using var context = new DataBaseContextOld();
         var history = context.THistories.FirstOrDefault(s => s.Id.Equals(vHistory.Id));
 
         var bankTransfer = history?.BankTransferFk is null
@@ -672,7 +672,7 @@ public partial class DashBoardPage
         // ReSharper disable once HeapView.ObjectAllocation.Evident
         // Necessary instantiation of DataBaseContext to interact with the database.
         // This creates a scoped database context for performing queries and modifications in the database.
-        using var context = new DataBaseContext();
+        using var context = new DataBaseContextOld();
         var newVTotalByAccount = context.VTotalByAccounts.FirstOrDefault(s => s.Id.Equals(id));
         if (newVTotalByAccount is null) return;
 
@@ -688,7 +688,7 @@ public partial class DashBoardPage
         // ReSharper disable once HeapView.ObjectAllocation.Evident
         // Necessary instantiation of DataBaseContext to interact with the database.
         // This creates a scoped database context for performing queries and modifications in the database.
-        using var context = new DataBaseContext();
+        using var context = new DataBaseContextOld();
 
         // ReSharper disable once HeapView.ClosureAllocation
         var newVTotalByAccounts = context.VTotalByAccounts.ToList();

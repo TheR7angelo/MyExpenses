@@ -41,7 +41,7 @@ public static class EntityQueries
     /// Retrieves the active recurring expenses for the specified year and month
     /// from the database context.
     /// </summary>
-    /// <param name="context">
+    /// <param name="contextOld">
     /// The database context to retrieve the recurring expenses from.
     /// </param>
     /// <param name="year">
@@ -55,14 +55,14 @@ public static class EntityQueries
     /// A collection of <see cref="TRecursiveExpense"/> objects for the specified
     /// year and month that are marked as active and not forcefully deactivated.
     /// </returns>
-    public static IEnumerable<TRecursiveExpense> GetActiveRecurrencesForCurrentMonth(this DataBaseContext context,
+    public static IEnumerable<TRecursiveExpense> GetActiveRecurrencesForCurrentMonth(this DataBaseContextOld contextOld,
         // ReSharper disable HeapView.ClosureAllocation
         int year, int month)
         // ReSharper restore HeapView.ClosureAllocation
     {
         ArgumentOutOfRangeException.ThrowIfGreaterThan(month, 12);
 
-        return context.TRecursiveExpenses
+        return contextOld.TRecursiveExpenses
             .Where(s => !s.ForceDeactivate)
             .Where(s => s.IsActive)
             .Where(s => s.NextDueDate.Year <= year && s.NextDueDate.Month <= month)
@@ -73,7 +73,7 @@ public static class EntityQueries
     /// Retrieves the distinct years from the bank transfer records that have a valid date,
     /// optionally sorted by the specified sort order.
     /// </summary>
-    /// <param name="context">
+    /// <param name="contextOld">
     /// The database context containing the bank transfer records.
     /// </param>
     /// <param name="sortOrder">
@@ -82,10 +82,10 @@ public static class EntityQueries
     /// <returns>
     /// A collection of unique years extracted from the bank transfer dates.
     /// </returns>
-    public static IEnumerable<int> GetDistinctYearsFromBankTransfer(this DataBaseContext context,
+    public static IEnumerable<int> GetDistinctYearsFromBankTransfer(this DataBaseContextOld contextOld,
         SortOrder sortOrder = SortOrder.None)
     {
-        var query = context.TBankTransfers
+        var query = contextOld.TBankTransfers
             .Where(s => s.Date.HasValue)
             .Select(s => s.Date!.Value.Year)
             .Distinct();
@@ -99,7 +99,7 @@ public static class EntityQueries
     /// Retrieves a collection of distinct years from the history entries in the database,
     /// optionally sorted in the specified order.
     /// </summary>
-    /// <param name="context">
+    /// <param name="contextOld">
     /// The database context containing the history data to query.
     /// </param>
     /// <param name="sortOrder">
@@ -110,10 +110,10 @@ public static class EntityQueries
     /// An enumerable collection of distinct years retrieved from the history entries
     /// in the database.
     /// </returns>
-    public static IEnumerable<int> GetDistinctYearsFromHistories(this DataBaseContext context,
+    public static IEnumerable<int> GetDistinctYearsFromHistories(this DataBaseContextOld contextOld,
         SortOrder sortOrder = SortOrder.None)
     {
-        var query = context.THistories
+        var query = contextOld.THistories
             .Where(s => s.Date.HasValue)
             .Select(s => s.Date!.Value.Year)
             .Distinct();
@@ -126,7 +126,7 @@ public static class EntityQueries
     /// <summary>
     /// Retrieves filtered bank transfers from the database based on the specified criteria.
     /// </summary>
-    /// <param name="context">
+    /// <param name="contextOld">
     /// The database context to query the bank transfer summaries from.
     /// </param>
     /// <param name="year">
@@ -163,7 +163,7 @@ public static class EntityQueries
     /// A <see cref="FilteredBankTransfersResults"/> object containing the filtered bank transfers,
     /// the total row counts before filtering, and the row counts after applying filters.
     /// </returns>
-    public static FilteredBankTransfersResults GetFilteredBankTransfers(this DataBaseContext context,
+    public static FilteredBankTransfersResults GetFilteredBankTransfers(this DataBaseContextOld contextOld,
         // ReSharper disable HeapView.ClosureAllocation
         int? year = null, int? month = null,
         string[]? fromAccounts = null, string[]? toAccounts = null,
@@ -171,7 +171,7 @@ public static class EntityQueries
         string[]? categories = null)
         // ReSharper restore HeapView.ClosureAllocation
     {
-        IQueryable<VBankTransferSummary> query = context.VBankTransferSummaries;
+        IQueryable<VBankTransferSummary> query = contextOld.VBankTransferSummaries;
         if (!query.Any()) return new FilteredBankTransfersResults();
 
         if (year.HasValue)
@@ -278,7 +278,7 @@ public static class EntityQueries
         // Accessing the underlying data is only possible through the "DataBaseContext" object, which serves as the entry point
         // to the database. This allocation is mandatory to perform any query or operation on the "VHistories" view, and
         // without it, retrieving or filtering data would not be possible.
-        using var context = new DataBaseContext();
+        using var context = new DataBaseContextOld();
         var query = context.VHistories
             .Where(s => s.Account == accountName);
 
@@ -364,7 +364,7 @@ public static class EntityQueries
         // Accessing the underlying data is only possible through the "DataBaseContext" object, which serves as the entry point
         // to the database. This allocation is mandatory to perform any query or operation on the "VDetailTotalCategories" view, and
         // without it, retrieving or filtering data would not be possible.
-        using var context = new DataBaseContext();
+        using var context = new DataBaseContextOld();
 
         var query = context.VDetailTotalCategories
             .Where(s => s.Account == accountName);
@@ -390,7 +390,7 @@ public static class EntityQueries
         // ReSharper disable once HeapView.ObjectAllocation.Evident
         // Accessing the underlying data is only possible through the "DataBaseContext" object, which serves as the entry point
         // to the database.
-        using var context = new DataBaseContext();
+        using var context = new DataBaseContextOld();
         var records = context.TRecursiveExpenses
             .Where(s => !s.ForceDeactivate)
             .Where(s => s.IsActive)
@@ -505,7 +505,7 @@ public static class EntityQueries
         var validIds = accountIdsList.Where(id => id.HasValue).Select(id => id!.Value).ToArray();
         if (validIds.Length is 0) return null;
 
-        using var context = new DataBaseContext();
+        using var context = new DataBaseContextOld();
         return (from a in context.TAccounts
             join c in context.TCurrencies on a.CurrencyFk equals c.Id
             where validIds.Contains(a.Id)

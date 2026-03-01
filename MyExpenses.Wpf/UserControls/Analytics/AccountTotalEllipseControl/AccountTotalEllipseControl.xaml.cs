@@ -11,7 +11,7 @@ public partial class AccountTotalEllipseControl
     {
         // ReSharper disable once HeapView.ObjectAllocation.Evident
         // Necessary instantiation of DataBaseContext to interact with the database.
-        using var context = new DataBaseContext();
+        using var context = new DataBaseContextOld();
         VTotalByAccounts = [..context.VTotalByAccounts.OrderBy(s => s.Name)];
 
         InitializeComponent();

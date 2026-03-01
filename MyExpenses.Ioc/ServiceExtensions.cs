@@ -23,7 +23,7 @@ public static class ServiceExtensions
             typeof(MappingProfile).Assembly,
             typeof(MyExpenses.Infrastructure.AutoMapper.MappingProfile).Assembly);
 
-        services.AddDbContext<DataBaseContextInjection>((serviceProvider, options) =>
+        services.AddDbContext<DataBaseContext>((serviceProvider, options) =>
         {
             var stateProvider = serviceProvider.GetRequiredService<IDbStateProvider>();
             if (stateProvider.FilePath is null)

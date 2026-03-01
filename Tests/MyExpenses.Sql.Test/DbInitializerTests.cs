@@ -7,7 +7,7 @@ public class DbInitializerTests
     [Fact]
     public void Initialize_ShouldCreateDatabaseAndAddDefaultData()
     {
-        using var context = new DataBaseContext();
+        using var context = new DataBaseContextOld();
 
         var dataBaseSeeder = new DataBaseSeeder(context);
         dataBaseSeeder.SeedAll();

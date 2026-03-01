@@ -100,7 +100,7 @@ public partial class AddEditAccountTypeWindow
     public AddEditAccountTypeWindow()
     {
         // ReSharper disable once HeapView.ObjectAllocation.Evident
-        using var context = new DataBaseContext();
+        using var context = new DataBaseContextOld();
         AccountTypes = [..context.TAccountTypes];
 
         UpdateLanguage();

@@ -254,7 +254,7 @@ public partial class ModePaymentManagementContentPage
         // The creation of a new DataBaseContext instance (via `new DataBaseContext()`) is necessary to interact with the database.
         // This context provides the connection to the database and allows querying or updating data.
         // The `using` statement ensures that the context is disposed of properly after its use, freeing up resources like database connections.
-        using var context = new DataBaseContext();
+        using var context = new DataBaseContextOld();
         ModePayments.AddRange(context.TModePayments.OrderBy(s => s.Name));
     }
 

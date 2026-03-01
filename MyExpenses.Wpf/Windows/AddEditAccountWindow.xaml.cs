@@ -212,7 +212,7 @@ public partial class AddEditAccountWindow
     public AddEditAccountWindow()
     {
         // ReSharper disable once HeapView.ObjectAllocation.Evident
-        using var context = new DataBaseContext();
+        using var context = new DataBaseContextOld();
         Accounts = [..context.TAccounts.OrderBy(s => s.Name)];
         AccountTypes = [..context.TAccountTypes.OrderBy(s => s.Name)];
         Currencies = [..context.TCurrencies.OrderBy(s => s.Symbol)];

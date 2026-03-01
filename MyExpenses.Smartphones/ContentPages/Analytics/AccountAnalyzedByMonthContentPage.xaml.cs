@@ -85,7 +85,7 @@ public partial class AccountAnalyzedByMonthContentPage
         // operations on the database tables and views. Using the `using` statement ensures
         // proper disposal of resources (like database connections) once the context is no
         // longer needed, optimizing resource management and preventing potential memory leaks.
-        using var context = new DataBaseContext();
+        using var context = new DataBaseContextOld();
         Years =
         [
             ..context.GetDistinctYearsFromHistories(SortOrder.Descending)

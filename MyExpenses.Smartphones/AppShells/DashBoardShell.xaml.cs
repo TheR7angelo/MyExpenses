@@ -103,7 +103,7 @@ public partial class DashBoardShell
 
     private void ButtonExportDataBase_OnClick(object? sender, EventArgs e)
     {
-        var existingDatabase = new ExistingDatabase(DataBaseContext.FilePath!);
+        var existingDatabase = new ExistingDatabase(DataBaseContextOld.FilePath!);
         _ = this.HandleButtonExportDataBase(existingDatabase);
         Current.FlyoutIsPresented = false;
     }
@@ -113,7 +113,7 @@ public partial class DashBoardShell
 
     private void MenuItemLogout_OnClicked(object? sender, EventArgs e)
     {
-        DataBaseContext.FilePath = null;
+        DataBaseContextOld.FilePath = null;
 
         // ReSharper disable once HeapView.ObjectAllocation.Evident
         // Necessary allocation of a new AppShell instance.

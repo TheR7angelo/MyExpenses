@@ -15,7 +15,7 @@ public partial class LocationManagementUserControl
     {
         var mapper = Mapping.Mapper;
 
-        using var context = new DataBaseContext();
+        using var context = new DataBaseContextOld();
         var places = context.TPlaces.ToList();
 
         foreach (var place in places.Where(s => s.Latitude is not null && s.Latitude is not 0 && s.Longitude is not null &&

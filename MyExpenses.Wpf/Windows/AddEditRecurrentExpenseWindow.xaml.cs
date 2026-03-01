@@ -355,7 +355,7 @@ public partial class AddEditRecurrentExpenseWindow
         KnownTileSources = [..MapsuiMapExtensions.GetAllKnowTileSource()];
 
         // ReSharper disable once HeapView.ObjectAllocation.Evident
-        using var context = new DataBaseContext();
+        using var context = new DataBaseContextOld();
         Accounts = [..context.TAccounts.OrderBy(s => s.Name)];
         CategoryTypes = [..context.TCategoryTypes.OrderBy(s => s.Name)];
         ModePayments = [..context.TModePayments.OrderBy(s => s.Name)];
@@ -468,7 +468,7 @@ public partial class AddEditRecurrentExpenseWindow
             if (success)
             {
                 // ReSharper disable once HeapView.ObjectAllocation.Evident
-                using var context = new DataBaseContext();
+                using var context = new DataBaseContextOld();
                 editedCategoryTypeDeepCopy.ColorFkNavigation =
                     context.TColors.FirstOrDefault(s => s.Id == editedCategoryTypeDeepCopy.ColorFk);
 
@@ -744,7 +744,7 @@ public partial class AddEditRecurrentExpenseWindow
         if (comboBox.SelectedItem is not string city) return;
 
         // ReSharper disable once HeapView.ObjectAllocation.Evident
-        using var context = new DataBaseContext();
+        using var context = new DataBaseContextOld();
         var query = context.TPlaces.Where(s => s.IsOpen);
 
         IQueryable<TPlace> records;
@@ -781,7 +781,7 @@ public partial class AddEditRecurrentExpenseWindow
         if (comboBox.SelectedItem is not string country) return;
 
         // ReSharper disable once HeapView.ObjectAllocation.Evident
-        using var context = new DataBaseContext();
+        using var context = new DataBaseContextOld();
         var query = context.TPlaces.Where(s => s.IsOpen);
 
         IQueryable<TPlace> records;

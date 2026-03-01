@@ -25,7 +25,7 @@ public class KmlWriterTest
         var executablePath = Assembly.GetExecutingAssembly().Location;
         var path = executablePath.GetParentDirectory(6);
         var dbFile = Path.Combine(path, "MyExpenses.Wpf", "bin", "Debug", "net8.0-windows", "Databases", "Model - Using.sqlite");
-        using var context = new DataBaseContext(dbFile);
+        using var context = new DataBaseContextOld(dbFile);
 
         var points = context.TPlaces
             .Where(s => s.Latitude != null && s.Latitude != 0 && s.Longitude != null && s.Longitude != 0)
@@ -43,7 +43,7 @@ public class KmlWriterTest
         var executablePath = Assembly.GetExecutingAssembly().Location;
         var path = executablePath.GetParentDirectory(6);
         var dbFile = Path.Combine(path, "MyExpenses.Wpf", "bin", "Debug", "net8.0-windows", "Databases", "Model - Using.sqlite");
-        using var context = new DataBaseContext(dbFile);
+        using var context = new DataBaseContextOld(dbFile);
 
         var place = context.TPlaces.First(s =>
             s.Latitude != null && s.Latitude != 0 && s.Longitude != null && s.Longitude != 0);
@@ -61,7 +61,7 @@ public class KmlWriterTest
         var executablePath = Assembly.GetExecutingAssembly().Location;
         var path = executablePath.GetParentDirectory(6);
         var dbFile = Path.Combine(path, "MyExpenses.Wpf", "bin", "Debug", "net8.0-windows", "Databases", "Model - Using.sqlite");
-        using var context = new DataBaseContext(dbFile);
+        using var context = new DataBaseContextOld(dbFile);
 
         var places = context.TPlaces.Where(s =>
             s.Latitude != null && s.Latitude != 0 && s.Longitude != null && s.Longitude != 0).ToList();

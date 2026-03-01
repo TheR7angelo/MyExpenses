@@ -92,7 +92,7 @@ public partial class AddEditModePaymentWindow
     public AddEditModePaymentWindow()
     {
         // ReSharper disable once HeapView.ObjectAllocation.Evident
-        using var context = new DataBaseContext();
+        using var context = new DataBaseContextOld();
         ModePayments = [..context.TModePayments];
 
         UpdateLanguage();

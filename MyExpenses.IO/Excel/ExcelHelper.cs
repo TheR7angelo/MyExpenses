@@ -69,15 +69,15 @@ public static class ExcelHelper
     /// <typeparam name="T">The type of objects in the collection.</typeparam>
     /// <param name="workbook">The Excel workbook to which the new worksheet will be added.</param>
     /// <param name="collection">The collection of objects to be added to the worksheet.</param>
-    /// <param name="context">The database context that provides the table name for the worksheet.</param>
+    /// <param name="contextOld">The database context that provides the table name for the worksheet.</param>
     /// <param name="tableLevel">The level of the table which determines the tab color and table style of the worksheet.</param>
     /// <returns>An ExcelTable object representing the added table in the worksheet.</returns>
     /// <exception cref="ArgumentOutOfRangeException">Thrown when the table level is out of the defined range.</exception>
     public static ExcelTable AddTableCollection<T>(this ExcelWorkbook workbook, IEnumerable<T> collection,
-        DataBaseContext context, ETableLevel tableLevel)
+        DataBaseContextOld contextOld, ETableLevel tableLevel)
     {
         var type = typeof(T);
-        var collectionName = context.GetTableName(type);
+        var collectionName = contextOld.GetTableName(type);
 
         var worksheet = workbook.Worksheets.Add(collectionName);
         worksheet.TabColor = tableLevel switch
@@ -112,14 +112,14 @@ public static class ExcelHelper
     /// <typeparam name="T">The type of the objects in the collection to be added as a table.</typeparam>
     /// <param name="workbook">The Excel workbook where the new worksheet will be created.</param>
     /// <param name="collection">The collection of data to create the table from.</param>
-    /// <param name="context">The database context used to retrieve the table name associated with the collection type.</param>
+    /// <param name="contextOld">The database context used to retrieve the table name associated with the collection type.</param>
     /// <param name="tabColor">Optional parameter to specify the tab color for the newly added worksheet.</param>
     /// <returns>An ExcelTable object that represents the table created from the collection in the Excel worksheet.</returns>
     public static ExcelTable AddTableCollection<T>(this ExcelWorkbook workbook, IEnumerable<T> collection,
-        DataBaseContext context, Color? tabColor = null)
+        DataBaseContextOld contextOld, Color? tabColor = null)
     {
         var type = typeof(T);
-        var collectionName = context.GetTableName(type);
+        var collectionName = contextOld.GetTableName(type);
 
         var worksheet = workbook.Worksheets.Add(collectionName);
         var range = worksheet.Cells["A1"].LoadFromCollection(collection, true);

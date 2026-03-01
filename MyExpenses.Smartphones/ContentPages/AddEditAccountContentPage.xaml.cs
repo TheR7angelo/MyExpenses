@@ -115,7 +115,7 @@ public partial class AddEditAccountContentPage
         // The creation of a new DataBaseContext instance (via `new DataBaseContext()`) is necessary to interact with the database.
         // This context provides the connection to the database and allows querying or updating data.
         // The `using` statement ensures that the context is disposed of properly after its use, freeing up resources like database connections.
-        using var context = new DataBaseContext();
+        using var context = new DataBaseContextOld();
         Accounts = [..context.TAccounts];
 
         RefreshObservableCollectionDatabase();
@@ -295,7 +295,7 @@ public partial class AddEditAccountContentPage
         // The creation of a new DataBaseContext instance (via `new DataBaseContext()`) is necessary to interact with the database.
         // This context provides the connection to the database and allows querying or updating data.
         // The `using` statement ensures that the context is disposed of properly after its use, freeing up resources like database connections.
-        using var context = new DataBaseContext();
+        using var context = new DataBaseContextOld();
         AccountTypes.Clear();
         AccountTypes.AddRange(context.TAccountTypes.OrderBy(s => s.Name));
     }
@@ -306,7 +306,7 @@ public partial class AddEditAccountContentPage
         // The creation of a new DataBaseContext instance (via `new DataBaseContext()`) is necessary to interact with the database.
         // This context provides the connection to the database and allows querying or updating data.
         // The `using` statement ensures that the context is disposed of properly after its use, freeing up resources like database connections.
-        using var context = new DataBaseContext();
+        using var context = new DataBaseContextOld();
         Currencies.Clear();
         Currencies.AddRange(context.TCurrencies.OrderBy(s => s.Symbol));
     }

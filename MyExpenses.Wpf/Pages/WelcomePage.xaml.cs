@@ -70,7 +70,7 @@ public partial class WelcomePage
             // ReSharper disable once HeapView.ObjectAllocation.Evident
             // Necessary instantiation of DataBaseContext to interact with the database.
             // This creates a scoped database context for performing queries and modifications in the database.
-            using var context = new DataBaseContext(filePath);
+            using var context = new DataBaseContextOld(filePath);
             context.SetAllDefaultValues();
             context.SaveChanges();
 
@@ -112,7 +112,7 @@ public partial class WelcomePage
         Log.Information("Connection to the database : \"{FileName}\" with statut : {Status}", existingDatabase.FileNameWithoutExtension, existingDatabase.SyncStatus);
 
         _dbStateProvider.FilePath = existingDatabase.FilePath;
-        DataBaseContext.FilePath = existingDatabase.FilePath;
+        DataBaseContextOld.FilePath = existingDatabase.FilePath;
         // nameof(MainWindow.FrameBody).NavigateTo(typeof(DashBoard2Page));
 
         DataBaseUpdater.ApplyMigrations();

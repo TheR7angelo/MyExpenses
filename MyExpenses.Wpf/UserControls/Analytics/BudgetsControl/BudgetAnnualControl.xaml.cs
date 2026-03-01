@@ -157,7 +157,7 @@ public partial class BudgetAnnualControl
     private void SetSeriesGlobal()
     {
         // ReSharper disable once HeapView.ObjectAllocation.Evident
-        using var context = new DataBaseContext();
+        using var context = new DataBaseContextOld();
         var records = context.AnalysisVBudgetPeriodAnnualGlobals.ToArray();
 
         var name = BudgetsControlResources.Global;

@@ -119,7 +119,7 @@ public class QuestPdfTest
                                 });
 
                                 var dbFilePath = Path.GetFullPath("Example - en.sqlite");
-                                using var context = new DataBaseContext(dbFilePath);
+                                using var context = new DataBaseContextOld(dbFilePath);
 
                                 var headers = typeof(ExportVHistory).GetProperties(BindingFlags.Public | BindingFlags.Instance)
                                     .Select(p => p.Name).ToList();

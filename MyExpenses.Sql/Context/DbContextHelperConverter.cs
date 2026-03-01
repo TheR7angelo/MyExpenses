@@ -18,7 +18,7 @@ public static class DbContextHelperConverter
         // The use of `UpdateAllDefaultValues()` is necessary to ensure the default values remain consistent
         // across all databases, and `SaveChanges()` is called to persist these changes. This approach is essential
         // given the need to handle multiple databases in a controlled and sequential manner.
-        using var context = new DataBaseContext();
+        using var context = new DataBaseContextOld();
         var result = context.Set<T>().FirstOrDefault(s => s.Id == id);
 
         return result;

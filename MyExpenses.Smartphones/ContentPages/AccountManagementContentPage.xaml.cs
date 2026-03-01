@@ -127,7 +127,7 @@ public partial class AccountManagementContentPage
         // ReSharper disable once HeapView.ObjectAllocation.Evident
         // Necessary instantiation of DataBaseContext to interact with the database.
         // This creates a scoped database context for performing queries and modifications in the database.
-        await using var context = new DataBaseContext();
+        await using var context = new DataBaseContextOld();
         var popupSearches = context.TAccounts.Select(s => Mapping.Mapper.Map<PopupSearch>(s)).AsEnumerable();
 
         // ReSharper disable once HeapView.ObjectAllocation.Evident
@@ -219,7 +219,7 @@ public partial class AccountManagementContentPage
         // ReSharper disable once HeapView.ObjectAllocation.Evident
         // Necessary instantiation of DataBaseContext to interact with the database.
         // This creates a scoped database context for performing queries and modifications in the database.
-        using var context = new DataBaseContext();
+        using var context = new DataBaseContextOld();
         VTotalByAccounts.AddRange(context.VTotalByAccounts.OrderBy(s => s.Name));
         TotalAllAccount = VTotalByAccounts.Sum(s => s.Total) ?? 0d;
     }

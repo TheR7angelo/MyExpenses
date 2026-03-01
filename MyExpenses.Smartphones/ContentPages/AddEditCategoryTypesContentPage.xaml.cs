@@ -177,7 +177,7 @@ public partial class AddEditCategoryTypesContentPage
             // The creation of a new DataBaseContext instance (via `new DataBaseContext()`) is necessary to interact with the database.
             // This context provides the connection to the database and allows querying or updating data.
             // The `using` statement ensures that the context is disposed of properly after its use, freeing up resources like database connections.
-            await using var context = new DataBaseContext();
+            await using var context = new DataBaseContextOld();
             var newVCategory = context.VCategories.First(s => s.Id.Equals(newCategoryTypeType.Id));
             Categories.AddAndSort(newVCategory, s => s.CategoryName!);
 
@@ -326,7 +326,7 @@ public partial class AddEditCategoryTypesContentPage
         // The creation of a new DataBaseContext instance (via `new DataBaseContext()`) is necessary to interact with the database.
         // This context provides the connection to the database and allows querying or updating data.
         // The `using` statement ensures that the context is disposed of properly after its use, freeing up resources like database connections.
-        using var context = new DataBaseContext();
+        using var context = new DataBaseContextOld();
         Categories.Clear();
         Categories.AddRange(context.VCategories.OrderBy(s => s.CategoryName));
     }
@@ -343,7 +343,7 @@ public partial class AddEditCategoryTypesContentPage
         // The creation of a new DataBaseContext instance (via `new DataBaseContext()`) is necessary to interact with the database.
         // This context provides the connection to the database and allows querying or updating data.
         // The `using` statement ensures that the context is disposed of properly after its use, freeing up resources like database connections.
-        using var context = new DataBaseContext();
+        using var context = new DataBaseContextOld();
         Colors.Clear();
         Colors.AddRange(context.TColors.OrderBy(s => s.Name));
     }
