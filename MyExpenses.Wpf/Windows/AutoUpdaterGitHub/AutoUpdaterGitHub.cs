@@ -59,7 +59,7 @@ public static class AutoUpdaterGitHub
 
                 if (!needUpdate) return;
 
-                Application.Current.Dispatcher.Invoke(Initialize);
+                System.Windows.Application.Current.Dispatcher.Invoke(Initialize);
 
             }, App.CancellationTokenSource.Token, TaskCreationOptions.LongRunning, TaskScheduler.Default).Unwrap();
         }, App.CancellationTokenSource.Token);
@@ -156,7 +156,7 @@ public static class AutoUpdaterGitHub
         // ReSharper restore HeapView.ClosureAllocation
 
         // ReSharper disable once HeapView.DelegateAllocation
-        Application.Current.Dispatcher.Invoke(() =>
+        System.Windows.Application.Current.Dispatcher.Invoke(() =>
         {
             background = Utils.Resources.GetMaterialDesignPaperColorHexadecimalWithoutAlpha();
             foreground = Utils.Resources.GetMaterialDesignBodyColorHexadecimalWithoutAlpha();
@@ -230,6 +230,6 @@ public static class AutoUpdaterGitHub
         await progressBarWindow.StartProgressBarDownload(asset.BrowserDownloadUrl!, savePath, true);
 
         savePath.StartProcess();
-        Application.Current.Shutdown();
+        System.Windows.Application.Current.Shutdown();
     }
 }

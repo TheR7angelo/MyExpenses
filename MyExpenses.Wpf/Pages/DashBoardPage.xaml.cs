@@ -376,7 +376,7 @@ public partial class DashBoardPage
 
         if (recurrences.Any())
         {
-            var mainWindow = Application.Current.MainWindow!;
+            var mainWindow = System.Windows.Application.Current.MainWindow!;
             var actualWidth = mainWindow.ActualWidth;
             var actualHeight = mainWindow.ActualHeight;
             var size = new Size(actualWidth, actualHeight);

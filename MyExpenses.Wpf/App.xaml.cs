@@ -3,6 +3,8 @@ using System.IO;
 using System.Windows;
 using System.Windows.Media;
 using MaterialDesignThemes.Wpf;
+using Microsoft.Extensions.DependencyInjection;
+using MyExpenses.Ioc;
 using MyExpenses.Models;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.SharedUtils.Resources;
@@ -19,10 +21,16 @@ namespace MyExpenses.Wpf;
 
 public partial class App
 {
+    public IServiceProvider? ServiceProvider { get; private set; }
+
     public static CancellationTokenSource CancellationTokenSource { get; private set; } = null!;
 
     protected override void OnStartup(StartupEventArgs e)
     {
+        var serviceCollection = new ServiceCollection();
+        serviceCollection.AddWpfServices();
+        ServiceProvider = serviceCollection.BuildServiceProvider();
+
         AppDomain.CurrentDomain.ProcessExit += CurrentDomainOnProcessExit;
         AppDomain.CurrentDomain.UnhandledException += CurrentDomainOnUnhandledException;
 
@@ -65,6 +73,9 @@ public partial class App
 
             Log.Information("Apply interface configuration");
             LoadInterfaceConfiguration(configuration.Interface);
+
+            var mainWindow = new MainWindow();
+            mainWindow.Show();
         }
         catch (Exception exception)
         {
