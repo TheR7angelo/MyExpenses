@@ -1,4 +1,8 @@
-# [](https://github.com/TheR7angelo/MyExpenses/compare/v1.2.0...v) (2026-02-28)
+#  (2026-02-28)
+
+
+
+## [1.4.1](https://github.com/TheR7angelo/MyExpenses/compare/v1.2.0...1.4.1) (2026-02-28)
 
 
 ### Bug Fixes
