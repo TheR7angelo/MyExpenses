@@ -14,8 +14,4 @@
       <ProjectReference Include="..\MyExpenses.Sql\MyExpenses.Sql.csproj" />
     </ItemGroup>
 
-    <ItemGroup>
-      <PackageReference Include="Mapster" Version="10.0.0-pre02" />
-    </ItemGroup>
-
 </Project>

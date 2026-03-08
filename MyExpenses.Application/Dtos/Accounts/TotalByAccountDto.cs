@@ -4,7 +4,7 @@ public class TotalByAccountDto
 {
     public int Id { get; init; }
 
-    public string Name { get; init; } = string.Empty;
+    public required string Name { get; init; }
 
     public double Total { get; init; }
 
@@ -12,5 +12,5 @@ public class TotalByAccountDto
 
     public double TotalNotPointed { get; init; }
 
-    public string Symbol { get; init; } = string.Empty;
+    public required string Symbol { get; init; }
 }

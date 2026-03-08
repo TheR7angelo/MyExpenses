@@ -4,5 +4,5 @@ namespace MyExpenses.Infrastructure.Repositories;
 
 public interface IAccountRepository
 {
-    public Task<IEnumerable<TotalByAccountDomain>> GetTotalByAccountAsync();
+    public Task<IEnumerable<TotalByAccountDomain>> GetTotalByAccountAsync(CancellationToken cancellationToken = default);
 }

@@ -4,7 +4,7 @@ public class TotalByAccountDomain
 {
     public int Id { get; set; }
 
-    public string Name { get; set; } = string.Empty;
+    public required string Name { get; set; }
 
     public double Total { get; set; }
 
@@ -12,5 +12,5 @@ public class TotalByAccountDomain
 
     public double TotalNotPointed { get; set; }
 
-    public string Symbol { get; set; } = string.Empty;
+    public required string Symbol { get; set; }
 }

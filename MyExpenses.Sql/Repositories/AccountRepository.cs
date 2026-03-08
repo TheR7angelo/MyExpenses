@@ -1,21 +1,19 @@
-using AutoMapper;
-using AutoMapper.QueryableExtensions;
 using Domain.Models.Accounts;
 using Microsoft.EntityFrameworkCore;
-using MyExpenses.Application.Interfaces;
 using MyExpenses.Infrastructure.Repositories;
 using MyExpenses.Sql.Context;
+using MyExpenses.Sql.Mappings;
 
 namespace MyExpenses.Sql.Repositories;
 
-public class AccountRepository(DataBaseContext dataBaseContext, IMapper mapper) : IAccountRepository
+public class AccountRepository(DataBaseContext dataBaseContext) : IAccountRepository
 {
-    public async Task<IEnumerable<TotalByAccountDomain>> GetTotalByAccountAsync()
+    public async Task<IEnumerable<TotalByAccountDomain>> GetTotalByAccountAsync(CancellationToken cancellationToken = default)
     {
         var totalByAccounts = await dataBaseContext.VTotalByAccounts
             .AsNoTracking()
-            .ProjectTo<TotalByAccountDomain>(mapper.ConfigurationProvider)
-            .ToListAsync();
+            .ProjectToDto()
+            .ToListAsync(cancellationToken);
 
         return totalByAccounts;
     }

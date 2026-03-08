@@ -5,6 +5,7 @@
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
         <RootNamespace>MyExpenses.Application</RootNamespace>
+        <LangVersion>Preview</LangVersion>
     </PropertyGroup>
 
     <ItemGroup>
@@ -13,8 +14,8 @@
 
     <ItemGroup>
       <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
-      <PackageReference Include="Mapster" Version="10.0.0-pre02" />
       <PackageReference Include="Mapster.DependencyInjection" Version="10.0.0-pre02" />
+      <PackageReference Include="Riok.Mapperly" Version="4.3.1" />
     </ItemGroup>
 
     <ItemGroup>

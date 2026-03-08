@@ -5,20 +5,20 @@ namespace MyExpenses.Application.ViewModels.Accounts;
 public partial class TotalByAccountViewModel : ObservableObject
 {
     [ObservableProperty]
-    private int _id;
+    public partial int Id { get; set; }
 
     [ObservableProperty]
-    private string _name = string.Empty;
+    public required partial string Name { get; set; }
 
     [ObservableProperty]
-    private double _total;
+    public partial double Total { get; set; }
 
     [ObservableProperty]
-    private double _totalPointed;
+    public partial double TotalPointed { get; set; }
 
     [ObservableProperty]
-    private double _totalNotPointed;
+    public partial double TotalNotPointed { get; set; }
 
     [ObservableProperty]
-    private string _symbol = string.Empty;
+    public required partial string Symbol { get; set; }
 }
