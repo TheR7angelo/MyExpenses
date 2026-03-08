@@ -22,18 +22,17 @@ class Schema:
 
 
 def load_schema(db):
-
     conn = sqlite3.connect(db)
     cur = conn.cursor()
 
     schema = Schema()
 
     cur.execute("""
-    SELECT name
-    FROM sqlite_schema
-    WHERE type='table'
-    AND name NOT LIKE 'sqlite_%'
-    """)
+                SELECT name
+                FROM sqlite_schema
+                WHERE type = 'table'
+                  AND name NOT LIKE 'sqlite_%'
+                """)
 
     for (table,) in cur.fetchall():
 
@@ -42,7 +41,6 @@ def load_schema(db):
         cols = {}
 
         for cid, name, typ, notnull, dflt, pk in cur.fetchall():
-
             nullable = not (notnull or pk)
 
             cols[name] = Column(nullable, "table constraint")
@@ -50,10 +48,10 @@ def load_schema(db):
         schema.tables[table] = cols
 
     cur.execute("""
-    SELECT name, sql
-    FROM sqlite_schema
-    WHERE type='view'
-    """)
+                SELECT name, sql
+                FROM sqlite_schema
+                WHERE type ='view'
+                """)
 
     for name, sql in cur.fetchall():
         schema.views_sql[name] = sql
@@ -62,7 +60,6 @@ def load_schema(db):
 
 
 def extract_sources(select):
-
     sources = {}
 
     for table in select.find_all(exp.Table):
@@ -72,7 +69,6 @@ def extract_sources(select):
 
 
 def detect_left_join(select):
-
     nullable = set()
 
     for join in select.find_all(exp.Join):
@@ -84,7 +80,6 @@ def detect_left_join(select):
 
 
 def resolve_star(schema, sources):
-
     cols = {}
 
     for alias, table in sources.items():
@@ -103,69 +98,60 @@ def resolve_star(schema, sources):
 
 
 def infer_expr(expr, schema, sources, nullable_tables):
-
     if isinstance(expr, exp.Column):
-
         table_alias = expr.table
         col = expr.name
-
         if table_alias in sources:
-
             table = sources[table_alias]
-
             if table in schema.tables:
-
                 base = schema.tables[table].get(col)
-
                 if base:
-
-                    if table_alias in nullable_tables:
-                        return Column(True, "LEFT JOIN", [f"{table}.{col}"])
-
-                    return Column(base.nullable, base.reason, [f"{table}.{col}"])
-
+                    is_nullable = True if table_alias in nullable_tables else base.nullable
+                    return Column(is_nullable, "source column", [f"{table}.{col}"])
             if table in schema.views:
-
                 base = schema.views[table].get(col)
-
                 if base:
-
-                    if table_alias in nullable_tables:
-                        return Column(True, "LEFT JOIN view", [f"{table}.{col}"])
-
                     return base
-
         return Column(True, "unknown column")
 
-    if isinstance(expr, exp.Coalesce):
-        return Column(False, "COALESCE")
-
-    if isinstance(expr, exp.Count):
-        return Column(False, "COUNT")
-
     if isinstance(expr, (exp.Sum, exp.Avg, exp.Min, exp.Max)):
-        return Column(True, "aggregate")
+        return Column(True, "aggregate (nullable if empty)")
 
-    if isinstance(expr, exp.Literal):
-        return Column(False, "literal")
-
-    if isinstance(expr, exp.Binary):
-
-        left = infer_expr(expr.left, schema, sources, nullable_tables)
-        right = infer_expr(expr.right, schema, sources, nullable_tables)
-
-        nullable = left.nullable or right.nullable
-
-        return Column(nullable, "binary", left.sources + right.sources)
+    if isinstance(expr, exp.Coalesce):
+        for arg in expr.expressions:
+            info = infer_expr(arg, schema, sources, nullable_tables)
+            if not info.nullable:
+                return Column(False, "COALESCE (guaranteed by argument)")
+        if isinstance(expr.expressions[-1], exp.Literal):
+            return Column(False, "COALESCE (default value)")
+        return Column(True, "COALESCE (all inputs nullable)")
 
     if isinstance(expr, exp.Case):
-        return Column(True, "CASE")
+        is_nullable = False
+        branches = [expr.args.get("default")] + [e.args.get("value") for e in expr.args.get("ifs", [])]
+        for branch in branches:
+            if branch:
+                info = infer_expr(branch, schema, sources, nullable_tables)
+                if info.nullable:
+                    is_nullable = True
+                    break
+        return Column(is_nullable, "CASE expression")
 
-    return Column(True, "complex")
+    if isinstance(expr, (exp.Cast, exp.Round, exp.Paren)):
+        return infer_expr(expr.this, schema, sources, nullable_tables)
+
+    if isinstance(expr, exp.Binary):
+        left = infer_expr(expr.left, schema, sources, nullable_tables)
+        right = infer_expr(expr.right, schema, sources, nullable_tables)
+        return Column(left.nullable or right.nullable, "binary op", left.sources + right.sources)
+
+    if isinstance(expr, exp.Literal):
+        return Column(False, "literal constant")
+
+    return Column(True, "complex expression")
 
 
 def analyze_select(select, schema):
-
     sources = extract_sources(select)
     nullable_tables = detect_left_join(select)
 
@@ -174,7 +160,6 @@ def analyze_select(select, schema):
     for proj in select.expressions:
 
         if isinstance(proj, exp.Star):
-
             cols.update(resolve_star(schema, sources))
             continue
 
@@ -189,7 +174,6 @@ def analyze_select(select, schema):
 
 
 def analyze_query(node, schema):
-
     if isinstance(node, exp.Select):
         return analyze_select(node, schema)
 
@@ -203,7 +187,6 @@ def analyze_query(node, schema):
         for c in left:
 
             if c in right:
-
                 nullable = left[c].nullable or right[c].nullable
 
                 merged[c] = Column(nullable, "UNION")
@@ -219,7 +202,6 @@ def analyze_query(node, schema):
 
 
 def analyze_view(name, sql, schema):
-
     parsed = sqlglot.parse_one(sql)
 
     if isinstance(parsed, exp.With):
@@ -236,7 +218,6 @@ def analyze_view(name, sql, schema):
 
 
 def resolve_views(schema):
-
     remaining = dict(schema.views_sql)
 
     while remaining:
@@ -261,7 +242,6 @@ def resolve_views(schema):
 
 
 def report(schema):
-
     problems = []
 
     for view, cols in schema.views.items():
