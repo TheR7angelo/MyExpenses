@@ -17,6 +17,7 @@ using MyExpenses.Smartphones.ContentPages.CustomPopups;
 using MyExpenses.Smartphones.PackIcons;
 using MyExpenses.Smartphones.UserControls.Images;
 using MyExpenses.Sql.Context;
+using MyExpenses.Sql.Entities;
 using MyExpenses.Sql.Queries;
 using MyExpenses.Utils.Strings;
 using Serilog;

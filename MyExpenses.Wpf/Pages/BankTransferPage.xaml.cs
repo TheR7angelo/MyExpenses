@@ -7,11 +7,11 @@ using System.Windows.Input;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Sql.Bases.Enums;
 using MyExpenses.Models.Sql.Bases.Tables;
-using MyExpenses.Models.Sql.Bases.Views;
 using MyExpenses.SharedUtils.Collection;
 using MyExpenses.SharedUtils.RegexUtils;
 using MyExpenses.SharedUtils.Resources.Resx.BankTransferManagement;
 using MyExpenses.Sql.Context;
+using MyExpenses.Sql.Entities;
 using MyExpenses.Sql.Queries;
 using MyExpenses.Utils.Sql;
 using MyExpenses.Wpf.Windows;
@@ -660,14 +660,14 @@ public partial class BankTransferPage
     private void RefreshVFromAccountReduce()
     {
         VFromAccountReduce = VFromAccount is not null && BankTransfer.Value is not null
-            ? Math.Round((VFromAccount.Total ?? 0) - Math.Abs(BankTransfer.Value ?? 0), 2)
+            ? Math.Round(VFromAccount.Total - Math.Abs(BankTransfer.Value ?? 0), 2)
             : 0;
     }
 
     private void RefreshVToAccountIncrease()
     {
         VToAccountIncrease = VToAccount is not null && BankTransfer.Value is not null
-            ? Math.Round((VToAccount.Total ?? 0) + Math.Abs(BankTransfer.Value ?? 0), 2)
+            ? Math.Round(VToAccount.Total + Math.Abs(BankTransfer.Value ?? 0), 2)
             : 0;
     }
 

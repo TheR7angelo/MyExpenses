@@ -16,6 +16,7 @@ using MyExpenses.SharedUtils.Properties;
 using MyExpenses.SharedUtils.Resources.Resx.DashBoardManagement;
 using MyExpenses.SharedUtils.Resources.Resx.DetailedRecordManagement;
 using MyExpenses.Sql.Context;
+using MyExpenses.Sql.Entities;
 using MyExpenses.Sql.Queries;
 using MyExpenses.Utils;
 using MyExpenses.Utils.Strings;
