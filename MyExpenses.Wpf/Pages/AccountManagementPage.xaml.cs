@@ -1,8 +1,8 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
-using MyExpenses.Application.Dtos.Accounts;
 using MyExpenses.Application.Interfaces;
+using MyExpenses.Application.ViewModels.Accounts;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.SharedUtils.Collection;
 using MyExpenses.SharedUtils.Resources.Resx.AddEditAccount;
@@ -17,7 +17,7 @@ namespace MyExpenses.Wpf.Pages;
 
 public partial class AccountManagementPage
 {
-    public ObservableCollection<TotalByAccountDto> TotalByAccounts { get; } = [];
+    public ObservableCollection<TotalByAccountViewModel> TotalByAccounts { get; } = [];
     // internal DashBoardPage? DashBoardPage { get; init; }
 
     private readonly IAccountServices _accountServices;
@@ -32,7 +32,7 @@ public partial class AccountManagementPage
 
     private async Task FillTotalByAccounts()
     {
-        var totalByAccounts = await _accountServices.GetAllTotalByAccountAsync();
+        var totalByAccounts = await _accountServices.GetAllTotalByAccountViewModelAsync();
         TotalByAccounts.AddRangeAndSort(totalByAccounts, s => s.Name);
     }
 
