@@ -197,19 +197,19 @@ CREATE TABLE t_history
     id                   INTEGER
         CONSTRAINT t_history_pk
             PRIMARY KEY AUTOINCREMENT,
-    account_fk           INTEGER
+    account_fk           INTEGER NOT NULL
         CONSTRAINT t_history_t_account_id_fk
             REFERENCES t_account,
-    description          TEXT(255),
-    category_type_fk     INTEGER
+    description          TEXT(255) NOT NULL,
+    category_type_fk     INTEGER NOT NULL
         CONSTRAINT t_history_t_category_type_id_fk
             REFERENCES t_category_type,
-    mode_payment_fk      INTEGER
+    mode_payment_fk      INTEGER NOT NULL
         CONSTRAINT t_history_t_mode_payment_id_fk
             REFERENCES t_mode_payment,
-    value                REAL,
-    date                 DATETIME,
-    place_fk             INTEGER
+    value                REAL NOT NULL,
+    date                 DATETIME NOT NULL,
+    place_fk             INTEGER NOT NULL
         constraint t_history_t_place_id_fk
             references t_place,
     is_pointed              BOOLEAN NOT NULL DEFAULT FALSE,
@@ -621,19 +621,19 @@ SELECT h.id,
        h.date_added
 
 FROM t_history h
-         LEFT JOIN t_account ta
+         INNER JOIN t_account ta
                    ON h.account_fk = ta.id
-         LEFT JOIN t_category_type tct
+         INNER JOIN t_category_type tct
                    ON h.category_type_fk = tct.id
-         LEFT JOIN t_color tco
+         INNER JOIN t_color tco
                    ON tct.color_fk = tco.id
-         LEFT JOIN t_mode_payment tmp
+         INNER JOIN t_mode_payment tmp
                    ON h.mode_payment_fk = tmp.id
-         LEFT JOIN t_currency tcu
+         INNER JOIN t_currency tcu
                    ON ta.currency_fk = tcu.id
-         LEFT JOIN t_place tp
+         INNER JOIN t_place tp
                    ON h.place_fk = tp.id
-         LEFT JOIN t_bank_transfer bt
+         INNER JOIN t_bank_transfer bt
                    ON h.bank_transfer_fk = bt.id;
 
 DROP VIEW IF EXISTS v_category;
@@ -666,7 +666,7 @@ FROM main.t_category_type tct
 --        ct.name,
 --        IFNULL(ROUND(SUM(h.value), 2), 0)                  AS total
 -- FROM t_category_type ct
---          LEFT JOIN t_history h
+--          INNER JOIN t_history h
 --                    ON ct.id = h.category_type_fk
 -- GROUP BY year, month, ct.name
 -- ORDER BY year, month;
@@ -680,9 +680,9 @@ SELECT ta.id,
        ROUND(SUM(CASE WHEN th.is_pointed = FALSE THEN th.value ELSE 0 END), 2) AS total_not_pointed,
        tc.symbol
 FROM t_account ta
-         LEFT JOIN t_history th
+         INNER JOIN t_history th
                    ON ta.id = th.account_fk
-         LEFT JOIN t_currency tc
+         INNER JOIN t_currency tc
                    ON ta.currency_fk = tc.id
 GROUP BY ta.id, ta.name, tc.symbol
 ORDER BY ta.id;
@@ -700,13 +700,13 @@ SELECT CAST(STRFTIME('%Y', h.date) AS INT) AS year,
        tco.hexadecimal_color_code
 
 FROM t_category_type tct
-         LEFT JOIN t_history h
+         INNER JOIN t_history h
                    ON h.category_type_fk = tct.id
-         LEFT JOIN t_account ta
+         INNER JOIN t_account ta
                    ON h.account_fk = ta.id
-         LEFT JOIN t_currency tcu
+         INNER JOIN t_currency tcu
                    ON ta.currency_fk = tcu.id
-         LEFT JOIN t_color tco
+         INNER JOIN t_color tco
                    ON tct.color_fk = tco.id
 ORDER BY year, week;
 
@@ -761,7 +761,7 @@ WITH all_periods AS (SELECT a.id                     AS account_fk,
                             tc.symbol                AS currency,
                             y.year || '-' || m.month AS period
                      FROM t_account a
-                              LEFT JOIN t_currency tc on a.currency_fk = tc.id
+                              INNER JOIN t_currency tc on a.currency_fk = tc.id
                               CROSS JOIN (
                                 SELECT DISTINCT year
                                           FROM (
@@ -802,7 +802,7 @@ WITH all_periods AS (SELECT a.id                     AS account_fk,
                         ap.period,
                         COALESCE(SUM(h.value), 0) as monthly_value
                  FROM all_periods ap
-                          LEFT JOIN t_history h
+                          INNER JOIN t_history h
                                     ON h.account_fk = ap.account_fk AND ap.period = strftime('%Y-%m', h.date)
                  GROUP BY ap.account_fk, ap.period),
      ranked AS (SELECT *,
@@ -839,9 +839,9 @@ WITH all_periods AS (SELECT a.id                      AS account_fk,
                             tc.hexadecimal_color_code AS color_code,
                             y.year || '-' || m.month  AS period
                      FROM t_account a
-                              LEFT JOIN t_currency tca ON a.currency_fk = tca.id
+                              INNER JOIN t_currency tca ON a.currency_fk = tca.id
                               CROSS JOIN t_category_type tct
-                              LEFT JOIN t_color tc ON tct.color_fk = tc.id
+                              INNER JOIN t_color tc ON tct.color_fk = tc.id
                               CROSS JOIN (
                                 SELECT DISTINCT year
                                           FROM (
@@ -886,7 +886,7 @@ WITH all_periods AS (SELECT a.id                      AS account_fk,
                         COALESCE(SUM(CASE WHEN h.value < 0 THEN h.value ELSE 0 END), 0)  AS monthly_negative_value,
                         COALESCE(SUM(CASE WHEN h.value >= 0 THEN h.value ELSE 0 END), 0) AS monthly_positive_value
                  FROM all_periods ap
-                          LEFT JOIN t_history h
+                          INNER JOIN t_history h
                                     ON h.account_fk = ap.account_fk
                                         AND h.category_type_fk = ap.category_type_fk
                                         AND ap.period = strftime('%Y-%m', h.date)
@@ -931,8 +931,8 @@ WITH all_periods AS (SELECT a.id                     AS account_fk,
                      FROM t_account a
                               CROSS JOIN t_mode_payment tmp
                               CROSS JOIN t_category_type ct
-                              LEFT JOIN t_color tc ON ct.color_fk = tc.id
-                              LEFT JOIN t_currency tcu on a.currency_fk = tcu.id
+                              INNER JOIN t_color tc ON ct.color_fk = tc.id
+                              INNER JOIN t_currency tcu on a.currency_fk = tcu.id
                               CROSS JOIN (
                                 SELECT DISTINCT year
                                           FROM (
@@ -979,7 +979,7 @@ WITH all_periods AS (SELECT a.id                     AS account_fk,
                         COUNT(CASE WHEN h.value IS NOT NULL THEN h.mode_payment_fk END) AS monthly_mode_payment,
                         COALESCE(SUM(h.value), 0)                                       AS monthly_value
                  FROM all_periods ap
-                          LEFT JOIN t_history h
+                          INNER JOIN t_history h
                                     ON h.account_fk = ap.account_fk
                                         AND h.mode_payment_fk = ap.mode_payment_fk
                                         AND h.category_type_fk = ap.category_fk
@@ -1042,7 +1042,7 @@ WITH date_bounds AS (SELECT STRFTIME('%Y-%m', MIN(h.date)) AS min_date
                                           0
                                   ) AS cumulative_total_value
                            FROM account_months am
-                                    LEFT JOIN monthly_values mv
+                                    INNER JOIN monthly_values mv
                                               ON am.account_fk = mv.account_fk AND am.period = mv.period)
 
 SELECT cv.account_fk,
@@ -1075,7 +1075,7 @@ SELECT cv.account_fk,
        )                                                                                  AS percentage,
        ROUND((cv.cumulative_total_value - COALESCE(pre_cv.cumulative_total_value, 0)), 2) AS difference_value
 FROM cumulative_values cv
-         LEFT JOIN cumulative_values pre_cv
+         INNER JOIN cumulative_values pre_cv
                    ON cv.account_fk = pre_cv.account_fk
                        AND STRFTIME('%Y-%m', DATE(cv.period || '-01', '-1 month')) = pre_cv.period
 ORDER BY cv.account_fk, cv.period;
@@ -1127,7 +1127,7 @@ SELECT cv.period,
        )                                                                                  AS percentage,
        ROUND((cv.cumulative_total_value - COALESCE(pre_cv.cumulative_total_value, 0)), 2) AS difference_value
 FROM cumulative_values cv
-         LEFT JOIN cumulative_values pre_cv
+         INNER JOIN cumulative_values pre_cv
                    ON STRFTIME('%Y-%m', DATE(cv.period || '-01', '-1 month')) = pre_cv.period
 ORDER BY cv.period;
 
@@ -1186,7 +1186,7 @@ WITH date_bounds AS (SELECT STRFTIME('%Y-%m', MIN(h.date)) AS min_date
                                            WHERE mv2.account_fk = am.account_fk
                                              AND mv2.period <= am.period), 0) AS cumulative_total_value
                            FROM account_months am
-                                    LEFT JOIN monthly_values mv
+                                    INNER JOIN monthly_values mv
                                               ON am.account_fk = mv.account_fk AND am.period = mv.period)
 
 SELECT cv.account_fk,
@@ -1283,7 +1283,7 @@ WITH date_bounds AS (SELECT STRFTIME('%Y-%m', MIN(h.date)) AS min_date
      complete_monthly_values AS (SELECT m.period,
                                         COALESCE(mv.total_value, 0) AS total_value
                                  FROM months m
-                                          LEFT JOIN monthly_values mv ON m.period = mv.period),
+                                          INNER JOIN monthly_values mv ON m.period = mv.period),
      cumulative_values AS (SELECT cmv.period,
                                   STRFTIME('%m', cmv.period)        AS month_of_year,
                                   STRFTIME('%Y', cmv.period)        AS year,
@@ -1316,7 +1316,7 @@ SELECT cv.period,
        )                                                                                  AS percentage,
        ROUND((cv.cumulative_total_value - COALESCE(pre_cv.cumulative_total_value, 0)), 2) as difference_value
 FROM cumulative_values cv
-         LEFT JOIN cumulative_values pre_cv
+         INNER JOIN cumulative_values pre_cv
                    ON STRFTIME('%Y-%m', DATE(cv.period || '-01', '-1 year')) = pre_cv.period
 ORDER BY cv.period;
 
@@ -1343,7 +1343,7 @@ WITH date_bounds AS (SELECT CAST(STRFTIME('%Y', MIN(h.date)) AS INTEGER) AS min_
                               ay.year,
                               COALESCE(SUM(h.value), 0) AS total_value
                        FROM account_years ay
-                                LEFT JOIN t_history h
+                                INNER JOIN t_history h
                                           ON ay.account_fk = h.account_fk AND STRFTIME('%Y', h.date) = CAST(ay.year AS TEXT)
                                 INNER JOIN t_account a
                                            ON ay.account_fk = a.id
@@ -1387,7 +1387,7 @@ SELECT cv.account_fk,
                    END, 2)                                                                AS percentage,
        ROUND((cv.cumulative_total_value - COALESCE(pre_cv.cumulative_total_value, 0)), 2) AS difference_value
 FROM cumulative_values cv
-         LEFT JOIN cumulative_values pre_cv
+         INNER JOIN cumulative_values pre_cv
                    ON cv.account_fk = pre_cv.account_fk
                        AND CAST(cv.year AS INTEGER) - 1 = CAST(pre_cv.year AS INTEGER);
 
@@ -1405,7 +1405,7 @@ WITH date_bounds AS (SELECT CAST(STRFTIME('%Y', MIN(h.date)) AS INTEGER) AS min_
      annual_values AS (SELECT yc.year,
                               COALESCE(SUM(h.value), 0) AS total_value
                        FROM years yc
-                                LEFT JOIN t_history h
+                                INNER JOIN t_history h
                                           ON STRFTIME('%Y', h.date) = CAST(yc.year AS TEXT)
                        GROUP BY yc.year),
      cumulative_values AS (SELECT av.year,
@@ -1439,7 +1439,7 @@ SELECT cv.year                                                                  
        )                                                                                  AS percentage,
        ROUND((cv.cumulative_total_value - COALESCE(pre_cv.cumulative_total_value, 0)), 2) as difference_value
 FROM cumulative_values cv
-         LEFT JOIN cumulative_values pre_cv
+         INNER JOIN cumulative_values pre_cv
                    ON cv.year - 1 = pre_cv.year;
 
 DROP VIEW IF EXISTS v_bank_transfer_summary;
@@ -1447,13 +1447,13 @@ CREATE VIEW v_bank_transfer_summary AS
 WITH from_account_balance_before AS (SELECT bt.id,
                                             SUM(th.value) AS balance
                                      FROM t_bank_transfer bt
-                                              LEFT JOIN t_history th
+                                              INNER JOIN t_history th
                                                         ON th.account_fk = bt.from_account_fk AND th.date < bt.date
                                      GROUP BY bt.id),
      to_account_balance_before AS (SELECT bt.id,
                                           SUM(th.value) AS balance
                                    FROM t_bank_transfer bt
-                                            LEFT JOIN t_history th
+                                            INNER JOIN t_history th
                                                       ON th.account_fk = bt.to_account_fk AND th.date < bt.date
                                    GROUP BY bt.id)
 SELECT bt.id,
