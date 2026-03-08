@@ -104,7 +104,7 @@ namespace MyExpenses.Wpf.Resources.Resx.Windows.MainWindow {
         /// <summary>
         /// Looks up a localized string similar to Settings.
         /// </summary>
-        internal static string MenuItemHeaderSettings {
+        public static string MenuItemHeaderSettings {
             get {
                 return ResourceManager.GetString("MenuItemHeaderSettings", resourceCulture);
             }

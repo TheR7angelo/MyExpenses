@@ -172,6 +172,7 @@ public partial class SettingsWindow
         DbContextHelper.UpdateDbLanguage();
 
         Interface.OnLanguageChanged();
+        Localisations.LocalizationService.Instance.SetLanguage(cultureInfoCode);
 
         return Task.CompletedTask;
     }

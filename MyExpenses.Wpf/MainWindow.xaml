@@ -6,7 +6,7 @@
                  xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
                  xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
                  xmlns:converters="clr-namespace:MyExpenses.Wpf.Converters"
-
+                 xmlns:loc="clr-namespace:MyExpenses.Wpf.Localisations"
                  mc:Ignorable="d"
 
                  d:DesignHeight="450"
@@ -127,7 +127,7 @@
                 <Menu Grid.Column="2">
 
                     <MenuItem
-                        Header="{Binding MenuItemHeaderSettings, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                        Header="{loc:Tr MainWindowResources:MenuItemHeaderSettings}"
                         Margin="1.5"
                         Click="MenuItemSetting_OnClick">
 

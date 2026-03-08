@@ -3,7 +3,6 @@ using System.ComponentModel.DataAnnotations;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.SharedUtils.Collection;
 using MyExpenses.SharedUtils.Properties;
@@ -26,17 +25,6 @@ public partial class AddEditAccountWindow
 {
     #region DependecyProperty
 
-    // ReSharper disable once HeapView.ObjectAllocation.Evident
-    public static readonly DependencyProperty LabelIsAccountActiveProperty =
-        DependencyProperty.Register(nameof(LabelIsAccountActive), typeof(string), typeof(AddEditAccountWindow),
-            new PropertyMetadata(default(string)));
-
-    public string LabelIsAccountActive
-    {
-        get => (string)GetValue(LabelIsAccountActiveProperty);
-        set => SetValue(LabelIsAccountActiveProperty, value);
-    }
-
     // ReSharper disable once HeapView.BoxingAllocation
     // ReSharper disable once HeapView.ObjectAllocation.Evident
     public static readonly DependencyProperty EnableStartingBalanceProperty =
@@ -48,127 +36,6 @@ public partial class AddEditAccountWindow
     public static readonly DependencyProperty EditAccountProperty =
         DependencyProperty.Register(nameof(EditAccount), typeof(bool), typeof(AddEditAccountWindow),
             new PropertyMetadata(false));
-
-    #endregion
-
-    #region Resx
-
-    // ReSharper disable once HeapView.ObjectAllocation.Evident
-    public static readonly DependencyProperty TitleWindowProperty = DependencyProperty.Register(nameof(TitleWindow),
-        typeof(string), typeof(AddEditAccountWindow), new PropertyMetadata(default(string)));
-
-    public string TitleWindow
-    {
-        get => (string)GetValue(TitleWindowProperty);
-        set => SetValue(TitleWindowProperty, value);
-    }
-
-    #region HintAssist
-
-    // ReSharper disable once HeapView.ObjectAllocation.Evident
-    public static readonly DependencyProperty HintAssistTextBoxAccountNameProperty =
-        DependencyProperty.Register(nameof(HintAssistTextBoxAccountName), typeof(string), typeof(AddEditAccountWindow),
-            new PropertyMetadata(default(string)));
-
-    public string HintAssistTextBoxAccountName
-    {
-        get => (string)GetValue(HintAssistTextBoxAccountNameProperty);
-        set => SetValue(HintAssistTextBoxAccountNameProperty, value);
-    }
-
-    // ReSharper disable once HeapView.ObjectAllocation.Evident
-    public static readonly DependencyProperty HintAssistComboBoxAccountTypeProperty =
-        DependencyProperty.Register(nameof(HintAssistComboBoxAccountType), typeof(string), typeof(AddEditAccountWindow),
-            new PropertyMetadata(default(string)));
-
-    public string HintAssistComboBoxAccountType
-    {
-        get => (string)GetValue(HintAssistComboBoxAccountTypeProperty);
-        set => SetValue(HintAssistComboBoxAccountTypeProperty, value);
-    }
-
-    // ReSharper disable once HeapView.ObjectAllocation.Evident
-    public static readonly DependencyProperty HintAssistComboBoxAccountCurrencyProperty =
-        DependencyProperty.Register(nameof(HintAssistComboBoxAccountCurrency), typeof(string),
-            typeof(AddEditAccountWindow), new PropertyMetadata(default(string)));
-
-    public string HintAssistComboBoxAccountCurrency
-    {
-        get => (string)GetValue(HintAssistComboBoxAccountCurrencyProperty);
-        set => SetValue(HintAssistComboBoxAccountCurrencyProperty, value);
-    }
-
-    // ReSharper disable once HeapView.ObjectAllocation.Evident
-    public static readonly DependencyProperty HintAssistTextBoxAccountStartingBalanceDescriptionProperty =
-        DependencyProperty.Register(nameof(HintAssistTextBoxAccountStartingBalanceDescription), typeof(string),
-            typeof(AddEditAccountWindow), new PropertyMetadata(default(string)));
-
-    public string HintAssistTextBoxAccountStartingBalanceDescription
-    {
-        get => (string)GetValue(HintAssistTextBoxAccountStartingBalanceDescriptionProperty);
-        set => SetValue(HintAssistTextBoxAccountStartingBalanceDescriptionProperty, value);
-    }
-
-    // ReSharper disable once HeapView.ObjectAllocation.Evident
-    public static readonly DependencyProperty HintAssistTextBoxAccountStartingBalanceProperty =
-        DependencyProperty.Register(nameof(HintAssistTextBoxAccountStartingBalance), typeof(string),
-            typeof(AddEditAccountWindow), new PropertyMetadata(default(string)));
-
-    public string HintAssistTextBoxAccountStartingBalance
-    {
-        get => (string)GetValue(HintAssistTextBoxAccountStartingBalanceProperty);
-        set => SetValue(HintAssistTextBoxAccountStartingBalanceProperty, value);
-    }
-
-    // ReSharper disable once HeapView.ObjectAllocation.Evident
-    public static readonly DependencyProperty HintAssistComboBoxAccountCategoryTypeProperty =
-        DependencyProperty.Register(nameof(HintAssistComboBoxAccountCategoryType), typeof(string),
-            typeof(AddEditAccountWindow), new PropertyMetadata(default(string)));
-
-    public string HintAssistComboBoxAccountCategoryType
-    {
-        get => (string)GetValue(HintAssistComboBoxAccountCategoryTypeProperty);
-        set => SetValue(HintAssistComboBoxAccountCategoryTypeProperty, value);
-    }
-
-    #endregion
-
-    #region Button
-
-    // ReSharper disable once HeapView.ObjectAllocation.Evident
-    public static readonly DependencyProperty ButtonValidContentProperty =
-        DependencyProperty.Register(nameof(ButtonValidContent), typeof(string), typeof(AddEditAccountWindow),
-            new PropertyMetadata(default(string)));
-
-    public string ButtonValidContent
-    {
-        get => (string)GetValue(ButtonValidContentProperty);
-        set => SetValue(ButtonValidContentProperty, value);
-    }
-
-    // ReSharper disable once HeapView.ObjectAllocation.Evident
-    public static readonly DependencyProperty ButtonDeleteContentProperty =
-        DependencyProperty.Register(nameof(ButtonDeleteContent), typeof(string), typeof(AddEditAccountWindow),
-            new PropertyMetadata(default(string)));
-
-    public string ButtonDeleteContent
-    {
-        get => (string)GetValue(ButtonDeleteContentProperty);
-        set => SetValue(ButtonDeleteContentProperty, value);
-    }
-
-    // ReSharper disable once HeapView.ObjectAllocation.Evident
-    public static readonly DependencyProperty ButtonCancelContentProperty =
-        DependencyProperty.Register(nameof(ButtonCancelContent), typeof(string), typeof(AddEditAccountWindow),
-            new PropertyMetadata(default(string)));
-
-    public string ButtonCancelContent
-    {
-        get => (string)GetValue(ButtonCancelContentProperty);
-        set => SetValue(ButtonCancelContentProperty, value);
-    }
-
-    #endregion
 
     #endregion
 
@@ -218,13 +85,9 @@ public partial class AddEditAccountWindow
         Currencies = [..context.TCurrencies.OrderBy(s => s.Symbol)];
         CategoryTypes = [..context.TCategoryTypes.OrderBy(s => s.Name)];
 
-        UpdateLanguage();
         InitializeComponent();
 
         this.SetWindowCornerPreference();
-
-        // ReSharper disable once HeapView.DelegateAllocation
-        Interface.LanguageChanged += Interface_OnLanguageChanged;
     }
 
     #region Action
@@ -364,9 +227,6 @@ public partial class AddEditAccountWindow
         Close();
     }
 
-    private void Interface_OnLanguageChanged()
-        => UpdateLanguage();
-
     private void TextBoxAccountName_OnLostFocus(object sender, RoutedEventArgs e)
     {
         var accountName = Account.Name;
@@ -448,24 +308,6 @@ public partial class AddEditAccountWindow
     {
         account.CopyPropertiesTo(Account);
         EditAccount = true;
-    }
-
-    private void UpdateLanguage()
-    {
-        TitleWindow = AddEditAccountResources.TitleWindow;
-
-        HintAssistTextBoxAccountName = AddEditAccountResources.TextBoxAccountName;
-        HintAssistComboBoxAccountType = AddEditAccountResources.ComboBoxAccountType;
-        HintAssistComboBoxAccountCategoryType = AddEditAccountResources.ComboBoxAccountCategoryType;
-        HintAssistComboBoxAccountCurrency = AddEditAccountResources.ComboBoxAccountCurrency;
-        HintAssistTextBoxAccountStartingBalance = AddEditAccountResources.TextBoxAccountStartingBalance;
-        HintAssistTextBoxAccountStartingBalanceDescription = AddEditAccountResources.TextBoxAccountStartingBalanceDescription;
-
-        LabelIsAccountActive = AddEditAccountResources.LabelIsAccountActive;
-
-        ButtonCancelContent = AddEditAccountResources.ButtonCancelContent;
-        ButtonDeleteContent = AddEditAccountResources.ButtonDeleteContent;
-        ButtonValidContent = AddEditAccountResources.ButtonValidContent;
     }
 
     #endregion

@@ -8,9 +8,11 @@
                  xmlns:converters="clr-namespace:MyExpenses.Wpf.Converters"
                  xmlns:margin="clr-namespace:MyExpenses.Wpf.Utils.Margin;assembly=MyExpenses.Wpf.Utils"
                  xmlns:local="clr-namespace:MyExpenses.Wpf.Windows"
+                 xmlns:loc="clr-namespace:MyExpenses.Wpf.Localisations"
+                 xmlns:addEditAccount="clr-namespace:MyExpenses.SharedUtils.Resources.Resx.AddEditAccount;assembly=MyExpenses.SharedUtils"
                  mc:Ignorable="d"
 
-                 Title="{Binding TitleWindow, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                 Title="{loc:Tr {x:Static addEditAccount:AddEditAccountResourceManager.RessourceTitleWindow}}"
 
                  d:DesignHeight="585"
                  d:DesignWidth="458"
@@ -60,7 +62,7 @@
         </Grid.ColumnDefinitions>
 
         <TextBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
-                 materialDesign:HintAssist.Hint="{Binding HintAssistTextBoxAccountName, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                 materialDesign:HintAssist.Hint="{loc:Tr {x:Static addEditAccount:AddEditAccountResourceManager.RessourceTextBoxAccountName}}"
                  Style="{StaticResource MaterialDesignFilledTextBox}"
                  Text="{Binding Account.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                  MaxLength="{Binding Account, Converter={StaticResource MaxLengthConverter}, ConverterParameter=Name}"
@@ -68,7 +70,7 @@
         </TextBox>
 
         <ComboBox Grid.Row="1" Grid.Column="0"
-                  materialDesign:HintAssist.Hint="{Binding HintAssistComboBoxAccountType, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                  materialDesign:HintAssist.Hint="{loc:Tr {x:Static addEditAccount:AddEditAccountResourceManager.RessourceHintAssistComboBoxAccountType}}"
                   materialDesign:TextFieldAssist.HasClearButton="True"
                   ItemsSource="{Binding AccountTypes}"
                   Style="{StaticResource MaterialDesignFilledComboBox}"
@@ -87,7 +89,7 @@
         </Button>
 
         <ComboBox Grid.Row="2" Grid.Column="0"
-                  materialDesign:HintAssist.Hint="{Binding HintAssistComboBoxAccountCurrency, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                  materialDesign:HintAssist.Hint="{loc:Tr {x:Static addEditAccount:AddEditAccountResourceManager.RessourceHintAssistComboBoxAccountCurrency}}"
                   materialDesign:TextFieldAssist.HasClearButton="True"
                   ItemsSource="{Binding Currencies}"
                   Style="{StaticResource MaterialDesignFilledComboBox}"
@@ -107,7 +109,7 @@
 
         <StackPanel Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"
                     Orientation="Horizontal">
-            <Label Margin="0, 0, 1.5, 0" VerticalContentAlignment="Center" Content="{Binding LabelIsAccountActive, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" />
+            <Label Margin="0, 0, 1.5, 0" VerticalContentAlignment="Center" Content="{loc:Tr {x:Static addEditAccount:AddEditAccountResourceManager.RessourceLabelIsAccountActive}}" />
 
             <ToggleButton Margin="1.5, 0, 0, 0"
                           IsThreeState="False"
@@ -140,21 +142,21 @@
                 </Grid.ColumnDefinitions>
 
                 <TextBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"
-                         materialDesign:HintAssist.Hint="{Binding HintAssistTextBoxAccountStartingBalanceDescription, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                         materialDesign:HintAssist.Hint="{loc:Tr {x:Static addEditAccount:AddEditAccountResourceManager.RessourceHintAssistTextBoxAccountStartingBalanceDescription}}"
                          Style="{StaticResource MaterialDesignFilledTextBox}"
                          Text="{Binding History.Description, Mode=TwoWay}"
                          MaxLength="{Binding History, Converter={StaticResource MaxLengthConverter}, ConverterParameter=Description}">
                 </TextBox>
 
                 <TextBox Grid.Row="1" Grid.Column="0"
-                         materialDesign:HintAssist.Hint="{Binding HintAssistTextBoxAccountStartingBalance, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                         materialDesign:HintAssist.Hint="{loc:Tr {x:Static addEditAccount:AddEditAccountResourceManager.RessourceHintAssistTextBoxAccountStartingBalance}}"
                          Style="{StaticResource MaterialDesignFilledTextBox}"
                          Text="{Binding History.Value, Mode=TwoWay}"
                          PreviewTextInput="TextBoxStartingBalance_OnPreviewTextInput">
                 </TextBox>
 
                 <ComboBox Grid.Row="1" Grid.Column="1"
-                          materialDesign:HintAssist.Hint="{Binding HintAssistComboBoxAccountCategoryType, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                          materialDesign:HintAssist.Hint="{loc:Tr {x:Static addEditAccount:AddEditAccountResourceManager.RessourceHintAssistComboBoxAccountCategoryType}}"
                           materialDesign:TextFieldAssist.HasClearButton="True"
                           ItemsSource="{Binding  CategoryTypes}"
                           Style="{StaticResource MaterialDesignFilledComboBox}"
@@ -192,18 +194,18 @@
                     Orientation="Horizontal"
                     HorizontalAlignment="Center">
 
-            <Button Content="{Binding ButtonValidContent, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+            <Button Content="{loc:Tr {x:Static addEditAccount:AddEditAccountResourceManager.RessourceButtonValidContent}}"
                     Style="{StaticResource MaterialDesignPaperButton}"
                     Click="ButtonValid_OnClick">
             </Button>
 
-            <Button Content="{Binding ButtonDeleteContent, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+            <Button Content="{loc:Tr {x:Static addEditAccount:AddEditAccountResourceManager.RessourceButtonDeleteContent}}"
                     Style="{StaticResource MaterialDesignPaperDarkButton}"
                     Visibility="{Binding EditAccount, UpdateSourceTrigger=PropertyChanged, Converter={StaticResource BooleanToVisibilityConverter}}"
                     Click="ButtonDelete_OnClick">
             </Button>
 
-            <Button Content="{Binding ButtonCancelContent, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+            <Button Content="{loc:Tr {x:Static addEditAccount:AddEditAccountResourceManager.RessourceButtonCancelContent}}"
                     Style="{StaticResource MaterialDesignPaperSecondaryButton}"
                     Click="ButtonCancel_OnClick">
             </Button>
