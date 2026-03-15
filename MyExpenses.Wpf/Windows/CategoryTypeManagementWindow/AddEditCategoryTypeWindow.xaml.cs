@@ -220,12 +220,13 @@ public partial class AddEditCategoryTypeWindow
             return;
         }
 
-        if (CategoryType.ColorFk is null)
-        {
-            MsgBox.MsgBox.Show(CategoryTypesManagementResources.MessageBoxValidateColorErrorEmptyMessage,
-                MsgBoxImage.Error);
-            return;
-        }
+        // TODO correct
+        // if (CategoryType.ColorFk is null)
+        // {
+        //     MsgBox.MsgBox.Show(CategoryTypesManagementResources.MessageBoxValidateColorErrorEmptyMessage,
+        //         MsgBoxImage.Error);
+        //     return;
+        // }
 
         DialogResult = true;
         Close();
@@ -269,8 +270,9 @@ public partial class AddEditCategoryTypeWindow
 
     private void ButtonAddColor_OnClick(object sender, RoutedEventArgs e)
     {
-        if (CategoryType.ColorFk is not null) EditColor();
-        else CreateNewColor();
+        // TODO correct
+        // if (CategoryType.ColorFk is not null) EditColor();
+        // else CreateNewColor();
     }
 
     private void EditColor()

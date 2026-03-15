@@ -28,19 +28,24 @@ public static class ServiceExtensions
 {
     private static void AddCommonServices(this IServiceCollection services, LogEventLevel logEventLevel = LogEventLevel.Information)
     {
-        services.AddScoped<IAccountRepository, AccountRepository>();
+        services.AddScoped<IAccountRepository, AccountRepository>()
+            .AddScoped<ICategoryRepository, CategoryRepository>();
 
         services.AddScoped<IAccountValidationRepository, AccountValidationRepository>();
 
-        services.AddScoped<IAccountServices, AccountServices>();
+        services.AddScoped<IAccountService, AccountService>()
+            .AddScoped<ICategoryService, CategoryService>();
+
+        services.AddScoped<IAccountPresentationService, AccountPresentationService>()
+            .AddScoped<ICategoryPresentationService, CategoryPresentationService>();
 
         services.AddScoped<IAccountPresentationValidationService, AccountPresentationValidationService>();
 
-        services.AddScoped<IAccountPresentationService, AccountPresentationService>();
+        services.AddSingleton<IAccountDtoDomainMapper, AccountDtoDomainMapper>()
+            .AddSingleton<ICategoryDtoDomainMapper, CategoryDtoDomainMapper>();
 
-        services.AddSingleton<IAccountDtoDomainMapper, AccountDtoDomainMapper>();
-
-        services.AddSingleton<IAccountDtoViewModelMapper, AccountDtoViewModelMapper>();
+        services.AddSingleton<IAccountDtoViewModelMapper, AccountDtoViewModelMapper>()
+            .AddSingleton<ICategoryDtoViewModelMapper, CategoryDtoViewModelMapper>();
 
         services.AddServiceLogging(logEventLevel);
 

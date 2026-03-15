@@ -6,8 +6,8 @@ using MyExpenses.Application.Interfaces.Mappings;
 
 namespace MyExpenses.Infrastructure.Services;
 
-public class AccountServices(IAccountRepository accountRepository, IAccountDtoDomainMapper mapper)
-    : IAccountServices
+public class AccountService(IAccountRepository accountRepository, IAccountDtoDomainMapper mapper)
+    : IAccountService
 {
     public async Task<IEnumerable<TotalByAccountDto>> GetAllTotalByAccountAsync(CancellationToken cancellationToken = default)
     {
@@ -25,5 +25,17 @@ public class AccountServices(IAccountRepository accountRepository, IAccountDtoDo
     {
         var accounts = await accountRepository.GetAllAccountAsync(cancellationToken);
         return accounts.Select(mapper.MapToDto);
+    }
+
+    public async Task<IEnumerable<AccountTypeDto>> GetAllAccountTypeAsync(CancellationToken cancellationToken = default)
+    {
+        var accountTypes = await accountRepository.GetAllAccountTypeAsync(cancellationToken);
+        return accountTypes.Select(mapper.MapToDto);
+    }
+
+    public async Task<IEnumerable<CurrencyDto>> GetAllCurrencyAsync(CancellationToken cancellationToken = default)
+    {
+        var currencies = await accountRepository.GetAllCurrencyAsync(cancellationToken);
+        return currencies.Select(mapper.MapToDto);
     }
 }

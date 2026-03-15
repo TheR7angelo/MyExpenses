@@ -19,18 +19,13 @@ public partial class AccountViewModel : ObservableValidator
     [property: MaxLength(AccountDomain.MaxNameLength, ErrorMessage = "Account name cannot exceed 55 characters")]
     public partial string Name { get; set; } = string.Empty;
 
-    partial void OnNameChanging(string value)
-    {
-        OriginalName ??= value;
-    }
-
     [ObservableProperty]
     [property: Required(ErrorMessage = "Account type is required")]
-    public partial AccountTypeViewModel AccountType { get; set; } = new();
+    public partial AccountTypeViewModel? AccountType { get; set; }
 
     [ObservableProperty]
     [property: Required(ErrorMessage = "Currency is required")]
-    public partial CurrencyViewModel Currency { get; set; } = new();
+    public partial CurrencyViewModel? Currency { get; set; }
 
     [ObservableProperty]
     [property: Required(ErrorMessage = "Active status is required")]

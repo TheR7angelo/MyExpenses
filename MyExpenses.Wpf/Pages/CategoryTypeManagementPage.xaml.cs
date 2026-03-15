@@ -30,14 +30,15 @@ public partial class CategoryTypeManagementPage
         var temp = context.TCategoryTypes.OrderBy(s => s.Name).ToList();
         var colors = context.TColors.AsNoTracking().ToDictionary(c => c.Id);
 
-        foreach (var t in temp)
-        {
-            if (t.ColorFk is not null)
-            {
-                t.ColorFkNavigation = colors.TryGetValue((int)t.ColorFk!, out var color) ? color : null;
-            }
-            CategoryTypes.Add(t);
-        }
+        // TODO correct
+        // foreach (var t in temp)
+        // {
+            // if (t.ColorFk is not null)
+            // {
+                // t.ColorFkNavigation = colors.TryGetValue((int)t.ColorFk!, out var color) ? color : null;
+            // }
+            // CategoryTypes.Add(t);
+        // }
 
         InitializeComponent();
     }

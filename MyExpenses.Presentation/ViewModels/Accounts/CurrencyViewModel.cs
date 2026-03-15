@@ -1,10 +1,15 @@
+using System.ComponentModel.DataAnnotations;
+using Domain.Models.Accounts;
+
 namespace MyExpenses.Presentation.ViewModels.Accounts;
 
 public class CurrencyViewModel
 {
     public int Id { get; set; }
 
-    public string Symbol { get; set; } = string.Empty;
+    [Required(ErrorMessage = "Currency symbol is required")]
+    [MaxLength(CurrencyDomain.MaxSymbolLength, ErrorMessage = "Currency symbol cannot exceed 55 characters")]
+    public string? Symbol { get; set; } = string.Empty;
 
-    public DateTime? DateAdded { get; init; }
+    public DateTime? DateAdded { get; set; }
 }

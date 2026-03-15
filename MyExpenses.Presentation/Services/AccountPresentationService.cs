@@ -1,4 +1,3 @@
-using MyExpenses.Application.Interfaces;
 using MyExpenses.Application.Interfaces.IServices;
 using MyExpenses.Presentation.Mappings.Interfaces;
 using MyExpenses.Presentation.Services.Interfaces;
@@ -6,17 +5,29 @@ using MyExpenses.Presentation.ViewModels.Accounts;
 
 namespace MyExpenses.Presentation.Services;
 
-public class AccountPresentationService(IAccountServices accountServices, IAccountDtoViewModelMapper viewModelMapper) : IAccountPresentationService
+public class AccountPresentationService(IAccountService accountService, IAccountDtoViewModelMapper viewModelMapper) : IAccountPresentationService
 {
     public async Task<IEnumerable<AccountViewModel>> GetAllAccountViewModelAsync(CancellationToken cancellationToken = default)
     {
-        var accounts = await accountServices.GetAllAccountAsync(cancellationToken);
+        var accounts = await accountService.GetAllAccountAsync(cancellationToken);
         return accounts.Select(viewModelMapper.MapToViewModel);
     }
 
     public async Task<IEnumerable<TotalByAccountViewModel>> GetAllTotalByAccountViewModelAsync(CancellationToken cancellationToken = default)
     {
-        var totalByAccountDto = await accountServices.GetAllTotalByAccountAsync(cancellationToken);
+        var totalByAccountDto = await accountService.GetAllTotalByAccountAsync(cancellationToken);
         return totalByAccountDto.Select(viewModelMapper.MapToViewModel);
+    }
+
+    public async Task<IEnumerable<AccountTypeViewModel>> GetAllAccountTypeViewModelAsync(CancellationToken cancellationToken = default)
+    {
+        var accountTypes = await accountService.GetAllAccountTypeAsync(cancellationToken);
+        return accountTypes.Select(viewModelMapper.MapToViewModel);
+    }
+
+    public async Task<IEnumerable<CurrencyViewModel>> GetAllCurrencyViewModelAsync(CancellationToken cancellationToken = default)
+    {
+        var currencies = await accountService.GetAllCurrencyAsync(cancellationToken);
+        return currencies.Select(viewModelMapper.MapToViewModel);
     }
 }

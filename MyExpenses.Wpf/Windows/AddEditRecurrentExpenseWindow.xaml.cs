@@ -468,10 +468,11 @@ public partial class AddEditRecurrentExpenseWindow
             var (success, exception) = editedCategoryType.AddOrEdit();
             if (success)
             {
+                // TODO correct
                 // ReSharper disable once HeapView.ObjectAllocation.Evident
-                using var context = new DataBaseContextOld();
-                editedCategoryTypeDeepCopy.ColorFkNavigation =
-                    context.TColors.FirstOrDefault(s => s.Id == editedCategoryTypeDeepCopy.ColorFk);
+                // using var context = new DataBaseContextOld();
+                // editedCategoryTypeDeepCopy.ColorFkNavigation =
+                    // context.TColors.FirstOrDefault(s => s.Id == editedCategoryTypeDeepCopy.ColorFk);
 
                 CategoryTypes!.AddAndSort(categoryType, editedCategoryTypeDeepCopy, s => s!.Name!);
 

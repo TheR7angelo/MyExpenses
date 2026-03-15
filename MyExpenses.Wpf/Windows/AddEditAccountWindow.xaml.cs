@@ -5,8 +5,10 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using MyExpenses.Application.Interfaces.IServices;
 using MyExpenses.Models.Sql.Bases.Tables;
+using MyExpenses.Presentation.Services.Interfaces;
 using MyExpenses.Presentation.Validations.Interfaces;
 using MyExpenses.Presentation.ViewModels.Accounts;
+using MyExpenses.Presentation.ViewModels.Categories;
 using MyExpenses.SharedUtils.Collection;
 using MyExpenses.SharedUtils.Properties;
 using MyExpenses.SharedUtils.RegexUtils;
@@ -66,37 +68,61 @@ public partial class AddEditAccountWindow
     // ReSharper disable once HeapView.ObjectAllocation.Evident
     public THistory History { get; } = new() { IsPointed = true };
 
-    public static string DisplayMemberPathAccountType => nameof(TAccountType.Name);
-    public static string SelectedValuePathAccountType => nameof(TAccountType.Id);
     public static string DisplayMemberPathCurrency => nameof(TCurrency.Symbol);
     public static string SelectedValuePathCurrency => nameof(TCurrency.Id);
     public static string DisplayMemberPathCategoryType => nameof(TCategoryType.Name);
     public static string SelectedValuePathCategoryType => nameof(TCategoryType.Id);
 
-    public ObservableCollection<TAccountType> AccountTypes { get; } = [];
-    public ObservableCollection<TCurrency> Currencies { get; } // = [];
-    public ObservableCollection<TCategoryType> CategoryTypes { get; } // = [];
+    public ObservableCollection<AccountTypeViewModel> AccountTypes { get; } = [];
+    public ObservableCollection<CurrencyViewModel> Currencies { get; } = [];
+    public ObservableCollection<CategoryTypeViewModel> CategoryTypes { get; } = [];
 
     #endregion
 
-    private readonly IAccountServices _accountService;
+    private readonly IAccountPresentationService _accountPresentationService;
     private readonly IAccountPresentationValidationService _accountPresentationValidationService;
+    private readonly ICategoryPresentationService _categoryPresentationService;
 
-    public AddEditAccountWindow(IAccountServices accountService, IAccountPresentationValidationService accountPresentationValidationService)
+    public AddEditAccountWindow(IAccountPresentationService accountPresentationService,
+        IAccountPresentationValidationService accountPresentationValidationService,
+        ICategoryPresentationService categoryPresentationService)
     {
-        _accountService = accountService;
+        _accountPresentationService = accountPresentationService;
         _accountPresentationValidationService = accountPresentationValidationService;
+        _categoryPresentationService = categoryPresentationService;
+
+        _ = FillAccountTypes();
+        _ = FillCurrencies();
+        _ = FillCategoryTypes();
 
         // ReSharper disable once HeapView.ObjectAllocation.Evident
         using var context = new DataBaseContextOld();
 
-        AccountTypes = [..context.TAccountTypes.OrderBy(s => s.Name)];
-        Currencies = [..context.TCurrencies.OrderBy(s => s.Symbol)];
-        CategoryTypes = [..context.TCategoryTypes.OrderBy(s => s.Name)];
+        // AccountTypes = [..context.TAccountTypes.OrderBy(s => s.Name)];
+        // Currencies = [..context.TCurrencies.OrderBy(s => s.Symbol)];
+        // CategoryTypes = [..context.TCategoryTypes.OrderBy(s => s.Name)];
 
         InitializeComponent();
 
         this.SetWindowCornerPreference();
+    }
+
+    private async Task FillCategoryTypes()
+    {
+        var categoryTypes = await _categoryPresentationService.GetAllCategoryTypeViewModelAsync();
+        CategoryTypes.AddRangeAndSort(categoryTypes, s => s.Name!);
+    }
+
+    private async Task FillCurrencies()
+    {
+        var currencies = await _accountPresentationService.GetAllCurrencyViewModelAsync();
+        Currencies.AddRangeAndSort(currencies, s => s.Symbol!);
+    }
+
+    private async Task FillAccountTypes()
+    {
+        var accountTypes = await _accountPresentationService.GetAllAccountTypeViewModelAsync();
+        AccountTypes.AddRangeAndSort(accountTypes, s => s.Name!);
     }
 
     #region Action
@@ -114,8 +140,9 @@ public partial class AddEditAccountWindow
         var (success, exception) = newAccountType.AddOrEdit();
         if (success)
         {
-            AccountTypes.AddAndSort(newAccountType, s => s.Name);
-            Account.AccountTypeFk = newAccountType.Id;
+            // TODO correct
+            // AccountTypes.AddAndSort(newAccountType, s => s.Name);
+            // Account.AccountTypeFk = newAccountType.Id;
 
             Log.Information("Account type was successfully added");
             var json = newAccountType.ToJsonString();
@@ -145,8 +172,9 @@ public partial class AddEditAccountWindow
         var (success, exception) = newCategoryType.AddOrEdit();
         if (success)
         {
-            CategoryTypes.AddAndSort(newCategoryType, s => s.Name!);
-            History.CategoryTypeFk = newCategoryType.Id;
+            // TODO correct
+            // CategoryTypes.AddAndSort(newCategoryType, s => s.Name!);
+            // History.CategoryTypeFk = newCategoryType.Id;
 
             Log.Information("Account type was successfully added");
             var json = newCategoryType.ToJsonString();
@@ -176,8 +204,9 @@ public partial class AddEditAccountWindow
         var (success, exception) = newCurrency.AddOrEdit();
         if (success)
         {
-            Currencies.AddAndSort(newCurrency, s => s.Symbol);
-            Account.CurrencyFk = newCurrency.Id;
+            // TODO correct
+            // Currencies.AddAndSort(newCurrency, s => s.Symbol);
+            // Account.CurrencyFk = newCurrency.Id;
 
             Log.Information("Account type was successfully added");
             var json = newCurrency.ToJsonString();

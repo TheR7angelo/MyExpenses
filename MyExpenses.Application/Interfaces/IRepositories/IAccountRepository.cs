@@ -9,4 +9,8 @@ public interface IAccountRepository
     public Task<IEnumerable<string>> GetAllAccountNames(CancellationToken cancellationToken = default);
 
     public Task<IEnumerable<AccountDomain>> GetAllAccountAsync(CancellationToken cancellationToken = default);
+
+    public Task<IEnumerable<AccountTypeDomain>> GetAllAccountTypeAsync(CancellationToken cancellationToken = default);
+
+    public Task<IEnumerable<CurrencyDomain>> GetAllCurrencyAsync(CancellationToken cancellationToken = default);
 }

@@ -24,8 +24,12 @@ public static partial class AccountMapper
     [MapperIgnoreSource(nameof(TAccount.TRecursiveExpenses))]
     public static partial AccountDomain MapToDomain(TAccount src);
 
+    public static partial IQueryable<CurrencyDomain> ProjectToDomain(this IQueryable<TCurrency> src);
+
     [MapperIgnoreSource(nameof(TCurrency.TAccounts))]
     public static partial CurrencyDomain MapToDomain(TCurrency src);
+
+    public static partial IQueryable<AccountTypeDomain> ProjectToDomain(this IQueryable<TAccountType> src);
 
     [MapperIgnoreSource(nameof(TAccountType.TAccounts))]
     public static partial AccountTypeDomain MapToDomain(TAccountType src);

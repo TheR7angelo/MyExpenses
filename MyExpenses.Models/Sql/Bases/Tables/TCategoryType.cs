@@ -14,18 +14,18 @@ public partial class TCategoryType : ISql
 
     [Column("name")]
     [MaxLength(55)]
-    public string? Name { get; set => SetProperty(ref field, value); }
+    public string Name { get; set => SetProperty(ref field, value); }
 
     [Column("color_fk")]
-    public int? ColorFk { get; set => SetProperty(ref field, value); }
+    public int ColorFk { get; set => SetProperty(ref field, value); }
 
     [Column("date_added", TypeName = "DATETIME")]
-    public DateTime? DateAdded { get; init; } = DateTime.Now;
+    public DateTime DateAdded { get; init; } = DateTime.Now;
 
     // ReSharper disable PropertyCanBeMadeInitOnly.Global
     [ForeignKey("ColorFk")]
     [InverseProperty("TCategoryTypes")]
-    public virtual TColor? ColorFkNavigation { get; set => SetProperty(ref field, value); }
+    public virtual TColor ColorFkNavigation { get; set => SetProperty(ref field, value); }
 
     // Each ICollection property is initialized to prevent null references
     // and to ensure the collections are ready for use, even if no data is loaded from the database.
