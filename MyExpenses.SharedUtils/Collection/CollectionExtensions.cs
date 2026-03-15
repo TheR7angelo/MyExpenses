@@ -132,4 +132,20 @@ public static class CollectionExtensions
         var index = tempList.IndexOf(item);
         collection.Insert(index, item);
     }
+
+    /// <summary>
+    /// Asynchronously loads a collection of items and adds them to an ObservableCollection,
+    /// sorting the items based on a specified key selector.
+    /// </summary>
+    /// <typeparam name="T">The type of elements in the collection.</typeparam>
+    /// <param name="dataTask">A task representing the asynchronous operation to retrieve the collection of items.</param>
+    /// <param name="collection">The ObservableCollection to which the items will be added and sorted.</param>
+    /// <param name="sortKeySelector">A function to extract the sorting key from each item.</param>
+    /// <returns>A task that represents the asynchronous operation.</returns>
+    public static async Task LoadAndSortAsync<T>(this Task<IEnumerable<T>> dataTask, ObservableCollection<T> collection,
+        Func<T, string> sortKeySelector)
+    {
+        var items = await dataTask;
+        collection.AddRangeAndSort(items, sortKeySelector);
+    }
 }
