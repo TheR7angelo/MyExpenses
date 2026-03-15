@@ -67,9 +67,6 @@ public partial class AddEditAccountWindow
     // ReSharper disable once HeapView.ObjectAllocation.Evident
     public THistory History { get; } = new() { IsPointed = true };
 
-    public static string DisplayMemberPathCurrency => nameof(TCurrency.Symbol);
-    public static string SelectedValuePathCurrency => nameof(TCurrency.Id);
-    public static string DisplayMemberPathCategoryType => nameof(TCategoryType.Name);
     public static string SelectedValuePathCategoryType => nameof(TCategoryType.Id);
 
     public ObservableCollection<AccountTypeViewModel> AccountTypes { get; } = [];
@@ -95,15 +92,6 @@ public partial class AddEditAccountWindow
         InitializeComponent();
 
         this.SetWindowCornerPreference();
-    }
-
-    private async Task FillCollection()
-    {
-        await Task.WhenAll(
-            _categoryPresentationService.GetAllCategoryTypeViewModelAsync().LoadAndSortAsync(CategoryTypes, x => x.Name!),
-            _accountPresentationService.GetAllCurrencyViewModelAsync().LoadAndSortAsync(Currencies, x => x.Symbol!),
-            _accountPresentationService.GetAllAccountTypeViewModelAsync().LoadAndSortAsync(AccountTypes, x => x.Name!)
-        );
     }
 
     #region Action
@@ -326,6 +314,15 @@ public partial class AddEditAccountWindow
         MsgBox.MsgBox.Show(localizedErrorMessage, MsgBoxImage.Warning);
 
         return true;
+    }
+
+    private async Task FillCollection()
+    {
+        await Task.WhenAll(
+            _categoryPresentationService.GetAllCategoryTypeViewModelAsync().LoadAndSortAsync(CategoryTypes, x => x.Name!),
+            _accountPresentationService.GetAllCurrencyViewModelAsync().LoadAndSortAsync(Currencies, x => x.Symbol!),
+            _accountPresentationService.GetAllAccountTypeViewModelAsync().LoadAndSortAsync(AccountTypes, x => x.Name!)
+        );
     }
 
     public void SetTAccount(TAccount account)
