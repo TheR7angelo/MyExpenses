@@ -1,6 +1,6 @@
 using Domain.Models.Accounts;
 using Microsoft.EntityFrameworkCore;
-using MyExpenses.Infrastructure.Repositories;
+using MyExpenses.Application.Interfaces.IRepositories;
 using MyExpenses.Sql.Context;
 using MyExpenses.Sql.Mappings;
 
@@ -12,9 +12,31 @@ public class AccountRepository(DataBaseContext dataBaseContext) : IAccountReposi
     {
         var totalByAccounts = await dataBaseContext.VTotalByAccounts
             .AsNoTracking()
-            .ProjectToDto()
+            .ProjectToDomain()
             .ToListAsync(cancellationToken);
 
         return totalByAccounts;
+    }
+
+    public async Task<IEnumerable<string>> GetAllAccountNames(CancellationToken cancellationToken = default)
+    {
+        var accountNames = await dataBaseContext.TAccounts
+            .AsNoTracking()
+            .Select(s => s.Name)
+            .ToListAsync(cancellationToken);
+
+        return accountNames;
+    }
+
+    public async Task<IEnumerable<AccountDomain>> GetAllAccountAsync(CancellationToken cancellationToken = default)
+    {
+        var accounts = await dataBaseContext.TAccounts
+            .AsNoTracking()
+            .Include(s => s.CurrencyFkNavigation)
+            .Include(s => s.AccountTypeFkNavigation)
+            .ProjectToDomain()
+            .ToListAsync(cancellationToken);
+
+        return accounts;
     }
 }

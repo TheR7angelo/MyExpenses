@@ -51,6 +51,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyExpenses.Infrastructure",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyExpenses.Ioc", "MyExpenses.Ioc\MyExpenses.Ioc.csproj", "{C9C80A90-F8C5-4F71-B83A-8A64CEE418E2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyExpenses.Presentation", "MyExpenses.Presentation\MyExpenses.Presentation.csproj", "{91DC8430-C28A-4700-9048-03399710DC82}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -161,5 +163,9 @@ Global
 		{C9C80A90-F8C5-4F71-B83A-8A64CEE418E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C9C80A90-F8C5-4F71-B83A-8A64CEE418E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C9C80A90-F8C5-4F71-B83A-8A64CEE418E2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{91DC8430-C28A-4700-9048-03399710DC82}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{91DC8430-C28A-4700-9048-03399710DC82}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{91DC8430-C28A-4700-9048-03399710DC82}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{91DC8430-C28A-4700-9048-03399710DC82}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

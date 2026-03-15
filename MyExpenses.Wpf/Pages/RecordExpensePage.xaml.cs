@@ -9,6 +9,7 @@ using BruTile.Predefined;
 using Mapsui.Layers;
 using Mapsui.Tiling.Layers;
 using Microsoft.Data.Sqlite;
+using Microsoft.Extensions.DependencyInjection;
 using MyExpenses.Models.AutoMapper;
 using MyExpenses.Models.Config;
 using MyExpenses.Models.Sql.Bases.Tables;
@@ -324,9 +325,7 @@ public partial class RecordExpensePage
 
     private void ButtonAccount_OnClick(object sender, RoutedEventArgs e)
     {
-        // ReSharper disable once HeapView.ObjectAllocation.Evident
-        // An instance of AddEditAccountWindow is created to handle adding or editing an account.
-        var addEditAccountWindow = new AddEditAccountWindow();
+        var addEditAccountWindow  = App.ServiceProvider.GetRequiredService<AddEditAccountWindow>();
 
         var account = History.AccountFk?.ToISql<TAccount>();
         if (account is not null) addEditAccountWindow.SetTAccount(account);

@@ -1,12 +1,13 @@
 using MyExpenses.Application.Dtos.Accounts;
 using MyExpenses.Application.Interfaces;
-using MyExpenses.Application.Mappings.Interfaces;
-using MyExpenses.Application.ViewModels.Accounts;
-using MyExpenses.Infrastructure.Repositories;
+using MyExpenses.Application.Interfaces.IRepositories;
+using MyExpenses.Application.Interfaces.IServices;
+using MyExpenses.Application.Interfaces.Mappings;
 
 namespace MyExpenses.Infrastructure.Services;
 
-public class AccountServices(IAccountRepository accountRepository, IAccountDtoDomainMapper mapper, IAccountDtoViewModelMapper viewModelMapper) : IAccountServices
+public class AccountServices(IAccountRepository accountRepository, IAccountDtoDomainMapper mapper)
+    : IAccountServices
 {
     public async Task<IEnumerable<TotalByAccountDto>> GetAllTotalByAccountAsync(CancellationToken cancellationToken = default)
     {
@@ -14,9 +15,15 @@ public class AccountServices(IAccountRepository accountRepository, IAccountDtoDo
         return totalByAccountDomain.Select(mapper.MapToDto);
     }
 
-    public async Task<IEnumerable<TotalByAccountViewModel>> GetAllTotalByAccountViewModelAsync(CancellationToken cancellationToken = default)
+    public Task<IEnumerable<string>> GetAllAccountNames(CancellationToken cancellationToken = default)
     {
-        var totalByAccountDto = await GetAllTotalByAccountAsync(cancellationToken);
-        return totalByAccountDto.Select(viewModelMapper.MapToViewModel);
+        var accountNames = accountRepository.GetAllAccountNames(cancellationToken);
+        return accountNames;
+    }
+
+    public async Task<IEnumerable<AccountDto>> GetAllAccountAsync(CancellationToken cancellationToken = default)
+    {
+        var accounts = await accountRepository.GetAllAccountAsync(cancellationToken);
+        return accounts.Select(mapper.MapToDto);
     }
 }

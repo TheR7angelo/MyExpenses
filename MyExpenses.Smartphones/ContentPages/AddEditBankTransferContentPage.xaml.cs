@@ -11,6 +11,7 @@ using MyExpenses.SharedUtils.Properties;
 using MyExpenses.SharedUtils.Resources.Resx.BankTransferManagement;
 using MyExpenses.Sql.Context;
 using Serilog;
+using TAccount = MyExpenses.Models.Sql.Bases.Tables.TAccount;
 
 namespace MyExpenses.Smartphones.ContentPages;
 

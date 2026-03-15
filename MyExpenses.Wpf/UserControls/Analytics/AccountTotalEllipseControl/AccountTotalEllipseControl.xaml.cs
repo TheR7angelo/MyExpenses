@@ -1,6 +1,6 @@
 using System.Collections.ObjectModel;
+using MyExpenses.Models.Sql.Bases.Views;
 using MyExpenses.Sql.Context;
-using MyExpenses.Sql.Entities;
 
 namespace MyExpenses.Wpf.UserControls.Analytics.AccountTotalEllipseControl;
 

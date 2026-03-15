@@ -4,15 +4,15 @@
         <TargetFramework>net9.0</TargetFramework>
         <ImplicitUsings>enable</ImplicitUsings>
         <Nullable>enable</Nullable>
-        <RootNamespace>MyExpenses.Application</RootNamespace>
+        <LangVersion>Preview</LangVersion>
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\MyExpenses.Domain\MyExpenses.Domain.csproj" />
+      <ProjectReference Include="..\MyExpenses.Application\MyExpenses.Application.csproj" />
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="Mapster.DependencyInjection" Version="10.0.0-pre02" />
+      <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
       <PackageReference Include="Riok.Mapperly" Version="4.3.1" />
     </ItemGroup>
 

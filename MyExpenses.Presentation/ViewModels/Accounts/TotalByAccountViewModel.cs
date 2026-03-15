@@ -1,6 +1,6 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 
-namespace MyExpenses.Application.ViewModels.Accounts;
+namespace MyExpenses.Presentation.ViewModels.Accounts;
 
 public partial class TotalByAccountViewModel : ObservableObject
 {

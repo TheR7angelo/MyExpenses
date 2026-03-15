@@ -1,6 +1,6 @@
 using Domain.Models.Accounts;
 using MyExpenses.Application.Dtos.Accounts;
-using MyExpenses.Application.Mappings.Interfaces;
+using MyExpenses.Application.Interfaces.Mappings;
 using Riok.Mapperly.Abstractions;
 
 namespace MyExpenses.Infrastructure.Mapping;
@@ -9,5 +9,9 @@ namespace MyExpenses.Infrastructure.Mapping;
 public partial class AccountDtoDomainMapper : IAccountDtoDomainMapper
 {
     public partial TotalByAccountDto MapToDto(TotalByAccountDomain src);
-    public partial TotalByAccountDomain MapToDomain(TotalByAccountDto src);
+    public partial AccountDto MapToDto(AccountDomain src);
+
+    public partial CurrencyDto MapToDto(CurrencyDomain src);
+
+    public partial AccountTypeDto MapToDto(AccountTypeDomain src);
 }

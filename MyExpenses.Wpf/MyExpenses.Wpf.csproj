@@ -25,7 +25,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\MyExpenses.Application\MyExpenses.Application.csproj" />
       <ProjectReference Include="..\MyExpenses.Core\MyExpenses.Core.csproj" />
       <ProjectReference Include="..\MyExpenses.Ioc\MyExpenses.Ioc.csproj" />
       <ProjectReference Include="..\MyExpenses.Models\MyExpenses.Models.csproj" />

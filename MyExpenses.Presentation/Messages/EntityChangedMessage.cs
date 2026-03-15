@@ -1,6 +1,6 @@
 using CommunityToolkit.Mvvm.Messaging.Messages;
 
-namespace MyExpenses.Application.Messages;
+namespace MyExpenses.Presentation.Messages;
 
 public enum DataAction { Add, Update, Delete }
 

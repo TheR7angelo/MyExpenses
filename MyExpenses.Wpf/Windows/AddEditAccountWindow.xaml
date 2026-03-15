@@ -64,8 +64,8 @@
         <TextBox Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"
                  materialDesign:HintAssist.Hint="{loc:Tr {x:Static addEditAccount:AddEditAccountResourceManager.RessourceTextBoxAccountName}}"
                  Style="{StaticResource MaterialDesignFilledTextBox}"
-                 Text="{Binding Account.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                 MaxLength="{Binding Account, Converter={StaticResource MaxLengthConverter}, ConverterParameter=Name}"
+                 Text="{Binding AccountViewModel.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                 MaxLength="{Binding AccountViewModel, Converter={StaticResource MaxLengthConverter}, ConverterParameter=Name}"
                  LostFocus="TextBoxAccountName_OnLostFocus">
         </TextBox>
 

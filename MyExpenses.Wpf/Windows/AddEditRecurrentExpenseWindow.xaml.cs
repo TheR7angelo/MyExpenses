@@ -9,6 +9,7 @@ using BruTile.Predefined;
 using Mapsui.Layers;
 using Mapsui.Tiling.Layers;
 using Microsoft.Data.Sqlite;
+using Microsoft.Extensions.DependencyInjection;
 using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Models.Sql.Bases.Views;
@@ -33,6 +34,7 @@ using MyExpenses.Wpf.Windows.CategoryTypeManagementWindow;
 using MyExpenses.Wpf.Windows.LocationManagementWindows;
 using MyExpenses.Wpf.Windows.MsgBox;
 using Serilog;
+using TAccount = MyExpenses.Models.Sql.Bases.Tables.TAccount;
 using ValidationResult = System.ComponentModel.DataAnnotations.ValidationResult;
 
 namespace MyExpenses.Wpf.Windows;
@@ -391,8 +393,7 @@ public partial class AddEditRecurrentExpenseWindow
 
     private void ButtonAccount_OnClick(object sender, RoutedEventArgs e)
     {
-        // ReSharper disable once HeapView.ObjectAllocation.Evident
-        var addEditAccountWindow = new AddEditAccountWindow();
+        var addEditAccountWindow  = App.ServiceProvider.GetRequiredService<AddEditAccountWindow>();
 
         var account = RecursiveExpense.AccountFk?.ToISql<TAccount>();
         if (account is not null) addEditAccountWindow.SetTAccount(account);

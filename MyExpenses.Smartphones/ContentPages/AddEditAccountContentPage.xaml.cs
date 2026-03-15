@@ -14,6 +14,7 @@ using MyExpenses.Smartphones.UserControls.Images;
 using MyExpenses.Sql.Context;
 using Serilog;
 using UraniumUI.Material.Controls;
+using TAccount = MyExpenses.Models.Sql.Bases.Tables.TAccount;
 
 namespace MyExpenses.Smartphones.ContentPages;
 

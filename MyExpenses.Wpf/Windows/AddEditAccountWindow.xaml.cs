@@ -3,7 +3,10 @@ using System.ComponentModel.DataAnnotations;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using MyExpenses.Application.Interfaces.IServices;
 using MyExpenses.Models.Sql.Bases.Tables;
+using MyExpenses.Presentation.Validations.Interfaces;
+using MyExpenses.Presentation.ViewModels.Accounts;
 using MyExpenses.SharedUtils.Collection;
 using MyExpenses.SharedUtils.Properties;
 using MyExpenses.SharedUtils.RegexUtils;
@@ -32,40 +35,17 @@ public partial class AddEditAccountWindow
             new PropertyMetadata(false));
 
     // ReSharper disable once HeapView.BoxingAllocation
-    // ReSharper disable once HeapView.ObjectAllocation.Evident
-    public static readonly DependencyProperty EditAccountProperty =
-        DependencyProperty.Register(nameof(EditAccount), typeof(bool), typeof(AddEditAccountWindow),
-            new PropertyMetadata(false));
-
-    #endregion
-
-    #region Property
-
-    public bool DeleteAccount { get; private set; }
-
-    // ReSharper disable once HeapView.ObjectAllocation.Evident
-    public TAccount Account { get; } = new();
-    // ReSharper disable once HeapView.ObjectAllocation.Evident
-    public THistory History { get; } = new() { IsPointed = true };
-
-    public static string DisplayMemberPathAccountType => nameof(TAccountType.Name);
-    public static string SelectedValuePathAccountType => nameof(TAccountType.Id);
-    public static string DisplayMemberPathCurrency => nameof(TCurrency.Symbol);
-    public static string SelectedValuePathCurrency => nameof(TCurrency.Id);
-    public static string DisplayMemberPathCategoryType => nameof(TCategoryType.Name);
-    public static string SelectedValuePathCategoryType => nameof(TCategoryType.Id);
-    public ObservableCollection<TAccountType> AccountTypes { get; }
-    public ObservableCollection<TCurrency> Currencies { get; }
-    public ObservableCollection<TCategoryType> CategoryTypes { get; }
-
-    private List<TAccount> Accounts { get; }
-
-    // ReSharper disable once HeapView.BoxingAllocation
     public bool EnableStartingBalance
     {
         get => (bool)GetValue(EnableStartingBalanceProperty);
         set => SetValue(EnableStartingBalanceProperty, value);
     }
+
+    // ReSharper disable once HeapView.BoxingAllocation
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
+    public static readonly DependencyProperty EditAccountProperty =
+        DependencyProperty.Register(nameof(EditAccount), typeof(bool), typeof(AddEditAccountWindow),
+            new PropertyMetadata(false));
 
     // ReSharper disable once HeapView.BoxingAllocation
     public bool EditAccount
@@ -76,11 +56,40 @@ public partial class AddEditAccountWindow
 
     #endregion
 
-    public AddEditAccountWindow()
+    #region Property
+
+    public bool DeleteAccount { get; private set; }
+
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
+    public TAccount Account { get; } = new();
+    public AccountViewModel AccountViewModel { get; } = new();
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
+    public THistory History { get; } = new() { IsPointed = true };
+
+    public static string DisplayMemberPathAccountType => nameof(TAccountType.Name);
+    public static string SelectedValuePathAccountType => nameof(TAccountType.Id);
+    public static string DisplayMemberPathCurrency => nameof(TCurrency.Symbol);
+    public static string SelectedValuePathCurrency => nameof(TCurrency.Id);
+    public static string DisplayMemberPathCategoryType => nameof(TCategoryType.Name);
+    public static string SelectedValuePathCategoryType => nameof(TCategoryType.Id);
+
+    public ObservableCollection<TAccountType> AccountTypes { get; } = [];
+    public ObservableCollection<TCurrency> Currencies { get; } // = [];
+    public ObservableCollection<TCategoryType> CategoryTypes { get; } // = [];
+
+    #endregion
+
+    private readonly IAccountServices _accountService;
+    private readonly IAccountPresentationValidationService _accountPresentationValidationService;
+
+    public AddEditAccountWindow(IAccountServices accountService, IAccountPresentationValidationService accountPresentationValidationService)
     {
+        _accountService = accountService;
+        _accountPresentationValidationService = accountPresentationValidationService;
+
         // ReSharper disable once HeapView.ObjectAllocation.Evident
         using var context = new DataBaseContextOld();
-        Accounts = [..context.TAccounts.OrderBy(s => s.Name)];
+
         AccountTypes = [..context.TAccountTypes.OrderBy(s => s.Name)];
         Currencies = [..context.TCurrencies.OrderBy(s => s.Symbol)];
         CategoryTypes = [..context.TCategoryTypes.OrderBy(s => s.Name)];
@@ -105,7 +114,7 @@ public partial class AddEditAccountWindow
         var (success, exception) = newAccountType.AddOrEdit();
         if (success)
         {
-            AccountTypes.AddAndSort(newAccountType, s => s.Name!);
+            AccountTypes.AddAndSort(newAccountType, s => s.Name);
             Account.AccountTypeFk = newAccountType.Id;
 
             Log.Information("Account type was successfully added");
@@ -167,7 +176,7 @@ public partial class AddEditAccountWindow
         var (success, exception) = newCurrency.AddOrEdit();
         if (success)
         {
-            Currencies.AddAndSort(newCurrency, s => s.Symbol!);
+            Currencies.AddAndSort(newCurrency, s => s.Symbol);
             Account.CurrencyFk = newCurrency.Id;
 
             Log.Information("Account type was successfully added");
@@ -218,22 +227,30 @@ public partial class AddEditAccountWindow
             AddEditAccountResources.MessageBoxDeleteAccountErrorMessage, MsgBoxImage.Error);
     }
 
-    private void ButtonValid_OnClick(object sender, RoutedEventArgs e)
+    private async void ButtonValid_OnClick(object sender, RoutedEventArgs e)
     {
-        var error = CheckIsError();
+        var error = await CheckIsError();
         if (error) return;
 
         DialogResult = true;
         Close();
     }
 
-    private void TextBoxAccountName_OnLostFocus(object sender, RoutedEventArgs e)
+    private async void TextBoxAccountName_OnLostFocus(object sender, RoutedEventArgs e)
     {
-        var accountName = Account.Name;
-        if (string.IsNullOrEmpty(accountName)) return;
-
-        var alreadyExist = CheckAccountName(accountName);
-        if (alreadyExist) MsgBox.MsgBox.Show(AddEditAccountResources.MessageBoxErrorAccountNameAlreadyExists, MsgBoxImage.Warning);
+        try
+        {
+            if (AccountViewModel.HasNameChanged &&
+                await _accountPresentationValidationService.IsAccountNameAlreadyExist(AccountViewModel.Name))
+            {
+                MsgBox.MsgBox.Show(AddEditAccountResources.MessageBoxErrorAccountNameAlreadyExists, MsgBoxImage.Warning);
+            }
+        }
+        catch (Exception exception)
+        {
+            Log.Error(exception, "An error occurred please retry");
+            MsgBox.MsgBox.Show(AddEditAccountResources.MessageBoxAddAccountError, MsgBoxImage.Error);
+        }
     }
 
     private void TextBoxStartingBalance_OnPreviewTextInput(object sender, TextCompositionEventArgs e)
@@ -248,10 +265,7 @@ public partial class AddEditAccountWindow
 
     #region Function
 
-    private bool CheckAccountName(string accountName)
-        => !EditAccount && Accounts.Select(s => s.Name).Contains(accountName);
-
-    private bool CheckIsError()
+    private async Task<bool> CheckIsError()
     {
         // ReSharper disable once HeapView.ObjectAllocation.Evident
         // Creating a new ValidationContext for the Account object to perform data validation.
@@ -267,12 +281,12 @@ public partial class AddEditAccountWindow
         var isValid = Validator.TryValidateObject(Account, validationContext, validationResults, true);
         if (isValid)
         {
-            var alreadyExiste = CheckAccountName(Account.Name!);
-            if (alreadyExiste)
-            {
-                MsgBox.MsgBox.Show(AddEditAccountResources.MessageBoxErrorAccountNameAlreadyExists, MsgBoxImage.Warning);
-                return true;
-            }
+            // var alreadyExiste = await CheckAccountName(Account.Name);
+            // if (alreadyExiste)
+            // {
+            //     MsgBox.MsgBox.Show(AddEditAccountResources.MessageBoxErrorAccountNameAlreadyExists, MsgBoxImage.Warning);
+            //     return true;
+            // }
 
             if (EnableStartingBalance is false) return false;
 
@@ -307,6 +321,12 @@ public partial class AddEditAccountWindow
     public void SetTAccount(TAccount account)
     {
         account.CopyPropertiesTo(Account);
+        EditAccount = true;
+    }
+
+    public void SetAccount(AccountViewModel accountViewModel)
+    {
+        accountViewModel.CopyPropertiesTo(accountViewModel);
         EditAccount = true;
     }
 

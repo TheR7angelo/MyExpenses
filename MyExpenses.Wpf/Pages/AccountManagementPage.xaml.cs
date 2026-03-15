@@ -1,13 +1,16 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
+using Microsoft.Extensions.DependencyInjection;
 using MyExpenses.Application.Interfaces;
-using MyExpenses.Application.ViewModels.Accounts;
 using MyExpenses.Models.Sql.Bases.Tables;
+using MyExpenses.Models.Sql.Bases.Views;
+using MyExpenses.Presentation.Services;
+using MyExpenses.Presentation.Services.Interfaces;
+using MyExpenses.Presentation.ViewModels.Accounts;
 using MyExpenses.SharedUtils.Collection;
 using MyExpenses.SharedUtils.Resources.Resx.AddEditAccount;
 using MyExpenses.Sql.Context;
-using MyExpenses.Sql.Entities;
 using MyExpenses.Utils.Sql;
 using MyExpenses.Wpf.Windows;
 using MyExpenses.Wpf.Windows.MsgBox;
@@ -20,11 +23,11 @@ public partial class AccountManagementPage
     public ObservableCollection<TotalByAccountViewModel> TotalByAccounts { get; } = [];
     // internal DashBoardPage? DashBoardPage { get; init; }
 
-    private readonly IAccountServices _accountServices;
+    private readonly IAccountPresentationService _accountPresentationService;
 
-    public AccountManagementPage(IAccountServices accountServices)
+    public AccountManagementPage(IAccountPresentationService accountPresentationService)
     {
-        _accountServices = accountServices;
+        _accountPresentationService = accountPresentationService;
         _ = FillTotalByAccounts();
 
         InitializeComponent();
@@ -32,7 +35,7 @@ public partial class AccountManagementPage
 
     private async Task FillTotalByAccounts()
     {
-        var totalByAccounts = await _accountServices.GetAllTotalByAccountViewModelAsync();
+        var totalByAccounts = await _accountPresentationService.GetAllTotalByAccountViewModelAsync();
         TotalByAccounts.AddRangeAndSort(totalByAccounts, s => s.Name);
     }
 
@@ -40,13 +43,9 @@ public partial class AccountManagementPage
 
     private void ButtonAddNewAccount_OnClick(object sender, RoutedEventArgs e)
     {
-        // ReSharper disable once HeapView.ObjectAllocation.Evident
-        // The instance of AddEditAccountWindow is created locally and used exclusively within this method.
-        // Since it is scoped to this method and no further references to it exist after its use,
-        // the Garbage Collector will automatically handle the memory cleanup once the method execution ends.
-        // Therefore, explicit management of this allocation is unnecessary, and the hint can be safely ignored.
-        var addEditAccountWindow = new AddEditAccountWindow();
+        var addEditAccountWindow  = App.ServiceProvider.GetRequiredService<AddEditAccountWindow>();
         addEditAccountWindow.ShowDialog();
+
         if (addEditAccountWindow.DialogResult is not true) return;
 
         var newAccount = addEditAccountWindow.Account;
@@ -90,12 +89,7 @@ public partial class AccountManagementPage
         var account = vTotalByAccount.Id.ToISql<TAccount>();
         if (account is null) return;
 
-        // ReSharper disable once HeapView.ObjectAllocation.Evident
-        // The instance of AddEditAccountWindow is created within the scope of this method
-        // and is only used temporarily. Once the execution of the method completes,
-        // and no references remain, the Garbage Collector will handle its cleanup automatically.
-        // Explicit allocation management is not required here, so the hint is safely ignored.
-        var addEditAccountWindow = new AddEditAccountWindow();
+        var addEditAccountWindow  = App.ServiceProvider.GetRequiredService<AddEditAccountWindow>();
         addEditAccountWindow.SetTAccount(account);
         addEditAccountWindow.ShowDialog();
 
