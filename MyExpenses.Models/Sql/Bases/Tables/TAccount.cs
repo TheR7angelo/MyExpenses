@@ -16,33 +16,33 @@ public partial class TAccount : ISql
     [Required]
     [Column("name")]
     [MaxLength(55)]
-    public string? Name { get; set => SetProperty(ref field, value); }
+    public string Name { get; set; }
 
     [Required]
     [Column("account_type_fk")]
-    public int? AccountTypeFk { get; set => SetProperty(ref field, value); }
+    public int AccountTypeFk { get; set; }
 
     [Required]
     [Column("currency_fk")]
-    public int? CurrencyFk { get; set => SetProperty(ref field, value); }
+    public int CurrencyFk { get; set; }
 
     [IgnoreReset]
     [Required]
     [Column("active", TypeName = "BOOLEAN")]
-    public bool? Active { get; set => SetProperty(ref field, value); }
+    public bool Active { get; set; }
 
     [IgnoreReset]
     [Column("date_added", TypeName = "DATETIME")]
-    public DateTime? DateAdded { get; set => SetProperty(ref field, value); }
+    public DateTime DateAdded { get; set; }
 
     // ReSharper disable PropertyCanBeMadeInitOnly.Global
     [ForeignKey("AccountTypeFk")]
     [InverseProperty("TAccounts")]
-    public virtual TAccountType? AccountTypeFkNavigation { get; set => SetProperty(ref field, value); }
+    public virtual TAccountType AccountTypeFkNavigation { get; set; }
 
     [ForeignKey("CurrencyFk")]
     [InverseProperty("TAccounts")]
-    public virtual TCurrency? CurrencyFkNavigation { get; set => SetProperty(ref field, value); }
+    public virtual TCurrency CurrencyFkNavigation { get; set; }
 
     [InverseProperty("FromAccountFkNavigation")]
     public virtual ICollection<TBankTransfer> TBankTransferFromAccountFkNavigations { get; set; }

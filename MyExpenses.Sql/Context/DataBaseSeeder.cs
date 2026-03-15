@@ -4,7 +4,7 @@ namespace MyExpenses.Sql.Context;
 
 public class DataBaseSeeder(DataBaseContextOld contextOld)
 {
-    public static Version CurrentVersion { get; } = new(1, 1, 0);
+    public static Version CurrentVersion { get; } = new(1, 2, 0);
 
     private readonly DataBaseContextOld _contextOld = contextOld;
 

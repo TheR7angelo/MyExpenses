@@ -58,27 +58,47 @@ public static class DataBaseUpdater
 
             Log.Information("Applying migration step: {FromVersion} -> {ToVersion}", migration.From, migration.To);
 
-            using var transaction = context.Database.BeginTransaction();
+            context.Database.OpenConnection();
+
             try
             {
-                context.Database.ExecuteSqlRaw(sqlScript);
+                if (migration.ForeignKeyOff) context.Database.ExecuteSqlRaw("PRAGMA FOREIGN_KEYS = OFF");
 
-                context.Database.ExecuteSqlRaw(
-                    "UPDATE t_version SET version = {0} WHERE id = {1}",
-                    nextVersion.ToString(),
-                    versionEntry.Id);
+                using var transaction = context.Database.BeginTransaction();
+                try
+                {
+                    context.Database.ExecuteSqlRaw(sqlScript);
 
-                transaction.Commit();
+                    context.Database.ExecuteSqlRaw(
+                        "UPDATE t_version SET version = {0} WHERE id = {1}",
+                        nextVersion.ToString(),
+                        versionEntry.Id);
 
-                Log.Information("Successfully migrated to version {Version}", nextVersion);
+                    transaction.Commit();
 
-                currentVersion = nextVersion;
+                    Log.Information("Successfully migrated to version {Version}", nextVersion);
+
+                    currentVersion = nextVersion;
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    Log.Fatal(ex, "Database migration failed at step {FromVersion} -> {ToVersion}. Transaction rolled back", migration.From, migration.To);
+                    throw;
+                }
+                finally
+                {
+                    if (migration.ForeignKeyOff) context.Database.ExecuteSqlRaw("PRAGMA FOREIGN_KEYS = ON");
+                }
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
-                transaction.Rollback();
-                Log.Fatal(ex, "Database migration failed at step {FromVersion} -> {ToVersion}. Transaction rolled back", migration.From, migration.To);
+                Log.Fatal(e, "Database migration failed at step {FromVersion} -> {ToVersion}", migration.From, migration.To);
                 throw;
+            }
+            finally
+            {
+                context.Database.CloseConnection();
             }
         }
 

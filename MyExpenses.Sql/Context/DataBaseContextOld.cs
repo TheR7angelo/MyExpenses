@@ -4,7 +4,6 @@ using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Models.Sql.Bases.Views;
 using MyExpenses.Models.Sql.Bases.Views.Analysis;
 using MyExpenses.Models.Sql.Bases.Views.Exports;
-using VTotalByAccount = MyExpenses.Sql.Entities.VTotalByAccount;
 
 namespace MyExpenses.Sql.Context;
 

@@ -1,9 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
-using MyExpenses.Models.Sql;
 
-namespace MyExpenses.Sql.Entities;
+namespace MyExpenses.Models.Sql.Bases.Views;
 
 [Keyless]
 public partial class VTotalByAccount : ISql

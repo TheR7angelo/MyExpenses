@@ -14,10 +14,10 @@ public partial class TAccountType : ISql
 
     [Column("name")]
     [MaxLength(100)]
-    public string? Name { get; set => SetProperty(ref field, value); }
+    public string Name { get; set => SetProperty(ref field, value); }
 
     [Column("date_added", TypeName = "DATETIME")]
-    public DateTime? DateAdded { get; init; } = DateTime.Now;
+    public DateTime DateAdded { get; init; } = DateTime.Now;
 
     // ICollection property is initialized to prevent null references
     // and to ensure the collection are ready for use, even if no data is loaded from the database.

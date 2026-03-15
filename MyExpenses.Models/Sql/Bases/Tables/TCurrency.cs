@@ -14,10 +14,10 @@ public partial class TCurrency : ISql
 
     [Column("symbol")]
     [MaxLength(55)]
-    public string? Symbol { get; set => SetProperty(ref field, value); }
+    public string Symbol { get; set => SetProperty(ref field, value); }
 
     [Column("date_added", TypeName = "DATETIME")]
-    public DateTime? DateAdded { get; init; } = DateTime.Now;
+    public DateTime DateAdded { get; init; } = DateTime.Now;
 
     // ICollection property is initialized to prevent null references
     // and to ensure the collection are ready for use, even if no data is loaded from the database.

@@ -47,10 +47,6 @@ public class VHistory : ISql
     [Column("is_pointed", TypeName = "BOOLEAN")]
     public bool? IsPointed { get; init; }
 
-    [Column("main_reason")]
-    [MaxLength(100)]
-    public string? MainReason { get; init; }
-
     [Column("date_added", TypeName = "DATETIME")]
     public DateTime? DateAdded { get; init; }
 }

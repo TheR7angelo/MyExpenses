@@ -617,7 +617,6 @@ SELECT h.id,
        h.date,
        tp.name  AS place,
        h.is_pointed,
-       bt.main_reason,
        h.date_added
 
 FROM t_history h
@@ -632,9 +631,7 @@ FROM t_history h
          INNER JOIN t_currency tcu
                    ON ta.currency_fk = tcu.id
          INNER JOIN t_place tp
-                   ON h.place_fk = tp.id
-         INNER JOIN t_bank_transfer bt
-                   ON h.bank_transfer_fk = bt.id;
+                   ON h.place_fk = tp.id;
 
 DROP VIEW IF EXISTS v_category;
 CREATE VIEW v_category AS
