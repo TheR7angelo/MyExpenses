@@ -3,7 +3,6 @@ using System.ComponentModel.DataAnnotations;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using MyExpenses.Application.Interfaces.IServices;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Presentation.Services.Interfaces;
 using MyExpenses.Presentation.Validations.Interfaces;
@@ -91,38 +90,20 @@ public partial class AddEditAccountWindow
         _accountPresentationValidationService = accountPresentationValidationService;
         _categoryPresentationService = categoryPresentationService;
 
-        _ = FillAccountTypes();
-        _ = FillCurrencies();
-        _ = FillCategoryTypes();
-
-        // ReSharper disable once HeapView.ObjectAllocation.Evident
-        using var context = new DataBaseContextOld();
-
-        // AccountTypes = [..context.TAccountTypes.OrderBy(s => s.Name)];
-        // Currencies = [..context.TCurrencies.OrderBy(s => s.Symbol)];
-        // CategoryTypes = [..context.TCategoryTypes.OrderBy(s => s.Name)];
+        _ = FillCollection();
 
         InitializeComponent();
 
         this.SetWindowCornerPreference();
     }
 
-    private async Task FillCategoryTypes()
+    private async Task FillCollection()
     {
-        var categoryTypes = await _categoryPresentationService.GetAllCategoryTypeViewModelAsync();
-        CategoryTypes.AddRangeAndSort(categoryTypes, s => s.Name!);
-    }
-
-    private async Task FillCurrencies()
-    {
-        var currencies = await _accountPresentationService.GetAllCurrencyViewModelAsync();
-        Currencies.AddRangeAndSort(currencies, s => s.Symbol!);
-    }
-
-    private async Task FillAccountTypes()
-    {
-        var accountTypes = await _accountPresentationService.GetAllAccountTypeViewModelAsync();
-        AccountTypes.AddRangeAndSort(accountTypes, s => s.Name!);
+        await Task.WhenAll(
+            _categoryPresentationService.GetAllCategoryTypeViewModelAsync().LoadAndSortAsync(CategoryTypes, x => x.Name!),
+            _accountPresentationService.GetAllCurrencyViewModelAsync().LoadAndSortAsync(Currencies, x => x.Symbol!),
+            _accountPresentationService.GetAllAccountTypeViewModelAsync().LoadAndSortAsync(AccountTypes, x => x.Name!)
+        );
     }
 
     #region Action
