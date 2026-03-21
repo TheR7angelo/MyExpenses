@@ -110,8 +110,6 @@ public partial class AddEditCurrencyWindow
         InitializeComponent();
         TextBoxCurrency.Focus();
 
-        this.SetWindowCornerPreference();
-
         // ReSharper disable once HeapView.DelegateAllocation
         Interface.LanguageChanged += Interface_OnLanguageChanged;
     }

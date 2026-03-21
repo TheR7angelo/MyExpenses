@@ -114,8 +114,6 @@ public partial class SaveLocationWindow
         }
 
         InitializeComponent();
-
-        this.SetWindowCornerPreference();
     }
 
     private void ButtonDropbox_OnClick(object sender, RoutedEventArgs e)

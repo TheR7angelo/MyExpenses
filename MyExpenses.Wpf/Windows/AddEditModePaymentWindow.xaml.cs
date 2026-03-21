@@ -99,8 +99,6 @@ public partial class AddEditModePaymentWindow
         InitializeComponent();
         TextBoxModePayment.Focus();
 
-        this.SetWindowCornerPreference();
-
         // ReSharper disable once HeapView.DelegateAllocation
         Interface.LanguageChanged += Interface_OnLanguageChanged;
     }

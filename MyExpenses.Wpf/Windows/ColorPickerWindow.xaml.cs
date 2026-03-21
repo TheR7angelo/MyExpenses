@@ -15,8 +15,6 @@ public partial class ColorPickerWindow
     public ColorPickerWindow()
     {
         InitializeComponent();
-
-        this.SetWindowCornerPreference();
     }
 
     private void ButtonValid_OnClick(object sender, RoutedEventArgs e)

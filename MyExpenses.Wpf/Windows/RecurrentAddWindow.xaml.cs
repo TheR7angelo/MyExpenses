@@ -116,8 +116,6 @@ public partial class RecurrentAddWindow
 
         UpdateDataGrid();
 
-        this.SetWindowCornerPreference();
-
         // ReSharper disable once HeapView.DelegateAllocation
         Interface.LanguageChanged += Interface_OnLanguageChanged;
     }

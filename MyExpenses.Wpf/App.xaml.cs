@@ -2,6 +2,7 @@
 using System.IO;
 using System.Windows;
 using System.Windows.Media;
+using MahApps.Metro.Controls;
 using MaterialDesignThemes.Wpf;
 using Microsoft.Extensions.DependencyInjection;
 using MyExpenses.Ioc;
@@ -28,6 +29,11 @@ public partial class App
 
     protected override void OnStartup(StartupEventArgs e)
     {
+        EventManager.RegisterClassHandler(
+            typeof(MetroWindow),
+            FrameworkElement.LoadedEvent,
+            new RoutedEventHandler(ApplyMetroCornerPreference));
+
         var serviceCollection = new ServiceCollection();
         serviceCollection.AddWpfServices();
         serviceCollection.AddAutoRegisteredViews();
@@ -84,6 +90,14 @@ public partial class App
         {
             Log.Fatal(exception, "An unexpected error occurred");
             throw;
+        }
+    }
+
+    private static void ApplyMetroCornerPreference(object sender, RoutedEventArgs e)
+    {
+        if (sender is MetroWindow metroWindow)
+        {
+            metroWindow.SetWindowCornerPreference();
         }
     }
 

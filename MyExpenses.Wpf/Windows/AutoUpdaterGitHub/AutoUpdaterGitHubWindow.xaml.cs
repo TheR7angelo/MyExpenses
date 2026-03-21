@@ -97,8 +97,6 @@ public partial class AutoUpdaterGitHubWindow
 
         _ = InitializeAsync(releasesUrl);
 
-        this.SetWindowCornerPreference();
-
         // ReSharper disable once HeapView.DelegateAllocation
         Interface.LanguageChanged += Interface_OnLanguageChanged;
     }

@@ -100,8 +100,6 @@ public partial class ProgressBarWindow
 
         InitializeComponent();
 
-        this.SetWindowCornerPreference();
-
         // ReSharper disable once HeapView.DelegateAllocation
         Interface.LanguageChanged += Interface_OnLanguageChanged;
     }

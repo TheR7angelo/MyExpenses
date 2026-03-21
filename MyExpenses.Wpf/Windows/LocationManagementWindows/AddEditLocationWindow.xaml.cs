@@ -268,8 +268,6 @@ public partial class AddEditLocationWindow
         Interface.ThemeChanged += Interface_OnThemeChanged;
         Interface.LanguageChanged += Interface_OnLanguageChanged;
         // ReSharper restore HeapView.DelegateAllocation
-
-        this.SetWindowCornerPreference();
     }
 
     private void Interface_OnLanguageChanged()

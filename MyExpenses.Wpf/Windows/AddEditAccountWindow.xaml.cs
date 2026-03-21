@@ -90,8 +90,6 @@ public partial class AddEditAccountWindow
         _ = FillCollection();
 
         InitializeComponent();
-
-        this.SetWindowCornerPreference();
     }
 
     #region Action

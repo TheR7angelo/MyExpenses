@@ -62,8 +62,6 @@ public partial class HelpsWindow
 
         InitializeComponent();
 
-        this.SetWindowCornerPreference();
-
         // ReSharper disable once HeapView.DelegateAllocation
         Interface.LanguageChanged += Interface_OnLanguageChanged;
     }

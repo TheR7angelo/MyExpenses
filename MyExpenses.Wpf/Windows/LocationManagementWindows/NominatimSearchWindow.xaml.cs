@@ -131,8 +131,6 @@ public partial class NominatimSearchWindow
 
         // ReSharper disable once HeapView.DelegateAllocation
         Interface.LanguageChanged += Interface_OnLanguageChanged;
-
-        this.SetWindowCornerPreference();
     }
 
     private void Interface_OnLanguageChanged()

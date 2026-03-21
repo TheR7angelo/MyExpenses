@@ -13,19 +13,12 @@ public partial class VacuumDatabaseUpdateWindow
     {
         SizeDatabases.Add(sizeDatabase);
         InitializeComponent();
-
-        SetRoundWindow();
     }
 
     public VacuumDatabaseUpdateWindow(IEnumerable<SizeDatabase> sizeDatabases)
     {
         SizeDatabases.AddRangeAndSort(sizeDatabases, s => s.FileNameWithoutExtension);
         InitializeComponent();
-
-        SetRoundWindow();
     }
-
-    private void SetRoundWindow()
-        => this.SetWindowCornerPreference();
 
 }

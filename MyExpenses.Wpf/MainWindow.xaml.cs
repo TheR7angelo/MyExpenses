@@ -149,7 +149,6 @@ public partial class MainWindow
         InitializeComponent();
 
         FrameBody.Content = welcomePage;
-        this.SetWindowCornerPreference();
 
         // ReSharper disable HeapView.DelegateAllocation
         Interface.LanguageChanged += Interface_OnLanguageChanged;

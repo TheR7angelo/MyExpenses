@@ -63,8 +63,6 @@ public partial class SelectDatabaseFileWindow
 
         InitializeComponent();
 
-        this.SetWindowCornerPreference();
-
         // ReSharper disable once HeapView.DelegateAllocation
         Interface.LanguageChanged += Interface_OnLanguageChanged;
     }

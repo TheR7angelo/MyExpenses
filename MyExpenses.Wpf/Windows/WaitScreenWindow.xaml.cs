@@ -15,8 +15,6 @@ public partial class WaitScreenWindow
     public WaitScreenWindow()
     {
         InitializeComponent();
-
-        this.SetWindowCornerPreference();
     }
 
     public string WaitMessage

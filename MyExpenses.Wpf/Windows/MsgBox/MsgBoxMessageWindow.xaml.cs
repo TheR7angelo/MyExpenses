@@ -64,8 +64,6 @@ public partial class MsgBoxMessageWindow
         _yesNoCancel = [ButtonYes, ButtonNo, ButtonCancel];
 
         SetButtonVisibility();
-
-        this.SetWindowCornerPreference();
     }
 
     private void ButtonYes_OnClick(object sender, RoutedEventArgs e)
