@@ -44,6 +44,7 @@ public partial class AccountManagementPage
         var addEditAccountWindow  = App.ServiceProvider.GetRequiredService<AddEditAccountWindow>();
         addEditAccountWindow.ShowDialog();
 
+        // TODO injector DTO MODEL VIEW
         if (addEditAccountWindow.DialogResult is not true) return;
 
         var newAccount = addEditAccountWindow.Account;

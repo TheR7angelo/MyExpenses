@@ -99,6 +99,8 @@ public partial class AddEditAccountTypeWindow
 
     public AddEditAccountTypeWindow()
     {
+        // TODO injector DTO MODEL VIEW
+
         // ReSharper disable once HeapView.ObjectAllocation.Evident
         using var context = new DataBaseContextOld();
         AccountTypes = [..context.TAccountTypes];

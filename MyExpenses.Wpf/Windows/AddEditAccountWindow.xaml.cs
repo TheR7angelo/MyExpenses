@@ -95,6 +95,7 @@ public partial class AddEditAccountWindow
 
     private void ButtonAddAccountType_OnClick(object sender, RoutedEventArgs e)
     {
+        // TODO injector DTO MODEL VIEW
         // ReSharper disable once HeapView.ObjectAllocation.Evident
         var addEditAccountType = new AddEditAccountTypeWindow();
         var result = addEditAccountType.ShowDialog();
