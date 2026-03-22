@@ -1,0 +1,73 @@
+@startuml
+'https://plantuml.com/activity-diagram-beta
+skinparam defaultTextAlignment left
+
+start
+
+legend left
+    <b>Rules<sup>1</sup> :
+    * An account type must have a unique name
+end legend
+
+package Initialization {
+    :AddEditAccountWindow requested;
+    if (Page.SetEditMode) then (true)
+        :Page.EditMode = true\nPage.UserCanDelete = true;
+        note right: <color:red><&warning></color> need item to be edited
+    else (false)
+        :Page.EditMode = false\nPage.UserCanDelete = false;
+    endif
+
+    :<color:orange><&timer></color> Waiting for user validation\nor cancel or delete input;
+    -[#maroon,dashed]->
+}
+
+package After user input {
+
+switch (After User input)
+    case ( <color:orange><&arrow-thick-left></color> Cancel )
+      stop
+
+    case ( <color:green><&check></color> Validation )
+        :Check rules <sup>1</sup>
+        ----
+        <u>Can return values :</u>
+         - false -> no error detected
+         - true -> error detected; <<object>>
+        
+        note right : See the rules in legend
+
+        if (error ?) then (true)
+            :Send message error;
+            stop
+        else (false)
+            :Process Validation;
+        endif
+
+    case ( <color:red><&trash></color> Delete )
+        if (confirmation ?) then (false)
+            stop
+        else (true)
+            :Check usage
+            ----
+            <u>Can return values :</u>
+            - true -> usage found
+            - false -> usage not found; <<object>>
+            
+            if (usage found ?) then (true)
+                :Ask second confirmation;
+                if (confirmation ?) then (false)
+                    stop
+                else (true)
+                    :Delete account type;
+                endif
+            else (false)
+                :Delete account type;
+            endif
+        endif
+endswitch
+}
+
+stop
+
+@enduml
