@@ -9,7 +9,7 @@ public partial class AccountViewModel : ObservableValidator
     [ObservableProperty]
     public partial bool IsEditing { get; set; }
 
-    internal string OriginalName { get; set; } = string.Empty;
+    internal string? OriginalName { get; set; }
 
     [ObservableProperty]
     public partial int Id { get; set; }
@@ -17,7 +17,7 @@ public partial class AccountViewModel : ObservableValidator
     [ObservableProperty]
     [property: Required(ErrorMessage = "Account name is required")]
     [property: MaxLength(AccountDomain.MaxNameLength, ErrorMessage = "Account name cannot exceed 55 characters")]
-    public partial string Name { get; set; } = string.Empty;
+    public partial string? Name { get; set; }
 
     [ObservableProperty]
     [property: Required(ErrorMessage = "Account type is required")]

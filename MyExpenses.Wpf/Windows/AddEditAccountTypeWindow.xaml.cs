@@ -4,6 +4,7 @@ using System.Windows.Input;
 using Microsoft.Data.Sqlite;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Presentation.Services.Interfaces;
+using MyExpenses.Presentation.ViewModels.Accounts;
 using MyExpenses.SharedUtils.Properties;
 using MyExpenses.SharedUtils.Resources.Resx.AccountTypeManagement;
 using MyExpenses.Sql.Context;
@@ -32,7 +33,7 @@ public partial class AddEditAccountTypeWindow
     public bool AccountTypeDeleted { get; private set; }
 
     // ReSharper disable once HeapView.ObjectAllocation.Evident
-    public TAccountType AccountType { get; } = new();
+    public AccountTypeViewModel AccountType { get; } = new();
 
     #endregion
 
@@ -63,50 +64,51 @@ public partial class AddEditAccountTypeWindow
             MsgBoxImage.Question, MessageBoxButton.YesNoCancel);
         if (response is not MessageBoxResult.Yes) return;
 
-        Log.Information("Attempting to remove the account type \"{AccountToDeleteName}\"", AccountType.Name);
-        var (success, exception) = AccountType.Delete();
-
-        if (success)
-        {
-            Log.Information("Account was successfully removed");
-            MsgBox.MsgBox.Show(AccountTypeManagementResources.MessageBoxDeleteAccountTypeNoUseSuccess,
-                MsgBoxImage.Check);
-
-            AccountTypeDeleted = true;
-            DialogResult = true;
-            Close();
-            return;
-        }
-
-        if (exception!.InnerException is SqliteException
-            {
-                SqliteExtendedErrorCode: SQLitePCL.raw.SQLITE_CONSTRAINT_FOREIGNKEY
-            })
-        {
-            Log.Error("Foreign key constraint violation");
-
-            response = MsgBox.MsgBox.Show(AccountTypeManagementResources.MessageBoxDeleteAccountTypeUseQuestion,
-                MsgBoxImage.Question, MessageBoxButton.YesNoCancel);
-
-            if (response is not MessageBoxResult.Yes) return;
-
-            Log.Information(
-                "Attempting to remove the account type \"{AccountTypeToDeleteName}\" with all relative element",
-                AccountType.Name);
-            AccountType.Delete(true);
-            Log.Information("Account type and all relative element was successfully removed");
-            MsgBox.MsgBox.Show(AccountTypeManagementResources.MessageBoxDeleteAccountTypeUseSuccess,
-                MsgBoxImage.Check);
-
-            AccountTypeDeleted = true;
-            DialogResult = true;
-            Close();
-
-            return;
-        }
-
-        Log.Error(exception, "An error occurred please retry");
-        MsgBox.MsgBox.Show(AccountTypeManagementResources.MessageBoxDeleteAccountTypeNoUseSuccess, MsgBoxImage.Error);
+        // TODO correct
+        // Log.Information("Attempting to remove the account type \"{AccountToDeleteName}\"", AccountType.Name);
+        // var (success, exception) = AccountType.Delete();
+        //
+        // if (success)
+        // {
+        //     Log.Information("Account was successfully removed");
+        //     MsgBox.MsgBox.Show(AccountTypeManagementResources.MessageBoxDeleteAccountTypeNoUseSuccess,
+        //         MsgBoxImage.Check);
+        //
+        //     AccountTypeDeleted = true;
+        //     DialogResult = true;
+        //     Close();
+        //     return;
+        // }
+        //
+        // if (exception!.InnerException is SqliteException
+        //     {
+        //         SqliteExtendedErrorCode: SQLitePCL.raw.SQLITE_CONSTRAINT_FOREIGNKEY
+        //     })
+        // {
+        //     Log.Error("Foreign key constraint violation");
+        //
+        //     response = MsgBox.MsgBox.Show(AccountTypeManagementResources.MessageBoxDeleteAccountTypeUseQuestion,
+        //         MsgBoxImage.Question, MessageBoxButton.YesNoCancel);
+        //
+        //     if (response is not MessageBoxResult.Yes) return;
+        //
+        //     Log.Information(
+        //         "Attempting to remove the account type \"{AccountTypeToDeleteName}\" with all relative element",
+        //         AccountType.Name);
+        //     AccountType.Delete(true);
+        //     Log.Information("Account type and all relative element was successfully removed");
+        //     MsgBox.MsgBox.Show(AccountTypeManagementResources.MessageBoxDeleteAccountTypeUseSuccess,
+        //         MsgBoxImage.Check);
+        //
+        //     AccountTypeDeleted = true;
+        //     DialogResult = true;
+        //     Close();
+        //
+        //     return;
+        // }
+        //
+        // Log.Error(exception, "An error occurred please retry");
+        // MsgBox.MsgBox.Show(AccountTypeManagementResources.MessageBoxDeleteAccountTypeNoUseSuccess, MsgBoxImage.Error);
     }
 
     private void ButtonValid_OnClick(object sender, RoutedEventArgs e)
@@ -131,9 +133,15 @@ public partial class AddEditAccountTypeWindow
     }
 
     // ReSharper disable once HeapView.ClosureAllocation
-    public void SetTAccountType(TAccountType accountType)
+    public void SetAccountType(TAccountType accountType)
     {
         accountType.CopyPropertiesTo(AccountType);
+        EditAccountType = true;
+    }
+
+    public void SetAccountType(AccountTypeViewModel accountTypeViewModel)
+    {
+        accountTypeViewModel.CopyPropertiesTo(AccountType);
         EditAccountType = true;
     }
 

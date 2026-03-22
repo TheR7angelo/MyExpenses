@@ -72,7 +72,7 @@ public partial class AccountTypeManagementPage
         // Since there are no references to it after this scope and the Garbage Collector will handle
         // its cleanup efficiently, this allocation is intentional and does not require further optimization.
         var addEditAccountType = App.ServiceProvider.GetRequiredService<AddEditAccountTypeWindow>();
-        addEditAccountType.SetTAccountType(accountType);
+        addEditAccountType.SetAccountType(accountType);
 
         var result = addEditAccountType.ShowDialog();
         if (result is not true) return;

@@ -38,4 +38,9 @@ public class AccountService(IAccountRepository accountRepository, IAccountDtoDom
         var currencies = await accountRepository.GetAllCurrencyAsync(cancellationToken);
         return currencies.Select(mapper.MapToDto);
     }
+
+    public async Task<AccountDto> AddOrEditAsync(AccountDto accountDto, CancellationToken cancellationToken = default)
+    {
+
+    }
 }

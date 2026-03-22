@@ -12,7 +12,6 @@ using MyExpenses.Presentation.ViewModels.Categories;
 using MyExpenses.SharedUtils.Collection;
 using MyExpenses.SharedUtils.Properties;
 using MyExpenses.SharedUtils.RegexUtils;
-using MyExpenses.SharedUtils.Resources.Resx.AccountTypeManagement;
 using MyExpenses.SharedUtils.Resources.Resx.AddEditAccount;
 using MyExpenses.SharedUtils.Resources.Resx.CategoryTypesManagement;
 using MyExpenses.SharedUtils.Resources.Resx.CurrencySymbolManagement;
@@ -94,37 +93,40 @@ public partial class AddEditAccountWindow
 
     #region Action
 
-    private void ButtonAddAccountType_OnClick(object sender, RoutedEventArgs e)
+    private void ButtonAddEditAccountType_OnClick(object sender, RoutedEventArgs e)
     {
         var addEditAccountType = App.ServiceProvider.GetRequiredService<AddEditAccountTypeWindow>();
+        if (AccountViewModel.AccountType is not null) addEditAccountType.SetAccountType(AccountViewModel.AccountType);
+
         var result = addEditAccountType.ShowDialog();
         if (result is not true) return;
 
         // TODO injector DTO MODEL VIEW
+        _accountPresentationService.AddOrEditAsync(addEditAccountType.AccountType);
 
-        var newAccountType = addEditAccountType.AccountType;
-
-        Log.Information("Attempting to inject the new account type \"{NewAccountTypeName}\"", newAccountType.Name);
-        var (success, exception) = newAccountType.AddOrEdit();
-        if (success)
-        {
-            // TODO correct
-            // AccountTypes.AddAndSort(newAccountType, s => s.Name);
-            // Account.AccountTypeFk = newAccountType.Id;
-
-            Log.Information("Account type was successfully added");
-            var json = newAccountType.ToJsonString();
-            Log.Information("{Json}", json);
-
-            MsgBox.MsgBox.Show(AccountTypeManagementResources.MessageBoxAddNewAccountTypeSuccessTitle,
-                AccountTypeManagementResources.MessageBoxAddNewAccountTypeSuccessMessage, MsgBoxImage.Check);
-        }
-        else
-        {
-            Log.Error(exception, "An error occurred please retry");
-            MsgBox.MsgBox.Show(AccountTypeManagementResources.MessageBoxAddNewAccountTypeErrorTitle,
-                AccountTypeManagementResources.MessageBoxAddNewAccountTypeErrorMessage, MsgBoxImage.Error);
-        }
+        // var newAccountType = addEditAccountType.AccountType;
+        //
+        // Log.Information("Attempting to inject the new account type \"{NewAccountTypeName}\"", newAccountType.Name);
+        // var (success, exception) = newAccountType.AddOrEdit();
+        // if (success)
+        // {
+        //     // TODO correct
+        //     // AccountTypes.AddAndSort(newAccountType, s => s.Name);
+        //     // Account.AccountTypeFk = newAccountType.Id;
+        //
+        //     Log.Information("Account type was successfully added");
+        //     var json = newAccountType.ToJsonString();
+        //     Log.Information("{Json}", json);
+        //
+        //     MsgBox.MsgBox.Show(AccountTypeManagementResources.MessageBoxAddNewAccountTypeSuccessTitle,
+        //         AccountTypeManagementResources.MessageBoxAddNewAccountTypeSuccessMessage, MsgBoxImage.Check);
+        // }
+        // else
+        // {
+        //     Log.Error(exception, "An error occurred please retry");
+        //     MsgBox.MsgBox.Show(AccountTypeManagementResources.MessageBoxAddNewAccountTypeErrorTitle,
+        //         AccountTypeManagementResources.MessageBoxAddNewAccountTypeErrorMessage, MsgBoxImage.Error);
+        // }
     }
 
     private void ButtonAddCategoryType_OnClick(object sender, RoutedEventArgs e)
@@ -237,8 +239,7 @@ public partial class AddEditAccountWindow
     {
         try
         {
-            if (AccountViewModel.HasNameChanged &&
-                await _accountPresentationValidationService.IsAccountNameAlreadyExist(AccountViewModel.Name))
+            if (!await _accountPresentationValidationService.IsAccountValid(AccountViewModel))
             {
                 MsgBox.MsgBox.Show(AddEditAccountResources.MessageBoxErrorAccountNameAlreadyExists, MsgBoxImage.Warning);
             }

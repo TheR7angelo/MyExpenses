@@ -8,6 +8,7 @@ public interface IAccountDtoViewModelMapper
     public TotalByAccountViewModel MapToViewModel(TotalByAccountDto src);
 
     public AccountViewModel MapToViewModel(AccountDto src);
+    public AccountDto MapToDto(AccountViewModel src);
 
     public CurrencyViewModel MapToViewModel(CurrencyDto src);
 

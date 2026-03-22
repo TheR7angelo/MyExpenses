@@ -30,4 +30,10 @@ public class AccountPresentationService(IAccountService accountService, IAccount
         var currencies = await accountService.GetAllCurrencyAsync(cancellationToken);
         return currencies.Select(viewModelMapper.MapToViewModel);
     }
+
+    public async Task<AccountViewModel> AddOrEditAsync(AccountTypeViewModel accountViewModel, CancellationToken cancellationToken = default)
+    {
+        var accountType = viewModelMapper.MapToDto(accountViewModel);
+        return await accountService.AddOrEditAsync(accountType, cancellationToken);
+    }
 }

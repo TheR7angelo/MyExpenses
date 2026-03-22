@@ -5,6 +5,8 @@ namespace MyExpenses.Presentation.ViewModels.Accounts;
 
 public class AccountTypeViewModel
 {
+    internal string OriginalName { get; set; } = string.Empty;
+
     public int Id { get; set; }
 
     [Required(ErrorMessage = "Account type name is required")]
@@ -12,4 +14,6 @@ public class AccountTypeViewModel
     public string? Name { get; set; }
 
     public DateTime? DateAdded { get; set; }
+
+    public bool HasNameChanged => OriginalName != Name;
 }
