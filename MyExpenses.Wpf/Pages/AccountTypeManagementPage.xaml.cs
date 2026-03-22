@@ -1,6 +1,7 @@
 ﻿using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Controls;
+using Microsoft.Extensions.DependencyInjection;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.SharedUtils.Collection;
 using MyExpenses.SharedUtils.Resources.Resx.AccountTypeManagement;
@@ -33,7 +34,8 @@ public partial class AccountTypeManagementPage
         // The instance of AddEditAccountTypeWindow is created locally within this method and is used temporarily.
         // Since there are no references to it after this scope and the Garbage Collector will handle
         // its cleanup efficiently, this allocation is intentional and does not require further optimization.
-        var addEditAccountType = new AddEditAccountTypeWindow();
+
+        var addEditAccountType = App.ServiceProvider.GetRequiredService<AddEditAccountTypeWindow>();
         var result = addEditAccountType.ShowDialog();
         if (result is not true) return;
 
@@ -69,7 +71,7 @@ public partial class AccountTypeManagementPage
         // The instance of AddEditAccountTypeWindow is created locally within this method and is used temporarily.
         // Since there are no references to it after this scope and the Garbage Collector will handle
         // its cleanup efficiently, this allocation is intentional and does not require further optimization.
-        var addEditAccountType = new AddEditAccountTypeWindow();
+        var addEditAccountType = App.ServiceProvider.GetRequiredService<AddEditAccountTypeWindow>();
         addEditAccountType.SetTAccountType(accountType);
 
         var result = addEditAccountType.ShowDialog();

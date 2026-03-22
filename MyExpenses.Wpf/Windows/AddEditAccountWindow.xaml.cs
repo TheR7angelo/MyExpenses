@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using Microsoft.Extensions.DependencyInjection;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Presentation.Services.Interfaces;
 using MyExpenses.Presentation.Validations.Interfaces;
@@ -95,11 +96,11 @@ public partial class AddEditAccountWindow
 
     private void ButtonAddAccountType_OnClick(object sender, RoutedEventArgs e)
     {
-        // TODO injector DTO MODEL VIEW
-        // ReSharper disable once HeapView.ObjectAllocation.Evident
-        var addEditAccountType = new AddEditAccountTypeWindow();
+        var addEditAccountType = App.ServiceProvider.GetRequiredService<AddEditAccountTypeWindow>();
         var result = addEditAccountType.ShowDialog();
         if (result is not true) return;
+
+        // TODO injector DTO MODEL VIEW
 
         var newAccountType = addEditAccountType.AccountType;
 

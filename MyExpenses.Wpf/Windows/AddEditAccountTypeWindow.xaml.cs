@@ -3,6 +3,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using Microsoft.Data.Sqlite;
 using MyExpenses.Models.Sql.Bases.Tables;
+using MyExpenses.Presentation.Services.Interfaces;
 using MyExpenses.SharedUtils.Properties;
 using MyExpenses.SharedUtils.Resources.Resx.AccountTypeManagement;
 using MyExpenses.Sql.Context;
@@ -14,11 +15,6 @@ namespace MyExpenses.Wpf.Windows;
 public partial class AddEditAccountTypeWindow
 {
     #region Property
-
-    // ReSharper disable once HeapView.ObjectAllocation.Evident
-    public TAccountType AccountType { get; } = new();
-
-    private List<TAccountType> AccountTypes { get; }
 
     // ReSharper disable once HeapView.BoxingAllocation
     // ReSharper disable once HeapView.ObjectAllocation.Evident
@@ -35,15 +31,18 @@ public partial class AddEditAccountTypeWindow
 
     public bool AccountTypeDeleted { get; private set; }
 
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
+    public TAccountType AccountType { get; } = new();
+
     #endregion
 
-    public AddEditAccountTypeWindow()
+    private readonly IAccountPresentationService _accountPresentationServiceService;
+
+    public AddEditAccountTypeWindow(IAccountPresentationService accountPresentationService)
     {
         // TODO injector DTO MODEL VIEW
 
-        // ReSharper disable once HeapView.ObjectAllocation.Evident
-        using var context = new DataBaseContextOld();
-        AccountTypes = [..context.TAccountTypes];
+        _accountPresentationServiceService = accountPresentationService;
 
         InitializeComponent();
 
@@ -121,8 +120,9 @@ public partial class AddEditAccountTypeWindow
             return;
         }
 
-        var alreadyExist = CheckAccountTypeName(accountTypeName);
-        if (alreadyExist) ShowErrorMessage();
+        // TODO correct
+        // var alreadyExist = CheckAccountTypeName(accountTypeName);
+        // if (alreadyExist) ShowErrorMessage();
         else
         {
             DialogResult = true;
@@ -135,11 +135,6 @@ public partial class AddEditAccountTypeWindow
     {
         accountType.CopyPropertiesTo(AccountType);
         EditAccountType = true;
-
-        // ReSharper disable once HeapView.DelegateAllocation
-        var oldItem = AccountTypes.FirstOrDefault(s => s.Id == accountType.Id);
-        if (oldItem is null) return;
-        AccountTypes.Remove(oldItem);
     }
 
     private void TextBoxAccountType_OnPreviewLostKeyboardFocus(object sender, KeyboardFocusChangedEventArgs e)
@@ -149,16 +144,19 @@ public partial class AddEditAccountTypeWindow
         var accountTypeName = textBox.Text;
         if (string.IsNullOrEmpty(accountTypeName)) return;
 
-        var alreadyExist = CheckAccountTypeName(accountTypeName);
-        if (alreadyExist) ShowErrorMessage();
+        // TODO correct
+        // var alreadyExist = CheckAccountTypeName(accountTypeName);
+        // if (alreadyExist) ShowErrorMessage();
     }
 
     #endregion
 
     #region Function
 
-    private bool CheckAccountTypeName(string accountName)
-        => AccountTypes.Select(s => s.Name).Contains(accountName);
+    // TODO correct
+    // private bool CheckAccountTypeName(string accountName)
+        // => AccountTypeViewModels.Select(s => s.Name).Contains(accountName);
+
 
     private static void ShowErrorMessage()
         => MsgBox.MsgBox.Show(AccountTypeManagementResources.MessageBoxValidateAccountTypeErrorAlreadyExistMessage,
