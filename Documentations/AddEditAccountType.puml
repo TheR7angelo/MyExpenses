@@ -2,6 +2,18 @@
 'https://plantuml.com/activity-diagram-beta
 skinparam defaultTextAlignment left
 
+header PROJECT: MyExpenses (Personal Suite)
+title Logic Flow: Account Type Definition (Creation & Edition & Delete)
+
+left footer
+    **TECHNICAL DESIGN:** TheR7angelo
+    **PROJECT:** MyExpenses (Personal Suite)
+    **STATUS:** Release Candidate
+    **DATE:** 2026-03-22
+    **VERSION:** 1.0.0
+    <font color=grey>Handcrafted by TheR7angelo - All Rights Reserved</font>
+end footer
+
 start
 
 legend left
