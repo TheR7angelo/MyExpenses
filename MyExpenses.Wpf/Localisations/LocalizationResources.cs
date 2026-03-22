@@ -1,4 +1,5 @@
 using System.Resources;
+using MyExpenses.SharedUtils.Resources.Resx.AccountTypeManagement;
 using MyExpenses.SharedUtils.Resources.Resx.AddEditAccount;
 using MyExpenses.Wpf.Resources.Resx.Windows.MainWindow;
 
@@ -11,5 +12,6 @@ public static class LocalizationResources
         {
             [nameof(MainWindowResources)] = MainWindowResources.ResourceManager,
             [nameof(AddEditAccountResources)] = AddEditAccountResources.ResourceManager,
+            [nameof(AccountTypeManagementResources)] = AccountTypeManagementResources.ResourceManager,
         };
 }
