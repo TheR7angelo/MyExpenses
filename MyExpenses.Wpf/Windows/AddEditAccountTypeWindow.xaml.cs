@@ -2,12 +2,10 @@
 using System.Windows.Controls;
 using System.Windows.Input;
 using Microsoft.Data.Sqlite;
-using MyExpenses.Models.Config.Interfaces;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.SharedUtils.Properties;
 using MyExpenses.SharedUtils.Resources.Resx.AccountTypeManagement;
 using MyExpenses.Sql.Context;
-using MyExpenses.Wpf.Utils;
 using MyExpenses.Wpf.Windows.MsgBox;
 using Serilog;
 
@@ -15,18 +13,18 @@ namespace MyExpenses.Wpf.Windows;
 
 public partial class AddEditAccountTypeWindow
 {
-    // ReSharper disable once HeapView.BoxingAllocation
-    // ReSharper disable once HeapView.ObjectAllocation.Evident
-    public static readonly DependencyProperty EditAccountTypeProperty =
-        DependencyProperty.Register(nameof(EditAccountType), typeof(bool), typeof(AddEditAccountTypeWindow),
-            new PropertyMetadata(false));
-
     #region Property
 
     // ReSharper disable once HeapView.ObjectAllocation.Evident
     public TAccountType AccountType { get; } = new();
 
     private List<TAccountType> AccountTypes { get; }
+
+    // ReSharper disable once HeapView.BoxingAllocation
+    // ReSharper disable once HeapView.ObjectAllocation.Evident
+    public static readonly DependencyProperty EditAccountTypeProperty =
+        DependencyProperty.Register(nameof(EditAccountType), typeof(bool), typeof(AddEditAccountTypeWindow),
+            new PropertyMetadata(false));
 
     // ReSharper disable once HeapView.BoxingAllocation
     public bool EditAccountType
@@ -39,64 +37,6 @@ public partial class AddEditAccountTypeWindow
 
     #endregion
 
-    #region Resx
-
-    // ReSharper disable once HeapView.ObjectAllocation.Evident
-    public static readonly DependencyProperty TextBoxAccountTypeNameProperty =
-        DependencyProperty.Register(nameof(TextBoxAccountTypeName), typeof(string), typeof(AddEditAccountTypeWindow),
-            new PropertyMetadata(default(string)));
-
-    public string TextBoxAccountTypeName
-    {
-        get => (string)GetValue(TextBoxAccountTypeNameProperty);
-        set => SetValue(TextBoxAccountTypeNameProperty, value);
-    }
-
-    // ReSharper disable once HeapView.ObjectAllocation.Evident
-    public static readonly DependencyProperty ButtonValidContentProperty = DependencyProperty.Register(
-        nameof(ButtonValidContent),
-        typeof(string), typeof(AddEditAccountTypeWindow), new PropertyMetadata(default(string)));
-
-    public string ButtonValidContent
-    {
-        get => (string)GetValue(ButtonValidContentProperty);
-        set => SetValue(ButtonValidContentProperty, value);
-    }
-
-    // ReSharper disable once HeapView.ObjectAllocation.Evident
-    public static readonly DependencyProperty ButtonDeleteContentProperty =
-        DependencyProperty.Register(nameof(ButtonDeleteContent), typeof(string), typeof(AddEditAccountTypeWindow),
-            new PropertyMetadata(default(string)));
-
-    public string ButtonDeleteContent
-    {
-        get => (string)GetValue(ButtonDeleteContentProperty);
-        set => SetValue(ButtonDeleteContentProperty, value);
-    }
-
-    // ReSharper disable once HeapView.ObjectAllocation.Evident
-    public static readonly DependencyProperty ButtonCancelContentProperty =
-        DependencyProperty.Register(nameof(ButtonCancelContent), typeof(string), typeof(AddEditAccountTypeWindow),
-            new PropertyMetadata(default(string)));
-
-    public string ButtonCancelContent
-    {
-        get => (string)GetValue(ButtonCancelContentProperty);
-        set => SetValue(ButtonCancelContentProperty, value);
-    }
-
-    // ReSharper disable once HeapView.ObjectAllocation.Evident
-    public static readonly DependencyProperty TitleWindowProperty = DependencyProperty.Register(nameof(TitleWindow),
-        typeof(string), typeof(AddEditAccountTypeWindow), new PropertyMetadata(default(string)));
-
-    public string TitleWindow
-    {
-        get => (string)GetValue(TitleWindowProperty);
-        set => SetValue(TitleWindowProperty, value);
-    }
-
-    #endregion
-
     public AddEditAccountTypeWindow()
     {
         // TODO injector DTO MODEL VIEW
@@ -105,12 +45,9 @@ public partial class AddEditAccountTypeWindow
         using var context = new DataBaseContextOld();
         AccountTypes = [..context.TAccountTypes];
 
-        UpdateLanguage();
         InitializeComponent();
-        TextBoxAccountType.Focus();
 
-        // ReSharper disable once HeapView.DelegateAllocation
-        Interface.LanguageChanged += Interface_OnLanguageChanged;
+        TextBoxAccountType.Focus();
     }
 
     #region Action
@@ -216,9 +153,6 @@ public partial class AddEditAccountTypeWindow
         if (alreadyExist) ShowErrorMessage();
     }
 
-    private void Interface_OnLanguageChanged()
-        => UpdateLanguage();
-
     #endregion
 
     #region Function
@@ -229,16 +163,6 @@ public partial class AddEditAccountTypeWindow
     private static void ShowErrorMessage()
         => MsgBox.MsgBox.Show(AccountTypeManagementResources.MessageBoxValidateAccountTypeErrorAlreadyExistMessage,
             MsgBoxImage.Warning);
-
-    private void UpdateLanguage()
-    {
-        TitleWindow = AccountTypeManagementResources.TitleWindow;
-
-        TextBoxAccountTypeName = AccountTypeManagementResources.TextBoxAccountTypeName;
-        ButtonValidContent = AccountTypeManagementResources.ButtonValidContent;
-        ButtonDeleteContent = AccountTypeManagementResources.ButtonDeleteContent;
-        ButtonCancelContent = AccountTypeManagementResources.ButtonCancelContent;
-    }
 
     #endregion
 }
