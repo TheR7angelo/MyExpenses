@@ -1,0 +1,21 @@
+@startuml
+
+start
+
+:Request checkName (is error);
+note: return true if error is detected else false
+
+if (value = "" or value is null) then (true)
+    :return true;
+    stop
+else (false)
+    if (<img:Assets/database.svg> check is name is already in database) then (true)
+        : return true;
+        stop
+    else (false)
+end if
+
+: return false;
+
+stop
+@enduml

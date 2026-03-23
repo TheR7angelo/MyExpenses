@@ -41,7 +41,7 @@ switch (After User input)
       stop
 
     case ( <color:green><&check></color> Validation )
-        :Check rules <sup>1</sup>
+        :Check rules <sup>1</sup> [[CheckName.puml Consulter]]
         ----
         <u>Can return values :</u>
          - false -> no error detected

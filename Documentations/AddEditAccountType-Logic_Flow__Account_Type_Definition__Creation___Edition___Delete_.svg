@@ -1,0 +1,409 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentStyleType="text/css"
+     data-diagram-type="ACTIVITY" height="1349px" preserveAspectRatio="none"
+     style="width:1039px;height:1349px;background:#FFFFFF;" version="1.1" viewBox="0 0 1039 1349" width="1039px"
+     zoomAndPan="magnify">
+    <title>Logic Flow: Account Type Definition (Creation &amp; Edition &amp; Delete)</title>
+    <defs/>
+    <g>
+        <g class="header" data-source-line="4">
+            <text fill="#888888" font-family="sans-serif" font-size="10" lengthAdjust="spacing" textLength="183.9502"
+                  x="10" y="20.791">PROJECT: MyExpenses (Personal Suite)
+            </text>
+        </g>
+        <g class="title" data-source-line="5">
+            <text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing"
+                  textLength="437.8896" x="299.3471" y="49.4082">Logic Flow: Account Type Definition (Creation &amp;
+                Edition &amp; Delete)
+            </text>
+        </g>
+        <ellipse cx="518.7919" cy="73.9219" fill="#222222" rx="10" ry="10" style="stroke:#222222;stroke-width:1;"/>
+        <polygon fill="none"
+                 points="227.9112,93.9355,307.0626,93.9355,314.0626,118.5566,812.0076,118.5566,812.0076,426.3613,227.9112,426.3613,227.9112,93.9355"
+                 style="stroke:#000000;stroke-width:1.5;"/>
+        <line style="stroke:#000000;stroke-width:1.5;" x1="227.9112" x2="314.0626" y1="118.5566" y2="118.5566"/>
+        <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="73.1514"
+              x="231.9112" y="111.043">Initialization
+        </text>
+        <rect fill="#F1F1F1" height="35.9609" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:0.5;"
+              width="204.7754" x="416.4042" y="132.5566"/>
+        <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="184.7754"
+              x="426.4042" y="155.5059">AddEditAccountWindow requested
+        </text>
+        <polygon fill="#F1F1F1"
+                 points="472.9281,203.5176,564.6557,203.5176,576.6557,215.5176,564.6557,227.5176,472.9281,227.5176,460.9281,215.5176,472.9281,203.5176"
+                 style="stroke:#181818;stroke-width:0.5;"/>
+        <text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="91.7275"
+              x="472.9281" y="220.0723">Page.SetEditMode
+        </text>
+        <text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="18.9546"
+              x="441.9736" y="212.7568">true
+        </text>
+        <text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="23.2354"
+              x="576.6557" y="212.7568">false
+        </text>
+        <path d="M435.6612,249.833 L435.6612,259.4785 L415.6612,263.4785 L435.6612,267.4785 L435.6612,277.124 A0,0 0 0 0 435.6612,277.124 L599.5876,277.124 A0,0 0 0 0 599.5876,277.124 L599.5876,259.833 L589.5876,249.833 L435.6612,249.833 A0,0 0 0 0 435.6612,249.833"
+              fill="#FEFFDD" style="stroke:#181818;stroke-width:0.5;"/>
+        <path d="M589.5876,249.833 L589.5876,259.833 L599.5876,259.833 L589.5876,249.833" fill="#FEFFDD"
+              style="stroke:#181818;stroke-width:0.5;"/>
+        <path d="M446.0087,260.2074 C445.9437,260.2074 445.9004,260.2507 445.8679,260.3049 L442.6829,267.6824 C442.6612,267.7365 442.6504,267.8232 442.6504,267.8882 L442.6504,268.7657 C442.6504,268.8199 442.6937,268.8632 442.7479,268.8632 L450.1254,268.8632 C450.1795,268.8632 450.2229,268.8199 450.2229,268.7657 L450.2229,267.8882 C450.2229,267.834 450.212,267.7365 450.1904,267.6824 L447.0054,260.3049 C446.9837,260.2507 446.9295,260.2074 446.8645,260.2074 L445.987,260.2074 M445.9112,263.4574 L446.9945,263.4574 L446.9945,265.624 L445.9112,265.624 L445.9112,263.4574 M445.9112,266.7074 L446.9945,266.7074 L446.9945,267.7907 L445.9112,267.7907 L445.9112,266.7074"
+              fill="#FF0000"/>
+        <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="128.6479"
+              x="455.9397" y="268.8613">need item to be edited
+        </text>
+        <rect fill="#F1F1F1" height="51.9219" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:0.5;"
+              width="167.75" x="247.9112" y="237.5176"/>
+        <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="116.4082"
+              x="257.9112" y="260.4668">Page.EditMode = true
+        </text>
+        <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="147.75"
+              x="257.9112" y="276.4277">Page.UserCanDelete = true
+        </text>
+        <rect fill="#F1F1F1" height="51.9219" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:0.5;"
+              width="172.4199" x="619.5876" y="237.5176"/>
+        <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="121.0781"
+              x="629.5876" y="260.4668">Page.EditMode = false
+        </text>
+        <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="152.4199"
+              x="629.5876" y="276.4277">Page.UserCanDelete = false
+        </text>
+        <polygon fill="#F1F1F1"
+                 points="518.7919,295.4395,530.7919,307.4395,518.7919,319.4395,506.7919,307.4395,518.7919,295.4395"
+                 style="stroke:#181818;stroke-width:0.5;"/>
+        <rect fill="#F1F1F1" height="51.9219" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:0.5;"
+              width="171.3984" x="433.0927" y="354.4395"/>
+        <path d="M446.0927,369.4004 L446.0927,370.4004 L447.0927,370.4004 L447.0927,370.4304 C445.3927,370.6704 444.0927,372.1404 444.0927,373.9004 C444.0927,375.8304 445.6627,377.4004 447.5927,377.4004 C449.5227,377.4004 451.0927,375.8304 451.0927,373.9004 C451.0927,373.4504 450.9927,373.0304 450.8427,372.6504 L449.9327,373.0304 C450.0427,373.3204 450.0927,373.6004 450.0927,373.9104 C450.0927,375.3004 448.9827,376.4104 447.5927,376.4104 C446.2027,376.4104 445.0927,375.3004 445.0927,373.9104 C445.0927,372.5204 446.2027,371.4104 447.5927,371.4104 C447.8927,371.4104 448.1827,371.4604 448.4727,371.5704 L448.8127,370.6304 C448.5827,370.5504 448.3427,370.5104 448.0927,370.4704 L448.0927,370.4104 L449.0927,370.4104 L449.0927,369.4104 L446.0927,369.4104 M451.0927,370.5604 C447.4427,373.3704 447.4427,373.3704 447.2527,373.5604 C447.0627,373.7604 447.0627,374.0504 447.2527,374.2504 C447.4427,374.4504 447.7427,374.4504 447.9427,374.2504 C448.1427,374.0504 451.1027,370.5604 451.1027,370.5604"
+              fill="#FFA500"/>
+        <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="138.0645"
+              x="456.4267" y="377.3887">Waiting for user validation
+        </text>
+        <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="128.0801"
+              x="443.0927" y="393.3496">or cancel or delete input
+        </text>
+        <polygon fill="none"
+                 points="20,436.375,120.9375,436.375,127.9375,460.9961,1017.5838,460.9961,1017.5838,1141.2852,20,1141.2852,20,436.375"
+                 style="stroke:#000000;stroke-width:1.5;"/>
+        <line style="stroke:#000000;stroke-width:1.5;" x1="20" x2="127.9375" y1="460.9961" y2="460.9961"/>
+        <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="94.9375" x="24"
+              y="453.4824">After user input
+        </text>
+        <polygon fill="#F1F1F1"
+                 points="480.5819,474.9961,557.0019,474.9961,569.0019,486.9961,557.0019,498.9961,480.5819,498.9961,468.5819,486.9961,480.5819,474.9961"
+                 style="stroke:#181818;stroke-width:0.5;"/>
+        <text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="76.4199"
+              x="480.5819" y="491.5508">After User input
+        </text>
+        <ellipse cx="41" cy="549.2578" fill="none" rx="11" ry="11" style="stroke:#222222;stroke-width:1;"/>
+        <ellipse cx="41" cy="549.2578" fill="#222222" rx="6" ry="6" style="stroke:#222222;stroke-width:1;"/>
+        <path d="M362.6659,572.5391 L362.6659,582.1846 L342.6659,586.1846 L362.6659,590.1846 L362.6659,599.8301 A0,0 0 0 0 362.6659,599.8301 L516.6493,599.8301 A0,0 0 0 0 516.6493,599.8301 L516.6493,582.5391 L506.6493,572.5391 L362.6659,572.5391 A0,0 0 0 0 362.6659,572.5391"
+              fill="#FEFFDD" style="stroke:#181818;stroke-width:0.5;"/>
+        <path d="M506.6493,572.5391 L506.6493,582.5391 L516.6493,582.5391 L506.6493,572.5391" fill="#FEFFDD"
+              style="stroke:#181818;stroke-width:0.5;"/>
+        <text fill="#000000" font-family="sans-serif" font-size="13" lengthAdjust="spacing" textLength="132.9834"
+              x="368.6659" y="591.5674">See the rules in legend
+        </text>
+        <rect fill="#F1F1F1" height="95.8535" style="stroke:#181818;stroke-width:0.5;" width="165.0723" x="177.5936"
+              y="538.2578"/>
+        <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="63.3574"
+              x="187.5936" y="563.2168">Check rules
+        </text>
+        <text fill="#000000" font-family="sans-serif" font-size="9" lengthAdjust="spacing" textLength="5.0054"
+              x="254.285" y="557.9697">1
+        </text>
+        <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="3.334"
+              x="259.2904" y="563.2168">&#160;
+        </text>
+        <a href="CheckName.svg" target="_top" title="CheckName.svg" xlink:actuate="onRequest"
+           xlink:href="CheckName.svg" xlink:show="new" xlink:title="CheckName.svg" xlink:type="simple">
+            <text fill="#0000FF" font-family="sans-serif" font-size="12" lengthAdjust="spacing"
+                  text-decoration="underline" textLength="51.3574" x="262.6243" y="563.2168">Consulter
+            </text>
+        </a>
+        <line style="stroke:#181818;stroke-width:1;" x1="177.5936" x2="342.6659" y1="571.2285" y2="571.2285"/>
+        <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" text-decoration="underline"
+              textLength="101.3848" x="187.5936" y="589.1777">Can return values :
+        </text>
+        <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="141.7383"
+              x="190.9276" y="605.1387">- false -&gt; no error detected
+        </text>
+        <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="120.3867"
+              x="190.9276" y="621.0996">- true -&gt; error detected
+        </text>
+        <polygon fill="#F1F1F1"
+                 points="243.9305,669.1113,276.3289,669.1113,288.3289,681.1113,276.3289,693.1113,243.9305,693.1113,231.9305,681.1113,243.9305,669.1113"
+                 style="stroke:#181818;stroke-width:0.5;"/>
+        <text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="32.3984"
+              x="243.9305" y="685.666">error ?
+        </text>
+        <text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="18.9546"
+              x="212.9759" y="678.3506">true
+        </text>
+        <text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="23.2354"
+              x="288.3289" y="678.3506">false
+        </text>
+        <rect fill="#F1F1F1" height="35.9609" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:0.5;"
+              width="128.7207" x="123.7425" y="703.1113"/>
+        <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="108.7207"
+              x="133.7425" y="726.0605">Send message error
+        </text>
+        <ellipse cx="188.1029" cy="785.0723" fill="none" rx="11" ry="11" style="stroke:#222222;stroke-width:1;"/>
+        <ellipse cx="188.1029" cy="785.0723" fill="#222222" rx="6" ry="6" style="stroke:#222222;stroke-width:1;"/>
+        <rect fill="#F1F1F1" height="35.9609" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:0.5;"
+              width="119.3867" x="272.4632" y="703.1113"/>
+        <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="99.3867"
+              x="282.4632" y="726.0605">Process Validation
+        </text>
+        <rect fill="#F1F1F1" height="93.8438" style="stroke:#181818;stroke-width:0.5;" width="156.4238" x="665.9525"
+              y="587.5732"/>
+        <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="70.043"
+              x="675.9525" y="610.5225">Check usage
+        </text>
+        <line style="stroke:#181818;stroke-width:1;" x1="665.9525" x2="822.3763" y1="618.5342" y2="618.5342"/>
+        <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" text-decoration="underline"
+              textLength="101.3848" x="675.9525" y="636.4834">Can return values :
+        </text>
+        <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="111.7383"
+              x="675.9525" y="652.4443">- true -&gt; usage found
+        </text>
+        <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="136.4238"
+              x="675.9525" y="668.4053">- false -&gt; usage not found
+        </text>
+        <polygon fill="#F1F1F1"
+                 points="709.3006,716.417,779.0282,716.417,791.0282,728.417,779.0282,740.417,709.3006,740.417,697.3006,728.417,709.3006,716.417"
+                 style="stroke:#181818;stroke-width:0.5;"/>
+        <text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="69.7275"
+              x="709.3006" y="732.9717">usage found ?
+        </text>
+        <text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="18.9546"
+              x="678.346" y="725.6563">true
+        </text>
+        <text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="23.2354"
+              x="791.0282" y="725.6563">false
+        </text>
+        <rect fill="#F1F1F1" height="35.9609" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:0.5;"
+              width="150.7285" x="556.6493" y="750.417"/>
+        <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="130.7285"
+              x="566.6493" y="773.3662">Ask second confirmation
+        </text>
+        <rect fill="#F1F1F1" height="35.9609" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:0.5;"
+              width="126.0664" x="568.9803" y="870.6934"/>
+        <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="106.0664"
+              x="578.9803" y="893.6426">Delete account type
+        </text>
+        <polygon fill="#F1F1F1"
+                 points="597.4693,821.3779,666.5577,821.3779,678.5577,833.3779,666.5577,845.3779,597.4693,845.3779,585.4693,833.3779,597.4693,821.3779"
+                 style="stroke:#181818;stroke-width:0.5;"/>
+        <text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="18.9546"
+              x="636.0135" y="857.248">true
+        </text>
+        <text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="69.0884"
+              x="597.4693" y="837.9326">confirmation ?
+        </text>
+        <text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="23.2354"
+              x="678.5577" y="830.6172">false
+        </text>
+        <ellipse cx="723.7931" cy="833.3779" fill="none" rx="11" ry="11" style="stroke:#222222;stroke-width:1;"/>
+        <ellipse cx="723.7931" cy="833.3779" fill="#222222" rx="6" ry="6" style="stroke:#222222;stroke-width:1;"/>
+        <rect fill="#F1F1F1" height="35.9609" rx="12.5" ry="12.5" style="stroke:#181818;stroke-width:0.5;"
+              width="126.0664" x="793.2821" y="750.417"/>
+        <text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="106.0664"
+              x="803.2821" y="773.3662">Delete account type
+        </text>
+        <polygon fill="#F1F1F1"
+                 points="744.1644,937.9697,756.1644,949.9697,744.1644,961.9697,732.1644,949.9697,744.1644,937.9697"
+                 style="stroke:#181818;stroke-width:0.5;"/>
+        <polygon fill="#F1F1F1"
+                 points="709.6202,538.2578,778.7086,538.2578,790.7086,550.2578,778.7086,562.2578,709.6202,562.2578,697.6202,550.2578,709.6202,538.2578"
+                 style="stroke:#181818;stroke-width:0.5;"/>
+        <text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="18.9546"
+              x="748.1644" y="574.1279">true
+        </text>
+        <text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="69.0884"
+              x="709.6202" y="554.8125">confirmation ?
+        </text>
+        <text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="23.2354"
+              x="790.7086" y="547.4971">false
+        </text>
+        <ellipse cx="835.9439" cy="550.2578" fill="none" rx="11" ry="11" style="stroke:#222222;stroke-width:1;"/>
+        <ellipse cx="835.9439" cy="550.2578" fill="#222222" rx="6" ry="6" style="stroke:#222222;stroke-width:1;"/>
+        <polygon fill="#F1F1F1"
+                 points="518.7919,1097.2852,518.7919,1097.2852,530.7919,1109.2852,518.7919,1121.2852,518.7919,1121.2852,506.7919,1109.2852,518.7919,1097.2852"
+                 style="stroke:#181818;stroke-width:0.5;"/>
+        <ellipse cx="518.7919" cy="1172.2852" fill="none" rx="11" ry="11" style="stroke:#222222;stroke-width:1;"/>
+        <ellipse cx="518.7919" cy="1172.2852" fill="#222222" rx="6" ry="6" style="stroke:#222222;stroke-width:1;"/>
+        <line style="stroke:#181818;stroke-width:1;" x1="460.9281" x2="331.7862" y1="215.5176" y2="215.5176"/>
+        <line style="stroke:#181818;stroke-width:1;" x1="331.7862" x2="331.7862" y1="215.5176" y2="237.5176"/>
+        <polygon fill="#181818" points="327.7862,227.5176,331.7862,237.5176,335.7862,227.5176,331.7862,231.5176"
+                 style="stroke:#181818;stroke-width:1;"/>
+        <line style="stroke:#181818;stroke-width:1;" x1="576.6557" x2="705.7976" y1="215.5176" y2="215.5176"/>
+        <line style="stroke:#181818;stroke-width:1;" x1="705.7976" x2="705.7976" y1="215.5176" y2="237.5176"/>
+        <polygon fill="#181818" points="701.7976,227.5176,705.7976,237.5176,709.7976,227.5176,705.7976,231.5176"
+                 style="stroke:#181818;stroke-width:1;"/>
+        <line style="stroke:#181818;stroke-width:1;" x1="331.7862" x2="331.7862" y1="289.4395" y2="307.4395"/>
+        <line style="stroke:#181818;stroke-width:1;" x1="331.7862" x2="506.7919" y1="307.4395" y2="307.4395"/>
+        <polygon fill="#181818" points="496.7919,303.4395,506.7919,307.4395,496.7919,311.4395,500.7919,307.4395"
+                 style="stroke:#181818;stroke-width:1;"/>
+        <line style="stroke:#181818;stroke-width:1;" x1="705.7976" x2="705.7976" y1="289.4395" y2="307.4395"/>
+        <line style="stroke:#181818;stroke-width:1;" x1="705.7976" x2="530.7919" y1="307.4395" y2="307.4395"/>
+        <polygon fill="#181818" points="540.7919,303.4395,530.7919,307.4395,540.7919,311.4395,536.7919,307.4395"
+                 style="stroke:#181818;stroke-width:1;"/>
+        <line style="stroke:#181818;stroke-width:1;" x1="518.7919" x2="518.7919" y1="168.5176" y2="203.5176"/>
+        <polygon fill="#181818" points="514.7919,193.5176,518.7919,203.5176,522.7919,193.5176,518.7919,197.5176"
+                 style="stroke:#181818;stroke-width:1;"/>
+        <line style="stroke:#181818;stroke-width:1;" x1="518.7919" x2="518.7919" y1="319.4395" y2="354.4395"/>
+        <polygon fill="#181818" points="514.7919,344.4395,518.7919,354.4395,522.7919,344.4395,518.7919,348.4395"
+                 style="stroke:#181818;stroke-width:1;"/>
+        <line style="stroke:#181818;stroke-width:1;" x1="518.7919" x2="518.7919" y1="83.9219" y2="132.5566"/>
+        <polygon fill="#181818" points="514.7919,122.5566,518.7919,132.5566,522.7919,122.5566,518.7919,126.5566"
+                 style="stroke:#181818;stroke-width:1;"/>
+        <line style="stroke:#181818;stroke-width:1;" x1="188.1029" x2="188.1029" y1="739.0723" y2="774.0723"/>
+        <polygon fill="#181818" points="184.1029,764.0723,188.1029,774.0723,192.1029,764.0723,188.1029,768.0723"
+                 style="stroke:#181818;stroke-width:1;"/>
+        <line style="stroke:#181818;stroke-width:1;" x1="231.9305" x2="188.1029" y1="681.1113" y2="681.1113"/>
+        <line style="stroke:#181818;stroke-width:1;" x1="188.1029" x2="188.1029" y1="681.1113" y2="703.1113"/>
+        <polygon fill="#181818" points="184.1029,693.1113,188.1029,703.1113,192.1029,693.1113,188.1029,697.1113"
+                 style="stroke:#181818;stroke-width:1;"/>
+        <line style="stroke:#181818;stroke-width:1;" x1="288.3289" x2="332.1566" y1="681.1113" y2="681.1113"/>
+        <line style="stroke:#181818;stroke-width:1;" x1="332.1566" x2="332.1566" y1="681.1113" y2="703.1113"/>
+        <polygon fill="#181818" points="328.1566,693.1113,332.1566,703.1113,336.1566,693.1113,332.1566,697.1113"
+                 style="stroke:#181818;stroke-width:1;"/>
+        <line style="stroke:#181818;stroke-width:1;" x1="332.1566" x2="332.1566" y1="739.0723" y2="1109.2852"/>
+        <line style="stroke:#181818;stroke-width:1;" x1="332.1566" x2="506.7919" y1="1109.2852" y2="1109.2852"/>
+        <polygon fill="#181818" points="496.7919,1105.2852,506.7919,1109.2852,496.7919,1113.2852,500.7919,1109.2852"
+                 style="stroke:#181818;stroke-width:1;"/>
+        <line style="stroke:#181818;stroke-width:1;" x1="260.1297" x2="260.1297" y1="634.1113" y2="669.1113"/>
+        <polygon fill="#181818" points="256.1297,659.1113,260.1297,669.1113,264.1297,659.1113,260.1297,663.1113"
+                 style="stroke:#181818;stroke-width:1;"/>
+        <line style="stroke:#181818;stroke-width:1;" x1="632.0135" x2="632.0135" y1="845.3779" y2="870.6934"/>
+        <polygon fill="#181818" points="628.0135,860.6934,632.0135,870.6934,636.0135,860.6934,632.0135,864.6934"
+                 style="stroke:#181818;stroke-width:1;"/>
+        <line style="stroke:#181818;stroke-width:1;" x1="678.5577" x2="712.7931" y1="833.3779" y2="833.3779"/>
+        <polygon fill="#181818" points="702.7931,829.3779,712.7931,833.3779,702.7931,837.3779,706.7931,833.3779"
+                 style="stroke:#181818;stroke-width:1;"/>
+        <line style="stroke:#181818;stroke-width:1;" x1="632.0135" x2="632.0135" y1="906.6543" y2="949.9697"/>
+        <line style="stroke:#181818;stroke-width:1;" x1="632.0135" x2="732.1644" y1="949.9697" y2="949.9697"/>
+        <polygon fill="#181818" points="722.1644,945.9697,732.1644,949.9697,722.1644,953.9697,726.1644,949.9697"
+                 style="stroke:#181818;stroke-width:1;"/>
+        <line style="stroke:#181818;stroke-width:1;" x1="632.0135" x2="632.0135" y1="786.3779" y2="821.3779"/>
+        <polygon fill="#181818" points="628.0135,811.3779,632.0135,821.3779,636.0135,811.3779,632.0135,815.3779"
+                 style="stroke:#181818;stroke-width:1;"/>
+        <line style="stroke:#181818;stroke-width:1;" x1="697.3006" x2="632.0135" y1="728.417" y2="728.417"/>
+        <line style="stroke:#181818;stroke-width:1;" x1="632.0135" x2="632.0135" y1="728.417" y2="750.417"/>
+        <polygon fill="#181818" points="628.0135,740.417,632.0135,750.417,636.0135,740.417,632.0135,744.417"
+                 style="stroke:#181818;stroke-width:1;"/>
+        <line style="stroke:#181818;stroke-width:1;" x1="791.0282" x2="856.3153" y1="728.417" y2="728.417"/>
+        <line style="stroke:#181818;stroke-width:1;" x1="856.3153" x2="856.3153" y1="728.417" y2="750.417"/>
+        <polygon fill="#181818" points="852.3153,740.417,856.3153,750.417,860.3153,740.417,856.3153,744.417"
+                 style="stroke:#181818;stroke-width:1;"/>
+        <line style="stroke:#181818;stroke-width:1;" x1="856.3153" x2="856.3153" y1="786.3779" y2="949.9697"/>
+        <line style="stroke:#181818;stroke-width:1;" x1="856.3153" x2="756.1644" y1="949.9697" y2="949.9697"/>
+        <polygon fill="#181818" points="766.1644,945.9697,756.1644,949.9697,766.1644,953.9697,762.1644,949.9697"
+                 style="stroke:#181818;stroke-width:1;"/>
+        <line style="stroke:#181818;stroke-width:1;" x1="744.1644" x2="744.1644" y1="681.417" y2="716.417"/>
+        <polygon fill="#181818" points="740.1644,706.417,744.1644,716.417,748.1644,706.417,744.1644,710.417"
+                 style="stroke:#181818;stroke-width:1;"/>
+        <line style="stroke:#181818;stroke-width:1;" x1="744.1644" x2="744.1644" y1="562.2578" y2="587.5732"/>
+        <polygon fill="#181818" points="740.1644,577.5732,744.1644,587.5732,748.1644,577.5732,744.1644,581.5732"
+                 style="stroke:#181818;stroke-width:1;"/>
+        <line style="stroke:#181818;stroke-width:1;" x1="790.7086" x2="824.9439" y1="550.2578" y2="550.2578"/>
+        <polygon fill="#181818" points="814.9439,546.2578,824.9439,550.2578,814.9439,554.2578,818.9439,550.2578"
+                 style="stroke:#181818;stroke-width:1;"/>
+        <line style="stroke:#181818;stroke-width:1;" x1="744.1644" x2="744.1644" y1="961.9697" y2="1109.2852"/>
+        <line style="stroke:#181818;stroke-width:1;" x1="744.1644" x2="530.7919" y1="1109.2852" y2="1109.2852"/>
+        <polygon fill="#181818" points="540.7919,1105.2852,530.7919,1109.2852,540.7919,1113.2852,536.7919,1109.2852"
+                 style="stroke:#181818;stroke-width:1;"/>
+        <line style="stroke:#181818;stroke-width:1;" x1="468.5819" x2="41" y1="486.9961" y2="486.9961"/>
+        <line style="stroke:#181818;stroke-width:1;" x1="41" x2="41" y1="486.9961" y2="538.2578"/>
+        <polygon fill="#181818" points="37,528.2578,41,538.2578,45,528.2578,41,532.2578"
+                 style="stroke:#181818;stroke-width:1;"/>
+        <text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="3.0562" x="41"
+              y="517.1816">&#160;
+        </text>
+        <path d="M47.8062,510.7757 L45.0562,513.5532 L47.8062,516.2757 L47.8062,514.4424 L52.3895,514.4424 L52.3895,512.609 L47.8062,512.609 L47.8062,510.7757"
+              fill="#FFA500"/>
+        <text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="34.2407"
+              x="56.4456" y="517.1816">Cancel
+        </text>
+        <line style="stroke:#181818;stroke-width:1;" x1="569.0019" x2="744.1644" y1="486.9961" y2="486.9961"/>
+        <line style="stroke:#181818;stroke-width:1;" x1="744.1644" x2="744.1644" y1="486.9961" y2="538.2578"/>
+        <polygon fill="#181818" points="740.1644,528.2578,744.1644,538.2578,748.1644,528.2578,744.1644,532.2578"
+                 style="stroke:#181818;stroke-width:1;"/>
+        <text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="3.0562"
+              x="744.1644" y="517.1816">&#160;
+        </text>
+        <path d="M750.9705,509.859 C750.4664,509.859 750.0539,510.2715 750.0539,510.7757 L749.1372,510.7757 C748.633,510.7757 748.2205,511.1882 748.2205,511.6924 L754.6372,511.6924 C754.6372,511.1882 754.2247,510.7757 753.7205,510.7757 L752.8039,510.7757 C752.8039,510.2715 752.3914,509.859 751.8872,509.859 L750.9705,509.859 M749.1372,512.609 L749.1372,517.0182 C749.1372,517.119 749.2105,517.1924 749.3114,517.1924 L753.5555,517.1924 C753.6564,517.1924 753.7297,517.119 753.7297,517.0182 L753.7297,512.609 L752.813,512.609 L752.813,515.8174 C752.813,516.074 752.6114,516.2757 752.3547,516.2757 C752.098,516.2757 751.8964,516.074 751.8964,515.8174 L751.8964,512.609 L750.9797,512.609 L750.9797,515.8174 C750.9797,516.074 750.778,516.2757 750.5214,516.2757 C750.2647,516.2757 750.063,516.074 750.063,515.8174 L750.063,512.609 L749.1464,512.609"
+              fill="#FF0000"/>
+        <text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="31.7969"
+              x="759.61" y="517.1816">Delete
+        </text>
+        <line style="stroke:#181818;stroke-width:1;" x1="260.1297" x2="260.1297" y1="486.9961" y2="538.2578"/>
+        <polygon fill="#181818" points="256.1297,528.2578,260.1297,538.2578,264.1297,528.2578,260.1297,532.2578"
+                 style="stroke:#181818;stroke-width:1;"/>
+        <text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="3.0562"
+              x="260.1297" y="512.1816">&#160;
+        </text>
+        <path d="M270.0617,505.7757 L269.4292,506.4357 L266.8809,508.984 L266.1384,508.269 L265.4784,507.609 L264.1859,508.9015 L264.8459,509.5615 L266.2209,510.9365 L266.8534,511.5965 L267.5134,510.9365 L270.7217,507.7282 L271.3817,507.0682 L270.0617,505.7757"
+              fill="#008000"/>
+        <text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" textLength="48.313"
+              x="275.5754" y="512.1816">Validation
+        </text>
+        <line style="stroke:#800000;stroke-width:1.5;stroke-dasharray:7,7;" x1="518.7919" x2="518.7919" y1="406.3613"
+              y2="474.9961"/>
+        <polygon fill="#800000" points="514.7919,464.9961,518.7919,474.9961,522.7919,464.9961,518.7919,468.9961"
+                 style="stroke:#800000;stroke-width:1;"/>
+        <line style="stroke:#181818;stroke-width:1;" x1="518.7919" x2="518.7919" y1="1121.2852" y2="1161.2852"/>
+        <polygon fill="#181818" points="514.7919,1151.2852,518.7919,1161.2852,522.7919,1151.2852,518.7919,1155.2852"
+                 style="stroke:#181818;stroke-width:1;"/>
+        <g class="legend" data-source-line="18">
+            <rect fill="#DDDDDD" height="49.252" rx="7.5" ry="7.5" style="stroke:#000000;stroke-width:1;"
+                  width="287.3916" x="22" y="1194.2852"/>
+            <text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing"
+                  textLength="38.124" x="27" y="1216.4023">Rules
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="11" font-weight="bold" lengthAdjust="spacing"
+                  textLength="6.1177" x="65.124" y="1211.1553">1
+            </text>
+            <text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing"
+                  textLength="4.6621" x="75.1313" y="1216.4023">:
+            </text>
+            <ellipse cx="32.5" cy="1231.0371" fill="#000000" rx="2.5" ry="2.5"/>
+            <text fill="#000000" font-family="sans-serif" font-size="14" lengthAdjust="spacing" textLength="265.3916"
+                  x="39" y="1235.0234">An account type must have a unique name
+            </text>
+        </g>
+        <g class="footer" data-source-line="7">
+            <text fill="#888888" font-family="sans-serif" font-size="10" font-weight="bold" lengthAdjust="spacing"
+                  textLength="102.2217" x="10" y="1267.3281">TECHNICAL DESIGN:
+            </text>
+            <text fill="#888888" font-family="sans-serif" font-size="10" lengthAdjust="spacing" textLength="60.0439"
+                  x="115" y="1267.3281">TheR7angelo
+            </text>
+            <text fill="#888888" font-family="sans-serif" font-size="10" font-weight="bold" lengthAdjust="spacing"
+                  textLength="50.5615" x="10" y="1280.6289">PROJECT:
+            </text>
+            <text fill="#888888" font-family="sans-serif" font-size="10" lengthAdjust="spacing" textLength="131.7236"
+                  x="63.3398" y="1280.6289">MyExpenses (Personal Suite)
+            </text>
+            <text fill="#888888" font-family="sans-serif" font-size="10" font-weight="bold" lengthAdjust="spacing"
+                  textLength="43.3301" x="10" y="1293.9297">STATUS:
+            </text>
+            <text fill="#888888" font-family="sans-serif" font-size="10" lengthAdjust="spacing" textLength="85.0586"
+                  x="56.1084" y="1293.9297">Release Candidate
+            </text>
+            <text fill="#888888" font-family="sans-serif" font-size="10" font-weight="bold" lengthAdjust="spacing"
+                  textLength="30.5518" x="10" y="1307.2305">DATE:
+            </text>
+            <text fill="#888888" font-family="sans-serif" font-size="10" lengthAdjust="spacing" textLength="51.1523"
+                  x="43.3301" y="1307.2305">2026-03-22
+            </text>
+            <text fill="#888888" font-family="sans-serif" font-size="10" font-weight="bold" lengthAdjust="spacing"
+                  textLength="48.3398" x="10" y="1320.5313">VERSION:
+            </text>
+            <text fill="#888888" font-family="sans-serif" font-size="10" lengthAdjust="spacing" textLength="22.2412"
+                  x="61.1182" y="1320.5313">1.0.0
+            </text>
+            <text fill="#808080" font-family="sans-serif" font-size="10" lengthAdjust="spacing" textLength="227.3389"
+                  x="10" y="1333.832">Handcrafted by TheR7angelo - All Rights Reserved
+            </text>
+        </g><!--SRC=[bLNHRjis57tNLrnWGES4avrcm0ROgWR3yTOCRLhOJlkGve4MhoGk4kcHL5nlsB_lafHbgt7JpG-sf7jrUEuvX_JtfRKRCnwDDXMJjgchOQRg4SkiU1Hs5tF12itgU8sMHUP1o0sZM-2OiwQoA_nifvKeP8tIGeMvZQ8I6KSDxnVlVf_FLcDukvj_tg0qQ63m7hLHabMmR8J5iyWAMo6yKON8uDTARSSmpJBL4DPgjq6umbn8OOMIC9XfPFxg1SovQA-ki4A74xcb8LVAeew0FkVdg_dizStrRFe6hkRBwzzknkVdi2fnyJEJ1LQgxTgpfE9pF4FpSZLTtIvTxuBMPGPXnYGNd5biEwwcgxchNrvS_XHV_1XVNhQ53_F5ylgT9_5oU36yy8-JND6acQgKVbLetAMl2IxJBBV8ORqxfWinJAiA5g8ehQ7b3Uf7vCd88QGHIhuVFZAMQUi4ATnJRubVQvqkcWfDOffD-Z8PkHyO1tOmbS1QtQtJlMwCXP8z8Z1efFYpGP2inYWWEk0esh3iWHK8ryuWLec_WZj_UyZnb7FdKklcHo6vse96GZ8qtCGtYPo49eZX4grhVgiude4jaToskcbbzt2-RTy3hy2LFqd_z9Qa81j24jhIf7jJaYYWdMfZIBpIOuqyJLvicPP25caoyazJa4YYazarM0Lh1AJLa7iWhCZgGSxevnbElluLKhuMM95u8e-2IYqZfPt9HCgA6lM1qaT6qig2hDNG428yaixSw_n9qhECoGmhe2iU5gBTsTYmJ7ptNSsqKl87pao9_3vEetyEhaqfOoseVubyYynMsAo4GQZTThKmS-RoFe0lAJEjrJQsfSWUOXUs0_jPOBTNp5YrYKuWKV1H4b1MOlPmUFj3DoeSQJvpJQ1TaA6NvBixNxgXb0utT8Z1J4b31nJg-_lkzPW-tKtIfCIGCcaRBPso54roPDIaNGjjEcySn1GF1KYZEgajPljaj5qkSwwftp61957hF-WwFM2UI2QCOOdeWjzE9cIto_RTRgy4z5zERn4lpz9jq1gDSHRxzaclmNkmlpcPwf1ihJ82EVBW07CKtxwFOLjPJMaxkDXkWBFU79cIkT1rCBSRvmIH4tHF31qoqRYPUuMUs__LyPwT7fDsNoFv5nrTB48BUHdQJbhUitqlmX7sSvQ6mzGyW46IZSEnTfCddVzBtPCgVqljZbFhxF7VnbC-8InFSR_2vjkWVS1mHz_Xv7Bdcn_cNm00]-->
+    </g>
+</svg>
