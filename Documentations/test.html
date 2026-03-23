@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <title>Viewer Mermaid Automatique</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        body { font-family: sans-serif; background: #2d2d2d; color: white; padding: 20px; display: flex; justify-content: center; }
+        #output { background: white; border-radius: 8px; padding: 20px; min-width: 50%; box-shadow: 0 4px 15px rgba(0,0,0,0.3); }
+    </style>
+</head>
+<body>
+
+<div id="output" class="mermaid">Chargement du schéma...</div>
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"></script>
+<script>
+    // Configuration
+    const FICHIER_RELATIF = "test.mmd"; // <--- METS TON NOM DE FICHIER ICI
+
+    mermaid.initialize({
+        startOnLoad: false,
+        securityLevel: 'loose',
+        theme: 'default',
+        htmlLabels: true,
+        userMaxWidth: true
+    });
+
+    async function chargerDiagramme() {
+        const output = document.getElementById('output');
+
+        try {
+            // 1. Aller chercher le fichier mmd
+            const response = await fetch(FICHIER_RELATIF);
+
+            if (!response.ok) throw new Error("Fichier introuvable");
+
+            const code = await response.text();
+
+            // 2. Injecter le code
+            output.innerHTML = code;
+            output.removeAttribute('data-processed');
+
+            // 3. Lancer le rendu Mermaid
+            await mermaid.run({ nodes: [output] });
+
+        } catch (err) {
+            output.style.color = "red";
+            output.innerHTML = "❌ Erreur : " + err.message +
+                "<br><small>Note: Si tu es en local (file://), utilise un serveur type Live Server.</small>";
+        }
+    }
+
+    // Lancer au chargement de la page
+    window.onload = chargerDiagramme;
+</script>
+</body>
+</html>
