@@ -102,7 +102,7 @@ public partial class AddEditAccountWindow
         if (result is not true) return;
 
         // TODO injector DTO MODEL VIEW
-        _accountPresentationService.AddOrEditAsync(addEditAccountType.AccountType);
+        // _accountPresentationService.AddOrEditAsync(addEditAccountType.AccountType);
 
         // var newAccountType = addEditAccountType.AccountType;
         //

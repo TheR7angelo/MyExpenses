@@ -15,12 +15,6 @@ public class AccountService(IAccountRepository accountRepository, IAccountDtoDom
         return totalByAccountDomain.Select(mapper.MapToDto);
     }
 
-    public Task<IEnumerable<string>> GetAllAccountNames(CancellationToken cancellationToken = default)
-    {
-        var accountNames = accountRepository.GetAllAccountNames(cancellationToken);
-        return accountNames;
-    }
-
     public async Task<IEnumerable<AccountDto>> GetAllAccountAsync(CancellationToken cancellationToken = default)
     {
         var accounts = await accountRepository.GetAllAccountAsync(cancellationToken);
@@ -39,8 +33,8 @@ public class AccountService(IAccountRepository accountRepository, IAccountDtoDom
         return currencies.Select(mapper.MapToDto);
     }
 
-    public async Task<AccountDto> AddOrEditAsync(AccountDto accountDto, CancellationToken cancellationToken = default)
-    {
-
-    }
+    // public async Task<AccountDto> AddOrEditAsync(AccountDto accountDto, CancellationToken cancellationToken = default)
+    // {
+    //
+    // }
 }

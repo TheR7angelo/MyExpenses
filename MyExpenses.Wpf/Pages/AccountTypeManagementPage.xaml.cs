@@ -42,24 +42,25 @@ public partial class AccountTypeManagementPage
         var newAccountType = addEditAccountType.AccountType;
 
         Log.Information("Attempting to inject the new account type \"{NewAccountTypeName}\"", newAccountType.Name);
-        var (success, exception) = newAccountType.AddOrEdit();
-        if (success)
-        {
-            AccountTypes.AddAndSort(newAccountType, s => s.Name!);
-
-            Log.Information("Account type was successfully added");
-            var json = newAccountType.ToJsonString();
-            Log.Information("{Json}", json);
-
-            MsgBox.Show(AccountTypeManagementResources.MessageBoxAddNewAccountTypeSuccessTitle,
-                AccountTypeManagementResources.MessageBoxAddNewAccountTypeSuccessMessage, MsgBoxImage.Check);
-        }
-        else
-        {
-            Log.Error(exception, "An error occurred please retry");
-            MsgBox.Show(AccountTypeManagementResources.MessageBoxAddNewAccountTypeErrorTitle,
-                AccountTypeManagementResources.MessageBoxAddNewAccountTypeErrorMessage, MsgBoxImage.Error);
-        }
+        // TODO Inject
+        // var (success, exception) = newAccountType.AddOrEdit();
+        // if (success)
+        // {
+        //     AccountTypes.AddAndSort(newAccountType, s => s.Name!);
+        //
+        //     Log.Information("Account type was successfully added");
+        //     var json = newAccountType.ToJsonString();
+        //     Log.Information("{Json}", json);
+        //
+        //     MsgBox.Show(AccountTypeManagementResources.MessageBoxAddNewAccountTypeSuccessTitle,
+        //         AccountTypeManagementResources.MessageBoxAddNewAccountTypeSuccessMessage, MsgBoxImage.Check);
+        // }
+        // else
+        // {
+        //     Log.Error(exception, "An error occurred please retry");
+        //     MsgBox.Show(AccountTypeManagementResources.MessageBoxAddNewAccountTypeErrorTitle,
+        //         AccountTypeManagementResources.MessageBoxAddNewAccountTypeErrorMessage, MsgBoxImage.Error);
+        // }
     }
 
     private void ButtonAccountType_OnClick(object sender, RoutedEventArgs e)
@@ -82,25 +83,26 @@ public partial class AccountTypeManagementPage
         else
         {
             Log.Information("Attempting to update account type id:\"{EditedAccountTypeId}\", name:\"{EditedAccountTypeName}\"",editedAccountType.Id, editedAccountType.Name);
-            var (success, exception) = editedAccountType.AddOrEdit();
-            if (success)
-            {
-                AccountTypes.Remove(accountType);
-                AccountTypes.AddAndSort(editedAccountType, s => s.Name!);
-
-                Log.Information("Account type was successfully edited");
-                var json = editedAccountType.ToJsonString();
-                Log.Information("{Json}", json);
-
-                MsgBox.Show(AccountTypeManagementResources.MessageBoxAccountTypeEditSuccessTitle,
-                    AccountTypeManagementResources.MessageBoxAccountTypeEditSuccessMessage, MsgBoxImage.Check);
-            }
-            else
-            {
-                Log.Error(exception, "An error occurred please retry");
-                MsgBox.Show(AccountTypeManagementResources.MessageBoxAccountTypeEditErrorTitle,
-                AccountTypeManagementResources.MessageBoxAccountTypeEditErrorMessage, MsgBoxImage.Error);
-            }
+            // TODO Inject
+            // var (success, exception) = editedAccountType.AddOrEdit();
+            // if (success)
+            // {
+            //     AccountTypes.Remove(accountType);
+            //     AccountTypes.AddAndSort(editedAccountType, s => s.Name!);
+            //
+            //     Log.Information("Account type was successfully edited");
+            //     var json = editedAccountType.ToJsonString();
+            //     Log.Information("{Json}", json);
+            //
+            //     MsgBox.Show(AccountTypeManagementResources.MessageBoxAccountTypeEditSuccessTitle,
+            //         AccountTypeManagementResources.MessageBoxAccountTypeEditSuccessMessage, MsgBoxImage.Check);
+            // }
+            // else
+            // {
+            //     Log.Error(exception, "An error occurred please retry");
+            //     MsgBox.Show(AccountTypeManagementResources.MessageBoxAccountTypeEditErrorTitle,
+            //     AccountTypeManagementResources.MessageBoxAccountTypeEditErrorMessage, MsgBoxImage.Error);
+            // }
         }
     }
 }

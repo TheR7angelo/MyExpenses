@@ -1,3 +1,5 @@
+using Domain.Interfaces;
+using Domain.Services;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
@@ -35,6 +37,8 @@ public static class ServiceExtensions
 
         services.AddScoped<IAccountService, AccountService>()
             .AddScoped<ICategoryService, CategoryService>();
+
+        services.AddScoped<IAccountValidationService, AccountValidationService>();
 
         services.AddScoped<IAccountPresentationService, AccountPresentationService>()
             .AddScoped<ICategoryPresentationService, CategoryPresentationService>();
