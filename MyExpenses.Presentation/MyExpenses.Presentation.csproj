@@ -9,6 +9,10 @@
 
     <ItemGroup>
       <ProjectReference Include="..\MyExpenses.Application\MyExpenses.Application.csproj" />
+        <ProjectReference Include="..\MyExpenses.SourceGenerators\MyExpenses.SourceGenerators.csproj"
+                          OutputItemType="Analyzer"
+                          ReferenceOutputAssembly="false">
+        </ProjectReference>
     </ItemGroup>
 
     <ItemGroup>

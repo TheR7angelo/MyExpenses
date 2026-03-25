@@ -38,7 +38,7 @@ public static class ServiceExtensions
         services.AddScoped<IAccountService, AccountService>()
             .AddScoped<ICategoryService, CategoryService>();
 
-        services.AddScoped<IAccountValidationService, AccountValidationService>();
+        services.AddScoped<IAccountDomainValidationService, AccountDomainValidationService>();
 
         services.AddScoped<IAccountPresentationService, AccountPresentationService>()
             .AddScoped<ICategoryPresentationService, CategoryPresentationService>();

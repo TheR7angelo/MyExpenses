@@ -8,18 +8,19 @@ using MyExpenses.Presentation.ViewModels.Accounts;
 namespace MyExpenses.Presentation.Validations;
 
 public class AccountPresentationValidationService(IAccountDtoViewModelMapper mapper, IAccountDtoDomainMapper domainMapper,
-    IAccountValidationService accountValidationService, IAccountValidationRepository accountValidationRepository)
+    IAccountDomainValidationService accountDomainValidationService, IAccountValidationRepository accountValidationRepository)
     : IAccountPresentationValidationService
 {
     public async Task<bool> IsAccountValid(AccountViewModel accountViewModel, CancellationToken cancellationToken = default)
     {
-        if (!accountViewModel.HasNameChanged) return true;
+        if (!accountViewModel.IsNameDirty) return true;
 
         var dto = mapper.MapToDto(accountViewModel);
-        // TODO correct needed ( check all properties before check name !!! )
+
+
         var domain = domainMapper.MapToDomain(dto);
 
-        var isFormatValid = await accountValidationService.IsAccountNameValid(domain, cancellationToken);
+        var isFormatValid = await accountDomainValidationService.IsAccountNameValid(domain, cancellationToken);
         if (!isFormatValid) return false;
 
         var alreadyExists = await accountValidationRepository.IsAccountNameAlreadyExistAsync(dto, cancellationToken);
