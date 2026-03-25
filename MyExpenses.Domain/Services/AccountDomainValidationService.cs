@@ -3,7 +3,7 @@ using Domain.Models.Accounts;
 
 namespace Domain.Services;
 
-public class AccountValidationService : IAccountValidationService
+public class AccountDomainValidationService : IAccountDomainValidationService
 {
     public Task<bool> IsAccountNameValid(AccountDomain accountDomain, CancellationToken cancellationToken = default)
     {

@@ -2,7 +2,7 @@ using Domain.Models.Accounts;
 
 namespace Domain.Interfaces;
 
-public interface IAccountValidationService
+public interface IAccountDomainValidationService
 {
     /// <summary>
     /// Validates if the account name in the provided account data is valid based on predefined criteria.
