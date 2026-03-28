@@ -45,11 +45,13 @@ public class AccountPresentationValidationService(IAccountDtoViewModelMapper map
     {
         if (!accountTypeViewModel.IsDirty) return await Task.FromResult(Result.Success());
 
+        // TODO continue
         if (accountTypeViewModel.HasErrors)
         {
             var domainValidationResult = accountTypeViewModel.GetErrorCodes();
             var errors = domainValidationResult.Select(e => e.ErrorMessage);
-            logger.LogError("Validation failed with errors: {@Errors}", errors);
+            logger.LogError("Validation failed with errors: {Errors}", errors);
+            // return await Task.FromResult(Result.Failure());
         }
 
         return await Task.FromResult(Result.Success());
