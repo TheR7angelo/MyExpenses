@@ -6,7 +6,7 @@ namespace MyExpenses.Models.Systems;
 
 public static class LoggerConfig
 {
-    private const string Template = "[{Timestamp:HH:mm:ss} {Level}] {Message:lj}{NewLine}{Exception}";
+    private const string Template = "[{Timestamp:HH:mm:ss} {Level}] [{SourceContext}] {Message:lj}{NewLine}{Exception}";
     private static readonly string DefaultFilename = $"{DateTime.Now:yyyy-MM-dd_HH-mm-ss}.log";
 
     /// <summary>

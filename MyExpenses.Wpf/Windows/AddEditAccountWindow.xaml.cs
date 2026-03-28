@@ -95,7 +95,7 @@ public partial class AddEditAccountWindow
 
     #region Action
 
-    private void ButtonAddEditAccountType_OnClick(object sender, RoutedEventArgs e)
+    private async void ButtonAddEditAccountType_OnClick(object sender, RoutedEventArgs e)
     {
         var dialogService = App.ServiceProvider.GetRequiredService<IDialogService>();
         var defaultText = AccountViewModel.AccountType?.Name ?? string.Empty;
@@ -107,9 +107,23 @@ public partial class AddEditAccountWindow
             out var messageBoxResult, out var input,
             AccountTypeDomain.MaxNameLength,
             placeHolder);
+
         if (result is not true) return;
+        if (messageBoxResult is Presentation.Enums.MessageBoxResult.None or Presentation.Enums.MessageBoxResult.Cancel) return;
 
-
+        switch (messageBoxResult)
+        {
+            case Presentation.Enums.MessageBoxResult.Delete:
+                throw new NotImplementedException();
+                break;
+            case Presentation.Enums.MessageBoxResult.Valid:
+                AccountViewModel.AccountType ??= new AccountTypeViewModel();
+                AccountViewModel.AccountType.Name = input;
+                var valid = await _accountPresentationValidationService.IsAccountTypeValid(AccountViewModel.AccountType);
+                break;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(messageBoxResult), messageBoxResult, null);
+        }
 
         // TODO injector DTO MODEL VIEW
         // _accountPresentationService.AddOrEditAsync(addEditAccountType.AccountType);
