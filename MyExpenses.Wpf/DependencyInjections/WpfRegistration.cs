@@ -7,6 +7,11 @@ namespace MyExpenses.Wpf.DependencyInjections;
 
 public static class WpfRegistration
 {
+    /// <summary>
+    /// Automatically registers all views (classes inheriting from Window or Page) in the current assembly as transient services within the dependency injection container.
+    /// </summary>
+    /// <param name="services">The IServiceCollection instance to which the views will be registered.</param>
+    /// <returns>Returns the updated IServiceCollection instance with the registered views.</returns>
     public static IServiceCollection AddAutoRegisteredViews(this IServiceCollection services)
     {
         var assembly = Assembly.GetExecutingAssembly();
