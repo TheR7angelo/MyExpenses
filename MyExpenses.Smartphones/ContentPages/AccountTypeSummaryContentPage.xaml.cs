@@ -86,7 +86,7 @@ public partial class AccountTypeSummaryContentPage
 
     private async Task HandleAddEditAccountType(TAccountType? accountType = null)
     {
-        var placeHolder = AccountTypeManagementResources.TextBoxAccountTypeName;
+        var placeHolder = AccountTypeManagementResources.TextBoxAddNewAccountTypeName;
         var modePaymentName = accountType?.Name ?? string.Empty;
 
         // ReSharper disable once HeapView.ObjectAllocation.Evident

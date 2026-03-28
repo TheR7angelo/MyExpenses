@@ -28,7 +28,7 @@ namespace MyExpenses.SharedUtils.Resources.Resx.AccountTypeManagement {
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        public AccountTypeManagementResources() {
+        internal AccountTypeManagementResources() {
         }
         
         /// <summary>
@@ -38,8 +38,8 @@ namespace MyExpenses.SharedUtils.Resources.Resx.AccountTypeManagement {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("MyExpenses.SharedUtils.Resources.Resx.AccountTypeManagement.AccountTypeManagement" +
-                            "Resources", typeof(AccountTypeManagementResources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager(("MyExpenses.SharedUtils.Resources.Resx.AccountTypeManagement.AccountTypeManagement" +
+                            "Resources"), typeof(AccountTypeManagementResources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -457,11 +457,20 @@ namespace MyExpenses.SharedUtils.Resources.Resx.AccountTypeManagement {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Add a new account type :.
+        ///   Looks up a localized string similar to Add a new account type name :.
         /// </summary>
-        public static string TextBoxAccountTypeName {
+        public static string TextBoxAddNewAccountTypeName {
             get {
-                return ResourceManager.GetString("TextBoxAccountTypeName", resourceCulture);
+                return ResourceManager.GetString("TextBoxAddNewAccountTypeName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Edit account type name :.
+        /// </summary>
+        public static string TextBoxEditAccountTypeName {
+            get {
+                return ResourceManager.GetString("TextBoxEditAccountTypeName", resourceCulture);
             }
         }
         

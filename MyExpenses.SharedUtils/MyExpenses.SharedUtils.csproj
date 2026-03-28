@@ -26,7 +26,7 @@
         <LastGenOutput>AddEditAccountResources.Designer.cs</LastGenOutput>
       </EmbeddedResource>
       <EmbeddedResource Update="Resources\Resx\AccountTypeManagement\AccountTypeManagementResources.resx">
-        <Generator>ResXFileCodeGenerator</Generator>
+        <Generator>PublicResXFileCodeGenerator</Generator>
         <LastGenOutput>AccountTypeManagementResources.Designer.cs</LastGenOutput>
       </EmbeddedResource>
       <EmbeddedResource Update="Resources\Resx\BankTransferManagement\BankTransferManagementResources.resx">

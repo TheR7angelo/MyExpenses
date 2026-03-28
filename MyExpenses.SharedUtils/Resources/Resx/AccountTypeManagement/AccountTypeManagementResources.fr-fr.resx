@@ -89,8 +89,8 @@
     <data name="MessageBoxValidateAccountTypeErrorEmptyTitle" xml:space="preserve">
         <value>Erreur</value>
     </data>
-    <data name="TextBoxAccountTypeName" xml:space="preserve">
-        <value>Ajouter un nouveau type de compte :</value>
+    <data name="TextBoxAddNewAccountTypeName" xml:space="preserve">
+        <value>Ajouter un nouveau nom de type de compte :</value>
     </data>
     <data name="ActivityIndicatorDeleteAccountType" xml:space="preserve">
         <value>Suppression du type de compte et de tous les comptes associés</value>
@@ -148,5 +148,8 @@
     </data>
     <data name="TitleWindow" xml:space="preserve">
         <value>Ajouter ou modifier le type de compte</value>
+    </data>
+    <data name="TextBoxEditAccountTypeName" xml:space="preserve">
+        <value>Modifier le nom du type de compte :</value>
     </data>
 </root>

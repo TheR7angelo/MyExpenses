@@ -28,7 +28,7 @@ public static class AddEditAccountResourceManager
     private static string RessourceManagerNameAddEditAccountType => nameof(AccountTypeManagementResources);
 
     public static string RessourceAccountTypeTitleWindow { get; } = $"{RessourceManagerNameAddEditAccountType}:{nameof(AccountTypeManagementResources.TitleWindow)}";
-    public static string RessourceAccountTypeTextBoxAccountTypeName { get; } = $"{RessourceManagerNameAddEditAccountType}:{nameof(AccountTypeManagementResources.TextBoxAccountTypeName)}";
+    public static string RessourceAccountTypeTextBoxAccountTypeName { get; } = $"{RessourceManagerNameAddEditAccountType}:{nameof(AccountTypeManagementResources.TextBoxAddNewAccountTypeName)}";
     public static string RessourceAccountTypeButtonValidContent { get; } = $"{RessourceManagerNameAddEditAccountType}:{nameof(AccountTypeManagementResources.ButtonValidContent)}";
     public static string RessourceAccountTypeButtonDeleteContent { get; } = $"{RessourceManagerNameAddEditAccountType}:{nameof(AccountTypeManagementResources.ButtonDeleteContent)}";
     public static string RessourceAccountTypeButtonCancelContent { get; } = $"{RessourceManagerNameAddEditAccountType}:{nameof(AccountTypeManagementResources.ButtonCancelContent)}";
