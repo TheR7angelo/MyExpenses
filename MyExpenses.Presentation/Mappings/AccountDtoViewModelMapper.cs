@@ -14,7 +14,11 @@ public partial class AccountDtoViewModelMapper : IAccountDtoViewModelMapper
     public partial AccountViewModel MapToViewModel(AccountDto src);
 
     [MapperIgnoreSource(nameof(AccountViewModel.IsEditing))]
+    [MapperIgnoreSource(nameof(AccountViewModel.HasErrors))]
     public partial AccountDto MapToDto(AccountViewModel src);
+
+    [MapperIgnoreSource(nameof(AccountTypeViewModel.HasErrors))]
+    public partial AccountTypeDto MapToDto(AccountTypeViewModel src);
 
     public partial CurrencyViewModel MapToViewModel(CurrencyDto src);
 

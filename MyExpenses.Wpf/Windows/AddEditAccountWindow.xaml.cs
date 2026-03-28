@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using Domain.Models.Accounts;
 using Microsoft.Extensions.DependencyInjection;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Presentation.Services.Interfaces;
@@ -12,6 +13,7 @@ using MyExpenses.Presentation.ViewModels.Categories;
 using MyExpenses.SharedUtils.Collection;
 using MyExpenses.SharedUtils.Properties;
 using MyExpenses.SharedUtils.RegexUtils;
+using MyExpenses.SharedUtils.Resources.Resx.AccountTypeManagement;
 using MyExpenses.SharedUtils.Resources.Resx.AddEditAccount;
 using MyExpenses.SharedUtils.Resources.Resx.CategoryTypesManagement;
 using MyExpenses.SharedUtils.Resources.Resx.CurrencySymbolManagement;
@@ -95,11 +97,21 @@ public partial class AddEditAccountWindow
 
     private void ButtonAddEditAccountType_OnClick(object sender, RoutedEventArgs e)
     {
-        var addEditAccountType = App.ServiceProvider.GetRequiredService<AddEditAccountTypeWindow>();
-        if (AccountViewModel.AccountType is not null) addEditAccountType.SetAccountType(AccountViewModel.AccountType);
+        var dialogService = App.ServiceProvider.GetRequiredService<IDialogService>();
+        var defaultText = AccountViewModel.AccountType?.Name ?? string.Empty;
 
-        var result = addEditAccountType.ShowDialog();
+        var result = dialogService.ShowInputDialog(AccountTypeManagementResources.TitleWindow, defaultText,
+            out var messageBoxResult, out var input,
+            AccountTypeDomain.MaxNameLength);
         if (result is not true) return;
+
+        Console.WriteLine(result);
+
+        // var addEditAccountType = App.ServiceProvider.GetRequiredService<AddEditAccountTypeWindow>();
+        // if (AccountViewModel.AccountType is not null) addEditAccountType.SetAccountType(AccountViewModel.AccountType);
+        //
+        // var result = addEditAccountType.ShowDialog();
+        // if (result is not true) return;
 
         // TODO injector DTO MODEL VIEW
         // _accountPresentationService.AddOrEditAsync(addEditAccountType.AccountType);
@@ -233,22 +245,6 @@ public partial class AddEditAccountWindow
 
         DialogResult = true;
         Close();
-    }
-
-    private async void TextBoxAccountName_OnLostFocus(object sender, RoutedEventArgs e)
-    {
-        try
-        {
-            if (!await _accountPresentationValidationService.IsAccountValid(AccountViewModel))
-            {
-                MsgBox.MsgBox.Show(AddEditAccountResources.MessageBoxErrorAccountNameAlreadyExists, MsgBoxImage.Warning);
-            }
-        }
-        catch (Exception exception)
-        {
-            Log.Error(exception, "An error occurred please retry");
-            MsgBox.MsgBox.Show(AddEditAccountResources.MessageBoxAddAccountError, MsgBoxImage.Error);
-        }
     }
 
     private void TextBoxStartingBalance_OnPreviewTextInput(object sender, TextCompositionEventArgs e)

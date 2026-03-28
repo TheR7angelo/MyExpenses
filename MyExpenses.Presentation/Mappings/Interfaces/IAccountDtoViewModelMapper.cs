@@ -13,4 +13,6 @@ public interface IAccountDtoViewModelMapper
     public CurrencyViewModel MapToViewModel(CurrencyDto src);
 
     public AccountTypeViewModel MapToViewModel(AccountTypeDto src);
+
+    public AccountTypeDto MapToDto(AccountTypeViewModel src);
 }

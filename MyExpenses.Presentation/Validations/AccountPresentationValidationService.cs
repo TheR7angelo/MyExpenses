@@ -13,18 +13,24 @@ public class AccountPresentationValidationService(IAccountDtoViewModelMapper map
 {
     public async Task<bool> IsAccountValid(AccountViewModel accountViewModel, CancellationToken cancellationToken = default)
     {
-        if (!accountViewModel.IsNameDirty) return true;
+        if (!accountViewModel.IsDirty) return true;
 
-        var dto = mapper.MapToDto(accountViewModel);
+        if (accountViewModel.HasErrors) return false;
 
+        return true;
 
-        var domain = domainMapper.MapToDomain(dto);
-
-        var isFormatValid = await accountDomainValidationService.IsAccountNameValid(domain, cancellationToken);
-        if (!isFormatValid) return false;
-
-        var alreadyExists = await accountValidationRepository.IsAccountNameAlreadyExistAsync(dto, cancellationToken);
-
-        return !alreadyExists;
+        // if (!accountViewModel.IsNameDirty) return true;
+        //
+        // var dto = mapper.MapToDto(accountViewModel);
+        //
+        //
+        // var domain = domainMapper.MapToDomain(dto);
+        //
+        // var isFormatValid = await accountDomainValidationService.IsAccountNameValid(domain, cancellationToken);
+        // if (!isFormatValid) return false;
+        //
+        // var alreadyExists = await accountValidationRepository.IsAccountNameAlreadyExistAsync(dto, cancellationToken);
+        //
+        // return !alreadyExists;
     }
 }

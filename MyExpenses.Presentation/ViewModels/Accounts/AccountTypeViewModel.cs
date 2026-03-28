@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Domain.Models.Accounts;
-using MyExpenses.SourceGenerators;
+using TheR7angelo.DirtyTracking.Abstractions;
 
 namespace MyExpenses.Presentation.ViewModels.Accounts;
 

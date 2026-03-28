@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using CommunityToolkit.Mvvm.ComponentModel;
 using Domain.Models.Accounts;
-using MyExpenses.SourceGenerators;
+using TheR7angelo.DirtyTracking.Abstractions;
 
 namespace MyExpenses.Presentation.ViewModels.Accounts;
 
@@ -11,8 +11,7 @@ public partial class AccountViewModel : ObservableValidator
     [ObservableProperty]
     public partial bool IsEditing { get; set; }
 
-    [ObservableProperty]
-    public partial int Id { get; set; }
+    public int Id { get; set; }
 
     [DirtyTrackedProperty]
     [ObservableProperty]
@@ -34,10 +33,5 @@ public partial class AccountViewModel : ObservableValidator
     [property: Required(ErrorMessage = "Active status is required")]
     public partial bool Active { get; set; }
 
-    [ObservableProperty]
-    [property: Required(ErrorMessage = "Date added is required")]
-    public partial DateTime? DateAdded { get; set; }
-
-    [DirtyTrackedProperty(DirtyComparisonKind.NumericWithTolerance, Tolerance = 0.15)]
-    public double Test { get; set; }
+    public DateTime? DateAdded { get; set; }
 }

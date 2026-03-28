@@ -1,6 +1,7 @@
 using MyExpenses.SharedUtils.Resources.Resx.AccountTypeManagement;
+using MyExpenses.SharedUtils.Resources.Resx.AddEditAccount;
 
-namespace MyExpenses.SharedUtils.Resources.Resx.AddEditAccount;
+namespace MyExpenses.SharedUtils.Resources.Resx;
 
 public static class AddEditAccountResourceManager
 {
