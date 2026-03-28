@@ -17,4 +17,7 @@
     <data name="ValidButton" xml:space="preserve">
         <value>Valider</value>
     </data>
+    <data name="DeleteButton" xml:space="preserve">
+        <value>Supprimer</value>
+    </data>
 </root>

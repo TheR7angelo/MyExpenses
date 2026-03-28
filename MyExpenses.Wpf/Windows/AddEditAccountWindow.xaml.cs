@@ -99,19 +99,17 @@ public partial class AddEditAccountWindow
     {
         var dialogService = App.ServiceProvider.GetRequiredService<IDialogService>();
         var defaultText = AccountViewModel.AccountType?.Name ?? string.Empty;
+        var placeHolder = string.IsNullOrWhiteSpace(defaultText)
+            ? AccountTypeManagementResources.TextBoxAddNewAccountTypeName
+            : AccountTypeManagementResources.TextBoxEditAccountTypeName;
 
         var result = dialogService.ShowInputDialog(AccountTypeManagementResources.TitleWindow, defaultText,
             out var messageBoxResult, out var input,
-            AccountTypeDomain.MaxNameLength);
+            AccountTypeDomain.MaxNameLength,
+            placeHolder);
         if (result is not true) return;
 
-        Console.WriteLine(result);
 
-        // var addEditAccountType = App.ServiceProvider.GetRequiredService<AddEditAccountTypeWindow>();
-        // if (AccountViewModel.AccountType is not null) addEditAccountType.SetAccountType(AccountViewModel.AccountType);
-        //
-        // var result = addEditAccountType.ShowDialog();
-        // if (result is not true) return;
 
         // TODO injector DTO MODEL VIEW
         // _accountPresentationService.AddOrEditAsync(addEditAccountType.AccountType);

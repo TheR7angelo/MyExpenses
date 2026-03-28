@@ -5,14 +5,15 @@ namespace MyExpenses.Presentation.Services.Interfaces;
 public interface IDialogService
 {
     /// <summary>
-    /// Displays a dialog with an input field and returns user input along with the dialog result.
+    /// Displays an input dialog with a specified title, message, and configuration for user input.
     /// </summary>
-    /// <param name="title">The title of the dialog window.</param>
-    /// <param name="message">The message or prompt displayed within the dialog.</param>
-    /// <param name="result">An output parameter that captures the result of the dialog (e.g., None, Cancel, Delete, Valid).</param>
-    /// <param name="input">An output parameter that captures the user's input from the dialog.</param>
-    /// <param name="maxLength">An optional parameter that specifies the maximum allowed length of the input field. Default is 0, which indicates no limit.</param>
-    /// <returns>Returns true if the dialog was confirmed (e.g., OK or valid action); otherwise, false.</returns>
+    /// <param name="title">The title of the input dialog.</param>
+    /// <param name="message">The message or prompt to display in the input dialog.</param>
+    /// <param name="result">The result of the user's interaction with the dialog, indicating the selected action.</param>
+    /// <param name="input">The input entered by the user, or null if no input was provided.</param>
+    /// <param name="maxLength">The maximum allowed length of the input. A value of 0 means no limit.</param>
+    /// <param name="placeholder">The placeholder or hint text to display in the input textbox when empty.</param>
+    /// <returns>True if the user provided input and confirmed the dialog; otherwise, false.</returns>
     public bool ShowInputDialog(string title, string message, out MessageBoxResult result, out string? input,
-        int maxLength = 0);
+        int maxLength = 0, string placeholder = "");
 }

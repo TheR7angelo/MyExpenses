@@ -7,7 +7,6 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:margin="clr-namespace:MyExpenses.Wpf.Utils.Margin;assembly=MyExpenses.Wpf.Utils"
         xmlns:loc="clr-namespace:MyExpenses.Wpf.Localisations"
-        xmlns:addEditAccount="clr-namespace:MyExpenses.SharedUtils.Resources.Resx.AddEditAccount;assembly=MyExpenses.SharedUtils"
         xmlns:resx="clr-namespace:MyExpenses.SharedUtils.Resources.Resx;assembly=MyExpenses.SharedUtils"
         mc:Ignorable="d"
 
@@ -44,7 +43,7 @@
 
         <TextBox Text="{Binding TextBoxText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                  MaxLength="{Binding TextBoxMaxLength, Mode=OneWay}"
-                 materialDesign:HintAssist.Hint="{}"
+                 materialDesign:HintAssist.Hint="{Binding TextBoxHint, Mode=OneWay}"
                  Style="{StaticResource MaterialDesignFilledTextBox}">
         </TextBox>
 
@@ -56,6 +55,12 @@
             <Button Content="{loc:Tr {x:Static resx:DialogResourceManager.ButtonValidContent}}"
                     Style="{StaticResource MaterialDesignPaperButton}"
                     Click="ButtonValid_OnClick">
+            </Button>
+
+            <Button Content="{loc:Tr {x:Static resx:DialogResourceManager.ButtonDeleteContent}}"
+                    Style="{StaticResource MaterialDesignPaperDarkButton}"
+                    Visibility="{Binding EditMode, Mode=OneWay, Converter={StaticResource BooleanToVisibilityConverter}}"
+                    Click="ButtonDelete_OnClick">
             </Button>
 
             <Button Content="{loc:Tr {x:Static resx:DialogResourceManager.ButtonCancelContent}}"
