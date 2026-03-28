@@ -2,6 +2,8 @@ using System.Reflection;
 using System.Windows;
 using System.Windows.Controls;
 using Microsoft.Extensions.DependencyInjection;
+using MyExpenses.Presentation.Services.Interfaces;
+using MyExpenses.Wpf.Windows.Dialogs;
 
 namespace MyExpenses.Wpf.DependencyInjections;
 
@@ -24,6 +26,17 @@ public static class WpfRegistration
             services.AddTransient(viewType);
         }
 
+        return services;
+    }
+
+    /// <summary>
+    /// Registers the dialog service implementation as a transient service within the dependency injection container.
+    /// </summary>
+    /// <param name="services">The IServiceCollection instance to which the dialog service will be registered.</param>
+    /// <returns>Returns the updated IServiceCollection instance with the registered dialog service.</returns>
+    public static IServiceCollection AddAutoRegisteredDialogs(this IServiceCollection services)
+    {
+        services.AddTransient<IDialogService, DialogService>();
         return services;
     }
 }

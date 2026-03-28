@@ -35,8 +35,9 @@ public partial class App
             new RoutedEventHandler(ApplyMetroCornerPreference));
 
         var serviceCollection = new ServiceCollection();
-        serviceCollection.AddWpfServices();
-        serviceCollection.AddAutoRegisteredViews();
+        serviceCollection.AddWpfServices()
+            .AddAutoRegisteredViews()
+            .AddAutoRegisteredDialogs();
 
         ServiceProvider = serviceCollection.BuildServiceProvider();
 

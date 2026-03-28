@@ -28,7 +28,7 @@ namespace MyExpenses.Ioc;
 /// </summary>
 public static class ServiceExtensions
 {
-    private static void AddCommonServices(this IServiceCollection services, LogEventLevel logEventLevel = LogEventLevel.Information)
+    private static IServiceCollection AddCommonServices(this IServiceCollection services, LogEventLevel logEventLevel = LogEventLevel.Information)
     {
         services.AddScoped<IAccountRepository, AccountRepository>()
             .AddScoped<ICategoryRepository, CategoryRepository>();
@@ -57,6 +57,8 @@ public static class ServiceExtensions
 
         services.AddDbContext<DataBaseContext>(ConfigureDatabase, contextLifetime: ServiceLifetime.Scoped, optionsLifetime: ServiceLifetime.Singleton);
         services.AddDbContextFactory<DataBaseContext>(ConfigureDatabase);
+
+        return services;
     }
 
     private static void ConfigureDatabase(IServiceProvider serviceProvider, DbContextOptionsBuilder options)
@@ -87,17 +89,19 @@ public static class ServiceExtensions
     /// Configures and registers application services specific to a WPF application platform.
     /// </summary>
     /// <param name="services">The <see cref="IServiceCollection"/> to add the services to.</param>
-    public static void AddWpfServices(this IServiceCollection services)
+    public static IServiceCollection AddWpfServices(this IServiceCollection services)
     {
         services.AddCommonServices();
+        return services;
     }
 
     /// <summary>
     /// Configures and registers application services specific to a .NET MAUI application platform.
     /// </summary>
     /// <param name="services">The <see cref="IServiceCollection"/> to add the services to.</param>
-    public static void AddMauiServices(this IServiceCollection services)
+    public static IServiceCollection AddMauiServices(this IServiceCollection services)
     {
         services.AddCommonServices();
+        return services;
     }
 }
