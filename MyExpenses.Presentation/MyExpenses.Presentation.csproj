@@ -9,15 +9,12 @@
 
     <ItemGroup>
       <ProjectReference Include="..\MyExpenses.Application\MyExpenses.Application.csproj" />
-        <ProjectReference Include="..\MyExpenses.SourceGenerators\MyExpenses.SourceGenerators.csproj"
-                          OutputItemType="Analyzer"
-                          ReferenceOutputAssembly="false">
-        </ProjectReference>
     </ItemGroup>
 
     <ItemGroup>
       <PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
       <PackageReference Include="Riok.Mapperly" Version="4.3.1" />
+      <PackageReference Include="TheR7angelo.DirtyTracking" Version="1.0.0" />
     </ItemGroup>
 
 </Project>
