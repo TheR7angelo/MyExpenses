@@ -111,6 +111,9 @@ public partial class AddEditAccountWindow
         if (result is not true) return;
         if (messageBoxResult is Presentation.Enums.MessageBoxResult.None or Presentation.Enums.MessageBoxResult.Cancel) return;
 
+        AccountViewModel.AccountType ??= new AccountTypeViewModel();
+        AccountViewModel.AccountType.Name = input;
+
         switch (messageBoxResult)
         {
             case Presentation.Enums.MessageBoxResult.Delete:

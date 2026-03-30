@@ -5,13 +5,6 @@ namespace MyExpenses.Presentation.Validations.Attributes;
 
 public class MaxLengthWithCodeAttribute(int length, ErrorCode errorCode) : MaxLengthAttribute(length)
 {
-    public ErrorCode ErrorCode { get; } = errorCode;
-
     protected override ValidationResult? IsValid(object? value, ValidationContext validationContext)
-    {
-        var result = base.IsValid(value, validationContext);
-        return result != ValidationResult.Success
-            ? new DomainValidationResult(ErrorCode, ErrorMessage, [validationContext.MemberName!])
-            : result;
-    }
+        => ValidationHelper.Wrap(this, base.IsValid(value, validationContext), validationContext, errorCode);
 }
