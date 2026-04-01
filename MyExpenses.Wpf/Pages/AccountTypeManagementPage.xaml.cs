@@ -3,12 +3,8 @@ using System.Windows;
 using System.Windows.Controls;
 using Microsoft.Extensions.DependencyInjection;
 using MyExpenses.Models.Sql.Bases.Tables;
-using MyExpenses.SharedUtils.Collection;
-using MyExpenses.SharedUtils.Resources.Resx.AccountTypeManagement;
 using MyExpenses.Sql.Context;
-using MyExpenses.Utils.Sql;
 using MyExpenses.Wpf.Windows;
-using MyExpenses.Wpf.Windows.MsgBox;
 using Serilog;
 
 namespace MyExpenses.Wpf.Pages;

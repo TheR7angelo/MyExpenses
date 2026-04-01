@@ -34,7 +34,6 @@ using MyExpenses.Wpf.Converters;
 using MyExpenses.Wpf.Windows.CategoryTypeManagementWindow;
 using MyExpenses.Wpf.Windows.Dialogs.MsgBox;
 using MyExpenses.Wpf.Windows.LocationManagementWindows;
-using MyExpenses.Wpf.Windows.MsgBox;
 using Serilog;
 using MessageBoxButton = System.Windows.MessageBoxButton;
 using MessageBoxResult = System.Windows.MessageBoxResult;

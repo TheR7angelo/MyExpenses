@@ -15,7 +15,6 @@ using MyExpenses.SharedUtils.Utils;
 using MyExpenses.Wpf.Utils.FilePicker;
 using MyExpenses.Wpf.Windows;
 using MyExpenses.Wpf.Windows.Dialogs.MsgBox;
-using MyExpenses.Wpf.Windows.MsgBox;
 using MyExpenses.Wpf.Windows.SaveLocationWindow;
 using Serilog;
 using MessageBoxButton = System.Windows.MessageBoxButton;

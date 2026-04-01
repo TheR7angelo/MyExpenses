@@ -1,17 +1,12 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using Microsoft.Data.Sqlite;
 using MyExpenses.Models.Sql.Bases.Tables;
 using MyExpenses.Presentation.Enums;
 using MyExpenses.Presentation.Services.Interfaces;
 using MyExpenses.Presentation.ViewModels.Accounts;
 using MyExpenses.SharedUtils.Properties;
 using MyExpenses.SharedUtils.Resources.Resx.AccountTypeManagement;
-using MyExpenses.Sql.Context;
-using MyExpenses.Wpf.Windows.Dialogs.MsgBox;
-using MyExpenses.Wpf.Windows.MsgBox;
-using Serilog;
 using MessageBoxButton = System.Windows.MessageBoxButton;
 using MessageBoxResult = System.Windows.MessageBoxResult;
 

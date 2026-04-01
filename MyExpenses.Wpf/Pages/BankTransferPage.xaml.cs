@@ -18,7 +18,6 @@ using MyExpenses.Sql.Queries;
 using MyExpenses.Utils.Sql;
 using MyExpenses.Wpf.Windows;
 using MyExpenses.Wpf.Windows.Dialogs.MsgBox;
-using MyExpenses.Wpf.Windows.MsgBox;
 using Serilog;
 using MessageBoxButton = System.Windows.MessageBoxButton;
 using MessageBoxResult = System.Windows.MessageBoxResult;

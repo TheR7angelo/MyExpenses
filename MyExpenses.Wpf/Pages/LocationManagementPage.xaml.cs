@@ -24,7 +24,6 @@ using MyExpenses.Utils.Maps;
 using MyExpenses.WebApi.Maps;
 using MyExpenses.Wpf.Windows.Dialogs.MsgBox;
 using MyExpenses.Wpf.Windows.LocationManagementWindows;
-using MyExpenses.Wpf.Windows.MsgBox;
 using Serilog;
 using MessageBoxButton = System.Windows.MessageBoxButton;
 using MessageBoxResult = System.Windows.MessageBoxResult;

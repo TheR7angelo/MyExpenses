@@ -24,7 +24,6 @@ using MyExpenses.Wpf.Utils;
 using MyExpenses.Wpf.Utils.FilterDataGrid;
 using MyExpenses.Wpf.Windows;
 using MyExpenses.Wpf.Windows.Dialogs.MsgBox;
-using MyExpenses.Wpf.Windows.MsgBox;
 using Serilog;
 using MessageBoxButton = System.Windows.MessageBoxButton;
 using MessageBoxResult = System.Windows.MessageBoxResult;
