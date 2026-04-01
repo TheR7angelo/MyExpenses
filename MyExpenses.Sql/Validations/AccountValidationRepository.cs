@@ -12,4 +12,10 @@ public class AccountValidationRepository(IDbContextFactory<DataBaseContext> dbCo
         await using var context = await dbContextFactory.CreateDbContextAsync(cancellationToken);
         return await context.TAccounts.AnyAsync(a => a.Name == accountDto.Name && a.Id != accountDto.Id, cancellationToken);
     }
+
+    public async Task<bool> IsAccountTypeNameAlreadyExistAsync(string accountTypeName, int id, CancellationToken cancellationToken = default)
+    {
+        await using var context = await dbContextFactory.CreateDbContextAsync(cancellationToken);
+        return await context.TAccountTypes.AnyAsync(a => a.Name == accountTypeName && a.Id != id, cancellationToken);
+    }
 }

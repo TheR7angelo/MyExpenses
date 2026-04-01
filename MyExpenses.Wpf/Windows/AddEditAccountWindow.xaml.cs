@@ -128,6 +128,7 @@ public partial class AddEditAccountWindow
 
             case (Presentation.Enums.MessageBoxResult.Valid, true):
                 Console.WriteLine(@"Need todo valid");
+                var available = await _accountPresentationValidationService.IsAccountTypeNameAvailableAsync(input, AccountViewModel.AccountType!);
                 break;
 
             case (Presentation.Enums.MessageBoxResult.None, _):

@@ -36,23 +36,59 @@ public class AccountPresentationValidationService(IAccountDtoViewModelMapper map
     //     //
     //     // return !alreadyExists;
     // }
-    public Task<Result> IsAccountValid(AccountViewModel accountViewModel, CancellationToken cancellationToken = default)
-    {
-        throw new NotImplementedException();
-    }
+    // public Task<Result> IsAccountValid(AccountViewModel accountViewModel, CancellationToken cancellationToken = default)
+    // {
+    //     throw new NotImplementedException();
+    // }
+    //
+    // public async Task<Result> IsAccountTypeValid(AccountTypeViewModel accountTypeViewModel, CancellationToken cancellationToken = default)
+    // {
+    //     if (!accountTypeViewModel.IsDirty) return await Task.FromResult(Result.Success());
+    //
+    //     // TODO continue
+    //     if (accountTypeViewModel.HasErrors)
+    //     {
+    //         var domainValidationResult = accountTypeViewModel.GetErrorCodes();
+    //         var errors = domainValidationResult.Select(e => new { e.ErrorCode, e.InternalMessage });
+    //         logger.LogError("Validation failed with errors: {@Errors}", errors);
+    //     }
+    //
+    //     return await Task.FromResult(Result.Success());
+    // }
 
-    public async Task<Result> IsAccountTypeValid(AccountTypeViewModel accountTypeViewModel, CancellationToken cancellationToken = default)
+    public async Task<bool> IsAccountTypeNameAvailableAsync(string input, AccountTypeViewModel accountTypeViewModel,
+        CancellationToken cancellationToken = default)
     {
-        if (!accountTypeViewModel.IsDirty) return await Task.FromResult(Result.Success());
+        using var scope = logger.BeginScope("Checking account type name availability. AccountTypeId={AccountTypeId}, Input={Input}",
+            accountTypeViewModel.Id, input);
 
-        // TODO continue
-        if (accountTypeViewModel.HasErrors)
+        logger.LogInformation("Starting validation for account type name availability");
+
+        try
         {
-            var domainValidationResult = accountTypeViewModel.GetErrorCodes();
-            var errors = domainValidationResult.Select(e => new { e.ErrorCode, e.InternalMessage });
-            logger.LogError("Validation failed with errors: {@Errors}", errors);
-        }
+            var alreadyExists = await accountValidationRepository.IsAccountTypeNameAlreadyExistAsync(
+                input,
+                accountTypeViewModel.Id,
+                cancellationToken);
 
-        return await Task.FromResult(Result.Success());
+            if (alreadyExists)
+            {
+                logger.LogInformation("Account type name is already used");
+                return false;
+            }
+
+            logger.LogInformation("Account type name is available");
+            return true;
+        }
+        catch (OperationCanceledException)
+        {
+            logger.LogWarning("Validation was canceled");
+            throw;
+        }
+        catch (Exception ex)
+        {
+            logger.LogError(ex, "An error occurred while checking account type name availability");
+            throw;
+        }
     }
 }
